@@ -35,6 +35,7 @@ from .static_command_order import relate_invocation_after_consumption
 from .workflow_commands import (
     DirectPackageInvocationEvidence,
     StaticWorkflowDependencyProblem,
+    WorkflowProjectEnvironmentSource,
     WorkflowStaticDependencyEvidence,
     inspect_workflow_dependency_evidence,
 )
@@ -57,16 +58,18 @@ type RuntimeCIEvidenceState = Literal["supported", "not_established", "unresolve
 
 @dataclass(frozen=True, slots=True)
 class WorkflowDependencyCoverageInput:
-    """Runtime run/jobs plus exact static definition and project-environment consumptions.
+    """Runtime run/jobs plus exact static definition and project-environment sources.
 
-    Direct-requirements consumption is derived from typed source contexts by the static
-    workflow owner. ``project_environment_consumptions`` carries the separately composed
-    R3→dependency-domain→R5 evidence needed by this workflow's coverage classification.
+    The normal production path supplies exact ``project_environment_sources`` so the static
+    workflow owner can derive direct requirements, project-environment consumption, and
+    package invocation in one traversal. ``project_environment_consumptions`` remains only as
+    a temporary Cycle 2 compatibility seam for focused synthetic tests.
     """
 
     run: WorkflowRun
     jobs: tuple[WorkflowJob, ...]
     definition: RepositoryFileEvidence
+    project_environment_sources: tuple[WorkflowProjectEnvironmentSource, ...] = ()
     project_environment_consumptions: tuple[StaticDependencyConsumptionEvidence, ...] = ()
 
 
@@ -303,6 +306,7 @@ def _evaluate_workflow_dependency_coverage(
         source_contexts=source_contexts,
         package=dependency.package,
         normalized_package=dependency.normalized_package,
+        project_environment_sources=workflow_input.project_environment_sources,
         project_environment_consumptions=(
             workflow_input.project_environment_consumptions
         ),

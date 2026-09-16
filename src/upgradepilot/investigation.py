@@ -1,10 +1,9 @@
 """Application orchestration for one read-only public pull-request investigation.
 
 The application boundary coordinates already-defined provider/domain modules and returns
-typed evidence for presentation. R6 now routes the normal CI branch through coverage-oriented
-static consumption: exact admitted workflow definitions are combined with exact dependency
-source context, R3 project selection, dependency-domain reachability/membership, and R5 CI
-consumption before CI coverage is classified.
+typed evidence for presentation. The normal CI branch now supplies exact project-environment
+source bundles to the coverage/static-evidence owner so one workflow parse/traversal derives
+direct requirements, project-environment consumption, and direct invocation together.
 """
 
 from __future__ import annotations
@@ -18,10 +17,7 @@ from .ci.dependency_exercise import (
     WorkflowDependencyCoverageInput,
     evaluate_dependency_ci_coverage,
 )
-from .ci.workflow_commands import (
-    WorkflowProjectEnvironmentSource,
-    derive_project_environment_consumptions,
-)
+from .ci.workflow_commands import WorkflowProjectEnvironmentSource
 from .dependency.analysis import DependencyChangeAnalysis, analyze_dependency_change
 from .dependency.change import DependencyChangeProblem, DependencyVersionChange
 from .dependency.environment import (
@@ -38,7 +34,7 @@ from .github.changelog import (
     GitHubChangelogPathClient,
 )
 from .github.pull_request import ChangedFile, GitHubPullRequestClient, PullRequestIdentity
-from .github.repository import GitHubRepositoryClient, RepositoryTextFile
+from .github.repository import GitHubRepositoryClient
 from .github.tag import (
     GitHubTagCommitClient,
     GitHubTagCommitEvidence,
@@ -110,12 +106,7 @@ SupportDropEvaluator = Callable[
 
 @dataclass(frozen=True, slots=True)
 class DependencySourceArtifactEnvironmentResult:
-    """Associate one dependency source with one static target-environment result.
-
-    The application layer preserves this relationship because one investigation can contain
-    several dependency sources and several exact workflow definitions. The nested Target
-    result remains the semantic owner and does not imply that the workflow executed.
-    """
+    """Associate one dependency source with one static target-environment result."""
 
     dependency_source: DependencySourceContext
     target_environment: TargetArtifactEnvironmentResult
@@ -222,8 +213,6 @@ def investigate_public_pull_request(
     python_support_drop_impact_result: PythonSupportDropImpactAssessment | None = None
 
     if isinstance(dependency_result, DependencyVersionChange):
-        # CI is an independent evidence branch. Exact workflow definitions remain provider-
-        # admitted first; only then do R3/R4/R5 derive static changed-dependency consumption.
         workflow_runs = actions_client.get_exact_head_workflow_runs(pull_request)
         workflow_evidence = tuple(
             (run, actions_client.get_workflow_jobs(pull_request, run))
@@ -245,23 +234,12 @@ def investigate_public_pull_request(
                 pull_request,
                 run,
             )
-            project_environment_consumptions = (
-                derive_project_environment_consumptions(
-                    definition,
-                    sources=project_environment_sources,
-                    normalized_package=dependency_result.normalized_package,
-                )
-                if isinstance(definition, RepositoryTextFile)
-                else ()
-            )
             coverage_inputs.append(
                 WorkflowDependencyCoverageInput(
                     run=run,
                     jobs=jobs,
                     definition=definition,
-                    project_environment_consumptions=(
-                        project_environment_consumptions
-                    ),
+                    project_environment_sources=project_environment_sources,
                 )
             )
 
@@ -276,9 +254,6 @@ def investigate_public_pull_request(
             dependency_result.proposed_version,
         )
         if isinstance(package_result, PackageReleaseEvidence):
-            # Artifact-serviceability and upstream semantics are sibling evidence branches.
-            # Failure to acquire the old release blocks only artifact candidate formation;
-            # it must not erase the established proposed release or stop upstream analysis.
             old_package_result = package_client.get_release(
                 dependency_result.package,
                 dependency_result.old_version,
@@ -301,10 +276,6 @@ def investigate_public_pull_request(
                             artifact_serviceability_candidate_result
                         )
                     )
-                    # Target composition is evidence-gated by CI's already-earned static
-                    # direct-requirements relationship. Reusing the exact workflow evidence
-                    # avoids a second provider acquisition and does not strengthen static
-                    # Target facts into exact wheel compatibility.
                     target_artifact_environment_results = (
                         _compose_target_artifact_environments(
                             ci_coverage_result,
@@ -479,14 +450,7 @@ def _compose_target_artifact_environments(
     coverage_inputs: list[WorkflowDependencyCoverageInput],
     source_contexts: tuple[DependencySourceContext, ...],
 ) -> tuple[DependencySourceArtifactEnvironmentResult, ...]:
-    """Interpret only CI-supported direct-requirements source/workflow relationships.
-
-    CI already owns whether one exact static declaration consumes the changed dependency.
-    This application join therefore does not scan every workflow/source pair or promote
-    unresolved/project-environment relationships. The Target owner receives the same exact
-    workflow evidence that CI consumed, and may still abstain on multi-job or unsupported
-    workflow forms. No Target result produced here is exact wheel-compatibility evidence.
-    """
+    """Interpret only CI-supported direct-requirements source/workflow relationships."""
 
     if len(ci_coverage_result.workflows) != len(coverage_inputs):
         raise ValueError(
@@ -565,14 +529,7 @@ def _acquire_project_environment_sources(
     source_contexts: tuple[DependencySourceContext, ...],
     repository_client: GitHubRepositoryClient,
 ) -> tuple[WorkflowProjectEnvironmentSource, ...]:
-    """Acquire exact files needed to derive project-selection consumption in CI.
-
-    For uv, the changed exact lock remains the reachability source while the exact sibling
-    ``pyproject.toml`` establishes the project-root path consumed by the existing R3
-    observer. Its content is deliberately not used by R4. For pyproject-owned affected
-    environments, the already-known dependency-source path is the project-root source.
-    Requirements/constraints remain owned by the direct-install path and need no bundle.
-    """
+    """Acquire exact files needed to derive project-selection consumption in CI."""
 
     sources: list[WorkflowProjectEnvironmentSource] = []
     for context in source_contexts:

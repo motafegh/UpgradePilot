@@ -3,13 +3,15 @@
 GitHub Actions YAML structure is owned by ``upgradepilot.github.workflow_definition``.
 Shared shell parsing and parser-neutral command occurrences are owned by
 ``upgradepilot.github.workflow_command_analysis``. Dependency-source and project-selection
-semantics remain dependency-owned. This CI module owns workflow traversal, checkout
-provenance, direct changed-package invocation meaning, and cross-evidence composition.
+semantics remain dependency-owned. This CI module owns the single workflow-level traversal,
+checkout provenance, direct changed-package invocation meaning, and cross-evidence
+composition.
 
-Cycle 2 has migrated direct requirements, direct package invocation, and project-environment
-selection onto parsed command occurrences. The normal investigation path still supplies
-project-environment consumptions through a separate derivation traversal; consolidating that
-last workflow-level duplication is the next bounded Phase B responsibility.
+Cycle 2 routes direct requirements, project-environment selection, and direct package
+invocation through one parsed workflow traversal and one ``StaticCommandAnalysis`` per run
+step in the normal coverage path. Standalone project-environment derivation is retained as a
+bounded compatibility/test seam over the same internal collector rather than a second
+implementation.
 """
 
 from __future__ import annotations
@@ -126,129 +128,441 @@ def derive_project_environment_consumptions(
     sources: Sequence[WorkflowProjectEnvironmentSource],
     normalized_package: str,
 ) -> tuple[StaticDependencyConsumptionEvidence, ...]:
-    """Derive parsed R3 -> dependency-domain -> R5 evidence from readable run steps.
-
-    This compatibility production seam now uses the shared command parser for every run step;
-    it no longer segments or reparses command text. It still performs its own workflow
-    parse/traversal before the later general CI evidence pass. That remaining duplicate
-    traversal is explicit Phase B pressure rather than accepted final architecture.
-    """
+    """Compatibility/test seam over the shared one-traversal static evidence collector."""
 
     if not normalized_package:
         raise ValueError("project-environment derivation requires normalized package identity")
 
-    for project_source in sources:
+    static = _inspect_workflow_dependency_evidence(
+        source,
+        source_contexts=(),
+        package="",
+        normalized_package=normalized_package,
+        project_environment_sources=sources,
+        project_environment_consumptions=(),
+        collect_invocations=False,
+    )
+    return tuple(
+        item
+        for item in static.consumptions
+        if item.mechanism == "project_environment"
+    )
+
+
+def inspect_workflow_dependency_evidence(
+    source: RepositoryTextFile,
+    *,
+    source_contexts: Sequence[DependencySourceContext],
+    package: str,
+    normalized_package: str,
+    project_environment_sources: Sequence[WorkflowProjectEnvironmentSource] = (),
+    project_environment_consumptions: Sequence[StaticDependencyConsumptionEvidence] = (),
+) -> WorkflowStaticDependencyEvidence:
+    """Collect all admitted static CI dependency evidence in one workflow traversal.
+
+    In the normal production path, exact project-environment source bundles are supplied and
+    project selection is interpreted from the same per-step ``StaticCommandAnalysis`` used by
+    direct requirements and direct package invocation. ``project_environment_consumptions``
+    remains only as a temporary Cycle 2 compatibility surface for focused synthetic tests;
+    callers may not mix the two project-environment input modes.
+    """
+
+    return _inspect_workflow_dependency_evidence(
+        source,
+        source_contexts=source_contexts,
+        package=package,
+        normalized_package=normalized_package,
+        project_environment_sources=project_environment_sources,
+        project_environment_consumptions=project_environment_consumptions,
+        collect_invocations=True,
+    )
+
+
+def _inspect_workflow_dependency_evidence(
+    source: RepositoryTextFile,
+    *,
+    source_contexts: Sequence[DependencySourceContext],
+    package: str,
+    normalized_package: str,
+    project_environment_sources: Sequence[WorkflowProjectEnvironmentSource],
+    project_environment_consumptions: Sequence[StaticDependencyConsumptionEvidence],
+    collect_invocations: bool,
+) -> WorkflowStaticDependencyEvidence:
+    if project_environment_sources and project_environment_consumptions:
+        raise ValueError(
+            "project-environment sources and precomposed consumptions are mutually exclusive"
+        )
+
+    definition = parse_workflow_definition(source)
+    if isinstance(definition, WorkflowDefinitionProblem):
+        return WorkflowStaticDependencyEvidence(
+            job_count=0,
+            consumptions=(),
+            invocations=(),
+            problems=(
+                StaticWorkflowDependencyProblem(
+                    reason="workflow_definition_unreadable",
+                    detail=(
+                        "The shared GitHub Actions definition could not establish the "
+                        f"bounded CI structure: {definition.reason}: {definition.detail}"
+                    ),
+                ),
+            ),
+        )
+
+    assert isinstance(definition, WorkflowDefinition)
+    requirements_contexts = tuple(
+        context
+        for context in source_contexts
+        if isinstance(context, RequirementsFileDependencyContext)
+    )
+
+    consumptions: list[StaticDependencyConsumptionEvidence] = []
+    invocations: list[DirectPackageInvocationEvidence] = []
+    problems: list[StaticWorkflowDependencyProblem] = []
+    readable_jobs: dict[str, StepsJobDefinition] = {}
+
+    for context in requirements_contexts:
+        if (
+            context.revision != source.revision
+            or context.normalized_package != normalized_package
+        ):
+            problems.append(
+                StaticWorkflowDependencyProblem(
+                    reason="dependency_source_context_identity_mismatch",
+                    detail=(
+                        "A typed requirements source context did not match the exact "
+                        "workflow revision or changed normalized package under evaluation."
+                    ),
+                )
+            )
+
+    requirements_contexts = tuple(
+        context
+        for context in requirements_contexts
+        if context.revision == source.revision
+        and context.normalized_package == normalized_package
+    )
+
+    valid_project_sources: list[WorkflowProjectEnvironmentSource] = []
+    for project_source in project_environment_sources:
         _validate_project_environment_source(
             source,
             project_source,
             normalized_package=normalized_package,
         )
-
-    definition = parse_workflow_definition(source)
-    if isinstance(definition, WorkflowDefinitionProblem):
-        return ()
-
-    assert isinstance(definition, WorkflowDefinition)
-    consumptions: list[StaticDependencyConsumptionEvidence] = []
+        valid_project_sources.append(project_source)
 
     for job in definition.jobs:
-        if not isinstance(job, StepsJobDefinition):
+        if isinstance(job, JobProblem):
+            problems.append(
+                StaticWorkflowDependencyProblem(
+                    reason="workflow_job_unreadable",
+                    detail=(
+                        "A static job is structurally unresolved: "
+                        f"{job.reason}: {job.detail}"
+                    ),
+                    job_key=job.key,
+                )
+            )
+            continue
+        if isinstance(job, ReusableWorkflowJobDefinition):
+            problems.append(
+                StaticWorkflowDependencyProblem(
+                    reason="reusable_workflow_job_unsupported",
+                    detail=(
+                        "A static job delegates to a reusable workflow. Following that "
+                        "separate definition is outside the current CI consumption rule."
+                    ),
+                    job_key=job.key,
+                )
+            )
             continue
 
-        root_checkout_state: _RepositoryRootCheckoutState = "not_established"
-        for entry in job.steps:
-            if isinstance(entry, UsesStepDefinition):
-                root_checkout_state = _advance_repository_root_checkout_state(
+        assert isinstance(job, StepsJobDefinition)
+        readable_jobs[job.key] = job
+        _inspect_steps_job_evidence(
+            source,
+            definition,
+            job,
+            requirements_contexts=requirements_contexts,
+            project_environment_sources=tuple(valid_project_sources),
+            package=package,
+            normalized_package=normalized_package,
+            consumptions=consumptions,
+            invocations=invocations,
+            collect_invocations=collect_invocations,
+        )
+
+    for project_environment_consumption in project_environment_consumptions:
+        source_problem = _validate_project_environment_consumption_source(
+            source,
+            definition,
+            readable_jobs,
+            project_environment_consumption,
+            normalized_package=normalized_package,
+        )
+        if source_problem is not None:
+            problems.append(source_problem)
+            continue
+        consumptions.append(project_environment_consumption)
+
+    return WorkflowStaticDependencyEvidence(
+        job_count=len(definition.jobs),
+        consumptions=tuple(consumptions),
+        invocations=tuple(invocations),
+        problems=tuple(problems),
+    )
+
+
+def _inspect_steps_job_evidence(
+    source: RepositoryTextFile,
+    definition: WorkflowDefinition,
+    job: StepsJobDefinition,
+    *,
+    requirements_contexts: tuple[RequirementsFileDependencyContext, ...],
+    project_environment_sources: tuple[WorkflowProjectEnvironmentSource, ...],
+    package: str,
+    normalized_package: str,
+    consumptions: list[StaticDependencyConsumptionEvidence],
+    invocations: list[DirectPackageInvocationEvidence],
+    collect_invocations: bool,
+) -> None:
+    root_checkout_state: _RepositoryRootCheckoutState = "not_established"
+    for entry in job.steps:
+        if isinstance(entry, UsesStepDefinition):
+            root_checkout_state = _advance_repository_root_checkout_state(
+                source,
+                entry,
+                current_state=root_checkout_state,
+            )
+            continue
+        if not isinstance(entry, RunStepDefinition):
+            continue
+
+        command_analysis = analyze_run_step_commands(definition, job, entry)
+
+        _append_direct_requirements_consumptions(
+            source,
+            definition,
+            job,
+            entry,
+            command_analysis=command_analysis,
+            root_checkout_state=root_checkout_state,
+            requirements_contexts=requirements_contexts,
+            consumptions=consumptions,
+        )
+        _append_project_environment_consumptions(
+            source,
+            definition,
+            job,
+            entry,
+            command_analysis=command_analysis,
+            root_checkout_state=root_checkout_state,
+            project_environment_sources=project_environment_sources,
+            consumptions=consumptions,
+        )
+
+        if collect_invocations and root_checkout_state == "current_repository":
+            invocations.extend(
+                _package_invocations_from_analysis(
+                    command_analysis,
+                    job_key=job.key,
+                    step_source_index=entry.source_index,
+                    command=entry.command.text,
+                    package=package,
+                    normalized_package=normalized_package,
+                )
+            )
+
+
+def _append_direct_requirements_consumptions(
+    source: RepositoryTextFile,
+    definition: WorkflowDefinition,
+    job: StepsJobDefinition,
+    entry: RunStepDefinition,
+    *,
+    command_analysis: StaticCommandAnalysis,
+    root_checkout_state: _RepositoryRootCheckoutState,
+    requirements_contexts: tuple[RequirementsFileDependencyContext, ...],
+    consumptions: list[StaticDependencyConsumptionEvidence],
+) -> None:
+    for context in requirements_contexts:
+        observation = observe_direct_installation_declaration(
+            entry,
+            dependency_source_path=context.source_path,
+            command_analysis=command_analysis,
+            workflow_defaults=definition.run_defaults,
+            job_defaults=job.run_defaults,
+        )
+        if observation.state == "not_observed":
+            continue
+        if root_checkout_state == "other_repository":
+            continue
+
+        occurrence = _occurrence_for_location(
+            command_analysis,
+            observation.command_location,
+        )
+        structural_context = occurrence.structural_context if occurrence is not None else ()
+
+        if root_checkout_state != "current_repository":
+            consumptions.append(
+                StaticDependencyConsumptionEvidence(
+                    state="unresolved",
+                    mechanism="direct_requirements",
+                    normalized_package=context.normalized_package,
+                    workflow_path=source.path,
+                    workflow_revision=source.revision,
+                    job_key=job.key,
+                    step_source_index=entry.source_index,
+                    segment_index=None,
+                    command=entry.command.text,
+                    reason="direct_requirements_checkout_provenance_unresolved",
+                    detail=(
+                        "A static direct-requirements declaration is visible or materially "
+                        "unresolved, but the workflow does not statically establish the "
+                        "changed repository at the GitHub workspace root before this step "
+                        f"(root checkout state: {root_checkout_state})."
+                    ),
+                    source_path=context.source_path,
+                    command_location=observation.command_location,
+                    structural_context=structural_context,
+                )
+            )
+            continue
+
+        if observation.state == "observed":
+            assert observation.command_location is not None
+            assert occurrence is not None
+            consumptions.append(
+                StaticDependencyConsumptionEvidence(
+                    state="supported",
+                    mechanism="direct_requirements",
+                    normalized_package=context.normalized_package,
+                    workflow_path=source.path,
+                    workflow_revision=source.revision,
+                    job_key=job.key,
+                    step_source_index=entry.source_index,
+                    segment_index=None,
+                    command=entry.command.text,
+                    reason="direct_requirements_consumption_declared",
+                    detail=(
+                        "The static job directly declares installation from a trusted "
+                        "requirements dependency source. Execution is not established."
+                    ),
+                    source_path=context.source_path,
+                    command_location=observation.command_location,
+                    structural_context=occurrence.structural_context,
+                )
+            )
+            continue
+
+        consumptions.append(
+            StaticDependencyConsumptionEvidence(
+                state="unresolved",
+                mechanism="direct_requirements",
+                normalized_package=context.normalized_package,
+                workflow_path=source.path,
+                workflow_revision=source.revision,
+                job_key=job.key,
+                step_source_index=entry.source_index,
+                segment_index=None,
+                command=entry.command.text,
+                reason=observation.reason,
+                detail=observation.detail,
+                source_path=context.source_path,
+                command_location=observation.command_location,
+                structural_context=structural_context,
+            )
+        )
+
+
+def _append_project_environment_consumptions(
+    source: RepositoryTextFile,
+    definition: WorkflowDefinition,
+    job: StepsJobDefinition,
+    entry: RunStepDefinition,
+    *,
+    command_analysis: StaticCommandAnalysis,
+    root_checkout_state: _RepositoryRootCheckoutState,
+    project_environment_sources: tuple[WorkflowProjectEnvironmentSource, ...],
+    consumptions: list[StaticDependencyConsumptionEvidence],
+) -> None:
+    for project_source in project_environment_sources:
+        observation = observe_project_environment_selection(
+            entry,
+            project_file_path=project_source.project_file.path,
+            command_analysis=command_analysis,
+            workflow_defaults=definition.run_defaults,
+            job_defaults=job.run_defaults,
+        )
+        if observation.state == "not_observed":
+            continue
+        if root_checkout_state == "other_repository":
+            continue
+
+        if root_checkout_state != "current_repository":
+            consumptions.append(
+                _preserve_unresolved_checkout_provenance(
                     source,
-                    entry,
-                    current_state=root_checkout_state,
+                    job,
+                    project_source,
+                    observation,
+                    root_checkout_state=root_checkout_state,
                 )
-                continue
-            if not isinstance(entry, RunStepDefinition):
-                continue
+            )
+            continue
 
-            command_analysis = analyze_run_step_commands(definition, job, entry)
-
-            for project_source in sources:
-                observation = observe_project_environment_selection(
-                    entry,
-                    project_file_path=project_source.project_file.path,
-                    command_analysis=command_analysis,
-                    workflow_defaults=definition.run_defaults,
-                    job_defaults=job.run_defaults,
+        if isinstance(project_source.project_file, UnavailableRepositoryFile):
+            consumptions.append(
+                _preserve_unresolved_required_project_root_source(
+                    source,
+                    job,
+                    project_source,
+                    observation,
                 )
-                if observation.state == "not_observed":
+            )
+            continue
+
+        if observation.state == "unresolved":
+            consumptions.append(
+                _preserve_unresolved_project_environment_selection(
+                    source,
+                    job,
+                    project_source,
+                    observation,
+                )
+            )
+            continue
+
+        for declaration in observation.declarations:
+            context = project_source.context
+            if isinstance(context, UvLockDependencyContext):
+                if declaration.manager != "uv":
                     continue
+                assert project_source.lock_file is not None
+                dependency_evidence = evaluate_uv_selected_root_reachability(
+                    context,
+                    declaration,
+                    lock_file=project_source.lock_file,
+                )
+            else:
+                dependency_evidence = evaluate_project_source_environment_membership(
+                    context,
+                    declaration,
+                )
 
-                if root_checkout_state == "other_repository":
-                    continue
-
-                if root_checkout_state != "current_repository":
-                    consumptions.append(
-                        _preserve_unresolved_checkout_provenance(
-                            source,
-                            job,
-                            project_source,
-                            observation,
-                            root_checkout_state=root_checkout_state,
-                        )
-                    )
-                    continue
-
-                if isinstance(
-                    project_source.project_file,
-                    UnavailableRepositoryFile,
-                ):
-                    consumptions.append(
-                        _preserve_unresolved_required_project_root_source(
-                            source,
-                            job,
-                            project_source,
-                            observation,
-                        )
-                    )
-                    continue
-
-                if observation.state == "unresolved":
-                    consumptions.append(
-                        _preserve_unresolved_project_environment_selection(
-                            source,
-                            job,
-                            project_source,
-                            observation,
-                        )
-                    )
-                    continue
-
-                for declaration in observation.declarations:
-                    context = project_source.context
-                    if isinstance(context, UvLockDependencyContext):
-                        if declaration.manager != "uv":
-                            continue
-                        assert project_source.lock_file is not None
-                        dependency_evidence = evaluate_uv_selected_root_reachability(
-                            context,
-                            declaration,
-                            lock_file=project_source.lock_file,
-                        )
-                    else:
-                        dependency_evidence = evaluate_project_source_environment_membership(
-                            context,
-                            declaration,
-                        )
-
-                    consumptions.append(
-                        compose_project_environment_consumption(
-                            workflow_path=source.path,
-                            workflow_revision=source.revision,
-                            job_key=job.key,
-                            observation=observation,
-                            declaration=declaration,
-                            dependency_evidence=dependency_evidence,
-                        )
-                    )
-
-    return tuple(consumptions)
+            consumptions.append(
+                compose_project_environment_consumption(
+                    workflow_path=source.path,
+                    workflow_revision=source.revision,
+                    job_key=job.key,
+                    observation=observation,
+                    declaration=declaration,
+                    dependency_evidence=dependency_evidence,
+                )
+            )
 
 
 def _advance_repository_root_checkout_state(
@@ -468,6 +782,12 @@ def _validate_project_environment_source(
             )
         if project_source.lock_file is None:
             raise ValueError("uv project-environment source requires exact lock evidence")
+        if (
+            project_source.lock_file.repository != context.repository
+            or project_source.lock_file.revision != context.revision
+            or project_source.lock_file.path != context.source_path
+        ):
+            raise ValueError("uv lock evidence does not match the dependency source context")
         return
 
     if project_source.project_file.path != context.source_path:
@@ -485,127 +805,6 @@ def _uv_project_file_path(lock_path: str) -> str:
     return f"{lock_root}/pyproject.toml" if lock_root else "pyproject.toml"
 
 
-def inspect_workflow_dependency_evidence(
-    source: RepositoryTextFile,
-    *,
-    source_contexts: Sequence[DependencySourceContext],
-    package: str,
-    normalized_package: str,
-    project_environment_consumptions: Sequence[StaticDependencyConsumptionEvidence] = (),
-) -> WorkflowStaticDependencyEvidence:
-    """Preserve static consumption/invocation evidence across all readable steps jobs."""
-
-    definition = parse_workflow_definition(source)
-    if isinstance(definition, WorkflowDefinitionProblem):
-        return WorkflowStaticDependencyEvidence(
-            job_count=0,
-            consumptions=(),
-            invocations=(),
-            problems=(
-                StaticWorkflowDependencyProblem(
-                    reason="workflow_definition_unreadable",
-                    detail=(
-                        "The shared GitHub Actions definition could not establish the "
-                        f"bounded CI structure: {definition.reason}: {definition.detail}"
-                    ),
-                ),
-            ),
-        )
-
-    assert isinstance(definition, WorkflowDefinition)
-    requirements_contexts = tuple(
-        context
-        for context in source_contexts
-        if isinstance(context, RequirementsFileDependencyContext)
-    )
-
-    consumptions: list[StaticDependencyConsumptionEvidence] = []
-    invocations: list[DirectPackageInvocationEvidence] = []
-    problems: list[StaticWorkflowDependencyProblem] = []
-    readable_jobs: dict[str, StepsJobDefinition] = {}
-
-    for context in requirements_contexts:
-        if (
-            context.revision != source.revision
-            or context.normalized_package != normalized_package
-        ):
-            problems.append(
-                StaticWorkflowDependencyProblem(
-                    reason="dependency_source_context_identity_mismatch",
-                    detail=(
-                        "A typed requirements source context did not match the exact "
-                        "workflow revision or changed normalized package under evaluation."
-                    ),
-                )
-            )
-
-    requirements_contexts = tuple(
-        context
-        for context in requirements_contexts
-        if context.revision == source.revision
-        and context.normalized_package == normalized_package
-    )
-
-    for job in definition.jobs:
-        if isinstance(job, JobProblem):
-            problems.append(
-                StaticWorkflowDependencyProblem(
-                    reason="workflow_job_unreadable",
-                    detail=(
-                        "A static job is structurally unresolved: "
-                        f"{job.reason}: {job.detail}"
-                    ),
-                    job_key=job.key,
-                )
-            )
-            continue
-        if isinstance(job, ReusableWorkflowJobDefinition):
-            problems.append(
-                StaticWorkflowDependencyProblem(
-                    reason="reusable_workflow_job_unsupported",
-                    detail=(
-                        "A static job delegates to a reusable workflow. Following that "
-                        "separate definition is outside the current CI consumption rule."
-                    ),
-                    job_key=job.key,
-                )
-            )
-            continue
-
-        assert isinstance(job, StepsJobDefinition)
-        readable_jobs[job.key] = job
-        _inspect_steps_job_evidence(
-            source,
-            definition,
-            job,
-            requirements_contexts=requirements_contexts,
-            package=package,
-            normalized_package=normalized_package,
-            consumptions=consumptions,
-            invocations=invocations,
-        )
-
-    for project_environment_consumption in project_environment_consumptions:
-        source_problem = _validate_project_environment_consumption_source(
-            source,
-            definition,
-            readable_jobs,
-            project_environment_consumption,
-            normalized_package=normalized_package,
-        )
-        if source_problem is not None:
-            problems.append(source_problem)
-            continue
-        consumptions.append(project_environment_consumption)
-
-    return WorkflowStaticDependencyEvidence(
-        job_count=len(definition.jobs),
-        consumptions=tuple(consumptions),
-        invocations=tuple(invocations),
-        problems=tuple(problems),
-    )
-
-
 def _validate_project_environment_consumption_source(
     source: RepositoryTextFile,
     definition: WorkflowDefinition,
@@ -614,7 +813,7 @@ def _validate_project_environment_consumption_source(
     *,
     normalized_package: str,
 ) -> StaticWorkflowDependencyProblem | None:
-    """Require supplied project-environment evidence to point to this exact static command."""
+    """Temporary compatibility validation for manually precomposed project evidence."""
 
     if evidence.normalized_package != normalized_package:
         return StaticWorkflowDependencyProblem(
@@ -683,8 +882,6 @@ def _validate_project_environment_consumption_source(
             )
         return None
 
-    # Temporary compatibility for manually precomposed legacy evidence. Parsed production
-    # project-environment evidence takes the command-location branch above.
     if evidence.segment_index is None:
         return StaticWorkflowDependencyProblem(
             reason="project_environment_consumption_command_identity_mismatch",
@@ -705,137 +902,6 @@ def _validate_project_environment_consumption_source(
             job_key=evidence.job_key,
         )
     return None
-
-
-def _inspect_steps_job_evidence(
-    source: RepositoryTextFile,
-    definition: WorkflowDefinition,
-    job: StepsJobDefinition,
-    *,
-    requirements_contexts: tuple[RequirementsFileDependencyContext, ...],
-    package: str,
-    normalized_package: str,
-    consumptions: list[StaticDependencyConsumptionEvidence],
-    invocations: list[DirectPackageInvocationEvidence],
-) -> None:
-    root_checkout_state: _RepositoryRootCheckoutState = "not_established"
-    for entry in job.steps:
-        if isinstance(entry, UsesStepDefinition):
-            root_checkout_state = _advance_repository_root_checkout_state(
-                source,
-                entry,
-                current_state=root_checkout_state,
-            )
-            continue
-        if not isinstance(entry, RunStepDefinition):
-            continue
-
-        command_analysis = analyze_run_step_commands(definition, job, entry)
-
-        for context in requirements_contexts:
-            observation = observe_direct_installation_declaration(
-                entry,
-                dependency_source_path=context.source_path,
-                command_analysis=command_analysis,
-                workflow_defaults=definition.run_defaults,
-                job_defaults=job.run_defaults,
-            )
-            if observation.state == "not_observed":
-                continue
-
-            if root_checkout_state == "other_repository":
-                continue
-
-            occurrence = _occurrence_for_location(
-                command_analysis,
-                observation.command_location,
-            )
-            structural_context = (
-                occurrence.structural_context if occurrence is not None else ()
-            )
-
-            if root_checkout_state != "current_repository":
-                consumptions.append(
-                    StaticDependencyConsumptionEvidence(
-                        state="unresolved",
-                        mechanism="direct_requirements",
-                        normalized_package=context.normalized_package,
-                        workflow_path=source.path,
-                        workflow_revision=source.revision,
-                        job_key=job.key,
-                        step_source_index=entry.source_index,
-                        segment_index=None,
-                        command=entry.command.text,
-                        reason="direct_requirements_checkout_provenance_unresolved",
-                        detail=(
-                            "A static direct-requirements declaration is visible or "
-                            "materially unresolved, but the workflow does not statically "
-                            "establish the changed repository at the GitHub workspace root "
-                            "before this step "
-                            f"(root checkout state: {root_checkout_state})."
-                        ),
-                        source_path=context.source_path,
-                        command_location=observation.command_location,
-                        structural_context=structural_context,
-                    )
-                )
-                continue
-
-            if observation.state == "observed":
-                assert observation.command_location is not None
-                assert occurrence is not None
-                consumptions.append(
-                    StaticDependencyConsumptionEvidence(
-                        state="supported",
-                        mechanism="direct_requirements",
-                        normalized_package=context.normalized_package,
-                        workflow_path=source.path,
-                        workflow_revision=source.revision,
-                        job_key=job.key,
-                        step_source_index=entry.source_index,
-                        segment_index=None,
-                        command=entry.command.text,
-                        reason="direct_requirements_consumption_declared",
-                        detail=(
-                            "The static job directly declares installation from a trusted "
-                            "requirements dependency source. Execution is not established."
-                        ),
-                        source_path=context.source_path,
-                        command_location=observation.command_location,
-                        structural_context=occurrence.structural_context,
-                    )
-                )
-            else:
-                consumptions.append(
-                    StaticDependencyConsumptionEvidence(
-                        state="unresolved",
-                        mechanism="direct_requirements",
-                        normalized_package=context.normalized_package,
-                        workflow_path=source.path,
-                        workflow_revision=source.revision,
-                        job_key=job.key,
-                        step_source_index=entry.source_index,
-                        segment_index=None,
-                        command=entry.command.text,
-                        reason=observation.reason,
-                        detail=observation.detail,
-                        source_path=context.source_path,
-                        command_location=observation.command_location,
-                        structural_context=structural_context,
-                    )
-                )
-
-        if root_checkout_state == "current_repository":
-            invocations.extend(
-                _package_invocations_from_analysis(
-                    command_analysis,
-                    job_key=job.key,
-                    step_source_index=entry.source_index,
-                    command=entry.command.text,
-                    package=package,
-                    normalized_package=normalized_package,
-                )
-            )
 
 
 def _occurrence_for_location(
@@ -929,17 +995,9 @@ def _package_invocation_state(
 
     arguments = occurrence.arguments
     if executable in {"python", "python3"}:
-        return _prefixed_target_state(
-            arguments,
-            prefix=("-m",),
-            candidates=candidates,
-        )
+        return _prefixed_target_state(arguments, prefix=("-m",), candidates=candidates)
     if executable in {"uv", "poetry", "pipenv"}:
-        return _prefixed_target_state(
-            arguments,
-            prefix=("run",),
-            candidates=candidates,
-        )
+        return _prefixed_target_state(arguments, prefix=("run",), candidates=candidates)
     if executable == "coverage":
         return _prefixed_target_state(
             arguments,
