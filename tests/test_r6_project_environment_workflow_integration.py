@@ -314,7 +314,7 @@ jobs:
                     run=run,
                     jobs=(job,),
                     definition=definition,
-                    project_environment_consumptions=consumptions,
+                    project_environment_sources=(source,),
                 ),
             ),
             source_contexts=(source.context,),
