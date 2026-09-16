@@ -281,7 +281,10 @@ jobs:
         self.assertEqual(len(consumptions), 1)
         unresolved = consumptions[0]
         self.assertEqual(unresolved.state, "unresolved")
-        self.assertEqual(unresolved.reason, "project_environment_selection_unresolved")
+        self.assertEqual(
+            unresolved.reason,
+            "project_environment_command_analysis_unresolved",
+        )
         self.assertEqual(unresolved.command, 'uv sync --group "${{ matrix.group }}"')
         self.assertEqual(unresolved.source_path, "uv.lock")
 
@@ -322,7 +325,7 @@ jobs:
         self.assertEqual(workflow_result.consumption_state, "unresolved")
         self.assertEqual(
             workflow_result.consumption_reason,
-            "project_environment_selection_unresolved",
+            "project_environment_command_analysis_unresolved",
         )
         self.assertNotEqual(
             workflow_result.consumption_reason,
