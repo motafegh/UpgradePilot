@@ -17,6 +17,7 @@ from typing import Literal
 
 from ..dependency.direct_install import observe_direct_installation_declaration
 from ..github.repository import RepositoryFileEvidence, RepositoryTextFile, UnavailableRepositoryFile
+from ..github.workflow_command_analysis import analyze_run_step_commands
 from ..github.workflow_definition import (
     JobProblem,
     ReusableWorkflowJobDefinition,
@@ -306,6 +307,7 @@ def _interpret_dependency_installation(
         observe_direct_installation_declaration(
             step,
             dependency_source_path=dependency_source_file,
+            command_analysis=analyze_run_step_commands(definition, job, step),
             workflow_defaults=definition.run_defaults,
             job_defaults=job.run_defaults,
         )
