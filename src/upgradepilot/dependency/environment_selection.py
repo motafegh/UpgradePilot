@@ -1,29 +1,35 @@
-"""Observe bounded static Python project-environment selectors in workflow run steps.
+"""Observe bounded static Python project-environment selectors in parsed workflow commands.
 
-GitHub owns ``RunStepDefinition`` and workflow structure. This dependency-owned module
-interprets only a small set of visible Python project selectors needed by current real
-pressure: local-project pip installs and explicit uv extras/groups plus the bounded uv
-package scope that makes those selectors meaningful on ``uv sync`` or ``uv run``.
+GitHub owns workflow structure and parser-neutral command analysis. This dependency-owned
+module interprets only the small Python project-selection semantics required by current real
+pressure: local-project pip installs and explicit uv extras/groups plus the bounded uv package
+scope that makes those selectors meaningful on ``uv sync`` or ``uv run``.
 
-The result is static declaration evidence. A selector or package scope being visible does
-not establish that the command executed, that an environment was formed, that a lock member
-is reachable from the selected roots, or that the changed dependency was exercised.
+The result is static declaration evidence. A selector or package scope being visible does not
+establish command execution, environment formation, dependency reachability, or package
+exercise.
 """
 
 from __future__ import annotations
 
 import re
-import shlex
 from dataclasses import dataclass
 from typing import Literal
 
 from packaging.utils import canonicalize_name
 
+from ..github.workflow_command_analysis import (
+    StaticCommandAnalysis,
+    StaticCommandAtom,
+    StaticCommandOccurrence,
+    StaticCommandStructure,
+)
+from ..github.workflow_command_location import StaticCommandLocation
 from ..github.workflow_definition import RunDefaults, RunStepDefinition
 from ..repository_path import repository_relative_parts
+from .pip_command import parsed_pip_install_arguments
 from .workflow_context import (
     EffectiveWorkingDirectory,
-    bounded_shell_segments,
     resolve_effective_working_directory,
     resolve_repository_relative_path,
 )
@@ -45,11 +51,7 @@ type DependencyGroupSelectionMode = Literal["include", "only"]
 
 @dataclass(frozen=True, slots=True)
 class OptionalExtraSelector:
-    """Visible selection of one named PEP 621 optional extra.
-
-    ``name`` preserves command spelling; ``normalized_name`` is the comparison identity
-    required by Python packaging extra-name semantics.
-    """
+    """Visible selection of one named PEP 621 optional extra."""
 
     name: str
 
@@ -60,11 +62,7 @@ class OptionalExtraSelector:
 
 @dataclass(frozen=True, slots=True)
 class DependencyGroupSelector:
-    """Visible selection of one dependency group.
-
-    ``mode='only'`` preserves uv's explicit ``--only-group`` spelling. Group comparison
-    uses normalized names while the original command spelling remains available.
-    """
+    """Visible selection of one dependency group."""
 
     name: str
     mode: DependencyGroupSelectionMode = "include"
@@ -94,24 +92,25 @@ type ProjectEnvironmentSelector = (
 
 @dataclass(frozen=True, slots=True)
 class ProjectEnvironmentSelectionDeclaration:
-    """One static command segment bound to one independently known project.
+    """One parsed static command occurrence bound to one independently known project.
 
-    ``selectors`` records only explicit positive selectors. ``package_scope`` records the
-    bounded package domain those selectors visibly apply to: the independently bound project
-    by default, or all workspace packages when uv explicitly uses ``--all-packages``. This is
-    not a complete uv environment model.
+    ``command_location`` is the canonical static occurrence identity and
+    ``structural_context`` preserves the provider-established source structure needed by
+    later CI ordering. Neither proves execution or success.
 
-    An empty selector tuple is meaningful for a local-project pip install with no optional
-    extra. For uv, omitted selectors are not promoted to an observed complete environment
-    because uv default groups require separate project/config evidence.
+    ``segment_index`` is retained temporarily as a Cycle 2 compatibility field for synthetic
+    callers that have not yet migrated. The parser-backed production observer leaves it
+    unset; it is not part of the final identity contract.
     """
 
     manager: ProjectEnvironmentManager
     operation: ProjectEnvironmentOperation
-    segment_index: int
+    segment_index: int | None
     project_root: str | None
     selectors: tuple[ProjectEnvironmentSelector, ...]
     package_scope: ProjectEnvironmentPackageScope = "bound_project"
+    command_location: StaticCommandLocation | None = None
+    structural_context: tuple[StaticCommandStructure, ...] = ()
 
 
 @dataclass(frozen=True, slots=True)
@@ -128,18 +127,7 @@ class ProjectEnvironmentSelectionObservation:
     declarations: tuple[ProjectEnvironmentSelectionDeclaration, ...] = ()
 
 
-_EXPRESSION_MARKER = "${{"
-_ENV_ASSIGNMENT = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*=.*$")
 _PROJECT_NAME = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
-_PIP_COMMAND = re.compile(
-    r"^(?:[A-Za-z_][A-Za-z0-9_]*=[^\s]+\s+)*"
-    r"(?:python(?:3)?\s+-m\s+pip|pip(?:3)?)\s+install\b",
-    re.IGNORECASE,
-)
-_UV_COMMAND = re.compile(
-    r"^(?:[A-Za-z_][A-Za-z0-9_]*=[^\s]+\s+)*uv\s+(?:sync|run)\b",
-    re.IGNORECASE,
-)
 
 _UV_RUN_VALUE_OPTIONS = frozenset(
     {
@@ -173,21 +161,20 @@ _UV_UNSUPPORTED_PACKAGE_SCOPE_OPTIONS = frozenset(
         "--no-project",
     }
 )
+_UV_VALUE_SELECTION_OPTIONS = frozenset(
+    {"--extra", "--group", "--only-group", "--project"}
+)
 
 
 def observe_project_environment_selection(
     step: RunStepDefinition,
     *,
     project_file_path: str,
+    command_analysis: StaticCommandAnalysis,
     workflow_defaults: RunDefaults | None = None,
     job_defaults: RunDefaults | None = None,
 ) -> ProjectEnvironmentSelectionObservation:
-    """Observe explicit project extras/groups selected by one static run declaration.
-
-    ``project_file_path`` must independently identify an exact repository-relative
-    ``pyproject.toml``. The observer uses it only to bind local project commands; it does
-    not parse project metadata or infer dependency membership.
-    """
+    """Observe explicit project extras/groups from shared parser-neutral command analysis."""
 
     project_parts = repository_relative_parts(project_file_path)
     if project_parts is None or project_parts[-1] != "pyproject.toml":
@@ -203,25 +190,53 @@ def observe_project_environment_selection(
         job_defaults=job_defaults,
     )
 
+    if command_analysis.state != "analyzable":
+        problem_reasons = ", ".join(
+            dict.fromkeys(problem.reason for problem in command_analysis.problems)
+        )
+        suffix = f" ({problem_reasons})" if problem_reasons else ""
+        return ProjectEnvironmentSelectionObservation(
+            state="unresolved",
+            reason="project_environment_command_analysis_unresolved",
+            detail=(
+                "Static command analysis could not safely establish the run-step command "
+                f"structure{suffix}; no textual fallback was used."
+            ),
+            step_source_index=step.source_index,
+            command=step.command.text,
+            project_file_path=normalized_project_file,
+            working_directory=working_directory,
+        )
+
     declarations: list[ProjectEnvironmentSelectionDeclaration] = []
     unresolved_details: list[str] = []
 
-    for segment_index, segment in enumerate(bounded_shell_segments(step.command.text)):
-        if _PIP_COMMAND.match(segment):
-            parsed, unresolved = _observe_pip_segment(
-                segment,
-                segment_index=segment_index,
+    for occurrence in command_analysis.command_occurrences:
+        install_args, pip_prefix_unresolved = parsed_pip_install_arguments(occurrence)
+        if pip_prefix_unresolved:
+            unresolved_details.append(
+                "A plausible pip install command had a dynamic or unsupported material prefix."
+            )
+        elif install_args is not None:
+            parsed, unresolved = _observe_pip_occurrence(
+                occurrence,
+                install_args=install_args,
                 project_root=project_root,
                 working_directory=working_directory,
             )
             declarations.extend(parsed)
             unresolved_details.extend(unresolved)
-            continue
 
-        if _UV_COMMAND.match(segment):
-            parsed, unresolved = _observe_uv_segment(
-                segment,
-                segment_index=segment_index,
+        uv_operation, uv_args, uv_prefix_unresolved = _uv_command_arguments(occurrence)
+        if uv_prefix_unresolved:
+            unresolved_details.append(
+                "A plausible uv project command had a dynamic or unsupported operation."
+            )
+        elif uv_operation is not None and uv_args is not None:
+            parsed, unresolved = _observe_uv_occurrence(
+                occurrence,
+                operation=uv_operation,
+                raw_args=uv_args,
                 project_root=project_root,
                 working_directory=working_directory,
             )
@@ -245,9 +260,9 @@ def observe_project_environment_selection(
             state="observed",
             reason="project_environment_selection_declared",
             detail=(
-                "The static run step visibly selects the independently established "
-                "project and preserves its explicit optional-extra/group selectors and "
-                "admitted package scope."
+                "Parsed static command occurrences visibly select the independently "
+                "established project and preserve explicit optional-extra/group selectors "
+                "and admitted package scope."
             ),
             step_source_index=step.source_index,
             command=step.command.text,
@@ -260,7 +275,7 @@ def observe_project_environment_selection(
         state="not_observed",
         reason="project_environment_selection_not_observed",
         detail=(
-            "The static run step did not contain an admitted project-selection "
+            "The parsed static run step did not contain an admitted project-selection "
             "declaration for the independently established project."
         ),
         step_source_index=step.source_index,
@@ -270,24 +285,15 @@ def observe_project_environment_selection(
     )
 
 
-def _observe_pip_segment(
-    segment: str,
+def _observe_pip_occurrence(
+    occurrence: StaticCommandOccurrence,
     *,
-    segment_index: int,
+    install_args: tuple[StaticCommandAtom, ...],
     project_root: str | None,
     working_directory: EffectiveWorkingDirectory,
 ) -> tuple[list[ProjectEnvironmentSelectionDeclaration], list[str]]:
-    try:
-        tokens = _strip_environment_assignments(shlex.split(segment, posix=True))
-    except ValueError:
-        return [], ["A plausible pip project-install declaration had malformed quoting."]
-
-    install_args = _pip_install_args(tokens)
-    if install_args is None:
-        return [], []
-
-    candidate_specs = _pip_local_project_specs(install_args)
-    if not candidate_specs:
+    candidate_specs, material_unresolved = _pip_local_project_specs(install_args)
+    if not candidate_specs and not material_unresolved:
         return [], []
 
     if working_directory.state == "unresolved":
@@ -298,13 +304,12 @@ def _observe_pip_segment(
 
     declarations: list[ProjectEnvironmentSelectionDeclaration] = []
     unresolved: list[str] = []
-    for spec in candidate_specs:
-        if _EXPRESSION_MARKER in spec:
-            unresolved.append(
-                "A pip local-project requirement used a dynamic project path or extra."
-            )
-            continue
+    if material_unresolved:
+        unresolved.append(
+            "A pip local-project requirement used a dynamic or unsupported material value."
+        )
 
+    for spec in candidate_specs:
         parsed = _parse_local_project_requirement(spec)
         if parsed is None:
             continue
@@ -320,138 +325,70 @@ def _observe_pip_segment(
             ProjectEnvironmentSelectionDeclaration(
                 manager="pip",
                 operation="install",
-                segment_index=segment_index,
+                segment_index=None,
                 project_root=project_root,
                 selectors=tuple(OptionalExtraSelector(name) for name in extra_names),
+                command_location=StaticCommandLocation.from_occurrence(occurrence),
+                structural_context=occurrence.structural_context,
             )
         )
 
     return declarations, unresolved
 
 
-def _observe_uv_segment(
-    segment: str,
-    *,
-    segment_index: int,
-    project_root: str | None,
-    working_directory: EffectiveWorkingDirectory,
-) -> tuple[list[ProjectEnvironmentSelectionDeclaration], list[str]]:
-    try:
-        tokens = _strip_environment_assignments(shlex.split(segment, posix=True))
-    except ValueError:
-        return [], ["A plausible uv project-selection declaration had malformed quoting."]
-
-    if len(tokens) < 2 or tokens[0] != "uv" or tokens[1] not in {"sync", "run"}:
-        return [], []
-    operation: ProjectEnvironmentOperation = tokens[1]  # type: ignore[assignment]
-    raw_args = tokens[2:]
-    args, parsing_incomplete = (
-        (raw_args, False)
-        if operation == "sync"
-        else _uv_run_option_prefix(raw_args)
-    )
-
-    selectors, project_path, package_scope, unresolved = _parse_uv_selection_args(args)
-    material_flags = _uv_material_flags(args)
-
-    if parsing_incomplete and _raw_uv_positive_selector_present(segment):
-        unresolved.append(
-            "A uv run selector was visible after option syntax the bounded parser "
-            "could not safely delimit from the invoked command."
-        )
-
-    if material_flags:
-        unresolved.append(
-            "The uv declaration used a negative or project-targeting selector outside "
-            "the first bounded positive-selection rule: "
-            + ", ".join(sorted(material_flags))
-            + "."
-        )
-
-    if working_directory.state == "unresolved":
-        unresolved.append(
-            "A uv project declaration was visible, but effective working-directory "
-            "context was dynamic or invalid."
-        )
-        return [], unresolved
-
-    if material_flags & _UV_UNSUPPORTED_PACKAGE_SCOPE_OPTIONS:
-        return [], unresolved
-
-    if project_path is not None:
-        if _EXPRESSION_MARKER in project_path:
-            unresolved.append("The uv --project path was dynamic.")
-            return [], unresolved
-        resolved_project_root = resolve_repository_relative_path(
-            project_path,
-            working_directory.path,
-        )
-        if resolved_project_root is None:
-            unresolved.append("The uv --project path could not be resolved safely.")
-            return [], unresolved
-        if resolved_project_root != project_root:
-            return [], unresolved
-    elif working_directory.path != project_root:
-        unresolved.append(
-            "uv project discovery started outside the exact expected project root; "
-            "parent/nested project discovery is not established by this rule."
-        )
-        return [], unresolved
-
-    declaration = ProjectEnvironmentSelectionDeclaration(
-        manager="uv",
-        operation=operation,
-        segment_index=segment_index,
-        project_root=project_root,
-        selectors=tuple(selectors),
-        package_scope=package_scope,
-    )
-
-    if not selectors:
-        unresolved.append(
-            "A uv project command was bound to the project, but no explicit extra/group "
-            "selector was visible; default-group selection requires project/config evidence."
-        )
-        return [declaration], unresolved
-
-    return [declaration], unresolved
-
-
-def _pip_install_args(tokens: list[str]) -> list[str] | None:
-    if len(tokens) >= 2 and tokens[0] in {"pip", "pip3"} and tokens[1] == "install":
-        return tokens[2:]
-    if (
-        len(tokens) >= 4
-        and tokens[0] in {"python", "python3"}
-        and tokens[1:4] == ["-m", "pip", "install"]
-    ):
-        return tokens[4:]
-    return None
-
-
-def _pip_local_project_specs(args: list[str]) -> list[str]:
+def _pip_local_project_specs(
+    args: tuple[StaticCommandAtom, ...],
+) -> tuple[list[str], bool]:
     specs: list[str] = []
-    i = 0
-    while i < len(args):
-        token = args[i]
-        if token in {"-e", "--editable"}:
-            if i + 1 < len(args):
-                specs.append(args[i + 1])
-                i += 2
+    unresolved = False
+    index = 0
+
+    while index < len(args):
+        atom = args[index]
+        literal = _literal_value(atom)
+        if literal is None:
+            if _dynamic_looks_like_local_project_requirement(atom):
+                unresolved = True
+            index += 1
+            continue
+
+        if literal in {"-e", "--editable"}:
+            if index + 1 >= len(args):
+                unresolved = True
+                index += 1
                 continue
-            return specs
-        if token.startswith("--editable="):
-            specs.append(token.split("=", 1)[1])
-            i += 1
+            value = _literal_value(args[index + 1])
+            if value is None:
+                unresolved = True
+            else:
+                specs.append(value)
+            index += 2
             continue
-        if token.startswith("-e") and token != "-e":
-            specs.append(token[2:])
-            i += 1
+
+        if literal.startswith("--editable="):
+            value = literal.split("=", 1)[1]
+            if value:
+                specs.append(value)
+            else:
+                unresolved = True
+            index += 1
             continue
-        if _looks_like_local_project_requirement(token):
-            specs.append(token)
-        i += 1
-    return specs
+
+        if literal.startswith("-e") and literal != "-e":
+            specs.append(literal[2:])
+            index += 1
+            continue
+
+        if _looks_like_local_project_requirement(literal):
+            specs.append(literal)
+        index += 1
+
+    return specs, unresolved
+
+
+def _dynamic_looks_like_local_project_requirement(atom: StaticCommandAtom) -> bool:
+    raw = atom.raw_source.strip().strip("'\"")
+    return _looks_like_local_project_requirement(raw)
 
 
 def _looks_like_local_project_requirement(token: str) -> bool:
@@ -487,68 +424,204 @@ def _parse_local_project_requirement(spec: str) -> tuple[str, tuple[str, ...]] |
     return raw_path, tuple(names)
 
 
-def _uv_run_option_prefix(args: list[str]) -> tuple[list[str], bool]:
-    prefix: list[str] = []
-    i = 0
-    while i < len(args):
-        token = args[i]
-        if token == "--":
-            return prefix, False
-        if not token.startswith("-"):
-            return prefix, False
+def _uv_command_arguments(
+    occurrence: StaticCommandOccurrence,
+) -> tuple[
+    ProjectEnvironmentOperation | None,
+    tuple[StaticCommandAtom, ...] | None,
+    bool,
+]:
+    executable = _literal_casefold(occurrence.executable)
+    if executable != "uv":
+        return None, None, False
+    if not occurrence.arguments:
+        return None, None, False
 
-        prefix.append(token)
+    operation = _literal_casefold(occurrence.arguments[0])
+    if operation is None:
+        return None, None, True
+    if operation not in {"sync", "run"}:
+        return None, None, False
+    return operation, occurrence.arguments[1:], False  # type: ignore[return-value]
+
+
+def _observe_uv_occurrence(
+    occurrence: StaticCommandOccurrence,
+    *,
+    operation: ProjectEnvironmentOperation,
+    raw_args: tuple[StaticCommandAtom, ...],
+    project_root: str | None,
+    working_directory: EffectiveWorkingDirectory,
+) -> tuple[list[ProjectEnvironmentSelectionDeclaration], list[str]]:
+    args, parsing_incomplete = (
+        (raw_args, False)
+        if operation == "sync"
+        else _uv_run_option_prefix(raw_args)
+    )
+
+    (
+        selectors,
+        project_path,
+        project_path_unresolved,
+        package_scope,
+        unresolved,
+    ) = _parse_uv_selection_args(args)
+    material_flags = _uv_material_flags(args)
+
+    if parsing_incomplete:
+        unresolved.append(
+            "A uv run option prefix could not be safely delimited from the invoked command."
+        )
+
+    if material_flags:
+        unresolved.append(
+            "The uv declaration used a negative or project-targeting selector outside "
+            "the first bounded positive-selection rule: "
+            + ", ".join(sorted(material_flags))
+            + "."
+        )
+
+    if working_directory.state == "unresolved":
+        unresolved.append(
+            "A uv project declaration was visible, but effective working-directory "
+            "context was dynamic or invalid."
+        )
+        return [], unresolved
+
+    if material_flags & _UV_UNSUPPORTED_PACKAGE_SCOPE_OPTIONS:
+        return [], unresolved
+
+    if project_path_unresolved:
+        return [], unresolved
+
+    if project_path is not None:
+        resolved_project_root = resolve_repository_relative_path(
+            project_path,
+            working_directory.path,
+        )
+        if resolved_project_root is None:
+            unresolved.append("The uv --project path could not be resolved safely.")
+            return [], unresolved
+        if resolved_project_root != project_root:
+            return [], unresolved
+    elif working_directory.path != project_root:
+        unresolved.append(
+            "uv project discovery started outside the exact expected project root; "
+            "parent/nested project discovery is not established by this rule."
+        )
+        return [], unresolved
+
+    declaration = ProjectEnvironmentSelectionDeclaration(
+        manager="uv",
+        operation=operation,
+        segment_index=None,
+        project_root=project_root,
+        selectors=tuple(selectors),
+        package_scope=package_scope,
+        command_location=StaticCommandLocation.from_occurrence(occurrence),
+        structural_context=occurrence.structural_context,
+    )
+
+    if not selectors:
+        unresolved.append(
+            "A uv project command was bound to the project, but no explicit extra/group "
+            "selector was visible; default-group selection requires project/config evidence."
+        )
+        return [declaration], unresolved
+
+    return [declaration], unresolved
+
+
+def _uv_run_option_prefix(
+    args: tuple[StaticCommandAtom, ...],
+) -> tuple[tuple[StaticCommandAtom, ...], bool]:
+    prefix: list[StaticCommandAtom] = []
+    index = 0
+
+    while index < len(args):
+        atom = args[index]
+        token = _literal_value(atom)
+        if token is None:
+            return tuple(prefix), True
+        if token == "--":
+            return tuple(prefix), False
+        if not token.startswith("-"):
+            return tuple(prefix), False
+
+        prefix.append(atom)
         option_name = token.split("=", 1)[0]
         if "=" not in token and option_name in _UV_RUN_VALUE_OPTIONS:
-            if i + 1 >= len(args):
-                return prefix, True
-            prefix.append(args[i + 1])
-            i += 2
+            if index + 1 >= len(args):
+                return tuple(prefix), True
+            prefix.append(args[index + 1])
+            index += 2
             continue
-        i += 1
+        index += 1
 
-    return prefix, False
+    return tuple(prefix), False
 
 
 def _parse_uv_selection_args(
-    args: list[str],
+    args: tuple[StaticCommandAtom, ...],
 ) -> tuple[
     list[ProjectEnvironmentSelector],
     str | None,
+    bool,
     ProjectEnvironmentPackageScope,
     list[str],
 ]:
     selectors: list[ProjectEnvironmentSelector] = []
     project_path: str | None = None
+    project_path_unresolved = False
     package_scope: ProjectEnvironmentPackageScope = "bound_project"
     unresolved: list[str] = []
-    i = 0
+    index = 0
 
-    while i < len(args):
-        token = args[i]
+    while index < len(args):
+        atom = args[index]
+        token = _literal_value(atom)
+        if token is None:
+            material_option = _dynamic_material_uv_option(atom)
+            if material_option is not None:
+                unresolved.append(
+                    f"uv option {material_option} used a dynamic or unsupported value."
+                )
+                if material_option == "--project":
+                    project_path_unresolved = True
+            index += 1
+            continue
+
         option, inline_value = _split_option(token)
 
-        if option in {"--extra", "--group", "--only-group", "--project"}:
+        if option in _UV_VALUE_SELECTION_OPTIONS:
             value = inline_value
             if value is None:
-                if i + 1 >= len(args):
+                if index + 1 >= len(args):
                     unresolved.append(f"uv option {option} lacked its required value.")
-                    i += 1
+                    if option == "--project":
+                        project_path_unresolved = True
+                    index += 1
                     continue
-                value = args[i + 1]
-                i += 1
-
-            if _EXPRESSION_MARKER in value:
-                unresolved.append(f"uv option {option} used a dynamic value.")
-                i += 1
-                continue
+                value_atom = args[index + 1]
+                value = _literal_value(value_atom)
+                if value is None:
+                    unresolved.append(f"uv option {option} used a dynamic value.")
+                    if option == "--project":
+                        project_path_unresolved = True
+                    index += 2
+                    continue
+                index += 1
 
             if option == "--project":
                 if project_path is not None and project_path != value:
-                    unresolved.append("The uv declaration specified conflicting --project paths.")
+                    unresolved.append(
+                        "The uv declaration specified conflicting --project paths."
+                    )
                 project_path = value
             elif _PROJECT_NAME.fullmatch(value) is None:
-                unresolved.append(f"uv option {option} used an invalid literal selector name.")
+                unresolved.append(
+                    f"uv option {option} used an invalid literal selector name."
+                )
             elif option == "--extra":
                 _append_unique(selectors, OptionalExtraSelector(value))
             elif option == "--group":
@@ -556,7 +629,7 @@ def _parse_uv_selection_args(
             else:
                 _append_unique(selectors, DependencyGroupSelector(value, mode="only"))
 
-            i += 1
+            index += 1
             continue
 
         if option == "--all-extras":
@@ -566,27 +639,44 @@ def _parse_uv_selection_args(
         elif option == "--all-packages":
             package_scope = "all_workspace_packages"
 
-        i += 1
+        index += 1
 
-    return selectors, project_path, package_scope, unresolved
+    return (
+        selectors,
+        project_path,
+        project_path_unresolved,
+        package_scope,
+        unresolved,
+    )
 
 
-def _raw_uv_positive_selector_present(segment: str) -> bool:
-    return re.search(
-        r"(?:^|\s)--(?:extra|group|only-group|all-extras|all-groups)(?:=|\s|$)",
-        segment,
-    ) is not None
-
-
-def _uv_material_flags(args: list[str]) -> set[str]:
+def _uv_material_flags(args: tuple[StaticCommandAtom, ...]) -> set[str]:
     """Return material uv options only from uv's option prefix, never child-command args."""
 
     found: set[str] = set()
-    for token in args:
-        option = token.split("=", 1)[0]
-        if option in _UV_MATERIAL_NEGATIVE_OR_TARGETING_OPTIONS:
-            found.add(option)
+    for atom in args:
+        token = _literal_value(atom)
+        if token is not None:
+            option = token.split("=", 1)[0]
+            if option in _UV_MATERIAL_NEGATIVE_OR_TARGETING_OPTIONS:
+                found.add(option)
+            continue
+        dynamic_option = _dynamic_material_uv_option(atom)
+        if dynamic_option in _UV_MATERIAL_NEGATIVE_OR_TARGETING_OPTIONS:
+            found.add(dynamic_option)
     return found
+
+
+def _dynamic_material_uv_option(atom: StaticCommandAtom) -> str | None:
+    raw = atom.raw_source.strip().strip("'\"").casefold()
+    material = (
+        _UV_VALUE_SELECTION_OPTIONS
+        | _UV_MATERIAL_NEGATIVE_OR_TARGETING_OPTIONS
+    )
+    for option in material:
+        if raw == option or raw.startswith(f"{option}="):
+            return option
+    return None
 
 
 def _split_option(token: str) -> tuple[str, str | None]:
@@ -596,11 +686,15 @@ def _split_option(token: str) -> tuple[str, str | None]:
     return option, value
 
 
-def _strip_environment_assignments(tokens: list[str]) -> list[str]:
-    index = 0
-    while index < len(tokens) and _ENV_ASSIGNMENT.fullmatch(tokens[index]):
-        index += 1
-    return tokens[index:]
+def _literal_value(atom: StaticCommandAtom) -> str | None:
+    if atom.state != "literal" or atom.literal_value is None:
+        return None
+    return atom.literal_value
+
+
+def _literal_casefold(atom: StaticCommandAtom) -> str | None:
+    value = _literal_value(atom)
+    return value.casefold() if value is not None else None
 
 
 def _append_unique(

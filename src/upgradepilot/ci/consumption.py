@@ -45,19 +45,12 @@ type ProjectEnvironmentDependencyEvidence = (
 class StaticDependencyConsumptionEvidence:
     """One exact static CI declaration that may consume the changed dependency.
 
-    ``command_location`` is the canonical parsed occurrence identity when this evidence has
-    migrated to the shared command IR. ``segment_index`` remains only as a temporary Cycle 2
-    compatibility field for project-environment evidence that has not migrated yet. Neither
-    field proves execution or success.
+    ``command_location`` is the canonical parsed occurrence identity. ``structural_context``
+    preserves parser-neutral structure for the CI-owned bounded same-step ordering rule.
+    Neither proves execution or success.
 
-    ``structural_context`` carries parser-neutral structure needed by the CI-owned bounded
-    same-step ordering relation. Empty structure means that this evidence still comes from
-    the legacy project-environment path and must not be mixed into parsed same-step ordering.
-
-    ``supported`` is static consumption evidence only. ``reachability_kind`` and
-    ``witness_path`` are populated when uv selected-root reachability established support.
-    Conditional candidate paths remain diagnostic on ``unresolved`` results and never
-    become supported consumption.
+    ``segment_index`` remains temporarily nullable during Cycle 2 compatibility cleanup;
+    migrated production evidence leaves it unset.
     """
 
     state: StaticDependencyConsumptionState
@@ -89,15 +82,7 @@ def compose_project_environment_consumption(
     declaration: ProjectEnvironmentSelectionDeclaration,
     dependency_evidence: ProjectEnvironmentDependencyEvidence,
 ) -> StaticDependencyConsumptionEvidence:
-    """Compose one dependency-domain result with its exact static CI declaration.
-
-    The dependency layer retains the meaning of optional extras, dependency groups, and
-    uv graph reachability. This CI layer only verifies the composition identity it needs
-    and maps the dependency result into the static-consumption proof axis.
-
-    Project-environment command identity is still the legacy segment contract during this
-    intermediate Cycle 2 slice; its migration is the next bounded responsibility.
-    """
+    """Compose one dependency-domain result with its exact static CI declaration."""
 
     if not workflow_path or not workflow_revision:
         raise ValueError("project environment consumption requires exact workflow identity")
@@ -121,6 +106,8 @@ def compose_project_environment_consumption(
         "step_source_index": observation.step_source_index,
         "segment_index": declaration.segment_index,
         "command": observation.command,
+        "command_location": declaration.command_location,
+        "structural_context": declaration.structural_context,
     }
 
     if isinstance(dependency_evidence, UvSelectedRootReachability):

@@ -11,14 +11,11 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-from ..github.workflow_command_analysis import (
-    StaticCommandAnalysis,
-    StaticCommandAtom,
-    StaticCommandOccurrence,
-)
+from ..github.workflow_command_analysis import StaticCommandAnalysis, StaticCommandAtom
 from ..github.workflow_command_location import StaticCommandLocation
 from ..github.workflow_definition import RunDefaults, RunStepDefinition
 from ..repository_path import repository_relative_parts
+from .pip_command import parsed_pip_install_arguments
 from .workflow_context import (
     EffectiveWorkingDirectory,
     WorkingDirectorySource,
@@ -63,15 +60,7 @@ def observe_direct_installation_declaration(
     workflow_defaults: RunDefaults | None = None,
     job_defaults: RunDefaults | None = None,
 ) -> DirectInstallDeclarationObservation:
-    """Observe whether one parsed static run step directly names the dependency source file.
-
-    Effective ``working-directory`` follows the shared static dependency-domain context:
-    ``step > job defaults.run > workflow defaults.run > repository root``.
-
-    The observer consumes only typed command occurrences/atoms and never reconstructs shell
-    structure from raw text. Analysis or material-token uncertainty remains ``unresolved``;
-    there is no regex/text-segmentation positive-evidence fallback.
-    """
+    """Observe whether one parsed static run step directly names the dependency source file."""
 
     dependency_parts = repository_relative_parts(dependency_source_path)
     if dependency_parts is None:
@@ -126,7 +115,7 @@ def _observe_direct_installation_from_analysis(
     unresolved_location: StaticCommandLocation | None = None
 
     for occurrence in command_analysis.command_occurrences:
-        install_arguments, prefix_unresolved = _direct_pip_install_arguments(occurrence)
+        install_arguments, prefix_unresolved = parsed_pip_install_arguments(occurrence)
         if prefix_unresolved:
             unresolved_seen = True
             if unresolved_location is None:
@@ -216,51 +205,6 @@ def _observe_direct_installation_from_analysis(
     )
 
 
-def _direct_pip_install_arguments(
-    occurrence: StaticCommandOccurrence,
-) -> tuple[tuple[StaticCommandAtom, ...] | None, bool]:
-    """Return pip-install arguments or whether an admitted prefix is materially unresolved."""
-
-    executable = _literal_casefold(occurrence.executable)
-    if executable is None:
-        return None, False
-
-    arguments = occurrence.arguments
-    if executable in {"pip", "pip3"}:
-        if not arguments:
-            return None, False
-        operation = _literal_casefold(arguments[0])
-        if operation is None:
-            return None, True
-        if operation != "install":
-            return None, False
-        return arguments[1:], False
-
-    if executable not in {"python", "python3"} or not arguments:
-        return None, False
-
-    module_switch = _literal_casefold(arguments[0])
-    if module_switch != "-m":
-        return None, False
-    if len(arguments) < 2:
-        return None, False
-
-    module_name = _literal_casefold(arguments[1])
-    if module_name is None:
-        return None, True
-    if module_name != "pip":
-        return None, False
-    if len(arguments) < 3:
-        return None, False
-
-    operation = _literal_casefold(arguments[2])
-    if operation is None:
-        return None, True
-    if operation != "install":
-        return None, False
-    return arguments[3:], False
-
-
 def _requirement_paths_from_atoms(
     arguments: tuple[StaticCommandAtom, ...],
 ) -> tuple[tuple[str, ...], bool]:
@@ -302,12 +246,6 @@ def _requirement_paths_from_atoms(
         index += 1
 
     return tuple(paths), unresolved
-
-
-def _literal_casefold(atom: StaticCommandAtom) -> str | None:
-    if atom.state != "literal" or atom.literal_value is None:
-        return None
-    return atom.literal_value.casefold()
 
 
 __all__ = (

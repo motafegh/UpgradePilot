@@ -2,14 +2,14 @@
 
 GitHub Actions YAML structure is owned by ``upgradepilot.github.workflow_definition``.
 Shared shell parsing and parser-neutral command occurrences are owned by
-``upgradepilot.github.workflow_command_analysis``. Dependency-source install semantics are
-owned by ``upgradepilot.dependency.direct_install``. This CI module owns workflow traversal,
-checkout provenance, direct changed-package invocation meaning, and cross-evidence composition.
+``upgradepilot.github.workflow_command_analysis``. Dependency-source and project-selection
+semantics remain dependency-owned. This CI module owns workflow traversal, checkout
+provenance, direct changed-package invocation meaning, and cross-evidence composition.
 
-Cycle 2 is migrating consumers incrementally. Direct-requirements and direct-package
-invocation now consume the same ``StaticCommandAnalysis`` produced once per run step in the
-normal workflow evidence pass. Project-environment selection remains on its legacy command
-segmentation contract until the next bounded migration slice.
+Cycle 2 has migrated direct requirements, direct package invocation, and project-environment
+selection onto parsed command occurrences. The normal investigation path still supplies
+project-environment consumptions through a separate derivation traversal; consolidating that
+last workflow-level duplication is the next bounded Phase B responsibility.
 """
 
 from __future__ import annotations
@@ -77,17 +77,7 @@ type DirectPackageInvocationState = Literal["observed", "unresolved"]
 
 @dataclass(frozen=True, slots=True)
 class DirectPackageInvocationEvidence:
-    """One parsed static candidate for direct invocation of the changed package.
-
-    ``observed`` means the admitted direct/wrapper shape and package identity are literal in
-    one real parsed command occurrence. ``unresolved`` means an admitted wrapper/prefix is
-    visible but a material target/prefix atom is dynamic or unsupported.
-
-    ``command_location`` and ``structural_context`` are static source facts only. They do not
-    establish execution or success. ``segment_index`` is retained only as a temporary
-    compatibility surface for callers/tests while Cycle 2 finishes; parser-backed invocation
-    evidence leaves it unset.
-    """
+    """One parsed static candidate for direct invocation of the changed package."""
 
     job_key: str
     step_source_index: int
@@ -123,16 +113,7 @@ class WorkflowStaticDependencyEvidence:
 
 @dataclass(frozen=True, slots=True)
 class WorkflowProjectEnvironmentSource:
-    """Exact sources needed to derive project-environment consumption for one context.
-
-    ``project_file`` supplies the exact project-root locator consumed by R3. For a
-    pyproject-owned dependency context it is the dependency source itself. For a uv-lock
-    context it is the exact sibling ``pyproject.toml`` at the lock/workspace root; R4 does
-    not parse that file's content. Typed project-file unavailability is retained so R6 can
-    preserve a relevant selector as unresolved instead of erasing the missing required
-    source. ``lock_file`` is required only for uv reachability and may likewise preserve
-    typed unavailability so R4 can remain conservative.
-    """
+    """Exact sources needed to derive project-environment consumption for one context."""
 
     context: ProjectSourceEnvironmentContext | UvLockDependencyContext
     project_file: RepositoryFileEvidence
@@ -145,11 +126,12 @@ def derive_project_environment_consumptions(
     sources: Sequence[WorkflowProjectEnvironmentSource],
     normalized_package: str,
 ) -> tuple[StaticDependencyConsumptionEvidence, ...]:
-    """Derive R3 -> dependency-domain -> R5 evidence from every readable run step.
+    """Derive parsed R3 -> dependency-domain -> R5 evidence from readable run steps.
 
-    This is still the pre-migration project-environment seam. It remains behaviorally stable
-    during the direct-requirements/direct-invocation slice and is the next Cycle 2 migration
-    target.
+    This compatibility production seam now uses the shared command parser for every run step;
+    it no longer segments or reparses command text. It still performs its own workflow
+    parse/traversal before the later general CI evidence pass. That remaining duplicate
+    traversal is explicit Phase B pressure rather than accepted final architecture.
     """
 
     if not normalized_package:
@@ -185,10 +167,13 @@ def derive_project_environment_consumptions(
             if not isinstance(entry, RunStepDefinition):
                 continue
 
+            command_analysis = analyze_run_step_commands(definition, job, entry)
+
             for project_source in sources:
                 observation = observe_project_environment_selection(
                     entry,
                     project_file_path=project_source.project_file.path,
+                    command_analysis=command_analysis,
                     workflow_defaults=definition.run_defaults,
                     job_defaults=job.run_defaults,
                 )
@@ -272,15 +257,7 @@ def _advance_repository_root_checkout_state(
     *,
     current_state: _RepositoryRootCheckoutState,
 ) -> _RepositoryRootCheckoutState:
-    """Track the bounded declared owner of ``GITHUB_WORKSPACE`` root within one job.
-
-    This is deliberately not a checkout simulator. It consumes only explicit static
-    ``actions/checkout`` declarations already preserved by the workflow provider IR. A
-    literal checkout into a subpath cannot replace workspace-root ownership and therefore
-    leaves the current root state unchanged. A dynamic path can target root, so it makes root
-    provenance unresolved. Conditional root checkout is likewise unresolved because the
-    bounded static rule cannot establish that the rebinding occurs.
-    """
+    """Track the bounded declared owner of ``GITHUB_WORKSPACE`` root within one job."""
 
     if step.reference.contains_expression or not step.reference.text.casefold().startswith(
         "actions/checkout@"
@@ -312,8 +289,6 @@ def _advance_repository_root_checkout_state(
 
 
 def _checkout_path_target(step: UsesStepDefinition) -> _CheckoutPathTarget:
-    """Classify whether one checkout declaration can replace workspace-root ownership."""
-
     path_value, path_ambiguous = _static_checkout_input(step, "path")
     if path_ambiguous:
         return "unresolved"
@@ -335,8 +310,6 @@ def _static_checkout_input(
     step: UsesStepDefinition,
     name: str,
 ) -> tuple[StaticScalarValue | None, bool]:
-    """Return one unique scalar checkout input and whether its shape is ambiguous."""
-
     if step.with_inputs is None:
         return None, False
 
@@ -352,6 +325,20 @@ def _static_checkout_input(
     return matches[0], False
 
 
+def _project_environment_observation_identity(
+    observation: ProjectEnvironmentSelectionObservation,
+) -> tuple[StaticCommandLocation | None, tuple[StaticCommandStructure, ...]]:
+    identities = tuple(
+        (declaration.command_location, declaration.structural_context)
+        for declaration in observation.declarations
+        if declaration.command_location is not None
+    )
+    unique = tuple(dict.fromkeys(identities))
+    if len(unique) == 1:
+        return unique[0]
+    return None, ()
+
+
 def _preserve_unresolved_checkout_provenance(
     source: RepositoryTextFile,
     job: StepsJobDefinition,
@@ -360,11 +347,7 @@ def _preserve_unresolved_checkout_provenance(
     *,
     root_checkout_state: _RepositoryRootCheckoutState,
 ) -> StaticDependencyConsumptionEvidence:
-    """Preserve a plausible selector when current-repository root ownership is unproven."""
-
-    segment_index = (
-        observation.declarations[0].segment_index if observation.declarations else 0
-    )
+    location, structural_context = _project_environment_observation_identity(observation)
     context = project_source.context
     return StaticDependencyConsumptionEvidence(
         state="unresolved",
@@ -374,7 +357,7 @@ def _preserve_unresolved_checkout_provenance(
         workflow_revision=source.revision,
         job_key=job.key,
         step_source_index=observation.step_source_index,
-        segment_index=segment_index,
+        segment_index=None,
         command=observation.command,
         reason="project_environment_checkout_provenance_unresolved",
         detail=(
@@ -383,6 +366,8 @@ def _preserve_unresolved_checkout_provenance(
             f"before this step (root checkout state: {root_checkout_state})."
         ),
         source_path=context.source_path,
+        command_location=location,
+        structural_context=structural_context,
     )
 
 
@@ -392,21 +377,12 @@ def _preserve_unresolved_project_environment_selection(
     project_source: WorkflowProjectEnvironmentSource,
     observation: ProjectEnvironmentSelectionObservation,
 ) -> StaticDependencyConsumptionEvidence:
-    """Carry material R3 command uncertainty forward without invoking R4/R5 semantics.
-
-    The project-environment path still owns its legacy segment placeholder during this
-    intermediate slice. That placeholder is not reused by migrated direct-requirements
-    evidence and will be removed when this path moves onto shared command analysis.
-    """
-
     if observation.state != "unresolved":
         raise ValueError(
             "unresolved project-selection preservation requires unresolved R3 evidence"
         )
 
-    segment_index = (
-        observation.declarations[0].segment_index if observation.declarations else 0
-    )
+    location, structural_context = _project_environment_observation_identity(observation)
     context = project_source.context
     return StaticDependencyConsumptionEvidence(
         state="unresolved",
@@ -416,11 +392,13 @@ def _preserve_unresolved_project_environment_selection(
         workflow_revision=source.revision,
         job_key=job.key,
         step_source_index=observation.step_source_index,
-        segment_index=segment_index,
+        segment_index=None,
         command=observation.command,
         reason=observation.reason,
         detail=observation.detail,
         source_path=context.source_path,
+        command_location=location,
+        structural_context=structural_context,
     )
 
 
@@ -430,17 +408,13 @@ def _preserve_unresolved_required_project_root_source(
     project_source: WorkflowProjectEnvironmentSource,
     observation: ProjectEnvironmentSelectionObservation,
 ) -> StaticDependencyConsumptionEvidence:
-    """Preserve a relevant selector when its required project-root source is unavailable."""
-
     project_file = project_source.project_file
     if not isinstance(project_file, UnavailableRepositoryFile):
         raise ValueError(
             "required project-root source preservation requires unavailable file evidence"
         )
 
-    segment_index = (
-        observation.declarations[0].segment_index if observation.declarations else 0
-    )
+    location, structural_context = _project_environment_observation_identity(observation)
     context = project_source.context
     return StaticDependencyConsumptionEvidence(
         state="unresolved",
@@ -450,7 +424,7 @@ def _preserve_unresolved_required_project_root_source(
         workflow_revision=source.revision,
         job_key=job.key,
         step_source_index=observation.step_source_index,
-        segment_index=segment_index,
+        segment_index=None,
         command=observation.command,
         reason="required_project_root_source_unavailable",
         detail=(
@@ -459,6 +433,8 @@ def _preserve_unresolved_required_project_root_source(
             "project-source membership was not evaluated."
         ),
         source_path=context.source_path,
+        command_location=location,
+        structural_context=structural_context,
     )
 
 
@@ -468,8 +444,6 @@ def _validate_project_environment_source(
     *,
     normalized_package: str,
 ) -> None:
-    """Protect the exact cross-branch identity relation used by R6 composition."""
-
     context = project_source.context
     if (
         context.repository != workflow_source.repository
@@ -507,8 +481,6 @@ def _validate_project_environment_source(
 
 
 def _uv_project_file_path(lock_path: str) -> str:
-    """Return the uv workspace-root pyproject path paired with one normalized uv.lock path."""
-
     lock_root = posixpath.dirname(lock_path)
     return f"{lock_root}/pyproject.toml" if lock_root else "pyproject.toml"
 
@@ -521,13 +493,7 @@ def inspect_workflow_dependency_evidence(
     normalized_package: str,
     project_environment_consumptions: Sequence[StaticDependencyConsumptionEvidence] = (),
 ) -> WorkflowStaticDependencyEvidence:
-    """Preserve static consumption/invocation evidence across all readable steps jobs.
-
-    Direct-requirements and direct-package invocation now share one parser-backed command
-    analysis per run step. Project-environment consumption is still supplied by the
-    separately composed legacy path and is rebound to this exact workflow/job/step before
-    acceptance.
-    """
+    """Preserve static consumption/invocation evidence across all readable steps jobs."""
 
     definition = parse_workflow_definition(source)
     if isinstance(definition, WorkflowDefinitionProblem):
@@ -622,6 +588,7 @@ def inspect_workflow_dependency_evidence(
     for project_environment_consumption in project_environment_consumptions:
         source_problem = _validate_project_environment_consumption_source(
             source,
+            definition,
             readable_jobs,
             project_environment_consumption,
             normalized_package=normalized_package,
@@ -641,12 +608,13 @@ def inspect_workflow_dependency_evidence(
 
 def _validate_project_environment_consumption_source(
     source: RepositoryTextFile,
+    definition: WorkflowDefinition,
     readable_jobs: dict[str, StepsJobDefinition],
     evidence: StaticDependencyConsumptionEvidence,
     *,
     normalized_package: str,
 ) -> StaticWorkflowDependencyProblem | None:
-    """Require legacy project-environment composition to point to this exact static step."""
+    """Require supplied project-environment evidence to point to this exact static command."""
 
     if evidence.normalized_package != normalized_package:
         return StaticWorkflowDependencyProblem(
@@ -701,12 +669,28 @@ def _validate_project_environment_consumption_source(
             job_key=evidence.job_key,
         )
 
+    if evidence.command_location is not None:
+        analysis = analyze_run_step_commands(definition, job, matching_step)
+        occurrence = _occurrence_for_location(analysis, evidence.command_location)
+        if occurrence is None or occurrence.structural_context != evidence.structural_context:
+            return StaticWorkflowDependencyProblem(
+                reason="project_environment_consumption_command_identity_mismatch",
+                detail=(
+                    "Supplied project-environment consumption does not match one exact "
+                    "parsed command occurrence and structural context in the referenced step."
+                ),
+                job_key=evidence.job_key,
+            )
+        return None
+
+    # Temporary compatibility for manually precomposed legacy evidence. Parsed production
+    # project-environment evidence takes the command-location branch above.
     if evidence.segment_index is None:
         return StaticWorkflowDependencyProblem(
-            reason="project_environment_consumption_segment_identity_mismatch",
+            reason="project_environment_consumption_command_identity_mismatch",
             detail=(
-                "Legacy project-environment consumption did not retain its temporary "
-                "segment identity."
+                "Supplied project-environment consumption has neither parsed command "
+                "location nor a temporary legacy segment identity."
             ),
             job_key=evidence.job_key,
         )
@@ -715,8 +699,8 @@ def _validate_project_environment_consumption_source(
         return StaticWorkflowDependencyProblem(
             reason="project_environment_consumption_segment_identity_mismatch",
             detail=(
-                "Supplied project-environment consumption references a command segment "
-                "outside the temporary bounded project-environment segmentation."
+                "Supplied legacy project-environment consumption references a command "
+                "segment outside the temporary bounded segmentation."
             ),
             job_key=evidence.job_key,
         )
@@ -734,8 +718,6 @@ def _inspect_steps_job_evidence(
     consumptions: list[StaticDependencyConsumptionEvidence],
     invocations: list[DirectPackageInvocationEvidence],
 ) -> None:
-    """Collect typed static premises from one local steps job without aggregating them."""
-
     root_checkout_state: _RepositoryRootCheckoutState = "not_established"
     for entry in job.steps:
         if isinstance(entry, UsesStepDefinition):
@@ -881,8 +863,6 @@ def _package_invocations_from_analysis(
     package: str,
     normalized_package: str,
 ) -> tuple[DirectPackageInvocationEvidence, ...]:
-    """Interpret direct changed-package invocation from real parsed occurrences only."""
-
     if analysis.state != "analyzable":
         return ()
 
@@ -1005,7 +985,7 @@ def _literal_casefold(atom: StaticCommandAtom) -> str | None:
 
 
 def _legacy_project_environment_shell_segments(command: str) -> tuple[str, ...]:
-    """Temporary segment splitter retained only for unmigrated project-environment evidence."""
+    """Temporary validator only for manually precomposed legacy project evidence."""
 
     return tuple(
         segment.strip()
