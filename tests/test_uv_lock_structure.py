@@ -130,7 +130,6 @@ class UvLockStructureTests(unittest.TestCase):
         declaration = ProjectEnvironmentSelectionDeclaration(
             manager="uv",
             operation="sync",
-            segment_index=0,
             project_root=None,
             selectors=(DependencyGroupSelector("docs"),),
         )
