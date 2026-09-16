@@ -7,6 +7,7 @@
 **Previous closure:** [`2026-09-16_cycle2-phase-b-hosted-proof-closure.md`](2026-09-16_cycle2-phase-b-hosted-proof-closure.md)  
 **Phase A design record:** [`2026-09-14_static-command-consumer-migration-and-identity.md`](2026-09-14_static-command-consumer-migration-and-identity.md)  
 **Phase B engineering record:** [`2026-09-15_cycle2-static-consumer-build.md`](2026-09-15_cycle2-static-consumer-build.md)  
+**Cycle 1 closure:** [`2026-09-13_static-workflow-command-three-cycle-implementation.md`](2026-09-13_static-workflow-command-three-cycle-implementation.md)  
 **Hosted proof repairs:** [`2026-09-16_phase-b-hosted-proof-repair.md`](2026-09-16_phase-b-hosted-proof-repair.md), [`2026-09-16_phase-b-hosted-proof-repair-3.md`](2026-09-16_phase-b-hosted-proof-repair-3.md)  
 **Selected bounded implementation plan:** [`../plans/STATIC_WORKFLOW_COMMAND_ANALYSIS_AND_RUNTIME_STRENGTHENING_IMPLEMENTATION_PLAN.md`](../plans/STATIC_WORKFLOW_COMMAND_ANALYSIS_AND_RUNTIME_STRENGTHENING_IMPLEMENTATION_PLAN.md)  
 **Accepted architecture:** [`../docs/architecture/ADR-0009-parser-backed-static-workflow-command-analysis.md`](../docs/architecture/ADR-0009-parser-backed-static-workflow-command-analysis.md)
@@ -45,42 +46,89 @@ This working memory is the Phase-D control/checklist and progression record. It 
 
 Phase D should make Ali able to **own the engineering responsibility**, not reproduce every line or library API from memory.
 
-The central ownership target is:
+The central ownership target is now explicitly end to end across the Cycle-1 producer and Cycle-2 consumer architecture:
 
 ```text
 exact GitHub Actions workflow run step
-→ effective shell / parser-neutral command analysis
-→ real static command occurrence + canonical source identity
+→ effective shell context
+→ Tree-sitter-backed shell parsing
+→ parser-neutral StaticCommandAnalysis
+→ StaticCommandOccurrence / typed atoms / structural context
+→ canonical StaticCommandLocation
 → dependency / project-environment / package-invocation interpretation
 → one-pass CI composition
 → bounded static ordering
 → explicit proof and non-proof boundary
 ```
 
+Cycle 1 is **not reopened as a second full learning program**. Its mechanisms are refreshed just-in-time where Cycle 2 depends on them so the whole system is understandable rather than teaching Cycle 2 as isolated migration plumbing.
+
 By D closure, Ali should be able to:
 
 1. explain why Cycle 2 was needed and reconstruct the A1–A6 design responsibilities;
-2. trace the final producer → consumers → CI composition flow through the important source owners;
-3. distinguish workflow/job/step identity, inner command occurrence identity, source order, static ordering, runtime correlation, execution, and success;
-4. explain why parser-neutral IR belongs above dependency/CI domain semantics;
-5. reason about direct requirements, project-environment selection, and direct package invocation without treating them as equivalent propositions;
-6. explain why unresolved step-level evidence may legitimately have no exact inner-command identity;
-7. explain why B4's one-analysis/single-traversal shape is a correctness boundary, not merely an optimization;
-8. use representative tests to state what is proven and what remains unproven;
-9. trace one requirements-shaped case and one project-environment case end to end;
-10. classify the important hosted-proof failures and defend why the repairs preserved rather than weakened the architecture;
-11. identify exactly what Cycle 2 still does **not** prove and therefore belongs to Cycle 3 or later responsibilities;
-12. reason through at least one nearby changed case without replaying the exact taught example.
+2. recover the relevant Cycle-1 producer model: effective shell → parser → parser-neutral command analysis;
+3. explain the practical meaning of `StaticCommandAnalysis`, `StaticCommandOccurrence`, typed atoms, source span/order, structural context, and analysis problem states;
+4. trace the final producer → consumers → CI composition flow through the important source owners;
+5. distinguish workflow/job/step identity, inner command occurrence identity, source order, static ordering, runtime correlation, execution, and success;
+6. explain why parser-neutral IR belongs above dependency/CI domain semantics;
+7. reason about direct requirements, project-environment selection, and direct package invocation without treating them as equivalent propositions;
+8. explain why unresolved step-level evidence may legitimately have no exact inner-command identity;
+9. explain why B4's one-analysis/single-traversal shape is a correctness boundary, not merely an optimization;
+10. use representative tests to state what is proven and what remains unproven;
+11. trace one requirements-shaped case and one project-environment case end to end;
+12. classify the important hosted-proof failures and defend why the repairs preserved rather than weakened the architecture;
+13. identify exactly what Cycle 2 still does **not** prove and therefore belongs to Cycle 3 or later responsibilities;
+14. reason through at least one nearby changed case without replaying the exact taught example.
 
-## 3. Depth calibration
+## 3. Integrated Cycle-1 refresh rule
+
+When a Cycle-2 mechanism depends on a Cycle-1 mechanism, teach the Cycle-1 prerequisite immediately before or alongside it.
+
+Use this depth rule:
+
+```text
+needed to reason about Cycle 2 correctly
+→ refresh and own at practical depth
+
+needed only to understand how the producer is implemented internally
+→ operational / lookup depth
+
+unrelated Cycle-1 implementation detail
+→ do not reopen
+```
+
+Cycle-1 concepts to refresh as part of Phase D:
+
+- why effective shell context must be established before choosing a parser;
+- `syntax_family` versus execution profile at the level needed to interpret command analysis;
+- why Bash/sh, PowerShell/pwsh, and CMD/batch use shell-specific parsers behind one common UpgradePilot IR;
+- `StaticCommandAnalysis` states and material parser uncertainty;
+- `StaticCommandOccurrence` as a real static syntactic command occurrence;
+- `StaticCommandAtom` literal/dynamic/unsupported meaning;
+- `CommandSourceSpan`, deterministic `source_order`, and structural context;
+- why comments/quoted command-looking payloads do not manufacture independent commands;
+- why parser uncertainty fails closed and does not fall back to regex/text splitting for positive evidence;
+- the critical retained proposition: static occurrence is not execution or success.
+
+Do **not** expand into:
+
+- detailed Tree-sitter node schemas for each grammar;
+- parser ABI/version history except where it helps understand the trust/proof boundary;
+- exact adapter recursion/walk implementation;
+- complete grammar coverage;
+- every Cycle-1 test fixture.
+
+## 4. Depth calibration
 
 ### Must own at high practical depth
 
-These are central Cycle-2 responsibilities and should be explainable, traceable, testable, and challengeable:
+These are central Cycle-2 responsibilities or direct Cycle-1 prerequisites needed to understand them:
 
 - A1–A6 and the engineering reason for each;
 - provider / dependency / CI ownership boundaries;
-- `StaticCommandAnalysis`, `StaticCommandOccurrence`, and `StaticCommandLocation` at the level needed to trace consumers;
+- the end-to-end producer model: shell context → parser-backed analysis → parser-neutral IR;
+- `StaticCommandAnalysis`, `StaticCommandOccurrence`, `StaticCommandAtom`, structural context, and `StaticCommandLocation` at the level needed to trace consumers;
+- why comments/quoted payloads are excluded structurally and parser uncertainty stays uncertainty;
 - outer workflow/job/step identity versus inner command source identity;
 - why `segment_index` was overloaded and why identity/order/placeholder concerns were separated;
 - literal versus dynamic/unsupported material command atoms at the consumer boundary;
@@ -97,8 +145,9 @@ These are central Cycle-2 responsibilities and should be explainable, traceable,
 
 Know what these do and where they matter; exact internals may be looked up:
 
-- effective-shell resolution details already proven in Cycle 1;
+- detailed effective-shell precedence edge cases already proven in Cycle 1;
 - Tree-sitter CST/node layouts and individual grammar adapter internals;
+- parser ABI/package-version mechanics beyond the fact that the selected stack was characterized and proven;
 - exact helper loops for every pip/uv option;
 - every selector/enum/dataclass field in `environment_selection.py`;
 - every reachability/membership branch below the project-environment composition seam;
@@ -129,18 +178,25 @@ Do not let Phase D expand into responsibilities Cycle 2 did not own:
 - Target redesign unrelated to the demonstrated downstream migration residue;
 - maintainer-action enablement beyond the current synthesis baseline.
 
-## 4. Stable source/test map for Phase D
+## 5. Stable source/test map for Phase D
 
 Use only the source/tests needed by the active block rather than loading the whole repository.
+
+### Cycle-1 producer refresh
+
+```text
+src/upgradepilot/github/workflow_command_shell.py
+src/upgradepilot/github/workflow_command_analysis.py
+tests/test_github_workflow_command_analysis.py
+```
+
+Read only the parts needed to understand effective shell → command analysis → occurrence/atom/structure/problem-state behavior. Grammar-specific internal details remain supporting/lookup material.
 
 ### Provider / identity seam
 
 ```text
-src/upgradepilot/github/workflow_command_analysis.py
 src/upgradepilot/github/workflow_command_location.py
 ```
-
-Cycle 1 parser internals are supporting context; Cycle 2 learning starts at the parser-neutral outputs and their identity meaning.
 
 ### Dependency semantics
 
@@ -172,6 +228,7 @@ src/upgradepilot/investigation.py
 Core proofs to understand, not memorize:
 
 ```text
+tests/test_github_workflow_command_analysis.py
 tests/test_parser_backed_ci_command_evidence.py
 tests/test_static_command_order.py
 tests/test_single_pass_workflow_static_evidence.py
@@ -186,7 +243,7 @@ tests/test_r6_project_source_workflow_integration.py
 
 Use narrower tests from adjacent modules only when a question requires them.
 
-## 5. Phase-D learning route and checklist
+## 6. Phase-D learning route and checklist
 
 Statuses are updated as learning progresses:
 
@@ -198,30 +255,52 @@ A block is DONE only after both explanation/tracing and a proportionate Ali owne
 
 ### D1 — Reconstruct the Cycle-2 problem and Phase-A design
 
-**Status:** PENDING
+**Status:** IN PROGRESS
 
 Cover:
 
-- what the old consumers did before Cycle 2;
+- what Cycle 1 already established and therefore what Cycle 2 did **not** need to reinvent;
+- what the old consumers still did before Cycle 2;
 - why duplicate textual splitting / regex / `shlex` command meaning was unsafe;
 - why `segment_index` had become three responsibilities hidden in one integer;
 - why one trusted provider-owned command analysis should feed several domain consumers;
 - reconstruct A1–A6 and map each design decision to the final responsibility it created.
 
+Cycle-1 prerequisite refresh inside D1:
+
+```text
+RunStepDefinition
+→ effective shell context
+→ shell-family parser
+→ StaticCommandAnalysis
+→ StaticCommandOccurrence / atoms / source span-order / structural context
+```
+
 Primary evidence:
 
-- Phase-A working memory;
+- Cycle-1 closure working memory for the producer contract;
+- Phase-A working memory for Cycle-2 rationale;
 - Phase-B final architecture summary;
 - relevant final source signatures, not transitional source snapshots.
 
 Depth:
 
-- **must own** the problem statement, A1–A6, and owner/layer placement;
-- transitional implementation details are historical context only.
+- **must own** the end-to-end problem statement, Cycle-1 producer contract at practical depth, A1–A6, and owner/layer placement;
+- transitional implementation details and Tree-sitter grammar internals are historical/operational context only.
 
 Completion check:
 
-Ali can explain the before → design correction → expected final architecture without relying on file-by-file narration.
+Ali can explain:
+
+```text
+what Cycle 1 produced
+→ what remained architecturally wrong downstream
+→ why Cycle 2 was needed
+→ what A1–A6 corrected
+→ expected final architecture
+```
+
+without relying on file-by-file narration.
 
 ---
 
@@ -229,7 +308,12 @@ Ali can explain the before → design correction → expected final architecture
 
 **Status:** PENDING
 
-Trace:
+Cycle-1 refresh first:
+
+- how one `StaticCommandOccurrence` gets `CommandSourceSpan`, `source_order`, and structural context;
+- why those are static source facts only.
+
+Then trace:
 
 ```text
 StaticCommandOccurrence
@@ -249,12 +333,13 @@ Cover:
 
 Primary proof:
 
+- relevant occurrence/span/structure tests from `test_github_workflow_command_analysis.py`;
 - `tests/test_static_command_order.py`;
 - relevant direct-exercise order regression.
 
 Depth:
 
-- **must own** identity/order/proof distinctions;
+- **must own** occurrence → location → order-relation distinctions;
 - exact byte-span arithmetic is operational detail.
 
 Completion check:
@@ -266,6 +351,13 @@ Given a few changed command placements/structures, Ali can classify what identit
 ### D3 — Parser-neutral command facts versus dependency/CI semantics
 
 **Status:** PENDING
+
+Cycle-1 refresh first:
+
+- `StaticCommandAnalysis` analyzable/unresolved/error meaning;
+- literal/dynamic/unsupported `StaticCommandAtom` meaning;
+- why comments and quoted payloads do not create occurrences;
+- why provider uncertainty cannot be replaced by a downstream textual fallback.
 
 Follow one requirements command and one project-environment command:
 
@@ -288,20 +380,22 @@ Cover:
 
 Primary source:
 
+- relevant bounded parts of `workflow_command_analysis.py`;
 - `pip_command.py`;
 - `direct_install.py`;
 - the bounded relevant portions of `environment_selection.py` and `workflow_commands.py`.
 
 Primary proof:
 
+- command-analysis false-positive/uncertainty tests;
 - direct-install tests;
 - project-environment selection tests;
 - parser-backed CI command-evidence tests.
 
 Depth:
 
-- **must own** the domain-boundary model and representative command interpretations;
-- do not memorize the full pip/uv option machinery.
+- **must own** the producer/domain-boundary model and representative command interpretations;
+- do not memorize the full pip/uv option machinery or parser grammar internals.
 
 Completion check:
 
@@ -362,14 +456,17 @@ Ali can explain why “same parser in two traversals” was still insufficient a
 
 **Status:** PENDING
 
-Use two representative cases to integrate the architecture.
+Use two representative cases to integrate the whole Cycle-1 → Cycle-2 architecture.
 
 #### Case A — S001-style uv project environment
 
 Trace a real-shaped path such as:
 
 ```text
-uv sync --all-packages --group docs
+workflow run step
+→ effective shell + command occurrence
+→ uv sync --all-packages --group docs
+→ typed atoms / structural context
 → visible selection + package scope
 → uv-lock selected-root reachability
 → transitive witness to changed package
@@ -383,7 +480,8 @@ Use the real regression facts in `test_r6_project_environment_workflow_integrati
 Trace:
 
 ```text
-pip install -e ".[dev]"
+workflow run step
+→ parsed pip install -e ".[dev]" occurrence
 + changed dependency belongs to [project.optional-dependencies].mlx
 → visible dev selection
 → selected environment membership NOT established for mlx
@@ -394,6 +492,7 @@ Use `test_r6_project_source_workflow_integration.py`.
 
 Cover:
 
+- parsed occurrence is only the start of the evidence chain;
 - selection is not membership/reachability;
 - membership/reachability is not execution;
 - positive and negative/not-established evidence both depend on exact source/context identity;
@@ -401,18 +500,23 @@ Cover:
 
 Depth:
 
-- **must own** the evidence transformation and proof boundary;
+- **must own** the end-to-end evidence transformation and proof boundary;
 - exact lock parser details and all possible selectors remain operational/deferred.
 
 Completion check:
 
-Ali can trace both cases from workflow command to final static consumption result and explain exactly which proposition changes between the two cases.
+Ali can trace both cases from workflow source through Cycle-1 command facts and Cycle-2 consumers to final static consumption result, and explain exactly which proposition changes between the two cases.
 
 ---
 
 ### D6 — Static presence, direct exercise, runtime boundary, and proof discipline
 
 **Status:** PENDING
+
+Cycle-1 refresh first:
+
+- structural context tags express static source structure;
+- a real occurrence can exist inside conditional/short-circuit structure without being proven executed.
 
 Connect Cycle-2 static evidence to the existing CI coverage layer without entering Cycle-3 implementation.
 
@@ -442,6 +546,7 @@ Clarify:
 
 Primary proof:
 
+- command-analysis structural-context tests;
 - static-order tests;
 - CI static direct-exercise tests;
 - relevant runtime-correlated coverage test only as a boundary example.
@@ -480,18 +585,18 @@ execution/tooling failure
 Final synthesis must explicitly cover:
 
 ```text
-what existed before Cycle 2
-→ what was wrong/overloaded
+what Cycle 1 established
+→ what still remained wrong downstream
 → what A decided
 → what B actually built
 → what proof failures taught us
-→ what final implementation guarantees
-→ what final implementation deliberately does not guarantee
+→ what final Cycle-1 + Cycle-2 system guarantees
+→ what it deliberately does not guarantee
 ```
 
 Ownership checks:
 
-- one end-to-end verbal/source trace chosen by Ali;
+- one end-to-end verbal/source trace chosen by Ali from workflow text through final static evidence;
 - one representative test explained as setup → action → assertion → proof → non-proof;
 - one changed-context classification problem;
 - one design judgment: defend an ownership/layer decision or identify a credible alternative/trade-off;
@@ -499,17 +604,15 @@ Ownership checks:
 
 Completion condition for D7:
 
-Ali demonstrates proportionate ownership of the Cycle-2 responsibility without needing to reproduce incidental syntax or every helper implementation.
+Ali demonstrates proportionate ownership of the integrated Cycle-1 producer + Cycle-2 consumer responsibility without needing to reproduce incidental syntax or every helper implementation.
 
-## 6. Newly discovered learning items
+## 7. Newly discovered learning items
 
 If a meaningful gap appears that this plan did not anticipate, add it here rather than silently expanding another block.
 
-Use:
-
 | ID | Item discovered | Why it matters to Cycle 2 ownership | Depth | Status / destination |
 |---|---|---|---|---|
-| — | none yet | — | — | — |
+| D-N1 | Integrate Cycle-1 producer refresh into Cycle-2 learning instead of treating Cycle 2 as isolated migration | Cycle-2 correctness depends on understanding the meaning/trust boundary of the shared producer outputs it consumes | must own | ACTIVE — distributed across D1, D2, D3, D5, D6 |
 
 Rules:
 
@@ -518,13 +621,13 @@ Rules:
 - a question does not automatically become a new lesson block;
 - if the item exposes an implementation/design defect, record it but do **not** mutate product source while Learning-Only is active; explicitly transition to Audit/Planning/Build later if Ali authorizes it.
 
-## 7. Phase-D progress record
+## 8. Phase-D progress record
 
 Update this compact table after meaningful learning checkpoints.
 
 | Block | Status | What was established | Open gap / next |
 |---|---|---|---|
-| D1 problem + A1–A6 design | PENDING | — | start here |
+| D1 problem + A1–A6 design | IN PROGRESS | Established that Cycle 2 is consumer/evidence-architecture engineering, not merely parser adoption; refined learning scope to include the Cycle-1 producer mechanisms Cycle 2 depends on | refresh Cycle-1 producer model, then resume first D1 ownership check and A1–A6 reconstruction |
 | D2 identity + static ordering | PENDING | — | — |
 | D3 parser-neutral facts → domain semantics | PENDING | — | — |
 | D4 one-analysis composition | PENDING | — | — |
@@ -534,30 +637,31 @@ Update this compact table after meaningful learning checkpoints.
 
 Do not mark a block DONE merely because the explanation was delivered. Preserve the ownership evidence or remaining gap in concise form.
 
-## 8. Phase-D completion gate
+## 9. Phase-D completion gate
 
 Phase D closes only when:
 
 - D1–D7 are DONE or an item is explicitly reclassified as safely operational/deferred;
 - all **must-own** newly discovered items are resolved;
+- Ali can reconstruct the relevant Cycle-1 producer model and the Cycle-2 consumer/composition architecture as one system;
 - Ali can reconstruct the important normal flow and the material unresolved/failure boundaries;
 - Ali can explain the main ownership split across GitHub/provider, dependency, and CI;
 - Ali can distinguish command identity, static ordering, execution, runtime correlation, and success;
 - Ali can interpret representative tests and their non-claims;
 - Ali can trace the two selected real cases;
 - Ali can reason about at least one nearby changed case;
-- no unexamined gap remains that would make Cycle-3 reasoning depend on black-box Cycle-2 behavior.
+- no unexamined gap remains that would make Cycle-3 reasoning depend on black-box Cycle-1 or Cycle-2 behavior.
 
 D closure does **not** require:
 
 - memorizing all source;
 - recreating code unaided;
-- mastering Tree-sitter internals;
+- mastering Tree-sitter grammar/node internals;
 - memorizing pip/uv option tables;
-- reviewing every test;
+- reviewing every Cycle-1 or Cycle-2 test;
 - learning Cycle-3 implementation before its A phase.
 
-## 9. Phase E handoff after D
+## 10. Phase E handoff after D
 
 After D closes:
 
@@ -565,15 +669,23 @@ After D closes:
 2. repair learning/prerequisite gaps at the minimum useful depth;
 3. if a real product/design defect was discovered, separately select the appropriate Audit/Planning/Build route before mutation;
 4. reconcile `MEMORY.md` and this working memory;
-5. orient Cycle 3 A only after Ali has sufficient Cycle-2 ownership.
+5. orient Cycle 3 A only after Ali has sufficient integrated Cycle-1/Cycle-2 ownership.
 
 Do not start Cycle 3 merely because all explanations were presented.
 
-## 10. Immediate next action
+## 11. Immediate next action
 
-Start **D1 — Reconstruct the Cycle-2 problem and Phase-A A1–A6 design** in Learning-Only mode.
+Continue **D1 — Reconstruct the Cycle-2 problem and Phase-A A1–A6 design** in Learning-Only mode, but first refresh the minimum Cycle-1 producer model needed to understand the migration end to end:
 
-Use the Phase-A decision memory as rationale/provenance and the final source as implementation truth. Do not teach B1–B5 commit chronology as the primary structure; use chronology only when it explains an important engineering pressure or correction.
+```text
+RunStepDefinition
+→ effective shell context
+→ shell-family parser
+→ StaticCommandAnalysis
+→ occurrences / atoms / structural context / problem state
+```
 
-`UP-SKILL:upgradepilot-planning-design`  
+Then return directly to the current D1 ownership question and A1–A6 reconstruction. Do not branch into a standalone Tree-sitter course.
+
+`UP-SKILL:upgradepilot-learning-only`  
 `UP-SKILL:upgradepilot-working-memory`
