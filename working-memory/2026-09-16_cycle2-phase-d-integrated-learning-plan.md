@@ -1,6 +1,6 @@
 # Cycle 2 Phase D Integrated Learning / Ownership Plan — Working Memory
 
-**Date:** 2026-09-16  
+**Date:** 2026-09-17  
 **Session status:** ACTIVE  
 **Primary responsibility:** Cycle 2 Phase D — integrated post-implementation learning and engineering-ownership check  
 **Primary execution mode for D:** Learning-Only — product/source/test mutation paused unless Ali explicitly changes the action boundary later  
@@ -30,7 +30,7 @@ C — COMPLETE through progressive preservation
     final proof, and live continuation are all preserved in their normal owners
 
 D — ACTIVE / THIS RECORD
-    integrated learning + engineering-ownership check over stable final source
+    D1 DONE; D2 ACTIVE; integrated learning + engineering-ownership check continues
 
 E — PENDING
     repair only demonstrated learning/ownership gaps, then orient Cycle 3
@@ -255,7 +255,7 @@ A block is DONE only after both explanation/tracing and a proportionate Ali owne
 
 ### D1 — Reconstruct the Cycle-2 problem and Phase-A design
 
-**Status:** IN PROGRESS
+**Status:** DONE
 
 Cover:
 
@@ -288,25 +288,15 @@ Depth:
 - **must own** the end-to-end problem statement, Cycle-1 producer contract at practical depth, A1–A6, and owner/layer placement;
 - transitional implementation details and Tree-sitter grammar internals are historical/operational context only.
 
-Completion check:
+Completion evidence:
 
-Ali can explain:
-
-```text
-what Cycle 1 produced
-→ what remained architecturally wrong downstream
-→ why Cycle 2 was needed
-→ what A1–A6 corrected
-→ expected final architecture
-```
-
-without relying on file-by-file narration.
+Ali reconstructed the Cycle-1 producer → Cycle-2 consumer architecture in practical examples and correctly reasoned about shared analysis, canonical source identity, removal of fabricated ordinals, dependency versus invocation ownership, and bounded static ordering. The final repair check distinguished sound lower-level observations from a stronger unresolved composition: a conditional requirements declaration and a later clear package invocation can both be statically observed while their same-step ordered-after relationship remains unresolved. Runtime execution/success was kept outside the Cycle-2 claim boundary.
 
 ---
 
 ### D2 — Canonical command identity and bounded static ordering
 
-**Status:** PENDING
+**Status:** IN PROGRESS
 
 Cycle-1 refresh first:
 
@@ -612,7 +602,7 @@ If a meaningful gap appears that this plan did not anticipate, add it here rathe
 
 | ID | Item discovered | Why it matters to Cycle 2 ownership | Depth | Status / destination |
 |---|---|---|---|---|
-| D-N1 | Integrate Cycle-1 producer refresh into Cycle-2 learning instead of treating Cycle 2 as isolated migration | Cycle-2 correctness depends on understanding the meaning/trust boundary of the shared producer outputs it consumes | must own | ACTIVE — distributed across D1, D2, D3, D5, D6 |
+| D-N1 | Integrate Cycle-1 producer refresh into Cycle-2 learning instead of treating Cycle 2 as isolated migration | Cycle-2 correctness depends on understanding the meaning/trust boundary of the shared producer outputs it consumes | must own | ACTIVE — D1 foundation complete; continue just-in-time through D2, D3, D5, D6 |
 
 Rules:
 
@@ -627,12 +617,12 @@ Update this compact table after meaningful learning checkpoints.
 
 | Block | Status | What was established | Open gap / next |
 |---|---|---|---|
-| D1 problem + A1–A6 design | IN PROGRESS | Established that Cycle 2 is consumer/evidence-architecture engineering, not merely parser adoption; refined learning scope to include the Cycle-1 producer mechanisms Cycle 2 depends on | refresh Cycle-1 producer model, then resume first D1 ownership check and A1–A6 reconstruction |
-| D2 identity + static ordering | PENDING | — | — |
-| D3 parser-neutral facts → domain semantics | PENDING | — | — |
+| D1 problem + A1–A6 design | DONE | Practical ownership demonstrated for Cycle-1 producer → Cycle-2 consumer architecture, shared analysis, source identity, uncertainty preservation, layer ownership, and lower-level observation versus stronger composition | no D1 repair needed |
+| D2 identity + static ordering | IN PROGRESS | D1 already established the conceptual identity/order distinction and representative clean/reversed/path-dependent classifications | trace the real final source path and representative proof; avoid reteaching concepts already owned |
+| D3 parser-neutral facts → domain semantics | PENDING | D1 previewed literal/dynamic materiality, no textual fallback, and provider/dependency/CI ownership | complete only the missing final-source/proof aspects after D2 |
 | D4 one-analysis composition | PENDING | — | — |
 | D5 S001 + S011 real cases | PENDING | — | — |
-| D6 static/runtime/proof boundary | PENDING | — | — |
+| D6 static/runtime/proof boundary | PENDING | D1 already established static observation/order does not prove execution or success | later consolidate against final dependency-exercise/runtime boundary rather than reteach from zero |
 | D7 proof failures + synthesis | PENDING | — | — |
 
 Do not mark a block DONE merely because the explanation was delivered. Preserve the ownership evidence or remaining gap in concise form.
@@ -675,17 +665,16 @@ Do not start Cycle 3 merely because all explanations were presented.
 
 ## 11. Immediate next action
 
-Continue **D1 — Reconstruct the Cycle-2 problem and Phase-A A1–A6 design** in Learning-Only mode, but first refresh the minimum Cycle-1 producer model needed to understand the migration end to end:
+Continue **D2 — Canonical command identity and bounded static ordering** in Learning-Only mode, using the final stable source and representative proof rather than repeating D1 theory:
 
 ```text
-RunStepDefinition
-→ effective shell context
-→ shell-family parser
-→ StaticCommandAnalysis
-→ occurrences / atoms / structural context / problem state
+StaticCommandOccurrence
+→ StaticCommandLocation(source_span, source_order)
+→ StaticDependencyConsumptionEvidence / DirectPackageInvocationEvidence
+→ relate_invocation_after_consumption(...)
 ```
 
-Then return directly to the current D1 ownership question and A1–A6 reconstruction. Do not branch into a standalone Tree-sitter course.
+Focus only on the missing implementation/proof ownership: where canonical identity is created and carried, how missing same-step identity fails closed, and how the final order relation uses step order, source order, and path-dependent structure. Concepts already demonstrated during D1 should be recalled briefly and not retaught from zero.
 
 `UP-SKILL:upgradepilot-learning-only`  
 `UP-SKILL:upgradepilot-working-memory`
