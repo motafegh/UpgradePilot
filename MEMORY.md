@@ -1,13 +1,13 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-09-16  
+**Last updated:** 2026-09-17  
 **Authority:** sole owner of the live project position, current blockers, selected continuation, and current learning depth.
 
 ## Live position
 
-- **Current responsibility:** execute Cycle 2 **Phase D** as an integrated post-implementation learning / engineering-ownership check over the stable, proven parser-backed static workflow-command consumer architecture.
+- **Current responsibility:** execute Cycle 2 **Phase D**, currently **D2 — canonical command identity + bounded static ordering**, as an integrated post-implementation learning / engineering-ownership check over the stable, proven parser-backed static workflow-command consumer architecture.
 - **Mode:** **Learning-Only for Phase D** — product/source/test mutation is paused while learning is the selected responsibility. If learning exposes a real defect, record it and explicitly transition later to Audit/Planning/Build before mutation.
-- **Cycle state:** **Cycle 1 CLOSED; Cycle 2 A COMPLETE; B CLOSED + hosted proof green; C COMPLETE through progressive preservation; D ACTIVE; E PENDING; Cycle 3 NOT STARTED**.
+- **Cycle state:** **Cycle 1 CLOSED; Cycle 2 A COMPLETE; B CLOSED + hosted proof green; C COMPLETE through progressive preservation; D ACTIVE with D1 DONE / D2 ACTIVE; E PENDING; Cycle 3 NOT STARTED**.
 - **Selected Phase-D working memory / checklist:** `working-memory/2026-09-16_cycle2-phase-d-integrated-learning-plan.md`.
 - **Selected parent plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
 - **Selected bounded implementation plan:** `plans/STATIC_WORKFLOW_COMMAND_ANALYSIS_AND_RUNTIME_STRENGTHENING_IMPLEMENTATION_PLAN.md`.
@@ -211,28 +211,31 @@ Primary purpose:
 Selected learning blocks:
 
 ```text
-D1  Cycle-2 problem + A1–A6 design reconstruction
-D2  canonical command identity + bounded static ordering
-D3  parser-neutral facts → dependency/CI domain semantics
+D1  Cycle-2 problem + A1–A6 design reconstruction                 DONE
+D2  canonical command identity + bounded static ordering          ACTIVE
+D3  parser-neutral facts → dependency/CI domain semantics         PENDING
 D4  one-analysis production handoff + project-environment composition
 D5  S001-style uv + S011-style pyproject real cases
 D6  static presence / direct exercise / runtime proof boundary
 D7  hosted-proof failures + final ownership synthesis
 ```
 
+D1 completion evidence: practical ownership was demonstrated through real-shaped workflow examples. Ali correctly reasoned about the Cycle-1 producer / Cycle-2 consumer split, shared analysis, canonical source identity, removal of fabricated ordinals, domain ownership, and the distinction between sound lower-level observations and stronger unresolved composition under conditional/short-circuit structure. Static evidence was not confused with runtime execution or success.
+
 The Phase-D record owns status updates, newly discovered learning items, depth classification, and completion evidence.
 
 ### Immediate next action
 
-Start **D1** in Learning-Only mode:
+Continue **D2** in Learning-Only mode using the final stable source and representative proof rather than repeating D1 theory:
 
 ```text
-old Cycle-2 pressure
-→ A1–A6 decisions
-→ map each decision to the final stable architecture
+StaticCommandOccurrence
+→ StaticCommandLocation(source_span, source_order)
+→ StaticDependencyConsumptionEvidence / DirectPackageInvocationEvidence
+→ relate_invocation_after_consumption(...)
 ```
 
-Use the Phase-A working memory for rationale/provenance and final source/tests for implementation truth. Do not teach transitional B1–B4 snapshots as the final architecture.
+Focus on the missing implementation/proof ownership: where canonical identity is created and carried, how missing same-step identity fails closed, and how final ordering combines step order, source order, and path-dependent structure. Concepts already demonstrated during D1 should be recalled briefly, not retaught from zero.
 
 ## Phase E — PENDING
 
