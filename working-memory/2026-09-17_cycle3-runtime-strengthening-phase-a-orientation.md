@@ -84,7 +84,7 @@ ADR-0009 already decides the following:
 - conditional, short-circuit, parser-ambiguous, execution-profile-ambiguous, or unsupported shapes must remain static-only/unresolved at the stronger runtime proposition;
 - runtime logs are not the primary correction mechanism.
 
-The implementation plan selects a conservative first positive class:
+The implementation plan selects a conservative first positive direction:
 
 ```text
 cleanly parsed straightforward top-level command occurrence
@@ -95,7 +95,7 @@ cleanly parsed straightforward top-level command occurrence
 → candidate for bounded runtime strengthening
 ```
 
-Additional linear/chain shapes are not required unless evidence proves the exact implication needed.
+Additional linear/chain shapes are not required by the written baseline unless evidence proves the exact implication needed. This plan remains important coordination evidence, but Phase A may refine the route when stronger product/engineering reasoning justifies it without violating the accepted architecture or scope.
 
 ## 4. Phase-A design questions
 
@@ -105,7 +105,7 @@ Current decision state:
 A1 exact strengthened proposition     DECIDED
 A2 eligibility state model            DECIDED
 A3 canonical occurrence handoff       DECIDED
-A4 first admitted positive structure  OPEN — next
+A4 first admitted positive family     ACTIVE / OPEN
 A5 negative/unresolved structures     OPEN
 A6 runtime-correlation composition     OPEN
 A7 proof matrix                        OPEN
@@ -232,7 +232,7 @@ with:
     echo done
 ```
 
-Ali correctly identified the core structural distinction: Case A is straightforward while Case B is conditional. The refined engineering rule is that straightforward/top-level structure is a necessary input to the first positive class, while a conditional occurrence is path-dependent and therefore cannot inherit successful enclosing-step evidence merely from step success.
+Ali correctly identified the core structural distinction: Case A is straightforward while Case B is conditional. The refined engineering rule is that straightforward/top-level structure is a necessary input to the first positive family, while a conditional occurrence is path-dependent and therefore cannot inherit successful enclosing-step evidence merely from step success.
 
 A second independent requirement remains the **execution profile**: even a straightforward occurrence may be strengthened only when GitHub's wrapper/execution semantics are sufficiently established for the inference being made.
 
@@ -324,37 +324,87 @@ The handoff must **not**:
 
 Runtime correlation remains identity-only at the outer job/step boundary; occurrence eligibility remains a separate CI composition responsibility.
 
-### A4 — First admitted positive structure — OPEN / NEXT
+### Session correction — product-faithful boundedness and decision readiness
 
-Decide the precise first eligibility rule for `straightforward_top_level` occurrences.
+During A4 discussion, Ali raised a material concern with the proposed **“exactly one parsed command in the entire run block”** first rule: repeated preference for the smallest provable implementation could unintentionally reduce useful UpgradePilot behavior simply because the smaller slice is easier to build and pass.
 
-Current conservative candidate:
+This correction is accepted as a durable operating principle and has been promoted to root `AGENTS.md`, `OPERATING_GUIDE.md`, and live `MEMORY.md`.
+
+For this session it means:
+
+```text
+written plan / accepted boundary
+→ important starting route and constraint evidence
+→ not a command to preserve a weaker local design when better evidence/reasoning emerges
+
+bounded slice
+→ must remain connected to the real product responsibility
+→ must state what useful capability/evidence is omitted or deferred
+→ must not optimize merely for implementation ease or test passing
+
+consequential unfamiliar decision
+→ AI first supplies the minimum decision-relevant technical model
+→ explains gains / losses / deferrals / future expansion cost
+→ gives a reasoned engineering recommendation when warranted
+→ then asks Ali to challenge/select at an informed boundary
+```
+
+This does **not** authorize arbitrary scope expansion or bypass accepted specifications/ADRs/stop lines. A materially better route that changes the selected plan/design must be returned to the proper owner and recorded before implementation.
+
+### A4 — First admitted positive family — ACTIVE / OPEN
+
+A4 is **not** now framed as “one command versus everything else.” It asks:
+
+> For which exact static structural shapes and established GitHub execution profiles does successful completion of the correlated step logically justify strengthening this specific target occurrence?
+
+The earlier one-command rule remains a valuable baseline proof case:
 
 ```text
 cleanly analyzable run step
-+ exact target StaticCommandLocation
-+ target occurrence is straightforward_top_level
++ one exact straightforward_top_level target occurrence
 + admitted execution profile
 + exact correlated runtime step
 + no continue-on-error masking
 + completed/success runtime result
-→ eligible for bounded runtime strengthening
+→ strong candidate for eligibility
 ```
 
-The immediate questions are:
+But **“the whole run block must contain exactly one parsed command” is not accepted as the product rule**. It would exclude ordinary straight-line multi-command CI scripts without first establishing that such exclusion is necessary.
 
-1. Should the first positive class require the **entire run block to contain exactly one parsed command occurrence**, or may one eligible occurrence coexist with other top-level commands?
-2. If several top-level commands exist, what exact wrapper semantics are needed before a successful step proves the target occurrence executed/succeeded?
-3. Which current execution profiles are positively admitted first:
+A4 must evaluate a product-faithful positive family, including whether cases such as this can be supported safely:
+
+```yaml
+- shell: bash
+  run: |
+    echo preparing
+    pip install -r requirements.txt
+    pytest
+```
+
+The relevant question is not merely command count. It is whether the target occurrence is on an execution-mandatory straight-line path **and** whether the established execution profile makes successful enclosing-step completion strong enough to establish the bounded target proposition.
+
+Immediate A4 questions:
+
+1. What exact structural facts already emitted by `workflow_command_analysis.py` distinguish a mandatory straight-line target from path-dependent/nested targets?
+2. Does the current `straightforward_top_level` / `linear_chain` representation contain enough relation information for ordinary multi-command scripts, or is one additional bounded step-level shape fact needed?
+3. Which execution profiles positively justify failure/success propagation for the required inference:
    - GitHub built-in/default Bash/sh;
    - GitHub built-in/default PowerShell/pwsh;
    - GitHub built-in CMD;
    - container-default sh;
    - custom shell templates?
-4. Should `custom_shell_template` remain unresolved even when its syntax family is known?
-5. What is the smallest first positive set that is useful without pushing Cycle 3 toward shell control-flow simulation?
+4. Which common CI cases would be lost if the first rule admitted only one-command run blocks, and is that loss technically justified?
+5. Can a useful multi-command positive family be proven **without** building a general shell CFG/control-flow simulator?
+6. Which combinations are definitely `ineligible` versus merely `unresolved`?
 
-Current design preference, not yet accepted: begin with the smallest provable positive class, potentially **one straightforward parsed command in the whole run block**, and broaden later only when execution-profile evidence proves additional shapes safely.
+Current design stance:
+
+```text
+prefer the smallest PROVEN family
+!= prefer the smallest IMPLEMENTABLE case
+```
+
+The selected family should be no broader than the evidence earns and no narrower than is justified by product/proof constraints.
 
 ### A5 — Negative/unresolved structures
 
@@ -402,7 +452,7 @@ Before implementation, define representative proofs for at least:
 Positive:
 
 ```text
-straightforward admitted command
+straightforward admitted command/family
 + supported execution profile
 + exact correlated completed/success step
 + no continue-on-error masking
@@ -422,7 +472,7 @@ runtime step failed/not completed
 runtime correlation unresolved
 ```
 
-Proof must show both the strengthened claim and explicit non-claims.
+The proof matrix must include representative ordinary multi-command cases if A4 admits them, and must show both the strengthened claim and explicit non-claims.
 
 ## 5. Initial source/test map
 
@@ -481,22 +531,21 @@ If a broader responsibility becomes necessary, return it to planning rather than
 
 ## 8. Immediate next action
 
-A1, A2, and A3 are now decided. Continue Phase A with A4 before implementation:
+A1, A2, and A3 are decided. Continue Phase A with A4 before implementation:
 
 ```text
-1. characterize the exact first positive straightforward_top_level rule;
-2. decide whether it requires exactly one parsed command in the entire run block;
-3. establish which execution profiles positively justify the first inference;
-4. keep custom/unproven wrapper semantics unresolved;
-5. then classify A5 negative vs unresolved structures;
-6. compose A6 runtime-correlation ordering from the locked A1–A5 semantics;
-7. define the A7 proof matrix;
-8. only after the complete Phase-A contract is accepted, hand off to implementation.
+1. inspect the exact current parser structural categories/relations needed by A4;
+2. characterize GitHub execution-profile success/failure semantics for each current profile;
+3. test the product usefulness/cost of candidate eligibility boundaries, including ordinary multi-command straight-line scripts;
+4. select the smallest product-faithful proven positive family rather than defaulting to one-command-only;
+5. record what the selected family excludes/defer and the evidence required for later expansion;
+6. classify A5 negative vs unresolved structures;
+7. compose A6 runtime-correlation ordering from the locked A1–A5 semantics;
+8. define the A7 proof matrix;
+9. only after the complete Phase-A contract is accepted, hand off to implementation.
 ```
 
-The next Learning-by-Doing reasoning question is:
-
-> Even if a two-command built-in Bash run block may be provable under GitHub's wrapper semantics, why might deliberately admitting only a single straightforward parsed command in the first Cycle-3 positive class still be the better engineering boundary?
+Next Learning-by-Doing orientation should first teach the small set of concepts needed to decide A4—especially **straight-line execution**, **path dependence**, and **execution-profile failure propagation**—then compare concrete UpgradePilot-relevant script shapes rather than asking Ali to choose between unexplained abstractions.
 
 `UP-SKILL:upgradepilot-planning-design`  
 `UP-SKILL:upgradepilot-learning-by-doing`  
