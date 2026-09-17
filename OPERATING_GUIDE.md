@@ -236,6 +236,28 @@ Useful necessity classes are:
 
 These labels are reasoning/teaching aids, not new product enums. When implementation retention is at issue, the Core specification's `JUST-*` invariants remain the normative owner.
 
+### 4.4 Product responsibility, bounded increments, and plan adaptability
+
+Use bounded increments to make reasoning, implementation, validation, and learning tractable. Do **not** use boundedness to optimize for the easiest passing implementation while silently weakening the real product responsibility.
+
+For a consequential narrowing or staged implementation, keep this trace explicit:
+
+```text
+relevant end-to-end product responsibility
+→ capability/evidence this increment actually supplies
+→ important cases/capabilities/evidence it does not yet supply
+→ practical product cost of those omissions
+→ why the boundary is justified by proof/complexity/risk rather than convenience
+→ whether each omission is deferred, intentionally unsupported, or outside scope
+→ evidence/condition that would justify later expansion or re-entry
+```
+
+A first increment may be deliberately small, but it should remain a **product-faithful slice**: useful in the real architecture, truthful about what it does not cover, and compatible with the foreseeable continuation. “Smallest coherent responsibility” does not mean “smallest thing that passes a test.”
+
+Plans are important execution/proof coordinators, not infallible scripts. Treat the selected plan as the current best route under its owners and evidence. If new source evidence, research, reasoning, failure, or product pressure exposes a materially better route, compare it rather than continuing mechanically. Respect the project charter, accepted specifications/ADRs, authorization, security boundaries, and explicit stop lines. If the better route materially changes the selected responsibility, plan, proof boundary, or accepted technical method, return to the applicable Planning/Design or durable owner, record/update the decision, and then continue under the revised route. Do not silently deviate and do not preserve a weaker approach solely because it was written earlier.
+
+When an agent recommends a narrower design because it is easier to prove or implement, it must also explain the **lost/deferred capability** and the expected route to recover it. This makes conservative engineering visible rather than turning conservatism into accidental product shrinkage.
+
 ## 5. Session and operation proportionality
 
 Use the lightest process route that protects authorization, continuity, learning, ownership, and evidence.
@@ -449,6 +471,26 @@ Keep the Career boundary explicit:
 - Career may later interpret legitimate UpgradePilot evidence for employability, portfolio, applications, or interview preparation without becoming UpgradePilot's live technical authority.
 
 Do not manufacture source changes, failures, abstractions, frameworks, exercises, or extra artifacts merely to cover one of the categories above. Do not require every slice to exercise every category. Use the lens only where the real responsibility creates a genuine learning/ownership opportunity.
+
+### 7.4 Decision readiness under asymmetric expertise
+
+Ali is learning many engineering concepts while UpgradePilot is being designed and built. The AI therefore carries a real responsibility to **bridge the expertise gap before consequential joint decisions** rather than presenting unexplained options and treating approval as informed ownership.
+
+For a material choice whose premises are unfamiliar, first establish only the decision-relevant model:
+
+```text
+what responsibility/problem is being decided
+→ relevant concept/mechanism in plain technical language
+→ credible options
+→ main product/proof/complexity trade-offs
+→ what each option gains, loses, defers, or makes harder later
+→ AI engineering recommendation and why, when one is warranted
+→ Ali challenge/selection once the choice is understandable
+```
+
+Do not force Ali to decide library minutiae, low-level implementation detail, or routine reversible engineering choices merely to simulate ownership. The agent may make those judgments inside an accepted responsibility and explain them proportionately. Conversely, do not hide consequential product narrowing, architecture placement, proof-strength trade-offs, or responsibility changes behind “implementation detail.” Those require enough explanation for meaningful review and, when authorization/selection is material, Ali's informed decision.
+
+When a deliberately small increment is proposed, explicitly connect the learning explanation to §4.4: explain what the small slice does **not** provide yet and whether that missing capability is acceptable for the product trajectory. This is especially important when a conservative proof boundary is technically safe but may materially reduce common-case usefulness.
 
 ## 8. Prerequisite repair
 
