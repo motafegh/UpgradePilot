@@ -49,7 +49,10 @@ Persistent principles:
 - static occurrence does not prove execution or success;
 - parser uncertainty stays conservative with no regex/text fallback for positive evidence;
 - command identity/source order does not imply runtime execution order;
-- unresolved step-level evidence does not automatically earn exact inner-command identity.
+- unresolved step-level evidence does not automatically earn exact inner-command identity;
+- bounded increments must remain faithful to the real product responsibility; “small” is not authority to reduce useful coverage merely because a smaller implementation is easier to prove;
+- plans and working memories are important coordination/evidence artifacts, but new evidence or stronger engineering reasoning may justify revising the route through the proper owner instead of following an older plan mechanically;
+- when Ali has not yet learned concepts needed for a consequential decision, the AI must first establish the minimum decision-relevant model and explain what a proposed narrowing gains, loses, defers, and would require to expand later.
 
 ## Cycle 1 — CLOSED
 
@@ -184,9 +187,36 @@ Representative pressure:
 
 The parser may correctly establish the static `pip install` occurrence and Cycle 2 may preserve that static declaration. A successful enclosing step must not by itself strengthen that conditional occurrence to executed/succeeded consumption.
 
-### Selected first positive direction
+### Phase-A decisions so far
 
-The controlling implementation plan selects a deliberately conservative first positive class:
+A1–A3 are decided in the active working memory:
+
+```text
+A1 — strengthen only the exact bounded runtime-correlated consumption/direct-exercise occurrence proposition;
+     do not upgrade to installed-version, wheel, compatibility, full behavior, update-safety, or maintainer-action proof.
+
+A2 — use explicit eligible | ineligible | unresolved runtime-strengthening eligibility states.
+
+A3 — introduce one narrow CI-owned runtime-strengthening candidate/handoff for a specific static occurrence,
+     referencing existing canonical facts rather than inventing a second command identity.
+```
+
+A3 preserves/references at least:
+
+```text
+outer workflow/job/step identity
++ canonical StaticCommandLocation
++ structural_context
++ effective execution_profile
++ minimum step-level analysis shape required by A4
++ static proposition being strengthened
+```
+
+Runtime correlation remains identity-only; it does not absorb internal command semantics.
+
+### A4 current design direction
+
+The controlling implementation plan provides a conservative starting direction:
 
 ```text
 cleanly parsed straightforward top-level occurrence
@@ -197,39 +227,57 @@ cleanly parsed straightforward top-level occurrence
 → candidate for bounded runtime strengthening
 ```
 
-Conditional, short-circuit, parser-ambiguous, execution-profile-ambiguous, and other unsupported/path-dependent structures remain static-only or unresolved at the stronger runtime proposition.
+The earlier idea of requiring the **entire run block to contain exactly one command** is **not accepted** as the A4 rule. It is only a useful baseline case. A4 must instead determine the smallest **product-faithful proven family**: which exact structural shapes and execution profiles make successful step completion sufficient to strengthen the target occurrence.
 
-Do not broaden this first class merely because more structures could theoretically be analyzed.
+This means:
+
+- do not broaden merely because a structure is theoretically analyzable;
+- do not narrow merely because a one-command implementation is easiest;
+- ordinary straight-line multi-command cases should be considered when the parser structure and GitHub execution-profile semantics genuinely prove the required implication;
+- conditional/short-circuit/path-dependent occurrences remain non-strengthening unless a future independently justified rule proves otherwise;
+- profile differences matter: Bash/sh, PowerShell, CMD, container-default sh, and custom shell templates must not be treated as equivalent without evidence.
 
 ## Cycle 3 Phase-A questions
 
-The active working memory must resolve before implementation:
+Decision state:
 
-1. exact proposition being strengthened for dependency consumption and direct exercise;
-2. smallest explicit eligibility state model;
-3. how outer step identity + inner `StaticCommandLocation` + structural context + execution profile reach runtime composition;
-4. exact first admitted `straightforward_top_level` positive rule across supported execution profiles;
-5. ineligible versus unresolved treatment for path-dependent/ambiguous structures;
-6. where eligibility sits relative to static classification, runtime correlation, and `continue-on-error` safeguards;
-7. focused proof matrix and explicit non-claims.
+```text
+A1 exact strengthened proposition     DECIDED
+A2 eligibility state model            DECIDED
+A3 canonical occurrence handoff       DECIDED
+A4 first admitted positive family     ACTIVE / OPEN
+A5 negative/unresolved structures     OPEN
+A6 runtime-correlation composition     OPEN
+A7 proof matrix                        OPEN
+```
+
+A4 must now settle:
+
+1. what exact structural relation makes a target occurrence execution-mandatory enough for runtime strengthening;
+2. whether and when straightforward/linear multi-command run blocks qualify;
+3. which current execution profiles positively justify the inference;
+4. which profile/structure combinations remain ineligible or unresolved;
+5. what capability/common-case coverage would be lost by any proposed narrowing, and whether that loss is acceptable for the product trajectory.
 
 ## Immediate next action
 
-Continue Cycle 3 Phase A from actual source:
+Continue Cycle 3 Phase A with A4 from actual source and authoritative execution semantics:
 
 ```text
-workflow_runtime_correlation.py
-→ what exact step-level runtime facts are already proven
+workflow_command_analysis.py
+→ exact structural categories/relations already available
 
 workflow_command_shell.py
-→ what syntax-family / execution-profile states are already available
+→ exact execution-profile states already available
 
-dependency_exercise.py
-→ where exact command occurrence facts are currently collapsed to step-level locations
+GitHub Actions execution semantics
+→ what step success implies for admitted built-in/default profiles
 
 then
-→ reproduce the conditional/short-circuit overclaim pressure conceptually/tests
-→ decide the bounded A1–A7 eligibility contract
+→ define the smallest product-faithful positive eligibility family
+→ explicitly state excluded/deferred common cases and their cost
+→ classify A5 negative vs unresolved shapes
+→ compose A6 and A7
 → only then authorize implementation
 ```
 
