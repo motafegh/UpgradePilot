@@ -1,680 +1,208 @@
 # Cycle 2 Phase D Integrated Learning / Ownership Plan — Working Memory
 
 **Date:** 2026-09-17  
-**Session status:** ACTIVE  
+**Session status:** CLOSED — remaining deep-dive learning explicitly deferred by Ali  
 **Primary responsibility:** Cycle 2 Phase D — integrated post-implementation learning and engineering-ownership check  
-**Primary execution mode for D:** Learning-Only — product/source/test mutation paused unless Ali explicitly changes the action boundary later  
+**Execution mode:** Learning-Only; no product/source/test mutation occurred during D  
 **Previous closure:** [`2026-09-16_cycle2-phase-b-hosted-proof-closure.md`](2026-09-16_cycle2-phase-b-hosted-proof-closure.md)  
 **Phase A design record:** [`2026-09-14_static-command-consumer-migration-and-identity.md`](2026-09-14_static-command-consumer-migration-and-identity.md)  
 **Phase B engineering record:** [`2026-09-15_cycle2-static-consumer-build.md`](2026-09-15_cycle2-static-consumer-build.md)  
 **Cycle 1 closure:** [`2026-09-13_static-workflow-command-three-cycle-implementation.md`](2026-09-13_static-workflow-command-three-cycle-implementation.md)  
-**Hosted proof repairs:** [`2026-09-16_phase-b-hosted-proof-repair.md`](2026-09-16_phase-b-hosted-proof-repair.md), [`2026-09-16_phase-b-hosted-proof-repair-3.md`](2026-09-16_phase-b-hosted-proof-repair-3.md)  
 **Selected bounded implementation plan:** [`../plans/STATIC_WORKFLOW_COMMAND_ANALYSIS_AND_RUNTIME_STRENGTHENING_IMPLEMENTATION_PLAN.md`](../plans/STATIC_WORKFLOW_COMMAND_ANALYSIS_AND_RUNTIME_STRENGTHENING_IMPLEMENTATION_PLAN.md)  
 **Accepted architecture:** [`../docs/architecture/ADR-0009-parser-backed-static-workflow-command-analysis.md`](../docs/architecture/ADR-0009-parser-backed-static-workflow-command-analysis.md)
 
-## 1. Phase-D anchor
+## 1. Closure decision
 
-Cycle 2 exists to migrate static CI/dependency consumers onto the trusted parser-backed command-analysis producer while correcting command identity and bounded static ordering.
+Phase D is closed now by explicit user decision. This is **not** a claim that every originally planned D2–D7 exercise was completed.
 
-Current cycle position:
+The closure rule is:
 
 ```text
-A — COMPLETE
-    substantial design/orientation: A1–A6 accepted migration contract
-
-B — COMPLETE / CLOSED
-    B1–B5 implementation + hosted executable proof green
-
-C — COMPLETE through progressive preservation
-    Phase-A decisions, B1–B5 engineering progression, hosted failures/repairs,
-    final proof, and live continuation are all preserved in their normal owners
-
-D — ACTIVE / THIS RECORD
-    D1 DONE; D2 ACTIVE; integrated learning + engineering-ownership check continues
-
-E — PENDING
-    repair only demonstrated learning/ownership gaps, then orient Cycle 3
-
-Cycle 3 — NOT STARTED
+D1 practical ownership demonstrated
++ substantial D2–D6 concepts/source/case coverage already obtained
++ no concrete product/design defect exposed
++ remaining deep-dive checks explicitly postponed
+→ close D without fabricating completion
 ```
 
-Phase D is deliberately separated from the long Phase-B implementation so we learn the **stable final architecture**, not a sequence of transitional snapshots.
+The postponed items remain useful learning references and may be reopened later if Cycle 3 or another responsibility exposes a concrete ownership gap.
 
-This working memory is the Phase-D control/checklist and progression record. It is not a second specification, ADR, or permanent learning artifact. Stable semantics remain with their accepted owners; source/tests remain implementation truth.
-
-## 2. What Phase D must accomplish
-
-Phase D should make Ali able to **own the engineering responsibility**, not reproduce every line or library API from memory.
-
-The central ownership target is now explicitly end to end across the Cycle-1 producer and Cycle-2 consumer architecture:
+Current cycle position after reconciliation:
 
 ```text
-exact GitHub Actions workflow run step
+Cycle 1 — CLOSED
+Cycle 2 A — COMPLETE
+Cycle 2 B — CLOSED / hosted proof green
+Cycle 2 C — COMPLETE through progressive preservation
+Cycle 2 D — CLOSED with explicit deferred learning
+Cycle 2 E — COMPLETE / no demonstrated repair required
+Cycle 3 A — NEXT
+```
+
+## 2. Ownership actually established during D
+
+Ali reached practical ownership of the central Cycle-1 → Cycle-2 architecture at the level needed to continue engineering work:
+
+```text
+GitHub Actions run step
 → effective shell context
-→ Tree-sitter-backed shell parsing
+→ shell-family Tree-sitter parser
 → parser-neutral StaticCommandAnalysis
-→ StaticCommandOccurrence / typed atoms / structural context
+→ real StaticCommandOccurrence / typed atoms / structural context
 → canonical StaticCommandLocation
 → dependency / project-environment / package-invocation interpretation
 → one-pass CI composition
 → bounded static ordering
-→ explicit proof and non-proof boundary
+→ explicit runtime non-claim
 ```
 
-Cycle 1 is **not reopened as a second full learning program**. Its mechanisms are refreshed just-in-time where Cycle 2 depends on them so the whole system is understandable rather than teaching Cycle 2 as isolated migration plumbing.
+Important retained distinctions:
 
-By D closure, Ali should be able to:
+- one provider-owned command analysis feeds several domain consumers;
+- consumers derive domain propositions from shared parser-neutral facts rather than reparsing raw shell text;
+- `StaticCommandLocation(source_span, source_order)` identifies a static source occurrence only;
+- source order is not runtime order or execution proof;
+- the old `segment_index` identity/order/placeholder overload was deliberately removed rather than renamed;
+- `observed`, `not_observed` / `not_established`, and `unresolved` are proposition-relative states;
+- a sound lower-level observation can remain positive while a stronger composition is unresolved;
+- conditional or short-circuit structure does not erase the existence of a real static occurrence;
+- static consumption or direct invocation does not prove execution or success;
+- parser uncertainty remains conservative and does not fall back to regex/text splitting for positive evidence.
 
-1. explain why Cycle 2 was needed and reconstruct the A1–A6 design responsibilities;
-2. recover the relevant Cycle-1 producer model: effective shell → parser → parser-neutral command analysis;
-3. explain the practical meaning of `StaticCommandAnalysis`, `StaticCommandOccurrence`, typed atoms, source span/order, structural context, and analysis problem states;
-4. trace the final producer → consumers → CI composition flow through the important source owners;
-5. distinguish workflow/job/step identity, inner command occurrence identity, source order, static ordering, runtime correlation, execution, and success;
-6. explain why parser-neutral IR belongs above dependency/CI domain semantics;
-7. reason about direct requirements, project-environment selection, and direct package invocation without treating them as equivalent propositions;
-8. explain why unresolved step-level evidence may legitimately have no exact inner-command identity;
-9. explain why B4's one-analysis/single-traversal shape is a correctness boundary, not merely an optimization;
-10. use representative tests to state what is proven and what remains unproven;
-11. trace one requirements-shaped case and one project-environment case end to end;
-12. classify the important hosted-proof failures and defend why the repairs preserved rather than weakened the architecture;
-13. identify exactly what Cycle 2 still does **not** prove and therefore belongs to Cycle 3 or later responsibilities;
-14. reason through at least one nearby changed case without replaying the exact taught example.
+## 3. D1 completion
 
-## 3. Integrated Cycle-1 refresh rule
-
-When a Cycle-2 mechanism depends on a Cycle-1 mechanism, teach the Cycle-1 prerequisite immediately before or alongside it.
-
-Use this depth rule:
-
-```text
-needed to reason about Cycle 2 correctly
-→ refresh and own at practical depth
-
-needed only to understand how the producer is implemented internally
-→ operational / lookup depth
-
-unrelated Cycle-1 implementation detail
-→ do not reopen
-```
-
-Cycle-1 concepts to refresh as part of Phase D:
-
-- why effective shell context must be established before choosing a parser;
-- `syntax_family` versus execution profile at the level needed to interpret command analysis;
-- why Bash/sh, PowerShell/pwsh, and CMD/batch use shell-specific parsers behind one common UpgradePilot IR;
-- `StaticCommandAnalysis` states and material parser uncertainty;
-- `StaticCommandOccurrence` as a real static syntactic command occurrence;
-- `StaticCommandAtom` literal/dynamic/unsupported meaning;
-- `CommandSourceSpan`, deterministic `source_order`, and structural context;
-- why comments/quoted command-looking payloads do not manufacture independent commands;
-- why parser uncertainty fails closed and does not fall back to regex/text splitting for positive evidence;
-- the critical retained proposition: static occurrence is not execution or success.
-
-Do **not** expand into:
-
-- detailed Tree-sitter node schemas for each grammar;
-- parser ABI/version history except where it helps understand the trust/proof boundary;
-- exact adapter recursion/walk implementation;
-- complete grammar coverage;
-- every Cycle-1 test fixture.
-
-## 4. Depth calibration
-
-### Must own at high practical depth
-
-These are central Cycle-2 responsibilities or direct Cycle-1 prerequisites needed to understand them:
-
-- A1–A6 and the engineering reason for each;
-- provider / dependency / CI ownership boundaries;
-- the end-to-end producer model: shell context → parser-backed analysis → parser-neutral IR;
-- `StaticCommandAnalysis`, `StaticCommandOccurrence`, `StaticCommandAtom`, structural context, and `StaticCommandLocation` at the level needed to trace consumers;
-- why comments/quoted payloads are excluded structurally and parser uncertainty stays uncertainty;
-- outer workflow/job/step identity versus inner command source identity;
-- why `segment_index` was overloaded and why identity/order/placeholder concerns were separated;
-- literal versus dynamic/unsupported material command atoms at the consumer boundary;
-- direct requirements versus project-environment versus package-invocation propositions;
-- one-analysis / one-production-traversal handoff;
-- canonical identity preservation through composition;
-- `ordered_after | not_after | unresolved` and why source order is not execution-path proof;
-- static occurrence versus execution versus success;
-- unresolved evidence and non-fabrication of identity;
-- representative proof tests and their non-claims;
-- the proof-gate failures that exposed real/stale architectural clients.
-
-### Understand operationally
-
-Know what these do and where they matter; exact internals may be looked up:
-
-- detailed effective-shell precedence edge cases already proven in Cycle 1;
-- Tree-sitter CST/node layouts and individual grammar adapter internals;
-- parser ABI/package-version mechanics beyond the fact that the selected stack was characterized and proven;
-- exact helper loops for every pip/uv option;
-- every selector/enum/dataclass field in `environment_selection.py`;
-- every reachability/membership branch below the project-environment composition seam;
-- checkout-provenance helper details beyond the central fact that evidence must refer to the changed repository context;
-- exact reason-string spelling except where a reason change demonstrates ownership/uncertainty movement;
-- individual commit hashes and workflow run IDs;
-- GitHub Git-object plumbing used during the B5 atomic-commit recovery.
-
-### Recognize / lookup level
-
-- incidental Python syntax or dataclass mechanics;
-- exact Tree-sitter Python binding calls;
-- complete uv/pip CLI option catalogs;
-- all 587 tests individually;
-- every test fixture constructor or helper.
-
-### Deliberately deferred
-
-Do not let Phase D expand into responsibilities Cycle 2 did not own:
-
-- Cycle-3 runtime-strengthening eligibility design/implementation beyond understanding its boundary;
-- arbitrary GitHub expression evaluation;
-- matrix expansion / reusable-workflow execution;
-- general control-flow simulation;
-- Python/custom-interpreter command analysis;
-- runtime log/artifact parsing as command proof;
-- exact installed dependency version / selected wheel / compatibility evidence;
-- Target redesign unrelated to the demonstrated downstream migration residue;
-- maintainer-action enablement beyond the current synthesis baseline.
-
-## 5. Stable source/test map for Phase D
-
-Use only the source/tests needed by the active block rather than loading the whole repository.
-
-### Cycle-1 producer refresh
-
-```text
-src/upgradepilot/github/workflow_command_shell.py
-src/upgradepilot/github/workflow_command_analysis.py
-tests/test_github_workflow_command_analysis.py
-```
-
-Read only the parts needed to understand effective shell → command analysis → occurrence/atom/structure/problem-state behavior. Grammar-specific internal details remain supporting/lookup material.
-
-### Provider / identity seam
-
-```text
-src/upgradepilot/github/workflow_command_location.py
-```
-
-### Dependency semantics
-
-```text
-src/upgradepilot/dependency/pip_command.py
-src/upgradepilot/dependency/direct_install.py
-src/upgradepilot/dependency/environment_selection.py
-```
-
-Use reachability/membership owners only when the real project-environment case reaches them:
-
-```text
-src/upgradepilot/dependency/uv_reachability.py
-src/upgradepilot/dependency/environment_membership.py
-```
-
-### CI ownership and composition
-
-```text
-src/upgradepilot/ci/consumption.py
-src/upgradepilot/ci/workflow_commands.py
-src/upgradepilot/ci/static_command_order.py
-src/upgradepilot/ci/dependency_exercise.py
-src/upgradepilot/investigation.py
-```
-
-### Representative tests
-
-Core proofs to understand, not memorize:
-
-```text
-tests/test_github_workflow_command_analysis.py
-tests/test_parser_backed_ci_command_evidence.py
-tests/test_static_command_order.py
-tests/test_single_pass_workflow_static_evidence.py
-tests/test_direct_install_declaration.py
-tests/test_project_environment_selection.py
-tests/test_ci_static_direct_exercise_order.py
-tests/test_workflow_dependency_evidence.py
-tests/test_ci_dependency_coverage.py
-tests/test_r6_project_environment_workflow_integration.py
-tests/test_r6_project_source_workflow_integration.py
-```
-
-Use narrower tests from adjacent modules only when a question requires them.
-
-## 6. Phase-D learning route and checklist
-
-Statuses are updated as learning progresses:
-
-```text
-PENDING → IN PROGRESS → DONE
-```
-
-A block is DONE only after both explanation/tracing and a proportionate Ali ownership check. Agreement or immediate repetition alone is not completion evidence.
-
-### D1 — Reconstruct the Cycle-2 problem and Phase-A design
+### D1 — Cycle-2 problem + Phase-A design reconstruction
 
 **Status:** DONE
 
-Cover:
+Practical ownership was demonstrated through changed workflow examples rather than terminology memorization. Ali correctly reasoned about:
 
-- what Cycle 1 already established and therefore what Cycle 2 did **not** need to reinvent;
-- what the old consumers still did before Cycle 2;
-- why duplicate textual splitting / regex / `shlex` command meaning was unsafe;
-- why `segment_index` had become three responsibilities hidden in one integer;
-- why one trusted provider-owned command analysis should feed several domain consumers;
-- reconstruct A1–A6 and map each design decision to the final responsibility it created.
+- why Cycle 1 established the trusted producer but Cycle 2 still had downstream architectural work;
+- one shared analysis per run step;
+- domain-specific interpretation by dependency and CI consumers;
+- canonical source identity and the danger of fabricated ordinals;
+- direct requirements versus changed-package invocation as different propositions;
+- `ordered_after | not_after | unresolved` as bounded static composition;
+- the difference between individual positive observations and a stronger unresolved relationship;
+- runtime execution/success remaining outside Cycle 2.
 
-Cycle-1 prerequisite refresh inside D1:
+No D1 repair is required.
 
-```text
-RunStepDefinition
-→ effective shell context
-→ shell-family parser
-→ StaticCommandAnalysis
-→ StaticCommandOccurrence / atoms / source span-order / structural context
-```
+## 4. Remaining D blocks — explicit reclassification
 
-Primary evidence:
+The original route contained D2–D7. They are not marked DONE merely because parts were discussed.
 
-- Cycle-1 closure working memory for the producer contract;
-- Phase-A working memory for Cycle-2 rationale;
-- Phase-B final architecture summary;
-- relevant final source signatures, not transitional source snapshots.
-
-Depth:
-
-- **must own** the end-to-end problem statement, Cycle-1 producer contract at practical depth, A1–A6, and owner/layer placement;
-- transitional implementation details and Tree-sitter grammar internals are historical/operational context only.
-
-Completion evidence:
-
-Ali reconstructed the Cycle-1 producer → Cycle-2 consumer architecture in practical examples and correctly reasoned about shared analysis, canonical source identity, removal of fabricated ordinals, dependency versus invocation ownership, and bounded static ordering. The final repair check distinguished sound lower-level observations from a stronger unresolved composition: a conditional requirements declaration and a later clear package invocation can both be statically observed while their same-step ordered-after relationship remains unresolved. Runtime execution/success was kept outside the Cycle-2 claim boundary.
-
----
-
-### D2 — Canonical command identity and bounded static ordering
-
-**Status:** IN PROGRESS
-
-Cycle-1 refresh first:
-
-- how one `StaticCommandOccurrence` gets `CommandSourceSpan`, `source_order`, and structural context;
-- why those are static source facts only.
-
-Then trace:
-
-```text
-StaticCommandOccurrence
-→ StaticCommandLocation(source_span, source_order)
-→ StaticDependencyConsumptionEvidence / DirectPackageInvocationEvidence
-→ relate_invocation_after_consumption(...)
-```
-
-Cover:
-
-- outer workflow/revision/job/step identity versus inner command identity;
-- why `source_order` is part of source identity/order reasoning but is not runtime identity;
-- why missing same-step inner identity becomes `unresolved`;
-- later different step versus later same-step occurrence;
-- path-dependent structures and why later source position can still be unresolved;
-- why same/earlier occurrence is `not_after`.
-
-Primary proof:
-
-- relevant occurrence/span/structure tests from `test_github_workflow_command_analysis.py`;
-- `tests/test_static_command_order.py`;
-- relevant direct-exercise order regression.
-
-Depth:
-
-- **must own** occurrence → location → order-relation distinctions;
-- exact byte-span arithmetic is operational detail.
-
-Completion check:
-
-Given a few changed command placements/structures, Ali can classify what identity exists and whether ordering is `ordered_after`, `not_after`, or `unresolved`, with the correct non-proof statement.
-
----
-
-### D3 — Parser-neutral command facts versus dependency/CI semantics
-
-**Status:** PENDING
-
-Cycle-1 refresh first:
-
-- `StaticCommandAnalysis` analyzable/unresolved/error meaning;
-- literal/dynamic/unsupported `StaticCommandAtom` meaning;
-- why comments and quoted payloads do not create occurrences;
-- why provider uncertainty cannot be replaced by a downstream textual fallback.
-
-Follow one requirements command and one project-environment command:
-
-```text
-RunStepDefinition
-→ StaticCommandAnalysis / typed atoms
-→ dependency-owned interpretation
-→ domain observation/evidence
-```
-
-Cover:
-
-- why GitHub/provider owns shell syntax and parser-neutral occurrences;
-- why dependency code owns pip requirements/local-project/uv selector meaning;
-- why CI owns changed-package direct invocation meaning;
-- role of `parsed_pip_install_arguments(...)` as a narrow shared dependency-domain prefix recognizer rather than generic utility;
-- literal versus dynamic/unsupported material atoms;
-- why unrelated uncertainty may coexist with an already sound positive static fact;
-- why no consumer reparses raw shell text as a positive fallback.
-
-Primary source:
-
-- relevant bounded parts of `workflow_command_analysis.py`;
-- `pip_command.py`;
-- `direct_install.py`;
-- the bounded relevant portions of `environment_selection.py` and `workflow_commands.py`.
-
-Primary proof:
-
-- command-analysis false-positive/uncertainty tests;
-- direct-install tests;
-- project-environment selection tests;
-- parser-backed CI command-evidence tests.
-
-Depth:
-
-- **must own** the producer/domain-boundary model and representative command interpretations;
-- do not memorize the full pip/uv option machinery or parser grammar internals.
-
-Completion check:
-
-Ali can trace and classify representative literal/dynamic commands and explain which layer is allowed to decide each proposition.
-
----
-
-### D4 — One-analysis production handoff and project-environment composition
-
-**Status:** PENDING
-
-Trace the final normal path:
-
-```text
-investigation.py
-→ WorkflowDependencyCoverageInput(project_environment_sources=...)
-→ inspect_workflow_dependency_evidence(...)
-→ parse one WorkflowDefinition
-→ one job/step traversal
-→ analyze_run_step_commands(...) once per RunStepDefinition
-→ same analysis to direct requirements + project environment + package invocation
-```
-
-Then follow project-environment evidence far enough to distinguish:
-
-```text
-visible project selection
-→ project membership / uv reachability
-→ CI dependency consumption evidence
-```
-
-Cover:
-
-- why B4 was needed even after every consumer individually used the correct parser;
-- why `derive_project_environment_consumptions(...)` may remain as a standalone test/compatibility entry without becoming a second semantic implementation;
-- why normal production passes **sources** rather than detached precomposed consumptions;
-- why canonical identity can be lost if evidence is derived separately and reattached later;
-- checkout provenance as part of source binding, without deep-diving every helper.
-
-Primary proof:
-
-- `tests/test_single_pass_workflow_static_evidence.py`;
-- `tests/test_workflow_dependency_evidence.py`;
-- relevant R6 integration tests.
-
-Depth:
-
-- **must own** the single-traversal correctness rationale and cross-layer handoff;
-- lower reachability algorithms are operational unless needed for the selected real case.
-
-Completion check:
-
-Ali can explain why “same parser in two traversals” was still insufficient and why the final source-in/single-traversal route preserves a stronger identity/composition invariant.
-
----
-
-### D5 — Real cases: S001-style uv and S011-style pyproject
-
-**Status:** PENDING
-
-Use two representative cases to integrate the whole Cycle-1 → Cycle-2 architecture.
-
-#### Case A — S001-style uv project environment
-
-Trace a real-shaped path such as:
-
-```text
-workflow run step
-→ effective shell + command occurrence
-→ uv sync --all-packages --group docs
-→ typed atoms / structural context
-→ visible selection + package scope
-→ uv-lock selected-root reachability
-→ transitive witness to changed package
-→ static project-environment consumption
-```
-
-Use the real regression facts in `test_r6_project_environment_workflow_integration.py`, including the docs-group witness to `soupsieve` and the dynamic-group unresolved case when useful.
-
-#### Case B — S011-style pyproject optional extra
-
-Trace:
-
-```text
-workflow run step
-→ parsed pip install -e ".[dev]" occurrence
-+ changed dependency belongs to [project.optional-dependencies].mlx
-→ visible dev selection
-→ selected environment membership NOT established for mlx
-→ changed dependency consumption NOT established
-```
-
-Use `test_r6_project_source_workflow_integration.py`.
-
-Cover:
-
-- parsed occurrence is only the start of the evidence chain;
-- selection is not membership/reachability;
-- membership/reachability is not execution;
-- positive and negative/not-established evidence both depend on exact source/context identity;
-- unresolved remains distinct from not established.
-
-Depth:
-
-- **must own** the end-to-end evidence transformation and proof boundary;
-- exact lock parser details and all possible selectors remain operational/deferred.
-
-Completion check:
-
-Ali can trace both cases from workflow source through Cycle-1 command facts and Cycle-2 consumers to final static consumption result, and explain exactly which proposition changes between the two cases.
-
----
-
-### D6 — Static presence, direct exercise, runtime boundary, and proof discipline
-
-**Status:** PENDING
-
-Cycle-1 refresh first:
-
-- structural context tags express static source structure;
-- a real occurrence can exist inside conditional/short-circuit structure without being proven executed.
-
-Connect Cycle-2 static evidence to the existing CI coverage layer without entering Cycle-3 implementation.
-
-Cover:
-
-```text
-static command exists
-!= static direct exercise established
-!= command executed
-!= command succeeded
-```
-
-Use:
-
-- clean linear same-step example;
-- later separate-step example;
-- short-circuit/conditional example;
-- missing canonical inner identity example;
-- representative `dependency_exercise.py` classification flow.
-
-Clarify:
-
-- Cycle 2 may establish supported static consumption/direct exercise;
-- existing step-level runtime correlation is a separate proposition;
-- Cycle 3 will decide when whole-step success may legitimately strengthen specific command occurrences under the new structural model;
-- Phase D should understand this boundary but not pre-design Cycle 3.
-
-Primary proof:
-
-- command-analysis structural-context tests;
-- static-order tests;
-- CI static direct-exercise tests;
-- relevant runtime-correlated coverage test only as a boundary example.
-
-Completion check:
-
-Ali can reject an overclaim such as “the workflow succeeded, so every parsed command ran” and state the minimum additional proposition that would be needed.
-
----
-
-### D7 — Proof failures, migration cleanup, and final ownership synthesis
-
-**Status:** PENDING
-
-Use the Phase-B hosted proof history as a compact engineering/debugging lesson, not a chronology quiz.
-
-Must understand these incidents:
-
-1. **missed Target consumer** — strict `command_analysis` API was correct; a secondary downstream caller had not migrated;
-2. **stale B5 test fixture** — removed `segment_index` survived in a lower-domain constructor;
-3. **dynamic GitHub-expression case** — final uncertainty moved to the earlier provider-owned command-analysis boundary without changing the conservative final proposition;
-4. **detached precomposed unresolved evidence** — step-level unresolved evidence had no earned inner command identity, so the compatibility seam correctly rejected rebinding; the real production source-in/single-traversal path was the right fix;
-5. **B5 atomic Git-object failure** — operational lesson only: atomic publication prevented partial product state;
-6. **final hosted proof** — fresh install, `pip check`, focused investigation 15/15, full deterministic suite 587/587.
-
-Do not memorize run IDs, commit hashes, or raw logs. Learn how to classify:
-
-```text
-real source regression
-stale fixture/client
-changed trustworthy uncertainty owner
-stale architectural test path
-execution/tooling failure
-```
-
-Final synthesis must explicitly cover:
-
-```text
-what Cycle 1 established
-→ what still remained wrong downstream
-→ what A decided
-→ what B actually built
-→ what proof failures taught us
-→ what final Cycle-1 + Cycle-2 system guarantees
-→ what it deliberately does not guarantee
-```
-
-Ownership checks:
-
-- one end-to-end verbal/source trace chosen by Ali from workflow text through final static evidence;
-- one representative test explained as setup → action → assertion → proof → non-proof;
-- one changed-context classification problem;
-- one design judgment: defend an ownership/layer decision or identify a credible alternative/trade-off;
-- identify any remaining must-own gap honestly.
-
-Completion condition for D7:
-
-Ali demonstrates proportionate ownership of the integrated Cycle-1 producer + Cycle-2 consumer responsibility without needing to reproduce incidental syntax or every helper implementation.
-
-## 7. Newly discovered learning items
-
-If a meaningful gap appears that this plan did not anticipate, add it here rather than silently expanding another block.
-
-| ID | Item discovered | Why it matters to Cycle 2 ownership | Depth | Status / destination |
-|---|---|---|---|---|
-| D-N1 | Integrate Cycle-1 producer refresh into Cycle-2 learning instead of treating Cycle 2 as isolated migration | Cycle-2 correctness depends on understanding the meaning/trust boundary of the shared producer outputs it consumes | must own | ACTIVE — D1 foundation complete; continue just-in-time through D2, D3, D5, D6 |
-
-Rules:
-
-- add only items that materially affect current Cycle-2 understanding, proof, modification, diagnosis, or Cycle-3 readiness;
-- classify each as **must own**, **operational**, **recognize/lookup**, or **deferred**;
-- a question does not automatically become a new lesson block;
-- if the item exposes an implementation/design defect, record it but do **not** mutate product source while Learning-Only is active; explicitly transition to Audit/Planning/Build later if Ali authorizes it.
-
-## 8. Phase-D progress record
-
-Update this compact table after meaningful learning checkpoints.
-
-| Block | Status | What was established | Open gap / next |
+| Block | Final D status | What was covered | Deferred remainder |
 |---|---|---|---|
-| D1 problem + A1–A6 design | DONE | Practical ownership demonstrated for Cycle-1 producer → Cycle-2 consumer architecture, shared analysis, source identity, uncertainty preservation, layer ownership, and lower-level observation versus stronger composition | no D1 repair needed |
-| D2 identity + static ordering | IN PROGRESS | D1 already established the conceptual identity/order distinction and representative clean/reversed/path-dependent classifications | trace the real final source path and representative proof; avoid reteaching concepts already owned |
-| D3 parser-neutral facts → domain semantics | PENDING | D1 previewed literal/dynamic materiality, no textual fallback, and provider/dependency/CI ownership | complete only the missing final-source/proof aspects after D2 |
-| D4 one-analysis composition | PENDING | — | — |
-| D5 S001 + S011 real cases | PENDING | — | — |
-| D6 static/runtime/proof boundary | PENDING | D1 already established static observation/order does not prove execution or success | later consolidate against final dependency-exercise/runtime boundary rather than reteach from zero |
-| D7 proof failures + synthesis | PENDING | — | — |
+| D2 identity + static ordering | DEFERRED after substantial coverage | final `StaticCommandLocation` seam, exact source identity, step/source ordering, path-dependent unresolved behavior, representative ordering tests | additional practical classification drill |
+| D3 parser-neutral facts → domain semantics | DEFERRED after substantial coverage | provider/dependency/CI ownership, typed atoms, no textual fallback, material uncertainty, direct requirements/invocation examples | deeper source-by-source proof walk |
+| D4 one-analysis composition | DEFERRED after source trace | final one-`WorkflowDefinition` / one job-step traversal / one `StaticCommandAnalysis` per run-step production shape and source-in composition rationale | dedicated ownership exercise |
+| D5 S001 + S011 real cases | DEFERRED after real-case trace | S001 Pydantic `uv sync --all-packages --group docs` → transitive `soupsieve` witness; S011 Dictare `.[dev]` versus affected `mlx` extra → membership/consumption not established; dynamic uv-group unresolved contrast | final changed-case answers |
+| D6 static/runtime boundary | DEFERRED after repeated coverage | static occurrence/order/consumption/direct exercise kept separate from execution and success | dedicated runtime-boundary drill |
+| D7 proof failures + synthesis | DEFERRED | hosted failure records inspected: missed strict-API consumer, stale ordinal fixture, provider-owned dynamic uncertainty, detached identity seam, final 587/587 hosted proof | full debugging classification/synthesis exercise |
 
-Do not mark a block DONE merely because the explanation was delivered. Preserve the ownership evidence or remaining gap in concise form.
+This reclassification is deliberate and user-authorized. The deferred items are learning depth, not known product defects.
 
-## 9. Phase-D completion gate
+## 5. Real-case evidence retained
 
-Phase D closes only when:
+### S001 — Pydantic / soupsieve
 
-- D1–D7 are DONE or an item is explicitly reclassified as safely operational/deferred;
-- all **must-own** newly discovered items are resolved;
-- Ali can reconstruct the relevant Cycle-1 producer model and the Cycle-2 consumer/composition architecture as one system;
-- Ali can reconstruct the important normal flow and the material unresolved/failure boundaries;
-- Ali can explain the main ownership split across GitHub/provider, dependency, and CI;
-- Ali can distinguish command identity, static ordering, execution, runtime correlation, and success;
-- Ali can interpret representative tests and their non-claims;
-- Ali can trace the two selected real cases;
-- Ali can reason about at least one nearby changed case;
-- no unexamined gap remains that would make Cycle-3 reasoning depend on black-box Cycle-1 or Cycle-2 behavior.
-
-D closure does **not** require:
-
-- memorizing all source;
-- recreating code unaided;
-- mastering Tree-sitter grammar/node internals;
-- memorizing pip/uv option tables;
-- reviewing every Cycle-1 or Cycle-2 test;
-- learning Cycle-3 implementation before its A phase.
-
-## 10. Phase E handoff after D
-
-After D closes:
-
-1. collect only demonstrated remaining gaps;
-2. repair learning/prerequisite gaps at the minimum useful depth;
-3. if a real product/design defect was discovered, separately select the appropriate Audit/Planning/Build route before mutation;
-4. reconcile `MEMORY.md` and this working memory;
-5. orient Cycle 3 A only after Ali has sufficient integrated Cycle-1/Cycle-2 ownership.
-
-Do not start Cycle 3 merely because all explanations were presented.
-
-## 11. Immediate next action
-
-Continue **D2 — Canonical command identity and bounded static ordering** in Learning-Only mode, using the final stable source and representative proof rather than repeating D1 theory:
+The real PR-head command shape:
 
 ```text
-StaticCommandOccurrence
-→ StaticCommandLocation(source_span, source_order)
-→ StaticDependencyConsumptionEvidence / DirectPackageInvocationEvidence
-→ relate_invocation_after_consumption(...)
+uv sync --all-packages --group docs
 ```
 
-Focus only on the missing implementation/proof ownership: where canonical identity is created and carried, how missing same-step identity fails closed, and how the final order relation uses step order, source order, and path-dependent structure. Concepts already demonstrated during D1 should be recalled briefly and not retaught from zero.
+was traced through parser-neutral command facts, dependency-owned uv selection, exact-lock reachability, and CI consumption composition. The regression establishes the transitive witness:
+
+```text
+mkdocs-llmstxt
+→ beautifulsoup4
+→ soupsieve
+```
+
+The dynamic group variant remains `unresolved`, not absence/not-observed.
+
+### S011 — Dictare / NumPy in `mlx`
+
+The real case establishes that the affected dependency belongs to optional extra `mlx`, while the inspected standard and macOS test workflows install `.[dev]` rather than `.[mlx]`.
+
+The important proposition is:
+
+```text
+visible dev selection
++ affected environment mlx
+→ selected environment membership not established
+```
+
+This is a clean negative/not-established result, not parser uncertainty and not a runtime incompatibility claim.
+
+### S004 — glyphsLib / pytest
+
+S004 was retained as real pressure for the consumption → changed-package exercise proposition: changed development requirements are installed and pytest responsibilities are invoked. The historical case itself predates the current canonical-location implementation, so it was not falsely presented as having been evaluated by the current Cycle-2 ordering code.
+
+## 6. Hosted-proof lessons retained
+
+Phase-B proof history remains the durable detailed owner. The main lessons carried forward are:
+
+1. strict evidence-contract migration must include secondary downstream consumers;
+2. stale fixtures can retain removed identity assumptions after product code is clean;
+3. the same conservative uncertainty may move to an earlier, more trustworthy owner;
+4. unresolved step-level evidence does not automatically earn exact inner-command identity;
+5. the single-traversal/source-in architecture is a correctness boundary because detached identity must not be guessed or rebound later;
+6. final authoritative hosted proof passed fresh install, `pip check`, focused investigation 15/15, and full deterministic regression 587/587.
+
+## 7. Newly discovered learning item reconciliation
+
+The earlier D-N1 item required integrating enough Cycle-1 producer knowledge to avoid treating Cycle 2 as black-box migration plumbing.
+
+**Final status:** RESOLVED FOR CONTINUATION.
+
+The remaining detailed parser/consumer/test drills are now lookup/deferred learning, not a blocker to Cycle 3 Phase A. If Cycle 3 reasoning exposes a concrete missing prerequisite, reopen only that bounded gap.
+
+## 8. Phase E reconciliation
+
+Phase E asked for repair of demonstrated learning/prerequisite gaps, product/design defects discovered during D, and live-state reconciliation before Cycle 3.
+
+Result:
+
+```text
+concrete product/design defect discovered in D → none
+demonstrated must-repair prerequisite gap       → none
+remaining optional/deep learning                → explicitly deferred
+source/test mutation required                   → no
+Phase-D record reconciled                       → yes
+MEMORY.md reconciliation                        → required with this closure
+```
+
+Therefore **Cycle 2 Phase E is COMPLETE with no repair increment**.
+
+## 9. Handoff to Cycle 3
+
+The next responsibility is Cycle 3 Phase A: orient/design the **runtime-strengthening eligibility** boundary already selected by ADR-0009 and the implementation plan.
+
+Starting proposition:
+
+```text
+static command occurrence
++ structural/control-flow context
++ effective execution profile
++ exact correlated runtime step evidence
+→ is this specific occurrence eligible to be strengthened by step-level runtime success?
+```
+
+The known current pressure is that the existing CI runtime classifier works primarily at `(job_key, step_source_index)` granularity. Cycle 3 must prevent a successful enclosing step from automatically strengthening an internal command occurrence whose static structure or execution profile does not justify that inference.
+
+Do not begin implementation before Cycle 3 Phase A establishes the bounded first eligibility rule and proof cases.
+
+## 10. Stop / reopen rule
+
+Do not reopen deferred D2–D7 learning merely to complete a checklist. Reopen a specific item only if:
+
+- Cycle 3 design depends on a concept that is not sufficiently understood;
+- a source/test contradiction appears;
+- an implementation defect is demonstrated; or
+- Ali explicitly chooses to return for deeper learning.
 
 `UP-SKILL:upgradepilot-learning-only`  
 `UP-SKILL:upgradepilot-working-memory`
