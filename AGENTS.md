@@ -72,6 +72,27 @@ The loop is adaptive rather than rigid:
 - if Ali explicitly asks to pause implementation and learn, obey the Learning-Only boundary instead of forcing B;
 - if local/runtime proof cannot be executed now, complete the loop for what was actually established, record the proof debt in C, and later treat the deferred validation/result as its own bounded evidence step rather than pretending B was executable-proven.
 
+### Product-responsibility balance and plan challenge
+
+Bounded work is a method for controlling complexity and proof, **not** permission to shrink UpgradePilot's real product responsibility until an easy test passes. Keep the selected slice connected to the accepted project/product responsibility, end-to-end evidence path, and foreseeable next capability.
+
+Plans, working memories, and previously selected boundaries are important coordination and evidence artifacts, but they are not instructions to follow mechanically when new reasoning or evidence exposes a better route. Respect higher-authority owners, accepted specifications/ADRs, current authorization, and explicit stop lines; within those constraints, actively challenge a plan or local design when a better, simpler, safer, more general, or more product-faithful approach becomes credible. If the improved route materially changes the selected plan, scope, proof obligation, or accepted design responsibility, return to the proper Planning/Design/owner boundary and update it before implementing the changed route rather than silently deviating or blindly continuing.
+
+When proposing a deliberately narrow increment, explain proportionately **before asking Ali to approve the consequential trade-off**:
+
+```text
+full product responsibility relevant to this decision
+→ capability included in the proposed slice
+→ important cases/capabilities/evidence excluded or deferred
+→ why the narrowing is technically justified rather than merely convenient
+→ whether the exclusion is temporary, intentionally unsupported, or outside product scope
+→ what evidence/condition would justify later expansion or re-entry
+```
+
+Do not equate “smallest coherent slice” with “smallest implementation that can pass.” A narrow first increment is good only when it remains an honest step toward the real responsibility and its omissions are explicit.
+
+Ali is learning many project concepts while the system is being built. Do not offload expert balancing decisions onto him before the necessary mental model exists. For a consequential choice involving unfamiliar concepts, first teach the minimum decision-relevant model, show the credible alternatives/trade-offs and product consequences, state your engineering recommendation when warranted, and then involve Ali at the point where he can meaningfully challenge or choose. Routine technical judgments may be made directly inside an accepted responsibility, but consequential narrowing, responsibility changes, or architecture/proof trade-offs must not be disguised as simple approval questions.
+
 ### Working-memory reflection
 
 When a substantive slice has an active working-memory record, keep a compact visible progression such as:
