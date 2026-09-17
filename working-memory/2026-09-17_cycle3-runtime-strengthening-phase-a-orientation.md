@@ -104,7 +104,7 @@ Current decision state:
 ```text
 A1 exact strengthened proposition     DECIDED
 A2 eligibility state model            DECIDED
-A3 canonical occurrence identity      OPEN — next
+A3 canonical occurrence handoff       DECIDED
 A4 first admitted positive structure  OPEN — next
 A5 negative/unresolved structures     OPEN
 A6 runtime-correlation composition     OPEN
@@ -236,27 +236,93 @@ Ali correctly identified the core structural distinction: Case A is straightforw
 
 A second independent requirement remains the **execution profile**: even a straightforward occurrence may be strengthened only when GitHub's wrapper/execution semantics are sufficiently established for the inference being made.
 
-### A3 — Canonical identity carried into runtime strengthening — OPEN / NEXT
+### A3 — Canonical occurrence handoff into runtime strengthening — DECIDED
 
-The runtime-strengthening decision must operate on the **specific static occurrence**, not merely the enclosing `(job_key, step_source_index)`.
+Introduce one narrow **CI-owned runtime-strengthening candidate/input** for a specific static command occurrence rather than passing the full static dependency-consumption or direct-invocation evidence objects into the eligibility classifier.
 
-Current Cycle-2 evidence already preserves more than the existing runtime bridge consumes:
+Conceptually the handoff preserves/references only the facts the runtime-strengthening responsibility needs:
 
 ```text
-outer job/step identity
-+ StaticCommandLocation when earned
+outer job + step identity
++ canonical StaticCommandLocation
 + structural_context
++ effective execution_profile
++ minimum whole-step command-analysis shape required by A4
++ static proposition kind being strengthened
 ```
 
-The current bridge discards the occurrence-level information by reducing supported evidence to `(job_key, step_source_index)` before runtime classification.
+The exact class/type/function spelling remains an implementation detail for the Build phase. Phase A locks the responsibility and information boundary, not the final identifier name.
 
-The next design questions are:
+#### A3 identity rule
 
-1. What is the **minimum occurrence-level evidence object** the runtime-strengthening classifier should receive?
-2. Can the existing `StaticDependencyConsumptionEvidence` and `DirectPackageInvocationEvidence` carry everything needed, or is a small dedicated eligibility input/result justified?
-3. Where should the effective shell/execution profile be attached or recovered so that the classifier does not need to reparse/rederive unrelated static evidence?
-4. How do we preserve `StaticCommandLocation` only when it is genuinely earned and avoid inventing inner identity for unresolved step-scoped evidence?
-5. Which layer should own the eligibility decision so parser details remain private and runtime correlation remains identity-only?
+`StaticCommandLocation` remains the **single canonical inner command identity**. Cycle 3 must not create a second command-identity scheme.
+
+The runtime-strengthening input therefore **references/composes existing provider-owned facts** rather than redefining them:
+
+```text
+StaticCommandLocation
+→ exact parser-neutral static occurrence identity
+
+structural_context
+→ parser-backed structure fact
+
+execution_profile
+→ effective-shell/provider fact
+
+job / step identity
+→ static workflow-definition fact
+
+static proposition kind
+→ CI/domain composition fact
+```
+
+None of these facts independently proves execution or success.
+
+#### A3 rationale
+
+The current one-traversal static path already has the full `StaticCommandAnalysis` at the point consumption/project-environment/direct-invocation evidence is created. That analysis already contains the resolved shell context, including `execution_profile`, while exact occurrences already carry canonical location and structural context.
+
+Therefore Cycle 3 should preserve the **small subset needed for later eligibility** at this existing composition point. It should not discard those facts and later reparse the script or re-resolve shell context inside `dependency_exercise.py`.
+
+This yields the bounded flow:
+
+```text
+one StaticCommandAnalysis
+→ static domain interpretation
+→ narrow occurrence-level runtime-strengthening candidate
+→ exact step correlation
+→ eligibility/runtime composition
+```
+
+This keeps one-analysis/one-traversal ownership from Cycle 2 and avoids duplicate static interpretation.
+
+#### Rejected A3 alternative
+
+Do **not** make the runtime-strengthening classifier consume `StaticDependencyConsumptionEvidence` / `DirectPackageInvocationEvidence` directly as its primary contract.
+
+Reason:
+
+- those objects own richer static domain propositions and carry many fields irrelevant to eligibility;
+- runtime strengthening would become coupled to dependency/reachability-specific details;
+- adding `execution_profile`, whole-step shape, and future eligibility metadata directly to those objects would blur static-domain evidence with the distinct Cycle-3 runtime bridge;
+- the eligibility layer should remain equally usable for the two A1 propositions without learning all of each producer's internals.
+
+A dedicated narrow handoff is therefore the simpler ownership boundary despite introducing one small composition type.
+
+#### Explicit non-responsibilities of the A3 handoff
+
+The handoff must **not**:
+
+- create a second command identity;
+- contain or own the runtime result itself;
+- decide `eligible | ineligible | unresolved` merely by existing;
+- duplicate dependency reachability/source details;
+- expose Tree-sitter nodes;
+- reparse the workflow command;
+- re-resolve effective shell context later;
+- claim that the command executed or succeeded.
+
+Runtime correlation remains identity-only at the outer job/step boundary; occurrence eligibility remains a separate CI composition responsibility.
 
 ### A4 — First admitted positive structure — OPEN / NEXT
 
@@ -268,7 +334,7 @@ Current conservative candidate:
 cleanly analyzable run step
 + exact target StaticCommandLocation
 + target occurrence is straightforward_top_level
-+ first admitted execution profile
++ admitted execution profile
 + exact correlated runtime step
 + no continue-on-error masking
 + completed/success runtime result
@@ -394,21 +460,9 @@ _supported_direct_exercise_locations(...)
 
 Both deduplicate to `(job_key, step_source_index)` before `_classify_runtime_step_execution(...)` evaluates successful runtime correlation.
 
-The Cycle-2 evidence objects already preserve occurrence-level identity/structure that the current runtime bridge discards:
+Cycle 2 already preserves the exact occurrence identity/structure, and the one-traversal command-analysis point already owns `execution_profile`. A3 therefore locks the Cycle-3 correction as a **narrow occurrence-level handoff/composition**, not a new parser, new command identity, or later re-derivation path.
 
-```text
-StaticDependencyConsumptionEvidence
-→ command_location
-→ structural_context
-
-DirectPackageInvocationEvidence
-→ command_location
-→ structural_context
-```
-
-This makes the likely Cycle-3 correction narrower than a new command-identity architecture: preserve and evaluate the existing richer occurrence evidence through the runtime-strengthening boundary instead of reducing it prematurely to step identity.
-
-This remains a design finding, not yet an implementation decision about exact class/function shape.
+The implementation shape should preserve those facts before the current reduction to step identity occurs.
 
 ## 7. Stop line
 
@@ -427,16 +481,16 @@ If a broader responsibility becomes necessary, return it to planning rather than
 
 ## 8. Immediate next action
 
-A1 and A2 are now decided. Continue Phase A with A3/A4 before implementation:
+A1, A2, and A3 are now decided. Continue Phase A with A4 before implementation:
 
 ```text
-1. determine the minimum occurrence-level identity/evidence passed into runtime strengthening;
-2. determine where execution_profile joins that occurrence evidence without duplicating parser responsibility;
-3. decide the first admitted straightforward_top_level positive class;
-4. decide whether the first class is restricted to exactly one parsed command per run block;
-5. characterize which built-in/default execution profiles actually justify that first positive inference;
-6. then classify A5 negative vs unresolved shapes;
-7. compose A6 and the A7 proof matrix from those decisions;
+1. characterize the exact first positive straightforward_top_level rule;
+2. decide whether it requires exactly one parsed command in the entire run block;
+3. establish which execution profiles positively justify the first inference;
+4. keep custom/unproven wrapper semantics unresolved;
+5. then classify A5 negative vs unresolved structures;
+6. compose A6 runtime-correlation ordering from the locked A1–A5 semantics;
+7. define the A7 proof matrix;
 8. only after the complete Phase-A contract is accepted, hand off to implementation.
 ```
 
