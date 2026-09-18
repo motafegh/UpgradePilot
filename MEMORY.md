@@ -142,7 +142,7 @@ No concrete product/design defect or must-repair prerequisite gap was discovered
 
 Deferred D learning should be reopened only if Cycle 3 exposes a concrete prerequisite gap or Ali explicitly chooses deeper review.
 
-## Cycle 3 — Phase A ACTIVE
+## Cycle 3 — Phase A COMPLETE / Build Ready
 
 Cycle 3 owns this new proposition:
 
