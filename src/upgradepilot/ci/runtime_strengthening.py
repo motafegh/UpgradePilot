@@ -22,6 +22,8 @@ from ..github.workflow_command_analysis import (
 )
 from ..github.workflow_command_location import StaticCommandLocation
 from ..github.workflow_command_shell import ShellExecutionProfile
+from .consumption import StaticDependencyConsumptionEvidence
+from .workflow_commands import DirectPackageInvocationEvidence
 
 
 type RuntimeStrengtheningPropositionKind = Literal[
@@ -91,6 +93,43 @@ _FIRST_SEQUENTIAL_BASH_EXECUTION_PROFILES = frozenset(
         "github_default_container_sh",
     }
 )
+
+
+
+def candidate_from_consumption(
+    evidence: StaticDependencyConsumptionEvidence,
+) -> RuntimeStrengtheningCandidate:
+    """Build the exact stronger-proposition candidate from static consumption evidence."""
+
+    return RuntimeStrengtheningCandidate(
+        proposition_kind="dependency_consumption",
+        workflow_path=evidence.workflow_path,
+        workflow_revision=evidence.workflow_revision,
+        job_key=evidence.job_key,
+        step_source_index=evidence.step_source_index,
+        command_location=evidence.command_location,
+        structural_context=evidence.structural_context,
+        whole_step_relation=evidence.whole_step_relation,
+        execution_profile=evidence.execution_profile,
+    )
+
+
+def candidate_from_direct_exercise(
+    evidence: DirectPackageInvocationEvidence,
+) -> RuntimeStrengtheningCandidate:
+    """Build the exact stronger-proposition candidate from one static invocation occurrence."""
+
+    return RuntimeStrengtheningCandidate(
+        proposition_kind="direct_package_exercise",
+        workflow_path=evidence.workflow_path,
+        workflow_revision=evidence.workflow_revision,
+        job_key=evidence.job_key,
+        step_source_index=evidence.step_source_index,
+        command_location=evidence.command_location,
+        structural_context=evidence.structural_context,
+        whole_step_relation=evidence.whole_step_relation,
+        execution_profile=evidence.execution_profile,
+    )
 
 
 def classify_runtime_strengthening_eligibility(
@@ -205,5 +244,7 @@ __all__ = (
     "RuntimeStrengtheningEligibility",
     "RuntimeStrengtheningEligibilityState",
     "RuntimeStrengtheningPropositionKind",
+    "candidate_from_consumption",
+    "candidate_from_direct_exercise",
     "classify_runtime_strengthening_eligibility",
 )
