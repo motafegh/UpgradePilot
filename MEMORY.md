@@ -5,9 +5,9 @@
 
 ## Live position
 
-- **Current responsibility:** Cycle 3 **Phase A — runtime-strengthening eligibility orientation/design**.
-- **Mode:** pre-implementation Planning / Learning-by-Doing. Do not mutate product source/tests until the bounded Phase-A contract is accepted.
-- **Cycle state:** **Cycle 1 CLOSED; Cycle 2 A/B/C CLOSED; Cycle 2 D CLOSED with explicit deferred learning; Cycle 2 E COMPLETE with no repair increment; Cycle 3 A ACTIVE**.
+- **Current responsibility:** Cycle 3 **Build/Implement entry — runtime-strengthening implementation**.
+- **Mode:** Phase A Planning/Design is complete. Product source/tests remain unchanged until Build/Implement is explicitly entered; the next implementation must follow the selected plan and accepted proof matrix.
+- **Cycle state:** **Cycle 1 CLOSED; Cycle 2 CLOSED; Cycle 3 Phase A COMPLETE; Cycle 3 Build/Implement READY / NOT STARTED**.
 - **Selected Cycle-3 working memory:** `working-memory/2026-09-17_cycle3-runtime-strengthening-phase-a-orientation.md`.
 - **Cycle-2 D/E closure record:** `working-memory/2026-09-16_cycle2-phase-d-integrated-learning-plan.md`.
 - **Selected parent plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
@@ -293,7 +293,7 @@ Runtime-Correlation and Eligibility Composition
 → DECIDED
 
 Runtime-Strengthening Proof Matrix
-→ ACTIVE / OPEN
+→ DECIDED
 ```
 
 ### Accepted Positive Structural Admission and Negative/Unresolved Classification boundary
@@ -423,23 +423,59 @@ unknown.
 Runtime correlation remains identity-only and does not absorb Tree-sitter/shell semantics.
 Direct-exercise runtime support uses the same exact-occurrence composition independently.
 
-## Immediate next action
+### Runtime-Strengthening Proof Matrix and Phase-A closure
 
-Continue Cycle 3 Phase A with the **Runtime-Strengthening Proof Matrix**:
+The final Phase-A review found no architecture, product-semantic, ownership, or proof blocker
+to Build entry.
+
+The accepted proof responsibility covers:
 
 ```text
-accepted proposition + eligibility + runtime-composition contracts
-→ positive proof cases
-→ ineligible proof cases
-→ unresolved proof cases
-→ factual failed/skipped/cancelled runtime cases
-→ S001/S002 coverage
-→ S004 deferred/re-entry case
-→ exact implementation/test ownership map
+provider positive structural admission
++ false-straightforward prevention
++ eligibility classification
++ exact-occurrence runtime composition
++ multiple-occurrence identity preservation
++ separate direct-exercise runtime composition
++ S001/S002 admitted useful positives
++ S004 explicit deferred/re-entry pressure
++ stronger-claim limits
++ focused → nearby → full deterministic proof
 ```
 
-Only after the proof matrix and complete Phase-A contract are accepted may
-runtime-strengthening product source/tests be implemented.
+The plan was reconciled so the runtime evidence states remain precise:
+
+```text
+positively ineligible structure
+→ runtime strengthening not_established
+
+materially insufficient structural/profile facts
+→ runtime strengthening unresolved
+
+eligible exact occurrence + known failed/skipped/cancelled runtime step
+→ factual runtime status remains known
+→ positive runtime strengthening not_established
+→ broader CI coverage may remain unresolved
+```
+
+Cycle 3 Phase A is complete. No product source/tests were modified during Phase A.
+
+## Immediate next action
+
+Next, when Ali explicitly authorizes implementation, enter **Cycle 3 Build/Implement**:
+
+```text
+load Build/Implement + Learning-by-Doing procedures
+→ open a fresh Cycle-3 Build working memory
+→ start at the provider structural-admission boundary
+→ add the bounded Tree-sitter-backed positive whole-step facts
+→ prevent known false-straightforward admission
+→ preserve exact occurrence-level runtime-strengthening context
+→ compose with existing runtime correlation
+→ execute the accepted proof matrix narrow-to-broad
+```
+
+Do not start product source/test mutation before that explicit Build entry.
 
 ## Current stop line
 
