@@ -428,6 +428,120 @@ D post-build learning           NOT STARTED
 E gap repair / next orientation NOT STARTED
 ```
 
+### Build Stage 2 — orientation / implementation model
+
+The source trace confirmed the exact Stage-2 loss boundary:
+
+```text
+one StaticCommandAnalysis per run step
+→ exact command occurrence is identified
+→ static consumption / invocation evidence preserves:
+     StaticCommandLocation
+     structural_context
+BUT previously dropped:
+     whole_step_relation
+     execution_profile
+→ dependency_exercise later reduced supported evidence to (job_key, step_source_index)
+```
+
+Stage 2 therefore preserves the missing provider facts in existing static evidence records
+before any runtime aggregation.
+
+#### Selected handoff shape
+
+Normal production static consumption and invocation evidence now preserve/reference:
+
+```text
+workflow path/revision
+job key
+step source index
+StaticCommandLocation
+structural_context
+whole_step_relation
+execution_profile
+proposition kind (when converted to runtime-strengthening candidate)
+```
+
+No Tree-sitter node is retained.
+
+Precomposed/synthetic compatibility evidence may lack the new provider facts. Stage 2 must
+classify that stronger runtime proposition as `unresolved`; it must not reparse or guess.
+
+#### Eligibility ownership
+
+A new CI-owned runtime-strengthening candidate/classifier will own:
+
+```text
+provider/static occurrence facts
++ execution profile
+→ eligible | ineligible | unresolved
+```
+
+Provider parsing does not own this policy.
+
+Accepted Stage-2 classification order:
+
+```text
+1. known positively disqualifying structure
+   → ineligible
+
+2. incomplete exact identity/context/profile
+   → unresolved
+
+3. Sole Ordinary Top-Level Command Admission
+   + admitted built-in/default execution profile
+   → eligible
+
+4. First Sequential Bash/sh Command Admission
+   + admitted GitHub Bash/sh fail-fast execution profile
+   → eligible
+
+5. anything else within the current coarse representation
+   → unresolved
+```
+
+Known ineligible structures at this stage:
+
+```text
+conditional
+loop
+function definition/body
+status_inverted
+asynchronous
+process_substitution
+```
+
+Generic `short_circuit`, `pipeline`, `nested_or_subshell`, compound/no-positive relation,
+later generic linear commands, custom shell templates, and incomplete profile/identity remain
+`unresolved`.
+
+The current generic short-circuit representation does not distinguish `&&` from `||`, so
+Stage 2 must not invent the Phase-A deferred operator-specific classification.
+
+#### Implementation progress
+
+Completed so far:
+
+- project-environment declarations preserve `whole_step_relation`;
+- static dependency-consumption evidence preserves `whole_step_relation` and
+  `execution_profile`;
+- direct invocation evidence preserves exact workflow identity, `whole_step_relation`, and
+  `execution_profile`;
+- normal workflow traversal populates these facts from the already-existing single
+  `StaticCommandAnalysis`.
+
+No runtime correlation or workflow aggregation behavior has changed.
+
+Stage-2 state:
+
+```text
+A orientation                  COMPLETE
+B implementation               ACTIVE
+C state preservation            ACTIVE
+D post-build learning           NOT STARTED
+E gap repair / next orientation NOT STARTED
+```
+
 ### Build Stage 3 — Runtime Composition
 
 Goal:
