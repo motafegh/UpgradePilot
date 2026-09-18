@@ -305,7 +305,7 @@ Project-environment evidence reconciliation must compare identities produced by 
 
 Separate static occurrence from the proposition that whole-step success can strengthen that occurrence.
 
-The strengthened Cycle-3 proposition is **R2 runtime-correlated support**:
+The strengthened Cycle-3 proposition is **Runtime-Correlated Support Proposition**:
 
 ```text
 exact supported static occurrence
@@ -331,27 +331,27 @@ Do **not** infer positive eligibility from absence of currently known negative t
 The accepted first positive family is:
 
 ```text
-P1 — sole ordinary top-level command
+Sole Ordinary Top-Level Command Admission
 
 cleanly analyzable step
 + exact target positively established as the sole ordinary top-level command statement
 + admitted GitHub built-in/default Bash/sh, PowerShell/pwsh, or CMD execution profile
-→ structural/profile candidate for R2 strengthening
+→ structural/profile candidate for Runtime-Correlated Support
 ```
 
 and:
 
 ```text
-P2 — first ordinary top-level Bash/sh command in a sequential script
+First Sequential Bash/sh Command Admission
 
 cleanly analyzable Bash-family step
 + exact target positively established as the first ordinary top-level command statement
 + admitted GitHub built-in/default Bash/sh profile with fail-fast -e behavior
 + target outside conditional/status-inverting/nested/asynchronous structure
-→ structural/profile candidate for R2 strengthening
+→ structural/profile candidate for Runtime-Correlated Support
 ```
 
-P2 exists to retain real product coverage such as S002's first dependency-install command in a normal multi-command Bash step. It does not authorize arbitrary later linear-chain occurrences.
+The First Sequential Bash/sh Command Admission exists to retain real product coverage such as S002's first dependency-install command in a normal multi-command Bash step. It does not authorize arbitrary later linear-chain occurrences.
 
 The provider adapter must use the existing Tree-sitter syntax tree to prevent false-straightforward admission, including relevant cases such as:
 
