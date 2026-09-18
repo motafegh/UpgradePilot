@@ -75,12 +75,87 @@ E — repair any important understanding/implementation gap and orient Stage 2
 Current state:
 
 ```text
-A orientation                 ACTIVE
-B implementation              NOT STARTED
+A orientation                 COMPLETE
+B implementation              ACTIVE
 C state preservation           ACTIVE
 D post-build learning          NOT STARTED
 E gap repair / next orientation NOT STARTED
 ```
+
+### Build Stage 1 — orientation / implementation model
+
+Stage 1 is provider-only. It will add one **positive whole-step relationship fact** to each
+parsed command occurrence without deciding CI eligibility yet.
+
+The implementation model is:
+
+```text
+whole Tree-sitter CST
++ exact command node
+        ↓
+provider-owned positive relation
+        ↓
+sole_ordinary_top_level_command
+OR
+first_ordinary_top_level_command_in_sequential_script
+OR
+no positive relation established
+```
+
+The third state is intentionally represented by absence of the positive relation, not by a
+provider-owned `ineligible` verdict. Stage 2 remains responsible for combining this provider
+fact with structural context and execution profile into:
+
+```text
+eligible | ineligible | unresolved
+```
+
+This separation prevents the parser adapter from owning CI policy.
+
+#### Grammar characterization used for Stage 1
+
+The pinned Bash grammar confirms:
+
+- root `program` contains shell statements;
+- `negated_command`, `compound_statement`, `list`, and `pipeline` are distinct
+  statements from ordinary `command`;
+- process substitution is a named expression that can contain statements;
+- Bash statement terminators include `;`, newline, and `&`.
+
+The pinned PowerShell grammar confirms:
+
+- root `program` contains a `statement_list`;
+- top-level statements include `pipeline`, `flow_control_statement`, conditionals,
+  loops, functions, try/trap, and other non-command statements;
+- therefore one collected `command` occurrence is not sufficient proof of a sole
+  top-level command.
+
+Stage-1 implementation consequence:
+
+- positive admission must inspect the whole root/top-level statement shape;
+- `source_order == 0` is never the admission rule;
+- Bash background `&` must be rejected explicitly because it is an anonymous terminator;
+- nested/compound/control-flow commands must not receive a positive whole-step relation.
+
+#### Stage-1 source shape selected
+
+Add a small parser-neutral provider fact to `StaticCommandOccurrence`:
+
+```text
+whole_step_relation:
+    sole_ordinary_top_level_command
+    | first_ordinary_top_level_command_in_sequential_script
+    | None
+```
+
+`None` means only:
+
+> the provider did not positively establish one of the two admitted whole-step relations.
+
+It does not mean the occurrence is ineligible. Stage 2 will decide whether the missing
+positive relation is a known negative or an unresolved structure.
+
+No Tree-sitter node escapes the provider layer.
 
 ### Build Stage 2 — Exact Occurrence Handoff and Eligibility
 
