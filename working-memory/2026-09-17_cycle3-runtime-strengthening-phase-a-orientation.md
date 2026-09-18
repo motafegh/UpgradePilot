@@ -105,7 +105,8 @@ Current decision state:
 A1 exact strengthened proposition     DECIDED
 A2 eligibility state model            DECIDED
 A3 canonical occurrence handoff       DECIDED
-A4 first admitted positive family     ACTIVE / OPEN
+A4 strengthened proposition          DECIDED — R2 runtime-correlated support
+A4 positive eligibility family        ACTIVE / OPEN
 A5 negative/unresolved structures     OPEN
 A6 runtime-correlation composition     OPEN
 A7 proof matrix                        OPEN
@@ -631,6 +632,118 @@ Route R3 — narrowly sanitized execution class
 The next step is to compare R1/R2/R3 against the actual downstream CI-coverage proposition and
 the Product Decision Model before changing A1, A4, or the implementation plan.
 
+#### A4 proposition selection — DECIDED: R2 runtime-correlated support
+
+After tracing the three reassessment routes into the actual CI coverage consumer,
+`PublicPullRequestInvestigation`, the Product Decision Model, and the parent synthesis plan,
+Cycle 3 selects **R2**.
+
+The owned strengthened proposition is:
+
+```text
+exact supported static command occurrence
++ runtime-strengthening-eligible static structure
++ established execution profile
++ exact correlated completed/successful owning runtime step
++ no visible continue-on-error masking
+→ supported runtime-correlated occurrence
+```
+
+This is **stronger than static declaration alone**, because the exact owning GitHub Actions
+step is known to have completed successfully and the occurrence's static structure/profile
+makes that runtime result relevant to the occurrence.
+
+It is deliberately **not** direct command-execution observation. The result must not be
+described as proving:
+
+```text
+the exact inner command definitely executed
+the exact inner command definitely succeeded
+the exact dependency version was installed
+a particular wheel/sdist was selected
+compatibility or complete behavior was proven
+the update is safe
+a maintainer action is justified
+```
+
+##### Why R2 was selected
+
+**R1 — strict inner-command execution/success** was rejected for this cycle because the current
+evidence path cannot honestly establish it in the general admitted environment. Step success
+is step-level evidence; startup/environment effects such as `BASH_ENV` demonstrate that
+static command structure + successful step does not universally equal direct observation of
+the inner command. Making R1 trustworthy would require a different/broader evidence
+responsibility such as command-level runtime observability, which is outside the current
+Cycle-3 boundary.
+
+**R3 — narrowly sanitized execution class** was not selected because proving a sufficiently
+closed startup/runtime environment would require materially broader environment/action
+modeling while excluding many ordinary workflows. That cost is not justified by the current
+downstream product need.
+
+**R2** matches the product's actual current semantics. The parent synthesis plan already
+defines `supported_runtime_correlated` as a supported static consuming step safely related
+to an exact runtime step that GitHub reports completed/successfully, while explicitly
+withholding stronger installed-version/artifact/compatibility/action claims.
+
+##### Product effect
+
+Cycle 3 therefore acts as a **runtime-evidence quality gate**:
+
+```text
+static supported occurrence
+        ↓
+inspect structural context + execution profile
+        ↓
+eligible?
+  yes → exact successful runtime step may strengthen to runtime-correlated support
+  no  → preserve static evidence without runtime strengthening
+  unknown → preserve unresolved strengthening state
+```
+
+Example:
+
+```yaml
+run: pip install -r requirements.txt
+```
+
+may qualify for stronger runtime-correlated support when the remaining A4 structure/profile
+conditions are satisfied.
+
+But:
+
+```yaml
+run: |
+  if false; then
+    pip install -r requirements.txt
+  fi
+  pytest
+```
+
+keeps the `pip install` as useful static evidence while its `conditional` structure prevents
+the successful enclosing step from strengthening that occurrence.
+
+##### A1 reconciliation
+
+No A1 redesign is required. A1 already selected the bounded
+`runtime-correlated dependency-consumption/direct-exercise occurrence` proposition. R2
+clarifies its exact meaning and non-claims; it does not replace it with direct execution proof.
+
+##### Remaining A4 work
+
+A4 is **not fully closed yet**. The proposition is now locked, but the eligibility family still
+needs a small bounded refinement:
+
+1. identify the exact structural contexts that are positively eligible for R2;
+2. classify known path-dependent structures as ineligible versus unresolved;
+3. resolve small missing structural distinctions such as status inversion where they affect
+   the gate;
+4. characterize the relevant execution-profile matrix without over-modeling shell runtime;
+5. then move directly into A5/A6/A7.
+
+Detailed shell mechanics are intentionally deferred to implementation-time Learning-by-Doing
+except where they are required to make the remaining eligibility decision sound.
+
 ### A5 — Negative/unresolved structures
 
 At minimum preserve non-strengthening for:
@@ -759,12 +872,12 @@ If a broader responsibility becomes necessary, return it to planning rather than
 A1, A2, and A3 are decided. Continue Phase A with A4 before implementation:
 
 ```text
-1. decide the smallest parser-neutral A4 relation refinement needed for runtime proof;
-2. ensure the refinement covers status inversion and preserves the && versus || proof distinction without becoming a general CFG;
-3. characterize the positive family separately for Bash/sh, PowerShell, CMD, container-default sh, and custom templates;
-4. test the selected family against S002/S004-style real multi-command pressure and state lost/deferred coverage explicitly;
-5. lock A4 only when the positive family is both proof-sound and product-faithful;
-6. classify A5 negative vs unresolved structures;
+1. keep R2 fixed as the exact runtime-strengthened proposition and non-proof boundary;
+2. decide the smallest parser-neutral structural refinement needed for the R2 eligibility gate;
+3. classify the first positive family and the ineligible/unresolved structures without a general CFG;
+4. characterize the relevant execution profiles only to the depth required by R2;
+5. test the selected family against S002/S004-style real multi-command pressure and state lost/deferred coverage explicitly;
+6. close A4, then classify/finalize A5;
 7. compose A6 runtime-correlation ordering from the locked A1–A5 semantics;
 8. define the A7 proof matrix;
 9. only after the complete Phase-A contract is accepted, hand off to implementation.
