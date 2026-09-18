@@ -79,7 +79,7 @@ A orientation                  COMPLETE
 B implementation               COMPLETE
 C state preservation            COMPLETE
 D post-build learning           ACTIVE — current handoff
-E gap repair / next orientation BLOCKED on focused executable proof + review
+E gap repair / next orientation READY after review
 ```
 
 ### Build Stage 1 — orientation / implementation model
@@ -281,26 +281,70 @@ b61a502eba162cd02a9eeed84623ab9dc4ef9462
 Repository/diff inspection confirms the change is bounded to the provider + focused provider
 proof, plus Phase-B state artifacts.
 
-Executable proof is **PENDING**, not passed.
+Executable proof is **PASS** through GitHub Actions.
 
-Reason:
+Because the existing product-verification workflow is manual-dispatch only and the connected
+GitHub tool surface does not expose `workflow_dispatch`, a temporary proof branch was created
+from the exact current `main` revision and given a branch-triggered focused workflow.
 
-- the chat execution environment does not contain the pinned Tree-sitter runtime/grammar
-  packages;
-- outbound package installation is unavailable here;
-- the repository's hosted product-verification workflow is manual-dispatch only and the
-  connected GitHub tool surface cannot dispatch it.
-
-Required focused executable proof before Stage 2:
+Proof vehicle:
 
 ```text
+branch:
+agent/cycle3-stage1-provider-proof
+
+workflow:
+.github/workflows/cycle3-stage1-provider-proof.yml
+
+proof commit:
+42848185c5c6eeafc38c5c12efc5979f64fc8d53
+
+GitHub Actions run:
+35378727316
+
+job:
+Focused workflow command analysis proof
+```
+
+Hosted environment established:
+
+```text
+CPython 3.12.14
+
+tree-sitter          0.25.0
+tree-sitter-bash     0.25.1
+tree-sitter-pwsh     0.38.1
+tree-sitter-batch    0.11.1
+```
+
+Executed:
+
+```text
+python -m pip install .
 python -m unittest tests.test_github_workflow_command_analysis -v
 ```
 
-If this focused proof fails, repair Stage 1 before entering Stage 2.
+Observed result:
 
-If it passes, record the exact result here, complete the Stage-1 learning/review, then enter
-Stage 2.
+```text
+Ran 18 tests in 0.028s
+OK
+GitHub Actions job conclusion: success
+```
+
+All new Stage-1 provider proofs passed, including:
+
+- cross-shell sole top-level command admission;
+- first sequential Bash command admission;
+- Bash status inversion/background/process-substitution rejection;
+- compound Bash non-admission;
+- PowerShell/CMD earlier-control-flow false-sole prevention;
+- retained conditional/pipeline/short-circuit/parser-error/source-identity regressions.
+
+This closes the Stage-1 focused executable proof debt.
+
+The temporary workflow is an execution/proof vehicle only; it is not part of the product
+architecture and must not be merged to `main` as product behavior.
 
 #### Stage-1 status
 
