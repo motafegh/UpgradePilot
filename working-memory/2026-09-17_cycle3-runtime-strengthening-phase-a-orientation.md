@@ -744,6 +744,175 @@ needs a small bounded refinement:
 Detailed shell mechanics are intentionally deferred to implementation-time Learning-by-Doing
 except where they are required to make the remaining eligibility decision sound.
 
+#### A4 eligibility investigation checkpoint — structural taxonomy audit
+
+With R2 fixed, the current parser IR, pinned grammar versions, GitHub runner wrapper source,
+and real product-simulation workflows were re-audited specifically for the eligibility gate.
+
+##### What can be reused unchanged
+
+The current parser already exposes useful occurrence-level categories for:
+
+```text
+conditional
+loop
+pipeline
+short_circuit
+function_or_block
+nested_or_subshell
+linear_chain
+straightforward_top_level
+```
+
+These facts are parser-neutral and already flow with canonical command identity. Cycle 3 does
+not need a new shell CFG or a second command-analysis system.
+
+##### Important interpretation correction
+
+`straightforward_top_level` currently means:
+
+```text
+none of the structural tags implemented by the adapter fired
+```
+
+It does **not yet** mean:
+
+```text
+all R2-relevant execution/status structure has been positively ruled out
+```
+
+That distinction matters because the Bash adapter currently misses several grammar structures
+that can make step-level success misleading for a specific inner occurrence.
+
+##### Confirmed Bash structural gaps against pinned tree-sitter-bash 0.25.1
+
+1. **Status inversion — `! command`**
+
+The pinned Bash grammar exposes a named `negated_command` node. Current UpgradePilot Bash
+mapping does not inspect that ancestor. An inner command under `!` can therefore currently
+fall through to `straightforward_top_level`.
+
+This is material because Bash status inversion changes how command status contributes to the
+containing script/result and also interacts with `errexit`.
+
+Required bounded refinement: preserve a parser-neutral status-inversion/non-positive context
+before allowing R2 eligibility.
+
+2. **Asynchronous command — `command &`**
+
+The pinned grammar represents `&` as a statement terminator rather than a named command
+ancestor. Current structural tagging therefore does not expose that an otherwise ordinary
+command was launched asynchronously.
+
+Bash may continue without waiting for that command, and the asynchronous list itself can
+produce successful status independently of the command's eventual result.
+
+Required bounded refinement: detect asynchronous termination/relationship at the parser
+adapter boundary rather than treating such an occurrence as ordinary straightforward/linear
+structure.
+
+3. **Process substitution — `<(command)` / `>(command)`**
+
+The pinned grammar exposes `process_substitution`, and commands can occur underneath it.
+Current Bash `nested_or_subshell` tagging checks `subshell` and `command_substitution`
+but not `process_substitution`.
+
+Process substitution executes the nested process asynchronously relative to the surrounding
+command, so it must not be eligible as if it were an ordinary top-level occurrence.
+
+Required bounded refinement: include process-substitution command occurrences in the
+nested/asynchronous non-positive family.
+
+4. **Brace/compound block — `{ command1; command2; }`**
+
+The pinned grammar exposes `compound_statement`. Current static structure vocabulary already
+uses the label `function_or_block`, but the Bash mapper currently checks only
+`function_definition`, not a top-level brace compound statement.
+
+For a top-level brace block, nested commands can therefore currently receive
+`straightforward_top_level` even though they live inside a compound structure whose overall
+status/order relationship is not represented by that tag.
+
+Required bounded refinement: map relevant Bash compound-block ancestry into the existing
+block/non-positive structural family unless/until a narrower positive relation is separately
+proven.
+
+##### Short-circuit precision
+
+The current Bash `short_circuit` tag intentionally merges `&&` and `||`, although the
+pinned grammar preserves the concrete operator. That information is proof-relevant if Cycle 3
+ever wants to admit selected chain positions.
+
+For the first R2 family, however, **operator splitting is not required if all short-circuit
+occurrences remain non-positive**. Therefore do not expand the IR merely to distinguish
+`&&` from `||` unless the selected first family actually needs it.
+
+##### Execution-profile evidence from current GitHub runner source
+
+Current `actions/runner` source confirms these built-in/default wrapper facts:
+
+```text
+bash        → --noprofile --norc -e -o pipefail {0}
+sh          → -e {0}
+pwsh/PS     → prepend $ErrorActionPreference='stop'
+              + append final LASTEXITCODE propagation
+cmd         → /D /E:ON /V:OFF /S /C ...
+```
+
+Default non-Windows execution locates Bash when available but applies the `sh` argument
+profile (`-e`), while container/default sh remains a distinct profile.
+
+These facts justify profile-aware R2 classification; they do not convert R2 into direct
+command-execution proof.
+
+##### Real-case pressure
+
+Current product-simulation evidence gives a useful minimum-generalization target:
+
+```text
+S001
+→ mostly one-command install/exercise steps
+→ straightforward baseline coverage
+
+S002
+→ two ordinary commands in one Bash run block
+→ changed-dependency install is source_order 0
+→ important pressure to support a first straight-line Bash/sh occurrence
+
+S004
+→ environment activation/source command + && install chain
+→ materially harder relation
+→ safe to defer initially if re-entry evidence is stated
+```
+
+Therefore the first R2 family should aim to retain S001 + S002 without pretending S004's
+stronger shell relation has already been modeled.
+
+##### Current working recommendation — not yet locked
+
+A proportionate first family is trending toward:
+
+```text
+P1
+sole ordinary straightforward occurrence
++ analyzable step
++ admitted built-in/default execution profile
+→ positive R2 candidate
+
+P2
+first ordinary top-level/straight-line occurrence
++ Bash/sh fail-fast execution profile
++ none of the R2-defeating structural contexts
+→ positive R2 candidate
+```
+
+while initially leaving later linear occurrences, short-circuit chains, pipelines, compound
+blocks, nested/process-substitution occurrences, status inversion, and asynchronous commands
+outside the positive family.
+
+This remains an investigation result rather than an accepted A4 family until PowerShell/CMD
+singleton behavior and the final eligible/ineligible/unresolved distinction are reconciled.
+
 ### A5 — Negative/unresolved structures
 
 At minimum preserve non-strengthening for:
