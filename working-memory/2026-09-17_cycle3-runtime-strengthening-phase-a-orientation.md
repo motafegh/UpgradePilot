@@ -1409,6 +1409,207 @@ supported static evidence somewhere in step
 
 without weakening the already-proven exact run/job/step correlation boundary.
 
+### Runtime-Correlation and Eligibility Composition — investigation checkpoint
+
+The current source trace makes the Cycle-3 correction concrete.
+
+#### Current accidental reduction
+
+Both runtime axes currently reduce exact static evidence too early:
+
+```text
+supported StaticDependencyConsumptionEvidence
+→ (job_key, step_source_index)
+
+supported direct-exercise invocation
+→ (job_key, step_source_index)
+
+then
+→ _classify_runtime_step_execution(...)
+→ exact runtime step correlation
+→ continue-on-error guard
+→ completed/success
+→ runtime supported
+```
+
+This discards `StaticCommandLocation`, `structural_context`, execution profile, and the
+accepted positive whole-step relation before runtime classification. Therefore a conditional
+or otherwise non-admitted inner command can currently inherit successful enclosing-step
+evidence.
+
+The correction must preserve/join the **exact command occurrence** until the runtime-support
+proposition is classified.
+
+#### Ownership preserved
+
+`workflow_runtime_correlation.py` should remain unchanged in responsibility:
+
+```text
+static workflow/job/step identity
+↔ exact runtime job/step identity
+```
+
+It must not learn command structure, Tree-sitter facts, dependency meaning, or
+runtime-strengthening eligibility.
+
+The occurrence-level eligibility/composition remains CI-owned, adjacent to the current
+dependency-consumption/direct-exercise composition.
+
+#### Composition is proposition logic, not merely check order
+
+For one supported exact static occurrence, Runtime-Correlated Support requires all of these
+proposition inputs:
+
+```text
+static proposition is supported
+AND occurrence-level strengthening eligibility is eligible
+AND exact workflow runtime correlation is established
+AND owning runtime step is identified
+AND continue-on-error does not make success masked/ambiguous
+AND runtime step is completed/successful
+```
+
+Interpret each candidate using the existing evidence-state discipline:
+
+```text
+all required inputs positively established
+→ supported
+
+a required input is definitely false / positively disqualifying
+→ not_established
+
+no required input is definitely false, but a material required input is unknown
+→ unresolved
+```
+
+Examples:
+
+```text
+conditional occurrence = ineligible
++ successful runtime step
+→ not_established for runtime strengthening
+
+eligible occurrence
++ correlated failed/skipped runtime step
+→ not_established
+
+eligible occurrence
++ runtime correlation unresolved
+→ unresolved
+
+eligibility unresolved
++ correlated successful runtime step
+→ unresolved
+
+eligible occurrence
++ successful step
++ continue-on-error true/dynamic
+→ unresolved
+
+eligible occurrence
++ exact successful unmasked step
+→ supported
+```
+
+A definite negative can make another unknown irrelevant for that same candidate. For example,
+if the exact correlated runtime step is known to have failed/skipped, runtime strengthening is
+not established regardless of whether some structural detail would otherwise remain
+unresolved.
+
+#### Multiple-candidate aggregation
+
+Dependency consumption and direct exercise are existential evidence propositions: one valid
+occurrence can establish the runtime-correlated axis.
+
+Therefore aggregate candidate results with this precedence:
+
+```text
+any candidate supported
+→ supported
+
+otherwise any candidate unresolved
+→ unresolved
+
+otherwise
+→ not_established
+```
+
+An ineligible occurrence does not erase a separate eligible occurrence that is successfully
+runtime-correlated.
+
+#### Exact occurrence join requirement
+
+Do not select runtime-strengthening candidates by step identity alone.
+
+The static proposition and the retained provider/runtime-strengthening context must agree on:
+
+```text
+workflow revision/path context
++ job key
++ step source index
++ canonical StaticCommandLocation
+```
+
+The canonical command location remains the exact inner occurrence identity. The outer
+job/step identity is used only to reach the owning runtime step.
+
+The existing one-traversal point in `workflow_commands.py` already has the
+`StaticCommandAnalysis` and effective execution profile before those facts are discarded.
+Build must preserve the accepted narrow occurrence-level handoff there or at an equivalent
+single-analysis composition seam; it must not reparse/re-resolve later.
+
+Exact dataclass/container spelling remains a Build decision. Do not add structural/runtime
+fields directly to dependency-domain evidence merely for convenience.
+
+#### Runtime result vocabulary
+
+The existing public runtime axis can remain:
+
+```text
+supported | not_established | unresolved
+```
+
+No fourth public runtime state is required.
+
+The separate internal eligibility vocabulary remains:
+
+```text
+eligible | ineligible | unresolved
+```
+
+Composition maps `ineligible` to runtime `not_established` for that occurrence, because the
+stronger runtime proposition is positively not justified; it maps eligibility `unresolved`
+to runtime `unresolved` when runtime success would otherwise make the missing eligibility
+fact material.
+
+#### Recommended composition shape — not yet accepted
+
+Conceptually:
+
+```text
+supported static evidence
+        ↓ exact StaticCommandLocation join
+occurrence runtime-strengthening context
+        ↓
+eligibility: eligible | ineligible | unresolved
+        +
+existing exact workflow runtime correlation
+        +
+existing continue-on-error interpretation
+        +
+runtime step outcome
+        ↓
+candidate runtime result:
+supported | not_established | unresolved
+        ↓ existential aggregation
+runtime consumption / direct-exercise axis
+```
+
+This preserves the already-proven runtime correlation owner and changes only the point where
+the current step-level reduction loses occurrence semantics.
+
+No product source/test implementation is authorized by this checkpoint.
+
 ### Runtime-Strengthening Proof Matrix — Proof matrix
 
 Before implementation, define representative proofs for at least:
