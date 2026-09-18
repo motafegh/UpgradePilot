@@ -1,0 +1,37 @@
+name: Cycle 3 Stage 2 occurrence proof
+
+on:
+  push:
+    branches:
+      - agent/cycle3-stage2-occurrence-proof
+
+permissions:
+  contents: read
+
+jobs:
+  stage2-proof:
+    name: Focused exact occurrence and eligibility proof
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out proof revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+
+      - name: Install UpgradePilot
+        run: python -m pip install .
+
+      - name: Run focused Stage 2 proof
+        run: |
+          python -m unittest \
+            tests.test_github_workflow_command_analysis \
+            tests.test_parser_backed_ci_command_evidence \
+            tests.test_single_pass_workflow_static_evidence \
+            tests.test_ci_runtime_strengthening \
+            tests.test_static_command_order \
+            tests.test_ci_static_direct_exercise_order \
+            -v
