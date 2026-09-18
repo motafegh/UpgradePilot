@@ -49,6 +49,13 @@ type StaticCommandStructure = Literal[
     "pipeline",
     "function_or_block",
     "nested_or_subshell",
+    "status_inverted",
+    "asynchronous",
+    "process_substitution",
+]
+type StaticCommandWholeStepRelation = Literal[
+    "sole_ordinary_top_level_command",
+    "first_ordinary_top_level_command_in_sequential_script",
 ]
 
 
@@ -83,6 +90,7 @@ class StaticCommandOccurrence:
     executable: StaticCommandAtom
     arguments: tuple[StaticCommandAtom, ...]
     structural_context: tuple[StaticCommandStructure, ...]
+    whole_step_relation: StaticCommandWholeStepRelation | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -199,6 +207,7 @@ def analyze_run_step_commands(
             family=shell_context.syntax_family,
             source_order=index,
             root=root,
+            command_nodes=ordered,
         )
         for index, node in enumerate(ordered)
     )
@@ -258,6 +267,7 @@ def _occurrence_from_node(
     family: ShellSyntaxFamily,
     source_order: int,
     root: Node,
+    command_nodes: tuple[Node, ...],
 ) -> StaticCommandOccurrence:
     if family == "bash":
         executable_node, argument_nodes = _bash_command_parts(node)
@@ -276,6 +286,94 @@ def _occurrence_from_node(
             for argument_node in argument_nodes
         ),
         structural_context=_structural_context(node, root, source, family),
+        whole_step_relation=_positive_whole_step_relation(
+            node,
+            root=root,
+            source=source,
+            family=family,
+            command_nodes=command_nodes,
+        ),
+    )
+
+
+def _positive_whole_step_relation(
+    node: Node,
+    *,
+    root: Node,
+    source: bytes,
+    family: ShellSyntaxFamily,
+    command_nodes: tuple[Node, ...],
+) -> StaticCommandWholeStepRelation | None:
+    """Return only positively established whole-step relationships.
+
+    Absence of a relation is deliberately not an eligibility verdict. CI combines this
+    provider fact with structural context and execution profile later.
+    """
+
+    if family == "bash":
+        statements = _significant_named_children(root)
+        if node not in statements or _bash_root_has_background_terminator(root, source):
+            return None
+        if len(statements) == 1 and statements[0] == node:
+            return "sole_ordinary_top_level_command"
+        if (
+            len(statements) > 1
+            and statements[0] == node
+            and all(statement.type == "command" for statement in statements)
+        ):
+            return "first_ordinary_top_level_command_in_sequential_script"
+        return None
+
+    if family == "powershell":
+        statements = _powershell_top_level_statements(root)
+        if (
+            len(command_nodes) == 1
+            and len(statements) == 1
+            and statements[0].type == "pipeline"
+            and _is_descendant_of(node, statements[0])
+        ):
+            return "sole_ordinary_top_level_command"
+        return None
+
+    statements = _significant_named_children(root)
+    if len(statements) == 1 and statements[0] == node:
+        return "sole_ordinary_top_level_command"
+    return None
+
+
+def _significant_named_children(node: Node) -> tuple[Node, ...]:
+    return tuple(
+        child
+        for child in node.named_children
+        if child.type not in {"comment", "empty_statement"}
+    )
+
+
+def _powershell_top_level_statements(root: Node) -> tuple[Node, ...]:
+    significant_root_children = _significant_named_children(root)
+    if (
+        len(significant_root_children) != 1
+        or significant_root_children[0].type != "statement_list"
+    ):
+        return ()
+    return _significant_named_children(significant_root_children[0])
+
+
+def _is_descendant_of(node: Node, ancestor: Node) -> bool:
+    current: Node | None = node
+    depth = 0
+    while current is not None and depth <= _MAX_TREE_DEPTH:
+        if current == ancestor:
+            return True
+        current = current.parent
+        depth += 1
+    return False
+
+
+def _bash_root_has_background_terminator(root: Node, source: bytes) -> bool:
+    return any(
+        not child.is_named and _node_text(child, source).strip() == "&"
+        for child in root.children
     )
 
 
@@ -394,6 +492,21 @@ def _structural_context(
     ancestors = _ancestors(node, root)
 
     if family == "bash":
+        _append_if(
+            tags,
+            any(item.type == "negated_command" for item in ancestors),
+            "status_inverted",
+        )
+        _append_if(
+            tags,
+            any(item.type == "process_substitution" for item in ancestors),
+            "process_substitution",
+        )
+        _append_if(
+            tags,
+            _bash_command_has_background_terminator(node, root, source),
+            "asynchronous",
+        )
         _append_if(
             tags,
             any(item.type in {"if_statement", "case_statement"} for item in ancestors),
@@ -518,6 +631,32 @@ def _ancestors(node: Node, root: Node) -> tuple[Node, ...]:
     return tuple(ancestors)
 
 
+def _bash_command_has_background_terminator(
+    node: Node,
+    root: Node,
+    source: bytes,
+) -> bool:
+    current = node
+    depth = 0
+    while current.parent is not None and depth <= _MAX_TREE_DEPTH:
+        parent = current.parent
+        children = tuple(parent.children)
+        try:
+            index = children.index(current)
+        except ValueError:
+            return False
+        for sibling in children[index + 1 :]:
+            if sibling.is_named:
+                break
+            if _node_text(sibling, source).strip() == "&":
+                return True
+        if parent == root:
+            break
+        current = parent
+        depth += 1
+    return False
+
+
 def _append_if(
     tags: list[StaticCommandStructure],
     condition: bool,
@@ -577,5 +716,6 @@ __all__ = (
     "StaticCommandOccurrence",
     "StaticCommandProblem",
     "StaticCommandStructure",
+    "StaticCommandWholeStepRelation",
     "analyze_run_step_commands",
 )
