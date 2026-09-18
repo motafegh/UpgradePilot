@@ -290,10 +290,10 @@ Negative and Unresolved Structural Classification
 → DECIDED
 
 Runtime-Correlation and Eligibility Composition
-→ ACTIVE / OPEN
+→ DECIDED
 
 Runtime-Strengthening Proof Matrix
-→ OPEN
+→ ACTIVE / OPEN
 ```
 
 ### Accepted Positive Structural Admission and Negative/Unresolved Classification boundary
@@ -364,21 +364,82 @@ S004-style `. ./venv/bin/activate && pip install ...` remains explicitly deferre
 than rejected. Re-entry requires a bounded operator/position/status-contribution relation and
 shell-specific characterization.
 
-## Immediate next action
+### Accepted Runtime-Correlation and Eligibility Composition
 
-Continue Cycle 3 Phase A with **Runtime-Correlation and Eligibility Composition**:
+The runtime-strengthening flow now preserves the exact static occurrence until the stronger
+runtime proposition is classified.
 
 ```text
-provider command analysis
-→ exact occurrence + accepted Sole Ordinary Top-Level Command Admission/First Sequential Bash/sh Command Admission eligibility fact
-→ existing exact workflow run/job/step runtime correlation
-→ existing continue-on-error safeguard
-→ eligible | ineligible | unresolved composition
-→ runtime-consumption/direct-exercise result
+supported exact static occurrence
++ StaticCommandLocation
++ occurrence eligibility
++ exact owning runtime-step correlation
++ continue-on-error interpretation
++ factual GitHub runtime status/conclusion
+→ occurrence runtime-strengthening result
 ```
 
-Then define the Runtime-Strengthening Proof Matrix. Only after Runtime-Correlation Composition and the Proof Matrix and the complete Phase-A contract are accepted
-may runtime-strengthening product source/tests be implemented.
+Accepted semantics:
+
+```text
+eligible + exact completed/successful unmasked runtime step
+→ runtime strengthening supported
+
+ineligible
+→ runtime strengthening not_established
+
+eligible + exact failed/skipped/cancelled/non-successful runtime step
+→ runtime strengthening not_established
+→ preserve/report exact observed runtime status/conclusion
+
+eligibility/correlation materially unresolved
+→ runtime strengthening unresolved
+
+continue-on-error true/dynamic or equivalent masking ambiguity
+→ runtime strengthening unresolved
+```
+
+A known GitHub runtime outcome is never called unresolved merely because the broader coverage
+interpretation remains unresolved.
+
+Multiple exact occurrences are aggregated existentially: any supported candidate establishes
+the runtime axis; otherwise materially unresolved candidates preserve unresolved; otherwise
+the runtime axis is not established.
+
+The weaker static-support state remains valid when stronger runtime support is merely
+unavailable or structurally inadmissible:
+
+```text
+static support earned
++ stronger occurrence/runtime bridge not earned
+→ preserve supported_not_correlated where appropriate
+```
+
+But an exact eligible occurrence with a known non-successful runtime step remains materially
+visible at the broader CI-coverage layer; the aggregate may remain unresolved because
+successful dependency coverage was not established, not because the factual step result is
+unknown.
+
+Runtime correlation remains identity-only and does not absorb Tree-sitter/shell semantics.
+Direct-exercise runtime support uses the same exact-occurrence composition independently.
+
+## Immediate next action
+
+Continue Cycle 3 Phase A with the **Runtime-Strengthening Proof Matrix**:
+
+```text
+accepted proposition + eligibility + runtime-composition contracts
+→ positive proof cases
+→ ineligible proof cases
+→ unresolved proof cases
+→ factual failed/skipped/cancelled runtime cases
+→ S001/S002 coverage
+→ S004 deferred/re-entry case
+→ exact implementation/test ownership map
+```
+
+Only after the proof matrix and complete Phase-A contract are accepted may
+runtime-strengthening product source/tests be implemented.
 
 ## Current stop line
 
