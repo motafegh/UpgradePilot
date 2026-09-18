@@ -699,6 +699,77 @@ D post-build learning           NOT STARTED
 E gap repair / next orientation BLOCKED on hosted focused proof
 ```
 
+### Build Stage 2 — hosted proof PASS / review gate
+
+Focused Stage-2 executable proof passed in GitHub Actions.
+
+Proof vehicle:
+
+```text
+branch:
+agent/cycle3-stage2-occurrence-proof
+
+workflow:
+.github/workflows/cycle3-stage2-occurrence-proof.yml
+
+proof commit:
+1bae4965e5f8df335fcc14b943f4fdd845506574
+
+GitHub Actions run:
+35383672477
+
+job:
+Focused exact occurrence and eligibility proof
+```
+
+Executed focused suites:
+
+```text
+tests.test_github_workflow_command_analysis
+tests.test_parser_backed_ci_command_evidence
+tests.test_single_pass_workflow_static_evidence
+tests.test_ci_runtime_strengthening
+tests.test_static_command_order
+tests.test_ci_static_direct_exercise_order
+```
+
+Observed result:
+
+```text
+Ran 40 tests in 0.032s
+OK
+GitHub Actions job conclusion: success
+```
+
+The proof directly established:
+
+- existing Stage-1 provider relations remain green;
+- normal single-analysis production preserves `whole_step_relation` and
+  `execution_profile` into static evidence;
+- direct invocation evidence preserves workflow/revision identity;
+- sole-command positive profiles classify eligible;
+- first-sequential positive is admitted only for the accepted Bash/sh profiles;
+- known negative structures classify ineligible;
+- coarse/unadmitted/custom/missing-context cases remain unresolved;
+- two occurrences in one job/step remain distinct by `StaticCommandLocation`;
+- the new path-dependent structures do not accidentally earn same-step static ordering;
+- existing direct-exercise ordering behavior remains green.
+
+No Stage-3 runtime status/correlation aggregation behavior has been changed.
+
+Stage-2 state after hosted proof:
+
+```text
+A orientation                  COMPLETE
+B implementation               COMPLETE
+C state preservation            COMPLETE
+D post-build learning           ACTIVE
+E gap repair / next orientation READY after review
+```
+
+The temporary proof workflow is evidence machinery only and is not part of the product
+architecture or intended for merge to `main`.
+
 ### Build Stage 3 — Runtime Composition
 
 Goal:
