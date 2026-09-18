@@ -47,9 +47,11 @@ from ..github.workflow_command_analysis import (
     StaticCommandAtom,
     StaticCommandOccurrence,
     StaticCommandStructure,
+    StaticCommandWholeStepRelation,
     analyze_run_step_commands,
 )
 from ..github.workflow_command_location import StaticCommandLocation
+from ..github.workflow_command_shell import ShellExecutionProfile
 from ..github.workflow_definition import (
     JobProblem,
     ReusableWorkflowJobDefinition,
@@ -91,6 +93,10 @@ class DirectPackageInvocationEvidence:
     )
     command_location: StaticCommandLocation | None = None
     structural_context: tuple[StaticCommandStructure, ...] = ()
+    whole_step_relation: StaticCommandWholeStepRelation | None = None
+    execution_profile: ShellExecutionProfile | None = None
+    workflow_path: str | None = None
+    workflow_revision: str | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -371,6 +377,8 @@ def _inspect_steps_job_evidence(
                     command=entry.command.text,
                     package=package,
                     normalized_package=normalized_package,
+                    workflow_path=source.path,
+                    workflow_revision=source.revision,
                 )
             )
 
@@ -451,6 +459,8 @@ def _append_direct_requirements_consumptions(
                     source_path=context.source_path,
                     command_location=observation.command_location,
                     structural_context=occurrence.structural_context,
+                    whole_step_relation=occurrence.whole_step_relation,
+                    execution_profile=command_analysis.shell_context.execution_profile,
                 )
             )
             continue
@@ -557,6 +567,7 @@ def _append_project_environment_consumptions(
                     observation=observation,
                     declaration=declaration,
                     dependency_evidence=dependency_evidence,
+                    execution_profile=command_analysis.shell_context.execution_profile,
                 )
             )
 
@@ -909,6 +920,8 @@ def _package_invocations_from_analysis(
     command: str,
     package: str,
     normalized_package: str,
+    workflow_path: str,
+    workflow_revision: str,
 ) -> tuple[DirectPackageInvocationEvidence, ...]:
     if analysis.state != "analyzable":
         return ()
@@ -942,6 +955,10 @@ def _package_invocations_from_analysis(
                     ),
                     command_location=location,
                     structural_context=occurrence.structural_context,
+                    whole_step_relation=occurrence.whole_step_relation,
+                    execution_profile=analysis.shell_context.execution_profile,
+                    workflow_path=workflow_path,
+                    workflow_revision=workflow_revision,
                 )
             )
         else:
@@ -958,6 +975,10 @@ def _package_invocations_from_analysis(
                     ),
                     command_location=location,
                     structural_context=occurrence.structural_context,
+                    whole_step_relation=occurrence.whole_step_relation,
+                    execution_profile=analysis.shell_context.execution_profile,
+                    workflow_path=workflow_path,
+                    workflow_revision=workflow_revision,
                 )
             )
     return tuple(evidence)
