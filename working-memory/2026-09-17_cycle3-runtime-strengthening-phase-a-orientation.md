@@ -126,7 +126,7 @@ Runtime-Correlation and Eligibility Composition
 → DECIDED
 
 Runtime-Strengthening Proof Matrix
-→ ACTIVE / OPEN
+→ DECIDED
 ```
 
 ### Exact Runtime-Strengthened Proposition Boundary — DECIDED
@@ -2446,6 +2446,107 @@ The Runtime-Strengthening Proof Matrix can close when the team accepts that this
 No implementation is authorized merely by defining this matrix. Build begins only after this
 final Phase-A contract is accepted.
 
+### Runtime-Strengthening Proof Matrix — ACCEPTED / PHASE-A CLOSURE
+
+A final cross-owner review was performed against:
+
+- the active Cycle-3 working memory;
+- the selected implementation plan;
+- ADR-0009;
+- the current provider/runtime-correlation/CI focused tests;
+- the Product Decision Model evidence-state discipline;
+- S001/S002/S004 real product-simulation pressure.
+
+#### Final review findings
+
+No architecture, product-semantic, ownership, or proof blocker remains for Build entry.
+
+The review confirmed:
+
+1. the proof matrix tests **new Cycle-3 seams** rather than duplicating already-closed parser
+   and runtime-correlation foundations;
+2. both accepted positive families have explicit proof obligations;
+3. the known false-straightforward structures have focused provider-level protection;
+4. `ineligible` and `unresolved` remain distinct all the way through runtime composition;
+5. exact GitHub failed/skipped/cancelled outcomes remain factual observations rather than being
+   mislabeled as unknown;
+6. static-supported fallback semantics are protected when stronger runtime support is merely
+   unavailable/inadmissible;
+7. exact eligible runtime non-success remains materially visible at the broader CI-coverage
+   layer;
+8. multiple occurrences in one step cannot be collapsed to a step-level strengthening
+   candidate;
+9. direct exercise remains a distinct axis;
+10. S001 and S002 preserve useful admitted coverage while S004 remains an explicit,
+    evidence-backed re-entry case rather than accidental scope loss;
+11. claim limits remain intact;
+12. no general shell CFG/interpreter, runtime-log ledger, matrix expansion, reusable-workflow
+    execution, or exact installed-artifact evidence is required by the accepted matrix.
+
+#### One documentation drift corrected during review
+
+The older generic proof wording said a real path-dependent command could leave the stronger
+proposition "unestablished/unresolved". The accepted design is more precise:
+
+```text
+positively ineligible structure
+→ runtime strengthening not_established
+
+materially insufficient structural/profile representation
+→ runtime strengthening unresolved
+
+exact known runtime non-success for an eligible occurrence
+→ factual status known
+→ positive runtime strengthening not_established
+→ broader CI coverage may remain unresolved
+```
+
+The selected implementation plan was reconciled to this exact distinction.
+
+#### Accepted proof matrix
+
+The Build proof obligation is now:
+
+```text
+provider positive structural admission
++ false-straightforward prevention
++ eligibility classification
++ exact-occurrence runtime composition
++ multiple-occurrence identity preservation
++ separate direct-exercise runtime composition
++ S001/S002 useful-positive pressure
++ S004 deferred/re-entry pressure
++ explicit stronger-claim limits
++ focused → nearby → full deterministic regression
+```
+
+The detailed case inventory immediately above remains the execution reference.
+
+#### Phase-A disposition
+
+The Runtime-Strengthening Proof Matrix is **DECIDED**.
+
+Cycle 3 Phase A is therefore **COMPLETE**.
+
+No product source or test implementation has been performed in Phase A.
+
+The next authorized responsibility, once Ali asks to proceed with implementation, is Cycle 3
+Build/Implement under the selected plan. Build should create a fresh build working-memory
+record and follow the repository's Build/Implement + Learning-by-Doing procedure.
+
+The first coherent Build slice should begin at the provider boundary:
+
+```text
+Tree-sitter-backed positive whole-step structural fact
++ prevention of known false-straightforward shapes
+→ exact occurrence-level runtime-strengthening context
+→ CI composition
+```
+
+Implementation must remain narrow-to-broad and stop/reassess if the accepted P1/P2-equivalent
+positive facts require a general shell CFG or cannot be expressed safely with bounded
+parser-backed relations.
+
 ## 5. Initial source/test map
 
 Primary current implementation owners:
@@ -2503,17 +2604,15 @@ If a broader responsibility becomes necessary, return it to planning rather than
 
 ## 8. Immediate next action
 
-All Cycle-3 Phase-A design responsibilities except the Runtime-Strengthening Proof Matrix are decided. Continue with the proof matrix before implementation:
+All Cycle-3 Phase-A design responsibilities are decided. Phase A is complete; Build/Implement is the next responsibility when explicitly entered:
 
 ```text
-1. define the Runtime-Strengthening Proof Matrix with positive, negative, unresolved, and factual non-success cases;
-2. include Sole Ordinary Top-Level Command Admission and First Sequential Bash/sh Command Admission positives;
-3. include conditional/status-inverted/asynchronous and other known ineligible cases;
-4. include unresolved short-circuit/pipeline/profile/parser cases;
-5. preserve exact failed/skipped/cancelled runtime observations separately from broader coverage interpretation;
-6. include S001/S002 positive pressure and S004 deferred re-entry pressure;
-7. reconcile exact proof owners and implementation sequencing;
-8. only after the proof matrix and complete Phase-A contract are accepted, authorize Build implementation.
+1. enter the Build/Implement procedure only with explicit implementation authorization;
+2. open a fresh Cycle-3 Build working-memory record;
+3. implement the smallest coherent provider structural-admission slice first;
+4. preserve exact occurrence identity/context through CI composition;
+5. run the accepted proof matrix narrow-to-broad;
+6. stop and return to Planning/Design if implementation evidence violates the accepted bounded architecture.
 ```
 
 Learning-by-Doing for Runtime-Correlation and Eligibility Composition should focus only on the composition dataflow: what facts are produced
