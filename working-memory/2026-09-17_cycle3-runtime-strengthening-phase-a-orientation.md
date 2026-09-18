@@ -1,4 +1,4 @@
-# Cycle 3 Phase A — Runtime-Strengthening Eligibility Orientation / Design Working Memory
+# Cycle 3 Phase A — Runtime-Strengthening Design Contract Working Memory
 
 **Date:** 2026-09-17  
 **Session status:** ACTIVE — orientation/design only  
@@ -97,22 +97,39 @@ cleanly parsed straightforward top-level command occurrence
 
 Additional linear/chain shapes are not required by the written baseline unless evidence proves the exact implication needed. This plan remains important coordination evidence, but Phase A may refine the route when stronger product/engineering reasoning justifies it without violating the accepted architecture or scope.
 
-## 4. Phase-A design questions
+## 4. Cycle 3 Phase-A responsibility map
 
 Current decision state:
 
 ```text
-A1 exact strengthened proposition     DECIDED
-A2 eligibility state model            DECIDED
-A3 canonical occurrence handoff       DECIDED
-A4 strengthened proposition          DECIDED — R2 runtime-correlated support
-A4 positive eligibility family        DECIDED — P1 + P2
-A5 negative/unresolved structures     DECIDED
-A6 runtime-correlation composition     ACTIVE / OPEN
-A7 proof matrix                        OPEN
+Exact Runtime-Strengthened Proposition Boundary
+→ DECIDED
+
+Runtime-Strengthening Eligibility State Model
+→ DECIDED
+
+Canonical Static-Occurrence Handoff Contract
+→ DECIDED
+
+Runtime-Correlated Support Proposition
+→ DECIDED
+
+Positive Structural Admission Family
+→ DECIDED
+→ Sole Ordinary Top-Level Command Admission
+→ First Sequential Bash/sh Command Admission
+
+Negative and Unresolved Structural Classification
+→ DECIDED
+
+Runtime-Correlation and Eligibility Composition
+→ ACTIVE / OPEN
+
+Runtime-Strengthening Proof Matrix
+→ OPEN
 ```
 
-### A1 — Exact strengthened proposition — DECIDED
+### Exact Runtime-Strengthened Proposition Boundary — Exact strengthened proposition — DECIDED
 
 Cycle 3 may strengthen only these bounded propositions:
 
@@ -138,7 +155,7 @@ update safety
 maintainer action
 ```
 
-#### A1 rationale
+#### Exact Runtime-Strengthened Proposition Boundary rationale
 
 The evidence layers establish different propositions and must remain separate:
 
@@ -164,7 +181,7 @@ static command exists
 != command succeeded
 ```
 
-### A2 — Eligibility state model — DECIDED
+### Runtime-Strengthening Eligibility State Model — Eligibility state model — DECIDED
 
 Use an explicit three-way runtime-strengthening eligibility model:
 
@@ -184,7 +201,7 @@ unresolved
 
 Do not overload the existing static evidence states to encode this new proposition.
 
-#### A2 rationale
+#### Runtime-Strengthening Eligibility State Model rationale
 
 The distinction between `ineligible` and `unresolved` is semantically important:
 
@@ -237,7 +254,7 @@ Ali correctly identified the core structural distinction: Case A is straightforw
 
 A second independent requirement remains the **execution profile**: even a straightforward occurrence may be strengthened only when GitHub's wrapper/execution semantics are sufficiently established for the inference being made.
 
-### A3 — Canonical occurrence handoff into runtime strengthening — DECIDED
+### Canonical Static-Occurrence Handoff Contract — Canonical occurrence handoff into runtime strengthening — DECIDED
 
 Introduce one narrow **CI-owned runtime-strengthening candidate/input** for a specific static command occurrence rather than passing the full static dependency-consumption or direct-invocation evidence objects into the eligibility classifier.
 
@@ -248,13 +265,13 @@ outer job + step identity
 + canonical StaticCommandLocation
 + structural_context
 + effective execution_profile
-+ minimum whole-step command-analysis shape required by A4
++ minimum whole-step command-analysis shape required by Positive Structural Admission Policy
 + static proposition kind being strengthened
 ```
 
 The exact class/type/function spelling remains an implementation detail for the Build phase. Phase A locks the responsibility and information boundary, not the final identifier name.
 
-#### A3 identity rule
+#### Canonical Static-Occurrence Handoff Contract identity rule
 
 `StaticCommandLocation` remains the **single canonical inner command identity**. Cycle 3 must not create a second command-identity scheme.
 
@@ -279,7 +296,7 @@ static proposition kind
 
 None of these facts independently proves execution or success.
 
-#### A3 rationale
+#### Canonical Static-Occurrence Handoff Contract rationale
 
 The current one-traversal static path already has the full `StaticCommandAnalysis` at the point consumption/project-environment/direct-invocation evidence is created. That analysis already contains the resolved shell context, including `execution_profile`, while exact occurrences already carry canonical location and structural context.
 
@@ -297,7 +314,7 @@ one StaticCommandAnalysis
 
 This keeps one-analysis/one-traversal ownership from Cycle 2 and avoids duplicate static interpretation.
 
-#### Rejected A3 alternative
+#### Rejected Canonical Static-Occurrence Handoff Contract alternative
 
 Do **not** make the runtime-strengthening classifier consume `StaticDependencyConsumptionEvidence` / `DirectPackageInvocationEvidence` directly as its primary contract.
 
@@ -306,11 +323,11 @@ Reason:
 - those objects own richer static domain propositions and carry many fields irrelevant to eligibility;
 - runtime strengthening would become coupled to dependency/reachability-specific details;
 - adding `execution_profile`, whole-step shape, and future eligibility metadata directly to those objects would blur static-domain evidence with the distinct Cycle-3 runtime bridge;
-- the eligibility layer should remain equally usable for the two A1 propositions without learning all of each producer's internals.
+- the eligibility layer should remain equally usable for the two Exact Runtime-Strengthened Proposition Boundary propositions without learning all of each producer's internals.
 
 A dedicated narrow handoff is therefore the simpler ownership boundary despite introducing one small composition type.
 
-#### Explicit non-responsibilities of the A3 handoff
+#### Explicit non-responsibilities of the Canonical Static-Occurrence Handoff Contract handoff
 
 The handoff must **not**:
 
@@ -327,7 +344,7 @@ Runtime correlation remains identity-only at the outer job/step boundary; occurr
 
 ### Session correction — product-faithful boundedness and decision readiness
 
-During A4 discussion, Ali raised a material concern with the proposed **“exactly one parsed command in the entire run block”** first rule: repeated preference for the smallest provable implementation could unintentionally reduce useful UpgradePilot behavior simply because the smaller slice is easier to build and pass.
+During Positive Structural Admission Policy discussion, Ali raised a material concern with the proposed **“exactly one parsed command in the entire run block”** first rule: repeated preference for the smallest provable implementation could unintentionally reduce useful UpgradePilot behavior simply because the smaller slice is easier to build and pass.
 
 This correction is accepted as a durable operating principle and has been promoted to root `AGENTS.md`, `OPERATING_GUIDE.md`, and live `MEMORY.md`.
 
@@ -352,9 +369,9 @@ consequential unfamiliar decision
 
 This does **not** authorize arbitrary scope expansion or bypass accepted specifications/ADRs/stop lines. A materially better route that changes the selected plan/design must be returned to the proper owner and recorded before implementation.
 
-### A4 — First admitted positive family — ACTIVE / OPEN
+### Positive Structural Admission Policy — First admitted positive family — ACTIVE / OPEN
 
-A4 is **not** now framed as “one command versus everything else.” It asks:
+Positive Structural Admission Policy is **not** now framed as “one command versus everything else.” It asks:
 
 > For which exact static structural shapes and established GitHub execution profiles does successful completion of the correlated step logically justify strengthening this specific target occurrence?
 
@@ -372,7 +389,7 @@ cleanly analyzable run step
 
 But **“the whole run block must contain exactly one parsed command” is not accepted as the product rule**. It would exclude ordinary straight-line multi-command CI scripts without first establishing that such exclusion is necessary.
 
-A4 must evaluate a product-faithful positive family, including whether cases such as this can be supported safely:
+Positive Structural Admission Policy must evaluate a product-faithful positive family, including whether cases such as this can be supported safely:
 
 ```yaml
 - shell: bash
@@ -384,7 +401,7 @@ A4 must evaluate a product-faithful positive family, including whether cases suc
 
 The relevant question is not merely command count. It is whether the target occurrence is on an execution-mandatory straight-line path **and** whether the established execution profile makes successful enclosing-step completion strong enough to establish the bounded target proposition.
 
-Immediate A4 questions:
+Immediate Positive Structural Admission Policy questions:
 
 1. What exact structural facts already emitted by `workflow_command_analysis.py` distinguish a mandatory straight-line target from path-dependent/nested targets?
 2. Does the current `straightforward_top_level` / `linear_chain` representation contain enough relation information for ordinary multi-command scripts, or is one additional bounded step-level shape fact needed?
@@ -407,7 +424,7 @@ prefer the smallest PROVEN family
 
 The selected family should be no broader than the evidence earns and no narrower than is justified by product/proof constraints.
 
-#### A4 investigation checkpoint — current IR is not yet sufficient for eligibility
+#### Positive Structural Admission Policy investigation checkpoint — current IR is not yet sufficient for eligibility
 
 Source + current execution-semantics review established four material facts:
 
@@ -451,7 +468,7 @@ and S004 includes multi-line Bash plus a sourced virtual environment and an `&&`
 chain. A permanent one-command-only policy would therefore lose runtime-strengthening
 coverage for real current cases; however admitting all linear chains would be unsound.
 
-The resulting A4 design direction is:
+The resulting Positive Structural Admission Policy design direction is:
 
 ```text
 do not add a general shell CFG/interpreter
@@ -477,27 +494,27 @@ B. one small parser-neutral static relation dedicated to how an occurrence contr
    execution-profile-independent
 ```
 
-No implementation is authorized yet; this checkpoint only establishes why A4 cannot be
+No implementation is authorized yet; this checkpoint only establishes why Positive Structural Admission Policy cannot be
 correctly decided from the current `straightforward_top_level | linear_chain | short_circuit`
 tags alone.
 
-#### A4 provisional positive-family direction — accepted for continued design
+#### Positive Structural Admission Policy provisional positive-family direction — accepted for continued design
 
-Ali reviewed the A4 explanation and accepted the current direction as sufficient to continue,
+Ali reviewed the Positive Structural Admission Policy explanation and accepted the current direction as sufficient to continue,
 with deeper shell/runtime details intentionally deferred to the implementation/Learning-by-Doing
 stage where they become responsibility-bearing.
 
 Current provisional family:
 
 ```text
-P1 — sole straightforward occurrence
+Sole Ordinary Top-Level Command Admission — sole straightforward occurrence
 → clean ordinary top-level target
 → admitted execution profile
 → exact successful runtime step
 → no continue-on-error masking
 → candidate eligible
 
-P2 — first ordinary top-level Bash/sh occurrence in a multi-command run block
+First Sequential Bash/sh Command Admission — first ordinary top-level Bash/sh occurrence in a multi-command run block
 → source_order == 0
 → no conditional / loop / pipeline / short-circuit / nested / function /
    status-inversion / asynchronous masking around the target
@@ -507,26 +524,26 @@ P2 — first ordinary top-level Bash/sh occurrence in a multi-command run block
 → candidate eligible
 ```
 
-P2 exists to retain meaningful current product coverage such as S002 without admitting all
+First Sequential Bash/sh Command Admission exists to retain meaningful current product coverage such as S002 without admitting all
 `linear_chain` occurrences. S004-style sourced-environment + `&&` shapes remain deferred
 until their stronger relation semantics are independently justified.
 
-This is **not yet A4 CLOSED**. One remaining proof-boundary caveat must be resolved first:
+This is **not yet Positive Structural Admission Policy CLOSED**. One remaining proof-boundary caveat must be resolved first:
 whether shell startup/environment state (especially `BASH_ENV`) can invalidate the premise
 that GitHub's Bash wrapper semantics alone are sufficient to infer target execution/success.
 
 Learning state:
 
-- Ali has operational understanding sufficient to continue A4 design;
+- Ali has operational understanding sufficient to continue Positive Structural Admission Policy design;
 - detailed Bash startup, `errexit`, status inversion, and chain semantics are not claimed as
   mastered and should be taught from the actual implementation/proof when those details become
   directly responsibility-bearing;
 - do not use the deferred depth as a reason to lower the engineering proof bar.
 
-#### A4 startup/environment reassessment trigger — MATERIAL / OPEN
+#### Positive Structural Admission Policy startup/environment reassessment trigger — MATERIAL / OPEN
 
 The remaining `BASH_ENV` caveat was investigated against current GitHub Actions and Bash
-semantics and is material enough that P1/P2 must **not** yet be locked as exact
+semantics and is material enough that Sole Ordinary Top-Level Command Admission/First Sequential Bash/sh Command Admission must **not** yet be locked as exact
 command-execution/success proof.
 
 Authoritative semantics establish:
@@ -595,9 +612,9 @@ rather than a bounded static relation to step success
 
 Phase A is already in Planning/Design, so no implementation rollback is needed.
 
-##### Consequence for the provisional P1/P2 family
+##### Consequence for the provisional Sole Ordinary Top-Level Command Admission/First Sequential Bash/sh Command Admission family
 
-P1/P2 remain useful **structural candidates**, but they are no longer accepted as sufficient
+Sole Ordinary Top-Level Command Admission/First Sequential Bash/sh Command Admission remain useful **structural candidates**, but they are no longer accepted as sufficient
 for the stronger exact-execution/success proposition.
 
 Do not respond by:
@@ -611,32 +628,32 @@ Do not respond by:
 
 ##### Next design question
 
-Before A4 can close, decide which proposition UpgradePilot actually needs and can support:
+Before Positive Structural Admission Policy can close, decide which proposition UpgradePilot actually needs and can support:
 
 ```text
-Route R1 — strict occurrence execution/success
+Route Strict Inner-Command Execution/Success Proof Route — strict occurrence execution/success
 → requires evidence strong enough to establish the exact inner command actually ran/succeeded;
   current step-success + static-structure path is insufficient in the general case.
 
-Route R2 — weaker occurrence-relative runtime association/support
+Route Runtime-Correlated Support Proposition — weaker occurrence-relative runtime association/support
 → exact static occurrence + exact successful owning runtime step + bounded structure/profile
   relationship is retained as stronger contextual evidence,
   but explicitly does NOT claim direct observation/proof of inner-command execution.
 
-Route R3 — narrowly sanitized execution class
+Route Sanitized Execution-Environment Route — narrowly sanitized execution class
 → admit only workflows/environments whose startup/runtime mutation surface is independently
   bounded strongly enough for strict inference;
   likely much narrower and may lose substantial ordinary product coverage.
 ```
 
-The next step is to compare R1/R2/R3 against the actual downstream CI-coverage proposition and
-the Product Decision Model before changing A1, A4, or the implementation plan.
+The next step is to compare Strict Inner-Command Execution/Success Proof Route/Runtime-Correlated Support Proposition/Sanitized Execution-Environment Route against the actual downstream CI-coverage proposition and
+the Product Decision Model before changing Exact Runtime-Strengthened Proposition Boundary, Positive Structural Admission Policy, or the implementation plan.
 
-#### A4 proposition selection — DECIDED: R2 runtime-correlated support
+#### Positive Structural Admission Policy proposition selection — DECIDED: Runtime-Correlated Support Proposition runtime-correlated support
 
 After tracing the three reassessment routes into the actual CI coverage consumer,
 `PublicPullRequestInvestigation`, the Product Decision Model, and the parent synthesis plan,
-Cycle 3 selects **R2**.
+Cycle 3 selects **Runtime-Correlated Support Proposition**.
 
 The owned strengthened proposition is:
 
@@ -666,22 +683,22 @@ the update is safe
 a maintainer action is justified
 ```
 
-##### Why R2 was selected
+##### Why Runtime-Correlated Support Proposition was selected
 
-**R1 — strict inner-command execution/success** was rejected for this cycle because the current
+**Strict Inner-Command Execution/Success Proof Route — strict inner-command execution/success** was rejected for this cycle because the current
 evidence path cannot honestly establish it in the general admitted environment. Step success
 is step-level evidence; startup/environment effects such as `BASH_ENV` demonstrate that
 static command structure + successful step does not universally equal direct observation of
-the inner command. Making R1 trustworthy would require a different/broader evidence
+the inner command. Making Strict Inner-Command Execution/Success Proof Route trustworthy would require a different/broader evidence
 responsibility such as command-level runtime observability, which is outside the current
 Cycle-3 boundary.
 
-**R3 — narrowly sanitized execution class** was not selected because proving a sufficiently
+**Sanitized Execution-Environment Route — narrowly sanitized execution class** was not selected because proving a sufficiently
 closed startup/runtime environment would require materially broader environment/action
 modeling while excluding many ordinary workflows. That cost is not justified by the current
 downstream product need.
 
-**R2** matches the product's actual current semantics. The parent synthesis plan already
+**Runtime-Correlated Support Proposition** matches the product's actual current semantics. The parent synthesis plan already
 defines `supported_runtime_correlated` as a supported static consuming step safely related
 to an exact runtime step that GitHub reports completed/successfully, while explicitly
 withholding stronger installed-version/artifact/compatibility/action claims.
@@ -707,7 +724,7 @@ Example:
 run: pip install -r requirements.txt
 ```
 
-may qualify for stronger runtime-correlated support when the remaining A4 structure/profile
+may qualify for stronger runtime-correlated support when the remaining Positive Structural Admission Policy structure/profile
 conditions are satisfied.
 
 But:
@@ -723,30 +740,30 @@ run: |
 keeps the `pip install` as useful static evidence while its `conditional` structure prevents
 the successful enclosing step from strengthening that occurrence.
 
-##### A1 reconciliation
+##### Exact Runtime-Strengthened Proposition Boundary reconciliation
 
-No A1 redesign is required. A1 already selected the bounded
-`runtime-correlated dependency-consumption/direct-exercise occurrence` proposition. R2
+No Exact Runtime-Strengthened Proposition Boundary redesign is required. Exact Runtime-Strengthened Proposition Boundary already selected the bounded
+`runtime-correlated dependency-consumption/direct-exercise occurrence` proposition. Runtime-Correlated Support Proposition
 clarifies its exact meaning and non-claims; it does not replace it with direct execution proof.
 
-##### Remaining A4 work
+##### Remaining Positive Structural Admission Policy work
 
-A4 is **not fully closed yet**. The proposition is now locked, but the eligibility family still
+Positive Structural Admission Policy is **not fully closed yet**. The proposition is now locked, but the eligibility family still
 needs a small bounded refinement:
 
-1. identify the exact structural contexts that are positively eligible for R2;
+1. identify the exact structural contexts that are positively eligible for Runtime-Correlated Support Proposition;
 2. classify known path-dependent structures as ineligible versus unresolved;
 3. resolve small missing structural distinctions such as status inversion where they affect
    the gate;
 4. characterize the relevant execution-profile matrix without over-modeling shell runtime;
-5. then move directly into A5/A6/A7.
+5. then move directly into Negative/Unresolved Classification, Runtime-Correlation Composition, and the Proof Matrix.
 
 Detailed shell mechanics are intentionally deferred to implementation-time Learning-by-Doing
 except where they are required to make the remaining eligibility decision sound.
 
-#### A4 eligibility investigation checkpoint — structural taxonomy audit
+#### Positive Structural Admission Policy eligibility investigation checkpoint — structural taxonomy audit
 
-With R2 fixed, the current parser IR, pinned grammar versions, GitHub runner wrapper source,
+With Runtime-Correlated Support Proposition fixed, the current parser IR, pinned grammar versions, GitHub runner wrapper source,
 and real product-simulation workflows were re-audited specifically for the eligibility gate.
 
 ##### What can be reused unchanged
@@ -778,7 +795,7 @@ none of the structural tags implemented by the adapter fired
 It does **not yet** mean:
 
 ```text
-all R2-relevant execution/status structure has been positively ruled out
+all Runtime-Correlated Support Proposition-relevant execution/status structure has been positively ruled out
 ```
 
 That distinction matters because the Bash adapter currently misses several grammar structures
@@ -796,7 +813,7 @@ This is material because Bash status inversion changes how command status contri
 containing script/result and also interacts with `errexit`.
 
 Required bounded refinement: preserve a parser-neutral status-inversion/non-positive context
-before allowing R2 eligibility.
+before allowing Runtime-Correlated Support Proposition eligibility.
 
 2. **Asynchronous command — `command &`**
 
@@ -843,7 +860,7 @@ The current Bash `short_circuit` tag intentionally merges `&&` and `||`, althoug
 pinned grammar preserves the concrete operator. That information is proof-relevant if Cycle 3
 ever wants to admit selected chain positions.
 
-For the first R2 family, however, **operator splitting is not required if all short-circuit
+For the first Runtime-Correlated Support Proposition family, however, **operator splitting is not required if all short-circuit
 occurrences remain non-positive**. Therefore do not expand the IR merely to distinguish
 `&&` from `||` unless the selected first family actually needs it.
 
@@ -862,7 +879,7 @@ cmd         → /D /E:ON /V:OFF /S /C ...
 Default non-Windows execution locates Bash when available but applies the `sh` argument
 profile (`-e`), while container/default sh remains a distinct profile.
 
-These facts justify profile-aware R2 classification; they do not convert R2 into direct
+These facts justify profile-aware Runtime-Correlated Support Proposition classification; they do not convert Runtime-Correlated Support Proposition into direct
 command-execution proof.
 
 ##### Real-case pressure
@@ -885,7 +902,7 @@ S004
 → safe to defer initially if re-entry evidence is stated
 ```
 
-Therefore the first R2 family should aim to retain S001 + S002 without pretending S004's
+Therefore the first Runtime-Correlated Support Proposition family should aim to retain S001 + S002 without pretending S004's
 stronger shell relation has already been modeled.
 
 ##### Current working recommendation — not yet locked
@@ -893,27 +910,27 @@ stronger shell relation has already been modeled.
 A proportionate first family is trending toward:
 
 ```text
-P1
+Sole Ordinary Top-Level Command Admission
 sole ordinary straightforward occurrence
 + analyzable step
 + admitted built-in/default execution profile
-→ positive R2 candidate
+→ positive Runtime-Correlated Support Proposition candidate
 
-P2
+First Sequential Bash/sh Command Admission
 first ordinary top-level/straight-line occurrence
 + Bash/sh fail-fast execution profile
-+ none of the R2-defeating structural contexts
-→ positive R2 candidate
++ none of the Runtime-Correlated Support Proposition-defeating structural contexts
+→ positive Runtime-Correlated Support Proposition candidate
 ```
 
 while initially leaving later linear occurrences, short-circuit chains, pipelines, compound
 blocks, nested/process-substitution occurrences, status inversion, and asynchronous commands
 outside the positive family.
 
-This remains an investigation result rather than an accepted A4 family until PowerShell/CMD
+This remains an investigation result rather than an accepted Positive Structural Admission Policy family until PowerShell/CMD
 singleton behavior and the final eligible/ineligible/unresolved distinction are reconciled.
 
-#### A4 eligibility investigation checkpoint — positive whole-step proof is required
+#### Positive Structural Admission Policy eligibility investigation checkpoint — positive whole-step proof is required
 
 Further grammar/source review exposed a more general limitation than the individual missing
 tags:
@@ -943,7 +960,7 @@ Concrete examples:
 - Bash top-level brace `compound_statement` similarly contains commands while not itself
   being an ordinary command occurrence.
 
-Therefore these rules would be unsound as the sole A4 basis:
+Therefore these rules would be unsound as the sole Positive Structural Admission Policy basis:
 
 ```text
 source_order == 0
@@ -958,7 +975,7 @@ no known negative tag
 
 ##### Selected design direction from this investigation
 
-For R2 eligibility, prefer a **small positive provider-owned whole-step structural fact** over
+For Runtime-Correlated Support Proposition eligibility, prefer a **small positive provider-owned whole-step structural fact** over
 an ever-growing downstream blacklist.
 
 Conceptually, the parser adapter should be able to establish only the bounded shapes Cycle 3
@@ -988,12 +1005,12 @@ positive eligibility
 This is still parser-neutral downstream. Tree-sitter nodes remain private inside the adapter.
 It is not a control-flow graph and does not simulate shell execution.
 
-This direction fits A3's already-accepted handoff requirement for the
-`minimum whole-step command-analysis shape required by A4`.
+This direction fits Canonical Static-Occurrence Handoff Contract's already-accepted handoff requirement for the
+`minimum whole-step command-analysis shape required by Positive Structural Admission Policy`.
 
-##### Proposed first positive R2 family
+##### Proposed first positive Runtime-Correlated Support Proposition family
 
-**P1 — sole ordinary top-level command**
+**Sole Ordinary Top-Level Command Admission — sole ordinary top-level command**
 
 ```text
 cleanly analyzable step
@@ -1002,17 +1019,17 @@ cleanly analyzable step
 + built-in/default admitted execution profile
 + exact correlated completed/success runtime step
 + no visible continue-on-error masking
-→ eligible for R2 runtime-correlated support
+→ eligible for Runtime-Correlated Support Proposition runtime-correlated support
 ```
 
-P1 can be admitted across the established built-in/default Bash/sh, PowerShell/pwsh, and CMD
+Sole Ordinary Top-Level Command Admission can be admitted across the established built-in/default Bash/sh, PowerShell/pwsh, and CMD
 profiles once the adapter positively establishes the whole-step shape. It does not claim
 direct observation of the inner command.
 
 Custom shell templates remain unresolved because their wrapper semantics are intentionally
 distinct.
 
-**P2 — first ordinary top-level Bash/sh command in a sequential script**
+**First Sequential Bash/sh Command Admission — first ordinary top-level Bash/sh command in a sequential script**
 
 ```text
 cleanly analyzable Bash-family step
@@ -1021,14 +1038,14 @@ cleanly analyzable Bash-family step
 + target itself is outside -e exception/status-masking structures
 + exact correlated completed/success runtime step
 + no visible continue-on-error masking
-→ eligible for R2 runtime-correlated support
+→ eligible for Runtime-Correlated Support Proposition runtime-correlated support
 ```
 
-P2 is justified because the target occurs before later script statements can alter fail-fast
-behavior, and the admitted GitHub Bash/sh profiles establish `-e` at shell invocation. R2
+First Sequential Bash/sh Command Admission is justified because the target occurs before later script statements can alter fail-fast
+behavior, and the admitted GitHub Bash/sh profiles establish `-e` at shell invocation. Runtime-Correlated Support Proposition
 still remains runtime-correlated support rather than direct command-level observation.
 
-P2 covers the real S002 install shape without admitting arbitrary later linear occurrences.
+First Sequential Bash/sh Command Admission covers the real S002 install shape without admitting arbitrary later linear occurrences.
 
 ##### Deferred positive extensions
 
@@ -1054,7 +1071,7 @@ S004 is the concrete re-entry pressure:
 Supporting that shape later should be driven by an operator/position-aware bounded
 status-contribution relation, not by weakening the current `short_circuit` prohibition.
 
-##### Emerging A5 classification
+##### Emerging Negative and Unresolved Structural Classification classification
 
 The investigation supports this initial classification:
 
@@ -1080,13 +1097,13 @@ has been collapsed or the profile/parse boundary is not established:
 - custom shell template
 ```
 
-A straightforward positive whole-step P1 shape and the bounded Bash/sh P2 shape are the
+A straightforward positive whole-step Sole Ordinary Top-Level Command Admission shape and the bounded Bash/sh First Sequential Bash/sh Command Admission shape are the
 proposed eligible family.
 
 This classification is not yet marked accepted; it is the result to teach/review before
-locking A4/A5.
+locking Positive Structural Admission and Negative/Unresolved Classification.
 
-#### A4/A5 investigation conclusion — recommended review boundary
+#### Positive Structural Admission and Negative/Unresolved Classification investigation conclusion — recommended review boundary
 
 The final consistency pass confirms that the positive whole-step approach is **inside** the
 accepted ADR/plan rather than an architecture change:
@@ -1104,10 +1121,10 @@ accepted ADR/plan rather than an architecture change:
 
 Therefore no ADR reopening is recommended.
 
-##### Recommended A4 positive family for review
+##### Recommended Positive Structural Admission Policy positive family for review
 
 ```text
-P1 — sole ordinary top-level command
+Sole Ordinary Top-Level Command Admission — sole ordinary top-level command
 Profiles:
   GitHub built-in/default Bash/sh
   GitHub built-in/default PowerShell/pwsh
@@ -1118,17 +1135,17 @@ Conditions:
   + exact successful runtime-step correlation
   + no visible continue-on-error masking
 Result:
-  eligible for R2 runtime-correlated support
+  eligible for Runtime-Correlated Support Proposition runtime-correlated support
 ```
 
 GitHub's current built-in shell behavior supports this bounded use:
 Bash/sh use fail-fast wrappers, PowerShell prepends `ErrorActionPreference=stop` and
 propagates final native `LASTEXITCODE`, and CMD returns the last executed program's error
-level. R2 remains a correlation/support proposition rather than direct inner-command
+level. Runtime-Correlated Support Proposition remains a correlation/support proposition rather than direct inner-command
 observation.
 
 ```text
-P2 — first ordinary top-level command in a sequential Bash/sh script
+First Sequential Bash/sh Command Admission — first ordinary top-level command in a sequential Bash/sh script
 Profiles:
   github_builtin_bash
   github_builtin_sh
@@ -1141,13 +1158,13 @@ Conditions:
   + exact successful runtime-step correlation
   + no visible continue-on-error masking
 Result:
-  eligible for R2 runtime-correlated support
+  eligible for Runtime-Correlated Support Proposition runtime-correlated support
 ```
 
 This is the smallest characterized multi-command extension that recovers S002 without
 claiming arbitrary linear scripts.
 
-##### Recommended A5 classification for the current IR
+##### Recommended Negative and Unresolved Structural Classification classification for the current IR
 
 The final classification must be **occurrence + relation + profile** aware. Coarse current tags
 must not be overinterpreted.
@@ -1204,7 +1221,7 @@ the honest state is `unresolved`, not `ineligible`.
 
 The existing `straightforward_top_level` fallback should not remain the sole positive proof.
 Build should make the provider adapter positively establish the bounded whole-step shape used
-by P1/P2.
+by Sole Ordinary Top-Level Command Admission/First Sequential Bash/sh Command Admission.
 
 The refinement should also prevent confirmed false-straightforward cases from entering the
 positive family, including:
@@ -1243,13 +1260,13 @@ real case pressure or selected product need
 ```
 
 No source/test implementation is authorized by this investigation. The next step is to teach
-and jointly review this proposed A4/A5 boundary; if accepted, record A4/A5 as decided and move
-to A6 runtime-correlation composition.
+and jointly review this proposed Positive Structural Admission and Negative/Unresolved Classification boundary; if accepted, record Positive Structural Admission and Negative/Unresolved Classification as decided and move
+to Runtime-Correlation and Eligibility Composition runtime-correlation composition.
 
 
-#### A4/A5 accepted decision — Tree-sitter-backed positive structural admission
+#### Positive Structural Admission and Negative/Unresolved Classification accepted decision — Tree-sitter-backed positive structural admission
 
-Ali reviewed the A4/A5 investigation and accepted the recommended direction.
+Ali reviewed the Positive Structural Admission and Negative/Unresolved Classification investigation and accepted the recommended direction.
 
 The accepted design principle is:
 
@@ -1272,21 +1289,21 @@ runtime-strengthening policy.
 Accepted first positive family:
 
 ```text
-P1 — sole ordinary top-level command
+Sole Ordinary Top-Level Command Admission — sole ordinary top-level command
 
 cleanly analyzable step
 + target positively established as the sole ordinary top-level command statement
 + admitted GitHub built-in/default execution profile
 + exact correlated completed/successful runtime step
 + no visible continue-on-error masking
-→ eligible for R2 runtime-correlated support
+→ eligible for Runtime-Correlated Support Proposition runtime-correlated support
 ```
 
-P1 applies to the admitted built-in/default Bash/sh, PowerShell/pwsh, and CMD profiles when
+Sole Ordinary Top-Level Command Admission applies to the admitted built-in/default Bash/sh, PowerShell/pwsh, and CMD profiles when
 the parser positively establishes that whole-step shape.
 
 ```text
-P2 — first ordinary top-level Bash/sh command in a sequential script
+First Sequential Bash/sh Command Admission — first ordinary top-level Bash/sh command in a sequential script
 
 cleanly analyzable Bash-family step
 + target positively established as the first ordinary top-level command statement
@@ -1294,10 +1311,10 @@ cleanly analyzable Bash-family step
 + target not inside conditional/status-inverting/nested/asynchronous structure
 + exact correlated completed/successful runtime step
 + no visible continue-on-error masking
-→ eligible for R2 runtime-correlated support
+→ eligible for Runtime-Correlated Support Proposition runtime-correlated support
 ```
 
-P2 intentionally covers the real S002 first-install shape without admitting arbitrary later
+First Sequential Bash/sh Command Admission intentionally covers the real S002 first-install shape without admitting arbitrary later
 linear-chain commands.
 
 Accepted negative/unresolved distinction:
@@ -1337,7 +1354,7 @@ Accepted provider-boundary refinement:
 - keep Tree-sitter nodes private;
 - use the existing syntax tree to detect the required structures rather than building a second
   parser;
-- add only the minimum parser-neutral positive whole-step relation needed by P1/P2;
+- add only the minimum parser-neutral positive whole-step relation needed by Sole Ordinary Top-Level Command Admission/First Sequential Bash/sh Command Admission;
 - prevent currently false-straightforward shapes such as Bash `! command`, `command &`,
   process substitution, compound blocks, PowerShell flow-control/script-block structures,
   and CMD goto/exit/parenthesized structures from entering a positive family accidentally;
@@ -1349,13 +1366,13 @@ S004-style `. ./venv/bin/activate && pip install ...` remains explicitly deferre
 declared impossible. Re-entry requires a bounded parser-neutral operator/position/status
 relation plus shell-specific characterization.
 
-A4 and A5 are now **DECIDED**.
+Positive Structural Admission Policy and Negative and Unresolved Structural Classification are now **DECIDED**.
 
-The next Phase-A responsibility is A6: compose the accepted occurrence-level eligibility gate
+The next Phase-A responsibility is Runtime-Correlation and Eligibility Composition: compose the accepted occurrence-level eligibility gate
 with the existing exact workflow runtime-correlation and continue-on-error safeguards, then
-A7 defines the proof matrix before implementation authorization.
+Runtime-Strengthening Proof Matrix defines the proof matrix before implementation authorization.
 
-### A5 — Negative/unresolved structures
+### Negative and Unresolved Structural Classification — Negative/unresolved structures
 
 At minimum preserve non-strengthening for:
 
@@ -1372,7 +1389,7 @@ execution-profile uncertainty
 
 Classify which are definitely ineligible versus unresolved; do not conflate the two if the distinction matters downstream.
 
-### A6 — Runtime correlation composition
+### Runtime-Correlation and Eligibility Composition — Runtime correlation composition
 
 Determine where the eligibility check belongs relative to:
 
@@ -1394,7 +1411,7 @@ supported static evidence somewhere in step
 
 without weakening the already-proven exact run/job/step correlation boundary.
 
-### A7 — Proof matrix
+### Runtime-Strengthening Proof Matrix — Proof matrix
 
 Before implementation, define representative proofs for at least:
 
@@ -1421,7 +1438,7 @@ runtime step failed/not completed
 runtime correlation unresolved
 ```
 
-The proof matrix must include representative ordinary multi-command cases if A4 admits them, and must show both the strengthened claim and explicit non-claims.
+The proof matrix must include representative ordinary multi-command cases if Positive Structural Admission Policy admits them, and must show both the strengthened claim and explicit non-claims.
 
 ## 5. Initial source/test map
 
@@ -1459,7 +1476,7 @@ _supported_direct_exercise_locations(...)
 
 Both deduplicate to `(job_key, step_source_index)` before `_classify_runtime_step_execution(...)` evaluates successful runtime correlation.
 
-Cycle 2 already preserves the exact occurrence identity/structure, and the one-traversal command-analysis point already owns `execution_profile`. A3 therefore locks the Cycle-3 correction as a **narrow occurrence-level handoff/composition**, not a new parser, new command identity, or later re-derivation path.
+Cycle 2 already preserves the exact occurrence identity/structure, and the one-traversal command-analysis point already owns `execution_profile`. Canonical Static-Occurrence Handoff Contract therefore locks the Cycle-3 correction as a **narrow occurrence-level handoff/composition**, not a new parser, new command identity, or later re-derivation path.
 
 The implementation shape should preserve those facts before the current reduction to step identity occurs.
 
@@ -1480,21 +1497,21 @@ If a broader responsibility becomes necessary, return it to planning rather than
 
 ## 8. Immediate next action
 
-A1–A5 are decided. Continue Phase A with A6 before implementation:
+the first five Cycle-3 design responsibilities are decided. Continue Phase A with Runtime-Correlation and Eligibility Composition before implementation:
 
 ```text
-1. preserve the exact occurrence-level P1/P2 eligibility fact before the current reduction to step identity;
+1. preserve the exact occurrence-level Sole Ordinary Top-Level Command Admission/First Sequential Bash/sh Command Admission eligibility fact before the current reduction to step identity;
 2. compose that eligibility with existing exact workflow run/job/step runtime correlation;
 3. preserve the existing continue-on-error safeguard;
 4. define exactly how eligible | ineligible | unresolved affects the runtime-consumption and direct-exercise result states;
 5. verify that runtime correlation remains identity-only and does not absorb shell semantics;
-6. close A6;
-7. define A7 positive/negative/unresolved proof matrix, including S001/S002 and deferred S004 pressure;
+6. close Runtime-Correlation and Eligibility Composition;
+7. define Runtime-Strengthening Proof Matrix positive/negative/unresolved proof matrix, including S001/S002 and deferred S004 pressure;
 8. reconcile tests/proof owners and implementation sequencing;
 9. only after the complete Phase-A contract is accepted, authorize Build implementation.
 ```
 
-Learning-by-Doing for A6 should focus only on the composition dataflow: what facts are produced
+Learning-by-Doing for Runtime-Correlation and Eligibility Composition should focus only on the composition dataflow: what facts are produced
 by provider analysis, what CI owns, where runtime correlation happens, and how the eligibility
 gate changes the current step-level strengthening behavior.
 
