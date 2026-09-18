@@ -189,34 +189,34 @@ The parser may correctly establish the static `pip install` occurrence and Cycle
 
 ### Phase-A decisions so far
 
-A1–A3 are decided in the active working memory:
+the first three Cycle-3 design responsibilities are decided in the active working memory:
 
 ```text
-A1 — strengthen only the exact bounded runtime-correlated consumption/direct-exercise occurrence proposition;
+Exact Runtime-Strengthened Proposition Boundary — strengthen only the exact bounded runtime-correlated consumption/direct-exercise occurrence proposition;
      do not upgrade to installed-version, wheel, compatibility, full behavior, update-safety, or maintainer-action proof.
 
-A2 — use explicit eligible | ineligible | unresolved runtime-strengthening eligibility states.
+Runtime-Strengthening Eligibility State Model — use explicit eligible | ineligible | unresolved runtime-strengthening eligibility states.
 
-A3 — introduce one narrow CI-owned runtime-strengthening candidate/handoff for a specific static occurrence,
+Canonical Static-Occurrence Handoff Contract — introduce one narrow CI-owned runtime-strengthening candidate/handoff for a specific static occurrence,
      referencing existing canonical facts rather than inventing a second command identity.
 ```
 
-A3 preserves/references at least:
+Canonical Static-Occurrence Handoff Contract preserves/references at least:
 
 ```text
 outer workflow/job/step identity
 + canonical StaticCommandLocation
 + structural_context
 + effective execution_profile
-+ minimum step-level analysis shape required by A4
++ minimum step-level analysis shape required by Positive Structural Admission Policy
 + static proposition being strengthened
 ```
 
 Runtime correlation remains identity-only; it does not absorb internal command semantics.
 
-### A4 proposition selected — R2 runtime-correlated support
+### Runtime-Correlated Support Proposition — selected
 
-Cycle 3 has selected **R2** as the exact strengthened proposition.
+Cycle 3 has selected **Runtime-Correlated Support Proposition** as the exact strengthened proposition.
 
 ```text
 exact supported static occurrence
@@ -242,24 +242,24 @@ not update safety
 not maintainer-action permission
 ```
 
-R2 was selected because:
+Runtime-Correlated Support Proposition was selected because:
 
-- **R1 strict execution/success** requires a stronger runtime-observability responsibility than
+- **Strict Inner-Command Execution/Success Proof Route strict execution/success** requires a stronger runtime-observability responsibility than
   the current step-level correlation path can honestly provide; shell startup/environment
   effects such as `BASH_ENV` demonstrate the gap.
-- **R3 sanitized execution class** would require materially broader environment/action modeling
+- **Sanitized Execution-Environment Route sanitized execution class** would require materially broader environment/action modeling
   while excluding many ordinary workflows, without a current downstream need that justifies
   that cost.
-- **R2 matches current product semantics**: the parent synthesis plan already treats
+- **Runtime-Correlated Support Proposition matches current product semantics**: the parent synthesis plan already treats
   `supported_runtime_correlated` as supported static consumption/exercise safely related to
   an exact successful runtime step, while withholding stronger runtime/artifact/compatibility
   claims.
 
-No A1 redesign is required; R2 clarifies the meaning of the already-selected
+No redesign of the Exact Runtime-Strengthened Proposition Boundary is required; the Runtime-Correlated Support Proposition clarifies the meaning of the already-selected
 runtime-correlated occurrence proposition.
 
-A4 remains **partially open only for the eligibility family**: exactly which structures and
-execution profiles may receive R2 strengthening. Straightforward/mandatory-looking shapes
+At that point, the Positive Structural Admission Policy remained **partially open only for the eligibility family**: exactly which structures and
+execution profiles may receive Runtime-Correlated Support Proposition strengthening. Straightforward/mandatory-looking shapes
 remain positive candidates; conditional/path-dependent structures must not inherit successful
 step evidence automatically. The one-command-only rule is not accepted as the permanent
 product boundary.
@@ -269,17 +269,34 @@ product boundary.
 Decision state:
 
 ```text
-A1 exact strengthened proposition     DECIDED
-A2 eligibility state model            DECIDED
-A3 canonical occurrence handoff       DECIDED
-A4 strengthened proposition           DECIDED — R2 runtime-correlated support
-A4 positive eligibility family        DECIDED — P1 + P2
-A5 negative/unresolved structures      DECIDED
-A6 runtime-correlation composition     ACTIVE / OPEN
-A7 proof matrix                        OPEN
+Exact Runtime-Strengthened Proposition Boundary
+→ DECIDED
+
+Runtime-Strengthening Eligibility State Model
+→ DECIDED
+
+Canonical Static-Occurrence Handoff Contract
+→ DECIDED
+
+Runtime-Correlated Support Proposition
+→ DECIDED
+
+Positive Structural Admission Family
+→ DECIDED
+→ Sole Ordinary Top-Level Command Admission
+→ First Sequential Bash/sh Command Admission
+
+Negative and Unresolved Structural Classification
+→ DECIDED
+
+Runtime-Correlation and Eligibility Composition
+→ ACTIVE / OPEN
+
+Runtime-Strengthening Proof Matrix
+→ OPEN
 ```
 
-### Accepted A4/A5 boundary
+### Accepted Positive Structural Admission and Negative/Unresolved Classification boundary
 
 Runtime-strengthening admission now follows a **positive Tree-sitter-backed structural rule**:
 
@@ -305,17 +322,17 @@ absence of a currently-known negative tag
 The first accepted positive family is:
 
 ```text
-P1 — sole ordinary top-level command
+Sole Ordinary Top-Level Command Admission — sole ordinary top-level command
 → admitted built-in/default Bash/sh, PowerShell/pwsh, or CMD profile
-→ eligible structural/profile candidate for R2
+→ eligible structural/profile candidate for Runtime-Correlated Support Proposition
 
-P2 — first ordinary top-level Bash/sh command in a sequential script
+First Sequential Bash/sh Command Admission — first ordinary top-level Bash/sh command in a sequential script
 → admitted built-in/default Bash/sh fail-fast profile
 → outside conditional/status-inverting/nested/asynchronous structure
-→ eligible structural/profile candidate for R2
+→ eligible structural/profile candidate for Runtime-Correlated Support Proposition
 ```
 
-P2 intentionally retains S002's real first-install multi-command case.
+First Sequential Bash/sh Command Admission intentionally retains S002's real first-install multi-command case.
 
 Accepted classification principle:
 
@@ -349,18 +366,18 @@ shell-specific characterization.
 
 ## Immediate next action
 
-Continue Cycle 3 Phase A with **A6**:
+Continue Cycle 3 Phase A with **Runtime-Correlation and Eligibility Composition**:
 
 ```text
 provider command analysis
-→ exact occurrence + accepted P1/P2 eligibility fact
+→ exact occurrence + accepted Sole Ordinary Top-Level Command Admission/First Sequential Bash/sh Command Admission eligibility fact
 → existing exact workflow run/job/step runtime correlation
 → existing continue-on-error safeguard
 → eligible | ineligible | unresolved composition
 → runtime-consumption/direct-exercise result
 ```
 
-Then define A7 proof matrix. Only after A6/A7 and the complete Phase-A contract are accepted
+Then define the Runtime-Strengthening Proof Matrix. Only after Runtime-Correlation Composition and the Proof Matrix and the complete Phase-A contract are accepted
 may runtime-strengthening product source/tests be implemented.
 
 ## Current stop line
