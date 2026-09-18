@@ -78,8 +78,8 @@ Current state:
 A orientation                  COMPLETE
 B implementation               COMPLETE
 C state preservation            COMPLETE
-D post-build learning           ACTIVE — current handoff
-E gap repair / next orientation READY after review
+D post-build learning           COMPLETE
+E gap repair / next orientation COMPLETE
 ```
 
 ### Build Stage 1 — orientation / implementation model
@@ -356,7 +356,45 @@ D post-build learning           ACTIVE — current handoff
 E gap repair / next orientation BLOCKED on focused executable proof + review
 ```
 
+### Build Stage 1 — CLOSED
+
+Stage 1 is complete.
+
+Ali reviewed and understood the key provider model:
+
+```text
+source_order
+!= whole-script execution relationship
+
+structural_context
+→ surrounding syntax/control-flow fact
+
+whole_step_relation
+→ positively established relationship between exact occurrence and whole run script
+
+whole_step_relation = None
+→ no admitted positive provider relation established
+→ NOT an eligibility verdict
+```
+
+The provider therefore stops at parser-neutral structural facts. CI policy remains responsible
+for interpreting those facts together with execution profile.
+
+Stage-1 closure evidence:
+
+```text
+implementation complete
+focused provider tests added
+GitHub Actions hosted proof PASS — 18/18
+conceptual/logical review complete
+no Stage-2 behavior implemented during Stage 1
+```
+
+No material gap was exposed by the review.
+
 ### Build Stage 2 — Exact Occurrence Handoff and Eligibility
+
+**Status:** ACTIVE
 
 Goal:
 
@@ -378,7 +416,17 @@ Scope:
 - keep `workflow_runtime_correlation.py` identity-only;
 - stop before changing final workflow runtime aggregation.
 
-Stage 2 begins only after Stage 1 is reviewed, recorded, and taught.
+Stage 1 is now reviewed, recorded, taught, and closed. Stage 2 is formally active.
+
+Stage-2 Learning-by-Doing state:
+
+```text
+A orientation                  ACTIVE
+B implementation               NOT STARTED
+C state preservation            ACTIVE
+D post-build learning           NOT STARTED
+E gap repair / next orientation NOT STARTED
+```
 
 ### Build Stage 3 — Runtime Composition
 
