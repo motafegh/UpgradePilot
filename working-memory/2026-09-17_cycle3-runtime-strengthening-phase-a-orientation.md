@@ -480,6 +480,48 @@ No implementation is authorized yet; this checkpoint only establishes why A4 can
 correctly decided from the current `straightforward_top_level | linear_chain | short_circuit`
 tags alone.
 
+#### A4 provisional positive-family direction — accepted for continued design
+
+Ali reviewed the A4 explanation and accepted the current direction as sufficient to continue,
+with deeper shell/runtime details intentionally deferred to the implementation/Learning-by-Doing
+stage where they become responsibility-bearing.
+
+Current provisional family:
+
+```text
+P1 — sole straightforward occurrence
+→ clean ordinary top-level target
+→ admitted execution profile
+→ exact successful runtime step
+→ no continue-on-error masking
+→ candidate eligible
+
+P2 — first ordinary top-level Bash/sh occurrence in a multi-command run block
+→ source_order == 0
+→ no conditional / loop / pipeline / short-circuit / nested / function /
+   status-inversion / asynchronous masking around the target
+→ GitHub Bash/sh profile whose wrapper semantics positively justify fail-fast
+→ exact successful runtime step
+→ no continue-on-error masking
+→ candidate eligible
+```
+
+P2 exists to retain meaningful current product coverage such as S002 without admitting all
+`linear_chain` occurrences. S004-style sourced-environment + `&&` shapes remain deferred
+until their stronger relation semantics are independently justified.
+
+This is **not yet A4 CLOSED**. One remaining proof-boundary caveat must be resolved first:
+whether shell startup/environment state (especially `BASH_ENV`) can invalidate the premise
+that GitHub's Bash wrapper semantics alone are sufficient to infer target execution/success.
+
+Learning state:
+
+- Ali has operational understanding sufficient to continue A4 design;
+- detailed Bash startup, `errexit`, status inversion, and chain semantics are not claimed as
+  mastered and should be taught from the actual implementation/proof when those details become
+  directly responsibility-bearing;
+- do not use the deferred depth as a reason to lower the engineering proof bar.
+
 ### A5 — Negative/unresolved structures
 
 At minimum preserve non-strengthening for:
