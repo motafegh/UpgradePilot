@@ -23,6 +23,7 @@ from ..github.workflow_command_analysis import (
     StaticCommandAtom,
     StaticCommandOccurrence,
     StaticCommandStructure,
+    StaticCommandWholeStepRelation,
 )
 from ..github.workflow_command_location import StaticCommandLocation
 from ..github.workflow_definition import RunDefaults, RunStepDefinition
@@ -106,6 +107,7 @@ class ProjectEnvironmentSelectionDeclaration:
     package_scope: ProjectEnvironmentPackageScope = "bound_project"
     command_location: StaticCommandLocation | None = None
     structural_context: tuple[StaticCommandStructure, ...] = ()
+    whole_step_relation: StaticCommandWholeStepRelation | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -324,6 +326,7 @@ def _observe_pip_occurrence(
                 selectors=tuple(OptionalExtraSelector(name) for name in extra_names),
                 command_location=StaticCommandLocation.from_occurrence(occurrence),
                 structural_context=occurrence.structural_context,
+                whole_step_relation=occurrence.whole_step_relation,
             )
         )
 
@@ -513,6 +516,7 @@ def _observe_uv_occurrence(
         package_scope=package_scope,
         command_location=StaticCommandLocation.from_occurrence(occurrence),
         structural_context=occurrence.structural_context,
+        whole_step_relation=occurrence.whole_step_relation,
     )
 
     if not selectors:
