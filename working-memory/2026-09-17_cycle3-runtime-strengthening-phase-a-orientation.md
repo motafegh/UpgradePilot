@@ -129,7 +129,7 @@ Runtime-Strengthening Proof Matrix
 → OPEN
 ```
 
-### Exact Runtime-Strengthened Proposition Boundary — Exact strengthened proposition — DECIDED
+### Exact Runtime-Strengthened Proposition Boundary — DECIDED
 
 Cycle 3 may strengthen only these bounded propositions:
 
@@ -155,7 +155,7 @@ update safety
 maintainer action
 ```
 
-#### Exact Runtime-Strengthened Proposition Boundary rationale
+#### Why this boundary was selected
 
 The evidence layers establish different propositions and must remain separate:
 
@@ -181,7 +181,7 @@ static command exists
 != command succeeded
 ```
 
-### Runtime-Strengthening Eligibility State Model — Eligibility state model — DECIDED
+### Runtime-Strengthening Eligibility State Model — DECIDED
 
 Use an explicit three-way runtime-strengthening eligibility model:
 
@@ -201,7 +201,7 @@ unresolved
 
 Do not overload the existing static evidence states to encode this new proposition.
 
-#### Runtime-Strengthening Eligibility State Model rationale
+#### Why the three-state model is required
 
 The distinction between `ineligible` and `unresolved` is semantically important:
 
@@ -254,7 +254,7 @@ Ali correctly identified the core structural distinction: Case A is straightforw
 
 A second independent requirement remains the **execution profile**: even a straightforward occurrence may be strengthened only when GitHub's wrapper/execution semantics are sufficiently established for the inference being made.
 
-### Canonical Static-Occurrence Handoff Contract — Canonical occurrence handoff into runtime strengthening — DECIDED
+### Canonical Static-Occurrence Handoff Contract — DECIDED
 
 Introduce one narrow **CI-owned runtime-strengthening candidate/input** for a specific static command occurrence rather than passing the full static dependency-consumption or direct-invocation evidence objects into the eligibility classifier.
 
@@ -271,7 +271,7 @@ outer job + step identity
 
 The exact class/type/function spelling remains an implementation detail for the Build phase. Phase A locks the responsibility and information boundary, not the final identifier name.
 
-#### Canonical Static-Occurrence Handoff Contract identity rule
+#### Canonical identity rule
 
 `StaticCommandLocation` remains the **single canonical inner command identity**. Cycle 3 must not create a second command-identity scheme.
 
@@ -296,7 +296,7 @@ static proposition kind
 
 None of these facts independently proves execution or success.
 
-#### Canonical Static-Occurrence Handoff Contract rationale
+#### Why this handoff belongs here
 
 The current one-traversal static path already has the full `StaticCommandAnalysis` at the point consumption/project-environment/direct-invocation evidence is created. That analysis already contains the resolved shell context, including `execution_profile`, while exact occurrences already carry canonical location and structural context.
 
@@ -314,7 +314,7 @@ one StaticCommandAnalysis
 
 This keeps one-analysis/one-traversal ownership from Cycle 2 and avoids duplicate static interpretation.
 
-#### Rejected Canonical Static-Occurrence Handoff Contract alternative
+#### Rejected alternative
 
 Do **not** make the runtime-strengthening classifier consume `StaticDependencyConsumptionEvidence` / `DirectPackageInvocationEvidence` directly as its primary contract.
 
@@ -327,7 +327,7 @@ Reason:
 
 A dedicated narrow handoff is therefore the simpler ownership boundary despite introducing one small composition type.
 
-#### Explicit non-responsibilities of the Canonical Static-Occurrence Handoff Contract handoff
+#### Explicit non-responsibilities of this handoff
 
 The handoff must **not**:
 
@@ -369,7 +369,7 @@ consequential unfamiliar decision
 
 This does **not** authorize arbitrary scope expansion or bypass accepted specifications/ADRs/stop lines. A materially better route that changes the selected plan/design must be returned to the proper owner and recorded before implementation.
 
-### Positive Structural Admission Policy — First admitted positive family — ACTIVE / OPEN
+### Positive Structural Admission Policy — HISTORICAL INVESTIGATION
 
 Positive Structural Admission Policy is **not** now framed as “one command versus everything else.” It asks:
 
@@ -631,25 +631,25 @@ Do not respond by:
 Before Positive Structural Admission Policy can close, decide which proposition UpgradePilot actually needs and can support:
 
 ```text
-Route Strict Inner-Command Execution/Success Proof Route — strict occurrence execution/success
+Strict Inner-Command Execution/Success Proof Route
 → requires evidence strong enough to establish the exact inner command actually ran/succeeded;
   current step-success + static-structure path is insufficient in the general case.
 
-Route Runtime-Correlated Support Proposition — weaker occurrence-relative runtime association/support
+Runtime-Correlated Support Proposition
 → exact static occurrence + exact successful owning runtime step + bounded structure/profile
   relationship is retained as stronger contextual evidence,
   but explicitly does NOT claim direct observation/proof of inner-command execution.
 
-Route Sanitized Execution-Environment Route — narrowly sanitized execution class
+Sanitized Execution-Environment Route
 → admit only workflows/environments whose startup/runtime mutation surface is independently
   bounded strongly enough for strict inference;
   likely much narrower and may lose substantial ordinary product coverage.
 ```
 
-The next step is to compare Strict Inner-Command Execution/Success Proof Route/Runtime-Correlated Support Proposition/Sanitized Execution-Environment Route against the actual downstream CI-coverage proposition and
+The next step was to compare the three candidate routes against the actual downstream CI-coverage proposition and
 the Product Decision Model before changing Exact Runtime-Strengthened Proposition Boundary, Positive Structural Admission Policy, or the implementation plan.
 
-#### Positive Structural Admission Policy proposition selection — DECIDED: Runtime-Correlated Support Proposition runtime-correlated support
+#### Runtime-Correlated Support Proposition — DECIDED
 
 After tracing the three reassessment routes into the actual CI coverage consumer,
 `PublicPullRequestInvestigation`, the Product Decision Model, and the parent synthesis plan,
@@ -685,15 +685,15 @@ a maintainer action is justified
 
 ##### Why Runtime-Correlated Support Proposition was selected
 
-**Strict Inner-Command Execution/Success Proof Route — strict inner-command execution/success** was rejected for this cycle because the current
+**Strict Inner-Command Execution/Success Proof Route** was rejected for this cycle because the current
 evidence path cannot honestly establish it in the general admitted environment. Step success
 is step-level evidence; startup/environment effects such as `BASH_ENV` demonstrate that
 static command structure + successful step does not universally equal direct observation of
-the inner command. Making Strict Inner-Command Execution/Success Proof Route trustworthy would require a different/broader evidence
+the inner command. Making the strict-proof route trustworthy would require a different/broader evidence
 responsibility such as command-level runtime observability, which is outside the current
 Cycle-3 boundary.
 
-**Sanitized Execution-Environment Route — narrowly sanitized execution class** was not selected because proving a sufficiently
+**Sanitized Execution-Environment Route** was not selected because proving a sufficiently
 closed startup/runtime environment would require materially broader environment/action
 modeling while excluding many ordinary workflows. That cost is not justified by the current
 downstream product need.
@@ -742,13 +742,12 @@ the successful enclosing step from strengthening that occurrence.
 
 ##### Exact Runtime-Strengthened Proposition Boundary reconciliation
 
-No Exact Runtime-Strengthened Proposition Boundary redesign is required. Exact Runtime-Strengthened Proposition Boundary already selected the bounded
-`runtime-correlated dependency-consumption/direct-exercise occurrence` proposition. Runtime-Correlated Support Proposition
-clarifies its exact meaning and non-claims; it does not replace it with direct execution proof.
+No redesign of the Exact Runtime-Strengthened Proposition Boundary is required. It already selected the bounded
+`runtime-correlated dependency-consumption/direct-exercise occurrence` proposition. The Runtime-Correlated Support Proposition clarifies its exact meaning and non-claims; it does not replace it with direct execution proof.
 
 ##### Remaining Positive Structural Admission Policy work
 
-Positive Structural Admission Policy is **not fully closed yet**. The proposition is now locked, but the eligibility family still
+At this historical checkpoint, the Positive Structural Admission Policy was **not fully closed yet**. The proposition is now locked, but the eligibility family still
 needs a small bounded refinement:
 
 1. identify the exact structural contexts that are positively eligible for Runtime-Correlated Support Proposition;
@@ -1260,13 +1259,12 @@ real case pressure or selected product need
 ```
 
 No source/test implementation is authorized by this investigation. The next step is to teach
-and jointly review this proposed Positive Structural Admission and Negative/Unresolved Classification boundary; if accepted, record Positive Structural Admission and Negative/Unresolved Classification as decided and move
-to Runtime-Correlation and Eligibility Composition runtime-correlation composition.
+and jointly review the proposed Positive Structural Admission Policy and Negative/Unresolved Classification. If accepted, the next responsibility is Runtime-Correlation and Eligibility Composition.
 
 
-#### Positive Structural Admission and Negative/Unresolved Classification accepted decision — Tree-sitter-backed positive structural admission
+#### Accepted Positive Structural Admission and Negative/Unresolved Classification
 
-Ali reviewed the Positive Structural Admission and Negative/Unresolved Classification investigation and accepted the recommended direction.
+Ali reviewed the structural-admission investigation and accepted the recommended direction.
 
 The accepted design principle is:
 
@@ -1497,16 +1495,16 @@ If a broader responsibility becomes necessary, return it to planning rather than
 
 ## 8. Immediate next action
 
-the first five Cycle-3 design responsibilities are decided. Continue Phase A with Runtime-Correlation and Eligibility Composition before implementation:
+The first five Cycle-3 design responsibilities are decided. Continue Phase A with Runtime-Correlation and Eligibility Composition before implementation:
 
 ```text
-1. preserve the exact occurrence-level Sole Ordinary Top-Level Command Admission/First Sequential Bash/sh Command Admission eligibility fact before the current reduction to step identity;
+1. preserve the exact occurrence-level eligibility fact for the Sole Ordinary Top-Level Command Admission and First Sequential Bash/sh Command Admission before the current reduction to step identity;
 2. compose that eligibility with existing exact workflow run/job/step runtime correlation;
 3. preserve the existing continue-on-error safeguard;
 4. define exactly how eligible | ineligible | unresolved affects the runtime-consumption and direct-exercise result states;
 5. verify that runtime correlation remains identity-only and does not absorb shell semantics;
 6. close Runtime-Correlation and Eligibility Composition;
-7. define Runtime-Strengthening Proof Matrix positive/negative/unresolved proof matrix, including S001/S002 and deferred S004 pressure;
+7. define the Runtime-Strengthening Proof Matrix with positive, negative, and unresolved cases, including S001/S002 and deferred S004 pressure;
 8. reconcile tests/proof owners and implementation sequencing;
 9. only after the complete Phase-A contract is accepted, authorize Build implementation.
 ```
