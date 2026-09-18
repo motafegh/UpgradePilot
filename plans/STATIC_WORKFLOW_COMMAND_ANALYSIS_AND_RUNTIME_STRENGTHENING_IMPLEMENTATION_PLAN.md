@@ -387,6 +387,133 @@ static command exists
 != command succeeded
 ```
 
+### 6.8A Compose occurrence eligibility with runtime evidence
+
+The accepted runtime-strengthening composition must preserve the exact static occurrence until
+the stronger runtime proposition is classified.
+
+Do not reduce supported static evidence to `(job_key, step_source_index)` before occurrence
+eligibility is applied.
+
+The required composition is:
+
+```text
+supported exact static occurrence
++ canonical StaticCommandLocation
++ accepted structural/profile eligibility
++ exact owning runtime step correlation
++ continue-on-error interpretation
++ factual runtime step status/conclusion
+→ occurrence-level runtime-strengthening result
+```
+
+The outer workflow/job/step correlation remains owned by
+`workflow_runtime_correlation.py` and stays identity-only. It must not learn Tree-sitter
+structure, dependency semantics, or occurrence eligibility.
+
+Occurrence-level runtime strengthening uses:
+
+```text
+eligible | ineligible | unresolved
+```
+
+and composes to the existing runtime evidence vocabulary:
+
+```text
+supported | not_established | unresolved
+```
+
+Required semantics:
+
+```text
+eligible
++ exact completed/successful unmasked runtime step
+→ supported
+
+ineligible
+→ not_established
+
+eligible
++ exact failed/skipped/cancelled/non-successful runtime step
+→ not_established
+→ preserve/report the exact observed GitHub runtime status/conclusion
+
+eligibility unresolved
+→ unresolved when material
+
+workflow/step correlation unresolved
+→ unresolved at the stronger runtime proposition
+
+continue-on-error true/dynamic or equivalent masking ambiguity
+→ unresolved
+```
+
+Do not label an exact GitHub-reported failed/skipped/cancelled runtime step as an unresolved
+runtime observation. The runtime fact is known; only the stronger positive
+Runtime-Correlated Support proposition is not established.
+
+Multiple exact candidates are existentially aggregated:
+
+```text
+any supported candidate
+→ runtime axis supported
+
+otherwise any materially unresolved candidate
+→ runtime axis unresolved
+
+otherwise
+→ runtime axis not_established
+```
+
+The workflow aggregate must preserve already-earned static support when stronger runtime
+evidence is merely unavailable or structurally inadmissible:
+
+```text
+static consumption supported
++ no occurrence earns Runtime-Correlated Support
++ limitation is structural ineligibility, eligibility uncertainty,
+  or bounded correlation unavailability
+→ preserve supported_not_correlated
+```
+
+However, when an occurrence is positively eligible and its exact correlated runtime step is
+known to be failed/skipped/cancelled/non-successful, the broader workflow CI-coverage result
+may remain `unresolved` while explicitly preserving the factual runtime outcome. That state
+means successful dependency coverage was not established; it must not imply uncertainty
+about the step status itself or attribute the failure to the dependency command.
+
+The same occurrence-level composition applies independently to direct-exercise evidence.
+Select exact invocation occurrences that already participate in a supported static
+consumption→invocation ordering relation; do not reduce them to step identity before
+eligibility.
+
+If multiple domain evidence records refer to one exact occurrence for the same proposition,
+deduplicate by:
+
+```text
+job key
++ step source index
++ StaticCommandLocation
++ proposition kind
+```
+
+Never deduplicate runtime-strengthening candidates by step identity alone.
+
+Normal production must preserve the one-analysis handoff from the existing provider/static
+workflow traversal. Do not reparse command text or re-resolve shell context later in
+`dependency_exercise.py`.
+
+The implementation may introduce one small internal result/basis type so the workflow
+aggregate can distinguish:
+
+- stronger evidence merely unavailable/inadmissible;
+- exact runtime non-success for an eligible occurrence;
+- genuine ambiguity/masking;
+
+without reconstructing semantics from reason strings.
+
+Exact type names remain implementation details.
+
 ### 6.9 Correct same-step ordering/direct-exercise composition
 
 Current direct-exercise logic uses step/segment ordering. Replace any assumption that simple source order alone means same execution path.
