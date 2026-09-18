@@ -305,32 +305,79 @@ Project-environment evidence reconciliation must compare identities produced by 
 
 Separate static occurrence from the proposition that whole-step success can strengthen that occurrence.
 
-At minimum classify occurrences so CI can distinguish:
+The strengthened Cycle-3 proposition is **R2 runtime-correlated support**:
 
 ```text
-runtime-strengthening eligible
-conditional / path-dependent / uncertain
-unsupported for strengthening
+exact supported static occurrence
++ positively admitted structural relationship
++ established execution profile
++ exact correlated completed/successful owning runtime step
++ no visible continue-on-error masking
+→ supported runtime-correlated occurrence
 ```
 
-The first required positive strengthening class is deliberately conservative:
+This is stronger than static declaration alone, but it is not direct observation/proof that the exact inner command executed or succeeded. It does not prove exact installed version, selected artifact, compatibility, update safety, or maintainer action.
+
+CI must classify occurrence strengthening as:
 
 ```text
-one cleanly parsed straightforward top-level command occurrence
-in a step whose syntax family and execution profile are established
+eligible
+ineligible
+unresolved
 ```
 
-For that class, a correlated completed/successful runtime step may strengthen the command occurrence to the currently admitted runtime-consumption/exercise proposition, subject to existing `continue-on-error` safeguards.
+Do **not** infer positive eligibility from absence of currently known negative tags. The provider command-analysis adapter must positively establish the bounded whole-step/position relation required by the admitted family while keeping Tree-sitter CST nodes private.
 
-Do not automatically strengthen commands that are inside:
+The accepted first positive family is:
 
-- `if`/`else`, loops, functions, subshell/nested script blocks, or other conditional structures;
-- short-circuit alternatives such as an `||` branch;
-- parser-ambiguous/error regions;
-- execution-profile-ambiguous custom shells;
-- structures for which source presence does not establish execution from whole-step success.
+```text
+P1 — sole ordinary top-level command
 
-A later implementation increment inside this same plan may admit additional linear/chain shapes **only after** shell-specific characterization demonstrates the exact implication needed. The baseline plan does not require maximizing this set.
+cleanly analyzable step
++ exact target positively established as the sole ordinary top-level command statement
++ admitted GitHub built-in/default Bash/sh, PowerShell/pwsh, or CMD execution profile
+→ structural/profile candidate for R2 strengthening
+```
+
+and:
+
+```text
+P2 — first ordinary top-level Bash/sh command in a sequential script
+
+cleanly analyzable Bash-family step
++ exact target positively established as the first ordinary top-level command statement
++ admitted GitHub built-in/default Bash/sh profile with fail-fast -e behavior
++ target outside conditional/status-inverting/nested/asynchronous structure
+→ structural/profile candidate for R2 strengthening
+```
+
+P2 exists to retain real product coverage such as S002's first dependency-install command in a normal multi-command Bash step. It does not authorize arbitrary later linear-chain occurrences.
+
+The provider adapter must use the existing Tree-sitter syntax tree to prevent false-straightforward admission, including relevant cases such as:
+
+- Bash negated commands (`! command`);
+- Bash asynchronous/background commands (`command &`);
+- Bash process substitution and compound/brace nesting;
+- PowerShell flow-control, try/trap, class/script-block or equivalent structures when they affect the target's whole-step relation;
+- CMD goto/exit/parenthesized or equivalent non-`cmd` statements when they affect the target's whole-step relation.
+
+Prefer one small parser-neutral positive relation/whole-step shape over leaking grammar-specific node types or constructing a general shell CFG/interpreter.
+
+Classify **ineligible** when the known relationship positively allows successful step completion without meaningful runtime support for the exact target occurrence, including positively identified conditional bodies, loop bodies, deferred function bodies, status inversion, background/asynchronous execution, process substitution, and `||` rescue positions.
+
+Classify **unresolved** when the current representation/profile is too coarse to decide honestly, including generic `short_circuit` where `&&` and `||` are collapsed, generic pipelines, generic nested/subshell structures, compound blocks, later generic linear-chain occurrences, complex unrecognized PowerShell/CMD structure, parser ambiguity, unresolved execution profile, and custom shell templates.
+
+Do not automatically strengthen commands merely because:
+
+```text
+source_order == 0
+one collected command occurrence exists
+no currently-known negative tag fired
+```
+
+Those facts do not necessarily describe every shell statement in the script.
+
+A later increment may admit selected `&&`, pipeline, or later-chain shapes only after the IR preserves the bounded operator/position/status-contribution relation required by the proposition and shell-specific characterization demonstrates the implication. S004-style `. ./venv/bin/activate && pip install ...` is the current concrete re-entry case.
 
 This policy must preserve:
 
