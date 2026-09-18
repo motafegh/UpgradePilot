@@ -123,10 +123,10 @@ Negative and Unresolved Structural Classification
 → DECIDED
 
 Runtime-Correlation and Eligibility Composition
-→ ACTIVE / OPEN
+→ DECIDED
 
 Runtime-Strengthening Proof Matrix
-→ OPEN
+→ ACTIVE / OPEN
 ```
 
 ### Exact Runtime-Strengthened Proposition Boundary — DECIDED
@@ -1880,6 +1880,190 @@ This distinction should be reflected in reason/detail fields and tests. Do not u
 `unresolved` as if UpgradePilot does not know the runtime step outcome when GitHub supplied
 it exactly.
 
+### Runtime-Correlation and Eligibility Composition — ACCEPTED
+
+Ali reviewed and accepted the proposed composition contract, including the clarification that
+an exact GitHub runtime status/conclusion remains a factual observation even when the broader
+CI-coverage interpretation is unresolved.
+
+The accepted composition is:
+
+```text
+supported exact static proposition
+        ↓
+exact occurrence join
+(job key + step source index + StaticCommandLocation + proposition kind)
+        ↓
+occurrence runtime-strengthening context
+        ↓
+eligibility
+eligible | ineligible | unresolved
+        ↓
+existing exact workflow/job/step runtime correlation
+        ↓
+continue-on-error interpretation
+        ↓
+factual runtime step status/conclusion
+        ↓
+runtime-strengthening candidate result
+supported | not_established | unresolved
++ semantic basis
+        ↓
+existential aggregation across exact occurrences
+        ↓
+workflow CI coverage
+```
+
+Accepted rules:
+
+1. **Do not reduce exact occurrences to step identity before runtime-strengthening
+   classification.** The current `(job_key, step_source_index)` reduction is the concrete
+   Cycle-3 defect.
+
+2. **Canonical inner identity remains `StaticCommandLocation`.** Outer job/step identity is
+   used only to find the owning runtime step. No second command identity is introduced.
+
+3. **`workflow_runtime_correlation.py` remains identity-only.** It must not absorb
+   Tree-sitter structure, dependency meaning, shell semantics, or occurrence eligibility.
+
+4. **Occurrence eligibility remains separate from runtime observation.**
+
+   ```text
+   eligible
+   → the admitted structural/profile rule permits step evidence to strengthen this occurrence
+
+   ineligible
+   → the stronger proposition is positively not justified for this occurrence
+
+   unresolved
+   → required structural/profile facts are not trustworthy enough to decide
+   ```
+
+5. **Runtime step status/conclusion is preserved exactly when GitHub reports it.**
+
+   ```text
+   failed / skipped / cancelled / completed-success
+   → factual observed runtime result when exact correlation is established
+   ```
+
+   Do not describe a known failed/skipped/cancelled step as an unresolved runtime fact.
+
+6. **Runtime-strengthening candidate semantics:**
+
+   ```text
+   eligible
+   + exact completed/successful unmasked runtime step
+   → supported
+
+   ineligible
+   → not_established
+
+   eligible
+   + exact failed/skipped/cancelled/non-successful runtime step
+   → not_established
+   while preserving/reporting the exact observed runtime status
+
+   eligibility unresolved
+   → unresolved when the missing eligibility fact is material
+
+   workflow/step correlation unresolved
+   → unresolved at the stronger runtime proposition
+
+   continue-on-error true/dynamic or equivalent masking ambiguity
+   → unresolved
+   ```
+
+7. **Multiple candidates use existential aggregation:**
+
+   ```text
+   any supported candidate
+   → runtime axis supported
+
+   otherwise any materially unresolved candidate
+   → runtime axis unresolved
+
+   otherwise
+   → runtime axis not_established
+   ```
+
+   One ineligible occurrence must not erase another independently eligible and successful
+   occurrence.
+
+8. **Weaker static evidence is preserved when stronger runtime evidence is merely unavailable
+   or inadmissible.**
+
+   ```text
+   static consumption supported
+   + no occurrence earns Runtime-Correlated Support
+   + limitation is structural ineligibility, eligibility uncertainty,
+     or bounded correlation unavailability
+   → workflow may remain supported_not_correlated
+   ```
+
+   This extends the already-proven 2026-09-12 bridge doctrine: inability to earn a stronger
+   bridge must not erase sound static support.
+
+9. **Exact eligible runtime non-success remains materially visible at the broader CI layer.**
+
+   For an occurrence that is positively eligible for strengthening:
+
+   ```text
+   exact correlated step reports failure/skipped/cancelled/non-success
+   → runtime-strengthening positive proposition not_established
+   → exact observed status preserved
+   → broader workflow CI coverage may remain unresolved
+   ```
+
+   The aggregate is unresolved because the workflow did not establish successful dependency
+   coverage, not because UpgradePilot is uncertain about the factual step outcome.
+
+10. **Occurrence-sensitive non-success interpretation is required.**
+
+   ```text
+   conditional/ineligible target inside a failed step
+   → do not attribute the failed whole-step outcome to that target occurrence
+
+   eligible target inside the failed step
+   → exact non-success is materially relevant to the runtime-strengthening proposition
+   ```
+
+11. **Direct exercise uses the same occurrence-level composition separately.**
+
+   The exact invocation occurrence must participate in an already-supported static
+   consumption→invocation ordering relation before its own eligibility/runtime outcome is
+   composed. Dependency-consumption runtime support and direct-exercise runtime support remain
+   separate axes.
+
+12. **Deduplication must use the full exact occurrence identity for the proposition:**
+
+   ```text
+   job key
+   + step source index
+   + StaticCommandLocation
+   + proposition kind
+   ```
+
+   Never deduplicate runtime-strengthening candidates only by step identity.
+
+13. **Normal production must preserve the one-analysis handoff.** Do not reparse the shell
+   command or re-resolve the execution profile later in `dependency_exercise.py`.
+
+14. **The existing public runtime-axis vocabulary remains sufficient:**
+
+   ```text
+   supported | not_established | unresolved
+   ```
+
+   The implementation may introduce one small internal composition result/basis type so the
+   workflow aggregate does not rely on fragile reason-string matching. Exact type names remain
+   Build-phase decisions.
+
+15. **No stronger claims are introduced.** This composition still does not prove exact
+   installed dependency version, selected artifact, compatibility, update safety, or
+   maintainer action.
+
+Runtime-Correlation and Eligibility Composition is now **DECIDED / CLOSED** for Phase A.
+
 ### Runtime-Strengthening Proof Matrix — Proof matrix
 
 Before implementation, define representative proofs for at least:
@@ -1966,18 +2150,17 @@ If a broader responsibility becomes necessary, return it to planning rather than
 
 ## 8. Immediate next action
 
-The first five Cycle-3 design responsibilities are decided. Continue Phase A with Runtime-Correlation and Eligibility Composition before implementation:
+All Cycle-3 Phase-A design responsibilities except the Runtime-Strengthening Proof Matrix are decided. Continue with the proof matrix before implementation:
 
 ```text
-1. preserve the exact occurrence-level eligibility fact for the Sole Ordinary Top-Level Command Admission and First Sequential Bash/sh Command Admission before the current reduction to step identity;
-2. compose that eligibility with existing exact workflow run/job/step runtime correlation;
-3. preserve the existing continue-on-error safeguard;
-4. define exactly how eligible | ineligible | unresolved affects the runtime-consumption and direct-exercise result states;
-5. verify that runtime correlation remains identity-only and does not absorb shell semantics;
-6. close Runtime-Correlation and Eligibility Composition;
-7. define the Runtime-Strengthening Proof Matrix with positive, negative, and unresolved cases, including S001/S002 and deferred S004 pressure;
-8. reconcile tests/proof owners and implementation sequencing;
-9. only after the complete Phase-A contract is accepted, authorize Build implementation.
+1. define the Runtime-Strengthening Proof Matrix with positive, negative, unresolved, and factual non-success cases;
+2. include Sole Ordinary Top-Level Command Admission and First Sequential Bash/sh Command Admission positives;
+3. include conditional/status-inverted/asynchronous and other known ineligible cases;
+4. include unresolved short-circuit/pipeline/profile/parser cases;
+5. preserve exact failed/skipped/cancelled runtime observations separately from broader coverage interpretation;
+6. include S001/S002 positive pressure and S004 deferred re-entry pressure;
+7. reconcile exact proof owners and implementation sequencing;
+8. only after the proof matrix and complete Phase-A contract are accepted, authorize Build implementation.
 ```
 
 Learning-by-Doing for Runtime-Correlation and Eligibility Composition should focus only on the composition dataflow: what facts are produced
