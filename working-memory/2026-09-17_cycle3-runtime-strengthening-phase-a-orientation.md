@@ -913,6 +913,179 @@ outside the positive family.
 This remains an investigation result rather than an accepted A4 family until PowerShell/CMD
 singleton behavior and the final eligible/ineligible/unresolved distinction are reconciled.
 
+#### A4 eligibility investigation checkpoint — positive whole-step proof is required
+
+Further grammar/source review exposed a more general limitation than the individual missing
+tags:
+
+```text
+StaticCommandOccurrence.source_order
+→ order among collected command nodes
+
+but
+
+source_order
+!= order among every shell statement/control construct in the script
+```
+
+The current collectors intentionally collect only the family-specific ordinary command node
+(`command` for Bash/PowerShell, `cmd` for CMD). Other statements remain represented in the
+parser tree but do not receive command-occurrence ordinals.
+
+Concrete examples:
+
+- PowerShell has `flow_control_statement` nodes for `return`, `exit`, etc. A target command
+  can therefore be `source_order == 0` even when an earlier control-flow statement exists.
+- CMD has distinct `goto_stmt` and `exit_stmt` nodes that are not `cmd` occurrences. A
+  target can again be the first collected command without being the first executable statement.
+- PowerShell also has commands nested under `try`, `trap`, classes/script blocks, and other
+  constructs not comprehensively covered by the current negative structural tags.
+- Bash top-level brace `compound_statement` similarly contains commands while not itself
+  being an ordinary command occurrence.
+
+Therefore these rules would be unsound as the sole A4 basis:
+
+```text
+source_order == 0
+→ first executable statement          # false in general
+
+one command occurrence in analysis
+→ whole script is one simple command  # false in general
+
+no known negative tag
+→ positively straightforward          # false until adapter coverage is exhaustive
+```
+
+##### Selected design direction from this investigation
+
+For R2 eligibility, prefer a **small positive provider-owned whole-step structural fact** over
+an ever-growing downstream blacklist.
+
+Conceptually, the parser adapter should be able to establish only the bounded shapes Cycle 3
+actually needs, for example:
+
+```text
+sole ordinary top-level command statement
+
+first ordinary top-level command statement
+in a top-level sequential Bash/sh script
+
+other / complex / not positively established
+```
+
+Exact field/type names remain Build-phase details. The important invariant is:
+
+```text
+positive eligibility
+→ earned from an explicitly recognized parser shape
+
+not
+
+positive eligibility
+→ inferred because no currently-known bad tag happened to fire
+```
+
+This is still parser-neutral downstream. Tree-sitter nodes remain private inside the adapter.
+It is not a control-flow graph and does not simulate shell execution.
+
+This direction fits A3's already-accepted handoff requirement for the
+`minimum whole-step command-analysis shape required by A4`.
+
+##### Proposed first positive R2 family
+
+**P1 — sole ordinary top-level command**
+
+```text
+cleanly analyzable step
++ exact target is the sole ordinary top-level command statement
++ no enclosing conditional/nesting/status inversion/asynchronous relation
++ built-in/default admitted execution profile
++ exact correlated completed/success runtime step
++ no visible continue-on-error masking
+→ eligible for R2 runtime-correlated support
+```
+
+P1 can be admitted across the established built-in/default Bash/sh, PowerShell/pwsh, and CMD
+profiles once the adapter positively establishes the whole-step shape. It does not claim
+direct observation of the inner command.
+
+Custom shell templates remain unresolved because their wrapper semantics are intentionally
+distinct.
+
+**P2 — first ordinary top-level Bash/sh command in a sequential script**
+
+```text
+cleanly analyzable Bash-family step
++ exact target is positively established as the first top-level ordinary command statement
++ GitHub built-in/default Bash/sh profile with fail-fast -e semantics
++ target itself is outside -e exception/status-masking structures
++ exact correlated completed/success runtime step
++ no visible continue-on-error masking
+→ eligible for R2 runtime-correlated support
+```
+
+P2 is justified because the target occurs before later script statements can alter fail-fast
+behavior, and the admitted GitHub Bash/sh profiles establish `-e` at shell invocation. R2
+still remains runtime-correlated support rather than direct command-level observation.
+
+P2 covers the real S002 install shape without admitting arbitrary later linear occurrences.
+
+##### Deferred positive extensions
+
+Do not absorb these into the first family merely because they can be reasoned about:
+
+- later commands in a generic linear chain;
+- `&&` chains;
+- pipelines, including explicit-Bash `pipefail` cases;
+- brace/compound blocks;
+- richer PowerShell/CMD sequences.
+
+Some of these can eventually be positive. For example, a final pure `A && B` relation has
+different success semantics from `A || B`, and an explicit Bash pipeline with `pipefail`
+has stronger status propagation than default `sh`. But current parser-neutral IR does not
+preserve the exact status-contribution relation required to admit those cases safely.
+
+S004 is the concrete re-entry pressure:
+
+```text
+. ./generate/bin/activate && pip install ...
+```
+
+Supporting that shape later should be driven by an operator/position-aware bounded
+status-contribution relation, not by weakening the current `short_circuit` prohibition.
+
+##### Emerging A5 classification
+
+The investigation supports this initial classification:
+
+```text
+INELIGIBLE when the known relationship positively allows step success
+without useful support for the target:
+- conditional target
+- loop-body target
+- function body / deferred block target
+- command/process substitution or other nested asynchronous target
+- status-inverted target
+- explicitly asynchronous/background target
+- OR-chain target once || is positively identified
+
+UNRESOLVED when current facts are insufficient because a potentially positive relation
+has been collapsed or the profile/parse boundary is not established:
+- current generic short_circuit tag (&& and || collapsed)
+- current generic pipeline tag where position/profile matter
+- later generic linear-chain occurrences
+- complex/other structure not positively recognized
+- parse/material ambiguity
+- unresolved/unsupported execution profile for this proposition
+- custom shell template
+```
+
+A straightforward positive whole-step P1 shape and the bounded Bash/sh P2 shape are the
+proposed eligible family.
+
+This classification is not yet marked accepted; it is the result to teach/review before
+locking A4/A5.
+
 ### A5 — Negative/unresolved structures
 
 At minimum preserve non-strengthening for:
