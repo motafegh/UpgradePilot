@@ -1793,6 +1793,93 @@ This is the recommended Runtime-Correlation and Eligibility Composition contract
 No implementation is authorized until it is accepted and the Runtime-Strengthening Proof
 Matrix is defined.
 
+### Runtime-Correlation and Eligibility Composition — status/interpretation clarification
+
+Ali challenged the provisional wording that an eligible exact occurrence with a correlated
+failed/skipped/cancelled runtime step should simply become "unresolved".
+
+The challenge is correct and exposes an important evidence-layer distinction.
+
+#### Runtime observation is factual when GitHub reports it
+
+If exact correlation is established and GitHub reports:
+
+```text
+status = completed
+conclusion = failure
+
+or
+
+conclusion = skipped / cancelled
+```
+
+then that runtime fact is **observed**, not unresolved.
+
+UpgradePilot must preserve/report the exact factual runtime status/conclusion.
+
+#### The stronger positive proposition is not established
+
+For the proposition:
+
+```text
+this exact eligible static occurrence has positive Runtime-Correlated Support
+```
+
+a known failed/skipped/cancelled owning step means:
+
+```text
+runtime-strengthening result
+→ not_established
+```
+
+not `unresolved`.
+
+This is different from cases where the runtime result itself cannot be interpreted safely,
+such as dynamic/true `continue-on-error`, missing exact step correlation, or unresolved
+eligibility. Those remain `unresolved`.
+
+#### Workflow-level CI coverage may still remain unresolved
+
+The aggregate CI coverage question is broader than the factual runtime observation.
+
+A failed/skipped/cancelled eligible consuming step establishes:
+
+```text
+the positive runtime-correlated consumption proposition was not established
+```
+
+but it does **not** by itself establish:
+
+```text
+the dependency update is incompatible
+the dependency command itself failed
+the package was not consumed elsewhere
+the update is unsafe
+```
+
+Therefore the current aggregate workflow state may still reasonably be `unresolved` while
+its detail explicitly preserves the known runtime outcome.
+
+The layered model is:
+
+```text
+FACTUAL RUNTIME OBSERVATION
+exact correlated step = failed/skipped/cancelled
+→ known / report exactly
+
+RUNTIME-STRENGTHENING PROPOSITION
+positive Runtime-Correlated Support
+→ not_established
+
+BROADER CI-COVERAGE INTERPRETATION
+does this workflow establish supported CI dependency coverage?
+→ may remain unresolved because the observed non-success does not itself tell us why
+```
+
+This distinction should be reflected in reason/detail fields and tests. Do not use the word
+`unresolved` as if UpgradePilot does not know the runtime step outcome when GitHub supplied
+it exactly.
+
 ### Runtime-Strengthening Proof Matrix — Proof matrix
 
 Before implementation, define representative proofs for at least:
