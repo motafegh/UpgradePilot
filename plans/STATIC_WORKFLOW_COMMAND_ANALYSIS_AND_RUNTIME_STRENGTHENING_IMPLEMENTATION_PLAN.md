@@ -607,13 +607,94 @@ comment/quoted false static premise
 and:
 
 ```text
-real but conditional/path-dependent command
+real command occurrence with a positively ineligible structure
 + successful containing runtime step
 → static occurrence may remain visible
-→ stronger command-execution proposition remains unestablished/unresolved
+→ runtime strengthening is not_established for that occurrence
+→ supported static workflow evidence may remain supported_not_correlated
 ```
 
-Retain existing continue-on-error protections.
+and:
+
+```text
+real command occurrence whose structural/profile eligibility is materially unresolved
++ otherwise successful runtime context
+→ stronger runtime proposition remains unresolved
+→ do not erase already-earned static support
+```
+
+and:
+
+```text
+eligible exact occurrence
++ exact correlated failed/skipped/cancelled/non-successful runtime step
+→ preserve the factual GitHub runtime status/conclusion
+→ positive runtime strengthening is not_established
+→ broader workflow CI coverage may remain unresolved because successful coverage was not established
+```
+
+Retain existing continue-on-error protections as a genuine masking/interpretation ambiguity,
+not as an unknown factual runtime status.
+
+### Runtime-strengthening proof matrix
+
+The final implementation proof must cover the smallest sufficient matrix below.
+
+Provider structural admission:
+
+- sole ordinary top-level command under admitted built-in/default Bash/sh;
+- sole ordinary top-level command under admitted built-in/default PowerShell/pwsh;
+- sole ordinary top-level command under admitted built-in CMD;
+- first ordinary top-level command in a sequential Bash/sh script;
+- a later command in that same script does not inherit the first-command admission merely from source order.
+
+False-straightforward prevention:
+
+- Bash status inversion (`! command`);
+- Bash asynchronous/background termination (`command &`);
+- Bash process substitution;
+- Bash compound/brace nesting;
+- representative PowerShell flow-control/script-block shape that would otherwise make command-occurrence order misleading;
+- representative CMD goto/exit/parenthesized shape that would otherwise make command-occurrence order misleading.
+
+Eligibility classification:
+
+- admitted positive shape + admitted execution profile → `eligible`;
+- known conditional/loop/deferred-function/status-inverted/background/process-substitution relation → `ineligible`;
+- coarse short-circuit/pipeline/nested/compound/custom-profile/parser ambiguity → `unresolved` where the accepted first representation cannot decide safely.
+
+Occurrence-level runtime composition:
+
+- sole-command positive → `supported_runtime_correlated`;
+- S002-shaped first sequential Bash/sh command positive → `supported_runtime_correlated`;
+- conditional/ineligible target + successful step → static support preserved, runtime strengthening `not_established`, workflow `supported_not_correlated`;
+- unresolved eligibility/correlation + otherwise successful context → no stronger runtime support, static fallback preserved;
+- exact eligible failed/skipped/cancelled runtime step → factual status preserved, runtime strengthening `not_established`, broader coverage may remain `unresolved`;
+- `continue-on-error` true/dynamic → runtime strengthening `unresolved`;
+- bounded workflow correlation unavailable → historical `supported_not_correlated` fallback remains.
+
+Exact occurrence preservation:
+
+- multiple relevant occurrences in one run step remain distinct by canonical `StaticCommandLocation`;
+- runtime-strengthening candidates must not collapse to one `(job_key, step_source_index)` candidate;
+- deduplication, when needed, uses job + step + exact command location + proposition kind.
+
+Direct-exercise separation:
+
+- exact invocation occurrence participates in an already-supported static consumption→invocation relation before runtime strengthening;
+- direct-exercise runtime support remains a separate axis;
+- same-step source order alone does not create runtime authority.
+
+Real-case pressure:
+
+- S001 preserves the sole-command useful positive;
+- S002 preserves the first-sequential Bash/sh useful positive;
+- S004 remains an explicit deferred/re-entry case for operator/position-aware `&&` semantics and must not be accidentally strengthened.
+
+Claim limits:
+
+`supported_runtime_correlated` still does not prove exact installed version, selected artifact,
+compatibility, complete behavioral coverage, update safety, or maintainer action.
 
 ### Nearby regression proof
 
