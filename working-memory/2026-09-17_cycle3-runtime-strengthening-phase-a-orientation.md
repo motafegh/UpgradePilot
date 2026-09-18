@@ -106,9 +106,9 @@ A1 exact strengthened proposition     DECIDED
 A2 eligibility state model            DECIDED
 A3 canonical occurrence handoff       DECIDED
 A4 strengthened proposition          DECIDED — R2 runtime-correlated support
-A4 positive eligibility family        ACTIVE / OPEN
-A5 negative/unresolved structures     OPEN
-A6 runtime-correlation composition     OPEN
+A4 positive eligibility family        DECIDED — P1 + P2
+A5 negative/unresolved structures     DECIDED
+A6 runtime-correlation composition     ACTIVE / OPEN
 A7 proof matrix                        OPEN
 ```
 
@@ -1246,6 +1246,115 @@ No source/test implementation is authorized by this investigation. The next step
 and jointly review this proposed A4/A5 boundary; if accepted, record A4/A5 as decided and move
 to A6 runtime-correlation composition.
 
+
+#### A4/A5 accepted decision — Tree-sitter-backed positive structural admission
+
+Ali reviewed the A4/A5 investigation and accepted the recommended direction.
+
+The accepted design principle is:
+
+```text
+use Tree-sitter deeply enough at the provider boundary
+to positively establish the small structural facts Cycle 3 needs
+
+but
+
+do not leak Tree-sitter CST nodes or shell-specific grammar types
+into downstream CI/product contracts
+```
+
+Cycle 3 therefore does **not** treat the current `straightforward_top_level` fallback or
+`source_order == 0` as sufficient positive proof by themselves.
+
+The provider adapter must positively establish the bounded whole-step relation required by the
+runtime-strengthening policy.
+
+Accepted first positive family:
+
+```text
+P1 — sole ordinary top-level command
+
+cleanly analyzable step
++ target positively established as the sole ordinary top-level command statement
++ admitted GitHub built-in/default execution profile
++ exact correlated completed/successful runtime step
++ no visible continue-on-error masking
+→ eligible for R2 runtime-correlated support
+```
+
+P1 applies to the admitted built-in/default Bash/sh, PowerShell/pwsh, and CMD profiles when
+the parser positively establishes that whole-step shape.
+
+```text
+P2 — first ordinary top-level Bash/sh command in a sequential script
+
+cleanly analyzable Bash-family step
++ target positively established as the first ordinary top-level command statement
++ GitHub built-in/default Bash/sh execution profile with fail-fast -e behavior
++ target not inside conditional/status-inverting/nested/asynchronous structure
++ exact correlated completed/successful runtime step
++ no visible continue-on-error masking
+→ eligible for R2 runtime-correlated support
+```
+
+P2 intentionally covers the real S002 first-install shape without admitting arbitrary later
+linear-chain commands.
+
+Accepted negative/unresolved distinction:
+
+```text
+INELIGIBLE
+→ the structure is understood and positively allows the step to succeed without meaningful
+  runtime support for the exact target occurrence.
+
+Examples:
+  conditional body
+  loop body
+  function-definition/deferred body
+  status-inverted target
+  background/asynchronous target
+  process-substitution target
+  OR-chain target once || is positively distinguished
+
+UNRESOLVED
+→ the current representation/profile is not precise enough to justify either positive
+  strengthening or a stronger negative conclusion.
+
+Examples:
+  generic short_circuit (&& and || currently collapsed)
+  generic pipeline
+  generic nested_or_subshell
+  compound/brace block
+  later generic linear-chain occurrence
+  complex PowerShell/CMD structures not positively recognized
+  custom shell template
+  parser/material ambiguity
+  unresolved/unsupported execution profile
+```
+
+Accepted provider-boundary refinement:
+
+- keep Tree-sitter nodes private;
+- use the existing syntax tree to detect the required structures rather than building a second
+  parser;
+- add only the minimum parser-neutral positive whole-step relation needed by P1/P2;
+- prevent currently false-straightforward shapes such as Bash `! command`, `command &`,
+  process substitution, compound blocks, PowerShell flow-control/script-block structures,
+  and CMD goto/exit/parenthesized structures from entering a positive family accidentally;
+- do not build a general shell CFG/interpreter;
+- do not expand the IR merely because Tree-sitter exposes more syntax;
+- expose new structural facts only when a current UpgradePilot proposition requires them.
+
+S004-style `. ./venv/bin/activate && pip install ...` remains explicitly deferred, not
+declared impossible. Re-entry requires a bounded parser-neutral operator/position/status
+relation plus shell-specific characterization.
+
+A4 and A5 are now **DECIDED**.
+
+The next Phase-A responsibility is A6: compose the accepted occurrence-level eligibility gate
+with the existing exact workflow runtime-correlation and continue-on-error safeguards, then
+A7 defines the proof matrix before implementation authorization.
+
 ### A5 — Negative/unresolved structures
 
 At minimum preserve non-strengthening for:
@@ -1371,21 +1480,23 @@ If a broader responsibility becomes necessary, return it to planning rather than
 
 ## 8. Immediate next action
 
-A1, A2, and A3 are decided. Continue Phase A with A4 before implementation:
+A1–A5 are decided. Continue Phase A with A6 before implementation:
 
 ```text
-1. keep R2 fixed as the exact runtime-strengthened proposition and non-proof boundary;
-2. decide the smallest parser-neutral structural refinement needed for the R2 eligibility gate;
-3. classify the first positive family and the ineligible/unresolved structures without a general CFG;
-4. characterize the relevant execution profiles only to the depth required by R2;
-5. test the selected family against S002/S004-style real multi-command pressure and state lost/deferred coverage explicitly;
-6. close A4, then classify/finalize A5;
-7. compose A6 runtime-correlation ordering from the locked A1–A5 semantics;
-8. define the A7 proof matrix;
-9. only after the complete Phase-A contract is accepted, hand off to implementation.
+1. preserve the exact occurrence-level P1/P2 eligibility fact before the current reduction to step identity;
+2. compose that eligibility with existing exact workflow run/job/step runtime correlation;
+3. preserve the existing continue-on-error safeguard;
+4. define exactly how eligible | ineligible | unresolved affects the runtime-consumption and direct-exercise result states;
+5. verify that runtime correlation remains identity-only and does not absorb shell semantics;
+6. close A6;
+7. define A7 positive/negative/unresolved proof matrix, including S001/S002 and deferred S004 pressure;
+8. reconcile tests/proof owners and implementation sequencing;
+9. only after the complete Phase-A contract is accepted, authorize Build implementation.
 ```
 
-Next Learning-by-Doing orientation should first teach the small set of concepts needed to decide A4—especially **straight-line execution**, **path dependence**, and **execution-profile failure propagation**—then compare concrete UpgradePilot-relevant script shapes rather than asking Ali to choose between unexplained abstractions.
+Learning-by-Doing for A6 should focus only on the composition dataflow: what facts are produced
+by provider analysis, what CI owns, where runtime correlation happens, and how the eligibility
+gate changes the current step-level strengthening behavior.
 
 `UP-SKILL:upgradepilot-planning-design`  
 `UP-SKILL:upgradepilot-learning-by-doing`  
