@@ -8,7 +8,7 @@ into parser-neutral UpgradePilot command occurrences:
 effective shell context
 → shell-family Tree-sitter parser
 → real syntactic command nodes
-→ source spans + literal/dynamic atoms + structural context
+→ source spans + literal/dynamic atoms + structural context + positive whole-step relation
 
 It deliberately does not assign dependency meaning, prove command execution/success, or
 strengthen runtime evidence. Tree-sitter ``Node`` objects never leave this module.
@@ -332,7 +332,11 @@ def _positive_whole_step_relation(
             len(command_nodes) == 1
             and len(statements) == 1
             and statements[0].type == "pipeline"
-            and _is_descendant_of(node, statements[0])
+            and _has_only_ancestor_types_until(
+                node,
+                statements[0],
+                {"pipeline", "pipeline_chain"},
+            )
         ):
             return "sole_ordinary_top_level_command"
         return None
@@ -361,12 +365,18 @@ def _powershell_top_level_statements(root: Node) -> tuple[Node, ...]:
     return _significant_named_children(significant_root_children[0])
 
 
-def _is_descendant_of(node: Node, ancestor: Node) -> bool:
-    current: Node | None = node
+def _has_only_ancestor_types_until(
+    node: Node,
+    ancestor: Node,
+    allowed_types: set[str],
+) -> bool:
+    current = node.parent
     depth = 0
     while current is not None and depth <= _MAX_TREE_DEPTH:
         if current == ancestor:
             return True
+        if current.type not in allowed_types:
+            return False
         current = current.parent
         depth += 1
     return False
