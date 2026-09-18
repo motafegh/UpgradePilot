@@ -75,11 +75,11 @@ E — repair any important understanding/implementation gap and orient Stage 2
 Current state:
 
 ```text
-A orientation                 COMPLETE
-B implementation              ACTIVE
-C state preservation           ACTIVE
-D post-build learning          NOT STARTED
-E gap repair / next orientation NOT STARTED
+A orientation                  COMPLETE
+B implementation               COMPLETE
+C state preservation            COMPLETE
+D post-build learning           ACTIVE — current handoff
+E gap repair / next orientation BLOCKED on focused executable proof + review
 ```
 
 ### Build Stage 1 — orientation / implementation model
@@ -156,6 +156,161 @@ It does not mean the occurrence is ineligible. Stage 2 will decide whether the m
 positive relation is a known negative or an unresolved structure.
 
 No Tree-sitter node escapes the provider layer.
+
+### Build Stage 1 — implementation checkpoint
+
+Stage-1 provider implementation is complete at the selected source boundary.
+
+Changed product/test owners:
+
+```text
+src/upgradepilot/github/workflow_command_analysis.py
+tests/test_github_workflow_command_analysis.py
+```
+
+No CI runtime-composition module was changed.
+
+#### Implemented provider fact
+
+`StaticCommandOccurrence` now carries:
+
+```text
+whole_step_relation:
+    sole_ordinary_top_level_command
+    | first_ordinary_top_level_command_in_sequential_script
+    | None
+```
+
+This fact is provider-owned and parser-neutral.
+
+It is intentionally separate from `structural_context`:
+
+```text
+structural_context
+→ what relevant syntax/control structure surrounds this occurrence
+
+whole_step_relation
+→ one positively established relationship between this exact occurrence and the whole run script
+```
+
+Neither field is a runtime-strengthening eligibility verdict.
+
+#### Whole-tree positive admission implemented
+
+Bash:
+
+- sole positive requires the exact command to be the only significant top-level statement;
+- first-sequential positive requires the exact command to be the first top-level statement
+  and every significant top-level statement to be an ordinary command;
+- a top-level Bash background `&` terminator prevents either positive relationship.
+
+PowerShell:
+
+- sole positive requires exactly one collected command in the full script;
+- the program must contain one top-level statement list with one pipeline statement;
+- the exact command must reach that top-level pipeline only through admitted pipeline wrappers;
+- a command nested under subexpressions/script blocks/control flow therefore cannot become
+  a false sole top-level positive.
+
+CMD:
+
+- sole positive requires the exact `cmd` node to be the only significant top-level program
+  statement;
+- preceding `exit`/`goto`/other non-`cmd` statements therefore prevent false admission.
+
+#### New structural distinctions retained for Stage 2
+
+Bash command structural context now explicitly preserves:
+
+```text
+status_inverted
+asynchronous
+process_substitution
+```
+
+These were added because Phase A classified them as meaningful known-negative pressure for
+runtime strengthening.
+
+They do not themselves change runtime evidence in Stage 1.
+
+#### Focused proof added
+
+Existing cross-shell simple-command proof now also requires:
+
+```text
+simple Bash / PowerShell / CMD command
+→ sole_ordinary_top_level_command
+```
+
+New focused cases cover:
+
+```text
+S002-shaped two-command Bash script
+→ first command gets first-sequential positive
+→ second command gets no positive relation
+
+! command
+command &
+process substitution
+compound Bash block
+→ target does not receive positive whole-step relation
+
+PowerShell exit before target
+CMD exit before target
+→ target does not receive false sole-command admission
+```
+
+#### Commits
+
+```text
+430fc0fab940ac38a4b202275e6bf275bca6d10e
+→ add provider whole-step command relations
+
+b61a502eba162cd02a9eeed84623ab9dc4ef9462
+→ keep ordered command nodes immutable
+
+893fac1844a88eb6f94d64c5aab97f4482139f09
+→ prove provider whole-step command relations
+
+703ef1cea9e36fa1bf629c48f6529c6b07491fc8
+→ tighten top-level PowerShell command admission
+```
+
+#### Stage-1 proof status
+
+Repository/diff inspection confirms the change is bounded to the provider + focused provider
+proof, plus Phase-B state artifacts.
+
+Executable proof is **PENDING**, not passed.
+
+Reason:
+
+- the chat execution environment does not contain the pinned Tree-sitter runtime/grammar
+  packages;
+- outbound package installation is unavailable here;
+- the repository's hosted product-verification workflow is manual-dispatch only and the
+  connected GitHub tool surface cannot dispatch it.
+
+Required focused executable proof before Stage 2:
+
+```text
+python -m unittest tests.test_github_workflow_command_analysis -v
+```
+
+If this focused proof fails, repair Stage 1 before entering Stage 2.
+
+If it passes, record the exact result here, complete the Stage-1 learning/review, then enter
+Stage 2.
+
+#### Stage-1 status
+
+```text
+A orientation                  COMPLETE
+B implementation               COMPLETE
+C state preservation            COMPLETE
+D post-build learning           ACTIVE — current handoff
+E gap repair / next orientation BLOCKED on focused executable proof + review
+```
 
 ### Build Stage 2 — Exact Occurrence Handoff and Eligibility
 
