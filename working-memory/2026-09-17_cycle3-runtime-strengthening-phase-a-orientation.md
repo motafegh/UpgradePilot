@@ -1086,6 +1086,166 @@ proposed eligible family.
 This classification is not yet marked accepted; it is the result to teach/review before
 locking A4/A5.
 
+#### A4/A5 investigation conclusion — recommended review boundary
+
+The final consistency pass confirms that the positive whole-step approach is **inside** the
+accepted ADR/plan rather than an architecture change:
+
+- ADR-0009 already requires structural context sufficient to distinguish straightforward
+  top-level execution from conditional/ambiguous control flow and explicitly warns that a
+  source-order ordinal is not execution proof.
+- The implementation plan already allows the shared IR to retain the smallest relationship
+  information needed by runtime strengthening.
+- The plan's required first positive class is a cleanly parsed straightforward top-level
+  command, while additional linear/chain shapes are permitted only after shell-specific
+  characterization.
+- No Tree-sitter node needs to escape the provider adapter and no CFG/runtime simulator is
+  required.
+
+Therefore no ADR reopening is recommended.
+
+##### Recommended A4 positive family for review
+
+```text
+P1 — sole ordinary top-level command
+Profiles:
+  GitHub built-in/default Bash/sh
+  GitHub built-in/default PowerShell/pwsh
+  GitHub built-in CMD
+Conditions:
+  whole-step parser shape positively establishes one ordinary top-level target statement
+  + analyzable parser state
+  + exact successful runtime-step correlation
+  + no visible continue-on-error masking
+Result:
+  eligible for R2 runtime-correlated support
+```
+
+GitHub's current built-in shell behavior supports this bounded use:
+Bash/sh use fail-fast wrappers, PowerShell prepends `ErrorActionPreference=stop` and
+propagates final native `LASTEXITCODE`, and CMD returns the last executed program's error
+level. R2 remains a correlation/support proposition rather than direct inner-command
+observation.
+
+```text
+P2 — first ordinary top-level command in a sequential Bash/sh script
+Profiles:
+  github_builtin_bash
+  github_builtin_sh
+  github_default_non_windows
+  github_default_container_sh
+Conditions:
+  parser positively establishes the target as the first top-level ordinary command statement
+  + target is not inside a status-masking/conditional/nested/asynchronous construct
+  + built-in/default profile supplies -e fail-fast
+  + exact successful runtime-step correlation
+  + no visible continue-on-error masking
+Result:
+  eligible for R2 runtime-correlated support
+```
+
+This is the smallest characterized multi-command extension that recovers S002 without
+claiming arbitrary linear scripts.
+
+##### Recommended A5 classification for the current IR
+
+The final classification must be **occurrence + relation + profile** aware. Coarse current tags
+must not be overinterpreted.
+
+**Definitely ineligible when positively identified:**
+
+```text
+conditional body occurrence
+loop-body occurrence
+function-definition body occurrence
+status-inverted occurrence
+background/asynchronous occurrence
+process-substitution occurrence
+OR-chain occurrence (once || is distinguished)
+```
+
+Reason: the successful enclosing step can occur while the target is skipped, fails, is
+deferred, or contributes inverted/asynchronous status, so the step result does not justify
+runtime dependency-consumption/exercise support for that exact target.
+
+**Unresolved with current coarse representation:**
+
+```text
+generic short_circuit
+  → && and || are collapsed even though their success relations differ
+
+generic pipeline
+  → position and execution profile/pipefail matter
+
+generic nested_or_subshell
+  → command substitution and subshell grouping do not have identical status relationships
+
+compound/brace block
+  → may execute, but current IR lacks the bounded status relation needed for positive use
+
+later generic linear-chain occurrence
+  → earlier statements may alter/terminate execution before the target
+
+complex PowerShell/CMD structure not positively recognized
+  → command occurrence count/source_order does not describe all shell statements
+
+custom shell template
+  → syntax may be known but wrapper execution semantics are not
+
+parser/material ambiguity or unresolved shell/profile
+  → required facts are absent
+```
+
+This corrects an earlier provisional tendency to call every nested/block/short-circuit shape
+`ineligible`. Where the current tag collapses both potentially positive and negative forms,
+the honest state is `unresolved`, not `ineligible`.
+
+##### Small parser refinement required before Build can implement the gate
+
+The existing `straightforward_top_level` fallback should not remain the sole positive proof.
+Build should make the provider adapter positively establish the bounded whole-step shape used
+by P1/P2.
+
+The refinement should also prevent confirmed false-straightforward cases from entering the
+positive family, including:
+
+```text
+Bash ! command
+Bash command &
+Bash process substitution command
+Bash brace/compound nesting
+PowerShell flow-control / try / trap / class/script-block nesting not already covered
+CMD goto/exit/parenthesized or other non-cmd statements preceding/containing a target
+```
+
+The exact enum/type spelling remains an implementation decision. Prefer a small positive
+shape/relation over enumerating every shell construct as downstream policy.
+
+##### Explicitly deferred / re-entry path
+
+S004-style:
+
+```text
+. ./generate/bin/activate && pip install ...
+```
+
+is not rejected as inherently unstrengthenable. It is deferred because the current
+`short_circuit` representation does not preserve the operator/position/status-contribution
+fact required to distinguish a positive final `&&` chain from an `||` rescue path.
+
+Re-entry evidence:
+
+```text
+real case pressure or selected product need
++ bounded parser-neutral operator/position relation
++ shell-specific status characterization
+→ reconsider selected && / pipeline / later-chain positive classes
+```
+
+No source/test implementation is authorized by this investigation. The next step is to teach
+and jointly review this proposed A4/A5 boundary; if accepted, record A4/A5 as decided and move
+to A6 runtime-correlation composition.
+
 ### A5 — Negative/unresolved structures
 
 At minimum preserve non-strengthening for:
