@@ -770,7 +770,56 @@ E gap repair / next orientation READY after review
 The temporary proof workflow is evidence machinery only and is not part of the product
 architecture or intended for merge to `main`.
 
+### Build Stage 2 — CLOSED
+
+Stage 2 is complete.
+
+Ali reviewed and correctly distinguished the eligibility states:
+
+```text
+ineligible
+→ the exact occurrence has a positively identified structure/profile condition
+  that does not justify runtime strengthening
+
+unresolved
+→ the available structural/profile representation is genuinely insufficient
+  to establish either the admitted positive or a known negative classification
+```
+
+Concrete reviewed example:
+
+```text
+conditional pip install
++ successful containing step
+→ exact occurrence remains visible statically
+→ eligibility = ineligible
+→ do not treat successful step as positive runtime support for that occurrence
+```
+
+The reason is not merely that the shape "looks risky"; it is that the conditional relation
+is positively known and the containing step can succeed even when the target command is
+skipped.
+
+By contrast, coarse structures such as the current generic short-circuit representation
+remain `unresolved` because the current IR does not yet expose enough operator-specific
+status semantics to decide safely.
+
+Stage-2 closure evidence:
+
+```text
+implementation complete
+hosted focused proof PASS — 40/40
+exact occurrence preservation proven
+eligibility classifier proven
+conceptual/logical review complete
+no Stage-3 runtime composition implemented during Stage 2
+```
+
+No material gap was exposed by the review.
+
 ### Build Stage 3 — Runtime Composition
+
+**Status:** ACTIVE
 
 Goal:
 
@@ -793,7 +842,17 @@ Scope:
 - keep eligible exact runtime non-success materially visible at the broader CI layer;
 - apply the same exact-occurrence composition separately to direct exercise.
 
-Stage 3 begins only after Stage 2 is reviewed, recorded, and taught.
+Stage 2 is now reviewed, recorded, taught, and closed. Stage 3 is formally active.
+
+Stage-3 Learning-by-Doing state:
+
+```text
+A orientation                  ACTIVE
+B implementation               NOT STARTED
+C state preservation            ACTIVE
+D post-build learning           NOT STARTED
+E gap repair / next orientation NOT STARTED
+```
 
 ### Final proof and Phase-B closure
 
