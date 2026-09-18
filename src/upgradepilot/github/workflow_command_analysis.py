@@ -199,7 +199,9 @@ def analyze_run_step_commands(
             problems=(traversal_problem,),
         )
 
-    ordered = sorted(command_nodes, key=lambda item: (item.start_byte, item.end_byte))
+    ordered = tuple(
+        sorted(command_nodes, key=lambda item: (item.start_byte, item.end_byte))
+    )
     occurrences = tuple(
         _occurrence_from_node(
             node,
