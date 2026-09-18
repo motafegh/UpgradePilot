@@ -2093,6 +2093,359 @@ runtime correlation unresolved
 
 The proof matrix must include representative ordinary multi-command cases if Positive Structural Admission Policy admits them, and must show both the strengthened claim and explicit non-claims.
 
+### Runtime-Strengthening Proof Matrix — investigation result / proposed contract
+
+The proof responsibility was traced against the existing focused suites, the accepted
+composition contract, and real S001/S002/S004 workflow pressure.
+
+The existing tests already prove substantial foundation and should be reused rather than
+duplicated:
+
+```text
+test_github_workflow_command_analysis.py
+→ shell-profile resolution
+→ normal parsed commands across Bash/PowerShell/CMD
+→ conditional/short-circuit/pipeline visibility
+→ parse-error fail-closed behavior
+→ source span/order identity
+
+test_workflow_runtime_correlation.py
+→ exact static job/step ↔ runtime job/step correlation
+→ unsupported matrix/reusable/dynamic/ambiguous shapes remain unresolved
+
+test_ci_runtime_correlated_dependency_coverage.py
+→ existing successful-step runtime strengthening
+→ direct-exercise runtime axis
+→ skipped/non-successful runtime step
+→ continue-on-error masking
+→ static-supported fallback when workflow correlation is unavailable
+
+test_ci_static_direct_exercise_order.py
+→ clean same-step static ordering
+→ short-circuit ordering remains unresolved
+```
+
+Cycle 3 therefore needs proof mainly at the **new seams**, not a second proof of already-closed
+foundations.
+
+#### Proof layer 1 — provider positive structural admission
+
+Owner:
+
+```text
+tests/test_github_workflow_command_analysis.py
+(or the nearest focused provider test if Build extracts a small admission helper)
+```
+
+Required cases:
+
+| Case | Shape | Expected provider fact |
+|---|---|---|
+| Provider-P1-Bash | sole ordinary Bash command | Sole Ordinary Top-Level Command Admission |
+| Provider-P1-PowerShell | sole ordinary PowerShell command | Sole Ordinary Top-Level Command Admission |
+| Provider-P1-CMD | sole ordinary CMD command | Sole Ordinary Top-Level Command Admission |
+| Provider-P2-Bash | first ordinary command in a sequential Bash/sh script | First Sequential Bash/sh Command Admission for first command only |
+
+The P2 proof must demonstrate that a later command in the same script does **not** inherit the
+first-command admission merely from source order.
+
+Real pressure:
+
+```text
+S001
+uv sync --all-packages --group docs
+→ P1-shaped positive
+
+S002
+python -m pip install ... -r requirements.txt
+python -m pip install ruff
+→ first install is P2-shaped positive
+```
+
+#### Proof layer 2 — provider false-straightforward prevention
+
+These cases prove that the richer Tree-sitter tree is actually used to protect the positive
+family:
+
+| Case | Representative source | Expected |
+|---|---|---|
+| Bash status inversion | `! pip install ...` | not positively admitted; known ineligible relation |
+| Bash background | `pip install ... &` | not positively admitted; known asynchronous/ineligible relation |
+| Bash process substitution | target command under `<(...) ` / `>(...)` | not positively admitted |
+| Bash compound block | target inside `{ ...; }` | not P1/P2; unresolved/non-positive until separately modeled |
+| PowerShell earlier flow control | `exit 0; pip install ...` or equivalent parsed fixture | target cannot be called first/sole merely because it is first collected command |
+| CMD earlier control flow | `goto ...` / `exit ...` before target | target cannot be called first/sole merely because it is first collected `cmd` |
+
+Exact shell fixtures may be adjusted to the pinned grammar's valid idioms during Build, but the
+invariant is fixed.
+
+These are focused provider proofs. They do not need full dependency-CI end-to-end duplication
+for every shell construct.
+
+#### Proof layer 3 — eligibility classification
+
+If Build extracts a small provider/CI-owned eligibility helper, give it focused tests.
+Otherwise cover these through the nearest integration tests.
+
+Required semantics:
+
+```text
+positively established P1/P2 shape + admitted execution profile
+→ eligible
+
+known conditional / loop / deferred-function / status-inverted /
+background / process-substitution relation
+→ ineligible
+
+generic short_circuit with &&/|| still collapsed
+→ unresolved
+
+generic pipeline
+→ unresolved
+
+generic nested/subshell / compound shape whose status relation is not modeled
+→ unresolved
+
+custom shell template
+→ unresolved
+
+parser/material ambiguity or unresolved execution profile
+→ unresolved
+```
+
+Do not add operator-specific `&&` positive proof in this Cycle. S004 remains the re-entry case.
+
+#### Proof layer 4 — occurrence-level runtime composition
+
+Primary owner:
+
+```text
+tests/test_ci_runtime_correlated_dependency_coverage.py
+```
+
+Required cross-layer cases:
+
+**Runtime-Positive-Sole**
+
+```text
+supported static consumption at exact P1 occurrence
++ exact correlated completed/successful unmasked runtime step
+→ runtime_consumption_state = supported
+→ workflow = supported_runtime_correlated
+```
+
+This is the current simple positive, strengthened to prove occurrence-level admission rather
+than merely step-level success.
+
+**Runtime-Positive-First-Sequential**
+
+```text
+S002-shaped first Bash/sh install occurrence
++ later ordinary command in same run block
++ exact successful unmasked runtime step
+→ first consumption occurrence earns Runtime-Correlated Support
+→ workflow = supported_runtime_correlated
+```
+
+This is the key product-faithful multi-command positive.
+
+**Runtime-Conditional-Static-Fallback**
+
+```text
+real static pip-install occurrence inside conditional
++ containing runtime step completed/success
+→ static consumption remains supported
+→ exact occurrence eligibility = ineligible
+→ runtime consumption = not_established
+→ workflow remains supported_not_correlated
+```
+
+This directly proves the Cycle-3 bug is fixed without erasing valid static evidence.
+
+**Runtime-Unresolved-Structure-Fallback**
+
+```text
+supported static occurrence
++ structural/profile eligibility unresolved
++ otherwise successful runtime context
+→ no Runtime-Correlated Support
+→ preserve supported_not_correlated
+```
+
+Use a bounded representative such as the current coarse short-circuit/pipeline/custom-profile
+case; do not expand semantics merely to make the test positive.
+
+**Runtime-Known-Non-Success**
+
+For each material runtime conclusion category that current provider types expose reliably,
+prove at least representative failure plus one skipped/cancelled case:
+
+```text
+eligible exact occurrence
++ exact correlated runtime step
++ known non-success status/conclusion
+→ factual runtime status/conclusion preserved
+→ runtime strengthening = not_established
+→ workflow coverage = unresolved
+→ detail/reason must not say the runtime status itself is unknown
+```
+
+Existing skipped-step coverage can be adapted rather than duplicated. One explicit failure
+case should be added because the status/interpretation distinction is now part of the contract.
+
+**Runtime-Masked-Success**
+
+```text
+eligible exact occurrence
++ runtime conclusion success
++ continue-on-error true/dynamic
+→ runtime strengthening unresolved
+→ workflow unresolved
+```
+
+Existing test already provides the main regression proof; update only if the new internal
+basis/result object changes assertions.
+
+**Runtime-Correlation-Unavailable-Static-Fallback**
+
+```text
+supported static occurrence
++ bounded workflow runtime correlation unresolved
+→ stronger runtime proposition unresolved/unavailable
+→ workflow remains supported_not_correlated
+```
+
+Existing test already proves the historical fallback and must remain green.
+
+#### Proof layer 5 — multiple exact occurrences and no step-level collapse
+
+This is a new critical regression proof.
+
+Construct one run step containing at least two relevant parsed occurrences whose eligibility
+differs.
+
+Required invariant:
+
+```text
+occurrence A = ineligible/unresolved
+occurrence B = independently eligible
+same owning step
+
+→ candidates remain distinct by StaticCommandLocation
+→ A must not poison or impersonate B
+→ B may establish runtime support when the accepted policy permits it
+```
+
+Use only a shell shape actually admitted by the positive policy. If no sound fixture can make
+the second occurrence independently eligible under the first family, prove the lower-level
+candidate preservation/deduplication directly instead of inventing broader shell semantics.
+
+The essential proof is:
+
+```text
+two exact occurrences in one step
+!= one runtime-strengthening candidate
+```
+
+#### Proof layer 6 — direct-exercise axis remains separate
+
+Primary owners:
+
+```text
+tests/test_ci_static_direct_exercise_order.py
+tests/test_ci_runtime_correlated_dependency_coverage.py
+```
+
+Required:
+
+```text
+supported static consumption
++ supported static ordered-after direct invocation
++ exact eligible invocation occurrence
++ exact successful runtime step
+→ runtime_direct_exercise_state = supported
+```
+
+Retain a negative/unresolved same-step structural relation case so a source-order-only
+invocation does not gain runtime authority.
+
+Do not require runtime dependency-consumption support as a new prerequisite for direct
+exercise; the prerequisite remains the already-supported static consumption→invocation
+relation.
+
+#### Proof layer 7 — real-case pressure / capability boundary
+
+Use preserved product-simulation evidence as design/proof pressure, not as a requirement to
+execute external GitHub CI.
+
+```text
+S001
+→ confirms sole-command positive remains useful
+
+S002
+→ confirms first-sequential Bash/sh positive is necessary and should remain supported
+
+S004
+→ confirms source/activate && install is a real useful deferred shape
+→ current generic short_circuit representation must NOT accidentally strengthen it
+→ preserve explicit re-entry trigger rather than calling it permanently unsupported
+```
+
+S004's matrix workflow additionally remains outside the existing static↔runtime correlation
+bridge, independently of the command-structure limitation.
+
+#### Proof layer 8 — claim/non-claim regression
+
+At least one integration assertion/detail check must preserve the strengthened proposition's
+claim limit:
+
+```text
+supported_runtime_correlated
+→ stronger runtime-correlated occurrence evidence
+
+does NOT imply:
+  exact installed dependency version
+  selected wheel/sdist
+  compatibility
+  complete behavior/test coverage
+  update safety
+  maintainer action
+```
+
+The existing maintainer-action regression proving runtime-correlated support does not create an
+action permission should remain green.
+
+#### Build-time proof sequence
+
+The implementation proof should run narrow-to-broad:
+
+```text
+1. provider structural-admission focused tests
+2. eligibility/composition focused tests
+3. runtime-correlated dependency coverage tests
+4. direct-exercise ordering/runtime tests
+5. nearest dependency/provider/investigation/synthesis regression set
+6. full deterministic repository suite
+```
+
+Record actual test counts at execution time. Historical totals are not proof of the new build.
+
+#### Proposed Phase-A acceptance condition
+
+The Runtime-Strengthening Proof Matrix can close when the team accepts that this matrix:
+
+- directly proves both accepted positive families;
+- directly falsifies the known false-straightforward structures;
+- distinguishes ineligible from unresolved;
+- proves exact occurrence preservation before step correlation;
+- proves static fallback versus known runtime non-success semantics;
+- proves direct exercise separately;
+- protects S001/S002 useful coverage and S004 deferral;
+- retains the explicit stronger-claim boundaries.
+
+No implementation is authorized merely by defining this matrix. Build begins only after this
+final Phase-A contract is accepted.
+
 ## 5. Initial source/test map
 
 Primary current implementation owners:
