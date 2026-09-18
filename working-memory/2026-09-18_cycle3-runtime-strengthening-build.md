@@ -542,6 +542,163 @@ D post-build learning           NOT STARTED
 E gap repair / next orientation NOT STARTED
 ```
 
+### Build Stage 2 — implementation checkpoint
+
+Stage-2 implementation is complete at the selected boundary.
+
+Changed product/test owners:
+
+```text
+src/upgradepilot/dependency/environment_selection.py
+src/upgradepilot/ci/consumption.py
+src/upgradepilot/ci/workflow_commands.py
+src/upgradepilot/ci/runtime_strengthening.py
+src/upgradepilot/ci/static_command_order.py
+
+tests/test_ci_runtime_strengthening.py
+tests/test_parser_backed_ci_command_evidence.py
+tests/test_single_pass_workflow_static_evidence.py
+tests/test_static_command_order.py
+```
+
+No runtime-step correlation or final workflow runtime aggregation logic was changed.
+
+#### Exact occurrence handoff now preserved
+
+Normal production static evidence now carries enough context for later runtime strengthening:
+
+```text
+workflow path/revision
+job key
+step source index
+StaticCommandLocation
+structural_context
+whole_step_relation
+execution_profile
+```
+
+Direct-exercise invocation evidence now also preserves workflow path/revision, which previously
+were not part of the invocation record.
+
+Project-environment selection declarations preserve `whole_step_relation`, and CI
+consumption composition adds the already-resolved execution profile from the same
+`StaticCommandAnalysis`.
+
+No reparsing or shell re-resolution is introduced.
+
+#### CI-owned runtime-strengthening candidate
+
+A new focused module:
+
+```text
+src/upgradepilot/ci/runtime_strengthening.py
+```
+
+defines:
+
+```text
+RuntimeStrengtheningCandidate
+RuntimeStrengtheningEligibility
+eligible | ineligible | unresolved
+```
+
+and factories for:
+
+```text
+StaticDependencyConsumptionEvidence
+→ dependency_consumption candidate
+
+DirectPackageInvocationEvidence
+→ direct_package_exercise candidate
+```
+
+The candidate preserves exact command occurrence identity. It does not correlate runtime
+steps or inspect runtime status.
+
+#### Eligibility behavior implemented
+
+```text
+known conditional / loop / function-body / status-inverted /
+asynchronous / process-substitution structure
+→ ineligible
+
+missing exact workflow/job/command identity
+→ unresolved
+
+missing execution profile
+→ unresolved
+
+custom shell template
+→ unresolved
+
+sole ordinary top-level command
++ admitted built-in/default profile
+→ eligible
+
+first ordinary top-level sequential Bash/sh command
++ admitted Bash/sh fail-fast profile
+→ eligible
+
+other currently unmodeled/coarse structures
+→ unresolved
+```
+
+Generic short-circuit remains unresolved because the current representation still collapses
+`&&` and `||`.
+
+#### Same-step identity preservation
+
+Focused proof constructs two supported static occurrences in the same job/step with different
+`StaticCommandLocation` values.
+
+Expected/implemented result:
+
+```text
+same outer job/step
++ occurrence source_order 0
++ occurrence source_order 1
+→ two distinct RuntimeStrengtheningCandidate objects
+→ eligibility can differ independently
+```
+
+This directly protects against the current pre-Cycle-3 step-level collapse.
+
+#### Static-order integration safeguard
+
+Because Stage 1 introduced:
+
+```text
+status_inverted
+asynchronous
+process_substitution
+```
+
+the existing same-step static ordering rule now treats those structures as path-dependent.
+This prevents the new provider facts from being ignored by the older ordering consumer.
+
+#### Stage-2 focused proof set
+
+Hosted proof should run:
+
+```text
+tests.test_github_workflow_command_analysis
+tests.test_parser_backed_ci_command_evidence
+tests.test_single_pass_workflow_static_evidence
+tests.test_ci_runtime_strengthening
+tests.test_static_command_order
+tests.test_ci_static_direct_exercise_order
+```
+
+Stage-2 state before hosted proof:
+
+```text
+A orientation                  COMPLETE
+B implementation               COMPLETE
+C state preservation            COMPLETE
+D post-build learning           NOT STARTED
+E gap repair / next orientation BLOCKED on hosted focused proof
+```
+
 ### Build Stage 3 — Runtime Composition
 
 Goal:
