@@ -5,9 +5,9 @@
 
 ## Live position
 
-- **Current responsibility:** Cycle 3 Phase B **Build Stage 1 — Provider Structural Admission**.
-- **Mode:** Build/Implement + Learning-by-Doing. Phase A is complete; Stage 1 is authorized and active. Do not start Stage 2 until Stage 1 is implemented, recorded, reviewed, and taught.
-- **Cycle state:** **Cycle 1 CLOSED; Cycle 2 CLOSED; Cycle 3 Phase A COMPLETE; Cycle 3 Phase B Stage 1 ACTIVE**.
+- **Current responsibility:** Cycle 3 Phase B **Build Stage 1 — Provider Structural Admission review/proof**.
+- **Mode:** Build/Implement + Learning-by-Doing. Stage-1 implementation is complete and recorded; focused executable provider proof is pending. Do not start Stage 2 until that proof is green and Stage-1 review/teaching is complete.
+- **Cycle state:** **Cycle 1 CLOSED; Cycle 2 CLOSED; Cycle 3 Phase A COMPLETE; Cycle 3 Phase B Stage 1 IMPLEMENTED / PROOF PENDING**.
 - **Selected Cycle-3 working memory:** `working-memory/2026-09-18_cycle3-runtime-strengthening-build.md`.
 - **Cycle-2 D/E closure record:** `working-memory/2026-09-16_cycle2-phase-d-integrated-learning-plan.md`.
 - **Selected parent plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
@@ -462,20 +462,21 @@ Cycle 3 Phase A is complete. No product source/tests were modified during Phase 
 
 ## Immediate next action
 
-Continue **Cycle 3 Phase B — Build Stage 1: Provider Structural Admission**:
+Finish **Cycle 3 Phase B — Build Stage 1 review/proof**:
 
 ```text
-whole Tree-sitter-parsed run script
-→ positively establish Sole Ordinary Top-Level Command Admission
-→ positively establish First Sequential Bash/sh Command Admission
-→ prevent known false-straightforward structures from entering those positives
-→ add focused provider proof
-→ inspect/record the actual Stage-1 result
-→ teach/review Stage 1 with Ali
-→ only then enter Stage 2
+run focused provider suite
+python -m unittest tests.test_github_workflow_command_analysis -v
+→ record exact result
+→ repair Stage 1 if needed
+→ complete Stage-1 conceptual/logical review with Ali
+→ only then enter Stage 2 — Exact Occurrence Handoff and Eligibility
 ```
 
-Stage 1 must not change final CI runtime-strengthening composition yet.
+Current Stage-1 implementation commits are recorded in
+`working-memory/2026-09-18_cycle3-runtime-strengthening-build.md`.
+
+Do not start Stage 2 while focused executable proof remains pending.
 
 ## Current stop line
 
