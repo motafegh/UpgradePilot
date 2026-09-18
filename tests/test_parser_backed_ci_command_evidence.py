@@ -67,11 +67,26 @@ class ParserBackedCICommandEvidenceTests(unittest.TestCase):
         self.assertIsNotNone(consumption.command_location)
         assert consumption.command_location is not None
         self.assertEqual(consumption.command_location.source_order, 0)
+        self.assertEqual(
+            consumption.whole_step_relation,
+            "first_ordinary_top_level_command_in_sequential_script",
+        )
+        self.assertEqual(
+            consumption.execution_profile,
+            "github_default_non_windows",
+        )
 
         self.assertEqual(invocation.state, "observed")
         self.assertIsNotNone(invocation.command_location)
         assert invocation.command_location is not None
         self.assertEqual(invocation.command_location.source_order, 1)
+        self.assertIsNone(invocation.whole_step_relation)
+        self.assertEqual(
+            invocation.execution_profile,
+            "github_default_non_windows",
+        )
+        self.assertEqual(invocation.workflow_path, _PATH)
+        self.assertEqual(invocation.workflow_revision, _HEAD_SHA)
 
     def test_quoted_package_text_does_not_manufacture_invocation(self) -> None:
         workflow = """jobs:
