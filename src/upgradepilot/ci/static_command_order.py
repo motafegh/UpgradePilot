@@ -32,6 +32,9 @@ _PATH_DEPENDENT_STRUCTURES = frozenset(
         "pipeline",
         "function_or_block",
         "nested_or_subshell",
+        "status_inverted",
+        "asynchronous",
+        "process_substitution",
     }
 )
 
