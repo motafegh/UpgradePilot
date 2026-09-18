@@ -5,10 +5,10 @@
 
 ## Live position
 
-- **Current responsibility:** Cycle 3 **Build/Implement entry — runtime-strengthening implementation**.
-- **Mode:** Phase A Planning/Design is complete. Product source/tests remain unchanged until Build/Implement is explicitly entered; the next implementation must follow the selected plan and accepted proof matrix.
-- **Cycle state:** **Cycle 1 CLOSED; Cycle 2 CLOSED; Cycle 3 Phase A COMPLETE; Cycle 3 Build/Implement READY / NOT STARTED**.
-- **Selected Cycle-3 working memory:** `working-memory/2026-09-17_cycle3-runtime-strengthening-phase-a-orientation.md`.
+- **Current responsibility:** Cycle 3 Phase B **Build Stage 1 — Provider Structural Admission**.
+- **Mode:** Build/Implement + Learning-by-Doing. Phase A is complete; Stage 1 is authorized and active. Do not start Stage 2 until Stage 1 is implemented, recorded, reviewed, and taught.
+- **Cycle state:** **Cycle 1 CLOSED; Cycle 2 CLOSED; Cycle 3 Phase A COMPLETE; Cycle 3 Phase B Stage 1 ACTIVE**.
+- **Selected Cycle-3 working memory:** `working-memory/2026-09-18_cycle3-runtime-strengthening-build.md`.
 - **Cycle-2 D/E closure record:** `working-memory/2026-09-16_cycle2-phase-d-integrated-learning-plan.md`.
 - **Selected parent plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
 - **Selected bounded implementation plan:** `plans/STATIC_WORKFLOW_COMMAND_ANALYSIS_AND_RUNTIME_STRENGTHENING_IMPLEMENTATION_PLAN.md`.
@@ -462,20 +462,20 @@ Cycle 3 Phase A is complete. No product source/tests were modified during Phase 
 
 ## Immediate next action
 
-Next, when Ali explicitly authorizes implementation, enter **Cycle 3 Build/Implement**:
+Continue **Cycle 3 Phase B — Build Stage 1: Provider Structural Admission**:
 
 ```text
-load Build/Implement + Learning-by-Doing procedures
-→ open a fresh Cycle-3 Build working memory
-→ start at the provider structural-admission boundary
-→ add the bounded Tree-sitter-backed positive whole-step facts
-→ prevent known false-straightforward admission
-→ preserve exact occurrence-level runtime-strengthening context
-→ compose with existing runtime correlation
-→ execute the accepted proof matrix narrow-to-broad
+whole Tree-sitter-parsed run script
+→ positively establish Sole Ordinary Top-Level Command Admission
+→ positively establish First Sequential Bash/sh Command Admission
+→ prevent known false-straightforward structures from entering those positives
+→ add focused provider proof
+→ inspect/record the actual Stage-1 result
+→ teach/review Stage 1 with Ali
+→ only then enter Stage 2
 ```
 
-Do not start product source/test mutation before that explicit Build entry.
+Stage 1 must not change final CI runtime-strengthening composition yet.
 
 ## Current stop line
 
