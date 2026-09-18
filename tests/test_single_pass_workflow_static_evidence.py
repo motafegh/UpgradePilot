@@ -91,6 +91,14 @@ class SinglePassWorkflowStaticEvidenceTests(unittest.TestCase):
             "selected_project_environment_contains_changed_dependency",
         )
         self.assertIsNotNone(consumption.command_location)
+        self.assertEqual(
+            consumption.whole_step_relation,
+            "sole_ordinary_top_level_command",
+        )
+        self.assertEqual(
+            consumption.execution_profile,
+            "github_default_non_windows",
+        )
         self.assertEqual(result.problems, ())
 
     def test_project_environment_input_modes_cannot_be_mixed(self) -> None:
