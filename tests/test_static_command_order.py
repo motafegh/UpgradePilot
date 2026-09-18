@@ -96,6 +96,27 @@ class StaticCommandOrderTests(unittest.TestCase):
         )
         self.assertEqual(relation, "unresolved")
 
+    def test_new_cycle3_path_dependent_structures_do_not_earn_same_step_order(self) -> None:
+        for structure in (
+            "status_inverted",
+            "asynchronous",
+            "process_substitution",
+        ):
+            with self.subTest(structure=structure):
+                relation = relate_invocation_after_consumption(
+                    _consumption(
+                        step_source_index=1,
+                        source_order=0,
+                        structural_context=(structure,),
+                    ),
+                    _invocation(
+                        step_source_index=1,
+                        source_order=1,
+                        structural_context=("straightforward_top_level",),
+                    ),
+                )
+                self.assertEqual(relation, "unresolved")
+
     def test_invocation_before_consumption_is_not_after_even_if_path_dependent(self) -> None:
         relation = relate_invocation_after_consumption(
             _consumption(
