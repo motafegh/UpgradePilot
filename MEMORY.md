@@ -272,35 +272,96 @@ Decision state:
 A1 exact strengthened proposition     DECIDED
 A2 eligibility state model            DECIDED
 A3 canonical occurrence handoff       DECIDED
-A4 strengthened proposition          DECIDED — R2 runtime-correlated support
-A4 positive eligibility family        ACTIVE / OPEN
-A5 negative/unresolved structures     OPEN
-A6 runtime-correlation composition     OPEN
+A4 strengthened proposition           DECIDED — R2 runtime-correlated support
+A4 positive eligibility family        DECIDED — P1 + P2
+A5 negative/unresolved structures      DECIDED
+A6 runtime-correlation composition     ACTIVE / OPEN
 A7 proof matrix                        OPEN
 ```
 
-A4 must now settle only the remaining eligibility boundary:
+### Accepted A4/A5 boundary
 
-1. which structural contexts are positively eligible for R2 runtime-correlated support;
-2. which known structures are ineligible versus unresolved;
-3. whether small parser-neutral distinctions such as status inversion are required by the gate;
-4. which current execution profiles provide enough context for R2 without pretending direct command execution proof;
-5. what useful real-case coverage is deferred by the first family and what evidence would justify later expansion.
+Runtime-strengthening admission now follows a **positive Tree-sitter-backed structural rule**:
+
+```text
+Tree-sitter shell-family CST
+→ provider-owned parser adapter
+→ small UpgradePilot-owned whole-step/position fact
+→ CI runtime-strengthening eligibility
+```
+
+Tree-sitter nodes remain private. The product does not expose grammar-specific CST types or
+build a general shell interpreter/CFG.
+
+Do not treat these as sufficient positive proof by themselves:
+
+```text
+straightforward_top_level fallback
+source_order == 0
+one collected command occurrence
+absence of a currently-known negative tag
+```
+
+The first accepted positive family is:
+
+```text
+P1 — sole ordinary top-level command
+→ admitted built-in/default Bash/sh, PowerShell/pwsh, or CMD profile
+→ eligible structural/profile candidate for R2
+
+P2 — first ordinary top-level Bash/sh command in a sequential script
+→ admitted built-in/default Bash/sh fail-fast profile
+→ outside conditional/status-inverting/nested/asynchronous structure
+→ eligible structural/profile candidate for R2
+```
+
+P2 intentionally retains S002's real first-install multi-command case.
+
+Accepted classification principle:
+
+```text
+ineligible
+→ known structure positively permits successful step completion without meaningful support
+  for the exact target occurrence
+
+unresolved
+→ current structural/profile representation is too coarse to justify a positive or stronger
+  negative conclusion
+```
+
+Known ineligible examples include conditional/loop/deferred-function bodies, status inversion,
+background/asynchronous execution, process substitution, and a positively identified `||`
+rescue position.
+
+Current unresolved examples include generic `short_circuit` (`&&`/`||` collapsed),
+generic pipelines, generic nested/subshell structures, compound blocks, later generic linear
+commands, complex unrecognized PowerShell/CMD structure, custom shell templates, and
+parser/profile ambiguity.
+
+The provider adapter may now use the existing Tree-sitter tree more fully where Cycle 3 needs
+it, including preventing false-straightforward admission for Bash `! command`, `command &`,
+process substitution/compound nesting, PowerShell flow-control/script-block structures, and
+CMD goto/exit/parenthesized structures.
+
+S004-style `. ./venv/bin/activate && pip install ...` remains explicitly deferred rather
+than rejected. Re-entry requires a bounded operator/position/status-contribution relation and
+shell-specific characterization.
 
 ## Immediate next action
 
-Continue Cycle 3 Phase A with R2 fixed:
+Continue Cycle 3 Phase A with **A6**:
 
 ```text
-current parser structural_context + source_order
-+ effective execution_profile
-→ define the first sound/product-faithful R2 eligibility family
-→ classify ineligible vs unresolved structures
-→ resolve only the small missing structural distinctions required by that gate
-→ compose A6 runtime correlation ordering
-→ define A7 proof matrix
-→ only then authorize implementation
+provider command analysis
+→ exact occurrence + accepted P1/P2 eligibility fact
+→ existing exact workflow run/job/step runtime correlation
+→ existing continue-on-error safeguard
+→ eligible | ineligible | unresolved composition
+→ runtime-consumption/direct-exercise result
 ```
+
+Then define A7 proof matrix. Only after A6/A7 and the complete Phase-A contract are accepted
+may runtime-strengthening product source/tests be implemented.
 
 ## Current stop line
 
