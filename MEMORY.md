@@ -214,40 +214,55 @@ outer workflow/job/step identity
 
 Runtime correlation remains identity-only; it does not absorb internal command semantics.
 
-### A4 current design direction and reassessment
+### A4 proposition selected — R2 runtime-correlated support
 
-The controlling implementation plan provides a conservative starting direction:
+Cycle 3 has selected **R2** as the exact strengthened proposition.
 
 ```text
-cleanly parsed straightforward top-level occurrence
-+ established syntax family
+exact supported static occurrence
++ eligible structural context
 + established execution profile
-+ exact correlated completed/success runtime step
-+ no continue-on-error masking
-→ candidate for bounded runtime strengthening
++ exact correlated completed/successful owning runtime step
++ no visible continue-on-error masking
+→ supported runtime-correlated occurrence
 ```
 
-The earlier idea of requiring the **entire run block to contain exactly one command** is **not accepted** as the A4 rule. It is only a useful baseline case. A4 must instead determine the smallest **product-faithful proven family**.
+This is stronger evidence than static declaration alone, but it is **not direct observation or
+proof that the inner command definitely executed/succeeded**.
 
-A4 investigation then exposed a material proof-boundary issue: GitHub step success plus static command structure and a nominal Bash execution profile do not, by themselves, prove that the parsed inner command executed/succeeded. Non-interactive Bash may execute `BASH_ENV` before the script body, and GitHub permits earlier steps to publish environment variables to later steps through `GITHUB_ENV`. Current workflow IR does not model the complete effective runtime environment, and visible YAML `env` parsing alone would not close mutations introduced by earlier run/action steps.
-
-Therefore provisional P1/P2 shapes remain useful **structural candidates**, but are **not locked as exact execution/success proof**.
-
-This activates the plan/ADR reassessment boundary rather than authorizing ad-hoc guards. Before A4 can close, Phase A must decide which proposition is both useful and supportable:
+Explicit non-claims remain:
 
 ```text
-R1 — strict exact inner-command execution/success
-R2 — weaker occurrence-relative runtime association/support with explicit non-proof
-R3 — narrowly sanitized execution class whose startup/runtime environment is independently bounded
+not exact command-execution proof
+not exact command-success proof
+not exact installed dependency version
+not wheel/sdist identity
+not compatibility / complete behavior
+not update safety
+not maintainer-action permission
 ```
 
-The comparison must use the actual downstream CI-coverage proposition and Product Decision Model. Do not:
+R2 was selected because:
 
-- broaden merely because a structure is theoretically analyzable;
-- narrow merely because a one-command implementation is easiest;
-- treat absence from current workflow IR as proof that startup/environment mutation is absent;
-- add a visible-`BASH_ENV` check and call the runtime environment proven;
-- absorb broad action/runtime-environment simulation or log-ledger acquisition without separate planning.
+- **R1 strict execution/success** requires a stronger runtime-observability responsibility than
+  the current step-level correlation path can honestly provide; shell startup/environment
+  effects such as `BASH_ENV` demonstrate the gap.
+- **R3 sanitized execution class** would require materially broader environment/action modeling
+  while excluding many ordinary workflows, without a current downstream need that justifies
+  that cost.
+- **R2 matches current product semantics**: the parent synthesis plan already treats
+  `supported_runtime_correlated` as supported static consumption/exercise safely related to
+  an exact successful runtime step, while withholding stronger runtime/artifact/compatibility
+  claims.
+
+No A1 redesign is required; R2 clarifies the meaning of the already-selected
+runtime-correlated occurrence proposition.
+
+A4 remains **partially open only for the eligibility family**: exactly which structures and
+execution profiles may receive R2 strengthening. Straightforward/mandatory-looking shapes
+remain positive candidates; conditional/path-dependent structures must not inherit successful
+step evidence automatically. The one-command-only rule is not accepted as the permanent
+product boundary.
 
 ## Cycle 3 Phase-A questions
 
@@ -257,38 +272,34 @@ Decision state:
 A1 exact strengthened proposition     DECIDED
 A2 eligibility state model            DECIDED
 A3 canonical occurrence handoff       DECIDED
-A4 first admitted positive family     ACTIVE / OPEN
+A4 strengthened proposition          DECIDED — R2 runtime-correlated support
+A4 positive eligibility family        ACTIVE / OPEN
 A5 negative/unresolved structures     OPEN
 A6 runtime-correlation composition     OPEN
 A7 proof matrix                        OPEN
 ```
 
-A4 must now settle:
+A4 must now settle only the remaining eligibility boundary:
 
-1. whether Cycle 3 needs strict exact inner-command execution/success or a weaker but still decision-useful runtime-supported proposition;
-2. whether a narrowly sanitized execution class is sufficiently useful to justify modeling it;
-3. only after that proposition is fixed, what structural relations and execution profiles can positively support it;
-4. which profile/structure/environment combinations remain ineligible or unresolved;
-5. what capability/common-case coverage would be lost by any narrowing, and whether that loss is acceptable for the product trajectory.
+1. which structural contexts are positively eligible for R2 runtime-correlated support;
+2. which known structures are ineligible versus unresolved;
+3. whether small parser-neutral distinctions such as status inversion are required by the gate;
+4. which current execution profiles provide enough context for R2 without pretending direct command execution proof;
+5. what useful real-case coverage is deferred by the first family and what evidence would justify later expansion.
 
 ## Immediate next action
 
-Continue Cycle 3 Phase A with the A4 reassessment from actual downstream semantics:
+Continue Cycle 3 Phase A with R2 fixed:
 
 ```text
-dependency_exercise.py
-+ Product Decision Model
-→ what the runtime-consumption/direct-exercise states actually claim and need
-
-compare R1 / R2 / R3
-→ strict execution proof
-→ weaker runtime-supported occurrence
-→ sanitized execution class
-
-then
-→ select the strongest useful proposition the available evidence can honestly support
-→ reconcile A1/A4 and the selected implementation plan if the proposition changes
-→ only then finish A5/A6/A7 and authorize implementation
+current parser structural_context + source_order
++ effective execution_profile
+→ define the first sound/product-faithful R2 eligibility family
+→ classify ineligible vs unresolved structures
+→ resolve only the small missing structural distinctions required by that gate
+→ compose A6 runtime correlation ordering
+→ define A7 proof matrix
+→ only then authorize implementation
 ```
 
 ## Current stop line
