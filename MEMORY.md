@@ -5,9 +5,9 @@
 
 ## Live position
 
-- **Current responsibility:** Cycle 3 Phase B **Build Stage 3 — Runtime Composition**.
-- **Mode:** Build/Implement + Learning-by-Doing. Stage 2 is closed. Stage 3 is active; compose exact eligible/ineligible/unresolved occurrences with existing runtime correlation and factual GitHub runtime outcomes.
-- **Cycle state:** **Cycle 1 CLOSED; Cycle 2 CLOSED; Cycle 3 Phase A COMPLETE; Cycle 3 Phase B Stage 1 CLOSED; Stage 2 CLOSED; Stage 3 ACTIVE**.
+- **Current responsibility:** Cycle 3 Phase B **Build Stage 3 — Runtime Composition review/learning closure**.
+- **Mode:** Build/Implement + Learning-by-Doing. Stage-3 implementation and hosted focused proof are complete. Finish Stage-3 review/teaching before final Phase-B regression/closure.
+- **Cycle state:** **Cycle 1 CLOSED; Cycle 2 CLOSED; Cycle 3 Phase A COMPLETE; Cycle 3 Phase B Stage 1 CLOSED; Stage 2 CLOSED; Stage 3 IMPLEMENTED / HOSTED FOCUSED PROOF PASS / REVIEW ACTIVE**.
 - **Selected Cycle-3 working memory:** `working-memory/2026-09-18_cycle3-runtime-strengthening-build.md`.
 - **Cycle-2 D/E closure record:** `working-memory/2026-09-16_cycle2-phase-d-integrated-learning-plan.md`.
 - **Selected parent plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
@@ -462,22 +462,20 @@ Cycle 3 Phase A is complete. No product source/tests were modified during Phase 
 
 ## Immediate next action
 
-Continue **Cycle 3 Phase B — Build Stage 3: Runtime Composition**:
+Finish **Cycle 3 Phase B — Stage 3 review/learning closure**:
 
 ```text
-exact RuntimeStrengtheningCandidate
-+ eligibility
-+ existing exact workflow/job/step runtime correlation
-+ continue-on-error interpretation
-+ factual GitHub runtime status/conclusion
-→ supported | not_established | unresolved candidate result
-→ existential occurrence aggregation
-→ correct workflow-level supported_runtime_correlated /
-   supported_not_correlated / unresolved behavior
+hosted Stage-3 focused proof = PASS
+76/76 tests
+→ explain/review basis-aware occurrence runtime composition with Ali
+→ repair any material conceptual or implementation gap if exposed
+→ record Stage-3 closure
+→ execute final Phase-B proof:
+   nearby regression + full deterministic suite + S001/S002/S004 boundary check
+→ close Cycle 3 Phase B if green
 ```
 
-Preserve exact failed/skipped/cancelled runtime outcomes as known facts. Keep
-`workflow_runtime_correlation.py` identity-only.
+Do not claim final Cycle-3 closure from the focused 76-test proof alone.
 
 ## Current stop line
 
