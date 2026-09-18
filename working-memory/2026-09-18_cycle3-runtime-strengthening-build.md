@@ -854,6 +854,171 @@ D post-build learning           NOT STARTED
 E gap repair / next orientation NOT STARTED
 ```
 
+### Build Stage 3 — implementation checkpoint
+
+Stage-3 runtime composition is implemented at the selected boundary.
+
+Changed primary owners:
+
+```text
+src/upgradepilot/ci/dependency_exercise.py
+tests/test_ci_runtime_correlated_dependency_coverage.py
+```
+
+`workflow_runtime_correlation.py` remains unchanged and identity-only.
+
+#### Old step-level reduction removed from runtime strengthening
+
+The former path:
+
+```text
+supported static evidence
+→ (job_key, step_source_index)
+→ owning runtime step
+→ success == runtime supported
+```
+
+has been replaced by:
+
+```text
+supported exact static occurrence
+→ RuntimeStrengtheningCandidate
+→ eligibility
+→ exact owning runtime-step correlation
+→ continue-on-error interpretation
+→ factual GitHub runtime status/conclusion
+→ occurrence candidate result + semantic basis
+→ existential candidate aggregation
+→ workflow disposition
+```
+
+Candidate deduplication uses:
+
+```text
+workflow path/revision
++ job key
++ step source index
++ StaticCommandLocation
++ proposition kind
+```
+
+and no longer collapses candidates by step identity alone.
+
+#### Basis-aware candidate result
+
+Stage 3 introduces an internal result basis so workflow aggregation does not reconstruct
+semantics from reason strings:
+
+```text
+supported
+eligibility_ineligible
+eligibility_unresolved
+workflow_correlation_unresolved
+step_correlation_unresolved
+continue_on_error_unresolved
+runtime_non_success
+```
+
+The public runtime-axis vocabulary remains unchanged:
+
+```text
+supported | not_established | unresolved
+```
+
+#### Occurrence-sensitive runtime interpretation
+
+The implemented ordering is deliberate:
+
+```text
+classify eligibility first
+↓
+only eligible occurrences interpret owning-step runtime non-success
+```
+
+Therefore:
+
+```text
+ineligible occurrence + failed/skipped owning step
+→ do not attribute the whole-step outcome to the occurrence
+→ runtime strengthening not_established for eligibility basis
+→ weaker static support may remain
+
+eligibility unresolved + failed/skipped owning step
+→ current representation cannot justify attributing the step outcome
+→ preserve static fallback
+
+eligible occurrence + failed/skipped/cancelled/non-success step
+→ factual GitHub status/conclusion preserved
+→ positive runtime strengthening not_established
+→ broader CI coverage unresolved
+```
+
+#### Workflow dispositions
+
+Internal aggregation distinguishes:
+
+```text
+supported
+→ at least one exact occurrence earns Runtime-Correlated Support
+
+static_fallback
+→ stronger evidence is structurally inadmissible, structurally unresolved,
+  or bounded workflow correlation is unavailable
+→ preserve supported_not_correlated when static support was already earned
+
+broader_unresolved
+→ eligible exact runtime evidence is materially non-successful/masked,
+  or exact step composition becomes unexpectedly incoherent
+```
+
+Existential behavior remains:
+
+```text
+any supported exact candidate
+→ runtime axis supported
+```
+
+even when another candidate is ineligible or unresolved.
+
+#### Direct-exercise axis
+
+Direct exercise now uses the same exact-candidate selection path:
+
+```text
+observed invocation
++ already-supported static consumption→invocation ordering relation
+→ exact direct_package_exercise RuntimeStrengtheningCandidate
+→ same eligibility/runtime composition
+```
+
+It remains separate from the dependency-consumption runtime axis.
+
+#### Focused Stage-3 proofs added
+
+New integration cases cover:
+
+- S002-shaped first sequential Bash consumption earns runtime support;
+- conditional consumption + successful step preserves `supported_not_correlated`;
+- generic short-circuit consumption + successful step preserves static fallback and runtime
+  `unresolved`;
+- exact eligible failed runtime step preserves factual `status='completed'`,
+  `conclusion='failure'` while positive support is `not_established`;
+- one eligible successful occurrence wins existentially over a separate conditional
+  occurrence.
+
+Existing focused runtime tests continue to own skipped-step, continue-on-error,
+direct-exercise, and unbridgeable-correlation behavior.
+
+Stage-3 state before hosted proof:
+
+```text
+A orientation                  COMPLETE
+B implementation               COMPLETE
+C state preservation            COMPLETE
+D post-build learning           NOT STARTED
+E gap repair / next orientation BLOCKED on hosted focused proof
+```
+
 ### Final proof and Phase-B closure
 
 After the three build stages:
