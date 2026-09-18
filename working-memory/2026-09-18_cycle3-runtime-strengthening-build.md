@@ -1019,6 +1019,84 @@ D post-build learning           NOT STARTED
 E gap repair / next orientation BLOCKED on hosted focused proof
 ```
 
+### Build Stage 3 — hosted focused proof PASS / review gate
+
+Focused Stage-3 executable proof passed in GitHub Actions.
+
+Proof vehicle:
+
+```text
+branch:
+agent/cycle3-stage3-runtime-proof
+
+workflow:
+.github/workflows/cycle3-stage3-runtime-proof.yml
+
+proof commit:
+0a4b47c92b3fbf27990b8e38fcf8f436f29a42d9
+
+GitHub Actions run:
+35388640082
+
+job:
+Focused runtime composition proof
+```
+
+Executed focused suites:
+
+```text
+tests.test_github_workflow_command_analysis
+tests.test_parser_backed_ci_command_evidence
+tests.test_single_pass_workflow_static_evidence
+tests.test_ci_runtime_strengthening
+tests.test_static_command_order
+tests.test_ci_static_direct_exercise_order
+tests.test_workflow_runtime_correlation
+tests.test_ci_runtime_correlated_dependency_coverage
+tests.test_ci_dependency_coverage
+```
+
+Observed result:
+
+```text
+Ran 76 tests in 0.084s
+OK
+GitHub Actions job conclusion: success
+```
+
+The hosted proof directly established:
+
+- sole-command runtime support remains positive;
+- S002-shaped first sequential Bash consumption earns runtime support;
+- conditional/ineligible consumption preserves static `supported_not_correlated`;
+- generic short-circuit/eligibility uncertainty preserves static fallback without false
+  runtime strengthening;
+- eligible skipped and failed runtime outcomes do not become positive support;
+- known failure remains explicitly reported as factual
+  `status='completed', conclusion='failure'`;
+- continue-on-error remains a genuine runtime-interpretation unresolved case;
+- unbridgeable workflow correlation preserves historical static fallback;
+- direct exercise remains a separate runtime axis;
+- one independently eligible/successful occurrence wins existentially over another
+  conditional occurrence;
+- Stage-1 provider and Stage-2 exact-occurrence/eligibility proofs remain green;
+- existing dependency-coverage behavior remains green across the focused nearby suite.
+
+No final full-repository regression has been claimed yet.
+
+Stage-3 state after hosted focused proof:
+
+```text
+A orientation                  COMPLETE
+B implementation               COMPLETE
+C state preservation            COMPLETE
+D post-build learning           ACTIVE
+E gap repair / next orientation READY after review
+```
+
+The temporary Stage-3 proof workflow is evidence machinery only and is not intended for merge
+to `main`.
+
 ### Final proof and Phase-B closure
 
 After the three build stages:
