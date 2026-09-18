@@ -522,6 +522,115 @@ Learning state:
   directly responsibility-bearing;
 - do not use the deferred depth as a reason to lower the engineering proof bar.
 
+#### A4 startup/environment reassessment trigger — MATERIAL / OPEN
+
+The remaining `BASH_ENV` caveat was investigated against current GitHub Actions and Bash
+semantics and is material enough that P1/P2 must **not** yet be locked as exact
+command-execution/success proof.
+
+Authoritative semantics establish:
+
+```text
+GitHub built-in/default Bash
+→ runner invokes a temporary script with documented Bash fail-fast flags
+
+but
+
+non-interactive Bash
+→ reads and executes $BASH_ENV before the script body when BASH_ENV is present
+```
+
+GitHub Actions also permits an earlier step to write environment variables to `GITHUB_ENV`;
+those values become available to later steps. `BASH_ENV` is not one of the documented
+`GITHUB_*` / `RUNNER_*` protected names, and GitHub's documented special block is
+`NODE_OPTIONS`, not `BASH_ENV`.
+
+Therefore a valid workflow can conceptually have:
+
+```yaml
+- run: |
+    echo 'exit 0' > /tmp/prelude
+    echo 'BASH_ENV=/tmp/prelude' >> "$GITHUB_ENV"
+
+- run: |
+    python -m pip install -r requirements.txt
+```
+
+The second step may be reported successful while Bash exits from the startup file before
+executing the parsed `pip install` command. A startup file could also modify shell options
+before the script body. This breaks the strict implication:
+
+```text
+ordinary first/sole Bash command
++ built-in GitHub Bash wrapper
++ successful step
+→ exact target command definitely executed/succeeded
+```
+
+This is not merely a malicious hypothetical. `BASH_ENV` is a real shell-startup mechanism
+and is explicitly treated by public CI/security tooling as a pre-step execution/environment
+vector. The project must therefore not hide it behind a normal-case assumption if the owned
+proposition is exact command execution/success.
+
+Current provider IR also does not model workflow/job/step `env`, and even adding visible
+`env` fields would not fully close the gap because earlier `run` or `uses` steps may
+mutate later-step environment through runner files such as `GITHUB_ENV`.
+
+This activates the selected plan/ADR reassessment pressure:
+
+```text
+if step-level runtime strengthening remains materially unsound
+for the bounded first supported structures
+→ reassess the design rather than add ad-hoc positive rules
+```
+
+and:
+
+```text
+if runtime strengthening actually requires command-level runtime evidence
+rather than a bounded static relation to step success
+→ return to Planning/Design
+```
+
+Phase A is already in Planning/Design, so no implementation rollback is needed.
+
+##### Consequence for the provisional P1/P2 family
+
+P1/P2 remain useful **structural candidates**, but they are no longer accepted as sufficient
+for the stronger exact-execution/success proposition.
+
+Do not respond by:
+
+- adding a visible-`BASH_ENV` check and pretending it proves the complete runtime environment;
+- treating absence from current workflow IR as evidence of absence;
+- marking all preceding actions as safe without exact action/environment evidence;
+- introducing broad action-source execution/environment simulation;
+- falling back to runtime logs as a primary execution ledger without a separately accepted
+  evidence architecture.
+
+##### Next design question
+
+Before A4 can close, decide which proposition UpgradePilot actually needs and can support:
+
+```text
+Route R1 — strict occurrence execution/success
+→ requires evidence strong enough to establish the exact inner command actually ran/succeeded;
+  current step-success + static-structure path is insufficient in the general case.
+
+Route R2 — weaker occurrence-relative runtime association/support
+→ exact static occurrence + exact successful owning runtime step + bounded structure/profile
+  relationship is retained as stronger contextual evidence,
+  but explicitly does NOT claim direct observation/proof of inner-command execution.
+
+Route R3 — narrowly sanitized execution class
+→ admit only workflows/environments whose startup/runtime mutation surface is independently
+  bounded strongly enough for strict inference;
+  likely much narrower and may lose substantial ordinary product coverage.
+```
+
+The next step is to compare R1/R2/R3 against the actual downstream CI-coverage proposition and
+the Product Decision Model before changing A1, A4, or the implementation plan.
+
 ### A5 — Negative/unresolved structures
 
 At minimum preserve non-strengthening for:
