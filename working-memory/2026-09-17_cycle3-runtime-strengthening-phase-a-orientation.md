@@ -406,6 +406,80 @@ prefer the smallest PROVEN family
 
 The selected family should be no broader than the evidence earns and no narrower than is justified by product/proof constraints.
 
+#### A4 investigation checkpoint — current IR is not yet sufficient for eligibility
+
+Source + current execution-semantics review established four material facts:
+
+1. **Existing identity/order facts are useful but insufficient by themselves.**
+   `StaticCommandOccurrence.source_order` can identify the first parsed occurrence, and
+   `structural_context` distinguishes several important path-dependent structures. That is
+   enough to express candidates, but not yet enough to prove the runtime-strengthening rule.
+
+2. **Bash negation is currently an uncovered structural case.**
+   Tree-sitter Bash exposes a named `negated_command` structure, while the current
+   `_structural_context(...)` mapping does not tag it. Bash `errexit` (`-e`) explicitly
+   does not exit when a command status is inverted with `!`. Therefore a command such as
+   `! python -m pip install ...` must not accidentally remain
+   `straightforward_top_level` for runtime-strengthening purposes.
+
+3. **Current `short_circuit` loses a proof-relevant distinction.**
+   Bash `&&` and `||` are both currently mapped to `short_circuit`, although their
+   success implications differ. A successful `A || B` does not prove that B executed, nor
+   that A succeeded. A successful terminal/unmasked `A && B` can provide a stronger
+   relation: both sides must have executed successfully for that list to succeed. Any future
+   positive use still has to account for surrounding structure/status masking and negation.
+
+4. **Generic newline/separator `linear_chain` is not sufficient proof of per-command success.**
+   GitHub's built-in/default Bash/sh profiles use fail-fast behavior, but the script can
+   contain shell-state/control operations such as `set +e`, sourcing, or early termination
+   that defeat a naive “linear + step success ⇒ every command succeeded” rule. PowerShell
+   documents fail-fast only “when possible” and appends the final native
+   `LASTEXITCODE`; CMD explicitly does not provide general fail-fast behavior. Therefore
+   one cross-shell `linear_chain` rule would overclaim.
+
+Product pressure confirms this is not academic. Real product-simulation evidence includes:
+
+```yaml
+# S002 — ordinary multi-command install step
+run: |
+  python -m pip install --no-cache-dir --upgrade pip -r requirements.txt
+  python -m pip install ruff
+```
+
+and S004 includes multi-line Bash plus a sourced virtual environment and an `&&` install
+chain. A permanent one-command-only policy would therefore lose runtime-strengthening
+coverage for real current cases; however admitting all linear chains would be unsound.
+
+The resulting A4 design direction is:
+
+```text
+do not add a general shell CFG/interpreter
+
+instead:
+→ refine the parser-neutral relation surface only where runtime proof needs it
+→ distinguish status inversion / proof-relevant chain operator semantics
+→ keep generic path-dependent or status-masked shapes non-strengthenable
+→ characterize positive families per execution profile
+→ make lost/deferred real-case coverage explicit
+```
+
+The next decision is whether the smallest adequate IR refinement should be:
+
+```text
+A. additional structural tags only
+   e.g. status_inverted + and_chain/or_chain distinction
+
+or
+
+B. one small parser-neutral static relation dedicated to how an occurrence contributes
+   to the containing run-step result, while still remaining purely static and
+   execution-profile-independent
+```
+
+No implementation is authorized yet; this checkpoint only establishes why A4 cannot be
+correctly decided from the current `straightforward_top_level | linear_chain | short_circuit`
+tags alone.
+
 ### A5 — Negative/unresolved structures
 
 At minimum preserve non-strengthening for:
@@ -534,11 +608,11 @@ If a broader responsibility becomes necessary, return it to planning rather than
 A1, A2, and A3 are decided. Continue Phase A with A4 before implementation:
 
 ```text
-1. inspect the exact current parser structural categories/relations needed by A4;
-2. characterize GitHub execution-profile success/failure semantics for each current profile;
-3. test the product usefulness/cost of candidate eligibility boundaries, including ordinary multi-command straight-line scripts;
-4. select the smallest product-faithful proven positive family rather than defaulting to one-command-only;
-5. record what the selected family excludes/defer and the evidence required for later expansion;
+1. decide the smallest parser-neutral A4 relation refinement needed for runtime proof;
+2. ensure the refinement covers status inversion and preserves the && versus || proof distinction without becoming a general CFG;
+3. characterize the positive family separately for Bash/sh, PowerShell, CMD, container-default sh, and custom templates;
+4. test the selected family against S002/S004-style real multi-command pressure and state lost/deferred coverage explicitly;
+5. lock A4 only when the positive family is both proof-sound and product-faithful;
 6. classify A5 negative vs unresolved structures;
 7. compose A6 runtime-correlation ordering from the locked A1–A5 semantics;
 8. define the A7 proof matrix;
