@@ -22,7 +22,11 @@ from ..dependency.environment_selection import (
     ProjectEnvironmentSelectionObservation,
 )
 from ..dependency.uv_reachability import UvSelectedRootReachability
-from ..github.workflow_command_analysis import StaticCommandStructure
+from ..github.workflow_command_analysis import (
+    StaticCommandStructure,
+    StaticCommandWholeStepRelation,
+)
+from ..github.workflow_command_shell import ShellExecutionProfile
 from ..github.workflow_command_location import StaticCommandLocation
 
 
@@ -67,6 +71,8 @@ class StaticDependencyConsumptionEvidence:
     unresolved_conditions: tuple[str, ...] = ()
     command_location: StaticCommandLocation | None = None
     structural_context: tuple[StaticCommandStructure, ...] = ()
+    whole_step_relation: StaticCommandWholeStepRelation | None = None
+    execution_profile: ShellExecutionProfile | None = None
 
 
 def compose_project_environment_consumption(
@@ -77,6 +83,7 @@ def compose_project_environment_consumption(
     observation: ProjectEnvironmentSelectionObservation,
     declaration: ProjectEnvironmentSelectionDeclaration,
     dependency_evidence: ProjectEnvironmentDependencyEvidence,
+    execution_profile: ShellExecutionProfile | None = None,
 ) -> StaticDependencyConsumptionEvidence:
     """Compose one dependency-domain result with its exact static CI declaration."""
 
@@ -103,6 +110,8 @@ def compose_project_environment_consumption(
         "command": observation.command,
         "command_location": declaration.command_location,
         "structural_context": declaration.structural_context,
+        "whole_step_relation": declaration.whole_step_relation,
+        "execution_profile": execution_profile,
     }
 
     if isinstance(dependency_evidence, UvSelectedRootReachability):
