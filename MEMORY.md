@@ -5,9 +5,9 @@
 
 ## Live position
 
-- **Current responsibility:** Cycle 3 Phase B **Build Stage 1 — Provider Structural Admission review/proof**.
-- **Mode:** Build/Implement + Learning-by-Doing. Stage-1 implementation is complete and recorded; focused executable provider proof is pending. Do not start Stage 2 until that proof is green and Stage-1 review/teaching is complete.
-- **Cycle state:** **Cycle 1 CLOSED; Cycle 2 CLOSED; Cycle 3 Phase A COMPLETE; Cycle 3 Phase B Stage 1 IMPLEMENTED / PROOF PENDING**.
+- **Current responsibility:** Cycle 3 Phase B **Build Stage 1 — Provider Structural Admission review/learning closure**.
+- **Mode:** Build/Implement + Learning-by-Doing. Stage-1 implementation and hosted focused proof are complete. Finish Stage-1 review/teaching before entering Stage 2.
+- **Cycle state:** **Cycle 1 CLOSED; Cycle 2 CLOSED; Cycle 3 Phase A COMPLETE; Cycle 3 Phase B Stage 1 IMPLEMENTED / HOSTED PROOF PASS / REVIEW ACTIVE**.
 - **Selected Cycle-3 working memory:** `working-memory/2026-09-18_cycle3-runtime-strengthening-build.md`.
 - **Cycle-2 D/E closure record:** `working-memory/2026-09-16_cycle2-phase-d-integrated-learning-plan.md`.
 - **Selected parent plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
@@ -462,21 +462,21 @@ Cycle 3 Phase A is complete. No product source/tests were modified during Phase 
 
 ## Immediate next action
 
-Finish **Cycle 3 Phase B — Build Stage 1 review/proof**:
+Finish **Cycle 3 Phase B — Build Stage 1 review/learning closure**:
 
 ```text
-run focused provider suite
-python -m unittest tests.test_github_workflow_command_analysis -v
-→ record exact result
-→ repair Stage 1 if needed
-→ complete Stage-1 conceptual/logical review with Ali
+hosted focused provider proof = PASS
+18/18 tests on Python 3.12.14
+→ explain/review the Stage-1 provider model with Ali
+→ repair any important conceptual or implementation gap if exposed
+→ record Stage-1 closure
 → only then enter Stage 2 — Exact Occurrence Handoff and Eligibility
 ```
 
-Current Stage-1 implementation commits are recorded in
+Hosted proof details are recorded in
 `working-memory/2026-09-18_cycle3-runtime-strengthening-build.md`.
 
-Do not start Stage 2 while focused executable proof remains pending.
+Do not start Stage 2 before the Stage-1 learning/review gate is closed.
 
 ## Current stop line
 
