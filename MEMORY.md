@@ -5,9 +5,9 @@
 
 ## Live position
 
-- **Current responsibility:** Cycle 3 Phase B **Build Stage 2 — Exact Occurrence Handoff and Eligibility**.
-- **Mode:** Build/Implement + Learning-by-Doing. Stage 1 is closed. Stage 2 is active; preserve exact occurrence identity/context and implement `eligible | ineligible | unresolved` without changing final runtime aggregation yet.
-- **Cycle state:** **Cycle 1 CLOSED; Cycle 2 CLOSED; Cycle 3 Phase A COMPLETE; Cycle 3 Phase B Stage 1 CLOSED; Stage 2 ACTIVE**.
+- **Current responsibility:** Cycle 3 Phase B **Build Stage 2 — Exact Occurrence Handoff and Eligibility review/learning closure**.
+- **Mode:** Build/Implement + Learning-by-Doing. Stage 2 implementation and hosted focused proof are complete. Finish Stage-2 review/teaching before entering Stage 3.
+- **Cycle state:** **Cycle 1 CLOSED; Cycle 2 CLOSED; Cycle 3 Phase A COMPLETE; Cycle 3 Phase B Stage 1 CLOSED; Stage 2 IMPLEMENTED / HOSTED PROOF PASS / REVIEW ACTIVE**.
 - **Selected Cycle-3 working memory:** `working-memory/2026-09-18_cycle3-runtime-strengthening-build.md`.
 - **Cycle-2 D/E closure record:** `working-memory/2026-09-16_cycle2-phase-d-integrated-learning-plan.md`.
 - **Selected parent plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
@@ -462,21 +462,18 @@ Cycle 3 Phase A is complete. No product source/tests were modified during Phase 
 
 ## Immediate next action
 
-Continue **Cycle 3 Phase B — Build Stage 2: Exact Occurrence Handoff and Eligibility**:
+Finish **Cycle 3 Phase B — Stage 2 review/learning closure**:
 
 ```text
-existing one-analysis workflow traversal
-→ preserve exact StaticCommandLocation
-→ preserve structural_context
-→ preserve whole_step_relation
-→ preserve effective execution_profile
-→ bind the static proposition kind
-→ classify eligible | ineligible | unresolved
-→ prove multiple occurrences in one step do not collapse
+hosted Stage-2 focused proof = PASS
+40/40 tests
+→ explain/review exact occurrence handoff + eligibility with Ali
+→ repair any material conceptual or implementation gap if exposed
+→ record Stage-2 closure
+→ only then enter Stage 3 — Runtime Composition
 ```
 
-Keep `workflow_runtime_correlation.py` identity-only and do not change final workflow runtime
-aggregation until Stage 3.
+Stage 3 remains untouched until the Stage-2 learning/review gate is closed.
 
 ## Current stop line
 
