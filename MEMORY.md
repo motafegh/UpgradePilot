@@ -1,6 +1,6 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-09-17  
+**Last updated:** 2026-09-18  
 **Authority:** sole owner of the live project position, current blockers, selected continuation, and current learning depth.
 
 ## Live position
@@ -214,7 +214,7 @@ outer workflow/job/step identity
 
 Runtime correlation remains identity-only; it does not absorb internal command semantics.
 
-### A4 current design direction
+### A4 current design direction and reassessment
 
 The controlling implementation plan provides a conservative starting direction:
 
@@ -227,15 +227,27 @@ cleanly parsed straightforward top-level occurrence
 → candidate for bounded runtime strengthening
 ```
 
-The earlier idea of requiring the **entire run block to contain exactly one command** is **not accepted** as the A4 rule. It is only a useful baseline case. A4 must instead determine the smallest **product-faithful proven family**: which exact structural shapes and execution profiles make successful step completion sufficient to strengthen the target occurrence.
+The earlier idea of requiring the **entire run block to contain exactly one command** is **not accepted** as the A4 rule. It is only a useful baseline case. A4 must instead determine the smallest **product-faithful proven family**.
 
-This means:
+A4 investigation then exposed a material proof-boundary issue: GitHub step success plus static command structure and a nominal Bash execution profile do not, by themselves, prove that the parsed inner command executed/succeeded. Non-interactive Bash may execute `BASH_ENV` before the script body, and GitHub permits earlier steps to publish environment variables to later steps through `GITHUB_ENV`. Current workflow IR does not model the complete effective runtime environment, and visible YAML `env` parsing alone would not close mutations introduced by earlier run/action steps.
 
-- do not broaden merely because a structure is theoretically analyzable;
-- do not narrow merely because a one-command implementation is easiest;
-- ordinary straight-line multi-command cases should be considered when the parser structure and GitHub execution-profile semantics genuinely prove the required implication;
-- conditional/short-circuit/path-dependent occurrences remain non-strengthening unless a future independently justified rule proves otherwise;
-- profile differences matter: Bash/sh, PowerShell, CMD, container-default sh, and custom shell templates must not be treated as equivalent without evidence.
+Therefore provisional P1/P2 shapes remain useful **structural candidates**, but are **not locked as exact execution/success proof**.
+
+This activates the plan/ADR reassessment boundary rather than authorizing ad-hoc guards. Before A4 can close, Phase A must decide which proposition is both useful and supportable:
+
+```text
+R1 — strict exact inner-command execution/success
+R2 — weaker occurrence-relative runtime association/support with explicit non-proof
+R3 — narrowly sanitized execution class whose startup/runtime environment is independently bounded
+```
+
+The comparison must use the actual downstream CI-coverage proposition and Product Decision Model. Do not:
+
+- broaden merely because a structure is theoretically analyzable;
+- narrow merely because a one-command implementation is easiest;
+- treat absence from current workflow IR as proof that startup/environment mutation is absent;
+- add a visible-`BASH_ENV` check and call the runtime environment proven;
+- absorb broad action/runtime-environment simulation or log-ledger acquisition without separate planning.
 
 ## Cycle 3 Phase-A questions
 
@@ -253,32 +265,30 @@ A7 proof matrix                        OPEN
 
 A4 must now settle:
 
-1. what exact structural relation makes a target occurrence execution-mandatory enough for runtime strengthening;
-2. whether and when straightforward/linear multi-command run blocks qualify;
-3. which current execution profiles positively justify the inference;
-4. which profile/structure combinations remain ineligible or unresolved;
-5. what capability/common-case coverage would be lost by any proposed narrowing, and whether that loss is acceptable for the product trajectory.
+1. whether Cycle 3 needs strict exact inner-command execution/success or a weaker but still decision-useful runtime-supported proposition;
+2. whether a narrowly sanitized execution class is sufficiently useful to justify modeling it;
+3. only after that proposition is fixed, what structural relations and execution profiles can positively support it;
+4. which profile/structure/environment combinations remain ineligible or unresolved;
+5. what capability/common-case coverage would be lost by any narrowing, and whether that loss is acceptable for the product trajectory.
 
 ## Immediate next action
 
-Continue Cycle 3 Phase A with A4 from actual source and authoritative execution semantics:
+Continue Cycle 3 Phase A with the A4 reassessment from actual downstream semantics:
 
 ```text
-workflow_command_analysis.py
-→ exact structural categories/relations already available
+dependency_exercise.py
++ Product Decision Model
+→ what the runtime-consumption/direct-exercise states actually claim and need
 
-workflow_command_shell.py
-→ exact execution-profile states already available
-
-GitHub Actions execution semantics
-→ what step success implies for admitted built-in/default profiles
+compare R1 / R2 / R3
+→ strict execution proof
+→ weaker runtime-supported occurrence
+→ sanitized execution class
 
 then
-→ define the smallest product-faithful positive eligibility family
-→ explicitly state excluded/deferred common cases and their cost
-→ classify A5 negative vs unresolved shapes
-→ compose A6 and A7
-→ only then authorize implementation
+→ select the strongest useful proposition the available evidence can honestly support
+→ reconcile A1/A4 and the selected implementation plan if the proposition changes
+→ only then finish A5/A6/A7 and authorize implementation
 ```
 
 ## Current stop line
