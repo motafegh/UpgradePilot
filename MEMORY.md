@@ -5,9 +5,9 @@
 
 ## Live position
 
-- **Current responsibility:** Cycle 3 Phase B **Build Stage 2 — Exact Occurrence Handoff and Eligibility review/learning closure**.
-- **Mode:** Build/Implement + Learning-by-Doing. Stage 2 implementation and hosted focused proof are complete. Finish Stage-2 review/teaching before entering Stage 3.
-- **Cycle state:** **Cycle 1 CLOSED; Cycle 2 CLOSED; Cycle 3 Phase A COMPLETE; Cycle 3 Phase B Stage 1 CLOSED; Stage 2 IMPLEMENTED / HOSTED PROOF PASS / REVIEW ACTIVE**.
+- **Current responsibility:** Cycle 3 Phase B **Build Stage 3 — Runtime Composition**.
+- **Mode:** Build/Implement + Learning-by-Doing. Stage 2 is closed. Stage 3 is active; compose exact eligible/ineligible/unresolved occurrences with existing runtime correlation and factual GitHub runtime outcomes.
+- **Cycle state:** **Cycle 1 CLOSED; Cycle 2 CLOSED; Cycle 3 Phase A COMPLETE; Cycle 3 Phase B Stage 1 CLOSED; Stage 2 CLOSED; Stage 3 ACTIVE**.
 - **Selected Cycle-3 working memory:** `working-memory/2026-09-18_cycle3-runtime-strengthening-build.md`.
 - **Cycle-2 D/E closure record:** `working-memory/2026-09-16_cycle2-phase-d-integrated-learning-plan.md`.
 - **Selected parent plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
@@ -462,18 +462,22 @@ Cycle 3 Phase A is complete. No product source/tests were modified during Phase 
 
 ## Immediate next action
 
-Finish **Cycle 3 Phase B — Stage 2 review/learning closure**:
+Continue **Cycle 3 Phase B — Build Stage 3: Runtime Composition**:
 
 ```text
-hosted Stage-2 focused proof = PASS
-40/40 tests
-→ explain/review exact occurrence handoff + eligibility with Ali
-→ repair any material conceptual or implementation gap if exposed
-→ record Stage-2 closure
-→ only then enter Stage 3 — Runtime Composition
+exact RuntimeStrengtheningCandidate
++ eligibility
++ existing exact workflow/job/step runtime correlation
++ continue-on-error interpretation
++ factual GitHub runtime status/conclusion
+→ supported | not_established | unresolved candidate result
+→ existential occurrence aggregation
+→ correct workflow-level supported_runtime_correlated /
+   supported_not_correlated / unresolved behavior
 ```
 
-Stage 3 remains untouched until the Stage-2 learning/review gate is closed.
+Preserve exact failed/skipped/cancelled runtime outcomes as known facts. Keep
+`workflow_runtime_correlation.py` identity-only.
 
 ## Current stop line
 
