@@ -1610,6 +1610,189 @@ the current step-level reduction loses occurrence semantics.
 
 No product source/test implementation is authorized by this checkpoint.
 
+### Runtime-Correlation and Eligibility Composition — proposed final boundary
+
+The downstream and historical correlation trace adds one important requirement: Cycle 3 must
+preserve the weaker static-support state already earned when the stronger runtime proposition
+is merely unavailable or structurally inadmissible.
+
+The 2026-09-12 correlation bridge already established this doctrine:
+
+```text
+correlation unresolved
++ static consumption supported
++ successful exact-head CI
+→ supported_not_correlated
+```
+
+because failure to earn a stronger bridge must not erase sound weaker evidence.
+
+Cycle 3 should extend that same doctrine to occurrence-level structural admission.
+
+#### Workflow-level composition for dependency consumption
+
+After successful exact-head CI and supported static dependency consumption are established:
+
+```text
+at least one exact occurrence earns Runtime-Correlated Support
+→ workflow state = supported_runtime_correlated
+
+no occurrence earns stronger runtime support,
+but the reason is an admitted stronger-evidence limitation
+(structurally ineligible, eligibility unresolved, or workflow correlation unresolved)
+→ workflow state = supported_not_correlated
+→ preserve the sound static support already earned
+
+an occurrence that is positively eligible for strengthening reaches exact runtime evidence
+that is materially adverse or ambiguous
+(e.g. correlated eligible step skipped/failed/cancelled/non-completed,
+or successful conclusion is masked/ambiguous through continue-on-error)
+→ workflow state = unresolved
+
+normal-path occurrence identity/context is incoherent or unexpectedly missing
+→ workflow state = unresolved
+
+static consumption itself is unresolved/not established
+→ retain the existing static-driven unresolved behavior
+```
+
+This refines, rather than discards, the historical rule that a correlated consuming step with
+observed non-success must not be hidden behind a generic static fallback.
+
+The refinement is occurrence-sensitive:
+
+```text
+conditional/ineligible target inside a failed step
+→ the failed whole step does not become evidence that this target failed,
+  because the target was never eligible to inherit whole-step outcome
+
+eligible target inside a failed step
+→ runtime strengthening is materially contradicted by the exact relevant step outcome
+→ unresolved overall CI coverage
+```
+
+#### Runtime sub-axis versus workflow aggregate
+
+Keep the existing public runtime sub-axis:
+
+```text
+runtime_consumption_state
+runtime_direct_exercise_state
+= supported | not_established | unresolved
+```
+
+and keep the existing workflow aggregate states.
+
+The aggregate must not be derived from the sub-axis state alone. It also needs the **basis**
+of the runtime-strengthening result, because these are semantically different:
+
+```text
+runtime state unresolved because correlation/eligibility is beyond admitted strength
+→ preserve supported_not_correlated static fallback
+
+runtime state unresolved because an eligible correlated result is masked/ambiguous
+→ workflow unresolved
+
+runtime state not_established because occurrence is structurally ineligible
+→ preserve supported_not_correlated static fallback
+
+runtime state not_established because an eligible exact runtime step is non-successful
+→ workflow unresolved
+```
+
+Build therefore needs a small internal classification/result object or equivalent explicit
+semantic branch that preserves this basis. Do not reconstruct it later by fragile string
+matching on reason text.
+
+Exact type/enum names remain implementation details.
+
+#### Direct-exercise axis
+
+Apply the same exact-occurrence candidate composition to direct exercise:
+
+```text
+static direct-exercise relation supported
++ exact invocation occurrence selected
++ occurrence eligibility
++ exact owning runtime step evidence
+→ runtime_direct_exercise_state
+```
+
+The direct-exercise runtime axis remains separate from dependency-consumption runtime support.
+It does not require proving exact installed dependency version or making runtime consumption
+positive first; its static prerequisite remains the already-supported static
+consumption→invocation relation.
+
+Do not reduce direct-exercise candidates to step identity before eligibility.
+
+#### Candidate selection / deduplication
+
+For dependency consumption, select supported static consumption **occurrences**, not supported
+steps.
+
+For direct exercise, select exact invocation occurrences that participate in at least one
+supported static `ordered_after` relation.
+
+If multiple domain evidence records refer to the same exact static occurrence, deduplicate
+only by the full canonical occurrence identity for the same proposition:
+
+```text
+job key
++ step source index
++ StaticCommandLocation
++ proposition kind
+```
+
+Never deduplicate only by `(job_key, step_source_index)`.
+
+#### Compatibility/test seams
+
+A precomposed/synthetic static evidence object that lacks the normal provider-owned
+execution-profile/whole-step context must not earn positive runtime strengthening by reparsing
+or guessing.
+
+Normal production must carry the one-analysis handoff.
+
+Focused synthetic tests may either construct the required explicit runtime-strengthening
+context or remain static-only/unresolved at the stronger runtime proposition.
+
+#### Proposed decision summary
+
+```text
+STATIC PROPOSITION
+supported exact occurrence
+        ↓
+EXACT OCCURRENCE JOIN
+StaticCommandLocation + owning job/step
+        ↓
+STRUCTURAL ADMISSION
+eligible | ineligible | unresolved
+        ↓
+RUNTIME CORRELATION
+exact owning runtime step when bridge supports it
+        ↓
+RUNTIME INTERPRETATION
+continue-on-error + status/conclusion
+        ↓
+CANDIDATE RESULT
+supported | not_established | unresolved
++ semantic basis
+        ↓
+EXISTENTIAL AGGREGATION
+any supported wins
+otherwise preserve unresolved where material
+otherwise not_established
+        ↓
+WORKFLOW COVERAGE
+runtime-correlated when earned
+static-supported fallback when stronger evidence is merely unavailable/inadmissible
+unresolved when exact eligible runtime evidence is materially adverse/ambiguous
+```
+
+This is the recommended Runtime-Correlation and Eligibility Composition contract for review.
+No implementation is authorized until it is accepted and the Runtime-Strengthening Proof
+Matrix is defined.
+
 ### Runtime-Strengthening Proof Matrix — Proof matrix
 
 Before implementation, define representative proofs for at least:
