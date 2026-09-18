@@ -152,6 +152,223 @@ jobs:
         assert workflow_result.runtime_correlation is not None
         self.assertEqual(workflow_result.runtime_correlation.state, "correlated")
 
+    def test_first_sequential_bash_consumption_can_earn_runtime_support(self) -> None:
+        dependency, contexts = _dependency_and_contexts()
+        workflow = """
+jobs:
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Install then report
+        run: |
+          pip install -r requirements-dev.txt
+          echo ready
+"""
+
+        result = evaluate_dependency_ci_coverage(
+            dependency,
+            (
+                _input(
+                    workflow,
+                    (
+                        _step(1, "Set up job"),
+                        _step(2, "Check out repository"),
+                        _step(4, "Install then report"),
+                        _step(9, "Post Check out repository"),
+                        _step(10, "Complete job"),
+                    ),
+                ),
+            ),
+            source_contexts=contexts,
+        )
+
+        workflow_result = result.workflows[0]
+        self.assertEqual(result.state, "supported_runtime_correlated")
+        self.assertEqual(workflow_result.runtime_consumption_state, "supported")
+        self.assertEqual(
+            workflow_result.consumptions[0].whole_step_relation,
+            "first_ordinary_top_level_command_in_sequential_script",
+        )
+
+    def test_conditional_consumption_success_preserves_static_fallback(self) -> None:
+        dependency, contexts = _dependency_and_contexts()
+        workflow = """
+jobs:
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Conditional install
+        run: |
+          if false; then
+            pip install -r requirements-dev.txt
+          fi
+"""
+
+        result = evaluate_dependency_ci_coverage(
+            dependency,
+            (
+                _input(
+                    workflow,
+                    (
+                        _step(1, "Set up job"),
+                        _step(2, "Check out repository"),
+                        _step(4, "Conditional install"),
+                        _step(9, "Post Check out repository"),
+                        _step(10, "Complete job"),
+                    ),
+                ),
+            ),
+            source_contexts=contexts,
+        )
+
+        workflow_result = result.workflows[0]
+        self.assertEqual(result.state, "supported_not_correlated")
+        self.assertEqual(workflow_result.state, "supported_not_correlated")
+        self.assertEqual(workflow_result.consumption_state, "supported")
+        self.assertEqual(
+            workflow_result.runtime_consumption_state,
+            "not_established",
+        )
+        self.assertIn(
+            "conditional",
+            workflow_result.consumptions[0].structural_context,
+        )
+
+    def test_unresolved_short_circuit_structure_preserves_static_fallback(self) -> None:
+        dependency, contexts = _dependency_and_contexts()
+        workflow = """
+jobs:
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Short circuit install
+        run: false || pip install -r requirements-dev.txt
+"""
+
+        result = evaluate_dependency_ci_coverage(
+            dependency,
+            (
+                _input(
+                    workflow,
+                    (
+                        _step(1, "Set up job"),
+                        _step(2, "Check out repository"),
+                        _step(4, "Short circuit install"),
+                        _step(9, "Post Check out repository"),
+                        _step(10, "Complete job"),
+                    ),
+                ),
+            ),
+            source_contexts=contexts,
+        )
+
+        workflow_result = result.workflows[0]
+        self.assertEqual(result.state, "supported_not_correlated")
+        self.assertEqual(workflow_result.runtime_consumption_state, "unresolved")
+        self.assertIn(
+            "short_circuit",
+            workflow_result.consumptions[0].structural_context,
+        )
+
+    def test_known_failed_eligible_step_preserves_factual_runtime_outcome(self) -> None:
+        dependency, contexts = _dependency_and_contexts()
+        workflow = """
+jobs:
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Install test dependencies
+        run: pip install -r requirements-dev.txt
+"""
+
+        result = evaluate_dependency_ci_coverage(
+            dependency,
+            (
+                _input(
+                    workflow,
+                    (
+                        _step(1, "Set up job"),
+                        _step(2, "Check out repository"),
+                        _step(
+                            4,
+                            "Install test dependencies",
+                            conclusion="failure",
+                        ),
+                        _step(9, "Post Check out repository"),
+                        _step(10, "Complete job"),
+                    ),
+                ),
+            ),
+            source_contexts=contexts,
+        )
+
+        workflow_result = result.workflows[0]
+        self.assertEqual(result.state, "unresolved")
+        self.assertEqual(
+            workflow_result.runtime_consumption_state,
+            "not_established",
+        )
+        self.assertIn("status='completed'", workflow_result.runtime_consumption_detail)
+        self.assertIn("conclusion='failure'", workflow_result.runtime_consumption_detail)
+        self.assertNotIn(
+            "runtime status is unknown",
+            workflow_result.runtime_consumption_detail,
+        )
+
+    def test_one_eligible_successful_candidate_wins_existentially(self) -> None:
+        dependency, contexts = _dependency_and_contexts()
+        workflow = """
+jobs:
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Conditional install
+        run: |
+          if false; then
+            pip install -r requirements-dev.txt
+          fi
+      - name: Definite install
+        run: pip install -r requirements-dev.txt
+"""
+
+        result = evaluate_dependency_ci_coverage(
+            dependency,
+            (
+                _input(
+                    workflow,
+                    (
+                        _step(1, "Set up job"),
+                        _step(2, "Check out repository"),
+                        _step(3, "Conditional install"),
+                        _step(4, "Definite install"),
+                        _step(9, "Post Check out repository"),
+                        _step(10, "Complete job"),
+                    ),
+                ),
+            ),
+            source_contexts=contexts,
+        )
+
+        workflow_result = result.workflows[0]
+        self.assertEqual(result.state, "supported_runtime_correlated")
+        self.assertEqual(workflow_result.runtime_consumption_state, "supported")
+        self.assertEqual(len(workflow_result.consumptions), 2)
+
     def test_direct_exercise_axis_is_separately_runtime_correlated(self) -> None:
         dependency, contexts = _dependency_and_contexts()
         workflow = """
