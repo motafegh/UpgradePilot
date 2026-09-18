@@ -181,6 +181,10 @@ class StaticWorkflowCommandAnalysisTests(unittest.TestCase):
                     result.command_occurrences[0].structural_context,
                     ("straightforward_top_level",),
                 )
+                self.assertEqual(
+                    result.command_occurrences[0].whole_step_relation,
+                    "sole_ordinary_top_level_command",
+                )
 
     def test_comment_and_quoted_payloads_do_not_manufacture_commands(self) -> None:
         cases = (
@@ -199,6 +203,94 @@ class StaticWorkflowCommandAnalysisTests(unittest.TestCase):
                 self.assertNotEqual(
                     result.command_occurrences[0].executable.literal_value, "pip"
                 )
+
+    def test_first_sequential_bash_command_gets_positive_whole_step_relation(self) -> None:
+        workflow, job, step = _workflow(
+            run=(
+                "python -m pip install --no-cache-dir --upgrade pip -r requirements.txt\n"
+                "python -m pip install ruff"
+            ),
+            shell="bash",
+        )
+
+        result = analyze_run_step_commands(workflow, job, step)
+
+        self.assertEqual(result.state, "analyzable")
+        self.assertEqual(len(result.command_occurrences), 2)
+        first, second = result.command_occurrences
+        self.assertEqual(
+            first.whole_step_relation,
+            "first_ordinary_top_level_command_in_sequential_script",
+        )
+        self.assertIsNone(second.whole_step_relation)
+        self.assertIn("linear_chain", first.structural_context)
+        self.assertIn("linear_chain", second.structural_context)
+
+    def test_bash_false_straightforward_shapes_do_not_get_positive_whole_step_relation(self) -> None:
+        cases = (
+            (
+                "! python -m pip install -r requirements.txt",
+                "status_inverted",
+            ),
+            (
+                "python -m pip install -r requirements.txt &",
+                "asynchronous",
+            ),
+            (
+                "cat <(python -m pip install -r requirements.txt)",
+                "process_substitution",
+            ),
+            (
+                "{ python -m pip install -r requirements.txt; }",
+                None,
+            ),
+        )
+
+        for run, expected_structure in cases:
+            with self.subTest(run=run):
+                workflow, job, step = _workflow(run=run, shell="bash")
+                result = analyze_run_step_commands(workflow, job, step)
+
+                self.assertEqual(result.state, "analyzable")
+                target = next(
+                    occurrence
+                    for occurrence in result.command_occurrences
+                    if occurrence.executable.literal_value == "python"
+                )
+                self.assertIsNone(target.whole_step_relation)
+                if expected_structure is not None:
+                    self.assertIn(expected_structure, target.structural_context)
+
+    def test_non_command_control_flow_prevents_false_sole_admission(self) -> None:
+        cases = (
+            (
+                "pwsh",
+                "windows-latest",
+                "exit 0\npython -m pip install -r requirements.txt",
+            ),
+            (
+                "cmd",
+                "windows-latest",
+                "exit /b 0\npython -m pip install -r requirements.txt",
+            ),
+        )
+
+        for shell, runs_on, run in cases:
+            with self.subTest(shell=shell):
+                workflow, job, step = _workflow(
+                    run=run,
+                    shell=shell,
+                    runs_on=runs_on,
+                )
+                result = analyze_run_step_commands(workflow, job, step)
+
+                self.assertEqual(result.state, "analyzable")
+                target = next(
+                    occurrence
+                    for occurrence in result.command_occurrences
+                    if occurrence.executable.literal_value == "python"
+                )
+                self.assertIsNone(target.whole_step_relation)
 
     def test_short_circuit_commands_remain_real_but_structurally_marked(self) -> None:
         cases = (
