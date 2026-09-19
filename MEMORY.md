@@ -1,14 +1,15 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-09-18  
+**Last updated:** 2026-09-19  
 **Authority:** sole owner of the live project position, current blockers, selected continuation, and current learning depth.
 
 ## Live position
 
-- **Current responsibility:** Parent evidence-sufficiency / maintainer-action synthesis **re-audit after Cycle 3 closure**.
-- **Mode:** Cycle 3 implementation/proof is closed. Return to analysis/planning at the parent synthesis layer; re-audit the current evidence path before selecting any new implementation responsibility.
+- **Current responsibility:** Cycle-3 integrated review, recall, and relearning (Learning-Only), before the parent synthesis re-audit.
+- **Mode:** Cycle 3 is technically closed. The selected next responsibility is the integrated learning review; product/source/test changes are paused. Return to the parent evidence-sufficiency synthesis re-audit after the learning review.
 - **Cycle state:** **Cycle 1 CLOSED; Cycle 2 CLOSED; Cycle 3 CLOSED**.
-- **Selected Cycle-3 working memory:** `working-memory/2026-09-18_cycle3-runtime-strengthening-build.md`.
+- **Cycle-3 technical closure record:** `working-memory/2026-09-18_cycle3-runtime-strengthening-build.md`.
+- **Selected integrated learning record:** `working-memory/2026-09-19_cycle3-integrated-learning-review.md`.
 - **Cycle-2 D/E closure record:** `working-memory/2026-09-16_cycle2-phase-d-integrated-learning-plan.md`.
 - **Selected parent plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
 - **Selected bounded implementation plan:** `plans/STATIC_WORKFLOW_COMMAND_ANALYSIS_AND_RUNTIME_STRENGTHENING_IMPLEMENTATION_PLAN.md`.
@@ -142,7 +143,7 @@ No concrete product/design defect or must-repair prerequisite gap was discovered
 
 Deferred D learning should be reopened only if Cycle 3 exposes a concrete prerequisite gap or Ali explicitly chooses deeper review.
 
-## Cycle 3 — Phase A COMPLETE / Build Ready
+## Cycle 3 — historical Phase-A design record (Cycle 3 now CLOSED)
 
 Cycle 3 owns this new proposition:
 
@@ -156,9 +157,9 @@ static command occurrence
 
 ADR-0009 requires that successful step evidence must **not** generally imply that every internal parsed command executed or succeeded.
 
-### Current source pressure
+### Historical pre-implementation source pressure
 
-Current `src/upgradepilot/ci/dependency_exercise.py` still reduces supported static evidence to step-level locations:
+Before Cycle 3, `src/upgradepilot/ci/dependency_exercise.py` reduced supported static evidence to step-level locations:
 
 ```text
 (job_key, step_source_index)
@@ -173,7 +174,7 @@ through `_supported_consumption_locations(...)` and `_supported_direct_exercise_
 3. rejects visible/dynamic `continue-on-error` masking;
 4. treats `completed/success` runtime step status as supported runtime evidence.
 
-The missing Cycle-3 input is the **specific command occurrence's structural context and effective execution profile**.
+The then-missing Cycle-3 input was the **specific command occurrence's structural context and effective execution profile**; the implemented handoff now preserves these facts.
 
 Representative pressure:
 
@@ -264,7 +265,7 @@ remain positive candidates; conditional/path-dependent structures must not inher
 step evidence automatically. The one-command-only rule is not accepted as the permanent
 product boundary.
 
-## Cycle 3 Phase-A questions
+## Cycle 3 Phase-A decisions (historical design record)
 
 Decision state:
 
@@ -483,25 +484,23 @@ update safety, or maintainer-action permission.
 
 ## Immediate next action
 
-Return to the parent synthesis journey and perform a bounded **post-Cycle-3 evidence-path re-audit**:
+Complete the **Cycle-3 integrated learning review** under Learning-Only, using `working-memory/2026-09-19_cycle3-integrated-learning-review.md` as the learning route:
 
 ```text
-current investigation/evidence owners
-+ newly corrected runtime-correlated CI semantics
-+ current maintainer-action synthesis behavior
-+ remaining residual uncertainty / unsupported transitions
-        ↓
-identify the next actual evidence proposition preventing a justified maintainer-action path
-        ↓
-select the next responsibility only from current evidence
+original evidence gap / Phase-A decision and non-claim
+→ Stage-1 provider structural facts
+→ Stage-2 exact occurrence handoff and eligibility
+→ Stage-3 runtime composition and outcome distinctions
+→ final hosted proof / S001 S002 S004 boundaries
+→ user-owned end-to-end trace and changed-case reasoning
+→ parent synthesis evidence-path re-audit after review
 ```
 
-Do not automatically continue command-analysis/runtime-strengthening work. Reopen the closed
-Cycle-3 implementation only if new evidence exposes a concrete contradiction or regression.
+Do not reopen the closed implementation or mark integrated understanding complete until the actual learning checks are done.
 
-## Current stop line
+## Historical Cycle-3 pre-Build stop line (superseded)
 
-Until Cycle 3 Phase A is accepted:
+The following restrictions governed the period before Cycle-3 Phase A was accepted. They are retained as historical context, **not** as current entry conditions. The current Learning-Only session pauses product mutation; any future Build requires its own authorization:
 
 - do not modify runtime-strengthening product source/tests;
 - do not treat successful run-step correlation as universal command execution proof;

@@ -1158,7 +1158,7 @@ No material Stage-3 gap was exposed by the review.
 
 ### Final proof and Phase-B closure
 
-**Status:** ACTIVE
+**Status:** COMPLETE
 
 After the three build stages:
 
@@ -1295,6 +1295,14 @@ The next responsibility is not another automatic command-analysis increment. Per
 controlling plan, return to the parent evidence-sufficiency/maintainer-action synthesis
 journey and re-audit the current evidence path to identify the next actual bottleneck.
 
+### Canonical A → B → C → D → E closure clarification
+
+The canonical Learning-by-Doing phases were applied *within each substantive Build stage* and overlapped when appropriate. A oriented the next responsibility; B implemented and validated it; C progressively recorded state throughout implementation and proof; D taught the actual changes and included user reasoning checks before progressing; E repaired or deferred gaps and oriented the next stage. Stage 1, Stage 2, and Stage 3 each have recorded A/B/C/D/E closures above. Phase-A design likewise included orientation, real analysis/design action, progressive recording, user reasoning, and gap-driven refinement.
+
+The final hosted proof was a separate evidence step. Its execution, evidence and non-claims were reported and discussed; Ali explicitly accepted proportionate closure after reviewing the canonical cycle, without treating an additional artificial quiz as a technical release gate. This records user-accepted Learning-by-Doing closure, **not** a claim that integrated mastery of every mechanism has been demonstrated. That deeper, separate recall/relearning responsibility is now selected in `2026-09-19_cycle3-integrated-learning-review.md`.
+
+No product implementation/proof was reopened or changed by this documentary reconciliation.
+
 ## Progressive-recording rule
 
 After every material discovery, implementation decision, focused proof result, failure, or
@@ -1322,13 +1330,11 @@ implement
 
 Ali may challenge or redirect any stage before the next transition.
 
-## Current entry state
+## Historical entry state and final handoff
 
-Phase A is complete and accepted.
+At this working record's opening, Phase A had been accepted and Build Stage 1 was authorized but not yet implemented. That entry state is historical, not current.
 
-Phase B Stage 1 is formally selected and authorized.
-
-No Stage-1 product source/test mutation has yet been performed in this working record.
+**Final state:** Cycle 3 is CLOSED. All three Build stages were implemented, tested, recorded, taught, reviewed, and closed; final hosted proof passed. Integrated recall/relearning continues separately in `2026-09-19_cycle3-integrated-learning-review.md`. After that review, return to the parent evidence-sufficiency/maintainer-action synthesis re-audit.
 
 `UP-SKILL:upgradepilot-build-implement`  
 `UP-SKILL:upgradepilot-learning-by-doing`  
