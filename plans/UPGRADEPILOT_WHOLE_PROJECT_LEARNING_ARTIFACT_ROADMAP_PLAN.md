@@ -342,10 +342,15 @@ Group 8
   learning/2026-09-19-parser-backed-ci-command-evidence-and-runtime-strengthening/
 → the September 12 bridge remains a historical prerequisite snapshot, not current coverage by itself
 
-Groups 9–10
-→ NEXT UNSATISFIED ROADMAP RESPONSIBILITIES
-→ materially evolving under the current synthesis/product-flow reconstruction
-→ author only after the selected source/test horizon stabilizes
+Group 9
+→ PARTIALLY SATISFIED
+→ Note 1 is complete at the 2026-09-19 horizon:
+  learning/2026-09-19-impact-applicability-investigation-and-synthesis/01_impact_applicability_and_mechanism_specific_investigation.md
+→ Note 2 (action-relative maintainer-action synthesis / permission / proof limits) remains gated by the active synthesis audit
+
+Group 10
+→ NEXT FULLY UNSATISFIED ROADMAP RESPONSIBILITY
+→ still gated by the active end-to-end product-flow reconstruction and should be authored only after its source/test horizon stabilizes
 
 Group 11
 → later retrospective should include ADR-0009 and the three-cycle correction
@@ -357,7 +362,7 @@ Group 13
 → remains future governance/AI-assisted-engineering learning coverage
 ```
 
-Accordingly, Groups 7–8 are satisfied at this evidence horizon. Groups 9–10 are the next unsatisfied roadmap responsibilities, but their explicit stability gate remains: do not freeze those artifacts while the active product-flow/synthesis responsibility is still changing.
+Accordingly, Groups 7–8 are satisfied and Group 9 Note 1 is now satisfied at this evidence horizon. Group 9 Note 2 and Group 10 remain gated by the active synthesis/product-flow reconstruction; do not freeze them until their selected source/test horizon stabilizes.
 
 At any group entry, newer evidence may eliminate, narrow, split, or defer a planned note; use the reassessment rules rather than creating artifacts for roadmap symmetry.
 
@@ -434,6 +439,6 @@ Stop/prohibited boundaries:
 - do not speculate beyond the evidence horizon;
 - do not let governance learning dominate or replace the product-engineering journey.
 
-**Roadmap authoring boundary after the 2026-09-19 reassessment:** updating this plan does not itself authorize product/source/test repair. When learning-artifact authoring is separately selected, execute one unsatisfied group at a time through the Learning-Artifact procedure. Groups 7–8 are now satisfied by the current artifacts named above; Groups 9–10 are next but retain their explicit stability gates above.
+**Roadmap authoring boundary after the 2026-09-19 reassessment:** updating this plan does not itself authorize product/source/test repair. When learning-artifact authoring is separately selected, execute one unsatisfied group at a time through the Learning-Artifact procedure. Groups 7–8 and Group 9 Note 1 are now satisfied by the current artifacts named above; Group 9 Note 2 and Group 10 retain their explicit stability gates above.
 
 `UP-SKILL:upgradepilot-planning-design`
