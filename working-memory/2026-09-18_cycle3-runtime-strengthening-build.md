@@ -1097,7 +1097,68 @@ E gap repair / next orientation READY after review
 The temporary Stage-3 proof workflow is evidence machinery only and is not intended for merge
 to `main`.
 
+### Build Stage 3 — CLOSED
+
+Stage 3 is complete.
+
+Ali reviewed and correctly identified the existential aggregation rule:
+
+```text
+candidate A
+→ exact supported static occurrence
+→ structurally ineligible
+→ no positive runtime strengthening
+
+candidate B
+→ exact supported static occurrence
+→ eligible
+→ exact successful unmasked runtime step
+→ Runtime-Correlated Support
+
+aggregate
+→ supported_runtime_correlated
+```
+
+The key proposition is existential:
+
+```text
+at least one exact occurrence earns valid Runtime-Correlated Support
+→ the workflow has runtime-correlated support
+```
+
+An independently ineligible or unresolved occurrence does not erase a separate valid
+supported occurrence. Its weaker/adverse detail remains evidence, but it is not a veto.
+
+This preserves the distinction between:
+
+```text
+"every candidate is proven"
+```
+
+and:
+
+```text
+"at least one exact candidate establishes the positive coverage proposition"
+```
+
+Stage-3 closure evidence:
+
+```text
+implementation complete
+hosted focused proof PASS — 76/76
+basis-aware occurrence runtime composition proven
+known runtime non-success factual preservation proven
+static fallback semantics proven
+existential aggregation proven
+direct-exercise separation retained
+conceptual/logical review complete
+```
+
+No material Stage-3 gap was exposed by the review.
+
 ### Final proof and Phase-B closure
+
+**Status:** ACTIVE
 
 After the three build stages:
 
