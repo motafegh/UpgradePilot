@@ -178,3 +178,82 @@ This plan creation and selection do **not** authorize product implementation. Th
 - **E — DONE:** next slice is the source-verified end-to-end product-flow reconstruction; product Build remains stopped until that slice establishes the relevant ownership baseline.
 
 **Activated procedures:** `UP-SKILL:upgradepilot-planning-design`; `UP-SKILL:upgradepilot-learning-by-doing`; `UP-SKILL:upgradepilot-working-memory`.
+
+
+## Product-flow reconstruction slice — front door through dependency transition
+
+### A — orientation
+
+Started the first live slice from `plans/END_TO_END_PRODUCT_FLOW_LEARNING_AND_EVIDENCE_TO_ACTION_EXECUTION_PLAN.md`: source-verified reconstruction of the actual normal product flow. Current bounded chunk is:
+
+```text
+CLI/input
+→ PR identity
+→ changed-file / exact-file evidence
+→ dependency-source interpretation
+→ one trusted DependencyVersionChange or explicit DependencyChangeProblem
+```
+
+No product mutation is authorized in this slice.
+
+### B — source/test trace
+
+**CLI boundary.** `src/upgradepilot/cli.py` owns argument parsing, ambient environment input, rendering and exit policy. It passes `repository`, `pull_number`, and current `GITHUB_TOKEN` value into `investigate_public_pull_request(...)`. It does not own evidence semantics or orchestration.
+
+**Application boundary.** `src/upgradepilot/investigation.py` owns orchestration. It creates provider clients, acquires one `PullRequestIdentity`, acquires coherent changed-file evidence, calls `analyze_dependency_change(...)`, and only enters downstream CI/PyPI/upstream/impact work when that result is a trusted `DependencyChangeAnalysis`.
+
+**PR snapshot identity.** `PullRequestIdentity` freezes repository/PR identity plus exact base/head SHAs and declared changed-file count. `GitHubPullRequestClient.get_changed_files(...)` is not a blind mutable PR-files read: each returned `contents_url` must name the exact repository/path and frozen head SHA, the full declared record count must be acquired, and a post-acquisition PR re-read must preserve base SHA, head SHA and changed-file count. Controlled tests cover same-count head races, post-read base/head/count drift, multi-page drift, wrong repo/path locators and count disagreement. This establishes bounded observable snapshot coherence for admitted PR patch evidence; tests explicitly do not claim transactional GitHub snapshot isolation.
+
+**Dependency-source acquisition is format-specific.**
+- requirements/constraints: source-specific exact-pin extraction uses the coherent changed-file patch and records `extraction_method='changed_file_patch'`; it does not separately fetch base/head file contents.
+- modified `uv.lock`: application acquires exact immutable base/head files through `GitHubRepositoryClient`, then structured lock extraction records `extraction_method='exact_base_head_files'`.
+- modified `pyproject.toml` optional-extra path: likewise uses exact base/head repository files before optional-extra comparison.
+- arbitrary files are ignored; unsupported statuses, missing/incomplete patches, malformed/unavailable files, ambiguous changes, and other source problems remain explicit `DependencyChangeProblem` states.
+
+**PR-wide consensus boundary.** `compare_extracted_dependency_changes(...)` does not accept the first convenient success. Any admitted source problem blocks promotion. Otherwise all admitted extracted sources must agree on normalized package identity and exact old/proposed version pair. Only then is `DependencyVersionChange` created with the unique source-provenance records.
+
+**Source-context handoff.** `DependencyChangeAnalysis` adds typed source contexts bound to the exact target repository and frozen head revision. These contexts mean “this dependency transition came from this source scope”; they do **not** prove workflow selection, installation, execution, compatibility, or maintainer action.
+
+### Corrected mental model
+
+Historical concern that requirements patch evidence could simply be stamped onto a stale frozen PR identity is no longer current behavior. The mutable PR-files endpoint is fenced by exact-head per-file locator validation plus a post-acquisition identity read. This is weaker than direct immutable base/head content comparison in mechanism, but it is an intentionally repaired coherent snapshot contract and is covered by focused tests. Do not reopen the earlier frozen-revision defect absent new contradiction/regression evidence.
+
+### C — preservation
+
+This front-door trace is now preserved as the first verified segment of the end-to-end flow. No live-state change is required; the selected plan and slice remain the same.
+
+### D — ownership check prepared
+
+The key ownership distinction for Ali is:
+
+```text
+PullRequestIdentity
+→ freezes WHICH proposal snapshot is under investigation
+
+ChangedFile / exact RepositoryTextFile
+→ supplies source evidence tied to that snapshot
+
+source-specific extractor
+→ interprets one admitted dependency source
+
+PR-wide comparison
+→ promotes only agreeing non-problematic sources
+
+DependencyChangeAnalysis
+→ trusted transition + typed source scopes for downstream reasoning
+```
+
+Success at this stage proves one trustworthy **declared dependency transition** inside the supported source boundary. It does not prove CI exercised it, what exact version was installed at runtime, target compatibility, or any maintainer recommendation.
+
+### E — next bounded chunk
+
+After the ownership check, continue from `DependencyChangeAnalysis.source_contexts` into:
+
+```text
+exact-head workflow runs/jobs
+→ workflow definition at frozen head
+→ dependency consumption/direct exercise
+→ bounded runtime strengthening
+```
+
+and reconstruct exactly what CI does and does not establish.
