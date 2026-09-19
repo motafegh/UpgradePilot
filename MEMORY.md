@@ -5,9 +5,9 @@
 
 ## Live position
 
-- **Current responsibility:** Cycle 3 Phase B **Build Stage 3 — Runtime Composition review/learning closure**.
-- **Mode:** Build/Implement + Learning-by-Doing. Stage-3 implementation and hosted focused proof are complete. Finish Stage-3 review/teaching before final Phase-B regression/closure.
-- **Cycle state:** **Cycle 1 CLOSED; Cycle 2 CLOSED; Cycle 3 Phase A COMPLETE; Cycle 3 Phase B Stage 1 CLOSED; Stage 2 CLOSED; Stage 3 IMPLEMENTED / HOSTED FOCUSED PROOF PASS / REVIEW ACTIVE**.
+- **Current responsibility:** Cycle 3 Phase B **Final proof and closure**.
+- **Mode:** Build/Implement + Learning-by-Doing. All three Build stages are closed. Final Phase-B hosted regression and real-case capability-boundary proof are active.
+- **Cycle state:** **Cycle 1 CLOSED; Cycle 2 CLOSED; Cycle 3 Phase A COMPLETE; Cycle 3 Phase B Stage 1 CLOSED; Stage 2 CLOSED; Stage 3 CLOSED; FINAL PROOF ACTIVE**.
 - **Selected Cycle-3 working memory:** `working-memory/2026-09-18_cycle3-runtime-strengthening-build.md`.
 - **Cycle-2 D/E closure record:** `working-memory/2026-09-16_cycle2-phase-d-integrated-learning-plan.md`.
 - **Selected parent plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
@@ -462,20 +462,22 @@ Cycle 3 Phase A is complete. No product source/tests were modified during Phase 
 
 ## Immediate next action
 
-Finish **Cycle 3 Phase B — Stage 3 review/learning closure**:
+Execute **Cycle 3 Phase B final proof**:
 
 ```text
-hosted Stage-3 focused proof = PASS
-76/76 tests
-→ explain/review basis-aware occurrence runtime composition with Ali
-→ repair any material conceptual or implementation gap if exposed
-→ record Stage-3 closure
-→ execute final Phase-B proof:
-   nearby regression + full deterministic suite + S001/S002/S004 boundary check
-→ close Cycle 3 Phase B if green
+fresh hosted Python 3.12 environment
+→ pip install .
+→ pip check
+→ installed CLI checks
+→ focused investigation composition
+→ full deterministic unittest regression
+→ explicit Cycle-3 focused runtime-strengthening proof
+→ S001 / S002 / S004 capability-boundary verification
+→ record exact counts/results
+→ close Phase B only if all required proof remains green
 ```
 
-Do not claim final Cycle-3 closure from the focused 76-test proof alone.
+All three Build stages are closed.
 
 ## Current stop line
 
