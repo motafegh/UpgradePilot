@@ -5,8 +5,8 @@
 
 ## Live position — main product workstream STARTED
 
-- **Current responsibility:** execute the post-audit end-to-end product-flow learning/evidence-to-action journey. The source-verified end-to-end reconstruction/ownership baseline is now complete; the next bounded engineering responsibility is AUDIT-008-F3, honest abstention-synthesis residual-uncertainty preservation.
-- **Primary mode:** Learning-by-Doing over the operation appropriate to each plan slice. Learning remains interactive in this main workstream; no learning-note artifact is created unless Ali explicitly requests one.
+- **Current responsibility:** AUDIT-008-F3 honest abstention-synthesis residual-uncertainty preservation. The implementation and focused/integration proof cases are committed on main, but executable regression proof is still pending.
+- **Primary mode:** Build/Implement + interactive Learning-by-Doing. Learning-note artifacts remain out of scope unless Ali explicitly requests one.
 - **Selected execution/learning plan:** `plans/END_TO_END_PRODUCT_FLOW_LEARNING_AND_EVIDENCE_TO_ACTION_EXECUTION_PLAN.md`.
 - **Parent execution plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
 - **Active current-system audit/input:** `audits/2026-09-19_AUDIT-008_current-system-evidence-to-action-readiness.md` (AUDIT-008).
@@ -19,23 +19,22 @@
 
 ## Immediate continuation
 
-Enter the **AUDIT-008-F3 honest abstention-synthesis baseline** slice from the selected execution/learning plan.
+Complete **AUDIT-008-F3 executable proof** before advancing the engineering route.
 
-Responsibility:
+Current implementation now projects material branch-stopping package/upstream/artifact/Target problem states into abstention residual uncertainty while preserving domain ownership and keeping `action='abstain'`. Focused and normal-path integration proof cases are committed.
+
+Required validation sequence when an executable path is available:
 
 ```text
-PublicPullRequestInvestigation
-→ identify material branch-stopping problem/unresolved states
-→ preserve only action-relevant residual uncertainty at synthesis
-→ keep domain semantics owned by their existing modules
-→ retain abstain as the only admitted action
+tests/test_maintainer_action.py
+→ relevant tests/test_investigation.py integration
+→ full deterministic product regression
+→ hosted installed-package verification if needed for closure
 ```
 
-First use the Build/Implement procedure to source-trace the exact normal-shaped branch-stopping states and compare the smallest synthesis-owned projection. Then implement focused tests and the smallest correction in `src/upgradepilot/maintainer_action.py` only after the responsibility boundary is clear.
+Current proof limitation: `.github/workflows/product-verification.yml` is manual `workflow_dispatch`; the available GitHub connector has no dispatch action, there is no workflow run/status for current commit `b3b1963e3466eac9b829f269293e86d43109ddb1`, and this environment cannot clone GitHub directly. Therefore F3 is **IMPLEMENTED / PROOF-PENDING**, not CLOSED.
 
-Important accepted block lesson from the completed reconstruction: mechanism `established_applicable` and runtime-correlated CI do not by themselves justify `block`. For a Python-support hold, the synthesis specification additionally requires an exact target support obligation for the affected environment, evidence that the proposed dependency is required there, and a demonstrated current-proposal conflict after relevant conditions/alternative paths/proposal changes are accounted for.
-
-**Current stop line:** F3 may repair abstention explanation only. Do not add a non-abstention action, change accepted action semantics, wire synthesis into the CLI, add new evidence acquisition, or create a learning-note artifact unless separately selected/authorized.
+**Current stop line:** do not advance to F9 or another product responsibility as though F3 regression proof passed. Do not add non-abstention actions, change synthesis semantics, wire CLI recommendations, or create learning-note artifacts.
 
 ## Retained completed foundations and proof
 
