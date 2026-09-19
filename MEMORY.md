@@ -5,8 +5,8 @@
 
 ## Live position — main product workstream STARTED
 
-- **Current responsibility:** AUDIT-008-F3 honest abstention-synthesis residual-uncertainty preservation. The implementation and focused/integration proof cases are committed on main, but executable regression proof is still pending.
-- **Primary mode:** Build/Implement + interactive Learning-by-Doing. Learning-note artifacts remain out of scope unless Ali explicitly requests one.
+- **Current responsibility:** AUDIT-008-F3 honest abstention-synthesis residual-uncertainty preservation — **implementation slice phase D (post-implementation ownership check)**. A/B/C are complete for what was actually implemented/source-reviewed; executable validation remains explicit proof debt.
+- **Primary mode:** Build/Implement + canonical A → B → C → D → E Learning-by-Doing. Learning-note artifacts remain out of scope unless Ali explicitly requests one.
 - **Selected execution/learning plan:** `plans/END_TO_END_PRODUCT_FLOW_LEARNING_AND_EVIDENCE_TO_ACTION_EXECUTION_PLAN.md`.
 - **Parent execution plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
 - **Active current-system audit/input:** `audits/2026-09-19_AUDIT-008_current-system-evidence-to-action-readiness.md` (AUDIT-008).
@@ -19,22 +19,57 @@
 
 ## Immediate continuation
 
-Complete **AUDIT-008-F3 executable proof** before advancing the engineering route.
+Continue the **current F3 implementation slice at phase D**, not at a new Build responsibility.
 
-Current implementation now projects material branch-stopping package/upstream/artifact/Target problem states into abstention residual uncertainty while preserving domain ownership and keeping `action='abstain'`. Focused and normal-path integration proof cases are committed.
+### Current canonical cycle state
 
-Required validation sequence when an executable path is available:
+```text
+A — DONE
+    oriented the F3 synthesis responsibility, owner boundaries and proof limits
+
+B — DONE for implementation/source-test mutation
+    implemented bounded residual-uncertainty projection
+    added focused + normal-shaped integration proof cases
+    corrected one misplaced integration assertion during source review
+
+C — DONE
+    preserved commits, exact proof limitation and executable-validation debt
+    F3 remains IMPLEMENTED / PROOF-PENDING
+
+D — ACTIVE NOW
+    inspect/teach from the actual F3 source and tests
+    distinguish planned behavior from implemented behavior
+    reason about causal de-duplication, closed vs unresolved states,
+    domain ownership, and proof/non-proof
+    perform a small ownership check with Ali
+
+E — NEXT
+    repair any important reasoning gap
+    orient the deferred executable-validation responsibility and stop line
+```
+
+After E, do **not** pretend the implementation slice's deferred tests ran. When an executable path becomes available, open a separate bounded **F3 executable-validation evidence slice** with its own proportional A → B → C → D → E:
+
+```text
+A — orient exact proof claims
+B — run tests/verification
+C — preserve exact outputs
+D — interpret what passed/failed and proof limits
+E — repair if needed; close F3 only on sufficient proof, otherwise orient repair
+```
+
+Required executable proof remains:
 
 ```text
 tests/test_maintainer_action.py
 → relevant tests/test_investigation.py integration
 → full deterministic product regression
-→ hosted installed-package verification if needed for closure
+→ hosted installed-package verification if required for final closure
 ```
 
-Current proof limitation: `.github/workflows/product-verification.yml` is manual `workflow_dispatch`; the available GitHub connector has no dispatch action, there is no workflow run/status for current commit `b3b1963e3466eac9b829f269293e86d43109ddb1`, and this environment cannot clone GitHub directly. Therefore F3 is **IMPLEMENTED / PROOF-PENDING**, not CLOSED.
+Current execution limitation remains: `.github/workflows/product-verification.yml` is manual `workflow_dispatch`; the available GitHub connector has no dispatch action and there is no run/status for the current F3 code horizon. Therefore source review/test code is **not** executable proof.
 
-**Current stop line:** do not advance to F9 or another product responsibility as though F3 regression proof passed. Do not add non-abstention actions, change synthesis semantics, wire CLI recommendations, or create learning-note artifacts.
+**Current stop line:** complete F3-D and F3-E before selecting another substantive slice. F9 remains downstream and must not be treated as active while F3 required proof is unresolved. Do not add non-abstention actions, change accepted synthesis semantics, wire CLI recommendations, or create learning-note artifacts.
 
 ## Retained completed foundations and proof
 
