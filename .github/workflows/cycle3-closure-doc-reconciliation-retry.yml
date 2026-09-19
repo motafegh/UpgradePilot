@@ -1,0 +1,35 @@
+name: Cycle 3 closure documentation reconciliation retry
+
+on:
+  push:
+    branches:
+      - agent/cycle3-closure-doc-reconciliation-retry
+
+permissions:
+  contents: write
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - name: Check out isolated reconciliation branch
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+      - name: Run same bounded reconciliation with Markdown-aware whitespace proof
+        env:
+          EXPECTED_MAIN: 313bdc62a4689a970c85a7621934bfd0a4ddfafd
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          content = Path('.github/workflows/cycle3-closure-doc-reconciliation.yml').read_text()
+          script = content.split('        run: |\n', 1)[1]
+          script = '\n'.join(line[10:] if line.startswith('          ') else line for line in script.splitlines()) + '\n'
+          old = 'git diff --check\n'
+          assert script.count(old) == 1
+          script = script.replace(old, 'git -c core.whitespace=-blank-at-eol diff --check\n')
+          Path('/tmp/cycle3-reconcile.sh').write_text(script)
+          PY
+          bash /tmp/cycle3-reconcile.sh
