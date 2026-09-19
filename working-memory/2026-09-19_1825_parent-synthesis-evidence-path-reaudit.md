@@ -402,3 +402,93 @@ bounded mechanism applicability
 ```
 
 No live-state change. Continue source reconstruction through artifact-serviceability and then synthesis/CLI before authoring the durable end-to-end learning artifact.
+
+
+### D — Python-support applicability ownership check
+
+Ali correctly concluded that when an upstream Python 3.9 support drop does not intersect the target's declared `requires-python >=3.10` range, the bounded Python-support-drop candidate is **established not applicable**. He also correctly rejected upgrading that one mechanism result into whole-update safety or merge permission: other mechanisms/candidates may still matter, and candidate-discovery coverage is bounded.
+
+Ownership depth is sufficient to continue.
+
+## Product-flow reconstruction slice — artifact serviceability through synthesis and CLI
+
+### A — orientation
+
+Final reconstruction chunk:
+
+```text
+old/proposed PyPI release inventories
+→ published wheel capability comparison
+→ artifact-serviceability candidate
+→ partial Target artifact-environment evidence
+→ exact target wheel-compatibility gap
+→ PublicPullRequestInvestigation
+→ standalone maintainer-action synthesis
+→ current evidence-report CLI
+```
+
+### B — source/test findings
+
+**Artifact candidate formation.** `build_artifact_serviceability_impact_candidate(...)` validates exact dependency/release identity, parses old/proposed published wheel filenames into exact compatibility tags, and forms a candidate only when at least one old published wheel-tag capability disappears. Malformed wheel evidence is explicit; unchanged tag sets produce no candidate.
+
+A removed tag alone does not prove target impact. The evaluator compares the target's supported tag set against the **complete old and proposed wheel inventories**. A different proposed wheel can still serve the same target.
+
+**Exact Target compatibility contract.** `TargetWheelCompatibilityEvidence` requires exact target repository/revision/source plus a non-empty exact `supported_tags` set. The module explicitly forbids deriving this from UpgradePilot's own `sys_tags()` or broad labels such as “Python 3.6 on Linux.”
+
+**Current Target artifact evidence is partial static evidence.** `interpret_target_artifact_environment(...)` can read one safely selected workflow job and preserve literal runner, setup-python version, and a static dependency-installation declaration. It intentionally leaves `exact_wheel_compatibility_state='unresolved'`. It also currently requires exactly one workflow job; multi-job definitions become `ambiguous_target_job_selection`.
+
+**Current normal application gap.** When an artifact candidate exists, application currently calls `evaluate_artifact_serviceability_impact(candidate)` **without** `TargetWheelCompatibilityEvidence`, so applicability remains unresolved. It separately derives partial static Target environment results. These partial results cannot substitute for exact supported wheel tags. This is the AUDIT-008-F5 producer gap; the earlier exact consuming-job handoff issue is F4.
+
+**PublicPullRequestInvestigation is the application evidence container.** It aggregates the frozen PR/dependency state plus CI, package, upstream, Target, impact, and problem/unresolved states. It is not itself a recommendation.
+
+**Maintainer synthesis is a separate layer.** `synthesize_maintainer_action(...)` currently admits only `action='abstain'`. It deliberately does not map “applicable technical concern” directly to block/investigate/etc. Non-abstention actions wait for action-specific normal-producer proof.
+
+**Current synthesis correctness gap.** `_material_residual_uncertainty(...)` currently projects dependency problems, non-supported CI states, unresolved/conflicted Python impact, and unresolved/conflicted artifact impact. It does not yet preserve all materially branch-stopping package/upstream/target/support-drop problem states from `PublicPullRequestInvestigation`. This is AUDIT-008-F3 and is why the plan places honest abstention repair before adding stronger actions.
+
+**Current CLI is an evidence renderer.** `cli.main(...)` invokes `investigate_public_pull_request(...)`, renders `PublicPullRequestInvestigation`, and returns exit status according to input/acquisition/response errors. It does **not** call `synthesize_maintainer_action(...)`. CLI tests explicitly verify that artifact evidence is rendered at its current proof strength and that no “Maintainer recommendation” is emitted.
+
+### Complete reconstructed normal model
+
+```text
+CLI/input
+→ frozen public-PR identity
+→ coherent dependency-source evidence
+→ trusted PR-wide DependencyVersionChange + source contexts
+→ exact-head/exact-attempt CI evidence
+→ static dependency consumption/direct exercise
+→ bounded runtime strengthening
+→ exact PyPI release evidence
+→ trusted upstream repository + crossed-release authority
+→ bounded semantic candidate extraction + deterministic grounding
+→ mechanism-specific impact candidates
+    ├─ Python-support-drop applicability via exact target requires-python
+    └─ artifact-serviceability applicability via exact target wheel tags
+       (normal producer currently missing)
+→ typed PublicPullRequestInvestigation
+→ standalone abstention-only maintainer synthesis
+   (currently incomplete residual-uncertainty projection)
+→ current CLI evidence report
+   (synthesis not yet wired)
+```
+
+### C — preservation
+
+The end-to-end reconstruction is now source/test-backed across all major current responsibilities. No product source was changed. The next planned action after one final ownership check is to create the durable learning/reference artifact from this verified model, then enter the F3 synthesis-correctness Build slice only after that learning artifact is completed and the Build route is explicitly activated.
+
+### Current proof hierarchy retained
+
+```text
+declared dependency transition
+< static CI consumption/direct exercise
+< bounded runtime-correlated CI support
+
+upstream semantic candidate
+< deterministically grounded upstream claim
+< mechanism-specific target applicability
+
+mechanism applicability
+< action-specific permission
+< maintainer-facing action output
+```
+
+Each '<' means “stronger/different proposition requiring additional evidence,” not a universal numeric confidence score.
