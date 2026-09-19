@@ -1,0 +1,120 @@
+name: Cycle 3 closure documentation reconciliation
+
+on:
+  push:
+    branches:
+      - agent/cycle3-closure-doc-reconciliation
+
+permissions:
+  contents: write
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - name: Check out isolated reconciliation branch
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+      - name: Reconcile only accepted closure documentation on main
+        env:
+          EXPECTED_MAIN: 313bdc62a4689a970c85a7621934bfd0a4ddfafd
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "$EXPECTED_MAIN" || { echo 'main moved; aborting without edits'; exit 1; }
+          git checkout -B main origin/main
+          python - <<'PY'
+          from pathlib import Path
+
+          def replace_once(text: str, old: str, new: str, label: str) -> str:
+              count = text.count(old)
+              if count != 1:
+                  raise RuntimeError(f'{label}: expected one match, got {count}')
+              return text.replace(old, new, 1)
+
+          memory = Path('MEMORY.md')
+          m = memory.read_text()
+          m = replace_once(m, '**Last updated:** 2026-09-18', '**Last updated:** 2026-09-19', 'memory date')
+          m = replace_once(m,
+              '- **Current responsibility:** Parent evidence-sufficiency / maintainer-action synthesis **re-audit after Cycle 3 closure**.',
+              '- **Current responsibility:** Cycle-3 integrated review, recall, and relearning (Learning-Only), before the parent synthesis re-audit.', 'live responsibility')
+          m = replace_once(m,
+              '- **Mode:** Cycle 3 implementation/proof is closed. Return to analysis/planning at the parent synthesis layer; re-audit the current evidence path before selecting any new implementation responsibility.',
+              '- **Mode:** Cycle 3 is technically closed. The selected next responsibility is the integrated learning review; product/source/test changes are paused. Return to the parent evidence-sufficiency synthesis re-audit after the learning review.', 'live mode')
+          m = replace_once(m,
+              '- **Selected Cycle-3 working memory:** `working-memory/2026-09-18_cycle3-runtime-strengthening-build.md`.',
+              '- **Cycle-3 technical closure record:** `working-memory/2026-09-18_cycle3-runtime-strengthening-build.md`.\n- **Selected integrated learning record:** `working-memory/2026-09-19_cycle3-integrated-learning-review.md`.', 'learning handoff')
+          m = replace_once(m,
+              '## Cycle 3 — Phase A COMPLETE / Build Ready',
+              '## Cycle 3 — historical Phase-A design record (Cycle 3 now CLOSED)', 'historical heading')
+          m = replace_once(m, '### Current source pressure', '### Historical pre-implementation source pressure', 'historical source heading')
+          m = replace_once(m,
+              'Current `src/upgradepilot/ci/dependency_exercise.py` still reduces supported static evidence to step-level locations:',
+              'Before Cycle 3, `src/upgradepilot/ci/dependency_exercise.py` reduced supported static evidence to step-level locations:', 'historical code description')
+          m = replace_once(m,
+              'The missing Cycle-3 input is the **specific command occurrence\'s structural context and effective execution profile**.',
+              'The then-missing Cycle-3 input was the **specific command occurrence\'s structural context and effective execution profile**; the implemented handoff now preserves these facts.', 'historical missing fact')
+          m = replace_once(m,
+              '## Cycle 3 Phase-A questions',
+              '## Cycle 3 Phase-A decisions (historical design record)', 'historical questions heading')
+          start = m.index('## Immediate next action\n')
+          end = m.index('## Current stop line\n', start)
+          m = m[:start] + (
+              '## Immediate next action\n\n'
+              'Complete the **Cycle-3 integrated learning review** under Learning-Only, using '
+              '`working-memory/2026-09-19_cycle3-integrated-learning-review.md` as the learning route:\n\n'
+              '```text\noriginal evidence gap / Phase-A decision and non-claim\n'
+              '→ Stage-1 provider structural facts\n'
+              '→ Stage-2 exact occurrence handoff and eligibility\n'
+              '→ Stage-3 runtime composition and outcome distinctions\n'
+              '→ final hosted proof / S001 S002 S004 boundaries\n'
+              '→ user-owned end-to-end trace and changed-case reasoning\n'
+              '→ parent synthesis evidence-path re-audit after review\n```\n\n'
+              'Do not reopen the closed implementation or mark integrated understanding complete '
+              'until the actual learning checks are done.\n\n'
+          ) + m[end:]
+          m = replace_once(m,
+              '## Current stop line\n\nUntil Cycle 3 Phase A is accepted:',
+              '## Historical Cycle-3 pre-Build stop line (superseded)\n\n'
+              'The following restrictions governed the period before Cycle-3 Phase A was accepted. '
+              'They are retained as historical context, **not** as current entry conditions. '
+              'The current Learning-Only session pauses product mutation; any future Build requires its own authorization:', 'stale stop line')
+          memory.write_text(m)
+
+          build = Path('working-memory/2026-09-18_cycle3-runtime-strengthening-build.md')
+          b = build.read_text()
+          b = replace_once(b,
+              '### Final proof and Phase-B closure\n\n**Status:** ACTIVE',
+              '### Final proof and Phase-B closure\n\n**Status:** COMPLETE', 'final proof status')
+          b = replace_once(b,
+              '## Current entry state\n\nPhase A is complete and accepted.\n\nPhase B Stage 1 is formally selected and authorized.\n\nNo Stage-1 product source/test mutation has yet been performed in this working record.',
+              '## Historical entry state and final handoff\n\nAt this working record\'s opening, Phase A had been accepted and Build Stage 1 was authorized but not yet implemented. That entry state is historical, not current.\n\n**Final state:** Cycle 3 is CLOSED. All three Build stages were implemented, tested, recorded, taught, reviewed, and closed; final hosted proof passed. Integrated recall/relearning continues separately in `2026-09-19_cycle3-integrated-learning-review.md`. After that review, return to the parent evidence-sufficiency/maintainer-action synthesis re-audit.', 'stale build footer')
+          b = replace_once(b,
+              '## Progressive-recording rule',
+              '### Canonical A → B → C → D → E closure clarification\n\n'
+              'The canonical Learning-by-Doing phases were applied *within each substantive Build stage* and overlapped when appropriate. A oriented the next responsibility; B implemented and validated it; C progressively recorded state throughout implementation and proof; D taught the actual changes and included user reasoning checks before progressing; E repaired or deferred gaps and oriented the next stage. Stage 1, Stage 2, and Stage 3 each have recorded A/B/C/D/E closures above. Phase-A design likewise included orientation, real analysis/design action, progressive recording, user reasoning, and gap-driven refinement.\n\n'
+              'The final hosted proof was a separate evidence step. Its execution, evidence and non-claims were reported and discussed; Ali explicitly accepted proportionate closure after reviewing the canonical cycle, without treating an additional artificial quiz as a technical release gate. This records user-accepted Learning-by-Doing closure, **not** a claim that integrated mastery of every mechanism has been demonstrated. That deeper, separate recall/relearning responsibility is now selected in `2026-09-19_cycle3-integrated-learning-review.md`.\n\n'
+              'No product implementation/proof was reopened or changed by this documentary reconciliation.\n\n'
+              '## Progressive-recording rule', 'canonical loop closure')
+          build.write_text(b)
+
+          phase_a = Path('working-memory/2026-09-17_cycle3-runtime-strengthening-phase-a-orientation.md')
+          a = phase_a.read_text()
+          a = replace_once(a,
+              '**Session status:** ACTIVE — orientation/design only',
+              '**Session status:** CLOSED — historical Phase-A design record; Cycle 3 fully closed', 'phase A historical status')
+          phase_a.write_text(a)
+
+          for path in (memory, build, phase_a):
+              assert path.read_text().strip()
+          print('Document reconciliation complete; product source/tests unchanged')
+          PY
+          git diff --check
+          git diff --stat
+          git add MEMORY.md working-memory/2026-09-18_cycle3-runtime-strengthening-build.md working-memory/2026-09-17_cycle3-runtime-strengthening-phase-a-orientation.md
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Reconcile Cycle 3 closure and select integrated learning review'
+          git push origin HEAD:refs/heads/main
