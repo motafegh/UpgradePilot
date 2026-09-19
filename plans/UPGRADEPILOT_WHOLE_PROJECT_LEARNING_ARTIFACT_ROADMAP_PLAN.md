@@ -6,7 +6,9 @@
 
 **Later roadmap-extension evidence horizon:** `main@d9c637b6df4d9449683d7f67d8859a4e18fd132f` (2026-09-06) for the bounded evidence-gap planner / LangGraph / framework-deferral learning responsibility.
 
-The initial roadmap horizon remains pinned provenance for the original decomposition. Later group-specific extensions may use later evidence when project progress creates a genuinely new learning responsibility or completes evidence that the original roadmap deliberately deferred. This plan is **not** a claim that either horizon remains the live project position. `MEMORY.md` alone owns live continuation, current blockers, selected work, and current verification.
+**Current roadmap-reassessment evidence horizon:** `main@dbdae3a5e76c480541a45a82987ab632783c1d47` (2026-09-19) for the parser-backed workflow-command architecture, static-consumer migration, occurrence-level runtime strengthening, artifact/Target integration state, current maintainer-action synthesis boundary, and source-verified end-to-end product-flow reconstruction.
+
+The initial roadmap horizon remains pinned provenance for the original decomposition. Later group-specific extensions may use later evidence when project progress creates a genuinely new learning responsibility or completes evidence that the original roadmap deliberately deferred. The 2026-09-19 reassessment does not silently modernize older frozen artifacts; it identifies which roadmap responsibilities are already satisfied by historical snapshots and which now require a new current artifact. This plan is **not** a claim that any horizon remains the live project position. `MEMORY.md` alone owns live continuation, current blockers, selected work, and current verification.
 
 ## 1. Scope and outcome
 
@@ -109,61 +111,76 @@ Complex groups must use Planning/Design proportionately before authoring when de
 
 ### Group 7 — Artifact serviceability and wheel-compatibility applicability
 
-**Learning responsibility/outcome:** explicitly learn the artifact-serviceability responsibility: exact old/proposed release inventories can establish a target-agnostic loss-of-wheel-capability candidate, while target-owned wheel-compatibility evidence is separately required to establish or refute applicability.
+**Learning responsibility/outcome:** explicitly learn the artifact-serviceability responsibility from current source: exact old/proposed release inventories can establish a target-agnostic loss-of-wheel-capability candidate; exact target-owned wheel-compatibility evidence is a separate stronger proposition required to establish or refute applicability; partial static Target environment facts must not be promoted into exact supported wheel tags.
 
-**Main anchors:** `src/upgradepilot/impact/artifact_serviceability.py`; `tests/test_artifact_serviceability.py`; PyPI `PackageReleaseEvidence`; target artifact-environment evidence; impact applicability owners/tests; related August target-evidence/serviceability history and product-simulation handoffs.
+**Main anchors:** `src/upgradepilot/impact/artifact_serviceability.py`; `tests/test_artifact_serviceability.py`; PyPI `PackageReleaseEvidence`; `src/upgradepilot/target/artifact_environment.py`; `src/upgradepilot/investigation.py`; target artifact-environment tests/integration tests; the current-system audit's artifact/Target findings; related target-evidence/serviceability history and representative product-simulation pressure.
 
-**Concepts/tools:** wheel filenames and compatibility tags, `packaging.tags.Tag`, `parse_wheel_filename`, set/intersection reasoning, source-distribution fallback, target-agnostic candidate vs target applicability, repository/revision identity checks, evidence-problem states, proposition/path evaluation and explicit non-claims.
+**Concepts/tools:** wheel filenames and compatibility tags, `packaging.tags.Tag`, `parse_wheel_filename`, set/intersection reasoning, source-distribution fallback, target-agnostic candidate vs target applicability, repository/revision identity checks, evidence-problem states, exact target-witness provenance, and the distinction between an implemented compatibility-evidence contract and a normally reachable producer.
 
-**Depth/shape:** **must master / own** the evidence separation and applicability logic; wheel-parser/API details operationally. Prefer **one focused note**; split only if historical evolution and current mechanism cannot remain studyable together.
+**Current reassessment boundary:** the normal application can build the artifact-serviceability candidate and partial static Target environment results, but it does not currently produce exact `TargetWheelCompatibilityEvidence` or pass such a witness into normal artifact applicability evaluation. The learning artifact must teach this as a current product boundary rather than a hypothetical future design.
+
+**Depth/shape:** **must master / own** the evidence separation, applicability logic, normal producer/composition path, and proof/non-proof boundary; wheel-parser/API details operationally. Prefer **one focused current note** with one representative candidate path and one target-witness applicability path.
 
 **Dependency:** Groups 4 and 6.
 
 ### Group 8 — CI and workflow evidence without treating CI as a verdict
 
-**Learning responsibility/outcome:** understand static GitHub Actions workflow modelling, dependency exercise/environment evidence, and the exact proof/non-proof boundary of available CI.
+**Learning responsibility/outcome:** understand the current CI evidence architecture after the September command-correctness work: provider-owned workflow/shell structure, parser-backed static command occurrences, dependency/project/invocation consumers, canonical occurrence identity and bounded static ordering, exact static↔runtime step correlation, occurrence-level runtime-strengthening eligibility/composition, and the exact proof/non-proof boundary of the resulting CI states.
 
-**Main anchors:** `src/upgradepilot/ci/`; GitHub provider layer; dependency/workflow integration; ADR-0008; CI/dependency-consumption plans; representative S003 failing-CI and S011 optional-extra evidence; focused tests.
+**Main anchors:** `src/upgradepilot/github/workflow_definition.py`; `workflow_command_shell.py`; `workflow_command_analysis.py`; `workflow_command_location.py`; `src/upgradepilot/dependency/direct_install.py`; `environment_selection.py`; `src/upgradepilot/ci/consumption.py`; `workflow_commands.py`; `workflow_runtime_correlation.py`; `runtime_strengthening.py`; `dependency_exercise.py`; ADR-0009; the completed static-command/runtime-strengthening plan; focused tests; Cycle-1/2/3 working-memory/proof only where it materially explains the correction; representative S001/S002 positive pressure and S004 deferred short-circuit pressure.
 
-**Concepts/tools:** GitHub Actions YAML, jobs/steps/matrices, static workflow analysis, exercised behavior vs safety, missing/partial coverage, optional extras and proof gaps.
+**Concepts/tools:** effective shell context; syntax family vs execution profile; Tree-sitter as parser substrate; parser-neutral command IR; source span/order vs execution semantics; `StaticCommandLocation`; structural context; whole-step relation; static ordering; exact workflow/job/step identity; `eligible | ineligible | unresolved`; runtime correlation; `supported_not_correlated` vs `supported_runtime_correlated`; static/runtime proof limits; no regex/textual positive fallback after parser uncertainty.
 
-**Depth/shape:** must master the proof boundary; parser/models implementation-adjacent. Prefer **one substantial focused note**.
+**Depth/shape:** **must master / own** the proposition boundaries and complete producer → consumer → runtime-strengthening flow; parser-library node/API details remain lookup-level. Prefer a **two-note current package** because two distinct responsibilities now exist:
+1. **Parser-backed static workflow-command evidence and consumer composition** — shell context, parsed occurrences, canonical command identity, direct requirements/project-environment/package-invocation consumers, and bounded static ordering.
+2. **Occurrence-level runtime strengthening and CI proof boundaries** — workflow step correlation, structural/profile eligibility, exact occurrence handoff, runtime composition/aggregation, S001/S002/S004, and explicit non-claims.
+
+The frozen `learning/2026-09-12-ci-static-runtime-correlation-bridge.md` remains useful historical prerequisite material but does not satisfy this current group by itself.
 
 **Dependency:** Groups 5-7.
 
-### Group 9 — Impact, applicability, investigation, and deterministic decision formation
+### Group 9 — Impact, applicability, investigation, and maintainer-action synthesis
 
-**Learning responsibility/outcome:** understand how assembled evidence becomes structured impact candidates, applicability judgments, investigation choices, bounded recommendation/abstention, and explicit uncertainty rather than an opaque score.
+**Learning responsibility/outcome:** understand how assembled evidence becomes structured impact candidates, applicability judgments, bounded investigation choices, typed `PublicPullRequestInvestigation`, and action-relative maintainer-action permission or abstention without collapsing evidence into an opaque score.
 
-**Main anchors:** `src/upgradepilot/impact/`; `investigation.py`; Product Decision Model specification; impact/applicability/investigation foundation and transparent-decision plans; focused tests; representative decision-model pressure tests/history.
+**Main anchors:** `src/upgradepilot/impact/`; `src/upgradepilot/investigation.py`; `src/upgradepilot/maintainer_action.py`; Product Decision Model specification; Maintainer Action Synthesis specification; parent synthesis plan; current-system audit; focused investigation/synthesis tests; representative decision-model/product-simulation pressure.
 
-**Concepts:** candidate generation, proposition/path logic, evidence completeness, investigation value, deterministic reasoning, uncertainty propagation, recommendation vs evidence fact, abstention.
+**Concepts:** candidate generation, proposition/path logic, mechanism-specific applicability, evidence completeness, investigation value, normal-producer reachability, action-relative sufficiency, positive permission, defeaters, residual uncertainty, deterministic synthesis, recommendation vs evidence fact, and abstention as an explicit honest outcome rather than a generic fallback.
 
-**Depth/shape:** **must master / own**. Prefer **two notes**: impact/applicability/investigation + deterministic decision/proof limits.
+**Current reassessment boundary:** stable maintainer-action semantics exist, while the current evaluator admits only `abstain` and current audit work is still validating whether material branch-stopping uncertainty is preserved and which non-abstention premises are normally reachable. Do not freeze a supposedly final current synthesis artifact until that responsibility reaches a stable source/test horizon.
+
+**Depth/shape:** **must master / own**. Prefer **two notes** when the evidence horizon stabilizes: impact/applicability/investigation + action-relative synthesis/permission/proof limits.
 
 **Dependency:** Groups 4-8.
 
 ### Group 10 — Real product composition: public PR to evidence-backed output
 
-**Learning responsibility/outcome:** trace the current application control/data flow across providers and domain responsibilities, including a normal path and at least one degraded/unresolved path.
+**Learning responsibility/outcome:** trace the verified current application control/data flow across providers and domain responsibilities, including one representative normal path and at least one degraded/branch-stopping path, while keeping current evidence-report presentation separate from standalone maintainer-action synthesis.
 
-**Main anchors:** `cli.py`, `__main__.py`, GitHub/PyPI providers, dependency/upstream/target/CI/impact/investigation composition, `json_contract.py`, repository/path utilities, integration tests, current S001 plus a distinct degraded/proof-boundary case.
+**Main anchors:** `src/upgradepilot/cli.py`; `__main__.py`; GitHub/PyPI providers; dependency/upstream/target/CI/impact/investigation composition; `src/upgradepilot/maintainer_action.py`; `json_contract.py`; repository/path utilities; integration tests; the end-to-end product-flow learning/evidence-to-action execution plan; current-system audit; source-verified product-flow working memory; a representative S001-shaped path plus a distinct degraded/proof-boundary path.
 
-**Concepts/tools:** composition boundaries, producer → transformer → consumer flow, typed errors/problems, serialization/JSON contracts, CLI boundary, deterministic output and degradation.
+**Concepts/tools:** producer → transformation → consumer composition; typed success/problem states; exact identity/provenance handoff; normal-path reachability; branch-stopping uncertainty; serialization/JSON contracts; CLI presentation; and the distinction between:
+```text
+current CLI → investigation evidence report
+standalone investigation → maintainer-action synthesis
+```
+until source proves those paths have been integrated.
 
-**Depth/shape:** must master the end-to-end path; CLI/incidental syntax lookup-level. Prefer **one end-to-end walkthrough**.
+**Authoring gate:** this artifact is intentionally authored only after the current product-flow reconstruction has source-verified the major seams and proof limits. The execution plan already requires this durable artifact after reconstruction; this roadmap references that responsibility rather than creating a competing end-to-end learning process.
+
+**Depth/shape:** must master the end-to-end path and important evidence-strength transitions; CLI/incidental syntax lookup-level. Prefer **one end-to-end walkthrough**.
 
 **Dependency:** Groups 4-9.
 
 ### Group 11 — Architecture evolution, proof strategy, and engineering corrections
 
-**Learning responsibility/outcome:** understand why major responsibility boundaries and proof structures changed, including the B2 reset, responsibility-based subpackages, source/test reconciliation, naming/clarity refinements, cross-responsibility composition, and selected regressions/fixes.
+**Learning responsibility/outcome:** understand why major responsibility boundaries and proof structures changed, including the B2 reset, responsibility-based subpackages, source/test reconciliation, naming/clarity refinements, cross-responsibility composition, selected regressions/fixes, and the later correction from duplicated textual shell splitting to parser-backed shared command structure plus bounded occurrence-level runtime strengthening.
 
-**Main anchors:** ADR-0003 and ADR-0007; source-code-structure and cross-responsibility reconciliation plans; Naming Clarity specification; B1 reconciliation; representative working memories/regressions/tests; archived implementation only when it explains a material transition.
+**Main anchors:** ADR-0003, ADR-0007, and ADR-0009; source-code-structure and cross-responsibility reconciliation plans; Naming Clarity specification; B1 reconciliation; the completed static workflow command analysis/runtime-strengthening plan; representative Cycle-1/2/3 working memories and hosted proof; current-system audit; archived implementation only when it explains a material transition.
 
-**Concepts:** cohesion/coupling, ownership, refactoring/migration, test responsibility, unit vs boundary/integration proof, source clarity, deterministic enforcement, over-/under-engineering.
+**Concepts:** cohesion/coupling, earliest sufficient owner, shared producer vs consumer semantics, refactoring/migration, parser substrate vs product-owned IR, identity vs ordering vs execution proof, static vs runtime authority, test responsibility, unit vs boundary/integration/hosted proof, source clarity, deterministic enforcement, and evidence-driven decisions to prefer a larger foundational correction over repeated local patches.
 
-**Depth/shape:** implementation-adjacent / engineering-ownership depth. Prefer **one retrospective/design note**.
+**Depth/shape:** implementation-adjacent / engineering-ownership depth. Prefer **one retrospective/design note** after current product mechanics and composition are understood.
 
 **Dependency:** after current product mechanics and composition are understood.
 
@@ -267,6 +284,9 @@ LangChain
 
 Treat these as high-value frozen evidence or possible direct coverage; inspect them at the relevant group boundary before creating overlapping material:
 
+- `learning/2026-09-12-ci-static-runtime-correlation-bridge.md` — retain as the frozen first static↔runtime bridge snapshot; current Group 8 requires additional post-ADR-0009/Cycle-1–3 material rather than rewriting this file;
+- `learning/2026-09-07-target-artifact-environment-evidence/` — retain as the frozen static Target-evidence snapshot; its core proof boundary remains valuable while its pre-composition application horizon is historical;
+- `learning/2026-09-07-dependency-environment-and-uv-reachability/` — retain as the frozen source-context/selection/uv-reachability package; current parser-backed command semantics should be taught in new Group 8 material rather than silently inserted here;
 - `learning/2026-08-10-seven-concept-foundation-pre-a-c-implementation.md`;
 - `learning/2026-08-10-product-decision-model-a-b-c-mastery-note.md`;
 - `learning/2026-08-15-tranche1-real-case-code-flows/`;
@@ -290,9 +310,47 @@ Reuse may mean direct study, a cited historical snapshot, or satisfying part/all
 
 ### Genuinely new work
 
-Author new material only for roadmap responsibilities not already satisfied at the needed horizon. Expected new coverage includes the fresh whole-project spine, current responsibility syntheses where old snapshots are stale, explicit artifact-serviceability learning, the current end-to-end product flow, architecture/proof retrospective, the bounded evidence-gap execution/semantic-proof and independent LangGraph/framework-deferral notes defined in Group 12, and the final AI-assisted engineering/governance-system group.
+Author new material only for roadmap responsibilities not already satisfied at the needed horizon.
 
-At group entry, an existing artifact may eliminate or narrow a planned new note.
+The 2026-09-19 roadmap reassessment establishes this coverage disposition:
+
+```text
+Groups 1–4
+→ usable existing September 2 / earlier roadmap artifacts
+
+Group 5
+→ usable September 7 dependency-environment / uv-reachability package
+→ parser-backed command changes belong to Group 8, not a rewrite of Group 5
+
+Group 6
+→ usable target-Python + static Target artifact-environment snapshots
+→ application composition has advanced, but the old files remain frozen history
+
+Group 7
+→ NOT YET SATISFIED
+→ author one current artifact-serviceability / exact target-wheel-applicability note
+
+Group 8
+→ PARTIALLY SATISFIED HISTORICALLY by the September 12 bridge note
+→ requires the two-note current parser-backed static-command + occurrence-runtime-strengthening package
+
+Groups 9–10
+→ materially evolving under the current synthesis/product-flow reconstruction
+→ author only after the selected source/test horizon stabilizes
+
+Group 11
+→ later retrospective should include ADR-0009 and the three-cycle correction
+
+Group 12
+→ usable September 6 bounded-evidence-gap / LangGraph package already exists
+
+Group 13
+→ remains future governance/AI-assisted-engineering learning coverage
+```
+
+Accordingly, the first unsatisfied roadmap responsibility at this evidence horizon is Group 7. After Group 7 QA/closure, Group 8 is the next independent current-learning package. Groups 9–10 should not be prematurely frozen while the active product-flow/synthesis responsibility is still changing.
+
+At any group entry, newer evidence may eliminate, narrow, split, or defer a planned note; use the reassessment rules rather than creating artifacts for roadmap symmetry.
 
 ## 5. One-group-at-a-time execution and QA
 
@@ -367,4 +425,6 @@ Stop/prohibited boundaries:
 - do not speculate beyond the evidence horizon;
 - do not let governance learning dominate or replace the product-engineering journey.
 
-**Immediate plan stop:** creation/verification of this roadmap plan does not authorize Group 1 authoring. Group 1 begins only as a separately selected learning-artifact responsibility.
+**Roadmap authoring boundary after the 2026-09-19 reassessment:** updating this plan does not itself authorize product/source/test repair. When learning-artifact authoring is separately selected, execute one unsatisfied group at a time through the Learning-Artifact procedure. At this evidence horizon, Group 7 is the first unsatisfied group; Group 8 follows only after Group 7 is QA'd/closed, while Groups 9–10 retain their explicit stability gates above.
+
+`UP-SKILL:upgradepilot-planning-design`
