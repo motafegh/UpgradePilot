@@ -13,7 +13,19 @@ from dataclasses import dataclass
 from typing import Literal
 
 from .dependency.change import DependencyChangeProblem
+from .github.changelog import ChangelogPathDiscoveryProblem
+from .github.tag import GitHubTagCommitProblem
+from .impact.artifact_serviceability import ArtifactServiceabilityEvidenceProblem
 from .investigation import PublicPullRequestInvestigation
+from .pypi.release import PackageReleaseIndexProblem, PackageReleaseProblem
+from .target.artifact_environment import TargetArtifactEnvironmentProblem
+from .upstream.claim import UpstreamSupportDropClaimProblem
+from .upstream.interval import (
+    UpstreamAuthoritySourceProblem,
+    UpstreamIntervalAuthorityProblem,
+)
+from .upstream.interval_evidence import CrossedReleaseIndexSelectionProblem
+from .upstream.repository import UpstreamRepositoryProblem
 
 
 type MaintainerAction = Literal["abstain"]
@@ -122,6 +134,9 @@ def _material_residual_uncertainty(
             f"CI dependency coverage remains {ci.state}: {ci.detail}"
         )
 
+    _append_package_and_upstream_uncertainty(uncertainty, investigation)
+    _append_artifact_branch_uncertainty(uncertainty, investigation)
+
     python_impact = investigation.python_support_drop_impact_result
     if python_impact is not None and python_impact.applicability.state in {
         "unresolved",
@@ -143,6 +158,120 @@ def _material_residual_uncertainty(
         )
 
     return tuple(uncertainty)
+
+
+def _append_package_and_upstream_uncertainty(
+    uncertainty: list[str],
+    investigation: PublicPullRequestInvestigation,
+) -> None:
+    """Preserve one material unresolved state from the current upstream evidence branch.
+
+    The application stores intermediate typed results so synthesis can explain why the
+    branch stopped even when no mechanism-specific impact assessment was produced. Prefer
+    the furthest material problem reached on the branch to avoid repeating the same causal
+    failure at several composition layers.
+    """
+
+    proposed_release = investigation.package_result
+    if isinstance(proposed_release, PackageReleaseProblem):
+        uncertainty.append(
+            "Proposed package-release evidence remains "
+            f"{proposed_release.state}: {proposed_release.detail}"
+        )
+        return
+
+    support_drop = investigation.upstream_support_drop_result
+    if isinstance(support_drop, UpstreamSupportDropClaimProblem):
+        if support_drop.state != "no_support_drop_claim":
+            uncertainty.append(
+                "Upstream Python-support evidence remains "
+                f"{support_drop.state}: {support_drop.detail}"
+            )
+        return
+
+    interval = investigation.upstream_interval_result
+    if isinstance(interval, UpstreamIntervalAuthorityProblem):
+        uncertainty.append(
+            "Upstream release-interval authority remains "
+            f"{interval.state}: {interval.detail}"
+        )
+        return
+
+    tagged_changelog = investigation.tagged_changelog_result
+    if isinstance(tagged_changelog, UpstreamAuthoritySourceProblem):
+        uncertainty.append(
+            "Tagged changelog evidence remains "
+            f"{tagged_changelog.state}: {tagged_changelog.detail}"
+        )
+        return
+
+    changelog_path = investigation.changelog_path_result
+    if isinstance(changelog_path, ChangelogPathDiscoveryProblem):
+        uncertainty.append(
+            "Upstream changelog discovery remains "
+            f"{changelog_path.state}: {changelog_path.detail}"
+        )
+        return
+
+    tag = investigation.tag_commit_result
+    if isinstance(tag, GitHubTagCommitProblem):
+        uncertainty.append(
+            "Upstream proposed-version tag evidence remains "
+            f"{tag.state}: {tag.detail}"
+        )
+        return
+
+    crossed = investigation.crossed_release_result
+    if isinstance(crossed, CrossedReleaseIndexSelectionProblem):
+        uncertainty.append(
+            "Crossed-release selection remains "
+            f"{crossed.state}: {crossed.detail}"
+        )
+        return
+
+    release_index = investigation.release_index_result
+    if isinstance(release_index, PackageReleaseIndexProblem):
+        uncertainty.append(
+            "Package release-index evidence remains "
+            f"{release_index.state}: {release_index.detail}"
+        )
+        return
+
+    upstream_repository = investigation.upstream_repository_result
+    if isinstance(upstream_repository, UpstreamRepositoryProblem):
+        uncertainty.append(
+            "Upstream repository identity remains "
+            f"{upstream_repository.state}: {upstream_repository.detail}"
+        )
+
+
+def _append_artifact_branch_uncertainty(
+    uncertainty: list[str],
+    investigation: PublicPullRequestInvestigation,
+) -> None:
+    """Preserve material artifact-branch problems that may precede an impact result."""
+
+    old_release = investigation.old_package_result
+    if isinstance(old_release, PackageReleaseProblem):
+        uncertainty.append(
+            "Old package-release evidence remains "
+            f"{old_release.state}: {old_release.detail}"
+        )
+
+    candidate = investigation.artifact_serviceability_candidate_result
+    if isinstance(candidate, ArtifactServiceabilityEvidenceProblem):
+        uncertainty.append(
+            "Artifact-serviceability candidate evidence remains "
+            f"{candidate.state}: {candidate.detail}"
+        )
+
+    for association in investigation.target_artifact_environment_results:
+        target = association.target_environment
+        if isinstance(target, TargetArtifactEnvironmentProblem):
+            uncertainty.append(
+                "Target artifact-environment evidence remains "
+                f"{target.state}: {target.detail}"
+            )
 
 
 __all__ = (
