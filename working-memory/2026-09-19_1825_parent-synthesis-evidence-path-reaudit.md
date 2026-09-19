@@ -543,3 +543,91 @@ The end-to-end reconstruction/ownership baseline is therefore **COMPLETE**.
 Selected next responsibility: **AUDIT-008-F3 — honest abstention synthesis**.
 
 Goal: preserve materially branch-stopping uncertainty in `MaintainerActionSynthesis` without duplicating domain semantics or creating new action permission. This is the first post-reconstruction Build responsibility. Learning remains interactive; no learning-note artifact is part of this slice unless explicitly requested.
+
+
+## AUDIT-008-F3 Build — honest abstention residual uncertainty
+
+### A — pre-change model
+
+Selected responsibility: repair the already-admitted abstention evaluator so material branch-stopping investigation problems remain visible even when the branch stops before a mechanism-specific impact object exists.
+
+Ownership boundary:
+
+```text
+domain modules
+→ own problem types, states and details
+
+PublicPullRequestInvestigation
+→ preserves typed intermediate branch state
+
+maintainer_action synthesis
+→ projects only material action-relevant residual uncertainty
+```
+
+No new evidence producer, action permission, CLI integration or generic evidence graph is in scope.
+
+### B — implementation
+
+Changed `src/upgradepilot/maintainer_action.py`.
+
+Added explicit synthesis projection for current typed branch-stopping states across:
+
+- proposed package-release problems;
+- upstream repository identity problems;
+- release-index problems;
+- crossed-release selection problems;
+- proposed-version tag problems;
+- changelog-discovery problems;
+- tagged-changelog/source-authority problems;
+- upstream interval-authority problems;
+- unresolved/problematic support-drop semantic results;
+- old package-release problems on the independent artifact branch;
+- artifact candidate evidence problems;
+- Target artifact-environment problems.
+
+The upstream projection reports the furthest material problem reached on the causal branch, avoiding a dump of several derived failures for one root cause. The independent artifact branch can still contribute its own uncertainty simultaneously.
+
+`UpstreamSupportDropClaimProblem(state='no_support_drop_claim')` is deliberately treated as a closed bounded mechanism result rather than manufactured residual uncertainty. Existing unresolved/conflicted Python/artifact impact summaries remain intact.
+
+No change was made to `MaintainerAction = Literal['abstain']`, positive action permissions, domain result types, evidence acquisition, or CLI behavior.
+
+### Proof additions
+
+Extended `tests/test_maintainer_action.py` with focused cases proving:
+
+- changelog branch-stop preserved even without Python impact;
+- artifact candidate evidence problem preserved even without artifact impact assessment;
+- closed no-support-drop result does not manufacture uncertainty;
+- independent upstream + artifact problems are preserved in deterministic order.
+
+Extended the existing normal application fixture in `tests/test_investigation.py::test_upstream_source_problem_stops_semantics_target_and_impact_but_not_ci` so the real application-shaped changelog stop is passed into synthesis and must surface its uncertainty.
+
+### Verification correction
+
+Initial integration assertion was accidentally inserted into the preceding closed `no_support_drop_claim` test due to an overly broad textual edit anchor. Source review caught this before closure. Commit `b3b1963e3466eac9b829f269293e86d43109ddb1` moved the assertion into the intended changelog-failure test. This correction reinforces the semantic boundary: closed no-claim must stay quiet; actual changelog evidence failure must remain visible.
+
+### C — proof state
+
+Source/tests are committed on `main`:
+
+- synthesis implementation: `520df8c0b507f639e798518fcb99cdded69d36d0`
+- focused tests: `c3f4b110b4cd88ce8dd11100127a0b41771c9c2d`
+- normal-path integration proof edit: `ddf4ceb0944376ea7c7e1f5e52a229cb78572adb`
+- integration placement correction: `b3b1963e3466eac9b829f269293e86d43109ddb1`
+
+Executable validation is **PENDING**. The repository's `.github/workflows/product-verification.yml` is manual `workflow_dispatch` only. The available GitHub connector can inspect/rerun existing workflows but exposes no workflow-dispatch action, and no run/status exists for the current F3 commit. Container network access cannot clone the public repository in this environment. Therefore source review is not being misreported as test proof.
+
+### Current F3 status
+
+IMPLEMENTED / PROOF-PENDING — not technically closed.
+
+Next required proof when an execution path is available:
+
+```text
+focused maintainer-action tests
+→ investigation integration test
+→ full deterministic product regression
+→ hosted installed-package verification when justified
+```
+
+Do not advance the live engineering route to F9 as though F3 has passed regression proof.
