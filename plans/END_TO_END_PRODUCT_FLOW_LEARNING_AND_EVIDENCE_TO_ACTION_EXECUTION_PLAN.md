@@ -162,6 +162,32 @@ Use Ali's answers and the observed evidence to:
 
 The cycle is not a ceremony gate. If a concept is already owned, compress A/D/E. If a slice exposes a new proof model or architecture boundary, deepen them.
 
+### Slice-closure and deferred-proof rule
+
+For every substantive slice, normally complete **A → B → C → D → E before silently selecting the next substantive responsibility**.
+
+The primary operation and the LbD cycle remain distinct:
+
+```text
+primary operation
+→ owns the detailed procedure and authorization boundary
+
+A → B → C → D → E
+→ owns the project-level working/learning rhythm around that operation
+```
+
+A Build implementation may therefore have source/test edits completed in B while executable proof is temporarily unavailable. In that case:
+
+1. C records the exact proof debt and does not call it a pass;
+2. D teaches/reviews what was actually implemented and source-reviewed;
+3. E repairs ownership gaps and orients the deferred proof responsibility;
+4. the later executable validation is treated as its **own bounded evidence slice** with a fresh proportional A → B → C → D → E cycle;
+5. the parent engineering responsibility remains **not technically closed** until its required executable proof passes.
+
+Do not keep B conceptually half-open while waiting for an unavailable runtime path, and do not skip D/E merely because tests are deferred. Conversely, completing D/E does not upgrade deferred validation into proof.
+
+`MEMORY.md` alone states which phase/slice is live.
+
 ## 5. Execution sequence
 
 ### Product-flow reconstruction and ownership baseline
@@ -250,9 +276,15 @@ all non-abstention permissions still unavailable
 
 Include focused evaluator tests and at least one normal-shaped application/investigation fixture boundary. Use broader regression only after focused proof passes.
 
-**Learning ownership target:** Ali should be able to explain why this is a synthesis correctness repair rather than a new evidence producer or new action permission.
+**Implementation/proof staging:** the Build implementation slice and executable validation may be separate A → B → C → D → E slices when execution is temporarily unavailable.
 
-**Stop line:** do not add non-abstention actions, CLI recommendation rendering, generic result registries, or new evidence acquisition in this slice.
+- **Implementation slice:** orient the synthesis responsibility, implement the bounded projection/tests, preserve exact source-review/proof debt, complete ownership check, and orient validation.
+- **Executable validation slice:** when an execution path is available, orient the proof claims, run focused evaluator tests, the normal-shaped investigation integration proof, then the appropriate broader deterministic regression; preserve exact outputs, interpret proof/non-proof, and repair/close accordingly.
+- F3 is **not technically complete** merely because implementation and test code exist. It closes only when the required executable proof passes.
+
+**Learning ownership target:** Ali should be able to explain why this is a synthesis correctness repair rather than a new evidence producer or new action permission, and why source-reviewed test code is not the same thing as executed proof.
+
+**Stop line:** do not add non-abstention actions, CLI recommendation rendering, generic result registries, or new evidence acquisition in this slice. Do not advance to F9 as though F3 has closed while its required executable proof remains debt.
 
 ---
 
