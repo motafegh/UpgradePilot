@@ -5,8 +5,9 @@
 
 ## Live position — main product workstream STARTED
 
-- **Current responsibility:** post-Cycle-3, end-to-end evidence-path reconstruction and maintainer-action synthesis re-audit, starting with the actual public-PR application flow. This is the MAIN UpgradePilot workstream, explicitly selected and started by Ali on 2026-09-19.
-- **Primary mode:** read-only cross-responsibility product analysis/review with the canonical A → B → C → D → E Learning-by-Doing method. Learn the actual code, owner/data/evidence flow, tests and discovered gaps within the real review; preserve meaningful findings progressively.
+- **Current responsibility:** use the completed full current-system audit as the decision basis for the next post-Cycle-3 parent-synthesis engineering responsibility. Ali explicitly redirected the main workstream to this full audit on 2026-09-19 before selecting further implementation.
+- **Primary mode:** audit review/disposition and Learning-by-Doing ownership transfer. The audit itself is complete; product Build is **not yet selected or authorized**.
+- **Active current-system audit:** `audits/2026-09-19_AUDIT-008_current-system-evidence-to-action-readiness.md` (AUDIT-008).
 - **Active main working memory:** `working-memory/2026-09-19_1825_parent-synthesis-evidence-path-reaudit.md`.
 - **Selected parent plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
 - **Selected earlier bounded implementation plan:** `plans/STATIC_WORKFLOW_COMMAND_ANALYSIS_AND_RUNTIME_STRENGTHENING_IMPLEMENTATION_PLAN.md` — COMPLETE, historical implementation/proof owner, **not** the active new Build task.
@@ -17,16 +18,14 @@
 
 ## Immediate continuation
 
-Trace `src/upgradepilot/investigation.py` from exact PR/dependency acquisition through current domain/CI/target/impact/investigation inputs to typed `PublicPullRequestInvestigation`; trace the call to `src/upgradepilot/maintainer_action.py` and its presentation/CLI output. For each significant producer→consumer seam:
+Review AUDIT-008 with Ali and select the first bounded post-audit responsibility through the normal Learning-by-Doing / Planning-or-Build route. The audit's current ordering is evidence-backed but non-controlling:
 
-1. establish exact input, transformation, result, provenance and normal-path reachability from current source and relevant tests/real cases;
-2. explain the mechanism and a representative proof/non-proof or failure/unsupported state, using Learning-by-Doing with an appropriately small user reasoning check;
-3. record a demonstrated gap or corrected assumption in the active working memory, distinguishing correctness/provenance defect, lost/not-composed evidence, deliberate conservative coverage, missing producer, and unimplemented synthesis permission;
-4. compare actual normally reachable evidence with action-relative positive permission premises before selecting the next bounded product responsibility.
+1. **AUDIT-008-F3 — synthesis correctness gate:** current abstention synthesis can omit material branch-stopping residual uncertainty even though the accepted synthesis contract requires honest explanation of why stronger actions are unavailable. This is the audit's recommended first repair candidate because it concerns already-admitted behavior.
+2. **AUDIT-008-F9 / F11 — trust and coordination:** ambient `GITHUB_TOKEN` can silently alter public acquisition behavior; the audit lifecycle index also contains stale ACTIVE-state pressure from AUDIT-005 relative to this live route. These require explicit bounded disposition, not silent mutation.
+3. **Action-relative producer/composition candidates:** F4 exact consuming-job → Target composition; F5 exact target wheel-tag producer; F6 exact runtime version/artifact witness when a selected proposition needs it; F7 explicit bounded discovery/context closure before favorable merge permission.
+4. Only after the relevant premise is proven should a non-abstention action or final CLI/action rendering be admitted.
 
-The parent synthesis re-audit must identify the **next decision-critical bottleneck**, not automatically expand shell parsing, CI correlation breadth, runtime logs, target/wheel semantics, or agent machinery. Exact consuming-job → Target composition, selected runtime version/artifact evidence, and exact target wheel-compatibility production remain candidate directions, not selected Build tasks. Review current source before carrying forward older plan warnings as current defects.
-
-**Current stop line:** no new action permission, architecture revision, or product implementation until source-backed analysis identifies the exact missing proposition/owner and the proper Planning/Design or Build entry is selected. Product-learning activity in the parallel Cycle-3 session does not change this workstream's proof claims.
+**Current stop line:** AUDIT-008 is evidence, not authorization. Do not modify product source/tests/specifications/ADRs/plans, reclassify AUDIT-005, or implement a new action until Ali reviews the audit and explicitly selects the next bounded responsibility.
 
 ## Retained completed foundations and proof
 
