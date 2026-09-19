@@ -122,3 +122,59 @@ The most important newly discovered correction is **AUDIT-008-F3**: even the alr
 ### Current stop / handoff
 
 The previous narrow CI→Target reasoning path is now subordinate evidence inside AUDIT-008, not the controlling next step. **No new Build task is selected or authorized yet.** Continue from the full audit: first review/understand the important findings, then explicitly select the first post-audit responsibility. Preserve AUDIT-005's lifecycle validity question as F11; do not silently reclassify it without an explicit lifecycle decision.
+
+
+## Post-audit learning/build execution plan selection — 2026-09-19
+
+Ali accepted the post-audit direction and explicitly requested one durable plan that preserves **both learning ownership and product-building progression** before continuing implementation.
+
+Created:
+
+- `plans/END_TO_END_PRODUCT_FLOW_LEARNING_AND_EVIDENCE_TO_ACTION_EXECUTION_PLAN.md`
+- creation commit: `f0b01a090f4ad14119dfa8edc0f33705c9f8fdf8`
+
+### Planning result
+
+The plan is a single consequential child plan under the existing parent synthesis plan, not a replacement roadmap or plan family. It converts AUDIT-008 into this durable dependency order:
+
+```text
+verified end-to-end product-flow ownership
+→ honest abstention-synthesis baseline (AUDIT-008-F3)
+→ deliberate public-auth trust boundary (F9)
+→ audit/live-state lifecycle reconciliation (F11)
+→ action-relative reachability comparison
+→ one selected producer/composition build
+→ one non-abstention action admission
+→ product presentation integration
+→ first credible bounded public-PR synthesis proof
+```
+
+Learning and engineering are intentionally coupled through the canonical A → B → C → D → E cycle. The plan defines ownership/working/lookup learning depth, reasoning checks, proof ladders, working-memory discipline, a future durable product-flow learning artifact, and explicit stop lines against implementing all audit findings or all action labels.
+
+### First selected slice
+
+The plan's first live slice is **product-flow reconstruction and ownership baseline**.
+
+Purpose:
+
+- reconstruct the actual current source/test path end-to-end;
+- establish producer → proposition/evidence → composition → consumer → unresolved/failure boundaries;
+- teach only the concepts needed to own the real flow;
+- create the durable product-flow learning/reference artifact only after the reconstruction is source-verified;
+- perform **no product source mutation** in this first slice.
+
+This first slice prepares the real Build work around F3 without asking Ali to reason from an incomplete mental model.
+
+### Authorization / stop line
+
+This plan creation and selection do **not** authorize product implementation. The next operation is source/test reconstruction + Learning-by-Doing. Product mutation begins only when a later bounded Build slice is explicitly entered under the normal Build procedure.
+
+### A → B → C → D → E state for planning slice
+
+- **A — DONE:** oriented the need for one combined learning/build execution plan from AUDIT-008 and the parent synthesis plan.
+- **B — DONE:** created the bounded plan with sequence, learning depth, proof, gates, and prohibited scope.
+- **C — DONE:** selected the plan in live state and preserved this planning result.
+- **D — compactly complete:** the plan reflects Ali's explicit goal that learning and building progress together rather than as separate tracks.
+- **E — DONE:** next slice is the source-verified end-to-end product-flow reconstruction; product Build remains stopped until that slice establishes the relevant ownership baseline.
+
+**Activated procedures:** `UP-SKILL:upgradepilot-planning-design`; `UP-SKILL:upgradepilot-learning-by-doing`; `UP-SKILL:upgradepilot-working-memory`.
