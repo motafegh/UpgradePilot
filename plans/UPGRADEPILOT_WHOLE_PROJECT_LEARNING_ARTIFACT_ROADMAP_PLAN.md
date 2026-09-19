@@ -147,9 +147,16 @@ The frozen `learning/2026-09-12-ci-static-runtime-correlation-bridge.md` remains
 
 **Concepts:** candidate generation, proposition/path logic, mechanism-specific applicability, evidence completeness, investigation value, normal-producer reachability, action-relative sufficiency, positive permission, defeaters, residual uncertainty, deterministic synthesis, recommendation vs evidence fact, and abstention as an explicit honest outcome rather than a generic fallback.
 
-**Current reassessment boundary:** stable maintainer-action semantics exist, while the current evaluator admits only `abstain` and current audit work is still validating whether material branch-stopping uncertainty is preserved and which non-abstention premises are normally reachable. Do not freeze a supposedly final current synthesis artifact until that responsibility reaches a stable source/test horizon.
+**2026-09-19 internal stability reassessment:** this group is intentionally split at its existing two-note boundary.
 
-**Depth/shape:** **must master / own**. Prefer **two notes** when the evidence horizon stabilizes: impact/applicability/investigation + action-relative synthesis/permission/proof limits.
+1. **Impact / applicability / mechanism-specific investigation** — stable enough to author now. The generic applicability contract, Python-support-drop candidate/evaluation/target-investigation flow, typed investigation composition, and the artifact-serviceability transfer example are source/test-owned and are not the part currently being redesigned by the active synthesis audit.
+2. **Action-relative maintainer-action synthesis / permission / proof limits** — remains gated. Stable specification semantics exist, but the current evaluator is abstention-only and the active end-to-end audit is still validating uncertainty preservation, normal-producer reachability, and which non-abstention premises can actually be earned.
+
+Do not let Note 1 speculate about Note 2. It should stop explicitly at the boundary `mechanism-specific impact/applicability/investigation → later overall sufficiency and maintainer-action synthesis`.
+
+**Depth/shape:** **must master / own**. Use **two notes**:
+1. current impact/applicability/investigation model and application composition;
+2. later action-relative synthesis/permission/proof-limits note only after its stability gate clears.
 
 **Dependency:** Groups 4-8.
 
