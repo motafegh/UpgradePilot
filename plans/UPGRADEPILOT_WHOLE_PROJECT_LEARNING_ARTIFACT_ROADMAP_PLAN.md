@@ -327,11 +327,12 @@ Group 6
 → application composition has advanced, but the old files remain frozen history
 
 Group 7
-→ NOT YET SATISFIED
-→ author one current artifact-serviceability / exact target-wheel-applicability note
+→ SATISFIED at the 2026-09-19 reassessment horizon by
+  learning/2026-09-19-artifact-serviceability-and-exact-target-wheel-applicability.md
 
 Group 8
 → PARTIALLY SATISFIED HISTORICALLY by the September 12 bridge note
+→ FIRST UNSATISFIED GROUP after Group 7 closure
 → requires the two-note current parser-backed static-command + occurrence-runtime-strengthening package
 
 Groups 9–10
@@ -348,7 +349,7 @@ Group 13
 → remains future governance/AI-assisted-engineering learning coverage
 ```
 
-Accordingly, the first unsatisfied roadmap responsibility at this evidence horizon is Group 7. After Group 7 QA/closure, Group 8 is the next independent current-learning package. Groups 9–10 should not be prematurely frozen while the active product-flow/synthesis responsibility is still changing.
+Accordingly, after Group 7 QA/closure, the first unsatisfied roadmap responsibility at this evidence horizon is Group 8. Groups 9–10 should not be prematurely frozen while the active product-flow/synthesis responsibility is still changing.
 
 At any group entry, newer evidence may eliminate, narrow, split, or defer a planned note; use the reassessment rules rather than creating artifacts for roadmap symmetry.
 
@@ -425,6 +426,6 @@ Stop/prohibited boundaries:
 - do not speculate beyond the evidence horizon;
 - do not let governance learning dominate or replace the product-engineering journey.
 
-**Roadmap authoring boundary after the 2026-09-19 reassessment:** updating this plan does not itself authorize product/source/test repair. When learning-artifact authoring is separately selected, execute one unsatisfied group at a time through the Learning-Artifact procedure. At this evidence horizon, Group 7 is the first unsatisfied group; Group 8 follows only after Group 7 is QA'd/closed, while Groups 9–10 retain their explicit stability gates above.
+**Roadmap authoring boundary after the 2026-09-19 reassessment:** updating this plan does not itself authorize product/source/test repair. When learning-artifact authoring is separately selected, execute one unsatisfied group at a time through the Learning-Artifact procedure. Group 7 is now satisfied by the current artifact named above; at this evidence horizon Group 8 is the first unsatisfied group, while Groups 9–10 retain their explicit stability gates above.
 
 `UP-SKILL:upgradepilot-planning-design`
