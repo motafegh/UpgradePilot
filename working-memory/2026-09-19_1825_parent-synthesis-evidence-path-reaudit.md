@@ -325,3 +325,80 @@ supported static consumption
 ```
 
 No live state change yet; continue reconstruction before creating the durable learning artifact.
+
+
+### D — CI ownership check result
+
+Ali correctly identified the static structure/order distinction: the requirements install can establish supported static consumption when tied to the known requirements source, and a later package invocation can support a distinct direct-exercise proposition. He also correctly rejected treating static source order alone as proof of actual runtime execution/success.
+
+Precision corrections:
+
+- `StaticDependencyConsumptionEvidence.state='supported'` is the relevant static consumption state; package invocation evidence is a separate observation, and direct-exercise support depends on its admitted relation to supported consumption.
+- The third answer initially attributed the remaining proof gap to needing static evidence/correlation. In the posed scenario, successful correlation was already assumed. The surviving gap is stronger: exact correlation proves the owning user-defined step was reported completed-successful, but does **not** prove which dependency version/artifact was actually resolved/installed or that the inner dependency-specific behavior executed successfully. An exact runtime installed-version/artifact witness would be a distinct future evidence producer if an action proposition requires it.
+
+Ownership is sufficient to continue; retain this distinction for later AUDIT-008-F6 analysis.
+
+## Product-flow reconstruction slice — PyPI/upstream support-drop to target applicability
+
+### A — orientation
+
+Next bounded branch:
+
+```text
+trusted DependencyVersionChange
+→ exact proposed/old PyPI release evidence
+→ trusted upstream repository identity
+→ exact crossed release interval + tag/changelog authority
+→ bounded support-drop candidate extraction
+→ deterministic grounding
+→ PythonSupportDropImpactCandidate
+→ exact target pyproject requires-python
+→ target relevance
+→ applicability assessment
+```
+
+This branch answers a different question from CI. CI asks whether the changed dependency source is statically/runtime-related to project execution. The upstream/target branch asks whether the dependency transition crosses a documented Python-support drop that is relevant to the target revision's declared Python range.
+
+### B — source/test findings
+
+**PyPI release evidence.** `PyPIReleaseClient.get_release(package, version)` acquires exact requested release JSON, checks normalized package identity and exact published version, and preserves retrieval/source identity, distribution files and project URLs. Problems such as package/version absence, identity mismatch, malformed response and acquisition failure stay typed; they are not converted into “no risk.”
+
+**Upstream repository identity.** `UpstreamRepositoryResolver` does not trust a project URL alone. It reconciles admitted PyPI repository-association URLs with PyPI file provenance publishers and requires one matching GitHub repository identity. Missing/unsupported/ambiguous/mismatched provenance remains an explicit problem.
+
+**Release interval authority.** From the exact dependency transition the application constructs the old-exclusive/proposed-inclusive release interval, uses the PyPI release index to select crossed releases, resolves the proposed version tag, discovers the changelog at the resolved tag commit, acquires that changelog at the exact immutable commit, and assembles `AuthoritativeUpstreamIntervalEvidence`. Source problems remain part of authority composition rather than being hidden by another convenient source.
+
+**Bounded semantic extraction.** `evaluate_support_drop_runtime(...)` requires authoritative interval evidence, builds a bounded crossed-release source window, invokes the local extractor only on that bounded source, then passes candidates through deterministic validation/grounding. The model/extractor proposes candidates; it does not establish authority.
+
+**Grounded support-drop claim.** `GroundedPythonSupportDropClaim` exists only after candidate identity matches the trusted package/release interval, category/state are admitted, Python line is canonical, introduced release is inside the trusted crossed interval, and the source quote is grounded in admitted authoritative source evidence. Multiple distinct claims remain explicit rather than being silently selected.
+
+**Impact candidate does not self-authorize applicability.** Once one grounded Python support-drop claim exists, `build_python_support_drop_impact_candidate(...)` binds it to the exact PR target repository/head revision. It marks mechanism established but target exposure/activation as `to_evaluate`.
+
+**Mechanism-specific investigation selection.** Initial impact evaluation is unresolved because the exact target Python declaration has not yet been acquired. The selector chooses exactly one bounded read-only investigation: read `pyproject.toml` at the exact target head and interpret `[project].requires-python`. Once that evidence exists—even if it is a problem—the same acquisition is not repeatedly selected.
+
+**Target relevance.** `evaluate_target_python_relevance(...)` asks only whether the dropped Python major/minor line intersects the exact target revision's declared `requires-python` range. Outcomes include `declared_python_overlap`, `outside_declared_python_range`, target-declaration unresolved, upstream-claim unresolved, or comparison unsupported.
+
+**Applicability.** The Python-support impact path requires three proposition states: grounded upstream support drop, exact target Python declaration, and overlap/activation. Overlap can establish the bounded candidate as applicable; non-overlap can establish it as not applicable for this mechanism. Neither outcome is equivalent to whole-update safety or a final maintainer action.
+
+### Current mental model
+
+```text
+PyPI says release exists
+!= trusted upstream semantic claim
+
+project URL
+!= trusted upstream repository
+
+model says "Python 3.8 dropped"
+!= grounded support-drop claim
+
+grounded support-drop claim
+!= target affected
+
+target requires-python overlaps dropped line
+→ bounded mechanism applicability established
+
+bounded mechanism applicability
+!= block/merge/action permission
+```
+
+No live-state change. Continue source reconstruction through artifact-serviceability and then synthesis/CLI before authoring the durable end-to-end learning artifact.
