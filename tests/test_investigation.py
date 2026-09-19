@@ -23,6 +23,7 @@ from upgradepilot.impact.artifact_serviceability import (
     ArtifactServiceabilityImpactCandidate,
 )
 from upgradepilot.investigation import investigate_public_pull_request
+from upgradepilot.maintainer_action import synthesize_maintainer_action
 from upgradepilot.pypi.release import (
     DistributionFile,
     PackageReleaseEvidence,
@@ -202,6 +203,15 @@ class InvestigationTests(unittest.TestCase):
             "upstream_claim_unresolved",
         )
         self.assertIsNone(result.python_support_drop_pre_investigation_result)
+
+        synthesis = synthesize_maintainer_action(result)
+        self.assertTrue(
+            any(
+                "Upstream changelog discovery remains no_candidate_path" in item
+                and "No admitted changelog path." in item
+                for item in synthesis.residual_uncertainty
+            )
+        )
         self.assertIsNone(result.python_support_drop_investigation_selection)
         self.assertIsNone(result.python_support_drop_impact_result)
         h.repository_client.get_exact_head_text_file.assert_not_called()
