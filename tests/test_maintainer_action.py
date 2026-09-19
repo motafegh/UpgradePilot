@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import unittest
+from dataclasses import replace
 
 from upgradepilot.ci.dependency_exercise import DependencyCICoverageResult
 from upgradepilot.dependency.change import (
@@ -10,9 +11,14 @@ from upgradepilot.dependency.change import (
     DependencyChangeSourceEvidence,
     DependencyVersionChange,
 )
+from upgradepilot.github.changelog import ChangelogPathDiscoveryProblem
 from upgradepilot.github.pull_request import ChangedFile, PullRequestIdentity
+from upgradepilot.impact.artifact_serviceability import ArtifactServiceabilityEvidenceProblem
 from upgradepilot.investigation import PublicPullRequestInvestigation
 from upgradepilot.maintainer_action import synthesize_maintainer_action
+from upgradepilot.pypi.release import PackageReleaseProblem
+from upgradepilot.upstream.claim import UpstreamSupportDropClaimProblem
+from upgradepilot.upstream.interval import release_interval_from_dependency_change
 
 
 class MaintainerActionSynthesisTests(unittest.TestCase):
@@ -72,6 +78,97 @@ class MaintainerActionSynthesisTests(unittest.TestCase):
         )
         self.assertTrue(
             any("safe or unsafe" in item for item in result.claim_limits)
+        )
+
+
+    def test_branch_stopping_changelog_problem_is_preserved_without_python_impact(self) -> None:
+        investigation = replace(
+            _investigation(_dependency()),
+            changelog_path_result=ChangelogPathDiscoveryProblem(
+                state="no_candidate_path",
+                repository="example/upstream",
+                commit_sha="c" * 40,
+                detail="No admitted changelog path.",
+            ),
+        )
+
+        result = synthesize_maintainer_action(investigation)
+
+        self.assertEqual(result.action, "abstain")
+        self.assertEqual(
+            result.residual_uncertainty,
+            (
+                "Upstream changelog discovery remains no_candidate_path: "
+                "No admitted changelog path.",
+            ),
+        )
+
+    def test_artifact_evidence_problem_is_preserved_without_impact_assessment(self) -> None:
+        investigation = replace(
+            _investigation(_dependency()),
+            artifact_serviceability_candidate_result=ArtifactServiceabilityEvidenceProblem(
+                state="wheel_filename_uninterpretable",
+                release_version="1.0",
+                filename="broken.whl",
+                detail="Published wheel filename could not be interpreted.",
+            ),
+        )
+
+        result = synthesize_maintainer_action(investigation)
+
+        self.assertEqual(
+            result.residual_uncertainty,
+            (
+                "Artifact-serviceability candidate evidence remains "
+                "wheel_filename_uninterpretable: "
+                "Published wheel filename could not be interpreted.",
+            ),
+        )
+
+    def test_closed_no_support_drop_claim_does_not_manufacture_uncertainty(self) -> None:
+        dependency = _dependency()
+        investigation = replace(
+            _investigation(dependency),
+            upstream_support_drop_result=UpstreamSupportDropClaimProblem(
+                state="no_support_drop_claim",
+                interval=release_interval_from_dependency_change(dependency),
+                detail="No relevant Python support-drop claim was established.",
+            ),
+        )
+
+        result = synthesize_maintainer_action(investigation)
+
+        self.assertEqual(result.residual_uncertainty, ())
+
+    def test_independent_upstream_and_artifact_problems_are_preserved_deterministically(self) -> None:
+        investigation = replace(
+            _investigation(_dependency()),
+            changelog_path_result=ChangelogPathDiscoveryProblem(
+                state="no_candidate_path",
+                repository="example/upstream",
+                commit_sha="c" * 40,
+                detail="No admitted changelog path.",
+            ),
+            old_package_result=PackageReleaseProblem(
+                state="acquisition_failed",
+                requested_package="demo",
+                normalized_package="demo",
+                requested_version="1.0",
+                source_url="https://pypi.org/pypi/demo/1.0/json",
+                detail="Old release lookup failed.",
+            ),
+        )
+
+        result = synthesize_maintainer_action(investigation)
+
+        self.assertEqual(
+            result.residual_uncertainty,
+            (
+                "Upstream changelog discovery remains no_candidate_path: "
+                "No admitted changelog path.",
+                "Old package-release evidence remains acquisition_failed: "
+                "Old release lookup failed.",
+            ),
         )
 
 
