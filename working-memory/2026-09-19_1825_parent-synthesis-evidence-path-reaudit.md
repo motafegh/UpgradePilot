@@ -257,3 +257,71 @@ exact-head workflow runs/jobs
 ```
 
 and reconstruct exactly what CI does and does not establish.
+
+
+### D — front-door ownership check result
+
+Ali's reasoning:
+
+1. For conflicting requirements/lock transitions, correctly rejected promotion to one trusted dependency change and preferred preserving the explicit conflict.
+2. Correctly separated source-level dependency evidence from runtime installation/execution. Precision added: successful front-door analysis establishes one trusted **PR-wide declared exact transition at the frozen proposal snapshot**, not merely that relevant files were observed.
+3. Correctly identified provenance/context as necessary for evidence-based downstream work and reproducibility. Precision added: typed source contexts are also **active semantic inputs** to downstream CI/environment reasoning, because the system must preserve which exact dependency source/scope is being selected or consumed rather than pass only a package/version tuple.
+
+Ownership depth for this segment is adequate to continue. Do not treat it as proof of independent mastery of every source extractor/provider detail.
+
+## Product-flow reconstruction slice — dependency transition into CI evidence
+
+### A — orientation
+
+Next bounded chunk:
+
+```text
+DependencyChangeAnalysis.source_contexts
+→ exact-head workflow runs
+→ exact-attempt jobs/steps
+→ exact-head workflow definition
+→ static dependency consumption / direct exercise
+→ bounded runtime strengthening
+→ DependencyCICoverageResult
+```
+
+Key conceptual separation:
+
+- GitHub Actions provider owns **factual runtime records and identity**.
+- exact workflow definition + dependency source contexts support **static meaning**.
+- CI domain composes them into dependency-consumption/direct-exercise propositions.
+- runtime strengthening can strengthen an already-supported static proposition only within admitted structural/correlation boundaries.
+
+### B — source/test findings
+
+**Exact-head runtime acquisition.** `GitHubActionsClient.get_exact_head_workflow_runs(...)` queries pull-request workflow runs for the frozen PR `head_sha`, validates event/head identity and complete bounded pagination. `get_workflow_jobs(...)` uses the captured `run_attempt` endpoint so a later rerun cannot silently replace jobs paired with the recorded run. Each job must retain run ID and frozen head SHA. Provider output is factual execution evidence; it does not interpret command meaning.
+
+**Exact workflow definition.** For each exact-head run, application calls `GitHubRepositoryClient.get_exact_head_workflow_file(...)`, which revalidates run identity/path and reads the workflow file at the frozen PR head revision.
+
+**Source-context composition.** Before CI interpretation, application acquires any exact project-environment sources needed by the dependency source contexts. The static workflow owner then combines workflow commands with those source contexts. This is why the earlier source-context handoff is operationally necessary, not documentary provenance only.
+
+**Static consumption.** `StaticDependencyConsumptionEvidence` means an exact static workflow/job/step/command declaration is supported as consuming the changed dependency. It preserves workflow path/revision, `job_key`, step source index, source path where applicable, command occurrence and parser-neutral structure. It does not prove runtime execution or installation success.
+
+**Direct exercise is a separate axis.** A later package invocation can support direct-exercise evidence only when it is ordered after supported dependency consumption in the admitted static job. A workflow can therefore support consumption while direct exercise remains not established.
+
+**Runtime strengthening.** Static evidence is mapped to an exact-attempt runtime step only when the command occurrence's structural relation/execution profile is eligible and runtime correlation is sufficiently strong. `supported_runtime_correlated` means the owning user-defined run step was matched to a GitHub step reported completed-successful without visible continue-on-error masking. It still does not prove exact dependency version, wheel/sdist, artifact tags or compatibility.
+
+**Real repository integration fixture.** `tests/test_r6_investigation_ci_integration.py` uses the preserved Pydantic/S001-shaped dependency path for `soupsieve`: an exact `uv.lock` source context plus exact workflow text. The `docs-build` command `uv sync --all-packages --group docs` is supported with reachability witness `mkdocs-llmstxt → beautifulsoup4 → soupsieve`, while the lint environment is not treated as consuming the changed dependency. This fixture proves normal orchestration derives the static relationship from exact sources; it intentionally stops unrelated upstream work and does not by itself prove live execution/runtime correlation.
+
+### Current mental model
+
+```text
+green exact-head job
+!= dependency coverage
+
+static workflow mentions/install/selects relevant source
+→ possible supported static consumption
+
+supported static consumption
++ eligible exact occurrence
++ exact runtime step correlation
++ completed-successful unmasked runtime step
+→ bounded runtime-correlated support
+```
+
+No live state change yet; continue reconstruction before creating the durable learning artifact.
