@@ -15,7 +15,7 @@
 - **Parallel learning:** `working-memory/2026-09-19_cycle3-integrated-learning-review.md` continues independently in another conversation. Its remaining exercises are **not a gate** blocking the main product re-audit. Do not mark its learning outcomes complete or rewrite its record merely because the main workstream moved on.
 - **Cycle status:** Cycle 1 CLOSED; Cycle 2 CLOSED; Cycle 3 CLOSED. Do not automatically reopen command-analysis implementation or duplicate its integrated learning in this workstream.
 - **Accepted architecture:** `docs/architecture/ADR-0009-parser-backed-static-workflow-command-analysis.md`.
-- **Repository route:** `main`, unless Ali later requests otherwise. Main review authorizes only necessary working-memory/live-state coordination writes; no product source/tests, accepted specifications/ADRs, plan, or external-target mutation merely from review findings.
+- **Repository route:** `main`, unless Ali later requests otherwise. The active F3 Build authorizes only the bounded synthesis/test responsibility selected by the current plan and its required coordination updates; unrelated product changes, accepted specification/ADR changes, new action semantics, and external-target mutation remain out of scope.
 
 ## Immediate continuation
 
