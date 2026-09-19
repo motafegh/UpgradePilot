@@ -1,7 +1,7 @@
 # Cycle 3 Phase B — Runtime-Strengthening Build Working Memory
 
 **Date:** 2026-09-18  
-**Status:** ACTIVE  
+**Status:** COMPLETE  
 **Primary operation:** Build / Implement  
 **Method:** Learning-by-Doing  
 **Selected plan:** [`../plans/STATIC_WORKFLOW_COMMAND_ANALYSIS_AND_RUNTIME_STRENGTHENING_IMPLEMENTATION_PLAN.md`](../plans/STATIC_WORKFLOW_COMMAND_ANALYSIS_AND_RUNTIME_STRENGTHENING_IMPLEMENTATION_PLAN.md)  
@@ -1175,6 +1175,125 @@ focused provider proof
 ```
 
 Record actual executable proof results. Historical test totals are not proof.
+
+### Final Phase-B hosted proof — PASS
+
+Final authoritative hosted proof completed successfully.
+
+Proof vehicle:
+
+```text
+branch:
+agent/cycle3-phaseb-final-proof
+
+workflow:
+.github/workflows/cycle3-phaseb-final-proof.yml
+
+proof commit:
+c5e3f08da8822fe4b80342d415640413009ab439
+
+GitHub Actions run:
+35448172928
+
+job:
+Installed product, full regression, and Cycle 3 boundary proof
+```
+
+Hosted environment / install proof:
+
+```text
+Python 3.12.14                         PASS
+fresh virtual environment              PASS
+pip install .                           PASS
+pip check                               PASS — No broken requirements found
+installed upgradepilot --help           PASS
+installed python -m upgradepilot --help PASS
+installed-package import path           PASS
+```
+
+Executable test proof:
+
+```text
+focused investigation composition      PASS — 15/15
+Cycle-3 focused regression              PASS — 76/76
+full deterministic product regression  PASS — 604/604
+```
+
+Real-case capability-boundary proof:
+
+```text
+S001 Pydantic / soupsieve
+uv sync --all-packages --group docs
+→ sole ordinary top-level command
+→ eligible
+
+S002 dashboard token API / httpx
+first pip install in two-command Bash run block
+→ first ordinary top-level command in sequential Bash script
+→ eligible
+
+S004 glyphsLib / pytest
+. ./generate/bin/activate && pip install ...
+→ short_circuit
+→ no positive whole-step relation
+→ unresolved / explicitly deferred
+```
+
+All final proof steps completed successfully in one GitHub Actions job.
+
+### Phase-B / Cycle-3 closure
+
+Cycle 3 Phase B is **COMPLETE**.
+
+The complete Cycle-3 responsibility is therefore **CLOSED**:
+
+```text
+Phase A — bounded Planning/Design                     COMPLETE
+Build Stage 1 — Provider Structural Admission         CLOSED
+Build Stage 2 — Exact Occurrence Handoff/Eligibility  CLOSED
+Build Stage 3 — Runtime Composition                    CLOSED
+Final hosted proof                                    PASS
+Cycle 3                                               CLOSED
+```
+
+Implemented trust shape:
+
+```text
+exact parsed command occurrence
++ bounded positive whole-step relation
++ structural context
++ effective execution profile
+        ↓
+eligible | ineligible | unresolved
+        ↓
+exact static↔runtime owning-step correlation
++ continue-on-error interpretation
++ factual GitHub runtime status/conclusion
+        ↓
+occurrence-level Runtime-Correlated Support / not-established / unresolved
+        ↓
+basis-aware existential aggregation
+        ↓
+supported_runtime_correlated | supported_not_correlated | unresolved
+```
+
+Explicit non-claims remain unchanged:
+
+```text
+no direct inner-command execution proof
+no direct inner-command success proof
+no exact installed dependency version
+no selected wheel/sdist proof
+no compatibility/full-behavior proof
+no update-safety proof
+no maintainer-action permission created by this evidence alone
+```
+
+No stop/reassessment condition was triggered.
+
+The next responsibility is not another automatic command-analysis increment. Per the
+controlling plan, return to the parent evidence-sufficiency/maintainer-action synthesis
+journey and re-audit the current evidence path to identify the next actual bottleneck.
 
 ## Progressive-recording rule
 
