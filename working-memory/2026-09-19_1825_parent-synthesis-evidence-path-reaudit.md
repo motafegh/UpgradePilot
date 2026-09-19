@@ -631,3 +631,65 @@ focused maintainer-action tests
 ```
 
 Do not advance the live engineering route to F9 as though F3 has passed regression proof.
+
+
+## Canonical cycle alignment checkpoint — F3 Build
+
+Ali explicitly re-anchored the main workstream to the root `AGENTS.md` mandatory Learning-by-Doing cycle. Coordination artifacts were reviewed and aligned so Build does not bypass the project-level A → B → C → D → E rhythm.
+
+### Alignment decisions
+
+1. Every substantive slice normally completes A → B → C → D → E before the next substantive responsibility is selected.
+2. Build/Implement remains the primary operation for F3; the canonical cycle wraps that operation rather than replacing it.
+3. When executable proof is temporarily unavailable, the implementation slice still completes D/E for what was actually established.
+4. Deferred executable validation is then a **separate bounded evidence slice** with its own proportional A → B → C → D → E.
+5. D/E completion never upgrades source-reviewed tests into executed proof.
+6. F3 remains not technically closed until required executable validation passes.
+7. No learning-note artifact is created in this main session unless Ali explicitly requests one.
+
+The selected execution plan was updated to encode these rules; `MEMORY.md` now owns the live phase.
+
+### F3 implementation-slice cycle status
+
+```text
+A — DONE
+    Pre-implementation orientation established:
+    domain problems remain domain-owned;
+    PublicPullRequestInvestigation preserves typed branch state;
+    synthesis projects only material action-relevant uncertainty;
+    no new action/evidence producer/CLI integration.
+
+B — DONE FOR IMPLEMENTATION
+    maintainer_action.py changed;
+    focused synthesis tests added;
+    normal-shaped investigation→synthesis assertion added;
+    misplaced assertion detected and corrected during source review.
+
+C — DONE
+    commits and source-review findings preserved;
+    executable proof debt explicit;
+    no test pass claimed;
+    F3 status remains IMPLEMENTED / PROOF-PENDING.
+
+D — ACTIVE
+    Next conversation action is post-implementation learning/ownership from the real code:
+    source/control/evidence flow, causal de-duplication, closed-vs-unresolved semantics,
+    responsibility placement, focused test intent, and proof limits.
+
+E — PENDING
+    Use Ali's D answers to repair important gaps only, then orient the later F3 executable-validation evidence slice.
+```
+
+### Deferred F3 executable-validation slice
+
+This later slice begins only when an executable path is actually available:
+
+```text
+A — exact proof claims + expected failure/pass meaning
+B — focused evaluator → integration → broad deterministic execution
+C — exact commands/results/revision preserved
+D — interpret proof/non-proof and diagnose failures if any
+E — close F3 on sufficient proof, or orient bounded repair
+```
+
+Until that proof executes, do not advance the live engineering route to F9 as if F3 had passed.
