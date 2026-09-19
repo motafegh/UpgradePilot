@@ -5,71 +5,37 @@
 
 ## Live position — main product workstream STARTED
 
-- **Current responsibility:** AUDIT-008-F3 honest abstention-synthesis residual-uncertainty preservation — **implementation slice phase D (post-implementation ownership check)**. A/B/C are complete for what was actually implemented/source-reviewed; executable validation remains explicit proof debt.
-- **Primary mode:** Build/Implement + canonical A → B → C → D → E Learning-by-Doing. Learning-note artifacts remain out of scope unless Ali explicitly requests one.
+- **Current responsibility:** AUDIT-008-F3 honest abstention synthesis — implementation Learning-by-Doing cycle A/B/C/D/E completed; the separate executable-validation slice is oriented and awaits a current-revision manual CI run. F3 is IMPLEMENTED / PROOF-PENDING, not technically closed.
+- **Primary mode:** Build/Implement plus canonical A → B → C → D → E Learning-by-Doing. Learning-note artifacts remain out of scope unless Ali explicitly requests one.
 - **Selected execution/learning plan:** `plans/END_TO_END_PRODUCT_FLOW_LEARNING_AND_EVIDENCE_TO_ACTION_EXECUTION_PLAN.md`.
 - **Parent execution plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
 - **Active current-system audit/input:** `audits/2026-09-19_AUDIT-008_current-system-evidence-to-action-readiness.md` (AUDIT-008).
 - **Active main working memory:** `working-memory/2026-09-19_1825_parent-synthesis-evidence-path-reaudit.md`.
 - **Selected earlier bounded implementation plan:** `plans/STATIC_WORKFLOW_COMMAND_ANALYSIS_AND_RUNTIME_STRENGTHENING_IMPLEMENTATION_PLAN.md` — COMPLETE, historical implementation/proof owner, **not** the active new Build task.
-- **Parallel learning:** `working-memory/2026-09-19_cycle3-integrated-learning-review.md` continues independently in another conversation. Its remaining exercises are **not a gate** blocking the main product re-audit. Do not mark its learning outcomes complete or rewrite its record merely because the main workstream moved on.
+- **Parallel learning:** `working-memory/2026-09-19_cycle3-integrated-learning-review.md` continues independently in another conversation. Its remaining exercises are **not a gate** blocking the main product work. Do not mark its learning outcomes complete or rewrite its record merely because the main workstream moved on.
 - **Cycle status:** Cycle 1 CLOSED; Cycle 2 CLOSED; Cycle 3 CLOSED. Do not automatically reopen command-analysis implementation or duplicate its integrated learning in this workstream.
 - **Accepted architecture:** `docs/architecture/ADR-0009-parser-backed-static-workflow-command-analysis.md`.
-- **Repository route:** `main`, unless Ali later requests otherwise. The active F3 Build authorizes only the bounded synthesis/test responsibility selected by the current plan and its required coordination updates; unrelated product changes, accepted specification/ADR changes, new action semantics, and external-target mutation remain out of scope.
+- **Repository route:** `main`, unless Ali later requests otherwise. The authorized F3 scope remains bounded synthesis/test validation and necessary coordination; unrelated product changes, accepted specification/ADR changes, new action semantics, and external-target mutation remain out of scope.
 
 ## Immediate continuation
 
-Continue the **current F3 implementation slice at phase D**, not at a new Build responsibility.
+### F3 implementation-slice closure
 
-### Current canonical cycle state
+- A — DONE: oriented typed domain problems → `PublicPullRequestInvestigation` → synthesis-owned material residual uncertainty.
+- B — DONE for implementation: bounded projection and focused/normal-shaped integration proof cases committed; one misplaced assertion corrected during source review.
+- C — DONE: commits and executable proof debt preserved; no test pass claimed for F3.
+- D — DONE: Ali explained early changelog acquisition failure versus a later actual Python-impact assessment failure, and bounded no-claim versus unresolved candidate; refined understanding to avoid inventing downstream failure or unbounded evidence-of-absence claims.
+- E — DONE: no remaining blocking F3 learning gap. Proceed only to executable validation, not F9.
 
-```text
-A — DONE
-    oriented the F3 synthesis responsibility, owner boundaries and proof limits
+### Active F3 executable-validation slice
 
-B — DONE for implementation/source-test mutation
-    implemented bounded residual-uncertainty projection
-    added focused + normal-shaped integration proof cases
-    corrected one misplaced integration assertion during source review
+A — DONE: required claims are focused synthesis behavior, actual investigation → synthesis integration, deterministic product regression, and a fresh installed-package run on a revision containing F3. Passing tests would establish these bounded behaviors, not live GitHub/model quality or non-abstention action permission.
 
-C — DONE
-    preserved commits, exact proof limitation and executable-validation debt
-    F3 remains IMPLEMENTED / PROOF-PENDING
+B — BLOCKED ON MANUAL CI DISPATCH: `.github/workflows/product-verification.yml` exposes `workflow_dispatch` only. The connected GitHub tool can read Actions runs/logs but cannot dispatch a new run; this assistant environment cannot clone GitHub (DNS unavailable). No run exists for the current F3/main revision. The historical run `35448172928` tested pre-F3 commit `c5e3f08da8822fe4b80342d415640413009ab439` and must not close F3.
 
-D — ACTIVE NOW
-    inspect/teach from the actual F3 source and tests
-    distinguish planned behavior from implemented behavior
-    reason about causal de-duplication, closed vs unresolved states,
-    domain ownership, and proof/non-proof
-    perform a small ownership check with Ali
+**Immediate concrete action:** dispatch the repository's existing **Product verification** workflow on `main` using GitHub Actions UI. Once a run exists, inspect its run SHA and job steps/logs, including the new focused F3 cases and investigation assertion within the full deterministic regression. Preserve exact outcome in active working memory; then complete validation C/D/E. If failures occur, repair only the demonstrated F3 defect and rerun required proof. If proof passes at a revision including F3 and no contrary evidence remains, close F3 before beginning F9.
 
-E — NEXT
-    repair any important reasoning gap
-    orient the deferred executable-validation responsibility and stop line
-```
-
-After E, do **not** pretend the implementation slice's deferred tests ran. When an executable path becomes available, open a separate bounded **F3 executable-validation evidence slice** with its own proportional A → B → C → D → E:
-
-```text
-A — orient exact proof claims
-B — run tests/verification
-C — preserve exact outputs
-D — interpret what passed/failed and proof limits
-E — repair if needed; close F3 only on sufficient proof, otherwise orient repair
-```
-
-Required executable proof remains:
-
-```text
-tests/test_maintainer_action.py
-→ relevant tests/test_investigation.py integration
-→ full deterministic product regression
-→ hosted installed-package verification if required for final closure
-```
-
-Current execution limitation remains: `.github/workflows/product-verification.yml` is manual `workflow_dispatch`; the available GitHub connector has no dispatch action and there is no run/status for the current F3 code horizon. Therefore source review/test code is **not** executable proof.
-
-**Current stop line:** complete F3-D and F3-E before selecting another substantive slice. F9 remains downstream and must not be treated as active while F3 required proof is unresolved. Do not add non-abstention actions, change accepted synthesis semantics, wire CLI recommendations, or create learning-note artifacts.
+**Stop line:** F3 remains IMPLEMENTED / PROOF-PENDING. Do not infer success from the historical CI run, code inspection, or the existence of test assertions. Do not advance to F9 as if F3 passed; do not add non-abstention actions, change accepted synthesis semantics, wire CLI recommendations, or create learning-note artifacts.
 
 ## Retained completed foundations and proof
 
