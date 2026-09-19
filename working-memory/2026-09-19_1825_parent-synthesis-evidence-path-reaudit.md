@@ -63,3 +63,62 @@ Authorization: read-only product-source/test review and relevant working-memory/
 Main parent evidence-path re-audit ACTIVE. Initial PR/dependency→CI→Target→artifact applicability→standalone action/CLI seams source-traced; nearest Target/application and artifact-domain tests inspected. Crucial separation: (a) supported CI job identity omitted during Target selection, (b) static Target facts cannot substitute for missing exact target wheel compatibility witness, (c) no target witness is passed to impact in the current normal application, and (d) action evaluator is abstention-only and not called by CLI. No product runtime tests newly executed; no source/tests/specs/plans changed. Next assess the precise evidence proposition and real-case/action significance before ranking a Build responsibility.
 
 **Activated procedures:** `UP-SKILL:upgradepilot-repository-audit`; `UP-SKILL:upgradepilot-learning-by-doing`; `UP-SKILL:upgradepilot-working-memory`.
+
+
+## Formal full-system audit checkpoint — 2026-09-19
+
+### Route change
+
+Ali explicitly redirected the main workstream from continuing one seam at a time to a **full current-system cross-responsibility audit** using the repository's `upgradepilot-repository-audit` procedure. The purpose is to establish one durable evidence-backed system assessment and use that audit, rather than scattered local observations, as the basis for the next journey decision.
+
+Created canonical audit:
+
+- `audits/2026-09-19_AUDIT-008_current-system-evidence-to-action-readiness.md`
+- creation commit: `5023b178fdae16f935bacc9b93a2661136c02f45`
+
+### Audit evidence/proof basis
+
+- Audited current owner chain: Charter → Core/Product-Decision/Maintainer-Action specifications → parent synthesis plan → current source/tests → live state.
+- Inspected the normal PR/dependency/CI/Target/upstream/impact/investigation/synthesis/CLI responsibilities and representative tests.
+- Directly inspected GitHub Actions run `35448172928`: Python 3.12.14, fresh install/pip check/CLI PASS, focused investigation 15/15, Cycle-3 focused 76/76, full deterministic 604/604, S001/S002 eligible and S004 unresolved/deferred.
+- Compared the proof commit `c5e3f08da8822fe4b80342d415640413009ab439` with product-source main `0201069d91f2d2bc776b84616870fe0926386f3f` and then with the pre-audit main documentary head; no product source/test changes occurred in those later commits. Therefore the hosted run remains evidence for the current product source/test implementation, not for future changes or live external/model behavior.
+- No fresh product execution was performed in this audit; live public acquisition and live LM Studio quality remain distinct proof classes.
+
+### Durable audit findings
+
+AUDIT-008 records eleven findings. The key classification is:
+
+```text
+KEEP / strong foundation
+→ F1 exact identity/provenance foundations
+→ F2 evidence-report vs final-action separation is intentional incompleteness
+→ F6 current runtime-correlation proof boundary
+→ F8 local-model trust architecture with explicit live-model proof limit
+
+CURRENT CORRECTNESS / TRUST / COORDINATION
+→ F3 abstention evaluator can omit material branch-stopping residual uncertainty
+→ F9 ambient GITHUB_TOKEN can silently alter/fail public acquisition
+→ F11 audit lifecycle ACTIVE metadata conflicts with MEMORY.md live route
+
+ACTION-RELATIVE CAPABILITY GAPS / CANDIDATES
+→ F4 exact CI consuming job is not composed into Target job selection
+→ F5 exact target wheel-compatibility contract has no normal producer
+→ F7 bounded candidate/context discovery does not yet support favorable merge closure
+
+REASSESS ON CONCRETE TRIGGER
+→ F10 acquisition-failure containment risk is source-traced but not freshly proven as a defect
+```
+
+The most important newly discovered correction is **AUDIT-008-F3**: even the already-admitted abstention baseline can currently under-explain why stronger actions were unavailable because `_material_residual_uncertainty(...)` covers only a subset of branch-stopping investigation/problem states. This is more fundamental than immediately expanding Target/job/wheel evidence because stronger permissions should not be layered on an explanation baseline that can hide material unresolved evidence.
+
+### A → B → C → D → E state for the formal audit slice
+
+- **A — DONE:** established cross-responsibility audit question, owners, boundaries and evidence classes.
+- **B — DONE:** inspected source/tests/spec/plan/runtime proof and produced AUDIT-008 with evidence-backed findings and smallest dispositions.
+- **C — DONE:** durable audit created, active audit index registered, working memory and live state reconciled without product mutation.
+- **D — PENDING:** review the audit findings with Ali; teach the few decision-relevant findings before asking him to choose/challenge the first post-audit responsibility.
+- **E — PENDING:** after Ali's review, repair any understanding gap and select the next bounded Planning/Design or Build responsibility. Audit recommends F3 as the correctness gate, but the audit itself does not authorize implementation.
+
+### Current stop / handoff
+
+The previous narrow CI→Target reasoning path is now subordinate evidence inside AUDIT-008, not the controlling next step. **No new Build task is selected or authorized yet.** Continue from the full audit: first review/understand the important findings, then explicitly select the first post-audit responsibility. Preserve AUDIT-005's lifecycle validity question as F11; do not silently reclassify it without an explicit lifecycle decision.
