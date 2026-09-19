@@ -492,3 +492,54 @@ mechanism applicability
 ```
 
 Each '<' means “stronger/different proposition requiring additional evidence,” not a universal numeric confidence score.
+
+
+## Main-session learning boundary correction and reconstruction closure
+
+Ali clarified the operating boundary for this main session:
+
+- continue real project progression, Learning-by-Doing, building/coding/testing and interactive teaching here;
+- **do not create learning-note artifacts automatically**;
+- learning-note artifact authoring is occurring in another conversation and is only in scope here if Ali explicitly requests it.
+
+The selected execution plan was corrected accordingly. Interactive source-backed explanation + reasoning checks + working-memory preservation are sufficient; a durable learning artifact is no longer a completion gate.
+
+### Final reconstruction ownership check
+
+Ali correctly distinguished mechanism-specific applicability from whole-update action authority:
+
+```text
+Python-support-drop established_not_applicable
+!= whole update safe
+
+Python-support-drop established_applicable
+!= automatic block
+```
+
+For the block question, Ali correctly reasoned that synthesis must not decide from one isolated investigation signal and instead must combine the material decision-relevant evidence at the decision layer.
+
+Precision from the accepted synthesis specification: synthesis does consider material evidence together, but `block` is still **positively permissioned**, not an aggregate confidence/severity result. For a declared Python-support conflict, `established_applicable` alone is insufficient. The hold additionally requires:
+
+- trusted exact proposal/revision/dependency identity;
+- grounded relevant support exclusion;
+- exact target support obligation for the affected Python environment;
+- evidence that the proposed dependency is required in that environment;
+- a demonstrated conflict after relevant dependency conditions, alternative supported paths and admitted proposal changes are accounted for.
+
+Runtime-correlated CI can strengthen evidence that an owning dependency-consuming step ran successfully, but it does not itself establish those missing support-obligation/conflict premises.
+
+### Reconstruction slice status
+
+A — DONE: major owners/handoffs oriented interactively.  
+B — DONE: front door, CI, PyPI/upstream, target applicability, artifact-serviceability, synthesis and CLI source/test paths reconstructed.  
+C — DONE: material findings preserved progressively.  
+D — DONE: Ali demonstrated the key transition/applicability/action distinctions at sufficient ownership depth for continuation.  
+E — DONE: no material learning gap blocks engineering continuation.
+
+The end-to-end reconstruction/ownership baseline is therefore **COMPLETE**.
+
+### Next bounded responsibility
+
+Selected next responsibility: **AUDIT-008-F3 — honest abstention synthesis**.
+
+Goal: preserve materially branch-stopping uncertainty in `MaintainerActionSynthesis` without duplicating domain semantics or creating new action permission. This is the first post-reconstruction Build responsibility. Learning remains interactive; no learning-note artifact is part of this slice unless explicitly requested.
