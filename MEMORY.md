@@ -1,16 +1,16 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-09-19  
+**Last updated:** 2026-09-20  
 **Authority:** sole owner of the live project position, current blockers, selected continuation, and current learning depth.
 
 ## Live position — main product workstream STARTED
 
-- **Current responsibility:** AUDIT-008-F9 — deliberate public GitHub acquisition authentication trust boundary. **F3 is technically CLOSED** at its selected deterministic/installed-product proof horizon; F9 is at **A (pre-implementation orientation)**, not yet implemented.
+- **Current responsibility:** AUDIT-008-F9 — deliberate public GitHub acquisition authentication trust boundary. **F3 is technically CLOSED** at its selected deterministic/installed-product proof horizon; F9 is at **A (pre-implementation orientation/design preflight)**, not yet implemented.
 - **Primary mode:** bounded Build/Implement + canonical A → B → C → D → E Learning-by-Doing. Learning-note artifacts remain out of scope unless Ali explicitly requests one.
 - **Selected execution/learning plan:** `plans/END_TO_END_PRODUCT_FLOW_LEARNING_AND_EVIDENCE_TO_ACTION_EXECUTION_PLAN.md`.
 - **Parent execution plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
 - **Controlling current-system audit/input:** `audits/2026-09-19_AUDIT-008_current-system-evidence-to-action-readiness.md` (AUDIT-008).
-- **Active main working memory:** `working-memory/2026-09-19_f3-hosted-verification-and-f9-handoff.md`. Prior detailed F3 analysis/implementation and interactive ownership remain in `working-memory/2026-09-19_1825_parent-synthesis-evidence-path-reaudit.md`.
+- **Active main working memory:** `working-memory/2026-09-20_f9-public-github-authentication-phase-a.md`. The prior F3 hosted-proof/F9 handoff is `working-memory/2026-09-19_f3-hosted-verification-and-f9-handoff.md`; prior detailed F3 analysis/implementation and interactive ownership remain in `working-memory/2026-09-19_1825_parent-synthesis-evidence-path-reaudit.md`.
 - **Parallel learning:** `working-memory/2026-09-19_cycle3-integrated-learning-review.md` continues independently in another conversation. Its remaining exercises are not a gate blocking main product progression. Do not mark its outcomes complete or rewrite its record from this workstream.
 - **Cycle status:** Cycle 1 CLOSED; Cycle 2 CLOSED; Cycle 3 CLOSED. Do not reopen accepted command-analysis implementation without concrete regression/contradiction.
 - **Repository route:** `main` unless Ali selects another route. Only the selected F9 trust-boundary responsibility and necessary coordination updates are admitted; unrelated product changes, accepted spec/ADR changes, new action permissions and external-target mutation are out of scope.
@@ -19,13 +19,15 @@
 
 ### F3 closure — exact hosted proof
 
-F3 implementation Learning-by-Doing phases A/B/C/D/E were completed with Ali; its deferred executable validation subsequently completed A/B/C/D/E at the proportional verification depth. Ali manually dispatched the repository's existing `Product verification` workflow. GitHub Actions [run #6](https://github.com/motafegh/UpgradePilot/actions/runs/35465839476), run ID `35465839476`, attempt 1, completed **success**, checked out `08a3f70b5717255d7ed5f96ff3ec3ef67bfe4942` (contains F3 implementation/test commits). Ubuntu 24.04, Python 3.12.14; fresh installed package and `pip check` PASS; installed CLI entry points PASS; focused investigation integration **15/15 PASS**; full deterministic product regression **608/608 PASS**, including all seven synthesis tests and the new normal-path changelog-stop assertion. F3 is **CLOSED for the accepted bounded correctness/proof responsibility**. This is not live public-PR/model quality or new maintainer-action-permission proof. Detailed checkpoint is in the active working memory.
+F3 implementation Learning-by-Doing phases A/B/C/D/E were completed with Ali; its deferred executable validation subsequently completed A/B/C/D/E at the proportional verification depth. Ali manually dispatched the repository's existing `Product verification` workflow. GitHub Actions [run #6](https://github.com/motafegh/UpgradePilot/actions/runs/35465839476), run ID `35465839476`, attempt 1, completed **success**, checked out `08a3f70b5717255d7ed5f96ff3ec3ef67bfe4942` (contains F3 implementation/test commits). Ubuntu 24.04, Python 3.12.14; fresh installed package and `pip check` PASS; installed CLI entry points PASS; focused investigation integration **15/15 PASS**; full deterministic product regression **608/608 PASS**, including all seven synthesis tests and the new normal-path changelog-stop assertion. F3 is **CLOSED for the accepted bounded correctness/proof responsibility**. This is not live public-PR/model quality or new maintainer-action-permission proof. Detailed checkpoint is in the dated F3 hosted-proof working memory.
 
-### F9 — start canonical phase A
+### F9 — canonical phase A active
 
-First re-anchor to `AGENTS.md`, `OPERATING_GUIDE.md`, `SECURITY.md`, the selected plan's F9 section, the relevant Build skill, and actual `src/upgradepilot/cli.py` + GitHub adapter/authentication tests. Explain the current public-token flow, what unrelated ambient `GITHUB_TOKEN` can change, and the proof boundary before implementing. Then select the smallest in-scope explicit anonymous/authenticated public acquisition contract, preserve legitimate authenticated use, prevent secret exposure, distinguish auth failures from missing sources and transport errors, and prove focused + normal-path behavior. Do not redesign proxy/networking or create a credential manager without a new justified owner decision.
+The current CLI unconditionally reads ambient `GITHUB_TOKEN` and passes it to GitHub acquisition; the shared GitHub adapter adds bearer Authorization when it receives a token. This can silently change/break anonymous public proofs (observed stale-token HTTP 401 recorded in `ENVIRONMENT.md` and AUDIT-008-F9). Requests may also load ambient `.netrc` credentials even without an explicit token; changing `Session.trust_env` also changes proxy handling. The immediate responsibility is to finish the smallest explicit anonymous/authenticated request contract, including actual HTTP request preparation and preserving ordinary proxy behavior, before editing source/tests.
 
-**F9 cycle:** A ACTIVE (orientation and evidence inspection); B/C/D/E PENDING. F11 audit lifecycle reconciliation remains next after F9 closure, followed by action-relative producer/reachability comparison according to the selected plan. Do not treat green F3 tests as proof of F9 or of any non-abstention action.
+**Proposed bounded interface:** anonymous by default (`upgradepilot owner/repo 123`); `--github-auth token-env` explicitly opts into `GITHUB_TOKEN`, with missing/empty token rejected before network and without printing credentials. Confirm exact session/redirect handling and precise 401/404/timeout proof cases during B preflight; avoid credential-manager or general proxy redesign. Record actual implementation/proof and leave uncovered behavior explicit rather than claiming global environmental isolation.
+
+**F9 cycle:** A ACTIVE (source-backed orientation plus design preflight); B PENDING; C started by the active F9 working-memory record, ongoing; D/E PENDING. No F9 code/tests have been edited or executed yet. F11 audit lifecycle reconciliation remains next after F9 closure, followed by action-relative producer/reachability comparison according to the selected plan. Do not treat green F3 tests as proof of F9 or any non-abstention action.
 
 ## Retained completed foundations and proof
 
@@ -70,6 +72,7 @@ The previous expanded `MEMORY.md` snapshot at commit `0201069d91f2d2bc776b846168
 - `working-memory/2026-09-16_cycle2-phase-d-integrated-learning-plan.md` — Cycle-2 D/E and deferred learning;
 - `working-memory/2026-09-19_cycle3-integrated-learning-review.md` — separate integrated recall/relearning in progress;
 - `working-memory/2026-09-19_1825_parent-synthesis-evidence-path-reaudit.md` — AUDIT-008 review, end-to-end reconstruction and F3 implementation/ownership;
-- `working-memory/2026-09-19_f3-hosted-verification-and-f9-handoff.md` — exact F3 hosted proof and active F9 handoff.
+- `working-memory/2026-09-19_f3-hosted-verification-and-f9-handoff.md` — exact F3 hosted proof and historical F9 handoff;
+- `working-memory/2026-09-20_f9-public-github-authentication-phase-a.md` — active F9 authentication source trace, bounded contract and proof debt.
 
 Keep `MEMORY.md` as the sole compact live-state owner. Promote accepted durable semantics or methods only to actual specification/ADR owners; dated working memory must not become a competing live-state authority.
