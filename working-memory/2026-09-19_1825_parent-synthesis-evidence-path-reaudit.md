@@ -4,7 +4,7 @@
 **Session status:** ACTIVE  
 **Primary operation:** cross-responsibility analysis/review (read-only product review)  
 **Method:** canonical A → B → C → D → E Learning-by-Doing, composed with repository-audit and working-memory procedures  
-**Repository:** `motafegh/UpgradePilot`, `main`; initial observed source head `0201069d91f2d2bc776b84616870fe0926386f3f`; subsequent session-record commit `59b1d6c6de1cf64ac3b26c27d767e496454f1198`, live-state commit `b6656660ea71c4e6c2ea58a4598fb3eaa2105eee`  
+**Repository:** `motafegh/UpgradePilot`, `main`; initial observed source head `0201069d91f2d2bc776b84616870fe0926386f3f`; documentary updates thereafter  
 **Controlling parent plan:** [`../plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`](../plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md)  
 **Live-state owner:** [`../MEMORY.md`](../MEMORY.md)  
 **Technical closure:** [`2026-09-18_cycle3-runtime-strengthening-build.md`](2026-09-18_cycle3-runtime-strengthening-build.md)  
@@ -50,16 +50,18 @@ Ali explicitly selected and STARTED the parent evidence-sufficiency and maintain
 - Created this distinct main workstream record and reconciled `MEMORY.md` to the user-selected main parent re-audit while preserving the Cycle-3 integrated-learning record as a parallel learning owner. The canonical memory was compressed to emphasize live position; detailed closed-cycle history remains in dated records and at prior Git commit `0201069d91f2d2bc776b84616870fe0926386f3f`.
 - Recorded the first concrete correction: evaluator and CLI are currently separate, and exact CI job identity is not transferred into Target's independent job selection. These are observed code boundaries and possible product bottlenecks, not approved Build solutions or newly accepted design semantics.
 
-### D — post-action learning / user-owned check (PENDING USER RESPONSE)
+### D — post-action learning / user-owned check (FIRST CHECK COMPLETED; depth bounded)
 
-- Explain the observed actual branch versus intended future flow; distinguish supported CI consumption, target job selection, typed investigation, abstention-only evaluator, and current CLI evidence report. Invite one changed-case prediction: a supported CI consumption in a workflow with two jobs, one of which is the known consuming job; predict what current Target returns and why that does **not** prove whether the dependency actually installed or wheel compatibility was achieved. Do not mark mastery from AI explanation.
+- First check was initially too early for Ali: he explicitly said he did not remember the CI/Target premises. We repaired the prerequisite by teaching the difference between CI identification of the dependency-consuming job, Target interpretation of declared runner/Python, and the current independent one-job selection rule. The teaching YAML with `test` and `lint` jobs was illustrative/synthetic, not a cited real product-simulation case.
+- Ali then correctly predicted `ambiguous_target_job_selection` for two jobs and correctly rejected inferring an exact installed dependency version from successful job completion. His explanation of *why* Target loses the relation was directionally correct but uncertain. Clarified: Target sees the two jobs; its API does not receive the already-supported CI consuming-job identity. This demonstrates understanding of the outcome/non-proof, not yet full independent ownership of the actual source-level handoff or a repair design.
+- Key corrected mental model: the proposed transfer is a supported dependency source → declaration → exact workflow job relationship, with workflow/revision coherence checks. Sending an arbitrary job key or equating successful job with installed version is not sufficient.
 
-### E — repair and next-slice orientation (PENDING)
+### E — repair and next-slice orientation (ACTIVE)
 
-- Use Ali's reasoning to repair only a material gap. Then trace a representative real-case application result or the next source producer/consumer seam, including error/unsupported propagation and action-relative reachability. Keep prospective job identity repair and CLI action presentation as **candidate** work until the full gap comparison.
+- The missing prerequisite was repaired locally without restarting Cycle-3 teaching or selecting Build. Next inspect the specific `consumption.job_key` producer/typed field, exact application use in `_compose_target_artifact_environments`, Target's job selector and nearest test or real case. Distinguish supported `direct_requirements` from unsupported/multiple candidate relationships and from mere runtime-step success. Then return to broader evidence-path reconstruction and action-relative gap comparison.
 
 ## Current session handoff
 
-Main product re-audit STARTED; first source-backed high-level end-to-end pass and key seam observations recorded. Next action is to check Ali's prediction and continue one bounded real source/test trace, not to resume Cycle-3 learning or begin product implementation. No product runtime tests were executed during this orientation/review and no product code/tests/specs/plans were changed.
+Main product re-audit ACTIVE. First conceptual CI→Target check completed after brief prerequisite repair; `ambiguous_target_job_selection` and installed-version non-proof understood, but actual source-level identity/provenance trace and real-case pressure are still open. Next perform one bounded real source/test trace of the supported CI consuming-job relationship through application to Target. Do not resume Cycle-3 learning here or begin product implementation. No product runtime tests were executed during this review, and no product source/tests/specs/plans were changed.
 
 **Activated procedures:** `UP-SKILL:upgradepilot-repository-audit`; `UP-SKILL:upgradepilot-learning-by-doing`; `UP-SKILL:upgradepilot-working-memory`.
