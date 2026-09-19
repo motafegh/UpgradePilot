@@ -13,6 +13,12 @@ Current active audits:
   - current implementation state: the Phase-3B/4A model-ready development path is prepared under `experiments/` and `tools/`, including the oracle-isolating request renderer, `d-a1-smoke`, real `d-s004-stop`, the four-call LM Studio development runner, proxy-safe WSL wrapper, and offline-focused tests. Local WSL execution/compile evidence and LM Studio model behavior remain pending; no runtime/model PASS is claimed.
   - immediate selected action boundary: Ali explicitly paused implementation for Learning-Only mastery/review. Resume engineering only after that pause is explicitly ended. Ordinary B2 continuation remains blocked until the B2/X1 checkpoint reaches an evidence-backed disposition.
 
+- [ACTIVE — AUDIT-008 — Current System End-to-End Evidence-to-Action Audit](../2026-09-19_AUDIT-008_current-system-evidence-to-action-readiness.md)
+  - selection basis: Ali explicitly redirected the main post-Cycle-3 workstream to a full current-system audit on 2026-09-19 and requested that the journey continue from this audit.
+  - current boundary: the audit is complete as non-controlling evidence; no product source/test/spec/ADR/plan mutation is authorized merely by its findings.
+  - immediate decision input: AUDIT-008-F3 identifies an already-admitted synthesis-correctness gap to resolve before feature expansion; F4/F5/F6/F7 remain action-relative candidate responsibilities; F9 and F11 identify trust/coordination issues requiring explicit disposition.
+  - lifecycle note: AUDIT-008-F11 records that AUDIT-005's existing ACTIVE classification conflicts with the current live route in `MEMORY.md`. That older classification is intentionally not silently changed by this audit update; reconcile it through an explicit lifecycle decision.
+
 Active audits remain **non-controlling evidence**. The active plan, specifications/ADRs where applicable, source/tests, and `MEMORY.md` own execution, stable decisions, behavior, and live continuation.
 
 When an active audit is dispositioned, remove it from this index and add it to either `../absorbed/README.md` or `../deferred/README.md` with an updated lifecycle title.
