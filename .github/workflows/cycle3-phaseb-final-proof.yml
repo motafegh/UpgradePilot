@@ -1,0 +1,163 @@
+name: Cycle 3 Phase B final proof
+
+on:
+  push:
+    branches:
+      - agent/cycle3-phaseb-final-proof
+
+permissions:
+  contents: read
+
+jobs:
+  final-proof:
+    name: Installed product, full regression, and Cycle 3 boundary proof
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Check out selected revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+
+      - name: Install product in a fresh environment
+        run: |
+          python -m venv "$RUNNER_TEMP/upgradepilot-venv"
+          "$RUNNER_TEMP/upgradepilot-venv/bin/python" -m pip install .
+          "$RUNNER_TEMP/upgradepilot-venv/bin/python" -m pip check
+          git rev-parse HEAD
+          "$RUNNER_TEMP/upgradepilot-venv/bin/python" --version
+          "$RUNNER_TEMP/upgradepilot-venv/bin/python" -m pip freeze
+
+      - name: Verify installed CLI entry points
+        working-directory: ${{ runner.temp }}
+        run: |
+          "$RUNNER_TEMP/upgradepilot-venv/bin/upgradepilot" --help
+          "$RUNNER_TEMP/upgradepilot-venv/bin/python" -m upgradepilot --help
+          "$RUNNER_TEMP/upgradepilot-venv/bin/python" -c 'import upgradepilot; print(upgradepilot.__file__)'
+
+      - name: Check focused investigation composition
+        run: |
+          "$RUNNER_TEMP/upgradepilot-venv/bin/python" -m unittest discover -s tests -p test_investigation.py -v
+
+      - name: Run Cycle 3 focused regression
+        run: |
+          "$RUNNER_TEMP/upgradepilot-venv/bin/python" -m unittest \
+            tests.test_github_workflow_command_analysis \
+            tests.test_parser_backed_ci_command_evidence \
+            tests.test_single_pass_workflow_static_evidence \
+            tests.test_ci_runtime_strengthening \
+            tests.test_static_command_order \
+            tests.test_ci_static_direct_exercise_order \
+            tests.test_workflow_runtime_correlation \
+            tests.test_ci_runtime_correlated_dependency_coverage \
+            tests.test_ci_dependency_coverage \
+            -v
+
+      - name: Verify S001 S002 S004 capability boundary
+        run: |
+          "$RUNNER_TEMP/upgradepilot-venv/bin/python" - <<'PY'
+          from pathlib import Path
+          from textwrap import indent
+
+          from upgradepilot.ci.runtime_strengthening import (
+              RuntimeStrengtheningCandidate,
+              classify_runtime_strengthening_eligibility,
+          )
+          from upgradepilot.github.repository import RepositoryTextFile
+          from upgradepilot.github.workflow_command_analysis import analyze_run_step_commands
+          from upgradepilot.github.workflow_command_location import StaticCommandLocation
+          from upgradepilot.github.workflow_definition import (
+              RunStepDefinition,
+              StepsJobDefinition,
+              WorkflowDefinition,
+              parse_workflow_definition,
+          )
+
+          revision = 'a' * 40
+
+          def analyze(script: str):
+              body = indent(script.rstrip() + '\n', ' ' * 10)
+              source = RepositoryTextFile(
+                  repository='example/proof',
+                  path='.github/workflows/proof.yml',
+                  revision=revision,
+                  content=(
+                      'name: Proof\n'
+                      'jobs:\n'
+                      '  test:\n'
+                      '    name: Test\n'
+                      '    runs-on: ubuntu-latest\n'
+                      '    steps:\n'
+                      '      - name: Target\n'
+                      '        shell: bash\n'
+                      '        run: |\n' + body
+                  ),
+              )
+              definition = parse_workflow_definition(source)
+              assert isinstance(definition, WorkflowDefinition), definition
+              job = definition.jobs[0]
+              assert isinstance(job, StepsJobDefinition), job
+              step = job.steps[0]
+              assert isinstance(step, RunStepDefinition), step
+              analysis = analyze_run_step_commands(definition, job, step)
+              assert analysis.state == 'analyzable', analysis
+              return analysis, job, step
+
+          def eligibility(analysis, job, step, occurrence):
+              candidate = RuntimeStrengtheningCandidate(
+                  proposition_kind='dependency_consumption',
+                  workflow_path='.github/workflows/proof.yml',
+                  workflow_revision=revision,
+                  job_key=job.key,
+                  step_source_index=step.source_index,
+                  command_location=StaticCommandLocation.from_occurrence(occurrence),
+                  structural_context=occurrence.structural_context,
+                  whole_step_relation=occurrence.whole_step_relation,
+                  execution_profile=analysis.shell_context.execution_profile,
+              )
+              return classify_runtime_strengthening_eligibility(candidate)
+
+          s001_path = Path('product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-008-ci-docs-build.yml')
+          s001_text = s001_path.read_text()
+          s001_cmd = 'uv sync --all-packages --group docs'
+          assert s001_cmd in s001_text
+          a1, j1, st1 = analyze(s001_cmd)
+          o1 = a1.command_occurrences[0]
+          assert o1.whole_step_relation == 'sole_ordinary_top_level_command'
+          assert eligibility(a1, j1, st1, o1).state == 'eligible'
+
+          s002_path = Path('product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E17-python-workflow.yml')
+          s002_text = s002_path.read_text()
+          s002_script = 'python -m pip install --no-cache-dir --upgrade pip -r requirements.txt\npython -m pip install ruff'
+          assert all(line in s002_text for line in s002_script.splitlines())
+          a2, j2, st2 = analyze(s002_script)
+          o2 = a2.command_occurrences[0]
+          assert o2.whole_step_relation == 'first_ordinary_top_level_command_in_sequential_script'
+          assert eligibility(a2, j2, st2, o2).state == 'eligible'
+
+          s004_path = Path('product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/raw/ev-004-ci-workflows.txt')
+          s004_text = s004_path.read_text()
+          s004_cmd = '. ./generate/bin/activate && pip install -r requirements.txt -r requirements-dev.txt'
+          assert s004_cmd in s004_text
+          a4, j4, st4 = analyze(s004_cmd)
+          pip_occ = next(o for o in a4.command_occurrences if o.executable.literal_value == 'pip')
+          assert pip_occ.whole_step_relation is None
+          assert 'short_circuit' in pip_occ.structural_context
+          assert eligibility(a4, j4, st4, pip_occ).state == 'unresolved'
+
+          print('S001: sole-command positive -> eligible')
+          print('S002: first-sequential Bash positive -> eligible')
+          print('S004: short-circuit && shape -> unresolved/deferred')
+          PY
+
+      - name: Run deterministic product regression
+        run: |
+          "$RUNNER_TEMP/upgradepilot-venv/bin/python" -m unittest discover -s tests -v
