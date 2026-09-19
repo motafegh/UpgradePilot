@@ -45,7 +45,7 @@ The responsibility is complete only when the selected journey has produced all o
    ```
    including where evidence is static, runtime-correlated, inferred, unresolved, or unavailable.
 
-2. One durable learning artifact captures the **verified current flow and evidence boundaries** without becoming a second specification or live-state owner.
+2. Interactive Learning-by-Doing has established ownership of the verified current flow and evidence boundaries. A durable learning artifact is **optional and created only when Ali explicitly requests one**; it is not a completion gate for this plan.
 
 3. Already-admitted baseline behavior is trustworthy enough for stronger synthesis work:
    - material branch-stopping uncertainty is not silently lost by the abstention evaluator;
@@ -198,7 +198,7 @@ For each material handoff record:
 
 Use representative source/tests and real preserved cases only when they discriminate the flow. Do not read every file merely for completeness.
 
-**Learning output:** once the reconstruction is source-verified, create one durable learning/reference artifact through the learning-artifact procedure. It should show the current flow, evidence strength, and important boundaries; it must not prescribe product semantics or become live state.
+**Learning output:** interactive source-backed explanation, reasoning checks, and working-memory preservation are sufficient for this main workstream. Create a durable learning/reference artifact only when Ali explicitly requests one; learning-artifact authoring is not an automatic step or gate here.
 
 **Proof/pass condition:** Ali can trace a representative dependency update through the major handoffs and explain at least one point where stronger evidence is unavailable without conflating that with a negative compatibility conclusion.
 
@@ -490,16 +490,7 @@ Maintain the selected active working-memory record throughout substantive execut
 
 Do not use working memory as a tutorial.
 
-The durable flow learning artifact should contain reusable understanding:
-
-- current product flow;
-- important types/states;
-- evidence-strength ladder;
-- producer/composition/consumer map;
-- representative failure/unresolved examples;
-- proof/non-proof distinctions.
-
-It must be updated only when its reusable model materially changes.
+If Ali explicitly requests a durable flow learning artifact, route it through the normal learning-artifact procedure and keep it non-controlling. Otherwise, preserve reusable engineering progression in conversation plus working memory only; do not create learning-note artifacts automatically.
 
 ## 8. Prohibited scope
 
