@@ -5,8 +5,8 @@
 
 ## Live position — main product workstream STARTED
 
-- **Current responsibility:** execute the post-audit end-to-end product-flow learning/evidence-to-action journey, beginning with the source-verified product-flow reconstruction and ownership baseline. Ali explicitly selected this combined learning/building plan on 2026-09-19.
-- **Primary mode:** Learning-by-Doing over the operation appropriate to each plan slice. The first slice is read-only source/test reconstruction and ownership transfer; product Build is **not yet entered or authorized**.
+- **Current responsibility:** execute the post-audit end-to-end product-flow learning/evidence-to-action journey. The source-verified end-to-end reconstruction/ownership baseline is now complete; the next bounded engineering responsibility is AUDIT-008-F3, honest abstention-synthesis residual-uncertainty preservation.
+- **Primary mode:** Learning-by-Doing over the operation appropriate to each plan slice. Learning remains interactive in this main workstream; no learning-note artifact is created unless Ali explicitly requests one.
 - **Selected execution/learning plan:** `plans/END_TO_END_PRODUCT_FLOW_LEARNING_AND_EVIDENCE_TO_ACTION_EXECUTION_PLAN.md`.
 - **Parent execution plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
 - **Active current-system audit/input:** `audits/2026-09-19_AUDIT-008_current-system-evidence-to-action-readiness.md` (AUDIT-008).
@@ -19,38 +19,23 @@
 
 ## Immediate continuation
 
-Begin the **Product-flow reconstruction and ownership baseline** slice from the selected execution/learning plan.
+Enter the **AUDIT-008-F3 honest abstention-synthesis baseline** slice from the selected execution/learning plan.
 
-Trace the actual current normal path from source/tests:
+Responsibility:
 
 ```text
-CLI/input
-→ exact PR / base / head identity
-→ dependency transition + source contexts
-→ CI run/job/workflow evidence
-→ static consumption + bounded runtime strengthening
-→ PyPI/upstream evidence
-→ target relevance + mechanism-specific applicability
-→ artifact Target boundary
-→ PublicPullRequestInvestigation
-→ standalone maintainer-action synthesis
-→ current evidence-report CLI
+PublicPullRequestInvestigation
+→ identify material branch-stopping problem/unresolved states
+→ preserve only action-relevant residual uncertainty at synthesis
+→ keep domain semantics owned by their existing modules
+→ retain abstain as the only admitted action
 ```
 
-For each important seam establish:
+First use the Build/Implement procedure to source-trace the exact normal-shaped branch-stopping states and compare the smallest synthesis-owned projection. Then implement focused tests and the smallest correction in `src/upgradepilot/maintainer_action.py` only after the responsibility boundary is clear.
 
-1. producer and exact input;
-2. evidence/proposition produced and identity/provenance carried;
-3. consumer/composition boundary;
-4. unresolved/unsupported/failure behavior;
-5. proof and non-proof;
-6. normal-path reachability.
+Important accepted block lesson from the completed reconstruction: mechanism `established_applicable` and runtime-correlated CI do not by themselves justify `block`. For a Python-support hold, the synthesis specification additionally requires an exact target support obligation for the affected environment, evidence that the proposed dependency is required there, and a demonstrated current-proposal conflict after relevant conditions/alternative paths/proposal changes are accounted for.
 
-Use the real source and representative tests; use product-simulation cases only where they materially discriminate a boundary. Apply A → B → C → D → E and teach unfamiliar premises before reasoning checks.
-
-After the flow is source-verified, create one durable product-flow learning/reference artifact through the normal learning-artifact procedure. Do not create it from assumptions or use it as a second specification/live-state owner.
-
-**Current stop line:** this first slice is read-only product reconstruction/learning. Do not modify product source/tests/specifications/ADRs, implement AUDIT-008-F3/F9/F4/F5/F6/F7, or admit a new maintainer action until the reconstruction slice is completed and the next bounded Build responsibility is explicitly entered.
+**Current stop line:** F3 may repair abstention explanation only. Do not add a non-abstention action, change accepted action semantics, wire synthesis into the CLI, add new evidence acquisition, or create a learning-note artifact unless separately selected/authorized.
 
 ## Retained completed foundations and proof
 
