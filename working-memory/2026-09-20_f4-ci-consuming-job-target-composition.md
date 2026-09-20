@@ -4,26 +4,28 @@
 
 ## A — orientation and preflight: DONE
 
-**Product problem:** CI already identifies the static job which consumes the changed dependency. Target interprets an entire workflow and currently insists it contain exactly one job, losing a useful existing job association in the multi-job case. `test` and `lint` are example job *names*, not new test commands or test-execution functionality. Earlier confusion was clarified before entry; detailed source/data flow may be learned during this F4 slice.
+**Product problem:** CI already identifies the static job which consumes the changed dependency. Target currently interprets an entire workflow and insists it contain exactly one job; in a two-job workflow it loses the available job selection and safely reports ambiguity. `test` and `lint` are example job *names*, not new test commands or test-execution functionality. Ali clarified this distinction and chose to learn deeper code flow during the build.
 
-**Normal flow:** `StaticDependencyConsumptionEvidence` (`ci/consumption.py`) has `workflow_path`, `workflow_revision`, `job_key`, `source_path`, `state`. `investigation.py::_compose_target_artifact_environments` validates supported direct-requirements source/revision/path but currently drops `job_key` in deduplication and in the `interpret_target_artifact_environment(...)` call. `target/artifact_environment.py::_select_target_job` requires exactly one workflow job. Existing application regression `test_multi_job_target_ambiguity_is_preserved_despite_ci_job_relevance` establishes the conservative unresolved state for a workflow where only `test` consumes the dependency. Provider static workflow IR preserves job keys, including problem/reusable shapes; the selected job must be validated against the exact workflow definition, not inferred from a job's human-friendly name.
+**Normal flow:** `StaticDependencyConsumptionEvidence` (`ci/consumption.py`) has `workflow_path`, `workflow_revision`, `job_key`, `source_path`, `state`. `investigation.py::_compose_target_artifact_environments` validates supported direct-requirements source/revision/path but drops `job_key` in deduplication and in the `interpret_target_artifact_environment(...)` call. The existing application regression `test_multi_job_target_ambiguity_is_preserved_despite_ci_job_relevance` establishes the current conservative unresolved state. The provider static workflow IR preserves job keys; Target must never guess a job or use its human-friendly display name as identity.
 
-**Bounded outcome:** pass the already-supported CI consuming-job key (with exact source/workflow/revision association) to Target; interpret only that exact selected job, reject absent/mismatched/unsupported identity without guessing, preserve job-specific deduplication and existing direct single-job use. Keep static declaration proof static; do not infer runtime execution, exact wheel tags, installed version, compatibility, block or merge permission. A future exact target observation remains separate.
+**Bounded outcome:** carry exact workflow/revision/source + already-supported CI consuming-job key to Target; interpret that job alone; refuse missing/mismatched/unsupported identity; keep deduplication job-specific and preserve single-job direct callers. Static declaration evidence is not runtime execution, wheel tags, installed version, compatibility or permission to merge/block.
 
-**Preflight proof:** focused Target selected-job positive/negative tests, normal application two-job positive and job-specific/mismatch negatives, existing single-job/unsupported regression, then broader deterministic suite on the exact changed revision. No green F9 CI run proves F4 changes. GitHub connector supports file-replacement writes but no patch or workflow dispatch; local container has no GitHub DNS access, so executable verification must be recorded as pending unless actual F4 tests are observed by a supported route.
+## B — implementation: PARTIAL (Target API only; normal application integration still pending)
 
-## B — bounded implementation: NEXT
+**Committed:** `src/upgradepilot/target/artifact_environment.py` now accepts optional `consuming_job_key`, selects the exact matching static workflow job, rejects an absent selected job with `selected_target_job_not_found`, preserves unsupported/reusable-job problems, and retains the old one-job-only behavior for callers that do not supply a key. Commit `a6f0ede6d89eed8d60c979f23a282e43f896819c`.
 
-Make the smallest source/test changes at Target and application composition. Preserve existing meanings and stop at F4.
+**Focused test source committed:** `tests/test_target_selected_consuming_job.py` covers positive two-job selected `test` versus unrelated `lint`, missing selected key, selected reusable job, and empty key; also checks unchanged direct-call ambiguity and exact-wheel-compatibility remaining unresolved. Commit `0d3f32396288a4572b4b2632d0ddc1e2e9af78ee`.
 
-## C — progressive state: OPEN
+**NOT YET IMPLEMENTED:** `src/upgradepilot/investigation.py::_compose_target_artifact_environments` must pass `consumption.job_key`, preserve that key in the deduplication relation, check exact definition/dependency-source repository and revision coherence, and ensure the selected Target result refers to the same job. Update existing `tests/test_investigation.py::test_multi_job_target_ambiguity_is_preserved_despite_ci_job_relevance` to prove the now-expected positive result; add only distinct missing/identity and two-consuming-job normal-path integration cases. Do not leave the old test asserting ambiguity when the normal application behavior changes. No new action or wheel evidence is authorized by this work.
 
-Record exact commits, changed-file diff, actual tests and any proof debt; update `MEMORY.md` only for live selection or material milestone.
+## C — preservation and proof: PARTIAL
+
+GitHub compare `a27067e208a49c8eda5238e3784a2aedc0cf0777..0d3f32396288a4572b4b2632d0ddc1e2e9af78ee` shows only the Target source, one new focused test file, the closed comparison working memory and this F4 working memory. **No F4 tests or broad regression have been executed.** Local clone remains unavailable because the container cannot resolve `github.com`; GitHub connector supports full-file replacements but no text-patch action or workflow dispatch. Do not infer test pass from code review or historical F9 CI. F4 remains open pending normal-path integration, focused and wider test results and D/E.
 
 ## D — actual-code learning: PENDING
 
-After implementation, trace the exact job key from CI consumption through application association to Target result; distinguish declared environment from runtime compatibility; use one changed-case reasoning check if useful.
+After full normal application implementation, trace the exact job key from CI consumption through application association into Target result; distinguish job declaration facts from actual installed package/runtime compatibility; offer one changed-case reasoning exercise after showing the actual code.
 
 ## E — closure and next step: PENDING
 
-Repair a material misunderstanding if any; close only at achieved proof horizon, otherwise hand off concrete unfinished build/verification state. Reassess next action-specific evidence producer only after F4 is genuinely proven.
+Repair material understanding gaps and close only at observed F4 proof horizon; do not move to another product responsibility or claim an action became reachable while normal integration/proof is missing.
