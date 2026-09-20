@@ -490,7 +490,7 @@ jobs:
             "unresolved",
         )
 
-    def test_multi_job_target_ambiguity_is_preserved_despite_ci_job_relevance(self) -> None:
+    def test_multi_job_target_uses_ci_identified_consuming_job(self) -> None:
         h = _Harness()
         h.set_releases(
             old=_package(
@@ -505,14 +505,20 @@ jobs:
         h.set_workflow(
             """jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.9"
       - run: pip install -r requirements.txt
   lint:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
       - run: python -m compileall src
 """,
             job_names=("test", "lint"),
@@ -524,9 +530,13 @@ jobs:
         self.assertEqual(result.ci_coverage_result.workflows[0].consumption_state, "supported")
         self.assertEqual(len(result.target_artifact_environment_results), 1)
         target = result.target_artifact_environment_results[0].target_environment
-        self.assertIsInstance(target, TargetArtifactEnvironmentProblem)
-        assert isinstance(target, TargetArtifactEnvironmentProblem)
-        self.assertEqual(target.state, "ambiguous_target_job_selection")
+        self.assertIsInstance(target, TargetArtifactEnvironmentEvidence)
+        assert isinstance(target, TargetArtifactEnvironmentEvidence)
+        self.assertEqual(target.job, "test")
+        self.assertEqual(target.runner.value if target.runner else None, "ubuntu-22.04")
+        self.assertEqual(target.python_version.value if target.python_version else None, "3.9")
+        self.assertEqual(target.dependency_installation_declaration, "observed")
+        self.assertEqual(target.exact_wheel_compatibility_state, "unresolved")
         self.assertIsNotNone(result.artifact_serviceability_impact_result)
         assert result.artifact_serviceability_impact_result is not None
         self.assertEqual(
@@ -741,8 +751,7 @@ def _dependency() -> DependencyVersionChange:
 
 def _package(
     version: str,
-    *,
-    wheel_filename: str | None = None,
+    *,    wheel_filename: str | None = None,
 ) -> PackageReleaseEvidence:
     distribution_files = (
         (
