@@ -42,6 +42,7 @@ type TargetArtifactEnvironmentProblemState = Literal[
     "file_unavailable",
     "workflow_definition_unreadable",
     "ambiguous_target_job_selection",
+    "selected_target_job_not_found",
     "unsupported_target_job",
 ]
 
@@ -100,18 +101,22 @@ def interpret_target_artifact_environment(
     evidence: RepositoryFileEvidence,
     *,
     dependency_source_file: str,
+    consuming_job_key: str | None = None,
 ) -> TargetArtifactEnvironmentResult:
-    """Return bounded Target evidence from one exact-revision workflow definition.
+    """Interpret one exact-revision job's partial Target declarations.
 
-    Successful ``RepositoryTextFile`` values already own intrinsic exact-file invariants.
-    This function validates only its independent dependency-source path input and Target
-    semantics, then delegates workflow structure to the shared GitHub Actions IR.
+    ``consuming_job_key`` is an already-established static workflow job ID supplied by
+    the CI/application composition boundary. When provided, select only that exact job;
+    do not independently guess a job from the workflow's other declarations. Omission
+    preserves the existing direct-caller, one-job-only interpretation contract.
     """
 
     if repository_relative_parts(dependency_source_file) is None:
         raise ValueError(
             "dependency_source_file must be a normalized repository-relative POSIX path"
         )
+    if consuming_job_key is not None and not consuming_job_key.strip():
+        raise ValueError("consuming_job_key must be a non-empty workflow job ID")
 
     if isinstance(evidence, UnavailableRepositoryFile):
         return TargetArtifactEnvironmentProblem(
@@ -120,6 +125,7 @@ def interpret_target_artifact_environment(
             revision=evidence.revision,
             workflow_path=evidence.path,
             detail=evidence.detail,
+            job=consuming_job_key,
         )
 
     assert isinstance(evidence, RepositoryTextFile)
@@ -130,10 +136,15 @@ def interpret_target_artifact_environment(
             evidence,
             "workflow_definition_unreadable",
             f"{definition_result.reason}: {definition_result.detail}",
+            job=consuming_job_key,
         )
 
     assert isinstance(definition_result, WorkflowDefinition)
-    job_result = _select_target_job(definition_result, evidence)
+    job_result = _select_target_job(
+        definition_result,
+        evidence,
+        consuming_job_key=consuming_job_key,
+    )
     if isinstance(job_result, TargetArtifactEnvironmentProblem):
         return job_result
 
@@ -180,25 +191,49 @@ def interpret_target_artifact_environment(
 def _select_target_job(
     definition: WorkflowDefinition,
     evidence: RepositoryTextFile,
+    *,
+    consuming_job_key: str | None,
 ) -> StepsJobDefinition | TargetArtifactEnvironmentProblem:
-    """Select the one local steps job admitted by the current Target API.
+    """Select only an explicitly identified job, or the legacy sole-job case.
 
-    The provider IR can preserve multiple jobs and reusable-workflow jobs. This Target
-    function does not yet have a proposition-specific job selector or reusable-workflow
-    expansion, so those cases are Target-level abstentions rather than parser failures.
+    CI owns evidence that a job statically consumes a changed dependency. Target owns
+    interpretation of that exact job's declared environment, not CI job-selection policy.
+    An absent selected key remains unresolved rather than selecting another job.
     """
 
-    if len(definition.jobs) != 1:
-        return _problem(
-            evidence,
-            "ambiguous_target_job_selection",
-            (
-                "The workflow definition is structurally readable, but the current "
-                f"Target interpreter requires one job and observed {len(definition.jobs)}."
-            ),
+    if consuming_job_key is None:
+        if len(definition.jobs) != 1:
+            return _problem(
+                evidence,
+                "ambiguous_target_job_selection",
+                (
+                    "The workflow definition is structurally readable, but the current "
+                    f"Target interpreter requires one job and observed {len(definition.jobs)}."
+                ),
+            )
+        job = definition.jobs[0]
+    else:
+        matching_jobs = tuple(
+            job for job in definition.jobs if job.key == consuming_job_key
         )
+        if not matching_jobs:
+            return _problem(
+                evidence,
+                "selected_target_job_not_found",
+                "The CI-selected consuming job was not found in the exact workflow definition.",
+                job=consuming_job_key,
+            )
+        # The provider rejects duplicate workflow job IDs; a defensive check prevents
+        # a future parser change from silently choosing between ambiguous matches.
+        if len(matching_jobs) != 1:
+            return _problem(
+                evidence,
+                "ambiguous_target_job_selection",
+                "The selected consuming job ID is not unique in the workflow definition.",
+                job=consuming_job_key,
+            )
+        job = matching_jobs[0]
 
-    job = definition.jobs[0]
     if isinstance(job, JobProblem):
         return _problem(
             evidence,
