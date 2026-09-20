@@ -62,16 +62,32 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("repository", help="Public repository in owner/repository form.")
     parser.add_argument("pull_number", type=int, help="GitHub pull-request number.")
+    parser.add_argument(
+        "--github-auth",
+        choices=("anonymous", "token-env"),
+        default="anonymous",
+        help=(
+            "GitHub authentication mode (default: anonymous). "
+            "Use token-env to explicitly read GITHUB_TOKEN from the environment."
+        ),
+    )
     return parser
 
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
+    # Public investigations must not silently adopt an unrelated shell credential.
+    token = None
+    if args.github_auth == "token-env":
+        token = os.getenv("GITHUB_TOKEN")
+        if not token:
+            print("Input rejected: --github-auth token-env requires GITHUB_TOKEN to be set.")
+            return 2
     try:
         investigation = investigate_public_pull_request(
             args.repository,
             args.pull_number,
-            token=os.getenv("GITHUB_TOKEN"),
+            token=token,
         )
     except UpgradePilotInputError as exc:
         print(f"Input rejected: {exc}")
