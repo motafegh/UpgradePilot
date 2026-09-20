@@ -11,7 +11,6 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import Any, Callable, TypeVar
 
-import requests
 from requests import Response, Session
 from requests.exceptions import RequestException, Timeout
 
@@ -26,6 +25,7 @@ from ..json_contract import (
     expect_optional_nonempty_text,
     expect_positive_integer,
 )
+from .auth_session import GitHubPublicSession
 
 GITHUB_API_ROOT = "https://api.github.com"
 GITHUB_API_VERSION = "2022-11-28"
@@ -63,7 +63,9 @@ class GitHubApiClient:
         session: Session | None = None,
         timeout: tuple[float, float] = DEFAULT_TIMEOUT,
     ) -> None:
-        self._session = session or requests.Session()
+        # An explicitly injected session is a caller/test seam; normal production
+        # acquisition must not silently inherit ambient .netrc credentials.
+        self._session = session if session is not None else GitHubPublicSession()
         self._timeout = timeout
         self._headers = {
             "Accept": "application/vnd.github+json",
@@ -114,7 +116,7 @@ class GitHubApiClient:
             return expect_list(data)
         except JsonContractViolation as exc:
             raise GitHubResponseError(
-                f"GitHub returned JSON, but the {resource} response was not an array."
+                f"GitHub returned JSON, but the {resource} response was not an object."
             ) from exc
 
     def _get(
