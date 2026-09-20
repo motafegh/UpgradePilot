@@ -1,6 +1,6 @@
 # AUDIT-008-F11 — audit lifecycle reconciliation (2026-09-20)
 
-**Role:** Dated bounded Audit/Review and coordination record; `MEMORY.md` alone owns live execution. F3/F9 remain closed. Scope: AUDIT-005 lifecycle classification and relevant indexes/current state; no product source, experiment implementation, evaluation outcome, or adoption decision.
+**Role:** Closed dated bounded Audit/Review and coordination record; `MEMORY.md` alone owns live execution. F3/F9 remain closed. Scope: AUDIT-005 lifecycle classification and relevant indexes/current state; no product source, experiment implementation, evaluation outcome, or adoption decision.
 
 ## A — orientation and inspected owners: DONE
 
@@ -28,8 +28,8 @@ The original `audits/LIFECYCLE.md`, AUDIT-005 canonical audit, X1 evaluation pla
 
 Fetched the updated active and scheduled index contents directly: AUDIT-008 is active, AUDIT-005 is scheduled with a real current plan path and an explicit future handoff; no duplicate AUDIT-005 in active. Compared pre-F11 main `b81551ad66d781c3a42a46d3068f3b21d68b89ed` to the state-alignment revision `f70f0043f03ae88b6fabeb2faf2cca3c0f05169a`: exactly four files changed—`audits/active/README.md`, `audits/scheduled/README.md`, `MEMORY.md`, and this new F11 working memory. This is documentation/lifecycle-only proof; no product test run, agentic pilot result or live PR evidence is claimed.
 
-## D / E
+## D / E — proportionally completed; F11 CLOSED
 
-D — NEXT: explain the actual index change and distinction between the audit's status and the underlying evaluation checkpoint; check one practical changed-case with Ali. A documentation change is not evidence that a model planner succeeds.
+D — DONE at the appropriate documentation-cleanup depth: explained the changed active/scheduled indexes, the preservation of AUDIT-005 findings, the distinct future checkpoint, and `MEMORY.md`'s current route. Ali explicitly preferred proportionate housekeeping over an additional learning quiz and asked whether stale coordination had been cleaned up. No independent learner mastery of the underlying agentic pilot is claimed.
 
-E — PENDING: repair material misunderstanding if any, close F11 when the lifecycle/live-state agreement and learning check are satisfied, then orient action-relative evidence-producer comparison without preselecting F4/F5/F6/F7.
+E — DONE: the F11-scoped stale active entry and outdated plan link were corrected; the active/scheduled indexes and live memory agree. No material F11 technical gap remains. **F11 CLOSED for its bounded audit-lifecycle reconciliation scope.** This is not a repository-wide stale-reference audit; other historical documents may accurately preserve previous live states or contain unrelated outdated references. Next selected operation is the execution plan's **action-relative evidence-producer/reachability comparison**, which must first compare documented action permissions and normal-path producer gaps before selecting one responsibility; no F4/F5/F6/F7 build is pre-authorized.
