@@ -450,7 +450,7 @@ def _compose_target_artifact_environments(
     coverage_inputs: list[WorkflowDependencyCoverageInput],
     source_contexts: tuple[DependencySourceContext, ...],
 ) -> tuple[DependencySourceArtifactEnvironmentResult, ...]:
-    """Interpret only CI-supported direct-requirements source/workflow relationships."""
+    """Interpret only CI-supported direct-requirements source/workflow/job relationships."""
 
     if len(ci_coverage_result.workflows) != len(coverage_inputs):
         raise ValueError(
@@ -458,7 +458,7 @@ def _compose_target_artifact_environments(
         )
 
     results: list[DependencySourceArtifactEnvironmentResult] = []
-    seen_relationships: set[tuple[str, str, str]] = set()
+    seen_relationships: set[tuple[str, str, str, str]] = set()
 
     for workflow_result, workflow_input in zip(
         ci_coverage_result.workflows,
@@ -485,11 +485,14 @@ def _compose_target_artifact_environments(
                 raise ValueError(
                     "supported CI consumption does not match exact workflow identity"
                 )
+            if not consumption.job_key:
+                raise ValueError("supported CI consumption must identify one consuming job")
 
             matching_contexts = tuple(
                 context
                 for context in source_contexts
                 if isinstance(context, RequirementsFileDependencyContext)
+                and context.repository == definition.repository
                 and context.source_path == consumption.source_path
                 and context.revision == consumption.workflow_revision
                 and context.normalized_package == consumption.normalized_package
@@ -505,6 +508,7 @@ def _compose_target_artifact_environments(
                 consumption.workflow_revision,
                 consumption.workflow_path,
                 source_context.source_path,
+                consumption.job_key,
             )
             if relationship in seen_relationships:
                 continue
@@ -513,7 +517,10 @@ def _compose_target_artifact_environments(
             target_result = interpret_target_artifact_environment(
                 definition,
                 dependency_source_file=source_context.source_path,
+                consuming_job_key=consumption.job_key,
             )
+            if target_result.job != consumption.job_key:
+                raise ValueError("Target result must retain the exact CI consuming job")
             results.append(
                 DependencySourceArtifactEnvironmentResult(
                     dependency_source=source_context,
