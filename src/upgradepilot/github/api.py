@@ -11,6 +11,7 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import Any, Callable, TypeVar
 
+import requests
 from requests import Response, Session
 from requests.exceptions import RequestException, Timeout
 
@@ -116,7 +117,7 @@ class GitHubApiClient:
             return expect_list(data)
         except JsonContractViolation as exc:
             raise GitHubResponseError(
-                f"GitHub returned JSON, but the {resource} response was not an object."
+                f"GitHub returned JSON, but the {resource} response was not an array."
             ) from exc
 
     def _get(
