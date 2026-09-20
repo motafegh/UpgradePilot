@@ -5,15 +5,15 @@
 
 ## Live position — main product workstream STARTED
 
-- **Current responsibility:** **AUDIT-008-F11 — audit/live-state lifecycle reconciliation; index updates DONE, post-change learning/closure NEXT**. F3 and F9 are CLOSED at their selected bounded proof/learning horizons. Do not reopen them without concrete regression or contradiction.
-- **Primary mode:** bounded Audit/Review + canonical A → B → C → D → E Learning-by-Doing. Learning-note artifacts remain out of scope unless Ali explicitly requests one.
+- **Current responsibility:** **Action-relative evidence-producer/reachability comparison — Phase A NEXT**, under the selected end-to-end evidence-to-action execution plan. F3, F9 and **F11 are CLOSED** at their bounded proof/learning/coordination horizons. No F4/F5/F6/F7 implementation is selected merely by beginning the comparison.
+- **Primary mode:** bounded Analysis/Planning-Design + canonical A → B → C → D → E Learning-by-Doing; choose the appropriate primary procedure at entry. Learning-note artifacts remain out of scope unless Ali explicitly requests one.
 - **Selected execution/learning plan:** `plans/END_TO_END_PRODUCT_FLOW_LEARNING_AND_EVIDENCE_TO_ACTION_EXECUTION_PLAN.md`.
 - **Parent execution plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
 - **Controlling current-system audit/input:** `audits/2026-09-19_AUDIT-008_current-system-evidence-to-action-readiness.md` (AUDIT-008).
-- **Active main working memory:** `working-memory/2026-09-20_f11-audit-lifecycle-reconciliation.md` (F11 source/rationale, index changes, learning/proof). Closed F9 handoff: `working-memory/2026-09-20_f9-public-github-authentication-phase-a.md`. Historical F3 proof/F9 handoff: `working-memory/2026-09-19_f3-hosted-verification-and-f9-handoff.md`; earlier detailed F3 work: `working-memory/2026-09-19_1825_parent-synthesis-evidence-path-reaudit.md`.
+- **Latest main working-memory handoff:** `working-memory/2026-09-20_f11-audit-lifecycle-reconciliation.md` (F11 closure and next-slice orientation). Closed F9 record: `working-memory/2026-09-20_f9-public-github-authentication-phase-a.md`. Historical F3 proof/F9 handoff: `working-memory/2026-09-19_f3-hosted-verification-and-f9-handoff.md`; earlier detailed F3 work: `working-memory/2026-09-19_1825_parent-synthesis-evidence-path-reaudit.md`. Select a separate working record for the next substantive comparison.
 - **Parallel learning:** `working-memory/2026-09-19_cycle3-integrated-learning-review.md` continues independently in another conversation. Its remaining exercises are not a gate blocking main product progression. Do not mark its outcomes complete or rewrite its record from this workstream.
-- **Cycle status:** Cycle 1 CLOSED; Cycle 2 CLOSED; Cycle 3 CLOSED. Do not reopen accepted command-analysis implementation without concrete regression/contradiction.
-- **Repository route:** `main` unless Ali selects another route. Current F11 work is audit lifecycle coordination only, not product source mutation, new action permissions, agentic evaluation or external-target mutation.
+- **Cycle status:** Cycle 1 CLOSED; Cycle 2 CLOSED; Cycle 3 CLOSED. Do not reopen accepted command-analysis implementation without concrete regression or contradiction.
+- **Repository route:** `main` unless Ali selects another route. The newly selected comparison is analysis/design, not authorization to mutate product source, admit a new action permission, activate agentic evaluation or modify external targets.
 
 ## Immediate continuation
 
@@ -29,13 +29,17 @@ F3 implementation Learning-by-Doing phases A/B/C/D/E were completed with Ali; it
 
 **Learning/closure:** A/B/C/D/E DONE. After code-level teaching from the familiar `env -u GITHUB_TOKEN` case, Ali correctly reasoned that an expired ambient token will not be used by the ordinary command absent deliberate `--github-auth token-env`. This establishes bounded user-facing configuration ownership, not independent mastery of Requests redirect internals. No material learning or test gap remains for the selected F9 scope. **F9 CLOSED**. No live public-PR, real token/rate-limit acceptance, arbitrary proxy behavior, local-model quality, or non-abstention action is proved by the controlled hosted tests.
 
-### F11 — index correction completed; learning and closure next
+### F11 — CLOSED: audit/live-state lifecycle reconciliation
 
-`audits/LIFECYCLE.md` distinguishes a valid audit's evidence from its current or future execution selection. The `audits/active/README.md` entry for AUDIT-005 was stale relative to `MEMORY.md`; its former link to `plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md` was also outdated. F11 moved AUDIT-005's **index entry only** from ACTIVE to SCHEDULED, retaining its original canonical audit and its approved, undispositioned evaluation checkpoint. `audits/active/README.md` now lists AUDIT-008 as the current audit input; `audits/scheduled/README.md` links the actual `plans/BOUNDED_PRODUCT_AGENTIC_INVESTIGATION_PLANNER_AND_ORCHESTRATION_EVALUATION_PLAN.md` and its accepted protocol.
+`audits/LIFECYCLE.md` distinguishes a valid audit's evidence from its current or future execution selection. The prior `audits/active/README.md` entry for AUDIT-005 was stale relative to `MEMORY.md`; its former link to `plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md` was also outdated. F11 moved AUDIT-005's **index entry only** from ACTIVE to SCHEDULED, retaining its original canonical audit and its approved, undispositioned evaluation checkpoint. `audits/active/README.md` now lists AUDIT-008 as the current audit input; `audits/scheduled/README.md` links the actual `plans/BOUNDED_PRODUCT_AGENTIC_INVESTIGATION_PLANNER_AND_ORCHESTRATION_EVALUATION_PLAN.md` and its accepted protocol.
 
 **Explicit future handoff, not live activation:** when the selected evidence-to-action execution journey completes or is explicitly stopped/replanned, **before ordinary B2 continuation**, revisit the still-open B2/X1 agentic evaluation checkpoint. At that handoff explicitly activate the owning evaluation plan or record an evidence-backed reschedule/defer/reject decision in the appropriate owning plan and `MEMORY.md`; do not silently skip it. The old R7 activation prerequisite was satisfied historically but does not make the checkpoint today's selected work. Scheduling does not imply adoption, rejection, actual model evaluation, or ending a separate Learning-Only pause. AUDIT-005's technical conclusions are retained as valid review evidence, not a competing live instruction.
 
-**F11 cycle:** A DONE (lifecycle/owner orientation); B DONE (correct audit indexes and named plan/handoff); C ongoing (dated F11 working record and post-change index/live-state review); D NEXT (teach distinction and ask one practical changed-case question); E PENDING (close after any needed learning repair). This is documentation-only: review exact file contents and diff, not unrelated product CI. **After F11:** begin the execution plan's action-relative evidence-producer/reachability comparison; do not preselect F4/F5/F6/F7.
+**F11 proof and closure:** A/B/C DONE (reviewed lifecycle/owner rules; corrected the two indexes and `MEMORY.md`; verified resulting contents and a four-file documentation-only F11 diff). D/E completed proportionately: Ali was shown the old/new status and future handoff, and explicitly preferred closing focused housekeeping without a further quiz. This does not assert mastery of the underlying agentic evaluation. The F11-specific stale lifecycle metadata and plan link are fixed. **F11 CLOSED for its selected scope; no repository-wide stale-document audit or product test was performed.** The dated F11 record owns precise commits and review limits.
+
+### Next — action-relative producer/reachability comparison
+
+Start from accepted maintainer-action permissions and the normal producer → composition → consumer flow. Compare which exact missing evidence premise blocks each currently considered positive action, what existing sources already establish, and which close defeaters remain. Use AUDIT-008 F4/F5/F6/F7 only as candidates, not a feature backlog. Select **one** smallest decision-critical producer or composition responsibility after this analysis; do not assume green CI alone proves compatibility or add a non-abstention action without its exact normal-path evidence. The active evidence-to-action plan owns scope, proof and stop conditions.
 
 ## Retained completed foundations and proof
 
@@ -82,6 +86,6 @@ The previous expanded `MEMORY.md` snapshot at commit `0201069d91f2d2bc776b846168
 - `working-memory/2026-09-19_1825_parent-synthesis-evidence-path-reaudit.md` — AUDIT-008 review, end-to-end reconstruction and F3 implementation/ownership;
 - `working-memory/2026-09-19_f3-hosted-verification-and-f9-handoff.md` — exact F3 hosted proof and historical F9 handoff;
 - `working-memory/2026-09-20_f9-public-github-authentication-phase-a.md` — closed F9 source, learner reorientation, exact hosted proof and ownership evidence;
-- `working-memory/2026-09-20_f11-audit-lifecycle-reconciliation.md` — F11 lifecycle decision, index updates, future handoff and ownership check.
+- `working-memory/2026-09-20_f11-audit-lifecycle-reconciliation.md` — closed F11 lifecycle decision, index updates, future handoff and proportionate ownership review.
 
 Keep `MEMORY.md` as the sole compact live-state owner. Promote accepted durable semantics or methods only to actual specification/ADR owners; dated working memory must not become a competing live-state authority.
