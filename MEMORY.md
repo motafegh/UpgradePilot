@@ -5,15 +5,15 @@
 
 ## Live position — main product workstream STARTED
 
-- **Current responsibility:** **Action-relative evidence-producer/reachability comparison — Phase A NEXT**, under the selected end-to-end evidence-to-action execution plan. F3, F9 and **F11 are CLOSED** at their bounded proof/learning/coordination horizons. No F4/F5/F6/F7 implementation is selected merely by beginning the comparison.
-- **Primary mode:** bounded Analysis/Planning-Design + canonical A → B → C → D → E Learning-by-Doing; choose the appropriate primary procedure at entry. Learning-note artifacts remain out of scope unless Ali explicitly requests one.
+- **Current responsibility:** **Action-relative evidence-producer/reachability comparison — A/B/C DONE; D learner ownership review NEXT; E PENDING.** F3, F9 and F11 are CLOSED at their bounded proof/learning/coordination horizons. The source-backed comparison has provisionally selected F4 (carry exact CI consuming-job identity into Target artifact-environment composition) as the single next bounded responsibility; do not silently enter its separate implementation cycle before completing this comparison's D/E. No new action permission has been earned by the comparison.
+- **Primary mode:** bounded Analysis/Planning-Design + canonical A → B → C → D → E Learning-by-Doing. Learning-note artifacts remain out of scope unless Ali explicitly requests one.
 - **Selected execution/learning plan:** `plans/END_TO_END_PRODUCT_FLOW_LEARNING_AND_EVIDENCE_TO_ACTION_EXECUTION_PLAN.md`.
 - **Parent execution plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
 - **Controlling current-system audit/input:** `audits/2026-09-19_AUDIT-008_current-system-evidence-to-action-readiness.md` (AUDIT-008).
-- **Latest main working-memory handoff:** `working-memory/2026-09-20_f11-audit-lifecycle-reconciliation.md` (F11 closure and next-slice orientation). Closed F9 record: `working-memory/2026-09-20_f9-public-github-authentication-phase-a.md`. Historical F3 proof/F9 handoff: `working-memory/2026-09-19_f3-hosted-verification-and-f9-handoff.md`; earlier detailed F3 work: `working-memory/2026-09-19_1825_parent-synthesis-evidence-path-reaudit.md`. Select a separate working record for the next substantive comparison.
+- **Active main working memory:** `working-memory/2026-09-20_action-relative-producer-reachability-comparison.md` (action-permission/source comparison, F4 selection rationale and proof limits, pending D/E). Closed F11 handoff: `working-memory/2026-09-20_f11-audit-lifecycle-reconciliation.md`; closed F9: `working-memory/2026-09-20_f9-public-github-authentication-phase-a.md`; prior F3 work: `working-memory/2026-09-19_1825_parent-synthesis-evidence-path-reaudit.md`.
 - **Parallel learning:** `working-memory/2026-09-19_cycle3-integrated-learning-review.md` continues independently in another conversation. Its remaining exercises are not a gate blocking main product progression. Do not mark its outcomes complete or rewrite its record from this workstream.
 - **Cycle status:** Cycle 1 CLOSED; Cycle 2 CLOSED; Cycle 3 CLOSED. Do not reopen accepted command-analysis implementation without concrete regression or contradiction.
-- **Repository route:** `main` unless Ali selects another route. The newly selected comparison is analysis/design, not authorization to mutate product source, admit a new action permission, activate agentic evaluation or modify external targets.
+- **Repository route:** `main` unless Ali selects another route. This comparison is analysis/design, not authorization to mutate product source, admit a new action permission, activate agentic evaluation or modify external targets.
 
 ## Immediate continuation
 
@@ -37,9 +37,13 @@ F3 implementation Learning-by-Doing phases A/B/C/D/E were completed with Ali; it
 
 **F11 proof and closure:** A/B/C DONE (reviewed lifecycle/owner rules; corrected the two indexes and `MEMORY.md`; verified resulting contents and a four-file documentation-only F11 diff). D/E completed proportionately: Ali was shown the old/new status and future handoff, and explicitly preferred closing focused housekeeping without a further quiz. This does not assert mastery of the underlying agentic evaluation. The F11-specific stale lifecycle metadata and plan link are fixed. **F11 CLOSED for its selected scope; no repository-wide stale-document audit or product test was performed.** The dated F11 record owns precise commits and review limits.
 
-### Next — action-relative producer/reachability comparison
+### Action-relative producer/reachability comparison — B/C DONE; D/E NEXT
 
-Start from accepted maintainer-action permissions and the normal producer → composition → consumer flow. Compare which exact missing evidence premise blocks each currently considered positive action, what existing sources already establish, and which close defeaters remain. Use AUDIT-008 F4/F5/F6/F7 only as candidates, not a feature backlog. Select **one** smallest decision-critical producer or composition responsibility after this analysis; do not assume green CI alone proves compatibility or add a non-abstention action without its exact normal-path evidence. The active evidence-to-action plan owns scope, proof and stop conditions.
+The accepted maintainer-action specification defines distinct positive permissions, but current `src/upgradepilot/maintainer_action.py` still admits only `abstain`. The current normal application can provide exact CI supported consumption and package wheel-loss candidates, but it cannot infer target wheel compatibility, a concrete maintainer-check plan, broad adaptive inquiry, declared Python-support hold obligations, generic future responsibility or positive favorable coverage merely from existing states. In particular, F4 source trace shows that `StaticDependencyConsumptionEvidence` retains the exact consuming `job_key` while normal Target artifact-environment composition drops that key and independently refuses multi-job workflows. The existing `tests/test_investigation.py::test_multi_job_target_ambiguity_is_preserved_despite_ci_job_relevance` demonstrates this information loss without a false positive.
+
+**Provisional single next responsibility after D/E: AUDIT-008-F4 — preserve exact supported CI consuming-job identity through application composition into bounded Target artifact-environment interpretation.** A correct job-specific Target declaration is a needed precursor for a later target-specific artifact/check evidence path, not itself proof of runtime execution, exact target wheel tags, impact applicability or a non-abstention maintainer action. F5 requires a genuine target-owned compatibility observation; F6 is proposition-specific runtime-version/artifact evidence; F7 requires bounded positive coverage and context. The comparison record documents the alternative action permissions, source trace, selection rationale, negative cases and proof stop line. Do not make all four into a backlog or silently authorize implementation while this cycle's D/E remain open.
+
+**Next interaction:** teach the concrete `test` vs `lint` two-job example and why CI's already-known consuming job must be retained, ask one short changed-case question, repair any material confusion, then formally orient the separate F4 design/build cycle. No new tests/CI or product implementation occurred during this comparison.
 
 ## Retained completed foundations and proof
 
@@ -86,6 +90,7 @@ The previous expanded `MEMORY.md` snapshot at commit `0201069d91f2d2bc776b846168
 - `working-memory/2026-09-19_1825_parent-synthesis-evidence-path-reaudit.md` — AUDIT-008 review, end-to-end reconstruction and F3 implementation/ownership;
 - `working-memory/2026-09-19_f3-hosted-verification-and-f9-handoff.md` — exact F3 hosted proof and historical F9 handoff;
 - `working-memory/2026-09-20_f9-public-github-authentication-phase-a.md` — closed F9 source, learner reorientation, exact hosted proof and ownership evidence;
-- `working-memory/2026-09-20_f11-audit-lifecycle-reconciliation.md` — closed F11 lifecycle decision, index updates, future handoff and proportionate ownership review.
+- `working-memory/2026-09-20_f11-audit-lifecycle-reconciliation.md` — closed F11 lifecycle decision, index updates, future handoff and proportionate ownership review;
+- `working-memory/2026-09-20_action-relative-producer-reachability-comparison.md` — active action-relative analysis, selected F4 precursor and pending D/E ownership review.
 
 Keep `MEMORY.md` as the sole compact live-state owner. Promote accepted durable semantics or methods only to actual specification/ADR owners; dated working memory must not become a competing live-state authority.
