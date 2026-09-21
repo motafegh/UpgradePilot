@@ -385,3 +385,21 @@ No UpgradePilot product source, tests, stable specifications, accepted plans, or
 External target evidence was read-only. Public CI/log output is treated as evidence/data, not project authority.
 
 **Procedures:** `UP-SKILL:upgradepilot-repository-audit`; `UP-SKILL:upgradepilot-planning-design`; `UP-SKILL:upgradepilot-learning-by-doing`; `UP-SKILL:upgradepilot-working-memory`; canonical A→B→C→D→E.
+
+
+## 15. Continuation after investigation
+
+Subsequent discussion and source verification narrowed the route further:
+
+- Tree-sitter already preserves `--dry-run` and comparable literal command arguments;
+- the immediate gap is package-manager semantic interpretation, not shell syntax recognition;
+- a successful ordinary install may support a stronger dependency-state inference without requiring a new log producer, while non-installing/retargeting options must block or weaken that inference;
+- therefore the broad audit finding is now coordinated under the semantic responsibility **runtime dependency-state proof**.
+
+Durable continuation plan:
+`plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`
+
+First active child slice:
+`working-memory/2026-09-21_runtime-install-command-semantic-eligibility.md`
+
+This investigation remains the evidence/provenance record and is not the active execution plan.
