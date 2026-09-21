@@ -115,9 +115,9 @@ Very interactive but concise. Explain first; do not quiz before premises exist.
 
 ```text
 A1 — DONE: current pip/uv source/proof flow and support boundary reconstructed
-A2 — IN PROGRESS: classify material package-manager semantic families
-A3 — IN PROGRESS: define positive / defeating / unresolved proof boundary
-A4 — PENDING: establish minimum source/type map for Phase B
+A2 — DONE: material pip/uv semantic families classified at proposition-relative level
+A3 — DONE: positive / inference-defeated / unresolved / irrelevant proof vocabulary established
+A4 — DONE: minimum Phase B source/type ownership map established
 A5 — PENDING: Ali reconstruction/challenge and Phase A closure
 ```
 
@@ -671,6 +671,80 @@ EFFECTIVE RUNTIME PACKAGE STATE
 The first may be a useful Cycle 1 responsibility even if the second still requires an explicit runtime witness in a conditional Cycle 2.
 
 No Cycle 2 is selected yet.
+
+### A2+A3 closure
+
+A2+A3 are complete.
+
+The durable conclusion is:
+
+```text
+command-local semantic eligibility
+→ bounded, useful, source-ownable
+
+effective runtime package state
+→ stronger proposition that may still depend on ambient/runtime evidence
+```
+
+Cycle 1 must not silently equate the two. Phase B may implement/design the former as an intermediate proof owner, but the final command-completion state proposition is earned only if the remaining effective-semantics uncertainty is itself bounded sufficiently.
+
+### A4 — minimum Phase B source/type map
+
+The smallest relevant owner map is:
+
+```text
+github/workflow_command_analysis.py
+StaticCommandOccurrence / StaticCommandAtom
+→ canonical parsed command syntax and literal/dynamic atoms
+
+dependency/pip_command.py
+→ bounded pip-install prefix recognition
+
+dependency/environment_selection.py
+ProjectEnvironmentSelectionDeclaration
+→ current pip/uv manager + operation + project/selectors/scope semantics
+
+dependency/direct_install.py
+DirectInstallDeclarationObservation
+→ exact pip requirements-source declaration
+
+ci/workflow_commands.py
+→ shared traversal where command analysis and dependency semantics are simultaneously available
+
+ci/consumption.py
+StaticDependencyConsumptionEvidence
+→ current static changed-dependency consumption proposition
+
+ci/runtime_strengthening.py
+→ shell/runtime-strengthening eligibility, not package-manager meaning
+
+ci/dependency_exercise.py
+→ current static + runtime evidence composition
+```
+
+#### Important representation seam
+
+`StaticDependencyConsumptionEvidence` currently preserves command text/location, structure, source path, and consumption mechanism, but does **not** preserve the package manager/operation or a package-manager semantic eligibility result.
+
+Therefore Phase B should not reconstruct pip/uv semantics later from `command: str`.
+
+The earliest trustworthy semantic owner is where parser-neutral command atoms are still available and dependency meaning is already being interpreted:
+
+```text
+StaticCommandOccurrence
+→ dependency-owned package-manager semantic classifier
+→ typed semantic result
+→ workflow/static consumption composition
+```
+
+Current architectural preference, still subject to Phase B design:
+
+- package-manager option meaning belongs in the **dependency domain**, not GitHub/provider parsing and not CI runtime correlation;
+- `workflow_commands.py` is a likely orchestration/composition point because it already holds the parsed occurrence and dependency context;
+- the semantic result should be typed and preserved downstream rather than re-parsed from raw command text;
+- shell/runtime eligibility in `runtime_strengthening.py` should remain separate from package-manager semantic eligibility.
+
+This source/type map is sufficient for Phase B orientation; no detailed result type or file mutation is selected yet.
 
 ### Phase A output
 
