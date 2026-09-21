@@ -383,6 +383,153 @@ REMAIN UNRESOLVED
 
 Do not enumerate every pip/uv option. Use representative current options only to establish the semantic classes and Cycle 1 proof boundary.
 
+### A2+A3 findings — proposition-relative semantic classes
+
+Current official pip/uv semantics and current UpgradePilot source support the following Phase A model.
+
+Important vocabulary correction:
+
+```text
+"defeats the inference"
+!=
+"proves the package is absent"
+```
+
+A dry-run, no-sync, or package-exclusion option can establish that **this command cannot be used as positive proof that it formed the required package state**. The desired package/version may nevertheless already exist from earlier state, so absence must not be invented.
+
+#### 1. Normal environment formation — positive candidate
+
+Representative shapes:
+
+```text
+pip install -r requirements.txt
+uv sync <admitted project/selectors>
+uv run <admitted project/selectors> <command>
+```
+
+Official semantics support the general model that ordinary pip install satisfies/install requirements and ordinary uv sync forms an up-to-date project environment; uv run normally ensures the project environment is up to date before running the child command.
+
+**Phase A disposition:** positive candidate only when no material semantic modifier defeats, redirects, or leaves the effective behavior unresolved.
+
+#### 2. Non-mutating / no-sync — defeats command-as-state-proof
+
+Representative cases:
+
+```text
+pip --dry-run / PIP_DRY_RUN
+uv sync --dry-run
+uv run --no-sync / UV_NO_SYNC
+```
+
+These semantics positively establish that the command does not perform the normal environment mutation/synchronization required by the stronger inference.
+
+**Disposition:** defeat the positive inference from this command; do not infer package absence.
+
+#### 3. Package exclusion / selection narrowing — proposition-relative
+
+Representative uv cases:
+
+```text
+--no-install-package <name>
+--only-install-package <name>
+--no-group / --only-group
+--no-install-project / --no-install-workspace
+```
+
+These are material only when they exclude or replace a root/package/group needed for the changed-package proposition. An exclusion unrelated to the changed package/environment may be irrelevant.
+
+Pip `--no-deps` is similarly proposition-relative: it does not automatically block installation of an exact direct top-level requirement merely because transitive dependencies are skipped.
+
+**Disposition:** changed-package/relevant-root exclusion defeats command-as-proof; unrelated modifiers may remain compatible; uncertain relation remains unresolved.
+
+#### 4. Environment retargeting — unresolved unless relation is positively established
+
+Representative pip cases:
+
+```text
+--target
+--user
+--root
+--prefix
+```
+
+Representative uv cases include project/directory/active/isolated environment selection.
+
+The destination itself is not good/bad. The relevant relation is:
+
+```text
+installation/sync target
++
+later relevant execution environment
++
+positive relation between them
+→ same relevant environment?
+```
+
+**Disposition:** positive only when the relevant-environment relation is established; otherwise unresolved for the stronger proposition.
+
+#### 5. Overlay / override — can change the effective runtime version
+
+Representative uv case:
+
+```text
+uv run --with package==other-version ...
+```
+
+Official uv semantics allow invocation-scoped requirements to be layered over the project environment and to use a version different from the project's requirement.
+
+**Disposition:** if the changed package is overlaid with a conflicting version, the project-state proof cannot be silently transferred to the child execution environment; treat as defeating/unresolved according to the exact proposition. Unrelated overlays may be irrelevant.
+
+#### 6. Ambient configuration/environment — currently an important unresolved surface
+
+Pip command options may be supplied by `PIP_*` environment variables and configuration files. Uv likewise exposes material behavior through `UV_*` variables/configuration.
+
+Fresh UpgradePilot source inspection shows that the current bounded `workflow_definition.py` representation does **not** preserve workflow/job/step `env` mappings. Therefore visible command text alone cannot currently establish the absence of material environment-variable overrides such as `PIP_DRY_RUN`, `PIP_TARGET`, or `UV_NO_SYNC`.
+
+**Disposition:** this is a real design/proof question for Phase B, not something Phase A should hand-wave away. The product may need either:
+- bounded effective environment-variable/config evidence for material package-manager semantics;
+- a narrower admitted command class with a justified trust boundary;
+- or explicit runtime-state evidence when effective semantics cannot be established.
+
+No option is selected yet.
+
+#### 7. Dynamic / unsupported semantics — unresolved
+
+If material package-manager arguments/values or effective configuration cannot be resolved safely, preserve `unresolved`; do not guess positive eligibility.
+
+#### 8. Later mutation — separate temporal/order responsibility
+
+Example:
+
+```text
+valid install/sync
+→ later uninstall/replacement/environment mutation
+→ later exercise
+```
+
+This does not invalidate a command-completion state claim. It limits transferring that claim to a later observation/exercise boundary.
+
+### A3 bounded proof vocabulary
+
+Cycle 1 should distinguish at least these semantic outcomes conceptually:
+
+```text
+POSITIVE ELIGIBILITY
+→ command semantics permit success to support the bounded command-completion state proposition
+
+INFERENCE DEFEATED
+→ known semantics prevent this command from serving as that positive state-producing witness
+→ does NOT mean package absence
+
+UNRESOLVED
+→ available evidence cannot establish effective state-producing semantics
+
+IRRELEVANT MODIFIER
+→ modifier does not affect the changed-package proposition being evaluated
+```
+
+The exact result type/name remains a Phase B design decision.
+
 ### Phase A output
 
 Ali and the AI share a minimum-complete mental model of the current source/proof flow, responsibility boundaries, and Cycle 1 acceptance/non-goal boundary.
