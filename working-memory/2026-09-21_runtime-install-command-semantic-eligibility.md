@@ -114,9 +114,9 @@ Very interactive but concise. Explain first; do not quiz before premises exist.
 ### Phase A task tracker
 
 ```text
-A1 — IN PROGRESS: reconstruct current source/proof flow and support boundary
-A2 — PENDING: distinguish shell structure vs package-manager semantics
-A3 — PENDING: define Cycle 1 success / unresolved / non-goal boundary
+A1 — DONE: current pip/uv source/proof flow and support boundary reconstructed
+A2 — IN PROGRESS: classify material package-manager semantic families
+A3 — IN PROGRESS: define positive / defeating / unresolved proof boundary
 A4 — PENDING: establish minimum source/type map for Phase B
 A5 — PENDING: Ali reconstruction/challenge and Phase A closure
 ```
@@ -290,6 +290,98 @@ physical runtime environment/location
 ```
 
 The former is already modeled substantially for uv. Cycle 1 must determine how much of the latter can be established from command semantics + runtime evidence without overclaiming.
+
+### A1 finding — pip has two existing static-consumption paths
+
+Fresh source inspection confirmed that pip already has substantial static environment/consumption logic, but it is simpler than uv reachability and split into two paths.
+
+```text
+pip requirements path
+exact changed package/version in requirements source
++ exact pip -r / --requirement source match
+→ direct static changed-dependency consumption
+
+pip local-project path
+exact pyproject-scoped changed dependency
++ pip install . / .[extra] / editable local project selection
++ project-root / extra membership relation
+→ project-environment static changed-dependency consumption
+```
+
+Unlike uv.lock, ordinary admitted requirements changes do not need graph traversal because the changed package is directly pinned in the source being installed.
+
+### A1 shared architecture hypothesis
+
+Pip and uv reach the same current proof boundary through different source-specific mechanisms:
+
+```text
+pip requirements
+→ direct source matching
+
+pip local project
+→ project root + selected extra membership
+
+uv
+→ project root + selectors + exact-lock reachability
+
+ALL
+→ StaticDependencyConsumptionEvidence
+```
+
+The next shared question is therefore not "how was consumption established?" but:
+
+> Given already-established static changed-dependency consumption, do this exact package-manager command's semantics permit a stronger runtime dependency-state inference?
+
+Current hypothesis for Phase B:
+
+```text
+existing StaticDependencyConsumptionEvidence
++
+manager-specific command-state semantics
+→ state-proof eligibility: positive / defeating / unresolved
+
++
+existing exact successful runtime correlation
+→ bounded dependency-state proof
+```
+
+The shared result should be conceptually common across pip and uv while preserving manager-specific semantic rules underneath.
+
+### A1 closure
+
+A1 is complete. The source/proof flow, current pip/uv support boundary, existing logical-environment mechanisms, and the new shared semantic question are sufficiently understood to stop broadening orientation.
+
+### A2 + A3 combined investigation start
+
+To keep Phase A proportionate, A2 and A3 are being executed together as one medium-sized investigation.
+
+Classify only the semantic families that materially affect the stronger proposition:
+
+```text
+normal environment formation
+non-mutating / no-sync
+package exclusion
+environment retargeting
+overlay / override
+ambient configuration/environment influence
+dynamic / unsupported semantics
+later mutation — separate temporal/order problem
+```
+
+For each family, determine whether successful execution should:
+
+```text
+POSITIVELY SUPPORT
+→ stronger dependency-state inference may be admitted
+
+DEFEAT
+→ semantics positively establish that the required state was not formed by this command
+
+REMAIN UNRESOLVED
+→ command success alone cannot establish the stronger state proposition
+```
+
+Do not enumerate every pip/uv option. Use representative current options only to establish the semantic classes and Cycle 1 proof boundary.
 
 ### Phase A output
 
