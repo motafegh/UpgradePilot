@@ -174,6 +174,123 @@ Implication for Phase B: environment-retargeting options should initially be mod
 
 A1 remains IN PROGRESS pending Ali's next question/reconstruction before the step is closed.
 
+### A1 finding — existing uv logic already models logical environment selection
+
+Ali recalled an earlier uv mechanism that selects the relevant project/environment before reasoning about the changed dependency. Fresh source inspection confirmed that memory.
+
+Current uv-related ownership is:
+
+```text
+dependency/analysis.py
+→ establish the exact changed dependency + source context
+
+environment_selection.py
+→ interpret the static uv command's project root, extras/groups, and bounded package scope
+
+environment_membership.py
+→ for pyproject-scoped changes, compare the affected extra/group with the visible command selector
+
+uv_reachability.py
+→ for uv.lock changes, bind the selected project root to the exact local lock package
+→ resolve the explicitly selected extra/group roots
+→ traverse the exact admitted uv.lock graph
+→ establish whether one selected root reaches the changed dependency
+
+ci/consumption.py
+→ compose that dependency-owned evidence into static CI changed-dependency consumption
+```
+
+This means the current product already distinguishes:
+
+```text
+"the changed package appears somewhere in uv.lock"
+!=
+"the exact project/environment selected by this CI command reaches the changed package"
+```
+
+Example shape preserved by current focused tests:
+
+```text
+selected dependency group: docs
+→ mkdocs-llmstxt
+→ beautifulsoup4
+→ soupsieve
+```
+
+The uv reachability owner can establish that the selected logical environment reaches the changed dependency, including binding a non-root project such as `services/api` to the matching local workspace package in `uv.lock`.
+
+### Relationship to Cycle 1
+
+This earlier uv work is directly relevant but answers an earlier/static proposition.
+
+Existing uv proof:
+
+```text
+which logical project/environment did the command select?
++
+does that selected lock-backed environment reach the changed dependency?
+→ static changed-dependency consumption
+```
+
+Cycle 1 asks the next proposition:
+
+```text
+did the package-manager command semantics actually form/use/synchronize
+that intended environment strongly enough?
++
+did the exact eligible command succeed?
+→ can proposed-version presence be inferred at the admitted boundary?
+```
+
+Therefore:
+
+```text
+logical environment selection/reachability
+!=
+runtime environment formation/state
+```
+
+A command such as `uv run --group docs ...` and one such as
+`uv run --no-sync --group docs ...` may preserve similar logical selectors while differing materially in what can be inferred about environment synchronization/state.
+
+### Design hypothesis — preserve and extend the existing ownership chain
+
+Current hypothesis for Phase B, not yet a selected design:
+
+```text
+ProjectEnvironmentSelectionDeclaration
++ source membership / UvSelectedRootReachability
+→ WHAT logical dependency environment is relevant
+
+NEW package-manager semantic eligibility responsibility
+→ whether this exact pip/uv command meaning actually forms/uses/synchronizes
+   that environment strongly enough for a stronger state claim
+
+existing exact runtime correlation
+→ whether that eligible occurrence actually succeeded
+
+composition
+→ bounded proposed-version presence/satisfaction proposition
+```
+
+The current preference is to **reuse the existing logical environment-selection architecture rather than invent a parallel environment model**.
+
+Open design question for later Phase A/B:
+
+> Should the new semantic-eligibility result attach to the existing project-environment declaration/consumption path, or be a separate package-manager command-state proposition that composes with both direct requirements and project-environment consumption?
+
+No answer is selected yet.
+
+This also surfaces a critical distinction that must remain explicit:
+
+```text
+logical project/environment identity
+!=
+physical runtime environment/location
+```
+
+The former is already modeled substantially for uv. Cycle 1 must determine how much of the latter can be established from command semantics + runtime evidence without overclaiming.
+
 ### Phase A output
 
 Ali and the AI share a minimum-complete mental model of the current source/proof flow, responsibility boundaries, and Cycle 1 acceptance/non-goal boundary.
