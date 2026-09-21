@@ -3,7 +3,7 @@
 **Status:** ACTIVE — Cycle 1 ready to begin at Phase A.  
 **Master plan:** `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`  
 **Investigation evidence:** `working-memory/2026-09-21_f6-post-install-package-state-feasibility.md`  
-**Operation:** Learning-by-Doing composed with the applicable primary operation for each phase. Planning/Design controls Phase A until a Build decision is explicitly selected.
+**Operation:** canonical Learning-by-Doing A → B → C → D → E, composed with the applicable primary operation. Planning/Design controls the cycle until a Build decision is explicitly selected.
 
 ## Cycle responsibility
 
@@ -35,97 +35,242 @@ Verified source facts entering this cycle:
 - current runtime correlation establishes bounded successful execution, not resulting package state;
 - generic job-log/package-state acquisition is not selected.
 
-## Phase A — orientation and semantic classification — READY
+## Agreed Cycle 1 working rhythm
 
-Goal: understand and classify only the pip/uv command semantics reachable through today's admitted product paths.
+This cycle follows the root `AGENTS.md` Learning-by-Doing contract exactly:
 
-Actions:
+```text
+A — pre-implementation learning / orientation
+B — real bounded action
+C — progressive state preservation
+D — post-action learning / ownership check
+E — gap repair + next-slice orientation
+```
 
-1. trace current pip/uv option handling from parsed command atoms into dependency-consumption/project-environment evidence;
-2. enumerate the materially relevant options for current supported command shapes;
-3. classify each as:
-   - positive/compatible with stronger state inference;
-   - non-installing/excluding/retargeting;
-   - ambiguous/dynamic/unsupported;
-4. compare the classification with current focused tests and real supported scenarios;
-5. identify the earliest correct semantic owner.
+The phases are not equal in size. Phase B is expected to contain most engineering work; Phase C is progressive rather than paperwork-heavy; A/D/E are interactive learning and decision checkpoints.
 
-**Phase A output:** a source-backed semantic eligibility table/model and owner decision sufficient to enter Phase B.
+### Interaction agreement
 
-**Phase A stop line:** no product implementation.
+- Work in **small meaningful chunks inside each phase**, not micro-phases.
+- Ali may interrupt or challenge any premise; if a premise is challenged, stop advancing that proposition and verify it before continuing.
+- Do not ask Ali to reason from premises that have not yet been taught or established.
+- Use real source/tests/evidence first; avoid detached quizzes and fictional examples when real evidence is available.
+- Reasoning checks should come from the real work and focus on ownership, proof, design, diagnosis, or changed cases.
+- Do not silently jump from A → B or B → D.
+- Do not silently create or begin Cycle 2.
+- If new evidence exposes a better route, challenge the current plan rather than following it mechanically; update the correct plan/owner before materially changing route.
+- Ali's target ownership is not source-code memorization. Priority is understanding the source/proof flow, design judgment, verification, diagnosis, and exact proof/non-proof boundaries.
+- Mechanical source tracing, repetitive inspection, and routine edits may be handled by the AI; consequential design/proof decisions remain interactive.
 
-## Phase B — bounded design and implementation — PENDING
+Approximate interaction intensity:
 
-Activate only after Phase A resolves the semantic owner and smallest trustworthy rule.
+```text
+A — very high
+B — medium-high
+C — low
+D — very high
+E — high but short
+```
 
-Expected responsibility:
+## Phase status tracker
 
-- define the minimum semantic/proof contract;
-- decide whether existing result types are sufficient;
-- implement only the earliest required owners and focused tests once Build is authorized;
+```text
+A — READY: orientation / minimum-complete learning
+B — PENDING: real source-backed design/action and possible bounded implementation
+C — PENDING: progressive preservation + formal proof-state checkpoint
+D — PENDING: post-action learning / ownership verification
+E — PENDING: gap repair + Cycle 1 closure / Cycle 2 decision
+```
+
+Update this tracker only at meaningful transitions.
+
+## Phase A — orientation / minimum-complete learning — READY
+
+**Purpose:** make the coming engineering action understandable before doing the real classification/design work.
+
+### Tasks
+
+1. Reconstruct the important current flow only to the depth needed for this cycle:
+   ```text
+   Tree-sitter / shell structure
+   → parsed command occurrence
+   → pip/uv semantic interpretation
+   → dependency consumption
+   → runtime correlation
+   → possible dependency-state proof
+   ```
+2. Re-establish why shell-structure cases such as short-circuit/conditional/pipeline are different from package-manager semantic options such as `--dry-run`.
+3. Establish the Cycle 1 success boundary:
+   - what stronger proposition we want to earn;
+   - what important negative/unresolved states must remain distinguishable;
+   - what stronger claims remain out of scope.
+4. Establish the minimum relevant source/type/file map before Phase B.
+5. Give Ali room to interrupt/challenge/reconstruct the model before real engineering work starts.
+
+### Interaction
+
+Very interactive but concise. Explain first; do not quiz before premises exist.
+
+### Phase A output
+
+Ali and the AI share a minimum-complete mental model of the current source/proof flow, responsibility boundaries, and Cycle 1 acceptance/non-goal boundary.
+
+### Phase A stop line
+
+No broad source classification, no design selection, and no product implementation. Those are Phase B responsibilities.
+
+## Phase B — real bounded engineering action — PENDING
+
+**Purpose:** perform the actual Cycle 1 engineering work. Because the initial primary operation is Planning/Design, Phase B begins with real source-backed investigation and design rather than coding.
+
+### Planning/Design tasks
+
+1. Trace current pip and uv option handling from parsed command atoms into dependency-consumption/project-environment evidence.
+2. Enumerate only the materially relevant options reachable in today's supported product paths.
+3. Classify each relevant case:
+   - positive / compatible with stronger state inference;
+   - non-installing / excluding / retargeting;
+   - ambiguous / dynamic / unsupported.
+4. Compare that classification with existing focused tests and real supported scenarios.
+5. Identify the earliest correct semantic owner for the rule.
+6. Determine the smallest trustworthy command-success → dependency-state proof contract.
+7. Decide whether existing result types are sufficient or whether a new state/result is actually necessary.
+8. Surface the consequential design decision to Ali before Build/Implement begins.
+
+### Build continuation — only if explicitly authorized after the design checkpoint
+
+If Ali explicitly authorizes Build and the design is sufficiently resolved, Phase B may continue within the same cycle responsibility:
+
+- implement only the earliest required owner(s);
+- add focused positive, close-defeater, and unresolved tests;
+- connect the smallest required normal-path composition;
 - preserve existing declaration evidence rather than overloading it with claims it does not own.
 
-No generic log ingestion or explicit package-state producer belongs here.
+A switch from Planning/Design to Build does not automatically create another cycle because the semantic responsibility remains the same.
 
-## Phase C — preservation and proof state — PENDING
+### Interaction
 
-Preserve:
+Medium-high. The AI may perform mechanical source tracing and routine inspection, but should surface findings in meaningful chunks. Ali should participate at real design/proof decisions, not every file or option.
 
-- exact source/test changes;
-- focused test results;
-- integration state;
-- proof debt/unavailable execution;
-- what the implementation establishes and does not establish.
+### Phase B output
 
-Update `MEMORY.md` only when the live position materially changes.
+A source-backed semantic classification and proof design; if Build is authorized, the bounded implementation and focused tests needed by that design.
 
-## Phase D — verification and ownership — PENDING
+### Phase B stop lines
 
-Verify proportionately:
+- no generic log ingestion;
+- no explicit package-state producer merely because such evidence exists;
+- no silent responsibility expansion;
+- no implementation before the design checkpoint is understood and Build is authorized.
 
-- positive eligible command case;
-- non-installing/retargeted close defeater;
-- dynamic/unsupported case;
-- exact static → runtime identity relation;
-- normal application integration;
-- broader regression when implementation exists;
-- live/public case only when required by the claim.
+## Phase C — progressive state preservation and proof-state checkpoint — PENDING
 
-Learning/ownership focus:
+**Purpose:** preserve the real engineering progression without turning preservation into a separate paperwork exercise.
 
-```text
-shell syntax/structure
-→ provider/Tree-sitter responsibility
+### During Phase B
 
-package-manager option meaning
-→ dependency semantic responsibility
+Update this working-memory record at meaningful progression points with:
 
-runtime success
-→ CI/runtime evidence responsibility
+- decisions and changed understanding;
+- important source/evidence findings;
+- implementation changes when any;
+- tests/proof obtained;
+- surprises/failures and corrections;
+- explicit proof debt;
+- what is and is not established.
 
-dependency state
-→ composed stronger proof
-```
+### Formal checkpoint before Phase D
 
-## Phase E — cycle closure and next-cycle decision — PENDING
-
-Close Cycle 1 from actual evidence.
-
-Decision:
+Record compactly:
 
 ```text
-Cycle 1 sufficient
-→ close runtime dependency-state proof at this bounded path
-→ do NOT create Cycle 2
-→ return to parent evidence-to-action plan
-
-Cycle 1 insufficient for a real decision-critical normal case
-+ explicit target-owned evidence is justified
-→ append/select conditional Cycle 2 in the master plan
-→ create a new active Cycle 2 working-memory record
+what was discovered/changed
+→ what evidence exists
+→ what remains unproven
+→ current A/B/C status
 ```
 
-Do not create Cycle 2 merely for completeness.
+Update `MEMORY.md` only if the live position, milestone, blocker, deferral, or selected continuation materially changes.
+
+### Interaction
+
+Low. The AI maintains the record and briefly tells Ali what was preserved.
+
+### Phase C stop line
+
+Do not convert unexecuted tests, source review, or deferred runtime proof into a pass claim.
+
+## Phase D — post-action learning / ownership check — PENDING
+
+**Purpose:** learn from what was actually designed, implemented, and proven rather than from the pre-work theory.
+
+### Tasks
+
+1. Trace the actual resulting flow:
+   ```text
+   input/source
+   → semantic rule
+   → evidence state
+   → runtime composition
+   → resulting dependency-state proposition
+   → exact proof boundary
+   ```
+2. Compare planned behavior with what source/tests/evidence actually show.
+3. Explain the important code/types/states/failure modes only to the depth required for ownership.
+4. Inspect focused/integration/regression/live evidence at its actual proof strength.
+5. State what the result proves and what stronger claim it does not prove.
+6. Use only 1–2 meaningful open-ended reasoning checks from the real slice, such as:
+   - a changed pip/uv command;
+   - owner/layer placement;
+   - proof/non-proof distinction;
+   - diagnosis of one close-defeater case.
+7. Check the durable ownership opportunity:
+   - primary: source/proof-flow understanding;
+   - secondary: design/system judgment and verification.
+
+### Interaction
+
+Very high. This is the main ownership-transfer phase.
+
+### Phase D success
+
+Ali can explain the important source/proof flow, why the chosen owner/layer is correct, and what the evidence establishes without needing to reproduce source syntax from memory.
+
+## Phase E — gap repair + Cycle 1 closure / next-cycle decision — PENDING
+
+**Purpose:** repair only important gaps, then decide the continuation from actual evidence.
+
+### Tasks
+
+1. Use Phase D answers/evidence to identify any important learning or engineering gaps.
+2. Repair only gaps central to the current responsibility.
+3. Distinguish:
+   - learning gap;
+   - implementation/proof gap;
+   - genuinely new product responsibility.
+4. Decide Cycle 1 closure:
+
+   ```text
+   Cycle 1 sufficient
+   → close runtime dependency-state proof at this bounded path
+   → do NOT create Cycle 2
+   → return to parent evidence-to-action plan
+
+   Cycle 1 insufficient for a real decision-critical normal case
+   + explicit target-owned package-state evidence is justified
+   → append/select conditional Cycle 2 in the master plan
+   → create a new active Cycle 2 working-memory record
+   ```
+
+5. Briefly orient the next selected responsibility only after the closure decision is earned.
+
+### Interaction
+
+High but short. Ali and the AI make the closure/continuation decision together.
+
+### Phase E stop line
+
+Do not create Cycle 2 merely for completeness, and do not silently roll downstream behavior/action work into this cycle.
 
 ## Cycle pass condition
 
@@ -133,6 +278,8 @@ One bounded normal command family has a precise, source-backed proof path from e
 
 ## Current handoff
 
-Start **Phase A**. The first task is the source-backed pip/uv semantic classification. No Build/Implement action has yet been selected.
+Start **Phase A** only.
+
+The immediate task is orientation: reconstruct the exact source/proof flow and acceptance boundary needed to make the later Phase B classification/design meaningful. No Build/Implement action has yet been selected.
 
 **Procedural provenance:** `UP-SKILL:upgradepilot-planning-design`; `UP-SKILL:upgradepilot-learning-by-doing`; `UP-SKILL:upgradepilot-working-memory`.
