@@ -111,6 +111,24 @@ Update this tracker only at meaningful transitions.
 
 Very interactive but concise. Explain first; do not quiz before premises exist.
 
+### Phase A task tracker
+
+```text
+A1 — IN PROGRESS: reconstruct current source/proof flow and support boundary
+A2 — PENDING: distinguish shell structure vs package-manager semantics
+A3 — PENDING: define Cycle 1 success / unresolved / non-goal boundary
+A4 — PENDING: establish minimum source/type map for Phase B
+A5 — PENDING: Ali reconstruction/challenge and Phase A closure
+```
+
+Current A1 findings:
+
+- current command-semantic managers are pip and uv;
+- dependency source evidence may come from requirements/constraints/uv.lock/pyproject contexts, but current workflow command interpretation for environment/install behavior is pip/uv-owned;
+- semantic modifiers must be considered by effect family, not by one hard-coded flag;
+- ambient configuration/environment may change effective pip/uv behavior and therefore may become an unresolved-state concern in Phase B;
+- later mutation after a valid install is a separate temporal/order problem rather than an install-command semantic modifier.
+
 ### Phase A output
 
 Ali and the AI share a minimum-complete mental model of the current source/proof flow, responsibility boundaries, and Cycle 1 acceptance/non-goal boundary.
