@@ -78,3 +78,28 @@ Ali requested inspection of recent comprehensive Career work at [`motafegh/Caree
 - **Immediate next step:** discuss a proportional Day-90 evidence/demo threshold and whether a bounded SQL/data intervention deserves a separate Career decision. Do not presuppose a second project or product rewrite.
 
 **Skill procedure used for this record:** `UP-SKILL:upgradepilot-working-memory`.
+
+
+## New issue identified — project navigation / zoom control (2026-09-21)
+
+Ali identified a separate practical problem: even when individual slices are explained, he does not have a stable mental model for how UpgradePilot as a whole will continue to be built, how its major parts relate, or when a session should operate at whole-product, subsystem, responsibility, or source/test depth. This creates disorientation even when local work is technically valid.
+
+Fresh main-state reconciliation shows the product workstream has continued moving while this discussion runs: F4 is CLOSED, F5 feasibility is CLOSED without Build selection, and F6 full read-only investigation is complete with joint Learning-by-Doing review/design selection next. This reinforces that the strategic issue is not project inactivity; it is insufficiently explicit navigation across scales.
+
+Tentative discussion model (not yet adopted as governance or plan):
+- Z0 — Product mission/user decision: public Dependabot PR → evidence-backed maintainer action or abstention.
+- Z1 — End-to-end product flow / major responsibilities: input+acquisition → identity/dependency → CI/package/upstream/target evidence → impact/applicability → investigation composition → maintainer-action synthesis → presentation/replay/evaluation.
+- Z2 — Current subsystem/responsibility: e.g. current F6 post-install package-state evidence question.
+- Z3 — Exact implementation/proof objects: functions, types, tests, fixtures, logs, commands.
+- Z4 — Detail only when required for diagnosis/implementation: parser nodes, API fields, command-option semantics, provider details, etc.
+
+Proposed operating discipline for discussion:
+- begin substantive work by locating the current responsibility in Z0→Z1→Z2;
+- spend most implementation time at Z2/Z3;
+- enter Z4 only for a concrete need and leave it once that need is resolved;
+- after a slice, zoom back to Z1 and state what changed in the end-to-end product and what remains;
+- zoom to Z0 when scope, user value, action semantics, or continuation proportionality is in question;
+- do not remain in low-level detail for multiple slices without reconnecting the work to the exact product proposition/action it enables.
+- keep numbering namespaces explicit: AUDIT F4/F5/F6 findings are not route stages B4/B5/B6.
+
+No repository governance or execution plan is changed by this note. Next discussion should agree on a simple project map and zoom protocol before deciding whether any durable project-navigation artifact or governance adjustment is justified.
