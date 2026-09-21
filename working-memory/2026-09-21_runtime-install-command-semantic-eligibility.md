@@ -129,6 +129,51 @@ Current A1 findings:
 - ambient configuration/environment may change effective pip/uv behavior and therefore may become an unresolved-state concern in Phase B;
 - later mutation after a valid install is a separate temporal/order problem rather than an install-command semantic modifier.
 
+### A1 refinement — retargeted installation is a relationship problem
+
+A1 clarified that install destinations such as `--target /tmp/deps`, `--user`, `--prefix`, or `--root` must not be classified by pathname or by a hard-coded good/bad list.
+
+The meaningful proposition is relational:
+
+```text
+installation destination
++
+later relevant execution environment
++
+positive evidence connecting them
+→ same relevant environment?
+```
+
+Therefore:
+
+```text
+normal same-environment install
+→ may support the stronger state proposition
+
+retargeted install + positively established environment relation
+→ may still support it
+
+retargeted install + no established relation
+→ unresolved for the stronger proposition
+```
+
+This also exposes two different proof strengths:
+
+```text
+WEAKER
+proposed version was installed into the command's target location
+
+STRONGER
+proposed version was present in the relevant CI environment
+used by later exercise/test evidence
+```
+
+Cycle 1 ultimately cares about the stronger proposition because it is the one that can later compose meaningfully with behavior/exercise evidence. The weaker proposition may still be useful as an intermediate fact but must not be silently promoted.
+
+Implication for Phase B: environment-retargeting options should initially be modeled as **retargeting semantics**, not automatically rejected. Phase B must determine whether UpgradePilot can establish the destination ↔ relevant-environment relation for any currently supported cases; otherwise the stronger result remains unresolved.
+
+A1 remains IN PROGRESS pending Ali's next question/reconstruction before the step is closed.
+
 ### Phase A output
 
 Ali and the AI share a minimum-complete mental model of the current source/proof flow, responsibility boundaries, and Cycle 1 acceptance/non-goal boundary.
