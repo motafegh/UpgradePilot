@@ -140,9 +140,45 @@ Key boundary reconfirmed: `dependency_exercise.py` explicitly states that `suppo
 
 Remaining Phase A work: Ali reconstructs the owner/proof boundaries and confirms the intended success/non-goal model before Phase B begins.
 
+### Phase A scope refinement — semantic modifiers, not one flag
+
+Ali challenged the initial teaching focus on `--dry-run`/pip as too narrow. The correction is accepted.
+
+Cycle 1 Phase A should orient around the broader proposition:
+
+> Which semantics of the package-manager commands UpgradePilot actually supports today can invalidate, redirect, weaken, or otherwise change the inference from successful dependency consumption to proposed-version presence in the intended environment?
+
+The current implemented command-semantic families are primarily **pip** and **uv**. Phase A therefore considers both, but does not expand into unsupported package managers merely for completeness.
+
+The relevant semantic surface is broader than command-line flags alone:
+
+```text
+non-mutating / no-sync behavior
+→ e.g. pip --dry-run; uv --dry-run / --no-sync
+
+alternate target/environment behavior
+→ e.g. pip --target / --user / --root / --prefix;
+   uv active/isolated/project/environment targeting
+
+selection/exclusion behavior
+→ e.g. uv --no-install-package / only-group / no-group and related selectors;
+   pip dependency-selection options only when they actually affect the changed-package proposition
+
+overlay/override behavior
+→ e.g. uv run --with may layer conflicting package versions
+
+ambient/config-driven semantics
+→ pip options may come from PIP_* environment variables or pip config;
+   uv behavior may likewise be changed by UV_* environment variables/config
+```
+
+Important Phase A lesson: do not classify every unusual option as a blocker. The effect is proposition-relative. For example, an option that only changes dependency resolution may be irrelevant when the changed package itself is an exact direct requirement, while an option that changes the destination environment can be material.
+
+This broader semantic map is orientation evidence for Phase B. Phase B will perform the source-backed classification of the currently reachable cases and decide which ones the product must model.
+
 ### Phase A stop line
 
-No broad source classification, no design selection, and no product implementation. Those are Phase B responsibilities.
+No exhaustive package-manager catalog, no unsupported-manager expansion, no final semantic classification, no design selection, and no product implementation. Those are Phase B or later responsibilities.
 
 ## Phase B — real bounded engineering action — PENDING
 
