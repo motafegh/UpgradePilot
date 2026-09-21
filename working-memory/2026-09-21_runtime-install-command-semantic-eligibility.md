@@ -602,6 +602,76 @@ The key question is no longer "which flags exist?" It is:
 
 This question should drive the remainder of A2+A3 and the Phase B design checkpoint.
 
+### A2+A3 real-case pressure — ordinary pip CI does not close ambient semantics
+
+The previously identified public normal case was revisited:
+
+```text
+Jam3s97/Aruba_Device_Tracker
+PR #83
+exact head b9630fc176fa7ae5321fab8844ee383587854fed
+workflow .github/workflows/lint.yml
+
+actions/checkout
+→ actions/setup-python
+→ python3 -m pip install -r requirements.txt
+→ python3 -m ruff check .
+→ python3 -m ruff format . --check
+```
+
+The frozen workflow itself contains no workflow/job/step `env:` declaration around the pip install and no visible pip semantic modifier.
+
+That is useful positive pressure: this is exactly the kind of ordinary public CI shape Cycle 1 should not make unusable without strong reason.
+
+However, absence of a visible `env:` modifier in the workflow text is not complete proof of pip's effective process configuration:
+
+- earlier steps/actions execute on the same runner;
+- GitHub permits earlier steps to make environment variables available to later steps through `GITHUB_ENV`;
+- pip also has user/site/global configuration outside the repository workflow text.
+
+Therefore:
+
+```text
+no visible workflow-level semantic override
+!=
+complete proof that no ambient semantic override exists
+```
+
+### Resulting design tension
+
+Two bad extremes must both be avoided:
+
+```text
+EXTREME 1
+ignore ambient semantics
+→ normal cases stay easy
+→ stronger state claim may be unsound
+
+EXTREME 2
+require complete reconstruction of all runner/package-manager configuration
+→ stronger proof is conservative
+→ ordinary public CI becomes impractically unreachable
+→ Cycle 1 expands far beyond its responsibility
+```
+
+The Phase B design must find a bounded middle contract or conclude honestly that command semantics + current runtime metadata cannot by themselves earn the final state proposition for normal cases.
+
+This real-case pressure increases the plausibility of separating:
+
+```text
+COMMAND-LOCAL SEMANTIC ELIGIBILITY
+→ what visible parsed pip/uv semantics positively allow or defeat
+
+from
+
+EFFECTIVE RUNTIME PACKAGE STATE
+→ what the actual runner environment ultimately contained
+```
+
+The first may be a useful Cycle 1 responsibility even if the second still requires an explicit runtime witness in a conditional Cycle 2.
+
+No Cycle 2 is selected yet.
+
 ### Phase A output
 
 Ali and the AI share a minimum-complete mental model of the current source/proof flow, responsibility boundaries, and Cycle 1 acceptance/non-goal boundary.
