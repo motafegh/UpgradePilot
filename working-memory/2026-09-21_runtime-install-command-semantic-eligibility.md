@@ -1,75 +1,138 @@
-# Runtime install-command semantic eligibility — 2026-09-21
+# Cycle 1 — Runtime dependency-state semantic proof — 2026-09-21
 
-**Status:** ACTIVE — first child slice of the Runtime Dependency-State Proof Completion Plan.  
+**Status:** ACTIVE — Cycle 1 ready to begin at Phase A.  
 **Master plan:** `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`  
 **Investigation evidence:** `working-memory/2026-09-21_f6-post-install-package-state-feasibility.md`  
-**Operation:** Planning/Design + Learning-by-Doing. No product implementation is authorized by this record alone.
+**Operation:** Learning-by-Doing composed with the applicable primary operation for each phase. Planning/Design controls Phase A until a Build decision is explicitly selected.
 
-## Starting point
+## Cycle responsibility
 
-The full F6 investigation established that the broad audit wording should be narrowed. Current command parsing already preserves shell syntax, command identity, literal/dynamic arguments, structural context, and bounded runtime correlation.
-
-The immediate problem is not Tree-sitter recognition. It is package-manager semantic interpretation.
-
-Verified current example:
+Establish whether UpgradePilot can truthfully derive:
 
 ```text
-pip install -r requirements.txt
-pip install --dry-run -r requirements.txt
+exact proposed dependency version
++ semantically eligible dependency-consuming command
++ exact successful runtime correlation
+→ proposed version satisfied/present at the admitted command-completion boundary
 ```
 
-Both can preserve the same direct requirements-source declaration because `--dry-run` survives parsing as a literal argument but `direct_install.py` currently searches for the requirements source without assigning installation-state meaning to that option.
+without adding a new runtime package-state/log producer unless the evidence proves that one is necessary.
 
-Short-circuit/conditional/pipeline/asynchronous cases are different: those are shell grammar/structure and are already classified by the Tree-sitter-backed provider.
+Cycle 1 combines two closely coupled master-plan layers:
 
-## This slice's responsibility
+1. install-command semantic eligibility;
+2. command-success → dependency-state proof contract.
 
-Establish the smallest trustworthy semantic eligibility rule for currently supported pip/uv dependency-consuming command shapes before designing any stronger runtime dependency-state inference.
+## Entry state
 
-The question is:
+The full F6 investigation is complete.
 
-> Which parsed command/options positively permit “successful command execution establishes the proposed dependency version was satisfied/present at command completion,” and which options must instead produce non-eligible or unresolved evidence?
+Verified source facts entering this cycle:
 
-## Planned actions
+- Tree-sitter already preserves shell structure and literal command arguments;
+- `pip install --dry-run -r requirements.txt` can currently retain the same direct requirements-source declaration as an ordinary install because `--dry-run` is not yet interpreted at the dependency semantic layer;
+- short-circuit, conditional, pipeline, asynchronous and related shapes are shell-structure concerns already represented by the parser-backed provider;
+- current runtime correlation establishes bounded successful execution, not resulting package state;
+- generic job-log/package-state acquisition is not selected.
 
-1. Trace the current pip and uv semantic option handling from parsed command atoms to dependency-consumption declarations.
-2. Enumerate only material options reachable in today's supported product paths.
-3. Classify each relevant option:
-   - positive/compatible;
+## Phase A — orientation and semantic classification — READY
+
+Goal: understand and classify only the pip/uv command semantics reachable through today's admitted product paths.
+
+Actions:
+
+1. trace current pip/uv option handling from parsed command atoms into dependency-consumption/project-environment evidence;
+2. enumerate the materially relevant options for current supported command shapes;
+3. classify each as:
+   - positive/compatible with stronger state inference;
    - non-installing/excluding/retargeting;
-   - ambiguous/dynamic/unsupported.
-4. Compare the classification with existing tests and real supported scenarios.
-5. Decide the earliest owner for the semantic rule and whether current result types can express it without overloading the existing declaration contract.
-6. Present the resulting design to Ali before any Build/Implement step.
+   - ambiguous/dynamic/unsupported;
+4. compare the classification with current focused tests and real supported scenarios;
+5. identify the earliest correct semantic owner.
 
-## Learning focus
+**Phase A output:** a source-backed semantic eligibility table/model and owner decision sufficient to enter Phase B.
 
-Ali should be able to distinguish:
+**Phase A stop line:** no product implementation.
+
+## Phase B — bounded design and implementation — PENDING
+
+Activate only after Phase A resolves the semantic owner and smallest trustworthy rule.
+
+Expected responsibility:
+
+- define the minimum semantic/proof contract;
+- decide whether existing result types are sufficient;
+- implement only the earliest required owners and focused tests once Build is authorized;
+- preserve existing declaration evidence rather than overloading it with claims it does not own.
+
+No generic log ingestion or explicit package-state producer belongs here.
+
+## Phase C — preservation and proof state — PENDING
+
+Preserve:
+
+- exact source/test changes;
+- focused test results;
+- integration state;
+- proof debt/unavailable execution;
+- what the implementation establishes and does not establish.
+
+Update `MEMORY.md` only when the live position materially changes.
+
+## Phase D — verification and ownership — PENDING
+
+Verify proportionately:
+
+- positive eligible command case;
+- non-installing/retargeted close defeater;
+- dynamic/unsupported case;
+- exact static → runtime identity relation;
+- normal application integration;
+- broader regression when implementation exists;
+- live/public case only when required by the claim.
+
+Learning/ownership focus:
 
 ```text
 shell syntax/structure
-→ Tree-sitter/provider responsibility
+→ provider/Tree-sitter responsibility
 
 package-manager option meaning
 → dependency semantic responsibility
 
-runtime step success
+runtime success
 → CI/runtime evidence responsibility
 
-resulting dependency state
-→ stronger composed proof
+dependency state
+→ composed stronger proof
 ```
 
-## Acceptance / stop condition
+## Phase E — cycle closure and next-cycle decision — PENDING
 
-This slice closes when:
+Close Cycle 1 from actual evidence.
 
-- the relevant pip/uv option classes are source-backed and understandable;
-- the correct owner/layer is selected;
-- the smallest semantic repair is clear;
-- positive, negative and unresolved examples are identified;
-- no implementation has started without explicit authorization.
+Decision:
 
-If semantic analysis alone cannot support a bounded positive dependency-state inference, stop and hand the result back to the master plan's explicit package-state evidence layer rather than stretching the parser.
+```text
+Cycle 1 sufficient
+→ close runtime dependency-state proof at this bounded path
+→ do NOT create Cycle 2
+→ return to parent evidence-to-action plan
+
+Cycle 1 insufficient for a real decision-critical normal case
++ explicit target-owned evidence is justified
+→ append/select conditional Cycle 2 in the master plan
+→ create a new active Cycle 2 working-memory record
+```
+
+Do not create Cycle 2 merely for completeness.
+
+## Cycle pass condition
+
+One bounded normal command family has a precise, source-backed proof path from exact dependency source through semantic eligibility and exact successful runtime correlation to proposed-version presence/satisfaction at the admitted command-completion boundary, while close defeaters remain explicit.
+
+## Current handoff
+
+Start **Phase A**. The first task is the source-backed pip/uv semantic classification. No Build/Implement action has yet been selected.
 
 **Procedural provenance:** `UP-SKILL:upgradepilot-planning-design`; `UP-SKILL:upgradepilot-learning-by-doing`; `UP-SKILL:upgradepilot-working-memory`.
