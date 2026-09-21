@@ -65,7 +65,75 @@ Reference rather than re-specify:
 
 This plan must not turn Tree-sitter into a pip/uv semantic engine. Shell grammar owns syntax/structure; dependency/package-manager interpretation owns command meaning.
 
-## 4. Ordered responsibility layers
+## 4. Program cycle discipline
+
+This program uses the parent plan's canonical **A → B → C → D → E** Learning-by-Doing rhythm, but groups work into medium-sized engineering cycles so execution does not collapse into disconnected micro-steps or one oversized program pass.
+
+Cycle policy:
+
+```text
+select one complete engineering responsibility
+→ append that cycle to this master plan
+→ execute its A → B → C → D → E progression in one active working-memory record
+→ close the cycle from actual evidence
+→ decide whether another cycle is genuinely required
+```
+
+Rules:
+
+- this master plan owns the durable cycle structure, responsibility, entry condition, pass condition, stop line, and dependency between cycles;
+- the active working-memory record owns the actual A/B/C/D/E progression, discoveries, implementation/proof evidence, learning checks, corrections, and cycle handoff;
+- `MEMORY.md` alone owns which cycle/phase is live;
+- do **not** pre-create speculative later cycles;
+- append a later cycle only when the previous cycle's evidence demonstrates that its responsibility is necessary;
+- one cycle may contain several closely coupled master-plan layers when splitting them would create artificial micro-cycles;
+- a cycle must not silently absorb a materially different responsibility merely to avoid opening a justified next cycle.
+
+### Cycle 1 — runtime dependency-state semantic proof
+
+**Responsibility:** establish whether UpgradePilot can truthfully derive the bounded dependency-state proposition from existing exact dependency-source evidence + package-manager command semantics + exact successful runtime correlation, without requiring a new runtime-state/log producer.
+
+Cycle 1 intentionally combines two tightly coupled layers:
+
+```text
+install-command semantic eligibility
++
+command-success → dependency-state proof contract
+```
+
+Its phases follow the parent A → B → C → D → E rhythm:
+
+```text
+A — orient and classify current pip/uv semantic cases
+B — select/design and, once authorized, implement the smallest semantic/proof change
+C — preserve exact implementation/evidence/proof state
+D — verify focused/integration/real-case evidence and transfer ownership
+E — close the cycle and decide whether explicit runtime-state evidence is still necessary
+```
+
+**Cycle 1 pass condition:** one bounded positive command family has a precise, source-backed proof contract from exact dependency source through exact successful runtime execution to proposed-version presence/satisfaction at the admitted command-completion boundary, with material non-installing/retargeted/dynamic cases remaining distinguishable.
+
+**Cycle 1 stop line:** do not add job-log or explicit package-state acquisition merely because such evidence exists. If command semantics cannot establish the proposition for a decision-critical normal case, close Cycle 1 at its honest boundary and consider the conditional next cycle.
+
+### Conditional Cycle 2 — explicit target-owned runtime-state evidence
+
+Cycle 2 is **not selected or active** by this plan revision.
+
+Append/select it only if Cycle 1 establishes all of the following:
+
+1. command semantics + exact runtime correlation are insufficient for a real normal case;
+2. the unresolved package-state fact remains decision-critical under the parent evidence-to-action route;
+3. an admitted target-owned evidence source can discriminate that fact proportionately.
+
+If selected, Cycle 2 would own the smallest justified explicit package-state evidence path, preferring structured/targeted state evidence over generic human-log parsing.
+
+If Cycle 1 is sufficient, **do not create Cycle 2**. Return to the parent evidence-to-action plan for the next action-relative responsibility.
+
+### After runtime dependency-state proof
+
+Behavior/exercise composition and maintainer-action integration remain important downstream responsibilities, but they are **not predeclared cycles of this program**. After the runtime dependency-state responsibility closes, return to the parent plan and select the next responsibility from actual evidence rather than assuming this program owns all downstream work.
+
+## 5. Ordered responsibility layers
 
 ### Install-command semantic eligibility
 
@@ -135,7 +203,7 @@ Any source adapter must preserve exact repository/head/run-attempt/job/environme
 
 **Stop line:** no generic job-log ingestion subsystem merely because logs are available.
 
-### Integration with behavior/exercise evidence
+### Downstream handoff: behavior/exercise evidence
 
 If dependency-state proof is produced, trace how it composes with existing package invocation/test/exercise evidence.
 
@@ -151,7 +219,7 @@ and must account for ordering/environment identity where a later exercise is cla
 
 **Pass condition:** downstream consumers can distinguish package-state proof from behavior/exercise proof without inventing compatibility.
 
-### Action-relative integration and end-to-end proof
+### Parent-plan re-entry: action-relative integration and end-to-end proof
 
 Only after the dependency-state proposition is trustworthy should it be composed into the evidence-to-action path.
 
@@ -168,7 +236,7 @@ Validate:
 
 **Stop line:** if the capability does not materially change decision reachability or correctness after proof, close it as a bounded evidence improvement and return to the parent action-relative comparison rather than inventing more F6 scope.
 
-## 5. Child working-memory rule
+## 6. Child working-memory rule
 
 Each material layer should be executed through one active dated working-memory slice rather than expanding this master plan with session state.
 
@@ -188,7 +256,7 @@ When the layer closes, preserve its result and open a new child record only if t
 
 The completed 2026-09-21 investigation record remains evidence/provenance and should not be reused as the active implementation log.
 
-## 6. Proof discipline
+## 7. Proof discipline
 
 For every layer, preserve:
 
@@ -210,7 +278,7 @@ Key non-proofs:
 - behavior exercise is not broad compatibility;
 - none of these facts alone grants a maintainer action.
 
-## 7. Allowed modification boundary
+## 8. Allowed modification boundary
 
 When Build is later authorized for a child slice, modifications may include only the earliest owners required by that selected responsibility, their focused tests, normal application composition, and directly necessary documentation/plan-memory handoff.
 
@@ -224,7 +292,7 @@ Likely current owners include:
 
 Do not modify stable action semantics, target repositories, or unrelated evidence producers under this plan without a separately surfaced design need.
 
-## 8. Prohibited scope
+## 9. Prohibited scope
 
 This plan does not authorize:
 
@@ -238,7 +306,7 @@ This plan does not authorize:
 - automatic target mutation or execution;
 - implementing every AUDIT-008 finding as a queue.
 
-## 9. Completion condition
+## 10. Completion condition
 
 This plan is complete when either:
 
