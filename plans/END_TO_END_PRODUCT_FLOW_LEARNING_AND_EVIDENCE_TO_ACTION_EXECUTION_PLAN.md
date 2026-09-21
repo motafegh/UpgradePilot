@@ -362,7 +362,7 @@ Candidate gaps from AUDIT-008 include:
 
 - F4 — exact CI consuming-job → Target composition;
 - F5 — exact target wheel-compatibility producer;
-- F6 — exact runtime installed version/artifact witness when a selected proposition requires it;
+- AUDIT-008-F6 — runtime dependency-state proof: first determine whether bounded command semantics + exact successful runtime correlation already establish proposed-version presence; use explicit runtime/package-state evidence only when that proposition still requires it. Dedicated execution plan: [Runtime Dependency-State Proof Completion Plan](RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md);
 - F7 — explicit bounded candidate/context discovery coverage needed for favorable merge closure;
 - another newly demonstrated missing premise if it proves more decision-critical.
 
@@ -398,7 +398,7 @@ For the selected responsibility:
 
 - **F4:** preserve exact workflow/revision/source/job relation; do not infer runtime execution or exact wheel compatibility.
 - **F5:** exact target-supported wheel tags require target-owned evidence; do not derive them from UpgradePilot's own runtime or broad runner/Python labels.
-- **F6:** collect only the runtime version/artifact facts required by the selected proposition; no generic log-ingestion subsystem by default.
+- **AUDIT-008-F6 / runtime dependency-state proof:** prefer the earliest sufficient proof. First classify package-manager command semantics; add target-owned package-state evidence only when command semantics plus exact runtime correlation are insufficient. No generic log-ingestion subsystem by default.
 - **F7:** define a bounded positive coverage horizon; do not claim universal risk discovery.
 
 **Learning ownership target:** Ali must be able to trace the new evidence from origin to action-relevant consumer and state what it still does not prove.
