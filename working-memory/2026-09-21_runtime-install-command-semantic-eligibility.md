@@ -530,6 +530,78 @@ IRRELEVANT MODIFIER
 
 The exact result type/name remains a Phase B design decision.
 
+### A2+A3 refinement — ambient effective semantics has a static evidence ceiling
+
+Further investigation confirmed that extending only GitHub workflow `env:` parsing would improve evidence but would **not** establish the complete effective pip/uv configuration.
+
+Relevant sources of effective semantics include:
+
+```text
+visible command-line options
+
+GitHub workflow/job/step env declarations
+
+environment mutation from earlier steps
+→ e.g. writes to GITHUB_ENV
+
+runner-inherited process environment
+
+pip:
+→ PIP_* variables
+→ global/user/site pip configuration
+→ PIP_CONFIG_FILE
+
+uv:
+→ UV_* variables
+→ project pyproject.toml [tool.uv] / uv.toml
+→ user/system uv configuration
+```
+
+Current source state:
+
+- `workflow_definition.py` does not preserve workflow/job/step `env`;
+- no current UpgradePilot owner models `GITHUB_ENV` mutation;
+- the current pyproject dependency extractor intentionally reads only the bounded dependency surface and does not interpret `[tool.uv]`;
+- no current product path models user/system pip or uv configuration.
+
+Official precedence makes this material rather than theoretical:
+
+```text
+pip:
+CLI > environment variables > configuration files
+
+uv:
+CLI > environment variables > persistent configuration
+```
+
+Therefore a complete "effective package-manager configuration resolver" would be a materially broader responsibility than merely adding `env:` fields to the workflow IR.
+
+### Current design implication — hypothesis, not final selection
+
+Cycle 1 should **not silently expand into complete ambient configuration reconstruction**.
+
+Phase B should compare at least these alternatives:
+
+1. **bounded static semantic eligibility**
+   - model visible command semantics and only the smallest explicitly owned ambient facts;
+   - preserve unresolved when effective state-forming semantics cannot be positively established;
+
+2. **narrow admitted command class**
+   - define a command/evidence shape whose relevant semantics are positively bounded without pretending all ambient state is known;
+
+3. **explicit runtime state evidence**
+   - if normal real cases cannot satisfy a trustworthy static semantic contract, close Cycle 1 honestly and justify conditional Cycle 2 rather than building an unbounded static configuration interpreter.
+
+Adding workflow `env:` support may still be worthwhile later, but it should be selected only if it materially closes a real decision-critical case rather than because it is an obvious missing field.
+
+### A2+A3 open decision
+
+The key question is no longer "which flags exist?" It is:
+
+> What is the smallest evidence boundary under which successful pip/uv execution can *positively* earn the bounded dependency-state proposition without requiring UpgradePilot to reconstruct the entire runner configuration?
+
+This question should drive the remainder of A2+A3 and the Phase B design checkpoint.
+
 ### Phase A output
 
 Ali and the AI share a minimum-complete mental model of the current source/proof flow, responsibility boundaries, and Cycle 1 acceptance/non-goal boundary.
