@@ -5,11 +5,11 @@
 
 ## Live position — main product workstream STARTED
 
-- **Current responsibility:** **AUDIT-008-F6 full investigation complete — joint Learning-by-Doing review and design decision next.** F4 and F5 feasibility remain CLOSED. F6 has now been fully investigated at read-only Audit + Planning/Design depth: the post-install package-state proposition is real, a normal current exact-pin Dependabot case proves public target-owned evidence can expose it, and historical log expiry plus command/environment semantics create material design constraints. No F6 product implementation or non-abstention maintainer action has been selected.
-- **Primary operation:** medium-sized interactive Learning-by-Doing review of the completed F6 investigation, followed by a joint selection among the preserved design alternatives. Do not implement while the learning/decision handoff remains open. Package-state/version presence is the current proposition; wheel/sdist identity, exact wheel tags, behavioral compatibility, F7 favorable coverage and maintainer-action permission remain separate unless the joint decision explicitly selects otherwise.
-- **Active working-memory detail:** `working-memory/2026-09-21_f6-post-install-package-state-feasibility.md` now owns the complete F6 investigation, real-case evidence, source comparison, adjacent findings, and design alternatives. Most recent closed responsibility before F6: `working-memory/2026-09-20_f5-target-wheel-evidence-feasibility.md`.
-- **Selected plan:** `plans/END_TO_END_PRODUCT_FLOW_LEARNING_AND_EVIDENCE_TO_ACTION_EXECUTION_PLAN.md`; parent `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`. Audit input: `audits/2026-09-19_AUDIT-008_current-system-evidence-to-action-readiness.md` (non-controlling evidence). Accepted action semantics: `docs/specifications/UPGRADEPILOT_MAINTAINER_ACTION_SYNTHESIS_SPECIFICATION.md`.
-- **Route:** `main` unless Ali explicitly changes it. The completed F6 investigation does not authorize external-target mutation, generic job-log ingestion, package-state reconstruction from UpgradePilot's own environment, source/test implementation, or stable-semantics change. Any Build requires the post-learning joint decision.
+- **Current responsibility:** **Runtime dependency-state proof — install-command semantic eligibility.** AUDIT-008-F6 is now provenance for this semantic responsibility rather than the active task name. The full F6 investigation is complete; the first selected child slice is to determine which currently admitted pip/uv command options positively permit, block, or leave unresolved the stronger inference from exact source + successful runtime correlation to proposed-version presence at command completion. No product implementation or non-abstention maintainer action has been selected.
+- **Primary operation:** Planning/Design + Learning-by-Doing for the first child slice. Trace current pip/uv option semantics, classify only material currently reachable options, select the earliest correct owner, and define the smallest semantic repair. Stop before Build/Implement until Ali and the design evidence select it.
+- **Active working-memory detail:** `working-memory/2026-09-21_runtime-install-command-semantic-eligibility.md`. Investigation/provenance: `working-memory/2026-09-21_f6-post-install-package-state-feasibility.md`. Most recent closed responsibility before this program: `working-memory/2026-09-20_f5-target-wheel-evidence-feasibility.md`.
+- **Selected plan:** `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`, subordinate to `plans/END_TO_END_PRODUCT_FLOW_LEARNING_AND_EVIDENCE_TO_ACTION_EXECUTION_PLAN.md` and parent `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`. Audit provenance: `audits/2026-09-19_AUDIT-008_current-system-evidence-to-action-readiness.md`. Accepted action semantics remain unchanged.
+- **Route:** `main` unless Ali explicitly changes it. The active child slice authorizes planning/design and source/evidence inspection only. It does not authorize product source/test implementation, generic log ingestion, target mutation, reconstructed target environments, or stable action-semantic changes.
 - **Parallel learning:** `working-memory/2026-09-19_cycle3-integrated-learning-review.md` continues independently in another conversation. Its exercises do not block the main workstream and must not be marked complete by this one.
 - **Completed prior cycles:** Cycle 1 CLOSED; Cycle 2 CLOSED; Cycle 3 CLOSED; F3, F9, F11 and now F4 CLOSED at their bounded proof/learning horizons. Do not reopen without concrete contradiction/regression.
 
@@ -37,6 +37,22 @@ The investigation also preserves a nearby owner question: some current pip/uv co
 **Decision alternatives preserved, none selected:** tighten current command semantics only; add a bounded installer-log witness; admit explicit package-state witnesses only; define a source-neutral F6 contract with staged adapters; or leave F6 unimplemented and use a targeted maintainer check only when the exact fact is decision-critical.
 
 **Next:** teach/review these findings with Ali at medium-sized Learning-by-Doing depth, then jointly choose the technical route. No Build before that decision. Exact evidence and trade-offs are preserved in the active F6 working memory.
+
+## Runtime dependency-state proof program
+
+The former broad F6 wording is now refined into one semantic master responsibility: determine the smallest trustworthy way to prove the exact proposed dependency version is present in the exact relevant CI environment.
+
+The durable plan is `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`. It separates:
+
+```text
+install-command semantic eligibility
+→ command-success → dependency-state proof contract
+→ explicit target-owned state evidence only if needed
+→ behavior/exercise composition
+→ action-relative/end-to-end proof
+```
+
+The first child slice is command semantic eligibility because current Tree-sitter analysis already preserves literal options such as `--dry-run`; the unresolved responsibility is what those pip/uv options mean for stronger installation-state inference. Short-circuit/conditional/pipeline structure remains shell-syntax responsibility and is already handled separately.
 
 ## F4 closure and exact proof status
 
@@ -72,6 +88,6 @@ Retain proven exact CI run/job attempt identity, frozen-revision dependency sour
 
 `PROJECT_CHARTER.md` owns the outcome family; accepted synthesis specification owns action-specific positive permission and abstention; current `src/upgradepilot/maintainer_action.py` admits only `abstain`. Ali has explicitly flagged `merge after normal review` for later product-level semantics reconsideration even if evidence becomes favorable; this is preserved as a future design question and is not being changed inside the current F6 evidence slice. Accepted semantics do not mean normal producers make other actions reachable. F4 is a correct-source/job composition precursor for an eventual target-specific evidence path. The artifact candidate and published wheel inventories do not prove exact target wheel compatibility or source-build failure; CI green does not prove compatibility or merge permission.
 
-**Next selected responsibility:** complete the F6 Learning-by-Doing handoff with Ali from the recorded full investigation, then jointly select whether and how F6 should proceed. No implementation alternative has been chosen. Preserve the exact distinction between runtime-correlated consumption, post-install package state, later behavior/exercise, and maintainer-action authority. Preserve AUDIT-005's scheduled checkpoint at the explicit route handoff.
+**Next selected responsibility:** execute the Planning/Design + Learning-by-Doing child slice `working-memory/2026-09-21_runtime-install-command-semantic-eligibility.md`: classify the currently reachable pip/uv options that materially affect installation/environment-formation meaning, verify existing test coverage, and select the earliest semantic owner. Then return to Ali before any Build/Implement decision. Preserve AUDIT-005's scheduled checkpoint at the explicit route handoff.
 
 For historical detail not repeated here, the previous complete live-state record is preserved in Git history at `0d3f32396288a4572b4b2632d0ddc1e2e9af78ee:MEMORY.md`, and all dated working-memory/plan/specification owners remain in place. Do not treat the dated records as competing live-state owners.
