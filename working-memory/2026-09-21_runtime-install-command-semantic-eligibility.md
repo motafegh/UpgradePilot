@@ -75,7 +75,7 @@ E — high but short
 ## Phase status tracker
 
 ```text
-A — READY: orientation / minimum-complete learning
+A — IN PROGRESS: source/proof flow re-anchored; Ali reconstruction/acceptance-boundary check remains
 B — PENDING: real source-backed design/action and possible bounded implementation
 C — PENDING: progressive preservation + formal proof-state checkpoint
 D — PENDING: post-action learning / ownership verification
@@ -84,7 +84,7 @@ E — PENDING: gap repair + Cycle 1 closure / Cycle 2 decision
 
 Update this tracker only at meaningful transitions.
 
-## Phase A — orientation / minimum-complete learning — READY
+## Phase A — orientation / minimum-complete learning — IN PROGRESS
 
 **Purpose:** make the coming engineering action understandable before doing the real classification/design work.
 
@@ -114,6 +114,31 @@ Very interactive but concise. Explain first; do not quiz before premises exist.
 ### Phase A output
 
 Ali and the AI share a minimum-complete mental model of the current source/proof flow, responsibility boundaries, and Cycle 1 acceptance/non-goal boundary.
+
+### Phase A progress — source/proof flow re-anchored
+
+Fresh source inspection confirmed this ownership chain:
+
+```text
+workflow_command_analysis.py
+→ shell syntax/structure + parser-neutral command atoms
+
+pip_command.py / environment_selection.py / direct_install.py
+→ bounded dependency/package-manager interpretation
+
+workflow_commands.py + consumption.py
+→ exact static CI changed-dependency consumption proposition
+
+runtime_strengthening.py + dependency_exercise.py
+→ bounded eligibility + exact successful runtime correlation
+
+Cycle 1 target
+→ only then consider the stronger proposed-version-present/satisfied proposition
+```
+
+Key boundary reconfirmed: `dependency_exercise.py` explicitly states that `supported_runtime_correlated` does not prove the exact resolved version, wheel, or compatibility. The current Cycle 1 responsibility is therefore a new stronger composition boundary, not a reinterpretation of existing runtime-correlation evidence.
+
+Remaining Phase A work: Ali reconstructs the owner/proof boundaries and confirms the intended success/non-goal model before Phase B begins.
 
 ### Phase A stop line
 
