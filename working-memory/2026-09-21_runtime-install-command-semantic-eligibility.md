@@ -118,7 +118,7 @@ A1 — DONE: current pip/uv source/proof flow and support boundary reconstructed
 A2 — DONE: material pip/uv semantic families classified at proposition-relative level
 A3 — DONE: positive / inference-defeated / unresolved / irrelevant proof vocabulary established
 A4 — DONE: minimum Phase B source/type ownership map established
-A5 — PENDING: Ali reconstruction/challenge and Phase A closure
+A5 — IN PROGRESS: Ali reconstruction/challenge and Phase A closure
 ```
 
 Current A1 findings:
@@ -745,6 +745,30 @@ Current architectural preference, still subject to Phase B design:
 - shell/runtime eligibility in `runtime_strengthening.py` should remain separate from package-manager semantic eligibility.
 
 This source/type map is sufficient for Phase B orientation; no detailed result type or file mutation is selected yet.
+
+### A5 start — ownership reconstruction
+
+A5 is now formally in progress.
+
+Purpose:
+
+```text
+verify Ali owns the Phase A proof model
+→ repair any material misunderstanding
+→ close Phase A only after the reasoning holds
+→ hand off to Phase B design without silently carrying weak assumptions
+```
+
+A5 should focus on the few consequential distinctions established by A1-A4:
+
+1. dependency consumption is a relevance/source-link proposition, not installation proof;
+2. package-manager semantic eligibility is a separate dependency-domain responsibility;
+3. command-local semantics and effective runtime semantics are not automatically identical;
+4. "this command cannot prove installation" is not package-absence evidence;
+5. logical selected environment/reachability is distinct from physical runtime state;
+6. package-manager meaning should be classified while structured command atoms are still available, not reconstructed later from raw command text.
+
+A5 is a reasoning/ownership checkpoint, not another broad investigation.
 
 ### Phase A output
 
