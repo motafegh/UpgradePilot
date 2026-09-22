@@ -1,0 +1,17 @@
+{
+  "relevant_modules": [
+    "src/upgradepilot/dependency/uv_lock.py",
+    "src/upgradepilot/dependency/environment.py",
+    "src/upgradepilot/dependency/environment_selection.py",
+    "src/upgradepilot/dependency/uv_reachability.py"
+  ],
+  "current_design": [
+    "lock transition is separate from environment membership",
+    "uv extras/groups/package selectors are parsed separately",
+    "selected-root reachability is evaluated separately",
+    "no path from selected roots is not a global package-absence claim"
+  ],
+  "empirical_result": "S016 supports this decomposition: tests scope reaches coverage, release/build scope does not.",
+  "b5_implication": "P2 must consume exact source/environment reachability rather than raw uv.lock membership before P7/runtime success can support the changed-package state proposition.",
+  "stop_reason": "The real proposal already provides a positive selected-root path and a successful unrelated scoped control. No synthetic variant is required."
+}
