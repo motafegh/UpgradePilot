@@ -389,3 +389,107 @@ Important precision:
 - Do not generalize this runner implementation observation into arbitrary reusable/composite/container-action semantics without separate evidence.
 - A future UpgradePilot resolver should preserve provenance for the winning value rather than returning only a naked string.
 - This remains design/learning evidence, not authorization to implement environment resolution.
+
+
+## B4 design refinement — backward / demand-driven proof strategy
+
+Ali proposed reversing the default reasoning direction for this problem: instead of always
+reconstructing environment state from broad workflow inputs downward, start from the exact
+package-manager proposition and walk backward only as far as necessary.
+
+This is accepted as the preferred B4 proof strategy.
+
+### Target-first question
+
+For one exact package-manager occurrence, begin with the proposition that matters:
+
+```text
+What effective semantics did this exact pip/uv process have
+for the specific state-proof dimension under investigation?
+```
+
+Then use the strongest evidence closest to that process first:
+
+```text
+1. direct exact-process/runtime evidence?
+   → if sufficient, stop
+
+2. shell-local effective value/override established?
+   → if sufficient, stop
+
+3. step-local environment value established?
+   → if sufficient, stop
+
+4. inherited job/GITHUB_ENV value established?
+   → if sufficient, stop
+
+5. broader workflow/job/config provenance needed?
+   → inspect only the unresolved material dimensions
+
+6. still not positively established?
+   → unresolved
+```
+
+A lower-level positively established override can make higher-level provenance irrelevant to
+the current semantic dimension. For example:
+
+```text
+earlier PIP_DRY_RUN history = uncertain
++
+exact shell-local export PIP_DRY_RUN=0 positively established for pip
+→ earlier dry-run value history need not be fully reconstructed for that dimension
+```
+
+This does not mean upstream evidence is discarded. It remains useful when:
+
+- the lower-level value is absent or unresolved;
+- provenance is needed to justify the effective value;
+- a possible higher-precedence/later override must be ruled in or out;
+- another semantic dimension depends on different inputs.
+
+### Relationship to top-down reasoning
+
+Use both directions for different responsibilities:
+
+```text
+TOP-DOWN
+→ explain possible provenance, propagation, and override paths
+→ identify where material uncertainty could enter
+
+BOTTOM-UP / DEMAND-DRIVEN
+→ prove the exact decision-critical proposition
+→ inspect only the minimum upstream evidence necessary
+```
+
+The bottom-up direction is preferred for product proof because it avoids reconstructing a
+complete runner/package-manager environment when a nearer trustworthy witness already answers
+the question.
+
+### Engineering consequence
+
+Do not design a universal environment simulator first.
+
+Prefer:
+
+```text
+exact proposition
+→ nearest trustworthy evidence
+→ bounded backward slice through only material dependencies
+→ fail closed at the first unresolved necessary edge
+```
+
+This is conceptually related to backward slicing and demand-driven data-flow analysis, but
+B4 does not select a compiler-style CFG/SSA framework or graph engine. Those remain
+implementation alternatives only if real product pressure later justifies them.
+
+### B4 effect
+
+This refinement changes how the remaining B4 cases should be investigated:
+
+- start at the exact pip/uv semantic dimension;
+- test whether lower-level evidence can terminate the proof early;
+- climb toward step/job/workflow/GITHUB_ENV/config provenance only when necessary;
+- keep different semantic dimensions independent rather than demanding complete ambient-state
+  reconstruction.
+
+This strengthens the existing fail-closed rule while reducing unnecessary proof scope.
