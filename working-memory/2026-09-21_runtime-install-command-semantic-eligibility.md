@@ -1525,3 +1525,108 @@ exact dependency source/version
 
 The contract must name the exact positive premises, close defeaters, temporal boundary, and
 non-claims before B6 may select any implementation/proof slice.
+
+
+### B5 source-backed proof contract candidate
+
+Fresh current-source tracing plus current official pip/uv semantics support a composition contract
+that should prefer **requirement satisfied/present at command completion** over the stronger and
+often false wording **installed by this command**.
+
+Why: an exact requirement may already be satisfied before the command. A successful ordinary
+`pip install` can legitimately leave an already-satisfying installed version in place; the
+state proposition is still satisfied at command completion even though this invocation did not
+necessarily perform a fresh install. Likewise, admitted uv sync/run semantics concern bringing
+or verifying the selected project environment against its lock-backed requirements.
+
+#### Candidate positive premises
+
+For one bounded admitted command family, a positive dependency-state result requires all of:
+
+```text
+P1 exact dependency identity
+→ one trusted DependencyVersionChange with exact normalized package + proposed version
+
+P2 exact source/environment relation
+→ the admitted dependency source or selected lock-backed environment establishes that
+   the exact proposed version is the version required for the changed package in this
+   exact workflow revision/context
+
+P3 exact static consumption occurrence
+→ supported StaticDependencyConsumptionEvidence binds that dependency proposition to one
+   exact workflow/job/step/command occurrence and the correct source/environment
+
+P4 command-local semantic eligibility
+→ no positively established command-local semantic defeater for this state proposition
+
+P5 effective-semantics closure
+→ every material semantic dimension admitted for this command family is resolved
+   non-defeating under the B4 contract
+
+P6 exact runtime-success proof
+→ the same exact occurrence is eligible for runtime strengthening and is bound through
+   exact workflow/run-attempt/job/step identity to completed-successful execution without
+   an admitted masking condition
+
+P7 manager operation guarantee
+→ for this bounded pip/uv operation, successful completion with P1-P6 means the exact
+   requirement is satisfied/present in the intended selected environment at the command
+   completion boundary
+```
+
+If any required positive premise is unresolved, the stronger dependency-state proposition is
+unresolved rather than guessed.
+
+#### Result meaning
+
+The strongest intended positive claim is:
+
+> **At successful completion of this exact admitted dependency-consuming command occurrence,
+> the exact proposed dependency version was satisfied/present in the exact selected
+> environment justified by the evidence.**
+
+This wording deliberately permits both:
+
+- a fresh installation/update performed by the command; and
+- an already-present exact version that the package manager legitimately leaves in place
+  because it already satisfies the exact requirement.
+
+#### Close defeaters / non-claims
+
+The contract must fail closed when identity, source/environment relation, semantic eligibility,
+effective semantics, exact runtime occurrence/success, or manager operation guarantees are
+not positively established.
+
+Even a positive B5 result does **not** establish:
+
+```text
+the package was newly installed by this command
+the selected wheel/sdist/artifact identity
+the package remains present after later mutation
+a later command/test used this same package state
+relevant behavior was exercised successfully
+behavioral compatibility
+update safety
+any maintainer-action permission
+```
+
+Later persistence/exercise requires a separate ordering/environment composition. Maintainer
+action remains downstream synthesis responsibility.
+
+#### Current manager-specific evidence
+
+Current pip documentation describes `pip install` as processing supplied requirements,
+resolving what satisfies them, and installing packages while preferring an already installed
+version when it already satisfies the requirement unless upgrade behavior changes that choice.
+This supports the bounded **satisfied/present at completion** formulation for exact requirements,
+not a universal "freshly installed" claim.
+
+Current uv documentation states that `uv sync` updates the project environment so project
+dependencies are installed/up-to-date with the lockfile, and that ordinary `uv run` verifies
+the project environment is up-to-date with the lockfile before invoking the requested command.
+Those semantics are usable only for admitted uv selectors/scopes after B3/B4 defeaters such as
+`--dry-run`, `--no-sync`, package exclusions, retargeting, or unresolved effective settings
+have been handled.
+
+B5 remains **IN PROGRESS** pending Ali's review of this proof composition and temporal wording.
+No result type, implementation file, or Build slice is selected by this checkpoint.
