@@ -225,3 +225,74 @@ The next Product Simulation phase should therefore be a broader evidence portfol
 This section supersedes the earlier wording that G3 should be refined before broadening. The correct rule is:
 
 > Broaden intelligently, while using current main progress to make the broader research more precise and useful.
+
+
+## 6. Reality-check principle — theoretical counterexample != justified product complexity
+
+Ali added a critical Product Simulation responsibility: some synthesis/design counterexamples being handled by the main workstream may be logically valid but uncommon, artificial, or effectively absent in real supported repositories. Product Simulation must test that possibility rather than assuming every constructed counterexample deserves first-class implementation complexity.
+
+### Required distinction
+
+For any counterexample or proposed safeguard, keep these questions separate:
+
+```text
+Can this happen?
+!=
+Have we observed it in real supported repositories?
+!=
+How often / broadly does it appear?
+!=
+Does it materially change a maintainer decision?
+!=
+Is handling it worth the product complexity?
+```
+
+A synthetic counterexample proves only possibility unless tied to real evidence.
+
+### Empirical classification
+
+When evaluating a concern, classify the evidence proportionately:
+
+- **observed-real:** exact public case exists in a supported boundary;
+- **real-derived:** grounded in real repository shapes but the decisive combination is synthetic;
+- **plausible-unobserved:** semantics permit it, but bounded search has not found a real instance;
+- **synthetic-only:** useful for correctness pressure, not evidence of real-world incidence;
+- **prevalence-unknown:** one/few real examples exist but frequency cannot be inferred;
+- **ordinary-control:** nearby real cases do not exhibit the feared condition.
+
+Do not turn absence in a bounded sample into a population claim. Record the search boundary and uncertainty.
+
+### Complexity / priority test
+
+Research should help main distinguish:
+
+```text
+high consequence + real/recurrent evidence
+→ strong implementation pressure
+
+high consequence + rare/unknown incidence
+→ may justify a bounded fail-closed rule or explicit limitation rather than broad machinery
+
+low consequence + rare/synthetic-only
+→ strong candidate for deferral/non-support
+
+common ordinary case + theoretical counterexample only
+→ protect the ordinary path from being made unusable by over-conservative design
+```
+
+Frequency is not the only criterion: a rare case can still matter when the failure is severe, the supported contract explicitly promises it, or the safeguard is cheap and local. Conversely, theoretical correctness alone does not justify a large architecture expansion.
+
+### Product Simulation consequence
+
+For current and future main-workstream synthesis counterexamples, Product Simulation should deliberately search for:
+
+1. at least one exact real occurrence when feasible;
+2. ordinary controls that show the nearby normal shape;
+3. negative/bounded-search evidence when no occurrence is found;
+4. consequence if mishandled;
+5. implementation cost/scope implied by supporting it;
+6. the narrowest defensible response: support, fail closed, explicit non-support, defer, or investigate further.
+
+This becomes a standing cross-cutting track alongside the main-signal, coverage-gap, forward-pressure, and control tracks.
+
+The objective is not to prove main wrong or right. It is to prevent both **under-engineering real problems** and **over-engineering hypothetical ones**.
