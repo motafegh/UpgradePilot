@@ -1,0 +1,21 @@
+{
+  "workflow": ".github/workflows/lint.yml",
+  "run_id": 31902346443,
+  "job_id": 95054923808,
+  "job_name": "black",
+  "conclusion": "success",
+  "python": "3.14.7",
+  "command": "uv sync --locked --extra tests",
+  "selected_scope": {
+    "extras": [
+      "tests"
+    ],
+    "groups": []
+  },
+  "observations": [
+    "Resolved 135 packages",
+    "Installed 67 packages",
+    "+ coverage==7.15.4"
+  ],
+  "interpretation": "The tests extra selects/reaches coverage and runtime output directly observes the proposed version in the formed environment."
+}
