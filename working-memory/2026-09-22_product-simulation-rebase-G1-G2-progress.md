@@ -587,3 +587,82 @@ Seek the uv/scoped-operation analogue:
 where the exact changed dependency is excluded by group/package selector or another admitted scope rule.
 
 The question is whether the current/future P2/P7 design keeps lock identity separate from the subset actually synchronized. This should be investigated with real dependency-update evidence before adding new product complexity.
+## 11. S016 uv selector-scope validation + #1895 extractor pressure
+
+### S016 admitted — Thumbor #1867
+
+Real Dependabot proposal:
+
+`coverage 7.14.1 → 7.15.4` in `thumbor/thumbor#1867`.
+
+- base: `b46e940867efc287a04131194c0a437bbc8e7696`
+- head: `ea7c44f1830fa4cd0df1ceeab17a01d20ccad38f`
+- observed runtime merge checkout: `8ff9e8b64668c22706cf29c202b0356375c9bf8d`
+- changed file: `uv.lock` only.
+
+Exact lock/root structure:
+
+- `coverage` belongs to optional extra `tests`;
+- `build` group roots: setuptools, wheel;
+- `release` group roots: build, twine.
+
+Direct positive workflow occurrence:
+
+`uv sync --locked --extra tests`
+
+in lint job `95054923808`, success; runtime explicitly reports `+ coverage==7.15.4`.
+
+Direct negative scoped control:
+
+`uv run --locked --only-group release --only-group build python -m build --sdist --no-isolation`
+
+in release job `95054923612`, success; creates a fresh `.venv`, installs 36 selected packages, and does not select coverage.
+
+Secondary docs control similarly forms a docs-only environment without coverage, but it expands through a Makefile and is not the main current-product-visible control.
+
+### Product consequence
+
+S016 validates current source decomposition rather than exposing a missing concept:
+
+- `uv_lock.py`: exact lock transition;
+- `environment.py`: lock membership != universal reachability;
+- `environment_selection.py`: selector parsing;
+- `uv_reachability.py`: selected-root reachability.
+
+B5 P2 should consume selected-root reachability. Raw `uv.lock` membership + uv command success is insufficient.
+
+A selector-relative `not_established` result is not global package absence.
+
+Artifacts:
+
+- `product-simulation/S016_CANDIDATE_SCREENING.md`
+- `product-simulation/scenarios/S016-thumbor-uv-selector-scope-coverage/`
+- `product-simulation/S016_POST_CASE_SYNTHESIS.md`.
+
+### Adjacent forward-pressure case — Thumbor #1895
+
+PR #1895 updates `pylint 4.0.7 → 4.0.8` in `uv.lock`.
+
+Base/head inspection shows order-only changes inside `resolution-markers` lists for repeated records of `docutils`, `numpy`, `pywavelets`, and `scipy`, in addition to the intended pylint transition.
+
+Current `uv_lock.py` preserves nested-list order inside canonical records. Changed repeated groups are compared as canonical multisets, so an order change inside one record changes the multiset member. By direct current-source tracing, `docutils` is encountered before `pylint` and the proposal is expected to stop as `ambiguous_uv_lock_package_records`.
+
+Important caution: do not label the ordering harmless or normalize it automatically. uv documentation states that saved resolution markers preserve fork structure for stable resolution, and current uv release history contains explicit fork-ordering behavior tied to existing lockfile resolution markers/fork strategy.
+
+Disposition:
+
+`observed-real acquisition limitation; semantic normalization unresolved`.
+
+Artifact:
+
+`product-simulation/2026-09-22_UV_RESOLUTION_MARKER_ORDER_REALITY_CHECK.md`.
+
+Do not merge S016 and #1895 into one scenario: S016 validates selector/reachability after a clean lock transition; #1895 questions whether the transition can be admitted upstream at all.
+
+### Next portfolio direction
+
+1. Re-sync main if it advances.
+2. Continue B5 pressure on manager-operation guarantees, especially cases where operation success does not imply the naïve whole-source state proposition.
+3. Keep direct-state-witness versus inferred-state routes separate.
+4. Keep G4 wheel-tag bridge and retargeting bridge alive in parallel.
+5. Revisit #1895 only if uv marker-order semantics can be bounded strongly enough to support or reject normalization.
