@@ -1,0 +1,16 @@
+{
+  "scenario": "S013",
+  "repository": "langchain-ai/langchain",
+  "pull_request": 40646,
+  "title": "chore(deps): bump anyio from 4.14.2 to 4.15.1 in /libs/standard-tests",
+  "proposer": "dependabot[bot]",
+  "dependency": "anyio",
+  "from_version": "4.14.2",
+  "to_version": "4.15.1",
+  "changed_source": "libs/standard-tests/uv.lock",
+  "base_sha": "39535dc58e029c28b562f531cfbad810c23e1f5a",
+  "head_sha": "3908f2baf0db73c0f3242107df0428a510f4be47",
+  "observed_runtime_checkout_sha": "63e06a2ba490c0bcdc7de672d38e5210f7cc0650",
+  "observed_runtime_checkout_kind": "github_pull_request_synthetic_merge",
+  "claim_limit": "The observed runtime checkout is not the bare proposal head."
+}
