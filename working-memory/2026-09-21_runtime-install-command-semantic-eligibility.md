@@ -843,8 +843,8 @@ Phase B must not silently expand into complete runner/environment reconstruction
 ### Phase B task tracker
 
 ```text
-B1 — IN PROGRESS: command-local proposition/naming/state contract accepted; effective-semantics composition question remains
-B2 — PENDING: select shared pip/uv owner and composition seam
+B1 — DONE: command-local semantic-eligibility contract accepted; ordinary command+success cannot close effective runtime state
+B2 — IN PROGRESS: select shared pip/uv owner and composition seam
 B3 — PENDING: select first bounded admitted command family and close defeaters
 B4 — PENDING: define ambient/effective-semantics fail-closed boundary
 B5 — PENDING: define command-success → dependency-state proof contract
