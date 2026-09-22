@@ -1,0 +1,14 @@
+{
+  "job_id": 85302679272,
+  "job_name": "✅ Tests (3.8)",
+  "conclusion": "failure",
+  "command": "python -m pip install -r ci-requirements.txt --require-hashes",
+  "applicable_requirement": "pytest==9.0.3 ; python_full_version == '3.8.*'",
+  "observations": [
+    "pip attempts pytest==9.0.3",
+    "ERROR: Could not find a version that satisfies the requirement pytest==9.0.3",
+    "ERROR: No matching distribution found for pytest==9.0.3"
+  ],
+  "interpretation": "The marker applies in this row, so the proposed exact requirement participates and the command-derived positive state proof is unavailable after failure.",
+  "non_claim": "Failure does not prove prior package absence."
+}
