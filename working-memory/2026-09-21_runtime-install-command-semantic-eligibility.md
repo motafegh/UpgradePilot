@@ -891,7 +891,64 @@ command_location
 possibly material semantic observations / target relation
 ```
 
-Open B1 issue:
+### B1 naming principle — owner + scope + proposition
+
+Ali explicitly accepted the command-local split and required names that make the proof boundary hard to misunderstand.
+
+Naming principle:
+
+```text
+OWNER
++ SCOPE
++ PROPOSITION
+```
+
+For this result:
+
+```text
+OWNER       = package-manager/dependency semantics
+SCOPE       = command-local
+PROPOSITION = eligibility to participate in dependency-state proof
+```
+
+Therefore avoid generic names such as:
+
+```text
+SemanticEligibility
+InstallEligibility
+StateEvidence
+SupportedCommand
+```
+
+because they omit one or more important boundaries.
+
+Current preferred conceptual name:
+
+```text
+CommandLocalPackageManagerStateProofEligibility
+```
+
+The exact Python type name remains to be checked against repository naming style in B2, but whatever name is selected must preserve all three concepts.
+
+Likewise, aggregate state values should not rely on bare `eligible` / `ineligible` when exposed outside the type context. Preferred semantic wording:
+
+```text
+command_locally_eligible
+command_locally_ineligible
+unresolved
+```
+
+or an equally explicit equivalent consistent with project naming conventions.
+
+The result must never imply:
+
+- installation occurred;
+- the package is present;
+- effective ambient semantics are fully known;
+- runtime execution succeeded;
+- maintainer action is justified.
+
+
 
 > Whether `eligible` should mean only **command-local eligibility**, or whether Cycle 1 needs a second explicit effective-semantics gate before runtime success can produce dependency-state proof.
 
