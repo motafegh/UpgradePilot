@@ -1,0 +1,27 @@
+{
+  "scenario": "S016",
+  "repository": "thumbor/thumbor",
+  "pull_request": 1867,
+  "dependency": "coverage",
+  "from_version": "7.14.1",
+  "to_version": "7.15.4",
+  "changed_source": "uv.lock",
+  "base_sha": "b46e940867efc287a04131194c0a437bbc8e7696",
+  "head_sha": "ea7c44f1830fa4cd0df1ceeab17a01d20ccad38f",
+  "observed_runtime_merge_sha": "8ff9e8b64668c22706cf29c202b0356375c9bf8d",
+  "lock_blob_sha": "1f4f3e4bde28eb1d5b6c52af08db06650e0d47e7",
+  "root_membership": {
+    "optional_extra_tests": [
+      "coverage"
+    ],
+    "build_group": [
+      "setuptools",
+      "wheel"
+    ],
+    "release_group": [
+      "build",
+      "twine"
+    ]
+  },
+  "transition_projection": "One exact coverage version transition; unchanged registry source; artifact inventory changes are ignored by the current transition contract."
+}
