@@ -843,11 +843,11 @@ Phase B must not silently expand into complete runner/environment reconstruction
 ### Phase B task tracker
 
 ```text
-B1 — IN PROGRESS: command-local proposition/naming/state contract accepted; effective-semantics composition question remains
-B2 — PENDING: select shared pip/uv owner and composition seam
-B3 — PENDING: select first bounded admitted command family and close defeaters
-B4 — PENDING: define ambient/effective-semantics fail-closed boundary
-B5 — PENDING: define command-success → dependency-state proof contract
+B1 — DONE: command-local semantic-eligibility contract accepted; ordinary command+success cannot close effective runtime state
+B2 — DONE: separate dependency-owned semantic evidence object + CI identity composition accepted
+B3 — DONE: first bounded pip/uv semantic matrix accepted
+B4 — DONE: proposition-first effective-semantics fail-closed contract accepted
+B5 — IN PROGRESS: define command-success → dependency-state proof contract
 B6 — PENDING: select/authorize smallest implementation + proof slice
 ```
 
@@ -1295,8 +1295,338 @@ One bounded normal command family has a precise, source-backed proof path from e
 
 ## Current handoff
 
-Start **Phase A** only.
+Continue **Cycle 1 / Phase B / B4** only.
 
-The immediate task is orientation: reconstruct the exact source/proof flow and acceptance boundary needed to make the later Phase B classification/design meaningful. No Build/Implement action has yet been selected.
+Phase A is closed and B1-B3 are accepted. The current responsibility is to finish the
+ambient/effective-semantics fail-closed contract using proposition-first, demand-driven proof.
+Do not begin Build/Implement, B5 composition, a generic environment resolver, or Cycle 2 until
+B4 is reviewed/closed and the next responsibility is explicitly selected.
 
 **Procedural provenance:** `UP-SKILL:upgradepilot-planning-design`; `UP-SKILL:upgradepilot-learning-by-doing`; `UP-SKILL:upgradepilot-working-memory`.
+
+
+### B4 accepted reasoning strategy — demand-driven backward proof
+
+B4 now prefers a proposition-first / backward-slicing strategy for effective package-manager
+semantics:
+
+```text
+exact semantic proposition for exact pip/uv occurrence
+→ nearest trustworthy process-level evidence
+→ shell-local evidence if needed
+→ step-local environment if needed
+→ inherited GITHUB_ENV/job/workflow/config provenance only as needed
+→ unresolved if a necessary material edge cannot be established
+```
+
+Top-down environment/data-flow graphs remain useful for identifying possible provenance and
+override paths, but UpgradePilot should not reconstruct the complete ambient environment when
+a nearer trustworthy witness already resolves the decision-critical semantic dimension.
+
+This is a design strategy, not selection of a graph engine, CFG/SSA framework, generalized
+environment simulator, or new implementation slice. Detailed examples and reasoning are
+preserved in `working-memory/2026-09-22_b4-environment-evidence-data-flow-learning.md`.
+
+
+### B4 source-backed fail-closed contract candidate
+
+Fresh current-source inspection reconfirms the proof gap rather than closing it accidentally:
+
+- `github/workflow_definition.py` does not currently preserve workflow/job/step `env:`;
+- `ci/runtime_strengthening.py` owns structural/runtime-strengthening eligibility only and
+  contains no package-manager effective-semantics interpretation;
+- `ci/dependency_exercise.py` explicitly limits `supported_runtime_correlated` to bounded
+  successful execution correlation and does not claim exact installed version/package state.
+
+Therefore B4 must define the **proof boundary** first. Current source cannot yet positively
+resolve ordinary ambient package-manager semantics.
+
+#### Unit of reasoning
+
+Evaluate one exact package-manager occurrence and one **material semantic dimension** at a time:
+
+```text
+exact occurrence
++ exact state-proof proposition
++ one material semantic dimension
+→ resolved_non_defeating | resolved_defeating | unresolved
+```
+
+These are conceptual B4 dispositions, not selected Python enum/type names.
+
+- **resolved_non_defeating** — sufficiently strong evidence establishes the effective semantic
+  value/behavior for this exact dimension and that value does not defeat use of the occurrence
+  in the later state-proof proposition.
+- **resolved_defeating** — sufficiently strong evidence establishes effective behavior that
+  prevents this occurrence from serving as the required state-producing witness.
+- **unresolved** — the effective value, applicable precedence, propagation, ordering, or
+  process relationship needed for this dimension cannot be positively established.
+
+A resolved non-defeating dimension is **not** package-state proof and is not a generic
+"ambient safe" result.
+
+#### Demand-driven nearest-witness rule
+
+For each material dimension:
+
+```text
+1. exact command/process-local decisive evidence?
+   → use it and stop for this dimension when its precedence is sufficient
+
+2. shell-local effective evidence?
+   → use it only when its ordering/process relationship is positively established
+
+3. step-local environment evidence?
+   → use it only when later local override/CLI precedence is sufficiently bounded
+
+4. inherited same-job/GITHUB_ENV/job/workflow/config provenance?
+   → inspect only when a closer decisive witness did not already resolve the dimension
+
+5. necessary material edge remains unsupported/dynamic/conflicted?
+   → unresolved
+```
+
+Do not reconstruct upstream history that cannot change a dimension already decided by a
+closer, higher-precedence trustworthy witness. Conversely, absence of a visible defeater is
+never promoted to `resolved_non_defeating`.
+
+#### Dimension aggregation
+
+For the **bounded semantic surface admitted for the selected command family**:
+
+```text
+any material dimension = resolved_defeating
+→ effective semantics defeat state-proof use of this occurrence
+
+no defeating dimension
++ any required material dimension = unresolved
+→ effective semantics remain unresolved
+
+all required material dimensions = resolved_non_defeating
+→ B4 semantic gate is closed for that bounded family
+→ B5 may then ask whether exact successful execution composes into dependency-state proof
+```
+
+The admitted surface must contain the settings that can materially alter the exact
+state-producing proposition for that family. It is not an exhaustive catalog of every pip/uv
+configuration setting.
+
+#### Pressure cases
+
+**Explicit command-local dry run**
+
+```text
+python -m pip install --dry-run -r requirements.txt
+→ dry-run dimension resolved_defeating
+→ no ambient reconstruction needed for that dimension
+```
+
+**Ordinary command with no stronger effective-semantics evidence**
+
+```text
+python -m pip install -r requirements.txt
++ current provider/runtime evidence only
+→ command-local classification may be eligible
+→ effective dry-run/config dimension remains unresolved
+→ successful step cannot yet become package-state proof
+```
+
+**Shell-local override**
+
+```text
+export PIP_DRY_RUN=0
+python -m pip install -r requirements.txt
+```
+
+If the ordered assignment is positively established for the exact pip process and no
+higher-precedence command-local defeater exists, the dry-run dimension may be
+`resolved_non_defeating`. This does **not** solve the independent execution-proof problem:
+current runtime strengthening may still be unable to prove success of a later command in a
+multi-command step.
+
+**Prior GITHUB_ENV + step-local override**
+
+A positively established same-job write/propagation plus a later literal step-local override
+can establish the step baseline according to the bounded GitHub precedence model already
+investigated. But current `workflow_definition.py` does not preserve `env:`, so this is
+design feasibility, not current product evidence.
+
+#### B4 ownership split
+
+```text
+GitHub/workflow + shell evidence
+→ provenance, scope, order, propagation, process-value relationship
+
+dependency/package-manager semantics
+→ meaning of the effective value for the exact semantic dimension
+
+CI/state-proof composition
+→ whether those typed semantic facts may participate in the stronger proposition
+```
+
+Do not introduce one generic environment boolean, reconstruct package-manager meaning in CI,
+or parse raw command strings again downstream.
+
+#### B4 status after this checkpoint
+
+B4 remains **IN PROGRESS** pending Ali's design/ownership review.
+
+If this contract survives that review, B4 can close without selecting an environment resolver.
+B5 can then define the independent command-success → dependency-state composition contract and
+B6 can decide the smallest implementation/proof slice. No product source/test implementation
+has been authorized by this checkpoint.
+
+
+### B4 ownership check and closure
+
+Ali correctly reconstructed the B4 distinction:
+
+- for an ordinary exact pip-install occurrence with successful runtime-step evidence but no
+  trustworthy effective environment/config evidence, preserve the missing proof and do not
+  infer that installation/package state was established;
+- for an exact `pip install --dry-run ...` occurrence, the visible command-local semantics
+  positively defeat use of that occurrence as the required state-producing witness.
+
+Precision retained:
+
+```text
+ordinary command + runtime success + unresolved effective semantics
+→ effective state-proof eligibility unresolved
+→ no installation/package-state conclusion
+
+explicit --dry-run
+→ resolved defeating semantic dimension
+→ command is not eligible as the required state-producing witness
+→ still not evidence that the package was absent beforehand
+```
+
+This ownership check closes B4. No environment resolver, graph engine, or product implementation
+was selected.
+
+### B5 start — command-success → dependency-state proof contract
+
+B5 now owns the next bounded design question:
+
+> Under what exact evidence composition may one semantically admitted dependency-consuming
+> command occurrence plus exact successful runtime execution justify the bounded proposition
+> that the proposed version was satisfied/present at the admitted command-completion boundary?
+
+B5 must preserve the separation between:
+
+```text
+exact dependency source/version
+!= command semantic eligibility
+!= command execution success
+!= package state at command completion
+!= later persistence
+!= behavior/exercise
+!= maintainer-action permission
+```
+
+The contract must name the exact positive premises, close defeaters, temporal boundary, and
+non-claims before B6 may select any implementation/proof slice.
+
+
+### B5 source-backed proof contract candidate
+
+Fresh current-source tracing plus current official pip/uv semantics support a composition contract
+that should prefer **requirement satisfied/present at command completion** over the stronger and
+often false wording **installed by this command**.
+
+Why: an exact requirement may already be satisfied before the command. A successful ordinary
+`pip install` can legitimately leave an already-satisfying installed version in place; the
+state proposition is still satisfied at command completion even though this invocation did not
+necessarily perform a fresh install. Likewise, admitted uv sync/run semantics concern bringing
+or verifying the selected project environment against its lock-backed requirements.
+
+#### Candidate positive premises
+
+For one bounded admitted command family, a positive dependency-state result requires all of:
+
+```text
+P1 exact dependency identity
+→ one trusted DependencyVersionChange with exact normalized package + proposed version
+
+P2 exact source/environment relation
+→ the admitted dependency source or selected lock-backed environment establishes that
+   the exact proposed version is the version required for the changed package in this
+   exact workflow revision/context
+
+P3 exact static consumption occurrence
+→ supported StaticDependencyConsumptionEvidence binds that dependency proposition to one
+   exact workflow/job/step/command occurrence and the correct source/environment
+
+P4 command-local semantic eligibility
+→ no positively established command-local semantic defeater for this state proposition
+
+P5 effective-semantics closure
+→ every material semantic dimension admitted for this command family is resolved
+   non-defeating under the B4 contract
+
+P6 exact runtime-success proof
+→ the same exact occurrence is eligible for runtime strengthening and is bound through
+   exact workflow/run-attempt/job/step identity to completed-successful execution without
+   an admitted masking condition
+
+P7 manager operation guarantee
+→ for this bounded pip/uv operation, successful completion with P1-P6 means the exact
+   requirement is satisfied/present in the intended selected environment at the command
+   completion boundary
+```
+
+If any required positive premise is unresolved, the stronger dependency-state proposition is
+unresolved rather than guessed.
+
+#### Result meaning
+
+The strongest intended positive claim is:
+
+> **At successful completion of this exact admitted dependency-consuming command occurrence,
+> the exact proposed dependency version was satisfied/present in the exact selected
+> environment justified by the evidence.**
+
+This wording deliberately permits both:
+
+- a fresh installation/update performed by the command; and
+- an already-present exact version that the package manager legitimately leaves in place
+  because it already satisfies the exact requirement.
+
+#### Close defeaters / non-claims
+
+The contract must fail closed when identity, source/environment relation, semantic eligibility,
+effective semantics, exact runtime occurrence/success, or manager operation guarantees are
+not positively established.
+
+Even a positive B5 result does **not** establish:
+
+```text
+the package was newly installed by this command
+the selected wheel/sdist/artifact identity
+the package remains present after later mutation
+a later command/test used this same package state
+relevant behavior was exercised successfully
+behavioral compatibility
+update safety
+any maintainer-action permission
+```
+
+Later persistence/exercise requires a separate ordering/environment composition. Maintainer
+action remains downstream synthesis responsibility.
+
+#### Current manager-specific evidence
+
+Current pip documentation describes `pip install` as processing supplied requirements,
+resolving what satisfies them, and installing packages while preferring an already installed
+version when it already satisfies the requirement unless upgrade behavior changes that choice.
+This supports the bounded **satisfied/present at completion** formulation for exact requirements,
+not a universal "freshly installed" claim.
+
+Current uv documentation states that `uv sync` updates the project environment so project
+dependencies are installed/up-to-date with the lockfile, and that ordinary `uv run` verifies
+the project environment is up-to-date with the lockfile before invoking the requested command.
+Those semantics are usable only for admitted uv selectors/scopes after B3/B4 defeaters such as
+`--dry-run`, `--no-sync`, package exclusions, retargeting, or unresolved effective settings
+have been handled.
+
+B5 remains **IN PROGRESS** pending Ali's review of this proof composition and temporal wording.
+No result type, implementation file, or Build slice is selected by this checkpoint.
