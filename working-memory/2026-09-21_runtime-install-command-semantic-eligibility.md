@@ -846,8 +846,8 @@ Phase B must not silently expand into complete runner/environment reconstruction
 B1 — DONE: command-local semantic-eligibility contract accepted; ordinary command+success cannot close effective runtime state
 B2 — DONE: separate dependency-owned semantic evidence object + CI identity composition accepted
 B3 — DONE: first bounded pip/uv semantic matrix accepted
-B4 — IN PROGRESS: define ambient/effective-semantics fail-closed boundary
-B5 — PENDING: define command-success → dependency-state proof contract
+B4 — DONE: proposition-first effective-semantics fail-closed contract accepted
+B5 — IN PROGRESS: define command-success → dependency-state proof contract
 B6 — PENDING: select/authorize smallest implementation + proof slice
 ```
 
@@ -1475,3 +1475,53 @@ If this contract survives that review, B4 can close without selecting an environ
 B5 can then define the independent command-success → dependency-state composition contract and
 B6 can decide the smallest implementation/proof slice. No product source/test implementation
 has been authorized by this checkpoint.
+
+
+### B4 ownership check and closure
+
+Ali correctly reconstructed the B4 distinction:
+
+- for an ordinary exact pip-install occurrence with successful runtime-step evidence but no
+  trustworthy effective environment/config evidence, preserve the missing proof and do not
+  infer that installation/package state was established;
+- for an exact `pip install --dry-run ...` occurrence, the visible command-local semantics
+  positively defeat use of that occurrence as the required state-producing witness.
+
+Precision retained:
+
+```text
+ordinary command + runtime success + unresolved effective semantics
+→ effective state-proof eligibility unresolved
+→ no installation/package-state conclusion
+
+explicit --dry-run
+→ resolved defeating semantic dimension
+→ command is not eligible as the required state-producing witness
+→ still not evidence that the package was absent beforehand
+```
+
+This ownership check closes B4. No environment resolver, graph engine, or product implementation
+was selected.
+
+### B5 start — command-success → dependency-state proof contract
+
+B5 now owns the next bounded design question:
+
+> Under what exact evidence composition may one semantically admitted dependency-consuming
+> command occurrence plus exact successful runtime execution justify the bounded proposition
+> that the proposed version was satisfied/present at the admitted command-completion boundary?
+
+B5 must preserve the separation between:
+
+```text
+exact dependency source/version
+!= command semantic eligibility
+!= command execution success
+!= package state at command completion
+!= later persistence
+!= behavior/exercise
+!= maintainer-action permission
+```
+
+The contract must name the exact positive premises, close defeaters, temporal boundary, and
+non-claims before B6 may select any implementation/proof slice.
