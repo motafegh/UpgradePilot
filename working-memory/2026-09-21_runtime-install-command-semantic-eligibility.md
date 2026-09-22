@@ -844,8 +844,8 @@ Phase B must not silently expand into complete runner/environment reconstruction
 
 ```text
 B1 — DONE: command-local semantic-eligibility contract accepted; ordinary command+success cannot close effective runtime state
-B2 — IN PROGRESS: select shared pip/uv owner and composition seam
-B3 — PENDING: select first bounded admitted command family and close defeaters
+B2 — DONE: separate dependency-owned semantic evidence object + CI identity composition accepted
+B3 — IN PROGRESS: select first bounded admitted command family and close defeaters
 B4 — PENDING: define ambient/effective-semantics fail-closed boundary
 B5 — PENDING: define command-success → dependency-state proof contract
 B6 — PENDING: select/authorize smallest implementation + proof slice
