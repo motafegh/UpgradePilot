@@ -317,3 +317,75 @@ latest proven same-job GITHUB_ENV update
 
 This does not select a graph engine, SSA/CFG framework, or generalized data-flow subsystem.
 It only records the proof structure exposed by the concrete case.
+
+
+## B4 follow-up — GITHUB_ENV baseline versus step-local env
+
+Pressure case:
+
+```yaml
+env:
+  PIP_DRY_RUN: "1"
+
+steps:
+  - run: echo "PIP_DRY_RUN=0" >> "$GITHUB_ENV"
+
+  - env:
+      PIP_DRY_RUN: "1"
+    run: python -m pip install -r requirements.txt
+```
+
+GitHub documentation establishes two independent rules:
+
+1. a value actually written to `GITHUB_ENV` is available to subsequent steps in the same job;
+2. when the same `env` name is declared at workflow/job/step scopes, the most specific declaration wins while that scope executes.
+
+Current open-source GitHub runner implementation resolves the cross-mechanism collision in the expected order for an ordinary action/run step:
+
+```text
+current Global.EnvironmentVariables
+  (includes prior GITHUB_ENV updates and broader job environment)
+→ merged into the step env context
+→ step.Action.Environment is evaluated and merged afterward
+→ matching step-env keys overwrite the inherited/global value
+```
+
+The relevant runner flow is in `src/Runner.Worker/StepsRunner.cs`: it first loops over
+`Global.EnvironmentVariables`, then evaluates and merges `actionStep.Action.Environment`
+and marks those keys as step-environment overrides.
+
+Therefore for this concrete case, provided the first write is positively established:
+
+```text
+prior GITHUB_ENV update: PIP_DRY_RUN=0
+        ↓
+consumer step inherited baseline: 0
+        ↓
+consumer step-local env: PIP_DRY_RUN=1
+        ↓
+step process baseline for this variable: 1
+```
+
+This still does not by itself prove the exact pip process receives `1`; shell-local mutation,
+wrappers, or an explicit pip CLI option may change the effective dry-run dimension before or
+at invocation.
+
+### Refined proof chain
+
+```text
+proven same-job GITHUB_ENV history
+→ inherited/global step baseline
+→ workflow/job environment already represented in that baseline
+→ step-local env override
+→ shell-local process mutation
+→ exact process value
+→ package-manager CLI/config precedence
+→ manager-specific semantic result
+```
+
+Important precision:
+
+- "step-local env wins" here is supported both by GitHub's documented env specificity rule and by current runner implementation ordering.
+- Do not generalize this runner implementation observation into arbitrary reusable/composite/container-action semantics without separate evidence.
+- A future UpgradePilot resolver should preserve provenance for the winning value rather than returning only a naked string.
+- This remains design/learning evidence, not authorization to implement environment resolution.
