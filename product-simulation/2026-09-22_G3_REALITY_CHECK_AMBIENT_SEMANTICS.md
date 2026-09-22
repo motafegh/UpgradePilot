@@ -74,3 +74,28 @@ These confirm literal workflow/job/step environment declarations are a real evid
 The real-world evidence does not support treating ambient package-manager semantics as one uniformly severe problem. Constraints and no-sync are clearly real; exact `PIP_DRY_RUN` workflow pressure was not observed in this bounded search; arbitrary hidden propagation must be proved relationship-by-relationship.
 
 LangChain #40646 is a strong candidate for scenario promotion because it is an untouched public Dependabot uv proposal with exact source/workflow/run evidence and it directly prevents an over-broad fail-closed interpretation. No scenario number is assigned yet.
+## Sharper GITHUB_ENV reality check
+
+A second bounded search looked specifically for assignment-like package-manager variables in files that also reference `GITHUB_ENV`. File-level co-occurrence still required exact inspection.
+
+### Confirmed real PIP_CONSTRAINT propagation
+
+LocalStack CLI at public revision `b169c51b72baa0eed7acf041ed0d676f20cee93f` contains a macOS-Intel-only step:
+
+`echo "PIP_CONSTRAINT=$RUNNER_TEMP/constraints.txt" >> "$GITHUB_ENV"`
+
+The following `Create virtual environment` step runs `make clean-venv venv`. This is a current real example of a package-manager semantic input being written through GitHub's environment-file mechanism for later-step use. It validates the *class* of B4 propagation concern, although this artifact has not yet traced the downstream Makefile/pip process far enough to claim the exact final value received by pip.
+
+A historical but very explicit example also exists in `quantopian/trading_calendars`: a `Set Lockfile` step writes `PIP_CONSTRAINT=etc/${{matrix.requirements_file}}` to `GITHUB_ENV`, followed by `pip install -e .[dev]` in a later step.
+
+### Confirmed real UV_NO_SYNC propagation
+
+`maksimzayats/diwire` at revision `d86e4d1f05f767ceeef073b4625f3cea59a74bb3` conditionally runs an explicit `uv sync` for Python 3.15t and then writes `UV_NO_SYNC=1` to `GITHUB_ENV`. Subsequent steps use `uv run` for tooling/tests. This is a direct real instance of the pattern `state-forming sync → later propagated no-sync baseline → later uv run`.
+
+### Negative boundary still useful
+
+The corresponding exact search for `PIP_DRY_RUN=` plus `>> $GITHUB_ENV` returned zero matches in this bounded snapshot. That does not prove the shape never exists; it does mean the current B4 dry-run example has weaker incidence evidence than the constraint/no-sync families.
+
+### Updated reality conclusion
+
+The B4 *mechanism* is not merely synthetic: real workflows do propagate package-manager controls through `GITHUB_ENV`. But the important variables and usage patterns are uneven. Research should therefore prioritize the observed families and keep rare/unobserved examples as lower-confidence pressure until stronger evidence appears.
