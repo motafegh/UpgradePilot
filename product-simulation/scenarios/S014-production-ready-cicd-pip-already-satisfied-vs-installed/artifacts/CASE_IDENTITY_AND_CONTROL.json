@@ -1,0 +1,17 @@
+{
+  "scenario": "S014",
+  "repository": "HaitamELF/production-ready-cicd",
+  "pull_request": 11,
+  "dependency": "pip",
+  "from_version": "26.1.2",
+  "to_version": "26.2.1",
+  "changed_source": "requirements-tooling.txt",
+  "base_sha": "b9ea298798d7d1d7d74ec6769d5164bf4ac8bd04",
+  "head_sha": "9ee04438e99b8cb87818f830009b276b892d5d38",
+  "observed_pr_runtime_merge_sha": "65bbb07fd28cdbdc224d3ed655af96f3480ec429",
+  "workflow_path": ".github/workflows/ci.yml",
+  "workflow_blob_base": "519bd96f32a06140dbcdf5927813c06f9901faba",
+  "workflow_blob_head": "519bd96f32a06140dbcdf5927813c06f9901faba",
+  "exact_command": "python -m pip install -r requirements-tooling.txt",
+  "control_strength": "workflow unchanged; PR changes only requirements-tooling.txt"
+}
