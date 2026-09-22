@@ -770,6 +770,27 @@ A5 should focus on the few consequential distinctions established by A1-A4:
 
 A5 is a reasoning/ownership checkpoint, not another broad investigation.
 
+### A5 ownership check — first reconstruction
+
+Ali's first reconstruction correctly established:
+
+1. the pip command remains dependency-consumption evidence because it is materially linked to the changed requirements source;
+2. effective dry-run semantics prevent this command from serving as positive state-producing installation evidence;
+3. successful execution of the dry-run step does not establish that the proposed package version was present.
+
+One precision repair is required:
+
+- dry-run establishes that **this command did not perform the installation/state mutation**;
+- it does not establish that the package/version was absent from the environment.
+
+One ownership gap remains before A5 can close:
+
+- Tree-sitter/GitHub parsing may expose syntax and environment declarations;
+- the **meaning** of `PIP_DRY_RUN` for pip belongs to the dependency/package-manager semantic layer;
+- CI/runtime correlation should consume that typed semantic result rather than own pip semantics.
+
+A5 remains IN PROGRESS pending this ownership repair.
+
 ### Phase A output
 
 Ali and the AI share a minimum-complete mental model of the current source/proof flow, responsibility boundaries, and Cycle 1 acceptance/non-goal boundary.
