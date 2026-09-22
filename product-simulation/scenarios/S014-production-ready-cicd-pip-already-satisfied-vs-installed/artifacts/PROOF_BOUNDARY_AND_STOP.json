@@ -1,0 +1,17 @@
+{
+  "strongest_common_positive_claim": "At successful completion of the exact command, the exact requested pip version was satisfied/present in the selected environment.",
+  "invalid_generic_claim": "The exact requested pip version was newly installed by this command.",
+  "evidence_routes": [
+    "operation-guarantee inference from exact requirement + admitted semantics + exact success",
+    "direct trusted runtime observation of exact already-satisfied state"
+  ],
+  "does_not_prove": [
+    "later state persistence",
+    "selected artifact or wheel identity",
+    "behavioral exercise or compatibility",
+    "update safety",
+    "maintainer action",
+    "bare-head runtime execution"
+  ],
+  "stop_reason": "The natural unchanged-workflow base/head pair already discriminates the B5 wording. No synthetic reproduction is needed."
+}
