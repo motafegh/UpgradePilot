@@ -118,7 +118,7 @@ A1 — DONE: current pip/uv source/proof flow and support boundary reconstructed
 A2 — DONE: material pip/uv semantic families classified at proposition-relative level
 A3 — DONE: positive / inference-defeated / unresolved / irrelevant proof vocabulary established
 A4 — DONE: minimum Phase B source/type ownership map established
-A5 — IN PROGRESS: Ali reconstruction/challenge and Phase A closure
+A5 — DONE: Ali reconstruction/challenge passed; ownership boundary understood
 ```
 
 Current A1 findings:
@@ -790,6 +790,55 @@ One ownership gap remains before A5 can close:
 - CI/runtime correlation should consume that typed semantic result rather than own pip semantics.
 
 A5 remains IN PROGRESS pending this ownership repair.
+
+### A5 closure — Phase A complete
+
+Ali correctly reconstructed the final ownership boundary:
+
+```text
+provider/workflow evidence
+→ establishes that a value such as PIP_TARGET=/tmp/deps applies to the step
+
+dependency/pip semantic layer
+→ interprets what PIP_TARGET means for pip installation destination
+
+CI/runtime layers
+→ compose the typed semantic result with consumption and exact runtime execution
+```
+
+This closes the remaining A5 gap.
+
+Phase A is complete.
+
+### Phase A durable result
+
+```text
+A1 — DONE: current pip/uv source/proof flow and support boundary reconstructed
+A2 — DONE: material package-manager semantic families classified
+A3 — DONE: proof outcomes and ambient-semantics boundary established
+A4 — DONE: minimum Phase B source/type ownership map established
+A5 — DONE: ownership/reconstruction check passed
+```
+
+The central Phase A conclusion is:
+
+> Existing static dependency-consumption evidence identifies a relevant changed-dependency command occurrence, but stronger dependency-state reasoning requires a separate dependency-owned package-manager semantic result. That result must remain distinct from GitHub/provider facts, shell syntax, runtime correlation, and final maintainer-action synthesis.
+
+### Phase B handoff
+
+Phase B should now perform the real bounded Planning/Design action for Cycle 1.
+
+Primary questions:
+
+1. define the exact semantic-eligibility proposition and result states;
+2. decide whether one shared result type covers both pip and uv while preserving manager-specific evidence;
+3. choose the earliest correct owner and composition seam;
+4. decide which currently reachable command semantics are admitted in the first implementation;
+5. define fail-closed handling for ambient/effective-semantics uncertainty;
+6. define the exact proof contract between semantic eligibility and existing runtime success;
+7. select the smallest representative implementation/proof slice.
+
+Phase B must not silently expand into complete runner/environment reconstruction. If command-local semantics cannot truthfully earn the final state proposition, preserve that boundary and determine whether explicit runtime-state evidence is required later.
 
 ### Phase A output
 
