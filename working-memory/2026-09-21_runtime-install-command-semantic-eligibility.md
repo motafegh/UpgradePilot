@@ -1,6 +1,6 @@
 # Cycle 1 — Runtime dependency-state semantic proof — 2026-09-21
 
-**Status:** ACTIVE — Cycle 1 ready to begin at Phase A.  
+**Status:** ACTIVE — Cycle 1 Phase B design in progress.  
 **Master plan:** `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`  
 **Investigation evidence:** `working-memory/2026-09-21_f6-post-install-package-state-feasibility.md`  
 **Operation:** canonical Learning-by-Doing A → B → C → D → E, composed with the applicable primary operation. Planning/Design controls the cycle until a Build decision is explicitly selected.
@@ -75,8 +75,8 @@ E — high but short
 ## Phase status tracker
 
 ```text
-A — IN PROGRESS: source/proof flow re-anchored; Ali reconstruction/acceptance-boundary check remains
-B — PENDING: real source-backed design/action and possible bounded implementation
+A — DONE: orientation, classification, source map, and ownership check closed
+B — IN PROGRESS: bounded semantic/proof contract design; no Build selected yet
 C — PENDING: progressive preservation + formal proof-state checkpoint
 D — PENDING: post-action learning / ownership verification
 E — PENDING: gap repair + Cycle 1 closure / Cycle 2 decision
@@ -839,6 +839,63 @@ Primary questions:
 7. select the smallest representative implementation/proof slice.
 
 Phase B must not silently expand into complete runner/environment reconstruction. If command-local semantics cannot truthfully earn the final state proposition, preserve that boundary and determine whether explicit runtime-state evidence is required later.
+
+### Phase B task tracker
+
+```text
+B1 — IN PROGRESS: define command-local semantic-eligibility proposition and result contract
+B2 — PENDING: select shared pip/uv owner and composition seam
+B3 — PENDING: select first bounded admitted command family and close defeaters
+B4 — PENDING: define ambient/effective-semantics fail-closed boundary
+B5 — PENDING: define command-success → dependency-state proof contract
+B6 — PENDING: select/authorize smallest implementation + proof slice
+```
+
+### B1 candidate proposition — command-local semantic eligibility
+
+The first Phase B design object is intentionally narrower than effective runtime package state:
+
+> **For one exact parsed dependency-consuming command occurrence, do the package-manager semantics visible in that occurrence permit successful execution to participate in a stronger dependency-state proof?**
+
+This proposition is **command-local**. It does not claim that all ambient runner/package-manager configuration is known, does not establish execution, and does not establish package presence by itself.
+
+Candidate aggregate states:
+
+```text
+eligible
+→ visible command-local semantics contain no known material defeater for the changed-package state proposition
+
+ineligible
+→ known visible command-local semantics positively prevent this occurrence from serving as the required state-producing witness
+
+unresolved
+→ command-local package-manager semantics cannot be classified safely from the available structured evidence
+```
+
+"irrelevant modifier" is currently better treated as an internal option-level classification rather than a fourth aggregate state: an irrelevant option does not block an otherwise eligible command.
+
+Important naming rule:
+
+- do not use `supported`, `installed`, `present`, or `satisfied` for this intermediate result;
+- `eligible` means only eligible to participate in later proof composition.
+
+Candidate evidence fields, not yet selected:
+
+```text
+state
+reason
+detail
+manager
+operation
+command_location
+possibly material semantic observations / target relation
+```
+
+Open B1 issue:
+
+> Whether `eligible` should mean only **command-local eligibility**, or whether Cycle 1 needs a second explicit effective-semantics gate before runtime success can produce dependency-state proof.
+
+No result type/file/API is selected yet.
 
 ### Phase A output
 
