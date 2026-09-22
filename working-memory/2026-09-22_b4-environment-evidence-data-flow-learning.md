@@ -247,3 +247,73 @@ interpreted_effectively_by_package_manager
 A future bounded environment resolver, if justified by real product pressure, should produce positive evidence for these relationships rather than a generic `ambient_safe` boolean.
 
 This finding strengthens rather than replaces the current B4 fail-closed rule: unknown material transformations between the inherited step baseline and the exact package-manager process keep that semantic dimension unresolved.
+
+
+## B4 follow-up — multiple writes to the same environment variable
+
+Consider:
+
+```yaml
+steps:
+  - name: Set dry-run
+    run: echo "PIP_DRY_RUN=1" >> "$GITHUB_ENV"
+
+  - name: Clear dry-run
+    run: echo "PIP_DRY_RUN=0" >> "$GITHUB_ENV"
+
+  - name: Install
+    run: python -m pip install -r requirements.txt
+```
+
+GitHub documents `GITHUB_ENV` as a mechanism to create or update an environment variable for
+subsequent steps in the same job. Therefore, if both write occurrences are positively
+established in runtime order, the later update supersedes the earlier inherited value for
+following steps.
+
+The proof rule is not "last line in YAML wins." It is:
+
+```text
+positively established write W1
++ positively established later write W2 to same variable
++ same-job subsequent consumer
+→ W2 is the inherited baseline at the consumer step
+```
+
+If W2 is only statically visible but its execution is unresolved:
+
+```text
+W1 positively established
++ W2 source-visible but runtime-unresolved
+→ effective inherited value at the consumer is unresolved
+```
+
+Do not silently fall back to W1 or assume W2 occurred.
+
+If W2 is positively established not to execute under an admitted runtime model, W1 may remain
+the active inherited baseline, provided no other material source/override remains unresolved.
+
+This is an ordered data-flow problem, not merely a graph-connectivity problem. The useful
+conceptual operation is a small transfer function over one relevant variable:
+
+```text
+incoming value/state
++ proven write/update
+→ new outgoing value/state
+```
+
+with unresolved execution preserving uncertainty rather than guessing.
+
+The same distinction continues after the step baseline is resolved:
+
+```text
+latest proven same-job GITHUB_ENV update
+→ consumer-step inherited baseline
+→ applicable workflow/job/step env precedence
+→ shell-local assignments/wrappers
+→ exact process value
+→ package-manager CLI/config precedence
+→ manager-specific semantics
+```
+
+This does not select a graph engine, SSA/CFG framework, or generalized data-flow subsystem.
+It only records the proof structure exposed by the concrete case.
