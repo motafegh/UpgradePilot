@@ -1295,9 +1295,12 @@ One bounded normal command family has a precise, source-backed proof path from e
 
 ## Current handoff
 
-Start **Phase A** only.
+Continue **Cycle 1 / Phase B / B4** only.
 
-The immediate task is orientation: reconstruct the exact source/proof flow and acceptance boundary needed to make the later Phase B classification/design meaningful. No Build/Implement action has yet been selected.
+Phase A is closed and B1-B3 are accepted. The current responsibility is to finish the
+ambient/effective-semantics fail-closed contract using proposition-first, demand-driven proof.
+Do not begin Build/Implement, B5 composition, a generic environment resolver, or Cycle 2 until
+B4 is reviewed/closed and the next responsibility is explicitly selected.
 
 **Procedural provenance:** `UP-SKILL:upgradepilot-planning-design`; `UP-SKILL:upgradepilot-learning-by-doing`; `UP-SKILL:upgradepilot-working-memory`.
 
@@ -1323,3 +1326,152 @@ a nearer trustworthy witness already resolves the decision-critical semantic dim
 This is a design strategy, not selection of a graph engine, CFG/SSA framework, generalized
 environment simulator, or new implementation slice. Detailed examples and reasoning are
 preserved in `working-memory/2026-09-22_b4-environment-evidence-data-flow-learning.md`.
+
+
+### B4 source-backed fail-closed contract candidate
+
+Fresh current-source inspection reconfirms the proof gap rather than closing it accidentally:
+
+- `github/workflow_definition.py` does not currently preserve workflow/job/step `env:`;
+- `ci/runtime_strengthening.py` owns structural/runtime-strengthening eligibility only and
+  contains no package-manager effective-semantics interpretation;
+- `ci/dependency_exercise.py` explicitly limits `supported_runtime_correlated` to bounded
+  successful execution correlation and does not claim exact installed version/package state.
+
+Therefore B4 must define the **proof boundary** first. Current source cannot yet positively
+resolve ordinary ambient package-manager semantics.
+
+#### Unit of reasoning
+
+Evaluate one exact package-manager occurrence and one **material semantic dimension** at a time:
+
+```text
+exact occurrence
++ exact state-proof proposition
++ one material semantic dimension
+→ resolved_non_defeating | resolved_defeating | unresolved
+```
+
+These are conceptual B4 dispositions, not selected Python enum/type names.
+
+- **resolved_non_defeating** — sufficiently strong evidence establishes the effective semantic
+  value/behavior for this exact dimension and that value does not defeat use of the occurrence
+  in the later state-proof proposition.
+- **resolved_defeating** — sufficiently strong evidence establishes effective behavior that
+  prevents this occurrence from serving as the required state-producing witness.
+- **unresolved** — the effective value, applicable precedence, propagation, ordering, or
+  process relationship needed for this dimension cannot be positively established.
+
+A resolved non-defeating dimension is **not** package-state proof and is not a generic
+"ambient safe" result.
+
+#### Demand-driven nearest-witness rule
+
+For each material dimension:
+
+```text
+1. exact command/process-local decisive evidence?
+   → use it and stop for this dimension when its precedence is sufficient
+
+2. shell-local effective evidence?
+   → use it only when its ordering/process relationship is positively established
+
+3. step-local environment evidence?
+   → use it only when later local override/CLI precedence is sufficiently bounded
+
+4. inherited same-job/GITHUB_ENV/job/workflow/config provenance?
+   → inspect only when a closer decisive witness did not already resolve the dimension
+
+5. necessary material edge remains unsupported/dynamic/conflicted?
+   → unresolved
+```
+
+Do not reconstruct upstream history that cannot change a dimension already decided by a
+closer, higher-precedence trustworthy witness. Conversely, absence of a visible defeater is
+never promoted to `resolved_non_defeating`.
+
+#### Dimension aggregation
+
+For the **bounded semantic surface admitted for the selected command family**:
+
+```text
+any material dimension = resolved_defeating
+→ effective semantics defeat state-proof use of this occurrence
+
+no defeating dimension
++ any required material dimension = unresolved
+→ effective semantics remain unresolved
+
+all required material dimensions = resolved_non_defeating
+→ B4 semantic gate is closed for that bounded family
+→ B5 may then ask whether exact successful execution composes into dependency-state proof
+```
+
+The admitted surface must contain the settings that can materially alter the exact
+state-producing proposition for that family. It is not an exhaustive catalog of every pip/uv
+configuration setting.
+
+#### Pressure cases
+
+**Explicit command-local dry run**
+
+```text
+python -m pip install --dry-run -r requirements.txt
+→ dry-run dimension resolved_defeating
+→ no ambient reconstruction needed for that dimension
+```
+
+**Ordinary command with no stronger effective-semantics evidence**
+
+```text
+python -m pip install -r requirements.txt
++ current provider/runtime evidence only
+→ command-local classification may be eligible
+→ effective dry-run/config dimension remains unresolved
+→ successful step cannot yet become package-state proof
+```
+
+**Shell-local override**
+
+```text
+export PIP_DRY_RUN=0
+python -m pip install -r requirements.txt
+```
+
+If the ordered assignment is positively established for the exact pip process and no
+higher-precedence command-local defeater exists, the dry-run dimension may be
+`resolved_non_defeating`. This does **not** solve the independent execution-proof problem:
+current runtime strengthening may still be unable to prove success of a later command in a
+multi-command step.
+
+**Prior GITHUB_ENV + step-local override**
+
+A positively established same-job write/propagation plus a later literal step-local override
+can establish the step baseline according to the bounded GitHub precedence model already
+investigated. But current `workflow_definition.py` does not preserve `env:`, so this is
+design feasibility, not current product evidence.
+
+#### B4 ownership split
+
+```text
+GitHub/workflow + shell evidence
+→ provenance, scope, order, propagation, process-value relationship
+
+dependency/package-manager semantics
+→ meaning of the effective value for the exact semantic dimension
+
+CI/state-proof composition
+→ whether those typed semantic facts may participate in the stronger proposition
+```
+
+Do not introduce one generic environment boolean, reconstruct package-manager meaning in CI,
+or parse raw command strings again downstream.
+
+#### B4 status after this checkpoint
+
+B4 remains **IN PROGRESS** pending Ali's design/ownership review.
+
+If this contract survives that review, B4 can close without selecting an environment resolver.
+B5 can then define the independent command-success → dependency-state composition contract and
+B6 can decide the smallest implementation/proof slice. No product source/test implementation
+has been authorized by this checkpoint.
