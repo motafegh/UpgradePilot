@@ -43,3 +43,16 @@ Matrix identity remains essential because Linux, Windows, and macOS rows produce
 This establishes feasibility, not current UpgradePilot capability and not authorization for generic log ingestion. The Target/wheel-evidence owner can separately consider a structured tag artifact/output, bounded parsing of an explicit target-owned command, another runtime witness, or continued explicit non-support when no witness exists.
 
 The next high-value question is whether an UpgradePilot-supported dependency-update case naturally exposes such a witness without requiring new repository instrumentation.
+## Supported-update bridge screening
+
+A bounded follow-up checked whether the strongest `pip debug --verbose` witness could already be tied to a clean UpgradePilot-style Python Dependabot update.
+
+TileDB-Py has historical Python Dependabot PRs, including `#865` (`numpy 1.19.4 → 1.21.0` in `misc/requirements_wheel.txt`, head `17031ec1...`). However, the exact workflow at that proposal head did **not** yet contain `pip debug --verbose`; it printed Python/pip versions and ran installs/tests, but not exact compatible-tag output.
+
+epics-base/p4p `#81` is another historical NumPy Dependabot proposal, but its exact-head workflow likewise did not contain the current-style `pip debug` witness.
+
+Therefore the current result remains:
+
+`real exact-tag witness mechanism exists` + `real Python Dependabot cases exist` != `one verified case currently composes both`.
+
+This is a bounded acquisition gap, not evidence that the bridge does not exist. Do not force an end-to-end case from mismatched historical revisions.
