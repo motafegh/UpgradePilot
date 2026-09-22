@@ -99,3 +99,46 @@ The corresponding exact search for `PIP_DRY_RUN=` plus `>> $GITHUB_ENV` returned
 ### Updated reality conclusion
 
 The B4 *mechanism* is not merely synthetic: real workflows do propagate package-manager controls through `GITHUB_ENV`. But the important variables and usage patterns are uneven. Research should therefore prioritize the observed families and keep rare/unobserved examples as lower-confidence pressure until stronger evidence appears.
+## Re-sync pressure — latest main B4 multiple-write and step-env override cases
+
+Main subsequently added two more B4 design cases:
+
+1. multiple proven `GITHUB_ENV` writes to the same variable, where the later write should become the later-step baseline;
+2. a later step-local `env:` value overriding an inherited `GITHUB_ENV` baseline before exact-process semantics are considered.
+
+These data-flow rules are logically coherent. Product Simulation then performed a bounded reality check rather than assuming their incidence.
+
+### Same-variable multiple-write screening
+
+A sample of mature/public `PIP_CONSTRAINT` + `GITHUB_ENV` workflow hits was inspected exactly.
+
+- LocalStack CLI: one `PIP_CONSTRAINT` write to `GITHUB_ENV` in the inspected workflow.
+- trading_calendars: one `PIP_CONSTRAINT` write, then later pip install.
+- WMCore: one `PIP_CONSTRAINT` write in the inspected build workflow.
+- Quri SDK search hits were shell-local `PIP_CONSTRAINT=... pip install ...`, not repeated `GITHUB_ENV` writes.
+- PassageMath uses constraint values inside cibuildwheel environment configuration, not the synthetic two-write pattern.
+
+No selected case in this bounded sample exhibited `same package-manager variable written twice to GITHUB_ENV before one consumer`.
+
+### Step-env collision screening
+
+File-level searches for package-manager variables plus `GITHUB_ENV` returned many hits, but exact inspection again showed why co-occurrence is not relationship evidence:
+
+- MLflow has workflow-level `PIP_CONSTRAINT`, while its `GITHUB_ENV` write updates `USE_R_DEVEL`, not `PIP_CONSTRAINT`.
+- msgspec has job-level `UV_NO_SYNC=true`, while its `GITHUB_ENV` write sets `UV_PYTHON`, not `UV_NO_SYNC`.
+- deepagents has workflow-level `UV_NO_SYNC=true`, while its `GITHUB_ENV` mutations build `PYTEST_ADDOPTS`, not `UV_NO_SYNC`.
+
+No selected case established the exact synthetic collision `GITHUB_ENV writes package-manager variable X → later step-local env overrides the same X`.
+
+### Empirical disposition
+
+At this bounded depth:
+
+- single package-manager `GITHUB_ENV` propagation: **observed-real**;
+- shell-local package-manager overrides: **observed-real**;
+- workflow/job/step literal package-manager env: **observed-real**;
+- same-variable multiple `GITHUB_ENV` writes before one package-manager consumer: **plausible-unobserved** in the inspected sample;
+- same-variable `GITHUB_ENV` baseline then step-local override: **plausible-unobserved** in the inspected sample;
+- `PIP_DRY_RUN` workflow/GITHUB_ENV examples: **plausible-unobserved** in the bounded exact-string search.
+
+This does not invalidate the main B4 correctness rules. It changes their empirical priority: preserve correctness/fail-closed behavior where cheap, but do not let currently synthetic-only conflict shapes automatically justify a broad data-flow subsystem.
