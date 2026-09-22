@@ -954,6 +954,78 @@ The result must never imply:
 
 No result type/file/API is selected yet.
 
+### B1 effective-semantics investigation — current evidence cannot positively close ordinary commands
+
+Fresh source + official-semantics review establishes an important asymmetry.
+
+#### Current observables
+
+Current UpgradePilot can preserve:
+
+```text
+exact dependency source/proposed version
+exact parsed command occurrence and visible command-local options
+exact workflow/job/step identity
+exact completed-successful runtime step
+```
+
+But current workflow provider representation does not preserve workflow/job/step `env:`, and runtime correlation preserves step identity/status rather than effective process environment or package-manager configuration.
+
+Even adding static `env:` support would not fully close the effective-semantics surface because later-step environment may also be influenced by earlier `GITHUB_ENV` writes, preceding actions/steps, runner-inherited environment, and pip/uv configuration.
+
+#### Proof consequence — asymmetric classifier
+
+```text
+VISIBLE CONCLUSIVE DEFEATER
+e.g. pip --dry-run, uv run --no-sync
+→ command-local ineligibility can be established
+
+NO VISIBLE DEFEATER
+e.g. ordinary pip install -r requirements.txt
+→ command-local eligibility can be established
+→ effective eligibility is NOT thereby established
+```
+
+A high-precedence explicit local defeater can rule out using the command as the required state-forming witness. Absence of a visible local defeater does not prove absence of ambient modifiers.
+
+#### Indistinguishable-worlds test
+
+Under the current product evidence boundary, two worlds can expose the same relevant visible command and successful step metadata:
+
+```text
+WORLD A
+python -m pip install -r requirements.txt
++ no effective dry-run override
+→ normal state-forming behavior
+
+WORLD B
+same visible command
++ effective PIP_DRY_RUN=1 from ambient job state
+→ non-state-forming dry-run behavior
+```
+
+Because current evidence does not positively distinguish A from B, command-local eligibility + step success alone cannot soundly produce the final package-state proposition for the ordinary command family.
+
+#### B1 design conclusion
+
+`CommandLocalPackageManagerStateProofEligibility` remains useful as a necessary filter and close-defeater classifier.
+
+However:
+
+```text
+command_locally_eligible
++ exact successful runtime step
+↛ package present/satisfied
+```
+
+for ordinary commands under the current evidence boundary.
+
+A conceptual effective-semantics gate is valid, but current evidence has no positive ordinary-case producer strong enough to establish it. Do not create a second result type over the same inputs merely to rename the uncertainty.
+
+A positive effective-semantics gate would require genuinely stronger evidence, such as bounded effective process/package-manager configuration evidence sufficient to rule out material semantic changes, or a direct target-owned runtime package-state witness.
+
+B1 remains open for Ali's learning/ownership confirmation before formal closure and B2 transition.
+
 ### Phase A output
 
 Ali and the AI share a minimum-complete mental model of the current source/proof flow, responsibility boundaries, and Cycle 1 acceptance/non-goal boundary.
