@@ -130,3 +130,98 @@ Salt's `PIP_CONSTRAINT` case is therefore especially relevant to B4 because it d
 No merge/rebase from main is required yet for this research-only continuation because the main-only changes are design/learning records and do not create source conflicts with the Product Simulation artifacts. Their conclusions are now explicitly incorporated into this research route.
 
 Before eventual branch integration, reconcile again with then-current main.
+
+## 5. Route correction — broad Product Simulation research, guided by main rather than bounded by it
+
+Ali corrected the interpretation of the main-workstream re-sync.
+
+The Product Simulation responsibility is not to narrow itself to the current main workstream's immediate B4/G3 question. Its value is broader:
+
+```text
+current main progress
+→ improves our vocabulary, evidence questions, and prioritization
+
+BUT
+
+Product Simulation
+→ independently explores the wider current/future product surface
+→ looks for real-world counterexamples, missing responsibilities, adjacent failure modes,
+   ordinary controls, and future evidence needs
+→ feeds useful findings back to main when mature
+```
+
+Therefore the correct research strategy is:
+
+### Broad, but selective
+
+Continue researching across the wider coverage-gap inventory, not only G3:
+
+- command/runtime truth and source-consumption breadth;
+- CI job/environment identity and composition;
+- package-manager semantics and installed-state proof;
+- target/artifact/platform compatibility evidence;
+- acquisition/authentication/retention degradation;
+- evidence applicability and cross-stage composition;
+- uncertainty, stopping, abstention/action boundaries;
+- additional real-world seams discovered during screening even if main has not reached them yet.
+
+The standard for breadth is information value, not case count.
+
+A new case/family remains useful when it can:
+
+1. expose a current or likely future product blind spot;
+2. challenge an assumption with a realistic counterexample;
+3. establish an ordinary control showing a suspected problem is uncommon/non-material in that shape;
+4. compare competing evidence/proof approaches;
+5. reveal an evidence source or workflow shape the current design has not considered;
+6. help a later main-workstream decision even if it is not today's active implementation question.
+
+### Use main as a moving research signal
+
+Recent main work should influence Product Simulation in three ways:
+
+1. Sharpen questions — e.g. B4's distinction between propagated step state and exact-process effective state makes future ambient-semantics case collection more precise.
+2. Expose new research opportunities — when main introduces a new proof boundary or hypothesis, deliberately seek real cases that validate or break it.
+3. Avoid stale duplication — if main has already resolved a question strongly, spend research effort on the unresolved edges and neighboring assumptions instead of repeating the same proof.
+
+It should not become a fence around the Product Simulation scope.
+
+### Revised continuation model
+
+Do not execute a simple serial roadmap such as:
+
+```text
+finish G3 completely
+→ then G4
+→ then stop
+```
+
+Prefer a portfolio model:
+
+```text
+MAIN-SIGNAL TRACK
+→ research questions directly useful to current main progress
+
+COVERAGE-GAP TRACK
+→ unresolved responsibilities from the whole-product rebase
+
+FORWARD-PRESSURE TRACK
+→ plausible future seams/counterexamples not yet active on main
+
+CONTROL TRACK
+→ ordinary real-world cases used to test whether suspected risks are actually material/common enough to matter
+```
+
+Cases may inform more than one track, but their propositions and claim limits remain separate.
+
+### Immediate implication
+
+G3 remains highly valuable and should continue, especially using Salt/MontePy/Sigstore/Aruba plus newly screened cases.
+
+However, in parallel we should continue scanning for high-information evidence in G4 and any newly exposed cross-cutting seams rather than artificially postponing them until G3 is exhausted.
+
+The next Product Simulation phase should therefore be a broader evidence portfolio pass, periodically re-synced with main, with promotion based on discriminating value rather than strict family sequence.
+
+This section supersedes the earlier wording that G3 should be refined before broadening. The correct rule is:
+
+> Broaden intelligently, while using current main progress to make the broader research more precise and useful.
