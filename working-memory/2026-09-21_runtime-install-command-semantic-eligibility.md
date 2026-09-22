@@ -1300,3 +1300,26 @@ Start **Phase A** only.
 The immediate task is orientation: reconstruct the exact source/proof flow and acceptance boundary needed to make the later Phase B classification/design meaningful. No Build/Implement action has yet been selected.
 
 **Procedural provenance:** `UP-SKILL:upgradepilot-planning-design`; `UP-SKILL:upgradepilot-learning-by-doing`; `UP-SKILL:upgradepilot-working-memory`.
+
+
+### B4 accepted reasoning strategy — demand-driven backward proof
+
+B4 now prefers a proposition-first / backward-slicing strategy for effective package-manager
+semantics:
+
+```text
+exact semantic proposition for exact pip/uv occurrence
+→ nearest trustworthy process-level evidence
+→ shell-local evidence if needed
+→ step-local environment if needed
+→ inherited GITHUB_ENV/job/workflow/config provenance only as needed
+→ unresolved if a necessary material edge cannot be established
+```
+
+Top-down environment/data-flow graphs remain useful for identifying possible provenance and
+override paths, but UpgradePilot should not reconstruct the complete ambient environment when
+a nearer trustworthy witness already resolves the decision-critical semantic dimension.
+
+This is a design strategy, not selection of a graph engine, CFG/SSA framework, generalized
+environment simulator, or new implementation slice. Detailed examples and reasoning are
+preserved in `working-memory/2026-09-22_b4-environment-evidence-data-flow-learning.md`.
