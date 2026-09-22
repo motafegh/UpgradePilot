@@ -147,3 +147,103 @@ The enclosing step may complete successfully while the conditional write never e
 Do not build a second permissive execution-correlator for `GITHUB_ENV` writes. If a later selected real case justifies a bounded write recognizer, compose its semantic evidence with the existing exact-occurrence/runtime-strengthening contract, then separately establish destination/write/runner-propagation and later effective-process overrides. Do not claim the later pip occurrence succeeded solely from success of a multi-command step; existing runtime-strengthening admits only its bounded occurrence-position families.
 
 This follow-up is learning/design evidence only. B4 remains open; neither an environment resolver nor a graph engine is selected for implementation.
+
+
+## B4 follow-up — what a proven GITHUB_ENV write actually proves
+
+Ali correctly identified the execution problem: a successful enclosing step is insufficient when shell structure allows the write occurrence not to execute.
+
+Assume instead that the exact write occurrence is positively established:
+
+```yaml
+- name: Configure pip
+  run: echo "PIP_DRY_RUN=1" >> "$GITHUB_ENV"
+
+- name: Install
+  run: python -m pip install -r requirements.txt
+```
+
+GitHub's workflow-command contract states that a value actually written to `GITHUB_ENV` becomes available to subsequent steps in the same job, and not to the step that performs the write.
+
+The strongest safe intermediate proposition is therefore:
+
+```text
+exact GITHUB_ENV write positively established
++ consumer is a subsequent step in the same job
+→ PIP_DRY_RUN=1 is established as an inherited environment baseline for that later step
+```
+
+Do not jump directly to:
+
+```text
+→ exact pip process received PIP_DRY_RUN=1
+```
+
+because later effective-value transformations remain possible.
+
+### Effective-value chain
+
+For a package-manager-relevant environment variable, reason through the chain in order:
+
+```text
+1. previous positively established GITHUB_ENV writes
+2. later writes to the same variable before the consumer step
+3. workflow/job/step env declarations applicable to the consumer
+4. shell-local assignments/exports/wrappers inside the consumer step
+5. package-manager command-line options and their precedence
+6. manager-specific interpretation of the resulting effective value
+```
+
+The exact list is not yet an implementation schema. It is the proof checklist exposed by the cases.
+
+### Example — later shell override
+
+```yaml
+- run: echo "PIP_DRY_RUN=1" >> "$GITHUB_ENV"
+
+- run: |
+    export PIP_DRY_RUN=0
+    python -m pip install -r requirements.txt
+```
+
+If the write is established, GitHub propagation can establish the inherited baseline `1` for the second step. If the ordered shell assignment is also positively established for the exact pip process, the effective environment value for the dry-run dimension becomes `0`. The earlier baseline remains historical evidence but no longer controls that dimension.
+
+### Example — package-manager CLI dominates environment value
+
+```text
+inherited PIP_DRY_RUN=0
++
+python -m pip install --dry-run -r requirements.txt
+```
+
+Pip documents command-line options as higher precedence than environment variables and configuration. Therefore an explicitly recognized `--dry-run` remains a decisive local defeater even when the inherited environment value is non-dry-run.
+
+This demonstrates why B3 command-local semantics are still valuable even when ambient evidence is later added.
+
+### Scope boundary
+
+A `GITHUB_ENV` write only establishes propagation to subsequent steps in the same job under GitHub's documented environment-file contract. It does not by itself prove:
+
+- availability to the writing step;
+- propagation to a different job;
+- propagation through a reusable-workflow boundary;
+- the final value seen by a nested/wrapped package-manager process;
+- the absence of later overrides;
+- successful execution of the later pip/uv command;
+- resulting package state.
+
+### B4 design consequence
+
+Preserve at least the conceptual distinction:
+
+```text
+propagated_to_step
+!=
+received_by_exact_process
+!=
+interpreted_effectively_by_package_manager
+```
+
+A future bounded environment resolver, if justified by real product pressure, should produce positive evidence for these relationships rather than a generic `ambient_safe` boolean.
+
+This finding strengthens rather than replaces the current B4 fail-closed rule: unknown material transformations between the inherited step baseline and the exact package-manager process keep that semantic dimension unresolved.
