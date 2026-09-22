@@ -1,0 +1,17 @@
+{
+  "discovery_question": "Does visible UV_NO_SYNC necessarily defeat useful dependency-state evidence in real dependency-update CI?",
+  "result": "No. In this observed case an earlier explicit successful uv sync forms the environment before later no-sync execution.",
+  "novelty": [
+    "ambient package-manager semantic reality check",
+    "state formation and later exercise occur in distinct commands",
+    "real counterexample to a global no-sync defeater"
+  ],
+  "negative_result_value": "If prior state formation or continuity had failed, the same case would define a fail-closed boundary.",
+  "stop_reason": "Exact transition, sync result, proposed version, later no-sync execution, and workflow ordering are sufficient for the bounded question. No dynamic reproduction is needed.",
+  "reopen_for": [
+    "intervening mutation modeling",
+    "cross-job state continuity",
+    "implementation transfer",
+    "stronger independent package-state witness comparison"
+  ]
+}
