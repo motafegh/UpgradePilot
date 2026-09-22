@@ -847,8 +847,8 @@ B1 — DONE: command-local semantic-eligibility contract accepted; ordinary comm
 B2 — DONE: separate dependency-owned semantic evidence object + CI identity composition accepted
 B3 — DONE: first bounded pip/uv semantic matrix accepted
 B4 — DONE: proposition-first effective-semantics fail-closed contract accepted
-B5 — IN PROGRESS: define command-success → dependency-state proof contract
-B6 — PENDING: select/authorize smallest implementation + proof slice
+B5 — DONE: command-success → dependency-state proof contract accepted
+B6 — IN PROGRESS: select/authorize smallest implementation + proof slice
 ```
 
 ### B1 candidate proposition — command-local semantic eligibility
@@ -1716,3 +1716,140 @@ command success != later persistence/exercise
 
 B5 remains **IN PROGRESS** pending Ali's ownership check on the positive-vs-negative asymmetry
 and exact temporal claim.
+
+
+### B5 ownership check and closure
+
+Ali correctly accepted the positive command-completion inference:
+
+```text
+exact proposed requirement/version
++ exact source/environment relation
++ exact supported consumption occurrence
++ command-local semantics admitted
++ effective semantics resolved non-defeating
++ exact runtime-success correlation
++ package-manager operation guarantee
+→ proposed exact requirement satisfied at command completion
+```
+
+Temporal precision retained:
+
+- this establishes the bounded state at the admitted command-completion boundary;
+- it does not automatically establish that the same state persisted until a later test or
+  invocation step;
+- later persistence/use requires separate ordering/environment evidence;
+- command non-success or a semantic defeater does not establish package absence.
+
+This closes B5. No implementation has yet been selected.
+
+### B6 start — smallest implementation/proof slice selection
+
+B6 now owns one decision:
+
+> What is the smallest implementation and proof slice that can realize the accepted
+> command-local/effective-semantics/state-proof contract for one bounded normal command family
+> without expanding into generic environment reconstruction or target mutation?
+
+Candidate implementation responsibilities to compare:
+
+1. dependency-owned command-local package-manager state-proof eligibility;
+2. preservation/composition of that typed semantic evidence with exact consumption identity;
+3. only the minimum effective-semantics evidence needed for the selected family;
+4. bounded command-completion dependency-state result;
+5. focused positive, defeating, and unresolved tests.
+
+B6 must choose a slice that is actually implementable with current or minimally extended evidence.
+If current evidence cannot positively close the normal family, the correct result may be to avoid
+a misleading Build and instead close Cycle 1 with the insufficiency proven, leaving explicit
+target-owned state evidence as the conditional next cycle.
+
+No generic environment resolver, log-ingestion framework, graph engine, or maintainer-action
+change is authorized by entering B6.
+
+
+### B6 evidence comparison and candidate decision
+
+B6 compared the smallest plausible implementation routes against the accepted B1-B5 contract
+and the Cycle 1 pass/stop rule.
+
+#### Route 1 — implement command-local semantic eligibility only
+
+This would correctly classify visible command-local defeaters such as pip `--dry-run` and
+admitted uv non-sync/exclusion/retargeting cases.
+
+However:
+
+```text
+command-local eligibility
++ exact successful runtime correlation
+↛ effective-semantics closure
+↛ requirement-satisfied-at-completion
+```
+
+for ordinary normal commands under the current evidence boundary.
+
+Result: useful intermediate classification, but no trustworthy positive Cycle-1 producer for the
+normal case. Building it now as if it completed F6 would create implementation without the
+required end proposition.
+
+#### Route 2 — minimally add workflow/job/step env parsing
+
+Current `workflow_definition.py` does not preserve these mappings, so this would add real
+provider evidence. But it is still insufficient by itself:
+
+- pip behavior can be affected by process environment variables and multiple configuration
+  files; command-line options override environment variables, which override configuration;
+- uv exposes material settings such as `UV_NO_SYNC` and `UV_PROJECT_ENVIRONMENT`;
+- step declarations alone do not prove all process-effective inherited/config state;
+- B4 already established that missing necessary precedence/propagation/process edges must remain
+  unresolved.
+
+Result: a small static-env patch would move the boundary but would not close the ordinary normal
+case. Selecting it merely because it is implementable would violate proportional engineering.
+
+#### Route 3 — construct an unusually explicit command/environment family
+
+In principle, a command plus sufficiently explicit high-precedence semantic inputs might close
+some dimensions. But no current real normal product case has been established where the complete
+bounded semantic surface is positively fixed this way. Selecting a synthetic or rare family only
+to satisfy the plan would overfit the proof rather than serve the real product route.
+
+Result: not selected without real product pressure/evidence.
+
+#### Route 4 — no Cycle-1 Build; close at proven evidence ceiling
+
+Current evidence supports the exact design/proof contracts and close-defeater semantics, but
+does not support a normal positive producer from command semantics + runtime metadata alone.
+
+This matches the master-plan stop line:
+
+```text
+if command semantics cannot establish the proposition for a decision-critical normal case
+→ close Cycle 1 at its honest boundary
+→ consider conditional explicit target-owned runtime-state evidence
+```
+
+The public Aruba_Device_Tracker Dependabot case already demonstrates that target-owned runtime
+evidence can discriminate the exact proposed-version state in a real product-shaped case, while
+the F6 investigation also established that generic job-log retention is not durable. Any next
+cycle therefore should prefer a smaller structured/targeted target-owned state witness over a
+generic log-ingestion subsystem when available.
+
+### B6 candidate decision
+
+**Preferred:** select **no Build/Implement change in Cycle 1**.
+
+Reason:
+
+> The accepted B1-B5 semantic/proof model is necessary and durable, but current/minimally
+> extended evidence cannot positively close the effective-semantics premise for a real normal
+> pip/uv command family. Implementing only partial semantic machinery would not produce the
+> Cycle-1 dependency-state proposition and would risk presenting an intermediate classifier as
+> stronger proof than it owns.
+
+If Ali accepts this decision, B6 can close and Phase C can preserve the formal Cycle-1 proof
+checkpoint before D/E closure. Cycle 2 must still satisfy its three explicit entry conditions
+before selection; B6 does not activate it automatically.
+
+No product source/test implementation has been selected.
