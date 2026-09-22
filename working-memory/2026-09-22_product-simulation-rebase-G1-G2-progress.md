@@ -33,3 +33,100 @@ The initial rebase reconstructed Phase A and later product changes against the o
 **Next research slice:** write a tightly sourced, non-controlling G3 synthesis/research artifact from exact proposal/revision/workflow/job/log evidence, keeping four propositions separate: command execution, effective package-manager semantics, installer-result operation, independent target-owned state. Distinguish later mutation and log-retention evidence limits; stop when further cases cease to discriminate. Optionally hand off the observed aiohttp `-c` source-consumption gap to main as a *proposal for owner review*, never implement or change accepted product semantics from this branch. The G2 controlled fixture can be replayed by the F4 owner only if separately selected/authorized on then-current main.
 
 **Branch boundary:** no product source/tests/stable specs/plans, root `MEMORY.md`, main workstream working memory, target repositories or external CI were mutated. No merge yet; reconcile with current `main` only for an explicitly authorized integration. This record supersedes its earlier same-workflow positive-search next-action as of this bounded stopping point.
+
+## 4. 2026-09-22 main-workstream re-sync before G3
+
+Before starting G3, the parallel main branch was re-read from the research branch's merge-base forward.
+
+### What changed on main
+
+Since this research branch split, main advanced through ten commits. The substantive repository delta is concentrated in working-memory/design records rather than product source/tests/specifications:
+
+- `working-memory/2026-09-21_runtime-install-command-semantic-eligibility.md` progressed from B2/B3 into **B4 ambient/effective-semantics fail-closed design**;
+- `working-memory/2026-09-22_b4-environment-evidence-data-flow-learning.md` was added and expanded with concrete environment-flow/proof cases.
+
+No new product implementation was observed in this main-only delta.
+
+Main's current Phase-B tracker is:
+
+```text
+B1 — DONE: command-local semantic-eligibility contract accepted;
+            ordinary command+success cannot close effective runtime state
+B2 — DONE: separate dependency-owned semantic evidence object
+            + CI identity composition accepted
+B3 — DONE: first bounded pip/uv semantic matrix accepted
+B4 — IN PROGRESS: ambient/effective-semantics fail-closed boundary
+B5 — PENDING: command-success → dependency-state proof contract
+B6 — PENDING: smallest implementation + proof slice
+```
+
+### Material proof refinements relevant to Product Simulation
+
+Main now explicitly distinguishes:
+
+```text
+command-local package-manager semantics
+!=
+effective ambient/process semantics
+!=
+exact command execution
+!=
+resulting package state
+```
+
+Important B4 relationships:
+
+```text
+declared_for
+→ written_to (only if exact write execution is established)
+→ propagates_to later same-job step
+→ overridden/transformed by later applicable values
+→ received_by exact package-manager process
+→ interpreted_as pip/uv semantics
+→ supports_or_defeats the state-proof proposition
+```
+
+A proven `GITHUB_ENV` write establishes at most an inherited baseline for later steps in the same job. It does not automatically prove that the exact pip/uv process received that value, because step env, shell-local overrides/wrappers, command-line precedence, and other transformations may intervene.
+
+Main also preserves the existing runtime-strengthening boundary: a successful enclosing step does not prove execution of an arbitrary internal `GITHUB_ENV` write or later pip/uv command. Existing exact-occurrence/runtime-strengthening rules must be reused rather than bypassed.
+
+### Effect on our research route
+
+**G1 remains valid.** The new main work reinforces, rather than supersedes, the G1 finding that exact occurrence structure/execution is an independent proof gate.
+
+**G2 remains valid.** Exact consuming job identity still matters, and environment propagation is same-job scoped; therefore job identity becomes even more important when reasoning about ambient package-manager state.
+
+**G3 should now be refined before broadening.** The next Product Simulation question is no longer merely:
+
+```text
+do PIP_*/UV_* settings matter?
+```
+
+It is:
+
+> In real public CI, which package-manager-relevant environment/config facts can be positively tied to the exact dependency-consuming pip/uv process, through what source/propagation/override chain, and how often do those facts materially change the package-state inference?
+
+G3 screening should deliberately seek distinct evidence shapes:
+
+1. **direct literal step/job/workflow env → exact pip/uv consumer**;
+2. **earlier `GITHUB_ENV` write → later same-job consumer**, with evidence about whether the write occurrence executed;
+3. **later shell/command-line override** that changes the effective value;
+4. **ordinary control** with no visible relevant ambient modifier, while preserving that absence of visibility is not complete effective-state proof;
+5. **direct runtime package-state witness** (`pip freeze`, equivalent target-owned state evidence) as a separate stronger path.
+
+Salt's `PIP_CONSTRAINT` case is therefore especially relevant to B4 because it demonstrates a material ambient semantic modifier. MontePy remains useful for the distinct direct-state-witness path. Sigstore helps separate operational `UV_*` variables from semantically relevant modifiers. Aruba remains an ordinary control/installer-result case.
+
+### What not to do
+
+- Do not treat the B4 graph vocabulary as an implemented graph schema.
+- Do not invent a generic environment resolver from Product Simulation.
+- Do not assume a visible `GITHUB_ENV` write occurred merely because the enclosing step succeeded.
+- Do not equate a propagated step baseline with the exact value received by the package-manager process.
+- Do not let G3 duplicate G1 execution-correlation research; compose the evidence boundaries instead.
+- Do not re-open G1/G2 merely because main progressed.
+
+### Branch-sync decision
+
+No merge/rebase from main is required yet for this research-only continuation because the main-only changes are design/learning records and do not create source conflicts with the Product Simulation artifacts. Their conclusions are now explicitly incorporated into this research route.
+
+Before eventual branch integration, reconcile again with then-current main.
