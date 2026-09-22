@@ -267,3 +267,141 @@ package-manager semantics + resulting state
 Keep the two conclusions separate even when one real workflow supplies evidence for both.
 
 In parallel, retain **G2** as the next dedicated multi-job search family and **G4** as a bounded witness-feasibility search, not a mandatory scenario target.
+
+
+## 9. First concrete G1/G3 screening results
+
+### Candidate A — aio-libs/aiohttp#13785
+
+Exact proposal:
+
+- repo: `aio-libs/aiohttp`
+- PR: `#13785`
+- title: `Bump multidict from 6.8.0 to 6.9.0`
+- exact head: `406547435e65e067dac070336799af4691716956`
+- CI run: `35717414006` (`CI`) — success
+
+Exact changed source evidence includes `requirements/base.txt`:
+
+```diff
+-multidict==6.8.0
++multidict==6.9.0
+```
+
+Exact-head workflow contains this Bash step:
+
+```yaml
+- name: Run slotscheck
+  run: |
+    # Some extra requirements are needed to ensure all modules
+    # can be scanned by slotscheck.
+    pip install -r requirements/base.in -c requirements/base.txt
+    slotscheck -v -m aiohttp
+```
+
+The runtime job `Lint / sdist` succeeded, and its log shows the exact step executed followed by successful package-manager output.
+
+This is useful in two distinct ways:
+
+1. **G1 positive structure pressure**
+   - the dependency-consuming command is the first ordinary top-level sequential command;
+   - a later command follows;
+   - under GitHub's Bash `-e` wrapper, successful step completion is a realistic positive shape for the current first-sequential runtime-strengthening rule.
+
+2. **New static-consumption breadth gap**
+   - the exact changed dependency source is `requirements/base.txt`;
+   - the workflow consumes it via `-c requirements/base.txt`, not `-r requirements/base.txt`;
+   - current `direct_install.py` only recognizes `-r/--requirement` paths for the direct-requirements mechanism;
+   - therefore this real case can be missed before runtime strengthening is even considered.
+
+This must not yet be phrased as "support `-c` everywhere." The immediate product-simulation result is narrower:
+
+> Real Dependabot CI uses an exact changed constraints file as a material pip input to a dependency-consuming command, and the current direct-requirements observer does not model that source-consumption relationship.
+
+That is a real candidate implementation-pressure finding, not merely hypothetical breadth.
+
+### Candidate B — psf/black#5421
+
+Exact proposal:
+
+- repo: `psf/black`
+- PR: `#5421`
+- title: `Bump wcwidth from 0.2.14 to 0.8.4`
+- exact head: `532e33f6695c8f44cedc423bcf60f8635526f3ef`
+- exact-head `diff-shades` workflow run: `35568964172` — success
+
+Exact target-build step:
+
+```yaml
+- name: Build and install target revision
+  env:
+    GITHUB_TOKEN: ${{ github.token }}
+  run: |
+    ${{ matrix.target-setup-cmd }}
+    python -m pip install .
+```
+
+The corresponding runtime job `analysis / target / preview-new-changes` succeeded. The runtime log expanded the dynamic setup command into:
+
+```text
+gh pr checkout 5421
+git merge origin/main
+python -m pip install .
+```
+
+and later reported:
+
+```text
+Successfully installed black-26.5.2.dev108+g532e33f66 ...
+```
+
+This is a valuable conservative control for G1:
+
+- the install command did execute successfully in this observed run;
+- however static product reasoning sees a dynamic command before it;
+- the install occurrence is therefore not the current bounded "first ordinary top-level sequential command" positive shape;
+- step success alone should not be generalized into a universal proof that arbitrary later internal commands executed successfully.
+
+The real log can establish more than the current step-level correlation model, but only because we explicitly inspected retained command output. That is a different evidence source and should not be silently imported into the current runtime-strengthening rule.
+
+### Current G1 implication
+
+The first real screening now supports all three categories needed for useful pressure testing:
+
+```text
+supported positive shape
+→ first ordinary top-level sequential install + successful owning step
+
+conservative unresolved/ineligible shape
+→ dependency-relevant install is not statically in the admitted sole/first shape
+
+missing static breadth
+→ exact changed constraints source is consumed via pip -c, outside current -r-only direct-source rule
+```
+
+This is already enough to reject a simplistic "just add more runtime-success cases" strategy. The corpus needs both:
+
+- cases validating the current proof boundary;
+- cases revealing where an earlier static owner prevents the runtime rule from even being reached.
+
+### Current G3 status
+
+The earlier bounded real-world set remains the stronger evidence for package-state semantics:
+
+- Salt: material ambient `PIP_CONSTRAINT`;
+- MontePy: direct `pip freeze` package-state witness;
+- Sigstore: operational `UV_*` variables plus uv install-result output;
+- Aruba: ordinary pip install control with installer-result version output.
+
+Do not mix G1's command-execution proposition with G3's resulting-package-state proposition.
+
+## 10. Next bounded move
+
+Do not continue broad GitHub search.
+
+Next:
+
+1. finish one small G1 table with 3–4 retained discriminating cases only;
+2. promote `aiohttp#13785` as a likely new Product Simulation candidate because it reveals a real current-product coverage gap;
+3. treat Black `#5421` as a conservative/control case unless it changes a product design conclusion;
+4. then move to G2 multi-job exact-target composition rather than collecting more variants of the same shell shape.
