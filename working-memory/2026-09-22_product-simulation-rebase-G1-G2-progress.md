@@ -666,3 +666,75 @@ Do not merge S016 and #1895 into one scenario: S016 validates selector/reachabil
 3. Keep direct-state-witness versus inferred-state routes separate.
 4. Keep G4 wheel-tag bridge and retargeting bridge alive in parallel.
 5. Revisit #1895 only if uv marker-order semantics can be bounded strongly enough to support or reject normalization.
+## 12. Main B6 sync + no-build reality check
+
+### Main sync
+
+Main advanced from B5 into B6 and was merged into this research branch at:
+
+`bcda10b1753e385eb8ac91312adb6c4d2df95b45`
+
+with synced main head:
+
+`577aecd27a96876755af9a50e27bcb34d42689a1` — `Record B6 no-build candidate decision`.
+
+B5 is closed. B6 now compares the smallest implementation/proof slice against the accepted B1-B5 contract.
+
+Main's preferred candidate is no Cycle-1 Build because:
+
+- command-local semantic classification alone cannot close effective semantics;
+- adding workflow/job/step env parsing alone still cannot close process/config precedence;
+- no real normal case has been established where an unusually explicit command/environment surface closes the complete bounded semantic proposition;
+- a partial implementation would risk looking stronger than the proposition it actually proves.
+
+### Product Simulation evaluation
+
+Artifact:
+
+`product-simulation/2026-09-22_B6_NO_BUILD_AND_CYCLE2_REALITY_CHECK.md`.
+
+Current real cases support the Cycle-1 stop:
+
+- S014: ordinary exact pip success is only decisively understood because runtime output distinguishes fresh state change from `Requirement already satisfied`;
+- S016: uv success is only relevant to the changed package after exact selector/reachability composition;
+- S013: no-sync semantics are temporal/operation-relative and cannot be interpreted globally;
+- S015: real source applicability can stop the proof before B5.
+
+No Product Simulation case currently exposes a smaller Cycle-1 patch that closes the whole B1-B5 positive proposition for an ordinary normal command without adding a new evidence source or broader effective-semantics proof.
+
+Therefore main's B6 no-build candidate is consistent with current empirical evidence.
+
+### Conditional Cycle-2 entry conditions
+
+Research disposition:
+
+1. command semantics + runtime correlation insufficient for a real normal case: **supported**;
+2. unresolved package-state fact remains decision-critical for parent action: **not established globally; parent/action-relative owner must decide**;
+3. proportional target-owned discriminator exists: **feasibility strongly supported, exact admitted adapter/source not selected**.
+
+Observed candidate witness families include S014 exact pip state text, S016 uv selected-environment output, S013 uv sync output, MontePy `pip freeze`, and structured mechanisms already recorded by the F6 investigation.
+
+Do not activate Cycle 2 solely because such evidence exists.
+
+### Cycle-2 design pressure if selected
+
+Prefer a source-neutral state proposition with staged adapters rather than defining domain truth in terms of human logs.
+
+Keep separate:
+
+- state truth;
+- state-production provenance;
+- exact run/job/step/environment identity;
+- temporal boundary;
+- evidence source strength/adapter.
+
+S014 is the key reminder that state can be true without the selected command freshly producing it.
+
+### Continued broad route
+
+Product Simulation remains broader than B6:
+
+- G4 exact wheel-tag bridge remains open;
+- retargeted exact changed-dependency consumer remains open;
+- #1895 resolution-marker ordering remains a real acquisition limitation with normalization unresolved;
+- continue scanning for counterexamples where main's synthetic pressure is rare/unobserved and for real seams main has not reached yet.
