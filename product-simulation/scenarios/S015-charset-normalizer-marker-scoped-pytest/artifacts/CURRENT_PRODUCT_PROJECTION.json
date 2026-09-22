@@ -1,0 +1,8 @@
+{
+  "source_file": "src/upgradepilot/dependency/requirements.py",
+  "current_pattern": "bare whole-line package==version only",
+  "projected_result_for_marker_patch": "unsupported_requirement_format",
+  "reason": "The semicolon marker suffix prevents the current _PINNED_REQUIREMENT_PATTERN from matching the added/removed lines.",
+  "current_effect": "B5 is not reached for this proposal under the current exact-requirement extractor.",
+  "future_invariant": "If marker-bearing exact requirements are admitted, requirement applicability must remain bound to the selected target/runtime environment before positive state proof."
+}
