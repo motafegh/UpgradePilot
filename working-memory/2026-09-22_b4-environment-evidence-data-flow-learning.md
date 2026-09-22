@@ -111,3 +111,39 @@ Even if `PIP_DRY_RUN=0` is positively established for the process, **only that o
 Use small evidence/data-flow graphs to expose missing edges in concrete cases. Keep the first accepted B3 implementation slice command-local; **do not** select a graph engine, full `GITHUB_ENV` propagation resolver, arbitrary action interpretation, or broad ambient configuration reconstruction on the strength of these examples alone. Product-simulation research may later provide discriminating real-case pressure for a bounded resolver.
 
 **Open discussion for Ali:** In Graph B, what can we conclude from seeing the source code of the `GITHUB_ENV` write, and what additional evidence would be required to establish that `PIP_DRY_RUN=1` actually reached the later step before its shell override? B4 remains in progress; this learning note does not close it or authorize coding.
+
+## B4 follow-up — can a successful step establish the exact GITHUB_ENV write?
+
+Ali correctly identified that a declared write with no execution evidence leaves propagation unresolved. The next two cases distinguish exact-occurrence evidence from enclosing-step success.
+
+### Case C — sole ordinary top-level write command
+
+```yaml
+- name: Configure pip
+  run: echo "PIP_DRY_RUN=1" >> "$GITHUB_ENV"
+```
+
+A bounded positive inference is possible **if** all of these independent premises are positively established: the exact workflow revision/job/step/command occurrence; a parser-admitted sole ordinary top-level shell command under an admitted execution profile; an exact completed-successful runtime step with no applicable masking; an admitted interpretation of the shell `echo` and append-redirection semantics, including the relevant runner-provided `GITHUB_ENV` destination; and successful processing of the written environment-file entry under the GitHub runner contract. Only then may the provider/environment owner produce an evidence-backed write/propagation fact. Source visibility plus step success without those premises is not by itself a write or effective-process-state witness.
+
+Current UpgradePilot has parts of the *execution* premise via `ci/runtime_strengthening.py` and `ci/workflow_runtime_correlation.py`. It does **not** currently interpret `GITHUB_ENV` write semantics or propagate effective environment state. Treat the case as a feasibility/design example, not existing product capability.
+
+GitHub documentation: https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands — a value actually written to `GITHUB_ENV` is available to subsequent steps in the same job, not the writing step.
+
+### Case D — step succeeds without write execution
+
+```yaml
+- name: Configure pip
+  run: |
+    if false; then
+      echo "PIP_DRY_RUN=1" >> "$GITHUB_ENV"
+    fi
+    echo "Configuration finished"
+```
+
+The enclosing step may complete successfully while the conditional write never executes. Therefore step success cannot be promoted to exact write-command success. A graph edge from `write declared` to `write executed` remains unproved, so the downstream propagation fact remains unestablished. This is not proof that the value was absent: another source could still set it.
+
+### Ownership and implementation consequence
+
+Do not build a second permissive execution-correlator for `GITHUB_ENV` writes. If a later selected real case justifies a bounded write recognizer, compose its semantic evidence with the existing exact-occurrence/runtime-strengthening contract, then separately establish destination/write/runner-propagation and later effective-process overrides. Do not claim the later pip occurrence succeeded solely from success of a multi-command step; existing runtime-strengthening admits only its bounded occurrence-position families.
+
+This follow-up is learning/design evidence only. B4 remains open; neither an environment resolver nor a graph engine is selected for implementation.
