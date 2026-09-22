@@ -128,3 +128,142 @@ Start with **R1 + R2 together**:
 3. produce the first coverage-gap map.
 
 Do not begin broad new-case collection until that map tells us which real-world questions are actually missing.
+
+
+## 6. R1 + R2 first-pass current-product / simulation coverage rebase
+
+### Product evolution reconstructed
+
+The important post-corpus product evolution is not one Phase-B-only thread. The material sequence now includes:
+
+1. **Parser-backed static workflow-command analysis and shell context**
+   - shared parser-neutral command occurrences;
+   - shell-family/effective-shell interpretation;
+   - comments/quoted payload/control-flow separation;
+   - static occurrence identity and source relationship.
+
+2. **Cycle-3 Phase A/B runtime strengthening**
+   - explicit separation of static command existence from execution/success;
+   - positive whole-step/position relationships;
+   - occurrence-level eligibility for exact correlated GitHub step success;
+   - conditional/short-circuit/compound/ambiguous shapes remain weaker or unresolved.
+
+3. **Evidence-to-action baseline repairs**
+   - F3: abstention synthesis preserves material branch-stopping uncertainty more honestly;
+   - F9: public GitHub acquisition is anonymous by default with explicit authenticated opt-in;
+   - F11: audit lifecycle coordination corrected, but this is governance/coordination rather than a target-case simulation responsibility.
+
+4. **Action-relative producer/composition work**
+   - F4: exact CI-consuming `job_key` now composes into Target job selection instead of Target guessing among jobs;
+   - F5: exact target wheel-tag evidence remains a separate stronger runtime witness; broad runner/Python labels are insufficient;
+   - F6: exact successful install/sync command correlation is not automatically exact post-install dependency state.
+
+5. **Current runtime dependency-state semantic work**
+   - pip/uv package-manager semantics are now proposition-relevant;
+   - flags/config/environment may change whether a command installs, where it installs, or which dependency/version is selected;
+   - later mutation is a separate temporal/state issue;
+   - generic job-log/package-state acquisition has not been assumed necessary.
+
+### Existing Product Simulation coverage versus today's responsibilities
+
+| Current responsibility | Existing Product Simulation evidence | Coverage classification | Rebase conclusion |
+| --- | --- | --- | --- |
+| Exact proposal identity / dependency-source relevance | S001–S012 consistently preserve frozen proposal identity and exact source relationships | **Broad historical support, but older implementation shape** | Useful foundation; no immediate new case family solely for identity |
+| Behavior-path / targeted-check discrimination | S006, S007, S010 and Sept-11 investigate-vs-block report | **Strong design-pressure coverage** | Reuse before searching new cases |
+| Artifact availability / environment specificity | S008 + Target Environment handoff | **Strong mechanism evidence, partial current producer coverage** | Still useful; exact current target-witness production is not solved by these cases |
+| Optional environment formation / CI coverage | S011 | **Strong conceptual coverage** | Directly supports current Target/environment reasoning but does not test exact F4 job-key composition |
+| Persisted/historical target state | S012 | **Strong bounded coverage** | Keep as mature-scope guard; do not import into every current slice |
+| Overall investigate vs targeted-check vs block distinction | Sept-11 report using S003/S006/Cactus/Buildtest evidence | **Good design-level evidence** | Current F3 implementation should first be replayed/transferred against existing evidence before seeking a new action case |
+| Parser-backed shell command truth: comments, quoted payloads, shell/control-flow structure | No direct retained Product Simulation case found; searches for current command-analysis/runtime terms returned no Product Simulation hits | **Not materially covered** | Fresh real-world pressure is justified |
+| Occurrence-level runtime strengthening: whole-step success vs exact internal command execution | No direct Product Simulation case found | **Not materially covered** | Fresh real-world pressure is justified; keep distinct from parser correctness |
+| Exact CI-consuming job → Target job composition in multi-job workflows | S011/S008 establish why environment/job specificity matters, but not the current exact `job_key` handoff | **Partial / predecessor-shape coverage** | Fresh real multi-job cases are justified |
+| Exact target supported-wheel-tag witness | S008 establishes artifact-serviceability need; Aug handoff explicitly leaves exact tags unresolved; F5 later found S008 has no retained exact tag witness | **Mechanism covered, evidence-source gap remains** | Search only for real targets that actually emit target-owned compatible-tag evidence; do not infer tags from labels |
+| Public GitHub authentication boundary | No Product Simulation case directly covers stale ambient token/.netrc behavior; F9 has direct observed environment evidence + controlled executable tests | **Simulation gap, but separate evidence already adequate for current bounded contract** | Low priority for new target cases unless contradictory evidence appears |
+| Exact post-install dependency/version state | No older Product Simulation case directly provides this current proposition; F6 main-workstream research found Aruba installer logs and MontePy explicit package-state output | **Old corpus gap; fresh real evidence already emerging outside Product Simulation** | High-priority family to absorb/formalize in this research branch |
+| Ambient pip/uv semantic modifiers | No older Product Simulation coverage found for `PIP_CONSTRAINT`, `UV_*`, etc. | **Not materially covered** | High-priority real-case family; recent Salt/Sigstore/ordinary-control research is directly relevant |
+| Evidence/log retention for runtime package-state proof | Older cases contain availability limits, but current exact package-state/log-retention proposition was exposed later by F6 | **Partial** | Treat as a defeater/subcase of runtime-state evidence rather than an independent case-count goal |
+| Audit lifecycle reconciliation (F11) | Not a target technical case responsibility | **Out of Product Simulation case scope** | Exclude from new scenario selection |
+
+### First gap families after rebase
+
+The current evidence supports four materially distinct fresh real-world research families rather than a generic request for more scenarios:
+
+**G1 — Workflow command semantics and occurrence-level runtime truth**
+- Real GitHub Actions steps containing installs/syncs inside conditionals, short-circuit chains, compound commands, quotes/comments, shell-family variation, or ordinary linear controls.
+- Question: when does exact step success actually justify strengthening the exact parsed dependency-consuming occurrence?
+
+**G2 — Multi-job dependency consumption → exact target environment**
+- Real Dependabot PRs where multiple jobs differ in runner/Python/install path and one or several jobs actually consume the changed dependency source.
+- Question: does current F4 composition preserve the right environments and avoid plausible-but-wrong job substitution?
+
+**G3 — Runtime dependency-state proof and package-manager ambient semantics**
+- Real pip/uv CI with ordinary controls, material ambient modifiers/config, installer-result evidence, explicit package-state witnesses, and later-state mutation/retention pressure.
+- Question: what evidence really establishes that the proposed version is present in the relevant environment?
+- Preliminary evidence already found in the current research conversation (Salt, MontePy, Sigstore, Aruba) should be treated as candidate evidence for this family, not yet as an automatically admitted numbered scenario.
+
+**G4 — Exact target wheel-tag witness feasibility**
+- Real public targets that explicitly emit `packaging.tags.sys_tags()`, `pip debug`, or equivalent exact compatible-tag evidence in the relevant target-owned CI environment.
+- Question: is there a realistic normal public evidence source for the existing exact wheel-compatibility contract?
+
+### Priority judgment
+
+Initial priority for research value:
+
+```text
+G1 + G3
+→ highest immediate value because current product semantics are actively being designed/built around these proof boundaries
+
+G2
+→ next, because F4 is implemented but currently proved mainly by controlled tests and predecessor simulation pressure
+
+G4
+→ valuable but evidence-source availability is uncertain; search boundedly and stop if no realistic target-owned witness appears
+```
+
+The Sept-11 maintainer-action evidence should be **replayed against the newer F3 synthesis implementation before admitting a new action scenario**.
+
+F9 and F11 should not consume Product Simulation case effort merely because they are recent changes.
+
+### Search result supporting the gap classification
+
+Repository-wide searches restricted to Product Simulation found no direct retained Product Simulation material for the current implementation concepts/terms:
+
+- `whole_step_relation`
+- `runtime strengthening`
+- `PIP_CONSTRAINT`
+- `pip freeze`
+- `GITHUB_TOKEN`
+- `consuming_job_key`
+- `selected_target_job_not_found`
+- `supported_runtime_correlated`
+- conditional-command / short-circuit terminology
+
+This is supporting evidence only; absence of exact vocabulary is not by itself proof of conceptual non-coverage. The case/synthesis content above was also inspected to determine whether predecessor concepts materially cover the responsibility.
+
+## 7. Updated slice status
+
+**Slice: Product Simulation current-state rebase**
+
+- **A — DONE:** governance, branch boundaries, whole-product scope and relevant current product evolution reconstructed.
+- **B — IN PROGRESS:** first R1/R2 coverage audit completed; next action is to validate/prioritize the fresh case families and begin the highest-value real-world screening.
+- **C — ACTIVE:** first coverage-gap map preserved here.
+- **D — PENDING:** review the gap map and evidence boundaries with Ali after the first family screening gives concrete examples.
+- **E — PENDING:** select/promote only the first case family that yields discriminating real evidence.
+
+## 8. Immediate continuation
+
+Begin with **G1 and G3 as a coordinated screening pass**, because they touch the same real install/sync command path but answer different propositions:
+
+```text
+G1
+shell/control-flow structure
+→ did this exact internal command earn runtime strengthening?
+
+G3
+package-manager semantics + resulting state
+→ if it did execute successfully, what dependency-state proposition did that command actually establish?
+```
+
+Keep the two conclusions separate even when one real workflow supplies evidence for both.
+
+In parallel, retain **G2** as the next dedicated multi-job search family and **G4** as a bounded witness-feasibility search, not a mandatory scenario target.
