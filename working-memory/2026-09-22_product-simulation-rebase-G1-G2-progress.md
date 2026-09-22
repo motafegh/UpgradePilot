@@ -513,3 +513,77 @@ Main-signal priority now shifts from generic B4 counterexample search to B5 evid
 3. preserve later-state continuity as separate from command-completion state;
 4. continue the broader G4/retargeting/forward-pressure portfolio in parallel;
 5. re-sync whenever main materially advances.
+## 10. Latest B5 refinement sync + S015 marker-applicability pressure
+
+### Main B5 refinement synced
+
+Main advanced to `71e9a1ea84cc26397be895810393e1ca4a38154e` (`Refine B5 asymmetric state-proof contract`) and was merged into this branch with merge commit `f7589b7203e3d266ac6c59c7222e09b1964e11c0`.
+
+The refinement makes the command-derived state proof explicitly asymmetric:
+
+- complete positive path may establish requirement satisfaction at command completion;
+- missing premise, unsupported semantics, or runtime non-success does not establish package absence;
+- an explicit semantic defeater rejects the occurrence as the positive witness but still does not prove package absence.
+
+This aligns with S014 and became the target for the next real-case pressure pass.
+
+### S015 — marker-scoped requirement applicability
+
+Found and admitted `jawah/charset_normalizer#769`.
+
+Relevant exact transition in `ci-requirements.txt`:
+
+`pytest==8.3.5 ; python_full_version == '3.8.*'`
+
+→
+
+`pytest==9.0.3 ; python_full_version == '3.8.*'`.
+
+Base/head CI workflow blob is identical (`760ab82d...`). Observed PR runtime uses synthetic merge commit `ddf477c2e71894890245a780ea17d2368d4ad64d`.
+
+Discriminating matrix evidence:
+
+- Python 3.9 job `85302679286`: same requirements file and same install command succeed; pip explicitly ignores the changed `python_full_version == '3.8.*'` pytest requirement and installs the separate Python-3.9 pytest version.
+- Python 3.8 job `85302679272`: the marker applies; pip attempts `pytest==9.0.3` and fails with `No matching distribution found`.
+
+### Current product projection
+
+Inspection of `src/upgradepilot/dependency/requirements.py` shows the current exact-requirement extractor accepts only bare whole-line `package==version` pins. Marker-decorated lines do not match `_PINNED_REQUIREMENT_PATTERN`.
+
+Therefore current UpgradePilot conservatively rejects this real proposal before B5 rather than accidentally overclaiming it.
+
+That current limitation is safe but materially real.
+
+### Durable invariant
+
+If marker-bearing exact requirements are ever admitted:
+
+`file consumed + command success` is still insufficient.
+
+The proof must preserve:
+
+`exact package/version + marker + justified selected runtime environment → requirement applicability`.
+
+Only then may B5 command-success/state semantics apply.
+
+This also strengthens the earlier G2 matrix finding: one static job key can expand into rows with different active dependency requirements.
+
+### B5 asymmetry validation
+
+The Python 3.8 failure blocks the positive command-derived state proposition but does not prove package absence. The Python 3.9 success proves only requirements applicable in Python 3.9 and cannot be borrowed to prove the Python-3.8-scoped proposal.
+
+Artifacts:
+
+- `product-simulation/S015_CANDIDATE_SCREENING.md`
+- `product-simulation/scenarios/S015-charset-normalizer-marker-scoped-pytest/`
+- `product-simulation/S015_POST_CASE_SYNTHESIS.md`.
+
+### Next B5 pressure target
+
+Seek the uv/scoped-operation analogue:
+
+`selected lock/project source + successful uv sync/run`
+
+where the exact changed dependency is excluded by group/package selector or another admitted scope rule.
+
+The question is whether the current/future P2/P7 design keeps lock identity separate from the subset actually synchronized. This should be investigated with real dependency-update evidence before adding new product complexity.
