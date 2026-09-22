@@ -296,3 +296,76 @@ For current and future main-workstream synthesis counterexamples, Product Simula
 This becomes a standing cross-cutting track alongside the main-signal, coverage-gap, forward-pressure, and control tracks.
 
 The objective is not to prove main wrong or right. It is to prevent both **under-engineering real problems** and **over-engineering hypothetical ones**.
+
+## 7. Broad evidence-portfolio pass — first results
+
+The broadened research strategy was executed across main-signal, coverage-gap, forward-pressure, and control questions rather than serially finishing one gap family.
+
+### G3 / reality-check result
+
+A bounded public-workflow search showed materially uneven incidence across package-manager semantic families. Exact-string discovery found no `PIP_DRY_RUN` workflow hits, while `PIP_CONSTRAINT`, `UV_CONSTRAINT`, and `UV_NO_SYNC` produced many public workflow matches. These are query-specific discovery counts, not prevalence estimates.
+
+Sharper inspection confirmed that the B4 environment-propagation mechanism itself is real:
+
+- LocalStack CLI writes `PIP_CONSTRAINT=...` to `GITHUB_ENV` for later steps;
+- historical trading_calendars does the same before later pip installation;
+- diwire explicitly syncs, then writes `UV_NO_SYNC=1` to `GITHUB_ENV`, then uses later `uv run` steps;
+- NVIDIA cuda-python demonstrates shell-local `PIP_CONSTRAINT` / `PIP_BUILD_CONSTRAINT` exports before later pip commands.
+
+The practical conclusion is not `ambient semantics are rare` or `common`. It is that **different counterexample families have different empirical support**, so implementation priority should follow exact real evidence and consequence rather than theoretical possibility alone.
+
+Durable artifact: `product-simulation/2026-09-22_G3_REALITY_CHECK_AMBIENT_SEMANTICS.md`.
+
+### S013 promoted — LangChain real no-sync/prior-sync case
+
+LangChain PR #40646 passed every V2 admission gate and was promoted as S013:
+
+`product-simulation/scenarios/S013-langchain-anyio-uv-no-sync-prior-sync-state/`.
+
+Key sequence:
+
+`Dependabot anyio lock update → ambient UV_NO_SYNC=true → explicit uv sync → anyio 4.15.1 installed → later uv run tests under no-sync`.
+
+Observed CI used synthetic PR merge commit `63e06a2ba490c0bcdc7de672d38e5210f7cc0650`, not bare head `3908f2b...`; this identity is preserved explicitly.
+
+S013's main discriminating result:
+
+`visible UV_NO_SYNC` does not globally defeat dependency-state evidence when an earlier explicit state-forming sync is positively established. Conversely, the later no-sync `uv run` must not be credited with the earlier state formation.
+
+This exposes a cross-cutting temporal composition seam:
+
+`earlier bounded state evidence → later state-preserving exercise evidence`.
+
+Supporting artifacts:
+
+- `product-simulation/S013_CANDIDATE_SCREENING.md`
+- `product-simulation/S013_POST_CASE_SYNTHESIS.md`
+- scenario README + four evidence JSON files.
+
+### G4 feasibility result
+
+TileDB-Py provides a concrete real target-owned exact wheel-tag witness. Its CI executes `pip debug --verbose` after selecting matrix OS/Python environments, and runtime logs show materially different compatible-tag sets for Linux, Windows, and macOS.
+
+This answers the mechanism-feasibility question positively:
+
+`runner/Python labels != exact compatible tags`, while a target-owned runtime `pip debug --verbose` can directly emit the exact compatible-tag set.
+
+It does not select a product acquisition/parsing architecture.
+
+Durable artifact: `product-simulation/2026-09-22_G4_EXACT_WHEEL_TAG_WITNESS_FEASIBILITY.md`.
+
+### Historical coverage register decision
+
+`product-simulation/SCENARIO_COVERAGE.md` was inspected but intentionally not rewritten. It explicitly records historical D1 S001–S005 coverage/acceptance rather than acting as a live scenario registry. Adding S013 there would blur that owner boundary.
+
+### Current portfolio route
+
+Next high-information jobs are:
+
+1. **G4 supported-update bridge:** find an UpgradePilot-supported Python dependency-update case that naturally emits exact compatible-tag evidence, rather than only a general CI mechanism example.
+2. **B4 propagation-to-process bridge:** trace one current real `GITHUB_ENV` package-manager control all the way into the exact later pip/uv process and determine where proof becomes unresolved.
+3. **retargeting reality check:** sample real `PIP_TARGET`/equivalent retargeting use to determine whether main's retargeting concern is decision-relevant or mostly edge pressure.
+4. **forward-pressure scan:** keep looking for new real seams outside today's main question, promoting only discriminating cases.
+5. **periodic main resync:** use new main progress to refine questions, never to restrict Product Simulation scope.
+
+No product source/tests/specification/plan/root-memory mutation was performed.
