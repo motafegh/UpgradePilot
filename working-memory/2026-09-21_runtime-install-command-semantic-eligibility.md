@@ -847,8 +847,8 @@ B1 — DONE: command-local semantic-eligibility contract accepted; ordinary comm
 B2 — DONE: separate dependency-owned semantic evidence object + CI identity composition accepted
 B3 — DONE: first bounded pip/uv semantic matrix accepted
 B4 — DONE: proposition-first effective-semantics fail-closed contract accepted
-B5 — IN PROGRESS: define command-success → dependency-state proof contract
-B6 — PENDING: select/authorize smallest implementation + proof slice
+B5 — DONE: command-success → dependency-state proof contract accepted
+B6 — IN PROGRESS: select/authorize smallest implementation + proof slice
 ```
 
 ### B1 candidate proposition — command-local semantic eligibility
@@ -1716,3 +1716,53 @@ command success != later persistence/exercise
 
 B5 remains **IN PROGRESS** pending Ali's ownership check on the positive-vs-negative asymmetry
 and exact temporal claim.
+
+
+### B5 ownership check and closure
+
+Ali correctly accepted the positive command-completion inference:
+
+```text
+exact proposed requirement/version
++ exact source/environment relation
++ exact supported consumption occurrence
++ command-local semantics admitted
++ effective semantics resolved non-defeating
++ exact runtime-success correlation
++ package-manager operation guarantee
+→ proposed exact requirement satisfied at command completion
+```
+
+Temporal precision retained:
+
+- this establishes the bounded state at the admitted command-completion boundary;
+- it does not automatically establish that the same state persisted until a later test or
+  invocation step;
+- later persistence/use requires separate ordering/environment evidence;
+- command non-success or a semantic defeater does not establish package absence.
+
+This closes B5. No implementation has yet been selected.
+
+### B6 start — smallest implementation/proof slice selection
+
+B6 now owns one decision:
+
+> What is the smallest implementation and proof slice that can realize the accepted
+> command-local/effective-semantics/state-proof contract for one bounded normal command family
+> without expanding into generic environment reconstruction or target mutation?
+
+Candidate implementation responsibilities to compare:
+
+1. dependency-owned command-local package-manager state-proof eligibility;
+2. preservation/composition of that typed semantic evidence with exact consumption identity;
+3. only the minimum effective-semantics evidence needed for the selected family;
+4. bounded command-completion dependency-state result;
+5. focused positive, defeating, and unresolved tests.
+
+B6 must choose a slice that is actually implementable with current or minimally extended evidence.
+If current evidence cannot positively close the normal family, the correct result may be to avoid
+a misleading Build and instead close Cycle 1 with the insufficiency proven, leaving explicit
+target-owned state evidence as the conditional next cycle.
+
+No generic environment resolver, log-ingestion framework, graph engine, or maintainer-action
+change is authorized by entering B6.
