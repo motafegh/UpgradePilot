@@ -428,3 +428,88 @@ Continue the portfolio, with priority determined by new information:
 3. continue reality-checking new main synthesis counterexamples, especially when they start synthetic;
 4. search broader forward seams rather than staying only inside B4;
 5. periodically re-read main but keep this branch independent.
+
+## 9. Main sync + B5 pressure test
+
+### Main sync
+
+Latest `main` was merged into this research branch with merge commit `6386e52686556da27545693869bc54ffb4f552db`.
+
+Synced main head at that point:
+
+`42828b29c3be01e0b102189349f422007a529d96` — `Record B5 dependency-state proof contract candidate`.
+
+After sync the research branch was 0 commits behind main. Main itself was not modified.
+
+Main-owned changes brought in by the sync were limited to:
+
+- `MEMORY.md`;
+- `working-memory/2026-09-21_runtime-install-command-semantic-eligibility.md`;
+- `working-memory/2026-09-22_b4-environment-evidence-data-flow-learning.md`.
+
+### Latest main state
+
+B4 is now closed. Main moved to B5.
+
+B5's current owned question is:
+
+> Under what exact evidence composition may one semantically admitted dependency-consuming command occurrence plus exact successful runtime execution justify the bounded proposition that the proposed version was satisfied/present at the admitted command-completion boundary?
+
+The current candidate uses positive premises P1-P7: exact dependency identity, exact source/environment relation, exact static consumption, command-local eligibility, effective-semantics closure, exact runtime success, and manager operation guarantee.
+
+The intended positive claim is deliberately `satisfied/present at command completion`, not `installed by this command`. Later persistence, exercise, compatibility, safety, artifact identity, and maintainer action remain non-claims.
+
+### S014 — direct real B5 pressure case
+
+Product Simulation searched specifically for a real successful command where the proposed version was already satisfied rather than freshly installed.
+
+Found: `HaitamELF/production-ready-cicd#11`.
+
+Dependabot transition:
+
+`requirements-tooling.txt: pip==26.1.2 → pip==26.2.1`.
+
+The workflow blob is identical at base and head. The exact dependency-audit command is:
+
+`python -m pip install -r requirements-tooling.txt`.
+
+Natural base/head pair:
+
+- base run `35755384469`, job `106839725526`: setup-python provides pip 26.2.1, then the command collects pip 26.1.2, uninstalls 26.2.1, and installs 26.1.2;
+- PR run `35756041967`, job `106841940374`: the same command reports `Requirement already satisfied: pip==26.2.1 ... (26.2.1)` and does not freshly install pip.
+
+Observed PR runtime used synthetic merge commit `65bbb07fd28cdbdc224d3ed655af96f3480ec429`, not bare head `9ee04438...`.
+
+Durable result:
+
+`successful exact pip command` does not imply `proposed version newly installed by this command`.
+
+The strongest common proposition is exactly B5's proposed wording:
+
+`exact requested version satisfied/present at command completion`.
+
+### Additional proof-route seam
+
+S014 also exposes a distinction main should preserve:
+
+`operation-guarantee inference` and `direct runtime state observation` are different proof routes.
+
+The PR log directly reports the exact version as already satisfied. If direct state witnesses are later admitted, they should have their own trust/identity contract rather than being forced through the state-producing-command route. A command could be defeated as a state producer while an independent direct state witness still establishes preexisting state.
+
+This is conceptual pressure only; current Product Simulation does not authorize log ingestion or implementation.
+
+Artifacts:
+
+- `product-simulation/S014_CANDIDATE_SCREENING.md`
+- `product-simulation/scenarios/S014-production-ready-cicd-pip-already-satisfied-vs-installed/`
+- `product-simulation/S014_POST_CASE_SYNTHESIS.md`.
+
+### Updated next route
+
+Main-signal priority now shifts from generic B4 counterexample search to B5 evidence-route pressure:
+
+1. test whether B5's operation-guarantee route has realistic counterexamples or manager-specific edge conditions;
+2. search for direct state witnesses beyond pip's `Requirement already satisfied` output and compare their trust/identity needs;
+3. preserve later-state continuity as separate from command-completion state;
+4. continue the broader G4/retargeting/forward-pressure portfolio in parallel;
+5. re-sync whenever main materially advances.
