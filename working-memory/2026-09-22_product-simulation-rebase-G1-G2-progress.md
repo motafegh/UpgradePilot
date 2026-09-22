@@ -369,3 +369,62 @@ Next high-information jobs are:
 5. **periodic main resync:** use new main progress to refine questions, never to restrict Product Simulation scope.
 
 No product source/tests/specification/plan/root-memory mutation was performed.
+## 8. Second portfolio pass — retargeting, G4 bridge, and latest-main reality check
+
+### Main re-sync
+
+Main advanced again with two B4 design records:
+
+- multiple same-variable `GITHUB_ENV` writes ordered by positively established execution;
+- step-local `env:` overriding an inherited/global `GITHUB_ENV` baseline before shell/CLI/package-manager interpretation.
+
+These remain design/learning evidence; no product source implementation was added in the observed main-only delta.
+
+### Reality check against those new B4 cases
+
+Product Simulation tested incidence rather than treating the synthetic examples as automatically high-priority.
+
+Observed-real:
+
+- single package-manager control propagated through `GITHUB_ENV`;
+- literal workflow/job/step package-manager env;
+- shell-local package-manager assignments/exports;
+- later no-sync execution after earlier explicit state formation.
+
+Plausible-unobserved in the bounded inspected sample:
+
+- two same-variable package-manager `GITHUB_ENV` writes before one consumer;
+- same package-manager variable propagated through `GITHUB_ENV` and then overridden by step-local `env:`;
+- exact `PIP_DRY_RUN` workflow/GITHUB_ENV shapes.
+
+Many broad search hits were false relationship signals: the file contained both a package-manager variable and `GITHUB_ENV`, but the environment-file write targeted a different variable. This reinforces the rule `co-occurrence != data-flow relation`.
+
+The conclusion is not to reject main's correctness rules. It is to avoid allowing currently synthetic-only collision shapes to justify broad infrastructure without stronger real pressure.
+
+### Retargeting reality check
+
+Public workflow discovery shows CLI retargeting (`pip install --target`, `--user`, `--prefix`) is clearly a real CI pattern. Equinor's reusable Python workflow is a concrete `--target` example.
+
+However, recent Dependabot controls inspected so far (Elastic Rally #2189 and sqlalchemy-cockroachdb #308) contain retargeted tooling/published-package commands that are **not** the exact changed-dependency consumer. This makes retargeting real as a semantic class while leaving the stronger supported-update relationship unresolved.
+
+Durable artifact: `product-simulation/2026-09-22_RETARGETING_REALITY_CHECK.md`.
+
+### G4 bridge
+
+TileDB-Py proves exact runtime compatible-tag witness feasibility today, but its inspected historical Python Dependabot PR #865 predates the `pip debug --verbose` witness. p4p #81 similarly lacks that witness at the exact proposal revision.
+
+Therefore G4 currently has:
+
+`real witness mechanism` + `real dependency updates` but not yet `one exact supported-update case composing both`.
+
+This gap was appended to the G4 artifact rather than filled with mismatched revisions.
+
+### Route from here
+
+Continue the portfolio, with priority determined by new information:
+
+1. look for one exact supported update whose relevant changed-dependency consumer is truly retargeted;
+2. look for a current dependency update naturally exposing exact wheel tags;
+3. continue reality-checking new main synthesis counterexamples, especially when they start synthetic;
+4. search broader forward seams rather than staying only inside B4;
+5. periodically re-read main but keep this branch independent.
