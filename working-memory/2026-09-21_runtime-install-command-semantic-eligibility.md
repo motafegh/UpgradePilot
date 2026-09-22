@@ -1026,7 +1026,48 @@ A positive effective-semantics gate would require genuinely stronger evidence, s
 
 B1 remains open for Ali's learning/ownership confirmation before formal closure and B2 transition.
 
-### Phase A output
+### B1/B2 direction — bounded environment propagation before semantic interpretation
+
+Ali proposed the correct architectural refinement:
+
+```text
+provider/workflow environment evidence
+→ establish which environment values apply to the exact later step
+
+dependency/package-manager semantics
+→ interpret only package-manager meaning of those values
+
+later state-proof composition
+→ exclude/invalidate state-proof use when the effective semantic fact defeats it
+```
+
+Example:
+
+```text
+earlier step writes PIP_DRY_RUN=1 to GITHUB_ENV
+→ provider/workflow layer establishes that value reaches the later pip step
+→ pip semantic layer interprets PIP_DRY_RUN=1 as dry-run behavior
+→ the command may remain dependency-consumption evidence
+→ but it is not admitted as a state-producing witness
+```
+
+This preserves the existing responsibility split and avoids teaching CI/runtime code pip semantics.
+
+The new design question is narrower than complete runner reconstruction:
+
+> What smallest class of GitHub workflow environment propagation can UpgradePilot positively and safely resolve for material pip/uv semantic inputs?
+
+Candidate bounded inputs to investigate:
+
+- literal workflow-level `env:`;
+- literal job-level `env:`;
+- literal step-level `env:`;
+- simple deterministic earlier `GITHUB_ENV` writes if parser/source evidence can establish them;
+- dynamic expressions, arbitrary preceding actions, inherited runner state, and unmodeled external config should remain unresolved rather than guessed.
+
+This direction is not yet an implementation decision. It is the next evidence/architecture question.
+
+
 
 Ali and the AI share a minimum-complete mental model of the current source/proof flow, responsibility boundaries, and Cycle 1 acceptance/non-goal boundary.
 
