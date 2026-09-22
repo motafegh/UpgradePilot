@@ -1,0 +1,76 @@
+# G3 — Real-world reality check: ambient package-manager semantics
+
+**Date:** 2026-09-22
+**Kind:** Non-controlling Product Simulation research.
+
+## Purpose
+
+Test whether package-manager semantic counterexamples discussed by the main workstream actually occur in public CI, and separate real implementation pressure from theoretical-only pressure.
+
+## Bounded discovery snapshot
+
+GitHub public code search under `.github/workflows` produced these exact-string snapshots:
+
+| Search family | Matching workflow files |
+| --- | ---: |
+| `PIP_DRY_RUN` | 0 |
+| `PIP_TARGET` | 9 |
+| `PIP_CONSTRAINT` | 614 |
+| `UV_CONSTRAINT` | 108 |
+| `UV_NO_SYNC` | 812 |
+| `PIP_DRY_RUN` + `GITHUB_ENV` in YAML | 0 |
+| `PIP_CONSTRAINT` + `GITHUB_ENV` in YAML | 166 |
+
+These are discovery counts, not prevalence estimates. Index coverage, forks/mirrors, syntax variation, default-branch state, and repository support boundaries all limit them. Co-occurrence in one file also does not establish a propagation relationship.
+
+Immediate reality check: the exact `PIP_DRY_RUN` examples used in B4 have not appeared in this bounded search, while constraints and no-sync semantics are plainly present in real workflows. Product complexity should therefore be prioritized by observed evidence rather than treating every constructible variable equally.
+
+## Strong real case — LangChain Dependabot #40646
+
+- Repository: `langchain-ai/langchain`
+- PR: `#40646`, Dependabot, `anyio 4.14.2 → 4.15.1` in `/libs/standard-tests`
+- Head: `3908f2baf0db73c0f3242107df0428a510f4be47`
+- Changed source: `libs/standard-tests/uv.lock`
+- Head CI run: `35378301060` (`🔧 CI`), success
+
+The exact patch changes the locked anyio version and artifacts to 4.15.1.
+
+The exact-head primary workflow and reusable unit-test workflow both declare `UV_FROZEN=true` and `UV_NO_SYNC=true`.
+
+The selected `libs/standard-tests` unit-test sequence is:
+
+`setup uv → uv sync --group test --dev → make test → uv run --group test pytest ...`
+
+Runtime job `105708268180` (Python 3.14) shows the inherited `UV_NO_SYNC=true`, then executes `uv sync --group test --dev`, reports `Installed 48 packages`, and logs `anyio==4.15.1`. The later test step still has `UV_NO_SYNC=true`, executes `uv run --group test pytest ...`, and pytest reports the `anyio-4.15.1` plugin. Python 3.10 job `105708268228` shows the same shape.
+
+### Discriminating finding
+
+`UV_NO_SYNC is visible` does **not** imply `the relevant environment was never synchronized`.
+
+The setting is operation- and sequence-relative. The later `uv run` does not synchronize the environment, but an earlier explicit successful `uv sync` has already formed it. A global rule that treats any visible `UV_NO_SYNC` as a universal state-proof defeater would therefore be too strong.
+
+Conversely, the later `uv run` must not be credited with the earlier sync. The useful proof chain is temporal: earlier state-forming operation → installed/result evidence → later no-sync execution using that formed environment.
+
+This is broader than command-local B4 semantics and may matter to later evidence composition.
+
+## Real shell-local semantic input — NVIDIA cuda-python
+
+At public revision `1db44ecd79dbddc3c5d81e9e4620782f8bda93f5`, `.github/workflows/coverage.yml` contains steps that export `PIP_BUILD_CONSTRAINT` and `PIP_CONSTRAINT` inside a shell step before later `pip wheel` / `pip install` commands.
+
+This is a real example where effective package-manager semantics depend on ordered shell-local state, not only workflow/job/step `env:`. It also intersects G1: enclosing-step success does not automatically prove arbitrary later internal command occurrences under the current runtime-strengthening contract.
+
+The same file has unrelated `GITHUB_ENV` writes. Therefore raw co-occurrence search would be misleading if interpreted as `PIP_CONSTRAINT` propagation through `GITHUB_ENV`; exact relationship inspection is required.
+
+## Other real controls
+
+- MLflow `.github/workflows/r.yml`: workflow-level `PIP_CONSTRAINT`.
+- napari benchmark workflow: step-level `PIP_CONSTRAINT`.
+- Pydantic CI: selected steps use `UV_NO_SYNC=1` after explicit environment-formation work.
+
+These confirm literal workflow/job/step environment declarations are a real evidence source class, while not proving complete effective process configuration.
+
+## Current conclusion
+
+The real-world evidence does not support treating ambient package-manager semantics as one uniformly severe problem. Constraints and no-sync are clearly real; exact `PIP_DRY_RUN` workflow pressure was not observed in this bounded search; arbitrary hidden propagation must be proved relationship-by-relationship.
+
+LangChain #40646 is a strong candidate for scenario promotion because it is an untouched public Dependabot uv proposal with exact source/workflow/run evidence and it directly prevents an over-broad fail-closed interpretation. No scenario number is assigned yet.
