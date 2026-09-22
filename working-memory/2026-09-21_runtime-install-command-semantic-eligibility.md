@@ -1630,3 +1630,89 @@ have been handled.
 
 B5 remains **IN PROGRESS** pending Ali's review of this proof composition and temporal wording.
 No result type, implementation file, or Build slice is selected by this checkpoint.
+
+
+### B5 refinement — asymmetric positive proof and state vocabulary
+
+Comparison with the accepted product decision-model semantics exposes an important B5
+asymmetry:
+
+```text
+complete positive command-proof path
+→ may establish the bounded requirement-satisfied proposition
+
+missing premise / unsupported effective semantics / runtime non-success
+→ does NOT establish package absence
+→ normally leaves this command-derived package-state proposition unresolved
+
+explicit command semantic defeater
+→ prevents this occurrence from serving as the positive state-producing witness
+→ still does NOT establish package absence
+```
+
+Therefore the B5 command-derived contract should not invent a negative state such as
+`not_present` from command failure or ineligibility.
+
+A true negative package-state proposition would require separate evidence capable of proving
+absence/wrong-version state within a justified observation boundary. If later evidence directly
+contradicts an otherwise positive state proposition, the stable decision-model vocabulary already
+provides a downstream `conflicted` state; B5 does not need to manufacture conflict from missing
+command proof.
+
+#### Preferred bounded proposition wording
+
+The primary B5 positive proposition should be:
+
+> **At successful completion of this exact admitted dependency-consuming command occurrence,
+> the exact proposed requirement was satisfied in the exact selected environment justified by
+> the evidence.**
+
+For the currently admitted exact-version dependency sources, this supports the bounded package
+state interpretation that the proposed version is present/satisfied at that boundary. The
+requirement-satisfaction wording is preferred because it matches package-manager semantics and
+does not imply a fresh installation, importability, artifact identity, later persistence, or
+behavioral compatibility.
+
+#### Current official-semantics support
+
+Current pip documentation describes `pip install` as identifying requirements, resolving what
+satisfies them, and installing packages; it explicitly says pip prefers to leave an already
+installed satisfying version as-is unless upgrade behavior changes the choice. An exact
+requirement therefore supports a satisfaction-at-completion proposition when B4 and exact
+runtime-success premises are already closed.
+
+Current uv documentation states that `uv sync` updates the project environment so dependencies
+are installed and up-to-date with the lockfile, and that ordinary `uv run` ensures the project
+environment is up-to-date before invoking the child command. For current exact-lock reachability,
+this supports the same bounded satisfaction proposition only after the admitted uv selector/scope
+and all B3/B4 semantic defeaters are resolved.
+
+#### B5 candidate outcome rule
+
+Conceptually, for the command-derived path:
+
+```text
+all P1-P7 positively established
+→ requirement_satisfied_at_command_completion established
+
+otherwise
+→ command-derived proposition unresolved
+
+known command-local/effective semantic defeater
+→ occurrence rejected as this positive witness
+→ package state itself not refuted
+```
+
+These are proof semantics, not selected Python enum/type names.
+
+This keeps B5 aligned with the stable protections:
+
+```text
+missing evidence != negative evidence
+unresolved != refuted
+command failure != package absence
+command success != later persistence/exercise
+```
+
+B5 remains **IN PROGRESS** pending Ali's ownership check on the positive-vs-negative asymmetry
+and exact temporal claim.
