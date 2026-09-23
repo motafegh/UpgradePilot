@@ -848,7 +848,7 @@ B2 — DONE: separate dependency-owned semantic evidence object + CI identity co
 B3 — DONE: first bounded pip/uv semantic matrix accepted
 B4 — DONE: proposition-first effective-semantics fail-closed contract accepted
 B5 — DONE: command-success → dependency-state proof contract accepted
-B6 — IN PROGRESS: select/authorize smallest implementation + proof slice
+B6 — DONE: no Cycle-1 Build selected; current evidence ceiling proven
 ```
 
 ### B1 candidate proposition — command-local semantic eligibility
@@ -1853,3 +1853,100 @@ checkpoint before D/E closure. Cycle 2 must still satisfy its three explicit ent
 before selection; B6 does not activate it automatically.
 
 No product source/test implementation has been selected.
+
+
+### B6 ownership check and closure
+
+Ali accepted the no-Build decision and correctly reconstructed why a small visible-defeater
+classifier would be insufficient:
+
+- correctly classifying `--dry-run` / `--no-sync` would improve one semantic layer;
+- other material command/environment/configuration paths can still alter effective semantics;
+- absence of an observed additional defeater is not positive proof that no material one applies;
+- therefore a partial classifier cannot honestly be presented as the final
+  requirement-satisfied-at-command-completion proof.
+
+Ali also explicitly preferred a coherent evidence/proof system over implementing isolated rules
+merely to satisfy the immediate task. That preference is accepted only within the project’s
+proportional-engineering guard: broaden responsibility when the evidence shows a larger owner is
+needed, not into a generic universal environment engine.
+
+B6 is closed with **no Build/Implement change selected**.
+
+### Phase B closure
+
+Phase B is complete.
+
+Durable result:
+
+```text
+B1 command-local semantic eligibility
+→ necessary intermediate proof boundary
+
+B2 separate dependency-owned semantic evidence + CI identity composition
+→ accepted architecture
+
+B3 bounded pip/uv semantic families
+→ accepted classification surface
+
+B4 proposition-first effective-semantics fail-closed contract
+→ accepted; ordinary ambient semantics cannot currently be positively closed
+
+B5 command-success → requirement-satisfied-at-completion contract
+→ accepted; positive and temporal boundaries explicit
+
+B6 implementation/proof-slice selection
+→ no Cycle-1 Build selected because current/minimally extended evidence cannot
+   close a real normal positive family without overclaiming
+```
+
+No source/test product implementation occurred in Cycle 1 Phase B.
+
+## Phase C — formal proof-state checkpoint — IN PROGRESS
+
+### What was established
+
+- exact package-manager command semantics can contain decisive positive defeaters;
+- command-local eligibility is not effective runtime semantics;
+- effective semantics must be proven proposition-first and dimension-by-dimension;
+- successful eligible command execution may support an exact requirement-satisfied proposition
+  only when all required semantic premises are positively established;
+- that positive proposition is bounded to command completion and does not establish later
+  persistence, later exercise, compatibility, or maintainer action;
+- command failure, semantic defeat, or missing evidence does not establish package absence;
+- current source/runtime evidence cannot positively close ordinary pip/uv effective semantics
+  for a real normal family without stronger evidence.
+
+### What remains unproven
+
+- exact proposed package state for ordinary real normal cases from command semantics + current
+  runtime metadata alone;
+- persistence of that state to later test/exercise steps;
+- artifact identity;
+- compatibility;
+- maintainer-action permission.
+
+### Current A/B/C state
+
+```text
+Phase A — DONE
+Phase B — DONE, no Build selected
+Phase C — IN PROGRESS, formal checkpoint being preserved
+Phase D — PENDING
+Phase E — PENDING
+```
+
+### Consequence for next-cycle consideration
+
+Cycle 1 has reached its honest semantic/evidence ceiling. This does **not** automatically select
+Cycle 2.
+
+The master plan requires all three before Cycle 2 may be selected:
+
+1. command semantics + exact runtime correlation are insufficient for a real normal case;
+2. the unresolved package-state fact remains decision-critical under the parent
+   evidence-to-action route;
+3. an admitted target-owned evidence source can discriminate that fact proportionately.
+
+Cycle 1 establishes condition 1. Conditions 2 and 3 must be evaluated explicitly during
+Phase E from the parent route and preserved F6 real-case evidence.
