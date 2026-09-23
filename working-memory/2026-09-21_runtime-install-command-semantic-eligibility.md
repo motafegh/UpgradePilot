@@ -2028,3 +2028,77 @@ Phase E must now evaluate the two remaining conditional Cycle-2 entry conditions
 Do not select Cycle 2 merely because runtime-state evidence exists. The parent action/evidence
 route must first demonstrate that resolving this proposition changes a meaningful downstream
 decision or proof path.
+
+
+### Phase E decision and Cycle 1 closure
+
+The three conditional Cycle-2 entry conditions were evaluated against the parent
+evidence-to-action route and preserved F6 investigation.
+
+```text
+1. command semantics + exact runtime correlation insufficient for a real normal case
+   → ESTABLISHED
+
+2. unresolved exact package-state fact remains decision-critical under the parent
+   evidence-to-action route
+   → NOT YET ESTABLISHED
+
+3. target-owned evidence can discriminate the package-state fact proportionately
+   → FEASIBILITY ESTABLISHED IN PART, BUT ROUTE NOT SELECTED
+```
+
+#### Condition 2 — why not established
+
+The accepted maintainer-action synthesis contract requires action-specific positive permission.
+F6/package-state evidence can close or narrow exact-environment presence uncertainty, strengthen
+later activation/exercise reasoning, and expose a potentially useful targeted check, but it does
+not by itself authorize merge, targeted checks, investigate, block, defer, or abstain.
+
+The earlier action-relative comparison also explicitly preserved:
+
+```text
+F6 exact runtime package/artifact state is needed only for a selected proposition
+```
+
+No current selected action premise has yet been shown to require this exact state fact as its
+next decisive missing premise. Therefore selecting a second implementation cycle now would turn
+F6 into backlog-driven development rather than action-relative engineering.
+
+#### Condition 3 — what is established
+
+The F6 investigation demonstrated real target-owned discriminating evidence:
+
+- a real public Dependabot case where exact-head CI installer output named the proposed version;
+- later successful package invocation in that same job;
+- stronger explicit package-state sources such as structured package inventories or targeted
+  version queries when target workflows already emit them.
+
+However, generic job logs are retention-limited and add untrusted-text acquisition concerns, while
+structured state witnesses have lower natural coverage. The evidence-source family is therefore
+feasible, but the proportionate adapter should be selected only after a decision-critical
+proposition requires it.
+
+#### Cycle 1 closure
+
+Cycle 1 is **CLOSED**.
+
+Durable result:
+
+> UpgradePilot cannot currently derive trustworthy normal exact package-state proof from
+> dependency source + command semantics + existing runtime correlation alone. The semantic and
+> proof contracts are now explicit, and no partial Build was selected because it would not close
+> the real proposition.
+
+**Conditional Cycle 2 is NOT selected.**
+
+Next route:
+
+```text
+return to parent action-relative producer/reachability comparison
+→ identify the exact next action permission / missing premise
+→ select the smallest evidence responsibility that materially changes that path
+→ only return to explicit runtime package-state evidence if that comparison proves it
+   decision-critical
+```
+
+No product source/test implementation occurred in Cycle 1.
