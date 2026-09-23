@@ -1985,3 +1985,46 @@ The minimum review targets are:
 
 After this review, Phase E will evaluate the two remaining Cycle-2 entry conditions:
 decision-criticality and proportionate target-owned discriminating evidence.
+
+
+### Phase D ownership check and closure
+
+Ali correctly reconstructed the two central ownership points:
+
+1. unresolved effective environment/configuration evidence prevents promotion of otherwise
+   related source/command/runtime evidence into a stronger package-state claim; uncertainty must
+   be preserved rather than guessed away;
+2. stronger direct state evidence capable of establishing presence/satisfaction (and, under a
+   separately justified bounded observation, absence/wrong-version state) could legitimately
+   change the current no-Build conclusion.
+
+Precision repair preserved:
+
+- **no Build** means no product source/test implementation was selected in Cycle 1 because the
+  current evidence boundary cannot support a trustworthy normal positive producer;
+- it does not mean the responsibility is unimportant or that implementation is permanently
+  rejected;
+- a later Build becomes justified when a stronger evidence source can discriminate the
+  decision-critical proposition proportionately.
+
+Ali's ownership is sufficient for the Cycle-1 result. Phase D is complete.
+
+## Phase E — gap repair + Cycle-1 closure / next-cycle decision — IN PROGRESS
+
+Phase E must now evaluate the two remaining conditional Cycle-2 entry conditions:
+
+```text
+1. command semantics + exact runtime correlation insufficient for a real normal case
+   → ESTABLISHED by Cycle 1
+
+2. unresolved exact package-state fact remains decision-critical under the parent
+   evidence-to-action route
+   → TO EVALUATE
+
+3. admitted target-owned evidence can discriminate that fact proportionately
+   → TO EVALUATE
+```
+
+Do not select Cycle 2 merely because runtime-state evidence exists. The parent action/evidence
+route must first demonstrate that resolving this proposition changes a meaningful downstream
+decision or proof path.
