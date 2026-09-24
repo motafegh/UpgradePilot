@@ -219,3 +219,42 @@ which action path is closest to a real positive permission
 ```
 
 A is complete. No action semantics, source, tests, or product behavior were changed.
+
+
+### Historical intent check — abstain-only was staging, not the final destination
+
+Repository history confirms that the current abstain-only evaluator was intentionally introduced as
+the **first bounded synthesis stage**, not as the desired final product behavior.
+
+The initial synthesis commit (`1e5531e9010c0a97dc72d76121104156fe2e549d`,
+2026-09-11, `feat: add initial maintainer action synthesis evaluator`) states directly:
+
+```text
+the first evaluator deliberately admits only explained abstention
+non-abstention actions are added only after their positive permission is proven
+through the normal producer path required by the accepted synthesis specification
+```
+
+Subsequent synthesis commits strengthened input handling and residual-uncertainty preservation
+without changing that temporary admission boundary.
+
+The current parent end-to-end plan also explicitly sequences:
+
+```text
+compare action-relative missing premises
+→ select one decision-critical producer/composition responsibility
+→ build and prove that responsibility
+→ admit one maintainer-action path only when positive permission is earned
+→ integrate that action into product presentation
+```
+
+Therefore the project did not accidentally define abstention as its final synthesis goal.
+
+There is, however, a **current balance risk**: the project has accumulated increasingly strong
+technical producers and proof boundaries while no non-abstention action has yet crossed its
+normal-producer permission gate. This is not evidence that prior work was wasted or incorrect;
+it means the current parent action-relative comparison is now especially important and should
+prevent another sequence of producer work that is not tied to a concrete action permission.
+
+Step B should therefore treat "admit one real non-abstention path" as the downstream objective,
+while still refusing to weaken evidence standards merely to reach it.
