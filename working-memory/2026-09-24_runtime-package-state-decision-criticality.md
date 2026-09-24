@@ -135,8 +135,8 @@ No implementation begins merely because this investigation identifies a technica
 ## Current state
 
 ```text
-A — NOT STARTED
-B — BLOCKED on A
+A — DONE
+B — IN PROGRESS
 C — BLOCKED on B
 D — BLOCKED on C
 E — BLOCKED on D
@@ -152,3 +152,70 @@ E — BLOCKED on D
 - missing evidence != negative evidence;
 - one real case != general normal producer coverage;
 - select one next responsibility only.
+
+## A result — action permissions vs current producer reachability
+
+Fresh inspection of the accepted synthesis specification, current `PublicPullRequestInvestigation`, current `maintainer_action.py`, and focused synthesis tests establishes the following normal-path map.
+
+### Current producer baseline
+
+The current investigation can normally preserve/produce, when the relevant branch is reachable:
+
+```text
+exact PR / repository / head identity
+exact admitted dependency transition
+exact-head workflow run/job evidence
+static changed-dependency CI consumption
+bounded runtime-correlated successful consumption
+old/proposed package-release evidence
+upstream repository/release-interval/tag/changelog evidence
+grounded Python-support-drop claim + target-Python relevance/applicability
+artifact-serviceability candidate
+partial target artifact environment
+  (exact workflow/job + runner/Python/install declaration)
+artifact-serviceability applicability with exact wheel compatibility unresolved
+material branch-stopping problems / residual uncertainty
+```
+
+Current product does **not** normally produce:
+
+```text
+exact runtime package-state proof
+exact target wheel-tag compatibility
+positive bounded candidate/repository-context discovery coverage
+a maintainer-targeted check contract
+a broader adaptive maintainer inquiry contract
+a specific outside/future re-entry responsibility
+non-abstention action permission
+```
+
+The current deterministic synthesis implementation deliberately admits only `abstain`. This is an implementation reachability fact, not a change to the stable action semantics.
+
+### Action map
+
+| Action | Positive permission that matters here | Current reachable premises | Important unresolved / unproduced premises |
+| --- | --- | --- | --- |
+| **merge after normal review** | Positive bounded evidence/mechanism/context closure; material concerns resolved/non-defeating; no decision-critical residual uncertainty | exact identity; several mechanism-specific evidence/applicability branches; residual uncertainty preserved | bounded candidate/context discovery coverage; closure across material concerns; some mechanism-specific exact target evidence such as wheel/runtime state when actually required |
+| **run targeted checks** | one/small stable exact decision-critical proposition + bounded maintainer-performable discriminating check + interpretation/stopping logic + no better product-owned investigation | technical unresolved propositions can be preserved; product already demonstrates targeted internal investigation selection in some Python-support cases | no normal maintainer-check contract/producer; no currently selected proposition proven to be the exact stable decision-critical check target |
+| **investigate** | grounded material concern + concrete broader/adaptive inquiry + discriminating directions + stopping/pruning logic | grounded technical concerns/uncertainties and mechanism-specific investigation states can exist | no normal broader adaptive maintainer-inquiry responsibility/producer |
+| **block** | exact proposal-level failure/constraint/incompatibility/hold at sufficient proof strength; mechanism-specific extra premises as required | exact identity; upstream support evidence; target Python evidence/relevance; technical applicability branches | current normal path has not proven an action-level hold contract; exact environment obligation/dependency relation or observed failure may remain missing depending on mechanism; package-state presence alone cannot create block |
+| **defer** | decision-critical unresolved question + no current justified investigation + specific useful outside/future responsibility + re-entry trigger | unresolved questions/limitations are preserved | no normal producer for the specific outside/future responsibility and re-entry condition |
+| **abstain** | no other action is positively justified at current proof strength | fully reachable now; current evaluator intentionally emits only this action and preserves reasons/uncertainty/claim limits | not a technical negative conclusion; remains fallback until another action's positive permission is normally proven |
+
+### A conclusion
+
+No action currently has a demonstrated normal non-abstention permission path.
+
+The important Step-A result for the Cycle-2 question is:
+
+> **Exact runtime package state is not a universal prerequisite of the action family.** It can matter only when a concrete action-specific proposition requires it.
+
+Therefore Step B must not ask “how do we build package state?” It must ask:
+
+```text
+which action path is closest to a real positive permission
+→ what exact premise is currently decisive there
+→ is runtime package state that premise or not?
+```
+
+A is complete. No action semantics, source, tests, or product behavior were changed.
