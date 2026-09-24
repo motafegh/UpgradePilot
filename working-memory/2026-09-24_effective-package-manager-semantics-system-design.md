@@ -573,3 +573,16 @@ Sources checked for this checkpoint include current official pip configuration/i
 UP-SKILL:upgradepilot-planning-design
 UP-SKILL:upgradepilot-learning-by-doing
 UP-SKILL:upgradepilot-working-memory
+
+## September 24 — agreed evidence-first sequencing and action-synthesis boundary
+
+**Status: AGREED project sequencing for the current R2 journey; not a new Charter outcome, stable action semantic, R2 architecture approval, or Build authorization.**
+
+- **Decision:** Defer expanding or redesigning the maintainer-action evaluator while the selected trustworthy evidence/proof capability is designed, built, and verified. Keep the existing explained-abstention evaluator operational; do not infer non-abstention permission from the current limited producer set.
+- **Essential qualification:** Do **not** defer *action-relative evaluation*. Periodically test which exact evidence facts are decision-critical to a specific bounded maintainer action, which remain unresolved, and whether a proposed evidence subsystem offers genuine product value. The evidence system is not an unlimited prerequisite project that must be fully complete before any later action work.
+- **Future option review:** The Charter's current outcome family and the accepted synthesis specification remain controlling now. Once sufficiently representative real evidence and product understanding exist, review the action categories, their meanings, and their proof requirements through the proper product/semantic owners. A possible future revision is not an authorization or a conclusion that the existing categories must change.
+- **Immediate continuation:** Resume the existing R2 review of the candidate effective-semantics and direct-observation proof routes against realistic pip/uv evidence, actual source ownership, B4/B5 claim limits, and action-relative value. Preserve the candidate-versus-accepted distinction, then design R3 types/data flow only after R2 closes; reconcile the runtime-state master-plan sequence before Build if the selected architecture changes its admitted route.
+
+**Learning-by-Doing checkpoint:** A — product sequencing and downstream consumer boundary oriented; B — the agreed sequencing decision preserved in this record; C — working-memory update recorded; D/E — resume with a concrete R2 proof-route reasoning example and review the learner's explanation before final design selection.
+
+References: `PROJECT_CHARTER.md`; `docs/specifications/UPGRADEPILOT_MAINTAINER_ACTION_SYNTHESIS_SPECIFICATION.md`; `plans/END_TO_END_PRODUCT_FLOW_LEARNING_AND_EVIDENCE_TO_ACTION_EXECUTION_PLAN.md`; `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`; `working-memory/2026-09-24_runtime-state-reconciled-design-baseline.md`.
