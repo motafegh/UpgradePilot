@@ -4,6 +4,20 @@ Status: ACTIVE — design/reconciliation before Build
 Operation: Planning/Design + Learning-by-Doing  
 Current intent: determine the proper and smartest coherent system UpgradePilot should build for effective package-manager semantics and runtime dependency-state proof.
 
+## Naming and retrieval convention for this active responsibility
+
+**Use expressive subject names first in discussions, working memory, plans, learning checkpoints, and handoffs.** Preserve existing historical identifiers only in parentheses when they are needed to locate older files or checkpoints; never rely on bare `R2`, `B4`, `B5`, `Route A`, or `Route B` to carry meaning. Expand unfamiliar terms at first meaningful use. Existing filenames and old historical text are not renamed retroactively.
+
+- **Effective Package-Manager Semantics — Supported Subsystem Boundary Design (R2):** the *current* design review: which package-manager command, environment, configuration, provenance, and direct-observation relationships the coherent first supported system should own.
+- **Evidence Source, Type, and Data-Flow Design (R3):** concrete representation and cross-module flow *after* the subsystem boundary is reviewed.
+- **Command-Derived Requirement-State Proof (historical Route A):** positively established effective pip/uv semantics plus exact runtime success, supporting the exact proposed requirement at command completion under the accepted proof contract.
+- **Direct Target-Owned Package-State Observation (historical Route B):** independently observed package/version state in an identified target environment at an identified observation time; it does not prove how the package got there.
+- **Proposition-Relative Effective-Semantics and Fail-Closed Resolution Contract (historical B4):** resolve each required semantic dimension as non-defeating, defeating, or unresolved for the exact claim.
+- **Requirement-Satisfied-at-Command-Completion Proof Contract (historical B5):** the positive command-derived proof requirements and their time-bound claim limit.
+- **Rejected Partial-Implementation Routes (historical B6):** the previously rejected narrow implementations, *not* a rejection of the coherent subsystem.
+
+These are readable aliases for existing historical checkpoints and candidate routes, not new or expanded product semantics or architecture approval. See `working-memory/2026-09-24_runtime-state-reconciled-design-baseline.md` for the references to the original owners.
+
 ## Why this working memory exists
 
 Previous Runtime Dependency-State Proof Cycle 1 correctly rejected a narrow partial implementation that would only classify visible command-local cases such as `--dry-run` or `--no-sync`.
@@ -31,21 +45,21 @@ The goal is not artificial minimality. The goal is the proper and smartest archi
 Primary evidence and design records:
 
 - `working-memory/2026-09-21_f6-post-install-package-state-feasibility.md`
-  - established the exact F6 proposition;
+  - established the exact **Post-Install Package-State Feasibility** proposition (historical F6);
   - separated runtime correlation from package state;
   - identified real pip/uv counterexamples;
   - compared target-owned runtime-state evidence sources;
   - established real public feasibility and retention limits.
 
 - `working-memory/2026-09-21_runtime-install-command-semantic-eligibility.md`
-  - Cycle 1 A→E record;
+  - previous Runtime Install Command Semantic Eligibility — Cycle 1 learning/build loop;
   - established the package-manager semantic families;
-  - accepted B1 command-local semantic eligibility;
-  - accepted B2 ownership/composition split;
-  - accepted B3 bounded pip/uv semantic surface;
-  - accepted B4 effective-semantics fail-closed proof contract;
-  - accepted B5 command-success → requirement-satisfied-at-command-completion proof contract;
-  - B6 rejected only the insufficient partial implementation routes.
+  - accepted **Command-Local Semantic Eligibility** (historical B1);
+  - accepted **Evidence Ownership and Composition Split** (historical B2);
+  - accepted **Bounded pip/uv Semantic Surface** (historical B3);
+  - accepted **Proposition-Relative Effective-Semantics and Fail-Closed Resolution Contract** (historical B4);
+  - accepted **Requirement-Satisfied-at-Command-Completion Proof Contract** (historical B5);
+  - **Rejected Partial-Implementation Routes** (historical B6) rejected only the insufficient partial implementation routes.
 
 - `working-memory/2026-09-22_b4-environment-evidence-data-flow-learning.md`
   - developed environment provenance/propagation/override reasoning;
@@ -120,7 +134,7 @@ Absence of a visible defeater does not prove effective semantics are safe/non-de
 
 ### 4. Effective semantics are proposition-relative and dimension-based
 
-Accepted B4 conceptual contract:
+Accepted **Proposition-Relative Effective-Semantics and Fail-Closed Resolution Contract** (historical B4):
 
 ```text
 exact occurrence
@@ -176,7 +190,7 @@ Do not move pip/uv semantics into Tree-sitter or generic CI runtime code.
 
 ### 7. Accepted positive state-proof contract
 
-B5 accepted the following general proof shape:
+The accepted **Requirement-Satisfied-at-Command-Completion Proof Contract** (historical B5) has this general shape:
 
 ```text
 P1 exact dependency identity
@@ -202,9 +216,9 @@ behavioral compatibility
 maintainer-action permission
 ```
 
-### 8. What B6 actually rejected
+### 8. What the Rejected Partial-Implementation Routes checkpoint actually rejected
 
-B6 rejected:
+The **Rejected Partial-Implementation Routes** checkpoint (historical B6) rejected:
 
 ```text
 only visible command-local flag classification
@@ -214,7 +228,7 @@ synthetic/rare explicit families built merely to satisfy the plan
 
 because those routes did not close the real normal effective-semantics problem.
 
-B6 did not prove that a coherent effective-semantics subsystem is undesirable.
+The checkpoint did not prove that a coherent effective-semantics subsystem is undesirable.
 
 The current reconsideration is therefore legitimate:
 
@@ -236,7 +250,7 @@ evidence/provenance preserving
 fail-closed where truth cannot be established
 manager-aware for pip/uv
 compatible with current static-consumption and runtime-correlation architecture
-capable of composing into B5 requirement-satisfied-at-command-completion proof
+capable of composing into the requirement-satisfied-at-command-completion proof contract
 extensible to explicit target-owned state evidence when semantic proof cannot close
 ```
 
@@ -267,16 +281,16 @@ optional explicit target-owned state witnesses
 
 The result of this design step should be a coherent subsystem boundary and implementation sequence, not another isolated rule list.
 
-## Current state
+## Current state — expressive progress names
 
 ```text
-R1 — prior investigation reconstruction: DONE
-R2 — proper subsystem boundary design: NEXT
-R3 — source/type/data-flow design: PENDING
-R4 — implementation/proof sequence: PENDING
-R5 — Build authorization and implementation: PENDING
-R6 — real-case + regression proof: PENDING
-R7 — return to parent synthesis/action integration: PENDING
+Prior Investigation Reconstruction (R1): DONE
+Effective Package-Manager Semantics — Supported Subsystem Boundary Design (R2): IN REVIEW
+Evidence Source, Type, and Data-Flow Design (R3): PENDING
+Implementation and Proof-Sequence Planning (R4): PENDING
+Build Authorization and Implementation (R5): PENDING
+Real-Case and Regression Verification (R6): PENDING
+Return to Parent Evidence-to-Action Integration (R7): PENDING
 ```
 
 ## Guardrails
@@ -286,12 +300,11 @@ R7 — return to parent synthesis/action integration: PENDING
 - preserve uncertainty when required evidence is missing;
 - use real product pressure and real supported cases;
 - preserve current owner boundaries;
-- do not weaken B4/B5 proof standards merely to make implementation easier;
+- do not weaken the effective-semantics and command-completion proof standards merely to make implementation easier;
 - do not turn the subsystem into universal CI/shell/environment emulation without evidence;
 - build the proper system once its boundary is understood well enough to justify implementation.
 
-
-## R2 design investigation checkpoint — candidate supported boundary
+## Effective Package-Manager Semantics — Supported Subsystem Boundary Design checkpoint (historical R2)
 
 Status: CANDIDATE — source/docs-backed design checkpoint; not yet final architecture selection and no Build authorization.
 
@@ -335,15 +348,15 @@ Uv materially supports `UV_NO_SYNC`, `UV_PROJECT_ENVIRONMENT`, persistent projec
 Do not force static/effective-semantics reconstruction to solve every normal case.
 
 ```text
-ROUTE A — derived command-state proof
+COMMAND-DERIVED REQUIREMENT-STATE PROOF (historical Route A)
 
 exact dependency/source/environment proposition
 → command-local pip/uv semantic observations
 → effective semantic dimension resolution
 → exact runtime-success proof
-→ B5 requirement-satisfied-at-command-completion proposition
+→ requirement-satisfied-at-command-completion proposition
 
-ROUTE B — direct target-owned state proof
+DIRECT TARGET-OWNED PACKAGE-STATE OBSERVATION (historical Route B)
 
 exact target/run/job/environment identity
 → direct package-state observation
@@ -477,7 +490,7 @@ Do not require complete environment reconstruction.
 
 ### Direct target-owned state evidence boundary
 
-When Route A remains unresolved, a direct target-owned witness may establish the package-state proposition independently.
+When **Command-Derived Requirement-State Proof** remains unresolved, **Direct Target-Owned Package-State Observation** may establish the package-state proposition independently.
 
 Preferred source classes remain:
 
@@ -531,26 +544,27 @@ Package-manager semantic interpreter
     ↓
 Per-dimension effective semantic results
     ↓
-B4 aggregation
+Proposition-relative effective-semantics resolution
     ↓
-┌───────────────────────────────┐
-│ Route A: semantic gate closed │
-│ + exact runtime success       │
-└───────────────┬───────────────┘
-                ↓
+┌──────────────────────────────────────────┐
+│ Command-Derived Requirement-State Proof  │
+│ resolved effective semantics             │
+│ + exact runtime success                  │
+└────────────────────┬─────────────────────┘
+                     ↓
  requirement satisfied at command completion
 
 OR
 
-┌───────────────────────────────┐
-│ Route B: direct target-owned  │
-│ package-state observation     │
-└───────────────┬───────────────┘
-                ↓
+┌──────────────────────────────────────────┐
+│ Direct Target-Owned Package-State        │
+│ Observation                              │
+└────────────────────┬─────────────────────┘
+                     ↓
  exact observed package-state proposition
 ```
 
-This architecture preserves the accepted B4/B5 model while avoiding both bad extremes:
+This architecture preserves the accepted proposition-relative effective-semantics and command-completion proof contracts while avoiding both bad extremes:
 
 ```text
 isolated flag rules
@@ -558,7 +572,7 @@ vs.
 universal runner/environment reconstruction
 ```
 
-### R2 open review question
+### Supported Subsystem Boundary Design — open review question
 
 Before selecting this boundary, Ali should understand and challenge three core choices:
 
@@ -566,7 +580,7 @@ Before selecting this boundary, Ali should understand and challenge three core c
 2. why higher-precedence/nearer evidence can terminate backward proof without reconstructing every upstream source;
 3. why a direct package-state witness should be a parallel proof route rather than being treated as proof that command semantics were safe.
 
-If these survive review, R2 can be refined/closed and R3 can design the concrete source/type/data-flow architecture.
+If these survive review, **Effective Package-Manager Semantics — Supported Subsystem Boundary Design** may be refined/closed and **Evidence Source, Type, and Data-Flow Design** may design the concrete source/type/data-flow architecture.
 
 Sources checked for this checkpoint include current official pip configuration/install documentation, current uv configuration/project/CLI documentation, and current GitHub Actions workflow/env documentation.
 
@@ -576,13 +590,19 @@ UP-SKILL:upgradepilot-working-memory
 
 ## September 24 — agreed evidence-first sequencing and action-synthesis boundary
 
-**Status: AGREED project sequencing for the current R2 journey; not a new Charter outcome, stable action semantic, R2 architecture approval, or Build authorization.**
+**Status: AGREED project sequencing for the current subsystem-boundary journey; not a new Charter outcome, stable action semantic, architecture approval, or Build authorization.**
 
 - **Decision:** Defer expanding or redesigning the maintainer-action evaluator while the selected trustworthy evidence/proof capability is designed, built, and verified. Keep the existing explained-abstention evaluator operational; do not infer non-abstention permission from the current limited producer set.
 - **Essential qualification:** Do **not** defer *action-relative evaluation*. Periodically test which exact evidence facts are decision-critical to a specific bounded maintainer action, which remain unresolved, and whether a proposed evidence subsystem offers genuine product value. The evidence system is not an unlimited prerequisite project that must be fully complete before any later action work.
 - **Future option review:** The Charter's current outcome family and the accepted synthesis specification remain controlling now. Once sufficiently representative real evidence and product understanding exist, review the action categories, their meanings, and their proof requirements through the proper product/semantic owners. A possible future revision is not an authorization or a conclusion that the existing categories must change.
-- **Immediate continuation:** Resume the existing R2 review of the candidate effective-semantics and direct-observation proof routes against realistic pip/uv evidence, actual source ownership, B4/B5 claim limits, and action-relative value. Preserve the candidate-versus-accepted distinction, then design R3 types/data flow only after R2 closes; reconcile the runtime-state master-plan sequence before Build if the selected architecture changes its admitted route.
+- **Immediate continuation:** Resume the existing **Effective Package-Manager Semantics — Supported Subsystem Boundary Design** review of candidate **Command-Derived Requirement-State Proof** and **Direct Target-Owned Package-State Observation** against realistic pip/uv evidence, actual source ownership, the established effective-semantics and command-completion claim limits, and action-relative value. Preserve candidate-versus-accepted distinctions, then design evidence source/types/data flow only after the subsystem boundary is reviewed; reconcile the runtime-state master-plan sequence before Build if the selected architecture changes its admitted route.
 
-**Learning-by-Doing checkpoint:** A — product sequencing and downstream consumer boundary oriented; B — the agreed sequencing decision preserved in this record; C — working-memory update recorded; D/E — resume with a concrete R2 proof-route reasoning example and review the learner's explanation before final design selection.
+**Learning-by-Doing checkpoint:** Product sequencing and downstream consumer boundary oriented; agreed sequencing decision preserved; working-memory update recorded; next: resume with a concrete subsystem-boundary proof-route example and review the learner's explanation before final design selection.
 
 References: `PROJECT_CHARTER.md`; `docs/specifications/UPGRADEPILOT_MAINTAINER_ACTION_SYNTHESIS_SPECIFICATION.md`; `plans/END_TO_END_PRODUCT_FLOW_LEARNING_AND_EVIDENCE_TO_ACTION_EXECUTION_PLAN.md`; `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`; `working-memory/2026-09-24_runtime-state-reconciled-design-baseline.md`.
+
+## September 24 — state-witness scope and reuse learning clarification
+
+See `working-memory/2026-09-24_r2_state-witness-scope-checkpoint.md` for the short reasoning checkpoint and provenance. An already sufficient **Command-Derived Requirement-State Proof** witness supports only its own package/environment/time-bounded claim; later commands or **Direct Target-Owned Package-State Observation** are not redundant mandatory gates. A later-time presence or actual test-use claim needs the additional relevant environment, continuity, and consumption evidence. Investigate only material intervening relations, and leave unproven persistence unresolved.
+
+**Current discussion subject:** review how both candidate state-proof routes preserve what/where/when and what additional relations, if any, are needed when a downstream claim crosses a later environment/time/use boundary. This is still subsystem-boundary review, not approval of concrete data types or implementation.
