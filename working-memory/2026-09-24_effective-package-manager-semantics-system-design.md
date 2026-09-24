@@ -289,3 +289,287 @@ R7 — return to parent synthesis/action integration: PENDING
 - do not weaken B4/B5 proof standards merely to make implementation easier;
 - do not turn the subsystem into universal CI/shell/environment emulation without evidence;
 - build the proper system once its boundary is understood well enough to justify implementation.
+
+
+## R2 design investigation checkpoint — candidate supported boundary
+
+Status: CANDIDATE — source/docs-backed design checkpoint; not yet final architecture selection and no Build authorization.
+
+### Fresh current-source facts
+
+Current source preserves the existing owner split well:
+
+- `github/workflow_command_analysis.py` preserves parser-neutral command occurrences, literal/dynamic executable/argument atoms, shell structure, source order, and bounded whole-step relations. It does not currently expose a typed shell-environment mutation/assignment model.
+- `github/workflow_definition.py` currently preserves run defaults/jobs/steps but does not preserve workflow/job/step `env:` mappings.
+- `dependency/environment_selection.py` already interprets selected pip/uv project/environment semantics and some uv material negative/targeting options.
+- `ci/workflow_commands.py` is already the normal shared traversal/composition seam where parsed command analysis and dependency semantics meet.
+- `ci/runtime_strengthening.py` correctly owns structural eligibility for binding an exact static occurrence to successful runtime-step evidence. It does not own pip/uv semantics.
+
+These facts support extension of the existing ownership chain rather than a parallel environment architecture.
+
+### Fresh external semantic facts
+
+Authoritative current documentation reconfirms:
+
+```text
+pip:
+command line > environment variables > configuration files
+
+uv:
+command line > environment variables > persistent configuration
+
+GitHub Actions env:
+step > job > workflow while the scope executes
+
+GITHUB_ENV:
+a positively executed write becomes available to subsequent steps
+in the same job, not to the writing step
+```
+
+Pip materially supports environment/config equivalents for command options including `PIP_DRY_RUN`, `PIP_TARGET`, `PIP_USER`, `PIP_ROOT`, `PIP_PREFIX`, plus global/user/site/`PIP_CONFIG_FILE` configuration.
+
+Uv materially supports `UV_NO_SYNC`, `UV_PROJECT_ENVIRONMENT`, persistent project/user/system config, `--no-config`, and command-local sync/exclusion/targeting behavior.
+
+### Candidate architecture: two complementary proof routes
+
+Do not force static/effective-semantics reconstruction to solve every normal case.
+
+```text
+ROUTE A — derived command-state proof
+
+exact dependency/source/environment proposition
+→ command-local pip/uv semantic observations
+→ effective semantic dimension resolution
+→ exact runtime-success proof
+→ B5 requirement-satisfied-at-command-completion proposition
+
+ROUTE B — direct target-owned state proof
+
+exact target/run/job/environment identity
+→ direct package-state observation
+→ exact proposed-version state proposition
+```
+
+Both routes may feed the same downstream package-state proposition while retaining source/provenance and proof-strength differences.
+
+A direct state witness does not retroactively prove the command semantics; it provides an independent state-proof route.
+
+### Candidate effective-semantics evidence boundary
+
+The system should own the following real evidence families where they can be positively established:
+
+#### 1. Command/process-local package-manager semantics
+
+Interpret package-manager-specific options while structured command atoms are available.
+
+Material dimensions include:
+
+```text
+mutation/synchronization
+changed-package inclusion/exclusion
+target environment/location
+version overlay/override
+configuration-loading mode
+selected project/group/extra scope where relevant
+```
+
+Representative inputs:
+
+```text
+pip --dry-run
+pip --target / --user / --root / --prefix / --python
+pip --isolated
+uv --dry-run
+uv run --no-sync
+uv --no-install-package / --only-install-package
+uv group/project selectors
+uv --with conflicting package version
+uv --no-config / --config-file
+```
+
+The semantic surface is proposition-relative, not an exhaustive option catalog.
+
+#### 2. Declarative GitHub environment
+
+Extend the provider workflow IR to preserve workflow/job/step `env:` with exact scope/provenance and explicit literal/dynamic/unresolved values.
+
+Use GitHub's specificity rule:
+
+```text
+step env > job env > workflow env
+```
+
+Only values relevant to a material semantic dimension need interpretation by pip/uv.
+
+#### 3. Bounded same-job GITHUB_ENV propagation
+
+Support positively proven simple `GITHUB_ENV` writes only when exact occurrence execution, literal name/value, destination semantics, same-job ordering, and propagation are established.
+
+Do not infer a write merely from source visibility or enclosing-step success.
+
+Multiple writes are ordered evidence:
+
+```text
+latest positively established applicable update
+→ inherited baseline for subsequent step
+```
+
+An execution-unresolved later write keeps that dimension unresolved rather than falling back to an earlier value.
+
+#### 4. Shell/process-local overrides
+
+The architecture should support process-near shell overrides because they can dominate inherited environment and terminate backward proof early.
+
+Current parser IR does not yet expose a typed shell-assignment model, so this requires a deliberate provider/shell evidence extension rather than reparsing raw strings downstream.
+
+Candidate bounded shapes include direct literal process-local assignment and simple ordered literal export/assignment under admitted shell/runtime relations.
+
+Dynamic shell mutation, arbitrary wrapper behavior, command substitution, sourced scripts, and opaque shell state remain unresolved until separately justified.
+
+#### 5. Observable package-manager configuration
+
+Model only configuration whose content, applicability, and precedence are positively observable.
+
+Examples:
+
+```text
+pip PIP_CONFIG_FILE when exact referenced content is available
+pip --isolated / explicit neutralization of lower-priority sources
+uv project uv.toml / [tool.uv] when exact repository file and applicability are established
+uv --config-file when exact file is available
+uv --no-config
+```
+
+Unknown runner/user/system configuration remains unresolved when it can materially affect a dimension and has not been made irrelevant by a higher-precedence established value.
+
+Do not fabricate absence of user/system configuration.
+
+#### 6. Environment/destination identity
+
+Retargeting is a relationship problem, not a blacklist.
+
+```text
+target location/environment
++ exact selected/relevant runtime environment
++ positive relation
+→ same environment for the proposition?
+```
+
+If the relation is not established, the state-proof dimension remains unresolved.
+
+### Demand-driven resolution rule
+
+For each material semantic dimension:
+
+```text
+closest decisive command/process evidence
+→ shell-local evidence if needed
+→ step env if needed
+→ proven GITHUB_ENV/job/workflow inheritance if needed
+→ observable manager config if needed
+→ external/ambient source only if it remains material
+→ unresolved when a necessary edge cannot be established
+```
+
+A higher-precedence decisive value makes lower-precedence unknowns irrelevant for that dimension.
+
+Do not require complete environment reconstruction.
+
+### Direct target-owned state evidence boundary
+
+When Route A remains unresolved, a direct target-owned witness may establish the package-state proposition independently.
+
+Preferred source classes remain:
+
+```text
+structured installed-state output
+→ targeted package-version output
+→ bounded inventory output
+→ bounded installer-state observation/log
+```
+
+Examples:
+
+```text
+pip inspect
+importlib.metadata.version(...)
+pip list --format=json
+pip freeze
+uv environment inspection
+bounded installer output when stronger state sources are unavailable
+```
+
+The evidence must preserve repository/head/run-attempt/job/environment/observation provenance and unavailable/expired state.
+
+### Intentionally unresolved in the candidate first proper system
+
+The following should not be guessed or universally simulated:
+
+```text
+arbitrary preceding third-party action environment mutation
+arbitrary sourced shell scripts
+dynamic expressions whose effective value cannot be resolved
+arbitrary wrapper/nested process mutation
+unknown runner-host environment
+unknown pip global/user/site config when still material
+unknown uv user/system config when still material
+cross-job environment propagation unless separately explicit
+reusable/composite-action internals not positively modeled
+general persistence from command completion to arbitrary later step
+```
+
+These remain explicit `unresolved` states unless a nearer decisive witness or direct package-state observation makes them irrelevant to the proposition.
+
+### Candidate system shape
+
+```text
+Workflow / shell evidence
+    ↓
+Effective environment facts with provenance
+    ↓
+Package-manager semantic interpreter
+    ↓
+Per-dimension effective semantic results
+    ↓
+B4 aggregation
+    ↓
+┌───────────────────────────────┐
+│ Route A: semantic gate closed │
+│ + exact runtime success       │
+└───────────────┬───────────────┘
+                ↓
+ requirement satisfied at command completion
+
+OR
+
+┌───────────────────────────────┐
+│ Route B: direct target-owned  │
+│ package-state observation     │
+└───────────────┬───────────────┘
+                ↓
+ exact observed package-state proposition
+```
+
+This architecture preserves the accepted B4/B5 model while avoiding both bad extremes:
+
+```text
+isolated flag rules
+vs.
+universal runner/environment reconstruction
+```
+
+### R2 open review question
+
+Before selecting this boundary, Ali should understand and challenge three core choices:
+
+1. why effective semantics should be resolved per material dimension instead of one whole-environment boolean;
+2. why higher-precedence/nearer evidence can terminate backward proof without reconstructing every upstream source;
+3. why a direct package-state witness should be a parallel proof route rather than being treated as proof that command semantics were safe.
+
+If these survive review, R2 can be refined/closed and R3 can design the concrete source/type/data-flow architecture.
+
+Sources checked for this checkpoint include current official pip configuration/install documentation, current uv configuration/project/CLI documentation, and current GitHub Actions workflow/env documentation.
+
+UP-SKILL:upgradepilot-planning-design
+UP-SKILL:upgradepilot-learning-by-doing
+UP-SKILL:upgradepilot-working-memory
