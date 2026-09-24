@@ -1,0 +1,34 @@
+# Effective Package-Manager Semantics — Pending Design Decisions and Decision Log
+
+**Date:** 2026-09-24  
+**Status:** ACTIVE COMPACT DECISION INDEX for the current **Supported Subsystem Boundary Design**; supporting the [active working memory](2026-09-24_effective-package-manager-semantics-system-design.md), not a competing live-state owner or an architecture/specification/plan approval. `MEMORY.md` selects the live responsibility. Use expressive names first; historical markers appear only when useful for retrieval.
+
+**How to use:** Resolve decisions in dependency order; move an item from `OPEN` to `AGREED` only after review with the user and supporting evidence. Record its precise claim limit and link to the owning plan/specification/architecture record when promotion is warranted. A research finding or candidate is **not** automatically an accepted decision. Keep supporting details in linked investigations, not here.
+
+## Decide now — Supported Subsystem Boundary Design
+
+| Decision needed | Status and question to settle | Evidence / current owner |
+| --- | --- | --- |
+| **Python Interpreter and Package-Destination Identity** | **OPEN — NEXT.** Which positively established interpreter selection, pip/uv target destination, project/virtual environment, and same-environment relations are supported in *normal real* installation and inspection cases? Which unknown/dynamic cases stay unresolved? Do not equate same job, project root, `python` spelling, or package/version text with environment identity. | [Environment-identity investigation](2026-09-24_python-environment-identity-evidence-investigation.md); [active subsystem design](2026-09-24_effective-package-manager-semantics-system-design.md). |
+| **Effective Package-Manager Command and Configuration Semantics** | **OPEN — NOW.** Which material pip/uv options, command/process environment values, declarative workflow/job/step values, proven same-job environment propagation, shell overrides, observable configuration, and manager precedence must the first coherent supported subsystem interpret? Which cases are explicitly unresolved? Preserve resolution per *required semantic dimension*, not a guessed whole-environment boolean. | [Active subsystem design](2026-09-24_effective-package-manager-semantics-system-design.md); [existing environment-flow learning](2026-09-22_b4-environment-evidence-data-flow-learning.md). |
+| **Two Package-State Evidence Sources and Claim Boundaries** | **OPEN — NOW.** Select whether **Command-Derived Requirement-State Proof** and **Direct Target-Owned Package-State Observation** remain independent alternatives; preserve their distinct package/environment/time/provenance and output/execution requirements. Reuse an already sufficient witness; do not require redundant inspection for its own bounded claim. Confirm which actual target-owned observations are realistically obtainable. | [Package-state proof boundary review](2026-09-24_effective-semantics_state-proof-boundary-review.md); [post-install feasibility](2026-09-21_f6-post-install-package-state-feasibility.md). |
+| **Package-State Proof Versus Later Version Use** | **OPEN — SCOPE CHECK.** Identify the *minimum* extra environment, ordering, material-mutation continuity and consumption relation required only when a downstream claim concerns a later time or actual version use. Do not turn it into a mandatory gate for command-completion state or a new universal subsystem. | [State-witness scope checkpoint](2026-09-24_r2_state-witness-scope-checkpoint.md); [reconciled design baseline](2026-09-24_runtime-state-reconciled-design-baseline.md). |
+
+## Decide after the supported boundary is reviewed
+
+| Decision needed | Status and dependency | Evidence / owner |
+| --- | --- | --- |
+| **Evidence Source, Type, and Data-Flow Design** | **PENDING — AFTER BOUNDARY.** Decide the exact producer/consumer types and relationships across workflow/shell observations, dependency-owned pip/uv interpretation, and continuous-integration proof composition; reuse existing owners. Address currently unrecognized explicit-interpreter pip prefixes only if admitted scope requires them. | [Active subsystem design](2026-09-24_effective-package-manager-semantics-system-design.md); [environment-identity investigation](2026-09-24_python-environment-identity-evidence-investigation.md). |
+| **Implementation and Proof Sequence** | **PENDING — AFTER TYPES.** Reconcile any materially changed cycle/route with the controlling runtime-state completion plan; identify real-case fixtures, exact-execution and environment proof tests, and explicit Build authorization before modifying product code. | [`plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`](../plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md); [reconciled design baseline](2026-09-24_runtime-state-reconciled-design-baseline.md). |
+| **Evidence-to-Maintainer-Action Integration** | **DEFERRED EXPANSION; PERIODIC ACTION-RELATIVE CHECK.** Keep existing explained abstention. Check whether each state fact is actually decision-critical, then revisit evaluator expansion and any action-category revision only through the correct product/semantic owners with representative evidence. | [Active subsystem design — agreed sequencing](2026-09-24_effective-package-manager-semantics-system-design.md); [`plans/END_TO_END_PRODUCT_FLOW_LEARNING_AND_EVIDENCE_TO_ACTION_EXECUTION_PLAN.md`](../plans/END_TO_END_PRODUCT_FLOW_LEARNING_AND_EVIDENCE_TO_ACTION_EXECUTION_PLAN.md). |
+
+## Already agreed — do not reopen without contradictory evidence
+
+- **Proposition-first, demand-driven investigation:** establish only facts material to the exact claim; decisive closer evidence need not trigger unrelated upstream reconstruction. [Reconciled baseline](2026-09-24_runtime-state-reconciled-design-baseline.md).
+- **Strict claim boundaries:** command completion is not later persistence; observed presence is not proof of which command installed it, exact later version use, compatibility, or maintainer-action permission. No redundant inspection is required for a claim already proven at its own boundary. [State-witness scope](2026-09-24_r2_state-witness-scope-checkpoint.md).
+- **Naming and scope:** descriptive titles first; no artificially narrow flag-only product solution, no unsupported universal runner simulator, and **no Build authorization yet**. [Active design](2026-09-24_effective-package-manager-semantics-system-design.md).
+
+**Next discussion subject:** **Python Interpreter and Package-Destination Identity** — select positively provable same-environment relationships using a real supported pip/uv case, without assuming that source-path agreement or shared CI-job identity proves interpreter/package-destination equality.
+
+UP-SKILL:upgradepilot-working-memory  
+UP-SKILL:upgradepilot-planning-design
