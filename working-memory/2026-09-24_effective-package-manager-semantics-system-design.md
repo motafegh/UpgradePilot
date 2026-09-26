@@ -692,5 +692,42 @@ The same principle may support a positive `source <known-standard-activate> && p
 
 **Current product gap:** UpgradePilot has parser-backed ordered command occurrences and structural context, but no existing `python -m venv` / activation semantic producer and no generic sequential fall-through contract. The gap is therefore real and correctly belongs to later evidence/type/data-flow and implementation design if this R2 boundary is selected; no code change is authorized during R2.
 
+### Bounded venv family — refined positive/negative premises
+
+**Strong same-step candidate (normal CPython/Bash-sh case):**
+
+```text
+python -m venv <literal-env>
+→ source <same-env>/bin/activate
+→ bare pip install ...
+```
+
+Admit this path only when all material premises are positively established:
+
+- admitted GitHub Bash/sh execution profile with the existing unmasked successful runtime-step correlation;
+- parser-backed ordinary top-level ordering with no unsupported conditional/loop/background/control-transfer structure on the relevant path;
+- literal/supported CPython `python -m venv <env>` creation command using the normal creation path (first supported family excludes `--upgrade` and dynamic/custom venv builders);
+- no effective `--without-pip`: current CPython CLI defaults to bootstrapping pip, and successful creation runs `ensurepip --upgrade --default-pip`;
+- the activation path resolves to the same created environment; successful normal creation also installs the standard activation script;
+- the successful venv-creation command is an admitted fall-through predecessor, so the activation command is reached in the same shell;
+- the standard generated activation script is the sourced file; it sets `VIRTUAL_ENV`, prepends `<env>/bin` (or provider-equivalent scripts directory) to PATH, clears prior command hashing with `hash -r`, does not disable the admitted fail-fast mode, and returns control to the containing shell;
+- no closer material PATH/executable selector occurs between activation and the target bare `pip`;
+- the later bare `pip` is positively reached through the bounded sequential-reachability chain and remains in an admitted ordinary structure.
+
+Under those premises, bare-`pip` executable/environment identity may be resolved to the created venv. Step success may then support the later pip command only through this admitted reachability chain; it is not evidence that all commands in the script executed.
+
+**Separate-step candidate:** GitHub documents that steps in one job execute on the same runner and share workspace/filesystem state, while each `run:` step starts a fresh process/shell. Therefore a successful venv-creation step may supply filesystem provenance to an immediately following activation/install step when the effective working-directory/path relation is positively the same. Environment activation itself never carries across steps; the later step must activate again. For the first boundary, prefer adjacent creation→activation/install steps (or otherwise require explicit continuity evidence) so arbitrary intervening mutation of the venv directory is not silently ignored. Current workflow IR preserves step/default working-directory declarations but has no dedicated effective-working-directory resolver; exact producer/type design remains R3 work.
+
+**Close defeaters / unresolved cases for the first family:**
+
+- `--without-pip` defeats the inference that venv creation established a venv-owned bare `pip`; it does not prove no pip file exists in a pre-existing target or prove which earlier PATH entry will win;
+- `--upgrade` is excluded from the first activation-provenance family because CPython's upgrade path does not reinstall the standard activation scripts in the same way; support may be added only if real pressure justifies it;
+- dynamic/mismatched environment paths, different effective working directories, arbitrary pre-existing activation files, non-CPython/custom venv builders, unsupported shells, opaque shell-option/control-flow mutation, or an unresolved closer PATH selector remain reasoned unresolved;
+- an arbitrary `source <path>/activate` occurrence does not prove the file is the standard script or that that environment owns a pip executable;
+- arbitrary intervening steps between creation and activation are not presumed destructive, but continuity is not positively established merely from their presence; first-boundary support may require adjacency or explicit non-mutation evidence.
+
+**Short-circuit form:** a sole/appropriately bounded `source <known-standard-activate> && pip install ...` may be admitted through the same fall-through predecessor contract. Do not globally remove `short_circuit` from the ineligible set: successful shell termination/replacement or more complex AND/OR lists can still make later-command execution unproven.
+
+
 **Next learning/design checkpoint:** close the exact positive/negative premises of the bounded venv family—same-step versus separate-step creation, matching environment path, `--without-pip`, standard/generated activation provenance, closer PATH mutation, and the minimum runtime correlation needed—then decide whether the venv checkpoint is complete enough to move to the remaining normal interpreter / manager-target families.
 
