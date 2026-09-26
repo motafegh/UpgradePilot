@@ -607,6 +607,43 @@ See `working-memory/2026-09-24_r2_state-witness-scope-checkpoint.md` for the sho
 
 **Current discussion subject:** review how both candidate state-proof routes preserve what/where/when and what additional relations, if any, are needed when a downstream claim crosses a later environment/time/use boundary. This is still subsystem-boundary review, not approval of concrete data types or implementation.
 
+## September 26 — analysis-depth and R2 closure discipline
+
+**Status: AGREED process/design discipline for the active Supported Subsystem Boundary Design; not a new product requirement, fixed case quota, or Build authorization.**
+
+The recent detailed investigations are justified because they have changed proof correctness, supported-case eligibility, or responsibility placement. They must not become an open-ended attempt to reconstruct every shell, runner, Python, pip, uv, action, or environment possibility.
+
+Use this escalation test before opening another detailed investigation:
+
+```text
+Can the answer materially change
+  1. correctness of the selected normal proof,
+  2. the supported subsystem boundary,
+  3. architectural / producer-consumer ownership,
+  4. or a decision-critical product capability?
+        |
+        +-- yes -> investigate proportionately
+        |
+        +-- no  -> preserve unsupported/unresolved/deferred and move on
+```
+
+The controlling Cycle-1 completion target is deliberately bounded: establish **one trustworthy normal command family** from source/semantic/runtime evidence to a package-state proposition at the admitted observation boundary, with material non-installing, retargeted, dynamic, or otherwise close defeaters distinguished. Universal environment coverage is not required.
+
+The compact decision register now owns the finite, non-quota **R2 closure map**. It gives a stable zoom-out path while individual learning-by-doing investigations zoom in:
+
+```text
+setup-python / PATH / bare pip
+→ bounded venv / bare pip
+→ remaining normal interpreter and manager-target families
+→ supported effective operation/config semantics
+→ Route A positive command-derived state proof
+→ Route B / later-use scope decision
+→ R2 supported-boundary classification and closure
+→ R3 evidence source/type/data-flow design
+```
+
+A checkpoint may collapse or disappear when earlier evidence makes it unnecessary. Do not manufacture work to complete the list mechanically. Conversely, do not expand a checkpoint into every conceivable edge case merely because one exists.
+
 ## September 26 — bare `pip` normal-case environment-identity clarification
 
 **Status: AGREED supported-boundary direction; concrete producer/types and Build remain open.**
