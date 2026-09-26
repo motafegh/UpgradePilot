@@ -606,3 +606,17 @@ References: `PROJECT_CHARTER.md`; `docs/specifications/UPGRADEPILOT_MAINTAINER_A
 See `working-memory/2026-09-24_r2_state-witness-scope-checkpoint.md` for the short reasoning checkpoint and provenance. An already sufficient **Command-Derived Requirement-State Proof** witness supports only its own package/environment/time-bounded claim; later commands or **Direct Target-Owned Package-State Observation** are not redundant mandatory gates. A later-time presence or actual test-use claim needs the additional relevant environment, continuity, and consumption evidence. Investigate only material intervening relations, and leave unproven persistence unresolved.
 
 **Current discussion subject:** review how both candidate state-proof routes preserve what/where/when and what additional relations, if any, are needed when a downstream claim crosses a later environment/time/use boundary. This is still subsystem-boundary review, not approval of concrete data types or implementation.
+
+## September 26 — bare `pip` normal-case environment-identity clarification
+
+**Status: AGREED supported-boundary direction; concrete producer/types and Build remain open.**
+
+- A literal `pip install ...` / `pip3 install ...` is **not automatically unresolved** and should not be rejected as a command family merely because no `python -m` prefix is present.
+- The unresolved proposition, when evidence is insufficient, is the **relationship between the effective bare executable and the Python/package environment it manages**.
+- Positive environment identity may be established through a bounded, provenance-preserving relation such as an admitted `actions/setup-python` selection that establishes the later same-job PATH/executable relation, an admitted virtual-environment/PATH selection, or another explicitly supported mechanism.
+- Explicit interpreter invocation (`python -m pip` or a supported explicit interpreter path), explicit manager retargeting (`pip --python <env>`), and bare-executable resolution are distinct evidence families with different proof obligations.
+- `actions/setup-python` is a high-value normal case, not a universal prerequisite. Real workflows without it may still be resolvable through other positive environment-selection evidence; ambient bare `pip` with no established relation remains reasoned unresolved.
+- Directional GitHub code search on 2026-09-26 showed `pip install` and `actions/setup-python` co-occur very frequently in public workflow files, while a substantial set of `pip install` workflow matches do not contain `setup-python`. These search counts are discovery evidence only (file matches, not unique repositories or proof of same-job ordering) and must not be converted into a product probability or trust shortcut.
+
+**Next learning/design checkpoint:** inspect the exact `actions/setup-python` → PATH → later bare `pip` chain and determine which edges can be positively established from provider/action semantics and existing UpgradePilot evidence, which require new typed evidence, and which remain unresolved. Then compare bounded venv/PATH activation.
+
