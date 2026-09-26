@@ -669,6 +669,56 @@ A checkpoint may collapse or disappear when earlier evidence makes it unnecessar
 - **Step-local `env: PATH` versus accumulated `GITHUB_PATH` is now provider-resolved for the normal script-step case (2026-09-26):** GitHub runner evaluates job/workflow environment into `Global.EnvironmentVariables`, merges step `env` into the step environment, then `ScriptHandler.AddPrependPathToEnvironment` constructs the launched script PATH by prepending the accumulated `Global.PrependPath` state above that environment PATH baseline. Therefore a literal step-level `env: PATH: ...` does **not by itself erase** previously accumulated `setup-python`/`GITHUB_PATH` entries; those prepend entries remain earlier in the launched script PATH. A shell-local PATH assignment/export executed inside the script occurs later and can still supersede executable selection for the exact `pip` process. Keep this rule bounded to the admitted normal GitHub script-step/provider path; container/custom execution shapes require their own evidence if later activated.
 - **Current UpgradePilot representation gap exposed by that rule:** `src/upgradepilot/github/workflow_definition.py` currently does not preserve workflow-, job-, or step-level `env:` mappings in `WorkflowDefinition`, `StepsJobDefinition`, `RunStepDefinition`, or `UsesStepDefinition`; the parser's material-field sets omit `env`. The provider semantics are therefore understood, but current product evidence cannot yet express those declarative environment facts through this bounded IR. This is an evidence-source/type responsibility to carry into R3 if the selected supported boundary requires declarative env resolution; do not patch the parser during R2 merely because the gap is visible.
 
+## September 26 — interpreter / manager-target family comparison
+
+**Status: SOURCE/DOCS-BACKED CANDIDATE MODEL for R2 checkpoint 3; supported family selection still under review and no Build authorization.**
+
+Use three distinct semantic dimensions instead of treating “the Python environment” as one field:
+
+```text
+launcher / executor identity
+        ↓
+manager-selected Python environment
+        ↓
+final installation destination / scheme
+```
+
+A stronger fact at one dimension does not automatically settle the next. This model explains both pip and uv without forcing them into identical command semantics.
+
+### pip families
+
+- **`python -m pip install ...`**: strongly binds the pip launcher to the exact invoking Python process. In the absence of an effective `--python` manager retarget and installation retargeters, the natural manager environment is that Python installation/environment. The launcher relation alone does not defeat `--target`, `--user`, `--prefix`, `--root`, or equivalent effective configuration.
+- **Explicit interpreter path, e.g. `.venv/bin/python -m pip install ...`**: same relation as above, but with stronger static interpreter/environment identity because the executable path itself is explicit. Current `pip_command.py` does not recognize this normal prefix because it admits only literal `python` / `python3`.
+- **`pip --python <python-or-venv> install ...` / `python -m pip --python <env> install ...`**: pip's current contract says it manages the specified interpreter/venv exactly as if pip had been invoked from that environment. Therefore the launcher and managed environment must remain distinct. For the manager-environment proposition, an explicit effective `--python` can make the launcher's own Python environment irrelevant. Current `pip_command.py` does not recognize the canonical global-option-before-command form because it expects `install` immediately after `pip`.
+- **`--target <dir>`**: explicit direct installation directory. Current pip docs state packages are installed into that directory and existing files/folders are not replaced by default; `--upgrade` is required to replace existing target contents. This is therefore a strong destination selector but still needs material starting-target conditions for an exact final-state proof. A target directory is not automatically a Python environment or later import path.
+- **`--user`**: selects Python's user installation scheme, not one fixed literal directory. `PYTHONUSERBASE` can change the base, default virtual environments can reject user installs because user site is not visible, and already-satisfied globally visible packages can make pip succeed without a fresh user-site write. Because this form is common in real workflows, it should be recognized as a material retargeting family, but it is a poor first direct-destination proof unless the needed user-scheme/environment premises are positively established.
+- **`--prefix <dir>`**: selects a prefix under which lib/bin/top-level scheme directories are placed. pip explicitly warns that installed scripts/resources may still reference the interpreter running pip rather than an interpreter under the prefix and recommends `--python` when the intent is to manage another environment. Treat prefix as an installation-scheme selector, not proof of a target Python environment.
+- **Default/no retargeter**: requires the next effective-operation/configuration checkpoint to prove that no higher-precedence CLI/environment/config value changes the manager environment or destination; absence of a visible CLI flag is not enough.
+
+Directional GitHub workflow-file search on 2026-09-26 indicates `--user` has materially more visible CI pressure than canonical `pip --python`, while `--target` also appears in real workflows. These are discovery/file-match counts only, not unique-repository prevalence probabilities.
+
+### uv pip families
+
+uv is not a Python-launched package manager by default, so its executable identity must not be equated with its target Python environment.
+
+- **default `uv pip install ...`**: uv requires a virtual environment by default and searches, in documented order, an active `VIRTUAL_ENV`, active `CONDA_PREFIX`, then a `.venv` in the current directory or nearest parent. This environment-discovery chain is manager-specific evidence, not pip PATH semantics.
+- **`uv pip install --python <python-or-env> ...`**: explicit manager environment; uv documents that packages are installed into the environment linked to that interpreter/path. This is a high-value explicit positive selector.
+- **`uv pip install --system ...`**: explicitly skips virtual-environment discovery and selects system Python from PATH. It is CI-oriented and materially common; it still requires positive system-executable resolution if an exact concrete Python identity is needed.
+- **`uv pip install --target <dir> ...`**: installs packages at the top level of the given directory and does not require an existing Python environment; Python is needed for resolution/build compatibility, not as the installation environment. This cleanly demonstrates why manager-selected interpreter and final destination are independent dimensions.
+- **`uv pip install --prefix <dir> ...`**: installs under lib/bin/top-level folders of the prefix and, like pip, warns that scripts/artifacts reference the installing interpreter rather than an interpreter under that prefix.
+- **No `--user` equivalent**: uv explicitly does not support pip's user installation scheme.
+
+Directional GitHub workflow-file search on 2026-09-26 found substantial `uv pip install` pressure, with `--system` and `--python` both materially represented; `--target` and especially `--prefix` were much less common. These counts guide priority only and are not semantic evidence.
+
+### Current UpgradePilot ownership / gaps
+
+- `dependency/pip_command.py` recognizes bare `pip/pip3 install` and literal `python/python3 -m pip install`, but not explicit interpreter paths or pip global options such as `--python` before `install`.
+- existing pip direct-install consumers can preserve later install arguments such as `--target`/`--user`/`--prefix`, but no current producer interprets those arguments into effective manager-environment/destination evidence.
+- `dependency/environment_selection.py` already owns bounded uv **project-selection** semantics for `uv sync` / `uv run`; it does not interpret `uv pip install`. uv lock/reachability owners also already exist. Therefore the missing work is specifically effective runtime package-manager semantics, not a new general uv subsystem.
+- the already-existing claim-relative precedence/evidence architecture should own these dimensions; do not create one bespoke resolver for every option or manager.
+
+**Checkpoint-3 selection question:** Which of these should be positive first-boundary families versus recognized-but-reasoned-unresolved/deferred cases? Current evidence strongly favors positive support for explicit interpreter/`python -m pip`, resolved bare pip, pip `--target`, uv explicit `--python`, uv `--system`, and the common uv virtual-environment discovery relation when its inputs are positively established; `--user` should at minimum be recognized because of real pressure but may require checkpoint-4/Route-A premises before becoming a positive final-state family. `--prefix` can remain recognized/deferred unless product evidence raises its priority.
+
 ## September 26 — bounded venv activation and sequential runtime-proof expansion
 
 **Status: AGREED supported-boundary direction; exact evidence/type schema and Build remain pending.**
