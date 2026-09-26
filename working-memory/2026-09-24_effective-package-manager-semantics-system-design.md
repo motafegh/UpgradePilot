@@ -669,6 +669,73 @@ A checkpoint may collapse or disappear when earlier evidence makes it unnecessar
 - **Step-local `env: PATH` versus accumulated `GITHUB_PATH` is now provider-resolved for the normal script-step case (2026-09-26):** GitHub runner evaluates job/workflow environment into `Global.EnvironmentVariables`, merges step `env` into the step environment, then `ScriptHandler.AddPrependPathToEnvironment` constructs the launched script PATH by prepending the accumulated `Global.PrependPath` state above that environment PATH baseline. Therefore a literal step-level `env: PATH: ...` does **not by itself erase** previously accumulated `setup-python`/`GITHUB_PATH` entries; those prepend entries remain earlier in the launched script PATH. A shell-local PATH assignment/export executed inside the script occurs later and can still supersede executable selection for the exact `pip` process. Keep this rule bounded to the admitted normal GitHub script-step/provider path; container/custom execution shapes require their own evidence if later activated.
 - **Current UpgradePilot representation gap exposed by that rule:** `src/upgradepilot/github/workflow_definition.py` currently does not preserve workflow-, job-, or step-level `env:` mappings in `WorkflowDefinition`, `StepsJobDefinition`, `RunStepDefinition`, or `UsesStepDefinition`; the parser's material-field sets omit `env`. The provider semantics are therefore understood, but current product evidence cannot yet express those declarative environment facts through this bounded IR. This is an evidence-source/type responsibility to carry into R3 if the selected supported boundary requires declarative env resolution; do not patch the parser during R2 merely because the gap is visible.
 
+## September 26 — effective operation/configuration precedence boundary
+
+**Status: AGREED R2 checkpoint-4 semantic boundary; exact evidence producers/types remain R3/R4+ and no Build is authorized.**
+
+For each package-manager semantic dimension needed by the exact claim, resolve the **effective value** with one common demand-driven precedence model. Do not reconstruct unrelated settings.
+
+### Shared top-level precedence
+
+Both current pip and uv documentation establish the same high-level priority:
+
+```text
+explicit command-line value
+        >
+effective process environment value
+        >
+applicable persistent configuration
+        >
+manager default
+```
+
+Stop for that semantic dimension as soon as a higher-priority source conclusively resolves it. Preserve the winning source/provenance. Continue downward only when the higher source is absent, explicitly non-decisive, or unresolved.
+
+Manager-specific persistent-config ordering remains an adapter detail:
+
+- pip: command-specific config section > global section; files are combined global → user → site → `PIP_CONFIG_FILE` (later overrides earlier); `PIP_CONFIG_FILE=os.devnull` disables config loading. `--isolated` ignores environment variables and user configuration, but is **not** equivalent to disabling every possible config source.
+- uv: project config > user config > system config; `uv.toml` in a directory overrides `[tool.uv]` in that directory's `pyproject.toml`; `[tool.uv.pip]` overrides corresponding top-level settings for the pip interface. Environment variables override persistent config and CLI overrides both. `--no-config` disables persistent config discovery; `--config-file` replaces discovered persistent config.
+
+### Proof-critical dimensions only
+
+For the first supported package-state proof, resolve only these dimensions when material:
+
+1. **Does this exact command handle/write the proposed direct requirement?**
+   - pip/uv `--dry-run` decisively defeats command-derived installation/state production while preserving command execution facts.
+   - current pip `--only-deps` is claim-relative: for a direct command-line requirement it excludes the user-supplied requirement itself, so that direct requirement cannot be proven installed by the command. For the common `-r/--requirement` family pip currently rejects combining `--only-deps` with `--requirement`; therefore an exact successful requirements-file command rules out that effective incompatible combination rather than requiring a separate universal `only-deps=false` proof.
+   - `--no-deps` does not defeat satisfaction of the directly supplied requirement itself; it matters only if the selected proposition depends on transitive dependency installation.
+
+2. **Which Python environment does the manager target?**
+   - pip: launcher relation unless superseded by effective `--python` / `PIP_PYTHON`.
+   - uv: effective `--python`, `--system`, or supported default environment discovery; config/environment forms use the same precedence rule.
+
+3. **Where are package files installed?**
+   - direct target/scheme selectors such as pip/uv `target`, pip `user`, pip `root`, pip/uv `prefix`, or manager-environment default scheme.
+   - installation-scheme modifiers are not automatically equivalent to Python-environment identity.
+
+4. **What starting-state/update premise is needed for the selected destination?**
+   - resolve only when the selected Route-A family needs it. In particular, pip `--target` does not replace existing target contents by default; `--upgrade` changes that behavior. Exact starting-target/update requirements belong to the Route-A proof contract rather than a universal config sweep.
+   - reinstall/ignore-installed/exact-sync style options are not universal gates for direct exact-requirement satisfaction; include them only when the chosen proof family or pre-state makes them material.
+
+### Default inference rule
+
+**Absence of a visible CLI flag is not evidence of a manager default.** A manager default may be claimed only after every higher-precedence source that could materially change that dimension is positively resolved as absent, disabled, or non-overriding.
+
+Consequently:
+
+- decisive CLI evidence can stop before environment/config inspection for that dimension;
+- decisive process-environment evidence can stop before persistent config;
+- repository-visible/config-explicit evidence can resolve a persistent setting when its manager-specific precedence is established;
+- if a necessary lower source is ambient/unobservable and no higher source decides the dimension, the effective value remains reasoned unresolved. Do not invent “ambient safe.”
+
+This means a plain normal-looking pip command may remain Route-A-unresolved for a material dimension such as dry-run or destination when environment/config provenance is unavailable. That is a truthful proof limit, not a reason to build a general runner/config emulator during R2. A later direct target-owned state witness remains an independent route.
+
+### Current UpgradePilot capability gap
+
+Current source has parser-backed CLI occurrence evidence and working-directory resolution, but it does not yet preserve declarative workflow/job/step `env:`, interpret `GITHUB_ENV` propagation, parse pip persistent config, or interpret uv persistent config for effective package-manager semantics. These are explicit R3 evidence-source/type/data-flow responsibilities **only for sources admitted by this boundary**.
+
+Do not solve ambient user/system configuration universally. Prefer nearest decisive evidence; add bounded source adapters only when the selected normal proof actually requires them.
+
 ## September 26 — interpreter / manager-target family comparison
 
 **Status: SOURCE/DOCS-BACKED CANDIDATE MODEL for R2 checkpoint 3; supported family selection still under review and no Build authorization.**
