@@ -669,6 +669,74 @@ A checkpoint may collapse or disappear when earlier evidence makes it unnecessar
 - **Step-local `env: PATH` versus accumulated `GITHUB_PATH` is now provider-resolved for the normal script-step case (2026-09-26):** GitHub runner evaluates job/workflow environment into `Global.EnvironmentVariables`, merges step `env` into the step environment, then `ScriptHandler.AddPrependPathToEnvironment` constructs the launched script PATH by prepending the accumulated `Global.PrependPath` state above that environment PATH baseline. Therefore a literal step-level `env: PATH: ...` does **not by itself erase** previously accumulated `setup-python`/`GITHUB_PATH` entries; those prepend entries remain earlier in the launched script PATH. A shell-local PATH assignment/export executed inside the script occurs later and can still supersede executable selection for the exact `pip` process. Keep this rule bounded to the admitted normal GitHub script-step/provider path; container/custom execution shapes require their own evidence if later activated.
 - **Current UpgradePilot representation gap exposed by that rule:** `src/upgradepilot/github/workflow_definition.py` currently does not preserve workflow-, job-, or step-level `env:` mappings in `WorkflowDefinition`, `StepsJobDefinition`, `RunStepDefinition`, or `UsesStepDefinition`; the parser's material-field sets omit `env`. The provider semantics are therefore understood, but current product evidence cannot yet express those declarative environment facts through this bounded IR. This is an evidence-source/type responsibility to carry into R3 if the selected supported boundary requires declarative env resolution; do not patch the parser during R2 merely because the gap is visible.
 
+## September 26 — first Command-Derived Requirement-State Proof contract
+
+**Status: AGREED first bounded positive Route-A family for R2 closure; concrete evidence types/implementation remain R3/R4+ and no Build is authorized.**
+
+Select a deliberately normal pip family rather than a special target-directory case.
+
+### Positive family
+
+```text
+exact repository requirement:
+    <distribution>==<proposed-version>
+
+exact admitted pip install occurrence:
+    python -m pip install -r <that requirements source>
+    OR equivalent supported explicit/resolved interpreter form
+
++ exact source/path applicability
++ effective normal direct-requirement handling
++ effective dry-run = false
++ positively resolved manager Python environment
++ positively resolved normal installation scheme for that environment
+  (no unresolved effective target/user/root/prefix retargeting)
++ exact unmasked successful runtime execution
+→ exact proposed requirement is satisfied in that resolved environment
+  at command completion
+```
+
+The requirements-file variant is intentionally first because current pip `--only-deps` cannot be combined with `--requirement`; therefore a positively successful exact `-r` command cannot simultaneously have that incompatible effective mode. `--no-deps` does not defeat satisfaction of the directly listed requirement.
+
+### Why starting state does not require a universal inventory here
+
+For the normal environment install scheme and an exact direct requirement `name==version`, the proof proposition is **requirement satisfaction at command completion**, not fresh-write causality.
+
+- if the exact version is already satisfied in the selected environment, pip may succeed without installing anything new and the proposition is already true;
+- if a different installed version does not satisfy the exact requirement, normal pip resolution/install semantics may replace/downgrade as necessary to satisfy the command or fail;
+- exact command success therefore supports the bounded satisfaction proposition once the effective command/source/environment/destination premises above are established.
+
+Do **not** transfer this no-inventory simplification to pip `--target`: target-directory replacement semantics are different and may require `--upgrade` or starting-target evidence.
+
+### Claim limit
+
+This Route-A witness establishes only:
+
+> the exact proposed direct requirement is satisfied in the positively resolved package environment **at completion of the exact successful pip command**.
+
+It does **not** establish:
+
+- that this command freshly installed or changed the package;
+- which wheel/sdist artifact was selected unless separately evidenced;
+- that the whole environment is dependency-consistent;
+- package persistence after later mutations;
+- that a later test/process used this environment or exact version;
+- behavioral compatibility or successful imports;
+- maintainer-action permission.
+
+### Close defeaters / unresolved cases
+
+Leave Route A unresolved or defeated for this first family when any material premise is not established, including:
+
+- effective dry-run enabled or unresolved;
+- exact requirements source/path or exact proposed pin not established/applicable;
+- manager environment or normal destination scheme unresolved;
+- effective `target`, `user`, `root`, `prefix`, or another material retargeting scheme not covered by this family;
+- exact pip occurrence execution not positively correlated/successful without masking;
+- unsupported/dynamic invocation shape or package-manager semantics.
+
+A direct target-owned package-state observation remains an independent proof route and may still answer its own claim when Route A is unavailable.
+
 ## September 26 — effective operation/configuration precedence boundary
 
 **Status: AGREED R2 checkpoint-4 semantic boundary; exact evidence producers/types remain R3/R4+ and no Build is authorized.**
