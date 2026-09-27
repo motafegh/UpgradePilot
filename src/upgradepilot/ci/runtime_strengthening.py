@@ -14,7 +14,7 @@ Tree-sitter nodes never enter this module.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Literal
+from typing import Literal, Protocol
 
 from ..github.workflow_command_analysis import (
     StaticCommandStructure,
@@ -35,6 +35,19 @@ type RuntimeStrengtheningEligibilityState = Literal[
     "ineligible",
     "unresolved",
 ]
+
+
+class RuntimeStrengthenableCommandOccurrence(Protocol):
+    """Parser-neutral command occurrence shape required by CI strengthening policy."""
+
+    workflow_path: str | None
+    workflow_revision: str | None
+    job_key: str
+    step_source_index: int
+    command_location: StaticCommandLocation | None
+    structural_context: tuple[StaticCommandStructure, ...]
+    whole_step_relation: StaticCommandWholeStepRelation | None
+    execution_profile: ShellExecutionProfile | None
 
 
 @dataclass(frozen=True, slots=True)
@@ -133,7 +146,7 @@ def candidate_from_direct_exercise(
 
 
 def classify_runtime_strengthening_eligibility(
-    candidate: RuntimeStrengtheningCandidate,
+    candidate: RuntimeStrengthenableCommandOccurrence,
 ) -> RuntimeStrengtheningEligibility:
     """Classify whether step-level runtime evidence may strengthen this occurrence.
 
@@ -240,6 +253,7 @@ def classify_runtime_strengthening_eligibility(
 
 
 __all__ = (
+    "RuntimeStrengthenableCommandOccurrence",
     "RuntimeStrengtheningCandidate",
     "RuntimeStrengtheningEligibility",
     "RuntimeStrengtheningEligibilityState",
