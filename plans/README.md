@@ -1,5 +1,13 @@
 # Project-Local Plans
 
+## **Smart Situational Override Rule**
+
+Plan sequences, pass/stop conditions, prohibited scope, activation triggers, and other project-local procedural controls are applied under the **Smart Situational Override Rule** from root `AGENTS.md`.
+
+A selected plan is the normal execution route, not a command to ignore new evidence. If current circumstances justify expanding, shrinking, reordering, combining, splitting, pausing, or overriding a plan step/gate, do so deliberately and preserve the reason/proof effect. When the override materially changes the plan's responsibility, proof obligation, accepted method, or durable sequence, reconcile the plan or correct higher owner rather than silently drifting from it.
+
+The rule does not create authorization outside Ali's current request and cannot convert missing evidence into a pass claim.
+
 This directory is the canonical home for bounded UpgradePilot execution and investigation plans.
 
 The project charter owns stable product scope. `MEMORY.md` alone selects the live position and bounded plan.
