@@ -69,6 +69,8 @@ This section is navigation only. Each ADR's own `Status` field determines whethe
   — **Accepted.** Bounded GitHub-owned static Actions workflow IR, PyYAML node-based parsing, static/runtime evidence separation, multi-job structural preservation, and dependency/consumer proof boundaries.
 - [`ADR-0009-parser-backed-static-workflow-command-analysis.md`](ADR-0009-parser-backed-static-workflow-command-analysis.md)
   — **Accepted.** Tree-sitter-backed Bash/sh, PowerShell/pwsh, and CMD/batch command parsing behind an UpgradePilot-owned command IR, with static occurrence separated from control-flow/runtime-strengthening authority.
+- [`ADR-0010-package-manager-semantic-facts-and-runtime-dependency-state-composition.md`](ADR-0010-package-manager-semantic-facts-and-runtime-dependency-state-composition.md)
+  — **Accepted.** Two-level reusable CI execution evidence, dependency-owned independent package-manager semantic facts with bounded provenance, and separate command-completion dependency-state composition.
 
 Do not add labels such as **current ADR**, **active ADR**, or **next ADR** here. Live project position belongs only in `../../MEMORY.md`.
 
