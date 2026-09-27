@@ -1,5 +1,13 @@
 # Working Memory
 
+## **Smart Situational Override Rule**
+
+Working-memory structure, cycle-record cadence, section shape, update frequency, and normal closure rules are applied under the **Smart Situational Override Rule** from root `AGENTS.md`.
+
+Adapt the record when the situation requires it, but preserve the reason for any material deviation—especially cycle splitting/merging, unusual phase order, deferred gates, emergency handoff, or changed responsibility. The record must reflect what actually happened rather than forcing reality into the default template.
+
+This rule cannot make working memory authoritative over specifications/ADRs/plans/`MEMORY.md`, cannot invent authorization, and cannot relabel unverified evidence as verified.
+
 `working-memory/` is UpgradePilot's **detailed, public-safe, dated operational memory** for sessions and bounded responsibilities.
 
 Its main purpose is to preserve enough high-resolution context that Ali or a future AI assistant can recover what was being done, why decisions were made, what happened, what was deferred, and where that session stopped without replaying the whole chat.
