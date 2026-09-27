@@ -38,7 +38,7 @@ Do not scan the full working-memory history. If Ali gives only an old clue, sear
 
 ## 2. Choose NEW vs CONTINUE
 
-For a substantive canonical Learning-by-Doing cycle, prefer **one coherent cycle working-memory record** that remains active across:
+For every substantive canonical Learning-by-Doing cycle, use **one coherent cycle working-memory record** that remains active across:
 
 ```text
 A — orientation / understanding gate
