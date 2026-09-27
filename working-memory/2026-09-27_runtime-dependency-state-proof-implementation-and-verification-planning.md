@@ -289,13 +289,16 @@ Do not begin by implementing ambient pip config resolution. That would solve a l
 
 ## 6. Build slicing and learning-by-doing rhythm
 
-Each substantive increment follows the project A → B → C → D → E cycle:
+Each substantive increment follows the canonical project A → B → C → D → E cycle from `AGENTS.md`:
 
-A. orient/teach the exact responsibility, current source and proof limit;
-B. implement one coherent increment;
-C. update the active working record with actual implementation/evidence;
-D. verify focused + relevant integration behavior and teach the resulting mechanism;
-E. close the increment, state residual gaps, and select the next only from evidence.
+A. pre-implementation learning/orientation, then **stop at the understanding gate before Build**;
+B. implement one coherent bounded increment;
+C. preserve the meaningful progression **alongside B** in that cycle's one coherent working-memory record;
+Verification/evidence gate. run the focused and broader proof justified by the increment; failed/unavailable proof keeps the responsibility in B+C/diagnosis or explicit proof debt;
+D. after sufficiently green evidence, teach from the actual implementation and perform the post-implementation ownership check;
+E. repair important gaps from Ali's D answers, orient the next bounded slice, and stop before that next slice's B.
+
+Verification is a transition gate between B+C and D, **not** canonical D. B and C normally happen together rather than as separate stop points.
 
 Do not batch all five increments into one unreviewable change.
 
@@ -312,91 +315,33 @@ R4 is ready for Build when:
 
 These conditions are satisfied by this plan once the final repository pointers are reconciled.
 
-## 7A. Increment 1 Build cycle progression — 2026-09-27
+## 7A. Increment 1 cycle execution record
 
-**A — PRE-IMPLEMENTATION LEARNING / ORIENTATION: COMPLETE**
+Increment 1 execution/learning status is now owned by the dedicated coherent cycle record:
 
-Current executable flow was traced as:
+`working-memory/2026-09-27_increment-1_reusable-step-exact-command-execution_lbd-cycle.md`
+
+That record owns the cycle's:
 
 ```text
-WorkflowRuntimeStepCorrelation
-→ RuntimeStrengtheningEligibility
-→ dependency_exercise.py private combination of
-   exact-step lookup + continue-on-error + runtime status
-→ existing CI coverage states
+A — orientation / understanding gate
+B — implementation
+C — progressive preservation
+Verification gate
+D — post-implementation learning / ownership check
+E — gap repair + next-slice orientation
 ```
 
-The provider-owned unnamed-step display contract was re-verified against current GitHub Runner source: unnamed repository/script steps use the `Run ` display prefix and runner formatting of the literal action reference or first script line. Dynamic unnamed values remain unresolved because UpgradePilot cannot reproduce runtime expression evaluation from static evidence.
+Current status at this plan level:
 
-**B — REAL BOUNDED BUILD / ACTION: COMPLETE, UNVERIFIED**
+- A — done historically;
+- B — done;
+- C — done/progressively preserved;
+- verification gate — green (35 focused + 632 full + exact-head Product verification);
+- D — current;
+- E — pending.
 
-Implemented on `main` inside Increment 1 scope only:
-
-1. `workflow_runtime_correlation.py`
-   - admits provider-derived display identities for bounded unnamed literal `run:` and repository/local `uses:` steps;
-   - preserves dynamic/unsupported unnamed cases as unresolved;
-   - keeps correlation identity-only.
-
-2. `runtime_strengthening.py`
-   - exposes a parser-neutral `RuntimeStrengthenableCommandOccurrence` protocol so static command eligibility is not coupled to dependency-specific candidate construction.
-
-3. new `ci/runtime_execution.py`
-   - reusable `CorrelatedStepExecutionAssessment` for unmasked successful `run:` and `uses:` steps;
-   - reusable `ExactCommandExecutionAssessment` composing step execution with existing static strengthening eligibility;
-   - no package-manager/dependency semantics.
-
-4. `dependency_exercise.py`
-   - removes ownership of generic continue-on-error/runtime-status/exact-step interpretation;
-   - consumes `assess_exact_command_execution(...)`;
-   - preserves existing externally visible dependency-coverage state/reason semantics.
-
-5. tests
-   - workflow runtime-correlation tests now protect unnamed run/uses identity and dynamic fail-closed behavior;
-   - new `test_ci_runtime_execution.py` protects shared step success, continue-on-error masking, runtime non-success, eligible exact-command support, ineligible command rejection, and unresolved later-command behavior.
-
-**C — PROGRESSIVE STATE PRESERVATION: COMPLETE FOR IMPLEMENTATION STATE**
-
-Build diff from pre-Build gate `1b4a19e...` is six commits and exactly six files:
-- four CI source files (one new);
-- two focused test files (one new);
-- no dependency/package-manager semantics;
-- no environment/config producer;
-- no Route-A package-state composer;
-- no maintainer-action or Route-B changes.
-
-**D — VERIFICATION: COMPLETE / GREEN**
-
-Executable evidence was supplied for the exact Increment-1 implementation head `a47923ee778b0984966bc09b8d01169205d0f7f9`.
-
-Local focused proof:
-- command family: workflow runtime correlation + reusable runtime execution + runtime strengthening + runtime-correlated dependency coverage;
-- **35 tests passed**;
-- no failures/errors.
-
-Local full deterministic regression:
-- `python3 -m unittest discover -s tests -v`;
-- **632 tests passed**;
-- no failures/errors.
-
-Repository Product verification:
-- workflow: **Product verification**;
-- run id: **36338591767**;
-- trigger: `workflow_dispatch`;
-- head SHA: `a47923ee778b0984966bc09b8d01169205d0f7f9`;
-- conclusion: **success**;
-- job: **Installed package and deterministic product tests** — success;
-- successful material steps include fresh product installation, CLI-entry-point verification, focused investigation composition, and deterministic product regression.
-
-These signals jointly establish that Increment 1's focused responsibility passes its selected tests, the full existing deterministic suite remains green, and the installed-product verification path remains green at the implementation head.
-
-Verification limitations remain:
-- this does not yet prove package-manager semantics or Route-A package state; those belong to later increments;
-- no real-case public-workflow package-state proof is claimed by Increment 1;
-- documentation-only state-record commits after the verified implementation head do not change the verified product/test source.
-
-**E — CLOSURE: PAUSED FOR DISCUSSION**
-
-The technical prerequisites for closure are now satisfied, but do not select Increment 2 or finalize the closure record until the current discussion with Ali is complete. The E-stage review should compare the implemented ownership/data flow against ADR-0010, state residual gaps, then close Increment 1 explicitly.
+This R4 record remains the broader implementation/proof-sequence owner and must not compete with the cycle record as the phase-status owner.
 
 ## 8. Stop line / prohibited scope
 
