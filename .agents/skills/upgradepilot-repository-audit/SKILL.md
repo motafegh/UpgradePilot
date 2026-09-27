@@ -5,6 +5,15 @@ description: Critically audit or review UpgradePilot governance, plans, architec
 
 # UpgradePilot Repository Audit
 
+## **Smart Situational Override Rule**
+
+All project-local MUST/REQUIRED/DO NOT/NEVER/STOP/gate/order/default language in this Skill is applied under the **Smart Situational Override Rule** from root `AGENTS.md`.
+
+It may adapt audit depth, evidence route, scope decomposition, and stopping logic when circumstances justify it, but Audit remains read-only unless Ali separately authorizes mutation/change intent.
+
+A material override must identify the circumstance, the normal rule being displaced, why the override is better for the current responsibility, its proof/risk/learning/ownership effect, and any reconciliation needed afterward. The rule never authorizes false evidence claims or overrides higher-authority safety/legal/platform constraints or Ali's current explicit authorization boundary.
+
+
 Use this Skill as the reusable procedure for materially evaluative UpgradePilot work such as:
 
 ```text
