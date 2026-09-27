@@ -38,6 +38,26 @@ At the same time, do not turn this into continuous logging. Routine repetition, 
 
 This progression record can later provide historical/rationale evidence for audits, reviews, and Learning-Artifact authoring. Preserve enough context for those later consumers to reconstruct the real path accurately, but do **not** turn working memory itself into a tutorial or learning artifact.
 
+### Canonical Learning-by-Doing cycle records
+
+Each substantive canonical Learning-by-Doing cycle should normally have **one coherent cycle working-memory record** that remains the detailed progression owner from A through E:
+
+```text
+Cycle <coherent responsibility>
+A — pre-implementation learning / understanding gate
+B — real bounded action
+C — progressive preservation while B evolves
+Verification / evidence gate
+D — post-implementation learning / ownership check
+E — gap repair + next-slice orientation
+```
+
+The verification/evidence gate is recorded between B+C and D but is **not** a sixth canonical phase.
+
+Do not split one cycle into separate competing active records for implementation, verification, and post-implementation learning merely because those occur at different times. A broader plan/workstream record may link to the cycle record but should not also claim to own the cycle's phase status.
+
+If a cycle is intentionally interrupted, redirected, or split because its responsibility materially changes, close/time-scope the old cycle record and create the next coherent cycle record with an explicit link.
+
 ## Relationship to other owners
 
 - `MEMORY.md` is the **canonical compact current project position** and current continuation.
@@ -55,6 +75,7 @@ For the compact operating procedure, use `.agents/skills/upgradepilot-working-me
 
 ### Create a new record when
 
+- a new substantive canonical LbD cycle begins;
 - Ali asks for a new session/day/time working memory;
 - a new session needs its own anchor and detailed handoff trail;
 - responsibility or investigation changes enough that a separate record improves retrieval;
@@ -65,6 +86,7 @@ Multiple records on the same day are normal when there are distinct sessions or 
 
 ### Continue an existing record when
 
+- the same LbD cycle is advancing through B/C, verification, D, or E;
 - the same session/responsibility is still active;
 - the same investigation or evidence question is continuing;
 - another result, error, decision, discovery, correction, or learning-relevant step belongs naturally to that same progression.
@@ -116,6 +138,19 @@ Briefly preserve:
 - temporary session-specific rules/boundaries Ali established.
 
 ### 2. Progressive record
+
+For an LbD cycle record, keep a compact phase block near the top and update it at meaningful transitions:
+
+```text
+A — DONE / CURRENT / PENDING / DEFERRED
+B — DONE / CURRENT / PENDING / DEFERRED
+C — CONTINUOUS / DONE / PENDING
+Verification gate — GREEN / FAILED / BLOCKED / PENDING
+D — DONE / CURRENT / PENDING / DEFERRED
+E — DONE / CURRENT / PENDING / DEFERRED
+```
+
+B and C normally progress together. Do not rename verification as D. Do not mark the cycle fully closed merely because implementation and tests passed if D/E remain pending.
 
 Update at **meaningful progression points**, not after every message. Preserve the engineering path with enough fidelity that a future reader can understand how the responsibility reached its current state, including as relevant:
 
