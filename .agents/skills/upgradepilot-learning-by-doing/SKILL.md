@@ -5,6 +5,15 @@ description: Apply UpgradePilot's Learning-by-Doing overlay during substantive r
 
 # UpgradePilot Learning by Doing
 
+## **Smart Situational Override Rule**
+
+All project-local MUST/REQUIRED/DO NOT/NEVER/STOP/gate/order/default language in this Skill is applied under the **Smart Situational Override Rule** from root `AGENTS.md`.
+
+It may adapt the canonical A/B/C/D/E cadence, gate timing, slice size, teaching depth, or evidence route when the situation genuinely requires it; any material override must be explicit and preserved in the coherent cycle record. It cannot override authorization or evidence truth.
+
+A material override must identify the circumstance, the normal rule being displaced, why the override is better for the current responsibility, its proof/risk/learning/ownership effect, and any reconciliation needed afterward. The rule never authorizes false evidence claims or overrides higher-authority safety/legal/platform constraints or Ali's current explicit authorization boundary.
+
+
 Use this Skill to **operationalize** the project-wide Learning-by-Doing method during real UpgradePilot work.
 
 **Skill provenance marker:** `UP-SKILL:upgradepilot-learning-by-doing`
