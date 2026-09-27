@@ -64,6 +64,40 @@ real product responsibility / real question / real failure
 
 The loop is sequential as a reasoning model, but **material-state preservation may happen progressively before, during, or after a bounded slice** when losing the state would harm reasoning recovery, proof, continuation, or handoff. The closing preservation step means “ensure the correct owners are up to date,” not “wait until the end before recording anything.” Do not turn this into continuous logging: no memory/update is required after every command, edit, or intermediate thought.
 
+### 2.1 Canonical A → B → C → D → E cadence
+
+Root `AGENTS.md` owns the canonical phase labels. Apply them operationally as:
+
+```text
+A — orient/teach before real work
+    ↓
+understanding gate — STOP before B
+    Ali should understand the coming responsibility, why it matters, the important
+    flow/files/types/evidence, and the expected result/proof boundary.
+
+B — perform the real bounded action
++
+C — preserve meaningful progression while B evolves
+    B and C normally happen together; do not insert a ceremonial stop between them.
+
+    ↓
+verification / evidence gate — not a canonical phase
+    For Build work, execute the focused/relevant tests and broader proof justified by
+    the responsibility. For other operations, inspect the equivalent strongest evidence.
+    Failed/unavailable proof keeps the responsibility in B+C/diagnosis or explicit proof debt.
+
+D — post-implementation learning / ownership check
+    Teach from the actual sufficiently evidenced result and check Ali's ability to reason
+    about responsibility, flow, proof/non-proof, decisions, failure modes and changed cases.
+
+E — use D answers to repair central gaps and orient the next bounded slice
+    Then stop; the next substantive slice starts again at A and its understanding gate.
+```
+
+For a substantive cycle where working memory is warranted, keep **one coherent cycle working-memory record** that tracks A/B/C, the verification gate, D, E, and the cycle handoff. The same record should evolve while B+C proceed and later receive verification/learning/gap-repair evidence. Do not create competing phase-status records for one cycle. Plan, ADR, specification, source/test and `MEMORY.md` owners remain separate and change only when their own responsibility changes.
+
+The A understanding gate is not a demand for implementation-detail recall before implementation. It is a deliberate stop so Ali can confirm, explain, question, or challenge what the next real action will do and what it is expected to prove.
+
 The unit of work is a real product responsibility, design decision, source mechanism, failure, or evidence problem—not a detached technology topic.
 
 Learning-by-Doing does **not** require every operation to contain coding. It applies equally when the real work is planning, architecture/design, auditing, reading source, debugging, testing, interpreting evidence, or implementing.
