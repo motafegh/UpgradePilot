@@ -928,7 +928,66 @@ Demand-driven composition should preserve the earliest material blocker rather t
 
 
 ### R3.5 — optional Route-B seam
-Define interface compatibility only; do not select new output acquisition without real pressure.
+
+**AGREED DESIGN DIRECTION:** preserve Route B as a sibling evidence path with compatible scope/time/provenance fields, but do not create a common base-class hierarchy or output-acquisition subsystem merely for symmetry.
+
+First low-acquisition Route-B family:
+
+```text
+resolved Python interpreter/environment
++ target-owned self-verifying importlib.metadata.version(...) predicate
++ expected version positively tied to DependencyVersionChange.proposed_version
++ explicit nonzero mismatch behavior
++ exact successful command execution
+→ DirectDistributionVersionObservation
+```
+
+Candidate sibling result, names/schema not final:
+
+```text
+DirectDistributionVersionObservation
+  normalized_package
+  observed_version
+  interpreter/environment observation scope
+  workflow/revision/job/step/command identity
+  observation_boundary = direct_observation
+  observation_method = importlib_metadata
+  ExactCommandExecutionAssessment
+  limitations
+```
+
+Compatibility invariant between Route A and Route B:
+
+Both witnesses must make these dimensions recoverable:
+- exact normalized distribution/package identity;
+- exact version;
+- package-state/environment or inspection scope;
+- exact workflow/runtime occurrence provenance;
+- observation boundary/time semantics;
+- proof route/method;
+- explicit claim limitations.
+
+Do not force both witnesses to use one identical “destination” type:
+- Route A proves satisfaction in a manager environment/destination at command completion;
+- Route B observes distribution metadata through a specific interpreter's metadata-discovery scope.
+
+Their scopes can later be related when a downstream proposition requires it, but they are not automatically identical.
+
+No new stdout/log/artifact acquisition is selected in R3. The self-verifying command family can reuse R3.1 exact-command execution evidence because successful exit already encodes the predicate. Structured `pip inspect`, `pip list --format=json`, uv inventories, logs, or uploaded artifacts remain future adapters only if real evidence/action value justifies them.
+
+A common protocol/union over Route-A and Route-B witnesses may be introduced in R4 only if a real consumer benefits from handling both uniformly. Do not add one solely for type elegance.
+
+Later-use composition remains downstream:
+```text
+state witness
++ ordering
++ same relevant package-state scope
++ material continuity/non-mutation
++ supported changed-package consumption
+→ later-use proposition
+```
+
+R3 does not design a universal continuity engine here.
 
 ### R3.6 — closure
 Verify every first-boundary proposition has one owner/producer/consumer path, unresolved edges are expressive, and no R2 semantic case has been silently widened or dropped.
