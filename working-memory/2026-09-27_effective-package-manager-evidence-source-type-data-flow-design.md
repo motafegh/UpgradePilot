@@ -1,6 +1,6 @@
 # Effective Package-Manager Semantics — Evidence Source, Type, and Data-Flow Design — 2026-09-27
 
-**Status:** ACTIVE R3 Planning/Design + Learning-by-Doing record; semantic scope is inherited from the closed R2 supported-boundary design. This record does **not** authorize Build/Implement and does not reopen R2 unless concrete source/evidence exposes a contradiction.
+**Status:** CLOSED R3 Evidence Source, Type, and Data-Flow Design. The semantic scope is inherited from the closed R2 supported-boundary design. This closure does **not** authorize Build/Implement; it hands off to R4 implementation/proof-sequence planning.
 
 **Live owner:** `MEMORY.md`  
 **Semantic boundary owner:** `working-memory/2026-09-24_effective-package-manager-semantics-system-design.md`  
@@ -499,7 +499,7 @@ It must **not** claim:
 - compatibility;
 - maintainer-action permission.
 
-**Open design decision R3-C:** select the correct module/owner for this composition. Current evidence suggests a CI/dependency-state composition owner above dependency semantics and runtime execution, rather than inflating `dependency/pip_command.py` or `ci/dependency_exercise.py`.
+**R3-C resolved:** the command-derived requirement-state proposition belongs to a focused CI/runtime dependency-state composition owner above dependency semantics and exact execution evidence. Do not inflate `dependency/pip_command.py`, `workflow_runtime_correlation.py`, or the existing CI coverage/exercise result with this stronger meaning.
 
 ## 6. First Route-A data-flow map
 
@@ -570,8 +570,7 @@ Decide/refine the reusable public exact-command execution fact and how existing 
 
 ### R3.2 — package-manager semantic fact model
 
-**CURRENT R3 DECISION:** design the dependency-owned semantic fact representation and shared provenance model now that reusable execution ownership is separated.
-Design shared provenance and the independent facts for:
+**CLOSED:** four independent typed semantic facts share one bounded demand-driven provenance model with explicit semantic problems. The selected facts are:
 - manager environment;
 - destination/scheme;
 - installing/direct-requirement semantics.
@@ -990,7 +989,78 @@ state witness
 R3 does not design a universal continuity engine here.
 
 ### R3.6 — closure
-Verify every first-boundary proposition has one owner/producer/consumer path, unresolved edges are expressive, and no R2 semantic case has been silently widened or dropped.
+
+**R3 PASS — producer/type/consumer paths are now explicit enough for R4.**
+
+First Route-A proof ownership:
+
+```text
+DependencyVersionChange
+  owner: dependency/change.py
+        |
+RequirementsFileDependencyContext
++ StaticDependencyConsumptionEvidence
+  owners: dependency/environment.py
+          dependency/direct_install.py
+          ci/workflow_commands.py
+          ci/consumption.py
+        |
+StaticCommandOccurrence / StaticCommandLocation
+  owner: github/workflow_command_analysis.py
+         github/workflow_command_location.py
+        |
+        +---------------- execution branch ----------------+
+        |                                                  |
+        |  WorkflowRuntimeStepCorrelation                  |
+        |    owner: ci/workflow_runtime_correlation.py      |
+        |          ↓                                       |
+        |  CorrelatedStepExecutionAssessment               |
+        |          ↓                                       |
+        |  ExactCommandExecutionAssessment                 |
+        |    owner: reusable CI runtime-execution layer     |
+        |                                                  |
+        +---------------- semantics branch ----------------+
+        |                                                  |
+        |  PackageManagerOperationDeclaration              |
+        |          ↓                                       |
+        |  ExecutableSelectionEvidence                     |
+        |  ProcessEnvironmentValueEvidence                 |
+        |  PackageManagerConfigSettingEvidence             |
+        |  manager-default semantic contract               |
+        |          ↓                                       |
+        |  ManagerEnvironmentSelectionFact                 |
+        |  InstallationDestinationFact                     |
+        |  PackageMutationModeFact                         |
+        |  DirectRequirementHandlingFact                   |
+        |    owner: dependency/package-manager semantics    |
+        |                                                  |
+        +----------------------+---------------------------+
+                               |
+                               v
+             RequirementSatisfiedAtCommandCompletion
+             owner: focused CI/runtime dependency-state
+                    composition layer
+```
+
+R3 preserves explicit unresolved edges rather than weakening them:
+- unresolved exact executable/environment ownership;
+- unresolved exact-process environment value;
+- unresolved persistent config needed by a material dimension;
+- unresolved/default destination because a higher source is not ruled out;
+- unsupported shell/control-flow reachability;
+- unsuccessful/masked/unresolved runtime execution;
+- unsupported retargeted destination family.
+
+No R2 semantic family was silently widened. Recognized/deferred cases remain recognized/deferred, and Route B remains an optional sibling seam rather than a mandatory first-slice producer.
+
+The following are implementation-shape details for R4, not open R3 architecture:
+- final class/function names;
+- exact new module filenames;
+- whether a small public aggregate wraps per-command state witnesses;
+- exact migration sequence out of private runtime-strengthening helpers;
+- which bounded env/config producers are implemented in the first Build slice based on representative real-case pressure.
+
+**R3 handoff to R4:** turn this evidence architecture into an ordered implementation/proof plan, reconcile the controlling runtime dependency-state plan only where this concrete architecture changes execution sequencing, define focused/integration/real-case verification, and stop for explicit Build authorization before source mutation.
 
 ## 9. R3 stop line
 
