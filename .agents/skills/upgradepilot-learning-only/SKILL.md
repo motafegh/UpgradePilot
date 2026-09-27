@@ -5,6 +5,15 @@ description: Run standalone UpgradePilot learning/mastery sessions with product 
 
 # UpgradePilot Learning Only
 
+## **Smart Situational Override Rule**
+
+All project-local MUST/REQUIRED/DO NOT/NEVER/STOP/gate/order/default language in this Skill is applied under the **Smart Situational Override Rule** from root `AGENTS.md`.
+
+It may adapt teaching sequence, depth, examples, retrieval, and prerequisite repair, but it cannot resume product/source/test mutation while Ali's current explicit mode remains Learning-Only. A mode change requires Ali's instruction.
+
+A material override must identify the circumstance, the normal rule being displaced, why the override is better for the current responsibility, its proof/risk/learning/ownership effect, and any reconciliation needed afterward. The rule never authorizes false evidence claims or overrides higher-authority safety/legal/platform constraints or Ali's current explicit authorization boundary.
+
+
 Use this Skill as the reusable procedure for **Learning-Only** work: sessions where the selected responsibility is understanding/mastery and product mutation is paused.
 
 **Skill provenance marker:** `UP-SKILL:upgradepilot-learning-only`
