@@ -69,9 +69,11 @@ def correlate_workflow_runtime(
     """Correlate the first admitted ordinary static workflow class to runtime evidence.
 
     Positive correlation requires an exact static/run revision match, ordinary non-strategy
-    steps jobs with unique literal names, an exact static/runtime job-name bijection, and
-    unique literal static step names that appear once and in order within each runtime job.
-    Runtime-only setup/post/completion steps are allowed between those user-declared steps.
+    steps jobs with unique literal job names, an exact static/runtime job-name bijection, and
+    deterministic user-step display identities that appear once and in order within each
+    runtime job. Explicit literal step names are used directly; admitted unnamed steps use
+    GitHub Runner's provider-defined display-name rule. Runtime-only setup/post/completion
+    steps are allowed between those user-declared steps.
     """
 
     if source.revision != run.head_sha:
@@ -188,28 +190,9 @@ def _correlate_job_steps(
                 ),
             )
         assert isinstance(step, (RunStepDefinition, UsesStepDefinition))
-        if step.name is None:
-            return _unresolved(
-                "static_step_name_missing",
-                (
-                    f"Job {static_job.key!r} step {step.source_index} has no explicit "
-                    "display name for bounded correlation."
-                ),
-            )
-        if step.name.contains_expression:
-            return _unresolved(
-                "static_step_name_dynamic",
-                (
-                    f"Job {static_job.key!r} step {step.source_index} has a dynamic "
-                    "display name that cannot be matched literally."
-                ),
-            )
-        step_name = step.name.text
-        if not step_name.strip():
-            return _unresolved(
-                "static_step_name_empty",
-                f"Job {static_job.key!r} step {step.source_index} has an empty display name.",
-            )
+        step_name = _static_step_runtime_display_name(static_job.key, step)
+        if isinstance(step_name, WorkflowRuntimeCorrelationResult):
+            return step_name
         static_steps.append(step)
         static_step_names.append(step_name)
 
@@ -285,6 +268,92 @@ def _correlate_job_steps(
         )
 
     return tuple(correlations)
+
+
+def _static_step_runtime_display_name(
+    job_key: str,
+    step: CorrelatableWorkflowStep,
+) -> str | WorkflowRuntimeCorrelationResult:
+    """Return the runtime display identity GitHub Runner assigns to one admitted step."""
+
+    if step.name is not None:
+        if step.name.contains_expression:
+            return _unresolved(
+                "static_step_name_dynamic",
+                (
+                    f"Job {job_key!r} step {step.source_index} has a dynamic display name "
+                    "that cannot be matched literally."
+                ),
+            )
+        if not step.name.text.strip():
+            return _unresolved(
+                "static_step_name_empty",
+                f"Job {job_key!r} step {step.source_index} has an empty display name.",
+            )
+        return step.name.text
+
+    if isinstance(step, RunStepDefinition):
+        if step.command.contains_expression:
+            return _unresolved(
+                "unnamed_run_step_display_name_dynamic",
+                (
+                    f"Job {job_key!r} step {step.source_index} omits name and its run "
+                    "command contains an expression, so the runner-derived display name "
+                    "cannot be predicted literally."
+                ),
+            )
+        payload = _runner_display_payload(step.command.text)
+        if not payload:
+            return _unresolved(
+                "unnamed_run_step_display_name_empty",
+                (
+                    f"Job {job_key!r} step {step.source_index} omits name and its run "
+                    "command has no non-empty first line for runner display-name identity."
+                ),
+            )
+        return f"Run {payload}"
+
+    if step.reference.contains_expression:
+        return _unresolved(
+            "unnamed_uses_step_display_name_dynamic",
+            (
+                f"Job {job_key!r} step {step.source_index} omits name and its uses "
+                "reference is dynamic, so the runner-derived display name cannot be "
+                "predicted literally."
+            ),
+        )
+
+    reference = step.reference.text
+    if reference.startswith("docker://"):
+        return _unresolved(
+            "unnamed_container_step_display_name_unsupported",
+            (
+                f"Job {job_key!r} step {step.source_index} uses an unnamed container "
+                "action whose runner display identity is outside the first bounded "
+                "repository-action correlation class."
+            ),
+        )
+
+    payload = _runner_display_payload(reference)
+    if not payload:
+        return _unresolved(
+            "unnamed_uses_step_display_name_empty",
+            (
+                f"Job {job_key!r} step {step.source_index} omits name and its uses "
+                "reference cannot produce a non-empty runner display identity."
+            ),
+        )
+    return f"Run {payload}"
+
+
+def _runner_display_payload(value: str) -> str:
+    """Mirror GitHub Runner FormatStepName payload trimming for literal values."""
+
+    result = value.lstrip(" \t\r\n")
+    newline_positions = [position for position in (result.find("\r"), result.find("\n")) if position >= 0]
+    if newline_positions:
+        result = result[: min(newline_positions)]
+    return result
 
 
 def _first_duplicate(values: Sequence[str]) -> str | None:
