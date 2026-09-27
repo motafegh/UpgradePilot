@@ -60,6 +60,66 @@ When a substantive primary responsibility and its operation procedure are alread
 
 If a material condition appears during a Learning-by-Doing child step, re-evaluate the primary operation's conditional route before continuing materially. Do not let the teaching overlay hide an environment, security, proof, owner, or operation boundary that the primary procedure would have recognized.
 
+## Canonical A → B → C → D → E execution contract
+
+Root `AGENTS.md` owns the canonical phase meanings. This Skill operationalizes them with the following mandatory default cadence for a substantive cycle:
+
+```text
+A — pre-implementation learning/orientation
+    → use Procedure steps 1–4 proportionately
+    → STOP at the understanding gate
+    → Ali should understand what B will do, why, the important files/types/evidence/flow,
+      and the expected result/proof boundary before B starts
+
+B — real bounded action
++
+C — progressive state preservation
+    → execute together
+    → perform the selected primary operation while updating one coherent cycle working-memory
+      record at meaningful progression points
+    → do not create an artificial B/C stop
+
+Verification / evidence gate — not a canonical phase
+    → after the B+C result exists, run/inspect the focused and broader proof justified by
+      the primary responsibility
+    → failure or unavailable proof returns to B+C/diagnosis or remains explicit proof debt
+    → do not advance to D by treating verification itself as D
+
+D — post-implementation learning / ownership check
+    → teach from the actual built/discovered **and sufficiently evidenced** result
+    → use real source, control/data/evidence flow, tests, decisions, failures and proof limits
+    → ask a small number of meaningful open-ended ownership questions
+
+E — gap repair + next-slice orientation
+    → use Ali's D answers to repair central reasoning/ownership gaps at minimum useful depth
+    → explain the next bounded slice and its key problem/proof boundary
+    → stop before the next slice's B; the next cycle begins again at A
+```
+
+### Understanding gate after A
+
+Do not silently combine a substantive A and B into one uninterrupted implementation progression. After the minimum-complete orientation and meaningful reasoning point, **stop** and give Ali room to confirm, explain back, question, challenge, or correct what the upcoming B will do.
+
+The gate is about decision-relevant understanding, not ceremonial approval. Do not require Ali to reproduce implementation details that have not been built yet, but do make sure the coming responsibility and proof boundary are understandable before action.
+
+### One coherent cycle working-memory record
+
+When working memory is warranted for a substantive cycle, use **one coherent cycle record** as the detailed owner of that cycle's progression:
+
+```text
+Cycle <responsibility>
+A — ...
+B — ...
+C — ...
+Verification gate — ...
+D — ...
+E — ...
+```
+
+B and C updates belong in that record as the work evolves. Verification evidence, D ownership findings, E gap repair, and the cycle handoff remain in the same record. Do not split one cycle into competing phase-status working memories merely because implementation, verification, and learning occur at different times.
+
+Plan/ADR/specification owners remain separate and change only when their own responsibility changes. `MEMORY.md` changes only when the canonical live position, blocker/deferral, selected continuation, or meaningful milestone changes.
+
 ## Procedure
 
 ### 1. Identify the real responsibility and primary operation
@@ -164,6 +224,8 @@ If Ali challenges the premise, stop advancing that local proposition and evaluat
 
 ### 5. Perform the real bounded action
 
+This is the core of canonical **B**, executed together with canonical **C — progressive state preservation**.
+
 Proceed according to the **primary operation's** authorization and procedure.
 
 Learning-by-Doing must not turn implementation into a lecture, turn review into implementation, or turn planning into unauthorized building.
@@ -182,6 +244,8 @@ one evidence interpretation step
 A small action inside an already-established substantive responsibility is a child step, not automatically a new operation. Preserve the inherited route unless the evidence shows that the responsibility or another material routing condition has changed.
 
 ### 6. Inspect actual evidence and correct the model
+
+For the completed B+C result, this step supplies the **verification / evidence gate before canonical D**. It is not itself D.
 
 After a meaningful action, inspect the strongest available evidence appropriate to the claim.
 
@@ -204,6 +268,8 @@ For a material source-ownership block, connect the executable responsibility to 
 If the evidence introduces a new environment/topology, security/trust, canonical-semantics, proof, or independent-operation condition, follow the primary operation's conditional route before the next material action.
 
 ### 7. Transfer ownership proportionately
+
+This is the central procedure for canonical **D — post-implementation learning / ownership check** after the verification/evidence gate is sufficiently green.
 
 Use the assistance-fading model in `OPERATING_GUIDE.md` for the specific responsibility.
 
@@ -279,6 +345,8 @@ These are ownership/transfer reflections, not mandatory new cycle stages. Skip o
 
 ### 8. Backtrack and repair prerequisites locally
 
+Prerequisite repair may occur whenever needed. During canonical **E**, use Ali's D answers to identify the central gaps that actually need repair before orienting the next slice.
+
 Ali may interrupt, question, or backtrack at any point.
 
 When a prerequisite gap appears:
@@ -294,6 +362,30 @@ identify exact missing link
 Do not silently let prerequisite repair become a new course or project route.
 
 If prerequisite repair exposes a genuinely new substantive operation responsibility rather than a local learning gap, re-route through the applicable primary procedure instead of stretching Learning-by-Doing to own it.
+
+### 9. Complete canonical E and orient the next slice
+
+After D's ownership questions, use Ali's answers and the actual evidence to distinguish:
+
+```text
+central gap that blocks current responsibility ownership
+→ repair now at minimum useful depth
+
+incidental syntax/API detail
+→ keep operational / recognize-and-lookup level
+
+real but later depth
+→ defer deliberately
+```
+
+Then briefly orient the next coherent slice:
+
+- what problem/capability comes next;
+- why it is next in the accepted product/evidence sequence;
+- what we expect to add, solve, or clarify;
+- the key decision/proof boundary Ali should understand before the next B.
+
+Do **not** silently start that next slice's B. The next substantive slice begins again with canonical A and its understanding gate.
 
 ## Composition with primary operations
 
