@@ -122,7 +122,7 @@ The loop is adaptive rather than rigid:
 - tiny familiar/repetitive child steps may compress A/D/E heavily while preserving the intent;
 - a new architecture boundary, proof model, failure mechanism, or consequential implementation may need a deeper D stage;
 - if Ali explicitly asks to pause implementation and learn, obey the Learning-Only boundary instead of forcing B;
-- if local/runtime proof cannot be executed now, complete the loop for what was actually established, record the proof debt in C, and later treat the deferred validation/result as its own bounded evidence step rather than pretending B was executable-proven.
+- if the required verification/evidence gate cannot be executed now, keep the cycle at B+C / the verification gate, record the proof debt in C, and pause if needed. Later validation resumes that same cycle gate; advance to D only after the result is sufficiently evidenced. Never rename missing proof as successful completion.
 
 ### Product-responsibility balance and plan challenge
 
