@@ -5,6 +5,15 @@ description: Maintain UpgradePilot session working memory as a compact support w
 
 # UpgradePilot Working Memory
 
+## **Smart Situational Override Rule**
+
+All project-local MUST/REQUIRED/DO NOT/NEVER/STOP/gate/order/default language in this Skill is applied under the **Smart Situational Override Rule** from root `AGENTS.md`.
+
+It may adapt record structure, update cadence, level of detail, and record boundaries when that better preserves the engineering story, but it cannot redefine canonical owners, authorization, or implementation truth.
+
+A material override must identify the circumstance, the normal rule being displaced, why the override is better for the current responsibility, its proof/risk/learning/ownership effect, and any reconciliation needed afterward. The rule never authorizes false evidence claims or overrides higher-authority safety/legal/platform constraints or Ali's current explicit authorization boundary.
+
+
 Use this Skill as the compact **support/composition procedure** for `working-memory/`.
 
 **Skill provenance marker:** `UP-SKILL:upgradepilot-working-memory`
