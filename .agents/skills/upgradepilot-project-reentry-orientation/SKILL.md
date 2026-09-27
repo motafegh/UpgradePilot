@@ -5,6 +5,15 @@ description: Re-orient Ali to the current UpgradePilot responsibility after a br
 
 # UpgradePilot Project Re-entry Orientation
 
+## **Smart Situational Override Rule**
+
+All project-local MUST/REQUIRED/DO NOT/NEVER/STOP/gate/order/default language in this Skill is applied under the **Smart Situational Override Rule** from root `AGENTS.md`.
+
+It may expand, shrink, reorder, or skip orientation/retrieval steps based on what is actually needed to regain a trustworthy project model, while preserving authority and evidence truth.
+
+A material override must identify the circumstance, the normal rule being displaced, why the override is better for the current responsibility, its proof/risk/learning/ownership effect, and any reconciliation needed afterward. The rule never authorizes false evidence claims or overrides higher-authority safety/legal/platform constraints or Ali's current explicit authorization boundary.
+
+
 Use this Skill as the compact **support/composition procedure** for returning Ali to meaningful UpgradePilot work with the smallest accurate current context.
 
 **Skill provenance marker:** `UP-SKILL:upgradepilot-project-reentry-orientation`
