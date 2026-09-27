@@ -669,6 +669,147 @@ A checkpoint may collapse or disappear when earlier evidence makes it unnecessar
 - **Step-local `env: PATH` versus accumulated `GITHUB_PATH` is now provider-resolved for the normal script-step case (2026-09-26):** GitHub runner evaluates job/workflow environment into `Global.EnvironmentVariables`, merges step `env` into the step environment, then `ScriptHandler.AddPrependPathToEnvironment` constructs the launched script PATH by prepending the accumulated `Global.PrependPath` state above that environment PATH baseline. Therefore a literal step-level `env: PATH: ...` does **not by itself erase** previously accumulated `setup-python`/`GITHUB_PATH` entries; those prepend entries remain earlier in the launched script PATH. A shell-local PATH assignment/export executed inside the script occurs later and can still supersede executable selection for the exact `pip` process. Keep this rule bounded to the admitted normal GitHub script-step/provider path; container/custom execution shapes require their own evidence if later activated.
 - **Current UpgradePilot representation gap exposed by that rule:** `src/upgradepilot/github/workflow_definition.py` currently does not preserve workflow-, job-, or step-level `env:` mappings in `WorkflowDefinition`, `StepsJobDefinition`, `RunStepDefinition`, or `UsesStepDefinition`; the parser's material-field sets omit `env`. The provider semantics are therefore understood, but current product evidence cannot yet express those declarative environment facts through this bounded IR. This is an evidence-source/type responsibility to carry into R3 if the selected supported boundary requires declarative env resolution; do not patch the parser during R2 merely because the gap is visible.
 
+## September 27 — R2 supported-boundary closure and R3 handoff
+
+**Status: R2 SUPPORTED SUBSYSTEM BOUNDARY DESIGN CLOSED.** This closes semantic-boundary selection only. It does not select final data structures, authorize Build, close the controlling runtime dependency-state engineering cycle, or select the conditional explicit-runtime-state cycle.
+
+### Supported first boundary
+
+The coherent first subsystem may positively reason about the following when all claim-relative premises are established:
+
+1. **Interpreter / manager-environment identity**
+   - literal `python -m pip` and supported explicit-interpreter `-m pip`;
+   - positively resolved bare `pip` via supported executable/PATH provenance;
+   - pip explicit `--python`;
+   - uv explicit `--python`, `--system`, and positively established default virtual-environment discovery;
+   - normal `actions/setup-python` PATH selection and bounded CPython venv activation relations.
+
+2. **Final installation destination/scheme**
+   - normal selected-environment scheme when higher-precedence retargeting is positively ruled out;
+   - pip/uv explicit `--target`;
+   - recognized scheme/root modifiers participate as defeaters/alternate destinations when effective.
+
+3. **Effective semantic dimensions**
+   - demand-driven precedence per required dimension:
+     `CLI > effective process environment > applicable persistent configuration > manager default`;
+   - effective dry-run/non-installing behavior;
+   - direct-requirement handling and claim-relative exclusion semantics;
+   - manager environment and destination selection;
+   - only starting-state/update semantics actually required by the chosen proof family.
+
+4. **Command-Derived Requirement-State Proof**
+   - first positive family: exact pinned requirements-file pip install into a positively resolved normal Python environment/destination, effective non-dry-run/direct-requirement semantics, and exact unmasked successful execution;
+   - claim: exact proposed requirement is satisfied in that environment at exact command completion;
+   - no claim of fresh-install causality, artifact identity, later persistence/use, compatibility, or maintainer action.
+
+5. **Optional Direct Target-Owned Package-State Observation**
+   - first low-acquisition family: bounded self-verifying `importlib.metadata.version(...)` predicate with positively resolved expected proposed version, interpreter/environment identity, explicit failure semantics, and exact successful execution;
+   - structured `pip inspect`/inventory outputs remain strong conditional sources when target-owned output acquisition is later justified;
+   - Route B is independent and never mandatory for a Route-A claim already proven at its own boundary.
+
+6. **Later-time / actual-use composition**
+   - only for a downstream claim that crosses the state-witness boundary: positive ordering, same relevant package-state scope, demand-driven continuity across material mutations, and supported changed-package consumption/invocation.
+
+### Recognized but not first positive family
+
+Preserve semantics and fail closed without making these the first implementation target:
+
+- pip `--user`: common material user-scheme selector, but positive final-state proof requires user-scheme/environment and starting-state premises;
+- pip/uv `--prefix`: explicit prefix scheme but weak Python-environment identity and lower current product pressure;
+- pip `--root` / `PIP_ROOT`: material destination-root modifier/defeater, not a first positive family;
+- plain optimized-sensitive Python `assert` state checks unless `-O` / `PYTHONOPTIMIZE` semantics are positively resolved;
+- generic structured inventories/logs requiring new output acquisition;
+- broader uv/pip option surfaces that do not materially change the selected package-state proposition.
+
+### Reasoned unresolved by design
+
+Keep these as explicit evidence gaps rather than guessing:
+
+- ambient bare `pip` with no positive executable/environment provenance;
+- dynamic/opaque/conflicting interpreter, PATH, destination, config, or process-environment relations;
+- defaults hidden behind an unresolved higher-precedence source;
+- arbitrary third-party action PATH/environment mutation not positively modeled when material;
+- arbitrary sourced activation scripts or custom environment builders without admitted semantics;
+- general shell control flow beyond the bounded sequential/fall-through contracts;
+- cross-job/reusable-workflow environment equality without explicit proof;
+- later persistence/use with unresolved material mutation or consumer-environment relation;
+- distribution-metadata presence being treated as equivalent to import-package identity or behavior.
+
+### Deferred until real evidence/action value activates it
+
+Do not include these in the first Build merely for completeness:
+
+- generic job-log parsing;
+- general workflow artifact inventory acquisition;
+- universal pip/uv configuration reconstruction;
+- arbitrary runner/environment inventory;
+- generic shell/PATH simulator;
+- full Python-code semantic analysis;
+- all uv/pip option combinations;
+- general no-mutation proof across every command;
+- maintainer-performable package-state checks as a product action;
+- wider Route-B producers when Route A already answers the selected normal claim.
+
+### Controlling-plan stop-condition check
+
+The controlling Runtime Dependency-State Proof plan requires one bounded positive command family with a precise source-backed contract from exact dependency source + package-manager semantics + exact successful runtime correlation to proposed-version presence/satisfaction at command completion, while material non-installing/retargeted/dynamic cases remain distinguishable.
+
+**R2 now provides that contract.** Therefore:
+
+- semantic exploration must stop unless contradictory evidence appears;
+- the conditional explicit target-owned runtime-state cycle is **not selected now**, because Route A is sufficient for the first normal bounded proof;
+- Route B remains a preserved optional capability seam, not an active new cycle;
+- the controlling engineering cycle itself is **not yet complete**, because concrete evidence/type design, implementation planning, Build authorization, implementation, and real-case verification still remain.
+
+### R3 — exact Evidence Source, Type, and Data-Flow responsibilities
+
+R3 should design only the concrete representations and producer/consumer flow required by the selected boundary, reusing existing owners. At minimum:
+
+1. **Provider/workflow evidence extensions**
+   - declarative workflow/job/step `env:` representation where required;
+   - provider-accurate unnamed-step static/runtime identity;
+   - generic unmasked correlated-step success usable by both `run:` and `uses:` semantics.
+
+2. **Environment/executable-selection evidence**
+   - bounded `setup-python` action-selection/PATH facts;
+   - bare-executable selection provenance;
+   - bounded venv creation/activation and sequential fall-through/reachability facts;
+   - compose existing effective working-directory evidence with any required separate-step continuity relation.
+
+3. **Package-manager semantic evidence**
+   - extend pip prefix recognition for supported explicit interpreter paths and global options such as `--python`;
+   - represent manager-selected environment separately from final destination/scheme;
+   - represent proof-critical effective settings and their winning provenance;
+   - bounded `uv pip install` environment/destination semantics for admitted families;
+   - bounded environment/config source adapters only when the selected first proof needs them.
+
+4. **State-proof composition**
+   - exact Route-A premise/result representation, preserving what/where/when/how-known;
+   - explicit claim limits and close-defeater/unresolved provenance;
+   - keep Route B as an independent optional interface rather than requiring its implementation in the first slice.
+
+5. **Optional Route-B seam**
+   - define a bounded self-verifying distribution-version observation interface;
+   - do not select stdout/log/artifact acquisition unless R4/real evidence justifies it.
+
+6. **Explainable uncertainty**
+   - preserve separately evidence assessment, expressive missing-edge reason/provenance, investigation disposition/capability, and maintainer-action decision;
+   - derive concrete reasons from the selected producer/type graph instead of inventing an exhaustive taxonomy.
+
+### R3 stop line
+
+R3 must answer:
+
+```text
+which existing/new producer owns each admitted fact?
+→ what exact typed fact does it emit?
+→ what provenance/time/scope does it preserve?
+→ which consumer combines it?
+→ what unresolved edge is retained when proof cannot close?
+```
+
+It must **not** implement product behavior, reopen R2 semantics, or expand the supported case catalog merely because a type could represent more.
+
 ## September 27 — Direct Target-Owned Package-State Observation and later-use boundary
 
 **Status: AGREED R2 checkpoint-6 boundary; Route B remains optional/conditional, not a mandatory second gate after Route A. Exact producer/types/acquisition remain R3/R4+ and no Build is authorized.**
