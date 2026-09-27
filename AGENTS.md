@@ -1,5 +1,56 @@
 # Agent Instructions — UpgradePilot
 
+## **Smart Situational Override Rule**
+
+**Smart Situational Override Rule** is UpgradePilot's project-wide meta-rule for applying every project-local procedure, gate, plan, Skill, phase order, stop line, scope boundary, default, and coordination rule **smartly according to the actual situation**.
+
+Project-local rules are controls for good engineering judgment, not substitutes for it. When current evidence, product responsibility, risk, complexity, learning state, proof needs, new information, or another material circumstance makes the normal route worse than a justified alternative, deliberately adapt the route.
+
+Depending on the situation, a justified override may:
+
+```text
+expand or shrink a slice
+→ combine or split responsibilities
+→ reorder or skip a procedural step
+→ pause or resume a phase differently
+→ change the depth of learning/review/testing
+→ replace a planned mechanism with a better one
+→ cross an ordinary project-local STOP/gate when the normal reason for that gate is not served
+→ return to an earlier owner/phase when new evidence requires it
+```
+
+The rule is **not** permission for arbitrary convenience or silent drift. Before a material override, establish proportionately:
+
+```text
+current circumstance / evidence
+→ normal rule or route
+→ why following it literally is now worse, unsafe, misleading, wasteful, or less product-faithful
+→ chosen override
+→ effect on scope / proof / risk / learning / ownership
+→ what must be recorded or reconciled afterward
+```
+
+When the override is material, state it explicitly and preserve it in the active coherent cycle working memory or other correct owner. Temporary emergency/exception handling must be reconciled with the canonical owner once the immediate circumstance is resolved.
+
+### Non-overridable boundary of this rule
+
+**Smart Situational Override Rule** applies to **UpgradePilot project-local process and coordination rules**. It does **not** grant authority to override:
+
+- safety, legal, privacy, credential, financial, health, cost, or platform constraints;
+- Ali's current explicit instruction or authorization boundary;
+- a higher-authority instruction outside this repository;
+- evidence truthfulness: unknown/unverified evidence may not be relabeled as known/verified;
+- actual external-system limitations or facts;
+- destructive/external/paid/credential-sensitive authorization requirements that still apply to the chosen action.
+
+If a material situational override would change an accepted product semantic, architecture responsibility, durable plan responsibility, or authorization boundary, route/reconcile through the correct owner rather than silently treating the override as implementation detail.
+
+### Explicit reference rule for strict project-local language
+
+Unless a rule explicitly states that it is a higher-authority/non-overridable constraint, project-local words such as **MUST**, **REQUIRED**, **DO NOT**, **NEVER**, **STOP**, **GATE**, fixed phase ordering, fixed slice size, or default routing are interpreted **under the Smart Situational Override Rule**.
+
+Skills, plans, and governance sections that contain materially strict procedural language should explicitly reference **Smart Situational Override Rule** so the situational-judgment requirement is not lost when those files are read in isolation.
+
 ## Mandatory canonical Learning-by-Doing loop / cycle
 
 UpgradePilot remains a learning-by-building flagship at the project-identity level. Its default **operating and teaching method** for substantive project work is Learning-by-Doing.
@@ -12,7 +63,7 @@ Use the following cycle proportionately.
 
 ### Canonical phase gates and cadence
 
-The A → B → C → D → E labels are **learning/ownership phases**, not a generic project-management checklist. Execute them with these default gates for every substantive slice:
+The A → B → C → D → E labels are **learning/ownership phases**, not a generic project-management checklist. Execute them with these default gates for every substantive slice **under the Smart Situational Override Rule**. The canonical cadence is the normal route; a material situation may justify expanding, shrinking, combining, reordering, pausing, or overriding a gate when the reason and proof consequences are explicit.
 
 ```text
 A — PRE-IMPLEMENTATION LEARNING / ORIENTATION
@@ -180,6 +231,8 @@ Strict instruction hierarchy:
 1. safety, legal, privacy, credential, financial, health, cost, and platform constraints;
 2. Ali's explicit instruction;
 3. nearest applicable local `AGENTS.md`.
+
+Within project-local procedure below that hierarchy, apply the **Smart Situational Override Rule**. It may adapt normal gates, ordering, scope, Skills, plans, and stop lines when the situation justifies it, but it cannot create authorization that the hierarchy above does not grant.
 
 After that, route by responsibility rather than inventing a universal precedence ladder. Another artifact may add detail only inside its own responsibility; it may not silently redefine another owner's contract. If two active artifacts genuinely conflict inside one responsibility and no explicit supersession resolves it, surface the conflict.
 
