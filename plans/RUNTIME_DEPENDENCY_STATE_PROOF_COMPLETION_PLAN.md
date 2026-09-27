@@ -60,7 +60,10 @@ Reference rather than re-specify:
 - `src/upgradepilot/dependency/pip_command.py` — current pip-install prefix/argument recognition;
 - `src/upgradepilot/dependency/direct_install.py` — current requirements-source declaration observation;
 - `src/upgradepilot/dependency/environment_selection.py` — current pip/uv project-environment semantic interpretation;
-- `src/upgradepilot/ci/runtime_strengthening.py` and `ci/dependency_exercise.py` — current static-to-runtime correlation and proof boundary;
+- `src/upgradepilot/github/workflow_definition.py` and workflow command-analysis owners — current bounded workflow/run-step/provider structure;
+- `src/upgradepilot/ci/workflow_runtime_correlation.py`, `ci/runtime_strengthening.py`, and `ci/dependency_exercise.py` — current static/runtime identity and bounded execution-strengthening boundary;
+- `working-memory/2026-09-24_effective-package-manager-semantics-system-design.md` — closed supported semantic boundary;
+- `working-memory/2026-09-27_effective-package-manager-evidence-source-type-data-flow-design.md` — closed producer/type/data-flow architecture for the first Route-A proof;
 - `MEMORY.md` — sole live-position owner.
 
 This plan must not turn Tree-sitter into a pip/uv semantic engine. Shell grammar owns syntax/structure; dependency/package-manager interpretation owns command meaning.
@@ -114,6 +117,61 @@ E — close the cycle and decide whether explicit runtime-state evidence is stil
 **Cycle 1 pass condition:** one bounded positive command family has a precise, source-backed proof contract from exact dependency source through exact successful runtime execution to proposed-version presence/satisfaction at the admitted command-completion boundary, with material non-installing/retargeted/dynamic cases remaining distinguishable.
 
 **Cycle 1 stop line:** do not add job-log or explicit package-state acquisition merely because such evidence exists. If command semantics cannot establish the proposition for a decision-critical normal case, close Cycle 1 at its honest boundary and consider the conditional next cycle.
+
+#### Cycle 1 concrete implementation/proof sequence after semantic and evidence design
+
+The closed semantic-boundary and evidence/data-flow design refine Cycle 1 execution without changing its responsibility.
+
+Once Build is explicitly authorized, implement in dependency order:
+
+```text
+reusable step/command execution evidence
+→ static package-manager operation declaration
+→ bounded process/environment/config source evidence
+→ independent effective semantic facts
+→ command-derived requirement-state composer
+→ application integration
+→ focused + integration + representative real-case verification
+```
+
+Execution consequences:
+
+1. **Reusable execution evidence**
+   - preserve workflow static/runtime correlation as the identity owner;
+   - make unmasked correlated user-step success reusable for both `run:` and `uses:`;
+   - expose exact command-occurrence execution separately from step success;
+   - support provider-accurate unnamed-step identity needed by ordinary action steps;
+   - retain fail-closed handling for unsupported shell/control-flow shapes.
+
+2. **Static package-manager operation declaration**
+   - parse one pip/uv operation occurrence once from parser-neutral command evidence;
+   - preserve invocation form, command identity, and only arguments required by supported semantic adapters;
+   - do not reparse shell text downstream.
+
+3. **Bounded source evidence and effective semantics**
+   - add only provider/workflow/shell environment/executable facts required by the selected semantic dimensions;
+   - use demand-driven precedence rather than reconstructing all environment/config state;
+   - represent manager environment, installation destination, mutation/dry-run mode, and direct-requirement handling as independent facts with shared provenance;
+   - preserve unresolved higher-precedence sources rather than inferring manager defaults.
+
+4. **Command-derived state proof**
+   - compose the exact dependency transition/source applicability, semantic facts, and exact command execution into a separate command-completion state witness;
+   - do not redefine existing CI coverage/exercise states to mean package state.
+
+5. **Application integration**
+   - carry runtime dependency-state proof alongside existing CI coverage in the investigation result;
+   - do not grant maintainer-action permission or later-use/compatibility meaning under this cycle.
+
+6. **Verification**
+   - focused unit tests for every new producer/fact/composer;
+   - integration tests across the existing static workflow and runtime-correlation path;
+   - controlled positive fixtures where all material semantic sources are explicitly closed;
+   - close-defeater fixtures for dry-run, retargeting, masking, dynamic/unresolved sources, and unsupported shell shapes;
+   - representative public workflows to verify both positive evidence when premises close and truthful unresolved outcomes when ambient/config provenance cannot be established;
+   - full deterministic regression before cycle closure.
+
+**Implementation stop line:** the first Build slice does not need universal ordinary-workflow positivity. A plain-looking pip command may remain unresolved when a material higher-precedence process/config source cannot be established. Do not weaken the proof merely to raise apparent coverage; use verification evidence to decide whether another bounded producer is justified.
+
 
 ### Conditional Cycle 2 — explicit target-owned runtime-state evidence
 
@@ -284,11 +342,14 @@ When Build is later authorized for a child slice, modifications may include only
 
 Likely current owners include:
 
-- `src/upgradepilot/dependency/pip_command.py`;
-- `src/upgradepilot/dependency/direct_install.py`;
-- `src/upgradepilot/dependency/environment_selection.py`;
-- CI composition modules only if a stronger proof contract requires them;
-- GitHub acquisition only if an explicit fallback source is actually selected.
+- `src/upgradepilot/github/workflow_definition.py` and parser-neutral workflow/shell evidence needed for bounded `env`/provider relationships;
+- `src/upgradepilot/ci/workflow_runtime_correlation.py` and runtime-strengthening/execution owners;
+- `src/upgradepilot/dependency/pip_command.py` plus a focused package-manager runtime-semantics owner when that avoids overloading existing project-environment logic;
+- `src/upgradepilot/dependency/direct_install.py` and existing dependency source/applicability owners;
+- a focused CI/runtime dependency-state composition module for the stronger command-completion proposition;
+- `src/upgradepilot/investigation.py` only for normal typed-result integration.
+
+GitHub **job-log/stdout/artifact acquisition remains outside the first Route-A Build slice**. Provider/workflow-definition changes needed to model static declarations or exact runtime step identity are not fallback log acquisition and may be modified when required by the selected first-cycle evidence path.
 
 Do not modify stable action semantics, target repositories, or unrelated evidence producers under this plan without a separately surfaced design need.
 
