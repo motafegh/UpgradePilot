@@ -576,12 +576,278 @@ Design shared provenance and the independent facts for:
 - destination/scheme;
 - installing/direct-requirement semantics.
 
-### R3.3 — environment/provenance producers
+### R3.3 — concrete environment/provenance producers
 
-**CURRENT R3 DECISION:** map the minimum concrete producers needed to create the four first-boundary semantic facts above, beginning with the simplest normal `python -m pip install -r ...` Route-A case and then adding setup-python/bare-pip/venv evidence only where that case actually requires it.
-Map only the first Route-A evidence sources required to produce those facts, then add setup-python/venv/bare-pip relations in dependency order where the normal case requires them.
+**AGREED DESIGN DIRECTION:** produce the first Route-A semantic facts through a small chain of reusable owner-specific facts. Parse one package-manager occurrence once, keep provider/shell process facts manager-agnostic, and keep pip/uv precedence/meaning dependency-owned.
+
+#### A. Static package-manager operation declaration — dependency owner
+
+Current `pip_command.py` is a bounded prefix recognizer. R3 should evolve that responsibility into one reusable static package-manager operation declaration rather than making every semantic resolver inspect raw `StaticCommandAtom` sequences independently.
+
+Candidate shape, names/schema not final:
+
+```text
+PackageManagerOperationDeclaration
+  manager: pip | uv
+  operation: install
+  command_location
+  invocation_form
+  launcher/interpreter token relation
+  raw/admitted option atoms needed by semantic adapters
+```
+
+For pip, invocation forms need to distinguish at minimum:
+- bare `pip` / `pip3`;
+- `python -m pip`;
+- supported explicit interpreter path `<path>/python -m pip`;
+- effective/global `--python` manager retargeting where admitted.
+
+For uv pip, preserve uv's own launcher and target-Python selectors rather than pretending uv is Python-launched.
+
+This declaration is **static command meaning only**:
+- no runtime execution;
+- no effective env/config/default inference;
+- no package-state claim.
+
+Existing `StaticCommandLocation` remains the source identity. Do not duplicate parser source spans/order.
+
+#### B. Exact executable / interpreter selection evidence — provider/shell/CI relationship owner
+
+Package-manager semantics should not implement PATH lookup, setup-python propagation, or venv activation itself.
+
+Candidate manager-agnostic proposition:
+
+> Which executable/interpreter is positively selected for this exact command occurrence, under the admitted provider/shell model?
+
+Candidate fact family:
+
+```text
+ExecutableSelectionEvidence
+  command_location
+  executable role
+  selected executable/environment relationship
+  provenance
+  state/reason/detail
+```
+
+Positive producers may include:
+- explicit executable/interpreter path;
+- provider-backed setup-python PATH relation;
+- bounded venv activation/PATH relation;
+- bounded bare-executable selection;
+- uv `--system` PATH selection when its exact concrete interpreter identity is required.
+
+Do not require every producer to resolve to an absolute filesystem path. Preserve a stable relational identity when that is what the evidence establishes.
+
+Dependency-owned manager-environment semantics consume this evidence and turn it into `ManagerEnvironmentSelectionFact`.
+
+#### C. Exact-process environment-value evidence — provider/workflow/shell owner
+
+Package-manager-specific variables should not cause a pip-aware GitHub workflow parser.
+
+Create/query a manager-agnostic bounded proposition:
+
+> What value, if any, is positively established for environment variable `X` at this exact command process?
+
+Candidate result:
+
+```text
+ProcessEnvironmentValueEvidence
+  command_location
+  variable_name
+  state: established | absent | unresolved
+  value when established
+  provenance / override chain
+  reason/detail
+```
+
+Potential source adapters, only when demanded:
+- workflow/job/step `env:` declarations;
+- positively executed same-job `GITHUB_ENV` writes and propagation;
+- shell-local assignment/export/wrapper effects;
+- provider-established environment relationships.
+
+This evidence stops at the exact process value. It does **not** interpret `PIP_DRY_RUN`, `PIP_TARGET`, `UV_SYSTEM_PYTHON`, etc.
+
+R2's precedence distinction remains:
+
+```text
+provider/shell:
+  establish exact process env value
+
+dependency/package manager:
+  interpret that value against CLI/config/default precedence
+```
+
+If runner/ambient process environment cannot be positively ruled out for a required variable, return `unresolved`; do not synthesize absence.
+
+#### D. Persistent package-manager config evidence — dependency-owned manager adapter
+
+Persistent config discovery/precedence is manager-specific, so its interpretation belongs in the dependency/package-manager layer.
+
+Candidate query/result:
+
+```text
+PackageManagerConfigSettingEvidence
+  manager
+  semantic setting/dimension
+  state: established | absent | disabled | unresolved
+  effective persistent-config value if established
+  source file/section/key provenance when known
+  reason/detail
+```
+
+The adapter must preserve manager-specific discovery ordering and explicit config disabling/replacement semantics from R2.
+
+Important:
+- do not build universal filesystem/user-home config inventory;
+- inspect only a setting requested by a proof-critical semantic dimension;
+- if ambient user/system config cannot be positively established/ruled out and no higher source decides the dimension, keep the dimension unresolved;
+- decisive CLI or exact-process environment evidence should stop before config discovery.
+
+#### E. Manager-default adapter — dependency owner
+
+Manager defaults are not environment facts. They are admitted package-manager semantic constants used only after every higher relevant source is positively non-overriding/disabled.
+
+A default producer should be tiny and manager/version-contract scoped:
+
+```text
+manager semantic contract
++ resolved absence/non-override of higher sources
+→ default candidate
+```
+
+The shared semantic resolver records those higher-source checks in `SemanticResolutionProvenance`.
+
+Do not emit a manager-default fact merely because no visible CLI flag was found.
+
+#### F. First Route-A semantic resolvers
+
+The four R3.2 facts should be produced by dependency-owned resolvers that share the provenance engine but request only their own source inputs.
+
+##### Manager environment
+
+```text
+PackageManagerOperationDeclaration
++ ExecutableSelectionEvidence when invocation requires it
++ effective manager retargeting sources (--python / env / config)
+→ ManagerEnvironmentSelectionFact | PackageManagerSemanticProblem
+```
+
+Examples:
+- explicit interpreter `-m pip`: interpreter relationship is the baseline manager environment unless a higher effective pip `--python` retargets it;
+- bare pip: requires positive executable/environment ownership;
+- uv: uses uv-specific `--python`, `--system`, or admitted venv discovery semantics.
+
+##### Installation destination
+
+```text
+PackageManagerOperationDeclaration
++ ManagerEnvironmentSelectionFact
++ target/user/root/prefix CLI/env/config evidence
+→ InstallationDestinationFact | PackageManagerSemanticProblem
+```
+
+For the first normal family:
+- require no unresolved effective retargeter;
+- return “normal scheme of selected manager environment,” not a guessed site-packages path.
+
+##### Package mutation mode
+
+```text
+PackageManagerOperationDeclaration
++ dry-run CLI/process-env/config/default evidence
+→ PackageMutationModeFact(apply_changes | dry_run)
+  | PackageManagerSemanticProblem
+```
+
+A decisive CLI dry-run stops immediately.
+A manager-default `apply_changes` is valid only after all higher dry-run sources are positively non-overriding/disabled.
+
+##### Direct requirement handling
+
+```text
+PackageManagerOperationDeclaration
++ exact direct-requirements applicability
++ material exclusion-mode semantic evidence
++ exact command execution only when needed to discharge
+  a manager-defined incompatible-success condition
+→ DirectRequirementHandlingFact
+  | PackageManagerSemanticProblem
+```
+
+Do not make CI interpret `--only-deps` or pip option compatibility.
+
+#### G. First normal Route-A producer graph
+
+```text
+StaticCommandOccurrence
+        |
+        v
+PackageManagerOperationDeclaration
+        |
+        +--------------------+
+        |                    |
+        v                    v
+ExecutableSelection     ProcessEnvironmentValueEvidence
+        |                    |
+        |              PackageManagerConfigSettingEvidence
+        |                    |
+        |              ManagerDefault contract
+        |                    |
+        +---------+----------+
+                  |
+                  v
+       dependency-owned semantic resolvers
+          |       |       |       |
+          v       v       v       v
+       manager   destination mutation  direct
+       env fact     fact     mode    handling
+          \         |        |        /
+           \        |        |       /
+            +--------+--------+------+
+                     |
+          exact command execution
+                     |
+                     v
+          Route-A state-proof composer
+```
+
+This is a data-flow design, not a generic runtime graph engine.
+
+#### H. First-slice pressure and honest limitation
+
+For a plain-looking command such as:
+
+```text
+python -m pip install -r requirements.txt
+```
+
+R3 must not assume:
+- literal `python` identifies a package environment without executable-selection evidence;
+- dry-run is false merely because `--dry-run` is absent;
+- destination is the normal environment merely because `--target` is absent.
+
+If exact-process environment/config provenance needed for one of those dimensions is unavailable, that semantic fact remains unresolved.
+
+This may make some ordinary-looking workflows unresolved until additional bounded evidence producers are implemented or a direct state witness exists. That is consistent with R2. Real-case verification in R4+/Build will determine which admitted producers are worth implementing first; R3 should not weaken the proof to improve apparent coverage.
+
+#### I. Ownership / module direction
+
+Do not force all new responsibilities into `pip_command.py` or `environment_selection.py`.
+
+Current architectural direction:
+- existing parser/workflow owners keep syntax and static provider facts;
+- dependency/package-manager code gets a coherent runtime-operation semantics owner, potentially a new focused module/family rather than overloading project-environment selection;
+- CI gets reusable step/command execution evidence from R3.1;
+- Route-A state composition sits above both.
+
+Exact filenames/classes remain R4 implementation-planning responsibility unless a durable architecture owner/ADR is required.
+
 
 ### R3.4 — Route-A state-proof composer
+
+**CURRENT R3 DECISION:** define the final command-completion evidence result and its fail-closed composition contract now that execution evidence and semantic-fact producers have clear ownership.
 Define the bounded requirement-satisfaction result and exact fail-closed composition rules.
 
 ### R3.5 — optional Route-B seam
