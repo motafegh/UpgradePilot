@@ -847,8 +847,85 @@ Exact filenames/classes remain R4 implementation-planning responsibility unless 
 
 ### R3.4 — Route-A state-proof composer
 
-**CURRENT R3 DECISION:** define the final command-completion evidence result and its fail-closed composition contract now that execution evidence and semantic-fact producers have clear ownership.
-Define the bounded requirement-satisfaction result and exact fail-closed composition rules.
+**AGREED DESIGN DIRECTION:** keep runtime dependency-state proof separate from existing CI coverage/exercise evidence.
+
+The existing `DependencyCICoverageResult` contract stops at static dependency consumption/direct exercise plus bounded runtime execution. It must not be redefined to mean package-state satisfaction.
+
+Use a separate per-command positive witness, conceptually:
+
+```text
+RequirementSatisfiedAtCommandCompletion
+  normalized_package
+  proposed_version
+  dependency source/context identity
+  workflow/revision/job/step/StaticCommandLocation
+  ManagerEnvironmentSelectionFact
+  InstallationDestinationFact
+  PackageMutationModeFact
+  DirectRequirementHandlingFact
+  ExactCommandExecutionAssessment
+  observation_boundary = command_completion
+  proof_route = command_derived
+  limitations
+```
+
+The witness retains the typed supporting facts so their provenance remains inspectable. It proves only that the exact proposed direct requirement is satisfied in the resolved package-state scope at completion of that exact successful package-manager command.
+
+Use an explicit problem result for failed candidates, conceptually:
+
+```text
+CommandDerivedRequirementStateProblem
+  state: not_established | unresolved
+  reason
+  detail
+  exact command identity when known
+  blocking semantic dimension / producer when known
+```
+
+Examples:
+- positive dry-run -> not established for command-derived state production;
+- known unsupported destination family -> not established for the first normal-scheme proof;
+- unresolved process-env/config input -> unresolved;
+- runtime command not successful -> not established;
+- exact execution relation unresolved -> unresolved.
+
+A failed proof is never package-absence evidence.
+
+First-family composition inputs:
+
+```text
+DependencyVersionChange
++ matching RequirementsFileDependencyContext
++ supported direct-requirements StaticDependencyConsumptionEvidence
++ ManagerEnvironmentSelectionFact
++ InstallationDestinationFact
++ PackageMutationModeFact
++ DirectRequirementHandlingFact
++ ExactCommandExecutionAssessment
+→ RequirementSatisfiedAtCommandCompletion
+```
+
+No new requirement-applicability type is needed.
+
+Positive composition requires identity alignment across all inputs: same normalized package, trusted exact source/revision, same workflow/job/step/command occurrence, same package-manager operation, normal destination bound to the selected manager environment for the first family, mutation mode `apply_changes`, direct requirement handling `handled`, and supported exact execution.
+
+Impossible mismatches between typed inputs are programming-contract errors. Real evidence ambiguity must already be represented by the upstream producer.
+
+The exact proposed version remains owned by `DependencyVersionChange` plus its trusted source context; matching a package name alone is insufficient.
+
+Preserve multiple command witnesses independently. A workflow/PR aggregate may later expose witnesses plus problems, but it must not merge different environments into one fictional global state.
+
+Strong owner direction:
+- dependency semantics stay in `dependency/`;
+- exact execution stays in CI runtime evidence;
+- a focused CI/runtime dependency-state composition layer above both owns this witness;
+- a module such as `ci/dependency_state.py` is a plausible implementation direction;
+- `investigation.py` should eventually carry this result alongside, not instead of, `ci_coverage_result`.
+
+The witness does not prove fresh installation, artifact identity, whole-environment consistency, later persistence/use, behavioral compatibility, or maintainer-action permission.
+
+Demand-driven composition should preserve the earliest material blocker rather than collapse all failures to generic insufficient evidence.
+
 
 ### R3.5 — optional Route-B seam
 Define interface compatibility only; do not select new output acquisition without real pressure.
