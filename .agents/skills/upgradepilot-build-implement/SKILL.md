@@ -5,6 +5,15 @@ description: Implement substantive authorized UpgradePilot changes with bounded 
 
 # UpgradePilot Build and Implement
 
+## **Smart Situational Override Rule**
+
+All project-local MUST/REQUIRED/DO NOT/NEVER/STOP/gate/order/default language in this Skill is applied under the **Smart Situational Override Rule** from root `AGENTS.md`.
+
+It may adapt Build sequencing, slice size, validation depth/order, stop lines, and local procedure when evidence justifies a better route, but it cannot create implementation authorization or bypass higher-authority destructive/external/credential-sensitive constraints.
+
+A material override must identify the circumstance, the normal rule being displaced, why the override is better for the current responsibility, its proof/risk/learning/ownership effect, and any reconciliation needed afterward. The rule never authorizes false evidence claims or overrides higher-authority safety/legal/platform constraints or Ali's current explicit authorization boundary.
+
+
 Use this Skill as the reusable procedure for **substantive authorized implementation work** in UpgradePilot.
 
 **Skill provenance marker:** `UP-SKILL:upgradepilot-build-implement`
