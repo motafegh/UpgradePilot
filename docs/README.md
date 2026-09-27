@@ -1,5 +1,11 @@
 # UpgradePilot Documentation and Decision Map
 
+## **Smart Situational Override Rule**
+
+Use the **Smart Situational Override Rule** from root `AGENTS.md` when current circumstances make the normal documentation, owner-selection, promotion, or reconciliation route too rigid. Artifact choice, timing, and sequence may be adapted when justified by the real responsibility.
+
+The rule does not silently supersede an accepted specification, ADR, Charter responsibility, plan responsibility, or live-state owner. If situational judgment materially changes a durable owner's responsibility, update/supersede that owner explicitly and preserve the provenance rather than leaving canonical knowledge stale.
+
 This is the durable navigation entry point for accepted project knowledge under `docs/` and for the repository artifact types that feed it.
 
 Its purpose is **findability and ownership**, not live-state tracking. `../MEMORY.md` remains the sole owner of the current project position and immediate continuation.
