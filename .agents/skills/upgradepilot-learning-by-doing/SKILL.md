@@ -104,7 +104,7 @@ The gate is about decision-relevant understanding, not ceremonial approval. Do n
 
 ### One coherent cycle working-memory record
 
-When working memory is warranted for a substantive cycle, use **one coherent cycle record** as the detailed owner of that cycle's progression:
+For every substantive canonical LbD cycle, use **one coherent cycle record** as the detailed owner of that cycle's progression:
 
 ```text
 Cycle <responsibility>
