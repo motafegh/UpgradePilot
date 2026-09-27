@@ -312,6 +312,86 @@ R4 is ready for Build when:
 
 These conditions are satisfied by this plan once the final repository pointers are reconciled.
 
+## 7A. Increment 1 Build cycle progression — 2026-09-27
+
+**A — PRE-IMPLEMENTATION LEARNING / ORIENTATION: COMPLETE**
+
+Current executable flow was traced as:
+
+```text
+WorkflowRuntimeStepCorrelation
+→ RuntimeStrengtheningEligibility
+→ dependency_exercise.py private combination of
+   exact-step lookup + continue-on-error + runtime status
+→ existing CI coverage states
+```
+
+The provider-owned unnamed-step display contract was re-verified against current GitHub Runner source: unnamed repository/script steps use the `Run ` display prefix and runner formatting of the literal action reference or first script line. Dynamic unnamed values remain unresolved because UpgradePilot cannot reproduce runtime expression evaluation from static evidence.
+
+**B — REAL BOUNDED BUILD / ACTION: COMPLETE, UNVERIFIED**
+
+Implemented on `main` inside Increment 1 scope only:
+
+1. `workflow_runtime_correlation.py`
+   - admits provider-derived display identities for bounded unnamed literal `run:` and repository/local `uses:` steps;
+   - preserves dynamic/unsupported unnamed cases as unresolved;
+   - keeps correlation identity-only.
+
+2. `runtime_strengthening.py`
+   - exposes a parser-neutral `RuntimeStrengthenableCommandOccurrence` protocol so static command eligibility is not coupled to dependency-specific candidate construction.
+
+3. new `ci/runtime_execution.py`
+   - reusable `CorrelatedStepExecutionAssessment` for unmasked successful `run:` and `uses:` steps;
+   - reusable `ExactCommandExecutionAssessment` composing step execution with existing static strengthening eligibility;
+   - no package-manager/dependency semantics.
+
+4. `dependency_exercise.py`
+   - removes ownership of generic continue-on-error/runtime-status/exact-step interpretation;
+   - consumes `assess_exact_command_execution(...)`;
+   - preserves existing externally visible dependency-coverage state/reason semantics.
+
+5. tests
+   - workflow runtime-correlation tests now protect unnamed run/uses identity and dynamic fail-closed behavior;
+   - new `test_ci_runtime_execution.py` protects shared step success, continue-on-error masking, runtime non-success, eligible exact-command support, ineligible command rejection, and unresolved later-command behavior.
+
+**C — PROGRESSIVE STATE PRESERVATION: COMPLETE FOR IMPLEMENTATION STATE**
+
+Build diff from pre-Build gate `1b4a19e...` is six commits and exactly six files:
+- four CI source files (one new);
+- two focused test files (one new);
+- no dependency/package-manager semantics;
+- no environment/config producer;
+- no Route-A package-state composer;
+- no maintainer-action or Route-B changes.
+
+**D — VERIFICATION: BLOCKED ON EXECUTABLE TEST RUN, NOT CLAIMED GREEN**
+
+The connected GitHub surface can read workflow runs but exposes no workflow-dispatch operation. The current Product verification workflow is manually dispatched, not automatically triggered by these pushes. A fresh local clone was attempted for direct test execution, but this environment cannot resolve github.com through its container network.
+
+Therefore:
+- source/test mutation exists on `main`;
+- static ownership/diff inspection is complete;
+- focused/runtime regression tests have **not yet executed in this session**;
+- Increment 1 must not be marked passed or closed until an exact-head test run supplies evidence.
+
+Required first executable verification:
+
+```bash
+python3 -m unittest   tests.test_workflow_runtime_correlation   tests.test_ci_runtime_execution   tests.test_ci_runtime_strengthening   tests.test_ci_runtime_correlated_dependency_coverage -v
+```
+
+If focused proof is green, broaden to:
+
+```bash
+python3 -m unittest discover -s tests -v
+```
+
+Any failure is a Build defect/diagnostic input for Increment 1; do not relax existing coverage semantics merely to make tests pass.
+
+**E — CLOSURE: NOT STARTED**
+
+Close Increment 1 only after focused proof and justified broader regression are green, then review the implemented flow against ADR-0010 and select Increment 2 from actual evidence.
+
 ## 8. Stop line / prohibited scope
 
 Before explicit Build authorization:
