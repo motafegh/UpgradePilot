@@ -364,33 +364,39 @@ Build diff from pre-Build gate `1b4a19e...` is six commits and exactly six files
 - no Route-A package-state composer;
 - no maintainer-action or Route-B changes.
 
-**D — VERIFICATION: BLOCKED ON EXECUTABLE TEST RUN, NOT CLAIMED GREEN**
+**D — VERIFICATION: COMPLETE / GREEN**
 
-The connected GitHub surface can read workflow runs but exposes no workflow-dispatch operation. The current Product verification workflow is manually dispatched, not automatically triggered by these pushes. A fresh local clone was attempted for direct test execution, but this environment cannot resolve github.com through its container network.
+Executable evidence was supplied for the exact Increment-1 implementation head `a47923ee778b0984966bc09b8d01169205d0f7f9`.
 
-Therefore:
-- source/test mutation exists on `main`;
-- static ownership/diff inspection is complete;
-- focused/runtime regression tests have **not yet executed in this session**;
-- Increment 1 must not be marked passed or closed until an exact-head test run supplies evidence.
+Local focused proof:
+- command family: workflow runtime correlation + reusable runtime execution + runtime strengthening + runtime-correlated dependency coverage;
+- **35 tests passed**;
+- no failures/errors.
 
-Required first executable verification:
+Local full deterministic regression:
+- `python3 -m unittest discover -s tests -v`;
+- **632 tests passed**;
+- no failures/errors.
 
-```bash
-python3 -m unittest   tests.test_workflow_runtime_correlation   tests.test_ci_runtime_execution   tests.test_ci_runtime_strengthening   tests.test_ci_runtime_correlated_dependency_coverage -v
-```
+Repository Product verification:
+- workflow: **Product verification**;
+- run id: **36338591767**;
+- trigger: `workflow_dispatch`;
+- head SHA: `a47923ee778b0984966bc09b8d01169205d0f7f9`;
+- conclusion: **success**;
+- job: **Installed package and deterministic product tests** — success;
+- successful material steps include fresh product installation, CLI-entry-point verification, focused investigation composition, and deterministic product regression.
 
-If focused proof is green, broaden to:
+These signals jointly establish that Increment 1's focused responsibility passes its selected tests, the full existing deterministic suite remains green, and the installed-product verification path remains green at the implementation head.
 
-```bash
-python3 -m unittest discover -s tests -v
-```
+Verification limitations remain:
+- this does not yet prove package-manager semantics or Route-A package state; those belong to later increments;
+- no real-case public-workflow package-state proof is claimed by Increment 1;
+- documentation-only state-record commits after the verified implementation head do not change the verified product/test source.
 
-Any failure is a Build defect/diagnostic input for Increment 1; do not relax existing coverage semantics merely to make tests pass.
+**E — CLOSURE: PAUSED FOR DISCUSSION**
 
-**E — CLOSURE: NOT STARTED**
-
-Close Increment 1 only after focused proof and justified broader regression are green, then review the implemented flow against ADR-0010 and select Increment 2 from actual evidence.
+The technical prerequisites for closure are now satisfied, but do not select Increment 2 or finalize the closure record until the current discussion with Ali is complete. The E-stage review should compare the implemented ownership/data flow against ADR-0010, state residual gaps, then close Increment 1 explicitly.
 
 ## 8. Stop line / prohibited scope
 
