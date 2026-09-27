@@ -38,13 +38,42 @@ Do not scan the full working-memory history. If Ali gives only an old clue, sear
 
 ## 2. Choose NEW vs CONTINUE
 
-Prefer **NEW** when Ali asks for a new session/day/time record, the responsibility materially changes, or a separate record improves retrieval.
+For a substantive canonical Learning-by-Doing cycle, prefer **one coherent cycle working-memory record** that remains active across:
 
-Prefer **CONTINUE** when the same session/responsibility/investigation is still active and the existing record remains clear.
+```text
+A — orientation / understanding gate
+B — real action
+C — progressive preservation during B
+Verification / evidence gate
+D — post-implementation learning / ownership check
+E — gap repair + next-slice orientation
+```
 
-Multiple records on one day are allowed. Do not create a new record merely because another small command or edit occurred.
+Do not create a new active phase-status record merely because the cycle moved from implementation to verification, or from verification to learning. Those transitions belong in the same cycle record.
+
+Prefer **NEW** when Ali asks for a new session/day/time record, the responsibility materially changes, a new substantive LbD cycle starts, or a separate record improves retrieval.
+
+Prefer **CONTINUE** when the same cycle/session/responsibility/investigation is still active and the existing record remains clear.
+
+A plan-level, architecture-level, or broader workstream working memory may link to the active cycle record, but it should not compete with that cycle record as the owner of A/B/C/verification/D/E status.
+
+Multiple records on one day are allowed for distinct cycles, sessions, responsibilities, or evidence threads. Do not create a new record merely because another small command/edit occurred or because one phase advanced.
 
 ## 3. Start a new record compactly
+
+When the record owns a substantive LbD cycle, seed a compact visible cycle status near the top:
+
+```text
+Cycle: <coherent responsibility>
+A — PENDING
+B — PENDING
+C — PENDING / CONTINUOUS
+Verification gate — PENDING
+D — PENDING
+E — PENDING
+```
+
+Update those markers only at meaningful transitions. Keep the engineering story in the record's normal prose/sections rather than turning the status block into a duplicate log.
 
 Use the naming guidance from `working-memory/README.md`, normally:
 
@@ -70,6 +99,8 @@ When the new record directly continues another, link back to it. If the older re
 ## 4. Preserve the meaningful progression, not the activity stream
 
 At meaningful points, append or refine the record so the **engineering evolution of the active responsibility can be reconstructed accurately**.
+
+For an active LbD cycle, canonical **C — progressive state preservation** happens alongside B: record meaningful decisions, implementation evolution, failures, corrections and proof debt while the work develops. Do not wait until B is over and attempt to reconstruct the entire cycle afterward.
 
 Use this mental model:
 
@@ -120,7 +151,11 @@ Temporary session rules stay session-local unless separately promoted to the cor
 
 ## 6. Stop / handoff
 
-When pausing or closing, preserve proportionately:
+When pausing or closing, preserve proportionately.
+
+For an LbD cycle, do not mark the cycle CLOSED merely because implementation/tests are green. Closure should reflect the canonical phase state: D ownership learning and E gap-repair/next-slice orientation must be completed or explicitly deferred/redirection-recorded before the cycle is represented as fully closed.
+
+Preserve:
 
 ```text
 what was completed / established
