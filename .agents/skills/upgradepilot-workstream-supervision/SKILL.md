@@ -5,6 +5,15 @@ description: Supervise one or more UpgradePilot workstreams being performed, or 
 
 # UpgradePilot Workstream Supervision
 
+## **Smart Situational Override Rule**
+
+All project-local MUST/REQUIRED/DO NOT/NEVER/STOP/gate/order/default language in this Skill is applied under the **Smart Situational Override Rule** from root `AGENTS.md`.
+
+It may adapt supervision depth, sampling, reconciliation order, or escalation path when evidence justifies it, but supervision does not gain mutation authority merely because an override is useful.
+
+A material override must identify the circumstance, the normal rule being displaced, why the override is better for the current responsibility, its proof/risk/learning/ownership effect, and any reconciliation needed afterward. The rule never authorizes false evidence claims or overrides higher-authority safety/legal/platform constraints or Ali's current explicit authorization boundary.
+
+
 Use this Skill as the compact **support/composition procedure** for independently supervising meaningful UpgradePilot work performed by one or more other AI agents/workstreams.
 
 **Skill provenance marker:** `UP-SKILL:upgradepilot-workstream-supervision`
