@@ -29,13 +29,12 @@ from ..github.repository import (
     RepositoryTextFile,
     UnavailableRepositoryFile,
 )
-from ..github.workflow_definition import RunStepDefinition
 from .consumption import StaticDependencyConsumptionEvidence
+from .runtime_execution import assess_exact_command_execution
 from .runtime_strengthening import (
     RuntimeStrengtheningCandidate,
     candidate_from_consumption,
     candidate_from_direct_exercise,
-    classify_runtime_strengthening_eligibility,
 )
 from .static_command_order import relate_invocation_after_consumption
 from .workflow_commands import (
@@ -47,7 +46,6 @@ from .workflow_commands import (
 )
 from .workflow_runtime_correlation import (
     WorkflowRuntimeCorrelationResult,
-    WorkflowRuntimeStepCorrelation,
     correlate_workflow_runtime,
 )
 
@@ -827,76 +825,12 @@ def _classify_runtime_strengthening_candidate(
     correlation: WorkflowRuntimeCorrelationResult,
     evidence_label: str,
 ) -> _RuntimeStrengtheningCandidateResult:
-    eligibility = classify_runtime_strengthening_eligibility(candidate)
-
-    if eligibility.state == "ineligible":
-        return _RuntimeStrengtheningCandidateResult(
-            state="not_established",
-            basis="eligibility_ineligible",
-            reason=eligibility.reason,
-            detail=eligibility.detail,
-        )
-
-    if eligibility.state == "unresolved":
-        return _RuntimeStrengtheningCandidateResult(
-            state="unresolved",
-            basis="eligibility_unresolved",
-            reason=eligibility.reason,
-            detail=eligibility.detail,
-        )
-
-    step_correlation = _find_correlated_step(
-        correlation,
-        job_key=candidate.job_key,
-        step_source_index=candidate.step_source_index,
+    assessment = assess_exact_command_execution(
+        candidate,
+        correlation=correlation,
     )
-    if step_correlation is None:
-        return _RuntimeStrengtheningCandidateResult(
-            state="unresolved",
-            basis="step_correlation_unresolved",
-            reason="runtime_strengthening_exact_step_missing",
-            detail=(
-                f"The workflow bridge is correlated, but exact eligible {evidence_label} "
-                f"occurrence {candidate.job_key!r}/{candidate.step_source_index} has no "
-                "retained owning runtime-step correlation."
-            ),
-        )
 
-    static_step = step_correlation.static_step
-    if not isinstance(static_step, RunStepDefinition):
-        return _RuntimeStrengtheningCandidateResult(
-            state="unresolved",
-            basis="step_correlation_unresolved",
-            reason="runtime_strengthening_static_step_not_run_step",
-            detail=(
-                f"Exact eligible {evidence_label} occurrence "
-                f"{candidate.job_key!r}/{candidate.step_source_index} did not resolve to "
-                "a static run step."
-            ),
-        )
-
-    runtime_step = step_correlation.runtime_step
-    continue_on_error = static_step.continue_on_error
-    if continue_on_error is not None and (
-        continue_on_error.contains_expression
-        or continue_on_error.text.strip().casefold() != "false"
-    ):
-        return _RuntimeStrengtheningCandidateResult(
-            state="unresolved",
-            basis="continue_on_error_unresolved",
-            reason="runtime_strengthening_continue_on_error_unresolved",
-            detail=(
-                f"Exact eligible {evidence_label} occurrence "
-                f"{candidate.job_key!r}/{candidate.step_source_index} is owned by runtime "
-                f"step {runtime_step.number}, but continue-on-error semantics mask the "
-                "positive interpretation of the step conclusion."
-            ),
-            runtime_status=runtime_step.status,
-            runtime_conclusion=runtime_step.conclusion,
-            runtime_step_number=runtime_step.number,
-        )
-
-    if runtime_step.status == "completed" and runtime_step.conclusion == "success":
+    if assessment.basis == "supported":
         source_order = (
             candidate.command_location.source_order
             if candidate.command_location is not None
@@ -909,30 +843,65 @@ def _classify_runtime_strengthening_candidate(
             detail=(
                 f"Exact eligible static {evidence_label} occurrence "
                 f"{candidate.job_key!r}/{candidate.step_source_index} at source order "
-                f"{source_order} is owned by runtime step {runtime_step.number}, and GitHub "
-                "reports status='completed', conclusion='success' without visible "
+                f"{source_order} is owned by runtime step "
+                f"{assessment.runtime_step_number}, and GitHub reports "
+                "status='completed', conclusion='success' without visible "
                 "continue-on-error masking."
             ),
-            runtime_status=runtime_step.status,
-            runtime_conclusion=runtime_step.conclusion,
-            runtime_step_number=runtime_step.number,
+            runtime_status=assessment.runtime_status,
+            runtime_conclusion=assessment.runtime_conclusion,
+            runtime_step_number=assessment.runtime_step_number,
         )
 
+    if assessment.basis == "continue_on_error_unresolved":
+        return _RuntimeStrengtheningCandidateResult(
+            state="unresolved",
+            basis="continue_on_error_unresolved",
+            reason="runtime_strengthening_continue_on_error_unresolved",
+            detail=(
+                f"Exact eligible {evidence_label} occurrence "
+                f"{candidate.job_key!r}/{candidate.step_source_index} is owned by runtime "
+                f"step {assessment.runtime_step_number}, but continue-on-error semantics "
+                "mask the positive interpretation of the step conclusion."
+            ),
+            runtime_status=assessment.runtime_status,
+            runtime_conclusion=assessment.runtime_conclusion,
+            runtime_step_number=assessment.runtime_step_number,
+        )
+
+    if assessment.basis == "runtime_non_success":
+        return _RuntimeStrengtheningCandidateResult(
+            state="not_established",
+            basis="runtime_non_success",
+            reason=f"runtime_correlated_{evidence_label.replace(' ', '_')}_not_successful",
+            detail=(
+                f"Exact eligible static {evidence_label} occurrence "
+                f"{candidate.job_key!r}/{candidate.step_source_index} is owned by runtime "
+                f"step {assessment.runtime_step_number}; GitHub factually reports "
+                f"status={assessment.runtime_status!r}, "
+                f"conclusion={assessment.runtime_conclusion!r}. Positive "
+                "Runtime-Correlated Support is therefore not established. This does not "
+                "attribute the runtime outcome to the dependency command itself."
+            ),
+            runtime_status=assessment.runtime_status,
+            runtime_conclusion=assessment.runtime_conclusion,
+            runtime_step_number=assessment.runtime_step_number,
+        )
+
+    reason = assessment.reason
+    if assessment.reason == "exact_command_owning_step_correlation_missing":
+        reason = "runtime_strengthening_exact_step_missing"
+    elif assessment.reason == "exact_command_static_step_not_run_step":
+        reason = "runtime_strengthening_static_step_not_run_step"
+
     return _RuntimeStrengtheningCandidateResult(
-        state="not_established",
-        basis="runtime_non_success",
-        reason=f"runtime_correlated_{evidence_label.replace(' ', '_')}_not_successful",
-        detail=(
-            f"Exact eligible static {evidence_label} occurrence "
-            f"{candidate.job_key!r}/{candidate.step_source_index} is owned by runtime step "
-            f"{runtime_step.number}; GitHub factually reports status={runtime_step.status!r}, "
-            f"conclusion={runtime_step.conclusion!r}. Positive Runtime-Correlated Support "
-            "is therefore not established. This does not attribute the runtime outcome to "
-            "the dependency command itself."
-        ),
-        runtime_status=runtime_step.status,
-        runtime_conclusion=runtime_step.conclusion,
-        runtime_step_number=runtime_step.number,
+        state=assessment.state,
+        basis=assessment.basis,
+        reason=reason,
+        detail=assessment.detail,
+        runtime_status=assessment.runtime_status,
+        runtime_conclusion=assessment.runtime_conclusion,
+        runtime_step_number=assessment.runtime_step_number,
     )
 
 
@@ -940,26 +909,6 @@ def _runtime_candidate_result_summary(
     results: tuple[_RuntimeStrengtheningCandidateResult, ...],
 ) -> str:
     return "; ".join(item.detail for item in results)
-
-
-def _find_correlated_step(
-    correlation: WorkflowRuntimeCorrelationResult,
-    *,
-    job_key: str,
-    step_source_index: int,
-) -> WorkflowRuntimeStepCorrelation | None:
-    for job in correlation.jobs:
-        if job.static_job.key != job_key:
-            continue
-        return next(
-            (
-                step
-                for step in job.steps
-                if step.static_step.source_index == step_source_index
-            ),
-            None,
-        )
-    return None
 
 
 def _coverage_result(
