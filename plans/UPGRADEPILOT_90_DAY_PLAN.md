@@ -1,5 +1,10 @@
 # UpgradePilot Evidence-Derived Learning and Building Plan
 
+## **Smart Situational Override Rule**
+
+All project-local sequence, gate, pass/stop, prohibited-scope, and activation rules in this plan are applied under the **Smart Situational Override Rule** from root `AGENTS.md`. Follow this plan as the normal route, but deliberately adapt it when current evidence/circumstances make another route technically better. Material overrides must state the reason, proof/risk effect, and any required owner reconciliation; they do not create new authorization or permit false pass claims.
+
+
 **Status:** Controlling project-local route and gate plan  
 **Owner:** Ali Rajabi  
 **Activated:** 2026-07-23
