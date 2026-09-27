@@ -222,67 +222,249 @@ This is one execution-evidence subsystem with two proof levels, not two competin
 
 R2 requires semantic dimensions to remain independent and provenance-preserving. Avoid a single opaque `effective_config` blob and avoid one bespoke resolver per flag.
 
-The dependency/package-manager owner should consume:
-- parser-neutral command occurrence;
-- exact command/source applicability where relevant;
-- provider/process-environment/config facts admitted by R2;
-- manager-specific precedence/semantics;
+### R3-B decision — independent typed facts + shared bounded resolution provenance
 
-and produce only facts needed by the selected proof.
+**AGREED DESIGN DIRECTION:** represent each decision-critical effective semantic dimension as its own typed fact, while sharing one small provenance model for how that effective value was resolved.
 
-Candidate semantic fact families, **not final schema**:
+Do **not** model all pip/uv configuration. Resolve only a requested semantic dimension and stop at the nearest decisive source under the accepted precedence contract.
 
-### 4.1 Manager environment selection
+#### A. Shared source/provenance vocabulary
+
+Candidate source kinds, bounded to the R2-supported evidence families:
+
+```text
+command_line
+process_environment
+persistent_config
+manager_default
+provider_or_environment_relationship
+```
+
+The last source kind covers relational evidence such as a positively established setup-python/PATH, venv activation, or bare-executable ownership relation; it is not a substitute for package-manager CLI/config precedence.
+
+A positive effective fact needs more than `winning_source=...`. It must preserve enough of the backward resolution to justify why that source was allowed to win.
+
+Candidate conceptual structure, names/schema not final:
+
+```text
+SemanticResolutionProvenance
+  dimension
+  inspected_sources: ordered tuple of ResolutionStep
+  winning_source
+
+ResolutionStep
+  source_kind
+  disposition:
+      non_overriding
+      disabled
+      decisive
+  source-specific locator/reference
+  detail
+```
+
+For example, a justified manager-default dry-run value may require:
+
+```text
+CLI dry-run source       → non_overriding
+process env dry-run      → non_overriding
+persistent config        → non_overriding
+pip default              → decisive: apply changes
+```
+
+If process-environment dry-run is unresolved, do **not** emit a positive default fact with an unresolved step hidden in its provenance. Emit an explicit semantic problem instead.
+
+Candidate negative/unresolved structure:
+
+```text
+PackageManagerSemanticProblem
+  dimension
+  reason
+  detail
+  resolved_prefix_of_provenance
+  blocking_source
+```
+
+This follows the existing UpgradePilot pattern of positive typed evidence versus explicit problem/abstention states.
+
+Demand-driven consequence:
+- provenance contains only the sources actually needed before resolution stopped;
+- lower-priority sources after a decisive winner need not be inspected or stored;
+- earlier/higher-priority non-overriding evidence remains available for explanation;
+- this is a bounded resolution trace, not a full environment/config snapshot.
+
+#### B. Minimum first-boundary semantic fact variants
+
+The first Route-A proof needs four independent fact families.
+
+##### 1. Manager environment selection
 
 Proposition:
 
 > Which Python/package environment does this exact package-manager operation manage?
 
-Examples of positive provenance:
-- explicit interpreter `<path>/python -m pip`;
-- positively resolved `python -m pip` interpreter;
-- pip effective `--python`;
-- resolved bare pip executable ownership;
-- uv `--python`, `--system`, or supported default venv discovery.
+Candidate fact:
 
-Preserve the relation/provenance; do not reduce this to an unqualified string path when the evidence is relational.
+```text
+ManagerEnvironmentSelectionFact
+  manager
+  command_location
+  environment_identity / relationship
+  provenance
+```
 
-### 4.2 Installation destination/scheme
+The environment identity must support relational identity, not only a naked path. Positive families include explicit interpreter invocation, pip `--python`, resolved bare-pip executable ownership, setup-python/PATH, bounded venv selection, and admitted uv environment selection.
+
+Exact environment-reference subtypes belong to R3.3 producer design; do not force every environment into one filesystem path if the established evidence is relational.
+
+##### 2. Installation destination
 
 Proposition:
 
-> Where does this exact operation place/manage package state for the claim?
+> Where is package state written/managed for this exact operation?
+
+Candidate fact:
+
+```text
+InstallationDestinationFact
+  manager
+  command_location
+  destination
+  provenance
+```
+
+The destination should distinguish at minimum:
+- normal installation scheme of the selected manager environment;
+- explicit target directory;
+- recognized alternate scheme/root selectors where supported.
+
+For the normal first Route-A family, the destination should reference/bind to the selected manager environment rather than duplicate an inferred site-packages path that has not been independently established.
+
+Environment selection and destination remain separate facts because `--target`/`--prefix` and related selectors can decouple them.
+
+##### 3. Package mutation / dry-run mode
+
+Proposition:
+
+> Is this operation permitted to apply installation-state changes, or is it an observation/planning-only dry run?
+
+Candidate fact:
+
+```text
+PackageMutationModeFact
+  manager
+  command_location
+  mode: apply_changes | dry_run
+  provenance
+```
+
+This fact is intentionally narrower than a generic operation-mode/config object. A decisive `dry_run` result can stop Route-A state production for that occurrence.
+
+##### 4. Direct requirement handling
+
+Proposition:
+
+> Under the effective operation semantics relevant to this exact command, is the changed direct requirement itself handled by the package-manager operation?
+
+Candidate fact:
+
+```text
+DirectRequirementHandlingFact
+  manager
+  command_location
+  handling: handled | excluded
+  provenance / semantic basis
+```
 
 Examples:
-- normal scheme of the selected Python environment;
-- explicit `--target`;
-- recognized user/prefix/root modifiers.
+- normal `pip install -r requirements.txt`: direct requirements are handled;
+- `--no-deps`: does not exclude the directly listed requirement;
+- effective direct-requirement exclusion such as an admitted `--only-deps` case defeats the direct-requirement state claim.
 
-Environment selection and destination are distinct facts.
+**Important execution-conditioned nuance:** some manager contracts make a semantic mode incompatible with the observed successful command shape. For example, the selected pip requirements-file family cannot successfully execute with effective `--only-deps`. Do not force every such case into ambient config reconstruction merely to produce a pre-runtime boolean. R3 should permit a dependency-owned semantic rule to be discharged by exact successful execution during proof composition when the manager contract is explicitly “this incompatible mode would have prevented this successful command shape.” This is still manager-specific semantic knowledge; CI does not learn pip rules.
 
-### 4.3 Installing/direct-requirement handling
+Therefore the first data flow may be:
 
-Proof-critical propositions include:
-- effective dry-run/non-installing state;
-- whether the proposed direct requirement itself is handled;
-- only update/start-state semantics required by the selected destination family.
+```text
+static/effective manager semantics
++ exact command execution evidence
+→ direct-requirement handling established
+```
 
-A decisive dry-run fact may stop Route-A proof before destination work for that command-derived installation claim.
+for such execution-conditioned cases, while ordinary decisive CLI/env/config values may produce the fact earlier.
 
-### 4.4 Shared provenance
+#### C. Starting-state/update modifiers are conditional facts, not core always-present fields
 
-Every established effective semantic fact should preserve:
-- semantic dimension;
-- effective value/relationship;
-- winning source class (CLI / process env / persistent config / manager default / provider relationship);
-- source-specific provenance sufficient to explain the value;
-- unresolved/defeating reason when the dimension cannot support the claim.
+Do not add universal fields such as `upgrade`, `force_reinstall`, `ignore_installed`, or every resolver option to every operation result.
 
-**Open design decision R3-B:** choose the smallest typed representation that preserves independent dimensions and shared provenance without creating either:
-1. one giant nullable package-manager result object, or
-2. one unrelated resolver/type hierarchy per option.
+If a selected destination/proof family requires a starting-state premise—for example pip `--target` replacement semantics—produce a narrowly owned additional semantic fact for that proof family.
 
-A typed union of small semantic facts with shared provenance is the current strongest candidate.
+The first normal-environment exact-pin Route-A family does not require a universal inventory/update-modifier object.
+
+#### D. Result shape
+
+Prefer positive facts plus explicit semantic problems over nullable fields:
+
+```text
+type EffectivePackageManagerSemanticResult =
+    ManagerEnvironmentSelectionFact
+  | InstallationDestinationFact
+  | PackageMutationModeFact
+  | DirectRequirementHandlingFact
+  | PackageManagerSemanticProblem
+  | <future narrowly justified fact>
+```
+
+This is conceptual; implementation may expose per-dimension result aliases/functions rather than one public heterogeneous collection.
+
+The important invariant is:
+
+```text
+one semantic dimension
+→ one typed proposition/result
+→ shared resolution provenance
+→ explicit unresolved blocker
+```
+
+not:
+
+```text
+one giant EffectivePipConfig with many nullable fields
+```
+
+and not:
+
+```text
+one independent precedence framework per option
+```
+
+#### E. Ownership
+
+```text
+provider/workflow/shell evidence
+→ source-visible declarations, writes, propagation, executable/environment relationships
+
+dependency/package-manager semantics
+→ effective-value precedence + pip/uv interpretation
+→ typed semantic facts above
+
+CI/state-proof composition
+→ combines those facts with exact execution and dependency applicability
+→ does not reinterpret pip/uv options
+```
+
+### R3-B consequence for the first Route-A proof
+
+The normal requirements-file pip proof should request exactly these facts:
+
+```text
+ManagerEnvironmentSelectionFact
+InstallationDestinationFact(normal scheme of that environment)
+PackageMutationModeFact(apply_changes)
+DirectRequirementHandlingFact(handled)
+```
+
+If any required fact is unresolved, defeating, or belongs to an unsupported destination family, Route A remains unresolved/defeated with that exact missing edge preserved.
+
 
 ## 5. Missing layer C — bounded requirement-state proof composition
 
@@ -395,6 +577,8 @@ Design shared provenance and the independent facts for:
 - installing/direct-requirement semantics.
 
 ### R3.3 — environment/provenance producers
+
+**CURRENT R3 DECISION:** map the minimum concrete producers needed to create the four first-boundary semantic facts above, beginning with the simplest normal `python -m pip install -r ...` Route-A case and then adding setup-python/bare-pip/venv evidence only where that case actually requires it.
 Map only the first Route-A evidence sources required to produce those facts, then add setup-python/venv/bare-pip relations in dependency order where the normal case requires them.
 
 ### R3.4 — Route-A state-proof composer
