@@ -1,5 +1,11 @@
 # UpgradePilot Security and Trust Boundaries
 
+## **Smart Situational Override Rule — security boundary**
+
+The **Smart Situational Override Rule** may adapt project-local process around security work, such as investigation order, diagnostic depth, or the shape of a safe mitigation. It does **not** waive the authorization, privacy, secret-handling, external-mutation, destructive-action, credential, or evidence-truth boundaries owned here and by higher authority.
+
+If circumstances genuinely require changing one of these durable project security/trust rules, change/reconcile the proper owner explicitly; do not treat situational judgment as silent permission to bypass it.
+
 **Purpose:** Compact owner for the few security/trust rules that materially affect UpgradePilot work. This is not a general-purpose security program.
 
 Use this file only when secrets/private data, untrusted external evidence, credentials, unknown-code execution, external mutation, or related transport boundaries are material.
