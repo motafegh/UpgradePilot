@@ -669,6 +669,94 @@ A checkpoint may collapse or disappear when earlier evidence makes it unnecessar
 - **Step-local `env: PATH` versus accumulated `GITHUB_PATH` is now provider-resolved for the normal script-step case (2026-09-26):** GitHub runner evaluates job/workflow environment into `Global.EnvironmentVariables`, merges step `env` into the step environment, then `ScriptHandler.AddPrependPathToEnvironment` constructs the launched script PATH by prepending the accumulated `Global.PrependPath` state above that environment PATH baseline. Therefore a literal step-level `env: PATH: ...` does **not by itself erase** previously accumulated `setup-python`/`GITHUB_PATH` entries; those prepend entries remain earlier in the launched script PATH. A shell-local PATH assignment/export executed inside the script occurs later and can still supersede executable selection for the exact `pip` process. Keep this rule bounded to the admitted normal GitHub script-step/provider path; container/custom execution shapes require their own evidence if later activated.
 - **Current UpgradePilot representation gap exposed by that rule:** `src/upgradepilot/github/workflow_definition.py` currently does not preserve workflow-, job-, or step-level `env:` mappings in `WorkflowDefinition`, `StepsJobDefinition`, `RunStepDefinition`, or `UsesStepDefinition`; the parser's material-field sets omit `env`. The provider semantics are therefore understood, but current product evidence cannot yet express those declarative environment facts through this bounded IR. This is an evidence-source/type responsibility to carry into R3 if the selected supported boundary requires declarative env resolution; do not patch the parser during R2 merely because the gap is visible.
 
+## September 27 — Direct Target-Owned Package-State Observation and later-use boundary
+
+**Status: AGREED R2 checkpoint-6 boundary; Route B remains optional/conditional, not a mandatory second gate after Route A. Exact producer/types/acquisition remain R3/R4+ and no Build is authorized.**
+
+### First positive Route-B family — self-verifying one-package metadata observation
+
+Prefer a target-owned check whose **successful exit status itself encodes the version predicate**, avoiding dependence on arbitrary stdout/log parsing for the first family.
+
+Conceptual supported shape:
+
+```text
+resolved Python interpreter/environment
++ bounded target-owned Python version-check command
++ importlib.metadata.version(<exact distribution>)
++ expected version positively equals the exact proposed version
++ explicit failure semantics when observed != expected
+  (for example sys.exit(nonzero) / raise SystemExit)
++ exact unmasked successful runtime execution
+→ exact proposed distribution version is visible through that interpreter's
+  importlib.metadata distribution-metadata discovery scope
+  at the observation occurrence
+```
+
+The first bounded semantic recognizer should prefer explicit failure constructs whose behavior is not removed by Python optimization. A plain `assert version(...) == ...` is a legitimate real-world pattern but should not be the simplest first positive contract unless Python optimization is positively known not to disable assertions; CPython `-O` and `PYTHONOPTIMIZE` remove assert statements.
+
+The expected-version operand may be literal or derived only when its provenance is positively resolved to the exact proposed dependency version. Do not equate an arbitrary workflow variable name with the proposal.
+
+Python documentation defines `importlib.metadata.version(name)` as returning the installed distribution package version for the named distribution and raising `PackageNotFoundError` when that distribution is not found in the current metadata discovery scope. Preserve the exact observation semantics: this is distribution-metadata visibility for the selected interpreter, not proof that a top-level import name maps 1:1 to the distribution, that all package files behave correctly, or that a later process uses it.
+
+Real public workflows use both `assert importlib.metadata.version(...)` and explicit `sys.exit` / `raise SystemExit` version mismatch checks, so the family is not synthetic.
+
+### Strong structured sources retained conditionally, not first implementation priority
+
+- `pip inspect` produces a stable JSON v1 report of an environment with installed distributions and environment metadata. It is the strongest generic pip inventory witness when target-owned output is already emitted/preserved and can be bound to the exact job/interpreter/occurrence.
+- `pip list --format=json`, `pip freeze`, uv inspection commands, and uploaded inventory artifacts remain useful conditional observation sources.
+- Current UpgradePilot GitHub Actions acquisition retains workflow/job/step identity and step status/conclusion only; it does **not** acquire arbitrary stdout/job logs or artifact contents. Therefore structured-output Route-B sources require a new bounded acquisition responsibility if later selected.
+- Human installer text remains lower-preference evidence because format/quiet-mode/retention and causal interpretation are less stable than a self-verifying predicate or structured state report.
+
+### Route-B claim limit
+
+A qualified Route-B witness establishes only:
+
+> the exact proposed distribution version was directly observed in the positively identified package-state scope **at the observation occurrence**.
+
+It does **not** establish:
+
+- which earlier command installed or changed it;
+- that it was present before the observation;
+- that it remains present after later mutations;
+- that a later consumer used that exact version;
+- selected wheel/sdist artifact identity;
+- behavioral compatibility;
+- maintainer-action permission.
+
+An already sufficient Route-A command-completion witness needs no redundant Route-B observation for that same bounded claim.
+
+### Later persistence / actual-use composition
+
+Only when the downstream proposition crosses the observation boundary, require additional relationships:
+
+```text
+qualified Route-A or Route-B state witness
+        ↓
+observation/state point precedes later consumer
+        ↓
+later consumer uses the same relevant interpreter/package-state scope
+        ↓
+no positively material intervening mutation invalidates continuity
+        ↓
+supported package-consumption/invocation relation for the changed distribution
+        ↓
+later exact-version-use proposition may be considered
+```
+
+Apply the existing demand-driven rule to continuity: inspect only intervening operations that can materially mutate or replace the relevant package state/environment (for example package installs/uninstalls, venv recreation, interpreter/environment retargeting, target-directory replacement). Do not scan every unrelated command.
+
+Same job, matching command spelling, or a generic successful test step is not enough for later-use identity. Distribution metadata presence is also not automatically equivalent to import-package identity; reuse existing supported changed-package consumption/invocation evidence or add a separately justified mapping when the claim requires it.
+
+If the state witness occurs **after** a consumer, do not infer backward that the earlier consumer used that version without an independently justified backward-continuity relation.
+
+### R2 implementation priority consequence
+
+Route B is semantically admitted but **not required for the first Build slice** if Route A already satisfies the selected normal command-completion case. The first implementation should remain proportionate:
+
+1. build the admitted Route-A normal proof first;
+2. preserve Route-B type/ownership seams;
+3. implement the no-log self-verifying Route-B family or structured-output acquisition only when representative evidence/action-critical value justifies it.
+
 ## September 26 — first Command-Derived Requirement-State Proof contract
 
 **Status: AGREED first bounded positive Route-A family for R2 closure; concrete evidence types/implementation remain R3/R4+ and no Build is authorized.**
