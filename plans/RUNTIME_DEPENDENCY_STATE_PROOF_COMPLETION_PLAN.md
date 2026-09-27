@@ -1,5 +1,10 @@
 # Runtime Dependency-State Proof Completion Plan
 
+## **Smart Situational Override Rule**
+
+All project-local sequence, gate, pass/stop, prohibited-scope, and activation rules in this plan are applied under the **Smart Situational Override Rule** from root `AGENTS.md`. Follow this plan as the normal route, but deliberately adapt it when current evidence/circumstances make another route technically better. Material overrides must state the reason, proof/risk effect, and any required owner reconciliation; they do not create new authorization or permit false pass claims.
+
+
 **Status:** admitted bounded planning/execution plan; live selection remains owned by `../MEMORY.md`  
 **Responsibility:** determine and implement the smallest trustworthy path by which UpgradePilot may establish that the exact proposed dependency version is present in the exact relevant CI environment, while preserving the distinction between command execution, resulting package state, later behavior/exercise, artifact mechanism, and maintainer-action permission  
 **Parent execution owner:** [End-to-End Product Flow Learning and Evidence-to-Action Execution Plan](END_TO_END_PRODUCT_FLOW_LEARNING_AND_EVIDENCE_TO_ACTION_EXECUTION_PLAN.md)  
