@@ -1,5 +1,11 @@
 # UpgradePilot Project Charter
 
+## **Smart Situational Override Rule — charter boundary**
+
+The **Smart Situational Override Rule** applies to how UpgradePilot executes and learns within this Charter, but it does not silently supersede the product mission, supported decision, frozen boundary, evidence doctrine, claim limits, or other responsibilities owned here.
+
+If changing circumstances justify expanding, shrinking, replacing, or otherwise changing a Charter-owned responsibility, that is evidence to **revisit and explicitly update the Charter through its change-control responsibility**, not permission to drift around it while leaving the canonical owner stale.
+
 **Status:** Controlling stable project charter  
 **Owner:** Ali Rajabi  
 **Execution period:** 2026-07-20 to 2026-10-17  
