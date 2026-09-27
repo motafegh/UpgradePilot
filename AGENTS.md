@@ -47,7 +47,7 @@ E — GAP REPAIR + NEXT-SLICE ORIENTATION
     at A and its understanding gate.
 ```
 
-For each substantive cycle, maintain **one coherent cycle working-memory record** when working memory is warranted. That record should be the normal detailed owner of this cycle's A/B/C/verification/D/E progression, evidence, gaps, and handoff. B and C updates should land in that same record as work proceeds. Do not scatter one cycle's phase status across multiple competing active working memories merely because implementation, verification, and learning happen at different moments. Higher-authority plan/ADR/specification owners remain separate and should only change when their own responsibility changes.
+For each substantive cycle, maintain **one coherent cycle working-memory record**. That record should be the normal detailed owner of this cycle's A/B/C/verification/D/E progression, evidence, gaps, and handoff. B and C updates should land in that same record as work proceeds. Do not scatter one cycle's phase status across multiple competing active working memories merely because implementation, verification, and learning happen at different moments. Higher-authority plan/ADR/specification owners remain separate and should only change when their own responsibility changes.
 
 Use the following phase meanings:
 
