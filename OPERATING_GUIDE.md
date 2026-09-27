@@ -1,5 +1,15 @@
 # UpgradePilot Operating Guide
 
+## **Smart Situational Override Rule**
+
+All project-local operating guidance in this file is applied under the **Smart Situational Override Rule** defined in root `AGENTS.md`.
+
+The guide provides the normal safest/proportionate route; it does not replace current engineering judgment. When material evidence or circumstances make the literal route worse than a justified alternative, adapt the process deliberately—expand/shrink scope, combine/split steps, change depth/order, pause/re-enter, or override a normal project-local gate as needed.
+
+For a material override, make the circumstance, displaced rule, reason, proof/risk effect, and required reconciliation explicit. Do not use the rule for convenience, silent scope drift, or to relabel missing evidence.
+
+The **Smart Situational Override Rule** cannot override higher-authority safety/legal/platform constraints, Ali's current explicit authorization, evidence truthfulness, or real external-system limitations.
+
 **Status:** Controlling project-local operating guide  
 **Owner:** Ali Rajabi  
 **Responsibility:** Project-wide Learning-by-Doing method, communication clarity, context discipline, proportionality, implementation-retention reasoning, debugging, assistance fading, evidence interpretation, source-clarity outcomes, completion, and handoff
@@ -161,6 +171,8 @@ Guidelines:
 Context minimization must not hide a required owner, authorization boundary, proof obligation, material counterevidence, or the operation procedure the user explicitly invoked. The goal is high signal, not arbitrary brevity. Conversely, a canonical owner should not be loaded merely because another file names it; its owned responsibility must be material to the current slice or an explicit route must require it.
 
 ## 4. Universal Proportional Process Rule
+
+Apply this rule under the **Smart Situational Override Rule**: proportionality itself is situational, and a normally useful control may be narrowed, expanded, bypassed, or replaced when current evidence shows a better route.
 
 Older active materials may call this the **Ceremony Tax** rule. Treat that label as shorthand for the literal rule below rather than as a separate concept.
 
@@ -628,6 +640,8 @@ For repeated safe operations, use a concise reminder unless misunderstanding or 
 Use `ENVIRONMENT.md` for reusable local execution facts and re-check rules when local execution/runtime/topology/local-service behavior becomes material. If an execution or network/topology problem appears after work has already started, consult `ENVIRONMENT.md` before concluding which validation surfaces are unavailable or diagnosing the failure solely from the immediate tool error. Use `SECURITY.md` when secrets/untrusted-evidence/credential/external-action/transport boundaries become material. Neither file should be loaded reflexively when its trigger is absent.
 
 ## 13. Completion, stopping, and handoff
+
+These stopping conditions are project-local defaults governed by the **Smart Situational Override Rule**. A material situation may justify continuing, pausing earlier, re-entering prior work, or changing the handoff shape when the reason and proof consequences are explicit and higher-authority constraints remain satisfied.
 
 Stop when:
 
