@@ -273,4 +273,13 @@ A
 → next cycle begins at A
 ```
 
+Governance/process promotion commits for this clarification include:
+- `c4fa855` — final root `AGENTS.md` gate correction;
+- `eba06bd` — full LbD Skill alignment;
+- `c4eaee0` — Operating Guide cadence alignment;
+- `371ee5e` — working-memory Skill cycle ownership;
+- `29a481c` — working-memory owner/readme cycle structure;
+- `16349e3` — R4 record reconciled so it no longer owns competing phase status;
+- `4704716` — live `MEMORY.md` points to canonical D and this cycle record.
+
 This dedicated record is the single cycle-status owner for Increment 1. The R4 plan remains the broader implementation-sequence owner.
