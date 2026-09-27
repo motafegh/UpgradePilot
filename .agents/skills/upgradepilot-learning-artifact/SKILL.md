@@ -5,6 +5,15 @@ description: Author or materially revise reusable UpgradePilot study/relearning 
 
 # UpgradePilot Learning Artifact Authoring
 
+## **Smart Situational Override Rule**
+
+All project-local MUST/REQUIRED/DO NOT/NEVER/STOP/gate/order/default language in this Skill is applied under the **Smart Situational Override Rule** from root `AGENTS.md`.
+
+It may adapt artifact authoring sequence, depth, structure, and supporting evidence work when the learning responsibility benefits, but it cannot manufacture implementation truth or silently change product/governance owners.
+
+A material override must identify the circumstance, the normal rule being displaced, why the override is better for the current responsibility, its proof/risk/learning/ownership effect, and any reconciliation needed afterward. The rule never authorizes false evidence claims or overrides higher-authority safety/legal/platform constraints or Ali's current explicit authorization boundary.
+
+
 Use this Skill as the compact **support/artifact-authoring procedure** for reusable material under `learning/`.
 
 **Skill provenance marker:** `UP-SKILL:upgradepilot-learning-artifact`
