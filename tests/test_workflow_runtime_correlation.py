@@ -279,8 +279,8 @@ jobs:
         self.assertEqual(result.state, "unresolved")
         self.assertEqual(result.reason, "static_runtime_job_name_set_mismatch")
 
-    def test_steps_require_explicit_literal_unique_names(self) -> None:
-        missing = correlate_workflow_runtime(
+    def test_steps_use_runner_display_identity_when_name_is_missing(self) -> None:
+        unnamed_run = correlate_workflow_runtime(
             _source(
                 """
 jobs:
@@ -292,9 +292,28 @@ jobs:
 """
             ),
             _run(),
-            (_job(501, "Tests", (_step(1, "python -m unittest"),)),),
+            (_job(501, "Tests", (_step(1, "Run python -m unittest"),)),),
         )
-        dynamic = correlate_workflow_runtime(
+        unnamed_uses = correlate_workflow_runtime(
+            _source(
+                """
+jobs:
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-python@v6
+"""
+            ),
+            _run(),
+            (_job(501, "Tests", (_step(1, "Run actions/setup-python@v6"),)),),
+        )
+
+        self.assertEqual(unnamed_run.state, "correlated")
+        self.assertEqual(unnamed_uses.state, "correlated")
+
+    def test_dynamic_or_duplicate_step_display_identity_is_unresolved(self) -> None:
+        dynamic_name = correlate_workflow_runtime(
             _source(
                 """
 jobs:
@@ -308,6 +327,20 @@ jobs:
             ),
             _run(),
             (_job(501, "Tests", (_step(1, "Run abc"),)),),
+        )
+        dynamic_unnamed_run = correlate_workflow_runtime(
+            _source(
+                """
+jobs:
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "${{ github.sha }}"
+"""
+            ),
+            _run(),
+            (_job(501, "Tests", (_step(1, "Run echo abc"),)),),
         )
         duplicate = correlate_workflow_runtime(
             _source(
@@ -327,8 +360,11 @@ jobs:
             (_job(501, "Tests", (_step(1, "Check"),)),),
         )
 
-        self.assertEqual(missing.reason, "static_step_name_missing")
-        self.assertEqual(dynamic.reason, "static_step_name_dynamic")
+        self.assertEqual(dynamic_name.reason, "static_step_name_dynamic")
+        self.assertEqual(
+            dynamic_unnamed_run.reason,
+            "unnamed_run_step_display_name_dynamic",
+        )
         self.assertEqual(duplicate.reason, "duplicate_static_step_name")
 
     def test_runtime_step_numbers_must_be_unique_and_ordered(self) -> None:
