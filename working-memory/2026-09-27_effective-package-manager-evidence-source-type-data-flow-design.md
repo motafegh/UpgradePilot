@@ -123,7 +123,100 @@ Important:
 - do not claim every command in a successful step executed;
 - bounded sequential reachability remains a separate CI/shell composition responsibility layered over this exact-execution fact.
 
-**Open design decision R3-A:** should this be a small public fact extracted from the existing runtime-strengthening machinery, or should the existing runtime-strengthening result itself be promoted/refactored into the reusable public type? Prefer reuse/refactor over a parallel execution subsystem.
+### R3-A decision — two-level reusable execution evidence
+
+**AGREED DESIGN DIRECTION:** refactor the existing runtime-strengthening logic into two reusable CI-owned evidence layers rather than promoting the current private dependency-exercise result unchanged or adding a parallel package-manager execution path.
+
+#### A. Correlated user-step execution assessment
+
+Proposition:
+
+> Did this exact statically correlated user step complete successfully in a form whose positive interpretation is not masked?
+
+Candidate shape, not final names:
+
+```text
+CorrelatedStepExecutionAssessment
+- state: supported | not_established | unresolved
+- static step identity
+- runtime step number/status/conclusion
+- reason/detail
+```
+
+Producer inputs:
+- `WorkflowRuntimeStepCorrelation`;
+- step-level `continue-on-error` semantics.
+
+Rules:
+- applies to both `RunStepDefinition` and `UsesStepDefinition`;
+- completed + success is positive only when `continue-on-error` is absent or positively false under the admitted contract;
+- dynamic/true masking remains unresolved;
+- this fact says the **step** succeeded, not that every command inside a run script executed.
+
+Primary consumers:
+- setup-python action-effect semantics;
+- future action/provider effects;
+- command-level execution strengthening.
+
+This extracts the currently duplicated/embedded continue-on-error + runtime-status interpretation from `dependency_exercise.py` into a reusable CI owner.
+
+#### B. Exact command-occurrence execution assessment
+
+Proposition:
+
+> Given an unmasked successful owning run step, does the admitted shell/structure relation justify treating this exact parsed command occurrence as executed successfully?
+
+Candidate shape, not final names:
+
+```text
+ExactCommandExecutionAssessment
+- state: supported | not_established | unresolved
+- workflow/job/step identity
+- StaticCommandLocation
+- structural / whole-step proof basis
+- owning correlated-step execution evidence
+- reason/detail
+```
+
+Producer inputs:
+- parser-backed occurrence identity/structure;
+- shell execution profile;
+- existing `classify_runtime_strengthening_eligibility` logic;
+- the correlated user-step execution assessment above.
+
+Rules:
+- sole ordinary top-level command remains supportable under admitted profiles;
+- first ordinary sequential Bash/sh command remains supportable under the existing fail-fast contract;
+- later commands require the separately designed bounded sequential-reachability/fall-through evidence;
+- unsupported conditional/loop/background/control-transfer shapes remain unresolved/not-established;
+- never infer “all commands in a successful step executed.”
+
+Primary consumers:
+- Route-A package-manager command execution;
+- GITHUB_ENV write execution when that semantic producer is selected;
+- venv creation/activation sequence composition;
+- optional Route-B self-verifying command checks.
+
+#### Why the current private result should not simply become public
+
+`_RuntimeStrengtheningCandidateResult` in `ci/dependency_exercise.py` is currently:
+- private;
+- coupled to dependency-exercise aggregation and evidence labels;
+- built only after proposition-specific `RuntimeStrengtheningCandidate` construction;
+- limited to `RunStepDefinition`;
+- carrying runtime-step facts mixed with command-eligibility decisions.
+
+Promoting it unchanged would preserve accidental coupling and still fail to serve `uses:` action effects such as setup-python.
+
+#### Reuse consequence
+
+Do not discard current machinery. R3/R4 should refactor/rehome:
+- workflow static/runtime correlation stays in `workflow_runtime_correlation.py`;
+- generic unmasked step-success interpretation becomes reusable CI evidence;
+- existing runtime-strengthening eligibility becomes the command-occurrence layer;
+- `dependency_exercise.py` becomes a consumer/aggregator rather than the owner of generic execution truth.
+
+This is one execution-evidence subsystem with two proof levels, not two competing systems.
 
 ## 4. Missing layer B — dependency-owned effective package-manager semantic facts
 
@@ -294,6 +387,8 @@ Proceed demand-driven from the first Route-A proof, not by implementing every R2
 Decide/refine the reusable public exact-command execution fact and how existing runtime-strengthening/correlation produces it.
 
 ### R3.2 — package-manager semantic fact model
+
+**CURRENT R3 DECISION:** design the dependency-owned semantic fact representation and shared provenance model now that reusable execution ownership is separated.
 Design shared provenance and the independent facts for:
 - manager environment;
 - destination/scheme;
