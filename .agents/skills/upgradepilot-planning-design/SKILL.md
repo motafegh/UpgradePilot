@@ -5,6 +5,15 @@ description: Plan or design bounded UpgradePilot work proportionately by separat
 
 # UpgradePilot Planning and Design
 
+## **Smart Situational Override Rule**
+
+All project-local MUST/REQUIRED/DO NOT/NEVER/STOP/gate/order/default language in this Skill is applied under the **Smart Situational Override Rule** from root `AGENTS.md`.
+
+It may adapt planning depth, artifact choice, sequence, decomposition, and stop lines when circumstances justify it, but it cannot silently convert Planning/Design authorization into Build/Implement authorization.
+
+A material override must identify the circumstance, the normal rule being displaced, why the override is better for the current responsibility, its proof/risk/learning/ownership effect, and any reconciliation needed afterward. The rule never authorizes false evidence claims or overrides higher-authority safety/legal/platform constraints or Ali's current explicit authorization boundary.
+
+
 Use this Skill as the reusable procedure for materially planning or designing UpgradePilot work.
 
 **Skill provenance marker:** `UP-SKILL:upgradepilot-planning-design`
