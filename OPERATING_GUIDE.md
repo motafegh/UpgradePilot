@@ -94,7 +94,7 @@ E — use D answers to repair central gaps and orient the next bounded slice
     Then stop; the next substantive slice starts again at A and its understanding gate.
 ```
 
-For a substantive cycle where working memory is warranted, keep **one coherent cycle working-memory record** that tracks A/B/C, the verification gate, D, E, and the cycle handoff. The same record should evolve while B+C proceed and later receive verification/learning/gap-repair evidence. Do not create competing phase-status records for one cycle. Plan, ADR, specification, source/test and `MEMORY.md` owners remain separate and change only when their own responsibility changes.
+For every substantive canonical LbD cycle, keep **one coherent cycle working-memory record** that tracks A/B/C, the verification gate, D, E, and the cycle handoff. The same record should evolve while B+C proceed and later receive verification/learning/gap-repair evidence. Do not create competing phase-status records for one cycle. Plan, ADR, specification, source/test and `MEMORY.md` owners remain separate and change only when their own responsibility changes.
 
 The A understanding gate is not a demand for implementation-detail recall before implementation. It is a deliberate stop so Ali can confirm, explain, question, or challenge what the next real action will do and what it is expected to prove.
 
