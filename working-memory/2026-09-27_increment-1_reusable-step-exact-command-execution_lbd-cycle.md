@@ -1,5 +1,12 @@
 # Increment 1 — Reusable Step and Exact-Command Execution Evidence — Learning-by-Doing Cycle
 
+## **Smart Situational Override Rule**
+
+This cycle follows the canonical A/B/C/verification/D/E cadence under the **Smart Situational Override Rule**. The recorded phase state reflects the route actually taken, not a rigid requirement to force future work through the same shape. If D/E or any later cycle phase must be expanded, shortened, reordered, paused, or otherwise adapted because the real situation requires it, state the reason and update this record rather than silently drifting.
+
+The rule does not create new authorization or weaken evidence truth; verification remains what the evidence actually established.
+
+
 **Date:** 2026-09-27  
 **Cycle status:** ACTIVE — canonical D current  
 **Primary operation:** Build / Implement with canonical Learning-by-Doing  
