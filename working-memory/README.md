@@ -40,7 +40,7 @@ This progression record can later provide historical/rationale evidence for audi
 
 ### Canonical Learning-by-Doing cycle records
 
-Each substantive canonical Learning-by-Doing cycle should normally have **one coherent cycle working-memory record** that remains the detailed progression owner from A through E:
+Each substantive canonical Learning-by-Doing cycle has **one coherent cycle working-memory record** that remains the detailed progression owner from A through E:
 
 ```text
 Cycle <coherent responsibility>
