@@ -76,14 +76,14 @@ This plan must not turn Tree-sitter into a pip/uv semantic engine. Shell grammar
 
 ## 4. Program cycle discipline
 
-This program uses the parent plan's canonical **A → B → C → D → E** Learning-by-Doing rhythm, but groups work into medium-sized engineering cycles so execution does not collapse into disconnected micro-steps or one oversized program pass.
+This program uses the canonical Learning-by-Doing rhythm from root `AGENTS.md`: **A0 → A1 → A2 → B → Verification → D → E**, with **C continuous across the whole cycle**. It groups work into medium-sized engineering cycles so execution does not collapse into disconnected micro-steps or one oversized program pass.
 
 Cycle policy:
 
 ```text
 select one complete engineering responsibility
 → append that cycle to this master plan
-→ execute its A → B → C → D → E progression in one active working-memory record
+→ execute its A0 → A1 → A2 → B → Verification → D → E progression in one active working-memory record, with C continuous
 → close the cycle from actual evidence
 → decide whether another cycle is genuinely required
 ```
@@ -91,7 +91,7 @@ select one complete engineering responsibility
 Rules:
 
 - this master plan owns the durable cycle structure, responsibility, entry condition, pass condition, stop line, and dependency between cycles;
-- the active working-memory record owns the actual A/B/C/D/E progression, discoveries, implementation/proof evidence, learning checks, corrections, and cycle handoff;
+- the active working-memory record owns the actual A0/A1/A2/B/Verification/D/E status plus continuous C progression, discoveries, implementation/proof evidence, learning checks, corrections, and cycle handoff;
 - `MEMORY.md` alone owns which cycle/phase is live;
 - do **not** pre-create speculative later cycles;
 - append a later cycle only when the previous cycle's evidence demonstrates that its responsibility is necessary;
@@ -110,14 +110,17 @@ install-command semantic eligibility
 command-success → dependency-state proof contract
 ```
 
-Its phases follow the parent A → B → C → D → E rhythm:
+Its execution follows the canonical cycle:
 
 ```text
-A — orient and classify current pip/uv semantic cases
-B — select/design and, once authorized, implement the smallest semantic/proof change
-C — preserve exact implementation/evidence/proof state
-D — verify focused/integration/real-case evidence and transfer ownership
-E — close the cycle and decide whether explicit runtime-state evidence is still necessary
+A0 — reconcile current state and initialize the cycle record/learning map
+A1 — onboard Ali from the last understood state, then STOP
+A2 — orient the selected semantic/proof responsibility, then STOP before Build
+B — perform the authorized coherent semantic/proof work
+Verification — establish focused/integration/real-case evidence before D
+D — learn from the actual evidenced result and check ownership
+E — repair/defer gaps, close honestly, and identify the next responsibility briefly
+C — continuously preserve meaningful engineering/learning progression across A0→E
 ```
 
 **Cycle 1 pass condition:** one bounded positive command family has a precise, source-backed proof contract from exact dependency source through exact successful runtime execution to proposed-version presence/satisfaction at the admitted command-completion boundary, with material non-installing/retargeted/dynamic cases remaining distinguishable.
