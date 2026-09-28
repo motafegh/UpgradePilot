@@ -272,6 +272,18 @@ def resolve_installation_destination(
             selectors.append(inline)
         index += 1
 
+    if _unclassified_dynamic_operation_atoms(declaration):
+        return _problem(
+            declaration,
+            "installation_destination",
+            "installation_destination_command_line_unresolved",
+            (
+                "A dynamic/unsupported install argument could contain another material "
+                "destination selector, so the effective command-line destination is unresolved."
+            ),
+            blocking_source="command_line",
+        )
+
     if len(selectors) > 1:
         return _problem(
             declaration,
@@ -294,18 +306,6 @@ def resolve_installation_destination(
             command_location=declaration.command_location,
             destination=selectors[0],
             provenance=_provenance("installation_destination", step),
-        )
-
-    if _unclassified_dynamic_operation_atoms(declaration):
-        return _problem(
-            declaration,
-            "installation_destination",
-            "installation_destination_command_line_unresolved",
-            (
-                "A dynamic/unsupported install argument could contain a material destination "
-                "selector, so command-line non-override is not established."
-            ),
-            blocking_source="command_line",
         )
 
     return _problem(
@@ -332,6 +332,18 @@ def resolve_package_mutation_mode(
 ) -> PackageMutationModeFact | PackageManagerSemanticProblem:
     """Resolve explicit dry-run or preserve the unresolved effective-semantics edge."""
 
+    if _unclassified_dynamic_operation_atoms(declaration):
+        return _problem(
+            declaration,
+            "package_mutation_mode",
+            "package_mutation_mode_command_line_unresolved",
+            (
+                "A dynamic/unsupported install argument could contain --dry-run, so "
+                "command-line non-override is not established."
+            ),
+            blocking_source="command_line",
+        )
+
     if _has_literal_option(declaration.operation_arguments, "--dry-run"):
         step = _command_line_step(
             "decisive",
@@ -343,18 +355,6 @@ def resolve_package_mutation_mode(
             command_location=declaration.command_location,
             mode="dry_run",
             provenance=_provenance("package_mutation_mode", step),
-        )
-
-    if _unclassified_dynamic_operation_atoms(declaration):
-        return _problem(
-            declaration,
-            "package_mutation_mode",
-            "package_mutation_mode_command_line_unresolved",
-            (
-                "A dynamic/unsupported install argument could contain --dry-run, so "
-                "command-line non-override is not established."
-            ),
-            blocking_source="command_line",
         )
 
     return _problem(
@@ -381,6 +381,18 @@ def resolve_direct_requirement_handling(
 ) -> DirectRequirementHandlingFact | PackageManagerSemanticProblem:
     """Resolve explicit direct exclusion or preserve the remaining lower-source edge."""
 
+    if _unclassified_dynamic_operation_atoms(declaration):
+        return _problem(
+            declaration,
+            "direct_requirement_handling",
+            "direct_requirement_handling_command_line_unresolved",
+            (
+                "A dynamic/unsupported install argument could contain a direct-requirement "
+                "exclusion mode."
+            ),
+            blocking_source="command_line",
+        )
+
     if _has_literal_option(declaration.operation_arguments, "--only-deps"):
         step = _command_line_step(
             "decisive",
@@ -392,18 +404,6 @@ def resolve_direct_requirement_handling(
             command_location=declaration.command_location,
             handling="excluded",
             provenance=_provenance("direct_requirement_handling", step),
-        )
-
-    if _unclassified_dynamic_operation_atoms(declaration):
-        return _problem(
-            declaration,
-            "direct_requirement_handling",
-            "direct_requirement_handling_command_line_unresolved",
-            (
-                "A dynamic/unsupported install argument could contain a direct-requirement "
-                "exclusion mode."
-            ),
-            blocking_source="command_line",
         )
 
     no_deps = _has_literal_option(declaration.operation_arguments, "--no-deps")
