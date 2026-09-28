@@ -14,7 +14,7 @@ It may expand, shrink, reorder, or skip orientation/retrieval steps based on wha
 A material override must identify the circumstance, the normal rule being displaced, why the override is better for the current responsibility, its proof/risk/learning/ownership effect, and any reconciliation needed afterward. The rule never authorizes false evidence claims or overrides higher-authority safety/legal/platform constraints or Ali's current explicit authorization boundary.
 
 
-Use this Skill as the compact **support/composition procedure** for returning Ali to meaningful UpgradePilot work with the smallest accurate current context.
+Use this Skill as the compact **standalone read-only support procedure** for returning Ali to accurate current UpgradePilot context **when the session is not yet entering a substantive canonical Learning-by-Doing cycle**. When a substantive cycle is being entered, canonical A0/A1 already own agent current-state reconciliation and Ali continuity onboarding; do not activate this Skill merely to duplicate them.
 
 **Skill provenance marker:** `UP-SKILL:upgradepilot-project-reentry-orientation`
 
@@ -46,6 +46,8 @@ re-enter the project before we continue
 ```
 
 Do **not** load this Skill merely because every new chat technically begins with some context recovery. Use it when re-entry/orientation is a material responsibility rather than an invisible trivial read.
+
+Do **not** compose this Skill as an extra pre-step for a substantive LbD cycle. In that case use A0 for current-state reconstruction, A1 for continuity/recent-work onboarding, then the canonical A1 STOP. Use this Skill only when orientation itself is the requested standalone responsibility or when the user has not yet chosen/entered a substantive cycle.
 
 Do not use it as a substitute for:
 
@@ -357,9 +359,9 @@ Compose `.agents/skills/upgradepilot-working-memory/SKILL.md` only when the sess
 
 ### Learning-by-Doing
 
-Re-entry prepares the broader current context. It does not replace the next substantive slice's A → B → C → D → E cycle.
+Do not normally compose standalone re-entry with the start of a substantive canonical LbD cycle. The cycle's A0/A1 responsibilities already perform current-state reconstruction and continuity onboarding.
 
-If the re-entry packet already covers some of the next slice's A-stage orientation, reuse/compress that overlap proportionately; do not repeat it ceremonially, but do not skip a materially different pre-action learning boundary.
+If a standalone re-entry session later transitions into a substantive cycle, treat the re-entry packet as evidence/input rather than silently marking A0/A1 complete. Apply the Smart Situational Override Rule only when that prior orientation genuinely satisfies the new cycle's purpose and the compression is made explicit; otherwise execute the canonical A0/A1 gates.
 
 ### Learning-Only
 
