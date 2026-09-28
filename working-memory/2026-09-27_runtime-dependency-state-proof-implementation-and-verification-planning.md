@@ -5,7 +5,7 @@
 The implementation/proof sequence and stop lines in this planning record are applied under the **Smart Situational Override Rule**. Current evidence may justify expanding, shrinking, reordering, combining, splitting, pausing, or overriding a planned increment/gate when that route is more faithful to the real product responsibility. A material override must be explicit and reconciled with the controlling plan/ADR/owner when their responsibility changes. It cannot invent authorization or proof.
 
 
-**Status:** ACTIVE R4 Planning/Design record. R2 semantic boundary and R3 evidence/data-flow architecture are closed. This record coordinates implementation/proof order only and does not authorize Build.
+**Status:** R4 PLANNING/DESIGN COMPLETE; retained as the broader implementation/proof-sequence record. R2 semantic boundary and R3 evidence/data-flow architecture are closed. Increment 1 has been implemented, verified, learned, and closed in its dedicated cycle record. This record does not itself authorize future Build increments; `MEMORY.md` alone selects the live continuation.
 
 **Controlling plan:** plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md  
 **Accepted architecture:** docs/architecture/ADR-0010-package-manager-semantic-facts-and-runtime-dependency-state-composition.md  
@@ -43,7 +43,7 @@ Do not implement Route-B log/stdout/artifact acquisition in the first Cycle-1 sl
 
 ## 3. Ordered Build increments
 
-### Increment 1 — reusable step and exact-command execution evidence
+### Increment 1 — reusable step and exact-command execution evidence — COMPLETED
 
 **Why first:** every later package-manager, setup-python, environment-write, venv, and Route-B path depends on trustworthy execution identity.
 
@@ -280,17 +280,20 @@ A real public case passes verification when UpgradePilot returns the strongest t
 
 Do not weaken the proof to force a positive public result.
 
-## 5. Recommended first Build slice
+## 5. First Build slice — completed
 
-When Build is explicitly authorized, begin with **Increment 1 — reusable step and exact-command execution evidence**.
+The selected first Build slice was **Increment 1 — reusable step and exact-command execution evidence**.
 
-Reason:
+Why it was first:
 - it is shared by setup-python, GITHUB_ENV, venv sequences, package-manager commands, and Route B;
-- it removes generic execution logic currently embedded privately in dependency_exercise.py;
-- it can be verified without committing prematurely to package-manager source adapters;
-- later increments can consume a stable execution contract rather than duplicating step-success interpretation.
+- it removed generic execution interpretation from dependency-specific ownership;
+- it could be verified without prematurely committing to package-manager source adapters;
+- later increments can now consume a stable execution contract rather than duplicating step-success interpretation.
 
-Do not begin by implementing ambient pip config resolution. That would solve a lower-level source problem before the common execution identity boundary is reusable.
+Increment 1 is complete and closed in:
+`working-memory/2026-09-27_increment-1_reusable-step-exact-command-execution_lbd-cycle.md`.
+
+The original sequencing warning remains valid for later work: do not jump directly to ambient pip config reconstruction before the package-manager operation/semantic core and demand-driven source needs justify it.
 
 ## 6. Build slicing and learning-by-doing rhythm
 
@@ -309,7 +312,7 @@ Do not batch all five increments into one unreviewable change.
 
 ## 7. Pass condition for this R4 planning responsibility
 
-R4 is ready for Build when:
+**R4 planning responsibility is complete.** Its original Build-readiness conditions were:
 - accepted architecture is promoted to ADR-0010;
 - controlling runtime-state plan is reconciled;
 - ordered implementation increments and owner boundaries are explicit;
@@ -318,7 +321,7 @@ R4 is ready for Build when:
 - no unresolved architectural decision blocks Increment 1;
 - prohibited scope and Build stop line are explicit.
 
-These conditions are satisfied by this plan once the final repository pointers are reconciled.
+These conditions were satisfied before Increment 1 Build authorization. Subsequent implementation progress is evidence recorded in the relevant cycle records and `MEMORY.md`, not a reopening of R4 planning.
 
 ## 7A. Increment 1 cycle execution record
 
@@ -337,23 +340,26 @@ D — post-implementation learning / ownership check
 E — gap repair + next-slice orientation
 ```
 
-Current status at this plan level:
+Recorded Increment-1 outcome:
 
-- A — done historically;
+- A — done;
 - B — done;
 - C — done/progressively preserved;
 - verification gate — green (35 focused + 632 full + exact-head Product verification);
-- D — current;
-- E — pending.
+- D — done;
+- E — done;
+- cycle — closed.
+
+The live continuation after that closure is owned only by `MEMORY.md`; this R4 record keeps the broader sequence and dated implementation evidence.
 
 This R4 record remains the broader implementation/proof-sequence owner and must not compete with the cycle record as the phase-status owner.
 
 ## 8. Stop line / prohibited scope
 
-Before explicit Build authorization:
-- do not modify product source or tests.
+For any increment that has not been explicitly authorized for Build:
+- do not modify product source or tests merely because it appears next in this sequence.
 
-During the first Cycle-1 Build:
+During the selected Cycle-1 Build responsibilities:
 - no generic job-log/stdout/artifact ingestion;
 - no Conditional Cycle 2 selection;
 - no universal environment/config reconstruction;
