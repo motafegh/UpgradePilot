@@ -5,7 +5,7 @@
 This cycle began under the previous single-A/B+C cadence. During its pre-B orientation, the project refined the canonical Learning-by-Doing model to A0 → A1 → A2 → B → Verification → D → E with C continuous across the whole cycle. On resumption, this existing record is retained rather than creating a duplicate cycle record; the new governance is applied from a deliberate A0 re-entry. The Smart Situational Override Rule permits this transition because no Increment-2 Build began. The rule does not create Build authorization or weaken evidence truth.
 
 **Date:** 2026-09-28  
-**Cycle status:** ACTIVE — A0 and A1 complete; A2 upcoming-responsibility orientation is current and stops at its pre-B understanding gate  
+**Cycle status:** ACTIVE — A0/A1/A2 complete; pre-B understanding gate cleared; B is next but has not started  
 **Primary operation:** Learning-by-Doing orientation under the already-admitted Runtime Dependency-State Proof plan; Build/Implement is not yet entered  
 **Controlling plan:** `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`  
 **R4 implementation sequence:** `working-memory/2026-09-27_runtime-dependency-state-proof-implementation-and-verification-planning.md`  
@@ -20,8 +20,8 @@ UP-SKILL:upgradepilot-working-memory
 ```text
 A0 — DONE: current main/owners/source/tests reconciled; existing cycle record reused; living A map seeded
 A1 — DONE: Ali confirmed the continuity model; no material continuity gap surfaced
-A2 — CURRENT: upcoming responsibility orientation; pre-B understanding gate pending Ali response
-B — PENDING
+A2 — DONE: Ali demonstrated the package-manager declaration boundary and dry-run mutation-mode blocker; pre-B gate cleared
+B — PENDING: next responsibility; Build has not started
 Verification gate — PENDING
 D — PENDING
 E — PENDING
@@ -114,12 +114,12 @@ This map is a living cycle aid, not a second plan. A1 may add/remove items when 
 
 ### A2 — upcoming responsibility orientation topics (do not execute before A1 gate)
 
-- [ ] Why one dependency-owned package-manager operation declaration should replace repeated prefix interpretation.
-- [ ] Invocation identity/forms that matter: bare pip, `python -m pip`, explicit interpreter relation, and pip global `--python` placement.
-- [ ] The four independent semantic facts and why they must not collapse into one `valid install` boolean.
-- [ ] Shared bounded semantic provenance/problem representation and fail-closed unresolved material values.
-- [ ] Command-local decisive semantics first: especially `--dry-run`, target/destination distinctions, and `--no-deps` direct-requirement meaning.
-- [ ] Exact Increment-2 pass condition, proof cases, non-goals, and ownership depth.
+- [x] Why one dependency-owned package-manager operation declaration should replace repeated prefix interpretation.
+- [x] Invocation identity/forms that matter: bare pip, `python -m pip`, explicit interpreter relation, and pip global `--python` placement.
+- [x] The four independent semantic facts and why they must not collapse into one `valid install` boolean.
+- [x] Shared bounded semantic provenance/problem representation and fail-closed unresolved material values.
+- [x] Command-local decisive semantics first: especially `--dry-run`, target/destination distinctions, and `--no-deps` direct-requirement meaning.
+- [x] Exact Increment-2 pass condition, proof cases, non-goals, and ownership depth.
 
 ### A-phase understanding gaps
 
@@ -132,6 +132,16 @@ Ali confirmed both continuity propositions:
 2. Increment 2 has not entered Build; subsequent work before this point was governance/reconciliation while the technical responsibility remained unchanged.
 
 No material A1 understanding gap was identified. The cycle therefore advances to A2 only.
+## Refined A2 — upcoming responsibility orientation — DONE
+
+Ali's pre-B reasoning:
+
+1. A shared package-manager operation core avoids repeated/duplicate parsing across downstream layers, lets different consumers reuse one result, and makes ownership/boundaries clearer.
+2. For a successful command containing `--dry-run`, the decisive semantic blocker is **package mutation mode**: the operation can be structurally valid and successfully executed while still being explicitly non-mutating, so later package-presence inference must be blocked.
+
+Clarification recorded: `--dry-run` is not itself a malformed/structural command problem. It is valid package-manager semantics whose mutation-mode fact resolves to a non-mutating state.
+
+No material A2 ownership gap remains for entering the bounded Build responsibility. B has not started and still requires normal Build authorization/continuation.
 ## Cycle responsibility
 
 Move UpgradePilot from repeated narrow package-manager prefix interpretation toward one reusable static package-manager operation declaration that can feed independent package-manager semantic facts.
