@@ -5,8 +5,8 @@
 This cycle began under the previous single-A/B+C cadence. During its pre-B orientation, the project refined the canonical Learning-by-Doing model to A0 → A1 → A2 → B → Verification → D → E with C continuous across the whole cycle. On resumption, this existing record is retained rather than creating a duplicate cycle record; the new governance is applied from a deliberate A0 re-entry. The Smart Situational Override Rule permits this transition because no Increment-2 Build began. The rule does not create Build authorization or weaken evidence truth.
 
 **Date:** 2026-09-28  
-**Cycle status:** ACTIVE — A0/A1/A2 complete; pre-B understanding gate cleared; B is next but has not started  
-**Primary operation:** Learning-by-Doing orientation under the already-admitted Runtime Dependency-State Proof plan; Build/Implement is not yet entered  
+**Cycle status:** ACTIVE — A0/A1/A2/B complete; Verification/Evidence gate is next and has not yet been executed  
+**Primary operation:** Build/Implement completed for the admitted Increment-2 responsibility; Verification/Evidence gate is pending  
 **Controlling plan:** `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`  
 **R4 implementation sequence:** `working-memory/2026-09-27_runtime-dependency-state-proof-implementation-and-verification-planning.md`  
 **Accepted architecture:** `docs/architecture/ADR-0010-package-manager-semantic-facts-and-runtime-dependency-state-composition.md`  
@@ -21,8 +21,8 @@ UP-SKILL:upgradepilot-working-memory
 A0 — DONE: current main/owners/source/tests reconciled; existing cycle record reused; living A map seeded
 A1 — DONE: Ali confirmed the continuity model; no material continuity gap surfaced
 A2 — DONE: Ali demonstrated the package-manager declaration boundary and dry-run mutation-mode blocker; pre-B gate cleared
-B — PENDING: next responsibility; Build has not started
-Verification gate — PENDING
+B — DONE: bounded package-manager operation declaration + command-local semantic-fact core implemented and existing pip consumers migrated
+Verification gate — PENDING: focused/broader tests have not yet been executed
 D — PENDING
 E — PENDING
 C — CONTINUOUS: preserve meaningful progression across A0→E
@@ -162,6 +162,124 @@ The Increment-2 pass condition remains:
 
 > one exact package-manager occurrence can feed independent typed semantic resolution without runtime claims or universal config reconstruction.
 
+## B — real bounded Build / implementation — DONE, verification pending
+
+### Implementation result
+
+Build moved the package-manager responsibility from a narrow pip-prefix helper to two explicit dependency-owned source owners:
+
+```text
+StaticCommandOccurrence
+→ package_manager_operation.py
+   → PackageManagerOperationDeclaration | PackageManagerOperationProblem
+→ package_manager_semantics.py
+   → independent semantic facts/problems
+```
+
+#### 1. Static operation declaration
+
+`src/upgradepilot/dependency/package_manager_operation.py` now owns bounded static pip-install operation identity.
+
+It preserves:
+
+- manager and operation;
+- invocation form (`pip`/`pip3` executable versus Python `-m pip`);
+- launcher and explicit Python interpreter token when applicable;
+- pip global arguments required by the admitted first surface, including `--python` and `--isolated`;
+- install-operation arguments;
+- canonical `StaticCommandLocation`.
+
+Supported explicit interpreter-path forms such as `/opt/venv/bin/python3.12 -m pip install ...` are admitted. Unsupported/dynamic recognizable prefixes produce explicit operation problems rather than textual fallback.
+
+#### 2. Independent command-local semantic facts
+
+`src/upgradepilot/dependency/package_manager_semantics.py` now owns the shared bounded semantic result/provenance model and four independent fact families:
+
+- `ManagerEnvironmentSelectionFact`;
+- `InstallationDestinationFact`;
+- `PackageMutationModeFact`;
+- `DirectRequirementHandlingFact`;
+- plus `PackageManagerSemanticProblem` when the dimension cannot be established safely.
+
+Command-line decisive cases implemented in this increment include:
+
+- pip global `--python` → explicit manager-environment selection;
+- `--target`, `--user`, `--prefix`, `--root` → typed non-default installation destinations;
+- `--dry-run` → `PackageMutationModeFact(mode="dry_run")`; 
+- `--only-deps` → direct requirement excluded;
+- `--no-deps` → explicitly recorded as **not** excluding the direct requirement, while effective handling remains unresolved until lower semantic sources are closed.
+
+When no decisive command-line fact exists, the resolver preserves the next required source (normally exact process environment) instead of fabricating manager defaults.
+
+Dynamic/unsupported command-line material fails closed. A later Build review tightened this further so unclassified dynamic CLI material blocks an otherwise visible same-dimension winner when it could still alter that semantic dimension.
+
+#### 3. Existing consumers migrated
+
+`direct_install.py` and the pip branch of `environment_selection.py` now consume `PackageManagerOperationDeclaration.operation_arguments` instead of owning/repeating pip-prefix parsing.
+
+The superseded `src/upgradepilot/dependency/pip_command.py` helper was removed after migration. A dependency-package scan checked all 16 active dependency Python files and found no remaining `pip_command` / `parsed_pip_install_arguments` references.
+
+The existing uv project-selection interpretation in `environment_selection.py` remains unchanged. Increment 2's admitted first implementation responsibility is the repeated pip-prefix seam and first pip semantic family; this Build does not silently widen into a full uv effective-semantics rewrite.
+
+### Focused test surface added/extended
+
+- added `tests/test_package_manager_semantics.py` for operation parsing and the four command-local semantic dimensions;
+- extended `tests/test_direct_install_declaration.py` for pip global `--python` migration;
+- extended `tests/test_project_environment_selection.py` for explicit interpreter-path `python -m pip` migration.
+
+Important cases represented in tests include:
+
+- bare pip versus Python-module invocation;
+- explicit interpreter path;
+- pip global `--python` and dynamic target;
+- explicit `--dry-run`; 
+- no fabricated `apply_changes` default when lower sources remain unknown;
+- target/user/prefix/root destination facts;
+- `--no-deps` versus `--only-deps`; 
+- dynamic/unsupported material values;
+- one declaration feeding all four semantic resolvers;
+- dynamic CLI material blocking otherwise visible semantic winners;
+- empty inline destination values such as `--target=`;
+- non-install pip global commands such as `pip --version` not being misclassified as unresolved installs.
+
+### Build review / repairs
+
+Two source-review issues were found and repaired before B closure:
+
+1. otherwise-visible destination/mutation/direct-handling facts could have won despite unrelated dynamic CLI material that might alter the same dimension; resolvers now fail closed first;
+2. unsupported-looking pip global flags on non-install commands and empty inline destination values had imprecise classification; both boundaries now classify more accurately.
+
+### Build scope and head
+
+Build-ready base: `909b739c00ffa1a7a9404fa7b3efb17af1e1593f`  
+Final B implementation head: `a5595370b29a88caa4bdd3f7a875fae819a57c25`
+
+The 13-commit Build diff is limited to eight intended files:
+
+```text
+modified  src/upgradepilot/dependency/direct_install.py
+modified  src/upgradepilot/dependency/environment_selection.py
+added     src/upgradepilot/dependency/package_manager_operation.py
+added     src/upgradepilot/dependency/package_manager_semantics.py
+removed   src/upgradepilot/dependency/pip_command.py
+modified  tests/test_direct_install_declaration.py
+added     tests/test_package_manager_semantics.py
+modified  tests/test_project_environment_selection.py
+```
+
+No unrelated product responsibility was intentionally changed.
+
+### Proof boundary at B handoff
+
+B establishes **implementation state only**. No focused or broader test command has yet been executed in the Verification/Evidence gate, so this result is not yet accepted as green.
+
+Even after verification, Increment 2 is intended to establish only:
+
+> one exact supported package-manager occurrence can feed independent typed command-local semantic resolution with explicit provenance/problems.
+
+It still does not establish effective ambient/config semantics, command execution, resulting package state, later use, compatibility, or maintainer-action permission.
+
+UP-SKILL:upgradepilot-build-implement
 ## Historical pre-refinement A orientation — input to refined A1/A2
 
 ### 1. Starting implementation truth
