@@ -28,7 +28,11 @@ from ..github.workflow_command_analysis import (
 from ..github.workflow_command_location import StaticCommandLocation
 from ..github.workflow_definition import RunDefaults, RunStepDefinition
 from ..repository_path import repository_relative_parts
-from .pip_command import parsed_pip_install_arguments
+from .package_manager_operation import (
+    PackageManagerOperationDeclaration,
+    PackageManagerOperationProblem,
+    parse_package_manager_operation,
+)
 from .workflow_context import (
     EffectiveWorkingDirectory,
     resolve_effective_working_directory,
@@ -209,15 +213,13 @@ def observe_project_environment_selection(
     unresolved_details: list[str] = []
 
     for occurrence in command_analysis.command_occurrences:
-        install_args, pip_prefix_unresolved = parsed_pip_install_arguments(occurrence)
-        if pip_prefix_unresolved:
-            unresolved_details.append(
-                "A plausible pip install command had a dynamic or unsupported material prefix."
-            )
-        elif install_args is not None:
+        package_operation = parse_package_manager_operation(occurrence)
+        if isinstance(package_operation, PackageManagerOperationProblem):
+            unresolved_details.append(package_operation.detail)
+        elif isinstance(package_operation, PackageManagerOperationDeclaration):
             parsed, unresolved = _observe_pip_occurrence(
                 occurrence,
-                install_args=install_args,
+                install_args=package_operation.operation_arguments,
                 project_root=project_root,
                 working_directory=working_directory,
             )
