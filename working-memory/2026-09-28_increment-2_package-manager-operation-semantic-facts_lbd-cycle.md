@@ -5,7 +5,7 @@
 This cycle began under the previous single-A/B+C cadence. During its pre-B orientation, the project refined the canonical Learning-by-Doing model to A0 → A1 → A2 → B → Verification → D → E with C continuous across the whole cycle. On resumption, this existing record is retained rather than creating a duplicate cycle record; the new governance is applied from a deliberate A0 re-entry. The Smart Situational Override Rule permits this transition because no Increment-2 Build began. The rule does not create Build authorization or weaken evidence truth.
 
 **Date:** 2026-09-28  
-**Cycle status:** ACTIVE — refined A0 re-entry complete; A1 continuity/onboarding is current and stops at its continuity gate  
+**Cycle status:** ACTIVE — A0 and A1 complete; A2 upcoming-responsibility orientation is current and stops at its pre-B understanding gate  
 **Primary operation:** Learning-by-Doing orientation under the already-admitted Runtime Dependency-State Proof plan; Build/Implement is not yet entered  
 **Controlling plan:** `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`  
 **R4 implementation sequence:** `working-memory/2026-09-27_runtime-dependency-state-proof-implementation-and-verification-planning.md`  
@@ -19,8 +19,8 @@ UP-SKILL:upgradepilot-working-memory
 
 ```text
 A0 — DONE: current main/owners/source/tests reconciled; existing cycle record reused; living A map seeded
-A1 — CURRENT: continuity/recent-work onboarding; continuity gate pending Ali response
-A2 — PENDING: upcoming responsibility orientation after A1 gate only
+A1 — DONE: Ali confirmed the continuity model; no material continuity gap surfaced
+A2 — CURRENT: upcoming responsibility orientation; pre-B understanding gate pending Ali response
 B — PENDING
 Verification gate — PENDING
 D — PENDING
@@ -105,12 +105,12 @@ This map is a living cycle aid, not a second plan. A1 may add/remove items when 
 
 ### A1 — continuity / recent-work onboarding topics
 
-- [ ] Reconnect Increment 1's closed result: exact-command successful execution evidence exists, but it does not establish package-manager meaning or resulting package state.
-- [ ] Reconnect the governance interruption: Increment 2 started orientation but **no Build began**; governance was refined before product work continued.
-- [ ] Explain what changed since that point: LbD A0/A1/A2 model + continuous C, root governance compaction, and plan/R4 cadence reconciliation only.
-- [ ] Re-establish current live position: Increment 2 remains selected; technical scope/ADR/plan did not change.
-- [ ] Reconnect the current source seam: `pip_command.py` recognizes bounded pip prefixes; `direct_install.py` and `environment_selection.py` consume/reinterpret pieces independently.
-- [ ] Surface any continuity gaps/questions from Ali and record them before A2.
+- [x] Reconnect Increment 1's closed result: exact-command successful execution evidence exists, but it does not establish package-manager meaning or resulting package state.
+- [x] Reconnect the governance interruption: Increment 2 started orientation but **no Build began**; governance was refined before product work continued.
+- [x] Explain what changed since that point: LbD A0/A1/A2 model + continuous C, root governance compaction, and plan/R4 cadence reconciliation only.
+- [x] Re-establish current live position: Increment 2 remains selected; technical scope/ADR/plan did not change.
+- [x] Reconnect the current source seam: `pip_command.py` recognizes bounded pip prefixes; `direct_install.py` and `environment_selection.py` consume/reinterpret pieces independently.
+- [x] Surface any continuity gaps/questions from Ali and record them before A2 — none surfaced at the A1 gate.
 
 ### A2 — upcoming responsibility orientation topics (do not execute before A1 gate)
 
@@ -124,6 +124,14 @@ This map is a living cycle aid, not a second plan. A1 may add/remove items when 
 ### A-phase understanding gaps
 
 None are assumed at A0. A1 must discover them from Ali's actual questions/reasoning rather than infer them from prior approval.
+## Refined A1 — continuity / recent-work onboarding — DONE
+
+Ali confirmed both continuity propositions:
+
+1. Increment 1 proves successful execution of the exact command occurrence, not resulting package state.
+2. Increment 2 has not entered Build; subsequent work before this point was governance/reconciliation while the technical responsibility remained unchanged.
+
+No material A1 understanding gap was identified. The cycle therefore advances to A2 only.
 ## Cycle responsibility
 
 Move UpgradePilot from repeated narrow package-manager prefix interpretation toward one reusable static package-manager operation declaration that can feed independent package-manager semantic facts.
