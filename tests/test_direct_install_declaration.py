@@ -143,6 +143,27 @@ class DirectInstallDeclarationTests(unittest.TestCase):
         self.assertEqual(result.working_directory.state, "repository_root")
         self.assertEqual(result.working_directory.source, "repository_root")
 
+    def test_pip_global_python_form_uses_shared_operation_declaration(self) -> None:
+        result = observe_direct_installation_declaration(
+            _step("pip --python /opt/venv/bin/python install -r requirements.txt"),
+            dependency_source_path="requirements.txt",
+            command_analysis=_analysis(
+                _occurrence(
+                    0,
+                    "pip",
+                    "--python",
+                    "/opt/venv/bin/python",
+                    "install",
+                    "-r",
+                    "requirements.txt",
+                )
+            ),
+        )
+
+        self.assertEqual(result.state, "observed")
+        self.assertEqual(result.matched_requirement_path, "requirements.txt")
+        self.assertIsNotNone(result.command_location)
+
     def test_working_directory_precedence_is_step_then_job_then_workflow(self) -> None:
         cases = (
             (
