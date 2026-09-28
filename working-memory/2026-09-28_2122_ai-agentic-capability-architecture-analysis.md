@@ -475,3 +475,190 @@ Established in this session:
 - established the next analysis route without yet creating a new controlling product plan or changing accepted architecture.
 
 Next discussion should begin from Step 1: limitation/unresolved-case inventory, while refreshing main whenever parallel product progress becomes relevant to a conclusion.
+
+
+## 14. Step 1 — current limitation / unresolved / deferred inventory
+
+### 14.1 Evidence snapshot and reconciliation
+
+This inventory was refreshed against current `main` through:
+
+`b37bed22af2dd958b46dda417834cc64cbb255ab` — `record phase D real-case teaching priority`.
+
+At that live snapshot, Increment 2 Verification is GREEN and its D evidence-backed ownership-learning phase is current. Product verification #10 is green and the full deterministic regression passed 653 tests. The branch base remains the earlier exact snapshot `e838fa6`; this section records later observed `main` state without pretending that the analysis branch itself has been rebased.
+
+Three September-8 investigation findings were explicitly rechecked and are **not current limitations**:
+
+1. **comment / quoted-text command false positives** — superseded by the parser-backed static-command architecture and current shared command analysis;
+2. **PR changed-file / frozen-head mismatch** — current `GitHubPullRequestClient` validates each changed-file locator against the frozen head and performs a post-acquisition base/head/count identity recheck;
+3. **workflow run-attempt / jobs mismatch** — current Actions acquisition uses the attempt-specific jobs endpoint for the captured `run_attempt`.
+
+These historical defects remain useful provenance, but carrying them into this register would duplicate already-absorbed work.
+
+### 14.2 Classification vocabulary for Step 1
+
+This step is intentionally **not yet choosing AI/LLM/agent mechanisms**.
+
+Each item is classified only by why the current product stops:
+
+- **bounded unsupported** — the current admitted implementation explicitly excludes a syntax/mechanism/family;
+- **unresolved representation/logic** — evidence exists, but the current representation or deterministic rule cannot safely establish the proposition;
+- **missing evidence/acquisition** — the needed observation is not currently acquired or is unavailable;
+- **deferred responsibility** — the mature product responsibility is recognized but not yet implemented/admitted;
+- **intentional claim boundary** — stronger inference is prohibited because the available evidence does not prove it;
+- **bounded operational safeguard** — hard acquisition/resource/safety limits deliberately trade coverage for trustworthy operation.
+
+An item can belong to more than one class.
+
+### 14.3 Current whole-pipeline inventory
+
+| Area | Current unsupported / unresolved / deferred boundary | Exact missing proposition or evidence | Current pressure / relevance |
+| --- | --- | --- | --- |
+| GitHub acquisition scale | Changed files, workflow runs, and jobs are acquired under explicit completeness/resource caps; evidence beyond those caps is rejected rather than sampled. | Complete bounded provider snapshot inside the supported resource envelope. | Operational safeguard; important for unusually large PR/CI surfaces, but not currently evidence for an AI problem. |
+| Repository-file / runtime evidence availability | Exact repository files can be explicitly unavailable; runtime step summaries may be absent. Generic job-log/stdout/artifact acquisition is still outside the first runtime-state route. | Exact source or exact command/runtime-state observation at the required revision/boundary. | S002 shows historical logs/resolved environment can become unavailable; runtime-state plan keeps logs/artifacts as a conditional later source rather than assuming them. |
+| PyPI provenance / upstream repository identity | File provenance may be unavailable or use an unsupported provenance contract; upstream repository association may be unsupported or ambiguous; current repository association is GitHub-oriented. | Trustworthy publisher/source repository identity for the exact release/file. | Important trust/provenance boundary; missing provenance remains a real abstention source rather than something semantic reasoning can invent. |
+| Changelog / upstream source discovery | Changelog discovery deliberately does not rank ambiguous documentation sources. Missing release sections, conflicting source order, unavailable tags/releases, or incomplete authoritative release series remain explicit problems. | One sufficiently authoritative, correctly bounded upstream source window for the exact release interval. | Directly affects semantic extraction availability; model output cannot substitute for missing authority. |
+| Requirements dependency-transition extraction | Requirements-family extraction supports an in-place modified admitted requirements/constraints file with one unambiguous removed exact pin and one added exact pin. Broader specifier/edit shapes abstain. | One exact dependency transition with trustworthy source identity. | Bounded current source family; expansion may matter for broader Dependabot shapes but has not yet been justified universally. |
+| Pyproject dependency-transition extraction | Current pyproject rule is deliberately limited to one exact-pin transition in `[project.optional-dependencies]` with conservative base/head comparison. Direct-reference transitions, broader edits, ambiguity, and other dependency sections/forms remain outside this first rule. | One exact dependency transition plus source/environment identity across broader pyproject dependency forms. | S011 pressure justified optional-extra support and has largely been absorbed; broader pyproject coverage remains open rather than automatically generalized. |
+| uv lock structure / reachability | Current uv proof is bounded by admitted schema/structure. Repeated resolution branches, unsupported structural changes, marker/fork ambiguity, unsupported bindings/selectors, and unevaluated conditions can remain unresolved. Presence somewhere in `uv.lock` is not treated as selected-environment membership. | Exact selected-root/environment reachability of the changed package under material marker/fork context. | Real dependency-environment pressure; intentionally avoids unioning all lock paths. |
+| Project environment selection | Current static selection recognizes bounded pip/uv project forms, working-directory context, admitted groups/extras/selectors. Dynamic project paths/groups/extras and unsupported selectors remain unresolved; arbitrary package-manager/task-runner semantics are outside the current rule. | Exact project environment selected by the command under the repository/workflow context. | S005 remains a concrete deferred transfer case because tox + uv-venv-lock-runner is materially different from direct uv commands. |
+| Shell syntax family | Shared command analysis admits bounded Bash/sh, PowerShell/pwsh, and CMD/batch syntax families. Python-shell mode and arbitrary custom interpreters are not treated as shell scripts; dynamic shell identity and some custom templates remain unresolved. | Trustworthy syntax/execution profile for the exact `run:` body. | Common workflow variability; deliberately fail-closed because wrong parsing can create false positive evidence. |
+| Command atoms / dynamic shell material | Expression-backed or shell-dynamic command atoms are preserved as dynamic/unsupported rather than guessed into literal executables/options/paths. Material parser error makes the command analysis unresolved with no textual fallback. | Literal/grounded value of a material command token or a stronger safe representation of the dynamic expression. | Cross-cutting pressure for package-manager, path, and control-flow reasoning. |
+| Conditional and path-dependent command execution | Known conditional bodies, loops, deferred function/block bodies, status inversion, asynchronous/background execution, and process substitution are currently **ineligible** for step-success runtime strengthening. | Proof that the exact occurrence lies on the successful executed path under the exact runtime inputs. | This is our first concrete AI-architecture case. The command can be real static evidence while execution remains unproven. |
+| Short-circuit / pipeline / nested / later-chain execution | Generic short-circuit, pipelines, nested/subshell/compound structures, later sequential occurrences, and some shell-specific complex shapes remain unresolved because the IR does not yet preserve enough operator/position/status-contribution semantics. | A bounded structural relation sufficient to infer exact-command execution from the containing step, or direct command-level runtime evidence. | S004's real `. ./venv/bin/activate && pip install ...` form is an explicit re-entry case; this is real rather than synthetic pressure. |
+| Static↔runtime workflow correlation | Current correlation requires ordinary non-strategy jobs, literal unique job identities, deterministic step display identities, and available ordered runtime step summaries. Reusable-workflow jobs, strategy/matrix jobs, dynamic names, ambiguous duplicates, and unavailable step summaries remain unresolved/unsupported. | Exact one-to-one static/runtime job+step identity under expanded workflow semantics. | Material for matrix/reusable-workflow repositories and for any stronger exact-command runtime claim. |
+| Checkout / working-directory provenance | Dynamic higher-precedence working-directory declarations, ambiguous/dynamic checkout repository/path inputs, conditional checkout shapes, or unresolved project-root relations prevent stronger source/path conclusions. | Exact repository root/project root and path provenance seen by the command. | Cross-cuts requirements installs, project selection, and environment membership. |
+| Package-manager operation declaration | Increment 2 currently provides one reusable **pip install** operation declaration. Unknown/dynamic material before `install`, unsupported pip global options, and some module-invocation ambiguity become explicit problems rather than being reinterpreted downstream. | One exact package-manager operation identity with all material command-local tokens classified. | Current live implementation boundary; designed to be extended only from real semantic pressure rather than into a universal package-manager parser. |
+| Effective package-manager semantics | Increment 2 resolves command-local decisive facts such as explicit `--python`, destination selectors, `--dry-run`, and direct-requirement handling. Multiple selectors can be unsupported; dynamic arguments can block a fact. When no decisive CLI override exists, process environment / persistent config / executable/default evidence is explicitly still required. | Effective manager environment, destination, mutation mode, and direct-requirement handling after command line → process env → config → default precedence. | This is the immediate post-Increment-2 program gap; it is already the accepted next runtime-state responsibility, not a newly discovered AI idea. |
+| Runtime dependency-state proof | Exact command execution still does not prove exact proposed-version presence. The command-derived requirement-state composer and application integration are later increments; direct target-owned runtime-state/log evidence remains conditional Route B. | Exact proposed requirement satisfied in the exact relevant package-state scope at the justified command-completion boundary. | Central current technical-completion responsibility. |
+| Target CI environment interpretation | Target artifact environment currently handles a bounded job slice. Ambiguous target-job selection, reusable-workflow jobs, multiple setup-python steps, non-single-literal runner forms, strategy/matrix context, and container context remain unsupported or partially interpreted. Exact wheel compatibility state remains unresolved at this layer. | Exact target interpreter/platform/environment sufficient for the artifact proposition. | S008 demonstrates real artifact/target-environment pressure; simply seeing a successful unpinned CI job is not enough. |
+| Target Python declaration/comparison | Current Python-support applicability uses exact target `pyproject.toml [project].requires-python` evidence and an admitted deterministic specifier comparison subset. Missing/invalid declarations and unsupported specifier forms remain unresolved. | Exact target declared Python range and a supported comparison to the dropped line. | Current first impact mechanism; narrow by design. |
+| Artifact-serviceability / installation-path consequences | Exact wheel inventory can establish bounded wheel-compatibility facts, but absence of a compatible wheel does not prove installation failure because source-distribution fallback may remain. Exact target tags/context can also remain unresolved. | Exact installation-path consequence in the relevant interpreter/platform environment. | S008 explicitly proves this distinction and shows why artifact availability is a separate impact mechanism. |
+| Broad technical-impact candidate discovery | The product does **not** yet implement general discovery of all material mechanisms created by a dependency update. Current implemented mechanisms are bounded examples, not transition-level discovery completeness. | A bounded, reviewable set of materially plausible impact candidates plus an honest statement about discovery coverage. | S010 is direct real-case pressure: one NumPy proposal exposed multiple distinct mechanisms with different target-handling states. |
+| Repository-purpose / policy / provenance context | Mechanism-specific applicability does not currently constitute a general repository-purpose/context reasoning layer. | Material repository context whose truth can affect appropriateness even when technical compatibility remains unresolved. | S009 shows a real reproducibility repository where exact version identity is part of the artifact/purpose, not merely a solver constraint. |
+| Coordinated package-family / platform-family reasoning | No general product responsibility currently establishes coordinated multi-package family coherence across platform-specific distribution channels/environments. | Cross-package version/platform family relationship for the exact target environment. | S007 provides real CUDA/PyTorch-family pressure and demonstrates that one dependency cannot always be reasoned about in isolation. |
+| Persisted-state / producer-version applicability | Product applicability does not yet generally model runtime artifacts/state produced under the old dependency version and later consumed under the new one. | Artifact existence, relevant embedded dependency-owned state, producer version, and post-update reuse/selection. | S012 provides real scikit-learn persisted-artifact pressure; arbitrary deployment artifact history may remain unknowable from repository evidence alone. |
+| Discriminating targeted-check derivation | The implemented Python-support selector chooses only one predefined read-only action: acquire exact target Python declaration. General targeted-check derivation from arbitrary behavior/coverage gaps is not a product capability. | Which concrete observation would maximally discriminate one decision-relevant unresolved proposition, with bounded expected outcomes. | S006 gives direct pressure and also exposes evaluation/oracle-isolation difficulty. |
+| Adaptive multi-step investigation | Existing EvidenceGapPlanner / LangGraph work remains experimental and initially has only one real selectable action. The product does not yet run a general adaptive evidence-acquisition loop. | A sufficiently rich admitted action catalog, state transition semantics, budgets/stopping, and evidence that adaptive choice outperforms simpler sequencing. | Prior experiments prove the boundary can work, but framework/product adoption was correctly deferred because the action surface was too small. |
+| Candidate applicability coverage | Applicability can represent established/refuted/unresolved/conflicted paths, but negative candidate closure requires sufficient path-model coverage. Omitted viable routes prevent global non-applicability claims. | Evidence that the represented path model is sufficiently complete for the bounded candidate. | General proof limitation; AI confidence cannot manufacture path coverage. |
+| Overall evidence sufficiency / maintainer actions | Stable action semantics exist, but the current product evaluator intentionally admits **only `abstain`**. Merge, targeted checks, investigate/block, and defer remain unavailable until their positive normal-producer prerequisites are proven. | Action-specific positive permission from trustworthy evidence/context/coverage. | Major current product limitation by design; do not “unlock” actions by weakening evidence rules. |
+| Cross-evidence synthesis / maintainer explanation | A future LLM-assisted synthesis proposal exists, but there is no admitted product LLM that chooses final action from evidence. | Validated reasoning/explanation inside a deterministic permission envelope, with complete citation/uncertainty preservation. | Recognized future responsibility; must not be conflated with the already experimental investigation planner. |
+| Persistence / replay / recovery / evaluation | Runtime persistence/replay/corpus evaluation remains mostly B3/B5/future work. Product-simulation artifacts are evidence for design, not the operational product store. Some simulation cases (for example S006) deliberately lack self-contained raw-source replay. | Durable evidence identity/content, reproducible state transitions, recovery semantics, and trustworthy evaluation corpus/oracles. | Important for debugging, longitudinal proof, planner/model evaluation, and production robustness; not solved by better reasoning alone. |
+| Dynamic/behavioral execution | UpgradePilot does not generally execute arbitrary target/upstream code merely to settle compatibility. Resolver/runtime execution is gated by security, cost, isolation, and proposition value. | A safe, exact, decision-discriminating observation that cannot be established more cheaply/trustworthily from static evidence. | S004/S007/S008/S012 all demonstrate cases where stopping before expensive execution can be correct; missing execution is not automatically a capability defect. |
+
+### 14.4 Real-case pressure map
+
+The most useful preserved real cases for the current limitation inventory are:
+
+- **S002** — historical logs/exact resolved environment can disappear; acquisition/durability boundaries matter.
+- **S004** — real `&&` command structure is a concrete operator-aware runtime-strengthening re-entry case.
+- **S005** — tox + uv-venv-lock-runner demonstrates that direct package-manager interpretation cannot be assumed universal; exact resolver evidence materially changed the decision in the simulation.
+- **S006** — a behavior-specific coverage gap creates a real targeted-check-selection problem and exposes blind-evaluation/oracle-isolation requirements.
+- **S007** — coordinated package-family + platform environment reasoning is a distinct mechanism family.
+- **S008** — wheel disappearance/source fallback and exact target-environment coverage are separate propositions.
+- **S009** — repository purpose/provenance can be decision-relevant without first resolving deeper runtime compatibility.
+- **S010** — broad candidate discovery can miss multiple materially distinct mechanisms from one update.
+- **S011** — optional-extra/environment selection and CI non-coverage were real pressure; much of this pressure has already been absorbed by current dependency/environment work, so it should not be misreported as wholly unsupported now.
+- **S012** — persisted artifacts make old-environment producer state part of applicability; arbitrary deployment history may remain genuinely unavailable.
+
+### 14.5 Cross-cutting findings from Step 1
+
+#### Finding A — “unsupported” is not one kind of problem
+
+The register contains at least five materially different reasons the system stops:
+
+```text
+representation too weak
+evidence missing
+product responsibility not implemented yet
+claim intentionally prohibited
+operation deliberately bounded for safety/cost/trust
+```
+
+Treating all five as one “AI opportunity” would be architecturally wrong.
+
+#### Finding B — many current limits sit at the boundary between static evidence and runtime truth
+
+This is especially visible in:
+
+- conditional/control-flow execution;
+- static↔runtime workflow correlation;
+- project environment selection;
+- effective package-manager semantics;
+- runtime dependency-state proof;
+- target environment / artifact compatibility.
+
+These areas repeatedly ask:
+
+> what additional proposition would let existing trustworthy evidence become stronger without changing its meaning?
+
+That is likely a central organizing question for Step 2.
+
+#### Finding C — the largest mature-product gaps are not parser edge cases
+
+The broadest still-open responsibilities are:
+
+1. technical-impact candidate discovery breadth;
+2. heterogeneous repository-context discovery;
+3. discriminating/adaptive investigation;
+4. evidence sufficiency → non-abstention action permission;
+5. durable replay/evaluation.
+
+Therefore our AI architecture work should not become only a project about solving shell conditionals.
+
+#### Finding D — some “missing” capabilities should remain missing until a decision-critical proposition requires them
+
+Real cases repeatedly show that deeper execution can be unnecessary:
+
+- S004 stopped when stronger work would not change the action;
+- S007 can stop at static package-family evidence;
+- S008 does not need a source-build reproduction to establish wheel-path transition;
+- S012 does not need a cross-version runtime experiment to establish the documented persistence boundary.
+
+So the mature architecture needs to represent **justified stopping**, not only ever-increasing capability.
+
+#### Finding E — current typed-state architecture already preserves many useful future reasoning seams
+
+The inventory repeatedly exposes typed states such as:
+
+```text
+unsupported
+unresolved
+not_established
+ineligible
+conflicted
+source_unavailable
+ambiguous
+needs_lower_source_evidence
+```
+
+and separates propositions such as:
+
+```text
+static occurrence
+exact execution
+manager environment
+destination
+mutation mode
+environment membership
+target relevance
+artifact serviceability
+candidate applicability
+maintainer-action permission
+```
+
+This supports the earlier conclusion that the deterministic work is not inherently making the future AI system weaker. The main design risk would be collapsing these distinctions later, not their existence today.
+
+### 14.6 Step-1 status and boundary
+
+**Step 1 initial whole-pipeline inventory: COMPLETE ENOUGH FOR DISCUSSION / STEP 2.**
+
+This does not claim an exhaustive catalog of every error code or every unsupported package-manager flag. It captures the material current responsibility families and the most important real-case pressures needed for the AI/agent architecture question.
+
+No source, test, accepted specification, ADR, plan, or `MEMORY.md` was changed by this analysis.
+
+The next planned step remains:
+
+> classify each material family by the simplest adequate mechanism — deterministic-only, bounded LLM, agentic investigation, hybrid, or intentionally unresolved — while separately defining model-visible state, model authority, deterministic authority, required tools/evidence, and failure/abstention behavior.
+
+Do not enter that classification silently; discuss this Step-1 register with Ali first.
