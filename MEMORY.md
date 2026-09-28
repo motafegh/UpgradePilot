@@ -1,6 +1,6 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-09-27  
+**Last updated:** 2026-09-28  
 **Authority:** sole owner of the live project position, current blockers, selected continuation, and current learning depth.
 
 ## Live position — main product workstream STARTED
@@ -11,6 +11,7 @@
 - **R4 implementation sequence:** reusable execution evidence → static package-manager operation declaration → bounded executable/process-env/config evidence + independent semantic facts → command-derived requirement-state composer → application integration → focused/integration/representative-real-case verification. Plain-looking package-manager commands may remain unresolved when material ambient/config provenance cannot be established; do not weaken the proof to increase apparent coverage.
 - **Architecture/plan status:** ADR-0010 is accepted; `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md` owns the admitted Cycle-1 implementation/proof route and explicitly keeps job-log/stdout/artifact acquisition outside the first Route-A Build slice.
 - **Project-wide method meta-rule:** apply the **Smart Situational Override Rule** from `AGENTS.md`. Current plans, LbD gates, Skills, stop lines, slice boundaries, and procedural defaults are the normal route and may be deliberately adapted when current evidence/circumstances justify it; material overrides must preserve authorization/evidence truth and reconcile the correct owner.
+- **Current-state alignment check (2026-09-28):** active/canonical runtime-state owners and current handoff surfaces were reconciled after Increment 1 closure. The controlling runtime-state plan now reflects the reusable execution layer as implemented truth; the R4 sequence record and closed R2/R3 decision register no longer present Increment 1 Build authorization as pending. Historical dated records remain historical rather than being rewritten into live-state documents.
 - **Agreed sequencing:** Preserve the existing explained-abstention maintainer-action evaluator. Defer its expansion or redesign while trustworthy evidence is developed; continue action-relative checks on whether evidence is actually decision-critical. Revisit action categories through their product/semantic owners when representative evidence justifies review. This does not mean the evidence system must be complete without limit before any action work.
 
 **Next selected responsibility:** **Increment 2 — canonical A only: static package-manager operation declaration and semantic-fact core.** Create one new coherent cycle working-memory record, orient Ali to the exact source/problem/proof boundary, and stop at the A understanding gate before any Increment-2 Build. Do not start B implicitly.
