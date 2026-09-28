@@ -48,24 +48,28 @@ This progression record can later provide historical/rationale evidence for audi
 
 ### Canonical Learning-by-Doing cycle records
 
-Each substantive canonical Learning-by-Doing cycle has **one coherent cycle working-memory record** that remains the detailed progression owner from A through E:
+Each substantive canonical Learning-by-Doing cycle has **one coherent cycle working-memory record**, created in **A0** and kept active until **E** closes the cycle.
+
+The normal visible progression is:
 
 ```text
-Cycle <coherent responsibility>
-A — pre-implementation learning / understanding gate
+A0 — current-state reconciliation + cycle initialization
+A1 — continuity / recent-work onboarding
+A2 — upcoming responsibility orientation
 B — real bounded action
-C — progressive preservation while B evolves
 Verification / evidence gate
-D — post-implementation learning / ownership check
-E — gap repair + next-slice orientation
+D — post-work evidence-backed learning / ownership
+E — gap repair + cycle closure / next-responsibility handoff
+C — CONTINUOUS across A0→E
 ```
 
-The verification/evidence gate is recorded between B+C and D but is **not** a sixth canonical phase.
+C is canonical state preservation but is **cross-cutting rather than sequential**. It preserves meaningful engineering and learning progression from cycle initialization through closure. The verification/evidence gate remains a transition gate rather than a canonical learning phase.
 
-Do not split one cycle into separate competing active records for implementation, verification, and post-implementation learning merely because those occur at different times. A broader plan/workstream record may link to the cycle record but should not also claim to own the cycle's phase status.
+Do not split one cycle into competing active records for A, implementation, verification or post-work learning merely because they occur at different times. A broader plan/workstream record may link to the active cycle record but should not also claim phase status.
 
-If a cycle is intentionally interrupted, redirected, or split because its responsibility materially changes, close/time-scope the old cycle record and create the next coherent cycle record with an explicit link.
+A0 should seed a **living A-phase orientation/learning map** inside the record. It is a cycle aid, not a second plan. It may contain the A1 continuity topics, A2 upcoming-responsibility topics, important bridge/concepts/flow, expected result/proof boundary, meaningful failure/unresolved states, non-goals and justified ownership depth. Refine it as A1 or fresh evidence changes what matters.
 
+If a cycle is intentionally interrupted, redirected or split because its responsibility materially changes, time-scope the old cycle record and create/link the next coherent record explicitly.
 ## Relationship to other owners
 
 - `MEMORY.md` is the **canonical compact current project position** and current continuation.
@@ -83,7 +87,7 @@ For the compact operating procedure, use `.agents/skills/upgradepilot-working-me
 
 ### Create a new record when
 
-- a new substantive canonical LbD cycle begins;
+- a new substantive canonical LbD cycle begins; A0 normally creates its record;
 - Ali asks for a new session/day/time working memory;
 - a new session needs its own anchor and detailed handoff trail;
 - responsibility or investigation changes enough that a separate record improves retrieval;
@@ -150,32 +154,38 @@ Briefly preserve:
 For an LbD cycle record, keep a compact phase block near the top and update it at meaningful transitions:
 
 ```text
-A — DONE / CURRENT / PENDING / DEFERRED
+A0 — DONE / CURRENT / PENDING / DEFERRED
+A1 — DONE / CURRENT / PENDING / DEFERRED
+A2 — DONE / CURRENT / PENDING / DEFERRED
 B — DONE / CURRENT / PENDING / DEFERRED
-C — CONTINUOUS / DONE / PENDING
 Verification gate — GREEN / FAILED / BLOCKED / PENDING
 D — DONE / CURRENT / PENDING / DEFERRED
 E — DONE / CURRENT / PENDING / DEFERRED
+C — CONTINUOUS / DONE
 ```
 
-B and C normally progress together. Do not rename verification as D. Do not mark the cycle fully closed merely because implementation and tests passed if D/E remain pending.
+A0 initializes the record and A-phase orientation/learning map. C starts there and remains active across the whole cycle.
 
-Update at **meaningful progression points**, not after every message. Preserve the engineering path with enough fidelity that a future reader can understand how the responsibility reached its current state, including as relevant:
+Update at **meaningful progression points**, not after every message. Preserve enough of the engineering and learning path that a future reader can understand how the responsibility reached its current state, including as relevant:
 
-- decisions and rationale;
-- implementation or analysis performed and what it established;
-- important observations, commands/results, and proof limits;
-- discoveries, errors, failed approaches, surprises, diagnosis, and repair;
-- questions Ali raised and conclusions or corrected mental models reached;
-- ideas and alternatives considered, including changes intentionally deferred for later;
-- temporary/session-local rules;
-- meaningful learning/ownership observations and useful implementation/API/tool details encountered in the real work;
-- changed route, changed assumptions, or changed understanding.
+- A0 current-state reconciliation, contradictions, recent-work evidence and route changes;
+- A1 onboarding delta, questions/challenges and understanding gaps;
+- A2 upcoming-responsibility model, important proof boundaries and gate result;
+- B decisions, implementation/analysis evolution, failures, surprises, diagnosis and repair;
+- verification performed/unavailable and exact proof/non-proof;
+- D evidence-backed learning, ownership answers and characterized gaps;
+- E gap repair/defer decisions, residual debt, cycle conclusion and handoff;
+- exact names/files/error phrases or subtle behaviors that are useful recovery anchors.
 
-Some apparently small details are worth keeping because they complete the engineering story or become useful retrieval/learning anchors later: exact names, files, error text, concepts, alternatives, a subtle behavior, or the clue needed to rediscover an old discussion.
+Some locally small but distinctive detail is worth preserving when it completes the engineering story or would be difficult to rediscover. At the same time:
 
-Summarize rather than dump the chat or large logs. Reference canonical/large artifacts instead of copying them. The test is not “did we record everything?” but “can the meaningful progression be reconstructed accurately without replaying the session?”
+```text
+continuous preservation
+!=
+continuous logging
+```
 
+Do not dump the chat, every command, every ordinary edit, repeated safe operations or large logs. Summarize routine activity and reference large/canonical artifacts.
 ### 3. Current session route
 
 Keep a short, practical view of what the session is focusing on now. It may intentionally repeat selected plan steps.
