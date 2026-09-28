@@ -55,7 +55,7 @@ Skills, plans, and governance sections that contain materially strict procedural
 
 UpgradePilot remains a learning-by-building flagship at the project-identity level. Its default **operating and teaching method** for substantive project work is Learning-by-Doing.
 
-When Ali says **`loop`**, **`cycle`**, **`LbD loop`**, or **`LbD cycle`** without naming some other procedure, interpret those words as the canonical **A → B → C → D → E** cycle below. This vocabulary is deliberately kept near the top of `AGENTS.md` so any AI agent can recover the expected working rhythm before entering project details.
+When Ali says **`loop`**, **`cycle`**, **`LbD loop`**, or **`LbD cycle`** without naming some other procedure, interpret those words as the canonical progression **A0 → A1 → A2 → B → Verification → D → E**, with **C active continuously across the whole cycle**. A remains the pre-work learning/orientation responsibility, now made explicit as A0/A1/A2; C remains canonical state preservation, but it is cross-cutting rather than a sequential stop. This vocabulary is deliberately kept near the top of `AGENTS.md` so any AI agent can recover the expected working rhythm before entering project details.
 
 For every **substantive** UpgradePilot slice, this loop is not optional background style; it should normally be completed before silently moving to the next slice. Selecting Audit, Planning/Design, Build/Implement, debugging, testing, or review as the primary operation does **not** switch the method off. The primary operation still owns authorization and detailed procedure; this loop owns the project-level learning/building rhythm. `OPERATING_GUIDE.md` remains the canonical broader method owner, and `.agents/skills/upgradepilot-learning-by-doing/SKILL.md` remains the reusable full procedural overlay when explicitly invoked or materially useful.
 
@@ -63,106 +63,76 @@ Use the following cycle proportionately.
 
 ### Canonical phase gates and cadence
 
-The A → B → C → D → E labels are **learning/ownership phases**, not a generic project-management checklist. Execute them with these default gates for every substantive slice **under the Smart Situational Override Rule**. The canonical cadence is the normal route; a material situation may justify expanding, shrinking, combining, reordering, pausing, or overriding a gate when the reason and proof consequences are explicit.
+The canonical cycle is a **learning/ownership and engineering progression**, not a generic project-management checklist. Apply it under the **Smart Situational Override Rule**. The normal route is deliberately strong because substantive UpgradePilot cycles commonly begin in a fresh conversation; unusual trivial or continuous-context cases may be compressed only when the situation justifies it explicitly.
 
 ```text
-A — PRE-IMPLEMENTATION LEARNING / ORIENTATION
-    ↓
-UNDERSTANDING GATE — STOP
-    Ali should understand what B will do, why it matters, the important flow/files/types/
-    evidence involved, and the expected result/proof boundary before real B work begins.
-    Do not silently continue from A into B in the same substantive progression.
+A0 — CURRENT-STATE RECONCILIATION + CYCLE INITIALIZATION
+     Reconstruct the real current state from the live owner and the evidence needed for this
+     responsibility: applicable governance, controlling plan/spec/ADR, previous cycle/handoff,
+     material recent commits/parallel work, and relevant current source/tests.
+     Reconcile stale or contradictory state before teaching or acting.
+     Create the single cycle working-memory record and seed a living A-phase
+     orientation/learning map for A1/A2.
+     If fresh evidence invalidates the expected route, reconcile the route first.
+     → continue directly to A1.
+
+A1 — CONTINUITY / RECENT-WORK ONBOARDING
+     Bring Ali from the last genuinely understood point to the actual current state.
+     Explain the meaningful work, decisions, discoveries, corrections, proof and changed
+     assumptions that matter for the present cycle; record material understanding gaps.
+     ↓
+     CONTINUITY / ONBOARDING GATE — STOP
+     Do not continue to A2 until Ali has had a meaningful opportunity to question, challenge,
+     correct, or explain the current-state model.
+
+A2 — UPCOMING RESPONSIBILITY ORIENTATION
+     Bridge the established current state to the upcoming responsibility. Teach proportionately
+     what will be built/changed/investigated/proved, why it is needed, the important engineering
+     concepts/files/types/data/control/evidence flow, expected result, meaningful failure or
+     unresolved states, acceptance/proof boundary and explicit non-goals.
+     A2 is anticipatory and minimum-complete; it is normally lighter than D.
+     ↓
+     PRE-B UNDERSTANDING GATE — STOP
+     Do not begin substantive B until Ali understands what B will do, why it belongs there,
+     the important engineering/proof boundaries, and what the work will and will not establish.
 
 B — REAL BOUNDED BUILD / ACTION
-+ C — PROGRESSIVE STATE PRESERVATION
-    These normally run together. Preserve meaningful state while the real work evolves;
-    do not create an artificial stop between B and C.
-
-    ↓
-VERIFICATION / EVIDENCE GATE — not a canonical phase
-    For Build/Implement work, run the focused/relevant tests and broader validation justified
-    by the slice after B+C. For non-Build operations, inspect the equivalent strongest
-    evidence/proof required by that responsibility.
-    If the work is not proven sufficiently, repair/diagnose inside the active B+C responsibility
-    and preserve the evidence/debt in C. Do not advance to D on an unverified implementation
-    while presenting it as successful.
-
-D — POST-IMPLEMENTATION LEARNING / OWNERSHIP CHECK
-    Begins after the B+C result has the required evidence. Teach from what was actually
-    built/discovered and verified, then check Ali's engineering ownership with a small number
-    of meaningful open-ended reasoning questions.
-
-E — GAP REPAIR + NEXT-SLICE ORIENTATION
-    Use Ali's D answers to repair important gaps at the minimum useful depth, then orient the
-    next bounded slice. Do not silently begin the next slice's B; the next slice starts again
-    at A and its understanding gate.
-```
-
-For each substantive cycle, maintain **one coherent cycle working-memory record**. That record should be the normal detailed owner of this cycle's A/B/C/verification/D/E progression, evidence, gaps, and handoff. B and C updates should land in that same record as work proceeds. Do not scatter one cycle's phase status across multiple competing active working memories merely because implementation, verification, and learning happen at different moments. Higher-authority plan/ADR/specification owners remain separate and should only change when their own responsibility changes.
-
-Use the following phase meanings:
-
-```text
-A. PRE-IMPLEMENTATION LEARNING / ORIENTATION
-   Before real work, briefly and intelligently teach Ali what the coming slice will build,
-   change, investigate, or prove; why it matters; where it sits in the real project flow;
-   the important concepts/types/files/data/evidence involved; and what result/proof boundary
-   to expect. Give enough background to make the coming action meaningful without turning
-   the step into a detached lecture. When material, identify the one or two durable
-   professional engineering responsibilities this real slice naturally exercises and the
-   justified depth Ali should reach; do not let career relevance invent or reorder project work.
-   **End A at the understanding gate.** Give Ali the opportunity to confirm, explain back,
-   question, or correct the coming B responsibility before real work begins. Do not treat
-   passive approval or the assistant's own explanation as proof that the gate is satisfied.
-
-B. REAL BOUNDED BUILD / ACTION
-   Perform the actual work explained in A using the selected primary operation:
-   implement / code / test / debug / analyze / design / audit / review as authorized.
-   For Build slices, write clear responsibility-bearing source and useful non-obvious
-   comments/docstrings where needed. Inspect actual evidence appropriate to the claim.
-   The slice must be a coherent engineering responsibility: not an oversized batch of
-   several semantic decisions, and not a ceremonial micro-step too small to learn from.
-
-C. PROGRESSIVE STATE PRESERVATION
-   Update the active working memory at meaningful progression points for this exact slice.
-   When an active working record is being maintained, explicitly track the slice's A/B/C/D/E
-   status and briefly record what each completed stage established. Update `MEMORY.md` only
-   when the canonical live position, blocker/deferral, selected continuation, or a meaningful
-   milestone actually changes. Update other owners only when their responsibility changed.
-   Deferred validation/proof must remain explicit debt, never a pass claim.
-   B and C normally execute together: preserve meaningful progression while building rather
-   than postponing all memory work until the implementation ends.
+     Perform the authorized coherent responsibility: implement/code/test/debug/analyze/design/
+     audit/review as selected. Avoid both oversized semantic batches and ceremonial micro-work.
 
 VERIFICATION / EVIDENCE GATE
-   This is an explicit transition gate between B+C and D, **not** a sixth canonical phase and
-   not a relabeling of D. Execute the tests/checks/evidence needed by the selected primary
-   responsibility. If proof fails or is unavailable, remain in B+C (or record explicit proof
-   debt/blocker) instead of teaching the implementation in D as though it were accepted.
+     After B has a result, run or inspect the strongest focused/broader proof justified by the
+     responsibility. If proof fails or is unavailable, remain in B/diagnosis/repair (or preserve
+     explicit proof debt/blocker) rather than presenting the result as accepted.
 
-D. POST-IMPLEMENTATION LEARNING / OWNERSHIP CHECK
-   After the real work, teach Ali from what was actually built or discovered: the relevant
-   source code, control/data/evidence flow, logic, types/states, tests, engineering concepts,
-   decisions, failure modes, and proof limits. Distinguish what was planned from what the
-   implementation/evidence actually shows. Then ask a small number of meaningful open-ended
-   questions that let Ali explain, predict, critique, connect, or reason about the slice.
-   When A identified a durable professional ownership opportunity, check it through the real
-   slice—for example by tracing a flow, explaining proof/non-proof, defending a design choice,
-   diagnosing a failure, reasoning about a meaningful change, or handling one changed case.
-   Do not infer understanding merely from approval or from AI-written code/tests passing.
+D — POST-WORK EVIDENCE-BACKED LEARNING / OWNERSHIP
+     After sufficient verification, teach from what actually happened: real source/result,
+     control/data/evidence flow, decisions, failures/surprises/corrections, tests/evidence and
+     proof limits. Compare A2 expectations with reality. Choose depth situationally: deeper for
+     new architecture/proof/trust boundaries, moderate for meaningful familiar work, compact
+     for repetitive/simple work. Check ownership with a small number of meaningful reasoning
+     questions and identify/characterize material gaps for E.
 
-E. GAP REPAIR + NEXT-SLICE ORIENTATION
-   Use Ali's answers to identify and repair the important learning/reasoning gaps at the
-   minimum useful depth. Prioritize gaps central to the current responsibility or durable
-   engineering ownership; keep incidental syntax/API detail operational or lookup-level and
-   defer unrelated career breadth. Then briefly explain the next bounded slice: what problem
-   or capability comes next, why it is next, what we expect to add/solve/clarify, and any key
-   decision or proof boundary Ali should understand before the next A stage begins.
+E — GAP REPAIR + CYCLE CLOSURE / NEXT-RESPONSIBILITY HANDOFF
+     Repair important D gaps or preserve them explicitly as deferred. Consolidate what the cycle
+     established and did not establish, residual limitations/debt and proof state. Identify or
+     confirm the next responsibility and briefly state why it is next; do not perform the next
+     cycle's full orientation/teaching here. Reconcile MEMORY.md and other owners only when
+     their responsibility changed, then close the cycle.
+     ↓
+     STOP — CYCLE CLOSED
 
-REPEAT A → B → C → D → E for the next substantive slice.
+C — CONTINUOUS STATE PRESERVATION
+     C is active from A0 through E. Preserve the meaningful engineering and learning progression
+     in the single cycle working-memory record: current-state reconciliation, onboarding gaps,
+     orientation decisions, implementation evolution, failures/corrections, verification,
+     ownership findings, gap repair and handoff. Continuous preservation is not continuous
+     logging; summarize routine activity and retain only what helps reconstruct the real path.
 ```
 
-`OPERATING_GUIDE.md` §7.3 owns the **Professional engineering ownership lens** used by A/D/E. It is a proportional learning/ownership lens inside the existing cycle, not a sixth phase, capability tracker, interview drill, or job-market routing system. UpgradePilot may surface transferable engineering responsibility and project-local ownership evidence; Career remains responsible for mutable employment interpretation such as job titles, vacancy trends, résumé positioning, application strategy, interview catalogs, or Career capability conclusions.
+For each substantive cycle, maintain **one coherent cycle working-memory record** created in A0. That record is the normal detailed owner of A0/A1/A2/B/verification/D/E status plus continuous C preservation. Higher-authority plan/ADR/specification owners remain separate and change only when their own responsibility changes; `MEMORY.md` remains the sole live-position owner.
 
+A0 is complete when current state is sufficiently reconciled, the cycle record exists, and its A-phase learning/orientation map is grounded in current evidence. A1 is complete only after the continuity gate. A2 is complete only after the pre-B understanding gate. D identifies and characterizes material ownership gaps; E owns their repair/defer decision and truthful cycle closure.
 ### Slice sizing and adaptation
 
 A good slice is the **smallest coherent responsibility that can be oriented, performed, evidenced, preserved, learned, and handed off meaningfully**. Do not batch several architectural/semantic responsibilities merely for speed, and do not split one obvious implementation into meaningless file-by-file ceremony.
@@ -170,10 +140,10 @@ A good slice is the **smallest coherent responsibility that can be oriented, per
 The loop is adaptive rather than rigid:
 
 - for non-Build work, B means the real bounded primary operation rather than literal coding;
-- tiny familiar/repetitive child steps may compress A/D/E heavily while preserving the intent;
+- tiny familiar/repetitive or genuinely continuous-context child steps may compress A0/A1/A2/D/E under the Smart Situational Override Rule while preserving their intent;
 - a new architecture boundary, proof model, failure mechanism, or consequential implementation may need a deeper D stage;
 - if Ali explicitly asks to pause implementation and learn, obey the Learning-Only boundary instead of forcing B;
-- if the required verification/evidence gate cannot be executed now, keep the cycle at B+C / the verification gate, record the proof debt in C, and pause if needed. Later validation resumes that same cycle gate; advance to D only after the result is sufficiently evidenced. Never rename missing proof as successful completion.
+- if the required verification/evidence gate cannot be executed now, keep the cycle at B / the verification gate, preserve the proof debt continuously in C, and pause if needed. Later validation resumes that same cycle gate; advance to D only after the result is sufficiently evidenced. Never rename missing proof as successful completion.
 
 ### Product-responsibility balance and plan challenge
 
@@ -198,24 +168,25 @@ Ali is learning many project concepts while the system is being built. Do not of
 
 ### Working-memory reflection
 
-When a substantive slice has an active working-memory record, keep a compact visible progression such as:
+A substantive cycle's working-memory record is created during A0 and remains the one coherent progression owner until E closes the cycle. Keep a compact visible status such as:
 
 ```text
 Cycle <coherent responsibility>
-A — DONE / PENDING / DEFERRED: <orientation + understanding-gate result>
-B — DONE / PENDING / DEFERRED: <real bounded work result>
-C — CONTINUOUS / DONE / PENDING: <meaningful state/evidence preserved during B>
+A0 — DONE / CURRENT / PENDING / DEFERRED: <current-state reconciliation + cycle initialization>
+A1 — DONE / CURRENT / PENDING / DEFERRED: <continuity/onboarding + gate result>
+A2 — DONE / CURRENT / PENDING / DEFERRED: <upcoming responsibility orientation + gate result>
+B — DONE / CURRENT / PENDING / DEFERRED: <real bounded work result>
 Verification gate — GREEN / FAILED / BLOCKED / PENDING: <exact proof>
-D — DONE / CURRENT / PENDING / DEFERRED: <post-work learning + ownership-check result>
-E — DONE / CURRENT / PENDING / DEFERRED: <gap repair + next-slice orientation>
+D — DONE / CURRENT / PENDING / DEFERRED: <evidence-backed learning + ownership findings>
+E — DONE / CURRENT / PENDING / DEFERRED: <gap repair + closure/handoff>
+C — CONTINUOUS / DONE: <meaningful engineering + learning progression preserved across A0→E>
 ```
 
-This is a recovery aid, not bureaucracy. Update it at meaningful transitions, not after every command. The detailed engineering story can remain in normal working-memory prose around it. A substantive cycle should normally keep this progression in **one coherent cycle record**; a plan-level or architecture-level working memory may link to that record but should not become a competing phase-status owner.
+The A0 learning/orientation map is a **living cycle aid**, not a second plan. It may be refined when A1 exposes a gap or when current evidence changes what A2 must cover.
 
-The **pre-implementation orientation does not replace post-implementation learning**. Do not skip D because the AI already explained the plan, performed the implementation itself, updated memory, or believes the work is obvious. Likewise, do not silently start the next substantive implementation before D/E are closed unless Ali explicitly redirects the session or another material safety/proof boundary requires interruption.
+Update C at meaningful progression points across the whole cycle, not after every message or command. Preserve decisions, changed understanding, failures/corrections, proof/non-proof and handoff without turning working memory into a transcript.
 
-During substantive work, actively surface relevant high-value engineering concepts, patterns, and tools that are present in the real slice or are credible alternatives worth understanding—especially in rapidly evolving AI/LLM/agent engineering. Explain their exact role and relationship to UpgradePilot rather than name-dropping them. Learning/exposure value may justify teaching or comparison, but it does **not** by itself justify adoption: do not add a framework, abstraction, hook, harness, service, or other machinery merely because it is new, trending, or educational. When a claim that something is current/new/trending materially affects a recommendation, verify it from fresh authoritative evidence proportionately. `OPERATING_GUIDE.md` §7 owns the complete rule.
-
+The pre-work A2 orientation does not replace D. A2 teaches enough to act intelligently; D learns from the actual sufficiently evidenced result and normally goes deeper when the cycle creates important architecture, proof, trust or ownership value. E repairs the important D gaps and closes the cycle; it gives only a brief next-responsibility pointer because the next cycle's A0/A1/A2 owns fresh reconstruction, onboarding and teaching.
 ## Purpose
 
 Operate UpgradePilot with one clear normal owner for each durable fact, rule, and artifact. Keep permanent context high-signal; route detailed procedure to the operation Skill or responsibility owner that actually needs it.
