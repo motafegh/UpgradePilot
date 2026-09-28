@@ -75,10 +75,12 @@ VERIFICATION / EVIDENCE GATE
 D — POST-WORK EVIDENCE-BACKED LEARNING / OWNERSHIP
      After sufficient verification, teach from what actually happened: real source/result,
      control/data/evidence flow, decisions, failures/surprises/corrections, tests/evidence and
-     proof limits. Compare A2 expectations with reality. Choose depth situationally: deeper for
-     new architecture/proof/trust boundaries, moderate for meaningful familiar work, compact
-     for repetitive/simple work. Check ownership with a small number of meaningful reasoning
-     questions and identify/characterize material gaps for E.
+     proof limits. Compare A2 expectations with reality. Prefer teaching examples in this order:
+     existing real project/product-simulation cases → suitable external real cases → synthetic
+     examples only when real cases are unavailable or impractical. Choose depth situationally:
+     deeper for new architecture/proof/trust boundaries, moderate for meaningful familiar work,
+     compact for repetitive/simple work. Check ownership with a small number of meaningful
+     reasoning questions and identify/characterize material gaps for E.
 
 E — GAP REPAIR + CYCLE CLOSURE / NEXT-RESPONSIBILITY HANDOFF
      Repair important D gaps or preserve them explicitly as deferred. Consolidate what the cycle
