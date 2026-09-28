@@ -58,62 +58,200 @@ If a project-local label is intentionally retained for compatibility or recall b
 
 ## 2. Core Learning-by-Doing working loop
 
-```text
-real product responsibility / real question / real failure
-→ identify the smallest blocking concept, decision, or evidence gap
-→ build the minimum accurate mental model
-→ Ali predicts, reasons, questions, challenges, or chooses
-→ perform one bounded action appropriate to the primary operation
-→ inspect actual evidence
-→ separate observation, interpretation, uncertainty, and proof strength
-→ diagnose, revise, or continue
-→ Ali explains, modifies, tests, selects, or critiques at the appropriate depth
-→ preserve only material evidence/learning/continuation
-→ continue or stop
-```
-
-The loop is sequential as a reasoning model, but **material-state preservation may happen progressively before, during, or after a bounded slice** when losing the state would harm reasoning recovery, proof, continuation, or handoff. The closing preservation step means “ensure the correct owners are up to date,” not “wait until the end before recording anything.” Do not turn this into continuous logging: no memory/update is required after every command, edit, or intermediate thought.
-
-### 2.1 Canonical A → B → C → D → E cadence
-
-Root `AGENTS.md` owns the canonical phase labels. Apply them operationally as:
+UpgradePilot's normal substantive cycle is:
 
 ```text
-A — orient/teach before real work
-    ↓
-understanding gate — STOP before B
-    Ali should understand the coming responsibility, why it matters, the important
-    flow/files/types/evidence, and the expected result/proof boundary.
-
-B — perform the real bounded action
-+
-C — preserve meaningful progression while B evolves
-    B and C normally happen together; do not insert a ceremonial stop between them.
-
-    ↓
-verification / evidence gate — not a canonical phase
-    For Build work, execute the focused/relevant tests and broader proof justified by
-    the responsibility. For other operations, inspect the equivalent strongest evidence.
-    Failed/unavailable proof keeps the responsibility in B+C/diagnosis or explicit proof debt.
-
-D — post-implementation learning / ownership check
-    Teach from the actual sufficiently evidenced result and check Ali's ability to reason
-    about responsibility, flow, proof/non-proof, decisions, failure modes and changed cases.
-
-E — use D answers to repair central gaps and orient the next bounded slice
-    Then stop; the next substantive slice starts again at A and its understanding gate.
+A0 → A1 → STOP → A2 → STOP → B → Verification → D → E → STOP
 ```
 
-For every substantive canonical LbD cycle, keep **one coherent cycle working-memory record** that tracks A/B/C, the verification gate, D, E, and the cycle handoff. The same record should evolve while B+C proceed and later receive verification/learning/gap-repair evidence. Do not create competing phase-status records for one cycle. Plan, ADR, specification, source/test and `MEMORY.md` owners remain separate and change only when their own responsibility changes.
+with **C — continuous state preservation** active across the entire A0→E progression.
 
-The A understanding gate is not a demand for implementation-detail recall before implementation. It is a deliberate stop so Ali can confirm, explain, question, or challenge what the next real action will do and what it is expected to prove.
+This shape is deliberately optimized for UpgradePilot's normal working pattern: a substantive cycle often begins in a fresh conversation, so the assistant must first recover current truth and Ali must then be re-onboarded before the next responsibility is taught or executed. The Smart Situational Override Rule may compress this route when the actual situation makes the normal gates unnecessary; do not weaken the default route merely to accommodate rare trivial cases.
 
-The unit of work is a real product responsibility, design decision, source mechanism, failure, or evidence problem—not a detached technology topic.
+### 2.1 A0 — current-state reconciliation + cycle initialization
 
-Learning-by-Doing does **not** require every operation to contain coding. It applies equally when the real work is planning, architecture/design, auditing, reading source, debugging, testing, interpreting evidence, or implementing.
+A0 is primarily an **agent-orientation responsibility**.
 
-If Ali explicitly requests Learning-Only, product mutation is paused and the applicable Learning-Only/package-local learning procedure becomes the primary learning route while this guide still supplies the project-wide teaching/evidence principles. Do not layer the Learning-by-Doing Skill onto that standalone Learning-Only session merely because the topic is substantial.
+Before teaching the current cycle or acting on it, reconstruct enough current truth to work safely and accurately. Use the smallest sufficient set of current owners/evidence, normally including as relevant:
 
+```text
+MEMORY.md / live continuation
+→ applicable governance / operating rules
+→ controlling plan / specification / ADR
+→ previous cycle / handoff
+→ material recent commits / parallel work
+→ current relevant source / tests / observed evidence
+```
+
+Recent commits are an important freshness source but are not themselves the definition of current truth. If a handoff, plan or assistant assumption conflicts with current source/owners, reconcile the contradiction before proceeding.
+
+A0 also initializes the cycle's operational memory:
+
+1. create the one coherent cycle working-memory record using the working-memory owner/Skill;
+2. seed visible A0/A1/A2/B/Verification/D/E status plus C as continuous;
+3. seed a **living A-phase orientation/learning map**, not a second plan.
+
+The A-phase map should identify only what this cycle currently needs, such as:
+
+- recent work/state Ali needs to understand in A1;
+- changed assumptions, decisions or proof that bridge the previous understood point to now;
+- upcoming responsibility to teach in A2;
+- important concepts/files/types/data/control/evidence flow;
+- expected result and acceptance/proof boundary;
+- important failure/unresolved states and explicit non-goals;
+- one or two justified professional ownership targets and required depth.
+
+The map may change when A1 exposes a gap or current evidence changes what A2 needs. Do not mechanically force completion of stale checklist items.
+
+**A0 completion condition:** current state is sufficiently reconciled for the responsibility, the cycle record exists, and its A-phase map is grounded in current evidence. A0 normally continues directly into A1; it does not have its own user STOP unless a contradiction or material route change requires one.
+
+### 2.2 A1 — continuity / recent-work onboarding
+
+A1 is primarily a **user-continuity responsibility**.
+
+Bring Ali from the last point he genuinely understood to the actual current state. Focus on meaningful delta, not a repository changelog:
+
+```text
+what happened
+→ what was built / decided / discovered / corrected
+→ what evidence established it
+→ what changed in the system/proof model
+→ how that leads to the current position
+```
+
+Use the current cycle and previous relevant cycle evidence rather than assuming a new conversation contains the prior context.
+
+Questions, challenges, corrected assumptions and material understanding gaps discovered here belong in C and may refine the A-phase map.
+
+**A1 completion condition:** Ali has been properly onboarded to current state and has had a meaningful opportunity to question, challenge, correct or explain that state.
+
+**CONTINUITY / ONBOARDING GATE — STOP.** Do not silently continue from A1 into A2.
+
+### 2.3 A2 — upcoming responsibility orientation
+
+A2 is the **pre-work teaching/orientation responsibility**.
+
+Bridge from the established current state to the upcoming real work. Teach only the depth needed to make B meaningful and challengeable:
+
+```text
+previous established state
+→ why another responsibility is needed
+→ what B will build/change/investigate/prove
+→ where it sits in the real product/evidence flow
+→ important engineering concepts/files/types/data/control/evidence
+→ expected result
+→ important failure/unresolved states
+→ acceptance/proof boundary
+→ stronger claims/non-goals not earned
+```
+
+For a consequential responsibility, include the acceptance intent needed before action: what success means, what important failure or unresolved state must remain distinguishable, what stronger claim is intentionally not earned, and what evidence would later justify acceptance.
+
+A2 is **anticipatory and minimum-complete**. It should normally be shorter/shallower than D because the implementation, failures, actual evidence and final design consequences do not yet exist. Do not pre-build the implementation in prose.
+
+Apply the professional ownership lens proportionately and identify only one or two real ownership opportunities when useful.
+
+**A2 completion condition:** Ali understands what B is going to do, why it belongs there, the important engineering/proof boundaries, and what B will and will not establish.
+
+**PRE-B UNDERSTANDING GATE — STOP.** Do not infer understanding from passive approval or from the assistant's own explanation.
+
+### 2.4 B — real bounded work
+
+B performs the real selected primary operation after the A2 gate:
+
+```text
+implement / code / test / debug / analyze / design / audit / review
+```
+
+The primary operation retains authorization and detailed procedure. Learning-by-Doing does not convert review into Build or planning into implementation.
+
+Choose a coherent engineering responsibility: not an oversized batch of several semantic decisions and not file-by-file ceremony. If fresh evidence during B invalidates the chosen route, use the Smart Situational Override Rule and reconcile the proper owner rather than blindly finishing the planned slice.
+
+C remains active throughout B.
+
+### 2.5 Verification / evidence gate
+
+Verification is an explicit transition gate, not a sixth canonical learning phase.
+
+After B produces a result, run or inspect the strongest proof justified by the responsibility: focused tests, integration/regression proof, source/evidence inspection, controlled/representative cases or another responsibility-specific evidence surface.
+
+If proof fails or is unavailable:
+
+```text
+remain in B / diagnosis / repair
++ preserve actual evidence or proof debt in C
+```
+
+Do not advance to D while describing an insufficiently evidenced result as accepted.
+
+### 2.6 D — post-work evidence-backed learning + ownership
+
+D begins only after the result has sufficient evidence for the claim being taught.
+
+Teach from **what actually happened**, proportionately covering:
+
+- actual implementation/result and the important source areas;
+- actual control/data/evidence flow;
+- important types/states and domain propositions;
+- design decisions and alternatives that mattered;
+- failures, surprises, diagnosis and corrections;
+- verification evidence and proof/non-proof boundaries;
+- what differed between A2 expectations and B/verification reality.
+
+D depth is situational rather than uniform:
+
+```text
+new architecture / proof / trust boundary → deeper D
+meaningful but familiar engineering      → moderate D
+simple or repetitive work                → compact D
+```
+
+Then use a small number of meaningful open-ended questions to check ownership: trace a flow, explain proof/non-proof, predict a changed case, critique a decision, diagnose a failure or reason about a meaningful modification. Avoid trivia, symbol memorization and interview-drill behavior.
+
+D primarily **identifies and characterizes material ownership gaps**. It may clarify locally, but E owns the deliberate repair/defer decision needed for closure.
+
+### 2.7 E — gap repair + cycle closure / next-responsibility handoff
+
+Use D findings to repair the important gaps at the minimum useful depth. Explicitly defer gaps that are real but not needed for current ownership rather than pretending they disappeared.
+
+Then consolidate the cycle:
+
+```text
+what this cycle established
+→ what it did not establish
+→ proof and non-proof
+→ residual limitations / debt
+→ current live position
+→ next responsibility and why it is next
+```
+
+E gives only a **brief next-responsibility pointer**. Do not teach the next cycle's files/concepts/proof model in depth; that responsibility belongs to the next cycle's fresh A0/A1/A2 and may change before the next session.
+
+Reconcile the cycle record, `MEMORY.md` when live position changed, and other canonical owners only when their responsibility changed.
+
+**E completion condition:** important D gaps are repaired or explicitly deferred, proof limits and residual debt are honest, current state/handoff is coherent, and the cycle can truthfully close.
+
+**STOP — CYCLE CLOSED.**
+
+### 2.8 C — continuous state preservation across A0→E
+
+C is a canonical Learning-by-Doing responsibility but **not a sequential phase after B**. It starts when A0 creates the cycle working-memory record and remains active until E closes the cycle.
+
+Preserve the meaningful engineering and learning progression:
+
+```text
+A0: current-state reconciliation / contradictions / cycle map
+A1: onboarding delta / questions / understanding gaps
+A2: responsibility model / proof boundaries / gate result
+B: implementation or real-operation evolution / decisions / failures / corrections
+Verification: commands/evidence/results / proof and proof debt
+D: evidence-backed learning / ownership answers / gaps
+E: gap repair / residual limitations / closure / handoff
+```
+
+Continuous preservation does **not** mean continuous logging. Summarize routine activity; preserve distinctive decisions, changed understanding, failures/corrections, proof limits and recovery anchors that let a future session reconstruct the real path without replaying the chat.
+
+For each substantive cycle, keep one coherent cycle record. Plans/specifications/ADRs/source/tests/`MEMORY.md` retain their own authority; the cycle record preserves progression rather than redefining those owners.
 ## 3. Context engineering
 
 Treat working context as a finite attention budget. Use the **smallest sufficient context** for the selected responsibility and operation.
@@ -488,7 +626,7 @@ For a substantive slice, identify **at most one or two** professional engineerin
 
 These categories are a **learning/ownership lens, not a second capability taxonomy, project tracker, scorecard, or new operation mode**. Use the existing depth language from §7.2—must master/own, understand operationally, recognize/lookup-level, deferred deliberately—and assign depth only when the real slice justifies it.
 
-Apply the lens through the existing A → B → C → D → E rhythm rather than adding a sixth phase:
+Apply the lens through the existing A0/A1/A2 → B → Verification → D → E rhythm, with C continuously preserving the cycle, rather than adding another phase:
 
 ```text
 A — when material, name the 1–2 durable engineering responsibilities the slice naturally exercises
