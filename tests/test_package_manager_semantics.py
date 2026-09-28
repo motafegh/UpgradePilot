@@ -160,6 +160,11 @@ class PackageManagerOperationTests(unittest.TestCase):
             "unsupported_pip_global_option_before_install",
         )
 
+    def test_non_install_pip_global_flag_is_not_misclassified_as_install_problem(self) -> None:
+        result = parse_package_manager_operation(_occurrence("pip", "--version"))
+
+        self.assertIsNone(result)
+
     def test_non_install_pip_command_is_not_declared(self) -> None:
         result = parse_package_manager_operation(_occurrence("pip", "list"))
 
@@ -237,6 +242,15 @@ class PackageManagerSemanticFactTests(unittest.TestCase):
                 assert isinstance(result, InstallationDestinationFact)
                 self.assertEqual(result.destination.kind, expected_kind)
                 self.assertEqual(result.destination.value, expected_value)
+
+    def test_empty_inline_destination_is_command_line_problem(self) -> None:
+        declaration = _declaration("pip", "install", "--target=", "demo")
+        result = resolve_installation_destination(declaration)
+
+        self.assertIsInstance(result, PackageManagerSemanticProblem)
+        assert isinstance(result, PackageManagerSemanticProblem)
+        self.assertEqual(result.reason, "installation_destination_missing_value")
+        self.assertEqual(result.blocking_source, "command_line")
 
     def test_no_deps_is_not_treated_as_direct_requirement_exclusion(self) -> None:
         declaration = _declaration(
