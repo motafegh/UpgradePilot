@@ -2,10 +2,10 @@
 
 ## Smart Situational Override Rule
 
-This cycle follows the canonical A/B+C/verification/D/E cadence under the Smart Situational Override Rule from root `AGENTS.md`. Any material deviation must be explicit and reconciled with the correct owner. The rule does not create Build authorization or weaken evidence truth.
+This cycle began under the previous single-A/B+C cadence. During its pre-B orientation, the project refined the canonical Learning-by-Doing model to A0 → A1 → A2 → B → Verification → D → E with C continuous across the whole cycle. On resumption, this existing record is retained rather than creating a duplicate cycle record; the new governance is applied from a deliberate A0 re-entry. The Smart Situational Override Rule permits this transition because no Increment-2 Build began. The rule does not create Build authorization or weaken evidence truth.
 
 **Date:** 2026-09-28  
-**Cycle status:** ACTIVE — canonical A orientation established; understanding gate pending  
+**Cycle status:** PAUSED / RE-ENTRY REQUIRED — pre-refinement orientation exists, but the refined A0/A1/A2 gates have not yet been completed  
 **Primary operation:** Learning-by-Doing orientation under the already-admitted Runtime Dependency-State Proof plan; Build/Implement is not yet entered  
 **Controlling plan:** `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`  
 **R4 implementation sequence:** `working-memory/2026-09-27_runtime-dependency-state-proof-implementation-and-verification-planning.md`  
@@ -18,12 +18,14 @@ UP-SKILL:upgradepilot-working-memory
 ## Canonical cycle status
 
 ```text
-A — ORIENTATION ESTABLISHED / UNDERSTANDING GATE PENDING
+A0 — RE-ENTRY REQUIRED (reuse this existing cycle record)
+A1 — PENDING
+A2 — PENDING; prior orientation is historical input, not a completed refined gate
 B — PENDING
-C — PENDING / continuous with B
 Verification gate — PENDING
 D — PENDING
 E — PENDING
+C — CONTINUOUS; preserve the governance interruption and all later progression
 ```
 
 ## Why no separate new plan
@@ -32,6 +34,23 @@ No additional plan is needed. The controlling runtime dependency-state plan alre
 
 A second plan would duplicate ownership rather than clarify it. This record therefore owns only the real Increment-2 cycle progression and learning/evidence history.
 
+## Governance refinement interruption and resumption
+
+While this cycle was stopped before Build, Ali and the assistant identified that the old single-A cadence did not model fresh-session reorientation, user continuity onboarding, whole-cycle C preservation, or E handoff cleanly enough. The canonical governance was refined and recorded in `working-memory/2026-09-28_lbd-cycle-governance-refinement.md`.
+
+Resumption rule:
+
+```text
+reuse this existing cycle record
+→ execute refined A0 current-state reconciliation and seed/update the living A map
+→ execute A1 continuity/recent-work onboarding
+→ STOP at A1 continuity gate
+→ execute A2 upcoming-responsibility orientation using the historical material below as input
+→ STOP at A2 pre-B gate
+→ only then may B begin when authorized
+```
+
+No Increment-2 product source or tests were changed before this governance refinement.
 ## Cycle responsibility
 
 Move UpgradePilot from repeated narrow package-manager prefix interpretation toward one reusable static package-manager operation declaration that can feed independent package-manager semantic facts.
@@ -52,7 +71,7 @@ The Increment-2 pass condition remains:
 
 > one exact package-manager occurrence can feed independent typed semantic resolution without runtime claims or universal config reconstruction.
 
-## A — Pre-implementation learning / orientation
+## Historical pre-refinement A orientation — input to refined A1/A2
 
 ### 1. Starting implementation truth
 
@@ -235,7 +254,7 @@ Those remain later responsibilities, principally Increment 3 and Increment 4.
 
 **Required depth:** must own the responsibility/proof boundaries and normal data flow; exact class/function names and full pip/uv option catalogs remain recognize/lookup-level.
 
-## A understanding gate — STOP
+## Historical pre-refinement understanding gate — superseded by refined A1/A2 gates
 
 Before B begins, Ali should be able to reason about these two points:
 
