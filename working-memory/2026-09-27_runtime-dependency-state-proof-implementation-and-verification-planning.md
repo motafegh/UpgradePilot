@@ -297,19 +297,22 @@ The original sequencing warning remains valid for later work: do not jump direct
 
 ## 6. Build slicing and learning-by-doing rhythm
 
-Each substantive increment follows the canonical project A → B → C → D → E cycle from `AGENTS.md`:
+Each substantive increment follows the current canonical cycle from root `AGENTS.md`:
 
-A. pre-implementation learning/orientation, then **stop at the understanding gate before Build**;
-B. implement one coherent bounded increment;
-C. preserve the meaningful progression **alongside B** in that cycle's one coherent working-memory record;
-Verification/evidence gate. run the focused and broader proof justified by the increment; failed/unavailable proof keeps the responsibility in B+C/diagnosis or explicit proof debt;
-D. after sufficiently green evidence, teach from the actual implementation and perform the post-implementation ownership check;
-E. repair important gaps from Ali's D answers, orient the next bounded slice, and stop before that next slice's B.
+```text
+A0 — reconcile current truth, initialize/reuse the coherent cycle record, seed the living A map
+A1 — continuity/recent-work onboarding, then STOP
+A2 — upcoming increment responsibility/proof orientation, then STOP before Build
+B — implement one coherent bounded increment
+Verification — run/inspect the focused and broader proof justified by the increment
+D — after sufficient evidence, learn from the actual result and check ownership
+E — repair/defer important gaps, close the cycle, identify the next responsibility briefly
+C — continuously preserve meaningful progression across A0→E
+```
 
-Verification is a transition gate between B+C and D, **not** canonical D. B and C normally happen together rather than as separate stop points.
+Failed/unavailable verification keeps the responsibility in B/diagnosis/repair or explicit proof debt while C preserves the actual state; do not advance to D on an unproven result.
 
-Do not batch all five increments into one unreviewable change.
-
+Do not batch all five implementation increments into one unreviewable change.
 ## 7. Pass condition for this R4 planning responsibility
 
 **R4 planning responsibility is complete.** Its original Build-readiness conditions were:
@@ -329,16 +332,7 @@ Increment 1 execution/learning status is now owned by the dedicated coherent cyc
 
 `working-memory/2026-09-27_increment-1_reusable-step-exact-command-execution_lbd-cycle.md`
 
-That record owns the cycle's:
-
-```text
-A — orientation / understanding gate
-B — implementation
-C — progressive preservation
-Verification gate
-D — post-implementation learning / ownership check
-E — gap repair + next-slice orientation
-```
+That record preserves Increment 1 under the then-canonical cadence used when it executed. It remains historical evidence; later increments follow the refined A0/A1/A2 model above.
 
 Recorded Increment-1 outcome:
 
