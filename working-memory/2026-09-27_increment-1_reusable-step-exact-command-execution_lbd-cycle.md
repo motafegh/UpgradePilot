@@ -8,7 +8,7 @@ The rule does not create new authorization or weaken evidence truth; verificatio
 
 
 **Date:** 2026-09-27  
-**Cycle status:** ACTIVE — canonical D current  
+**Cycle status:** CLOSED — A/B/C + verification + D/E complete  
 **Primary operation:** Build / Implement with canonical Learning-by-Doing  
 **Controlling plan:** `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`  
 **R4 implementation plan:** `working-memory/2026-09-27_runtime-dependency-state-proof-implementation-and-verification-planning.md`  
@@ -26,8 +26,8 @@ A — DONE
 B — DONE
 C — DONE / progressively maintained through implementation
 Verification gate — GREEN
-D — CURRENT
-E — PENDING
+D — DONE
+E — DONE
 ```
 
 The verification gate is intentionally recorded between B+C and D. It is **not** canonical D.
@@ -216,48 +216,108 @@ It does **not** prove:
 
 Those belong to later increments.
 
-## D — Post-implementation learning / ownership check — CURRENT
+## D — Post-implementation learning / ownership check — DONE
 
-This phase must now teach from the **actual implemented and verified source**, not from the old plan.
+Post-implementation learning was performed from the actual verified source and focused on the real evidence ladder:
 
-D should cover proportionately:
+```text
+static/runtime step identity
+→ correlated user-step execution
+→ exact-command structural eligibility
+→ exact-command execution
+→ domain consumer interpretation
+```
 
-1. actual source responsibility flow:
-   `workflow_runtime_correlation.py`
-   → `runtime_execution.py`
-   → `runtime_strengthening.py`
-   → `dependency_exercise.py`;
+Key ownership outcomes:
+- Ali correctly understood that successful step execution cannot prove an arbitrary later command ran when shell structure may bypass it;
+- Ali correctly understood why step execution and exact-command execution are separate evidence propositions with separate provenance rather than one boolean;
+- one material gap surfaced in the ownership questions: Ali initially interpreted `ExactCommandExecutionAssessment = supported` as proving only structural/correlation readiness rather than the stronger bounded proposition that the exact command occurrence itself executed successfully;
+- that gap was repaired: **exact command execution can be supported while package-manager effect/package-state remains unproven**.
 
-2. distinction between:
-   - correlation/identity;
-   - step execution;
-   - exact-command eligibility/execution;
-   - dependency-domain interpretation;
+The resulting proof ladder now owned for this slice is:
 
-3. important states/failure paths:
-   - supported;
-   - not established;
-   - unresolved;
-   - continue-on-error masking;
-   - failed/skipped runtime step;
-   - structurally ineligible/unresolved command;
+```text
+exact command executed successfully
+!= effective package-manager semantics
+!= target Python environment/destination
+!= package-state satisfaction
+!= later package use
+!= compatibility/action permission
+```
 
-4. what the focused tests protect and what they do not prove;
+Learning-depth calibration was also clarified. Ali is not expected to memorize every class/function/reason code. Required ownership is:
+- retain the system responsibility, important evidence/proof boundaries, normal flow and important failure/unresolved states;
+- recognize the source areas and know how to recover exact APIs/types/tests from the repository;
+- keep incidental symbol names, helper details and exact reason strings at recognize/lookup level unless a later responsibility makes them central.
 
-5. ownership check through a small number of open-ended reasoning questions.
+This satisfies the selected D ownership opportunity: code/system understanding plus design/system judgment over the execution-evidence boundary.
 
-Do not infer ownership from Ali approving the design, running tests, or tests passing.
+## E — Gap repair + next-slice orientation — DONE
 
-## E — Gap repair + next-slice orientation — PENDING
+### Gap repair
 
-After D questions:
+The central D gap was repaired at the minimum useful depth:
 
-1. identify only central reasoning/ownership gaps;
-2. repair them at minimum useful depth;
-3. keep incidental syntax/API detail operational/lookup-level;
-4. state what Increment 1 now establishes and what remains deferred;
-5. briefly orient the next bounded slice, expected to be **Increment 2 — static package-manager operation declaration and semantic-fact core** if no new evidence changes the route;
-6. stop before Increment 2 B; the next cycle must begin with its own A and explicit understanding gate.
+```text
+Correlation/structure + runtime evidence
+→ can establish exact-command execution
+
+but
+
+exact-command execution
+→ does not establish what pip/uv effectively did
+→ does not establish resulting package state
+```
+
+No further central Increment-1 ownership gap currently blocks continuation. Exact implementation symbol memorization is intentionally not required.
+
+### Increment 1 closure
+
+Increment 1 now establishes a reusable, verified execution-evidence foundation:
+
+```text
+WorkflowRuntimeStepCorrelation
+→ CorrelatedStepExecutionAssessment
+→ ExactCommandExecutionAssessment
+→ dependency/domain consumers
+```
+
+with provider-backed unnamed literal step identity, continue-on-error masking, structural eligibility, explicit supported/not-established/unresolved states, and preserved existing dependency-coverage semantics.
+
+It still intentionally does **not** establish:
+- package-manager effective operation semantics;
+- manager-selected Python environment;
+- final installation destination;
+- dry-run/direct-requirement handling as package-manager facts;
+- requirement satisfaction/package state at command completion;
+- later use/compatibility/action permission.
+
+### Next-slice orientation
+
+The next planned responsibility remains technically justified by the implementation evidence:
+
+**Increment 2 — static package-manager operation declaration and semantic-fact core.**
+
+Its purpose is to move from:
+
+```text
+"this exact command executed"
+```
+
+toward:
+
+```text
+"this exact command is a specific pip/uv operation with explicit static invocation semantics
+that can feed independent package-manager semantic facts"
+```
+
+The next cycle should begin with canonical A and explain before Build:
+- why one `PackageManagerOperationDeclaration` should parse an occurrence once;
+- invocation families such as bare pip, `python -m pip`, supported explicit interpreter forms and global `--python`;
+- why manager environment, installation destination, mutation mode and direct-requirement handling remain separate facts;
+- what Increment 2 deliberately does **not** solve yet: ambient process environment/config/default reconstruction and final package-state composition.
+
+Per the canonical LbD method, stop at Increment 2's A understanding gate before its B starts.
 
 ## Governance clarification learned during this cycle
 
