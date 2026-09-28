@@ -5,7 +5,7 @@
 This cycle began under the previous single-A/B+C cadence. During its pre-B orientation, the project refined the canonical Learning-by-Doing model to A0 → A1 → A2 → B → Verification → D → E with C continuous across the whole cycle. On resumption, this existing record is retained rather than creating a duplicate cycle record; the new governance is applied from a deliberate A0 re-entry. The Smart Situational Override Rule permits this transition because no Increment-2 Build began. The rule does not create Build authorization or weaken evidence truth.
 
 **Date:** 2026-09-28  
-**Cycle status:** PAUSED / RE-ENTRY REQUIRED — pre-refinement orientation exists, but the refined A0/A1/A2 gates have not yet been completed  
+**Cycle status:** ACTIVE — refined A0 re-entry complete; A1 continuity/onboarding is current and stops at its continuity gate  
 **Primary operation:** Learning-by-Doing orientation under the already-admitted Runtime Dependency-State Proof plan; Build/Implement is not yet entered  
 **Controlling plan:** `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`  
 **R4 implementation sequence:** `working-memory/2026-09-27_runtime-dependency-state-proof-implementation-and-verification-planning.md`  
@@ -18,14 +18,14 @@ UP-SKILL:upgradepilot-working-memory
 ## Canonical cycle status
 
 ```text
-A0 — RE-ENTRY REQUIRED (reuse this existing cycle record)
-A1 — PENDING
-A2 — PENDING; prior orientation is historical input, not a completed refined gate
+A0 — DONE: current main/owners/source/tests reconciled; existing cycle record reused; living A map seeded
+A1 — CURRENT: continuity/recent-work onboarding; continuity gate pending Ali response
+A2 — PENDING: upcoming responsibility orientation after A1 gate only
 B — PENDING
 Verification gate — PENDING
 D — PENDING
 E — PENDING
-C — CONTINUOUS; preserve the governance interruption and all later progression
+C — CONTINUOUS: preserve meaningful progression across A0→E
 ```
 
 ## Why no separate new plan
@@ -51,6 +51,79 @@ reuse this existing cycle record
 ```
 
 No Increment-2 product source or tests were changed before this governance refinement.
+## Refined A0 — current-state reconciliation + cycle initialization — DONE
+
+### Current-state evidence checked
+
+A0 re-read the current canonical/active surfaces needed for Increment 2:
+
+- root `AGENTS.md`, `OPERATING_GUIDE.md`, and the Learning-by-Doing / working-memory Skills after the 2026-09-28 governance refinement and root-context compaction;
+- current `MEMORY.md`; 
+- `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`; 
+- `working-memory/2026-09-27_runtime-dependency-state-proof-implementation-and-verification-planning.md`; 
+- accepted `docs/architecture/ADR-0010-package-manager-semantic-facts-and-runtime-dependency-state-composition.md`; 
+- this existing Increment-2 cycle record and the recent governance-refinement/compaction records;
+- current source seam: `src/upgradepilot/dependency/pip_command.py`, `direct_install.py`, and `environment_selection.py`; 
+- current focused tests: `tests/test_direct_install_declaration.py` and `tests/test_project_environment_selection.py`; 
+- recent `main` commit history.
+
+### Freshness / implementation reconciliation
+
+The verified Increment-1 implementation head remains `a47923ee778b0984966bc09b8d01169205d0f7f9`. A compare from that commit to current `main` found **no changes under `src/`, `tests/`, `experiments/`, or `tools/`**. All later changes are governance/planning/working-memory reconciliation rather than product implementation.
+
+Therefore:
+
+```text
+Increment 1 implementation truth remains intact
++ Increment 2 still has no product Build
++ current source seam is unchanged
++ no fresh implementation evidence invalidates the selected Increment-2 route
+```
+
+### Reconciliation discovered during A0
+
+The controlling runtime-state plan and the active R4 implementation-sequence record still contained several references to the superseded `A → B → C → D → E` / `B+C` cadence. Their **technical responsibilities and proof obligations were still correct**, but their process language conflicted with current governance.
+
+A0 reconciled only that process vocabulary:
+
+- `a512ec1` — aligned `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md` with A0/A1/A2/B/Verification/D/E + continuous C;
+- `84edbe0` — aligned the R4 continuation rhythm while preserving Increment-1 historical cadence as history.
+
+No semantic/architecture/build scope was changed by this reconciliation.
+
+### A0 conclusion
+
+No contradiction requires replanning or redirecting Increment 2. The selected responsibility remains:
+
+> parse one package-manager operation occurrence once and expose independent typed semantic resolution for manager environment selection, installation destination, package mutation mode, and direct requirement handling, without runtime claims or universal config reconstruction.
+
+The existing cycle record is reused rather than creating a duplicate record, as already decided during the governance transition.
+
+## Living A-phase orientation / learning map
+
+This map is a living cycle aid, not a second plan. A1 may add/remove items when Ali's continuity gaps become visible.
+
+### A1 — continuity / recent-work onboarding topics
+
+- [ ] Reconnect Increment 1's closed result: exact-command successful execution evidence exists, but it does not establish package-manager meaning or resulting package state.
+- [ ] Reconnect the governance interruption: Increment 2 started orientation but **no Build began**; governance was refined before product work continued.
+- [ ] Explain what changed since that point: LbD A0/A1/A2 model + continuous C, root governance compaction, and plan/R4 cadence reconciliation only.
+- [ ] Re-establish current live position: Increment 2 remains selected; technical scope/ADR/plan did not change.
+- [ ] Reconnect the current source seam: `pip_command.py` recognizes bounded pip prefixes; `direct_install.py` and `environment_selection.py` consume/reinterpret pieces independently.
+- [ ] Surface any continuity gaps/questions from Ali and record them before A2.
+
+### A2 — upcoming responsibility orientation topics (do not execute before A1 gate)
+
+- [ ] Why one dependency-owned package-manager operation declaration should replace repeated prefix interpretation.
+- [ ] Invocation identity/forms that matter: bare pip, `python -m pip`, explicit interpreter relation, and pip global `--python` placement.
+- [ ] The four independent semantic facts and why they must not collapse into one `valid install` boolean.
+- [ ] Shared bounded semantic provenance/problem representation and fail-closed unresolved material values.
+- [ ] Command-local decisive semantics first: especially `--dry-run`, target/destination distinctions, and `--no-deps` direct-requirement meaning.
+- [ ] Exact Increment-2 pass condition, proof cases, non-goals, and ownership depth.
+
+### A-phase understanding gaps
+
+None are assumed at A0. A1 must discover them from Ali's actual questions/reasoning rather than infer them from prior approval.
 ## Cycle responsibility
 
 Move UpgradePilot from repeated narrow package-manager prefix interpretation toward one reusable static package-manager operation declaration that can feed independent package-manager semantic facts.
