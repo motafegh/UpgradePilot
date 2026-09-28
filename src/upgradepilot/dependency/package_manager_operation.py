@@ -133,6 +133,8 @@ def parse_package_manager_operation(
             continue
 
         if token.startswith("-"):
+            if not _literal_install_visible(remaining[index + 1 :]):
+                return None
             return _problem(
                 occurrence,
                 "unsupported_pip_global_option_before_install",
@@ -146,6 +148,13 @@ def parse_package_manager_operation(
         return None
 
     return None
+
+
+def _literal_install_visible(arguments: tuple[StaticCommandAtom, ...]) -> bool:
+    return any(
+        (value := _literal_value(atom)) is not None and value.casefold() == "install"
+        for atom in arguments
+    )
 
 
 def _python_module_pip_arguments(
