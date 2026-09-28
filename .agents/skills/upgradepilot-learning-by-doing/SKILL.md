@@ -69,333 +69,196 @@ When a substantive primary responsibility and its operation procedure are alread
 
 If a material condition appears during a Learning-by-Doing child step, re-evaluate the primary operation's conditional route before continuing materially. Do not let the teaching overlay hide an environment, security, proof, owner, or operation boundary that the primary procedure would have recognized.
 
-## Canonical A → B → C → D → E execution contract
+## Canonical A0 → A1 → A2 → B → Verification → D → E execution contract
 
-Root `AGENTS.md` owns the canonical phase meanings. This Skill operationalizes them with the following mandatory default cadence for a substantive cycle:
+Root `AGENTS.md` owns the canonical meanings and `OPERATING_GUIDE.md` owns the fuller philosophy. This Skill operationalizes them.
 
 ```text
-A — pre-implementation learning/orientation
-    → use Procedure steps 1–4 proportionately
-    → STOP at the understanding gate
-    → Ali should understand what B will do, why, the important files/types/evidence/flow,
-      and the expected result/proof boundary before B starts
+A0 — current-state reconciliation + cycle initialization
+     → reconstruct current truth proportionately
+     → create the one cycle working-memory record
+     → seed the living A-phase orientation/learning map
+     → continue directly to A1
+
+A1 — continuity / recent-work onboarding
+     → bring Ali from last understood state to current state
+     → preserve meaningful gaps/challenges in C
+     → STOP at continuity/onboarding gate
+
+A2 — upcoming responsibility orientation
+     → teach bridge, engineering/evidence flow, expected result,
+       failure/unresolved states, proof boundaries and non-goals
+     → normally lighter than D
+     → STOP at pre-B understanding gate
 
 B — real bounded action
-+
-C — progressive state preservation
-    → execute together
-    → perform the selected primary operation while updating one coherent cycle working-memory
-      record at meaningful progression points
-    → do not create an artificial B/C stop
+     → perform the selected authorized primary operation
 
-Verification / evidence gate — not a canonical phase
-    → after the B+C result exists, run/inspect the focused and broader proof justified by
-      the primary responsibility
-    → failure or unavailable proof returns to B+C/diagnosis or remains explicit proof debt
-    → do not advance to D by treating verification itself as D
+Verification / evidence gate
+     → establish the strongest justified proof
+     → failure/unavailable proof returns to B/diagnosis or explicit proof debt
 
-D — post-implementation learning / ownership check
-    → teach from the actual built/discovered **and sufficiently evidenced** result
-    → use real source, control/data/evidence flow, tests, decisions, failures and proof limits
-    → ask a small number of meaningful open-ended ownership questions
+D — post-work evidence-backed learning / ownership
+     → teach from actual sufficiently evidenced work
+     → compare A2 expectation with reality
+     → adapt depth to the cycle
+     → identify/characterize ownership gaps
 
-E — gap repair + next-slice orientation
-    → use Ali's D answers to repair central reasoning/ownership gaps at minimum useful depth
-    → explain the next bounded slice and its key problem/proof boundary
-    → stop before the next slice's B; the next cycle begins again at A
+E — gap repair + cycle closure / next-responsibility handoff
+     → repair/defer important D gaps
+     → consolidate proof/non-proof and residual debt
+     → identify next responsibility briefly
+     → STOP with cycle closed
+
+C — continuous state preservation
+     → active across A0 through E in the same cycle record
+     → preserve meaningful engineering + learning progression, not an activity log
 ```
 
-### Understanding gate after A
+### Two mandatory normal gates
 
-Do not silently combine a substantive A and B into one uninterrupted implementation progression. After the minimum-complete orientation and meaningful reasoning point, **stop** and give Ali room to confirm, explain back, question, challenge, or correct what the upcoming B will do.
+For substantive cycles, do not silently combine:
 
-The gate is about decision-relevant understanding, not ceremonial approval. Do not require Ali to reproduce implementation details that have not been built yet, but do make sure the coming responsibility and proof boundary are understandable before action.
+1. **A1 → A2**: stop after continuity/onboarding so Ali can challenge the current-state model.
+2. **A2 → B**: stop after upcoming-responsibility orientation so Ali can challenge the coming work/proof boundary.
+
+The Smart Situational Override Rule may compress a gate only when the actual situation justifies it and the reason/effect is explicit.
 
 ### One coherent cycle working-memory record
 
-For every substantive canonical LbD cycle, use **one coherent cycle record** as the detailed owner of that cycle's progression:
+A0 creates the record. The same record owns A0/A1/A2/B/Verification/D/E status and continuous C progression until E closes the cycle. Do not create competing phase-status records merely because implementation, verification and learning happen at different moments.
 
-```text
-Cycle <responsibility>
-A — ...
-B — ...
-C — ...
-Verification gate — ...
-D — ...
-E — ...
-```
-
-B and C updates belong in that record as the work evolves. Verification evidence, D ownership findings, E gap repair, and the cycle handoff remain in the same record. Do not split one cycle into competing phase-status working memories merely because implementation, verification, and learning occur at different times.
-
-Plan/ADR/specification owners remain separate and change only when their own responsibility changes. `MEMORY.md` changes only when the canonical live position, blocker/deferral, selected continuation, or meaningful milestone changes.
-
+The A-phase orientation/learning map is a living cycle aid, not a replacement plan. Refine it when A1 reveals an understanding gap or fresh evidence changes what A2 needs.
 ## Procedure
 
 ### 1. Identify the real responsibility and primary operation
 
-State or infer the smallest real responsibility/question/failure being worked on and the primary operation that owns the action.
+State or infer the coherent responsibility/question/failure being worked on and the primary operation that owns action authorization. Learning-by-Doing remains an overlay.
 
-Do not replace the real task with a detached tutorial topic.
+If live continuation is material, use `MEMORY.md`. Do not replace the real project responsibility with a detached tutorial.
 
-If live continuation is material, use `MEMORY.md`. Otherwise do not load live state reflexively.
+### 2. Execute A0 — reconcile current state and initialize the cycle
 
-### 2. Establish only the learner context needed now
-
-Use the current conversation and applicable learning continuity before asking Ali to repeat prior understanding.
-
-Load package-local learning contract/plan/depth map/`LEARNING_MEMORY.md` only when that package is actually active or the task depends on its learning state.
-
-Determine only what is necessary to answer:
+Recover enough current truth for this responsibility. Normally inspect, as applicable:
 
 ```text
-what must Ali understand before this action is meaningful?
-what can safely remain operational or deferred?
-what mechanism is genuinely new versus already repeated?
+MEMORY.md
+→ applicable governance / operating rules
+→ controlling plan/specification/ADR
+→ previous cycle/handoff
+→ material recent commits / parallel work
+→ current relevant source/tests/evidence
 ```
 
-Do not create a broad prerequisite inventory unless the primary responsibility requires it.
+Do not blindly scan the whole repository. The requirement is trustworthy current-state reconstruction, not maximum reading.
 
-### 3. Give a minimum-complete orientation
+If current evidence contradicts the expected route, reconcile that first; A0 may invalidate the presumed A2 responsibility.
 
-Before using an unfamiliar concept/tool/file/mechanism as a premise, establish enough accurate context to connect it to the real UpgradePilot responsibility.
+Create the one coherent cycle working-memory record using the working-memory owner/Skill. Seed:
 
-Prefer this compact shape when useful:
+- A0/A1/A2/B/Verification/D/E status;
+- C as continuous;
+- a living A-phase orientation/learning map containing the recent-work topics for A1, upcoming-responsibility topics for A2, important bridge/concepts/flow, expected result/proof boundary, meaningful failure/unresolved states, non-goals and justified ownership depth.
+
+Then continue directly to A1 unless a contradiction requires a separate stop.
+
+### 3. Execute A1 — continuity / recent-work onboarding
+
+Bring Ali from the last genuinely understood point to current truth. Explain the meaningful delta rather than every commit:
 
 ```text
-what it is
-→ what job it does here
-→ where it sits in the real flow
-→ why it matters to the current decision/action
-→ depth needed now versus deferred
+what happened
+→ what was built/decided/discovered/corrected
+→ what evidence established it
+→ what changed in the system/proof model
+→ why the current position follows
 ```
 
-Use real source/tests/plans/target evidence when available. Synthetic examples are secondary and should be labeled when used.
+Record meaningful questions, challenges, corrected assumptions and understanding gaps through C. Refine the A-phase map when needed.
 
-When an example's status could materially change the learner's model, distinguish the relevant class rather than presenting every example as normal operation:
+**STOP at the continuity/onboarding gate.** Give Ali a real opportunity to question, challenge, correct or explain the current-state model before A2.
+
+### 4. Execute A2 — orient the upcoming responsibility
+
+After the A1 gate clears, teach the coming responsibility proportionately:
 
 ```text
-normal / expected path
-failure / invalid input
-purpose-built test fixture
-hypothetical design case
-synthetic teaching example
+previous established state
+→ why the next responsibility exists
+→ what B will do
+→ important engineering concepts/files/types/data/control/evidence flow
+→ expected result
+→ important failure/unresolved states
+→ acceptance/proof boundary
+→ stronger claims/non-goals not earned
 ```
 
-A defensive failure state or intentionally inconsistent fixture must not be taught as though it is the normal admitted product flow.
+For consequential new responsibilities, include enough acceptance intent to reason responsibly before action. Apply the professional ownership lens when useful, selecting at most one or two real ownership opportunities.
 
-Do not explain every line, import, command, or technology equally.
+A2 is anticipatory and minimum-complete. Do not pre-implement in prose; normally leave deeper real-source learning to D.
 
-Actively notice relevant high-value engineering concepts, patterns, and tools in the real slice and surface them at the depth justified by the work. For AI/LLM/agent work, do not wait for Ali to name concepts such as harnesses, hooks/callbacks, structured outputs, tool calling, evals, tracing/observability, replay, prompt/context engineering, guardrails/deterministic admission, or orchestration when they are genuinely present or relevant. Distinguish what UpgradePilot uses now from a credible alternative worth understanding and from optional/deferred exploration. Learning value may justify explanation or comparison; it does not by itself justify adopting new machinery. Apply `OPERATING_GUIDE.md` §7.1 rather than turning the project into technology tourism.
+Create at least one meaningful reasoning point when useful.
 
-If a meaningful mastery/ownership depth is being assigned, briefly state the project-local reason for that depth. Do not create deeper learning obligations merely because a file or technology is large or interesting.
+**STOP at the pre-B understanding gate.** Do not infer gate satisfaction from passive approval.
 
-For a substantive slice, apply the **Professional engineering ownership lens** from `OPERATING_GUIDE.md` §7.3 when the work genuinely creates a durable ownership opportunity. Select at most one or two relevant categories, not a catalog. Examples include code/system understanding, verification/evaluation, meaningful modification, debugging/causal diagnosis, design/system judgment, trust/data/external boundaries, AI-assisted engineering, transfer, and technical communication.
+### 5. Execute B while C remains active
 
-When useful, make the orientation explicit in a compact form such as:
+Perform the real bounded action under the selected primary operation. Keep the responsibility coherent and authorization-correct.
+
+C continuously preserves meaningful implementation/analysis/design evolution, decisions, failures, corrections, changed assumptions and route changes. Do not wait until the end to reconstruct them from memory.
+
+### 6. Execute the verification / evidence gate
+
+After B has a result, run or inspect the strongest justified proof. Distinguish what passed from what the evidence does not establish.
+
+If proof fails or is unavailable, remain in B/diagnosis/repair or record explicit proof debt/blocker; preserve the actual state in C. Do not advance to D by treating missing proof as success.
+
+### 7. Execute D — evidence-backed learning and ownership check
+
+Teach from the actual sufficiently evidenced result rather than repeating A2.
+
+Cover the real source/result, control/data/evidence flow, important types/states, decisions, failures/surprises/corrections, tests/evidence and proof limits. Explicitly compare important A2 expectations with what B/verification actually showed.
+
+Choose depth situationally. Deepen for new architecture/proof/trust boundaries; compress familiar repetitive work.
+
+Ask a small number of meaningful open-ended ownership questions: trace, explain, predict, critique, diagnose or reason about a changed case. Avoid trivia or symbol memorization.
+
+Identify and characterize material gaps. Preserve them in C for E.
+
+### 8. Execute E — repair gaps and close the cycle
+
+Use D findings to repair the important gaps at the minimum useful depth. Explicitly defer non-central gaps when appropriate.
+
+Consolidate:
 
 ```text
-primary professional ownership opportunity: <one real responsibility>
-secondary, if genuinely useful: <one related responsibility>
-required depth: must own | operational | recognize/lookup | deferred
-why this real slice justifies that depth: <project-local reason>
+what was established
+→ what was not established
+→ proof/non-proof
+→ residual limitations/debt
+→ current live position
+→ next responsibility and why
 ```
 
-This is not job-market scoring. Do not choose a category because it is a résumé keyword or interview topic, and do not alter the selected technical route merely to create exposure. Career owns mutable employment interpretation; this Skill owns only project-local learning/ownership execution.
+Do not perform full next-cycle onboarding/teaching here; the next cycle's A0/A1/A2 owns that responsibility from fresh state.
 
-For a **consequential new responsibility**—such as a new behavior/contract, proof boundary, integration seam, architecture decision, material failure mechanism, or AI/harness responsibility—make the orientation include only the acceptance intent needed to reason responsibly before action:
+Reconcile the cycle record, `MEMORY.md` when live position changed, and other canonical owners only when their responsibility changed.
 
-```text
-what success means
-what important failure / unresolved state must remain distinguishable
-what stronger claim or non-goal is intentionally not earned
-what evidence/test/evaluation would justify acceptance
-one changed case that could discriminate the design when useful
-```
+Close only when important D gaps are repaired or explicitly deferred and the handoff/proof state is truthful.
 
-Do not require this extra reflection for familiar/repetitive child work. Do not pre-design every implementation detail before the real action can teach us more.
+### 9. Keep C active across the whole cycle
 
-### 4. Create a meaningful reasoning point
+C is not a step after B. From A0 through E, preserve only meaningful engineering and learning progression:
 
-When prerequisites are available and the step is material, give Ali a real opportunity to predict, choose, explain, challenge, or diagnose before or around the action.
+- current-state reconciliation and contradictions;
+- A1 onboarding delta and gaps;
+- A2 responsibility/proof model;
+- B evolution and corrections;
+- verification evidence/debt;
+- D ownership findings;
+- E repair/closure/handoff.
 
-Examples:
-
-- predict what a transformation should preserve;
-- choose between understood design alternatives;
-- explain why a test discriminates one hypothesis;
-- challenge whether a field/check belongs at the current layer;
-- identify what evidence would strengthen or weaken a claim;
-- state which result would satisfy the bounded acceptance intent and which stronger claim would still remain unjustified.
-
-A reasoning point is not a quiz gate. Do not stall useful project work merely to manufacture learner participation, and do not ask for implementation detail that has not yet been taught or established as a premise.
-
-If Ali challenges the premise, stop advancing that local proposition and evaluate the claim, current implementation, and prior assistant claims by the same evidence standard. Do not agree merely for conversational satisfaction and do not defend current code merely because it exists.
-
-### 5. Perform the real bounded action
-
-This is the core of canonical **B**, executed together with canonical **C — progressive state preservation**.
-
-Proceed according to the **primary operation's** authorization and procedure.
-
-Learning-by-Doing must not turn implementation into a lecture, turn review into implementation, or turn planning into unauthorized building.
-
-Use the smallest real action that can produce useful evidence:
-
-```text
-one design decision
-one bounded implementation increment
-one discriminating diagnostic
-one source/test trace
-one relevant command/test
-one evidence interpretation step
-```
-
-A small action inside an already-established substantive responsibility is a child step, not automatically a new operation. Preserve the inherited route unless the evidence shows that the responsibility or another material routing condition has changed.
-
-### 6. Inspect actual evidence and correct the model
-
-For the completed B+C result, this step supplies the **verification / evidence gate before canonical D**. It is not itself D.
-
-After a meaningful action, inspect the strongest available evidence appropriate to the claim.
-
-Keep distinct:
-
-```text
-observation
-→ source/execution context
-→ interpretation
-→ remaining uncertainty
-→ supported conclusion / next discriminating action
-```
-
-Explicitly state what the result proves and what stronger claim it does **not** prove when that boundary is material.
-
-If the result contradicts the prediction or prior model, identify the exact model gap rather than hiding the mismatch.
-
-For a material source-ownership block, connect the executable responsibility to a meaningful focused test when one exists and make clear what that test protects and does not prove. If no meaningful focused test exists, state that instead of implying test understanding was demonstrated.
-
-If the evidence introduces a new environment/topology, security/trust, canonical-semantics, proof, or independent-operation condition, follow the primary operation's conditional route before the next material action.
-
-### 7. Transfer ownership proportionately
-
-This is the central procedure for canonical **D — post-implementation learning / ownership check** after the verification/evidence gate is sufficiently green.
-
-Use the assistance-fading model in `OPERATING_GUIDE.md` for the specific responsibility.
-
-As a mechanism repeats, shift progressively toward Ali:
-
-```text
-AI decomposition/explanation
-→ Ali prediction/selection
-→ Ali proposes checks or decomposition
-→ Ali controls technical sequence/evidence plan
-```
-
-AI may write substantial or even most implementation. Apply the canonical engineering-ownership standard in `OPERATING_GUIDE.md` §7.2: this is compatible with Learning-by-Doing only when Ali progressively owns the important engineering through reasoning, review/challenge, direction or meaningful modification, testing/proof understanding, debugging, and decision-making. Do not require unaided source reproduction as the mastery test; incidental syntax/library/API detail may remain operational or recognize/lookup-level when justified.
-
-Do not claim ownership/mastery from typing AI-provided code, approving an AI-selected design, running commands, immediate repetition, or passing AI-generated tests.
-
-When an already-taught mechanism naturally reappears in later real project work, and the required premises are still available, prefer a brief fair retrieval/reconstruction before replaying the earlier explanation when that helps judge retained understanding. Use the result to reduce or restore support under the Operating Guide's assistance-fading rule. Do not manufacture a project task or quiz every recurrence for this purpose.
-
-For a tiny familiar step, one concise explanation may be enough. For a central new mechanism, require more meaningful reasoning, modification, testing, diagnosis, or explanation over time.
-
-#### Professional ownership check
-
-When §7.3 identified a professional engineering ownership opportunity for this slice, use the **smallest real check** that demonstrates or exposes the relevant understanding. Choose only what matches the responsibility, for example:
-
-```text
-code/system understanding
-→ trace the important input/state/control/data flow and responsibility boundary
-
-verification/evaluation
-→ explain representative setup/evidence → action → assertion/result → proof → non-proof
-
-meaningful modification
-→ reason about or direct a bounded change and the relevant unchanged behavior
-
-debugging/diagnosis
-→ localize a plausible symptom and choose a discriminating check before proposing repair
-
-design/system judgment
-→ defend owner/layer placement, one alternative, and the important trade-off
-
-trust/data/external boundary
-→ explain provenance/authority/validation/uncertainty and a failure or conflicting-evidence case
-
-AI-assisted engineering
-→ distinguish what AI produced from what Ali verified, challenged, directed, or remains accountable for
-
-transfer
-→ answer one nearby changed-context case without replaying the exact prior example
-
-technical communication
-→ explain the responsibility, mechanism, evidence, limitation, and trade-off clearly and concisely
-```
-
-This is not a fixed interview script and not a requirement to perform every check. The purpose is to turn real project work into real engineering ownership evidence while keeping the project route unchanged.
-
-#### Selective AI-era ownership reflection
-
-For a consequential slice where implementation abundance could hide the real learning value, use this question **selectively**:
-
-> **If implementation became nearly free, what engineering responsibility would still be mine — and what technical understanding would I still need to verify, diagnose, modify, transfer and defend that responsibility?**
-
-The answer must preserve technical substrate. It may not collapse into generic management, supervision, or prompting language.
-
-When useful, also ask:
-
-```text
-What is the transferable engineering responsibility here?
-What UpgradePilot-specific/domain knowledge only supports it?
-Where else would the same responsibility appear?
-```
-
-These are ownership/transfer reflections, not mandatory new cycle stages. Skip or compress them for repetitive/familiar child work, and do not force a generic lesson from every function or file.
-
-### 8. Backtrack and repair prerequisites locally
-
-Prerequisite repair may occur whenever needed. During canonical **E**, use Ali's D answers to identify the central gaps that actually need repair before orienting the next slice.
-
-Ali may interrupt, question, or backtrack at any point.
-
-When a prerequisite gap appears:
-
-```text
-identify exact missing link
-→ explain why it blocks the current responsibility
-→ teach/practise the minimum complete mechanism
-→ verify once meaningfully
-→ return explicitly to the original task
-```
-
-Do not silently let prerequisite repair become a new course or project route.
-
-If prerequisite repair exposes a genuinely new substantive operation responsibility rather than a local learning gap, re-route through the applicable primary procedure instead of stretching Learning-by-Doing to own it.
-
-### 9. Complete canonical E and orient the next slice
-
-After D's ownership questions, use Ali's answers and the actual evidence to distinguish:
-
-```text
-central gap that blocks current responsibility ownership
-→ repair now at minimum useful depth
-
-incidental syntax/API detail
-→ keep operational / recognize-and-lookup level
-
-real but later depth
-→ defer deliberately
-```
-
-Then briefly orient the next coherent slice:
-
-- what problem/capability comes next;
-- why it is next in the accepted product/evidence sequence;
-- what we expect to add, solve, or clarify;
-- the key decision/proof boundary Ali should understand before the next B.
-
-Do **not** silently start that next slice's B. The next substantive slice begins again with canonical A and its understanding gate.
-
+Continuous preservation is not continuous logging. Summarize routine actions and retain the distinctive facts needed to reconstruct the cycle.
 ## Composition with primary operations
 
 ### Audit / Review
