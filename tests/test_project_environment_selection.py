@@ -187,6 +187,27 @@ class ProjectEnvironmentSelectionTests(unittest.TestCase):
             (OptionalExtraSelector("dev"), OptionalExtraSelector("mlx")),
         )
 
+    def test_explicit_interpreter_path_uses_shared_pip_operation_declaration(self) -> None:
+        result = _observe(
+            '/opt/venv/bin/python3.12 -m pip install ".[dev]"',
+            _analysis(
+                _occurrence(
+                    0,
+                    "/opt/venv/bin/python3.12",
+                    "-m",
+                    "pip",
+                    "install",
+                    ".[dev]",
+                )
+            ),
+        )
+
+        self.assertEqual(result.state, "observed")
+        self.assertEqual(
+            result.declarations[0].selectors,
+            (OptionalExtraSelector("dev"),),
+        )
+
     def test_pip_local_project_without_extra_is_still_visible_project_selection(self) -> None:
         result = _observe(
             "pip install -e .",
