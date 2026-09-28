@@ -219,6 +219,8 @@ Teach from the actual sufficiently evidenced result rather than repeating A2.
 
 Cover the real source/result, control/data/evidence flow, important types/states, decisions, failures/surprises/corrections, tests/evidence and proof limits. Explicitly compare important A2 expectations with what B/verification actually showed.
 
+For teaching examples, prefer existing real project/product-simulation cases; if none fit, use a suitable external real case when practical and reliably inspectable; use synthetic examples only as the fallback. Do not treat teaching-case realism as extra product proof.
+
 Choose depth situationally. Deepen for new architecture/proof/trust boundaries; compress familiar repetitive work.
 
 Ask a small number of meaningful open-ended ownership questions: trace, explain, predict, critique, diagnose or reason about a changed case. Avoid trivia or symbol memorization.
