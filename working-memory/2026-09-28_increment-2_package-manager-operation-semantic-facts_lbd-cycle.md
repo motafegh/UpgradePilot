@@ -336,6 +336,28 @@ Increment 2 satisfies its verification gate for the current bounded claim:
 > one exact supported package-manager occurrence can feed independent typed command-local semantic resolution with explicit provenance/problems, while existing migrated consumers continue to pass the deterministic product suite.
 
 This verification does **not** establish ambient process-env/config semantics, final effective defaults, command-derived package-state satisfaction, later persistence/use, compatibility, or maintainer-action permission.
+## D learning extension — real product-simulation anchors
+
+During D, Ali requested that ownership learning use preserved real product-simulation cases and exact data-flow tracing rather than only synthetic commands.
+
+Selected anchors:
+
+- **S011 — Dictare MLX optional-extra CI coverage:** real inspected workflows use `pip install -e .[dev]` while the affected runtime family requires the `mlx` optional extra. This is the strongest current real example for shared operation parsing feeding project-environment selection while effective package-manager semantics remain independently unresolved.
+- **S002 — Kubernetes Dashboard Token API / httpx:** preserved workflow uses `python -m pip install --no-cache-dir --upgrade pip -r requirements.txt`, giving a real Python-module pip invocation plus direct requirements-file consumption.
+- **S008 — CARLA OpenCV Python-3.6 artifact fallback:** retained as an evidence-source boundary example. Its documented pip3 installation path is real repository evidence, but it is not automatically a GitHub Actions run-step occurrence, so the workflow command parser must not be assumed to own it.
+
+D should explicitly distinguish:
+
+```text
+workflow run-step acquisition/parsing
+→ StaticCommandOccurrence
+→ shared PackageManagerOperationDeclaration
+→ existing consumers (direct requirements / project selection)
+AND/OR
+→ Increment-2 semantic fact resolvers
+```
+
+The semantic-fact core is currently a reusable dependency-layer substrate; final effective ambient/config resolution and package-state composition remain later increments.
 ## Historical pre-refinement A orientation — input to refined A1/A2
 
 ### 1. Starting implementation truth
