@@ -267,6 +267,16 @@ def resolve_installation_destination(
             index += 2
             continue
 
+        empty_inline_option = _empty_inline_destination_option(token)
+        if empty_inline_option is not None:
+            return _problem(
+                declaration,
+                "installation_destination",
+                "installation_destination_missing_value",
+                f"pip destination option {empty_inline_option!r} has an empty value.",
+                blocking_source="command_line",
+            )
+
         inline = _literal_inline_destination(token)
         if inline is not None:
             selectors.append(inline)
@@ -467,6 +477,14 @@ def _global_option_values(
         index += 1
 
     return values
+
+
+def _empty_inline_destination_option(token: str) -> str | None:
+    folded = token.casefold()
+    for option in ("--target", "--prefix", "--root"):
+        if folded == option + "=":
+            return option
+    return None
 
 
 def _literal_inline_destination(token: str) -> InstallationDestination | None:
