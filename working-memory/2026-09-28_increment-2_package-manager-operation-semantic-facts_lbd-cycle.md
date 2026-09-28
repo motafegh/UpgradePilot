@@ -358,6 +358,23 @@ AND/OR
 ```
 
 The semantic-fact core is currently a reusable dependency-layer substrate; final effective ambient/config resolution and package-state composition remain later increments.
+## D governance refinement — real-case teaching priority
+
+During D, Ali established a reusable teaching preference that is now canonical governance:
+
+```text
+existing real project / product-simulation case
+→ suitable external real-world case when practical and reliably inspectable
+→ synthetic / constructed example only as fallback
+```
+
+This priority applies to teaching/examples, not to product-proof authority: a realistic teaching case does not automatically expand the current cycle's admitted proof boundary.
+
+Canonical owners updated:
+
+- root `AGENTS.md` D cadence;
+- `OPERATING_GUIDE.md` §2.6;
+- `.agents/skills/upgradepilot-learning-by-doing/SKILL.md` D procedure.
 ## Historical pre-refinement A orientation — input to refined A1/A2
 
 ### 1. Starting implementation truth
