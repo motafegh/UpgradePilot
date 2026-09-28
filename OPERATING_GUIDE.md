@@ -198,6 +198,16 @@ Teach from **what actually happened**, proportionately covering:
 - verification evidence and proof/non-proof boundaries;
 - what differed between A2 expectations and B/verification reality.
 
+For teaching/examples in D, prefer the most realistic available evidence in this order:
+
+```text
+existing real project / product-simulation case
+→ suitable external real-world case when practical and reliably inspectable
+→ synthetic / constructed example only when real cases are unavailable or impractical
+```
+
+Real examples are learning material for the proposition being taught; they do not automatically expand the cycle's product proof or authority boundary.
+
 D depth is situational rather than uniform:
 
 ```text
