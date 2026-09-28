@@ -5,7 +5,7 @@
 This cycle began under the previous single-A/B+C cadence. During its pre-B orientation, the project refined the canonical Learning-by-Doing model to A0 → A1 → A2 → B → Verification → D → E with C continuous across the whole cycle. On resumption, this existing record is retained rather than creating a duplicate cycle record; the new governance is applied from a deliberate A0 re-entry. The Smart Situational Override Rule permits this transition because no Increment-2 Build began. The rule does not create Build authorization or weaken evidence truth.
 
 **Date:** 2026-09-28  
-**Cycle status:** ACTIVE — A0/A1/A2/B complete; Verification/Evidence gate GREEN; D evidence-backed learning/ownership is next  
+**Cycle status:** ACTIVE — A0/A1/A2/B complete; Verification/Evidence gate GREEN; D evidence-backed learning/ownership is CURRENT  
 **Primary operation:** Increment-2 Build is implemented and verified; D evidence-backed learning/ownership is next  
 **Controlling plan:** `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`  
 **R4 implementation sequence:** `working-memory/2026-09-27_runtime-dependency-state-proof-implementation-and-verification-planning.md`  
@@ -23,7 +23,7 @@ A1 — DONE: Ali confirmed the continuity model; no material continuity gap surf
 A2 — DONE: Ali demonstrated the package-manager declaration boundary and dry-run mutation-mode blocker; pre-B gate cleared
 B — DONE: bounded package-manager operation declaration + command-local semantic-fact core implemented and existing pip consumers migrated
 Verification gate — GREEN: Product verification #10 succeeded on exact run head `e838fa656964a898c037cca6ef0d390983f106ad`; full deterministic regression ran 653 tests including the new semantic core and both migrated consumers
-D — PENDING: next responsibility
+D — CURRENT: evidence-backed source/flow/proof learning and ownership check
 E — PENDING
 C — CONTINUOUS: preserve meaningful progression across A0→E
 ```
