@@ -5,8 +5,8 @@
 This cycle began under the previous single-A/B+C cadence. During its pre-B orientation, the project refined the canonical Learning-by-Doing model to A0 → A1 → A2 → B → Verification → D → E with C continuous across the whole cycle. On resumption, this existing record is retained rather than creating a duplicate cycle record; the new governance is applied from a deliberate A0 re-entry. The Smart Situational Override Rule permits this transition because no Increment-2 Build began. The rule does not create Build authorization or weaken evidence truth.
 
 **Date:** 2026-09-28  
-**Cycle status:** ACTIVE — A0/A1/A2/B complete; Verification/Evidence gate is next and has not yet been executed  
-**Primary operation:** Build/Implement completed for the admitted Increment-2 responsibility; Verification/Evidence gate is pending  
+**Cycle status:** ACTIVE — A0/A1/A2/B complete; Verification/Evidence gate GREEN; D evidence-backed learning/ownership is next  
+**Primary operation:** Increment-2 Build is implemented and verified; D evidence-backed learning/ownership is next  
 **Controlling plan:** `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`  
 **R4 implementation sequence:** `working-memory/2026-09-27_runtime-dependency-state-proof-implementation-and-verification-planning.md`  
 **Accepted architecture:** `docs/architecture/ADR-0010-package-manager-semantic-facts-and-runtime-dependency-state-composition.md`  
@@ -22,8 +22,8 @@ A0 — DONE: current main/owners/source/tests reconciled; existing cycle record 
 A1 — DONE: Ali confirmed the continuity model; no material continuity gap surfaced
 A2 — DONE: Ali demonstrated the package-manager declaration boundary and dry-run mutation-mode blocker; pre-B gate cleared
 B — DONE: bounded package-manager operation declaration + command-local semantic-fact core implemented and existing pip consumers migrated
-Verification gate — PENDING: focused/broader tests have not yet been executed
-D — PENDING
+Verification gate — GREEN: Product verification #10 succeeded on exact run head `e838fa656964a898c037cca6ef0d390983f106ad`; full deterministic regression ran 653 tests including the new semantic core and both migrated consumers
+D — PENDING: next responsibility
 E — PENDING
 C — CONTINUOUS: preserve meaningful progression across A0→E
 ```
@@ -280,6 +280,62 @@ Even after verification, Increment 2 is intended to establish only:
 It still does not establish effective ambient/config semantics, command execution, resulting package state, later use, compatibility, or maintainer-action permission.
 
 UP-SKILL:upgradepilot-build-implement
+## Verification / Evidence gate — GREEN
+
+Ali manually dispatched **Product verification #10** (`run 36463198913`). GitHub reports:
+
+- event: `workflow_dispatch`;
+- status: `completed`;
+- conclusion: `success`;
+- run head: `e838fa656964a898c037cca6ef0d390983f106ad`;
+- one product job, `Installed package and deterministic product tests`, completed successfully;
+- checkout/setup/install/CLI/focused-investigation/full-regression steps all concluded `success`.
+
+### Exact implementation identity
+
+The run head is two commits ahead of final B implementation head `a5595370b29a88caa4bdd3f7a875fae819a57c25`. The only intervening files are:
+
+```text
+MEMORY.md
+working-memory/2026-09-28_increment-2_package-manager-operation-semantic-facts_lbd-cycle.md
+```
+
+Therefore the Product verification run tested the exact Increment-2 product source/test implementation with only state-record updates on top; no product source/test changed between B head and the verified run head.
+
+### Test evidence
+
+The workflow installed UpgradePilot in a fresh Python 3.12 virtual environment and verified installed CLI entry points.
+
+The focused investigation composition step passed **15 tests**.
+
+The full deterministic product regression passed:
+
+```text
+Ran 653 tests
+OK
+```
+
+The full regression log explicitly shows successful execution of the new/migrated Increment-2 cases, including:
+
+- package-manager operation parsing for bare pip, `python -m pip`, explicit interpreter path, pip global `--python`, unsupported/global/non-install classification;
+- semantic tests for explicit dry-run, no fabricated `apply_changes` default, manager-environment/destination independence, target/user/prefix/root destinations, `--no-deps`, `--only-deps`, dynamic CLI fail-closed behavior, empty inline destination, and one declaration feeding all four dimensions;
+- direct-install migration through pip global `--python`;
+- project-selection migration through explicit interpreter-path `python -m pip`;
+- existing uv project-selection regression cases.
+
+### Focused-first procedural note
+
+The live handoff had described running the three focused Increment-2 families first and then the broader regression. Product verification #10 did not invoke those three files as a separate command before the full suite. However, the full deterministic discovery executed those exact test cases individually and they all passed, followed by the complete 653-test green result.
+
+Under the Smart Situational Override Rule, a separate duplicate focused rerun is not required here: it would add diagnostic convenience if failures existed, but it would not materially strengthen the already observed success evidence. The intended proof responsibilities—new semantic behavior, migrated-consumer regression, fresh installed-package execution, and broad deterministic regression—are all covered by the successful workflow.
+
+### Verification conclusion
+
+Increment 2 satisfies its verification gate for the current bounded claim:
+
+> one exact supported package-manager occurrence can feed independent typed command-local semantic resolution with explicit provenance/problems, while existing migrated consumers continue to pass the deterministic product suite.
+
+This verification does **not** establish ambient process-env/config semantics, final effective defaults, command-derived package-state satisfaction, later persistence/use, compatibility, or maintainer-action permission.
 ## Historical pre-refinement A orientation — input to refined A1/A2
 
 ### 1. Starting implementation truth
