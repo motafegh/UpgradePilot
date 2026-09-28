@@ -15,7 +15,11 @@ from ..github.workflow_command_analysis import StaticCommandAnalysis, StaticComm
 from ..github.workflow_command_location import StaticCommandLocation
 from ..github.workflow_definition import RunDefaults, RunStepDefinition
 from ..repository_path import repository_relative_parts
-from .pip_command import parsed_pip_install_arguments
+from .package_manager_operation import (
+    PackageManagerOperationDeclaration,
+    PackageManagerOperationProblem,
+    parse_package_manager_operation,
+)
 from .workflow_context import (
     EffectiveWorkingDirectory,
     WorkingDirectorySource,
@@ -111,29 +115,29 @@ def _observe_direct_installation_from_analysis(
     unresolved_location: StaticCommandLocation | None = None
 
     for occurrence in command_analysis.command_occurrences:
-        install_arguments, prefix_unresolved = parsed_pip_install_arguments(occurrence)
-        if prefix_unresolved:
+        package_operation = parse_package_manager_operation(occurrence)
+        if isinstance(package_operation, PackageManagerOperationProblem):
             unresolved_seen = True
             if unresolved_location is None:
-                unresolved_location = StaticCommandLocation.from_occurrence(occurrence)
+                unresolved_location = package_operation.command_location
             continue
-        if install_arguments is None:
+        if not isinstance(package_operation, PackageManagerOperationDeclaration):
             continue
 
         requirement_paths, arguments_unresolved = _requirement_paths_from_atoms(
-            install_arguments
+            package_operation.operation_arguments
         )
         if arguments_unresolved:
             unresolved_seen = True
             if unresolved_location is None:
-                unresolved_location = StaticCommandLocation.from_occurrence(occurrence)
+                unresolved_location = package_operation.command_location
 
         for raw_path in requirement_paths:
             direct_requirement_paths.append(raw_path)
             if working_directory.state == "unresolved":
                 unresolved_seen = True
                 if unresolved_location is None:
-                    unresolved_location = StaticCommandLocation.from_occurrence(occurrence)
+                    unresolved_location = package_operation.command_location
                 continue
 
             resolved = resolve_repository_relative_path(
@@ -143,7 +147,7 @@ def _observe_direct_installation_from_analysis(
             if resolved is None:
                 unresolved_seen = True
                 if unresolved_location is None:
-                    unresolved_location = StaticCommandLocation.from_occurrence(occurrence)
+                    unresolved_location = package_operation.command_location
                 continue
             if resolved == normalized_source:
                 return DirectInstallDeclarationObservation(
@@ -158,7 +162,7 @@ def _observe_direct_installation_from_analysis(
                     dependency_source_path=normalized_source,
                     working_directory=working_directory,
                     matched_requirement_path=raw_path,
-                    command_location=StaticCommandLocation.from_occurrence(occurrence),
+                    command_location=package_operation.command_location,
                 )
 
     if unresolved_seen:
