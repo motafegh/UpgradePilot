@@ -44,8 +44,8 @@ The following evidence motivates this plan:
 - Tree-sitter-backed workflow command analysis preserves executable, literal/dynamic arguments, source position, structural context, and bounded whole-step relation;
 - current pip parsing preserves install arguments after the `pip install` / `python -m pip install` prefix;
 - current direct-requirements observation can establish the exact dependency source path used by the parsed install command;
-- current runtime strengthening can bind an admitted static occurrence to an exact completed-successful GitHub step;
-- current runtime correlation explicitly does **not** claim resulting installed version/package state;
+- current reusable CI execution evidence can correlate an admitted static user step to exact runtime evidence, interpret unmasked step success, and—when the admitted shell/structure relation permits—support exact command-occurrence execution;
+- current runtime correlation/execution evidence explicitly does **not** claim effective package-manager semantics, resulting installed version, or package state;
 - investigation verified that commands such as `pip install --dry-run -r requirements.txt` can currently retain the same direct-requirements declaration result as an ordinary install because `--dry-run` is syntactically preserved but not yet interpreted as installation-state semantics;
 - current uv project-environment selection already interprets some material negative/targeting flags, proving that package-manager-specific semantic filtering belongs above Tree-sitter rather than inside shell syntax parsing;
 - public Dependabot PR `Jam3s97/Aruba_Device_Tracker#83` demonstrates that target-owned runtime evidence can expose the exact proposed version when needed;
@@ -66,7 +66,8 @@ Reference rather than re-specify:
 - `src/upgradepilot/dependency/direct_install.py` — current requirements-source declaration observation;
 - `src/upgradepilot/dependency/environment_selection.py` — current pip/uv project-environment semantic interpretation;
 - `src/upgradepilot/github/workflow_definition.py` and workflow command-analysis owners — current bounded workflow/run-step/provider structure;
-- `src/upgradepilot/ci/workflow_runtime_correlation.py`, `ci/runtime_strengthening.py`, and `ci/dependency_exercise.py` — current static/runtime identity and bounded execution-strengthening boundary;
+- `src/upgradepilot/ci/workflow_runtime_correlation.py`, `ci/runtime_strengthening.py`, and `ci/runtime_execution.py` — current static/runtime identity, structural eligibility, unmasked step execution, and exact-command execution boundary;
+- `src/upgradepilot/ci/dependency_exercise.py` — dependency-specific CI consumer of reusable exact-command execution evidence; it does not own generic execution semantics;
 - `working-memory/2026-09-24_effective-package-manager-semantics-system-design.md` — closed supported semantic boundary;
 - `working-memory/2026-09-27_effective-package-manager-evidence-source-type-data-flow-design.md` — closed producer/type/data-flow architecture for the first Route-A proof;
 - `MEMORY.md` — sole live-position owner.
@@ -343,7 +344,7 @@ Key non-proofs:
 
 ## 8. Allowed modification boundary
 
-When Build is later authorized for a child slice, modifications may include only the earliest owners required by that selected responsibility, their focused tests, normal application composition, and directly necessary documentation/plan-memory handoff.
+For each child slice that is explicitly authorized for Build, modifications may include only the earliest owners required by that selected responsibility, their focused tests, normal application composition, and directly necessary documentation/plan-memory handoff. Earlier authorization/completion of one increment does not automatically authorize later increments.
 
 Likely current owners include:
 
