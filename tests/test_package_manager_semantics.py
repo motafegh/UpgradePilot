@@ -289,6 +289,28 @@ class PackageManagerSemanticFactTests(unittest.TestCase):
             assert isinstance(result, PackageManagerSemanticProblem)
             self.assertEqual(result.blocking_source, "command_line")
 
+    def test_dynamic_cli_material_blocks_otherwise_visible_semantic_winners(self) -> None:
+        declaration = _declaration(
+            "pip",
+            "install",
+            "--target",
+            "vendor",
+            "--dry-run",
+            "--only-deps",
+            _dynamic("${{ matrix.extra_pip_flags }}"),
+            "-r",
+            "requirements.txt",
+        )
+
+        for result in (
+            resolve_installation_destination(declaration),
+            resolve_package_mutation_mode(declaration),
+            resolve_direct_requirement_handling(declaration),
+        ):
+            self.assertIsInstance(result, PackageManagerSemanticProblem)
+            assert isinstance(result, PackageManagerSemanticProblem)
+            self.assertEqual(result.blocking_source, "command_line")
+
     def test_dynamic_requirement_value_is_not_misread_as_unknown_option_bundle(self) -> None:
         declaration = _declaration(
             "pip",
