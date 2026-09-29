@@ -900,3 +900,31 @@ Primary systems/standards:
 Central question:
 
 > should UpgradePilot invent and own its own evidence/provenance representation, or can mature dependency graphs and supply-chain provenance standards provide part of that substrate?
+
+
+## 15. Learning / exposure opportunities
+
+This report is now evaluated on both product value and deliberate engineering exposure.
+
+High-value hands-on candidates from this research:
+
+- **Griffe** — strong fit for a real Python old/new API-diff experiment; teaches Python API modeling, static inspection, compatibility semantics, and structured breakage reporting.
+- **LibCST** — strong fit for a bounded codemod experiment; teaches concrete syntax trees, metadata providers, safe source transformation, multi-pass codemods, and diff-based validation.
+- **OSV-Scanner Guided Remediation** — useful bounded exposure to graph-aware remediation planning, transitive dependency reasoning, strategy trade-offs, and package-manager-backed mutation.
+- **OpenRewrite** — valuable for learning type-attributed semantic trees, recipe systems, idempotent transformations, preconditions, and migration architecture even if it is not adopted into the Python product.
+- **DepRepair methodology** — valuable for learning cross-repository evidence distillation, localization, structured LLM repair, executable oracles, and protected evaluation design.
+
+Recommended exposure level:
+
+```text
+Griffe   → project experiment candidate
+LibCST   → project experiment candidate
+OSV-Scanner guided remediation → bounded lab / comparison candidate
+OpenRewrite → hands-on lab if transformation-architecture comparison is needed
+DepRepair → methodology reproduction / evaluation-design study
+```
+
+Researching these technologies does not yet justify saying they were “worked with.” Hands-on claims begin only after a recorded experiment/integration exists.
+
+Cross-report ledger:
+- `working-memory/2026-09-29_research-technology-learning-exposure-ledger.md`
