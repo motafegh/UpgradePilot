@@ -12,6 +12,7 @@ from dataclasses import dataclass
 from typing import Literal
 
 from ..github.workflow_command_analysis import StaticCommandAtom
+from ..github.process_environment import ProcessEnvironmentValueEvidence
 from ..github.workflow_command_location import StaticCommandLocation
 from .package_manager_operation import PackageManagerName, PackageManagerOperationDeclaration
 
@@ -339,6 +340,8 @@ def resolve_installation_destination(
 
 def resolve_package_mutation_mode(
     declaration: PackageManagerOperationDeclaration,
+    *,
+    process_environment: ProcessEnvironmentValueEvidence | None = None,
 ) -> PackageMutationModeFact | PackageManagerSemanticProblem:
     """Resolve explicit dry-run or preserve the unresolved effective-semantics edge."""
 
@@ -367,22 +370,84 @@ def resolve_package_mutation_mode(
             provenance=_provenance("package_mutation_mode", step),
         )
 
+    cli_step = _command_line_step(
+        "non_overriding",
+        "No command-line --dry-run selector is present.",
+        locator="--dry-run",
+    )
+    if process_environment is None:
+        return _problem(
+            declaration,
+            "package_mutation_mode",
+            "package_mutation_mode_needs_lower_source_evidence",
+            (
+                "No command-line --dry-run is visible. Process environment and persistent "
+                "configuration must be resolved before the apply-changes manager default is valid."
+            ),
+            resolved_prefix=(cli_step,),
+            blocking_source="process_environment",
+        )
+
+    env_value = _matching_process_environment_value(
+        declaration,
+        process_environment,
+        variable_name="PIP_DRY_RUN",
+        dimension="package_mutation_mode",
+        resolved_prefix=(cli_step,),
+    )
+    if isinstance(env_value, PackageManagerSemanticProblem):
+        return env_value
+
+    bool_value = _pip_boolean_value(env_value)
+    if bool_value is None:
+        return _problem(
+            declaration,
+            "package_mutation_mode",
+            "pip_dry_run_environment_value_invalid",
+            (
+                f"PIP_DRY_RUN={env_value!r} is not an admitted pip boolean value, so "
+                "effective mutation mode is unresolved."
+            ),
+            resolved_prefix=(cli_step,),
+            blocking_source="process_environment",
+        )
+
+    env_step = PackageManagerSemanticResolutionStep(
+        source_kind="process_environment",
+        disposition="decisive" if bool_value else "non_overriding",
+        detail=(
+            f"Exact process environment establishes PIP_DRY_RUN={env_value!r}; "
+            + (
+                "pip interprets it as enabled."
+                if bool_value
+                else "pip interprets it as disabled."
+            )
+        ),
+        locator="PIP_DRY_RUN",
+    )
+    if bool_value:
+        return PackageMutationModeFact(
+            manager=declaration.manager,
+            command_location=declaration.command_location,
+            mode="dry_run",
+            provenance=PackageManagerSemanticResolutionProvenance(
+                dimension="package_mutation_mode",
+                inspected_sources=(cli_step, env_step),
+                winning_source="process_environment",
+            ),
+        )
+
     return _problem(
         declaration,
         "package_mutation_mode",
-        "package_mutation_mode_needs_lower_source_evidence",
+        "package_mutation_mode_needs_persistent_config_evidence",
         (
-            "No command-line --dry-run is visible. Process environment and persistent "
-            "configuration must be resolved before the apply-changes manager default is valid."
+            "Command line and exact PIP_DRY_RUN process environment are non-overriding; "
+            "persistent configuration must still be resolved before the manager default "
+            "can establish apply-changes behavior."
         ),
-        resolved_prefix=(
-            _command_line_step(
-                "non_overriding",
-                "No command-line --dry-run selector is present.",
-                locator="--dry-run",
-            ),
-        ),
-        blocking_source="process_environment",
+        resolved_prefix=(cli_step, env_step),
+        blocking_source="persistent_configuration",
     )
 
 
@@ -443,6 +508,61 @@ def resolve_direct_requirement_handling(
         ),
         blocking_source="process_environment",
     )
+
+
+def _matching_process_environment_value(
+    declaration: PackageManagerOperationDeclaration,
+    evidence: ProcessEnvironmentValueEvidence,
+    *,
+    variable_name: str,
+    dimension: PackageManagerSemanticDimension,
+    resolved_prefix: tuple[PackageManagerSemanticResolutionStep, ...],
+) -> str | PackageManagerSemanticProblem:
+    if evidence.command_location != declaration.command_location:
+        return _problem(
+            declaration,
+            dimension,
+            "process_environment_command_identity_mismatch",
+            "Process-environment evidence belongs to a different static command occurrence.",
+            resolved_prefix=resolved_prefix,
+            blocking_source="process_environment",
+        )
+    if evidence.variable_name != variable_name:
+        return _problem(
+            declaration,
+            dimension,
+            "process_environment_variable_identity_mismatch",
+            (
+                f"Semantic resolution requires {variable_name}, but the supplied exact-process "
+                f"evidence is for {evidence.variable_name}."
+            ),
+            resolved_prefix=resolved_prefix,
+            blocking_source="process_environment",
+        )
+    if evidence.state != "established" or evidence.value is None:
+        return _problem(
+            declaration,
+            dimension,
+            "process_environment_value_unresolved",
+            (
+                f"Exact-process evidence for {variable_name} is unresolved: "
+                f"{evidence.reason}: {evidence.detail}"
+            ),
+            resolved_prefix=resolved_prefix,
+            blocking_source="process_environment",
+        )
+    return evidence.value
+
+
+def _pip_boolean_value(value: str) -> bool | None:
+    """Interpret pip's documented boolean configuration vocabulary."""
+
+    folded = value.strip().casefold()
+    if folded in {"y", "yes", "t", "true", "on", "1"}:
+        return True
+    if folded in {"n", "no", "f", "false", "off", "0"}:
+        return False
+    return None
 
 
 def _global_option_values(
