@@ -1992,3 +1992,47 @@ Highest-priority experiments when their responsibilities activate:
 
 Next:
 **Step 3 — whole public dependency-update PR → maintainer-output architecture map**, with every responsibility labeled current / independently supported / project-specific / experimental / unresolved / optional.
+
+
+## 29. Step 3 — whole-pipeline architecture map COMPLETE
+
+Record:
+- \`working-memory/2026-09-29_step3_whole-pipeline-architecture-map.md\`
+
+The complete logical product flow is now explicit:
+
+\`\`\`text
+PR/update identity
+→ dependency transition
+→ evidence acquisition
+→ provenance/normalization
+→ CI/package/runtime/repository intelligence
+→ broad candidate discovery
+→ candidate grounding
+→ applicability/coverage
+→ targeted investigation
+→ feedback/refinement
+→ cross-candidate synthesis
+→ action-specific sufficiency/permission
+→ maintainer report
+→ human decision
+\`\`\`
+
+The map distinguishes current implementation from mature direction and method experiments.
+
+Important current-state overlay:
+
+- current application already implements exact PR/dependency identity, bounded CI/workflow evidence, package/upstream/changelog evidence, Python-support-drop impact, and artifact-serviceability impact;
+- Increment 1–3 runtime dependency-state evidence exists in domain modules;
+- Increment 4 is the selected next composer responsibility;
+- Increment 5 later integrates that package-state witness into the normal investigation path;
+- general candidate discovery, mature adaptive investigation, cross-candidate synthesis, five-action permission, and decision-quality UX/evaluation remain later responsibilities.
+
+Architectural interpretation:
+
+> UpgradePilot's current low-level work is evidence-substrate construction, not the full product. The broader AI/agent layer belongs mainly after trustworthy identity/evidence/repository context exists.
+
+Step 3 also places every Track-C experiment against an owner/trigger, preventing disconnected tool adoption.
+
+Next:
+**Step 4 — map and evaluate current AI/LLM/agent experiments/proposals against these exact product responsibilities.**
