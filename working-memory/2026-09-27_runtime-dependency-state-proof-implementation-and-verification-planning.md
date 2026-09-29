@@ -364,6 +364,28 @@ Recorded outcome:
 - cycle — closed.
 
 The implementation now provides a shared static pip operation declaration and independent command-local semantic facts/problems without claiming ambient/config closure or resulting package state. Increment 3 remains the next planned technical responsibility, but Build authorization/selection remains owned by `MEMORY.md` and the next cycle.
+
+## 7C. Increment 3 cycle execution record
+
+Increment 3 execution/learning is closed in:
+`working-memory/2026-09-29_1556_increment-3_executable-environment-config-evidence_lbd-cycle.md`.
+
+Recorded outcome:
+
+- A0/A1/A2 — done;
+- B — done through B1-B5;
+- Verification gate — green via Product verification #14 on exact head `29247346d1c1e3ea7074ffd7daf9c53d8c3beeda` (15 focused investigation tests + 699 deterministic product tests);
+- D — done with integrated B1-B5 learning using S002/S008/S011 and targeted ownership repair;
+- E — done;
+- C — reconciled through closure;
+- cycle — closed.
+
+The implementation now provides bounded declarative environment observations, exact-process command-local environment evidence, pip persistent-config/default closure for the admitted settings, explicit/setup-python executable-selection evidence, and a verified controlled Route-A fixture that yields all four independent semantic facts while ordinary ambient cases remain unresolved.
+
+Intentionally deferred surfaces such as arbitrary GITHUB_ENV/GITHUB_PATH propagation, general venv activation, arbitrary persistent-config content, and universal PATH/runtime reconstruction remain non-blocking scope boundaries rather than unfinished Increment-3 work.
+
+The next planned technical responsibility is **Increment 4 — command-derived requirement-state composition**: combine exact dependency/source applicability, the independent semantic facts, and exact successful command execution into a separate command-completion state witness. Application integration remains a later increment. Build authorization and the next cycle's A0/A1/A2 remain owned by `MEMORY.md`.
+
 ## 8. Stop line / prohibited scope
 
 For any increment that has not been explicitly authorized for Build:
