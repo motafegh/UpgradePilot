@@ -965,3 +965,36 @@ After integrated teaching, Ali should reason about:
 5. what Increment 3 proves versus what remains for Increment 4 or later behavioral evidence.
 
 D remains CURRENT until those reasoning checks are answered and any material gaps are characterized for E.
+
+
+### D ownership-check result — PARTIAL, targeted repair required
+
+Ali's first-pass reasoning shows strong ownership of the core evidence doctrine, but three precision gaps remain before D can close.
+
+1. **Dynamic command-local dry-run assignment**
+   - Ali correctly concluded the result must remain unresolved.
+   - Precision correction: `PIP_DRY_RUN="$MODE"` is not a pip CLI source. It is a command-local process-environment assignment.
+   - Because that closer exact-process assignment exists but its value is unresolved, UpgradePilot must not fall back to the inherited job-level `PIP_DRY_RUN=0`.
+
+2. **setup-python followed by venv activation**
+   - Ali correctly recognized that the older setup-python relation is no longer sufficient.
+   - Precision correction: UpgradePilot cannot yet assert that the later Python definitely belongs to the venv merely because `source .venv/bin/activate` appears.
+   - The missing edge is the effect of that activation on PATH/executable selection for the later command (plus any required identity/path evidence). B4 therefore keeps executable selection unresolved.
+
+3. **launcher Python vs pip manager-target Python**
+   - Ali correctly distinguished `/opt/bootstrap/bin/python` as the launcher from `--python /opt/target/bin/python` as the environment pip manages.
+   - Clarification required: these are separate semantic axes, not nearer/older competitors. Both facts are preserved simultaneously. Precedence applies only within a given dimension/source chain.
+
+4. **S008**
+   - Ali correctly preserved source-build success/failure as unresolved.
+   - Stronger model: proving CPython 3.6 closes applicability of the artifact-transition question. Public release evidence establishes that the CPython-3.6 compatible wheel path disappeared and an sdist fallback exists. It still does not prove that one concrete CI installation selected/built the sdist successfully unless the corresponding resolver/index/cache/install evidence is observed.
+
+5. **S011**
+   - Ali identified that the target environment matters, but the earliest missing edge needs sharper ownership.
+   - The inspected command installs `.[dev]`, while the changed NumPy belongs to `.[mlx]`. Therefore the affected optional dependency family is not formed by that install command. Perfect Increment-3 environment/config/executable facts for `.[dev]` cannot establish coverage of `.[mlx]`.
+   - The missing proof is optional-extra / affected dependency-family activation, followed later by platform/runtime activation if behavior coverage is asked.
+
+D remains CURRENT. Targeted repair should confirm:
+- same-dimension precedence vs independent semantic axes;
+- executable-selection uncertainty after unmodeled venv activation;
+- affected dependency-family activation as the S011 owner.
