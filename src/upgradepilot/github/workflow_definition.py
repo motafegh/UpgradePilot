@@ -70,8 +70,8 @@ class RunStepDefinition:
     continue_on_error: StaticScalarValue | None
     shell: StaticScalarValue | None
     working_directory: StaticScalarValue | None
-    environment: StaticMappingValue | None
     span: SourceSpan
+    environment: StaticMappingValue | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -82,8 +82,8 @@ class UsesStepDefinition:
     condition: StaticScalarValue | None
     continue_on_error: StaticScalarValue | None
     with_inputs: StaticMappingValue | None
-    environment: StaticMappingValue | None
     span: SourceSpan
+    environment: StaticMappingValue | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -109,9 +109,9 @@ class StepsJobDefinition:
     run_defaults: RunDefaults | None
     strategy: GitHubActionsStaticValue | None
     container: GitHubActionsStaticValue | None
-    environment: StaticMappingValue | None
     steps: tuple[StepEntry, ...]
     span: SourceSpan
+    environment: StaticMappingValue | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -142,8 +142,8 @@ type JobEntry = StepsJobDefinition | ReusableWorkflowJobDefinition | JobProblem
 class WorkflowDefinition:
     source: RepositoryTextFile
     run_defaults: RunDefaults | None
-    environment: StaticMappingValue | None
     jobs: tuple[JobEntry, ...]
+    environment: StaticMappingValue | None = None
 
 
 @dataclass(frozen=True, slots=True)
