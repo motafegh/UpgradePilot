@@ -69,21 +69,24 @@ def _environment(
 
 
 class PipPersistentConfigEvidenceTests(unittest.TestCase):
-    def test_dev_null_config_file_disables_all_persistent_config(self) -> None:
+    def test_dev_null_config_file_disables_each_supported_persistent_setting(self) -> None:
         declaration = _declaration()
 
-        result = observe_pip_persistent_config_setting(
-            declaration,
-            setting="dry-run",
-            config_file_environment=_environment(
-                declaration,
-                value="/dev/null",
-            ),
-        )
+        for setting in ("dry-run", "installation-destination", "only-deps"):
+            with self.subTest(setting=setting):
+                result = observe_pip_persistent_config_setting(
+                    declaration,
+                    setting=setting,  # type: ignore[arg-type]
+                    config_file_environment=_environment(
+                        declaration,
+                        value="/dev/null",
+                    ),
+                )
 
-        self.assertEqual(result.state, "disabled")
-        self.assertEqual(result.reason, "pip_configuration_files_disabled")
-        self.assertEqual(result.source_locator, "PIP_CONFIG_FILE")
+                self.assertEqual(result.state, "disabled")
+                self.assertEqual(result.setting, setting)
+                self.assertEqual(result.reason, "pip_configuration_files_disabled")
+                self.assertEqual(result.source_locator, "PIP_CONFIG_FILE")
 
     def test_other_config_file_requires_content_resolution(self) -> None:
         declaration = _declaration()
