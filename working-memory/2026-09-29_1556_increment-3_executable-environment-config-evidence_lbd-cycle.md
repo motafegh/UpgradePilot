@@ -717,3 +717,38 @@ Current verification status:
 - B3/B4 plus the corrected integration assertion now require a fresh hosted run on head `7c22f6e9cfde44972b62b0e32b7b4d5fbbdadcdb`;
 - no Verification PASS is claimed yet;
 - B remains CURRENT.
+
+
+### B child verification — Product verification #13 GREEN
+
+Hosted Product verification run #13:
+- run: https://github.com/motafegh/UpgradePilot/actions/runs/36588887660
+- event: `workflow_dispatch`
+- head: `f48f9ac11c9fc4b4e4b4214ffe4d325814f38e74`
+- conclusion: **success**
+- installed-package / CLI checks: success
+- focused investigation composition: **15 tests, OK**
+- full deterministic product regression: **691 tests, OK**
+
+The hosted logs explicitly include passing B3/B4 cases:
+- `test_dev_null_config_file_disables_all_persistent_config`;
+- `test_disabled_config_allows_manager_default_apply_changes`;
+- `test_posix_explicit_path_is_established_without_path_lookup`;
+- `test_successful_adjacent_setup_python_establishes_bare_python_relation`.
+
+This verifies the #12 correction and the current B3/B4 implementation batch.
+
+Supported claim:
+> The bounded persistent-config/default path and the first explicit/setup-python executable-selection families execute successfully in the installed product environment without regressing the deterministic suite.
+
+Still not established:
+- arbitrary persistent pip config contents/precedence;
+- general workflow/job/step env → exact-process closure;
+- GITHUB_ENV/GITHUB_PATH propagation beyond the first admitted families;
+- same-step venv activation identity;
+- arbitrary/non-adjacent PATH mutation;
+- bare pip provenance where executable identity is not closed;
+- the complete first Route-A fixture across all four semantic facts;
+- Increment-4 RequirementSatisfiedAtCommandCompletion.
+
+Therefore Increment 3 remains **B CURRENT**. B1/B2/B3/B4 are now hosted-verified building blocks; the next B work should target the remaining proof-critical blockers required to satisfy the Increment-3 pass condition rather than broadening generically.
