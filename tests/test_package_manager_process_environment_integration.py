@@ -2,6 +2,9 @@ from __future__ import annotations
 
 import unittest
 
+from upgradepilot.dependency.package_manager_config import (
+    observe_pip_persistent_config_setting,
+)
 from upgradepilot.dependency.package_manager_operation import (
     PackageManagerOperationDeclaration,
     parse_package_manager_operation,
@@ -70,9 +73,22 @@ def _resolve_mutation(
         occurrence,
         "PIP_DRY_RUN",
     )
+    config_file_environment = observe_exact_process_environment_value(
+        workflow,
+        job,
+        step,
+        occurrence,
+        "PIP_CONFIG_FILE",
+    )
+    persistent_configuration = observe_pip_persistent_config_setting(
+        declaration,
+        setting="dry-run",
+        config_file_environment=config_file_environment,
+    )
     return resolve_package_mutation_mode(
         declaration,
         process_environment=process_environment,
+        persistent_configuration=persistent_configuration,
     )
 
 
@@ -99,6 +115,19 @@ class PackageManagerProcessEnvironmentIntegrationTests(unittest.TestCase):
             "package_mutation_mode_needs_persistent_config_evidence",
         )
         self.assertEqual(result.blocking_source, "persistent_configuration")
+
+    def test_disabled_config_allows_manager_default_apply_changes(self) -> None:
+        result = _resolve_mutation(
+            run=(
+                "PIP_DRY_RUN=0 PIP_CONFIG_FILE=/dev/null "
+                "pip install -r requirements.txt"
+            ),
+        )
+
+        self.assertIsInstance(result, PackageMutationModeFact)
+        assert isinstance(result, PackageMutationModeFact)
+        self.assertEqual(result.mode, "apply_changes")
+        self.assertEqual(result.provenance.winning_source, "manager_default")
 
     def test_step_env_alone_is_not_yet_promoted_to_exact_process_truth(self) -> None:
         result = _resolve_mutation(
