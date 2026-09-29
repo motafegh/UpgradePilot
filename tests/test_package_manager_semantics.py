@@ -102,12 +102,13 @@ def _process_environment(
 def _persistent_config(
     declaration: PackageManagerOperationDeclaration,
     *,
+    setting: str = "dry-run",
     state: str = "disabled",
     reason: str = "pip_configuration_files_disabled",
 ) -> PackageManagerConfigSettingEvidence:
     return PackageManagerConfigSettingEvidence(
         manager="pip",
-        setting="dry-run",
+        setting=setting,  # type: ignore[arg-type]
         state=state,  # type: ignore[arg-type]
         value=None,
         reason=reason,
@@ -431,6 +432,95 @@ class PackageManagerSemanticFactTests(unittest.TestCase):
         self.assertEqual(destination.destination.kind, "target_directory")
         self.assertEqual(destination.destination.value, "vendor")
 
+    def test_default_destination_requires_explicit_lower_source_closure(self) -> None:
+        declaration = _declaration(
+            "pip",
+            "--python",
+            "/opt/target/bin/python",
+            "install",
+            "--no-user",
+            "-r",
+            "requirements.txt",
+        )
+
+        process_environment = tuple(
+            _process_environment(declaration, name, value="")
+            for name in ("PIP_TARGET", "PIP_PREFIX", "PIP_ROOT")
+        )
+        result = resolve_installation_destination(
+            declaration,
+            process_environment=process_environment,
+            persistent_configuration=_persistent_config(
+                declaration,
+                setting="installation-destination",
+            ),
+        )
+
+        self.assertIsInstance(result, InstallationDestinationFact)
+        assert isinstance(result, InstallationDestinationFact)
+        self.assertEqual(result.destination.kind, "manager_environment_scheme")
+        self.assertIsNone(result.destination.value)
+        self.assertEqual(result.provenance.winning_source, "manager_default")
+        self.assertEqual(
+            [step.source_kind for step in result.provenance.inspected_sources],
+            [
+                "command_line",
+                "process_environment",
+                "persistent_configuration",
+                "manager_default",
+            ],
+        )
+
+    def test_process_environment_target_is_decisive_destination(self) -> None:
+        declaration = _declaration(
+            "pip",
+            "install",
+            "--no-user",
+            "-r",
+            "requirements.txt",
+        )
+        process_environment = (
+            _process_environment(declaration, "PIP_TARGET", value="vendor"),
+            _process_environment(declaration, "PIP_PREFIX", value=""),
+            _process_environment(declaration, "PIP_ROOT", value=""),
+        )
+
+        result = resolve_installation_destination(
+            declaration,
+            process_environment=process_environment,
+        )
+
+        self.assertIsInstance(result, InstallationDestinationFact)
+        assert isinstance(result, InstallationDestinationFact)
+        self.assertEqual(result.destination.kind, "target_directory")
+        self.assertEqual(result.destination.value, "vendor")
+        self.assertEqual(result.provenance.winning_source, "process_environment")
+
+    def test_default_destination_without_explicit_no_user_stays_unresolved(self) -> None:
+        declaration = _declaration(
+            "pip",
+            "install",
+            "-r",
+            "requirements.txt",
+        )
+        process_environment = tuple(
+            _process_environment(declaration, name, value="")
+            for name in ("PIP_TARGET", "PIP_PREFIX", "PIP_ROOT")
+        )
+
+        result = resolve_installation_destination(
+            declaration,
+            process_environment=process_environment,
+        )
+
+        self.assertIsInstance(result, PackageManagerSemanticProblem)
+        assert isinstance(result, PackageManagerSemanticProblem)
+        self.assertEqual(
+            result.reason,
+            "installation_destination_user_scope_not_closed",
+        )
+        self.assertEqual(result.blocking_source, "process_environment")
+
     def test_supported_alternate_destination_selectors_remain_typed(self) -> None:
         cases = (
             (("--user",), "user_scheme", None),
@@ -474,6 +564,98 @@ class PackageManagerSemanticFactTests(unittest.TestCase):
         )
         self.assertIn("does not exclude", result.detail)
         self.assertNotEqual(result.reason, "direct_requirement_excluded")
+
+    def test_disabled_only_deps_environment_and_config_allow_direct_handling_default(
+        self,
+    ) -> None:
+        declaration = _declaration(
+            "pip",
+            "install",
+            "--no-deps",
+            "-r",
+            "requirements.txt",
+        )
+
+        result = resolve_direct_requirement_handling(
+            declaration,
+            process_environment=(
+                _process_environment(declaration, "PIP_ONLY_DEPS", value="0"),
+                _process_environment(
+                    declaration,
+                    "PIP_ONLY_DEPENDENCIES",
+                    value="0",
+                ),
+            ),
+            persistent_configuration=_persistent_config(
+                declaration,
+                setting="only-deps",
+            ),
+        )
+
+        self.assertIsInstance(result, DirectRequirementHandlingFact)
+        assert isinstance(result, DirectRequirementHandlingFact)
+        self.assertEqual(result.handling, "handled")
+        self.assertEqual(result.provenance.winning_source, "manager_default")
+        self.assertEqual(
+            [step.source_kind for step in result.provenance.inspected_sources],
+            [
+                "command_line",
+                "process_environment",
+                "persistent_configuration",
+                "manager_default",
+            ],
+        )
+
+    def test_enabled_only_deps_environment_excludes_direct_requirement(self) -> None:
+        declaration = _declaration(
+            "pip",
+            "install",
+            "demo",
+        )
+
+        result = resolve_direct_requirement_handling(
+            declaration,
+            process_environment=(
+                _process_environment(declaration, "PIP_ONLY_DEPS", value="1"),
+                _process_environment(
+                    declaration,
+                    "PIP_ONLY_DEPENDENCIES",
+                    value="1",
+                ),
+            ),
+        )
+
+        self.assertIsInstance(result, DirectRequirementHandlingFact)
+        assert isinstance(result, DirectRequirementHandlingFact)
+        self.assertEqual(result.handling, "excluded")
+        self.assertEqual(result.provenance.winning_source, "process_environment")
+
+    def test_conflicting_only_deps_environment_aliases_remain_unresolved(self) -> None:
+        declaration = _declaration(
+            "pip",
+            "install",
+            "demo",
+        )
+
+        result = resolve_direct_requirement_handling(
+            declaration,
+            process_environment=(
+                _process_environment(declaration, "PIP_ONLY_DEPS", value="1"),
+                _process_environment(
+                    declaration,
+                    "PIP_ONLY_DEPENDENCIES",
+                    value="0",
+                ),
+            ),
+        )
+
+        self.assertIsInstance(result, PackageManagerSemanticProblem)
+        assert isinstance(result, PackageManagerSemanticProblem)
+        self.assertEqual(
+            result.reason,
+            "pip_only_deps_environment_alias_conflict",
+        )
+        self.assertEqual(result.blocking_source, "process_environment")
 
     def test_explicit_only_deps_is_decisive_direct_requirement_exclusion(self) -> None:
         declaration = _declaration(
