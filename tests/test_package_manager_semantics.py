@@ -20,6 +20,7 @@ from upgradepilot.dependency.package_manager_semantics import (
     resolve_manager_environment_selection,
     resolve_package_mutation_mode,
 )
+from upgradepilot.github.process_environment import ProcessEnvironmentValueEvidence
 from upgradepilot.github.workflow_command_analysis import (
     CommandSourceSpan,
     StaticCommandAtom,
@@ -69,6 +70,32 @@ def _declaration(
     if not isinstance(result, PackageManagerOperationDeclaration):
         raise AssertionError(f"expected declaration, got {result!r}")
     return result
+
+
+def _process_environment(
+    declaration: PackageManagerOperationDeclaration,
+    variable_name: str,
+    *,
+    state: str = "established",
+    value: str | None = None,
+) -> ProcessEnvironmentValueEvidence:
+    return ProcessEnvironmentValueEvidence(
+        state=state,  # type: ignore[arg-type]
+        variable_name=variable_name,
+        value=value,
+        source="command_local_assignment",
+        reason=(
+            "process_environment_command_local_value_established"
+            if state == "established"
+            else "process_environment_command_local_value_unresolved"
+        ),
+        detail="focused package-manager semantic test evidence",
+        command_location=declaration.command_location,
+        workflow_path=".github/workflows/ci.yml",
+        workflow_revision="a" * 40,
+        job_key="test",
+        step_source_index=0,
+    )
 
 
 class PackageManagerOperationTests(unittest.TestCase):
@@ -202,6 +229,105 @@ class PackageManagerSemanticFactTests(unittest.TestCase):
             result.reason,
             "package_mutation_mode_needs_lower_source_evidence",
         )
+        self.assertEqual(result.blocking_source, "process_environment")
+
+    def test_exact_process_dry_run_true_is_decisive_after_cli_non_override(self) -> None:
+        declaration = _declaration(
+            "pip",
+            "install",
+            "-r",
+            "requirements.txt",
+        )
+
+        result = resolve_package_mutation_mode(
+            declaration,
+            process_environment=_process_environment(
+                declaration,
+                "PIP_DRY_RUN",
+                value="1",
+            ),
+        )
+
+        self.assertIsInstance(result, PackageMutationModeFact)
+        assert isinstance(result, PackageMutationModeFact)
+        self.assertEqual(result.mode, "dry_run")
+        self.assertEqual(result.provenance.winning_source, "process_environment")
+        self.assertEqual(
+            [step.source_kind for step in result.provenance.inspected_sources],
+            ["command_line", "process_environment"],
+        )
+
+    def test_exact_process_dry_run_false_moves_blocker_to_persistent_config(self) -> None:
+        declaration = _declaration(
+            "pip",
+            "install",
+            "-r",
+            "requirements.txt",
+        )
+
+        result = resolve_package_mutation_mode(
+            declaration,
+            process_environment=_process_environment(
+                declaration,
+                "PIP_DRY_RUN",
+                value="0",
+            ),
+        )
+
+        self.assertIsInstance(result, PackageManagerSemanticProblem)
+        assert isinstance(result, PackageManagerSemanticProblem)
+        self.assertEqual(
+            result.reason,
+            "package_mutation_mode_needs_persistent_config_evidence",
+        )
+        self.assertEqual(result.blocking_source, "persistent_configuration")
+        self.assertEqual(
+            [step.source_kind for step in result.resolved_prefix],
+            ["command_line", "process_environment"],
+        )
+
+    def test_unresolved_exact_process_dry_run_does_not_fall_through(self) -> None:
+        declaration = _declaration(
+            "pip",
+            "install",
+            "-r",
+            "requirements.txt",
+        )
+
+        result = resolve_package_mutation_mode(
+            declaration,
+            process_environment=_process_environment(
+                declaration,
+                "PIP_DRY_RUN",
+                state="unresolved",
+            ),
+        )
+
+        self.assertIsInstance(result, PackageManagerSemanticProblem)
+        assert isinstance(result, PackageManagerSemanticProblem)
+        self.assertEqual(result.reason, "process_environment_value_unresolved")
+        self.assertEqual(result.blocking_source, "process_environment")
+
+    def test_invalid_exact_process_dry_run_value_does_not_become_false(self) -> None:
+        declaration = _declaration(
+            "pip",
+            "install",
+            "-r",
+            "requirements.txt",
+        )
+
+        result = resolve_package_mutation_mode(
+            declaration,
+            process_environment=_process_environment(
+                declaration,
+                "PIP_DRY_RUN",
+                value="maybe",
+            ),
+        )
+
+        self.assertIsInstance(result, PackageManagerSemanticProblem)
+        assert isinstance(result, PackageManagerSemanticProblem)
+        self.assertEqual(result.reason, "pip_dry_run_environment_value_invalid")
         self.assertEqual(result.blocking_source, "process_environment")
 
     def test_manager_environment_and_target_destination_are_independent_facts(self) -> None:
