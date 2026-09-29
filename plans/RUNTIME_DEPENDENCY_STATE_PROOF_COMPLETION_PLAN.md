@@ -6,6 +6,7 @@ All project-local sequence, gate, pass/stop, prohibited-scope, and activation ru
 
 
 **Status:** admitted bounded planning/execution plan; live selection remains owned by `../MEMORY.md`  
+**Execution checkpoint:** Increments 1–3 are implemented, verified, learned, and closed. Increment 4 (command-derived requirement-state composition) is selected next but its cycle has not started; application integration remains later Increment 5.  
 **Responsibility:** determine and implement the smallest trustworthy path by which UpgradePilot may establish that the exact proposed dependency version is present in the exact relevant CI environment, while preserving the distinction between command execution, resulting package state, later behavior/exercise, artifact mechanism, and maintainer-action permission  
 **Parent execution owner:** [End-to-End Product Flow Learning and Evidence-to-Action Execution Plan](END_TO_END_PRODUCT_FLOW_LEARNING_AND_EVIDENCE_TO_ACTION_EXECUTION_PLAN.md)  
 **Audit provenance:** [AUDIT-008 — F6](../audits/2026-09-19_AUDIT-008_current-system-evidence-to-action-readiness.md)  
@@ -41,13 +42,15 @@ Each arrow requires its own admitted evidence. No later claim is inherited autom
 The following evidence motivates this plan:
 
 - current dependency-change admission already establishes exact old/proposed versions for supported normal sources;
-- Tree-sitter-backed workflow command analysis preserves executable, literal/dynamic arguments, source position, structural context, and bounded whole-step relation;
-- current pip parsing preserves install arguments after the `pip install` / `python -m pip install` prefix;
-- current direct-requirements observation can establish the exact dependency source path used by the parsed install command;
-- current reusable CI execution evidence can correlate an admitted static user step to exact runtime evidence, interpret unmasked step success, and—when the admitted shell/structure relation permits—support exact command-occurrence execution;
-- current runtime correlation/execution evidence explicitly does **not** claim effective package-manager semantics, resulting installed version, or package state;
-- investigation verified that commands such as `pip install --dry-run -r requirements.txt` can currently retain the same direct-requirements declaration result as an ordinary install because `--dry-run` is syntactically preserved but not yet interpreted as installation-state semantics;
-- current uv project-environment selection already interprets some material negative/targeting flags, proving that package-manager-specific semantic filtering belongs above Tree-sitter rather than inside shell syntax parsing;
+- Tree-sitter-backed workflow command analysis preserves executable, literal/dynamic arguments, source position, structural context, bounded whole-step relation, and command-local environment assignments;
+- `dependency/package_manager_operation.py` parses the admitted pip-install invocation forms once into a shared package-manager operation declaration with exact command identity;
+- `dependency/direct_install.py` and `dependency/environment_selection.py` consume that shared declaration for their bounded source/project-selection responsibilities rather than reparsing a legacy pip-prefix helper;
+- reusable CI execution evidence can correlate an admitted static user step to exact runtime evidence, interpret unmasked step success, and—when the admitted shell/structure relation permits—support exact command-occurrence execution;
+- `dependency/package_manager_semantics.py` now represents the four independent semantic dimensions and interprets decisive CLI/process/config/default evidence without turning unresolved higher sources into defaults;
+- bounded Increment-3 evidence now exists for workflow env declarations, literal Bash command-local exact-process values, the admitted `PIP_CONFIG_FILE=/dev/null` persistent-config disablement, explicit executable paths, and the bounded successful `setup-python` PATH relationship;
+- Product verification #14 proves one controlled Route-A command can close all four semantic facts while an ordinary-looking command with materially unknown ambient sources remains unresolved;
+- the current implementation still stops before the stronger package-state proposition: no command-derived `RequirementSatisfiedAtCommandCompletion` witness exists yet; that is Increment 4;
+- current uv project-environment selection continues to interpret its admitted project/package-scope selectors independently; broader uv effective package-manager semantics remain demand-driven rather than implied by the completed pip Route-A family;
 - public Dependabot PR `Jam3s97/Aruba_Device_Tracker#83` demonstrates that target-owned runtime evidence can expose the exact proposed version when needed;
 - historical `googlefonts/glyphsLib#1145` demonstrates that job logs can expire while run/job metadata remains, so log availability cannot be assumed;
 - explicit package-state sources such as `pip inspect`, `pip list --format=json`, `pip freeze`, `importlib.metadata.version(...)`, and uv inspection outputs exist but should be added only if the proposition cannot be established more simply.
@@ -62,10 +65,13 @@ Reference rather than re-specify:
 - accepted decision/synthesis specifications — action permission and uncertainty semantics;
 - ADR-0009 / parser-backed command analysis — accepted shell-command parsing method;
 - `src/upgradepilot/github/workflow_command_analysis.py` — current parser-neutral shell syntax/structure evidence;
-- `src/upgradepilot/dependency/pip_command.py` — current pip-install prefix/argument recognition;
+- `src/upgradepilot/dependency/package_manager_operation.py` — current shared pip operation declaration and command-identity owner;
+- `src/upgradepilot/dependency/package_manager_semantics.py` — current independent effective pip semantic-fact/problem resolution;
+- `src/upgradepilot/dependency/package_manager_config.py` — current bounded pip persistent-config evidence;
 - `src/upgradepilot/dependency/direct_install.py` — current requirements-source declaration observation;
-- `src/upgradepilot/dependency/environment_selection.py` — current pip/uv project-environment semantic interpretation;
-- `src/upgradepilot/github/workflow_definition.py` and workflow command-analysis owners — current bounded workflow/run-step/provider structure;
+- `src/upgradepilot/dependency/environment_selection.py` — current pip/uv project-environment selection declaration evidence;
+- `src/upgradepilot/github/workflow_definition.py`, `workflow_environment.py`, `process_environment.py`, and workflow command-analysis owners — current bounded workflow/run-step/provider and exact-process evidence surfaces;
+- `src/upgradepilot/github/executable_selection.py` and `src/upgradepilot/ci/executable_selection.py` — current static and runtime-strengthened executable-selection evidence;
 - `src/upgradepilot/ci/workflow_runtime_correlation.py`, `ci/runtime_strengthening.py`, and `ci/runtime_execution.py` — current static/runtime identity, structural eligibility, unmasked step execution, and exact-command execution boundary;
 - `src/upgradepilot/ci/dependency_exercise.py` — dependency-specific CI consumer of reusable exact-command execution evidence; it does not own generic execution semantics;
 - `working-memory/2026-09-24_effective-package-manager-semantics-system-design.md` — closed supported semantic boundary;
@@ -351,12 +357,11 @@ For each child slice that is explicitly authorized for Build, modifications may 
 
 Likely current owners include:
 
-- `src/upgradepilot/github/workflow_definition.py` and parser-neutral workflow/shell evidence needed for bounded `env`/provider relationships;
-- `src/upgradepilot/ci/workflow_runtime_correlation.py` and runtime-strengthening/execution owners;
-- `src/upgradepilot/dependency/pip_command.py` plus a focused package-manager runtime-semantics owner when that avoids overloading existing project-environment logic;
+- existing provider/process/executable evidence owners under `src/upgradepilot/github/` and `src/upgradepilot/ci/` when Increment 4 consumes their already-established evidence types;
+- `src/upgradepilot/dependency/package_manager_operation.py`, `package_manager_semantics.py`, and `package_manager_config.py` as the current package-manager declaration/semantic/config owners;
 - `src/upgradepilot/dependency/direct_install.py` and existing dependency source/applicability owners;
-- a focused CI/runtime dependency-state composition module for the stronger command-completion proposition;
-- `src/upgradepilot/investigation.py` only for normal typed-result integration.
+- a focused CI/runtime dependency-state composition module for the stronger command-completion proposition (the selected Increment-4 implementation responsibility);
+- `src/upgradepilot/investigation.py` only for later Increment-5 normal typed-result integration.
 
 GitHub **job-log/stdout/artifact acquisition remains outside the first Route-A Build slice**. Provider/workflow-definition changes needed to model static declarations or exact runtime step identity are not fallback log acquisition and may be modified when required by the selected first-cycle evidence path.
 
