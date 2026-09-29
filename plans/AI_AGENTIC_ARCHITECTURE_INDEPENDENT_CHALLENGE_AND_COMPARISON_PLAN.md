@@ -872,3 +872,71 @@ Track C produced a targeted experiment queue:
 10. later maintainer decision-quality study.
 
 **Next: Step 3 — whole-pipeline architecture map.**
+
+
+### 9.10 Step 3 — whole-pipeline architecture map
+
+**Status: COMPLETE.**
+
+Record:
+- \`working-memory/2026-09-29_step3_whole-pipeline-architecture-map.md\`
+
+Live-main anchor:
+- \`b16c984daa8f5e78ebe83856c5b010c137a405ee\`
+- Increment 3 CLOSED / Product Verification #14 GREEN.
+- Increment 4 selected; fresh A0 not started.
+
+Step 3 maps the entire product responsibility from one public Dependabot PR to final maintainer decision support.
+
+Top-level responsibility path:
+
+\`\`\`text
+public dependency-update PR
+→ exact identity
+→ exact dependency transition/source context
+→ multi-source evidence acquisition
+→ provenance/normalization/repository views
+→ CI/execution + package-manager/package-state evidence
+→ broad impact candidate discovery
+→ candidate grounding/formulation
+→ candidate-specific applicability/coverage
+→ discriminating investigation when needed
+→ observation feedback/refinement
+→ cross-candidate + repository-context synthesis
+→ overall evidence sufficiency/action permission
+→ maintainer decision report
+→ human maintainer decision
+\`\`\`
+
+Current implementation overlay:
+
+- exact PR/dependency/source identity: implemented;
+- workflow/runtime acquisition and CI coverage: implemented;
+- package/upstream/release/changelog path: implemented;
+- Python support-drop vertical slice: implemented;
+- artifact-serviceability vertical slice: implemented;
+- exact-command execution: implemented;
+- effective package-manager semantics: implemented and Increment-3 verified;
+- command-derived package-state composer: Increment 4 selected next;
+- application integration of package-state evidence: later Increment 5;
+- broad general candidate discovery: open design / partial mechanisms only;
+- bounded investigation: mechanism-specific current + planner experimental;
+- cross-candidate synthesis: open;
+- maintainer actions: current evaluator intentionally admits only \`abstain\`;
+- mature report UX/evaluation: partial/open.
+
+AI placement clarified:
+
+1. bounded semantic extraction — current real role;
+2. broad impact discovery — strongest future semantic role;
+3. evidence-gap/next-action planning — bounded agent role;
+4. cross-candidate explanation/synthesis — later bounded role;
+5. generalist agent — rare escalation/comparator, not default.
+
+AI should not own exact identity, source authority, deterministic package-manager precedence, evidence admission, or maintainer-action self-authorization.
+
+Architecture experiments now have explicit pipeline triggers rather than existing as a technology wishlist.
+
+Step 3 does not alter Increment 4. It explicitly keeps CodeQL/graphs/agents/runtime telemetry/broad discovery/action synthesis outside that composer responsibility.
+
+**Next: Step 4 — reconcile existing UpgradePilot AI/LLM/agent experiments and proposals against the exact Step-3 responsibility map.**
