@@ -1,7 +1,7 @@
 # Increment 3 — Bounded Executable / Environment / Config Evidence — Learning-by-Doing Cycle
 
 **Date:** 2026-09-29  
-**Cycle status:** ACTIVE — A0/A1/A2/B DONE; Verification GREEN through Product verification #14; D CURRENT; E PENDING  
+**Cycle status:** ACTIVE — A0/A1/A2/B/D DONE; Verification GREEN through Product verification #14; E CURRENT  
 **Primary responsibility:** add only the bounded executable/interpreter, exact-process environment, persistent-config/default evidence required to close Route-A package-manager semantic blockers  
 **Controlling plan:** `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`  
 **R4 implementation sequence:** `working-memory/2026-09-27_runtime-dependency-state-proof-implementation-and-verification-planning.md`  
@@ -18,7 +18,7 @@ A1 — DONE: continuity model confirmed; precedence-direction wording corrected;
 A2 — DONE: responsibility/proof model understood; terminology correction recorded; gate cleared
 B — DONE: B1-B5 implemented; first controlled Route-A fixture closes all four semantic facts while ordinary ambient cases abstain
 Verification gate — GREEN: Product verification #14 on exact B5 head; focused 15/15 and deterministic 699/699
-D — CURRENT: integrated post-work evidence-backed learning and ownership
+D — DONE: integrated post-work evidence-backed learning completed; ownership gate cleared after targeted repair
 E — PENDING
 C — CONTINUOUS: preserve meaningful engineering + learning progression through closure
 ```
@@ -998,3 +998,39 @@ D remains CURRENT. Targeted repair should confirm:
 - same-dimension precedence vs independent semantic axes;
 - executable-selection uncertainty after unmodeled venv activation;
 - affected dependency-family activation as the S011 owner.
+
+
+### D targeted repair result — ownership gate CLEARED
+
+Ali's repair answers correctly established the three remaining distinctions:
+
+1. **Unmodeled venv activation**
+   - later activation may be the closer PATH mutation;
+   - but closeness alone does not prove the resulting PATH/executable identity;
+   - because Increment 3 does not model the activation effect, the later bare `python` remains unresolved rather than being guessed as either setup-python or venv-owned.
+
+2. **Launcher Python vs pip manager-target Python**
+   - `/bootstrap/python` answers who launches/runs pip;
+   - `--python /target/python` answers which Python environment pip manages;
+   - these are different propositions, so precedence does not choose between them; both are preserved.
+
+3. **S011 affected-family activation**
+   - CI installs `.[dev]`;
+   - the changed NumPy belongs to `.[mlx]`;
+   - therefore the first missing proposition is that the affected optional dependency family was actually formed/exercised;
+   - perfect Increment-3 semantics for the dev family cannot repair evidence about the mlx family.
+
+### D completion assessment
+
+Ali now demonstrates the required Increment-3 ownership model:
+- distinguishes declaration evidence from exact-process evidence;
+- understands same-dimension precedence versus independent semantic axes;
+- preserves uncertainty when a closer source exists but its effect/value is unmodeled;
+- distinguishes executable launcher identity from pip manager-target environment identity;
+- identifies the earliest missing proof edge in real cases rather than automatically applying Increment-3 machinery;
+- preserves the difference between interpreter/applicability evidence and later installation/behavior outcomes.
+
+No material D understanding gap remains for this cycle.
+
+D is **DONE**.
+E is now **CURRENT**: consolidate proof/non-proof, reconcile final live state, select the next responsibility under the controlling R4 sequence, and close the Increment-3 cycle.
