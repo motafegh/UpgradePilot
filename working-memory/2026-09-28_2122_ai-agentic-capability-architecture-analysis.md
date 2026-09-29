@@ -1596,3 +1596,33 @@ Important hypotheses preserved for Track C:
 - executable success remains bounded by test/environment fidelity.
 
 Next: Tier-1 Report 04 — dependency/evidence graph foundations + provenance standards.
+
+
+## 22. Dual product-value + learning-exposure research rule
+
+Ali explicitly expanded the research objective: interesting tools/methods should be evaluated not only for immediate UpgradePilot utility but also for deliberate transferable engineering exposure.
+
+This is now formalized in:
+
+- `plans/AI_AGENTIC_ARCHITECTURE_INDEPENDENT_CHALLENGE_AND_COMPARISON_PLAN.md`
+- `working-memory/2026-09-29_research-technology-learning-exposure-ledger.md`
+
+Future research reports must separately evaluate:
+
+```text
+A. product / architecture value
+B. learning / career exposure value
+```
+
+Important boundary:
+
+```text
+researched
+!= hands-on experience
+!= project integration
+!= validated/operated experience
+```
+
+The goal is to deliberately create bounded real experiments when a technology offers strong transferable learning value, while keeping product adoption evidence-driven.
+
+Current high-interest exposure candidates include Griffe, LibCST, Semgrep, CodeQL, GUAC, SLSA/in-toto/SPDX/CycloneDX, OSV-Scanner Guided Remediation, StepSecurity/zizmor/actionlint, Joern, and bounded symbolic-execution tools.
