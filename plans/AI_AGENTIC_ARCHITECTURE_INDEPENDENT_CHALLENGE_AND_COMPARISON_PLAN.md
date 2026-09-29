@@ -694,3 +694,13 @@ A separate exposure ledger tracks these across reports.
 When two technically acceptable approaches are close in product value, prefer the one that gives broader transferable engineering learning **if** it does not materially worsen correctness, maintainability, security, or schedule.
 
 When learning value is the primary reason for trying a technology, keep it explicitly bounded as an experiment and evaluate it against the simpler baseline.
+
+
+- **Tier-1 Report 04 — Dependency/evidence graph foundations + provenance standards:** COMPLETE.
+  - Record: `working-memory/2026-09-29_tier1-04_dependency-evidence-graphs-and-provenance-standards.md`
+  - Systems/standards: deps.dev, GUAC, ORT, SPDX 3.0.1, CycloneDX 1.7, SLSA 1.2, in-toto v1.2, Sigstore/Cosign, GitHub artifact attestations/dependency submission.
+  - Main finding: mature standards already cover package/dependency graphs, build provenance, explicit no-assertion/completeness semantics, evidence techniques/confidence, claims/counterclaims, assessors, call stacks, citations, and attestation binding. They do not replace UpgradePilot's target-specific decision semantics.
+  - Strongest current hypothesis: keep a domain-specific internal reasoning model but seriously evaluate standards adapters/import/export/attestation rather than inventing isolated provenance vocabulary.
+  - Learning candidates: GUAC/GraphQL, CycloneDX, SPDX, SLSA/in-toto/Sigstore, deps.dev; ORT as a heavier pipeline comparator.
+
+- **Tier-1 Report 05 — CI/runtime evidence + program-analysis techniques:** NEXT.
