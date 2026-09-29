@@ -1759,3 +1759,66 @@ symbolic proof
 These must not be collapsed into one generic “execution evidence” class.
 
 Next: Tier-1 Report 06 — repository-intelligence and agent architectures.
+
+
+## 25. Tier-1 Report 06 — repository intelligence and agent architectures
+
+Completed:
+
+- `working-memory/2026-09-29_tier1-06_repository-intelligence-and-agent-architectures.md`
+- RepoGraph
+- LocAgent
+- Repository Intelligence Graph
+- CodexGraph
+- CodeRAG-Bench / retrieval research
+- Sourcegraph Code Graph / Cody
+- AutoCodeRover
+- SWE-agent
+- OpenHands
+- Agentless
+- GitHub Copilot repository instructions / skills / MCP patterns
+
+Major decomposition:
+
+```text
+repository world model
+!= retrieval/localization
+!= project instructions/knowledge
+!= agent tool interface
+!= execution loop
+!= reasoning topology
+```
+
+Important independent findings:
+
+- structural repository context repeatedly improves localization/reasoning;
+- build/test architecture is a different graph responsibility from source-code structure;
+- graph/RAG/raw-source/typed-projection context sources have different recall/noise/authority trade-offs;
+- progressive context disclosure is strongly supported;
+- raw-source access should not be permanently forbidden for discovery;
+- SWE-agent shows agent-computer interface design materially changes capability;
+- Agentless remains a mandatory fixed-pipeline baseline;
+- deterministic repository maps can reduce agent token/action cost;
+- AGENTS.md/skills/project instructions form a maintainer-declared knowledge layer distinct from source-derived facts.
+
+Current research hypothesis:
+
+```text
+exact revision
+├─ code structure view
+├─ build/test/workflow view
+├─ dependency/supply-chain view
+├─ UpgradePilot evidence/proposition state
+├─ maintainer instructions/policy
+└─ on-demand exact raw source
+
+→ context selector / investigation planner
+→ model reasoner
+→ structured proposal
+→ deterministic validation/admission
+→ trusted state
+```
+
+Do not adopt this before Track C.
+
+Next: Tier-1 Report 07 — evaluation, maintainer UX, and decision-quality measurement.
