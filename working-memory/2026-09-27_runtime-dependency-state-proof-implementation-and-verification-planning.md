@@ -47,11 +47,12 @@ Do not implement Route-B log/stdout/artifact acquisition in the first Cycle-1 sl
 
 **Why first:** every later package-manager, setup-python, environment-write, venv, and Route-B path depends on trustworthy execution identity.
 
-Expected source owners:
+Implemented source owners:
 - src/upgradepilot/ci/workflow_runtime_correlation.py
 - src/upgradepilot/ci/runtime_strengthening.py
+- src/upgradepilot/ci/runtime_execution.py
 - src/upgradepilot/ci/dependency_exercise.py
-- src/upgradepilot/github/workflow_definition.py only where provider-accurate unnamed-step identity needs existing static fields
+- src/upgradepilot/github/workflow_definition.py for provider-accurate unnamed-step identity
 
 Implementation responsibility:
 1. derive provider-accurate runtime display identity for admitted unnamed literal user steps without guessing;
@@ -80,10 +81,11 @@ Required cases:
 
 ### Increment 2 — static package-manager operation declaration and semantic fact core — COMPLETED
 
-Expected source owners:
-- src/upgradepilot/dependency/pip_command.py
-- a focused dependency/package-manager runtime-semantics module if needed
-- existing command-analysis types only as inputs
+Implemented source owners:
+- src/upgradepilot/dependency/package_manager_operation.py
+- src/upgradepilot/dependency/package_manager_semantics.py
+- src/upgradepilot/dependency/direct_install.py and src/upgradepilot/dependency/environment_selection.py as migrated consumers
+- existing parser-neutral command-analysis types remain inputs rather than package-manager owners
 
 Implementation responsibility:
 1. replace repeated pip-prefix interpretation with one reusable static package-manager operation declaration;
@@ -114,13 +116,16 @@ Required cases:
 
 ### Increment 3 — bounded executable/environment/config evidence required by Route A — COMPLETED
 
-Expected source owners:
+Implemented source owners:
 - src/upgradepilot/github/workflow_definition.py
-- provider/shell/CI evidence modules for environment/executable relationships
-- dependency package-manager semantic adapters
-- existing dependency/workflow_context.py working-directory resolver where applicable
+- src/upgradepilot/github/workflow_environment.py
+- src/upgradepilot/github/process_environment.py
+- src/upgradepilot/github/executable_selection.py
+- src/upgradepilot/ci/executable_selection.py
+- src/upgradepilot/dependency/package_manager_config.py
+- src/upgradepilot/dependency/package_manager_semantics.py
 
-Implementation order inside the increment should remain demand-driven.
+Implementation remained demand-driven. The verified pass condition was reached without general venv activation, arbitrary GITHUB_ENV/GITHUB_PATH propagation, universal workflow-env promotion, arbitrary persistent-config acquisition, or general bare-pip provenance; those remain explicit later expansion points rather than incomplete Increment-3 work.
 
 #### 3A. Declarative environment representation
 
