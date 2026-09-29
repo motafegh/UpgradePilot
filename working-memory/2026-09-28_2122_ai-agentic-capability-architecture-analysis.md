@@ -662,3 +662,573 @@ The next planned step remains:
 > classify each material family by the simplest adequate mechanism — deterministic-only, bounded LLM, agentic investigation, hybrid, or intentionally unresolved — while separately defining model-visible state, model authority, deterministic authority, required tools/evidence, and failure/abstention behavior.
 
 Do not enter that classification silently; discuss this Step-1 register with Ali first.
+
+
+## 15. Step 2 — mechanism classification and authority design
+
+### 15.1 Step-2 decision rule
+
+Step 2 does **not** ask:
+
+> Where can we insert an LLM?
+
+It asks:
+
+> For each real responsibility or limitation, what is the simplest mechanism that can establish the needed proposition at the required proof strength?
+
+Use these mechanism classes:
+
+- **D — deterministic-first / deterministic authority**
+  - parsing, identity, exact comparison, provenance validation, bounded graph/reachability, policy/admission, and trusted proposition composition where explicit rules exist;
+- **L — bounded LLM semantic component**
+  - irreducible natural-language/software-meaning interpretation where the model can propose structured semantic claims that remain grounded and validated;
+- **A — agentic investigation**
+  - choosing among several admitted evidence-gathering actions, conditionally sequencing them, reacting to observations/failures, and stopping when further work is not justified;
+- **H — hybrid**
+  - deterministic evidence/authority plus bounded LLM interpretation and/or agentic evidence acquisition;
+- **U — intentionally unresolved / abstain**
+  - the required fact is unavailable, unsafe, unaffordable, outside the product boundary, or not decision-critical enough to justify more work.
+
+A responsibility can be **H** while still giving the model very little authority. “Hybrid” means multiple mechanisms cooperate; it does **not** mean the LLM becomes co-authority over evidence truth.
+
+### 15.2 Universal authority constraints
+
+The following remain the default design constraints unless later evidence justifies a narrower exception:
+
+```text
+MODEL / AGENT MAY
+- interpret bounded semantic material;
+- formulate candidate mechanisms/propositions;
+- choose among currently offered investigation actions;
+- prioritize evidence/checks/reasons;
+- propose a stop/defer/unresolved disposition inside its semantic contract;
+- synthesize explanation from already-trusted state.
+
+MODEL / AGENT MUST NOT BY ITSELF
+- invent repository/revision/path/source identity;
+- upgrade static evidence into runtime evidence;
+- manufacture missing provenance or completeness;
+- authorize its own tool/action execution;
+- change hidden action parameters;
+- establish package/version/environment truth from confidence alone;
+- declare candidate/path/discovery completeness;
+- grant maintainer-action permission;
+- erase mandatory uncertainty/conflict/claim limits.
+
+DETERMINISTIC PRODUCT CODE OWNS
+- exact identity and provenance;
+- trusted evidence-state promotion;
+- mechanical parsing/comparison/reachability where explicit;
+- action catalog and execution admission;
+- security/mutation/cost policy;
+- freshness/rebinding before effects;
+- trusted proposition state;
+- action-permission envelope;
+- replayable state transition and claim limits.
+```
+
+This generalizes the already-proven EvidenceGapPlanner pattern:
+
+```text
+trusted state
+→ explicit model projection
+→ untrusted model proposal
+→ deterministic rebind/admission
+→ bounded effect
+→ deterministic evidence interpretation
+→ trusted next state
+```
+
+It also matches the implemented upstream support-drop pattern:
+
+```text
+authoritative bounded source
+→ LLM semantic candidate
+→ deterministic source-line grounding / validation
+→ trusted bounded claim or explicit problem
+```
+
+### 15.3 Detailed mechanism map
+
+| Responsibility / limitation | Best mechanism | Model-visible state / AI role | Deterministic authority | Failure / abstention behavior |
+| --- | --- | --- | --- | --- |
+| GitHub acquisition scale/resource caps | **D** | Normally none. AI has no useful role in deciding whether an incomplete provider snapshot should count as complete. | Pagination, total-count coherence, bounds, identity, retry policy. | Reject/degrade explicitly when the bounded complete snapshot cannot be acquired. |
+| Repository-file/runtime evidence availability | **H (D acquisition + optional A fallback choice)** | Agent may see the unresolved proposition, source-unavailable reason, and a closed set of alternative read-only evidence sources. It may choose which admitted source to try next. | Exact locator, fetch execution, source identity, freshness, result parsing, evidence promotion. | If no admitted alternative can establish the fact, preserve unavailable/unresolved. |
+| PyPI provenance / upstream repository identity | **D** | No model authority. A planner could choose another admitted provenance/source lookup, but the identity proposition itself remains deterministic. | Publisher provenance contract parsing, repository normalization, conflict/ambiguity detection. | Missing/ambiguous provenance remains unresolved; model confidence cannot substitute. |
+| Changelog / upstream authoritative-source discovery | **H** | A bounded LLM/agent may propose likely documentation/release-source candidates or rank investigation value from model-visible descriptors, especially when names/locations are semantically variable. | Repository/source identity, admitted authority classes, exact path/tag/revision, source acquisition, final source admission. | Ambiguous authority remains unresolved; AI-selected text cannot self-authorize as authoritative. |
+| Requirements dependency-transition extraction | **D** | None normally. | Patch/file identity, requirement parsing, exact version comparison, ambiguity rejection. | Unsupported edit shape remains explicit problem until real pressure justifies deterministic expansion. |
+| Pyproject dependency-transition extraction | **D** | None for exact transition truth. LLM may later help candidate discovery from broader repository context, but not parse the authoritative dependency transition. | TOML/Requirement parsing, exact base/head comparison, source/group identity. | Unsupported specifier/direct-reference/multi-change forms remain unresolved rather than model-inferred. |
+| uv lock structure / selected-root reachability | **D** | None for reachability truth. A planner may request missing target marker/environment inputs if those are separately acquirable. | Lock parsing, graph traversal, marker/fork handling, bounded universe/coverage. | Marker/fork or unsupported-binding ambiguity remains unresolved. Do not let an LLM “reason through” a graph and promote that to proof. |
+| Direct project-environment selection | **D first; H for indirect mechanisms** | For direct pip/uv forms, none. For tox/nox/Make/custom scripts, a model may inspect bounded repository-owned script/config evidence and propose an environment-selection relationship or next evidence need. | Working-directory/source identity; supported direct selectors; grounding of any model-proposed relation; trusted environment-membership proposition. | If indirect semantics cannot be grounded, preserve unresolved. |
+| Shell syntax family / parser selection | **D** | None. | Effective shell resolution, parser choice, parser-error policy. | Dynamic/custom shell identity remains unresolved/unsupported. |
+| Dynamic command atoms / expressions | **D first; H when evidence must be acquired** | Agent may request exact matrix/env/config inputs. LLM is normally unnecessary for GitHub-expression mechanics; semantic assistance only becomes credible for repository-defined scripts/custom logic. | Expression/value resolution when supported, source identity, token interpretation. | Unknown material token stays dynamic/unresolved; no guessed literal. |
+| Conditional / path-dependent command execution | **H — strong candidate** | Model/agent sees the exact unresolved execution proposition, structural predicate summary, known inputs, missing inputs, and admitted evidence actions. LLM may help understand repository-defined predicate scripts; agent may acquire missing inputs/log evidence. | Shell/control-flow semantics for admitted predicate classes; exact runtime input identity; action admission; final exact-command-executed proposition. | If branch execution cannot be proven, retain static occurrence but no runtime promotion. |
+| Short-circuit / pipelines / nested / later-chain execution | **D first; H fallback** | Usually no LLM. Agent may choose direct runtime evidence when structural inference is insufficient and such evidence is admitted. | Operator/position/status-contribution semantics and exact command identity. | Unsupported relation remains unresolved; do not use model intuition about shell behavior. |
+| Static↔runtime workflow correlation | **D** | None for identity/correlation truth. | Workflow expansion/correlation, matrix/reusable-workflow identity, step matching, revision/attempt identity. | Ambiguous or missing correlation remains unresolved. |
+| Checkout / working-directory / repository-root provenance | **D** | Agent may acquire referenced workflow/action/config evidence if explicitly needed, but model does not own the path proposition. | Precedence, path normalization, repository identity, checkout semantics for admitted forms. | Dynamic/ambiguous provenance remains unresolved. |
+| Package-manager operation declaration | **D** | None. | Parser-neutral command atoms → exact admitted operation declaration. | Unsupported manager/option/form remains explicit problem; no semantic guessing. |
+| Effective package-manager semantics | **H — deterministic semantics + agentic evidence acquisition** | Agent may see which semantic dimension is blocked and which lower-precedence evidence source is missing: process env, config, executable/default provenance. It may choose the next admitted read. LLM is normally low-value unless custom tooling/config semantics are irreducibly semantic. | CLI/env/config/default precedence, exact values, semantic-fact state and provenance. | If a material lower-precedence source cannot be resolved, fact stays unresolved. |
+| Runtime dependency-state proof | **H, with deterministic proof authority** | Agent may choose between command-derived evidence and justified fallback runtime/log/artifact evidence. Model may prioritize which evidence closes the exact state gap. | Exact command execution, effective package semantics, requirement/version/source identity, package-state witness composition. | No exact witness → no “proposed version present” claim. |
+| Target CI environment interpretation | **D first; H for custom/indirect setup** | Agent may acquire matrix/container/action/config evidence. LLM may help interpret custom repository setup/action prose only as a candidate relation. | Job identity, matrix/container/setup-python/environment facts, exact target proposition. | Ambiguous target environment remains unresolved. |
+| Target Python declaration/comparison | **D** | None. | Exact pyproject declaration parsing and deterministic supported specifier comparison. | Unsupported comparison stays unresolved even if a model says it is obvious. |
+| Artifact serviceability / wheel compatibility | **D** | None for wheel/tag compatibility. | Exact release artifact inventory, filename/tag parsing, target compatibility sets. | Missing compatible wheel does not become “installation fails”; source fallback remains a separate proposition. |
+| Broad technical-impact candidate discovery | **H — strongest LLM/semantic candidate** | Model may receive a deliberately bounded combination of exact transition, authoritative upstream semantic evidence, selected target structural/context evidence, current candidate set, and coverage state. It may propose one or more structured mechanism candidates and discovery reasons. Agent may iteratively inspect additional target/upstream evidence when candidate discovery is materially incomplete. | Source identity, evidence authority, grounding, candidate schema, dedup/lineage, proposition state, discovery-coverage constraints. | Model-generated candidate remains hypothesis/structured candidate; model cannot declare it applicable or discovery complete. |
+| Repository-purpose / policy / provenance context discovery | **H — strong LLM candidate** | LLM may interpret README/docs/config/comments that express reproducibility, archival, compatibility, release, or operational intent and propose structured context claims with source refs. Agent may locate additional relevant repository-owned context. | Exact source/revision, context claim grounding, conflict preservation, decision-effect admission. | If purpose/policy is ambiguous or contradictory, preserve ambiguity; do not infer maintainer intent from weak prose. |
+| Coordinated package-family / platform-family reasoning | **H** | LLM may interpret official compatibility prose/tables where semantics are heterogeneous; agent may acquire the exact family metadata/docs. | Exact package/release/platform identity, deterministic version/artifact relations where machine-readable, grounding of semantic family claims. | Unverified family coherence remains unresolved; no package-family conclusion from one model narrative. |
+| Persisted-state / producer-version applicability | **H** | LLM can interpret authoritative persistence contracts and target producer/consumer semantics; agent may inspect artifact/config/deployment evidence when an admitted source exists. | Exact target/source identity, persisted-artifact relation, producer-version evidence, actual artifact-history admission. | Arbitrary deployment artifact history may remain genuinely unknowable; do not invent it. |
+| Discriminating targeted-check derivation | **H / A — strong agentic candidate** | Model sees unresolved proposition, activating target path, current evidence, admissible observation families, costs/risks, and may propose the smallest check plus expected discriminating outcomes. | Check catalog/boundary, security and mutation policy, command/action binding, execution admission, observation interpretation. | If no admissible check can materially discriminate the proposition, stop unresolved rather than recommend generic “test more”. |
+| Adaptive multi-step investigation | **A — strongest agentic responsibility** | Model sees typed investigation state, consumed actions, remaining budget, allowed action descriptors, material unresolved/conflicted propositions, and chooses one next action or justified stop. | Closed action catalog, exact locators, freshness/rebind, budget, execution, result interpretation, state transition/replay. | Invalid/stale/unauthorized choice is rejected deterministically; no-action/unresolved is a valid endpoint. |
+| Candidate path-model / discovery-coverage challenge | **H, but AI cannot certify completeness** | A model can act as a challenger: propose omitted alternative activation paths/candidates from bounded evidence and explain why they may matter. | Coverage state, candidate/path identity, acceptance of any new path/candidate, negative-inference permission. | Absence of model suggestions never proves completeness; confidence cannot close open-world coverage. |
+| Overall evidence sufficiency / maintainer-action permission | **D authority; optional H synthesis later** | A model may eventually see a semantic decision bundle and deterministic permission envelope. It may choose/prioritize among already-permitted actions/reasons if comparison evidence justifies this. | Action-specific permission, prohibited actions, mandatory uncertainty/conflict/checks, claim limits. | If no non-abstention permission is proven, emit abstain regardless of model preference. |
+| Cross-evidence synthesis / maintainer explanation | **H — strong bounded LLM candidate** | LLM may rank decisive vs supporting reasons, choose among already-permitted actions, preserve residual uncertainty, and draft maintainer-facing explanation from evidence references. | Permission envelope, citation existence, mandatory uncertainty/check inclusion, prohibited-claim validation. | Invalid synthesis is rejected/falls back to deterministic baseline; model cannot widen permission. |
+| Persistence / replay / recovery | **D** | Models may consume replayed state for evaluation, but should not own storage identity or recovery semantics. | Durable evidence IDs/content hashes, checkpoints, idempotence, supersession/staleness, deterministic replay. | Corrupt/incomplete replay remains explicit failure. |
+| Evaluation / model quality judging | **D foundation + limited L supplement** | LLM-as-judge may assist qualitative semantic review only after deterministic metrics, frozen cases, oracle isolation, and human review boundaries exist. | Dataset partitioning, ground truth/oracle protection, deterministic authority violations, reproducibility, final adoption gate. | Self-judging or contaminated evaluation cannot justify adoption. |
+| Dynamic / behavioral execution | **D execution + A selection; U when unjustified** | Agent may propose/select an admitted sandboxed check when it is decision-discriminating. LLM may help formulate the semantic check but does not gain shell authority. | Security policy, exact command/action binding, isolation, credentials/network/mutation limits, execution, observation validation. | Unsafe, unaffordable, non-discriminating, or unauthorized execution is not performed; question may remain unresolved. |
+
+### 15.4 The main architectural pattern by layer
+
+Step 2 suggests that UpgradePilot should not have one generic “AI layer”. It has at least four materially different intelligence roles.
+
+#### Role 1 — bounded semantic extractor
+
+Use when:
+
+```text
+authoritative text/source exists
++
+the difficult part is software meaning in natural language
+```
+
+Examples:
+
+- current upstream Python-support-drop extraction;
+- future compatibility/configuration/persistence semantic claims;
+- some repository-purpose/context interpretation.
+
+Architecture:
+
+```text
+trusted bounded source
+→ semantic model
+→ structured candidate
+→ grounding / deterministic validation
+→ trusted claim or explicit unresolved
+```
+
+The model owns **interpretation**, not source authority.
+
+#### Role 2 — candidate-discovery reasoner
+
+Use when:
+
+```text
+the system must discover which technical mechanisms deserve consideration
+```
+
+Examples:
+
+- S010-style multiple mechanism discovery;
+- repository-purpose/context candidates;
+- target-driven API/config/build/install surface discovery.
+
+Architecture:
+
+```text
+trusted transition + selected source/context evidence
+→ bounded model discovery
+→ structured candidate(s)
+→ deterministic source/evidence binding
+→ independent applicability evaluation
+```
+
+The model owns **proposal breadth/semantic search**, not applicability or completeness.
+
+#### Role 3 — EvidenceGap / targeted-investigation planner
+
+Use when:
+
+```text
+one or more material propositions remain non-final
++
+several independently useful evidence actions exist
++
+their relative value depends on current state
+```
+
+Architecture already experimentally proven:
+
+```text
+typed trusted investigation state
+→ bounded model action choice / stop
+→ deterministic fresh admission
+→ exact read-only or otherwise admitted effect
+→ deterministic evidence interpretation
+→ new typed state
+→ repeat only while justified
+```
+
+The model owns **selection/sequencing**, not execution authority.
+
+#### Role 4 — bounded decision/report synthesizer
+
+Use only after:
+
+```text
+technical evidence exists
++
+deterministic action-specific permission semantics exist
+```
+
+Architecture:
+
+```text
+trusted DecisionEvidenceBundle
+→ deterministic PermissionEnvelope
+→ bounded LLM synthesis
+→ deterministic validation
+→ maintainer-facing report
+```
+
+The model owns **cross-evidence prioritization/explanation** and possibly selection among already-permitted alternatives, not permission itself.
+
+### 15.5 Responsibilities where AI should normally stay out
+
+Step 2 identifies a substantial deterministic core that should remain boring and strong:
+
+```text
+repository / PR / revision identity
+provider snapshot coherence
+path normalization
+exact dependency version parsing/comparison
+requirements/TOML structure
+uv lock structural/reachability proof
+shell parser selection
+static/runtime identity correlation
+package-manager operation identity
+CLI/env/config precedence rules
+exact target Python comparison
+wheel/tag compatibility
+provenance admission
+evidence-state promotion
+action execution admission
+maintainer-action permission
+persistence/replay identity
+security/mutation policy
+```
+
+Adding an LLM here would usually reduce inspectability without solving a semantic problem.
+
+A future agent can **request** some of these deterministic capabilities as tools. That does not convert the underlying responsibility into an AI responsibility.
+
+### 15.6 Conditional-command case — Step-2 final classification
+
+The original motivating example now has a concrete architecture.
+
+#### Layer A — structural parse
+
+```text
+shell source
+→ deterministic parser
+→ conditional occurrence + predicate/control relation
+```
+
+**Mechanism:** D.
+
+#### Layer B — simple supported predicate
+
+Example:
+
+```text
+if matrix_python == "3.12"; then ...
+```
+
+If exact predicate inputs are known:
+
+```text
+predicate structure + exact values
+→ deterministic predicate evaluation
+```
+
+**Mechanism:** D.
+
+#### Layer C — missing predicate inputs
+
+Example:
+
+```text
+predicate depends on env/config/result from prior step
+```
+
+Represent:
+
+```text
+ExactCommandExecutionGap(
+    missing = exact predicate input / prior observation
+)
+```
+
+Then:
+
+```text
+agent sees gap + allowed reads
+→ selects one evidence action
+→ deterministic acquisition
+→ deterministic predicate evaluator retries
+```
+
+**Mechanism:** H with A for acquisition.
+
+#### Layer D — repository-defined semantic predicate
+
+Example:
+
+```text
+if ./scripts/should_install.sh; then ...
+```
+
+A model may help interpret the bounded script/config relationship or propose which inputs matter, but:
+
+```text
+LLM says "this script should return true"
+!=
+exact branch execution proven
+```
+
+Either deterministic evaluation or direct runtime evidence must establish the final execution proposition.
+
+**Mechanism:** H.
+
+#### Layer E — unavailable/unobservable runtime fact
+
+If the required runtime input/result cannot be recovered:
+
+**Mechanism:** U.
+
+The correct result remains:
+
+```text
+static command exists
++
+runtime path unresolved
+→ no exact-command-executed promotion
+```
+
+### 15.7 Design implications for work happening on main
+
+This analysis does **not** require the current Increment-2/Increment-3 deterministic route to stop or be redesigned around an agent framework.
+
+Instead, when new product responsibilities are designed, preserve these seams where naturally justified:
+
+1. **typed fact/proposition output** rather than opaque final booleans;
+2. **explicit unresolved reason** naming what blocks stronger evidence;
+3. **provenance/source identity** sufficient to re-fetch or challenge the fact;
+4. **independent semantic dimensions** rather than one giant “safe/valid” object;
+5. **closed action capability** when an evidence gap has an executable next step;
+6. **model-visible projection separated from trusted internal state** if a model is later used;
+7. **deterministic post-model validation/admission** before trusted-state change;
+8. **replay/evaluation hooks** for any nondeterministic model decision that could affect investigation or output.
+
+Do **not** pre-build generic model interfaces, tool registries, graph runtimes, middleware, or “AI-ready” string blobs merely because these seams may later be useful.
+
+The correct current principle is:
+
+> preserve semantic and authority seams now; instantiate AI machinery only when a real responsibility and comparative evidence justify it.
+
+### 15.8 What should receive AI attention first?
+
+This is a **product/engineering sequencing hypothesis**, not a new live plan.
+
+#### Highest-value AI-shaped responsibilities
+
+**A. Broad technical-impact candidate discovery**
+
+Why:
+
+- open-ended semantic search is intrinsic to the responsibility;
+- S010 provides direct real-case pressure;
+- deterministic metadata alone is unlikely to cover heterogeneous software changes;
+- output can remain a structured candidate rather than trusted truth.
+
+Preferred first comparison:
+
+```text
+transparent deterministic/keyword/structured baseline
+vs
+bounded semantic discovery model
+```
+
+Measure:
+
+- materially relevant candidate recall on frozen cases;
+- unsupported candidate rate;
+- grounding/source traceability;
+- candidate duplication/granularity;
+- discovery-coverage honesty.
+
+#### B. Discriminating investigation / EvidenceGap planning
+
+Why:
+
+- UpgradePilot already has a proven architecture and real LangGraph/ordinary-Python evidence;
+- agent value becomes real once multiple independent product actions exist;
+- state-dependent choice/sequencing is inherently agent-shaped.
+
+Re-entry trigger remains the existing one:
+
+```text
+several real admitted actions
++
+relative value/order changes with proposition state, failures, consumed history, or budget
++
+fixed policy becomes brittle/combinatorial/contextual
+```
+
+Do not manufacture actions to meet the trigger.
+
+#### C. Repository-context semantic discovery
+
+Why:
+
+- S009 proves that repository purpose/provenance can be materially relevant;
+- this information is often expressed in prose, comments, docs, and heterogeneous config;
+- bounded source-grounded semantic extraction is a natural fit.
+
+It should likely feed candidate/context state, not final action authority directly.
+
+#### D. Maintainer-facing synthesis/reporting
+
+Why:
+
+- heterogeneous evidence creates real semantic/presentation pressure;
+- an existing bounded PermissionEnvelope design already protects action authority.
+
+But sequencing should remain:
+
+```text
+deterministic non-abstention permission baseline
+→ observed cross-evidence synthesis/report limitation
+→ bounded LLM comparison
+```
+
+It should not be the first new AI integration merely because report generation is easy to demo.
+
+### 15.9 AI areas that should wait
+
+#### Conditional-command semantic assistance
+
+Interesting and legitimate, but not necessarily the highest-value first AI expansion.
+
+Most common conditional/operator forms should first be attacked with deterministic control-flow representation/evaluation or direct runtime evidence because those can produce stronger proof than model interpretation.
+
+AI becomes useful mainly for:
+
+- repository-defined predicate scripts;
+- deciding which missing evidence to acquire;
+- semantically complex indirect environment setup.
+
+#### General package-manager semantic reasoning
+
+Do not turn pip/uv semantics into model reasoning while explicit precedence/config rules can be represented deterministically.
+
+AI may help later with arbitrary custom task-runner/config ecosystems, but only after direct deterministic families are insufficient in representative cases.
+
+#### Multi-agent systems
+
+No current evidence justifies multiple specialized autonomous agents as a product requirement.
+
+A single bounded planner over deterministic capabilities is already enough to test the actual orchestration responsibility. Multi-agent designs should require a demonstrated coordination problem that one planner/tool loop cannot handle cleanly.
+
+### 15.10 Adoption evidence required by AI role
+
+#### Semantic extractor / discovery model
+
+Require:
+
+- frozen development vs protected evaluation separation;
+- structured output contract;
+- source-grounding / citation validation;
+- unsupported-candidate / hallucination measurement;
+- representative paraphrase and mechanism variation;
+- deterministic baseline comparison;
+- explicit rejection/defer threshold.
+
+#### Investigation planner
+
+Require:
+
+- at least several independently useful real actions;
+- frozen action catalog and hidden exact locators;
+- deterministic stale-state/budget/policy admission;
+- replayable transitions;
+- protected cases where best next action varies by state;
+- baseline policy comparison;
+- zero authority/identity violations for adoption.
+
+#### Decision/report synthesizer
+
+Require:
+
+- deterministic PermissionEnvelope;
+- valid deterministic fallback;
+- mandatory uncertainty/check/claim-limit validation;
+- cross-mechanism protected cases;
+- comparison on decision usefulness and explanation quality;
+- no prohibited action/claim authority violations;
+- evaluation not judged only by the same model family that generated the output.
+
+### 15.11 Step-2 conclusion
+
+The Step-2 classification supports a specific architecture thesis:
+
+> UpgradePilot should mature as a **deterministic evidence and authority substrate with selectively embedded semantic models and agentic investigation loops**, not as either a purely hand-coded rule engine or an LLM-first autonomous agent.
+
+More concretely:
+
+```text
+DETERMINISTIC CORE
+identity
+provenance
+typed evidence
+explicit proposition state
+mechanical semantics
+authority
+admission
+replay
+
+        ↕ bounded contracts
+
+LLM SEMANTIC COMPONENTS
+meaning extraction
+candidate discovery
+repository-context interpretation
+cross-evidence explanation
+
+        ↕ bounded contracts
+
+AGENTIC ORCHESTRATION
+choose next admitted evidence action
+adapt after results/failures
+stop when further work is unjustified
+
+        ↓
+
+DETERMINISTIC TRUSTED-STATE UPDATE
+```
+
+The most important architectural property is therefore not “how much AI is used”.
+
+It is:
+
+> **whether every AI contribution has a precise semantic responsibility, explicit observation boundary, explicit authority limit, deterministic admission path, and evaluable failure mode.**
+
+### 15.12 Step-2 status / next route
+
+**Step 2: COMPLETE ENOUGH FOR DISCUSSION AND WHOLE-PIPELINE MAPPING.**
+
+No product source/test, accepted specification, ADR, active plan, or `MEMORY.md` was changed.
+
+The next planned responsibility from the original workstream is Step 3:
+
+> walk the entire UpgradePilot pipeline from Dependabot PR input to final maintainer output and construct one coherent end-to-end architecture map showing where the Step-2 deterministic, LLM, agentic, hybrid, and intentional-unresolved responsibilities sit, how typed state flows between them, and which pieces are implemented / experimental / designed / future.
+
+Before Step 3, discuss/challenge the Step-2 classifications with Ali rather than silently promoting them into accepted architecture.
