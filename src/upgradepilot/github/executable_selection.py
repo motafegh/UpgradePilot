@@ -14,8 +14,8 @@ from .workflow_command_analysis import StaticCommandOccurrence
 from .workflow_command_location import StaticCommandLocation
 
 
-type ExecutableSelectionState = Literal["established", "unresolved"]
-type ExecutableSelectionKind = Literal[
+type StaticExecutableSelectionState = Literal["established", "unresolved"]
+type StaticExecutableSelectionKind = Literal[
     "explicit_path",
     "path_lookup_required",
     "executable_dynamic",
@@ -23,11 +23,11 @@ type ExecutableSelectionKind = Literal[
 
 
 @dataclass(frozen=True, slots=True)
-class ExecutableSelectionEvidence:
+class StaticExecutableSelectionObservation:
     """Selection evidence for the executable of one exact command occurrence."""
 
-    state: ExecutableSelectionState
-    kind: ExecutableSelectionKind
+    state: StaticExecutableSelectionState
+    kind: StaticExecutableSelectionKind
     executable: str | None
     reason: str
     detail: str
@@ -36,13 +36,13 @@ class ExecutableSelectionEvidence:
 
 def observe_command_executable_selection(
     occurrence: StaticCommandOccurrence,
-) -> ExecutableSelectionEvidence:
+) -> StaticExecutableSelectionObservation:
     """Preserve explicit executable paths and fail closed on PATH-dependent names."""
 
     location = StaticCommandLocation.from_occurrence(occurrence)
     atom = occurrence.executable
     if atom.state != "literal" or atom.literal_value is None:
-        return ExecutableSelectionEvidence(
+        return StaticExecutableSelectionObservation(
             state="unresolved",
             kind="executable_dynamic",
             executable=None,
@@ -57,7 +57,7 @@ def observe_command_executable_selection(
     executable = atom.literal_value
     normalized = executable.replace("\\", "/")
     if "/" in normalized:
-        return ExecutableSelectionEvidence(
+        return StaticExecutableSelectionObservation(
             state="established",
             kind="explicit_path",
             executable=executable,
@@ -69,7 +69,7 @@ def observe_command_executable_selection(
             command_location=location,
         )
 
-    return ExecutableSelectionEvidence(
+    return StaticExecutableSelectionObservation(
         state="unresolved",
         kind="path_lookup_required",
         executable=executable,
@@ -84,6 +84,6 @@ def observe_command_executable_selection(
 
 
 __all__ = (
-    "ExecutableSelectionEvidence",
+    "StaticExecutableSelectionObservation",
     "observe_command_executable_selection",
 )
