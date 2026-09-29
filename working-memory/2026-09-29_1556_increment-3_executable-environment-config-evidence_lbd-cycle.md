@@ -893,3 +893,75 @@ Residual intentionally unsupported/unresolved surfaces remain explicit scope bou
 - universal runner environment reconstruction.
 
 These may be revisited only if later product evidence makes them decision-critical.
+
+
+## D — integrated post-work evidence-backed learning — CURRENT
+
+### Teaching structure selected
+
+D will teach Increment 3 as one evidence-resolution system rather than five isolated implementation changes:
+
+```text
+exact command identity
+→ declarative environment observations
+→ exact-process environment evidence
+→ persistent package-manager config evidence
+→ manager default only after higher sources close
+→ independent semantic facts
+
+parallel:
+exact command executable
+→ explicit path / bounded setup-python relationship
+→ executable/interpreter selection evidence
+```
+
+Then connect those facts back to the product-evidence graph and Increment 4 rather than treating semantic facts as end-state conclusions.
+
+### Real-case teaching anchors
+
+**S002 — Kubernetes Dashboard Token API / HTTPX**
+- Python workflow declares `actions/setup-python@v4` with Python 3.10 followed by `python -m pip install ...`, Ruff and pytest.
+- But the workflow `paths:` excludes `requirements.txt`, so the dependency-only PR did not trigger that Python workflow.
+- Docker workflow did run and install requirements/build the image, but did not execute TestClient/route behavior; historical exact resolved dependency graph is unavailable because logs expired.
+- D lesson: Increment 3 can reason about executable/environment semantics only for an admitted command/evidence path; it cannot turn a skipped workflow into execution evidence or upgrade package installation into behavioral compatibility.
+
+**S008 — CARLA / OpenCV Python-3.6 artifact fallback**
+- Old OpenCV release had CPython-3.6 Linux wheels.
+- New release has no CPython-3.6-compatible published wheel but does have an sdist and retains Python-3.6 source-build metadata.
+- Target has real Python-3.6 relevance, but inspected CI does not establish that the requirements install ran under Python 3.6.
+- D lesson: executable/interpreter identity can close the missing “which Python actually installed this?” edge. Even if it closes Python 3.6 identity, the next proposition “does the sdist build succeed?” remains separate and unresolved.
+
+**S011 — Dictare MLX optional-extra coverage**
+- affected NumPy pin is in optional `mlx` family;
+- both inspected workflows install `.[dev]`, not `.[mlx]`;
+- real runtime activation additionally needs Apple-Silicon/macOS/hardware-path conditions.
+- D lesson: Increment 3 cannot repair the wrong dependency family being installed. Perfect PATH/env/config semantics for `.[dev]` still do not form the affected `mlx` environment.
+
+### A2 expectation vs verified reality
+
+A2 expected bounded 3A/3B/3C/3D evidence producers. Verified B1-B5 realized that responsibility proportionately:
+- 3A: workflow/job/step env representation and step > job > workflow declaration precedence;
+- 3C: exact-process positive evidence from literal Bash command-local assignments; declarative-only values deliberately remain below exact-process truth;
+- 3D: setting-scoped pip persistent-config evidence using exact `PIP_CONFIG_FILE=/dev/null`, plus manager defaults only after higher sources close;
+- 3B: explicit executable-path observation plus bounded runtime-backed setup-python PATH relation;
+- B5: destination/direct-handling lower-source closure and one complete controlled four-fact Route-A fixture.
+
+Expected but not needed for the selected pass condition and therefore not implemented:
+- generic GITHUB_ENV/GITHUB_PATH propagation;
+- arbitrary workflow env → exact-process promotion;
+- same-step venv activation;
+- arbitrary persistent config file acquisition/composition;
+- general bare-pip/non-adjacent PATH provenance.
+
+These remain explicit later expansion points, not hidden unfinished B work.
+
+### D ownership gate
+
+After integrated teaching, Ali should reason about:
+1. declaration evidence vs exact-process evidence;
+2. source precedence and when a manager default is legally usable;
+3. launcher executable identity vs pip manager-target environment identity;
+4. which proof layer owns a real-case gap;
+5. what Increment 3 proves versus what remains for Increment 4 or later behavioral evidence.
+
+D remains CURRENT until those reasoning checks are answered and any material gaps are characterized for E.
