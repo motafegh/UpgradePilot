@@ -352,3 +352,203 @@ This plan is complete enough for Step 3 only when:
 5. unresolved architecture competitions identify a discriminating experiment or evidence need;
 6. the resulting whole-pipeline map can state which choices are internally inherited versus independently supported.
 
+
+
+## 9. Expanded external-research program — pre-research discovery
+
+Ali broadened the investigation beyond AI/agent architecture alone. Before Track C, perform staged deeper research across the wider dependency-update decision-support ecosystem. The purpose is to discover product capabilities, architecture patterns, evidence sources, UX/policy mechanisms, standards, and evaluation methods that UpgradePilot may otherwise miss.
+
+### 9.1 Research families and representative systems
+
+1. **Closest dependency-update products and workflows**
+   - Dependabot / dependabot-core
+   - Renovate / Mend Merge Confidence
+   - GitHub Dependency Review
+   - Updatecli
+   - Compare: update discovery, grouping, schedules/cooldowns, dashboards/approval, confidence/risk signals, CI use, human control, supported ecosystems, architecture/extensibility, and known limitations.
+
+2. **Dependency risk, reachability, and upgrade-impact platforms**
+   - Endor Labs Upgrade Impact Analysis + reachability
+   - Semgrep Supply Chain reachability
+   - Snyk Open Source
+   - Socket
+   - Compare: dependency graph construction, reachability/exploitability, behavioral/package risk, target-specific impact, prioritization, and evidence/claim strength.
+
+3. **Remediation and migration engines**
+   - OSV-Scanner guided remediation
+   - OpenRewrite / Moderne
+   - DepRepair and related dependency-repair research
+   - API compatibility tools such as Griffe and japicmp
+   - Study: graph-aware remediation, minimal-change strategies, codemods/recipes, API-diff detection, source migration, execution requirements, and rollback/failure handling.
+
+4. **Dependency/package intelligence and graph foundations**
+   - deps.dev / Open Source Insights
+   - GUAC
+   - OSS Review Toolkit
+   - Trivy dependency/SBOM views
+   - Study: graph models, historical package/version data, transitive relationships, advisory joins, package/project identity, query interfaces, and reusable evidence stores.
+
+5. **Provenance, attestations, and software-supply-chain standards**
+   - in-toto
+   - SLSA build/dependency provenance
+   - GitHub artifact attestations / Sigstore
+   - SPDX, CycloneDX, VEX/OpenVEX
+   - Study which existing standards could represent UpgradePilot evidence rather than inventing project-only schemas.
+
+6. **CI/workflow semantics, observability, and runtime security**
+   - actionlint
+   - zizmor
+   - StepSecurity Harden-Runner
+   - act / workflow emulation
+   - GitHub Actions runtime/attestation capabilities
+   - Study static-versus-runtime evidence, workflow security, per-step process/network/file observations, environment fidelity, and whether runtime telemetry can close current evidence gaps.
+
+7. **Program analysis and target-impact techniques**
+   - CodeQL
+   - Joern / Code Property Graphs
+   - symbolic execution tools such as angr/CrossHair
+   - API-diff and call/data-flow tools
+   - Study whether general structural analysis can replace or complement proposition-specific rules.
+
+8. **Repository intelligence and code-context architectures**
+   - RepoGraph
+   - LocAgent
+   - Repository Intelligence Graph
+   - AutoCodeRover and related repository localization systems
+   - Study graph/IR world models, retrieval, context selection, localization, and cross-file/cross-component reasoning.
+
+9. **AI code review and software-engineering agents**
+   - GitHub Copilot code review / cloud agent
+   - OpenHands
+   - SWE-agent
+   - Agentless
+   - relevant review/agent systems discovered later
+   - Study context access, instructions/skills/MCP, tool execution, autonomy, review authority, re-review, traceability, and human handoff.
+
+10. **Risk/confidence/reputation signals**
+    - Dependabot compatibility score
+    - Renovate Merge Confidence
+    - OpenSSF Scorecard
+    - release age/adoption/cooldown signals
+    - package behavior/reputation signals from Socket and similar systems
+    - Study which population each signal represents, calibration, failure modes, and whether crowd evidence can legitimately affect a target-specific decision.
+
+11. **Maintainer UX, policy, and workflow design**
+    - Renovate Dependency Dashboard + approval/packageRules
+    - Dependabot grouping/cooldown/scheduling
+    - GitHub rulesets / dependency review
+    - AI review workflows
+    - Study prioritization, batching, approval, escalation, explanation, user control, and how to reduce review load without hiding uncertainty.
+
+12. **Evaluation corpora, benchmarks, and uncertainty**
+    - BUMP
+    - DepBench / DepRepair
+    - SWE-bench-style software-agent evaluation
+    - calibration/selective-prediction research
+    - product-simulation / replay methodologies
+    - Study realistic ground truth, executable oracles, protected evaluation sets, error taxonomies, coverage-vs-risk, and human decision-quality metrics.
+
+13. **Security boundaries for agentic execution**
+    - sandbox/policy runtimes such as OpenShell
+    - untrusted-repository and prompt-injection research
+    - credentials/network/filesystem/mutation controls
+    - Study whether broad agent autonomy can coexist with externally enforced authority and reproducible audit logs.
+
+14. **Extensibility and ecosystem-generalization architecture**
+    - Dependabot-core ecosystem adapters
+    - Renovate managers/datasources/versioning modules
+    - ORT analyzer/provider abstractions
+    - OpenRewrite recipe ecosystem
+    - Study how mature tools add ecosystems without central logic becoming brittle, and what should remain Python-first in UpgradePilot.
+
+15. **Product positioning and maintainer-value research**
+    - Compare the above systems by the actual maintainer question they answer.
+    - Identify underserved space between “open an update PR”, “scan vulnerability/risk”, “migrate code”, “review PR”, and “provide trustworthy target-specific update decision support”.
+    - Research maintainer pain, review burden, useful output shape, adoption friction, and differentiation before treating architecture sophistication as product value.
+
+### 9.2 Pre-research findings that justify this expansion
+
+The initial scan already found materially relevant patterns:
+
+- Dependabot now exposes scheduling, cooldown and grouping, while its compatibility score is based on CI outcomes from other public repositories.
+- Renovate provides a Dependency Dashboard/approval workflow, powerful package rules, and Merge Confidence based on release age, adoption, passing tests, and confidence.
+- GitHub Dependency Review combines dependency diffs with vulnerability, license and scope policy.
+- Endor Labs explicitly offers both reachability analysis and direct-dependency Upgrade Impact Analysis.
+- Socket analyzes dependency behavioral changes such as install scripts, obfuscation, native code and privileged API use.
+- OSV-Scanner guided remediation resolves the transitive graph and presents alternative remediation strategies with different change/risk trade-offs.
+- OpenRewrite/Moderne show a recipe/codemod model where dependency upgrades can include source and build-file migration rather than only version replacement.
+- deps.dev and GUAC demonstrate reusable dependency/supply-chain graph foundations.
+- in-toto/SLSA/GitHub attestations demonstrate portable provenance claims rather than application-specific evidence only.
+- StepSecurity demonstrates per-workflow-step runtime network/process/file evidence; zizmor demonstrates the complementary static-analysis boundary.
+- Griffe demonstrates Python-specific deterministic API-break detection.
+- GitHub Copilot code review demonstrates a modern PR-review UX combining repository instructions, skills/MCP context, agentic operations, re-review, and bounded approval configuration.
+
+These are discovery signals only; each requires its own deeper report before being used as architecture evidence.
+
+### 9.3 Deep-report protocol
+
+When a research family's turn arrives, create a dated report instead of continuously expanding this plan.
+
+Each report should record:
+
+- research question and relevance to UpgradePilot;
+- representative systems/projects and current versions/state where material;
+- user workflow and product boundary;
+- inputs/evidence acquired;
+- internal representation/data model where observable;
+- algorithms/models/analyzers/tools used;
+- authority and trust boundaries;
+- automation/actions/mutations;
+- output/UX and policy controls;
+- supported ecosystems and extensibility strategy;
+- failure/uncertainty behavior;
+- security and privacy model;
+- evaluation/empirical evidence;
+- strengths and limitations;
+- transferable ideas;
+- ideas that should **not** be copied;
+- concrete hypotheses or experiments for later Track C;
+- sources and date checked.
+
+Do not convert a feature list into an UpgradePilot requirement during the report.
+
+### 9.4 Priority / sequencing
+
+Before Track C, perform deeper reports for the highest-leverage families:
+
+**Tier 1**
+1. closest dependency-update products/workflows;
+2. risk/reachability/upgrade-impact platforms;
+3. remediation/migration engines;
+4. dependency/evidence graph foundations + provenance standards;
+5. CI/runtime evidence and program-analysis techniques;
+6. repository-intelligence/agent architectures;
+7. evaluation + maintainer UX.
+
+**Tier 2**
+8. confidence/reputation signals;
+9. agent execution security;
+10. ecosystem extensibility;
+11. product positioning / maintainer-value research.
+
+**Tier 3 / trigger-driven**
+12. multi-agent specialization;
+13. probabilistic/calibrated claim authority;
+14. hosted/local model routing and cost optimization;
+15. other areas surfaced by Tier-1/2 reports.
+
+### 9.5 Sequence correction
+
+The previous “Step 2B complete enough for Track C” statement is superseded.
+
+The new route is:
+
+```text
+Step 2B-0  broad pre-research discovery                  COMPLETE
+Step 2B-1+ staged deep reports by research family        CURRENT / PENDING
+Step 2B-X   independent candidate-architecture refresh   after sufficient Tier-1 reports
+Step 2C     adversarial comparison with Track A          blocked by 2B-X
+Step 3      whole-pipeline architecture map              blocked by 2C
+```
+
+The research program should remain finite: a deep report is justified when it can materially change product scope, architecture, evidence design, evaluation, security, or maintainer UX. Stop investigating a family when additional detail cannot change those decisions.
