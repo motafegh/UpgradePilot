@@ -5,7 +5,7 @@
 The implementation/proof sequence and stop lines in this planning record are applied under the **Smart Situational Override Rule**. Current evidence may justify expanding, shrinking, reordering, combining, splitting, pausing, or overriding a planned increment/gate when that route is more faithful to the real product responsibility. A material override must be explicit and reconciled with the controlling plan/ADR/owner when their responsibility changes. It cannot invent authorization or proof.
 
 
-**Status:** R4 PLANNING/DESIGN COMPLETE; retained as the broader implementation/proof-sequence record. R2 semantic boundary and R3 evidence/data-flow architecture are closed. Increment 1 has been implemented, verified, learned, and closed in its dedicated cycle record. This record does not itself authorize future Build increments; `MEMORY.md` alone selects the live continuation.
+**Status:** R4 PLANNING/DESIGN COMPLETE; retained as the broader implementation/proof-sequence record. R2 semantic boundary and R3 evidence/data-flow architecture are closed. Increments 1 and 2 have been implemented, verified, learned, and closed in their dedicated cycle records. This record does not itself authorize future Build increments; `MEMORY.md` alone selects the live continuation.
 
 **Controlling plan:** plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md  
 **Accepted architecture:** docs/architecture/ADR-0010-package-manager-semantic-facts-and-runtime-dependency-state-composition.md  
@@ -78,7 +78,7 @@ Required cases:
 
 **Increment pass condition:** reusable step and command execution facts exist, existing coverage behavior remains compatible, and no package-manager-specific logic is introduced into CI execution evidence.
 
-### Increment 2 — static package-manager operation declaration and semantic fact core
+### Increment 2 — static package-manager operation declaration and semantic fact core — COMPLETED
 
 Expected source owners:
 - src/upgradepilot/dependency/pip_command.py
@@ -348,6 +348,22 @@ The live continuation after that closure is owned only by `MEMORY.md`; this R4 r
 
 This R4 record remains the broader implementation/proof-sequence owner and must not compete with the cycle record as the phase-status owner.
 
+## 7B. Increment 2 cycle execution record
+
+Increment 2 execution/learning is closed in:
+`working-memory/2026-09-28_increment-2_package-manager-operation-semantic-facts_lbd-cycle.md`.
+
+Recorded outcome:
+
+- A0/A1/A2 — done;
+- B — done;
+- Verification gate — green via Product verification #10 (15 focused investigation tests + 653 deterministic product tests);
+- D — done with real-case ownership learning and small precision-gap repair;
+- E — done;
+- C — reconciled through closure;
+- cycle — closed.
+
+The implementation now provides a shared static pip operation declaration and independent command-local semantic facts/problems without claiming ambient/config closure or resulting package state. Increment 3 remains the next planned technical responsibility, but Build authorization/selection remains owned by `MEMORY.md` and the next cycle.
 ## 8. Stop line / prohibited scope
 
 For any increment that has not been explicitly authorized for Build:
