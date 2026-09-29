@@ -583,3 +583,114 @@ The research program should remain finite: a deep report is justified when it ca
   - New hypotheses: a Python-first remediation stack using upstream API diff + target localization + deterministic recipe or bounded model repair + LibCST transform + executable validation; repeated validated model repairs may potentially become deterministic reusable recipes.
 
 - **Tier-1 Report 04 — Dependency/evidence graph foundations + provenance standards:** NEXT.
+
+
+## 10. Dual-value research rule — product value + learning/exposure value
+
+The external research program must evaluate tools, libraries, methods, standards, and frameworks on **two separate axes**.
+
+### 10.1 Axis A — UpgradePilot product/architecture value
+
+Ask:
+
+- does this solve a real current/future UpgradePilot responsibility?
+- does it improve correctness, coverage, evidence quality, security, UX, cost, or maintainability?
+- is it better than a simpler existing approach?
+- what concrete product pressure would justify adopting it?
+
+### 10.2 Axis B — engineering learning / career exposure value
+
+Also ask:
+
+- would hands-on exposure teach a transferable engineering concept or toolchain?
+- is the technology current, credible, and used in relevant software/AI/security/platform work?
+- would implementing a bounded real use case build demonstrable capability?
+- would it expose useful concepts that UpgradePilot otherwise would not teach?
+- can the learning be evidenced by code, tests, evaluation, design notes, or an experiment?
+
+Examples of potentially valuable exposure include:
+
+- program-analysis frameworks;
+- graph/query systems;
+- AST/CST transformation;
+- SBOM/provenance standards;
+- policy engines;
+- sandbox/runtime security;
+- agent orchestration;
+- static-analysis/query languages;
+- package-manager/resolver integration;
+- supply-chain security tooling;
+- benchmark/evaluation infrastructure.
+
+### 10.3 Keep the two axes independent
+
+A technology may be:
+
+```text
+high product value + high learning value
+→ strong adoption/experiment candidate
+
+high product value + low novelty
+→ still use it if it is the right engineering solution
+
+low product value + high learning value
+→ possible bounded learning experiment, but do not burden product architecture
+
+low product value + low learning value
+→ normally skip
+```
+
+Do not add technology to production merely for résumé value.
+
+But also do not reject a technically reasonable option only because another simpler option exists when the alternative provides materially higher transferable learning value at proportionate cost.
+
+This refines the project's “smartest instead of smallest” principle:
+
+> choose proportionately strong solutions while accounting for both product quality and deliberate engineering skill acquisition.
+
+### 10.4 Experience-evidence ladder
+
+Use precise language for future portfolio/CV claims:
+
+```text
+RESEARCHED
+read/evaluated/documented the tool
+!= worked with it
+
+HANDS-ON EXPERIMENTED
+installed/configured/executed it on a bounded real case
+→ may say experimented with / hands-on exposure
+
+PROJECT-INTEGRATED
+implemented it in UpgradePilot with source/tests/design evidence
+→ may say worked with / integrated
+
+VALIDATED / OPERATED
+used it repeatedly against representative cases with evaluation/diagnostics
+→ stronger practical experience claim
+```
+
+Never turn reading documentation into a “worked with” claim.
+
+### 10.5 Required field in future deep reports
+
+Every deep report must now include:
+
+**Learning / exposure opportunities**
+
+For each interesting tool/method:
+
+- what it teaches;
+- relevance to target career capability;
+- hands-on experiment that would count as real exposure;
+- estimated implementation/learning cost;
+- whether product need independently justifies it;
+- recommended exposure level: `research only / lab experiment / project experiment / product candidate / defer`.
+
+A separate exposure ledger tracks these across reports.
+
+### 10.6 Selection rule
+
+When two technically acceptable approaches are close in product value, prefer the one that gives broader transferable engineering learning **if** it does not materially worsen correctness, maintainability, security, or schedule.
+
+When learning value is the primary reason for trying a technology, keep it explicitly bounded as an experiment and evaluate it against the simpler baseline.
