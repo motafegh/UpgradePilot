@@ -940,3 +940,37 @@ Architecture experiments now have explicit pipeline triggers rather than existin
 Step 3 does not alter Increment 4. It explicitly keeps CodeQL/graphs/agents/runtime telemetry/broad discovery/action synthesis outside that composer responsibility.
 
 **Next: Step 4 — reconcile existing UpgradePilot AI/LLM/agent experiments and proposals against the exact Step-3 responsibility map.**
+
+
+### 9.11 Step 4 — existing AI/LLM/agent reconciliation
+
+**Status: COMPLETE.**
+
+Record:
+- \`working-memory/2026-09-29_step4_existing-ai-agent-work-reconciliation.md\`
+
+Disposition summary:
+
+- bounded support-drop local LLM extractor → **KEEP ADOPTED** for its exact semantic role;
+- ordinary-Python EvidenceGapPlanner → **RETAIN AS PILOT**, no product adoption from one-action evidence;
+- LangGraph EvidenceGapPlanner → **RETAIN EXPERIMENT EVIDENCE / DEFER FRAMEWORK ADOPTION**;
+- bounded LLM-assisted maintainer synthesis proposal → **RETAIN AS STRONG FUTURE DESIGN / DEFER ACTIVATION / REWORK BEFORE ACTIVATION**;
+- mature-system AI/agent horizon → keep non-controlling; reconcile only after Step 5 chooses changes;
+- broad impact-candidate discovery → identified as the largest missing future AI responsibility;
+- generalist product agent, multi-agent system, LangChain abstraction, generic vector/RAG infrastructure → **NOT CURRENT GAPS**.
+
+Shared pattern preserved:
+
+\`\`\`text
+trusted deterministic state
+→ explicit model observation
+→ structured model proposal
+→ deterministic rebinding/admission
+→ trusted effect/state
+\`\`\`
+
+but future broad discovery may use progressive repository/source retrieval rather than permanently tiny model projections.
+
+Step 4 confirms no AI/agent work belongs in Increment 4 or the initial Increment-5 integration responsibility.
+
+**Next: Step 5 — select actual architecture changes, experiment queue, ADR/spec updates, explicit deferrals, and integration strategy for this analysis branch.**
