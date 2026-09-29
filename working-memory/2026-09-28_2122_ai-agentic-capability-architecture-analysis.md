@@ -1496,3 +1496,59 @@ Important architecture patterns captured for later comparison:
 These are hypotheses for later Track C, not adopted UpgradePilot architecture.
 
 Next: Tier-1 Report 02 — risk, reachability and upgrade-impact platforms.
+
+
+## 20. Tier-1 Report 02 — risk, reachability and upgrade impact
+
+Completed external deep report:
+
+- `working-memory/2026-09-29_tier1-02_dependency-risk-reachability-and-upgrade-impact-platforms.md`
+- Endor Labs
+- Semgrep Supply Chain
+- Snyk Open Source
+- Socket
+
+Material correction to the research thesis:
+
+```text
+"target-specific dependency impact analysis is largely absent"
+→ FALSE / too broad
+```
+
+Modern platforms already provide important forms of:
+
+- target + dependency call-graph reachability;
+- vulnerable-function/data-flow prioritization;
+- old→new dependency-version breaking-change analysis;
+- first-party + third-party static analysis;
+- LLM-assisted upgrade guidance;
+- dependency behavior-delta detection;
+- dependency-graph-aware remediation planning.
+
+Important independent architecture evidence:
+
+- Endor: call/context graph + version diff + upgrade blast-radius analysis;
+- Semgrep: target static analysis + dependency-version static analysis → LLM breaking-change report;
+- Snyk: program analysis + AI/NLP + call graph + human curation, with explicit `NO PATH FOUND != unreachable`;
+- Socket: multi-strength reachability, human-verified vs AI-generated vulnerability specifications, package behavior delta, and fix planning.
+
+Revised UpgradePilot product-space hypothesis:
+
+```text
+general dependency-update decision intelligence
+across multiple impact/evidence mechanisms
++
+CI/runtime/environment proof
++
+explicit evidence gaps and adaptive investigation
++
+repository-purpose/context
++
+uncertainty-aware maintainer action
+```
+
+This remains a hypothesis, not an accepted product claim.
+
+New questions preserved for later Track C include graph-native evidence, upstream source/API diffing, graded AI evidence authority, package behavior changes, and stronger distinction among no-path / unsupported / unresolved / proven non-applicability.
+
+Next: Tier-1 Report 03 — remediation and migration engines.
