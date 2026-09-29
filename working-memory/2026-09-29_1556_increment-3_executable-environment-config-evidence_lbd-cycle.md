@@ -576,3 +576,37 @@ The next coherent Build pressure is now explicit:
 - executable/interpreter identity for `python -m pip` / setup-python / venv relations.
 
 Increment 3 remains B CURRENT; no Verification PASS has been claimed.
+
+
+### B child verification — Product verification #11 GREEN
+
+Hosted Product verification run #11:
+- run: https://github.com/motafegh/UpgradePilot/actions/runs/36585040140
+- event: `workflow_dispatch`
+- attempt: 1
+- head: `24d28c03495b063de817946c6faf54cd2ba8255d`
+- conclusion: **success**
+- job `Installed package and deterministic product tests`: success
+- fresh install / CLI entry-point checks: success
+- focused investigation composition: **15 tests, OK**
+- full deterministic product regression: **672 tests, OK**
+
+The hosted logs explicitly contain the new Increment-3 proof cases, including:
+- workflow env precedence;
+- Bash command-local environment assignment preservation;
+- exact-process command-local environment establishment;
+- end-to-end command-local PIP_DRY_RUN → mutation semantic fact;
+- pip semantic consumption of exact-process dry-run evidence.
+
+Supported claim:
+> The first Increment-3 declarative/process-environment/pip-mutation slice executes successfully in the installed product environment and does not regress the current deterministic product suite.
+
+Non-proof:
+- this does not yet satisfy the whole Increment-3 pass condition;
+- job/workflow/step env alone is still not exact-process truth;
+- GITHUB_ENV / same-step prior export / provider effects remain unmodeled;
+- persistent pip configuration/default closure is not yet implemented;
+- executable/interpreter identity is not yet implemented;
+- no command-derived RequirementSatisfiedAtCommandCompletion claim exists yet.
+
+Therefore B remains CURRENT. This is a verified child slice, not the cycle Verification gate.
