@@ -1,7 +1,7 @@
 # Increment 3 — Bounded Executable / Environment / Config Evidence — Learning-by-Doing Cycle
 
 **Date:** 2026-09-29  
-**Cycle status:** ACTIVE — A0/A1/A2/B/D DONE; Verification GREEN through Product verification #14; E CURRENT  
+**Cycle status:** CLOSED — A0/A1/A2/B/D/E DONE; Verification GREEN through Product verification #14; C DONE  
 **Primary responsibility:** add only the bounded executable/interpreter, exact-process environment, persistent-config/default evidence required to close Route-A package-manager semantic blockers  
 **Controlling plan:** `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`  
 **R4 implementation sequence:** `working-memory/2026-09-27_runtime-dependency-state-proof-implementation-and-verification-planning.md`  
@@ -19,8 +19,8 @@ A2 — DONE: responsibility/proof model understood; terminology correction recor
 B — DONE: B1-B5 implemented; first controlled Route-A fixture closes all four semantic facts while ordinary ambient cases abstain
 Verification gate — GREEN: Product verification #14 on exact B5 head; focused 15/15 and deterministic 699/699
 D — DONE: integrated post-work evidence-backed learning completed; ownership gate cleared after targeted repair
-E — PENDING
-C — CONTINUOUS: preserve meaningful engineering + learning progression through closure
+E — DONE: proof/non-proof consolidated; residual boundaries explicitly deferred; Increment 4 selected for next cycle
+C — DONE: meaningful engineering + learning progression preserved through closure
 ```
 
 ## A0 — current-state reconciliation + cycle initialization — DONE
@@ -1034,3 +1034,118 @@ No material D understanding gap remains for this cycle.
 
 D is **DONE**.
 E is now **CURRENT**: consolidate proof/non-proof, reconcile final live state, select the next responsibility under the controlling R4 sequence, and close the Increment-3 cycle.
+
+
+## E — gap repair + cycle closure / next-responsibility handoff — DONE
+
+### Gap-repair result
+
+No material engineering or learning gap remains that blocks Increment-3 closure.
+
+D's only material ownership gaps were repaired before E:
+- a closer source may supersede an older source only within the same proposition and only when its effect/value is actually established;
+- unmodeled venv activation therefore keeps later bare-Python selection unresolved;
+- launcher Python and pip manager-target Python are independent facts rather than precedence competitors;
+- S011 first requires affected optional-extra/dependency-family activation before Increment-3 semantics for some other family can matter.
+
+No additional B work is justified by those repairs.
+
+### Increment-3 established capability
+
+Increment 3 now provides bounded evidence sufficient to settle the four independent package-manager semantic dimensions for one controlled Route-A command family:
+
+```text
+provider/workflow declaration evidence
+→ exact-process environment evidence where admitted
+→ persistent pip config evidence where demanded
+→ manager defaults only after higher sources close
+
+plus
+
+explicit executable path / bounded setup-python executable relationship
+```
+
+yielding independently:
+- `ManagerEnvironmentSelectionFact`;
+- `InstallationDestinationFact`;
+- `PackageMutationModeFact`;
+- `DirectRequirementHandlingFact`.
+
+Product verification #14 proves the selected positive fixture and the fail-closed ordinary-looking counterexample.
+
+### Explicit non-proof / deferred boundary
+
+Increment 3 does **not** establish:
+- the exact proposed requirement/version is satisfied at command completion;
+- fresh-install causality;
+- artifact/wheel/sdist identity;
+- package-state persistence after the command;
+- later behavior/exercise;
+- compatibility;
+- maintainer-action permission.
+
+Nor does closure require:
+- arbitrary GITHUB_ENV/GITHUB_PATH propagation;
+- universal workflow-env → process-env promotion;
+- general venv activation modeling;
+- arbitrary pip config-file acquisition;
+- universal PATH/runner reconstruction.
+
+Those remain later demand-driven expansion points only if a real proof-critical case requires them.
+
+### Next selected responsibility — Increment 4
+
+The accepted R4 sequence now selects:
+
+**Increment 4 — command-derived requirement-state composer**
+
+Responsibility:
+
+```text
+exact dependency transition + source applicability
++ supported command consumption
++ ManagerEnvironmentSelectionFact
++ InstallationDestinationFact
++ PackageMutationModeFact
++ DirectRequirementHandlingFact
++ exact successful command execution
+→ RequirementSatisfiedAtCommandCompletion-style witness
+```
+
+The witness must preserve:
+- exact package/version identity;
+- exact dependency source;
+- workflow/job/step/command provenance;
+- resolved manager environment and destination scope;
+- semantic provenance;
+- the successful command-completion observation boundary;
+- explicit limitations/non-proofs.
+
+It must **not** silently claim:
+- that the version was freshly installed by this command rather than already satisfied;
+- which artifact produced the state;
+- that the state persists later in the job;
+- that affected behavior was exercised;
+- compatibility;
+- maintainer-action permission.
+
+Application integration is the later Increment-5 responsibility and is not started here.
+
+### Cycle closure
+
+Increment 3 is **CLOSED**.
+
+```text
+A0 — DONE
+A1 — DONE
+A2 — DONE
+B — DONE
+Verification — GREEN
+D — DONE
+E — DONE
+C — DONE
+```
+
+STOP at this cycle boundary.
+
+The next substantive work must begin a fresh Increment-4 Learning-by-Doing cycle at A0; this E phase does not pre-orient or implement Increment 4.
