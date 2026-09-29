@@ -1695,3 +1695,67 @@ Important learning/exposure candidates added/refined:
 - ORT as a full SCA/policy/report pipeline comparator.
 
 Next: Tier-1 Report 05 — CI/runtime evidence + program-analysis techniques.
+
+
+## 24. Tier-1 Report 05 — CI/runtime evidence + program analysis
+
+Completed:
+
+- `working-memory/2026-09-29_tier1-05_ci-runtime-evidence-and-program-analysis.md`
+- actionlint
+- zizmor
+- GitHub native runtime/debug logs
+- StepSecurity Harden-Runner
+- act
+- CodeQL for GitHub Actions and Python
+- Joern
+- CrossHair
+- angr
+
+Key architecture correction:
+
+```text
+GitHub Actions semantics
+!= shell semantics
+!= package-manager semantics
+!= runtime observation
+!= target dependency decision
+```
+
+Mature tools already cover important portions:
+
+- actionlint: Actions schema/expression semantics + ShellCheck/pyflakes integration;
+- zizmor: CI/CD security-impact analysis;
+- CodeQL Actions: AST + CFG + inter-step data/taint flow;
+- StepSecurity: direct process/network/file runtime telemetry;
+- act: reconstructed/emulated workflow execution;
+- CodeQL Python / Joern: program-level structural/data-flow analysis;
+- CrossHair/angr: bounded symbolic/path reasoning.
+
+Most important future comparator:
+
+```text
+current UpgradePilot workflow/env reasoning
+vs
+custom CodeQL Actions query
+vs
+actual GitHub runtime evidence
+vs
+optional StepSecurity telemetry
+```
+
+Current package-manager/environment semantics remain independently justified; none of these external systems directly owns those domain propositions.
+
+New evidence-type distinction to preserve for Track C:
+
+```text
+static structural proof
+historical runtime observation
+instrumented runtime telemetry
+emulated/reconstructed execution
+symbolic proof
+```
+
+These must not be collapsed into one generic “execution evidence” class.
+
+Next: Tier-1 Report 06 — repository-intelligence and agent architectures.
