@@ -14,6 +14,7 @@ from typing import Literal
 from ..github.workflow_command_analysis import StaticCommandAtom
 from ..github.process_environment import ProcessEnvironmentValueEvidence
 from ..github.workflow_command_location import StaticCommandLocation
+from .package_manager_config import PackageManagerConfigSettingEvidence
 from .package_manager_operation import PackageManagerName, PackageManagerOperationDeclaration
 
 
@@ -342,6 +343,7 @@ def resolve_package_mutation_mode(
     declaration: PackageManagerOperationDeclaration,
     *,
     process_environment: ProcessEnvironmentValueEvidence | None = None,
+    persistent_configuration: PackageManagerConfigSettingEvidence | None = None,
 ) -> PackageMutationModeFact | PackageManagerSemanticProblem:
     """Resolve explicit dry-run or preserve the unresolved effective-semantics edge."""
 
@@ -437,17 +439,57 @@ def resolve_package_mutation_mode(
             ),
         )
 
-    return _problem(
+    if persistent_configuration is None:
+        return _problem(
+            declaration,
+            "package_mutation_mode",
+            "package_mutation_mode_needs_persistent_config_evidence",
+            (
+                "Command line and exact PIP_DRY_RUN process environment are non-overriding; "
+                "persistent configuration must still be resolved before the manager default "
+                "can establish apply-changes behavior."
+            ),
+            resolved_prefix=(cli_step, env_step),
+            blocking_source="persistent_configuration",
+        )
+
+    config_problem = _validate_persistent_config_evidence(
         declaration,
-        "package_mutation_mode",
-        "package_mutation_mode_needs_persistent_config_evidence",
-        (
-            "Command line and exact PIP_DRY_RUN process environment are non-overriding; "
-            "persistent configuration must still be resolved before the manager default "
-            "can establish apply-changes behavior."
-        ),
+        persistent_configuration,
+        setting="dry-run",
+        dimension="package_mutation_mode",
         resolved_prefix=(cli_step, env_step),
-        blocking_source="persistent_configuration",
+    )
+    if config_problem is not None:
+        return config_problem
+
+    config_step = PackageManagerSemanticResolutionStep(
+        source_kind="persistent_configuration",
+        disposition="disabled",
+        detail=(
+            "Applicable pip persistent configuration is positively disabled for "
+            "the dry-run setting."
+        ),
+        locator=persistent_configuration.source_locator,
+    )
+    default_step = PackageManagerSemanticResolutionStep(
+        source_kind="manager_default",
+        disposition="decisive",
+        detail=(
+            "After command line, exact process environment, and persistent configuration "
+            "are proven non-overriding/disabled, pip's normal install default applies changes."
+        ),
+        locator="pip install default",
+    )
+    return PackageMutationModeFact(
+        manager=declaration.manager,
+        command_location=declaration.command_location,
+        mode="apply_changes",
+        provenance=PackageManagerSemanticResolutionProvenance(
+            dimension="package_mutation_mode",
+            inspected_sources=(cli_step, env_step, config_step, default_step),
+            winning_source="manager_default",
+        ),
     )
 
 
@@ -508,6 +550,59 @@ def resolve_direct_requirement_handling(
         ),
         blocking_source="process_environment",
     )
+
+
+def _validate_persistent_config_evidence(
+    declaration: PackageManagerOperationDeclaration,
+    evidence: PackageManagerConfigSettingEvidence,
+    *,
+    setting: str,
+    dimension: PackageManagerSemanticDimension,
+    resolved_prefix: tuple[PackageManagerSemanticResolutionStep, ...],
+) -> PackageManagerSemanticProblem | None:
+    if evidence.command_location != declaration.command_location:
+        return _problem(
+            declaration,
+            dimension,
+            "persistent_config_command_identity_mismatch",
+            "Persistent-config evidence belongs to a different static command occurrence.",
+            resolved_prefix=resolved_prefix,
+            blocking_source="persistent_configuration",
+        )
+    if evidence.manager != declaration.manager:
+        return _problem(
+            declaration,
+            dimension,
+            "persistent_config_manager_identity_mismatch",
+            "Persistent-config evidence belongs to a different package manager.",
+            resolved_prefix=resolved_prefix,
+            blocking_source="persistent_configuration",
+        )
+    if evidence.setting != setting:
+        return _problem(
+            declaration,
+            dimension,
+            "persistent_config_setting_identity_mismatch",
+            (
+                f"Semantic resolution requires persistent setting {setting!r}, but supplied "
+                f"evidence is for {evidence.setting!r}."
+            ),
+            resolved_prefix=resolved_prefix,
+            blocking_source="persistent_configuration",
+        )
+    if evidence.state != "disabled":
+        return _problem(
+            declaration,
+            dimension,
+            "persistent_config_setting_unresolved",
+            (
+                f"Persistent configuration for {setting!r} is unresolved: "
+                f"{evidence.reason}: {evidence.detail}"
+            ),
+            resolved_prefix=resolved_prefix,
+            blocking_source="persistent_configuration",
+        )
+    return None
 
 
 def _matching_process_environment_value(
