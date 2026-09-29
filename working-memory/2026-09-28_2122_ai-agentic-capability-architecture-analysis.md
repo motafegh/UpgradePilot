@@ -2083,3 +2083,42 @@ Increment 4 remains deterministic package-state composition.
 
 Next:
 **Step 5 — turn the completed research into concrete accepted-change / experiment / defer / no-action decisions and determine how the analysis branch should integrate.**
+
+
+## 31. Step 5 — convergence decisions COMPLETE
+
+Record:
+- \`working-memory/2026-09-29_step5_architecture-decisions-experiment-queue-and-integration-strategy.md\`
+
+Live main refreshed to:
+
+\`\`\`text
+e63019cddaa64565504c3de98c87449d49838667
+Increment 4 A0 DONE
+Increment 4 A1 CURRENT
+\`\`\`
+
+Final architecture stance:
+
+\`\`\`text
+KEEP the evidence/trust spine
+CONTINUE Increment 4 → Increment 5
+DO NOT add new AI/agent/framework dependencies now
+QUEUE experiments only at responsibility-specific triggers
+PRESERVE unresolved states and deterministic admission
+USE AI for open-ended semantics/planning/synthesis only where evidence justifies it
+OPTIMIZE mature product for maintainer decision quality, not autonomy
+\`\`\`
+
+Branch integration decision:
+
+- do NOT merge the research branch wholesale;
+- keep it as detailed research provenance;
+- after a clean Increment-4 stop/closure, selectively port the distilled Step-3/4/5 architecture records and learning ledger into a fresh main-based documentation integration;
+- reconcile the Mature System Horizon once at that point;
+- do not touch live \`MEMORY.md\` ownership from this branch.
+
+The architecture research program is CLOSED at the analysis level.
+
+Next project action is on main:
+**continue Increment-4 A1 → A2 under the active LbD cycle.**
