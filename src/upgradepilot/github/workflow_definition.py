@@ -70,6 +70,7 @@ class RunStepDefinition:
     continue_on_error: StaticScalarValue | None
     shell: StaticScalarValue | None
     working_directory: StaticScalarValue | None
+    environment: StaticMappingValue | None
     span: SourceSpan
 
 
@@ -81,6 +82,7 @@ class UsesStepDefinition:
     condition: StaticScalarValue | None
     continue_on_error: StaticScalarValue | None
     with_inputs: StaticMappingValue | None
+    environment: StaticMappingValue | None
     span: SourceSpan
 
 
@@ -107,6 +109,7 @@ class StepsJobDefinition:
     run_defaults: RunDefaults | None
     strategy: GitHubActionsStaticValue | None
     container: GitHubActionsStaticValue | None
+    environment: StaticMappingValue | None
     steps: tuple[StepEntry, ...]
     span: SourceSpan
 
@@ -139,6 +142,7 @@ type JobEntry = StepsJobDefinition | ReusableWorkflowJobDefinition | JobProblem
 class WorkflowDefinition:
     source: RepositoryTextFile
     run_defaults: RunDefaults | None
+    environment: StaticMappingValue | None
     jobs: tuple[JobEntry, ...]
 
 
@@ -195,7 +199,7 @@ def parse_workflow_definition(source: RepositoryTextFile) -> WorkflowDefinitionR
         )
 
     try:
-        root_fields = _unique_material_fields(root, {"defaults", "jobs"})
+        root_fields = _unique_material_fields(root, {"defaults", "env", "jobs"})
         jobs_node = root_fields.get("jobs")
         if jobs_node is None:
             return WorkflowDefinitionProblem(
@@ -235,7 +239,12 @@ def parse_workflow_definition(source: RepositoryTextFile) -> WorkflowDefinitionR
             span=_span(exc.node),
         )
 
-    return WorkflowDefinition(source=source, run_defaults=run_defaults, jobs=jobs)
+    return WorkflowDefinition(
+        source=source,
+        run_defaults=run_defaults,
+        environment=_optional_mapping_value(root_fields.get("env"), "workflow env"),
+        jobs=jobs,
+    )
 
 
 def _parse_job(source_index: int, key: str, node: Node) -> JobEntry:
@@ -258,6 +267,7 @@ def _parse_job(source_index: int, key: str, node: Node) -> JobEntry:
                 "if",
                 "continue-on-error",
                 "defaults",
+                "env",
                 "strategy",
                 "container",
                 "steps",
@@ -279,6 +289,12 @@ def _parse_job(source_index: int, key: str, node: Node) -> JobEntry:
             )
 
         if uses_node is not None:
+            if fields.get("env") is not None:
+                raise _StructuralIssue(
+                    "reusable_workflow_job_env_unsupported",
+                    "Job-level env is not admitted for reusable-workflow call jobs.",
+                    fields["env"],
+                )
             return ReusableWorkflowJobDefinition(
                 source_index=source_index,
                 key=key,
@@ -316,6 +332,7 @@ def _parse_job(source_index: int, key: str, node: Node) -> JobEntry:
             run_defaults=_parse_run_defaults(fields.get("defaults"), scope=f"job {key!r}"),
             strategy=_optional_static_value(fields.get("strategy")),
             container=_optional_static_value(fields.get("container")),
+            environment=_optional_mapping_value(fields.get("env"), f"job {key!r} env"),
             steps=tuple(
                 _parse_step(step_index, step_node)
                 for step_index, step_node in enumerate(steps_node.value)
@@ -352,6 +369,7 @@ def _parse_step(source_index: int, node: Node) -> StepEntry:
                 "uses",
                 "shell",
                 "working-directory",
+                "env",
                 "with",
             },
         )
@@ -369,6 +387,7 @@ def _parse_step(source_index: int, node: Node) -> StepEntry:
         continue_on_error = _optional_scalar(
             fields.get("continue-on-error"), "step continue-on-error"
         )
+        environment = _optional_mapping_value(fields.get("env"), "step env")
         if run_node is not None:
             return RunStepDefinition(
                 source_index=source_index,
@@ -380,6 +399,7 @@ def _parse_step(source_index: int, node: Node) -> StepEntry:
                 working_directory=_optional_scalar(
                     fields.get("working-directory"), "step working-directory"
                 ),
+                environment=environment,
                 span=_span(node),
             )
 
@@ -391,6 +411,7 @@ def _parse_step(source_index: int, node: Node) -> StepEntry:
             condition=condition,
             continue_on_error=continue_on_error,
             with_inputs=_optional_mapping_value(fields.get("with"), "step with"),
+            environment=environment,
             span=_span(node),
         )
     except _StructuralIssue as exc:
