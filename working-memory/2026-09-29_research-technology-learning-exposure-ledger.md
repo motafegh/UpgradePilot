@@ -100,3 +100,48 @@ This allows future claims such as:
 > “Built and evaluated a Python API migration prototype using Griffe and LibCST”
 
 only after that experiment actually exists.
+
+
+## Tier-1 Report 04 additions
+
+### deps.dev / Open Source Insights
+- **Current state:** RESEARCHED.
+- **Learning value:** high.
+- **Hands-on target:** query two PyPI versions, compare declared requirements vs resolved generic dependency graphs, and compare with target-derived evidence.
+- **Recommended exposure:** HANDS_ON_EXPERIMENTED.
+
+### GUAC
+- **Current state:** RESEARCHED.
+- **Learning value:** very high.
+- **Hands-on target:** run GUAC locally, ingest CycloneDX/SPDX, enable deps.dev/OSV enrichment, query relationships with GraphQL.
+- **Recommended exposure:** HANDS_ON_EXPERIMENTED; possible later architecture comparator.
+
+### CycloneDX 1.7
+- **Current state:** RESEARCHED.
+- **Learning value:** very high.
+- **Hands-on target:** encode one UpgradePilot evidence case with components, dependency edges, evidence techniques, occurrences, callstack, claims, evidence, assessor, citation, formulation.
+- **Recommended exposure:** HANDS_ON_EXPERIMENTED; possible future interchange/export candidate.
+
+### SPDX 3.0.1
+- **Current state:** RESEARCHED.
+- **Learning value:** high.
+- **Hands-on target:** model repo/build/dependency relationships and compare `NoneElement` vs `NoAssertionElement` with UpgradePilot unresolved/non-applicable semantics.
+- **Recommended exposure:** HANDS_ON_EXPERIMENTED.
+
+### SLSA 1.2 + in-toto + Sigstore/Cosign
+- **Current state:** RESEARCHED.
+- **Learning value:** very high for supply-chain security.
+- **Hands-on target:** generate and verify an attestation for a GitHub Actions artifact/report bound to exact revision/workflow/artifact digest.
+- **Recommended exposure:** project experiment candidate if audit/replay value is confirmed.
+
+### GitHub artifact attestations / dependency submission
+- **Current state:** RESEARCHED.
+- **Learning value:** high and directly aligned with existing GitHub Actions work.
+- **Hands-on target:** compare static dependency detection with build-time submitted snapshots; generate/verify a small artifact attestation.
+- **Recommended exposure:** project experiment candidate.
+
+### OSS Review Toolkit
+- **Current state:** RESEARCHED.
+- **Learning value:** high but heavier.
+- **Hands-on target:** analyze a small Python project, inspect OrtResult, export SPDX/CycloneDX, optionally add one policy rule.
+- **Recommended exposure:** bounded lab if Track C needs a mature SCA pipeline baseline.
