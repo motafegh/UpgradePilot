@@ -1552,3 +1552,47 @@ This remains a hypothesis, not an accepted product claim.
 New questions preserved for later Track C include graph-native evidence, upstream source/API diffing, graded AI evidence authority, package behavior changes, and stronger distinction among no-path / unsupported / unresolved / proven non-applicability.
 
 Next: Tier-1 Report 03 — remediation and migration engines.
+
+
+## 21. Tier-1 Report 03 — remediation and migration engines
+
+Completed:
+
+- `working-memory/2026-09-29_tier1-03_remediation-and-migration-engines.md`
+- OSV-Scanner Guided Remediation
+- OpenRewrite / Moderne
+- DepRepair / DepBench
+- Griffe
+- LibCST
+
+Material research finding:
+
+```text
+impact/problem detection
+!= remediation strategy selection
+!= target-site localization
+!= source/manifest transformation
+!= graph/lock regeneration
+!= validation
+```
+
+External architecture patterns:
+
+- OSV-Scanner: multiple graph-level remediation strategies with explicit risk/change trade-offs and iterative graph recomputation;
+- OpenRewrite/Moderne: type-attributed format-preserving semantic IR + composable/idempotent recipes + preconditions + dry-run/commit separation;
+- DepRepair: distilled cross-repository evidence + usage localization + breakage-class guide → one bounded LLM repair call → executable oracle;
+- Griffe: deterministic Python old/new API breakage candidates with explicit unsupported comparison classes;
+- LibCST: Python format-preserving metadata-aware codemod substrate.
+
+Important hypotheses preserved for Track C:
+
+- deterministic recipes and generative repair may be complementary;
+- known recurring migration → recipe/codemod;
+- novel evidence-rich migration → bounded model repair;
+- paradigm shift / weak evidence → interactive investigation or maintainer;
+- analysis/evidence graph and mutation IR may need to remain distinct representations;
+- upstream source/API diff deserves first-class investigation;
+- mutation execution requires security/sandbox policy;
+- executable success remains bounded by test/environment fidelity.
+
+Next: Tier-1 Report 04 — dependency/evidence graph foundations + provenance standards.
