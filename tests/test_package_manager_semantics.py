@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import unittest
 
+from upgradepilot.dependency.package_manager_config import PackageManagerConfigSettingEvidence
 from upgradepilot.dependency.package_manager_operation import (
     PackageManagerOperationDeclaration,
     PackageManagerOperationProblem,
@@ -95,6 +96,24 @@ def _process_environment(
         workflow_revision="a" * 40,
         job_key="test",
         step_source_index=0,
+    )
+
+
+def _persistent_config(
+    declaration: PackageManagerOperationDeclaration,
+    *,
+    state: str = "disabled",
+    reason: str = "pip_configuration_files_disabled",
+) -> PackageManagerConfigSettingEvidence:
+    return PackageManagerConfigSettingEvidence(
+        manager="pip",
+        setting="dry-run",
+        state=state,  # type: ignore[arg-type]
+        value=None,
+        reason=reason,
+        detail="focused package-manager semantic test config evidence",
+        command_location=declaration.command_location,
+        source_locator="PIP_CONFIG_FILE",
     )
 
 
@@ -285,6 +304,65 @@ class PackageManagerSemanticFactTests(unittest.TestCase):
             [step.source_kind for step in result.resolved_prefix],
             ["command_line", "process_environment"],
         )
+
+    def test_disabled_persistent_config_allows_apply_changes_default(self) -> None:
+        declaration = _declaration(
+            "pip",
+            "install",
+            "-r",
+            "requirements.txt",
+        )
+
+        result = resolve_package_mutation_mode(
+            declaration,
+            process_environment=_process_environment(
+                declaration,
+                "PIP_DRY_RUN",
+                value="0",
+            ),
+            persistent_configuration=_persistent_config(declaration),
+        )
+
+        self.assertIsInstance(result, PackageMutationModeFact)
+        assert isinstance(result, PackageMutationModeFact)
+        self.assertEqual(result.mode, "apply_changes")
+        self.assertEqual(result.provenance.winning_source, "manager_default")
+        self.assertEqual(
+            [step.source_kind for step in result.provenance.inspected_sources],
+            [
+                "command_line",
+                "process_environment",
+                "persistent_configuration",
+                "manager_default",
+            ],
+        )
+
+    def test_unresolved_persistent_config_blocks_manager_default(self) -> None:
+        declaration = _declaration(
+            "pip",
+            "install",
+            "-r",
+            "requirements.txt",
+        )
+
+        result = resolve_package_mutation_mode(
+            declaration,
+            process_environment=_process_environment(
+                declaration,
+                "PIP_DRY_RUN",
+                value="0",
+            ),
+            persistent_configuration=_persistent_config(
+                declaration,
+                state="unresolved",
+                reason="pip_config_file_requires_content_resolution",
+            ),
+        )
+
+        self.assertIsInstance(result, PackageManagerSemanticProblem)
+        assert isinstance(result, PackageManagerSemanticProblem)
+        self.assertEqual(result.reason, "persistent_config_setting_unresolved")
+        self.assertEqual(result.blocking_source, "persistent_configuration")
 
     def test_unresolved_exact_process_dry_run_does_not_fall_through(self) -> None:
         declaration = _declaration(
