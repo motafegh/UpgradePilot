@@ -39,6 +39,7 @@ type PackageManagerSemanticSourceDisposition = Literal[
 ]
 type PackageManagerEnvironmentKind = Literal["pip_python_target"]
 type InstallationDestinationKind = Literal[
+    "manager_environment_scheme",
     "target_directory",
     "user_scheme",
     "prefix_scheme",
@@ -216,12 +217,16 @@ def resolve_manager_environment_selection(
 
 def resolve_installation_destination(
     declaration: PackageManagerOperationDeclaration,
+    *,
+    process_environment: tuple[ProcessEnvironmentValueEvidence, ...] = (),
+    persistent_configuration: PackageManagerConfigSettingEvidence | None = None,
 ) -> InstallationDestinationFact | PackageManagerSemanticProblem:
-    """Resolve one explicit pip destination selector or preserve the lower-source edge."""
+    """Resolve explicit/ambient pip destination selection without inventing defaults."""
 
     selectors: list[InstallationDestination] = []
     arguments = declaration.operation_arguments
     index = 0
+    user_scope_disabled_on_cli = False
 
     while index < len(arguments):
         atom = arguments[index]
@@ -240,6 +245,11 @@ def resolve_installation_destination(
             continue
 
         folded = token.casefold()
+        if folded == "--no-user":
+            user_scope_disabled_on_cli = True
+            index += 1
+            continue
+
         boolean_kind = _DESTINATION_BOOLEAN_OPTIONS.get(folded)
         if boolean_kind is not None:
             selectors.append(InstallationDestination(kind=boolean_kind))
@@ -303,7 +313,7 @@ def resolve_installation_destination(
             "multiple_installation_destination_selectors",
             (
                 "Multiple command-line destination selectors require composition semantics "
-                "outside the admitted Increment-2 first surface."
+                "outside the admitted Increment-3 first positive family."
             ),
             state="unsupported",
             blocking_source="command_line",
@@ -320,22 +330,151 @@ def resolve_installation_destination(
             provenance=_provenance("installation_destination", step),
         )
 
-    return _problem(
-        declaration,
-        "installation_destination",
-        "installation_destination_needs_lower_source_evidence",
+    cli_step = _command_line_step(
+        "non_overriding",
         (
-            "No explicit pip destination selector is visible. Process environment and "
-            "persistent configuration must be ruled out before the normal manager-environment "
-            "scheme can be asserted."
+            "No target/prefix/root/user destination selector is present, and explicit "
+            "--no-user closes the user-site branch."
+            if user_scope_disabled_on_cli
+            else "No command-line target/user/prefix/root selector is present."
         ),
-        resolved_prefix=(
-            _command_line_step(
-                "non_overriding",
-                "No admitted command-line target/user/prefix/root selector is present.",
+        locator="--no-user" if user_scope_disabled_on_cli else None,
+    )
+
+    if not user_scope_disabled_on_cli:
+        return _problem(
+            declaration,
+            "installation_destination",
+            "installation_destination_user_scope_not_closed",
+            (
+                "The first default-destination family requires explicit --no-user so user-site "
+                "selection cannot be introduced by lower sources. Broader user/no-user "
+                "environment composition remains intentionally unresolved."
             ),
+            resolved_prefix=(cli_step,),
+            blocking_source="process_environment",
+        )
+
+    required_names = ("PIP_TARGET", "PIP_PREFIX", "PIP_ROOT")
+    environment_values = _matching_process_environment_values(
+        declaration,
+        process_environment,
+        variable_names=required_names,
+        dimension="installation_destination",
+        resolved_prefix=(cli_step,),
+    )
+    if isinstance(environment_values, PackageManagerSemanticProblem):
+        return environment_values
+
+    environment_selectors: list[InstallationDestination] = []
+    if environment_values["PIP_TARGET"]:
+        environment_selectors.append(
+            InstallationDestination(
+                kind="target_directory",
+                value=environment_values["PIP_TARGET"],
+            )
+        )
+    if environment_values["PIP_PREFIX"]:
+        environment_selectors.append(
+            InstallationDestination(
+                kind="prefix_scheme",
+                value=environment_values["PIP_PREFIX"],
+            )
+        )
+    if environment_values["PIP_ROOT"]:
+        environment_selectors.append(
+            InstallationDestination(
+                kind="root_relocated_scheme",
+                value=environment_values["PIP_ROOT"],
+            )
+        )
+
+    if len(environment_selectors) > 1:
+        return _problem(
+            declaration,
+            "installation_destination",
+            "multiple_process_environment_destination_selectors",
+            (
+                "Multiple exact-process pip destination environment variables are non-empty; "
+                "their combined destination semantics are outside the first positive family."
+            ),
+            resolved_prefix=(cli_step,),
+            blocking_source="process_environment",
+        )
+
+    env_step = PackageManagerSemanticResolutionStep(
+        source_kind="process_environment",
+        disposition="decisive" if environment_selectors else "non_overriding",
+        detail=(
+            "Exact process environment selects a non-default pip installation destination."
+            if environment_selectors
+            else (
+                "Exact process PIP_TARGET, PIP_PREFIX, and PIP_ROOT are empty, so they do not "
+                "retarget installation."
+            )
         ),
-        blocking_source="process_environment",
+        locator="PIP_TARGET/PIP_PREFIX/PIP_ROOT",
+    )
+    if environment_selectors:
+        return InstallationDestinationFact(
+            manager=declaration.manager,
+            command_location=declaration.command_location,
+            destination=environment_selectors[0],
+            provenance=PackageManagerSemanticResolutionProvenance(
+                dimension="installation_destination",
+                inspected_sources=(cli_step, env_step),
+                winning_source="process_environment",
+            ),
+        )
+
+    if persistent_configuration is None:
+        return _problem(
+            declaration,
+            "installation_destination",
+            "installation_destination_needs_persistent_config_evidence",
+            (
+                "Command line and exact process destination variables are non-overriding; "
+                "persistent configuration must be resolved before the manager-environment "
+                "scheme default is valid."
+            ),
+            resolved_prefix=(cli_step, env_step),
+            blocking_source="persistent_configuration",
+        )
+
+    config_problem = _validate_persistent_config_evidence(
+        declaration,
+        persistent_configuration,
+        setting="installation-destination",
+        dimension="installation_destination",
+        resolved_prefix=(cli_step, env_step),
+    )
+    if config_problem is not None:
+        return config_problem
+
+    config_step = PackageManagerSemanticResolutionStep(
+        source_kind="persistent_configuration",
+        disposition="disabled",
+        detail="Applicable pip persistent configuration is disabled for destination selection.",
+        locator=persistent_configuration.source_locator,
+    )
+    default_step = PackageManagerSemanticResolutionStep(
+        source_kind="manager_default",
+        disposition="decisive",
+        detail=(
+            "After target/user/prefix/root selectors are closed, pip installs into the "
+            "selected manager environment's normal installation scheme."
+        ),
+        locator="pip install destination default",
+    )
+    return InstallationDestinationFact(
+        manager=declaration.manager,
+        command_location=declaration.command_location,
+        destination=InstallationDestination(kind="manager_environment_scheme"),
+        provenance=PackageManagerSemanticResolutionProvenance(
+            dimension="installation_destination",
+            inspected_sources=(cli_step, env_step, config_step, default_step),
+            winning_source="manager_default",
+        ),
     )
 
 
@@ -495,8 +634,11 @@ def resolve_package_mutation_mode(
 
 def resolve_direct_requirement_handling(
     declaration: PackageManagerOperationDeclaration,
+    *,
+    process_environment: tuple[ProcessEnvironmentValueEvidence, ...] = (),
+    persistent_configuration: PackageManagerConfigSettingEvidence | None = None,
 ) -> DirectRequirementHandlingFact | PackageManagerSemanticProblem:
-    """Resolve explicit direct exclusion or preserve the remaining lower-source edge."""
+    """Resolve whether pip handles the direct requirement under bounded precedence."""
 
     if _unclassified_dynamic_operation_atoms(declaration):
         return _problem(
@@ -510,10 +652,13 @@ def resolve_direct_requirement_handling(
             blocking_source="command_line",
         )
 
-    if _has_literal_option(declaration.operation_arguments, "--only-deps"):
+    if any(
+        _has_literal_option(declaration.operation_arguments, option)
+        for option in ("--only-deps", "--only-dependencies")
+    ):
         step = _command_line_step(
             "decisive",
-            "Explicit pip --only-deps excludes the directly requested requirement itself.",
+            "Explicit pip --only-deps/--only-dependencies excludes direct requirements.",
             locator="--only-deps",
         )
         return DirectRequirementHandlingFact(
@@ -524,31 +669,132 @@ def resolve_direct_requirement_handling(
         )
 
     no_deps = _has_literal_option(declaration.operation_arguments, "--no-deps")
-    return _problem(
-        declaration,
-        "direct_requirement_handling",
-        "direct_requirement_handling_needs_lower_source_evidence",
+    cli_step = _command_line_step(
+        "non_overriding",
         (
-            "pip --no-deps suppresses transitive dependencies but does not exclude the direct "
-            "requirement; lower semantic sources still need resolution."
+            "--no-deps suppresses transitive dependencies but does not exclude the direct "
+            "requirement."
             if no_deps
+            else "No command-line direct-requirement exclusion is present."
+        ),
+        locator="--no-deps" if no_deps else None,
+    )
+
+    variable_names = ("PIP_ONLY_DEPS", "PIP_ONLY_DEPENDENCIES")
+    environment_values = _matching_process_environment_values(
+        declaration,
+        process_environment,
+        variable_names=variable_names,
+        dimension="direct_requirement_handling",
+        resolved_prefix=(cli_step,),
+    )
+    if isinstance(environment_values, PackageManagerSemanticProblem):
+        return environment_values
+
+    parsed_values = {
+        name: _pip_boolean_value(value)
+        for name, value in environment_values.items()
+    }
+    if any(value is None for value in parsed_values.values()):
+        return _problem(
+            declaration,
+            "direct_requirement_handling",
+            "pip_only_deps_environment_value_invalid",
+            (
+                "PIP_ONLY_DEPS/PIP_ONLY_DEPENDENCIES contains a value outside pip's admitted "
+                "boolean vocabulary."
+            ),
+            resolved_prefix=(cli_step,),
+            blocking_source="process_environment",
+        )
+
+    bool_values = {value for value in parsed_values.values() if value is not None}
+    if len(bool_values) != 1:
+        return _problem(
+            declaration,
+            "direct_requirement_handling",
+            "pip_only_deps_environment_alias_conflict",
+            (
+                "PIP_ONLY_DEPS and PIP_ONLY_DEPENDENCIES disagree; environment iteration "
+                "ordering is not used as a hidden precedence rule."
+            ),
+            resolved_prefix=(cli_step,),
+            blocking_source="process_environment",
+        )
+
+    only_deps_enabled = next(iter(bool_values))
+    env_step = PackageManagerSemanticResolutionStep(
+        source_kind="process_environment",
+        disposition="decisive" if only_deps_enabled else "non_overriding",
+        detail=(
+            "Exact process environment enables pip only-dependencies handling."
+            if only_deps_enabled
             else (
-                "No command-line direct-requirement exclusion is visible; lower semantic "
-                "sources still need resolution before effective handling can be asserted."
+                "Exact process PIP_ONLY_DEPS and PIP_ONLY_DEPENDENCIES are both disabled."
             )
         ),
-        resolved_prefix=(
-            _command_line_step(
-                "non_overriding",
-                (
-                    "--no-deps does not exclude the direct requirement."
-                    if no_deps
-                    else "No command-line direct-requirement exclusion is present."
-                ),
-                locator="--no-deps" if no_deps else None,
+        locator="PIP_ONLY_DEPS/PIP_ONLY_DEPENDENCIES",
+    )
+    if only_deps_enabled:
+        return DirectRequirementHandlingFact(
+            manager=declaration.manager,
+            command_location=declaration.command_location,
+            handling="excluded",
+            provenance=PackageManagerSemanticResolutionProvenance(
+                dimension="direct_requirement_handling",
+                inspected_sources=(cli_step, env_step),
+                winning_source="process_environment",
             ),
+        )
+
+    if persistent_configuration is None:
+        return _problem(
+            declaration,
+            "direct_requirement_handling",
+            "direct_requirement_handling_needs_persistent_config_evidence",
+            (
+                "Command line and exact only-deps environment aliases are non-overriding; "
+                "persistent configuration must be resolved before pip's normal direct-"
+                "requirement handling default can be used."
+            ),
+            resolved_prefix=(cli_step, env_step),
+            blocking_source="persistent_configuration",
+        )
+
+    config_problem = _validate_persistent_config_evidence(
+        declaration,
+        persistent_configuration,
+        setting="only-deps",
+        dimension="direct_requirement_handling",
+        resolved_prefix=(cli_step, env_step),
+    )
+    if config_problem is not None:
+        return config_problem
+
+    config_step = PackageManagerSemanticResolutionStep(
+        source_kind="persistent_configuration",
+        disposition="disabled",
+        detail="Applicable pip persistent configuration is disabled for only-deps.",
+        locator=persistent_configuration.source_locator,
+    )
+    default_step = PackageManagerSemanticResolutionStep(
+        source_kind="manager_default",
+        disposition="decisive",
+        detail=(
+            "After direct-exclusion selectors are closed, pip's default handles the direct "
+            "requirements supplied by the install command."
         ),
-        blocking_source="process_environment",
+        locator="pip only-deps default",
+    )
+    return DirectRequirementHandlingFact(
+        manager=declaration.manager,
+        command_location=declaration.command_location,
+        handling="handled",
+        provenance=PackageManagerSemanticResolutionProvenance(
+            dimension="direct_requirement_handling",
+            inspected_sources=(cli_step, env_step, config_step, default_step),
+            winning_source="manager_default",
+        ),
     )
 
 
@@ -603,6 +849,56 @@ def _validate_persistent_config_evidence(
             blocking_source="persistent_configuration",
         )
     return None
+
+
+def _matching_process_environment_values(
+    declaration: PackageManagerOperationDeclaration,
+    evidence: tuple[ProcessEnvironmentValueEvidence, ...],
+    *,
+    variable_names: tuple[str, ...],
+    dimension: PackageManagerSemanticDimension,
+    resolved_prefix: tuple[PackageManagerSemanticResolutionStep, ...],
+) -> dict[str, str] | PackageManagerSemanticProblem:
+    by_name: dict[str, ProcessEnvironmentValueEvidence] = {}
+    for item in evidence:
+        if item.variable_name in by_name:
+            return _problem(
+                declaration,
+                dimension,
+                "duplicate_process_environment_variable_evidence",
+                f"Multiple exact-process evidence records exist for {item.variable_name}.",
+                resolved_prefix=resolved_prefix,
+                blocking_source="process_environment",
+            )
+        by_name[item.variable_name] = item
+
+    values: dict[str, str] = {}
+    for variable_name in variable_names:
+        item = by_name.get(variable_name)
+        if item is None:
+            return _problem(
+                declaration,
+                dimension,
+                "process_environment_value_missing",
+                (
+                    f"Exact-process evidence for required variable {variable_name} was not "
+                    "supplied, so the lower semantic source cannot be closed."
+                ),
+                resolved_prefix=resolved_prefix,
+                blocking_source="process_environment",
+            )
+        value = _matching_process_environment_value(
+            declaration,
+            item,
+            variable_name=variable_name,
+            dimension=dimension,
+            resolved_prefix=resolved_prefix,
+        )
+        if isinstance(value, PackageManagerSemanticProblem):
+            return value
+        values[variable_name] = value
+
+    return values
 
 
 def _matching_process_environment_value(
