@@ -752,3 +752,89 @@ Still not established:
 - Increment-4 RequirementSatisfiedAtCommandCompletion.
 
 Therefore Increment 3 remains **B CURRENT**. B1/B2/B3/B4 are now hosted-verified building blocks; the next B work should target the remaining proof-critical blockers required to satisfy the Increment-3 pass condition rather than broadening generically.
+
+
+### Child responsibility B5 — first complete Route-A semantic fixture
+
+After B1-B4 were hosted-green, the Increment-3 pass condition was evaluated directly instead of expanding environment modeling generically.
+
+Selected controlled positive family:
+
+```bash
+PIP_DRY_RUN=0 \
+PIP_CONFIG_FILE=/dev/null \
+PIP_TARGET= \
+PIP_PREFIX= \
+PIP_ROOT= \
+PIP_ONLY_DEPS=0 \
+PIP_ONLY_DEPENDENCIES=0 \
+/opt/bootstrap/bin/python -m pip \
+  --python /opt/target/bin/python \
+  install --no-user --no-deps -r requirements.txt
+```
+
+Why this is a useful controlled Route-A fixture:
+- launcher executable path is explicit;
+- manager environment is decisive through CLI `--python`;
+- `--no-user` explicitly closes the user-site destination branch;
+- target/prefix/root process variables are positively present as empty/non-overriding;
+- `PIP_DRY_RUN=0` is positively non-overriding;
+- both current pip only-deps environment aliases are positively disabled;
+- `PIP_CONFIG_FILE=/dev/null` positively disables persistent pip config files;
+- lower manager defaults therefore become admissible only after higher sources are closed.
+
+Current upstream pip source evidence inspected:
+- `Configuration.get_environ_vars()` accepts `PIP_*` variables and normalizes underscores to long-option hyphens;
+- `ConfigOptionParser` applies environment/config values to matching long options and parses store-true/store-false values through pip boolean conversion;
+- empty configuration/environment values are filtered from effective defaults;
+- `PIP_CONFIG_FILE=os.devnull` skips loading all config files;
+- pip install defaults `--target`, `--prefix`, and `--root` to no retargeting;
+- `--only-deps/--only-dependencies` is a store-true option with default false.
+
+Implemented on `main`:
+- `9c67b61` — generalized disabled persistent-config evidence across dry-run, installation-destination, and only-deps settings;
+- `8839e0e` — added bounded lower-source resolution for normal installation destination and direct requirement handling;
+- `7510af6` — preserved the prior generic blocker reasons when lower-source evidence has not been supplied at all;
+- `d44404d` — added focused tests for default destination, process-env destination override, explicit unresolved user-scope boundary, direct-handling default, process-env exclusion, and alias conflict;
+- `f191de8` — verified `/dev/null` persistent-config disablement across all three supported settings;
+- `b98a1d5` — added the first complete controlled Route-A semantic fixture.
+
+New destination behavior:
+```text
+no CLI target/prefix/root/user
++ explicit --no-user
++ exact PIP_TARGET/PIP_PREFIX/PIP_ROOT empty
++ persistent config disabled
+→ manager default
+→ InstallationDestinationFact(manager_environment_scheme)
+```
+
+New direct-requirement behavior:
+```text
+no CLI only-deps exclusion
++ PIP_ONLY_DEPS=0
++ PIP_ONLY_DEPENDENCIES=0
++ persistent config disabled
+→ manager default
+→ DirectRequirementHandlingFact(handled)
+```
+
+The first positive fixture is expected to produce all four independent facts for one exact command identity:
+- `ManagerEnvironmentSelectionFact` → `/opt/target/bin/python`;
+- `InstallationDestinationFact` → `manager_environment_scheme`;
+- `PackageMutationModeFact` → `apply_changes`;
+- `DirectRequirementHandlingFact` → `handled`.
+
+The paired ordinary-looking fixture `python -m pip install -r requirements.txt` intentionally remains unresolved at lower-source evidence rather than inheriting ambient defaults.
+
+Important scope boundary:
+- this does not create a new all-semantics bundle/composer in Increment 3;
+- each fact remains independently owned and shares exact command identity;
+- final RequirementSatisfiedAtCommandCompletion composition remains Increment 4;
+- broader user/no-user environment composition, arbitrary persistent config content, GITHUB_ENV/GITHUB_PATH, venv activation, and general bare-executable resolution remain outside B5 unless later evidence proves they are required.
+
+### B5 verification state
+
+B5 source and tests are committed through `b98a1d51df7412dcf0126d4ba231ad24c2e6833c` but have **not yet received hosted execution proof**.
+
+If the next Product verification is green and the new Route-A fixture executes as intended, reassess the Increment-3 pass condition before adding any further B work. Do not invent B6 unless a concrete remaining proof-critical blocker is exposed.
