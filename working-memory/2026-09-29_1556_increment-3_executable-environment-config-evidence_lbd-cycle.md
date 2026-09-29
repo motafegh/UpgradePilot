@@ -10,6 +10,8 @@
 
 **Procedure provenance:** `UP-SKILL:upgradepilot-learning-by-doing` + `UP-SKILL:upgradepilot-working-memory`
 
+**Historical-status note:** phase-local `CURRENT`, `PENDING`, and pre-verification wording later in this record preserve the contemporaneous A/B/D progression. They are historical checkpoints and are superseded for live-state purposes by the `CLOSED` cycle header, final E closure, and `MEMORY.md`.
+
 ## Cycle status
 
 ```text
