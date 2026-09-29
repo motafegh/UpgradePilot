@@ -254,3 +254,139 @@ No Smart Situational Override was required in A0.
 Ali demonstrated the required continuity model. No contradiction or new technical gap changed the Increment-3 route. The only correction was terminology around precedence direction; the proof behavior itself was understood correctly.
 
 A2 is now the active phase. No Build authorization has been inferred from clearing A1.
+
+
+## A2 — upcoming responsibility orientation — CURRENT
+
+### Why this increment exists
+
+Increment 2 deliberately stops when a semantic dimension needs a lower source. Increment 3 supplies manager-agnostic evidence for those exact blockers and lets dependency-owned package-manager semantics continue the accepted precedence chain.
+
+The intended responsibility is **demand-backward**, not universal reconstruction:
+
+```text
+semantic fact needed
+→ current blocking source
+→ smallest trustworthy producer/evidence chain for that source
+→ semantic resolver resumes
+→ stop when the dimension is settled
+```
+
+A command-line decisive fact does not trigger unnecessary environment/config work.
+
+### 3A — bounded declarative environment representation
+
+Extend the GitHub workflow IR only enough to preserve workflow/job/step `env:` mappings needed by exact-process variable queries.
+
+Required distinctions:
+- absent;
+- literal;
+- dynamic/expression-bearing.
+
+Provider-level precedence must fail closed. A dynamic higher-precedence declaration must not silently fall through to a lower declaration.
+
+This layer records environment declarations; it does not interpret pip/uv variable meaning.
+
+### 3B — executable / interpreter identity evidence
+
+Create or extend manager-agnostic evidence that answers:
+
+> Which executable/interpreter relationship is positively established for this exact command occurrence?
+
+Demand-driven producer order remains:
+1. supported explicit interpreter path;
+2. `python -m pip` relation when positive executable provenance exists;
+3. setup-python/PATH relation;
+4. bounded venv activation/executable relation;
+5. bare-pip provenance only when the chain closes.
+
+Relational identity is acceptable when stronger than a guessed absolute path. A later/closer selector may supersede an earlier PATH relation.
+
+### 3C — exact-process environment value
+
+Support a bounded query:
+
+> What is the effective value of variable X for this exact command occurrence?
+
+Potential producers are added only when demanded:
+- workflow/job/step `env:`;
+- positively executed same-job `GITHUB_ENV` propagation;
+- admitted shell-local assignment/export;
+- provider-established values.
+
+The provider/shell/CI layer returns the value/provenance/state. It does **not** decide what `PIP_DRY_RUN`, `PIP_TARGET`, or another manager variable means.
+
+Unknown runner/ambient state remains unresolved unless positively closed.
+
+### 3D — persistent config / default closure
+
+Persistent pip/uv configuration remains dependency/package-manager-owned because its precedence/meaning is manager-specific.
+
+Inspect only a proof-critical requested setting. Do not inventory the user's machine or all possible config files.
+
+A manager default may decide only after every higher relevant source is positively non-overriding/disabled/resolved.
+
+### Cross-layer evidence flow
+
+```text
+workflow / provider / shell declaration & execution evidence
+          ↓
+ExecutableSelectionEvidence
+ProcessEnvironmentValueEvidence
+          ↓
+dependency-owned config/default adapters when still required
+          ↓
+existing package-manager semantic resolvers
+          ↓
+ManagerEnvironmentSelectionFact
+InstallationDestinationFact
+PackageMutationModeFact
+DirectRequirementHandlingFact
+          ↓
+Increment 4 later composes package state
+```
+
+### Build-shape decision carried to the pre-B gate
+
+Do **not** blindly implement every 3A–3D producer first.
+
+B should begin from the first admitted Route-A semantic blockers and work backward to the smallest **coherent** evidence path that can close a controlled positive family, while preserving ordinary unresolved cases. This follows the accepted demand-driven architecture and the project's earlier backward/data-flow reasoning.
+
+The Build remains responsible for the real Increment-3 pass condition, not merely adding an `env` field that passes unit tests.
+
+### Expected proof
+
+Focused proof should cover the provider IR/evidence producers and their semantic consumption. The accepted close-defeaters include:
+- dynamic step/job/workflow environment;
+- effective dry-run environment value;
+- unresolved ambient/config blocking a default;
+- setup-python `update-environment: false`;
+- a closer PATH/executable selector superseding an earlier relation;
+- arbitrary third-party action effects not guessed;
+- mismatched/dynamic venv paths.
+
+Representative real workflows may validly remain unresolved. Positive coverage must not be manufactured by weakening evidence requirements.
+
+### Explicit non-goals
+
+Increment 3 does not:
+- create universal GitHub Actions or shell simulation;
+- reconstruct all runner environment variables;
+- inventory all pip/uv configuration;
+- add generic logs/stdout/artifact acquisition;
+- produce `RequirementSatisfiedAtCommandCompletion`;
+- prove later use, compatibility, or maintainer-action permission.
+
+### A2 pre-B reasoning gate
+
+Before B, Ali should be able to reason about:
+
+1. If workflow-level `PIP_DRY_RUN=false` exists but step-level `PIP_DRY_RUN=${{ matrix.mode }}` is dynamic, why must the result stay unresolved instead of using the workflow value?
+2. Why should the GitHub/provider layer expose an exact variable value/provenance but **not** interpret whether that value means pip dry-run or normal mutation?
+3. If setup-python establishes a PATH relation but a later admitted venv activation changes executable selection before `python -m pip`, which relation should control and why?
+
+**STOP at the A2 pre-B understanding gate. No Build has begun.**
+
+## C update — A2 orientation
+
+A2 formalized the Increment-3 responsibility as demand-backward evidence closure rather than universal reconstruction. The planned implementation must preserve provider-neutral environment/executable evidence and dependency-owned package-manager interpretation. The Build should be selected from proof-critical blockers and must satisfy the Increment-3 pass condition rather than treating one IR field addition as completion.
