@@ -127,7 +127,7 @@ Once the workflow is on the default branch, a repository maintainer can open **A
 
 Dependency installation needs network access; the selected tests use controlled evidence. The workflow is not a network sandbox or a locked dependency build. A green run establishes the selected installed-package and product-test behavior on that hosted environment, not live acquisition, local-model quality or final product acceptance. A failed focused test stops the job before the broad suite.
 
-**Validation boundary:** the workflow definition was locally parsed and its shell blocks syntax-checked; its first hosted run remains pending. [Preparation evidence](working-memory/2026-09-08_manual-product-verification-workflow.md) records the exact scope. Review that first result before deciding whether automatic push/PR triggers are useful.
+**Validation boundary:** the workflow has now been exercised successfully through repeated manual hosted runs. The dated [preparation evidence](working-memory/2026-09-08_manual-product-verification-workflow.md) remains the historical setup record; exact latest run/claim status belongs in [`MEMORY.md`](MEMORY.md) and the applicable cycle evidence. Manual dispatch remains intentional; any change to automatic push/PR triggers requires a separate decision.
 
 ## Product boundary
 
