@@ -15,8 +15,8 @@
 ```text
 A0 — DONE: current main, owners, recent closure, source/tests and evidence seams reconciled; no route contradiction
 A1 — DONE: continuity model confirmed; precedence-direction wording corrected; gate cleared
-A2 — CURRENT: upcoming-responsibility orientation; STOP at pre-B understanding gate
-B — PENDING
+A2 — DONE: responsibility/proof model understood; terminology correction recorded; gate cleared
+B — CURRENT: select and implement first coherent demand-driven evidence path
 Verification gate — PENDING
 D — PENDING
 E — PENDING
@@ -256,7 +256,7 @@ Ali demonstrated the required continuity model. No contradiction or new technica
 A2 is now the active phase. No Build authorization has been inferred from clearing A1.
 
 
-## A2 — upcoming responsibility orientation — CURRENT
+## A2 — upcoming responsibility orientation — DONE
 
 ### Why this increment exists
 
@@ -385,7 +385,14 @@ Before B, Ali should be able to reason about:
 2. Why should the GitHub/provider layer expose an exact variable value/provenance but **not** interpret whether that value means pip dry-run or normal mutation?
 3. If setup-python establishes a PATH relation but a later admitted venv activation changes executable selection before `python -m pip`, which relation should control and why?
 
-**STOP at the A2 pre-B understanding gate. No Build has begun.**
+Ali cleared the A2 gate with the correct proof model:
+
+1. A later venv activation may supersede an earlier setup-python/PATH executable relation for a later `python -m pip` command. Precision correction: venv activation is not itself a pip CLI-precedence source; it is a shell/environment executable-selection effect. The controlling relationship is the closest positively established effective executable-selection relation for that command.
+2. If no CLI `--dry-run` exists and the exact process/config sources cannot be established, mutation remains `unresolved`. If all higher relevant sources are positively non-overriding/disabled, the manager default may then establish normal apply-changes behavior.
+
+No material understanding gap remains.
+
+**A2 pre-B understanding gate CLEARED. B may begin under the accepted Increment-3 responsibility.**
 
 ## C update — A2 orientation
 
@@ -471,3 +478,10 @@ missing edge is exact Python-3.6 execution/artifact-path coverage
 ```
 
 This is the product-faithful reason for demand-driven Increment 3: add evidence only where it closes the actual proposition blocker, not because environment modeling is generally useful.
+
+
+## C update — A2 gate result
+
+Ali demonstrated the required pre-B model. The only correction was that venv activation belongs to executable/environment selection, not pip CLI precedence. The substantive ordering judgment was correct: a later positively established environment selector can supersede an earlier PATH relation for the exact later command.
+
+Build is now authorized only inside the existing Increment-3 responsibility. The first Build slice must be chosen from real Route-A semantic blockers and remain connected to the increment pass condition.
