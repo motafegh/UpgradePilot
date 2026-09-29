@@ -610,3 +610,75 @@ Non-proof:
 - no command-derived RequirementSatisfiedAtCommandCompletion claim exists yet.
 
 Therefore B remains CURRENT. This is a verified child slice, not the cycle Verification gate.
+
+
+### B continuation after Product verification #11
+
+#### Child responsibility B3 — bounded persistent pip-config closure
+
+Implemented:
+- `22bc656` — dependency-owned `package_manager_config.py` with setting-scoped persistent-config evidence;
+- `ae8ccb8` — focused config evidence tests;
+- `68c2ffb` — mutation semantics consume disabled persistent-config evidence;
+- `7d05747` — semantic tests for manager-default application only after higher sources close;
+- `22cf8ec` — cross-layer integration case for exact `PIP_DRY_RUN=0` + `PIP_CONFIG_FILE=/dev/null`.
+
+Source-backed pip semantics inspected from current upstream `pypa/pip`:
+- `src/pip/_internal/configuration.py`: exact `PIP_CONFIG_FILE=os.devnull` causes pip to skip loading all configuration files;
+- the same module keeps environment variables and configuration files as distinct sources;
+- pip boolean parsing accepts true/false forms including 1/0.
+
+Current supported composition:
+
+```text
+no CLI --dry-run
++ exact-process PIP_DRY_RUN=0
++ exact-process PIP_CONFIG_FILE=/dev/null
+→ command line non-overriding
+→ process env non-overriding
+→ persistent config disabled
+→ manager default decisive
+→ PackageMutationModeFact(apply_changes)
+```
+
+A concrete non-null config path remains unresolved until its contents/precedence are actually acquired.
+
+#### Child responsibility B4 — executable/interpreter selection evidence
+
+Implemented:
+- `7aebef2` + `0d3b79b` — provider-owned static executable selection distinguishes explicit paths from bare PATH-dependent names;
+- `73efab5` — clarified this first layer as a static observation rather than runtime-strengthened evidence;
+- `bc1b1db` + `101f16d` — CI-owned bounded executable-selection composition for:
+  - explicit executable path;
+  - immediately preceding `actions/setup-python` v4-v7;
+  - default/explicit `update-environment: true`;
+  - exact-attempt successful setup step;
+  - first/sole bare `python` command in the later run step;
+  - no closer workflow/job/step or command-local PATH override.
+
+Explicit close-defeaters are preserved:
+- `update-environment: false` → unresolved;
+- failed/non-proven setup-python runtime execution → unresolved;
+- intervening user step → unresolved for this first family;
+- command-local PATH override → unresolved;
+- prior same-step command such as venv activation before `python` → unresolved rather than allowing the older setup-python relation to win.
+
+External source evidence inspected:
+- `actions/setup-python` action manifests v4, v5, v6, v7: `update-environment` defaults to true;
+- setup-python implementation calls `core.addPath` for the selected Python install/bin directories when environment updating is enabled;
+- `actions/toolkit/packages/core/src/core.ts`: `addPath` prepends PATH for the action and future actions;
+- `actions/runner` records added paths and reverses/prepends them when constructing later step PATH, so the most recently added setup-python bin path has precedence absent a closer override.
+
+This is deliberately not a general PATH simulator and does not yet model arbitrary GITHUB_PATH writers or non-adjacent provider chains.
+
+### Current verification boundary after B3/B4
+
+Product verification #11 proves through head `24d28c0` only.
+
+Current main head after B3/B4 source/test additions is `101f16d94998def51631926abd86850ab49a32de`.
+
+Post-#11 changes have been source-inspected but **not yet hosted-execution verified**. Therefore:
+- B remains CURRENT;
+- the already verified B1/B2 slice remains valid;
+- B3/B4 are pending the next hosted Product verification run;
+- no overall Increment-3 Verification gate is claimed.
