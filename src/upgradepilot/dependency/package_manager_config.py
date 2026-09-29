@@ -15,7 +15,11 @@ from ..github.workflow_command_location import StaticCommandLocation
 from .package_manager_operation import PackageManagerName, PackageManagerOperationDeclaration
 
 
-type PackageManagerConfigSettingName = Literal["dry-run"]
+type PackageManagerConfigSettingName = Literal[
+    "dry-run",
+    "installation-destination",
+    "only-deps",
+]
 type PackageManagerConfigSettingState = Literal["disabled", "unresolved"]
 
 
@@ -43,7 +47,8 @@ def observe_pip_persistent_config_setting(
 
     The first positive family is exact PIP_CONFIG_FILE=/dev/null on the admitted
     POSIX/Bash Route-A path. Pip treats its platform null device as a directive to skip
-    loading all configuration files. Any other path remains unresolved until that file
+    loading all configuration files, so any requested pip setting is positively disabled
+    at the persistent-config source. Any other path remains unresolved until that file
     and the rest of pip's applicable config search/precedence are acquired.
     """
 
