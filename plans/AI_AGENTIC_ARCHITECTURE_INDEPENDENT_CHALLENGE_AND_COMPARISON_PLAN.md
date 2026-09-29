@@ -573,3 +573,13 @@ The research program should remain finite: a deep report is justified when it ca
   - New architecture hypotheses: graph/IR substrate, upstream old→new source/API diff evidence, package-behavior delta analysis, graded producer authority, and asymmetric positive/negative reachability semantics.
 
 - **Tier-1 Report 03 — Remediation and migration engines:** NEXT.
+
+
+- **Tier-1 Report 03 — Remediation and migration engines:** COMPLETE.
+  - Record: `working-memory/2026-09-29_tier1-03_remediation-and-migration-engines.md`
+  - Systems: OSV-Scanner Guided Remediation, OpenRewrite/Moderne, DepRepair/DepBench, Griffe, LibCST.
+  - Main finding: remediation is not one responsibility; strategy selection, target-site localization, transformation execution, ecosystem graph/lock recomputation, and validation should remain separable.
+  - External patterns: graph-level risk/reward remediation planning; deterministic semantic recipes; evidence-grounded single-call LLM repair; Python API-diff and codemod substrates; explicit partial/no-fix/unsupported outcomes.
+  - New hypotheses: a Python-first remediation stack using upstream API diff + target localization + deterministic recipe or bounded model repair + LibCST transform + executable validation; repeated validated model repairs may potentially become deterministic reusable recipes.
+
+- **Tier-1 Report 04 — Dependency/evidence graph foundations + provenance standards:** NEXT.
