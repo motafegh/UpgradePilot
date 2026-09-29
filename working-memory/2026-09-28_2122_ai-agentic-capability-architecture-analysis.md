@@ -2122,3 +2122,37 @@ The architecture research program is CLOSED at the analysis level.
 
 Next project action is on main:
 **continue Increment-4 A1 → A2 under the active LbD cycle.**
+
+
+## 32. Full architecture proposal added
+
+Front-door synthesis:
+- \`proposals/2026-09-29_UPGRADEPILOT_EVIDENCE_AI_ARCHITECTURE_PROPOSAL.md\`
+
+The proposal consolidates:
+
+- product identity and boundary;
+- evidence doctrine;
+- whole-pipeline responsibility architecture;
+- multi-source evidence and provenance;
+- repository-intelligence/multi-view direction;
+- CI/runtime/package-state layering;
+- broad impact discovery;
+- AI/LLM/agent responsibility boundaries;
+- fixed-vs-agent escalation;
+- framework policy;
+- provenance/standards interoperability;
+- maintainer action/report direction;
+- protected evaluation;
+- optional remediation;
+- security model;
+- trigger-based experiment program;
+- learning/exposure strategy;
+- explicit non-decisions/deferrals;
+- branch integration strategy.
+
+Use this proposal as the branch-local front door for future architectural discussion.
+
+Use the detailed Tier-1, Step-2B-X, Step-2C, Step-3, Step-4, and Step-5 records when evidence/rationale depth is needed.
+
+No main-branch change is implied.
