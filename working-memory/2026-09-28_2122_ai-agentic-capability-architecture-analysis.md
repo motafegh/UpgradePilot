@@ -2036,3 +2036,50 @@ Step 3 also places every Track-C experiment against an owner/trigger, preventing
 
 Next:
 **Step 4 — map and evaluate current AI/LLM/agent experiments/proposals against these exact product responsibilities.**
+
+
+## 30. Step 4 — existing AI/LLM/agent work reconciliation COMPLETE
+
+Record:
+- \`working-memory/2026-09-29_step4_existing-ai-agent-work-reconciliation.md\`
+
+The existing AI work maps cleanly to distinct whole-pipeline responsibilities:
+
+\`\`\`text
+semantic extraction
+→ adopted support-drop local LLM
+
+evidence-gap investigation planning
+→ ordinary-Python planner pilot
+→ LangGraph comparison experiment
+
+final cross-evidence/action/report synthesis
+→ deferred LLM synthesis proposal
+\`\`\`
+
+Final dispositions:
+
+- support-drop extractor: KEEP ADOPTED;
+- EvidenceGapPlanner: RETAIN AS PILOT;
+- LangGraph: retain comparison/learning evidence, DEFER product adoption;
+- final LLM synthesis: retain future design, DEFER until cross-candidate/action prerequisites exist;
+- broad candidate discovery: strongest missing future AI responsibility, but not active now;
+- generalist/multi-agent/LangChain/generic RAG: not current product gaps.
+
+Important architecture lesson:
+
+\`\`\`text
+"What does the evidence say?"
+!=
+"What evidence should we acquire next?"
+!=
+"What should the maintainer do with the total evidence?"
+\`\`\`
+
+Do not collapse these into one generic agent.
+
+No change to main sequencing:
+Increment 4 remains deterministic package-state composition.
+
+Next:
+**Step 5 — turn the completed research into concrete accepted-change / experiment / defer / no-action decisions and determine how the analysis branch should integrate.**
