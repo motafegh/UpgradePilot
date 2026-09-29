@@ -390,3 +390,84 @@ Before B, Ali should be able to reason about:
 ## C update — A2 orientation
 
 A2 formalized the Increment-3 responsibility as demand-backward evidence closure rather than universal reconstruction. The planned implementation must preserve provider-neutral environment/executable evidence and dependency-owned package-manager interpretation. The Build should be selected from proof-critical blockers and must satisfy the Increment-3 pass condition rather than treating one IR field addition as completion.
+
+
+### A2 real-case grounding — S002 / S011 / S008
+
+A2 was grounded in existing product-simulation cases rather than synthetic-only examples.
+
+#### S002 — closest positive Increment-3 pressure
+
+Existing evidence:
+- workflow declares `actions/setup-python@v4` with Python 3.10;
+- a later run step uses `python -m pip install ... -r requirements.txt`;
+- the workflow also contains Ruff and pytest;
+- for the historical PR, the Python workflow did not trigger because `requirements.txt` was outside its PR path filter;
+- the historical Docker build succeeded, but exact resolved dependency environment is no longer recoverable from expired logs.
+
+Current UpgradePilot can separately reason about static command occurrence/consumption and exact-command execution when runtime correlation exists, and Increment 2 can parse `python -m pip install` into a package-manager declaration. But the semantic layer cannot yet turn the literal `python` plus setup-python declaration into a trustworthy effective manager-environment relation, nor can it close relevant process environment/config sources needed before manager defaults.
+
+Increment 3 would add the bounded evidence machinery needed for a suitable live/controlled Route-A variant:
+```text
+setup-python provider declaration/effect
++ exact later command location
++ PATH/executable-selection relationship
+→ executable/interpreter environment evidence
+
+workflow/job/step env (+ later admitted propagation where needed)
+→ exact-process variable evidence
+
+dependency package-manager resolver
+→ consumes those facts under CLI > process env > config > default
+```
+
+What would still not be established merely by Increment 3:
+- that S002's historical skipped Python workflow executed;
+- the expired historical resolver state;
+- pytest/TestClient behavior;
+- final RequirementSatisfiedAtCommandCompletion (Increment 4);
+- compatibility or maintainer action.
+
+#### S011 — useful counterexample: Increment 3 does not repair a missing affected environment
+
+The inspected Ubuntu and macOS test workflows both install `.[dev]`, not `.[mlx]`.
+
+Therefore the already-established bounded result is:
+```text
+affected dependency is inside mlx optional family
++ inspected workflows install dev family
+→ those workflows do not form the affected mlx dependency environment
+```
+
+This conclusion does not depend on resolving which `python` executable or `PIP_DRY_RUN` value applied. Even perfect Increment-3 environment identity would not turn `.[dev]` into `.[mlx]`.
+
+Increment 3 may later strengthen environment identity for some command in this repository, but it must not blur the more fundamental S011 proposition: the affected optional environment was never requested by those inspected workflows.
+
+#### S008 — useful counterexample: interpreter/version relevance remains proposition-specific
+
+S008 established a Python-3.6-relevant artifact transition: the newer OpenCV release loses the CPython-3.6 Linux prebuilt-wheel path while retaining source-distribution fallback.
+
+The inspected CI installs requirements but does not pin/matrix Python 3.6, so it does not establish coverage of that exact Python-3.6 wheel-to-source transition.
+
+Increment 3 could strengthen a workflow only if bounded evidence can positively establish the exact interpreter/environment relation for the relevant install command. If the workflow simply lacks proof that the install ran under Python 3.6, Increment 3 should preserve that uncertainty; it must not infer Python 3.6 merely from unrelated repository context such as a Dockerfile.
+
+Even if Python-3.6 environment identity were established, the separate proposition "source fallback build succeeds" would still require its own evidence and is not created by Increment 3.
+
+#### Cross-case lesson
+
+```text
+S002:
+missing edge can be executable/environment/config identity
+→ Increment 3 directly targets this class
+
+S011:
+missing edge is affected optional family never installed
+→ Increment 3 cannot repair it
+
+S008:
+missing edge is exact Python-3.6 execution/artifact-path coverage
+→ Increment 3 may help only if executable/interpreter evidence can actually close that identity
+→ source-build success remains separate
+```
+
+This is the product-faithful reason for demand-driven Increment 3: add evidence only where it closes the actual proposition blocker, not because environment modeling is generally useful.
