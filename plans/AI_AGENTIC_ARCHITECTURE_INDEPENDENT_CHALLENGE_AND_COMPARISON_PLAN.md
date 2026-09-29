@@ -715,3 +715,14 @@ When learning value is the primary reason for trying a technology, keep it expli
   - Learning candidates: CodeQL, actionlint, zizmor, StepSecurity, act, Joern, CrossHair; angr as a separate security/formal-method lab.
 
 - **Tier-1 Report 06 — Repository-intelligence and agent architectures:** NEXT.
+
+
+- **Tier-1 Report 06 — Repository-intelligence and agent architectures:** COMPLETE.
+  - Record: `working-memory/2026-09-29_tier1-06_repository-intelligence-and-agent-architectures.md`
+  - Systems/research: RepoGraph, LocAgent, RIG, CodexGraph, CodeRAG-Bench, Sourcegraph Code Graph/Cody, AutoCodeRover, SWE-agent, OpenHands, Agentless, current GitHub Copilot repository instructions/skills/MCP patterns.
+  - Main finding: repository intelligence decomposes into world-model representation, retrieval/localization, repository knowledge/instructions, agent-computer interface, execution feedback, and reasoning topology. Treating all of this as generic “context” hides critical architecture choices.
+  - Strongest current hypothesis: use multiple evidence-backed repository views with stable identities, progressive disclosure, on-demand raw-source access, and a stable repository-intelligence capability interface; keep fixed pipelines as the baseline and introduce adaptive agents only where state-dependent evidence selection earns its cost.
+  - New architecture challenge: the code graph, build/test graph, supply-chain/evidence graph, and decision/proposition graph may need to remain distinct but linkable rather than becoming one universal graph.
+  - Learning candidates: small Python code graph, RIG-like build/test graph, Neo4j/Cypher lab, retrieval comparison, OpenHands comparator, and UpgradePilot-specific ACI/tool-interface experiment.
+
+- **Tier-1 Report 07 — Evaluation, maintainer UX, and decision-quality measurement:** NEXT.
