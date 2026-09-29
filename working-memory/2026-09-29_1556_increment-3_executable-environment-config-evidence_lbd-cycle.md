@@ -682,3 +682,38 @@ Post-#11 changes have been source-inspected but **not yet hosted-execution verif
 - the already verified B1/B2 slice remains valid;
 - B3/B4 are pending the next hosted Product verification run;
 - no overall Increment-3 Verification gate is claimed.
+
+
+### Verification checkpoint — Product verification #12 FAILED, diagnosis resolved
+
+Hosted Product verification run #12:
+- run: https://github.com/motafegh/UpgradePilot/actions/runs/36588225308
+- head: `dfc59a00339cfd0d3c76a70137c14e15b91f116a`
+- focused investigation composition: success
+- full deterministic product regression: **691 tests, 1 failure**
+
+Single failing test:
+`test_package_manager_process_environment_integration.PackageManagerProcessEnvironmentIntegrationTests.test_command_local_disabled_dry_run_moves_to_config_not_default`
+
+Observed result:
+`persistent_config_setting_unresolved`
+
+Stale expected result:
+`package_mutation_mode_needs_persistent_config_evidence`
+
+Diagnosis:
+- before B3, the integration path supplied no persistent-config evidence, so the generic semantic blocker "persistent-config evidence needed" was correct;
+- after B3, the integration path now actively queries exact `PIP_CONFIG_FILE` process evidence and supplies a `PackageManagerConfigSettingEvidence`;
+- when that exact process value is unresolved, the semantic layer correctly reports the stronger state: persistent-config evidence exists but the setting remains unresolved;
+- the focused semantic tests already distinguish these two states correctly.
+
+Therefore #12 exposed a stale integration assertion, not a product semantic regression.
+
+Fix:
+- `7c22f6e` — renamed the integration test to express the stronger contract and changed its assertion to `persistent_config_setting_unresolved`, while also checking that the detail preserves upstream reason `pip_config_file_process_environment_unresolved`.
+
+Current verification status:
+- Product verification #11 remains valid for B1/B2 through `24d28c0`;
+- B3/B4 plus the corrected integration assertion now require a fresh hosted run on head `7c22f6e9cfde44972b62b0e32b7b4d5fbbdadcdb`;
+- no Verification PASS is claimed yet;
+- B remains CURRENT.
