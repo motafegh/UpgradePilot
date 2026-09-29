@@ -103,18 +103,21 @@ class PackageManagerProcessEnvironmentIntegrationTests(unittest.TestCase):
         self.assertEqual(result.mode, "dry_run")
         self.assertEqual(result.provenance.winning_source, "process_environment")
 
-    def test_command_local_disabled_dry_run_moves_to_config_not_default(self) -> None:
+    def test_command_local_disabled_dry_run_preserves_unresolved_config_not_default(
+        self,
+    ) -> None:
         result = _resolve_mutation(
             run="PIP_DRY_RUN=0 pip install -r requirements.txt",
         )
 
         self.assertIsInstance(result, PackageManagerSemanticProblem)
         assert isinstance(result, PackageManagerSemanticProblem)
-        self.assertEqual(
-            result.reason,
-            "package_mutation_mode_needs_persistent_config_evidence",
-        )
+        self.assertEqual(result.reason, "persistent_config_setting_unresolved")
         self.assertEqual(result.blocking_source, "persistent_configuration")
+        self.assertIn(
+            "pip_config_file_process_environment_unresolved",
+            result.detail,
+        )
 
     def test_disabled_config_allows_manager_default_apply_changes(self) -> None:
         result = _resolve_mutation(
