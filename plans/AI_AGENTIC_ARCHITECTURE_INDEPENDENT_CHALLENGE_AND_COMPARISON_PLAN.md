@@ -1029,3 +1029,25 @@ Branch comparison at closure:
 - no source/test change requires branch merge.
 
 The analysis route is closed. Further work from this branch should be targeted experiment activation or selective documentation integration, not another broad research cycle.
+
+
+### 9.13 Full branch-local architecture proposal
+
+**Status: COMPLETE.**
+
+Front-door synthesis:
+- \`proposals/2026-09-29_UPGRADEPILOT_EVIDENCE_AI_ARCHITECTURE_PROPOSAL.md\`
+
+Purpose:
+
+- provide one coherent, readable mature architecture proposal derived from the completed Track A/B/C research;
+- keep current reality, proposed mature direction, experiment-gated choices, explicit deferrals, AI/agent placement, evaluation, learning exposure, and integration strategy in one non-controlling document;
+- avoid requiring future readers to reconstruct the architecture from all Tier-1 and Step-2/3/4/5 records.
+
+Authority:
+
+- branch-local / non-controlling;
+- does not change \`main\`, live \`MEMORY.md\`, Increment-4 sequencing, accepted ADRs/specifications, or source/tests;
+- detailed Tier-1/Track-C records remain evidence provenance behind the proposal.
+
+The research branch should now be treated as complete architecture provenance plus this full synthesis proposal while main continues independently.
