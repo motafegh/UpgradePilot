@@ -1626,3 +1626,72 @@ researched
 The goal is to deliberately create bounded real experiments when a technology offers strong transferable learning value, while keeping product adoption evidence-driven.
 
 Current high-interest exposure candidates include Griffe, LibCST, Semgrep, CodeQL, GUAC, SLSA/in-toto/SPDX/CycloneDX, OSV-Scanner Guided Remediation, StepSecurity/zizmor/actionlint, Joern, and bounded symbolic-execution tools.
+
+
+## 23. Tier-1 Report 04 — dependency/evidence graphs + provenance standards
+
+Completed:
+
+- `working-memory/2026-09-29_tier1-04_dependency-evidence-graphs-and-provenance-standards.md`
+- deps.dev / Open Source Insights
+- GUAC
+- OSS Review Toolkit
+- SPDX 3.0.1
+- CycloneDX 1.7
+- SLSA 1.2
+- in-toto Attestation Framework v1.2
+- Sigstore/Cosign
+- GitHub artifact attestations and dependency submission
+
+Most important correction:
+
+```text
+"UpgradePilot must invent its own evidence/provenance vocabulary"
+→ too strong
+```
+
+External standards already represent important concepts such as:
+
+- dependency graphs and requirements/resolution distinction;
+- explicit relationship completeness;
+- explicit no-assertion vs known-none;
+- build inputs/outputs/tools/agents;
+- evidence method + tool + confidence;
+- source occurrences and call stacks;
+- claims/counterclaims/assessors/citations;
+- process formulation;
+- signed subject-bound attestations;
+- producer precedence and revision-bound dependency snapshots.
+
+But none provides UpgradePilot's actual domain reasoning:
+
+```text
+static vs runtime execution
+package-manager semantic precedence
+target-specific applicability
+CI proof sufficiency
+adaptive investigation
+cross-mechanism evidence sufficiency
+maintainer-action permission
+```
+
+Current research hypothesis:
+
+```text
+UpgradePilot domain-specific internal model
++
+standards-aware adapters / export / import / attestations
+```
+
+rather than either a fully isolated custom universe or a standards-native internal model.
+
+Important learning/exposure candidates added/refined:
+
+- deps.dev API;
+- GUAC + GraphQL + Docker Compose;
+- CycloneDX 1.7 evidence/declarations;
+- SPDX 3.0.1 relationship/build semantics;
+- SLSA + in-toto + Sigstore/GitHub artifact attestations;
+- ORT as a full SCA/policy/report pipeline comparator.
+
+Next: Tier-1 Report 05 — CI/runtime evidence + program-analysis techniques.
