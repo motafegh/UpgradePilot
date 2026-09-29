@@ -1430,3 +1430,28 @@ The next analysis responsibility is now:
 > **Step 2B — independent external research and architecture derivation.**
 
 Do not proceed directly to the old Step 3 whole-pipeline map.
+
+
+## 18. Research-program expansion checkpoint
+
+Ali broadened the independent challenge beyond AI/agent architecture to cover adjacent products, tools, standards, evidence systems, workflow/runtime techniques, maintainer UX, and evaluation.
+
+Controlling supporting plan expanded:
+- `plans/AI_AGENTIC_ARCHITECTURE_INDEPENDENT_CHALLENGE_AND_COMPARISON_PLAN.md`
+
+Pre-research discovery record:
+- `working-memory/2026-09-29_external-research-area-discovery.md`
+
+The earlier statement that Step 2B was complete enough for immediate Track C is superseded.
+
+Current route:
+
+```text
+Step 2B-0  broad external area discovery             COMPLETE
+Step 2B-1+ staged Tier-1 deep research reports       NEXT
+Step 2B-X   refresh independent candidate architectures
+Step 2C     adversarial comparison against Track A
+Step 3      whole-pipeline architecture map
+```
+
+The first Tier-1 report should study the closest dependency-update products/workflows before judging architectural implications.
