@@ -1934,3 +1934,61 @@ No further broad research is required before Track C.
 
 Next:
 **Step 2C — compare current/project-conditioned Track A against this refreshed Track-B architecture, principle by principle, preserving disagreements and experiment requirements.**
+
+
+## 28. Step 2C — adversarial reconciliation COMPLETE
+
+Live main was refreshed before comparison:
+
+```text
+main @ b16c984daa8f5e78ebe83856c5b010c137a405ee
+Increment 3 CLOSED
+Product verification #14 GREEN
+Increment 4 SELECTED
+Increment-4 A0 not yet started
+```
+
+Track-C record:
+- `working-memory/2026-09-29_step2c_adversarial-track-a-vs-track-b-comparison.md`
+
+Main conclusion:
+
+```text
+current UpgradePilot trust/evidence doctrine
+→ strongly independently supported
+
+main architecture gaps
+→ breadth / evidence producers / repository intelligence
+   runtime observation / AI context policy
+   standards interoperability / evaluation maturity
+```
+
+No reason was found to reopen Increment 3.
+
+Increment 4's core proof contract remains independently supported:
+
+```text
+exact dependency/source identity
++ exact-command execution
++ independent effective package-manager semantic facts
+→ RequirementSatisfiedAtCommandCompletion
+
+but NOT
+→ later use
+→ behavioral compatibility
+→ maintainer action
+```
+
+Track C explicitly preserves future competitions rather than silently deciding them.
+
+Highest-priority experiments when their responsibilities activate:
+
+- CodeQL Actions vs bespoke workflow CFG/dataflow;
+- Griffe/API diff vs changelog-only upstream evidence;
+- runtime telemetry vs static inference;
+- typed-only vs controlled raw-source model context;
+- fixed investigation vs bounded planner;
+- bounded graph/RIG experiment.
+
+Next:
+**Step 3 — whole public dependency-update PR → maintainer-output architecture map**, with every responsibility labeled current / independently supported / project-specific / experimental / unresolved / optional.
