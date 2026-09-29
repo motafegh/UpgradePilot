@@ -145,3 +145,55 @@ only after that experiment actually exists.
 - **Learning value:** high but heavier.
 - **Hands-on target:** analyze a small Python project, inspect OrtResult, export SPDX/CycloneDX, optionally add one policy rule.
 - **Recommended exposure:** bounded lab if Track C needs a mature SCA pipeline baseline.
+
+
+## Tier-1 Report 05 additions
+
+### CodeQL for GitHub Actions / Python
+- **Current state:** RESEARCHED.
+- **Learning value:** extremely high.
+- **Hands-on target:** write a custom Actions query tracing an environment/context value across steps into a package-manager run step; compare against UpgradePilot's current result.
+- **Skills:** QL, AST, CFG, dataflow, taint tracking, GitHub Actions semantics, SARIF/security analysis.
+- **Recommended exposure:** HANDS_ON_EXPERIMENTED / project comparator candidate.
+
+### actionlint
+- **Current state:** RESEARCHED.
+- **Learning value:** high for CI semantics with very low experiment cost.
+- **Hands-on target:** run against UpgradePilot/product-simulation workflows and compare diagnostics with current parser assumptions.
+- **Recommended exposure:** HANDS_ON_EXPERIMENTED.
+
+### zizmor
+- **Current state:** RESEARCHED.
+- **Learning value:** high for CI/CD security.
+- **Hands-on target:** audit representative workflows, inspect template-injection/permissions/action-pinning findings, compare with product candidate-discovery needs.
+- **Recommended exposure:** HANDS_ON_EXPERIMENTED.
+
+### StepSecurity Harden-Runner
+- **Current state:** RESEARCHED.
+- **Learning value:** very high for CI/runtime/agent security.
+- **Hands-on target:** instrument a public workflow and correlate package-manager process/network events with exact job/step/run identity.
+- **Recommended exposure:** project experiment candidate if accessible telemetry is sufficient.
+
+### act
+- **Current state:** RESEARCHED.
+- **Learning value:** useful/practical.
+- **Hands-on target:** emulate representative GitHub Actions cases and record divergence from hosted-run evidence.
+- **Recommended exposure:** HANDS_ON_EXPERIMENTED; never treated as historical-run authority.
+
+### Joern
+- **Current state:** RESEARCHED.
+- **Learning value:** high/advanced.
+- **Hands-on target:** generate a Python CPG, write a small dataflow/call query, compare representation with CodeQL.
+- **Recommended exposure:** lab candidate after Track C if graph architecture remains relevant.
+
+### CrossHair
+- **Current state:** RESEARCHED.
+- **Learning value:** very high for formal-method fundamentals.
+- **Hands-on target:** apply symbolic execution to one pure UpgradePilot semantic/predicate function and inspect counterexamples/path coverage.
+- **Recommended exposure:** bounded learning/project lab.
+
+### angr
+- **Current state:** RESEARCHED.
+- **Learning value:** strong security/reverse-engineering exposure, low current product fit.
+- **Hands-on target:** isolated symbolic-execution exercise on a tiny binary/path condition.
+- **Recommended exposure:** learning lab / defer from product.
