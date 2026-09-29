@@ -1881,3 +1881,56 @@ All seven planned Tier-1 deep reports are now COMPLETE.
 
 Next:
 **Step 2B-X — independently refresh candidate architectures using the full Tier-1 evidence before Track C comparison.**
+
+
+## 27. Step 2B-X — refreshed independent candidate architectures
+
+Completed:
+
+- `working-memory/2026-09-29_step2bx_independent-candidate-architecture-refresh.md`
+
+Tier-1 research changed the architecture space materially.
+
+The original candidates are no longer treated as seven mutually exclusive monoliths.
+
+Refreshed independent architecture layers/candidates:
+
+```text
+A. Deterministic Evidence Compiler
+B. Structured Hybrid Impact Reasoner
+C. Fixed-First Adaptive Investigation
+D. Runtime / Execution-Assisted Evidence
+E. Sandboxed Generalist Repository Agent
+F. Evidence-Centric Multi-View Knowledge Platform
+G. Selective Human Decision Support
+```
+
+Cross-cutting mechanisms:
+
+- challenger/verifier;
+- calibrated selective prediction;
+- standards/provenance;
+- remediation/patch generation.
+
+Strongest Track-B mature hypothesis after Tier-1:
+
+```text
+exact update identity
+→ multi-producer evidence
+→ provenance-backed multi-view repository/evidence substrate
+→ deterministic analysis for mechanical propositions
+→ structured semantic reasoning for open-ended meaning
+→ bounded adaptive investigation only for material gaps
+→ optional runtime/execution evidence
+→ rare generalist-agent escalation
+→ verification/admission
+→ uncertainty-aware maintainer decision support
+→ protected evaluation/replay/human metrics
+```
+
+Important: this is still independent Track B, not adopted UpgradePilot architecture.
+
+No further broad research is required before Track C.
+
+Next:
+**Step 2C — compare current/project-conditioned Track A against this refreshed Track-B architecture, principle by principle, preserving disagreements and experiment requirements.**
