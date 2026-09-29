@@ -14,8 +14,8 @@
 
 ```text
 A0 — DONE: current main, owners, recent closure, source/tests and evidence seams reconciled; no route contradiction
-A1 — CURRENT: continuity/recent-work onboarding; STOP at gate after Ali can challenge/correct/explain
-A2 — PENDING
+A1 — DONE: continuity model confirmed; precedence-direction wording corrected; gate cleared
+A2 — CURRENT: upcoming-responsibility orientation; STOP at pre-B understanding gate
 B — PENDING
 Verification gate — PENDING
 D — PENDING
@@ -161,7 +161,7 @@ Ali should leave A1 with a clear bridge from the closed Increment-2 model to the
 4. why exact command execution from Increment 1 is reusable but does not establish environment/config semantics;
 5. why Increment 3 is evidence acquisition/resolution, not the final package-state composer.
 
-### A2 upcoming-responsibility topics — PENDING until A1 gate clears
+### A2 upcoming-responsibility topics — CURRENT
 
 Orient proportionately before Build:
 - 3A bounded declarative workflow/job/step environment representation;
@@ -212,7 +212,7 @@ Do not:
 
 Exact final class/function names and broad pip/uv catalogs remain lookup-level until A2/Build evidence justifies them.
 
-## A1 — continuity / recent-work onboarding — CURRENT
+## A1 — continuity / recent-work onboarding — DONE
 
 A1 begins from the established Increment-2 ownership state. No additional technical work occurred between Increment-2 closure and this cycle's A0. The meaningful continuity delta is therefore architectural rather than a hidden implementation delta:
 
@@ -225,7 +225,14 @@ Increment 3 answers:
 without pretending to know the whole ambient environment?"
 ```
 
-The detailed onboarding and any Ali questions/corrections belong here through C. Do not enter A2 until the continuity gate is explicitly cleared.
+Ali cleared the continuity gate with the following working model:
+
+1. A literal `python` is insufficient by itself because the effective executable/environment may be selected by surrounding evidence such as setup-python/PATH, virtual-environment activation, shell-local changes, or another closer selector. The exact relationship must be established rather than assumed.
+2. Absence of `--dry-run` on the CLI is not enough to assert mutation because command line is only the highest-precedence source. If it is non-overriding, resolution must continue through exact process environment, then applicable persistent configuration, and only then may a manager default be admitted.
+
+Precision correction recorded during A1: the accepted precedence is read from highest to lower source (`CLI → process environment → persistent config → default`). Ali's substantive point was correct: do not skip unresolved intermediate sources and jump to the default.
+
+No material continuity gap remains. **A1 continuity/onboarding gate CLEARED.**
 
 ## C — continuous preservation
 
@@ -240,3 +247,10 @@ A0 established:
 - S002 is a useful environment-authority learning anchor but not a positive runtime-state proof for its dependency PR.
 
 No Smart Situational Override was required in A0.
+
+
+## C update — A1 gate result
+
+Ali demonstrated the required continuity model. No contradiction or new technical gap changed the Increment-3 route. The only correction was terminology around precedence direction; the proof behavior itself was understood correctly.
+
+A2 is now the active phase. No Build authorization has been inferred from clearing A1.
