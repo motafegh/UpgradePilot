@@ -704,3 +704,14 @@ When learning value is the primary reason for trying a technology, keep it expli
   - Learning candidates: GUAC/GraphQL, CycloneDX, SPDX, SLSA/in-toto/Sigstore, deps.dev; ORT as a heavier pipeline comparator.
 
 - **Tier-1 Report 05 — CI/runtime evidence + program-analysis techniques:** NEXT.
+
+
+- **Tier-1 Report 05 — CI/runtime evidence + program-analysis techniques:** COMPLETE.
+  - Record: `working-memory/2026-09-29_tier1-05_ci-runtime-evidence-and-program-analysis.md`
+  - Systems/methods: actionlint, zizmor, GitHub Actions native logs/runtime model, StepSecurity Harden-Runner, act, CodeQL Actions/Python, Joern, CrossHair, angr.
+  - Main finding: UpgradePilot's CI problem spans distinct layers—Actions semantics, shell semantics, package-manager semantics, runtime observation, and target decision logic—and mature tools already cover significant portions of the first and fourth layers.
+  - Most important comparator: CodeQL's dedicated GitHub Actions AST/CFG/inter-step dataflow model. Before expanding bespoke workflow-graph/env-propagation logic, run a bounded CodeQL comparison against one real UpgradePilot case.
+  - Runtime finding: instrumented process/network/file telemetry can convert some static execution inference into direct observation, but observed process execution still does not establish package-manager semantic success/state.
+  - Learning candidates: CodeQL, actionlint, zizmor, StepSecurity, act, Joern, CrossHair; angr as a separate security/formal-method lab.
+
+- **Tier-1 Report 06 — Repository-intelligence and agent architectures:** NEXT.
