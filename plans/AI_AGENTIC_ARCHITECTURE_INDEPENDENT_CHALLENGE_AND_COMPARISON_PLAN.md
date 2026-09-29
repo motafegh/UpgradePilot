@@ -758,3 +758,66 @@ The refresh must:
 - explicitly include evaluation/UX architecture, not only reasoning architecture;
 - identify which architecture competitions need hands-on experiments;
 - identify whether any Tier-2 family must be promoted before Track C because Tier-1 evidence exposed a material missing dimension.
+
+
+### 9.8 Step 2B-X — independent candidate-architecture refresh
+
+**Status: COMPLETE.**
+
+Record:
+- `working-memory/2026-09-29_step2bx_independent-candidate-architecture-refresh.md`
+
+The original six Track-B candidates were refreshed after all seven Tier-1 reports.
+
+Major corrections:
+
+- whole-system architectures are now separated from cross-cutting mechanisms;
+- challenger/verifier is treated as an escalation/evaluation pattern;
+- calibration/selective prediction is treated as a trust/admission mechanism;
+- graph infrastructure is treated as a substrate/world-model choice;
+- remediation is treated as an optional downstream subsystem;
+- runtime/execution-assisted evidence is promoted to a full architecture candidate;
+- one universal evidence graph is weakened in favor of multiple bounded, linkable repository/evidence views.
+
+Refreshed architecture set:
+
+1. Deterministic Evidence Compiler;
+2. Structured Hybrid Impact Reasoner;
+3. Fixed-First Adaptive Investigation System;
+4. Runtime / Execution-Assisted Evidence System;
+5. Sandboxed Generalist Repository Agent;
+6. Evidence-Centric Multi-View Knowledge Platform;
+7. Selective Human Decision-Support Architecture.
+
+Strongest independent Track-B mature hypothesis is a composite:
+
+```text
+multi-view evidence/repository substrate
+→ deterministic analysis
+→ structured semantic reasoning
+→ bounded adaptive investigation when necessary
+→ optional runtime/execution strengthening
+→ rare generalist-agent escalation
+→ verification/admission
+→ uncertainty-aware maintainer decision support
+→ protected evaluation/replay
+```
+
+This is **not** an UpgradePilot recommendation yet.
+
+Ten explicit architecture competitions are preserved for Track C / later experiments, including:
+
+- custom workflow modeling vs CodeQL Actions;
+- typed records vs multi-view graph substrate;
+- narrow model projections vs controlled raw-source retrieval;
+- fixed pipeline vs adaptive planner;
+- bounded planner vs generalist agent;
+- static inference vs runtime telemetry;
+- changelog evidence vs upstream API/source diff;
+- binary model authority vs calibrated selective authority;
+- internal-only schema vs standards adapters;
+- machine-output metrics vs maintainer decision-quality metrics.
+
+No Tier-2 family currently requires a full additional deep report before Track C.
+
+**Next: Step 2C — adversarial comparison and reconciliation.**
