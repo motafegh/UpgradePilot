@@ -40,6 +40,7 @@ type StaticCommandAnalysisState = Literal[
     "analyzable", "unresolved", "unsupported", "parse_error"
 ]
 type StaticCommandAtomState = Literal["literal", "dynamic", "unsupported"]
+type StaticCommandEnvironmentAssignmentState = Literal["literal", "dynamic", "unsupported"]
 type StaticCommandStructure = Literal[
     "straightforward_top_level",
     "linear_chain",
@@ -81,6 +82,16 @@ class StaticCommandAtom:
 
 
 @dataclass(frozen=True, slots=True)
+class StaticCommandEnvironmentAssignment:
+    """One shell-local environment assignment attached to an exact command process."""
+
+    raw_source: str
+    name: str | None
+    value: StaticCommandAtom
+    state: StaticCommandEnvironmentAssignmentState
+
+
+@dataclass(frozen=True, slots=True)
 class StaticCommandOccurrence:
     """One real syntactic command occurrence in deterministic source order."""
 
@@ -91,6 +102,7 @@ class StaticCommandOccurrence:
     arguments: tuple[StaticCommandAtom, ...]
     structural_context: tuple[StaticCommandStructure, ...]
     whole_step_relation: StaticCommandWholeStepRelation | None = None
+    environment_assignments: tuple[StaticCommandEnvironmentAssignment, ...] = ()
 
 
 @dataclass(frozen=True, slots=True)
@@ -295,6 +307,11 @@ def _occurrence_from_node(
             family=family,
             command_nodes=command_nodes,
         ),
+        environment_assignments=(
+            _bash_command_environment_assignments(node, source)
+            if family == "bash"
+            else ()
+        ),
     )
 
 
@@ -395,6 +412,77 @@ def _bash_command_parts(node: Node) -> tuple[Node, tuple[Node, ...]]:
         if child.type == "command_name":
             return child, children[index + 1 :]
     return node, ()
+
+
+def _bash_command_environment_assignments(
+    node: Node,
+    source: bytes,
+) -> tuple[StaticCommandEnvironmentAssignment, ...]:
+    """Preserve environment assignments syntactically attached to one Bash command.
+
+    Tree-sitter Bash represents command-prefix assignments as variable_assignment
+    children before the command name. This provider boundary records those assignments
+    without interpreting package-manager-specific variable names or wider shell state.
+    """
+
+    assignments: list[StaticCommandEnvironmentAssignment] = []
+    for child in node.named_children:
+        if child.type == "command_name":
+            break
+        if child.type != "variable_assignment":
+            continue
+
+        name_node = child.child_by_field_name("name")
+        value_node = child.child_by_field_name("value")
+        raw_source = _node_text(child, source)
+
+        if name_node is None or name_node.type != "variable_name":
+            assignments.append(
+                StaticCommandEnvironmentAssignment(
+                    raw_source=raw_source,
+                    name=None,
+                    value=StaticCommandAtom(
+                        raw_source=(
+                            _node_text(value_node, source)
+                            if value_node is not None
+                            else ""
+                        ),
+                        literal_value=None,
+                        state="unsupported",
+                    ),
+                    state="unsupported",
+                )
+            )
+            continue
+
+        name = _node_text(name_node, source)
+        if value_node is None:
+            value = StaticCommandAtom(
+                raw_source="",
+                literal_value="",
+                state="literal",
+            )
+        else:
+            raw_value = _node_text(value_node, source)
+            if value_node.type == "_empty_value" or not raw_value:
+                value = StaticCommandAtom(
+                    raw_source=raw_value,
+                    literal_value="",
+                    state="literal",
+                )
+            else:
+                value = _atom_from_node(value_node, source, "bash")
+
+        assignments.append(
+            StaticCommandEnvironmentAssignment(
+                raw_source=raw_source,
+                name=name,
+                value=value,
+                state=value.state,
+            )
+        )
+
+    return tuple(assignments)
 
 
 def _powershell_command_parts(node: Node) -> tuple[Node, tuple[Node, ...]]:
