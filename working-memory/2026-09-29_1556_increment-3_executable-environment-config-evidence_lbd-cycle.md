@@ -1,7 +1,7 @@
 # Increment 3 — Bounded Executable / Environment / Config Evidence — Learning-by-Doing Cycle
 
 **Date:** 2026-09-29  
-**Cycle status:** ACTIVE — A0/A1/A2 DONE; B CURRENT; B1-B4 hosted-verified through Product verification #13; cycle Verification/D/E not yet entered  
+**Cycle status:** ACTIVE — A0/A1/A2/B DONE; Verification GREEN through Product verification #14; D CURRENT; E PENDING  
 **Primary responsibility:** add only the bounded executable/interpreter, exact-process environment, persistent-config/default evidence required to close Route-A package-manager semantic blockers  
 **Controlling plan:** `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`  
 **R4 implementation sequence:** `working-memory/2026-09-27_runtime-dependency-state-proof-implementation-and-verification-planning.md`  
@@ -16,9 +16,9 @@
 A0 — DONE: current main, owners, recent closure, source/tests and evidence seams reconciled; no route contradiction
 A1 — DONE: continuity model confirmed; precedence-direction wording corrected; gate cleared
 A2 — DONE: responsibility/proof model understood; terminology correction recorded; gate cleared
-B — CURRENT: select and implement first coherent demand-driven evidence path
-Verification gate — PENDING
-D — PENDING
+B — DONE: B1-B5 implemented; first controlled Route-A fixture closes all four semantic facts while ordinary ambient cases abstain
+Verification gate — GREEN: Product verification #14 on exact B5 head; focused 15/15 and deterministic 699/699
+D — CURRENT: integrated post-work evidence-backed learning and ownership
 E — PENDING
 C — CONTINUOUS: preserve meaningful engineering + learning progression through closure
 ```
@@ -838,3 +838,58 @@ Important scope boundary:
 B5 source and tests are committed through `b98a1d51df7412dcf0126d4ba231ad24c2e6833c` but have **not yet received hosted execution proof**.
 
 If the next Product verification is green and the new Route-A fixture executes as intended, reassess the Increment-3 pass condition before adding any further B work. Do not invent B6 unless a concrete remaining proof-critical blocker is exposed.
+
+
+### Formal Verification / Evidence Gate — Product verification #14 GREEN
+
+Hosted Product verification run #14:
+- run: https://github.com/motafegh/UpgradePilot/actions/runs/36594702059
+- event: `workflow_dispatch`
+- exact head: `29247346d1c1e3ea7074ffd7daf9c53d8c3beeda`
+- conclusion: **success**
+- installed-package / CLI checks: success
+- focused investigation composition: **15 tests, OK**
+- full deterministic product regression: **699 tests, OK**
+
+The hosted logs explicitly prove the new B5 acceptance cases:
+- `test_controlled_positive_fixture_closes_all_four_semantic_facts` — PASS;
+- `test_ordinary_looking_fixture_without_closure_evidence_remains_unresolved` — PASS;
+- `test_default_destination_requires_explicit_lower_source_closure` — PASS;
+- `test_disabled_only_deps_environment_and_config_allow_direct_handling_default` — PASS.
+
+### Increment-3 pass-condition assessment
+
+Controlling pass condition:
+
+> the first selected Route-A fixture can obtain all required semantic facts from bounded evidence, while ordinary-looking cases with materially unknown ambient sources remain explicitly unresolved.
+
+Observed proof:
+
+```text
+controlled Route-A fixture
+→ ManagerEnvironmentSelectionFact
+→ InstallationDestinationFact(manager_environment_scheme)
+→ PackageMutationModeFact(apply_changes)
+→ DirectRequirementHandlingFact(handled)
+→ shared exact command identity
+
+ordinary python -m pip install -r requirements.txt
+without lower-source closure
+→ remains unresolved
+```
+
+Therefore the Increment-3 Build responsibility has met its selected pass condition. No concrete proof-critical reason remains to invent another B child.
+
+B is **DONE**.
+Verification gate is **GREEN**.
+D is now **CURRENT**.
+
+Residual intentionally unsupported/unresolved surfaces remain explicit scope boundaries, not blockers to Increment-3 acceptance:
+- arbitrary persistent pip config contents/precedence;
+- generic workflow/job/step env → exact-process closure;
+- arbitrary GITHUB_ENV/GITHUB_PATH propagation;
+- same-step venv activation;
+- general bare-pip/non-adjacent PATH provenance;
+- universal runner environment reconstruction.
+
+These may be revisited only if later product evidence makes them decision-critical.
