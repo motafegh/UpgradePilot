@@ -5,8 +5,8 @@
 This cycle began under the previous single-A/B+C cadence. During its pre-B orientation, the project refined the canonical Learning-by-Doing model to A0 → A1 → A2 → B → Verification → D → E with C continuous across the whole cycle. On resumption, this existing record is retained rather than creating a duplicate cycle record; the new governance is applied from a deliberate A0 re-entry. The Smart Situational Override Rule permits this transition because no Increment-2 Build began. The rule does not create Build authorization or weaken evidence truth.
 
 **Date:** 2026-09-28  
-**Cycle status:** ACTIVE — A0/A1/A2/B complete; Verification/Evidence gate GREEN; D evidence-backed learning/ownership is CURRENT  
-**Primary operation:** Increment-2 Build is implemented and verified; D evidence-backed learning/ownership is next  
+**Cycle status:** CLOSED — A0/A1/A2/B/D/E complete; Verification/Evidence gate GREEN; C reconciled through closure  
+**Primary operation:** Increment-2 cycle closed after verified Build, evidence-backed ownership learning, and E gap repair/handoff  
 **Controlling plan:** `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`  
 **R4 implementation sequence:** `working-memory/2026-09-27_runtime-dependency-state-proof-implementation-and-verification-planning.md`  
 **Accepted architecture:** `docs/architecture/ADR-0010-package-manager-semantic-facts-and-runtime-dependency-state-composition.md`  
@@ -23,9 +23,9 @@ A1 — DONE: Ali confirmed the continuity model; no material continuity gap surf
 A2 — DONE: Ali demonstrated the package-manager declaration boundary and dry-run mutation-mode blocker; pre-B gate cleared
 B — DONE: bounded package-manager operation declaration + command-local semantic-fact core implemented and existing pip consumers migrated
 Verification gate — GREEN: Product verification #10 succeeded on exact run head `e838fa656964a898c037cca6ef0d390983f106ad`; full deterministic regression ran 653 tests including the new semantic core and both migrated consumers
-D — CURRENT: evidence-backed source/flow/proof learning and ownership check
-E — PENDING
-C — CONTINUOUS: preserve meaningful progression across A0→E
+D — DONE: real source/flow/proof learning completed; only small precision gaps surfaced and were repaired
+E — DONE: gaps repaired, proof/non-proof consolidated, next responsibility identified
+C — DONE: meaningful progression reconciled through cycle closure
 ```
 
 ## Why no separate new plan
@@ -386,6 +386,79 @@ Ali demonstrated the core Increment-2 architecture and uncertainty model with on
 - In S002, successful `python -m pip ... -r requirements.txt` execution plus direct requirements consumption still lacks effective executable/environment, destination, mutation-mode/default, and direct-handling closure before package-state satisfaction can be composed.
 
 Ali also identified that the compact real-case D trace intentionally omitted environment/config traversal. This is correct: Increment 2 produces semantic facts/problems and blocking-source information; Increment 3 owns bounded executable/process-environment/config evidence and default closure, and Increment 4 owns the command-derived requirement-state composer.
+## D — evidence-backed learning / ownership — DONE
+
+D used the verified implementation plus real product-simulation anchors S011 and S002, with S008 as an evidence-source boundary example.
+
+Ownership result:
+
+- Ali correctly understood the shared declaration / independent-fact architecture, proposition-level provenance, and fail-closed treatment of dynamic material;
+- the only material precision gaps were distinguishing command-line-known dimensions from lower-source unresolved dimensions, and separating S011's `.[dev]` versus `.[mlx]` coverage failure from manager-environment uncertainty;
+- those gaps were corrected during D and recorded in this cycle;
+- no remaining ownership gap blocks closure.
+
+## E — gap repair + cycle closure / handoff — DONE
+
+### Repaired / consolidated understanding
+
+For the representative command:
+
+```text
+pip --python /venv/python install --target vendor --no-deps -r requirements.txt
+```
+
+Increment 2 can decide manager environment (`--python`) and installation destination (`--target`) from command-line evidence. It cannot infer `apply_changes` merely from the absence of `--dry-run`, and `--no-deps` proves only that transitive dependencies are suppressed—not that all effective direct-requirement semantics are closed. Lower-precedence sources remain an Increment-3 responsibility.
+
+For S011, the bounded CI-coverage conclusion is independently:
+
+```text
+workflow installs .[dev]
+!= affected .[mlx] optional environment formed
+```
+
+Manager-environment uncertainty is a separate proposition, not the cause of that coverage failure.
+
+### What Increment 2 established
+
+- one dependency-owned static pip-install operation declaration replaces repeated pip-prefix interpretation;
+- command location, invocation form, launcher/interpreter relation, admitted pip-global arguments and operation arguments are preserved;
+- manager environment selection, installation destination, mutation mode and direct-requirement handling are independent typed semantic dimensions;
+- command-line decisive facts carry provenance;
+- materially unresolved/unsupported semantics become explicit problems rather than guessed defaults;
+- existing direct-requirements and project-selection consumers now reuse the shared operation declaration;
+- the superseded `pip_command.py` owner is removed;
+- Product verification #10 is GREEN with fresh installation/CLI checks, 15 focused investigation tests and 653 deterministic product tests.
+
+### What Increment 2 did not establish
+
+- workflow/job/step process-environment precedence;
+- executed `GITHUB_ENV` propagation or shell-local environment effects;
+- setup-python/PATH, virtual-environment or bare-pip executable provenance beyond command-local declaration;
+- persistent pip/uv configuration and final manager-default closure;
+- universal pip/uv option semantics;
+- resulting package state / `RequirementSatisfiedAtCommandCompletion`;
+- later package persistence/use, compatibility or maintainer-action permission.
+
+### Residual debt / limitations
+
+No Increment-2 blocker remains. Ordinary-looking package-manager commands may correctly stay unresolved until Increment 3 closes the exact executable/environment/config evidence required by the selected Route-A proof. The uv effective-semantics family remains outside this first pip-focused Increment-2 implementation.
+
+### Next responsibility
+
+**Increment 3 — bounded executable/environment/config evidence required by Route A.**
+
+Why next, briefly:
+
+```text
+Increment 2 now tells us which semantic source is still blocking
+→ Increment 3 acquires/resolves only the bounded executable/process-env/config evidence needed
+→ defaults become usable only after higher-precedence sources are closed
+→ Increment 4 can then compose command-derived requirement state
+```
+
+Do not perform Increment-3 orientation or Build inside this closed cycle. Its next substantive work begins with a fresh A0/A1/A2 cycle.
+
+**Cycle closure date:** 2026-09-29
 ## Historical pre-refinement A orientation — input to refined A1/A2
 
 ### 1. Starting implementation truth
