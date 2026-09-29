@@ -529,3 +529,50 @@ This is not a route change; it is the accepted 3C boundary becoming concrete. Th
 No runtime/focused test execution has yet been obtained for these commits. Post-change source inspection is complete and coherent, but this is **not** a Verification PASS. Product verification remains deferred until the coherent Build slice has enough cross-layer behavior to justify the gate.
 
 No Smart Situational Override has been used.
+
+
+### Child responsibility B2 — command-local exact-process environment evidence + pip dry-run consumption
+
+Implemented on `main`:
+
+- `63a3add` — parser-neutral `StaticCommandOccurrence` now preserves bounded Bash command-local environment assignments rather than forcing downstream layers to reparse raw shell text;
+- `6e010dc` — focused command-analysis cases cover literal, dynamic and ordered multiple Bash command-local assignments;
+- `d04e5cf` — new `github/process_environment.py` introduces bounded exact-command process-variable evidence;
+- `2167b45` — focused exact-process evidence cases preserve literal local assignment, dynamic unresolved state, declarative-only unresolved state and ambient unresolved state;
+- `d0026be` — pip mutation semantics can consume exact `PIP_DRY_RUN` process evidence while preserving package-manager meaning in the dependency layer;
+- `6f2b62f` — semantic tests cover true/false/invalid/unresolved process values;
+- `5eadf5d` — workflow-IR environment fields were made constructor-compatible by defaulting the new fields to `None`;
+- `0c5b1fd` — cross-layer integration proof covers workflow text → exact command → process env → package-manager mutation semantics.
+
+Current semantic behavior:
+
+```text
+--dry-run on CLI
+→ PackageMutationModeFact(dry_run)
+
+no CLI --dry-run
++ exact command-local PIP_DRY_RUN=1
+→ PackageMutationModeFact(dry_run)
+  provenance: command_line(non-overriding) → process_environment(decisive)
+
+no CLI --dry-run
++ exact command-local PIP_DRY_RUN=0
+→ process environment proven non-overriding
+→ blocker moves to persistent_configuration
+
+no CLI --dry-run
++ dynamic/unknown exact process value
+→ remains unresolved at process_environment
+```
+
+This is the intended precedence behavior: proving a higher source non-overriding advances the proof one source; it does not authorize skipping the next source.
+
+### Current B boundary
+
+The first exact-process producer intentionally establishes positive values only from literal Bash command-local assignments. Workflow/job/step declarations are preserved and queried, but not yet promoted to exact-process truth because same-step shell state, previous `GITHUB_ENV` writes, provider effects and ambient state still require bounded composition.
+
+The next coherent Build pressure is now explicit:
+- persistent pip configuration/default closure for dimensions whose process value is positively non-overriding; and/or
+- executable/interpreter identity for `python -m pip` / setup-python / venv relations.
+
+Increment 3 remains B CURRENT; no Verification PASS has been claimed.
