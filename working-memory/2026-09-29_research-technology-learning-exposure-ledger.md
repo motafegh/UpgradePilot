@@ -197,3 +197,63 @@ only after that experiment actually exists.
 - **Learning value:** strong security/reverse-engineering exposure, low current product fit.
 - **Hands-on target:** isolated symbolic-execution exercise on a tiny binary/path condition.
 - **Recommended exposure:** learning lab / defer from product.
+
+
+## Tier-1 Report 06 additions
+
+### Small Python repository graph / Tree-sitter-style indexing
+- **Current state:** RESEARCHED.
+- **Learning value:** very high.
+- **Hands-on target:** build a compact file/class/function/import/call graph for one Python repository and expose impact/reference queries.
+- **Skills:** AST extraction, graph schema, symbol resolution, graph traversal, provenance.
+- **Recommended exposure:** HANDS_ON_EXPERIMENTED / possible project comparator.
+
+### Repository Intelligence Graph (RIG) concept
+- **Current state:** RESEARCHED.
+- **Learning value:** very high and unusually aligned with UpgradePilot.
+- **Hands-on target:** build a bounded Python map connecting modules/packages, tests, CI jobs, runners and package-manager evidence.
+- **Skills:** build/test architecture, evidence-backed graph modeling, Pydantic, agent context design.
+- **Recommended exposure:** project experiment candidate.
+
+### Neo4j / Cypher
+- **Current state:** RESEARCHED via CodexGraph architecture.
+- **Learning value:** high.
+- **Hands-on target:** load a small code/evidence graph, write read-only Cypher queries, compare model-generated queries with typed graph tools.
+- **Recommended exposure:** bounded graph-database lab; product only if graph backend need becomes real.
+
+### Sourcegraph Code Graph / search
+- **Current state:** RESEARCHED.
+- **Learning value:** high for production code intelligence.
+- **Hands-on target:** use indexed symbol/reference/search workflows on a representative repository if accessible.
+- **Recommended exposure:** research + practical lab, not current dependency.
+
+### Retrieval comparison / CodeRAG methods
+- **Current state:** RESEARCHED.
+- **Learning value:** high AI-engineering value.
+- **Hands-on target:** compare lexical/BM25, embeddings, graph retrieval and hybrid retrieval on a small frozen repository question set.
+- **Recommended exposure:** project evaluation lab.
+
+### SWE-agent / mini-swe-agent ACI principles
+- **Current state:** RESEARCHED; legacy SWE-agent itself is maintenance-only/superseded.
+- **Learning value:** very high for agent engineering.
+- **Hands-on target:** create a small UpgradePilot-specific tool interface with constrained file viewing, structural search, evidence query, read-only check execution and explicit post-action state.
+- **Recommended exposure:** project experiment candidate focused on ACI concepts rather than legacy framework adoption.
+
+### OpenHands
+- **Current state:** RESEARCHED.
+- **Learning value:** very high.
+- **Hands-on target:** run one bounded repository issue/investigation in a sandbox, inspect trajectory/tool use/context/cost, and compare with a fixed UpgradePilot pipeline.
+- **Skills:** generalist agents, sandbox execution, MCP, model routing, lifecycle/budget controls.
+- **Recommended exposure:** bounded comparator experiment; not default product dependency.
+
+### Agentless architecture
+- **Current state:** RESEARCHED.
+- **Learning value:** high methodology value.
+- **Hands-on target:** implement/freeze a simple staged localization→reasoning→validation baseline for the same case used in an agent experiment.
+- **Recommended exposure:** evaluation baseline rather than separate technology adoption.
+
+### GitHub Copilot repository instructions / skills / MCP
+- **Current state:** RESEARCHED, with analogous UpgradePilot AGENTS/skills usage already present.
+- **Learning value:** high and current.
+- **Hands-on target:** create a comparison note/experiment mapping UpgradePilot governance and skills to current repository-agent customization conventions.
+- **Recommended exposure:** project-integrated documentation/agent-workflow learning.
