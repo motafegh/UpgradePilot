@@ -1455,3 +1455,44 @@ Step 3      whole-pipeline architecture map
 ```
 
 The first Tier-1 report should study the closest dependency-update products/workflows before judging architectural implications.
+
+
+## 19. Tier-1 deep research progression
+
+Tier-1 Report 01 is complete:
+
+- `working-memory/2026-09-29_tier1-01_closest-dependency-update-products-and-workflows.md`
+- Dependabot/dependabot-core
+- Renovate/Mend Merge Confidence
+- GitHub Dependency Review
+- Updatecli
+
+Key external pattern:
+
+```text
+mature updater products
+→ excel at discovering, generating, grouping, routing and governing updates
+
+security/dependency-review products
+→ excel at dependency diffs + policy enforcement
+
+repository CI
+→ commonly remains a major target-validation signal
+
+maintainer
+→ still owns much of final target-specific compatibility judgment
+```
+
+Important architecture patterns captured for later comparison:
+
+- ecosystem adapter contracts;
+- Manager / Datasource / Versioning / Platform separation;
+- use the real package-manager tool instead of reverse-engineering artifact updates when appropriate;
+- declarative source → condition → target → SCM → action composition;
+- revision-relative state invalidation;
+- population risk signals separated from target-specific evidence;
+- maintainer attention/approval/queue control as a product responsibility.
+
+These are hypotheses for later Track C, not adopted UpgradePilot architecture.
+
+Next: Tier-1 Report 02 — risk, reachability and upgrade-impact platforms.
