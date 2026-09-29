@@ -974,3 +974,58 @@ but future broad discovery may use progressive repository/source retrieval rathe
 Step 4 confirms no AI/agent work belongs in Increment 4 or the initial Increment-5 integration responsibility.
 
 **Next: Step 5 — select actual architecture changes, experiment queue, ADR/spec updates, explicit deferrals, and integration strategy for this analysis branch.**
+
+
+### 9.12 Step 5 — architecture decisions / experiment queue / integration strategy
+
+**Status: COMPLETE. RESEARCH PROGRAM CLOSED AT ANALYSIS LEVEL.**
+
+Record:
+- \`working-memory/2026-09-29_step5_architecture-decisions-experiment-queue-and-integration-strategy.md\`
+
+Live main at convergence:
+- \`e63019cddaa64565504c3de98c87449d49838667\`
+- Increment 4 A0 DONE;
+- Increment 4 A1 CURRENT;
+- no Build authorized until A1 and A2 clear.
+
+Final project decisions:
+
+1. Continue Increment 4 → Increment 5 unchanged.
+2. Add no new AI/agent/framework dependency now.
+3. Keep ADR-0006 support-drop LLM adopted.
+4. Retain EvidenceGapPlanner as pilot; general adoption requires a second independently justified real action and E6 comparison.
+5. Retain LangGraph as experiment/learning evidence; defer product adoption until real orchestration pressure exists.
+6. Retain final LLM synthesis proposal but defer/rework before activation.
+7. Broad impact-candidate discovery is the highest-value future AI responsibility, but is not active now.
+8. Queue trigger-based experiments rather than starting a technology workstream:
+   - E1 CodeQL Actions comparator;
+   - E2 Griffe/API/source-diff comparator;
+   - E3 runtime telemetry comparator;
+   - E4 bounded repository-intelligence/RIG experiment;
+   - E5 model-context breadth comparison;
+   - E6 fixed investigation vs bounded planner;
+   - E7 planner vs generalist agent only for long-tail cases;
+   - E8 calibrated model-claim admission;
+   - E9 standards mapping lab;
+   - E10 later maintainer decision-quality study.
+9. Explicitly defer LangChain, generalist-agent default, multi-agent default, generic RAG/vector DB, universal graph, standards-native internal model, and remediation engine.
+10. Create no new ADR/spec from this research until a comparative experiment selects a durable method.
+11. Do not merge the analysis branch wholesale into main.
+12. Preserve the branch as research provenance.
+13. At a clean main stop boundary, selectively integrate a distilled package:
+    - Step-3 whole-pipeline map;
+    - Step-4 AI/agent reconciliation;
+    - Step-5 decision/experiment register;
+    - research technology/learning exposure ledger;
+    - one concise non-controlling architecture reconciliation artifact;
+    - one bounded Mature System Horizon update.
+14. Default integration timing: after Increment 4 closes, unless a new contradiction affects current proof truth.
+
+Branch comparison at closure:
+- 49 commits ahead of main;
+- 81 commits behind main;
+- branch-only changes are research/plan/working-memory documentation;
+- no source/test change requires branch merge.
+
+The analysis route is closed. Further work from this branch should be targeted experiment activation or selective documentation integration, not another broad research cycle.
