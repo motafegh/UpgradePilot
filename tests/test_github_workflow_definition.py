@@ -255,6 +255,73 @@ jobs:
         self.assertEqual(run.working_directory.text, "src")
         self.assertGreater(run.span.start_line, 0)
 
+    def test_preserves_workflow_job_and_step_environment_mappings(self) -> None:
+        result = parse_workflow_definition(
+            _source(
+                """
+env:
+  GLOBAL_LITERAL: workflow
+  GLOBAL_DYNAMIC: ${{ github.ref }}
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      JOB_LITERAL: job
+    steps:
+      - name: Install
+        env:
+          STEP_LITERAL: step
+          STEP_DYNAMIC: ${{ matrix.mode }}
+        run: python -m pip install -r requirements.txt
+      - name: Tool
+        env:
+          TOOL_LITERAL: action
+        uses: actions/setup-python@v6
+""",
+            )
+        )
+
+        self.assertIsInstance(result, WorkflowDefinition)
+        assert isinstance(result, WorkflowDefinition)
+        self.assertIsInstance(result.environment, StaticMappingValue)
+        assert isinstance(result.environment, StaticMappingValue)
+        self.assertEqual(
+            [(entry.key.text, entry.value.text) for entry in result.environment.entries],
+            [
+                ("GLOBAL_LITERAL", "workflow"),
+                ("GLOBAL_DYNAMIC", "${{ github.ref }}"),
+            ],
+        )
+        assert isinstance(result.environment.entries[1].value, StaticScalarValue)
+        self.assertTrue(result.environment.entries[1].value.contains_expression)
+
+        job = result.jobs[0]
+        self.assertIsInstance(job, StepsJobDefinition)
+        assert isinstance(job, StepsJobDefinition)
+        self.assertIsInstance(job.environment, StaticMappingValue)
+        assert isinstance(job.environment, StaticMappingValue)
+        self.assertEqual(job.environment.entries[0].key.text, "JOB_LITERAL")
+
+        run = job.steps[0]
+        uses = job.steps[1]
+        self.assertIsInstance(run, RunStepDefinition)
+        self.assertIsInstance(uses, UsesStepDefinition)
+        assert isinstance(run, RunStepDefinition)
+        assert isinstance(uses, UsesStepDefinition)
+        self.assertIsInstance(run.environment, StaticMappingValue)
+        self.assertIsInstance(uses.environment, StaticMappingValue)
+        assert isinstance(run.environment, StaticMappingValue)
+        assert isinstance(uses.environment, StaticMappingValue)
+        self.assertEqual(
+            [entry.key.text for entry in run.environment.entries],
+            ["STEP_LITERAL", "STEP_DYNAMIC"],
+        )
+        dynamic = run.environment.entries[1].value
+        self.assertIsInstance(dynamic, StaticScalarValue)
+        assert isinstance(dynamic, StaticScalarValue)
+        self.assertTrue(dynamic.contains_expression)
+        self.assertEqual(uses.environment.entries[0].key.text, "TOOL_LITERAL")
+
     def test_preserves_reusable_workflow_job_without_expanding_it(self) -> None:
         result = parse_workflow_definition(
             _source(
