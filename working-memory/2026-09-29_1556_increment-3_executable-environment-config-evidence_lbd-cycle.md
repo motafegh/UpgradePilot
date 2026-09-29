@@ -485,3 +485,47 @@ This is the product-faithful reason for demand-driven Increment 3: add evidence 
 Ali demonstrated the required pre-B model. The only correction was that venv activation belongs to executable/environment selection, not pip CLI precedence. The substantive ordering judgment was correct: a later positively established environment selector can supersede an earlier PATH relation for the exact later command.
 
 Build is now authorized only inside the existing Increment-3 responsibility. The first Build slice must be chosen from real Route-A semantic blockers and remain connected to the increment pass condition.
+
+
+## B — implementation progression
+
+### Child responsibility B1 — bounded declarative GitHub Actions environment evidence
+
+Implemented on `main`:
+
+- `f3b5ab0` — `workflow_definition.py` now preserves workflow/job/step `env:` mappings as bounded provider IR, including expression-bearing values;
+- `a5bc2cc` — focused workflow-definition coverage for workflow/job/run-step/uses-step environment mappings;
+- `0007530` — new `github/workflow_environment.py` resolves one requested declaration through step > job > workflow precedence without claiming runtime process state;
+- `07ef6a4` — focused precedence/unresolved tests for the declarative environment observation.
+
+The provider observation preserves:
+- literal established declaration;
+- dynamic/ambiguous declaration as unresolved;
+- no declaration as `not_declared`, explicitly **not** process-variable absence.
+
+### B model correction discovered during source preflight
+
+The initial route pressure was “workflow/job/step env → exact-process value.” Source/semantics inspection exposed a missing closer layer:
+
+```text
+workflow/job/step env declaration
+!= automatically exact process value
+```
+
+For example:
+
+```bash
+PIP_DRY_RUN=1 pip install -r requirements.txt
+```
+
+can override an inherited declarative value for that exact command process. Earlier positively executed `GITHUB_ENV` writes and other admitted provider/shell effects may also contribute.
+
+Therefore the implementation deliberately stops the new `WorkflowEnvironmentValueObservation` at **static declaration evidence**. It is not fed directly into pip semantics as exact-process truth.
+
+This is not a route change; it is the accepted 3C boundary becoming concrete. The next B child should establish parser/provider-owned command-local environment-assignment evidence and then compose the smallest trustworthy exact-process query rather than reparsing shell text inside dependency/package-manager code.
+
+### Verification state
+
+No runtime/focused test execution has yet been obtained for these commits. Post-change source inspection is complete and coherent, but this is **not** a Verification PASS. Product verification remains deferred until the coherent Build slice has enough cross-layer behavior to justify the gate.
+
+No Smart Situational Override has been used.
