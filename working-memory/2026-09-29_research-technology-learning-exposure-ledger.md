@@ -257,3 +257,39 @@ only after that experiment actually exists.
 - **Learning value:** high and current.
 - **Hands-on target:** create a comparison note/experiment mapping UpgradePilot governance and skills to current repository-agent customization conventions.
 - **Recommended exposure:** project-integrated documentation/agent-workflow learning.
+
+
+## Tier-1 Report 07 additions
+
+### SWE-bench evaluation harness / containerized SWE evaluation
+- **Current state:** RESEARCHED.
+- **Learning value:** very high.
+- **Hands-on target:** run a small containerized software-engineering evaluation and inspect task/oracle quality rather than only leaderboard scoring.
+- **Skills:** benchmark harnesses, Docker reproducibility, hidden tests, eval methodology, contamination awareness.
+- **Recommended exposure:** bounded evaluation lab.
+
+### Python BUMP / DepBench-style dependency-update corpus
+- **Current state:** RESEARCHED as methodology; not yet built.
+- **Learning value:** extremely high and directly product-relevant.
+- **Hands-on target:** create a small reproducible Python corpus with exact pre/post dependency transitions, environment images, mechanism labels, and executable or evidence-based oracles.
+- **Skills:** dataset construction, Docker, evaluation design, dependency breakage taxonomy, reproducibility.
+- **Recommended exposure:** strong future UpgradePilot project experiment/artifact candidate.
+
+### Calibration / selective prediction
+- **Current state:** RESEARCHED.
+- **Learning value:** very high for applied AI engineering.
+- **Hands-on target:** compute confidence/uncertainty and risk-coverage curves for one bounded semantic model responsibility; compare abstention policies.
+- **Skills:** calibration, uncertainty, selective risk, thresholding, statistical evaluation.
+- **Recommended exposure:** project experiment when next semantic-model evaluation is active.
+
+### Agent trajectory analytics
+- **Current state:** RESEARCHED conceptually; UpgradePilot already records bounded planner transitions experimentally.
+- **Learning value:** very high.
+- **Hands-on target:** build an evaluator that measures action sequences, evidence gain, cost, invalid actions, stopping, and repeated-run variance for EvidenceGapPlanner.
+- **Recommended exposure:** project experiment candidate when planner action space expands.
+
+### Maintainer decision-support study
+- **Current state:** RESEARCHED methodology.
+- **Learning value:** high for product/HCI evaluation.
+- **Hands-on target:** once report UX stabilizes, compare normal dependency PR vs deterministic UpgradePilot report vs hybrid report on decision time, correctness, trust calibration, and evidence usage.
+- **Recommended exposure:** defer until product surface is stable enough for meaningful human study.
