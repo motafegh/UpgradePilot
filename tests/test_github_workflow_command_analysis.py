@@ -186,6 +186,61 @@ class StaticWorkflowCommandAnalysisTests(unittest.TestCase):
                     "sole_ordinary_top_level_command",
                 )
 
+    def test_bash_command_local_environment_assignment_is_preserved(self) -> None:
+        workflow, job, step = _workflow(
+            run="PIP_DRY_RUN=1 python -m pip install -r requirements.txt",
+            shell="bash",
+        )
+
+        result = analyze_run_step_commands(workflow, job, step)
+
+        self.assertEqual(result.state, "analyzable")
+        self.assertEqual(len(result.command_occurrences), 1)
+        occurrence = result.command_occurrences[0]
+        self.assertEqual(occurrence.executable.literal_value, "python")
+        self.assertEqual(
+            tuple(atom.literal_value for atom in occurrence.arguments),
+            ("-m", "pip", "install", "-r", "requirements.txt"),
+        )
+        self.assertEqual(len(occurrence.environment_assignments), 1)
+        assignment = occurrence.environment_assignments[0]
+        self.assertEqual(assignment.name, "PIP_DRY_RUN")
+        self.assertEqual(assignment.state, "literal")
+        self.assertEqual(assignment.value.literal_value, "1")
+
+    def test_bash_dynamic_command_local_environment_assignment_stays_dynamic(self) -> None:
+        workflow, job, step = _workflow(
+            run='PIP_DRY_RUN="$MODE" pip install -r requirements.txt',
+            shell="bash",
+        )
+
+        result = analyze_run_step_commands(workflow, job, step)
+
+        self.assertEqual(result.state, "analyzable")
+        occurrence = result.command_occurrences[0]
+        self.assertEqual(occurrence.executable.literal_value, "pip")
+        assignment = occurrence.environment_assignments[0]
+        self.assertEqual(assignment.name, "PIP_DRY_RUN")
+        self.assertEqual(assignment.state, "dynamic")
+        self.assertIsNone(assignment.value.literal_value)
+
+    def test_bash_multiple_command_local_environment_assignments_keep_source_order(self) -> None:
+        workflow, job, step = _workflow(
+            run="PIP_DRY_RUN=0 PIP_TARGET=vendor pip install demo",
+            shell="bash",
+        )
+
+        result = analyze_run_step_commands(workflow, job, step)
+
+        occurrence = result.command_occurrences[0]
+        self.assertEqual(
+            [
+                (item.name, item.value.literal_value)
+                for item in occurrence.environment_assignments
+            ],
+            [("PIP_DRY_RUN", "0"), ("PIP_TARGET", "vendor")],
+        )
+
     def test_comment_and_quoted_payloads_do_not_manufacture_commands(self) -> None:
         cases = (
             ("bash", 'echo "note; pip install -r fake.txt" # pip install -r fake2.txt'),
