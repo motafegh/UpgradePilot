@@ -341,6 +341,20 @@ def resolve_installation_destination(
         locator="--no-user" if user_scope_disabled_on_cli else None,
     )
 
+    if not process_environment:
+        return _problem(
+            declaration,
+            "installation_destination",
+            "installation_destination_needs_lower_source_evidence",
+            (
+                "No explicit pip destination selector is visible. Process environment and "
+                "persistent configuration must be ruled out before the normal manager-environment "
+                "scheme can be asserted."
+            ),
+            resolved_prefix=(cli_step,),
+            blocking_source="process_environment",
+        )
+
     if not user_scope_disabled_on_cli:
         return _problem(
             declaration,
@@ -679,6 +693,24 @@ def resolve_direct_requirement_handling(
         ),
         locator="--no-deps" if no_deps else None,
     )
+
+    if not process_environment:
+        return _problem(
+            declaration,
+            "direct_requirement_handling",
+            "direct_requirement_handling_needs_lower_source_evidence",
+            (
+                "pip --no-deps suppresses transitive dependencies but does not exclude the direct "
+                "requirement; lower semantic sources still need resolution."
+                if no_deps
+                else (
+                    "No command-line direct-requirement exclusion is visible; lower semantic "
+                    "sources still need resolution before effective handling can be asserted."
+                )
+            ),
+            resolved_prefix=(cli_step,),
+            blocking_source="process_environment",
+        )
 
     variable_names = ("PIP_ONLY_DEPS", "PIP_ONLY_DEPENDENCIES")
     environment_values = _matching_process_environment_values(
