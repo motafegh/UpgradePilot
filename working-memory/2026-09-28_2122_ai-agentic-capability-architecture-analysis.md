@@ -1822,3 +1822,62 @@ exact revision
 Do not adopt this before Track C.
 
 Next: Tier-1 Report 07 — evaluation, maintainer UX, and decision-quality measurement.
+
+
+## 26. Tier-1 Report 07 — evaluation, maintainer UX, and decision quality
+
+Completed:
+
+- `working-memory/2026-09-29_tier1-07_evaluation-maintainer-ux-and-decision-quality.md`
+
+Core correction:
+
+```text
+good benchmark score
+!= trustworthy system
+
+passing tests
+!= complete correctness
+
+user agreement
+!= correct recommendation
+
+user trust
+!= calibrated trust
+
+decisive answer
+!= better answer
+```
+
+Proposed evaluation layers for later Track C:
+
+```text
+case/oracle quality
+→ fact/evidence correctness
+→ discovery coverage
+→ applicability/uncertainty correctness
+→ investigation quality
+→ calibration/abstention
+→ synthesis fidelity
+→ maintainer decision quality
+→ operational cost/security/reproducibility
+```
+
+Critical implications:
+
+- evaluation cases need exact revisions, environment/oracle provenance, mechanism labels, and explicit oracle limitations;
+- development and protected evaluation corpora must be separated;
+- benchmark contamination/freshness must be monitored;
+- deterministic implementations require independent evaluation too;
+- stochastic agents require repeated runs and trajectory/cost/stop analysis;
+- model confidence, evidence strength, and empirically calibrated selective risk are distinct;
+- unresolved/abstain may be the correct result and should not be penalized merely for lacking decisiveness;
+- maintainer UX should support orientation → analysis → next action → decision;
+- explanation should enable maintainers to challenge the system, not maximize agreement.
+
+### Tier-1 research phase status
+
+All seven planned Tier-1 deep reports are now COMPLETE.
+
+Next:
+**Step 2B-X — independently refresh candidate architectures using the full Tier-1 evidence before Track C comparison.**
