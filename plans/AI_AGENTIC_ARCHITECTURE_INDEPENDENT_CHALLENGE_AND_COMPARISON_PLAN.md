@@ -726,3 +726,35 @@ When learning value is the primary reason for trying a technology, keep it expli
   - Learning candidates: small Python code graph, RIG-like build/test graph, Neo4j/Cypher lab, retrieval comparison, OpenHands comparator, and UpgradePilot-specific ACI/tool-interface experiment.
 
 - **Tier-1 Report 07 — Evaluation, maintainer UX, and decision-quality measurement:** NEXT.
+
+
+- **Tier-1 Report 07 — Evaluation, maintainer UX, and decision-quality measurement:** COMPLETE.
+  - Record: `working-memory/2026-09-29_tier1-07_evaluation-maintainer-ux-and-decision-quality.md`
+  - Evidence: BUMP, DepBench/DepRepair, SWE-bench/Verified/later benchmark audits, SWE-rebench, agent trajectory/framework studies, code-model calibration/selective prediction, Dependabot maintainer study, code-review decision-making/XAI research, HiLDe.
+  - Main finding: UpgradePilot needs a layered evaluation stack spanning case/oracle quality, fact/evidence correctness, discovery coverage, applicability, investigation efficiency, calibration/abstention, report fidelity, maintainer decision quality, and operational cost/security.
+  - Critical principle: unresolved/abstain can be the correct outcome and must be scored as such; decisiveness is not equivalent to quality.
+  - Benchmark lesson: evaluation datasets themselves need quality/freshness/contamination/oracle audits. Popular benchmark scores are insufficient evidence.
+  - Product metric direction: measure whether maintainers reach better evidence-informed decisions with less effort and appropriate trust—not autonomous action rate or persuasive agreement.
+  - Learning candidates: SWE-bench-style containerized eval harness, Python BUMP/DepBench-style corpus, calibration/risk-coverage analysis, agent trajectory analytics, and later maintainer user-study design.
+
+### 9.7 Tier-1 completion checkpoint
+
+All planned Tier-1 deep reports are COMPLETE:
+
+1. closest dependency-update products/workflows;
+2. risk/reachability/upgrade-impact platforms;
+3. remediation/migration engines;
+4. dependency/evidence graph foundations + provenance standards;
+5. CI/runtime evidence + program-analysis techniques;
+6. repository-intelligence and agent architectures;
+7. evaluation, maintainer UX, and decision-quality measurement.
+
+**Next:** Step 2B-X — refresh the independently derived candidate architectures using the complete Tier-1 evidence before Track C.
+
+The refresh must:
+- revisit the original candidate architectures without privileging them;
+- incorporate product-scope corrections discovered in Tier 1;
+- identify new hybrid patterns that did not exist in the original six;
+- explicitly include evaluation/UX architecture, not only reasoning architecture;
+- identify which architecture competitions need hands-on experiments;
+- identify whether any Tier-2 family must be promoted before Track C because Tier-1 evidence exposed a material missing dimension.
