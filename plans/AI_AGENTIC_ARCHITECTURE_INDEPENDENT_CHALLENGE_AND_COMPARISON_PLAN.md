@@ -563,3 +563,13 @@ The research program should remain finite: a deep report is justified when it ca
   - This finding remains provisional pending the risk/reachability/upgrade-impact platforms report.
 
 - **Tier-1 Report 02 — Dependency risk, reachability, and upgrade-impact platforms:** NEXT.
+
+
+- **Tier-1 Report 02 — Dependency risk, reachability, and upgrade-impact platforms:** COMPLETE.
+  - Record: `working-memory/2026-09-29_tier1-02_dependency-risk-reachability-and-upgrade-impact-platforms.md`
+  - Systems: Endor Labs, Semgrep Supply Chain, Snyk Open Source, Socket.
+  - Main correction: target-specific dependency impact analysis is already a real commercial capability. Endor and Semgrep explicitly connect dependency-version changes to target usage; Snyk and Socket expose application-level reachability with nuanced evidence states.
+  - Revised provisional differentiation: UpgradePilot must be broader than vulnerability-remediation impact analysis and compete on cross-mechanism evidence composition, CI/runtime/environment proof, repository-purpose context, explicit uncertainty, adaptive investigation, and maintainer-facing decision traceability.
+  - New architecture hypotheses: graph/IR substrate, upstream old→new source/API diff evidence, package-behavior delta analysis, graded producer authority, and asymmetric positive/negative reachability semantics.
+
+- **Tier-1 Report 03 — Remediation and migration engines:** NEXT.
