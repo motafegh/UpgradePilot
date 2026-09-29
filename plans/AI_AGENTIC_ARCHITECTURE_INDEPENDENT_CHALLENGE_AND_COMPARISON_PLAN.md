@@ -552,3 +552,14 @@ Step 3      whole-pipeline architecture map              blocked by 2C
 ```
 
 The research program should remain finite: a deep report is justified when it can materially change product scope, architecture, evidence design, evaluation, security, or maintainer UX. Stop investigating a family when additional detail cannot change those decisions.
+
+
+### 9.6 Deep-report progress
+
+- **Tier-1 Report 01 — Closest dependency-update products/workflows:** COMPLETE.
+  - Record: `working-memory/2026-09-29_tier1-01_closest-dependency-update-products-and-workflows.md`
+  - Systems: Dependabot/dependabot-core, Renovate/Mend Merge Confidence, GitHub Dependency Review, Updatecli.
+  - Main provisional finding: the mature adjacent systems are strongest at update discovery/generation, orchestration, policy, security/license gating, CI/status integration, and maintainer queue control; the reviewed public product models do not document complete target-specific technical-impact reasoning as their core responsibility.
+  - This finding remains provisional pending the risk/reachability/upgrade-impact platforms report.
+
+- **Tier-1 Report 02 — Dependency risk, reachability, and upgrade-impact platforms:** NEXT.
