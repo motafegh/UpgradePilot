@@ -821,3 +821,54 @@ Ten explicit architecture competitions are preserved for Track C / later experim
 No Tier-2 family currently requires a full additional deep report before Track C.
 
 **Next: Step 2C — adversarial comparison and reconciliation.**
+
+
+### 9.9 Step 2C — adversarial Track-A vs Track-B comparison
+
+**Status: COMPLETE.**
+
+Record:
+- `working-memory/2026-09-29_step2c_adversarial-track-a-vs-track-b-comparison.md`
+
+Live main was refreshed before comparison:
+- `b16c984daa8f5e78ebe83856c5b010c137a405ee`
+- Increment 3 is CLOSED.
+- Product verification #14 is GREEN.
+- Increment 4 — command-derived requirement-state composition — is selected; its A0 has not yet started.
+
+Main comparison result:
+
+> the independent research strongly supports UpgradePilot's current epistemic/trust spine. The principal challenges are missing breadth, overly narrow future assumptions, repository-intelligence/evidence-producer extensibility, optional runtime observation, model-context policy, standards interoperability, and evaluation maturity—not unsafe permissiveness in the current proof model.
+
+Increment 4 remains independently supported and is not blocked by Track C.
+
+Important dispositions:
+
+- exact identity / provenance / static-vs-runtime / open-world uncertainty / candidate-vs-applicability-vs-action / package-state-vs-later-use boundaries: **INDEPENDENTLY SUPPORTED**;
+- current shell/control-flow supported subset: valid current boundary but **SUPPORTED BUT TOO RESTRICTIVE** if made permanent;
+- broad custom GitHub Actions CFG/dataflow expansion: **UNCERTAIN — EXPERIMENT REQUIRED** against CodeQL Actions;
+- runtime telemetry: **SUPPORTED BUT INCOMPLETE** as a future evidence family;
+- typed records without repository-intelligence views: **SUPPORTED BUT INCOMPLETE**;
+- one universal graph: rejection independently supported; multi-view graph/service remains experimental;
+- changelog-only upstream semantics: **SUPPORTED BUT INCOMPLETE**; API/source diff deserves evaluation;
+- narrow model projections / closed action catalog / deterministic ownership of every semantic claim: safe current choices but too restrictive if frozen as universal mature rules;
+- fixed pipeline before agents, generalist-agent non-default, multi-agent non-default, and no framework without demonstrated need: **INDEPENDENTLY SUPPORTED**;
+- standards interoperability, protected evaluation, maintainer-decision metrics: **SUPPORTED BUT INCOMPLETE**;
+- abstain-only current maintainer action: **PROJECT-SPECIFIC CHOICE**, valid current proof boundary;
+- deterministic PermissionEnvelope proposal: **UNCERTAIN — EXPERIMENT REQUIRED**.
+
+No accepted core principle was classified as contradicted by a stronger external approach.
+
+Track C produced a targeted experiment queue:
+1. CodeQL Actions comparator;
+2. Griffe/API-diff vs changelog;
+3. runtime telemetry vs static inference;
+4. bounded multi-view RIG/repository graph;
+5. typed-only vs controlled raw-source model context;
+6. fixed investigation sequence vs bounded planner;
+7. bounded planner vs generalist agent for long-tail cases;
+8. calibrated model-claim admission;
+9. CycloneDX/SPDX/in-toto mapping;
+10. later maintainer decision-quality study.
+
+**Next: Step 3 — whole-pipeline architecture map.**
