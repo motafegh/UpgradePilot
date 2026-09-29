@@ -1232,3 +1232,201 @@ The next planned responsibility from the original workstream is Step 3:
 > walk the entire UpgradePilot pipeline from Dependabot PR input to final maintainer output and construct one coherent end-to-end architecture map showing where the Step-2 deterministic, LLM, agentic, hybrid, and intentional-unresolved responsibilities sit, how typed state flows between them, and which pieces are implemented / experimental / designed / future.
 
 Before Step 3, discuss/challenge the Step-2 classifications with Ali rather than silently promoting them into accepted architecture.
+
+
+## 16. Method correction — add independent/de-anchored architecture challenge before Step 3
+
+Ali identified a methodological weakness in the original route: Step 1 and Step 2 were strongly conditioned by UpgradePilot's current specifications, ADRs, source boundaries, prior experiments, and product-simulation interpretations. Their conclusions are useful as **project-conditioned analysis**, but they do not independently validate the architecture.
+
+That concern is accepted.
+
+A new supporting plan now governs the correction:
+
+`plans/AI_AGENTIC_ARCHITECTURE_INDEPENDENT_CHALLENGE_AND_COMPARISON_PLAN.md`
+
+### 16.1 What was missing
+
+The original route was:
+
+```text
+Step 1 — current limitation inventory
+Step 2 — mechanism classification
+Step 3 — whole-pipeline map
+Step 4 — compare to existing UpgradePilot AI experiments
+Step 5 — identify gaps
+```
+
+This route had no genuinely separate external architecture derivation. Even Step 4 remained internally anchored because it compared against UpgradePilot's own prior AI/agent experiments.
+
+Therefore Step 3 is now blocked until an independent challenge is completed.
+
+### 16.2 Revised route
+
+```text
+TRACK A — PROJECT-CONDITIONED
+Step 1
+current limitation/unresolved/deferred inventory
+→ COMPLETE initial pass
+
+Step 2A
+current deterministic / LLM / agent / hybrid classification
+→ COMPLETE initial pass
+
+
+TRACK B — INDEPENDENT / DE-ANCHORED
+Step 2B
+start from product problem + externally necessary constraints
+temporarily bracket current UpgradePilot architecture choices
+research current external approaches broadly
+derive multiple materially different candidate architectures
+→ NOT STARTED
+
+
+TRACK C — ADVERSARIAL COMPARISON
+Step 2C
+compare independently derived architectures against Track A
+classify each current principle:
+  independently supported
+  too restrictive
+  too permissive
+  incomplete
+  project-specific
+  historical
+  contradicted
+  experiment required
+→ BLOCKED BY 2B
+
+
+Step 3
+whole-pipeline architecture map
+→ BLOCKED BY 2B + 2C
+
+Step 4
+reconcile independently identified needs with existing UpgradePilot experiments
+→ BLOCKED BY Step 3
+
+Step 5
+select actual architecture/design changes, experiments, or explicit deferrals
+→ BLOCKED BY prior steps
+```
+
+### 16.3 Independence protocol
+
+Track B must not use current UpgradePilot method choices as premises.
+
+It may retain the product problem and externally necessary boundaries:
+
+```text
+public Python OSS maintainer
+dependency-update PR
+trustworthy uncertainty-aware decision support
+incomplete/conflicting external evidence
+security/auditability requirements
+human decision authority
+```
+
+But it must not assume in advance:
+
+```text
+deterministic code must own all trusted propositions
+models should see only typed projections
+agents must use closed action catalogs
+current A→B→C reasoning spine is optimal
+PermissionEnvelope is necessarily the right final-synthesis design
+static analysis must precede model reasoning
+current evidence-state vocabulary is optimal
+LangGraph/LangChain are or are not appropriate
+multi-agent systems are unnecessary
+current package/CI decomposition is optimal
+```
+
+Those become hypotheses tested in Step 2C.
+
+### 16.4 Independent research scope
+
+Track B will deliberately research competing approaches including:
+
+- dependency-update automation and software-supply-chain systems;
+- change-impact analysis;
+- static/program analysis;
+- abstract interpretation and symbolic execution;
+- CI/workflow simulation and observability;
+- repository-scale code intelligence;
+- LLM code reasoning;
+- retrieval-augmented repository reasoning;
+- tool-using software-engineering agents;
+- debugging/investigation agents;
+- verifier-guided LLM systems;
+- LLM + executable sandbox designs;
+- provenance/evidence graphs;
+- planning/search for diagnosis;
+- human-in-the-loop decision-support;
+- multi-agent/specialist/debate approaches where evidence justifies consideration;
+- model uncertainty, calibration, and evaluation methods.
+
+The research must seek evidence **against** current UpgradePilot instincts as actively as evidence supporting them.
+
+### 16.5 Required independent alternatives
+
+Before reintroducing current UpgradePilot architecture, Track B must formulate credible materially different candidates such as:
+
+```text
+deterministic-heavy / formal-analysis architecture
+
+LLM-first repository reasoner
++ deterministic/verifier guardrails
+
+tool-using agent
++ sandbox / execution feedback
+
+hybrid evidence-graph
++ semantic reasoning architecture
+
+additional architecture discovered from research
+```
+
+These are comparison candidates, not required product directions.
+
+### 16.6 Final comparison output required
+
+Step 2C must produce a challenge matrix such as:
+
+| Current principle / design choice | Independent evidence | External alternative | Disposition | Needed experiment/evidence |
+| --- | --- | --- | --- | --- |
+| deterministic authority for X | ... | ... | independently supported / too restrictive / etc. | ... |
+
+The comparison must consider:
+
+```text
+correctness
+coverage
+uncertainty preservation
+auditability
+security
+cost/latency
+engineering complexity
+maintainability
+replay/evaluation
+adaptability
+maintainer usefulness
+```
+
+### 16.7 Terminology correction
+
+Do not describe Track B as literally **unbiased**.
+
+Because this investigation has already seen UpgradePilot's design, perfect blindness is impossible.
+
+Use:
+
+> **independent / de-anchored / adversarial external challenge**
+
+The purpose is to reduce confirmation bias procedurally and make competing architectures receive fair consideration.
+
+### 16.8 Current next step
+
+The next analysis responsibility is now:
+
+> **Step 2B — independent external research and architecture derivation.**
+
+Do not proceed directly to the old Step 3 whole-pipeline map.
