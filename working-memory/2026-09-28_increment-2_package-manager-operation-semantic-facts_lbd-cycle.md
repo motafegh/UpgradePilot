@@ -375,6 +375,17 @@ Canonical owners updated:
 - root `AGENTS.md` D cadence;
 - `OPERATING_GUIDE.md` §2.6;
 - `.agents/skills/upgradepilot-learning-by-doing/SKILL.md` D procedure.
+## D ownership-check findings
+
+Ali demonstrated the core Increment-2 architecture and uncertainty model with only two material refinements needed before E:
+
+- For `pip --python /venv/python install --target vendor --no-deps -r requirements.txt`, manager environment and installation destination are command-line decisive; mutation mode remains unresolved without lower-source evidence, and `--no-deps` is known not to exclude the direct requirement but effective direct-requirement handling remains unresolved until lower semantic sources are closed.
+- Dynamic material such as `${{ matrix.extra_flags }}` must preserve uncertainty because its exact value could introduce same-dimension semantics; later matrix/static-value support would help only when the exact command occurrence's effective value can actually be established.
+- The shared `StaticCommandOccurrence → PackageManagerOperationDeclaration → independent facts/problems` architecture was correctly understood as avoiding duplicate parsing/ownership and preserving proposition-level provenance instead of collapsing evidence into one boolean.
+- In S011, the decisive CI-coverage gap is `.[dev]` versus the affected `.[mlx]` environment. Unresolved manager-environment semantics are a separate proposition and are not the reason the workflow fails to establish MLX coverage.
+- In S002, successful `python -m pip ... -r requirements.txt` execution plus direct requirements consumption still lacks effective executable/environment, destination, mutation-mode/default, and direct-handling closure before package-state satisfaction can be composed.
+
+Ali also identified that the compact real-case D trace intentionally omitted environment/config traversal. This is correct: Increment 2 produces semantic facts/problems and blocking-source information; Increment 3 owns bounded executable/process-environment/config evidence and default closure, and Increment 4 owns the command-derived requirement-state composer.
 ## Historical pre-refinement A orientation — input to refined A1/A2
 
 ### 1. Starting implementation truth
