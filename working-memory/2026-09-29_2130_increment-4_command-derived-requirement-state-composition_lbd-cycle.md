@@ -540,3 +540,73 @@ D should now inspect the actual implemented proof ladder and verify ownership of
 - how S002/S011/S008 map onto the implemented stop points.
 
 No new product mutation is authorized by entering D; repair becomes justified only if D exposes a material implementation/understanding gap.
+
+
+### D1 — verified positive Route-A implementation walkthrough — IN PROGRESS
+
+D begins from the exact producer-to-composer integration case that passed inside Product verification #15.
+
+Verified fixture flow:
+
+```text
+DependencyVersionChange
+  requests 2.32.4 -> 2.33.0
+  source: requirements.txt / exact_requirement
+
+RequirementsFileDependencyContext
+  repository: example/project
+  revision: exact fixture revision
+  normalized package: requests
+
+workflow static evidence
+  checkout current repository
+  install step consumes requirements.txt
+  -> StaticDependencyConsumptionEvidence(state=supported, mechanism=direct_requirements)
+
+package-manager declaration + semantic producers
+  /opt/bootstrap/bin/python -m pip
+  --python /opt/target/bin/python
+  install --no-user --no-deps -r requirements.txt
+  PIP_DRY_RUN=0
+  PIP_CONFIG_FILE=/dev/null
+  PIP_TARGET/PIP_PREFIX/PIP_ROOT empty
+  PIP_ONLY_DEPS/PIP_ONLY_DEPENDENCIES=0
+
+  -> manager environment: /opt/target/bin/python
+  -> destination: manager_environment_scheme
+  -> mutation mode: apply_changes
+  -> direct requirement handling: handled
+
+CI semantic binding
+  workflow path + revision + job + step + command location
+  -> ScopedPackageManagerSemanticEvidence
+
+runtime
+  exact workflow revision
+  job "Tests"
+  runtime step "Install" completed-successfully
+  exact command eligible/correlated
+  -> ExactCommandExecutionAssessment(state=supported)
+
+composer
+  validates dependency/source identity
+  validates direct-requirements mechanism
+  validates semantic scope == consumption scope
+  validates runtime scope == consumption scope
+  rejects semantic problems
+  requires one manager identity
+  requires manager-environment destination
+  requires apply_changes
+  requires direct requirement handled
+  requires exact execution supported
+
+  -> RequirementSatisfiedAtCommandCompletion
+```
+
+D ownership emphasis:
+- `--no-deps` does not exclude the direct requirement itself; it excludes dependency expansion, so direct-requirement handling can still be `handled`.
+- full CI command identity is a composition safety invariant, not merely metadata.
+- `not_established` means a known negative edge prevents this proof; `unresolved` means a material edge cannot be safely determined.
+- the positive witness stops at successful command completion and deliberately does not imply later package exercise, compatibility, or maintainer-action permission.
+
+D1 remains open for Ali's reasoning checks before proceeding to broader D closure.
