@@ -542,7 +542,7 @@ D should now inspect the actual implemented proof ladder and verify ownership of
 No new product mutation is authorized by entering D; repair becomes justified only if D exposes a material implementation/understanding gap.
 
 
-### D1 — verified positive Route-A implementation walkthrough — IN PROGRESS
+### D1 — verified positive Route-A implementation walkthrough — DONE
 
 D begins from the exact producer-to-composer integration case that passed inside Product verification #15.
 
@@ -609,4 +609,13 @@ D ownership emphasis:
 - `not_established` means a known negative edge prevents this proof; `unresolved` means a material edge cannot be safely determined.
 - the positive witness stops at successful command completion and deliberately does not imply later package exercise, compatibility, or maintainer-action permission.
 
-D1 remains open for Ali's reasoning checks before proceeding to broader D closure.
+D1 ownership check cleared.
+
+Ali correctly classified:
+- known effective dry-run as not_established because the required mutation is positively known not to occur;
+- unknown effective dry-run as unresolved because a material semantic premise is unknown;
+- semantics from one workflow plus success from another as unresolved because the evidence cannot safely be joined.
+
+### D2 — command-completion witness versus later proof — CURRENT
+
+Next ownership focus: why RequirementSatisfiedAtCommandCompletion does not itself establish later dependency exercise, behavioral compatibility, or maintainer-action permission.
