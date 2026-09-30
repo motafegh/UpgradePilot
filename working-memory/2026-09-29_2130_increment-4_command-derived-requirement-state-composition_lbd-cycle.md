@@ -631,7 +631,7 @@ Ali correctly separated the downstream propositions:
 
 Key ownership statement from the check: the system should say only what its recorded evidence proves and must not invent or guess missing proof edges.
 
-### D3 — ownership of composition layer and scoped identity — CURRENT
+### D3 — ownership of composition layer and scoped identity — DONE
 
 Final core D focus:
 - package-manager semantic producers answer command-local questions such as manager environment, destination, mutation mode, and direct-requirement handling;
@@ -640,3 +640,34 @@ Final core D focus:
 - semantic scope must be established independently and compared against consumption/runtime scope so evidence cannot be laundered across commands.
 
 D3 remains open for one concise ownership check.
+
+
+#### D3 ownership check — CLEARED
+
+Ali identified the core architectural principle correctly: keep responsibility boundaries explicit, let each layer/provider own the facts it can actually establish, and reuse those shared facts rather than repeating provider-specific context or logic everywhere.
+
+Refinement:
+- package-manager semantic facts stay dependency-owned because they describe command meaning independently of GitHub Actions;
+- provider/CI layers own workflow/runtime identity and execution evidence;
+- the CI dependency-state composer owns the cross-layer join that turns those independently established facts into the stronger command-completion proposition;
+- this preserves reuse, avoids duplicated semantics, and prevents provider-specific identity from leaking into lower dependency abstractions.
+
+## D — COMPLETE
+
+D ownership now covers:
+- known-negative versus unresolved proof failure;
+- command-completion witness versus later-use/compatibility/action claims;
+- why scoped identity is an evidence-safety invariant;
+- why cross-layer composition belongs in CI rather than package-manager semantic producers;
+- how the verified Route-A path and S002/S008/S011 stop points map onto the architecture.
+
+No material implementation or understanding gap was exposed by D. No repair is required.
+
+## E — closure / handoff — CURRENT
+
+E should now:
+- reconcile the final Increment-4 state into live owners;
+- confirm no stale B/Verification/D wording remains;
+- record the exact verified implementation head and Product verification #15 evidence;
+- preserve explicit non-goals/deferred scope;
+- select Increment 5 application integration as the next responsibility without starting it early.
