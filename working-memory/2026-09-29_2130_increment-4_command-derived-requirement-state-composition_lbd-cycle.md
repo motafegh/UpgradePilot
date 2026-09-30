@@ -1,7 +1,7 @@
 # Increment 4 — Command-Derived Requirement-State Composition — Learning-by-Doing Cycle
 
 **Date:** 2026-09-29  
-**Cycle status:** ACTIVE — A0/A1/A2 DONE; B CURRENT; Verification/D/E PENDING; C CONTINUOUS  
+**Cycle status:** ACTIVE — A0/A1/A2/B DONE; Verification GREEN; D CURRENT; E PENDING; C CONTINUOUS  
 **Primary responsibility:** compose already-established dependency/source applicability, package-manager semantic facts, and exact successful command execution into one bounded per-command requirement-state witness without changing CI-coverage, later-use, compatibility, or maintainer-action meaning  
 **Controlling plan:** `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`  
 **Accepted architecture:** `docs/architecture/ADR-0010-package-manager-semantic-facts-and-runtime-dependency-state-composition.md`  
@@ -13,9 +13,9 @@
 A0 — DONE: current main/live owners/source/test seams reconciled; no route contradiction
 A1 — DONE: continuity model understood; visible command text alone does not establish effective semantics or successful execution
 A2 — DONE: product purpose, real-case data flow, proof boundary, stop points, and identity-safety responsibility understood
-B — CURRENT: implement the bounded command-derived requirement-state composer and focused proof
-Verification gate — PENDING
-D — PENDING
+B — DONE: bounded command-derived requirement-state composer and focused/integration proof implemented
+Verification gate — GREEN: Product verification #15 on exact implementation head c9edc76e8c3f4e9bb9d58e27ddac3cfbc291a8be
+D — CURRENT: evidence-backed implementation learning and ownership
 E — PENDING
 C — CONTINUOUS: preserve meaningful engineering + learning progression across A0→E
 ```
@@ -480,3 +480,63 @@ Execution validation state:
 - therefore B remains CURRENT until the focused composer test and broader deterministic regression are executed in the normal WSL checkout or hosted Product Verification.
 
 No Increment-5 application integration has started.
+
+
+## Verification gate — GREEN
+
+Product verification #15:
+
+```text
+run: 36717618416
+event: workflow_dispatch
+status: completed
+conclusion: success
+exact run head: c9edc76e8c3f4e9bb9d58e27ddac3cfbc291a8be
+```
+
+The hosted run verified the exact Increment-4 implementation head before later documentation-only reconciliation.
+
+Observed proof:
+
+- fresh package build/install completed;
+- `pip check`: `No broken requirements found.`;
+- installed CLI entry point and `python -m upgradepilot` both executed successfully;
+- focused investigation composition: **15/15**;
+- deterministic product regression: **708/708**;
+- all Increment-4 composer tests ran inside that regression, including:
+  - positive bounded witness;
+  - dry-run not-established;
+  - retargeted destination not-established;
+  - unresolved semantic provenance;
+  - runtime non-success;
+  - cross-workflow same-local-location rejection;
+  - separate multiple command candidates;
+  - dependency-source mismatch;
+  - real producer-to-composer Route-A integration.
+
+No `FAILED` or `ERROR` outcome appears in the hosted job log.
+
+### Verification interpretation
+
+The gate establishes that the admitted Increment-4 composer behavior works in the hosted installed-package product environment and does not regress the deterministic product suite.
+
+It does not establish:
+- universal package-manager semantics;
+- optional-extra/project-environment requirement-state composition;
+- arbitrary runtime-state observation;
+- later dependency exercise;
+- behavioral compatibility;
+- maintainer-action permission.
+
+B is **DONE** and the formal Verification gate is **GREEN**.
+
+## D — evidence-backed learning / ownership — CURRENT
+
+D should now inspect the actual implemented proof ladder and verify ownership of:
+- why the composer belongs in CI composition rather than dependency semantic producers;
+- why scoped semantic identity must be independently supplied and then compared;
+- the practical difference between `not_established` and `unresolved`;
+- why a positive command-completion witness still stops before later-use/compatibility/action claims;
+- how S002/S011/S008 map onto the implemented stop points.
+
+No new product mutation is authorized by entering D; repair becomes justified only if D exposes a material implementation/understanding gap.
