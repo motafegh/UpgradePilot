@@ -54,7 +54,7 @@ No `src/` or `tests/` file changed after the verified Increment-3 implementation
 
 The relevant owners agree:
 
-- `MEMORY.md`: Increment 3 is closed; Increment 4 is selected next.
+- At A0, `MEMORY.md` showed Increment 3 closed and Increment 4 selected next.
 - runtime dependency-state plan: Increments 1–3 are implemented/verified/learned/closed; Increment 4 is command-derived requirement-state composition; application integration is later Increment 5.
 - ADR-0010: runtime dependency-state proof must remain separate from existing CI coverage/exercise evidence and must preserve explicit unresolved/not-established problems.
 - R4 sequence: execution evidence → package-manager declaration → effective semantic facts → requirement-state composer → later application integration.
