@@ -330,6 +330,7 @@ class CommandDerivedRequirementStateTests(unittest.TestCase):
         self.assertEqual(result.state, "not_established")
         self.assertEqual(result.reason, "package_mutation_does_not_apply_changes")
         self.assertEqual(result.blocking_dimension, "package_mutation_mode")
+        self.assertIsInstance(result.blocking_semantic_evidence, PackageMutationModeFact)
 
     def test_retargeted_destination_is_not_established_for_first_family(self) -> None:
         source = _source_evidence()
@@ -355,6 +356,10 @@ class CommandDerivedRequirementStateTests(unittest.TestCase):
         self.assertEqual(
             result.reason,
             "installation_destination_outside_admitted_requirement_state_scope",
+        )
+        self.assertIsInstance(
+            result.blocking_semantic_evidence,
+            InstallationDestinationFact,
         )
 
     def test_unresolved_semantic_source_stays_unresolved(self) -> None:
@@ -388,6 +393,7 @@ class CommandDerivedRequirementStateTests(unittest.TestCase):
             "package_mutation_mode_needs_lower_source_evidence",
         )
         self.assertEqual(result.blocking_dimension, "package_mutation_mode")
+        self.assertIs(result.blocking_semantic_evidence, semantic_problem)
 
     def test_runtime_non_success_is_not_established(self) -> None:
         source = _source_evidence()
