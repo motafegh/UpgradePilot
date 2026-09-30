@@ -1,7 +1,7 @@
 # Increment 4 — Command-Derived Requirement-State Composition — Learning-by-Doing Cycle
 
 **Date:** 2026-09-29  
-**Cycle status:** ACTIVE — A0/A1 DONE; A2 CURRENT; B/Verification/D/E PENDING; C CONTINUOUS  
+**Cycle status:** ACTIVE — A0/A1/A2 DONE; B CURRENT; Verification/D/E PENDING; C CONTINUOUS  
 **Primary responsibility:** compose already-established dependency/source applicability, package-manager semantic facts, and exact successful command execution into one bounded per-command requirement-state witness without changing CI-coverage, later-use, compatibility, or maintainer-action meaning  
 **Controlling plan:** `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`  
 **Accepted architecture:** `docs/architecture/ADR-0010-package-manager-semantic-facts-and-runtime-dependency-state-composition.md`  
@@ -12,8 +12,8 @@
 ```text
 A0 — DONE: current main/live owners/source/test seams reconciled; no route contradiction
 A1 — DONE: continuity model understood; visible command text alone does not establish effective semantics or successful execution
-A2 — CURRENT: orient exact witness proposition, identity joins, result states, close-defeaters, proof boundary, and source/test ownership
-B — PENDING
+A2 — DONE: product purpose, real-case data flow, proof boundary, stop points, and identity-safety responsibility understood
+B — CURRENT: implement the bounded command-derived requirement-state composer and focused proof
 Verification gate — PENDING
 D — PENDING
 E — PENDING
@@ -399,3 +399,43 @@ but still not answer the case-specific Python-3.6 artifact question
 ```
 
 These cases are the preferred A2 anchors before returning to implementation-level identity mechanics.
+
+
+### A2 gate closure
+
+After resetting A2 from product purpose downward and grounding it in S002/S011/S008, Ali confirmed the broader Increment-4 model and explicitly asked to begin B.
+
+A2 is therefore **DONE**.
+
+Build authorization is bounded to Increment 4:
+- compose existing exact dependency/source applicability, semantic facts, and exact command execution;
+- preserve identity and explicit not-established/unresolved results;
+- prove the first direct-requirements/pip Route-A family;
+- do not start Increment-5 application integration or broaden earlier semantic/environment producers without a newly exposed blocker.
+
+## B — implementation progression — CURRENT
+
+### B1 selected responsibility — command-derived requirement-state composition contract
+
+Pre-change model:
+
+```text
+DependencyVersionChange
++ exact requirements source context
++ one exact supported direct-requirements CI consumption
++ semantic evidence bound to that same command
++ exact execution evidence for that same scoped command
+→ RequirementSatisfiedAtCommandCompletion
+   OR explicit not-established / unresolved problem
+```
+
+B1 must encode identity checks rather than rely on caller convention. Existing package-manager semantic facts remain dependency-owned and CI-independent; the new CI composition owner may bind them to workflow/revision/job/step scope without moving GitHub-specific identity into those semantic types.
+
+Focused proof must cover at least:
+- positive direct-requirements Route-A witness;
+- dry-run → not established;
+- unsupported/retargeted destination → not established;
+- semantic unresolved → unresolved;
+- runtime non-success → not established;
+- scoped command identity mismatch → unresolved/fail-safe;
+- multiple candidates remain separately composable rather than collapsing environments.
