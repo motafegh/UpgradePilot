@@ -6,7 +6,7 @@ All project-local sequence, gate, pass/stop, prohibited-scope, and activation ru
 
 
 **Status:** admitted bounded planning/execution plan; live selection remains owned by `../MEMORY.md`  
-**Execution checkpoint:** Increments 1–3 are implemented, verified, learned, and closed. Increment 4 command-derived requirement-state composition is implemented and Product verification #15 is GREEN on exact implementation head `c9edc76e8c3f4e9bb9d58e27ddac3cfbc291a8be` (15/15 focused investigation tests; 708/708 deterministic product tests); its D learning/ownership phase is complete and E closure/handoff is current. Application integration remains later Increment 5.  
+**Execution checkpoint:** Increments 1–4 are implemented, verified, learned, and closed. Increment 4 is proven by Product verification #15 on exact implementation head `c9edc76e8c3f4e9bb9d58e27ddac3cfbc291a8be` (15/15 focused investigation tests; 708/708 deterministic product tests). Increment 5 application integration is selected next but has not started; live selection and STOP/A0 transition remain owned by `MEMORY.md`.  
 **Responsibility:** determine and implement the smallest trustworthy path by which UpgradePilot may establish that the exact proposed dependency version is present in the exact relevant CI environment, while preserving the distinction between command execution, resulting package state, later behavior/exercise, artifact mechanism, and maintainer-action permission  
 **Parent execution owner:** [End-to-End Product Flow Learning and Evidence-to-Action Execution Plan](END_TO_END_PRODUCT_FLOW_LEARNING_AND_EVIDENCE_TO_ACTION_EXECUTION_PLAN.md)  
 **Audit provenance:** [AUDIT-008 — F6](../audits/2026-09-19_AUDIT-008_current-system-evidence-to-action-readiness.md)  
@@ -49,7 +49,7 @@ The following evidence motivates this plan:
 - `dependency/package_manager_semantics.py` now represents the four independent semantic dimensions and interprets decisive CLI/process/config/default evidence without turning unresolved higher sources into defaults;
 - bounded Increment-3 evidence now exists for workflow env declarations, literal Bash command-local exact-process values, the admitted `PIP_CONFIG_FILE=/dev/null` persistent-config disablement, explicit executable paths, and the bounded successful `setup-python` PATH relationship;
 - Product verification #14 proves one controlled Route-A command can close all four semantic facts while an ordinary-looking command with materially unknown ambient sources remains unresolved;
-- the current implementation still stops before the stronger package-state proposition: no command-derived `RequirementSatisfiedAtCommandCompletion` witness exists yet; that is Increment 4;
+- Increment 4 now implements the bounded command-derived `RequirementSatisfiedAtCommandCompletion` witness for the first direct-requirements/pip Route-A family, with explicit not-established/unresolved problem outcomes and scoped identity checks;
 - current uv project-environment selection continues to interpret its admitted project/package-scope selectors independently; broader uv effective package-manager semantics remain demand-driven rather than implied by the completed pip Route-A family;
 - public Dependabot PR `Jam3s97/Aruba_Device_Tracker#83` demonstrates that target-owned runtime evidence can expose the exact proposed version when needed;
 - historical `googlefonts/glyphsLib#1145` demonstrates that job logs can expire while run/job metadata remains, so log availability cannot be assumed;
