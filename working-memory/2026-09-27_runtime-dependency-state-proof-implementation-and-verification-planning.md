@@ -5,7 +5,7 @@
 The implementation/proof sequence and stop lines in this planning record are applied under the **Smart Situational Override Rule**. Current evidence may justify expanding, shrinking, reordering, combining, splitting, pausing, or overriding a planned increment/gate when that route is more faithful to the real product responsibility. A material override must be explicit and reconciled with the controlling plan/ADR/owner when their responsibility changes. It cannot invent authorization or proof.
 
 
-**Status:** R4 PLANNING/DESIGN COMPLETE; retained as the broader implementation/proof-sequence record. R2 semantic boundary and R3 evidence/data-flow architecture are closed. Increments 1, 2, and 3 have been implemented, verified, learned, and closed in their dedicated cycle records. Increment 4 is selected next by `MEMORY.md` but its cycle has not started. This record does not itself authorize future Build increments; `MEMORY.md` alone selects the live continuation.
+**Status:** R4 PLANNING/DESIGN COMPLETE; retained as the broader implementation/proof-sequence record. R2 semantic boundary and R3 evidence/data-flow architecture are closed. Increments 1–4 have been implemented, verified, learned, and closed in their dedicated cycle records. Increment 5 application integration is selected next by `MEMORY.md` but has not started. This record does not itself authorize future Build increments; `MEMORY.md` alone selects the live continuation.
 
 **Controlling plan:** plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md  
 **Accepted architecture:** docs/architecture/ADR-0010-package-manager-semantic-facts-and-runtime-dependency-state-composition.md  
@@ -179,7 +179,7 @@ Required close-defeaters:
 
 **Increment pass condition:** the first selected Route-A fixture can obtain all required semantic facts from bounded evidence, while ordinary-looking cases with materially unknown ambient sources remain explicitly unresolved.
 
-### Increment 4 — command-derived dependency-state composer
+### Increment 4 — command-derived dependency-state composer — COMPLETED
 
 Expected source owners:
 - new focused CI/runtime dependency-state composition module, plausibly src/upgradepilot/ci/dependency_state.py
@@ -208,6 +208,8 @@ Required cases:
 - multiple candidate commands do not collapse their environments.
 
 **Increment pass condition:** one exact command-derived package-state witness can be produced with the R2 claim limit and no change to later-use/action semantics.
+
+**Completion evidence:** implemented in `src/upgradepilot/ci/dependency_state.py` with focused proof in `tests/test_ci_dependency_state.py`. Product verification #15 (`36717618416`) is GREEN on exact implementation head `c9edc76e8c3f4e9bb9d58e27ddac3cfbc291a8be`: focused investigation composition 15/15 and deterministic product regression 708/708. The Increment-4 Learning-by-Doing cycle closed with D ownership cleared and no repair required.
 
 ### Increment 5 — application integration
 
