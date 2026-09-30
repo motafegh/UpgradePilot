@@ -616,6 +616,27 @@ Ali correctly classified:
 - unknown effective dry-run as unresolved because a material semantic premise is unknown;
 - semantics from one workflow plus success from another as unresolved because the evidence cannot safely be joined.
 
-### D2 — command-completion witness versus later proof — CURRENT
+### D2 — command-completion witness versus later proof — DONE
 
 Next ownership focus: why RequirementSatisfiedAtCommandCompletion does not itself establish later dependency exercise, behavioral compatibility, or maintainer-action permission.
+
+
+#### D2 ownership check — CLEARED
+
+Ali correctly separated the downstream propositions:
+
+1. **Established:** NumPy 2.4.6 may be claimed satisfied at command completion when the Increment-4 witness exists, with the witness's exact provenance explaining why.
+2. **Not established by Increment 4:** later tests exercised NumPy-dependent behavior; that requires an explicit later-use/exercise proposition.
+3. **Not established by Increment 4:** compatibility or maintainer action; those belong to later evidence synthesis/decision responsibilities.
+
+Key ownership statement from the check: the system should say only what its recorded evidence proves and must not invent or guess missing proof edges.
+
+### D3 — ownership of composition layer and scoped identity — CURRENT
+
+Final core D focus:
+- package-manager semantic producers answer command-local questions such as manager environment, destination, mutation mode, and direct-requirement handling;
+- CI composition owns workflow/revision/job/step/runtime identity and the decision to join heterogeneous evidence into the stronger command-completion proposition;
+- therefore GitHub workflow identity should not be pushed into dependency semantic fact types merely to make composition convenient;
+- semantic scope must be established independently and compared against consumption/runtime scope so evidence cannot be laundered across commands.
+
+D3 remains open for one concise ownership check.
