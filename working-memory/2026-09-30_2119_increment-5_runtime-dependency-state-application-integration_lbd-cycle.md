@@ -184,6 +184,60 @@ Before Build, Ali should be able to reason about:
 - why a uv/project-environment result cannot inherit the first pip/direct-requirements Route-A witness;
 - what exact data is already available in `investigation.py` and what additional composition seam is genuinely needed.
 
+## Research corpus integration at the A1 STOP — RECORDED
+
+### Full research provenance now on main
+
+The complete parallel architecture-research branch `analysis/ai-agentic-capability-map-2026-09-28` was deliberately merged into `main` through PR #33 at merge commit `d4b79bf1bb4ee779c2dfe9732086a126786af0f1`.
+
+The merge preserved the full 55-commit branch history and all 17 branch-only research/proposal artifacts. The PR itself contained only research/planning/working-memory documentation: 17 files, 19,366 additions, 0 deletions, and no `src/` or `tests/` changes.
+
+This deliberately overrides the dated research branch's earlier recommendation to integrate only a distilled subset. The reason is record preservation: the complete research corpus is useful as durable project evidence and future reference. This integration-mechanism override does **not** change product architecture, proof truth, the current Increment-5 responsibility, or any live owner.
+
+All imported dated research documents remain **non-controlling research provenance**. Statements inside them such as "current main is Increment 4" or "do not merge this branch yet" describe the historical research-time state and must not override current `MEMORY.md`, the active cycle, accepted ADRs, or controlling plans.
+
+### Research artifacts relevant to Increment-5 A2
+
+A2 should use the following main-branch research records as explicit design evidence without importing their unrelated future scope:
+
+- `proposals/2026-09-29_UPGRADEPILOT_EVIDENCE_AI_ARCHITECTURE_PROPOSAL.md`
+  - Sections 8–9: keep CI/workflow/runtime evidence classes distinct and preserve the deterministic package-manager/runtime-state chain;
+  - Section 27: keep Increment 4 → Increment 5 sequencing intact;
+  - Sections 28–31: advanced methods remain experiment-gated and the proposal is synthesis/provenance rather than a live-plan replacement.
+- `working-memory/2026-09-29_step3_whole-pipeline-architecture-map.md`
+  - Stage 7: application integration carries the command-completion requirement-state result through the normal path;
+  - current implementation overlay / responsibility map: package-state application integration is a distinct responsibility;
+  - the witness must preserve exact identity, provenance, observation boundary, and claim limitations for later consumers.
+- `working-memory/2026-09-29_step4_existing-ai-agent-work-reconciliation.md`
+  - Increment 5 has no model requirement;
+  - the package-state witness should first enter the ordinary application/evidence flow before any later AI responsibility is activated.
+- `working-memory/2026-09-29_step5_architecture-decisions-experiment-queue-and-integration-strategy.md`
+  - no change to Increment-4/5 sequencing;
+  - advanced methods must be admitted responsibility-by-responsibility against a baseline and observed limitation;
+  - AI responsibilities and authority remain separated.
+- `working-memory/2026-09-29_step2c_adversarial-track-a-vs-track-b-comparison.md`
+  - command-derived package state remains separate from CI coverage;
+  - command-completion state remains separate from later use, compatibility, and action permission;
+  - broader workflow/runtime/AI alternatives are experiment triggers, not automatic additions.
+
+The Tier-1 reports, independent candidate architecture, external-research discovery, and technology/learning ledger are now also available on `main` as deeper provenance. They need not be read during A2 unless a concrete design question reaches their responsibility.
+
+### Research-derived constraints carried into A2
+
+The active cycle will use the research to constrain A2 as follows:
+
+1. **Increment 5 remains deterministic application integration.** No AI/LLM/agent/framework is required for this responsibility.
+2. **Runtime dependency-state evidence remains separate from `DependencyCICoverageResult`.** Integration must not strengthen or redefine CI coverage.
+3. **Preserve exact command/environment identity, provenance, command-completion boundary, and claim limitations.**
+4. **Preserve per-command cardinality.** Multiple witnesses/problems must not be collapsed into a stronger repository- or workflow-level claim without an explicit aggregation contract.
+5. **Keep application orchestration above lower-layer semantics.** `investigation.py` should compose/reuse evidence rather than become a pip/environment semantic owner; A2 still decides the earliest sufficient integration helper/owner.
+6. **Leave room for future independent evidence mechanisms without conflation.** A later direct target-owned package-state observation may coexist with command-derived inference, but the two must retain their evidence mechanism and strength rather than becoming a generic boolean.
+7. **Unsupported families remain unsupported/unresolved according to current contracts.** The current uv/project-environment path does not inherit the first pip/direct-requirements Route-A witness.
+8. **Do not add later meanings.** No later-use, behavior/exercise, compatibility, action-permission, CodeQL, runtime telemetry, graph, broad-discovery, or maintainer-synthesis scope enters this increment.
+
+These are **A2 inputs**, not A2 decisions. Exact result type/cardinality container, helper ownership, reuse strategy, and proof cases remain to be worked through deliberately in A2.
+
+
 ## Current STOP boundary
 
 A0 and A1 are complete.
@@ -212,4 +266,6 @@ C currently preserves:
 - current application data-flow seam;
 - existing semantic/proof boundaries;
 - explicit A2 questions rather than premature implementation decisions;
-- canonical STOP before A2.
+- canonical STOP before A2;
+- complete research provenance now present on `main` without becoming a live owner;
+- explicit research-derived A2 constraints and references, without importing future-scope experiments.
