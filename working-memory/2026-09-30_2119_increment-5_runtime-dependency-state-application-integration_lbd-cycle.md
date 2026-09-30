@@ -238,23 +238,284 @@ The active cycle will use the research to constrain A2 as follows:
 These are **A2 inputs**, not A2 decisions. Exact result type/cardinality container, helper ownership, reuse strategy, and proof cases remain to be worked through deliberately in A2.
 
 
+## A2 — exact application integration responsibility orientation — DONE
+
+**A2 orientation head:** `5ac1e15f670099434c43b4b200b7e36dcb86eea8`
+
+A2 traced the current normal application path against the exact Increment-4 composer inputs and selected the Build contract below. No source/test modification was made in A2.
+
+### 1. Current data-flow truth
+
+The normal investigation already acquires the evidence needed for this increment:
+
+```text
+investigate_public_pull_request(...)
+        │
+        ├─ DependencyVersionChange + source_contexts
+        │
+        ├─ WorkflowDependencyCoverageInput[]
+        │      ├─ exact WorkflowRun
+        │      ├─ exact WorkflowJob[]
+        │      ├─ exact workflow definition
+        │      └─ project-environment sources
+        │
+        └─ evaluate_dependency_ci_coverage(...)
+               │
+               └─ DependencyCICoverageResult
+                      └─ per workflow
+                           ├─ consumptions[]
+                           ├─ runtime_correlation
+                           └─ existing CI-coverage classification
+```
+
+Increment 5 does **not** need a new external evidence acquisition path.
+
+For the first direct-requirements/pip Route-A family, the new application integration can reuse:
+
+- exact dependency/source contexts from dependency analysis;
+- exact workflow definitions from `WorkflowDependencyCoverageInput`;
+- already-derived static dependency consumptions from `WorkflowDependencyCoverageResult.consumptions`;
+- already-derived `WorkflowRuntimeCorrelationResult` from the same workflow result;
+- existing workflow command parsing, package-manager operation parsing, exact-process environment/config producers, semantic resolvers, exact-command execution assessment, and the Increment-4 composer.
+
+### 2. Do not recompute CI coverage evidence
+
+A2 rejects a design that independently calls:
+
+- `inspect_workflow_dependency_evidence(...)` again for dependency consumption; or
+- `correlate_workflow_runtime(...)` again for runtime identity.
+
+Those results already exist in `DependencyCICoverageResult`.
+
+The integration should reuse them and only perform the additional command-local work that CI coverage does not currently retain: locate the exact existing command occurrence in the exact workflow definition and derive the package-manager semantic inputs needed by the Increment-4 composer.
+
+Re-parsing the exact workflow definition as provider syntax for this command-local semantic derivation is acceptable in the first Build slice because the current coverage result does not expose a reusable parsed workflow object. A2 does **not** authorize a broader refactor merely to avoid that bounded parse.
+
+### 3. Selected ownership
+
+A2 selects the following owner split:
+
+```text
+src/upgradepilot/investigation.py
+    application orchestration only
+    → invokes the dependency-state evaluator
+    → carries its typed result
+
+src/upgradepilot/ci/dependency_state.py
+    CI-level runtime dependency-state evaluation/composition
+    → reuses existing CI coverage consumptions + runtime correlation
+    → binds exact workflow/job/step/command identity
+    → invokes dependency-owned package-manager semantic producers
+    → invokes exact-command execution assessment
+    → invokes Increment-4 composer
+
+existing dependency/github/ci modules
+    keep their current semantic/provider/runtime responsibilities
+```
+
+No pip, process-environment, persistent-config, shell-parser, or GitHub runtime semantics move into `investigation.py`.
+
+A separate new module is not required unless Build exposes a concrete cohesion problem. The existing `ci/dependency_state.py` already owns this exact CI-level proposition and is the narrowest coherent home for the evaluator that produces it from admitted evidence.
+
+### 4. Selected application result shape
+
+A2 rejects a single aggregate boolean/state such as:
+
+```text
+runtime_dependency_state = established
+```
+
+because several distinct commands/environments may exist and Increment 4 explicitly proves that they must remain separate.
+
+The selected Build shape is conceptually:
+
+```python
+CommandRequirementStateAssessment
+    consumption: StaticDependencyConsumptionEvidence
+    result:
+        RequirementSatisfiedAtCommandCompletion
+        | RequirementStateProblem
+
+RuntimeDependencyStateResult
+    evaluation_state:
+        "evaluated"
+        | "no_admitted_candidate"
+    reason: str
+    detail: str
+    assessments: tuple[CommandRequirementStateAssessment, ...]
+```
+
+The exact spelling may change during Build only if implementation evidence shows a clearer equally bounded name; the semantic contract must not change silently.
+
+Important meanings:
+
+- `evaluation_state` describes whether the first admitted Route-A family produced command candidates; it is **not** an aggregate package-state conclusion.
+- `assessments` preserves every admitted exact command separately.
+- each assessment retains the original `StaticDependencyConsumptionEvidence`, so even a `RequirementStateProblem` remains tied to exact workflow/revision/job/step/command provenance.
+- positive witnesses retain their existing observation boundary and limitations.
+- `no_admitted_candidate` means no command entered this first proof family. It must **not** be interpreted as dependency absent, CI failure, unresolved compatibility, or success.
+
+### 5. Selected PublicPullRequestInvestigation contract
+
+Add one separate field conceptually equivalent to:
+
+```python
+runtime_dependency_state_result: RuntimeDependencyStateResult | None
+```
+
+Meaning:
+
+- `None` — dependency transition/source analysis itself did not establish a `DependencyVersionChange`, so this downstream responsibility was inactive;
+- `RuntimeDependencyStateResult(evaluation_state="no_admitted_candidate", ...)` — dependency analysis succeeded, but no command entered the first direct-requirements/pip Route-A state-proof family;
+- `RuntimeDependencyStateResult(evaluation_state="evaluated", assessments=(...))` — one or more per-command state assessments exist.
+
+This field sits **alongside** `ci_coverage_result`. Neither derives its semantic meaning from the other.
+
+### 6. Candidate and composition policy
+
+The first Build slice evaluates only existing static consumptions that are:
+
+- `state == "supported"`;
+- `mechanism == "direct_requirements"`;
+- bound to one exact `RequirementsFileDependencyContext`;
+- bound to the exact workflow definition/revision retained by the corresponding coverage input.
+
+This is intentionally narrower than “all workflow commands”.
+
+For each candidate, Build should:
+
+1. verify coverage-result/input one-to-one workflow identity;
+2. map the consumption to exactly one trusted requirements source context;
+3. parse the exact workflow definition and locate the exact job, run step, and command occurrence by the already-retained command identity;
+4. parse the existing package-manager operation declaration for that occurrence;
+5. derive only the currently admitted semantic evidence sources required by the first Route-A family;
+6. bind those facts using an independently supplied `ExactCICommandIdentity`;
+7. reuse the existing workflow's `runtime_correlation` to call `assess_exact_command_execution(...)`;
+8. call `compose_requirement_satisfied_at_command_completion(...)`;
+9. retain the command assessment without collapsing it with other commands.
+
+Internal contradictions in already-related application objects—such as mismatched workflow path/revision/order—are invariant failures and should fail loudly rather than be disguised as domain uncertainty.
+
+Evidence limitations—dynamic command semantics, unresolved env/config, dry-run, retargeting, runtime non-success, unsupported command semantics—remain typed `RequirementStateProblem` outcomes where the existing contracts permit.
+
+### 7. Reuse boundary
+
+A2 explicitly chooses:
+
+```text
+REUSE
+- DependencyCICoverageResult.workflows[*].consumptions
+- WorkflowDependencyCoverageResult.runtime_correlation
+- WorkflowDependencyCoverageInput.definition
+- source_contexts
+- existing semantic/runtime/composer functions
+
+DO NOT RE-RUN
+- dependency-consumption discovery
+- CI coverage classification
+- workflow/runtime correlation
+
+DO NOT ADD
+- new GitHub/log/runtime acquisition
+- direct package-state telemetry
+- broad uv package-state semantics
+- AI/LLM/agent logic
+```
+
+This is the smallest architecture-preserving integration seam without making `investigation.py` a semantic engine or refactoring the already-verified CI-coverage subsystem.
+
+### 8. Unsupported-family behavior
+
+The current uv/project-environment R6 path remains a boundary/control case.
+
+It may still produce its existing `ci_coverage_result`, but the first runtime dependency-state evaluator must return a non-claiming `no_admitted_candidate` result rather than manufacturing a pip/direct-requirements witness or reclassifying uv coverage as package state.
+
+This preserves:
+
+```text
+project_environment consumption
+!=
+first direct_requirements/pip command-completion package-state proof
+```
+
+### 9. Presentation and action boundary
+
+A2 selects **no presentation/JSON change by default** in this increment.
+
+The typed application result is the required integration contract. Presentation should change only if Build discovers a current external contract that necessarily serializes every `PublicPullRequestInvestigation` field.
+
+No maintainer-action code should consume the new result in this increment.
+
+### 10. Focused Build proof matrix
+
+Build must prove at least:
+
+1. **positive Route-A normal application path**  
+   exact requirements source + admitted pip semantics + exact successful command execution produces one carried `RequirementSatisfiedAtCommandCompletion`;
+
+2. **semantic close-defeater**  
+   dry-run / retargeting / unresolved ambient-config evidence produces the corresponding per-command `RequirementStateProblem`, not a positive witness;
+
+3. **runtime close-defeater**  
+   supported static consumption with exact-command execution not established/unresolved preserves the problem;
+
+4. **multiple-command cardinality**  
+   two admitted command candidates remain two distinct assessments with independent identities/environments;
+
+5. **unsupported-family control**  
+   current uv/project-environment integration keeps its existing CI result and receives `no_admitted_candidate`, with no pip-state inference;
+
+6. **inactive dependency branch**  
+   `DependencyChangeProblem` keeps runtime dependency-state integration inactive (`None`);
+
+7. **existing semantics preserved**  
+   current `ci_coverage_result`, artifact-environment behavior, upstream analysis, and maintainer-action meanings do not change.
+
+Primary proof owners remain:
+
+- `tests/test_investigation.py`;
+- `tests/test_r6_investigation_ci_integration.py`;
+- focused `tests/test_ci_dependency_state.py` additions only where the new evaluator itself needs unit proof.
+
+### 11. A2 learning model
+
+The key architecture to own before Build is:
+
+```text
+CI coverage asks:
+"Did CI statically consume/exercise this dependency, and can that declaration be
+strengthened by runtime correlation?"
+
+Runtime dependency-state asks:
+"For this exact admitted command, do source applicability + effective package-manager
+semantics + exact successful execution establish the proposed requirement at command
+completion?"
+
+Application integration asks:
+"Can the normal product path carry those per-command results without changing either
+question's meaning?"
+```
+
+A2's answer is **yes**, by composing/reusing existing evidence through a dedicated typed evaluator/result rather than merging the responsibilities.
+
+
 ## Current STOP boundary
 
-A0 and A1 are complete.
+A0, A1, and A2 are complete.
 
-Do **not** start A2 design or Build yet.
+Do **not** start Build yet.
 
 The next deliberate continuation is:
 
 ```text
-A2 — orient the exact application integration responsibility
-→ trace current investigation data flow against the Increment-4 composer inputs
-→ decide result cardinality/aggregation and integration ownership
-→ define focused proof/close-defeater cases
-→ STOP before Build
+B — implement the bounded application integration contract selected in A2
+→ add typed dependency-state evaluation/result composition
+→ carry it through PublicPullRequestInvestigation
+→ add focused/integration close-defeater proof
+→ stop at the Verification gate
 ```
 
-No source/test modification is authorized by this A0/A1 closure.
+No source/test modification was made by A2 itself.
 
 ## C — continuous preservation
 
@@ -265,7 +526,8 @@ C currently preserves:
 - live-owner agreement;
 - current application data-flow seam;
 - existing semantic/proof boundaries;
-- explicit A2 questions rather than premature implementation decisions;
-- canonical STOP before A2;
+- A2-selected typed result/cardinality contract and integration ownership;
+- reuse of existing CI consumptions/runtime correlation without semantic collapse;
+- canonical STOP before Build;
 - complete research provenance now present on `main` without becoming a live owner;
 - explicit research-derived A2 constraints and references, without importing future-scope experiments.
