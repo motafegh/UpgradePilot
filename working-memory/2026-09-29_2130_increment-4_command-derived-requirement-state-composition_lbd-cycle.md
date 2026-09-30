@@ -183,9 +183,9 @@ Refinement recorded at the gate:
 
 This is sufficient continuity ownership for A1. No material misunderstanding remains that should block the next orientation.
 
-A1 is **DONE**. A2 is **CURRENT**.
+A1 is **DONE**. A2 subsequently completed after the product-purpose and real-case grounding below.
 
-## A2 — upcoming responsibility orientation — CURRENT
+## A2 — upcoming responsibility orientation — DONE
 
 ### Exact proposition
 
@@ -285,7 +285,7 @@ It does **not** need application-level exposure yet; that is Increment 5.
 
 Ali reported that the current A2 explanation jumped too quickly into identity mechanics before the purpose of Increment 4 itself was clear.
 
-This is a material learning gap, not a gate failure. A2 remains CURRENT and must first rebuild the model from:
+This was a material learning gap, not a gate failure. At that point A2 remained open until the model was rebuilt from:
 
 ```text
 product question
@@ -413,7 +413,7 @@ Build authorization is bounded to Increment 4:
 - prove the first direct-requirements/pip Route-A family;
 - do not start Increment-5 application integration or broaden earlier semantic/environment producers without a newly exposed blocker.
 
-## B — implementation progression — CURRENT
+## B — implementation progression — DONE
 
 ### B1 selected responsibility — command-derived requirement-state composition contract
 
@@ -477,7 +477,7 @@ Execution validation state:
 - no runtime PASS is claimed yet;
 - the available connector cannot dispatch the intentionally manual `product-verification.yml`;
 - the fallback execution container cannot resolve GitHub, so it cannot obtain the repository snapshot;
-- therefore B remains CURRENT until the focused composer test and broader deterministic regression are executed in the normal WSL checkout or hosted Product Verification.
+- at that point B remained open until the focused composer test and broader deterministic regression were executed; Product verification #15 later cleared this condition.
 
 No Increment-5 application integration has started.
 
