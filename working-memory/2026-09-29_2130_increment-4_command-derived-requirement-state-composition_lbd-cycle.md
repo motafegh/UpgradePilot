@@ -1,7 +1,7 @@
 # Increment 4 — Command-Derived Requirement-State Composition — Learning-by-Doing Cycle
 
 **Date:** 2026-09-29  
-**Cycle status:** ACTIVE — A0/A1/A2/B DONE; Verification GREEN; D CURRENT; E PENDING; C CONTINUOUS  
+**Cycle status:** CLOSED — A0/A1/A2/B/D/E DONE; Verification GREEN; C COMPLETE  
 **Primary responsibility:** compose already-established dependency/source applicability, package-manager semantic facts, and exact successful command execution into one bounded per-command requirement-state witness without changing CI-coverage, later-use, compatibility, or maintainer-action meaning  
 **Controlling plan:** `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`  
 **Accepted architecture:** `docs/architecture/ADR-0010-package-manager-semantic-facts-and-runtime-dependency-state-composition.md`  
@@ -15,9 +15,9 @@ A1 — DONE: continuity model understood; visible command text alone does not es
 A2 — DONE: product purpose, real-case data flow, proof boundary, stop points, and identity-safety responsibility understood
 B — DONE: bounded command-derived requirement-state composer and focused/integration proof implemented
 Verification gate — GREEN: Product verification #15 on exact implementation head c9edc76e8c3f4e9bb9d58e27ddac3cfbc291a8be
-D — CURRENT: evidence-backed implementation learning and ownership
-E — PENDING
-C — CONTINUOUS: preserve meaningful engineering + learning progression across A0→E
+D — DONE: evidence-backed implementation learning and ownership cleared with no repair required
+E — DONE: final owner reconciliation, closure, and handoff completed
+C — COMPLETE: meaningful engineering + learning progression preserved across A0→E
 ```
 
 ## A0 — current-state reconciliation + cycle initialization — DONE
@@ -530,7 +530,7 @@ It does not establish:
 
 B is **DONE** and the formal Verification gate is **GREEN**.
 
-## D — evidence-backed learning / ownership — CURRENT
+## D — evidence-backed learning / ownership — DONE
 
 D should now inspect the actual implemented proof ladder and verify ownership of:
 - why the composer belongs in CI composition rather than dependency semantic producers;
@@ -663,11 +663,58 @@ D ownership now covers:
 
 No material implementation or understanding gap was exposed by D. No repair is required.
 
-## E — closure / handoff — CURRENT
+## E — closure / handoff — DONE
 
-E should now:
-- reconcile the final Increment-4 state into live owners;
-- confirm no stale B/Verification/D wording remains;
-- record the exact verified implementation head and Product verification #15 evidence;
-- preserve explicit non-goals/deferred scope;
-- select Increment 5 application integration as the next responsibility without starting it early.
+### Final verified implementation
+
+Increment 4 is closed against Product verification #15:
+
+```text
+run: 36717618416
+event: workflow_dispatch
+conclusion: success
+verified implementation head: c9edc76e8c3f4e9bb9d58e27ddac3cfbc291a8be
+focused investigation composition: 15/15
+deterministic product regression: 708/708
+```
+
+The hosted job also passed fresh package build/install, `pip check`, installed CLI, and `python -m upgradepilot` checks.
+
+A final comparison from the verified implementation head to the closure state found no later `src/` or `tests/` changes. Post-verification commits changed only live planning/memory/working-memory owners, so no new execution proof is required for closure.
+
+### Final Increment-4 capability
+
+The first admitted direct-requirements/pip Route-A family can now produce:
+
+```text
+RequirementSatisfiedAtCommandCompletion
+```
+
+when exact dependency/source applicability, package-manager semantic facts, scoped command identity, and exact successful command execution all align.
+
+The implementation also preserves explicit `not_established` and `unresolved` outcomes for known-negative and insufficient/unsafe proof edges.
+
+### Preserved proof boundary / deferred scope
+
+Increment 4 does not establish or add:
+- fresh-install causality;
+- wheel/sdist or artifact identity;
+- persistence after command completion;
+- later dependency use or affected-behavior exercise;
+- behavioral compatibility;
+- maintainer-action permission;
+- generic job-log/stdout/artifact acquisition;
+- universal pip/uv semantics;
+- application-level investigation integration.
+
+These remain separate responsibilities and must not be inferred from the command-completion witness.
+
+### Handoff
+
+Increment 4 is **CLOSED**.
+
+The accepted next technical responsibility is **Increment 5 — application integration**: carry the new runtime dependency-state result through the normal investigation path while preserving existing CI-coverage and action semantics.
+
+Increment 5 is **SELECTED NEXT BUT NOT STARTED**. Its A0 must begin in a new cycle only after the current STOP boundary is deliberately left.
+
+No blocking gap remains from Increment 4.
