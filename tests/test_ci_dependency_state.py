@@ -10,12 +10,25 @@ from upgradepilot.ci.dependency_state import (
     compose_requirement_satisfied_at_command_completion,
     scope_package_manager_semantics,
 )
-from upgradepilot.ci.runtime_execution import ExactCommandExecutionAssessment
+from upgradepilot.ci.runtime_execution import (
+    ExactCommandExecutionAssessment,
+    assess_exact_command_execution,
+)
+from upgradepilot.ci.runtime_strengthening import candidate_from_consumption
+from upgradepilot.ci.workflow_commands import inspect_workflow_dependency_evidence
+from upgradepilot.ci.workflow_runtime_correlation import correlate_workflow_runtime
 from upgradepilot.dependency.change import (
     DependencyChangeSourceEvidence,
     DependencyVersionChange,
 )
 from upgradepilot.dependency.environment import RequirementsFileDependencyContext
+from upgradepilot.dependency.package_manager_config import (
+    observe_pip_persistent_config_setting,
+)
+from upgradepilot.dependency.package_manager_operation import (
+    PackageManagerOperationDeclaration,
+    parse_package_manager_operation,
+)
 from upgradepilot.dependency.package_manager_semantics import (
     DirectRequirementHandlingFact,
     InstallationDestination,
@@ -27,8 +40,23 @@ from upgradepilot.dependency.package_manager_semantics import (
     PackageManagerSemanticResolutionStep,
     PackageMutationModeFact,
 )
-from upgradepilot.github.workflow_command_analysis import CommandSourceSpan
+from upgradepilot.github.actions import WorkflowJob, WorkflowRun, WorkflowStep
+from upgradepilot.github.process_environment import (
+    ProcessEnvironmentValueEvidence,
+    observe_exact_process_environment_value,
+)
+from upgradepilot.github.repository import RepositoryTextFile
+from upgradepilot.github.workflow_command_analysis import (
+    CommandSourceSpan,
+    analyze_run_step_commands,
+)
 from upgradepilot.github.workflow_command_location import StaticCommandLocation
+from upgradepilot.github.workflow_definition import (
+    RunStepDefinition,
+    StepsJobDefinition,
+    WorkflowDefinition,
+    parse_workflow_definition,
+)
 
 
 _REVISION = "a" * 40
@@ -460,6 +488,193 @@ class CommandDerivedRequirementStateTests(unittest.TestCase):
         assert isinstance(result, RequirementStateProblem)
         self.assertEqual(result.state, "unresolved")
         self.assertEqual(result.reason, "dependency_source_evidence_identity_mismatch")
+
+
+class RouteARequirementStateIntegrationTests(unittest.TestCase):
+    def test_real_producers_compose_one_command_completion_witness(self) -> None:
+        source_evidence = _source_evidence()
+        dependency = _dependency(source_evidence)
+        source_context = _source_context(source_evidence)
+        workflow_source = RepositoryTextFile(
+            repository="example/project",
+            path=_WORKFLOW,
+            revision=_REVISION,
+            content="""jobs:
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install
+        run: PIP_DRY_RUN=0 PIP_CONFIG_FILE=/dev/null PIP_TARGET= PIP_PREFIX= PIP_ROOT= PIP_ONLY_DEPS=0 PIP_ONLY_DEPENDENCIES=0 /opt/bootstrap/bin/python -m pip --python /opt/target/bin/python install --no-user --no-deps -r requirements.txt
+""",
+        )
+
+        static = inspect_workflow_dependency_evidence(
+            workflow_source,
+            source_contexts=(source_context,),
+            package=dependency.package,
+            normalized_package=dependency.normalized_package,
+        )
+        self.assertEqual(len(static.consumptions), 1)
+        consumption = static.consumptions[0]
+        self.assertEqual(consumption.state, "supported")
+        self.assertEqual(consumption.mechanism, "direct_requirements")
+
+        definition = parse_workflow_definition(workflow_source)
+        assert isinstance(definition, WorkflowDefinition)
+        job = definition.jobs[0]
+        assert isinstance(job, StepsJobDefinition)
+        step = job.steps[1]
+        assert isinstance(step, RunStepDefinition)
+
+        analysis = analyze_run_step_commands(definition, job, step)
+        self.assertEqual(analysis.state, "analyzable")
+        occurrence = analysis.command_occurrences[0]
+        declaration = parse_package_manager_operation(occurrence)
+        assert isinstance(declaration, PackageManagerOperationDeclaration)
+        self.assertEqual(declaration.command_location, consumption.command_location)
+
+        def process_environment(variable_name: str) -> ProcessEnvironmentValueEvidence:
+            result = observe_exact_process_environment_value(
+                definition,
+                job,
+                step,
+                occurrence,
+                variable_name,
+            )
+            assert isinstance(result, ProcessEnvironmentValueEvidence)
+            return result
+
+        config_file_environment = process_environment("PIP_CONFIG_FILE")
+        destination_environment = tuple(
+            process_environment(variable_name)
+            for variable_name in ("PIP_TARGET", "PIP_PREFIX", "PIP_ROOT")
+        )
+        direct_environment = tuple(
+            process_environment(variable_name)
+            for variable_name in ("PIP_ONLY_DEPS", "PIP_ONLY_DEPENDENCIES")
+        )
+        mutation_environment = process_environment("PIP_DRY_RUN")
+
+        destination_config = observe_pip_persistent_config_setting(
+            declaration,
+            setting="installation-destination",
+            config_file_environment=config_file_environment,
+        )
+        mutation_config = observe_pip_persistent_config_setting(
+            declaration,
+            setting="dry-run",
+            config_file_environment=config_file_environment,
+        )
+        direct_config = observe_pip_persistent_config_setting(
+            declaration,
+            setting="only-deps",
+            config_file_environment=config_file_environment,
+        )
+
+        manager_environment = _manager(declaration.command_location, environment="/opt/target/bin/python")
+        installation_destination = __import__(
+            "upgradepilot.dependency.package_manager_semantics",
+            fromlist=["resolve_installation_destination"],
+        ).resolve_installation_destination(
+            declaration,
+            process_environment=destination_environment,
+            persistent_configuration=destination_config,
+        )
+        package_mutation_mode = __import__(
+            "upgradepilot.dependency.package_manager_semantics",
+            fromlist=["resolve_package_mutation_mode"],
+        ).resolve_package_mutation_mode(
+            declaration,
+            process_environment=mutation_environment,
+            persistent_configuration=mutation_config,
+        )
+        direct_requirement_handling = __import__(
+            "upgradepilot.dependency.package_manager_semantics",
+            fromlist=["resolve_direct_requirement_handling"],
+        ).resolve_direct_requirement_handling(
+            declaration,
+            process_environment=direct_environment,
+            persistent_configuration=direct_config,
+        )
+
+        semantic_scope = scope_package_manager_semantics(
+            ExactCICommandIdentity(
+                workflow_path=workflow_source.path,
+                workflow_revision=workflow_source.revision,
+                job_key=job.key,
+                step_source_index=step.source_index,
+                command_location=declaration.command_location,
+            ),
+            manager_environment=manager_environment,
+            installation_destination=installation_destination,
+            package_mutation_mode=package_mutation_mode,
+            direct_requirement_handling=direct_requirement_handling,
+        )
+
+        run = WorkflowRun(
+            run_id=1001,
+            workflow_id=2001,
+            name="CI",
+            event="pull_request",
+            head_sha=_REVISION,
+            status="completed",
+            conclusion="success",
+            run_attempt=1,
+        )
+        runtime_job = WorkflowJob(
+            job_id=3001,
+            run_id=1001,
+            name="Tests",
+            head_sha=_REVISION,
+            status="completed",
+            conclusion="success",
+            steps=(
+                WorkflowStep(
+                    number=1,
+                    name="Checkout",
+                    status="completed",
+                    conclusion="success",
+                ),
+                WorkflowStep(
+                    number=2,
+                    name="Install",
+                    status="completed",
+                    conclusion="success",
+                ),
+            ),
+        )
+        correlation = correlate_workflow_runtime(
+            workflow_source,
+            run,
+            (runtime_job,),
+        )
+        execution = assess_exact_command_execution(
+            candidate_from_consumption(consumption),
+            correlation=correlation,
+        )
+
+        result = compose_requirement_satisfied_at_command_completion(
+            dependency,
+            source_context,
+            consumption,
+            semantic_scope,
+            execution,
+        )
+
+        self.assertIsInstance(result, RequirementSatisfiedAtCommandCompletion)
+        assert isinstance(result, RequirementSatisfiedAtCommandCompletion)
+        self.assertEqual(
+            result.semantics.command_identity.workflow_path,
+            _WORKFLOW,
+        )
+        self.assertEqual(
+            result.semantics.manager_environment.environment.value,  # type: ignore[union-attr]
+            "/opt/target/bin/python",
+        )
+        self.assertEqual(result.execution.runtime_step_number, 2)
 
 
 if __name__ == "__main__":
