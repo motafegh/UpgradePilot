@@ -1,7 +1,7 @@
 # Increment 5 — Runtime Dependency-State Application Integration — Learning-by-Doing Cycle
 
 **Date:** 2026-09-30  
-**Cycle status:** ACTIVE — A0/A1 DONE; STOP before A2; B/Verification/D/E NOT STARTED; C CONTINUOUS  
+**Cycle status:** ACTIVE — A0/A1/A2 DONE; STOP before Build; B/Verification/D/E NOT STARTED; C CONTINUOUS  
 **Primary responsibility:** carry the already-verified command-derived runtime dependency-state evidence through the normal public-PR investigation path as a separate typed application result, without changing CI-coverage, later-use, compatibility, or maintainer-action semantics  
 **Controlling plan:** `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`  
 **Accepted architecture:** `docs/architecture/ADR-0010-package-manager-semantic-facts-and-runtime-dependency-state-composition.md`  
@@ -13,8 +13,8 @@
 ```text
 A0 — DONE: current main/governance/source/test state reconciled and cycle initialized
 A1 — DONE: continuity from Increments 1–4 and the current application seam onboarded
-STOP — CURRENT: do not enter A2 until deliberately continued
-A2 — NOT STARTED: orient and decide the exact application-level integration/result shape
+A2 — DONE: exact application integration contract and ownership selected
+STOP — CURRENT: do not enter Build until deliberately continued
 B — NOT STARTED
 Verification — NOT STARTED
 D — NOT STARTED
