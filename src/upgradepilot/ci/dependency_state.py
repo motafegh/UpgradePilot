@@ -110,23 +110,35 @@ class RequirementStateProblem:
 
 
 def scope_package_manager_semantics(
-    consumption: StaticDependencyConsumptionEvidence,
+    command_identity: ExactCICommandIdentity,
     *,
     manager_environment: ManagerEnvironmentSemanticResult,
     installation_destination: InstallationDestinationSemanticResult,
     package_mutation_mode: PackageMutationSemanticResult,
     direct_requirement_handling: DirectRequirementSemanticResult,
 ) -> ScopedPackageManagerSemanticEvidence | RequirementStateProblem:
-    """Bind command-local semantic results to one exact CI consumption scope.
+    """Bind command-local semantic results to independently supplied exact CI scope.
 
-    The consumption is the CI identity anchor. Every supplied semantic result must preserve
-    that consumption's exact local command location before the stronger scoped binding is
-    admitted.
+    The command identity must come from the workflow/job/step/occurrence context in which
+    the semantic results were resolved. It is intentionally not copied from dependency
+    consumption evidence: the final composer compares these independently established
+    identities so same-looking local command locations from different workflows cannot be
+    silently joined.
     """
 
-    identity = _command_identity_from_consumption(consumption)
-    if isinstance(identity, RequirementStateProblem):
-        return identity
+    if (
+        not command_identity.workflow_path
+        or not command_identity.workflow_revision
+        or not command_identity.job_key
+    ):
+        return RequirementStateProblem(
+            state="unresolved",
+            reason="semantic_command_scope_identity_unresolved",
+            detail=(
+                "Scoped package-manager semantics require exact workflow/revision/job/"
+                "step/command identity from the semantic-producing CI context."
+            ),
+        )
 
     semantic_results: tuple[
         tuple[PackageManagerSemanticDimension, object],
@@ -140,7 +152,7 @@ def scope_package_manager_semantics(
 
     for expected_dimension, result in semantic_results:
         command_location = result.command_location  # type: ignore[union-attr]
-        if command_location != identity.command_location:
+        if command_location != command_identity.command_location:
             return RequirementStateProblem(
                 state="unresolved",
                 reason="semantic_command_identity_mismatch",
@@ -165,7 +177,7 @@ def scope_package_manager_semantics(
             )
 
     return ScopedPackageManagerSemanticEvidence(
-        command_identity=identity,
+        command_identity=command_identity,
         manager_environment=manager_environment,
         installation_destination=installation_destination,
         package_mutation_mode=package_mutation_mode,
