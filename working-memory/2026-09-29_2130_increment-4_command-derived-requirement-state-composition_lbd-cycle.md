@@ -1,7 +1,7 @@
 # Increment 4 — Command-Derived Requirement-State Composition — Learning-by-Doing Cycle
 
 **Date:** 2026-09-29  
-**Cycle status:** ACTIVE — A0 DONE; A1 CURRENT; A2/B/Verification/D/E PENDING; C CONTINUOUS  
+**Cycle status:** ACTIVE — A0/A1 DONE; A2 CURRENT; B/Verification/D/E PENDING; C CONTINUOUS  
 **Primary responsibility:** compose already-established dependency/source applicability, package-manager semantic facts, and exact successful command execution into one bounded per-command requirement-state witness without changing CI-coverage, later-use, compatibility, or maintainer-action meaning  
 **Controlling plan:** `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`  
 **Accepted architecture:** `docs/architecture/ADR-0010-package-manager-semantic-facts-and-runtime-dependency-state-composition.md`  
@@ -11,8 +11,8 @@
 
 ```text
 A0 — DONE: current main/live owners/source/test seams reconciled; no route contradiction
-A1 — CURRENT: continuity/recent-work onboarding; awaiting Ali's challenge/question/confirmation at the onboarding gate
-A2 — PENDING
+A1 — DONE: continuity model understood; visible command text alone does not establish effective semantics or successful execution
+A2 — CURRENT: orient exact witness proposition, identity joins, result states, close-defeaters, proof boundary, and source/test ownership
 B — PENDING
 Verification gate — PENDING
 D — PENDING
@@ -110,7 +110,11 @@ The plan's mention of `tests/test_runtime_dependency_contract.py` is only approp
 
 Increment 4 should begin as **composition of already-owned evidence**, not as another parser/environment/config subsystem.
 
-The important join key already exists across the relevant command-scoped inputs: exact static command identity via `StaticCommandLocation`, with workflow/job/step identity carried by CI consumption/execution evidence.
+The important join identity is distributed across the current inputs:
+- CI consumption/execution carry workflow/revision/job/step identity plus command location;
+- package-manager semantic facts currently carry command location but not standalone workflow identity.
+
+Therefore `StaticCommandLocation` must not be treated as globally unique by itself. A2/B must preserve scoped identity when binding semantic facts to the exact CI command rather than joining unrelated facts merely because their source spans/source order happen to match.
 
 The first design question is therefore not “what more environment state should we reconstruct?” but:
 
@@ -162,4 +166,125 @@ A2 should emphasize two engineering ownership points:
 
 A0 is complete.
 
-No contradiction, stale live owner, implementation drift, or proof result requires replanning Increment 4. The cycle proceeds to A1 and must stop at the continuity/onboarding gate before A2.
+No contradiction, stale live owner, implementation drift, or proof result requires replanning Increment 4.
+
+## A1 — continuity / recent-work onboarding — DONE
+
+Ali's A1 reasoning correctly identified the central continuity point:
+
+> seeing only `pip install -r requirements.txt` is insufficient because effective conditions such as dry-run and PATH/environment-related state may change what the command actually means, so additional evidence is required.
+
+Refinement recorded at the gate:
+
+- dry-run/PATH/environment are concrete examples of the larger rule;
+- visible static command text does not by itself establish effective package-manager semantics;
+- visible static command text also does not establish that the exact command actually executed successfully;
+- the stronger command-completion state claim therefore requires composition of source applicability + supported consumption + resolved semantic facts + exact successful execution.
+
+This is sufficient continuity ownership for A1. No material misunderstanding remains that should block the next orientation.
+
+A1 is **DONE**. A2 is **CURRENT**.
+
+## A2 — upcoming responsibility orientation — CURRENT
+
+### Exact proposition
+
+The first positive result should mean approximately:
+
+```text
+The exact proposed direct requirement is satisfied
+in the resolved package-state scope
+at the completion boundary of this exact successful command.
+```
+
+A shorter internal name such as `RequirementSatisfiedAtCommandCompletion` is an evidence proposition, not an installation-history claim.
+
+### Required positive premises for the first Route-A family
+
+A positive witness should require all of the following to align:
+
+1. one trusted `DependencyVersionChange` establishes exact package + proposed version;
+2. one source-applicable supported `StaticDependencyConsumptionEvidence` establishes that the exact command consumes the affected dependency source;
+3. the semantic facts for that same command establish manager environment, admitted destination, mutation mode = `apply_changes`, and direct requirement handling = `handled`;
+4. exact command execution is `supported`;
+5. workflow/revision/job/step/command identity is mutually compatible rather than merely similar.
+
+For the first requirements-file/pip family, the destination should remain inside the resolved manager-environment package-state scope. A materially retargeted destination must not be silently interpreted as satisfying that manager environment.
+
+### Result-state model
+
+A2 preserves at least three meanings:
+
+- **supported witness** — every required edge is positively established and aligned;
+- **not established** — factual evidence closes negatively, e.g. runtime command did not succeed, mutation mode is dry-run, direct requirement handling excludes the direct requirement, or destination is outside the admitted first-family scope;
+- **unresolved** — a material premise cannot be known safely, e.g. semantic source precedence is unresolved, exact command reachability/correlation is unresolved, or evidence identity cannot be safely joined.
+
+`not_established` is not the same as package absence. It means this evidence path does not prove the positive command-completion proposition.
+
+### Identity discipline
+
+The composer must prevent accidental cross-command/cross-workflow evidence joins.
+
+Current evidence shape matters:
+
+```text
+StaticDependencyConsumptionEvidence
+  → workflow_path / workflow_revision / job_key / step_source_index / command_location
+
+ExactCommandExecutionAssessment
+  → workflow_path / workflow_revision / job_key / step_source_index / command_location
+
+semantic facts
+  → command_location
+```
+
+Because semantic facts currently preserve only `command_location`, the Build must deliberately keep them bound to the scoped command from which they were resolved. Matching source span/order alone is not enough to assert global identity.
+
+### Close-defeaters that must remain visible
+
+At minimum:
+
+- effective dry-run → no positive witness;
+- direct-requirement exclusion → no positive witness;
+- destination retargeting outside first admitted scope → no positive witness;
+- unresolved environment/config semantic source → unresolved;
+- exact command runtime non-success → not established;
+- runtime execution/correlation uncertainty → unresolved;
+- command/workflow identity mismatch → fail safely;
+- several candidate commands → keep separate per-command results rather than collapsing environments.
+
+### Witness content
+
+A positive witness should preserve enough evidence to explain itself:
+
+- package and proposed version;
+- dependency source evidence;
+- workflow/revision/job/step/command provenance;
+- resolved manager environment;
+- resolved destination scope;
+- semantic fact provenance;
+- exact execution evidence;
+- observation boundary = exact successful command completion;
+- explicit limitations.
+
+### Likely implementation ownership
+
+The clean default remains a new focused module such as `src/upgradepilot/ci/dependency_state.py`. It should compose existing facts rather than reparse commands or re-resolve environment/config semantics.
+
+Focused tests should probably live in a dedicated file such as `tests/test_ci_dependency_state.py` rather than overloading `test_runtime_dependency_contract.py`, whose present responsibility is installed project dependency bounds.
+
+Final names remain implementation decisions; ADR-0010 deliberately does not fix them.
+
+### Acceptance boundary
+
+Increment 4 passes when one exact Route-A command can yield the bounded witness and the important close-defeaters produce truthful not-established/unresolved outcomes without changing existing CI coverage semantics.
+
+It does **not** need application-level exposure yet; that is Increment 5.
+
+### A2 ownership question
+
+Before Build, Ali should reason about one identity-safety case:
+
+> If two different workflows each contain a command at the same source order/span and their semantic facts therefore have equal-looking `StaticCommandLocation` values, why is matching only that location unsafe, and what additional scoped identity must the composer preserve/use before joining those facts with runtime execution?
+
+A2 remains CURRENT until this gate is answered/challenged.
