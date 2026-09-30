@@ -439,3 +439,44 @@ Focused proof must cover at least:
 - runtime non-success → not established;
 - scoped command identity mismatch → unresolved/fail-safe;
 - multiple candidates remain separately composable rather than collapsing environments.
+
+
+### B1/B2 implementation state — source complete, execution proof pending
+
+Implemented on `main`:
+
+- `src/upgradepilot/ci/dependency_state.py`
+  - `ExactCICommandIdentity` for workflow/revision/job/step/command identity;
+  - `ScopedPackageManagerSemanticEvidence` for CI-owned binding of dependency-owned semantic facts;
+  - `RequirementSatisfiedAtCommandCompletion` as the bounded positive witness;
+  - `RequirementStateProblem` with `not_established | unresolved`;
+  - typed blocker provenance for semantic failures;
+  - source/package/revision/command identity checks;
+  - admitted first-family checks for manager-environment destination, apply-changes mutation, direct-requirement handling, and exact successful execution.
+
+- `tests/test_ci_dependency_state.py`
+  - positive direct-requirements witness;
+  - effective dry-run → not established;
+  - retargeted destination → not established;
+  - unresolved semantic source → unresolved with typed blocker provenance;
+  - runtime non-success → not established;
+  - same local command location from a different workflow → rejected through full scoped identity;
+  - multiple command candidates remain separate witnesses;
+  - dependency-source mismatch fails closed;
+  - real Route-A integration path using actual workflow parsing, direct-requirements consumption, process-environment/config semantic resolution, workflow/runtime correlation, exact-command execution, and final composition.
+
+Important correction during B:
+- the first semantic-scope binder copied full scope from the consumption being proved;
+- review showed that this could conceptually launder semantic facts from another workflow when local command locations collide;
+- the binder was corrected so semantic scope is supplied independently from its semantic-producing workflow/job/step/occurrence context, then compared against consumption/execution scope by the composer.
+
+Additional source check:
+- the current exact-requirement extractor admits only bare `package==version` changed lines; environment-marker conditional pins are not silently admitted into this first family.
+
+Execution validation state:
+- no runtime PASS is claimed yet;
+- the available connector cannot dispatch the intentionally manual `product-verification.yml`;
+- the fallback execution container cannot resolve GitHub, so it cannot obtain the repository snapshot;
+- therefore B remains CURRENT until the focused composer test and broader deterministic regression are executed in the normal WSL checkout or hosted Product Verification.
+
+No Increment-5 application integration has started.
