@@ -39,6 +39,10 @@ from upgradepilot.dependency.package_manager_semantics import (
     PackageManagerSemanticResolutionProvenance,
     PackageManagerSemanticResolutionStep,
     PackageMutationModeFact,
+    resolve_direct_requirement_handling,
+    resolve_installation_destination,
+    resolve_manager_environment_selection,
+    resolve_package_mutation_mode,
 )
 from upgradepilot.github.actions import WorkflowJob, WorkflowRun, WorkflowStep
 from upgradepilot.github.process_environment import (
@@ -574,27 +578,18 @@ class RouteARequirementStateIntegrationTests(unittest.TestCase):
             config_file_environment=config_file_environment,
         )
 
-        manager_environment = _manager(declaration.command_location, environment="/opt/target/bin/python")
-        installation_destination = __import__(
-            "upgradepilot.dependency.package_manager_semantics",
-            fromlist=["resolve_installation_destination"],
-        ).resolve_installation_destination(
+        manager_environment = resolve_manager_environment_selection(declaration)
+        installation_destination = resolve_installation_destination(
             declaration,
             process_environment=destination_environment,
             persistent_configuration=destination_config,
         )
-        package_mutation_mode = __import__(
-            "upgradepilot.dependency.package_manager_semantics",
-            fromlist=["resolve_package_mutation_mode"],
-        ).resolve_package_mutation_mode(
+        package_mutation_mode = resolve_package_mutation_mode(
             declaration,
             process_environment=mutation_environment,
             persistent_configuration=mutation_config,
         )
-        direct_requirement_handling = __import__(
-            "upgradepilot.dependency.package_manager_semantics",
-            fromlist=["resolve_direct_requirement_handling"],
-        ).resolve_direct_requirement_handling(
+        direct_requirement_handling = resolve_direct_requirement_handling(
             declaration,
             process_environment=direct_environment,
             persistent_configuration=direct_config,
