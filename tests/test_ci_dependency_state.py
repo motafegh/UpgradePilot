@@ -4,6 +4,7 @@ import unittest
 
 from upgradepilot.ci.consumption import StaticDependencyConsumptionEvidence
 from upgradepilot.ci.dependency_state import (
+    ExactCICommandIdentity,
     RequirementSatisfiedAtCommandCompletion,
     RequirementStateProblem,
     compose_requirement_satisfied_at_command_completion,
@@ -108,6 +109,19 @@ def _consumption(
     )
 
 
+def _identity(
+    consumption: StaticDependencyConsumptionEvidence,
+) -> ExactCICommandIdentity:
+    assert consumption.command_location is not None
+    return ExactCICommandIdentity(
+        workflow_path=consumption.workflow_path,
+        workflow_revision=consumption.workflow_revision,
+        job_key=consumption.job_key,
+        step_source_index=consumption.step_source_index,
+        command_location=consumption.command_location,
+    )
+
+
 def _provenance(dimension: str) -> PackageManagerSemanticResolutionProvenance:
     return PackageManagerSemanticResolutionProvenance(
         dimension=dimension,  # type: ignore[arg-type]
@@ -194,7 +208,7 @@ def _semantics(
     assert consumption.command_location is not None
     location = consumption.command_location
     return scope_package_manager_semantics(
-        consumption,
+        _identity(consumption),
         manager_environment=_manager(
             location,
             environment=manager_environment,
