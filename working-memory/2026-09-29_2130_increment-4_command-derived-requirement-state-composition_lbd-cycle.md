@@ -281,10 +281,19 @@ Increment 4 passes when one exact Route-A command can yield the bounded witness 
 
 It does **not** need application-level exposure yet; that is Increment 5.
 
-### A2 ownership question
+### A2 learning gap discovered — product purpose before implementation detail
 
-Before Build, Ali should reason about one identity-safety case:
+Ali reported that the current A2 explanation jumped too quickly into identity mechanics before the purpose of Increment 4 itself was clear.
 
-> If two different workflows each contain a command at the same source order/span and their semantic facts therefore have equal-looking `StaticCommandLocation` values, why is matching only that location unsafe, and what additional scoped identity must the composer preserve/use before joining those facts with runtime execution?
+This is a material learning gap, not a gate failure. A2 remains CURRENT and must first rebuild the model from:
 
-A2 remains CURRENT until this gate is answered/challenged.
+```text
+product question
+→ missing evidence proposition
+→ what Increments 1–3 already prove
+→ what they still cannot prove
+→ why Increment 4 exists
+→ only then implementation/identity mechanics
+```
+
+Do not ask detailed identity-joining ownership questions again until the broader Increment-4 goal and problem are understood.
