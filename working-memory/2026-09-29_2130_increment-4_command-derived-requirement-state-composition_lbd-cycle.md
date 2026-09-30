@@ -297,3 +297,105 @@ product question
 ```
 
 Do not ask detailed identity-joining ownership questions again until the broader Increment-4 goal and problem are understood.
+
+
+### A2 real-case grounding — S002 / S011 / S008
+
+A2 is now grounded in existing product-simulation cases rather than abstract-only examples.
+
+#### S002 — HTTPX 0.27.2 → 0.28.1
+
+Real case:
+- repository: `Aidan-Wallace/kubernetes-dashboard-token-api`;
+- PR #20;
+- changed source: `requirements.txt`;
+- Python workflow contains `python -m pip install --no-cache-dir --upgrade pip -r requirements.txt`, then Ruff and pytest;
+- that Python workflow did not trigger for the historical PR because its path filters excluded `requirements.txt`;
+- a separate Docker workflow was green, but historical Docker logs/resolved dependency state are no longer recoverable.
+
+Increment-4 relevance:
+
+```text
+DependencyVersionChange(httpx 0.27.2 → 0.28.1)
++ direct requirements consumption in the Python workflow
++ command semantic facts
++ exact successful execution of THAT SAME Python command
+→ possible RequirementSatisfiedAtCommandCompletion
+```
+
+But the historical Python command did not obtain positive runtime execution evidence. Therefore no positive command-completion witness may be inferred from the separate green Docker workflow.
+
+This is also the clearest real identity-safety example: semantic/static evidence from the skipped Python workflow must never be joined with success from the different Docker workflow merely because both belong to the same PR/repository.
+
+#### S011 — NumPy 1.26.4 → 2.4.6 inside optional `mlx`
+
+Real case:
+- repository: `dragfly/dictare`;
+- PR #34;
+- changed dependency is inside `[project.optional-dependencies].mlx`;
+- inspected Ubuntu and macOS test workflows both install `.[dev]`, not `.[mlx]`.
+
+Increment-4 relevance:
+
+```text
+DependencyVersionChange(numpy in mlx)
++
+inspected CI selects dev, not mlx
+→ affected dependency source/environment is not consumed
+→ stop before package-manager semantics/runtime composition
+→ no RequirementSatisfiedAtCommandCompletion witness for the changed mlx family
+```
+
+This demonstrates that Increment 4 is not a mechanism for forcing every case through semantic/runtime evidence. If the affected dependency environment is not formed, the proof fails at an earlier edge.
+
+#### S008 — OpenCV 4.2.0.32 → 4.8.1.78
+
+Real case:
+- repository: `carla-simulator/scenario_runner`;
+- PR #1111;
+- changed source: `requirements.txt`;
+- inspected CI installs requirements on Ubuntu;
+- the owned concern is specifically the CPython-3.6 Linux wheel → source-distribution fallback transition;
+- inspected workflows do not pin/matrix Python 3.6.
+
+Increment-4 relevance:
+
+Even if a future exact CI command earned:
+
+```text
+RequirementSatisfiedAtCommandCompletion(
+  opencv-python==4.8.1.78,
+  environment=<that exact CI Python environment>
+)
+```
+
+that witness would prove only package-state satisfaction in that exact environment at command completion.
+
+It would still not prove:
+- that the environment is CPython 3.6 unless interpreter identity establishes that;
+- that the Python-3.6 source-fallback branch was exercised;
+- that source build succeeded;
+- behavioral compatibility.
+
+S008 therefore demonstrates the Increment-4 claim boundary: a correct package-state witness may still be non-discriminating for a more specific artifact-selection proposition.
+
+#### Cross-case data-flow lesson
+
+```text
+S011
+source/environment applicability fails first
+→ do not continue pretending semantic/runtime proof matters
+
+S002
+source/command may be relevant
+but exact relevant runtime execution is missing
+→ no positive witness
+→ never borrow success from another workflow
+
+S008
+a package-state witness could be valid for one environment
+but still not answer the case-specific Python-3.6 artifact question
+→ preserve proposition-specific proof limits
+```
+
+These cases are the preferred A2 anchors before returning to implementation-level identity mechanics.
