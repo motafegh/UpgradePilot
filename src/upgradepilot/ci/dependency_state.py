@@ -48,6 +48,13 @@ type PackageMutationSemanticResult = PackageMutationModeFact | PackageManagerSem
 type DirectRequirementSemanticResult = (
     DirectRequirementHandlingFact | PackageManagerSemanticProblem
 )
+type RequirementStateBlockingSemanticEvidence = (
+    ManagerEnvironmentSelectionFact
+    | InstallationDestinationFact
+    | PackageMutationModeFact
+    | DirectRequirementHandlingFact
+    | PackageManagerSemanticProblem
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -107,6 +114,7 @@ class RequirementStateProblem:
     reason: str
     detail: str
     blocking_dimension: PackageManagerSemanticDimension | None = None
+    blocking_semantic_evidence: RequirementStateBlockingSemanticEvidence | None = None
 
 
 def scope_package_manager_semantics(
@@ -265,6 +273,7 @@ def compose_requirement_satisfied_at_command_completion(
             reason=semantic_problem.reason,
             detail=semantic_problem.detail,
             blocking_dimension=semantic_problem.dimension,
+            blocking_semantic_evidence=semantic_problem,
         )
 
     manager_environment = semantics.manager_environment
@@ -302,6 +311,7 @@ def compose_requirement_satisfied_at_command_completion(
                 "admitted manager-environment package-state scope."
             ),
             blocking_dimension="installation_destination",
+            blocking_semantic_evidence=installation_destination,
         )
 
     if package_mutation_mode.mode != "apply_changes":
@@ -313,6 +323,7 @@ def compose_requirement_satisfied_at_command_completion(
                 "successful command completion cannot establish the proposed requirement."
             ),
             blocking_dimension="package_mutation_mode",
+            blocking_semantic_evidence=package_mutation_mode,
         )
 
     if direct_requirement_handling.handling != "handled":
@@ -325,6 +336,7 @@ def compose_requirement_satisfied_at_command_completion(
                 "completion."
             ),
             blocking_dimension="direct_requirement_handling",
+            blocking_semantic_evidence=direct_requirement_handling,
         )
 
     if execution.state == "unresolved":
@@ -481,6 +493,7 @@ __all__ = (
     "ExactCICommandIdentity",
     "RequirementSatisfiedAtCommandCompletion",
     "RequirementStateProblem",
+    "RequirementStateBlockingSemanticEvidence",
     "RequirementStateProblemState",
     "ScopedPackageManagerSemanticEvidence",
     "compose_requirement_satisfied_at_command_completion",
