@@ -5,7 +5,7 @@
 The implementation/proof sequence and stop lines in this planning record are applied under the **Smart Situational Override Rule**. Current evidence may justify expanding, shrinking, reordering, combining, splitting, pausing, or overriding a planned increment/gate when that route is more faithful to the real product responsibility. A material override must be explicit and reconciled with the controlling plan/ADR/owner when their responsibility changes. It cannot invent authorization or proof.
 
 
-**Status:** R4 PLANNING/DESIGN COMPLETE; retained as the broader implementation/proof-sequence record. R2 semantic boundary and R3 evidence/data-flow architecture are closed. Increments 1–4 have been implemented, verified, learned, and closed in their dedicated cycle records. Increment 5 application integration is selected next by `MEMORY.md` but has not started. This record does not itself authorize future Build increments; `MEMORY.md` alone selects the live continuation.
+**Status:** R4 PLANNING/DESIGN COMPLETE; retained as the broader implementation/proof-sequence record. R2 semantic boundary and R3 evidence/data-flow architecture are closed. Increments 1–4 have been implemented, verified, learned, and closed in their dedicated cycle records. Increment 5 application integration is now ACTIVE under `working-memory/2026-09-30_2119_increment-5_runtime-dependency-state-application-integration_lbd-cycle.md`; A0/A1 are DONE and the live route is at the canonical STOP before A2. This record does not itself authorize Build; `MEMORY.md` alone selects the live continuation.
 
 **Controlling plan:** plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md  
 **Accepted architecture:** docs/architecture/ADR-0010-package-manager-semantic-facts-and-runtime-dependency-state-composition.md  
@@ -211,7 +211,7 @@ Required cases:
 
 **Completion evidence:** implemented in `src/upgradepilot/ci/dependency_state.py` with focused proof in `tests/test_ci_dependency_state.py`. Product verification #15 (`36717618416`) is GREEN on exact implementation head `c9edc76e8c3f4e9bb9d58e27ddac3cfbc291a8be`: focused investigation composition 15/15 and deterministic product regression 708/708. The Increment-4 Learning-by-Doing cycle closed with D ownership cleared and no repair required.
 
-### Increment 5 — application integration
+### Increment 5 — application integration — ACTIVE; A0/A1 DONE; STOP before A2
 
 Expected owner:
 - src/upgradepilot/investigation.py
@@ -230,6 +230,8 @@ Proof owners:
 - relevant end-to-end tests only when their admitted contract reaches this new result.
 
 **Increment pass condition:** the normal investigation path carries the new state proof without changing existing evidence/action meanings.
+
+**Active cycle:** `working-memory/2026-09-30_2119_increment-5_runtime-dependency-state-application-integration_lbd-cycle.md`. A0 confirmed no `src/`/`tests/` drift after the verified Increment-4 implementation head and no need to reopen prior work. A1 established the continuity/application seam. Exact result cardinality/aggregation and integration ownership remain deliberately open for A2; no Build has started.
 
 ## 4. Verification matrix
 
