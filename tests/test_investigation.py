@@ -6,6 +6,7 @@ import unittest
 from datetime import datetime, timezone
 from unittest.mock import Mock, call, patch
 
+from upgradepilot.ci.dependency_state import RequirementSatisfiedAtCommandCompletion
 from upgradepilot.dependency.analysis import DependencyChangeAnalysis
 from upgradepilot.dependency.change import (
     DependencyChangeProblem,
@@ -13,7 +14,7 @@ from upgradepilot.dependency.change import (
     DependencyVersionChange,
 )
 from upgradepilot.dependency.environment import RequirementsFileDependencyContext
-from upgradepilot.github.actions import WorkflowJob, WorkflowRun
+from upgradepilot.github.actions import WorkflowJob, WorkflowRun, WorkflowStep
 from upgradepilot.github.changelog import ChangelogPathDiscoveryProblem, DiscoveredChangelogPath
 from upgradepilot.github.pull_request import ChangedFile, PullRequestIdentity
 from upgradepilot.github.repository import RepositoryTextFile
@@ -544,6 +545,66 @@ jobs:
             "unresolved",
         )
 
+
+    def test_normal_investigation_carries_positive_runtime_dependency_state(self) -> None:
+        h = _Harness()
+        command = (
+            "PIP_DRY_RUN=0 PIP_CONFIG_FILE=/dev/null PIP_TARGET= PIP_PREFIX= PIP_ROOT= "
+            "PIP_ONLY_DEPS=0 PIP_ONLY_DEPENDENCIES=0 "
+            "/opt/bootstrap/bin/python -m pip --python /opt/target/bin/python "
+            "install --no-user --no-deps -r requirements.txt"
+        )
+        h.set_workflow(
+            f"""jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install
+        run: {command}
+"""
+        )
+        assert h.workflow_run is not None
+        h.actions_client.get_workflow_jobs.return_value = (
+            WorkflowJob(
+                job_id=301,
+                run_id=h.workflow_run.run_id,
+                name="test",
+                head_sha=h.identity.head_sha,
+                status="completed",
+                conclusion="success",
+                steps=(
+                    WorkflowStep(
+                        number=1,
+                        name="Checkout",
+                        status="completed",
+                        conclusion="success",
+                    ),
+                    WorkflowStep(
+                        number=2,
+                        name="Install",
+                        status="completed",
+                        conclusion="success",
+                    ),
+                ),
+            ),
+        )
+        h.stop_upstream_at_changelog()
+
+        result = _run(h, _dependency())
+
+        self.assertEqual(result.ci_coverage_result.state, "supported_runtime_correlated")
+        runtime_state = result.runtime_dependency_state_result
+        self.assertIsNotNone(runtime_state)
+        assert runtime_state is not None
+        self.assertEqual(runtime_state.evaluation_state, "evaluated")
+        self.assertEqual(len(runtime_state.assessments), 1)
+        self.assertIsInstance(
+            runtime_state.assessments[0].result,
+            RequirementSatisfiedAtCommandCompletion,
+        )
+
     def test_dependency_problem_stops_both_dependency_specific_branches(self) -> None:
         h = _Harness()
         problem = DependencyChangeProblem(
@@ -555,6 +616,7 @@ jobs:
 
         self.assertIs(result.dependency_result, problem)
         self.assertIsNone(result.ci_coverage_result)
+        self.assertIsNone(result.runtime_dependency_state_result)
         self.assertIsNone(result.package_result)
         self.assertIsNone(result.old_package_result)
         self.assertIsNone(result.artifact_serviceability_candidate_result)
