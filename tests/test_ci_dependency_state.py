@@ -3,11 +3,16 @@ from __future__ import annotations
 import unittest
 
 from upgradepilot.ci.consumption import StaticDependencyConsumptionEvidence
+from upgradepilot.ci.dependency_exercise import (
+    WorkflowDependencyCoverageInput,
+    evaluate_dependency_ci_coverage,
+)
 from upgradepilot.ci.dependency_state import (
     ExactCICommandIdentity,
     RequirementSatisfiedAtCommandCompletion,
     RequirementStateProblem,
     compose_requirement_satisfied_at_command_completion,
+    evaluate_runtime_dependency_state,
     scope_package_manager_semantics,
 )
 from upgradepilot.ci.runtime_execution import (
@@ -676,6 +681,226 @@ class RouteARequirementStateIntegrationTests(unittest.TestCase):
             "/opt/target/bin/python",
         )
         self.assertEqual(result.execution.runtime_step_number, 2)
+
+
+class RuntimeDependencyStateEvaluatorTests(unittest.TestCase):
+    def test_evaluator_produces_positive_application_ready_witness(self) -> None:
+        command = (
+            "PIP_DRY_RUN=0 PIP_CONFIG_FILE=/dev/null PIP_TARGET= PIP_PREFIX= PIP_ROOT= "
+            "PIP_ONLY_DEPS=0 PIP_ONLY_DEPENDENCIES=0 "
+            "/opt/bootstrap/bin/python -m pip --python /opt/target/bin/python "
+            "install --no-user --no-deps -r requirements.txt"
+        )
+
+        result, coverage = _evaluate_runtime_state_for_commands((command,))
+
+        self.assertEqual(coverage.state, "supported_runtime_correlated")
+        self.assertEqual(result.evaluation_state, "evaluated")
+        self.assertEqual(len(result.assessments), 1)
+        assessment = result.assessments[0]
+        self.assertIsInstance(
+            assessment.result,
+            RequirementSatisfiedAtCommandCompletion,
+        )
+        assert isinstance(
+            assessment.result,
+            RequirementSatisfiedAtCommandCompletion,
+        )
+        self.assertEqual(
+            assessment.result.semantics.manager_environment.environment.value,  # type: ignore[union-attr]
+            "/opt/target/bin/python",
+        )
+
+    def test_evaluator_preserves_effective_dry_run_as_not_established(self) -> None:
+        command = (
+            "PIP_CONFIG_FILE=/dev/null PIP_TARGET= PIP_PREFIX= PIP_ROOT= "
+            "PIP_ONLY_DEPS=0 PIP_ONLY_DEPENDENCIES=0 "
+            "/opt/bootstrap/bin/python -m pip --python /opt/target/bin/python "
+            "install --dry-run --no-user --no-deps -r requirements.txt"
+        )
+
+        result, _coverage = _evaluate_runtime_state_for_commands((command,))
+
+        assessment = result.assessments[0]
+        self.assertIsInstance(assessment.result, RequirementStateProblem)
+        assert isinstance(assessment.result, RequirementStateProblem)
+        self.assertEqual(assessment.result.state, "not_established")
+        self.assertEqual(
+            assessment.result.reason,
+            "package_mutation_does_not_apply_changes",
+        )
+        self.assertEqual(
+            assessment.result.blocking_dimension,
+            "package_mutation_mode",
+        )
+
+    def test_evaluator_preserves_unresolved_ambient_semantics(self) -> None:
+        command = (
+            "/opt/bootstrap/bin/python -m pip --python /opt/target/bin/python "
+            "install --no-user --no-deps -r requirements.txt"
+        )
+
+        result, _coverage = _evaluate_runtime_state_for_commands((command,))
+
+        assessment = result.assessments[0]
+        self.assertIsInstance(assessment.result, RequirementStateProblem)
+        assert isinstance(assessment.result, RequirementStateProblem)
+        self.assertEqual(assessment.result.state, "unresolved")
+        self.assertEqual(
+            assessment.result.blocking_dimension,
+            "installation_destination",
+        )
+
+    def test_evaluator_preserves_runtime_non_success(self) -> None:
+        command = (
+            "PIP_DRY_RUN=0 PIP_CONFIG_FILE=/dev/null PIP_TARGET= PIP_PREFIX= PIP_ROOT= "
+            "PIP_ONLY_DEPS=0 PIP_ONLY_DEPENDENCIES=0 "
+            "/opt/bootstrap/bin/python -m pip --python /opt/target/bin/python "
+            "install --no-user --no-deps -r requirements.txt"
+        )
+
+        result, _coverage = _evaluate_runtime_state_for_commands(
+            (command,),
+            install_conclusions=("failure",),
+            run_conclusion="failure",
+            job_conclusion="failure",
+        )
+
+        assessment = result.assessments[0]
+        self.assertIsInstance(assessment.result, RequirementStateProblem)
+        assert isinstance(assessment.result, RequirementStateProblem)
+        self.assertEqual(assessment.result.state, "not_established")
+        self.assertEqual(
+            assessment.result.reason,
+            "correlated_step_execution_not_successful",
+        )
+
+    def test_evaluator_keeps_multiple_commands_as_independent_assessments(self) -> None:
+        first = (
+            "PIP_DRY_RUN=0 PIP_CONFIG_FILE=/dev/null PIP_TARGET= PIP_PREFIX= PIP_ROOT= "
+            "PIP_ONLY_DEPS=0 PIP_ONLY_DEPENDENCIES=0 "
+            "/opt/bootstrap/bin/python -m pip --python /opt/first/bin/python "
+            "install --no-user --no-deps -r requirements.txt"
+        )
+        second = (
+            "PIP_DRY_RUN=0 PIP_CONFIG_FILE=/dev/null PIP_TARGET= PIP_PREFIX= PIP_ROOT= "
+            "PIP_ONLY_DEPS=0 PIP_ONLY_DEPENDENCIES=0 "
+            "/opt/bootstrap/bin/python -m pip --python /opt/second/bin/python "
+            "install --no-user --no-deps -r requirements.txt"
+        )
+
+        result, _coverage = _evaluate_runtime_state_for_commands((first, second))
+
+        self.assertEqual(result.evaluation_state, "evaluated")
+        self.assertEqual(len(result.assessments), 2)
+        values: list[str] = []
+        identities = []
+        for assessment in result.assessments:
+            self.assertIsInstance(
+                assessment.result,
+                RequirementSatisfiedAtCommandCompletion,
+            )
+            assert isinstance(
+                assessment.result,
+                RequirementSatisfiedAtCommandCompletion,
+            )
+            values.append(
+                assessment.result.semantics.manager_environment.environment.value  # type: ignore[union-attr]
+            )
+            identities.append(assessment.result.semantics.command_identity)
+        self.assertEqual(
+            values,
+            ["/opt/first/bin/python", "/opt/second/bin/python"],
+        )
+        self.assertNotEqual(identities[0], identities[1])
+
+
+def _evaluate_runtime_state_for_commands(
+    commands: tuple[str, ...],
+    *,
+    install_conclusions: tuple[str, ...] | None = None,
+    run_conclusion: str = "success",
+    job_conclusion: str = "success",
+):
+    source_evidence = _source_evidence()
+    dependency = _dependency(source_evidence)
+    source_context = _source_context(source_evidence)
+    install_conclusions = install_conclusions or tuple("success" for _ in commands)
+    if len(install_conclusions) != len(commands):
+        raise ValueError("install conclusion count must match command count")
+
+    run_steps = "\n".join(
+        f"""      - name: Install {index}
+        run: {command}"""
+        for index, command in enumerate(commands, start=1)
+    )
+    workflow_source = RepositoryTextFile(
+        repository="example/project",
+        path=_WORKFLOW,
+        revision=_REVISION,
+        content=f"""jobs:
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+{run_steps}
+""",
+    )
+    run = WorkflowRun(
+        run_id=1001,
+        workflow_id=2001,
+        name="CI",
+        event="pull_request",
+        head_sha=_REVISION,
+        status="completed",
+        conclusion=run_conclusion,
+        run_attempt=1,
+    )
+    runtime_steps = [
+        WorkflowStep(
+            number=1,
+            name="Checkout",
+            status="completed",
+            conclusion="success",
+        )
+    ]
+    runtime_steps.extend(
+        WorkflowStep(
+            number=index + 1,
+            name=f"Install {index}",
+            status="completed",
+            conclusion=conclusion,
+        )
+        for index, conclusion in enumerate(install_conclusions, start=1)
+    )
+    runtime_job = WorkflowJob(
+        job_id=3001,
+        run_id=run.run_id,
+        name="Tests",
+        head_sha=_REVISION,
+        status="completed",
+        conclusion=job_conclusion,
+        steps=tuple(runtime_steps),
+    )
+    workflow_input = WorkflowDependencyCoverageInput(
+        run=run,
+        jobs=(runtime_job,),
+        definition=workflow_source,
+    )
+    coverage = evaluate_dependency_ci_coverage(
+        dependency,
+        (workflow_input,),
+        source_contexts=(source_context,),
+    )
+    result = evaluate_runtime_dependency_state(
+        dependency,
+        (workflow_input,),
+        coverage,
+        source_contexts=(source_context,),
+    )
+    return result, coverage
 
 
 if __name__ == "__main__":
