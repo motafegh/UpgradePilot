@@ -1,7 +1,7 @@
 # Increment 5 — Runtime Dependency-State Application Integration — Learning-by-Doing Cycle
 
 **Date:** 2026-09-30  
-**Cycle status:** ACTIVE — A0/A1/A2 DONE; STOP before Build; B/Verification/D/E NOT STARTED; C CONTINUOUS  
+**Cycle status:** ACTIVE — A0/A1/A2 DONE; B CURRENT; Verification/D/E NOT STARTED; C CONTINUOUS  
 **Primary responsibility:** carry the already-verified command-derived runtime dependency-state evidence through the normal public-PR investigation path as a separate typed application result, without changing CI-coverage, later-use, compatibility, or maintainer-action semantics  
 **Controlling plan:** `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`  
 **Accepted architecture:** `docs/architecture/ADR-0010-package-manager-semantic-facts-and-runtime-dependency-state-composition.md`  
@@ -14,8 +14,8 @@
 A0 — DONE: current main/governance/source/test state reconciled and cycle initialized
 A1 — DONE: continuity from Increments 1–4 and the current application seam onboarded
 A2 — DONE: technical design prepared and learning/ownership gate cleared
-STOP — CURRENT: do not enter Build until deliberately continued
-B — NOT STARTED
+STOP — CLEARED: Ali explicitly authorized Build
+B — CURRENT: implementing the A2-selected application integration contract
 Verification — NOT STARTED
 D — NOT STARTED
 E — NOT STARTED
@@ -541,16 +541,14 @@ outside current proof family
 != positive witness
 ```
 
-## Current STOP boundary
+## Current Build boundary
 
-A0, A1, and A2 are complete. The A2 learning/ownership gate is cleared.
+A0, A1, and A2 are complete. Ali explicitly authorized Build; B is CURRENT.
 
-Do **not** start Build yet.
-
-The next deliberate continuation is:
+The current continuation is:
 
 ```text
-B — implement the bounded application integration contract selected in A2
+B — CURRENT
 → add typed dependency-state evaluation/result composition
 → carry it through PublicPullRequestInvestigation
 → add focused/integration close-defeater proof
