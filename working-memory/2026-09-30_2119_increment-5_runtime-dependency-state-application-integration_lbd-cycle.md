@@ -1,7 +1,7 @@
 # Increment 5 — Runtime Dependency-State Application Integration — Learning-by-Doing Cycle
 
 **Date:** 2026-09-30  
-**Cycle status:** ACTIVE — A0/A1/A2 DONE; B CURRENT; Verification/D/E NOT STARTED; C CONTINUOUS  
+**Cycle status:** ACTIVE — A0/A1/A2/B DONE; Verification BLOCKED pending hosted execution; D/E NOT STARTED; C CONTINUOUS  
 **Primary responsibility:** carry the already-verified command-derived runtime dependency-state evidence through the normal public-PR investigation path as a separate typed application result, without changing CI-coverage, later-use, compatibility, or maintainer-action semantics  
 **Controlling plan:** `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`  
 **Accepted architecture:** `docs/architecture/ADR-0010-package-manager-semantic-facts-and-runtime-dependency-state-composition.md`  
@@ -15,8 +15,8 @@ A0 — DONE: current main/governance/source/test state reconciled and cycle init
 A1 — DONE: continuity from Increments 1–4 and the current application seam onboarded
 A2 — DONE: technical design prepared and learning/ownership gate cleared
 STOP — CLEARED: Ali explicitly authorized Build
-B — CURRENT: implementing the A2-selected application integration contract
-Verification — NOT STARTED
+B — DONE: bounded application integration implemented at `8c89117759c194b2130f65161b662ec80ae6dbcc`
+Verification — BLOCKED: Product Verification is manual-only and no run exists yet for the implementation head
 D — NOT STARTED
 E — NOT STARTED
 C — CONTINUOUS: preserve meaningful engineering and learning progression across A0→E
@@ -541,18 +541,82 @@ outside current proof family
 != positive witness
 ```
 
-## Current Build boundary
 
-A0, A1, and A2 are complete. Ali explicitly authorized Build; B is CURRENT.
+## B — bounded application integration — DONE
+
+**Implementation head:** `8c89117759c194b2130f65161b662ec80ae6dbcc`
+
+Build implemented the A2-selected contract without expanding CI-coverage, uv, presentation, compatibility, or maintainer-action semantics.
+
+### Implemented source flow
+
+```text
+existing DependencyCICoverageResult
+    ├─ retained supported direct-requirements consumptions
+    └─ retained workflow runtime correlation
+            ↓
+evaluate_runtime_dependency_state(...)
+    ├─ admit only supported direct_requirements candidates
+    ├─ recover the same exact workflow/job/step/command occurrence
+    ├─ map to one trusted RequirementsFileDependencyContext
+    ├─ derive demand-driven pip semantic evidence
+    ├─ reuse retained runtime correlation for exact-command execution
+    └─ call the existing Increment-4 composer
+            ↓
+RuntimeDependencyStateResult
+    └─ one CommandRequirementStateAssessment per admitted command
+            ↓
+PublicPullRequestInvestigation.runtime_dependency_state_result
+```
+
+### Build decisions preserved
+
+- `src/upgradepilot/ci/dependency_state.py` owns the evaluator and typed result; `investigation.py` only invokes/carries it.
+- CI dependency-consumption discovery, CI classification, and workflow/runtime correlation are reused rather than rerun.
+- exact supported-consumption identity contradictions fail loudly as internal invariants instead of being disguised as domain uncertainty.
+- package-manager semantic evidence is resolved demand-driven: lower-precedence process/config sources are requested only when the current semantic dimension still needs them.
+- exact-process variable observations are lazily cached per exact command so several semantic dimensions reuse one producer fact without leaking evidence between commands.
+- multiple admitted commands remain separate assessments; no aggregate package-state conclusion is introduced.
+- current uv/project-environment consumption remains outside the first pip/direct-requirements proof family and maps to `no_admitted_candidate` at this layer.
+- `PublicPullRequestInvestigation.runtime_dependency_state_result` is a required typed field: `None` remains reserved for an inactive dependency-state responsibility when no `DependencyVersionChange` exists.
+- CLI presentation and maintainer-action source logic were not changed.
+
+### Added proof cases (authored, not yet executed)
+
+- focused evaluator positive Route-A witness;
+- effective dry-run -> `not_established`;
+- unresolved ambient package-manager semantics -> `unresolved`;
+- runtime non-success -> per-command `not_established`;
+- two admitted commands -> two independent assessments;
+- normal investigation carries a positive witness;
+- current uv R6 investigation -> `no_admitted_candidate` while preserving existing CI result;
+- dependency-analysis problem -> runtime dependency-state result remains `None`;
+- synthetic CLI/action fixtures updated to satisfy the new typed application contract without changing their behavior.
+
+### Build-time source review
+
+Source/diff review confirmed the change remains bounded to the selected responsibility. The new evaluator's module orientation now makes the evidence flow and non-ownership boundaries explicit. No presentation source, maintainer-action source, uv semantic source, or unrelated refactor was added.
+
+### Verification blocker
+
+The repository's `.github/workflows/product-verification.yml` is intentionally `workflow_dispatch` only. The available GitHub connector can inspect and rerun existing workflow runs but cannot create a workflow-dispatch event. GitHub reports zero workflow runs for implementation head `8c89117759c194b2130f65161b662ec80ae6dbcc`.
+
+A fallback fresh local clone was attempted only for non-hosted B diagnosis, but the execution environment has no outbound DNS to GitHub, so it could not materialize the repository. Therefore no executable test result is claimed from this session.
+
+Verification must resume from this exact implementation head (or a reconciled later head) and run the existing Product Verification workflow before D.
+
+## Current Verification boundary
+
+A0, A1, A2, and the bounded B implementation are complete. Verification is BLOCKED pending executable hosted proof; do not advance to D.
 
 The current continuation is:
 
 ```text
-B — CURRENT
-→ add typed dependency-state evaluation/result composition
-→ carry it through PublicPullRequestInvestigation
-→ add focused/integration close-defeater proof
-→ stop at the Verification gate
+Verification — BLOCKED/PENDING
+→ dispatch existing Product Verification on the exact implementation head
+→ inspect focused investigation composition + full deterministic regression
+→ if failed: return to B/diagnosis/repair
+→ if green: record exact run/head/counts and advance only to the D gate
 ```
 
 No source/test modification was made by A2 itself.
@@ -569,6 +633,7 @@ C currently preserves:
 - A2-recommended typed result/cardinality contract and integration ownership;
 - reuse of existing CI consumptions/runtime correlation without semantic collapse;
 - evidence that the A2 learning/ownership gate was actively cleared through reasoning checks;
-- canonical STOP before Build;
+- bounded B implementation head and authored proof matrix;
+- explicit executable-proof debt at the Verification gate;
 - complete research provenance now present on `main` without becoming a live owner;
 - explicit research-derived A2 constraints and references, without importing future-scope experiments.
