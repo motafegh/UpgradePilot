@@ -511,6 +511,18 @@ Ali correctly identified the architectural value of assigning responsibilities t
 
 Refinement: the governing idea is not limited to the provider layer. Each proposition should be produced at its **earliest sufficient owner**—provider, dependency, CI, or application as appropriate—and later layers should reuse or compose that result unless they have an independently justified stronger/different proposition to establish.
 
+### Ownership check 3 — unsupported family vs unresolved evidence
+
+Ali correctly distinguished a known scope boundary from genuine uncertainty. The current uv/project-environment path can be understood well enough to say that it is **outside the first admitted direct-requirements/pip Route-A package-state family**. Therefore representing it as a per-command `unresolved` problem would be misleading: `unresolved` is reserved for a candidate that entered the admitted proof family but whose required evidence could not be resolved. The aggregate-level `no_admitted_candidate` state truthfully says that no command entered this evaluator's current proof family.
+
+### Ownership check 4 — evidence mechanism and provenance
+
+Ali correctly identified that later direct runtime package observation must retain its provenance and must not overwrite or retroactively strengthen unrelated command-derived evidence. Refinement: two different mechanisms may eventually support a similar higher-level proposition such as package presence at a particular observation boundary, but they must remain distinguishable as evidence mechanisms with their own identity, provenance, timing/observation boundary, and limitations. A direct `importlib.metadata.version(...)` observation may establish package presence at its own observation point; it does not prove that a prior install command caused that state, nor does it turn the command-derived witness into direct observation.
+
+### Ownership check 5 — application orchestration boundary
+
+Ali correctly reasoned that `investigation.py` is the proper place to **carry/orchestrate** the runtime dependency-state result because it coordinates the product's normal investigation flow, while the detailed semantic derivation remains in the owner that defines that proposition. This preserves thin application orchestration and prevents pip/environment semantics from leaking upward.
+
 ## Current STOP boundary
 
 A0 and A1 are complete. A2 technical design is prepared, but the A2 learning/ownership gate is CURRENT.
