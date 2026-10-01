@@ -1,6 +1,8 @@
 """Compose bounded command-derived dependency requirement state.
 
-This module owns one CI-level proposition:
+RESPONSIBILITY
+--------------
+This CI layer binds already-owned evidence into one proposition:
 
     exact dependency/source applicability
     + supported direct-requirements consumption
@@ -8,13 +10,19 @@ This module owns one CI-level proposition:
     + exact successful execution of that same scoped command
     -> RequirementSatisfiedAtCommandCompletion
 
-The witness is intentionally narrower than later use or compatibility. It establishes only
-that the exact proposed direct requirement is satisfied in the resolved package-state scope
-at the completion boundary of the exact successful command.
+The application-facing entry point is evaluate_runtime_dependency_state. It reuses
+DependencyCICoverageResult consumptions and runtime correlation, recovers the same exact
+command from the retained workflow definition, derives only package-manager semantic
+sources still needed for that command, and preserves one assessment per command.
 
-Package-manager semantic interpretation remains dependency-owned. This module only binds
-those command-local semantic results to exact CI workflow/job/step scope and composes them
-with source and runtime evidence.
+This module does not rediscover CI consumption, rerun workflow/runtime correlation, or own
+pip/provider semantics. Package-manager interpretation remains dependency-owned and process
+environment/workflow syntax remain provider-owned.
+
+A positive witness establishes only that the exact proposed direct requirement is satisfied
+in the resolved package-state scope at the exact successful command-completion boundary. It
+does not establish fresh-install causality, artifact identity, later persistence/use,
+behavioral compatibility, or maintainer-action permission.
 """
 
 from __future__ import annotations
@@ -24,7 +32,10 @@ from dataclasses import dataclass
 from typing import Literal
 
 from ..dependency.change import DependencyVersionChange
-from ..dependency.environment import DependencySourceContext, RequirementsFileDependencyContext
+from ..dependency.environment import (
+    DependencySourceContext,
+    RequirementsFileDependencyContext,
+)
 from ..dependency.package_manager_config import observe_pip_persistent_config_setting
 from ..dependency.package_manager_operation import (
     PackageManagerOperationDeclaration,
@@ -42,9 +53,15 @@ from ..dependency.package_manager_semantics import (
     resolve_manager_environment_selection,
     resolve_package_mutation_mode,
 )
-from ..github.process_environment import observe_exact_process_environment_value
+from ..github.process_environment import (
+    ProcessEnvironmentValueEvidence,
+    observe_exact_process_environment_value,
+)
 from ..github.repository import RepositoryTextFile
-from ..github.workflow_command_analysis import StaticCommandOccurrence, analyze_run_step_commands
+from ..github.workflow_command_analysis import (
+    StaticCommandOccurrence,
+    analyze_run_step_commands,
+)
 from ..github.workflow_command_location import StaticCommandLocation
 from ..github.workflow_definition import (
     RunStepDefinition,
@@ -53,8 +70,14 @@ from ..github.workflow_definition import (
     parse_workflow_definition,
 )
 from .consumption import StaticDependencyConsumptionEvidence
-from .dependency_exercise import DependencyCICoverageResult, WorkflowDependencyCoverageInput
-from .runtime_execution import ExactCommandExecutionAssessment, assess_exact_command_execution
+from .dependency_exercise import (
+    DependencyCICoverageResult,
+    WorkflowDependencyCoverageInput,
+)
+from .runtime_execution import (
+    ExactCommandExecutionAssessment,
+    assess_exact_command_execution,
+)
 from .runtime_strengthening import candidate_from_consumption
 
 
@@ -241,6 +264,7 @@ def evaluate_runtime_dependency_state(
                     "consumption command identity"
                 )
 
+            process_environment_cache: dict[str, ProcessEnvironmentValueEvidence] = {}
             semantic_scope = scope_package_manager_semantics(
                 ExactCICommandIdentity(
                     workflow_path=definition.source.path,
@@ -256,6 +280,7 @@ def evaluate_runtime_dependency_state(
                     step,
                     occurrence,
                     declaration,
+                    process_environment_cache,
                 ),
                 package_mutation_mode=_resolve_package_mutation_mode_for_command(
                     definition,
@@ -263,6 +288,7 @@ def evaluate_runtime_dependency_state(
                     step,
                     occurrence,
                     declaration,
+                    process_environment_cache,
                 ),
                 direct_requirement_handling=_resolve_direct_requirement_handling_for_command(
                     definition,
@@ -270,6 +296,7 @@ def evaluate_runtime_dependency_state(
                     step,
                     occurrence,
                     declaration,
+                    process_environment_cache,
                 ),
             )
             execution = assess_exact_command_execution(
@@ -412,15 +439,24 @@ def _observe_process_environment(
     job: StepsJobDefinition,
     step: RunStepDefinition,
     occurrence: StaticCommandOccurrence,
+    cache: dict[str, ProcessEnvironmentValueEvidence],
     variable_name: str,
-):
-    return observe_exact_process_environment_value(
+) -> ProcessEnvironmentValueEvidence:
+    """Lazily reuse one exact-process variable observation within one command evaluation."""
+
+    cached = cache.get(variable_name)
+    if cached is not None:
+        return cached
+
+    observed = observe_exact_process_environment_value(
         definition,
         job,
         step,
         occurrence,
         variable_name,
     )
+    cache[variable_name] = observed
+    return observed
 
 
 def _resolve_installation_destination_for_command(
@@ -429,6 +465,7 @@ def _resolve_installation_destination_for_command(
     step: RunStepDefinition,
     occurrence: StaticCommandOccurrence,
     declaration: PackageManagerOperationDeclaration,
+    process_environment_cache: dict[str, ProcessEnvironmentValueEvidence],
 ) -> InstallationDestinationSemanticResult:
     result = resolve_installation_destination(declaration)
     if not (
@@ -443,6 +480,7 @@ def _resolve_installation_destination_for_command(
             job,
             step,
             occurrence,
+            process_environment_cache,
             variable_name,
         )
         for variable_name in ("PIP_TARGET", "PIP_PREFIX", "PIP_ROOT")
@@ -462,6 +500,7 @@ def _resolve_installation_destination_for_command(
         job,
         step,
         occurrence,
+        process_environment_cache,
         "PIP_CONFIG_FILE",
     )
     persistent_configuration = observe_pip_persistent_config_setting(
@@ -482,6 +521,7 @@ def _resolve_package_mutation_mode_for_command(
     step: RunStepDefinition,
     occurrence: StaticCommandOccurrence,
     declaration: PackageManagerOperationDeclaration,
+    process_environment_cache: dict[str, ProcessEnvironmentValueEvidence],
 ) -> PackageMutationSemanticResult:
     result = resolve_package_mutation_mode(declaration)
     if not (
@@ -495,6 +535,7 @@ def _resolve_package_mutation_mode_for_command(
         job,
         step,
         occurrence,
+        process_environment_cache,
         "PIP_DRY_RUN",
     )
     result = resolve_package_mutation_mode(
@@ -512,6 +553,7 @@ def _resolve_package_mutation_mode_for_command(
         job,
         step,
         occurrence,
+        process_environment_cache,
         "PIP_CONFIG_FILE",
     )
     persistent_configuration = observe_pip_persistent_config_setting(
@@ -532,6 +574,7 @@ def _resolve_direct_requirement_handling_for_command(
     step: RunStepDefinition,
     occurrence: StaticCommandOccurrence,
     declaration: PackageManagerOperationDeclaration,
+    process_environment_cache: dict[str, ProcessEnvironmentValueEvidence],
 ) -> DirectRequirementSemanticResult:
     result = resolve_direct_requirement_handling(declaration)
     if not (
@@ -546,6 +589,7 @@ def _resolve_direct_requirement_handling_for_command(
             job,
             step,
             occurrence,
+            process_environment_cache,
             variable_name,
         )
         for variable_name in ("PIP_ONLY_DEPS", "PIP_ONLY_DEPENDENCIES")
@@ -565,6 +609,7 @@ def _resolve_direct_requirement_handling_for_command(
         job,
         step,
         occurrence,
+        process_environment_cache,
         "PIP_CONFIG_FILE",
     )
     persistent_configuration = observe_pip_persistent_config_setting(
