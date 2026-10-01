@@ -499,6 +499,18 @@ question's meaning?"
 A2's answer is **yes**, by composing/reusing existing evidence through a dedicated typed evaluator/result rather than merging the responsibilities.
 
 
+## A2 learning / ownership progression — IN PROGRESS
+
+### Ownership check 1 — per-command cardinality
+
+Ali correctly reasoned that collapsing multiple command outcomes into one aggregate `"established"` state would hide command-specific problems and could incorrectly make the whole investigation look proven merely because one command established the proposition. Keeping separate assessments preserves the exact environment/command identity and allows one positive result to coexist truthfully with another unresolved/problem result.
+
+### Ownership check 2 — reuse vs re-derivation
+
+Ali correctly identified the architectural value of assigning responsibilities to their proper layers and exposing reusable evidence to downstream consumers instead of letting each consumer independently reconstruct its own version of the same fact. This reduces redundancy, improves debugging/traceability, and prevents divergent internal interpretations or identity mismatches.
+
+Refinement: the governing idea is not limited to the provider layer. Each proposition should be produced at its **earliest sufficient owner**—provider, dependency, CI, or application as appropriate—and later layers should reuse or compose that result unless they have an independently justified stronger/different proposition to establish.
+
 ## Current STOP boundary
 
 A0 and A1 are complete. A2 technical design is prepared, but the A2 learning/ownership gate is CURRENT.
