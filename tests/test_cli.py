@@ -12,6 +12,7 @@ from unittest.mock import patch
 from packaging.tags import Tag
 
 from upgradepilot.ci.dependency_exercise import DependencyCICoverageResult
+from upgradepilot.ci.dependency_state import RuntimeDependencyStateResult
 from upgradepilot.cli import main
 from upgradepilot.dependency.change import (
     DependencyChangeProblem,
@@ -291,6 +292,11 @@ def _supported_investigation() -> PublicPullRequestInvestigation:
             detail="No workflows.",
             workflows=(),
         ),
+        runtime_dependency_state_result=RuntimeDependencyStateResult(
+            evaluation_state="no_admitted_candidate",
+            reason="no_admitted_runtime_dependency_state_candidate",
+            detail="Synthetic CLI fixture has no admitted command candidate.",
+        ),
         package_result=package,
         upstream_repository_result=upstream,
     )
@@ -430,6 +436,7 @@ def _problem_investigation() -> PublicPullRequestInvestigation:
         target_python_result=None,
         workflow_evidence=(),
         ci_coverage_result=None,
+        runtime_dependency_state_result=None,
         package_result=None,
         upstream_repository_result=None,
     )
