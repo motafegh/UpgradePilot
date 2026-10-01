@@ -1,7 +1,7 @@
 # Increment 5 — Runtime Dependency-State Application Integration — Learning-by-Doing Cycle
 
 **Date:** 2026-09-30  
-**Cycle status:** ACTIVE — A0/A1/A2 DONE; STOP before Build; B/Verification/D/E NOT STARTED; C CONTINUOUS  
+**Cycle status:** ACTIVE — A0/A1 DONE; A2 CURRENT — technical design prepared, learning/ownership gate not yet cleared; B/Verification/D/E NOT STARTED; C CONTINUOUS  
 **Primary responsibility:** carry the already-verified command-derived runtime dependency-state evidence through the normal public-PR investigation path as a separate typed application result, without changing CI-coverage, later-use, compatibility, or maintainer-action semantics  
 **Controlling plan:** `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`  
 **Accepted architecture:** `docs/architecture/ADR-0010-package-manager-semantic-facts-and-runtime-dependency-state-composition.md`  
@@ -13,8 +13,8 @@
 ```text
 A0 — DONE: current main/governance/source/test state reconciled and cycle initialized
 A1 — DONE: continuity from Increments 1–4 and the current application seam onboarded
-A2 — DONE: exact application integration contract and ownership selected
-STOP — CURRENT: do not enter Build until deliberately continued
+A2 — CURRENT: technical design prepared; learning/ownership gate in progress
+STOP — CURRENT: do not enter Build until the A2 understanding gate is actually cleared
 B — NOT STARTED
 Verification — NOT STARTED
 D — NOT STARTED
@@ -238,11 +238,11 @@ The active cycle will use the research to constrain A2 as follows:
 These are **A2 inputs**, not A2 decisions. Exact result type/cardinality container, helper ownership, reuse strategy, and proof cases remain to be worked through deliberately in A2.
 
 
-## A2 — exact application integration responsibility orientation — DONE
+## A2 — exact application integration responsibility orientation — CURRENT
 
 **A2 orientation head:** `5ac1e15f670099434c43b4b200b7e36dcb86eea8`
 
-A2 traced the current normal application path against the exact Increment-4 composer inputs and selected the Build contract below. No source/test modification was made in A2.
+A2 has traced the current normal application path against the exact Increment-4 composer inputs and prepared the recommended Build contract below. The technical design is retained, but the A2 learning/ownership gate remains open until Ali can reason through the important responsibility, evidence, ownership, failure, and proof boundaries. No source/test modification has been made in A2.
 
 ### 1. Current data-flow truth
 
@@ -501,18 +501,19 @@ A2's answer is **yes**, by composing/reusing existing evidence through a dedicat
 
 ## Current STOP boundary
 
-A0, A1, and A2 are complete.
+A0 and A1 are complete. A2 technical design is prepared, but the A2 learning/ownership gate is CURRENT.
 
 Do **not** start Build yet.
 
 The next deliberate continuation is:
 
 ```text
-B — implement the bounded application integration contract selected in A2
-→ add typed dependency-state evaluation/result composition
-→ carry it through PublicPullRequestInvestigation
-→ add focused/integration close-defeater proof
-→ stop at the Verification gate
+A2 learning/ownership pass
+→ understand the three responsibilities
+→ trace one real positive data/evidence path
+→ reason through contrast/failure cases
+→ clear the pre-B understanding gate only after active reasoning
+→ then STOP before Build
 ```
 
 No source/test modification was made by A2 itself.
@@ -526,8 +527,9 @@ C currently preserves:
 - live-owner agreement;
 - current application data-flow seam;
 - existing semantic/proof boundaries;
-- A2-selected typed result/cardinality contract and integration ownership;
+- A2-recommended typed result/cardinality contract and integration ownership;
 - reuse of existing CI consumptions/runtime correlation without semantic collapse;
+- explicit distinction between technical design preparation and the still-open A2 learning/ownership gate;
 - canonical STOP before Build;
 - complete research provenance now present on `main` without becoming a live owner;
 - explicit research-derived A2 constraints and references, without importing future-scope experiments.
