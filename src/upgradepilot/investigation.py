@@ -17,6 +17,7 @@ from .ci.dependency_exercise import (
     WorkflowDependencyCoverageInput,
     evaluate_dependency_ci_coverage,
 )
+from .ci.dependency_state import RuntimeDependencyStateResult, evaluate_runtime_dependency_state
 from .ci.workflow_commands import WorkflowProjectEnvironmentSource
 from .dependency.analysis import DependencyChangeAnalysis, analyze_dependency_change
 from .dependency.change import DependencyChangeProblem, DependencyVersionChange
@@ -122,6 +123,7 @@ class PublicPullRequestInvestigation:
     target_python_result: TargetPythonEvidence | None
     workflow_evidence: tuple[tuple[WorkflowRun, tuple[WorkflowJob, ...]], ...]
     ci_coverage_result: DependencyCICoverageResult | None
+    runtime_dependency_state_result: RuntimeDependencyStateResult | None
     package_result: PackageReleaseResult | None
     upstream_repository_result: UpstreamRepositoryResult | None
     release_index_result: PackageReleaseIndexResult | None = None
@@ -192,6 +194,7 @@ def investigate_public_pull_request(
     target_python_result: TargetPythonEvidence | None = None
     workflow_evidence: tuple[tuple[WorkflowRun, tuple[WorkflowJob, ...]], ...] = ()
     ci_coverage_result: DependencyCICoverageResult | None = None
+    runtime_dependency_state_result: RuntimeDependencyStateResult | None = None
     package_result: PackageReleaseResult | None = None
     old_package_result: PackageReleaseResult | None = None
     artifact_serviceability_candidate_result: ArtifactServiceabilityCandidateResult = None
@@ -246,6 +249,12 @@ def investigate_public_pull_request(
         ci_coverage_result = evaluate_dependency_ci_coverage(
             dependency_result,
             coverage_inputs,
+            source_contexts=source_contexts,
+        )
+        runtime_dependency_state_result = evaluate_runtime_dependency_state(
+            dependency_result,
+            coverage_inputs,
+            ci_coverage_result,
             source_contexts=source_contexts,
         )
 
@@ -419,6 +428,7 @@ def investigate_public_pull_request(
         target_python_result=target_python_result,
         workflow_evidence=workflow_evidence,
         ci_coverage_result=ci_coverage_result,
+        runtime_dependency_state_result=runtime_dependency_state_result,
         package_result=package_result,
         upstream_repository_result=upstream_repository_result,
         release_index_result=release_index_result,
