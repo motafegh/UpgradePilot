@@ -222,6 +222,12 @@ class R6InvestigationCIIntegrationTests(unittest.TestCase):
         )
         self.assertNotEqual(lint.state, "supported")
 
+        runtime_state = result.runtime_dependency_state_result
+        self.assertIsNotNone(runtime_state)
+        assert runtime_state is not None
+        self.assertEqual(runtime_state.evaluation_state, "no_admitted_candidate")
+        self.assertEqual(runtime_state.assessments, ())
+
         self.assertEqual(
             repository_client.get_exact_head_text_file.call_args_list,
             [call(identity, "pyproject.toml"), call(identity, "uv.lock")],
