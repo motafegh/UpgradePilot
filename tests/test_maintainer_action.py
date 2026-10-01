@@ -6,6 +6,7 @@ import unittest
 from dataclasses import replace
 
 from upgradepilot.ci.dependency_exercise import DependencyCICoverageResult
+from upgradepilot.ci.dependency_state import RuntimeDependencyStateResult
 from upgradepilot.dependency.change import (
     DependencyChangeProblem,
     DependencyChangeSourceEvidence,
@@ -184,6 +185,15 @@ def _investigation(
         target_python_result=None,
         workflow_evidence=(),
         ci_coverage_result=ci_coverage_result,
+        runtime_dependency_state_result=(
+            RuntimeDependencyStateResult(
+                evaluation_state="no_admitted_candidate",
+                reason="no_admitted_runtime_dependency_state_candidate",
+                detail="Synthetic action fixture has no admitted command candidate.",
+            )
+            if isinstance(dependency_result, DependencyVersionChange)
+            else None
+        ),
         package_result=None,
         upstream_repository_result=None,
     )
