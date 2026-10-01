@@ -19,11 +19,17 @@ with source and runtime evidence.
 
 from __future__ import annotations
 
+from collections.abc import Sequence
 from dataclasses import dataclass
 from typing import Literal
 
 from ..dependency.change import DependencyVersionChange
-from ..dependency.environment import RequirementsFileDependencyContext
+from ..dependency.environment import DependencySourceContext, RequirementsFileDependencyContext
+from ..dependency.package_manager_config import observe_pip_persistent_config_setting
+from ..dependency.package_manager_operation import (
+    PackageManagerOperationDeclaration,
+    parse_package_manager_operation,
+)
 from ..dependency.package_manager_semantics import (
     DirectRequirementHandlingFact,
     InstallationDestinationFact,
@@ -31,13 +37,29 @@ from ..dependency.package_manager_semantics import (
     PackageManagerSemanticDimension,
     PackageManagerSemanticProblem,
     PackageMutationModeFact,
+    resolve_direct_requirement_handling,
+    resolve_installation_destination,
+    resolve_manager_environment_selection,
+    resolve_package_mutation_mode,
 )
+from ..github.process_environment import observe_exact_process_environment_value
+from ..github.repository import RepositoryTextFile
+from ..github.workflow_command_analysis import StaticCommandOccurrence, analyze_run_step_commands
 from ..github.workflow_command_location import StaticCommandLocation
+from ..github.workflow_definition import (
+    RunStepDefinition,
+    StepsJobDefinition,
+    WorkflowDefinition,
+    parse_workflow_definition,
+)
 from .consumption import StaticDependencyConsumptionEvidence
-from .runtime_execution import ExactCommandExecutionAssessment
+from .dependency_exercise import DependencyCICoverageResult, WorkflowDependencyCoverageInput
+from .runtime_execution import ExactCommandExecutionAssessment, assess_exact_command_execution
+from .runtime_strengthening import candidate_from_consumption
 
 
 type RequirementStateProblemState = Literal["not_established", "unresolved"]
+type RuntimeDependencyStateEvaluationState = Literal["evaluated", "no_admitted_candidate"]
 type ManagerEnvironmentSemanticResult = (
     ManagerEnvironmentSelectionFact | PackageManagerSemanticProblem
 )
@@ -115,6 +137,446 @@ class RequirementStateProblem:
     detail: str
     blocking_dimension: PackageManagerSemanticDimension | None = None
     blocking_semantic_evidence: RequirementStateBlockingSemanticEvidence | None = None
+
+
+@dataclass(frozen=True, slots=True)
+class CommandRequirementStateAssessment:
+    """One admitted exact command and its bounded command-completion state result."""
+
+    consumption: StaticDependencyConsumptionEvidence
+    result: RequirementSatisfiedAtCommandCompletion | RequirementStateProblem
+
+
+@dataclass(frozen=True, slots=True)
+class RuntimeDependencyStateResult:
+    """Application-ready collection of per-command runtime dependency-state assessments."""
+
+    evaluation_state: RuntimeDependencyStateEvaluationState
+    reason: str
+    detail: str
+    assessments: tuple[CommandRequirementStateAssessment, ...] = ()
+
+
+def evaluate_runtime_dependency_state(
+    dependency: DependencyVersionChange,
+    workflow_inputs: Sequence[WorkflowDependencyCoverageInput],
+    ci_coverage_result: DependencyCICoverageResult,
+    *,
+    source_contexts: Sequence[DependencySourceContext],
+) -> RuntimeDependencyStateResult:
+    """Evaluate the first admitted direct-requirements/pip state family.
+
+    Existing CI consumption and runtime-correlation results are authoritative inputs.
+    This evaluator only performs the command-local semantic work that CI coverage does not
+    retain, then composes the already-defined command-completion proposition.
+    """
+
+    if len(ci_coverage_result.workflows) != len(workflow_inputs):
+        raise ValueError(
+            "CI workflow results must preserve one-to-one ordering with coverage inputs"
+        )
+
+    assessments: list[CommandRequirementStateAssessment] = []
+
+    for workflow_result, workflow_input in zip(
+        ci_coverage_result.workflows,
+        workflow_inputs,
+        strict=True,
+    ):
+        definition_source = workflow_input.definition
+        if workflow_result.workflow_path != definition_source.path:
+            raise ValueError(
+                "CI workflow result path does not match its exact workflow definition"
+            )
+
+        candidates = tuple(
+            consumption
+            for consumption in workflow_result.consumptions
+            if consumption.state == "supported"
+            and consumption.mechanism == "direct_requirements"
+        )
+        if not candidates:
+            continue
+
+        if not isinstance(definition_source, RepositoryTextFile):
+            raise ValueError(
+                "supported direct-requirements consumption requires an exact readable "
+                "workflow definition"
+            )
+
+        definition = parse_workflow_definition(definition_source)
+        if not isinstance(definition, WorkflowDefinition):
+            raise ValueError(
+                "supported direct-requirements consumption could not be recovered from "
+                "the same exact workflow definition"
+            )
+
+        if workflow_result.runtime_correlation is None:
+            raise ValueError(
+                "supported direct-requirements consumption requires retained workflow "
+                "runtime correlation evidence"
+            )
+
+        for consumption in candidates:
+            source_context = _matching_requirements_source_context(
+                dependency,
+                definition_source,
+                consumption,
+                source_contexts,
+            )
+            job, step, occurrence = _locate_exact_consuming_command(
+                definition,
+                consumption,
+            )
+
+            declaration = parse_package_manager_operation(occurrence)
+            if not isinstance(declaration, PackageManagerOperationDeclaration):
+                raise ValueError(
+                    "supported direct-requirements consumption must map back to one admitted "
+                    "pip operation declaration"
+                )
+            if declaration.command_location != consumption.command_location:
+                raise ValueError(
+                    "recovered package-manager declaration does not preserve the supported "
+                    "consumption command identity"
+                )
+
+            semantic_scope = scope_package_manager_semantics(
+                ExactCICommandIdentity(
+                    workflow_path=definition.source.path,
+                    workflow_revision=definition.source.revision,
+                    job_key=job.key,
+                    step_source_index=step.source_index,
+                    command_location=declaration.command_location,
+                ),
+                manager_environment=resolve_manager_environment_selection(declaration),
+                installation_destination=_resolve_installation_destination_for_command(
+                    definition,
+                    job,
+                    step,
+                    occurrence,
+                    declaration,
+                ),
+                package_mutation_mode=_resolve_package_mutation_mode_for_command(
+                    definition,
+                    job,
+                    step,
+                    occurrence,
+                    declaration,
+                ),
+                direct_requirement_handling=_resolve_direct_requirement_handling_for_command(
+                    definition,
+                    job,
+                    step,
+                    occurrence,
+                    declaration,
+                ),
+            )
+            execution = assess_exact_command_execution(
+                candidate_from_consumption(consumption),
+                correlation=workflow_result.runtime_correlation,
+            )
+            result = compose_requirement_satisfied_at_command_completion(
+                dependency,
+                source_context,
+                consumption,
+                semantic_scope,
+                execution,
+            )
+            assessments.append(
+                CommandRequirementStateAssessment(
+                    consumption=consumption,
+                    result=result,
+                )
+            )
+
+    if not assessments:
+        return RuntimeDependencyStateResult(
+            evaluation_state="no_admitted_candidate",
+            reason="no_admitted_runtime_dependency_state_candidate",
+            detail=(
+                "No supported direct-requirements/pip consumption entered the first "
+                "command-derived runtime dependency-state proof family."
+            ),
+        )
+
+    return RuntimeDependencyStateResult(
+        evaluation_state="evaluated",
+        reason="runtime_dependency_state_candidates_evaluated",
+        detail=(
+            f"Evaluated {len(assessments)} admitted exact direct-requirements command "
+            "candidate(s) without collapsing their individual outcomes."
+        ),
+        assessments=tuple(assessments),
+    )
+
+
+def _matching_requirements_source_context(
+    dependency: DependencyVersionChange,
+    workflow_source: RepositoryTextFile,
+    consumption: StaticDependencyConsumptionEvidence,
+    source_contexts: Sequence[DependencySourceContext],
+) -> RequirementsFileDependencyContext:
+    if consumption.source_path is None:
+        raise ValueError(
+            "supported direct-requirements consumption must preserve its exact source path"
+        )
+    if (
+        consumption.workflow_path != workflow_source.path
+        or consumption.workflow_revision != workflow_source.revision
+        or consumption.normalized_package != dependency.normalized_package
+    ):
+        raise ValueError(
+            "supported direct-requirements consumption does not match the exact "
+            "workflow/dependency identity under evaluation"
+        )
+
+    matches = tuple(
+        context
+        for context in source_contexts
+        if isinstance(context, RequirementsFileDependencyContext)
+        and context.repository == workflow_source.repository
+        and context.revision == workflow_source.revision
+        and context.source_path == consumption.source_path
+        and context.normalized_package == dependency.normalized_package
+    )
+    if len(matches) != 1:
+        raise ValueError(
+            "supported direct-requirements consumption must map to one exact trusted "
+            "requirements dependency source context"
+        )
+    return matches[0]
+
+
+def _locate_exact_consuming_command(
+    definition: WorkflowDefinition,
+    consumption: StaticDependencyConsumptionEvidence,
+) -> tuple[StepsJobDefinition, RunStepDefinition, StaticCommandOccurrence]:
+    if not consumption.job_key or consumption.command_location is None:
+        raise ValueError(
+            "supported direct-requirements consumption must preserve exact "
+            "job/step/command identity"
+        )
+
+    jobs = tuple(
+        job
+        for job in definition.jobs
+        if isinstance(job, StepsJobDefinition) and job.key == consumption.job_key
+    )
+    if len(jobs) != 1:
+        raise ValueError(
+            "supported direct-requirements consumption must map to one readable local job"
+        )
+    job = jobs[0]
+
+    steps = tuple(
+        step
+        for step in job.steps
+        if isinstance(step, RunStepDefinition)
+        and step.source_index == consumption.step_source_index
+    )
+    if len(steps) != 1:
+        raise ValueError(
+            "supported direct-requirements consumption must map to one exact run step"
+        )
+    step = steps[0]
+    if step.command.text != consumption.command:
+        raise ValueError(
+            "supported direct-requirements consumption command text does not match the "
+            "exact workflow run step"
+        )
+
+    analysis = analyze_run_step_commands(definition, job, step)
+    if analysis.state != "analyzable":
+        raise ValueError(
+            "supported direct-requirements consumption command is no longer analyzable "
+            "from the same exact workflow definition"
+        )
+
+    occurrences = tuple(
+        occurrence
+        for occurrence in analysis.command_occurrences
+        if StaticCommandLocation.from_occurrence(occurrence)
+        == consumption.command_location
+    )
+    if len(occurrences) != 1:
+        raise ValueError(
+            "supported direct-requirements consumption must map to one exact parsed "
+            "command occurrence"
+        )
+    return job, step, occurrences[0]
+
+
+def _observe_process_environment(
+    definition: WorkflowDefinition,
+    job: StepsJobDefinition,
+    step: RunStepDefinition,
+    occurrence: StaticCommandOccurrence,
+    variable_name: str,
+):
+    return observe_exact_process_environment_value(
+        definition,
+        job,
+        step,
+        occurrence,
+        variable_name,
+    )
+
+
+def _resolve_installation_destination_for_command(
+    definition: WorkflowDefinition,
+    job: StepsJobDefinition,
+    step: RunStepDefinition,
+    occurrence: StaticCommandOccurrence,
+    declaration: PackageManagerOperationDeclaration,
+) -> InstallationDestinationSemanticResult:
+    result = resolve_installation_destination(declaration)
+    if not (
+        isinstance(result, PackageManagerSemanticProblem)
+        and result.blocking_source == "process_environment"
+    ):
+        return result
+
+    process_environment = tuple(
+        _observe_process_environment(
+            definition,
+            job,
+            step,
+            occurrence,
+            variable_name,
+        )
+        for variable_name in ("PIP_TARGET", "PIP_PREFIX", "PIP_ROOT")
+    )
+    result = resolve_installation_destination(
+        declaration,
+        process_environment=process_environment,
+    )
+    if not (
+        isinstance(result, PackageManagerSemanticProblem)
+        and result.blocking_source == "persistent_configuration"
+    ):
+        return result
+
+    config_file_environment = _observe_process_environment(
+        definition,
+        job,
+        step,
+        occurrence,
+        "PIP_CONFIG_FILE",
+    )
+    persistent_configuration = observe_pip_persistent_config_setting(
+        declaration,
+        setting="installation-destination",
+        config_file_environment=config_file_environment,
+    )
+    return resolve_installation_destination(
+        declaration,
+        process_environment=process_environment,
+        persistent_configuration=persistent_configuration,
+    )
+
+
+def _resolve_package_mutation_mode_for_command(
+    definition: WorkflowDefinition,
+    job: StepsJobDefinition,
+    step: RunStepDefinition,
+    occurrence: StaticCommandOccurrence,
+    declaration: PackageManagerOperationDeclaration,
+) -> PackageMutationSemanticResult:
+    result = resolve_package_mutation_mode(declaration)
+    if not (
+        isinstance(result, PackageManagerSemanticProblem)
+        and result.blocking_source == "process_environment"
+    ):
+        return result
+
+    process_environment = _observe_process_environment(
+        definition,
+        job,
+        step,
+        occurrence,
+        "PIP_DRY_RUN",
+    )
+    result = resolve_package_mutation_mode(
+        declaration,
+        process_environment=process_environment,
+    )
+    if not (
+        isinstance(result, PackageManagerSemanticProblem)
+        and result.blocking_source == "persistent_configuration"
+    ):
+        return result
+
+    config_file_environment = _observe_process_environment(
+        definition,
+        job,
+        step,
+        occurrence,
+        "PIP_CONFIG_FILE",
+    )
+    persistent_configuration = observe_pip_persistent_config_setting(
+        declaration,
+        setting="dry-run",
+        config_file_environment=config_file_environment,
+    )
+    return resolve_package_mutation_mode(
+        declaration,
+        process_environment=process_environment,
+        persistent_configuration=persistent_configuration,
+    )
+
+
+def _resolve_direct_requirement_handling_for_command(
+    definition: WorkflowDefinition,
+    job: StepsJobDefinition,
+    step: RunStepDefinition,
+    occurrence: StaticCommandOccurrence,
+    declaration: PackageManagerOperationDeclaration,
+) -> DirectRequirementSemanticResult:
+    result = resolve_direct_requirement_handling(declaration)
+    if not (
+        isinstance(result, PackageManagerSemanticProblem)
+        and result.blocking_source == "process_environment"
+    ):
+        return result
+
+    process_environment = tuple(
+        _observe_process_environment(
+            definition,
+            job,
+            step,
+            occurrence,
+            variable_name,
+        )
+        for variable_name in ("PIP_ONLY_DEPS", "PIP_ONLY_DEPENDENCIES")
+    )
+    result = resolve_direct_requirement_handling(
+        declaration,
+        process_environment=process_environment,
+    )
+    if not (
+        isinstance(result, PackageManagerSemanticProblem)
+        and result.blocking_source == "persistent_configuration"
+    ):
+        return result
+
+    config_file_environment = _observe_process_environment(
+        definition,
+        job,
+        step,
+        occurrence,
+        "PIP_CONFIG_FILE",
+    )
+    persistent_configuration = observe_pip_persistent_config_setting(
+        declaration,
+        setting="only-deps",
+        config_file_environment=config_file_environment,
+    )
+    return resolve_direct_requirement_handling(
+        declaration,
+        process_environment=process_environment,
+        persistent_configuration=persistent_configuration,
+    )
 
 
 def scope_package_manager_semantics(
@@ -490,12 +952,16 @@ def _first_semantic_problem(
 
 
 __all__ = (
+    "CommandRequirementStateAssessment",
     "ExactCICommandIdentity",
     "RequirementSatisfiedAtCommandCompletion",
     "RequirementStateProblem",
     "RequirementStateBlockingSemanticEvidence",
     "RequirementStateProblemState",
+    "RuntimeDependencyStateEvaluationState",
+    "RuntimeDependencyStateResult",
     "ScopedPackageManagerSemanticEvidence",
     "compose_requirement_satisfied_at_command_completion",
+    "evaluate_runtime_dependency_state",
     "scope_package_manager_semantics",
 )
