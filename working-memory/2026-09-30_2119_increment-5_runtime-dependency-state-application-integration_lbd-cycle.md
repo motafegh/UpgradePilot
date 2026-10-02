@@ -1,7 +1,7 @@
 # Increment 5 — Runtime Dependency-State Application Integration — Learning-by-Doing Cycle
 
 **Date:** 2026-09-30  
-**Cycle status:** ACTIVE — A0/A1/A2/B DONE including #16 fixture repair; Verification GREEN on Product Verification #17; D CURRENT; E NOT STARTED; C CONTINUOUS  
+**Cycle status:** ACTIVE — A0/A1/A2/B DONE including #16 fixture repair; Verification GREEN on Product Verification #17; D DONE; E NOT STARTED; C CONTINUOUS  
 **Primary responsibility:** carry the already-verified command-derived runtime dependency-state evidence through the normal public-PR investigation path as a separate typed application result, without changing CI-coverage, later-use, compatibility, or maintainer-action semantics  
 **Controlling plan:** `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`  
 **Accepted architecture:** `docs/architecture/ADR-0010-package-manager-semantic-facts-and-runtime-dependency-state-composition.md`  
@@ -17,8 +17,8 @@ A2 — DONE: technical design prepared and learning/ownership gate cleared
 STOP — CLEARED: Ali explicitly authorized Build
 B — DONE: bounded application integration implemented at `8c89117759c194b2130f65161b662ec80ae6dbcc`
 Verification — GREEN: Product Verification #17 (`36994518662`) passed on exact head `1c371875ffb459ce2e2c9c913a5a87a10a434928`; installed-package/CLI checks passed, focused investigation composition 16/16 passed, deterministic product regression 714/714 passed
-D — CURRENT: post-work evidence-backed learning/ownership
-E — NOT STARTED
+D — DONE: verified implementation, real-case applicability, ownership boundaries, failure model, and proof limits are owned; material misunderstandings were corrected
+E — NOT STARTED: gap disposition + cycle closure/handoff
 C — CONTINUOUS: preserve meaningful engineering and learning progression across A0→E
 ```
 
@@ -605,20 +605,19 @@ A fallback fresh local clone was attempted only for non-hosted B diagnosis, but 
 
 Verification must resume from this exact implementation head (or a reconciled later head) and run the existing Product Verification workflow before D.
 
-## Current D boundary
+## Current E boundary
 
-A0, A1, A2, B, and Verification are complete. Product Verification #17 is GREEN. D is CURRENT: teach from the actual implementation, #16 failure/repair, #17 proof, source/data/evidence flow, and proof limits before E closure.
+A0, A1, A2, B, Verification, and D are complete. Product Verification #17 remains the accepted executable proof because all post-#17 changes are documentation/live-state records only; no `src/` or `tests/` files changed. E is the next phase but has not started.
 
 The current continuation is:
 
 ```text
-D — CURRENT
-→ compare A2 expectations with the actual implementation
-→ learn the real application/evidence flow and ownership boundaries
-→ include the Product Verification #16 fixture failure and repair
-→ inspect what #17 proves and still does not prove
-→ run a small number of ownership reasoning checks
-→ identify any material gap for E
+E — NOT STARTED
+→ classify D gaps as repair-now vs explicit deferral
+→ preserve non-blocking capability pressure without reopening Increment 5
+→ consolidate established / not-established / proof / residual debt
+→ identify the next product responsibility from the controlling plan
+→ reconcile live owners and close the cycle
 ```
 
 No source/test modification was made by A2 itself.
@@ -794,3 +793,123 @@ related object exists and truthfully reports unresolved evidence
 ```
 
 This prevents UpgradePilot from hiding its own composition defects as uncertainty while also avoiding crashes for real-world evidence that is genuinely insufficient.
+
+
+### D final synthesis — DONE
+
+#### What Increment 5 established
+
+Increment 5 turned the Increment-4 command-completion witness into a normal application result without collapsing evidence responsibilities:
+
+```text
+DependencyVersionChange + source_contexts
++ existing WorkflowDependencyCoverageInput[]
+        ↓
+evaluate_dependency_ci_coverage(...)
+        ↓
+DependencyCICoverageResult
+  ├─ supported consumptions
+  └─ retained runtime correlation
+        ↓
+evaluate_runtime_dependency_state(...)
+  ├─ admit supported direct_requirements/pip candidates only
+  ├─ recover exact workflow/job/step/command identity
+  ├─ map to one trusted requirements source
+  ├─ derive demand-driven package-manager semantics
+  ├─ assess exact-command execution using retained correlation
+  └─ compose Increment-4 command-completion state
+        ↓
+RuntimeDependencyStateResult
+  └─ one CommandRequirementStateAssessment per command
+        ↓
+PublicPullRequestInvestigation.runtime_dependency_state_result
+```
+
+The application layer now carries runtime dependency-state proof beside CI coverage instead of reinterpreting CI coverage as package state.
+
+#### A2 expectation vs implementation reality
+
+A2's architecture held. Build confirmed:
+
+- `investigation.py` remains orchestration only;
+- `ci/dependency_state.py` owns the cross-layer runtime-state evaluator/result;
+- existing CI consumption discovery and runtime correlation are reused rather than recomputed;
+- command cardinality remains per-command;
+- unsupported uv/project-environment mechanisms remain `no_admitted_candidate`;
+- no presentation, compatibility, later-use, or maintainer-action meaning was added.
+
+Implementation added two useful refinements not fully appreciated in A2:
+
+- package-manager semantic inputs are acquired demand-driven according to precedence rather than eagerly collecting every possible source;
+- exact process-environment observations are cached per command so several semantic dimensions reuse the same producer evidence without crossing command boundaries.
+
+#### Verification learning
+
+Product Verification #16 was diagnostically valuable:
+
+```text
+expected supported_runtime_correlated
+actual supported_not_correlated
+```
+
+The defect was in the new positive test fixture, not production runtime-state semantics. Its static job omitted the explicit literal display name required by the accepted runtime-correlation contract. The repair added the missing fixture identity only.
+
+Product Verification #17 then established the repaired implementation on exact head `1c371875ffb459ce2e2c9c913a5a87a10a434928`:
+
+- installed-package / pip-check evidence: PASS;
+- installed CLI entry points: PASS;
+- focused investigation composition: 16/16 PASS;
+- deterministic product regression: 714/714 PASS.
+
+A comparison from the #17 head to the D-close head shows only documentation/live-state files changed; the verified `src/` and `tests/` surface is unchanged.
+
+#### Real-case learning
+
+D deliberately used real product-simulation cases as boundary evidence rather than forcing them into a positive Route-A shape:
+
+- **S001 — Pydantic / Soup Sieve:** strong uv dependency-path and successful docs-CI evidence remains valuable, but current runtime dependency-state evaluation truthfully reports `no_admitted_candidate` because uv package-state semantics are not yet an admitted family.
+- **S002 — Kubernetes Dashboard Token API / HTTPX:** the direct requirements update is real, but the relevant Python workflow did not trigger for the requirements-only PR; the successful install lives behind GitHub Action → Docker build → Dockerfile `RUN pip install`. A trusted cross-boundary identity/environment bridge is required before that evidence can enter the current package-state proposition.
+- **S004 — glyphsLib / pytest:** real pip installs occur behind compound shell/venv activation and workflow shapes outside current correlation/runtime-strengthening/process-environment support. Human intuition that activation redirects pip is not enough to manufacture a machine witness.
+
+These cases convert unsupported shapes into evidence-backed capability pressure rather than arbitrary TODOs.
+
+#### Ownership model established
+
+Ali demonstrated and corrected ownership around:
+
+- `no_admitted_candidate` vs `unresolved` vs `not_established` vs positive witness;
+- provenance preservation across distinct evidence mechanisms;
+- application orchestration vs semantic ownership;
+- proof-directed debugging by locating the failed proposition edge first;
+- why strong evidence cannot cross provider/execution boundaries without an explicit identity/composition contract;
+- why current first-family limitations can be sound without being permanent;
+- internal invariant failures vs legitimate typed evidence uncertainty.
+
+The last distinction was corrected explicitly:
+
+```text
+required related object missing / identities contradict
+→ internal invariant failure / fail loudly
+
+related object exists and truthfully reports unresolved evidence
+→ typed RequirementStateProblem
+```
+
+No material D ownership blocker remains.
+
+#### Capability pressure carried to E
+
+The following are **non-blocking future capability pressures**, not Increment-5 defects and not reasons to reopen B:
+
+1. provider-backed support for additional deterministic job identities, including unnamed jobs where authoritative semantics can be established;
+2. matrix/strategy runtime correlation when representative cases make it decision-critical;
+3. uv-specific runtime package-state semantics/composition;
+4. GitHub Action → Docker build → Dockerfile command/environment provenance for install evidence;
+5. bounded shell-state / venv activation / PATH propagation or other safer mechanisms for proving later-command environment identity;
+6. optional future direct runtime package observation as a distinct evidence mechanism with its own provenance and observation boundary.
+
+These should be prioritized by real-case frequency, decision importance, obtainable evidence strength, and implementation/proof cost—not by a completeness goal.
+
+#### D result
+
+D is complete. The verified Increment-5 responsibility is understood at architecture, source-owner, data/evidence-flow, failure-model, real-case applicability, and proof-limit levels. The remaining gaps are characterized well enough for E to repair only if necessary or explicitly defer and close the cycle.
