@@ -1,0 +1,50 @@
+# Product Direction Case Comparison — LbD Cycle
+
+Date: 2026-10-02 (Asia/Tehran).
+Primary operation: Planning/Design investigation.
+Plan: [Product direction and maintainer utility](../plans/PRODUCT_DIRECTION_AND_MAINTAINER_UTILITY_INVESTIGATION_PLAN.md).
+Previous: [Planning preparation](2026-10-02_product-direction-and-report-planning.md).
+Procedures: UP-SKILL:upgradepilot-planning-design; UP-SKILL:upgradepilot-working-memory.
+
+## Authorization and progression
+
+Ali explicitly requested the next step after discussing that no additional plan is necessary. Authorized responsibility: execute the prepared comparison and reconcile its direction decision; product implementation remains separate. Standing authorization covers coherent validated commits/pushes.
+
+A0 — DONE: fetched origin/main, reconciled plan/live handoff, current source and selected case records; initialized this cycle and learning map.
+A1 — CURRENT: continuity explanation supplied; meaningful opportunity to question/correct current-state understanding remains open.
+A2 — PENDING: upcoming comparison and its proof/decision boundaries after the continuity gate.
+B — PENDING: no alternative has been evaluated or selected in this cycle.
+Verification gate — PENDING: comparison traceability, common rubric, counterevidence and owner reconciliation not yet established.
+D — PENDING: evidence-backed learning after the comparison.
+E — PENDING: ownership gaps and closure.
+C — CONTINUOUS: initialization and evidence distinctions preserved here.
+
+## A0 reconciliation
+
+Starting head: f5ec89034e97aa8ed6ba44f5e8300b6bc8d0bf8c; clean main. Fetch found no remote commits ahead. The three latest commits publish review evidence, prepared plans and the inspectable rubric. They do not implement a new product direction. Executable paths src/, tests/, experiments/ and pyproject.toml remain unchanged from 860f1e36; prior test results remain dated proof and were not rerun for orientation.
+
+Current source inspection confirms maintainer_action.py admits only explained abstention; cli.py calls the investigation and does not import/call action synthesis or project runtime_dependency_state_result. investigation.py includes runtime-state composition. This is the present delivery boundary, not permanent retention/scope authority. Do not confuse normally available typed evidence with a field actually delivered to the CLI user.
+
+Selected case inputs for orientation, not evaluation results:
+
+| Case | Exact identity / input | Proof class and pressure |
+| --- | --- | --- |
+| S001 Pydantic/Soup Sieve | Preserved 2026-10-02 [CLI log](evidence/2026-10-02-unbounded-review/live-s001-cli.log); head aa2dc024d33f61cdef50bf1973ab5adf0a974f5a | Ordinary live acquisition recorded earlier: semantic-provider failure with unresolved output; no successful model-quality or merge proof |
+| S002 HTTPX | [Retrospective case](../product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/README.md); head 391508134b083b8f54461c0b576e8f7985c6ecb4; run s002-retrofit-2026-07-22-r1 | Manual curated reconstruction: Docker workflow versus Python test coverage; historical resolver state unavailable; external behavioral confirmation absent |
+| S008 CARLA/OpenCV | [Frozen case identity](../product-simulation/scenarios/S008-carla-opencv-python36-artifact-fallback/artifacts/CASE_IDENTITY.json); base 7758d066080f180f8296887ed89b7c723a54706a; head f32ad2d23a9abee47c566dfbed2b822d953a09e2 | Manual bounded artifact analysis: missing CPython-3.6 binary path with source fallback; source-build success/failure and maintainer action unproven |
+
+Input SHA256 anchors: S001 log 7f921ffddb5f4b29f7f5c10a7891f20102db6acc771a976612bb070bfb8627aa; S002 RUN_MANIFEST.json 39c7d83ba90ad7945f9ccbd5a30d1918523662745a89b6a0de7db78b79ab1459; S008 CASE_IDENTITY.json 7c322afb141145d6941b980ee43e05a663454cc42dcd5127d86f52659ab8da94. These bind the inspected local records, not fresh external acquisition or full-bundle validation.
+
+## Living A-phase learning map
+
+A1 bridge: prepared plans are execution coordination; source still has bounded findings and abstention. Preserved ordinary CLI evidence and richer manual packets establish different claims. Main ownership target: distinguish a useful manual insight from an insight the normal product can produce.
+
+A2 topics: compare the three delivery sequences with the same nine rubric dimensions; trace each proposed useful output through normal producers; label unavailable evidence and untested utility; preserve adverse cases rather than average labels. Expected result is a justified trial or one practical discriminating check. This will not establish independent usefulness, expand action permissions or implement a report.
+
+Meaningful unresolved states: a curated conclusion may require an absent producer; honest output may still provide little utility; alternatives may remain indistinguishable. Hybrid is a hypothesis and can lose. No numeric scoring, speculative action promotion, target execution or research merge is needed for this orientation.
+
+## Dated handoff and validation
+
+Continuity gate remains open under OPERATING_GUIDE.md §2.2. Resume A2 after Ali has a meaningful opportunity to challenge/correct the current-state model. Do not interpret authorization to proceed as proof of learner mastery. Prior planning-cycle D/E ownership assessment is explicitly deferred; its preparation result remains complete and this record owns the separate comparison cycle.
+
+Orientation increment validation: local Markdown references resolve; whitespace check passes; changes are confined to this record, a prior-record continuation link and MEMORY.md. No product, experiment, independent evaluation or fresh external-source proof is claimed. Existing experiment failures and the governance-doctor baseline mismatch remain recorded in the earlier evidence; they were not repaired by initialization.

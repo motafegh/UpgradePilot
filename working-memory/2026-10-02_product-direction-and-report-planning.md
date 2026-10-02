@@ -3,6 +3,7 @@
 Date: 2026-10-02 (Asia/Tehran).
 Responsibility: authorized preparation of direction-investigation and conditional report/evaluation plans.
 Previous evidence: [unbounded review](2026-10-02_1855_unbounded-product-capability-and-improvement-review.md).
+Continued by: [Direction case-comparison cycle](2026-10-02_product-direction-case-comparison_lbd-cycle.md). Planning preparation and rubric refinement are complete; their learner D/E assessment is explicitly deferred. The separate comparison record owns its own progression.
 Procedures: UP-SKILL:upgradepilot-planning-design; UP-SKILL:upgradepilot-working-memory.
 
 ## Authorization and starting point
