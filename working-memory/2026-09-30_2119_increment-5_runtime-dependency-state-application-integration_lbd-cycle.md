@@ -696,3 +696,14 @@ The existing product-simulation corpus does not need to be forced into a positiv
 - S004 (glyphsLib / pytest) contains real pip requirements installation, but relevant commands are embedded in venv activation/compound-shell and matrix/no-explicit-job-name shapes that exceed the clean first-family exact-runtime proof boundary.
 
 Therefore D will use the hosted-green Increment-5 controlled fixture to teach the exact positive data flow, and the real cases to teach product applicability, abstention, and future evidence-family pressure. This preserves realism without misrepresenting unsupported real cases as current product proof.
+
+
+### D ownership check 1 — real-case applicability and evidence-chain debugging
+
+Ali correctly reasoned that:
+
+- S001's successful docs CI remains valuable evidence because uv/project-environment consumption and runtime success are real propositions in their own right; the first runtime dependency-state evaluator simply does not yet admit that uv family. `no_admitted_candidate` is therefore more truthful than `unresolved`.
+- S002's successful Docker build evidence must retain its own provenance and cannot be silently converted into current Route-A command evidence. The missing capability is a trusted cross-boundary bridge from the GitHub workflow/action invocation into the exact Dockerfile instruction/environment that performed the pip installation, with identity/provenance preserved across that boundary.
+- diagnosing a missing final witness as a chain of propositions/evidence edges narrows the failing proof edge before changing code, avoiding broad speculative debugging and protecting unrelated owners from unnecessary edits.
+
+Refinement: strong evidence from one mechanism may later support a broader proposition, but only after an explicit composition/identity contract connects its observation boundary to that proposition. Evidence strength does not erase evidence mechanism or provenance.
