@@ -37,6 +37,16 @@ Input SHA256 anchors: S001 log 7f921ffddb5f4b29f7f5c10a7891f20102db6acc771a97661
 
 ## Living A-phase learning map
 
+### A1 correction after research integration and explicit understanding gap
+
+Ali reported merging the real-case research and said the earlier question was not understandable. The explanation used normal-producer/action-permission terminology before establishing a concrete example; this is an orientation gap, not a failed learner assessment. No A1/A2 understanding or comparison result is inferred.
+
+Fetched and fast-forwarded clean main from 2440ba92 to fe135063. PR #34 preserves the complete 61-commit simulation-research history through dd974c95; S013–S016 and their research handoffs are now local on main. The imported delta has 45 changed files and no src/, tests/, experiments/ or pyproject.toml changes. The direction plan and MEMORY.md already acknowledge integration; preserve that reconciliation. The dated September handoff's original not-merged label is historical, not the current integration state.
+
+Simpler teaching model: a real-case investigation is a worked example of what useful assistance could discover; product source is the reusable program that must acquire and reason about the evidence when given a PR. Merging the worked examples supplies the project with those records, while this merge did not add their reasoning to product code. The HTTPX packet records that Docker succeeded but relevant Python tests did not run; its proposed follow-up was to capture resolved versions and run those tests. Comparison must distinguish presenting that archived finding from automatically establishing it for a new PR. Both are valuable evidence, but establish different capabilities.
+
+Refine A1/A2 to explain product versus research through this example before using producer reachability or action-permission vocabulary. Retain S013–S016 as available further controls where they materially discriminate a delivery choice; do not add cases merely to increase the matrix size. Reconciliation and explanation are this increment; comparative judgments remain pending.
+
 A1 bridge: prepared plans are execution coordination; source still has bounded findings and abstention. Preserved ordinary CLI evidence and richer manual packets establish different claims. Main ownership target: distinguish a useful manual insight from an insight the normal product can produce.
 
 A2 topics: compare the three delivery sequences with the same nine rubric dimensions; trace each proposed useful output through normal producers; label unavailable evidence and untested utility; preserve adverse cases rather than average labels. Expected result is a justified trial or one practical discriminating check. This will not establish independent usefulness, expand action permissions or implement a report.
