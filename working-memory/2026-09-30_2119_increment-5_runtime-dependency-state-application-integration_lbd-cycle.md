@@ -763,3 +763,13 @@ and later an analogous regression environment. Several independent proof boundar
 - therefore real human intuition that the step “obviously installs into the venv” must not be promoted to a current machine witness without those bridges.
 
 S004 is retained as a useful real case for future runtime-strengthening / activation / environment-model pressure, not as current Increment-5 positive proof.
+
+
+### D actual evaluator failure model — CURRENT learning target
+
+The next D ownership target is the implemented distinction between:
+
+- **internal invariant contradictions** in already-related UpgradePilot objects, which fail loudly (for example via `ValueError`); and
+- **real domain/evidence limitations**, which remain typed `RequirementStateProblem` outcomes.
+
+This distinction is important because an internal identity/contract contradiction is a product defect or corrupted composition state and must not be disguised as ordinary uncertainty, while unresolved/dry-run/retargeting/runtime-non-success are legitimate evidence outcomes that the product must preserve without crashing.
