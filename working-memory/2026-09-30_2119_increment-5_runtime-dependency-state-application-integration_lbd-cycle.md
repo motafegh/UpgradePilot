@@ -707,3 +707,59 @@ Ali correctly reasoned that:
 - diagnosing a missing final witness as a chain of propositions/evidence edges narrows the failing proof edge before changing code, avoiding broad speculative debugging and protecting unrelated owners from unnecessary edits.
 
 Refinement: strong evidence from one mechanism may later support a broader proposition, but only after an explicit composition/identity contract connects its observation boundary to that proposition. Evidence strength does not erase evidence mechanism or provenance.
+
+
+### D source-ownership map and S004 boundary
+
+The verified Increment-5 flow preserves distinct proposition owners:
+
+```text
+investigation.py
+  application orchestration + result carrying
+
+ci/dependency_exercise.py
+  CI dependency-consumption / exercise / bounded runtime-strengthening result
+
+ci/workflow_runtime_correlation.py
+  static workflow job/step <-> runtime job/step identity only
+
+ci/runtime_strengthening.py
+  whether one exact command occurrence is structurally eligible to inherit step-level runtime evidence
+
+ci/runtime_execution.py
+  exact-command execution assessment from eligibility + correlation + runtime outcome
+
+dependency/package_manager_operation.py
+  static pip-install declaration only
+
+github/process_environment.py
+  exact-command process-environment evidence for the currently admitted producer surface
+
+dependency/package_manager_config.py
+  pip persistent-config interpretation from already-established process evidence
+
+dependency/package_manager_semantics.py
+  effective package-manager semantic facts with precedence/unresolved preservation
+
+ci/dependency_state.py
+  cross-layer composition into per-command requirement-state assessment
+
+investigation.py
+  carries RuntimeDependencyStateResult beside CI coverage
+```
+
+S004 (glyphsLib / pytest) provides a realistic pressure case rather than a clean positive first-family witness. Its regression workflow includes commands such as:
+
+```bash
+python3 -m venv generate
+. ./generate/bin/activate && pip install -r requirements.txt -r requirements-dev.txt
+```
+
+and later an analogous regression environment. Several independent proof boundaries matter:
+
+- the static job has no explicit literal `name:`, so current workflow/runtime correlation does not admit it;
+- the pip occurrence is not the sole command and is not the first ordinary top-level command in the step, so current runtime-strengthening policy does not let step success automatically prove that exact later pip occurrence;
+- virtual-environment activation changes executable/PATH state, but current exact-process evidence does not model activation propagation strongly enough to identify the resulting pip environment;
+- therefore real human intuition that the step “obviously installs into the venv” must not be promoted to a current machine witness without those bridges.
+
+S004 is retained as a useful real case for future runtime-strengthening / activation / environment-model pressure, not as current Increment-5 positive proof.
