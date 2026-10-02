@@ -5,6 +5,10 @@
 **Authority:** This document is a proposal only. It does not select live work, authorize Build/Implement, change accepted semantics, create an ADR, or override `MEMORY.md`, specifications, accepted ADRs, or admitted plans.  
 **Planning provenance:** `UP-SKILL:upgradepilot-planning-design`
 
+## Subsequent planning interpretation
+
+The [Product Direction and Maintainer Utility Investigation Plan](../plans/PRODUCT_DIRECTION_AND_MAINTAINER_UTILITY_INVESTIGATION_PLAN.md) admits comparison of this proposal's action-led sequence with advisor-led and hybrid delivery. Its [conditional report plan](../plans/MAINTAINER_REPORT_PRESERVATION_AND_USEFULNESS_EVALUATION_PLAN.md) prepares an independently useful reporting trial without admitting implementation or changing action permissions. The candidate route below remains proposal reasoning, not the sole delivery sequence or live continuation. Hybrid usefulness still requires evidence.
+
 ## Post-proposal evidence update — AUDIT-009 completed
 
 The proposed current-state delta reconciliation has now been performed and preserved as [AUDIT-009 — Post-Runtime-State Delta Readiness Audit](../audits/2026-10-02_AUDIT-009_post-runtime-state-delta-readiness.md).
@@ -18,7 +22,7 @@ That audit materially supports this proposal's transition framing:
 - the new runtime-state result reaches the application boundary but has no action/presentation consumer yet;
 - AI candidate discovery is now a legitimate method candidate only if the refreshed action comparison shows discovery is the earliest blocker.
 
-This update does not admit the proposal or select an implementation. `MEMORY.md` continues to select the parent action-relative reachability comparison as the next responsibility.
+This dated audit update did not admit the proposal or select an implementation. At that update, `MEMORY.md` selected the parent action-relative reachability comparison. Subsequent selection is owned by `MEMORY.md` rather than this historical statement.
 
 ---
 

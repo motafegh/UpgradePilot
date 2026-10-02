@@ -59,6 +59,12 @@ public repository and Dependabot PR locator
 
 Replay is supporting reproducibility/testing behavior. It must not replace the real PR-to-decision path as the primary product interface.
 
+### Report utility and action-permission sequencing
+
+The product-flow horizon describes the complete responsibility, not a requirement to delay every useful report until a non-abstention action is implemented. A bounded trial may investigate findings, sources, explicit unknowns and justified next checks before stronger action admission. The [Product Direction and Maintainer Utility Investigation Plan](PRODUCT_DIRECTION_AND_MAINTAINER_UTILITY_INVESTIGATION_PLAN.md) coordinates that sequence comparison; it does not replace this file as the project route owner.
+
+The [conditional report/preservation/evaluation plan](MAINTAINER_REPORT_PRESERVATION_AND_USEFULNESS_EVALUATION_PLAN.md) may be selected after its direction/contract gate. Saved-result reopening, evidence capture, deterministic replay and execution recovery remain distinct outcomes. Faithful report implementation does not complete a usefulness study, earn an action permission, or satisfy the full public-PR vertical-slice exit gate by itself. Stage outcomes remain required; a justified trial may gather evidence for a later-stage responsibility without asserting that intervening gates have passed.
+
 ## 3. Route principles
 
 1. Evidence gates control advancement; elapsed time, case count, document count, and code volume do not.

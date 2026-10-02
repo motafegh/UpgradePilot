@@ -1,12 +1,18 @@
 # End-to-End Product Flow Learning and Evidence-to-Action Execution Plan
 
-**Status:** admitted bounded execution/learning plan; live step selection remains owned only by `../MEMORY.md`  
+**Status:** retained action-led execution alternative; selection of the broader product sequence is governed by the direction investigation below. Live selection remains owned only by `../MEMORY.md`.
 **Responsibility:** turn the current-system audit into a Learning-by-Doing product progression from verified end-to-end flow ownership, through correction of admitted baseline defects, to one evidence-backed non-abstention maintainer-action path when and only when its normal producer prerequisites are proven  
 **Parent execution owner:** [Overall Evidence Sufficiency and Maintainer Action Synthesis Plan](OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md)  
 **Current audit input:** [AUDIT-009 — Post-Runtime-State Delta Readiness Audit](../audits/2026-10-02_AUDIT-009_post-runtime-state-delta-readiness.md)  
 **Historical baseline audit:** [AUDIT-008 — Current System End-to-End Evidence-to-Action Audit](../audits/2026-09-19_AUDIT-008_current-system-evidence-to-action-readiness.md)  
 **Stable semantics:** [Product Decision Model](../docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md), [Maintainer Action Synthesis](../docs/specifications/UPGRADEPILOT_MAINTAINER_ACTION_SYNTHESIS_SPECIFICATION.md), [Core Pipeline and Contract](../docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md)  
 **Method:** canonical A → B → C → D → E Learning-by-Doing, composed with Planning/Design, Build/Implement, Audit/Review, testing, and working-memory procedures as each slice requires
+
+## Product-sequence interpretation
+
+The [Product Direction and Maintainer Utility Investigation Plan](PRODUCT_DIRECTION_AND_MAINTAINER_UTILITY_INVESTIGATION_PLAN.md) owns comparison of this action-first journey with advisor-first and hybrid delivery. Its investigation does not invalidate the positive-permission semantics or completed evidence work retained here.
+
+The sequence below is an action-led alternative, not a universal prerequisite for a useful findings report or its evaluation. In particular, the presentation-after-action step and its stop line apply when this action-led journey is selected. A separately selected report trial follows its own contract/proof gate; it cannot weaken action permissions. The direction decision must explicitly retain, revise, narrow or supersede this journey before its ordering is used as the broader delivery route. Dated re-entry statements below describe the evidence basis for that alternative rather than selecting live work.
 
 ## 1. Purpose
 

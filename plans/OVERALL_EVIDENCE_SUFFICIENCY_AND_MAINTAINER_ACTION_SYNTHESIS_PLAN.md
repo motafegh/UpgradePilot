@@ -14,6 +14,8 @@
 
 ## Authorization and position neutrality
 
+Product-sequence comparison is owned by the [Product Direction and Maintainer Utility Investigation Plan](PRODUCT_DIRECTION_AND_MAINTAINER_UTILITY_INVESTIGATION_PLAN.md). This synthesis plan retains the specialized action-permission execution responsibility. Its action gates do not require an independently selected findings/unknowns report to wait for non-abstention. Report utility neither changes nor proves a permission; new action admission still follows the accepted synthesis semantics and this plan's normal-producer proof.
+
 This plan coordinates the admitted synthesis responsibility and the producer/evidence prerequisites that materially constrain it. Updating the plan authorizes planning and directly necessary planning records only. Source/test implementation still requires the normal Build/Implement authorization and proof route.
 
 `MEMORY.md` alone selects what is live. This plan may record durable dependency/order relationships and cite dated completed evidence, but it must not become a second owner of the exact current step, branch head, test result, or handoff.
