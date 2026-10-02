@@ -557,6 +557,7 @@ jobs:
         h.set_workflow(
             f"""jobs:
   test:
+    name: test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
