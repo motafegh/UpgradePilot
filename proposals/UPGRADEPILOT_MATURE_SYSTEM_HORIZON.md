@@ -41,15 +41,21 @@ This horizon is subordinate to the normal repository owners:
 - `../PROJECT_CHARTER.md` — mission, user, supported decision, product boundary, evidence doctrine, claim limits;
 - `../plans/UPGRADEPILOT_90_DAY_PLAN.md` — route stages, gates, stable end-to-end flow horizon;
 - `../plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md` — first public-PR vertical slice;
-- `../plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md` — currently admitted A→B→C decision foundation;
+- `../plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md` — accepted mechanism-specific candidate/applicability/investigation foundation;
+- `../plans/END_TO_END_PRODUCT_FLOW_LEARNING_AND_EVIDENCE_TO_ACTION_EXECUTION_PLAN.md` — current evidence-to-action parent journey and action-relative responsibility selection;
+- `../plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md` — closed bounded Runtime Dependency-State Cycle-1 architecture/proof route and conditional re-entry boundary;
 - `../docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md` — trust/evidence pipeline invariants;
 - `../docs/specifications/UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md` — variable-input generality and non-hardcoding boundary;
 - accepted ADRs — durable implementation/structural choices already made;
 - `../src/upgradepilot/` + `../tests/` — implemented product behavior;
-- `../product-simulation/` and the active product-simulation branch — discovery/pressure-test evidence;
+- `../product-simulation/` and preserved research history — discovery/pressure-test evidence;
 - `../MEMORY.md` — sole owner of live project position and continuation.
 
 Historical ambition material, especially `2026-07-20_UPGRADEPILOT_PRODUCT_AMBITION_AND_ENHANCEMENT_PROPOSAL.md`, is useful input but is not inherited as accepted architecture. Its ideas must be reconciled through the product model earned since then.
+
+## 2.1 2026-10-02 reconciliation note
+
+The post-runtime-state delta audit ([AUDIT-009](../audits/2026-10-02_AUDIT-009_post-runtime-state-delta-readiness.md)) confirms that the horizon's evidence-first direction remains compatible with current implementation. F4 consuming-job→Target composition and bounded F6 runtime dependency-state are now concrete product capabilities; broad candidate discovery and cross-candidate/action synthesis remain open mature responsibilities. The merged AI/agent research identifies Stage-8 broad impact-candidate discovery as a strong future AI role, but activation remains responsibility-triggered rather than automatic.
 
 ## 3. Status legend
 
@@ -823,9 +829,9 @@ At v0.1, the mature UpgradePilot horizon is strong enough to say:
 
 ---
 
-## Appendix A — Current concrete anchor inside the horizon
+## Appendix A — Current concrete anchors inside the horizon
 
-The first implemented specimen currently occupies this path:
+The original implemented specimen remains the Python-support path:
 
 ```text
 grounded authoritative upstream Python-support drop
@@ -843,22 +849,39 @@ CandidateApplicabilityAssessment
 PublicPullRequestInvestigation.python_support_drop_impact_result
 ```
 
-Current next conceptual expansion from that anchor is the first real C activation:
+Its first discriminating read-only investigation path is now ordinary implemented evidence rather than the next conceptual expansion.
+
+Two additional concrete anchors now matter:
 
 ```text
-candidate applicability unresolved
-because exact target declaration evidence has not yet been acquired
-        ↓
-discriminating target = exact target Python declaration
-        ↓
-select admitted read-only exact-head acquisition
-        ↓
-observation
-        ↓
-reevaluate candidate applicability
+published artifact-serviceability candidate
++ CI-supported exact consuming job
+→ selected target artifact environment
+→ exact wheel compatibility still unresolved unless target-owned tag evidence exists
 ```
 
-This anchor validates part of the mature horizon. It does not define its final breadth.
+and:
+
+```text
+supported direct-requirements/pip consumption
++ exact command identity/execution
++ effective package-manager semantics
+→ RequirementSatisfiedAtCommandCompletion
+→ PublicPullRequestInvestigation.runtime_dependency_state_result
+```
+
+The current horizon question is therefore no longer simply “activate C for the first candidate.” It is:
+
+```text
+multiple bounded evidence/candidate families
+→ current action-relative reachability comparison
+→ determine the earliest missing permission premise
+→ if broad candidate discovery is that premise,
+   activate bounded Stage-8 AI discovery experiments
+→ otherwise select the closer deterministic/action responsibility
+```
+
+These anchors validate more of the mature horizon while preserving the open questions around broad discovery, cross-candidate synthesis, and maintainer-action permission. They still do not define the final product breadth.
 
 ## Appendix B — Historical ambition reconciliation note
 
