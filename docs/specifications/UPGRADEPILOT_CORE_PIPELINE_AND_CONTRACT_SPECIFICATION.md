@@ -128,6 +128,18 @@ When an evidence-report responsibility is admitted, the following representation
 - Reopening a saved result MUST preserve its recorded observation/revision context and explain that no fresh acquisition or validation occurred. It MUST NOT silently make live requests, execute content, infer current validity, or claim deterministic replay from an output record alone.
 - Compatibility, malformed-content and integrity outcomes MUST remain explicit. A content digest can establish consistency with recorded bytes, not independent source authenticity or semantic truth. These checks do not elevate external content into instructions or authority.
 
+### 6.2 Foreseeable evidence consumers and AI contributions
+
+Representation design MUST consider specifically identified investigation consumers as well as the human report. This includes admitted model interpretation and credible forthcoming impact-discovery, evidence-gap investigation or explanation responsibilities; it does not admit those capabilities by itself.
+
+- A report is a projection of investigation knowledge, not the maximum evidence/context a future investigator may inspect. Do not require models or agents to reconstruct structured findings, uncertainty, identity or provenance by parsing rendered prose when the owning structured evidence is available.
+- Before fixing an external representation or discarding material evidence, identify the named consumer, its required facts/source context, what remains retained or recoverable, and the consequence of omissions. Preserve exact source identity and available relevant content; where recovery is impossible or contingent on future retrieval, declare that limitation. A reference or digest is not a substitute for missing content.
+- Broader source access and trusted result admission are different responsibilities. A model may need exact passages or richer repository context; access to that context does not establish applicability, completeness, semantic truth or action permission. Existing domain/synthesis and security owners remain controlling.
+- Keep acquired evidence, model/agent proposals, assessment results and report presentation distinguishable. Material AI contributions MUST retain available input/source and method/model identity at the admitted proof boundary, with explicit missing provenance rather than reconstructed metadata. Framework/provider names must not define domain evidence semantics.
+- Follow-up investigation MUST distinguish newly acquired evidence and changed conclusions from the earlier recorded result. Explicit continuation may retrieve/reassess evidence when authorized; offline report reopening remains a different operation. Missing inputs or tool/observation history MUST NOT be represented as replayable or resumable state.
+
+These requirements favor justified information boundaries and explicit retention choices, not speculative frameworks, universal raw capture, or generic agent infrastructure. Reassess retention when a concrete consumer or proof obligation exposes a material missing premise.
+
 ## 7. Specialized specification relationships
 
 This core specification defines the stable trust/evidence/representation/failure invariants shared across admitted responsibilities and the project-wide implementation-retention/ownership constraints that apply when a material mechanism is added, repeated, or kept.
