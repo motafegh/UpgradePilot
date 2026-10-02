@@ -14,7 +14,7 @@ It is decision support—not an automatic merge bot, generic vulnerability scann
 
 ## For reviewers: what this project demonstrates
 
-UpgradePilot investigates a real public dependency-update pull request using exact repository/PR identity plus bounded GitHub, CI, PyPI, upstream, and repository evidence. The current CLI already produces a traceable evidence report and the product continues integrating artifact-serviceability and target-environment reasoning into the normal investigation path. It deliberately preserves `missing`, `unresolved`, `unsupported`, and conflicting evidence instead of turning weak evidence into a confident recommendation.
+UpgradePilot investigates a real public dependency-update pull request using exact repository/PR identity plus bounded GitHub, CI, PyPI, upstream, repository, target-environment, and command-derived runtime dependency-state evidence. The current CLI produces a traceable evidence report; the application also carries artifact-serviceability, selected target-environment, and bounded direct-requirements/pip command-completion state through the normal investigation path. It deliberately preserves `missing`, `unresolved`, `unsupported`, and conflicting evidence instead of turning weak evidence into a confident recommendation.
 
 The project is intentionally different from generic dependency automation or generic AI code review. Dependabot/Renovate can create and manage update PRs, while coding/review agents can propose or review changes; UpgradePilot focuses on the narrower decision problem of **what the available dependency-specific evidence actually establishes for this repository and where the evidence is still insufficient**.
 
@@ -32,11 +32,11 @@ public Dependabot PR
 
 **Ali's contribution and AI-assistance boundary:** Ali directs and learns through the AI-assisted development of UpgradePilot, including product/evidence decisions, repeated challenges to scope and proof boundaries, selected pre-change design decisions, and bounded current source/test reasoning. The repository's substantive implementation and tests are heavily AI-assisted; the complete Python/test architecture is not presented as independently authored or independently owned by Ali.
 
-**Current limitation:** the CLI does not yet emit the final maintainer recommendation, and current repository/static evidence must not be interpreted as complete runtime or wheel-compatibility proof. The project remains production-oriented rather than production-ready.
+**Current limitation:** the CLI does not yet emit the final maintainer recommendation or render the new runtime dependency-state result. UpgradePilot has a bounded direct-requirements/pip command-completion runtime witness, but it must not be interpreted as universal runtime package state, exact artifact identity, later use, behavioral compatibility, or exact target wheel compatibility. The project remains production-oriented rather than production-ready.
 
 ## Quickstart: inspect a public dependency-update PR
 
-The CLI produces a **bounded evidence report**: analyzed revisions, a supported dependency transition, CI/package/upstream evidence, and conditionally activated Python-support interpretation. The recommendation classes above describe the intended product. The CLI does not yet emit a final maintainer recommendation, a public JSON report, or an automatic merge decision. Additional artifact analysis in the application is still being integrated with human-facing output.
+The CLI produces a **bounded evidence report**: analyzed revisions, a supported dependency transition, CI/package/upstream evidence, artifact/target evidence where activated, and conditionally activated Python-support interpretation. The application additionally carries bounded runtime dependency-state results that are not yet rendered by the CLI. The recommendation classes above describe the intended product. The CLI does not yet emit a final maintainer recommendation, a public JSON report, or an automatic merge decision. Artifact/target and runtime-state evidence remain stronger inside the typed application result than in the current human-facing output; action-relative selection should determine which evidence deserves synthesis or presentation next.
 
 ### Install and check the command
 
