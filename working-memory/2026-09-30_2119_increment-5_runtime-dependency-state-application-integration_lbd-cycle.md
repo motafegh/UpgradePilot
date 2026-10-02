@@ -1,7 +1,7 @@
 # Increment 5 — Runtime Dependency-State Application Integration — Learning-by-Doing Cycle
 
 **Date:** 2026-09-30  
-**Cycle status:** ACTIVE — A0/A1/A2 DONE; B REPAIR CURRENT after Product Verification #16 fixture failure; Verification FAILED on run #16; D/E NOT STARTED; C CONTINUOUS  
+**Cycle status:** ACTIVE — A0/A1/A2/B DONE including #16 fixture repair; Verification PENDING fresh hosted run; D/E NOT STARTED; C CONTINUOUS  
 **Primary responsibility:** carry the already-verified command-derived runtime dependency-state evidence through the normal public-PR investigation path as a separate typed application result, without changing CI-coverage, later-use, compatibility, or maintainer-action semantics  
 **Controlling plan:** `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`  
 **Accepted architecture:** `docs/architecture/ADR-0010-package-manager-semantic-facts-and-runtime-dependency-state-composition.md`  
@@ -16,7 +16,7 @@ A1 — DONE: continuity from Increments 1–4 and the current application seam o
 A2 — DONE: technical design prepared and learning/ownership gate cleared
 STOP — CLEARED: Ali explicitly authorized Build
 B — DONE: bounded application integration implemented at `8c89117759c194b2130f65161b662ec80ae6dbcc`
-Verification — FAILED: Product Verification #16 (`36994071136`) on head `210d333e9e257ae1fe6bd07558aad435d182cdfc` failed in focused investigation composition; B repair is CURRENT
+Verification — PENDING: Product Verification #16 (`36994071136`) exposed and closed one test-fixture identity defect; a fresh hosted run is required on the repaired head
 D — NOT STARTED
 E — NOT STARTED
 C — CONTINUOUS: preserve meaningful engineering and learning progression across A0→E
@@ -651,3 +651,7 @@ C currently preserves:
 - Root cause: the new test fixture's static `test` job omitted an explicit literal `name:`. The accepted correlation contract requires explicit literal static job display names before it will match runtime jobs; therefore the provider correctly preserved `static_job_name_missing` rather than guessing from the job key.
 - Classification: fixture defect in newly authored Increment-5 proof, not a production runtime-state semantic defect.
 - Repair: add an explicit static job display name matching the mocked runtime job name; no production source change is authorized by this failure.
+
+### #16 repair closure
+
+The fixture now declares `name: test`, matching its mocked runtime job display name and satisfying the existing correlation admission contract. Production source was not changed. Verification must be rerun on the repaired current head; run #16 cannot prove that repaired revision.
