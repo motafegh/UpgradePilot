@@ -37,7 +37,7 @@ Focused additional inputs:
 - [Report development evaluation](../experiments/EVIDENCE_REPORT_DEVELOPMENT_EVALUATION.md): development cases and rubric, not measured product utility.
 - [Action-led journey](END_TO_END_PRODUCT_FLOW_LEARNING_AND_EVIDENCE_TO_ACTION_EXECUTION_PLAN.md) and [synthesis plan](OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md): retain their useful action proof obligations without inheriting their presentation ordering automatically.
 
-The unbounded review pins the unmerged simulation research branch and its state-proof handoff. Inspect its exact revision when using its Python marker, prior-sync, already-satisfied or selected-extra observations. Neither branch reachability nor a simulation conclusion proves current automated capability. Missing branch evidence stays unavailable; do not silently merge research to obtain a convenient case.
+The unbounded review originally pinned the separate `research/product-simulation-rebase-2026-09-22` branch. That complete 61-commit research history is now preserved on `main` through PR #34 (merge `dd974c959febcc08fbb43e48b3e6608105e6ec1f`). When using its Python-marker, prior-sync, already-satisfied, selected-extra, ambient-semantics, or wheel-tag observations, preserve the exact scenario/research provenance and proof class. Presence on `main` makes the evidence directly inspectable; it does **not** turn simulation conclusions into current automated product capability or normal producer input.
 
 ## 3. Comparison method
 
