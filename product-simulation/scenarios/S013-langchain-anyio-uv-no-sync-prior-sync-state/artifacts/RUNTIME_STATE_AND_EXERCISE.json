@@ -1,0 +1,42 @@
+{
+  "workflow_run": {
+    "id": 35378301060,
+    "name": "🔧 CI",
+    "conclusion": "success"
+  },
+  "selected_jobs": [
+    {
+      "id": 105708268180,
+      "display_name": "test (libs/standard-tests, 3.14) / Python 3.14",
+      "conclusion": "success",
+      "observations": [
+        "UV_NO_SYNC=true visible in sync step environment",
+        "uv sync --group test --dev executed",
+        "Installed 48 packages",
+        "anyio==4.15.1 reported installed",
+        "later uv run --group test pytest executed",
+        "pytest plugin list reports anyio-4.15.1"
+      ]
+    },
+    {
+      "id": 105708268228,
+      "display_name": "test (libs/standard-tests, 3.10) / Python 3.10",
+      "conclusion": "success",
+      "observations": [
+        "same explicit sync then later no-sync test sequence",
+        "anyio==4.15.1 reported installed"
+      ]
+    }
+  ],
+  "proof_boundary": {
+    "supports": [
+      "proposed version present at the observed explicit-sync completion boundary",
+      "later tests executed in the prepared project environment in the observed job sequence"
+    ],
+    "does_not_support": [
+      "later uv run itself synchronized the environment",
+      "state continuity across arbitrary future mutation",
+      "bare-head runtime execution"
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "scenario": "S015",
+  "repository": "jawah/charset_normalizer",
+  "pull_request": 769,
+  "dependency": "pytest",
+  "relevant_source": "ci-requirements.txt",
+  "from_requirement": "pytest==8.3.5 ; python_full_version == '3.8.*'",
+  "to_requirement": "pytest==9.0.3 ; python_full_version == '3.8.*'",
+  "base_sha": "aa2ddd8fb788b98a815f25c37609e919105d1dbb",
+  "head_sha": "fba29ea1027f3c3eaaea8c3cc64b71fbb392251c",
+  "observed_runtime_merge_sha": "ddf477c2e71894890245a780ea17d2368d4ad64d",
+  "workflow_blob_base": "760ab82d9c7a95a9c1d13b72079f864529a32033",
+  "workflow_blob_head": "760ab82d9c7a95a9c1d13b72079f864529a32033",
+  "workflow_run": 28770340437
+}

@@ -1,0 +1,35 @@
+{
+  "workflow": ".github/workflows/release.yml",
+  "run_id": 31902346382,
+  "job_id": 95054923612,
+  "job_name": "build_sdist",
+  "conclusion": "success",
+  "python": "3.10.20",
+  "command": "uv run --locked --only-group release --only-group build python -m build --sdist --no-isolation",
+  "selected_scope": {
+    "only_groups": [
+      "release",
+      "build"
+    ],
+    "extras": []
+  },
+  "observations": [
+    "Creates a fresh .venv",
+    "Installed 36 packages",
+    "Build completes successfully",
+    "No coverage==7.15.4 appears in the selected installed package output"
+  ],
+  "lock_root_relation": {
+    "release": [
+      "build",
+      "twine"
+    ],
+    "build": [
+      "setuptools",
+      "wheel"
+    ],
+    "coverage_root": "optional extra tests"
+  },
+  "interpretation": "Successful use of the changed lock under release/build-only scope cannot serve as a positive state witness for coverage.",
+  "non_claim": "This does not prove global package absence outside the fresh selected environment."
+}

@@ -1,0 +1,12 @@
+{
+  "job_id": 85302679286,
+  "job_name": "✅ Tests (3.9)",
+  "conclusion": "success",
+  "python": "3.9.25",
+  "command": "python -m pip install -r ci-requirements.txt --require-hashes",
+  "observations": [
+    "Ignoring pytest: markers 'python_full_version == \"3.8.*\"' don't match your environment",
+    "pytest-8.4.2 installed for the Python 3.9 requirement set"
+  ],
+  "interpretation": "The changed source file is consumed successfully, but the proposed pytest 9.0.3 marker-scoped requirement is not applicable to this row."
+}

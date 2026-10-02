@@ -1,0 +1,17 @@
+{
+  "workflow": ".github/workflows/check_diffs.yml",
+  "reusable_workflow": ".github/workflows/_test.yml",
+  "target_package_dir": "libs/standard-tests",
+  "ambient_environment": {
+    "UV_FROZEN": "true",
+    "UV_NO_SYNC": "true"
+  },
+  "ordered_sequence": [
+    "setup uv",
+    "uv sync --group test --dev",
+    "make test",
+    "Makefile target expands to: uv run --group test pytest $(PYTEST_EXTRA) $(TEST_FILE)"
+  ],
+  "intervening_package_mutation_between_selected_sync_and_test": false,
+  "semantic_finding": "UV_NO_SYNC applies to later uv-run synchronization behavior; it does not negate an earlier explicit uv sync."
+}
