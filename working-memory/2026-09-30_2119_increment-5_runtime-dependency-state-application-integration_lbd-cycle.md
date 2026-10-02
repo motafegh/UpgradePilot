@@ -1,7 +1,7 @@
 # Increment 5 — Runtime Dependency-State Application Integration — Learning-by-Doing Cycle
 
 **Date:** 2026-09-30  
-**Cycle status:** ACTIVE — A0/A1/A2/B DONE including #16 fixture repair; Verification PENDING fresh hosted run; D/E NOT STARTED; C CONTINUOUS  
+**Cycle status:** ACTIVE — A0/A1/A2/B DONE including #16 fixture repair; Verification GREEN on Product Verification #17; D CURRENT; E NOT STARTED; C CONTINUOUS  
 **Primary responsibility:** carry the already-verified command-derived runtime dependency-state evidence through the normal public-PR investigation path as a separate typed application result, without changing CI-coverage, later-use, compatibility, or maintainer-action semantics  
 **Controlling plan:** `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`  
 **Accepted architecture:** `docs/architecture/ADR-0010-package-manager-semantic-facts-and-runtime-dependency-state-composition.md`  
@@ -16,8 +16,8 @@ A1 — DONE: continuity from Increments 1–4 and the current application seam o
 A2 — DONE: technical design prepared and learning/ownership gate cleared
 STOP — CLEARED: Ali explicitly authorized Build
 B — DONE: bounded application integration implemented at `8c89117759c194b2130f65161b662ec80ae6dbcc`
-Verification — PENDING: Product Verification #16 (`36994071136`) exposed and closed one test-fixture identity defect; a fresh hosted run is required on the repaired head
-D — NOT STARTED
+Verification — GREEN: Product Verification #17 (`36994518662`) passed on exact head `1c371875ffb459ce2e2c9c913a5a87a10a434928`; installed-package/CLI checks passed, focused investigation composition 16/16 passed, deterministic product regression 714/714 passed
+D — CURRENT: post-work evidence-backed learning/ownership
 E — NOT STARTED
 C — CONTINUOUS: preserve meaningful engineering and learning progression across A0→E
 ```
@@ -605,18 +605,20 @@ A fallback fresh local clone was attempted only for non-hosted B diagnosis, but 
 
 Verification must resume from this exact implementation head (or a reconciled later head) and run the existing Product Verification workflow before D.
 
-## Current Verification boundary
+## Current D boundary
 
-A0, A1, A2, and the bounded B implementation are complete. Verification is BLOCKED pending executable hosted proof; do not advance to D.
+A0, A1, A2, B, and Verification are complete. Product Verification #17 is GREEN. D is CURRENT: teach from the actual implementation, #16 failure/repair, #17 proof, source/data/evidence flow, and proof limits before E closure.
 
 The current continuation is:
 
 ```text
-Verification — BLOCKED/PENDING
-→ dispatch existing Product Verification on the exact implementation head
-→ inspect focused investigation composition + full deterministic regression
-→ if failed: return to B/diagnosis/repair
-→ if green: record exact run/head/counts and advance only to the D gate
+D — CURRENT
+→ compare A2 expectations with the actual implementation
+→ learn the real application/evidence flow and ownership boundaries
+→ include the Product Verification #16 fixture failure and repair
+→ inspect what #17 proves and still does not prove
+→ run a small number of ownership reasoning checks
+→ identify any material gap for E
 ```
 
 No source/test modification was made by A2 itself.
@@ -655,3 +657,18 @@ C currently preserves:
 ### #16 repair closure
 
 The fixture now declares `name: test`, matching its mocked runtime job display name and satisfying the existing correlation admission contract. Production source was not changed. Verification must be rerun on the repaired current head; run #16 cannot prove that repaired revision.
+
+## Product Verification #17 — GREEN
+
+- Run: `36994518662`
+- Run number: `17`
+- Exact tested head: `1c371875ffb459ce2e2c9c913a5a87a10a434928`
+- Workflow conclusion: `success`.
+- Fresh installed-package verification: PASS; `pip check` reported no broken requirements.
+- Installed CLI entry-point verification: PASS.
+- Focused investigation composition: **16/16 passed**.
+- Full deterministic product regression: **714/714 passed**.
+- The repaired positive application-path test passed, confirming the explicit static job display identity closes runtime correlation as intended.
+- Product source/test behavior for Increment 5 is now sufficiently evidenced to leave the Verification gate.
+
+Verification therefore closes GREEN and the canonical cycle advances to D — post-work evidence-backed learning/ownership.
