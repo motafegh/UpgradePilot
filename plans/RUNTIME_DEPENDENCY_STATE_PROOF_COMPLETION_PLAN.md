@@ -6,7 +6,7 @@ All project-local sequence, gate, pass/stop, prohibited-scope, and activation ru
 
 
 **Status:** admitted bounded planning/execution plan; live selection remains owned by `../MEMORY.md`  
-**Execution checkpoint:** Increments 1–4 are implemented, verified, learned, and closed. Increment 4 is proven by Product verification #15 on exact implementation head `c9edc76e8c3f4e9bb9d58e27ddac3cfbc291a8be` (15/15 focused investigation tests; 708/708 deterministic product tests). Increment 5 application integration is now ACTIVE: A0/A1/A2/B are complete and the cycle is at the Verification gate. The bounded implementation head is `8c89117759c194b2130f65161b662ec80ae6dbcc`. Product Verification #16 (`36994071136`) ran on later documentation-reconciled head `210d333e9e257ae1fe6bd07558aad435d182cdfc` and exposed one newly-authored positive-test fixture defect: the static job omitted the explicit literal display name required by existing runtime-correlation semantics. The fixture alone was repaired at `c625d86748bf5f673189697e6a05a27e5315ec80`; production source was unchanged. Product Verification #17 (`36994518662`) is GREEN on exact head `1c371875ffb459ce2e2c9c913a5a87a10a434928`: installed-package/CLI verification passed, focused investigation composition passed 16/16, and the full deterministic product regression passed 714/714. Increment 5 has therefore cleared its Verification gate and completed D post-work learning/ownership. D confirmed the verified application/evidence flow and characterized real-case capability pressure without finding a blocking Increment-5 defect; E gap disposition/closure is next. Detailed phase state remains owned by `MEMORY.md` and `working-memory/2026-09-30_2119_increment-5_runtime-dependency-state-application-integration_lbd-cycle.md`.  
+**Execution checkpoint:** Runtime Dependency-State Cycle 1 is CLOSED through Increment 5. Product Verification #17 (`36994518662`) is GREEN on exact head `1c371875ffb459ce2e2c9c913a5a87a10a434928` with installed-package/CLI checks passing, focused investigation composition 16/16, and deterministic product regression 714/714. D/E found no blocking defect and explicitly deferred broader unnamed/matrix, uv, Docker, venv/PATH, and direct-observation capability pressure. Conditional Cycle 2 (explicit target-owned runtime-state evidence) remains NOT SELECTED. Per this plan's stop rule, control returns to the parent evidence-to-action plan for a fresh action-relative reachability comparison.
 **Responsibility:** determine and implement the smallest trustworthy path by which UpgradePilot may establish that the exact proposed dependency version is present in the exact relevant CI environment, while preserving the distinction between command execution, resulting package state, later behavior/exercise, artifact mechanism, and maintainer-action permission  
 **Parent execution owner:** [End-to-End Product Flow Learning and Evidence-to-Action Execution Plan](END_TO_END_PRODUCT_FLOW_LEARNING_AND_EVIDENCE_TO_ACTION_EXECUTION_PLAN.md)  
 **Audit provenance:** [AUDIT-008 — F6](../audits/2026-09-19_AUDIT-008_current-system-evidence-to-action-readiness.md)  
@@ -190,7 +190,7 @@ Execution consequences:
 
 ### Conditional Cycle 2 — explicit target-owned runtime-state evidence
 
-Cycle 2 is **not selected or active** by this plan revision.
+Cycle 2 is **not selected or active**. Cycle 1 closure did not establish an action-critical need for explicit target-owned package-state acquisition.
 
 Append/select it only if Cycle 1 establishes all of the following:
 
