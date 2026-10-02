@@ -1,0 +1,218 @@
+UpgradePilot public pull-request evidence
+Repository: pydantic/pydantic
+PR: 13432
+Title: Bump soupsieve from 2.6 to 2.8.4
+Author: dependabot[bot]
+State: closed
+Merged: true
+Base: main @ 652a61ce4f9d7d76eaada31535807a485ece0e21
+Head: dependabot/uv/soupsieve-2.8.4 @ aa2dc024d33f61cdef50bf1973ab5adf0a974f5a
+Changed-file records: 1
+Changed file: uv.lock (modified)
+Dependency change: supported
+Package: soupsieve
+Old version: 2.6
+Proposed version: 2.8.4
+Dependency evidence records: 1
+Dependency evidence: uv.lock
+  Format: uv_lock
+  Extraction method: exact_base_head_files
+Exact-head workflow runs: 3
+Workflow: CI | status=completed | conclusion=success | jobs=59
+  Job: core / Build sdist | status=completed | conclusion=success | steps=8
+  Job: core / Run Rust benchmarks | status=completed | conclusion=success | steps=8
+  Job: core / Build PyEmscripten (3.14) | status=completed | conclusion=success | steps=12
+  Job: Lint 3.10 | status=completed | conclusion=success | steps=9
+  Job: Test Pydantic plugin | status=completed | conclusion=success | steps=9
+  Job: Lint 3.13 | status=completed | conclusion=success | steps=9
+  Job: Typechecking integration tests | status=completed | conclusion=success | steps=10
+  Job: Lint 3.11 | status=completed | conclusion=success | steps=9
+  Job: Lint 3.12 | status=completed | conclusion=success | steps=9
+  Job: Mypy typechecking tests | status=completed | conclusion=success | steps=10
+  Job: Test memray | status=completed | conclusion=success | steps=8
+  Job: Lint 3.14 | status=completed | conclusion=success | steps=9
+  Job: core / Test with debug build (pypy3.11) | status=completed | conclusion=success | steps=13
+  Job: core / Test on ubuntu | status=completed | conclusion=success | steps=13
+  Job: core / Test with debug build (3.13) | status=completed | conclusion=success | steps=13
+  Job: core / Test on windows | status=completed | conclusion=success | steps=13
+  Job: core / Test on macos | status=completed | conclusion=success | steps=13
+  Job: docs-build | status=completed | conclusion=success | steps=10
+  Job: Test typing-extensions (`main` branch) on Python 3.12 | status=completed | conclusion=success | steps=9
+  Job: Test typing-extensions (`main` branch) on Python 3.10 | status=completed | conclusion=success | steps=9
+  Job: Test typing-extensions (`main` branch) on Python 3.13 | status=completed | conclusion=success | steps=9
+  Job: Test typing-extensions (`main` branch) on Python 3.14 | status=completed | conclusion=success | steps=9
+  Job: Test typing-extensions (`main` branch) on Python 3.11 | status=completed | conclusion=success | steps=9
+  Job: core / Test MSRV | status=completed | conclusion=success | steps=14
+  Job: Test macos-latest / 3.10 | status=completed | conclusion=success | steps=11
+  Job: Test macos-latest / 3.11 | status=completed | conclusion=success | steps=11
+  Job: Test ubuntu-latest / 3.12 | status=completed | conclusion=success | steps=11
+  Job: Test ubuntu-latest / 3.13 | status=completed | conclusion=success | steps=11
+  Job: Test ubuntu-latest / 3.14t | status=completed | conclusion=success | steps=11
+  Job: Test ubuntu-latest / pypy3.11 | status=completed | conclusion=success | steps=11
+  Job: Test windows-latest / 3.12 | status=completed | conclusion=success | steps=11
+  Job: Test macos-latest / 3.12 | status=completed | conclusion=success | steps=11
+  Job: Test ubuntu-latest / 3.11 | status=completed | conclusion=success | steps=11
+  Job: Test ubuntu-latest / 3.14 | status=completed | conclusion=success | steps=11
+  Job: Test windows-latest / 3.10 | status=completed | conclusion=success | steps=11
+  Job: Test macos-latest / 3.13 | status=completed | conclusion=success | steps=11
+  Job: Test macos-latest / pypy3.11 | status=completed | conclusion=success | steps=11
+  Job: Test ubuntu-latest / 3.10 | status=completed | conclusion=success | steps=11
+  Job: Test macos-latest / 3.14 | status=completed | conclusion=success | steps=11
+  Job: Test windows-latest / 3.11 | status=completed | conclusion=success | steps=11
+  Job: Test macos-15-intel / 3.14t | status=completed | conclusion=success | steps=11
+  Job: Test windows-latest / pypy3.11 | status=completed | conclusion=success | steps=11
+  Job: Test windows-latest / 3.13 | status=completed | conclusion=success | steps=11
+  Job: Test windows-latest / 3.14 | status=completed | conclusion=success | steps=11
+  Job: Test macos-latest / 3.14t | status=completed | conclusion=success | steps=11
+  Job: Test macos-15-intel / 3.14 | status=completed | conclusion=success | steps=11
+  Job: Test windows-latest / 3.14t | status=completed | conclusion=success | steps=11
+  Job: build-pydantic | status=completed | conclusion=skipped | steps=0
+  Job: core / Build PGO-optimized on ${{ matrix.platform.os }} / ${{ matrix.interpreter }} | status=completed | conclusion=skipped | steps=0
+  Job: core / Build on ${{ matrix.os }} (${{ matrix.target }} - ${{ (matrix.interpreter || 'all') }}${{ (((matrix.os == 'linux') && format(' - {0}', (((matrix.manylinux == 'auto') && 'manylinux') || matrix.manylinux))) || '') }}) | status=completed | conclusion=skipped | steps=0
+  Job: core / Test build on ${{ matrix.target }}-${{ matrix.distro }} | status=completed | conclusion=skipped | steps=0
+  Job: core / Test build on ${{ matrix.platform.os }} | status=completed | conclusion=skipped | steps=0
+  Job: Test build on PyEmscripten (Pyodide) (3.14) | status=completed | conclusion=success | steps=8
+  Job: check | status=completed | conclusion=success | steps=3
+  Job: coverage-combine | status=completed | conclusion=success | steps=14
+  Job: release-pydantic-core | status=completed | conclusion=skipped | steps=0
+  Job: release-pydantic | status=completed | conclusion=skipped | steps=0
+  Job: Send tweet | status=completed | conclusion=skipped | steps=0
+  Job: coverage-pr-comment | status=completed | conclusion=success | steps=8
+Workflow: Third party tests | status=completed | conclusion=skipped | jobs=17
+  Job: Test FastAPI (main branch) on Python ${{ matrix.python-version }} | status=completed | conclusion=skipped | steps=0
+  Job: Test pydantic-xml (main branch) on Python ${{ matrix.python-version }} | status=completed | conclusion=skipped | steps=0
+  Job: Test SQLModel (main branch) on Python ${{ matrix.python-version }} | status=completed | conclusion=skipped | steps=0
+  Job: Test openapi-python-client (main branch) on Python ${{ matrix.python-version }} | status=completed | conclusion=skipped | steps=0
+  Job: Test Semantic Kernel (main branch) on Python ${{ matrix.python-version }} | status=completed | conclusion=skipped | steps=0
+  Job: Test Polar (main branch) on Python ${{ matrix.python-version }} | status=completed | conclusion=skipped | steps=0
+  Job: Test ODMantic (main branch) on Python ${{ matrix.python-version }} | status=completed | conclusion=skipped | steps=0
+  Job: Test Django Ninja (main branch) on Python ${{ matrix.python-version }} | status=completed | conclusion=skipped | steps=0
+  Job: Test FastDepends (main branch) on Python ${{ matrix.python-version }} | status=completed | conclusion=skipped | steps=0
+  Job: Test Dify (main branch) on Python ${{ matrix.python-version }} | status=completed | conclusion=skipped | steps=0
+  Job: Test Cadwyn (main branch) on Python ${{ matrix.python-version }} | status=completed | conclusion=skipped | steps=0
+  Job: Test BentoML (main branch) on Python ${{ matrix.python-version }} | status=completed | conclusion=skipped | steps=0
+  Job: Test LangChain (main branch) on Python ${{ matrix.python-version }} | status=completed | conclusion=skipped | steps=0
+  Job: Create an issue if tests failed | status=completed | conclusion=skipped | steps=0
+  Job: Test Redis OM Python (main branch) on Python ${{ matrix.python-version }} | status=completed | conclusion=skipped | steps=0
+  Job: Test Pandera (main branch) on Python ${{ matrix.python-version }} | status=completed | conclusion=skipped | steps=0
+  Job: Test Beanie (main branch) on Python ${{ matrix.python-version }} | status=completed | conclusion=skipped | steps=0
+Workflow: codspeed | status=completed | conclusion=success | jobs=1
+  Job: CodSpeed profiling | status=completed | conclusion=success | steps=15
+CI dependency coverage: supported_not_correlated
+CI dependency coverage reason: successful_exact_head_ci_with_static_dependency_consumption
+CI dependency coverage detail: Successful exact-head CI evidence exists for workflow 'CI', and its exact static definition contains supported changed-dependency consumption. The static consuming declaration is not safely correlated to successful runtime step execution.
+  Dependency coverage workflow: CI | state=supported_not_correlated | consumption=supported | direct_exercise=not_established
+    Consumption: state=unresolved | mechanism=project_environment | job=lint | command=uv sync --all-packages --group linting --all-extras
+uv pip install pip
+
+    Consumption: state=unresolved | mechanism=project_environment | job=core-build | command=uv sync --only-group build
+    Consumption: state=unresolved | mechanism=project_environment | job=core-build | command=${{ (matrix.os == 'windows' && 'dir') || 'ls -lh' }} dist/
+    Consumption: state=unresolved | mechanism=project_environment | job=core-build | command=uv run --no-sync twine check --strict pydantic-core/dist/*
+    Consumption: state=unresolved | mechanism=project_environment | job=core-build-pgo | command=${{ (startsWith(matrix.platform.os, 'windows') && 'dir') || 'ls -lh' }} dist/
+    Consumption: state=not_established | mechanism=project_environment | job=core-build-pyemscripten | command=uv sync --only-group pyodide-build
+    Consumption: state=unresolved | mechanism=project_environment | job=core-build-pyemscripten | command=echo "rust-toolchain=$(uv run pyodide config get rust_toolchain)" >> "$GITHUB_OUTPUT"
+echo "emscripten-version=$(uv run pyodide config get emscripten_version)" >> "$GITHUB_OUTPUT"
+echo "pyodide-abi-version=$(uv run pyodide config get pyodide_abi_version)" >> "$GITHUB_OUTPUT"
+echo "rustflags=$(uv run pyodide config get rustflags)" >> "$GITHUB_OUTPUT"
+
+    Consumption: state=unresolved | mechanism=project_environment | job=core-test-builds-os | command=uv sync --directory pydantic-core --group testing-extra --no-install-package pydantic-core
+uv sync --group testing-extra --no-install-package pydantic-core --inexact
+uv pip install pydantic-core --no-index --no-deps --find-links dist --force-reinstall
+uv run --no-sync pytest tests/pydantic_core --ignore=tests/pydantic_core/test_docstrings.py
+uv run --no-sync python -c 'import pydantic_core._pydantic_core; print(pydantic_core._pydantic_core.__version__)'
+uv run --no-sync python -c 'from pydantic_core._pydantic_core import build_info; print(f"{build_info=}")'
+
+    Consumption: state=unresolved | mechanism=project_environment | job=core-test-os | command=uv sync --all-packages --group testing-extra
+    Consumption: state=unresolved | mechanism=project_environment | job=core-test-os | command=uv pip freeze
+    Consumption: state=unresolved | mechanism=project_environment | job=core-test-os | command=uv run pytest tests/pydantic_core
+    Consumption: state=unresolved | mechanism=project_environment | job=core-test-os | command=cargo test
+    Consumption: state=unresolved | mechanism=project_environment | job=core-test-msrv | command=uv sync --all-packages --all-extras --group testing-extra
+    Consumption: state=unresolved | mechanism=project_environment | job=core-test-msrv | command=uv run pytest tests/pydantic_core
+    Consumption: state=unresolved | mechanism=project_environment | job=core-test-debug | command=uv sync --all-packages --all-extras --group testing-extra
+    Consumption: state=unresolved | mechanism=project_environment | job=core-test-debug | command=uv run --no-sync maturin develop --uv
+    Consumption: state=unresolved | mechanism=project_environment | job=core-test-debug | command=uv run pytest
+    Consumption: state=unresolved | mechanism=project_environment | job=test-pyemscripten | command=uv sync --only-group pyodide-build
+uv run pyodide venv .venv-pyodide
+source .venv-pyodide/bin/activate
+python -m pip install --upgrade pip>=26.1.1
+python -m pip install -r .github/pyodide/pylock.${{ matrix.pylock-suffix }}.toml
+python -m pip install pydantic-core --no-index --no-deps --find-links dist
+python -m pytest
+python -c 'import pydantic_core._pydantic_core; print(pydantic_core._pydantic_core.__version__)'
+python -c 'from pydantic_core._pydantic_core import build_info; print(f"{build_info=}")'
+
+    Consumption: state=not_established | mechanism=project_environment | job=build-pydantic | command=uv sync --only-group build
+    Consumption: state=unresolved | mechanism=project_environment | job=build-pydantic | command=uv run --no-sync python -m build --installer uv
+    Consumption: state=supported | mechanism=project_environment | job=docs-build | command=uv sync --all-packages --group docs
+      Reachability witness: mkdocs-llmstxt -> beautifulsoup4 -> soupsieve
+    Consumption: state=unresolved | mechanism=project_environment | job=docs-build | command=uv run python -c 'import docs.plugins.main'
+    Consumption: state=unresolved | mechanism=project_environment | job=docs-build | command=PYTHONPATH="$PWD${PYTHONPATH:+:${PYTHONPATH}}" uv run mkdocs build
+    Consumption: state=unresolved | mechanism=project_environment | job=test-memray | command=uv sync --all-packages --group testing-extra
+    Consumption: state=unresolved | mechanism=project_environment | job=test-memray | command=uv run pytest --ignore=tests/mypy/ --ignore=tests/test_docs.py --memray
+    Consumption: state=unresolved | mechanism=project_environment | job=test | command=uv sync --all-packages --group testing-extra --all-extras
+    Consumption: state=unresolved | mechanism=project_environment | job=test | command=uv run python -c "import pydantic.version; print(pydantic.version.version_info())"
+    Consumption: state=unresolved | mechanism=project_environment | job=test | command=mkdir coverage
+    Consumption: state=unresolved | mechanism=project_environment | job=test | command=make test NUM_THREADS=${{ endsWith(matrix.python-version, 't') && '4' || '1' }}
+    Consumption: state=unresolved | mechanism=project_environment | job=test-plugin | command=uv sync
+    Consumption: state=unresolved | mechanism=project_environment | job=test-plugin | command=uv run pytest tests/plugin
+    Consumption: state=not_established | mechanism=project_environment | job=test-mypy | command=uv sync --group typechecking --all-extras
+    Consumption: state=unresolved | mechanism=project_environment | job=test-mypy | command=uv run coverage run -m pytest tests/mypy --test-mypy
+    Consumption: state=not_established | mechanism=project_environment | job=test-typechecking-integration | command=uv sync --group typechecking
+    Consumption: state=not_established | mechanism=project_environment | job=coverage-combine | command=uv sync --only-group coverage
+    Consumption: state=unresolved | mechanism=project_environment | job=coverage-combine | command=uv run coverage combine coverage
+    Consumption: state=unresolved | mechanism=project_environment | job=coverage-combine | command=uv run coverage report
+    Consumption: state=unresolved | mechanism=project_environment | job=coverage-combine | command=uv run coverage html --show-contexts --title "pydantic coverage for ${{ github.sha }}"
+    Consumption: state=unresolved | mechanism=project_environment | job=test-typing-extensions | command=uv sync --all-packages --group testing-extra --all-extras
+    Consumption: state=not_established | mechanism=project_environment | job=release-pydantic-core | command=uv sync --only-group build
+    Consumption: state=unresolved | mechanism=project_environment | job=release-pydantic-core | command=for whl in pydantic-core-dist/*.whl; do unzip -qt "$whl"; done
+uv run --no-sync twine check --strict pydantic-core-dist/*
+
+    Consumption: state=not_established | mechanism=project_environment | job=release-pydantic | command=uv sync --only-group build
+    Consumption: state=unresolved | mechanism=project_environment | job=release-pydantic | command=for whl in pydantic-dist/*.whl; do unzip -qt "$whl"; done
+uv run --no-sync twine check --strict pydantic-dist/*
+
+    Consumption: state=unresolved | mechanism=project_environment | job=send-tweet | command=uv sync --only-group tweet
+    Consumption: state=unresolved | mechanism=project_environment | job=send-tweet | command=import os
+import tweepy
+
+client = tweepy.Client(
+    access_token=os.getenv("TWITTER_ACCESS_TOKEN"),
+    access_token_secret=os.getenv("TWITTER_ACCESS_TOKEN_SECRET"),
+    consumer_key=os.getenv("TWITTER_CONSUMER_KEY"),
+    consumer_secret=os.getenv("TWITTER_CONSUMER_SECRET"),
+)
+version = os.getenv("VERSION").strip('"')
+
+if "b" in version:
+    official_version = version[:version.index("b")]
+    tweet = os.getenv("BETA_TWEET").format(version=version, official_version=official_version)
+else:
+    tweet = os.getenv("TWEET").format(version=version)
+
+client.create_tweet(text=tweet)
+
+  Dependency coverage workflow: Third party tests | state=no_successful_ci | consumption=not_established | direct_exercise=not_established
+  Dependency coverage workflow: codspeed | state=unresolved | consumption=unresolved | direct_exercise=unresolved
+    Consumption: state=unresolved | mechanism=project_environment | job=codspeed-profiling | command=uv sync --all-packages --group testing-extra --extra email --frozen
+Package evidence: available
+Published package: soupsieve==2.8.4
+Distribution files: 2
+Upstream repository: available
+Upstream repository identity: facelessuser/soupsieve
+Provenance coverage: 2 of 2 files
+Provenance unavailable files: none
+Old package artifact evidence: available
+Old published package: soupsieve==2.6
+Old distribution files: 2
+Artifact serviceability candidate: not observed
+Artifact candidate detail: exact old/proposed release comparison completed without a bounded published-wheel capability loss.
+Target artifact environments: not activated
+Artifact applicability: not evaluated
+Upstream interval authority: available
+Upstream interval authority basis: tagged_changelog
+Crossed releases: 2.7, 2.8, 2.8.1, 2.8.2, 2.8.3, 2.8.4
+Upstream support-drop result: candidate_unresolved
+Upstream support-drop detail: The local semantic provider request failed: ConnectionError.
+Target Python declaration: not activated
+Target Python relevance: upstream_claim_unresolved
+Target Python relevance detail: No grounded upstream Python support-drop claim was available, so target Python comparison was not activated.

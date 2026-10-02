@@ -1,0 +1,259 @@
+.F.....................................................EEEE.................EEEEEEEEEEE........................................
+======================================================================
+ERROR: test_authorized_semantic_success_semantics_match (test_evidence_gap_implementation_semantic_comparison.EvidenceGapImplementationSemanticComparisonTests.test_authorized_semantic_success_semantics_match)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_implementation_semantic_comparison.py", line 170, in test_authorized_semantic_success_semantics_match
+    {"start_input": _langgraph_start_input()},
+                    ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_implementation_semantic_comparison.py", line 286, in _langgraph_start_input
+    investigation=_investigation(),
+                  ^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_implementation_semantic_comparison.py", line 330, in _investigation
+    return PublicPullRequestInvestigation(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: PublicPullRequestInvestigation.__init__() missing 1 required positional argument: 'runtime_dependency_state_result'
+
+======================================================================
+ERROR: test_expected_repository_failure_semantics_match (test_evidence_gap_implementation_semantic_comparison.EvidenceGapImplementationSemanticComparisonTests.test_expected_repository_failure_semantics_match)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_implementation_semantic_comparison.py", line 225, in test_expected_repository_failure_semantics_match
+    {"start_input": _langgraph_start_input()},
+                    ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_implementation_semantic_comparison.py", line 286, in _langgraph_start_input
+    investigation=_investigation(),
+                  ^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_implementation_semantic_comparison.py", line 330, in _investigation
+    return PublicPullRequestInvestigation(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: PublicPullRequestInvestigation.__init__() missing 1 required positional argument: 'runtime_dependency_state_result'
+
+======================================================================
+ERROR: test_fresh_t2_consumed_action_rejection_semantics_match (test_evidence_gap_implementation_semantic_comparison.EvidenceGapImplementationSemanticComparisonTests.test_fresh_t2_consumed_action_rejection_semantics_match)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_implementation_semantic_comparison.py", line 124, in test_fresh_t2_consumed_action_rejection_semantics_match
+    {"start_input": _langgraph_start_input(consumed_actions=())},
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_implementation_semantic_comparison.py", line 286, in _langgraph_start_input
+    investigation=_investigation(),
+                  ^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_implementation_semantic_comparison.py", line 330, in _investigation
+    return PublicPullRequestInvestigation(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: PublicPullRequestInvestigation.__init__() missing 1 required positional argument: 'runtime_dependency_state_result'
+
+======================================================================
+ERROR: test_no_action_semantics_match (test_evidence_gap_implementation_semantic_comparison.EvidenceGapImplementationSemanticComparisonTests.test_no_action_semantics_match)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_implementation_semantic_comparison.py", line 95, in test_no_action_semantics_match
+    {"start_input": _langgraph_start_input()},
+                    ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_implementation_semantic_comparison.py", line 286, in _langgraph_start_input
+    investigation=_investigation(),
+                  ^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_implementation_semantic_comparison.py", line 330, in _investigation
+    return PublicPullRequestInvestigation(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: PublicPullRequestInvestigation.__init__() missing 1 required positional argument: 'runtime_dependency_state_result'
+
+======================================================================
+ERROR: test_composition_rejects_selector_that_no_longer_matches_bound_action_contract (test_evidence_gap_product_planner_composition.EvidenceGapRealStateCompositionTests.test_composition_rejects_selector_that_no_longer_matches_bound_action_contract)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_product_planner_composition.py", line 132, in test_composition_rejects_selector_that_no_longer_matches_bound_action_contract
+    investigation = _investigation()
+                    ^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_product_planner_composition.py", line 165, in _investigation
+    ci_coverage_result=_coverage(),
+                       ^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_product_planner_composition.py", line 215, in _coverage
+    docs = _consumption(
+           ^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_product_planner_composition.py", line 270, in _consumption
+    return StaticDependencyConsumptionEvidence(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: StaticDependencyConsumptionEvidence.__init__() got an unexpected keyword argument 'segment_index'
+
+======================================================================
+ERROR: test_composition_reuses_product_transition_propositions_and_all_supported_ci_consumptions (test_evidence_gap_product_planner_composition.EvidenceGapRealStateCompositionTests.test_composition_reuses_product_transition_propositions_and_all_supported_ci_consumptions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_product_planner_composition.py", line 49, in test_composition_reuses_product_transition_propositions_and_all_supported_ci_consumptions
+    _investigation(),
+    ^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_product_planner_composition.py", line 165, in _investigation
+    ci_coverage_result=_coverage(),
+                       ^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_product_planner_composition.py", line 215, in _coverage
+    docs = _consumption(
+           ^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_product_planner_composition.py", line 270, in _consumption
+    return StaticDependencyConsumptionEvidence(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: StaticDependencyConsumptionEvidence.__init__() got an unexpected keyword argument 'segment_index'
+
+======================================================================
+ERROR: test_consumed_or_budget_blocked_action_is_not_offered_pre_call (test_evidence_gap_product_planner_composition.EvidenceGapRealStateCompositionTests.test_consumed_or_budget_blocked_action_is_not_offered_pre_call)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_product_planner_composition.py", line 116, in test_consumed_or_budget_blocked_action_is_not_offered_pre_call
+    _investigation(),
+    ^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_product_planner_composition.py", line 165, in _investigation
+    ci_coverage_result=_coverage(),
+                       ^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_product_planner_composition.py", line 215, in _coverage
+    docs = _consumption(
+           ^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_product_planner_composition.py", line 270, in _consumption
+    return StaticDependencyConsumptionEvidence(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: StaticDependencyConsumptionEvidence.__init__() got an unexpected keyword argument 'segment_index'
+
+======================================================================
+ERROR: test_rendered_context_keeps_exact_source_and_action_authority_hidden (test_evidence_gap_product_planner_composition.EvidenceGapRealStateCompositionTests.test_rendered_context_keeps_exact_source_and_action_authority_hidden)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_product_planner_composition.py", line 94, in test_rendered_context_keeps_exact_source_and_action_authority_hidden
+    _investigation(),
+    ^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_product_planner_composition.py", line 165, in _investigation
+    ci_coverage_result=_coverage(),
+                       ^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_product_planner_composition.py", line 215, in _coverage
+    docs = _consumption(
+           ^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_product_planner_composition.py", line 270, in _consumption
+    return StaticDependencyConsumptionEvidence(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: StaticDependencyConsumptionEvidence.__init__() got an unexpected keyword argument 'segment_index'
+
+======================================================================
+ERROR: test_action_decision_maps_to_langgraph_action_proposal (test_langgraph_evidence_gap_ordinary_python_control_adapters.OrdinaryPythonEvidenceGapPlannerAdapterTests.test_action_decision_maps_to_langgraph_action_proposal)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_ordinary_python_control_adapters.py", line 46, in test_action_decision_maps_to_langgraph_action_proposal
+    result = OrdinaryPythonEvidenceGapPlannerAdapter(control).plan(_start_input())
+                                                                   ^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_ordinary_python_control_adapters.py", line 82, in _start_input
+    investigation=_investigation(),
+                  ^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_ordinary_python_control_adapters.py", line 128, in _investigation
+    return PublicPullRequestInvestigation(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: PublicPullRequestInvestigation.__init__() missing 1 required positional argument: 'runtime_dependency_state_result'
+
+======================================================================
+ERROR: test_no_action_decision_maps_to_langgraph_no_action (test_langgraph_evidence_gap_ordinary_python_control_adapters.OrdinaryPythonEvidenceGapPlannerAdapterTests.test_no_action_decision_maps_to_langgraph_no_action)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_ordinary_python_control_adapters.py", line 60, in test_no_action_decision_maps_to_langgraph_no_action
+    result = OrdinaryPythonEvidenceGapPlannerAdapter(control).plan(_start_input())
+                                                                   ^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_ordinary_python_control_adapters.py", line 82, in _start_input
+    investigation=_investigation(),
+                  ^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_ordinary_python_control_adapters.py", line 128, in _investigation
+    return PublicPullRequestInvestigation(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: PublicPullRequestInvestigation.__init__() missing 1 required positional argument: 'runtime_dependency_state_result'
+
+======================================================================
+ERROR: test_provider_problem_maps_to_langgraph_provider_problem (test_langgraph_evidence_gap_ordinary_python_control_adapters.OrdinaryPythonEvidenceGapPlannerAdapterTests.test_provider_problem_maps_to_langgraph_provider_problem)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_ordinary_python_control_adapters.py", line 73, in test_provider_problem_maps_to_langgraph_provider_problem
+    result = OrdinaryPythonEvidenceGapPlannerAdapter(control).plan(_start_input())
+                                                                   ^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_ordinary_python_control_adapters.py", line 82, in _start_input
+    investigation=_investigation(),
+                  ^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_ordinary_python_control_adapters.py", line 128, in _investigation
+    return PublicPullRequestInvestigation(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: PublicPullRequestInvestigation.__init__() missing 1 required positional argument: 'runtime_dependency_state_result'
+
+======================================================================
+ERROR: test_authorized_semantic_result_executes_once_consumes_action_spends_budget_and_updates_domain (test_langgraph_evidence_gap_workflow.EvidenceGapLangGraphTests.test_authorized_semantic_result_executes_once_consumes_action_spends_budget_and_updates_domain)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_workflow.py", line 118, in test_authorized_semantic_result_executes_once_consumes_action_spends_budget_and_updates_domain
+    start_input = _start_input()
+                  ^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_workflow.py", line 209, in _start_input
+    investigation=_investigation(),
+                  ^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_workflow.py", line 253, in _investigation
+    return PublicPullRequestInvestigation(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: PublicPullRequestInvestigation.__init__() missing 1 required positional argument: 'runtime_dependency_state_result'
+
+======================================================================
+ERROR: test_expected_repository_failure_spends_budget_without_consuming_action_or_changing_domain (test_langgraph_evidence_gap_workflow.EvidenceGapLangGraphTests.test_expected_repository_failure_spends_budget_without_consuming_action_or_changing_domain)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_workflow.py", line 162, in test_expected_repository_failure_spends_budget_without_consuming_action_or_changing_domain
+    start_input = _start_input()
+                  ^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_workflow.py", line 209, in _start_input
+    investigation=_investigation(),
+                  ^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_workflow.py", line 253, in _investigation
+    return PublicPullRequestInvestigation(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: PublicPullRequestInvestigation.__init__() missing 1 required positional argument: 'runtime_dependency_state_result'
+
+======================================================================
+ERROR: test_fresh_t2_consumption_rejects_model_proposal_and_preserves_t2_baseline (test_langgraph_evidence_gap_workflow.EvidenceGapLangGraphTests.test_fresh_t2_consumption_rejects_model_proposal_and_preserves_t2_baseline)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_workflow.py", line 87, in test_fresh_t2_consumption_rejects_model_proposal_and_preserves_t2_baseline
+    start_input = _start_input(consumed_actions=())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_workflow.py", line 209, in _start_input
+    investigation=_investigation(),
+                  ^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_workflow.py", line 253, in _investigation
+    return PublicPullRequestInvestigation(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: PublicPullRequestInvestigation.__init__() missing 1 required positional argument: 'runtime_dependency_state_result'
+
+======================================================================
+ERROR: test_no_action_routes_directly_to_conclude_without_authority_or_repository_effect (test_langgraph_evidence_gap_workflow.EvidenceGapLangGraphTests.test_no_action_routes_directly_to_conclude_without_authority_or_repository_effect)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_workflow.py", line 56, in test_no_action_routes_directly_to_conclude_without_authority_or_repository_effect
+    start_input = _start_input()
+                  ^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_workflow.py", line 209, in _start_input
+    investigation=_investigation(),
+                  ^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_workflow.py", line 253, in _investigation
+    return PublicPullRequestInvestigation(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: PublicPullRequestInvestigation.__init__() missing 1 required positional argument: 'runtime_dependency_state_result'
+
+======================================================================
+FAIL: test_accepted_s001_source_identity_subset_matches_checkout (test_b2_x1_phase3b_harness.Phase3BRequestHarnessTests.test_accepted_s001_source_identity_subset_matches_checkout)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_b2_x1_phase3b_harness.py", line 53, in test_accepted_s001_source_identity_subset_matches_checkout
+    self.assertEqual(problems, ())
+AssertionError: Tuples differ: (SourceIdentityProblem(path='tests/test_r6[167 chars]0'),) != ()
+
+First tuple contains 1 additional elements.
+First extra element 0:
+SourceIdentityProblem(path='tests/test_r6_project_environment_workflow_integration.py', expected_blob_sha='8dad66af993a7d5bb0be50a39145da32a65913b4', observed_blob_sha='fcc40a9096b9f352f8ccfd121e27df5e30ecff40')
+
++ ()
+- (SourceIdentityProblem(path='tests/test_r6_project_environment_workflow_integration.py',
+-                        expected_blob_sha='8dad66af993a7d5bb0be50a39145da32a65913b4',
+-                        observed_blob_sha='fcc40a9096b9f352f8ccfd121e27df5e30ecff40'),)
+
+----------------------------------------------------------------------
+Ran 127 tests in 0.033s
+
+FAILED (failures=1, errors=15)
