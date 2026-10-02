@@ -127,3 +127,76 @@ Further entry conditions:
 - migration: a concrete breaking-change remedy has independent verification evidence.
 
 Stop before another capability build. No database, graph, model, agent, broad resilience framework or target mutation follows automatically from a successful report trial.
+
+## 7. First-trial contract and implementation design
+
+This is the concrete design to review before Build; its preparation does not prove implementation or usefulness. Stable representation semantics are in [Core §6.1](../docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md#61-evidence-reports-and-saved-result-boundaries). Action permission remains in its existing specification. No new report specification is needed: the Core already owns representation/provenance/version/failure invariants. No ADR is needed for ordinary rendering and an inspectable file baseline using existing standard-library facilities; reassess if a consequential storage/service/package method is proposed.
+
+### Shared semantic projection
+
+Use one explicit projection from PublicPullRequestInvestigation into a responsibility-named report record. Human rendering and file encoding consume that record; offline decoding reconstructs only that report record, not domain objects or a new investigation. Do not serialize arbitrary dataclasses or Python class/import names as a public contract. No new dependency, inference model, score, database, generic event log or agent is needed.
+
+The report boundary may describe owned states and their consequences through deterministic, source-grounded wording. It may not recompute applicability or discover new facts. Preserve static CI consumption, runtime correlation, command-completion state, actual later use and behavior as different propositions. In particular, command completion cannot become fresh-install causality or compatibility. A no-candidate result retains its evaluated horizon; it is not global absence of impacts.
+
+| Public report component | Required contents / initial source |
+| --- | --- |
+| Identity | Repository, PR, exact base/head, supported dependency transition or its explicit problem; workflow/execution revisions remain attributed separately |
+| Production context | Report identifier and UTC generation time; generator method/version; declared auth mode without credential values; available product version; unrecorded code/model/config identity stated explicitly rather than guessed |
+| Assessments | Named topic, owner state/reason/detail, scoped proposition, source references and limitations; support dependency, CI, runtime-state, package/artifact, upstream interpretation and target-applicability topics |
+| Findings | Material established facts or attributed interpretations with assessment/source links and trust strength; candidate/grounded claim/corroborated fact remain different |
+| Unknowns | Exact unresolved question, reason, relevant evidence links and its bounded consequence; absent consequence is stated as not established |
+| Action | Existing synthesis result and its reasons/limits when evaluated, or explicit not-evaluated/unavailable state; no new action or check category in this trial |
+| Sources | Report-local identifiers, evidence class, actual locator/identity and transformation metadata when retained, retrieval time when available, retained excerpts/content versus reference-only/not-retained state and reasons |
+| Preservation limits | What can be inspected offline, what source/input content is absent, and what the record cannot recompute or establish |
+
+Mandatory source references resolve within the report. A statement backed only by a producer's recorded problem/detail is identified as such, not falsely cited to unretained raw content. Unknown observations use explicit states/reasons; null must never imply an evidence-backed negative conclusion. Existing upstream package retrieval timestamps may be copied; report generation time must not be substituted for unavailable PR/workflow acquisition times. Report-local IDs are references, not cross-run evidence identities.
+
+Material retention/projection review before coding:
+
+- PublicPullRequestInvestigation contains runtime_dependency_state_result, but cli.py does not present it. Project it without rerunning CI parsers/correlation or expanding the admitted direct-requirements/pip family.
+- Existing CLI prints supported_not_correlated detail, while synthesis's generic CI residual-uncertainty projection excludes that state. Reconcile shared report uncertainty against the actual typed result. If synthesis is exposed, improve its material CI/runtime uncertainty within its own responsibility; do not rely on an empty residual list as closure or silently replace permission evaluation.
+- PackageReleaseEvidence/PackageReleaseIndexEvidence retain source URL and retrieved_at. Dependency source evidence retains file/extraction identity. Workflow run/job and runtime-state assessments retain scoped command/revision relationships. Preserve their different evidence meanings.
+- The application result does not retain every fetched workflow/source document, provider configuration, model identity or raw response. Do not broaden orchestration to capture all of them merely to fill a report. Preserve available locators/context with explicit absence; select a narrow retention change only if a material claim cannot otherwise be responsibly reviewed.
+- Archived simulation diagnoses remain separate development evidence. No case-ID-specific reporting logic or manual expected-answer input enters product runtime.
+
+### Saved-result representation and offline reopening
+
+Design baseline: a UTF-8 JSON file with a strict versioned envelope. The proposed first version has `schema` = `upgradepilot.investigation-report`, integer `schema_version` = 1, `report` = the explicit semantic record above, and `integrity` containing a named digest method and payload digest. These are proposed external names to settle before Build, not an already released API.
+
+Digest definition: SHA-256 of the UTF-8 encoding of the canonical JSON object containing schema, schema_version and report; sorted object keys, compact separators, ensure_ascii false, no NaN/Infinity. The digest field itself is excluded. Formatting whitespace outside the canonical payload is not an authenticity signal. Ordinary file corruption may be detected; someone editing both payload and digest can still fabricate a file. Neither digest nor schema validity supplies source truth.
+
+Decode with non-executing JSON parsing and explicit shape/type/semantic-reference validation. Reject duplicate object keys, non-finite numeric values, unsupported schema/version, missing required components, invalid enum/state combinations, dangling references and digest mismatch with an informative file-validation error. Do not deserialize arbitrary objects or silently migrate unknown versions. Choose proportionate input-size/depth limits in implementation under SECURITY.md; demonstrate the applicable malformed-input contrasts.
+
+Reopen offline through the same human renderer. Clearly mark saved-result mode, recorded generation time and analyzed revisions, and that no live refresh occurred. A source locator may be shown but not fetched automatically. Generating a new report ID or replacing recorded identity on open is forbidden. Preserve saved-generator versus reopening-renderer version separately when relevant.
+
+Publication behavior: create a temporary sibling, encode and validate, then publish the complete file atomically without replacing an existing destination. Choose the smallest suitable primitive in Build and test collision/race and interrupted-write behavior. Cleanup only the invocation's own temporary file. A requested save that fails must return a nonzero operational outcome even if a readable report was already printed; it is not semantic abstention. No database, resume journal, raw-capture archive or deterministic replay is included.
+
+### CLI and responsibility seams to implement after the design gate
+
+Proposed user flow: `upgradepilot OWNER/REPOSITORY PR_NUMBER` prints the human report; `--save-report PATH` also preserves it. `upgradepilot --open-report PATH` opens only the saved report. Reopening is mutually exclusive with repository/PR/acquisition/auth options; invalid combinations are input errors. Do not create a second acquisition path or require an online service for reopening.
+
+Keep existing exit meanings: 0 means a valid investigation result was presented, not merge/compatibility; unsupported transitions may still produce a valid bounded report. 2 remains input/configuration rejection, 3 acquisition failure, 4 malformed provider response. Proposed 5 = requested file-publication failure and 6 = saved-record validation/read failure. Failed acquisition before result formation remains an operational diagnostic, with no fabricated saved semantic report. Declare changed human presentation; do not advertise byte-compatible old CLI output.
+
+Expected bounded seams: a report projection/record owner, human renderer, explicit versioned encoder/decoder/file handling, and CLI integration. Select minimal responsibility-named files under the existing source layout during Build, avoiding a speculative package hierarchy. Existing dataclass/standard-library style is the baseline. investigation.py stays orchestration-only unless an independently justified retention gap is selected. Tests cover projection meanings, same-record human/saved correspondence, source/reference validity, offline opening, errors and atomic publication—not merely matching implementation text.
+
+The first coherent Build outcome must include projection plus save/open composition, not an isolated polished example. Run focused projection/CLI/action/file tests, relevant integration, full deterministic product regression and installed CLI checks. Obtain declared representative normal-path evidence or record its absence; deterministic fixtures do not prove live-model quality or all case coverage.
+
+## 8. First-trial evaluation protocol
+
+Freeze a per-attempt manifest before comparative outputs are constructed: protocol/version, mode, cases/inputs/revisions and hashes, declared producer capability, source/output/code identities, baseline, evaluator expectations kept outside product input, reviewer/assistance/order assignment, task and rejection criteria. An unfilled reviewer or protected-input selection is explicit entry debt; do not label the study started or frozen while these are absent.
+
+| Track | Inputs and baseline | Permitted claim |
+| --- | --- | --- |
+| Normal-product usability | Current CLI baseline and new report from the same retained typed result/input evidence and declared producer/configuration state; control differing live acquisitions | Whether rendering normally available evidence improves the scoped understanding task |
+| Curated-evidence presentation | Declared archived packet versus alternative presentation of the same packet; manual interpretations disclosed | Organization/faithful communication of supplied evidence, not discovery or product acquisition |
+| Later outcome comparison | Ordinary PR/CI/release-note review versus report-assisted review with equivalent decision-time evidence | Maintainer task benefit within the measured sample, after independent review and suitable order/case controls |
+
+Development pressures are S001 degraded model/static CI, S002 partial normal API/context coverage and S008 artifact/fallback distinctions; S013–S016 remain supplementary controls. Existing CARLA/Dictare/Freqtrade evaluator labels can inform development review but are not independent or unseen data. Pin exact archived bytes and declared capability before use. Neither a current mutable PR nor a richer curated packet automatically matches a historical baseline. If no retained typed result supports same-evidence rendering, obtain a new matched baseline/report pair rather than reconstructing one by parsing the old log into evidence.
+
+Reviewer task, in plain language: identify the exact update and analyzed revisions; explain the important finding and supporting source; state what is still unknown and why; distinguish proposed work from observed execution; identify a justified next step or correctly recognize that none is established. Record answers, source locations used, errors and assistance. Time may be recorded, but no speed claim follows without a comparable task and suitable controls.
+
+The report author does not supply independent review. Ali's assisted learning answers may identify wording gaps but are labeled assisted orientation rather than independent maintainer utility. An independent evidence adjudicator reviews evidence-backed expected/forbidden meanings outside report production; disagreements remain recorded. Task reviewers must not see those expected answers before their tasks. A person who already adjudicated a case is not a blind task reviewer for that case. Counterbalance presentation order or use equivalent different case assignments, and disclose prior exposure. If the same reviewer sees both presentations of one case, record carryover and restrict the claim; do not treat the second answer as an independent sample.
+
+Scoped acceptance: comparable inputs; zero critical false/misattributed claims; all required admitted findings, identity/source and uncertainty distinctions adequate; proposed/executed work and action availability correctly identified. Demonstrate at least one concrete task improvement over baseline without losing a material correct answer, and report case-specific failures/omissions. No averaging can hide an unsupported full HTTPX diagnosis or turn all-unknown output into a useful case pass. Existing development cases can establish scoped developmental usability, not unseen generalization. Independent utility remains unproven if reviewer access or adjudication is missing.
+
+Rejection/re-entry: critical overclaim → repair projection/retention first; faithful but unhelpful report → identify presentation versus missing-evidence cause and simplify or select its owner; no comparative gain → do not add sophistication merely for polish; missing normally reachable action premises → retain unavailable action rather than rename it as advice. Protected cases and broader recruitment are required before broader product/model utility claims. Preserve unsuccessful attempts and frozen scope rather than retroactively excluding their failures.

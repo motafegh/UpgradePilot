@@ -116,6 +116,18 @@ Each boundary must preserve enough identity to explain what changed, which actor
 
 Schema-valid output from a parser, framework, or model is not automatically trustworthy semantic evidence.
 
+### 6.1 Evidence reports and saved-result boundaries
+
+When an evidence-report responsibility is admitted, the following representation requirements apply. They elaborate the Charter's decision-report promise and `PROV-001`, `REP-001`, `VERSION-001`, and failure/authority invariants; they do not select a storage mechanism or prove implementation.
+
+- A report MUST identify the exact investigated update and preserve material findings, supporting evidence references, their proof strength, and scope. Source revisions and executed revisions MUST remain distinct when they differ.
+- Material unknowns MUST identify the unresolved proposition, available evidence, reason the evidence does not close it, and decision consequence where established. Unsupported analysis, unavailable evidence, an unperformed check and contradictory evidence MUST NOT collapse into one unexplained unknown.
+- Presentation MUST NOT establish new evidence, discard material uncertainty to make a result look complete, or promote an archived/manual conclusion into normally acquired product evidence. If justified investigation remains necessary, explaining uncertainty does not discharge that investigation responsibility.
+- Recommendations and action availability remain owned by the Maintainer Action Synthesis specification. A report MUST NOT bypass its permission conditions by renaming an action as advice or a next check. Failure to form an investigation result MUST NOT become semantic abstention.
+- Human and saved projections MUST preserve the same material meanings and evidence links. A saved result MUST declare its identity/version, retained-content boundary and missing provenance; source references alone MUST NOT be described as preserved raw evidence.
+- Reopening a saved result MUST preserve its recorded observation/revision context and explain that no fresh acquisition or validation occurred. It MUST NOT silently make live requests, execute content, infer current validity, or claim deterministic replay from an output record alone.
+- Compatibility, malformed-content and integrity outcomes MUST remain explicit. A content digest can establish consistency with recorded bytes, not independent source authenticity or semantic truth. These checks do not elevate external content into instructions or authority.
+
 ## 7. Specialized specification relationships
 
 This core specification defines the stable trust/evidence/representation/failure invariants shared across admitted responsibilities and the project-wide implementation-retention/ownership constraints that apply when a material mechanism is added, repeated, or kept.

@@ -15,9 +15,9 @@ A1 — DONE for the continuity opportunity: Ali challenged the unclear explanati
 A2 — DONE at the proportionate orientation boundary: concrete cases and three delivery sequences explained; Ali requested continuation. This is participation after a meaningful explanation, not proof of detailed source mastery.
 B — DONE for direction investigation: three-case rubric, supplementary controls, source traces, trial recommendation and owner dispositions recorded below. No unique long-term winner established.
 Verification gate — PASS for scoped planning traceability/consistency/link/whitespace checks; independent utility and trial outputs remain unperformed.
-D — CURRENT: explain evidence-backed result, why it differs from the initial hybrid hypothesis, and assess remaining understanding.
-E — PENDING: ownership gaps and closure.
-C — CONTINUOUS: initialization and evidence distinctions preserved here.
+D — DONE at the explained trial-decision level: Ali's three clarification questions were answered and he agreed to proceed. Detailed source mastery is unassessed.
+E — DONE with explicit deferrals: direction planning closed; utility, reviewer availability, schema/design/Build proof and detailed source mastery remain unperformed. Continued by the report-design cycle below.
+C — DONE for this comparison cycle; further progression belongs to the linked design cycle.
 
 ## A0 reconciliation
 
@@ -224,3 +224,7 @@ Clarification: report-first means testing delivery of a useful evidence-backed r
 Reasons for the trial: useful identity/CI/artifact/semantic/runtime facts already exist, some consumer projection is incomplete, and positive actions can require additional evidence. Same-evidence comparison isolates whether presentation adds utility; stable saved results support review. This is a testable sequencing recommendation, not proof of benefit or a permanent evidence/feature ceiling. When necessary supported inquiry can resolve a material question, investigate it rather than use uncertainty wording as an easy stop; acquire new capability through its evidence owner when that is the missing responsibility. Some unknowns can remain because evidence is inaccessible, unsupported or requires future execution; say which condition applies rather than imply all investigation is complete.
 
 Provenance promise remains limited to evidence actually retained: references, identities and available source/result content with explicit omissions. The report trial does not already capture every raw response or provide deterministic replay. A conceptual CARLA example of wheel-path loss with source-build success still unknown is illustrative from the archived case, not an implemented new product report. No public schema or action semantics changed in this clarification.
+
+### E closure after clarification and agreement
+
+Ali agreed with the trial explanation and requested proceeding. Close the direction-planning responsibility with its source-backed comparison and reversible trial selection; independent utility and detailed source mastery are explicitly deferred, not accepted. Continued by [report contract/evaluation design](2026-10-02_report-contract-and-evaluation-design_lbd-cycle.md). That cycle owns the concrete contract/protocol work and preserves new understanding gates. Earlier open-phase statements above are dated progression, not competing live selections.
