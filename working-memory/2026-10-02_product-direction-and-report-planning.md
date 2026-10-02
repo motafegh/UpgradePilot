@@ -73,4 +73,10 @@ At planning preparation, changes were local and reviewable; the preceding public
 
 ## Publication follow-up
 
+### Subsequent comparison-rubric refinement
+
+Ali proposed making the final direction choice inspectable with a qualitative comparison rubric and delegated the engineering judgment. Accepted: the existing per-case questions lacked a common synthesis structure. Added nine dimensions to the direction plan, evidence-backed judgments for every alternative, explicit unknowns, no numeric aggregation, and a decision rule requiring counterevidence, reversal conditions and a discriminating check when evidence cannot select a trial. Current producer reachability is one dimension rather than a permanent product ceiling. Truthfulness and action prerequisites cannot be traded away for utility.
+
+This is a familiar, reversible refinement inside the same planning responsibility; A-phase and D explanation are compressed under the Smart Situational Override Rule because the preceding orientation and Ali's concrete rationale supply the decision context. No new cycle, direction selection, learner-mastery claim or Build authorization is created. Validation: scoped local Markdown links and whitespace checked; only the direction plan and this record changed. Product tests are unnecessary for this documentation-only increment; the previously recorded governance mismatch remains unresolved. Publish under Ali's standing progressive commit/push instruction.
+
 Fetched origin/main before publication; no newer remote commits were present. Publication includes the two prepared plans, their existing-owner routing updates, the proposal's dated reconciliation, and this cycle record. Focused planning checks passed as recorded above; the existing governance-doctor mismatch remains explicit. Commit identity and remote publication can be recovered from this record's Git history.

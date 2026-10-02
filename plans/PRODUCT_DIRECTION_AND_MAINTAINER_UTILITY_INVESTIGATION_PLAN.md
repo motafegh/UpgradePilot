@@ -70,6 +70,24 @@ For each case and alternative record:
 
 A proposed check must identify the unresolved proposition, plausible observations and their interpretation. If producers cannot justify such a check, a truthful limitation may be the only supported output. Do not call every unknown actionable.
 
+### Inspectable comparison rubric
+
+Apply the same rubric to all three alternatives, first per case and then in a cross-case synthesis. Each judgment must cite exact case/source evidence, explain its consequence, and distinguish observed behavior from a design expectation or untested user-value hypothesis. Record missing evidence as **unknown**, not as a weak result. Freeze these criteria before inspecting comparative outputs; justify any later revision and apply it to every alternative.
+
+| Dimension | Qualitative judgment | Evidence / question to record |
+| --- | --- | --- |
+| Maintainer utility | Strong / moderate / weak / unknown | What important reasoning or next-step burden does this remove? Independent utility evidence or only a plausible benefit? |
+| Truthfulness / claim discipline | Preserved / at risk / violated / unknown | Are identity, uncertainty, coverage strength and action prerequisites preserved? Where could false confidence arise? |
+| Normal-producer reachability | Strong / moderate / weak / unknown | Which useful outputs are normally reachable now, conditional, or dependent on curated inputs? |
+| New evidence burden | Low / moderate / high / unknown | Name the missing proposition, extra producer/observation and proof needed; distinguish presentation work from evidence acquisition. |
+| Coverage dependency | Low / moderate / high / unknown | How much value survives incomplete impact/runtime coverage, and which material omissions defeat it? |
+| Evaluation feasibility | Strong / moderate / weak / unknown | Can independent review discriminate useful, faithful output from plausible prose? Name the oracle/reviewer and practical access gaps. |
+| Complexity / maintenance | Low / moderate / high / unknown | What additional policy, projection, storage or coordination must be maintained versus the simplest credible baseline? |
+| Reversibility | Strong / moderate / weak / unknown | Can the trial be rejected or changed without losing evidence or committing to a costly public contract/migration? |
+| Learning / product leverage | Strong / moderate / weak / unknown | What reusable understanding or capability does it establish for the maintainer/product? Keep learner mastery separate from AI-produced artifacts. |
+
+Strong means the stated responsibility is substantially supported, moderate means a meaningful but conditional or partial contribution, and weak means little supported contribution or a material obstacle. Burden judgments describe concrete required work, not imagined future scale. Labels organize reasoning; they are not scores, votes or additive weights. Preserve case disagreements instead of averaging them away.
+
 ## 4. Capability relationships and activation
 
 | Responsibility | Entry condition | Proof responsibility | Owning route |
@@ -88,6 +106,10 @@ The larger horizon remains visible: grouped/transitive changes, other bots/ecosy
 ## 5. Owner reconciliation and decision gate
 
 Prepare a short direction decision with: selected user outcome, compared alternatives, exact case evidence, assumptions, counterevidence, admitted first responsibility, deferred capabilities and reassessment trigger. Preserve it in the cycle record; promote stable accepted conclusions to their normal owners.
+
+Include the completed rubric for each alternative and explain which dimensions actually discriminate the choice. A truthfulness violation or an unsupported action premise excludes that proposed output regardless of other benefits; an unresolved risk needs a concrete mitigation/proof gate. Weak current reachability does not automatically reject a valuable future direction, but its missing producers and evidence cost must be explicit.
+
+Select the smallest trial with a credible maintainer benefit, preserved claim discipline, and a feasible independent evaluation route. Defend it against the strongest competing alternative and the most adverse case; state what observation would reverse the preference. Three development cases support a trial choice, not a general utility claim. If alternatives remain indistinguishable or a decisive dimension is unknown, leave the direction open and select one practical discriminating check rather than declaring a winner by intuition.
 
 The decision must resolve:
 
