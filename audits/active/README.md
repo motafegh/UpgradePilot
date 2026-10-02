@@ -6,12 +6,12 @@ Canonical audit records remain at stable paths directly under `audits/`. Existin
 
 Current active audits:
 
-- [ACTIVE — AUDIT-008 — Current System End-to-End Evidence-to-Action Audit](../2026-09-19_AUDIT-008_current-system-evidence-to-action-readiness.md)
-  - selection basis: Ali explicitly redirected the main post-Cycle-3 workstream to the current-system evidence-to-action audit and the bounded execution/learning journey derived from it.
+- [ACTIVE — AUDIT-009 — Post-Runtime-State Delta Readiness Audit](../2026-10-02_AUDIT-009_post-runtime-state-delta-readiness.md)
+  - selection basis: Ali requested a full post-runtime-state delta audit and then authorized reconciliation of stale current-facing records before the next action-relative reachability comparison.
   - execution owners: `../../plans/END_TO_END_PRODUCT_FLOW_LEARNING_AND_EVIDENCE_TO_ACTION_EXECUTION_PLAN.md` and its parent `../../plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`; `../../MEMORY.md` alone owns the exact live slice.
-  - current coordination boundary (2026-09-20): F3 and F9 are closed at their bounded proof horizons; F11 reconciles audit lifecycle metadata before the plan's action-relative evidence-producer/reachability comparison. AUDIT-008 remains non-controlling evidence, not a source of independent implementation authorization.
+  - current coordination boundary (2026-10-02): Runtime Dependency-State Cycle 1 is closed and Product Verification #17 remains the product proof anchor. The next selected responsibility is the parent action-relative reachability comparison. AUDIT-009 is the current delta-readiness input; it does not authorize F5/F7, Runtime-State Cycle 2, AI activation, or maintainer-action implementation.
 
-AUDIT-005 was moved from ACTIVE to SCHEDULED through AUDIT-008-F11. Its earlier agentic-evaluation findings and approved B2/X1 checkpoint are preserved, but they are **not the selected current engineering workstream**. See `../scheduled/README.md` for the concrete future handoff and correct owning plan.
+AUDIT-008 has been moved to ABSORBED because AUDIT-009 and the completed F3/F4/F9/F11/F6 records now carry its current conclusions forward. AUDIT-008 remains the historical baseline and source of finding provenance. AUDIT-005 remains SCHEDULED and is not the selected current engineering workstream.
 
 Active audits remain **non-controlling evidence**. The active plan, specifications/ADRs where applicable, source/tests, and `MEMORY.md` own execution, stable decisions, behavior, and live continuation.
 
