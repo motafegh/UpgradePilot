@@ -3,7 +3,8 @@
 **Status:** admitted bounded execution/learning plan; live step selection remains owned only by `../MEMORY.md`  
 **Responsibility:** turn the current-system audit into a Learning-by-Doing product progression from verified end-to-end flow ownership, through correction of admitted baseline defects, to one evidence-backed non-abstention maintainer-action path when and only when its normal producer prerequisites are proven  
 **Parent execution owner:** [Overall Evidence Sufficiency and Maintainer Action Synthesis Plan](OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md)  
-**Primary audit input:** [AUDIT-008 — Current System End-to-End Evidence-to-Action Audit](../audits/2026-09-19_AUDIT-008_current-system-evidence-to-action-readiness.md)  
+**Current audit input:** [AUDIT-009 — Post-Runtime-State Delta Readiness Audit](../audits/2026-10-02_AUDIT-009_post-runtime-state-delta-readiness.md)  
+**Historical baseline audit:** [AUDIT-008 — Current System End-to-End Evidence-to-Action Audit](../audits/2026-09-19_AUDIT-008_current-system-evidence-to-action-readiness.md)  
 **Stable semantics:** [Product Decision Model](../docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md), [Maintainer Action Synthesis](../docs/specifications/UPGRADEPILOT_MAINTAINER_ACTION_SYNTHESIS_SPECIFICATION.md), [Core Pipeline and Contract](../docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md)  
 **Method:** canonical A → B → C → D → E Learning-by-Doing, composed with Planning/Design, Build/Implement, Audit/Review, testing, and working-memory procedures as each slice requires
 
@@ -341,7 +342,7 @@ The decision must preserve its future value without allowing it to compete with 
 
 ### Current re-entry checkpoint after runtime dependency-state Cycle 1
 
-F4 and F5 predecessor work is closed, and the selected F6 runtime dependency-state program has now closed Cycle 1 through normal application integration. Product Verification #17 proves the bounded F6 path. Conditional explicit target-owned runtime-state acquisition remains unselected because current evidence has not yet shown that stronger package-state observation is the next action-critical premise.
+AUDIT-009 has completed the post-runtime-state delta reconciliation and is now the current audit input for this re-entry. AUDIT-008 remains the absorbed historical baseline. F4 and F5 predecessor work is closed, and the selected F6 runtime dependency-state program has now closed Cycle 1 through normal application integration. Product Verification #17 proves the bounded F6 path. Conditional explicit target-owned runtime-state acquisition remains unselected because current evidence has not yet shown that stronger package-state observation is the next action-critical premise.
 
 The next parent responsibility is therefore to refresh this action-relative reachability comparison against the **current** producer graph. The comparison must determine whether one accepted non-abstention action now has normally reachable positive prerequisites, or whether one different exact producer/composition gap remains the closest blocker. Select one next responsibility only; do not treat F7, Runtime-State Cycle 2, uv/Docker/venv breadth, or action implementation as automatic continuation.
 
@@ -364,13 +365,15 @@ accepted permission
 
 Use the accepted synthesis specification rather than re-defining action meanings.
 
-Candidate gaps from AUDIT-008 include:
+Current candidates after AUDIT-009 include:
 
-- F4 — exact CI consuming-job → Target composition;
-- F5 — exact target wheel-compatibility producer;
-- AUDIT-008-F6 — runtime dependency-state proof: first determine whether bounded command semantics + exact successful runtime correlation already establish proposed-version presence; use explicit runtime/package-state evidence only when that proposition still requires it. Dedicated execution plan: [Runtime Dependency-State Proof Completion Plan](RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md);
-- F7 — explicit bounded candidate/context discovery coverage needed for favorable merge closure;
+- F5 — exact target wheel-compatibility producer, only if an action-specific mechanism still requires exact target-supported wheel tags;
+- AUDIT-009-F5 — determine whether the now-reachable `runtime_dependency_state_result` closes or defeats a premise for one accepted action before adding any generic synthesis/presentation consumer;
+- F7 / AUDIT-009-F7 — explicit bounded candidate/context discovery coverage needed for favorable merge closure, including Stage-8 AI candidate discovery only if discovery proves to be the earliest action-relevant blocker;
+- Runtime-State Cycle 2 — only if a still-missing exact package-state observation is shown to be decision-critical after the bounded Cycle-1 witness;
 - another newly demonstrated missing premise if it proves more decision-critical.
+
+F4 is closed and absorbed. Bounded F6/Runtime-State Cycle 1 is also closed; neither should remain on the candidate list merely because broader variants are possible.
 
 Do not select a gap merely because it is easiest to code or already has a type.
 
@@ -402,10 +405,10 @@ For the selected responsibility:
 
 **Examples of entry-specific guardrails:**
 
-- **F4:** preserve exact workflow/revision/source/job relation; do not infer runtime execution or exact wheel compatibility.
 - **F5:** exact target-supported wheel tags require target-owned evidence; do not derive them from UpgradePilot's own runtime or broad runner/Python labels.
-- **AUDIT-008-F6 / runtime dependency-state proof:** prefer the earliest sufficient proof. First classify package-manager command semantics; add target-owned package-state evidence only when command semantics plus exact runtime correlation are insufficient. No generic log-ingestion subsystem by default.
-- **F7:** define a bounded positive coverage horizon; do not claim universal risk discovery.
+- **Runtime-state action consumer:** consume the already-proven typed result only when one action-specific proposition needs it; do not reinterpret command-completion state as artifact identity, later use, compatibility, or action permission.
+- **Conditional Runtime-State Cycle 2:** add target-owned package-state observation only when the parent comparison proves the bounded Cycle-1 witness is insufficient for a decision-critical proposition. No generic log-ingestion subsystem by default.
+- **F7 / Stage-8 discovery:** define a bounded positive coverage horizon; do not claim universal risk discovery, and do not activate AI merely because the research exists.
 
 **Learning ownership target:** Ali must be able to trace the new evidence from origin to action-relevant consumer and state what it still does not prove.
 
