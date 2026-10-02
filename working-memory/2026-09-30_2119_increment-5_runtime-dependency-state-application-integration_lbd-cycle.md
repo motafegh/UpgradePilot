@@ -1,7 +1,7 @@
 # Increment 5 — Runtime Dependency-State Application Integration — Learning-by-Doing Cycle
 
 **Date:** 2026-09-30  
-**Cycle status:** ACTIVE — A0/A1/A2/B DONE; Verification BLOCKED pending hosted execution; D/E NOT STARTED; C CONTINUOUS  
+**Cycle status:** ACTIVE — A0/A1/A2 DONE; B REPAIR CURRENT after Product Verification #16 fixture failure; Verification FAILED on run #16; D/E NOT STARTED; C CONTINUOUS  
 **Primary responsibility:** carry the already-verified command-derived runtime dependency-state evidence through the normal public-PR investigation path as a separate typed application result, without changing CI-coverage, later-use, compatibility, or maintainer-action semantics  
 **Controlling plan:** `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`  
 **Accepted architecture:** `docs/architecture/ADR-0010-package-manager-semantic-facts-and-runtime-dependency-state-composition.md`  
@@ -16,7 +16,7 @@ A1 — DONE: continuity from Increments 1–4 and the current application seam o
 A2 — DONE: technical design prepared and learning/ownership gate cleared
 STOP — CLEARED: Ali explicitly authorized Build
 B — DONE: bounded application integration implemented at `8c89117759c194b2130f65161b662ec80ae6dbcc`
-Verification — BLOCKED: Product Verification is manual-only and no run exists yet for the implementation head
+Verification — FAILED: Product Verification #16 (`36994071136`) on head `210d333e9e257ae1fe6bd07558aad435d182cdfc` failed in focused investigation composition; B repair is CURRENT
 D — NOT STARTED
 E — NOT STARTED
 C — CONTINUOUS: preserve meaningful engineering and learning progression across A0→E
@@ -637,3 +637,17 @@ C currently preserves:
 - explicit executable-proof debt at the Verification gate;
 - complete research provenance now present on `main` without becoming a live owner;
 - explicit research-derived A2 constraints and references, without importing future-scope experiments.
+
+## Product Verification #16 failure diagnosis
+
+- Run: `36994071136`
+- Run number: `16`
+- Exact tested head: `210d333e9e257ae1fe6bd07558aad435d182cdfc`
+- Installation and installed CLI checks: PASS.
+- Focused investigation composition: FAIL — 15 passed, 1 failed.
+- Full deterministic product regression: SKIPPED because the focused step failed.
+- Failing test: `test_normal_investigation_carries_positive_runtime_dependency_state`.
+- Observed mismatch: expected `supported_runtime_correlated`, got `supported_not_correlated`.
+- Root cause: the new test fixture's static `test` job omitted an explicit literal `name:`. The accepted correlation contract requires explicit literal static job display names before it will match runtime jobs; therefore the provider correctly preserved `static_job_name_missing` rather than guessing from the job key.
+- Classification: fixture defect in newly authored Increment-5 proof, not a production runtime-state semantic defect.
+- Repair: add an explicit static job display name matching the mocked runtime job name; no production source change is authorized by this failure.
