@@ -773,3 +773,24 @@ The next D ownership target is the implemented distinction between:
 - **real domain/evidence limitations**, which remain typed `RequirementStateProblem` outcomes.
 
 This distinction is important because an internal identity/contract contradiction is a product defect or corrupted composition state and must not be disguised as ordinary uncertainty, while unresolved/dry-run/retargeting/runtime-non-success are legitimate evidence outcomes that the product must preserve without crashing.
+
+
+### D ownership check 2 — invariant failure vs typed evidence problem
+
+Ali correctly classified unresolved pip configuration as a typed evidence problem, but two boundary distinctions were corrected from the actual implementation:
+
+1. A consumption already classified as supported `direct_requirements` must map back to exactly one trusted `RequirementsFileDependencyContext`. That relationship is part of the upstream evidence contract. Failure to recover it is therefore an internal composition/invariant contradiction and fails loudly via `ValueError`, not ordinary domain uncertainty.
+
+2. A retained `runtime_correlation` object whose own state is `unresolved` is a legitimate evidence outcome, not an internal contradiction. `assess_exact_command_execution(...)` deliberately maps that state to an unresolved `ExactCommandExecutionAssessment`, which later becomes a typed `RequirementStateProblem`.
+
+The important distinction is:
+
+```text
+required related object missing / identities contradict
+→ internal invariant failure
+
+related object exists and truthfully reports unresolved evidence
+→ typed evidence problem
+```
+
+This prevents UpgradePilot from hiding its own composition defects as uncertainty while also avoiding crashes for real-world evidence that is genuinely insufficient.
