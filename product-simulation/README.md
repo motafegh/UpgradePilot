@@ -6,7 +6,7 @@
 
 This workspace is UpgradePilot's bounded product-discovery, simulation, evaluation, failure-modeling, and case-exploration laboratory.
 
-It preserves the historical S001–S005 discovery cycle, S006 targeted-check experiment, challenge-oriented screening, broad real-world screening, S007 package-family/investigation-pruning case, S008 artifact-serviceability case, S009 reproducibility/provenance case, S010 multi-mechanism discovery case, S011 optional-environment/CI-coverage case, S012 persisted-artifact provenance case, and post-implementation transfer evaluation. It does **not** own the live UpgradePilot stage or immediate continuation; those belong only in [`../MEMORY.md`](../MEMORY.md).
+It preserves the historical S001–S005 discovery cycle, S006 targeted-check experiment, challenge-oriented screening, broad real-world screening, S007 package-family/investigation-pruning case, S008 artifact-serviceability case, S009 reproducibility/provenance case, S010 multi-mechanism discovery case, S011 optional-environment/CI-coverage case, S012 persisted-artifact provenance case, the S013–S016 state/environment reality cases, and post-implementation transfer evaluation. It does **not** own the live UpgradePilot stage or immediate continuation; those belong only in [`../MEMORY.md`](../MEMORY.md).
 
 Findings here are evidence and pressure tests. They do not become controlling product architecture, plans, runtime schemas, or source behavior unless the normal repository owner for that responsibility adopts them.
 
@@ -37,6 +37,12 @@ Use the smallest reading path that matches the task.
 | understand S010 multi-mechanism discovery findings | [`S010_POST_CASE_SYNTHESIS.md`](S010_POST_CASE_SYNTHESIS.md), then [`S010 scenario README`](scenarios/S010-podcast-script-numpy-discovery-breadth/README.md) |
 | understand S011 optional-environment/CI-coverage findings | [`S011_POST_CASE_SYNTHESIS.md`](S011_POST_CASE_SYNTHESIS.md), then [`S011 scenario README`](scenarios/S011-dictare-mlx-optional-extra-ci-coverage/README.md) |
 | understand S012 persisted-artifact provenance findings | [`S012_POST_CASE_SYNTHESIS.md`](S012_POST_CASE_SYNTHESIS.md), then [`S012 scenario README`](scenarios/S012-freqtrade-sklearn-persisted-artifact-version-boundary/README.md) |
+| understand S013 prior-state / later-no-sync exercise findings | [`S013_POST_CASE_SYNTHESIS.md`](S013_POST_CASE_SYNTHESIS.md), then [`S013 scenario README`](scenarios/S013-langchain-anyio-uv-no-sync-prior-sync-state/README.md) |
+| understand S014 state-at-completion versus installation provenance | [`S014_POST_CASE_SYNTHESIS.md`](S014_POST_CASE_SYNTHESIS.md), then [`S014 scenario README`](scenarios/S014-production-ready-cicd-pip-already-satisfied-vs-installed/README.md) |
+| understand S015 marker applicability across runtime environments | [`S015_POST_CASE_SYNTHESIS.md`](S015_POST_CASE_SYNTHESIS.md), then [`S015 scenario README`](scenarios/S015-charset-normalizer-marker-scoped-pytest/README.md) |
+| understand S016 selected uv environment / lock-membership findings | [`S016_POST_CASE_SYNTHESIS.md`](S016_POST_CASE_SYNTHESIS.md), then [`S016 scenario README`](scenarios/S016-thumbor-uv-selector-scope-coverage/README.md) |
+| inspect the September command/runtime/state reality-check research | [`2026-09-24_MAIN_WORKSTREAM_RESEARCH_EVIDENCE_HANDOFF.md`](2026-09-24_MAIN_WORKSTREAM_RESEARCH_EVIDENCE_HANDOFF.md), then [`2026-09-24_STATE_PROOF_ROUTES_WHERE_WHEN_AND_EXERCISE_CROSS_CASE.md`](2026-09-24_STATE_PROOF_ROUTES_WHERE_WHEN_AND_EXERCISE_CROSS_CASE.md) |
+| inspect exact target wheel-tag witness feasibility | [`2026-09-22_G4_EXACT_WHEEL_TAG_WITNESS_FEASIBILITY.md`](2026-09-22_G4_EXACT_WHEEL_TAG_WITNESS_FEASIBILITY.md) |
 | inspect earlier simulation-to-design handoffs | [`DECISION_MODEL_HANDOFF_2026-08-07.md`](DECISION_MODEL_HANDOFF_2026-08-07.md) and [`DECISION_MODEL_HANDOFF_CHALLENGE_PASS_02_2026-08-07.md`](DECISION_MODEL_HANDOFF_CHALLENGE_PASS_02_2026-08-07.md) |
 | understand the restricted historical comparator | [`TRANSPARENT_BASELINE_SPECIFICATION.md`](TRANSPARENT_BASELINE_SPECIFICATION.md) |
 
@@ -195,6 +201,29 @@ S012 establishes a **historical persisted-artifact provenance** boundary: curren
 
 None of these cases automatically changes current product architecture. They are durable future transfer/evaluation anchors.
 
+### Layer 9 — September state/environment reality research and S013–S016
+
+The complete historical research branch `research/product-simulation-rebase-2026-09-22` was integrated into `main` through PR #34 on 2026-10-02 with its 61-commit history preserved. The imported delta is research/simulation evidence only; it does not establish new product capability or override later main-owned plans/specifications.
+
+The bounded research sequence includes:
+
+- [`2026-09-22_G1_COMMAND_RUNTIME_REAL_CASE_SCREENING.md`](2026-09-22_G1_COMMAND_RUNTIME_REAL_CASE_SCREENING.md) — command/runtime case screening;
+- [`2026-09-22_G2_MULTI_JOB_TARGET_FIRST_SCREENING.md`](2026-09-22_G2_MULTI_JOB_TARGET_FIRST_SCREENING.md), [`2026-09-22_G2_NONCONSUMER_CONTROL_AND_STOP.md`](2026-09-22_G2_NONCONSUMER_CONTROL_AND_STOP.md), and [`2026-09-22_G2_REAL_DERIVED_JOB_COMPOSITION_VARIANT_DESIGN.md`](2026-09-22_G2_REAL_DERIVED_JOB_COMPOSITION_VARIANT_DESIGN.md) — multi-job/target composition pressure;
+- [`2026-09-22_G3_REALITY_CHECK_AMBIENT_SEMANTICS.md`](2026-09-22_G3_REALITY_CHECK_AMBIENT_SEMANTICS.md) — observed ambient package-manager semantic pressure;
+- [`2026-09-22_G4_EXACT_WHEEL_TAG_WITNESS_FEASIBILITY.md`](2026-09-22_G4_EXACT_WHEEL_TAG_WITNESS_FEASIBILITY.md) — target-owned exact compatible-tag witness feasibility;
+- [`2026-09-22_RETARGETING_REALITY_CHECK.md`](2026-09-22_RETARGETING_REALITY_CHECK.md) and [`2026-09-22_UV_RESOLUTION_MARKER_ORDER_REALITY_CHECK.md`](2026-09-22_UV_RESOLUTION_MARKER_ORDER_REALITY_CHECK.md) — retargeting/marker/order reality checks;
+- [`2026-09-24_STATE_PROOF_ROUTES_WHERE_WHEN_AND_EXERCISE_CROSS_CASE.md`](2026-09-24_STATE_PROOF_ROUTES_WHERE_WHEN_AND_EXERCISE_CROSS_CASE.md) — cross-case state/time/environment/use boundary;
+- [`2026-09-24_MAIN_WORKSTREAM_RESEARCH_EVIDENCE_HANDOFF.md`](2026-09-24_MAIN_WORKSTREAM_RESEARCH_EVIDENCE_HANDOFF.md) — historical main-workstream handoff.
+
+S013–S016 add four durable reality anchors:
+
+- **S013:** earlier explicit state formation can support a later no-sync exercise only through bounded temporal/environment continuity;
+- **S014:** requirement state at command completion is distinct from installation provenance;
+- **S015:** a consumed dependency source does not imply a marker-scoped changed requirement applies in every runtime row;
+- **S016:** lock membership does not imply selected-environment membership; selectors/reachability remain part of the proposition.
+
+These records are now directly available on `main`; their original branch/commit provenance remains useful when reproducing the historical research context.
+
 ## Scenario register
 
 | Scenario | Form | Main contrast/question | Status |
@@ -211,6 +240,10 @@ None of these cases automatically changes current product architecture. They are
 | [`S010`](scenarios/S010-podcast-script-numpy-discovery-breadth/README.md) | untouched real public case + transitive runtime evidence | multiple independently grounded mechanisms from one proposal; candidate-state separation | complete at admitted depth |
 | [`S011`](scenarios/S011-dictare-mlx-optional-extra-ci-coverage/README.md) | untouched real public case + optional/runtime/workflow evidence | optional environment formation, platform activation, and CI coverage separation | complete at admitted depth |
 | [`S012`](scenarios/S012-freqtrade-sklearn-persisted-artifact-version-boundary/README.md) | untouched real public case + persisted-state/upstream contract evidence | historical artifact producer-version provenance and cross-version persistence applicability | complete at admitted depth |
+| [`S013`](scenarios/S013-langchain-anyio-uv-no-sync-prior-sync-state/README.md) | untouched real public CI sequence | prior uv sync state formation versus later no-sync test exercise | complete at admitted depth |
+| [`S014`](scenarios/S014-production-ready-cicd-pip-already-satisfied-vs-installed/README.md) | untouched real public base/head control | command-completion state truth versus installation provenance | complete at admitted depth |
+| [`S015`](scenarios/S015-charset-normalizer-marker-scoped-pytest/README.md) | untouched real public marker/matrix case | exact requirement applicability differs by runtime environment | complete at admitted depth |
+| [`S016`](scenarios/S016-thumbor-uv-selector-scope-coverage/README.md) | untouched real public uv selector case | lock membership versus selected extras/groups environment reachability | complete at admitted depth |
 
 The register is not a quota. New case numbers require a discriminating question or external-validity purpose, not momentum.
 
