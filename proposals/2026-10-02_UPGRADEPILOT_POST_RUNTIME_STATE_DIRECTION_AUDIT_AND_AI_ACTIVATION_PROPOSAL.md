@@ -5,6 +5,23 @@
 **Authority:** This document is a proposal only. It does not select live work, authorize Build/Implement, change accepted semantics, create an ADR, or override `MEMORY.md`, specifications, accepted ADRs, or admitted plans.  
 **Planning provenance:** `UP-SKILL:upgradepilot-planning-design`
 
+## Post-proposal evidence update — AUDIT-009 completed
+
+The proposed current-state delta reconciliation has now been performed and preserved as [AUDIT-009 — Post-Runtime-State Delta Readiness Audit](../audits/2026-10-02_AUDIT-009_post-runtime-state-delta-readiness.md).
+
+That audit materially supports this proposal's transition framing:
+
+- F3/F4/F9/original-F11 are closed/absorbed;
+- bounded F6/Runtime Dependency-State Cycle 1 is established rather than wholly missing;
+- F5 exact target wheel compatibility remains conditional;
+- F7 candidate/context discovery remains a major action-reachability question;
+- the new runtime-state result reaches the application boundary but has no action/presentation consumer yet;
+- AI candidate discovery is now a legitimate method candidate only if the refreshed action comparison shows discovery is the earliest blocker.
+
+This update does not admit the proposal or select an implementation. `MEMORY.md` continues to select the parent action-relative reachability comparison as the next responsibility.
+
+---
+
 ## 1. Purpose
 
 UpgradePilot has just closed the first bounded Runtime Dependency-State Proof program through Increment 5. The project is therefore at a useful transition point: the recent work established a stronger evidence spine, but the next product responsibility should not be chosen merely by continuing the same technical family.
@@ -116,9 +133,9 @@ The recent evidence work now makes it reasonable to revisit that question.
 
 The following is a **recommended candidate route**, not a required sequence.
 
-### Candidate step A — current-state delta reconciliation
+### Candidate step A — current-state delta reconciliation — completed as AUDIT-009 evidence
 
-Before selecting more product work, perform a compact current-state reconciliation against the post-#17 source/evidence state.
+The compact current-state reconciliation against the post-#17 source/evidence state has now been completed as AUDIT-009. The questions below remain the rationale for that completed step and a reusable checklist for future re-entry.
 
 This should answer:
 
@@ -134,7 +151,7 @@ which limitations currently block a maintainer action?
 
 The purpose is not to reread the entire repository or regenerate AUDIT-008. It is to prevent the next action comparison from using stale September assumptions.
 
-A fresh LbD cycle could use its A0 for this reconciliation.
+A future LbD A0 should consume AUDIT-009 rather than repeat this reconciliation unless new product/source evidence has materially changed the baseline.
 
 ### Candidate step B — refreshed action-relative reachability comparison
 
