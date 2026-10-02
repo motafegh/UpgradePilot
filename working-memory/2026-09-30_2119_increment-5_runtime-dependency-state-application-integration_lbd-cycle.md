@@ -1,7 +1,7 @@
 # Increment 5 — Runtime Dependency-State Application Integration — Learning-by-Doing Cycle
 
 **Date:** 2026-09-30  
-**Cycle status:** ACTIVE — A0/A1/A2/B DONE including #16 fixture repair; Verification GREEN on Product Verification #17; D DONE; E NOT STARTED; C CONTINUOUS  
+**Cycle status:** CLOSED — A0/A1/A2/B/D/E DONE; Verification GREEN on Product Verification #17; C DONE  
 **Primary responsibility:** carry the already-verified command-derived runtime dependency-state evidence through the normal public-PR investigation path as a separate typed application result, without changing CI-coverage, later-use, compatibility, or maintainer-action semantics  
 **Controlling plan:** `plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md`  
 **Accepted architecture:** `docs/architecture/ADR-0010-package-manager-semantic-facts-and-runtime-dependency-state-composition.md`  
@@ -18,8 +18,8 @@ STOP — CLEARED: Ali explicitly authorized Build
 B — DONE: bounded application integration implemented at `8c89117759c194b2130f65161b662ec80ae6dbcc`
 Verification — GREEN: Product Verification #17 (`36994518662`) passed on exact head `1c371875ffb459ce2e2c9c913a5a87a10a434928`; installed-package/CLI checks passed, focused investigation composition 16/16 passed, deterministic product regression 714/714 passed
 D — DONE: verified implementation, real-case applicability, ownership boundaries, failure model, and proof limits are owned; material misunderstandings were corrected
-E — NOT STARTED: gap disposition + cycle closure/handoff
-C — CONTINUOUS: preserve meaningful engineering and learning progression across A0→E
+E — DONE: no blocking D gap required repair; future capability pressures explicitly deferred; cycle closed with parent-plan handoff
+C — DONE: meaningful engineering/learning progression preserved across A0→E
 ```
 
 ## A0 — current-state reconciliation + cycle initialization — DONE
@@ -605,19 +605,19 @@ A fallback fresh local clone was attempted only for non-hosted B diagnosis, but 
 
 Verification must resume from this exact implementation head (or a reconciled later head) and run the existing Product Verification workflow before D.
 
-## Current E boundary
+## Cycle closure
 
-A0, A1, A2, B, Verification, and D are complete. Product Verification #17 remains the accepted executable proof because all post-#17 changes are documentation/live-state records only; no `src/` or `tests/` files changed. E is the next phase but has not started.
+A0, A1, A2, B, Verification, D, and E are complete. Product Verification #17 remains the accepted executable proof because all post-#17 changes are documentation/live-state records only; no `src/` or `tests/` files changed. Increment 5 is closed.
 
-The current continuation is:
+The cycle handoff is:
 
 ```text
-E — NOT STARTED
-→ classify D gaps as repair-now vs explicit deferral
-→ preserve non-blocking capability pressure without reopening Increment 5
-→ consolidate established / not-established / proof / residual debt
-→ identify the next product responsibility from the controlling plan
-→ reconcile live owners and close the cycle
+Increment 5 CLOSED
+→ Runtime Dependency-State Cycle 1 CLOSED
+→ Conditional Cycle 2 NOT SELECTED
+→ return to parent evidence-to-action plan
+→ next responsibility: action-relative reachability comparison refresh
+→ STOP before opening the next cycle
 ```
 
 No source/test modification was made by A2 itself.
@@ -913,3 +913,90 @@ These should be prioritized by real-case frequency, decision importance, obtaina
 #### D result
 
 D is complete. The verified Increment-5 responsibility is understood at architecture, source-owner, data/evidence-flow, failure-model, real-case applicability, and proof-limit levels. The remaining gaps are characterized well enough for E to repair only if necessary or explicitly defer and close the cycle.
+
+
+## E — gap disposition + cycle closure / handoff — DONE
+
+### Gap disposition
+
+No D finding requires reopening Build or changing the verified Increment-5 source/test surface.
+
+The following real capability pressures are explicitly **deferred**, not rejected:
+
+1. provider-backed correlation for additional deterministic job identities, including unnamed jobs where authoritative semantics can be established;
+2. matrix/strategy runtime correlation where representative action-relevant cases justify it;
+3. uv-specific runtime package-state semantics/composition;
+4. GitHub Action → Docker build → Dockerfile command/environment provenance;
+5. bounded shell-state / virtual-environment activation / PATH propagation for later-command environment identity;
+6. optional direct target-owned package-state observation as a distinct evidence mechanism.
+
+These are not Increment-5 defects. Re-entry requires action-relative evidence that one of them is decision-critical and worth its implementation/proof cost.
+
+### Conditional Cycle 2 disposition
+
+The runtime dependency-state plan's conditional Cycle 2 (explicit target-owned runtime-state evidence) is **not selected**.
+
+Cycle 1 has satisfied its bounded responsibility:
+
+- one precise direct-requirements/pip command family can establish `RequirementSatisfiedAtCommandCompletion`;
+- close defeaters remain explicit;
+- the result is carried through the normal application path;
+- Product Verification #17 proves the integrated behavior;
+- D found no blocking implementation/ownership defect.
+
+Real cases demonstrate broader unsupported mechanisms, but current evidence does not establish that explicit target-owned package-state acquisition is the next action-critical responsibility. Starting Cycle 2 merely to increase coverage would violate the plan's action-relative selection rule.
+
+### Established / not established
+
+**Established by the closed cycle:**
+
+- normal application can carry bounded per-command runtime dependency-state results separately from CI coverage;
+- a supported direct-requirements/pip Route-A command can produce a positive command-completion requirement-state witness when source, semantic, identity, and execution premises close;
+- dry-run/non-mutation/runtime failure/unresolved semantic evidence remain explicit problems;
+- unsupported mechanisms can remain `no_admitted_candidate` without erasing valid weaker CI evidence;
+- internal composition contradictions fail loudly instead of masquerading as external uncertainty.
+
+**Not established:**
+
+- universal pip workflow coverage;
+- uv package-state proof;
+- Docker-inner-command package-state proof;
+- arbitrary shell/venv/PATH propagation;
+- package persistence after command completion;
+- later affected-behavior exercise;
+- behavioral compatibility;
+- artifact mechanism identity;
+- maintainer-action permission.
+
+### Proof state
+
+Accepted executable proof remains Product Verification #17:
+
+- run `36994518662`;
+- exact head `1c371875ffb459ce2e2c9c913a5a87a10a434928`;
+- fresh installed-package / `pip check`: PASS;
+- installed CLI entry points: PASS;
+- focused investigation composition: 16/16 PASS;
+- deterministic product regression: 714/714 PASS.
+
+All subsequent cycle-learning/closure commits modify documentation/live-state records only, so no new executable proof is required for this closure.
+
+### Next responsibility
+
+Return to the parent:
+
+`plans/END_TO_END_PRODUCT_FLOW_LEARNING_AND_EVIDENCE_TO_ACTION_EXECUTION_PLAN.md`.
+
+The next selected responsibility is a **fresh action-relative reachability comparison** against the current product state after the closed F4/F5 work and now-closed F6 runtime dependency-state capability.
+
+That comparison should ask one bounded question:
+
+> Does the now-reachable evidence satisfy the positive prerequisites for one accepted non-abstention maintainer action, or is one different exact producer/composition premise still the closest blocker?
+
+It must select at most one next responsibility. It must not automatically select F7, Conditional Runtime-State Cycle 2, uv/Docker/venv breadth, or action implementation merely because those capabilities remain incomplete.
+
+### Final cycle result
+
+Increment 5 and Runtime Dependency-State Cycle 1 are **CLOSED**. No blocking defect or proof debt remains inside their accepted responsibility. Future expansion is demand-driven from the parent action-relative route.
+
+**STOP — cycle closed.**
