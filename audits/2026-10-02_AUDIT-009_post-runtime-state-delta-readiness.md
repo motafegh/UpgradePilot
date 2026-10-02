@@ -104,7 +104,7 @@ Therefore #17 remains the accepted executable proof for the current product impl
 | F8 — local-model trust boundary sound but hosted proof not live semantic deployment | **STILL VALID** | Bounded support-drop LLM architecture remains adopted; deterministic adapter/grounding tests remain distinct from live-model semantic-quality proof. No new evidence justifies collapsing those proof classes. |
 | F9 — ambient `GITHUB_TOKEN` changes public acquisition | **CLOSED / ABSORBED** | CLI is anonymous by default; explicit `--github-auth token-env` opt-in; Requests ambient credential behavior is bounded; hosted proof closed the selected contract. |
 | F10 — provider acquisition failure containment/resilience | **STILL VALID / REASSESS ON DEMAND** | CLI still converts provider/acquisition failures into operational exits. No current evidence proves that the product must preserve partial independent evidence after a specific failure. Do not build generic resilience infrastructure without an action/user requirement. |
-| F11 — audit lifecycle metadata conflicted with live route | **CLOSED AT ORIGINAL SCOPE, BUT NEW INDEX DRIFT OBSERVED** | Original AUDIT-005 active/scheduled conflict was repaired. However, the current active-audit index still contains stale 2026-09-20 coordination text describing F11 as the next boundary, despite later F4/F5/F6 closure. `MEMORY.md` remains correct. |
+| F11 — audit lifecycle metadata conflicted with live route | **CLOSED; NEW INDEX DRIFT FOUND AND REPAIRED AFTER THIS AUDIT** | Original AUDIT-005 active/scheduled conflict was repaired. This audit found later stale 2026-09-20 coordination text in the active index; the post-audit reconciliation moved AUDIT-008 to absorbed, activated AUDIT-009, and aligned the scheduled handoff/current route. |
 
 ---
 
@@ -392,7 +392,9 @@ Nevertheless, the index text is stale and can mislead future re-entry.
 
 **Consequence:** audit lifecycle metadata should be reconciled before or while the next comparison is formally activated.
 
-**Disposition:** FIX metadata when change intent is authorized; no product source/test work required.
+**Disposition at audit time:** FIX metadata when change intent is authorized; no product source/test work required.
+
+**Post-audit resolution:** Ali explicitly authorized stale-document/report reconciliation. The active audit index now selects AUDIT-009; AUDIT-008 is absorbed as the historical baseline; AUDIT-005 remains scheduled with its current handoff wording; `MEMORY.md`, the evidence-to-action plan, parent synthesis plan, README, current 2026-10-02 proposal, and evolving Mature System Horizon were reconciled to the post-runtime-state state. No product source/tests were changed.
 
 ---
 
@@ -553,7 +555,7 @@ Only outcome B should activate the Stage-8 AI candidate-discovery experiment by 
 ### New delta findings
 
 - F6 evidence now reaches `PublicPullRequestInvestigation` but has no action/presentation consumer yet;
-- active AUDIT-008 index coordination text is stale relative to current live state;
+- the active-audit index drift discovered by this audit was repaired in the authorized post-audit documentation reconciliation;
 - AI candidate discovery is now a legitimate action-selection option, but not automatically activated.
 
 ---
@@ -616,6 +618,22 @@ Primary owners/evidence:
 - [`../working-memory/2026-09-29_step4_existing-ai-agent-work-reconciliation.md`](../working-memory/2026-09-29_step4_existing-ai-agent-work-reconciliation.md)
 - [`../working-memory/2026-09-29_step5_architecture-decisions-experiment-queue-and-integration-strategy.md`](../working-memory/2026-09-29_step5_architecture-decisions-experiment-queue-and-integration-strategy.md)
 - [`../proposals/2026-10-02_UPGRADEPILOT_POST_RUNTIME_STATE_DIRECTION_AUDIT_AND_AI_ACTIVATION_PROPOSAL.md`](../proposals/2026-10-02_UPGRADEPILOT_POST_RUNTIME_STATE_DIRECTION_AUDIT_AND_AI_ACTIVATION_PROPOSAL.md)
+
+## 12.1 Post-audit alignment evidence
+
+Authorized documentation/lifecycle reconciliation commits:
+
+- `5a3a03ccc3f0adeb3838830677352fd95145ff7c` — live `MEMORY.md` aligned to AUDIT-009 + parent comparison;
+- `bb08ca54f0c01131028f5b29773e969a09935c64` — AUDIT-009 activated in the audit index;
+- `19a58139be02eda356f884d27e4daa78ab94c318` — AUDIT-008 absorbed as historical baseline;
+- `76b489fbe6a50976b4ecbc701b9f2daaa539fbea` — scheduled AUDIT-005 handoff/current route aligned;
+- `730cee8b4d1693a7e50774400fdf88e5dd3df9bd` — evidence-to-action plan reconciled with AUDIT-009 and closed F4/F6 state;
+- `e6f177934792c5d6eba452a24c57266bdc9f5b0d` — parent synthesis plan reconciled after F4/F6 closure;
+- `860f1e36009573230874e593092d20c93ff71d69` — README current capability boundary refreshed;
+- `2500d0c1a68335ed16e14789c6d4682d40692538` — current direction proposal updated after AUDIT-009;
+- `351564d429dc766024480f8f7c61b68fe57a9849` — evolving Mature System Horizon reconciled with current product anchors.
+
+These commits are documentation/lifecycle reconciliation only and do not change the executable product proof state.
 
 ## 13. Stop line
 
