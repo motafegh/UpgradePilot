@@ -11,5 +11,7 @@ Current absorbed audits:
 - [ABSORBED — AUDIT-003 — Post-Conversation-C Product Decision-Model Audit](../2026-08-10_AUDIT-003_post-conversation-c-product-decision-model.md)
 - [ABSORBED — AUDIT-006 — Internal Evidence Type Strength and Revalidation Boundaries](../2026-08-21_AUDIT-006_internal-evidence-type-strength-and-revalidation-boundaries.md)
 - [ABSORBED — AUDIT-007 — uv Membership Proposition and Lock-Model Boundaries](../2026-08-22_AUDIT-007_uv-membership-proposition-and-lock-model-boundaries.md)
+- [ABSORBED — AUDIT-008 — Current System End-to-End Evidence-to-Action Audit](../2026-09-19_AUDIT-008_current-system-evidence-to-action-readiness.md)
+  - absorbed 2026-10-02: its material current conclusions were reconciled by completed F3/F4/F9/F11 work, F5 feasibility, the closed F6/runtime-state program, and AUDIT-009's finding-by-finding delta. Retain AUDIT-008 as the historical baseline/provenance source, not the current readiness snapshot.
 
 These records remain useful historical/review evidence, but they are **not active implementation work** and must not compete with the newer owning artifacts. Reopening one requires a new concrete trigger rather than merely re-reading the historical recommendation.
