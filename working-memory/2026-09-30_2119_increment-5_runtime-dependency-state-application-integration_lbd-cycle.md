@@ -672,3 +672,27 @@ The fixture now declares `name: test`, matching its mocked runtime job display n
 - Product source/test behavior for Increment 5 is now sufficiently evidenced to leave the Verification gate.
 
 Verification therefore closes GREEN and the canonical cycle advances to D — post-work evidence-backed learning/ownership.
+
+
+## D — post-work evidence-backed learning / ownership — CURRENT
+
+### D learning route
+
+D will teach from the verified implementation rather than repeat A2:
+
+1. trace the actual Increment-5 application/evidence flow;
+2. compare A2 expectations with implementation reality;
+3. use verified executable fixtures for the exact positive Route-A path;
+4. use real product-simulation cases where they materially expose applicability/boundary behavior;
+5. learn from Product Verification #16's correlation-fixture failure and #17's repaired proof;
+6. close with a small number of architecture/evidence ownership questions and characterize any gap for E.
+
+### Real-case selection finding
+
+The existing product-simulation corpus does not need to be forced into a positive first-family example.
+
+- S001 (Pydantic / Soup Sieve) is a real uv/project-environment case: strong dependency-path and successful docs-CI evidence can coexist with `no_admitted_candidate` for the first direct-requirements/pip package-state family.
+- S002 (Kubernetes Dashboard Token API / HTTPX) has a direct `requirements.txt` pin, but the Python workflow excludes `requirements.txt` from its PR trigger and therefore did not run for the update; the successful Docker workflow installs requirements inside the Dockerfile behind an action/matrix boundary. It is not a clean current Route-A application witness.
+- S004 (glyphsLib / pytest) contains real pip requirements installation, but relevant commands are embedded in venv activation/compound-shell and matrix/no-explicit-job-name shapes that exceed the clean first-family exact-runtime proof boundary.
+
+Therefore D will use the hosted-green Increment-5 controlled fixture to teach the exact positive data flow, and the real cases to teach product applicability, abstention, and future evidence-family pressure. This preserves realism without misrepresenting unsupported real cases as current product proof.
