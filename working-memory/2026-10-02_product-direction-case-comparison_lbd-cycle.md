@@ -11,8 +11,8 @@ Procedures: UP-SKILL:upgradepilot-planning-design; UP-SKILL:upgradepilot-working
 Ali explicitly requested the next step after discussing that no additional plan is necessary. Authorized responsibility: execute the prepared comparison and reconcile its direction decision; product implementation remains separate. Standing authorization covers coherent validated commits/pushes.
 
 A0 — DONE: fetched origin/main, reconciled plan/live handoff, current source and selected case records; initialized this cycle and learning map.
-A1 — CURRENT: continuity explanation supplied; meaningful opportunity to question/correct current-state understanding remains open.
-A2 — PENDING: upcoming comparison and its proof/decision boundaries after the continuity gate.
+A1 — DONE for the continuity opportunity: Ali challenged the unclear explanation; research integration was reconciled and the product/worked-example distinction re-explained concretely. Detailed mastery remains unassessed.
+A2 — CURRENT: case walkthrough explains the upcoming comparison; pre-B understanding remains unassessed.
 B — PENDING: no alternative has been evaluated or selected in this cycle.
 Verification gate — PENDING: comparison traceability, common rubric, counterevidence and owner reconciliation not yet established.
 D — PENDING: evidence-backed learning after the comparison.
@@ -54,6 +54,26 @@ A2 topics: compare the three delivery sequences with the same nine rubric dimens
 Meaningful unresolved states: a curated conclusion may require an absent producer; honest output may still provide little utility; alternatives may remain indistinguishable. Hybrid is a hypothesis and can lose. No numeric scoring, speculative action promotion, target execution or research merge is needed for this orientation.
 
 ## Dated handoff and validation
+
+### Case walkthrough after Ali requested to see the examples
+
+Ali requested a practical walkthrough after the simplified HTTPX explanation. Refreshed origin/main; no newer remote changes. Read S013–S016 post-case syntheses, S008 synthesis and the preserved S001 CLI details. These are archived case observations, not new external acquisitions. Their historical references to implementation stages remain dated; do not adopt their then-current product projections as verified present behavior.
+
+The walkthrough uses the following concrete lessons:
+
+| Case | Archived finding | Useful assistance to examine, not a claim of implemented output |
+| --- | --- | --- |
+| S001 | Model request failed; CI consumption was supported but not correlated to runtime execution | Explain which questions remain unanswered and why green CI does not close them |
+| S002 | Docker success did not establish relevant Python tests; resolved framework versions were unavailable | Explain the testing gap and justify capturing versions plus running the relevant tests |
+| S008 | CPython-3.6 binary wheel path disappeared while source fallback remained | Explain installation-mode change without claiming installation failure |
+| S013 | Earlier explicit uv sync formed package state before later no-sync tests; runtime used a PR merge revision | Follow the sequence and exact execution identity rather than judging a later command in isolation |
+| S014 | The PR command found the requested pip version already satisfied; base command actually installed a different version | Report package state without falsely attributing a fresh installation |
+| S015 | The changed pytest requirement applied on Python 3.8 and was ignored on Python 3.9 | Avoid borrowing a successful sibling environment as evidence for the changed requirement |
+| S016 | Tests-extra selection included coverage; separate release/build selection excluded it | Identify which selected environment actually includes the changed dependency |
+
+A2 delivery-sequence model: action-led first earns a justified disposition; advisor-led first delivers useful evidence/explanation; hybrid delivers that explanation while independently allowing a disposition only when its evidence is sufficient. Next B will compare these using the plan's nine dimensions and current producer traces; neither this walkthrough nor the case authors' recommendations selects a winner or measures utility. Learner understanding remains open; avoid another unexplained quiz.
+
+Walkthrough increment: only this cycle record and MEMORY.md changed; whitespace and local-reference checks pass. No executable changes or product test claim. Preserve the earlier dated handoff below as the state before this walkthrough.
 
 Continuity gate remains open under OPERATING_GUIDE.md §2.2. Resume A2 after Ali has a meaningful opportunity to challenge/correct the current-state model. Do not interpret authorization to proceed as proof of learner mastery. Prior planning-cycle D/E ownership assessment is explicitly deferred; its preparation result remains complete and this record owns the separate comparison cycle.
 
