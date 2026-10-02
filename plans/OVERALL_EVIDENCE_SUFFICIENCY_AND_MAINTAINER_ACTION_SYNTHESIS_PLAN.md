@@ -224,6 +224,10 @@ future product / observability gap
 
 Do not treat all four as one backlog or remove conservative limits merely for breadth.
 
+## 2026-10-02 delta reconciliation
+
+[AUDIT-009](../audits/2026-10-02_AUDIT-009_post-runtime-state-delta-readiness.md) is the current readiness input for this plan. AUDIT-008 remains the absorbed historical baseline. Completed F3/F4/F9/F11 work and the closed bounded F6/Runtime Dependency-State Cycle 1 must not be read below as still-open current gaps merely because their original rationale remains useful. `MEMORY.md` owns the exact live continuation.
+
 ## Reliability reinforcement route
 
 When the synthesis path relies on a producer whose evidence can currently be false or misattributed, correctness reinforcement outranks feature expansion. The following ordered route is durable because later stronger evidence should not be layered on top of known incorrect premises. `MEMORY.md` still selects when each bounded child responsibility is live.
@@ -324,31 +328,25 @@ Do not label it a confirmed current defect merely from historical source pressur
 
 Correctness repair does not imply that every conservative evidence gap should immediately be expanded. Reassess these against the next decision-critical proposition.
 
-### Preserve the already-known consuming job into Target composition
+### Closed F4 result — consuming-job identity is preserved into Target composition
 
-Current supported CI consumption evidence can already identify an exact static `job_key`, while Target artifact-environment interpretation can re-solve job selection from the whole workflow and return ambiguity under its conservative one-job rule.
+The earlier composition bottleneck is closed. Supported CI consumption now carries the exact static `job_key` through application composition into Target interpretation, with source/workflow/revision identity checks and conservative mismatch handling.
 
-Potential direction:
+This closed result remains useful evidence for downstream action reasoning, but it is no longer a current producer gap. Reopen it only on concrete regression evidence.
 
-```text
-CI-supported exact consuming job
-→ preserve that relationship through application composition
-→ interpret target facts for that exact job
-```
+### Bounded runtime dependency-state is now available; stronger runtime/artifact observation remains conditional
 
-Before implementation, trace earliest sufficient ownership and ensure CI identity does not become Target semantics. This is a composition bottleneck, not currently classified as false-evidence behavior.
+Runtime Dependency-State Cycle 1 now establishes a bounded direct-requirements/pip command-completion proposition when exact dependency/source applicability, effective package-manager semantics, and exact successful command execution align. The result is carried through `PublicPullRequestInvestigation.runtime_dependency_state_result`.
 
-### Produce exact runtime dependency/artifact evidence only for a selected proposition
+It still does not reveal or prove, in general:
 
-The current bridge does not reveal:
-
-- exact dependency version resolved/installed;
 - wheel versus sdist selection;
 - artifact filename/tags;
-- resolver/install output;
+- post-command persistence or later use;
+- universal uv/Docker/venv package state;
 - exact runtime target tags.
 
-Job logs, workflow artifacts, or another runtime source may become justified only after selecting the precise proposition they must establish. Do not add a generic log-ingestion subsystem merely because the data exists.
+Job logs, workflow artifacts, explicit target-owned state, or another runtime source may become justified only after the action-relative comparison selects the precise proposition they must establish. Conditional Runtime-State Cycle 2 remains unselected; do not add generic log ingestion merely because the data exists.
 
 ### Exact target wheel compatibility remains without a normal producer
 
