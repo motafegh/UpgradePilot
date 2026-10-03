@@ -1,7 +1,7 @@
 # Conditional optional-extra consumption — correctness repair cycle
 
 Date: 2026-10-03 (Asia/Tehran). Primary operation: Build/Implement.
-Session status: ACTIVE.
+Session status: CLOSED with explicitly deferred learning/ownership assessment.
 Previous: [upstream API / target-context design review](2026-10-03_2023_upstream-api-and-target-context-design_lbd-cycle.md); that design's D/E questions remain open.
 Owners: [Core](../docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md), [Product Decision Model](../docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md), [Naming Clarity](../docs/specifications/UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md).
 UP-SKILL:upgradepilot-build-implement; UP-SKILL:upgradepilot-working-memory; UP-SKILL:upgradepilot-learning-by-doing.
@@ -13,9 +13,9 @@ A1 — DONE at continuous-context depth: prior handoff review established marker
 A2 — DEFERRED teaching to D by explicit user instruction: Ali requested fixing/verifying first and learning afterward. Minimum engineering responsibility and proof model are preserved below.
 B — DONE: retain requirement marker/dependency extras through extraction/analysis/context, gate positive optional-extra membership on absence of an unevaluated condition and forward conditions into existing CI evidence.
 Verification gate — GREEN: 44 focused tests, 743/743 checkout and 743/743 rebuilt fresh-installed product tests; public investigation→report→strict encode/decode preserves condition; touched Ruff/format and whitespace checks pass.
-D — CURRENT: evidence-backed source/result walkthrough ready after verified repair, as requested; learner ownership not yet assessed.
-E — PENDING: ownership/gap repair and handoff after D; broader API trial remains unadmitted.
-C — CONTINUOUS.
+D — DEFERRED by Ali: compact result explanation delivered, but deeper source walkthrough and learner ownership assessment deferred; no mastery inferred.
+E — DONE: scoped repair and proof consolidated; unassessed ownership explicitly deferred by user; handoff returns to the existing larger capability design without admitting its implementation.
+C — DONE for this cycle.
 
 ## Authorized order and minimum change model
 
@@ -48,3 +48,5 @@ Installed proof: initial no-build-isolation attempt failed because this venv lac
 ## Post-work learning and handoff
 
 Explain the actual path: raw exact requirement → parsed marker/extras → source context → dependency-owned selection/applicability relation → CI evidence → report. `speed` selection establishes an extra choice, not the truth of `python_version < "3.12"` for the installer. The marker is now preserved and its unproven premise is visible; resolving that premise needs a separately justified environment contract. Compare expectation with verified output, then assess understanding. D/E remain open; fixing the implementation does not establish learner ownership or admit the broader API/source-policy trial.
+
+Closure follow-up: repair published as `aa67a1f5` with local/fetched main aligned. Ali subsequently explicitly requested deferring learning and returning to the larger capability overview/plans. The earlier pending D/E handoff above is superseded by that instruction: D/ownership assessment is deferred rather than passed; E closes with verified engineering result, unevaluated-marker limitation and learning debt preserved. Do not reopen a learning prerequisite or quiz without a relevant user request. Broader capability design remains a separate non-controlling proposal and its accepted source/semantic decisions are not supplied by this repair.

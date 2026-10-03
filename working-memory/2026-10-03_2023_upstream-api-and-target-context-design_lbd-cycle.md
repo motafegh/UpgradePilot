@@ -2,7 +2,7 @@
 
 Date: 2026-10-03 (Asia/Tehran). Primary operation: Planning/Design.
 Session status: ACTIVE.
-Prerequisite continuation: [conditional optional-extra correctness repair](2026-10-03_2123_conditional-optional-extra-correctness_lbd-cycle.md); design D/E and broader trial decisions remain open.
+Completed prerequisite: [conditional optional-extra correctness repair](2026-10-03_2123_conditional-optional-extra-correctness_lbd-cycle.md); repair learning explicitly deferred, design/trial decisions remain open.
 Previous: [report development-case/repair cycle](2026-10-03_1959_report-development-case-check_lbd-cycle.md).
 Owners: [Charter](../PROJECT_CHARTER.md), [Core](../docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md), [Product Decision Model](../docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md), [Minimum Useful Generality](../docs/specifications/UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md), [report-plan re-entry](../plans/MAINTAINER_REPORT_PRESERVATION_AND_USEFULNESS_EVALUATION_PLAN.md).
 
@@ -75,6 +75,14 @@ Increment verification: retained diagnostic lint/format, changed-document local 
 
 
 ## Verification and teaching handoff
+
+### Return to the larger capability responsibility
+
+Ali explicitly deferred learning parts for now and requested the larger-work overview and plans. Closed the verified marker repair with learner ownership explicitly unassessed/deferred, then returned to this existing design responsibility using `UP-SKILL:upgradepilot-planning-design`. Engineering proof/trust boundaries remain active; no quiz or learning completion prerequisite is selected. This is an overview/design continuation, not authorization to implement a new source policy, semantic role or broader capability.
+
+Overview disposition: report/save/open and the narrow support-drop path are existing foundations; the next proposal connects distinct source associations, full crossed-release evidence windows, bounded local-model change interpretation, ordinary exact-revision target/dependency/adapter discovery and faithful conditional candidate/report composition. First use explicit API argument removal as an end-to-end proof category, preserve other change observations/coverage gaps and vary the cases rather than hardcode the known HTTPX answer. Source identity/allowed effects and role/input/evaluation decisions precede runtime adoption. Independent usefulness remains a separate gate with no arranged reviewer; environment/marker truth, broader behavior/artifact mechanisms and adaptive agents remain subsequent demand-driven responsibilities.
+
+Recommended planning frontier: resolve the declared-source eligibility/effect ceiling and candidate/coverage contract, then promote only the necessary accepted owner/ADR changes and prepare one compact trial execution plan with source/code/test/evidence scope, exact baseline/model/input identities and frozen acceptance/rejection criteria. This overview itself does not create an accepted ADR/plan or pass semantic/utility evaluation. Existing draft §§4–11 remain the detailed non-controlling design owner; the report plan owns preservation/usefulness, not missing producers.
 
 Validated relative links, metadata name/version/digest, excerpt identity/range, tag/commit capture and absence of executable changes. Documentation whitespace/publication scope are checked with the coherent increment. No product/experiment test suite or inference evaluation was run because this is a documentation-only planning responsibility; prior product results remain dated evidence. Neither retrievable source nor a plausible architecture proves semantic quality, autonomous target discovery, independent usefulness, applicability or learner ownership.
 
