@@ -15,18 +15,11 @@ Ali explicitly asked to keep the ongoing `main` work untouched and use this sepa
 
 This record is deliberately non-controlling. It may preserve hypotheses, questions, useful discoveries, and candidate implications, but it does not change the live project position, accepted semantics, selected implementation responsibility, or authorization on `main`.
 
-Current inherited project position:
-
-- Runtime Dependency-State Cycle 1 is closed and verified.
-- The current product-direction work compares action-led, advisor-led, and hybrid delivery.
-- The active project cycle on `main` remains in A2 / orientation-discussion territory; no product implementation is authorized by this branch.
-- Recent report work is broader than file generation or storage: it concerns faithful maintainer-facing projection, useful explanation under uncertainty, saved-result boundaries, replay distinctions, and independent usefulness evaluation.
-
 ## Current learning model
 
-### 1. Report is not merely a saved file
+### Report is not merely a saved file
 
-The report direction is currently understood as a product-facing decision-support layer:
+The report direction is understood as a product-facing decision-support layer:
 
 ```text
 internal evidence / findings / uncertainty
@@ -40,30 +33,21 @@ decision-relevant unknowns
 justified next checks
         ↓
 action or abstention when independently supported
-        ↓
-optional saved-result / provenance / evaluation
 ```
 
-Saving a report, preserving raw evidence, replaying analysis, rerunning acquisition, and recovering an interrupted execution are separate promises and should not be collapsed.
+Saving a report, preserving raw evidence, replaying analysis, rerunning acquisition, and recovering interrupted execution are separate promises.
 
-### 2. Current direction intuition
+### Hybrid direction hypothesis
 
-Ali's current intuition:
-
-- action-led alone is unattractive because UpgradePilot cannot always justify a strong action;
-- hybrid feels more natural because useful assistance can survive uncertainty while action permission remains conservative.
+Ali's current intuition is that action-led alone is unattractive because UpgradePilot cannot always justify a strong action, while hybrid allows useful assistance under uncertainty.
 
 Refined engineering interpretation:
 
 > Advisory usefulness and action permission have different evidence thresholds.
 
-Hybrid should therefore not mean "report plus action by default." It should mean:
+Hybrid should mean: provide the strongest useful decision-support output the evidence truthfully supports, while independently controlling whether a stronger action claim has been earned.
 
-> provide the strongest useful decision-support output that the available evidence truthfully supports, while independently controlling whether any stronger action claim has actually been earned.
-
-### 3. Evidence strength ladder
-
-Current conceptual ladder:
+### Evidence strength ladder
 
 ```text
 observed evidence
@@ -77,64 +61,22 @@ justified discriminating check
 positively supported maintainer action
 ```
 
-Each level requires stronger evidence than the previous one.
-
-If the action threshold is not reached, the product may still provide lower-level useful output without weakening claim discipline.
-
-### 4. Main product risk discovered in discussion
-
-A hybrid product can still fail if it becomes an evidence dump.
-
-Useful output should not be organized around:
-
-> everything UpgradePilot knows
-
-but instead around:
-
-> what the maintainer needs to understand to make progress on this exact dependency update.
-
-Working conceptual structure:
-
-```text
-WHAT MATTERS
-WHY IT MATTERS
-WHAT REMAINS UNKNOWN
-WHAT TO DO NEXT
-WHY UPGRADEPILOT IS ALLOWED TO SAY THIS
-```
-
-Detailed provenance may remain inspectable underneath rather than dominating the first user-facing layer.
-
 ## Real-case learning anchors
 
 ### S014 — already satisfied vs installed by command
 
-Useful distinction:
-
-- command success plus exact requirement can support a state proposition such as "exact version satisfied/present at command completion";
-- it does not necessarily support "this command installed the version";
-- later persistence, later exercise, compatibility, and merge safety remain separate propositions.
-
-Product-direction implication:
-
-- action-led can truthfully abstain but may under-deliver useful information;
-- advisor-led can explain the state/provenance distinction;
-- hybrid can preserve that explanation while keeping action permission independent.
+- Successful exact requirement execution may support "exact version satisfied/present at command completion."
+- It does not necessarily support "this command installed the version."
+- Later persistence, later exercise, compatibility, and merge safety remain separate propositions.
 
 ### S015 — marker-scoped applicability
 
-Useful distinction:
+- Changed requirements file consumed != changed exact requirement applies in this environment.
+- A green sibling matrix row cannot establish a changed marker-scoped dependency when the marker does not apply there.
+- Current normal product extraction does not support marker-bearing exact pins.
+- Research knowledge must not be projected as current automated product output.
 
-- changed requirements file consumed != changed exact requirement applies in this environment;
-- a green sibling matrix row cannot establish the changed marker-scoped dependency when the marker does not apply there;
-- the relevant Python 3.8 row can fail while Python 3.9 succeeds because they exercise different applicable requirements.
-
-Important current-product limitation:
-
-- current normal product extraction does not support marker-bearing exact pins;
-- therefore archived research knowledge must not be silently projected as current automated product output.
-
-This sharpens a general rule:
+General rule:
 
 ```text
 useful information exists in reality
@@ -144,98 +86,90 @@ UpgradePilot can currently acquire/derive it
 UpgradePilot can currently present it
 ```
 
-Hybrid must remain bounded by normal producer reachability and explicit uncertainty.
-
 ## Candidate discoveries worth carrying forward
 
-These are branch-local hypotheses, not accepted design decisions.
+1. Usefulness should be graded by claim strength, not binary action success.
+2. Report projection should be decision-relevant rather than evidence-complete.
+3. A good abstention should still identify the exact blocker and, when supported, a useful discriminating check.
+4. A justified next check is a substantive product outcome and must not degrade into generic "run more tests."
+5. Research-case insight and normal product capability must remain separate.
+6. User-facing output likely benefits from layered presentation: concise decision support first, deeper provenance/evidence on inspection.
 
-1. **Usefulness should be graded by claim strength, not by binary action success.**
-   A run that cannot justify merge/block may still materially reduce maintainer reasoning burden.
+## Refinement — decision-driving prioritization and progressive disclosure
 
-2. **Report projection should be decision-relevant rather than evidence-complete.**
-   The first layer should prioritize the smallest set of findings and unknowns that change the maintainer's next decision.
+Current plans/specifications already require material, decision-relevant, discriminating output. The new learning is therefore a refinement rather than a missing product direction.
 
-3. **A good abstention should still be useful.**
-   "Cannot decide" is weak if unexplained. A strong abstention may identify the exact missing proposition and, when supported, the cheapest discriminating check.
+Possible refinement:
 
-4. **A justified next check is itself a substantive product outcome.**
-   It should not degrade into generic advice such as "run more tests." It needs a named unresolved proposition and an observation that could materially resolve it.
+> The primary maintainer-facing layer should prioritize the smallest set of decision-driving findings, uncertainties, and next steps needed to make progress on the exact update, while supporting evidence/provenance remains inspectable through progressive disclosure rather than competing for equal prominence.
 
-5. **Research-case insight and normal product capability must remain separate.**
-   Product Simulation may reveal what a useful future report would say without proving that today's normal product can produce that statement.
+Open questions:
 
-6. **The likely user-facing architecture may be layered.**
-   One layer exposes concise decision support; deeper layers expose provenance, evidence detail, and proof limits for trust/debugging.
+- How should multiple material findings be ordered?
+- What belongs on the primary surface versus supporting detail?
+- Can a fact be materially true but not currently decision-driving?
+- What stable rule can prioritize content without opaque scoring or hiding relevant uncertainty?
 
-## Open questions for continued learning
+## Learning — requirement declarations are a semantic family
 
-1. What exactly distinguishes a **justified next check** from speculative advice?
-2. What minimum output should remain useful when UpgradePilot abstains?
-3. How should report content be prioritized so technically correct evidence does not become noise?
-4. Which internal typed results are already strong candidates for user-facing projection, and which are too low-level?
-5. What information must be available to independently evaluate whether a report actually reduces maintainer work?
-6. Where should an LLM eventually help: discovery, synthesis/presentation, or neither until a measurable deterministic baseline exists?
-7. How should a future report distinguish:
-   - observed fact,
-   - supported interpretation,
-   - unresolved proposition,
-   - proposed check,
-   - permitted action?
+S015 exposed that `package==version` is only the simplest dependency declaration form.
+
+Marker support is already considered: S015 records it as a real future source-support question and freezes this invariant:
+
+```text
+package/version + marker + selected runtime environment
+        ↓
+applicable / non-applicable / unresolved
+```
+
+It is not the currently selected Build responsibility. Re-enter when a real finding, check, or action is blocked by the missing capability.
+
+Adjacent forms that may matter:
+
+1. bare exact pin: `pytest==9.0.3`;
+2. marker-bearing pin: `pytest==9.0.3 ; python_version == "3.8"`;
+3. extras: optional dependency selections such as `requests[security]`;
+4. non-exact/range specifiers: `>=`, `<`, `~=`, `!=`, wildcards and compound ranges;
+5. direct URL/VCS/archive references, where source/revision/artifact identity becomes part of the proposition;
+6. requirements-file composition via included requirements and constraints;
+7. editable/local/path forms and install options that affect source, selection, or resolver behavior.
+
+Adjacent applicability/selection pressures outside one requirement line include:
+
+- selected extras/groups/roots, already validated by S016;
+- package Python-version compatibility metadata;
+- wheel/artifact/platform compatibility;
+- exact index/source/binary/hash policy;
+- transitive dependency metadata with its own markers/extras.
+
+Important conceptual decomposition:
+
+```text
+DECLARED DEPENDENCY PROPOSITION
+identity + version constraint/direct source + extras + marker
+        ↓
+APPLICABILITY / SELECTION
+runtime environment + selected extras/groups/roots
+        ↓
+RESOLUTION CONTEXT
+index/source/binary/hash/configuration policy
+        ↓
+RESOLVED / OBSERVED PACKAGE STATE
+exact artifact/version/environment/runtime evidence
+```
+
+Syntax recognition is not semantic support. Do not solve this by merely widening one regex.
+
+Current evidence suggests a demand-driven priority:
+marker applicability → extras/groups/selected roots → constraints/includes → non-exact ranges → direct references/local/editable forms → resolver/index/binary/hash policy as concrete decision pressure appears.
+
+This taxonomy is a learning hypothesis, not implementation authorization or a new plan.
 
 ## Current route
 
 Continue learning/discussion without changing `main`.
 
-Near-term topic:
-
-> distinguish a genuinely useful, evidence-backed next check from generic/speculative advice, and connect that distinction to UpgradePilot's existing investigation and stopping architecture.
-
-When a discussion produces a durable useful discovery, add it here. If a finding later deserves acceptance on `main`, promote it only through the correct plan/specification/ADR/live-owner process with explicit authorization.
-
-## Handoff
-
-Current working hypothesis:
-
-> Hybrid is promising not because it is more comfortable, but because it separates the threshold for useful explanation from the stronger threshold for action permission.
-
-The next learning step is to test whether UpgradePilot's existing investigation/stopping model can already support **specific discriminating next checks**, and where the current product would still lack enough evidence to do so honestly.
-
-No product/source/test/specification/plan/live-memory change has been made on `main` by this learning branch.
-
-
-## Refinement — decision-driving prioritization and progressive disclosure
-
-After checking the current report, decision-model, synthesis, and route owners, the discussion confirmed that the project already requires material, decision-relevant, discriminating output. The new learning is therefore a refinement rather than a missing product direction.
-
-Existing accepted/planned behavior already pushes against evidence dumping:
-
-- the report plan asks for material findings, material unknowns with consequences, and justified discriminating next checks;
-- the Product Decision Model distinguishes relevant evidence from discriminating evidence and information gain from decision-relevant information gain;
-- Maintainer Action Synthesis rejects vague "test more" advice and requires checks whose observations can materially affect the decision;
-- the route expects concise human output.
-
-Possible refinement discovered in this learning session:
-
-> The primary maintainer-facing layer should explicitly prioritize the smallest set of decision-driving findings, uncertainties, and next steps needed to make progress on the exact update, while supporting evidence/provenance remains inspectable through progressive disclosure rather than competing for equal prominence.
-
-This creates a useful future design question inside the report responsibility:
-
-```text
-many truthful/material facts
-        ↓
-which facts are decision-driving now?
-        ↓
-primary report surface
-        ↓
-supporting detail / provenance / deeper inspection
-```
-
-Open subquestions:
-
-- How should multiple material findings be ordered when more than one affects the decision?
-- What belongs on the primary surface versus supporting detail?
-- Can a fact be materially true but not currently decision-driving?
-- What stable rule can prioritize content without introducing opaque scoring or hiding relevant uncertainty?
-
-Disposition: preserve here as a candidate refinement. Do not create a separate plan or change `main` from this discussion alone. If later accepted, reconcile it through the existing report-contract/design owner and, only if it becomes a stable cross-output invariant, the appropriate Core/specification owner.
+Near-term topics:
+- distinguish a genuinely useful next check from generic/speculative advice;
+- understand which dependency-declaration/applicability forms deserve future support based on real decision pressure;
+- preserve any useful refinements here for later promotion through the correct owner if selected.
