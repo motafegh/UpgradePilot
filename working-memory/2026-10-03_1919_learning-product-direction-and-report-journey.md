@@ -536,3 +536,8 @@ If the full normal composition indeed admits that case, static dependency-consum
 **Status:** credible source-grounded concern, not yet a proven normal-path bug. Required next proof is one focused end-to-end or composition-level reproducer using an unchanged-marker version transition and a runtime/environment where the marker is false.
 
 This is exactly the type of discovery the learning branch exists to preserve. Do not repair on this branch unless Ali explicitly authorizes it; first prove the normal-path behavior and determine the correct semantic owner.
+
+
+### Freshness note for capability map
+
+This capability map was reconciled against current `main@7edb33c7869c92c527d8f282c998f4710f3326d2` (2026-10-03), after the learning branch was originally created. The learning branch remains intentionally separate; this note records the source baseline used for the analysis rather than rebasing or changing `main`.
