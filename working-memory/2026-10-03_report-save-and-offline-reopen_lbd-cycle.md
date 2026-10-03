@@ -1,6 +1,6 @@
 # Report generation, save and offline reopen — implementation cycle
 
-Date: 2026-10-03. Primary operation: Build/Implement. Session status: ACTIVE.
+Date: 2026-10-03. Primary operation: Build/Implement. Session status: CLOSED — 2026-10-03.
 Owner: [report plan §§7–9](../plans/MAINTAINER_REPORT_PRESERVATION_AND_USEFULNESS_EVALUATION_PLAN.md).
 Previous: [report design cycle](2026-10-02_report-contract-and-evaluation-design_lbd-cycle.md).
 
@@ -13,11 +13,11 @@ A1 — DONE: continuous report walkthrough explained timing, shared structured r
 A2 — DONE: proposed investigate/save/open commands, failure behavior and faithfulness/regression versus usefulness proof explained. Ali correctly reasoned that reopen cannot gather new CI evidence.
 B — DONE: shared projection/rendering, strict version-1 JSON, non-replacing save/offline reopen and CLI composition implemented; source retention and synthesis uncertainty reconciled.
 Verification gate — GREEN for product responsibility: 739/739 checkout and fresh installed product tests, dependency check, touched-file Ruff, installed entry-point parity and final direct normal save/open evidence. Existing governance-marker mismatch remains separate; utility/model quality are not established.
-D — CURRENT: actual outcome and proof taught in the handoff; deeper source/codec ownership discussion remains open, without inferred mastery.
-E — PENDING: repair/defer ownership gaps; independent utility remains separate debt.
-C — CONTINUOUS.
+D — DONE: actual source/analysis/report/file flow and proof limits taught; changed-range and no-refresh reasoning demonstrated. File-validity versus semantic-truth gap identified and explained; independent implementation mastery is not inferred.
+E — DONE: CLI semantic-validation misconception corrected and Ali acknowledged the distinction. Independent changed-case reconstruction, detailed codec/publication mechanisms and autonomous source modification are explicitly deferred; independent utility remains separate debt.
+C — DONE: coherent implementation, diagnosis, verification, learning and closure preserved.
 
-Latest verification follow-up: after Ali started LM Studio, repaired its stale endpoint; 15/15 focused tests and 739/739 checkout/rebuilt-installed tests pass. The later ordinary installed anonymous CLI run now verifies real-model grounding, conditional target-Python comparison, save and offline open on the same original PR revisions. Earlier diagnostic/rate-limited attempts remain separate. D/E remain open.
+Latest verification follow-up: after Ali started LM Studio, repaired its stale endpoint; 15/15 focused tests and 739/739 checkout/rebuilt-installed tests pass. The later ordinary installed anonymous CLI run now verifies real-model grounding, conditional target-Python comparison, save and offline open on the same original PR revisions. Earlier diagnostic/rate-limited attempts remain separate. D/E subsequently closed at the bounded learning/deferral depth recorded below.
 
 ## Living orientation map and cadence
 
@@ -103,3 +103,13 @@ Continued into the actual report/CLI/file owners: normal CLI acquires one typed 
 Saved-file teaching covers versioned explicit JSON, digest and record/reference/state consistency checks, non-replacing complete publication, and the CLI's early open branch: decode only report records, render and return before credential/acquisition setup. File validity/digest are not source authenticity, semantic correctness or freshness proofs. Full workflow/log/source capture and original domain-result reconstruction are not promised. Existing file/CLI tests were inspected for corrupted record rejection, unknown version/reference/state handling, prior-file/race/interruption protection and no acquisition/token access on reopen. No new source mutation, regression rerun or stronger execution claim was introduced.
 
 Next ownership check will distinguish a valid saved file from a trustworthy interpretation when its finding disagrees with its quoted source; response remains pending. Underlying atomic publication syscalls remain an operational explanation/lookup detail for this chunk, rather than inferred learner mastery. D/E remain open until this boundary and any material gaps are assessed and repaired/deferred explicitly.
+
+## E — learning gap repair, explicit deferrals and closure
+
+Ali's file-check answer correctly identified structural/required-field/supported-state validation but placed meaning-error validation at the CLI. Rechecked the actual CLI and upstream validator. Explained that the CLI routes investigation/open/render, analysis-domain checks ground exact source/release/Python-token attribution before projection, and neither these checks nor saved-file validation independently establish all natural-language semantics. A model can misinterpret an authentic source line while storage faithfully preserves the result. Semantic review/evaluation must compare meaning against the source. Ali acknowledged the distinction and asked for the next-step/building overview.
+
+Evidence of learning stays bounded: Ali independently explained no new evidence on reopen and changed-target-range overlap, and identified the main structural file checks. The CLI/semantic ownership correction was acknowledged, not independently reconstructed. Explicitly defer that changed-case reconstruction, autonomous modification of these modules, low-level codec/publication mechanisms and mastery of every evidence type; do not equate explanation, agreement or the software's passing tests with independent engineering mastery. This proportional closure avoids indefinite quizzes while preserving the exact remaining ownership depth for later work.
+
+Established product result: shared report projection/rendering, retained exact source/interpretation/unknown distinctions, strict version-1 save/open and non-replacing publication; deterministic checkout/rebuilt-installed regression 739/739 and focused extractor/transport 15/15 at the endpoint fix; ordinary installed real-model case with grounded support-drop, conditional target comparison and successful offline reopen. Executable source has not changed since that validation. Model recovery, prior provider/rate-limit failures and exact saved reports remain separately attributable. No independent utility, broad semantic accuracy, frozen adoption-evaluation reproduction, full replay, broader discovery/runtime coverage, compatibility or non-abstention action permission is established. Inherited extractor Ruff/governance/experiment debt remains as previously scoped; token replacement is optional future capacity setup.
+
+Next responsibility pointer: enter the existing report plan's development-case/evaluation-entry work, using contrasting declared cases to distinguish faithful communication from missing evidence and identify the first justified repair or separately admitted capability. Reviewer/adjudication and comparable inputs must be arranged before claiming an independent usefulness study has started; none is currently arranged. The plan explicitly permits implementation/faithfulness verification with utility debt when reviewers are unavailable. Do not let this debt silently freeze all unrelated justified deterministic work or turn it into a passed gate. No additional broad plan or speculative agent/framework implementation is selected. The next cycle owns its fresh case/input reconciliation and orientation; this cycle stops closed.
