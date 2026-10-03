@@ -607,3 +607,42 @@ provenance available
 Why: absence leaves an epistemic gap; contradiction is positive evidence against the proposed identity. A fallback that converts contradiction into success would make weaker evidence override stronger conflicting evidence and destroy the authority ordering.
 
 This same rule should later be tested for cross-distribution disagreement, repository moves and tag/source identity conflicts.
+
+
+## Synchronization — marker concern reproduced and repaired on main
+
+The learning branch was synchronized again with current `main@aa67a1f548b5cbdfeed7dae938e095159ed61cf3` through merge commit `5bf960576e1b2df1971cee230e80583d46eef76a`.
+
+This materially changes the status of the prior marker-propagation concern.
+
+Main first reproduced the normal-path false-positive condition, then repaired it. Current behavior now preserves:
+
+```text
+exact changed requirement
++ containing optional extra
++ requirement marker
++ dependency-requested extras
+        ↓
+project-environment selection
+        ↓
+if selected but marker truth is not established:
+unresolved / changed_requirement_marker_not_evaluated
+```
+
+It no longer treats optional-extra selection alone as proof that a marked changed requirement is consumed.
+
+Verified main evidence records:
+- 44 focused tests green;
+- 743/743 checkout product tests;
+- 743/743 fresh rebuilt-installed product tests;
+- report serialization preserves the unresolved marker condition;
+- no general marker evaluation or target-runtime truth was added.
+
+Updated learning status:
+
+```text
+prior: likely correctness defect; focused reproducer required
+now: reproduced defect -> repaired conservatively -> D/E learning still open
+```
+
+The broader architectural rule remains unchanged: preserve conditional dependency semantics rather than flatten them. Marker **truth evaluation** against a justified installer/runtime environment remains a separate future responsibility.
