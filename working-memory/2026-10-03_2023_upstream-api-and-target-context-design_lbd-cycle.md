@@ -1,8 +1,8 @@
 # Upstream API changes and target context — design cycle
 
 Date: 2026-10-03 (Asia/Tehran). Primary operation: Planning/Design.
-Session status: ACTIVE.
-Completed prerequisite: [conditional optional-extra correctness repair](2026-10-03_2123_conditional-optional-extra-correctness_lbd-cycle.md); repair learning explicitly deferred, design/trial decisions remain open.
+Session status: CLOSED — planning prepared; learning/ownership explicitly deferred.
+Completed prerequisite: [conditional optional-extra correctness repair](2026-10-03_2123_conditional-optional-extra-correctness_lbd-cycle.md); repair learning explicitly deferred; source method and trial coordination promoted below.
 Previous: [report development-case/repair cycle](2026-10-03_1959_report-development-case-check_lbd-cycle.md).
 Owners: [Charter](../PROJECT_CHARTER.md), [Core](../docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md), [Product Decision Model](../docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md), [Minimum Useful Generality](../docs/specifications/UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md), [report-plan re-entry](../plans/MAINTAINER_REPORT_PRESERVATION_AND_USEFULNESS_EVALUATION_PLAN.md).
 
@@ -13,11 +13,11 @@ UP-SKILL:upgradepilot-planning-design; UP-SKILL:upgradepilot-learning-by-doing; 
 A0 — DONE: fetched origin and reconciled local/fetched main at `7edb33c7869c92c527d8f282c998f4710f3326d2`; read controlling product/trust/generality/report owners, current acquisition/interpretation boundaries, directly relevant case evidence and previous closure; initialized this record.
 A1 — DONE at continuous-context depth: Ali received the three-case findings and reporting repair explanation, then explicitly selected the recommended design responsibility before any implementation decision.
 A2 — DONE at planning orientation depth: explained source identity versus target-specific meaning, design-only mutation boundary and draft → teaching → user decision order. Deeper alternatives will be taught from the draft rather than assumed already understood.
-B — DONE: traced source/semantic/target boundaries, obtained read-only association/source feasibility evidence and prepared one non-controlling design/architecture/trial proposal with inspectable alternatives and proof conditions.
-Verification gate — GREEN for planning artifact consistency: source/owner trace, exact distribution hash/name/version, pinned repository/tag/source/excerpt identity, local link and unchanged executable-diff checks. No source-policy, model/API or implementation acceptance implied.
-D — CURRENT: draft and recommendation prepared for the evidence-backed teaching/review handoff; Ali's understanding/challenges are not yet assessed.
-E — PENDING: questions/decision before draft promotion or implementation admission.
-C — CONTINUOUS.
+B — DONE: traced boundaries and retained feasibility evidence; subsequently promoted Core/ADR source rules and prepared one complete trial plan after explicit planning selection.
+Verification gate — GREEN for planning artifact consistency: source/owner trace, exact distribution hash/name/version, pinned repository/tag/source/excerpt identity, local link and unchanged executable-diff checks. Source-method design acceptance is recorded separately below; no model/API or implementation acceptance implied.
+D — DEFERRED at Ali’s explicit request: learner understanding/ownership is unassessed; engineering planning proceeded.
+E — DONE: planning owners promoted and one trial plan prepared; executable Build/model/product adoption remain separate.
+C — DONE: meaningful design evolution and the explicit learning deferral preserved.
 
 ## A0 and living orientation map
 
@@ -89,3 +89,16 @@ Validated relative links, metadata name/version/digest, excerpt identity/range, 
 Teach source association versus origin/trust, release meaning versus target exposure, declared constraints versus actual resolution, AI proposal versus deterministic grounding/composition, and initial trial versus accepted product capability. The HTTPX example should lead to a conditional mechanism with explicit unknown adapter resolution, not a compatibility/failure verdict. D/E remain open for Ali's questions/challenges and the implementation-or-trial decision. Any accepted source policy, ADR/plan/schema promotion or actual implementation is a subsequent authorized responsibility.
 
 Publication follow-up: the general staged whitespace check flagged a trailing-space line and final blank lines in the exact captured HTTPX source excerpt. The orchestration continued to commit/push before that result was classified; acknowledged this sequencing mistake. Circumstance is preserved external source bytes; normal route is an all-file whitespace pass; trimming that data would falsify the declared exact excerpt. Chosen exception is only the raw excerpt, with authored-document whitespace checked separately and captured hashes revalidated. No source bytes or hashes were changed, and no repository-wide lint suppression was introduced. The exception and check scope are explicit in the evidence README.
+
+
+## Planning completion after explicit selection
+
+Ali said “ok go on for them” after the recommendation to settle source-association effects and prepare the complete trial plan. Fetched main remained aligned at `94dc98e8`; the unrelated broad-audit working memory stayed untouched. Authorization is planning-owner promotion and execution preparation, not trial implementation.
+
+Promoted stable source-basis/allowed-effect invariants to Core §6.3 and the durable examination/representation method to ADR-0011. Exact-release explicit registry source declarations can enable bounded read-only examination and attributed proposals; homepage-only links are insufficient for this method. Existing stronger resolver/claim meanings remain unchanged. Missing provenance, adverse identity evidence and acquisition failures stay distinguishable. Mandatory wheel matching was rejected as unnecessary same-controller consistency/cost; optional digest/name/version-checked metadata sampling remains available when it discriminates a real conflict or shipped-metadata question.
+
+Prepared one API-change/target-exposure feasibility plan. Its complete proof path starts with ordinary PR acquisition, exact crossed-release windows and independent target inventory, then justified adapter acquisition, evaluated local-model change proposals and conditional composition. Known HTTPX/Starlette answers cannot enter normal producer inputs. Unsupported actual resolution stays unknown; missing adapter relationship makes the exposure goal incomplete. Operational limits, frozen evaluation roles, critical semantic failures, baseline comparisons and independent usefulness/product-adoption gates are explicit. Trial implementation belongs initially in experiments; existing product report v1 remains the comparison baseline.
+
+Cadence adaptation: Ali explicitly deferred learning. Normal D questions/gates would contradict that request; preserve ownership as unassessed/deferred and close engineering planning with its actual evidence. This changes learning cadence, not security, proof or implementation authorization. The draft is partially promoted, not silently adopted wholesale.
+
+Verification: authored-document whitespace, local-link existence and focused publication scope checks; no executable source/test/experiment changes. No product tests, model runs or ordinary-path API trial were performed for this documentation increment. Prior 743/743 checkout and fresh-installed product checks remain the separately dated repair evidence, not proof of this new capability. Next coherent responsibility is isolated association/window acquisition Build under the prepared plan, followed by the remaining complete trial path; implementation/model accuracy/utility/adoption and deferred learner ownership remain unestablished.

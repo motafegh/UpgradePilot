@@ -140,6 +140,17 @@ Representation design MUST consider specifically identified investigation consum
 
 These requirements favor justified information boundaries and explicit retention choices, not speculative frameworks, universal raw capture, or generic agent infrastructure. Reassess retention when a concrete consumer or proof obligation exposes a material missing premise.
 
+### 6.3 Source-association bases and permitted effects
+
+When package-to-source exploration is admitted, the association basis MUST remain explicit across acquisition, interpretation and presentation. Publisher-declared repository links, registry-reported publisher provenance and pinned repository text establish different propositions; they MUST NOT be substituted for one another inside a stronger evidence contract.
+
+- Source examination eligibility and eligibility for a trusted release/claim contract MUST remain separate. A declared link may support bounded inspection and attributed proposals under an admitted method without establishing attested origin or package-to-commit build correspondence.
+- Consistent declarations under the same publisher's control MUST NOT be presented as independent corroboration. Sampling a distribution MUST retain that sample's identity and coverage limits; a digest establishes correspondence to recorded distribution bytes, not source authenticity or semantic truth.
+- Missing provenance MUST remain distinguishable from conflicting, malformed, unsupported or inaccessible provenance. A weaker association MUST NOT erase an adverse result or silently convert it into a stronger success.
+- Every derived proposal MUST preserve association basis, exact examined source scope and unresolved correspondence premises. Pinning a tag/commit/file MUST NOT establish that an installed or published distribution was built from it, nor establish target applicability or action permission.
+
+These invariants do not admit a new source policy or semantic role by themselves. The selected method/plan owns permitted examination effects and implementation scope; existing stronger contracts retain their meanings.
+
 ## 7. Specialized specification relationships
 
 This core specification defines the stable trust/evidence/representation/failure invariants shared across admitted responsibilities and the project-wide implementation-retention/ownership constraints that apply when a material mechanism is added, repeated, or kept.

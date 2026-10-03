@@ -72,6 +72,9 @@ This section is navigation only. Each ADR's own `Status` field determines whethe
 - [`ADR-0010-package-manager-semantic-facts-and-runtime-dependency-state-composition.md`](ADR-0010-package-manager-semantic-facts-and-runtime-dependency-state-composition.md)
   — **Accepted.** Two-level reusable CI execution evidence, dependency-owned independent package-manager semantic facts with bounded provenance, and separate command-completion dependency-state composition.
 
+- [`ADR-0011-explicit-source-association-bases-and-proposal-boundary.md`](ADR-0011-explicit-source-association-bases-and-proposal-boundary.md)
+  — **Accepted design boundary.** Distinct publisher-declared/provenance source bases, bounded examination eligibility and attributed proposal effects; implementation/API-role adoption remain separately proven.
+
 Do not add labels such as **current ADR**, **active ADR**, or **next ADR** here. Live project position belongs only in `../../MEMORY.md`.
 
 ## Specification, ADR, plan, and implementation
