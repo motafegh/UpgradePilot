@@ -1,0 +1,87 @@
+{
+  "purpose": "Successful bounded normal installed investigation with local model, source grounding, conditional target comparison, save and offline open. Development evidence, not independent usefulness or broad semantic-quality evaluation.",
+  "code_head": "21d4c17631c376c8600cdfc629ffab2b04b2a8d9",
+  "report_file": "live-model-investigation-report.json",
+  "report_id": "a70a8148-b242-4c70-bad2-031b9b4f766d",
+  "generated_at": "2026-10-03T14:23:30.331314+00:00",
+  "report_sha256": "e2171c660736b2c457bd9a95a4bdc0abbb32665a3a7dfb91d6685cfdbdb84997",
+  "input": {
+    "repository": "pydantic/pydantic",
+    "pull_number": "13432",
+    "base_sha": "652a61ce4f9d7d76eaada31535807a485ece0e21",
+    "head_sha": "aa2dc024d33f61cdef50bf1973ab5adf0a974f5a"
+  },
+  "acquisition_mode": "Anonymous; installed console command executes outside checkout, process-local token/proxy removal. No credential fallback.",
+  "installed_normal_cli_exit_code": 0,
+  "preflight": {
+    "actual_pr_http": 200,
+    "response_rate_limit": 60,
+    "response_remaining": 59,
+    "response_reset_unix": 1791040952,
+    "control_time_utc": "2026-10-03T14:22:30.430655+00:00"
+  },
+  "model": {
+    "endpoint": "http://127.0.0.1:18080",
+    "key": "gemma-4-e4b-it-ud",
+    "architecture": "gemma4",
+    "quantization": "Q4_K_XL",
+    "observed_context_length": 4096,
+    "observed_parallelism": 4,
+    "contract_version": 2
+  },
+  "source_file_sha256": {
+    "src/upgradepilot/report.py": "ed979e43b7af47c4e9fa026ce782ec101d963d7ea3bac1e5114ffd48127a913e",
+    "src/upgradepilot/report_projection.py": "8e1fde08f8638f351f798d97a7ee6be5e16acde9c2cc5cb3159cdfb922498dac",
+    "src/upgradepilot/report_file.py": "4a8d1e09c27c7b84b760ea99ec3de8c0eee0c372e2d8c126069dc2d71fef4237",
+    "src/upgradepilot/cli.py": "9335ba8345b4cf9891499984056e14a4b7522b10bf820592e3899ca7fbb04281",
+    "src/upgradepilot/maintainer_action.py": "a5e718392419c2097362e771b7e2f54dc1bcf246d76317ddfa5eb48c9dfdffbd",
+    "src/upgradepilot/upstream/support_drop_extractor.py": "7b74b736265eab410e8e363b5a3592be2a1e2dcb6e67a709dd350effbbd0c199"
+  },
+  "assessments": {
+    "ci": {
+      "state": "supported_not_correlated",
+      "strength": "recorded_fact",
+      "detail": "Successful exact-head CI evidence exists for workflow 'CI', and its exact static definition contains supported changed-dependency consumption. The static consuming declaration is not safely correlated to successful runtime step execution."
+    },
+    "runtime": {
+      "state": "no_admitted_candidate",
+      "strength": "recorded_fact",
+      "detail": "No supported direct-requirements/pip consumption entered the first command-derived runtime dependency-state proof family."
+    },
+    "support-drop": {
+      "state": "grounded",
+      "strength": "grounded_interpretation",
+      "detail": "A proposed Python support-drop interpretation was grounded to exact authoritative source text."
+    },
+    "target-python": {
+      "state": "available",
+      "strength": "recorded_fact",
+      "detail": "A static target Python declaration is available."
+    },
+    "python-relevance": {
+      "state": "outside_declared_python_range",
+      "strength": "grounded_interpretation",
+      "detail": "The target declaration admits no stable Python 3.8.Z version under the accepted method."
+    },
+    "python-impact": {
+      "state": "established_not_applicable",
+      "strength": "grounded_interpretation",
+      "detail": "Every represented applicability path is refuted and path-model coverage is sufficient for this bounded candidate."
+    }
+  },
+  "action": "abstain",
+  "source_count": 32,
+  "unknown_count": 4,
+  "original_report_unchanged": true,
+  "same_original_input_revisions": true,
+  "strict_codec_and_installed_offline_entry_point_parity": "PASS",
+  "test_note": "Source is unchanged since the endpoint fix: checkout and rebuilt installed regression 739/739 and focused extractor/transport 15/15 at that fix. Not rerun solely for this evidence publication; no new source edits.",
+  "proof_limits": [
+    "One developmental case, not unseen/general semantic accuracy or independent utility",
+    "Observed parallelism 4 differs from historical validated 1; not a frozen adoption evaluation reproduction",
+    "CI correlation and runtime requirement-state coverage remain unresolved",
+    "No overall compatibility, safety or merge permission claim",
+    "External manifest does not retroactively fill absent provenance inside the report"
+  ],
+  "earlier_attempts": "Original ConnectionError and subsequent rate-limited reports remain distinct preserved records. The preceding diagnostic success is separate from this ordinary installed CLI run."
+}
