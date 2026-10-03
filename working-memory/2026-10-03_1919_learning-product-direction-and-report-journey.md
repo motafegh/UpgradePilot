@@ -565,3 +565,45 @@ Continue from the synchronized state. The current learning route follows the act
 4. declaration/applicability/resolution distinctions including markers;
 5. AI proposal versus deterministic grounding and semantic validation;
 6. bounded feasibility trial versus accepted product capability.
+
+
+## Source-authority stress test 1 — absence is not contradiction
+
+The synchronized branch reviewed the current `UpstreamRepositoryResolver`, its tests and the active API/target-context design draft against the adversarial case:
+
+```text
+declared Source/Homepage -> repository A
+PyPI publisher provenance -> repository B
+```
+
+Current product behavior is correctly:
+
+```text
+identity_mismatch
+```
+
+and the proposed weaker declared-source route must preserve that outcome rather than fall back to repository A.
+
+Stable learning rule:
+
+```text
+strong evidence absent
+!=
+strong evidence contradicts the declaration
+```
+
+Therefore:
+
+```text
+provenance unavailable
++ internally consistent declared source
+→ weaker read-only investigation may be considered
+
+provenance available
++ conflicts with declared source
+→ explicit conflict; no weaker fallback success
+```
+
+Why: absence leaves an epistemic gap; contradiction is positive evidence against the proposed identity. A fallback that converts contradiction into success would make weaker evidence override stronger conflicting evidence and destroy the authority ordering.
+
+This same rule should later be tested for cross-distribution disagreement, repository moves and tag/source identity conflicts.
