@@ -5,7 +5,7 @@
 
 **Publication cadence:** Ali explicitly authorizes committing and pushing each coherent, appropriately validated in-scope increment as work progresses. Record actual proof and remaining debt with each increment; this publication instruction does not expand the selected implementation responsibility.
 
-**Current learning position:** Ali understood the shared report/source-retention walkthrough and proposed investigate/save/open flow, requested continuation, and correctly explained that reopening gathers no new evidence. Entered the bounded report Build cycle using this continuous-context orientation. Source-level D/E learning remains open; independent usefulness is unproven and no reviewer is arranged.
+**Current learning position:** Ali correctly explained that reopening gathers no new evidence and that changing the target declaration to >=3.8 places Python 3.8 inside the declared range. D now follows the successful real-case analysis into shared report projection, rendering, saved-record validation and offline opening. Those source/file boundaries remain under learning review; conceptual answers do not establish independent implementation mastery. D/E remain open; independent usefulness is unproven and no reviewer is arranged.
 
 **Report design ownership:** Core §§6.1–6.2 owns report/saved-result and foreseeable evidence-consumer invariants. The report plan §§7–9 owns concrete projection/save/open/evaluation and named future AI-role/retention review; the closed design cycle contains the producer-to-consumer retention ledger. Human-readable summaries must not become the only preserved knowledge or the maximum future model context. Compatibility is a design responsibility, not a claim of implemented agents, general resume or full replay.
 
