@@ -46,6 +46,19 @@ Consulted official PyPI attestation introduction/security model and the index-ho
 
 Produced [one design draft](../proposals/2026-10-03_UPSTREAM_API_CHANGE_AND_TARGET_CONTEXT_DESIGN_DRAFT.md) rather than an accepted ADR or speculative plan family. It contains responsibility/scope, source/semantic/target architecture, distinct evidence bases/limits, logical owner/data flow, qualitative comparison rubric, smallest complete trial and deferrals, normal reachability versus curated calibration, real-model/semantic/independent utility proof separation, rejection cases, and required promotion/open decisions. Recommendation is a bounded feasibility trial of evidence-basis-aware change/context proposals while keeping the existing stronger path as baseline. No graph/agent/database or model retry architecture is selected.
 
+
+## Parallel learning handoff — dependency applicability and marker propagation
+
+A reconciled parallel-learning handoff is now available at [Dependency applicability and marker propagation — handoff to main](2026-10-03_dependency-applicability-and-marker-propagation_handoff.md).
+
+It adds two inputs to D/E review without changing the draft's status or admitting implementation:
+
+1. **Design constraint:** normally acquired target/dependency relationships must preserve conditional applicability semantics—especially extras, environment markers and version constraints—rather than flattening them into unconditional edges. Unsupported applicability may remain unresolved; it must not be discarded and then treated as established.
+2. **Existing-product correctness check:** current source tracing strongly indicates that an unchanged PEP 508 marker on a changed exact dependency inside a pyproject optional extra can be parsed during extraction but lost before project-environment membership composition. One focused normal-path/composition regression should prove or retire this concern before any repair. If reproduced, repair the earliest dependency applicability owner rather than report rendering.
+
+The handoff explicitly rejects broad parser/resolver expansion and does not import the learning branch wholesale. Other declaration forms remain demand-driven pressures.
+
+
 ## Verification and teaching handoff
 
 Validated relative links, metadata name/version/digest, excerpt identity/range, tag/commit capture and absence of executable changes. Documentation whitespace/publication scope are checked with the coherent increment. No product/experiment test suite or inference evaluation was run because this is a documentation-only planning responsibility; prior product results remain dated evidence. Neither retrievable source nor a plausible architecture proves semantic quality, autonomous target discovery, independent usefulness, applicability or learner ownership.
