@@ -1,0 +1,15 @@
+{
+  "baseline_commit": "09f59f571aec0a4240debf3a0ae97d0b84e0aaaf",
+  "hashes": {
+    "experiments/api_change_source_acquisition.py": "0896666b8a04abef20e07c0c9d75cb5ce574e01d0b01568218c1d92022d5545d",
+    "experiments/api_change_source_smoke.py": "bfc84d700a147bbb23af23d6b1bbafd67624469f666f404073477c348b45eaec",
+    "experiments/tests/test_api_change_source_acquisition.py": "25afbf5c1d4badb66a3849269d8453bec9f8a3458e413f41502ba97d89dc09e0"
+  },
+  "focused_trial_tests": 11,
+  "checkout_product_tests": 743,
+  "refreshed_existing_installed_product_tests": 743,
+  "pip_check": "pass",
+  "ruff_and_format": "pass",
+  "historical_experiment_suite": "not run; unrelated prior failures remain",
+  "proof_limits": "component acquisition, not target/semantic/end-to-end/product adoption"
+}

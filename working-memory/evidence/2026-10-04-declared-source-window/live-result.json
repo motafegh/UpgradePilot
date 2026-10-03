@@ -1,0 +1,62 @@
+{
+  "source_component_sha256": "0896666b8a04abef20e07c0c9d75cb5ce574e01d0b01568218c1d92022d5545d",
+  "input": {
+    "package": "httpx",
+    "old": "0.27.2",
+    "proposed": "0.28.1"
+  },
+  "timestamp": "2026-10-03T21:40:49.819417+00:00",
+  "auth": "anonymous",
+  "github_requests": 5,
+  "proof": "live source acquisition only; no PR/target/model/semantic evaluation",
+  "limits": {
+    "github_requests": 50,
+    "crossed_releases": 10,
+    "window_characters": 20000
+  },
+  "state": "available",
+  "basis": "exact_release_publisher_declared_repository",
+  "repository": "encode/httpx",
+  "provenance_states": [
+    "source_unavailable",
+    "source_unavailable"
+  ],
+  "release_metadata_urls": [
+    "https://pypi.org/pypi/httpx/0.28.0/json",
+    "https://pypi.org/pypi/httpx/0.28.1/json"
+  ],
+  "release_index_url": "https://pypi.org/pypi/httpx/json",
+  "crossed_versions": [
+    "0.28.0",
+    "0.28.1"
+  ],
+  "ignored_index_versions": [],
+  "commit": "26d48e0634e6ee9cdc0533996db289ce4b430177",
+  "path": "CHANGELOG.md",
+  "full_source_sha256": "2cd04b965b20eff7a4d3b30cc020c63b125da9f731874513bad2e59ca9743258",
+  "window_sha256": "da89b9ed185fff015c2dd166bb319ab75c8662e416d908a1efb9387543a8a6b9",
+  "sections": [
+    {
+      "version": "0.28.1",
+      "start_line": 7,
+      "start_offset": 165,
+      "end_offset": 275,
+      "characters": 110
+    },
+    {
+      "version": "0.28.0",
+      "start_line": 11,
+      "start_offset": 275,
+      "end_offset": 1532,
+      "characters": 1257
+    }
+  ],
+  "tag_problems": [
+    {
+      "state": "source_unavailable",
+      "tag": "v0.28.1",
+      "detail": "No accessible tag-reference resource was found at the supplied locator."
+    }
+  ],
+  "coverage": "complete_exact_version_atx_sections_at_proposed_tag"
+}

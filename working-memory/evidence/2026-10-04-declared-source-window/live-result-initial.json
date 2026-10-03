@@ -1,0 +1,14 @@
+{
+  "input": {
+    "package": "httpx",
+    "old": "0.27.2",
+    "proposed": "0.28.1"
+  },
+  "auth": "anonymous",
+  "github_requests": 5,
+  "proof": "live source acquisition only; no PR/target/model/semantic evaluation",
+  "state": "incomplete",
+  "stage": "window",
+  "reason": "missing_or_duplicate_section",
+  "detail": "Expected one exact section for '0.28.0'; found 0."
+}

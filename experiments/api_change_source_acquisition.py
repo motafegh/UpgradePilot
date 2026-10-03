@@ -1,0 +1,435 @@
+"""Acquire declared upstream text for the API feasibility trial.
+
+Start at DeclaredReleaseWindowAcquirer.acquire: exact PyPI releases/index → separate
+association → exact Git tags/tree/file → complete Markdown release sections.
+These records permit examination only. They never create product authority,
+interpret API meaning or discover target exposure. Existing provider mechanics
+are reused without constructing trusted interval/changelog evidence objects.
+"""
+
+from __future__ import annotations
+
+import hashlib
+import re
+from dataclasses import dataclass
+from datetime import UTC, datetime
+from itertools import pairwise
+from urllib.parse import urlsplit
+
+from packaging.version import InvalidVersion, Version
+from requests.exceptions import RequestException
+
+from upgradepilot.dependency.versioning import (
+    PackagingVersionProblem,
+    order_crossed_release_versions,
+    parse_dependency_release_interval,
+)
+from upgradepilot.github.auth_session import GitHubPublicSession
+from upgradepilot.github.changelog import (
+    DiscoveredChangelogPath,
+    GitHubChangelogPathClient,
+)
+from upgradepilot.github.identity import validate_repository
+from upgradepilot.github.repository import GitHubRepositoryClient, RepositoryTextFile
+from upgradepilot.github.tag import GitHubTagCommitClient, GitHubTagCommitEvidence
+from upgradepilot.pypi.provenance import PyPIProvenanceClient
+from upgradepilot.pypi.release import (
+    PackageReleaseEvidence,
+    PackageReleaseIndexEvidence,
+    ProjectUrlCandidate,
+    PyPIReleaseClient,
+    PyPIReleaseIndexClient,
+)
+from upgradepilot.upstream.interval import DependencyReleaseInterval
+from upgradepilot.upstream.repository import (
+    UpstreamRepositoryEvidence,
+    UpstreamRepositoryResolver,
+    UpstreamRepositoryResult,
+    normalize_project_url_label,
+)
+
+
+@dataclass(frozen=True)
+class AcquisitionProblem:
+    stage: str
+    reason: str
+    detail: str
+    # Keep the original typed provider problem, including status/identity scope.
+    evidence: object | None = None
+
+
+@dataclass(frozen=True)
+class DeclaredSourceAssociation:
+    release: PackageReleaseEvidence
+    repository: str
+    declarations: tuple[ProjectUrlCandidate, ...]
+    ignored_links: tuple[ProjectUrlCandidate, ...]
+    provenance_result: object
+    basis: str = "exact_release_publisher_declared_repository"
+
+
+@dataclass(frozen=True)
+class ReleaseSection:
+    version: str
+    start_line: int
+    start_offset: int
+    end_offset: int
+    text: str
+
+
+@dataclass(frozen=True)
+class DeclaredReleaseWindow:
+    interval: DependencyReleaseInterval
+    association: DeclaredSourceAssociation
+    release_associations: tuple[DeclaredSourceAssociation, ...]
+    release_index: PackageReleaseIndexEvidence
+    ignored_index_versions: tuple[str, ...]
+    ordered_versions: tuple[str, ...]
+    tags: tuple[GitHubTagCommitEvidence, ...]
+    tag_problems: tuple[object, ...]
+    file: RepositoryTextFile
+    sections: tuple[ReleaseSection, ...]
+    full_text_sha256: str
+    window_sha256: str
+    # Coverage is the admitted exact-heading grammar, never all release channels.
+    coverage: str = "complete_exact_version_atx_sections_at_proposed_tag"
+
+
+def associate_declared_source(
+    release: PackageReleaseEvidence, provenance: UpstreamRepositoryResult
+) -> DeclaredSourceAssociation | AcquisitionProblem:
+    """Keep provenance outcomes visible; only absence allows weaker examination.
+
+    A supported stronger association is retained as context, not downgraded or
+    cast into this trial's proposal authority. Homepage-only links are ignored.
+    """
+    if (
+        not isinstance(provenance, UpstreamRepositoryEvidence)
+        and provenance.state != "source_unavailable"
+    ):
+        return AcquisitionProblem(
+            "association", provenance.state, provenance.detail, provenance
+        )
+    declarations = tuple(
+        c
+        for c in release.project_urls
+        if normalize_project_url_label(c.label)
+        in {"source", "sourcecode", "repository", "github"}
+    )
+    ignored = tuple(c for c in release.project_urls if c not in declarations)
+    if not declarations:
+        return AcquisitionProblem(
+            "association",
+            "no_source_declaration",
+            "No explicit source/repository declaration.",
+            provenance,
+        )
+    identities = []
+    for candidate in declarations:
+        try:
+            url = urlsplit(candidate.url)
+            if (
+                url.scheme != "https"
+                or url.hostname != "github.com"
+                or url.port is not None
+                or url.username is not None
+                or url.password is not None
+                or url.query
+                or url.fragment
+            ):
+                raise ValueError("Noncanonical public GitHub source URL.")
+            parts = url.path.strip("/").split("/")
+            if len(parts) != 2:
+                raise ValueError("Expected one repository root.")
+            identities.append(validate_repository("/".join(parts).removesuffix(".git")))
+        except ValueError as exc:
+            return AcquisitionProblem(
+                "association",
+                "unsupported_declaration",
+                str(exc),
+                (declarations, provenance),
+            )
+    if len({i.casefold() for i in identities}) != 1:
+        return AcquisitionProblem(
+            "association",
+            "conflicting_declarations",
+            "Multiple declared repository identities.",
+            (declarations, provenance),
+        )
+    repository = identities[0]
+    if (
+        isinstance(provenance, UpstreamRepositoryEvidence)
+        and provenance.repository.casefold() != repository.casefold()
+    ):
+        return AcquisitionProblem(
+            "association",
+            "identity_mismatch",
+            "Declaration conflicts with publisher association.",
+            provenance,
+        )
+    return DeclaredSourceAssociation(
+        release, repository, declarations, ignored, provenance
+    )
+
+
+def _version_heading(title: str) -> str:
+    """Strip only a validated calendar-date suffix, not arbitrary release prose."""
+    match = re.fullmatch(r"([^ ()]+) \(([^()]+)\)", title)
+    if match is None:
+        return title
+    date = re.sub(r"(?<=\d)(?:st|nd|rd|th)(?= )", "", match[2])
+    for grammar in ("%Y-%m-%d", "%d %B, %Y"):
+        try:
+            datetime.strptime(date, grammar).replace(tzinfo=UTC)
+        except ValueError:
+            continue
+        return match[1]
+    return title
+
+
+def select_release_sections(
+    file: RepositoryTextFile, versions: tuple[str, ...], *, max_characters: int = 20000
+) -> tuple[ReleaseSection, ...] | AcquisitionProblem:
+    """Select complete exact-version ATX sections, ignoring fenced headings.
+
+    All headings of equal/lower level delimit sections. Validated ISO or English
+    calendar-date suffixes are admitted; arbitrary custom titles remain unsupported; missing/duplicate/order/overlap/size issues
+    return problems. Offsets are character positions recovering exact text; hashes cover UTF-8 bytes.
+    """
+    headings = []
+    offset = 0
+    fence = None
+    for number, line in enumerate(file.content.splitlines(keepends=True), 1):
+        text = line.rstrip("\r\n")
+        mark = re.fullmatch(r" {0,3}(`{3,}|~{3,})(.*)", text)
+        if fence:
+            char, count = fence
+            if re.fullmatch(
+                r" {0,3}" + re.escape(char) + "{" + str(count) + r",}[ \t]*", text
+            ):
+                fence = None
+        elif mark:
+            fence = (mark[1][0], len(mark[1]))
+        else:
+            match = re.fullmatch(r" {0,3}(#{1,6})(?:[ \t]+(.*))?", text)
+            if match:
+                title = re.sub(r"[ \t]+#+[ \t]*$", "", match[2] or "").strip()
+                headings.append((len(match[1]), title, number, offset))
+        offset += len(line)
+    sections = []
+    for version in versions:
+        found = [
+            h for h in headings if _version_heading(h[1]) in {version, "v" + version}
+        ]
+        if len(found) != 1:
+            return AcquisitionProblem(
+                "window",
+                "missing_or_duplicate_section",
+                f"Expected one exact section for {version!r}; found {len(found)}.",
+            )
+        heading = found[0]
+        end = next(
+            (h[3] for h in headings if h[3] > heading[3] and h[0] <= heading[0]),
+            len(file.content),
+        )
+        sections.append(
+            ReleaseSection(
+                version, heading[2], heading[3], end, file.content[heading[3] : end]
+            )
+        )
+    sections.sort(key=lambda s: s.start_offset)
+    order = tuple(s.version for s in sections)
+    if order not in (versions, tuple(reversed(versions))) or any(
+        a.end_offset > b.start_offset for a, b in pairwise(sections)
+    ):
+        return AcquisitionProblem(
+            "window",
+            "section_order_or_overlap",
+            "Release sections are inconsistent or overlap.",
+        )
+    if sum(len(s.text) for s in sections) > max_characters:
+        return AcquisitionProblem(
+            "window",
+            "window_too_large",
+            "Complete window exceeds character budget; no truncation.",
+        )
+    return tuple(sections)
+
+
+class TrialPublicSession(GitHubPublicSession):
+    """Anonymous host-scoped transport; reject redirects and cap GitHub reads.
+
+    No declared URL is passed here: provider clients construct their own URLs.
+    Rejected redirects are provider failures, never source absence or success.
+    """
+
+    def __init__(self):
+        super().__init__()
+        self.github_requests = 0
+
+    def request(self, method, url, **kwargs):
+        parsed = urlsplit(url)
+        if (
+            method.upper() != "GET"
+            or parsed.scheme != "https"
+            or parsed.hostname not in {"pypi.org", "api.github.com"}
+            or parsed.username
+            or parsed.password
+            or parsed.port
+        ):
+            raise RequestException("Trial request outside admitted provider scope.")
+        if parsed.hostname == "api.github.com":
+            if self.github_requests >= 50:
+                raise RequestException("Trial GitHub request budget exhausted.")
+            self.github_requests += 1
+        kwargs["allow_redirects"] = False
+        return super().request(method, url, **kwargs)
+
+
+class DeclaredReleaseWindowAcquirer:
+    """Trial orchestration; caller may inject providers for deterministic proof.
+
+    Default providers remain public/anonymous. Optional distribution sampling is
+    not performed: this first route has no shipped-metadata conflict question.
+    Version/tag grammar is raw version or v-prefixed version; both are examined
+    and disagreement is rejected, rather than first-match selection.
+    """
+
+    def __init__(
+        self,
+        *,
+        releases=None,
+        index=None,
+        provenance=None,
+        tags=None,
+        paths=None,
+        files=None,
+    ):
+        self.session = TrialPublicSession()
+        self.releases = releases or PyPIReleaseClient(session=self.session)
+        self.index = index or PyPIReleaseIndexClient(session=self.session)
+        self.provenance = provenance or UpstreamRepositoryResolver(
+            provenance_client=PyPIProvenanceClient(session=self.session)
+        )
+        self.tags = tags or GitHubTagCommitClient(session=self.session)
+        self.paths = paths or GitHubChangelogPathClient(session=self.session)
+        self.files = files or GitHubRepositoryClient(session=self.session)
+
+    def acquire(
+        self,
+        interval: DependencyReleaseInterval,
+        *,
+        max_releases=10,
+        max_characters=20000,
+    ):
+        if (
+            type(max_releases) is not int
+            or not 1 <= max_releases <= 10
+            or type(max_characters) is not int
+            or max_characters <= 0
+        ):
+            raise ValueError(
+                "Positive window bound and release budget within 1..10 required."
+            )
+        parsed = parse_dependency_release_interval(interval)
+        if isinstance(parsed, PackagingVersionProblem):
+            return AcquisitionProblem("interval", parsed.state, parsed.detail, parsed)
+        index = self.index.get_release_index(interval.package)
+        if not isinstance(index, PackageReleaseIndexEvidence):
+            return AcquisitionProblem("index", index.state, index.detail, index)
+        if index.normalized_package != interval.normalized_package:
+            return AcquisitionProblem(
+                "index",
+                "identity_mismatch",
+                "Index package differs from interval.",
+                index,
+            )
+        selected = []
+        ignored = []
+        for raw in index.release_versions:
+            try:
+                version = Version(raw)
+            except InvalidVersion:
+                ignored.append(raw)
+                continue
+            if parsed.old_version < version <= parsed.proposed_version:
+                selected.append(raw)
+        ordered = order_crossed_release_versions(parsed, selected)
+        if isinstance(ordered, PackagingVersionProblem):
+            return AcquisitionProblem("index", ordered.state, ordered.detail, ordered)
+        versions = ordered.ordered_raw_versions
+        if len(versions) > max_releases:
+            return AcquisitionProblem(
+                "index", "release_limit", "Crossed-release budget exhausted.", index
+            )
+        associations = []
+        for version in versions:
+            release = self.releases.get_release(interval.package, version)
+            if not isinstance(release, PackageReleaseEvidence):
+                return AcquisitionProblem(
+                    "release", release.state, release.detail, release
+                )
+            association = associate_declared_source(
+                release, self.provenance.resolve(release)
+            )
+            if isinstance(association, AcquisitionProblem):
+                return association
+            associations.append(association)
+        association = associations[-1]
+        if len({a.repository.casefold() for a in associations}) != 1:
+            return AcquisitionProblem(
+                "association",
+                "cross_release_conflict",
+                "Crossed releases declare different repositories.",
+                tuple(associations),
+            )
+        candidates = []
+        tag_problems = []
+        for tag in (interval.proposed_version, "v" + interval.proposed_version):
+            result = self.tags.resolve_tag_to_commit(association.repository, tag)
+            if isinstance(result, GitHubTagCommitEvidence):
+                candidates.append(result)
+            elif result.state != "source_unavailable":
+                return AcquisitionProblem("tag", result.state, result.detail, result)
+            else:
+                tag_problems.append(result)
+        if not candidates:
+            return AcquisitionProblem(
+                "tag", "source_unavailable", "Neither admitted exact tag was available."
+            )
+        if len({t.resolved_commit_sha for t in candidates}) != 1:
+            return AcquisitionProblem(
+                "tag",
+                "ambiguous_tag",
+                "Admitted tag spellings identify different commits.",
+                tuple(candidates),
+            )
+        tag = candidates[0]
+        path = self.paths.discover(association.repository, tag.resolved_commit_sha)
+        if not isinstance(path, DiscoveredChangelogPath):
+            return AcquisitionProblem("path", path.state, path.detail, path)
+        file = self.files.get_exact_commit_text_file(
+            association.repository, tag.resolved_commit_sha, path.path
+        )
+        if not isinstance(file, RepositoryTextFile):
+            return AcquisitionProblem("file", file.reason, file.detail, file)
+        sections = select_release_sections(
+            file, versions, max_characters=max_characters
+        )
+        if isinstance(sections, AcquisitionProblem):
+            return sections
+        sha = lambda text: hashlib.sha256(text.encode("utf-8")).hexdigest()
+        return DeclaredReleaseWindow(
+            interval,
+            association,
+            tuple(associations),
+            index,
+            tuple(ignored),
+            versions,
+            tuple(candidates),
+            tuple(tag_problems),
+            file,
+            sections,
+            sha(file.content),
+            sha("".join(s.text for s in sections)),
+        )
