@@ -1,0 +1,181 @@
+{
+  "purpose": "Retrospective pressure packet byte identities for the development review; not newly produced product inputs or independent labels. Indexed during review, not claimed frozen blind evaluation.",
+  "files": [
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/CASE.md",
+      "sha256": "fcfa4d16db0d2178a4ca0fc9665e66f2cc74343b7facec8674ca95be702b8901"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/README.md",
+      "sha256": "9b045c69406c9d50fd1975402a47755c53349187fbc6482ddf80cad78f25751a"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/BASELINE_RESULT.json",
+      "sha256": "f27f1cb497d696695fe0c71d6386066dd74cc476a47febe71582066d42440d6a"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/CASE_IDENTITY.json",
+      "sha256": "9f28a2fe960a729784c8460f67681c7df7951371058f62af5204ecb1a4458d7a"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/CLAIMS_AND_INTERPRETATIONS.jsonl",
+      "sha256": "0770d34c04a3642464395f720b0ee2b37e6a2601bf3230782cfcb1b9642e964d"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/DECISION.json",
+      "sha256": "30576d0d5f061d4523a81ba998d6e9a460f896322ea46def74cb7e0723f1304d"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/EVIDENCE_ITEMS.jsonl",
+      "sha256": "25dac167ec12873a44b7c58bcf2c89d22d36db35aac2dc51ccc7f8feefcfecd9"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/FINDINGS.json",
+      "sha256": "9089e8b2472ab8ed9d60f8f594c275c3bb540ee2ce71c892ba228bff3b4b8609"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/FOLLOW_UP_STATE.json",
+      "sha256": "be76e852a4bab3e38012917fbafffd4c4e51e6ea4da287ff0b02050ad56a8869"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/HUMAN_REPORT.md",
+      "sha256": "c1e6fb166eee22826cbcbe4bb8b73e1019d6e0434cb53f9344c8e9b4cb46e40a"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/INVOCATION.json",
+      "sha256": "451ac38d924e0900a56a511696b679e652184f68f45ea4bca06570368fa74dba"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/MACHINE_REPORT.json",
+      "sha256": "0bebfa331a0718582fe931ef031cbbc28179bad6b660e8dcf34fbf32f7b245fb"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/OPERATION_EVENTS.jsonl",
+      "sha256": "0a3a8a54c8399d32f9f4289cf9e89d9077cb8360052612f1b624f8f39c4e64ba"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/REVIEW_AND_OWNERSHIP.json",
+      "sha256": "423811796f492299a9449b50a99783627738ee1478ffa9365617254da4017684"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/RUN_MANIFEST.json",
+      "sha256": "39c7d83ba90ad7945f9ccbd5a30d1918523662745a89b6a0de7db78b79ab1459"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/checks/CK01-static-relevance-review.md",
+      "sha256": "c8b272a1b823a1e6203f1d7bdb961941636e5094e48960e2fc888d5d2f59b008"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/checks/CK02-compatibility-threshold-review.md",
+      "sha256": "1cb68c1440ca9ee49aa245b2afe7c236c4c6131f9385cfe52447fdc2edcf041d"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/checks/CK03-ci-authority-review.md",
+      "sha256": "330518955216762e8b51a023fc208e418b9399bc010ca15c6fda33ef380c5e64"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/checks/CK04-bundle-validation.json",
+      "sha256": "d6644c871ed457ba663efdf19bda3417678074b5c92e6527f70a08c3de550825"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E01-pr20-metadata.json",
+      "sha256": "e6d48bfae2358d2e46922e05d87fbe2b8ad429e8ba8d41ec5b170bf29cc6743f"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E02-pr20-requirements.patch",
+      "sha256": "1a5092d9575ef5771af058386b5cc82dc5978f3429a5ec44cccd2ee94aedfed6"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E03-pr17-supersession.json",
+      "sha256": "ddbbc8fc8e52fafae9e742de84d4e0ba7d0f99f7948fbbf29c1cb55323b435d0"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E04-base-requirements.txt",
+      "sha256": "110aa53ff8f52aaca29219a1ac25019219c2abd86091e9f95861043e5f8b2d25"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E05-head-requirements.txt",
+      "sha256": "df39aa8b7a297f0077850b636d062161639ad0178b1dc3df85e93d2f0e06b992"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E06-tests-test_routes.py",
+      "sha256": "5abb84c69fef843d32d25ed56aa9312f8702d40b4ee3a0be2c4de95e3540083d"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E07-application-httpx-search.json",
+      "sha256": "99857a3bc935348e2cec6484f2ee8976f55c4344e7c486563c5c69ac1e9c7969"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E08-readme-and-docker-context.md",
+      "sha256": "cbbb0ffef87048bc6a3ddf9741d33dac1cedd5b6ec7d679bb5858baa239bd8c5"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E09-httpx-0.28.1-changelog.md",
+      "sha256": "b121b3fd00ead09707ca7a6a0f604e6ea2b145fb7b94ee42a5f11a91b511f9a6"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E10-httpx-0.28.1-python-metadata.toml",
+      "sha256": "5a100591f226c0d2d168f0b006e6e31f17ff462781dd8df333249ab8aa0b5ef3"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E11-fastapi-0.115.2-metadata.toml",
+      "sha256": "c822e8680d0d76fbb886ad6b120e7d09aee4e248204bd33e27764b7fc27c1923"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E12-starlette-0.36.3-testclient.py",
+      "sha256": "48c58e64c32ee3984dd29aed442ef9fdd97cd94bf326cef888955a1aed2520c2"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E13-starlette-0.37.2-testclient.py",
+      "sha256": "79894dd9f6d5f86d2f0b4022c6f555f8a050b715b32d1ad45512fe7d8dac5066"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E14-docker-workflow.yaml",
+      "sha256": "5ce460740949ddf2c97e3c0c0fc1ca0653e7b029d574baee4e4f7fb4c26e8512"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E15-Dockerfile",
+      "sha256": "04a23b0cc89d2ee58c03f75989faf0322ab0278cdac15e2f7073cccc9178461e"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E16-actions-run-and-job.json",
+      "sha256": "e5db81b9720edc6aaae64fb2da0c1500e6cf66c8bdbbf05caaa8a5591efa89ad"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E17-python-workflow.yml",
+      "sha256": "ac9e14419fee01afa1505aaade96b900998a6944a0c9faaf0ea8d982ee91d520"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E18-head-workflow-lookup.json",
+      "sha256": "dd8d5ff15680993cb7ad134db20d8087f8a248065b2dca30e584de004308eab3"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E19-docker-log-retrieval-error.json",
+      "sha256": "38d64f1631a41bc08a9d88e02fc1704da41b8136adba7a10a2e4881bd22a4cfb"
+    },
+    {
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E20-pr20-discussion.json",
+      "sha256": "279062db99fc39f0e2dcb49d7826faa4277e84da7ec4302e1d12397c7bb1e571"
+    },
+    {
+      "path": "product-simulation/scenarios/S008-carla-opencv-python36-artifact-fallback/README.md",
+      "sha256": "652ed2bc5185a7842748646a2b840d7c53893a4c73435c217d6c9d5af499104e"
+    },
+    {
+      "path": "product-simulation/scenarios/S008-carla-opencv-python36-artifact-fallback/artifacts/CASE_IDENTITY.json",
+      "sha256": "7c322afb141145d6941b980ee43e05a663454cc42dcd5127d86f52659ab8da94"
+    },
+    {
+      "path": "product-simulation/scenarios/S008-carla-opencv-python36-artifact-fallback/artifacts/COVERAGE_AND_STOPPING_EVALUATION.json",
+      "sha256": "acbf2336b2138e1e5ec8fc70b6ff0a37c119dfecbf792f35b8b795dfc2d95a33"
+    },
+    {
+      "path": "product-simulation/scenarios/S008-carla-opencv-python36-artifact-fallback/artifacts/TARGET_INSTALLATION_CONTEXT.json",
+      "sha256": "744002979f67cec8c62b6b214c11f31acfa42b53d0135f0cbeed08c407bf470d"
+    },
+    {
+      "path": "product-simulation/scenarios/S008-carla-opencv-python36-artifact-fallback/artifacts/UPSTREAM_DISTRIBUTION_TRANSITION.json",
+      "sha256": "2be19a5765e7063dc81377ddf157a2e7b2e4e52fe6695cb620f62e4ec6d54cf1"
+    }
+  ]
+}

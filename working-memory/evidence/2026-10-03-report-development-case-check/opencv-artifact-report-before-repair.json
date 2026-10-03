@@ -1,0 +1,2041 @@
+{
+  "schema": "upgradepilot.investigation-report",
+  "schema_version": 1,
+  "report": {
+    "report_id": "199ca2e8-3dae-48dd-9c39-7c0feb5add86",
+    "generated_at": "2026-10-03T16:32:42.403359+00:00",
+    "generator_version": "1",
+    "product_version": "0.0.0",
+    "auth_mode": "anonymous",
+    "production_limits": [
+      "Code revision, model/prompt/config identity and complete operation history are not recorded.",
+      "Generation time identifies report production; unavailable acquisition times remain unavailable."
+    ],
+    "identity": [
+      {
+        "name": "repository",
+        "label": "Repository",
+        "value": "carla-simulator/scenario_runner"
+      },
+      {
+        "name": "pull_number",
+        "label": "PR",
+        "value": "1111"
+      },
+      {
+        "name": "title",
+        "label": "Title",
+        "value": "Bump opencv-python from 4.2.0.32 to 4.8.1.78"
+      },
+      {
+        "name": "author",
+        "label": "Author",
+        "value": "dependabot[bot]"
+      },
+      {
+        "name": "state",
+        "label": "State",
+        "value": "open"
+      },
+      {
+        "name": "merged",
+        "label": "Merged",
+        "value": "false"
+      },
+      {
+        "name": "base_ref",
+        "label": "Base ref",
+        "value": "master"
+      },
+      {
+        "name": "base_sha",
+        "label": "Base",
+        "value": "7758d066080f180f8296887ed89b7c723a54706a"
+      },
+      {
+        "name": "head_ref",
+        "label": "Head ref",
+        "value": "dependabot/pip/opencv-python-4.8.1.78"
+      },
+      {
+        "name": "head_sha",
+        "label": "Head",
+        "value": "f32ad2d23a9abee47c566dfbed2b822d953a09e2"
+      }
+    ],
+    "assessments": [
+      {
+        "assessment_id": "dependency",
+        "topic": "Dependency change",
+        "owner": "dependency.change",
+        "state": "supported",
+        "status": "available",
+        "reason": "recorded_owner_result",
+        "detail": "One supported exact dependency version transition was established.",
+        "proposition": "Exact version transition only, not installation or compatibility.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-3",
+          "source-1",
+          "source-2"
+        ],
+        "facts": [
+          {
+            "name": "package",
+            "label": "Package",
+            "value": "opencv-python"
+          },
+          {
+            "name": "normalized_package",
+            "label": "Normalized package",
+            "value": "opencv-python"
+          },
+          {
+            "name": "old_version",
+            "label": "Old version",
+            "value": "4.2.0.32"
+          },
+          {
+            "name": "proposed_version",
+            "label": "Proposed version",
+            "value": "4.8.1.78"
+          },
+          {
+            "name": "changed_file_1",
+            "label": "Changed file",
+            "value": "requirements.txt (modified)"
+          }
+        ],
+        "limitations": []
+      },
+      {
+        "assessment_id": "ci",
+        "topic": "CI dependency coverage",
+        "owner": "ci.dependency_exercise",
+        "state": "no_successful_ci",
+        "status": "available",
+        "reason": "no_exact_head_workflows",
+        "detail": "No pull-request workflow runs were available for the exact head SHA.",
+        "proposition": "Static consumption and exact-attempt command correlation; not changed-version use or compatibility.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-4"
+        ],
+        "facts": [],
+        "limitations": []
+      },
+      {
+        "assessment_id": "runtime",
+        "topic": "Runtime dependency state",
+        "owner": "ci.dependency_state",
+        "state": "no_admitted_candidate",
+        "status": "available",
+        "reason": "no_admitted_runtime_dependency_state_candidate",
+        "detail": "No supported direct-requirements/pip consumption entered the first command-derived runtime dependency-state proof family.",
+        "proposition": "First admitted direct-requirements/pip command-completion family only.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-5"
+        ],
+        "facts": [],
+        "limitations": []
+      },
+      {
+        "assessment_id": "package",
+        "topic": "Package evidence",
+        "owner": "pypi.release",
+        "state": "available",
+        "status": "available",
+        "reason": "recorded_owner_result",
+        "detail": "Exact published package metadata is available.",
+        "proposition": "Published release metadata and files, not observed target installation.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-7",
+          "source-6"
+        ],
+        "facts": [
+          {
+            "name": "requested_package",
+            "label": "Requested package",
+            "value": "opencv-python"
+          },
+          {
+            "name": "requested_version",
+            "label": "Requested version",
+            "value": "4.8.1.78"
+          },
+          {
+            "name": "published_package",
+            "label": "Published package",
+            "value": "opencv-python==4.8.1.78"
+          },
+          {
+            "name": "distribution_count",
+            "label": "Distribution files",
+            "value": "7"
+          }
+        ],
+        "limitations": []
+      },
+      {
+        "assessment_id": "old-package",
+        "topic": "Old package artifact evidence",
+        "owner": "pypi.release",
+        "state": "available",
+        "status": "available",
+        "reason": "recorded_owner_result",
+        "detail": "Exact published package metadata is available.",
+        "proposition": "Published release metadata and files, not observed target installation.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-9",
+          "source-8"
+        ],
+        "facts": [
+          {
+            "name": "requested_package",
+            "label": "Requested package",
+            "value": "opencv-python"
+          },
+          {
+            "name": "requested_version",
+            "label": "Requested version",
+            "value": "4.2.0.32"
+          },
+          {
+            "name": "published_package",
+            "label": "Old published package",
+            "value": "opencv-python==4.2.0.32"
+          },
+          {
+            "name": "distribution_count",
+            "label": "Old distribution files",
+            "value": "27"
+          }
+        ],
+        "limitations": []
+      },
+      {
+        "assessment_id": "upstream-repository",
+        "topic": "Upstream repository",
+        "owner": "upstream.repository",
+        "state": "source_unavailable",
+        "status": "problem",
+        "reason": "recorded_owner_result",
+        "detail": "No exact distribution file exposed usable PyPI provenance.",
+        "proposition": "Repository identity remains unresolved.",
+        "strength": "unresolved",
+        "source_ids": [
+          "source-10"
+        ],
+        "facts": [],
+        "limitations": []
+      },
+      {
+        "assessment_id": "upstream-interval",
+        "topic": "Upstream interval authority",
+        "owner": "upstream.interval",
+        "state": "not established",
+        "status": "not_evaluated",
+        "reason": "not_evaluated",
+        "detail": "Recorded upstream prerequisites are unavailable: Upstream repository: source_unavailable: No exact distribution file exposed usable PyPI provenance.",
+        "proposition": "No positive or negative conclusion was established.",
+        "strength": "unresolved",
+        "source_ids": [
+          "source-11",
+          "source-10"
+        ],
+        "facts": [],
+        "limitations": []
+      },
+      {
+        "assessment_id": "support-drop",
+        "topic": "Upstream support-drop result",
+        "owner": "upstream.claim",
+        "state": "not evaluated",
+        "status": "not_evaluated",
+        "reason": "not_evaluated",
+        "detail": "Recorded upstream prerequisites are unavailable: Upstream repository: source_unavailable: No exact distribution file exposed usable PyPI provenance.",
+        "proposition": "No positive or negative conclusion was established.",
+        "strength": "unresolved",
+        "source_ids": [
+          "source-12",
+          "source-11",
+          "source-10"
+        ],
+        "facts": [],
+        "limitations": []
+      },
+      {
+        "assessment_id": "artifact-candidate",
+        "topic": "Artifact serviceability candidate",
+        "owner": "impact.artifact_serviceability",
+        "state": "established",
+        "status": "available",
+        "reason": "recorded_owner_result",
+        "detail": "Published wheel-tag capabilities were removed across the exact release transition.",
+        "proposition": "Published artifact capability change, not target installation failure.",
+        "strength": "candidate",
+        "source_ids": [
+          "source-14",
+          "source-13",
+          "source-6",
+          "source-8"
+        ],
+        "facts": [
+          {
+            "name": "removed_count",
+            "label": "Removed published wheel-tag capabilities",
+            "value": "27"
+          },
+          {
+            "name": "added_count",
+            "label": "Added published wheel-tag capabilities",
+            "value": "8"
+          },
+          {
+            "name": "source_distribution",
+            "label": "Proposed source distribution",
+            "value": "available"
+          }
+        ],
+        "limitations": []
+      },
+      {
+        "assessment_id": "artifact-environments",
+        "topic": "Target artifact environments",
+        "owner": "target.artifact_environment",
+        "state": "not activated",
+        "status": "not_evaluated",
+        "reason": "not_evaluated",
+        "detail": "This branch has no evaluated result in the recorded investigation.",
+        "proposition": "No positive or negative conclusion was established.",
+        "strength": "unresolved",
+        "source_ids": [
+          "source-15"
+        ],
+        "facts": [],
+        "limitations": []
+      },
+      {
+        "assessment_id": "artifact-impact",
+        "topic": "Artifact applicability",
+        "owner": "impact.artifact_serviceability",
+        "state": "unresolved",
+        "status": "available",
+        "reason": "recorded_owner_result",
+        "detail": "No represented path is established or genuinely conflicted, and at least one viable alternative remains unresolved.",
+        "proposition": "Technical applicability only, not maintainer-action authority or installation outcome.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-16"
+        ],
+        "facts": [
+          {
+            "name": "target_compatibility",
+            "label": "Exact target wheel compatibility",
+            "value": "not established"
+          }
+        ],
+        "limitations": []
+      },
+      {
+        "assessment_id": "target-python",
+        "topic": "Target Python declaration",
+        "owner": "target.python",
+        "state": "not activated",
+        "status": "not_evaluated",
+        "reason": "not_evaluated",
+        "detail": "This branch has no evaluated result in the recorded investigation.",
+        "proposition": "No positive or negative conclusion was established.",
+        "strength": "unresolved",
+        "source_ids": [
+          "source-17"
+        ],
+        "facts": [],
+        "limitations": []
+      },
+      {
+        "assessment_id": "python-relevance",
+        "topic": "Target Python relevance",
+        "owner": "target.relevance",
+        "state": "not evaluated",
+        "status": "not_evaluated",
+        "reason": "not_evaluated",
+        "detail": "This branch has no evaluated result in the recorded investigation.",
+        "proposition": "No positive or negative conclusion was established.",
+        "strength": "unresolved",
+        "source_ids": [
+          "source-18"
+        ],
+        "facts": [],
+        "limitations": []
+      }
+    ],
+    "findings": [
+      {
+        "assessment_id": "dependency",
+        "statement": "One supported exact dependency version transition was established.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-3",
+          "source-1",
+          "source-2"
+        ]
+      },
+      {
+        "assessment_id": "ci",
+        "statement": "No pull-request workflow runs were available for the exact head SHA.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-4"
+        ]
+      },
+      {
+        "assessment_id": "runtime",
+        "statement": "No supported direct-requirements/pip consumption entered the first command-derived runtime dependency-state proof family.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-5"
+        ]
+      },
+      {
+        "assessment_id": "package",
+        "statement": "Exact published package metadata is available.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-7",
+          "source-6"
+        ]
+      },
+      {
+        "assessment_id": "old-package",
+        "statement": "Exact published package metadata is available.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-9",
+          "source-8"
+        ]
+      },
+      {
+        "assessment_id": "artifact-candidate",
+        "statement": "Published wheel-tag capabilities were removed across the exact release transition.",
+        "strength": "candidate",
+        "source_ids": [
+          "source-14",
+          "source-13",
+          "source-6",
+          "source-8"
+        ]
+      },
+      {
+        "assessment_id": "artifact-impact",
+        "statement": "No represented path is established or genuinely conflicted, and at least one viable alternative remains unresolved.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-16"
+        ]
+      }
+    ],
+    "unknowns": [
+      {
+        "assessment_id": "ci",
+        "question": "Was static dependency consumption correlated to successful exact-attempt execution?",
+        "reason": "No pull-request workflow runs were available for the exact head SHA.",
+        "source_ids": [
+          "source-4"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      },
+      {
+        "assessment_id": "runtime",
+        "question": "Is the changed requirement satisfied at an admitted command-completion boundary?",
+        "reason": "No supported direct-requirements/pip consumption entered the first command-derived runtime dependency-state proof family.",
+        "source_ids": [
+          "source-5"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      },
+      {
+        "assessment_id": "upstream-repository",
+        "question": "Which upstream repository has applicable authority?",
+        "reason": "No exact distribution file exposed usable PyPI provenance.",
+        "source_ids": [
+          "source-10"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      },
+      {
+        "assessment_id": "upstream-interval",
+        "question": "What does the upstream interval authority branch establish?",
+        "reason": "Recorded upstream prerequisites are unavailable: Upstream repository: source_unavailable: No exact distribution file exposed usable PyPI provenance.",
+        "source_ids": [
+          "source-11",
+          "source-10"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      },
+      {
+        "assessment_id": "support-drop",
+        "question": "What does the upstream support-drop result branch establish?",
+        "reason": "Recorded upstream prerequisites are unavailable: Upstream repository: source_unavailable: No exact distribution file exposed usable PyPI provenance.",
+        "source_ids": [
+          "source-12",
+          "source-11",
+          "source-10"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      },
+      {
+        "assessment_id": "artifact-environments",
+        "question": "What does the target artifact environments branch establish?",
+        "reason": "This branch has no evaluated result in the recorded investigation.",
+        "source_ids": [
+          "source-15"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      },
+      {
+        "assessment_id": "artifact-impact",
+        "question": "Is this artifact capability loss applicable to the exact target?",
+        "reason": "No represented path is established or genuinely conflicted, and at least one viable alternative remains unresolved.",
+        "source_ids": [
+          "source-16"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      },
+      {
+        "assessment_id": "artifact-impact",
+        "question": "Does building the proposed source distribution succeed in the target environment?",
+        "reason": "A published source distribution is available, but a target source-build outcome was not observed.",
+        "source_ids": [
+          "source-16"
+        ],
+        "consequence": "Target installation success or failure through source fallback is not established."
+      },
+      {
+        "assessment_id": "target-python",
+        "question": "What does the target python declaration branch establish?",
+        "reason": "This branch has no evaluated result in the recorded investigation.",
+        "source_ids": [
+          "source-17"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      },
+      {
+        "assessment_id": "python-relevance",
+        "question": "What does the target python relevance branch establish?",
+        "reason": "This branch has no evaluated result in the recorded investigation.",
+        "source_ids": [
+          "source-18"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      }
+    ],
+    "action": {
+      "state": "abstain",
+      "reasons": [
+        "No non-abstention maintainer-action permission is admitted at the current evaluator proof boundary."
+      ],
+      "uncertainty": [
+        "CI dependency coverage remains no_successful_ci: No pull-request workflow runs were available for the exact head SHA.",
+        "Runtime requirement state remains no_admitted_candidate: No supported direct-requirements/pip consumption entered the first command-derived runtime dependency-state proof family.",
+        "Command-completion evidence does not establish fresh installation, later package use or behavioral compatibility.",
+        "Upstream repository identity remains source_unavailable: No exact distribution file exposed usable PyPI provenance.",
+        "Artifact-serviceability applicability remains unresolved: No represented path is established or genuinely conflicted, and at least one viable alternative remains unresolved."
+      ],
+      "limitations": [
+        "This first evaluator intentionally withholds merge, targeted-check, investigate, block, and defer until each action's positive prerequisites are proven through the normal producer path."
+      ],
+      "claim_limits": [
+        "This abstention is not a finding that the dependency update is safe or unsafe.",
+        "This result does not establish complete impact-candidate or repository-context coverage.",
+        "This result does not authorize repository mutation, approval, or automatic merge."
+      ]
+    },
+    "sources": [
+      {
+        "source_id": "source-1",
+        "kind": "pull_request",
+        "locator": "https://github.com/carla-simulator/scenario_runner/pull/1111",
+        "identity": [
+          {
+            "name": "repository",
+            "label": "Repository",
+            "value": "carla-simulator/scenario_runner"
+          },
+          {
+            "name": "pull_number",
+            "label": "PR",
+            "value": "1111"
+          },
+          {
+            "name": "title",
+            "label": "Title",
+            "value": "Bump opencv-python from 4.2.0.32 to 4.8.1.78"
+          },
+          {
+            "name": "author",
+            "label": "Author",
+            "value": "dependabot[bot]"
+          },
+          {
+            "name": "state",
+            "label": "State",
+            "value": "open"
+          },
+          {
+            "name": "merged",
+            "label": "Merged",
+            "value": "false"
+          },
+          {
+            "name": "base_ref",
+            "label": "Base ref",
+            "value": "master"
+          },
+          {
+            "name": "base_sha",
+            "label": "Base",
+            "value": "7758d066080f180f8296887ed89b7c723a54706a"
+          },
+          {
+            "name": "head_ref",
+            "label": "Head ref",
+            "value": "dependabot/pip/opencv-python-4.8.1.78"
+          },
+          {
+            "name": "head_sha",
+            "label": "Head",
+            "value": "f32ad2d23a9abee47c566dfbed2b822d953a09e2"
+          }
+        ],
+        "method": "exact PR base/head identity acquisition",
+        "retrieved_at": null,
+        "retention": "reference_only",
+        "content": null,
+        "limitation": "Original input content is not retained in this report."
+      },
+      {
+        "source_id": "source-2",
+        "kind": "dependency_source",
+        "locator": "https://github.com/carla-simulator/scenario_runner/blob/f32ad2d23a9abee47c566dfbed2b822d953a09e2/requirements.txt",
+        "identity": [
+          {
+            "name": "path",
+            "label": "Dependency evidence",
+            "value": "requirements.txt"
+          },
+          {
+            "name": "format",
+            "label": "Format",
+            "value": "exact_requirement"
+          },
+          {
+            "name": "base_sha",
+            "label": "Base",
+            "value": "7758d066080f180f8296887ed89b7c723a54706a"
+          },
+          {
+            "name": "head_sha",
+            "label": "Head",
+            "value": "f32ad2d23a9abee47c566dfbed2b822d953a09e2"
+          }
+        ],
+        "method": "changed_file_patch",
+        "retrieved_at": null,
+        "retention": "reference_only",
+        "content": null,
+        "limitation": "Original input content is not retained in this report."
+      },
+      {
+        "source_id": "source-3",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "dependency"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "supported"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "recorded_owner_result"
+          },
+          {
+            "name": "package",
+            "label": "Package",
+            "value": "opencv-python"
+          },
+          {
+            "name": "normalized_package",
+            "label": "Normalized package",
+            "value": "opencv-python"
+          },
+          {
+            "name": "old_version",
+            "label": "Old version",
+            "value": "4.2.0.32"
+          },
+          {
+            "name": "proposed_version",
+            "label": "Proposed version",
+            "value": "4.8.1.78"
+          },
+          {
+            "name": "changed_file_1",
+            "label": "Changed file",
+            "value": "requirements.txt (modified)"
+          }
+        ],
+        "method": "dependency.change",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "One supported exact dependency version transition was established.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-4",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "ci"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "no_successful_ci"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "no_exact_head_workflows"
+          }
+        ],
+        "method": "ci.dependency_exercise",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "No pull-request workflow runs were available for the exact head SHA.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-5",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "runtime"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "no_admitted_candidate"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "no_admitted_runtime_dependency_state_candidate"
+          }
+        ],
+        "method": "ci.dependency_state",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "No supported direct-requirements/pip consumption entered the first command-derived runtime dependency-state proof family.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-6",
+        "kind": "package_metadata",
+        "locator": "https://pypi.org/pypi/opencv-python/4.8.1.78/json",
+        "identity": [
+          {
+            "name": "requested_package",
+            "label": "Requested package",
+            "value": "opencv-python"
+          },
+          {
+            "name": "requested_version",
+            "label": "Requested version",
+            "value": "4.8.1.78"
+          },
+          {
+            "name": "published_package",
+            "label": "Published package",
+            "value": "opencv-python==4.8.1.78"
+          },
+          {
+            "name": "distribution_count",
+            "label": "Distribution files",
+            "value": "7"
+          },
+          {
+            "name": "file_1_filename",
+            "label": "Distribution file",
+            "value": "opencv-python-4.8.1.78.tar.gz"
+          },
+          {
+            "name": "file_1_type",
+            "label": "Distribution type",
+            "value": "sdist"
+          },
+          {
+            "name": "file_1_sha256",
+            "label": "Distribution SHA-256",
+            "value": "cc7adbbcd1112877a39274106cb2752e04984bc01a031162952e97450d6117f6"
+          },
+          {
+            "name": "file_1_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/c0/52/9fe76a56e01078a612812b40764a7b138f528b503f7653996c6cfadfa8ec/opencv-python-4.8.1.78.tar.gz"
+          },
+          {
+            "name": "file_2_filename",
+            "label": "Distribution file",
+            "value": "opencv_python-4.8.1.78-cp37-abi3-macosx_10_16_x86_64.whl"
+          },
+          {
+            "name": "file_2_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_2_sha256",
+            "label": "Distribution SHA-256",
+            "value": "91d5f6f5209dc2635d496f6b8ca6573ecdad051a09e6b5de4c399b8e673c60da"
+          },
+          {
+            "name": "file_2_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/05/58/7ee92b21cb98689cbe28c69e3cf8ee51f261bfb6bc904ae578736d22d2e7/opencv_python-4.8.1.78-cp37-abi3-macosx_10_16_x86_64.whl"
+          },
+          {
+            "name": "file_3_filename",
+            "label": "Distribution file",
+            "value": "opencv_python-4.8.1.78-cp37-abi3-macosx_11_0_arm64.whl"
+          },
+          {
+            "name": "file_3_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_3_sha256",
+            "label": "Distribution SHA-256",
+            "value": "bc31f47e05447da8b3089faa0a07ffe80e114c91ce0b171e6424f9badbd1c5cd"
+          },
+          {
+            "name": "file_3_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/a1/f6/57de91ea40c670527cd47a6548bf2cbedc68cec57c041793b256356abad7/opencv_python-4.8.1.78-cp37-abi3-macosx_11_0_arm64.whl"
+          },
+          {
+            "name": "file_4_filename",
+            "label": "Distribution file",
+            "value": "opencv_python-4.8.1.78-cp37-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl"
+          },
+          {
+            "name": "file_4_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_4_sha256",
+            "label": "Distribution SHA-256",
+            "value": "9814beca408d3a0eca1bae7e3e5be68b07c17ecceb392b94170881216e09b319"
+          },
+          {
+            "name": "file_4_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/c7/a5/dd3735d08c1afc2e801f564f6602392cd86cf59bcb5a6712582ad0610a22/opencv_python-4.8.1.78-cp37-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl"
+          },
+          {
+            "name": "file_5_filename",
+            "label": "Distribution file",
+            "value": "opencv_python-4.8.1.78-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+          },
+          {
+            "name": "file_5_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_5_sha256",
+            "label": "Distribution SHA-256",
+            "value": "c4c406bdb41eb21ea51b4e90dfbc989c002786c3f601c236a99c59a54670a394"
+          },
+          {
+            "name": "file_5_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/b7/8a/b2f7e1a434d56bf1d7570fc5941ace0847404e1032d7f1f0b8fed896568d/opencv_python-4.8.1.78-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+          },
+          {
+            "name": "file_6_filename",
+            "label": "Distribution file",
+            "value": "opencv_python-4.8.1.78-cp37-abi3-win32.whl"
+          },
+          {
+            "name": "file_6_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_6_sha256",
+            "label": "Distribution SHA-256",
+            "value": "a7aac3900fbacf55b551e7b53626c3dad4c71ce85643645c43e91fcb19045e47"
+          },
+          {
+            "name": "file_6_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/13/92/6f3194559d4e2a17826240f2466076728f4c92a2d124a32bfd51ca070019/opencv_python-4.8.1.78-cp37-abi3-win32.whl"
+          },
+          {
+            "name": "file_7_filename",
+            "label": "Distribution file",
+            "value": "opencv_python-4.8.1.78-cp37-abi3-win_amd64.whl"
+          },
+          {
+            "name": "file_7_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_7_sha256",
+            "label": "Distribution SHA-256",
+            "value": "b983197f97cfa6fcb74e1da1802c7497a6f94ed561aba6980f1f33123f904956"
+          },
+          {
+            "name": "file_7_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/38/d2/3e8c13ffc37ca5ebc6f382b242b44acb43eb489042e1728407ac3904e72f/opencv_python-4.8.1.78-cp37-abi3-win_amd64.whl"
+          }
+        ],
+        "method": "exact package-release metadata acquisition",
+        "retrieved_at": "2026-10-03T16:32:33.923530+00:00",
+        "retention": "selected_facts",
+        "content": null,
+        "limitation": "Selected metadata retained as identity facts; raw provider JSON is not retained."
+      },
+      {
+        "source_id": "source-7",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "package"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "available"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "recorded_owner_result"
+          },
+          {
+            "name": "requested_package",
+            "label": "Requested package",
+            "value": "opencv-python"
+          },
+          {
+            "name": "requested_version",
+            "label": "Requested version",
+            "value": "4.8.1.78"
+          },
+          {
+            "name": "published_package",
+            "label": "Published package",
+            "value": "opencv-python==4.8.1.78"
+          },
+          {
+            "name": "distribution_count",
+            "label": "Distribution files",
+            "value": "7"
+          }
+        ],
+        "method": "pypi.release",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "Exact published package metadata is available.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-8",
+        "kind": "package_metadata",
+        "locator": "https://pypi.org/pypi/opencv-python/4.2.0.32/json",
+        "identity": [
+          {
+            "name": "requested_package",
+            "label": "Requested package",
+            "value": "opencv-python"
+          },
+          {
+            "name": "requested_version",
+            "label": "Requested version",
+            "value": "4.2.0.32"
+          },
+          {
+            "name": "published_package",
+            "label": "Old published package",
+            "value": "opencv-python==4.2.0.32"
+          },
+          {
+            "name": "distribution_count",
+            "label": "Old distribution files",
+            "value": "27"
+          },
+          {
+            "name": "file_1_filename",
+            "label": "Distribution file",
+            "value": "opencv_python-4.2.0.32-cp27-cp27m-macosx_10_9_x86_64.whl"
+          },
+          {
+            "name": "file_1_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_1_sha256",
+            "label": "Distribution SHA-256",
+            "value": "9cd9bd72f4a9743ef6f11f0f96784bd215a542e996db1717d4c2d3d03eb81a1b"
+          },
+          {
+            "name": "file_1_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/56/ff/59c8c21163eafc63261d13792f8303ac45bcb0edd7b098f9f6b91fdbe215/opencv_python-4.2.0.32-cp27-cp27m-macosx_10_9_x86_64.whl"
+          },
+          {
+            "name": "file_2_filename",
+            "label": "Distribution file",
+            "value": "opencv_python-4.2.0.32-cp27-cp27m-manylinux1_i686.whl"
+          },
+          {
+            "name": "file_2_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_2_sha256",
+            "label": "Distribution SHA-256",
+            "value": "68c1c846dd267cd7e293d3fc0bb238db0a744aa1f2e721e327598f00cb982098"
+          },
+          {
+            "name": "file_2_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/d9/94/9a4c5bfbfef83a12c40ecbe50c213b93c78848e3a218928eaf1a2001c53c/opencv_python-4.2.0.32-cp27-cp27m-manylinux1_i686.whl"
+          },
+          {
+            "name": "file_3_filename",
+            "label": "Distribution file",
+            "value": "opencv_python-4.2.0.32-cp27-cp27m-manylinux1_x86_64.whl"
+          },
+          {
+            "name": "file_3_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_3_sha256",
+            "label": "Distribution SHA-256",
+            "value": "a2b08aec2eacae868723136383d9eb84a33062a7a7ec5ec3bd2c423bd1355946"
+          },
+          {
+            "name": "file_3_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/74/55/7ce1f800b29e1350ad4f1da3b599d3c7218be3a37e0d58e16d4d61aa3f32/opencv_python-4.2.0.32-cp27-cp27m-manylinux1_x86_64.whl"
+          },
+          {
+            "name": "file_4_filename",
+            "label": "Distribution file",
+            "value": "opencv_python-4.2.0.32-cp27-cp27m-win32.whl"
+          },
+          {
+            "name": "file_4_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_4_sha256",
+            "label": "Distribution SHA-256",
+            "value": "afbc81a3870739610a9f9a1197374d6a45892cf1933c90fc5617d39790991ed3"
+          },
+          {
+            "name": "file_4_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/86/8d/6e00798d2f1bebcdab068d07d52f40e0efc49f0f628a97dff14f3941a9df/opencv_python-4.2.0.32-cp27-cp27m-win32.whl"
+          },
+          {
+            "name": "file_5_filename",
+            "label": "Distribution file",
+            "value": "opencv_python-4.2.0.32-cp27-cp27m-win_amd64.whl"
+          },
+          {
+            "name": "file_5_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_5_sha256",
+            "label": "Distribution SHA-256",
+            "value": "e36a8857be2c849e54009f1bee25e8c34fbc683fcd38c6c700af4cba5f8d57c2"
+          },
+          {
+            "name": "file_5_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/cd/34/3e24808af86e1259508584bb039605e4364b345dcfd1c067e57a52300c5a/opencv_python-4.2.0.32-cp27-cp27m-win_amd64.whl"
+          },
+          {
+            "name": "file_6_filename",
+            "label": "Distribution file",
+            "value": "opencv_python-4.2.0.32-cp27-cp27mu-manylinux1_i686.whl"
+          },
+          {
+            "name": "file_6_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_6_sha256",
+            "label": "Distribution SHA-256",
+            "value": "2baf1213ae2fd678991f905d7b2b94eddfdfb5f75757db0f0b31eebd48ca200d"
+          },
+          {
+            "name": "file_6_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/49/cd/c5fb9db78c2b4405e572725b7fb68fd49953f8f2659df1e374b6a8459936/opencv_python-4.2.0.32-cp27-cp27mu-manylinux1_i686.whl"
+          },
+          {
+            "name": "file_7_filename",
+            "label": "Distribution file",
+            "value": "opencv_python-4.2.0.32-cp27-cp27mu-manylinux1_x86_64.whl"
+          },
+          {
+            "name": "file_7_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_7_sha256",
+            "label": "Distribution SHA-256",
+            "value": "db1d49b753e6e6c76585f21d09c7e9812176732baa9bddb64bc2fc6cd24d4179"
+          },
+          {
+            "name": "file_7_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/f6/ca/33ef6ffe0f6f7a825febdbf655c192f30d0f59d40f23b647d08a1c2a26c5/opencv_python-4.2.0.32-cp27-cp27mu-manylinux1_x86_64.whl"
+          },
+          {
+            "name": "file_8_filename",
+            "label": "Distribution file",
+            "value": "opencv_python-4.2.0.32-cp35-cp35m-macosx_10_9_x86_64.whl"
+          },
+          {
+            "name": "file_8_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_8_sha256",
+            "label": "Distribution SHA-256",
+            "value": "eae3da9231d87980f8082d181c276a04f7a6fdac130cebd467390b96dd05f944"
+          },
+          {
+            "name": "file_8_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/89/69/07ca38fb5fb9fb1b1cb072f6c5a6757c1919d256e7a0a01781f8c82598c8/opencv_python-4.2.0.32-cp35-cp35m-macosx_10_9_x86_64.whl"
+          },
+          {
+            "name": "file_9_filename",
+            "label": "Distribution file",
+            "value": "opencv_python-4.2.0.32-cp35-cp35m-manylinux1_i686.whl"
+          },
+          {
+            "name": "file_9_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_9_sha256",
+            "label": "Distribution SHA-256",
+            "value": "8c76983c9ec3e4cf3a4c1d172ec4285332d9fb1c7194d724aff0c518437471ee"
+          },
+          {
+            "name": "file_9_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/d0/81/22e704cf3b544eebc79eaeab498e1a72de7f5ca0a8f82b2b04d6df8a16b2/opencv_python-4.2.0.32-cp35-cp35m-manylinux1_i686.whl"
+          },
+          {
+            "name": "file_10_filename",
+            "label": "Distribution file",
+            "value": "opencv_python-4.2.0.32-cp35-cp35m-manylinux1_x86_64.whl"
+          },
+          {
+            "name": "file_10_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_10_sha256",
+            "label": "Distribution SHA-256",
+            "value": "8002959146ed21959e3118c60c8e94ceac02eea15b691da6c62cff4787c63f7f"
+          },
+          {
+            "name": "file_10_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/d2/d4/02daf2fdd0a3d6607cd51df5b8fca9c9ab6ba9c8fb47c0d4a759e3f1438a/opencv_python-4.2.0.32-cp35-cp35m-manylinux1_x86_64.whl"
+          },
+          {
+            "name": "file_11_filename",
+            "label": "Distribution file",
+            "value": "opencv_python-4.2.0.32-cp35-cp35m-win32.whl"
+          },
+          {
+            "name": "file_11_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_11_sha256",
+            "label": "Distribution SHA-256",
+            "value": "a1a5517301dc8d56243a14253d231ec755b94486b4fff2ae68269bc941bb1f2e"
+          },
+          {
+            "name": "file_11_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/78/0d/a3a47c2b243c0364982e6cd2e006468f5fcdff2e1ec1e26f54ebf4b9c404/opencv_python-4.2.0.32-cp35-cp35m-win32.whl"
+          },
+          {
+            "name": "file_12_filename",
+            "label": "Distribution file",
+            "value": "opencv_python-4.2.0.32-cp35-cp35m-win_amd64.whl"
+          },
+          {
+            "name": "file_12_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_12_sha256",
+            "label": "Distribution SHA-256",
+            "value": "889eef049d38488b5b4646c48a831feed37c0fd44f3d83c05cff80f4baded145"
+          },
+          {
+            "name": "file_12_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/c6/4b/e76b7b69cb33b8248d7b76599b620af68a5fa34c1da1f4068794d905cced/opencv_python-4.2.0.32-cp35-cp35m-win_amd64.whl"
+          },
+          {
+            "name": "file_13_filename",
+            "label": "Distribution file",
+            "value": "opencv_python-4.2.0.32-cp36-cp36m-macosx_10_9_x86_64.whl"
+          },
+          {
+            "name": "file_13_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_13_sha256",
+            "label": "Distribution SHA-256",
+            "value": "703910aaa1dcd25a412f78a190fb7a352d9a64ee7d9a35566d786f3cc66ebf20"
+          },
+          {
+            "name": "file_13_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/1f/2f/bb0dd20de463a194c896bb094f2905b0bf0a7a8f08ce7fc36afd4bbb006c/opencv_python-4.2.0.32-cp36-cp36m-macosx_10_9_x86_64.whl"
+          },
+          {
+            "name": "file_14_filename",
+            "label": "Distribution file",
+            "value": "opencv_python-4.2.0.32-cp36-cp36m-manylinux1_i686.whl"
+          },
+          {
+            "name": "file_14_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_14_sha256",
+            "label": "Distribution SHA-256",
+            "value": "32384e675f7cefe707cac40a95eeb142d6869065e39c5500374116297cd8ca6d"
+          },
+          {
+            "name": "file_14_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/7a/54/f79268c9021a6f32d61271f30faf2cc44a7638558201dd2acf0231a06576/opencv_python-4.2.0.32-cp36-cp36m-manylinux1_i686.whl"
+          },
+          {
+            "name": "file_15_filename",
+            "label": "Distribution file",
+            "value": "opencv_python-4.2.0.32-cp36-cp36m-manylinux1_x86_64.whl"
+          },
+          {
+            "name": "file_15_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_15_sha256",
+            "label": "Distribution SHA-256",
+            "value": "f01a87a015227d8af407161eb48222fc3c8b01661cdc841e2b86eee4f1a7a417"
+          },
+          {
+            "name": "file_15_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/68/c5/09a1b82f940805c2cee30c3c42786651edcfd0710a0283eb09c6bc959340/opencv_python-4.2.0.32-cp36-cp36m-manylinux1_x86_64.whl"
+          },
+          {
+            "name": "file_16_filename",
+            "label": "Distribution file",
+            "value": "opencv_python-4.2.0.32-cp36-cp36m-win32.whl"
+          },
+          {
+            "name": "file_16_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_16_sha256",
+            "label": "Distribution SHA-256",
+            "value": "e699232fd033ef0053efec2cba0a7505514f374ba7b18c732a77cb5304311ef9"
+          },
+          {
+            "name": "file_16_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/bf/dd/1919f4449c2bed0833dcdf6fe7e1b9f431e488e5df7e5761700ea00b51c0/opencv_python-4.2.0.32-cp36-cp36m-win32.whl"
+          },
+          {
+            "name": "file_17_filename",
+            "label": "Distribution file",
+            "value": "opencv_python-4.2.0.32-cp36-cp36m-win_amd64.whl"
+          },
+          {
+            "name": "file_17_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_17_sha256",
+            "label": "Distribution SHA-256",
+            "value": "a8529a79233f3581a66984acd16bce52ab0163f6f77568dd69e9ee4956d2e1db"
+          },
+          {
+            "name": "file_17_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/0b/26/9af7fe21073cbef2f450a13ca18978732125fbb65cc56d173a7e82a9e111/opencv_python-4.2.0.32-cp36-cp36m-win_amd64.whl"
+          },
+          {
+            "name": "file_18_filename",
+            "label": "Distribution file",
+            "value": "opencv_python-4.2.0.32-cp37-cp37m-macosx_10_9_x86_64.whl"
+          },
+          {
+            "name": "file_18_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_18_sha256",
+            "label": "Distribution SHA-256",
+            "value": "312dda54c7e809c20d7409418060ae0e9cdbe82975e7ced429eb3c234ffc0d4a"
+          },
+          {
+            "name": "file_18_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/68/81/20771fab16b8ccd5f642a44ef355e274075754dc002b5d6f6e9779e715d8/opencv_python-4.2.0.32-cp37-cp37m-macosx_10_9_x86_64.whl"
+          },
+          {
+            "name": "file_19_filename",
+            "label": "Distribution file",
+            "value": "opencv_python-4.2.0.32-cp37-cp37m-manylinux1_i686.whl"
+          },
+          {
+            "name": "file_19_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_19_sha256",
+            "label": "Distribution SHA-256",
+            "value": "167a6aff9bd124a3a67e0ec25d0da5ecdc8d96a56405e3e5e7d586c4105eb1bb"
+          },
+          {
+            "name": "file_19_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/e5/ed/8efc3bdb1a2f026a005ced140e7261593ec57e091e01237817b5a0f361fd/opencv_python-4.2.0.32-cp37-cp37m-manylinux1_i686.whl"
+          },
+          {
+            "name": "file_20_filename",
+            "label": "Distribution file",
+            "value": "opencv_python-4.2.0.32-cp37-cp37m-manylinux1_x86_64.whl"
+          },
+          {
+            "name": "file_20_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_20_sha256",
+            "label": "Distribution SHA-256",
+            "value": "baeb5dd8b21c718580687f5b4efd03f8139b1c56239cdf6b9805c6946e80f268"
+          },
+          {
+            "name": "file_20_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/34/a3/403dbaef909fee9f9f6a8eaff51d44085a14e5bb1a1ff7257117d744986a/opencv_python-4.2.0.32-cp37-cp37m-manylinux1_x86_64.whl"
+          },
+          {
+            "name": "file_21_filename",
+            "label": "Distribution file",
+            "value": "opencv_python-4.2.0.32-cp37-cp37m-win32.whl"
+          },
+          {
+            "name": "file_21_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_21_sha256",
+            "label": "Distribution SHA-256",
+            "value": "0f2e739c582e8c5e432130648bc6d66a56bc65f4cd9ff0bc7033033d2130c7a3"
+          },
+          {
+            "name": "file_21_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/05/ab/9556aafa8162cd01624669813c6669e6f645308ae8b06c581947c09b4057/opencv_python-4.2.0.32-cp37-cp37m-win32.whl"
+          },
+          {
+            "name": "file_22_filename",
+            "label": "Distribution file",
+            "value": "opencv_python-4.2.0.32-cp37-cp37m-win_amd64.whl"
+          },
+          {
+            "name": "file_22_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_22_sha256",
+            "label": "Distribution SHA-256",
+            "value": "ee6814c94dbf1cae569302afef9dd29efafc52373e8770ded0db549a3b6e0c00"
+          },
+          {
+            "name": "file_22_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/5a/af/dabae171f885ec4d9b2fe6aaf74c1d50a8d32106d840b9fb8eb0095a578d/opencv_python-4.2.0.32-cp37-cp37m-win_amd64.whl"
+          },
+          {
+            "name": "file_23_filename",
+            "label": "Distribution file",
+            "value": "opencv_python-4.2.0.32-cp38-cp38-macosx_10_9_x86_64.whl"
+          },
+          {
+            "name": "file_23_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_23_sha256",
+            "label": "Distribution SHA-256",
+            "value": "0f3d159ad6cb9cbd188c726f87485f0799a067a0a15f34c25d7b5c8db3cb2e50"
+          },
+          {
+            "name": "file_23_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/12/35/dc1bc318d00ca24d2245d94ac6d97a3c0979126adffb65c9eef479d42e7d/opencv_python-4.2.0.32-cp38-cp38-macosx_10_9_x86_64.whl"
+          },
+          {
+            "name": "file_24_filename",
+            "label": "Distribution file",
+            "value": "opencv_python-4.2.0.32-cp38-cp38-manylinux1_i686.whl"
+          },
+          {
+            "name": "file_24_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_24_sha256",
+            "label": "Distribution SHA-256",
+            "value": "6841bb9cc24751dbdf94e7eefc4e6d70ec297952501954471299fd12ab67391c"
+          },
+          {
+            "name": "file_24_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/db/c5/97488019ddaf057e8514d09f16a5e018b9c739dd5ce35cf2e0ad12874522/opencv_python-4.2.0.32-cp38-cp38-manylinux1_i686.whl"
+          },
+          {
+            "name": "file_25_filename",
+            "label": "Distribution file",
+            "value": "opencv_python-4.2.0.32-cp38-cp38-manylinux1_x86_64.whl"
+          },
+          {
+            "name": "file_25_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_25_sha256",
+            "label": "Distribution SHA-256",
+            "value": "1b90d50bc7a31e9573a8da1b80fcd1e4d9c86c0e5f76387858e1b87eb8b0332b"
+          },
+          {
+            "name": "file_25_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/d5/83/93f87a211af7942fff6b77a2958c0be4be6f83d8cc239d270bffdfba7299/opencv_python-4.2.0.32-cp38-cp38-manylinux1_x86_64.whl"
+          },
+          {
+            "name": "file_26_filename",
+            "label": "Distribution file",
+            "value": "opencv_python-4.2.0.32-cp38-cp38-win32.whl"
+          },
+          {
+            "name": "file_26_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_26_sha256",
+            "label": "Distribution SHA-256",
+            "value": "e242ed419aeb2488e0f9ee6410a34917f0f8d62b3ae96aa3170d83bae75004e2"
+          },
+          {
+            "name": "file_26_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/c2/6b/f842e7bf62074d7e308c8ca66f9182acf996810c82bd7c63b584626480eb/opencv_python-4.2.0.32-cp38-cp38-win32.whl"
+          },
+          {
+            "name": "file_27_filename",
+            "label": "Distribution file",
+            "value": "opencv_python-4.2.0.32-cp38-cp38-win_amd64.whl"
+          },
+          {
+            "name": "file_27_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_27_sha256",
+            "label": "Distribution SHA-256",
+            "value": "5c50634dd8f2f866fd99fd939292ce10e52bef82804ebc4e7f915221c3b7e951"
+          },
+          {
+            "name": "file_27_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/4a/58/58513225ca637292ae5aada194e5c641f891218145e94f3a59b15c823e75/opencv_python-4.2.0.32-cp38-cp38-win_amd64.whl"
+          }
+        ],
+        "method": "exact package-release metadata acquisition",
+        "retrieved_at": "2026-10-03T16:32:34.129127+00:00",
+        "retention": "selected_facts",
+        "content": null,
+        "limitation": "Selected metadata retained as identity facts; raw provider JSON is not retained."
+      },
+      {
+        "source_id": "source-9",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "old-package"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "available"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "recorded_owner_result"
+          },
+          {
+            "name": "requested_package",
+            "label": "Requested package",
+            "value": "opencv-python"
+          },
+          {
+            "name": "requested_version",
+            "label": "Requested version",
+            "value": "4.2.0.32"
+          },
+          {
+            "name": "published_package",
+            "label": "Old published package",
+            "value": "opencv-python==4.2.0.32"
+          },
+          {
+            "name": "distribution_count",
+            "label": "Old distribution files",
+            "value": "27"
+          }
+        ],
+        "method": "pypi.release",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "Exact published package metadata is available.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-10",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "upstream-repository"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "source_unavailable"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "recorded_owner_result"
+          }
+        ],
+        "method": "upstream.repository",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "No exact distribution file exposed usable PyPI provenance.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-11",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "upstream-interval"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "not established"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "not_evaluated"
+          }
+        ],
+        "method": "upstream.interval",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "Recorded upstream prerequisites are unavailable: Upstream repository: source_unavailable: No exact distribution file exposed usable PyPI provenance.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-12",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "support-drop"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "not evaluated"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "not_evaluated"
+          }
+        ],
+        "method": "upstream.claim",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "Recorded upstream prerequisites are unavailable: Upstream repository: source_unavailable: No exact distribution file exposed usable PyPI provenance.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-13",
+        "kind": "artifact_capabilities",
+        "locator": null,
+        "identity": [
+          {
+            "name": "old_version",
+            "label": "Old version",
+            "value": "4.2.0.32"
+          },
+          {
+            "name": "proposed_version",
+            "label": "Proposed version",
+            "value": "4.8.1.78"
+          },
+          {
+            "name": "removed_tag_1",
+            "label": "Removed wheel tag",
+            "value": "cp27-cp27m-macosx_10_9_x86_64"
+          },
+          {
+            "name": "removed_tag_2",
+            "label": "Removed wheel tag",
+            "value": "cp27-cp27m-manylinux1_i686"
+          },
+          {
+            "name": "removed_tag_3",
+            "label": "Removed wheel tag",
+            "value": "cp27-cp27m-manylinux1_x86_64"
+          },
+          {
+            "name": "removed_tag_4",
+            "label": "Removed wheel tag",
+            "value": "cp27-cp27m-win32"
+          },
+          {
+            "name": "removed_tag_5",
+            "label": "Removed wheel tag",
+            "value": "cp27-cp27m-win_amd64"
+          },
+          {
+            "name": "removed_tag_6",
+            "label": "Removed wheel tag",
+            "value": "cp27-cp27mu-manylinux1_i686"
+          },
+          {
+            "name": "removed_tag_7",
+            "label": "Removed wheel tag",
+            "value": "cp27-cp27mu-manylinux1_x86_64"
+          },
+          {
+            "name": "removed_tag_8",
+            "label": "Removed wheel tag",
+            "value": "cp35-cp35m-macosx_10_9_x86_64"
+          },
+          {
+            "name": "removed_tag_9",
+            "label": "Removed wheel tag",
+            "value": "cp35-cp35m-manylinux1_i686"
+          },
+          {
+            "name": "removed_tag_10",
+            "label": "Removed wheel tag",
+            "value": "cp35-cp35m-manylinux1_x86_64"
+          },
+          {
+            "name": "removed_tag_11",
+            "label": "Removed wheel tag",
+            "value": "cp35-cp35m-win32"
+          },
+          {
+            "name": "removed_tag_12",
+            "label": "Removed wheel tag",
+            "value": "cp35-cp35m-win_amd64"
+          },
+          {
+            "name": "removed_tag_13",
+            "label": "Removed wheel tag",
+            "value": "cp36-cp36m-macosx_10_9_x86_64"
+          },
+          {
+            "name": "removed_tag_14",
+            "label": "Removed wheel tag",
+            "value": "cp36-cp36m-manylinux1_i686"
+          },
+          {
+            "name": "removed_tag_15",
+            "label": "Removed wheel tag",
+            "value": "cp36-cp36m-manylinux1_x86_64"
+          },
+          {
+            "name": "removed_tag_16",
+            "label": "Removed wheel tag",
+            "value": "cp36-cp36m-win32"
+          },
+          {
+            "name": "removed_tag_17",
+            "label": "Removed wheel tag",
+            "value": "cp36-cp36m-win_amd64"
+          },
+          {
+            "name": "removed_tag_18",
+            "label": "Removed wheel tag",
+            "value": "cp37-cp37m-macosx_10_9_x86_64"
+          },
+          {
+            "name": "removed_tag_19",
+            "label": "Removed wheel tag",
+            "value": "cp37-cp37m-manylinux1_i686"
+          },
+          {
+            "name": "removed_tag_20",
+            "label": "Removed wheel tag",
+            "value": "cp37-cp37m-manylinux1_x86_64"
+          },
+          {
+            "name": "removed_tag_21",
+            "label": "Removed wheel tag",
+            "value": "cp37-cp37m-win32"
+          },
+          {
+            "name": "removed_tag_22",
+            "label": "Removed wheel tag",
+            "value": "cp37-cp37m-win_amd64"
+          },
+          {
+            "name": "removed_tag_23",
+            "label": "Removed wheel tag",
+            "value": "cp38-cp38-macosx_10_9_x86_64"
+          },
+          {
+            "name": "removed_tag_24",
+            "label": "Removed wheel tag",
+            "value": "cp38-cp38-manylinux1_i686"
+          },
+          {
+            "name": "removed_tag_25",
+            "label": "Removed wheel tag",
+            "value": "cp38-cp38-manylinux1_x86_64"
+          },
+          {
+            "name": "removed_tag_26",
+            "label": "Removed wheel tag",
+            "value": "cp38-cp38-win32"
+          },
+          {
+            "name": "removed_tag_27",
+            "label": "Removed wheel tag",
+            "value": "cp38-cp38-win_amd64"
+          },
+          {
+            "name": "added_tag_1",
+            "label": "Added wheel tag",
+            "value": "cp37-abi3-macosx_10_16_x86_64"
+          },
+          {
+            "name": "added_tag_2",
+            "label": "Added wheel tag",
+            "value": "cp37-abi3-macosx_11_0_arm64"
+          },
+          {
+            "name": "added_tag_3",
+            "label": "Added wheel tag",
+            "value": "cp37-abi3-manylinux2014_aarch64"
+          },
+          {
+            "name": "added_tag_4",
+            "label": "Added wheel tag",
+            "value": "cp37-abi3-manylinux2014_x86_64"
+          },
+          {
+            "name": "added_tag_5",
+            "label": "Added wheel tag",
+            "value": "cp37-abi3-manylinux_2_17_aarch64"
+          },
+          {
+            "name": "added_tag_6",
+            "label": "Added wheel tag",
+            "value": "cp37-abi3-manylinux_2_17_x86_64"
+          },
+          {
+            "name": "added_tag_7",
+            "label": "Added wheel tag",
+            "value": "cp37-abi3-win32"
+          },
+          {
+            "name": "added_tag_8",
+            "label": "Added wheel tag",
+            "value": "cp37-abi3-win_amd64"
+          }
+        ],
+        "method": "exact old/proposed published wheel capability comparison",
+        "retrieved_at": null,
+        "retention": "selected_facts",
+        "content": null,
+        "limitation": "Selected capability facts retained; target installation and source-build results are not established."
+      },
+      {
+        "source_id": "source-14",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "artifact-candidate"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "established"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "recorded_owner_result"
+          },
+          {
+            "name": "removed_count",
+            "label": "Removed published wheel-tag capabilities",
+            "value": "27"
+          },
+          {
+            "name": "added_count",
+            "label": "Added published wheel-tag capabilities",
+            "value": "8"
+          },
+          {
+            "name": "source_distribution",
+            "label": "Proposed source distribution",
+            "value": "available"
+          }
+        ],
+        "method": "impact.artifact_serviceability",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "Published wheel-tag capabilities were removed across the exact release transition.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-15",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "artifact-environments"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "not activated"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "not_evaluated"
+          }
+        ],
+        "method": "target.artifact_environment",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "This branch has no evaluated result in the recorded investigation.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-16",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "artifact-impact"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "unresolved"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "recorded_owner_result"
+          },
+          {
+            "name": "target_compatibility",
+            "label": "Exact target wheel compatibility",
+            "value": "not established"
+          }
+        ],
+        "method": "impact.artifact_serviceability",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "No represented path is established or genuinely conflicted, and at least one viable alternative remains unresolved.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-17",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "target-python"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "not activated"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "not_evaluated"
+          }
+        ],
+        "method": "target.python",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "This branch has no evaluated result in the recorded investigation.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-18",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "python-relevance"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "not evaluated"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "not_evaluated"
+          }
+        ],
+        "method": "target.relevance",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "This branch has no evaluated result in the recorded investigation.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      }
+    ],
+    "preservation_limits": [
+      "Original workflow files/logs, dependency source files and arbitrary target code are not fully retained.",
+      "Source references are availability-dependent; opening does not retrieve them.",
+      "This record cannot replay analysis, resume an agent, or establish compatibility.",
+      "A file digest detects corruption, not authenticity or evidence truth."
+    ]
+  },
+  "integrity": {
+    "method": "sha256",
+    "digest": "8e14c972acb24a82b7cc7aaf53403f3e2f2ae7da23f5344c69074a5ac325674f"
+  }
+}

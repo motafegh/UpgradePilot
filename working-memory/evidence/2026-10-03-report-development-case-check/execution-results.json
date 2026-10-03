@@ -1,0 +1,22 @@
+[
+  {
+    "case": "S002",
+    "began_at": "2026-10-03T16:32:27.198335+00:00",
+    "finished_at": "2026-10-03T16:32:31.244435+00:00",
+    "exit_code": 0,
+    "stderr_present": false,
+    "saved_report_exists": true,
+    "report_sha256": "a82d75e24cf8c4a8c03746f209e470ecfe0f32a3f0635a53a707f0b11e2aaf97",
+    "stored_report": "httpx-api-context-report.json"
+  },
+  {
+    "case": "S008",
+    "began_at": "2026-10-03T16:32:31.244663+00:00",
+    "finished_at": "2026-10-03T16:32:42.431427+00:00",
+    "exit_code": 0,
+    "stderr_present": false,
+    "saved_report_exists": true,
+    "report_sha256": "d3be8dc75909772e2d7eb40329dd1b8ce22d1c98dbfdd42cb0ad1b25aaca72a3",
+    "stored_report": "opencv-artifact-report-before-repair.json"
+  }
+]

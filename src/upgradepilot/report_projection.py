@@ -1131,11 +1131,22 @@ def _project_artifact(p: _ReportProjection) -> None:
             proposition="Association count does not establish exact wheel compatibility.",
         )
     if not result.target_artifact_environment_results:
+        # An empty association result cannot mean the candidate branch was skipped.
+        candidate_established = isinstance(
+            candidate, ArtifactServiceabilityImpactCandidate
+        )
         p.not_evaluated(
             "artifact-environments",
             "Target artifact environments",
             "target.artifact_environment",
-            "not activated",
+            "not established" if candidate_established else "not activated",
+            detail=(
+                "An artifact capability-change candidate was established, but the "
+                "investigation retains no supported target environment associations. "
+                "Applicability to the target remains unresolved."
+                if candidate_established
+                else "This branch has no evaluated result in the recorded investigation."
+            ),
         )
     for i, association in enumerate(result.target_artifact_environment_results, 1):
         target = association.target_environment

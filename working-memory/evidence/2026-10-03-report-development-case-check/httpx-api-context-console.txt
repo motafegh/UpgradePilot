@@ -1,0 +1,274 @@
+UpgradePilot public pull-request evidence
+Mode: new investigation report
+Report: c275648d-af2f-4df8-a311-b9117fe6b1b5
+Generated at: 2026-10-03T16:32:31.210292+00:00
+Recorded generator version: 1; renderer version: 1
+Product version: 0.0.0
+Repository: Aidan-Wallace/kubernetes-dashboard-token-api
+PR: 20
+Title: Bump httpx from 0.27.2 to 0.28.1
+Author: dependabot[bot]
+State: closed
+Merged: true
+Base ref: main
+Base: b065646e4b7b894964567950f9ad770b02c136c2
+Head ref: dependabot/pip/httpx-0.28.1
+Head: 391508134b083b8f54461c0b576e8f7985c6ecb4
+
+Dependency change: supported
+Package: httpx
+Normalized package: httpx
+Old version: 0.27.2
+Proposed version: 0.28.1
+Changed file: requirements.txt (modified)
+Reason: recorded_owner_result
+Detail: One supported exact dependency version transition was established.
+Evidence meaning: Exact version transition only, not installation or compatibility.
+Evidence strength: recorded_fact
+Sources: source-3, source-1, source-2
+
+CI dependency coverage: no_successful_ci
+Reason: no_exact_head_workflows
+Detail: No pull-request workflow runs were available for the exact head SHA.
+Evidence meaning: Static consumption and exact-attempt command correlation; not changed-version use or compatibility.
+Evidence strength: recorded_fact
+Sources: source-4
+
+Runtime dependency state: no_admitted_candidate
+Reason: no_admitted_runtime_dependency_state_candidate
+Detail: No supported direct-requirements/pip consumption entered the first command-derived runtime dependency-state proof family.
+Evidence meaning: First admitted direct-requirements/pip command-completion family only.
+Evidence strength: recorded_fact
+Sources: source-5
+
+Package evidence: available
+Requested package: httpx
+Requested version: 0.28.1
+Published package: httpx==0.28.1
+Distribution files: 2
+Reason: recorded_owner_result
+Detail: Exact published package metadata is available.
+Evidence meaning: Published release metadata and files, not observed target installation.
+Evidence strength: recorded_fact
+Sources: source-7, source-6
+
+Old package artifact evidence: available
+Requested package: httpx
+Requested version: 0.27.2
+Old published package: httpx==0.27.2
+Old distribution files: 2
+Reason: recorded_owner_result
+Detail: Exact published package metadata is available.
+Evidence meaning: Published release metadata and files, not observed target installation.
+Evidence strength: recorded_fact
+Sources: source-9, source-8
+
+Upstream repository: source_unavailable
+Reason: recorded_owner_result
+Detail: No exact distribution file exposed usable PyPI provenance.
+Evidence meaning: Repository identity remains unresolved.
+Evidence strength: unresolved
+Sources: source-10
+
+Upstream interval authority: not established
+Reason: not_evaluated
+Detail: Recorded upstream prerequisites are unavailable: Upstream repository: source_unavailable: No exact distribution file exposed usable PyPI provenance.
+Evidence meaning: No positive or negative conclusion was established.
+Evidence strength: unresolved
+Sources: source-11, source-10
+
+Upstream support-drop result: not evaluated
+Reason: not_evaluated
+Detail: Recorded upstream prerequisites are unavailable: Upstream repository: source_unavailable: No exact distribution file exposed usable PyPI provenance.
+Evidence meaning: No positive or negative conclusion was established.
+Evidence strength: unresolved
+Sources: source-12, source-11, source-10
+
+Artifact serviceability candidate: not observed
+Reason: recorded_owner_result
+Detail: Exact old/proposed release comparison completed without a bounded published-wheel capability loss.
+Evidence meaning: No candidate within the evaluated published-wheel capability horizon; source builds and all other impacts remain unproven.
+Evidence strength: recorded_fact
+Sources: source-13
+
+Target artifact environments: not activated
+Reason: not_evaluated
+Detail: This branch has no evaluated result in the recorded investigation.
+Evidence meaning: No positive or negative conclusion was established.
+Evidence strength: unresolved
+Sources: source-14
+
+Artifact applicability: not evaluated
+Reason: not_evaluated
+Detail: This branch has no evaluated result in the recorded investigation.
+Evidence meaning: No positive or negative conclusion was established.
+Evidence strength: unresolved
+Sources: source-15
+
+Target Python declaration: not activated
+Reason: not_evaluated
+Detail: This branch has no evaluated result in the recorded investigation.
+Evidence meaning: No positive or negative conclusion was established.
+Evidence strength: unresolved
+Sources: source-16
+
+Target Python relevance: not evaluated
+Reason: not_evaluated
+Detail: This branch has no evaluated result in the recorded investigation.
+Evidence meaning: No positive or negative conclusion was established.
+Evidence strength: unresolved
+Sources: source-17
+
+Unresolved questions
+Question: Was static dependency consumption correlated to successful exact-attempt execution?
+Why unresolved: No pull-request workflow runs were available for the exact head SHA.
+Consequence: A maintainer-action consequence is not established.
+Sources: source-4
+Question: Is the changed requirement satisfied at an admitted command-completion boundary?
+Why unresolved: No supported direct-requirements/pip consumption entered the first command-derived runtime dependency-state proof family.
+Consequence: A maintainer-action consequence is not established.
+Sources: source-5
+Question: Which upstream repository has applicable authority?
+Why unresolved: No exact distribution file exposed usable PyPI provenance.
+Consequence: A maintainer-action consequence is not established.
+Sources: source-10
+Question: What does the upstream interval authority branch establish?
+Why unresolved: Recorded upstream prerequisites are unavailable: Upstream repository: source_unavailable: No exact distribution file exposed usable PyPI provenance.
+Consequence: A maintainer-action consequence is not established.
+Sources: source-11, source-10
+Question: What does the upstream support-drop result branch establish?
+Why unresolved: Recorded upstream prerequisites are unavailable: Upstream repository: source_unavailable: No exact distribution file exposed usable PyPI provenance.
+Consequence: A maintainer-action consequence is not established.
+Sources: source-12, source-11, source-10
+Question: What does the target artifact environments branch establish?
+Why unresolved: This branch has no evaluated result in the recorded investigation.
+Consequence: A maintainer-action consequence is not established.
+Sources: source-14
+Question: What does the artifact applicability branch establish?
+Why unresolved: This branch has no evaluated result in the recorded investigation.
+Consequence: A maintainer-action consequence is not established.
+Sources: source-15
+Question: What does the target python declaration branch establish?
+Why unresolved: This branch has no evaluated result in the recorded investigation.
+Consequence: A maintainer-action consequence is not established.
+Sources: source-16
+Question: What does the target python relevance branch establish?
+Why unresolved: This branch has no evaluated result in the recorded investigation.
+Consequence: A maintainer-action consequence is not established.
+Sources: source-17
+
+Maintainer action: abstain
+Action reason: No non-abstention maintainer-action permission is admitted at the current evaluator proof boundary.
+Remaining uncertainty: CI dependency coverage remains no_successful_ci: No pull-request workflow runs were available for the exact head SHA.
+Remaining uncertainty: Runtime requirement state remains no_admitted_candidate: No supported direct-requirements/pip consumption entered the first command-derived runtime dependency-state proof family.
+Remaining uncertainty: Command-completion evidence does not establish fresh installation, later package use or behavioral compatibility.
+Remaining uncertainty: Upstream repository identity remains source_unavailable: No exact distribution file exposed usable PyPI provenance.
+Action limitation: This first evaluator intentionally withholds merge, targeted-check, investigate, block, and defer until each action's positive prerequisites are proven through the normal producer path.
+Claim limit: This abstention is not a finding that the dependency update is safe or unsafe.
+Claim limit: This result does not establish complete impact-candidate or repository-context coverage.
+Claim limit: This result does not authorize repository mutation, approval, or automatic merge.
+
+Evidence sources
+source-1: pull request | reference only
+  Location: https://github.com/Aidan-Wallace/kubernetes-dashboard-token-api/pull/20
+  Repository: Aidan-Wallace/kubernetes-dashboard-token-api
+  PR: 20
+  Title: Bump httpx from 0.27.2 to 0.28.1
+  Author: dependabot[bot]
+  State: closed
+  Merged: true
+  Base ref: main
+  Base: b065646e4b7b894964567950f9ad770b02c136c2
+  Head ref: dependabot/pip/httpx-0.28.1
+  Head: 391508134b083b8f54461c0b576e8f7985c6ecb4
+  Method: exact PR base/head identity acquisition
+  Acquisition time: not recorded
+  Preservation limit: Original input content is not retained in this report.
+source-2: dependency source | reference only
+  Location: https://github.com/Aidan-Wallace/kubernetes-dashboard-token-api/blob/391508134b083b8f54461c0b576e8f7985c6ecb4/requirements.txt
+  Dependency evidence: requirements.txt
+  Format: exact_requirement
+  Base: b065646e4b7b894964567950f9ad770b02c136c2
+  Head: 391508134b083b8f54461c0b576e8f7985c6ecb4
+  Method: changed_file_patch
+  Acquisition time: not recorded
+  Preservation limit: Original input content is not retained in this report.
+source-3: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-4: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-5: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-6: package metadata | selected facts
+  Location: https://pypi.org/pypi/httpx/0.28.1/json
+  Requested package: httpx
+  Requested version: 0.28.1
+  Published package: httpx==0.28.1
+  Distribution files: 2
+  Method: exact package-release metadata acquisition
+  Acquisition time: 2026-10-03T16:32:29.867396+00:00
+  Preservation limit: Selected metadata retained as identity facts; raw provider JSON is not retained.
+source-7: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-8: package metadata | selected facts
+  Location: https://pypi.org/pypi/httpx/0.27.2/json
+  Requested package: httpx
+  Requested version: 0.27.2
+  Old published package: httpx==0.27.2
+  Old distribution files: 2
+  Method: exact package-release metadata acquisition
+  Acquisition time: 2026-10-03T16:32:30.011964+00:00
+  Preservation limit: Selected metadata retained as identity facts; raw provider JSON is not retained.
+source-9: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-10: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-11: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-12: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-13: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-14: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-15: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-16: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-17: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+
+Report limits
+Code revision, model/prompt/config identity and complete operation history are not recorded.
+Generation time identifies report production; unavailable acquisition times remain unavailable.
+Original workflow files/logs, dependency source files and arbitrary target code are not fully retained.
+Source references are availability-dependent; opening does not retrieve them.
+This record cannot replay analysis, resume an agent, or establish compatibility.
+A file digest detects corruption, not authenticity or evidence truth.
+Saved report: /home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-10-03-report-development-case-check/S002-normal-report.json

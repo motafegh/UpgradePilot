@@ -117,7 +117,9 @@ class ReportProjectionTests(unittest.TestCase):
         )
 
     def test_artifact_candidate_is_not_installation_failure(self):
-        investigation = _artifact_candidate_investigation()
+        investigation = replace(
+            _artifact_candidate_investigation(), target_artifact_environment_results=()
+        )
         report = decode_report(
             encode_report(project_investigation_report(investigation))
         )
@@ -132,6 +134,15 @@ class ReportProjectionTests(unittest.TestCase):
         self.assertEqual(impact.state, "unresolved")
         self.assertTrue(
             any(u.assessment_id == "artifact-impact" for u in report.unknowns)
+        )
+        environments = next(
+            a for a in report.assessments if a.assessment_id == "artifact-environments"
+        )
+        self.assertEqual(environments.state, "not established")
+        self.assertIn("no supported target environment associations", environments.detail)
+        self.assertIn(
+            "Target artifact environments: not established",
+            render_investigation_report(report),
         )
         self.assertEqual(report.action.state, "abstain")
 

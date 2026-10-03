@@ -1,0 +1,27 @@
+{
+  "created_at": "2026-10-03T16:39:52.484167+00:00",
+  "purpose": "Installed normal same-revision regression for empty artifact-environment wording; new acquisition, not same-evidence utility comparison",
+  "parent_code_head": "5aebc19d8ed48f4719659a89d7e42f4a143fae7c",
+  "working_tree_patch": "report_projection.py: established artifact candidate plus empty associations -> not established; no analysis/authority change",
+  "source_hashes": {
+    "src/upgradepilot/report_projection.py": "c6a71736a09d607621a2db70f9dd6e7ee0b2b94b6323ab5c035226abe142e5bd",
+    "tests/test_report.py": "a07205d0e1ffe0ad6eb961a95f6c51f98dc9ef1aaa517b5d5775f910470a9382"
+  },
+  "installed_all_product_python_files_match_checkout": true,
+  "auth_mode": "anonymous; process-local token/proxy removal",
+  "input": {
+    "repository": "carla-simulator/scenario_runner",
+    "pull_number": 1111,
+    "base_sha": "7758d066080f180f8296887ed89b7c723a54706a",
+    "head_sha": "f32ad2d23a9abee47c566dfbed2b822d953a09e2"
+  },
+  "invocation": [
+    "/home/motafeq/projects/UpgradePilot/.venv/bin/upgradepilot",
+    "carla-simulator/scenario_runner",
+    "1111",
+    "--save-report",
+    "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-10-03-report-development-case-check/opencv-artifact-report-after-repair.json"
+  ],
+  "acceptance": "Same PR revisions; artifact candidate and source-fallback uncertainty retained; empty target associations state not established; action abstain; old report bytes unchanged; strict saved read and offline console/module parity",
+  "previous_report_sha256": "d3be8dc75909772e2d7eb40329dd1b8ce22d1c98dbfdd42cb0ad1b25aaca72a3"
+}

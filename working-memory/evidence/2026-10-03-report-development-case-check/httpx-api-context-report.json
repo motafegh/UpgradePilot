@@ -1,0 +1,1178 @@
+{
+  "schema": "upgradepilot.investigation-report",
+  "schema_version": 1,
+  "report": {
+    "report_id": "c275648d-af2f-4df8-a311-b9117fe6b1b5",
+    "generated_at": "2026-10-03T16:32:31.210292+00:00",
+    "generator_version": "1",
+    "product_version": "0.0.0",
+    "auth_mode": "anonymous",
+    "production_limits": [
+      "Code revision, model/prompt/config identity and complete operation history are not recorded.",
+      "Generation time identifies report production; unavailable acquisition times remain unavailable."
+    ],
+    "identity": [
+      {
+        "name": "repository",
+        "label": "Repository",
+        "value": "Aidan-Wallace/kubernetes-dashboard-token-api"
+      },
+      {
+        "name": "pull_number",
+        "label": "PR",
+        "value": "20"
+      },
+      {
+        "name": "title",
+        "label": "Title",
+        "value": "Bump httpx from 0.27.2 to 0.28.1"
+      },
+      {
+        "name": "author",
+        "label": "Author",
+        "value": "dependabot[bot]"
+      },
+      {
+        "name": "state",
+        "label": "State",
+        "value": "closed"
+      },
+      {
+        "name": "merged",
+        "label": "Merged",
+        "value": "true"
+      },
+      {
+        "name": "base_ref",
+        "label": "Base ref",
+        "value": "main"
+      },
+      {
+        "name": "base_sha",
+        "label": "Base",
+        "value": "b065646e4b7b894964567950f9ad770b02c136c2"
+      },
+      {
+        "name": "head_ref",
+        "label": "Head ref",
+        "value": "dependabot/pip/httpx-0.28.1"
+      },
+      {
+        "name": "head_sha",
+        "label": "Head",
+        "value": "391508134b083b8f54461c0b576e8f7985c6ecb4"
+      }
+    ],
+    "assessments": [
+      {
+        "assessment_id": "dependency",
+        "topic": "Dependency change",
+        "owner": "dependency.change",
+        "state": "supported",
+        "status": "available",
+        "reason": "recorded_owner_result",
+        "detail": "One supported exact dependency version transition was established.",
+        "proposition": "Exact version transition only, not installation or compatibility.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-3",
+          "source-1",
+          "source-2"
+        ],
+        "facts": [
+          {
+            "name": "package",
+            "label": "Package",
+            "value": "httpx"
+          },
+          {
+            "name": "normalized_package",
+            "label": "Normalized package",
+            "value": "httpx"
+          },
+          {
+            "name": "old_version",
+            "label": "Old version",
+            "value": "0.27.2"
+          },
+          {
+            "name": "proposed_version",
+            "label": "Proposed version",
+            "value": "0.28.1"
+          },
+          {
+            "name": "changed_file_1",
+            "label": "Changed file",
+            "value": "requirements.txt (modified)"
+          }
+        ],
+        "limitations": []
+      },
+      {
+        "assessment_id": "ci",
+        "topic": "CI dependency coverage",
+        "owner": "ci.dependency_exercise",
+        "state": "no_successful_ci",
+        "status": "available",
+        "reason": "no_exact_head_workflows",
+        "detail": "No pull-request workflow runs were available for the exact head SHA.",
+        "proposition": "Static consumption and exact-attempt command correlation; not changed-version use or compatibility.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-4"
+        ],
+        "facts": [],
+        "limitations": []
+      },
+      {
+        "assessment_id": "runtime",
+        "topic": "Runtime dependency state",
+        "owner": "ci.dependency_state",
+        "state": "no_admitted_candidate",
+        "status": "available",
+        "reason": "no_admitted_runtime_dependency_state_candidate",
+        "detail": "No supported direct-requirements/pip consumption entered the first command-derived runtime dependency-state proof family.",
+        "proposition": "First admitted direct-requirements/pip command-completion family only.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-5"
+        ],
+        "facts": [],
+        "limitations": []
+      },
+      {
+        "assessment_id": "package",
+        "topic": "Package evidence",
+        "owner": "pypi.release",
+        "state": "available",
+        "status": "available",
+        "reason": "recorded_owner_result",
+        "detail": "Exact published package metadata is available.",
+        "proposition": "Published release metadata and files, not observed target installation.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-7",
+          "source-6"
+        ],
+        "facts": [
+          {
+            "name": "requested_package",
+            "label": "Requested package",
+            "value": "httpx"
+          },
+          {
+            "name": "requested_version",
+            "label": "Requested version",
+            "value": "0.28.1"
+          },
+          {
+            "name": "published_package",
+            "label": "Published package",
+            "value": "httpx==0.28.1"
+          },
+          {
+            "name": "distribution_count",
+            "label": "Distribution files",
+            "value": "2"
+          }
+        ],
+        "limitations": []
+      },
+      {
+        "assessment_id": "old-package",
+        "topic": "Old package artifact evidence",
+        "owner": "pypi.release",
+        "state": "available",
+        "status": "available",
+        "reason": "recorded_owner_result",
+        "detail": "Exact published package metadata is available.",
+        "proposition": "Published release metadata and files, not observed target installation.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-9",
+          "source-8"
+        ],
+        "facts": [
+          {
+            "name": "requested_package",
+            "label": "Requested package",
+            "value": "httpx"
+          },
+          {
+            "name": "requested_version",
+            "label": "Requested version",
+            "value": "0.27.2"
+          },
+          {
+            "name": "published_package",
+            "label": "Old published package",
+            "value": "httpx==0.27.2"
+          },
+          {
+            "name": "distribution_count",
+            "label": "Old distribution files",
+            "value": "2"
+          }
+        ],
+        "limitations": []
+      },
+      {
+        "assessment_id": "upstream-repository",
+        "topic": "Upstream repository",
+        "owner": "upstream.repository",
+        "state": "source_unavailable",
+        "status": "problem",
+        "reason": "recorded_owner_result",
+        "detail": "No exact distribution file exposed usable PyPI provenance.",
+        "proposition": "Repository identity remains unresolved.",
+        "strength": "unresolved",
+        "source_ids": [
+          "source-10"
+        ],
+        "facts": [],
+        "limitations": []
+      },
+      {
+        "assessment_id": "upstream-interval",
+        "topic": "Upstream interval authority",
+        "owner": "upstream.interval",
+        "state": "not established",
+        "status": "not_evaluated",
+        "reason": "not_evaluated",
+        "detail": "Recorded upstream prerequisites are unavailable: Upstream repository: source_unavailable: No exact distribution file exposed usable PyPI provenance.",
+        "proposition": "No positive or negative conclusion was established.",
+        "strength": "unresolved",
+        "source_ids": [
+          "source-11",
+          "source-10"
+        ],
+        "facts": [],
+        "limitations": []
+      },
+      {
+        "assessment_id": "support-drop",
+        "topic": "Upstream support-drop result",
+        "owner": "upstream.claim",
+        "state": "not evaluated",
+        "status": "not_evaluated",
+        "reason": "not_evaluated",
+        "detail": "Recorded upstream prerequisites are unavailable: Upstream repository: source_unavailable: No exact distribution file exposed usable PyPI provenance.",
+        "proposition": "No positive or negative conclusion was established.",
+        "strength": "unresolved",
+        "source_ids": [
+          "source-12",
+          "source-11",
+          "source-10"
+        ],
+        "facts": [],
+        "limitations": []
+      },
+      {
+        "assessment_id": "artifact-candidate",
+        "topic": "Artifact serviceability candidate",
+        "owner": "impact.artifact_serviceability",
+        "state": "not observed",
+        "status": "available",
+        "reason": "recorded_owner_result",
+        "detail": "Exact old/proposed release comparison completed without a bounded published-wheel capability loss.",
+        "proposition": "No candidate within the evaluated published-wheel capability horizon; source builds and all other impacts remain unproven.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-13"
+        ],
+        "facts": [],
+        "limitations": []
+      },
+      {
+        "assessment_id": "artifact-environments",
+        "topic": "Target artifact environments",
+        "owner": "target.artifact_environment",
+        "state": "not activated",
+        "status": "not_evaluated",
+        "reason": "not_evaluated",
+        "detail": "This branch has no evaluated result in the recorded investigation.",
+        "proposition": "No positive or negative conclusion was established.",
+        "strength": "unresolved",
+        "source_ids": [
+          "source-14"
+        ],
+        "facts": [],
+        "limitations": []
+      },
+      {
+        "assessment_id": "artifact-impact",
+        "topic": "Artifact applicability",
+        "owner": "impact.artifact_serviceability",
+        "state": "not evaluated",
+        "status": "not_evaluated",
+        "reason": "not_evaluated",
+        "detail": "This branch has no evaluated result in the recorded investigation.",
+        "proposition": "No positive or negative conclusion was established.",
+        "strength": "unresolved",
+        "source_ids": [
+          "source-15"
+        ],
+        "facts": [],
+        "limitations": []
+      },
+      {
+        "assessment_id": "target-python",
+        "topic": "Target Python declaration",
+        "owner": "target.python",
+        "state": "not activated",
+        "status": "not_evaluated",
+        "reason": "not_evaluated",
+        "detail": "This branch has no evaluated result in the recorded investigation.",
+        "proposition": "No positive or negative conclusion was established.",
+        "strength": "unresolved",
+        "source_ids": [
+          "source-16"
+        ],
+        "facts": [],
+        "limitations": []
+      },
+      {
+        "assessment_id": "python-relevance",
+        "topic": "Target Python relevance",
+        "owner": "target.relevance",
+        "state": "not evaluated",
+        "status": "not_evaluated",
+        "reason": "not_evaluated",
+        "detail": "This branch has no evaluated result in the recorded investigation.",
+        "proposition": "No positive or negative conclusion was established.",
+        "strength": "unresolved",
+        "source_ids": [
+          "source-17"
+        ],
+        "facts": [],
+        "limitations": []
+      }
+    ],
+    "findings": [
+      {
+        "assessment_id": "dependency",
+        "statement": "One supported exact dependency version transition was established.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-3",
+          "source-1",
+          "source-2"
+        ]
+      },
+      {
+        "assessment_id": "ci",
+        "statement": "No pull-request workflow runs were available for the exact head SHA.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-4"
+        ]
+      },
+      {
+        "assessment_id": "runtime",
+        "statement": "No supported direct-requirements/pip consumption entered the first command-derived runtime dependency-state proof family.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-5"
+        ]
+      },
+      {
+        "assessment_id": "package",
+        "statement": "Exact published package metadata is available.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-7",
+          "source-6"
+        ]
+      },
+      {
+        "assessment_id": "old-package",
+        "statement": "Exact published package metadata is available.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-9",
+          "source-8"
+        ]
+      },
+      {
+        "assessment_id": "artifact-candidate",
+        "statement": "Exact old/proposed release comparison completed without a bounded published-wheel capability loss.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-13"
+        ]
+      }
+    ],
+    "unknowns": [
+      {
+        "assessment_id": "ci",
+        "question": "Was static dependency consumption correlated to successful exact-attempt execution?",
+        "reason": "No pull-request workflow runs were available for the exact head SHA.",
+        "source_ids": [
+          "source-4"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      },
+      {
+        "assessment_id": "runtime",
+        "question": "Is the changed requirement satisfied at an admitted command-completion boundary?",
+        "reason": "No supported direct-requirements/pip consumption entered the first command-derived runtime dependency-state proof family.",
+        "source_ids": [
+          "source-5"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      },
+      {
+        "assessment_id": "upstream-repository",
+        "question": "Which upstream repository has applicable authority?",
+        "reason": "No exact distribution file exposed usable PyPI provenance.",
+        "source_ids": [
+          "source-10"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      },
+      {
+        "assessment_id": "upstream-interval",
+        "question": "What does the upstream interval authority branch establish?",
+        "reason": "Recorded upstream prerequisites are unavailable: Upstream repository: source_unavailable: No exact distribution file exposed usable PyPI provenance.",
+        "source_ids": [
+          "source-11",
+          "source-10"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      },
+      {
+        "assessment_id": "support-drop",
+        "question": "What does the upstream support-drop result branch establish?",
+        "reason": "Recorded upstream prerequisites are unavailable: Upstream repository: source_unavailable: No exact distribution file exposed usable PyPI provenance.",
+        "source_ids": [
+          "source-12",
+          "source-11",
+          "source-10"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      },
+      {
+        "assessment_id": "artifact-environments",
+        "question": "What does the target artifact environments branch establish?",
+        "reason": "This branch has no evaluated result in the recorded investigation.",
+        "source_ids": [
+          "source-14"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      },
+      {
+        "assessment_id": "artifact-impact",
+        "question": "What does the artifact applicability branch establish?",
+        "reason": "This branch has no evaluated result in the recorded investigation.",
+        "source_ids": [
+          "source-15"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      },
+      {
+        "assessment_id": "target-python",
+        "question": "What does the target python declaration branch establish?",
+        "reason": "This branch has no evaluated result in the recorded investigation.",
+        "source_ids": [
+          "source-16"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      },
+      {
+        "assessment_id": "python-relevance",
+        "question": "What does the target python relevance branch establish?",
+        "reason": "This branch has no evaluated result in the recorded investigation.",
+        "source_ids": [
+          "source-17"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      }
+    ],
+    "action": {
+      "state": "abstain",
+      "reasons": [
+        "No non-abstention maintainer-action permission is admitted at the current evaluator proof boundary."
+      ],
+      "uncertainty": [
+        "CI dependency coverage remains no_successful_ci: No pull-request workflow runs were available for the exact head SHA.",
+        "Runtime requirement state remains no_admitted_candidate: No supported direct-requirements/pip consumption entered the first command-derived runtime dependency-state proof family.",
+        "Command-completion evidence does not establish fresh installation, later package use or behavioral compatibility.",
+        "Upstream repository identity remains source_unavailable: No exact distribution file exposed usable PyPI provenance."
+      ],
+      "limitations": [
+        "This first evaluator intentionally withholds merge, targeted-check, investigate, block, and defer until each action's positive prerequisites are proven through the normal producer path."
+      ],
+      "claim_limits": [
+        "This abstention is not a finding that the dependency update is safe or unsafe.",
+        "This result does not establish complete impact-candidate or repository-context coverage.",
+        "This result does not authorize repository mutation, approval, or automatic merge."
+      ]
+    },
+    "sources": [
+      {
+        "source_id": "source-1",
+        "kind": "pull_request",
+        "locator": "https://github.com/Aidan-Wallace/kubernetes-dashboard-token-api/pull/20",
+        "identity": [
+          {
+            "name": "repository",
+            "label": "Repository",
+            "value": "Aidan-Wallace/kubernetes-dashboard-token-api"
+          },
+          {
+            "name": "pull_number",
+            "label": "PR",
+            "value": "20"
+          },
+          {
+            "name": "title",
+            "label": "Title",
+            "value": "Bump httpx from 0.27.2 to 0.28.1"
+          },
+          {
+            "name": "author",
+            "label": "Author",
+            "value": "dependabot[bot]"
+          },
+          {
+            "name": "state",
+            "label": "State",
+            "value": "closed"
+          },
+          {
+            "name": "merged",
+            "label": "Merged",
+            "value": "true"
+          },
+          {
+            "name": "base_ref",
+            "label": "Base ref",
+            "value": "main"
+          },
+          {
+            "name": "base_sha",
+            "label": "Base",
+            "value": "b065646e4b7b894964567950f9ad770b02c136c2"
+          },
+          {
+            "name": "head_ref",
+            "label": "Head ref",
+            "value": "dependabot/pip/httpx-0.28.1"
+          },
+          {
+            "name": "head_sha",
+            "label": "Head",
+            "value": "391508134b083b8f54461c0b576e8f7985c6ecb4"
+          }
+        ],
+        "method": "exact PR base/head identity acquisition",
+        "retrieved_at": null,
+        "retention": "reference_only",
+        "content": null,
+        "limitation": "Original input content is not retained in this report."
+      },
+      {
+        "source_id": "source-2",
+        "kind": "dependency_source",
+        "locator": "https://github.com/Aidan-Wallace/kubernetes-dashboard-token-api/blob/391508134b083b8f54461c0b576e8f7985c6ecb4/requirements.txt",
+        "identity": [
+          {
+            "name": "path",
+            "label": "Dependency evidence",
+            "value": "requirements.txt"
+          },
+          {
+            "name": "format",
+            "label": "Format",
+            "value": "exact_requirement"
+          },
+          {
+            "name": "base_sha",
+            "label": "Base",
+            "value": "b065646e4b7b894964567950f9ad770b02c136c2"
+          },
+          {
+            "name": "head_sha",
+            "label": "Head",
+            "value": "391508134b083b8f54461c0b576e8f7985c6ecb4"
+          }
+        ],
+        "method": "changed_file_patch",
+        "retrieved_at": null,
+        "retention": "reference_only",
+        "content": null,
+        "limitation": "Original input content is not retained in this report."
+      },
+      {
+        "source_id": "source-3",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "dependency"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "supported"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "recorded_owner_result"
+          },
+          {
+            "name": "package",
+            "label": "Package",
+            "value": "httpx"
+          },
+          {
+            "name": "normalized_package",
+            "label": "Normalized package",
+            "value": "httpx"
+          },
+          {
+            "name": "old_version",
+            "label": "Old version",
+            "value": "0.27.2"
+          },
+          {
+            "name": "proposed_version",
+            "label": "Proposed version",
+            "value": "0.28.1"
+          },
+          {
+            "name": "changed_file_1",
+            "label": "Changed file",
+            "value": "requirements.txt (modified)"
+          }
+        ],
+        "method": "dependency.change",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "One supported exact dependency version transition was established.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-4",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "ci"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "no_successful_ci"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "no_exact_head_workflows"
+          }
+        ],
+        "method": "ci.dependency_exercise",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "No pull-request workflow runs were available for the exact head SHA.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-5",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "runtime"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "no_admitted_candidate"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "no_admitted_runtime_dependency_state_candidate"
+          }
+        ],
+        "method": "ci.dependency_state",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "No supported direct-requirements/pip consumption entered the first command-derived runtime dependency-state proof family.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-6",
+        "kind": "package_metadata",
+        "locator": "https://pypi.org/pypi/httpx/0.28.1/json",
+        "identity": [
+          {
+            "name": "requested_package",
+            "label": "Requested package",
+            "value": "httpx"
+          },
+          {
+            "name": "requested_version",
+            "label": "Requested version",
+            "value": "0.28.1"
+          },
+          {
+            "name": "published_package",
+            "label": "Published package",
+            "value": "httpx==0.28.1"
+          },
+          {
+            "name": "distribution_count",
+            "label": "Distribution files",
+            "value": "2"
+          },
+          {
+            "name": "file_1_filename",
+            "label": "Distribution file",
+            "value": "httpx-0.28.1-py3-none-any.whl"
+          },
+          {
+            "name": "file_1_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_1_sha256",
+            "label": "Distribution SHA-256",
+            "value": "d909fcccc110f8c7faf814ca82a9a4d816bc5a6dbfea25d6591d6985b8ba59ad"
+          },
+          {
+            "name": "file_1_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/2a/39/e50c7c3a983047577ee07d2a9e53faf5a69493943ec3f6a384bdc792deb2/httpx-0.28.1-py3-none-any.whl"
+          },
+          {
+            "name": "file_2_filename",
+            "label": "Distribution file",
+            "value": "httpx-0.28.1.tar.gz"
+          },
+          {
+            "name": "file_2_type",
+            "label": "Distribution type",
+            "value": "sdist"
+          },
+          {
+            "name": "file_2_sha256",
+            "label": "Distribution SHA-256",
+            "value": "75e98c5f16b0f35b567856f597f06ff2270a374470a5c2392242528e3e3e42fc"
+          },
+          {
+            "name": "file_2_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/b1/df/48c586a5fe32a0f01324ee087459e112ebb7224f646c0b5023f5e79e9956/httpx-0.28.1.tar.gz"
+          }
+        ],
+        "method": "exact package-release metadata acquisition",
+        "retrieved_at": "2026-10-03T16:32:29.867396+00:00",
+        "retention": "selected_facts",
+        "content": null,
+        "limitation": "Selected metadata retained as identity facts; raw provider JSON is not retained."
+      },
+      {
+        "source_id": "source-7",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "package"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "available"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "recorded_owner_result"
+          },
+          {
+            "name": "requested_package",
+            "label": "Requested package",
+            "value": "httpx"
+          },
+          {
+            "name": "requested_version",
+            "label": "Requested version",
+            "value": "0.28.1"
+          },
+          {
+            "name": "published_package",
+            "label": "Published package",
+            "value": "httpx==0.28.1"
+          },
+          {
+            "name": "distribution_count",
+            "label": "Distribution files",
+            "value": "2"
+          }
+        ],
+        "method": "pypi.release",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "Exact published package metadata is available.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-8",
+        "kind": "package_metadata",
+        "locator": "https://pypi.org/pypi/httpx/0.27.2/json",
+        "identity": [
+          {
+            "name": "requested_package",
+            "label": "Requested package",
+            "value": "httpx"
+          },
+          {
+            "name": "requested_version",
+            "label": "Requested version",
+            "value": "0.27.2"
+          },
+          {
+            "name": "published_package",
+            "label": "Old published package",
+            "value": "httpx==0.27.2"
+          },
+          {
+            "name": "distribution_count",
+            "label": "Old distribution files",
+            "value": "2"
+          },
+          {
+            "name": "file_1_filename",
+            "label": "Distribution file",
+            "value": "httpx-0.27.2-py3-none-any.whl"
+          },
+          {
+            "name": "file_1_type",
+            "label": "Distribution type",
+            "value": "bdist_wheel"
+          },
+          {
+            "name": "file_1_sha256",
+            "label": "Distribution SHA-256",
+            "value": "7bb2708e112d8fdd7829cd4243970f0c223274051cb35ee80c03301ee29a3df0"
+          },
+          {
+            "name": "file_1_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/56/95/9377bcb415797e44274b51d46e3249eba641711cf3348050f76ee7b15ffc/httpx-0.27.2-py3-none-any.whl"
+          },
+          {
+            "name": "file_2_filename",
+            "label": "Distribution file",
+            "value": "httpx-0.27.2.tar.gz"
+          },
+          {
+            "name": "file_2_type",
+            "label": "Distribution type",
+            "value": "sdist"
+          },
+          {
+            "name": "file_2_sha256",
+            "label": "Distribution SHA-256",
+            "value": "f7c2be1d2f3c3c3160d441802406b206c2b76f5947b11115e6df10c6c65e66c2"
+          },
+          {
+            "name": "file_2_url",
+            "label": "Distribution URL",
+            "value": "https://files.pythonhosted.org/packages/78/82/08f8c936781f67d9e6b9eeb8a0c8b4e406136ea4c3d1f89a5db71d42e0e6/httpx-0.27.2.tar.gz"
+          }
+        ],
+        "method": "exact package-release metadata acquisition",
+        "retrieved_at": "2026-10-03T16:32:30.011964+00:00",
+        "retention": "selected_facts",
+        "content": null,
+        "limitation": "Selected metadata retained as identity facts; raw provider JSON is not retained."
+      },
+      {
+        "source_id": "source-9",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "old-package"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "available"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "recorded_owner_result"
+          },
+          {
+            "name": "requested_package",
+            "label": "Requested package",
+            "value": "httpx"
+          },
+          {
+            "name": "requested_version",
+            "label": "Requested version",
+            "value": "0.27.2"
+          },
+          {
+            "name": "published_package",
+            "label": "Old published package",
+            "value": "httpx==0.27.2"
+          },
+          {
+            "name": "distribution_count",
+            "label": "Old distribution files",
+            "value": "2"
+          }
+        ],
+        "method": "pypi.release",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "Exact published package metadata is available.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-10",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "upstream-repository"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "source_unavailable"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "recorded_owner_result"
+          }
+        ],
+        "method": "upstream.repository",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "No exact distribution file exposed usable PyPI provenance.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-11",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "upstream-interval"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "not established"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "not_evaluated"
+          }
+        ],
+        "method": "upstream.interval",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "Recorded upstream prerequisites are unavailable: Upstream repository: source_unavailable: No exact distribution file exposed usable PyPI provenance.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-12",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "support-drop"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "not evaluated"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "not_evaluated"
+          }
+        ],
+        "method": "upstream.claim",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "Recorded upstream prerequisites are unavailable: Upstream repository: source_unavailable: No exact distribution file exposed usable PyPI provenance.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-13",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "artifact-candidate"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "not observed"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "recorded_owner_result"
+          }
+        ],
+        "method": "impact.artifact_serviceability",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "Exact old/proposed release comparison completed without a bounded published-wheel capability loss.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-14",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "artifact-environments"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "not activated"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "not_evaluated"
+          }
+        ],
+        "method": "target.artifact_environment",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "This branch has no evaluated result in the recorded investigation.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-15",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "artifact-impact"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "not evaluated"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "not_evaluated"
+          }
+        ],
+        "method": "impact.artifact_serviceability",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "This branch has no evaluated result in the recorded investigation.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-16",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "target-python"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "not activated"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "not_evaluated"
+          }
+        ],
+        "method": "target.python",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "This branch has no evaluated result in the recorded investigation.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-17",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "python-relevance"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "not evaluated"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "not_evaluated"
+          }
+        ],
+        "method": "target.relevance",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "This branch has no evaluated result in the recorded investigation.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      }
+    ],
+    "preservation_limits": [
+      "Original workflow files/logs, dependency source files and arbitrary target code are not fully retained.",
+      "Source references are availability-dependent; opening does not retrieve them.",
+      "This record cannot replay analysis, resume an agent, or establish compatibility.",
+      "A file digest detects corruption, not authenticity or evidence truth."
+    ]
+  },
+  "integrity": {
+    "method": "sha256",
+    "digest": "a98cbd2d45b6031fcdf84b33d0c862aa9dd515d27ffd8e27ef395f44e22c9ea0"
+  }
+}

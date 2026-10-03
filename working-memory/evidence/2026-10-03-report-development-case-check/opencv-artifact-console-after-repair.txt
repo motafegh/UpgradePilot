@@ -1,0 +1,287 @@
+UpgradePilot public pull-request evidence
+Mode: new investigation report
+Report: ece51631-7e8d-41f8-abbb-281dde477b65
+Generated at: 2026-10-03T16:40:43.936474+00:00
+Recorded generator version: 1; renderer version: 1
+Product version: 0.0.0
+Repository: carla-simulator/scenario_runner
+PR: 1111
+Title: Bump opencv-python from 4.2.0.32 to 4.8.1.78
+Author: dependabot[bot]
+State: open
+Merged: false
+Base ref: master
+Base: 7758d066080f180f8296887ed89b7c723a54706a
+Head ref: dependabot/pip/opencv-python-4.8.1.78
+Head: f32ad2d23a9abee47c566dfbed2b822d953a09e2
+
+Dependency change: supported
+Package: opencv-python
+Normalized package: opencv-python
+Old version: 4.2.0.32
+Proposed version: 4.8.1.78
+Changed file: requirements.txt (modified)
+Reason: recorded_owner_result
+Detail: One supported exact dependency version transition was established.
+Evidence meaning: Exact version transition only, not installation or compatibility.
+Evidence strength: recorded_fact
+Sources: source-3, source-1, source-2
+
+CI dependency coverage: no_successful_ci
+Reason: no_exact_head_workflows
+Detail: No pull-request workflow runs were available for the exact head SHA.
+Evidence meaning: Static consumption and exact-attempt command correlation; not changed-version use or compatibility.
+Evidence strength: recorded_fact
+Sources: source-4
+
+Runtime dependency state: no_admitted_candidate
+Reason: no_admitted_runtime_dependency_state_candidate
+Detail: No supported direct-requirements/pip consumption entered the first command-derived runtime dependency-state proof family.
+Evidence meaning: First admitted direct-requirements/pip command-completion family only.
+Evidence strength: recorded_fact
+Sources: source-5
+
+Package evidence: available
+Requested package: opencv-python
+Requested version: 4.8.1.78
+Published package: opencv-python==4.8.1.78
+Distribution files: 7
+Reason: recorded_owner_result
+Detail: Exact published package metadata is available.
+Evidence meaning: Published release metadata and files, not observed target installation.
+Evidence strength: recorded_fact
+Sources: source-7, source-6
+
+Old package artifact evidence: available
+Requested package: opencv-python
+Requested version: 4.2.0.32
+Old published package: opencv-python==4.2.0.32
+Old distribution files: 27
+Reason: recorded_owner_result
+Detail: Exact published package metadata is available.
+Evidence meaning: Published release metadata and files, not observed target installation.
+Evidence strength: recorded_fact
+Sources: source-9, source-8
+
+Upstream repository: source_unavailable
+Reason: recorded_owner_result
+Detail: No exact distribution file exposed usable PyPI provenance.
+Evidence meaning: Repository identity remains unresolved.
+Evidence strength: unresolved
+Sources: source-10
+
+Upstream interval authority: not established
+Reason: not_evaluated
+Detail: Recorded upstream prerequisites are unavailable: Upstream repository: source_unavailable: No exact distribution file exposed usable PyPI provenance.
+Evidence meaning: No positive or negative conclusion was established.
+Evidence strength: unresolved
+Sources: source-11, source-10
+
+Upstream support-drop result: not evaluated
+Reason: not_evaluated
+Detail: Recorded upstream prerequisites are unavailable: Upstream repository: source_unavailable: No exact distribution file exposed usable PyPI provenance.
+Evidence meaning: No positive or negative conclusion was established.
+Evidence strength: unresolved
+Sources: source-12, source-11, source-10
+
+Artifact serviceability candidate: established
+Removed published wheel-tag capabilities: 27
+Added published wheel-tag capabilities: 8
+Proposed source distribution: available
+Reason: recorded_owner_result
+Detail: Published wheel-tag capabilities were removed across the exact release transition.
+Evidence meaning: Published artifact capability change, not target installation failure.
+Evidence strength: candidate
+Sources: source-14, source-13, source-6, source-8
+
+Target artifact environments: not established
+Reason: not_evaluated
+Detail: An artifact capability-change candidate was established, but the investigation retains no supported target environment associations. Applicability to the target remains unresolved.
+Evidence meaning: No positive or negative conclusion was established.
+Evidence strength: unresolved
+Sources: source-15
+
+Artifact applicability: unresolved
+Exact target wheel compatibility: not established
+Reason: recorded_owner_result
+Detail: No represented path is established or genuinely conflicted, and at least one viable alternative remains unresolved.
+Evidence meaning: Technical applicability only, not maintainer-action authority or installation outcome.
+Evidence strength: recorded_fact
+Sources: source-16
+
+Target Python declaration: not activated
+Reason: not_evaluated
+Detail: This branch has no evaluated result in the recorded investigation.
+Evidence meaning: No positive or negative conclusion was established.
+Evidence strength: unresolved
+Sources: source-17
+
+Target Python relevance: not evaluated
+Reason: not_evaluated
+Detail: This branch has no evaluated result in the recorded investigation.
+Evidence meaning: No positive or negative conclusion was established.
+Evidence strength: unresolved
+Sources: source-18
+
+Unresolved questions
+Question: Was static dependency consumption correlated to successful exact-attempt execution?
+Why unresolved: No pull-request workflow runs were available for the exact head SHA.
+Consequence: A maintainer-action consequence is not established.
+Sources: source-4
+Question: Is the changed requirement satisfied at an admitted command-completion boundary?
+Why unresolved: No supported direct-requirements/pip consumption entered the first command-derived runtime dependency-state proof family.
+Consequence: A maintainer-action consequence is not established.
+Sources: source-5
+Question: Which upstream repository has applicable authority?
+Why unresolved: No exact distribution file exposed usable PyPI provenance.
+Consequence: A maintainer-action consequence is not established.
+Sources: source-10
+Question: What does the upstream interval authority branch establish?
+Why unresolved: Recorded upstream prerequisites are unavailable: Upstream repository: source_unavailable: No exact distribution file exposed usable PyPI provenance.
+Consequence: A maintainer-action consequence is not established.
+Sources: source-11, source-10
+Question: What does the upstream support-drop result branch establish?
+Why unresolved: Recorded upstream prerequisites are unavailable: Upstream repository: source_unavailable: No exact distribution file exposed usable PyPI provenance.
+Consequence: A maintainer-action consequence is not established.
+Sources: source-12, source-11, source-10
+Question: What does the target artifact environments branch establish?
+Why unresolved: An artifact capability-change candidate was established, but the investigation retains no supported target environment associations. Applicability to the target remains unresolved.
+Consequence: A maintainer-action consequence is not established.
+Sources: source-15
+Question: Is this artifact capability loss applicable to the exact target?
+Why unresolved: No represented path is established or genuinely conflicted, and at least one viable alternative remains unresolved.
+Consequence: A maintainer-action consequence is not established.
+Sources: source-16
+Question: Does building the proposed source distribution succeed in the target environment?
+Why unresolved: A published source distribution is available, but a target source-build outcome was not observed.
+Consequence: Target installation success or failure through source fallback is not established.
+Sources: source-16
+Question: What does the target python declaration branch establish?
+Why unresolved: This branch has no evaluated result in the recorded investigation.
+Consequence: A maintainer-action consequence is not established.
+Sources: source-17
+Question: What does the target python relevance branch establish?
+Why unresolved: This branch has no evaluated result in the recorded investigation.
+Consequence: A maintainer-action consequence is not established.
+Sources: source-18
+
+Maintainer action: abstain
+Action reason: No non-abstention maintainer-action permission is admitted at the current evaluator proof boundary.
+Remaining uncertainty: CI dependency coverage remains no_successful_ci: No pull-request workflow runs were available for the exact head SHA.
+Remaining uncertainty: Runtime requirement state remains no_admitted_candidate: No supported direct-requirements/pip consumption entered the first command-derived runtime dependency-state proof family.
+Remaining uncertainty: Command-completion evidence does not establish fresh installation, later package use or behavioral compatibility.
+Remaining uncertainty: Upstream repository identity remains source_unavailable: No exact distribution file exposed usable PyPI provenance.
+Remaining uncertainty: Artifact-serviceability applicability remains unresolved: No represented path is established or genuinely conflicted, and at least one viable alternative remains unresolved.
+Action limitation: This first evaluator intentionally withholds merge, targeted-check, investigate, block, and defer until each action's positive prerequisites are proven through the normal producer path.
+Claim limit: This abstention is not a finding that the dependency update is safe or unsafe.
+Claim limit: This result does not establish complete impact-candidate or repository-context coverage.
+Claim limit: This result does not authorize repository mutation, approval, or automatic merge.
+
+Evidence sources
+source-1: pull request | reference only
+  Location: https://github.com/carla-simulator/scenario_runner/pull/1111
+  Repository: carla-simulator/scenario_runner
+  PR: 1111
+  Title: Bump opencv-python from 4.2.0.32 to 4.8.1.78
+  Author: dependabot[bot]
+  State: open
+  Merged: false
+  Base ref: master
+  Base: 7758d066080f180f8296887ed89b7c723a54706a
+  Head ref: dependabot/pip/opencv-python-4.8.1.78
+  Head: f32ad2d23a9abee47c566dfbed2b822d953a09e2
+  Method: exact PR base/head identity acquisition
+  Acquisition time: not recorded
+  Preservation limit: Original input content is not retained in this report.
+source-2: dependency source | reference only
+  Location: https://github.com/carla-simulator/scenario_runner/blob/f32ad2d23a9abee47c566dfbed2b822d953a09e2/requirements.txt
+  Dependency evidence: requirements.txt
+  Format: exact_requirement
+  Base: 7758d066080f180f8296887ed89b7c723a54706a
+  Head: f32ad2d23a9abee47c566dfbed2b822d953a09e2
+  Method: changed_file_patch
+  Acquisition time: not recorded
+  Preservation limit: Original input content is not retained in this report.
+source-3: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-4: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-5: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-6: package metadata | selected facts
+  Location: https://pypi.org/pypi/opencv-python/4.8.1.78/json
+  Requested package: opencv-python
+  Requested version: 4.8.1.78
+  Published package: opencv-python==4.8.1.78
+  Distribution files: 7
+  Method: exact package-release metadata acquisition
+  Acquisition time: 2026-10-03T16:40:40.884116+00:00
+  Preservation limit: Selected metadata retained as identity facts; raw provider JSON is not retained.
+source-7: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-8: package metadata | selected facts
+  Location: https://pypi.org/pypi/opencv-python/4.2.0.32/json
+  Requested package: opencv-python
+  Requested version: 4.2.0.32
+  Old published package: opencv-python==4.2.0.32
+  Old distribution files: 27
+  Method: exact package-release metadata acquisition
+  Acquisition time: 2026-10-03T16:40:41.030883+00:00
+  Preservation limit: Selected metadata retained as identity facts; raw provider JSON is not retained.
+source-9: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-10: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-11: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-12: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-13: artifact capabilities | selected facts
+  Method: exact old/proposed published wheel capability comparison
+  Acquisition time: not recorded
+  Preservation limit: Selected capability facts retained; target installation and source-build results are not established.
+source-14: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-15: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-16: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-17: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-18: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+
+Report limits
+Code revision, model/prompt/config identity and complete operation history are not recorded.
+Generation time identifies report production; unavailable acquisition times remain unavailable.
+Original workflow files/logs, dependency source files and arbitrary target code are not fully retained.
+Source references are availability-dependent; opening does not retrieve them.
+This record cannot replay analysis, resume an agent, or establish compatibility.
+A file digest detects corruption, not authenticity or evidence truth.
+Saved report: /home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-10-03-report-development-case-check/opencv-artifact-report-after-repair.json

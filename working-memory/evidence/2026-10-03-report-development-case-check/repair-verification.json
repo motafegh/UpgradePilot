@@ -1,0 +1,17 @@
+{
+  "finished_at": "2026-10-03T16:40:44.341075+00:00",
+  "normal_cli_exit": 0,
+  "report_id": "ece51631-7e8d-41f8-abbb-281dde477b65",
+  "report_sha256": "ad11adf0307a1edee855a8f54734f8d453d41c721cd3e2ee4412a80ecf186be7",
+  "same_pr_revisions": true,
+  "artifact_environment_state": "not established",
+  "artifact_environment_detail": "An artifact capability-change candidate was established, but the investigation retains no supported target environment associations. Applicability to the target remains unresolved.",
+  "candidate_and_source_fallback_uncertainty_retained": true,
+  "action": "abstain",
+  "strict_codec_and_offline_console_module_parity": "PASS",
+  "previous_report_unchanged": true,
+  "tests_checkout": 739,
+  "tests_rebuilt_installed": 739,
+  "focused_report_tests": 20,
+  "no_new_model_semantic_quality_claim": true
+}

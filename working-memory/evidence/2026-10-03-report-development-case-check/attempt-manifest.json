@@ -1,0 +1,68 @@
+{
+  "protocol": "report-development-gap-check-v1",
+  "created_at": "2026-10-03T16:31:58.899561+00:00",
+  "mode": "normal-product developmental evidence plus separately attributed archived pressure cases; not independent/comparative utility study",
+  "code_head": "5aebc19d8ed48f4719659a89d7e42f4a143fae7c",
+  "installed_all_product_python_files_match_checkout": true,
+  "auth_mode": "anonymous; process-local credential/proxy removal; no configuration change",
+  "working_directory": "/tmp",
+  "prior_S001_report": "../2026-10-03-report-model-recovery/live-model-investigation-report.json",
+  "prior_S001_sha256": "e2171c660736b2c457bd9a95a4bdc0abbb32665a3a7dfb91d6685cfdbdb84997",
+  "new_attempts": [
+    {
+      "case": "S002",
+      "repository": "Aidan-Wallace/kubernetes-dashboard-token-api",
+      "pull_number": 20,
+      "preflight_http": 200,
+      "archived_head_sha": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+      "observed_head_sha": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+      "observed_base_sha": "b065646e4b7b894964567950f9ad770b02c136c2",
+      "same_archived_head": true,
+      "remaining": "59",
+      "invocation": [
+        "/home/motafeq/projects/UpgradePilot/.venv/bin/upgradepilot",
+        "Aidan-Wallace/kubernetes-dashboard-token-api",
+        "20",
+        "--save-report",
+        "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-10-03-report-development-case-check/S002-normal-report.json"
+      ]
+    },
+    {
+      "case": "S008",
+      "repository": "carla-simulator/scenario_runner",
+      "pull_number": 1111,
+      "preflight_http": 200,
+      "archived_head_sha": "f32ad2d23a9abee47c566dfbed2b822d953a09e2",
+      "observed_head_sha": "f32ad2d23a9abee47c566dfbed2b822d953a09e2",
+      "observed_base_sha": "7758d066080f180f8296887ed89b7c723a54706a",
+      "same_archived_head": true,
+      "remaining": "58",
+      "invocation": [
+        "/home/motafeq/projects/UpgradePilot/.venv/bin/upgradepilot",
+        "carla-simulator/scenario_runner",
+        "1111",
+        "--save-report",
+        "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-10-03-report-development-case-check/S008-normal-report.json"
+      ]
+    }
+  ],
+  "reviewer": "none arranged",
+  "adjudication": "AI development review with known archived cases; no independent labels",
+  "baseline": "no retained historical typed-result baseline pair asserted; no presentation improvement/time claim",
+  "acceptance": "exact identity/source/unknown/action distinctions faithful; gaps attributed to earliest sufficient owning responsibility; failure/identity drift retained",
+  "non_goals": [
+    "independent utility",
+    "unseen semantic accuracy",
+    "overall compatibility",
+    "new action permission",
+    "target execution/mutation",
+    "new capability implementation"
+  ],
+  "stored_artifact_locations": {
+    "S002-normal-report.json": "httpx-api-context-report.json",
+    "S002-console.txt": "httpx-api-context-console.txt",
+    "S008-normal-report.json": "opencv-artifact-report-before-repair.json",
+    "S008-console.txt": "opencv-artifact-console-before-repair.txt"
+  },
+  "relocation_note": "Recorded invocation paths remain exact historical execution data. Artifacts were subsequently renamed for descriptive responsibility navigation; their bytes/hashes are unchanged."
+}
