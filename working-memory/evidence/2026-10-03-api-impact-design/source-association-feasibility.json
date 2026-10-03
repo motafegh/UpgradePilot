@@ -1,0 +1,90 @@
+{
+  "purpose": "Read-only planning feasibility: public package metadata, archive metadata and declared upstream source are retrievable. Not admission of a new source-authority route or model/API-impact capability.",
+  "retrieved_at": "2026-10-03T17:00:09.028568+00:00",
+  "code_head": "7edb33c7869c92c527d8f282c998f4710f3326d2",
+  "release_metadata": {
+    "url": "https://pypi.org/pypi/httpx/0.28.1/json",
+    "response_sha256": "293bfab7bf587fcd0825f1bd8eed8e6303285ba14801b15659853827cbe30796",
+    "project_urls": {
+      "Changelog": "https://github.com/encode/httpx/blob/master/CHANGELOG.md",
+      "Documentation": "https://www.python-httpx.org",
+      "Homepage": "https://github.com/encode/httpx",
+      "Source": "https://github.com/encode/httpx"
+    },
+    "package": "httpx",
+    "version": "0.28.1"
+  },
+  "distribution": {
+    "filename": "httpx-0.28.1-py3-none-any.whl",
+    "url": "https://files.pythonhosted.org/packages/2a/39/e50c7c3a983047577ee07d2a9e53faf5a69493943ec3f6a384bdc792deb2/httpx-0.28.1-py3-none-any.whl",
+    "sha256": "d909fcccc110f8c7faf814ca82a9a4d816bc5a6dbfea25d6591d6985b8ba59ad",
+    "digest_matches_pypi": true,
+    "metadata_member": "httpx-0.28.1.dist-info/METADATA",
+    "metadata_sha256": "febb9b0f8f3e80d57c8199c304f35c4336e8581d1d18d7983c92766b82793b25",
+    "retained_headers": {
+      "Name": [
+        "httpx"
+      ],
+      "Version": [
+        "0.28.1"
+      ],
+      "Project-URL": [
+        "Changelog, https://github.com/encode/httpx/blob/master/CHANGELOG.md",
+        "Documentation, https://www.python-httpx.org",
+        "Homepage, https://github.com/encode/httpx",
+        "Source, https://github.com/encode/httpx"
+      ],
+      "Requires-Dist": [
+        "anyio",
+        "certifi",
+        "httpcore==1.*",
+        "idna",
+        "brotli; (platform_python_implementation == 'CPython') and extra == 'brotli'",
+        "brotlicffi; (platform_python_implementation != 'CPython') and extra == 'brotli'",
+        "click==8.*; extra == 'cli'",
+        "pygments==2.*; extra == 'cli'",
+        "rich<14,>=10; extra == 'cli'",
+        "h2<5,>=3; extra == 'http2'",
+        "socksio==1.*; extra == 'socks'",
+        "zstandard>=0.18.0; extra == 'zstd'"
+      ],
+      "Requires-Python": [
+        ">=3.8"
+      ]
+    },
+    "retention_limit": "Full archive and full METADATA body are not retained; selected header facts and hashes only. No file was installed or executed."
+  },
+  "upstream_source": {
+    "repository": "encode/httpx",
+    "tag": "0.28.1",
+    "tag_api": "https://api.github.com/repos/encode/httpx/git/ref/tags/0.28.1",
+    "tag_chain": [
+      {
+        "type": "commit",
+        "sha": "26d48e0634e6ee9cdc0533996db289ce4b430177"
+      }
+    ],
+    "commit_sha": "26d48e0634e6ee9cdc0533996db289ce4b430177",
+    "path": "CHANGELOG.md",
+    "url": "https://raw.githubusercontent.com/encode/httpx/26d48e0634e6ee9cdc0533996db289ce4b430177/CHANGELOG.md",
+    "sha256": "2cd04b965b20eff7a4d3b30cc020c63b125da9f731874513bad2e59ca9743258",
+    "retained_file": "httpx-crossed-release-excerpt.md",
+    "retention": {
+      "kind": "exact_excerpt",
+      "start_character": 165,
+      "end_character": 1532,
+      "excerpt_sha256": "da89b9ed185fff015c2dd166bb319ab75c8662e416d908a1efb9387543a8a6b9",
+      "release_headers": [
+        "0.28.1 (6th December, 2024)",
+        "0.28.0 (28th November, 2024)"
+      ],
+      "limitation": "Only the captured 0.28.1 and 0.28.0 sections are retained; preceding/following changelog content is omitted. Planning selection is not a validated production windowing implementation."
+    },
+    "license": {
+      "url": "https://raw.githubusercontent.com/encode/httpx/26d48e0634e6ee9cdc0533996db289ce4b430177/LICENSE.md",
+      "retained_file": "httpx-source-license.txt",
+      "sha256": "4ec59d544f12b5f539a3a716fd321ac58ccd8030b465221f2c880200cdf28d8d"
+    }
+  },
+  "authority_limit": "PyPI project URLs and distribution Project-URL fields share publisher control: agreement is consistency, not independent corroboration or an attestation. Tag resolution pins the retrieved source, but does not prove that shipped distribution was built from that commit. This observation does not populate UpstreamRepositoryEvidence or admit authority."
+}
