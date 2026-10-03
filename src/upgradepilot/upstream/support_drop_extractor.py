@@ -30,7 +30,7 @@ from .changelog import (
 from .claim import CandidateUpstreamClaim, CandidateUpstreamClaimResult
 
 CONTRACT_VERSION = 2
-LM_STUDIO_BASE_URL = "http://127.0.0.1:12345"
+LM_STUDIO_BASE_URL = "http://127.0.0.1:18080"
 ADOPTED_MODEL_ID = "gemma-4-e4b-it-ud"
 REQUEST_TIMEOUT_SECONDS = 180.0
 MAX_COMPLETION_TOKENS = 1024

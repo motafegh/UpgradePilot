@@ -1,0 +1,85 @@
+{
+  "purpose": "Developmental endpoint recovery and degraded fresh investigation; not an independent semantic-quality or usefulness evaluation.",
+  "source_head_before_fix": "64170ff6ebb3bcb98e02574db8f0abc5b34c7d4b",
+  "endpoint": "http://127.0.0.1:18080",
+  "former_endpoint_check": "Direct no-proxy connection to port 12345 refused.",
+  "model": "gemma-4-e4b-it-ud",
+  "model_identity": {
+    "architecture": "gemma4",
+    "quantization": "Q4_K_XL"
+  },
+  "observed_loaded_instance": {
+    "context_length": 4096,
+    "parallel": 4,
+    "flash_attention": true,
+    "offload_kv_cache_to_gpu": true
+  },
+  "deployment_note": "Observed parallelism differs from historical validated parallelism 1. This developmental recovery is not a reproduction of the frozen model adoption evaluation; no load configuration was changed by this work.",
+  "transport": "LM Studio requests.Session.trust_env=False unchanged; public investigation commands remove ambient token/proxy variables only in their process.",
+  "attempts": [
+    {
+      "mode": "normal checkout CLI",
+      "result": "Report saved; upstream semantic request returned HTTP 400. Error-body cause not established. Model inventory initially showed no loaded instance. Full attempt remains local scratch."
+    },
+    {
+      "mode": "small local inference control",
+      "result": "HTTP 200; model subsequently observed loaded. Not semantic product evidence."
+    },
+    {
+      "mode": "fresh product investigation with injected diagnostic HTTP wrapper, delegating to the unchanged proxy-independent transport",
+      "result": "Exact contract-v2 request HTTP 200; deterministic admission produced GroundedPythonSupportDropClaim.",
+      "grounded_claim": {
+        "python_line": "3.8",
+        "introduced_in_version": "2.8",
+        "source_quote": "-   **NEW**: Drop support for Python 3.8.",
+        "quote_start": 729,
+        "quote_end": 770,
+        "upstream_repository": "facelessuser/soupsieve",
+        "revision": "28108ab805818c832d9568142a99844fd95a0d39",
+        "path": "docs/src/markdown/about/changelog.md"
+      },
+      "proof_limit": "One developmental source-grounded claim; not an uninstrumented installed CLI success or general model-quality evaluation."
+    },
+    {
+      "mode": "normal rebuilt installed CLI",
+      "exit_code": 0,
+      "report_id": "b6ba653a-51f1-4f63-9ce8-8b9146c4eaef",
+      "result": "Valid degraded report: proposed-version tag acquisition rate-limited; upstream semantic analysis not evaluated."
+    }
+  ],
+  "original_report_id": "9acc7bed-bb98-4080-9d08-b65f1a679a71",
+  "original_report_sha256": "96e3dbcd467c6d8211fb4afaefdac1a3ad13f5ba956f1faea61ccfdac122d7cf",
+  "new_report_file": "rate-limited-investigation-report.json",
+  "new_report_sha256": "19bbe7e31715abd22fb9773f70fe62f270e81496a0c7340be6e7359f325a595a",
+  "new_report_generated_at": "2026-10-03T13:44:29.775377+00:00",
+  "same_input_revisions": {
+    "repository": true,
+    "pull_number": true,
+    "base_sha": true,
+    "head_sha": true
+  },
+  "source_file_sha256": {
+    "src/upgradepilot/upstream/support_drop_extractor.py": "7b74b736265eab410e8e363b5a3592be2a1e2dcb6e67a709dd350effbbd0c199"
+  },
+  "tests": {
+    "focused_before": 15,
+    "focused_after": 15,
+    "checkout_product": 739,
+    "rebuilt_installed_product": 739,
+    "pip_check": "PASS"
+  },
+  "ruff": "Eight pre-existing module findings before and after, identical; no new findings. Not all-Ruff-green.",
+  "github_rate_limit": {
+    "anonymous_remaining": 0,
+    "reset_unix": 1791038460
+  },
+  "excluded_claims": [
+    "Complete successful fresh installed live-model investigation",
+    "General semantic accuracy",
+    "Independent maintainer usefulness",
+    "Compatibility or merge permission",
+    "Reproduction of historical adoption evaluation"
+  ],
+  "installed_endpoint_source_matches_checkout": true,
+  "installed_console_and_module_open_parity": "PASS"
+}

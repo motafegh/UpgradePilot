@@ -94,7 +94,7 @@ Reusable topology:
 server host: Windows
 project client: WSL2
 listener: 127.0.0.1
-port: 12345
+port: 18080
 WSL localhost transport: proven
 just-in-time model loading: observed
 ```
@@ -102,21 +102,21 @@ just-in-time model loading: observed
 Bases:
 
 ```text
-OpenAI-compatible: http://127.0.0.1:12345/v1
-LM Studio native:  http://127.0.0.1:12345/api/v1
+OpenAI-compatible: http://127.0.0.1:18080/v1
+LM Studio native:  http://127.0.0.1:18080/api/v1
 ```
 
 Normal visibility checks:
 
 ```bash
-curl --noproxy '*' -fsS http://127.0.0.1:12345/v1/models | python -m json.tool
-curl --noproxy '*' -fsS http://127.0.0.1:12345/api/v1/models | python -m json.tool
+curl --noproxy '*' -fsS http://127.0.0.1:18080/v1/models | python -m json.tool
+curl --noproxy '*' -fsS http://127.0.0.1:18080/api/v1/models | python -m json.tool
 ```
 
 Normal inference endpoint:
 
 ```text
-POST http://127.0.0.1:12345/v1/chat/completions
+POST http://127.0.0.1:18080/v1/chat/completions
 ```
 
 Native model-management endpoints may be used when the installed server supports them:
@@ -132,7 +132,7 @@ Do not broaden server exposure, enable CORS, bind to `0.0.0.0`, or weaken firewa
 
 ### Ambient-proxy caveat
 
-This WSL environment has demonstrated ambient proxy interception of traffic intended for `127.0.0.1:12345`, despite wildcard-like `NO_PROXY` configuration.
+This WSL environment has demonstrated ambient proxy interception of traffic intended for the former `127.0.0.1:12345` endpoint, despite wildcard-like `NO_PROXY` configuration. The same loopback transport safeguard applies to the current port 18080.
 
 Consequences:
 
