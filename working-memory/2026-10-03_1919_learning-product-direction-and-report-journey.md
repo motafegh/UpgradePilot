@@ -382,3 +382,157 @@ Until then:
 - do not expand the Charter/supported surface automatically;
 - do not implement a universal requirement parser;
 - do not treat S015/S016 research conclusions as normal product-produced facts.
+
+
+## Current capability map — context-composed dependency proposition
+
+Fresh source inspection of current `main` mapped the learning model against implemented producers and report projection.
+
+### Layer 1 — declaration / source transition
+
+**Supported, bounded:**
+- conventional requirements/constraints files with exactly one bare `package==version` transition;
+- exact `uv.lock` textual version transition under conservative structural comparison;
+- one exact-version transition inside an existing `[project.optional-dependencies]` extra, using exact base/head `pyproject.toml` evidence.
+
+**Partial / important boundary:**
+- the pyproject optional-extra parser uses `packaging.Requirement` and retains extras/marker/url internally while comparing base/head, rejects marker changes, repeated marker forks, direct references and non-exact pins;
+- however the successful output retains only package/version plus the containing extra. Marker applicability is not represented in `PyprojectOptionalExtraDependencyContext`.
+
+**Unsupported in the normal conventional-requirements extractor:**
+- marker-bearing pins such as `pytest==9.0.3 ; python_version == "3.8"`;
+- non-exact/range transitions;
+- direct URL/reference transitions;
+- multiple simultaneous exact-pin transitions under the first rule.
+
+Dependency-group context types exist, but current source inspection did not find a normal pyproject dependency-group extraction producer; do not describe the context type itself as current source capability.
+
+### Layer 2 — applicability / selection
+
+**Supported, bounded:**
+- optional-extra selection/membership against explicit project-environment selectors;
+- uv extras/groups/root selection plus selected-root reachability;
+- source/project-root identity checks and explicit unresolved/not-established states.
+
+**Missing / partial:**
+- PEP 508 environment-marker truth against the exact selected runtime/matrix environment is not a first-class applicability proposition;
+- selected extra/group membership therefore must not be confused with marker applicability.
+
+### Layer 3 — resolution / package-manager context
+
+**Supported, bounded for admitted pip paths:**
+- package-manager operation declaration;
+- manager environment selection;
+- installation destination;
+- mutation mode including dry-run pressure;
+- direct-requirement handling;
+- selected process-environment/persistent-config evidence and explicit unresolved states.
+
+**Not a generic resolver model:**
+- no universal index/source/hash/binary-policy/constraint/include semantics;
+- no universal uv runtime package-state proof;
+- ambient configuration is modeled only where current semantic dimensions require it.
+
+### Layer 4 — resolved / observed package state
+
+**Supported for first admitted Route-A family:**
+
+```text
+exact requirements source/applicability
++ supported direct-requirements consumption
++ admitted pip semantics
++ exact successful runtime command
+→ RequirementSatisfiedAtCommandCompletion
+```
+
+This proves only exact proposed direct-requirement satisfaction at that successful command-completion boundary.
+
+It explicitly does not prove:
+- fresh installation causality;
+- wheel/sdist/artifact identity;
+- persistence after command completion;
+- later use;
+- behavioral compatibility;
+- maintainer-action permission.
+
+Other mechanisms such as uv selected environments do not automatically receive this package-state proof.
+
+### Layer 5 — later use / behavior
+
+**Supported, bounded:**
+- static direct package invocation ordered after supported consumption;
+- bounded correlation of that invocation to successful runtime execution.
+
+This is still not:
+- proof that the exact proposed version was the one exercised;
+- broad affected-behavior coverage;
+- compatibility/safety;
+- maintainer-action permission.
+
+Mechanism-specific impact/applicability owners can establish stronger scoped propositions separately; no generic behavioral-compatibility layer exists.
+
+### Current report claim ladder
+
+Current report projection already preserves much of this separation:
+
+```text
+exact source transition
+→ "one supported exact version transition"
+  NOT installation/compatibility
+
+selection/consumption evidence
+→ selected/reachable/static consumption
+  NOT changed-version use
+
+runtime-correlated consumption
+→ exact command execution support
+  NOT package-state truth by itself
+
+RequirementSatisfiedAtCommandCompletion
+→ exact proposed direct requirement satisfied at command completion
+  NOT fresh install / persistence / later use / behavior
+
+direct exercise correlation
+→ bounded later invocation/execution evidence
+  NOT general compatibility
+
+mechanism-specific impact/applicability
+→ scoped technical finding
+  NOT maintainer-action authority
+```
+
+This strongly aligns the implemented report with the newly articulated context-composed proposition model.
+
+### New candidate correctness gap — pyproject marker propagation
+
+Source inspection exposed a credible gap requiring a focused reproducer before calling it a confirmed product defect.
+
+Current chain:
+
+1. `pyproject.py` parses PEP 508 markers and includes the marker in its internal comparison identity.
+2. It rejects a **changed marker** and repeated same-package marker forks.
+3. If only the exact version changes while the marker remains unchanged, the source logic appears able to admit the transition.
+4. The successful result returns `ExtractedDependencyVersionChange + extra`; it does not retain the marker.
+5. `PyprojectOptionalExtraDependencyContext` retains the extra but no marker.
+6. `evaluate_project_source_environment_membership(...)` checks project root + extra/group selector membership only; it does not evaluate marker truth.
+
+Potential consequence:
+
+```text
+changed optional-extra requirement:
+numpy==1.0; python_version < "3.12"
+→
+numpy==2.0; python_version < "3.12"
+
+selected extra on Python 3.12
+        ↓
+extra membership may be established
+        ↓
+marker non-applicability is not represented
+```
+
+If the full normal composition indeed admits that case, static dependency-consumption/report evidence could become stronger than justified.
+
+**Status:** credible source-grounded concern, not yet a proven normal-path bug. Required next proof is one focused end-to-end or composition-level reproducer using an unchanged-marker version transition and a runtime/environment where the marker is false.
+
+This is exactly the type of discovery the learning branch exists to preserve. Do not repair on this branch unless Ali explicitly authorizes it; first prove the normal-path behavior and determine the correct semantic owner.
