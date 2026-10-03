@@ -15,6 +15,7 @@ from unittest.mock import Mock, patch
 import requests
 from requests import Request, Response
 from requests.exceptions import Timeout
+from test_cli import _supported_investigation
 
 from upgradepilot.cli import build_parser, main
 from upgradepilot.github.api import GitHubAcquisitionError, GitHubApiClient
@@ -24,9 +25,13 @@ from upgradepilot.github.auth_session import GitHubPublicSession
 class GitHubAuthenticationCLITests(unittest.TestCase):
     def _invoke(self, argv: list[str]) -> tuple[int, str, Mock]:
         stdout = io.StringIO()
-        with patch("upgradepilot.cli.investigate_public_pull_request") as investigate, patch(
-            "upgradepilot.cli._print_investigation"
-        ), redirect_stdout(stdout):
+        with (
+            patch(
+                "upgradepilot.cli.investigate_public_pull_request",
+                return_value=_supported_investigation(),
+            ) as investigate,
+            redirect_stdout(stdout),
+        ):
             status = main(argv)
         return status, stdout.getvalue(), investigate
 
@@ -35,7 +40,8 @@ class GitHubAuthenticationCLITests(unittest.TestCase):
             status, output, investigate = self._invoke(["example/project", "7"])
 
         self.assertEqual(status, 0)
-        self.assertEqual(output, "")
+        self.assertIn("UpgradePilot public pull-request evidence", output)
+        self.assertNotIn("unrelated-invalid-token", output)
         investigate.assert_called_once_with("example/project", 7, token=None)
 
     def test_explicit_env_token_is_passed_without_printing_secret(self) -> None:
@@ -46,11 +52,16 @@ class GitHubAuthenticationCLITests(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertNotIn("synthetic-token", output)
-        investigate.assert_called_once_with("example/project", 7, token="synthetic-token")
+        investigate.assert_called_once_with(
+            "example/project", 7, token="synthetic-token"
+        )
 
     def test_missing_or_empty_explicit_token_fails_before_investigation(self) -> None:
         for ambient in ({}, {"GITHUB_TOKEN": ""}):
-            with self.subTest(ambient=ambient), patch.dict(os.environ, ambient, clear=True):
+            with (
+                self.subTest(ambient=ambient),
+                patch.dict(os.environ, ambient, clear=True),
+            ):
                 status, output, investigate = self._invoke(
                     ["example/project", "7", "--github-auth", "token-env"]
                 )
@@ -68,17 +79,25 @@ class GitHubAuthenticationCLITests(unittest.TestCase):
 
 class GitHubPreparedRequestTests(unittest.TestCase):
     @staticmethod
-    def _prepared(*, token: str | None = None) -> tuple[GitHubPublicSession, requests.PreparedRequest]:
+    def _prepared(
+        *, token: str | None = None
+    ) -> tuple[GitHubPublicSession, requests.PreparedRequest]:
         client = GitHubApiClient(token=token)
         session = client._session
         assert isinstance(session, GitHubPublicSession)
         prepared = session.prepare_request(
-            Request("GET", "https://api.github.com/repos/example/project", headers=client._headers)
+            Request(
+                "GET",
+                "https://api.github.com/repos/example/project",
+                headers=client._headers,
+            )
         )
         return session, prepared
 
     @staticmethod
-    def _redirect(session: GitHubPublicSession, previous: requests.PreparedRequest, url: str) -> requests.PreparedRequest:
+    def _redirect(
+        session: GitHubPublicSession, previous: requests.PreparedRequest, url: str
+    ) -> requests.PreparedRequest:
         next_request = previous.copy()
         next_request.url = url
         response = Response()
@@ -87,8 +106,12 @@ class GitHubPreparedRequestTests(unittest.TestCase):
         session.rebuild_auth(next_request, response)
         return next_request
 
-    def test_anonymous_prepared_request_ignores_ambient_netrc_and_preserves_proxy_config(self) -> None:
-        with patch("requests.sessions.get_netrc_auth", return_value=("ambient", "secret")) as netrc:
+    def test_anonymous_prepared_request_ignores_ambient_netrc_and_preserves_proxy_config(
+        self,
+    ) -> None:
+        with patch(
+            "requests.sessions.get_netrc_auth", return_value=("ambient", "secret")
+        ) as netrc:
             session, initial = self._prepared()
             redirected = self._redirect(session, initial, "https://api.github.com/next")
 
@@ -97,23 +120,35 @@ class GitHubPreparedRequestTests(unittest.TestCase):
         self.assertNotIn("Authorization", redirected.headers)
         netrc.assert_not_called()
 
-    def test_explicit_bearer_survives_same_origin_redirect_but_not_cross_origin(self) -> None:
-        with patch("requests.sessions.get_netrc_auth", return_value=("ambient", "secret")) as netrc:
+    def test_explicit_bearer_survives_same_origin_redirect_but_not_cross_origin(
+        self,
+    ) -> None:
+        with patch(
+            "requests.sessions.get_netrc_auth", return_value=("ambient", "secret")
+        ) as netrc:
             session, initial = self._prepared(token="synthetic-token")
-            same_origin = self._redirect(session, initial, "https://api.github.com/next")
-            cross_origin = self._redirect(session, initial, "https://other.example/next")
+            same_origin = self._redirect(
+                session, initial, "https://api.github.com/next"
+            )
+            cross_origin = self._redirect(
+                session, initial, "https://other.example/next"
+            )
 
         self.assertEqual(initial.headers["Authorization"], "Bearer synthetic-token")
         self.assertEqual(same_origin.headers["Authorization"], "Bearer synthetic-token")
         self.assertNotIn("Authorization", cross_origin.headers)
         netrc.assert_not_called()
 
-    def test_real_gitHub_client_uses_isolated_default_but_preserves_injected_session(self) -> None:
+    def test_real_gitHub_client_uses_isolated_default_but_preserves_injected_session(
+        self,
+    ) -> None:
         self.assertIsInstance(GitHubApiClient()._session, GitHubPublicSession)
         injected = Mock()
         self.assertIs(GitHubApiClient(session=injected)._session, injected)
 
-    def test_auth_failure_remains_distinct_from_missing_source_and_transport(self) -> None:
+    def test_auth_failure_remains_distinct_from_missing_source_and_transport(
+        self,
+    ) -> None:
         client = GitHubApiClient()
         for status, reason in ((401, "http_error"), (404, "not_found_or_inaccessible")):
             with self.subTest(status=status):
@@ -127,7 +162,9 @@ class GitHubPreparedRequestTests(unittest.TestCase):
         session = Mock()
         session.get.side_effect = Timeout("synthetic timeout")
         with self.assertRaises(GitHubAcquisitionError) as caught:
-            GitHubApiClient(session=session)._get("https://api.github.com/test", resource="PR")
+            GitHubApiClient(session=session)._get(
+                "https://api.github.com/test", resource="PR"
+            )
         self.assertEqual(caught.exception.reason, "timeout")
         self.assertIsNone(caught.exception.status_code)
 

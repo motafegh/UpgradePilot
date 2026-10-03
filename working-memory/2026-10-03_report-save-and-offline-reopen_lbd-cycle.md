@@ -1,0 +1,59 @@
+# Report generation, save and offline reopen — implementation cycle
+
+Date: 2026-10-03. Primary operation: Build/Implement. Session status: ACTIVE.
+Owner: [report plan §§7–9](../plans/MAINTAINER_REPORT_PRESERVATION_AND_USEFULNESS_EVALUATION_PLAN.md).
+Previous: [report design cycle](2026-10-02_report-contract-and-evaluation-design_lbd-cycle.md).
+
+UP-SKILL:upgradepilot-build-implement; UP-SKILL:upgradepilot-learning-by-doing; UP-SKILL:upgradepilot-working-memory.
+
+## Cycle progression
+
+A0 — DONE: fetched origin; clean main aligned at 804e585d; inspected CLI/investigation/synthesis and relevant evidence types, report plan, Core and security/environment owners.
+A1 — DONE: continuous report walkthrough explained timing, shared structured result, source content versus references and AI consumers; Ali said he understood and requested continuation.
+A2 — DONE: proposed investigate/save/open commands, failure behavior and faithfulness/regression versus usefulness proof explained. Ali correctly reasoned that reopen cannot gather new CI evidence.
+B — DONE: shared projection/rendering, strict version-1 JSON, non-replacing save/offline reopen and CLI composition implemented; source retention and synthesis uncertainty reconciled.
+Verification gate — GREEN for product responsibility: 739/739 checkout and fresh installed product tests, dependency check, touched-file Ruff, installed entry-point parity and final direct normal save/open evidence. Existing governance-marker mismatch remains separate; utility/model quality are not established.
+D — CURRENT: actual outcome and proof taught in the handoff; deeper source/codec ownership discussion remains open, without inferred mastery.
+E — PENDING: repair/defer ownership gaps; independent utility remains separate debt.
+C — CONTINUOUS.
+
+## Living orientation map and cadence
+
+Investigation produces typed assessments → explicit report projection retains findings/questions/source identities/content → one renderer and strict versioned file encoding → offline decode/render. No new acquisition, action permission, generic agent, database or replay engine. Existing semantic extractor remains upstream of presentation.
+
+Continuous-context adaptation: normal fresh-cycle A1/A2 repetition would duplicate the immediately preceding user-requested walkthrough. Reuse that actual orientation and explicit reasoning answer as the entry gate; initialize this separate Build record after source/Git reconciliation. This changes cadence only, not authorization or proof. Ali's repeated request to continue the selected next step and correct pre-B answer supply Build entry; standing coherent-increment commit/push authorization persists. D/E source-level learning stays open.
+
+## Starting evidence and retention choices
+
+Baseline product regression is run before edits; exact outcome follows below. No source/tests changed since the documented design.
+The existing design retention ledger applies: preserve exact upstream authoritative text/quotes, package and PR/workflow identities, scoped runtime commands/results and missing-content declarations. No producer retention expansion is initially required: present the existing available information explicitly. Source-location references are not promised offline content. Report generation time is not an invented acquisition timestamp. No model/prompt provenance is invented.
+
+Keep current abstention authority. If exposed by the report, fix its omission of uncorrelated CI/runtime uncertainty inside synthesis rather than treating empty residual uncertainty as closure. File digest detects corruption, not authenticity. File publishing must protect existing destinations and expose no partially written final file.
+
+## Build evolution and discriminating checks
+
+Baseline: 714/714 deterministic product tests passed before edits. Added explicit report records/projection/renderer and versioned non-executing JSON/file boundary; CLI now composes projection/render/save or offline read/render. Existing synthesis still admits only abstain; uncorrelated CI and scoped runtime problems no longer disappear from residual uncertainty. No orchestration, producer family, model, dependency or framework was expanded.
+
+Source retention distinguishes full retained text, selected metadata facts, producer assessments and reference-only sources. Preserve exact authoritative text/quote offsets, distribution/publisher identities and scoped command semantics. Human output remains shorter than supporting metadata/text. Python-support applicability retains grounded-interpretation strength, rather than promoting model-origin premises to independent fact authority.
+
+Focused tests cover normal application composition, actual parser/runtime producer composition, separate positive/problem command scopes, exact text/quote attribution, candidate-versus-installation-failure meaning, generation versus acquisition time, strict file/reference/state validation, non-replacing publication including race/interruption, offline/no-token access and pre-result acquisition failure. Initial authentication regression failures came from mocks of the removed private printer; tests now exercise real projection/rendering while preserving token isolation. Two new fixture mistakes (exception signature and helper tuple return) were corrected; no production validator was weakened. A later new causal-link test caught an unconnected support-drop-not-evaluated explanation and drove a focused repair.
+
+Live public development acquisition: first attempt returned GitHub HTTP 502 acquiring workflow jobs, exit 3 and no fabricated report. One retry completed with exact S001 Pydantic/Soup Sieve revisions and saved a report. CI remained supported_not_correlated; runtime had no admitted direct-requirements/pip candidate; changelog discovery timed out, leaving upstream authority/interpretation unestablished. This is successful degraded-path operation, not model-quality, compatibility or maintainer-utility proof. The live result exposed the need to link downstream unknown reasons directly to the already-recorded stopping prerequisite.
+
+A first scratch package installation without build isolation failed because local setuptools.build_meta was absent. Switched to a normal fresh virtual environment installation using declared pyproject build requirements; no product dependencies changed. Temporary Ruff tooling was installed outside the project solely to format/check the touched responsibility; no runtime/packaging dependency was added. Detailed pip output remains scratch data, not public evidence.
+
+## Final verification and publication boundary
+
+Product tests: baseline 714/714; final checkout 739/739 and fresh installed package 739/739. Both installed entry points have equal help and offline output; installed package imports from its site-packages and its five touched source files match the checkout. `pip check` passes. Touched source/tests pass Ruff 0.16.10 and whitespace checks. Final tests protect exact transition fields, status/strength/source links, unchanged record opening, runtime scope/proof, explicit upstream prerequisite reasons and failed acquisition without a fabricated report. The new static-CI fixture initially omitted checkout, and the existing domain correctly returned unresolved; corrected the fixture's prerequisite rather than weaken the domain guard.
+
+Fresh final installed normal acquisition initially timed out through ambient transport. Rechecked ENVIRONMENT.md §7; direct public endpoint control returned HTTP 200. An execution scoped to that command without ambient token/proxy variables succeeded, exit 0, and saved the immutable public report. Root/system environment and transport code were not changed. Final report retains 17,370 characters of exact tagged changelog text; CI is supported_not_correlated, runtime has no_admitted_candidate, and semantic candidate_unresolved follows a local provider ConnectionError. This proves operation/degradation and real-source retention, not real-model semantic quality or compatibility. Both final installed entry points reopen the exact file with identical output and no refresh. Earlier failed/draft attempts were not silently promoted as this final result.
+
+Public evidence: [saved report](evidence/2026-10-03-report-save-open/public-investigation-report.json), [verification manifest](evidence/2026-10-03-report-save-open/verification-manifest.json), [usage/proof limits](evidence/2026-10-03-report-save-open/README.md). The manifest is a development evidence record, not a frozen independent evaluation; missing provenance inside the report remains explicit. No full workflow/log/model-response archive or target execution was added.
+
+Governance doctor still fails only its already-known AGENTS.md `examples/` marker mismatch; the root owner is unchanged. Under situational judgment this unrelated inherited documentation/tool mismatch is preserved rather than used to block an independently proven report increment or silently repaired outside scope. This does not claim full governance green. Existing experiment debt was not rerun or relabeled as passing; no experiment behavior was adopted. Hosted verification and independent utility study were not performed.
+
+Concrete consequence learned: recording an unresolved later branch is insufficient when its known stopping prerequisite is available. Link the recorded reason/source into the question without rerunning analysis. Presentation must also preserve grounded-interpretation strength through target relevance/applicability, and selected metadata must not be mislabeled as a full raw input.
+
+Publication is authorized by the standing coherent-increment commit/push instruction. Stop at the verified report increment; D/E remain open for Ali's actual-result/source walkthrough and honest ownership/defer decisions. Next independent product evidence responsibility is the matched usefulness trial with reviewer/adjudication entry work, not another broad plan or a generic agent framework.
+
+Final source review also encoded URL-significant filename characters in exact repository-file locators, preserving the original path identity separately; a discriminating filename test protects this retrieval boundary. Final checkout and installed counts are 739/739. Regenerated the public example from the final installed source, without altering any earlier saved record through reopening. All five installed implementation files match the checkout/manifest hashes.

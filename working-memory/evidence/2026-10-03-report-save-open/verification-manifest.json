@@ -1,0 +1,31 @@
+{
+  "purpose": "Developmental installed normal-path operation and offline preservation evidence; not an independent usefulness evaluation.",
+  "report_id": "9acc7bed-bb98-4080-9d08-b65f1a679a71",
+  "generated_at": "2026-10-03T12:37:27.797799+00:00",
+  "input": {
+    "repository": "pydantic/pydantic",
+    "pull_number": "13432",
+    "base_sha": "652a61ce4f9d7d76eaada31535807a485ece0e21",
+    "head_sha": "aa2dc024d33f61cdef50bf1973ab5adf0a974f5a"
+  },
+  "acquisition_mode": "anonymous, process-local token/proxy removal after direct GitHub control returned HTTP 200; system configuration unchanged",
+  "report_file": "public-investigation-report.json",
+  "report_sha256": "96e3dbcd467c6d8211fb4afaefdac1a3ad13f5ba956f1faea61ccfdac122d7cf",
+  "source_file_sha256": {
+    "src/upgradepilot/report.py": "ed979e43b7af47c4e9fa026ce782ec101d963d7ea3bac1e5114ffd48127a913e",
+    "src/upgradepilot/report_projection.py": "8e1fde08f8638f351f798d97a7ee6be5e16acde9c2cc5cb3159cdfb922498dac",
+    "src/upgradepilot/report_file.py": "4a8d1e09c27c7b84b760ea99ec3de8c0eee0c372e2d8c126069dc2d71fef4237",
+    "src/upgradepilot/cli.py": "9335ba8345b4cf9891499984056e14a4b7522b10bf820592e3899ca7fbb04281",
+    "src/upgradepilot/maintainer_action.py": "a5e718392419c2097362e771b7e2f54dc1bcf246d76317ddfa5eb48c9dfdffbd"
+  },
+  "source_snapshot_note": "Final installed package files were checked against these checkout files. This external developer manifest does not retroactively fill missing provenance inside the report.",
+  "product_tests_before": 714,
+  "product_tests_after": 739,
+  "installed_product_tests": 739,
+  "package_requirements_check": "PASS",
+  "installed_entry_point_help_and_open_parity": "PASS",
+  "live_semantic_quality": "NOT ESTABLISHED: local provider ConnectionError",
+  "independent_usefulness": "NOT EVALUATED: no reviewer/adjudication or frozen matched study manifest",
+  "governance_doctor": "Existing AGENTS.md examples/ owner marker mismatch; root owner unchanged",
+  "excluded_proof": "No compatibility, merge permission, unseen generalization, full replay, implemented agents, source-build outcome or independent model-quality claim."
+}

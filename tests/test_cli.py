@@ -3,10 +3,12 @@
 from __future__ import annotations
 
 import io
+import tempfile
 import unittest
 from contextlib import redirect_stdout
 from dataclasses import replace
-from datetime import datetime, timezone
+from datetime import UTC, datetime
+from pathlib import Path
 from unittest.mock import patch
 
 from packaging.tags import Tag
@@ -44,7 +46,97 @@ from upgradepilot.upstream.repository import UpstreamRepositoryEvidence
 
 
 class CLITests(unittest.TestCase):
-    def test_supported_investigation_is_rendered_without_obsolete_claim_state(self) -> None:
+    def test_save_then_open_preserves_record_and_has_no_acquisition_or_token_access(
+        self,
+    ):
+        investigation = _supported_investigation()
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "report.json"
+            with patch(
+                "upgradepilot.cli.investigate_public_pull_request",
+                return_value=investigation,
+            ):
+                status, original = _run(
+                    ["example/project", "7", "--save-report", str(path)]
+                )
+            self.assertEqual(status, 0)
+            original_bytes = path.read_bytes()
+            with (
+                patch("upgradepilot.cli.investigate_public_pull_request") as acquire,
+                patch("upgradepilot.cli.os.getenv") as getenv,
+            ):
+                status, reopened = _run(["--open-report", str(path)])
+            self.assertEqual(status, 0)
+            acquire.assert_not_called()
+            getenv.assert_not_called()
+            self.assertEqual(path.read_bytes(), original_bytes)
+            self.assertIn("Mode: saved report; no live refresh", reopened)
+            self.assertIn("CI dependency coverage: no_successful_ci", reopened)
+            # Same renderer and same semantic record; only the mode/save acknowledgement differ.
+            before = original.replace(
+                "Mode: new investigation report", "Mode: saved report; no live refresh"
+            )
+            self.assertEqual(before.rsplit("Saved report:", 1)[0], reopened)
+
+    def test_open_argument_conflicts_are_rejected_before_acquisition(self):
+        for argv in (
+            ["example/project", "7", "--open-report", "x"],
+            ["--open-report", "x", "--save-report", "y"],
+            ["--open-report", "x", "--github-auth", "anonymous"],
+            [],
+        ):
+            with (
+                self.subTest(argv=argv),
+                patch("upgradepilot.cli.investigate_public_pull_request") as acquire,
+            ):
+                with self.assertRaises(SystemExit) as error:
+                    _run(argv)
+                self.assertEqual(error.exception.code, 2)
+                acquire.assert_not_called()
+
+    def test_requested_save_failure_is_nonzero_even_after_report_display(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "report.json"
+            path.write_text("existing")
+            with patch(
+                "upgradepilot.cli.investigate_public_pull_request",
+                return_value=_supported_investigation(),
+            ):
+                status, output = _run(
+                    ["example/project", "7", "--save-report", str(path)]
+                )
+            self.assertEqual(status, 5)
+            self.assertIn("Dependency change: supported", output)
+            self.assertIn("Report save failed", output)
+            self.assertEqual(path.read_text(), "existing")
+
+    def test_invalid_saved_file_is_validation_failure_and_never_an_investigation(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "report.json"
+            path.write_text("malformed")
+            with patch("upgradepilot.cli.investigate_public_pull_request") as acquire:
+                status, output = _run(["--open-report", str(path)])
+            self.assertEqual(status, 6)
+            self.assertIn("Saved report rejected", output)
+            acquire.assert_not_called()
+
+    def test_pre_result_acquisition_failure_does_not_fabricate_saved_report(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "report.json"
+            with patch(
+                "upgradepilot.cli.investigate_public_pull_request",
+                side_effect=GitHubAcquisitionError("offline", reason="transport_error"),
+            ):
+                status, output = _run(
+                    ["example/project", "7", "--save-report", str(path)]
+                )
+            self.assertEqual(status, 3)
+            self.assertFalse(path.exists())
+            self.assertNotIn("Maintainer action:", output)
+
+    def test_supported_investigation_is_rendered_without_obsolete_claim_state(
+        self,
+    ) -> None:
         investigation = _supported_investigation()
         with patch(
             "upgradepilot.cli.investigate_public_pull_request",
@@ -102,7 +194,9 @@ class CLITests(unittest.TestCase):
         self.assertNotIn("cp39-cp39-manylinux_2_17_x86_64", output)
         self.assertNotIn("Maintainer recommendation", output)
 
-    def test_artifact_target_problem_is_rendered_without_strengthening_applicability(self) -> None:
+    def test_artifact_target_problem_is_rendered_without_strengthening_applicability(
+        self,
+    ) -> None:
         investigation = _artifact_candidate_investigation(target_problem=True)
         with patch(
             "upgradepilot.cli.investigate_public_pull_request",
@@ -129,7 +223,9 @@ class CLITests(unittest.TestCase):
 
         self.assertEqual(exit_code, 0)
         self.assertIn("Artifact serviceability candidate: evidence problem", output)
-        self.assertIn("Artifact candidate problem: wheel_filename_uninterpretable", output)
+        self.assertIn(
+            "Artifact candidate problem: wheel_filename_uninterpretable", output
+        )
         self.assertIn("Artifact candidate file: broken.whl", output)
         self.assertIn("Target artifact environments: not activated", output)
         self.assertIn("Artifact applicability: not evaluated", output)
@@ -146,7 +242,10 @@ class CLITests(unittest.TestCase):
         self.assertEqual(exit_code, 0)
         self.assertIn("Old package artifact evidence: available", output)
         self.assertIn("Artifact serviceability candidate: not observed", output)
-        self.assertIn("comparison completed without a bounded published-wheel capability loss", output)
+        self.assertIn(
+            "comparison completed without a bounded published-wheel capability loss",
+            output,
+        )
         self.assertIn("Target artifact environments: not activated", output)
         self.assertIn("Artifact applicability: not evaluated", output)
 
@@ -250,7 +349,7 @@ def _package(version: str) -> PackageReleaseEvidence:
         published_name="demo",
         published_version=version,
         source_url=f"https://pypi.org/pypi/demo/{version}/json",
-        retrieved_at=datetime(2026, 8, 4, tzinfo=timezone.utc),
+        retrieved_at=datetime(2026, 8, 4, tzinfo=UTC),
         last_serial=1,
         distribution_files=(),
         project_urls=(),

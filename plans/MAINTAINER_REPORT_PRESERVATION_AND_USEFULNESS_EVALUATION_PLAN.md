@@ -162,7 +162,7 @@ Material retention/projection review before coding:
 
 ### Saved-result representation and offline reopening
 
-Design baseline: a UTF-8 JSON file with a strict versioned envelope. The proposed first version has `schema` = `upgradepilot.investigation-report`, integer `schema_version` = 1, `report` = the explicit semantic record above, and `integrity` containing a named digest method and payload digest. These are proposed external names to settle before Build, not an already released API.
+First-trial file contract: a UTF-8 JSON file with a strict versioned envelope. Version 1 has `schema` = `upgradepilot.investigation-report`, integer `schema_version` = 1, `report` = the explicit semantic record above, and `integrity` containing a named digest method and payload digest. These are the selected first-trial external names; future incompatible changes require explicit version handling.
 
 Digest definition: SHA-256 of the UTF-8 encoding of the canonical JSON object containing schema, schema_version and report; sorted object keys, compact separators, ensure_ascii false, no NaN/Infinity. The digest field itself is excluded. Formatting whitespace outside the canonical payload is not an authenticity signal. Ordinary file corruption may be detected; someone editing both payload and digest can still fabricate a file. Neither digest nor schema validity supplies source truth.
 
@@ -174,9 +174,9 @@ Publication behavior: create a temporary sibling, encode and validate, then publ
 
 ### CLI and responsibility seams to implement after the design gate
 
-Proposed user flow: `upgradepilot OWNER/REPOSITORY PR_NUMBER` prints the human report; `--save-report PATH` also preserves it. `upgradepilot --open-report PATH` opens only the saved report. Reopening is mutually exclusive with repository/PR/acquisition/auth options; invalid combinations are input errors. Do not create a second acquisition path or require an online service for reopening.
+Selected first-trial user flow: `upgradepilot OWNER/REPOSITORY PR_NUMBER` prints the human report; `--save-report PATH` also preserves it. `upgradepilot --open-report PATH` opens only the saved report. Reopening is mutually exclusive with repository/PR/acquisition/auth options; invalid combinations are input errors. Do not create a second acquisition path or require an online service for reopening.
 
-Keep existing exit meanings: 0 means a valid investigation result was presented, not merge/compatibility; unsupported transitions may still produce a valid bounded report. 2 remains input/configuration rejection, 3 acquisition failure, 4 malformed provider response. Proposed 5 = requested file-publication failure and 6 = saved-record validation/read failure. Failed acquisition before result formation remains an operational diagnostic, with no fabricated saved semantic report. Declare changed human presentation; do not advertise byte-compatible old CLI output.
+Keep existing exit meanings: 0 means a valid investigation result was presented, not merge/compatibility; unsupported transitions may still produce a valid bounded report. 2 remains input/configuration rejection, 3 acquisition failure, 4 malformed provider response. 5 = requested file-publication failure and 6 = saved-record validation/read failure. Failed acquisition before result formation remains an operational diagnostic, with no fabricated saved semantic report. Declare changed human presentation; do not advertise byte-compatible old CLI output.
 
 Expected bounded seams: a report projection/record owner, human renderer, explicit versioned encoder/decoder/file handling, and CLI integration. Select minimal responsibility-named files under the existing source layout during Build, avoiding a speculative package hierarchy. Existing dataclass/standard-library style is the baseline. investigation.py stays orchestration-only unless an independently justified retention gap is selected. Tests cover projection meanings, same-record human/saved correspondence, source/reference validity, offline opening, errors and atomic publication—not merely matching implementation text.
 

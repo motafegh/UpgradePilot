@@ -6,7 +6,6 @@ import unittest
 from dataclasses import replace
 
 from upgradepilot.ci.dependency_exercise import DependencyCICoverageResult
-from upgradepilot.ci.dependency_state import RuntimeDependencyStateResult
 from upgradepilot.dependency.change import (
     DependencyChangeProblem,
     DependencyChangeSourceEvidence,
@@ -14,7 +13,9 @@ from upgradepilot.dependency.change import (
 )
 from upgradepilot.github.changelog import ChangelogPathDiscoveryProblem
 from upgradepilot.github.pull_request import ChangedFile, PullRequestIdentity
-from upgradepilot.impact.artifact_serviceability import ArtifactServiceabilityEvidenceProblem
+from upgradepilot.impact.artifact_serviceability import (
+    ArtifactServiceabilityEvidenceProblem,
+)
 from upgradepilot.investigation import PublicPullRequestInvestigation
 from upgradepilot.maintainer_action import synthesize_maintainer_action
 from upgradepilot.pypi.release import PackageReleaseProblem
@@ -23,7 +24,9 @@ from upgradepilot.upstream.interval import release_interval_from_dependency_chan
 
 
 class MaintainerActionSynthesisTests(unittest.TestCase):
-    def test_supported_transition_does_not_default_to_favorable_or_other_active_action(self) -> None:
+    def test_supported_transition_does_not_default_to_favorable_or_other_active_action(
+        self,
+    ) -> None:
         investigation = _investigation(_dependency())
 
         result = synthesize_maintainer_action(investigation)
@@ -33,17 +36,24 @@ class MaintainerActionSynthesisTests(unittest.TestCase):
         self.assertEqual(
             result.decisive_reasons,
             (
-                "No non-abstention maintainer-action permission is admitted at the "
-                "current evaluator proof boundary.",
+                (
+                    "No non-abstention maintainer-action permission is admitted at the "
+                    "current evaluator proof boundary."
+                ),
             ),
         )
         self.assertEqual(result.residual_uncertainty, ())
         self.assertIn("withholds merge", result.limitations[0])
         self.assertTrue(
-            any("not establish complete impact-candidate" in item for item in result.claim_limits)
+            any(
+                "not establish complete impact-candidate" in item
+                for item in result.claim_limits
+            )
         )
 
-    def test_runtime_correlated_ci_support_does_not_create_action_permission(self) -> None:
+    def test_runtime_correlated_ci_support_does_not_create_action_permission(
+        self,
+    ) -> None:
         ci = DependencyCICoverageResult(
             state="supported_runtime_correlated",
             reason="successful_exact_head_ci_with_runtime_correlated_dependency_consumption",
@@ -61,7 +71,9 @@ class MaintainerActionSynthesisTests(unittest.TestCase):
         self.assertEqual(result.residual_uncertainty, ())
         self.assertIn("withholds merge", result.limitations[0])
 
-    def test_dependency_problem_is_preserved_in_abstention_reason_and_uncertainty(self) -> None:
+    def test_dependency_problem_is_preserved_in_abstention_reason_and_uncertainty(
+        self,
+    ) -> None:
         problem = DependencyChangeProblem(
             reason="no_supported_dependency_file",
             detail="No admitted dependency source established one dependency transition.",
@@ -77,12 +89,11 @@ class MaintainerActionSynthesisTests(unittest.TestCase):
             "No admitted dependency source established one dependency transition.",
             result.residual_uncertainty[0],
         )
-        self.assertTrue(
-            any("safe or unsafe" in item for item in result.claim_limits)
-        )
+        self.assertTrue(any("safe or unsafe" in item for item in result.claim_limits))
 
-
-    def test_branch_stopping_changelog_problem_is_preserved_without_python_impact(self) -> None:
+    def test_branch_stopping_changelog_problem_is_preserved_without_python_impact(
+        self,
+    ) -> None:
         investigation = replace(
             _investigation(_dependency()),
             changelog_path_result=ChangelogPathDiscoveryProblem(
@@ -99,12 +110,16 @@ class MaintainerActionSynthesisTests(unittest.TestCase):
         self.assertEqual(
             result.residual_uncertainty,
             (
-                "Upstream changelog discovery remains no_candidate_path: "
-                "No admitted changelog path.",
+                (
+                    "Upstream changelog discovery remains no_candidate_path: "
+                    "No admitted changelog path."
+                ),
             ),
         )
 
-    def test_artifact_evidence_problem_is_preserved_without_impact_assessment(self) -> None:
+    def test_artifact_evidence_problem_is_preserved_without_impact_assessment(
+        self,
+    ) -> None:
         investigation = replace(
             _investigation(_dependency()),
             artifact_serviceability_candidate_result=ArtifactServiceabilityEvidenceProblem(
@@ -120,13 +135,17 @@ class MaintainerActionSynthesisTests(unittest.TestCase):
         self.assertEqual(
             result.residual_uncertainty,
             (
-                "Artifact-serviceability candidate evidence remains "
-                "wheel_filename_uninterpretable: "
-                "Published wheel filename could not be interpreted.",
+                (
+                    "Artifact-serviceability candidate evidence remains "
+                    "wheel_filename_uninterpretable: "
+                    "Published wheel filename could not be interpreted."
+                ),
             ),
         )
 
-    def test_closed_no_support_drop_claim_does_not_manufacture_uncertainty(self) -> None:
+    def test_closed_no_support_drop_claim_does_not_manufacture_uncertainty(
+        self,
+    ) -> None:
         dependency = _dependency()
         investigation = replace(
             _investigation(dependency),
@@ -141,7 +160,9 @@ class MaintainerActionSynthesisTests(unittest.TestCase):
 
         self.assertEqual(result.residual_uncertainty, ())
 
-    def test_independent_upstream_and_artifact_problems_are_preserved_deterministically(self) -> None:
+    def test_independent_upstream_and_artifact_problems_are_preserved_deterministically(
+        self,
+    ) -> None:
         investigation = replace(
             _investigation(_dependency()),
             changelog_path_result=ChangelogPathDiscoveryProblem(
@@ -165,10 +186,14 @@ class MaintainerActionSynthesisTests(unittest.TestCase):
         self.assertEqual(
             result.residual_uncertainty,
             (
-                "Upstream changelog discovery remains no_candidate_path: "
-                "No admitted changelog path.",
-                "Old package-release evidence remains acquisition_failed: "
-                "Old release lookup failed.",
+                (
+                    "Upstream changelog discovery remains no_candidate_path: "
+                    "No admitted changelog path."
+                ),
+                (
+                    "Old package-release evidence remains acquisition_failed: "
+                    "Old release lookup failed."
+                ),
             ),
         )
 
@@ -185,15 +210,9 @@ def _investigation(
         target_python_result=None,
         workflow_evidence=(),
         ci_coverage_result=ci_coverage_result,
-        runtime_dependency_state_result=(
-            RuntimeDependencyStateResult(
-                evaluation_state="no_admitted_candidate",
-                reason="no_admitted_runtime_dependency_state_candidate",
-                detail="Synthetic action fixture has no admitted command candidate.",
-            )
-            if isinstance(dependency_result, DependencyVersionChange)
-            else None
-        ),
+        # These isolated action tests exercise their named branch, not runtime state.
+        # Runtime propagation is covered separately through the report/application seam.
+        runtime_dependency_state_result=None,
         package_result=None,
         upstream_repository_result=None,
     )

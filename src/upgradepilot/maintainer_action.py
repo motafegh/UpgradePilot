@@ -12,6 +12,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
+from .ci.dependency_state import RequirementStateProblem
 from .dependency.change import DependencyChangeProblem
 from .github.changelog import ChangelogPathDiscoveryProblem
 from .github.tag import GitHubTagCommitProblem
@@ -26,7 +27,6 @@ from .upstream.interval import (
 )
 from .upstream.interval_evidence import CrossedReleaseIndexSelectionProblem
 from .upstream.repository import UpstreamRepositoryProblem
-
 
 type MaintainerAction = Literal["abstain"]
 
@@ -50,13 +50,19 @@ class MaintainerActionSynthesis:
 
     def __post_init__(self) -> None:
         if self.action != "abstain":
-            raise ValueError("the first admitted synthesis evaluator supports only abstain")
+            raise ValueError(
+                "the first admitted synthesis evaluator supports only abstain"
+            )
         if not self.decisive_reasons:
             raise ValueError("maintainer-action synthesis requires a decisive reason")
         if not self.limitations:
-            raise ValueError("maintainer-action synthesis requires its admitted limitations")
+            raise ValueError(
+                "maintainer-action synthesis requires its admitted limitations"
+            )
         if not self.claim_limits:
-            raise ValueError("maintainer-action synthesis requires explicit claim limits")
+            raise ValueError(
+                "maintainer-action synthesis requires explicit claim limits"
+            )
         for field_name, values in (
             ("decisive_reasons", self.decisive_reasons),
             ("residual_uncertainty", self.residual_uncertainty),
@@ -101,9 +107,11 @@ def synthesize_maintainer_action(
         decisive_reasons=tuple(decisive_reasons),
         residual_uncertainty=_material_residual_uncertainty(investigation),
         limitations=(
-            "This first evaluator intentionally withholds merge, targeted-check, "
-            "investigate, block, and defer until each action's positive prerequisites "
-            "are proven through the normal producer path.",
+            (
+                "This first evaluator intentionally withholds merge, targeted-check, "
+                "investigate, block, and defer until each action's positive prerequisites "
+                "are proven through the normal producer path."
+            ),
         ),
         claim_limits=(
             "This abstention is not a finding that the dependency update is safe or unsafe.",
@@ -126,12 +134,23 @@ def _material_residual_uncertainty(
         )
 
     ci = investigation.ci_coverage_result
-    if ci is not None and ci.state not in {
-        "supported_not_correlated",
-        "supported_runtime_correlated",
-    }:
+    if ci is not None and ci.state != "supported_runtime_correlated":
+        uncertainty.append(f"CI dependency coverage remains {ci.state}: {ci.detail}")
+
+    runtime = investigation.runtime_dependency_state_result
+    if runtime is not None:
+        if not runtime.assessments:
+            uncertainty.append(
+                f"Runtime requirement state remains {runtime.evaluation_state}: {runtime.detail}"
+            )
+        for assessment in runtime.assessments:
+            if isinstance(assessment.result, RequirementStateProblem):
+                uncertainty.append(
+                    f"Runtime requirement state for {assessment.consumption.command} remains "
+                    f"{assessment.result.state}: {assessment.result.detail}"
+                )
         uncertainty.append(
-            f"CI dependency coverage remains {ci.state}: {ci.detail}"
+            "Command-completion evidence does not establish fresh installation, later package use or behavioral compatibility."
         )
 
     _append_package_and_upstream_uncertainty(uncertainty, investigation)
@@ -216,16 +235,14 @@ def _append_package_and_upstream_uncertainty(
     tag = investigation.tag_commit_result
     if isinstance(tag, GitHubTagCommitProblem):
         uncertainty.append(
-            "Upstream proposed-version tag evidence remains "
-            f"{tag.state}: {tag.detail}"
+            f"Upstream proposed-version tag evidence remains {tag.state}: {tag.detail}"
         )
         return
 
     crossed = investigation.crossed_release_result
     if isinstance(crossed, CrossedReleaseIndexSelectionProblem):
         uncertainty.append(
-            "Crossed-release selection remains "
-            f"{crossed.state}: {crossed.detail}"
+            f"Crossed-release selection remains {crossed.state}: {crossed.detail}"
         )
         return
 

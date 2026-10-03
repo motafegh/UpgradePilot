@@ -2,6 +2,7 @@
 
 Date: 2026-10-02 (Asia/Tehran).
 Primary operation: Planning/Design.
+Session status: CLOSED — design handoff on 2026-10-03 to [the implementation cycle](2026-10-03_report-save-and-offline-reopen_lbd-cycle.md).
 Plan: [Report/preservation/usefulness](../plans/MAINTAINER_REPORT_PRESERVATION_AND_USEFULNESS_EVALUATION_PLAN.md).
 Previous: [Direction comparison](2026-10-02_product-direction-case-comparison_lbd-cycle.md).
 Procedures: UP-SKILL:upgradepilot-planning-design; UP-SKILL:upgradepilot-working-memory.
@@ -12,12 +13,12 @@ After asking for the trial meaning, rationale and uncertainty/provenance sequenc
 
 A0 — DONE: fetched main with no new commits beyond 8697afb1; inspected the selected plan, preceding comparison, canonical representation/action owners, active result/CLI/domain types and focused test anchors.
 A1 — DONE for continuity opportunity: detailed questions about trial rationale and evidence-backed unknowns were answered; Ali agreed and requested continuation. Detailed source mastery remains unassessed.
-A2 — EXPLAINED at trial level; concrete public schema/save/open/protocol design prepared for review, without inferred mastery of new mechanics.
+A2 — DONE for design review/entry: shared record, retention and investigate/save/open behavior explained; the later walkthrough supplied a meaningful reopen-versus-new-evidence reasoning answer. Source-level mastery remains unclaimed.
 B — DONE for design preparation: plan's concrete design/protocol and Core representation elaboration written; product code unchanged.
 Verification gate — PASS for focused design link/scope/consistency review; implementation and independent usefulness remain unperformed.
-D — CURRENT: explain shared record, reference-only provenance, saved-result/replay difference and evaluation proof boundaries.
-E — PENDING: repair/defer ownership and reviewer gaps; hand off exact Build scope after design understanding is established.
-C — CONTINUOUS: design rationale, alternatives, retention/proof limits and handoff preserved here.
+D — DONE at design-orientation depth: report/source-retention and saved-result/replay boundaries explained; Ali stated understanding and correctly reasoned that reopen gathers no new evidence.
+E — DONE for design closure: hand off the selected Build responsibility. Detailed source/codec learning transfers to its D/E; reviewer recruitment, adjudication and matched study inputs remain explicit deferrals.
+C — DONE: design rationale, learning progression, retention/proof limits and time-scoped Build handoff preserved here.
 
 ## Adaptation and previous-cycle reconciliation
 
@@ -102,3 +103,7 @@ First-trial proof will check structured access, source/range attribution, explic
 The exact learning continuation is to walk through the report and source-retention design with concrete examples. Do not infer understanding from Ali agreeing to preserve the recommendation. Implementation remains a separate next action after the actual design/learning entry is reconciled.
 
 Amendment verification: 39 local references across the five refinement files resolve, including the new Core/plan navigation anchors; whitespace passes; Git scope contains only the authorized documentation owners and executable paths remain unchanged from e5986f80. Reviewed failure pressures: a later interpreter receives only a summary despite available source text; a reference-only locator is claimed to be guaranteed offline evidence; saved output is mistaken for complete agent state; a model proposal gains action authority through serialization; future lineage requirements accidentally become first-trial agent implementation. The amended owners distinguish/reject those claims, and first-trial proof is separate from later inquiry/agent gates. No new tests are needed for the documentation-only refinement; previous product/experiment/governance proof and debt are unchanged. Publish under Ali's standing instruction, then return to explanation rather than silently implement.
+
+## Design closure and implementation handoff — 2026-10-03
+
+Ali completed the report/source-retention and user-command walkthrough, requested continuing the selected next step, and explained that reopening cannot gather new CI observations. The explicit entry gate therefore has actual reasoning evidence. This closes the design cycle at the justified conceptual depth; it does not claim Python/source mastery or independent usefulness. The new Build cycle owns implementation, verification, actual-result D/E and residual source-level learning. Earlier source-unchanged/implementation-paused statements in this dated record describe the preceding design stage, not the new live position.

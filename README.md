@@ -32,11 +32,11 @@ public Dependabot PR
 
 **Ali's contribution and AI-assistance boundary:** Ali directs and learns through the AI-assisted development of UpgradePilot, including product/evidence decisions, repeated challenges to scope and proof boundaries, selected pre-change design decisions, and bounded current source/test reasoning. The repository's substantive implementation and tests are heavily AI-assisted; the complete Python/test architecture is not presented as independently authored or independently owned by Ali.
 
-**Current limitation:** the CLI does not yet emit the final maintainer recommendation or render the new runtime dependency-state result. UpgradePilot has a bounded direct-requirements/pip command-completion runtime witness, but it must not be interpreted as universal runtime package state, exact artifact identity, later use, behavioral compatibility, or exact target wheel compatibility. The project remains production-oriented rather than production-ready.
+**Current limitation:** the CLI exposes the existing explained-abstention evaluator and bounded runtime dependency-state results; no non-abstention recommendation is admitted. UpgradePilot has a bounded direct-requirements/pip command-completion runtime witness, but it must not be interpreted as universal runtime package state, exact artifact identity, later use, behavioral compatibility, or exact target wheel compatibility. The project remains production-oriented rather than production-ready.
 
 ## Quickstart: inspect a public dependency-update PR
 
-The CLI produces a **bounded evidence report**: analyzed revisions, a supported dependency transition, CI/package/upstream evidence, artifact/target evidence where activated, and conditionally activated Python-support interpretation. The application additionally carries bounded runtime dependency-state results that are not yet rendered by the CLI. The recommendation classes above describe the intended product. The CLI does not yet emit a final maintainer recommendation, a public JSON report, or an automatic merge decision. Artifact/target and runtime-state evidence remain stronger inside the typed application result than in the current human-facing output; action-relative selection should determine which evidence deserves synthesis or presentation next.
+The CLI produces a **bounded evidence report** with exact analyzed revisions, the dependency transition, scoped CI/runtime and package/upstream evidence, findings, unresolved questions and their sources. It can save the shared structured report as versioned JSON and reopen it offline. The admitted maintainer action remains explained `abstain`; this does not mean the update is safe or unsafe. Saving and reopening do not prove usefulness, refresh evidence, resume an agent or replay an investigation.
 
 ### Install and check the command
 
@@ -58,11 +58,13 @@ Use a Python 3.12+ executable explicitly if your `python3` is older. If you alre
 The installed entry points are equivalent:
 
 ```text
-upgradepilot [-h] [--github-auth {anonymous,token-env}] repository pull_number
-python -m upgradepilot [-h] [--github-auth {anonymous,token-env}] repository pull_number
+upgradepilot repository pull_number [--github-auth {anonymous,token-env}] [--save-report PATH]
+upgradepilot --open-report PATH
+python -m upgradepilot repository pull_number [--github-auth {anonymous,token-env}] [--save-report PATH]
+python -m upgradepilot --open-report PATH
 ```
 
-Pass `owner/repository` and a positive PR number as separate arguments, not a full PR URL. The CLI has no model-selection, endpoint, JSON-export or replay flags. Installing the product does not require the separate LangGraph experiment dependencies.
+Pass `owner/repository` and a positive PR number as separate arguments, not a full PR URL. The CLI has no model-selection, endpoint or replay flags. Installing the product does not require the separate LangGraph experiment dependencies.
 
 ### Configure the conditional semantic provider
 
@@ -90,14 +92,28 @@ upgradepilot pydantic/pydantic 13432 --github-auth token-env
 
 The explicit mode rejects a missing or empty token before acquisition. Do not put the token value in a command argument, command history, or shared logs. Proxy/transport configuration remains a separate environment concern; public API rate limits and network failures can still prevent acquisition.
 
+### Save and reopen a report
+
+```bash
+upgradepilot pydantic/pydantic 13432 --save-report report.json
+upgradepilot --open-report report.json
+```
+
+The saved file preserves structured findings, questions, source identities, already-retained upstream text/quotes and explicit preservation limits. Selected metadata remains distinct from a complete raw provider response. Source references alone do not guarantee offline access to their original content. The file has a versioned JSON envelope and a corruption-detection digest; neither establishes authenticity or semantic truth.
+
+Saving never replaces an existing destination. Reopening validates the file and displays the original report identity, generation time and examined revisions without GitHub/model requests. It cannot be combined with investigation or authentication arguments. Obtain a new investigation to examine later CI or repository changes. Generation time does not substitute for missing source-acquisition times.
+
 The output starts with `UpgradePilot public pull-request evidence`, then repository/PR metadata and exact base/head revisions. Read these groups as evidence:
 
 | Output | How to interpret it |
 |---|---|
 | `Dependency change`, package and versions | The admitted exact transition, or a precise unsupported reason; unsupported input does not imply compatibility |
-| `Exact-head workflow runs`, `CI dependency coverage` | Recorded workflow outcomes and separately interpreted dependency consumption; neither a green job nor a static command alone proves the changed path ran |
+| `CI dependency coverage`, workflow execution sources | Recorded workflow outcomes and separately interpreted dependency consumption; neither a green job nor a static command alone proves the changed path ran |
 | `Package evidence`, `Upstream repository`, `Upstream interval authority` | Evidence availability and attribution at those boundaries; inspect recorded problems before relying on later stages |
 | `Upstream support-drop result` | A bounded grounded result or recorded limitation, not a complete inventory of every possible impact |
+| `Runtime dependency state`, `Command-completion requirement state` | Scoped direct-requirements/pip satisfaction or its blocker; successful completion does not prove fresh installation, later use or compatibility |
+| `Unresolved questions`, `Evidence sources`, `Report limits` | Why a question remains open, the evidence retained or referenced, and what cannot be established from this record |
+| `Maintainer action` | Current explained abstention and its limits; no approval, merge or target mutation is authorized |
 | `Target Python declaration`, `Target Python relevance` | Declaration evidence and scoped relationship to the support-drop claim; `not activated` is not a successful compatibility check |
 
 An exit code of **0 means an investigation result was printed**, including unsupported or unresolved results. It does not mean the upgrade is safe, all evidence was available, or the maintainer should merge.
@@ -111,6 +127,8 @@ An exit code of **0 means an investigation result was printed**, including unsup
 | Exit 2 / `Input rejected` / argument usage | Use `owner/repository` and a positive integer PR number; explicit `--github-auth token-env` also requires `GITHUB_TOKEN` |
 | Exit 3 / `Acquisition failed` | Inspect the printed reason and HTTP status, if present; distinguish authentication, rate limits and transport from missing evidence |
 | Exit 4 / `GitHub response could not establish the required evidence` | The returned response did not establish the required contract; retain the reported detail for diagnosis |
+| Exit 5 / `Report save failed` | The report could not be saved as requested; inspect the destination and failure detail. Existing files are protected |
+| Exit 6 / `Saved report rejected` | The file is unreadable, unsupported, malformed or inconsistent; no new investigation was performed |
 | Local semantic provider problem or unresolved support-drop result | Check server/model configuration and the recorded detail; a running server alone does not establish a valid semantic response |
 | Proxy/TLS failure or unexpected 401 | Diagnose proxy/transport separately; for 401 under explicit token-env mode, check token validity without displaying its value. See [credential and proxy diagnosis](ENVIRONMENT.md#7-github-credential-and-proxy-caveat); do not globally change VPN/proxy settings |
 | Unexpected traceback | Preserve the command, checkout revision and public-safe error details as a defect report; do not interpret it as semantic abstention |
