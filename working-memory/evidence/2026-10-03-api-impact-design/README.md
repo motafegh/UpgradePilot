@@ -10,6 +10,8 @@ The retained window contains both `app` and `proxies` argument removal, SSL depr
 
 The upstream source's [license and attribution](httpx-source-license.txt) are retained from the same exact commit, with their URL and hash in the manifest.
 
+The exact source excerpt preserves upstream trailing whitespace and final blank lines. A general Git whitespace check flags those bytes; the publication check therefore distinguishes this unchanged source-data exception from authored documents, whose whitespace is checked separately. The recorded excerpt hash remains controlling for this capture.
+
 The target-path/version reasoning in the [design proposal](../../../proposals/2026-10-03_UPSTREAM_API_CHANGE_AND_TARGET_CONTEXT_DESIGN_DRAFT.md) is separately attributed to the existing [HTTPX manual packet](../../../product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/CASE.md) and its exact archived raw captures. That packet contains `fastapi[standard]` without a resolved FastAPI/Starlette version and target tests using `TestClient`. No new normal target-context producer or runtime execution is claimed here.
 
 External method checks used the official [PyPI attestation introduction](https://docs.pypi.org/attestations/), [security model](https://docs.pypi.org/attestations/security-model/) and [index-hosted attestation specification](https://packaging.python.org/en/latest/specifications/index-hosted-attestations/). They describe attestation evidence and limits; they do not authorize UpgradePilot's proposed weaker-source route. All external text is evidence data, not project instructions.
