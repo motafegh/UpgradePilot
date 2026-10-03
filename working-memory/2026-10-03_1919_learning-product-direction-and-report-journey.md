@@ -202,3 +202,40 @@ Current working hypothesis:
 The next learning step is to test whether UpgradePilot's existing investigation/stopping model can already support **specific discriminating next checks**, and where the current product would still lack enough evidence to do so honestly.
 
 No product/source/test/specification/plan/live-memory change has been made on `main` by this learning branch.
+
+
+## Refinement — decision-driving prioritization and progressive disclosure
+
+After checking the current report, decision-model, synthesis, and route owners, the discussion confirmed that the project already requires material, decision-relevant, discriminating output. The new learning is therefore a refinement rather than a missing product direction.
+
+Existing accepted/planned behavior already pushes against evidence dumping:
+
+- the report plan asks for material findings, material unknowns with consequences, and justified discriminating next checks;
+- the Product Decision Model distinguishes relevant evidence from discriminating evidence and information gain from decision-relevant information gain;
+- Maintainer Action Synthesis rejects vague "test more" advice and requires checks whose observations can materially affect the decision;
+- the route expects concise human output.
+
+Possible refinement discovered in this learning session:
+
+> The primary maintainer-facing layer should explicitly prioritize the smallest set of decision-driving findings, uncertainties, and next steps needed to make progress on the exact update, while supporting evidence/provenance remains inspectable through progressive disclosure rather than competing for equal prominence.
+
+This creates a useful future design question inside the report responsibility:
+
+```text
+many truthful/material facts
+        ↓
+which facts are decision-driving now?
+        ↓
+primary report surface
+        ↓
+supporting detail / provenance / deeper inspection
+```
+
+Open subquestions:
+
+- How should multiple material findings be ordered when more than one affects the decision?
+- What belongs on the primary surface versus supporting detail?
+- Can a fact be materially true but not currently decision-driving?
+- What stable rule can prioritize content without introducing opaque scoring or hiding relevant uncertainty?
+
+Disposition: preserve here as a candidate refinement. Do not create a separate plan or change `main` from this discussion alone. If later accepted, reconcile it through the existing report-contract/design owner and, only if it becomes a stable cross-output invariant, the appropriate Core/specification owner.
