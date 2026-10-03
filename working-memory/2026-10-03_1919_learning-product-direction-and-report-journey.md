@@ -173,3 +173,212 @@ Near-term topics:
 - distinguish a genuinely useful next check from generic/speculative advice;
 - understand which dependency-declaration/applicability forms deserve future support based on real decision pressure;
 - preserve any useful refinements here for later promotion through the correct owner if selected.
+
+
+## Discovery — dependency propositions are context-composed, not source-line facts
+
+### Status
+
+**Learning discovery / candidate architectural principle.**
+This is not yet an accepted `main` semantic change, implementation authorization, or roadmap commitment.
+
+### Discovery
+
+The S015 marker case and S016 selector/extra case expose the same deeper invariant from different mechanisms:
+
+```text
+source identity alone
+!=
+effective dependency proposition
+```
+
+A dependency declaration becomes meaningful only after the conditions that determine where and how it applies are composed with it.
+
+A stronger conceptual model is:
+
+```text
+DECLARATION
+package/distribution identity
++ version constraint or direct source
++ optional extras
++ optional environment marker
+        ↓
+APPLICABILITY / SELECTION
+runtime/environment facts
++ selected extras/groups/roots
++ target/repository context
+        ↓
+RESOLUTION CONTEXT
+constraints/includes
++ index/source configuration
++ binary/source/hash policy
++ other resolver-affecting configuration
+        ↓
+RESOLVED / OBSERVED STATE
+exact selected version
++ artifact/source identity
++ selected environment
++ observed command/runtime state
+        ↓
+LATER USE / BEHAVIOR
+whether the resolved dependency was actually exercised
++ relevant behavioral outcome
+```
+
+Each layer answers a different proposition. Evidence from one layer must not silently be promoted into a stronger claim owned by a later layer.
+
+### Why this matters to UpgradePilot
+
+UpgradePilot started from a deliberately narrow and useful form:
+
+```text
+package==version
+```
+
+That form collapses several dimensions because the package identity and requested version are explicit, with no marker, extra, or direct source reference.
+
+Real Python dependency updates show that those simplifications do not always hold.
+
+#### S015 — environment-marker pressure
+
+```text
+pytest==9.0.3 ; python_full_version == "3.8.*"
+```
+
+The same changed file can be consumed by multiple CI rows while the changed requirement applies only to some of them.
+
+```text
+file consumed
+!=
+changed requirement applicable
+```
+
+#### S016 — selector/extra/group pressure
+
+The same `uv.lock` participates in multiple successful commands, but different extras/groups select different dependency sets.
+
+```text
+lock contains package
+!=
+selected environment contains package
+```
+
+Together:
+
+```text
+source + exact environment/selection context
+→ effective dependency proposition
+```
+
+### Adjacent forms that can create similar semantic pressure
+
+The project should recognize these as distinct possible capability families rather than variants to flatten into one parser rule:
+
+1. **Bare exact pins** — example: `pytest==9.0.3`; strongest/simple current declaration form.
+2. **Marker-bearing requirements** — example: `pytest==9.0.3 ; python_version == "3.8"`; requires applicability proof against the selected environment.
+3. **Extras / optional dependency selection** — example: `requests[security]`; selected extras can change reachable transitive dependencies.
+4. **Non-exact version constraints** — examples: `>=2,<3`, `~=2.1`, `!=2.1.4`, `==2.1.*`; declaration identifies an allowed set, not one exact installed version.
+5. **Direct references** — URL/archive/VCS/revision forms; source/revision/artifact identity becomes part of the dependency proposition.
+6. **Requirements-file composition** — included requirement files and constraints; source/provenance becomes relational rather than one-line/one-file.
+7. **Editable/local/path/install-option forms** — can affect source identity, installation semantics, resolver behavior, and reproducibility.
+8. **Package/runtime compatibility metadata** — Python-version compatibility and platform/wheel availability can make a syntactically valid declaration unresolved for a target environment.
+9. **Resolver/source policy** — indexes, binary-vs-source policy, hashes, configuration and ambient resolver inputs can change what is obtainable without changing the declaration.
+10. **Transitive dependency conditions** — dependency metadata can itself contain markers/extras/constraints that alter the effective graph.
+
+### Architectural consequence
+
+Do **not** solve these pressures by widening `_PINNED_REQUIREMENT_PATTERN` into a universal parser and then continuing to emit the same old proposition.
+
+The important question is not:
+
+> Can UpgradePilot parse this line?
+
+It is:
+
+> Which proposition can UpgradePilot truthfully establish from this declaration in this exact environment and resolution context?
+
+Syntax recognition and semantic support are separate responsibilities.
+
+A future implementation should preserve the dimensions needed downstream rather than normalize them away prematurely.
+
+### Decision/proof consequence
+
+When downstream reasoning uses dependency evidence, it should be able to distinguish at least conceptually:
+
+```text
+declared
+applicable
+selected/reachable
+resolvable
+resolved/present
+later exercised
+behaviorally successful
+```
+
+These states are not interchangeable.
+
+Examples of prohibited collapses:
+
+```text
+declared         -> present
+file consumed    -> requirement applied
+lock membership  -> selected environment membership
+command success  -> exact package installed
+resolved/present -> later exercised
+later exercised  -> behavior compatible/safe
+```
+
+### Priority rule
+
+Do not pre-build universal Python packaging support.
+
+Prefer:
+
+```text
+real maintainer-facing limitation
+        ↓
+identify exact missing proposition
+        ↓
+find which declaration/applicability/resolution dimension owns it
+        ↓
+test with contrasting real cases
+        ↓
+admit the smallest semantically complete capability
+```
+
+Current evidence-backed priority pressure:
+
+1. marker applicability — real unsupported case in S015;
+2. extras/groups/root selection — real case in S016 and partly modeled already;
+3. constraints/includes when real source-provenance pressure appears;
+4. non-exact ranges when exact-transition/state assumptions become limiting;
+5. direct URL/VCS/local/editable identity when encountered;
+6. broader resolver/index/binary/hash policy when it becomes decision-critical.
+
+This ordering is provisional and may change with stronger real-case or user-value evidence.
+
+### Relationship to current product direction
+
+This discovery reinforces the hybrid/report discussion.
+
+A useful maintainer report must not simply expose a parsed dependency line. It should expose the strongest supported meaning after applicability/selection and evidence limitations are accounted for.
+
+For example, `pytest 9.0.3 appears in the changed file` is weaker than `pytest 9.0.3 applies to the Python 3.8 row, was attempted there, and resolution failed`.
+
+The report should preserve that proof ladder rather than flattening all dependency evidence into one generic `dependency changed` statement.
+
+### Re-entry / promotion condition
+
+Promote this discovery into a durable `main` owner only when one of these becomes true:
+
+- current report/evaluation work shows that missing declaration/applicability semantics materially blocks useful maintainer output;
+- a selected implementation responsibility must support one of these forms;
+- an accepted stable invariant needs to constrain multiple producers/consumers.
+
+Until then:
+
+- preserve the discovery here;
+- do not create a new broad plan;
+- do not expand the Charter/supported surface automatically;
+- do not implement a universal requirement parser;
+- do not treat S015/S016 research conclusions as normal product-produced facts.
