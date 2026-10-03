@@ -26,9 +26,8 @@ from ..github.workflow_command_analysis import (
     StaticCommandStructure,
     StaticCommandWholeStepRelation,
 )
-from ..github.workflow_command_shell import ShellExecutionProfile
 from ..github.workflow_command_location import StaticCommandLocation
-
+from ..github.workflow_command_shell import ShellExecutionProfile
 
 type StaticDependencyConsumptionState = Literal[
     "supported",
@@ -88,7 +87,9 @@ def compose_project_environment_consumption(
     """Compose one dependency-domain result with its exact static CI declaration."""
 
     if not workflow_path or not workflow_revision:
-        raise ValueError("project environment consumption requires exact workflow identity")
+        raise ValueError(
+            "project environment consumption requires exact workflow identity"
+        )
     if observation.state != "observed":
         raise ValueError(
             "project environment consumption requires an observed selection declaration"
@@ -98,7 +99,9 @@ def compose_project_environment_consumption(
             "project environment declaration is not owned by the supplied observation"
         )
     if not dependency_evidence.normalized_package:
-        raise ValueError("dependency evidence must preserve normalized package identity")
+        raise ValueError(
+            "dependency evidence must preserve normalized package identity"
+        )
 
     common = {
         "mechanism": "project_environment",
@@ -215,6 +218,7 @@ def _compose_project_source_membership_consumption(
         state="unresolved",
         reason=membership.reason,
         detail=membership.detail,
+        unresolved_conditions=membership.unresolved_conditions,
         **source_common,
     )
 

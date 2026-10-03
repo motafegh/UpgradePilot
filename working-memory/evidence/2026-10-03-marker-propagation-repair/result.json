@@ -1,0 +1,102 @@
+{
+  "date": "2026-10-03",
+  "baseline_commit": "332560413bdc9e79a16e05d07666cb63780fdd70",
+  "proof_class": "controlled exact-source production composition and deterministic regression; no live target/runtime/model proof",
+  "reproducer": "../2026-10-03-marker-propagation-review/reproduce.py",
+  "before_result": "../2026-10-03-marker-propagation-review/result.json",
+  "working_file_sha256": {
+    "src/upgradepilot/dependency/pyproject.py": "00773f19b88a747cd920b3a3940641fd938bda16c17b50b0e630871e3b6b1001",
+    "src/upgradepilot/dependency/analysis.py": "3358825a9a95b75bab277ff584316357587d1aef762f16855c035b9a2a873c51",
+    "src/upgradepilot/dependency/environment.py": "1b1240d4d7c592dd4566b11f3170b145a522e55a0ecc0f06da744440d6715152",
+    "src/upgradepilot/dependency/environment_membership.py": "ded0c8bd12049549060194a5948f39c350ff20c48a5aa98abf35b278ad53fd7f",
+    "src/upgradepilot/ci/consumption.py": "99f8b4bcefa52cd7df073b025357fd5b96e52a8d59a22f9447ad7c29ca7b7407",
+    "tests/test_conditional_pyproject_consumption.py": "03161fe11c4ddf4e3197b9f11c8265395a0c64d9a49d8564662f4f0e7f904474"
+  },
+  "cases": [
+    {
+      "marker": "python_version < \"3.12\"",
+      "selected_extra": "speed",
+      "context_fields": [
+        "repository",
+        "revision",
+        "normalized_package",
+        "source_evidence",
+        "extra",
+        "requirement_marker",
+        "requirement_extras"
+      ],
+      "state": "unresolved",
+      "reason": "changed_requirement_marker_not_evaluated",
+      "detail": "The static declaration explicitly selects the same normalized optional extra that contains the changed dependency. The changed requirement has environment marker 'python_version < \"3.12\"'. Its applicability is unresolved because no scoped installer marker environment is established at this static selection boundary. Extra selection alone does not prove consumption.",
+      "unresolved_conditions": [
+        "python_version < \"3.12\""
+      ]
+    },
+    {
+      "marker": "python_version >= \"3.12\"",
+      "selected_extra": "speed",
+      "context_fields": [
+        "repository",
+        "revision",
+        "normalized_package",
+        "source_evidence",
+        "extra",
+        "requirement_marker",
+        "requirement_extras"
+      ],
+      "state": "unresolved",
+      "reason": "changed_requirement_marker_not_evaluated",
+      "detail": "The static declaration explicitly selects the same normalized optional extra that contains the changed dependency. The changed requirement has environment marker 'python_version >= \"3.12\"'. Its applicability is unresolved because no scoped installer marker environment is established at this static selection boundary. Extra selection alone does not prove consumption.",
+      "unresolved_conditions": [
+        "python_version >= \"3.12\""
+      ]
+    },
+    {
+      "marker": null,
+      "selected_extra": "speed",
+      "context_fields": [
+        "repository",
+        "revision",
+        "normalized_package",
+        "source_evidence",
+        "extra",
+        "requirement_marker",
+        "requirement_extras"
+      ],
+      "state": "supported",
+      "reason": "selected_project_environment_contains_changed_dependency",
+      "detail": "Dependency-owned project-source evidence establishes that this static selection includes the affected project environment containing the changed dependency. Runtime execution and success are not established.",
+      "unresolved_conditions": []
+    },
+    {
+      "marker": "python_version < \"3.12\"",
+      "selected_extra": "other",
+      "context_fields": [
+        "repository",
+        "revision",
+        "normalized_package",
+        "source_evidence",
+        "extra",
+        "requirement_marker",
+        "requirement_extras"
+      ],
+      "state": "not_established",
+      "reason": "selected_environment_membership_not_established",
+      "detail": "The visible positive selectors do not establish selection of the affected optional extra 'speed'.",
+      "unresolved_conditions": []
+    }
+  ],
+  "verification": {
+    "initial_existing_focused_tests": 19,
+    "new_regression_tests": 4,
+    "before_new_regression": "6 subtest failures and 1 missing-field error; non-selection control green",
+    "after_focused_tests": 44,
+    "checkout_product_tests": 743,
+    "fresh_installed_product_tests": 743,
+    "pip_check": "pass",
+    "installed_console_module_help_parity": "pass",
+    "installed_import_outside_checkout": "pass",
+    "touched_source_test_ruff": "pass"
+  },
+  "wheel_sha256": "70bac553e8aa6262cdff6dfd1612fb99801a441438521a2108c45aa4c627da93"
+}

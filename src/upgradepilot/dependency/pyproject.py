@@ -43,10 +43,16 @@ from .change import (
 
 @dataclass(frozen=True, slots=True)
 class ExtractedPyprojectOptionalExtraChange:
-    """One canonical file-level change plus its source-established optional extra."""
+    """One exact pin change with its containing extra and requirement qualifiers.
+
+    Qualifiers are parsed declaration facts, not an evaluated environment condition.
+    ``analysis.py`` retains them in the source context consumed by membership composition.
+    """
 
     change: ExtractedDependencyVersionChange
     extra: str
+    requirement_marker: str | None = None
+    requirement_extras: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True, slots=True)
@@ -256,7 +262,9 @@ def _parse_optional_dependencies(
                     normalized_package=normalized,
                     extras=tuple(sorted(requirement.extras)),
                     specifier=str(requirement.specifier),
-                    marker=str(requirement.marker) if requirement.marker is not None else None,
+                    marker=str(requirement.marker)
+                    if requirement.marker is not None
+                    else None,
                     url=requirement.url,
                 )
             )
@@ -375,7 +383,12 @@ def _compare_optional_dependencies(
         proposed_version=new_version,
         source_evidence=evidence,
     )
-    return ExtractedPyprojectOptionalExtraChange(change=change, extra=head_extra)
+    return ExtractedPyprojectOptionalExtraChange(
+        change=change,
+        extra=head_extra,
+        requirement_marker=new.marker,
+        requirement_extras=new.extras,
+    )
 
 
 def _single_exact_version(specifier_text: str) -> str | None:

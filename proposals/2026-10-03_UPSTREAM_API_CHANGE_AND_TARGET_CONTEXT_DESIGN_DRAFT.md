@@ -96,6 +96,8 @@ The manual packet shows a plausible version-dependent incompatibility mechanism,
 
 ## 7. Candidate/result boundary and ownership
 
+Dated follow-up: the [2026-10-03 correctness repair](../working-memory/2026-10-03_2123_conditional-optional-extra-correctness_lbd-cycle.md) preserves the optional requirement marker/dependency extras and makes selected marked consumption explicitly unresolved. It implements condition retention without marker truth evaluation or broader target-context/source-policy admission; the earlier diagnostic remains baseline evidence.
+
 Conceptual records below describe evidence responsibilities, not frozen Python class names or a universal graph schema:
 
 | Information family | Earliest adequate owner | Required distinctions |

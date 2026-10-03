@@ -9,6 +9,11 @@ facts so CI does not learn PEP 621/735 environment semantics itself.
 The result is static source/selection evidence only. ``not_established`` means the
 visible selector does not establish selection of the affected environment; it is not a
 runtime absence or installation claim.
+
+An optional requirement's marker is preserved by extraction/analysis. This static
+selector boundary has no scoped installer marker environment; a selected marked
+requirement therefore remains unresolved, rather than evaluating against host defaults
+or silently treating a workflow Python setting as the installer's complete environment.
 """
 
 from __future__ import annotations
@@ -28,7 +33,6 @@ from .environment_selection import (
     OptionalExtraSelector,
     ProjectEnvironmentSelectionDeclaration,
 )
-
 
 type ProjectSourceEnvironmentContext = (
     PyprojectOptionalExtraDependencyContext | PyprojectDependencyGroupContext
@@ -51,6 +55,7 @@ class ProjectSourceEnvironmentMembership:
     project_file_path: str
     affected_environment_kind: Literal["optional_extra", "dependency_group"]
     affected_environment_name: str
+    unresolved_conditions: tuple[str, ...] = ()
 
 
 def evaluate_project_source_environment_membership(
@@ -77,20 +82,16 @@ def evaluate_project_source_environment_membership(
         affected = context.normalized_extra
         for selector in declaration.selectors:
             if isinstance(selector, AllOptionalExtrasSelector):
-                return _result(
+                return _selected_optional_requirement(
                     context,
-                    state="member",
-                    reason="affected_optional_extra_selected",
                     detail="The static declaration explicitly selects all optional extras.",
                 )
             if (
                 isinstance(selector, OptionalExtraSelector)
                 and selector.normalized_name == affected
             ):
-                return _result(
+                return _selected_optional_requirement(
                     context,
-                    state="member",
-                    reason="affected_optional_extra_selected",
                     detail=(
                         "The static declaration explicitly selects the same normalized "
                         "optional extra that contains the changed dependency."
@@ -141,12 +142,41 @@ def evaluate_project_source_environment_membership(
     )
 
 
+def _selected_optional_requirement(
+    context: PyprojectOptionalExtraDependencyContext,
+    *,
+    detail: str,
+) -> ProjectSourceEnvironmentMembership:
+    """Separate positive extra selection from unevaluated requirement applicability."""
+
+    if context.requirement_marker is not None:
+        return _result(
+            context,
+            state="unresolved",
+            reason="changed_requirement_marker_not_evaluated",
+            detail=(
+                f"{detail} The changed requirement has environment marker "
+                f"{context.requirement_marker!r}. Its applicability is unresolved because "
+                "no scoped installer marker environment is established at this static "
+                "selection boundary. Extra selection alone does not prove consumption."
+            ),
+            unresolved_conditions=(context.requirement_marker,),
+        )
+    return _result(
+        context,
+        state="member",
+        reason="affected_optional_extra_selected",
+        detail=detail,
+    )
+
+
 def _result(
     context: ProjectSourceEnvironmentContext,
     *,
     state: ProjectSourceEnvironmentMembershipState,
     reason: str,
     detail: str,
+    unresolved_conditions: tuple[str, ...] = (),
 ) -> ProjectSourceEnvironmentMembership:
     if isinstance(context, PyprojectOptionalExtraDependencyContext):
         kind: Literal["optional_extra", "dependency_group"] = "optional_extra"
@@ -163,6 +193,7 @@ def _result(
         project_file_path=context.source_path,
         affected_environment_kind=kind,
         affected_environment_name=name,
+        unresolved_conditions=unresolved_conditions,
     )
 
 

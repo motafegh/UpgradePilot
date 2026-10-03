@@ -2,6 +2,7 @@
 
 Date: 2026-10-03 (Asia/Tehran). Primary operation: Planning/Design.
 Session status: ACTIVE.
+Prerequisite continuation: [conditional optional-extra correctness repair](2026-10-03_2123_conditional-optional-extra-correctness_lbd-cycle.md); design D/E and broader trial decisions remain open.
 Previous: [report development-case/repair cycle](2026-10-03_1959_report-development-case-check_lbd-cycle.md).
 Owners: [Charter](../PROJECT_CHARTER.md), [Core](../docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md), [Product Decision Model](../docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md), [Minimum Useful Generality](../docs/specifications/UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md), [report-plan re-entry](../plans/MAINTAINER_REPORT_PRESERVATION_AND_USEFULNESS_EVALUATION_PLAN.md).
 

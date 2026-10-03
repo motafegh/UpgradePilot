@@ -73,6 +73,11 @@ class PyprojectOptionalExtraDependencyContext:
     Python packaging extra-name comparison semantics so later workflow selectors can be
     compared without treating ``-``, ``_``, or ``.`` spelling differences as distinct
     environment identities.
+
+    ``requirement_marker`` preserves the parsed changed requirement's condition;
+    ``requirement_extras`` preserves extras requested on that dependency, distinct from
+    the containing project ``extra``. Neither proves condition truth or installation.
+    Normal extraction/analysis supplies these qualifiers from exact head source.
     """
 
     repository: str
@@ -80,6 +85,8 @@ class PyprojectOptionalExtraDependencyContext:
     normalized_package: str
     source_evidence: DependencyChangeSourceEvidence
     extra: str
+    requirement_marker: str | None = None
+    requirement_extras: tuple[str, ...] = ()
 
     @property
     def source_path(self) -> str:

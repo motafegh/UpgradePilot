@@ -84,7 +84,9 @@ def analyze_dependency_change(
     """Establish at most one trusted dependency transition across the whole PR."""
 
     extraction_results: list[DependencyChangeExtractionResult] = []
-    pyproject_optional_extras: dict[DependencyChangeSourceEvidence, str] = {}
+    pyproject_changes: dict[
+        DependencyChangeSourceEvidence, ExtractedPyprojectOptionalExtraChange
+    ] = {}
 
     for changed_file in changed_files:
         if is_exact_requirement_file(changed_file.filename):
@@ -119,9 +121,9 @@ def analyze_dependency_change(
             )
             if isinstance(pyproject_result, ExtractedPyprojectOptionalExtraChange):
                 extraction_results.append(pyproject_result.change)
-                pyproject_optional_extras[
-                    pyproject_result.change.source_evidence
-                ] = pyproject_result.extra
+                pyproject_changes[pyproject_result.change.source_evidence] = (
+                    pyproject_result
+                )
             elif isinstance(pyproject_result, PyprojectOptionalExtraNoChange):
                 # pyproject.toml is a broad project file. An unrelated metadata edit is
                 # neutral to dependency analysis and must not block another admitted
@@ -155,9 +157,7 @@ def analyze_dependency_change(
             identity,
             changed_file.filename,
         )
-        extraction_results.append(
-            extract_uv_lock_changes(base_file, head_file)
-        )
+        extraction_results.append(extract_uv_lock_changes(base_file, head_file))
 
     comparison = compare_extracted_dependency_changes(extraction_results)
     if isinstance(comparison, DependencyChangeProblem):
@@ -168,7 +168,7 @@ def analyze_dependency_change(
         source_contexts=_source_contexts(
             identity,
             comparison,
-            pyproject_optional_extras=pyproject_optional_extras,
+            pyproject_changes=pyproject_changes,
         ),
     )
 
@@ -177,7 +177,9 @@ def _source_contexts(
     identity: PullRequestIdentity,
     dependency: DependencyVersionChange,
     *,
-    pyproject_optional_extras: dict[DependencyChangeSourceEvidence, str],
+    pyproject_changes: dict[
+        DependencyChangeSourceEvidence, ExtractedPyprojectOptionalExtraChange
+    ],
 ) -> tuple[DependencySourceContext, ...]:
     """Translate trusted change provenance into source-scoped dependency contexts.
 
@@ -201,13 +203,18 @@ def _source_contexts(
             continue
 
         if evidence.file_format == "pyproject_optional_extra":
-            extra = pyproject_optional_extras.get(evidence)
-            if extra is None:
+            extracted = pyproject_changes.get(evidence)
+            if extracted is None:
                 raise RuntimeError(
                     "trusted pyproject optional-extra evidence lost its source scope"
                 )
             contexts.append(
-                PyprojectOptionalExtraDependencyContext(extra=extra, **common)
+                PyprojectOptionalExtraDependencyContext(
+                    extra=extracted.extra,
+                    requirement_marker=extracted.requirement_marker,
+                    requirement_extras=extracted.requirement_extras,
+                    **common,
+                )
             )
             continue
 
