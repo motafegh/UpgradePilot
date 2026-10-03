@@ -541,3 +541,27 @@ This is exactly the type of discovery the learning branch exists to preserve. Do
 ### Freshness note for capability map
 
 This capability map was reconciled against current `main@7edb33c7869c92c527d8f282c998f4710f3326d2` (2026-10-03), after the learning branch was originally created. The learning branch remains intentionally separate; this note records the source baseline used for the analysis rather than rebasing or changing `main`.
+
+
+## Synchronization — current main integrated before continued learning
+
+The learning branch was merged with current `main@1236953987ca038ad7b928348cf0da6680f6f621` through merge commit `dd9205507e79031fbb72303d1f37bff971ea3c0c`.
+
+Post-merge comparison confirms:
+
+```text
+learning branch behind main: 0
+main merge base: 1236953987ca038ad7b928348cf0da6680f6f621
+branch-only content: this learning working-memory file
+```
+
+The branch therefore now contains the current report repair, upstream API/target-context design draft, feasibility evidence, dependency-applicability handoff and active main design-cycle record while preserving the separate learning history.
+
+Continue from the synchronized state. The current learning route follows the active D/E design-review questions:
+
+1. source association and authority;
+2. upstream release meaning versus target exposure;
+3. target dependency/adapter context;
+4. declaration/applicability/resolution distinctions including markers;
+5. AI proposal versus deterministic grounding and semantic validation;
+6. bounded feasibility trial versus accepted product capability.
