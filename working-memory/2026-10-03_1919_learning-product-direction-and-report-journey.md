@@ -646,3 +646,53 @@ now: reproduced defect -> repaired conservatively -> D/E learning still open
 ```
 
 The broader architectural rule remains unchanged: preserve conditional dependency semantics rather than flatten them. Marker **truth evaluation** against a justified installer/runtime environment remains a separate future responsibility.
+
+
+## Source-authority stress test 2 — stale current home versus exact-release source
+
+Adversarial case:
+
+```text
+exact package release metadata -> repository A
+exact distribution metadata    -> repository A
+strong provenance              -> unavailable
+current project home later     -> repository B
+```
+
+The key distinction is release scope.
+
+A repository can be stale as the project's **current** home while still being the correct publisher-declared source location for the exact historical release being investigated. Therefore a weaker association should not mean:
+
+```text
+repository A is the current authoritative upstream forever
+```
+
+It should mean only:
+
+```text
+for exact package/version V,
+the retained publisher-controlled release/distribution declarations identify repository A
+as the declared source basis used for this bounded read-only investigation
+```
+
+Consequences:
+
+1. **Move after the release:** repository A may still be a valid historical declared-source basis if the exact release/tag/source can be pinned there. A later move to B does not retroactively falsify A for V.
+2. **Move across the update interval:** if old release V1 declares A and proposed release V2 declares B, do not force one repository identity across both endpoints. Treat this as a repository-transition condition requiring explicit handling/coverage; source windows may span distinct repositories.
+3. **Metadata already stale/wrong for V:** without stronger provenance the system may be unable to prove this. Internal consistency, exact release/distribution identity, and an exact tag/commit can make A inspectable, but still do not prove package-to-commit build origin. The permission ceiling therefore remains read-only, attributed and conditional.
+4. **Missing tag/release structure or internal disagreement:** weaken/stop the association rather than use arbitrary search or a model to guess a replacement repository.
+5. **Later stronger contradiction:** strong provenance or another admitted stronger source that contradicts A overrides the weaker route by producing an explicit conflict, not fallback success.
+
+Conceptual states for design discussion (not current class names):
+
+```text
+declared source usable for exact release
+declared source transition across releases
+declared source ambiguous/conflicted
+declared source insufficient/unresolved
+strong identity mismatch
+```
+
+Stable principle:
+
+> Source association should be version/release scoped. Exact tag/commit pinning establishes inspectable source identity, not distribution build correspondence or timeless repository authority.
