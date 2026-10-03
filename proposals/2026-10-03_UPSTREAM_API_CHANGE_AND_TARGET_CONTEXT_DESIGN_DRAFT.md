@@ -78,6 +78,10 @@ Candidate inputs include the changed dependency declaration, eligible Python sou
 
 For framework-mediated paths, declared requirements constrain possible versions; they do not identify what was installed. Fetch version-specific adapter metadata/source only when the path and a discriminating question justify it. A large version range must remain a range unless proof closes it; do not inspect two familiar versions and call the interval exhausted.
 
+Conditional dependency relationships must retain the declaration's version constraint, dependency extras and environment marker, together with the containing project extra/group/root and source identity where relevant. A dependency's requested extras and the project's containing extra are different facts. Selecting the containing extra, consuming a file or finding a lock entry does not establish that every conditional requirement applies to the selected environment. Compose only selection/applicability facts actually established by scoped evidence; unsupported or unbound conditions remain explicit unknowns. This is a preservation/claim constraint, not a requirement to implement a universal resolver or every marker dimension in the first trial.
+
+The [parallel applicability handoff](../working-memory/2026-10-03_dependency-applicability-and-marker-propagation_handoff.md) supplies S015/S016 context for this refinement. A [read-only composition diagnostic](../working-memory/evidence/2026-10-03-marker-propagation-review/result.json) additionally reproduces an existing optional-extra problem: an unchanged `python_version < "3.12"` marker is lost after exact-pin extraction, and the normal static collector reports positive changed-dependency consumption when the selected workflow declares Python 3.12. This diagnostic uses synthetic exact files and a mocked acquisition provider; it does not establish live CLI output, runtime installation or overall compatibility. Repair, if admitted, belongs at the earliest adequate dependency/applicability owner before broader target-context integration, with conditional source facts retained and honest unresolved outcomes when applicability is not established. Report wording cannot repair an incorrect producer claim.
+
 The HTTPX development example is:
 
 ```text
@@ -136,6 +140,7 @@ This narrowing is justified by the observed end-to-end gap and a retrievable sou
 ## 10. Trial sequence and proof conditions, if admitted
 
 1. Resolve source-basis eligibility and preserve the current stronger contract. Define exact permitted effects and failure/declared/conflict states before implementation.
+   Review the reproduced optional-extra marker-loss defect before broader target-context integration. Any separately admitted repair must protect false/true/unknown applicability and unaffected unconditional selection; do not silently turn this design trial into general packaging support.
 2. Freeze trial inputs, code/model/prompt/contract identities, capability limits, expected/forbidden meanings outside producer inputs, and case roles. Known HTTPX and Soup Sieve controls are development data; identify separate variation/protected material before broader claims.
 3. Implement only the minimal read-only acquisition/retention and structured proposal path in its admitted home. An isolated evaluation is not product integration; later product behavior belongs in `src/` with active product tests.
 4. Test identity conflicts, absent provenance, contradictory links, release boundaries, grounding, partial context and malformed/untrusted output. Compare equivalent supplied evidence when comparing interpretation methods; compare acquisition modes separately.

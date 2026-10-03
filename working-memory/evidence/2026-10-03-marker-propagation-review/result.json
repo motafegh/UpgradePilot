@@ -1,0 +1,207 @@
+{
+  "reviewed_commit": "1236953987ca038ad7b928348cf0da6680f6f621",
+  "source_tree": "3656c5c7bf2e7fed68e07e037004f56137dc55b5",
+  "proof_class": "synthetic exact-source composition diagnostic; no live CLI/runtime proof",
+  "cases": [
+    {
+      "marker": "python_version < \"3.12\"",
+      "selected_extra": "speed",
+      "marker_truth_for_declared_python_3_12": false,
+      "base_project": "[project]\nname = \"demo\"\nversion = \"0.1.0\"\n[project.optional-dependencies]\nspeed = ['numpy==1.0; python_version < \"3.12\"']\nother = ['pytest']\n",
+      "head_project": "[project]\nname = \"demo\"\nversion = \"0.1.0\"\n[project.optional-dependencies]\nspeed = ['numpy==2.0; python_version < \"3.12\"']\nother = ['pytest']\n",
+      "workflow": "name: test\njobs:\n  test:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.12'\n      - run: pip install -e \".[speed]\"\n",
+      "context_fields": [
+        "repository",
+        "revision",
+        "normalized_package",
+        "source_evidence",
+        "extra"
+      ],
+      "consumptions": [
+        {
+          "state": "supported",
+          "mechanism": "project_environment",
+          "normalized_package": "numpy",
+          "workflow_path": ".github/workflows/test.yml",
+          "workflow_revision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "job_key": "test",
+          "step_source_index": 2,
+          "command": "pip install -e \".[speed]\"",
+          "reason": "selected_project_environment_contains_changed_dependency",
+          "detail": "Dependency-owned project-source evidence establishes that this static selection includes the affected project environment containing the changed dependency. Runtime execution and success are not established.",
+          "source_path": "pyproject.toml",
+          "reachability_kind": null,
+          "witness_path": [],
+          "conditional_candidate_path": [],
+          "unresolved_conditions": [],
+          "command_location": {
+            "source_span": {
+              "start_byte": 0,
+              "end_byte": 25,
+              "start_line": 0,
+              "start_column": 0,
+              "end_line": 0,
+              "end_column": 25
+            },
+            "source_order": 0
+          },
+          "structural_context": [
+            "straightforward_top_level"
+          ],
+          "whole_step_relation": "sole_ordinary_top_level_command",
+          "execution_profile": "github_default_non_windows"
+        }
+      ]
+    },
+    {
+      "marker": "python_version >= \"3.12\"",
+      "selected_extra": "speed",
+      "marker_truth_for_declared_python_3_12": true,
+      "base_project": "[project]\nname = \"demo\"\nversion = \"0.1.0\"\n[project.optional-dependencies]\nspeed = ['numpy==1.0; python_version >= \"3.12\"']\nother = ['pytest']\n",
+      "head_project": "[project]\nname = \"demo\"\nversion = \"0.1.0\"\n[project.optional-dependencies]\nspeed = ['numpy==2.0; python_version >= \"3.12\"']\nother = ['pytest']\n",
+      "workflow": "name: test\njobs:\n  test:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.12'\n      - run: pip install -e \".[speed]\"\n",
+      "context_fields": [
+        "repository",
+        "revision",
+        "normalized_package",
+        "source_evidence",
+        "extra"
+      ],
+      "consumptions": [
+        {
+          "state": "supported",
+          "mechanism": "project_environment",
+          "normalized_package": "numpy",
+          "workflow_path": ".github/workflows/test.yml",
+          "workflow_revision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "job_key": "test",
+          "step_source_index": 2,
+          "command": "pip install -e \".[speed]\"",
+          "reason": "selected_project_environment_contains_changed_dependency",
+          "detail": "Dependency-owned project-source evidence establishes that this static selection includes the affected project environment containing the changed dependency. Runtime execution and success are not established.",
+          "source_path": "pyproject.toml",
+          "reachability_kind": null,
+          "witness_path": [],
+          "conditional_candidate_path": [],
+          "unresolved_conditions": [],
+          "command_location": {
+            "source_span": {
+              "start_byte": 0,
+              "end_byte": 25,
+              "start_line": 0,
+              "start_column": 0,
+              "end_line": 0,
+              "end_column": 25
+            },
+            "source_order": 0
+          },
+          "structural_context": [
+            "straightforward_top_level"
+          ],
+          "whole_step_relation": "sole_ordinary_top_level_command",
+          "execution_profile": "github_default_non_windows"
+        }
+      ]
+    },
+    {
+      "marker": null,
+      "selected_extra": "speed",
+      "marker_truth_for_declared_python_3_12": true,
+      "base_project": "[project]\nname = \"demo\"\nversion = \"0.1.0\"\n[project.optional-dependencies]\nspeed = ['numpy==1.0']\nother = ['pytest']\n",
+      "head_project": "[project]\nname = \"demo\"\nversion = \"0.1.0\"\n[project.optional-dependencies]\nspeed = ['numpy==2.0']\nother = ['pytest']\n",
+      "workflow": "name: test\njobs:\n  test:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.12'\n      - run: pip install -e \".[speed]\"\n",
+      "context_fields": [
+        "repository",
+        "revision",
+        "normalized_package",
+        "source_evidence",
+        "extra"
+      ],
+      "consumptions": [
+        {
+          "state": "supported",
+          "mechanism": "project_environment",
+          "normalized_package": "numpy",
+          "workflow_path": ".github/workflows/test.yml",
+          "workflow_revision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "job_key": "test",
+          "step_source_index": 2,
+          "command": "pip install -e \".[speed]\"",
+          "reason": "selected_project_environment_contains_changed_dependency",
+          "detail": "Dependency-owned project-source evidence establishes that this static selection includes the affected project environment containing the changed dependency. Runtime execution and success are not established.",
+          "source_path": "pyproject.toml",
+          "reachability_kind": null,
+          "witness_path": [],
+          "conditional_candidate_path": [],
+          "unresolved_conditions": [],
+          "command_location": {
+            "source_span": {
+              "start_byte": 0,
+              "end_byte": 25,
+              "start_line": 0,
+              "start_column": 0,
+              "end_line": 0,
+              "end_column": 25
+            },
+            "source_order": 0
+          },
+          "structural_context": [
+            "straightforward_top_level"
+          ],
+          "whole_step_relation": "sole_ordinary_top_level_command",
+          "execution_profile": "github_default_non_windows"
+        }
+      ]
+    },
+    {
+      "marker": "python_version < \"3.12\"",
+      "selected_extra": "other",
+      "marker_truth_for_declared_python_3_12": false,
+      "base_project": "[project]\nname = \"demo\"\nversion = \"0.1.0\"\n[project.optional-dependencies]\nspeed = ['numpy==1.0; python_version < \"3.12\"']\nother = ['pytest']\n",
+      "head_project": "[project]\nname = \"demo\"\nversion = \"0.1.0\"\n[project.optional-dependencies]\nspeed = ['numpy==2.0; python_version < \"3.12\"']\nother = ['pytest']\n",
+      "workflow": "name: test\njobs:\n  test:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.12'\n      - run: pip install -e \".[other]\"\n",
+      "context_fields": [
+        "repository",
+        "revision",
+        "normalized_package",
+        "source_evidence",
+        "extra"
+      ],
+      "consumptions": [
+        {
+          "state": "not_established",
+          "mechanism": "project_environment",
+          "normalized_package": "numpy",
+          "workflow_path": ".github/workflows/test.yml",
+          "workflow_revision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "job_key": "test",
+          "step_source_index": 2,
+          "command": "pip install -e \".[other]\"",
+          "reason": "selected_environment_membership_not_established",
+          "detail": "The visible positive selectors do not establish selection of the affected optional extra 'speed'.",
+          "source_path": "pyproject.toml",
+          "reachability_kind": null,
+          "witness_path": [],
+          "conditional_candidate_path": [],
+          "unresolved_conditions": [],
+          "command_location": {
+            "source_span": {
+              "start_byte": 0,
+              "end_byte": 25,
+              "start_line": 0,
+              "start_column": 0,
+              "end_line": 0,
+              "end_column": 25
+            },
+            "source_order": 0
+          },
+          "structural_context": [
+            "straightforward_top_level"
+          ],
+          "whole_step_relation": "sole_ordinary_top_level_command",
+          "execution_profile": "github_default_non_windows"
+        }
+      ]
+    }
+  ]
+}
