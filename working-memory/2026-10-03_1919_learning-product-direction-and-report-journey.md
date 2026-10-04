@@ -696,3 +696,43 @@ strong identity mismatch
 Stable principle:
 
 > Source association should be version/release scoped. Exact tag/commit pinning establishes inspectable source identity, not distribution build correspondence or timeless repository authority.
+
+
+## Synchronization — target-context and adapter exploration increment
+
+The learning branch was synchronized with current `main@3fa96d3eee9268237f29e302bc4541ad95d56789` through merge commit `583f09a077b4276e6a138ad807439bdf079848b7`.
+
+Main added the next API-feasibility component in isolated `experiments/` code:
+
+```text
+ordinary PR identity
+→ exact head tree inventory
+→ bounded eligible source/declaration acquisition
+→ static Python AST imports/calls/bases
+→ raw dependency declarations with extras/markers/specifiers
+→ import↔declared-distribution candidates
+→ bounded version-specific adapter-source exploration
+```
+
+Live ordinary acquisition for Kubernetes-dashboard PR #20 independently found:
+- exact HTTPX transition `0.27.2 -> 0.28.1`;
+- target declaration `fastapi[standard]`;
+- `tests/test_routes.py` import of `fastapi.testclient.TestClient`;
+- a static `TestClient(app)` call;
+- the HTTPX crossed-release window.
+
+Initial adapter exploration sampled FastAPI and found `fastapi/testclient.py -> starlette.testclient.TestClient`. A later component replay, seeded only from retained producer facts, acquired sampled Starlette source and found conditional `httpx`/`httpx2` imports plus `httpx.Client` source references.
+
+Critical proof boundary:
+
+```text
+sampled latest stable satisfying visible constraints
+!=
+historical target resolved/installed version
+```
+
+Therefore the trial now supports an independently discovered plausible framework/adapter relationship, but does not establish that the target used FastAPI 0.142.2 or Starlette 1.7.0, nor that the actual historical Starlette branch passed `app=` to HTTPX. Actual resolution/activation/runtime/compatibility remain unknown.
+
+Local engineering proof is green: 37 focused tests, 743/743 product regression, Ruff/format and pip check. Corrected fresh full ordinary live verification is still pending because configured token auth returned HTTP 401 and anonymous API quota was exhausted during replay.
+
+Current main continuation: rerun the corrected full ordinary path after valid auth/quota recovery; then, if sufficient, freeze semantic role/input/case labels and begin bounded API interpretation + conditional composition. No model interpretation has been run yet.
