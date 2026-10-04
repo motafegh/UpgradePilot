@@ -23,9 +23,9 @@ Trial records must expose:
 | Record | Required information |
 | --- | --- |
 | Input/run manifest | Exact PR/base/head/dependency; mode; code/provider/model/prompt/schema identity; time/auth mode; limits, costs, failures and case role |
-| Association/examined source | Basis and eligibility; exact release/metadata/distribution scope; candidate declarations/conflicts; pinned repository/commit/path/text/hash; covered releases and omitted/unavailable scope |
+| Association/examined source | Basis and eligibility; exact release/metadata/distribution scope; candidate declarations/conflicts; pinned repository/commit/path/text/hash; bounded recoverable sections, required/covered/missing/ambiguous releases and separately stated complete-window admission |
 | Change proposal | Source IDs/quotes/ranges; affected interface and attributed change kind/time/direction; uncertainty; no model-selected authority |
-| Target context/proposal | Exact source identity; static import/call/declaration facts; requirement constraints/extras/markers; separately attributed proposed relationships; adapter version/sample scope; unresolved resolution/activation |
+| Target context/proposal | Exact source identity; static import/call/declaration facts; ordered, scoped binding assessments with source traces and alternative/unknown states; requirement constraints/extras/markers; separately attributed proposed relationships; adapter version/sample scope; unresolved resolution/activation |
 | Conditional impact proposal | Change/exposure/activation/consequence premises and supporting/refuting/missing evidence; explicit alternative-path/coverage limits; proposal strength rather than invented applicability |
 | Trial summary | Findings and useful unknowns with reasons/source references; unassessed observations; no new action permission or claim of accepted product report compatibility |
 
@@ -59,6 +59,17 @@ Implement the ADR's separate declared-source eligibility/result. Test absence/co
 
 Resolve exact version/tag/commit/file relationships and every admitted crossed-release section. Generic version/tag normalization is allowed; package/repository-specific expected-answer mappings are not. Preserve structural ambiguity, unparseable/missing releases, quotation bounds and source coverage. Existing stronger evidence objects are not fallback containers for weaker bases.
 
+### Preserve partial release-window evidence before relying on complete-window interpretation
+
+Separate evidence collection/retention from admission of a complete crossed window. An incomplete window must retain independently usable acquired evidence without becoming an accepted complete window. Implement this as one coherent acquisition-to-manifest increment, not a downstream reconstruction of discarded source.
+
+- Retain the acquired source identity/hash, required versions, uniquely recovered exact sections/ranges, and missing, duplicate, unparseable or inconsistent section assessments. Where multiple sections compete, preserve bounded candidates as ambiguous evidence; do not choose a winner. Keep file-acquisition failures distinct from section-selection failures.
+- Complete-window admission still requires all required releases with unique, consistent sections inside the admitted limits. A retained section supports only its own examined scope; it cannot fill another release's gap or establish that every change was interpreted.
+- Budget/size failures retain recoverable identity, scoped metadata and permitted evidence with explicit omissions. Do not evade limits by retaining unbounded text or silently selecting a smaller window. Absence of acquired text must remain absence of evidence.
+- Define the experiment result and manifest contract before editing: successful and partial results, problem attribution, bounded text or exact recovery, and downstream eligibility. Keep the product source-authority types and report v1 unchanged.
+
+The earliest owner is `experiments/api_change_source_acquisition.py`; propagate its result through `experiments/api_target_context_smoke.py` and affected experiment consumers. Inspect serialization/recovery rather than proving retention only in the selector. Independent target/adapter evidence must survive upstream incompleteness. Update replay only where its actual input contract is affected.
+
 ### Acquire exact target context independently of CI availability
 
 From exact head identity, acquire a bounded tree inventory and eligible Python/project/dependency declaration files. Use generic paths/extensions and explicit generated/environment-directory exclusions; record exclusions and read/parse failures. Source inventory/acquisition precedes relevant import/call selection, so the known `tests/test_routes.py` path cannot be supplied as an answer.
@@ -66,6 +77,34 @@ From exact head identity, acquire a bounded tree inventory and eligible Python/p
 Use AST parsing for static imports, aliases and call references; preserve limitations for wrappers/dynamic behavior. Parse supported declaration forms without pretending to run a resolver; retain raw requirements and conditions for unsupported forms. Independent model relationship proposals stay attributed proposals unless separately supported. Actual resolution, installer state and later exercise remain separate facts.
 
 Investigate framework/adapter metadata/source only from an already acquired relationship and discriminating question. Version-specific evidence must come from exact justified versions or openly labeled exploration samples; unpinned/ranged constraints do not become a resolved version. Sampled old/fixed branches do not exhaust a range. If normal acquisition cannot supply a necessary adapter relation, preserve that premise and treat the normal-path exposure goal as incomplete; do not inject the known Starlette story.
+
+### Improve ordered, scoped binding evidence before broader target-exposure claims
+
+The full responsibility is useful, source-linked Python target exposure, including honest uncertainty. File-wide name blocking is a conservative baseline but loses valid evidence when rebinding occurs later, an alias is restored, or the same spelling belongs to an unrelated scope. Refine the AST analysis by statement order and lexical scope; do not replace it with expected package/class names.
+
+First freeze the supported construct set and binding-state/trace contract. The initial coherent increment should cover imports, simple name-to-name alias copies, reassignment to known or unknown origins, restoration through saved aliases or reimports, and separation of module bindings from function-local/parameter bindings. Respect Python's function-wide local-name rules; a local assignment can affect an earlier read. A function's definition-time global binding does not establish its binding at a later call. Mutable globals, closures and cross-function parameter/value propagation remain unresolved unless separately supported and proven.
+
+For supported conditional branches, combine possible states: paths agreeing on an imported origin may preserve that static association; differing origins, an unknown path or an unbound path must preserve alternatives/uncertainty. Never assume a condition's truth or backend activation. Specify invalidation for deletion, unsupported writes/control flow, star imports and dynamic constructs; do not silently carry a stale binding across them.
+
+Each assessment must distinguish an established static origin from conditional/multiple origins, unknown value and unbound name, with source-linked import → assignment/alias → reference steps and exact limitation reasons. These are source-analysis states, not proof of runtime identity or an installed distribution. If an origin is restored, retain the trace explaining restoration rather than deleting the intermediate uncertainty.
+
+Start with the simplest adequate structured AST binding-state analysis. It uses data-flow concepts without requiring a separate control-flow graph (CFG), data-flow graph (DFG), framework or dependency. Loop fixed-point analysis, interprocedural propagation and dynamic Python are temporarily unsupported where not admitted by the construct set. Re-enter those capabilities when real decision-critical cases and proportional proof show that the baseline cannot fulfil the needed exposure responsibility. An explicit CFG solver may then be justified; a DFG may project the same evidence rather than become a second truth engine.
+
+The producer is `experiments/api_target_context.py`. Trace its output through manifest serialization, `experiments/api_adapter_context_replay.py` and the adapter explorer before changing record fields or positive-reference admission. Preserve uncertain alternatives separately from a uniquely associated `lexical_import`; a consumer must not turn a possible origin into an established relation. Any candidate exploration based on uncertainty must retain that basis. Define experiment packet compatibility/version handling where affected. This does not change product report reopening or confer resolver/action authority.
+
+### Refinement sequence and discriminating proof
+
+Build partial-window retention first, then ordered/scoped bindings, as independently verifiable increments before relying on their changed evidence in broader interpretation/exposure claims. Source-only interpretation contract/case preparation may proceed independently where it does not consume the affected target binding results. Do not make advanced graph analysis a prerequisite for all interpretation work.
+
+| Responsibility | Required discriminating evidence |
+| --- | --- |
+| Partial-window retention | Missing required section alongside a usable section; duplicate/ambiguous sections without a selected winner; malformed/order/overlap/size failures; bounded retention and manifest recovery; no incomplete result admitted as complete; unchanged fully covered case |
+| Ordered bindings | Call before and after rebinding; alias copies and chains; saved-alias/reimport restoration; unknown reassignment; renamed variables and different import paths with equivalent meaning |
+| Scope/control flow | Unrelated parameter does not invalidate module evidence; local-name rules and delayed global reads; agreeing/differing branches, unknown/unbound paths, conditional imports and deletion; affected unsupported constructs explicitly invalidate or limit analysis |
+| Consumer integrity | Source/range/trace integrity; serialization and affected replay compatibility; producer → normal adapter exploration preserves positive versus conditional/unknown distinctions; no supplied target-path/adapter answer |
+| Generality and claims | Constructed controls labeled as such; relevant real Python target evidence supplements them before broader claims; development case and frozen varied-case protocol remain unchanged; static association does not establish installation, activation, exercised compatibility, model semantics or usefulness |
+
+Run the focused tests and normal composition/recovery proof appropriate to each increment, then the active trial regression. Inspect product regression obligations if a shared boundary changes; experiment tests alone cannot establish product adoption. Freeze unresolved representation/construct choices before the respective Build increment. Stop and return to the proper owner if the design requires a new durable cross-layer contract or expanded product authority.
 
 ### Implement bounded change interpretation and proposal composition
 
