@@ -1,7 +1,11 @@
 """Deterministic trial proof: association boundaries and provider composition."""
 
+import hashlib
+import json
+from contextlib import redirect_stdout
 from dataclasses import replace
 from datetime import UTC, datetime
+from io import StringIO
 from unittest import TestCase
 from unittest.mock import Mock, patch
 
@@ -10,11 +14,15 @@ from experiments.api_change_source_acquisition import (
     DeclaredReleaseWindow,
     DeclaredReleaseWindowAcquirer,
     DeclaredSourceAssociation,
+    IncompleteDeclaredReleaseWindow,
     PublisherProvenanceInspection,
+    ReleaseWindowExamination,
     TrialPublicSession,
     associate_declared_source,
     select_release_sections,
 )
+from experiments.api_change_source_smoke import main as source_smoke_main
+from experiments.api_release_window_manifest import release_window_manifest
 from upgradepilot.github.changelog import DiscoveredChangelogPath
 from upgradepilot.github.repository import RepositoryTextFile
 from upgradepilot.github.tag import GitHubTagCommitEvidence, GitHubTagCommitProblem
@@ -157,6 +165,110 @@ class WindowTests(TestCase):
                     AcquisitionProblem,
                 )
 
+    def test_missing_versions_do_not_erase_later_available_evidence(self):
+        text = "## 2.0\nremoved café\n"
+        result = select_release_sections(self.file(text), ("1.5", "1.7", "2.0"))
+        evidence = result.evidence
+        self.assertIsInstance(evidence, ReleaseWindowExamination)
+        self.assertEqual(evidence.required_versions, ("1.5", "1.7", "2.0"))
+        self.assertEqual(evidence.missing_or_unsupported_versions, ("1.5", "1.7"))
+        self.assertEqual(evidence.candidates[0].text, text)
+        self.assertEqual(evidence.candidates[0].match_count, 1)
+        self.assertEqual(
+            evidence.full_source_sha256, hashlib.sha256(text.encode()).hexdigest()
+        )
+        self.assertEqual(
+            (evidence.repository, evidence.revision, evidence.path),
+            ("owner/demo", SHA, "CHANGELOG.md"),
+        )
+
+    def test_duplicate_candidates_are_all_retained_without_a_winner(self):
+        text = "## 2.0\nfirst\n## 1.5\nunique\n## 2.0\nsecond\n"
+        result = select_release_sections(self.file(text), ("1.5", "2.0"))
+        self.assertIsInstance(result, AcquisitionProblem)
+        self.assertEqual(result.evidence.ambiguous_versions, ("2.0",))
+        candidates = result.evidence.candidates
+        self.assertEqual([s.match_count for s in candidates], [2, 1, 2])
+        self.assertEqual(
+            [s.text for s in candidates],
+            ["## 2.0\nfirst\n", "## 1.5\nunique\n", "## 2.0\nsecond\n"],
+        )
+        for candidate in candidates:
+            recovered = text[candidate.start_offset : candidate.end_offset]
+            self.assertEqual(candidate.text, recovered)
+            self.assertEqual(
+                candidate.sha256, hashlib.sha256(recovered.encode()).hexdigest()
+            )
+
+    def test_unsupported_heading_is_not_claimed_as_documentation_absence(self):
+        result = select_release_sections(
+            self.file("## 2.0 (2024-02-31)\nchange\n## 1.5\nknown\n"), ("1.5", "2.0")
+        )
+        self.assertEqual(result.evidence.missing_or_unsupported_versions, ("2.0",))
+        self.assertEqual(result.evidence.candidates[0].version, "1.5")
+
+    def test_inconsistent_ranges_and_order_keep_observations_not_admission(self):
+        for text, versions in [
+            ("# 2.0\nouter\n## 1.5\ninner\n", ("1.5", "2.0")),
+            ("## 1.5\nx\n## 2.0\ny\n## 1.7\nz\n", ("1.5", "1.7", "2.0")),
+        ]:
+            with self.subTest(text=text):
+                result = select_release_sections(self.file(text), versions)
+                self.assertEqual(result.evidence.issues, ("section_order_or_overlap",))
+                self.assertEqual(len(result.evidence.candidates), len(versions))
+                self.assertTrue(
+                    all(c.text is not None for c in result.evidence.candidates)
+                )
+
+    def test_budget_omits_text_but_recovers_exact_ranges_and_hashes(self):
+        text = "## 2.0\nlong café\n## 1.5\nother\n"
+        result = select_release_sections(
+            self.file(text), ("1.5", "2.0"), max_characters=3
+        )
+        packet = json.loads(json.dumps(release_window_manifest(result)))
+        examination = packet["section_examination"]
+        self.assertFalse(packet["complete_window_eligible"])
+        self.assertNotIn("window_sha256", packet)
+        self.assertNotIn("coverage", packet)
+        self.assertEqual(
+            examination["text_omission_reason"],
+            "candidate_text_exceeds_character_budget",
+        )
+        self.assertEqual(examination["max_characters"], 3)
+        for candidate in examination["candidates"]:
+            self.assertIsNone(candidate["text"])
+            recovered = text[candidate["start_offset"] : candidate["end_offset"]]
+            self.assertEqual(
+                candidate["sha256"], hashlib.sha256(recovered.encode()).hexdigest()
+            )
+
+    def test_all_selection_issues_survive_a_single_incomplete_result(self):
+        text = "# 2.0\nx\n## 2.0\ny\n"
+        result = select_release_sections(
+            self.file(text), ("1.5", "2.0"), max_characters=3
+        )
+        evidence = result.evidence
+        self.assertEqual(evidence.missing_or_unsupported_versions, ("1.5",))
+        self.assertEqual(evidence.ambiguous_versions, ("2.0",))
+        self.assertEqual(
+            evidence.issues,
+            (
+                "missing_or_duplicate_section",
+                "section_order_or_overlap",
+                "window_too_large",
+            ),
+        )
+        self.assertEqual(len(evidence.candidates), 2)
+        self.assertTrue(all(c.text is None for c in evidence.candidates))
+
+    def test_exact_budget_boundary_keeps_whole_candidate_text(self):
+        text = "## 2.0\nchange\n"
+        result = select_release_sections(
+            self.file(text), ("1.5", "2.0"), max_characters=len(text)
+        )
+        self.assertIsNone(result.evidence.text_omission_reason)
+        self.assertEqual(result.evidence.candidates[0].text, text)
+
 
 class CompositionTests(TestCase):
     def runner(self):
@@ -215,6 +327,75 @@ class CompositionTests(TestCase):
         )
         self.assertEqual(len(result.window_sha256), 64)
 
+    def test_partial_acquisition_retains_source_chain_through_source_cli(self):
+        runner = self.runner()
+        file = replace(
+            runner.files.get_exact_commit_text_file.return_value,
+            content="## 2.0\nretained change\n",
+        )
+        runner.files.get_exact_commit_text_file.return_value = file
+        result = runner.acquire(DependencyReleaseInterval("demo", "demo", "1.0", "2.0"))
+        self.assertIsInstance(result, AcquisitionProblem)
+        self.assertIsInstance(result.evidence, IncompleteDeclaredReleaseWindow)
+        self.assertEqual(len(result.evidence.release_associations), 2)
+        self.assertEqual(result.evidence.examination.required_versions, ("1.5", "2.0"))
+        output = StringIO()
+        # Exercise the actual writer and exit status, not only its shared helper.
+        with (
+            patch("sys.argv", ["source-smoke", "demo", "1.0", "2.0"]),
+            patch(
+                "experiments.api_change_source_smoke.DeclaredReleaseWindowAcquirer",
+                return_value=runner,
+            ),
+            redirect_stdout(output),
+        ):
+            status = source_smoke_main()
+        packet = json.loads(output.getvalue())
+        self.assertEqual(status, 1)
+        self.assertEqual(packet["state"], "incomplete")
+        self.assertFalse(packet["complete_window_eligible"])
+        self.assertEqual(
+            packet["section_examination"]["candidates"][0]["text"], file.content
+        )
+        self.assertEqual(
+            packet["source_context"]["release_metadata_urls"],
+            [release("1.5").source_url, release("2.0").source_url],
+        )
+        self.assertEqual(
+            packet["source_context"]["provenance_states"], ["source_unavailable"] * 2
+        )
+        self.assertEqual(
+            packet["source_context"]["tags"][0]["resolved_commit_sha"], SHA
+        )
+
+    def test_complete_manifest_retains_original_window_hash_and_scoped_text(self):
+        runner = self.runner()
+        result = runner.acquire(DependencyReleaseInterval("demo", "demo", "1.0", "2.0"))
+        packet = json.loads(json.dumps(release_window_manifest(result)))
+        self.assertTrue(packet["complete_window_eligible"])
+        self.assertEqual(packet["window_sha256"], result.window_sha256)
+        self.assertEqual(
+            [s["text"] for s in packet["sections"]], [s.text for s in result.sections]
+        )
+        self.assertEqual(packet["coverage"], result.coverage)
+        output = StringIO()
+        with (
+            patch("sys.argv", ["source-smoke", "demo", "1.0", "2.0"]),
+            patch(
+                "experiments.api_change_source_smoke.DeclaredReleaseWindowAcquirer",
+                return_value=runner,
+            ),
+            redirect_stdout(output),
+        ):
+            status = source_smoke_main()
+        saved = json.loads(output.getvalue())
+        self.assertEqual(status, 0)
+        self.assertEqual(saved["commit"], result.file.revision)
+        self.assertEqual(saved["crossed_versions"], list(result.ordered_versions))
+        self.assertEqual(saved["full_source_sha256"], result.full_text_sha256)
+        self.assertEqual(saved["window_sha256"], result.window_sha256)
+        self.assertEqual(saved["sections"], packet["sections"])
+
     def test_file_transport_and_budget_failure_remain_typed_window_problems(self):
         from upgradepilot.github.api import GitHubAcquisitionError, GitHubResponseError
 
@@ -237,6 +418,10 @@ class CompositionTests(TestCase):
                 )
                 self.assertIsInstance(result, AcquisitionProblem)
                 self.assertEqual((result.stage, result.reason), ("file", reason))
+                packet = release_window_manifest(result)
+                self.assertFalse(packet["complete_window_eligible"])
+                self.assertNotIn("section_examination", packet)
+                self.assertNotIn("source_context", packet)
 
     def test_tag_conflict_transport_and_budget_do_not_produce_window(self):
         for failure in ["conflict", "transport", "budget", "move"]:

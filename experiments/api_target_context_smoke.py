@@ -34,6 +34,7 @@ from .api_change_source_acquisition import (
     DeclaredReleaseWindowAcquirer,
     TrialPublicSession,
 )
+from .api_release_window_manifest import release_window_manifest
 from .api_target_context import (
     TargetContext,
     TargetContextAcquirer,
@@ -137,6 +138,7 @@ def trial_manifest(
                 "api_adapter_exploration.py",
                 "api_target_context_smoke.py",
                 "api_change_source_acquisition.py",
+                "api_release_window_manifest.py",
             )
         },
     }
@@ -148,32 +150,13 @@ def trial_manifest(
             "reason": result.reason,
             "detail": result.detail,
         }
-    upstream = result.upstream
-    if isinstance(upstream, AcquisitionProblem):
-        source = {
-            "state": "incomplete",
-            "stage": upstream.stage,
-            "reason": upstream.reason,
-            "detail": upstream.detail,
-        }
-    else:
-        source = {
-            "state": "available",
-            "basis": upstream.association.basis,
-            "repository": upstream.file.repository,
-            "revision": upstream.file.revision,
-            "path": upstream.file.path,
-            "versions": upstream.ordered_versions,
-            "sha256": upstream.full_text_sha256,
-            "window_sha256": upstream.window_sha256,
-        }
     return {
         **manifest,
         "state": "context_acquired",
         "identity": asdict(result.identity),
         "dependency": asdict(result.analysis.dependency),
         "target": context_manifest(result.target),
-        "upstream": source,
+        "upstream": release_window_manifest(result.upstream),
         "adapter_exploration": {
             "samples": [
                 {

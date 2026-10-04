@@ -18,6 +18,7 @@ from .api_change_source_acquisition import (
     DeclaredReleaseWindow,
     DeclaredReleaseWindowAcquirer,
 )
+from .api_release_window_manifest import release_window_manifest
 
 
 def main() -> int:
@@ -36,6 +37,9 @@ def main() -> int:
         "source_component_sha256": hashlib.sha256(
             Path(__file__).with_name("api_change_source_acquisition.py").read_bytes()
         ).hexdigest(),
+        "manifest_component_sha256": hashlib.sha256(
+            Path(__file__).with_name("api_release_window_manifest.py").read_bytes()
+        ).hexdigest(),
         "input": vars(args),
         "timestamp": datetime.now(UTC).isoformat(),
         "auth": "anonymous",
@@ -47,6 +51,7 @@ def main() -> int:
             "window_characters": 20000,
         },
     }
+    manifest.update(release_window_manifest(result))
     if isinstance(result, DeclaredReleaseWindow):
         manifest.update(
             {
@@ -66,30 +71,11 @@ def main() -> int:
                 "path": result.file.path,
                 "full_source_sha256": result.full_text_sha256,
                 "window_sha256": result.window_sha256,
-                "sections": [
-                    {
-                        "version": s.version,
-                        "start_line": s.start_line,
-                        "start_offset": s.start_offset,
-                        "end_offset": s.end_offset,
-                        "characters": len(s.text),
-                    }
-                    for s in result.sections
-                ],
                 "tag_problems": [
                     {"state": p.state, "tag": p.requested_tag, "detail": p.detail}
                     for p in result.tag_problems
                 ],
                 "coverage": result.coverage,
-            }
-        )
-    else:
-        manifest.update(
-            {
-                "state": "incomplete",
-                "stage": result.stage,
-                "reason": result.reason,
-                "detail": result.detail,
             }
         )
     print(json.dumps(manifest, indent=2))

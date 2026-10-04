@@ -11,7 +11,7 @@ from __future__ import annotations
 
 import hashlib
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from datetime import UTC, datetime
 from itertools import pairwise
 from urllib.parse import urlsplit
@@ -153,6 +153,59 @@ class ReleaseSection:
 
 
 @dataclass(frozen=True)
+class ReleaseSectionCandidate:
+    """Observed exact-heading match, including competing matches; no winner."""
+
+    version: str
+    match_count: int
+    start_line: int
+    start_offset: int
+    end_offset: int
+    sha256: str
+    text: str | None
+
+
+@dataclass(frozen=True)
+class ReleaseWindowExamination:
+    """Acquired-file observations retained when complete admission fails.
+
+    Ranges use character offsets; hashes cover UTF-8 bytes. No-match means missing
+    or outside the admitted heading grammar, never proven undocumented release.
+    All candidate text is omitted if its aggregate exceeds the budget; metadata
+    still identifies exact recovery, without silently choosing a smaller window.
+    """
+
+    repository: str
+    revision: str
+    path: str
+    full_source_sha256: str
+    required_versions: tuple[str, ...]
+    candidates: tuple[ReleaseSectionCandidate, ...]
+    missing_or_unsupported_versions: tuple[str, ...]
+    ambiguous_versions: tuple[str, ...]
+    issues: tuple[str, ...]
+    max_characters: int
+    text_omission_reason: str | None
+
+
+@dataclass(frozen=True)
+class IncompleteDeclaredReleaseWindow:
+    """Section examination with the acquired declaration/provenance chain.
+
+    Retaining this context does not construct an admitted DeclaredReleaseWindow.
+    No file-acquisition failure can produce a section examination.
+    """
+
+    interval: DependencyReleaseInterval
+    release_associations: tuple[DeclaredSourceAssociation, ...]
+    release_index: PackageReleaseIndexEvidence
+    ignored_index_versions: tuple[str, ...]
+    tags: tuple[GitHubTagCommitEvidence, ...]
+    tag_problems: tuple[object, ...]
+    examination: ReleaseWindowExamination
+
+
+@dataclass(frozen=True)
 class DeclaredReleaseWindow:
     interval: DependencyReleaseInterval
     association: DeclaredSourceAssociation
@@ -264,9 +317,10 @@ def select_release_sections(
 ) -> tuple[ReleaseSection, ...] | AcquisitionProblem:
     """Select complete exact-version ATX sections, ignoring fenced headings.
 
-    All headings of equal/lower level delimit sections. Validated ISO or English
-    calendar-date suffixes are admitted; arbitrary custom titles remain unsupported; missing/duplicate/order/overlap/size issues
-    return problems. Offsets are character positions recovering exact text; hashes cover UTF-8 bytes.
+    Collect all matches before admission, so missing/duplicate/order/overlap/size
+    problems retain independently scoped observations. Equal/lower headings
+    delimit sections; validated calendar suffixes are admitted. Other titles are
+    unsupported. Partial evidence cannot stand in for a complete window.
     """
     headings = []
     offset = 0
@@ -288,44 +342,81 @@ def select_release_sections(
                 title = re.sub(r"[ \t]+#+[ \t]*$", "", match[2] or "").strip()
                 headings.append((len(match[1]), title, number, offset))
         offset += len(line)
-    sections = []
+    # Examine duplicate-heavy acquired files without a quadratic scan for every
+    # candidate. The nearest equal/lower heading ends the exact section.
+    ends = {}
+    next_offsets = {}
+    for level, _, _, start in reversed(headings):
+        ends[start] = min(
+            (end for other_level, end in next_offsets.items() if other_level <= level),
+            default=len(file.content),
+        )
+        next_offsets[level] = start
+    candidates = []
+    missing = []
+    ambiguous = []
     for version in versions:
         found = [
             h for h in headings if _version_heading(h[1]) in {version, "v" + version}
         ]
-        if len(found) != 1:
-            return AcquisitionProblem(
-                "window",
-                "missing_or_duplicate_section",
-                f"Expected one exact section for {version!r}; found {len(found)}.",
+        if not found:
+            missing.append(version)
+        elif len(found) > 1:
+            ambiguous.append(version)
+        for heading in found:
+            end = ends[heading[3]]
+            text = file.content[heading[3] : end]
+            candidates.append(
+                ReleaseSectionCandidate(
+                    version,
+                    len(found),
+                    heading[2],
+                    heading[3],
+                    end,
+                    hashlib.sha256(text.encode("utf-8")).hexdigest(),
+                    text,
+                )
             )
-        heading = found[0]
-        end = next(
-            (h[3] for h in headings if h[3] > heading[3] and h[0] <= heading[0]),
-            len(file.content),
-        )
-        sections.append(
-            ReleaseSection(
-                version, heading[2], heading[3], end, file.content[heading[3] : end]
-            )
-        )
-    sections.sort(key=lambda s: s.start_offset)
-    order = tuple(s.version for s in sections)
-    if order not in (versions, tuple(reversed(versions))) or any(
-        a.end_offset > b.start_offset for a, b in pairwise(sections)
+    candidates.sort(key=lambda s: s.start_offset)
+    issues = []
+    if missing or ambiguous:
+        issues.append("missing_or_duplicate_section")
+    # Missing/ambiguous versions cannot establish order, but independent unique
+    # matches can still expose inconsistent order. All ranges expose overlap.
+    unique_order = tuple(s.version for s in candidates if s.match_count == 1)
+    expected_order = tuple(v for v in versions if v in unique_order)
+    if unique_order not in (expected_order, tuple(reversed(expected_order))) or any(
+        a.end_offset > b.start_offset for a, b in pairwise(candidates)
     ):
+        issues.append("section_order_or_overlap")
+    omitted = None
+    if sum(s.end_offset - s.start_offset for s in candidates) > max_characters:
+        issues.append("window_too_large")
+        omitted = "candidate_text_exceeds_character_budget"
+        candidates = [replace(s, text=None) for s in candidates]
+    if issues:
         return AcquisitionProblem(
             "window",
-            "section_order_or_overlap",
-            "Release sections are inconsistent or overlap.",
+            issues[0],
+            "Complete window not admitted: " + ", ".join(issues) + ".",
+            ReleaseWindowExamination(
+                file.repository,
+                file.revision,
+                file.path,
+                hashlib.sha256(file.content.encode("utf-8")).hexdigest(),
+                versions,
+                tuple(candidates),
+                tuple(missing),
+                tuple(ambiguous),
+                tuple(issues),
+                max_characters,
+                omitted,
+            ),
         )
-    if sum(len(s.text) for s in sections) > max_characters:
-        return AcquisitionProblem(
-            "window",
-            "window_too_large",
-            "Complete window exceeds character budget; no truncation.",
-        )
-    return tuple(sections)
+    return tuple(
+        ReleaseSection(s.version, s.start_line, s.start_offset, s.end_offset, s.text)
+        for s in candidates
+    )
 
 
 class TrialPublicSession(GitHubPublicSession):
@@ -508,7 +599,18 @@ class DeclaredReleaseWindowAcquirer:
             file, versions, max_characters=max_characters
         )
         if isinstance(sections, AcquisitionProblem):
-            return sections
+            return replace(
+                sections,
+                evidence=IncompleteDeclaredReleaseWindow(
+                    interval,
+                    tuple(associations),
+                    index,
+                    tuple(ignored),
+                    tuple(candidates),
+                    tuple(tag_problems),
+                    sections.evidence,
+                ),
+            )
         sha = lambda text: hashlib.sha256(text.encode("utf-8")).hexdigest()
         return DeclaredReleaseWindow(
             interval,
