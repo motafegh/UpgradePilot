@@ -1,0 +1,34 @@
+{
+  "proof_classes": {
+    "ordinary_cli": "fresh authenticated public acquisition and bounded static/adapter exploration",
+    "recovery_cli": "actual saved-input/read/decode/dispatch/output with mocked explorer; no fresh adapter read claim",
+    "tests": "100 active experiment tests; not product acceptance"
+  },
+  "cli_exit_code": 0,
+  "manifest_bytes": 687165,
+  "manifest_sha256": "1e79f2b75abd1cbaf79a7deb61fec1d8f4b9ee68cbd9834c586443ac6976a5dc",
+  "replay_limit_bytes": 1048576,
+  "binding_version": 2,
+  "target_references": 61,
+  "states": {
+    "established": 19,
+    "unknown": 28,
+    "conditional": 14
+  },
+  "target_candidates": 8,
+  "adapter_samples": 11,
+  "github_requests": 50,
+  "same_pr_identity": true,
+  "same_target_source_hashes": true,
+  "producer_code_hashes_current": {
+    "api_target_context.py": true,
+    "api_adapter_exploration.py": true,
+    "api_target_context_smoke.py": true,
+    "api_change_source_acquisition.py": true,
+    "api_release_window_manifest.py": true,
+    "api_python_bindings.py": true
+  },
+  "upstream_state": "available",
+  "omitted_adapter_candidates": 10,
+  "replay_code_sha256": "78cdabfc2ed081d42c5e5a779016d711c54c2896216fc5252f6fb7c37d5f8028"
+}

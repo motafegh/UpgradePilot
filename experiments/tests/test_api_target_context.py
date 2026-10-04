@@ -121,14 +121,13 @@ class SyntaxTests(TestCase):
         self.assertEqual(refs[0].positional_count, 1)
         self.assertEqual(refs[1].lexical_import, "vendor.client.Base")
 
-    def test_shadowing_local_import_and_conditional_binding_remain_unknown(self):
+    def test_unknown_conditional_and_unsupported_bindings_remain_limited(self):
         cases = [
             "from vendor import Client\nClient = custom\nClient()\n",
             "from vendor import Client\ndef f(Client):\n return Client()\n",
             "if condition:\n from vendor import Client\nClient()\n",
             "try:\n import vendor2 as vendor\nexcept ImportError:\n import vendor\nclass Client(vendor.Client):\n pass\n",
             'from vendor import Client\nmatch value:\n case {"x": x, **Client}:\n  pass\nClient()\n',
-            "def f():\n from vendor import Client\n return Client()\n",
             "from vendor import Client\nfrom other import *\nClient()\n",
         ]
         for source in cases:
@@ -137,7 +136,8 @@ class SyntaxTests(TestCase):
                 self.assertTrue(imports)
                 self.assertFalse(gaps)
                 self.assertIsNone(refs[0].lexical_import)
-                self.assertEqual(refs[0].binding_limit, "binding_not_established")
+                self.assertTrue(refs[0].binding_limit)
+                self.assertNotEqual(refs[0].binding.state, "established")
 
     def test_relative_import_and_syntax_failure_are_not_external_evidence(self):
         imports, _, _ = extract_python_facts(

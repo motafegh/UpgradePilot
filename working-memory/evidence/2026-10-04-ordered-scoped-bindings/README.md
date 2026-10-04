@@ -1,0 +1,12 @@
+# Ordered/scoped binding proof — 2026-10-04
+
+Experiment evidence for the [binding cycle](../../2026-10-04_2102_ordered-and-scoped-bindings_lbd-cycle.md). No model inference or target-code execution was performed.
+
+- `live-pr-context.json`: final ordinary experiment CLI output, authenticated public reads using repository/PR inputs only. Compact version-2 JSON with shared trace tables. **687,165 bytes**, within the unchanged 1 MiB replay input limit. The admitted 50 GitHub requests recovered 61 target references, eight declaration/import candidates and 11 adapter samples. Ten further candidates remain explicitly unexamined. Exact PR identity and all target hashes match the earlier acquired case.
+- `verification.json`: target state counts (19 established, 28 unknown, 14 conditional), exact packet hash, producer source-hash correspondence, identity/hash comparison and actual replay reader/decode/dispatch result. Replay dispatch used a mocked explorer: it proves saved-input handling, not fresh adapter reads. The ordinary CLI itself supplied the fresh acquisition/exploration proof. Controlled tests separately trace target acquisition → compact manifest → decoder → actual explorer with controlled provider responses.
+- `initial-size-failure.json` and `intermediate-uninterned-manifest.json.gz`: exact intermediate result and actual replay rejection (`Context manifest exceeds 1 MiB`, exit 2). The uncompressed packet is 1,310,662 bytes. Compression is storage only; it does not alter its original hash or make it an admitted replay input.
+- `interned-size-observation.json` and `intermediate-interned-pretty-manifest.json.gz`: subsequent intermediate acquisition after sharing traces; pretty output remained 1,097,890 bytes. Compact JSON preserves the same information without that whitespace overhead. Intermediate snapshots use a draft version-2 representation and document failures; they are not supported final decoder inputs.
+
+Final active experiment regression: **100/100**, compared with the **53/53** baseline. Touched lint, format and diff checks pass. No product source/tests/dependencies/report contract changed; no fresh full product regression or model/compatibility/usefulness acceptance is claimed.
+
+The serializer preserves alternatives and unknown/unbound flags. A source-linked established static origin does not establish an installed distribution, actual backend activation or execution. Legacy version-1 inputs remain explicitly legacy rather than acquiring version-2 precision.

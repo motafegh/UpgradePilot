@@ -1,0 +1,6 @@
+{
+  "proof": "intermediate full public acquisition; trace interning retained data, pretty JSON still exceeds replay byte limit",
+  "manifest_bytes": 1097890,
+  "manifest_sha256": "dc830c6e22be89008043673fb2eeaa95a4ee0e1c6e0dd31c5f99a26c3d86fecb",
+  "compact_bytes": 687039
+}

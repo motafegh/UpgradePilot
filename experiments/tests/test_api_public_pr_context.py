@@ -2,11 +2,16 @@
 
 import hashlib
 import json
+from contextlib import redirect_stdout
 from datetime import UTC, datetime
+from io import StringIO
+from pathlib import Path
+from tempfile import TemporaryDirectory
 from unittest import TestCase
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 from experiments.api_adapter_context_replay import decode_adapter_seed
+from experiments.api_adapter_context_replay import main as replay_main
 from experiments.api_adapter_exploration import AdapterExploration
 from experiments.api_change_source_acquisition import (
     AcquisitionProblem,
@@ -39,7 +44,7 @@ BASE = "b" * 40
 
 
 class PublicPRTests(TestCase):
-    def run_trial(self, *, upstream=None):
+    def run_trial(self, *, upstream=None, python_source=None):
         identity = PullRequestIdentity(
             "owner/target",
             7,
@@ -82,7 +87,11 @@ class PublicPRTests(TestCase):
                 repo,
                 path,
                 sha,
-                "from bridge.testing import Client as C\nC(app)"
+                (
+                    python_source
+                    if python_source is not None
+                    else "from bridge.testing import Client as C\nC(app)"
+                )
                 if path == "different.py"
                 else 'vendor==2.0\nbridge[standard]; python_version < "3.12"\n',
             )
@@ -259,3 +268,144 @@ class PublicPRTests(TestCase):
         packet["identity"]["head_sha"] = "d" * 40
         with self.assertRaises(ValueError):
             decode_adapter_seed(packet)
+
+    def test_ordered_alias_results_survive_ordinary_pr_json_and_cli_recovery(self):
+        source = (
+            "from bridge.testing import Client as C\nS=C\nC=None\nC(app)\nC=S\nC(app)\n"
+        )
+        result, _, _ = self.run_trial(python_source=source)
+        packet = json.loads(json.dumps(trial_manifest(result, TrialPublicSession())))
+        seed = decode_adapter_seed(packet)
+        self.assertEqual(seed.binding_analysis_version, 2)
+        self.assertEqual(seed.references, result.target.references)
+        self.assertEqual(
+            [r.lexical_import for r in seed.references], [None, "bridge.testing.Client"]
+        )
+        # Actual CLI input/read/decode/output; acquisition is separately controlled.
+        output = StringIO()
+        explorer = Mock()
+        explorer.explore.return_value = AdapterExploration((), (), ())
+        with TemporaryDirectory() as directory:
+            path = Path(directory) / "normal-context.json"
+            path.write_text(json.dumps(packet))
+            with (
+                patch("sys.argv", ["adapter-replay", str(path)]),
+                patch(
+                    "experiments.api_adapter_context_replay.AdapterSourceExplorer",
+                    return_value=explorer,
+                ),
+                redirect_stdout(output),
+            ):
+                status = replay_main()
+        self.assertEqual(status, 0)
+        self.assertEqual(explorer.explore.call_args.args[0], seed)
+        self.assertEqual(
+            json.loads(output.getvalue())["input_binding_analysis_version"], 2
+        )
+
+    def test_shared_trace_steps_are_interned_without_losing_native_facts(self):
+        result, _, _ = self.run_trial(
+            python_source="from bridge.testing import Client as C\nC()\nC()\nC()\n"
+        )
+        packet = json.loads(json.dumps(trial_manifest(result, TrialPublicSession())))
+        trace = packet["target"]["binding_trace_steps"]
+        self.assertEqual(sum(s["operation"] == "import" for s in trace), 1)
+        self.assertTrue(
+            all(
+                type(i) is int
+                for r in packet["target"]["references"]
+                for i in r["binding"]["trace"]
+            )
+        )
+        self.assertEqual(
+            decode_adapter_seed(packet).references, result.target.references
+        )
+
+    def test_legacy_packets_remain_legacy_and_unknown_versions_are_rejected(self):
+        result, _, _ = self.run_trial()
+        packet = json.loads(json.dumps(trial_manifest(result, TrialPublicSession())))
+        for version in (False, 3, "2"):
+            packet["target"]["binding_analysis_version"] = version
+            with self.subTest(version=version), self.assertRaises(ValueError):
+                decode_adapter_seed(packet)
+        del packet["target"]["binding_analysis_version"]
+        packet["target"].pop("binding_trace_steps")
+        # New assessments cannot be silently downgraded to a legacy packet.
+        with self.assertRaises(ValueError):
+            decode_adapter_seed(packet)
+        for ref in packet["target"]["references"]:
+            ref.pop("binding")
+        seed = decode_adapter_seed(packet)
+        self.assertEqual(seed.binding_analysis_version, 1)
+        self.assertIsNone(seed.references[0].binding)
+        self.assertEqual(seed.references[0].lexical_import, "bridge.testing.Client")
+
+    def test_conditional_origins_cannot_be_promoted_by_saved_input(self):
+        result, _, _ = self.run_trial(
+            python_source="if flag:\n from bridge.testing import Client as C\nelse:\n from other import Client as C\nC(app)\n"
+        )
+        packet = json.loads(json.dumps(trial_manifest(result, TrialPublicSession())))
+        self.assertEqual(
+            decode_adapter_seed(packet).references[0].binding.state, "conditional"
+        )
+        packet["target"]["references"][0]["lexical_import"] = "bridge.testing.Client"
+        packet["target"]["references"][0]["binding_limit"] = None
+        with self.assertRaises(ValueError):
+            decode_adapter_seed(packet)
+
+    def test_saved_binding_trace_sources_ranges_indices_and_shapes_are_checked(self):
+        result, _, _ = self.run_trial()
+        original = trial_manifest(result, TrialPublicSession())
+        for mutation in (
+            "foreign",
+            "negative_range",
+            "reversed_range",
+            "bad_index",
+            "boolean_index",
+            "origin_shape",
+            "bad_flag",
+            "wrong_state",
+            "empty_trace",
+            "empty_limit",
+            "reference_line",
+            "table_shape",
+            "nonstring_source",
+            "kind_shape",
+            "missing_field",
+        ):
+            packet = json.loads(json.dumps(original))
+            ref = packet["target"]["references"][0]
+            binding = ref["binding"]
+            step = packet["target"]["binding_trace_steps"][0]
+            if mutation == "foreign":
+                step["source_id"] = "foreign/source"
+            elif mutation == "negative_range":
+                step["column"] = -1
+            elif mutation == "reversed_range":
+                step["end_line"] = 0
+            elif mutation == "bad_index":
+                binding["trace"] = [-1]
+            elif mutation == "boolean_index":
+                binding["trace"] = [True]
+            elif mutation == "origin_shape":
+                binding["possible_imports"] = "ABC"
+            elif mutation == "bad_flag":
+                binding["unknown_possible"] = 0
+            elif mutation == "wrong_state":
+                binding["state"] = "unknown"
+            elif mutation == "empty_trace":
+                binding["trace"] = []
+            elif mutation == "empty_limit":
+                ref["binding_limit"] = ""
+            elif mutation == "reference_line":
+                ref["line"] = True
+            elif mutation == "table_shape":
+                packet["target"]["binding_trace_steps"] = False
+            elif mutation == "nonstring_source":
+                step["source_id"] = []
+            elif mutation == "kind_shape":
+                ref["kind"] = []
+            elif mutation == "missing_field":
+                ref.pop("expression")
+            with self.subTest(mutation=mutation), self.assertRaises(ValueError):
+                decode_adapter_seed(packet)

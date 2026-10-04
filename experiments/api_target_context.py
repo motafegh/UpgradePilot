@@ -14,7 +14,6 @@ import hashlib
 import json
 import re
 import tomllib
-from collections import Counter
 from dataclasses import dataclass
 from pathlib import PurePosixPath
 
@@ -32,6 +31,11 @@ from upgradepilot.package_identity import normalize_package_name
 from upgradepilot.repository_path import repository_relative_parts
 
 from .api_change_source_acquisition import AcquisitionProblem, TrialPublicSession
+from .api_python_bindings import (
+    ImportFact,
+    ReferenceFact,
+    analyze_python_bindings,
+)
 
 _EXCLUDED_DIRECTORIES = {
     ".git",
@@ -177,29 +181,6 @@ class TrialRepositoryInventoryClient(GitHubApiClient):
 
 
 @dataclass(frozen=True)
-class ImportFact:
-    source_id: str
-    line: int
-    module: str
-    member: str | None
-    alias: str | None
-    relative_level: int
-    module_level: bool
-
-
-@dataclass(frozen=True)
-class ReferenceFact:
-    source_id: str
-    line: int
-    kind: str
-    expression: str
-    lexical_import: str | None
-    binding_limit: str | None
-    keyword_names: tuple[str, ...] = ()
-    positional_count: int = 0
-
-
-@dataclass(frozen=True)
 class DependencyDeclaration:
     source_id: str
     location: str
@@ -246,8 +227,11 @@ class TargetContext:
         "module_namespace_not_installed_distribution",
         "constraints_not_resolved_versions",
         "only_admitted_file_formats_and_paths",
-        "only_unique_unshadowed_module_level_imports_bound",
-        "local_conditional_and_assignment_aliases_unresolved",
+        "ordered_scoped_static_origins_not_runtime_identity",
+        "delayed_globals_closures_and_cross_function_values_unresolved",
+        "unsupported_control_flow_and_dynamic_writes_limited",
+        "unknown_call_effects_heap_identity_and_annotation_timing_unmodeled",
+        "binding_trace_and_origin_budgets_can_limit_association",
     )
 
 
@@ -255,133 +239,30 @@ def source_id(file: RepositoryTextFile) -> str:
     return f"{file.repository}@{file.revision}:{file.path}"
 
 
-def _dotted_name(node: ast.AST) -> str | None:
-    if isinstance(node, ast.Name):
-        return node.id
-    if isinstance(node, ast.Attribute):
-        parent = _dotted_name(node.value)
-        return f"{parent}.{node.attr}" if parent else None
-    return None
-
-
 def extract_python_facts(
     file: RepositoryTextFile,
 ) -> tuple[tuple[ImportFact, ...], tuple[ReferenceFact, ...], tuple[ContextGap, ...]]:
-    """Resolve lexical calls only through unique, unshadowed top-level imports.
+    """Parse acquired text, then delegate ordered/scoped binding propagation.
 
-    Conservative file-wide rebinding checks intentionally lose some precision:
-    local imports, parameters, assignment aliases and dynamic attribute receivers
-    remain unresolved. Conditional imports are facts but not assumed bindings.
-    This avoids attributing a shadowed name to a dependency simply because an
-    import with that spelling exists elsewhere in the file.
+    api_python_bindings owns states/traces and positive-reference admission.
+    Acquisition keeps source identity and parsing/analysis failures separate;
+    source association never establishes execution or an installed distribution.
     """
     try:
         tree = ast.parse(file.content, filename=file.path)
     except (SyntaxError, ValueError, RecursionError) as exc:
         return (), (), (ContextGap(file.path, "python_parse_failed", str(exc)),)
-    identity = source_id(file)
-    facts = []
-    bindings = []
-    top_level_ids = {id(n) for n in tree.body}
-    blocked = set()
-    has_star = False
-    for node in ast.walk(tree):
-        if isinstance(node, ast.Name) and isinstance(node.ctx, (ast.Store, ast.Del)):
-            blocked.add(node.id)
-        if isinstance(node, ast.arg):
-            blocked.add(node.arg)
-        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
-            blocked.add(node.name)
-        if isinstance(node, ast.ExceptHandler) and node.name:
-            blocked.add(node.name)
-        if isinstance(node, (ast.Global, ast.Nonlocal)):
-            blocked.update(node.names)
-        if isinstance(node, (ast.MatchAs, ast.MatchStar)) and node.name:
-            blocked.add(node.name)
-        if isinstance(node, ast.MatchMapping) and node.rest:
-            blocked.add(node.rest)
-        if isinstance(node, (ast.Import, ast.ImportFrom)):
-            for alias in node.names:
-                is_top = id(node) in top_level_ids
-                if isinstance(node, ast.Import):
-                    facts.append(
-                        ImportFact(
-                            identity,
-                            node.lineno,
-                            alias.name,
-                            None,
-                            alias.asname,
-                            0,
-                            is_top,
-                        )
-                    )
-                    name = alias.asname or alias.name.split(".")[0]
-                    target = alias.name if alias.asname else name
-                else:
-                    facts.append(
-                        ImportFact(
-                            identity,
-                            node.lineno,
-                            node.module or "",
-                            alias.name,
-                            alias.asname,
-                            node.level,
-                            is_top,
-                        )
-                    )
-                    name = alias.asname or alias.name
-                    target = (
-                        f"{node.module}.{alias.name}" if node.module else alias.name
-                    )
-                    if alias.name == "*":
-                        has_star = True
-                    if node.level or alias.name == "*":
-                        blocked.add(name)
-                if is_top:
-                    bindings.append((name, target))
-                else:
-                    blocked.add(name)
-    counts = Counter(name for name, _ in bindings)
-    stable = {
-        name: target
-        for name, target in bindings
-        if counts[name] == 1 and name not in blocked and not has_star
-    }
-    refs = []
-
-    def add(node, kind, expression_node):
-        name = _dotted_name(expression_node)
-        imported = None
-        if name:
-            root, *suffix = name.split(".")
-            if root in stable:
-                imported = ".".join((stable[root], *suffix))
-        refs.append(
-            ReferenceFact(
-                identity,
-                node.lineno,
-                kind,
-                ast.get_source_segment(file.content, expression_node) or "",
-                imported,
-                None if imported else "binding_not_established",
-                tuple(k.arg or "**" for k in node.keywords)
-                if isinstance(node, ast.Call)
-                else (),
-                len(node.args) if isinstance(node, ast.Call) else 0,
-            )
+    try:
+        imports, references = analyze_python_bindings(
+            source_id(file), file.content, tree
         )
-
-    for node in ast.walk(tree):
-        if isinstance(node, ast.Call):
-            add(node, "call", node.func)
-        elif isinstance(node, ast.ClassDef):
-            for base in node.bases:
-                add(node, "class_base", base)
-    return (
-        tuple(sorted(facts, key=lambda f: f.line)),
-        tuple(sorted(refs, key=lambda r: r.line)),
-        (),
-    )
+    except RecursionError as exc:
+        return (
+            (),
+            (),
+            (ContextGap(file.path, "python_binding_analysis_limit", str(exc)),),
+        )
+    return imports, references, ()
 
 
 def extract_dependency_declarations(

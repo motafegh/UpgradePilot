@@ -34,6 +34,7 @@ from .api_change_source_acquisition import (
     DeclaredReleaseWindowAcquirer,
     TrialPublicSession,
 )
+from .api_python_bindings import python_facts_manifest
 from .api_release_window_manifest import release_window_manifest
 from .api_target_context import (
     TargetContext,
@@ -98,6 +99,7 @@ def acquire_public_pr_context(
 
 def context_manifest(context: TargetContext) -> dict:
     return {
+        **python_facts_manifest(context.imports, context.references),
         "repository": context.inventory.repository,
         "revision": context.inventory.revision,
         "tree_sha": context.inventory.tree_sha,
@@ -111,8 +113,6 @@ def context_manifest(context: TargetContext) -> dict:
             }
             for f in context.files
         ],
-        "imports": [asdict(f) for f in context.imports],
-        "references": [asdict(r) for r in context.references],
         "declarations": [asdict(d) for d in context.declarations],
         "candidates": [asdict(c) for c in context.candidates],
         "excluded_paths": context.excluded_paths,
@@ -139,6 +139,7 @@ def trial_manifest(
                 "api_target_context_smoke.py",
                 "api_change_source_acquisition.py",
                 "api_release_window_manifest.py",
+                "api_python_bindings.py",
             )
         },
     }
@@ -171,8 +172,7 @@ def trial_manifest(
                     "path": s.file.path,
                     "sha256": file_sha256(s.file),
                     "metadata": asdict(s.metadata),
-                    "imports": [asdict(f) for f in s.imports],
-                    "references": [asdict(r) for r in s.references],
+                    **python_facts_manifest(s.imports, s.references),
                     "gaps": [asdict(g) for g in s.gaps],
                 }
                 for s in result.adapters.samples
@@ -204,7 +204,9 @@ def main() -> int:
     result = acquire_public_pr_context(
         args.repository, args.pull_number, session=session
     )
-    print(json.dumps(trial_manifest(result, session), indent=2))
+    # Keep the complete machine-consumed packet within its replay byte budget;
+    # human-facing product report formatting is a separate responsibility.
+    print(json.dumps(trial_manifest(result, session), separators=(",", ":")))
     return 1 if isinstance(result, AcquisitionProblem) else 0
 
 

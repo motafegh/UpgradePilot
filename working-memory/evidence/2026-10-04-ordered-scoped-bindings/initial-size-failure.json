@@ -1,0 +1,8 @@
+{
+  "proof": "intermediate public acquisition with uninterned, unpublished version-2 shape; actual replay reader rejected before acquisition",
+  "manifest_bytes": 1310662,
+  "manifest_sha256": "a41c0e40820e24239338c2c0eb5781c59607774bd8fd49725e11fe29d643dcd4",
+  "replay_input_limit_bytes": 1048576,
+  "cli_exit_code": 2,
+  "cli_error": "Context manifest exceeds 1 MiB."
+}

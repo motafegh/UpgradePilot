@@ -186,6 +186,7 @@ class AdapterDiscoverySeed:
 
     candidates: tuple[ImportDependencyCandidate, ...]
     references: tuple[ReferenceFact, ...]
+    binding_analysis_version: int = 1
 
 
 def select_exploration_version(

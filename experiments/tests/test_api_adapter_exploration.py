@@ -5,6 +5,7 @@ from datetime import UTC, datetime
 from unittest import TestCase
 from unittest.mock import Mock
 
+from experiments.api_adapter_context_replay import decode_adapter_seed
 from experiments.api_adapter_exploration import (
     AdapterSourceExplorer,
     PackageDependencyMetadata,
@@ -20,9 +21,11 @@ from experiments.api_target_context import (
     ImportDependencyCandidate,
     InventoryEntry,
     TargetContext,
+    TargetContextAcquirer,
     TargetInventory,
     extract_python_facts,
 )
+from experiments.api_target_context_smoke import context_manifest
 from upgradepilot.github.repository import RepositoryTextFile
 from upgradepilot.github.tag import GitHubTagCommitEvidence
 from upgradepilot.pypi.release import (
@@ -119,6 +122,78 @@ class MetadataTests(TestCase):
 
 
 class ChainTests(TestCase):
+    def acquired_seed(self, source):
+        """Normal target acquisition/serialization, controlled file providers only."""
+        inventory = Mock()
+        inventory.acquire.return_value = TargetInventory(
+            "owner/target",
+            SHA,
+            "b" * 40,
+            (
+                InventoryEntry("unusual_test.py", "blob", "100644"),
+                InventoryEntry("requirements.txt", "blob", "100644"),
+            ),
+            False,
+        )
+        files = Mock()
+        files.get_exact_commit_text_file.side_effect = lambda repo, sha, path: (
+            RepositoryTextFile(
+                repo, path, sha, source if path.endswith(".py") else "bridge>=1\n"
+            )
+        )
+        context = TargetContextAcquirer(inventory=inventory, files=files).acquire(
+            "owner/target", SHA
+        )
+        packet = {
+            "state": "context_acquired",
+            "identity": {"repository": "owner/target", "head_sha": SHA},
+            "target": context_manifest(context),
+        }
+        return decode_adapter_seed(json.loads(json.dumps(packet)))
+
+    def test_restored_alias_reaches_adapter_chain_through_acquisition_and_replay(self):
+        seed = self.acquired_seed(
+            "from bridge.testing import Client as C\nS=C\nC=None\nC(app)\nC=S\nC(app)\n"
+        )
+        self.assertEqual(
+            [r.lexical_import for r in seed.references], [None, "bridge.testing.Client"]
+        )
+        result = self.explorer().explore(seed)
+        self.assertEqual(
+            [s.candidate.declaration.package for s in result.samples],
+            ["bridge", "mediator", "vendor"],
+        )
+
+    def test_conditional_possible_origin_does_not_trigger_positive_exploration(self):
+        for source in (
+            "if flag:\n from bridge.testing import Client as C\nelse:\n from other import Client as C\nC(app)\n",
+            "from bridge.testing import Client as C\ndef f():\n return C(app)\n",
+        ):
+            with self.subTest(source=source):
+                seed = self.acquired_seed(source)
+                self.assertTrue(seed.candidates)
+                self.assertIsNone(seed.references[0].lexical_import)
+                self.assertIn(
+                    "bridge.testing.Client", seed.references[0].binding.possible_imports
+                )
+                explorer = self.explorer()
+                self.assertFalse(explorer.explore(seed).samples)
+                explorer.index.get_release_index.assert_not_called()
+
+    def test_agreeing_branches_reach_chain_without_selecting_branch_truth(self):
+        seed = self.acquired_seed(
+            "if flag:\n from bridge.testing import Client as C\nelse:\n from bridge.testing import Client as C\nC(app)\n"
+        )
+        self.assertEqual(
+            [
+                s.line
+                for s in seed.references[0].binding.trace
+                if s.operation == "import"
+            ],
+            [2, 4],
+        )
+        self.assertEqual(len(self.explorer().explore(seed).samples), 3)
+
     def context(self):
         file = RepositoryTextFile(
             "owner/target",
