@@ -591,9 +591,16 @@ class TargetContextAcquirer:
                     omitted.append(entry.path)
                     continue
                 python_count += 1
-            file = self.files.get_exact_commit_text_file(
-                repository, revision, entry.path
-            )
+            try:
+                file = self.files.get_exact_commit_text_file(
+                    repository, revision, entry.path
+                )
+            except GitHubAcquisitionError as exc:
+                gaps.append(ContextGap(entry.path, exc.reason, str(exc)))
+                continue
+            except GitHubResponseError as exc:
+                gaps.append(ContextGap(entry.path, "malformed_response", str(exc)))
+                continue
             if not isinstance(file, RepositoryTextFile):
                 gaps.append(ContextGap(entry.path, file.reason, file.detail))
                 continue

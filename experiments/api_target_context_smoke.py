@@ -90,7 +90,9 @@ def acquire_public_pr_context(
         explored = adapters.explore(context)
         return PublicPRContextTrial(identity, analysis, context, source, explored)
     except (GitHubAcquisitionError, GitHubResponseError) as exc:
-        return AcquisitionProblem("public_pr", "acquisition_failed", str(exc))
+        return AcquisitionProblem(
+            "public_pr", getattr(exc, "reason", "malformed_response"), str(exc)
+        )
 
 
 def context_manifest(context: TargetContext) -> dict:

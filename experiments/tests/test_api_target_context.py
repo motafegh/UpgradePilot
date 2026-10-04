@@ -252,6 +252,39 @@ class AcquisitionTests(TestCase):
             },
         )
 
+    def test_later_file_exceptions_preserve_acquired_target_facts(self):
+        from upgradepilot.github.api import GitHubAcquisitionError, GitHubResponseError
+
+        for error, reason in [
+            (
+                GitHubAcquisitionError("limit reached", reason="trial_request_limit"),
+                "trial_request_limit",
+            ),
+            (
+                GitHubAcquisitionError("network failed", reason="transport_error"),
+                "transport_error",
+            ),
+            (GitHubResponseError("invalid response"), "malformed_response"),
+        ]:
+            with self.subTest(reason=reason):
+                runner = self.runner(
+                    [
+                        InventoryEntry("a.py", "blob", "100644"),
+                        InventoryEntry("b.py", "blob", "100644"),
+                    ],
+                    {},
+                )
+                runner.files.get_exact_commit_text_file.side_effect = [
+                    file("a.py", "import vendor"),
+                    error,
+                ]
+                result = runner.acquire("owner/target", SHA)
+                self.assertEqual([f.path for f in result.files], ["a.py"])
+                self.assertEqual(result.imports[0].module, "vendor")
+                self.assertEqual(
+                    (result.gaps[0].path, result.gaps[0].reason), ("b.py", reason)
+                )
+
     def test_local_namespace_does_not_become_distribution_candidate(self):
         entries = [
             InventoryEntry("framework.py", "blob", "100644"),

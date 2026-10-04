@@ -215,6 +215,29 @@ class CompositionTests(TestCase):
         )
         self.assertEqual(len(result.window_sha256), 64)
 
+    def test_file_transport_and_budget_failure_remain_typed_window_problems(self):
+        from upgradepilot.github.api import GitHubAcquisitionError, GitHubResponseError
+
+        for error, reason in [
+            (
+                GitHubAcquisitionError("network failed", reason="transport_error"),
+                "transport_error",
+            ),
+            (
+                GitHubAcquisitionError("limit reached", reason="trial_request_limit"),
+                "trial_request_limit",
+            ),
+            (GitHubResponseError("invalid response"), "malformed_response"),
+        ]:
+            with self.subTest(reason=reason):
+                runner = self.runner()
+                runner.files.get_exact_commit_text_file.side_effect = error
+                result = runner.acquire(
+                    DependencyReleaseInterval("demo", "demo", "1.0", "2.0")
+                )
+                self.assertIsInstance(result, AcquisitionProblem)
+                self.assertEqual((result.stage, result.reason), ("file", reason))
+
     def test_tag_conflict_transport_and_budget_do_not_produce_window(self):
         for failure in ["conflict", "transport", "budget", "move"]:
             with self.subTest(failure=failure):
@@ -271,8 +294,13 @@ class TransportTests(TestCase):
             with self.assertRaises(RequestException):
                 session.get(url)
         session.github_requests = 50
-        with self.assertRaises(RequestException):
+        from upgradepilot.github.api import GitHubAcquisitionError
+
+        with self.assertRaises(GitHubAcquisitionError) as raised:
             session.get("https://api.github.com/repos/a/b")
+        self.assertEqual(raised.exception.reason, "trial_request_limit")
+        self.assertTrue(session.request_limit_reached)
+        self.assertEqual(session.github_requests, 50)
 
     def test_provider_requests_disable_redirects(self):
         session = TrialPublicSession()

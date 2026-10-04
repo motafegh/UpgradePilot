@@ -17,6 +17,7 @@ from packaging.requirements import InvalidRequirement, Requirement
 from packaging.specifiers import SpecifierSet
 from packaging.version import InvalidVersion, Version
 
+from upgradepilot.github.api import GitHubAcquisitionError, GitHubResponseError
 from upgradepilot.github.identity import validate_repository
 from upgradepilot.github.repository import GitHubRepositoryClient, RepositoryTextFile
 from upgradepilot.github.tag import GitHubTagCommitClient, GitHubTagCommitEvidence
@@ -332,9 +333,27 @@ class AdapterSourceExplorer:
                 omitted.append(candidate)
                 continue
             attempts += 1
-            sample = self._acquire(candidate, depth)
+            try:
+                sample = self._acquire(candidate, depth)
+            except GitHubAcquisitionError as exc:
+                sample = AcquisitionProblem("adapter_acquisition", exc.reason, str(exc))
+            except GitHubResponseError as exc:
+                sample = AcquisitionProblem(
+                    "adapter_acquisition", "malformed_response", str(exc)
+                )
             if isinstance(sample, AcquisitionProblem):
+                if self.session.request_limit_reached:
+                    sample = AcquisitionProblem(
+                        "adapter_budget",
+                        "trial_request_limit",
+                        "Trial GitHub request budget exhausted; remaining adapter candidates are unexamined.",
+                        sample,
+                    )
                 problems.append(sample)
+                if sample.reason == "trial_request_limit":
+                    omitted.append(candidate)
+                    omitted.extend(c for c, _ in pending)
+                    break
                 if sample.stage == "adapter_budget":
                     omitted.append(candidate)
                 continue

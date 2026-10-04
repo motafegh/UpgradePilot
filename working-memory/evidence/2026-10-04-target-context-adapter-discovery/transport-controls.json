@@ -1,0 +1,40 @@
+{
+  "purpose": "discriminate PyPI release-index timeouts from proxy-path failure before one fresh acquisition retry",
+  "requests": [
+    {
+      "package": "httpx",
+      "transport": "environment",
+      "status": 200,
+      "bytes": 119911,
+      "seconds": 0.72
+    },
+    {
+      "package": "fastapi",
+      "transport": "environment",
+      "status": 200,
+      "bytes": 522930,
+      "seconds": 0.37
+    },
+    {
+      "package": "httpx",
+      "transport": "direct control",
+      "status": 200,
+      "bytes": 119911,
+      "seconds": 0.46
+    },
+    {
+      "package": "fastapi",
+      "transport": "direct control",
+      "status": 200,
+      "bytes": 522930,
+      "seconds": 0.28
+    }
+  ],
+  "conclusion": "Both controls succeeded; persistent proxy failure is not established. Preserve prior timeouts as transient observations; subsequent run keeps normal environment transport.",
+  "credential_probe": {
+    "status": 200,
+    "core_limit": 5000,
+    "remaining_before_first_authenticated_trial": 4924,
+    "token_value_retained": false
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-10-04T11:26:13.567850+00:00",
+  "auth": "token-env",
+  "github_requests": 50,
+  "proof": "ordinary PR acquisition and static/exploration evidence; no model, resolved-version, runtime or compatibility acceptance",
+  "code_sha256": {
+    "api_target_context.py": "7249232e262f58b06d4e83c4e0299ebfed01dd9f12f86e92d16364612515f2d5",
+    "api_adapter_exploration.py": "772988f38946636403c346c01bc6c4486cb782c03da26aacc5b87b80891a2ce6",
+    "api_target_context_smoke.py": "dd0ab0c2952a04a6881ce74e8fc3deac8ae9b77d41c3bfaf64fbf46327fb2275",
+    "api_change_source_acquisition.py": "82b3f2f82a37b4985cddffaf683530b176bb9174f5c551bfd5fa814f36d2a760"
+  },
+  "state": "incomplete",
+  "stage": "public_pr",
+  "reason": "acquisition_failed",
+  "detail": "GitHub repository-file acquisition failed before a usable response was received."
+}

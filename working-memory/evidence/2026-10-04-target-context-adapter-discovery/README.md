@@ -1,6 +1,6 @@
-# Exact target context and adapter exploration — partial live proof
+# Exact target context and adapter exploration — bounded live proof
 
-Date: 2026-10-04 (Asia/Tehran). This increment has local deterministic proof plus an initial ordinary PR run and a later component replay. A corrected full ordinary run is still pending. No model, target installation, actual resolution, compatibility, maintainer utility or product adoption is established.
+Date: 2026-10-04 (Asia/Tehran). This increment has local deterministic proof and a fresh corrected authenticated ordinary PR acquisition. Earlier failures and component replay remain separate. Further adapter exploration is incomplete at the admitted request ceiling. No model, target installation, actual resolution, compatibility, maintainer utility or product adoption is established.
 
 Reproduce the full acquisition when capacity/authentication permits:
 
@@ -30,4 +30,15 @@ Records contain source locations, method/input identities, hashes and static obs
 
 The focused active trial suite passes 37 tests: source/window/provenance/auth boundaries, inventory/AST/declarations, adapter constraints/caching/budgets, ordinary PR composition and replay source correspondence. Full checkout product regression passes 743 tests; product source/tests remain unchanged. Ruff/format and pip check pass. Historical unrelated experiment suites were not repaired or claimed green; no new fresh-installed wheel/model test was run for this isolated experiment increment.
 
-The corrected full ordinary run must be executed after valid explicit authentication or anonymous quota recovery. Fresh comparison must preserve these failed/partial attempts rather than overwrite them. Acquisition evidence is not semantic API-impact or utility acceptance. `verification.json` records final local source/test hashes and the proof debt.
+The first publication left the corrected ordinary run pending. Subsequent authenticated verification is recorded below without overwriting earlier attempts. Acquisition evidence is not semantic API-impact or utility acceptance. `verification.json` preserves the first publication’s source/test hashes and proof debt.
+
+
+## Authenticated resumption and final scoped verification
+
+- `live-authenticated.json`: first run using the explicitly supplied local credential, before the failure-handling repair; 50 GitHub requests. A late adapter file-read exception discarded the earlier partial result. This remains failed evidence.
+- `live-authenticated-preserved.json`: repaired ordinary path retains all 12 target files and records PyPI index timeouts separately; 23 GitHub requests. Upstream/necessary adapter source was incomplete.
+- `transport-controls.json`: credential control HTTP 200 (5,000 core capacity); both normal-environment and direct PyPI index controls HTTP 200. Persistent proxy failure is not established. No token value/account profile is retained.
+- `live-authenticated-verified.json`: fresh corrected ordinary PR run; 50 GitHub requests, 12 exact target files, both HTTPX crossed sections and 11 adapter module samples. Base/head, all target source hashes and upstream full/window hashes match the first ordinary acquisition. FastAPI → Starlette TestClient source is ordinarily reached. Further adapter reads stop at a typed request-limit gap and retained candidates. Sample versions/conditional httpx/httpx2 bindings do not establish actual resolution or activation.
+- `verification-authenticated.json`: current source/test hashes, 41 focused tests and touched Ruff/format green; explicit bounded acquisition checks/proof limits. Product source/tests are unchanged; the preceding 743-test checkout regression was not repeated in this resume.
+
+The acquisition increment is sufficiently verified at its own boundary. Complete adapter coverage, API interpretation/conditional-impact feasibility, model semantic quality, independent usefulness and product admission remain separate obligations.

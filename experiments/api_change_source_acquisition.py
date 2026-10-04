@@ -24,6 +24,7 @@ from upgradepilot.dependency.versioning import (
     order_crossed_release_versions,
     parse_dependency_release_interval,
 )
+from upgradepilot.github.api import GitHubAcquisitionError, GitHubResponseError
 from upgradepilot.github.auth_session import GitHubPublicSession
 from upgradepilot.github.changelog import (
     DiscoveredChangelogPath,
@@ -337,6 +338,7 @@ class TrialPublicSession(GitHubPublicSession):
     def __init__(self, *, token: str | None = None):
         super().__init__()
         self.github_requests = 0
+        self.request_limit_reached = False
         self._github_token = token
         self.auth_mode = "token-env" if token else "anonymous"
 
@@ -353,7 +355,11 @@ class TrialPublicSession(GitHubPublicSession):
             raise RequestException("Trial request outside admitted provider scope.")
         if parsed.hostname == "api.github.com":
             if self.github_requests >= 50:
-                raise RequestException("Trial GitHub request budget exhausted.")
+                self.request_limit_reached = True
+                raise GitHubAcquisitionError(
+                    "Trial GitHub request budget exhausted.",
+                    reason="trial_request_limit",
+                )
             self.github_requests += 1
         headers = dict(kwargs.get("headers", {}))
         if parsed.hostname == "api.github.com" and self._github_token:
@@ -488,9 +494,14 @@ class DeclaredReleaseWindowAcquirer:
         path = self.paths.discover(association.repository, tag.resolved_commit_sha)
         if not isinstance(path, DiscoveredChangelogPath):
             return AcquisitionProblem("path", path.state, path.detail, path)
-        file = self.files.get_exact_commit_text_file(
-            association.repository, tag.resolved_commit_sha, path.path
-        )
+        try:
+            file = self.files.get_exact_commit_text_file(
+                association.repository, tag.resolved_commit_sha, path.path
+            )
+        except GitHubAcquisitionError as exc:
+            return AcquisitionProblem("file", exc.reason, str(exc))
+        except GitHubResponseError as exc:
+            return AcquisitionProblem("file", "malformed_response", str(exc))
         if not isinstance(file, RepositoryTextFile):
             return AcquisitionProblem("file", file.reason, file.detail, file)
         sections = select_release_sections(

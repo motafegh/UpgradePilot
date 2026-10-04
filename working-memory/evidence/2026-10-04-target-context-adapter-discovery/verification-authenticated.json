@@ -1,0 +1,56 @@
+{
+  "baseline_commit": "3fa96d3e",
+  "proof_class": "fresh ordinary public PR bounded acquisition with explicit authenticated transport; no semantic or product acceptance",
+  "code_and_test_sha256": {
+    "experiments/api_change_source_acquisition.py": "8da9cc5b7ef44d3339595ba54c74cf1bae7e438e305864aeb7effbe34476def9",
+    "experiments/api_target_context.py": "296c1533fa7332927eea2c3b3487ba64fe0da57579fba0524bb3bccf23bcc908",
+    "experiments/api_adapter_exploration.py": "e4a0892e807da472a600b3b2dfb821824a81f1fdc7829d9ef5dbc0118c179b95",
+    "experiments/api_target_context_smoke.py": "75b7e53cd3f520f1a1e90d081c8742d743804359c4fcdca9a79a799d20c764cf",
+    "experiments/api_adapter_context_replay.py": "a98e83003b5efec117578fe95e5451afdce658565245a32fc1aa6fb9d5c28e5e",
+    "experiments/tests/test_api_change_source_acquisition.py": "1616ab3b101af06886b96079504a6556c85307c537c1fb95a158ff8305689831",
+    "experiments/tests/test_api_target_context.py": "6ac4dd95d366704ccdbb762546e01e5107f41e8f730b18cd4e35cf0f75481e81",
+    "experiments/tests/test_api_adapter_exploration.py": "95869a6fe435c5354a71f7fcabc433cc4a9cec1c60536d3e09eb9b3be41c207c",
+    "experiments/tests/test_api_public_pr_context.py": "d1dad126da88903298667706aec194c2bc6590d68e239e57ff33ce62d9b86027"
+  },
+  "focused": {
+    "runner": "unittest",
+    "tests": 41,
+    "result": "green"
+  },
+  "ruff_check": "green",
+  "ruff_format": "green",
+  "product_proof": {
+    "prior_checkout_tests": 743,
+    "repeated_this_resume": false,
+    "reason": "No executable product source or tests changed."
+  },
+  "live_attempts": {
+    "live-authenticated.json": "1e2537ecd7dadb82caf5c502a26c9a6166aeed1c518fba8e220e0a696ac5ac93",
+    "live-authenticated-preserved.json": "d610a0d0658b0e7fcf33ab56559c1badb2aedbf5b07a16675e4b5421cebf1d62",
+    "live-authenticated-verified.json": "d3143d71cddaacd8c4d42b1f9c714bfd7a21c1de4d082f877151a0557e07d157",
+    "transport-controls.json": "84f9e98f43347cb771acfaab9a91a79db9402d216ca08951023ba0f98f3ae6c6"
+  },
+  "acquisition_checks": {
+    "same_pr_base_head": true,
+    "same_12_target_source_hashes": true,
+    "untruncated_target_inventory_no_read_parse_omission_gaps": true,
+    "same_upstream_full_and_window_hashes": true,
+    "ordinary_target_to_fastapi_to_starlette_testclient_source": true,
+    "manifest_code_matches_verified_source": true
+  },
+  "bounded_result": {
+    "github_requests": 50,
+    "adapter_module_samples": 11,
+    "remaining_adapter_request_gap": "trial_request_limit",
+    "coverage_complete": false
+  },
+  "not_established": [
+    "actual installed adapter versions",
+    "backend activation",
+    "semantic API-impact acceptance",
+    "model quality",
+    "compatibility",
+    "maintainer utility",
+    "product adoption"
+  ]
+}

@@ -284,3 +284,50 @@ class ChainTests(TestCase):
         explorer.releases.get_release.assert_called_once_with("bridge", "2.0")
         self.assertEqual(explorer.tags.resolve_tag_to_commit.call_count, 2)
         self.assertEqual(explorer.inventory.acquire.call_count, 1)
+
+    def test_later_adapter_exception_keeps_earlier_samples_and_limit_omissions(self):
+        from upgradepilot.github.api import GitHubAcquisitionError, GitHubResponseError
+
+        for error, reason in [
+            (
+                GitHubAcquisitionError("limit reached", reason="trial_request_limit"),
+                "trial_request_limit",
+            ),
+            (
+                GitHubAcquisitionError("network failed", reason="transport_error"),
+                "transport_error",
+            ),
+            (GitHubResponseError("invalid response"), "malformed_response"),
+        ]:
+            with self.subTest(reason=reason):
+                explorer = self.explorer()
+                original = explorer.files.get_exact_commit_text_file.side_effect
+
+                def read(repo, sha, path, error=error, original=original):
+                    if repo == "owner/mediator":
+                        raise error
+                    return original(repo, sha, path)
+
+                explorer.files.get_exact_commit_text_file.side_effect = read
+                result = explorer.explore(self.context())
+                self.assertEqual(
+                    [s.candidate.declaration.package for s in result.samples],
+                    ["bridge"],
+                )
+                self.assertEqual(result.problems[0].reason, reason)
+                if reason == "trial_request_limit":
+                    self.assertEqual(
+                        result.omitted_candidates[0].declaration.package, "mediator"
+                    )
+
+    def test_provider_wrapped_limit_still_stops_remaining_adapter_reads(self):
+        explorer = self.explorer()
+        explorer.session.request_limit_reached = True
+        explorer._acquire = Mock(
+            return_value=AcquisitionProblem(
+                "adapter_tag", "acquisition_failed", "wrapped provider failure"
+            )
+        )
+        result = explorer.explore(self.context())
+        self.assertEqual(result.problems[0].reason, "trial_request_limit")
+        self.assertEqual(result.omitted_candidates[0].declaration.package, "bridge")

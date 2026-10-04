@@ -1,0 +1,2157 @@
+{
+  "timestamp": "2026-10-04T11:29:51.646092+00:00",
+  "auth": "token-env",
+  "github_requests": 23,
+  "proof": "ordinary PR acquisition and static/exploration evidence; no model, resolved-version, runtime or compatibility acceptance",
+  "code_sha256": {
+    "api_target_context.py": "296c1533fa7332927eea2c3b3487ba64fe0da57579fba0524bb3bccf23bcc908",
+    "api_adapter_exploration.py": "e4a0892e807da472a600b3b2dfb821824a81f1fdc7829d9ef5dbc0118c179b95",
+    "api_target_context_smoke.py": "75b7e53cd3f520f1a1e90d081c8742d743804359c4fcdca9a79a799d20c764cf",
+    "api_change_source_acquisition.py": "8da9cc5b7ef44d3339595ba54c74cf1bae7e438e305864aeb7effbe34476def9"
+  },
+  "state": "context_acquired",
+  "identity": {
+    "repository": "Aidan-Wallace/kubernetes-dashboard-token-api",
+    "number": 20,
+    "title": "Bump httpx from 0.27.2 to 0.28.1",
+    "state": "closed",
+    "merged": true,
+    "author": "dependabot[bot]",
+    "base_ref": "main",
+    "base_sha": "b065646e4b7b894964567950f9ad770b02c136c2",
+    "head_ref": "dependabot/pip/httpx-0.28.1",
+    "head_sha": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+    "changed_files": 1
+  },
+  "dependency": {
+    "package": "httpx",
+    "normalized_package": "httpx",
+    "old_version": "0.27.2",
+    "proposed_version": "0.28.1",
+    "source_evidence": [
+      {
+        "path": "requirements.txt",
+        "file_format": "exact_requirement",
+        "extraction_method": "changed_file_patch"
+      }
+    ],
+    "limitations": []
+  },
+  "target": {
+    "repository": "Aidan-Wallace/kubernetes-dashboard-token-api",
+    "revision": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+    "tree_sha": "835de3774664c28acff829c7b0846b7f2d66255d",
+    "inventory_truncated": false,
+    "inventory_entries": 38,
+    "files": [
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/config.py",
+        "sha256": "3e9ee81cf682bd3f9ba2a8ffc1e641e5a7d8d4fb45db1269dd6c7c1c6d4c4c2b",
+        "bytes": 934
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/main.py",
+        "sha256": "53e57eaf56f545d9a9a5944e7225f401ee168bc701bfcd36b655e86479a9f0e1",
+        "bytes": 273
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/models/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/models/health.py",
+        "sha256": "6fd17dc4893f6776c7334030354a77df5527c7351b61da82ebc302f4640116b1",
+        "bytes": 168
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/models/token.py",
+        "sha256": "2fece71de3d19b3853afecf1b1df84ed684f3bc994d3f9bb2fb912cff2c9210c",
+        "bytes": 136
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/routes.py",
+        "sha256": "293f01f882e2fbd44a1a62e86fa40e57b09534e73b84f3cae6fbc0462d3bf5d2",
+        "bytes": 1813
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/utils.py",
+        "sha256": "5a8c0942806f0cc10379d9687f73558434706b0ade2813b0c3a457be9c6ed346",
+        "bytes": 509
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:requirements.txt",
+        "sha256": "fb2d2df7bc2502337b1a551de591485d61bd8f0c00dc2897802fa6994d9328a3",
+        "bytes": 112
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:tests/__init__.py",
+        "sha256": "745add6aeaa171b71d839d4d8f8bdf02a4f7f26917f425d8913cada7dbd37b6c",
+        "bytes": 234
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:tests/test_routes.py",
+        "sha256": "54ce091cd5e7ec03d53606f59b713e87ff64a1d6d5922f61be23d97b049393f2",
+        "bytes": 1865
+      }
+    ],
+    "imports": [
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/config.py",
+        "line": 1,
+        "module": "dotenv",
+        "member": null,
+        "alias": null,
+        "relative_level": 0,
+        "module_level": true
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/config.py",
+        "line": 2,
+        "module": "logging",
+        "member": null,
+        "alias": null,
+        "relative_level": 0,
+        "module_level": true
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/config.py",
+        "line": 3,
+        "module": "os",
+        "member": null,
+        "alias": null,
+        "relative_level": 0,
+        "module_level": true
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/main.py",
+        "line": 1,
+        "module": "fastapi",
+        "member": "FastAPI",
+        "alias": null,
+        "relative_level": 0,
+        "module_level": true
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/main.py",
+        "line": 2,
+        "module": "fastapi.staticfiles",
+        "member": "StaticFiles",
+        "alias": null,
+        "relative_level": 0,
+        "module_level": true
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/main.py",
+        "line": 3,
+        "module": "app.config",
+        "member": "STATIC_DIRECTORY",
+        "alias": null,
+        "relative_level": 0,
+        "module_level": true
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/main.py",
+        "line": 4,
+        "module": "app.router",
+        "member": "routes",
+        "alias": null,
+        "relative_level": 0,
+        "module_level": true
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/models/health.py",
+        "line": 1,
+        "module": "pydantic",
+        "member": "BaseModel",
+        "alias": null,
+        "relative_level": 0,
+        "module_level": true
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/models/token.py",
+        "line": 1,
+        "module": "pydantic",
+        "member": "BaseModel",
+        "alias": null,
+        "relative_level": 0,
+        "module_level": true
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/routes.py",
+        "line": 1,
+        "module": "logging",
+        "member": null,
+        "alias": null,
+        "relative_level": 0,
+        "module_level": true
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/routes.py",
+        "line": 2,
+        "module": "fastapi",
+        "member": "APIRouter",
+        "alias": null,
+        "relative_level": 0,
+        "module_level": true
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/routes.py",
+        "line": 2,
+        "module": "fastapi",
+        "member": "Query",
+        "alias": null,
+        "relative_level": 0,
+        "module_level": true
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/routes.py",
+        "line": 2,
+        "module": "fastapi",
+        "member": "status",
+        "alias": null,
+        "relative_level": 0,
+        "module_level": true
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/routes.py",
+        "line": 3,
+        "module": "fastapi.responses",
+        "member": "HTMLResponse",
+        "alias": null,
+        "relative_level": 0,
+        "module_level": true
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/routes.py",
+        "line": 4,
+        "module": "app.config",
+        "member": "HTML_TEMPLATE",
+        "alias": null,
+        "relative_level": 0,
+        "module_level": true
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/routes.py",
+        "line": 5,
+        "module": "app.models.health",
+        "member": "HealthCheck",
+        "alias": null,
+        "relative_level": 0,
+        "module_level": true
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/routes.py",
+        "line": 6,
+        "module": "app.models.token",
+        "member": "BearerToken",
+        "alias": null,
+        "relative_level": 0,
+        "module_level": true
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/routes.py",
+        "line": 7,
+        "module": "app.utils",
+        "member": "get_token",
+        "alias": null,
+        "relative_level": 0,
+        "module_level": true
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/utils.py",
+        "line": 1,
+        "module": "logging",
+        "member": null,
+        "alias": null,
+        "relative_level": 0,
+        "module_level": true
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/utils.py",
+        "line": 2,
+        "module": "subprocess",
+        "member": null,
+        "alias": null,
+        "relative_level": 0,
+        "module_level": true
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/utils.py",
+        "line": 3,
+        "module": "app.config",
+        "member": "KUBECTL_CMD",
+        "alias": null,
+        "relative_level": 0,
+        "module_level": true
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:tests/__init__.py",
+        "line": 1,
+        "module": "os",
+        "member": null,
+        "alias": null,
+        "relative_level": 0,
+        "module_level": true
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:tests/test_routes.py",
+        "line": 1,
+        "module": "pytest",
+        "member": null,
+        "alias": null,
+        "relative_level": 0,
+        "module_level": true
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:tests/test_routes.py",
+        "line": 2,
+        "module": "fastapi.testclient",
+        "member": "TestClient",
+        "alias": null,
+        "relative_level": 0,
+        "module_level": true
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:tests/test_routes.py",
+        "line": 3,
+        "module": "app.main",
+        "member": "app",
+        "alias": null,
+        "relative_level": 0,
+        "module_level": true
+      }
+    ],
+    "references": [
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/config.py",
+        "line": 5,
+        "kind": "call",
+        "expression": "dotenv.load_dotenv",
+        "lexical_import": "dotenv.load_dotenv",
+        "binding_limit": null,
+        "keyword_names": [],
+        "positional_count": 0
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/config.py",
+        "line": 6,
+        "kind": "call",
+        "expression": "logging.getLogger",
+        "lexical_import": "logging.getLogger",
+        "binding_limit": null,
+        "keyword_names": [],
+        "positional_count": 1
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/config.py",
+        "line": 8,
+        "kind": "call",
+        "expression": "os.environ.get",
+        "lexical_import": "os.environ.get",
+        "binding_limit": null,
+        "keyword_names": [],
+        "positional_count": 2
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/config.py",
+        "line": 9,
+        "kind": "call",
+        "expression": "os.environ.get",
+        "lexical_import": "os.environ.get",
+        "binding_limit": null,
+        "keyword_names": [],
+        "positional_count": 1
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/config.py",
+        "line": 10,
+        "kind": "call",
+        "expression": "os.environ.get",
+        "lexical_import": "os.environ.get",
+        "binding_limit": null,
+        "keyword_names": [],
+        "positional_count": 1
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/config.py",
+        "line": 11,
+        "kind": "call",
+        "expression": "os.environ.get",
+        "lexical_import": "os.environ.get",
+        "binding_limit": null,
+        "keyword_names": [],
+        "positional_count": 2
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/config.py",
+        "line": 14,
+        "kind": "call",
+        "expression": "logger.error",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [],
+        "positional_count": 1
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/config.py",
+        "line": 15,
+        "kind": "call",
+        "expression": "EnvironmentError",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [],
+        "positional_count": 1
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/config.py",
+        "line": 17,
+        "kind": "call",
+        "expression": "os.path.exists",
+        "lexical_import": "os.path.exists",
+        "binding_limit": null,
+        "keyword_names": [],
+        "positional_count": 1
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/config.py",
+        "line": 18,
+        "kind": "call",
+        "expression": "FileNotFoundError",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [],
+        "positional_count": 1
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/config.py",
+        "line": 20,
+        "kind": "call",
+        "expression": "os.path.exists",
+        "lexical_import": "os.path.exists",
+        "binding_limit": null,
+        "keyword_names": [],
+        "positional_count": 1
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/config.py",
+        "line": 21,
+        "kind": "call",
+        "expression": "FileNotFoundError",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [],
+        "positional_count": 1
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/config.py",
+        "line": 23,
+        "kind": "call",
+        "expression": "open",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [],
+        "positional_count": 2
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/config.py",
+        "line": 24,
+        "kind": "call",
+        "expression": "f.read",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [],
+        "positional_count": 0
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/config.py",
+        "line": 27,
+        "kind": "call",
+        "expression": "HTML_TEMPLATE.replace",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [],
+        "positional_count": 2
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/main.py",
+        "line": 7,
+        "kind": "call",
+        "expression": "FastAPI",
+        "lexical_import": "fastapi.FastAPI",
+        "binding_limit": null,
+        "keyword_names": [],
+        "positional_count": 0
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/main.py",
+        "line": 9,
+        "kind": "call",
+        "expression": "app.mount",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [
+          "name"
+        ],
+        "positional_count": 2
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/main.py",
+        "line": 9,
+        "kind": "call",
+        "expression": "StaticFiles",
+        "lexical_import": "fastapi.staticfiles.StaticFiles",
+        "binding_limit": null,
+        "keyword_names": [
+          "directory"
+        ],
+        "positional_count": 0
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/main.py",
+        "line": 11,
+        "kind": "call",
+        "expression": "app.include_router",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [],
+        "positional_count": 1
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/models/health.py",
+        "line": 4,
+        "kind": "class_base",
+        "expression": "BaseModel",
+        "lexical_import": "pydantic.BaseModel",
+        "binding_limit": null,
+        "keyword_names": [],
+        "positional_count": 0
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/models/token.py",
+        "line": 4,
+        "kind": "class_base",
+        "expression": "BaseModel",
+        "lexical_import": "pydantic.BaseModel",
+        "binding_limit": null,
+        "keyword_names": [],
+        "positional_count": 0
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/routes.py",
+        "line": 9,
+        "kind": "call",
+        "expression": "logging.getLogger",
+        "lexical_import": "logging.getLogger",
+        "binding_limit": null,
+        "keyword_names": [],
+        "positional_count": 1
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/routes.py",
+        "line": 10,
+        "kind": "call",
+        "expression": "APIRouter",
+        "lexical_import": "fastapi.APIRouter",
+        "binding_limit": null,
+        "keyword_names": [],
+        "positional_count": 0
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/routes.py",
+        "line": 13,
+        "kind": "call",
+        "expression": "router.get",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [
+          "response_class",
+          "summary",
+          "response_description",
+          "status_code"
+        ],
+        "positional_count": 1
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/routes.py",
+        "line": 20,
+        "kind": "call",
+        "expression": "Query",
+        "lexical_import": "fastapi.Query",
+        "binding_limit": null,
+        "keyword_names": [
+          "default"
+        ],
+        "positional_count": 0
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/routes.py",
+        "line": 21,
+        "kind": "call",
+        "expression": "get_token",
+        "lexical_import": "app.utils.get_token",
+        "binding_limit": null,
+        "keyword_names": [],
+        "positional_count": 0
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/routes.py",
+        "line": 22,
+        "kind": "call",
+        "expression": "logger.info",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [],
+        "positional_count": 1
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/routes.py",
+        "line": 23,
+        "kind": "call",
+        "expression": "HTML_TEMPLATE.replace(\"{TOKEN}\", token).replace",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [],
+        "positional_count": 2
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/routes.py",
+        "line": 23,
+        "kind": "call",
+        "expression": "str",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [],
+        "positional_count": 1
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/routes.py",
+        "line": 23,
+        "kind": "call",
+        "expression": "HTML_TEMPLATE.replace",
+        "lexical_import": "app.config.HTML_TEMPLATE.replace",
+        "binding_limit": null,
+        "keyword_names": [],
+        "positional_count": 2
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/routes.py",
+        "line": 26,
+        "kind": "call",
+        "expression": "router.get",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [
+          "summary",
+          "response_description",
+          "status_code",
+          "response_model"
+        ],
+        "positional_count": 1
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/routes.py",
+        "line": 34,
+        "kind": "call",
+        "expression": "get_token",
+        "lexical_import": "app.utils.get_token",
+        "binding_limit": null,
+        "keyword_names": [],
+        "positional_count": 0
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/routes.py",
+        "line": 35,
+        "kind": "call",
+        "expression": "logger.info",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [],
+        "positional_count": 1
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/routes.py",
+        "line": 36,
+        "kind": "call",
+        "expression": "BearerToken",
+        "lexical_import": "app.models.token.BearerToken",
+        "binding_limit": null,
+        "keyword_names": [
+          "token"
+        ],
+        "positional_count": 0
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/routes.py",
+        "line": 39,
+        "kind": "call",
+        "expression": "router.get",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [
+          "response_class",
+          "summary",
+          "response_description",
+          "status_code",
+          "response_model"
+        ],
+        "positional_count": 1
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/routes.py",
+        "line": 48,
+        "kind": "call",
+        "expression": "get_token",
+        "lexical_import": "app.utils.get_token",
+        "binding_limit": null,
+        "keyword_names": [],
+        "positional_count": 0
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/routes.py",
+        "line": 49,
+        "kind": "call",
+        "expression": "logger.info",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [],
+        "positional_count": 1
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/routes.py",
+        "line": 53,
+        "kind": "call",
+        "expression": "router.get",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [
+          "tags",
+          "summary",
+          "response_description",
+          "status_code",
+          "response_model"
+        ],
+        "positional_count": 1
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/routes.py",
+        "line": 62,
+        "kind": "call",
+        "expression": "logger.info",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [],
+        "positional_count": 1
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/routes.py",
+        "line": 63,
+        "kind": "call",
+        "expression": "HealthCheck",
+        "lexical_import": "app.models.health.HealthCheck",
+        "binding_limit": null,
+        "keyword_names": [
+          "status"
+        ],
+        "positional_count": 0
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/utils.py",
+        "line": 5,
+        "kind": "call",
+        "expression": "logging.getLogger",
+        "lexical_import": "logging.getLogger",
+        "binding_limit": null,
+        "keyword_names": [],
+        "positional_count": 1
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/utils.py",
+        "line": 15,
+        "kind": "call",
+        "expression": "subprocess.check_output(cmd.split()).decode(\"utf-8\").strip",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [],
+        "positional_count": 0
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/utils.py",
+        "line": 15,
+        "kind": "call",
+        "expression": "subprocess.check_output(cmd.split()).decode",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [],
+        "positional_count": 1
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/utils.py",
+        "line": 15,
+        "kind": "call",
+        "expression": "subprocess.check_output",
+        "lexical_import": "subprocess.check_output",
+        "binding_limit": null,
+        "keyword_names": [],
+        "positional_count": 1
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/utils.py",
+        "line": 15,
+        "kind": "call",
+        "expression": "cmd.split",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [],
+        "positional_count": 0
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/utils.py",
+        "line": 19,
+        "kind": "call",
+        "expression": "logger.error",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [],
+        "positional_count": 1
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:tests/test_routes.py",
+        "line": 7,
+        "kind": "call",
+        "expression": "TestClient",
+        "lexical_import": "fastapi.testclient.TestClient",
+        "binding_limit": null,
+        "keyword_names": [],
+        "positional_count": 1
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:tests/test_routes.py",
+        "line": 10,
+        "kind": "call",
+        "expression": "self.client.get",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [],
+        "positional_count": 1
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:tests/test_routes.py",
+        "line": 17,
+        "kind": "call",
+        "expression": "self.client.get",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [],
+        "positional_count": 1
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:tests/test_routes.py",
+        "line": 23,
+        "kind": "call",
+        "expression": "self.client.get",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [],
+        "positional_count": 1
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:tests/test_routes.py",
+        "line": 26,
+        "kind": "call",
+        "expression": "response.json",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [],
+        "positional_count": 0
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:tests/test_routes.py",
+        "line": 29,
+        "kind": "call",
+        "expression": "self.client.get",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [],
+        "positional_count": 1
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:tests/test_routes.py",
+        "line": 35,
+        "kind": "call",
+        "expression": "self.client.get",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [],
+        "positional_count": 1
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:tests/test_routes.py",
+        "line": 38,
+        "kind": "call",
+        "expression": "response.json",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [],
+        "positional_count": 0
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:tests/test_routes.py",
+        "line": 40,
+        "kind": "call",
+        "expression": "pytest.fixture",
+        "lexical_import": "pytest.fixture",
+        "binding_limit": null,
+        "keyword_names": [
+          "autouse"
+        ],
+        "positional_count": 0
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:tests/test_routes.py",
+        "line": 45,
+        "kind": "call",
+        "expression": "monkeypatch.setenv",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [],
+        "positional_count": 2
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:tests/test_routes.py",
+        "line": 46,
+        "kind": "call",
+        "expression": "monkeypatch.setenv",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [],
+        "positional_count": 2
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:tests/test_routes.py",
+        "line": 47,
+        "kind": "call",
+        "expression": "monkeypatch.setenv",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [],
+        "positional_count": 2
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:tests/test_routes.py",
+        "line": 51,
+        "kind": "call",
+        "expression": "monkeypatch.setenv",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [],
+        "positional_count": 2
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:tests/test_routes.py",
+        "line": 53,
+        "kind": "call",
+        "expression": "pytest.fixture",
+        "lexical_import": "pytest.fixture",
+        "binding_limit": null,
+        "keyword_names": [
+          "autouse"
+        ],
+        "positional_count": 0
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:tests/test_routes.py",
+        "line": 58,
+        "kind": "call",
+        "expression": "monkeypatch.setattr",
+        "lexical_import": null,
+        "binding_limit": "binding_not_established",
+        "keyword_names": [],
+        "positional_count": 2
+      }
+    ],
+    "declarations": [
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:requirements.txt",
+        "location": "L1",
+        "raw": "fastapi[standard]",
+        "package": "fastapi",
+        "specifier": "",
+        "extras": [
+          "standard"
+        ],
+        "marker": null,
+        "group": "requirements"
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:requirements.txt",
+        "location": "L2",
+        "raw": "httpx==0.28.1",
+        "package": "httpx",
+        "specifier": "==0.28.1",
+        "extras": [],
+        "marker": null,
+        "group": "requirements"
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:requirements.txt",
+        "location": "L3",
+        "raw": "pytest-asyncio==0.25.3",
+        "package": "pytest-asyncio",
+        "specifier": "==0.25.3",
+        "extras": [],
+        "marker": null,
+        "group": "requirements"
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:requirements.txt",
+        "location": "L4",
+        "raw": "pytest-cov==6.0.0",
+        "package": "pytest-cov",
+        "specifier": "==6.0.0",
+        "extras": [],
+        "marker": null,
+        "group": "requirements"
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:requirements.txt",
+        "location": "L5",
+        "raw": "pytest==8.3.3",
+        "package": "pytest",
+        "specifier": "==8.3.3",
+        "extras": [],
+        "marker": null,
+        "group": "requirements"
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:requirements.txt",
+        "location": "L6",
+        "raw": "python-dotenv",
+        "package": "python-dotenv",
+        "specifier": "",
+        "extras": [],
+        "marker": null,
+        "group": "requirements"
+      },
+      {
+        "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:requirements.txt",
+        "location": "L7",
+        "raw": "ruff==0.9.6",
+        "package": "ruff",
+        "specifier": "==0.9.6",
+        "extras": [],
+        "marker": null,
+        "group": "requirements"
+      }
+    ],
+    "candidates": [
+      {
+        "imported_module": "fastapi",
+        "declaration": {
+          "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:requirements.txt",
+          "location": "L1",
+          "raw": "fastapi[standard]",
+          "package": "fastapi",
+          "specifier": "",
+          "extras": [
+            "standard"
+          ],
+          "marker": null,
+          "group": "requirements"
+        },
+        "import_source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/main.py",
+        "import_line": 1,
+        "basis": "same_name_import_and_declared_distribution"
+      },
+      {
+        "imported_module": "fastapi.staticfiles",
+        "declaration": {
+          "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:requirements.txt",
+          "location": "L1",
+          "raw": "fastapi[standard]",
+          "package": "fastapi",
+          "specifier": "",
+          "extras": [
+            "standard"
+          ],
+          "marker": null,
+          "group": "requirements"
+        },
+        "import_source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/main.py",
+        "import_line": 2,
+        "basis": "same_name_import_and_declared_distribution"
+      },
+      {
+        "imported_module": "fastapi",
+        "declaration": {
+          "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:requirements.txt",
+          "location": "L1",
+          "raw": "fastapi[standard]",
+          "package": "fastapi",
+          "specifier": "",
+          "extras": [
+            "standard"
+          ],
+          "marker": null,
+          "group": "requirements"
+        },
+        "import_source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/routes.py",
+        "import_line": 2,
+        "basis": "same_name_import_and_declared_distribution"
+      },
+      {
+        "imported_module": "fastapi",
+        "declaration": {
+          "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:requirements.txt",
+          "location": "L1",
+          "raw": "fastapi[standard]",
+          "package": "fastapi",
+          "specifier": "",
+          "extras": [
+            "standard"
+          ],
+          "marker": null,
+          "group": "requirements"
+        },
+        "import_source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/routes.py",
+        "import_line": 2,
+        "basis": "same_name_import_and_declared_distribution"
+      },
+      {
+        "imported_module": "fastapi",
+        "declaration": {
+          "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:requirements.txt",
+          "location": "L1",
+          "raw": "fastapi[standard]",
+          "package": "fastapi",
+          "specifier": "",
+          "extras": [
+            "standard"
+          ],
+          "marker": null,
+          "group": "requirements"
+        },
+        "import_source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/routes.py",
+        "import_line": 2,
+        "basis": "same_name_import_and_declared_distribution"
+      },
+      {
+        "imported_module": "fastapi.responses",
+        "declaration": {
+          "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:requirements.txt",
+          "location": "L1",
+          "raw": "fastapi[standard]",
+          "package": "fastapi",
+          "specifier": "",
+          "extras": [
+            "standard"
+          ],
+          "marker": null,
+          "group": "requirements"
+        },
+        "import_source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:app/router/routes.py",
+        "import_line": 3,
+        "basis": "same_name_import_and_declared_distribution"
+      },
+      {
+        "imported_module": "pytest",
+        "declaration": {
+          "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:requirements.txt",
+          "location": "L5",
+          "raw": "pytest==8.3.3",
+          "package": "pytest",
+          "specifier": "==8.3.3",
+          "extras": [],
+          "marker": null,
+          "group": "requirements"
+        },
+        "import_source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:tests/test_routes.py",
+        "import_line": 1,
+        "basis": "same_name_import_and_declared_distribution"
+      },
+      {
+        "imported_module": "fastapi.testclient",
+        "declaration": {
+          "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:requirements.txt",
+          "location": "L1",
+          "raw": "fastapi[standard]",
+          "package": "fastapi",
+          "specifier": "",
+          "extras": [
+            "standard"
+          ],
+          "marker": null,
+          "group": "requirements"
+        },
+        "import_source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:tests/test_routes.py",
+        "import_line": 2,
+        "basis": "same_name_import_and_declared_distribution"
+      }
+    ],
+    "excluded_paths": [],
+    "omitted_paths": [],
+    "gaps": [],
+    "examined_bytes": 6044,
+    "limitations": [
+      "static_syntax_not_execution",
+      "module_namespace_not_installed_distribution",
+      "constraints_not_resolved_versions",
+      "only_admitted_file_formats_and_paths",
+      "only_unique_unshadowed_module_level_imports_bound",
+      "local_conditional_and_assignment_aliases_unresolved"
+    ]
+  },
+  "upstream": {
+    "state": "incomplete",
+    "stage": "index",
+    "reason": "acquisition_failed",
+    "detail": "PyPI release-index acquisition timed out."
+  },
+  "adapter_exploration": {
+    "samples": [
+      {
+        "candidate": {
+          "imported_module": "pytest",
+          "declaration": {
+            "source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:requirements.txt",
+            "location": "L5",
+            "raw": "pytest==8.3.3",
+            "package": "pytest",
+            "specifier": "==8.3.3",
+            "extras": [],
+            "marker": null,
+            "group": "requirements"
+          },
+          "import_source_id": "Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4:tests/test_routes.py",
+          "import_line": 1,
+          "basis": "same_name_import_and_declared_distribution"
+        },
+        "depth": 0,
+        "version": "8.3.3",
+        "selection": "latest_stable_satisfying_visible_constraint_exploration_only",
+        "association_basis": "exact_release_publisher_declared_repository",
+        "provenance_state": "source_unavailable",
+        "repository": "pytest-dev/pytest",
+        "revision": "d0f136fe64f9374f18a04562305b178fb380d1ec",
+        "path": "src/pytest/__init__.py",
+        "sha256": "8e6ea1d1910225d0d7957d22e45db498ddf2a55fbe4fba2c9ad307cf3cd8f2e8",
+        "metadata": {
+          "package": "pytest",
+          "version": "8.3.3",
+          "source_url": "https://pypi.org/pypi/pytest/8.3.3/json",
+          "requirements": [
+            {
+              "source_id": "https://pypi.org/pypi/pytest/8.3.3/json",
+              "location": "info.requires_dist[0]",
+              "raw": "iniconfig",
+              "package": "iniconfig",
+              "specifier": "",
+              "extras": [],
+              "marker": null,
+              "group": "registry-requires-dist"
+            },
+            {
+              "source_id": "https://pypi.org/pypi/pytest/8.3.3/json",
+              "location": "info.requires_dist[1]",
+              "raw": "packaging",
+              "package": "packaging",
+              "specifier": "",
+              "extras": [],
+              "marker": null,
+              "group": "registry-requires-dist"
+            },
+            {
+              "source_id": "https://pypi.org/pypi/pytest/8.3.3/json",
+              "location": "info.requires_dist[2]",
+              "raw": "pluggy<2,>=1.5",
+              "package": "pluggy",
+              "specifier": "<2,>=1.5",
+              "extras": [],
+              "marker": null,
+              "group": "registry-requires-dist"
+            },
+            {
+              "source_id": "https://pypi.org/pypi/pytest/8.3.3/json",
+              "location": "info.requires_dist[3]",
+              "raw": "exceptiongroup>=1.0.0rc8; python_version < \"3.11\"",
+              "package": "exceptiongroup",
+              "specifier": ">=1.0.0rc8",
+              "extras": [],
+              "marker": "python_version < \"3.11\"",
+              "group": "registry-requires-dist"
+            },
+            {
+              "source_id": "https://pypi.org/pypi/pytest/8.3.3/json",
+              "location": "info.requires_dist[4]",
+              "raw": "tomli>=1; python_version < \"3.11\"",
+              "package": "tomli",
+              "specifier": ">=1",
+              "extras": [],
+              "marker": "python_version < \"3.11\"",
+              "group": "registry-requires-dist"
+            },
+            {
+              "source_id": "https://pypi.org/pypi/pytest/8.3.3/json",
+              "location": "info.requires_dist[5]",
+              "raw": "colorama; sys_platform == \"win32\"",
+              "package": "colorama",
+              "specifier": "",
+              "extras": [],
+              "marker": "sys_platform == \"win32\"",
+              "group": "registry-requires-dist"
+            },
+            {
+              "source_id": "https://pypi.org/pypi/pytest/8.3.3/json",
+              "location": "info.requires_dist[6]",
+              "raw": "argcomplete; extra == \"dev\"",
+              "package": "argcomplete",
+              "specifier": "",
+              "extras": [],
+              "marker": "extra == \"dev\"",
+              "group": "registry-requires-dist"
+            },
+            {
+              "source_id": "https://pypi.org/pypi/pytest/8.3.3/json",
+              "location": "info.requires_dist[7]",
+              "raw": "attrs>=19.2; extra == \"dev\"",
+              "package": "attrs",
+              "specifier": ">=19.2",
+              "extras": [],
+              "marker": "extra == \"dev\"",
+              "group": "registry-requires-dist"
+            },
+            {
+              "source_id": "https://pypi.org/pypi/pytest/8.3.3/json",
+              "location": "info.requires_dist[8]",
+              "raw": "hypothesis>=3.56; extra == \"dev\"",
+              "package": "hypothesis",
+              "specifier": ">=3.56",
+              "extras": [],
+              "marker": "extra == \"dev\"",
+              "group": "registry-requires-dist"
+            },
+            {
+              "source_id": "https://pypi.org/pypi/pytest/8.3.3/json",
+              "location": "info.requires_dist[9]",
+              "raw": "mock; extra == \"dev\"",
+              "package": "mock",
+              "specifier": "",
+              "extras": [],
+              "marker": "extra == \"dev\"",
+              "group": "registry-requires-dist"
+            },
+            {
+              "source_id": "https://pypi.org/pypi/pytest/8.3.3/json",
+              "location": "info.requires_dist[10]",
+              "raw": "pygments>=2.7.2; extra == \"dev\"",
+              "package": "pygments",
+              "specifier": ">=2.7.2",
+              "extras": [],
+              "marker": "extra == \"dev\"",
+              "group": "registry-requires-dist"
+            },
+            {
+              "source_id": "https://pypi.org/pypi/pytest/8.3.3/json",
+              "location": "info.requires_dist[11]",
+              "raw": "requests; extra == \"dev\"",
+              "package": "requests",
+              "specifier": "",
+              "extras": [],
+              "marker": "extra == \"dev\"",
+              "group": "registry-requires-dist"
+            },
+            {
+              "source_id": "https://pypi.org/pypi/pytest/8.3.3/json",
+              "location": "info.requires_dist[12]",
+              "raw": "setuptools; extra == \"dev\"",
+              "package": "setuptools",
+              "specifier": "",
+              "extras": [],
+              "marker": "extra == \"dev\"",
+              "group": "registry-requires-dist"
+            },
+            {
+              "source_id": "https://pypi.org/pypi/pytest/8.3.3/json",
+              "location": "info.requires_dist[13]",
+              "raw": "xmlschema; extra == \"dev\"",
+              "package": "xmlschema",
+              "specifier": "",
+              "extras": [],
+              "marker": "extra == \"dev\"",
+              "group": "registry-requires-dist"
+            }
+          ],
+          "gaps": []
+        },
+        "imports": [
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 4,
+            "module": "__future__",
+            "member": "annotations",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 6,
+            "module": "_pytest",
+            "member": "__version__",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 7,
+            "module": "_pytest",
+            "member": "version_tuple",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 8,
+            "module": "_pytest._code",
+            "member": "ExceptionInfo",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 9,
+            "module": "_pytest.assertion",
+            "member": "register_assert_rewrite",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 10,
+            "module": "_pytest.cacheprovider",
+            "member": "Cache",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 11,
+            "module": "_pytest.capture",
+            "member": "CaptureFixture",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 12,
+            "module": "_pytest.config",
+            "member": "cmdline",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 13,
+            "module": "_pytest.config",
+            "member": "Config",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 14,
+            "module": "_pytest.config",
+            "member": "console_main",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 15,
+            "module": "_pytest.config",
+            "member": "ExitCode",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 16,
+            "module": "_pytest.config",
+            "member": "hookimpl",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 17,
+            "module": "_pytest.config",
+            "member": "hookspec",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 18,
+            "module": "_pytest.config",
+            "member": "main",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 19,
+            "module": "_pytest.config",
+            "member": "PytestPluginManager",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 20,
+            "module": "_pytest.config",
+            "member": "UsageError",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 21,
+            "module": "_pytest.config.argparsing",
+            "member": "OptionGroup",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 22,
+            "module": "_pytest.config.argparsing",
+            "member": "Parser",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 23,
+            "module": "_pytest.debugging",
+            "member": "pytestPDB",
+            "alias": "__pytestPDB",
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 24,
+            "module": "_pytest.doctest",
+            "member": "DoctestItem",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 25,
+            "module": "_pytest.fixtures",
+            "member": "fixture",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 26,
+            "module": "_pytest.fixtures",
+            "member": "FixtureDef",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 27,
+            "module": "_pytest.fixtures",
+            "member": "FixtureLookupError",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 28,
+            "module": "_pytest.fixtures",
+            "member": "FixtureRequest",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 29,
+            "module": "_pytest.fixtures",
+            "member": "yield_fixture",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 30,
+            "module": "_pytest.freeze_support",
+            "member": "freeze_includes",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 31,
+            "module": "_pytest.legacypath",
+            "member": "TempdirFactory",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 32,
+            "module": "_pytest.legacypath",
+            "member": "Testdir",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 33,
+            "module": "_pytest.logging",
+            "member": "LogCaptureFixture",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 34,
+            "module": "_pytest.main",
+            "member": "Dir",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 35,
+            "module": "_pytest.main",
+            "member": "Session",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 36,
+            "module": "_pytest.mark",
+            "member": "Mark",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 37,
+            "module": "_pytest.mark",
+            "member": "MARK_GEN",
+            "alias": "mark",
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 38,
+            "module": "_pytest.mark",
+            "member": "MarkDecorator",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 39,
+            "module": "_pytest.mark",
+            "member": "MarkGenerator",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 40,
+            "module": "_pytest.mark",
+            "member": "param",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 41,
+            "module": "_pytest.monkeypatch",
+            "member": "MonkeyPatch",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 42,
+            "module": "_pytest.nodes",
+            "member": "Collector",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 43,
+            "module": "_pytest.nodes",
+            "member": "Directory",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 44,
+            "module": "_pytest.nodes",
+            "member": "File",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 45,
+            "module": "_pytest.nodes",
+            "member": "Item",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 46,
+            "module": "_pytest.outcomes",
+            "member": "exit",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 47,
+            "module": "_pytest.outcomes",
+            "member": "fail",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 48,
+            "module": "_pytest.outcomes",
+            "member": "importorskip",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 49,
+            "module": "_pytest.outcomes",
+            "member": "skip",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 50,
+            "module": "_pytest.outcomes",
+            "member": "xfail",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 51,
+            "module": "_pytest.pytester",
+            "member": "HookRecorder",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 52,
+            "module": "_pytest.pytester",
+            "member": "LineMatcher",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 53,
+            "module": "_pytest.pytester",
+            "member": "Pytester",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 54,
+            "module": "_pytest.pytester",
+            "member": "RecordedHookCall",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 55,
+            "module": "_pytest.pytester",
+            "member": "RunResult",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 56,
+            "module": "_pytest.python",
+            "member": "Class",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 57,
+            "module": "_pytest.python",
+            "member": "Function",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 58,
+            "module": "_pytest.python",
+            "member": "Metafunc",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 59,
+            "module": "_pytest.python",
+            "member": "Module",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 60,
+            "module": "_pytest.python",
+            "member": "Package",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 61,
+            "module": "_pytest.python_api",
+            "member": "approx",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 62,
+            "module": "_pytest.python_api",
+            "member": "raises",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 63,
+            "module": "_pytest.recwarn",
+            "member": "deprecated_call",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 64,
+            "module": "_pytest.recwarn",
+            "member": "WarningsRecorder",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 65,
+            "module": "_pytest.recwarn",
+            "member": "warns",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 66,
+            "module": "_pytest.reports",
+            "member": "CollectReport",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 67,
+            "module": "_pytest.reports",
+            "member": "TestReport",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 68,
+            "module": "_pytest.runner",
+            "member": "CallInfo",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 69,
+            "module": "_pytest.stash",
+            "member": "Stash",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 70,
+            "module": "_pytest.stash",
+            "member": "StashKey",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 71,
+            "module": "_pytest.terminal",
+            "member": "TestShortLogReport",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 72,
+            "module": "_pytest.tmpdir",
+            "member": "TempPathFactory",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 73,
+            "module": "_pytest.warning_types",
+            "member": "PytestAssertRewriteWarning",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 74,
+            "module": "_pytest.warning_types",
+            "member": "PytestCacheWarning",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 75,
+            "module": "_pytest.warning_types",
+            "member": "PytestCollectionWarning",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 76,
+            "module": "_pytest.warning_types",
+            "member": "PytestConfigWarning",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 77,
+            "module": "_pytest.warning_types",
+            "member": "PytestDeprecationWarning",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 78,
+            "module": "_pytest.warning_types",
+            "member": "PytestExperimentalApiWarning",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 79,
+            "module": "_pytest.warning_types",
+            "member": "PytestRemovedIn9Warning",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 80,
+            "module": "_pytest.warning_types",
+            "member": "PytestReturnNotNoneWarning",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 81,
+            "module": "_pytest.warning_types",
+            "member": "PytestUnhandledCoroutineWarning",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 82,
+            "module": "_pytest.warning_types",
+            "member": "PytestUnhandledThreadExceptionWarning",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 83,
+            "module": "_pytest.warning_types",
+            "member": "PytestUnknownMarkWarning",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 84,
+            "module": "_pytest.warning_types",
+            "member": "PytestUnraisableExceptionWarning",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          },
+          {
+            "source_id": "pytest-dev/pytest@d0f136fe64f9374f18a04562305b178fb380d1ec:src/pytest/__init__.py",
+            "line": 85,
+            "module": "_pytest.warning_types",
+            "member": "PytestWarning",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          }
+        ],
+        "references": [],
+        "gaps": []
+      }
+    ],
+    "problems": [
+      {
+        "stage": "adapter_index",
+        "reason": "acquisition_failed",
+        "detail": "PyPI release-index acquisition timed out."
+      },
+      {
+        "stage": "adapter_index",
+        "reason": "acquisition_failed",
+        "detail": "PyPI release-index acquisition timed out."
+      },
+      {
+        "stage": "adapter_index",
+        "reason": "acquisition_failed",
+        "detail": "PyPI release-index acquisition timed out."
+      }
+    ],
+    "omitted_candidates": [],
+    "limitations": [
+      "exploration_samples_not_resolved_target_versions",
+      "declared_constraints_and_markers_not_evaluated_activation",
+      "namespace_mapping_not_established",
+      "samples_do_not_exhaust_version_ranges",
+      "relative_module_forwarding_not_traversed"
+    ]
+  }
+}

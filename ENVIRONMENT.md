@@ -193,6 +193,8 @@ Consequences:
 - when GitHub acquisition times out inside proxy preparation/TLS while direct access works, run only the affected command without ambient proxy variables rather than disabling the user's VPN/proxy globally;
 - distinguish authentication failure, proxy/transport failure, source/evidence failure, and product/experiment failure.
 
+Explicit UpgradePilot public-read trial credentials may be kept at `/home/motafeq/.config/upgradepilot/github-token` with owner-only permissions, outside the repository. Load that file only into the authorized trial process's `GITHUB_TOKEN` and select `--github-auth token-env`; the runner does not automatically read this file. This overrides a stale ambient token for that process without changing global configuration. Check authentication and quota without displaying the value; file existence does not establish token validity. Anonymous mode remains independent of the stored file.
+
 Safe token presence check:
 
 ```bash
