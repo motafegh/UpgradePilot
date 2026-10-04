@@ -10,6 +10,7 @@ from experiments.api_change_source_acquisition import (
     DeclaredReleaseWindow,
     DeclaredReleaseWindowAcquirer,
     DeclaredSourceAssociation,
+    PublisherProvenanceInspection,
     TrialPublicSession,
     associate_declared_source,
     select_release_sections,
@@ -23,7 +24,6 @@ from upgradepilot.pypi.release import (
     ProjectUrlCandidate,
 )
 from upgradepilot.upstream.interval import DependencyReleaseInterval
-from upgradepilot.upstream.repository import UpstreamRepositoryProblem
 
 NOW = datetime(2026, 10, 4, tzinfo=UTC)
 SHA = "a" * 40
@@ -49,7 +49,7 @@ def release(version="2.0", links=None):
 
 
 def absent(state="source_unavailable"):
-    return UpstreamRepositoryProblem(state, "demo", "2.0", "provider reason")
+    return PublisherProvenanceInspection(state, "provider reason")
 
 
 class AssociationTests(TestCase):
@@ -280,3 +280,99 @@ class TransportTests(TestCase):
             session.get("https://api.github.com/repos/a/b")
             self.assertFalse(request.call_args.kwargs["allow_redirects"])
             self.assertEqual(session.github_requests, 1)
+
+
+class PublisherInspectionTests(TestCase):
+    def test_publisher_inspection_is_independent_of_homepage_labels(self):
+        from experiments.api_change_source_acquisition import (
+            PublisherProvenanceInspector,
+        )
+        from upgradepilot.pypi.provenance import FileProvenanceProblem
+        from upgradepilot.pypi.release import DistributionFile
+
+        item = replace(
+            release(
+                links=[
+                    ProjectUrlCandidate("Source", "https://github.com/owner/demo"),
+                    ProjectUrlCandidate("Homepage", "https://example.org"),
+                ]
+            ),
+            distribution_files=(
+                DistributionFile(
+                    "demo.whl",
+                    "https://files.pythonhosted.org/demo.whl",
+                    "a" * 64,
+                    "bdist_wheel",
+                ),
+            ),
+        )
+        client = Mock()
+        client.get_file_provenance.return_value = FileProvenanceProblem(
+            "provenance_unavailable",
+            "demo",
+            "2.0",
+            "demo.whl",
+            "https://pypi.org/integrity/demo/2.0/demo.whl/provenance",
+            "absent",
+        )
+        inspected = PublisherProvenanceInspector(client=client).resolve(item)
+        result = associate_declared_source(item, inspected)
+        self.assertIsInstance(result, DeclaredSourceAssociation)
+        self.assertEqual(result.ignored_links[0].label, "Homepage")
+        self.assertEqual(len(inspected.records), 1)
+
+    def test_mixed_conflicting_and_malformed_publisher_evidence_blocks(self):
+        from experiments.api_change_source_acquisition import (
+            PublisherProvenanceInspector,
+        )
+        from upgradepilot.pypi.provenance import (
+            FileProvenanceEvidence,
+            PublisherIdentity,
+        )
+        from upgradepilot.pypi.release import DistributionFile
+
+        item = replace(
+            release(),
+            distribution_files=(
+                DistributionFile(
+                    "demo.whl",
+                    "https://files.pythonhosted.org/demo.whl",
+                    "a" * 64,
+                    "bdist_wheel",
+                ),
+            ),
+        )
+        for publishers in (
+            (PublisherIdentity("GitHub", "wrong/repo", None),),
+            (
+                PublisherIdentity("GitHub", "owner/demo", None),
+                PublisherIdentity("other", None, None),
+            ),
+            (PublisherIdentity("GitHub", None, None),),
+        ):
+            with self.subTest(publishers=publishers):
+                client = Mock()
+                client.get_file_provenance.return_value = FileProvenanceEvidence(
+                    "demo",
+                    "2.0",
+                    "demo.whl",
+                    "a" * 64,
+                    "https://pypi.org/integrity/demo/2.0/demo.whl/provenance",
+                    NOW,
+                    1,
+                    1,
+                    publishers,
+                )
+                inspected = PublisherProvenanceInspector(client=client).resolve(item)
+                self.assertIsInstance(
+                    associate_declared_source(item, inspected), AcquisitionProblem
+                )
+
+    def test_explicit_token_never_reaches_pypi_or_redirects(self):
+        session = TrialPublicSession(token="synthetic-test-value")
+        with patch("requests.Session.request") as request:
+            session.get("https://api.github.com/repos/a/b")
+            self.assertIn("Authorization", request.call_args.kwargs["headers"])
+            session.get("https://pypi.org/pypi/demo/json")
+            self.assertNotIn("Authorization", request.call_args.kwargs["headers"])
+            self.assertFalse(request.call_args.kwargs["allow_redirects"])

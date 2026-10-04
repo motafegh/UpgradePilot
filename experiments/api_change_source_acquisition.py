@@ -32,7 +32,7 @@ from upgradepilot.github.changelog import (
 from upgradepilot.github.identity import validate_repository
 from upgradepilot.github.repository import GitHubRepositoryClient, RepositoryTextFile
 from upgradepilot.github.tag import GitHubTagCommitClient, GitHubTagCommitEvidence
-from upgradepilot.pypi.provenance import PyPIProvenanceClient
+from upgradepilot.pypi.provenance import FileProvenanceProblem, PyPIProvenanceClient
 from upgradepilot.pypi.release import (
     PackageReleaseEvidence,
     PackageReleaseIndexEvidence,
@@ -42,9 +42,6 @@ from upgradepilot.pypi.release import (
 )
 from upgradepilot.upstream.interval import DependencyReleaseInterval
 from upgradepilot.upstream.repository import (
-    UpstreamRepositoryEvidence,
-    UpstreamRepositoryResolver,
-    UpstreamRepositoryResult,
     normalize_project_url_label,
 )
 
@@ -56,6 +53,83 @@ class AcquisitionProblem:
     detail: str
     # Keep the original typed provider problem, including status/identity scope.
     evidence: object | None = None
+
+
+@dataclass(frozen=True)
+class PublisherProvenanceInspection:
+    """Registry publisher records only, independent of project-link selection."""
+
+    state: str
+    detail: str
+    repository: str | None = None
+    records: tuple[object, ...] = ()
+
+
+class PublisherProvenanceInspector:
+    """Keep missing, adverse and unsupported publisher evidence distinguishable.
+
+    The product resolver also gates on its own project-link grammar. Its combined
+    result cannot represent this publisher-only proposition. Do not use homepage
+    acceptance/failure to infer a publisher conflict, or create product authority.
+    """
+
+    def __init__(self, *, client=None):
+        self.client = client or PyPIProvenanceClient()
+
+    def resolve(self, release: PackageReleaseEvidence) -> PublisherProvenanceInspection:
+        records = []
+        repositories = set()
+        kinds = set()
+        for distribution in release.distribution_files:
+            result = self.client.get_file_provenance(release, distribution)
+            records.append(result)
+            if isinstance(result, FileProvenanceProblem):
+                if result.state == "provenance_unavailable":
+                    continue
+                state = (
+                    "unsupported_source"
+                    if result.state == "unsupported_provenance"
+                    else result.state
+                )
+                return PublisherProvenanceInspection(
+                    state, result.detail, records=tuple(records)
+                )
+            for publisher in result.publishers:
+                kinds.add(publisher.kind.casefold())
+                if publisher.kind.casefold() == "github":
+                    try:
+                        repository = validate_repository(publisher.repository)
+                    except (TypeError, ValueError):
+                        return PublisherProvenanceInspection(
+                            "malformed_response",
+                            "Malformed GitHub publisher identity.",
+                            records=tuple(records),
+                        )
+                    repositories.add(repository.casefold())
+        if not any(not isinstance(r, FileProvenanceProblem) for r in records):
+            return PublisherProvenanceInspection(
+                "source_unavailable",
+                "No usable registry publisher records.",
+                records=tuple(records),
+            )
+        if kinds != {"github"}:
+            return PublisherProvenanceInspection(
+                "ambiguous_source" if "github" in kinds else "unsupported_source",
+                "Mixed or unsupported publisher kinds.",
+                records=tuple(records),
+            )
+        if len(repositories) != 1:
+            return PublisherProvenanceInspection(
+                "ambiguous_source",
+                "More than one publisher repository.",
+                records=tuple(records),
+            )
+        return PublisherProvenanceInspection(
+            "available",
+            "Registry reports one GitHub publisher repository.",
+            next(iter(repositories)),
+            tuple(records),
+        )
 
 
 @dataclass(frozen=True)
@@ -96,17 +170,14 @@ class DeclaredReleaseWindow:
 
 
 def associate_declared_source(
-    release: PackageReleaseEvidence, provenance: UpstreamRepositoryResult
+    release: PackageReleaseEvidence, provenance: PublisherProvenanceInspection
 ) -> DeclaredSourceAssociation | AcquisitionProblem:
     """Keep provenance outcomes visible; only absence allows weaker examination.
 
     A supported stronger association is retained as context, not downgraded or
     cast into this trial's proposal authority. Homepage-only links are ignored.
     """
-    if (
-        not isinstance(provenance, UpstreamRepositoryEvidence)
-        and provenance.state != "source_unavailable"
-    ):
+    if provenance.state not in {"available", "source_unavailable"}:
         return AcquisitionProblem(
             "association", provenance.state, provenance.detail, provenance
         )
@@ -158,7 +229,7 @@ def associate_declared_source(
         )
     repository = identities[0]
     if (
-        isinstance(provenance, UpstreamRepositoryEvidence)
+        provenance.state == "available"
         and provenance.repository.casefold() != repository.casefold()
     ):
         return AcquisitionProblem(
@@ -257,15 +328,17 @@ def select_release_sections(
 
 
 class TrialPublicSession(GitHubPublicSession):
-    """Anonymous host-scoped transport; reject redirects and cap GitHub reads.
+    """Host-scoped transport; anonymous unless a token is explicitly supplied.
 
     No declared URL is passed here: provider clients construct their own URLs.
     Rejected redirects are provider failures, never source absence or success.
     """
 
-    def __init__(self):
+    def __init__(self, *, token: str | None = None):
         super().__init__()
         self.github_requests = 0
+        self._github_token = token
+        self.auth_mode = "token-env" if token else "anonymous"
 
     def request(self, method, url, **kwargs):
         parsed = urlsplit(url)
@@ -282,6 +355,12 @@ class TrialPublicSession(GitHubPublicSession):
             if self.github_requests >= 50:
                 raise RequestException("Trial GitHub request budget exhausted.")
             self.github_requests += 1
+        headers = dict(kwargs.get("headers", {}))
+        if parsed.hostname == "api.github.com" and self._github_token:
+            headers["Authorization"] = "Bearer " + self._github_token
+        elif parsed.hostname != "api.github.com":
+            headers.pop("Authorization", None)
+        kwargs["headers"] = headers
         kwargs["allow_redirects"] = False
         return super().request(method, url, **kwargs)
 
@@ -298,6 +377,7 @@ class DeclaredReleaseWindowAcquirer:
     def __init__(
         self,
         *,
+        session=None,
         releases=None,
         index=None,
         provenance=None,
@@ -305,11 +385,11 @@ class DeclaredReleaseWindowAcquirer:
         paths=None,
         files=None,
     ):
-        self.session = TrialPublicSession()
+        self.session = session or TrialPublicSession()
         self.releases = releases or PyPIReleaseClient(session=self.session)
         self.index = index or PyPIReleaseIndexClient(session=self.session)
-        self.provenance = provenance or UpstreamRepositoryResolver(
-            provenance_client=PyPIProvenanceClient(session=self.session)
+        self.provenance = provenance or PublisherProvenanceInspector(
+            client=PyPIProvenanceClient(session=self.session)
         )
         self.tags = tags or GitHubTagCommitClient(session=self.session)
         self.paths = paths or GitHubChangelogPathClient(session=self.session)

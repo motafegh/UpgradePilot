@@ -1,0 +1,74 @@
+{
+  "timestamp": "2026-10-04T11:18:17.760674+00:00",
+  "baseline_commit": "99e72728a43659fb59503456d41080761c78ba8d",
+  "proof_class": "isolated experiment deterministic verification plus distinct partial live observations",
+  "code_and_test_sha256": {
+    "experiments/api_change_source_acquisition.py": "82b3f2f82a37b4985cddffaf683530b176bb9174f5c551bfd5fa814f36d2a760",
+    "experiments/api_target_context.py": "7249232e262f58b06d4e83c4e0299ebfed01dd9f12f86e92d16364612515f2d5",
+    "experiments/api_adapter_exploration.py": "772988f38946636403c346c01bc6c4486cb782c03da26aacc5b87b80891a2ce6",
+    "experiments/api_target_context_smoke.py": "dd0ab0c2952a04a6881ce74e8fc3deac8ae9b77d41c3bfaf64fbf46327fb2275",
+    "experiments/api_adapter_context_replay.py": "a98e83003b5efec117578fe95e5451afdce658565245a32fc1aa6fb9d5c28e5e",
+    "experiments/tests/test_api_change_source_acquisition.py": "9dc34d84af3878b9c6e3b34b6dc511bbb7c60d6b78f1718d19d38561df2720ad",
+    "experiments/tests/test_api_target_context.py": "a6b07b3d64e82b005a16b8931cb2ee23178a369211c64d649d43f3b233e1921a",
+    "experiments/tests/test_api_adapter_exploration.py": "3a2eac10bcf2ded5559a0676eb5757e39af3ffc21057cde51aa54b9fb8c07595",
+    "experiments/tests/test_api_public_pr_context.py": "d1dad126da88903298667706aec194c2bc6590d68e239e57ff33ce62d9b86027"
+  },
+  "focused": {
+    "runner": "unittest",
+    "tests": 37,
+    "result": "green",
+    "command": "PYTHONPATH=src .venv/bin/python -m unittest experiments.tests.test_api_change_source_acquisition experiments.tests.test_api_target_context experiments.tests.test_api_adapter_exploration experiments.tests.test_api_public_pr_context"
+  },
+  "product_regression": {
+    "tests": 743,
+    "result": "green",
+    "execution": "checkout .venv interpreter with PYTHONPATH=src; run earlier in this same cycle",
+    "source_and_tests_changed": false
+  },
+  "ruff": {
+    "check": "green",
+    "format": "green",
+    "scope": [
+      "experiments/api_change_source_acquisition.py",
+      "experiments/api_target_context.py",
+      "experiments/api_adapter_exploration.py",
+      "experiments/api_target_context_smoke.py",
+      "experiments/api_adapter_context_replay.py",
+      "experiments/tests/test_api_change_source_acquisition.py",
+      "experiments/tests/test_api_target_context.py",
+      "experiments/tests/test_api_adapter_exploration.py",
+      "experiments/tests/test_api_public_pr_context.py"
+    ]
+  },
+  "pip_check": "green",
+  "live_attempts": {
+    "live-initial.json": {
+      "sha256": "82cf68002c1343bd2faca9689c00e2c3de88fe58f1474283e484c1c6c98c4313",
+      "proof": "ordinary PR run before publisher-inspection and budget refinements; partial discovery"
+    },
+    "live-corrected.json": {
+      "sha256": "4655d053f1e197486431d7e10c7839698f62ffd4a3b4eacbab97165ef3bd2be0",
+      "proof": "explicit configured token returned HTTP 401 at first PR request"
+    },
+    "live-adapter-replay.json": {
+      "sha256": "05f9d7a443f7e03e1de44e56e96ffd9d4874736600d44639a7931f163213ab1e",
+      "proof": "component replay of producer facts; partial sampled adapter acquisition and rate-limit failures"
+    }
+  },
+  "verification_gate": "pending fresh corrected full ordinary PR acquisition",
+  "not_established": [
+    "resolved target adapter versions",
+    "semantic API-impact acceptance",
+    "model accuracy",
+    "runtime execution",
+    "compatibility",
+    "maintainer utility",
+    "product adoption"
+  ],
+  "not_run": [
+    "full historical experiment regression",
+    "new fresh-installed wheel checks",
+    "model inference"
+  ],
+  "publication_checks": "see cycle record; whitespace, link existence and staged-scope checks verified before publication"
+}

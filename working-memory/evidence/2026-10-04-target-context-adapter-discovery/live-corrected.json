@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-10-04T10:41:08.351345+00:00",
+  "auth": "token-env",
+  "github_requests": 1,
+  "proof": "ordinary PR acquisition and static/exploration evidence; no model, resolved-version, runtime or compatibility acceptance",
+  "code_sha256": {
+    "api_target_context.py": "47983c05d494f1c7fa0f99a1f427caa4e8d3f00af90cd0f272376a84fbc85a09",
+    "api_adapter_exploration.py": "f7d12e34c4377b7efd84f1281d5508ddc70af6e6f5fdadea58815b454fcf6695",
+    "api_target_context_smoke.py": "23d45da7e297e50e955eb04b8151e7d064e8414e0c08b9e2dab7db23beb6a1e1",
+    "api_change_source_acquisition.py": "d9f6f2ca69cf596114cfa47fdd9d56e4383366a6531552c37f6e9d7f66454aa7"
+  },
+  "state": "incomplete",
+  "stage": "public_pr",
+  "reason": "acquisition_failed",
+  "detail": "GitHub returned HTTP 401 while acquiring pull-request evidence."
+}
