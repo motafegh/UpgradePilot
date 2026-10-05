@@ -16,7 +16,7 @@ Authorization persists across the cycle's learning gates; those gates are opport
 ## Cycle status
 
 - A0 — DONE: fetched remote; reconciled live owners, readiness/design handoff, exact implementation/proof plan, source/test seams and unchanged executable horizon; cycle record and living orientation map initialized.
-- A1 — CURRENT: compact continuity model presented; meaningful opportunity for Ali to challenge/correct it is pending.
+- A1 — CURRENT: Ali requested explicit teaching of the A0/A1 concepts to retain/understand/master. Starting-state, evidence-maturity and proof-boundary teaching is underway; reasoning/ownership results remain pending.
 - A2 — PENDING: upcoming implementation orientation and pre-B understanding gate.
 - B — PENDING: no interpreter source/test edits or inference.
 - Verification gate — PENDING: inherited baseline evidence is not verification of new behavior.
@@ -73,3 +73,9 @@ Stop at a material design/contract conflict or proof blocker and preserve it; re
 ## A1 handoff
 
 At formal entry, the project has prepared source-only interpretation and verified acquisition/static-context/recovery foundations. This cycle will supply the missing executable proposal path and its engineering proof. The current handoff pauses at A1 so Ali can question/correct that model before A2. B has not begun; implementation authorization is already given.
+
+## A1 learning focus — starting state and evidence maturity
+
+Ali asked for proper explanation of what must be retained, understood and mastered from A0/A1. Required responsibility-level depth: reconstruct the current implemented/prepared/unverified boundary; interpret evidence only within its exercised scope; distinguish acquired source/static context, model proposals, semantic evaluation and actual target impact. These concepts are needed to challenge implementation/evaluation claims and diagnose the next work. Exact hashes, test counts, filenames and provider API details are lookup-level; prior whole-design D and new implementation mechanics are not silently marked mastered. A2 will own the latter's minimum-complete orientation.
+
+Teach from the actual retained HTTPX removal/deprecation source and current readiness evidence. Use two fair reasoning checkpoints about partial-source scope and the evidence needed for a semantic-accuracy claim. No answer, mastery or A1 gate completion is assumed from explanation alone. Remain in this same cycle/A1; no Learning-Only reroute, learning artifact, source/test mutation or extra regression run is selected.
