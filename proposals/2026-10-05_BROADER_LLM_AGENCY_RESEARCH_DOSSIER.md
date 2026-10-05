@@ -1,9 +1,13 @@
 # Broader LLM agency in UpgradePilot — research dossier
 
-**Recorded:** 2026-10-05, Asia/Tehran  
-**Status:** Exploratory; first source-backed research pass, not a final design or adoption decision  
-**Baseline:** `7f1bd0ec29d13d32cc8a805d948b4dc422394d96`  
-**Research progression:** [working memory](../working-memory/2026-10-05_2052_broader-llm-agency-research.md)  
+**Recorded:** 2026-10-05, Asia/Tehran
+
+**Status:** Exploratory; first source-backed research pass, not a final design or adoption decision
+
+**Baseline:** `7f1bd0ec29d13d32cc8a805d948b4dc422394d96`
+
+**Research progression:** [working memory](../working-memory/2026-10-05_2052_broader-llm-agency-research.md)
+
 **Authority:** research evidence, alternatives and candidate comparisons. Existing project restrictions are examined as hypotheses/migration context, not imposed as limits on idea generation. No implementation, experiment execution or architectural adoption follows from this document.
 
 ## 1. The question and provisional answer

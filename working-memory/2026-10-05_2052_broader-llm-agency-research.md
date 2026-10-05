@@ -1,11 +1,17 @@
 # Broader LLM agency — research working memory
 
-**Recorded:** 2026-10-05 20:52 Asia/Tehran  
-**Session status:** ACTIVE research; final product/design decision pending  
-**Primary responsibility:** open research/architectural comparison and read-only examination of prior executable work  
-**Branch:** `codex/broader-llm-agency-research-2026-10-05`  
-**Worktree:** `/home/motafeq/.codex/worktrees/broader-llm-agency-research/UpgradePilot`  
-**Starting revision:** `7f1bd0ec29d13d32cc8a805d948b4dc422394d96`  
+**Recorded:** 2026-10-05 20:52 Asia/Tehran
+
+**Session status:** ACTIVE research; final product/design decision pending
+
+**Primary responsibility:** open research/architectural comparison and read-only examination of prior executable work
+
+**Branch:** `codex/broader-llm-agency-research-2026-10-05`
+
+**Worktree:** `/home/motafeq/.codex/worktrees/broader-llm-agency-research/UpgradePilot`
+
+**Starting revision:** `7f1bd0ec29d13d32cc8a805d948b4dc422394d96`
+
 **Provenance:** `UP-SKILL:upgradepilot-planning-design`, `UP-SKILL:upgradepilot-repository-audit`, `UP-SKILL:upgradepilot-working-memory`
 
 ## 1. Intent, scope and central question
@@ -28,11 +34,16 @@ Authorized mutations: research artifacts and branch-local coordination. This req
 
 ## 3. Deliberate procedure adaptation and cycle
 
-**Circumstance:** continuous conversation; Ali questioned restrictions, discussed a comparison and explicitly requested open research while main builds.  
-**Normal route:** fresh substantive A1/A2 stop gates and owner-conditioned choices.  
-**Why worse here:** repeated approval/recall gates delay authorized research; treating existing AI limits as premises prejudges the question.  
-**Override:** compact A0/A1/A2; research alternatives from product needs and external evidence, examine current rules as design choices.  
-**Effect:** preserve main isolation, source/evidence truth and research scope; make no learner-mastery, implementation-acceptance or model-competence claim.  
+**Circumstance:** continuous conversation; Ali questioned restrictions, discussed a comparison and explicitly requested open research while main builds.
+
+**Normal route:** fresh substantive A1/A2 stop gates and owner-conditioned choices.
+
+**Why worse here:** repeated approval/recall gates delay authorized research; treating existing AI limits as premises prejudges the question.
+
+**Override:** compact A0/A1/A2; research alternatives from product needs and external evidence, examine current rules as design choices.
+
+**Effect:** preserve main isolation, source/evidence truth and research scope; make no learner-mastery, implementation-acceptance or model-competence claim.
+
 **Reconciliation:** record the adaptation here and branch live position in MEMORY.md; later design/adoption reconciles the appropriate owners after Ali's decision.
 
 ```text
@@ -109,6 +120,7 @@ First-pass documentation verification:
 - Product tests, old experiment reruns, live inference and third-party execution were intentionally not run: this increment changes research/branch coordination only. Historical pass counts remain inspected historical evidence.
 - During research, the separate main workstream advanced to `08e364615b011a11defc85c2d357fa2d0e26ccdb` and still showed ongoing uncommitted changes. This was observed read-only. The research baseline remains the original fork; no merge/rebase/copy was performed.
 - Publication uses the standing cadence recorded in baseline MEMORY.md: commit and push the reviewed coherent research increment. Exact commit/remote alignment is reported in the chat after execution rather than predicting a commit ID in its own contents.
+- Verification correction: the unstaged diff check covered tracked MEMORY only; staging revealed trailing Markdown hard-break spaces in the new documents. The first local commit therefore preceded a green whole-increment whitespace check. Hard-break spacing was replaced with blank-line formatting; the complete fork-to-working-tree check then passed before publication. No executable work was involved.
 
 Research completeness means sufficient coverage, traced sources, credible alternatives and discriminating experiments. It does not mean exhaustive literature coverage or validated architecture. Final decision/design remains open; D/E are pending discussion, not silently closed.
 
