@@ -4,16 +4,16 @@ Date: 2026-10-05 (Asia/Tehran). Ali explicitly requested formally starting the n
 
 Skills: `UP-SKILL:upgradepilot-planning-design`, `UP-SKILL:upgradepilot-learning-by-doing`, `UP-SKILL:upgradepilot-working-memory`.
 
-## Cycle status
+## Cycle status — CLOSED with D explicitly deferred
 
 - A0 — DONE: fetched origin; main/origin aligned at `7e4ff5b02477153ce1ed997022ca9eb5788931a1`; owners, directly relevant handoff, existing extractor/composition/test and active acquisition/representation path inspected. This cycle record and living map initialized.
 - A1 — DONE: verified continuity model presented; Ali had the normal opportunity to challenge and explicitly continued on 2026-10-05. No new contradiction was raised.
 - A2 — DONE: Ali correctly distinguished schema success from semantic failure, heard the additional grounding distinction, clarified design versus implementation cycles and explicitly continued after that clarification.
 - B — DONE: prepared source-only input/output, generic prompt, deterministic grounding/coverage boundaries, frozen development cases and experiment implementation handoff in the existing plan. No executable interpreter or model call.
 - Verification gate — GREEN for planning: schema, exact input maps/provenance, all 19 input/expectation pairs, evaluator separation and nine frozen artifact hashes checked; design reconciled with source/owners/consumer proof boundaries. No runtime or semantic accuracy acceptance.
-- D — CURRENT: design understanding remains incomplete. Complete the whole teaching sequence before adding a compact coverage/ownership summary here.
-- E — PENDING: repair/defer gaps and hand off a concrete implementation/evaluation responsibility.
-- C — CONTINUOUS: preserve design choices, discoveries, failures, proof limits and learning evolution in this single record.
+- D — DEFERRED by Ali: the actual design is not yet understood; teaching coverage is summarized below without a mastery claim.
+- E — DONE: explicit learning deferral, verified preparation outcome/non-proof, residual debt and next-responsibility handoff consolidated. Cycle closed; no implementation started.
+- C — DONE: meaningful engineering evidence and compact deferred-learning/closure state preserved in this record.
 
 ## Current-state reconciliation
 
@@ -106,6 +106,17 @@ Focused deterministic verification: `PYTHONDONTWRITEBYTECODE=1 .venv/bin/python 
 
 Inspection errors were corrected before drawing conclusions: assumed source paths, packet field names and hash-key directory prefixes differed from the actual inventory/record. These were lookup errors, not product bugs.
 
-## D summary — pending
+## D summary — learning deferred by Ali
 
-The full learning sequence is unfinished; Ali reports that the actual design is not yet understood. At its end, summarize only the items covered, meaningful ownership findings and remaining gaps. Do not treat earlier teaching attempts as completed learning or resume per-message recording. The governing recording cadence is now in Operating Guide §2.6.
+- Topics presented: interpreter purpose/pipeline placement and proposed input/output; LLM versus source ownership; structure, references and meaning checks; source versus interpretation coverage. Candidate discovery and uv/docs reachability were supporting context.
+- Understanding: Ali explicitly reports that the actual planned design is not yet understood. Presentation, agreement and unanswered checks do not establish mastery. Whole-design understanding and the remaining evaluation/capacity/failure/coverage ownership discussion remain deferred.
+
+## E — closure and next responsibility
+
+Ali explicitly requested deferring D and moving to E for closure. Normal progression completes D before closure; his instruction selects closure with the learning gap openly deferred. Effect: engineering preparation remains verified, learner ownership remains unestablished, and no implementation/adoption authority or proof is added. Reconcile the compact whole-cycle status in `MEMORY.md`; resume deferred learning only when requested or when needed for a later responsibility's orientation.
+
+Established: a source-only API interpretation design under the existing feasibility plan, generic prompt template, strict output schema, source-reference/uncertainty/coverage rules, 19 paired development inputs/expectations, and experiment implementation/proof handoff. Planning artifact checks passed; the additional 42 focused discovery/uv tests are separate deterministic evidence. Closure rechecked all nine frozen file hashes/sizes and the 19 paired cases, whose review status remains `not_run`. No product source/test or artifact-contract change occurred during closure; no broader regression was rerun.
+
+Not established: an implemented API interpreter, provider schema compatibility/effective-context fit, real-model accuracy, a second ordinary real target-PR variation, target-version/backend activation or API-impact feasibility, independent semantic admission/usefulness, or product adoption. Preserve those engineering obligations separately from the deferred learning.
+
+Next responsibility: a separate Build cycle for the experiment-local interpreter and explicit opt-in PR path, with controlled-provider source-to-proposal-to-saved-recovery proof first. Actual provider/capacity checks precede live inference; real-model evaluation and broader case/adoption gates retain the feasibility plan's proof boundaries. Begin with fresh A0/A1/A2 proportionate to this responsibility and the recorded understanding gap. Closure stops here; it does not start that next cycle.
