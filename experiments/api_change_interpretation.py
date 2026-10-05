@@ -448,11 +448,18 @@ class LocalInterpretationProvider:
     """One direct loopback request, only after request-bound capacity evidence."""
 
     def __init__(
-        self, *, capacity: RequestCapacityEvidence | None = None, session=None
+        self,
+        *,
+        capacity: RequestCapacityEvidence | None = None,
+        session=None,
+        response_observer=None,
     ):
         self.capacity = capacity
         self.session = session if session is not None else build_lm_studio_session()
         self.session.trust_env = False
+        # Evaluation can retain a bounded HTTP frame privately and inspect usage.
+        # The observer supplies no output correction or admission authority.
+        self.response_observer = response_observer
         self.identity = {
             "kind": "local_lm_studio",
             "endpoint": LOCAL_ENDPOINT,
@@ -505,13 +512,6 @@ class LocalInterpretationProvider:
                 allow_redirects=False,
                 stream=True,
             ) as response:
-                if response.status_code != 200:
-                    return ProviderReply(
-                        problem=(
-                            "provider_problem",
-                            f"http_status_{response.status_code}",
-                        )
-                    )
                 chunks = bytearray()
                 for chunk in response.iter_content(chunk_size=8192):
                     chunks.extend(chunk)
@@ -519,6 +519,15 @@ class LocalInterpretationProvider:
                         return ProviderReply(
                             problem=("provider_problem", "response_byte_limit")
                         )
+                if self.response_observer is not None:
+                    self.response_observer(response.status_code, bytes(chunks))
+                if response.status_code != 200:
+                    return ProviderReply(
+                        problem=(
+                            "provider_problem",
+                            f"http_status_{response.status_code}",
+                        )
+                    )
                 outer = strict_json(chunks.decode("utf-8"))
             choices = outer["choices"]
             if not isinstance(choices, list) or len(choices) != 1:
@@ -544,22 +553,45 @@ def interpret_projection(
     upstream: dict, interval: dict, provider: InterpretationProvider
 ) -> dict:
     """Preserve scope on failure; no partial candidates, retries or semantic vote."""
-    packet = {
+    try:
+        source_input = source_input_from_projection(upstream, interval)
+    except (ValueError, KeyError, TypeError, AttributeError):
+        return {
+            **_result_envelope(None),
+            "state": "input_problem",
+            "problem": {
+                "stage": "input_problem",
+                "reason": "invalid_source_relationships",
+            },
+        }
+    return interpret_source_input(source_input, provider)
+
+
+def _result_envelope(source_input: dict | None) -> dict:
+    return {
         "role_version": ROLE,
-        "source_input": None,
+        "source_input": source_input,
         "method": None,
         "observations": [],
         "unassessed": [],
         "problem": None,
     }
 
+
+def interpret_source_input(
+    source_input: dict, provider: InterpretationProvider
+) -> dict:
+    """Interpret a producer-validated map; calibration never becomes acquisition.
+
+    Ordinary callers enter through interpret_acquired_source/interpret_projection.
+    The evaluation adapter independently checks its frozen calibration maps and
+    labels their weaker/constructed scope before entering this shared mechanism.
+    """
+    packet = _result_envelope(source_input)
+
     def fail(stage, reason):
         return {**packet, "state": stage, "problem": {"stage": stage, "reason": reason}}
 
-    try:
-        packet["source_input"] = source_input_from_projection(upstream, interval)
-    except (ValueError, KeyError, TypeError, AttributeError):
-        return fail("input_problem", "invalid_source_relationships")
     if not packet["source_input"]["sections"]:
         return fail("input_problem", "no_retained_source_text")
     try:

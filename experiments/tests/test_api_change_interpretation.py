@@ -442,3 +442,19 @@ class LocalProviderTests(TestCase):
             .problem[1],
             "Timeout",
         )
+
+    def test_bounded_observer_does_not_bypass_provider_admission(self):
+        observer = Mock()
+        self.response(raw=b'{"error":"unsupported schema"}', status=400)
+        reply = LocalInterpretationProvider(
+            capacity=self.capacity, session=self.session, response_observer=observer
+        ).complete(self.request)
+        self.assertEqual(reply.problem[1], "http_status_400")
+        observer.assert_called_once_with(400, b'{"error":"unsupported schema"}')
+        observer.reset_mock()
+        self.response(raw=b"x" * 262145)
+        reply = LocalInterpretationProvider(
+            capacity=self.capacity, session=self.session, response_observer=observer
+        ).complete(self.request)
+        self.assertEqual(reply.problem[1], "response_byte_limit")
+        observer.assert_not_called()
