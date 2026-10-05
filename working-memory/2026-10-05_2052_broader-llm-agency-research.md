@@ -50,8 +50,8 @@ Authorized mutations: research artifacts and branch-local coordination. This req
 A0 — DONE: base reconciled, main isolated, branch/record initialized
 A1 — DONE (compact): continuous discussion established the concern; prior work will be checked
 A2 — DONE (compact): research before decision/design; comparison and authority dimensions introduced
-B — CURRENT: first research pass drafted; protocol selection/deeper comparison remains open
-Verification gate — GREEN for first documentation/research increment: linked evidence/claims reviewed, local links/registry/coverage checks pass; no runtime/model proof
+B — CURRENT: first pass and concrete local-only comparison protocol authored; broader research/design decision remains open
+Verification gate — GREEN for research/protocol documentation and dated metadata/source checks; no runtime/model proof
 D — PENDING: discuss evidence-backed findings and limits with Ali
 E — PENDING: repair/defer gaps and choose next research/design responsibility
 C — CONTINUOUS: meaningful findings, corrections, verification and handoff preserved here
@@ -125,3 +125,35 @@ First-pass documentation verification:
 Research completeness means sufficient coverage, traced sources, credible alternatives and discriminating experiments. It does not mean exhaustive literature coverage or validated architecture. Final decision/design remains open; D/E are pending discussion, not silently closed.
 
 **Dated next responsibility:** discuss/review this dossier, decide the most informative first comparison, and refine its model/tool options, deeper source-method review, protected case/oracle design and cost/containment needs. Then decide/design execution explicitly. Continue this same working-memory record. Reconcile main's exact later implementation/evidence before designing integration; preserve the research-source baseline and earlier corrections.
+
+## 8. Protocol-design continuation — Ali-selected next step
+
+Ali requested the suggested next step: refine the concrete comparison protocol before experiment execution/product design. An asynchronous model-scope question received the explicit answer **Local-only**. This instruction replaces the proposed hosted comparison option; no paid/provider-account work is needed. The same record/cycle and continuous-context procedural adaptation continue; no new mastery or implicit execution permission is inferred.
+
+### Reconciled evidence
+
+- Fetched remote refs; research branch was clean and aligned at `7c889755d4c87218d55eeda204110785001dce07`. Main/origin/main were inspected at `08e364615b011a11defc85c2d357fa2d0e26ccdb`, with main separately continuing uncommitted interpreter/evaluator work. No merge/rebase or changes to main.
+- Main has now committed `experiments/api_change_interpretation.py` and `experiments/api_change_interpretation_trial.py`. Their frozen-source rendering, structural/reference decoding and offline recovery are real experimental implementation, with recorded 31 focused / 120 active API-trial controlled-provider tests and offline CLI equality. These are inspected historical results, not rerun. Main's subsequent real-model extension remains separate; no semantic result is borrowed.
+- Product `src/` and `tests/` are unchanged between our research fork and that committed reference. Four interpreter/test source hashes are pinned in the [metadata/source evidence](evidence/2026-10-05-broader-llm-agency-protocol/local-model-and-reference-snapshot.json), even though the two later interpreter modules are absent from the frozen research checkout.
+- Read-only native and compatible LM Studio model-list GETs returned HTTP 200 with proxy bypass. The retained native snapshot includes five protocol candidates; maintained Gemma was loaded at context 4096/parallel 4, other selected models unloaded. This differs from historical ENVIRONMENT parallelism 1; no owner/deployment was changed. Inventory capability flags and advertised maximum context are not actual tool/context/quality proof. No inference, load/unload or fresh GPU measurement occurred.
+- Deeper primary-source review covered DepRepair construction/generation/oracle/threats, research-agent grading/reset/oracle caveats, LM Studio tool-template/parser/tokenization details and Qwen3.5-9B family serving/thinking/sampling caveats. Qwen's larger-context guidance prevents presenting a small local run as its maximum capability. Source summaries and evidence limits are preserved in the [evidence README](evidence/2026-10-05-broader-llm-agency-protocol/README.md).
+
+### Concrete design and rationale
+
+The [comparison protocol](../plans/BROADER_LLM_AGENCY_COMPARATIVE_EVALUATION_PROTOCOL.md) compares a pinned current-product reference, a substantial fixed LLM workflow and an agent-led investigator. F/A share exact source/tool access, model configuration, citation/report requirements and resource ceilings; workflow control is the intended contrast. Both may issue independent experimental advice beyond the current product abstain enum. Product output is not the correctness oracle.
+
+Proposed core: six known development cases, twelve new protected cases across supported concerns/adequate negative evidence/decision-critical unknowns, three protected repeats, up to two existing local deployments. This gives 144 measured protected F/A trials and 200 total F/A trials including feasibility/development; one feasible model halves those counts. Reference, probes, diagnostics and human review are additional. Maximum F/A trial occupancy is 66h40m at a 20-minute cap, not a throughput forecast or automatically selected batch.
+
+Generic source/list/read/search/diff/observation tools permit arbitrary relevant hypotheses and queries. Exact identities and containment are host responsibilities; model controls investigation/stopping. Fixed-workflow retrieval remains substantial rather than a weak one-shot baseline. A controlled execution/reproduction extension is separately designed because adding runtime feedback changes the experimental factor and proof responsibilities; it may be selected directly if a concrete case makes it the best discriminator.
+
+Reference labels require source adjudication, reviewer separation, human review of consequential disputes and explicit unknowns; no simulation answer, merge status, valid JSON, current action envelope or second-model consensus suffices. Protected exposure, retries, novel valid findings and faulty labels have explicit versioning/rescoring rules. Twelve cases provide diagnostic direction, not rare-error calibration or authority admission.
+
+Self-review corrections: reserve final-report tokens/call within aggregate caps rather than allowing early calls to exhaust them; define case wins/regressions using two-of-three versus at-most-one successful repeats; disclose review-order/practice effects; keep shared-evidence/context/security perturbation diagnostics separate from core totals; count product-reference inference separately. These changes make the proposed proof less misleading without narrowing investigative hypotheses.
+
+### Evidence and handoff boundary
+
+Documentation/snapshot checks passed for this increment: 70 local links across five Markdown owners, all four pinned committed-source hashes, valid metadata JSON, table/fence/whitespace consistency, exact case/trial/token/time arithmetic and the six-file staged scope. Both staged and complete research-fork diff checks passed. No executable, product-test/dependency or accepted specification/ADR change is included. Final state-record edits receive the same checks again before commit/publication.
+
+Product tests and live-model trials remain intentionally unrun: only protocol, research links, dated metadata/source evidence and branch coordination changed. No executable runner, model-quality claim, independent protected corpus or selected product architecture was created. The next concrete responsibility can be the experiment-local common harness plus harmless provider/capacity probes and two-case feasibility, followed by corpus freeze and measured comparison if selected. No exact paid/third-party/external-target action is implied.
+
+D learning: the comparison isolates investigative control from context/model/tool gains, and semantic/reference grading from structural preservation. A small pilot can justify further research or a hybrid candidate, not broad operational authority. This explanation is AI-authored and Ali-directed; independent ownership remains unassessed. E closure/final product decision remains open for the wider research responsibility.

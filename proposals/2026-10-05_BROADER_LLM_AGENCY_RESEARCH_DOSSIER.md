@@ -1,5 +1,7 @@
 # Broader LLM agency in UpgradePilot — research dossier
 
+**Follow-up:** Ali selected the [local-only comparative evaluation protocol](../plans/BROADER_LLM_AGENCY_COMPARATIVE_EVALUATION_PROTOCOL.md). It turns the first-pass options below into concrete comparisons, deployment/corpus/oracle requirements and budgets. The dossier remains the original research synthesis; the protocol's dated evidence reconciles main's subsequently committed API interpreter without claiming real-model acceptance.
+
 **Recorded:** 2026-10-05, Asia/Tehran
 
 **Status:** Exploratory; first source-backed research pass, not a final design or adoption decision
