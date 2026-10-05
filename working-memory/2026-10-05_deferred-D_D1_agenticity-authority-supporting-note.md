@@ -118,4 +118,21 @@ This discussion strengthens the meaning of the current responsibility boundaries
 - future capability and future authority may both expand, but they should be evaluated independently;
 - current deterministic ownership should not become an unquestioned mature-system dogma merely because it is safer for the first experiment.
 
-This is **partial D1 learning evidence**, not D1 completion. The cycle checklist remains pending until Ali answers the architecture/responsibility ownership checkpoint and can transfer the reasoning across changed cases.
+## D1 ownership checkpoint — first response
+
+Ali then answered the three D1 ownership questions in his own words.
+
+Observed understanding:
+
+- He correctly identified that the HTTPX/release/changelog evidence itself is deterministically acquired/preserved and that the LLM's legitimate role is to interpret the natural-language change meaning rather than invent the source.
+- He correctly explained that a correct upstream interpretation is still insufficient for target impact because target applicability requires separate evidence/provenance rather than inference from unrelated evidence.
+- He correctly explained the need to keep the broader API interpreter separate from the already verified support-drop responsibility so the new role can be evaluated independently before any product admission.
+
+Precision still to repair before marking D1 complete:
+
+1. Deterministic ownership is stronger than merely “the HTTPX evidence came from deterministic code.” It owns the exact package/release/source identity, retained text, line/range IDs and source-window scope. The LLM proposes the semantic relationship such as “the `app` argument was removed in this release.” Even the subject/type/timing extraction is semantic proposal when it is not mechanically encoded by the source producer.
+2. “Merge them later” is too broad as an architectural statement. A successful experiment may be promoted or composed into product only through separate admission/proof; it need not be merged into the existing `support_drop_extractor.py` semantic role.
+
+Current D1 assessment: **PARTIALLY ESTABLISHED — architecture direction understood; one short transfer check remains before checklist completion.**
+
+The cycle checklist remains pending until that transfer check confirms the refined ownership boundaries.
