@@ -1,0 +1,65 @@
+{
+  "artifact_kind": "hand-authored design review controls; never model outputs",
+  "input_id": "I003",
+  "valid_structure_example": {
+    "observations": [
+      {
+        "kind": "deprecation",
+        "subject": "string-valued verify usage",
+        "summary": "The source describes a current deprecation of string-valued verify usage.",
+        "assertion": "affirmed",
+        "timing": "current",
+        "effective_version": "0.28.0",
+        "source_spans": [
+          {
+            "start_line_id": "S1:L1",
+            "end_line_id": "S1:L1"
+          }
+        ],
+        "reason": null
+      }
+    ],
+    "unassessed": []
+  },
+  "valid_structure_wrong_meaning_example": {
+    "observations": [
+      {
+        "kind": "removal",
+        "subject": "string-valued verify usage",
+        "summary": "The source says string-valued verify usage is removed.",
+        "assertion": "affirmed",
+        "timing": "current",
+        "effective_version": "0.28.0",
+        "source_spans": [
+          {
+            "start_line_id": "S1:L1",
+            "end_line_id": "S1:L1"
+          }
+        ],
+        "reason": null
+      }
+    ],
+    "unassessed": []
+  },
+  "invalid_extra_authority_field_example": {
+    "observations": [
+      {
+        "kind": "deprecation",
+        "subject": "string-valued verify usage",
+        "summary": "The source describes a current deprecation of string-valued verify usage.",
+        "assertion": "affirmed",
+        "timing": "current",
+        "effective_version": "0.28.0",
+        "source_spans": [
+          {
+            "start_line_id": "S1:L1",
+            "end_line_id": "S1:L1"
+          }
+        ],
+        "reason": null
+      }
+    ],
+    "unassessed": [],
+    "compatible": true
+  }
+}

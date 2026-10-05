@@ -1,0 +1,44 @@
+{
+  "freeze_date": "2026-10-05",
+  "role_version": "source-only-api-change-v1",
+  "implementation": "not implemented",
+  "model_outputs_seen": false,
+  "files": {
+    "evaluation-cases-v1.json": {
+      "sha256": "8e966d2c12b071f0c3764ce98fd370a8491622410daf459cd1c69a642e11ce09",
+      "bytes": 16372
+    },
+    "httpx-LICENSE.txt": {
+      "sha256": "4ec59d544f12b5f539a3a716fd321ac58ccd8030b465221f2c880200cdf28d8d",
+      "bytes": 1508
+    },
+    "output-schema-v1.json": {
+      "sha256": "c40b35baa52227ef2a9ef17e176cc6c47384d6958b1b9c072a6d9b991c044c42",
+      "bytes": 3814
+    },
+    "prompt-template-v1.md": {
+      "sha256": "e9b4495eae96a40fe559bcaf4059672d4ccd338adcf449b72f2cbfa131a40158",
+      "bytes": 3530
+    },
+    "schema-review-examples.json": {
+      "sha256": "55fc2c94c6f9c8ae616882ba2d45ade40c92d93a6fcb3eebbf48589956e30ded",
+      "bytes": 1742
+    },
+    "source-inputs-v1.json": {
+      "sha256": "85347e62923ef03a414a519b5cb2b54ead706981461edc4ccc634f71e97e7fa8",
+      "bytes": 50160
+    },
+    "source-provenance.json": {
+      "sha256": "2e5689520888deb6503f75a7dabab45f77fcdf91462a814919f5fbf7eb080c7c",
+      "bytes": 1913
+    },
+    "urllib3-2.0.0-release-section.rst": {
+      "sha256": "8fd2206b4ac31116bbe55d4fd9f66a50268b717c52172822184a0e5795d0dd49",
+      "bytes": 14918
+    },
+    "urllib3-LICENSE.txt": {
+      "sha256": "c37bf186e27cf9dbe9619e55edfe3cea7b30091ceb3da63c7dacbe0e6d77907b",
+      "bytes": 1115
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "httpx": {
+    "repository": "encode/httpx",
+    "revision": "26d48e0634e6ee9cdc0533996db289ce4b430177",
+    "path": "CHANGELOG.md",
+    "full_source_sha256": "2cd04b965b20eff7a4d3b30cc020c63b125da9f731874513bad2e59ca9743258",
+    "source_basis": "exact_release_publisher_declared_repository",
+    "source_url": "https://raw.githubusercontent.com/encode/httpx/26d48e0634e6ee9cdc0533996db289ce4b430177/CHANGELOG.md",
+    "retrieval": "retained dated ordinary PR acquisition; not a fresh read",
+    "retained_packet": "working-memory/evidence/2026-10-04-ordered-scoped-bindings/live-pr-context.json",
+    "packet_sha256": "1e79f2b75abd1cbaf79a7deb61fec1d8f4b9ee68cbd9834c586443ac6976a5dc",
+    "license_file": "httpx-LICENSE.txt"
+  },
+  "urllib3": {
+    "repository": "urllib3/urllib3",
+    "requested_tag": "2.0.0",
+    "revision": "6446fef0cf432ca035169602a1447a0d8ef53e80",
+    "path": "CHANGES.rst",
+    "source_url": "https://raw.githubusercontent.com/urllib3/urllib3/6446fef0cf432ca035169602a1447a0d8ef53e80/CHANGES.rst",
+    "full_source_sha256": "71052e7ffbc17ff91002534ee685d6053a7f9113c6b10eb46b4c85fb2fefb011",
+    "license_url": "https://raw.githubusercontent.com/urllib3/urllib3/6446fef0cf432ca035169602a1447a0d8ef53e80/LICENSE.txt",
+    "license_sha256": "c37bf186e27cf9dbe9619e55edfe3cea7b30091ceb3da63c7dacbe0e6d77907b",
+    "requests": 4,
+    "auth_mode": "anonymous",
+    "proof_class": "manually selected source-only calibration; not normal target PR acquisition",
+    "source_basis": "manually selected pinned repository source; calibration only",
+    "retained_section": "urllib3-2.0.0-release-section.rst",
+    "retained_start_offset": 0,
+    "retained_end_offset": 14918,
+    "retained_section_sha256": "8fd2206b4ac31116bbe55d4fd9f66a50268b717c52172822184a0e5795d0dd49",
+    "license_file": "urllib3-LICENSE.txt",
+    "full_file_retained": false,
+    "retrieved_date": "2026-10-05"
+  }
+}

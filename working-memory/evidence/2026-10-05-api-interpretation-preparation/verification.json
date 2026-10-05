@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-05",
+  "proof_class": "planning artifact review; no new role runtime",
+  "schema_metaschema_valid": true,
+  "hand_authored_structurally_valid_example_passes": true,
+  "hand_authored_wrong_meaning_also_passes_schema": true,
+  "hand_authored_extra_authority_field_rejected": true,
+  "paired_inputs_and_evaluator_cases": 19,
+  "scope_counts": {
+    "acquired_window": 1,
+    "supplied_excerpt": 6,
+    "constructed_control": 11,
+    "retained_partial": 1
+  },
+  "source_sections_checked": 20,
+  "mapped_lines_checked": 75,
+  "all_contiguous_line_spans_recover_exact_text": true,
+  "authentic_text_recovers_from_pinned_or_retained_source": true,
+  "partial_ambiguous_empty_scope_controls_preserved": true,
+  "expected_propositions_outside_source_inputs": true,
+  "frozen_files_hashes_and_sizes_match": 9,
+  "model_calls": 0,
+  "new_role_implemented": false,
+  "product_or_experiment_regression_rerun": false,
+  "semantic_case_outcomes": "not run; fixtures are not passing model cases",
+  "runtime_token_fit_and_provider_support": "unverified; required before inference",
+  "second_ordinary_real_target_pr": "not acquired",
+  "independent_semantic_admission_or_maintainer_usefulness": "unproven"
+}
