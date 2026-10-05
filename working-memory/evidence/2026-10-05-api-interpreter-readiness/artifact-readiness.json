@@ -1,0 +1,26 @@
+{
+  "timestamp_utc": "2026-10-05T16:09:56.837946+00:00",
+  "proof_class": "fresh local artifact integrity and representation checks; no semantic evaluation",
+  "frozen_files_checked": 9,
+  "paired_inputs_and_cases": 19,
+  "sections_checked": 20,
+  "lines_checked": 75,
+  "contiguous_spans_checked": 734,
+  "schema_metaschema_valid": true,
+  "evaluator_fields_outside_inputs": true,
+  "all_case_review_statuses": "not_run",
+  "retained_packet_sha256": "1e79f2b75abd1cbaf79a7deb61fec1d8f4b9ee68cbd9834c586443ac6976a5dc",
+  "retained_producer_code_hashes_checked": 6,
+  "ordinary_input_source_characters": 1367,
+  "schema_bytes": 3814,
+  "prompt_template_bytes": 3530,
+  "exact_runtime_renderer_implemented": false,
+  "token_count_measured": false,
+  "model_calls": 0,
+  "errors": [],
+  "non_claims": [
+    "character and byte sizes are not token fit",
+    "retained acquisition is not fresh external acquisition",
+    "frozen development cases are not semantic passes"
+  ]
+}

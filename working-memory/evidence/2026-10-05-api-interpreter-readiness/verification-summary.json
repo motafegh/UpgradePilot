@@ -1,0 +1,43 @@
+{
+  "timestamp_utc": "2026-10-05T16:12:49.518740+00:00",
+  "code_head": "a9d34fd7c1c628e96a9658bdbee67813b51571e9",
+  "scope": "pre-cycle readiness; no executable change",
+  "observed_checks": [
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest experiments.tests.test_api_change_source_acquisition experiments.tests.test_api_target_context experiments.tests.test_api_python_bindings experiments.tests.test_api_adapter_exploration experiments.tests.test_api_public_pr_context",
+      "exit_code": 0,
+      "tests_run": 100,
+      "outcome": "PASS"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pip check",
+      "exit_code": 0,
+      "outcome": "PASS",
+      "detail": "No broken requirements found."
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/agent-governance/governance_doctor.py",
+      "exit_code": 1,
+      "outcome": "FAIL",
+      "errors": [
+        "AGENTS.md responsibility map is missing owner marker examples/"
+      ],
+      "baseline_status": "AGENTS.md and checker unchanged from starting committed tree"
+    }
+  ],
+  "artifact_check": "artifact-readiness.json",
+  "provider_check": "provider-metadata.json",
+  "model_calls": 0,
+  "effective_loaded_context": "unestablished; pilot unloaded",
+  "exact_rendered_request_token_fit": "unestablished; executable renderer absent",
+  "provider_schema_support": "unestablished; no inference",
+  "not_run": [
+    "full product regression",
+    "unrelated full experiment suite",
+    "fresh installed-package proof",
+    "fresh external PR acquisition",
+    "model semantic evaluation",
+    "target execution"
+  ],
+  "selection_recommendation": "controlled-provider interpreter Build, then immediate separately gated live evaluation; formal entry pending joint decision"
+}
