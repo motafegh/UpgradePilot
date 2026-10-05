@@ -220,6 +220,8 @@ Then use a small number of meaningful open-ended questions to check ownership: t
 
 D primarily **identifies and characterizes material ownership gaps**. It may clarify locally, but E owns the deliberate repair/defer decision needed for closure.
 
+Record D learning coverage once the full teaching sequence, including any smaller steps, is finished. Keep that summary in the active cycle working memory: items covered and concise ownership findings or remaining gaps. Do not log individual teaching messages, questions or explanations. `MEMORY.md` keeps the compact whole-cycle outcome/status and a link to the cycle record; lesson details belong in working memory. Presenting a topic is not evidence that Ali understood it.
+
 ### 2.7 E — gap repair + cycle closure / next-responsibility handoff
 
 Use D findings to repair the important gaps at the minimum useful depth. Explicitly defer gaps that are real but not needed for current ownership rather than pretending they disappeared.
