@@ -2,8 +2,8 @@
 
 **Date:** 2026-10-05  
 **Branch:** `learning/deferred-api-interpretation-phase-d-2026-10-05`  
-**Status:** Supporting learning/design note only.  
-**Cycle-status owner:** `working-memory/2026-10-05_1617_api-change-interpretation-preparation_lbd-cycle.md` remains the sole deferred-D checklist/status record.  
+**Status:** D1 ownership checkpoint COMPLETE; supporting learning/design evidence.  
+**Cycle-status owner:** `working-memory/2026-10-05_1617_api-change-interpretation-preparation_lbd-cycle.md` remains the sole deferred-D checklist/status record and will be reconciled with this evidence during the next durable cycle-record update.  
 **Mutation boundary:** no product/experiment source, tests, active implementation-cycle record, `MEMORY.md`, specification or ADR change.
 
 ## D1 question that surfaced
@@ -109,30 +109,31 @@ The bounded interpreter is valuable as a control condition. If tools, target con
 
 Therefore the future agentic experiment should be separate and comparative rather than silently broadening `source-only-api-change-v1` in place.
 
-## D1 learning implication
+## D1 ownership evidence
 
-This discussion strengthens the meaning of the current responsibility boundaries:
+Ali correctly reconstructed the responsibility boundaries across the checkpoint questions:
 
-- the boundaries are not proof that LLMs are inherently incapable;
-- they are primarily mechanisms for clean evidence ownership, measurable proof, reproducibility, failure attribution and controlled technology admission;
-- future capability and future authority may both expand, but they should be evaluated independently;
-- current deterministic ownership should not become an unquestioned mature-system dogma merely because it is safer for the first experiment.
+- deterministic producers establish the HTTPX/source/release evidence and exact source material; the LLM's legitimate role is to propose the semantic interpretation, such as an `app` argument removal, from that supplied evidence;
+- a correct upstream interpretation does not establish target impact because target exposure is a separate proposition requiring independent target-side provenance/evidence rather than being inferred from nearby upstream facts;
+- the broader API interpreter should be evaluated separately instead of silently broadening the already admitted support-drop role; shared transport/infrastructure does not imply shared semantic authority or that the two responsibilities must later become one component.
 
-## D1 ownership checkpoint — first response
+Changed-case transfer was also demonstrated. Given a hypothetical agent that correctly discovers HTTPX `app` removal and a target Starlette `TestClient` relationship but lacks evidence for the target's actually resolved Starlette version, Ali rejected the target-impact conclusion. He identified the missing version/exposure evidence and correctly reduced the result to a candidate/conditional relationship pending evidence that connects the target to an affected Starlette version.
 
-Ali then answered the three D1 ownership questions in his own words.
+One refinement remains part of the recorded understanding: runtime evidence is **not automatically required** for that proposition. The necessary standard is sufficient independent evidence for the exact target/exposure claim. If exact resolved-version and source relationship evidence is enough, runtime proof may be unnecessary; if static/version evidence cannot establish a decision-critical runtime proposition, runtime evidence can become the next needed evidence family.
 
-Observed understanding:
+## D1 assessment
 
-- He correctly identified that the HTTPX/release/changelog evidence itself is deterministically acquired/preserved and that the LLM's legitimate role is to interpret the natural-language change meaning rather than invent the source.
-- He correctly explained that a correct upstream interpretation is still insufficient for target impact because target applicability requires separate evidence/provenance rather than inference from unrelated evidence.
-- He correctly explained the need to keep the broader API interpreter separate from the already verified support-drop responsibility so the new role can be evaluated independently before any product admission.
+**D1 — COMPLETE at the intended architecture/responsibility ownership depth.**
 
-Precision still to repair before marking D1 complete:
+Established learning evidence:
 
-1. Deterministic ownership is stronger than merely “the HTTPX evidence came from deterministic code.” It owns the exact package/release/source identity, retained text, line/range IDs and source-window scope. The LLM proposes the semantic relationship such as “the `app` argument was removed in this release.” Even the subject/type/timing extraction is semantic proposal when it is not mechanically encoded by the source producer.
-2. “Merge them later” is too broad as an architectural statement. A successful experiment may be promoted or composed into product only through separate admission/proof; it need not be merged into the existing `support_drop_extractor.py` semantic role.
+- whole path understood: acquisition/source evidence → source-only semantic proposal → validation/evaluation → later target-exposure composition;
+- experiment-local placement understood as a technology/semantic-admission boundary, not merely a directory choice;
+- support-drop infrastructure reuse versus semantic-role separation understood;
+- producer/model/evaluator/downstream claim ownership understood;
+- reasoning transferred to a changed agentic/Starlette case rather than only repeating the prepared HTTPX example;
+- capability and authority are understood as independent axes for future AI/agent experiments.
 
-Current D1 assessment: **PARTIALLY ESTABLISHED — architecture direction understood; one short transfer check remains before checklist completion.**
+This closes D1 only. It does **not** establish D2 contract-level ownership, D3 evaluation/coverage/failure ownership, D4 broader changed-case ownership, interpreter implementation, model accuracy, target exposure in the real case, product usefulness or adoption.
 
-The cycle checklist remains pending until that transfer check confirms the refined ownership boundaries.
+**Next deferred-D responsibility: D2 — actual interpretation contract and one real evidence trace.**
