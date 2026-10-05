@@ -1,7 +1,8 @@
 # API interpreter readiness — preparation before cycle selection
 
 Date/time: 2026-10-05 19:36 Asia/Tehran.
-Session status: ACTIVE — readiness checks completed; joint cycle-selection discussion pending; formal Build cycle not opened.
+Session status: CLOSED — readiness checks and joint selection complete; formal implementation cycle opened afterward.
+Continued by: [source-linked API change implementation cycle](2026-10-05_1950_api-change-interpretation-implementation_lbd-cycle.md).
 Primary responsibility: bounded Planning/Design preparation and non-destructive operational verification.
 Owner: [API-change/target-exposure feasibility plan](../plans/UPSTREAM_API_CHANGE_AND_TARGET_EXPOSURE_FEASIBILITY_PLAN.md).
 Previous: [closed interpretation preparation cycle](2026-10-05_1617_api-change-interpretation-preparation_lbd-cycle.md).
@@ -64,4 +65,8 @@ The two selection options remain: (1) implementation and controlled-provider pro
 
 Live evaluation prerequisites: explicit operational entry with the actual maintained deployment, exact renderer/method identity and token fit, provider schema/truncation proof, equivalent frozen inputs and separately reviewed semantic/omission outcomes. No package/server/model substitution or silent input shortening is selected. A second ordinary real target-PR variation is still required before broader semantic claims; supplied urllib3 RST excerpts are calibration, not normal RST acquisition support. Target-impact composition, product adoption and independent usefulness retain the parent plan's later gates.
 
-No formal cycle, inference, interpreter implementation, semantic acceptance or learner mastery is recorded. This active preparation record is the dated discussion anchor; `MEMORY.md` alone selects the live continuation.
+At the readiness handoff, no formal cycle, inference, interpreter implementation, semantic acceptance or learner mastery was recorded. `MEMORY.md` alone selects the live continuation.
+
+## Joint selection and preparation closure — 2026-10-05 19:50
+
+Ali requested further explanation of implementation, controlled-provider integration and saved recovery, then checked that the recommendation matched the preceding design. After that discussion he explicitly agreed and requested formally starting the new cycle. Selected: implementation/controlled-provider engineering proof followed by immediate separate real-model evaluation. Preparation closes; the linked new cycle owns A0/A1/A2/B/Verification/D/E and continuous C. No inference, API implementation or earlier D mastery was established by this selection.
