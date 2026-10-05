@@ -7,8 +7,8 @@ Skills: `UP-SKILL:upgradepilot-planning-design`, `UP-SKILL:upgradepilot-learning
 ## Cycle status
 
 - A0 — DONE: fetched origin; main/origin aligned at `7e4ff5b02477153ce1ed997022ca9eb5788931a1`; owners, directly relevant handoff, existing extractor/composition/test and active acquisition/representation path inspected. This cycle record and living map initialized.
-- A1 — CURRENT: present the verified starting point and continuity model; Ali's opportunity to question/challenge it remains pending before A2.
-- A2 — PENDING: upcoming design responsibility, input/output and proof model, expected result and failure boundaries.
+- A1 — DONE: verified continuity model presented; Ali had the normal opportunity to challenge and explicitly continued on 2026-10-05. No new contradiction was raised.
+- A2 — CURRENT: orientation covers the design deliverable, input/output and proof model, expected result and failure boundaries; conceptual pre-B reasoning opportunity remains pending.
 - B — PENDING: resolve/freeze the interpretation contract, prompt design, source-grounding responsibilities and evaluation-case/coverage design through the existing planning owner; no executable or model work begun.
 - Verification gate — PENDING: design-to-owner/source/consumer reconciliation and adequate frozen proof intent; preparation does not claim real-model accuracy.
 - D — PENDING: learn from the actual reviewed design and its trade-offs, rather than assume the preliminary discussion proves ownership.
@@ -52,3 +52,13 @@ Formal cycle entry resumes real preparation from Learning-Only. A0/A1 initialize
 The larger responsibility remains ordinary public-PR → upstream changes → target exposure → conditional impact proposals. This cycle prepares the new upstream interpretation responsibility rather than treating source-only success as an end-to-end feasibility pass. Deeper source inspection is demand-driven by a concrete unresolved question; acquired release text is the initial input. Existing product report and action permissions retain their owners.
 
 No cadence override is selected: Ali explicitly asked to start the required phases, so preserve the normal A1 continuity and A2 pre-B stops. A1 handoff is a factual current-state overview and opportunity to challenge; do not treat it as a permission request or silently start design B.
+
+## A1 gate cleared and A2 orientation — 2026-10-05
+
+Ali replied “Good lets continue” after the A1 handoff. This clears the continuity opportunity, not the upcoming design understanding gate. Local HEAD is the published initialization `9c3bd16f`; working tree before the phase update contains only the preserved unrelated audit record. No executable delta, model output or substantive design B occurred.
+
+A2 teaches a preparation deliverable: define source-only input boundaries and producer-controlled identities, model-proposed observations and uncertainty, deterministic structural/reference checks, and separately evaluated meaning/coverage. Select the smallest fitting reuse of the existing model request patterns during B; do not broaden the measured product support-drop prompt by assumption. Explain the difference among schema compliance, grounding and semantic correctness using an authentic deprecation-versus-removal distinction from the saved HTTPX source. A correct quote can support an incorrect interpretation. Likewise a successful subset cannot establish all required changes were interpreted.
+
+The design must cover multiple observations, incomplete/ambiguous sources, unassessed coverage, input/output limits, model/provider/contract/grounding/semantic failures and identity retention. First explicit argument-removal evaluation stays connected to the broader API interpretation responsibility; deprecations and other observed changes remain represented or explicitly unassessed. Freeze expected/forbidden propositions and omitted-change checks before inspecting later model output, outside producer inputs; known development cases are not independent acceptance. No answer-specific rules or source reshaping to make the model pass.
+
+Expected B result: concrete input/output contract and prompt intent, source-reference/validation responsibility, varied evaluation design and implementation/proof handoff in the existing appropriate owner. Preparation verification examines that design against current source, accepted boundaries and discriminating case expectations; it does not establish executed inference, semantic accuracy, target applicability or product adoption. Exact field/representation choices and case freezing are B work, not decisions already made by A2 teaching. Conceptual checkpoint: a model classifies an exactly cited deprecation passage as removal; which checks could pass and what must still fail? Await Ali's reasoning/questions at the pre-B gate. No syntax micro-quiz or passive approval-as-mastery claim.
