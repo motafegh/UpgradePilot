@@ -120,3 +120,115 @@ Established: a source-only API interpretation design under the existing feasibil
 Not established: an implemented API interpreter, provider schema compatibility/effective-context fit, real-model accuracy, a second ordinary real target-PR variation, target-version/backend activation or API-impact feasibility, independent semantic admission/usefulness, or product adoption. Preserve those engineering obligations separately from the deferred learning.
 
 Next responsibility: a separate Build cycle for the experiment-local interpreter and explicit opt-in PR path, with controlled-provider source-to-proposal-to-saved-recovery proof first. Actual provider/capacity checks precede live inference; real-model evaluation and broader case/adoption gates retain the feasibility plan's proof boundaries. Begin with fresh A0/A1/A2 proportionate to this responsibility and the recorded understanding gap. Closure stops here; it does not start that next cycle.
+
+## Post-closure deferred-D learning continuation — 2026-10-05
+
+Ali reopened the learning responsibility that was explicitly deferred above. This is a **learning-only continuation of the historical Phase D debt**, not a reopening of the preparation Build, not a replacement for the already-completed E closure, and not authorization to alter the concurrently progressing implementation work on `main`.
+
+### Isolation and branch baseline
+
+- Learning branch: `learning/deferred-api-interpretation-phase-d-2026-10-05`.
+- Branch base: current `main` at `d07dbf8d2f209c20d83f9a10b90e2a0acc16f56f` (`Open API change proposal implementation learning cycle`).
+- Reason for branch isolation: `main` is actively progressing into the separate implementation cycle. This continuation should preserve and improve the historical preparation-cycle learning record without interrupting or rewriting that active workstream.
+- Historical integrity rule: the earlier `D — DEFERRED` and `E — DONE` statements remain truthful records of what happened at closure time. Progress below records the later completion of that deferred learning debt.
+- Mutation boundary: this branch is for the existing working-memory learning record unless a later explicit instruction changes scope. No product/experiment source, tests, plan, ADR, specification, `MEMORY.md`, or active implementation-cycle record is changed merely to complete this learning continuation.
+
+### Deferred-D objective
+
+Reach evidence-backed ownership of the **whole prepared source-only API interpretation design**, not merely familiarity with the prompt or schema. Completion requires Ali to understand and reason about:
+
+1. where the interpreter belongs in the larger evidence pipeline and why;
+2. which facts are owned deterministically versus proposed by the model;
+3. the difference among structural/schema validity, grounding/reference integrity, semantic correctness and semantic coverage;
+4. why source completeness and interpretation completeness are separate responsibilities;
+5. how prompt/schema/evaluator separation prevents evaluation leakage and fixture-specific answer encoding;
+6. how partial, ambiguous, unknown and `unassessed` states preserve uncertainty instead of inventing absence;
+7. capacity/provider/truncation/contract/grounding/semantic/coverage failure classes and their different proof implications;
+8. what successful source-only interpretation would establish and what it would still not establish about target exposure, compatibility, usefulness or maintainer action.
+
+Presentation or agreement alone does not mark an item complete. Check items only after Ali can explain, trace, predict, critique or diagnose the relevant responsibility at the useful ownership depth.
+
+### Primary learning materials
+
+Use the real preparation artifacts first:
+
+- this cycle record and the controlling `plans/UPSTREAM_API_CHANGE_AND_TARGET_EXPOSURE_FEASIBILITY_PLAN.md`;
+- `working-memory/evidence/2026-10-05-api-interpretation-preparation/prompt-template-v1.md`;
+- `working-memory/evidence/2026-10-05-api-interpretation-preparation/output-schema-v1.json`;
+- `working-memory/evidence/2026-10-05-api-interpretation-preparation/evaluation-cases-v1.json` and its real HTTPX/urllib3 contrasts;
+- `experiments/api_change_source_acquisition.py` for the evidence boundary before model interpretation;
+- `src/upgradepilot/upstream/support_drop_extractor.py` as a comparison for reusable transport mechanics versus non-reusable semantic authority;
+- the preparation verification record and supporting 42/42 deterministic discovery/reachability proof only where they clarify what was and was not established.
+
+Do not make the concurrently evolving implementation on `main` the primary teaching source for this deferred D. Its implementation-specific learning belongs to its own active cycle and later D. Current-main material may be consulted only when needed to avoid a false or stale architectural statement.
+
+### Deferred-D execution checklist
+
+- [x] **D re-entry setup — isolation and learning plan**
+  - [x] Confirm the original debt is whole-design ownership, not a missing syntax lesson.
+  - [x] Create a separate branch from the latest `main` so the active implementation workstream is not interrupted.
+  - [x] Preserve the original deferred-D/E history and add this later continuation rather than rewriting historical state.
+  - [x] Define learning materials, depth, completion criteria and merge-back conditions.
+
+- [ ] **D1 — whole architecture and responsibility map**
+  - [ ] Trace the larger path: acquired upstream release evidence → source-only interpretation proposal → deterministic validation/evaluation → later target-exposure composition.
+  - [ ] Explain why the new role belongs in `experiments/` at this stage rather than silently broadening admitted product semantics.
+  - [ ] Distinguish the existing narrow support-drop extractor from this broader API-change role: what infrastructure can be reused and what semantic authority must remain separate.
+  - [ ] Identify the important producer/model/evaluator/downstream ownership boundaries and the stronger claims each boundary must not make.
+  - **Ownership checkpoint:** Ali can reconstruct the architecture and explain why moving authority across these boundaries would weaken evidence discipline.
+
+- [ ] **D2 — actual interpretation contract and one real evidence trace**
+  - [ ] Read the real prompt and schema as an engineering contract rather than field-by-field trivia.
+  - [ ] Trace one authentic HTTPX change from exact acquired source/producer-assigned IDs into a proposed observation.
+  - [ ] Explain `kind`, `subject`, `assertion`, `timing`, `effective_version`, `source_spans`, `reason` and `unassessed` only at the level needed to understand the evidence model.
+  - [ ] Demonstrate why `schema-valid ≠ grounded ≠ semantically correct` using the real deprecation-versus-removal design control.
+  - [ ] Explain why the model cites IDs rather than generating authoritative quotes, offsets, URLs or source identity.
+  - **Ownership checkpoint:** Ali can diagnose which layer should reject or preserve a structurally valid but semantically wrong result.
+
+- [ ] **D3 — evaluation, coverage, uncertainty and failure model**
+  - [ ] Explain why expected/forbidden propositions and omission checks are frozen outside producer/model inputs.
+  - [ ] Distinguish development/calibration evidence from protected/independent semantic admission and maintainer usefulness.
+  - [ ] Separate acquisition/source coverage from interpretation/semantic coverage; explain the purpose and limit of `unassessed`.
+  - [ ] Trace incomplete/ambiguous source cases without turning partial evidence into complete-window or no-impact claims.
+  - [ ] Distinguish provider, capacity/token-fit, completion truncation, contract/schema, grounding, semantic and omission/coverage failures.
+  - [ ] Explain why all-unknown/all-unassessed output cannot pass simply because it avoids false positives.
+  - **Ownership checkpoint:** Ali can classify changed failure scenarios and state exactly what evidence/proof remains valid versus invalid.
+
+- [ ] **D4 — engineering ownership through changed-case reasoning**
+  - [ ] Reason through a correctly cited HTTPX deprecation misclassified as removal.
+  - [ ] Reason through an incomplete source window containing one useful exact section.
+  - [ ] Reason through a semantically plausible result when exact runtime context/capacity proof is unavailable or completion truncates.
+  - [ ] Identify which component may and may not claim that the target repository is actually exposed to an interpreted upstream change.
+  - [ ] Critique at least one tempting shortcut, such as model-owned `complete=true`, answer-selected excerpts, silent retry/truncation, or reusing the support-drop domain extractor as generic API authority.
+  - **Ownership checkpoint:** Ali can transfer the design logic to a changed case instead of repeating memorized HTTPX facts.
+
+- [ ] **D5 — gap repair and deferred-D completion assessment**
+  - [ ] Classify every material topic as `understood`, `partially understood`, `important gap to repair`, or `safe to defer`.
+  - [ ] Repair important gaps at the minimum useful depth; explicitly preserve non-central deferrals.
+  - [ ] Record concise evidence of ownership from D1–D4 without turning this file into a transcript.
+  - [ ] Reconcile the earlier learning statement: only mark whole-design understanding established if the ownership evidence supports it.
+  - [ ] Keep engineering proof debt separate from learning debt: learning completion does not establish interpreter implementation, model accuracy, target exposure, usefulness or adoption.
+
+### Working progress record
+
+| Area | State | Evidence of ownership | Remaining gap |
+| --- | --- | --- | --- |
+| D1 architecture/responsibilities | PENDING | — | whole-design map not yet assessed |
+| D2 contract/real trace | PENDING | — | contract/grounding/semantic distinction not yet assessed at full depth |
+| D3 evaluation/coverage/failures | PENDING | — | major originally deferred ownership area |
+| D4 changed-case engineering reasoning | PENDING | — | transfer beyond prepared examples not yet assessed |
+| D5 gap repair/completion | PENDING | — | waits on D1–D4 |
+
+Update this table and the checklist only at meaningful learning checkpoints. Do not mark mastery because a topic was presented or because Ali agreed with an explanation.
+
+### Merge-back and reconciliation conditions
+
+At the end of this learning continuation:
+
+1. fetch/reconcile the then-current `main` because the implementation workstream may have advanced substantially;
+2. preserve new `main` engineering state and do not overwrite its active implementation-cycle record or live `MEMORY.md` with stale branch state;
+3. merge/cherry-pick only the durable learning-record delta from this historical cycle unless a separate owner genuinely requires reconciliation;
+4. keep the distinction between **preparation-design ownership learned here** and **implementation behavior learned/proved in the separate active Build cycle**;
+5. if important D gaps remain, merge back the truthful partial/deferred state rather than forcing a mastery claim.
+
+Current continuation state: **D re-entry prepared; D1 is next.**
