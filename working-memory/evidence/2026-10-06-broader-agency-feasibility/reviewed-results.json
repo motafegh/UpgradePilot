@@ -1,0 +1,1133 @@
+{
+  "recorded_at_utc": "2026-10-05T22:55:48.430573+00:00",
+  "scope": "two known-development cases, two local GGUF models, original plus one clarified interface variant; no protected cases",
+  "disposition": "INCONCLUSIVE / REPAIR EXPERIMENT before an agency comparison",
+  "code_baseline_v3": "55bafb39",
+  "sdk_version": "lmstudio==1.5.0 reused from existing ignored optional runtime",
+  "python_version": "3.12.3",
+  "interface": "native stateless chat with text JSON actions; native function calling not tested",
+  "review": "same AI reviewer, unblinded and familiar with historical cases; no independent semantic acceptance",
+  "hardware": {
+    "gpu": "NVIDIA GeForce RTX 3070 Laptop GPU",
+    "vram_mib": 8192,
+    "observed_gemma_memory_mib": 4737,
+    "observed_qwen_memory_mib": 6218,
+    "offload_limit": "GPU ratio 1.0 requested/reported; actual per-layer device placement and CPU contribution not independently inspected",
+    "backend_version": "not independently recorded"
+  },
+  "versions": [
+    {
+      "run_id": "feasibility-v3",
+      "purpose": "original two-case feasibility",
+      "freeze": {
+        "code": {
+          "broader_agency_workspace.py": "87c1a5318728c418bf37b39b8406e48fe5958e17b050e767c8b1d2c9f4554ef2",
+          "broader_agency_trial.py": "fce1dad078e5f3a0ffa98427bc299bfd15ab0f196f99f2c802305feb85e82304",
+          "broader_agency_local.py": "87c34515ea88ef501c57e17518ef4e8a51e99356998c10d33be04bf0e5b1b20e",
+          "broader_agency_pilot.py": "8324303e63264fe55e58b1a5b0896cda60b9ef0b8f5b3bc0bd93e41b83ada142"
+        },
+        "corpus_sha256": "ae95baedb2130de7baeb8fd72e3874067f765543782893455beb9d5f6730531a",
+        "case_corpus_sha256": {
+          "development-httpx-framework-ci": "6e4ab534a86aaf9d3ebc23f66391f0976faa11c5e1602ba4f12b97b25dd0abe0",
+          "development-glyphslib-pytest-stopping": "8c8ef1a31b2c009d83803b8c94ce9a33af201de4ae49513e0a978f186d237101"
+        },
+        "methods": [
+          "fixed",
+          "agent"
+        ],
+        "interface": "native-stateless-chat-with-text-JSON-actions-v1",
+        "oracle": "not supplied to model; development review only"
+      },
+      "freeze_file_sha256": "9bbf7777e461342498c7fa3bcca5a927fca90dba7f9a8f2815256d885503617e",
+      "source_reference_before_output_sha256": "c1656b1d2ca632f2c71c64befa7e589b750e15a75620d67ea0bfafcc92117ec7",
+      "sources": [
+        {
+          "case_id": "development-httpx-framework-ci",
+          "document_count": 2628,
+          "source_acquisitions": [
+            {
+              "source_id": "target-base",
+              "repository": "Aidan-Wallace/kubernetes-dashboard-token-api",
+              "revision": "b065646e4b7b894964567950f9ad770b02c136c2",
+              "file_count": 24,
+              "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+              "omitted_file_count": 3,
+              "archive_sha256": "b2bdb2374a2497f236b6087bfcd63a50395c91df0e9bf8560e9ae6d8ad38c827",
+              "retained_bytes": 16192,
+              "reused_capture_sha256": "e6b6c080406a06e4cde74d4a8ceb0d7231949b9dd94feedfc9b846dcd38788fd",
+              "reuse_basis": "completed same-session exact-commit capture; bytes not reacquired"
+            },
+            {
+              "source_id": "target-proposed",
+              "repository": "Aidan-Wallace/kubernetes-dashboard-token-api",
+              "revision": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+              "file_count": 24,
+              "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+              "omitted_file_count": 3,
+              "archive_sha256": "7bff0ffe4d1d2b80ba6d3834dbf8137c9d388e36044873566eb5ecaf4c9da26f",
+              "retained_bytes": 16192,
+              "reused_capture_sha256": "664db2d58958e39de3cdf294e283134c5468f6dee3eb0218c3f0750f9f7605c5",
+              "reuse_basis": "completed same-session exact-commit capture; bytes not reacquired"
+            },
+            {
+              "source_id": "httpx-old",
+              "repository": "encode/httpx",
+              "revision": "609df7ecc0f7cb10a1c998aa9c269bba77337c5f",
+              "file_count": 99,
+              "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+              "omitted_file_count": 25,
+              "archive_sha256": "07f92b0a3cc1eb7ae77c4d1b5b53a87b0177e759307544ce698212ebbfee1c1c",
+              "retained_bytes": 1000588,
+              "reused_capture_sha256": "bddae62b00162ad7b034f61c93d2c35d422af5d1fabab43480f9eb3e9f7bdcfe",
+              "reuse_basis": "completed same-session exact-commit capture; bytes not reacquired"
+            },
+            {
+              "source_id": "httpx-new",
+              "repository": "encode/httpx",
+              "revision": "26d48e0634e6ee9cdc0533996db289ce4b430177",
+              "file_count": 99,
+              "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+              "omitted_file_count": 26,
+              "archive_sha256": "0bbe6c1b73493a8a059f3de176a897b02f6531409d36cd92658b73443fc93a9c",
+              "retained_bytes": 985877,
+              "reused_capture_sha256": "749573a878d4b789921598ce2ed5180a55073903be74bb58aa10221b19168fff",
+              "reuse_basis": "completed same-session exact-commit capture; bytes not reacquired"
+            },
+            {
+              "source_id": "starlette-old",
+              "repository": "Kludex/starlette",
+              "revision": "be4f3e110ed1172ec9cb47a6209bd899a0d3a604",
+              "file_count": 105,
+              "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+              "omitted_file_count": 18,
+              "archive_sha256": "0378e02fd685491ce5490a845598457b410a16a6d786d20577043e304c8eb75a",
+              "retained_bytes": 744051,
+              "reused_capture_sha256": "d6a1026a631c50a662e50bc4e0bd36274562b73df7ced432117e69da0b09208a",
+              "reuse_basis": "completed same-session exact-commit capture; bytes not reacquired"
+            },
+            {
+              "source_id": "starlette-new",
+              "repository": "Kludex/starlette",
+              "revision": "554f368809e0d891a699667faf0cfbb20057eeb2",
+              "file_count": 105,
+              "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+              "omitted_file_count": 18,
+              "archive_sha256": "49a8613988597ad9fc36487b631d897c31c7498ae15fa146606f29d10a05c2f9",
+              "retained_bytes": 768074,
+              "reused_capture_sha256": "b304033800dd1bf3dc32d207b501e3f837fd0035e5c86a7b010c2780fbb85b47",
+              "reuse_basis": "completed same-session exact-commit capture; bytes not reacquired"
+            },
+            {
+              "source_id": "fastapi-reference",
+              "repository": "fastapi/fastapi",
+              "revision": "07684aea793d042fb5a12dde46dfe6d1e2196725",
+              "file_count": 2170,
+              "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+              "omitted_file_count": 230,
+              "archive_sha256": "6358f6c4e3a551365c239c2c7c92422ef9e98812879d691048a4ed295a97f0ca",
+              "retained_bytes": 10766312,
+              "reused_capture_sha256": "c5f3c2891307b5d7b298f98035200b6c6d3751d8ee2d72b6ef7f4b5842a5ec44",
+              "reuse_basis": "completed same-session exact-commit capture; bytes not reacquired"
+            }
+          ]
+        },
+        {
+          "case_id": "development-glyphslib-pytest-stopping",
+          "document_count": 1372,
+          "source_acquisitions": [
+            {
+              "source_id": "target-base",
+              "repository": "googlefonts/glyphsLib",
+              "revision": "044f19e4b1437bfc4343592486f4e3c6040306d9",
+              "file_count": 113,
+              "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+              "omitted_file_count": 25572,
+              "tree_response_sha256": "6a78fb933d499e39de024b77db47e3edbfd87fdf3bc6e28dc92c433bf33acfb8",
+              "git_tree_sha1": "044f19e4b1437bfc4343592486f4e3c6040306d9",
+              "retained_bytes": 1275207
+            },
+            {
+              "source_id": "target-proposed",
+              "repository": "googlefonts/glyphsLib",
+              "revision": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+              "file_count": 113,
+              "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+              "omitted_file_count": 25572,
+              "tree_response_sha256": "4c456845f4e86236b46db06d0b300eae7da9090a71161e35d4f803db6d647a92",
+              "git_tree_sha1": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+              "retained_bytes": 1275207
+            },
+            {
+              "source_id": "pytest-old",
+              "repository": "pytest-dev/pytest",
+              "revision": "3d10b5148e03eb82b3ee29181dbdc73cf82699e2",
+              "file_count": 572,
+              "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+              "omitted_file_count": 45,
+              "archive_sha256": "0821ae15a2ccafc234661ed1d2f98c7c9bfb58345cb96666d58c363217b65710",
+              "retained_bytes": 6123806
+            },
+            {
+              "source_id": "pytest-new",
+              "repository": "pytest-dev/pytest",
+              "revision": "a7d58d7a21b78581e636bbbdea13c66ad1657c1e",
+              "file_count": 573,
+              "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+              "omitted_file_count": 46,
+              "archive_sha256": "c712a858fbe80a5533e82ff7dbedbfc8f242d27f53cc63b7b93c9bac519c6b4e",
+              "retained_bytes": 6138029
+            }
+          ]
+        }
+      ],
+      "models": [
+        {
+          "model_key": "gemma-4-e4b-it-ud",
+          "model_file_identity": {
+            "key": "gemma-4-e4b-it-ud",
+            "size_bytes": 5101713792,
+            "gguf_sha256": "e8cd1a4c5162dfa355c567b4099206793793b5548951f077f376a0076dc0a058",
+            "path": "lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf"
+          },
+          "context_tokens": 16384,
+          "load_config": {
+            "gpu": {
+              "ratio": 1.0,
+              "splitStrategy": "evenly",
+              "disabledGpus": []
+            },
+            "gpuStrictVramCap": true,
+            "offloadKVCacheToGpu": true,
+            "contextLength": 16384,
+            "flashAttention": true
+          },
+          "reasoning": "off",
+          "temperature": 0.2,
+          "seed": "unset; not controlled by this transport",
+          "configuration_sha256": "4cc2803c89004624af9732a766723034cca5b2baf1fd292cbd128fbc27767041",
+          "probe_outcome": "passed",
+          "probe_usage": [
+            {
+              "input": 46,
+              "output": 20,
+              "reasoning": 0
+            },
+            {
+              "input": 50,
+              "output": 10,
+              "reasoning": 0
+            }
+          ],
+          "native_function_calls": "not_tested",
+          "receipt_count": 13,
+          "provider_receipts_sha256": "9570ed27f61ea574bb7aa895a1775c5f91bd0f2f8d04bdca60da4bb584456085",
+          "native_input_count_margin_range": [
+            64,
+            64
+          ],
+          "provider_reported_decode_tokens_per_second": {
+            "min": 66.442,
+            "median": 67.931,
+            "max": 69.106
+          },
+          "provider_reported_time_to_first_token_seconds": {
+            "min": 0.0469,
+            "median": 0.1065,
+            "max": 0.5806
+          },
+          "rate_metric_scope": "case and execution-probe receipts; prefill rate not separately measured"
+        },
+        {
+          "model_key": "qwen3.5-9b-ud",
+          "model_file_identity": {
+            "key": "qwen3.5-9b-ud",
+            "path": "lmstudio-community/Qwen3.5-9B-UD-Q4_K_XL/Qwen3.5-9B-UD-Q4_K_XL.gguf",
+            "size_bytes": 5966095584,
+            "gguf_sha256": "6f5d30666c2d8ae16a306e616d95341dcf3cc46810df84d7e6f5a7d1e4c1b293"
+          },
+          "context_tokens": 16384,
+          "load_config": {
+            "gpu": {
+              "ratio": 1.0,
+              "splitStrategy": "evenly",
+              "disabledGpus": []
+            },
+            "gpuStrictVramCap": true,
+            "offloadKVCacheToGpu": true,
+            "contextLength": 16384,
+            "flashAttention": true
+          },
+          "reasoning": "off",
+          "temperature": 0.2,
+          "seed": "unset; not controlled by this transport",
+          "configuration_sha256": "e77a5e837a6cbc6aab9759845f6e0f530d7012d3f76f46eb9154f8fe339b9b06",
+          "probe_outcome": "passed",
+          "probe_usage": [
+            {
+              "input": 47,
+              "output": 17,
+              "reasoning": 0
+            },
+            {
+              "input": 51,
+              "output": 10,
+              "reasoning": 0
+            }
+          ],
+          "native_function_calls": "not_tested",
+          "receipt_count": 38,
+          "provider_receipts_sha256": "c4f0315d8ddf0fa59f25f01bcc6fdc5fc20da8cdd40a945ac1d68fddd72b9fa7",
+          "native_input_count_margin_range": [
+            62,
+            62
+          ],
+          "provider_reported_decode_tokens_per_second": {
+            "min": 18.447,
+            "median": 29.372,
+            "max": 29.975
+          },
+          "provider_reported_time_to_first_token_seconds": {
+            "min": 0.2236,
+            "median": 0.5144,
+            "max": 1.3486
+          },
+          "rate_metric_scope": "case and execution-probe receipts; prefill rate not separately measured"
+        }
+      ],
+      "trials": [
+        {
+          "case_id": "development-httpx-framework-ci",
+          "model_key": "gemma-4-e4b-it-ud",
+          "method": "agent",
+          "outcome": "provider_or_action_problem",
+          "diagnostic_class": "action_wrapper_contract",
+          "counters": {
+            "calls": 7,
+            "input_tokens": 10978,
+            "output_tokens": 657,
+            "reasoning_tokens": 0,
+            "tool_operations": 6,
+            "source_bytes": 2160
+          },
+          "elapsed_seconds": 10.074,
+          "corpus_sha256": "6e4ab534a86aaf9d3ebc23f66391f0976faa11c5e1602ba4f12b97b25dd0abe0",
+          "private_trial_sha256": "1087a1c3d99e8266e70b80d8949c2aecf74f8a91345f2f1aacb91fe0d0ff9c6c",
+          "max_measured_input_plus_output_reserve": 3075,
+          "empty_notebook_tool_steps": 0,
+          "dispatched_tools": {
+            "search_sources": 4,
+            "list_paths": 1,
+            "read_source": 1
+          },
+          "explicit_source_ids_in_actions": [
+            "target-base"
+          ],
+          "semantic_acceptance": "none; rejected/incomplete output",
+          "review_scope": "assisted formative trace/source diagnosis, not protected success grading"
+        },
+        {
+          "case_id": "development-httpx-framework-ci",
+          "model_key": "gemma-4-e4b-it-ud",
+          "method": "fixed",
+          "outcome": "provider_or_action_problem",
+          "diagnostic_class": "action_wrapper_contract",
+          "counters": {
+            "calls": 1,
+            "input_tokens": 1397,
+            "output_tokens": 16,
+            "reasoning_tokens": 0,
+            "tool_operations": 0,
+            "source_bytes": 0
+          },
+          "elapsed_seconds": 0.808,
+          "corpus_sha256": "6e4ab534a86aaf9d3ebc23f66391f0976faa11c5e1602ba4f12b97b25dd0abe0",
+          "private_trial_sha256": "a2be32cfe4537dbc2a354663d2c5e5dde336e4d13693a58b68d73a95e8580529",
+          "max_measured_input_plus_output_reserve": 2485,
+          "empty_notebook_tool_steps": 0,
+          "dispatched_tools": {},
+          "explicit_source_ids_in_actions": [],
+          "semantic_acceptance": "none; rejected/incomplete output",
+          "review_scope": "assisted formative trace/source diagnosis, not protected success grading"
+        },
+        {
+          "case_id": "development-glyphslib-pytest-stopping",
+          "model_key": "gemma-4-e4b-it-ud",
+          "method": "agent",
+          "outcome": "provider_or_action_problem",
+          "diagnostic_class": "action_wrapper_contract",
+          "counters": {
+            "calls": 2,
+            "input_tokens": 2407,
+            "output_tokens": 171,
+            "reasoning_tokens": 0,
+            "tool_operations": 1,
+            "source_bytes": 698
+          },
+          "elapsed_seconds": 2.9,
+          "corpus_sha256": "8c8ef1a31b2c009d83803b8c94ce9a33af201de4ae49513e0a978f186d237101",
+          "private_trial_sha256": "68826d052e32a69ae9ad979f599cbdcc2408ebee60ba13aaf22fb13ef6c4df0b",
+          "max_measured_input_plus_output_reserve": 2430,
+          "empty_notebook_tool_steps": 0,
+          "dispatched_tools": {
+            "list_paths": 1
+          },
+          "explicit_source_ids_in_actions": [
+            "target-base"
+          ],
+          "semantic_acceptance": "none; rejected/incomplete output",
+          "review_scope": "assisted formative trace/source diagnosis, not protected success grading"
+        },
+        {
+          "case_id": "development-glyphslib-pytest-stopping",
+          "model_key": "gemma-4-e4b-it-ud",
+          "method": "fixed",
+          "outcome": "provider_or_action_problem",
+          "diagnostic_class": "action_wrapper_contract",
+          "counters": {
+            "calls": 1,
+            "input_tokens": 1058,
+            "output_tokens": 16,
+            "reasoning_tokens": 0,
+            "tool_operations": 0,
+            "source_bytes": 0
+          },
+          "elapsed_seconds": 0.345,
+          "corpus_sha256": "8c8ef1a31b2c009d83803b8c94ce9a33af201de4ae49513e0a978f186d237101",
+          "private_trial_sha256": "706673f9ba2e722139cd7bf4e812a313aa55fca1eb3aca34b810b19848679050",
+          "max_measured_input_plus_output_reserve": 2146,
+          "empty_notebook_tool_steps": 0,
+          "dispatched_tools": {},
+          "explicit_source_ids_in_actions": [],
+          "semantic_acceptance": "none; rejected/incomplete output",
+          "review_scope": "assisted formative trace/source diagnosis, not protected success grading"
+        },
+        {
+          "case_id": "development-httpx-framework-ci",
+          "model_key": "qwen3.5-9b-ud",
+          "method": "agent",
+          "outcome": "provider_or_action_problem",
+          "diagnostic_class": "action_wrapper_contract",
+          "counters": {
+            "calls": 7,
+            "input_tokens": 11023,
+            "output_tokens": 1188,
+            "reasoning_tokens": 0,
+            "tool_operations": 6,
+            "source_bytes": 2464
+          },
+          "elapsed_seconds": 39.355,
+          "corpus_sha256": "6e4ab534a86aaf9d3ebc23f66391f0976faa11c5e1602ba4f12b97b25dd0abe0",
+          "private_trial_sha256": "f393844a3db8c33480f1df0805e9632e7f36ea9a6e6e04fae1ef6a3c4eeda15f",
+          "max_measured_input_plus_output_reserve": 3022,
+          "empty_notebook_tool_steps": 0,
+          "dispatched_tools": {
+            "list_paths": 2,
+            "read_source": 2,
+            "search_sources": 2
+          },
+          "explicit_source_ids_in_actions": [
+            "target-base"
+          ],
+          "semantic_acceptance": "none; rejected/incomplete output",
+          "review_scope": "assisted formative trace/source diagnosis, not protected success grading"
+        },
+        {
+          "case_id": "development-httpx-framework-ci",
+          "model_key": "qwen3.5-9b-ud",
+          "method": "fixed",
+          "outcome": "provider_or_action_problem",
+          "diagnostic_class": "action_wrapper_contract",
+          "counters": {
+            "calls": 7,
+            "input_tokens": 11668,
+            "output_tokens": 685,
+            "reasoning_tokens": 0,
+            "tool_operations": 6,
+            "source_bytes": 5325
+          },
+          "elapsed_seconds": 26.4,
+          "corpus_sha256": "6e4ab534a86aaf9d3ebc23f66391f0976faa11c5e1602ba4f12b97b25dd0abe0",
+          "private_trial_sha256": "00fbd6cc01bfd4021ed904ff64c34681e9f8b9f2aa792dd1a00e78d85f72680d",
+          "max_measured_input_plus_output_reserve": 3409,
+          "empty_notebook_tool_steps": 0,
+          "dispatched_tools": {
+            "list_sources": 1,
+            "list_paths": 4,
+            "read_source": 1
+          },
+          "explicit_source_ids_in_actions": [
+            "target-base",
+            "target-proposed"
+          ],
+          "semantic_acceptance": "none; rejected/incomplete output",
+          "review_scope": "assisted formative trace/source diagnosis, not protected success grading"
+        },
+        {
+          "case_id": "development-glyphslib-pytest-stopping",
+          "model_key": "qwen3.5-9b-ud",
+          "method": "agent",
+          "outcome": "provider_or_action_problem",
+          "diagnostic_class": "action_wrapper_contract",
+          "counters": {
+            "calls": 6,
+            "input_tokens": 7806,
+            "output_tokens": 429,
+            "reasoning_tokens": 0,
+            "tool_operations": 5,
+            "source_bytes": 4434
+          },
+          "elapsed_seconds": 17.14,
+          "corpus_sha256": "8c8ef1a31b2c009d83803b8c94ce9a33af201de4ae49513e0a978f186d237101",
+          "private_trial_sha256": "1c10020a9a373f26375f2770b3d995fb4b046e9415da0adc488e6c1792161810",
+          "max_measured_input_plus_output_reserve": 2879,
+          "empty_notebook_tool_steps": 0,
+          "dispatched_tools": {
+            "list_paths": 4,
+            "read_source": 1
+          },
+          "explicit_source_ids_in_actions": [
+            "target-base"
+          ],
+          "semantic_acceptance": "none; rejected/incomplete output",
+          "review_scope": "assisted formative trace/source diagnosis, not protected success grading"
+        },
+        {
+          "case_id": "development-glyphslib-pytest-stopping",
+          "model_key": "qwen3.5-9b-ud",
+          "method": "fixed",
+          "outcome": "final_report_missing",
+          "diagnostic_class": "final_report_missing",
+          "counters": {
+            "calls": 16,
+            "input_tokens": 19018,
+            "output_tokens": 2064,
+            "reasoning_tokens": 0,
+            "tool_operations": 15,
+            "source_bytes": 3951
+          },
+          "elapsed_seconds": 91.015,
+          "corpus_sha256": "8c8ef1a31b2c009d83803b8c94ce9a33af201de4ae49513e0a978f186d237101",
+          "private_trial_sha256": "2fc3619cb3b1283ac60a5cea664aef9f58f933efe49a2e5f7d917e3083a48cd6",
+          "max_measured_input_plus_output_reserve": 2851,
+          "empty_notebook_tool_steps": 0,
+          "dispatched_tools": {
+            "search_sources": 12,
+            "read_source": 3
+          },
+          "explicit_source_ids_in_actions": [
+            "target-base",
+            "target-proposed"
+          ],
+          "semantic_acceptance": "none; rejected/incomplete output",
+          "review_scope": "assisted formative trace/source diagnosis, not protected success grading"
+        }
+      ],
+      "aggregate": {
+        "assigned_trials": 8,
+        "completed_ungraded_reports": 0,
+        "case_counters": {
+          "calls": 47,
+          "input_tokens": 65355,
+          "output_tokens": 5226,
+          "reasoning_tokens": 0,
+          "tool_operations": 39,
+          "source_bytes": 19032
+        },
+        "case_elapsed_seconds": 188.037,
+        "execution_probe_calls": 4
+      }
+    },
+    {
+      "run_id": "feasibility-v4-clarified",
+      "purpose": "additional generic interface clarification",
+      "freeze": {
+        "code": {
+          "broader_agency_workspace.py": "ff2b74a90c5620604dba3ddf6988c5efd10ce46a6d35c053cb58a1b7cdfda15b",
+          "broader_agency_trial.py": "fce1dad078e5f3a0ffa98427bc299bfd15ab0f196f99f2c802305feb85e82304",
+          "broader_agency_local.py": "87c34515ea88ef501c57e17518ef4e8a51e99356998c10d33be04bf0e5b1b20e",
+          "broader_agency_pilot.py": "8324303e63264fe55e58b1a5b0896cda60b9ef0b8f5b3bc0bd93e41b83ada142"
+        },
+        "corpus_sha256": "f528a27b04a80503a6145480980021a490c2b2c8a447cd71ab2178ddf38cd142",
+        "case_corpus_sha256": {
+          "development-httpx-framework-ci": "6e4ab534a86aaf9d3ebc23f66391f0976faa11c5e1602ba4f12b97b25dd0abe0",
+          "development-glyphslib-pytest-stopping": "8c8ef1a31b2c009d83803b8c94ce9a33af201de4ae49513e0a978f186d237101"
+        },
+        "methods": [
+          "fixed",
+          "agent"
+        ],
+        "interface": "native-stateless-chat-with-text-JSON-actions-v1",
+        "oracle": "not supplied to model; development review only"
+      },
+      "freeze_file_sha256": "24ef9d8771a29bda6e3311280802e900007d5293a8a1b6c77c4771e6df28e7df",
+      "source_reference_before_output_sha256": "c1656b1d2ca632f2c71c64befa7e589b750e15a75620d67ea0bfafcc92117ec7",
+      "sources": [
+        {
+          "case_id": "development-httpx-framework-ci",
+          "document_count": 2628,
+          "source_acquisitions": [
+            {
+              "source_id": "target-base",
+              "repository": "Aidan-Wallace/kubernetes-dashboard-token-api",
+              "revision": "b065646e4b7b894964567950f9ad770b02c136c2",
+              "file_count": 24,
+              "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+              "omitted_file_count": 3,
+              "archive_sha256": "b2bdb2374a2497f236b6087bfcd63a50395c91df0e9bf8560e9ae6d8ad38c827",
+              "retained_bytes": 16192,
+              "reused_capture_sha256": "506c51dc33e3b540fe30ac2be269c0ff2f71a0f46d07e6fcc2205073b5d4ac12",
+              "reuse_basis": "completed same-session exact-commit capture; bytes not reacquired"
+            },
+            {
+              "source_id": "target-proposed",
+              "repository": "Aidan-Wallace/kubernetes-dashboard-token-api",
+              "revision": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+              "file_count": 24,
+              "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+              "omitted_file_count": 3,
+              "archive_sha256": "7bff0ffe4d1d2b80ba6d3834dbf8137c9d388e36044873566eb5ecaf4c9da26f",
+              "retained_bytes": 16192,
+              "reused_capture_sha256": "ae8c1376b2afe94d668ae79dff8d996f6064cdccb5cc1b0631acbc3b25f087aa",
+              "reuse_basis": "completed same-session exact-commit capture; bytes not reacquired"
+            },
+            {
+              "source_id": "httpx-old",
+              "repository": "encode/httpx",
+              "revision": "609df7ecc0f7cb10a1c998aa9c269bba77337c5f",
+              "file_count": 99,
+              "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+              "omitted_file_count": 25,
+              "archive_sha256": "07f92b0a3cc1eb7ae77c4d1b5b53a87b0177e759307544ce698212ebbfee1c1c",
+              "retained_bytes": 1000588,
+              "reused_capture_sha256": "cf884178ab0b66183058cf248a41ac0b51380334ce6f4535ec3726426fdd4f09",
+              "reuse_basis": "completed same-session exact-commit capture; bytes not reacquired"
+            },
+            {
+              "source_id": "httpx-new",
+              "repository": "encode/httpx",
+              "revision": "26d48e0634e6ee9cdc0533996db289ce4b430177",
+              "file_count": 99,
+              "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+              "omitted_file_count": 26,
+              "archive_sha256": "0bbe6c1b73493a8a059f3de176a897b02f6531409d36cd92658b73443fc93a9c",
+              "retained_bytes": 985877,
+              "reused_capture_sha256": "698643d23fe31ce03e49e9f3b7a43e25a9f9d7de1483566001fb4a02dd3e28e3",
+              "reuse_basis": "completed same-session exact-commit capture; bytes not reacquired"
+            },
+            {
+              "source_id": "starlette-old",
+              "repository": "Kludex/starlette",
+              "revision": "be4f3e110ed1172ec9cb47a6209bd899a0d3a604",
+              "file_count": 105,
+              "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+              "omitted_file_count": 18,
+              "archive_sha256": "0378e02fd685491ce5490a845598457b410a16a6d786d20577043e304c8eb75a",
+              "retained_bytes": 744051,
+              "reused_capture_sha256": "55ec937071a85e75feca64ad20d98df3641c6ad3134917fb4910febec5a11907",
+              "reuse_basis": "completed same-session exact-commit capture; bytes not reacquired"
+            },
+            {
+              "source_id": "starlette-new",
+              "repository": "Kludex/starlette",
+              "revision": "554f368809e0d891a699667faf0cfbb20057eeb2",
+              "file_count": 105,
+              "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+              "omitted_file_count": 18,
+              "archive_sha256": "49a8613988597ad9fc36487b631d897c31c7498ae15fa146606f29d10a05c2f9",
+              "retained_bytes": 768074,
+              "reused_capture_sha256": "8eab5f901e2c5da7574c10072a49031beb22bf7015afb9ada11422944635188c",
+              "reuse_basis": "completed same-session exact-commit capture; bytes not reacquired"
+            },
+            {
+              "source_id": "fastapi-reference",
+              "repository": "fastapi/fastapi",
+              "revision": "07684aea793d042fb5a12dde46dfe6d1e2196725",
+              "file_count": 2170,
+              "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+              "omitted_file_count": 230,
+              "archive_sha256": "6358f6c4e3a551365c239c2c7c92422ef9e98812879d691048a4ed295a97f0ca",
+              "retained_bytes": 10766312,
+              "reused_capture_sha256": "948e15a20feb09028b8864a177f2bb5ca322e2f5219aef21a5ce7d67214e6abc",
+              "reuse_basis": "completed same-session exact-commit capture; bytes not reacquired"
+            }
+          ]
+        },
+        {
+          "case_id": "development-glyphslib-pytest-stopping",
+          "document_count": 1372,
+          "source_acquisitions": [
+            {
+              "source_id": "target-base",
+              "repository": "googlefonts/glyphsLib",
+              "revision": "044f19e4b1437bfc4343592486f4e3c6040306d9",
+              "file_count": 113,
+              "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+              "omitted_file_count": 25572,
+              "tree_response_sha256": "6a78fb933d499e39de024b77db47e3edbfd87fdf3bc6e28dc92c433bf33acfb8",
+              "git_tree_sha1": "044f19e4b1437bfc4343592486f4e3c6040306d9",
+              "retained_bytes": 1275207,
+              "reused_capture_sha256": "7583e7c4ab44b54ff7411c727ccd9cbe8e09a5fba7df5fa1dc137a3f5211af6d",
+              "reuse_basis": "completed same-session exact-commit capture; bytes not reacquired"
+            },
+            {
+              "source_id": "target-proposed",
+              "repository": "googlefonts/glyphsLib",
+              "revision": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+              "file_count": 113,
+              "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+              "omitted_file_count": 25572,
+              "tree_response_sha256": "4c456845f4e86236b46db06d0b300eae7da9090a71161e35d4f803db6d647a92",
+              "git_tree_sha1": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+              "retained_bytes": 1275207,
+              "reused_capture_sha256": "920fb63bbe1d99468a1e148401f294950ddbb945168924d5450296bb077151e3",
+              "reuse_basis": "completed same-session exact-commit capture; bytes not reacquired"
+            },
+            {
+              "source_id": "pytest-old",
+              "repository": "pytest-dev/pytest",
+              "revision": "3d10b5148e03eb82b3ee29181dbdc73cf82699e2",
+              "file_count": 572,
+              "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+              "omitted_file_count": 45,
+              "archive_sha256": "0821ae15a2ccafc234661ed1d2f98c7c9bfb58345cb96666d58c363217b65710",
+              "retained_bytes": 6123806,
+              "reused_capture_sha256": "76955cff7d2bba6c1bd99c417becc28b4a88f0cb9e7d7825bc72fd3cb7dfc8a6",
+              "reuse_basis": "completed same-session exact-commit capture; bytes not reacquired"
+            },
+            {
+              "source_id": "pytest-new",
+              "repository": "pytest-dev/pytest",
+              "revision": "a7d58d7a21b78581e636bbbdea13c66ad1657c1e",
+              "file_count": 573,
+              "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+              "omitted_file_count": 46,
+              "archive_sha256": "c712a858fbe80a5533e82ff7dbedbfc8f242d27f53cc63b7b93c9bac519c6b4e",
+              "retained_bytes": 6138029,
+              "reused_capture_sha256": "10bf10b302ba66b87bcccc77dc6b23562dfeabfe20b74303e7e907167526a8fe",
+              "reuse_basis": "completed same-session exact-commit capture; bytes not reacquired"
+            }
+          ]
+        }
+      ],
+      "models": [
+        {
+          "model_key": "gemma-4-e4b-it-ud",
+          "model_file_identity": {
+            "key": "gemma-4-e4b-it-ud",
+            "size_bytes": 5101713792,
+            "gguf_sha256": "e8cd1a4c5162dfa355c567b4099206793793b5548951f077f376a0076dc0a058",
+            "path": "lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf"
+          },
+          "context_tokens": 16384,
+          "load_config": {
+            "gpu": {
+              "ratio": 1.0,
+              "splitStrategy": "evenly",
+              "disabledGpus": []
+            },
+            "gpuStrictVramCap": true,
+            "offloadKVCacheToGpu": true,
+            "contextLength": 16384,
+            "flashAttention": true
+          },
+          "reasoning": "off",
+          "temperature": 0.2,
+          "seed": "unset; not controlled by this transport",
+          "configuration_sha256": "0722ed4a32568a2ff6b1b7040ca3a876aebd72d4dd0c4fe798b8605f727ac808",
+          "probe_outcome": "passed",
+          "probe_usage": [
+            {
+              "input": 46,
+              "output": 20,
+              "reasoning": 0
+            },
+            {
+              "input": 50,
+              "output": 10,
+              "reasoning": 0
+            }
+          ],
+          "native_function_calls": "not_tested",
+          "receipt_count": 8,
+          "provider_receipts_sha256": "30a2b0e92a5fd5684e2d8fc413ec1bc2cb9ef28040d4c3beba316902916af403",
+          "native_input_count_margin_range": [
+            64,
+            64
+          ],
+          "provider_reported_decode_tokens_per_second": {
+            "min": 65.926,
+            "median": 67.422,
+            "max": 67.795
+          },
+          "provider_reported_time_to_first_token_seconds": {
+            "min": 0.0635,
+            "median": 0.0811,
+            "max": 0.638
+          },
+          "rate_metric_scope": "case and execution-probe receipts; prefill rate not separately measured"
+        },
+        {
+          "model_key": "qwen3.5-9b-ud",
+          "model_file_identity": {
+            "key": "qwen3.5-9b-ud",
+            "path": "lmstudio-community/Qwen3.5-9B-UD-Q4_K_XL/Qwen3.5-9B-UD-Q4_K_XL.gguf",
+            "size_bytes": 5966095584,
+            "gguf_sha256": "6f5d30666c2d8ae16a306e616d95341dcf3cc46810df84d7e6f5a7d1e4c1b293"
+          },
+          "context_tokens": 16384,
+          "load_config": {
+            "gpu": {
+              "ratio": 1.0,
+              "splitStrategy": "evenly",
+              "disabledGpus": []
+            },
+            "gpuStrictVramCap": true,
+            "offloadKVCacheToGpu": true,
+            "contextLength": 16384,
+            "flashAttention": true
+          },
+          "reasoning": "off",
+          "temperature": 0.2,
+          "seed": "unset; not controlled by this transport",
+          "configuration_sha256": "e77a5e837a6cbc6aab9759845f6e0f530d7012d3f76f46eb9154f8fe339b9b06",
+          "probe_outcome": "passed",
+          "probe_usage": [
+            {
+              "input": 47,
+              "output": 17,
+              "reasoning": 0
+            },
+            {
+              "input": 51,
+              "output": 10,
+              "reasoning": 0
+            }
+          ],
+          "native_function_calls": "not_tested",
+          "receipt_count": 66,
+          "provider_receipts_sha256": "5dff84ca18513f23ff0f17e687a5976a880b4c4af91c4e38e896c843cb345ccf",
+          "native_input_count_margin_range": [
+            62,
+            62
+          ],
+          "provider_reported_decode_tokens_per_second": {
+            "min": 17.707,
+            "median": 29.278,
+            "max": 29.897
+          },
+          "provider_reported_time_to_first_token_seconds": {
+            "min": 0.1036,
+            "median": 0.4652,
+            "max": 1.3233
+          },
+          "rate_metric_scope": "case and execution-probe receipts; prefill rate not separately measured"
+        }
+      ],
+      "trials": [
+        {
+          "case_id": "development-httpx-framework-ci",
+          "model_key": "gemma-4-e4b-it-ud",
+          "method": "agent",
+          "outcome": "provider_or_action_problem",
+          "diagnostic_class": "invalid_json_extra_closing_brace",
+          "counters": {
+            "calls": 1,
+            "input_tokens": 1582,
+            "output_tokens": 91,
+            "reasoning_tokens": 0,
+            "tool_operations": 0,
+            "source_bytes": 0
+          },
+          "elapsed_seconds": 1.35,
+          "corpus_sha256": "6e4ab534a86aaf9d3ebc23f66391f0976faa11c5e1602ba4f12b97b25dd0abe0",
+          "private_trial_sha256": "a756335ba04327e559c7d2f96cfb96154376c073e40bb6871f13933360ac2818",
+          "max_measured_input_plus_output_reserve": 2670,
+          "empty_notebook_tool_steps": 0,
+          "dispatched_tools": {},
+          "explicit_source_ids_in_actions": [],
+          "semantic_acceptance": "none; rejected/incomplete output",
+          "review_scope": "assisted formative trace/source diagnosis, not protected success grading"
+        },
+        {
+          "case_id": "development-httpx-framework-ci",
+          "model_key": "gemma-4-e4b-it-ud",
+          "method": "fixed",
+          "outcome": "provider_or_action_problem",
+          "diagnostic_class": "invalid_json_extra_closing_brace",
+          "counters": {
+            "calls": 1,
+            "input_tokens": 1575,
+            "output_tokens": 86,
+            "reasoning_tokens": 0,
+            "tool_operations": 0,
+            "source_bytes": 0
+          },
+          "elapsed_seconds": 1.805,
+          "corpus_sha256": "6e4ab534a86aaf9d3ebc23f66391f0976faa11c5e1602ba4f12b97b25dd0abe0",
+          "private_trial_sha256": "3d27202149497bd6bb585216daaeea2a6ffb54179505c4b04996dc96d395ce6d",
+          "max_measured_input_plus_output_reserve": 2663,
+          "empty_notebook_tool_steps": 0,
+          "dispatched_tools": {},
+          "explicit_source_ids_in_actions": [],
+          "semantic_acceptance": "none; rejected/incomplete output",
+          "review_scope": "assisted formative trace/source diagnosis, not protected success grading"
+        },
+        {
+          "case_id": "development-glyphslib-pytest-stopping",
+          "model_key": "gemma-4-e4b-it-ud",
+          "method": "agent",
+          "outcome": "provider_or_action_problem",
+          "diagnostic_class": "invalid_json_extra_closing_brace",
+          "counters": {
+            "calls": 3,
+            "input_tokens": 3834,
+            "output_tokens": 211,
+            "reasoning_tokens": 0,
+            "tool_operations": 2,
+            "source_bytes": 96
+          },
+          "elapsed_seconds": 3.571,
+          "corpus_sha256": "8c8ef1a31b2c009d83803b8c94ce9a33af201de4ae49513e0a978f186d237101",
+          "private_trial_sha256": "c9374bfdda9fd3044c122a9036542fa76826e3109652b9ea5e9ca67f774af099",
+          "max_measured_input_plus_output_reserve": 2392,
+          "empty_notebook_tool_steps": 0,
+          "dispatched_tools": {
+            "search_sources": 2
+          },
+          "explicit_source_ids_in_actions": [],
+          "semantic_acceptance": "none; rejected/incomplete output",
+          "review_scope": "assisted formative trace/source diagnosis, not protected success grading"
+        },
+        {
+          "case_id": "development-glyphslib-pytest-stopping",
+          "model_key": "gemma-4-e4b-it-ud",
+          "method": "fixed",
+          "outcome": "provider_or_action_problem",
+          "diagnostic_class": "invalid_json_extra_closing_brace",
+          "counters": {
+            "calls": 1,
+            "input_tokens": 1236,
+            "output_tokens": 45,
+            "reasoning_tokens": 0,
+            "tool_operations": 0,
+            "source_bytes": 0
+          },
+          "elapsed_seconds": 0.728,
+          "corpus_sha256": "8c8ef1a31b2c009d83803b8c94ce9a33af201de4ae49513e0a978f186d237101",
+          "private_trial_sha256": "612b37109fda92b749836fa771fb29966c3b5871aab3c71b08c0db1d17ccde3e",
+          "max_measured_input_plus_output_reserve": 2324,
+          "empty_notebook_tool_steps": 0,
+          "dispatched_tools": {},
+          "explicit_source_ids_in_actions": [],
+          "semantic_acceptance": "none; rejected/incomplete output",
+          "review_scope": "assisted formative trace/source diagnosis, not protected success grading"
+        },
+        {
+          "case_id": "development-httpx-framework-ci",
+          "model_key": "qwen3.5-9b-ud",
+          "method": "agent",
+          "outcome": "provider_or_action_problem",
+          "diagnostic_class": "action_wrapper_contract",
+          "counters": {
+            "calls": 16,
+            "input_tokens": 28034,
+            "output_tokens": 623,
+            "reasoning_tokens": 0,
+            "tool_operations": 15,
+            "source_bytes": 11081
+          },
+          "elapsed_seconds": 25.928,
+          "corpus_sha256": "6e4ab534a86aaf9d3ebc23f66391f0976faa11c5e1602ba4f12b97b25dd0abe0",
+          "private_trial_sha256": "918df39606efdf4b815e04b333dd6cbf715c0743c43c02f06adf61492566e620",
+          "max_measured_input_plus_output_reserve": 3464,
+          "empty_notebook_tool_steps": 12,
+          "dispatched_tools": {
+            "list_paths": 5,
+            "read_source": 8,
+            "search_sources": 2
+          },
+          "explicit_source_ids_in_actions": [
+            "httpx-new",
+            "target-base",
+            "target-proposed"
+          ],
+          "semantic_acceptance": "none; rejected/incomplete output",
+          "review_scope": "assisted formative trace/source diagnosis, not protected success grading"
+        },
+        {
+          "case_id": "development-httpx-framework-ci",
+          "model_key": "qwen3.5-9b-ud",
+          "method": "fixed",
+          "outcome": "provider_or_action_problem",
+          "diagnostic_class": "action_wrapper_contract",
+          "counters": {
+            "calls": 16,
+            "input_tokens": 26748,
+            "output_tokens": 654,
+            "reasoning_tokens": 0,
+            "tool_operations": 15,
+            "source_bytes": 8122
+          },
+          "elapsed_seconds": 28.678,
+          "corpus_sha256": "6e4ab534a86aaf9d3ebc23f66391f0976faa11c5e1602ba4f12b97b25dd0abe0",
+          "private_trial_sha256": "d6366ead6a783c814a1ea150efdc7375e4f732bd3a0133d57afb8f4653832c67",
+          "max_measured_input_plus_output_reserve": 3555,
+          "empty_notebook_tool_steps": 9,
+          "dispatched_tools": {
+            "list_paths": 13,
+            "read_source": 2
+          },
+          "explicit_source_ids_in_actions": [
+            "target-base",
+            "target-proposed"
+          ],
+          "semantic_acceptance": "none; rejected/incomplete output",
+          "review_scope": "assisted formative trace/source diagnosis, not protected success grading"
+        },
+        {
+          "case_id": "development-glyphslib-pytest-stopping",
+          "model_key": "qwen3.5-9b-ud",
+          "method": "agent",
+          "outcome": "provider_or_action_problem",
+          "diagnostic_class": "action_wrapper_contract",
+          "counters": {
+            "calls": 16,
+            "input_tokens": 22069,
+            "output_tokens": 747,
+            "reasoning_tokens": 0,
+            "tool_operations": 15,
+            "source_bytes": 8083
+          },
+          "elapsed_seconds": 31.167,
+          "corpus_sha256": "8c8ef1a31b2c009d83803b8c94ce9a33af201de4ae49513e0a978f186d237101",
+          "private_trial_sha256": "2c37a88ad8a86d2d7eb39f4a6801a8a948df898d497b8288f820939040e698ae",
+          "max_measured_input_plus_output_reserve": 3018,
+          "empty_notebook_tool_steps": 13,
+          "dispatched_tools": {
+            "list_paths": 2,
+            "search_sources": 3,
+            "read_source": 10
+          },
+          "explicit_source_ids_in_actions": [
+            "target-base",
+            "target-proposed"
+          ],
+          "semantic_acceptance": "none; rejected/incomplete output",
+          "review_scope": "assisted formative trace/source diagnosis, not protected success grading"
+        },
+        {
+          "case_id": "development-glyphslib-pytest-stopping",
+          "model_key": "qwen3.5-9b-ud",
+          "method": "fixed",
+          "outcome": "provider_or_action_problem",
+          "diagnostic_class": "report_field_types",
+          "counters": {
+            "calls": 16,
+            "input_tokens": 23758,
+            "output_tokens": 813,
+            "reasoning_tokens": 0,
+            "tool_operations": 15,
+            "source_bytes": 13765
+          },
+          "elapsed_seconds": 44.654,
+          "corpus_sha256": "8c8ef1a31b2c009d83803b8c94ce9a33af201de4ae49513e0a978f186d237101",
+          "private_trial_sha256": "1303378c09e71a14680665fdd508e7707137afa20bee92b0ff89b5d0f8d87e23",
+          "max_measured_input_plus_output_reserve": 3731,
+          "empty_notebook_tool_steps": 14,
+          "dispatched_tools": {
+            "search_sources": 2,
+            "list_paths": 9,
+            "read_source": 3,
+            "read_observation": 1
+          },
+          "explicit_source_ids_in_actions": [
+            "ci-observations",
+            "target-base",
+            "target-proposed"
+          ],
+          "semantic_acceptance": "none; rejected/incomplete output",
+          "review_scope": "assisted formative trace/source diagnosis, not protected success grading"
+        }
+      ],
+      "aggregate": {
+        "assigned_trials": 8,
+        "completed_ungraded_reports": 0,
+        "case_counters": {
+          "calls": 70,
+          "input_tokens": 108836,
+          "output_tokens": 3270,
+          "reasoning_tokens": 0,
+          "tool_operations": 62,
+          "source_bytes": 41147
+        },
+        "case_elapsed_seconds": 137.881,
+        "execution_probe_calls": 4
+      }
+    }
+  ],
+  "aggregate": {
+    "assigned_case_trials": 16,
+    "case_counters": {
+      "calls": 117,
+      "input_tokens": 174191,
+      "output_tokens": 8496,
+      "reasoning_tokens": 0,
+      "tool_operations": 101,
+      "source_bytes": 60179
+    },
+    "case_elapsed_seconds": 325.918,
+    "execution_probe_calls": 8,
+    "additional_preliminary_probe_calls": 2,
+    "all_inference_usage": {
+      "calls": 127,
+      "input_tokens": 174675,
+      "output_tokens": 8640,
+      "reasoning_tokens": 0
+    }
+  },
+  "controlled_verification": {
+    "new_harness_tests": 16,
+    "nearest_existing_tests": 23,
+    "combined_passed": 39,
+    "ruff_check": "passed",
+    "ruff_format": "passed",
+    "product_tests": "not run; product source/tests unchanged"
+  },
+  "formative_findings": [
+    {
+      "kind": "observed",
+      "finding": "All local calls returned HTTP 200; native usage was below the declared measured allowance, with zero reported reasoning; no trial ended on input/output/time capacity."
+    },
+    {
+      "kind": "observed",
+      "finding": "Original eight trials: seven wrapper failures and one missing terminal report. No accepted final candidate."
+    },
+    {
+      "kind": "observed",
+      "finding": "Clarified Qwen produced 60 dispatched actions before four rejected terminal reports. Notebook was empty on 48 of those 60 actions; repeated listing/reading and incomplete relevant evidence persisted."
+    },
+    {
+      "kind": "observed",
+      "finding": "Clarified Gemma terminal replies had an extra closing brace; strict decoding preserved all four failures."
+    },
+    {
+      "kind": "assisted_source_review",
+      "finding": "Rejected Qwen HTTPX advice missed the TestClient/version-binding and path-filter coverage obligations. GlyphsLib agent missed the explicit dev pin; fixed output saw a partial historical CI page but did not verify requirements-to-test flow or upstream release changes."
+    },
+    {
+      "kind": "design_inference",
+      "finding": "The interface, literal-search behavior and model-written notebook are plausible contributors. The host also omits the immediately preceding action and list/search scope from some next-turn observations; private trace provenance exists but is not supplied to the model. These observations do not isolate internal model causes or inherent agency capability."
+    }
+  ],
+  "retention": "Raw corpus, prompts, replies, actions, provider frames and traces remain ignored local .tmp artifacts; this file publishes hashes, aggregates and bounded reviewer diagnoses only",
+  "cleanup": "owned model instances unloaded; final loaded inventory empty",
+  "limits": [
+    "no protected comparison or independent reviewer",
+    "two known cases, one run per configuration, unseeded generation",
+    "reasoning-off text-action interface only; no native tool, execution or multi-agent test",
+    "prototype fixed schedule lacked conditional skipping and models did not reliably perform intended stages",
+    "binary/font fixtures and two oversized XML files omitted; historical CI captures do not replace fresh full logs/execution",
+    "backend version, parallel capacity, per-layer CPU/GPU mapping and prefix-cache effects not independently characterized; no full-batch throughput forecast"
+  ],
+  "requests_version": "2.34.2"
+}
