@@ -1,6 +1,7 @@
 """Shared-access/control, resource and source-boundary proof; no model quality."""
 
 import io
+import hashlib
 import json
 import zipfile
 from dataclasses import asdict, replace
@@ -12,8 +13,10 @@ from unittest.mock import MagicMock, Mock, patch
 from experiments.broader_agency_local import LocalJSONActionProvider
 from experiments.broader_agency_pilot import (
     acquire_repository_text,
+    acquire_repository_tree_text,
     code_identities,
     execute_pilot,
+    main,
 )
 from experiments.broader_agency_trial import (
     MeasuredRequest,
@@ -101,6 +104,77 @@ CASE = {"case_id": "control", "dependency": "library", "old": "1", "proposed": "
 
 
 class SourceToolTests(TestCase):
+    def test_tree_capture_skips_binary_and_reuses_only_git_verified_text(self):
+        raw = b"print('retained source, not executed')\n"
+        blob = hashlib.sha1(f"blob {len(raw)}\0".encode() + raw).hexdigest()
+        rows = [
+            {
+                "path": "app.py",
+                "type": "blob",
+                "mode": "100644",
+                "size": len(raw),
+                "sha": blob,
+            },
+            {
+                "path": "fixture.ttf",
+                "type": "blob",
+                "mode": "100644",
+                "size": 100_000_000,
+                "sha": "b" * 40,
+            },
+            {
+                "path": "oversized.xml",
+                "type": "blob",
+                "mode": "100644",
+                "size": 3_000_000,
+                "sha": "c" * 40,
+            },
+        ]
+        tree = {"sha": "d" * 40, "truncated": False, "tree": rows}
+        cache = {}
+
+        def capture(session, url, maximum):
+            return json.dumps(tree).encode() if "api.github.com" in url else raw
+
+        with patch(
+            "experiments.broader_agency_pilot.public_bytes", side_effect=capture
+        ) as reader:
+            docs, receipt = acquire_repository_tree_text(
+                Mock(), "base", "example/repo", "a" * 40, cache
+            )
+            proposed, _ = acquire_repository_tree_text(
+                Mock(), "head", "example/repo", "e" * 40, cache
+            )
+        self.assertEqual([d.path for d in docs], ["app.py"])
+        self.assertEqual(docs[0].identity["git_blob_sha1"], blob)
+        self.assertEqual(proposed[0].identity["revision"], "e" * 40)
+        self.assertEqual(len(receipt["omissions"]), 2)
+        self.assertEqual(reader.call_count, 3)
+
+    def test_truncated_tree_or_wrong_blob_prevents_source_acceptance(self):
+        for truncated, sha in [(True, "a" * 40), (False, "a" * 40)]:
+            tree = {
+                "sha": "b" * 40,
+                "truncated": truncated,
+                "tree": [
+                    {
+                        "path": "app.py",
+                        "type": "blob",
+                        "mode": "100644",
+                        "size": 3,
+                        "sha": sha,
+                    }
+                ],
+            }
+            with patch(
+                "experiments.broader_agency_pilot.public_bytes",
+                side_effect=[json.dumps(tree).encode(), b"bad"],
+            ):
+                with self.assertRaises(ValueError):
+                    acquire_repository_tree_text(
+                        Mock(), "s", "example/repo", "c" * 40, {}
+                    )
+
     def test_arbitrary_query_and_exact_pages_cannot_open_host_or_oracle(self):
         source = workspace()
         matches = source.invoke("search_sources", {"query": "next YEAR"})
@@ -286,6 +360,21 @@ class TrialControlTests(TestCase):
 
 
 class PilotCompositionTests(TestCase):
+    def test_rejected_preparation_reuse_does_not_overwrite_original_failure(self):
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            directory = root / ".tmp/broader-agency-pilot/existing"
+            directory.mkdir(parents=True)
+            record = directory / "preparation-problem.json"
+            record.write_text("original failure\n")
+            with (
+                patch("experiments.broader_agency_pilot.ROOT", root),
+                patch("sys.argv", ["pilot", "--name", "existing", "--prepare"]),
+            ):
+                with self.assertRaises(FileExistsError):
+                    main()
+            self.assertEqual(record.read_text(), "original failure\n")
+
     def prepare_control(self, directory):
         corpus = workspace()
         documents = [asdict(doc) for doc in corpus._documents.values()]

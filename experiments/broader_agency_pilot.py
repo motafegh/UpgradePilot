@@ -16,8 +16,10 @@ import os
 import re
 import sys
 import zipfile
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import asdict
 from pathlib import Path, PurePosixPath
+from urllib.parse import quote
 
 import requests
 
@@ -218,7 +220,113 @@ def acquire_repository_text(
     return documents, receipt
 
 
-def prepare_pilot(directory: Path) -> dict:
+def acquire_repository_tree_text(
+    session, source_id, repository, revision, blob_cache
+) -> tuple[list[SourceDocument], dict]:
+    """Capture the same text selection without expanding a binary-heavy archive.
+
+    A complete exact-commit tree supplies paths/sizes/blob identities. Selected
+    raw bytes must match their Git blob SHA1; repeated blobs reuse those checked
+    bytes. Six independent public readers bound acquisition concurrency.
+    """
+    if not re.fullmatch(r"[0-9a-f]{40}", revision):
+        raise ValueError("tree capture requires an exact commit")
+    url = f"https://api.github.com/repos/{repository}/git/trees/{revision}?recursive=1"
+    raw_tree = public_bytes(session, url, 8 * 1024 * 1024)
+    tree = strict_json(raw_tree.decode())
+    if tree.get("truncated") is not False or len(tree["tree"]) > 50_000:
+        raise ValueError("tree is incomplete or exceeds entry ceiling")
+    selected, omissions = [], []
+    retained = 0
+    for row in tree["tree"]:
+        if row["type"] == "tree":
+            continue
+        path = PurePosixPath(row["path"])
+        reason = None
+        if path.is_absolute() or ".." in path.parts or not path.parts:
+            reason = "unsafe tree path"
+        elif row["type"] != "blob" or row["mode"] not in {"100644", "100755"}:
+            reason = "outside ordinary file inventory"
+        elif path.suffix.lower() not in TEXT_SUFFIXES and path.name not in {
+            "Dockerfile",
+            "Makefile",
+            "LICENSE",
+            "CHANGELOG",
+            "README",
+        }:
+            reason = "outside declared text-file inventory"
+        elif row["size"] > 2 * 1024 * 1024 or retained + row["size"] > 32 * 1024 * 1024:
+            reason = "text capture byte ceiling"
+        if reason:
+            omissions.append(
+                {"path": str(path), "reason": reason, "size": row.get("size", 0)}
+            )
+            continue
+        retained += row["size"]
+        selected.append(row)
+
+    def fetch(row):
+        raw = blob_cache.get(row["sha"])
+        if raw is None:
+            with requests.Session() as reader:
+                reader.trust_env = False
+                reader.headers["User-Agent"] = "UpgradePilot-public-research"
+                raw = public_bytes(
+                    reader,
+                    f"https://raw.githubusercontent.com/{repository}/{revision}/{quote(row['path'], safe='/')}",
+                    2 * 1024 * 1024,
+                )
+        git_blob = hashlib.sha1(f"blob {len(raw)}\0".encode() + raw).hexdigest()
+        if git_blob != row["sha"] or len(raw) != row["size"]:
+            raise ValueError("raw source does not match frozen Git blob")
+        return row, raw
+
+    documents = []
+    with ThreadPoolExecutor(max_workers=6) as readers:
+        for row, raw in readers.map(fetch, selected):
+            blob_cache[row["sha"]] = raw
+            try:
+                text = raw.decode("utf-8")
+                if "\x00" in text:
+                    raise UnicodeError("binary NUL")
+            except UnicodeError:
+                omissions.append(
+                    {"path": row["path"], "reason": "non UTF-8 text", "size": len(raw)}
+                )
+                continue
+            documents.append(
+                SourceDocument(
+                    source_id,
+                    row["path"],
+                    text,
+                    {
+                        "repository": repository,
+                        "revision": revision,
+                        "path": row["path"],
+                        "basis": "fresh complete public commit tree and Git-blob-verified raw text",
+                        "git_blob_sha1": row["sha"],
+                    },
+                )
+            )
+    receipt = {
+        "source_id": source_id,
+        "repository": repository,
+        "revision": revision,
+        "file_count": len(documents),
+        "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+        "omitted_file_count": len(omissions),
+        "url": url,
+        "tree_response_sha256": hashlib.sha256(raw_tree).hexdigest(),
+        "git_tree_sha1": tree["sha"],
+        "retained_bytes": sum(len(d.text.encode()) for d in documents),
+        "omissions": omissions,
+    }
+    return documents, receipt
+
+
+def prepare_pilot(
+    directory: Path, *, tree_repositories=(), reuse_captures=None
+) -> dict:
     directory.mkdir(parents=True, exist_ok=False)
     captures = directory / "source-captures"
     captures.mkdir()
@@ -226,6 +334,7 @@ def prepare_pilot(directory: Path) -> dict:
     session.trust_env = False
     session.headers["User-Agent"] = "UpgradePilot-public-research"
     cases = []
+    blob_cache = {}
     try:
         for spec in CASE_SPECS:
             documents = []
@@ -236,9 +345,49 @@ def prepare_pilot(directory: Path) -> dict:
                 *spec["upstream"],
             ]
             for source_id, repository, revision in specs:
-                acquired, receipt = acquire_repository_text(
-                    session, source_id, repository, revision
+                previous = (
+                    reuse_captures
+                    / "source-captures"
+                    / f"{spec['case_id']}-{source_id}.json"
+                    if reuse_captures
+                    else None
                 )
+                if previous and previous.is_file():
+                    raw_capture = previous.read_bytes()
+                    capture = strict_json(raw_capture.decode())
+                    receipt = capture["receipt"]
+                    acquired = [SourceDocument(**d) for d in capture["documents"]]
+                    if (
+                        receipt["source_id"] != source_id
+                        or receipt["repository"] != repository
+                        or (
+                            re.fullmatch(r"[0-9a-f]{40}", revision)
+                            and receipt["revision"] != revision
+                        )
+                        or len(acquired) != receipt["file_count"]
+                        or any(
+                            d.source_id != source_id
+                            or d.identity["repository"] != repository
+                            or d.identity["revision"] != receipt["revision"]
+                            for d in acquired
+                        )
+                    ):
+                        raise ValueError("reused capture identity differs")
+                    receipt = {
+                        **receipt,
+                        "reused_capture_sha256": hashlib.sha256(
+                            raw_capture
+                        ).hexdigest(),
+                        "reuse_basis": "completed same-session exact-commit capture; bytes not reacquired",
+                    }
+                elif repository in tree_repositories:
+                    acquired, receipt = acquire_repository_tree_text(
+                        session, source_id, repository, revision, blob_cache
+                    )
+                else:
+                    acquired, receipt = acquire_repository_text(
+                        session, source_id, repository, revision
+                    )
                 (captures / f"{spec['case_id']}-{source_id}.json").write_text(
                     json.dumps(
                         {
@@ -442,6 +591,8 @@ def main() -> int:
     parser.add_argument("--model", default="gemma-4-e4b-it-ud")
     parser.add_argument("--model-identity", type=Path)
     parser.add_argument("--sdk-site", type=Path)
+    parser.add_argument("--tree-repository", action="append", default=[])
+    parser.add_argument("--reuse-captures", type=Path)
     args = parser.parse_args()
     if not re.fullmatch(r"[a-zA-Z0-9_-]{1,80}", args.name):
         parser.error("name must contain letters, digits, underscore or hyphen")
@@ -452,7 +603,14 @@ def main() -> int:
     directory = ROOT / ".tmp/broader-agency-pilot" / args.name
     if args.prepare:
         try:
-            freeze = prepare_pilot(directory)
+            freeze = prepare_pilot(
+                directory,
+                tree_repositories=args.tree_repository,
+                reuse_captures=args.reuse_captures,
+            )
+        except FileExistsError:
+            # A rejected reuse must not write into another run's record.
+            raise
         except Exception as error:
             if directory.is_dir():
                 (directory / "preparation-problem.json").write_text(
