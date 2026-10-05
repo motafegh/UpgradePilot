@@ -1,7 +1,7 @@
 # Source-linked API change proposals — implementation and controlled-provider proof
 
 Date/time: 2026-10-05 19:50 Asia/Tehran.
-Session status: ACTIVE — formal Build/Implement cycle; A1 continuity gate.
+Session status: ACTIVE — formal Build/Implement cycle; A2 orientation delivered, B next.
 Owner: [API-change/target-exposure feasibility plan](../plans/UPSTREAM_API_CHANGE_AND_TARGET_EXPOSURE_FEASIBILITY_PLAN.md), especially its source-only contract and implementation/proof handoff.
 Method: [ADR-0011](../docs/architecture/ADR-0011-explicit-source-association-bases-and-proposal-boundary.md), Core §§6–6.3 and Minimum Useful Generality.
 Previous: [pre-cycle readiness](2026-10-05_1936_api-interpreter-readiness_pre-cycle.md) and [closed design preparation](2026-10-05_1617_api-change-interpretation-preparation_lbd-cycle.md).
@@ -11,13 +11,13 @@ Skills: `UP-SKILL:upgradepilot-build-implement`, `UP-SKILL:upgradepilot-learning
 
 After discussing the recommendation, its rationale and alignment with the earlier design, Ali explicitly agreed and requested formally starting the new cycle properly. The selected scope is experiment-local source-only API interpretation implementation, an explicit opt-in ordinary PR integration path, and controlled-provider acquisition → proposal → saved-recovery engineering proof. Actual model accuracy/omission evaluation follows in a separate immediate cycle after this cycle closes; it is not silently added to this Build or indefinitely bypassed by more infrastructure work.
 
-Authorization persists across the cycle's learning gates; those gates are opportunities to establish/challenge understanding, not repeated requests for implementation permission. No process override is selected for formal entry: A0 → A1 → STOP → A2 → STOP → B → Verification → D → E, with C continuous. The previous D remains explicitly deferred; agreement about this cycle does not establish mastery of the prior whole design.
+Authorization persists across the cycle's learning gates; those gates are opportunities to establish/challenge understanding, not repeated requests for implementation permission. Formal entry followed A0 → A1; Ali subsequently requested proceeding to A2 without a separate understanding check, as recorded below. The previous D remains explicitly deferred; agreement about this cycle does not establish mastery of the prior whole design.
 
 ## Cycle status
 
 - A0 — DONE: fetched remote; reconciled live owners, readiness/design handoff, exact implementation/proof plan, source/test seams and unchanged executable horizon; cycle record and living orientation map initialized.
-- A1 — CURRENT: Ali requested explicit teaching of the A0/A1 concepts to retain/understand/master. Starting-state, evidence-maturity and proof-boundary teaching is underway; reasoning/ownership results remain pending.
-- A2 — PENDING: upcoming implementation orientation and pre-B understanding gate.
+- A1 — DONE: starting-state/evidence-maturity/proof-boundary teaching delivered; Ali explicitly said he got it and requested A2 without stopping for a check. Continuity opportunity completed; independent reasoning/mastery remains unassessed.
+- A2 — DONE for orientation with explicit check adaptation: source-to-proposal implementation, ownership/data flow, failure and preservation behavior, controlled-provider proof and non-goals explained. Separate recall/pre-B check waived at Ali's request; actual mechanism ownership remains unassessed.
 - B — PENDING: no interpreter source/test edits or inference.
 - Verification gate — PENDING: inherited baseline evidence is not verification of new behavior.
 - D — PENDING: learning from the actual verified implementation; earlier cycle's D remains deferred.
@@ -55,7 +55,7 @@ Initialization checks: all nine frozen hashes/sizes rechecked and unchanged; all
 - Teach the two important boundaries: code establishes source correspondence and preserves evidence; model meaning and omissions need separate evaluation. A recovered proposal does not become a product finding or an applicability/action claim.
 - Explain controlled-provider injection as repeatable engineering evidence; show failure propagation and independent context preservation. Saving/read-back is offline preservation, not interrupted execution resume or fresh acquisition.
 - Preserve acquisition coverage, model-reported unassessed spans and evaluator omission detection as different facts. Empty observations never establish absence of changes/impact.
-- Use the actual HTTPX removal/deprecation passages for decision-relevant explanation; no syntax micro-quizzes or prior deferred D replay is required. One or two reasoning points should test why exact quotation recovery and uncertainty preservation matter.
+- Use the actual HTTPX removal/deprecation passages for decision-relevant explanation; no syntax micro-quizzes or prior deferred D replay is required. Reasoning questions remain optional discussion aids under Ali's explicit preference against a separate check.
 - Expected proof: discriminating input/output/reference/provider/capacity/truncation checks plus opt-in normal composition and saved recovery; stronger claims remain withheld.
 
 ## B boundary and proof route
@@ -72,10 +72,22 @@ Stop at a material design/contract conflict or proof blocker and preserve it; re
 
 ## A1 handoff
 
-At formal entry, the project has prepared source-only interpretation and verified acquisition/static-context/recovery foundations. This cycle will supply the missing executable proposal path and its engineering proof. The current handoff pauses at A1 so Ali can question/correct that model before A2. B has not begun; implementation authorization is already given.
+At formal entry, the project had prepared source-only interpretation and verified acquisition/static-context/recovery foundations. The A1 handoff paused to give Ali an opportunity to question/correct that model before A2. The subsequent transition below records his instruction to proceed; implementation authorization was already given.
 
 ## A1 learning focus — starting state and evidence maturity
 
 Ali asked for proper explanation of what must be retained, understood and mastered from A0/A1. Required responsibility-level depth: reconstruct the current implemented/prepared/unverified boundary; interpret evidence only within its exercised scope; distinguish acquired source/static context, model proposals, semantic evaluation and actual target impact. These concepts are needed to challenge implementation/evaluation claims and diagnose the next work. Exact hashes, test counts, filenames and provider API details are lookup-level; prior whole-design D and new implementation mechanics are not silently marked mastered. A2 will own the latter's minimum-complete orientation.
 
-Teach from the actual retained HTTPX removal/deprecation source and current readiness evidence. Use two fair reasoning checkpoints about partial-source scope and the evidence needed for a semantic-accuracy claim. No answer, mastery or A1 gate completion is assumed from explanation alone. Remain in this same cycle/A1; no Learning-Only reroute, learning artifact, source/test mutation or extra regression run is selected.
+Teaching used the actual retained HTTPX removal/deprecation source and current readiness evidence. Two reasoning checkpoints about partial-source scope and semantic-accuracy evidence were offered. Ali requested proceeding without a check; no answer or demonstrated mastery is inferred. Continue the same cycle; no Learning-Only reroute, learning artifact, source/test mutation or extra regression run is selected.
+
+## A1 transition and A2 orientation — user-directed check adaptation
+
+Ali said he got the A0/A1 explanation and requested proceeding to A2 with proper teaching and no stop for checking. Circumstance: continuous context, prior scope/proof explanation and explicit learner preference. Normal route: separate continuity and pre-B understanding checkpoints. Chosen adaptation: complete the continuity opportunity, deliver the minimum-complete A2 and avoid a separate recall/quiz checkpoint; preserve an opportunity for questions/corrections and independent ownership as unassessed. Effect: implementation authorization and evidence/verification obligations are unchanged; this is not a semantic acceptance or mastery waiver. Required reconciliation: current phase/check adaptation recorded here and compact continuation in `MEMORY.md`; D later assesses actual sufficiently evidenced implementation at justified depth.
+
+A2 teaching focuses on the missing experiment-local source-only producer/request/decoder/proposal/recovery path. Existing acquisition supplies exact complete or retained partial/ambiguous release evidence. The new producer maps every available section/line; the prompt carries source/context/limits without target or evaluator answers; the model proposes change kind/subject/assertion/timing/effective version and cites source IDs; deterministic code checks bounded shape, references, uncertainty requirements and source reconstruction while preserving proposal authority. Schema/grounding success does not assess meaning. Real HTTPX `proxies` removal and string-valued `verify` deprecation illustrate the contract using the actual frozen line map; any displayed interpretation is hand-authored teaching material, not a model result.
+
+Explain acquisition coverage, model-reported unassessed spans and evaluator omission detection separately; preserve complete/partial/ambiguous scope beside returned observations. A provider/contract/grounding/capacity/truncation failure remains specific and retains independent target/adapter evidence. Explicit opt-in trial integration prevents existing acquisition-only behavior from implicitly calling inference. Versioned saved read-back preserves source text/identity, proposed meaning, scope, method and failures without fresh inference/acquisition; source/proposal integrity must not promote meaning into accepted product authority.
+
+Core ownership targets: follow code-owned evidence identity versus model-proposed meaning; explain why response handling and preservation need repeatable controlled-provider proof. Operational understanding: request rendering, schema/decoder, source maps, actual context plus completion reserve, versioned reader and test seams. Lookup/deferred depth: exact enum values, offsets/library APIs, actual provider/tokenizer deployment and real-model evaluation mechanics; no need to memorize source syntax before it exists. B will implement/freeze the normal renderer and integration; controlled tests come before the active API trial regression. Exact loaded deployment/schema support/token fit precede later live evaluation, not a guessed character-based pass here.
+
+No separate recall question is required before the already-authorized B continuation. No substantive B, new test result, model inference or demonstrated learner mastery occurred during this orientation.
