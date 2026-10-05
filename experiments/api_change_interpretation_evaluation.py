@@ -151,19 +151,24 @@ def measured_capacity(
         accounting_method="loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
         effective_context_tokens=model.get_context_length(),
         input_tokens=chat_tokens + schema_tokens,
-        reserved_output_tokens=OUTPUT_TOKENS,
+        reserved_output_tokens=request.payload["max_tokens"],
     )
     return capacity, {
         "chat_template_tokens": chat_tokens,
         "schema_token_allowance": schema_tokens,
         "formatted_chat_sha256": text_hash(formatted),
-        "fits": capacity.input_tokens + OUTPUT_TOKENS
+        "fits": capacity.input_tokens + capacity.reserved_output_tokens
         <= capacity.effective_context_tokens,
     }
 
 
 def prepare_evaluation(
-    output: Path, model, chat_factory, *, template_identity: str
+    output: Path,
+    model,
+    chat_factory,
+    *,
+    template_identity: str,
+    max_output_tokens: int = OUTPUT_TOKENS,
 ) -> tuple[list, dict, dict]:
     """Freeze all request/code/input identities before any model prediction."""
     output.mkdir(parents=True, exist_ok=False)
@@ -180,7 +185,7 @@ def prepare_evaluation(
     cases = []
     for item in inputs:
         source_input = calibration_source_input(item, context)
-        request = prepare_request(source_input)
+        request = prepare_request(source_input, max_output_tokens=max_output_tokens)
         if source_input["sections"]:
             capacity, counts = measured_capacity(
                 request, model, chat_factory, template_identity=template_identity
@@ -280,7 +285,11 @@ def execute_evaluation(cases: list, output: Path, model, context: dict) -> dict:
             capacity=capacity, response_observer=capture
         )
         start = time.monotonic()
-        result = interpret_source_input(case["source_input"], provider)
+        result = interpret_source_input(
+            case["source_input"],
+            provider,
+            max_output_tokens=case["request"].payload["max_tokens"],
+        )
         usage = observed.get("usage") or {}
         prompt_tokens = usage.get("prompt_tokens")
         accounting_mismatch = (
@@ -363,6 +372,12 @@ def main() -> int:
         action="store_true",
         help="execute after all capacity/request identities are frozen",
     )
+    parser.add_argument(
+        "--max-output-tokens",
+        type=int,
+        default=OUTPUT_TOKENS,
+        help="explicit completion budget; measured and frozen before inference",
+    )
     args = parser.parse_args()
     if not re.fullmatch(r"[a-zA-Z0-9_-]{1,80}", args.name):
         parser.error("name must contain only letters, digits, underscore or hyphen")
@@ -408,7 +423,11 @@ def main() -> int:
             }
         )
         cases, _manifest, context = prepare_evaluation(
-            output, model, lms.Chat.from_history, template_identity=template_identity
+            output,
+            model,
+            lms.Chat.from_history,
+            template_identity=template_identity,
+            max_output_tokens=args.max_output_tokens,
         )
         runtime = {
             name: version(name)

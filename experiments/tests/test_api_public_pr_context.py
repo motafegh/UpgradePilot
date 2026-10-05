@@ -280,6 +280,30 @@ class PublicPRTests(TestCase):
             with self.assertRaises(FileExistsError):
                 save_trial(packet, path)
 
+    def test_saved_pilot_output_budget_survives_default_extension(self):
+        packet, _, _ = self.interpreted_trial()
+        interpretation = packet["interpretation"]
+        historical = prepare_request(
+            interpretation["source_input"], max_output_tokens=1536
+        )
+        interpretation["method"] = {
+            **historical.method,
+            "provider": interpretation["method"]["provider"],
+        }
+        packet["packet_sha256"] = packet_hash(
+            {k: v for k, v in packet.items() if k != "packet_sha256"}
+        )
+        self.assertEqual(
+            packet_hash(decode_saved_trial(json.dumps(packet))), packet_hash(packet)
+        )
+        # Changing the recorded setting without reconstructing its request is rejected.
+        interpretation["method"]["max_output_tokens"] = 8192
+        packet["packet_sha256"] = packet_hash(
+            {k: v for k, v in packet.items() if k != "packet_sha256"}
+        )
+        with self.assertRaises(ValueError):
+            decode_saved_trial(json.dumps(packet))
+
     def test_interpretation_failures_preserve_target_adapters_and_save_readback(self):
         for reply in (
             ProviderReply("{}"),

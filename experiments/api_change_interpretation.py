@@ -32,7 +32,9 @@ ASSETS = Path(__file__).resolve().parents[1] / (
     "working-memory/evidence/2026-10-05-api-interpretation-preparation"
 )
 MAX_RESPONSE_BYTES = 262_144
-OUTPUT_TOKENS = 1536
+# Includes reasoning and structured output. The failed 1536-token pilot remains
+# reproducible through explicit request settings and saved method identities.
+OUTPUT_TOKENS = 8192
 LOCAL_ENDPOINT = "http://127.0.0.1:18080/v1/chat/completions"
 LOCAL_MODEL = "gemma-4-e4b-it-ud"
 
@@ -228,7 +230,11 @@ class InterpretationRequest:
     method: dict
 
 
-def prepare_request(source_input: dict) -> InterpretationRequest:
+def prepare_request(
+    source_input: dict, *, max_output_tokens: int = OUTPUT_TOKENS
+) -> InterpretationRequest:
+    if type(max_output_tokens) is not int or max_output_tokens < 1:
+        raise ValueError("output token budget must be a positive integer")
     system, user_template, schema, hashes = frozen_contract()
     # Send each source character once. Offsets/hashes belong to the retained map,
     # not model work; compact labelled lines preserve all available source text.
@@ -273,7 +279,7 @@ def prepare_request(source_input: dict) -> InterpretationRequest:
         },
         "temperature": 0,
         "seed": 0,
-        "max_tokens": OUTPUT_TOKENS,
+        "max_tokens": max_output_tokens,
         "stream": False,
     }
     return InterpretationRequest(
@@ -291,7 +297,7 @@ def prepare_request(source_input: dict) -> InterpretationRequest:
             "model": LOCAL_MODEL,
             "temperature": 0,
             "seed": 0,
-            "max_output_tokens": OUTPUT_TOKENS,
+            "max_output_tokens": max_output_tokens,
         },
     )
 
@@ -579,7 +585,10 @@ def _result_envelope(source_input: dict | None) -> dict:
 
 
 def interpret_source_input(
-    source_input: dict, provider: InterpretationProvider
+    source_input: dict,
+    provider: InterpretationProvider,
+    *,
+    max_output_tokens: int = OUTPUT_TOKENS,
 ) -> dict:
     """Interpret a producer-validated map; calibration never becomes acquisition.
 
@@ -595,7 +604,9 @@ def interpret_source_input(
     if not packet["source_input"]["sections"]:
         return fail("input_problem", "no_retained_source_text")
     try:
-        request = prepare_request(packet["source_input"])
+        request = prepare_request(
+            packet["source_input"], max_output_tokens=max_output_tokens
+        )
     except (OSError, ValueError, KeyError):
         return fail("contract_problem", "frozen_producer_assets_invalid")
     packet["method"] = {**request.method, "provider": provider.identity}

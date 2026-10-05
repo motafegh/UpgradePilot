@@ -9,6 +9,7 @@ import requests
 
 from experiments.api_change_interpretation import (
     LOCAL_ENDPOINT,
+    OUTPUT_TOKENS,
     LocalInterpretationProvider,
     ProviderReply,
     RequestCapacityEvidence,
@@ -85,6 +86,22 @@ class ControlledProvider:
 
 
 class InterpretationTests(TestCase):
+    def test_output_budget_binds_request_without_changing_semantic_input(self):
+        source = source_input_from_projection(projection(), INTERVAL)
+        pilot = prepare_request(source, max_output_tokens=1536)
+        extended = prepare_request(source)
+        self.assertEqual(extended.payload["max_tokens"], 8192)
+        self.assertEqual(pilot.payload["messages"], extended.payload["messages"])
+        self.assertEqual(
+            pilot.payload["response_format"], extended.payload["response_format"]
+        )
+        self.assertNotEqual(
+            pilot.method["request_sha256"], extended.method["request_sha256"]
+        )
+        for invalid in (0, -1, True, "8192"):
+            with self.assertRaises(ValueError):
+                prepare_request(source, max_output_tokens=invalid)
+
     def run_output(self, output):
         return interpret_projection(projection(), INTERVAL, ControlledProvider(output))
 
@@ -350,9 +367,9 @@ class LocalProviderTests(TestCase):
             "controlled-tokenizer",
             "controlled-template",
             "controlled full request accounting; not live measurement",
-            4096,
+            16384,
             500,
-            1536,
+            OUTPUT_TOKENS,
         )
         self.session = MagicMock()
 
@@ -360,7 +377,7 @@ class LocalProviderTests(TestCase):
         for capacity in (
             None,
             replace(self.capacity, request_sha256="stale"),
-            replace(self.capacity, input_tokens=3000),
+            replace(self.capacity, input_tokens=16384),
             replace(self.capacity, reserved_output_tokens=1000),
             replace(self.capacity, tokenizer_identity=""),
             replace(self.capacity, model="another-model"),

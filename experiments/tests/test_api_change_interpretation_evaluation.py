@@ -37,7 +37,7 @@ class EvaluationTests(TestCase):
             "instanceReference": "controlled-instance",
             "path": "controlled-model.gguf",
         }
-        self.model.get_context_length.return_value = 4096
+        self.model.get_context_length.return_value = 16384
         self.model.apply_prompt_template.return_value = "controlled formatted chat"
         self.model.tokenize.side_effect = lambda text: list(
             range(100 if text == "controlled formatted chat" else 30)
@@ -96,6 +96,14 @@ class EvaluationTests(TestCase):
         self.assertEqual(capacity.deployment_identity, "controlled-instance")
         self.assertTrue(counts["fits"])
         self.assertEqual(self.model.tokenize.call_count, 2)
+        pilot = prepare_request(request.source_input, max_output_tokens=1536)
+        pilot_capacity, _ = measured_capacity(
+            pilot,
+            self.model,
+            self.chat_factory,
+            template_identity="controlled-template",
+        )
+        self.assertEqual(pilot_capacity.reserved_output_tokens, 1536)
         self.model.get_context_length.return_value = 1600
         _, counts = measured_capacity(
             request,

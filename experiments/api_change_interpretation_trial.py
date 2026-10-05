@@ -148,7 +148,11 @@ def decode_saved_trial(text: str) -> dict:
         if expected_input is None and method is not None:
             raise ValueError("request identity without valid source input")
         if method is not None:
-            expected_request = prepare_request(expected_input)
+            # Historical settings remain recoverable after the evaluated default
+            # changes. Re-rendering still checks their exact request digest.
+            expected_request = prepare_request(
+                expected_input, max_output_tokens=method["max_output_tokens"]
+            )
             expected_method = expected_request.method
             if set(method) != {*expected_method, "provider"}:
                 raise ValueError("unexpected method identity fields")
