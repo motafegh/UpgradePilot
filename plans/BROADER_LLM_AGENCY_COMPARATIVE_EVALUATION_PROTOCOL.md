@@ -1,6 +1,6 @@
 # Broader LLM agency — local comparative evaluation protocol
 
-**Version:** 0.1, designed 2026-10-05
+**Version:** 0.2, investigation-interface repair design added 2026-10-06
 
 **Responsibility:** compare investigation and experimental recommendation quality before choosing product architecture or delegated authority.
 
@@ -46,7 +46,7 @@ Credible outcomes include a richer fixed workflow, an agent-led investigator, a 
 
 F and A use the same model deployment within each paired comparison, initial identity/diff packet, source corpus, tool implementations, citation representation, report requirements and resource ceiling. They begin without R's conclusions. They may obtain different evidence because selection is part of the policy being measured. They have equal **access**, not identical observed context or required token consumption. Report actual consumption alongside quality.
 
-F's provisional schedule is: upstream-change interpretation → consumer localization → conditional/environment/CI assessment → synthesis → challenge/revision. Initial allocations are four inference calls, four, four, two and two respectively, under the total 16-call ceiling. The host deterministically skips empty stages and pages oversized material; the model chooses queries and relevant files within the stage. It cannot freely reorder/revisit stages. A may use the entire budget in any useful order. Freeze F's routing, pagination and unused-budget policy after development; do not tune them on protected outcomes. F's stage partition is an intentional policy difference, not evidence deprivation.
+F's initial provisional schedule was upstream-change interpretation → consumer localization → conditional/environment/CI assessment → synthesis → challenge/revision, with 4/4/4/2/2 call allocations. Section 14 records the actual first prototype, including its differences from this intention. Section 16 defines the replacement qualification design with explicit stage artifacts and completion rules. A may investigate in any useful order. Freeze F's routing, pagination and unused-budget policy after development; do not tune them on protected outcomes. F's stage partition is an intentional policy difference, not evidence deprivation.
 
 The new source-only API interpreter can inform F's rendering/citation boundary. Its current schema or change categories must not become the exhaustive discovery vocabulary for either arm. Any reuse/changed prompt is a separately identified experimental configuration, not the pinned interpreter's already-proved semantic performance.
 
@@ -94,7 +94,7 @@ Provide these generic tools through the same implementation for F and A:
 |---|---|---|
 | `list_sources` / `list_paths` | Repository/source ID, path prefix; paged inventories with exact revisions | Discover relevant evidence without a case-specific action menu |
 | `read_source` | Source ID, path, line range; exact text, offsets/hash and omission status | Progressive source access with recoverable citations |
-| `search_sources` | Text/regex, repository/path filters; bounded matches with pagination | Model invents its own searches and follows indirect usage |
+| `search_sources` | Explicit literal text, repository/path filters; bounded matches with pagination | Model invents its own searches and follows indirect usage; a regex extension needs separate qualification |
 | `read_diff` | Frozen repository/revision pair and path | Distinguish proposed change from unrelated head source/history |
 | `inspect_python_structure` | Frozen source/path/symbol; static imports/declarations/calls, with limitations | Optional reusable AST view; never claims installed binding or runtime reachability |
 | `read_observation` | Frozen CI/run/job/attempt or package-metadata ID | Inspect exact observation scope, time and missingness |
@@ -179,7 +179,7 @@ Inspect every critical error and every discordant case; sample matched successes
 
 ## 9. Budgets, repetitions and local cost
 
-Proposed core limits, frozen after development for each comparable configuration:
+Initial version-0.1 limits are preserved below for provenance. Section 16.6 replaces their input/output allowances for version-0.2 qualification. Freeze the selected comparable configuration after development; neither table automatically selects a batch.
 
 | Resource | Ceiling per F/A trial |
 |---|---|
@@ -192,7 +192,7 @@ Proposed core limits, frozen after development for each comparable configuration
 | Trial wall time | 20 minutes; record actual latency and timeout |
 | Concurrency | One trial on the local inference deployment |
 
-These ceilings represent equal available resources, not a target to exhaust. At 4096 context, a 1536-token final reserve leaves at most 2560 rendered input tokens, including all template/tool overhead. Hold back final-report tokens and one inference call before issuing further investigative calls; clamp each completion allowance to the aggregate remainder. The common evidence ledger must support cited findings without stuffing the full transcript into that request. Any model-driven compaction counts as inference; exact source evidence remains recoverable outside model context. Budget exhaustion returns explicit partial/failed evidence, never an unearned favorable answer.
+These ceilings represent equal available resources, not a target to exhaust. Under the initial limits, 4096 context and a 1536-token final reserve leave at most 2560 rendered input tokens, including all template/tool overhead. Reserve final calls/output according to the selected configuration; section 16 requires a report plus possible correction rather than the initial single-call reservation. Clamp each completion allowance to the aggregate remainder. The common evidence ledger must support cited findings without stuffing the full transcript into that request. Any model-driven compaction counts as inference; exact source evidence remains recoverable outside model context. Budget exhaustion returns explicit partial/failed evidence, never an unearned favorable answer.
 
 Use three fresh repeat IDs per protected case/arm/model; record seeds only where demonstrably supported. Temperature zero is not a proof of deterministic provider execution. Reset notes, session history and outputs between trials. Use a balanced pre-generated case/arm order within model blocks; disclose model-block/hardware temporal effects. Cache frozen source acquisition consistently, isolate trial artifacts, and report cold versus warm inference policy.
 
@@ -203,7 +203,7 @@ Use three fresh repeat IDs per protected case/arm/model; record seeds only where
 | Protected measured pilot | Twelve cases × 2 × 3 × 2 | 144 |
 | Core total | Sum above | 200 |
 
-With one feasible model the core total is 100 and the protected count 72. R adds eighteen reference investigations, one per distinct development/protected case, with its own inference/time accounting. Provider contract probes, case acquisition/adjudication, optional diagnostics and human review are additional; this is not a 200-call estimate. The 200 F/A trials allow at most 3200 inference calls, 9,830,400 input tokens, 3,276,800 generated tokens and 66 hours 40 minutes of trial wall time at these ceilings. Protected trials alone cap at 48 hours. Actual requirements could be substantially lower; no throughput forecast is claimed from metadata.
+With one feasible model the core total is 100 and the protected count 72. R adds eighteen reference investigations, one per distinct development/protected case, with its own inference/time accounting. Provider contract probes, case acquisition/adjudication, optional diagnostics and human review are additional; this is not a 200-call estimate. At the initial version-0.1 ceilings, 200 F/A trials allowed at most 3200 inference calls, 9,830,400 input tokens, 3,276,800 generated tokens and 66 hours 40 minutes of trial wall time. At the replacement version-0.2 ceilings, the same hypothetical schedule allows 49,152,000 input and 6,553,600 generated tokens; calls/time are unchanged. Protected trials alone cap at 48 hours. These are upper bounds, not a selected batch or throughput forecast. Re-estimate actual occupancy after qualified development runs.
 
 Measure prefill/decode rate, end-to-end latency and review time during technical feasibility, then forecast the full run as sum of expected trial durations plus source/review/setup time. Report CPU-offload and contention explicitly. Local-only means no API bill; machine occupancy, electricity, storage and Ali's attention still cost resources. No electricity-price or hourly-cost estimate is invented. Development may adjust limits proportionately before protected freeze; a later limit change creates a new comparable configuration rather than silently rescuing selected failures.
 
@@ -262,7 +262,9 @@ The design step is complete when the comparison, candidate deployments, corpus/r
 
 Reassess/version the protocol when task responsibility, source availability, deployment/template/interface, corpus protection, budget or oracle changes materially. Preserve earlier manifests/results; position-neutral plans describe the agreed experiment, while dated working memory records evolution and MEMORY.md selects continuation.
 
-## 14. First technical pilot configuration
+## 14. Historical first technical pilot configuration — version 0.1
+
+This section preserves the original pilot/clarification brief and its limitations. Its execution instructions describe version 0.1; use section 16 for the replacement design. The dated evidence, rather than this position-neutral brief, records actual execution outcomes.
 
 The two known-development cases are the HTTPX/framework/CI and glyphsLib/pytest cases identified above. Both arms receive the same pinned target base/head, upstream old/new text and bounded historical public CI observations. Selected framework source is included as a declared development clue in both arms. Historical interpretations, disposition reports and grader answers are excluded. These are deliberately known cases; this acquisition cannot establish unseen discovery performance.
 
@@ -290,3 +292,91 @@ A failed tool/report interface is evidence about that configuration, not an agen
 6. **Reasoning configuration:** evaluate reasoning-off/on separately with measured completion capacity, or label a combined redesign as a new configuration. The first prototype cannot establish reasoning-enabled agent performance.
 
 Use small known-development mechanics/diagnostic cases first, then re-enter the six-case development and protected-reference preparation when both interfaces perform their intended roles. Freeze each comparison before output and preserve earlier attempts. These are design/proof prerequisites, not adopted product architecture, a mandate to add dependencies, or automatic authorization for another full batch.
+
+## 16. Replacement investigation-interface design — version 0.2
+
+This is an experiment implementation design, grounded in the [reviewed sixteen-trial pilot](../working-memory/evidence/2026-10-06-broader-agency-feasibility/README.md) and the current workspace/trial/provider code. Its outcome is a usable, inspectable investigation interface for both policies. It makes no product architecture commitment. Implementation and local qualification are subsequent selected responsibilities; this section is sufficient to enter them without reopening routine design decisions.
+
+The complete responsibility remains maintainer support through relevant changes, target exposure, conditions, check coverage, useful advice and justified stopping. Qualification includes source investigation and final reporting. Live discovery, unknown-code execution, external action, long-term resume and multi-agent arrangements remain the separately selectable extensions in section 12. Narrowing here is temporary: a working observation/history/report path is needed to measure the value of those capabilities honestly.
+
+### 16.1 Responsibility owners and retained baseline
+
+| Responsibility | Experiment owner / selected method |
+|---|---|
+| Frozen source access, normalized query scope and honest page completeness | `SourceWorkspace` in `experiments/broader_agency_workspace.py` |
+| Trial events/history, fixed/agent control, reserves, recovery and finalization | `experiments/broader_agency_trial.py`; small private helpers are sufficient initially |
+| Local client tools, terminal schema, rendered-fit and usage qualification | `experiments/broader_agency_local.py` |
+| Case/configuration freeze, reset, assigned-run accounting and private artifacts | `experiments/broader_agency_pilot.py` |
+| Mechanical/composition proof | `experiments/tests/test_broader_agency_trial.py`; split only if a distinct test responsibility warrants it |
+| Semantic adjudication | Reviewer-only references and section 7; unavailable to the running model |
+
+Use ordinary Python and the existing transport/session facilities. No framework, dependency, MCP service or new package layer is necessary for this responsibility. Retain exact corpus/model binding, no-proxy local transport, private raw receipts, reset, budget guards and the distinction between reference validity and meaning. Retain previous run evidence unchanged, but do not keep the mandatory per-action notebook or strict whole-trial termination on a correctable formatting error merely because tests currently assert them. Those are prototype choices, not required product semantics. The [minimum-useful-generality specification](../docs/specifications/UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md) remains the product-adoption reference; this experiment may explore broader provisional advice without changing it.
+
+### 16.2 Complete observations
+
+Every tool result includes its normalized scope: source/revision or corpus identity, originating tool and arguments, effective search mode, offset/range, total within that scope, returned count, continuation and explicit omissions. Include these on zero matches, empty pages and tool errors. `SourceWorkspace` owns defaults and completeness because it actually applies them; the trial owner attaches the event ID and pairs the requested action with its result. Avoid reconstructing scope from prose later.
+
+For example, zero hits for literal `starlette|fastapi` must preserve that exact phrase, source/path filters and literal mode. It cannot imply that neither library exists. Paging the CI capture must expose its continuation. Both arms receive identical behavior; no query expansion, answer-dependent prioritization or new semantic absence inference is added.
+
+Keep current literal search and explicit preview/long-line omissions for initial qualification. Assess their usefulness on development evidence before adding regex, larger pages or AST tools. Source citations remain references to exact retained lines; omitted/preview text is never silently promoted into an exact read.
+
+### 16.3 History and model notes
+
+Replace the notebook/latest-result dependency with a measured action/observation history. Keep complete assistant tool-call messages and matching tool results together, including failures and corrections. Native transport must preserve tool-call IDs; the labelled JSON alternative preserves equivalent event pairs in its prompt. Model notes are optional candidate interpretations, retained when emitted, and never a prerequisite for seeing previous evidence. Provide the same trial-local `record_note(text, citations)` to both arms; it stores model-authored text without adjudicating it. Ordinary assistant content and F stage artifacts are also retained as model-authored material, not supplied reference truth.
+
+Use full history while the fully rendered request fits. At pressure, use a deterministic common packing policy: retain the task/tool contract, neutral source catalog, latest whole event pair, latest nonempty model-written note, F's completed stage artifacts where applicable and a compact event directory, then include older whole event pairs from newest to oldest while they fit. An empty note does not erase an earlier note; superseded notes remain recoverable by event ID. The directory contains event IDs, tool/query/source/range scope and whether an event is omitted from this request; it contains no host-generated conclusions. Log the included/omitted event IDs and measured costs on every request. Do not silently crop lines or sever assistant/tool message pairs.
+
+Provide the same trial-local `read_trial_event(event_id)` to F and A so omitted observations can be recovered, using the same paging/byte/operation limits as other observations. It can access only that trial's actions, results and errors; reviewer packets, other trials and private provider reasoning are inaccessible. Replayed evidence costs another operation and rendered input. Repeating older notes does not upgrade their truth. If the indispensable packet cannot fit, stop with explicit capacity evidence rather than erase a material condition.
+
+The common baseline adds no model-driven compaction calls or automatic semantic summary. Those remain a later named memory alternative. A shared-budget development ablation may compare packed history with the old latest-page/notebook policy while holding tools, interface, reasoning and ceilings constant. This can investigate the memory contribution; the whole redesign alone cannot isolate it.
+
+### 16.4 Client tools, terminal report and recovery
+
+Preferred candidate: client-dispatched function tools through local `/v1/chat/completions`, followed by a separate terminal request using `response_format` JSON schema. Investigation tools carry their own arguments; the model no longer has to emit the unrelated outer `notes` field on every action. A tool-free assistant response may signal readiness to report; its prose is retained as provisional material, not accepted as the final report. F accepts that signal only at its scheduled completion boundary; A may signal it whenever justified. The terminal request contains no investigation tools and returns the common six-field report directly. Claim status and recommendation remain free text; no product action enum or exhaustive change taxonomy is imposed.
+
+LM Studio documents client tool calls and returning both the assistant request and tool result in subsequent messages, with native/default template-parser differences. It separately documents schema-constrained terminal output. These are capability candidates, not evidence that either exact local GGUF deployment passes them. [Client tool documentation](https://lmstudio.ai/docs/developer/openai-compat/tools), [structured-output documentation](https://lmstudio.ai/docs/developer/openai-compat/structured-output).
+
+Do not mix native `/api/v1/chat` request fields into the compatible endpoint. The native API documents reasoning settings and total/reasoning statistics, plus server integrations; this does not prove equivalent client-tool reasoning control or accounting on the compatible path. Qualify effective template/tool rendering, exact instance binding, completion reserve, reasoning control and usage before selecting it. All tools execute in our Python dispatcher over the frozen map, without server integrations. [Native request/statistics documentation](https://lmstudio.ai/docs/developer/rest/chat).
+
+If the compatible path cannot satisfy these requirements, preserve its failure and qualify an explicitly named native text-JSON alternative. It uses tool/arguments for investigation, optional notes and a distinct direct terminal report request, with the same observations/history/recovery. Do not silently switch a method mid-trial, strip extra braces or infer unsupported parameters worked. A deployment failing both interfaces remains unqualified; do not rescue it with a hosted model or download.
+
+Model-visible, recoverable errors include malformed action/report shape, unsupported names/arguments and nonexistent retained references. Return a structured error with the failed event ID, field/type issue and allowed contract, without a case answer or semantic grade. Allow at most two explicit format/citation corrections per trial, including at most one terminal-report correction. Each costs a normal inference call, input/output and elapsed time; keep the failed reply. Valid tool requests returning no results or a tool problem consume ordinary steps and remain visible. Recovered completion is labelled separately from first-attempt completion. A correct-looking citation or corrected JSON never establishes meaning.
+
+Identity/accounting drift, unusable transport, irrecoverable truncation, exhausted resources or an indispensable packet that cannot fit stop the trial with their own outcomes. No automatic provider retries. Multiple native requests in a reply are dispatched sequentially and counted individually within the shared operation/byte budget; stop before dispatching an over-budget operation and retain which requests were not executed. Neither arm gets free hidden loops.
+
+### 16.5 Fixed workflow with explicit work products
+
+The source tools remain common. F additionally has deterministic sequencing with actual stage artifacts; A owns its investigative sequence. F's required artifacts record what it examined, candidate source-linked findings, conditions/unknowns and unexamined scope. Their existence proves orchestration; source adjudication separately determines their quality.
+
+| Fixed stage | Maximum scheduled inference calls | Required work product |
+|---|---:|---|
+| Upstream change interpretation | 3 | Candidate changes with exact references, affected behavior and uncertainty |
+| Consumer localization | 3 | Target use or conditional exposure linked to candidate changes; unsuccessful searches retain scope |
+| Conditions, environment and CI | 4 | Activation/binding conditions, relevant check paths and decision-critical unknowns |
+| Synthesis | 1 | Provisional recommendation connecting prior artifacts and their limits |
+| Challenge | 1 | Contradictions/counterevidence and unsupported assumptions; revisions or explicit residual uncertainty |
+| Terminal common report | 1 reserved | Report via the separate interface |
+
+Total scheduled maximum is 13 calls, leaving three reserve calls under the 16-call ceiling. Hold one of those three for a possible terminal correction, leaving two flexible calls before reporting. In each retrieval stage, reserve its last scheduled call for a structured stage artifact, with tools disabled; preceding calls may select any relevant frozen source and may request multiple tools. Stage artifacts use a common lightweight schema for free-text findings with citations, conditions/unknowns and unexamined scope, through the qualified structured response path or the labelled direct-JSON alternative. Thus stage labels cannot substitute for preserved findings. Synthesis/challenge consume those artifacts plus the common packed history and recoverable source access; their single calls produce artifacts, not additional retrieval. A fixed artifact does not become accepted evidence merely because the model submitted it.
+
+Early stage completion transfers unused slots to the reserve. To complete early, request the stage artifact on the next call after a tool-free readiness signal; count both calls, and transfer only the genuinely unused slots. Spend flexible reserve first on necessary corrections, then on an incomplete retrieval stage before advancing; allow at most two additional calls to that stage. Do not revisit earlier stages after advancement. A truly empty stage may be skipped only with a logged structural reason from the common case inventory; absence of a known expected issue is not a skip reason. Missing/malformed artifacts consume recovery or remain explicit incomplete work; never synthesize a substitute from reviewer knowledge. F may still produce an honest partial report, which remains in assigned denominators.
+
+Both arms start from the same neutral update identities, proposed changed-path/declaration-diff packet and source inventory, derived generically from frozen base/head data with explicit omissions. Stage-specific instructions may refer to those source identities but may not supply historical conclusions or case-selected consumer paths. Freeze packet construction and artifact schemas before output. F's seven nominal retrieval responses and possible batching may be insufficient for some tasks: development must assess that limitation and revise shared budgets/routing under a new configuration if needed, rather than proclaim a weak F the strongest baseline.
+
+### 16.6 Resource configuration and discriminating proof
+
+Keep 16 calls, 48 tool operations, 8 MiB returned-observation bytes, 20 minutes and serial trials. Use a qualified 16,384-token deployment context, 1024 ordinary output reserve and 4096 terminal-report reserve. Replace cumulative input/output limits with 245,760 input and 32,768 generated tokens, including reported reasoning and all repairs. The input ceiling is 16 × (16,384 − 1024); request-level fit still applies, and report input can be at most 12,288 rendered tokens. Before further investigation, both arms reserve two calls and 8192 output tokens for the initial report and its possible correction. A therefore has at most fourteen investigative calls, with any earlier corrections included. A valid initial report releases the correction reserve without another call. If remaining input/time cannot support reporting, finalize early or retain the exact resource failure; reservations do not override actual accounting. The two-model 200-trial hypothetical caps in section 9 are arithmetic upper bounds only.
+
+Reason: retaining ordinary history and providing tools should not be defeated by an inherited 3072-token average input allowance or a small final-report reserve. These are available ceilings, not consumption goals. Report actual costs; a completed result at higher cost cannot be called a version-0.1 efficiency improvement. The redesign is a combined configuration change. F/A within that configuration share all common mechanics and ceilings. Reasoning-off remains the continuity setting only if independently observed on the selected interface; unknown reasoning/accounting is a failed qualification, not assumed zero. A reasoning-enabled pair needs its own completion-fit/accounting qualification and predeclared limits, and remains separate from the control comparison.
+
+Implementation proof must discriminate the actual pilot failures: empty notes with retained prior evidence; scoped zero-hit searches; paged CI continuation; preserved tool-call/result linkage; forced history packing and event recovery; no cross-trial state/reference leakage; stage artifact propagation and incomplete-stage handling; malformed action followed by visible correction; invalid final report followed by one correction; exhausted correction/call/input/output/operation/byte/time budgets; terminal reserve; provider identity/usage/truncation; identical common tool access and arbitrary provisional advice. Reuse the 39 focused checks as a historical baseline, adapting prototype-specific expectations deliberately. Run new focused proof and nearest composition tests before live qualification; passing them establishes mechanics only.
+
+Qualification sequence, once implementation/runs are selected:
+
+1. Controlled-provider mechanics and measured packet-fit checks, including tools, full/packed history and the terminal schema.
+2. At most twelve harmless probe calls per model for preferred-interface qualification: two fresh multi-step source-follow-up/report sequences of at most six calls each. Include multiple source scopes, a zero-hit search and a report citation. Test malformed/omitted-reference recovery under controlled proof; preserve any naturally occurring live errors. Require both sequences to complete with bounded usage, verified identity and valid references. This is a readiness criterion, not a reliability estimate.
+3. If needed, a separately selected named alternative-interface qualification with the same bound; no automatic second batch after failure.
+4. Two known-case diagnostic trials per policy/model at most once (eight assigned trials with two models), balanced arm order, unchanged frozen case sources and fresh state. Inspect every final/partial outcome against source obligations. Passing format alone cannot advance to protected comparison; F must actually perform its stages and reviewers must find a usable investigative path.
+5. Only after readiness/source review, re-enter six-case development and independent protected-reference preparation. Diagnostic ablations and reasoning changes receive separate identities and costs. Preserve all prior outcomes; no best-run selection.
+
+The design is complete when ownership, wire-interface qualification, history packing, recovery, F routing and resource/proof rules are internally consistent and executable as a bounded implementation brief. Its stop line is before executable mutation, model loading or inference unless that next responsibility is separately selected. Product architecture, semantic acceptance, protected comparison and learner mastery remain distinct decisions/evidence.

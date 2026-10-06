@@ -50,9 +50,9 @@ Authorized mutations: research artifacts and branch-local coordination. This req
 A0 — DONE: base reconciled, main isolated, branch/record initialized
 A1 — DONE (compact): continuous discussion established the concern; prior work will be checked
 A2 — DONE (compact): research before decision/design; comparison and authority dimensions introduced
-B — CURRENT: first pass and concrete local-only comparison protocol authored; broader research/design decision remains open
-Verification gate — GREEN for research/protocol documentation and dated metadata/source checks; no runtime/model proof
-D — PENDING: discuss evidence-backed findings and limits with Ali
+B — CURRENT: first pass, local pilot and replacement interface design preserved; wider research/product decision remains open
+Verification gate — GREEN prior mechanics; FAILED prior interface readiness; replacement design receives documentation proof, not execution acceptance
+D — DOCUMENTED: Ali received the pilot results explanation and selected the repair-design continuation; independent ownership unassessed
 E — PENDING: repair/defer gaps and choose next research/design responsibility
 C — CONTINUOUS: meaningful findings, corrections, verification and handoff preserved here
 ```
@@ -223,3 +223,47 @@ Engineering mechanics remain green; real interface readiness is failed and the a
 The justified next responsibility returns to Planning/Design for observation provenance, usable memory, typed/native tool and distinct report interfaces, visible bounded recovery, an actual rich fixed baseline and separately qualified reasoning configuration. Protocol section 15 records these prerequisites without selecting a framework or admitting another broad batch. Wider research D/E and Ali's decision remain open. The diagnostic explanation is provided; independent ownership remains unassessed and no misconception is inferred from lack of a reply.
 
 Final publication preflight: 39/39 focused tests, touched Ruff/check-format and CLI help pass. All 37 local links in the touched Markdown owners resolve. Original code hashes match published `55bafb39`; clarified code hashes match the frozen implementation. All sixteen private-trial digests, case-source identity equality and 127-call/token arithmetic match the public projection; no raw prompt/reply/frame keys are retained in public JSON. Fresh fetch/main inspection remains at `2e07c298` with only the unrelated broad-audit record untracked; product source/tests remain unchanged from the research fork. Staged/full research diff and final owner scope are checked before commit/push under the standing publication instruction. The source/evidence increment publishes a negative feasibility finding and design prerequisites, not semantic success or product adoption.
+
+## 10. Investigation-interface repair design — Ali-selected continuation
+
+Ali requested an explanation of the pilot results. The explanation separated successful runtime/accounting from failed action/report readiness and incomplete source reasoning, identified host memory/provenance limitations, and proposed a fairer setup. Ali replied, “Good so lets move on to the next.” The saved continuation was bounded experiment Planning/Design, so this increment resolves that design and preserves an implementation brief. It does not select another inference batch or product adoption.
+
+A0 reconciliation: fetched origin; the research branch was clean and aligned 0/0 at `f18fe3056285a23919cd86cca1e6290cf92ba9d4`. Main remains `2e07c29849e8a6a6f49519f4623c4339680e52b8`, with only its unrelated untracked broad-audit record. Read the live owner, selected protocol and same-cycle record, then inspected current workspace/trial/provider code and relevant controlled tests. No merge, main edit, model request or runtime change occurred. Earlier R4 memory was used only as a pointer to the experiment/product and deployment-proof distinction; current local topology and pilot evidence were checked in the actual owners.
+
+Continuous-context adaptation: the normal route has fresh A1/A2 stop gates and usually a new record for a new substantive cycle. Ali just received the source-backed explanation, had a meaningful opportunity to challenge it and selected its next design step. Repeating recall/approval gates or splitting this directly connected research into another progression record would obscure continuity. Continue this single record, use concise visible orientation, retain design-only authorization and exact proof boundaries, and make no independent learner-mastery claim. This instantiates the existing section-3 override for this responsibility.
+
+Source-supported failure mechanisms: `run_investigation_trial` gives each next request only cumulative notes/latest result, with no originating action. `SourceWorkspace.invoke` omits query/source scope on some listing/search/error outputs. `decode_action` requires outer notes and wraps terminal advice in the same action shape; a decode error ends the whole trial. `FIXED_STAGES` advances by call index rather than an actual preserved stage work product. These are inspected implementation facts. The pilot's repeated reading, empty notes and incomplete reasoning do not isolate any one of them as causal. No semantic diagnosis is rescued by blaming the host.
+
+Official LM Studio documentation inspected 2026-10-06: client tools on the compatible endpoint require preserving assistant requests/tool results; native and default template/parser support differ; structured terminal output is separately documented. The native endpoint's reasoning/statistics/integration fields do not prove that the compatible path exposes equivalent controls. SDK configuration/structured-response documentation was consulted for alternatives, without selecting an SDK automatic agent loop. No claim of deployed native-tool readiness follows from these pages.
+
+### Design decisions and trade-offs
+
+Protocol version 0.2 / section 16 owns the implementation brief; existing version-0.1 configuration and results remain historical. Changes:
+
+- Workspace-owned normalized scope/completeness plus trial-owned event pairing, including zero hits, omissions, continuations and errors.
+- Full measured history while it fits, then deterministic whole-event packing with an omission directory, latest nonempty optional note, earned fixed-stage artifacts and a common trial-event reread tool. No host semantic summary or reviewer answer enters requests.
+- Prefer qualified client-dispatched tools plus a separate structured terminal report. A labelled native text-JSON alternative remains possible after documented qualification failure; no silent mid-trial fallback or interface claims from documentation alone.
+- Two visible format/reference corrections maximum, including at most one terminal correction, within the same budgets. Failed replies remain evidence; identity/accounting/transport/resource failures retain explicit terminal outcomes.
+- Fixed upstream/consumer/conditions stages produce actual source-linked work products, followed by synthesis/challenge/common report. Stage artifacts establish performed orchestration, not correct meaning. The seven nominal retrieval responses and possible batching still need adequacy review before any strongest-baseline claim.
+- Keep sixteen total calls and reserve two for report/correction in both arms. Fixed nominal stages/report total thirteen; one of three remaining slots is held for terminal repair and two are flexible. A has at most fourteen investigative calls. All corrections count; no hidden retries.
+- Use 16k context, 1024 ordinary / 4096 final reserve, 245,760 aggregate input / 32,768 aggregate generated tokens. The higher shared ceilings prevent the old average-input allowance from undercutting ordinary history and make the redesign explicitly a new configuration. Retain operation/byte/time/local-only boundaries and report actual cost. Do not attribute a combined-configuration improvement to memory, tools, recovery or agency alone.
+
+Alternatives judged proportionately: retain latest-page/notebook as a named development ablation rather than the primary baseline; avoid full unbounded history because fit and recoverability need explicit ownership; prefer model-visible correction over silent decoder salvage; defer model-driven compaction/framework/multi-agent machinery until a measured need; compare reasoning separately instead of changing it invisibly. No accepted specification/ADR change is required for these experiment-only choices.
+
+Proof sequence: controlled mechanics/fit → bounded preferred-interface multi-step probes (at most twelve per model) → separately selected alternative if needed → eight two-known-case diagnostic trials with both models → source-based readiness review before wider development/protected work. The canary/report gate is readiness evidence, not reliability or semantic acceptance. The design lists tests discriminating the observed failures; no new tests are executed for this documentation-only increment.
+
+```text
+Repair-design child responsibility
+A0/A1/A2 — DONE (compact): current evidence and design-only scope reconciled; actual prior findings explained to Ali
+B — DONE: replacement design and implementation/proof brief authored in the existing protocol
+Verification — GREEN design documentation: source reconciliation, local links, fences, schedule/reserves and hypothetical budget arithmetic; no replacement execution proof
+D — DOCUMENTED: history availability differs from trace retention; structured reports and visible recovery differ from semantic acceptance; configuration changes affect causal claims
+E — DONE for bounded design: implementation/proof brief and limits preserved; wider research closure and independent learner ownership remain open
+C — CONTINUOUS: meaningful reasoning and design corrections preserved here
+```
+
+Implementation, native-tool readiness, packed-request fit, reasoning controls, new model outcomes, independent protected labels and product authority are unproved. The previous 39-test and 127-response evidence remains historical; it was not rerun or relabelled by this design. Repository live continuation is recorded only in MEMORY.md.
+
+Design review corrections: reserve the possible terminal correction equally for both arms (two final calls / 8192 output tokens), rather than leaving A without recovery at its call ceiling. Make stage-artifact calls explicit, preserve incomplete stages rather than invent findings, and count early readiness/artifact calls before transferring unused slots. Keep the latest nonempty note so an empty reply cannot erase earlier notes, while earlier snapshots remain recoverable. Label old budget/reservation prose and section 14 as version-0.1 provenance. Reconcile the live owner's stale pending-discussion and present-tense runtime wording without changing historical results.
+
+Documentation preflight passes: 35 local Markdown links across the three touched owners, balanced fences, fixed 13-call schedule plus three reserves (one terminal / two flexible), fourteen maximum A investigative calls, 12,288 final-input capacity, 245,760 per-trial input, and hypothetical 200-trial input/output/call/time bounds. Only the protocol, this record and branch MEMORY.md changed. Executable/product/dependency checks are intentionally not rerun because those trees are unchanged; test coverage remains the historical baseline. Final staged and complete research diff checks precede commit/push under the standing publication instruction. This closes the design child responsibility, while the overarching research/authority decision stays open.
