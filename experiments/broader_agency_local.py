@@ -32,6 +32,7 @@ class LocalJSONActionProvider:
         reasoning="off",
         temperature=0.2,
         interface="native-json",
+        request_timeout_seconds=60,
     ):
         if interface not in {"native-json", "compatible-tools"}:
             raise ValueError("unknown wire interface")
@@ -41,6 +42,9 @@ class LocalJSONActionProvider:
             else {"off", "server-default-accounted"}
         ):
             raise ValueError("reasoning profile is not defined for this interface")
+        if type(request_timeout_seconds) is not int or request_timeout_seconds <= 0:
+            raise ValueError("request timeout must be a positive integer")
+        self.request_timeout_seconds = request_timeout_seconds
         self.model, self.chat_factory = model, chat_factory
         self.reasoning, self.temperature, self.interface = (
             reasoning,
@@ -68,6 +72,7 @@ class LocalJSONActionProvider:
             if self.interface == "native-json"
             else "server default; no documented compatible toggle; usage measured on every response",
             "temperature": self.temperature,
+            "request_timeout_seconds": self.request_timeout_seconds,
             "accounting": "SDK prompt template with actual history/tool definitions + 128 token allowance; every actual response cross-checked",
             "template_control_limit": "SDK defaults do not establish byte-identical server rendering; allowance is an upper estimate, not exact template proof",
             "structured_path": "response_format json_schema"
@@ -246,7 +251,10 @@ class LocalJSONActionProvider:
         }
         self.private_receipts.append(receipt)
         with self.session.post(
-            self.endpoint, json=payload, timeout=min(timeout, 60), stream=True
+            self.endpoint,
+            json=payload,
+            timeout=min(timeout, self.request_timeout_seconds),
+            stream=True,
         ) as response:
             receipt["status"] = response.status_code
             raw = bytearray()
@@ -316,10 +324,12 @@ class LocalJSONActionProvider:
             else None,
         )
 
-    def harmless_probe(self, *, call_budget=12) -> dict:
+    def harmless_probe(self, *, call_budget=12, sequence_seconds=180) -> dict:
         """Two fresh <=6-call source/follow-up/report sequences; no reference answers."""
         if not 4 <= call_budget <= 12:
             raise ValueError("qualification budget must allow two reports and be <=12")
+        if type(sequence_seconds) is not int or sequence_seconds <= 0:
+            raise ValueError("probe sequence time must be a positive integer")
         results = []
         for index in range(2):
             workspace = SourceWorkspace(
@@ -350,7 +360,11 @@ class LocalJSONActionProvider:
                 "qualification": "Read canary-upstream notes.txt line 1 and canary-target app.txt. Search exact literal ABSENT_CANARY_TERM in canary-target. After seeing notes line 1, follow up by reading notes.txt line 2 in a later call. Then signal finish_investigation and report, citing retained lines. You may batch the first three tools. No target code runs.",
             }
             result = run_investigation_trial(
-                task, workspace, "agent", self, limits=TrialLimits(calls=6, seconds=180)
+                task,
+                workspace,
+                "agent",
+                self,
+                limits=TrialLimits(calls=6, seconds=sequence_seconds),
             )
             observations = [
                 (e["event_id"], r)

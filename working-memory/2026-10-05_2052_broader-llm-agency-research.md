@@ -387,3 +387,23 @@ C — CONTINUOUS for overarching research: meaningful progression preserved in t
 ```
 
 Publication review: 41 local Markdown links resolve and fences balance across the protocol, live owner, progression record and new evidence README. All twelve public assignment rows have manual source review and matched frozen corpus/private artifact hashes; totals match every private receipt, with exactly one explicit unreported-usage call. Only the dated record, branch live owner and reviewed evidence change in this final increment; executable/product trees remain unchanged from the measured freeze. Commit/push follows the standing coherent-increment instruction.
+
+## 12. Larger-local-model comparison before interface redesign
+
+Ali proposed using larger already-local models even if slow, explicitly making elapsed time secondary for research, and then selected the recommended Gemma 12B/Qwen3.6 35B-A3B comparison with “good lets go”. Protocol section 17 owns the bounded profile. Primary operation `UP-SKILL:upgradepilot-build-implement`, supported by `UP-SKILL:upgradepilot-working-memory`; this continues the same overarching research record.
+
+A0 reconciles clean research HEAD `64121a40`, aligned with origin, complete preceding twelve-case review and unchanged relevant source/tests. Main remains isolated. A1/A2 are compact under the established continuous-context adaptation: Ali received actual prior findings, discussed the value/limits of a model comparison before interface changes, and explicitly selected it. No separate approval/recall gate or learner-mastery inference is added. Living orientation map: model versus interface limitations; architecture/training/quantization confounds; slow execution versus semantic failure; frozen source/report path; exact usage/capacity; partial GPU placement; corrected source/version attribution and complete decision evidence.
+
+Fresh inventory confirms both instruction-tuned GGUF files already local and no loaded instances. Windows reports 68,430,585,856 bytes total memory and 42,332,580 KiB free at preflight; this is a dated availability measurement, not guaranteed capacity throughout execution. Select conservative partial GPU placement with 16K context. No vision input is introduced even though the Gemma deployment includes a vision companion. Effective load/template/fit still require execution proof.
+
+Bounded change: expose provider response deadline, canary sequence time and pilot trial time as explicit configuration, preserving older defaults and all model-visible tasks/schemas/history/stages/token budgets. New profile uses 1800/5400/14400 seconds. Focused proof checks that the remaining trial deadline still wins, longer selected response time reaches transport, and both arms receive the same unchanged non-time limits. Fresh **51/51** checks pass (one new invalid-deadline case and strengthened transport/composition proof). Interface redesign is deferred; an observed truncation would require preserved evidence and a separately labelled capacity decision, not silent repair.
+
+```text
+Larger-local-model diagnostic child responsibility
+A0/A1/A2 — DONE (compact): prior results, selection, isolated source/runtime and comparison/proof boundaries reconciled
+B — CURRENT: bounded runtime configuration implemented; deployment qualification/cases next
+Verification — GREEN controlled 51/51; local load/fit/accounting/source-quality proof PENDING
+D — PENDING: learn from actual larger-deployment results
+E — PENDING: complete reviewed outcomes/costs and reconcile continuation
+C — CONTINUOUS: meaningful configuration/execution evolution preserved here
+```

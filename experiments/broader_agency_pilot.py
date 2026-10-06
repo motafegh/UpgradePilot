@@ -24,7 +24,7 @@ from urllib.parse import quote
 import requests
 
 from .broader_agency_local import LocalJSONActionProvider
-from .broader_agency_trial import run_investigation_trial
+from .broader_agency_trial import TrialLimits, run_investigation_trial
 from .broader_agency_workspace import (
     SourceDocument,
     SourceWorkspace,
@@ -561,7 +561,12 @@ def execute_pilot(
     interface="compatible-tools",
     reasoning="off",
     probe_call_budget=12,
+    request_timeout_seconds=60,
+    probe_sequence_seconds=180,
+    trial_seconds=1200,
 ) -> dict:
+    if type(trial_seconds) is not int or trial_seconds <= 0:
+        raise ValueError("trial time must be a positive integer")
     freeze = json.loads((directory / "pre-inference-freeze.json").read_text())
     bundle = json.loads((directory / "corpus.json").read_text())
     if freeze["code"] != code_identities() or freeze["corpus_sha256"] != digest(bundle):
@@ -582,10 +587,16 @@ def execute_pilot(
     )
     output.mkdir(exist_ok=False)
     provider = LocalJSONActionProvider(
-        model, chat_factory, interface=interface, reasoning=reasoning
+        model,
+        chat_factory,
+        interface=interface,
+        reasoning=reasoning,
+        request_timeout_seconds=request_timeout_seconds,
     )
     configuration = provider.configuration()
     configuration["model_file_identity"] = model_identity
+    configuration["probe_sequence_seconds"] = probe_sequence_seconds
+    configuration["trial_limits"] = asdict(TrialLimits(seconds=trial_seconds))
     configuration["model_file_hash_basis"] = (
         "caller-computed SHA256 before loading; model key/path/size checked here, not rehashed during inference"
     )
@@ -594,7 +605,9 @@ def execute_pilot(
     )
     results = []
     try:
-        probe = provider.harmless_probe(call_budget=probe_call_budget)
+        probe = provider.harmless_probe(
+            call_budget=probe_call_budget, sequence_seconds=probe_sequence_seconds
+        )
         (output / "probe.json").write_text(json.dumps(probe, indent=2) + "\n")
         if probe["outcome"] != "passed":
             result = {
@@ -614,7 +627,11 @@ def execute_pilot(
             # randomized protected comparison or a best-of-multiple-run search.
             for method in ["fixed", "agent"] if case_index == 0 else ["agent", "fixed"]:
                 result = run_investigation_trial(
-                    item["task"], workspace, method, provider
+                    item["task"],
+                    workspace,
+                    method,
+                    provider,
+                    limits=TrialLimits(seconds=trial_seconds),
                 )
                 results.append(result)
                 (output / f"{case_index + 1}-{method}.json").write_text(
@@ -666,6 +683,9 @@ def main() -> int:
         "--reasoning", choices=["off", "on", "server-default-accounted"], default="off"
     )
     parser.add_argument("--probe-call-budget", type=int, default=12)
+    parser.add_argument("--request-timeout-seconds", type=int, default=60)
+    parser.add_argument("--probe-sequence-seconds", type=int, default=180)
+    parser.add_argument("--trial-seconds", type=int, default=1200)
     args = parser.parse_args()
     if not re.fullmatch(r"[a-zA-Z0-9_-]{1,80}", args.name):
         parser.error("name must contain letters, digits, underscore or hyphen")
@@ -724,7 +744,7 @@ def main() -> int:
     os.environ["NO_PROXY"] = "127.0.0.1,localhost,::1"
     import lmstudio as lms
 
-    lms.set_sync_api_timeout(30)
+    lms.set_sync_api_timeout(max(30, args.request_timeout_seconds))
     with lms.Client("127.0.0.1:18080") as client:
         models = [m for m in client.llm.list_loaded() if m.identifier == args.model]
         if len(models) != 1:
@@ -737,6 +757,9 @@ def main() -> int:
             interface=args.interface,
             reasoning=args.reasoning,
             probe_call_budget=args.probe_call_budget,
+            request_timeout_seconds=args.request_timeout_seconds,
+            probe_sequence_seconds=args.probe_sequence_seconds,
+            trial_seconds=args.trial_seconds,
         )
     return (
         0

@@ -641,14 +641,22 @@ class PilotCompositionTests(TestCase):
                 ]
             )
             provider.configuration = lambda: {"interface": "controlled"}
-            provider.harmless_probe = lambda **kwargs: {"outcome": "passed"}
+            provider.harmless_probe = Mock(return_value={"outcome": "passed"})
             provider.close = Mock()
             provider.private_receipts = [{"controlled": True}]
             with patch(
                 "experiments.broader_agency_pilot.LocalJSONActionProvider",
                 return_value=provider,
             ):
-                result = execute_pilot(directory, model, None, identity)
+                result = execute_pilot(
+                    directory,
+                    model,
+                    None,
+                    identity,
+                    request_timeout_seconds=1800,
+                    probe_sequence_seconds=5400,
+                    trial_seconds=14400,
+                )
             self.assertEqual(
                 [t["method"] for t in result["trials"]],
                 ["fixed", "agent", "agent", "fixed"],
@@ -659,6 +667,13 @@ class PilotCompositionTests(TestCase):
             output = directory / "execution-controlled-instance-compatible-tools"
             self.assertEqual(len(list(output.glob("[12]-*.json"))), 4)
             self.assertEqual(result["configuration"]["model_file_identity"], identity)
+            self.assertEqual(
+                [t["limits"] for t in result["trials"]],
+                [asdict(TrialLimits(seconds=14400))] * 4,
+            )
+            provider.harmless_probe.assert_called_once_with(
+                call_budget=12, sequence_seconds=5400
+            )
             self.assertTrue((output / "private-provider-receipts.json").exists())
             provider.close.assert_called_once()
             with self.assertRaises(FileExistsError):
@@ -728,7 +743,10 @@ class LocalTransportTests(TestCase):
         model.get_context_length.return_value = 16384
         model.tokenize.return_value = list(range(20))
         provider = LocalJSONActionProvider(
-            model, lambda data: Mock(), interface="compatible-tools"
+            model,
+            lambda data: Mock(),
+            interface="compatible-tools",
+            request_timeout_seconds=1800,
         )
         response = MagicMock()
         response.__enter__.return_value = response
@@ -752,6 +770,7 @@ class LocalTransportTests(TestCase):
             "system", "user", 4096, phase="report", response_schema=REPORT_SCHEMA
         )
         reply = provider.predict(request, provider.measure(request), 30)
+        self.assertEqual(provider.session.post.call_args.kwargs["timeout"], 30)
         self.assertIsNone(reply.reasoning_tokens)
         payload = provider.session.post.call_args.kwargs["json"]
         self.assertNotIn("tools", payload)
@@ -760,7 +779,14 @@ class LocalTransportTests(TestCase):
             payload["response_format"]["json_schema"]["schema"], REPORT_SCHEMA
         )
         self.assertEqual(reply.input_tokens, 30)
+        provider.predict(request, provider.measure(request), 2000)
+        self.assertEqual(provider.session.post.call_args.kwargs["timeout"], 1800)
         provider.close()
+
+    def test_invalid_response_deadline_rejected_before_model_or_session_access(self):
+        for timeout in (0, -1, True, 1.5):
+            with self.subTest(timeout=timeout), self.assertRaises(ValueError):
+                LocalJSONActionProvider(None, None, request_timeout_seconds=timeout)
 
     def test_sdk_schema_boundary_does_not_receive_shared_python_objects(self):
         from experiments.broader_agency_trial import TOOLS, ModelRequest
