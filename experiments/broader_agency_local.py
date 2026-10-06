@@ -180,7 +180,7 @@ class LocalJSONActionProvider:
                     chat.add_user_message(json.dumps(event["error"]))
             chat.add_user_message(request.user)
             rendered = self.model.apply_prompt_template(
-                chat, {"toolDefinitions": list(request.tools)}
+                chat, {"toolDefinitions": json.loads(json.dumps(request.tools))}
             )
         return MeasuredRequest(
             len(self.model.tokenize(rendered)) + 128,

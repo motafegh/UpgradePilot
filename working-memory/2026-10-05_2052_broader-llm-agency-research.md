@@ -303,3 +303,19 @@ Material procedural adaptation: the selected continuation authorizes local inter
 Shared GPU coexistence: a new non-research Gemma instance appeared during implementation. Research must not unload it or force simultaneous full-GPU loading. Runtime ownership is rechecked before each research-owned load; publication/main work remains untouched.
 
 Remaining development limitation: F has seven nominal retrieval calls plus batching; flexible slots are presently used for necessary corrections and genuinely early-earned unused slots. No answer-derived skip or host-created substitute artifact exists. Structural artifact completeness is separate from source quality and adequacy of F's retrieval allocation.
+
+### 11.2 Frozen live execution
+
+Implementation `73dec92d` is committed/pushed. Focused 47/47 checks, focused Ruff and diff checks pass. New private run `repair-v2-three-local` reuses the exact prior corpus bundle and both case source-map identities; its freeze binds the four executable modules at this implementation. No reviewer reference is supplied to the model. Fresh GGUF hashes match historical Gemma/Qwen identities; MiMo SHA256 is `db6b5e7b5d25525da87f4a3899555215693e8cf4ab1be9fff90ea5dee4ba957d`.
+
+The runner waited for main's GPU activity. Ali explicitly answered that main's run had finished and the GPU was available for research. The exact idle MiMo instance was rechecked by instance reference and released; no active main run was interrupted. Research now loads unique serial instances at 16384 context with full GPU ratio, strict VRAM cap, KV offload and flash attention, retaining actual echoed configuration. Only those instances are automatically unloaded by the research runner.
+
+Native alternative qualification is conditional and separately labelled, preselected in 11.1. A preferred-wire failure remains a result and never starts known-case trials. All probe/case receipts stay under ignored `.tmp`; public artifacts will contain reviewed aggregates only.
+
+### 11.3 Qualification failure diagnosis and bounded SDK repair
+
+First frozen execution completed and unloaded all research instances. Preferred qualification failed before inference on all three deployments: SDK normalization rejects repeated Python container identities in shared tool schemas as data-structure cycles. This is harness-side proof failure, not model capability evidence. The repair serializes/deserializes tool definitions at the SDK boundary, preserving their JSON values while removing Python alias identities. A controlled normalizer reproduces this actual failure mechanism; focused proof is now 48/48. No parser/validator loosening or output repair is introduced.
+
+The separately selected native alternative used ten actual calls total: Gemma four, Qwen three, MiMo three. None passed the first source-follow-up/report sequence; second sequences and case trials were not started. Gemma performed the first three canary tools but appended a tool marker to the follow-up JSON despite two visible corrections. Qwen emitted undeclared singular `note` rather than optional `notes` on three responses, so no requests were dispatched. MiMo emitted prose plus XML-style function calls on all three responses, also not the selected text-JSON contract. These are interface observations on harmless synthetic inputs, not semantic failure on maintainer cases, agentic capability rankings, or a verdict about MiMo in other tasks.
+
+Preserve that run unchanged. Re-enter only preferred qualification under a new code freeze after the SDK repair; its preceding attempts used zero inference calls, so this remains inside the <=12 preferred probe calls/model selection. Do not automatically rerun the already failed native alternative or count an interface change as causal evidence for agency/memory. Actual SDK rendered-fit proof still needs fresh deployed rendering, followed by compatible identity/reasoning/usage qualification.

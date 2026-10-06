@@ -762,6 +762,49 @@ class LocalTransportTests(TestCase):
         self.assertEqual(reply.input_tokens, 30)
         provider.close()
 
+    def test_sdk_schema_boundary_does_not_receive_shared_python_objects(self):
+        from experiments.broader_agency_trial import TOOLS, ModelRequest
+
+        model = Mock()
+        model.get_info.return_value.to_dict.return_value = {
+            "identifier": "instance",
+            "instanceReference": "deployment",
+        }
+        model.get_load_config.return_value.to_dict.return_value = {
+            "contextLength": 16384
+        }
+        model.get_context_length.return_value = 16384
+        model.tokenize.return_value = [1]
+
+        # The deployed SDK's normalizer rejects repeated container identities,
+        # including harmless shared schemas, as cycles. Reproduce that boundary.
+        def render(chat, options):
+            seen = set()
+
+            def visit(value):
+                if isinstance(value, (dict, list)):
+                    if id(value) in seen:
+                        raise ValueError("Data structure cycles are not supported")
+                    seen.add(id(value))
+                    for child in value.values() if isinstance(value, dict) else value:
+                        visit(child)
+
+            visit(options)
+            self.assertEqual(options["toolDefinitions"], list(TOOLS))
+            return "rendered"
+
+        model.apply_prompt_template.side_effect = render
+        provider = LocalJSONActionProvider(
+            model, lambda data: Mock(), interface="compatible-tools"
+        )
+        self.assertEqual(
+            provider.measure(
+                ModelRequest("system", "user", 1024, tools=TOOLS)
+            ).input_tokens,
+            129,
+        )
+        provider.close()
+
     def test_live_canary_requires_two_fresh_multi_scope_followups(self):
         # Exercise qualification composition through the real trial dispatcher,
         # using controlled replies. Mechanical readiness still is not quality.
