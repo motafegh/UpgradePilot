@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-07",
+  "scope": "Immediate user-selected continuation; launch plan, not completed model results",
+  "driver_sha256": "57d2eb539b3aafa408ccf50aa32140ca7efd9d97ed5fbd73b06cbc643f805c77",
+  "unchanged_frozen_experiment_code": true,
+  "retained_case": "Gemma HTTPX fixed; original completed case and source review unchanged",
+  "interrupted_restart": "Gemma HTTPX agent, fresh state, previous interrupted attempt and costs retained",
+  "new_assignments": [
+    "gemma12 HTTPX agent",
+    "gemma12 pytest agent",
+    "gemma12 pytest fixed",
+    "qwen35 HTTPX fixed",
+    "qwen35 HTTPX agent",
+    "qwen35 pytest agent",
+    "qwen35 pytest fixed"
+  ],
+  "gemma_qualification": "Reuse two passed original sequences only after identical file/loaded configuration check apart from instance binding",
+  "qwen_qualification": "Two fresh sequences, at most twelve calls; existing preselected diagnostic exception only for eligible investigation-criterion failure",
+  "resource_profile": {
+    "context": 32768,
+    "ordinary_stage_output": 8192,
+    "report_output": 8192,
+    "cumulative_generated_including_reasoning": 131072,
+    "cumulative_input": 524288,
+    "calls_per_trial": 16
+  },
+  "preflight": {
+    "model_asset_hashes_verified": 7,
+    "same_as_prior_selected_identities": true,
+    "original_artifacts_verified": 7,
+    "selection_dry_run": "passes without inference",
+    "driver_ruff_format_check": "pass",
+    "driver_ruff_check_ignoring_intentional_post-environment_E402": "pass",
+    "frozen_executable_unchanged": true
+  },
+  "attempt_ceiling": {
+    "remaining": 124,
+    "whole_capacity_profile_from_saved_position_including_contrast": 158,
+    "protocol_aggregate_allowance_including_one_restart": 169
+  },
+  "whole_batch_semantic_acceptance": false
+}
