@@ -28,7 +28,7 @@ later implementation/model evidence
 ```text
 D1 architecture/responsibility ownership    COMPLETE
 D2 contract/real source trace               COMPLETE
-D3 evaluation/coverage/failure ownership    NEXT
+D3 evaluation/coverage/failure ownership    IN PROGRESS
 D4 changed-case engineering reasoning       PENDING
 D5 gap repair/final reconciliation          PENDING
 ```
@@ -61,12 +61,12 @@ Supporting ownership evidence:
 
 **D2 checkpoint:** passed at intended contract/evidence depth.
 
-## D3 — evaluation, coverage, uncertainty and failure model — NEXT
+## D3 — evaluation, coverage, uncertainty and failure model — IN PROGRESS
 
 ### Original design responsibilities
 
-- [ ] Explain why expected/forbidden propositions and omission checks are frozen outside producer/model inputs.
-- [ ] Distinguish known-development/calibration review from protected/independent semantic admission and maintainer usefulness.
+- [x] Explain why expected/forbidden propositions and omission checks are frozen outside producer/model inputs.
+- [x] Distinguish known-development/calibration review from protected/independent semantic admission and maintainer usefulness.
 - [ ] Separate acquisition/source coverage from interpretation/semantic coverage.
 - [ ] Explain the purpose and limit of `unassessed`: justified abstention is not a no-change/no-impact claim and is not automatically complete coverage.
 - [ ] Trace incomplete/ambiguous source cases without promoting partial evidence into complete-window truth.
@@ -82,8 +82,10 @@ Supporting ownership evidence:
 - [ ] **Clean stop vs semantic coverage:** explain why MiMo can finish normally with no truncation/contract/grounding problem and still omit required supplied changes.
 - [ ] **Source completeness vs interpretation completeness:** compare complete-window and partial-window evidence without treating model omission as acquisition absence.
 - [ ] **Abstention quality:** distinguish useful preservation of ambiguity from blanket/unhelpful `unassessed` output that evades coverage obligations.
-- [ ] **Evaluator separation in practice:** understand that original v1 expectations stayed outside model input, and the new Requests case/expectations were frozen before v2 model outputs.
-- [ ] **Development wins do not equal admission:** explain why Gemma v1, Gemma v2, and MiMo v2 all had useful individual outcomes yet all remained `FAILED / REVISE` and did not establish protected accuracy/product authority.
+- [x] **Evaluator separation in practice:** understand that original v1 expectations stayed outside model input, and the new Requests case/expectations were frozen before v2 model outputs.
+- [x] **Development wins do not equal admission:** explain why Gemma v1, Gemma v2, and MiMo v2 all had useful individual outcomes yet all remained `FAILED / REVISE` and did not establish protected accuracy/product authority.
+
+**Established D3 checkpoint evidence so far:** Ali correctly identified repeated prompt/system adaptation against known cases as analogous to development-set overfitting: success on those tuned cases cannot establish independent validity/generalization. He also rejected aggregate model-win counts as an admission criterion, emphasizing failure-area/reason analysis and the insufficiency of a small known case set. This establishes evaluator separation and development-vs-admission ownership at the intended depth.
 
 **D3 ownership checkpoint:** Ali can classify changed real failure scenarios, identify the owning layer, and state exactly which evidence/proof remains valid versus invalid without conflating mechanical success, semantic correctness, or coverage.
 
@@ -150,7 +152,7 @@ Keep these owned by later implementation/repair cycles unless needed to explain 
 | --- | --- | --- | --- |
 | D1 architecture/responsibilities | COMPLETE | D1 supporting note + changed Starlette/HTTPX transfer reasoning | none at intended depth |
 | D2 contract/real trace | COMPLETE | D2 supporting note + semantic-vs-grounding inverse cases | none at intended depth |
-| D3 evaluation/coverage/failures | NEXT | not yet assessed after post-design sync | original concepts + real v1/v2/Gemma/MiMo failure classification |
+| D3 evaluation/coverage/failures | IN PROGRESS | evaluator separation and development-vs-independent-admission checkpoint passed | coverage/`unassessed`; real capacity/contract/grounding/semantic/omission failure classification |
 | D4 changed-case engineering reasoning | PENDING | not yet assessed | transfer across real observed model/coverage/policy cases |
 | D5 gap repair/completion | PENDING | waits on D3/D4 | final classification, historical reconciliation, merge-back |
 
