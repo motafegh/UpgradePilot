@@ -1,0 +1,23 @@
+{
+  "role_version": "source-only-api-change-v2",
+  "frozen_before_v2_inference": true,
+  "files": {
+    "output-schema-v2.json": {
+      "bytes": 3762,
+      "sha256": "bd845ad2dcb1837d593a69dd2a2edf091275f3a2a8bae02ed1ae9d35bc1c6413"
+    },
+    "prompt-template-v2.md": {
+      "bytes": 5696,
+      "sha256": "37220566d2572f5dd3904a27aded04cb30fcf411e289352044dd36fc62728ad6"
+    },
+    "additional-source-inputs.json": {
+      "bytes": 5671,
+      "sha256": "d42f70f0e9f78ffde05ef013c339e03a41b8c0d93ce4ccb2952268a5c6d13bd0"
+    },
+    "additional-evaluation-cases.json": {
+      "bytes": 1389,
+      "sha256": "fc74aa8eaa77ce64e38e00110ad669366b722500e0bd2594e9158df5e3aab454"
+    }
+  },
+  "new_case_selected_before_v2_outputs": true
+}

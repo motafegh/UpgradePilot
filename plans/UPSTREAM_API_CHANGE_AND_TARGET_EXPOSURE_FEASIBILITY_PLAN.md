@@ -153,6 +153,10 @@ HTTPX's exact acquired full window is known development material. Pinned urllib3
 
 **Implementation/proof handoff.** Use one cohesive experiment-local interpreter and focused tests, plus an explicit opt-in ordinary PR-to-interpretation entry through the existing acquirer. Preserve the acquisition-only entry's behavior; do not make existing product/report reopening call the model. Test exact input maps, weak/partial/conflicted source scope, schema/grounding adversaries, provider/context/truncation states, identity/coverage retention and normal acquisition → model proposal → saved recovery with a controlled provider before the real-model evaluation. Code/schema tests and a successful model call are different proof classes. General API interpretation, target-exposure composition and product adoption retain the parent plan's separate gates; source-only success is not the full feasibility pass.
 
+### Versioned repair after diagnostic failure
+
+The [source-only API interpretation repair plan](SOURCE_ONLY_API_CHANGE_INTERPRETATION_REPAIR_PLAN.md) coordinates the separately versioned v2 experiment following the dated capacity/causal diagnosis. Its readable schema, unconditional explanation and source-derived reference constraints do not silently change the preserved v1 contract above or admit product semantics. Preserve baseline comparison, whole-set evaluation and parent independent/target-PR gates.
+
 ### Verify, run real-model evaluation and compare outcomes
 
 Run focused experiment tests for each new boundary before the full active trial test set. Run product regression/installed checks when a shared product boundary changes or trial-to-product promotion is proposed. The pre-existing unrelated experiment suite is not a substitute for this trial's proof; its known failures must remain disclosed if used.

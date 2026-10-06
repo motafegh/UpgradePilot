@@ -21,6 +21,8 @@ from pathlib import Path
 
 from .api_change_interpretation import (
     ASSETS,
+    CONTRACT_ASSETS,
+    COMPARISON_MODEL,
     LOCAL_MODEL,
     OUTPUT_TOKENS,
     ROLE,
@@ -47,9 +49,14 @@ HISTORICAL_CONTEXT = (
 )
 
 
-def calibration_source_input(item: dict, ordinary_context: dict) -> dict:
+def calibration_source_input(
+    item: dict, ordinary_context: dict, *, role_version: str = ROLE
+) -> dict:
     """Verify frozen source maps without giving calibration acquired authority."""
-    if item["role_version"] != ROLE:
+    if (
+        item["role_version"] not in CONTRACT_ASSETS
+        or role_version not in CONTRACT_ASSETS
+    ):
         raise ValueError("unexpected calibration role")
     scope = item["scope"]
     sections = item["sections"]
@@ -76,6 +83,7 @@ def calibration_source_input(item: dict, ordinary_context: dict) -> dict:
         normal = source_input_from_projection(
             ordinary_context["upstream"],
             dependency_interval(ordinary_context["dependency"]),
+            role_version=role_version,
         )
         if len(normal["sections"]) != len(sections):
             raise ValueError("frozen acquisition differs from retained ordinary source")
@@ -101,7 +109,7 @@ def calibration_source_input(item: dict, ordinary_context: dict) -> dict:
     if scope["complete_window_eligible"]:
         raise ValueError("calibration cannot claim complete ordinary acquisition")
     return {
-        "role_version": ROLE,
+        "role_version": role_version,
         "interval": {
             "package": None,
             "old_version": None,
@@ -129,8 +137,9 @@ def measured_capacity(
     call; disagreement stops the batch rather than silently trusting the estimate.
     """
     info = model.get_info().to_dict()
-    if info["identifier"] != LOCAL_MODEL or info["modelKey"] != LOCAL_MODEL:
-        raise ValueError("loaded model differs from maintained pilot")
+    requested_model = request.payload["model"]
+    if info["identifier"] != requested_model or info["modelKey"] != requested_model:
+        raise ValueError("loaded model differs from requested model")
     formatted = model.apply_prompt_template(
         chat_factory({"messages": request.payload["messages"]})
     )
@@ -144,7 +153,7 @@ def measured_capacity(
     )
     capacity = RequestCapacityEvidence(
         request_sha256=packet_hash(request.payload),
-        model=LOCAL_MODEL,
+        model=requested_model,
         deployment_identity=info["instanceReference"],
         tokenizer_identity=f"{info['modelKey']}:{info['path']}:{info['instanceReference']}",
         template_identity=template_identity,
@@ -169,6 +178,10 @@ def prepare_evaluation(
     *,
     template_identity: str,
     max_output_tokens: int = OUTPUT_TOKENS,
+    role_version: str = ROLE,
+    model_identifier: str = LOCAL_MODEL,
+    additional_inputs: Path | None = None,
+    additional_expectations: Path | None = None,
 ) -> tuple[list, dict, dict]:
     """Freeze all request/code/input identities before any model prediction."""
     output.mkdir(parents=True, exist_ok=False)
@@ -181,11 +194,41 @@ def prepare_evaluation(
         ):
             raise ValueError("prepared development artifact changed")
     inputs = json.loads((ASSETS / "source-inputs-v1.json").read_text())["inputs"]
+    if bool(additional_inputs) != bool(additional_expectations):
+        raise ValueError("additional source cases need separately frozen expectations")
+    additional_hashes = {}
+    if additional_inputs is not None:
+        extra = strict_json(additional_inputs.read_text())
+        expectations = strict_json(additional_expectations.read_text())
+        extra_ids = [item["input_id"] for item in extra["inputs"]]
+        if (
+            not extra_ids
+            or len(set(extra_ids)) != len(extra_ids)
+            or set(extra_ids) & {item["input_id"] for item in inputs}
+            or extra_ids != [case["input_id"] for case in expectations["cases"]]
+            or any(not re.fullmatch(r"[A-Za-z0-9_-]{1,80}", name) for name in extra_ids)
+        ):
+            raise ValueError("additional case IDs differ, collide or are unsafe")
+        inputs += extra["inputs"]
+        additional_hashes = {
+            "source_inputs_sha256": hashlib.sha256(
+                additional_inputs.read_bytes()
+            ).hexdigest(),
+            "expectations_sha256": hashlib.sha256(
+                additional_expectations.read_bytes()
+            ).hexdigest(),
+        }
     context = json.loads(HISTORICAL_CONTEXT.read_text())
     cases = []
     for item in inputs:
-        source_input = calibration_source_input(item, context)
-        request = prepare_request(source_input, max_output_tokens=max_output_tokens)
+        source_input = calibration_source_input(
+            item, context, role_version=role_version
+        )
+        request = prepare_request(
+            source_input,
+            max_output_tokens=max_output_tokens,
+            model_identifier=model_identifier,
+        )
         if source_input["sections"]:
             capacity, counts = measured_capacity(
                 request, model, chat_factory, template_identity=template_identity
@@ -205,7 +248,10 @@ def prepare_evaluation(
             json.dumps(request.payload, ensure_ascii=False)
         )
     manifest = {
-        "role_version": ROLE,
+        "role_version": role_version,
+        "model": model_identifier,
+        "original_fixture_role_version": ROLE,
+        "additional_cases": additional_hashes,
         "model_outputs_seen": False,
         "source_inputs_sha256": hashlib.sha256(
             (ASSETS / "source-inputs-v1.json").read_bytes()
@@ -289,6 +335,7 @@ def execute_evaluation(cases: list, output: Path, model, context: dict) -> dict:
             case["source_input"],
             provider,
             max_output_tokens=case["request"].payload["max_tokens"],
+            model_identifier=case["request"].payload["model"],
         )
         usage = observed.get("usage") or {}
         prompt_tokens = usage.get("prompt_tokens")
@@ -362,6 +409,17 @@ def execute_evaluation(cases: list, output: Path, model, context: dict) -> dict:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
+        "--model", choices=(LOCAL_MODEL, COMPARISON_MODEL), default=LOCAL_MODEL
+    )
+    parser.add_argument(
+        "--role",
+        choices=tuple(CONTRACT_ASSETS),
+        default=ROLE,
+        help="explicit versioned experiment contract; v1 remains the baseline",
+    )
+    parser.add_argument("--additional-inputs", type=Path)
+    parser.add_argument("--additional-expectations", type=Path)
+    parser.add_argument(
         "--sdk-site", type=Path, help="optional isolated SDK site-packages"
     )
     parser.add_argument(
@@ -398,10 +456,10 @@ def main() -> int:
     lms.set_sync_api_timeout(30)
     output = ROOT / ".tmp/api-interpretation-live" / args.name
     with lms.Client("127.0.0.1:18080") as client:
-        loaded = [m for m in client.llm.list_loaded() if m.identifier == LOCAL_MODEL]
+        loaded = [m for m in client.llm.list_loaded() if m.identifier == args.model]
         if len(loaded) != 1:
             raise ValueError(
-                "exactly one maintained pilot instance must already be loaded"
+                "exactly one requested model instance must already be loaded"
             )
         model = loaded[0]
         load_config = model.get_load_config().to_dict()
@@ -428,6 +486,10 @@ def main() -> int:
             lms.Chat.from_history,
             template_identity=template_identity,
             max_output_tokens=args.max_output_tokens,
+            role_version=args.role,
+            model_identifier=args.model,
+            additional_inputs=args.additional_inputs,
+            additional_expectations=args.additional_expectations,
         )
         runtime = {
             name: version(name)

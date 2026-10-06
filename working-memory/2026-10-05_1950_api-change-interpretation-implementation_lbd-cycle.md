@@ -1,7 +1,7 @@
 # Source-linked API change proposals — implementation and controlled-provider proof
 
 Date/time: 2026-10-05 19:50 Asia/Tehran.
-Session status: ACTIVE — first failure retained; budget repair and causal diagnosis verified through 2026-10-06; engineering/budget GREEN, semantic role FAILED / REVISE; D current, E pending.
+Session status: CLOSED with deferrals on 2026-10-06 — engineering/budget GREEN; semantic role FAILED / REVISE retained. Continued by [contract repair cycle](2026-10-06_source-only-api-change-contract-repair_lbd-cycle.md).
 Owner: [API-change/target-exposure feasibility plan](../plans/UPSTREAM_API_CHANGE_AND_TARGET_EXPOSURE_FEASIBILITY_PLAN.md), especially its source-only contract and implementation/proof handoff.
 Method: [ADR-0011](../docs/architecture/ADR-0011-explicit-source-association-bases-and-proposal-boundary.md), Core §§6–6.3 and Minimum Useful Generality.
 Previous: [pre-cycle readiness](2026-10-05_1936_api-interpreter-readiness_pre-cycle.md) and [closed design preparation](2026-10-05_1617_api-change-interpretation-preparation_lbd-cycle.md).
@@ -20,9 +20,9 @@ Authorization persists across the cycle's learning gates; those gates are opport
 - A2 — DONE for orientation with explicit check adaptation: source-to-proposal implementation, ownership/data flow, failure and preservation behavior, controlled-provider proof and non-goals explained. Separate recall/pre-B check waived at Ali's request; actual mechanism ownership remains unassessed.
 - B — DONE authorized follow-up: first failure retained; larger measured budgets implemented and all 18 requests completed; sixteen generic diagnostic contrasts and two plain-language comprehension probes reviewed separately.
 - Verification gate — GREEN engineering (130/130 active trial, 41/41 focused, touched Ruff/format) and selected budget repair (16,384 context / 8,192 completion, zero truncations). Three contract and one grounding failure persist; semantic role remains FAILED / REVISE, including critical cleanup/removal error. No role/product acceptance.
-- D — CURRENT: original teaching preserved; budget versus instruction/structure/taxonomy causes and causal proof limits explained from actual comparisons. Independent ownership remains unassessed. Earlier design D remains deferred.
-- E — PENDING: characterize/repair or defer ownership gaps and close with a bounded revision-design pointer; no revised model run silently selected.
-- C — CONTINUOUS: this record owns meaningful cycle progression and evidence/learning gaps.
+- D — DONE for assisted evidence teaching; independent ownership assessment DEFERRED: original teaching preserved; budget versus instruction/structure/taxonomy causes and causal proof limits explained from actual comparisons. Independent ownership remains unassessed. Earlier design D remains deferred.
+- E — DONE with explicit deferrals: diagnosis responsibility closed; semantic repair is separately authorized in the linked cycle. Independent learner ownership is unassessed, not passed; prior design learning remains deferred.
+- C — DONE: meaningful diagnostic progression and evidence/learning limits preserved; repair progression belongs to the linked cycle.
 
 ## A0 current-state reconciliation
 
@@ -211,3 +211,7 @@ D now teaches observed versus inferred causes, source-named subject versus owner
 Publication preflight on 2026-10-06: final 130/130 active trial tests and CLI help pass; touched Ruff check/format pass; 34 local links resolve; nine semantic asset and four frozen inference-source identities match. Public JSON projection contains generic probe instructions and reviewed outcomes/receipt hashes, without assembled messages, raw final content, reasoning or quotes. Fresh fetch leaves main aligned before publication. Only the unrelated untracked broad-audit record is excluded. This increment publishes budget implementation, plan reconciliation and bounded diagnosis, not semantic acceptance or cycle closure.
 
 Budget/diagnosis increment `cd661c56948e5d054599e465a5a182f6cdbab89b` pushed to origin/main; local/remote identities matched with 0/0 divergence. Only the unrelated broad-audit record remained untracked. This follow-up records publication, with executable identities and proof/learning status unchanged.
+
+## Closure and authorized repair handoff — 2026-10-06
+
+Ali received the capacity/causal explanation and six proposed repair items, then explicitly agreed and requested planning plus immediate implementation. The diagnostic responsibility closes truthfully with capacity repaired, semantic FAILED/REVISE retained and no diagnostic variant adopted. Independent learner assessment and prior design D are explicitly deferred under the continuous-context adaptation in the [new cycle](2026-10-06_source-only-api-change-contract-repair_lbd-cycle.md). No mastery is inferred. The next coherent responsibility is a separately versioned contract/prompt repair and whole-set comparison under its compact plan.

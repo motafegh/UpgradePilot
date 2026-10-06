@@ -19,6 +19,9 @@ from upgradepilot.upstream.interval import DependencyReleaseInterval
 from .api_adapter_context_replay import decode_adapter_seed
 from .api_change_interpretation import (
     ROLE,
+    CONTRACT_ASSETS,
+    COMPARISON_MODEL,
+    LOCAL_MODEL,
     LocalInterpretationProvider,
     decode_proposals,
     interpret_acquired_source,
@@ -59,8 +62,17 @@ def dependency_interval(dependency: dict) -> dict:
 
 
 def run_interpretation_trial(
-    repository: str, number: int, *, provider=None, session=None, **acquirers
+    repository: str,
+    number: int,
+    *,
+    provider=None,
+    session=None,
+    role_version: str = ROLE,
+    model_identifier: str = LOCAL_MODEL,
+    **acquirers,
 ) -> dict:
+    if role_version not in CONTRACT_ASSETS:
+        raise ValueError("unsupported interpretation role")
     session = session if session is not None else TrialPublicSession()
     acquired = acquire_public_pr_context(
         repository, number, session=session, **acquirers
@@ -72,6 +84,8 @@ def run_interpretation_trial(
             acquired.upstream,
             dependency_interval(context["dependency"]),
             provider if provider is not None else LocalInterpretationProvider(),
+            role_version=role_version,
+            model_identifier=model_identifier,
         )
     packet = {
         "artifact_kind": PACKET_KIND,
@@ -127,12 +141,14 @@ def decode_saved_trial(text: str) -> dict:
                 "unassessed",
                 "problem",
             }
-            or interpretation["role_version"] != ROLE
+            or interpretation["role_version"] not in CONTRACT_ASSETS
         ):
             raise ValueError("unexpected interpretation envelope")
         try:
             expected_input = source_input_from_projection(
-                context["upstream"], dependency_interval(context["dependency"])
+                context["upstream"],
+                dependency_interval(context["dependency"]),
+                role_version=interpretation["role_version"],
             )
         except (ValueError, KeyError, TypeError, AttributeError):
             if (
@@ -151,7 +167,9 @@ def decode_saved_trial(text: str) -> dict:
             # Historical settings remain recoverable after the evaluated default
             # changes. Re-rendering still checks their exact request digest.
             expected_request = prepare_request(
-                expected_input, max_output_tokens=method["max_output_tokens"]
+                expected_input,
+                max_output_tokens=method["max_output_tokens"],
+                model_identifier=method["model"],
             )
             expected_method = expected_request.method
             if set(method) != {*expected_method, "provider"}:
@@ -252,6 +270,10 @@ def main() -> int:
     run.add_argument("repository")
     run.add_argument("pull_number", type=int)
     run.add_argument("--save", type=Path)
+    run.add_argument("--role", choices=tuple(CONTRACT_ASSETS), default=ROLE)
+    run.add_argument(
+        "--model", choices=(LOCAL_MODEL, COMPARISON_MODEL), default=LOCAL_MODEL
+    )
     run.add_argument(
         "--github-auth", choices=("anonymous", "token-env"), default="anonymous"
     )
@@ -273,6 +295,8 @@ def main() -> int:
                 args.repository,
                 args.pull_number,
                 session=TrialPublicSession(token=token),
+                role_version=args.role,
+                model_identifier=args.model,
             )
             if args.save:
                 save_trial(packet, args.save)

@@ -28,15 +28,22 @@ from .api_change_source_acquisition import AcquisitionProblem, DeclaredReleaseWi
 from .api_release_window_manifest import release_window_manifest
 
 ROLE = "source-only-api-change-v1"
+ROLE_V2 = "source-only-api-change-v2"
 ASSETS = Path(__file__).resolve().parents[1] / (
     "working-memory/evidence/2026-10-05-api-interpretation-preparation"
 )
+V2_ASSETS = Path(__file__).resolve().parents[1] / (
+    "working-memory/evidence/2026-10-06-api-interpretation-contract-repair"
+)
+# v1 remains selectable for historical requests; v2 is evaluated explicitly.
+CONTRACT_ASSETS = {ROLE: (ASSETS, "v1"), ROLE_V2: (V2_ASSETS, "v2")}
 MAX_RESPONSE_BYTES = 262_144
 # Includes reasoning and structured output. The failed 1536-token pilot remains
 # reproducible through explicit request settings and saved method identities.
 OUTPUT_TOKENS = 8192
 LOCAL_ENDPOINT = "http://127.0.0.1:18080/v1/chat/completions"
 LOCAL_MODEL = "gemma-4-e4b-it-ud"
+COMPARISON_MODEL = "mimo-v2.6-distill-qwen-9b"
 
 
 def text_hash(text: str) -> str:
@@ -70,7 +77,9 @@ def strict_json(text: str, *, max_bytes: int = MAX_RESPONSE_BYTES) -> object:
     )
 
 
-def source_input_from_projection(upstream: dict, interval: dict) -> dict:
+def source_input_from_projection(
+    upstream: dict, interval: dict, *, role_version: str = ROLE
+) -> dict:
     """Map an acquired projection, also used to check independently saved input.
 
     Complete sections and incomplete candidates share a text-map operation;
@@ -78,6 +87,8 @@ def source_input_from_projection(upstream: dict, interval: dict) -> dict:
     Acquisition owns full-file verification. This boundary checks retained text,
     offsets and source relationships needed for exact downstream citations.
     """
+    if role_version not in CONTRACT_ASSETS:
+        raise ValueError("unsupported interpretation role")
     complete = upstream.get("state") == "available"
     examination = upstream.get("section_examination", {})
     context = upstream.get("source_context", {})
@@ -178,7 +189,7 @@ def source_input_from_projection(upstream: dict, interval: dict) -> dict:
             }
         )
     return {
-        "role_version": ROLE,
+        "role_version": role_version,
         "interval": interval,
         "source_identity": identity,
         "source_coverage": {
@@ -205,22 +216,29 @@ def source_input_from_projection(upstream: dict, interval: dict) -> dict:
     }
 
 
-def frozen_contract() -> tuple[str, str, dict, dict]:
+def frozen_contract(role_version: str = ROLE) -> tuple[str, str, dict, dict]:
     """Load the two frozen producer assets; evaluation answers never enter here."""
-    manifest = json.loads((ASSETS / "freeze-manifest.json").read_text())
+    if role_version not in CONTRACT_ASSETS:
+        raise ValueError("unsupported interpretation role")
+    directory, version = CONTRACT_ASSETS[role_version]
+    manifest = json.loads((directory / "freeze-manifest.json").read_text())
+    prompt_name, schema_name = (
+        f"prompt-template-{version}.md",
+        f"output-schema-{version}.json",
+    )
     assets = {}
     hashes = {}
-    for name in ("prompt-template-v1.md", "output-schema-v1.json"):
-        raw = (ASSETS / name).read_bytes()
+    for name in (prompt_name, schema_name):
+        raw = (directory / name).read_bytes()
         digest = hashlib.sha256(raw).hexdigest()
         if digest != manifest["files"][name]["sha256"]:
             raise ValueError("frozen producer asset changed")
         assets[name] = raw.decode("utf-8")
         hashes[name] = digest
-    blocks = re.findall(r"```text\n(.*?)\n```", assets["prompt-template-v1.md"], re.S)
+    blocks = re.findall(r"```text\n(.*?)\n```", assets[prompt_name], re.S)
     if len(blocks) != 2:
         raise ValueError("unexpected frozen prompt layout")
-    return blocks[0], blocks[1], json.loads(assets["output-schema-v1.json"]), hashes
+    return blocks[0], blocks[1], json.loads(assets[schema_name]), hashes
 
 
 @dataclass(frozen=True)
@@ -231,11 +249,36 @@ class InterpretationRequest:
 
 
 def prepare_request(
-    source_input: dict, *, max_output_tokens: int = OUTPUT_TOKENS
+    source_input: dict,
+    *,
+    max_output_tokens: int = OUTPUT_TOKENS,
+    model_identifier: str = LOCAL_MODEL,
 ) -> InterpretationRequest:
     if type(max_output_tokens) is not int or max_output_tokens < 1:
         raise ValueError("output token budget must be a positive integer")
-    system, user_template, schema, hashes = frozen_contract()
+    if not isinstance(model_identifier, str) or not model_identifier.strip():
+        raise ValueError("model identifier must be nonblank")
+    role_version = source_input["role_version"]
+    system, user_template, schema, hashes = frozen_contract(role_version)
+    if role_version == ROLE_V2:
+        line_ids = [
+            line["line_id"]
+            for section in source_input["sections"]
+            for line in section["lines"]
+        ]
+        # Only producer facts enter the grammar. Pair ordering, section coherence
+        # and meaning still require recovery and separate semantic review.
+        # Empty-source controls never infer and need no empty (invalid) enum.
+        if line_ids:
+            for key in ("observations", "unassessed"):
+                references = schema["properties"][key]["items"]["properties"][
+                    "source_spans"
+                ]["items"]["properties"]
+                for reference in references.values():
+                    reference["enum"] = line_ids
+        system += "\n\nExact output JSON schema:\n" + json.dumps(
+            schema, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+        )
     # Send each source character once. Offsets/hashes belong to the retained map,
     # not model work; compact labelled lines preserve all available source text.
     rendered_sections = [
@@ -264,7 +307,7 @@ def prepare_request(
         ),
     )
     payload = {
-        "model": LOCAL_MODEL,
+        "model": model_identifier,
         "messages": [
             {"role": "system", "content": system},
             {"role": "user", "content": user},
@@ -272,7 +315,7 @@ def prepare_request(
         "response_format": {
             "type": "json_schema",
             "json_schema": {
-                "name": ROLE.replace("-", "_"),
+                "name": role_version.replace("-", "_"),
                 "strict": True,
                 "schema": schema,
             },
@@ -286,15 +329,20 @@ def prepare_request(
         source_input,
         payload,
         {
-            "role_version": ROLE,
-            "renderer_version": 1,
+            "role_version": role_version,
+            "renderer_version": 2 if role_version == ROLE_V2 else 1,
             "asset_sha256": hashes,
+            **(
+                {"request_schema_sha256": packet_hash(schema)}
+                if role_version == ROLE_V2
+                else {}
+            ),
             "input_sha256": packet_hash(source_input),
             "request_sha256": packet_hash(payload),
             "interpreter_code_sha256": hashlib.sha256(
                 Path(__file__).read_bytes()
             ).hexdigest(),
-            "model": LOCAL_MODEL,
+            "model": model_identifier,
             "temperature": 0,
             "seed": 0,
             "max_output_tokens": max_output_tokens,
@@ -399,13 +447,17 @@ def decode_proposals(output: object, source_input: dict, *, schema: dict) -> dic
     validate_shape(output, schema)
     for observation in output["observations"]:
         needs_reason = (
-            observation["kind"] == "unclear"
+            schema["properties"]["observations"]["items"]["properties"]["reason"][
+                "type"
+            ]
+            == "string"
+            or observation["kind"] == "unclear"
             or observation["assertion"] == "uncertain"
             or observation["subject"] is None
             or observation["timing"] == "unspecified"
         )
         if needs_reason and not (observation["reason"] or "").strip():
-            raise ValueError("uncertainty needs a nonblank reason")
+            raise ValueError("observation needs a nonblank reason")
     if any(not item["reason"].strip() for item in output["unassessed"]):
         raise ValueError("unassessed needs a nonblank reason")
     return {
@@ -556,26 +608,37 @@ class LocalInterpretationProvider:
 
 
 def interpret_projection(
-    upstream: dict, interval: dict, provider: InterpretationProvider
+    upstream: dict,
+    interval: dict,
+    provider: InterpretationProvider,
+    *,
+    role_version: str = ROLE,
+    model_identifier: str = LOCAL_MODEL,
 ) -> dict:
     """Preserve scope on failure; no partial candidates, retries or semantic vote."""
     try:
-        source_input = source_input_from_projection(upstream, interval)
+        source_input = source_input_from_projection(
+            upstream, interval, role_version=role_version
+        )
     except (ValueError, KeyError, TypeError, AttributeError):
         return {
-            **_result_envelope(None),
+            **_result_envelope(None, role_version=role_version),
             "state": "input_problem",
             "problem": {
                 "stage": "input_problem",
                 "reason": "invalid_source_relationships",
             },
         }
-    return interpret_source_input(source_input, provider)
+    return interpret_source_input(
+        source_input, provider, model_identifier=model_identifier
+    )
 
 
-def _result_envelope(source_input: dict | None) -> dict:
+def _result_envelope(source_input: dict | None, *, role_version: str = ROLE) -> dict:
     return {
-        "role_version": ROLE,
+        "role_version": source_input["role_version"]
+        if source_input is not None
+        else role_version,
         "source_input": source_input,
         "method": None,
         "observations": [],
@@ -589,6 +652,7 @@ def interpret_source_input(
     provider: InterpretationProvider,
     *,
     max_output_tokens: int = OUTPUT_TOKENS,
+    model_identifier: str = LOCAL_MODEL,
 ) -> dict:
     """Interpret a producer-validated map; calibration never becomes acquisition.
 
@@ -605,7 +669,9 @@ def interpret_source_input(
         return fail("input_problem", "no_retained_source_text")
     try:
         request = prepare_request(
-            packet["source_input"], max_output_tokens=max_output_tokens
+            packet["source_input"],
+            max_output_tokens=max_output_tokens,
+            model_identifier=model_identifier,
         )
     except (OSError, ValueError, KeyError):
         return fail("contract_problem", "frozen_producer_assets_invalid")
@@ -647,5 +713,14 @@ def interpret_acquired_source(
     source: DeclaredReleaseWindow | AcquisitionProblem,
     interval: dict,
     provider: InterpretationProvider,
+    *,
+    role_version: str = ROLE,
+    model_identifier: str = LOCAL_MODEL,
 ) -> dict:
-    return interpret_projection(release_window_manifest(source), interval, provider)
+    return interpret_projection(
+        release_window_manifest(source),
+        interval,
+        provider,
+        role_version=role_version,
+        model_identifier=model_identifier,
+    )

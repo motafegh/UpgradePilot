@@ -21,6 +21,10 @@ from experiments.api_change_source_acquisition import (
 )
 from experiments.api_change_interpretation import (
     ProviderReply,
+    ROLE,
+    ROLE_V2,
+    LOCAL_MODEL,
+    COMPARISON_MODEL,
     interpret_projection,
     packet_hash,
     prepare_request,
@@ -61,7 +65,13 @@ BASE = "b" * 40
 
 class PublicPRTests(TestCase):
     def run_trial(
-        self, *, upstream=None, python_source=None, interpretation_provider=None
+        self,
+        *,
+        upstream=None,
+        python_source=None,
+        interpretation_provider=None,
+        role_version=ROLE,
+        model_identifier=LOCAL_MODEL,
     ):
         identity = PullRequestIdentity(
             "owner/target",
@@ -137,7 +147,11 @@ class PublicPRTests(TestCase):
         options = (
             {}
             if interpretation_provider is None
-            else {"provider": interpretation_provider}
+            else {
+                "provider": interpretation_provider,
+                "role_version": role_version,
+                "model_identifier": model_identifier,
+            }
         )
         result = entry(
             "owner/target",
@@ -210,7 +224,9 @@ class PublicPRTests(TestCase):
             files=files,
         )
 
-    def interpreted_trial(self, *, text=None, reply=None):
+    def interpreted_trial(
+        self, *, text=None, reply=None, role_version=ROLE, model_identifier=LOCAL_MODEL
+    ):
         if text is None:
             text = "## 2.0\nThe old option was removed. café\n## 1.5\nAn unrelated addition.\n"
         provider = Mock(
@@ -230,7 +246,9 @@ class PublicPRTests(TestCase):
                             "source_spans": [
                                 {"start_line_id": "S1:L2", "end_line_id": "S1:L2"}
                             ],
-                            "reason": None,
+                            "reason": "The cited text states a removal in the current release."
+                            if role_version == ROLE_V2
+                            else None,
                         }
                     ],
                     "unassessed": [
@@ -245,9 +263,44 @@ class PublicPRTests(TestCase):
             )
         )
         packet, _, _ = self.run_trial(
-            upstream=self.upstream_runner(text), interpretation_provider=provider
+            upstream=self.upstream_runner(text),
+            interpretation_provider=provider,
+            role_version=role_version,
+            model_identifier=model_identifier,
         )
         return packet, provider, text
+
+    def test_versioned_normal_entry_recovery_and_role_relabelling_rejection(self):
+        for role, model_identifier in (
+            (ROLE, LOCAL_MODEL),
+            (ROLE_V2, LOCAL_MODEL),
+            (ROLE_V2, COMPARISON_MODEL),
+        ):
+            packet, provider, _ = self.interpreted_trial(
+                role_version=role, model_identifier=model_identifier
+            )
+            self.assertEqual(packet["interpretation"]["state"], "observations_returned")
+            self.assertEqual(packet["interpretation"]["role_version"], role)
+            self.assertEqual(
+                packet["interpretation"]["method"]["model"], model_identifier
+            )
+            self.assertEqual(
+                provider.complete.call_args.args[0].method["role_version"], role
+            )
+            with patch(
+                "experiments.api_change_interpretation_trial.LocalInterpretationProvider"
+            ) as local:
+                self.assertEqual(
+                    packet_hash(decode_saved_trial(json.dumps(packet))),
+                    packet_hash(packet),
+                )
+            local.assert_not_called()
+            packet["interpretation"]["role_version"] = ROLE_V2 if role == ROLE else ROLE
+            packet["packet_sha256"] = packet_hash(
+                {k: v for k, v in packet.items() if k != "packet_sha256"}
+            )
+            with self.assertRaises(ValueError):
+                decode_saved_trial(json.dumps(packet))
 
     def test_ordinary_acquisition_to_proposal_to_offline_saved_recovery(self):
         packet, provider, text = self.interpreted_trial()

@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "source-only-api-change-v2",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "observations": {
+      "type": "array",
+      "maxItems": 64,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "removal",
+              "deprecation",
+              "addition",
+              "behavior_change",
+              "bug_fix",
+              "support_change",
+              "other",
+              "unclear"
+            ]
+          },
+          "subject": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1,
+            "maxLength": 256
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024
+          },
+          "assertion": {
+            "type": "string",
+            "enum": [
+              "affirmed",
+              "negated",
+              "uncertain"
+            ]
+          },
+          "timing": {
+            "type": "string",
+            "enum": [
+              "current",
+              "planned",
+              "historical",
+              "unspecified"
+            ]
+          },
+          "effective_version": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "source_spans": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 8,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "start_line_id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64
+                },
+                "end_line_id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64
+                }
+              },
+              "required": [
+                "start_line_id",
+                "end_line_id"
+              ]
+            }
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024
+          }
+        },
+        "required": [
+          "kind",
+          "subject",
+          "summary",
+          "assertion",
+          "timing",
+          "effective_version",
+          "source_spans",
+          "reason"
+        ]
+      }
+    },
+    "unassessed": {
+      "type": "array",
+      "maxItems": 64,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "source_spans": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 8,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "start_line_id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64
+                },
+                "end_line_id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64
+                }
+              },
+              "required": [
+                "start_line_id",
+                "end_line_id"
+              ]
+            }
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024
+          }
+        },
+        "required": [
+          "source_spans",
+          "reason"
+        ]
+      }
+    }
+  },
+  "required": [
+    "observations",
+    "unassessed"
+  ]
+}

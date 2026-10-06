@@ -12,6 +12,8 @@ from experiments.api_change_interpretation import (
     ASSETS,
     LOCAL_MODEL,
     OUTPUT_TOKENS,
+    ROLE_V2,
+    COMPARISON_MODEL,
     ProviderReply,
     prepare_request,
 )
@@ -121,6 +123,37 @@ class EvaluationTests(TestCase):
                 template_identity="controlled-template",
             )
 
+    def test_model_comparison_changes_only_request_model_and_requires_matching_measurement(
+        self,
+    ):
+        source = calibration_source_input(
+            self.inputs[0], self.context, role_version=ROLE_V2
+        )
+        gemma = prepare_request(source)
+        mimo = prepare_request(source, model_identifier=COMPARISON_MODEL)
+        self.assertEqual(
+            {k: v for k, v in gemma.payload.items() if k != "model"},
+            {k: v for k, v in mimo.payload.items() if k != "model"},
+        )
+        self.assertEqual(gemma.method["input_sha256"], mimo.method["input_sha256"])
+        self.assertNotEqual(
+            gemma.method["request_sha256"], mimo.method["request_sha256"]
+        )
+        with self.assertRaises(ValueError):
+            measured_capacity(
+                mimo,
+                self.model,
+                self.chat_factory,
+                template_identity="controlled-template",
+            )
+        info = self.model.get_info.return_value.to_dict.return_value
+        info.update(identifier=COMPARISON_MODEL, modelKey=COMPARISON_MODEL)
+        capacity, _ = measured_capacity(
+            mimo, self.model, self.chat_factory, template_identity="controlled-template"
+        )
+        self.assertEqual(capacity.model, COMPARISON_MODEL)
+        self.assertEqual(capacity.request_sha256, mimo.method["request_sha256"])
+
     def prepared(self, output):
         return prepare_evaluation(
             output,
@@ -143,6 +176,57 @@ class EvaluationTests(TestCase):
             self.assertIsNone(cases[-1]["capacity"])
             with self.assertRaises(FileExistsError):
                 self.prepared(path)
+
+    def test_v2_whole_set_and_extra_case_freeze_without_expected_answers_in_requests(
+        self,
+    ):
+        with TemporaryDirectory() as root:
+            path = Path(root)
+            item = copy.deepcopy(self.inputs[1])
+            item["input_id"] = "new-source-case"
+            sources, answers = path / "sources.json", path / "answers.json"
+            sources.write_text(json.dumps({"inputs": [item]}))
+            answers.write_text(
+                json.dumps(
+                    {
+                        "cases": [
+                            {
+                                "input_id": item["input_id"],
+                                "required_propositions": ["EVALUATOR_ONLY_SENTINEL"],
+                            }
+                        ]
+                    }
+                )
+            )
+            with patch(
+                "experiments.api_change_interpretation_evaluation.LocalInterpretationProvider"
+            ) as provider:
+                cases, manifest, _ = prepare_evaluation(
+                    path / "run",
+                    self.model,
+                    self.chat_factory,
+                    template_identity="controlled-template",
+                    role_version=ROLE_V2,
+                    additional_inputs=sources,
+                    additional_expectations=answers,
+                )
+            provider.assert_not_called()
+            self.assertEqual(len(cases), 20)
+            self.assertEqual(manifest["role_version"], ROLE_V2)
+            self.assertTrue(manifest["additional_cases"]["expectations_sha256"])
+            for case in cases:
+                self.assertEqual(case["request"].method["role_version"], ROLE_V2)
+                self.assertNotIn(
+                    "EVALUATOR_ONLY_SENTINEL", json.dumps(case["request"].payload)
+                )
+            with self.assertRaises(ValueError):
+                prepare_evaluation(
+                    path / "missing-answers",
+                    self.model,
+                    self.chat_factory,
+                    template_identity="controlled-template",
+                    additional_inputs=sources,
+                )
 
     def test_capacity_failure_never_enters_provider(self):
         with TemporaryDirectory() as root:

@@ -10,6 +10,7 @@ import requests
 from experiments.api_change_interpretation import (
     LOCAL_ENDPOINT,
     OUTPUT_TOKENS,
+    ROLE_V2,
     LocalInterpretationProvider,
     ProviderReply,
     RequestCapacityEvidence,
@@ -86,6 +87,96 @@ class ControlledProvider:
 
 
 class InterpretationTests(TestCase):
+    def test_v2_readable_and_constrained_schema_share_source_derived_references(self):
+        source = source_input_from_projection(
+            projection(), INTERVAL, role_version=ROLE_V2
+        )
+        request = prepare_request(source)
+        schema = request.payload["response_format"]["json_schema"]["schema"]
+        readable = request.payload["messages"][0]["content"].split(
+            "Exact output JSON schema:\n", 1
+        )[1]
+        self.assertEqual(json.loads(readable), schema)
+        ids = [
+            line["line_id"]
+            for section in source["sections"]
+            for line in section["lines"]
+        ]
+        for key in ("observations", "unassessed"):
+            references = schema["properties"][key]["items"]["properties"][
+                "source_spans"
+            ]["items"]["properties"]
+            for reference in references.values():
+                self.assertEqual(reference["enum"], ids)
+        self.assertEqual(request.method["request_schema_sha256"], packet_hash(schema))
+        self.assertEqual(request.method["role_version"], ROLE_V2)
+        self.assertIn("Other change.", request.payload["messages"][1]["content"])
+        with self.assertRaises(ValueError):
+            prepare_request({**source, "role_version": "unsupported"})
+
+    def test_v2_requires_explanations_for_named_and_genuinely_unknown_subjects(self):
+        for subject in ("option", None):
+            for reason, state in (
+                (None, "contract_problem"),
+                (" ", "contract_problem"),
+                (
+                    "The cited passage states removal in this release; no more precise subject is supplied.",
+                    "observations_returned",
+                ),
+            ):
+                with self.subTest(subject=subject, reason=reason):
+                    result = interpret_projection(
+                        projection(),
+                        INTERVAL,
+                        ControlledProvider(
+                            {
+                                "observations": [
+                                    observation(subject=subject, reason=reason)
+                                ],
+                                "unassessed": [],
+                            }
+                        ),
+                        role_version=ROLE_V2,
+                    )
+                    self.assertEqual(result["state"], state)
+                    if state == "observations_returned":
+                        self.assertEqual(result["observations"][0]["subject"], subject)
+
+    def test_v2_reference_enums_do_not_replace_span_coherence(self):
+        source = projection()
+        source["versions"].append("1.5")
+        source["sections"].append(
+            {
+                **source["sections"][0],
+                "version": "1.5",
+                "start_offset": 100,
+                "end_offset": 100 + len(source["sections"][0]["text"]),
+            }
+        )
+        for key in ("observations", "unassessed"):
+            for start, end, state in (
+                ("S1", "S1", "contract_problem"),
+                ("null", "null", "contract_problem"),
+                ("S1:L3", "S1:L2", "grounding_problem"),
+                ("S1:L2", "S2:L2", "grounding_problem"),
+            ):
+                item = {
+                    "source_spans": [{"start_line_id": start, "end_line_id": end}],
+                    "reason": "Controlled reference adversary.",
+                }
+                if key == "observations":
+                    item = observation(**item)
+                result = interpret_projection(
+                    source,
+                    INTERVAL,
+                    ControlledProvider(
+                        {"observations": [], "unassessed": [], key: [item]}
+                    ),
+                    role_version=ROLE_V2,
+                )
+                self.assertEqual(result["state"], state)
+                self.assertEqual(result["observations"], [])
+
     def test_output_budget_binds_request_without_changing_semantic_input(self):
         source = source_input_from_projection(projection(), INTERVAL)
         pilot = prepare_request(source, max_output_tokens=1536)
