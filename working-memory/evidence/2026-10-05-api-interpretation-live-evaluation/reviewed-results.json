@@ -1,0 +1,1122 @@
+{
+  "evidence_kind": "reviewed_frozen_assisted_development_evaluation",
+  "date": "2026-10-05",
+  "role_version": "source-only-api-change-v1",
+  "run_name": "live-development-v1",
+  "disposition": "FAIL_REVISE; no semantic admission or product promotion",
+  "review_class": "AI-assisted proposition/source review; no protected or independent acceptance",
+  "scope": "One historical ordinary HTTPX acquisition, authentic manually selected urllib3 excerpts and labelled constructed/partial controls. No fresh external PR acquisition or second ordinary real-target case.",
+  "runtime": {
+    "packages": {
+      "lmstudio": "1.5.0",
+      "requests": "2.34.2",
+      "packaging": "26.2",
+      "httpx": "0.28.1",
+      "anyio": "4.14.2"
+    },
+    "model": {
+      "type": "llm",
+      "modelKey": "gemma-4-e4b-it-ud",
+      "format": "gguf",
+      "displayName": "Gemma 4 E4B Instruct UD",
+      "path": "lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf",
+      "sizeBytes": 5101713792,
+      "identifier": "gemma-4-e4b-it-ud",
+      "instanceReference": "TikSXc+tW+Gt5qMREyZP3u3Y",
+      "vision": false,
+      "trainedForToolUse": true,
+      "maxContextLength": 131072,
+      "contextLength": 4096,
+      "paramsString": "7.5B",
+      "architecture": "gemma4"
+    },
+    "load_config": {
+      "gpu": {
+        "ratio": 1.0
+      },
+      "gpuStrictVramCap": true,
+      "offloadKVCacheToGpu": true,
+      "contextLength": 4096,
+      "flashAttention": true
+    },
+    "template_identity_basis": "actual loaded-instance config and SDK-applied fixed chat probe",
+    "template_identity": "8fe1a0b2672bfb0b93d9abc37190ac8baa67c068f6e0e43450be2243ba7a65ac"
+  },
+  "settings": {
+    "temperature": 0,
+    "seed": 0,
+    "max_output_tokens": 1536,
+    "calls": "serial one pass",
+    "retry_or_correction": false,
+    "context_changed": false,
+    "model_substituted": false
+  },
+  "before_inference_manifest_sha256": "e66242b45ff7bb0fec1a4a5f1eaaad209dd4387e7b10e8b0fcef5110f357b8bc",
+  "before_inference": {
+    "role_version": "source-only-api-change-v1",
+    "model_outputs_seen": false,
+    "source_inputs_sha256": "85347e62923ef03a414a519b5cb2b54ead706981461edc4ccc634f71e97e7fa8",
+    "evaluation_expectations_sha256": "8e966d2c12b071f0c3764ce98fd370a8491622410daf459cd1c69a642e11ce09",
+    "historical_context_sha256": "1e79f2b75abd1cbaf79a7deb61fec1d8f4b9ee68cbd9834c586443ac6976a5dc",
+    "code_sha256": {
+      "experiments/api_change_interpretation.py": "22c7f316227105ca95dc9491b4e34879372aee79f0fe613fdf07f89521c3ffcc",
+      "experiments/api_change_interpretation_trial.py": "cb77fb1e74120597be3dddd050836e304c2483152f29fb1fee3320c40b107e92",
+      "experiments/api_change_interpretation_evaluation.py": "0504f4dec6acbe8120fb71c3265dbaaecaa35268995dd9b3ce6b737567baede2",
+      "src/upgradepilot/upstream/support_drop_extractor.py": "7b74b736265eab410e8e363b5a3592be2a1e2dcb6e67a709dd350effbbd0c199"
+    },
+    "review_class": "frozen assisted development; semantic review pending; no independent acceptance"
+  },
+  "private_results_sha256": "2f6adb96a99b5df452a17cbd79a27a65f628608a5962c6e18d7d3a41011223f4",
+  "summary": {
+    "selected_inputs": 19,
+    "inference_calls": 18,
+    "empty_no_inference_controls": 1,
+    "http_200": 18,
+    "capacity_fit": 18,
+    "provider_usage_exceeded_accounting_allowance": 0,
+    "json_schema_shape_pass_on_completed_responses": 16,
+    "output_truncations": 2,
+    "additional_uncertainty_contract_rejections": 3,
+    "source_reference_rejections": 1,
+    "decoder_admitted_responses": 12,
+    "responses_with_observations": 11,
+    "admitted_observations": 14,
+    "observations_with_null_subject": 10,
+    "assisted_review_dispositions": {
+      "unavailable": 6,
+      "pass": 9,
+      "meaning_issue": 1,
+      "pass_with_caution": 1,
+      "critical_meaning_failure": 1,
+      "pass_no_inference": 1
+    },
+    "critical_meaning_failures_observed_in_admitted_outputs": 1,
+    "prompt_tokens": 18522,
+    "completion_tokens": 16117,
+    "provider_reported_reasoning_tokens_within_completion": 10630,
+    "summed_case_latency_seconds": 226.162,
+    "complete_window_useful_output_established": false,
+    "input_context_fit_established": true,
+    "output_budget_adequacy_established": false,
+    "reliable_schema_execution_established": false,
+    "semantic_acceptance": false
+  },
+  "capacity_interpretation": "Actual SDK-rendered chat plus SDK-tokenized full response-format JSON allowance, plus reserved output, fits 4096 for all 18 cases. This allowance is not exact OpenAI-handler token accounting. Actual prompt usage was SDK chat count +1 throughout and below allowance. Context fit does not prove enough completion tokens; both large cases hit the separate 1536 ceiling.",
+  "saved_recovery": {
+    "case": "I001",
+    "contains": "failed interpretation with retained historical source/target/adapter branches",
+    "same_packet_after_save_open": true,
+    "saved_bytes": 696309,
+    "private_packet_sha256": "6e1c01f13849d6ba0c59de3faafbb94cfe5bfcb76ec16fa3ffc96deab0631f9b",
+    "semantic_success": false,
+    "offline_cli_packet_equal": true,
+    "offline_cli_exit_code": 1,
+    "offline_cli_exit_reason": "Preserved provider_problem/output_truncated; read-back succeeds but failed interpretation is intentionally nonzero."
+  },
+  "failure_owner_analysis": [
+    "I001/I017: configured completion budget is insufficient under this deployed reasoning behavior; no evidence of input-context overflow. Initial role planning borrowed an unproven output ceiling.",
+    "I003/I007/I011: model follows schema shape but misses prompt-level conditional reasons not encoded in the JSON schema. Guards enforce the accepted rule; no evidence warrants weakening them.",
+    "I018: model invents section-only references where line IDs are required; grounding guard rejects them.",
+    "I014: semantic overstatement passes structure/grounding; code cannot prove meaning. It is a real development failure of the frozen role, not an acquisition or span-validator bug.",
+    "I005/I009 and null-subject overuse: additional classification/representation precision debt needs comparison; source-supported summaries alone do not establish useful future typed consumption."
+  ],
+  "next_design_question": "Choose a separately frozen revision addressing full-window output/reasoning budget and semantic uncertainty/subject representation. A larger context may be needed to reserve a larger output budget; do not merely increase context and claim semantic repair. Preserve this failed first pass and compare any revised role on equivalent inputs.",
+  "proof_limits": [
+    "One local deployment/settings combination and one pass only.",
+    "No semantic success credited to rejected/truncated outputs.",
+    "Unproved propositions on rejected cases are not counted as clean negative meanings or exhaustive model omissions.",
+    "No independent accuracy percentage or hidden-test acceptance.",
+    "No product/shared-source/dependency change, broader target exposure or action permission.",
+    "Digests are consistency identities, not origin authentication.",
+    "Raw requests, model responses and rejected frames remain ignored local files."
+  ],
+  "cases": [
+    {
+      "input_id": "I001",
+      "case_id": "httpx-full-acquired-window",
+      "scope": "acquired_window",
+      "inference_attempted": true,
+      "request_sha256": "1b91e88aae9e8a1633b81abab646c6e969c6f241d9c37b3e9cd7750608f3f720",
+      "capacity": {
+        "request_sha256": "1b91e88aae9e8a1633b81abab646c6e969c6f241d9c37b3e9cd7750608f3f720",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "TikSXc+tW+Gt5qMREyZP3u3Y",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:TikSXc+tW+Gt5qMREyZP3u3Y",
+        "template_identity": "8fe1a0b2672bfb0b93d9abc37190ac8baa67c068f6e0e43450be2243ba7a65ac",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 4096,
+        "input_tokens": 2484,
+        "reserved_output_tokens": 1536
+      },
+      "token_counts": {
+        "chat_template_tokens": 1816,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "3278b75106d89b30ea1e96c990e9cf243c703a1b07cfe744f6cabf01c276ca0e",
+        "fits": true
+      },
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 1817,
+          "completion_tokens": 1536,
+          "total_tokens": 3353,
+          "completion_tokens_details": {
+            "reasoning_tokens": 845
+          }
+        },
+        "finish_reason": "length"
+      },
+      "elapsed_seconds": 21.346,
+      "capacity_accounting_mismatch": false,
+      "json_schema_shape": "not_admitted_truncated",
+      "decoder_state": "provider_problem",
+      "problem": {
+        "stage": "provider_problem",
+        "reason": "output_truncated"
+      },
+      "admitted_observation_count": 0,
+      "model_unassessed_count": 0,
+      "assisted_review": {
+        "disposition": "unavailable",
+        "reason": "Output stopped at 1536 tokens. No partial candidate is admitted; full-window required positives and nine other-change obligations remain unproved.",
+        "issues": [],
+        "unproved_or_omitted": [
+          "full-window positives and other-change coverage"
+        ]
+      },
+      "private_result_sha256": "dacb3d678e5d86eb6edfa68ed4f9a64d244ded11c63ac094d5cf3944d6655798",
+      "private_http_frame_sha256": "683df7a9df7c711206ed4ec83493a4e5c5533381f318c91a1bc9183878a62d8b"
+    },
+    {
+      "input_id": "I002",
+      "case_id": "httpx-authentic-removal-excerpt",
+      "scope": "supplied_excerpt",
+      "inference_attempted": true,
+      "request_sha256": "46e0dcbf48231b7ad0b2683d2d999781a08c0ee3415e5cf017c2d7909de118dc",
+      "capacity": {
+        "request_sha256": "46e0dcbf48231b7ad0b2683d2d999781a08c0ee3415e5cf017c2d7909de118dc",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "TikSXc+tW+Gt5qMREyZP3u3Y",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:TikSXc+tW+Gt5qMREyZP3u3Y",
+        "template_identity": "8fe1a0b2672bfb0b93d9abc37190ac8baa67c068f6e0e43450be2243ba7a65ac",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 4096,
+        "input_tokens": 1604,
+        "reserved_output_tokens": 1536
+      },
+      "token_counts": {
+        "chat_template_tokens": 936,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "6bbf1882aeeb3df840f0a8e7be47f020f6be803352beaaf7e02058730c5108d0",
+        "fits": true
+      },
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 937,
+          "completion_tokens": 542,
+          "total_tokens": 1479,
+          "completion_tokens_details": {
+            "reasoning_tokens": 276
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "elapsed_seconds": 7.668,
+      "capacity_accounting_mismatch": false,
+      "json_schema_shape": "pass",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "admitted_observation_count": 1,
+      "model_unassessed_count": 1,
+      "assisted_review": {
+        "disposition": "pass",
+        "reason": "Current app removal in 0.28.0 retained in the summary. Unknown owner remains null with explanation.",
+        "issues": [],
+        "unproved_or_omitted": []
+      },
+      "private_result_sha256": "820bab09a8fd89ba83338fdc4a6aa848cb02293a912007cd2613f36ef4e2ac1b",
+      "private_http_frame_sha256": "c72bde51e1d42fbaa5c32f294b9b6367271c58d45b41c056a19aeaa6f25093a0"
+    },
+    {
+      "input_id": "I003",
+      "case_id": "httpx-authentic-deprecation-excerpt",
+      "scope": "supplied_excerpt",
+      "inference_attempted": true,
+      "request_sha256": "4264d3caee32741dc8840e7c0603db8bb7fbd05f9c40b747a5ea80ea43c91345",
+      "capacity": {
+        "request_sha256": "4264d3caee32741dc8840e7c0603db8bb7fbd05f9c40b747a5ea80ea43c91345",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "TikSXc+tW+Gt5qMREyZP3u3Y",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:TikSXc+tW+Gt5qMREyZP3u3Y",
+        "template_identity": "8fe1a0b2672bfb0b93d9abc37190ac8baa67c068f6e0e43450be2243ba7a65ac",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 4096,
+        "input_tokens": 1610,
+        "reserved_output_tokens": 1536
+      },
+      "token_counts": {
+        "chat_template_tokens": 942,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "761c02fc496397af7bfd6c8432a69198899565491d22116da4af3abbc32a4f12",
+        "fits": true
+      },
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 943,
+          "completion_tokens": 751,
+          "total_tokens": 1694,
+          "completion_tokens_details": {
+            "reasoning_tokens": 501
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "elapsed_seconds": 10.22,
+      "capacity_accounting_mismatch": false,
+      "json_schema_shape": "pass",
+      "decoder_state": "contract_problem",
+      "problem": {
+        "stage": "contract_problem",
+        "reason": "invalid_structured_output"
+      },
+      "admitted_observation_count": 0,
+      "model_unassessed_count": 0,
+      "assisted_review": {
+        "disposition": "unavailable",
+        "reason": "JSON/schema shape passes, but null subject has a null reason. Decoder correctly rejects the missing required explanation.",
+        "issues": [],
+        "unproved_or_omitted": [
+          "string-valued verify deprecation"
+        ]
+      },
+      "private_result_sha256": "5c66d927dcb931160f323b34f3d0b9497b62b4a09bf1436889f31c628c6233c1",
+      "private_http_frame_sha256": "72b560eaf15f0f37a08db0daf243d5bc528b164e85595c134f4f21ef0dfa745a"
+    },
+    {
+      "input_id": "I004",
+      "case_id": "urllib3-authentic-retry-removals",
+      "scope": "supplied_excerpt",
+      "inference_attempted": true,
+      "request_sha256": "356ad417b1bebe96bc94c10b6802cc2099f50a8a9636525a7ae6fb1ee7ec8fc1",
+      "capacity": {
+        "request_sha256": "356ad417b1bebe96bc94c10b6802cc2099f50a8a9636525a7ae6fb1ee7ec8fc1",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "TikSXc+tW+Gt5qMREyZP3u3Y",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:TikSXc+tW+Gt5qMREyZP3u3Y",
+        "template_identity": "8fe1a0b2672bfb0b93d9abc37190ac8baa67c068f6e0e43450be2243ba7a65ac",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 4096,
+        "input_tokens": 1802,
+        "reserved_output_tokens": 1536
+      },
+      "token_counts": {
+        "chat_template_tokens": 1134,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "728b92a5c417d9a4070f40dc7823a69880763707a9cf4356926c3338d0a6d1ef",
+        "fits": true
+      },
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 1135,
+          "completion_tokens": 876,
+          "total_tokens": 2011,
+          "completion_tokens_details": {
+            "reasoning_tokens": 610
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "elapsed_seconds": 12.184,
+      "capacity_accounting_mismatch": false,
+      "json_schema_shape": "pass",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "admitted_observation_count": 1,
+      "model_unassessed_count": 1,
+      "assisted_review": {
+        "disposition": "pass",
+        "reason": "Both Retry option removals retained in one supported current observation. Shared meaning does not require two output objects.",
+        "issues": [],
+        "unproved_or_omitted": []
+      },
+      "private_result_sha256": "e7900fa081ce342ad922930239948db4d3973f1d233cd5ff50b9a80788abd044",
+      "private_http_frame_sha256": "0ac8e62d3badc3b87c4049da8e7f72552184e76924b948413477da21f51e0146"
+    },
+    {
+      "input_id": "I005",
+      "case_id": "urllib3-authentic-current-deprecation-future-removal",
+      "scope": "supplied_excerpt",
+      "inference_attempted": true,
+      "request_sha256": "e8d6355264fed0aef4132617cd87057ffbfb4b806e77acbbd44aa2ac21a99a03",
+      "capacity": {
+        "request_sha256": "e8d6355264fed0aef4132617cd87057ffbfb4b806e77acbbd44aa2ac21a99a03",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "TikSXc+tW+Gt5qMREyZP3u3Y",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:TikSXc+tW+Gt5qMREyZP3u3Y",
+        "template_identity": "8fe1a0b2672bfb0b93d9abc37190ac8baa67c068f6e0e43450be2243ba7a65ac",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 4096,
+        "input_tokens": 1864,
+        "reserved_output_tokens": 1536
+      },
+      "token_counts": {
+        "chat_template_tokens": 1196,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "f19673e33da7367b782af0ccce19a062996a6f4369615b5b38bc131d4110eee6",
+        "fits": true
+      },
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 1197,
+          "completion_tokens": 1152,
+          "total_tokens": 2349,
+          "completion_tokens_details": {
+            "reasoning_tokens": 542
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "elapsed_seconds": 15.759,
+      "capacity_accounting_mismatch": false,
+      "json_schema_shape": "pass",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "admitted_observation_count": 3,
+      "model_unassessed_count": 1,
+      "assisted_review": {
+        "disposition": "meaning_issue",
+        "reason": "Required current deprecation and planned removal in 2.1.0 are retained. An extra behavior_change observation casts replacement guidance as a current change; the source does not establish that additional change.",
+        "issues": [
+          "noncritical unsupported change-kind classification for replacement guidance"
+        ],
+        "unproved_or_omitted": []
+      },
+      "private_result_sha256": "74dc0579c069e374633c9051f42822169e17c8f85a4b1078074909ffc9c726a6",
+      "private_http_frame_sha256": "50adf665b1bef44738e4e28feea2284523e732da4ad5d3aaddf44c275683d311"
+    },
+    {
+      "input_id": "I006",
+      "case_id": "urllib3-authentic-method-removal",
+      "scope": "supplied_excerpt",
+      "inference_attempted": true,
+      "request_sha256": "af596a899ec92912030883a3c0bbec326595b21d40574fe1f11b01b5b34c0f16",
+      "capacity": {
+        "request_sha256": "af596a899ec92912030883a3c0bbec326595b21d40574fe1f11b01b5b34c0f16",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "TikSXc+tW+Gt5qMREyZP3u3Y",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:TikSXc+tW+Gt5qMREyZP3u3Y",
+        "template_identity": "8fe1a0b2672bfb0b93d9abc37190ac8baa67c068f6e0e43450be2243ba7a65ac",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 4096,
+        "input_tokens": 1795,
+        "reserved_output_tokens": 1536
+      },
+      "token_counts": {
+        "chat_template_tokens": 1127,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "e8b91c8219fb5ca93b111a30ad722bb54128a5d982f3842cc9d44bf1725c3c27",
+        "fits": true
+      },
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 1128,
+          "completion_tokens": 726,
+          "total_tokens": 1854,
+          "completion_tokens_details": {
+            "reasoning_tokens": 469
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "elapsed_seconds": 10.069,
+      "capacity_accounting_mismatch": false,
+      "json_schema_shape": "pass",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "admitted_observation_count": 1,
+      "model_unassessed_count": 1,
+      "assisted_review": {
+        "disposition": "pass",
+        "reason": "Qualified HTTPResponse.from_httplib method removal retained, current in 2.0.0.",
+        "issues": [],
+        "unproved_or_omitted": []
+      },
+      "private_result_sha256": "ddcd746e77b5959a12725daee641284dced908769941fb9bbc41f35c854e7ba7",
+      "private_http_frame_sha256": "083f88cbc0135fc47b7a0b1adda4967e87d8a97129f4565c005dbb0bbbc3f810"
+    },
+    {
+      "input_id": "I007",
+      "case_id": "urllib3-authentic-function-addition",
+      "scope": "supplied_excerpt",
+      "inference_attempted": true,
+      "request_sha256": "8e416a1da13100418f9204edaa4fc40b7b20172a3b0da96000ed5c673ba9d71f",
+      "capacity": {
+        "request_sha256": "8e416a1da13100418f9204edaa4fc40b7b20172a3b0da96000ed5c673ba9d71f",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "TikSXc+tW+Gt5qMREyZP3u3Y",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:TikSXc+tW+Gt5qMREyZP3u3Y",
+        "template_identity": "8fe1a0b2672bfb0b93d9abc37190ac8baa67c068f6e0e43450be2243ba7a65ac",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 4096,
+        "input_tokens": 1806,
+        "reserved_output_tokens": 1536
+      },
+      "token_counts": {
+        "chat_template_tokens": 1138,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "b1b4259011f37b9df4074c413700f57e7596a320fc8f8645667b971e5141bdb7",
+        "fits": true
+      },
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 1139,
+          "completion_tokens": 536,
+          "total_tokens": 1675,
+          "completion_tokens_details": {
+            "reasoning_tokens": 268
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "elapsed_seconds": 7.667,
+      "capacity_accounting_mismatch": false,
+      "json_schema_shape": "pass",
+      "decoder_state": "contract_problem",
+      "problem": {
+        "stage": "contract_problem",
+        "reason": "invalid_structured_output"
+      },
+      "admitted_observation_count": 0,
+      "model_unassessed_count": 0,
+      "assisted_review": {
+        "disposition": "unavailable",
+        "reason": "JSON/schema shape passes, but null subject has a null reason. Decoder rejects it; rejected candidate is not semantic success.",
+        "issues": [],
+        "unproved_or_omitted": [
+          "urllib3.request function addition"
+        ]
+      },
+      "private_result_sha256": "a7ec33803cb8374396b8be65800da10ce5531b8d19ccd0b671f2a67289619636",
+      "private_http_frame_sha256": "ea677ecfcc6d51a8c6117d0f18cfaab9b421549885d34a844bbc39067616ecd3"
+    },
+    {
+      "input_id": "I008",
+      "case_id": "constructed-same-meaning-paraphrase",
+      "scope": "constructed_control",
+      "inference_attempted": true,
+      "request_sha256": "e95f4912d21e8e34bb54bb2ce9579fa2078f84d2cc66ae070cb4813adc204aad",
+      "capacity": {
+        "request_sha256": "e95f4912d21e8e34bb54bb2ce9579fa2078f84d2cc66ae070cb4813adc204aad",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "TikSXc+tW+Gt5qMREyZP3u3Y",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:TikSXc+tW+Gt5qMREyZP3u3Y",
+        "template_identity": "8fe1a0b2672bfb0b93d9abc37190ac8baa67c068f6e0e43450be2243ba7a65ac",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 4096,
+        "input_tokens": 1503,
+        "reserved_output_tokens": 1536
+      },
+      "token_counts": {
+        "chat_template_tokens": 835,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "d3288f1caecbdc401e9bb2819f0428c5880e25b7039243e65ec2d1f58c9e6f2c",
+        "fits": true
+      },
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 836,
+          "completion_tokens": 791,
+          "total_tokens": 1627,
+          "completion_tokens_details": {
+            "reasoning_tokens": 530
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "elapsed_seconds": 11.122,
+      "capacity_accounting_mismatch": false,
+      "json_schema_shape": "pass",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "admitted_observation_count": 1,
+      "model_unassessed_count": 1,
+      "assisted_review": {
+        "disposition": "pass",
+        "reason": "Equivalent no-longer-accepted wording retains current app removal without an invented owner.",
+        "issues": [],
+        "unproved_or_omitted": []
+      },
+      "private_result_sha256": "3b3fdc85267e40fdace66cee0dba7ca2fa390de5d5ab1a198a3ad7e8c4290679",
+      "private_http_frame_sha256": "e1aa6cef4a61217c8c6b97651e5e580932a8fdbe9d3b2745e5a50ed349233f0e"
+    },
+    {
+      "input_id": "I009",
+      "case_id": "constructed-negated-removal",
+      "scope": "constructed_control",
+      "inference_attempted": true,
+      "request_sha256": "6e7e0e92ebbbd3b38db9ff4529267e08ef1634c57ce2ae5e6b91bc0d07b67097",
+      "capacity": {
+        "request_sha256": "6e7e0e92ebbbd3b38db9ff4529267e08ef1634c57ce2ae5e6b91bc0d07b67097",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "TikSXc+tW+Gt5qMREyZP3u3Y",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:TikSXc+tW+Gt5qMREyZP3u3Y",
+        "template_identity": "8fe1a0b2672bfb0b93d9abc37190ac8baa67c068f6e0e43450be2243ba7a65ac",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 4096,
+        "input_tokens": 1488,
+        "reserved_output_tokens": 1536
+      },
+      "token_counts": {
+        "chat_template_tokens": 820,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "5610ffb662b0ad8255d16d3afa0236b0b5e4d6a84c0871f7927fa6eecc910419",
+        "fits": true
+      },
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 821,
+          "completion_tokens": 854,
+          "total_tokens": 1675,
+          "completion_tokens_details": {
+            "reasoning_tokens": 584
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "elapsed_seconds": 12.166,
+      "capacity_accounting_mismatch": false,
+      "json_schema_shape": "pass",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "admitted_observation_count": 1,
+      "model_unassessed_count": 1,
+      "assisted_review": {
+        "disposition": "pass_with_caution",
+        "reason": "Summary explicitly preserves non-removal and never affirms removal. Frozen negation proposition is retained, but behavior_change/affirmed/unspecified fields are a weak representation of a negated removal and cannot support a downstream negated-removal classifier.",
+        "issues": [
+          "typed negation/change-kind precision concern; no affirmed removal claim"
+        ],
+        "unproved_or_omitted": []
+      },
+      "private_result_sha256": "ceac8598ee12f60cb0b7a0ef2726efec645c715145fdb30009e1a05c909dc2c0",
+      "private_http_frame_sha256": "49b124e643a458603833a523b034323c82e42ffb515d30b82c6381e49f796dc5"
+    },
+    {
+      "input_id": "I010",
+      "case_id": "constructed-planned-removal",
+      "scope": "constructed_control",
+      "inference_attempted": true,
+      "request_sha256": "2a8b88c67e4bb4185f2134a6f640a603783d933fbb4e0e44b4139df5fae46a3a",
+      "capacity": {
+        "request_sha256": "2a8b88c67e4bb4185f2134a6f640a603783d933fbb4e0e44b4139df5fae46a3a",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "TikSXc+tW+Gt5qMREyZP3u3Y",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:TikSXc+tW+Gt5qMREyZP3u3Y",
+        "template_identity": "8fe1a0b2672bfb0b93d9abc37190ac8baa67c068f6e0e43450be2243ba7a65ac",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 4096,
+        "input_tokens": 1500,
+        "reserved_output_tokens": 1536
+      },
+      "token_counts": {
+        "chat_template_tokens": 832,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "c762c4956369b8c095de3d4c7683659d9297cd59c8bf8a862c695dac18b79395",
+        "fits": true
+      },
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 833,
+          "completion_tokens": 785,
+          "total_tokens": 1618,
+          "completion_tokens_details": {
+            "reasoning_tokens": 518
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "elapsed_seconds": 11.215,
+      "capacity_accounting_mismatch": false,
+      "json_schema_shape": "pass",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "admitted_observation_count": 1,
+      "model_unassessed_count": 1,
+      "assisted_review": {
+        "disposition": "pass",
+        "reason": "Planned app removal in 0.29.0 retained, not changed to current removal in enclosing 0.28.0.",
+        "issues": [],
+        "unproved_or_omitted": []
+      },
+      "private_result_sha256": "bbf850835e1f9d423fb69afa1c361d87d3a4051ee78b81528cd1c1431d3d68bf",
+      "private_http_frame_sha256": "c9c59ce5ac2454310fea3dc82fa38d64b313f450b135b6b69850239adeaca509"
+    },
+    {
+      "input_id": "I011",
+      "case_id": "constructed-added-argument",
+      "scope": "constructed_control",
+      "inference_attempted": true,
+      "request_sha256": "f5a78268b6a03658594996bdfa17f8a189bd38588b8b4646c96887376fdec0ba",
+      "capacity": {
+        "request_sha256": "f5a78268b6a03658594996bdfa17f8a189bd38588b8b4646c96887376fdec0ba",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "TikSXc+tW+Gt5qMREyZP3u3Y",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:TikSXc+tW+Gt5qMREyZP3u3Y",
+        "template_identity": "8fe1a0b2672bfb0b93d9abc37190ac8baa67c068f6e0e43450be2243ba7a65ac",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 4096,
+        "input_tokens": 1498,
+        "reserved_output_tokens": 1536
+      },
+      "token_counts": {
+        "chat_template_tokens": 830,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "89cce1c3b84bab31770671bb9848e165160879e1f89315104a40fea187bf968d",
+        "fits": true
+      },
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 831,
+          "completion_tokens": 836,
+          "total_tokens": 1667,
+          "completion_tokens_details": {
+            "reasoning_tokens": 572
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "elapsed_seconds": 11.834,
+      "capacity_accounting_mismatch": false,
+      "json_schema_shape": "pass",
+      "decoder_state": "contract_problem",
+      "problem": {
+        "stage": "contract_problem",
+        "reason": "invalid_structured_output"
+      },
+      "admitted_observation_count": 0,
+      "model_unassessed_count": 0,
+      "assisted_review": {
+        "disposition": "unavailable",
+        "reason": "JSON/schema shape passes, but null subject has a null reason. Decoder rejects it; the positive addition is not admitted.",
+        "issues": [],
+        "unproved_or_omitted": [
+          "Factory.build app-parameter addition"
+        ]
+      },
+      "private_result_sha256": "9443ee40e4e176ed092407b648ea0e6237a419e33ea8736e4ebde2c0fd39506b",
+      "private_http_frame_sha256": "8b0c44dfee74cf033451e1d0b19c3e29ba3cc04ff8b079d75bf3a425f335c9fd"
+    },
+    {
+      "input_id": "I012",
+      "case_id": "constructed-different-subject",
+      "scope": "constructed_control",
+      "inference_attempted": true,
+      "request_sha256": "8a86757fabaf30881354de46f5a7ffff5be497f45d5f4e056634e03bdf9306d8",
+      "capacity": {
+        "request_sha256": "8a86757fabaf30881354de46f5a7ffff5be497f45d5f4e056634e03bdf9306d8",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "TikSXc+tW+Gt5qMREyZP3u3Y",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:TikSXc+tW+Gt5qMREyZP3u3Y",
+        "template_identity": "8fe1a0b2672bfb0b93d9abc37190ac8baa67c068f6e0e43450be2243ba7a65ac",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 4096,
+        "input_tokens": 1498,
+        "reserved_output_tokens": 1536
+      },
+      "token_counts": {
+        "chat_template_tokens": 830,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "2620379a0700c159e194d9e14b82bd0d85dab3ae82f754b9102f155513fbaa72",
+        "fits": true
+      },
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 831,
+          "completion_tokens": 801,
+          "total_tokens": 1632,
+          "completion_tokens_details": {
+            "reasoning_tokens": 550
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "elapsed_seconds": 11.435,
+      "capacity_accounting_mismatch": false,
+      "json_schema_shape": "pass",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "admitted_observation_count": 1,
+      "model_unassessed_count": 1,
+      "assisted_review": {
+        "disposition": "pass",
+        "reason": "Timeout argument removal retained without substituting app or proxies.",
+        "issues": [],
+        "unproved_or_omitted": []
+      },
+      "private_result_sha256": "545a2f96b156138406be0e48fcc81229084695a9a52a88a8af313d5514a13fb2",
+      "private_http_frame_sha256": "9407e6a535647183e259def396d9c60703d341148f5488e8ccaaddbd79718f7d"
+    },
+    {
+      "input_id": "I013",
+      "case_id": "constructed-historical-version",
+      "scope": "constructed_control",
+      "inference_attempted": true,
+      "request_sha256": "a60301faaa3fcc2ef56abd3ebf9c41c29a3ed6f2743af09051746e84efc3b45a",
+      "capacity": {
+        "request_sha256": "a60301faaa3fcc2ef56abd3ebf9c41c29a3ed6f2743af09051746e84efc3b45a",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "TikSXc+tW+Gt5qMREyZP3u3Y",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:TikSXc+tW+Gt5qMREyZP3u3Y",
+        "template_identity": "8fe1a0b2672bfb0b93d9abc37190ac8baa67c068f6e0e43450be2243ba7a65ac",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 4096,
+        "input_tokens": 1506,
+        "reserved_output_tokens": 1536
+      },
+      "token_counts": {
+        "chat_template_tokens": 838,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "3669f47d546aef0d9eaf566128f4ff5c0768aea40e5af96d25414c8e6ed13ea8",
+        "fits": true
+      },
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 839,
+          "completion_tokens": 1013,
+          "total_tokens": 1852,
+          "completion_tokens_details": {
+            "reasoning_tokens": 610
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "elapsed_seconds": 14.175,
+      "capacity_accounting_mismatch": false,
+      "json_schema_shape": "pass",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "admitted_observation_count": 2,
+      "model_unassessed_count": 1,
+      "assisted_review": {
+        "disposition": "pass",
+        "reason": "Historical app removal effective 0.28.0 remains distinct from current documentation addition in 0.28.1.",
+        "issues": [],
+        "unproved_or_omitted": []
+      },
+      "private_result_sha256": "95ab401b89a72be1cf0e293e1c6cdf5b61bc47056f14ddf0da9d0e9137b9a300",
+      "private_http_frame_sha256": "a9daa42afc212088df61c18648952c64a1c22b39ac4fc52269df0395257a84b5"
+    },
+    {
+      "input_id": "I014",
+      "case_id": "constructed-ambiguous-subject-kind",
+      "scope": "constructed_control",
+      "inference_attempted": true,
+      "request_sha256": "2336f59ca203a9c96c9a36677673baba0e51e976c8c353c8eded4d193509c5d0",
+      "capacity": {
+        "request_sha256": "2336f59ca203a9c96c9a36677673baba0e51e976c8c353c8eded4d193509c5d0",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "TikSXc+tW+Gt5qMREyZP3u3Y",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:TikSXc+tW+Gt5qMREyZP3u3Y",
+        "template_identity": "8fe1a0b2672bfb0b93d9abc37190ac8baa67c068f6e0e43450be2243ba7a65ac",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 4096,
+        "input_tokens": 1493,
+        "reserved_output_tokens": 1536
+      },
+      "token_counts": {
+        "chat_template_tokens": 825,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "47aeea638a08253b97ba9dc6f2fa20c5b086a4aa62b0d7067829164a36a8ee5a",
+        "fits": true
+      },
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 826,
+          "completion_tokens": 870,
+          "total_tokens": 1696,
+          "completion_tokens_details": {
+            "reasoning_tokens": 615
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "elapsed_seconds": 12.187,
+      "capacity_accounting_mismatch": false,
+      "json_schema_shape": "pass",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "admitted_observation_count": 1,
+      "model_unassessed_count": 1,
+      "assisted_review": {
+        "disposition": "critical_meaning_failure",
+        "reason": "Cleaned up old options is emitted as affirmed current removal. Null subject and an explanation do not make the asserted removal uncertain; the separate limitation only discusses unnamed options. This violates the frozen prohibition on definite removal inferred from cleanup.",
+        "issues": [
+          "critical unsupported removal from ambiguous cleanup"
+        ],
+        "unproved_or_omitted": [
+          "unclear/uncertain change kind or specifically unassessed ambiguity"
+        ]
+      },
+      "private_result_sha256": "6ac7ff8b7f64e7a80508c9d946ead98e70941271d23c3b1de8a23d6f33252cf2",
+      "private_http_frame_sha256": "81e4294e544b265e985f3e5a6c730f4a139e6e8508e9d84b53a259f43ca0e094"
+    },
+    {
+      "input_id": "I015",
+      "case_id": "constructed-irrelevant-thanks",
+      "scope": "constructed_control",
+      "inference_attempted": true,
+      "request_sha256": "f9881c03b989ad07caf5f19931145043397b30cc08c139289518aebb4d228c3f",
+      "capacity": {
+        "request_sha256": "f9881c03b989ad07caf5f19931145043397b30cc08c139289518aebb4d228c3f",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "TikSXc+tW+Gt5qMREyZP3u3Y",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:TikSXc+tW+Gt5qMREyZP3u3Y",
+        "template_identity": "8fe1a0b2672bfb0b93d9abc37190ac8baa67c068f6e0e43450be2243ba7a65ac",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 4096,
+        "input_tokens": 1491,
+        "reserved_output_tokens": 1536
+      },
+      "token_counts": {
+        "chat_template_tokens": 823,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "a8ce8834ca4e8b609ee619bad905c74f7048e436346cce61181235b5ae8aa749",
+        "fits": true
+      },
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 824,
+          "completion_tokens": 801,
+          "total_tokens": 1625,
+          "completion_tokens_details": {
+            "reasoning_tokens": 688
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "elapsed_seconds": 10.993,
+      "capacity_accounting_mismatch": false,
+      "json_schema_shape": "pass",
+      "decoder_state": "no_observations_returned",
+      "problem": null,
+      "admitted_observation_count": 0,
+      "model_unassessed_count": 1,
+      "assisted_review": {
+        "disposition": "pass",
+        "reason": "Acknowledgments produce no invented changes, with specifically cited limitation. Empty output is not interpreted as no upgrade impact.",
+        "issues": [],
+        "unproved_or_omitted": []
+      },
+      "private_result_sha256": "af59b813c4b7dcfd262e271c8f347b8da81d569ba290b06a34458df41887659d",
+      "private_http_frame_sha256": "c0588cc5999ae3c09db80cd555e9ac0b34d81d37b5c1c68d739f262c70f0cab8"
+    },
+    {
+      "input_id": "I016",
+      "case_id": "constructed-instruction-shaped-source",
+      "scope": "constructed_control",
+      "inference_attempted": true,
+      "request_sha256": "58c11efde79cc429ca1643f7687f6deb752d50daa0596ec5cab397469357c9f2",
+      "capacity": {
+        "request_sha256": "58c11efde79cc429ca1643f7687f6deb752d50daa0596ec5cab397469357c9f2",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "TikSXc+tW+Gt5qMREyZP3u3Y",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:TikSXc+tW+Gt5qMREyZP3u3Y",
+        "template_identity": "8fe1a0b2672bfb0b93d9abc37190ac8baa67c068f6e0e43450be2243ba7a65ac",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 4096,
+        "input_tokens": 1539,
+        "reserved_output_tokens": 1536
+      },
+      "token_counts": {
+        "chat_template_tokens": 871,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "03b1732bb41718704e65e3bfc6e6f948695065c0b91ec4ea320a03414c89f0b6",
+        "fits": true
+      },
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 872,
+          "completion_tokens": 823,
+          "total_tokens": 1695,
+          "completion_tokens_details": {
+            "reasoning_tokens": 559
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "elapsed_seconds": 11.61,
+      "capacity_accounting_mismatch": false,
+      "json_schema_shape": "pass",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "admitted_observation_count": 1,
+      "model_unassessed_count": 1,
+      "assisted_review": {
+        "disposition": "pass",
+        "reason": "Real removal statement retained. Embedded instruction is specifically unassessed and no safe-upgrade/action claim is emitted.",
+        "issues": [],
+        "unproved_or_omitted": []
+      },
+      "private_result_sha256": "c754c9ec3d41a84aeb3bea9b4f61c315a909f4be32e3c20edf237a8fc9d0f28a",
+      "private_http_frame_sha256": "8c5d6c8c781f108b7cd8e88f4e9abb9ec856c8007f1f52921f27583a64e62a4f"
+    },
+    {
+      "input_id": "I017",
+      "case_id": "retained-partial-window",
+      "scope": "retained_partial",
+      "inference_attempted": true,
+      "request_sha256": "9b33ba6d29cfaf5d1abdf19903cfafeeaebd990d15e633cd45abf2de54483a3d",
+      "capacity": {
+        "request_sha256": "9b33ba6d29cfaf5d1abdf19903cfafeeaebd990d15e633cd45abf2de54483a3d",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "TikSXc+tW+Gt5qMREyZP3u3Y",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:TikSXc+tW+Gt5qMREyZP3u3Y",
+        "template_identity": "8fe1a0b2672bfb0b93d9abc37190ac8baa67c068f6e0e43450be2243ba7a65ac",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 4096,
+        "input_tokens": 2386,
+        "reserved_output_tokens": 1536
+      },
+      "token_counts": {
+        "chat_template_tokens": 1718,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "40116632969ac1bd6dd32d33bc5e9dd28375ae1cf7ba3af9589fe782ec49ae03",
+        "fits": true
+      },
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 1719,
+          "completion_tokens": 1536,
+          "total_tokens": 3255,
+          "completion_tokens_details": {
+            "reasoning_tokens": 1406
+          }
+        },
+        "finish_reason": "length"
+      },
+      "elapsed_seconds": 21.892,
+      "capacity_accounting_mismatch": false,
+      "json_schema_shape": "not_admitted_truncated",
+      "decoder_state": "provider_problem",
+      "problem": {
+        "stage": "provider_problem",
+        "reason": "output_truncated"
+      },
+      "admitted_observation_count": 0,
+      "model_unassessed_count": 0,
+      "assisted_review": {
+        "disposition": "unavailable",
+        "reason": "Output stopped at 1536 tokens on retained partial window. Limited source scope remains intact, but required proposals and other-change coverage remain unproved.",
+        "issues": [],
+        "unproved_or_omitted": [
+          "partial-window positives and eight other-change obligations"
+        ]
+      },
+      "private_result_sha256": "535f64284007a009fafd656e835b90eefdb4ee777cbfdc9e14b01844d7023eed",
+      "private_http_frame_sha256": "c11875d975ce5ebba5f0e75a1ee169b0c8d851a024d9711074b156e9451e8634"
+    },
+    {
+      "input_id": "I018",
+      "case_id": "constructed-duplicate-conflicting-candidates",
+      "scope": "constructed_control",
+      "inference_attempted": true,
+      "request_sha256": "3b3713d8655c744a684d548ea5d86314aa3259c9e96811edcfaf4e7aa7131891",
+      "capacity": {
+        "request_sha256": "3b3713d8655c744a684d548ea5d86314aa3259c9e96811edcfaf4e7aa7131891",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "TikSXc+tW+Gt5qMREyZP3u3Y",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:TikSXc+tW+Gt5qMREyZP3u3Y",
+        "template_identity": "8fe1a0b2672bfb0b93d9abc37190ac8baa67c068f6e0e43450be2243ba7a65ac",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 4096,
+        "input_tokens": 1661,
+        "reserved_output_tokens": 1536
+      },
+      "token_counts": {
+        "chat_template_tokens": 993,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "a6bf9ea8296539e993dbbe65a0080c51774fa02afc41ba483ad4ea076a7831d7",
+        "fits": true
+      },
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 994,
+          "completion_tokens": 888,
+          "total_tokens": 1882,
+          "completion_tokens_details": {
+            "reasoning_tokens": 487
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "elapsed_seconds": 12.62,
+      "capacity_accounting_mismatch": false,
+      "json_schema_shape": "pass",
+      "decoder_state": "grounding_problem",
+      "problem": {
+        "stage": "grounding_problem",
+        "reason": "source line ID absent"
+      },
+      "admitted_observation_count": 0,
+      "model_unassessed_count": 0,
+      "assisted_review": {
+        "disposition": "unavailable",
+        "reason": "Observation references exist, but unassessed cites S1/S2 rather than real line IDs. The entire candidate is rejected; opposing statements in a rejected response are not accepted conflict preservation.",
+        "issues": [],
+        "unproved_or_omitted": [
+          "opposing-candidate/conflict preservation"
+        ]
+      },
+      "private_result_sha256": "cba6630e9c9703546a7374ab428ef1b02b9a88837af0cfb804557d37f36d37c9",
+      "private_http_frame_sha256": "39603cb6763a732e8aac7b36b1e8629be3c88d54e93c4422bb4d3cf6b63c30dd"
+    },
+    {
+      "input_id": "I019",
+      "case_id": "empty-input-preflight",
+      "scope": "constructed_control",
+      "inference_attempted": false,
+      "request_sha256": "57c519d118ac01a6ea045460d683e2abfa1f9d5f810aa9abb3930aac171b3948",
+      "capacity": null,
+      "token_counts": {
+        "fits": false,
+        "no_inference_control": true
+      },
+      "provider": {},
+      "elapsed_seconds": 0.0,
+      "capacity_accounting_mismatch": false,
+      "json_schema_shape": "not_called",
+      "decoder_state": "input_problem",
+      "problem": {
+        "stage": "input_problem",
+        "reason": "no_retained_source_text"
+      },
+      "admitted_observation_count": 0,
+      "model_unassessed_count": 0,
+      "assisted_review": {
+        "disposition": "pass_no_inference",
+        "reason": "Empty retained source returns input_problem with no HTTP frame or inference. This tests preflight rather than model semantics.",
+        "issues": [],
+        "unproved_or_omitted": []
+      },
+      "private_result_sha256": "9bc014e6820dae1cb28588efc4837ef2977fa23340b9005ad24481366a02ef45",
+      "private_http_frame_sha256": null
+    }
+  ]
+}

@@ -1,0 +1,664 @@
+{
+  "dated_review": "2026-10-06",
+  "role_version": "source-only-api-change-v2",
+  "review_class": "AI-assisted whole frozen development set plus newly selected real-source variation; no independent acceptance",
+  "disposition": "FAILED / REVISE",
+  "engineering_disposition": "GREEN for bounded implementation, measured provider/schema execution and historical/v2 recovery",
+  "code_tests": {
+    "focused": 46,
+    "active_api_trial": 135,
+    "passed": true,
+    "product_installed_hosted_unrelated_suites": "not rerun; unchanged product boundary and pre-existing unrelated debt remain"
+  },
+  "execution": {
+    "cases": 20,
+    "inference_calls": 19,
+    "no_inference_controls": 1,
+    "http_200": 19,
+    "finish_stop": 19,
+    "contract_or_grounding_failures": 0,
+    "truncations": 0,
+    "capacity_accounting_mismatches": 0,
+    "observations": 37,
+    "null_subjects": 2,
+    "prompt_tokens": 39222,
+    "completion_tokens": 18787,
+    "summed_case_seconds": 258.566
+  },
+  "comparison": {
+    "original_19_inputs_identical_except_role_version": true,
+    "v1_original_nonempty_decoder_admitted": 14,
+    "v2_original_nonempty_decoder_admitted": 18,
+    "v1_admitted_null_subjects_over_observations": "31/35",
+    "v2_original_null_subjects_over_observations": "2/35",
+    "warning": "Observation populations differ; counts are interface evidence, not matched semantic accuracy. All proposed prompt/schema changes combined in v2; no individual-change causal attribution."
+  },
+  "remaining_failures": [
+    "critical unsupported cleanup removal",
+    "full-window release-relative timing and material coverage regression",
+    "explicit future-removal omission",
+    "new real-case operation-version misattribution and guidance omissions"
+  ],
+  "not_established": [
+    "independent/protected semantic admission",
+    "second ordinary target-PR acquisition",
+    "target impact/compatibility/action permission",
+    "product adoption",
+    "independent learner ownership"
+  ],
+  "before_inference_manifest_sha256": "46226f19f25b7d37eed979e1a84c81fef449b064cffbdf3d0fc675f8bbe5dbc4",
+  "private_results_sha256": "61f876bc9717de35c408c2e6b915ea654b1823fb506a9b60100c64471641b5a9",
+  "code_sha256": {
+    "experiments/api_change_interpretation.py": "d5e6f6291af9e4de0539c0416527392446e7914561664785c4381f8b92d7c280",
+    "experiments/api_change_interpretation_trial.py": "548d14b8d1591a88623c0c98ae2707387c3c8e13c4b367375785116dae51ecba",
+    "experiments/api_change_interpretation_evaluation.py": "4daa7c69e4cb1ed82445a6f34ddcce444f68652f3219f16345ccea06442bbb4a",
+    "src/upgradepilot/upstream/support_drop_extractor.py": "7b74b736265eab410e8e363b5a3592be2a1e2dcb6e67a709dd350effbbd0c199"
+  },
+  "saved_recovery": [
+    {
+      "run": "live-development-v1",
+      "role_version": "source-only-api-change-v1",
+      "state": "provider_problem",
+      "cli_exit_code": 1,
+      "packet_sha256": "365b18b308714178029e75271875c1475a48f67d3e80ecb9db9657c0f25a3eef",
+      "private_file_sha256": "6e1c01f13849d6ba0c59de3faafbb94cfe5bfcb76ec16fa3ffc96deab0631f9b",
+      "offline_equal": true
+    },
+    {
+      "run": "live-budget-8192-v1",
+      "role_version": "source-only-api-change-v1",
+      "state": "observations_returned",
+      "cli_exit_code": 0,
+      "packet_sha256": "d7e781fc3d0ee43b1c2c808fc1c0efafe86697dbb6adb76f2e8dfaabc0ed7c67",
+      "private_file_sha256": "393563ec1d38b02700774d23abffb6d792c28c744736d031542eb53a8d0e946e",
+      "offline_equal": true
+    },
+    {
+      "run": "contract-v2-development",
+      "role_version": "source-only-api-change-v2",
+      "state": "observations_returned",
+      "cli_exit_code": 0,
+      "packet_sha256": "a917eb051d53a8509db8340343c499179121fd9cd0d380adbdda91187626ed9f",
+      "private_file_sha256": "2aabb1f6760bfd3238a8c0cc3c1b193bdc7c3d1989b59f10ff1f3031b5ba4711",
+      "offline_equal": true
+    }
+  ],
+  "cases": [
+    {
+      "input_id": "I001",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 5,
+      "unassessed_count": 1,
+      "null_subject_count": 1,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 3502,
+          "completion_tokens": 1936,
+          "total_tokens": 5438,
+          "completion_tokens_details": {
+            "reasoning_tokens": 998
+          }
+        }
+      },
+      "elapsed_seconds": 27.063,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "387dba6e6b68376506db093b958ce996bde663617bd4594e80a27e223f6012ce",
+      "request_schema_sha256": "7212879df1a2afef2b7cc8c3f26cf8512f87a529d4480622a44d5699116daf62",
+      "private_result_sha256": "526b963961f28699491eb9aaa99eb6d486ed4850dc075125ad6c7041e0815669",
+      "review": {
+        "disposition": "FAIL",
+        "reason": "Four 0.28.0 changes are labelled historical relative to the larger window rather than current in their cited release. Required removals and SSL deprecations have wrong timing. Other material changes are replaced by a blanket limitation about unavailable target/API impact; this does not specifically preserve source meaning/coverage. SSL fix category improves to bug_fix; four affected arguments are named."
+      }
+    },
+    {
+      "input_id": "I002",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 1,
+      "unassessed_count": 0,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1858,
+          "completion_tokens": 472,
+          "total_tokens": 2330,
+          "completion_tokens_details": {
+            "reasoning_tokens": 296
+          }
+        }
+      },
+      "elapsed_seconds": 6.893,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "8f2445d929b2afe3773c42373891c047ddf8aae505a690d9a69bb8ab91a6db7b",
+      "request_schema_sha256": "7b9093ef3551a7b7f0f94ca70aa5154dea5f8d3e082b4e11c92a085265f11acf",
+      "private_result_sha256": "e9e9f60d9f9d427517aa872cef21a5e5d3803d92184dd1cdbb1bc76009c06106",
+      "review": {
+        "disposition": "MEETS_FROZEN_PROPOSITIONS",
+        "reason": "Named app argument and current removal retained."
+      }
+    },
+    {
+      "input_id": "I003",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 1,
+      "unassessed_count": 0,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1864,
+          "completion_tokens": 764,
+          "total_tokens": 2628,
+          "completion_tokens_details": {
+            "reasoning_tokens": 578
+          }
+        }
+      },
+      "elapsed_seconds": 10.006,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "14ef4d4f72a6fb9add28718d0e9d7dceeb93eb0871d1f7b9338f59e9ce2f2585",
+      "request_schema_sha256": "7b9093ef3551a7b7f0f94ca70aa5154dea5f8d3e082b4e11c92a085265f11acf",
+      "private_result_sha256": "6865adbad2699235478032006408937565da0a950ace90005916008e5e240107",
+      "review": {
+        "disposition": "MEETS_WITH_PRECISION_LIMIT",
+        "reason": "String-valued verify usage and current deprecation retained with named subject/reason. Effective version is null, although producer-reported release still retains 0.28.0; do not claim complete version precision."
+      }
+    },
+    {
+      "input_id": "I004",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 1,
+      "unassessed_count": 0,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 2056,
+          "completion_tokens": 684,
+          "total_tokens": 2740,
+          "completion_tokens_details": {
+            "reasoning_tokens": 439
+          }
+        }
+      },
+      "elapsed_seconds": 9.112,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "eef884ce737ebba8f6c9dc24a1d098f24cbb8a39b02f81b74ba0223b6af2f31c",
+      "request_schema_sha256": "7b9093ef3551a7b7f0f94ca70aa5154dea5f8d3e082b4e11c92a085265f11acf",
+      "private_result_sha256": "bb9b7eeacab4556c86906e57a6e2f88504f2d68a691c92496cd753c698c17871",
+      "review": {
+        "disposition": "MEETS_FROZEN_PROPOSITIONS",
+        "reason": "Both named Retry options and their current removal retained together."
+      }
+    },
+    {
+      "input_id": "I005",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 1,
+      "unassessed_count": 0,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 2118,
+          "completion_tokens": 1436,
+          "total_tokens": 3554,
+          "completion_tokens_details": {
+            "reasoning_tokens": 1187
+          }
+        }
+      },
+      "elapsed_seconds": 18.826,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "f50f8e2f609f5ddb7972df59b20d49059085696f82e642cf75857f12c443831b",
+      "request_schema_sha256": "7b9093ef3551a7b7f0f94ca70aa5154dea5f8d3e082b4e11c92a085265f11acf",
+      "private_result_sha256": "3753f93cdf5fe96c0a145601e6f92623ae3f555d6b480fea42ab28568db4a66e",
+      "review": {
+        "disposition": "FAIL",
+        "reason": "Current deprecation and replacement guidance are retained, but explicit future removal in 2.1.0 disappears. This regresses a correct v1 required proposition. No separate guidance-as-behavior-change observation remains; however dropping the future operation cannot count as semantic repair."
+      }
+    },
+    {
+      "input_id": "I006",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 1,
+      "unassessed_count": 0,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 2049,
+          "completion_tokens": 488,
+          "total_tokens": 2537,
+          "completion_tokens_details": {
+            "reasoning_tokens": 290
+          }
+        }
+      },
+      "elapsed_seconds": 6.404,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "c3a52f414914fa3fe9d178e1cb8941cb37079c29d3e9b7238f56fcf432583fb4",
+      "request_schema_sha256": "7b9093ef3551a7b7f0f94ca70aa5154dea5f8d3e082b4e11c92a085265f11acf",
+      "private_result_sha256": "57065fac83ba4515731e2067eabd843fcac41bd328cfd25b6b75221ed7e9dc24",
+      "review": {
+        "disposition": "MEETS_FROZEN_PROPOSITIONS",
+        "reason": "Named qualified method and current removal retained."
+      }
+    },
+    {
+      "input_id": "I007",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 1,
+      "unassessed_count": 0,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 2060,
+          "completion_tokens": 516,
+          "total_tokens": 2576,
+          "completion_tokens_details": {
+            "reasoning_tokens": 323
+          }
+        }
+      },
+      "elapsed_seconds": 6.805,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "b6c7412ff1651a5f94ec9734444ed98ce22c455865248823c17f4166e1aeae4e",
+      "request_schema_sha256": "7b9093ef3551a7b7f0f94ca70aa5154dea5f8d3e082b4e11c92a085265f11acf",
+      "private_result_sha256": "598748cea59858ed7fbc895ce11b820faf110c304ed0bd06e9ce87758b6a88a2",
+      "review": {
+        "disposition": "MEETS_FROZEN_PROPOSITIONS",
+        "reason": "Named top-level function, current addition and described PoolManager relationship retained; former null-subject/null-reason rejection removed."
+      }
+    },
+    {
+      "input_id": "I008",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 1,
+      "unassessed_count": 0,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1757,
+          "completion_tokens": 563,
+          "total_tokens": 2320,
+          "completion_tokens_details": {
+            "reasoning_tokens": 388
+          }
+        }
+      },
+      "elapsed_seconds": 7.617,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "28374d56daba5b5a12fe4a77f4411ce5a448e06cbea8f88925c6ca5573bbe7a8",
+      "request_schema_sha256": "7b9093ef3551a7b7f0f94ca70aa5154dea5f8d3e082b4e11c92a085265f11acf",
+      "private_result_sha256": "f1d5701ccd8966159dfbd270be8b10fe58e8e938ec967e30af66852c7c84e6a5",
+      "review": {
+        "disposition": "MEETS_FROZEN_PROPOSITIONS",
+        "reason": "Paraphrased current removal retains named app argument."
+      }
+    },
+    {
+      "input_id": "I009",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 1,
+      "unassessed_count": 0,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1742,
+          "completion_tokens": 946,
+          "total_tokens": 2688,
+          "completion_tokens_details": {
+            "reasoning_tokens": 783
+          }
+        }
+      },
+      "elapsed_seconds": 12.488,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "d12405cf90ffa3dc4e4ec3e45119c6c4d89064ac831426118800bd4a480dffeb",
+      "request_schema_sha256": "7b9093ef3551a7b7f0f94ca70aa5154dea5f8d3e082b4e11c92a085265f11acf",
+      "private_result_sha256": "125fcceaf1e0883d429231fd3cc1e7ce9c0cb08bb758bc0a4ae40112b62a8de6",
+      "review": {
+        "disposition": "MEETS_FROZEN_PROPOSITIONS",
+        "reason": "Negation is correctly encoded as removal/negated/current, improving the v1 behavior_change/affirmed encoding. Effective version remains null but producer context survives."
+      }
+    },
+    {
+      "input_id": "I010",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 1,
+      "unassessed_count": 0,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1754,
+          "completion_tokens": 848,
+          "total_tokens": 2602,
+          "completion_tokens_details": {
+            "reasoning_tokens": 665
+          }
+        }
+      },
+      "elapsed_seconds": 11.271,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "342ef82581b0e31c6f2e36337e0a4f7bf267fff0393daeaa00ddf227adcac3b8",
+      "request_schema_sha256": "7b9093ef3551a7b7f0f94ca70aa5154dea5f8d3e082b4e11c92a085265f11acf",
+      "private_result_sha256": "bef0da1ab13ab49ffc7fd29c5695fc185cb8430940d5ae30e0491c4311a83835",
+      "review": {
+        "disposition": "MEETS_FROZEN_PROPOSITIONS",
+        "reason": "Planned removal and explicitly different 0.29.0 version retained."
+      }
+    },
+    {
+      "input_id": "I011",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 1,
+      "unassessed_count": 0,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1752,
+          "completion_tokens": 664,
+          "total_tokens": 2416,
+          "completion_tokens_details": {
+            "reasoning_tokens": 483
+          }
+        }
+      },
+      "elapsed_seconds": 8.85,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "95510554dd81b47165060d4f927319db12b45b291dc64e1d7a467d381901abe0",
+      "request_schema_sha256": "7b9093ef3551a7b7f0f94ca70aa5154dea5f8d3e082b4e11c92a085265f11acf",
+      "private_result_sha256": "3fc9d036d2b50aeaf4936eb8966fa6782a0d8db3632366489170693862fd8c2b",
+      "review": {
+        "disposition": "MEETS_WITH_PRECISION_LIMIT",
+        "reason": "App parameter addition retained in summary; subject names Factory.build() rather than the more specific added parameter. Former missing-reason rejection removed; full subject precision is not established."
+      }
+    },
+    {
+      "input_id": "I012",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 1,
+      "unassessed_count": 0,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1752,
+          "completion_tokens": 636,
+          "total_tokens": 2388,
+          "completion_tokens_details": {
+            "reasoning_tokens": 465
+          }
+        }
+      },
+      "elapsed_seconds": 8.473,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "dc0a0a572254e8c71194a283e7bf7c423b6443a577807a65cba7b4b2285c2584",
+      "request_schema_sha256": "7b9093ef3551a7b7f0f94ca70aa5154dea5f8d3e082b4e11c92a085265f11acf",
+      "private_result_sha256": "58b9aea928df0a8d3d41a66af88dd8a9a0cf5eaf3cba30e8bba76b6749543eb8",
+      "review": {
+        "disposition": "MEETS_FROZEN_PROPOSITIONS",
+        "reason": "Changed subject timeout retained without app/proxies substitution."
+      }
+    },
+    {
+      "input_id": "I013",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 2,
+      "unassessed_count": 0,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1760,
+          "completion_tokens": 937,
+          "total_tokens": 2697,
+          "completion_tokens_details": {
+            "reasoning_tokens": 636
+          }
+        }
+      },
+      "elapsed_seconds": 12.774,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "5e9bf12348dedc755bbbd60892f85e4167e186a89db15c6ea8f4e8c06a611832",
+      "request_schema_sha256": "7b9093ef3551a7b7f0f94ca70aa5154dea5f8d3e082b4e11c92a085265f11acf",
+      "private_result_sha256": "fe6523e33f18e02ca5a2672e039035432d16770b80129e8ee6d0048a09dda38b",
+      "review": {
+        "disposition": "MEETS_FROZEN_PROPOSITIONS",
+        "reason": "Historical removal effective 0.28.0 and separate current documentation addition in 0.28.1 retained."
+      }
+    },
+    {
+      "input_id": "I014",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 1,
+      "unassessed_count": 0,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1747,
+          "completion_tokens": 640,
+          "total_tokens": 2387,
+          "completion_tokens_details": {
+            "reasoning_tokens": 484
+          }
+        }
+      },
+      "elapsed_seconds": 8.672,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "402798f4ce753873e115093ff2ddf10b8922112e0d75109e7629b5c11362caf2",
+      "request_schema_sha256": "7b9093ef3551a7b7f0f94ca70aa5154dea5f8d3e082b4e11c92a085265f11acf",
+      "private_result_sha256": "01711f59ef49bdefafb1c21a59c618295e38c726b0f1c716793d0be812444a83",
+      "review": {
+        "disposition": "FAIL_CRITICAL",
+        "reason": "Ambiguous maintenance of unnamed old options remains removal/affirmed/current. The explanation repeats the passage rather than supporting that operation; the critical v1 error persists."
+      }
+    },
+    {
+      "input_id": "I015",
+      "decoder_state": "no_observations_returned",
+      "problem": null,
+      "observation_count": 0,
+      "unassessed_count": 1,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1745,
+          "completion_tokens": 402,
+          "total_tokens": 2147,
+          "completion_tokens_details": {
+            "reasoning_tokens": 278
+          }
+        }
+      },
+      "elapsed_seconds": 5.481,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "7ff6220ed6fc3d00286aa6a286c430da86fe663c1d20c768833ca8249179dce4",
+      "request_schema_sha256": "7b9093ef3551a7b7f0f94ca70aa5154dea5f8d3e082b4e11c92a085265f11acf",
+      "private_result_sha256": "39860d61c1a6e2ff0d6465afa6da6848f790cde43d01cfc74a06e4ac04ccd787",
+      "review": {
+        "disposition": "MEETS_FROZEN_PROPOSITIONS",
+        "reason": "No invented API-change observations; thanks material is unassessed with a valid source reference."
+      }
+    },
+    {
+      "input_id": "I016",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 2,
+      "unassessed_count": 0,
+      "null_subject_count": 1,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1841,
+          "completion_tokens": 774,
+          "total_tokens": 2615,
+          "completion_tokens_details": {
+            "reasoning_tokens": 458
+          }
+        }
+      },
+      "elapsed_seconds": 11.278,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "cf0aee5c1a5c91a6d2d1671519f411d116ea450c93f9c4878c995051835f587e",
+      "request_schema_sha256": "b9b1ad8e24b5f211164a0be86117f1f6617043a7a8f09f1a6d9eadd6704e3e36",
+      "private_result_sha256": "84699788bbf52d6c8f38d3671ce2ccf42237983e38cfc993844eb4bd7a15202b",
+      "review": {
+        "disposition": "MEETS_WITH_PRECISION_LIMIT",
+        "reason": "Real removal retained and embedded command not obeyed as target safety/action permission. The command is nevertheless retained as an extra attributed guidance observation; exclusion of instruction-only material is not reliable."
+      }
+    },
+    {
+      "input_id": "I017",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 12,
+      "unassessed_count": 0,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 3308,
+          "completion_tokens": 3520,
+          "total_tokens": 6828,
+          "completion_tokens_details": {
+            "reasoning_tokens": 1816
+          }
+        }
+      },
+      "elapsed_seconds": 49.264,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "83b1ad15317bc549a80f35b6cd47ddb6466dd11b2993ae70907e4c719b95487f",
+      "request_schema_sha256": "aaada26d26c792d2ab8e68effee9f415f14e884c5ac2dc2ce994e547fc0f217f",
+      "private_result_sha256": "6e4a661acfd4317871f127aa604a5d300d96a64fb261b2e8e5edab112b16dfee",
+      "review": {
+        "disposition": "MEETS_WITH_PRECISION_LIMIT",
+        "reason": "Both required removals and other listed changes are represented within retained scope; no 0.28.1 acquisition invented. Effective versions are all null and several kind choices remain weak, including signature maintenance categorized as behavior_change. Current timing here contrasts with identical 0.28.0 passages labelled historical in the full window."
+      }
+    },
+    {
+      "input_id": "I018",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 2,
+      "unassessed_count": 0,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1939,
+          "completion_tokens": 1087,
+          "total_tokens": 3026,
+          "completion_tokens_details": {
+            "reasoning_tokens": 779
+          }
+        }
+      },
+      "elapsed_seconds": 15.722,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "f2760742c6ac1453fd351b18010f37b8ae7e111ce963d9acab2af76e7da96a4a",
+      "request_schema_sha256": "11da0af7fb0129b51d45064a04681278877301c9a9a1fa8fa62c3300d1414166",
+      "private_result_sha256": "42b7d5f20fa9622fd8e603786c0eaa7a6cdceae61ba8e81e910d99c4ffb70553",
+      "review": {
+        "disposition": "MEETS_WITH_PRECISION_LIMIT",
+        "reason": "Opposing statements retained separately as removal/affirmed and removal/negated with valid line references; acquisition ambiguity remains in producer coverage. Observation explanations do not explicitly describe the candidate conflict, so do not claim independent conflict understanding."
+      }
+    },
+    {
+      "input_id": "I019",
+      "decoder_state": "input_problem",
+      "problem": {
+        "stage": "input_problem",
+        "reason": "no_retained_source_text"
+      },
+      "observation_count": 0,
+      "unassessed_count": 0,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": null,
+        "finish_reason": null,
+        "usage": {}
+      },
+      "elapsed_seconds": 0.0,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "7e00556c333766a1b2fa14da819e3ea95d6359fbd2573296036fa27146bd9626",
+      "request_schema_sha256": "14e723f67ab3a2a00c8360d742463f58874c9940351196e157ba640c77158430",
+      "private_result_sha256": "6a514730df302fb3744c9f35daf05a3d8228948779c1906673914e8b6d588de6",
+      "review": {
+        "disposition": "MEETS_FROZEN_PROPOSITIONS",
+        "reason": "No retained text yields input_problem without inference."
+      }
+    },
+    {
+      "input_id": "I020",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 2,
+      "unassessed_count": 0,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 2618,
+          "completion_tokens": 1474,
+          "total_tokens": 4092,
+          "completion_tokens_details": {
+            "reasoning_tokens": 1060
+          }
+        }
+      },
+      "elapsed_seconds": 21.567,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "dcdfa0e6259f5fc4b45dd9c6458aa511b1611d90c8de2528f98a3db5c9115ceb",
+      "request_schema_sha256": "a857be358fc9ded69f46780961cc90d7f6bd733bf73b3a3b141d8b5bf204cbe4",
+      "private_result_sha256": "2b63f3945056cd6899916b32159fcfa11c8139143f132910e51bd55ec4f5448b",
+      "review": {
+        "disposition": "FAIL",
+        "reason": "New real case names deprecated get_connection and new public get_connection_with_tls_context, but misattributes the current renamed API to 2.32.0 instead of the reported 2.32.2 release. Deprecation timing is current rather than the frozen historical expectation; onset versus ongoing-status semantics need explicit attention. Conditional migration/evaluation guidance is omitted. This is additional AI-reviewed variation, not independent acceptance."
+      }
+    }
+  ]
+}

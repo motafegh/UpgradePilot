@@ -1,0 +1,862 @@
+{
+  "kind": "separately_frozen_completion_budget_comparison",
+  "date": "2026-10-05",
+  "baseline": "../2026-10-05-api-interpretation-live-evaluation/reviewed-results.json",
+  "settings": {
+    "model": "gemma-4-e4b-it-ud",
+    "loaded_context": 16384,
+    "max_completion_tokens": 8192,
+    "temperature": 0,
+    "seed": 0,
+    "serial": true,
+    "changed_request_fields": [
+      "max_tokens"
+    ],
+    "prompt_schema_source_unchanged": true,
+    "no_automatic_retry": true
+  },
+  "runtime": {
+    "packages": {
+      "lmstudio": "1.5.0",
+      "requests": "2.34.2",
+      "packaging": "26.2",
+      "httpx": "0.28.1",
+      "anyio": "4.14.2"
+    },
+    "model": {
+      "type": "llm",
+      "modelKey": "gemma-4-e4b-it-ud",
+      "format": "gguf",
+      "displayName": "Gemma 4 E4B Instruct UD",
+      "path": "lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf",
+      "sizeBytes": 5101713792,
+      "identifier": "gemma-4-e4b-it-ud",
+      "instanceReference": "h+FHNYqEJ0zJAVe5YXHQ0kWm",
+      "vision": false,
+      "trainedForToolUse": true,
+      "maxContextLength": 131072,
+      "contextLength": 16384,
+      "paramsString": "7.5B",
+      "architecture": "gemma4"
+    },
+    "load_config": {
+      "gpu": {
+        "ratio": 1.0
+      },
+      "gpuStrictVramCap": true,
+      "offloadKVCacheToGpu": true,
+      "contextLength": 16384,
+      "flashAttention": true
+    },
+    "template_identity_basis": "actual loaded-instance config and SDK-applied fixed chat probe",
+    "template_identity": "faab5f045d792d6b660612eaaea293d64bf579d3cf78285b6d0ac6f972cf3d60"
+  },
+  "before_inference_manifest_sha256": "a67be867ccb5454e954ffbd1dbc08fa1126439850b728a6359fe5fe4c2197ceb",
+  "before_inference": {
+    "role_version": "source-only-api-change-v1",
+    "model_outputs_seen": false,
+    "source_inputs_sha256": "85347e62923ef03a414a519b5cb2b54ead706981461edc4ccc634f71e97e7fa8",
+    "evaluation_expectations_sha256": "8e966d2c12b071f0c3764ce98fd370a8491622410daf459cd1c69a642e11ce09",
+    "historical_context_sha256": "1e79f2b75abd1cbaf79a7deb61fec1d8f4b9ee68cbd9834c586443ac6976a5dc",
+    "code_sha256": {
+      "experiments/api_change_interpretation.py": "78a161e49b3f7a970013f120c6ba708623b2d07b6af45f5607d53e688743f7b7",
+      "experiments/api_change_interpretation_trial.py": "884f3a17e986476cce20712fe710690fbae70fb0e95d84d7e1acd63ac29b3b6b",
+      "experiments/api_change_interpretation_evaluation.py": "51fe1f13fc871c0e9ce724cd5e863c61b92fbcc63e4a50b51ecccd551e0c336a",
+      "src/upgradepilot/upstream/support_drop_extractor.py": "7b74b736265eab410e8e363b5a3592be2a1e2dcb6e67a709dd350effbbd0c199"
+    },
+    "review_class": "frozen assisted development; semantic review pending; no independent acceptance"
+  },
+  "private_results_sha256": "159242c54de84dc4156144fd34131a3256f3dcada46a77c99089a99a8ca6500b",
+  "summary": {
+    "calls": 18,
+    "empty_no_inference_controls": 1,
+    "capacity_fit": 18,
+    "accounting_mismatches": 0,
+    "http_200": 18,
+    "finish_stop": 18,
+    "truncations": 0,
+    "json_schema_shape_completed": 18,
+    "additional_contract_failures": 3,
+    "grounding_failures": 1,
+    "decoder_admitted": 14,
+    "responses_with_observations": 13,
+    "observations": 35,
+    "null_subject_observations": 31,
+    "unchanged_final_replies_on_previously_completed_cases": 16,
+    "summed_latency_seconds": 261.5,
+    "completion_tokens": 18784,
+    "budget_repair": "VERIFIED for selected frozen inputs/settings",
+    "development_semantic_acceptance": false,
+    "critical_meaning_failure_still_present": "I014"
+  },
+  "saved_recovery": {
+    "extended_httpx_saved_bytes": 708945,
+    "extended_httpx_packet_equal_after_offline_cli": true,
+    "extended_offline_cli_exit": 0,
+    "historical_failed_packet_recovers_under_new_default": true
+  },
+  "causal_interpretation": [
+    "Previously truncated full/partial cases finish at 2672/3067 completion tokens, exceeding the old 1536 ceiling; output budget was the immediate failure mechanism.",
+    "The loaded-context and output-ceiling change is one capacity intervention; individual effects of those two changes were not isolated.",
+    "All sixteen previously completed final replies are byte-identical despite the larger capacity. Missing reasons, invalid IDs, unnecessary nulls and wrong meanings in those cases are not explained by the old completion ceiling.",
+    "Repeated outputs do not prove universal determinism or diagnose model training/quantization internals.",
+    "Full/partial required observations are now recoverable, but structured-subject precision and a critical wrong meaning still prevent admitting the role."
+  ],
+  "cases": [
+    {
+      "input_id": "I001",
+      "request_sha256": "b0f455e09745d0c232b4cff814012815225c3b84cbccd4278af93e31c2ebaecf",
+      "input_sha256": "fb099e9ffd7b0afda529ccead827d6a9a3941ec26d9790ddc8d91b84fa4cdd49",
+      "counts": {
+        "chat_template_tokens": 1816,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "3278b75106d89b30ea1e96c990e9cf243c703a1b07cfe744f6cabf01c276ca0e",
+        "fits": true
+      },
+      "input_tokens_with_allowance": 2484,
+      "reserved_output_tokens": 8192,
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 1817,
+          "completion_tokens": 2672,
+          "total_tokens": 4489,
+          "completion_tokens_details": {
+            "reasoning_tokens": 845
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observations": 11,
+      "null_subjects": 11,
+      "elapsed_seconds": 37.476,
+      "same_completed_final_reply_as_initial_pass": null,
+      "assisted_review": {
+        "disposition": "required_propositions_and_coverage_retained_with_precision_cautions",
+        "reason": "Both current removals and all nine required-or-unassessed other-change obligations are represented. Eleven observations cite their actual supplied lines. All subjects remain null despite named entities; SSL fix is classified as behavior_change. Useful full-window output now exists, but typed precision and role acceptance remain separate."
+      },
+      "private_result_sha256": "98218aebebe3a214a9221782696fb7a787ce564569b9f321e75270c608b95436",
+      "private_http_frame_sha256": "bc2f79010e8acdcdee9b3a3095ed15588381b666d2f06fa47d604cec43372577"
+    },
+    {
+      "input_id": "I002",
+      "request_sha256": "58b41f8a37b7d49fe8ef7b0b51b73a407abf6ca4dbe67beff2d7cf29691bb096",
+      "input_sha256": "cd7c4866a24331db78df135a5091d21adb72a37a65c1f2071c509af1e47c7f1c",
+      "counts": {
+        "chat_template_tokens": 936,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "6bbf1882aeeb3df840f0a8e7be47f020f6be803352beaaf7e02058730c5108d0",
+        "fits": true
+      },
+      "input_tokens_with_allowance": 1604,
+      "reserved_output_tokens": 8192,
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 937,
+          "completion_tokens": 542,
+          "total_tokens": 1479,
+          "completion_tokens_details": {
+            "reasoning_tokens": 276
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observations": 1,
+      "null_subjects": 1,
+      "elapsed_seconds": 7.693,
+      "same_completed_final_reply_as_initial_pass": true,
+      "assisted_review": {
+        "disposition": "pass",
+        "reason": "Current app removal in 0.28.0 retained in the summary. Unknown owner remains null with explanation.",
+        "issues": [],
+        "unproved_or_omitted": []
+      },
+      "private_result_sha256": "9d897a015e1d7ada1c36a42fcb2e2371b340b88514883f682a8d94be6232e86b",
+      "private_http_frame_sha256": "45cbbe896eb467d8f0adec72710ea08e569bafc88f731362ea58503617f09424"
+    },
+    {
+      "input_id": "I003",
+      "request_sha256": "d9543ae17bc342930fd917ec2a9125d5b8638a278529ea000962ea12533a6d1b",
+      "input_sha256": "3c9586a215249f805fa69e7f6d7331b52347a2de5b9b5e415e0d6691ef62a6b7",
+      "counts": {
+        "chat_template_tokens": 942,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "761c02fc496397af7bfd6c8432a69198899565491d22116da4af3abbc32a4f12",
+        "fits": true
+      },
+      "input_tokens_with_allowance": 1610,
+      "reserved_output_tokens": 8192,
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 943,
+          "completion_tokens": 751,
+          "total_tokens": 1694,
+          "completion_tokens_details": {
+            "reasoning_tokens": 501
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "decoder_state": "contract_problem",
+      "problem": {
+        "stage": "contract_problem",
+        "reason": "invalid_structured_output"
+      },
+      "observations": 0,
+      "null_subjects": 0,
+      "elapsed_seconds": 10.275,
+      "same_completed_final_reply_as_initial_pass": true,
+      "assisted_review": {
+        "disposition": "unavailable",
+        "reason": "JSON/schema shape passes, but null subject has a null reason. Decoder correctly rejects the missing required explanation.",
+        "issues": [],
+        "unproved_or_omitted": [
+          "string-valued verify deprecation"
+        ]
+      },
+      "private_result_sha256": "1521d68dc7019a7ce8c7ccb15fbe247805ecbae0a5d9ae7d0e3e74a7a31ce7e8",
+      "private_http_frame_sha256": "4ebb6e184e03faf0320b0aa73b0f82f6b88cf6a7d89494140b58c1ca8cabad1a"
+    },
+    {
+      "input_id": "I004",
+      "request_sha256": "4b19f5b0aa2b3ffc50bdb3f772b663c6b7f41bdc1489c29aecf2892f8b6f9c56",
+      "input_sha256": "0e42a046674683d40e4a78f5aee32f4a3b769c4c79c56111609190af1650ecf3",
+      "counts": {
+        "chat_template_tokens": 1134,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "728b92a5c417d9a4070f40dc7823a69880763707a9cf4356926c3338d0a6d1ef",
+        "fits": true
+      },
+      "input_tokens_with_allowance": 1802,
+      "reserved_output_tokens": 8192,
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 1135,
+          "completion_tokens": 876,
+          "total_tokens": 2011,
+          "completion_tokens_details": {
+            "reasoning_tokens": 610
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observations": 1,
+      "null_subjects": 1,
+      "elapsed_seconds": 12.146,
+      "same_completed_final_reply_as_initial_pass": true,
+      "assisted_review": {
+        "disposition": "pass",
+        "reason": "Both Retry option removals retained in one supported current observation. Shared meaning does not require two output objects.",
+        "issues": [],
+        "unproved_or_omitted": []
+      },
+      "private_result_sha256": "0b8f179b144b7c7e8e5911268a45574d17d5973719cf284b456f96deb1150b4a",
+      "private_http_frame_sha256": "a0150f3e1c6416e8737e590700f6e0f01d74c28c58bf31440706797a429a0c98"
+    },
+    {
+      "input_id": "I005",
+      "request_sha256": "3699ab6349920006f1380333573da8f5703effb4e852d53284db2ad1b46851b5",
+      "input_sha256": "75b9fa15c6a327fa8cc438aced737b475a5736e3a42aa9bb7c047fd8a1312254",
+      "counts": {
+        "chat_template_tokens": 1196,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "f19673e33da7367b782af0ccce19a062996a6f4369615b5b38bc131d4110eee6",
+        "fits": true
+      },
+      "input_tokens_with_allowance": 1864,
+      "reserved_output_tokens": 8192,
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 1197,
+          "completion_tokens": 1152,
+          "total_tokens": 2349,
+          "completion_tokens_details": {
+            "reasoning_tokens": 542
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observations": 3,
+      "null_subjects": 3,
+      "elapsed_seconds": 15.722,
+      "same_completed_final_reply_as_initial_pass": true,
+      "assisted_review": {
+        "disposition": "meaning_issue",
+        "reason": "Required current deprecation and planned removal in 2.1.0 are retained. An extra behavior_change observation casts replacement guidance as a current change; the source does not establish that additional change.",
+        "issues": [
+          "noncritical unsupported change-kind classification for replacement guidance"
+        ],
+        "unproved_or_omitted": []
+      },
+      "private_result_sha256": "52dcf2ef64d23d46c2c17fee92f4c9db38c72835f91e83cb310372657b91c642",
+      "private_http_frame_sha256": "6dfde207f1f49326ca9de99bef2683e4edd878d4e785951a3fa3e4e245ca64ea"
+    },
+    {
+      "input_id": "I006",
+      "request_sha256": "f74bb6221e7e4dca98dd6bb638cb5ce58b84eb3147ca9e81e1e72daea95781b1",
+      "input_sha256": "3c187e42e1374a534dd7944d78e9ff6415779584c8ebf13a827a0d53c70c1b55",
+      "counts": {
+        "chat_template_tokens": 1127,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "e8b91c8219fb5ca93b111a30ad722bb54128a5d982f3842cc9d44bf1725c3c27",
+        "fits": true
+      },
+      "input_tokens_with_allowance": 1795,
+      "reserved_output_tokens": 8192,
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 1128,
+          "completion_tokens": 726,
+          "total_tokens": 1854,
+          "completion_tokens_details": {
+            "reasoning_tokens": 469
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observations": 1,
+      "null_subjects": 0,
+      "elapsed_seconds": 9.786,
+      "same_completed_final_reply_as_initial_pass": true,
+      "assisted_review": {
+        "disposition": "pass",
+        "reason": "Qualified HTTPResponse.from_httplib method removal retained, current in 2.0.0.",
+        "issues": [],
+        "unproved_or_omitted": []
+      },
+      "private_result_sha256": "9b9b963c54990bb9802c663a28dbb53202518bb03264805452af35adba1efd18",
+      "private_http_frame_sha256": "328b6eee0b05698e92836a13f85576fa1c338bee89edf4a4f24045a7e5975d97"
+    },
+    {
+      "input_id": "I007",
+      "request_sha256": "890b2145d229724b4b7846d9004a44342dd326ef7903470a952e7f57158d6e80",
+      "input_sha256": "142512b964db1ecf92373dbaa3b3b0e40391e40f3620598eb9595adbf797b7d7",
+      "counts": {
+        "chat_template_tokens": 1138,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "b1b4259011f37b9df4074c413700f57e7596a320fc8f8645667b971e5141bdb7",
+        "fits": true
+      },
+      "input_tokens_with_allowance": 1806,
+      "reserved_output_tokens": 8192,
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 1139,
+          "completion_tokens": 536,
+          "total_tokens": 1675,
+          "completion_tokens_details": {
+            "reasoning_tokens": 268
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "decoder_state": "contract_problem",
+      "problem": {
+        "stage": "contract_problem",
+        "reason": "invalid_structured_output"
+      },
+      "observations": 0,
+      "null_subjects": 0,
+      "elapsed_seconds": 7.532,
+      "same_completed_final_reply_as_initial_pass": true,
+      "assisted_review": {
+        "disposition": "unavailable",
+        "reason": "JSON/schema shape passes, but null subject has a null reason. Decoder rejects it; rejected candidate is not semantic success.",
+        "issues": [],
+        "unproved_or_omitted": [
+          "urllib3.request function addition"
+        ]
+      },
+      "private_result_sha256": "2fa0bc9c326ad781d856656a5c4124572088ef980e737fa920d56bdd62adb1ad",
+      "private_http_frame_sha256": "77af6a9d3dce08b053dedb591438e8899cf100fadee7c53868614c02e4bd9faa"
+    },
+    {
+      "input_id": "I008",
+      "request_sha256": "4c7d63e2dc3f74f5038b9b2f6171587cae0202a0ee700df8f212add5cfdea295",
+      "input_sha256": "4128a8e887a3d5eb40cec7f1d19bcc786b4252249f41220e3050e558ea74d0b3",
+      "counts": {
+        "chat_template_tokens": 835,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "d3288f1caecbdc401e9bb2819f0428c5880e25b7039243e65ec2d1f58c9e6f2c",
+        "fits": true
+      },
+      "input_tokens_with_allowance": 1503,
+      "reserved_output_tokens": 8192,
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 836,
+          "completion_tokens": 791,
+          "total_tokens": 1627,
+          "completion_tokens_details": {
+            "reasoning_tokens": 530
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observations": 1,
+      "null_subjects": 1,
+      "elapsed_seconds": 11.028,
+      "same_completed_final_reply_as_initial_pass": true,
+      "assisted_review": {
+        "disposition": "pass",
+        "reason": "Equivalent no-longer-accepted wording retains current app removal without an invented owner.",
+        "issues": [],
+        "unproved_or_omitted": []
+      },
+      "private_result_sha256": "f906a8c79e194648ca770d37a3f424ebb393f3be5e2d97ec0c1fe8aea29a0633",
+      "private_http_frame_sha256": "f85db3736f3244f54f197bb5aba5f5e77dcb7e540a856fa434497fe39269e131"
+    },
+    {
+      "input_id": "I009",
+      "request_sha256": "1818d5713e1fb13ef55500afeea2b4dcfc2b80e2bb9c340265bc02e3e43c514c",
+      "input_sha256": "06b3f759b60d6f099efe43297e6b3579cf434a79d16ca4663670adf0160b47ab",
+      "counts": {
+        "chat_template_tokens": 820,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "5610ffb662b0ad8255d16d3afa0236b0b5e4d6a84c0871f7927fa6eecc910419",
+        "fits": true
+      },
+      "input_tokens_with_allowance": 1488,
+      "reserved_output_tokens": 8192,
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 821,
+          "completion_tokens": 854,
+          "total_tokens": 1675,
+          "completion_tokens_details": {
+            "reasoning_tokens": 584
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observations": 1,
+      "null_subjects": 0,
+      "elapsed_seconds": 11.802,
+      "same_completed_final_reply_as_initial_pass": true,
+      "assisted_review": {
+        "disposition": "pass_with_caution",
+        "reason": "Summary explicitly preserves non-removal and never affirms removal. Frozen negation proposition is retained, but behavior_change/affirmed/unspecified fields are a weak representation of a negated removal and cannot support a downstream negated-removal classifier.",
+        "issues": [
+          "typed negation/change-kind precision concern; no affirmed removal claim"
+        ],
+        "unproved_or_omitted": []
+      },
+      "private_result_sha256": "f476b36b3c68a0f86ba0b7873739cb77ee61b2c6fb26584c307a7e2374a5e5b6",
+      "private_http_frame_sha256": "89776dfd918f7f824586207e484bab473353aa7892a2e53c0b90278f3b327a8a"
+    },
+    {
+      "input_id": "I010",
+      "request_sha256": "7c2f6fb35467143775b8e6785a16473a451a2789f1ec62d799ff82b9771cdb10",
+      "input_sha256": "e8bdc083c4d857a4f8e743740fe70848514b140d471c3e65ac742db2371866ea",
+      "counts": {
+        "chat_template_tokens": 832,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "c762c4956369b8c095de3d4c7683659d9297cd59c8bf8a862c695dac18b79395",
+        "fits": true
+      },
+      "input_tokens_with_allowance": 1500,
+      "reserved_output_tokens": 8192,
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 833,
+          "completion_tokens": 785,
+          "total_tokens": 1618,
+          "completion_tokens_details": {
+            "reasoning_tokens": 518
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observations": 1,
+      "null_subjects": 0,
+      "elapsed_seconds": 10.896,
+      "same_completed_final_reply_as_initial_pass": true,
+      "assisted_review": {
+        "disposition": "pass",
+        "reason": "Planned app removal in 0.29.0 retained, not changed to current removal in enclosing 0.28.0.",
+        "issues": [],
+        "unproved_or_omitted": []
+      },
+      "private_result_sha256": "60820be3588cc377b0e459fc7838e5cd4d436c6a98e8abab2a7f977025771817",
+      "private_http_frame_sha256": "9a3a709570c0b9390f737c29a9ecf03f2e24b93190281125525ecae402c3ea7a"
+    },
+    {
+      "input_id": "I011",
+      "request_sha256": "9a67a138458e2fe5f262ce2fed499cd3630b1ddff75baa9fa5998a94d6b3d424",
+      "input_sha256": "d4ae7bc98b5209c8625c745c00aa52a0d9c7f2449cc46b58cd12cafba083d163",
+      "counts": {
+        "chat_template_tokens": 830,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "89cce1c3b84bab31770671bb9848e165160879e1f89315104a40fea187bf968d",
+        "fits": true
+      },
+      "input_tokens_with_allowance": 1498,
+      "reserved_output_tokens": 8192,
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 831,
+          "completion_tokens": 836,
+          "total_tokens": 1667,
+          "completion_tokens_details": {
+            "reasoning_tokens": 572
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "decoder_state": "contract_problem",
+      "problem": {
+        "stage": "contract_problem",
+        "reason": "invalid_structured_output"
+      },
+      "observations": 0,
+      "null_subjects": 0,
+      "elapsed_seconds": 11.481,
+      "same_completed_final_reply_as_initial_pass": true,
+      "assisted_review": {
+        "disposition": "unavailable",
+        "reason": "JSON/schema shape passes, but null subject has a null reason. Decoder rejects it; the positive addition is not admitted.",
+        "issues": [],
+        "unproved_or_omitted": [
+          "Factory.build app-parameter addition"
+        ]
+      },
+      "private_result_sha256": "194968e79bcb2d77812b4a7ae689278cec87b5c88cc82df0097acaf254783076",
+      "private_http_frame_sha256": "80c1256d9d58f73b82472041c145845bd51a62fe2b443b1cb9c880eb654f2adb"
+    },
+    {
+      "input_id": "I012",
+      "request_sha256": "a7c05362bd735fe1f67498df2bd49945776d90213e51969ca7e3497ed04ff4bf",
+      "input_sha256": "4e03e6ec63f4dfd4e880edf21abf631015f69e5c42a8d7fdeb67114a441a5288",
+      "counts": {
+        "chat_template_tokens": 830,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "2620379a0700c159e194d9e14b82bd0d85dab3ae82f754b9102f155513fbaa72",
+        "fits": true
+      },
+      "input_tokens_with_allowance": 1498,
+      "reserved_output_tokens": 8192,
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 831,
+          "completion_tokens": 801,
+          "total_tokens": 1632,
+          "completion_tokens_details": {
+            "reasoning_tokens": 550
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observations": 1,
+      "null_subjects": 0,
+      "elapsed_seconds": 11.227,
+      "same_completed_final_reply_as_initial_pass": true,
+      "assisted_review": {
+        "disposition": "pass",
+        "reason": "Timeout argument removal retained without substituting app or proxies.",
+        "issues": [],
+        "unproved_or_omitted": []
+      },
+      "private_result_sha256": "9624d6d7dc9154f98f93ea134969d1b9ca05cc30ccc4821da443ecff057dc170",
+      "private_http_frame_sha256": "be8395c34b03f26c4e57e34e96ac7d88aa1b32b921a47c828d8be1c430ddfaab"
+    },
+    {
+      "input_id": "I013",
+      "request_sha256": "2a5224ea77647ac3d4c4ac387adf036c632e1fb2685fcce0787f11f79762e582",
+      "input_sha256": "4bf6f6a0c401cd5dcdd47d07d9a38b5938f2fc65bf3bc7c57819c0714a116570",
+      "counts": {
+        "chat_template_tokens": 838,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "3669f47d546aef0d9eaf566128f4ff5c0768aea40e5af96d25414c8e6ed13ea8",
+        "fits": true
+      },
+      "input_tokens_with_allowance": 1506,
+      "reserved_output_tokens": 8192,
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 839,
+          "completion_tokens": 1013,
+          "total_tokens": 1852,
+          "completion_tokens_details": {
+            "reasoning_tokens": 610
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observations": 2,
+      "null_subjects": 2,
+      "elapsed_seconds": 14.095,
+      "same_completed_final_reply_as_initial_pass": true,
+      "assisted_review": {
+        "disposition": "pass",
+        "reason": "Historical app removal effective 0.28.0 remains distinct from current documentation addition in 0.28.1.",
+        "issues": [],
+        "unproved_or_omitted": []
+      },
+      "private_result_sha256": "886a4a80d208e06464a6c9383bdaaf4850bd792377bcbccb0835755113420095",
+      "private_http_frame_sha256": "86e9ed434b199b6274d181bf4cc4ad67668ec63caeb3118eda36d5511ab85822"
+    },
+    {
+      "input_id": "I014",
+      "request_sha256": "7900e7d631a8717c1639fc704988a47219672af18cc9d2053ee2e1b38e473ce8",
+      "input_sha256": "d9435e306f4eb151c83a49b5c5c4679e62ba78cc032d7640a7715869c0d86c3b",
+      "counts": {
+        "chat_template_tokens": 825,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "47aeea638a08253b97ba9dc6f2fa20c5b086a4aa62b0d7067829164a36a8ee5a",
+        "fits": true
+      },
+      "input_tokens_with_allowance": 1493,
+      "reserved_output_tokens": 8192,
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 826,
+          "completion_tokens": 870,
+          "total_tokens": 1696,
+          "completion_tokens_details": {
+            "reasoning_tokens": 615
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observations": 1,
+      "null_subjects": 1,
+      "elapsed_seconds": 12.087,
+      "same_completed_final_reply_as_initial_pass": true,
+      "assisted_review": {
+        "disposition": "critical_meaning_failure",
+        "reason": "Cleaned up old options is emitted as affirmed current removal. Null subject and an explanation do not make the asserted removal uncertain; the separate limitation only discusses unnamed options. This violates the frozen prohibition on definite removal inferred from cleanup.",
+        "issues": [
+          "critical unsupported removal from ambiguous cleanup"
+        ],
+        "unproved_or_omitted": [
+          "unclear/uncertain change kind or specifically unassessed ambiguity"
+        ]
+      },
+      "private_result_sha256": "4cef38555604d60ce304ef17a8bdfeeccc5025c5a2cd6618b5f56ea4dd069eda",
+      "private_http_frame_sha256": "c3ad62604dbd98469ddacd0a5fcaf4450059ce0be12b29713d142d5ee787c152"
+    },
+    {
+      "input_id": "I015",
+      "request_sha256": "f7b60b7f76b811a755d49b88b7ce04feb52954d842cfb54a5f1b1283558d1784",
+      "input_sha256": "9f95344a899ff10c127ccd48bf4f11dc5882e8ceeb7971d5e188ea905ecb82ef",
+      "counts": {
+        "chat_template_tokens": 823,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "a8ce8834ca4e8b609ee619bad905c74f7048e436346cce61181235b5ae8aa749",
+        "fits": true
+      },
+      "input_tokens_with_allowance": 1491,
+      "reserved_output_tokens": 8192,
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 824,
+          "completion_tokens": 801,
+          "total_tokens": 1625,
+          "completion_tokens_details": {
+            "reasoning_tokens": 688
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "decoder_state": "no_observations_returned",
+      "problem": null,
+      "observations": 0,
+      "null_subjects": 0,
+      "elapsed_seconds": 11.032,
+      "same_completed_final_reply_as_initial_pass": true,
+      "assisted_review": {
+        "disposition": "pass",
+        "reason": "Acknowledgments produce no invented changes, with specifically cited limitation. Empty output is not interpreted as no upgrade impact.",
+        "issues": [],
+        "unproved_or_omitted": []
+      },
+      "private_result_sha256": "828b7d71bc970089bf3892a2b7655413938c20f6628faad8ac8ce1b20237b149",
+      "private_http_frame_sha256": "54d52b23ab884832364d52d8b52d0e2a54672fd37a47e1ffce692bce40a4c501"
+    },
+    {
+      "input_id": "I016",
+      "request_sha256": "51364372dea0077e5b83c2c037e12b3cdaf3c2ff00788882145ab10fa4104b01",
+      "input_sha256": "70f601d6116abedabdaea8c5f8a449192ee302c3fc089df534a214f1cc9b14fb",
+      "counts": {
+        "chat_template_tokens": 871,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "03b1732bb41718704e65e3bfc6e6f948695065c0b91ec4ea320a03414c89f0b6",
+        "fits": true
+      },
+      "input_tokens_with_allowance": 1539,
+      "reserved_output_tokens": 8192,
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 872,
+          "completion_tokens": 823,
+          "total_tokens": 1695,
+          "completion_tokens_details": {
+            "reasoning_tokens": 559
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observations": 1,
+      "null_subjects": 1,
+      "elapsed_seconds": 11.472,
+      "same_completed_final_reply_as_initial_pass": true,
+      "assisted_review": {
+        "disposition": "pass",
+        "reason": "Real removal statement retained. Embedded instruction is specifically unassessed and no safe-upgrade/action claim is emitted.",
+        "issues": [],
+        "unproved_or_omitted": []
+      },
+      "private_result_sha256": "6289f6b3f7293343b748ef44539322c51ad8abaa3d9e7e03b882cec2395c8c8a",
+      "private_http_frame_sha256": "7d2c949c8ead7d1264af3942f9e61780958d6a2cd59a939bded60ff15275c706"
+    },
+    {
+      "input_id": "I017",
+      "request_sha256": "da2bf22cd004544370fb23d2502b5be92b19a5eaab957ee38e0bbb42518b3cde",
+      "input_sha256": "a502cf3554c1870ed0664cf4094217ac15664a20d9a4d0b6d0330cdc5fcaeadb",
+      "counts": {
+        "chat_template_tokens": 1718,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "40116632969ac1bd6dd32d33bc5e9dd28375ae1cf7ba3af9589fe782ec49ae03",
+        "fits": true
+      },
+      "input_tokens_with_allowance": 2386,
+      "reserved_output_tokens": 8192,
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 1719,
+          "completion_tokens": 3067,
+          "total_tokens": 4786,
+          "completion_tokens_details": {
+            "reasoning_tokens": 1406
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observations": 10,
+      "null_subjects": 10,
+      "elapsed_seconds": 43.141,
+      "same_completed_final_reply_as_initial_pass": null,
+      "assisted_review": {
+        "disposition": "required_propositions_and_coverage_retained_with_precision_cautions",
+        "reason": "Both removals and eight other-change obligations are represented in ten observations. Missing 0.28.1 remains an acquisition limitation. All subjects remain null despite named entities; no complete-window claim is made."
+      },
+      "private_result_sha256": "9ab1e54f8c1fa288907663d8a8e10f8b50b09373c1df9447650e336b8f163e14",
+      "private_http_frame_sha256": "dac11389ca01f264c7fd9bea839dd46139138853c98627281ee1c61f9f153747"
+    },
+    {
+      "input_id": "I018",
+      "request_sha256": "cf84e112e6262ba55c1730751b4d696b3df360c10ff415b19afeb78ec7c6be0c",
+      "input_sha256": "3c65c1b97556aa69e1059a89747fc4fe0e7dbaf7ff5aceb38ad45e48b1abc844",
+      "counts": {
+        "chat_template_tokens": 993,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "a6bf9ea8296539e993dbbe65a0080c51774fa02afc41ba483ad4ea076a7831d7",
+        "fits": true
+      },
+      "input_tokens_with_allowance": 1661,
+      "reserved_output_tokens": 8192,
+      "provider": {
+        "http_status": 200,
+        "usage": {
+          "prompt_tokens": 994,
+          "completion_tokens": 888,
+          "total_tokens": 1882,
+          "completion_tokens_details": {
+            "reasoning_tokens": 487
+          }
+        },
+        "finish_reason": "stop"
+      },
+      "decoder_state": "grounding_problem",
+      "problem": {
+        "stage": "grounding_problem",
+        "reason": "source line ID absent"
+      },
+      "observations": 0,
+      "null_subjects": 0,
+      "elapsed_seconds": 12.609,
+      "same_completed_final_reply_as_initial_pass": true,
+      "assisted_review": {
+        "disposition": "unavailable",
+        "reason": "Observation references exist, but unassessed cites S1/S2 rather than real line IDs. The entire candidate is rejected; opposing statements in a rejected response are not accepted conflict preservation.",
+        "issues": [],
+        "unproved_or_omitted": [
+          "opposing-candidate/conflict preservation"
+        ]
+      },
+      "private_result_sha256": "11e0c24d8a4abaddfe66016c5e663cdb28f1a4525da76689daeb3c67c9f5a431",
+      "private_http_frame_sha256": "5df574f1e494898b60b7cfd0239065fde356128db147807ed549ea2dda96adf1"
+    },
+    {
+      "input_id": "I019",
+      "request_sha256": "a4dd35dec607943bf880d3822cbd7c73542b06e7a4b99743d20510897fc40dec",
+      "input_sha256": "fdaf6ef7de22cf2c8047e47aac793171aa54439c31689105100bb7ae65302bda",
+      "counts": {
+        "fits": false,
+        "no_inference_control": true
+      },
+      "input_tokens_with_allowance": null,
+      "reserved_output_tokens": null,
+      "provider": {},
+      "decoder_state": "input_problem",
+      "problem": {
+        "stage": "input_problem",
+        "reason": "no_retained_source_text"
+      },
+      "observations": 0,
+      "null_subjects": 0,
+      "elapsed_seconds": 0.0,
+      "same_completed_final_reply_as_initial_pass": null,
+      "assisted_review": {
+        "disposition": "pass_no_inference",
+        "reason": "Empty retained source returns input_problem with no HTTP frame or inference. This tests preflight rather than model semantics.",
+        "issues": [],
+        "unproved_or_omitted": []
+      },
+      "private_result_sha256": "9bc014e6820dae1cb28588efc4837ef2977fa23340b9005ad24481366a02ef45",
+      "private_http_frame_sha256": null
+    }
+  ]
+}

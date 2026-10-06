@@ -19,6 +19,26 @@ from experiments.api_change_source_acquisition import (
     PublisherProvenanceInspection,
     TrialPublicSession,
 )
+from experiments.api_change_interpretation import (
+    ProviderReply,
+    ROLE,
+    ROLE_V2,
+    LOCAL_MODEL,
+    COMPARISON_MODEL,
+    interpret_projection,
+    packet_hash,
+    prepare_request,
+    source_input_from_projection,
+)
+from experiments.api_change_interpretation_trial import (
+    PACKET_KIND,
+    decode_saved_trial,
+    dependency_interval,
+    read_saved_trial,
+    run_interpretation_trial,
+    save_trial,
+)
+from experiments.api_change_interpretation_trial import main as interpretation_main
 from experiments.api_target_context import (
     InventoryEntry,
     TargetContextAcquirer,
@@ -44,7 +64,15 @@ BASE = "b" * 40
 
 
 class PublicPRTests(TestCase):
-    def run_trial(self, *, upstream=None, python_source=None):
+    def run_trial(
+        self,
+        *,
+        upstream=None,
+        python_source=None,
+        interpretation_provider=None,
+        role_version=ROLE,
+        model_identifier=LOCAL_MODEL,
+    ):
         identity = PullRequestIdentity(
             "owner/target",
             7,
@@ -111,7 +139,21 @@ class PublicPRTests(TestCase):
             ),
             (),
         )
-        result = acquire_public_pr_context(
+        entry = (
+            acquire_public_pr_context
+            if interpretation_provider is None
+            else run_interpretation_trial
+        )
+        options = (
+            {}
+            if interpretation_provider is None
+            else {
+                "provider": interpretation_provider,
+                "role_version": role_version,
+                "model_identifier": model_identifier,
+            }
+        )
+        result = entry(
             "owner/target",
             7,
             pull_requests=pr,
@@ -119,8 +161,12 @@ class PublicPRTests(TestCase):
             target=TargetContextAcquirer(inventory=inventory, files=files),
             upstream=upstream,
             adapters=adapters,
+            **options,
         )
-        adapters.explore.assert_called_once_with(result.target)
+        if interpretation_provider is None:
+            adapters.explore.assert_called_once_with(result.target)
+        else:
+            adapters.explore.assert_called_once()
         return result, pr, inventory
 
     def upstream_runner(self, text):
@@ -177,6 +223,386 @@ class PublicPRTests(TestCase):
             paths=paths,
             files=files,
         )
+
+    def interpreted_trial(
+        self, *, text=None, reply=None, role_version=ROLE, model_identifier=LOCAL_MODEL
+    ):
+        if text is None:
+            text = "## 2.0\nThe old option was removed. café\n## 1.5\nAn unrelated addition.\n"
+        provider = Mock(
+            identity={"kind": "controlled_integration", "semantic_acceptance": False}
+        )
+        provider.complete.return_value = reply or ProviderReply(
+            json.dumps(
+                {
+                    "observations": [
+                        {
+                            "kind": "removal",
+                            "subject": "old option",
+                            "summary": "The old option was removed.",
+                            "assertion": "affirmed",
+                            "timing": "current",
+                            "effective_version": "2.0",
+                            "source_spans": [
+                                {"start_line_id": "S1:L2", "end_line_id": "S1:L2"}
+                            ],
+                            "reason": "The cited text states a removal in the current release."
+                            if role_version == ROLE_V2
+                            else None,
+                        }
+                    ],
+                    "unassessed": [
+                        {
+                            "source_spans": [
+                                {"start_line_id": "S2:L2", "end_line_id": "S2:L2"}
+                            ],
+                            "reason": "Controlled provider did not interpret this addition.",
+                        }
+                    ],
+                }
+            )
+        )
+        packet, _, _ = self.run_trial(
+            upstream=self.upstream_runner(text),
+            interpretation_provider=provider,
+            role_version=role_version,
+            model_identifier=model_identifier,
+        )
+        return packet, provider, text
+
+    def test_versioned_normal_entry_recovery_and_role_relabelling_rejection(self):
+        for role, model_identifier in (
+            (ROLE, LOCAL_MODEL),
+            (ROLE_V2, LOCAL_MODEL),
+            (ROLE_V2, COMPARISON_MODEL),
+        ):
+            packet, provider, _ = self.interpreted_trial(
+                role_version=role, model_identifier=model_identifier
+            )
+            self.assertEqual(packet["interpretation"]["state"], "observations_returned")
+            self.assertEqual(packet["interpretation"]["role_version"], role)
+            self.assertEqual(
+                packet["interpretation"]["method"]["model"], model_identifier
+            )
+            self.assertEqual(
+                provider.complete.call_args.args[0].method["role_version"], role
+            )
+            with patch(
+                "experiments.api_change_interpretation_trial.LocalInterpretationProvider"
+            ) as local:
+                self.assertEqual(
+                    packet_hash(decode_saved_trial(json.dumps(packet))),
+                    packet_hash(packet),
+                )
+            local.assert_not_called()
+            packet["interpretation"]["role_version"] = ROLE_V2 if role == ROLE else ROLE
+            packet["packet_sha256"] = packet_hash(
+                {k: v for k, v in packet.items() if k != "packet_sha256"}
+            )
+            with self.assertRaises(ValueError):
+                decode_saved_trial(json.dumps(packet))
+
+    def test_ordinary_acquisition_to_proposal_to_offline_saved_recovery(self):
+        packet, provider, text = self.interpreted_trial()
+        self.assertEqual(packet["interpretation"]["state"], "observations_returned")
+        provider.complete.assert_called_once()
+        self.assertEqual(packet["context"]["dependency"]["package"], "vendor")
+        self.assertEqual(packet["context"]["target"]["revision"], SHA)
+        self.assertEqual(len(packet["interpretation"]["source_input"]["sections"]), 2)
+        with TemporaryDirectory() as root:
+            path = Path(root) / "trial.json"
+            save_trial(packet, path)
+            with (
+                patch(
+                    "experiments.api_change_interpretation_trial.LocalInterpretationProvider"
+                ) as local,
+                patch(
+                    "experiments.api_change_interpretation_trial.acquire_public_pr_context"
+                ) as acquire,
+            ):
+                recovered = read_saved_trial(path)
+            local.assert_not_called()
+            acquire.assert_not_called()
+            self.assertEqual(packet_hash(recovered), packet_hash(packet))
+            citation = recovered["interpretation"]["observations"][0]["evidence"][0]
+            self.assertEqual(
+                text[citation["start_offset"] : citation["end_offset"]],
+                citation["quote"],
+            )
+            self.assertEqual(citation["source_identity"]["revision"], SHA)
+            with self.assertRaises(FileExistsError):
+                save_trial(packet, path)
+
+    def test_saved_pilot_output_budget_survives_default_extension(self):
+        packet, _, _ = self.interpreted_trial()
+        interpretation = packet["interpretation"]
+        historical = prepare_request(
+            interpretation["source_input"], max_output_tokens=1536
+        )
+        interpretation["method"] = {
+            **historical.method,
+            "provider": interpretation["method"]["provider"],
+        }
+        packet["packet_sha256"] = packet_hash(
+            {k: v for k, v in packet.items() if k != "packet_sha256"}
+        )
+        self.assertEqual(
+            packet_hash(decode_saved_trial(json.dumps(packet))), packet_hash(packet)
+        )
+        # Changing the recorded setting without reconstructing its request is rejected.
+        interpretation["method"]["max_output_tokens"] = 8192
+        packet["packet_sha256"] = packet_hash(
+            {k: v for k, v in packet.items() if k != "packet_sha256"}
+        )
+        with self.assertRaises(ValueError):
+            decode_saved_trial(json.dumps(packet))
+
+    def test_interpretation_failures_preserve_target_adapters_and_save_readback(self):
+        for reply in (
+            ProviderReply("{}"),
+            ProviderReply("{}", "length"),
+            ProviderReply(problem=("context_problem", "effective_capacity_unverified")),
+        ):
+            packet, _, _ = self.interpreted_trial(reply=reply)
+            result = packet["interpretation"]
+            self.assertNotEqual(result["state"], "observations_returned")
+            self.assertTrue(packet["context"]["target"]["references"])
+            self.assertEqual(
+                packet["context"]["adapter_exploration"]["problems"][0]["detail"],
+                "independent adapter gap",
+            )
+            self.assertEqual(result["observations"], [])
+            self.assertEqual(
+                packet_hash(decode_saved_trial(json.dumps(packet))), packet_hash(packet)
+            )
+        packet, provider, _ = self.interpreted_trial(
+            text="## 2.0\n" + "x" * 20000 + "\n## 1.5\nknown\n"
+        )
+        self.assertEqual(packet["interpretation"]["state"], "input_problem")
+        provider.complete.assert_not_called()
+        decode_saved_trial(json.dumps(packet))
+
+    def test_partial_source_can_propose_without_becoming_complete(self):
+        reply = ProviderReply(
+            json.dumps(
+                {
+                    "observations": [
+                        {
+                            "kind": "removal",
+                            "subject": "old option",
+                            "summary": "Removed.",
+                            "assertion": "affirmed",
+                            "timing": "current",
+                            "effective_version": "2.0",
+                            "source_spans": [
+                                {"start_line_id": "S1:L2", "end_line_id": "S1:L2"}
+                            ],
+                            "reason": None,
+                        }
+                    ],
+                    "unassessed": [],
+                }
+            )
+        )
+        packet, _, _ = self.interpreted_trial(
+            text="## 2.0\nThe old option was removed.\n", reply=reply
+        )
+        self.assertEqual(packet["interpretation"]["state"], "observations_returned")
+        scope = packet["interpretation"]["source_input"]["source_coverage"]
+        self.assertFalse(scope["complete_window_eligible"])
+        self.assertEqual(scope["missing_or_unsupported_versions"], ["1.5"])
+        decode_saved_trial(json.dumps(packet))
+
+    def test_saved_reader_rejects_tampering_even_with_recomputed_outer_digest(self):
+        original, _, _ = self.interpreted_trial()
+        mutations = (
+            lambda p: p.update(packet_version=2),
+            lambda p: p["interpretation"]["observations"][0]["evidence"][0].update(
+                quote="invented"
+            ),
+            lambda p: p["interpretation"]["observations"][0]["evidence"][0].update(
+                start_offset=0
+            ),
+            lambda p: p["interpretation"]["observations"][0]["source_spans"][0].update(
+                end_line_id="S2:L2"
+            ),
+            lambda p: p["interpretation"]["source_input"]["sections"][0]["lines"][
+                1
+            ].update(text="changed"),
+            lambda p: p["interpretation"]["source_input"]["source_coverage"].update(
+                complete_window_eligible=False
+            ),
+            lambda p: p["interpretation"]["method"].update(request_sha256="wrong"),
+            lambda p: p["context"]["target"].update(revision="b" * 40),
+            lambda p: p["interpretation"].update(state="no_observations_returned"),
+            lambda p: p["interpretation"]["observations"][0].update(
+                compatibility="safe"
+            ),
+        )
+        for mutate in mutations:
+            packet = json.loads(json.dumps(original))
+            mutate(packet)
+            packet["packet_sha256"] = packet_hash(
+                {k: v for k, v in packet.items() if k != "packet_sha256"}
+            )
+            with self.subTest(mutation=mutate), self.assertRaises(ValueError):
+                decode_saved_trial(json.dumps(packet))
+        original["packet_sha256"] = "wrong"
+        with self.assertRaises(ValueError):
+            decode_saved_trial(json.dumps(original))
+        for raw in ("{}", "[]", "null", '{"a":1,"a":2}', "x" * (8 * 1024 * 1024 + 1)):
+            with self.assertRaises(ValueError):
+                decode_saved_trial(raw)
+
+    def test_opt_in_cli_run_and_offline_open_preserve_controlled_proof(self):
+        packet, _, _ = self.interpreted_trial()
+        with TemporaryDirectory() as root:
+            path = Path(root) / "trial.json"
+            with (
+                patch(
+                    "sys.argv",
+                    ["trial", "run", "owner/target", "7", "--save", str(path)],
+                ),
+                patch(
+                    "experiments.api_change_interpretation_trial.run_interpretation_trial",
+                    return_value=packet,
+                ) as run,
+                redirect_stdout(StringIO()) as output,
+            ):
+                self.assertEqual(interpretation_main(), 0)
+            self.assertEqual(run.call_args.args, ("owner/target", 7))
+            self.assertEqual(
+                json.loads(output.getvalue())["interpretation"]["method"]["provider"][
+                    "kind"
+                ],
+                "controlled_integration",
+            )
+            with (
+                patch("sys.argv", ["trial", "open", str(path)]),
+                patch(
+                    "experiments.api_change_interpretation_trial.run_interpretation_trial"
+                ) as run,
+                redirect_stdout(StringIO()) as output,
+            ):
+                self.assertEqual(interpretation_main(), 0)
+            run.assert_not_called()
+            self.assertEqual(
+                json.loads(output.getvalue())["packet_sha256"], packet["packet_sha256"]
+            )
+
+    def test_acquisition_failure_is_saved_without_inference(self):
+        provider = Mock(identity={"kind": "controlled_integration"})
+        problem = AcquisitionProblem(
+            "public_pr", "source_unavailable", "PR unavailable"
+        )
+        with patch(
+            "experiments.api_change_interpretation_trial.acquire_public_pr_context",
+            return_value=problem,
+        ):
+            packet = run_interpretation_trial("owner/target", 7, provider=provider)
+        provider.complete.assert_not_called()
+        self.assertIsNone(packet["interpretation"])
+        self.assertEqual(packet["context"]["reason"], "source_unavailable")
+        decode_saved_trial(json.dumps(packet))
+
+    def test_saved_failure_state_must_agree_with_source_and_request(self):
+        original, _, _ = self.interpreted_trial(reply=ProviderReply("{}", "length"))
+        for state, reason, remove_method in (
+            ("input_problem", "no_retained_source_text", False),
+            ("input_problem", "no_retained_source_text", True),
+            ("provider_problem", "output_truncated", True),
+            ("contract_problem", "invalid_structured_output", True),
+        ):
+            packet = json.loads(json.dumps(original))
+            result = packet["interpretation"]
+            result["state"] = state
+            result["problem"] = {"stage": state, "reason": reason}
+            if remove_method:
+                result["method"] = None
+            packet["packet_sha256"] = packet_hash(
+                {k: v for k, v in packet.items() if k != "packet_sha256"}
+            )
+            with (
+                self.subTest(state=state, remove_method=remove_method),
+                self.assertRaises(ValueError),
+            ):
+                decode_saved_trial(json.dumps(packet))
+
+    def test_saved_window_cannot_be_relabelled_as_a_different_interval(self):
+        original, _, _ = self.interpreted_trial()
+        packet = json.loads(json.dumps(original))
+        packet["context"]["dependency"]["proposed_version"] = "3.0"
+        result = packet["interpretation"]
+        result["source_input"]["interval"]["proposed_version"] = "3.0"
+        result["method"] = {
+            **prepare_request(result["source_input"]).method,
+            "provider": result["method"]["provider"],
+        }
+        packet["packet_sha256"] = packet_hash(
+            {k: v for k, v in packet.items() if k != "packet_sha256"}
+        )
+        with self.assertRaisesRegex(ValueError, "source relationships"):
+            decode_saved_trial(json.dumps(packet))
+
+    def test_retained_real_httpx_window_recovers_exact_quote_with_controlled_proposal(
+        self,
+    ):
+        # Historical ordinary acquisition + fresh interpretation mechanics.
+        # This test neither reacquires the PR nor measures live-model meaning.
+        path = (
+            Path(__file__).resolve().parents[2]
+            / "working-memory/evidence/2026-10-04-ordered-scoped-bindings/live-pr-context.json"
+        )
+        context = json.loads(path.read_text())
+        interval = dependency_interval(context["dependency"])
+        source_input = source_input_from_projection(context["upstream"], interval)
+        provider = Mock(
+            identity={
+                "kind": "controlled_historical_source",
+                "semantic_acceptance": False,
+            }
+        )
+        provider.complete.return_value = ProviderReply(
+            json.dumps(
+                {
+                    "observations": [
+                        {
+                            "kind": "removal",
+                            "subject": "proxies argument",
+                            "summary": "The deprecated proxies argument was removed.",
+                            "assertion": "affirmed",
+                            "timing": "current",
+                            "effective_version": "0.28.0",
+                            "source_spans": [
+                                {"start_line_id": "S2:L18", "end_line_id": "S2:L18"}
+                            ],
+                            "reason": None,
+                        }
+                    ],
+                    "unassessed": [],
+                }
+            )
+        )
+        result = interpret_projection(context["upstream"], interval, provider)
+        self.assertEqual(result["state"], "observations_returned")
+        self.assertEqual(sum(len(s["text"]) for s in source_input["sections"]), 1367)
+        body = {
+            "artifact_kind": PACKET_KIND,
+            "packet_version": 1,
+            "proof": "historical acquisition and controlled proposal, not fresh acquisition or semantic acceptance",
+            "context": context,
+            "interpretation": result,
+        }
+        packet = {**body, "packet_sha256": packet_hash(body)}
+        recovered = decode_saved_trial(json.dumps(packet))
+        citation = recovered["interpretation"]["observations"][0]["evidence"][0]
+        self.assertEqual(
+            citation["quote"],
+            "* The deprecated `proxies` argument has now been removed.\n",
+        )
+        self.assertEqual(citation["reported_in_version"], "0.28.0")
+        self.assertEqual(citation["source_identity"]["repository"], "encode/httpx")
+        self.assertEqual(recovered["context"]["target"], context["target"])
 
     def test_partial_source_survives_normal_pr_manifest_and_target_replay(self):
         text = "## 2.0\nretained café\n"

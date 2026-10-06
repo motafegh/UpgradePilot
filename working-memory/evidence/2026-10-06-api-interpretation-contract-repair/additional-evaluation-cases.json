@@ -1,0 +1,29 @@
+{
+  "cases": [
+    {
+      "input_id": "I020",
+      "case_role": "newly_selected_real_source_variation",
+      "inference_allowed": true,
+      "required_propositions": [
+        "Current rename from _get_connection to get_connection_with_tls_context; the affected API names remain available as source-named subjects.",
+        "The new destination is explicitly a public API; preserve this fact without inventing behavior.",
+        "get_connection deprecation effective in versions >=2.32.0, historical relative to reported release 2.32.2; do not replace its effective version with 2.32.2.",
+        "Migration/evaluation statements remain attributed guidance, not proof of target impact or an actual behavior change."
+      ],
+      "forbidden_propositions": [
+        "get_connection was removed.",
+        "The custom adapter issue affects every adapter or the inspected target.",
+        "Deprecation first takes effect in 2.32.2.",
+        "The excerpt or unread PR establishes target compatibility, safety or action permission."
+      ],
+      "coverage_review": [
+        "Rename/public API",
+        "Historical deprecation",
+        "Migration guidance",
+        "Conditional evaluate-if-affected guidance"
+      ],
+      "review_status": "not_run",
+      "review_class": "AI-selected and AI-assisted adjudication; additional variation, not independent acceptance"
+    }
+  ]
+}

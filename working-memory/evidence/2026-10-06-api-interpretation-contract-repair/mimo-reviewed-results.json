@@ -1,0 +1,637 @@
+{
+  "dated_review": "2026-10-06",
+  "role_version": "source-only-api-change-v2",
+  "model": "mimo-v2.6-distill-qwen-9b",
+  "review_class": "AI-assisted same-contract whole development set and new real-source variation; no independent acceptance",
+  "disposition": "FAILED / REVISE",
+  "engineering_disposition": "GREEN for measured provider/schema execution and saved recovery",
+  "code_tests": {
+    "focused": 47,
+    "active_api_trial": 136,
+    "passed": true,
+    "product_installed_hosted_unrelated_suites": "not rerun; unchanged product boundary and prior unrelated debt remain"
+  },
+  "execution": {
+    "cases": 20,
+    "inference_calls": 19,
+    "no_inference_controls": 1,
+    "http_200": 19,
+    "finish_stop": 19,
+    "contract_or_grounding_failures": 0,
+    "truncations": 0,
+    "capacity_accounting_mismatches": 0,
+    "observations": 27,
+    "null_subjects": 0,
+    "prompt_tokens": 37449,
+    "completion_tokens": 3764,
+    "summed_case_seconds": 184.072,
+    "reported_reasoning_tokens": 0
+  },
+  "comparison": {
+    "all_20_request_bodies_identical_except_model": true,
+    "semantic_assets_and_expectations_unchanged": true,
+    "loaded_deployment_and_tokenizer_template_differ": true,
+    "no_automatic_fallback_or_prompt_repair": true
+  },
+  "saved_recovery": {
+    "state": "observations_returned",
+    "cli_exit_code": 0,
+    "offline_equal": true,
+    "packet_sha256": "3c28502435478b1230006aeb9c940658eedf1072b402ad58ecaf24cc3baf3be7",
+    "private_file_sha256": "4c1a2e1a4e27b1b05b057f3519a6f6de1e3df1382015b6843a5a3aef6ccac468"
+  },
+  "before_inference_manifest_sha256": "6c84ebb0bd5f587d1154d066a041c99f2edb055cddf63b6df001f32d7669f535",
+  "private_results_sha256": "e7eacfb1378a83741fc503d45cb8beb2d0598ed0fda52d4b9a50275250a82545",
+  "code_sha256": {
+    "experiments/api_change_interpretation.py": "97cec31d934c5e0b7fdc04b96428c2ff70d5335bb2d0d69e7c1cd80acc3ef42e",
+    "experiments/api_change_interpretation_trial.py": "6d108a8255834941cf40d5774dd48ac23386981204ab90508c95567b560fafb6",
+    "experiments/api_change_interpretation_evaluation.py": "92303065c8e58afe023b679a1990755682817b6d416b2f622fdd2a507609498f",
+    "src/upgradepilot/upstream/support_drop_extractor.py": "7b74b736265eab410e8e363b5a3592be2a1e2dcb6e67a709dd350effbbd0c199"
+  },
+  "remaining_failures": [
+    "required multi-subject removal omitted",
+    "future operation not separately typed",
+    "negation not encoded as operation polarity",
+    "partial-window required positives/other changes omitted",
+    "new real-case rename/guidance omissions and explicit version not structured",
+    "unsupported owner/unknown qualifier precision"
+  ],
+  "cases": [
+    {
+      "input_id": "I001",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 11,
+      "unassessed_count": 2,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 3246,
+          "completion_tokens": 1360,
+          "total_tokens": 4606,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        }
+      },
+      "elapsed_seconds": 56.84,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "112434f96d6cb09298b13d26bffd6b5d120d8b4c33cec154505ec2d43291702a",
+      "request_schema_sha256": "7212879df1a2afef2b7cc8c3f26cf8512f87a529d4480622a44d5699116daf62",
+      "private_result_sha256": "2ea4742a91790d973ba3d483439f6ed8708fc510be49a6b7305e5197da0ece2e",
+      "review": {
+        "disposition": "MEETS_REQUIRED_WITH_ERRORS",
+        "reason": "Required removals, SSL deprecations, other change topics and proper release-relative timing are retained. Several categories are imprecise, including explicitly stated fixes returned as behavior_change. The ellipsis introducing the following deprecation list is falsely described as truncated/incomplete, although that list is supplied. Source correspondence does not validate this invented limitation."
+      }
+    },
+    {
+      "input_id": "I002",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 1,
+      "unassessed_count": 0,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1786,
+          "completion_tokens": 123,
+          "total_tokens": 1909,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        }
+      },
+      "elapsed_seconds": 6.527,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "e5869ff57854c29496427251e110c7c18227cc0777dfa199a84d604ab9f52119",
+      "request_schema_sha256": "7b9093ef3551a7b7f0f94ca70aa5154dea5f8d3e082b4e11c92a085265f11acf",
+      "private_result_sha256": "ae530a2155712b9ae895feb81cd0cd2122291f96a9aa29300765bfcc9337d08d",
+      "review": {
+        "disposition": "FAIL_SOURCE_SPECIFICITY",
+        "reason": "Current named app removal retained, but subject adds an httpx client API owner not supplied by the cited excerpt. Effective version is null although producer/answer explanation names 0.28.0."
+      }
+    },
+    {
+      "input_id": "I003",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 1,
+      "unassessed_count": 0,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1792,
+          "completion_tokens": 131,
+          "total_tokens": 1923,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        }
+      },
+      "elapsed_seconds": 5.616,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "ceec355755550f30194d3bfe5db2657b9870836f9e4be4c6f66af60043865e3a",
+      "request_schema_sha256": "7b9093ef3551a7b7f0f94ca70aa5154dea5f8d3e082b4e11c92a085265f11acf",
+      "private_result_sha256": "937d11e3cbe5c06fbd04f1565f5ac61383468ec0a1869a6da994062df0f8ed87",
+      "review": {
+        "disposition": "MEETS_WITH_PRECISION_LIMIT",
+        "reason": "Named string-valued verify deprecation and current timing retained. Effective version remains null; reported source release still survives."
+      }
+    },
+    {
+      "input_id": "I004",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 1,
+      "unassessed_count": 0,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1971,
+          "completion_tokens": 123,
+          "total_tokens": 2094,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        }
+      },
+      "elapsed_seconds": 5.472,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "527fd4f6932b9c280ed405395ed68e7b9fdd0f4ccceb54cb33d059dda01b906a",
+      "request_schema_sha256": "7b9093ef3551a7b7f0f94ca70aa5154dea5f8d3e082b4e11c92a085265f11acf",
+      "private_result_sha256": "d2c72fb052a5dfe5957fdc69c4397207a0347e742c3a54501ba84727ff5edb6b",
+      "review": {
+        "disposition": "FAIL_COVERAGE",
+        "reason": "Only method_whitelist removal is represented. DEFAULT_REDIRECT_HEADERS_BLACKLIST removal in the same quoted line is omitted and not specifically unassessed."
+      }
+    },
+    {
+      "input_id": "I005",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 1,
+      "unassessed_count": 0,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 2029,
+          "completion_tokens": 175,
+          "total_tokens": 2204,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        }
+      },
+      "elapsed_seconds": 8.07,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "1c726adf6e24aacb2555beae9a846074494f5d99f7e4b95fd24e59476ea7da70",
+      "request_schema_sha256": "7b9093ef3551a7b7f0f94ca70aa5154dea5f8d3e082b4e11c92a085265f11acf",
+      "private_result_sha256": "283841e76d00ebf1c81eb9b560d43421ddb0e256fc88323fd31c8571bc10166c",
+      "review": {
+        "disposition": "FAIL_TYPED_SEPARATION",
+        "reason": "Future removal in 2.1.0 is retained in prose, unlike Gemma, but is merged into a single current-deprecation record rather than a separate planned-removal operation. Prose comprehension does not satisfy the typed role."
+      }
+    },
+    {
+      "input_id": "I006",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 1,
+      "unassessed_count": 0,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1964,
+          "completion_tokens": 128,
+          "total_tokens": 2092,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        }
+      },
+      "elapsed_seconds": 5.521,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "9c967f3b2fd309e8895493ebbd79a039e716edf6e0c558c8eb3df82e5e2d078b",
+      "request_schema_sha256": "7b9093ef3551a7b7f0f94ca70aa5154dea5f8d3e082b4e11c92a085265f11acf",
+      "private_result_sha256": "b69c069092a9acdadc3d3afed3956102c5358cc0f569b432bce0129be3f59b55",
+      "review": {
+        "disposition": "MEETS_FROZEN_PROPOSITIONS",
+        "reason": "Named qualified method and current removal retained."
+      }
+    },
+    {
+      "input_id": "I007",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 1,
+      "unassessed_count": 0,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1975,
+          "completion_tokens": 177,
+          "total_tokens": 2152,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        }
+      },
+      "elapsed_seconds": 7.411,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "53a280802820d2ddc45a9559b22d84e28c49c12131dfc55828a06d67f1fb9f38",
+      "request_schema_sha256": "7b9093ef3551a7b7f0f94ca70aa5154dea5f8d3e082b4e11c92a085265f11acf",
+      "private_result_sha256": "218b84b5518fbfe9a143f068025d216a3ca44380b5d37b3c90c4091f89d81200",
+      "review": {
+        "disposition": "MEETS_FROZEN_PROPOSITIONS",
+        "reason": "Named top-level function, current addition and its PoolManager relationship retained."
+      }
+    },
+    {
+      "input_id": "I008",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 1,
+      "unassessed_count": 0,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1696,
+          "completion_tokens": 115,
+          "total_tokens": 1811,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        }
+      },
+      "elapsed_seconds": 5.412,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "8629e7e3d0cdea61a9476d5d281fbd0fdd490de23b7ed8b621519f4e402a4f8b",
+      "request_schema_sha256": "7b9093ef3551a7b7f0f94ca70aa5154dea5f8d3e082b4e11c92a085265f11acf",
+      "private_result_sha256": "7ddceb29c4bc1f429510ed6927daa6e4f8d05756b1a39b424dc78c10281be835",
+      "review": {
+        "disposition": "MEETS_FROZEN_PROPOSITIONS",
+        "reason": "Paraphrased current app removal retained."
+      }
+    },
+    {
+      "input_id": "I009",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 1,
+      "unassessed_count": 0,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1680,
+          "completion_tokens": 114,
+          "total_tokens": 1794,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        }
+      },
+      "elapsed_seconds": 5.611,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "cf2628e445bfb2af00176b4477c447d443e836ab1e408ba8c213d54a55b89c80",
+      "request_schema_sha256": "7b9093ef3551a7b7f0f94ca70aa5154dea5f8d3e082b4e11c92a085265f11acf",
+      "private_result_sha256": "d8750d0bf73d12821662d5a3a098ef21d02513253bfec6ee38af90c0dc243c36",
+      "review": {
+        "disposition": "FAIL_V2_TYPED_POLARITY",
+        "reason": "Negation survives in the summary, meeting the older loose frozen proposition, but typed kind/assertion is other/affirmed/unspecified rather than removal/negated/current required by the approved v2 role. This regresses Gemma v2 typed polarity."
+      }
+    },
+    {
+      "input_id": "I010",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 1,
+      "unassessed_count": 0,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1692,
+          "completion_tokens": 102,
+          "total_tokens": 1794,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        }
+      },
+      "elapsed_seconds": 5.372,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "cf3038324c9741712b3237f37275477af200be6aacff4cebd9167120d1d8e615",
+      "request_schema_sha256": "7b9093ef3551a7b7f0f94ca70aa5154dea5f8d3e082b4e11c92a085265f11acf",
+      "private_result_sha256": "016fb50cc17c3caac7781cdd823d617a80eec0bb1d472f28b8133f02bc9588bc",
+      "review": {
+        "disposition": "MEETS_FROZEN_PROPOSITIONS",
+        "reason": "Planned app removal and 0.29.0 effective version retained."
+      }
+    },
+    {
+      "input_id": "I011",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 1,
+      "unassessed_count": 0,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1689,
+          "completion_tokens": 136,
+          "total_tokens": 1825,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        }
+      },
+      "elapsed_seconds": 6.901,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "3b23bd469c69959fed9d8a394fa72f6d6038ceb1007c8bd58d11fec6f7007f3b",
+      "request_schema_sha256": "7b9093ef3551a7b7f0f94ca70aa5154dea5f8d3e082b4e11c92a085265f11acf",
+      "private_result_sha256": "6a9463998a7d68a6c438a56b94d05d2793d901c371619295eca1ec64e946b78f",
+      "review": {
+        "disposition": "MEETS_REQUIRED_WITH_ERRORS",
+        "reason": "App parameter addition and method are retained, but subject simultaneously claims the parameter name is unspecified although app is explicitly named."
+      }
+    },
+    {
+      "input_id": "I012",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 1,
+      "unassessed_count": 0,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1690,
+          "completion_tokens": 107,
+          "total_tokens": 1797,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        }
+      },
+      "elapsed_seconds": 6.654,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "fc1738a7eb7b0fb7ccc56d0bc7076ff340e1699af5bc0ef876920642bdb89e5a",
+      "request_schema_sha256": "7b9093ef3551a7b7f0f94ca70aa5154dea5f8d3e082b4e11c92a085265f11acf",
+      "private_result_sha256": "a84878b62eafd26f63fcea716e7dd7e3d1ba3440dfe0994f8c6a1b73536eb717",
+      "review": {
+        "disposition": "MEETS_FROZEN_PROPOSITIONS",
+        "reason": "Changed timeout subject and current removal retained."
+      }
+    },
+    {
+      "input_id": "I013",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 1,
+      "unassessed_count": 0,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1698,
+          "completion_tokens": 111,
+          "total_tokens": 1809,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        }
+      },
+      "elapsed_seconds": 5.541,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "38de1b5a00809015bc5a74236a3f73124745ef80873e10b210942e793160a8ad",
+      "request_schema_sha256": "7b9093ef3551a7b7f0f94ca70aa5154dea5f8d3e082b4e11c92a085265f11acf",
+      "private_result_sha256": "2ab2ff80b37cf5a515f03c9fcfd3f052aab42c4d1c9e8cd2e60a4cdfebe945e3",
+      "review": {
+        "disposition": "FAIL_COVERAGE",
+        "reason": "Historical app removal with 0.28.0 retained; same passage current documentation addition omitted without specific unassessed material."
+      }
+    },
+    {
+      "input_id": "I014",
+      "decoder_state": "no_observations_returned",
+      "problem": null,
+      "observation_count": 0,
+      "unassessed_count": 1,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1685,
+          "completion_tokens": 113,
+          "total_tokens": 1798,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        }
+      },
+      "elapsed_seconds": 5.497,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "68964fb995be6129bb1f8b890e62b455dea07e154e6b44ab8080274341d939f8",
+      "request_schema_sha256": "7b9093ef3551a7b7f0f94ca70aa5154dea5f8d3e082b4e11c92a085265f11acf",
+      "private_result_sha256": "61c3b05301b30751a8e1f679797133b9af5c35e3ead497b0875f7e24f7ae40e9",
+      "review": {
+        "disposition": "MEETS_FROZEN_PROPOSITIONS",
+        "reason": "Ambiguous maintenance is specifically unassessed with a valid reference and an explanation of operational ambiguity; no definite removal invented. This repairs the critical Gemma case only, not whole-set admission."
+      }
+    },
+    {
+      "input_id": "I015",
+      "decoder_state": "no_observations_returned",
+      "problem": null,
+      "observation_count": 0,
+      "unassessed_count": 1,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1683,
+          "completion_tokens": 78,
+          "total_tokens": 1761,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        }
+      },
+      "elapsed_seconds": 3.912,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "89e3818ebcb4e331b301587eb57d2b896656af7d5d8e4beccd26c7f33e52b11a",
+      "request_schema_sha256": "7b9093ef3551a7b7f0f94ca70aa5154dea5f8d3e082b4e11c92a085265f11acf",
+      "private_result_sha256": "b2019caa154f99f00d00ffec10c67f67bc96e7405b81e1fb944f6a110f15c842",
+      "review": {
+        "disposition": "MEETS_FROZEN_PROPOSITIONS",
+        "reason": "No invented API changes; acknowledgment is specifically unassessed."
+      }
+    },
+    {
+      "input_id": "I016",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 1,
+      "unassessed_count": 1,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1767,
+          "completion_tokens": 159,
+          "total_tokens": 1926,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        }
+      },
+      "elapsed_seconds": 10.508,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "de2bd24892d3555bcdc2ccf21290661c06b250990e3a1e9cfdab96f4e83ea0a7",
+      "request_schema_sha256": "b9b1ad8e24b5f211164a0be86117f1f6617043a7a8f09f1a6d9eadd6704e3e36",
+      "private_result_sha256": "96acccbc9c785dccfebf5f58e678e7918622a28b0e6bd5d2643c45051297d3cc",
+      "review": {
+        "disposition": "MEETS_WITH_PRECISION_LIMIT",
+        "reason": "Current removal retained; instruction-shaped text is unassessed without target safety/action permission. Effective version remains null."
+      }
+    },
+    {
+      "input_id": "I017",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 1,
+      "unassessed_count": 0,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 3080,
+          "completion_tokens": 153,
+          "total_tokens": 3233,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        }
+      },
+      "elapsed_seconds": 10.958,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "c1d2f31ca3517f94da047272475f126603f4626f66860f21ab63cb89487f5082",
+      "request_schema_sha256": "aaada26d26c792d2ab8e68effee9f415f14e884c5ac2dc2ce994e547fc0f217f",
+      "private_result_sha256": "435ad6d9a8bb985b83d943e166a6a7ca004d37a9255c1a4ddce5e6c83aee485d",
+      "review": {
+        "disposition": "FAIL_REQUIRED_POSITIVES_AND_COVERAGE",
+        "reason": "Only string-valued verify deprecation is represented. Required app/proxies removals, cert deprecation and other changes disappear without specific unassessed material, despite full retained source and completed output."
+      }
+    },
+    {
+      "input_id": "I018",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 1,
+      "unassessed_count": 1,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1865,
+          "completion_tokens": 189,
+          "total_tokens": 2054,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        }
+      },
+      "elapsed_seconds": 11.491,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "9a4a3db2990a3e6c0f6368f85cdb35608840a3778180d268e4b3ac7ffe770fa7",
+      "request_schema_sha256": "11da0af7fb0129b51d45064a04681278877301c9a9a1fa8fa62c3300d1414166",
+      "private_result_sha256": "6bcd25459e8744e9e0356f9316f6bc4123bb155485e13ae9c605bd9c635616a0",
+      "review": {
+        "disposition": "MEETS_WITH_PRECISION_LIMIT",
+        "reason": "Affirmative candidate is source-attributed; opposing candidate is explicitly unassessed as a conflict. Producer ambiguity survives and no overall winner is selected. Positive observation explanation is weakly qualified relative to the whole conflicting input."
+      }
+    },
+    {
+      "input_id": "I019",
+      "decoder_state": "input_problem",
+      "problem": {
+        "stage": "input_problem",
+        "reason": "no_retained_source_text"
+      },
+      "observation_count": 0,
+      "unassessed_count": 0,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": null,
+        "finish_reason": null,
+        "usage": null
+      },
+      "elapsed_seconds": 0.0,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "73232ab01b356b503f3ba9d25c6cfca071c1c9f84109df9c0816ce54785e2409",
+      "request_schema_sha256": "14e723f67ab3a2a00c8360d742463f58874c9940351196e157ba640c77158430",
+      "private_result_sha256": "6a514730df302fb3744c9f35daf05a3d8228948779c1906673914e8b6d588de6",
+      "review": {
+        "disposition": "MEETS_FROZEN_PROPOSITIONS",
+        "reason": "Empty control yields input_problem without inference."
+      }
+    },
+    {
+      "input_id": "I020",
+      "decoder_state": "observations_returned",
+      "problem": null,
+      "observation_count": 1,
+      "unassessed_count": 0,
+      "null_subject_count": 0,
+      "provider": {
+        "http_status": 200,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 2461,
+          "completion_tokens": 170,
+          "total_tokens": 2631,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        }
+      },
+      "elapsed_seconds": 10.758,
+      "capacity_accounting_mismatch": false,
+      "request_sha256": "cc7f89ed387ffeb1feaaf635388845e58b7ec71735d8f59906b20d7fb8f31469",
+      "request_schema_sha256": "a857be358fc9ded69f46780961cc90d7f6bd733bf73b3a3b141d8b5bf204cbe4",
+      "private_result_sha256": "670915414f58315fd812195279a4f77f646348e5a6a4a59ddee6cd28bc1cb58e",
+      "review": {
+        "disposition": "FAIL_COVERAGE_AND_VERSION_PRECISION",
+        "reason": "Only deprecation is structured; the rename/new public API and conditional guidance are missing as separate observations or specifically unassessed material. Explicit >=2.32.0 scope is kept in prose but effective_version is null. Current deprecation does not meet the frozen historical-event expectation; ongoing-state versus onset interpretation remains a contract-design question and is not used alone as a uniquely proved meaning error."
+      }
+    }
+  ]
+}

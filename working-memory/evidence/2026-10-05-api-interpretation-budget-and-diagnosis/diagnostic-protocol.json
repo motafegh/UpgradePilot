@@ -1,0 +1,442 @@
+{
+  "probe_class": "known-development causal contrast, not revised role or independent acceptance",
+  "selection_basis": "first failed frozen pass, before observing probe outputs; no case answers supplied",
+  "model_outputs_seen": false,
+  "baseline_run": "live-budget-8192-v1",
+  "baseline_settings": {
+    "packages": {
+      "lmstudio": "1.5.0",
+      "requests": "2.34.2",
+      "packaging": "26.2",
+      "httpx": "0.28.1",
+      "anyio": "4.14.2"
+    },
+    "model": {
+      "type": "llm",
+      "modelKey": "gemma-4-e4b-it-ud",
+      "format": "gguf",
+      "displayName": "Gemma 4 E4B Instruct UD",
+      "path": "lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf",
+      "sizeBytes": 5101713792,
+      "identifier": "gemma-4-e4b-it-ud",
+      "instanceReference": "h+FHNYqEJ0zJAVe5YXHQ0kWm",
+      "vision": false,
+      "trainedForToolUse": true,
+      "maxContextLength": 131072,
+      "contextLength": 16384,
+      "paramsString": "7.5B",
+      "architecture": "gemma4"
+    },
+    "load_config": {
+      "gpu": {
+        "ratio": 1.0
+      },
+      "gpuStrictVramCap": true,
+      "offloadKVCacheToGpu": true,
+      "contextLength": 16384,
+      "flashAttention": true
+    },
+    "template_identity_basis": "actual loaded-instance config and SDK-applied fixed chat probe",
+    "template_identity": "faab5f045d792d6b660612eaaea293d64bf579d3cf78285b6d0ac6f972cf3d60"
+  },
+  "generic_instructions": {
+    "subject_only": "Clarification of subject: return the affected entity at the exact granularity named or described in the supplied source. An argument, option, function or method name can be a subject without knowing its full API owner. Missing owner qualification, target applicability or external context does not make a source-named subject unspecified. Use null only when no affected entity can be expressed from the supplied text. Do not invent missing qualification.",
+    "reason_only": "Before emitting an observation, check its fields together: kind unclear, assertion uncertain, subject null, or timing unspecified each requires a nonblank reason on that same observation. An explanation in unassessed is not a substitute. Preserve uncertainty rather than guessing a value to avoid a reason.",
+    "reference_only": "Every start_line_id and end_line_id in both observations and unassessed must be copied from an actual supplied line_id, including its line component. A section_id is not a line_id. To describe an entire section use its actual first and last supplied line IDs; for two sections use separate valid spans.",
+    "semantic_only": "Interpret the structured fields jointly. kind names the source-described operation; assertion is the polarity of that operation, not whether the prose sentence itself is true. A negated operation keeps its kind and has negated assertion. Do not infer a definite operation from ambiguous wording: use unclear/uncertain or specifically unassessed with explanation. Replacement guidance alone does not establish that the replacement was added or its behavior changed. Retain source-supported current, planned and historical timing."
+  },
+  "schema_visible_rule": "Append exact frozen schema JSON with sorted keys to system message; unconstrained arm additionally removes response_format; original decoder still validates every completed output.",
+  "records": [
+    {
+      "name": "subject_only-I002",
+      "arm": "subject_only",
+      "input_id": "I002",
+      "request_sha256": "20607fa1e185a0485730054190221ece4cec008ca32a862e5f5c897c3d56fc0f",
+      "capacity": {
+        "request_sha256": "20607fa1e185a0485730054190221ece4cec008ca32a862e5f5c897c3d56fc0f",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "h+FHNYqEJ0zJAVe5YXHQ0kWm",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:h+FHNYqEJ0zJAVe5YXHQ0kWm",
+        "template_identity": "faab5f045d792d6b660612eaaea293d64bf579d3cf78285b6d0ac6f972cf3d60",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 16384,
+        "input_tokens": 1686,
+        "reserved_output_tokens": 8192
+      },
+      "counts": {
+        "chat_template_tokens": 1018,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "3ad18f9de697807419deb36d561fcb948e6fb249a2c68d5dbc6d4fa38174716a",
+        "fits": true
+      },
+      "source_input_sha256": "cd7c4866a24331db78df135a5091d21adb72a37a65c1f2071c509af1e47c7f1c"
+    },
+    {
+      "name": "subject_only-I003",
+      "arm": "subject_only",
+      "input_id": "I003",
+      "request_sha256": "b400f86089ae7990922ec4dd324a0063494334acaeb4ebc88bb2fd776fbab983",
+      "capacity": {
+        "request_sha256": "b400f86089ae7990922ec4dd324a0063494334acaeb4ebc88bb2fd776fbab983",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "h+FHNYqEJ0zJAVe5YXHQ0kWm",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:h+FHNYqEJ0zJAVe5YXHQ0kWm",
+        "template_identity": "faab5f045d792d6b660612eaaea293d64bf579d3cf78285b6d0ac6f972cf3d60",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 16384,
+        "input_tokens": 1692,
+        "reserved_output_tokens": 8192
+      },
+      "counts": {
+        "chat_template_tokens": 1024,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "f81000dee756430afaf4e316c97865e0257e28bf50b3611e6590f3597d37cc04",
+        "fits": true
+      },
+      "source_input_sha256": "3c9586a215249f805fa69e7f6d7331b52347a2de5b9b5e415e0d6691ef62a6b7"
+    },
+    {
+      "name": "subject_only-I007",
+      "arm": "subject_only",
+      "input_id": "I007",
+      "request_sha256": "b709940e3fb3766881ed112c9c0d499ba9f1e42f148e3e47211f4c05a14cf531",
+      "capacity": {
+        "request_sha256": "b709940e3fb3766881ed112c9c0d499ba9f1e42f148e3e47211f4c05a14cf531",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "h+FHNYqEJ0zJAVe5YXHQ0kWm",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:h+FHNYqEJ0zJAVe5YXHQ0kWm",
+        "template_identity": "faab5f045d792d6b660612eaaea293d64bf579d3cf78285b6d0ac6f972cf3d60",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 16384,
+        "input_tokens": 1888,
+        "reserved_output_tokens": 8192
+      },
+      "counts": {
+        "chat_template_tokens": 1220,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "99c519165a8f56ea6d91240b0c223a6cf4f9a2b768497e299b6402ef239e51f4",
+        "fits": true
+      },
+      "source_input_sha256": "142512b964db1ecf92373dbaa3b3b0e40391e40f3620598eb9595adbf797b7d7"
+    },
+    {
+      "name": "subject_only-I011",
+      "arm": "subject_only",
+      "input_id": "I011",
+      "request_sha256": "0fc7cdd54d9563008dba75e06c787aab685b393c341193ee7668da60f5e347ee",
+      "capacity": {
+        "request_sha256": "0fc7cdd54d9563008dba75e06c787aab685b393c341193ee7668da60f5e347ee",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "h+FHNYqEJ0zJAVe5YXHQ0kWm",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:h+FHNYqEJ0zJAVe5YXHQ0kWm",
+        "template_identity": "faab5f045d792d6b660612eaaea293d64bf579d3cf78285b6d0ac6f972cf3d60",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 16384,
+        "input_tokens": 1580,
+        "reserved_output_tokens": 8192
+      },
+      "counts": {
+        "chat_template_tokens": 912,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "a996c20f6c184d1654984c3ca73a36bacd86d6535e94e73a32886b515cb43d1b",
+        "fits": true
+      },
+      "source_input_sha256": "d4ae7bc98b5209c8625c745c00aa52a0d9c7f2449cc46b58cd12cafba083d163"
+    },
+    {
+      "name": "schema_visible-I003",
+      "arm": "schema_visible",
+      "input_id": "I003",
+      "request_sha256": "ef45a0db479c3418a65efd64a66eb82687d0a997604b872c6d131710769e3a2c",
+      "capacity": {
+        "request_sha256": "ef45a0db479c3418a65efd64a66eb82687d0a997604b872c6d131710769e3a2c",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "h+FHNYqEJ0zJAVe5YXHQ0kWm",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:h+FHNYqEJ0zJAVe5YXHQ0kWm",
+        "template_identity": "faab5f045d792d6b660612eaaea293d64bf579d3cf78285b6d0ac6f972cf3d60",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 16384,
+        "input_tokens": 2254,
+        "reserved_output_tokens": 8192
+      },
+      "counts": {
+        "chat_template_tokens": 1586,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "f35b3a5684888f13e33e2003d5459ef5c53638f4c7a196e9c1731607f38ed022",
+        "fits": true
+      },
+      "source_input_sha256": "3c9586a215249f805fa69e7f6d7331b52347a2de5b9b5e415e0d6691ef62a6b7"
+    },
+    {
+      "name": "schema_visible-I007",
+      "arm": "schema_visible",
+      "input_id": "I007",
+      "request_sha256": "56584d478560b6ba4af040a15aabfc56f8ecc040dabecf73503bec9349935932",
+      "capacity": {
+        "request_sha256": "56584d478560b6ba4af040a15aabfc56f8ecc040dabecf73503bec9349935932",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "h+FHNYqEJ0zJAVe5YXHQ0kWm",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:h+FHNYqEJ0zJAVe5YXHQ0kWm",
+        "template_identity": "faab5f045d792d6b660612eaaea293d64bf579d3cf78285b6d0ac6f972cf3d60",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 16384,
+        "input_tokens": 2450,
+        "reserved_output_tokens": 8192
+      },
+      "counts": {
+        "chat_template_tokens": 1782,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "a09914588c6c8e37e1630ca298f2efa82708e9bb75b1cfa3e5d11237f2e9edcc",
+        "fits": true
+      },
+      "source_input_sha256": "142512b964db1ecf92373dbaa3b3b0e40391e40f3620598eb9595adbf797b7d7"
+    },
+    {
+      "name": "schema_visible-I011",
+      "arm": "schema_visible",
+      "input_id": "I011",
+      "request_sha256": "7b9e474579a86c8bb73e413d20e4c389e2d427553585fd3d5a54a71826d71fdb",
+      "capacity": {
+        "request_sha256": "7b9e474579a86c8bb73e413d20e4c389e2d427553585fd3d5a54a71826d71fdb",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "h+FHNYqEJ0zJAVe5YXHQ0kWm",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:h+FHNYqEJ0zJAVe5YXHQ0kWm",
+        "template_identity": "faab5f045d792d6b660612eaaea293d64bf579d3cf78285b6d0ac6f972cf3d60",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 16384,
+        "input_tokens": 2142,
+        "reserved_output_tokens": 8192
+      },
+      "counts": {
+        "chat_template_tokens": 1474,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "e2c85353c59109ab2d672707fc1968c42cc5cde371adc4c01a29620c0bd4cd69",
+        "fits": true
+      },
+      "source_input_sha256": "d4ae7bc98b5209c8625c745c00aa52a0d9c7f2449cc46b58cd12cafba083d163"
+    },
+    {
+      "name": "schema_visible-I018",
+      "arm": "schema_visible",
+      "input_id": "I018",
+      "request_sha256": "7d3c3214ca9c3da03ce66880a19a583d5fd8019f6e8a072b6d7e5402da50ca9b",
+      "capacity": {
+        "request_sha256": "7d3c3214ca9c3da03ce66880a19a583d5fd8019f6e8a072b6d7e5402da50ca9b",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "h+FHNYqEJ0zJAVe5YXHQ0kWm",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:h+FHNYqEJ0zJAVe5YXHQ0kWm",
+        "template_identity": "faab5f045d792d6b660612eaaea293d64bf579d3cf78285b6d0ac6f972cf3d60",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 16384,
+        "input_tokens": 2305,
+        "reserved_output_tokens": 8192
+      },
+      "counts": {
+        "chat_template_tokens": 1637,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "c5c169f77f71b117bc61046632db0771343c11ef43442f5a8153fcc5a3c1605c",
+        "fits": true
+      },
+      "source_input_sha256": "3c65c1b97556aa69e1059a89747fc4fe0e7dbaf7ff5aceb38ad45e48b1abc844"
+    },
+    {
+      "name": "schema_visible_unconstrained-I007",
+      "arm": "schema_visible_unconstrained",
+      "input_id": "I007",
+      "request_sha256": "cfbf0215ee45691a79197b7e6e6f72eaf763d04eaca35166309e7c24820c2c7e",
+      "capacity": {
+        "request_sha256": "cfbf0215ee45691a79197b7e6e6f72eaf763d04eaca35166309e7c24820c2c7e",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "h+FHNYqEJ0zJAVe5YXHQ0kWm",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:h+FHNYqEJ0zJAVe5YXHQ0kWm",
+        "template_identity": "faab5f045d792d6b660612eaaea293d64bf579d3cf78285b6d0ac6f972cf3d60",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 16384,
+        "input_tokens": 2450,
+        "reserved_output_tokens": 8192
+      },
+      "counts": {
+        "chat_template_tokens": 1782,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "a09914588c6c8e37e1630ca298f2efa82708e9bb75b1cfa3e5d11237f2e9edcc",
+        "fits": true
+      },
+      "source_input_sha256": "142512b964db1ecf92373dbaa3b3b0e40391e40f3620598eb9595adbf797b7d7"
+    },
+    {
+      "name": "schema_visible_unconstrained-I011",
+      "arm": "schema_visible_unconstrained",
+      "input_id": "I011",
+      "request_sha256": "a13d3a4ece9f8bbfdda6d9899e7b876497a9c69b5ca25ef7b4f67d876d4bae59",
+      "capacity": {
+        "request_sha256": "a13d3a4ece9f8bbfdda6d9899e7b876497a9c69b5ca25ef7b4f67d876d4bae59",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "h+FHNYqEJ0zJAVe5YXHQ0kWm",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:h+FHNYqEJ0zJAVe5YXHQ0kWm",
+        "template_identity": "faab5f045d792d6b660612eaaea293d64bf579d3cf78285b6d0ac6f972cf3d60",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 16384,
+        "input_tokens": 2142,
+        "reserved_output_tokens": 8192
+      },
+      "counts": {
+        "chat_template_tokens": 1474,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "e2c85353c59109ab2d672707fc1968c42cc5cde371adc4c01a29620c0bd4cd69",
+        "fits": true
+      },
+      "source_input_sha256": "d4ae7bc98b5209c8625c745c00aa52a0d9c7f2449cc46b58cd12cafba083d163"
+    },
+    {
+      "name": "schema_visible_unconstrained-I018",
+      "arm": "schema_visible_unconstrained",
+      "input_id": "I018",
+      "request_sha256": "fc5b12a2895d5c990ccdc6d660c35df9c5c4ba3255703262308c758ba47cfeac",
+      "capacity": {
+        "request_sha256": "fc5b12a2895d5c990ccdc6d660c35df9c5c4ba3255703262308c758ba47cfeac",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "h+FHNYqEJ0zJAVe5YXHQ0kWm",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:h+FHNYqEJ0zJAVe5YXHQ0kWm",
+        "template_identity": "faab5f045d792d6b660612eaaea293d64bf579d3cf78285b6d0ac6f972cf3d60",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 16384,
+        "input_tokens": 2305,
+        "reserved_output_tokens": 8192
+      },
+      "counts": {
+        "chat_template_tokens": 1637,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "c5c169f77f71b117bc61046632db0771343c11ef43442f5a8153fcc5a3c1605c",
+        "fits": true
+      },
+      "source_input_sha256": "3c65c1b97556aa69e1059a89747fc4fe0e7dbaf7ff5aceb38ad45e48b1abc844"
+    },
+    {
+      "name": "reason_only-I003",
+      "arm": "reason_only",
+      "input_id": "I003",
+      "request_sha256": "6745df9ab705e0397344b206cc969c68270248e0290ed86924adbcee42cde481",
+      "capacity": {
+        "request_sha256": "6745df9ab705e0397344b206cc969c68270248e0290ed86924adbcee42cde481",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "h+FHNYqEJ0zJAVe5YXHQ0kWm",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:h+FHNYqEJ0zJAVe5YXHQ0kWm",
+        "template_identity": "faab5f045d792d6b660612eaaea293d64bf579d3cf78285b6d0ac6f972cf3d60",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 16384,
+        "input_tokens": 1667,
+        "reserved_output_tokens": 8192
+      },
+      "counts": {
+        "chat_template_tokens": 999,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "3dd1ce0b8989500bcf79ecadb42841b976611bb5cd6b962aa30ac43c9daaafeb",
+        "fits": true
+      },
+      "source_input_sha256": "3c9586a215249f805fa69e7f6d7331b52347a2de5b9b5e415e0d6691ef62a6b7"
+    },
+    {
+      "name": "reference_only-I018",
+      "arm": "reference_only",
+      "input_id": "I018",
+      "request_sha256": "2592c7f12cdd6e1ba0bc265376dc48f49e8ea7b728ea691c935488dc9a34d516",
+      "capacity": {
+        "request_sha256": "2592c7f12cdd6e1ba0bc265376dc48f49e8ea7b728ea691c935488dc9a34d516",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "h+FHNYqEJ0zJAVe5YXHQ0kWm",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:h+FHNYqEJ0zJAVe5YXHQ0kWm",
+        "template_identity": "faab5f045d792d6b660612eaaea293d64bf579d3cf78285b6d0ac6f972cf3d60",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 16384,
+        "input_tokens": 1731,
+        "reserved_output_tokens": 8192
+      },
+      "counts": {
+        "chat_template_tokens": 1063,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "76f24306e99fc9ce4e715c504031bf68533ae261722fa76e9bce5747e66d0d9d",
+        "fits": true
+      },
+      "source_input_sha256": "3c65c1b97556aa69e1059a89747fc4fe0e7dbaf7ff5aceb38ad45e48b1abc844"
+    },
+    {
+      "name": "semantic_only-I005",
+      "arm": "semantic_only",
+      "input_id": "I005",
+      "request_sha256": "38636859693300a8bd1c34ef7eed301230eadc57ab95662adb17756510889d87",
+      "capacity": {
+        "request_sha256": "38636859693300a8bd1c34ef7eed301230eadc57ab95662adb17756510889d87",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "h+FHNYqEJ0zJAVe5YXHQ0kWm",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:h+FHNYqEJ0zJAVe5YXHQ0kWm",
+        "template_identity": "faab5f045d792d6b660612eaaea293d64bf579d3cf78285b6d0ac6f972cf3d60",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 16384,
+        "input_tokens": 1957,
+        "reserved_output_tokens": 8192
+      },
+      "counts": {
+        "chat_template_tokens": 1289,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "8fcbdb4bee01fb991b4e416a12fa38a517b8650fe76732e068bc089211c1887d",
+        "fits": true
+      },
+      "source_input_sha256": "75b9fa15c6a327fa8cc438aced737b475a5736e3a42aa9bb7c047fd8a1312254"
+    },
+    {
+      "name": "semantic_only-I009",
+      "arm": "semantic_only",
+      "input_id": "I009",
+      "request_sha256": "3fb598d1a94083c76d566856341dd050373354ee27f2b7fe56e73797cef77c05",
+      "capacity": {
+        "request_sha256": "3fb598d1a94083c76d566856341dd050373354ee27f2b7fe56e73797cef77c05",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "h+FHNYqEJ0zJAVe5YXHQ0kWm",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:h+FHNYqEJ0zJAVe5YXHQ0kWm",
+        "template_identity": "faab5f045d792d6b660612eaaea293d64bf579d3cf78285b6d0ac6f972cf3d60",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 16384,
+        "input_tokens": 1581,
+        "reserved_output_tokens": 8192
+      },
+      "counts": {
+        "chat_template_tokens": 913,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "cf64b1690bd8581b6751dc2bf8224956eedfb714822ad6c0f52cd6d76be93eb9",
+        "fits": true
+      },
+      "source_input_sha256": "06b3f759b60d6f099efe43297e6b3579cf434a79d16ca4663670adf0160b47ab"
+    },
+    {
+      "name": "semantic_only-I014",
+      "arm": "semantic_only",
+      "input_id": "I014",
+      "request_sha256": "be9ea258492be79c6bf3963908c34e26aefec155da09f0cbd558e4838a9d728e",
+      "capacity": {
+        "request_sha256": "be9ea258492be79c6bf3963908c34e26aefec155da09f0cbd558e4838a9d728e",
+        "model": "gemma-4-e4b-it-ud",
+        "deployment_identity": "h+FHNYqEJ0zJAVe5YXHQ0kWm",
+        "tokenizer_identity": "gemma-4-e4b-it-ud:lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf:h+FHNYqEJ0zJAVe5YXHQ0kWm",
+        "template_identity": "faab5f045d792d6b660612eaaea293d64bf579d3cf78285b6d0ac6f972cf3d60",
+        "accounting_method": "loaded-model SDK chat template/tokenization plus SDK-tokenized full response-format JSON allowance; provider usage cross-check",
+        "effective_context_tokens": 16384,
+        "input_tokens": 1586,
+        "reserved_output_tokens": 8192
+      },
+      "counts": {
+        "chat_template_tokens": 918,
+        "schema_token_allowance": 668,
+        "formatted_chat_sha256": "7d7b79777ff97212d84481f9c2e62e2b3fb146bbd7d46a9d6c29f3dfc1618042",
+        "fits": true
+      },
+      "source_input_sha256": "d9435e306f4eb151c83a49b5c5c4679e62ba78cc032d7640a7715869c0d86c3b"
+    }
+  ],
+  "code_sha256": "303f33f66fdb8d319d7beacf17b81cb7019d7a440681323fceba2f3ed8845abb",
+  "producer_code_sha256": {
+    "experiments/api_change_interpretation.py": "78a161e49b3f7a970013f120c6ba708623b2d07b6af45f5607d53e688743f7b7",
+    "experiments/api_change_interpretation_trial.py": "884f3a17e986476cce20712fe710690fbae70fb0e95d84d7e1acd63ac29b3b6b",
+    "experiments/api_change_interpretation_evaluation.py": "51fe1f13fc871c0e9ce724cd5e863c61b92fbcc63e4a50b51ecccd551e0c336a",
+    "src/upgradepilot/upstream/support_drop_extractor.py": "7b74b736265eab410e8e363b5a3592be2a1e2dcb6e67a709dd350effbbd0c199"
+  }
+}

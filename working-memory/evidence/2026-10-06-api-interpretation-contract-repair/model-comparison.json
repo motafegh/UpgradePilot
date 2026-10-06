@@ -1,0 +1,89 @@
+{
+  "dated_review": "2026-10-06",
+  "role_version": "source-only-api-change-v2",
+  "review_class": "assisted comparative development evidence; no independent accuracy or product admission",
+  "request_equivalence": "Every request differs only in model; same full source, schema/messages, max_tokens, temperature and seed. Model/deployment, tokenizer and template necessarily differ. Gemma was run before explicit model selection was added; re-rendered request bodies are unchanged.",
+  "reviewed_runs": {
+    "gemma": {
+      "model": "gemma-4-e4b-it-ud",
+      "review_file": "reviewed-results.json",
+      "execution": {
+        "cases": 20,
+        "inference_calls": 19,
+        "no_inference_controls": 1,
+        "http_200": 19,
+        "finish_stop": 19,
+        "contract_or_grounding_failures": 0,
+        "truncations": 0,
+        "capacity_accounting_mismatches": 0,
+        "observations": 37,
+        "null_subjects": 2,
+        "prompt_tokens": 39222,
+        "completion_tokens": 18787,
+        "summed_case_seconds": 258.566
+      },
+      "disposition": "FAILED / REVISE"
+    },
+    "mimo": {
+      "model": "mimo-v2.6-distill-qwen-9b",
+      "review_file": "mimo-reviewed-results.json",
+      "execution": {
+        "cases": 20,
+        "inference_calls": 19,
+        "no_inference_controls": 1,
+        "http_200": 19,
+        "finish_stop": 19,
+        "contract_or_grounding_failures": 0,
+        "truncations": 0,
+        "capacity_accounting_mismatches": 0,
+        "observations": 27,
+        "null_subjects": 0,
+        "prompt_tokens": 37449,
+        "completion_tokens": 3764,
+        "summed_case_seconds": 184.072,
+        "reported_reasoning_tokens": 0
+      },
+      "disposition": "FAILED / REVISE"
+    }
+  },
+  "comparison_findings": [
+    {
+      "topic": "ambiguous maintenance",
+      "gemma": "Critical definite removal persists.",
+      "mimo": "Operational ambiguity explicitly unassessed."
+    },
+    {
+      "topic": "full-window timing and coverage",
+      "gemma": "Incorrect historical timing and blanket unassessed coverage.",
+      "mimo": "Required topics and release-relative timing retained; category and invented-truncation limitations remain."
+    },
+    {
+      "topic": "current deprecation and future removal",
+      "gemma": "Future removal omitted.",
+      "mimo": "Future removal preserved in prose but not separately typed."
+    },
+    {
+      "topic": "negated removal",
+      "gemma": "Correct removal/negated/current.",
+      "mimo": "Other/affirmed/unspecified despite negative summary."
+    },
+    {
+      "topic": "partial release window",
+      "gemma": "Required removals and other changes retained, with version/category imprecision.",
+      "mimo": "Only verify deprecation; required removals and other material omitted."
+    },
+    {
+      "topic": "new Requests release",
+      "gemma": "New API misdated; guidance missing.",
+      "mimo": "Only deprecation structured; rename/guidance and explicit effective version missing."
+    }
+  ],
+  "disposition": "Neither model passes the whole v2 role. Do not replace a default based on one repaired case.",
+  "recommended_next_responsibility": "Separately design and freeze source-proposition coverage and operation encoding comparison, including evidence-first/two-stage alternative; specify release-relative event timing versus ongoing status. Preserve producer validation and independent/target-PR gates.",
+  "limits": [
+    "Single serial pass per deployment; latency/tokens are observations, not warmed benchmark statistics.",
+    "Reported reasoning tokens differ; no settings changed to force a reasoning mode. No unique attribution to training, quantization, backend or internal mechanisms.",
+    "New real-source case is AI-selected/reviewed, not independent adjudication.",
+    "No product role/default is promoted."
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "selection": "New package and custom adapter API shape selected before any v2 model output; no prior model success used to select it.",
+  "inputs": [
+    {
+      "input_id": "I020",
+      "role_version": "source-only-api-change-v2",
+      "scope": {
+        "mode": "supplied_real_section",
+        "complete_window_eligible": false,
+        "required_versions": [
+          "2.32.2"
+        ],
+        "supplied_versions": [
+          "2.32.2"
+        ],
+        "missing_versions": [],
+        "ambiguous_versions": [],
+        "source_limits": "Newly selected Requests release section; no target facts, full dependency window or independent reviewer."
+      },
+      "sections": [
+        {
+          "release_version": "2.32.2",
+          "source_identity": {
+            "repository": "psf/requests",
+            "revision": "88dce9d854797c05d0ff296b70e0430535ef8aaf",
+            "path": "HISTORY.md",
+            "full_source_sha256": "ec6c132117b7ecdbf21a58d9f06330bc3846bb79d625f0bc98da345fa1b09e35",
+            "source_basis": "pinned_public_repository_calibration",
+            "source_url": "https://raw.githubusercontent.com/psf/requests/88dce9d854797c05d0ff296b70e0430535ef8aaf/HISTORY.md",
+            "retrieval": "fresh anonymous exact-commit read; whole 2.32.2 section; not ordinary target-PR acquisition"
+          },
+          "start_line": 9,
+          "start_offset": 90,
+          "end_offset": 723,
+          "text": "2.32.2 (2024-05-21)\n-------------------\n\n**Deprecations**\n- To provide a more stable migration for custom HTTPAdapters impacted\n  by the CVE changes in 2.32.0, we've renamed `_get_connection` to\n  a new public API, `get_connection_with_tls_context`. Existing custom\n  HTTPAdapters will need to migrate their code to use this new API.\n  `get_connection` is considered deprecated in all versions of Requests>=2.32.0.\n\n  A minimal (2-line) example has been provided in the linked PR to ease\n  migration, but we strongly urge users to evaluate if their custom adapter\n  is subject to the same issue described in CVE-2024-35195. (#6710)\n\n",
+          "sha256": "30f8347c40f399aedc99c1c32c97d15d4eb539311118f7a8526132b1876bff3d",
+          "section_id": "S1",
+          "lines": [
+            {
+              "line_id": "S1:L1",
+              "source_line_number": 9,
+              "start_offset": 90,
+              "end_offset": 110,
+              "text": "2.32.2 (2024-05-21)\n"
+            },
+            {
+              "line_id": "S1:L2",
+              "source_line_number": 10,
+              "start_offset": 110,
+              "end_offset": 130,
+              "text": "-------------------\n"
+            },
+            {
+              "line_id": "S1:L3",
+              "source_line_number": 11,
+              "start_offset": 130,
+              "end_offset": 131,
+              "text": "\n"
+            },
+            {
+              "line_id": "S1:L4",
+              "source_line_number": 12,
+              "start_offset": 131,
+              "end_offset": 148,
+              "text": "**Deprecations**\n"
+            },
+            {
+              "line_id": "S1:L5",
+              "source_line_number": 13,
+              "start_offset": 148,
+              "end_offset": 218,
+              "text": "- To provide a more stable migration for custom HTTPAdapters impacted\n"
+            },
+            {
+              "line_id": "S1:L6",
+              "source_line_number": 14,
+              "start_offset": 218,
+              "end_offset": 285,
+              "text": "  by the CVE changes in 2.32.0, we've renamed `_get_connection` to\n"
+            },
+            {
+              "line_id": "S1:L7",
+              "source_line_number": 15,
+              "start_offset": 285,
+              "end_offset": 356,
+              "text": "  a new public API, `get_connection_with_tls_context`. Existing custom\n"
+            },
+            {
+              "line_id": "S1:L8",
+              "source_line_number": 16,
+              "start_offset": 356,
+              "end_offset": 424,
+              "text": "  HTTPAdapters will need to migrate their code to use this new API.\n"
+            },
+            {
+              "line_id": "S1:L9",
+              "source_line_number": 17,
+              "start_offset": 424,
+              "end_offset": 505,
+              "text": "  `get_connection` is considered deprecated in all versions of Requests>=2.32.0.\n"
+            },
+            {
+              "line_id": "S1:L10",
+              "source_line_number": 18,
+              "start_offset": 505,
+              "end_offset": 506,
+              "text": "\n"
+            },
+            {
+              "line_id": "S1:L11",
+              "source_line_number": 19,
+              "start_offset": 506,
+              "end_offset": 578,
+              "text": "  A minimal (2-line) example has been provided in the linked PR to ease\n"
+            },
+            {
+              "line_id": "S1:L12",
+              "source_line_number": 20,
+              "start_offset": 578,
+              "end_offset": 654,
+              "text": "  migration, but we strongly urge users to evaluate if their custom adapter\n"
+            },
+            {
+              "line_id": "S1:L13",
+              "source_line_number": 21,
+              "start_offset": 654,
+              "end_offset": 722,
+              "text": "  is subject to the same issue described in CVE-2024-35195. (#6710)\n"
+            },
+            {
+              "line_id": "S1:L14",
+              "source_line_number": 22,
+              "start_offset": 722,
+              "end_offset": 723,
+              "text": "\n"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

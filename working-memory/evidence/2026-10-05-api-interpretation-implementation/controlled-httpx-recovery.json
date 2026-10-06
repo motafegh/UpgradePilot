@@ -1,0 +1,111 @@
+{
+  "date": "2026-10-05",
+  "role_version": "source-only-api-change-v1",
+  "proof_class": "historical ordinary acquisition plus fresh controlled component and offline CLI proof",
+  "historical_context": {
+    "path": "working-memory/evidence/2026-10-04-ordered-scoped-bindings/live-pr-context.json",
+    "sha256": "1e79f2b75abd1cbaf79a7deb61fec1d8f4b9ee68cbd9834c586443ac6976a5dc"
+  },
+  "model_calls": 0,
+  "fresh_external_acquisition_calls": 0,
+  "state": "observations_returned",
+  "source_characters": 1367,
+  "source_coverage": {
+    "complete_window_eligible": true,
+    "acquisition_coverage": "complete_exact_version_atx_sections_at_proposed_tag",
+    "required_versions": [
+      "0.28.0",
+      "0.28.1"
+    ],
+    "supplied_versions": [
+      "0.28.1",
+      "0.28.0"
+    ],
+    "missing_or_unsupported_versions": [],
+    "ambiguous_versions": [],
+    "issues": [],
+    "text_omission_reason": null,
+    "max_characters": null,
+    "omitted_candidates": [],
+    "acquisition_problem": null
+  },
+  "method": {
+    "role_version": "source-only-api-change-v1",
+    "renderer_version": 1,
+    "asset_sha256": {
+      "prompt-template-v1.md": "e9b4495eae96a40fe559bcaf4059672d4ccd338adcf449b72f2cbfa131a40158",
+      "output-schema-v1.json": "c40b35baa52227ef2a9ef17e176cc6c47384d6958b1b9c072a6d9b991c044c42"
+    },
+    "input_sha256": "fb099e9ffd7b0afda529ccead827d6a9a3941ec26d9790ddc8d91b84fa4cdd49",
+    "request_sha256": "1b91e88aae9e8a1633b81abab646c6e969c6f241d9c37b3e9cd7750608f3f720",
+    "interpreter_code_sha256": "026cdeb2394d801028f3962eaec20d8bc1864e5df54bb0fd247fc70bd22ee058",
+    "model": "gemma-4-e4b-it-ud",
+    "temperature": 0,
+    "seed": 0,
+    "max_output_tokens": 1536,
+    "provider": {
+      "kind": "controlled_historical_source",
+      "semantic_acceptance": false
+    }
+  },
+  "controlled_observation": {
+    "kind": "removal",
+    "subject": "proxies argument",
+    "summary": "The deprecated proxies argument was removed.",
+    "assertion": "affirmed",
+    "timing": "current",
+    "effective_version": "0.28.0",
+    "source_spans": [
+      {
+        "start_line_id": "S2:L18",
+        "end_line_id": "S2:L18"
+      }
+    ],
+    "reason": null,
+    "evidence": [
+      {
+        "source_identity": {
+          "repository": "encode/httpx",
+          "revision": "26d48e0634e6ee9cdc0533996db289ce4b430177",
+          "path": "CHANGELOG.md",
+          "full_source_sha256": "2cd04b965b20eff7a4d3b30cc020c63b125da9f731874513bad2e59ca9743258",
+          "source_basis": "exact_release_publisher_declared_repository"
+        },
+        "reported_in_version": "0.28.0",
+        "section_id": "S2",
+        "start_line": 28,
+        "end_line": 28,
+        "start_offset": 947,
+        "end_offset": 1005,
+        "quote": "* The deprecated `proxies` argument has now been removed.\n",
+        "quote_sha256": "2257446453f80d0136d4d0b1967f9244b58c9c0fbaed1e62ca598ec7281b5c0a"
+      }
+    ]
+  },
+  "saved_packet_sha256": "93c64799945e06d92f271e8916e81cf5a2ed85bde111cf699bf6d0db5e9ef37c",
+  "saved_bytes": 696454,
+  "python_readback_equal": true,
+  "actual_offline_cli_exit_code": 0,
+  "actual_offline_cli_equal": true,
+  "target_branch_sha256": "64adb4a281ca8cf9b1e95e0379c23ca9099db387d28c64b3b8b2f0f47830d903",
+  "adapter_branch_sha256": "1c80e7fd58eb62fdbacb730f3c586c3b3aca6c3684f87483fe174ce133278e58",
+  "target_and_adapter_branches_preserved": true,
+  "raw_prompts_or_model_responses_saved": false,
+  "frozen_preparation_assets_unchanged": 9,
+  "producer_code_sha256": {
+    "experiments/api_change_interpretation.py": "026cdeb2394d801028f3962eaec20d8bc1864e5df54bb0fd247fc70bd22ee058",
+    "experiments/api_change_interpretation_trial.py": "cb77fb1e74120597be3dddd050836e304c2483152f29fb1fee3320c40b107e92",
+    "experiments/api_change_source_acquisition.py": "cfaa2e5ac1edb29c0bd6ace06dfe7d75c8d789e688ffa280e7fbd3a45ce72f16",
+    "experiments/api_release_window_manifest.py": "1786c9720b344330143f4f6c432ce7b0cf84d350cd80f278731e8152e842237b",
+    "experiments/api_target_context_smoke.py": "d1e227b3bd536fab4cad3c3d0e9f020738055dc638ba628b516300f859a531b1",
+    "experiments/api_target_context.py": "718ee467d83b8e7e71168e7d8c7d5264ff234fd4730b938092921be352900e6b",
+    "experiments/api_python_bindings.py": "215e96e8e066cfae3a08c7a28f991cb810c8ec7da14e14abb85326509e93166a",
+    "experiments/api_adapter_exploration.py": "23df94917a53c8742c5c8b707f7911cac525eb6284433b836cca5081c7e4aaa7",
+    "src/upgradepilot/upstream/support_drop_extractor.py": "7b74b736265eab410e8e363b5a3592be2a1e2dcb6e67a709dd350effbbd0c199",
+    "src/upgradepilot/dependency/versioning.py": "cf9a585f6fbe7a47f3a60dcd2d335ad9b1aee1cb81eb69e1a88027252cf365d5",
+    "src/upgradepilot/upstream/interval.py": "cf2ca4ac15e30cfa8ca77d0759983ba737e000a9bb144e9d801f753f214595ef"
+  },
+  "semantic_acceptance": false,
+  "product_adoption": false,
+  "effective_capacity": "unmeasured; default local adapter refuses inference"
+}
