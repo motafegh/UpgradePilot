@@ -1,7 +1,7 @@
 """Shared-access/control, resource and source-boundary proof; no model quality."""
 
-import io
 import hashlib
+import io
 import json
 import zipfile
 from dataclasses import asdict, replace
@@ -59,29 +59,55 @@ def action(tool="read_source", arguments=None):
 
 
 def report():
-    # Deliberately wrong meaning with an existing source reference: this must
-    # remain an ungraded proposal rather than become deterministic correctness.
-    return action(
-        "finish_report",
-        {
-            "summary": "Current removal.",
-            "claims": [
-                {
-                    "statement": "The API is removed now.",
-                    "citations": ["upstream:changes.md:L2"],
-                    "status": "asserted",
-                }
-            ],
-            "recommendation": "Investigate.",
-            "conditions": [],
-            "unexamined": ["runtime"],
-            "stopping_reason": "report",
-        },
-    )
+    # Intentionally wrong meaning but a real citation: no semantic acceptance.
+    return {
+        "summary": "Current removal.",
+        "claims": [
+            {
+                "statement": "The API is removed now.",
+                "citations": ["upstream:changes.md:L2"],
+                "status": "asserted",
+            }
+        ],
+        "recommendation": "Investigate.",
+        "conditions": [],
+        "unexamined": ["runtime"],
+        "stopping_reason": "report",
+    }
+
+
+def artifact():
+    return {
+        k: v
+        for k, v in report().items()
+        if k not in {"recommendation", "stopping_reason"}
+    }
+
+
+def ready():
+    return action("finish_investigation", {})
+
+
+def fixed_replies():
+    return [
+        action(),
+        action(),
+        artifact(),
+        action(),
+        action(),
+        artifact(),
+        action(),
+        action(),
+        action(),
+        artifact(),
+        artifact(),
+        artifact(),
+        report(),
+    ]
 
 
 class ScriptedProvider:
-    def __init__(self, replies, *, context=4096, measured_input=100, usage=10):
+    def __init__(self, replies, *, context=16384, measured_input=100, usage=10):
         self.replies = iter(replies)
         self.requests = []
         self.context = context
@@ -166,14 +192,14 @@ class SourceToolTests(TestCase):
                     }
                 ],
             }
-            with patch(
-                "experiments.broader_agency_pilot.public_bytes",
-                side_effect=[json.dumps(tree).encode(), b"bad"],
+            with (
+                patch(
+                    "experiments.broader_agency_pilot.public_bytes",
+                    side_effect=[json.dumps(tree).encode(), b"bad"],
+                ),
+                self.assertRaises(ValueError),
             ):
-                with self.assertRaises(ValueError):
-                    acquire_repository_tree_text(
-                        Mock(), "s", "example/repo", "c" * 40, {}
-                    )
+                acquire_repository_tree_text(Mock(), "s", "example/repo", "c" * 40, {})
 
     def test_arbitrary_query_and_exact_pages_cannot_open_host_or_oracle(self):
         source = workspace()
@@ -204,6 +230,49 @@ class SourceToolTests(TestCase):
             "tool_problem",
             source.invoke("search_sources", {"query": "x", "offset": True}),
         )
+
+    def test_zero_hits_empty_pages_and_errors_retain_actual_scope(self):
+        source = workspace()
+        empty = source.invoke(
+            "search_sources",
+            {
+                "query": "one|two",
+                "source_id": "target",
+                "path_prefix": "app",
+                "offset": 2,
+            },
+        )
+        meta = empty["observation"]
+        self.assertEqual(meta["query"], "one|two")
+        self.assertEqual(meta["mode"], "literal-case-insensitive")
+        self.assertEqual(meta["scope"]["source_id"], "target")
+        self.assertEqual(meta["start"], 2)
+        self.assertEqual(meta["returned_count"], 0)
+        self.assertEqual(meta["total"], 0)
+        self.assertEqual(meta["scope"]["corpus_sha256"], source.identity)
+        empty = source.invoke("list_paths", {"source_id": "target", "offset": 10})
+        self.assertEqual(empty["observation"]["total"], 1)
+        self.assertEqual(empty["observation"]["returned_count"], 0)
+        error = source.invoke("read_source", {"source_id": "target", "path": "missing"})
+        self.assertEqual(error["observation"]["scope"]["path"], "missing")
+        self.assertIsNone(error["observation"]["total"])
+        self.assertFalse(error["observation"]["complete"])
+
+    def test_generic_diff_packet_has_no_preselected_consumer_and_omissions(self):
+        source = SourceWorkspace(
+            [
+                SourceDocument("target-base", "requirements.txt", "dependency==1", {}),
+                SourceDocument(
+                    "target-proposed", "requirements.txt", "dependency==2", {}
+                ),
+                SourceDocument("target-proposed", "large.py", "x" * 7000, {}),
+            ],
+            [{"source_id": "target-base"}, {"source_id": "target-proposed"}],
+        )
+        packet = source.update_packet()
+        self.assertEqual(packet["changed_paths"], ["large.py", "requirements.txt"])
+        self.assertEqual(packet["omissions"][0]["path"], "large.py")
+        self.assertIn("+dependency==2", packet["diffs"][0]["diff"])
 
     def test_long_source_lines_are_explicit_omissions_not_shortened_quotes(self):
         source = SourceWorkspace(
@@ -238,92 +307,121 @@ class SourceToolTests(TestCase):
 
 
 class TrialControlTests(TestCase):
-    def test_shared_access_independent_stop_and_trial_reset(self):
+    def test_shared_access_stage_propagation_free_stop_and_reset(self):
         corpus = workspace()
-        agent_provider = ScriptedProvider([action(), report()])
-        fixed_provider = ScriptedProvider(
-            [action(), report(), *[action()] * 13, report()]
-        )
+        agent_provider = ScriptedProvider([action(), ready(), report()])
+        fixed_provider = ScriptedProvider(fixed_replies())
         agent = run_investigation_trial(CASE, corpus, "agent", agent_provider)
         fixed = run_investigation_trial(CASE, corpus, "fixed", fixed_provider)
         self.assertEqual(agent["outcome"], "completed_ungraded")
         self.assertEqual(fixed["outcome"], "completed_ungraded")
-        self.assertEqual(agent["counters"]["calls"], 2)
-        self.assertEqual(fixed["counters"]["calls"], 16)
-        self.assertEqual(agent["corpus_sha256"], fixed["corpus_sha256"])
+        self.assertEqual(agent["counters"]["calls"], 3)
+        self.assertEqual(fixed["counters"]["calls"], 13)
+        self.assertEqual(len(fixed["fixed_stage_artifacts"]), 5)
+        self.assertEqual(
+            len(json.loads(fixed_provider.requests[-1].user)["fixed_stage_artifacts"]),
+            5,
+        )
+        self.assertEqual(
+            agent_provider.requests[0].tools, fixed_provider.requests[0].tools
+        )
         self.assertEqual(
             agent_provider.requests[0].system, fixed_provider.requests[0].system
         )
-        self.assertEqual(
-            json.loads(fixed_provider.requests[0].user)["cumulative_notes"], ""
+        self.assertEqual(agent_provider.requests[0].history, ())
+        self.assertIsNone(
+            json.loads(fixed_provider.requests[0].user)["latest_nonempty_model_note"]
         )
-        self.assertEqual(
-            json.loads(agent_provider.requests[0].user)["sources"],
-            json.loads(fixed_provider.requests[0].user)["sources"],
-        )
+        self.assertEqual(agent["corpus_sha256"], fixed["corpus_sha256"])
         self.assertEqual(agent["semantic_review"], "not_performed")
+
+    def test_empty_notes_preserve_earlier_evidence_and_nonempty_note(self):
+        first = action()
+        first["notes"] = "Keep this uncertainty"
+        empty = action("record_note", {"text": ""})
+        empty["notes"] = ""
+        provider = ScriptedProvider([first, empty, ready(), report()])
+        result = run_investigation_trial(CASE, workspace(), "agent", provider)
+        packet = json.loads(provider.requests[2].user)
+        self.assertEqual(
+            packet["latest_nonempty_model_note"]["text"], "Keep this uncertainty"
+        )
+        self.assertIn(
+            "Removal is planned next year.", json.dumps(provider.requests[2].history)
+        )
+        self.assertEqual(result["outcome"], "completed_ungraded")
 
     def test_valid_citation_does_not_adjudicate_wrong_meaning(self):
         result = run_investigation_trial(
-            CASE, workspace(), "agent", ScriptedProvider([action(), report()])
+            CASE, workspace(), "agent", ScriptedProvider([ready(), report()])
         )
         self.assertEqual(result["outcome"], "completed_ungraded")
         self.assertEqual(
             result["report"]["claims"][0]["statement"], "The API is removed now."
         )
-        bad = report()
-        bad["arguments"]["claims"][0]["citations"] = ["upstream:missing.md:L1"]
-        failed = run_investigation_trial(
-            CASE, workspace(), "agent", ScriptedProvider([bad])
-        )
-        self.assertEqual(failed["outcome"], "report_citation_problem")
 
-    def test_capacity_overflow_or_wrong_request_stops_before_inference(self):
+    def test_visible_action_and_report_corrections_cost_calls(self):
+        bad = report()
+        bad["claims"][0]["citations"] = ["upstream:missing.md:L1"]
+        provider = ScriptedProvider([{"unknown": True}, ready(), bad, report()])
+        result = run_investigation_trial(CASE, workspace(), "agent", provider)
+        self.assertEqual(result["outcome"], "completed_after_recovery_ungraded")
+        self.assertEqual(result["counters"]["calls"], 4)
+        self.assertEqual(result["counters"]["corrections"], 2)
+        self.assertEqual(
+            json.loads(provider.requests[1].user)["correction"]["failed_event_id"],
+            "event-001",
+        )
+        self.assertIn(
+            "nonexistent",
+            json.loads(provider.requests[3].user)["correction"]["problem"],
+        )
+        self.assertIsNone(result["trace"][2]["public_event"].get("artifact"))
+
+    def test_report_has_only_one_correction_and_invalid_stage_remains_incomplete(self):
+        bad = {"summary": 4}
+        result = run_investigation_trial(
+            CASE, workspace(), "agent", ScriptedProvider([ready(), bad, bad, report()])
+        )
+        self.assertEqual(result["outcome"], "report_contract_problem")
+        self.assertEqual(result["counters"]["calls"], 3)
+        provider = ScriptedProvider([ready(), bad, bad, bad, *fixed_replies()[3:]])
+        result = run_investigation_trial(CASE, workspace(), "fixed", provider)
+        self.assertFalse(result["fixed_stage_artifacts"][0]["complete"])
+        self.assertIsNone(result["fixed_stage_artifacts"][0]["artifact"])
+        self.assertEqual(result["counters"]["corrections"], 2)
+
+    def test_terminal_two_call_and_output_reserve(self):
+        provider = ScriptedProvider([action(), action(), report()])
+        result = run_investigation_trial(
+            CASE, workspace(), "agent", provider, limits=TrialLimits(calls=4)
+        )
+        self.assertEqual(result["counters"]["calls"], 3)
+        self.assertEqual(provider.requests[-1].phase, "report")
+        self.assertEqual(provider.requests[-1].output_reserve, 4096)
+        self.assertFalse(provider.requests[-1].tools)
+        provider = ScriptedProvider([report()])
+        result = run_investigation_trial(
+            CASE, workspace(), "agent", provider, limits=TrialLimits(output_tokens=8192)
+        )
+        self.assertEqual(provider.requests[0].phase, "report")
+        self.assertEqual(result["outcome"], "completed_ungraded")
+        with self.assertRaises(ValueError):
+            run_investigation_trial(
+                CASE,
+                workspace(),
+                "agent",
+                provider,
+                limits=TrialLimits(output_tokens=8191),
+            )
+
+    def test_capacity_accounting_identity_and_truncation_are_fatal(self):
         for provider in (
             ScriptedProvider([], context=1024),
             ScriptedProvider([], measured_input=-1),
         ):
             result = run_investigation_trial(CASE, workspace(), "agent", provider)
             self.assertEqual(result["counters"]["calls"], 0)
-        provider = ScriptedProvider([])
-        original = provider.measure
-        provider.measure = lambda request: replace(
-            original(request), request_sha256="other-request"
-        )
-        result = run_investigation_trial(CASE, workspace(), "agent", provider)
-        self.assertEqual(result["outcome"], "provider_or_action_problem")
-        self.assertEqual(result["counters"]["calls"], 0)
-
-    def test_completion_reserve_forces_final_report_inside_total_limit(self):
-        provider = ScriptedProvider([action(), report()], usage=264)
-        result = run_investigation_trial(
-            CASE, workspace(), "fixed", provider, limits=TrialLimits(output_tokens=1800)
-        )
-        self.assertEqual(result["outcome"], "completed_ungraded")
-        self.assertEqual(provider.requests[0].output_reserve, 264)
-        self.assertEqual(provider.requests[1].output_reserve, 1536)
-        self.assertEqual(result["counters"]["calls"], 2)
-
-    def test_tool_and_input_limits_stop_without_hidden_retry(self):
-        result = run_investigation_trial(
-            CASE,
-            workspace(),
-            "agent",
-            ScriptedProvider([action(), action()]),
-            limits=TrialLimits(tool_operations=1),
-        )
-        self.assertEqual(result["outcome"], "tool_budget_exhausted")
-        self.assertEqual(result["counters"]["tool_operations"], 1)
-        provider = ScriptedProvider([])
-        result = run_investigation_trial(
-            CASE, workspace(), "agent", provider, limits=TrialLimits(input_tokens=99)
-        )
-        self.assertEqual(result["outcome"], "input_budget_exhausted")
-        self.assertEqual(result["counters"]["calls"], 0)
-
-    def test_provider_identity_accounting_truncation_and_invalid_action_are_failures(
-        self,
-    ):
         for field, value, expected in [
             (
                 "deployment_identity",
@@ -332,31 +430,153 @@ class TrialControlTests(TestCase):
             ),
             ("input_tokens", 101, "provider_accounting_or_identity_mismatch"),
             ("truncated", True, "output_truncated"),
-            ("text", '{"tool":"x","tool":"y"}', "provider_or_action_problem"),
+            ("reasoning_tokens", None, "provider_reasoning_usage_unknown"),
         ]:
             provider = ScriptedProvider([])
-            reply = ModelReply(json.dumps(report()), 80, 10, 0, "controlled")
-            provider.predict = Mock(return_value=replace(reply, **{field: value}))
+            provider.predict = Mock(
+                return_value=replace(
+                    ModelReply(json.dumps(ready()), 80, 10, 0, "controlled"),
+                    **{field: value},
+                )
+            )
             result = run_investigation_trial(CASE, workspace(), "agent", provider)
             self.assertEqual(result["outcome"], expected)
             self.assertEqual(result["counters"]["calls"], 1)
+        provider = ScriptedProvider([])
+        original = provider.measure
+        provider.measure = lambda request: replace(
+            original(request), request_sha256="wrong"
+        )
+        self.assertEqual(
+            run_investigation_trial(CASE, workspace(), "agent", provider)["counters"][
+                "calls"
+            ],
+            0,
+        )
 
-    def test_elapsed_time_and_returned_source_bytes_stop_followup(self):
-        for limits, clock, expected in [
-            (
-                TrialLimits(seconds=1),
-                iter([0, 0, 0, 2, 2]).__next__,
-                "time_budget_exhausted",
-            ),
-            (TrialLimits(source_bytes=1), lambda: 0, "source_byte_budget_exhausted"),
+    def test_operation_byte_input_time_caps_and_batch_not_dispatched(self):
+        batch = {
+            "actions": [
+                {"tool": a["tool"], "arguments": a["arguments"]}
+                for a in [action(), action()]
+            ]
+        }
+        for limits, expected in [
+            (TrialLimits(tool_operations=1), "tool_budget_exhausted"),
+            (TrialLimits(source_bytes=1), "source_byte_budget_exhausted"),
         ]:
-            provider = ScriptedProvider([action(), report()])
             result = run_investigation_trial(
-                CASE, workspace(), "agent", provider, limits=limits, clock=clock
+                CASE, workspace(), "agent", ScriptedProvider([batch]), limits=limits
             )
             self.assertEqual(result["outcome"], expected)
-            self.assertEqual(result["counters"]["calls"], 1)
-            self.assertIsNone(result["report"])
+            self.assertEqual(len(result["trace"][0]["not_dispatched"]), 1)
+            self.assertEqual(result["counters"]["tool_operations"], 1)
+        result = run_investigation_trial(
+            CASE,
+            workspace(),
+            "agent",
+            ScriptedProvider([]),
+            limits=TrialLimits(input_tokens=99),
+        )
+        self.assertEqual(result["outcome"], "input_budget_exhausted")
+        result = run_investigation_trial(
+            CASE,
+            workspace(),
+            "agent",
+            ScriptedProvider([action()]),
+            limits=TrialLimits(seconds=1),
+            clock=iter([0, 0, 0, 2, 2]).__next__,
+        )
+        self.assertEqual(result["outcome"], "time_budget_exhausted")
+
+    def test_packing_preserves_whole_pairs_and_trial_event_recovery_is_local(self):
+        provider = ScriptedProvider(
+            [
+                action(),
+                action(),
+                action("read_trial_event", {"event_id": "event-001"}),
+                ready(),
+                report(),
+            ]
+        )
+
+        # Force pressure on the third request, while the directory/latest pair fit.
+        def measure(request):
+            count = 100 + 500 * len(request.history)
+            return MeasuredRequest(
+                count,
+                1900 if request.phase == "investigate" else 8000,
+                request_identity(request),
+                "controlled",
+            )
+
+        provider.measure = measure
+        result = run_investigation_trial(CASE, workspace(), "agent", provider)
+        self.assertTrue(result["trace"][2]["packing"]["packed"])
+        self.assertEqual(
+            result["trace"][2]["packing"]["omitted_event_ids"], ["event-001"]
+        )
+        recovered = result["trace"][2]["public_event"]["results"][0]["result"]
+        self.assertIn("Removal is planned next year", recovered["content"])
+        self.assertNotIn("measurement", recovered["content"])
+        for event in provider.requests[2].history:
+            self.assertEqual(
+                {a["id"] for a in event["actions"]}, {r["id"] for r in event["results"]}
+            )
+        other = run_investigation_trial(
+            CASE,
+            workspace(),
+            "agent",
+            ScriptedProvider(
+                [
+                    action("read_trial_event", {"event_id": "event-005"}),
+                    ready(),
+                    report(),
+                ]
+            ),
+        )
+        self.assertIn(
+            "tool_problem", other["trace"][0]["public_event"]["results"][0]["result"]
+        )
+
+    def test_native_tool_ids_and_assistant_readiness_are_preserved(self):
+        provider = ScriptedProvider([report()])
+        replies = iter(
+            [
+                ModelReply(
+                    "",
+                    80,
+                    10,
+                    0,
+                    "controlled",
+                    tool_calls=(
+                        {
+                            "id": "native-call-17",
+                            "tool": "read_source",
+                            "arguments": {
+                                "source_id": "upstream",
+                                "path": "changes.md",
+                            },
+                        },
+                    ),
+                ),
+                ModelReply("Ready to report", 80, 10, 0, "controlled", tool_calls=()),
+                ModelReply(
+                    json.dumps(report()), 80, 10, 0, "controlled", tool_calls=()
+                ),
+            ]
+        )
+
+        def predict(request, measured, timeout):
+            provider.requests.append(request)
+            return next(replies)
+
+        provider.predict = predict
+        result = run_investigation_trial(CASE, workspace(), "agent", provider)
+        self.assertEqual(result["outcome"], "completed_ungraded")
+        self.assertEqual(
+            provider.requests[1].history[0]["results"][0]["id"], "native-call-17"
+        )
 
 
 class PilotCompositionTests(TestCase):
@@ -370,9 +590,9 @@ class PilotCompositionTests(TestCase):
             with (
                 patch("experiments.broader_agency_pilot.ROOT", root),
                 patch("sys.argv", ["pilot", "--name", "existing", "--prepare"]),
+                self.assertRaises(FileExistsError),
             ):
-                with self.assertRaises(FileExistsError):
-                    main()
+                main()
             self.assertEqual(record.read_text(), "original failure\n")
 
     def prepare_control(self, directory):
@@ -412,12 +632,12 @@ class PilotCompositionTests(TestCase):
             model, identity = self.prepare_control(directory)
             provider = ScriptedProvider(
                 [
-                    *[action()] * 15,
+                    *fixed_replies(),
+                    ready(),
                     report(),
+                    ready(),
                     report(),
-                    report(),
-                    *[action()] * 15,
-                    report(),
+                    *fixed_replies(),
                 ]
             )
             provider.configuration = lambda: {"interface": "controlled"}
@@ -434,9 +654,9 @@ class PilotCompositionTests(TestCase):
                 ["fixed", "agent", "agent", "fixed"],
             )
             self.assertEqual(
-                [t["counters"]["calls"] for t in result["trials"]], [16, 1, 1, 16]
+                [t["counters"]["calls"] for t in result["trials"]], [13, 2, 2, 13]
             )
-            output = directory / "execution-controlled-instance"
+            output = directory / "execution-controlled-instance-compatible-tools"
             self.assertEqual(len(list(output.glob("[12]-*.json"))), 4)
             self.assertEqual(result["configuration"]["model_file_identity"], identity)
             self.assertTrue((output / "private-provider-receipts.json").exists())
@@ -470,8 +690,133 @@ class PilotCompositionTests(TestCase):
                         execute_pilot(directory, model, None, identity)
                     transport.assert_not_called()
 
+    def test_failed_qualification_never_starts_case_trials(self):
+        with TemporaryDirectory() as tmp:
+            directory = Path(tmp)
+            model, identity = self.prepare_control(directory)
+            provider = Mock()
+            provider.configuration.return_value = {"interface": "controlled"}
+            provider.harmless_probe.return_value = {"outcome": "failed"}
+            provider.private_receipts = [{"failure": "retained"}]
+            with patch(
+                "experiments.broader_agency_pilot.LocalJSONActionProvider",
+                return_value=provider,
+            ):
+                result = execute_pilot(directory, model, None, identity)
+            self.assertEqual(result["trials"], [])
+            provider.predict.assert_not_called()
+            self.assertTrue(
+                (
+                    directory
+                    / "execution-controlled-instance-compatible-tools/result.json"
+                ).exists()
+            )
+
 
 class LocalTransportTests(TestCase):
+    def test_compatible_missing_reasoning_is_unknown_and_schema_has_no_tools(self):
+        from experiments.broader_agency_trial import REPORT_SCHEMA, ModelRequest
+
+        model = Mock()
+        model.get_info.return_value.to_dict.return_value = {
+            "identifier": "instance",
+            "instanceReference": "deployment",
+        }
+        model.get_load_config.return_value.to_dict.return_value = {
+            "contextLength": 16384
+        }
+        model.get_context_length.return_value = 16384
+        model.tokenize.return_value = list(range(20))
+        provider = LocalJSONActionProvider(
+            model, lambda data: Mock(), interface="compatible-tools"
+        )
+        response = MagicMock()
+        response.__enter__.return_value = response
+        response.status_code = 200
+        response.iter_content.return_value = [
+            json.dumps(
+                {
+                    "model": "instance",
+                    "choices": [
+                        {
+                            "message": {"content": json.dumps(report())},
+                            "finish_reason": "stop",
+                        }
+                    ],
+                    "usage": {"prompt_tokens": 30, "completion_tokens": 15},
+                }
+            ).encode()
+        ]
+        provider.session.post = Mock(return_value=response)
+        request = ModelRequest(
+            "system", "user", 4096, phase="report", response_schema=REPORT_SCHEMA
+        )
+        reply = provider.predict(request, provider.measure(request), 30)
+        self.assertIsNone(reply.reasoning_tokens)
+        payload = provider.session.post.call_args.kwargs["json"]
+        self.assertNotIn("tools", payload)
+        self.assertNotIn("reasoning", payload)
+        self.assertEqual(
+            payload["response_format"]["json_schema"]["schema"], REPORT_SCHEMA
+        )
+        self.assertEqual(reply.input_tokens, 30)
+        provider.close()
+
+    def test_live_canary_requires_two_fresh_multi_scope_followups(self):
+        # Exercise qualification composition through the real trial dispatcher,
+        # using controlled replies. Mechanical readiness still is not quality.
+        provider = object.__new__(LocalJSONActionProvider)
+        provider.interface = "native-json"
+
+        def sequence():
+            first = {
+                "actions": [
+                    {
+                        "tool": "read_source",
+                        "arguments": {
+                            "source_id": "canary-upstream",
+                            "path": "notes.txt",
+                            "start_line": 1,
+                            "line_count": 1,
+                        },
+                    },
+                    {
+                        "tool": "read_source",
+                        "arguments": {"source_id": "canary-target", "path": "app.txt"},
+                    },
+                    {
+                        "tool": "search_sources",
+                        "arguments": {
+                            "query": "ABSENT_CANARY_TERM",
+                            "source_id": "canary-target",
+                        },
+                    },
+                ]
+            }
+            final = report()
+            final["claims"][0]["citations"] = ["canary-upstream:notes.txt:L2"]
+            return [
+                first,
+                {
+                    "tool": "read_source",
+                    "arguments": {
+                        "source_id": "canary-upstream",
+                        "path": "notes.txt",
+                        "start_line": 2,
+                    },
+                },
+                ready(),
+                final,
+            ]
+
+        scripted = ScriptedProvider([*sequence(), *sequence()])
+        provider.measure, provider.predict = scripted.measure, scripted.predict
+        probe = provider.harmless_probe()
+        self.assertEqual(probe["outcome"], "passed")
+        self.assertEqual(len(probe["sequences"]), 2)
+        self.assertEqual(scripted.requests[4].history, ())
+        self.assertEqual(sum(s["counters"]["calls"] for s in probe["sequences"]), 8)
+
     def test_native_transport_preserves_reasoning_usage_and_private_frame(self):
         model = Mock()
         model.get_info.return_value.to_dict.return_value = {
@@ -503,7 +848,7 @@ class LocalTransportTests(TestCase):
 
         request = ModelRequest("system", "user", 100)
         measured = provider.measure(request)
-        self.assertEqual(measured.input_tokens, 84)
+        self.assertEqual(measured.input_tokens, 148)
         reply = provider.predict(request, measured, 30)
         payload = provider.session.post.call_args.kwargs["json"]
         self.assertFalse(payload["store"])

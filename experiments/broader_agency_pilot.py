@@ -32,7 +32,6 @@ from .broader_agency_workspace import (
     strict_json,
 )
 
-
 ROOT = Path(__file__).resolve().parents[1]
 CASE_SPECS = (
     {
@@ -507,7 +506,7 @@ def prepare_pilot(
             item["task"]["case_id"]: item["corpus_sha256"] for item in cases
         },
         "methods": ["fixed", "agent"],
-        "interface": "native-stateless-chat-with-text-JSON-actions-v1",
+        "interface_candidates": ["compatible-tools-v2", "native-json-v2"],
         "oracle": "not supplied to model; development review only",
     }
     (directory / "pre-inference-freeze.json").write_text(
@@ -516,7 +515,51 @@ def prepare_pilot(
     return freeze
 
 
-def execute_pilot(directory: Path, model, chat_factory, model_identity: dict) -> dict:
+def prepare_from_frozen(directory: Path, previous: Path) -> dict:
+    """Reuse unchanged model-visible corpus; bind this executable configuration."""
+    bundle = strict_json((previous / "corpus.json").read_text())
+    old = strict_json((previous / "pre-inference-freeze.json").read_text())
+    if old["corpus_sha256"] != digest(bundle):
+        raise ValueError("prior frozen corpus changed")
+    for item in bundle["cases"]:
+        workspace = SourceWorkspace(
+            [SourceDocument(**d) for d in item["documents"]], item["sources"]
+        )
+        if workspace.identity != item["corpus_sha256"]:
+            raise ValueError("prior source map changed")
+    directory.mkdir(parents=True, exist_ok=False)
+    (directory / "corpus.json").write_text(
+        json.dumps(bundle, ensure_ascii=False) + "\n"
+    )
+    freeze = {
+        "code": code_identities(),
+        "corpus_sha256": digest(bundle),
+        "case_corpus_sha256": {
+            i["task"]["case_id"]: i["corpus_sha256"] for i in bundle["cases"]
+        },
+        "methods": ["fixed", "agent"],
+        "interface_candidates": ["compatible-tools-v2", "native-json-v2"],
+        "reuse_basis": {
+            "directory": str(previous),
+            "prior_code": old["code"],
+            "unchanged_corpus": True,
+        },
+        "oracle": "not supplied to model; development review only",
+    }
+    (directory / "pre-inference-freeze.json").write_text(
+        json.dumps(freeze, indent=2) + "\n"
+    )
+    return freeze
+
+
+def execute_pilot(
+    directory: Path,
+    model,
+    chat_factory,
+    model_identity: dict,
+    *,
+    interface="compatible-tools",
+) -> dict:
     freeze = json.loads((directory / "pre-inference-freeze.json").read_text())
     bundle = json.loads((directory / "corpus.json").read_text())
     if freeze["code"] != code_identities() or freeze["corpus_sha256"] != digest(bundle):
@@ -530,10 +573,13 @@ def execute_pilot(directory: Path, model, chat_factory, model_identity: dict) ->
     ):
         raise ValueError("precomputed model-file identity does not match deployment")
     output = directory / (
-        "execution-" + re.sub(r"[^a-zA-Z0-9_-]", "_", model.identifier)
+        "execution-"
+        + re.sub(r"[^a-zA-Z0-9_-]", "_", model.identifier)
+        + "-"
+        + interface
     )
     output.mkdir(exist_ok=False)
-    provider = LocalJSONActionProvider(model, chat_factory)
+    provider = LocalJSONActionProvider(model, chat_factory, interface=interface)
     configuration = provider.configuration()
     configuration["model_file_identity"] = model_identity
     configuration["model_file_hash_basis"] = (
@@ -546,6 +592,15 @@ def execute_pilot(directory: Path, model, chat_factory, model_identity: dict) ->
     try:
         probe = provider.harmless_probe()
         (output / "probe.json").write_text(json.dumps(probe, indent=2) + "\n")
+        if probe["outcome"] != "passed":
+            result = {
+                "configuration": configuration,
+                "probe": probe,
+                "trials": [],
+                "assigned_case_trials": "not started: interface qualification failed",
+            }
+            (output / "result.json").write_text(json.dumps(result, indent=2) + "\n")
+            return result
         for case_index, item in enumerate(bundle["cases"]):
             documents = [SourceDocument(**document) for document in item["documents"]]
             workspace = SourceWorkspace(documents, item["sources"])
@@ -573,7 +628,11 @@ def execute_pilot(directory: Path, model, chat_factory, model_identity: dict) ->
                     ),
                     flush=True,
                 )
-        return {"configuration": configuration, "probe": probe, "trials": results}
+        result = {"configuration": configuration, "probe": probe, "trials": results}
+        (output / "result.json").write_text(
+            json.dumps(result, indent=2, ensure_ascii=False) + "\n"
+        )
+        return result
     finally:
         provider.close()
         (output / "private-provider-receipts.json").write_text(
@@ -593,6 +652,12 @@ def main() -> int:
     parser.add_argument("--sdk-site", type=Path)
     parser.add_argument("--tree-repository", action="append", default=[])
     parser.add_argument("--reuse-captures", type=Path)
+    parser.add_argument("--reuse-corpus", type=Path)
+    parser.add_argument(
+        "--interface",
+        choices=["compatible-tools", "native-json"],
+        default="compatible-tools",
+    )
     args = parser.parse_args()
     if not re.fullmatch(r"[a-zA-Z0-9_-]{1,80}", args.name):
         parser.error("name must contain letters, digits, underscore or hyphen")
@@ -603,10 +668,14 @@ def main() -> int:
     directory = ROOT / ".tmp/broader-agency-pilot" / args.name
     if args.prepare:
         try:
-            freeze = prepare_pilot(
-                directory,
-                tree_repositories=args.tree_repository,
-                reuse_captures=args.reuse_captures,
+            freeze = (
+                prepare_from_frozen(directory, args.reuse_corpus)
+                if args.reuse_corpus
+                else prepare_pilot(
+                    directory,
+                    tree_repositories=args.tree_repository,
+                    reuse_captures=args.reuse_captures,
+                )
             )
         except FileExistsError:
             # A rejected reuse must not write into another run's record.
@@ -657,9 +726,13 @@ def main() -> int:
             models[0],
             lms.Chat.from_history,
             strict_json(args.model_identity.read_text()),
+            interface=args.interface,
         )
     return (
-        0 if all(t["outcome"] == "completed_ungraded" for t in result["trials"]) else 1
+        0
+        if result["probe"]["outcome"] == "passed"
+        and all(t["outcome"].startswith("completed") for t in result["trials"])
+        else 1
     )
 
 
