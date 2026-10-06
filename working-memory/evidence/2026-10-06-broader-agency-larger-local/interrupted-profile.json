@@ -1,0 +1,316 @@
+{
+  "scope": "interrupted original larger-local diagnostic profile; incomplete deployment comparison",
+  "recorded_date": "2026-10-06",
+  "execution_commit": "53f34aae",
+  "code_freeze": {
+    "broader_agency_workspace.py": "ebc703dbfe59a8a3c3dfd70369b9907eac9202b50c099e582654b1e59ac9966c",
+    "broader_agency_trial.py": "42fe51f6dff88757670a64d6c78e065c9abf007611e62aacc8ec510b5ea616e0",
+    "broader_agency_local.py": "1707210deaa04a03d7a145d1c5d10d31fb9a31d4d155ec26a0edbc6019405be8",
+    "broader_agency_pilot.py": "305978ae2cff611dac22a1a0cefb316c629f277a4ad00d687264e3e4ff1d14be"
+  },
+  "corpus_sha256": "f528a27b04a80503a6145480980021a490c2b2c8a447cd71ab2178ddf38cd142",
+  "configuration": {
+    "interface": "compatible-tools-v2",
+    "endpoint": "http://127.0.0.1:18080/v1/chat/completions",
+    "model": {
+      "type": "llm",
+      "modelKey": "google/gemma-4-12b",
+      "format": "gguf",
+      "displayName": "Gemma 4 12B",
+      "path": "google/gemma-4-12b",
+      "sizeBytes": 7556574286,
+      "identifier": "broader-agency-large-v1-gemma12-20261006",
+      "instanceReference": "yI1Hcl4HhBdvByFfLPkwZwFa",
+      "vision": true,
+      "trainedForToolUse": true,
+      "maxContextLength": 131072,
+      "contextLength": 16384,
+      "paramsString": "12B",
+      "architecture": "gemma4"
+    },
+    "load_config": {
+      "gpu": {
+        "ratio": 0.55,
+        "splitStrategy": "evenly",
+        "disabledGpus": []
+      },
+      "gpuStrictVramCap": true,
+      "offloadKVCacheToGpu": true,
+      "contextLength": 16384,
+      "flashAttention": true
+    },
+    "reasoning": "server-default-accounted",
+    "reasoning_control": "server default; no documented compatible toggle; usage measured on every response",
+    "temperature": 0.2,
+    "request_timeout_seconds": 1800,
+    "accounting": "SDK prompt template with actual history/tool definitions + 128 token allowance; every actual response cross-checked",
+    "template_control_limit": "SDK defaults do not establish byte-identical server rendering; allowance is an upper estimate, not exact template proof",
+    "structured_path": "response_format json_schema",
+    "model_file_identity": {
+      "key": "google/gemma-4-12b",
+      "path": "google/gemma-4-12b",
+      "size_bytes": 7556574286,
+      "gguf_sha256": "c088a44859de42a1966851b552ba628c0ff4419b87c4622539d69430f40024ed",
+      "primary_gguf": {
+        "path": "lmstudio-community/gemma-4-12B-it-GGUF/gemma-4-12B-it-Q4_K_M.gguf",
+        "size_bytes": 7381384864,
+        "sha256": "c088a44859de42a1966851b552ba628c0ff4419b87c4622539d69430f40024ed"
+      },
+      "local_vision_companion": {
+        "path": "lmstudio-community/gemma-4-12B-it-GGUF/mmproj-gemma-4-12B-it-BF16.gguf",
+        "size_bytes": 175115296,
+        "sha256": "b162f6d350c69c2e21103feeeacd8db22fc1af9beb5979c25aae1c107cf01859",
+        "basis": "local companion file hashed before load; actual loaded configuration recorded separately; no image input"
+      },
+      "hub_package_assets": [
+        {
+          "path": "google/gemma-4-12b/manifest.json",
+          "size_bytes": 1181,
+          "sha256": "0b17b3b8b10a29eaf66781e618a367b69ab9dfc4cf40e30a96d04f812003f7fb"
+        },
+        {
+          "path": "google/gemma-4-12b/model.yaml",
+          "size_bytes": 1896,
+          "sha256": "113b07f4a5de77f015fdbd4ba006319910e39f66cbc640f453f8e9a9dcf47c7e"
+        },
+        {
+          "path": "google/gemma-4-12b/README.md",
+          "size_bytes": 506,
+          "sha256": "6e9410c08a2b435065e4f5617f3ad8833874906f326df46dda0243cfbedd87fe"
+        },
+        {
+          "path": "google/gemma-4-12b/thumbnail.png",
+          "size_bytes": 70543,
+          "sha256": "f1cc47c862f1a045cfaaa2707072fbf03d0eb9a7c6560c387f0923b07b6136cc"
+        }
+      ],
+      "hub_resolution": {
+        "indexed_identifier": "google/gemma-4-12b",
+        "concrete_identifier": "lmstudio-community/gemma-4-12B-it-GGUF/gemma-4-12B-it-Q4_K_M.gguf",
+        "primary_path": "lmstudio-community/gemma-4-12B-it-GGUF/gemma-4-12B-it-Q4_K_M.gguf",
+        "size_basis": "actual primary GGUF plus actual vision companion plus four hashed hub package assets; exact total equals loaded SDK sizeBytes",
+        "index_sha256_at_reconciliation": "1953707038f5c4f7d1866940e103af7c141824872abdadede1bfdc5565a48ba1"
+      }
+    },
+    "probe_sequence_seconds": 5400,
+    "trial_limits": {
+      "calls": 16,
+      "input_tokens": 245760,
+      "output_tokens": 32768,
+      "tool_operations": 48,
+      "source_bytes": 8388608,
+      "seconds": 14400,
+      "action_output": 1024,
+      "final_output": 4096,
+      "corrections": 2
+    },
+    "model_file_hash_basis": "caller-computed SHA256 before loading; model key/path/size checked here, not rehashed during inference"
+  },
+  "selected_case_assignments": 8,
+  "saved_trial_records": 3,
+  "interrupted_assignments": 1,
+  "unstarted_assignments": 4,
+  "qualification": {
+    "outcome": "passed",
+    "sequences": [
+      {
+        "outcome": "completed_ungraded",
+        "checks": {
+          "two_scopes": true,
+          "later_followup": true,
+          "scoped_zero_search": true,
+          "report_citation": true
+        },
+        "counters": {
+          "calls": 5,
+          "input_tokens": 11023,
+          "output_tokens": 2785,
+          "reasoning_tokens": 2275,
+          "tool_operations": 4,
+          "source_bytes": 3521,
+          "corrections": 0
+        },
+        "elapsed_seconds": 309.074
+      },
+      {
+        "outcome": "completed_ungraded",
+        "checks": {
+          "two_scopes": true,
+          "later_followup": true,
+          "scoped_zero_search": true,
+          "report_citation": true
+        },
+        "counters": {
+          "calls": 5,
+          "input_tokens": 11015,
+          "output_tokens": 2493,
+          "reasoning_tokens": 1956,
+          "tool_operations": 4,
+          "source_bytes": 3449,
+          "corrections": 0
+        },
+        "elapsed_seconds": 280.87
+      }
+    ],
+    "assisted_review": {
+      "finding": "Both fresh interface sequences pass all four declared checks with complete accounting and no truncation. The first summary says the API remains functional, although supplied source establishes a call site and deprecation, not executed runtime function.",
+      "qualification_is_semantic_acceptance": false
+    }
+  },
+  "case_results": [
+    {
+      "case_id": "development-httpx-framework-ci",
+      "method": "agent",
+      "outcome": "output_truncated",
+      "limits": {
+        "calls": 16,
+        "input_tokens": 245760,
+        "output_tokens": 32768,
+        "tool_operations": 48,
+        "source_bytes": 8388608,
+        "seconds": 14400,
+        "action_output": 1024,
+        "final_output": 4096,
+        "corrections": 2
+      },
+      "counters": {
+        "calls": 5,
+        "input_tokens": 17104,
+        "output_tokens": 3236,
+        "reasoning_tokens": 3096,
+        "tool_operations": 4,
+        "source_bytes": 5842,
+        "corrections": 0
+      },
+      "elapsed_seconds": 387.069,
+      "usage_complete": true,
+      "assisted_source_review": {
+        "coverage": {
+          "upstream_changes": "missed",
+          "indirect_target_path": "partial",
+          "declared_vs_installed_binding": "partial",
+          "CI_activation_and_limits": "missed"
+        },
+        "finding": "Four operations deliver the old pin, scoped absence of the literal direct import, a paginated Client search containing the FastAPI TestClient clue, and the old requirements file including unpinned fastapi[standard]. The fifth response hits the 1024-token ceiling with 1021 reasoning tokens; no further action or final candidate is available.",
+        "risk": "No final advice exists to grade. Partial indirect-consumer clues do not establish the old/new Starlette path or target installed versions; truncation leaves comparative case capability unresolved.",
+        "useful": "Target declarations and TestClient source clues are genuinely delivered. No source-absence or release-safety conclusion is established.",
+        "advice_ready": false,
+        "advice_ready_basis": "Absent final report and incomplete evidence path after actual capacity failure; not a model-incapability finding."
+      },
+      "artifact_sha256": "f5ad7da4689e88175c52f0bc76fba60a9d5491246681ec0981ffc4bee7cabee7"
+    },
+    {
+      "case_id": "development-httpx-framework-ci",
+      "method": "fixed",
+      "outcome": "output_truncated",
+      "limits": {
+        "calls": 16,
+        "input_tokens": 245760,
+        "output_tokens": 32768,
+        "tool_operations": 48,
+        "source_bytes": 8388608,
+        "seconds": 14400,
+        "action_output": 1024,
+        "final_output": 4096,
+        "corrections": 2
+      },
+      "counters": {
+        "calls": 4,
+        "input_tokens": 12334,
+        "output_tokens": 2697,
+        "reasoning_tokens": 2214,
+        "tool_operations": 2,
+        "source_bytes": 2724,
+        "corrections": 1
+      },
+      "elapsed_seconds": 328.233,
+      "usage_complete": true,
+      "assisted_source_review": {
+        "coverage": {
+          "upstream_changes": "missed",
+          "indirect_target_path": "missed",
+          "declared_vs_installed_binding": "missed",
+          "CI_activation_and_limits": "missed"
+        },
+        "finding": "Two source-text searches find the old target pin and references to CHANGELOG.md inside other upstream files. No relevant upstream changes, indirect consumer path or CI trigger is read. The first stage candidate uses bare-path citations and claims no major breaking changes plus stable standard usage without delivered support. Its visible correction then hits the 1024-token cap, with 1021 reasoning tokens and no usable artifact. No final report exists.",
+        "risk": "The unsupported no-breaking/stable-standard-use claims are diagnosable separately from the actual correction capacity failure. Case completion and comparative capability remain unresolved; do not grade an absent final report as wrong advice.",
+        "useful": "Working target search delivers the exact old pin. Transport/accounting work, and the truncation is explicitly visible rather than silently repaired.",
+        "advice_ready": false,
+        "advice_ready_basis": "No final report; incomplete evidence path. Capacity failure does not establish model incapability."
+      },
+      "artifact_sha256": "7b7aa625768c33d6df2dd15b0b15718acd96e9a7be5666bd426146daef3a2c6f"
+    },
+    {
+      "case_id": "development-glyphslib-pytest-stopping",
+      "method": "agent",
+      "outcome": "output_truncated",
+      "limits": {
+        "calls": 16,
+        "input_tokens": 245760,
+        "output_tokens": 32768,
+        "tool_operations": 48,
+        "source_bytes": 8388608,
+        "seconds": 14400,
+        "action_output": 1024,
+        "final_output": 4096,
+        "corrections": 2
+      },
+      "counters": {
+        "calls": 4,
+        "input_tokens": 12449,
+        "output_tokens": 2282,
+        "reasoning_tokens": 2187,
+        "tool_operations": 3,
+        "source_bytes": 6305,
+        "corrections": 0
+      },
+      "elapsed_seconds": 276.596,
+      "usage_complete": true,
+      "assisted_source_review": {
+        "coverage": {
+          "pin_to_test_environment": "partial",
+          "ordinary_CI_matrix_and_head": "missed",
+          "regression_install_execute": "partial",
+          "upstream_release_materiality": "missed"
+        },
+        "finding": "A first page of target path inventory, first six of 111 literal pytest hits, and pyproject.toml lines 1-20 establish configured pytest options, pytest>=2.8, direct plugin declarations and a regression-command clue. No exact-pin source-line check, tox dependency consumption, ordinary CI/head result or upstream release check is established. Fourth response reaches 1024 output tokens with 1021 reasoning tokens; no further dispatched action or final report exists.",
+        "risk": "This is an incomplete investigation after actual capacity failure. No final advice exists to grade; failure does not establish model incapability.",
+        "useful": "Path discovery works and genuine pytest configuration, input constraint, direct plugins and regression source clues are delivered; pagination omissions remain explicit.",
+        "advice_ready": false,
+        "advice_ready_basis": "Absent final report and incomplete evidence path after actual truncation."
+      },
+      "artifact_sha256": "0b60cd1ee57cb7bb8aa9c6b20d7c0602a253217670b2b6e2b8bb7967112730a2"
+    }
+  ],
+  "interrupted_assignment": {
+    "status": "interrupted at explicit user request; not a completed trial or mechanical/model failure",
+    "case_id": "development-glyphslib-pytest-stopping",
+    "method": "fixed",
+    "formal_trial_result_available": false,
+    "attempted_calls": 3,
+    "accounted_responses": 2,
+    "known_input_tokens": 4351,
+    "known_output_tokens": 927,
+    "known_reasoning_tokens": 866,
+    "unreported_usage_calls": 1,
+    "source_operations_delivered_before_interruption": 2,
+    "provenance": "final interrupted request contains the two preceding tool result messages; reconstructed receipt facts only, no fabricated trial trace",
+    "private_receipt_sha256": "4510ad4759789f24d693b91e15b2c9f4c732dab6e942cd0ad38a95e342d3ae99",
+    "unstarted_assignments": [
+      "qwen35 HTTPX fixed",
+      "qwen35 HTTPX agent",
+      "qwen35 pytest agent",
+      "qwen35 pytest fixed"
+    ],
+    "owned_instance_unloaded": true
+  },
+  "attempted_calls": 26,
+  "accounted_responses": 25,
+  "unreported_usage_calls": 1,
+  "known_input_tokens": 68276,
+  "known_output_tokens": 14420,
+  "known_reasoning_tokens": 12594,
+  "token_totals_basis": "lower bounds; interrupted outstanding call has unknown actual usage",
+  "receipt_verification": "all saved rows plus explicitly reconstructed interrupted receipt facts reconcile; actual measured context fit verified; old code freeze matches published commit",
+  "proof_limits": "No final reports or complete model comparison; capacity failures do not establish model incapability. Qwen was not loaded. No repaired historical result, protected evidence or product acceptance."
+}

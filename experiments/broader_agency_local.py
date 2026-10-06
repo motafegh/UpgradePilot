@@ -8,7 +8,7 @@ its SDK template count is an upper estimate checked against native actual usage.
 from __future__ import annotations
 
 import json
-from dataclasses import asdict
+from dataclasses import asdict, replace
 
 from upgradepilot.upstream.support_drop_extractor import build_lm_studio_session
 
@@ -324,12 +324,19 @@ class LocalJSONActionProvider:
             else None,
         )
 
-    def harmless_probe(self, *, call_budget=12, sequence_seconds=180) -> dict:
+    def harmless_probe(
+        self, *, call_budget=12, sequence_seconds=180, limits=None
+    ) -> dict:
         """Two fresh <=6-call source/follow-up/report sequences; no reference answers."""
-        if not 4 <= call_budget <= 12:
+        if type(call_budget) is not int or not 4 <= call_budget <= 12:
             raise ValueError("qualification budget must allow two reports and be <=12")
         if type(sequence_seconds) is not int or sequence_seconds <= 0:
             raise ValueError("probe sequence time must be a positive integer")
+        probe_limits = replace(
+            TrialLimits() if limits is None else limits,
+            calls=min(6, call_budget // 2),
+            seconds=sequence_seconds,
+        )
         results = []
         for index in range(2):
             workspace = SourceWorkspace(
@@ -364,7 +371,7 @@ class LocalJSONActionProvider:
                 workspace,
                 "agent",
                 self,
-                limits=TrialLimits(calls=6, seconds=sequence_seconds),
+                limits=probe_limits,
             )
             observations = [
                 (e["event_id"], r)

@@ -107,6 +107,16 @@ class TrialLimits:
     corrections: int = 2
 
 
+def validate_trial_limits(limits: TrialLimits) -> None:
+    """Reject unusable resource profiles before measuring or calling a model."""
+    for name, value in asdict(limits).items():
+        minimum = 0 if name == "corrections" else 1
+        if type(value) is not int or value < minimum:
+            raise ValueError(f"{name} must be an integer >= {minimum}")
+    if limits.calls < 2 or limits.output_tokens < 2 * limits.final_output:
+        raise ValueError("limits cannot reserve report plus one correction")
+
+
 @dataclass(frozen=True)
 class ModelRequest:
     system: str
@@ -319,8 +329,7 @@ def run_investigation_trial(
     limits = TrialLimits() if limits is None else limits
     if method not in {"fixed", "agent"}:
         raise ValueError("method must be fixed or agent")
-    if limits.calls < 2 or limits.output_tokens < 2 * limits.final_output:
-        raise ValueError("limits cannot reserve report plus one correction")
+    validate_trial_limits(limits)
     started = clock()
     counters = dict.fromkeys(
         (

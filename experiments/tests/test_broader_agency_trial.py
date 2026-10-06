@@ -644,6 +644,13 @@ class PilotCompositionTests(TestCase):
             provider.harmless_probe = Mock(return_value={"outcome": "passed"})
             provider.close = Mock()
             provider.private_receipts = [{"controlled": True}]
+            limits = TrialLimits(
+                seconds=14400,
+                action_output=8192,
+                final_output=8192,
+                output_tokens=131072,
+                input_tokens=524288,
+            )
             with patch(
                 "experiments.broader_agency_pilot.LocalJSONActionProvider",
                 return_value=provider,
@@ -655,7 +662,7 @@ class PilotCompositionTests(TestCase):
                     identity,
                     request_timeout_seconds=1800,
                     probe_sequence_seconds=5400,
-                    trial_seconds=14400,
+                    trial_limits=limits,
                 )
             self.assertEqual(
                 [t["method"] for t in result["trials"]],
@@ -669,15 +676,35 @@ class PilotCompositionTests(TestCase):
             self.assertEqual(result["configuration"]["model_file_identity"], identity)
             self.assertEqual(
                 [t["limits"] for t in result["trials"]],
-                [asdict(TrialLimits(seconds=14400))] * 4,
+                [asdict(limits)] * 4,
             )
             provider.harmless_probe.assert_called_once_with(
-                call_budget=12, sequence_seconds=5400
+                call_budget=12, sequence_seconds=5400, limits=limits
+            )
+            self.assertEqual(result["configuration"]["trial_limits"], asdict(limits))
+            self.assertEqual(
+                {request.output_reserve for request in provider.requests}, {8192}
             )
             self.assertTrue((output / "private-provider-receipts.json").exists())
             provider.close.assert_called_once()
             with self.assertRaises(FileExistsError):
                 execute_pilot(directory, model, None, identity)
+
+    def test_invalid_capacity_profile_prevents_model_access_and_output_creation(self):
+        for limits in (
+            TrialLimits(action_output=0),
+            TrialLimits(final_output=-1),
+            TrialLimits(input_tokens=True),
+            TrialLimits(output_tokens=16000, final_output=8192),
+        ):
+            with self.subTest(limits=limits), TemporaryDirectory() as tmp:
+                model = Mock()
+                with self.assertRaises(ValueError):
+                    execute_pilot(
+                        Path(tmp) / "not-created", model, None, {}, trial_limits=limits
+                    )
+                model.get_info.assert_not_called()
+                self.assertFalse((Path(tmp) / "not-created").exists())
 
     def test_code_corpus_or_model_identity_drift_prevents_probe_and_inference(self):
         for drift in ("code", "corpus", "model"):
@@ -767,7 +794,7 @@ class LocalTransportTests(TestCase):
         ]
         provider.session.post = Mock(return_value=response)
         request = ModelRequest(
-            "system", "user", 4096, phase="report", response_schema=REPORT_SCHEMA
+            "system", "user", 8192, phase="report", response_schema=REPORT_SCHEMA
         )
         reply = provider.predict(request, provider.measure(request), 30)
         self.assertEqual(provider.session.post.call_args.kwargs["timeout"], 30)
@@ -775,6 +802,7 @@ class LocalTransportTests(TestCase):
         payload = provider.session.post.call_args.kwargs["json"]
         self.assertNotIn("tools", payload)
         self.assertNotIn("reasoning", payload)
+        self.assertEqual(payload["max_tokens"], 8192)
         self.assertEqual(
             payload["response_format"]["json_schema"]["schema"], REPORT_SCHEMA
         )
@@ -949,17 +977,51 @@ class LocalTransportTests(TestCase):
                         "start_line": 2,
                     },
                 },
-                ready(),
                 final,
             ]
 
-        scripted = ScriptedProvider([*sequence(), *sequence()])
+        scripted = ScriptedProvider([*sequence(), *sequence()], context=32768)
         provider.measure, provider.predict = scripted.measure, scripted.predict
-        probe = provider.harmless_probe()
+        limits = TrialLimits(
+            action_output=8192,
+            final_output=8192,
+            output_tokens=131072,
+            input_tokens=524288,
+        )
+        probe = provider.harmless_probe(call_budget=8, limits=limits)
         self.assertEqual(probe["outcome"], "passed")
         self.assertEqual(len(probe["sequences"]), 2)
-        self.assertEqual(scripted.requests[4].history, ())
-        self.assertEqual(sum(s["counters"]["calls"] for s in probe["sequences"]), 8)
+        self.assertEqual(scripted.requests[3].history, ())
+        self.assertEqual(sum(s["counters"]["calls"] for s in probe["sequences"]), 6)
+        self.assertTrue(
+            all(s["counters"]["corrections"] == 0 for s in probe["sequences"])
+        )
+        self.assertEqual({r.output_reserve for r in scripted.requests}, {8192})
+        self.assertTrue(all(s["limits"]["calls"] == 4 for s in probe["sequences"]))
+
+    def test_larger_profile_accounts_reasoning_beyond_old_action_cap(self):
+        provider = ScriptedProvider([ready(), report()], context=32768, usage=2400)
+        original = provider.predict
+
+        def reasoning_reply(request, measurement, timeout):
+            return replace(
+                original(request, measurement, timeout), reasoning_tokens=2100
+            )
+
+        provider.predict = reasoning_reply
+        limits = TrialLimits(
+            action_output=8192,
+            final_output=8192,
+            output_tokens=131072,
+            input_tokens=524288,
+        )
+        result = run_investigation_trial(
+            CASE, workspace(), "agent", provider, limits=limits
+        )
+        self.assertEqual(result["outcome"], "completed_ungraded")
+        self.assertEqual(result["counters"]["output_tokens"], 4800)
+        self.assertEqual(result["counters"]["reasoning_tokens"], 4200)
+        self.assertEqual([r.output_reserve for r in provider.requests], [8192, 8192])
 
     def test_native_transport_preserves_reasoning_usage_and_private_frame(self):
         model = Mock()

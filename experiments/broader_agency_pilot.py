@@ -24,7 +24,11 @@ from urllib.parse import quote
 import requests
 
 from .broader_agency_local import LocalJSONActionProvider
-from .broader_agency_trial import TrialLimits, run_investigation_trial
+from .broader_agency_trial import (
+    TrialLimits,
+    run_investigation_trial,
+    validate_trial_limits,
+)
 from .broader_agency_workspace import (
     SourceDocument,
     SourceWorkspace,
@@ -563,10 +567,10 @@ def execute_pilot(
     probe_call_budget=12,
     request_timeout_seconds=60,
     probe_sequence_seconds=180,
-    trial_seconds=1200,
+    trial_limits: TrialLimits | None = None,
 ) -> dict:
-    if type(trial_seconds) is not int or trial_seconds <= 0:
-        raise ValueError("trial time must be a positive integer")
+    limits = TrialLimits() if trial_limits is None else trial_limits
+    validate_trial_limits(limits)
     freeze = json.loads((directory / "pre-inference-freeze.json").read_text())
     bundle = json.loads((directory / "corpus.json").read_text())
     if freeze["code"] != code_identities() or freeze["corpus_sha256"] != digest(bundle):
@@ -596,7 +600,7 @@ def execute_pilot(
     configuration = provider.configuration()
     configuration["model_file_identity"] = model_identity
     configuration["probe_sequence_seconds"] = probe_sequence_seconds
-    configuration["trial_limits"] = asdict(TrialLimits(seconds=trial_seconds))
+    configuration["trial_limits"] = asdict(limits)
     configuration["model_file_hash_basis"] = (
         "caller-computed SHA256 before loading; model key/path/size checked here, not rehashed during inference"
     )
@@ -606,7 +610,9 @@ def execute_pilot(
     results = []
     try:
         probe = provider.harmless_probe(
-            call_budget=probe_call_budget, sequence_seconds=probe_sequence_seconds
+            call_budget=probe_call_budget,
+            sequence_seconds=probe_sequence_seconds,
+            limits=limits,
         )
         (output / "probe.json").write_text(json.dumps(probe, indent=2) + "\n")
         if probe["outcome"] != "passed":
@@ -631,7 +637,7 @@ def execute_pilot(
                     workspace,
                     method,
                     provider,
-                    limits=TrialLimits(seconds=trial_seconds),
+                    limits=limits,
                 )
                 results.append(result)
                 (output / f"{case_index + 1}-{method}.json").write_text(
@@ -686,6 +692,10 @@ def main() -> int:
     parser.add_argument("--request-timeout-seconds", type=int, default=60)
     parser.add_argument("--probe-sequence-seconds", type=int, default=180)
     parser.add_argument("--trial-seconds", type=int, default=1200)
+    parser.add_argument("--action-output-tokens", type=int, default=1024)
+    parser.add_argument("--final-output-tokens", type=int, default=4096)
+    parser.add_argument("--trial-output-tokens", type=int, default=32768)
+    parser.add_argument("--trial-input-tokens", type=int, default=245760)
     args = parser.parse_args()
     if not re.fullmatch(r"[a-zA-Z0-9_-]{1,80}", args.name):
         parser.error("name must contain letters, digits, underscore or hyphen")
@@ -693,6 +703,18 @@ def main() -> int:
         parser.error("choose exactly one of --prepare or --execute")
     if args.execute and args.model_identity is None:
         parser.error("--execute requires --model-identity with precomputed GGUF hash")
+    limits = TrialLimits(
+        seconds=args.trial_seconds,
+        action_output=args.action_output_tokens,
+        final_output=args.final_output_tokens,
+        output_tokens=args.trial_output_tokens,
+        input_tokens=args.trial_input_tokens,
+    )
+    if args.execute:
+        try:
+            validate_trial_limits(limits)
+        except ValueError as error:
+            parser.error(str(error))
     directory = ROOT / ".tmp/broader-agency-pilot" / args.name
     if args.prepare:
         try:
@@ -759,7 +781,7 @@ def main() -> int:
             probe_call_budget=args.probe_call_budget,
             request_timeout_seconds=args.request_timeout_seconds,
             probe_sequence_seconds=args.probe_sequence_seconds,
-            trial_seconds=args.trial_seconds,
+            trial_limits=limits,
         )
     return (
         0
