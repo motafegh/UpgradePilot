@@ -1,0 +1,64 @@
+{
+  "recorded_date": "2026-10-06",
+  "scope": "Completed first-case checkpoint under separate corrected capacity profile; not whole-batch closure",
+  "executable_freeze": "cdbf9c70",
+  "model": "google/gemma-4-12b",
+  "profile": {
+    "action_output": 8192,
+    "final_output": 8192,
+    "total_output": 131072,
+    "total_input": 524288,
+    "context": 32768
+  },
+  "qualification": {
+    "outcome": "passed",
+    "sequences": 2,
+    "source_review": {
+      "finding": "Both fresh 32K/8192-profile canaries pass all four declared checks, in four calls each, including batched initial three tools, later follow-up, explicit finish and source-linked reports. Every response has complete actual usage and no truncation. Report claims correctly cite deprecation, future removal and the target call site. The second summary adds a v1-to-v2 transition-away interpretation not established by these lines and leaves unexamined empty; passing the interface gate does not admit version-specific compatibility advice.",
+      "qualification_is_semantic_acceptance": false
+    },
+    "private_artifact_sha256": "4c49cfde38f7046a8f4e4ac9947be3730ed76e338c4c287eb0ce974609a78534"
+  },
+  "first_case": {
+    "case_id": "development-httpx-framework-ci",
+    "method": "fixed",
+    "outcome": "report_contract_problem",
+    "counters": {
+      "calls": 15,
+      "input_tokens": 106025,
+      "output_tokens": 13343,
+      "reasoning_tokens": 9859,
+      "tool_operations": 7,
+      "source_bytes": 7768,
+      "corrections": 2
+    },
+    "elapsed_seconds": 1840.258,
+    "truncated_responses": 0,
+    "complete_stage_artifacts": 0,
+    "source_review": {
+      "finding": "The enlarged profile has no truncated replies and complete usage, but the fixed arm exhausts its two corrections and admits no report. All five stage artifacts have invalid references (bare paths or source identifiers), and the retained final candidate has the same defect. Seven operations deliver only the target HTTPX pin, scoped absence of the literal import httpx, upstream path inventory/filename mentions and CI filenames after a failed body read. No relevant release section, TestClient consumer, old/new Starlette forwarding, installed binding or CI capture body is read. The final low-risk/proceed advice and transport/timeout refinement claims therefore exceed delivered evidence. The CI-stable primary-test claim is unsupported; the workflow trigger excluding requirements-only changes is missed. Useful pin/absence clues and an explicit indirect-framework condition remain distinct from unsupported compatibility advice.",
+      "advice_ready": false,
+      "final_candidate_present": true,
+      "admitted_final_report": false,
+      "coverage": {
+        "upstream_delta": "missed; files inventoried but relevant changes unread",
+        "indirect_consumer": "generic condition only; actual TestClient/forwarding path missed",
+        "declared_vs_installed": "unpinned framework/actual installed binding unexamined",
+        "ci": "unsupported stable-test conclusion from filenames; requirements-only trigger exclusion missed"
+      },
+      "capacity": "all responses untruncated; 15 calls, 13343 generated including 9859 reasoning",
+      "limits": "Known-case assisted review; mechanical citation, stage scheduling and search/orientation limitations remain. No intrinsic model or causal agency verdict."
+    },
+    "private_artifact_sha256": "5ed8e087181fd04193697301d4fde8190e19275b850b21c3e35f0e58b98ab742"
+  },
+  "completed_receipt_reconciliation": {
+    "attempted_calls": 23,
+    "accounted_responses": 23,
+    "input_tokens": 126090,
+    "output_tokens": 18144,
+    "reasoning_tokens": 13607,
+    "all_match_saved_counters": true,
+    "private_snapshot_sha256": "5c6f642cb9bc15b2c54fd0310b1528780db81bf290110237bd79379467aab506"
+  },
+  "limits": "Remaining selected assignments are outside this checkpoint. No complete comparison, intrinsic model verdict, independent semantic acceptance or causal agency/size claim."
+}
