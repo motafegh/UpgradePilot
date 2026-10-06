@@ -1,0 +1,41 @@
+{
+  "recorded_date": "2026-10-06",
+  "status": "stopped at explicit user request for later overnight continuation; not a completed batch or model failure",
+  "worker_session": 80471,
+  "worker_exit_code": 130,
+  "model": "google/gemma-4-12b",
+  "case_id": "development-httpx-framework-ci",
+  "method": "agent",
+  "formal_interrupted_trial_result_available": false,
+  "attempted_calls": 10,
+  "accounted_responses": 9,
+  "known_input_tokens": 45013,
+  "known_output_tokens": 6289,
+  "known_reasoning_tokens": 5968,
+  "unreported_usage_calls": 1,
+  "source_operations_delivered_before_interruption": 9,
+  "provenance": "Receipt reconstruction from nine known responses and delivered tool messages in the last request. No fabricated trial trace or final report; interrupted request usage unknown.",
+  "partial_source_scope": "Target pin, scoped literal searches including client/TestClient clues, and actual HTTPX-new changelog pages 1 and 21; no final interpretation to grade.",
+  "completed_case_retained": "Gemma HTTPX fixed; reviewed first-case checkpoint is unchanged",
+  "unstarted_assignments": [
+    "gemma12 pytest agent",
+    "gemma12 pytest fixed",
+    "qwen35 HTTPX fixed",
+    "qwen35 HTTPX agent",
+    "qwen35 pytest agent",
+    "qwen35 pytest fixed"
+  ],
+  "whole_run_receipts": {
+    "attempted_calls": 33,
+    "accounted_responses": 32,
+    "known_input_tokens": 171103,
+    "known_output_tokens": 24433,
+    "known_reasoning_tokens": 19575,
+    "totals_are_lower_bounds": true
+  },
+  "private_receipt_sha256": "7e56bb5ac468fa4ea6c579291aee3123e6de2f641e20ff4bb92c128343dd7cc2",
+  "owned_instance_unloaded": true,
+  "native_loaded_inventory_after_stop": [],
+  "continuation": "Fresh separately labelled attempt for interrupted HTTPX A, plus six unstarted assignments under the same selected resource/corpus profile; preserve earlier qualification, completed fixed case and interrupted costs. Original full-batch driver cannot be rerun unchanged because it recreates execution folders. Do not overwrite evidence or claim an in-flight exact resume. Recheck GPU ownership and source/configuration identities before an overnight load.",
+  "automatic_start_time_selected": false
+}
