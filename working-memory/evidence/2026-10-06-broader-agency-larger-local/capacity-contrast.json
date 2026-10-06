@@ -1,0 +1,130 @@
+{
+  "freeze": {
+    "code": {
+      "broader_agency_workspace.py": "ebc703dbfe59a8a3c3dfd70369b9907eac9202b50c099e582654b1e59ac9966c",
+      "broader_agency_trial.py": "aa3353c8c0415e0e581ae10572218500f756f05d6ea4e8ba2dc26b4d647bc08a",
+      "broader_agency_local.py": "336e2e0b3630bb10a43eb9d97df0cb1f40cdc1580510b0cd6bc2d18a36410bb1",
+      "broader_agency_pilot.py": "65d6cd58edde949688199f773e9e3a336a9d0f7f1e20c5282d001e2f33e491ba"
+    },
+    "corpus_sha256": "f528a27b04a80503a6145480980021a490c2b2c8a447cd71ab2178ddf38cd142",
+    "original_trial_sha256": "7b7aa625768c33d6df2dd15b0b15718acd96e9a7be5666bd426146daef3a2c6f",
+    "original_event": "event-004",
+    "original_request_sha256": "b2d7bae74b2b0d50437ca485ff5e631f08463ecb50d7932b6732138a542da255",
+    "selected_request_sha256": "32272e7414f4a0b7cee88d055a969f49b3a3aa9594cebee206b34275d703ecd6",
+    "ordinary_output_tokens": 8192,
+    "context_tokens": 32768,
+    "prompt_history_schema_unchanged": true,
+    "driver_sha256": "d23f2ac1adb3a05380d34c3b13387d3aa1c9526df79f40ddcf363fa02dfc87ee",
+    "role": "one saved-packet capacity diagnostic; not independent or historical trial repair"
+  },
+  "measurement": {
+    "input_tokens": 4428,
+    "context_tokens": 32768,
+    "request_sha256": "32272e7414f4a0b7cee88d055a969f49b3a3aa9594cebee206b34275d703ecd6",
+    "deployment_identity": "Gq6CTIiO3MbUNRA+ySriFOWR"
+  },
+  "elapsed_seconds": 139.49836961599794,
+  "usage_complete": true,
+  "shape_problem": null,
+  "missing_citations": [],
+  "configuration": {
+    "interface": "compatible-tools-v2",
+    "endpoint": "http://127.0.0.1:18080/v1/chat/completions",
+    "model": {
+      "type": "llm",
+      "modelKey": "google/gemma-4-12b",
+      "format": "gguf",
+      "displayName": "Gemma 4 12B",
+      "path": "google/gemma-4-12b",
+      "sizeBytes": 7556574286,
+      "identifier": "broader-agency-large-v2-capacity-contrast-20261006",
+      "instanceReference": "Gq6CTIiO3MbUNRA+ySriFOWR",
+      "vision": true,
+      "trainedForToolUse": true,
+      "maxContextLength": 131072,
+      "contextLength": 32768,
+      "paramsString": "12B",
+      "architecture": "gemma4"
+    },
+    "load_config": {
+      "gpu": {
+        "ratio": 0.55,
+        "splitStrategy": "evenly",
+        "disabledGpus": []
+      },
+      "gpuStrictVramCap": true,
+      "offloadKVCacheToGpu": true,
+      "contextLength": 32768,
+      "flashAttention": true
+    },
+    "reasoning": "server-default-accounted",
+    "reasoning_control": "server default; no documented compatible toggle; usage measured on every response",
+    "temperature": 0.2,
+    "request_timeout_seconds": 1800,
+    "accounting": "SDK prompt template with actual history/tool definitions + 128 token allowance; every actual response cross-checked",
+    "template_control_limit": "SDK defaults do not establish byte-identical server rendering; allowance is an upper estimate, not exact template proof",
+    "structured_path": "response_format json_schema",
+    "model_file_identity": {
+      "key": "google/gemma-4-12b",
+      "path": "google/gemma-4-12b",
+      "size_bytes": 7556574286,
+      "gguf_sha256": "c088a44859de42a1966851b552ba628c0ff4419b87c4622539d69430f40024ed",
+      "primary_gguf": {
+        "path": "lmstudio-community/gemma-4-12B-it-GGUF/gemma-4-12B-it-Q4_K_M.gguf",
+        "size_bytes": 7381384864,
+        "sha256": "c088a44859de42a1966851b552ba628c0ff4419b87c4622539d69430f40024ed"
+      },
+      "local_vision_companion": {
+        "path": "lmstudio-community/gemma-4-12B-it-GGUF/mmproj-gemma-4-12B-it-BF16.gguf",
+        "size_bytes": 175115296,
+        "sha256": "b162f6d350c69c2e21103feeeacd8db22fc1af9beb5979c25aae1c107cf01859",
+        "basis": "local companion file hashed before load; actual loaded configuration recorded separately; no image input"
+      },
+      "hub_package_assets": [
+        {
+          "path": "google/gemma-4-12b/manifest.json",
+          "size_bytes": 1181,
+          "sha256": "0b17b3b8b10a29eaf66781e618a367b69ab9dfc4cf40e30a96d04f812003f7fb"
+        },
+        {
+          "path": "google/gemma-4-12b/model.yaml",
+          "size_bytes": 1896,
+          "sha256": "113b07f4a5de77f015fdbd4ba006319910e39f66cbc640f453f8e9a9dcf47c7e"
+        },
+        {
+          "path": "google/gemma-4-12b/README.md",
+          "size_bytes": 506,
+          "sha256": "6e9410c08a2b435065e4f5617f3ad8833874906f326df46dda0243cfbedd87fe"
+        },
+        {
+          "path": "google/gemma-4-12b/thumbnail.png",
+          "size_bytes": 70543,
+          "sha256": "f1cc47c862f1a045cfaaa2707072fbf03d0eb9a7c6560c387f0923b07b6136cc"
+        }
+      ],
+      "hub_resolution": {
+        "indexed_identifier": "google/gemma-4-12b",
+        "concrete_identifier": "lmstudio-community/gemma-4-12B-it-GGUF/gemma-4-12B-it-Q4_K_M.gguf",
+        "primary_path": "lmstudio-community/gemma-4-12B-it-GGUF/gemma-4-12B-it-Q4_K_M.gguf",
+        "size_basis": "actual primary GGUF plus actual vision companion plus four hashed hub package assets; exact total equals loaded SDK sizeBytes",
+        "index_sha256_at_reconciliation": "1953707038f5c4f7d1866940e103af7c141824872abdadede1bfdc5565a48ba1"
+      }
+    }
+  },
+  "counters": {
+    "input_tokens": 4307,
+    "output_tokens": 1136,
+    "reasoning_tokens": 805
+  },
+  "calls": 1,
+  "truncated": false,
+  "finish_reason": "stop",
+  "wire_max_tokens": 8192,
+  "private_receipt_sha256": "46ec6e776042b84fe43940d46f03f96646fb2422c3360f55bb308f54dc0afbc0",
+  "private_result_sha256": "785817d4199bbe72fe51977e86b6521fc0c8d1324ba7c53ba1e529b679f10b32",
+  "assisted_source_review": {
+    "finding": "Saved stage-correction packet completes beyond the former 1024 ceiling, with valid JSON and existing line references. requirements.txt L2 proves the pin, not standard HTTP request usage; upstream pyproject.toml L62 does not establish request-pattern compatibility. No relevant upstream breaking-change or indirect-consumer source was read in the retained packet.",
+    "advice_ready": false,
+    "proof_boundary": "Actual larger allowance/context fit and complete response accounting, not supported compatibility advice, independent semantic evaluation or repair of the historical trial."
+  }
+}
