@@ -641,7 +641,7 @@ class PilotCompositionTests(TestCase):
                 ]
             )
             provider.configuration = lambda: {"interface": "controlled"}
-            provider.harmless_probe = lambda: {"outcome": "passed"}
+            provider.harmless_probe = lambda **kwargs: {"outcome": "passed"}
             provider.close = Mock()
             provider.private_receipts = [{"controlled": True}]
             with patch(
@@ -804,6 +804,81 @@ class LocalTransportTests(TestCase):
             129,
         )
         provider.close()
+
+    def test_sdk_history_preserves_request_wrapper_ids_and_stage_turns(self):
+        from experiments.broader_agency_trial import ModelRequest
+
+        model = Mock()
+        model.get_info.return_value.to_dict.return_value = {
+            "identifier": "instance",
+            "instanceReference": "deployment",
+        }
+        model.get_load_config.return_value.to_dict.return_value = {
+            "contextLength": 16384
+        }
+        model.get_context_length.return_value = 16384
+        model.tokenize.return_value = [1]
+        chat = Mock()
+        provider = LocalJSONActionProvider(
+            model, lambda data: chat, interface="compatible-tools"
+        )
+        events = (
+            {
+                "event_id": "e1",
+                "instruction": "Read source",
+                "assistant": "",
+                "actions": [
+                    {
+                        "id": "original-id",
+                        "tool": "read_source",
+                        "arguments": {"source_id": "upstream", "path": "changes.md"},
+                    }
+                ],
+                "results": [{"id": "original-id", "result": {"text": "source"}}],
+            },
+            {
+                "event_id": "e2",
+                "instruction": "Synthesize stage",
+                "assistant": "candidate stage",
+                "actions": [],
+                "results": [],
+            },
+        )
+        request = ModelRequest("system", "current task", 1024, history=events)
+        provider.measure(request)
+        first = chat.add_assistant_response.call_args_list[0].args[1][0]
+        self.assertEqual(first["type"], "toolCallRequest")
+        self.assertEqual(first["toolCallRequest"]["id"], "original-id")
+        self.assertEqual(
+            chat.add_tool_results.call_args.args[0][0]["toolCallId"], "original-id"
+        )
+        self.assertEqual(
+            [c.args[0] for c in chat.add_user_message.call_args_list],
+            ["Read source", "Synthesize stage", "current task"],
+        )
+        wire = provider._messages(request)
+        self.assertEqual(wire[2]["tool_calls"][0]["id"], "original-id")
+        self.assertEqual(wire[3]["tool_call_id"], "original-id")
+        provider.close()
+
+    def test_configuration_failure_retains_known_usage_without_dispatch(self):
+        provider = ScriptedProvider([])
+        provider.predict = Mock(
+            return_value=ModelReply(
+                "",
+                80,
+                20,
+                10,
+                "controlled",
+                tool_calls=(),
+                problem="reasoning-off not observed",
+            )
+        )
+        result = run_investigation_trial(CASE, workspace(), "agent", provider)
+        self.assertEqual(result["outcome"], "provider_configuration_not_observed")
+        self.assertEqual(result["counters"]["reasoning_tokens"], 10)
+        self.assertEqual(result["counters"]["tool_operations"], 0)
+        self.assertEqual(result["counters"]["calls"], 1)
 
     def test_live_canary_requires_two_fresh_multi_scope_followups(self):
         # Exercise qualification composition through the real trial dispatcher,

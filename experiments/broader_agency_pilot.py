@@ -559,6 +559,8 @@ def execute_pilot(
     model_identity: dict,
     *,
     interface="compatible-tools",
+    reasoning="off",
+    probe_call_budget=12,
 ) -> dict:
     freeze = json.loads((directory / "pre-inference-freeze.json").read_text())
     bundle = json.loads((directory / "corpus.json").read_text())
@@ -579,7 +581,9 @@ def execute_pilot(
         + interface
     )
     output.mkdir(exist_ok=False)
-    provider = LocalJSONActionProvider(model, chat_factory, interface=interface)
+    provider = LocalJSONActionProvider(
+        model, chat_factory, interface=interface, reasoning=reasoning
+    )
     configuration = provider.configuration()
     configuration["model_file_identity"] = model_identity
     configuration["model_file_hash_basis"] = (
@@ -590,7 +594,7 @@ def execute_pilot(
     )
     results = []
     try:
-        probe = provider.harmless_probe()
+        probe = provider.harmless_probe(call_budget=probe_call_budget)
         (output / "probe.json").write_text(json.dumps(probe, indent=2) + "\n")
         if probe["outcome"] != "passed":
             result = {
@@ -658,6 +662,10 @@ def main() -> int:
         choices=["compatible-tools", "native-json"],
         default="compatible-tools",
     )
+    parser.add_argument(
+        "--reasoning", choices=["off", "on", "server-default-accounted"], default="off"
+    )
+    parser.add_argument("--probe-call-budget", type=int, default=12)
     args = parser.parse_args()
     if not re.fullmatch(r"[a-zA-Z0-9_-]{1,80}", args.name):
         parser.error("name must contain letters, digits, underscore or hyphen")
@@ -727,6 +735,8 @@ def main() -> int:
             lms.Chat.from_history,
             strict_json(args.model_identity.read_text()),
             interface=args.interface,
+            reasoning=args.reasoning,
+            probe_call_budget=args.probe_call_budget,
         )
     return (
         0

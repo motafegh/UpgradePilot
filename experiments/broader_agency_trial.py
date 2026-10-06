@@ -135,6 +135,7 @@ class ModelReply:
     deployment_identity: str
     truncated: bool = False
     tool_calls: tuple | None = None
+    problem: str | None = None
 
 
 class TrialProvider(Protocol):
@@ -424,6 +425,7 @@ def run_investigation_trial(
         public = {
             "event_id": event_id,
             "phase": phase,
+            "instruction": stage,
             "assistant": "",
             "actions": [],
             "results": [],
@@ -476,6 +478,10 @@ def run_investigation_trial(
                 or reply.reasoning_tokens > reply.output_tokens
             ):
                 outcome = "provider_accounting_or_identity_mismatch"
+                break
+            if reply.problem:
+                event["provider_problem"] = reply.problem
+                outcome = "provider_configuration_not_observed"
                 break
             if clock() - started > limits.seconds:
                 outcome = "time_budget_exhausted"
