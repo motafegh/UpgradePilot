@@ -4,7 +4,7 @@
 
 **Session status:** ACTIVE research; final product/design decision pending
 
-**Primary responsibility:** open research/architectural comparison and read-only examination of prior executable work
+**Primary responsibility:** open research/architectural comparison; subsequent selected experiment implementation/evaluation is recorded in sections 8–11
 
 **Branch:** `codex/broader-llm-agency-research-2026-10-05`
 
@@ -22,7 +22,7 @@ Ali asked for discussion of broader LLM/agent capabilities and authority without
 
 The earlier chat proposed comparing the existing pipeline, a richer model in a fixed workflow, and an agent directing its investigation. These are candidate comparisons, not accepted architecture or executed experiments.
 
-Authorized mutations: research artifacts and branch-local coordination. This request is not being used to initiate product implementation, model evaluations, third-party execution, paid inference, or external target writes.
+Initial authorization: research artifacts and branch-local coordination, before later explicit selections of local experiment implementation/evaluation in sections 8–11. No product implementation, third-party execution, paid inference or external target writes are inferred.
 
 ## 2. Isolation and reconciled starting state
 
@@ -50,10 +50,10 @@ Authorized mutations: research artifacts and branch-local coordination. This req
 A0 — DONE: base reconciled, main isolated, branch/record initialized
 A1 — DONE (compact): continuous discussion established the concern; prior work will be checked
 A2 — DONE (compact): research before decision/design; comparison and authority dimensions introduced
-B — CURRENT: first pass, local pilot and replacement interface design preserved; wider research/product decision remains open
-Verification gate — GREEN prior mechanics; FAILED prior interface readiness; replacement design receives documentation proof, not execution acceptance
-D — DOCUMENTED: Ali received the pilot results explanation and selected the repair-design continuation; independent ownership unassessed
-E — PENDING: repair/defer gaps and choose next research/design responsibility
+B — CURRENT overarching research: first pass, pilot, replacement design and repaired three-model diagnostic evidence preserved; bounded implementation/evaluation child responsibility closed below
+Verification gate — GREEN focused mechanics 50/50 and accounted tool/history proof; Gemma/Qwen fresh canaries pass, MiMo qualification fails; source readiness REVISE, no protected/product acceptance
+D — DOCUMENTED: actual pilot/repair/source-review findings explained; independent learner ownership unassessed
+E — PENDING overarching research/product decision: bounded experiment increment closed; next design responsibility proposed in the final dated handoff
 C — CONTINUOUS: meaningful findings, corrections, verification and handoff preserved here
 ```
 
@@ -357,3 +357,33 @@ The serial worker completed and unloaded its instances. Qwen's pytest A recovere
 MiMo's first fresh canary used five calls/six operations and produced a structurally valid source-linked report. Multi-scope reads, a later follow-up and report citations passed; the required literal ABSENT_CANARY_TERM search did not occur. It searched "canary" instead and falsely stated the requested literal had not been supplied. Qualification stays failed; no second sequence was run. This is an observed instruction-following failure, not missing usage or a transport failure.
 
 Material override, selected before additional inference: circumstance/evidence — explicit user request to test MiMo plus a working accounted tool/report path and a preserved instruction-following failure → normal route — withhold its four selected cases on the failed canary → why worse here — withholding would remove the already-authorized case-level diagnostic evidence most useful for distinguishing the canary omission from broader investigation failures → chosen override — run those four assignments once as unqualified diagnostic trials, without another canary or any executable/prompt/validator change → effect — unchanged local trust/resource boundary, exact code/corpus/profile/reset/order; failed qualification remains in the denominator and excludes readiness/promotion claims → reconciliation — protocol 16.9, private pre-call driver/freeze, all assigned outcomes/costs, source review and final live-owner handoff. This does not change an accepted product contract. No repeat or answer-selective run is admitted.
+
+### 11.9 Completed MiMo diagnostics, source review and bounded closure
+
+The private diagnostic driver completed all four assignments under executable freeze `a83de8f3`, without repeat or prompt/code/corpus changes. All sixty MiMo case responses have usage; the shared model was unloaded. The later continuation found the completed files after the command session had expired, rather than restarting any trial. Fresh anonymous inventory reports no loaded instances. The intervening `b5542ad2` checkpoint preserved earlier qualification/progression evidence; this closure extends it with complete source review and live-owner reconciliation.
+
+MiMo HTTPX F: report-contract failure, 15 calls/14 operations/490.055 seconds, zero complete/five stage artifacts. Changelogs were inventoried but unread; final low-risk patch-level/direct-Client framing lacks the indirect TestClient path. HTTPX A: first-attempt mechanically complete, 15 calls/28 operations/222.672 seconds, five paid event replays. It identified material app/proxies removals and SSL-string/cert deprecations, but attributed the 0.28.0 changes to 0.28.1 and the 0.27.1 zstd addition to 0.27.2. It read/replayed Python workflow pages yet declared them unexamined and missed the requirements-only exclusion. Neither arm established reference versus installed framework binding.
+
+MiMo pytest A: report-contract failure after one correction, 16 calls/28 operations/292.694 seconds. It actually read tox, fixtures, all CI pages and release material; useful bug-fix clues coexist with incorrect release/date attribution, literal regex-like zero-hit misuse, unsupported regression environment binding and a false statement that the announcement was unread. Pytest F: mechanically completes after one stage correction, 14 calls/14 operations/403.569 seconds, five complete artifacts. Direct plugins, constraint and release-description clues are correct, but the pin claim cites pygments L63 rather than pytest L65. Later artifacts/final repeat stale unexamined claims after upstream/CI reads. Artifact completeness and retained memory therefore do not establish performed semantic review or updated understanding.
+
+All **12/12** selected case outcomes were saved once and manually reviewed against frozen source, including rejected final candidates and Qwen's timeout partial artifacts. Mechanical reports: Gemma 1/4, Qwen 3/4, MiMo 2/4; five reference-contract failures and one transport timeout remain. None has a complete advice-ready evidence path in this assisted formative review. Correct source clues are retained separately from unsupported advice; this is not a verdict that the models are useless or that every rejected fact is false. MiMo qualification remains failed and its cases explicitly diagnostic-only.
+
+Receipt verification reconciles every private provider receipt against saved probe/case counters: **199 attempted inference calls / 198 accounted responses**, 1,610,630 known input tokens, 88,294 known generated tokens including 47,271 reasoning tokens, 260 operations and 443,478 observation bytes. The token sums are lower bounds because the one timed-out Qwen attempt has unreported usage. All prior failures in this increment are included; earlier v0.1 costs remain separate. Exact final executable/corpus identities are unchanged. Per-trial coverage, scope, counters, qualification status, completeness and receipt/artifact hashes are preserved in [reviewed evidence](evidence/2026-10-06-broader-agency-repair/README.md).
+
+Verification at closure: fresh **50/50** focused checks (27 harness/source/transport/history/recovery plus 23 nearest planner/extractor), focused Ruff/format, code/corpus/receipt reconciliation and scoped diff checks. Full product/experiment regression, fresh installed-package proof, external target execution, protected/independent semantic comparison and learner ownership were not run/established. Product source/tests are unchanged on the research branch. Main remains outside the mutation scope.
+
+D from actual evidence: tools/history/correction now work on real deployments; Qwen and MiMo actually use paid replay. Yet a citation can exist while pointing to the wrong line/release, a zero-hit query can be misinterpreted, and a stage artifact can repeat stale claims instead of performing its named work. The combined redesign does not isolate memory/agency causally. Useful provisional investigative clues support continued experimentation, while the current report/source path does not support delegated maintainer decisions. Independent learner ownership remains unassessed under the compact ongoing-conversation adaptation.
+
+E preserves the unresolved design debt: explicit reference forms for exact source versus packet/event/scope evidence; neutral source-role/path/search orientation; stale-claim handling and meaningful fixed-stage sufficiency; then an unchanged whole-set comparison plus independent new cases. These are proposed next responsibilities, not implementation/protected-batch authorization. Broader research and Ali's architecture/authority decision remain open; there is no winner or adopted product authority.
+
+```text
+Repair implementation / qualification child responsibility — closed bounded increment
+A0/A1/A2 — DONE (compact): current source/design/authorization/coexistence reconciled
+B — DONE: experiment mechanics implemented; three-model qualification and twelve assigned case outcomes retained
+Verification — GREEN mechanics 50/50, identities/fit/receipts; FAILED MiMo canary; source readiness REVISE; one timeout usage gap preserved
+D — DOCUMENTED: actual controls/source failures/useful clues and proof limits explained; independent ownership unassessed
+E — DONE bounded closure: complete reviewed evidence and live handoff; design/semantic/ownership debts explicit, wider research decision open
+C — CONTINUOUS for overarching research: meaningful progression preserved in this one record
+```
+
+Publication review: 41 local Markdown links resolve and fences balance across the protocol, live owner, progression record and new evidence README. All twelve public assignment rows have manual source review and matched frozen corpus/private artifact hashes; totals match every private receipt, with exactly one explicit unreported-usage call. Only the dated record, branch live owner and reviewed evidence change in this final increment; executable/product trees remain unchanged from the measured freeze. Commit/push follows the standing coherent-increment instruction.

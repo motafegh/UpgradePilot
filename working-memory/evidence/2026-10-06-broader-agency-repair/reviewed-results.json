@@ -33,9 +33,9 @@
   ],
   "profile": "compatible-tools-v2; server-default-accounted; 16384 context; same limits within each model",
   "selected_case_assignments": 12,
-  "executed_case_assignments": 8,
-  "complete_reports": 4,
-  "reviewed_case_assignments": 8,
+  "executed_case_assignments": 12,
+  "complete_reports": 6,
+  "reviewed_case_assignments": 12,
   "qualifications": [
     {
       "run": "repair-v2-three-local",
@@ -809,6 +809,739 @@
       },
       "advice_ready": false,
       "artifact_sha256": "cfc0b1008a72687023d84a3c8077da1c93f0d82f52e2f9e68135a9da0d3a70e8"
+    },
+    {
+      "model": "mimo",
+      "case_id": "development-httpx-framework-ci",
+      "method": "agent",
+      "outcome": "completed_ungraded",
+      "qualification_status": "failed; unqualified diagnostic exception",
+      "usage_complete": true,
+      "unreported_usage_calls": 0,
+      "counters": {
+        "calls": 15,
+        "input_tokens": 170149,
+        "output_tokens": 2188,
+        "reasoning_tokens": 760,
+        "tool_operations": 28,
+        "source_bytes": 65835,
+        "corrections": 0
+      },
+      "elapsed_seconds": 222.672,
+      "corpus_sha256": "6e4ab534a86aaf9d3ebc23f66391f0976faa11c5e1602ba4f12b97b25dd0abe0",
+      "packing_requests": 7,
+      "stage_artifacts": 0,
+      "complete_stage_artifacts": 0,
+      "source_operations_by_scope": [
+        {
+          "tool": "list_sources",
+          "arguments": {}
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "ci-observations"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-proposed",
+            "path": "requirements.txt"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "ci-observations",
+            "path": "E16-actions-run-and-job.json"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "ci-observations",
+            "path": "E19-docker-log-retrieval-error.json"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-base",
+            "path": "requirements.txt"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-proposed",
+            "path": "Dockerfile"
+          }
+        },
+        {
+          "tool": "read_trial_event",
+          "arguments": {}
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "httpx-old"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-proposed",
+            "path": ".github/workflows/python.yml"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-base",
+            "path": ".github/workflows/python.yml"
+          }
+        },
+        {
+          "tool": "read_trial_event",
+          "arguments": {}
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "httpx-new"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-proposed",
+            "path": ".github/workflows/python.yml",
+            "start_line": 21
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "httpx-new",
+            "path": "CHANGELOG.rst"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "httpx-old"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "httpx-new"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "httpx-old",
+            "path": "CHANGELOG.md"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "httpx-new",
+            "path": "CHANGELOG.md"
+          }
+        },
+        {
+          "tool": "read_trial_event",
+          "arguments": {}
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "ci-observations"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "httpx-new",
+            "path": "CHANGELOG.md",
+            "start_line": 21
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-base",
+            "path": "requirements.txt"
+          }
+        },
+        {
+          "tool": "read_trial_event",
+          "arguments": {}
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "httpx-new",
+            "path": "docs/advanced/ssl.md"
+          }
+        },
+        {
+          "tool": "read_trial_event",
+          "arguments": {}
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "httpx-new",
+            "path": "docs/advanced/ssl.md",
+            "start_line": 21
+          }
+        }
+      ],
+      "mechanical_problems": [],
+      "assisted_source_review": {
+        "coverage": {
+          "upstream_changes": "partial",
+          "indirect_target_path": "missed",
+          "declared_vs_installed_binding": "missed",
+          "CI_activation_and_limits": "incorrect"
+        },
+        "finding": "Mechanically complete first-attempt report after fifteen calls. Reads both changelogs, SSL documentation, target declarations, Dockerfile, Python workflow pages and CI captures, with five paid event replays. Identifies app/proxies removals and SSL-string/cert deprecations relevant to the update interval, but does not establish the indirect TestClient/Starlette path or carry the requirements-only trigger exclusion into advice.",
+        "risk": "Assigns the 0.28.0 changes to 0.28.1 and the 0.27.1 zstd addition to 0.27.2. Calls the Python workflow unexamined despite actual reads and replays. Conditions refer to Request(app=...) instead of establishing the actual client forwarding.",
+        "useful": "Relevant upstream changes, explicit compatibility-review conditions and actual memory replay are useful investigative evidence; these do not pass qualification or decision readiness."
+      },
+      "advice_ready": false,
+      "artifact_sha256": "e3df4503687467ad222e1a12019a1c4ad4df259f4edc5ff4b5b378f88f47f61d"
+    },
+    {
+      "model": "mimo",
+      "case_id": "development-httpx-framework-ci",
+      "method": "fixed",
+      "outcome": "report_contract_problem",
+      "qualification_status": "failed; unqualified diagnostic exception",
+      "usage_complete": true,
+      "unreported_usage_calls": 0,
+      "counters": {
+        "calls": 15,
+        "input_tokens": 158968,
+        "output_tokens": 7455,
+        "reasoning_tokens": 497,
+        "tool_operations": 14,
+        "source_bytes": 27961,
+        "corrections": 2
+      },
+      "elapsed_seconds": 490.055,
+      "corpus_sha256": "6e4ab534a86aaf9d3ebc23f66391f0976faa11c5e1602ba4f12b97b25dd0abe0",
+      "packing_requests": 6,
+      "stage_artifacts": 5,
+      "complete_stage_artifacts": 0,
+      "source_operations_by_scope": [
+        {
+          "tool": "list_sources",
+          "arguments": {}
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-base",
+            "path": "requirements.txt"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "httpx-old"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "httpx-new"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "httpx-old",
+            "offset": 20
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-base",
+            "path": "app/router/routes.py"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "httpx-old",
+            "offset": 40
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "target-base",
+            "offset": 20
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "ci-observations"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-base",
+            "path": "app/main.py"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "ci-observations",
+            "path": "E16-actions-run-and-job.json"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-base",
+            "path": "app/router/routes.py",
+            "start_line": 21
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "ci-observations",
+            "path": "E16-actions-run-and-job.json",
+            "start_line": 21
+          }
+        }
+      ],
+      "mechanical_problems": [
+        "$.claims.citations: nonexistent retained references ['httpx-old', 'httpx-new', 'target-base:app.py:L18', 'target-proposed:app.py:L20', 'target-base:tests/test_api.py:L12', 'target-proposed:tests/test_api.py:L14', 'httpx-old:CHANGELOG.md', 'httpx-new:CHANGELOG.md', 'httpx-old:docs/advanced/resource-limits.md', 'httpx-new:docs/advanced/resource-limits.md', 'target-base:.github/workflows/test-suite.yml', 'target-proposed:.github/workflows/test-suite.yml']",
+        "$.claims.citations: nonexistent retained references ['httpx-old:CHANGELOG.md', 'httpx-new:CHANGELOG.md', 'target-base:app.py', 'target-proposed:app.py', 'target-base:tests/test_api.py', 'target-proposed:tests/test_api.py', 'httpx-old:docs/advanced/resource-limits.md', 'httpx-new:docs/advanced/resource-limits.md', 'target-base:.github/workflows/test-suite.yml', 'target-proposed:.github/workflows/test-suite.yml']",
+        "$.claims.citations: nonexistent retained references ['httpx-old:CHANGELOG.md', 'httpx-new:CHANGELOG.md', 'target-base:app.py', 'target-proposed:app.py', 'target-base:tests/test_api.py', 'target-proposed:tests/test_api.py', 'httpx-old:docs/advanced/resource-limits.md', 'httpx-new:docs/advanced/resource-limits.md', 'target-base:.github/workflows/test-suite.yml', 'target-proposed:.github/workflows/test-suite.yml']",
+        "$.claims.citations: nonexistent retained references ['target-base:app/main.py', 'target-proposed:app/main.py', 'target-base:tests/test_api.py', 'target-proposed:tests/test_api.py', 'httpx-old:docs/advanced/resource-limits.md', 'httpx-new:docs/advanced/resource-limits.md', 'target-base:.github/workflows/python.yml', 'target-proposed:.github/workflows/python.yml']",
+        "$.claims.citations: nonexistent retained references ['target-base:app/main.py', 'target-proposed:app/main.py', 'target-base:tests/test_routes.py', 'target-proposed:tests/test_routes.py', 'httpx-old:docs/advanced/resource-limits.md', 'httpx-new:docs/advanced/resource-limits.md', 'target-base:.github/workflows/python.yml', 'target-proposed:.github/workflows/python.yml']",
+        "$.claims.citations: nonexistent retained references ['target-base:app/main.py', 'target-proposed:app/main.py', 'target-base:tests/test_routes.py', 'target-proposed:tests/test_routes.py', 'httpx-old:docs/advanced/resource-limits.md', 'httpx-new:docs/advanced/resource-limits.md', 'target-base:.github/workflows/python.yml', 'target-proposed:.github/workflows/python.yml']",
+        "$.claims.citations: nonexistent retained references ['target-base:app/main.py', 'target-proposed:app/main.py', 'target-base:tests/test_routes.py', 'target-proposed:tests/test_routes.py', 'httpx-old:docs/advanced/resource-limits.md', 'httpx-new:docs/advanced/resource-limits.md', 'target-base:.github/workflows/python.yml', 'target-proposed:.github/workflows/python.yml']",
+        "$.claims.citations: nonexistent retained references ['target-base:app/main.py', 'target-proposed:app/main.py', 'target-base:tests/test_routes.py', 'target-proposed:tests/test_routes.py', 'httpx-old:docs/advanced/resource-limits.md', 'httpx-new:docs/advanced/resource-limits.md', 'target-base:.github/workflows/python.yml', 'target-proposed:.github/workflows/python.yml']"
+      ],
+      "assisted_source_review": {
+        "coverage": {
+          "upstream_changes": "missed",
+          "indirect_target_path": "incorrect",
+          "declared_vs_installed_binding": "missed",
+          "CI_activation_and_limits": "missed"
+        },
+        "finding": "F produced five reference-invalid stage artifacts and an invalid terminal candidate. It inventoried upstream files but never read the changelog; target localization examined application code rather than the TestClient/Starlette path. Its final bare-path references accompany low-risk patch-level advice.",
+        "risk": "Describes a minor-version transition as patch-level; claims standard direct Client usage without establishing it; calls available release changelogs unavailable/unlabelled and treats partial application/CI clues as sufficient.",
+        "useful": "Real source inventories, exact target pin and historical CI reading are retained, including wrong-path errors."
+      },
+      "advice_ready": false,
+      "artifact_sha256": "91342b670a177990a8ecc06125e23aa6f94c92ffc3e5d3fbbc5a923ab99d11ec"
+    },
+    {
+      "model": "mimo",
+      "case_id": "development-glyphslib-pytest-stopping",
+      "method": "agent",
+      "outcome": "report_contract_problem",
+      "qualification_status": "failed; unqualified diagnostic exception",
+      "usage_complete": true,
+      "unreported_usage_calls": 0,
+      "counters": {
+        "calls": 16,
+        "input_tokens": 172131,
+        "output_tokens": 3322,
+        "reasoning_tokens": 771,
+        "tool_operations": 28,
+        "source_bytes": 58997,
+        "corrections": 1
+      },
+      "elapsed_seconds": 292.694,
+      "corpus_sha256": "8c8ef1a31b2c009d83803b8c94ce9a33af201de4ae49513e0a978f186d237101",
+      "packing_requests": 8,
+      "stage_artifacts": 0,
+      "complete_stage_artifacts": 0,
+      "source_operations_by_scope": [
+        {
+          "tool": "list_sources",
+          "arguments": {}
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-base",
+            "path": "requirements-dev.txt"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "ci-observations",
+            "path": "index.md"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "ci-observations"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "pytest",
+            "path_prefix": "tests/"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "ci-observations",
+            "path": "ev-005-ci-results.json"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "target-base",
+            "offset": 20
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "pytest-new"
+          }
+        },
+        {
+          "tool": "list_sources",
+          "arguments": {}
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "ci-observations",
+            "path": "ev-005-ci-results.json",
+            "start_line": 21
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "pytest-new"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "9.0.3",
+            "source_id": "pytest-new"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-proposed",
+            "path": "requirements-dev.in"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "pytest-new",
+            "path": "doc/en/announce/release-9.0.3.rst"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "pytest-new",
+            "path": "doc/en/changelog.rst",
+            "start_line": 25
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-base",
+            "path": "tests/conftest.py"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "pytestmark|parametrize|fixture|raises",
+            "source_id": "target-proposed",
+            "path_prefix": "tests/"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "ci-observations",
+            "path": "ev-005-ci-results.json",
+            "start_line": 41
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "pytestmark|parametrize|fixture|raises|approx",
+            "source_id": "target-base",
+            "path_prefix": "tests/"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-proposed",
+            "path": "tox.ini"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "pytestmark|parametrize|fixture|raises|approx",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "ci-observations",
+            "path": "ev-005-ci-results.json",
+            "start_line": 61
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "target-base",
+            "offset": 20
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "pytest-new",
+            "path": "doc/en/changelog.rst",
+            "start_line": 45
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "target-base",
+            "offset": 40
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "pytest-old",
+            "path": "doc/en/changelog.rst",
+            "start_line": 32
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "target-base",
+            "offset": 0
+          }
+        }
+      ],
+      "mechanical_problems": [
+        "$.claims.citations: nonexistent retained references ['target-base/requirements-dev.txt:L65', 'target-proposed/requirements-dev.txt:L65', 'target-base/tests/conftest.py', 'target-base/tests/main_test.py']",
+        "$.claims.citations: nonexistent retained references ['target-base/requirements-dev.txt:L65', 'target-base/tests/conftest.py']"
+      ],
+      "assisted_source_review": {
+        "coverage": {
+          "pin_to_test_environment": "partial",
+          "ordinary_CI_matrix_and_head": "partial",
+          "regression_install_execute": "partial",
+          "upstream_release_materiality": "partial"
+        },
+        "finding": "Reads requirements-dev.in, tox.ini, fixture source, the release announcement/changelog and all CI capture pages, but both terminal candidates retain invalid slash/bare-path references. Correct CVE/exceptiongroup/subTest fix clues coexist with incorrect release/date attribution and unsupported regression environment binding. Repeated regex-like alternatives are searched literally and return scoped zero hits.",
+        "risk": "Reports no project-specific fixture/parametrize usage despite delivered fixture lines; assigns the 9.0.2 terminal-progress change to 9.0.1; claims a Python 3.12/Windows regression job absent from the captured job identity; says the announcement was unread despite its delivery. Accepts the bump without establishing the regression installation/ordinary workflow path.",
+        "useful": "Correct upstream bug-fix clues, actual tox dependency-consumption source and bounded historical CI are recovered. Their presence makes the stale/misinterpreted report claims directly diagnosable."
+      },
+      "advice_ready": false,
+      "artifact_sha256": "092cd931fcbcdea7403bb8f78fdd190a5fb6221c627956afeec8fecb49c283ed"
+    },
+    {
+      "model": "mimo",
+      "case_id": "development-glyphslib-pytest-stopping",
+      "method": "fixed",
+      "outcome": "completed_after_recovery_ungraded",
+      "qualification_status": "failed; unqualified diagnostic exception",
+      "usage_complete": true,
+      "unreported_usage_calls": 0,
+      "counters": {
+        "calls": 14,
+        "input_tokens": 143391,
+        "output_tokens": 5569,
+        "reasoning_tokens": 194,
+        "tool_operations": 14,
+        "source_bytes": 35338,
+        "corrections": 1
+      },
+      "elapsed_seconds": 403.569,
+      "corpus_sha256": "8c8ef1a31b2c009d83803b8c94ce9a33af201de4ae49513e0a978f186d237101",
+      "packing_requests": 6,
+      "stage_artifacts": 5,
+      "complete_stage_artifacts": 5,
+      "source_operations_by_scope": [
+        {
+          "tool": "list_sources",
+          "arguments": {}
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-base",
+            "path": "requirements-dev.txt"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "ci-observations"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "pytest",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "ci-observations",
+            "path": "ev-005-ci-results.json"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "9.0.3",
+            "source_id": "pytest-new"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "pytest-new",
+            "path": "doc/en/announce/release-9.0.3.rst"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "pytest-new",
+            "path": "doc/en/changelog.rst",
+            "start_line": 25,
+            "line_count": 40
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "pytest-new",
+            "path": "doc/en/announce/release-9.0.3.rst"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "pytest-new",
+            "path": "doc/en/changelog.rst",
+            "start_line": 25,
+            "line_count": 18
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "pytest-new",
+            "path": "doc/en/announce/release-9.0.3.rst"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "pytest-new",
+            "path": "doc/en/changelog.rst",
+            "start_line": 25,
+            "line_count": 18
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "pytest-new",
+            "path": "doc/en/announce/release-9.0.3.rst"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "pytest-new",
+            "path": "doc/en/changelog.rst",
+            "start_line": 25,
+            "line_count": 18
+          }
+        }
+      ],
+      "mechanical_problems": [
+        "$.claims.citations: nonexistent retained references ['pytest-old', 'pytest-new', 'ci-observations:ev-005-ci-results.json']"
+      ],
+      "assisted_source_review": {
+        "coverage": {
+          "pin_to_test_environment": "partial",
+          "ordinary_CI_matrix_and_head": "missed",
+          "regression_install_execute": "partial",
+          "upstream_release_materiality": "partial"
+        },
+        "finding": "Mechanically completes after one visible stage correction, with five complete artifacts. Reads the bug-fix/drop-in announcement and part of the changelog, and correctly identifies the direct plugin declarations. Later artifacts and final report largely repeat the initial artifact, including stale unexamined claims. No tox/install or ordinary workflow investigation occurs.",
+        "risk": "The exact pin claim cites requirements-dev.txt L63, which is pygments rather than pytest (actual pin L65). A regression-command clue does not exclude ordinary tests. It says upstream and CI were unread despite delivered reads and offers low-risk acceptance without the full execution path.",
+        "useful": "Valid source-reference syntax, direct plugin/constraint facts and correct release-description clue survive recovery. Existing citations and complete artifacts still require claim-specific semantic review."
+      },
+      "advice_ready": false,
+      "artifact_sha256": "bfedbcc1ffe7ba2b1b3b4239545b74e809c43fa4860d9a1784de1933fec4283a"
     },
     {
       "model": "qwen",
@@ -1712,22 +2445,22 @@
   "case_usage_complete": false,
   "token_totals_basis": "known accounted responses only; lower bounds where an attempted inference has unreported usage",
   "case_counters": {
-    "calls": 105,
-    "input_tokens": 881919,
-    "output_tokens": 59149,
-    "reasoning_tokens": 38829,
-    "tool_operations": 139,
-    "source_bytes": 227707,
-    "corrections": 8
+    "calls": 165,
+    "input_tokens": 1526558,
+    "output_tokens": 77683,
+    "reasoning_tokens": 41051,
+    "tool_operations": 223,
+    "source_bytes": 415838,
+    "corrections": 12
   },
   "all_counters": {
-    "calls": 139,
-    "input_tokens": 965991,
-    "output_tokens": 69760,
-    "reasoning_tokens": 45049,
-    "tool_operations": 176,
-    "source_bytes": 255347,
-    "corrections": 14
+    "calls": 199,
+    "input_tokens": 1610630,
+    "output_tokens": 88294,
+    "reasoning_tokens": 47271,
+    "tool_operations": 260,
+    "source_bytes": 443478,
+    "corrections": 18
   },
   "private_artifact_hashes": [
     {
@@ -1793,6 +2526,22 @@
     {
       "artifact": "repair-v2-2-default-accounted/execution-broader-agency-v2-2-gemma-20261006-compatible-tools/2-fixed.json",
       "sha256": "cfc0b1008a72687023d84a3c8077da1c93f0d82f52e2f9e68135a9da0d3a70e8"
+    },
+    {
+      "artifact": "repair-v2-2-default-accounted/execution-broader-agency-v2-2-mimo-diagnostic-20261006-compatible-tools/1-agent.json",
+      "sha256": "e3df4503687467ad222e1a12019a1c4ad4df259f4edc5ff4b5b378f88f47f61d"
+    },
+    {
+      "artifact": "repair-v2-2-default-accounted/execution-broader-agency-v2-2-mimo-diagnostic-20261006-compatible-tools/1-fixed.json",
+      "sha256": "91342b670a177990a8ecc06125e23aa6f94c92ffc3e5d3fbbc5a923ab99d11ec"
+    },
+    {
+      "artifact": "repair-v2-2-default-accounted/execution-broader-agency-v2-2-mimo-diagnostic-20261006-compatible-tools/2-agent.json",
+      "sha256": "092cd931fcbcdea7403bb8f78fdd190a5fb6221c627956afeec8fecb49c283ed"
+    },
+    {
+      "artifact": "repair-v2-2-default-accounted/execution-broader-agency-v2-2-mimo-diagnostic-20261006-compatible-tools/2-fixed.json",
+      "sha256": "bfedbcc1ffe7ba2b1b3b4239545b74e809c43fa4860d9a1784de1933fec4283a"
     },
     {
       "artifact": "repair-v2-2-default-accounted/execution-broader-agency-v2-2-qwen-20261006-compatible-tools/1-agent.json",
@@ -1947,6 +2696,18 @@
         "private_receipt_sha256": "c72a1448451a08de51d222d24175070e74d7eb4ad096cf7804f76b152187a256"
       },
       {
+        "directory": "repair-v2-2-default-accounted/execution-broader-agency-v2-2-mimo-diagnostic-20261006-compatible-tools",
+        "calls": 60,
+        "accounted_responses": 60,
+        "unreported_usage_calls": [],
+        "known_tokens": {
+          "input_tokens": 644639,
+          "output_tokens": 18534,
+          "reasoning_tokens": 2222
+        },
+        "private_receipt_sha256": "6868054c780d23bc3c42252f3c9800a6f78a8faac7a8eb8ef67e552d89c2cc53"
+      },
+      {
         "directory": "repair-v2-2-default-accounted/execution-broader-agency-v2-2-qwen-20261006-compatible-tools",
         "calls": 59,
         "accounted_responses": 58,
@@ -1965,5 +2726,268 @@
       }
     ],
     "code_and_corpus_unchanged": true
+  },
+  "deployment_configurations": [
+    {
+      "private_directory": "execution-broader-agency-v2-2-gemma-20261006-compatible-tools",
+      "configuration": {
+        "interface": "compatible-tools-v2",
+        "endpoint": "http://127.0.0.1:18080/v1/chat/completions",
+        "model": {
+          "type": "llm",
+          "modelKey": "gemma-4-e4b-it-ud",
+          "format": "gguf",
+          "displayName": "Gemma 4 E4B Instruct UD",
+          "path": "lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf",
+          "sizeBytes": 5101713792,
+          "identifier": "broader-agency-v2-2-gemma-20261006",
+          "instanceReference": "A9yt2GbZPjUGSJrKFOTdK11s",
+          "vision": false,
+          "trainedForToolUse": true,
+          "maxContextLength": 131072,
+          "contextLength": 16384,
+          "paramsString": "7.5B",
+          "architecture": "gemma4"
+        },
+        "load_config": {
+          "gpu": {
+            "ratio": 1.0,
+            "splitStrategy": "evenly",
+            "disabledGpus": []
+          },
+          "gpuStrictVramCap": true,
+          "offloadKVCacheToGpu": true,
+          "contextLength": 16384,
+          "flashAttention": true
+        },
+        "reasoning": "server-default-accounted",
+        "reasoning_control": "server default; no documented compatible toggle; usage measured on every response",
+        "temperature": 0.2,
+        "accounting": "SDK prompt template with actual history/tool definitions + 128 token allowance; every actual response cross-checked",
+        "template_control_limit": "SDK defaults do not establish byte-identical server rendering; allowance is an upper estimate, not exact template proof",
+        "structured_path": "response_format json_schema",
+        "model_file_identity": {
+          "key": "gemma-4-e4b-it-ud",
+          "path": "lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf",
+          "size_bytes": 5101713792,
+          "gguf_sha256": "e8cd1a4c5162dfa355c567b4099206793793b5548951f077f376a0076dc0a058"
+        },
+        "model_file_hash_basis": "caller-computed SHA256 before loading; model key/path/size checked here, not rehashed during inference"
+      },
+      "configuration_sha256": "6d428936414bb19e657c89bbd90cdfa4602f0933c20f3ac6b84023ce30c41af9"
+    },
+    {
+      "private_directory": "execution-broader-agency-v2-2-mimo-20261006-compatible-tools",
+      "configuration": {
+        "interface": "compatible-tools-v2",
+        "endpoint": "http://127.0.0.1:18080/v1/chat/completions",
+        "model": {
+          "type": "llm",
+          "modelKey": "mimo-v2.6-distill-qwen-9b",
+          "format": "gguf",
+          "displayName": "MiMo v2.6 Distill Qwen 9B",
+          "path": "lmstudio-community/MiMo-V2.6-Distill-Qwen-9B-Q4_K_L/MiMo-V2.6-Distill-Qwen-9B-Q4_K_L.gguf",
+          "sizeBytes": 6202021408,
+          "identifier": "broader-agency-v2-2-mimo-20261006",
+          "instanceReference": "hzvwoGAF9Lmt67SRVSWHJIqI",
+          "vision": false,
+          "trainedForToolUse": false,
+          "maxContextLength": 262144,
+          "contextLength": 16384,
+          "paramsString": "9B",
+          "architecture": "qwen35"
+        },
+        "load_config": {
+          "gpu": {
+            "ratio": 1.0,
+            "splitStrategy": "evenly",
+            "disabledGpus": []
+          },
+          "gpuStrictVramCap": true,
+          "offloadKVCacheToGpu": true,
+          "contextLength": 16384,
+          "flashAttention": true
+        },
+        "reasoning": "server-default-accounted",
+        "reasoning_control": "server default; no documented compatible toggle; usage measured on every response",
+        "temperature": 0.2,
+        "accounting": "SDK prompt template with actual history/tool definitions + 128 token allowance; every actual response cross-checked",
+        "template_control_limit": "SDK defaults do not establish byte-identical server rendering; allowance is an upper estimate, not exact template proof",
+        "structured_path": "response_format json_schema",
+        "model_file_identity": {
+          "key": "mimo-v2.6-distill-qwen-9b",
+          "path": "lmstudio-community/MiMo-V2.6-Distill-Qwen-9B-Q4_K_L/MiMo-V2.6-Distill-Qwen-9B-Q4_K_L.gguf",
+          "size_bytes": 6202021408,
+          "gguf_sha256": "db6b5e7b5d25525da87f4a3899555215693e8cf4ab1be9fff90ea5dee4ba957d"
+        },
+        "model_file_hash_basis": "caller-computed SHA256 before loading; model key/path/size checked here, not rehashed during inference"
+      },
+      "configuration_sha256": "7ec46235a45af54ff966cf376bece74c1291d26ae63244912ff45bbfa48cee9f"
+    },
+    {
+      "private_directory": "execution-broader-agency-v2-2-mimo-diagnostic-20261006-compatible-tools",
+      "configuration": {
+        "interface": "compatible-tools-v2",
+        "endpoint": "http://127.0.0.1:18080/v1/chat/completions",
+        "model": {
+          "type": "llm",
+          "modelKey": "mimo-v2.6-distill-qwen-9b",
+          "format": "gguf",
+          "displayName": "MiMo v2.6 Distill Qwen 9B",
+          "path": "lmstudio-community/MiMo-V2.6-Distill-Qwen-9B-Q4_K_L/MiMo-V2.6-Distill-Qwen-9B-Q4_K_L.gguf",
+          "sizeBytes": 6202021408,
+          "identifier": "broader-agency-v2-2-mimo-diagnostic-20261006",
+          "instanceReference": "MriTyp42ZNAgTOFau0eYfyxp",
+          "vision": false,
+          "trainedForToolUse": false,
+          "maxContextLength": 262144,
+          "contextLength": 16384,
+          "paramsString": "9B",
+          "architecture": "qwen35"
+        },
+        "load_config": {
+          "gpu": {
+            "ratio": 1.0,
+            "splitStrategy": "evenly",
+            "disabledGpus": []
+          },
+          "gpuStrictVramCap": true,
+          "offloadKVCacheToGpu": true,
+          "contextLength": 16384,
+          "flashAttention": true
+        },
+        "reasoning": "server-default-accounted",
+        "reasoning_control": "server default; no documented compatible toggle; usage measured on every response",
+        "temperature": 0.2,
+        "accounting": "SDK prompt template with actual history/tool definitions + 128 token allowance; every actual response cross-checked",
+        "template_control_limit": "SDK defaults do not establish byte-identical server rendering; allowance is an upper estimate, not exact template proof",
+        "structured_path": "response_format json_schema",
+        "model_file_identity": {
+          "key": "mimo-v2.6-distill-qwen-9b",
+          "path": "lmstudio-community/MiMo-V2.6-Distill-Qwen-9B-Q4_K_L/MiMo-V2.6-Distill-Qwen-9B-Q4_K_L.gguf",
+          "size_bytes": 6202021408,
+          "gguf_sha256": "db6b5e7b5d25525da87f4a3899555215693e8cf4ab1be9fff90ea5dee4ba957d"
+        },
+        "qualification_status": "failed; diagnostic exception only"
+      },
+      "configuration_sha256": "5427ff395ad7f73dc4c8d53fa5837f5fabef878c81609529c02d5af25fc843c7"
+    },
+    {
+      "private_directory": "execution-broader-agency-v2-2-qwen-20261006-compatible-tools",
+      "configuration": {
+        "interface": "compatible-tools-v2",
+        "endpoint": "http://127.0.0.1:18080/v1/chat/completions",
+        "model": {
+          "type": "llm",
+          "modelKey": "qwen3.5-9b-ud",
+          "format": "gguf",
+          "displayName": "Qwen3.5 9B UD",
+          "path": "lmstudio-community/Qwen3.5-9B-UD-Q4_K_XL/Qwen3.5-9B-UD-Q4_K_XL.gguf",
+          "sizeBytes": 5966095584,
+          "identifier": "broader-agency-v2-2-qwen-20261006",
+          "instanceReference": "NnZQKzPvByL7KgLeV0iRP4IA",
+          "vision": false,
+          "trainedForToolUse": true,
+          "maxContextLength": 262144,
+          "contextLength": 16384,
+          "paramsString": "9B",
+          "architecture": "qwen35"
+        },
+        "load_config": {
+          "gpu": {
+            "ratio": 1.0,
+            "splitStrategy": "evenly",
+            "disabledGpus": []
+          },
+          "gpuStrictVramCap": true,
+          "offloadKVCacheToGpu": true,
+          "contextLength": 16384,
+          "flashAttention": true
+        },
+        "reasoning": "server-default-accounted",
+        "reasoning_control": "server default; no documented compatible toggle; usage measured on every response",
+        "temperature": 0.2,
+        "accounting": "SDK prompt template with actual history/tool definitions + 128 token allowance; every actual response cross-checked",
+        "template_control_limit": "SDK defaults do not establish byte-identical server rendering; allowance is an upper estimate, not exact template proof",
+        "structured_path": "response_format json_schema",
+        "model_file_identity": {
+          "key": "qwen3.5-9b-ud",
+          "path": "lmstudio-community/Qwen3.5-9B-UD-Q4_K_XL/Qwen3.5-9B-UD-Q4_K_XL.gguf",
+          "size_bytes": 5966095584,
+          "gguf_sha256": "6f5d30666c2d8ae16a306e616d95341dcf3cc46810df84d7e6f5a7d1e4c1b293"
+        },
+        "model_file_hash_basis": "caller-computed SHA256 before loading; model key/path/size checked here, not rehashed during inference"
+      },
+      "configuration_sha256": "47c402f1747b2bca0e2442cbb5a6067c9e3ec16cae900d633c2cf9dc20f48832"
+    }
+  ],
+  "execution_freezes": [
+    {
+      "private_artifact": "pre-inference-freeze.json",
+      "sha256": "a23a1505918ea8886d9c417e02b99d783d1135c14f0cce05b3c1253dfc786cfc",
+      "freeze": {
+        "code": {
+          "broader_agency_workspace.py": "ebc703dbfe59a8a3c3dfd70369b9907eac9202b50c099e582654b1e59ac9966c",
+          "broader_agency_trial.py": "42fe51f6dff88757670a64d6c78e065c9abf007611e62aacc8ec510b5ea616e0",
+          "broader_agency_local.py": "91de6a7e1a74b73e26ca26454b79d1a2ec7d162cfbf7f1adbb1088e92d559232",
+          "broader_agency_pilot.py": "3b7d692688ef449c74bb2aecb4d46e2237ee151b28649a972bb2c3495616cf0a"
+        },
+        "corpus_sha256": "f528a27b04a80503a6145480980021a490c2b2c8a447cd71ab2178ddf38cd142",
+        "case_corpus_sha256": {
+          "development-httpx-framework-ci": "6e4ab534a86aaf9d3ebc23f66391f0976faa11c5e1602ba4f12b97b25dd0abe0",
+          "development-glyphslib-pytest-stopping": "8c8ef1a31b2c009d83803b8c94ce9a33af201de4ae49513e0a978f186d237101"
+        },
+        "methods": [
+          "fixed",
+          "agent"
+        ],
+        "interface_candidates": [
+          "compatible-tools-v2",
+          "native-json-v2"
+        ],
+        "reuse_basis": {
+          "directory": ".tmp/broader-agency-pilot/repair-v2-three-local",
+          "prior_code": {
+            "broader_agency_workspace.py": "ebc703dbfe59a8a3c3dfd70369b9907eac9202b50c099e582654b1e59ac9966c",
+            "broader_agency_trial.py": "a387f7a57f4211666e6d34bb983aa1b1cf1d7631c8951ee2174a617c311468a9",
+            "broader_agency_local.py": "a113aa8eac0eb0b6c29c62fb86ae3b7daa97d07aa379745a97df8a8335056c23",
+            "broader_agency_pilot.py": "86bb7b5d3ff7d913d680773675f0297fd3df417f3f1aad6613e41dc241f62b9e"
+          },
+          "unchanged_corpus": true
+        },
+        "oracle": "not supplied to model; development review only"
+      }
+    },
+    {
+      "private_artifact": "execution-broader-agency-v2-2-mimo-diagnostic-20261006-compatible-tools/diagnostic-exception-freeze.json",
+      "sha256": "32f225953e32bb4f1765ef6fc5c32918eaf97fa057a2f8764e60b3eba8d9bc18",
+      "freeze": {
+        "qualification": "failed; second sequence withheld",
+        "status": "unqualified diagnostic exception under protocol 16.9",
+        "code": {
+          "broader_agency_workspace.py": "ebc703dbfe59a8a3c3dfd70369b9907eac9202b50c099e582654b1e59ac9966c",
+          "broader_agency_trial.py": "42fe51f6dff88757670a64d6c78e065c9abf007611e62aacc8ec510b5ea616e0",
+          "broader_agency_local.py": "91de6a7e1a74b73e26ca26454b79d1a2ec7d162cfbf7f1adbb1088e92d559232",
+          "broader_agency_pilot.py": "3b7d692688ef449c74bb2aecb4d46e2237ee151b28649a972bb2c3495616cf0a"
+        },
+        "corpus_sha256": "f528a27b04a80503a6145480980021a490c2b2c8a447cd71ab2178ddf38cd142",
+        "prior_probe_sha256": "097bc99e2ae9aacc295af45e5bed647c7852b4c1dd2f206ba42bb498620fc686",
+        "driver_sha256": "00b7d43da9df22c67cf74d64db24e64fa9d5684dd9209df3a7e7d285d799bb56",
+        "protocol_sha256": "50e1f82ffad49c4a84f797217d48aa3419a75737d56d6d6158761c21b3f1e309",
+        "assignments": [
+          "HTTPX fixed",
+          "HTTPX agent",
+          "pytest agent",
+          "pytest fixed"
+        ],
+        "no_repeats": true
+      }
+    }
+  ],
+  "accounting_summary": {
+    "attempted_inferences": 199,
+    "accounted_responses": 198,
+    "unreported_usage_calls": 1,
+    "known_token_totals_are_lower_bounds": true
   }
 }
