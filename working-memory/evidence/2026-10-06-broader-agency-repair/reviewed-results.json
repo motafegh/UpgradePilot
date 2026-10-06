@@ -1,0 +1,1969 @@
+{
+  "scope": "assisted formative known-case development; no independent protected or product acceptance",
+  "code_freeze": {
+    "broader_agency_workspace.py": "ebc703dbfe59a8a3c3dfd70369b9907eac9202b50c099e582654b1e59ac9966c",
+    "broader_agency_trial.py": "42fe51f6dff88757670a64d6c78e065c9abf007611e62aacc8ec510b5ea616e0",
+    "broader_agency_local.py": "91de6a7e1a74b73e26ca26454b79d1a2ec7d162cfbf7f1adbb1088e92d559232",
+    "broader_agency_pilot.py": "3b7d692688ef449c74bb2aecb4d46e2237ee151b28649a972bb2c3495616cf0a"
+  },
+  "corpus_sha256": "f528a27b04a80503a6145480980021a490c2b2c8a447cd71ab2178ddf38cd142",
+  "case_corpus_sha256": {
+    "development-httpx-framework-ci": "6e4ab534a86aaf9d3ebc23f66391f0976faa11c5e1602ba4f12b97b25dd0abe0",
+    "development-glyphslib-pytest-stopping": "8c8ef1a31b2c009d83803b8c94ce9a33af201de4ae49513e0a978f186d237101"
+  },
+  "models": [
+    {
+      "key": "gemma-4-e4b-it-ud",
+      "path": "lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf",
+      "size_bytes": 5101713792,
+      "gguf_sha256": "e8cd1a4c5162dfa355c567b4099206793793b5548951f077f376a0076dc0a058"
+    },
+    {
+      "key": "mimo-v2.6-distill-qwen-9b",
+      "path": "lmstudio-community/MiMo-V2.6-Distill-Qwen-9B-Q4_K_L/MiMo-V2.6-Distill-Qwen-9B-Q4_K_L.gguf",
+      "size_bytes": 6202021408,
+      "gguf_sha256": "db6b5e7b5d25525da87f4a3899555215693e8cf4ab1be9fff90ea5dee4ba957d"
+    },
+    {
+      "key": "qwen3.5-9b-ud",
+      "path": "lmstudio-community/Qwen3.5-9B-UD-Q4_K_XL/Qwen3.5-9B-UD-Q4_K_XL.gguf",
+      "size_bytes": 5966095584,
+      "gguf_sha256": "6f5d30666c2d8ae16a306e616d95341dcf3cc46810df84d7e6f5a7d1e4c1b293"
+    }
+  ],
+  "profile": "compatible-tools-v2; server-default-accounted; 16384 context; same limits within each model",
+  "selected_case_assignments": 12,
+  "executed_case_assignments": 8,
+  "complete_reports": 4,
+  "reviewed_case_assignments": 8,
+  "qualifications": [
+    {
+      "run": "repair-v2-three-local",
+      "model": "gemma",
+      "interface": "compatible-tools",
+      "outcome": "failed",
+      "sequence_outcomes": [
+        "provider_or_capacity_problem"
+      ],
+      "counters": {
+        "calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "reasoning_tokens": 0,
+        "tool_operations": 0,
+        "source_bytes": 0,
+        "corrections": 0
+      },
+      "elapsed_seconds": 0.009,
+      "problems": [
+        "LMStudioValueError: Data structure cycles are not supported."
+      ],
+      "checks": [
+        {
+          "two_scopes": false,
+          "later_followup": false,
+          "scoped_zero_search": false,
+          "report_citation": false
+        }
+      ],
+      "artifact_sha256": "ee2806af9e6119d322f4e2c1b162bf2e54e80cce22f6bdfaeaa279295f337e80"
+    },
+    {
+      "run": "repair-v2-three-local",
+      "model": "gemma",
+      "interface": "native-json",
+      "outcome": "failed",
+      "sequence_outcomes": [
+        "action_contract_problem"
+      ],
+      "counters": {
+        "calls": 4,
+        "input_tokens": 12168,
+        "output_tokens": 231,
+        "reasoning_tokens": 0,
+        "tool_operations": 3,
+        "source_bytes": 2501,
+        "corrections": 2
+      },
+      "elapsed_seconds": 7.362,
+      "problems": [],
+      "checks": [
+        {
+          "two_scopes": true,
+          "later_followup": false,
+          "scoped_zero_search": true,
+          "report_citation": false
+        }
+      ],
+      "artifact_sha256": "dfb91b1ddbb15e57aa455945c84f74fb37176d1889e937fc8648cb5c6cb95dc6"
+    },
+    {
+      "run": "repair-v2-three-local",
+      "model": "mimo",
+      "interface": "compatible-tools",
+      "outcome": "failed",
+      "sequence_outcomes": [
+        "provider_or_capacity_problem"
+      ],
+      "counters": {
+        "calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "reasoning_tokens": 0,
+        "tool_operations": 0,
+        "source_bytes": 0,
+        "corrections": 0
+      },
+      "elapsed_seconds": 0.009,
+      "problems": [
+        "LMStudioValueError: Data structure cycles are not supported."
+      ],
+      "checks": [
+        {
+          "two_scopes": false,
+          "later_followup": false,
+          "scoped_zero_search": false,
+          "report_citation": false
+        }
+      ],
+      "artifact_sha256": "ee2806af9e6119d322f4e2c1b162bf2e54e80cce22f6bdfaeaa279295f337e80"
+    },
+    {
+      "run": "repair-v2-three-local",
+      "model": "mimo",
+      "interface": "native-json",
+      "outcome": "failed",
+      "sequence_outcomes": [
+        "action_contract_problem"
+      ],
+      "counters": {
+        "calls": 3,
+        "input_tokens": 6341,
+        "output_tokens": 276,
+        "reasoning_tokens": 0,
+        "tool_operations": 0,
+        "source_bytes": 0,
+        "corrections": 2
+      },
+      "elapsed_seconds": 15.96,
+      "problems": [],
+      "checks": [
+        {
+          "two_scopes": false,
+          "later_followup": false,
+          "scoped_zero_search": false,
+          "report_citation": false
+        }
+      ],
+      "artifact_sha256": "e8c8179c9b2e005b07b7d61bafb586d1464745555ff8091be482784f9a61e6c9"
+    },
+    {
+      "run": "repair-v2-three-local",
+      "model": "qwen",
+      "interface": "compatible-tools",
+      "outcome": "failed",
+      "sequence_outcomes": [
+        "provider_or_capacity_problem"
+      ],
+      "counters": {
+        "calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "reasoning_tokens": 0,
+        "tool_operations": 0,
+        "source_bytes": 0,
+        "corrections": 0
+      },
+      "elapsed_seconds": 0.01,
+      "problems": [
+        "LMStudioValueError: Data structure cycles are not supported."
+      ],
+      "checks": [
+        {
+          "two_scopes": false,
+          "later_followup": false,
+          "scoped_zero_search": false,
+          "report_citation": false
+        }
+      ],
+      "artifact_sha256": "226664d461bdba94fda4d64425e61ddcc3e8a78cda232db4e4e5721f6e2cbbc0"
+    },
+    {
+      "run": "repair-v2-three-local",
+      "model": "qwen",
+      "interface": "native-json",
+      "outcome": "failed",
+      "sequence_outcomes": [
+        "action_contract_problem"
+      ],
+      "counters": {
+        "calls": 3,
+        "input_tokens": 6416,
+        "output_tokens": 391,
+        "reasoning_tokens": 0,
+        "tool_operations": 0,
+        "source_bytes": 0,
+        "corrections": 2
+      },
+      "elapsed_seconds": 17.705,
+      "problems": [],
+      "checks": [
+        {
+          "two_scopes": false,
+          "later_followup": false,
+          "scoped_zero_search": false,
+          "report_citation": false
+        }
+      ],
+      "artifact_sha256": "acc20ae0623aa4cffd2f4cec265c5da64fb225a698b1514f46d82c7cd59abe63"
+    },
+    {
+      "run": "repair-v2-1-preferred-only",
+      "model": "gemma",
+      "interface": "compatible-tools",
+      "outcome": "failed",
+      "sequence_outcomes": [
+        "provider_or_capacity_problem"
+      ],
+      "counters": {
+        "calls": 1,
+        "input_tokens": 1209,
+        "output_tokens": 548,
+        "reasoning_tokens": 445,
+        "tool_operations": 3,
+        "source_bytes": 2517,
+        "corrections": 0
+      },
+      "elapsed_seconds": 7.871,
+      "problems": [
+        "LMStudioValueError: Unable to parse tool call request content: {'type': 'function', 'name': 'read_source', 'id': '6QcyVbZTG3L5Wgtd4hp1sqZb6YG8FzpG', 'arguments': {'line_count': 1, 'path': 'notes.txt', 'source_id': 'canary-upstream'}}"
+      ],
+      "checks": [
+        {
+          "two_scopes": true,
+          "later_followup": false,
+          "scoped_zero_search": true,
+          "report_citation": false
+        }
+      ],
+      "artifact_sha256": "951c446514c1fbf40b7790095d11275b75ed53e18182aa4c2a04972ae0873e54"
+    },
+    {
+      "run": "repair-v2-1-preferred-only",
+      "model": "mimo",
+      "interface": "compatible-tools",
+      "outcome": "failed",
+      "sequence_outcomes": [
+        "provider_or_capacity_problem"
+      ],
+      "counters": {
+        "calls": 1,
+        "input_tokens": 1349,
+        "output_tokens": 80,
+        "reasoning_tokens": 0,
+        "tool_operations": 2,
+        "source_bytes": 1817,
+        "corrections": 0
+      },
+      "elapsed_seconds": 4.494,
+      "problems": [
+        "LMStudioValueError: Unable to parse tool call request content: {'type': 'function', 'name': 'read_source', 'id': 'c5miRrPVKMouBmlIHVMVNI5gJ22j2mrV', 'arguments': {'source_id': 'canary-upstream', 'path': 'notes.txt', 'line_count': 1}}"
+      ],
+      "checks": [
+        {
+          "two_scopes": true,
+          "later_followup": false,
+          "scoped_zero_search": false,
+          "report_citation": false
+        }
+      ],
+      "artifact_sha256": "0e54a784bc9cc977993bcd975796dca17d02ee92241cb1aef5991c110aa1a9a4"
+    },
+    {
+      "run": "repair-v2-1-preferred-only",
+      "model": "qwen",
+      "interface": "compatible-tools",
+      "outcome": "failed",
+      "sequence_outcomes": [
+        "provider_or_capacity_problem"
+      ],
+      "counters": {
+        "calls": 1,
+        "input_tokens": 1529,
+        "output_tokens": 567,
+        "reasoning_tokens": 414,
+        "tool_operations": 3,
+        "source_bytes": 2516,
+        "corrections": 0
+      },
+      "elapsed_seconds": 19.406,
+      "problems": [
+        "LMStudioValueError: Unable to parse tool call request content: {'type': 'function', 'name': 'read_source', 'id': 'TuxmDV1lGMej8NXrsIuHXTnVlha9MYTj', 'arguments': {'source_id': 'canary-upstream', 'path': 'notes.txt', 'start_line': 1, 'line_count': 1}}"
+      ],
+      "checks": [
+        {
+          "two_scopes": true,
+          "later_followup": false,
+          "scoped_zero_search": true,
+          "report_citation": false
+        }
+      ],
+      "artifact_sha256": "761dfc04cce259e1af17b180563279f128135ea7e8aa107cf43ef5498cb3c844"
+    },
+    {
+      "run": "repair-v2-2-default-accounted",
+      "model": "gemma",
+      "interface": "compatible-tools",
+      "outcome": "passed",
+      "sequence_outcomes": [
+        "completed_ungraded",
+        "completed_ungraded"
+      ],
+      "counters": {
+        "calls": 8,
+        "input_tokens": 19279,
+        "output_tokens": 4425,
+        "reasoning_tokens": 3172,
+        "tool_operations": 10,
+        "source_bytes": 7154,
+        "corrections": 0
+      },
+      "elapsed_seconds": 67.649,
+      "problems": [],
+      "checks": [
+        {
+          "two_scopes": true,
+          "later_followup": true,
+          "scoped_zero_search": true,
+          "report_citation": true
+        },
+        {
+          "two_scopes": true,
+          "later_followup": true,
+          "scoped_zero_search": true,
+          "report_citation": true
+        }
+      ],
+      "artifact_sha256": "aa7fa9272cad1d6630963785fa5554beacf804a53f5f71d7405086099f5c1e25"
+    },
+    {
+      "run": "repair-v2-2-default-accounted",
+      "model": "mimo",
+      "interface": "compatible-tools",
+      "outcome": "failed",
+      "sequence_outcomes": [
+        "completed_ungraded"
+      ],
+      "counters": {
+        "calls": 5,
+        "input_tokens": 13929,
+        "output_tokens": 1117,
+        "reasoning_tokens": 289,
+        "tool_operations": 6,
+        "source_bytes": 3912,
+        "corrections": 0
+      },
+      "elapsed_seconds": 64.592,
+      "problems": [],
+      "checks": [
+        {
+          "two_scopes": true,
+          "later_followup": true,
+          "scoped_zero_search": false,
+          "report_citation": true
+        }
+      ],
+      "artifact_sha256": "097bc99e2ae9aacc295af45e5bed647c7852b4c1dd2f206ba42bb498620fc686"
+    },
+    {
+      "run": "repair-v2-2-default-accounted",
+      "model": "qwen",
+      "interface": "compatible-tools",
+      "outcome": "passed",
+      "sequence_outcomes": [
+        "completed_ungraded",
+        "completed_ungraded"
+      ],
+      "counters": {
+        "calls": 8,
+        "input_tokens": 21852,
+        "output_tokens": 2976,
+        "reasoning_tokens": 1900,
+        "tool_operations": 10,
+        "source_bytes": 7223,
+        "corrections": 0
+      },
+      "elapsed_seconds": 138.968,
+      "problems": [],
+      "checks": [
+        {
+          "two_scopes": true,
+          "later_followup": true,
+          "scoped_zero_search": true,
+          "report_citation": true
+        },
+        {
+          "two_scopes": true,
+          "later_followup": true,
+          "scoped_zero_search": true,
+          "report_citation": true
+        }
+      ],
+      "artifact_sha256": "4035e07f8c8207fddf81b2e08088ff3c1181151afba60d38cf4ec23fde83b8da"
+    }
+  ],
+  "case_results": [
+    {
+      "model": "gemma",
+      "case_id": "development-httpx-framework-ci",
+      "method": "agent",
+      "outcome": "report_contract_problem",
+      "qualification_status": "passed two fresh sequences",
+      "usage_complete": true,
+      "unreported_usage_calls": 0,
+      "counters": {
+        "calls": 16,
+        "input_tokens": 122854,
+        "output_tokens": 8876,
+        "reasoning_tokens": 7391,
+        "tool_operations": 14,
+        "source_bytes": 28683,
+        "corrections": 1
+      },
+      "elapsed_seconds": 167.307,
+      "corpus_sha256": "6e4ab534a86aaf9d3ebc23f66391f0976faa11c5e1602ba4f12b97b25dd0abe0",
+      "packing_requests": 2,
+      "stage_artifacts": 0,
+      "complete_stage_artifacts": 0,
+      "source_operations_by_scope": [
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "httpx-old"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "target-proposed"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "import httpx",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "import httpx",
+            "source_id": "target-proposed"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "path": "app/main.py",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "path": "app/utils.py",
+            "source_id": "target-proposed"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "path": "app/models/token.py",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "path": "app/main.py",
+            "source_id": "target-proposed"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "path": "app/router/routes.py",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "path": "app/config.py",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "client",
+            "source_id": "target-proposed"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "client",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "path": "app/router/routes.py",
+            "source_id": "target-proposed"
+          }
+        }
+      ],
+      "mechanical_problems": [
+        "$.claims.citations: nonexistent retained references ['requirements.txt', 'app/main.py', 'app/router/routes.py', 'tests/test_routes.py']",
+        "$.claims.citations: nonexistent retained references ['requirements.txt', 'app/main.py', 'app/router/routes.py', 'tests/test_routes.py']"
+      ],
+      "assisted_source_review": {
+        "coverage": {
+          "upstream_changes": "missed",
+          "indirect_target_path": "partial",
+          "declared_vs_installed_binding": "missed",
+          "CI_activation_and_limits": "missed"
+        },
+        "finding": "Target exploration found FastAPI TestClient, but did not trace the old/new Starlette app forwarding contrast, inspect HTTPX removals or the CI path filter. Final and corrected candidate citations were bare paths.",
+        "risk": "Calls the 0.27-to-0.28 update a low-risk patch/minor change without the available upstream check.",
+        "useful": "The TestClient clue and request for an upstream/internal-client review are useful candidate leads."
+      },
+      "advice_ready": false,
+      "artifact_sha256": "cf4b1e92fbbb797b8230d5112882b8e9d04deeb318e13ad9cc8d9d0fd7f1333a"
+    },
+    {
+      "model": "gemma",
+      "case_id": "development-httpx-framework-ci",
+      "method": "fixed",
+      "outcome": "report_contract_problem",
+      "qualification_status": "passed two fresh sequences",
+      "usage_complete": true,
+      "unreported_usage_calls": 0,
+      "counters": {
+        "calls": 12,
+        "input_tokens": 70207,
+        "output_tokens": 9577,
+        "reasoning_tokens": 5138,
+        "tool_operations": 2,
+        "source_bytes": 2254,
+        "corrections": 2
+      },
+      "elapsed_seconds": 161.339,
+      "corpus_sha256": "6e4ab534a86aaf9d3ebc23f66391f0976faa11c5e1602ba4f12b97b25dd0abe0",
+      "packing_requests": 0,
+      "stage_artifacts": 5,
+      "complete_stage_artifacts": 0,
+      "source_operations_by_scope": [
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "import httpx",
+            "source_id": "target-proposed"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "target-proposed"
+          }
+        }
+      ],
+      "mechanical_problems": [
+        "$.claims.citations: nonexistent retained references ['update_packet/diffs[0]', 'event-001']",
+        "$.claims.citations: nonexistent retained references ['update_packet/diffs', 'event-001']",
+        "$.claims.citations: nonexistent retained references ['update_packet/diffs', 'event-001']",
+        "$.claims.citations: nonexistent retained references ['update_packet/diffs', 'event-001']",
+        "$.claims.citations: nonexistent retained references ['update_packet/diffs', 'event-001']",
+        "$.claims.citations: nonexistent retained references ['update_packet/diffs', 'event-001']",
+        "$.claims.citations: nonexistent retained references ['update_packet/diffs', 'event-001']",
+        "$.claims.citations: nonexistent retained references ['update_packet/diffs', 'event-001']"
+      ],
+      "assisted_source_review": {
+        "coverage": {
+          "upstream_changes": "missed",
+          "indirect_target_path": "missed",
+          "declared_vs_installed_binding": "missed",
+          "CI_activation_and_limits": "missed"
+        },
+        "finding": "Only direct-import search and path inventory were dispatched. All five stage candidates cited unsupported packet/event forms; the final candidate proposed conditional approval without inspecting upstream removals or the target CI trigger.",
+        "risk": "Low-risk/minor-bump framing has no inspected upstream support; semantic absence was not established by the literal import search.",
+        "useful": "Preserved direct-search scope and unresolved upstream/CI questions."
+      },
+      "advice_ready": false,
+      "artifact_sha256": "fed933711e4dae57ee764afdd194fd2ae525188b76c162e24f5b801d06ba7828"
+    },
+    {
+      "model": "gemma",
+      "case_id": "development-glyphslib-pytest-stopping",
+      "method": "agent",
+      "outcome": "report_contract_problem",
+      "qualification_status": "passed two fresh sequences",
+      "usage_complete": true,
+      "unreported_usage_calls": 0,
+      "counters": {
+        "calls": 16,
+        "input_tokens": 109539,
+        "output_tokens": 9728,
+        "reasoning_tokens": 8369,
+        "tool_operations": 14,
+        "source_bytes": 20423,
+        "corrections": 1
+      },
+      "elapsed_seconds": 169.181,
+      "corpus_sha256": "8c8ef1a31b2c009d83803b8c94ce9a33af201de4ae49513e0a978f186d237101",
+      "packing_requests": 1,
+      "stage_artifacts": 0,
+      "complete_stage_artifacts": 0,
+      "source_operations_by_scope": [
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "pytest-old"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "pytest-new"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "target-proposed"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "line_count": 200,
+            "path": ".github/workflows/test.yml",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "line_count": 200,
+            "path": ".github/workflows/test.yml",
+            "source_id": "target-proposed"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "import pytest",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "import pytest",
+            "source_id": "target-proposed"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "line_count": 200,
+            "path": ".github/workflows/test.yml",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "line_count": 50,
+            "path": "tests/builder/axes_test.py",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "line_count": 20,
+            "path": "tests/builder/axes_test.py",
+            "source_id": "target-proposed"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "line_count": 50,
+            "path": ".github/workflows/test.yml",
+            "source_id": "target-proposed"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "line_count": 50,
+            "path": "tests/builder/components_test.py",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "line_count": 50,
+            "path": "tests/builder/builder_test.py",
+            "source_id": "target-base"
+          }
+        }
+      ],
+      "mechanical_problems": [
+        "$.claims.citations: nonexistent retained references ['update_packet:diffs[0]', 'event-007', 'event-008']",
+        "$.claims.citations: nonexistent retained references ['update_packet', 'event-007', 'event-008']"
+      ],
+      "assisted_source_review": {
+        "coverage": {
+          "pin_to_test_environment": "partial",
+          "ordinary_CI_matrix_and_head": "missed",
+          "regression_install_execute": "missed",
+          "upstream_release_materiality": "missed"
+        },
+        "finding": "Target searches establish pytest imports in tests. No install/execution chain, CI matrix/head result or release-source materiality check is established; corrected final cites the packet and events.",
+        "risk": "Recommends proceeding chiefly from patch numbering and test imports without the available CI/upstream examination.",
+        "useful": "Correct provisional consumer-localization clues, with changelog details retained as an explicit unknown."
+      },
+      "advice_ready": false,
+      "artifact_sha256": "f03d9066f7d1db534650cd004da1c730fa9103be8699cac54905974c2159351b"
+    },
+    {
+      "model": "gemma",
+      "case_id": "development-glyphslib-pytest-stopping",
+      "method": "fixed",
+      "outcome": "completed_ungraded",
+      "qualification_status": "passed two fresh sequences",
+      "usage_complete": true,
+      "unreported_usage_calls": 0,
+      "counters": {
+        "calls": 10,
+        "input_tokens": 49766,
+        "output_tokens": 7458,
+        "reasoning_tokens": 4101,
+        "tool_operations": 3,
+        "source_bytes": 4344,
+        "corrections": 0
+      },
+      "elapsed_seconds": 122.406,
+      "corpus_sha256": "8c8ef1a31b2c009d83803b8c94ce9a33af201de4ae49513e0a978f186d237101",
+      "packing_requests": 0,
+      "stage_artifacts": 5,
+      "complete_stage_artifacts": 5,
+      "source_operations_by_scope": [
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "pytest",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "line_count": 10,
+            "path": "requirements-dev.txt",
+            "source_id": "target-base",
+            "start_line": 60
+          }
+        }
+      ],
+      "mechanical_problems": [],
+      "assisted_source_review": {
+        "coverage": {
+          "pin_to_test_environment": "partial",
+          "ordinary_CI_matrix_and_head": "missed",
+          "regression_install_execute": "partial",
+          "upstream_release_materiality": "missed"
+        },
+        "finding": "Valid references establish the old/new pytest pin and a regression pytest invocation. Five artifacts are mechanically complete but largely repeat those facts; the reinstall path, tox chain, ordinary CI matrix/exact-head capture and upstream release remain unexamined.",
+        "risk": "Strictly limited-to-testing and all-available-evidence language exceeds the inspected scope. The provided upstream source is treated as requiring external knowledge.",
+        "useful": "Correct pin references and a concrete regression-command reference demonstrate a usable source/report path."
+      },
+      "advice_ready": false,
+      "artifact_sha256": "cfc0b1008a72687023d84a3c8077da1c93f0d82f52e2f9e68135a9da0d3a70e8"
+    },
+    {
+      "model": "qwen",
+      "case_id": "development-httpx-framework-ci",
+      "method": "agent",
+      "outcome": "completed_after_recovery_ungraded",
+      "qualification_status": "passed two fresh sequences",
+      "usage_complete": true,
+      "unreported_usage_calls": 0,
+      "counters": {
+        "calls": 16,
+        "input_tokens": 188837,
+        "output_tokens": 7383,
+        "reasoning_tokens": 5030,
+        "tool_operations": 40,
+        "source_bytes": 67176,
+        "corrections": 1
+      },
+      "elapsed_seconds": 498.679,
+      "corpus_sha256": "6e4ab534a86aaf9d3ebc23f66391f0976faa11c5e1602ba4f12b97b25dd0abe0",
+      "packing_requests": 10,
+      "stage_artifacts": 0,
+      "complete_stage_artifacts": 0,
+      "source_operations_by_scope": [
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "target-proposed"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "path": "requirements.txt",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "path": "requirements.txt",
+            "source_id": "target-proposed"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "path": ".github/dependabot.yaml",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "path": ".github/workflows/python.yml",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "httpx-old"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "httpx 0.28",
+            "source_id": "httpx-new"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "path": ".github/workflows/python.yml",
+            "source_id": "target-base",
+            "start_line": 21,
+            "line_count": 20
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "httpx-new"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "0.28 breaking change",
+            "source_id": "httpx-new"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "path": "CHANGELOG.md",
+            "source_id": "httpx-new"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "import httpx",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "httpx",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "path": "app/models/token.py",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "ci-observations"
+          }
+        },
+        {
+          "tool": "read_trial_event",
+          "arguments": {}
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "httpx.Client",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "path": "app/main.py",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "requests",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_trial_event",
+          "arguments": {}
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "ci-observations"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "httpx",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "path": "requirements.txt",
+            "source_id": "target-proposed"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "httpx.Client",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "path": "app/router/routes.py",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "httpx",
+            "source_id": "ci-observations"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "from httpx",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "path": "app/utils.py",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "httpx",
+            "source_id": "starlette-old"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "breaking change",
+            "source_id": "httpx-new"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "path": "CHANGELOG.md",
+            "source_id": "httpx-new"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "path": "tests/test_routes.py",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "verify=False",
+            "source_id": "httpx-new"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "path": "E16-actions-run-and-job.json",
+            "source_id": "ci-observations"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "httpx.Client",
+            "source_id": "target-proposed"
+          }
+        }
+      ],
+      "mechanical_problems": [
+        "$.claims.citations: nonexistent retained references ['search_sources:httpx target-base total 0']"
+      ],
+      "assisted_source_review": {
+        "coverage": {
+          "upstream_changes": "incorrect",
+          "indirect_target_path": "partial",
+          "declared_vs_installed_binding": "partial",
+          "CI_activation_and_limits": "missed"
+        },
+        "finding": "Forty operations include upstream/target/CI searches, actual packed-history requests and two event replays. A source-linked final report was recovered, but it mistakes the 0.28.1 SSL fix for a deprecation, attributes a historical RawURL reversion to 0.28.1, and misses app/proxies removal plus the old/new Starlette forwarding contrast.",
+        "risk": "Existing citations support neither release claim. It recommends proceeding based on no direct import while a TestClient path is present, and fails to carry the inspected Python-workflow path filter into its CI conditions.",
+        "useful": "Real source/tool access, complete pairs, visible packing and paid replay are demonstrated; these mechanics do not establish correct source interpretation."
+      },
+      "advice_ready": false,
+      "artifact_sha256": "5b84804c238b56d43bdcb705005073b6c9722743b6633dd408644540d1524570"
+    },
+    {
+      "model": "qwen",
+      "case_id": "development-httpx-framework-ci",
+      "method": "fixed",
+      "outcome": "completed_after_recovery_ungraded",
+      "qualification_status": "passed two fresh sequences",
+      "usage_complete": true,
+      "unreported_usage_calls": 0,
+      "counters": {
+        "calls": 14,
+        "input_tokens": 144941,
+        "output_tokens": 7121,
+        "reasoning_tokens": 3506,
+        "tool_operations": 20,
+        "source_bytes": 27775,
+        "corrections": 2
+      },
+      "elapsed_seconds": 450.2,
+      "corpus_sha256": "6e4ab534a86aaf9d3ebc23f66391f0976faa11c5e1602ba4f12b97b25dd0abe0",
+      "packing_requests": 5,
+      "stage_artifacts": 5,
+      "complete_stage_artifacts": 4,
+      "source_operations_by_scope": [
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-base",
+            "path": "requirements.txt"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-proposed",
+            "path": "requirements.txt"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "httpx",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "httpx-old"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "httpx-old"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "httpx-new"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "0.28",
+            "source_id": "httpx-old"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "ci-observations"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "import httpx",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "from httpx",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "starlette-old"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "starlette-new"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "httpx",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "fastapi-reference",
+            "path": "requirements.txt"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-base",
+            "path": "app/main.py"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-base",
+            "path": "tests/test_routes.py"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "starlette-old"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "ci-observations",
+            "path": "E16-actions-run-and-job.json"
+          }
+        }
+      ],
+      "mechanical_problems": [
+        "$.claims.citations: nonexistent retained references ['httpx-old:CHANGELOG.md', 'httpx-new:CHANGELOG.md']",
+        "$.claims.citations: nonexistent retained references ['target-base:app/main.py', 'target-base:tests/test_routes.py', 'target-base:app/main.py', 'target-base:tests/test_routes.py']",
+        "$.claims.citations: nonexistent retained references ['target-base:app/main.py', 'target-base:tests/test_routes.py']"
+      ],
+      "assisted_source_review": {
+        "coverage": {
+          "upstream_changes": "missed",
+          "indirect_target_path": "partial",
+          "declared_vs_installed_binding": "partial",
+          "CI_activation_and_limits": "missed"
+        },
+        "finding": "Recovered source-line references for the exact pin change and a partial TestClient clue. Twenty operations inventoried upstream changelogs but did not read the material HTTPX removals or old/new Starlette client path. Four of five stage artifacts were complete; localization remained incomplete.",
+        "risk": "Recommends proceeding while upstream verification remains unexamined. The TestClient claim cites tests/test_routes.py line 1, which imports pytest; the relevant TestClient import is line 2.",
+        "useful": "Recognizes indirect FastAPI/Starlette exposure and historical capture limitations without inventing an installed version."
+      },
+      "advice_ready": false,
+      "artifact_sha256": "2d1a082bdea2121dfeaa7facc98d53da08195f115f10d0e3ac45b85013aae29d"
+    },
+    {
+      "model": "qwen",
+      "case_id": "development-glyphslib-pytest-stopping",
+      "method": "agent",
+      "outcome": "completed_after_recovery_ungraded",
+      "qualification_status": "passed two fresh sequences",
+      "usage_complete": true,
+      "unreported_usage_calls": 0,
+      "counters": {
+        "calls": 12,
+        "input_tokens": 125631,
+        "output_tokens": 5956,
+        "reasoning_tokens": 3867,
+        "tool_operations": 28,
+        "source_bytes": 44294,
+        "corrections": 1
+      },
+      "elapsed_seconds": 377.969,
+      "corpus_sha256": "8c8ef1a31b2c009d83803b8c94ce9a33af201de4ae49513e0a978f186d237101",
+      "packing_requests": 5,
+      "stage_artifacts": 0,
+      "complete_stage_artifacts": 0,
+      "source_operations_by_scope": [
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-base",
+            "path": "requirements-dev.txt"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-proposed",
+            "path": "requirements-dev.txt"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "pytest",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_observation",
+          "arguments": {
+            "source_id": "ci-observations",
+            "path": "pytest-ci-summary.txt"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "ci-observations"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "pytest==9.0",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "pytest-old",
+            "path": "pytest/__init__.py",
+            "line_count": 50
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "ci-observations",
+            "path": "ev-005-ci-results.json"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "pytest==9.0.2",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-proposed",
+            "path": "pyproject.toml",
+            "line_count": 50
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-base",
+            "path": "requirements-dev.in",
+            "line_count": 30
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-proposed",
+            "path": "requirements-dev.in",
+            "line_count": 30
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "pytest==9.0.3",
+            "source_id": "target-proposed"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "pytest-xdist",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "pytest-randomly",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "ci-observations",
+            "path": "ev-005-ci-results.json",
+            "start_line": 21,
+            "line_count": 49
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-base",
+            "path": "pyproject.toml",
+            "line_count": 20
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-proposed",
+            "path": "pyproject.toml",
+            "start_line": 1,
+            "line_count": 20
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "pytest==9.0.3",
+            "source_id": "pytest-new"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-base",
+            "path": "requirements-dev.in",
+            "start_line": 1,
+            "line_count": 20
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-proposed",
+            "path": "requirements-dev.in",
+            "start_line": 1,
+            "line_count": 20
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "pytest-xdist==3.8",
+            "source_id": "target-proposed"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "pytest==9.0.2",
+            "source_id": "pytest-old"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "pytest==9.0.3",
+            "source_id": "pytest-new"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "ci-observations",
+            "path": "ev-005-ci-results.json",
+            "start_line": 1,
+            "line_count": 20
+          }
+        }
+      ],
+      "mechanical_problems": [
+        "$.claims.citations: nonexistent retained references ['ci-observations:ev-005-ci-results.json:L18-L19']"
+      ],
+      "assisted_source_review": {
+        "coverage": {
+          "pin_to_test_environment": "partial",
+          "ordinary_CI_matrix_and_head": "missed",
+          "regression_install_execute": "missed",
+          "upstream_release_materiality": "missed"
+        },
+        "finding": "Recovers correct exact pins and permissive requirements-dev.in constraint. Chooses to finish after ten investigation calls, but never establishes tox or regression installation/execution and does not read the 9.0.3 release description. Multiple oversized page requests remain visible errors; CI capture reading stops at its initial page.",
+        "risk": "Calls explicitly declared pytest plugins transitive dependencies. Approves chiefly from patch numbering and permitted constraints rather than the inspected upstream/check path.",
+        "useful": "Separates source constraint from exact pin and admits runtime/release uncertainty; format recovery and voluntary stopping work."
+      },
+      "advice_ready": false,
+      "artifact_sha256": "82c52239a6062343253cd4e1c92ebfbea42d76e5d60a65258d2c6b056ef2e15d"
+    },
+    {
+      "model": "qwen",
+      "case_id": "development-glyphslib-pytest-stopping",
+      "method": "fixed",
+      "outcome": "provider_or_capacity_problem",
+      "qualification_status": "passed two fresh sequences",
+      "usage_complete": false,
+      "unreported_usage_calls": 1,
+      "counters": {
+        "calls": 9,
+        "input_tokens": 70144,
+        "output_tokens": 3050,
+        "reasoning_tokens": 1427,
+        "tool_operations": 18,
+        "source_bytes": 32758,
+        "corrections": 0
+      },
+      "elapsed_seconds": 249.093,
+      "corpus_sha256": "8c8ef1a31b2c009d83803b8c94ce9a33af201de4ae49513e0a978f186d237101",
+      "packing_requests": 1,
+      "stage_artifacts": 2,
+      "complete_stage_artifacts": 2,
+      "source_operations_by_scope": [
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-base",
+            "path": "requirements-dev.txt"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-proposed",
+            "path": "requirements-dev.txt"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "ci-observations"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "ci-observations",
+            "path": "ev-005-ci-results.json"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "pytest==9.0.2",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "pytest==9.0.3",
+            "source_id": "target-proposed"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "conftest.py",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "test_",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "pytest-old",
+            "path": "docs/en/release-notes.rst"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "pytest.mark",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "fixture",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "pytest-new",
+            "path": "docs/en/release-notes.rst"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "tox.ini",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "setup.cfg",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "ci-observations",
+            "path": "ev-005-ci-results.json",
+            "start_line": 21,
+            "line_count": 48
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "ci-observations",
+            "path": "ev-005-ci-results.json",
+            "start_line": 1,
+            "line_count": 20
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "ci-observations",
+            "path": "ev-005-ci-results.json",
+            "start_line": 21,
+            "line_count": 20
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": ".github/workflows",
+            "source_id": "target-base"
+          }
+        }
+      ],
+      "mechanical_problems": [
+        "ReadTimeout: HTTPConnectionPool(host='127.0.0.1', port=18080): Read timed out. (read timeout=60)"
+      ],
+      "assisted_source_review": {
+        "coverage": {
+          "pin_to_test_environment": "partial",
+          "ordinary_CI_matrix_and_head": "partial",
+          "regression_install_execute": "missed",
+          "upstream_release_materiality": "missed"
+        },
+        "finding": "Transport timed out during the ninth inference; eight responses and two complete stage artifacts are preserved, with no final report and one unreported-usage attempt. Partial artifacts recover the pin and a head-scoped successful Python 3.10 Ubuntu job, but source-text searches for configuration filenames do not inspect those files. The requested upstream release-notes path does not exist, and the trial does not locate the actual release source.",
+        "risk": "Partial artifacts claim no evidence of plugins despite explicit pytest-randomly/pytest-xdist declarations outside the inspected page. The autogenerated-file comment at requirements-dev.txt line 2 does not establish an exclusive testing/runtime boundary. There is no final advice to grade.",
+        "useful": "Some correct CI and fixture clues survive the timeout; the read-page error and continuation remain visible."
+      },
+      "advice_ready": false,
+      "artifact_sha256": "a8bc06cbbc6b426d700092d71a53450f0dccf62edbbff1cf659c5deea6f130cb"
+    }
+  ],
+  "probe_counters_including_failures": {
+    "calls": 34,
+    "input_tokens": 84072,
+    "output_tokens": 10611,
+    "reasoning_tokens": 6220,
+    "tool_operations": 37,
+    "source_bytes": 27640,
+    "corrections": 6
+  },
+  "case_usage_complete": false,
+  "token_totals_basis": "known accounted responses only; lower bounds where an attempted inference has unreported usage",
+  "case_counters": {
+    "calls": 105,
+    "input_tokens": 881919,
+    "output_tokens": 59149,
+    "reasoning_tokens": 38829,
+    "tool_operations": 139,
+    "source_bytes": 227707,
+    "corrections": 8
+  },
+  "all_counters": {
+    "calls": 139,
+    "input_tokens": 965991,
+    "output_tokens": 69760,
+    "reasoning_tokens": 45049,
+    "tool_operations": 176,
+    "source_bytes": 255347,
+    "corrections": 14
+  },
+  "private_artifact_hashes": [
+    {
+      "artifact": "repair-v2-three-local/execution-broader-agency-v2-gemma-20261006-compatible-tools/probe.json",
+      "sha256": "ee2806af9e6119d322f4e2c1b162bf2e54e80cce22f6bdfaeaa279295f337e80"
+    },
+    {
+      "artifact": "repair-v2-three-local/execution-broader-agency-v2-gemma-20261006-native-json/probe.json",
+      "sha256": "dfb91b1ddbb15e57aa455945c84f74fb37176d1889e937fc8648cb5c6cb95dc6"
+    },
+    {
+      "artifact": "repair-v2-three-local/execution-broader-agency-v2-mimo-20261006-compatible-tools/probe.json",
+      "sha256": "ee2806af9e6119d322f4e2c1b162bf2e54e80cce22f6bdfaeaa279295f337e80"
+    },
+    {
+      "artifact": "repair-v2-three-local/execution-broader-agency-v2-mimo-20261006-native-json/probe.json",
+      "sha256": "e8c8179c9b2e005b07b7d61bafb586d1464745555ff8091be482784f9a61e6c9"
+    },
+    {
+      "artifact": "repair-v2-three-local/execution-broader-agency-v2-qwen-20261006-compatible-tools/probe.json",
+      "sha256": "226664d461bdba94fda4d64425e61ddcc3e8a78cda232db4e4e5721f6e2cbbc0"
+    },
+    {
+      "artifact": "repair-v2-three-local/execution-broader-agency-v2-qwen-20261006-native-json/probe.json",
+      "sha256": "acc20ae0623aa4cffd2f4cec265c5da64fb225a698b1514f46d82c7cd59abe63"
+    },
+    {
+      "artifact": "repair-v2-1-preferred-only/execution-broader-agency-v2-1-gemma-20261006-compatible-tools/probe.json",
+      "sha256": "951c446514c1fbf40b7790095d11275b75ed53e18182aa4c2a04972ae0873e54"
+    },
+    {
+      "artifact": "repair-v2-1-preferred-only/execution-broader-agency-v2-1-mimo-20261006-compatible-tools/probe.json",
+      "sha256": "0e54a784bc9cc977993bcd975796dca17d02ee92241cb1aef5991c110aa1a9a4"
+    },
+    {
+      "artifact": "repair-v2-1-preferred-only/execution-broader-agency-v2-1-qwen-20261006-compatible-tools/probe.json",
+      "sha256": "761dfc04cce259e1af17b180563279f128135ea7e8aa107cf43ef5498cb3c844"
+    },
+    {
+      "artifact": "repair-v2-2-default-accounted/execution-broader-agency-v2-2-gemma-20261006-compatible-tools/probe.json",
+      "sha256": "aa7fa9272cad1d6630963785fa5554beacf804a53f5f71d7405086099f5c1e25"
+    },
+    {
+      "artifact": "repair-v2-2-default-accounted/execution-broader-agency-v2-2-mimo-20261006-compatible-tools/probe.json",
+      "sha256": "097bc99e2ae9aacc295af45e5bed647c7852b4c1dd2f206ba42bb498620fc686"
+    },
+    {
+      "artifact": "repair-v2-2-default-accounted/execution-broader-agency-v2-2-qwen-20261006-compatible-tools/probe.json",
+      "sha256": "4035e07f8c8207fddf81b2e08088ff3c1181151afba60d38cf4ec23fde83b8da"
+    },
+    {
+      "artifact": "repair-v2-2-default-accounted/execution-broader-agency-v2-2-gemma-20261006-compatible-tools/1-agent.json",
+      "sha256": "cf4b1e92fbbb797b8230d5112882b8e9d04deeb318e13ad9cc8d9d0fd7f1333a"
+    },
+    {
+      "artifact": "repair-v2-2-default-accounted/execution-broader-agency-v2-2-gemma-20261006-compatible-tools/1-fixed.json",
+      "sha256": "fed933711e4dae57ee764afdd194fd2ae525188b76c162e24f5b801d06ba7828"
+    },
+    {
+      "artifact": "repair-v2-2-default-accounted/execution-broader-agency-v2-2-gemma-20261006-compatible-tools/2-agent.json",
+      "sha256": "f03d9066f7d1db534650cd004da1c730fa9103be8699cac54905974c2159351b"
+    },
+    {
+      "artifact": "repair-v2-2-default-accounted/execution-broader-agency-v2-2-gemma-20261006-compatible-tools/2-fixed.json",
+      "sha256": "cfc0b1008a72687023d84a3c8077da1c93f0d82f52e2f9e68135a9da0d3a70e8"
+    },
+    {
+      "artifact": "repair-v2-2-default-accounted/execution-broader-agency-v2-2-qwen-20261006-compatible-tools/1-agent.json",
+      "sha256": "5b84804c238b56d43bdcb705005073b6c9722743b6633dd408644540d1524570"
+    },
+    {
+      "artifact": "repair-v2-2-default-accounted/execution-broader-agency-v2-2-qwen-20261006-compatible-tools/1-fixed.json",
+      "sha256": "2d1a082bdea2121dfeaa7facc98d53da08195f115f10d0e3ac45b85013aae29d"
+    },
+    {
+      "artifact": "repair-v2-2-default-accounted/execution-broader-agency-v2-2-qwen-20261006-compatible-tools/2-agent.json",
+      "sha256": "82c52239a6062343253cd4e1c92ebfbea42d76e5d60a65258d2c6b056ef2e15d"
+    },
+    {
+      "artifact": "repair-v2-2-default-accounted/execution-broader-agency-v2-2-qwen-20261006-compatible-tools/2-fixed.json",
+      "sha256": "a8bc06cbbc6b426d700092d71a53450f0dccf62edbbff1cf659c5deea6f130cb"
+    }
+  ],
+  "bias": "same AI reviewer sees model/arm labels and knows development cases; no reliability estimate or causal isolation of memory/agency",
+  "receipt_verification": {
+    "receipt_checks": [
+      {
+        "directory": "repair-v2-three-local/execution-broader-agency-v2-gemma-20261006-compatible-tools",
+        "calls": 0,
+        "accounted_responses": 0,
+        "unreported_usage_calls": [],
+        "known_tokens": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reasoning_tokens": 0
+        },
+        "private_receipt_sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      {
+        "directory": "repair-v2-three-local/execution-broader-agency-v2-gemma-20261006-native-json",
+        "calls": 4,
+        "accounted_responses": 4,
+        "unreported_usage_calls": [],
+        "known_tokens": {
+          "input_tokens": 12168,
+          "output_tokens": 231,
+          "reasoning_tokens": 0
+        },
+        "private_receipt_sha256": "95e5b82bd9374c07859bc7cb3b1d736180d12c47dc3e8adcd888b780795e26bd"
+      },
+      {
+        "directory": "repair-v2-three-local/execution-broader-agency-v2-mimo-20261006-compatible-tools",
+        "calls": 0,
+        "accounted_responses": 0,
+        "unreported_usage_calls": [],
+        "known_tokens": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reasoning_tokens": 0
+        },
+        "private_receipt_sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      {
+        "directory": "repair-v2-three-local/execution-broader-agency-v2-mimo-20261006-native-json",
+        "calls": 3,
+        "accounted_responses": 3,
+        "unreported_usage_calls": [],
+        "known_tokens": {
+          "input_tokens": 6341,
+          "output_tokens": 276,
+          "reasoning_tokens": 0
+        },
+        "private_receipt_sha256": "1ad46b5579b56404fc1cd7851051e904ef69c7ff3099be027dd3665a0a03dd63"
+      },
+      {
+        "directory": "repair-v2-three-local/execution-broader-agency-v2-qwen-20261006-compatible-tools",
+        "calls": 0,
+        "accounted_responses": 0,
+        "unreported_usage_calls": [],
+        "known_tokens": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reasoning_tokens": 0
+        },
+        "private_receipt_sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      {
+        "directory": "repair-v2-three-local/execution-broader-agency-v2-qwen-20261006-native-json",
+        "calls": 3,
+        "accounted_responses": 3,
+        "unreported_usage_calls": [],
+        "known_tokens": {
+          "input_tokens": 6416,
+          "output_tokens": 391,
+          "reasoning_tokens": 0
+        },
+        "private_receipt_sha256": "29ce2056e96a84e412ca4ed005201a58bd305e36c0a25230e2572b333b3c0526"
+      },
+      {
+        "directory": "repair-v2-1-preferred-only/execution-broader-agency-v2-1-gemma-20261006-compatible-tools",
+        "calls": 1,
+        "accounted_responses": 1,
+        "unreported_usage_calls": [],
+        "known_tokens": {
+          "input_tokens": 1209,
+          "output_tokens": 548,
+          "reasoning_tokens": 445
+        },
+        "private_receipt_sha256": "6dd126165b481fff700fd85efb2ffad609f55d168ee9ffbf52f3c6501b76b00a"
+      },
+      {
+        "directory": "repair-v2-1-preferred-only/execution-broader-agency-v2-1-mimo-20261006-compatible-tools",
+        "calls": 1,
+        "accounted_responses": 1,
+        "unreported_usage_calls": [],
+        "known_tokens": {
+          "input_tokens": 1349,
+          "output_tokens": 80,
+          "reasoning_tokens": 0
+        },
+        "private_receipt_sha256": "92533962a0e7e4a5d3ee98c83451c6e5c88f9214931bccd7336b7ab7fc053bac"
+      },
+      {
+        "directory": "repair-v2-1-preferred-only/execution-broader-agency-v2-1-qwen-20261006-compatible-tools",
+        "calls": 1,
+        "accounted_responses": 1,
+        "unreported_usage_calls": [],
+        "known_tokens": {
+          "input_tokens": 1529,
+          "output_tokens": 567,
+          "reasoning_tokens": 414
+        },
+        "private_receipt_sha256": "6378928b58caf7d5e27c5757eafed411650ff3a9cf24d7d70b48edc46440aa51"
+      },
+      {
+        "directory": "repair-v2-2-default-accounted/execution-broader-agency-v2-2-gemma-20261006-compatible-tools",
+        "calls": 62,
+        "accounted_responses": 62,
+        "unreported_usage_calls": [],
+        "known_tokens": {
+          "input_tokens": 371645,
+          "output_tokens": 40064,
+          "reasoning_tokens": 28171
+        },
+        "private_receipt_sha256": "8478809b6981e0d39b93b55ccd697f8e4a98c4f8977a5395d1a669be5a7a287b"
+      },
+      {
+        "directory": "repair-v2-2-default-accounted/execution-broader-agency-v2-2-mimo-20261006-compatible-tools",
+        "calls": 5,
+        "accounted_responses": 5,
+        "unreported_usage_calls": [],
+        "known_tokens": {
+          "input_tokens": 13929,
+          "output_tokens": 1117,
+          "reasoning_tokens": 289
+        },
+        "private_receipt_sha256": "c72a1448451a08de51d222d24175070e74d7eb4ad096cf7804f76b152187a256"
+      },
+      {
+        "directory": "repair-v2-2-default-accounted/execution-broader-agency-v2-2-qwen-20261006-compatible-tools",
+        "calls": 59,
+        "accounted_responses": 58,
+        "unreported_usage_calls": [
+          {
+            "request_sha256": "225ff4926854f5b09fece52db26013b71b468c30108bd76e472c306ecd95b098",
+            "measured_input_tokens": 15210
+          }
+        ],
+        "known_tokens": {
+          "input_tokens": 551405,
+          "output_tokens": 26486,
+          "reasoning_tokens": 15730
+        },
+        "private_receipt_sha256": "75bf60729c550d20d554ba33bda6633d94f307f1321902ecd5994bb5d01b1ded"
+      }
+    ],
+    "code_and_corpus_unchanged": true
+  }
+}
