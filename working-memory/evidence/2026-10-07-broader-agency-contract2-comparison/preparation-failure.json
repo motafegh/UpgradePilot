@@ -1,0 +1,7 @@
+{
+  "phase": "pre-inference model asset verification",
+  "inference_attempts": 0,
+  "error": "Temporary driver resolved hub metadata under GGUF storage root instead of LM Studio hub cache. No run directory or model load created.",
+  "failed_driver_sha256": "49fb7f4a665818562a409be4045ab0e94cc55d280437ca1423295d9fcc28d295",
+  "repair": "Use exact retained hub metadata root; model identities and experiment source unchanged."
+}

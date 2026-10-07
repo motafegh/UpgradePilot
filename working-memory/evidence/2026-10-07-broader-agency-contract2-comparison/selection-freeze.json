@@ -1,0 +1,143 @@
+{
+  "profile": "contract2-known-fixed-agent-v1",
+  "checkpoint": "74835751",
+  "evidence_contract_version": 2,
+  "fixed_policy": "4/4/3/3",
+  "models": {
+    "gemma12": {
+      "key": "google/gemma-4-12b",
+      "path": "google/gemma-4-12b",
+      "size_bytes": 7556574286,
+      "gguf_sha256": "c088a44859de42a1966851b552ba628c0ff4419b87c4622539d69430f40024ed",
+      "primary_gguf": {
+        "path": "lmstudio-community/gemma-4-12B-it-GGUF/gemma-4-12B-it-Q4_K_M.gguf",
+        "size_bytes": 7381384864,
+        "sha256": "c088a44859de42a1966851b552ba628c0ff4419b87c4622539d69430f40024ed"
+      },
+      "local_vision_companion": {
+        "path": "lmstudio-community/gemma-4-12B-it-GGUF/mmproj-gemma-4-12B-it-BF16.gguf",
+        "size_bytes": 175115296,
+        "sha256": "b162f6d350c69c2e21103feeeacd8db22fc1af9beb5979c25aae1c107cf01859",
+        "basis": "local companion file hashed before load; actual loaded configuration recorded separately; no image input"
+      },
+      "hub_package_assets": [
+        {
+          "path": "google/gemma-4-12b/manifest.json",
+          "size_bytes": 1181,
+          "sha256": "0b17b3b8b10a29eaf66781e618a367b69ab9dfc4cf40e30a96d04f812003f7fb"
+        },
+        {
+          "path": "google/gemma-4-12b/model.yaml",
+          "size_bytes": 1896,
+          "sha256": "113b07f4a5de77f015fdbd4ba006319910e39f66cbc640f453f8e9a9dcf47c7e"
+        },
+        {
+          "path": "google/gemma-4-12b/README.md",
+          "size_bytes": 506,
+          "sha256": "6e9410c08a2b435065e4f5617f3ad8833874906f326df46dda0243cfbedd87fe"
+        },
+        {
+          "path": "google/gemma-4-12b/thumbnail.png",
+          "size_bytes": 70543,
+          "sha256": "f1cc47c862f1a045cfaaa2707072fbf03d0eb9a7c6560c387f0923b07b6136cc"
+        }
+      ],
+      "hub_resolution": {
+        "indexed_identifier": "google/gemma-4-12b",
+        "concrete_identifier": "lmstudio-community/gemma-4-12B-it-GGUF/gemma-4-12B-it-Q4_K_M.gguf",
+        "primary_path": "lmstudio-community/gemma-4-12B-it-GGUF/gemma-4-12B-it-Q4_K_M.gguf",
+        "size_basis": "actual primary GGUF plus actual vision companion plus four hashed hub package assets; exact total equals loaded SDK sizeBytes",
+        "index_sha256_at_reconciliation": "1953707038f5c4f7d1866940e103af7c141824872abdadede1bfdc5565a48ba1"
+      }
+    },
+    "qwen35": {
+      "key": "qwen3.6-35b-a3b-ud",
+      "path": "lmstudio-community/Qwen3.6-35B-A3B-UD-IQ2_M/Qwen3.6-35B-A3B-UD-IQ2_M.gguf",
+      "size_bytes": 11522702304,
+      "gguf_sha256": "2be7ef1ed7e1af8b10d3829102cf9a6c2bd5ddb64d675b4ece23a60799403d43"
+    }
+  },
+  "model_order": [
+    "gemma12",
+    "qwen35"
+  ],
+  "assignments": [
+    {
+      "model": "gemma12",
+      "case_index": 1,
+      "method": "fixed"
+    },
+    {
+      "model": "gemma12",
+      "case_index": 1,
+      "method": "agent"
+    },
+    {
+      "model": "gemma12",
+      "case_index": 2,
+      "method": "agent"
+    },
+    {
+      "model": "gemma12",
+      "case_index": 2,
+      "method": "fixed"
+    },
+    {
+      "model": "qwen35",
+      "case_index": 1,
+      "method": "fixed"
+    },
+    {
+      "model": "qwen35",
+      "case_index": 1,
+      "method": "agent"
+    },
+    {
+      "model": "qwen35",
+      "case_index": 2,
+      "method": "agent"
+    },
+    {
+      "model": "qwen35",
+      "case_index": 2,
+      "method": "fixed"
+    }
+  ],
+  "qualification": "two fresh <=6-call sequences/deployment; failed qualification withholds all four case assignments; no diagnostic exception",
+  "maximum_attempts": 152,
+  "trial_limits": {
+    "calls": 16,
+    "input_tokens": 524288,
+    "output_tokens": 131072,
+    "tool_operations": 48,
+    "source_bytes": 8388608,
+    "seconds": 14400,
+    "action_output": 8192,
+    "final_output": 8192,
+    "corrections": 2
+  },
+  "context_tokens": 32768,
+  "response_timeout_seconds": 1800,
+  "canary_sequence_seconds": 5400,
+  "interface": "compatible-tools",
+  "reasoning": "server-default-accounted",
+  "temperature": 0.2,
+  "code": {
+    "broader_agency_evidence.py": "23e830b9823aba67e5148af2ecbb6ff88692a8c49274ddce764de788a54efef9",
+    "broader_agency_workspace.py": "96bc41109b71090b157bb21e37063e939d4f4bb0d7b8284ca7b315cf54d1d257",
+    "broader_agency_trial.py": "10189d2b4cdcc29f9a03f67d0fe85ff678e5b36642721ebc48e53d2c9aed8d16",
+    "broader_agency_local.py": "7ff1833a3b29653e874ac3fe3588fdd4fc8952e199187195e7cf22fd0275572a",
+    "broader_agency_pilot.py": "2cf49d9584243e693dcf17c44f93505624b00e277645ad4b85d45c42026c6695"
+  },
+  "corpus_sha256": "f528a27b04a80503a6145480980021a490c2b2c8a447cd71ab2178ddf38cd142",
+  "case_corpus_sha256": {
+    "development-httpx-framework-ci": "6e4ab534a86aaf9d3ebc23f66391f0976faa11c5e1602ba4f12b97b25dd0abe0",
+    "development-glyphslib-pytest-stopping": "8c8ef1a31b2c009d83803b8c94ce9a33af201de4ae49513e0a978f186d237101"
+  },
+  "evaluation_dimensions_sha256": "6836f2cce267bb41c3febe533414c309643447e16d03293312def516786a6efe",
+  "review_obligations_sha256": "a184ed6af9b0eb4ae84a8d565af7b0d35392a4f34f83f925b7b574d2259b7dc4",
+  "driver_sha256": "525bc3ed6ffc7a5205813cc02a681a69732424742df3e9c3f1357ad7be8d7349",
+  "main_reconciliation": "1dca28855c091bc99805c7b39b6ea513ea5235e5",
+  "interpretation_only": "excluded; completed separate development evidence",
+  "stop": "pause after complete source review; next major experiment requires joint selection"
+}

@@ -1,0 +1,44 @@
+{
+  "version": "known-case-responsibility-review-v1",
+  "assistance": "AI-assisted known-case source adjudication; neither blind nor independent human acceptance",
+  "dimensions_owner": "../2026-10-07-broader-agency-evidence-interface/evaluation-dimensions-v2.json",
+  "responsibility_mapping": {
+    "evidence_discovery": ["relevant_evidence_coverage", "scoped_negative_evidence"],
+    "interpretation": ["interpretation_correctness", "unsupported_claims"],
+    "candidate_applicability_reasoning": ["interpretation_correctness", "unsupported_claims", "unresolved_quality"],
+    "investigation_selection": ["relevant_evidence_coverage", "resource_cost", "stopping_quality"],
+    "stopping": ["stopping_quality"],
+    "uncertainty_preservation": ["unresolved_quality", "scoped_negative_evidence"],
+    "recommendation_support": ["recommendation_usefulness", "unsupported_claims"],
+    "reviewer_burden": ["reviewer_effort"],
+    "resource_cost": ["resource_cost"]
+  },
+  "cases": {
+    "development-httpx-framework-ci": [
+      {"id":"H1", "obligation":"Exact target pin transition and unchanged unpinned FastAPI declaration", "sources":"target-base/proposed requirements.txt"},
+      {"id":"H2", "obligation":"0.28.0 removals/deprecations and distinctions from unchanged supported SSL forms", "sources":"httpx-new CHANGELOG.md L11-L31"},
+      {"id":"H3", "obligation":"0.28.1 SSL fix and version/timing boundaries; do not import old release facts", "sources":"httpx-new CHANGELOG.md L7-L9; httpx-old version headings"},
+      {"id":"H4", "obligation":"Actual target TestClient consumer and activation; inspect relevant tests", "sources":"target-proposed tests/test_routes.py"},
+      {"id":"H5", "obligation":"Reference Starlette old/new forwarding difference and retained installed-target binding gap", "sources":"starlette-old/new starlette/testclient.py constructor body"},
+      {"id":"H6", "obligation":"FastAPI reference constraint, with reference-versus-installed identity preserved", "sources":"fastapi-reference pyproject.toml"},
+      {"id":"H7", "obligation":"Python workflow PR path filters exclude requirements-only change", "sources":"target-proposed .github/workflows/python.yml L1-L10"},
+      {"id":"H8", "obligation":"Installation/test commands and Python environment; distinguish declaration from actual execution", "sources":"target-proposed .github/workflows/python.yml L21-L34"},
+      {"id":"H9", "obligation":"CI success capture authority and job/head association; illustrative/manual non-binding capture", "sources":"ci-observations E16-actions-run-and-job.json"},
+      {"id":"H10", "obligation":"HTTP410 log retrieval exact endpoint scope; no global absence or installed-version proof", "sources":"ci-observations E19-docker-log-retrieval-error.json"}
+    ],
+    "development-glyphslib-pytest-stopping": [
+      {"id":"P1", "obligation":"Exact pin transition, constraints and pytest plugins", "sources":"target-base/proposed requirements-dev.txt; requirements-dev.in"},
+      {"id":"P2", "obligation":"Follow root changelog pointer and identify 9.0.3 release interval", "sources":"pytest-new CHANGELOG.rst; doc/en/changelog.rst L34-L56"},
+      {"id":"P3", "obligation":"Release propositions incl approx, conftest disabling, exception groups, subTest and security fix correctly associated", "sources":"pytest-new doc/en/changelog.rst L40-L56; pytest-old version boundary"},
+      {"id":"P4", "obligation":"Target pytest use, regression opt-in and skip/filter activation", "sources":"target-proposed tests/conftest.py; tests/regression_test.py"},
+      {"id":"P5", "obligation":"tox installation and pytest execution, environment selection", "sources":"target-proposed tox.ini; pyproject.toml"},
+      {"id":"P6", "obligation":"Workflow ordinary matrix and regression reinstall/run commands", "sources":"target-proposed .github/workflows/ci.yml; .github/workflows/regression.yml (actual retained path chosen by model)"},
+      {"id":"P7", "obligation":"Captured exact-head ordinary matrix successes and separate regression success", "sources":"ci-observations ev-005-ci-results.json"},
+      {"id":"P8", "obligation":"Do not infer installed pytest identity, whole compatibility or regression Python/OS binding from green capture", "sources":"ci-observations capture limits and target installation declarations"},
+      {"id":"P9", "obligation":"Whole public API file equality if claimed; unchanged initializer alone is not compatibility proof", "sources":"pytest-old/new src/pytest/__init__.py"}
+    ]
+  },
+  "review": "For each obligation: retained corpus presence, actual delivered coverage, model references, semantic support; inspect report-wide and provisional claims separately. Source paths are reviewer aids only, never supplied to model.",
+  "reviewer_effort": "Active review time unknown unless measured; preserve elapsed intervals separately. No zero-cost assumption.",
+  "aggregation": "Per-case profiles and paired differences, no weighted score or architecture/model winner. Review all eight assigned/withheld rows and every qualification failure."
+}

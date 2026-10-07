@@ -1,0 +1,5 @@
+{
+  "tests": "63/63 focused: broader trial + evidence-gap model boundary + support-drop extractor",
+  "source_checkpoint": "74835751",
+  "real_model_qualification": "pending; separate from tests"
+}
