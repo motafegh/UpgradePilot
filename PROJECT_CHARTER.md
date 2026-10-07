@@ -102,7 +102,7 @@ The supported core must eventually demonstrate:
 - deterministic bounded recommendation or abstention;
 - traceability from material factual claims to evidence;
 - uncertainty, degradation, or abstention under insufficient evidence;
-- persisted/replayable runs when that milestone activates;
+- persisted runs and separately demonstrated deterministic replay from retained inputs when their milestones activate;
 - clean-setup reproducibility;
 - appropriate unit, integration, failure, and recovery tests;
 - CI and secure configuration for supported behavior;
@@ -111,6 +111,8 @@ The supported core must eventually demonstrate:
 - explicit truth/label limitations;
 - Ali's ability to explain, modify, test, query, and diagnose the central path;
 - accurate portfolio language distinguishing implemented, measured, experimental, rejected, and future behavior.
+
+Here, **replay** means re-executing the admitted deterministic investigation processing from retained inputs independently of live source availability. Persisted historical inspection and recovery/continuation are separate responsibilities; neither alone demonstrates replay. The activating plan/specification must define the supported replay boundary, required inputs and method identities, and equivalence criteria. This does not require repeating fresh external interactions or reproducing identical model outputs.
 
 The core does not require a successful learned model or permanent adoption of graph, LLM, agent, service, queue, Kubernetes, or multi-cloud architecture.
 
