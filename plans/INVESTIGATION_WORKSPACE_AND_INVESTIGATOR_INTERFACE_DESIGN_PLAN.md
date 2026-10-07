@@ -26,7 +26,7 @@ Names below describe responsibilities, not selected classes, modules or schema f
 
 | Design area | Required decision/output | Current anchor or constraint |
 | --- | --- | --- |
-| Workspace composition and ownership | Define the selected distinct Workspace as the canonical owner of evolving investigation identity, native-record relationships, proposals, assessments, capabilities and history while keeping composition separate from domain interpretation. | B2 selected a distinct composed/evolving Workspace. [PublicPullRequestInvestigation](../src/upgradepilot/investigation.py) remains current implementation evidence/migration input, not a promised permanent parallel contract. |
+| Workspace composition and ownership | Define the selected distinct Workspace as the canonical owner of evolving investigation identity, native-record relationships, proposals, assessments, capabilities and history while keeping composition separate from domain interpretation. | The design selects a distinct composed/evolving Workspace. [PublicPullRequestInvestigation](../src/upgradepilot/investigation.py) remains current implementation evidence/migration input, not a promised permanent parallel contract. |
 | Native deterministic records | Define retention and reference rules for exact domain records/content, available provenance, producer limitations and explicitly missing content. Identify any genuinely needed adapters and the earliest sufficient owner. Make the identity/digest basis explicit when later host annotations are attached so consumers can distinguish the original native payload from annotation/enrichment lineage. | Preserve CI consumption/execution, package-manager facts, scoped command-completion state, dependency contexts and upstream authority without flattening their meanings. Host annotations must not silently redefine an existing record identity. |
 | Evidence, proposals and evaluated propositions | Define distinguishable conceptual contracts and who may produce/admit each; prevent a proposal, valid JSON or citation from writing an established assessment. Keep source version, target binding, activation, capture authority and observation scope as separately evaluable propositions when they are materially independent. | [PropositionAssessment](../src/upgradepilot/impact/applicability.py) depends on its mechanism owner; it is not a general semantic validator. A correct source fact does not establish target binding or activation. |
 | Typed evidence, use/derivation lineage and missing-premise links | Bind references to native record kind, exact identity/scope and the specific proposition they support or fail to close. Distinguish evidence availability, delivery/current visibility, reference/examination/use, citation, evaluated support and sufficiency where those states are observable; do not retroactively credit unexamined evidence to a conclusion. Preserve derivation lineage when one evidence record/result is produced from other evidence and a named method. Represent required-but-unavailable evidence separately from a performed negative observation; scoped negative observations must not become global absence or safety. | Coverage axes, source versus executed revision, temporal/environment context and absence scope remain explicit. Workspace/corpus availability is not proof of model examination, use or support. |
@@ -35,11 +35,11 @@ Names below describe responsibilities, not selected classes, modules or schema f
 | Observation ingestion and knowledge update | Specify who records capability results/failures, validates their identity/meaning, invokes domain evaluators and advances the Workspace view; describe ordering, stale-input handling and failure preservation. Represent failed reads, empty reads/files, scoped zero-result searches and other typed host/trial observations honestly; an empty or failed observation is not fabricated source content or global absence. | Successful execution can yield unusable evidence. [Transition traces](../experiments/evidence_gap_investigation_transition.py) illustrate an explicit before/result/after boundary without defining the general product method. |
 | Candidate/proposition lineage | Preserve identity, revision/refinement relationships, triggering observations and assessment changes. Identify which changes invalidate earlier evaluations rather than silently overwriting them. | Product Decision Model §12 owns the semantics; no event-sourcing technology is implied. |
 | Current context and recoverable history | Define a bounded Investigator view and what remains available outside it, including source content, request/result/evaluation lineage and method identity where available. State recovery limits and context omissions explicitly. Preserve procedural/stage completion separately from investigation adequacy and stopping justification; a completed stage/report cannot imply the required investigation was sufficient. | Historically delivered evidence, currently supplied evidence and actual model understanding are different. No universal raw capture, storage technology or full replay promise is selected. |
-| Product/result/report relationships | Define the replacement-oriented migration from today's fixed investigation result/report pipeline to the canonical Workspace and an explicit Workspace-owned report/synthesis projection. Any temporary `PublicPullRequestInvestigation` adapter must have an independently justified compatibility/proof purpose and removal/reassessment trigger. Keep saved-report versus future recoverable-investigation obligations separate. | Current report projection consumes `PublicPullRequestInvestigation`, but current consumers/tests establish migration pressure rather than permanent retention authority. Saved-report handling cannot be reinterpreted as complete resumable state or as proof that a recommendation is adequately supported. |
+| Product/result/report relationships | Define the replacement-oriented migration from today's fixed investigation result/report pipeline to the canonical Workspace and explicit Workspace-owned Investigator/evaluator/synthesis/report projections. Any temporary `PublicPullRequestInvestigation` adapter must be derived from the canonical Workspace, have an independently justified compatibility/proof purpose and a removal/reassessment trigger. Keep saved-report versus future recoverable-investigation obligations separate. | Current report projection consumes `PublicPullRequestInvestigation`, but current consumers/tests establish migration pressure rather than permanent retention authority. Saved-report handling cannot be reinterpreted as complete resumable state or as proof that a recommendation is adequately supported. |
 
-## Completed research pressure to carry through B2/B3
+## Completed research pressure to carry through the interface design
 
-The completed `cde0ea99` comparison does not reopen B1 and does not supply a product contract. It sharpens the following B2/B3 responsibilities that must be testable in the selected design:
+The completed `cde0ea99` comparison does not reopen the ownership trace and does not supply a product contract. It sharpens the following interface responsibilities that must be testable in the selected design:
 
 1. Preserve available → delivered/currently visible → referenced/examined/used → cited → evaluated support → sufficient as distinguishable states where observable; available-but-unexamined evidence remains available, not absent and not retroactive support.
 2. Preserve source version, target binding, activation, capture authority and scope as distinct propositions. Upstream/reference truth does not automatically establish the target's installed/bound runtime state.
@@ -51,24 +51,71 @@ The completed `cde0ea99` comparison does not reopen B1 and does not supply a pro
 
 These are interface obligations, not selected fields, classes, storage, deterministic tools, critics, frameworks or agent topology.
 
-## B2 selected structural direction and migration rule
+## Selected structural direction and migration rule
 
-B2 is accepted: the product will design a **distinct composed/evolving Investigation Workspace as the canonical investigation state/contract**. It is a composition/lifecycle owner, not a replacement for native domain truth owners or maintainer-action authority.
+The product design uses a **distinct composed/evolving Investigation Workspace as the canonical investigation state/contract**. It is a composition/lifecycle owner, not a replacement for native domain truth owners or maintainer-action authority.
 
-`PublicPullRequestInvestigation` is not selected as a permanent parallel architecture or mandatory compatibility boundary. It is existing implementation to migrate from. Later Build may temporarily retain/project it only when a concrete caller, regression-proof need or real compatibility obligation independently earns that retention. Any transitional adapter must preserve native semantics and have an explicit removal/reassessment trigger.
+`PublicPullRequestInvestigation` is not selected as a permanent parallel architecture or mandatory compatibility boundary. It is existing implementation to migrate from. Later Build may temporarily retain/project it only when a concrete caller, regression-proof need or real compatibility obligation independently earns that retention. Any transitional adapter must preserve native semantics, derive one-way from the canonical Workspace rather than run a second truth path, and have an explicit removal/reassessment trigger.
 
-Alternative C — a smaller top-level state/update owner — is rejected as a competing architecture. Its useful lesson survives only as **modular internal decomposition**: the canonical Workspace should compose focused identity/reference/proposal/request-observation/assessment/lineage/adequacy responsibilities rather than become one giant class.
+A smaller top-level state/update owner is rejected as a competing architecture. Its useful lesson survives only as **modular internal decomposition**: the canonical Workspace should compose focused identity/reference/proposal/request-observation/assessment/lineage/adequacy responsibilities rather than become one giant class.
 
 The migration is **replacement-oriented, not coexistence-oriented**. Design the coherent final responsibility first; implementation may be staged for proof/complexity control, but each slice must converge directly on that accepted target. Do not create a deliberately reduced “starter Workspace” or stack temporary mini-architectures that each pass locally while leaving a duplicated or incomplete end-to-end product. Migration safety and reversibility protect correctness; they do not independently authorize legacy retention.
+
+## Canonical Workspace contract design obligations
+
+The reviewed contract must preserve the following responsibilities without requiring a universal evidence wrapper or a global confidence/status field:
+
+- exact investigation lineage plus revision-bound repository/PR/base/head/dependency-transition identity;
+- native-record bindings that preserve owner/type/identity/scope/provenance/retention and original-payload identity basis;
+- host annotations as separate lineage rather than mutation of native evidence identity;
+- bounded Investigator views that record what was delivered and what material available content was omitted, without pretending delivery equals examination;
+- mechanism-run records that preserve method/model identity, procedural outcome and observable use/examination receipts while allowing use to remain unknown;
+- semantic/candidate proposals plus separate structural proposal admission;
+- explicit evaluation attempts whose outcomes distinguish evaluated, unsupported, failed and stale, with a domain assessment only when an admitted evaluator actually evaluates the proposition;
+- proposition-relative investigation needs and discriminating targets;
+- capability requests, host admission/rejection, execution attempts, actual observations and distinct attempt problems/failures;
+- candidate/proposition refinement/supersession lineage and affected assessment history;
+- investigation stop/adequacy assessment separate from stage/report completion and separate from maintainer-action sufficiency;
+- one-way consumer projections for Investigator, evaluator, synthesis, report, future recovery and any temporary legacy compatibility surface.
+
+Evidence-use states are relational rather than one lifecycle enum: Workspace retention establishes availability; a consumer view establishes delivery; an observable mechanism receipt may establish examination/use; a proposal establishes citation; an evaluator establishes assessed support/counterevidence; proposition-relative coverage or action-relative synthesis owns sufficiency. The Workspace does not own a universal `sufficient` flag.
+
+Evaluator input must not be limited to proposer citations. The evaluator owner must receive the relevant evidence/counterevidence/unknown boundary needed for the exact proposition, or explicitly record its coverage limitation. If no admitted semantic evaluator exists, preserve an unsupported evaluation attempt; do not fabricate an `unresolved` authoritative assessment merely to fill the Workspace.
+
+Every proposal/request/evaluation/view/attempt is revision-bound. A later target change makes earlier results stale for the current target unless an admitted owner explicitly revalidates/rebinds them. Stale history is retained; it is not silently rewritten onto the new head.
+
+## Consumer projection obligations
+
+- **Investigator projection:** exact target/workspace revision, relevant native/observation records at their admitted retention strength, current proposals/assessments/open investigation needs, capability descriptors and material omission manifest. It has no truth/action authority.
+- **Evaluator projection:** exact proposition/proposal/candidate, target revision, proposer citations plus owner-selected relevant evidence/counterevidence/unknowns, scope/association/use/coverage information and evaluator method identity. It must not inherit the proposer's evidence selection as the whole evidence boundary.
+- **Synthesis projection:** exact decision identity, domain-owned evaluated states, residual uncertainty/conflicts, material failed/unsupported investigation/evaluation outcomes, stopping state and provenance/coverage limits. Raw proposals cannot satisfy action permission.
+- **Report projection:** synthesis/action result plus material evidence links/findings/unknowns/limitations and projection/version/retention metadata. It is not canonical or resumable state.
+- **Recovery projection/checkpoint, only if persistence/resume is later admitted:** enough canonical state/history/content/method identity to satisfy the explicitly admitted continuation contract. Saved report prose is not a substitute.
+- **Temporary legacy snapshot projection, only if independently justified:** one-way projection from the canonical Workspace; never a second acquisition/orchestration path or permanent source of truth.
+
+## Replacement-oriented migration completion conditions
+
+Migration is not complete merely because a Workspace type exists. Completion requires, where applicable:
+
+1. normal investigation constructs/advances the Workspace directly from admitted native producers/evaluators;
+2. every currently admitted product/report fact has a native binding or intentional Workspace projection with no silent authority change;
+3. CLI/orchestration, maintainer synthesis and report generation consume Workspace-owned projections;
+4. any remaining legacy snapshot adapter is one-way from the Workspace and has a concrete independent compatibility/proof owner plus removal/reassessment trigger;
+5. current deterministic/report regression behavior and representative cases pass through the Workspace path, with additional proof for proposal admission versus support, unsupported evaluation, failed/empty observations, evidence-use distinctions and stale-state handling;
+6. domain facts/evaluations have one authoritative owner and the Workspace/projections do not recompute competing truth;
+7. saved-report reopening remains an offline projection operation, while any admitted resumable investigation uses a Workspace recovery contract;
+8. obsolete `PublicPullRequestInvestigation` normal-path plumbing is removed when no independent compatibility/external obligation remains; a surviving real compatibility adapter is explicitly bounded/versioned;
+9. active documentation/tests teach the Workspace as the canonical investigation boundary after cutover.
 
 ## Design sequence and deliverables
 
 1. Reconcile the accepted architecture and research delta, initialize the single cycle record, and orient Ali to the proposed responsibility before consequential design selection. Apply the canonical learning gates proportionately under root AGENTS.md.
 2. Trace native producer → composition → Investigator/validator → synthesis/report for representative paths. Produce a compact ownership/retention ledger, including existing sufficient owners and genuine missing owners.
-3. **B2 complete:** compare the credible workspace-composition alternatives and accept the distinct canonical Workspace/replacement-oriented migration direction. **B3 next:** define conceptual input/output contracts and one full request → admission → result → evaluation → knowledge-update flow, plus a source/semantic proposal flow that requires no executable action. Carry all seven Contract-2 interface obligations through the contracts rather than selecting a research mechanism.
-4. Walk the proposal through the cases below. Resolve boundary defects and explicitly preserve questions that depend on semantic evaluation methods or later mechanism experiments.
-5. If the consequential cross-module composition/update/interface method remains justified after the contract design and case walkthroughs, prepare a focused ADR for review with alternatives, trade-offs, reversal and migration/proof consequences. Do not mark it accepted from the assistant's own recommendation. Amend a specification only if a genuinely new or changed stable semantic responsibility is identified; do not copy accepted semantics into a new owner.
-6. Verify the design's source/owner alignment and document integrity, teach the resulting decisions and limitations, then close or truthfully preserve unresolved design/ownership gaps. Hand off implementation requirements without starting Build.
+3. Compare the credible workspace-composition alternatives and establish the distinct canonical Workspace/replacement-oriented migration direction before contract design.
+4. Define the canonical Workspace input/output/lifecycle contract: native binding, proposals/admission, evaluation including unsupported outcomes, request/admission/attempt/observation/problem, lineage/staleness, bounded views, investigation adequacy/stopping, consumer projections and migration completion. Demonstrate both an acquisition flow and a semantic-proposal flow against real pressure cases rather than synthetic happy paths alone.
+5. Walk the complete contract through the broader cases below. Resolve boundary defects and explicitly preserve questions that depend on semantic evaluation methods or later mechanism experiments.
+6. If the consequential cross-module composition/update/interface method remains justified after contract design and case walkthroughs, prepare a focused ADR for review with alternatives, trade-offs, reversal and migration/proof consequences. Do not mark it accepted from the assistant's own recommendation. Amend a specification only if a genuinely new or changed stable semantic responsibility is identified; do not copy accepted semantics into a new owner.
+7. Verify the design's source/owner alignment and document integrity, teach the resulting decisions and limitations, then close or truthfully preserve unresolved design/ownership gaps. Hand off implementation requirements without starting Build.
 
 The cycle record owns dated reasoning, walkthrough results and learning. A plan coordinates the work; a justified ADR owns any accepted structural method. Avoid creating a second permanent design owner merely to store the same contract.
 
