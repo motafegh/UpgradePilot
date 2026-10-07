@@ -8,9 +8,10 @@
 A0 — DONE: main/research evidence reconciled; cycle initialized and design scope prepared.
 A1 — DONE, proportionately compressed: Ali explicitly confirmed the architecture review
      and supplied/challenged the interpretation-result and next-responsibility model.
-A2 — CURRENT: upcoming responsibility orientation prepared and explained;
-     pre-B understanding discussion remains open, not inferred from the explanation.
-B — PENDING: substantive workspace/interface alternatives and contract design.
+A2 — DONE: upcoming responsibility orientation completed; Ali cleared the pre-B understanding
+     gate through explicit reasoning about evidence authority, provenance/use lineage and the
+     distinction between the current typed investigation result and a future evolving workspace.
+B — PENDING / NEXT: substantive workspace/interface alternatives and contract design.
 Verification gate — PENDING for the design; preparation document checks recorded below.
 D — PENDING: actual design/result learning and ownership review.
 E — PENDING: gap repair/defer and closure; no next Build selected.
@@ -38,7 +39,7 @@ Fresh main/remote reconciliation at preparation: `git fetch origin` completed an
 
 **Material A1 adaptation:** circumstance/evidence: continuous discussion, Ali explicitly confirms `1dca2885`, accurately distinguishes the completed interpretation result from mechanism/model conclusions, and identifies the ten design questions and exclusions → normal route: separate A1 onboarding stop before A2 → repeated onboarding would add little continuity value after Ali's active correction/selection of the responsibility model → compress A1 and provide a concise verified delta alongside A2 orientation → no source mastery, design acceptance or pre-B understanding is inferred → preserve this reason here and leave A2 open for meaningful discussion before substantive design B.
 
-No adaptation of the pre-B understanding gate is made. Preparation of a scope/plan is not selection of the forthcoming cross-module method.
+No adaptation of the pre-B understanding gate was made. Preparation of a scope/plan was not treated as selection of the forthcoming cross-module method.
 
 | Orientation topic | Minimum model Ali needs for this responsibility |
 | --- | --- |
@@ -51,12 +52,30 @@ No adaptation of the pre-B understanding gate is made. Preparation of a scope/pl
 
 The upcoming B will compare the simplest composition options (including extending the existing typed result versus a distinct workspace), define conceptual request/proposal/evaluation/update contracts and test their responsibilities against real variations. It will not begin by choosing a framework or a universal record hierarchy. A focused ADR becomes justified only if this work proposes a consequential cross-module method; its acceptance is separate from writing the proposal.
 
+## A2 gate closure
+
+Ali explicitly accepted the orientation and supplied his own reasoning at the pre-B gate:
+
+- A passing CI result or any other isolated evidence/subset must not self-authorize a compatibility/final conclusion. The proper decision/evaluation owner must reason over the relevant evidence boundary, and a conclusion must preserve reasons and provenance rather than reduce to unsupported prose such as “CI passed, therefore compatible.”
+- Evidence use must be traceable. The system should record which evidence supported a conclusion and, where one evidence/result was derived from other evidence, preserve that derivation relationship so later diagnosis, audit and debugging can reconstruct the path. Availability alone must not be confused with actual use.
+- The distinction between the current fixed-sequence `PublicPullRequestInvestigation` result and a possible evolving workspace is understood. No premature combination, expansion or replacement is selected; B owns the actual alternative comparison.
+
+This clears the canonical A2 pre-B understanding gate. It does not select a workspace architecture, evaluator, model, framework, persistence method or Investigator policy.
+
+## Post-preparation provisional research input
+
+A later non-controlling research checkpoint, `edf5d5a673e7b519fd3624b1f20a593196a179f7` on `codex/broader-llm-agency-research-2026-10-05`, was inspected after the original preparation checkpoint. The Contract-2 comparison remains in B and is not a completed Fixed-versus-Agent result. Gemma passed fresh mechanical qualification, while Qwen and complete case/source review remain pending.
+
+One provisional Gemma fixed-stage review is directly relevant as design pressure: a mechanically accepted artifact used a partial literal search/read from the old HTTPX changelog to infer `0.28.x` behavior/absence and claimed the proposed `0.28.x` changelog had been reviewed even though it had not been delivered at that stage. Relevant counterevidence existed in the frozen corpus but was not yet examined/delivered. This does not select an architecture or establish model incapacity; it sharpens the workspace requirement to distinguish evidence that is available, delivered/currently visible, actually examined/used, cited, evaluated as support and sufficient for a proposition. The plan now makes that distinction explicit and also preserves evidence-to-evidence derivation lineage where available.
+
+The research branch remains an independent mechanism laboratory. Its unfinished comparison is not merged into main and does not become a product owner by reference.
+
 ## Preparation progression and handoff
 
 Prepared one bounded position-neutral plan covering Ali's ten questions, producer retention, conceptual flow, real-case walkthroughs, architectural promotion criteria and the later integration boundary. No architecture option, schema/type layout, evaluator method or Investigator policy is selected by that plan. AUDIT-010 is selected as a design input through its lifecycle index; its historical review text and proof cutoff remain unchanged.
 
 Preparation verification: **GREEN for scoped documentation integrity**: 35 local links across five touched/new documents resolve, fenced blocks balance, `git diff --check` passes, and selective repository link/audit-lifecycle/normative-ID checks pass. Full governance doctor remains **FAILED** with the same single inherited `AGENTS.md responsibility map is missing owner marker examples/` finding; the prior cycle already reproduced it at the untouched baseline. No new finding appeared and no unrelated repair was selected. Earlier 88-test architecture checks remain historical proof of existing boundaries; no product/experiment/model/installed/hosted suite is rerun or claimed as workspace acceptance.
 
-**Handoff at this preparation checkpoint:** discuss the A2 responsibility/proof model, then perform substantive design in this same cycle. Keep unresolved composition/retention/admission questions visible, teach unfamiliar alternatives before consequential choice, and do not mark this new cycle closed merely because its plan exists. Code Build and concrete Investigator remain unselected.
+**Handoff after A2 closure:** begin substantive design B in this same cycle. Keep unresolved composition/retention/admission questions visible, compare the simplest credible workspace alternatives before choosing a cross-module method, and carry the explicit evidence-use/derivation-lineage distinction through the real-case walkthroughs. Code Build and concrete Investigator remain unselected; later research results may pressure the design but require their own explicit integration decision.
 
 Applied procedures: `UP-SKILL:upgradepilot-planning-design`, `UP-SKILL:upgradepilot-working-memory`, `UP-SKILL:upgradepilot-learning-by-doing`.
