@@ -1,0 +1,98 @@
+{
+  "profile": "contract2-known-fixed-agent-v1",
+  "reviewed_assignments": 8,
+  "valid_final_reports": 8,
+  "advice_ready": 0,
+  "semantic_revise": 8,
+  "reviewed_final_claims": 44,
+  "reviewed_recommendations": 8,
+  "fixed_stage_candidates": 16,
+  "incomplete_fixed_stages": 4,
+  "rejected_candidates": 6,
+  "tool_problem_operations": 7,
+  "explicit_correction_counter_total": 2,
+  "unsupported_review_units": 31,
+  "contradicted_review_units": 5,
+  "interpretation_only_pooled": false,
+  "reviewer_active_seconds": null,
+  "limitations": [
+    "Two known cases, one assignment per arm/deployment, order not randomized, not unseen or independent human review.",
+    "Fixed/Agent differ in stage artifact overhead as part of policy; equal envelopes do not equal equal useful retrieval turns.",
+    "Deployment architecture, GPU placement and stochastic generation prevent model-size/architecture generalizations.",
+    "Mechanical improvement over older profiles is descriptive; changed interface/policy prevents causal attribution to a single repair."
+  ],
+  "case_profiles": [
+    {
+      "review_id": "gemma12-1-agent",
+      "case_id": "development-httpx-framework-ci",
+      "method": "agent",
+      "model": "gemma12",
+      "review_outcome": "REVISE",
+      "unsupported_review_units": 2,
+      "contradicted_review_units": 1
+    },
+    {
+      "review_id": "gemma12-1-fixed",
+      "case_id": "development-httpx-framework-ci",
+      "method": "fixed",
+      "model": "gemma12",
+      "review_outcome": "REVISE",
+      "unsupported_review_units": 5,
+      "contradicted_review_units": 0
+    },
+    {
+      "review_id": "gemma12-2-agent",
+      "case_id": "development-glyphslib-pytest-stopping",
+      "method": "agent",
+      "model": "gemma12",
+      "review_outcome": "REVISE",
+      "unsupported_review_units": 2,
+      "contradicted_review_units": 2
+    },
+    {
+      "review_id": "gemma12-2-fixed",
+      "case_id": "development-glyphslib-pytest-stopping",
+      "method": "fixed",
+      "model": "gemma12",
+      "review_outcome": "REVISE",
+      "unsupported_review_units": 5,
+      "contradicted_review_units": 0
+    },
+    {
+      "review_id": "qwen35-1-agent",
+      "case_id": "development-httpx-framework-ci",
+      "method": "agent",
+      "model": "qwen35",
+      "review_outcome": "REVISE",
+      "unsupported_review_units": 5,
+      "contradicted_review_units": 1
+    },
+    {
+      "review_id": "qwen35-1-fixed",
+      "case_id": "development-httpx-framework-ci",
+      "method": "fixed",
+      "model": "qwen35",
+      "review_outcome": "REVISE",
+      "unsupported_review_units": 5,
+      "contradicted_review_units": 0
+    },
+    {
+      "review_id": "qwen35-2-agent",
+      "case_id": "development-glyphslib-pytest-stopping",
+      "method": "agent",
+      "model": "qwen35",
+      "review_outcome": "REVISE",
+      "unsupported_review_units": 2,
+      "contradicted_review_units": 1
+    },
+    {
+      "review_id": "qwen35-2-fixed",
+      "case_id": "development-glyphslib-pytest-stopping",
+      "method": "fixed",
+      "model": "qwen35",
+      "review_outcome": "REVISE",
+      "unsupported_review_units": 5,
+      "contradicted_review_units": 0
+    }
+  ]
+}

@@ -538,3 +538,8 @@ E — Bounded diagnostic/repair/interpretation child closes with GREEN mechanics
 ## 15. Accepted checkpoint continuation
 
 Ali accepts74835751 and selects contract2 qualification and complete known-case F/A comparison; [the dedicated cycle](2026-10-07_contract2-known-case-comparison_lbd-cycle.md) owns this new coherent responsibility. Main1dca2885 was reconciled read-only: hybrid direction selected; no research-owned product Workspace contract. Protocol19 freezes the two prior larger deployments/eight assignments, fresh qualification gating, shared limits/evidence and final joint-decision pause. Interpretation-only evidence remains separate.
+
+
+### Repaired complete-comparison handoff (2026-10-07)
+
+The dedicated [comparison cycle](2026-10-07_contract2-known-case-comparison_lbd-cycle.md) closes the selected qualification/eight-assignment responsibility. [Reviewed comparison](evidence/2026-10-07-broader-agency-contract2-comparison/README.md): both deployments qualify,8/8 final reports mechanically valid,0/8 advice-ready in assisted known-case source review; all135 attempts/costs accounted and all rejected/incomplete artifacts retained. Agent uses less elapsed/input in four pairs; discovery/interpretation advantages vary and semantic recommendation gaps persist. No architecture/model winner, incapability or independent usefulness claim. The accepted repair and separate interpretation-only result are not reopened or pooled. Main's hybrid product/Workspace ownership is preserved. The cycle records the required pause before joint next-experiment selection; MEMORY.md owns live continuation.

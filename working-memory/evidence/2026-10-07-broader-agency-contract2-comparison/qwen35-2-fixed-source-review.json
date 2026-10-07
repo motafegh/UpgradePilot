@@ -1,0 +1,1374 @@
+{
+  "review_id": "qwen35-2-fixed",
+  "case_id": "development-glyphslib-pytest-stopping",
+  "method": "fixed",
+  "model": "qwen35",
+  "profile": "contract2-known-fixed-agent-v1",
+  "assistance": "AI-assisted known-case source adjudication; not blind or independent human acceptance",
+  "private_artifact_sha256": "13a68080bb3512e7bf9f4f46afd1afaf2cbdaa3ff0e101bc0f2ddfb1f5e4573e",
+  "corpus_sha256": "8c8ef1a31b2c009d83803b8c94ce9a33af201de4ae49513e0a978f186d237101",
+  "source_inventory": [
+    {
+      "source_id": "target-base",
+      "repository": "googlefonts/glyphsLib",
+      "revision": "044f19e4b1437bfc4343592486f4e3c6040306d9",
+      "file_count": 113,
+      "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+      "omitted_file_count": 25572
+    },
+    {
+      "source_id": "target-proposed",
+      "repository": "googlefonts/glyphsLib",
+      "revision": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+      "file_count": 113,
+      "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+      "omitted_file_count": 25572
+    },
+    {
+      "source_id": "pytest-old",
+      "repository": "pytest-dev/pytest",
+      "revision": "3d10b5148e03eb82b3ee29181dbdc73cf82699e2",
+      "file_count": 572,
+      "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+      "omitted_file_count": 45
+    },
+    {
+      "source_id": "pytest-new",
+      "repository": "pytest-dev/pytest",
+      "revision": "a7d58d7a21b78581e636bbbdea13c66ad1657c1e",
+      "file_count": 573,
+      "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+      "omitted_file_count": 46
+    },
+    {
+      "source_id": "ci-observations",
+      "repository": "googlefonts/glyphsLib",
+      "revision": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+      "file_count": 1,
+      "scope": "historical bounded public CI captures, not full logs or resolved environments"
+    }
+  ],
+  "review_outcome": "REVISE",
+  "advice_ready": false,
+  "mechanically_valid_final": true,
+  "report": {
+    "summary": "Terminal investigation of pytest update from 9.0.2 to 9.0.3 in googlefonts/glyphsLib development environment.",
+    "claims": [
+      {
+        "statement": "pytest is updated from version 9.0.2 to 9.0.3 in requirements-dev.txt via the update packet diff.",
+        "status": "asserted",
+        "evidence": [
+          {
+            "kind": "diff",
+            "id": "diff:cc6cc04777cecee34a9f"
+          }
+        ],
+        "missing_observation": ""
+      },
+      {
+        "statement": "pytest minimum version constraint is >=2.8 in requirements-dev.in, so 9.0.3 satisfies the declared range.",
+        "status": "asserted",
+        "evidence": [
+          {
+            "kind": "source_line",
+            "id": "target-base:requirements-dev.in:L5"
+          }
+        ],
+        "missing_observation": ""
+      },
+      {
+        "statement": "pytest is a development/testing dependency only, not used in production runtime code.",
+        "status": "asserted",
+        "evidence": [
+          {
+            "kind": "source_line",
+            "id": "target-base:requirements-dev.in:L5"
+          }
+        ],
+        "missing_observation": ""
+      },
+      {
+        "statement": "conftest.py uses standard pytest APIs including @pytest.fixture decorator, pytest.importorskip, and pytest_addoption hook.",
+        "status": "asserted",
+        "evidence": [
+          {
+            "kind": "source_line",
+            "id": "target-base:tests/conftest.py:L5"
+          },
+          {
+            "kind": "source_line",
+            "id": "target-base:tests/conftest.py:L12"
+          },
+          {
+            "kind": "source_line",
+            "id": "target-base:tests/conftest.py:L16"
+          }
+        ],
+        "missing_observation": ""
+      },
+      {
+        "statement": "conftest.py imports the py library for path manipulation via py.path.local.",
+        "status": "asserted",
+        "evidence": [
+          {
+            "kind": "source_line",
+            "id": "target-base:tests/conftest.py:L1"
+          }
+        ],
+        "missing_observation": ""
+      },
+      {
+        "statement": "pytest-xdist and pytest-randomly are declared as dev dependencies alongside pytest.",
+        "status": "asserted",
+        "evidence": [
+          {
+            "kind": "source_line",
+            "id": "target-base:requirements-dev.in:L6"
+          },
+          {
+            "kind": "source_line",
+            "id": "target-base:requirements-dev.in:L7"
+          }
+        ],
+        "missing_observation": ""
+      },
+      {
+        "statement": "pytest 9.0.3 changelog content has not been examined; the source document is referenced externally.",
+        "status": "unresolved",
+        "evidence": [],
+        "missing_observation": "Content of pytest doc/en/changelog.rst for versions 9.0.2 and 9.0.3."
+      },
+      {
+        "statement": "py library version constraints are not declared in requirements-dev.in.",
+        "status": "unresolved",
+        "evidence": [],
+        "missing_observation": "Version constraint for py library in requirements-dev.in or its changelog."
+      },
+      {
+        "statement": "pytest-xdist and pytest-randomly compatibility with pytest 9.0.3 is not verified.",
+        "status": "unresolved",
+        "evidence": [],
+        "missing_observation": "Version constraints for pytest-xdist and pytest-randomly in requirements-dev.in or their changelogs."
+      },
+      {
+        "statement": "Fresh test execution results with pytest 9.0.3 are not available; only frozen source text exists.",
+        "status": "unresolved",
+        "evidence": [],
+        "missing_observation": "CI runtime observations for pytest 9.0.3 or fresh test execution logs."
+      }
+    ],
+    "conditions": [
+      "pytest is a development/testing dependency with minimum version 2.8, so update to 9.0.3 is within declared range.",
+      "Frozen source text confirms test structure and configuration but does not prove execution success.",
+      "CI observations are historical bounded captures; they do not confirm fresh pytest 9.0.3 execution.",
+      "Test files use standard pytest APIs which are generally stable across minor versions."
+    ],
+    "unexamined": [
+      "pytest doc/en/changelog.rst content for versions 9.0.2 and 9.0.3.",
+      "py library version constraints in requirements-dev.in or its changelog.",
+      "pytest-xdist and pytest-randomly compatibility with pytest 9.0.3.",
+      "CI runtime logs showing actual test execution results with pytest 9.0.3."
+    ],
+    "recommendation": "Proceed with the pytest 9.0.2 to 9.0.3 update in requirements-dev.txt; this is a minor version bump within the declared >=2.8 range, affecting only development/testing dependencies, and uses stable pytest APIs that are unlikely to break between these versions.",
+    "recommendation_status": "inferred",
+    "recommendation_evidence": [
+      {
+        "kind": "diff",
+        "id": "diff:cc6cc04777cecee34a9f"
+      },
+      {
+        "kind": "source_line",
+        "id": "target-base:requirements-dev.in:L5"
+      },
+      {
+        "kind": "source_line",
+        "id": "target-base:tests/conftest.py:L5"
+      }
+    ],
+    "recommendation_missing_observation": "Fresh test execution results with pytest 9.0.3 to confirm no regressions.",
+    "stopping_reason": "Investigation complete; update packet examined, consumer dependencies traced, test infrastructure analyzed, and decision-critical unknowns identified."
+  },
+  "claim_review": [
+    {
+      "id": "claim-0",
+      "surface": "claims",
+      "statement": "pytest is updated from version 9.0.2 to 9.0.3 in requirements-dev.txt via the update packet diff.",
+      "model_status": "asserted",
+      "evidence": [
+        {
+          "kind": "diff",
+          "id": "diff:cc6cc04777cecee34a9f",
+          "exists": true,
+          "delivered": true,
+          "referenced": true
+        }
+      ],
+      "semantic_support": "supported",
+      "reason": "Pin diff supplied."
+    },
+    {
+      "id": "claim-1",
+      "surface": "claims",
+      "statement": "pytest minimum version constraint is >=2.8 in requirements-dev.in, so 9.0.3 satisfies the declared range.",
+      "model_status": "asserted",
+      "evidence": [
+        {
+          "kind": "source_line",
+          "id": "target-base:requirements-dev.in:L5",
+          "exists": true,
+          "delivered": true,
+          "referenced": true
+        }
+      ],
+      "semantic_support": "supported",
+      "reason": "9.0.3 satisfies literal>=2.8; satisfaction is not compatibility."
+    },
+    {
+      "id": "claim-2",
+      "surface": "claims",
+      "statement": "pytest is a development/testing dependency only, not used in production runtime code.",
+      "model_status": "asserted",
+      "evidence": [
+        {
+          "kind": "source_line",
+          "id": "target-base:requirements-dev.in:L5",
+          "exists": true,
+          "delivered": true,
+          "referenced": true
+        }
+      ],
+      "semantic_support": "unsupported",
+      "reason": "Development declaration alone cannot prove exclusive absence of production use."
+    },
+    {
+      "id": "claim-3",
+      "surface": "claims",
+      "statement": "conftest.py uses standard pytest APIs including @pytest.fixture decorator, pytest.importorskip, and pytest_addoption hook.",
+      "model_status": "asserted",
+      "evidence": [
+        {
+          "kind": "source_line",
+          "id": "target-base:tests/conftest.py:L5",
+          "exists": true,
+          "delivered": true,
+          "referenced": true
+        },
+        {
+          "kind": "source_line",
+          "id": "target-base:tests/conftest.py:L12",
+          "exists": true,
+          "delivered": true,
+          "referenced": true
+        },
+        {
+          "kind": "source_line",
+          "id": "target-base:tests/conftest.py:L16",
+          "exists": true,
+          "delivered": true,
+          "referenced": true
+        }
+      ],
+      "semantic_support": "supported",
+      "reason": "Exact fixtureL5, importorskipL12, hook definitionL16 are correctly cited/delivered."
+    },
+    {
+      "id": "claim-4",
+      "surface": "claims",
+      "statement": "conftest.py imports the py library for path manipulation via py.path.local.",
+      "model_status": "asserted",
+      "evidence": [
+        {
+          "kind": "source_line",
+          "id": "target-base:tests/conftest.py:L1",
+          "exists": true,
+          "delivered": true,
+          "referenced": true
+        }
+      ],
+      "semantic_support": "citation_incomplete",
+      "reason": "Importpy atL1 is insufficient for py.path.local use; actual useL7 was delivered but not cited."
+    },
+    {
+      "id": "claim-5",
+      "surface": "claims",
+      "statement": "pytest-xdist and pytest-randomly are declared as dev dependencies alongside pytest.",
+      "model_status": "asserted",
+      "evidence": [
+        {
+          "kind": "source_line",
+          "id": "target-base:requirements-dev.in:L6",
+          "exists": true,
+          "delivered": true,
+          "referenced": true
+        },
+        {
+          "kind": "source_line",
+          "id": "target-base:requirements-dev.in:L7",
+          "exists": true,
+          "delivered": true,
+          "referenced": true
+        }
+      ],
+      "semantic_support": "supported",
+      "reason": "Both plugin declarations deliveredL6/7."
+    },
+    {
+      "id": "claim-6",
+      "surface": "claims",
+      "statement": "pytest 9.0.3 changelog content has not been examined; the source document is referenced externally.",
+      "model_status": "unresolved",
+      "evidence": [],
+      "semantic_support": "citation_incomplete",
+      "reason": "Not examined is accurate; URL points to a path also retained locally, so externally referenced must not imply external-only/unavailable."
+    },
+    {
+      "id": "claim-7",
+      "surface": "claims",
+      "statement": "py library version constraints are not declared in requirements-dev.in.",
+      "model_status": "unresolved",
+      "evidence": [],
+      "semantic_support": "unresolved_appropriate",
+      "reason": "py constraint unknown is preserved. Fully read requirements-dev.in contains no py declaration; broader generated requirements not examined."
+    },
+    {
+      "id": "claim-8",
+      "surface": "claims",
+      "statement": "pytest-xdist and pytest-randomly compatibility with pytest 9.0.3 is not verified.",
+      "model_status": "unresolved",
+      "evidence": [],
+      "semantic_support": "unresolved_appropriate",
+      "reason": "Plugin compatibility unknown is correct. Generated plugin pins and release evidence remain feasible reads."
+    },
+    {
+      "id": "claim-9",
+      "surface": "claims",
+      "statement": "Fresh test execution results with pytest 9.0.3 are not available; only frozen source text exists.",
+      "model_status": "unresolved",
+      "evidence": [],
+      "semantic_support": "unresolved_appropriate",
+      "reason": "No fresh execution exists in this trial. Historical CI captures do exist; only frozen source wording is too broad unless qualified by adjacent condition."
+    },
+    {
+      "id": "wide-0",
+      "surface": "conditions/recommendation",
+      "semantic_support": "unsupported",
+      "reason": "General stable standard API assertion and development-only/range assumptions do not establish upgrade compatibility."
+    },
+    {
+      "id": "wide-1",
+      "surface": "stopping",
+      "semantic_support": "unsupported",
+      "reason": "Consumer trace/infrastructure complete overstates partial prefix/config inspection; decision-critical unknowns do not restrict proceed."
+    }
+  ],
+  "unsupported_review_units": 5,
+  "contradicted_review_units": 0,
+  "counting_basis": "Each authored claim or cross-surface review unit counted once; overlapping repeated propositions are identifiable by surface/reason. These descriptive counts are not weighted scores or mutually independent errors.",
+  "obligation_review": [
+    {
+      "id": "P1",
+      "obligation": "Exact pin transition, constraints and pytest plugins",
+      "retained_evidence": [
+        {
+          "source_id": "target-base",
+          "path": "requirements-dev.txt",
+          "first_line": 65,
+          "last_line": 73,
+          "source_text_sha256": "f9a866625e2a82fe09b4c0ad646ea1d5ab48398f20e9f7f7af322e7443e74606",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        },
+        {
+          "source_id": "target-proposed",
+          "path": "requirements-dev.txt",
+          "first_line": 65,
+          "last_line": 73,
+          "source_text_sha256": "d61c580da79c07296f782ce579bc16fac1216abd25c6ca40ec51653457b5fe30",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        },
+        {
+          "source_id": "target-proposed",
+          "path": "requirements-dev.in",
+          "first_line": 5,
+          "last_line": 7,
+          "source_text_sha256": "dcb89bbd6ff0be5f83d76a97df4b79f6f4b283b9a84e33b5f3bd8faeefc9cc71",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [],
+          "delivered_identical_target_revision_lines": [
+            "target-base:requirements-dev.in:L5",
+            "target-base:requirements-dev.in:L6",
+            "target-base:requirements-dev.in:L7"
+          ],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": [
+            "target-base:requirements-dev.in:L5",
+            "target-base:requirements-dev.in:L6",
+            "target-base:requirements-dev.in:L7"
+          ]
+        }
+      ],
+      "semantic_support_review": "Pin diff+range/plugin declarations; generated pins not examined.",
+      "applicable": true,
+      "delivery_note": "Line overlap is mechanical, not adequate semantic coverage. Initial update packet below separately supplies diff facts and unchanged context; source-line claim inspection also records packet delivery."
+    },
+    {
+      "id": "P2",
+      "obligation": "Follow root changelog pointer and identify 9.0.3 release interval",
+      "retained_evidence": [
+        {
+          "source_id": "pytest-new",
+          "path": "CHANGELOG.rst",
+          "first_line": 7,
+          "last_line": 7,
+          "source_text_sha256": "680460d28332abd6056df18288cd966fb86504fc4a9db94a1201b39f859aa423",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [
+            "pytest-new:CHANGELOG.rst:L7"
+          ],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        },
+        {
+          "source_id": "pytest-new",
+          "path": "doc/en/changelog.rst",
+          "first_line": 34,
+          "last_line": 38,
+          "source_text_sha256": "438ddceae52618648a990cf939e0670583150996d34d4e5f706bf7d4edeadd40",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        }
+      ],
+      "semantic_support_review": "Root URL names local retained path; not followed, labelled externally referenced.",
+      "applicable": true,
+      "delivery_note": "Line overlap is mechanical, not adequate semantic coverage. Initial update packet below separately supplies diff facts and unchanged context; source-line claim inspection also records packet delivery."
+    },
+    {
+      "id": "P3",
+      "obligation": "Release propositions incl approx, conftest disabling, exception groups, subTest and security fix correctly associated",
+      "retained_evidence": [
+        {
+          "source_id": "pytest-new",
+          "path": "doc/en/changelog.rst",
+          "first_line": 40,
+          "last_line": 56,
+          "source_text_sha256": "438ddceae52618648a990cf939e0670583150996d34d4e5f706bf7d4edeadd40",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        }
+      ],
+      "semantic_support_review": "Not read.",
+      "applicable": true,
+      "delivery_note": "Line overlap is mechanical, not adequate semantic coverage. Initial update packet below separately supplies diff facts and unchanged context; source-line claim inspection also records packet delivery."
+    },
+    {
+      "id": "P4",
+      "obligation": "Target pytest use, regression opt-in and skip/filter activation",
+      "retained_evidence": [
+        {
+          "source_id": "target-proposed",
+          "path": "tests/conftest.py",
+          "first_line": 1,
+          "last_line": 39,
+          "source_text_sha256": "1603b4c4e29969164416227e8442d524f5ce9095e04d7c0b522e236a7643f8d8",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [],
+          "delivered_identical_target_revision_lines": [
+            "target-base:tests/conftest.py:L1",
+            "target-base:tests/conftest.py:L2",
+            "target-base:tests/conftest.py:L3",
+            "target-base:tests/conftest.py:L4",
+            "target-base:tests/conftest.py:L5",
+            "target-base:tests/conftest.py:L6",
+            "target-base:tests/conftest.py:L7",
+            "target-base:tests/conftest.py:L8",
+            "target-base:tests/conftest.py:L9",
+            "target-base:tests/conftest.py:L10",
+            "target-base:tests/conftest.py:L11",
+            "target-base:tests/conftest.py:L12",
+            "target-base:tests/conftest.py:L13",
+            "target-base:tests/conftest.py:L14",
+            "target-base:tests/conftest.py:L15",
+            "target-base:tests/conftest.py:L16",
+            "target-base:tests/conftest.py:L17",
+            "target-base:tests/conftest.py:L18",
+            "target-base:tests/conftest.py:L19",
+            "target-base:tests/conftest.py:L20"
+          ],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": [
+            "target-base:tests/conftest.py:L1",
+            "target-base:tests/conftest.py:L5",
+            "target-base:tests/conftest.py:L12",
+            "target-base:tests/conftest.py:L16"
+          ]
+        },
+        {
+          "source_id": "target-proposed",
+          "path": "tests/regression_test.py",
+          "first_line": 58,
+          "last_line": 80,
+          "source_text_sha256": "6fd4b6f17d912886bbe733b588a94cd3f69d42477ffb0c9ef4b13edd48a8aaf6",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        }
+      ],
+      "semantic_support_review": "Conftest1-20 delivered; regression skip/filter body and test marks not read.",
+      "applicable": true,
+      "delivery_note": "Line overlap is mechanical, not adequate semantic coverage. Initial update packet below separately supplies diff facts and unchanged context; source-line claim inspection also records packet delivery."
+    },
+    {
+      "id": "P5",
+      "obligation": "tox installation and pytest execution, environment selection",
+      "retained_evidence": [
+        {
+          "source_id": "target-proposed",
+          "path": "tox.ini",
+          "first_line": 1,
+          "last_line": 15,
+          "source_text_sha256": "4280f8ed2297829f56bd1a4f947fdda295ff7691a753e914ef236df02a5654d9",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        },
+        {
+          "source_id": "target-proposed",
+          "path": "pyproject.toml",
+          "first_line": 4,
+          "last_line": 4,
+          "source_text_sha256": "6c04496d766f15e0a70b1c0cc2d8a81afd61d2ce3456cbf2ab22ba7282f7317f",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [],
+          "delivered_identical_target_revision_lines": [
+            "target-base:pyproject.toml:L4"
+          ],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        }
+      ],
+      "semantic_support_review": "Config read, tox not read.",
+      "applicable": true,
+      "delivery_note": "Line overlap is mechanical, not adequate semantic coverage. Initial update packet below separately supplies diff facts and unchanged context; source-line claim inspection also records packet delivery."
+    },
+    {
+      "id": "P6",
+      "obligation": "Workflow ordinary matrix and regression reinstall/run commands",
+      "retained_evidence": [
+        {
+          "source_id": "target-proposed",
+          "path": ".github/workflows/ci.yml",
+          "first_line": 27,
+          "last_line": 38,
+          "source_text_sha256": "af09f984d02ffbf27b394eed97269c2b6ac779e7a712d89adf3aa38e48058811",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        },
+        {
+          "source_id": "target-proposed",
+          "path": ".github/workflows/regression.yml",
+          "first_line": 28,
+          "last_line": 46,
+          "source_text_sha256": "8ce672e72f10d1f7cfbe8727cf5808d6b0263fb3b4350f9bfc1f9fdfff4b3d89",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [],
+          "delivered_identical_target_revision_lines": [
+            "target-base:.github/workflows/regression.yml:L46"
+          ],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        }
+      ],
+      "semantic_support_review": "Single regression command preview only.",
+      "applicable": true,
+      "delivery_note": "Line overlap is mechanical, not adequate semantic coverage. Initial update packet below separately supplies diff facts and unchanged context; source-line claim inspection also records packet delivery."
+    },
+    {
+      "id": "P7",
+      "obligation": "Captured exact-head ordinary matrix successes and separate regression success",
+      "retained_evidence": [
+        {
+          "source_id": "ci-observations",
+          "path": "ev-005-ci-results.json",
+          "first_line": 1,
+          "last_line": 69,
+          "source_text_sha256": "63d7f897e15d8c5b4b3f9478876182326812c17594b103bce2329bd182d7bf78",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        }
+      ],
+      "semantic_support_review": "Not read.",
+      "applicable": true,
+      "delivery_note": "Line overlap is mechanical, not adequate semantic coverage. Initial update packet below separately supplies diff facts and unchanged context; source-line claim inspection also records packet delivery."
+    },
+    {
+      "id": "P8",
+      "obligation": "Do not infer installed pytest identity, whole compatibility or regression Python/OS binding from green capture",
+      "retained_evidence": [
+        {
+          "source_id": "ci-observations",
+          "path": "ev-005-ci-results.json",
+          "first_line": 1,
+          "last_line": 69,
+          "source_text_sha256": "63d7f897e15d8c5b4b3f9478876182326812c17594b103bce2329bd182d7bf78",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        }
+      ],
+      "semantic_support_review": "Fresh execution absence named; historical captures remain feasible/unexamined.",
+      "applicable": true,
+      "delivery_note": "Line overlap is mechanical, not adequate semantic coverage. Initial update packet below separately supplies diff facts and unchanged context; source-line claim inspection also records packet delivery."
+    },
+    {
+      "id": "P9",
+      "obligation": "Whole public API file equality if claimed; unchanged initializer alone is not compatibility proof",
+      "retained_evidence": [
+        {
+          "source_id": "pytest-old",
+          "path": "src/pytest/__init__.py",
+          "first_line": 1,
+          "last_line": 185,
+          "source_text_sha256": "7be7a1e2218dc59a19d1ad131e4abe21172a295087efc72898938248782e8766",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        },
+        {
+          "source_id": "pytest-new",
+          "path": "src/pytest/__init__.py",
+          "first_line": 1,
+          "last_line": 185,
+          "source_text_sha256": "7be7a1e2218dc59a19d1ad131e4abe21172a295087efc72898938248782e8766",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        }
+      ],
+      "semantic_support_review": "Conditional obligation: no whole public API equality was claimed; not required coverage in this report.",
+      "applicable": false,
+      "delivery_note": "Line overlap is mechanical, not adequate semantic coverage. Initial update packet below separately supplies diff facts and unchanged context; source-line claim inspection also records packet delivery."
+    }
+  ],
+  "initial_update_packet": {
+    "corpus_sha256": "8c8ef1a31b2c009d83803b8c94ce9a33af201de4ae49513e0a978f186d237101",
+    "basis": "all retained base/head text paths; capture omissions remain in inventory",
+    "changed_paths": [
+      "requirements-dev.txt"
+    ],
+    "diffs": [
+      {
+        "path": "requirements-dev.txt",
+        "diff": "--- target-base/requirements-dev.txt\n\n+++ target-proposed/requirements-dev.txt\n\n@@ -63,5 +63,5 @@\n\n pygments==2.19.2\n     # via pytest\n-pytest==9.0.2\n+pytest==9.0.3\n     # via\n     #   -r requirements-dev.in",
+        "evidence_refs": [
+          {
+            "kind": "diff",
+            "id": "diff:cc6cc04777cecee34a9f"
+          }
+        ]
+      }
+    ],
+    "omissions": [],
+    "evidence_refs": [
+      {
+        "kind": "update_packet",
+        "id": "update_packet:f7ff472a76ff2fd85885"
+      }
+    ]
+  },
+  "delivered_complete_source_lines": [
+    "pytest-new:CHANGELOG.rst:L1",
+    "pytest-new:CHANGELOG.rst:L2",
+    "pytest-new:CHANGELOG.rst:L3",
+    "pytest-new:CHANGELOG.rst:L4",
+    "pytest-new:CHANGELOG.rst:L5",
+    "pytest-new:CHANGELOG.rst:L6",
+    "pytest-new:CHANGELOG.rst:L7",
+    "pytest-old:CHANGELOG.rst:L1",
+    "pytest-old:CHANGELOG.rst:L2",
+    "pytest-old:CHANGELOG.rst:L3",
+    "pytest-old:CHANGELOG.rst:L4",
+    "pytest-old:CHANGELOG.rst:L5",
+    "pytest-old:CHANGELOG.rst:L6",
+    "pytest-old:CHANGELOG.rst:L7",
+    "target-base:.github/workflows/regression.yml:L46",
+    "target-base:pyproject.toml:L1",
+    "target-base:pyproject.toml:L10",
+    "target-base:pyproject.toml:L11",
+    "target-base:pyproject.toml:L12",
+    "target-base:pyproject.toml:L13",
+    "target-base:pyproject.toml:L14",
+    "target-base:pyproject.toml:L15",
+    "target-base:pyproject.toml:L16",
+    "target-base:pyproject.toml:L17",
+    "target-base:pyproject.toml:L18",
+    "target-base:pyproject.toml:L19",
+    "target-base:pyproject.toml:L2",
+    "target-base:pyproject.toml:L20",
+    "target-base:pyproject.toml:L3",
+    "target-base:pyproject.toml:L4",
+    "target-base:pyproject.toml:L5",
+    "target-base:pyproject.toml:L6",
+    "target-base:pyproject.toml:L7",
+    "target-base:pyproject.toml:L8",
+    "target-base:pyproject.toml:L9",
+    "target-base:requirements-dev.in:L1",
+    "target-base:requirements-dev.in:L10",
+    "target-base:requirements-dev.in:L11",
+    "target-base:requirements-dev.in:L12",
+    "target-base:requirements-dev.in:L13",
+    "target-base:requirements-dev.in:L14",
+    "target-base:requirements-dev.in:L2",
+    "target-base:requirements-dev.in:L3",
+    "target-base:requirements-dev.in:L4",
+    "target-base:requirements-dev.in:L5",
+    "target-base:requirements-dev.in:L6",
+    "target-base:requirements-dev.in:L7",
+    "target-base:requirements-dev.in:L8",
+    "target-base:requirements-dev.in:L9",
+    "target-base:requirements-dev.txt:L22",
+    "target-base:tests/conftest.py:L1",
+    "target-base:tests/conftest.py:L10",
+    "target-base:tests/conftest.py:L11",
+    "target-base:tests/conftest.py:L12",
+    "target-base:tests/conftest.py:L13",
+    "target-base:tests/conftest.py:L14",
+    "target-base:tests/conftest.py:L15",
+    "target-base:tests/conftest.py:L16",
+    "target-base:tests/conftest.py:L17",
+    "target-base:tests/conftest.py:L18",
+    "target-base:tests/conftest.py:L19",
+    "target-base:tests/conftest.py:L2",
+    "target-base:tests/conftest.py:L20",
+    "target-base:tests/conftest.py:L3",
+    "target-base:tests/conftest.py:L4",
+    "target-base:tests/conftest.py:L5",
+    "target-base:tests/conftest.py:L6",
+    "target-base:tests/conftest.py:L7",
+    "target-base:tests/conftest.py:L8",
+    "target-base:tests/conftest.py:L9"
+  ],
+  "scoped_zero_searches": [],
+  "tool_operations": [
+    {
+      "event_id": "event-001",
+      "tool": "list_sources",
+      "arguments": {},
+      "delivered": true
+    },
+    {
+      "event_id": "event-002",
+      "tool": "list_paths",
+      "arguments": {
+        "source_id": "target-base",
+        "prefix": ""
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-002",
+      "tool": "list_paths",
+      "arguments": {
+        "source_id": "pytest-old",
+        "prefix": ""
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-002",
+      "tool": "list_paths",
+      "arguments": {
+        "source_id": "pytest-new",
+        "prefix": ""
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-003",
+      "tool": "read_source",
+      "arguments": {
+        "source_id": "pytest-old",
+        "path": "CHANGELOG.rst",
+        "start_line": 1,
+        "line_count": 50
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-003",
+      "tool": "read_source",
+      "arguments": {
+        "source_id": "pytest-new",
+        "path": "CHANGELOG.rst",
+        "start_line": 1,
+        "line_count": 50
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-005",
+      "tool": "read_source",
+      "arguments": {
+        "source_id": "pytest-old",
+        "path": "CHANGELOG.rst",
+        "start_line": 1,
+        "line_count": 20
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-005",
+      "tool": "read_source",
+      "arguments": {
+        "source_id": "pytest-new",
+        "path": "CHANGELOG.rst",
+        "start_line": 1,
+        "line_count": 20
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-006",
+      "tool": "search_sources",
+      "arguments": {
+        "query": "pytest",
+        "source_id": "target-base"
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-007",
+      "tool": "read_source",
+      "arguments": {
+        "source_id": "target-base",
+        "path": "pyproject.toml",
+        "start_line": 1,
+        "line_count": 20
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-007",
+      "tool": "read_source",
+      "arguments": {
+        "source_id": "target-base",
+        "path": "requirements-dev.in",
+        "start_line": 1,
+        "line_count": 20
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-009",
+      "tool": "list_paths",
+      "arguments": {
+        "source_id": "target-base",
+        "prefix": "tests/"
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-009",
+      "tool": "list_paths",
+      "arguments": {
+        "source_id": "target-proposed",
+        "prefix": "tests/"
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-010",
+      "tool": "read_source",
+      "arguments": {
+        "source_id": "target-base",
+        "path": "tests/__init__.py",
+        "start_line": 1,
+        "line_count": 20
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-010",
+      "tool": "read_source",
+      "arguments": {
+        "source_id": "target-base",
+        "path": "tests/builder/__init__.py",
+        "start_line": 1,
+        "line_count": 20
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-012",
+      "tool": "list_paths",
+      "arguments": {
+        "source_id": "target-base",
+        "prefix": "tests/",
+        "offset": 20
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-013",
+      "tool": "read_source",
+      "arguments": {
+        "source_id": "target-base",
+        "path": "tests/conftest.py",
+        "start_line": 1,
+        "line_count": 20
+      },
+      "delivered": true
+    }
+  ],
+  "tool_problems": [
+    {
+      "event_id": "event-003",
+      "tool": "read_source",
+      "arguments": {
+        "source_id": "pytest-old",
+        "path": "CHANGELOG.rst",
+        "start_line": 1,
+        "line_count": 50
+      },
+      "problem": "line_count exceeds 20; use pages"
+    },
+    {
+      "event_id": "event-003",
+      "tool": "read_source",
+      "arguments": {
+        "source_id": "pytest-new",
+        "path": "CHANGELOG.rst",
+        "start_line": 1,
+        "line_count": 50
+      },
+      "problem": "line_count exceeds 20; use pages"
+    }
+  ],
+  "fixed_stage_review": [
+    {
+      "event_id": "event-004",
+      "stage": "investigate upstream changes; follow discovered document pointers and compare relevant versions",
+      "mechanically_complete": true,
+      "candidate": {
+        "summary": "Investigating upstream changes for pytest update from 9.0.2 to 9.0.3.",
+        "claims": [
+          {
+            "statement": "The dependency `pytest` is updated from version 9.0.2 to 9.0.3 in the `requirements-dev.txt` file of the `googlefonts/glyphsLib` repository.",
+            "status": "asserted",
+            "evidence": [
+              {
+                "kind": "diff",
+                "id": "diff:cc6cc04777cecee34a9f"
+              }
+            ],
+            "missing_observation": ""
+          },
+          {
+            "statement": "The `pytest` repository contains a CHANGELOG file that documents version history.",
+            "status": "asserted",
+            "evidence": [
+              {
+                "kind": "inventory",
+                "id": "inventory:5c02368be4ef6552f036"
+              }
+            ],
+            "missing_observation": ""
+          },
+          {
+            "statement": "Specific changes in pytest 9.0.3 are not yet fully examined.",
+            "status": "unresolved",
+            "evidence": [],
+            "missing_observation": "Content of CHANGELOG.rst for pytest versions 9.0.2 and 9.0.3."
+          }
+        ],
+        "conditions": [
+          "The update is limited to `requirements-dev.txt`, suggesting it affects development/testing environments rather than production runtime dependencies.",
+          "Frozen source text is available but not executed; behavioral compatibility cannot be confirmed without testing."
+        ],
+        "unexamined": [
+          "Detailed content of pytest CHANGELOG.rst for versions 9.0.2 and 9.0.3.",
+          "Potential breaking changes in pytest API or behavior between 9.0.2 and 9.0.3.",
+          "Impact on glyphsLib test suite execution."
+        ]
+      },
+      "semantic_review": "Pin/inventory real, new release still unexamined."
+    },
+    {
+      "event_id": "event-008",
+      "stage": "investigate consumer and applicability; trace direct and indirect consumers without assuming activation",
+      "mechanically_complete": true,
+      "candidate": {
+        "summary": "Tracing direct and indirect consumers of pytest in glyphsLib; identifying test infrastructure and configuration.",
+        "claims": [
+          {
+            "statement": "pytest is configured as a dev dependency with minimum version 2.8 in requirements-dev.in, allowing the update from 9.0.2 to 9.0.3.",
+            "status": "asserted",
+            "evidence": [
+              {
+                "kind": "source_line",
+                "id": "target-base:requirements-dev.in:L5"
+              }
+            ],
+            "missing_observation": ""
+          },
+          {
+            "statement": "pytest-xdist is a transitive dependency of pytest, used for parallel test execution.",
+            "status": "asserted",
+            "evidence": [
+              {
+                "kind": "source_line",
+                "id": "target-base:requirements-dev.in:L7"
+              }
+            ],
+            "missing_observation": ""
+          },
+          {
+            "statement": "pytest-randomly is a dev dependency that randomizes test execution order.",
+            "status": "asserted",
+            "evidence": [
+              {
+                "kind": "source_line",
+                "id": "target-base:requirements-dev.in:L6"
+              }
+            ],
+            "missing_observation": ""
+          },
+          {
+            "statement": "pyproject.toml contains pytest configuration excluding specific directories from test collection.",
+            "status": "asserted",
+            "evidence": [
+              {
+                "kind": "source_line",
+                "id": "target-base:pyproject.toml:L4"
+              }
+            ],
+            "missing_observation": ""
+          },
+          {
+            "statement": "Regression tests use pytest with xdist for parallel execution in CI workflows.",
+            "status": "asserted",
+            "evidence": [
+              {
+                "kind": "source_line",
+                "id": "target-base:.github/workflows/regression.yml:L46"
+              }
+            ],
+            "missing_observation": ""
+          },
+          {
+            "statement": "Direct test file consumers of pytest fixtures or decorators have not been fully examined.",
+            "status": "unresolved",
+            "evidence": [],
+            "missing_observation": "Content of test files in glyphsLib that import pytest or use pytest-specific patterns."
+          }
+        ],
+        "conditions": [
+          "pytest is a development/testing dependency, not a production runtime requirement.",
+          "The update from 9.0.2 to 9.0.3 is within the declared minimum version range (>=2.8).",
+          "Frozen source text confirms configuration but does not prove test execution success."
+        ],
+        "unexamined": [
+          "Test files using pytest fixtures, markers, or plugins.",
+          "conftest.py files defining shared fixtures.",
+          "Specific pytest API usage that may be affected by version changes.",
+          "Impact of pytest-randomly and pytest-xdist compatibility with pytest 9.0.3."
+        ]
+      },
+      "semantic_review": "Range/plugin/config facts useful; xdist is declared directly in dev input, not established as transitive dependency of pytest; configuration-header ref insufficient for exclusions. Final removes xdist direction error."
+    },
+    {
+      "event_id": "event-011",
+      "stage": "investigate environment, installation and CI; separate declaration, installed binding, activation and observed exercise",
+      "mechanically_complete": false,
+      "candidate": {
+        "summary": "Examining test infrastructure, CI execution context, and pytest usage patterns in glyphsLib; distinguishing declaration from observed exercise.",
+        "claims": [
+          {
+            "statement": "Test directory structure includes builder tests with standard pytest naming conventions (_test.py suffix).",
+            "status": "asserted",
+            "evidence": [
+              {
+                "kind": "inventory",
+                "id": "inventory:099c5f36d61f76223c62"
+              }
+            ],
+            "missing_observation": ""
+          },
+          {
+            "statement": "Test package __init__.py files are empty, indicating no pytest fixture definitions at package level.",
+            "status": "asserted",
+            "evidence": [
+              {
+                "kind": "source_line",
+                "id": "target-base:tests/__init__.py:L1"
+              },
+              {
+                "kind": "source_line",
+                "id": "target-base:tests/builder/__init__.py:L1"
+              }
+            ],
+            "missing_observation": ""
+          },
+          {
+            "statement": "CI regression workflow executes pytest with xdist parallelism in a virtual environment.",
+            "status": "asserted",
+            "evidence": [
+              {
+                "kind": "source_line",
+                "id": "target-base:.github/workflows/regression.yml:L46"
+              }
+            ],
+            "missing_observation": ""
+          },
+          {
+            "statement": "conftest.py files defining shared pytest fixtures have not been examined.",
+            "status": "unresolved",
+            "evidence": [],
+            "missing_observation": "Content of conftest.py files in tests/ and subdirectories."
+          },
+          {
+            "statement": "Actual test execution results with pytest 9.0.3 are not available; only frozen source text exists.",
+            "status": "unresolved",
+            "evidence": [],
+            "missing_observation": "CI runtime observations for pytest 9.0.3 or fresh test execution logs."
+          },
+          {
+            "statement": "pytest-xdist and pytest-randomly compatibility with pytest 9.0.3 is not verified.",
+            "status": "unresolved",
+            "evidence": [],
+            "missing_observation": "Version constraints for pytest-xdist and pytest-randomly in requirements-dev.in or their changelogs."
+          }
+        ],
+        "conditions": [
+          "pytest is a development/testing dependency with minimum version 2.8, so update to 9.0.3 is within declared range.",
+          "Frozen source text confirms test structure and configuration but does not prove execution success.",
+          "CI observations are historical bounded captures; they do not confirm fresh pytest 9.0.3 execution.",
+          "Test files use standard pytest patterns but specific API usage (fixtures, markers, plugins) is unexamined."
+        ],
+        "unexamined": [
+          "conftest.py files defining shared fixtures and hooks.",
+          "Specific pytest fixture definitions and marker usage in test files.",
+          "pytest-xdist version constraints and compatibility with pytest 9.0.3.",
+          "pytest-randomly version constraints and compatibility with pytest 9.0.3.",
+          "CI runtime logs showing actual test execution results with pytest 9.0.3.",
+          "Potential breaking changes in pytest 9.0.3 affecting glyphsLib test suite."
+        ]
+      },
+      "semantic_review": "Rejected citations to nonexistentL1 in truly empty files; empty-file observation itself real but should use trial-event/read observation. Source regression command remains declaration; conftest gap later partly repaired."
+    },
+    {
+      "event_id": "event-014",
+      "stage": "challenge preliminary conclusions; retrieve counterevidence and identify decision-critical unknowns",
+      "mechanically_complete": false,
+      "candidate": {
+        "summary": "Retrieving counterevidence from conftest.py and pytest changelog source; identifying decision-critical unknowns around pytest API usage and version-specific changes.",
+        "claims": [
+          {
+            "statement": "conftest.py imports the `py` library for path manipulation via py.path.local, used in fixture definitions.",
+            "status": "asserted",
+            "evidence": [
+              {
+                "kind": "source_line",
+                "id": "target-base:tests/conftest.py:L1"
+              }
+            ],
+            "missing_observation": ""
+          },
+          {
+            "statement": "conftest.py defines pytest fixtures using @pytest.fixture decorator and pytest.importorskip for conditional imports.",
+            "status": "asserted",
+            "evidence": [
+              {
+                "kind": "source_line",
+                "id": "target-base:tests/conftest.py:L5"
+              },
+              {
+                "kind": "source_line",
+                "id": "target-base:tests/conftest.py:L12"
+              }
+            ],
+            "missing_observation": ""
+          },
+          {
+            "statement": "conftest.py implements pytest_addoption hook to add --run-regression-tests CLI option.",
+            "status": "asserted",
+            "evidence": [
+              {
+                "kind": "source_line",
+                "id": "target-base:tests/conftest.py:L16"
+              }
+            ],
+            "missing_observation": ""
+          },
+          {
+            "statement": "pytest changelog source document is referenced at https://github.com/pytest-dev/pytest/blob/main/doc/en/changelog.rst but has not been examined.",
+            "status": "unresolved",
+            "evidence": [
+              {
+                "kind": "source_line",
+                "id": "target-base:CHANGELOG.rst:L7"
+              }
+            ],
+            "missing_observation": "Content of pytest doc/en/changelog.rst for versions 9.0.2 and 9.0.3."
+          },
+          {
+            "statement": "Compatibility of py.path.local with pytest 9.0.3 is not verified; py library version constraints are unknown.",
+            "status": "unresolved",
+            "evidence": [],
+            "missing_observation": "Version constraint for py library in requirements-dev.in or its changelog."
+          },
+          {
+            "statement": "pytest.importorskip API stability between 9.0.2 and 9.0.3 is not verified.",
+            "status": "unresolved",
+            "evidence": [],
+            "missing_observation": "Changelog entries for pytest.importorskip changes in pytest 9.0.3."
+          },
+          {
+            "statement": "pytest_addoption hook API stability between 9.0.2 and 9.0.3 is not verified.",
+            "status": "unresolved",
+            "evidence": [],
+            "missing_observation": "Changelog entries for pytest_addoption changes in pytest 9.0.3."
+          }
+        ],
+        "conditions": [
+          "conftest.py uses standard pytest APIs (@pytest.fixture, pytest.importorskip, pytest_addoption) which are generally stable across minor versions.",
+          "The py library is imported but its version constraint and compatibility with pytest 9.0.3 are unknown.",
+          "Frozen source text confirms API usage patterns but does not prove execution success with pytest 9.0.3."
+        ],
+        "unexamined": [
+          "pytest doc/en/changelog.rst content for versions 9.0.2 and 9.0.3.",
+          "py library version constraints in requirements-dev.in or its changelog.",
+          "Specific test files using pytest fixtures, markers, or plugins that may be affected by API changes.",
+          "CI runtime logs showing actual test execution results with pytest 9.0.3.",
+          "pytest-xdist and pytest-randomly compatibility with pytest 9.0.3."
+        ]
+      },
+      "semantic_review": "Rejected wrong target source for pytest root pointer. Fixture/hook facts mostly correct, py use cited only import. Pointer names retained local path; external-only inference persists."
+    }
+  ],
+  "rejected_candidates": [
+    {
+      "event_id": "event-011",
+      "phase": "stage",
+      "error": {
+        "failed_event_id": "event-011",
+        "problem": "$.claims: invalid evidence references/obligations ['claim 1: nonexistent or undelivered target-base:tests/__init__.py:L1', 'claim 1: nonexistent or undelivered target-base:tests/builder/__init__.py:L1']",
+        "meaning_review": "not performed"
+      },
+      "candidate": {
+        "text": "{\n  \"summary\": \"Examining test infrastructure, CI execution context, and pytest usage patterns in glyphsLib; distinguishing declaration from observed exercise.\",\n  \"claims\": [\n    {\n      \"statement\": \"Test directory structure includes builder tests with standard pytest naming conventions (_test.py suffix).\",\n      \"status\": \"asserted\",\n      \"evidence\": [\n        {\n          \"kind\": \"inventory\",\n          \"id\": \"inventory:099c5f36d61f76223c62\"\n        }\n      ],\n      \"missing_observation\": \"\"\n    },\n    {\n      \"statement\": \"Test package __init__.py files are empty, indicating no pytest fixture definitions at package level.\",\n      \"status\": \"asserted\",\n      \"evidence\": [\n        {\n          \"kind\": \"source_line\",\n          \"id\": \"target-base:tests/__init__.py:L1\"\n        },\n        {\n          \"kind\": \"source_line\",\n          \"id\": \"target-base:tests/builder/__init__.py:L1\"\n        }\n      ],\n      \"missing_observation\": \"\"\n    },\n    {\n      \"statement\": \"CI regression workflow executes pytest with xdist parallelism in a virtual environment.\",\n      \"status\": \"asserted\",\n      \"evidence\": [\n        {\n          \"kind\": \"source_line\",\n          \"id\": \"target-base:.github/workflows/regression.yml:L46\"\n        }\n      ],\n      \"missing_observation\": \"\"\n    },\n    {\n      \"statement\": \"conftest.py files defining shared pytest fixtures have not been examined.\",\n      \"status\": \"unresolved\",\n      \"evidence\": [],\n      \"missing_observation\": \"Content of conftest.py files in tests/ and subdirectories.\"\n    },\n    {\n      \"statement\": \"Actual test execution results with pytest 9.0.3 are not available; only frozen source text exists.\",\n      \"status\": \"unresolved\",\n      \"evidence\": [],\n      \"missing_observation\": \"CI runtime observations for pytest 9.0.3 or fresh test execution logs.\"\n    },\n    {\n      \"statement\": \"pytest-xdist and pytest-randomly compatibility with pytest 9.0.3 is not verified.\",\n      \"status\": \"unresolved\",\n      \"evidence\": [],\n      \"missing_observation\": \"Version constraints for pytest-xdist and pytest-randomly in requirements-dev.in or their changelogs.\"\n    }\n  ],\n  \"conditions\": [\n    \"pytest is a development/testing dependency with minimum version 2.8, so update to 9.0.3 is within declared range.\",\n    \"Frozen source text confirms test structure and configuration but does not prove execution success.\",\n    \"CI observations are historical bounded captures; they do not confirm fresh pytest 9.0.3 execution.\",\n    \"Test files use standard pytest patterns but specific API usage (fixtures, markers, plugins) is unexamined.\"\n  ],\n  \"unexamined\": [\n    \"conftest.py files defining shared fixtures and hooks.\",\n    \"Specific pytest fixture definitions and marker usage in test files.\",\n    \"pytest-xdist version constraints and compatibility with pytest 9.0.3.\",\n    \"pytest-randomly version constraints and compatibility with pytest 9.0.3.\",\n    \"CI runtime logs showing actual test execution results with pytest 9.0.3.\",\n    \"Potential breaking changes in pytest 9.0.3 affecting glyphsLib test suite.\"\n  ]\n}",
+        "tool_calls": []
+      },
+      "semantic_review": "See stage_reviews for rejected stage. Qwen HTTPX terminal requested useful further searches but omitted required recommendation evidence; final recovery changed to unsupported conditional proceed. Qwen pytest note overstated full-job coverage/compatibility, whole-repository unchanged scope, and absent changelog; final preserves latter two errors."
+    },
+    {
+      "event_id": "event-014",
+      "phase": "stage",
+      "error": {
+        "failed_event_id": "event-014",
+        "problem": "$.claims: invalid evidence references/obligations ['claim 3: nonexistent or undelivered target-base:CHANGELOG.rst:L7']",
+        "meaning_review": "not performed"
+      },
+      "candidate": {
+        "text": "{\n  \"summary\": \"Retrieving counterevidence from conftest.py and pytest changelog source; identifying decision-critical unknowns around pytest API usage and version-specific changes.\",\n  \"claims\": [\n    {\n      \"statement\": \"conftest.py imports the `py` library for path manipulation via py.path.local, used in fixture definitions.\",\n      \"status\": \"asserted\",\n      \"evidence\": [\n        {\n          \"kind\": \"source_line\",\n          \"id\": \"target-base:tests/conftest.py:L1\"\n        }\n      ],\n      \"missing_observation\": \"\"\n    },\n    {\n      \"statement\": \"conftest.py defines pytest fixtures using @pytest.fixture decorator and pytest.importorskip for conditional imports.\",\n      \"status\": \"asserted\",\n      \"evidence\": [\n        {\n          \"kind\": \"source_line\",\n          \"id\": \"target-base:tests/conftest.py:L5\"\n        },\n        {\n          \"kind\": \"source_line\",\n          \"id\": \"target-base:tests/conftest.py:L12\"\n        }\n      ],\n      \"missing_observation\": \"\"\n    },\n    {\n      \"statement\": \"conftest.py implements pytest_addoption hook to add --run-regression-tests CLI option.\",\n      \"status\": \"asserted\",\n      \"evidence\": [\n        {\n          \"kind\": \"source_line\",\n          \"id\": \"target-base:tests/conftest.py:L16\"\n        }\n      ],\n      \"missing_observation\": \"\"\n    },\n    {\n      \"statement\": \"pytest changelog source document is referenced at https://github.com/pytest-dev/pytest/blob/main/doc/en/changelog.rst but has not been examined.\",\n      \"status\": \"unresolved\",\n      \"evidence\": [\n        {\n          \"kind\": \"source_line\",\n          \"id\": \"target-base:CHANGELOG.rst:L7\"\n        }\n      ],\n      \"missing_observation\": \"Content of pytest doc/en/changelog.rst for versions 9.0.2 and 9.0.3.\"\n    },\n    {\n      \"statement\": \"Compatibility of py.path.local with pytest 9.0.3 is not verified; py library version constraints are unknown.\",\n      \"status\": \"unresolved\",\n      \"evidence\": [],\n      \"missing_observation\": \"Version constraint for py library in requirements-dev.in or its changelog.\"\n    },\n    {\n      \"statement\": \"pytest.importorskip API stability between 9.0.2 and 9.0.3 is not verified.\",\n      \"status\": \"unresolved\",\n      \"evidence\": [],\n      \"missing_observation\": \"Changelog entries for pytest.importorskip changes in pytest 9.0.3.\"\n    },\n    {\n      \"statement\": \"pytest_addoption hook API stability between 9.0.2 and 9.0.3 is not verified.\",\n      \"status\": \"unresolved\",\n      \"evidence\": [],\n      \"missing_observation\": \"Changelog entries for pytest_addoption changes in pytest 9.0.3.\"\n    }\n  ],\n  \"conditions\": [\n    \"conftest.py uses standard pytest APIs (@pytest.fixture, pytest.importorskip, pytest_addoption) which are generally stable across minor versions.\",\n    \"The py library is imported but its version constraint and compatibility with pytest 9.0.3 are unknown.\",\n    \"Frozen source text confirms API usage patterns but does not prove execution success with pytest 9.0.3.\"\n  ],\n  \"unexamined\": [\n    \"pytest doc/en/changelog.rst content for versions 9.0.2 and 9.0.3.\",\n    \"py library version constraints in requirements-dev.in or its changelog.\",\n    \"Specific test files using pytest fixtures, markers, or plugins that may be affected by API changes.\",\n    \"CI runtime logs showing actual test execution results with pytest 9.0.3.\",\n    \"pytest-xdist and pytest-randomly compatibility with pytest 9.0.3.\"\n  ]\n}",
+        "tool_calls": []
+      },
+      "semantic_review": "See stage_reviews for rejected stage. Qwen HTTPX terminal requested useful further searches but omitted required recommendation evidence; final recovery changed to unsupported conditional proceed. Qwen pytest note overstated full-job coverage/compatibility, whole-repository unchanged scope, and absent changelog; final preserves latter two errors."
+    }
+  ],
+  "dimensions": {
+    "relevant_evidence_coverage": "Pins/range/plugins/root pointers/fixture+hook prefix; no actual release/tox/CI or regression skip/filter body.",
+    "interpretation_correctness": "Useful declarations/APIs; declaration exclusivity, py citation and external-only navigation weak.",
+    "unsupported_claims": {
+      "unsupported_review_units": 5,
+      "contradicted_review_units": 0
+    },
+    "scoped_negative_evidence": "See exact scope/mode/offset/completeness/capture omissions in scoped_zero_searches; every negative generalization is reviewed above. No global absence follows.",
+    "unresolved_quality": "Several real compatibility/fresh-run unknowns preserved, but recommendation ignores them.",
+    "stopping_quality": "Fixed15calls; two incomplete stages; declared complete despite feasible local changelog/CI reads.",
+    "recommendation_usefulness": "Range satisfaction/standard APIs do not establish safe upgrade; named missing proof does not constrain proceed.",
+    "reviewer_effort": {
+      "active_seconds": null,
+      "assistance": "AI-assisted",
+      "effort_proxy": {
+        "final_claims": 10,
+        "wide_review_units": 2,
+        "stage_candidates": 4,
+        "rejected_candidates": 2
+      },
+      "note": "Unmeasured active review time; proxy counts are not elapsed time, independent effort or a fairness metric."
+    },
+    "resource_cost": {
+      "counters": {
+        "calls": 15,
+        "input_tokens": 157862,
+        "output_tokens": 8085,
+        "reasoning_tokens": 2840,
+        "tool_operations": 17,
+        "source_bytes": 26963,
+        "corrections": 0
+      },
+      "elapsed_seconds": 977.907,
+      "usage_complete": true,
+      "packing_events": 0,
+      "interpretation_only_provided_packet_bytes": 0,
+      "initial_update_packet_accounting": "Shared initial packet is preserved above and accounted in measured request input tokens; interpretation-only provided evidence pages are zero. Observation-byte counter follows the frozen harness."
+    }
+  },
+  "recommendation_review": {
+    "semantic_support": "unsupported",
+    "reason": "Range satisfaction/standard APIs do not establish safe upgrade; named missing proof does not constrain proceed.",
+    "evidence_mechanics": [
+      {
+        "kind": "diff",
+        "id": "diff:cc6cc04777cecee34a9f",
+        "exists": true,
+        "delivered": true,
+        "referenced": true
+      },
+      {
+        "kind": "source_line",
+        "id": "target-base:requirements-dev.in:L5",
+        "exists": true,
+        "delivered": true,
+        "referenced": true
+      },
+      {
+        "kind": "source_line",
+        "id": "target-base:tests/conftest.py:L5",
+        "exists": true,
+        "delivered": true,
+        "referenced": true
+      }
+    ]
+  }
+}

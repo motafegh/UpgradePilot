@@ -1,0 +1,289 @@
+[
+  {
+    "model": "execution-broader-contract2-gemma12-20261007-compatible-tools",
+    "mechanical_qualification": "passed",
+    "scope": "Two-scopes, later follow-up, scoped literal zero search, delivered report references; not all-tool or semantic competence certification.",
+    "reports": [
+      {
+        "case_id": "interface-canary-1",
+        "report": {
+          "summary": "The Canary API is deprecated and its removal is planned for a future date. The target application currently utilizes the canary API via 'call_canary_api()'.",
+          "claims": [
+            {
+              "statement": "Canary API is deprecated.",
+              "status": "asserted",
+              "evidence": [
+                {
+                  "kind": "source_line",
+                  "id": "canary-upstream:notes.txt:L1"
+                }
+              ],
+              "missing_observation": ""
+            },
+            {
+              "statement": "Removal of the Canary API is planned for a later date.",
+              "status": "asserted",
+              "evidence": [
+                {
+                  "kind": "source_line",
+                  "id": "canary-upstream:notes.txt:L2"
+                }
+              ],
+              "missing_observation": ""
+            },
+            {
+              "statement": "The target application currently calls the canary API.",
+              "status": "asserted",
+              "evidence": [
+                {
+                  "kind": "source_line",
+                  "id": "canary-target:app.txt:L1"
+                }
+              ],
+              "missing_observation": ""
+            },
+            {
+              "statement": "The term 'ABSENT_CANARY_TERM' is not present in the target code.",
+              "status": "asserted",
+              "evidence": [
+                {
+                  "kind": "search_observation",
+                  "id": "search_observation:982b1751e8d52b08fb71"
+                }
+              ],
+              "missing_observation": ""
+            }
+          ],
+          "conditions": [],
+          "unexamined": [],
+          "recommendation": "Maintain the current implementation of 'call_canary_api()' for this update, while noting that a migration plan will be required when removal is enacted.",
+          "recommendation_status": "asserted",
+          "recommendation_evidence": [
+            {
+              "kind": "source_line",
+              "id": "canary-upstream:notes.txt:L2"
+            }
+          ],
+          "recommendation_missing_observation": "",
+          "stopping_reason": "Investigation complete; all required source checks and search queries performed."
+        }
+      },
+      {
+        "case_id": "interface-canary-2",
+        "report": {
+          "summary": "The Canary API is deprecated and its removal is planned for a future release. The target application currently utilizes this API via 'call_canary_api()'.",
+          "claims": [
+            {
+              "statement": "Canary API is deprecated.",
+              "status": "asserted",
+              "evidence": [
+                {
+                  "kind": "source_line",
+                  "id": "canary-upstream:notes.txt:L1"
+                }
+              ],
+              "missing_observation": ""
+            },
+            {
+              "statement": "Removal of the Canary API is planned for a later date.",
+              "status": "asserted",
+              "evidence": [
+                {
+                  "kind": "source_line",
+                  "id": "canary-upstream:notes.txt:L2"
+                }
+              ],
+              "missing_observation": ""
+            },
+            {
+              "statement": "The target application currently calls the Canary API.",
+              "status": "asserted",
+              "evidence": [
+                {
+                  "kind": "source_line",
+                  "id": "canary-target:app.txt:L1"
+                }
+              ],
+              "missing_observation": ""
+            },
+            {
+              "statement": "The term 'ABSENT_CANARY_TERM' is not present in the target source.",
+              "status": "asserted",
+              "evidence": [
+                {
+                  "kind": "search_observation",
+                  "id": "search_observation:d2cfd128ca30d5e94a21"
+                }
+              ],
+              "missing_observation": ""
+            }
+          ],
+          "conditions": [
+            "Canary API is deprecated in upstream notes.",
+            "Target code currently invokes call_canary_api()."
+          ],
+          "unexamined": [],
+          "recommendation": "Prepare for the removal of the Canary API by identifying a replacement or implementing a shim, as the current implementation relies on the deprecated 'call_canary_api()' function.",
+          "recommendation_status": "asserted",
+          "recommendation_evidence": [
+            {
+              "kind": "source_line",
+              "id": "canary-upstream:notes.txt:L1"
+            },
+            {
+              "kind": "source_line",
+              "id": "canary-target:app.txt:L1"
+            }
+          ],
+          "recommendation_missing_observation": "",
+          "stopping_reason": "All investigation steps required by the qualification were completed."
+        }
+      }
+    ],
+    "semantic_cautions": [
+      "Basic deprecation/later-removal/call facts cited correctly. Recommendation correctness is outside mechanical qualification.",
+      "Qwen canary reports add unsupported version/source-role associations and removal ambiguity despite future-removal statement; Gemma second sequence ends by host reserve rather than explicit finish. These do not invalidate selected mechanical checks or license semantic acceptance."
+    ]
+  },
+  {
+    "model": "execution-broader-contract2-qwen35-20261007-compatible-tools",
+    "mechanical_qualification": "passed",
+    "scope": "Two-scopes, later follow-up, scoped literal zero search, delivered report references; not all-tool or semantic competence certification.",
+    "reports": [
+      {
+        "case_id": "interface-canary-1",
+        "report": {
+          "summary": "The dependency update involves `canary` from v1 to v2. The upstream source (`canary-upstream`) notes that the 'Canary API' is deprecated and removal is planned later. The target code (`canary-target`) currently calls `call_canary_api()`. There is ambiguity regarding whether the API is fully removed in v2 or merely deprecated, as the upstream text only states a plan for future removal.",
+          "claims": [
+            {
+              "statement": "The upstream source notes that the 'Canary API' is deprecated.",
+              "status": "asserted",
+              "evidence": [
+                {
+                  "kind": "source_line",
+                  "id": "canary-upstream:notes.txt:L1"
+                }
+              ],
+              "missing_observation": ""
+            },
+            {
+              "statement": "The upstream source states that removal of the API is planned later.",
+              "status": "asserted",
+              "evidence": [
+                {
+                  "kind": "source_line",
+                  "id": "canary-upstream:notes.txt:L2"
+                }
+              ],
+              "missing_observation": ""
+            },
+            {
+              "statement": "The target code calls `call_canary_api()`.",
+              "status": "asserted",
+              "evidence": [
+                {
+                  "kind": "source_line",
+                  "id": "canary-target:app.txt:L1"
+                }
+              ],
+              "missing_observation": ""
+            },
+            {
+              "statement": "It is unresolved whether the API is removed in v2 or just deprecated.",
+              "status": "unresolved",
+              "evidence": [],
+              "missing_observation": "Source text from upstream confirming removal status in v2."
+            }
+          ],
+          "conditions": [
+            "Upstream notes indicate deprecation and planned removal of the Canary API.",
+            "Target code uses the deprecated `call_canary_api()` function."
+          ],
+          "unexamined": [
+            "Full list of paths in both sources.",
+            "Other files that might contain migration guides or explicit breaking change logs."
+          ],
+          "recommendation": "Investigate further to confirm if `call_canary_api` is removed or broken in v2, and update target code accordingly.",
+          "recommendation_status": "unresolved",
+          "recommendation_evidence": [],
+          "recommendation_missing_observation": "Source text from upstream confirming removal status in v2.",
+          "stopping_reason": "Investigation complete based on available sources."
+        }
+      },
+      {
+        "case_id": "interface-canary-2",
+        "report": {
+          "summary": "The upstream source (canary-v1) explicitly deprecates the API and plans for removal, while the target source (canary-v2) still contains a call to the deprecated function. The update packet indicates no code changes or diffs between versions in the captured scope.",
+          "claims": [
+            {
+              "statement": "The upstream canary API is deprecated with planned removal.",
+              "status": "asserted",
+              "evidence": [
+                {
+                  "kind": "source_line",
+                  "id": "canary-upstream:notes.txt:L1"
+                },
+                {
+                  "kind": "source_line",
+                  "id": "canary-upstream:notes.txt:L2"
+                }
+              ],
+              "missing_observation": ""
+            },
+            {
+              "statement": "The target application code still invokes the deprecated canary API.",
+              "status": "asserted",
+              "evidence": [
+                {
+                  "kind": "source_line",
+                  "id": "canary-target:app.txt:L1"
+                }
+              ],
+              "missing_observation": ""
+            },
+            {
+              "statement": "No code changes or diffs were detected in the update packet between v1 and v2.",
+              "status": "inferred",
+              "evidence": [
+                {
+                  "kind": "update_packet",
+                  "id": "update_packet:6422bafe63e4f08eda60"
+                }
+              ],
+              "missing_observation": ""
+            },
+            {
+              "statement": "No migration documentation or replacement API was found in the available sources.",
+              "status": "unresolved",
+              "evidence": [],
+              "missing_observation": "Migration guide or alternative function name"
+            }
+          ],
+          "conditions": [
+            "The upstream source contains a deprecation notice but no code removal yet.",
+            "The target source retains the deprecated call without visible changes in v2."
+          ],
+          "unexamined": [],
+          "recommendation": "Proceed with caution; while no breaking code change is visible in v2, the upstream deprecation warning suggests potential future instability. Investigate external documentation for migration paths before relying on this version long-term.",
+          "recommendation_status": "inferred",
+          "recommendation_evidence": [
+            {
+              "kind": "source_line",
+              "id": "canary-upstream:notes.txt:L1"
+            },
+            {
+              "kind": "update_packet",
+              "id": "update_packet:6422bafe63e4f08eda60"
+            }
+          ],
+          "recommendation_missing_observation": "",
+          "stopping_reason": "Investigation complete based on available sources and update packet."
+        }
+      }
+    ],
+    "semantic_cautions": [
+      "Basic deprecation/later-removal/call facts cited correctly. Recommendation correctness is outside mechanical qualification.",
+      "Qwen canary reports add unsupported version/source-role associations and removal ambiguity despite future-removal statement; Gemma second sequence ends by host reserve rather than explicit finish. These do not invalidate selected mechanical checks or license semantic acceptance."
+    ]
+  }
+]

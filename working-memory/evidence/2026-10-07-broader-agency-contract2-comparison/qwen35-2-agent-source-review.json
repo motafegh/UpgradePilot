@@ -1,0 +1,968 @@
+{
+  "review_id": "qwen35-2-agent",
+  "case_id": "development-glyphslib-pytest-stopping",
+  "method": "agent",
+  "model": "qwen35",
+  "profile": "contract2-known-fixed-agent-v1",
+  "assistance": "AI-assisted known-case source adjudication; not blind or independent human acceptance",
+  "private_artifact_sha256": "1c1cb574062168b69257dd7dfc097daa41aaf8c771fafa828bc9e4ceea1d406d",
+  "corpus_sha256": "8c8ef1a31b2c009d83803b8c94ce9a33af201de4ae49513e0a978f186d237101",
+  "source_inventory": [
+    {
+      "source_id": "target-base",
+      "repository": "googlefonts/glyphsLib",
+      "revision": "044f19e4b1437bfc4343592486f4e3c6040306d9",
+      "file_count": 113,
+      "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+      "omitted_file_count": 25572
+    },
+    {
+      "source_id": "target-proposed",
+      "repository": "googlefonts/glyphsLib",
+      "revision": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+      "file_count": 113,
+      "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+      "omitted_file_count": 25572
+    },
+    {
+      "source_id": "pytest-old",
+      "repository": "pytest-dev/pytest",
+      "revision": "3d10b5148e03eb82b3ee29181dbdc73cf82699e2",
+      "file_count": 572,
+      "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+      "omitted_file_count": 45
+    },
+    {
+      "source_id": "pytest-new",
+      "repository": "pytest-dev/pytest",
+      "revision": "a7d58d7a21b78581e636bbbdea13c66ad1657c1e",
+      "file_count": 573,
+      "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+      "omitted_file_count": 46
+    },
+    {
+      "source_id": "ci-observations",
+      "repository": "googlefonts/glyphsLib",
+      "revision": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+      "file_count": 1,
+      "scope": "historical bounded public CI captures, not full logs or resolved environments"
+    }
+  ],
+  "review_outcome": "REVISE",
+  "advice_ready": false,
+  "mechanically_valid_final": true,
+  "report": {
+    "summary": "Investigation of pytest dependency update from 9.0.2 to 9.0.3 in googlefonts/glyphsLib.",
+    "claims": [
+      {
+        "statement": "The proposed revision updates the pinned version of pytest from 9.0.2 to 9.0.3 in requirements-dev.txt.",
+        "status": "asserted",
+        "evidence": [
+          {
+            "kind": "source_line",
+            "id": "target-base:requirements-dev.txt:L65"
+          },
+          {
+            "kind": "source_line",
+            "id": "target-proposed:requirements-dev.txt:L65"
+          }
+        ],
+        "missing_observation": ""
+      },
+      {
+        "statement": "CI observations for the proposed revision show successful test execution across Python 3.10 and 3.14 environments.",
+        "status": "asserted",
+        "evidence": [
+          {
+            "kind": "ci_runtime_observation",
+            "id": "ci_runtime_observation:ff29cbf4af4fb25490da"
+          },
+          {
+            "kind": "ci_runtime_observation",
+            "id": "ci_runtime_observation:e47a9671e5fae896ff2b"
+          }
+        ],
+        "missing_observation": ""
+      },
+      {
+        "statement": "No other files in the target repository were modified between base and proposed revisions.",
+        "status": "asserted",
+        "evidence": [
+          {
+            "kind": "update_packet",
+            "id": "update_packet:f7ff472a76ff2fd85885"
+          }
+        ],
+        "missing_observation": ""
+      },
+      {
+        "statement": "The specific changelog for pytest 9.0.3 is not available in the frozen source.",
+        "status": "unresolved",
+        "evidence": [],
+        "missing_observation": "Content of pytest CHANGELOG.rst or external documentation detailing changes between 9.0.2 and 9.0.3."
+      }
+    ],
+    "conditions": [
+      "CI observations are historical captures, not fresh execution evidence.",
+      "Frozen source text is not an installed runtime environment."
+    ],
+    "unexamined": [],
+    "recommendation": "Accept the update as it appears safe based on historical CI success and minimal scope of change.",
+    "recommendation_status": "inferred",
+    "recommendation_evidence": [
+      {
+        "kind": "ci_runtime_observation",
+        "id": "ci_runtime_observation:ff29cbf4af4fb25490da"
+      },
+      {
+        "kind": "source_line",
+        "id": "target-proposed:requirements-dev.txt:L65"
+      }
+    ],
+    "recommendation_missing_observation": "",
+    "stopping_reason": "Investigation complete; sufficient evidence for technical feasibility assessment."
+  },
+  "claim_review": [
+    {
+      "id": "claim-0",
+      "surface": "claims",
+      "statement": "The proposed revision updates the pinned version of pytest from 9.0.2 to 9.0.3 in requirements-dev.txt.",
+      "model_status": "asserted",
+      "evidence": [
+        {
+          "kind": "source_line",
+          "id": "target-base:requirements-dev.txt:L65",
+          "exists": true,
+          "delivered": true,
+          "referenced": true
+        },
+        {
+          "kind": "source_line",
+          "id": "target-proposed:requirements-dev.txt:L65",
+          "exists": true,
+          "delivered": true,
+          "referenced": true
+        }
+      ],
+      "semantic_support": "supported",
+      "reason": "Both exactL65 pins read."
+    },
+    {
+      "id": "claim-1",
+      "surface": "claims",
+      "statement": "CI observations for the proposed revision show successful test execution across Python 3.10 and 3.14 environments.",
+      "model_status": "asserted",
+      "evidence": [
+        {
+          "kind": "ci_runtime_observation",
+          "id": "ci_runtime_observation:ff29cbf4af4fb25490da",
+          "exists": true,
+          "delivered": true,
+          "referenced": true
+        },
+        {
+          "kind": "ci_runtime_observation",
+          "id": "ci_runtime_observation:e47a9671e5fae896ff2b",
+          "exists": true,
+          "delivered": true,
+          "referenced": true
+        }
+      ],
+      "semantic_support": "supported",
+      "reason": "Delivered bounded historical capture records3.10 Ubuntu/Windows and3.14Ubuntu successes. Does not prove full matrix, installed pytest identity, or fresh execution."
+    },
+    {
+      "id": "claim-2",
+      "surface": "claims",
+      "statement": "No other files in the target repository were modified between base and proposed revisions.",
+      "model_status": "asserted",
+      "evidence": [
+        {
+          "kind": "update_packet",
+          "id": "update_packet:f7ff472a76ff2fd85885",
+          "exists": true,
+          "delivered": true,
+          "referenced": true
+        }
+      ],
+      "semantic_support": "scope_overreach",
+      "reason": "Packet changes only one retained path; omitted target paths prevent repository-wide no-other-change assertion."
+    },
+    {
+      "id": "claim-3",
+      "surface": "claims",
+      "statement": "The specific changelog for pytest 9.0.3 is not available in the frozen source.",
+      "model_status": "unresolved",
+      "evidence": [],
+      "semantic_support": "contradicted",
+      "reason": "Root pointerL7 names doc/en/changelog.rst, retained and readable. It was not examined, not unavailable."
+    },
+    {
+      "id": "wide-0",
+      "surface": "recommendation/stopping",
+      "semantic_support": "unsupported",
+      "reason": "Partial historical green matrix/minimal retained diff does not establish safe upgrade/complete feasibility; false source absence unaddressed."
+    }
+  ],
+  "unsupported_review_units": 2,
+  "contradicted_review_units": 1,
+  "counting_basis": "Each authored claim or cross-surface review unit counted once; overlapping repeated propositions are identifiable by surface/reason. These descriptive counts are not weighted scores or mutually independent errors.",
+  "obligation_review": [
+    {
+      "id": "P1",
+      "obligation": "Exact pin transition, constraints and pytest plugins",
+      "retained_evidence": [
+        {
+          "source_id": "target-base",
+          "path": "requirements-dev.txt",
+          "first_line": 65,
+          "last_line": 73,
+          "source_text_sha256": "f9a866625e2a82fe09b4c0ad646ea1d5ab48398f20e9f7f7af322e7443e74606",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [
+            "target-base:requirements-dev.txt:L65",
+            "target-base:requirements-dev.txt:L66",
+            "target-base:requirements-dev.txt:L67",
+            "target-base:requirements-dev.txt:L68",
+            "target-base:requirements-dev.txt:L69",
+            "target-base:requirements-dev.txt:L70",
+            "target-base:requirements-dev.txt:L71",
+            "target-base:requirements-dev.txt:L72",
+            "target-base:requirements-dev.txt:L73"
+          ],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [
+            "target-base:requirements-dev.txt:L65"
+          ],
+          "referenced_identical_target_revision_lines": []
+        },
+        {
+          "source_id": "target-proposed",
+          "path": "requirements-dev.txt",
+          "first_line": 65,
+          "last_line": 73,
+          "source_text_sha256": "d61c580da79c07296f782ce579bc16fac1216abd25c6ca40ec51653457b5fe30",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [
+            "target-proposed:requirements-dev.txt:L65",
+            "target-proposed:requirements-dev.txt:L66",
+            "target-proposed:requirements-dev.txt:L67",
+            "target-proposed:requirements-dev.txt:L68",
+            "target-proposed:requirements-dev.txt:L69",
+            "target-proposed:requirements-dev.txt:L70",
+            "target-proposed:requirements-dev.txt:L71",
+            "target-proposed:requirements-dev.txt:L72",
+            "target-proposed:requirements-dev.txt:L73"
+          ],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [
+            "target-proposed:requirements-dev.txt:L65"
+          ],
+          "referenced_identical_target_revision_lines": []
+        },
+        {
+          "source_id": "target-proposed",
+          "path": "requirements-dev.in",
+          "first_line": 5,
+          "last_line": 7,
+          "source_text_sha256": "dcb89bbd6ff0be5f83d76a97df4b79f6f4b283b9a84e33b5f3bd8faeefc9cc71",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [
+            "target-proposed:requirements-dev.in:L5",
+            "target-proposed:requirements-dev.in:L6",
+            "target-proposed:requirements-dev.in:L7"
+          ],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        }
+      ],
+      "semantic_support_review": "Both pins/generated plugin pins delivered; plugin facts not used in final assessment.",
+      "applicable": true,
+      "delivery_note": "Line overlap is mechanical, not adequate semantic coverage. Initial update packet below separately supplies diff facts and unchanged context; source-line claim inspection also records packet delivery."
+    },
+    {
+      "id": "P2",
+      "obligation": "Follow root changelog pointer and identify 9.0.3 release interval",
+      "retained_evidence": [
+        {
+          "source_id": "pytest-new",
+          "path": "CHANGELOG.rst",
+          "first_line": 7,
+          "last_line": 7,
+          "source_text_sha256": "680460d28332abd6056df18288cd966fb86504fc4a9db94a1201b39f859aa423",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [
+            "pytest-new:CHANGELOG.rst:L7"
+          ],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        },
+        {
+          "source_id": "pytest-new",
+          "path": "doc/en/changelog.rst",
+          "first_line": 34,
+          "last_line": 38,
+          "source_text_sha256": "438ddceae52618648a990cf939e0670583150996d34d4e5f706bf7d4edeadd40",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        }
+      ],
+      "semantic_support_review": "Root URL names local retained path; not followed, falsely unavailable.",
+      "applicable": true,
+      "delivery_note": "Line overlap is mechanical, not adequate semantic coverage. Initial update packet below separately supplies diff facts and unchanged context; source-line claim inspection also records packet delivery."
+    },
+    {
+      "id": "P3",
+      "obligation": "Release propositions incl approx, conftest disabling, exception groups, subTest and security fix correctly associated",
+      "retained_evidence": [
+        {
+          "source_id": "pytest-new",
+          "path": "doc/en/changelog.rst",
+          "first_line": 40,
+          "last_line": 56,
+          "source_text_sha256": "438ddceae52618648a990cf939e0670583150996d34d4e5f706bf7d4edeadd40",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        }
+      ],
+      "semantic_support_review": "Not read.",
+      "applicable": true,
+      "delivery_note": "Line overlap is mechanical, not adequate semantic coverage. Initial update packet below separately supplies diff facts and unchanged context; source-line claim inspection also records packet delivery."
+    },
+    {
+      "id": "P4",
+      "obligation": "Target pytest use, regression opt-in and skip/filter activation",
+      "retained_evidence": [
+        {
+          "source_id": "target-proposed",
+          "path": "tests/conftest.py",
+          "first_line": 1,
+          "last_line": 39,
+          "source_text_sha256": "1603b4c4e29969164416227e8442d524f5ce9095e04d7c0b522e236a7643f8d8",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        },
+        {
+          "source_id": "target-proposed",
+          "path": "tests/regression_test.py",
+          "first_line": 58,
+          "last_line": 80,
+          "source_text_sha256": "6fd4b6f17d912886bbe733b588a94cd3f69d42477ffb0c9ef4b13edd48a8aaf6",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        }
+      ],
+      "semantic_support_review": "Regression command preview only.",
+      "applicable": true,
+      "delivery_note": "Line overlap is mechanical, not adequate semantic coverage. Initial update packet below separately supplies diff facts and unchanged context; source-line claim inspection also records packet delivery."
+    },
+    {
+      "id": "P5",
+      "obligation": "tox installation and pytest execution, environment selection",
+      "retained_evidence": [
+        {
+          "source_id": "target-proposed",
+          "path": "tox.ini",
+          "first_line": 1,
+          "last_line": 15,
+          "source_text_sha256": "4280f8ed2297829f56bd1a4f947fdda295ff7691a753e914ef236df02a5654d9",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        },
+        {
+          "source_id": "target-proposed",
+          "path": "pyproject.toml",
+          "first_line": 4,
+          "last_line": 4,
+          "source_text_sha256": "6c04496d766f15e0a70b1c0cc2d8a81afd61d2ce3456cbf2ab22ba7282f7317f",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [
+            "target-proposed:pyproject.toml:L4"
+          ],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        }
+      ],
+      "semantic_support_review": "Config preview only, tox not read.",
+      "applicable": true,
+      "delivery_note": "Line overlap is mechanical, not adequate semantic coverage. Initial update packet below separately supplies diff facts and unchanged context; source-line claim inspection also records packet delivery."
+    },
+    {
+      "id": "P6",
+      "obligation": "Workflow ordinary matrix and regression reinstall/run commands",
+      "retained_evidence": [
+        {
+          "source_id": "target-proposed",
+          "path": ".github/workflows/ci.yml",
+          "first_line": 27,
+          "last_line": 38,
+          "source_text_sha256": "af09f984d02ffbf27b394eed97269c2b6ac779e7a712d89adf3aa38e48058811",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        },
+        {
+          "source_id": "target-proposed",
+          "path": ".github/workflows/regression.yml",
+          "first_line": 28,
+          "last_line": 46,
+          "source_text_sha256": "8ce672e72f10d1f7cfbe8727cf5808d6b0263fb3b4350f9bfc1f9fdfff4b3d89",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [
+            "target-proposed:.github/workflows/regression.yml:L46"
+          ],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        }
+      ],
+      "semantic_support_review": "Single regression run preview only.",
+      "applicable": true,
+      "delivery_note": "Line overlap is mechanical, not adequate semantic coverage. Initial update packet below separately supplies diff facts and unchanged context; source-line claim inspection also records packet delivery."
+    },
+    {
+      "id": "P7",
+      "obligation": "Captured exact-head ordinary matrix successes and separate regression success",
+      "retained_evidence": [
+        {
+          "source_id": "ci-observations",
+          "path": "ev-005-ci-results.json",
+          "first_line": 1,
+          "last_line": 69,
+          "source_text_sha256": "63d7f897e15d8c5b4b3f9478876182326812c17594b103bce2329bd182d7bf78",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [
+            "ci-observations:ev-005-ci-results.json:L1",
+            "ci-observations:ev-005-ci-results.json:L2",
+            "ci-observations:ev-005-ci-results.json:L3",
+            "ci-observations:ev-005-ci-results.json:L4",
+            "ci-observations:ev-005-ci-results.json:L5",
+            "ci-observations:ev-005-ci-results.json:L6",
+            "ci-observations:ev-005-ci-results.json:L7",
+            "ci-observations:ev-005-ci-results.json:L8",
+            "ci-observations:ev-005-ci-results.json:L9",
+            "ci-observations:ev-005-ci-results.json:L10",
+            "ci-observations:ev-005-ci-results.json:L11",
+            "ci-observations:ev-005-ci-results.json:L12",
+            "ci-observations:ev-005-ci-results.json:L13",
+            "ci-observations:ev-005-ci-results.json:L14",
+            "ci-observations:ev-005-ci-results.json:L15",
+            "ci-observations:ev-005-ci-results.json:L16",
+            "ci-observations:ev-005-ci-results.json:L17",
+            "ci-observations:ev-005-ci-results.json:L18",
+            "ci-observations:ev-005-ci-results.json:L19",
+            "ci-observations:ev-005-ci-results.json:L20",
+            "ci-observations:ev-005-ci-results.json:L21",
+            "ci-observations:ev-005-ci-results.json:L22",
+            "ci-observations:ev-005-ci-results.json:L23",
+            "ci-observations:ev-005-ci-results.json:L24",
+            "ci-observations:ev-005-ci-results.json:L25",
+            "ci-observations:ev-005-ci-results.json:L26",
+            "ci-observations:ev-005-ci-results.json:L27",
+            "ci-observations:ev-005-ci-results.json:L28",
+            "ci-observations:ev-005-ci-results.json:L29",
+            "ci-observations:ev-005-ci-results.json:L30",
+            "ci-observations:ev-005-ci-results.json:L31",
+            "ci-observations:ev-005-ci-results.json:L32",
+            "ci-observations:ev-005-ci-results.json:L33",
+            "ci-observations:ev-005-ci-results.json:L34",
+            "ci-observations:ev-005-ci-results.json:L35",
+            "ci-observations:ev-005-ci-results.json:L36",
+            "ci-observations:ev-005-ci-results.json:L37",
+            "ci-observations:ev-005-ci-results.json:L38",
+            "ci-observations:ev-005-ci-results.json:L39",
+            "ci-observations:ev-005-ci-results.json:L40"
+          ],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        }
+      ],
+      "semantic_support_review": "L1-40 covers partial ordinary matrix;3.14Windows/regression not delivered.",
+      "applicable": true,
+      "delivery_note": "Line overlap is mechanical, not adequate semantic coverage. Initial update packet below separately supplies diff facts and unchanged context; source-line claim inspection also records packet delivery."
+    },
+    {
+      "id": "P8",
+      "obligation": "Do not infer installed pytest identity, whole compatibility or regression Python/OS binding from green capture",
+      "retained_evidence": [
+        {
+          "source_id": "ci-observations",
+          "path": "ev-005-ci-results.json",
+          "first_line": 1,
+          "last_line": 69,
+          "source_text_sha256": "63d7f897e15d8c5b4b3f9478876182326812c17594b103bce2329bd182d7bf78",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [
+            "ci-observations:ev-005-ci-results.json:L1",
+            "ci-observations:ev-005-ci-results.json:L2",
+            "ci-observations:ev-005-ci-results.json:L3",
+            "ci-observations:ev-005-ci-results.json:L4",
+            "ci-observations:ev-005-ci-results.json:L5",
+            "ci-observations:ev-005-ci-results.json:L6",
+            "ci-observations:ev-005-ci-results.json:L7",
+            "ci-observations:ev-005-ci-results.json:L8",
+            "ci-observations:ev-005-ci-results.json:L9",
+            "ci-observations:ev-005-ci-results.json:L10",
+            "ci-observations:ev-005-ci-results.json:L11",
+            "ci-observations:ev-005-ci-results.json:L12",
+            "ci-observations:ev-005-ci-results.json:L13",
+            "ci-observations:ev-005-ci-results.json:L14",
+            "ci-observations:ev-005-ci-results.json:L15",
+            "ci-observations:ev-005-ci-results.json:L16",
+            "ci-observations:ev-005-ci-results.json:L17",
+            "ci-observations:ev-005-ci-results.json:L18",
+            "ci-observations:ev-005-ci-results.json:L19",
+            "ci-observations:ev-005-ci-results.json:L20",
+            "ci-observations:ev-005-ci-results.json:L21",
+            "ci-observations:ev-005-ci-results.json:L22",
+            "ci-observations:ev-005-ci-results.json:L23",
+            "ci-observations:ev-005-ci-results.json:L24",
+            "ci-observations:ev-005-ci-results.json:L25",
+            "ci-observations:ev-005-ci-results.json:L26",
+            "ci-observations:ev-005-ci-results.json:L27",
+            "ci-observations:ev-005-ci-results.json:L28",
+            "ci-observations:ev-005-ci-results.json:L29",
+            "ci-observations:ev-005-ci-results.json:L30",
+            "ci-observations:ev-005-ci-results.json:L31",
+            "ci-observations:ev-005-ci-results.json:L32",
+            "ci-observations:ev-005-ci-results.json:L33",
+            "ci-observations:ev-005-ci-results.json:L34",
+            "ci-observations:ev-005-ci-results.json:L35",
+            "ci-observations:ev-005-ci-results.json:L36",
+            "ci-observations:ev-005-ci-results.json:L37",
+            "ci-observations:ev-005-ci-results.json:L38",
+            "ci-observations:ev-005-ci-results.json:L39",
+            "ci-observations:ev-005-ci-results.json:L40"
+          ],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        }
+      ],
+      "semantic_support_review": "Correct historical/not-installed conditions; green capture still drives safe accept without binding.",
+      "applicable": true,
+      "delivery_note": "Line overlap is mechanical, not adequate semantic coverage. Initial update packet below separately supplies diff facts and unchanged context; source-line claim inspection also records packet delivery."
+    },
+    {
+      "id": "P9",
+      "obligation": "Whole public API file equality if claimed; unchanged initializer alone is not compatibility proof",
+      "retained_evidence": [
+        {
+          "source_id": "pytest-old",
+          "path": "src/pytest/__init__.py",
+          "first_line": 1,
+          "last_line": 185,
+          "source_text_sha256": "7be7a1e2218dc59a19d1ad131e4abe21172a295087efc72898938248782e8766",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        },
+        {
+          "source_id": "pytest-new",
+          "path": "src/pytest/__init__.py",
+          "first_line": 1,
+          "last_line": 185,
+          "source_text_sha256": "7be7a1e2218dc59a19d1ad131e4abe21172a295087efc72898938248782e8766",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        }
+      ],
+      "semantic_support_review": "Conditional obligation: no whole public API equality was claimed; not required coverage in this report.",
+      "applicable": false,
+      "delivery_note": "Line overlap is mechanical, not adequate semantic coverage. Initial update packet below separately supplies diff facts and unchanged context; source-line claim inspection also records packet delivery."
+    }
+  ],
+  "initial_update_packet": {
+    "corpus_sha256": "8c8ef1a31b2c009d83803b8c94ce9a33af201de4ae49513e0a978f186d237101",
+    "basis": "all retained base/head text paths; capture omissions remain in inventory",
+    "changed_paths": [
+      "requirements-dev.txt"
+    ],
+    "diffs": [
+      {
+        "path": "requirements-dev.txt",
+        "diff": "--- target-base/requirements-dev.txt\n\n+++ target-proposed/requirements-dev.txt\n\n@@ -63,5 +63,5 @@\n\n pygments==2.19.2\n     # via pytest\n-pytest==9.0.2\n+pytest==9.0.3\n     # via\n     #   -r requirements-dev.in",
+        "evidence_refs": [
+          {
+            "kind": "diff",
+            "id": "diff:cc6cc04777cecee34a9f"
+          }
+        ]
+      }
+    ],
+    "omissions": [],
+    "evidence_refs": [
+      {
+        "kind": "update_packet",
+        "id": "update_packet:f7ff472a76ff2fd85885"
+      }
+    ]
+  },
+  "delivered_complete_source_lines": [
+    "ci-observations:ev-005-ci-results.json:L1",
+    "ci-observations:ev-005-ci-results.json:L10",
+    "ci-observations:ev-005-ci-results.json:L11",
+    "ci-observations:ev-005-ci-results.json:L12",
+    "ci-observations:ev-005-ci-results.json:L13",
+    "ci-observations:ev-005-ci-results.json:L14",
+    "ci-observations:ev-005-ci-results.json:L15",
+    "ci-observations:ev-005-ci-results.json:L16",
+    "ci-observations:ev-005-ci-results.json:L17",
+    "ci-observations:ev-005-ci-results.json:L18",
+    "ci-observations:ev-005-ci-results.json:L19",
+    "ci-observations:ev-005-ci-results.json:L2",
+    "ci-observations:ev-005-ci-results.json:L20",
+    "ci-observations:ev-005-ci-results.json:L21",
+    "ci-observations:ev-005-ci-results.json:L22",
+    "ci-observations:ev-005-ci-results.json:L23",
+    "ci-observations:ev-005-ci-results.json:L24",
+    "ci-observations:ev-005-ci-results.json:L25",
+    "ci-observations:ev-005-ci-results.json:L26",
+    "ci-observations:ev-005-ci-results.json:L27",
+    "ci-observations:ev-005-ci-results.json:L28",
+    "ci-observations:ev-005-ci-results.json:L29",
+    "ci-observations:ev-005-ci-results.json:L3",
+    "ci-observations:ev-005-ci-results.json:L30",
+    "ci-observations:ev-005-ci-results.json:L31",
+    "ci-observations:ev-005-ci-results.json:L32",
+    "ci-observations:ev-005-ci-results.json:L33",
+    "ci-observations:ev-005-ci-results.json:L34",
+    "ci-observations:ev-005-ci-results.json:L35",
+    "ci-observations:ev-005-ci-results.json:L36",
+    "ci-observations:ev-005-ci-results.json:L37",
+    "ci-observations:ev-005-ci-results.json:L38",
+    "ci-observations:ev-005-ci-results.json:L39",
+    "ci-observations:ev-005-ci-results.json:L4",
+    "ci-observations:ev-005-ci-results.json:L40",
+    "ci-observations:ev-005-ci-results.json:L5",
+    "ci-observations:ev-005-ci-results.json:L6",
+    "ci-observations:ev-005-ci-results.json:L7",
+    "ci-observations:ev-005-ci-results.json:L8",
+    "ci-observations:ev-005-ci-results.json:L9",
+    "pytest-new:CHANGELOG.rst:L1",
+    "pytest-new:CHANGELOG.rst:L2",
+    "pytest-new:CHANGELOG.rst:L3",
+    "pytest-new:CHANGELOG.rst:L4",
+    "pytest-new:CHANGELOG.rst:L5",
+    "pytest-new:CHANGELOG.rst:L6",
+    "pytest-new:CHANGELOG.rst:L7",
+    "pytest-old:CHANGELOG.rst:L1",
+    "pytest-old:CHANGELOG.rst:L2",
+    "pytest-old:CHANGELOG.rst:L3",
+    "pytest-old:CHANGELOG.rst:L4",
+    "pytest-old:CHANGELOG.rst:L5",
+    "pytest-old:CHANGELOG.rst:L6",
+    "pytest-old:CHANGELOG.rst:L7",
+    "target-base:requirements-dev.txt:L60",
+    "target-base:requirements-dev.txt:L61",
+    "target-base:requirements-dev.txt:L62",
+    "target-base:requirements-dev.txt:L63",
+    "target-base:requirements-dev.txt:L64",
+    "target-base:requirements-dev.txt:L65",
+    "target-base:requirements-dev.txt:L66",
+    "target-base:requirements-dev.txt:L67",
+    "target-base:requirements-dev.txt:L68",
+    "target-base:requirements-dev.txt:L69",
+    "target-base:requirements-dev.txt:L70",
+    "target-base:requirements-dev.txt:L71",
+    "target-base:requirements-dev.txt:L72",
+    "target-base:requirements-dev.txt:L73",
+    "target-base:requirements-dev.txt:L74",
+    "target-proposed:.github/workflows/regression.yml:L46",
+    "target-proposed:pyproject.toml:L4",
+    "target-proposed:requirements-dev.in:L5",
+    "target-proposed:requirements-dev.in:L6",
+    "target-proposed:requirements-dev.in:L7",
+    "target-proposed:requirements-dev.txt:L22",
+    "target-proposed:requirements-dev.txt:L60",
+    "target-proposed:requirements-dev.txt:L61",
+    "target-proposed:requirements-dev.txt:L62",
+    "target-proposed:requirements-dev.txt:L63",
+    "target-proposed:requirements-dev.txt:L64",
+    "target-proposed:requirements-dev.txt:L65",
+    "target-proposed:requirements-dev.txt:L66",
+    "target-proposed:requirements-dev.txt:L67",
+    "target-proposed:requirements-dev.txt:L68",
+    "target-proposed:requirements-dev.txt:L69",
+    "target-proposed:requirements-dev.txt:L70",
+    "target-proposed:requirements-dev.txt:L71",
+    "target-proposed:requirements-dev.txt:L72",
+    "target-proposed:requirements-dev.txt:L73",
+    "target-proposed:requirements-dev.txt:L74"
+  ],
+  "scoped_zero_searches": [],
+  "tool_operations": [
+    {
+      "event_id": "event-001",
+      "tool": "list_sources",
+      "arguments": {},
+      "delivered": true
+    },
+    {
+      "event_id": "event-002",
+      "tool": "read_source",
+      "arguments": {
+        "source_id": "target-base",
+        "path": "requirements-dev.txt",
+        "start_line": 60,
+        "line_count": 15
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-002",
+      "tool": "read_source",
+      "arguments": {
+        "source_id": "target-proposed",
+        "path": "requirements-dev.txt",
+        "start_line": 60,
+        "line_count": 15
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-003",
+      "tool": "list_paths",
+      "arguments": {
+        "source_id": "pytest-old",
+        "prefix": "",
+        "offset": 0
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-004",
+      "tool": "read_source",
+      "arguments": {
+        "source_id": "pytest-old",
+        "path": "CHANGELOG.rst",
+        "start_line": 1,
+        "line_count": 50
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-004",
+      "tool": "read_source",
+      "arguments": {
+        "source_id": "pytest-new",
+        "path": "CHANGELOG.rst",
+        "start_line": 1,
+        "line_count": 50
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-005",
+      "tool": "read_source",
+      "arguments": {
+        "source_id": "pytest-old",
+        "path": "CHANGELOG.rst",
+        "start_line": 1,
+        "line_count": 20
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-005",
+      "tool": "read_source",
+      "arguments": {
+        "source_id": "pytest-new",
+        "path": "CHANGELOG.rst",
+        "start_line": 1,
+        "line_count": 20
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-006",
+      "tool": "search_sources",
+      "arguments": {
+        "query": "pytest",
+        "source_id": "target-proposed",
+        "path_prefix": "",
+        "offset": 0
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-007",
+      "tool": "list_paths",
+      "arguments": {
+        "source_id": "ci-observations",
+        "prefix": "",
+        "offset": 0
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-008",
+      "tool": "read_observation",
+      "arguments": {
+        "source_id": "ci-observations",
+        "path": "ev-005-ci-results.json",
+        "start_line": 1,
+        "line_count": 20
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-009",
+      "tool": "read_observation",
+      "arguments": {
+        "source_id": "ci-observations",
+        "path": "ev-005-ci-results.json",
+        "start_line": 21,
+        "line_count": 20
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-011",
+      "tool": "finish_investigation",
+      "arguments": {},
+      "delivered": true
+    }
+  ],
+  "tool_problems": [
+    {
+      "event_id": "event-004",
+      "tool": "read_source",
+      "arguments": {
+        "source_id": "pytest-old",
+        "path": "CHANGELOG.rst",
+        "start_line": 1,
+        "line_count": 50
+      },
+      "problem": "line_count exceeds 20; use pages"
+    },
+    {
+      "event_id": "event-004",
+      "tool": "read_source",
+      "arguments": {
+        "source_id": "pytest-new",
+        "path": "CHANGELOG.rst",
+        "start_line": 1,
+        "line_count": 50
+      },
+      "problem": "line_count exceeds 20; use pages"
+    }
+  ],
+  "fixed_stage_review": [],
+  "rejected_candidates": [
+    {
+      "event_id": "event-010",
+      "phase": "investigate",
+      "error": {
+        "failed_event_id": "event-010",
+        "problem": "$.record_note.citations: nonexistent retained reference",
+        "meaning_review": "not performed"
+      },
+      "candidate": {
+        "text": "",
+        "tool_calls": [
+          {
+            "id": "LNRpRjqyHXNMXWk6h02nEXLmUROyPJ9V",
+            "tool": "record_note",
+            "arguments": {
+              "text": "Investigation of pytest 9.0.2\u21929.0.3 update in googlefonts/glyphsLib:\n\nKey finding: CI observations for head revision (f3cda8a) show \"Test + Deploy\" workflow completed successfully across all test jobs including lint, and tests on Python 3.10 (ubuntu/windows) and Python 3.14 (ubuntu). This provides strong evidence that the pytest upgrade is technically feasible with no breaking changes to glyphsLib's test suite.\n\nThe update only modifies requirements-dev.txt: pytest==9.0.2 \u2192 pytest==9.0.3. No other file changes in glyphsLib repository between base and proposed revisions.\n\nLimitations: Cannot access external changelog at docs.pytest.org; frozen pytest sources don't contain detailed 9.0.2\u21929.0.3 diff. CI observations are historical captures, not fresh execution evidence.",
+              "citations": [
+                "source_line:target-base:requirements-dev.txt:L65",
+                "source_line:target-proposed:requirements-dev.txt:L65",
+                "diff:cc6cc04777cecee34a9f",
+                "ci_runtime_observation:ff29cbf4af4fb25490da",
+                "ci_runtime_observation:e47a9671e5fae896ff2b"
+              ]
+            }
+          }
+        ]
+      },
+      "semantic_review": "See stage_reviews for rejected stage. Qwen HTTPX terminal requested useful further searches but omitted required recommendation evidence; final recovery changed to unsupported conditional proceed. Qwen pytest note overstated full-job coverage/compatibility, whole-repository unchanged scope, and absent changelog; final preserves latter two errors."
+    }
+  ],
+  "dimensions": {
+    "relevant_evidence_coverage": "Pins/plugins/root pointer and partial ordinary CI matrix; new changelog/regression capture unexamined.",
+    "interpretation_correctness": "Unexamined source mislabeled unavailable; changed-path scope generalized.",
+    "unsupported_claims": {
+      "unsupported_review_units": 2,
+      "contradicted_review_units": 1
+    },
+    "scoped_negative_evidence": "See exact scope/mode/offset/completeness/capture omissions in scoped_zero_searches; every negative generalization is reviewed above. No global absence follows.",
+    "unresolved_quality": "Historical/not-installed distinctions useful; source availability unknown is false and no unexamined items remain.",
+    "stopping_quality": "Explicit finish after note correction;12calls used, adequate evidence claim premature.",
+    "recommendation_usefulness": "Accept safe from partial green capture/minimal retained diff; installed identity/full applicability not established.",
+    "reviewer_effort": {
+      "active_seconds": null,
+      "assistance": "AI-assisted",
+      "effort_proxy": {
+        "final_claims": 4,
+        "wide_review_units": 1,
+        "stage_candidates": 0,
+        "rejected_candidates": 1
+      },
+      "note": "Unmeasured active review time; proxy counts are not elapsed time, independent effort or a fairness metric."
+    },
+    "resource_cost": {
+      "counters": {
+        "calls": 12,
+        "input_tokens": 99427,
+        "output_tokens": 4509,
+        "reasoning_tokens": 2703,
+        "tool_operations": 14,
+        "source_bytes": 22233,
+        "corrections": 1
+      },
+      "elapsed_seconds": 499.688,
+      "usage_complete": true,
+      "packing_events": 0,
+      "interpretation_only_provided_packet_bytes": 0,
+      "initial_update_packet_accounting": "Shared initial packet is preserved above and accounted in measured request input tokens; interpretation-only provided evidence pages are zero. Observation-byte counter follows the frozen harness."
+    }
+  },
+  "recommendation_review": {
+    "semantic_support": "unsupported",
+    "reason": "Accept safe from partial green capture/minimal retained diff; installed identity/full applicability not established.",
+    "evidence_mechanics": [
+      {
+        "kind": "ci_runtime_observation",
+        "id": "ci_runtime_observation:ff29cbf4af4fb25490da",
+        "exists": true,
+        "delivered": true,
+        "referenced": true
+      },
+      {
+        "kind": "source_line",
+        "id": "target-proposed:requirements-dev.txt:L65",
+        "exists": true,
+        "delivered": true,
+        "referenced": true
+      }
+    ]
+  }
+}

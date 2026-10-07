@@ -1,0 +1,1586 @@
+[
+  {
+    "case_id": "development-httpx-framework-ci",
+    "corpus_sha256": "6e4ab534a86aaf9d3ebc23f66391f0976faa11c5e1602ba4f12b97b25dd0abe0",
+    "review_only_not_delivered_to_models": true,
+    "source_excerpts": [
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L1",
+        "text": "{"
+      },
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L2",
+        "text": "  \"artifact_status\": \"manual_simulation\","
+      },
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L3",
+        "text": "  \"schema_status\": \"illustrative_non_binding\","
+      },
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L4",
+        "text": "  \"scenario_id\": \"S002\","
+      },
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L5",
+        "text": "  \"run_id\": \"s002-retrofit-2026-07-22-r1\","
+      },
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L6",
+        "text": "  \"reconstruction_date\": \"2026-07-22\","
+      },
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L7",
+        "text": "  \"execution_mode\": \"retrospective_artifact_reconstruction\","
+      },
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L8",
+        "text": "  \"artifact_type\": \"raw_capture\","
+      },
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L9",
+        "text": "  \"evidence_id\": \"E16\","
+      },
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L10",
+        "text": "  \"capture_mode\": \"bounded_structured_subset\","
+      },
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L11",
+        "text": "  \"source\": {"
+      },
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L12",
+        "text": "    \"type\": \"github_actions\","
+      },
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L13",
+        "text": "    \"retrieved_on\": \"2026-07-22\""
+      },
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L14",
+        "text": "  },"
+      },
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L15",
+        "text": "  \"run\": {"
+      },
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L16",
+        "text": "    \"id\": 15940060582,"
+      },
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L17",
+        "text": "    \"name\": \"Docker Containers\","
+      },
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L18",
+        "text": "    \"status\": \"completed\","
+      },
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L19",
+        "text": "    \"conclusion\": \"success\","
+      },
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L20",
+        "text": "    \"run_number\": 69,"
+      },
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L21",
+        "text": "    \"workflow_id\": 127127052,"
+      },
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L22",
+        "text": "    \"head_sha\": \"391508134b083b8f54461c0b576e8f7985c6ecb4\""
+      },
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L23",
+        "text": "  },"
+      },
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L24",
+        "text": "  \"job\": {"
+      },
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L25",
+        "text": "    \"id\": 44966848674,"
+      },
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L26",
+        "text": "    \"name\": \"build-push (Python Project, ., ./Dockerfile, latest, aidanwallace/kubernetes-dashboard-token-api,...)\","
+      },
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L27",
+        "text": "    \"status\": \"completed\","
+      },
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L28",
+        "text": "    \"conclusion\": \"success\""
+      },
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L29",
+        "text": "  },"
+      },
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L30",
+        "text": "  \"limitations\": ["
+      },
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L31",
+        "text": "    \"The retained connector response did not include full steps or logs.\","
+      },
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L32",
+        "text": "    \"The workflow definition is required to interpret what the job could prove.\""
+      },
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L33",
+        "text": "  ]"
+      },
+      {
+        "citation": "ci-observations:E16-actions-run-and-job.json:L34",
+        "text": "}"
+      },
+      {
+        "citation": "ci-observations:E19-docker-log-retrieval-error.json:L1",
+        "text": "{"
+      },
+      {
+        "citation": "ci-observations:E19-docker-log-retrieval-error.json:L2",
+        "text": "  \"artifact_status\": \"manual_simulation\","
+      },
+      {
+        "citation": "ci-observations:E19-docker-log-retrieval-error.json:L3",
+        "text": "  \"schema_status\": \"illustrative_non_binding\","
+      },
+      {
+        "citation": "ci-observations:E19-docker-log-retrieval-error.json:L4",
+        "text": "  \"scenario_id\": \"S002\","
+      },
+      {
+        "citation": "ci-observations:E19-docker-log-retrieval-error.json:L5",
+        "text": "  \"run_id\": \"s002-retrofit-2026-07-22-r1\","
+      },
+      {
+        "citation": "ci-observations:E19-docker-log-retrieval-error.json:L6",
+        "text": "  \"reconstruction_date\": \"2026-07-22\","
+      },
+      {
+        "citation": "ci-observations:E19-docker-log-retrieval-error.json:L7",
+        "text": "  \"execution_mode\": \"retrospective_artifact_reconstruction\","
+      },
+      {
+        "citation": "ci-observations:E19-docker-log-retrieval-error.json:L8",
+        "text": "  \"artifact_type\": \"raw_capture\","
+      },
+      {
+        "citation": "ci-observations:E19-docker-log-retrieval-error.json:L9",
+        "text": "  \"evidence_id\": \"E19\","
+      },
+      {
+        "citation": "ci-observations:E19-docker-log-retrieval-error.json:L10",
+        "text": "  \"capture_mode\": \"error_response\","
+      },
+      {
+        "citation": "ci-observations:E19-docker-log-retrieval-error.json:L11",
+        "text": "  \"operation\": \"download GitHub Actions job logs\","
+      },
+      {
+        "citation": "ci-observations:E19-docker-log-retrieval-error.json:L12",
+        "text": "  \"repository\": \"Aidan-Wallace/kubernetes-dashboard-token-api\","
+      },
+      {
+        "citation": "ci-observations:E19-docker-log-retrieval-error.json:L13",
+        "text": "  \"job_id\": 44966848674,"
+      },
+      {
+        "citation": "ci-observations:E19-docker-log-retrieval-error.json:L14",
+        "text": "  \"retrieved_on\": \"2026-07-22\","
+      },
+      {
+        "citation": "ci-observations:E19-docker-log-retrieval-error.json:L15",
+        "text": "  \"result\": {"
+      },
+      {
+        "citation": "ci-observations:E19-docker-log-retrieval-error.json:L16",
+        "text": "    \"status\": 410,"
+      },
+      {
+        "citation": "ci-observations:E19-docker-log-retrieval-error.json:L17",
+        "text": "    \"message\": \"Server Error\","
+      },
+      {
+        "citation": "ci-observations:E19-docker-log-retrieval-error.json:L18",
+        "text": "    \"state\": \"expired_or_gone\""
+      },
+      {
+        "citation": "ci-observations:E19-docker-log-retrieval-error.json:L19",
+        "text": "  },"
+      },
+      {
+        "citation": "ci-observations:E19-docker-log-retrieval-error.json:L20",
+        "text": "  \"consequence\": \"Exact installed FastAPI/Starlette versions and complete historical build output cannot be recovered from this log endpoint.\""
+      },
+      {
+        "citation": "fastapi-reference:pyproject.toml:L44",
+        "text": "    \"starlette>=0.37.2,<0.41.0\","
+      },
+      {
+        "citation": "httpx-new:CHANGELOG.md:L7",
+        "text": "## 0.28.1 (6th December, 2024)"
+      },
+      {
+        "citation": "httpx-new:CHANGELOG.md:L8",
+        "text": ""
+      },
+      {
+        "citation": "httpx-new:CHANGELOG.md:L9",
+        "text": "* Fix SSL case where `verify=False` together with client side certificates."
+      },
+      {
+        "citation": "httpx-new:CHANGELOG.md:L11",
+        "text": "## 0.28.0 (28th November, 2024)"
+      },
+      {
+        "citation": "httpx-new:CHANGELOG.md:L12",
+        "text": ""
+      },
+      {
+        "citation": "httpx-new:CHANGELOG.md:L13",
+        "text": "The 0.28 release includes a limited set of deprecations."
+      },
+      {
+        "citation": "httpx-new:CHANGELOG.md:L14",
+        "text": ""
+      },
+      {
+        "citation": "httpx-new:CHANGELOG.md:L15",
+        "text": "**Deprecations**:"
+      },
+      {
+        "citation": "httpx-new:CHANGELOG.md:L16",
+        "text": ""
+      },
+      {
+        "citation": "httpx-new:CHANGELOG.md:L17",
+        "text": "We are working towards a simplified SSL configuration API."
+      },
+      {
+        "citation": "httpx-new:CHANGELOG.md:L18",
+        "text": ""
+      },
+      {
+        "citation": "httpx-new:CHANGELOG.md:L19",
+        "text": "*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*"
+      },
+      {
+        "citation": "httpx-new:CHANGELOG.md:L20",
+        "text": ""
+      },
+      {
+        "citation": "httpx-new:CHANGELOG.md:L21",
+        "text": "* The `verify` argument as a string argument is now deprecated and will raise warnings."
+      },
+      {
+        "citation": "httpx-new:CHANGELOG.md:L22",
+        "text": "* The `cert` argument is now deprecated and will raise warnings."
+      },
+      {
+        "citation": "httpx-new:CHANGELOG.md:L23",
+        "text": ""
+      },
+      {
+        "citation": "httpx-new:CHANGELOG.md:L24",
+        "text": "Our revised [SSL documentation](docs/advanced/ssl.md) covers how to implement the same behaviour with a more constrained API."
+      },
+      {
+        "citation": "httpx-new:CHANGELOG.md:L25",
+        "text": ""
+      },
+      {
+        "citation": "httpx-new:CHANGELOG.md:L26",
+        "text": "**The following changes are also included**:"
+      },
+      {
+        "citation": "httpx-new:CHANGELOG.md:L27",
+        "text": ""
+      },
+      {
+        "citation": "httpx-new:CHANGELOG.md:L28",
+        "text": "* The deprecated `proxies` argument has now been removed."
+      },
+      {
+        "citation": "httpx-new:CHANGELOG.md:L29",
+        "text": "* The deprecated `app` argument has now been removed."
+      },
+      {
+        "citation": "httpx-new:CHANGELOG.md:L30",
+        "text": "* JSON request bodies use a compact representation. (#3363)"
+      },
+      {
+        "citation": "httpx-new:CHANGELOG.md:L31",
+        "text": "* Review URL percent escape sets, based on WHATWG spec. (#3371, #3373)"
+      },
+      {
+        "citation": "starlette-new:starlette/testclient.py:L455",
+        "text": "        super().__init__("
+      },
+      {
+        "citation": "starlette-new:starlette/testclient.py:L456",
+        "text": "            base_url=base_url,"
+      },
+      {
+        "citation": "starlette-new:starlette/testclient.py:L457",
+        "text": "            headers=headers,"
+      },
+      {
+        "citation": "starlette-new:starlette/testclient.py:L458",
+        "text": "            transport=transport,"
+      },
+      {
+        "citation": "starlette-new:starlette/testclient.py:L459",
+        "text": "            follow_redirects=follow_redirects,"
+      },
+      {
+        "citation": "starlette-new:starlette/testclient.py:L460",
+        "text": "            cookies=cookies,"
+      },
+      {
+        "citation": "starlette-new:starlette/testclient.py:L461",
+        "text": "        )"
+      },
+      {
+        "citation": "starlette-old:starlette/testclient.py:L429",
+        "text": "        super().__init__("
+      },
+      {
+        "citation": "starlette-old:starlette/testclient.py:L430",
+        "text": "            app=self.app,"
+      },
+      {
+        "citation": "starlette-old:starlette/testclient.py:L431",
+        "text": "            base_url=base_url,"
+      },
+      {
+        "citation": "starlette-old:starlette/testclient.py:L432",
+        "text": "            headers=headers,"
+      },
+      {
+        "citation": "starlette-old:starlette/testclient.py:L433",
+        "text": "            transport=transport,"
+      },
+      {
+        "citation": "starlette-old:starlette/testclient.py:L434",
+        "text": "            follow_redirects=follow_redirects,"
+      },
+      {
+        "citation": "target-base:requirements.txt:L1",
+        "text": "fastapi[standard]"
+      },
+      {
+        "citation": "target-base:requirements.txt:L2",
+        "text": "httpx==0.27.2"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/python.yml:L1",
+        "text": "name: Python Test and Lint"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/python.yml:L2",
+        "text": ""
+      },
+      {
+        "citation": "target-proposed:.github/workflows/python.yml:L3",
+        "text": "on:"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/python.yml:L4",
+        "text": "  pull_request:"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/python.yml:L5",
+        "text": "    branches: [main]"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/python.yml:L6",
+        "text": "    paths:"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/python.yml:L7",
+        "text": "      - app/**"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/python.yml:L8",
+        "text": "      - static/**"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/python.yml:L9",
+        "text": "      - templates/**"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/python.yml:L10",
+        "text": "      - tests/**"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/python.yml:L21",
+        "text": "        uses: actions/setup-python@v4"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/python.yml:L22",
+        "text": "        with:"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/python.yml:L23",
+        "text": "          python-version: \"3.10\""
+      },
+      {
+        "citation": "target-proposed:.github/workflows/python.yml:L24",
+        "text": ""
+      },
+      {
+        "citation": "target-proposed:.github/workflows/python.yml:L25",
+        "text": "      - name: Install dependencies"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/python.yml:L26",
+        "text": "        run: |"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/python.yml:L27",
+        "text": "          python -m pip install --no-cache-dir --upgrade pip -r requirements.txt"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/python.yml:L28",
+        "text": "          python -m pip install ruff"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/python.yml:L29",
+        "text": ""
+      },
+      {
+        "citation": "target-proposed:.github/workflows/python.yml:L30",
+        "text": "      - name: Lint with Ruff"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/python.yml:L31",
+        "text": "        run: ruff check ."
+      },
+      {
+        "citation": "target-proposed:.github/workflows/python.yml:L32",
+        "text": ""
+      },
+      {
+        "citation": "target-proposed:.github/workflows/python.yml:L33",
+        "text": "      - name: Run tests"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/python.yml:L34",
+        "text": "        run: pytest --cov"
+      },
+      {
+        "citation": "target-proposed:requirements.txt:L1",
+        "text": "fastapi[standard]"
+      },
+      {
+        "citation": "target-proposed:requirements.txt:L2",
+        "text": "httpx==0.28.1"
+      },
+      {
+        "citation": "target-proposed:tests/test_routes.py:L2",
+        "text": "from fastapi.testclient import TestClient"
+      },
+      {
+        "citation": "target-proposed:tests/test_routes.py:L3",
+        "text": "from app.main import app"
+      },
+      {
+        "citation": "target-proposed:tests/test_routes.py:L4",
+        "text": ""
+      },
+      {
+        "citation": "target-proposed:tests/test_routes.py:L5",
+        "text": ""
+      },
+      {
+        "citation": "target-proposed:tests/test_routes.py:L6",
+        "text": "class TestRoutes:"
+      },
+      {
+        "citation": "target-proposed:tests/test_routes.py:L7",
+        "text": "    client = TestClient(app)"
+      }
+    ],
+    "document_identities": [
+      {
+        "source_id": "ci-observations",
+        "path": "E16-actions-run-and-job.json",
+        "sha256_text": "484f8adb389fc5a894bd0f63d1307dccdd861a580839823237fdaa9247e00ea0"
+      },
+      {
+        "source_id": "ci-observations",
+        "path": "E19-docker-log-retrieval-error.json",
+        "sha256_text": "1960a9f30eb940a7d29130caec4324686172f02ea2c9ca5901d7874b6f0f90f7"
+      },
+      {
+        "source_id": "fastapi-reference",
+        "path": "pyproject.toml",
+        "sha256_text": "004151a59d1fba50b00b3e31b97ce216e25a0db53ba7d0bc8bd8c9a0b56fee31"
+      },
+      {
+        "source_id": "httpx-new",
+        "path": "CHANGELOG.md",
+        "sha256_text": "2cd04b965b20eff7a4d3b30cc020c63b125da9f731874513bad2e59ca9743258"
+      },
+      {
+        "source_id": "starlette-new",
+        "path": "starlette/testclient.py",
+        "sha256_text": "acfaa9d5f54182455d3524b3e03b9deb85f9ddae77723e5ab03e864bcd12a88e"
+      },
+      {
+        "source_id": "starlette-old",
+        "path": "starlette/testclient.py",
+        "sha256_text": "4ad9cf0a44243a5d82e3becfe19d8aad4d7ac5f7298fb35a6ba6273b940dffe8"
+      },
+      {
+        "source_id": "target-base",
+        "path": "requirements.txt",
+        "sha256_text": "18cad80487f07e0de68b9b1576dac1d0564bc6e0bde802054c7d2f36a24fbace"
+      },
+      {
+        "source_id": "target-proposed",
+        "path": ".github/workflows/python.yml",
+        "sha256_text": "2231c1c512a037fd56d713ccbe02bd0e877ec834058744f97c8e0a7daf138131"
+      },
+      {
+        "source_id": "target-proposed",
+        "path": "requirements.txt",
+        "sha256_text": "fb2d2df7bc2502337b1a551de591485d61bd8f0c00dc2897802fa6994d9328a3"
+      },
+      {
+        "source_id": "target-proposed",
+        "path": "tests/test_routes.py",
+        "sha256_text": "54ce091cd5e7ec03d53606f59b713e87ff64a1d6d5922f61be23d97b049393f2"
+      }
+    ]
+  },
+  {
+    "case_id": "development-glyphslib-pytest-stopping",
+    "corpus_sha256": "8c8ef1a31b2c009d83803b8c94ce9a33af201de4ae49513e0a978f186d237101",
+    "review_only_not_delivered_to_models": true,
+    "source_excerpts": [
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L1",
+        "text": "{"
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L2",
+        "text": "  \"head_sha\": \"f3cda8a94600e58d27f1bc17c99b7693718b6350\","
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L3",
+        "text": "  \"workflow_runs\": ["
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L4",
+        "text": "    {"
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L5",
+        "text": "      \"run_id\": 24378200519,"
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L6",
+        "text": "      \"name\": \"Test + Deploy\","
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L7",
+        "text": "      \"conclusion\": \"success\","
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L8",
+        "text": "      \"jobs\": ["
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L9",
+        "text": "        {"
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L10",
+        "text": "          \"name\": \"lint\","
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L11",
+        "text": "          \"conclusion\": \"success\","
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L12",
+        "text": "          \"material_steps\": ["
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L13",
+        "text": "            \"Install dependencies\","
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L14",
+        "text": "            \"Run style and typing checks\""
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L15",
+        "text": "          ]"
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L16",
+        "text": "        },"
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L17",
+        "text": "        {"
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L18",
+        "text": "          \"name\": \"test (3.10, ubuntu-latest)\","
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L19",
+        "text": "          \"conclusion\": \"success\","
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L20",
+        "text": "          \"material_steps\": ["
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L21",
+        "text": "            \"Install dependencies\","
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L22",
+        "text": "            \"Test with tox\""
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L23",
+        "text": "          ]"
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L24",
+        "text": "        },"
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L25",
+        "text": "        {"
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L26",
+        "text": "          \"name\": \"test (3.10, windows-latest)\","
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L27",
+        "text": "          \"conclusion\": \"success\","
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L28",
+        "text": "          \"material_steps\": ["
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L29",
+        "text": "            \"Install dependencies\","
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L30",
+        "text": "            \"Test with tox\""
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L31",
+        "text": "          ]"
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L32",
+        "text": "        },"
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L33",
+        "text": "        {"
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L34",
+        "text": "          \"name\": \"test (3.14, ubuntu-latest)\","
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L35",
+        "text": "          \"conclusion\": \"success\","
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L36",
+        "text": "          \"material_steps\": ["
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L37",
+        "text": "            \"Install dependencies\","
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L38",
+        "text": "            \"Test with tox\""
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L39",
+        "text": "          ]"
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L40",
+        "text": "        },"
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L41",
+        "text": "        {"
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L42",
+        "text": "          \"name\": \"test (3.14, windows-latest)\","
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L43",
+        "text": "          \"conclusion\": \"success\","
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L44",
+        "text": "          \"material_steps\": ["
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L45",
+        "text": "            \"Install dependencies\","
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L46",
+        "text": "            \"Test with tox\""
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L47",
+        "text": "          ]"
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L48",
+        "text": "        }"
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L49",
+        "text": "      ]"
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L50",
+        "text": "    },"
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L51",
+        "text": "    {"
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L52",
+        "text": "      \"run_id\": 24378200511,"
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L53",
+        "text": "      \"name\": \"Regression Tests\","
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L54",
+        "text": "      \"conclusion\": \"success\","
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L55",
+        "text": "      \"jobs\": ["
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L56",
+        "text": "        {"
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L57",
+        "text": "          \"name\": \"test\","
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L58",
+        "text": "          \"conclusion\": \"success\","
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L59",
+        "text": "          \"material_steps\": ["
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L60",
+        "text": "            \"Install dependencies\","
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L61",
+        "text": "            \"Generate test files\","
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L62",
+        "text": "            \"Reinstall dependencies\","
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L63",
+        "text": "            \"Run tests\""
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L64",
+        "text": "          ]"
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L65",
+        "text": "        }"
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L66",
+        "text": "      ]"
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L67",
+        "text": "    }"
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L68",
+        "text": "  ]"
+      },
+      {
+        "citation": "ci-observations:ev-005-ci-results.json:L69",
+        "text": "}"
+      },
+      {
+        "citation": "pytest-new:CHANGELOG.rst:L7",
+        "text": "The source document can be found at: https://github.com/pytest-dev/pytest/blob/main/doc/en/changelog.rst"
+      },
+      {
+        "citation": "pytest-new:doc/en/changelog.rst:L34",
+        "text": "pytest 9.0.3 (2026-04-07)"
+      },
+      {
+        "citation": "pytest-new:doc/en/changelog.rst:L35",
+        "text": "========================="
+      },
+      {
+        "citation": "pytest-new:doc/en/changelog.rst:L36",
+        "text": ""
+      },
+      {
+        "citation": "pytest-new:doc/en/changelog.rst:L37",
+        "text": "Bug fixes"
+      },
+      {
+        "citation": "pytest-new:doc/en/changelog.rst:L38",
+        "text": "---------"
+      },
+      {
+        "citation": "pytest-new:doc/en/changelog.rst:L40",
+        "text": "- `#12444 <https://github.com/pytest-dev/pytest/issues/12444>`_: Fixed :func:`pytest.approx` which now correctly takes into account :class:`~collections.abc.Mapping` keys order to compare them."
+      },
+      {
+        "citation": "pytest-new:doc/en/changelog.rst:L41",
+        "text": ""
+      },
+      {
+        "citation": "pytest-new:doc/en/changelog.rst:L42",
+        "text": ""
+      },
+      {
+        "citation": "pytest-new:doc/en/changelog.rst:L43",
+        "text": "- `#13634 <https://github.com/pytest-dev/pytest/issues/13634>`_: Blocking a ``conftest.py`` file using the ``-p no:`` option is now explicitly disallowed."
+      },
+      {
+        "citation": "pytest-new:doc/en/changelog.rst:L44",
+        "text": ""
+      },
+      {
+        "citation": "pytest-new:doc/en/changelog.rst:L45",
+        "text": "  Previously this resulted in an internal assertion failure during plugin loading."
+      },
+      {
+        "citation": "pytest-new:doc/en/changelog.rst:L46",
+        "text": ""
+      },
+      {
+        "citation": "pytest-new:doc/en/changelog.rst:L47",
+        "text": "  Pytest now raises a clear ``UsageError`` explaining that conftest files are not plugins and cannot be disabled via ``-p``."
+      },
+      {
+        "citation": "pytest-new:doc/en/changelog.rst:L48",
+        "text": ""
+      },
+      {
+        "citation": "pytest-new:doc/en/changelog.rst:L49",
+        "text": ""
+      },
+      {
+        "citation": "pytest-new:doc/en/changelog.rst:L50",
+        "text": "- `#13734 <https://github.com/pytest-dev/pytest/issues/13734>`_: Fixed crash when a test raises an exceptiongroup with ``__tracebackhide__ = True``."
+      },
+      {
+        "citation": "pytest-new:doc/en/changelog.rst:L51",
+        "text": ""
+      },
+      {
+        "citation": "pytest-new:doc/en/changelog.rst:L52",
+        "text": ""
+      },
+      {
+        "citation": "pytest-new:doc/en/changelog.rst:L53",
+        "text": "- `#14195 <https://github.com/pytest-dev/pytest/issues/14195>`_: Fixed an issue where non-string messages passed to `unittest.TestCase.subTest()` were not printed."
+      },
+      {
+        "citation": "pytest-new:doc/en/changelog.rst:L54",
+        "text": ""
+      },
+      {
+        "citation": "pytest-new:doc/en/changelog.rst:L55",
+        "text": ""
+      },
+      {
+        "citation": "pytest-new:doc/en/changelog.rst:L56",
+        "text": "- `#14343 <https://github.com/pytest-dev/pytest/issues/14343>`_: Fixed use of insecure temporary directory (CVE-2025-71176)."
+      },
+      {
+        "citation": "pytest-new:doc/en/changelog.rst:L160",
+        "text": "pytest 9.0.0 (2025-11-05)"
+      },
+      {
+        "citation": "pytest-new:doc/en/changelog.rst:L383",
+        "text": "- `#13807 <https://github.com/pytest-dev/pytest/issues/13807>`_: :meth:`monkeypatch.syspath_prepend() <pytest.MonkeyPatch.syspath_prepend>` now issues a deprecation warning when the prepended path contains legacy namespace packages (those using ``pkg_resources.declare_namespace()``)."
+      },
+      {
+        "citation": "target-base:.github/workflows/regression.yml:L46",
+        "text": "      run: . ./regression/bin/activate && pytest --run-regression-tests tests/regression_test.py -n auto"
+      },
+      {
+        "citation": "target-base:pyproject.toml:L4",
+        "text": "[tool.pytest.ini_options]"
+      },
+      {
+        "citation": "target-base:requirements-dev.in:L5",
+        "text": "pytest>=2.8"
+      },
+      {
+        "citation": "target-base:requirements-dev.in:L6",
+        "text": "pytest-randomly"
+      },
+      {
+        "citation": "target-base:requirements-dev.in:L7",
+        "text": "pytest-xdist"
+      },
+      {
+        "citation": "target-base:requirements-dev.txt:L65",
+        "text": "pytest==9.0.2"
+      },
+      {
+        "citation": "target-base:requirements-dev.txt:L66",
+        "text": "    # via"
+      },
+      {
+        "citation": "target-base:requirements-dev.txt:L67",
+        "text": "    #   -r requirements-dev.in"
+      },
+      {
+        "citation": "target-base:requirements-dev.txt:L68",
+        "text": "    #   pytest-randomly"
+      },
+      {
+        "citation": "target-base:requirements-dev.txt:L69",
+        "text": "    #   pytest-xdist"
+      },
+      {
+        "citation": "target-base:requirements-dev.txt:L70",
+        "text": "pytest-randomly==4.0.1"
+      },
+      {
+        "citation": "target-base:requirements-dev.txt:L71",
+        "text": "    # via -r requirements-dev.in"
+      },
+      {
+        "citation": "target-base:requirements-dev.txt:L72",
+        "text": "pytest-xdist==3.8.0"
+      },
+      {
+        "citation": "target-base:requirements-dev.txt:L73",
+        "text": "    # via -r requirements-dev.in"
+      },
+      {
+        "citation": "target-base:tests/conftest.py:L1",
+        "text": "import py"
+      },
+      {
+        "citation": "target-base:tests/conftest.py:L5",
+        "text": "@pytest.fixture"
+      },
+      {
+        "citation": "target-base:tests/conftest.py:L12",
+        "text": "    return pytest.importorskip(request.param)"
+      },
+      {
+        "citation": "target-base:tests/conftest.py:L16",
+        "text": "def pytest_addoption(parser):"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/ci.yml:L27",
+        "text": "        python-version: [\"3.14\", \"3.10\"]"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/ci.yml:L28",
+        "text": "        platform: [ubuntu-latest, windows-latest]"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/ci.yml:L29",
+        "text": "    steps:"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/ci.yml:L30",
+        "text": "    - uses: actions/checkout@v3"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/ci.yml:L31",
+        "text": "    - name: Set up Python ${{ matrix.python-version }}"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/ci.yml:L32",
+        "text": "      uses: actions/setup-python@v4"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/ci.yml:L33",
+        "text": "      with:"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/ci.yml:L34",
+        "text": "        python-version: ${{ matrix.python-version }}"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/ci.yml:L35",
+        "text": "    - name: Install dependencies"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/ci.yml:L36",
+        "text": "      run: pip install tox coverage"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/ci.yml:L37",
+        "text": "    - name: Test with tox"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/ci.yml:L38",
+        "text": "      run: tox -e py"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/regression.yml:L28",
+        "text": "        . ./generate/bin/activate && pip install -r requirements.txt -r requirements-dev.txt"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/regression.yml:L29",
+        "text": ""
+      },
+      {
+        "citation": "target-proposed:.github/workflows/regression.yml:L30",
+        "text": "    - name: Generate test files"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/regression.yml:L31",
+        "text": "      run: . ./generate/bin/activate && python3 tests/tools/generate_regression_test_files.py"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/regression.yml:L32",
+        "text": "      env:"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/regression.yml:L33",
+        "text": "        PYTHONPATH: Lib"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/regression.yml:L34",
+        "text": ""
+      },
+      {
+        "citation": "target-proposed:.github/workflows/regression.yml:L35",
+        "text": "    # Now check out the version we want to test"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/regression.yml:L36",
+        "text": "    - uses: actions/checkout@v3"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/regression.yml:L37",
+        "text": "      with:"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/regression.yml:L38",
+        "text": "        clean: false"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/regression.yml:L39",
+        "text": ""
+      },
+      {
+        "citation": "target-proposed:.github/workflows/regression.yml:L40",
+        "text": "    - name: Reinstall dependencies"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/regression.yml:L41",
+        "text": "      run: |"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/regression.yml:L42",
+        "text": "        python3 -m venv regression"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/regression.yml:L43",
+        "text": "        . ./regression/bin/activate && pip install -r requirements.txt -r requirements-dev.txt"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/regression.yml:L44",
+        "text": ""
+      },
+      {
+        "citation": "target-proposed:.github/workflows/regression.yml:L45",
+        "text": "    - name: Run tests"
+      },
+      {
+        "citation": "target-proposed:.github/workflows/regression.yml:L46",
+        "text": "      run: . ./regression/bin/activate && pytest --run-regression-tests tests/regression_test.py -n auto"
+      },
+      {
+        "citation": "target-proposed:pyproject.toml:L4",
+        "text": "[tool.pytest.ini_options]"
+      },
+      {
+        "citation": "target-proposed:requirements-dev.in:L5",
+        "text": "pytest>=2.8"
+      },
+      {
+        "citation": "target-proposed:requirements-dev.in:L6",
+        "text": "pytest-randomly"
+      },
+      {
+        "citation": "target-proposed:requirements-dev.in:L7",
+        "text": "pytest-xdist"
+      },
+      {
+        "citation": "target-proposed:requirements-dev.txt:L65",
+        "text": "pytest==9.0.3"
+      },
+      {
+        "citation": "target-proposed:requirements-dev.txt:L66",
+        "text": "    # via"
+      },
+      {
+        "citation": "target-proposed:requirements-dev.txt:L67",
+        "text": "    #   -r requirements-dev.in"
+      },
+      {
+        "citation": "target-proposed:requirements-dev.txt:L68",
+        "text": "    #   pytest-randomly"
+      },
+      {
+        "citation": "target-proposed:requirements-dev.txt:L69",
+        "text": "    #   pytest-xdist"
+      },
+      {
+        "citation": "target-proposed:requirements-dev.txt:L70",
+        "text": "pytest-randomly==4.0.1"
+      },
+      {
+        "citation": "target-proposed:requirements-dev.txt:L71",
+        "text": "    # via -r requirements-dev.in"
+      },
+      {
+        "citation": "target-proposed:requirements-dev.txt:L72",
+        "text": "pytest-xdist==3.8.0"
+      },
+      {
+        "citation": "target-proposed:requirements-dev.txt:L73",
+        "text": "    # via -r requirements-dev.in"
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L1",
+        "text": "import py"
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L2",
+        "text": "import pytest"
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L3",
+        "text": ""
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L4",
+        "text": ""
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L5",
+        "text": "@pytest.fixture"
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L6",
+        "text": "def datadir(request):"
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L7",
+        "text": "    return py.path.local(py.path.local(__file__).dirname).join(\"data\")"
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L8",
+        "text": ""
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L9",
+        "text": ""
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L10",
+        "text": "@pytest.fixture(scope=\"session\", params=[\"defcon\", \"ufoLib2\"])"
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L11",
+        "text": "def ufo_module(request):"
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L12",
+        "text": "    return pytest.importorskip(request.param)"
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L13",
+        "text": ""
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L14",
+        "text": ""
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L15",
+        "text": "# Provide a --run-regression-tests CLI option to run slow regression tests separately."
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L16",
+        "text": "def pytest_addoption(parser):"
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L17",
+        "text": "    parser.addoption("
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L18",
+        "text": "        \"--run-regression-tests\","
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L19",
+        "text": "        action=\"store_true\","
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L20",
+        "text": "        help=\"Run (slow) regression tests\","
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L21",
+        "text": "    )"
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L22",
+        "text": ""
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L23",
+        "text": ""
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L24",
+        "text": "def pytest_configure(config):"
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L25",
+        "text": "    config.addinivalue_line("
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L26",
+        "text": "        \"markers\", \"regression_test: mark test as a (slow) regression test\""
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L27",
+        "text": "    )"
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L28",
+        "text": ""
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L29",
+        "text": ""
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L30",
+        "text": "def pytest_collection_modifyitems(config, items):"
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L31",
+        "text": "    if config.getoption(\"--run-regression-tests\"):"
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L32",
+        "text": "        # --run-regression-tests given in cli: do not skip slow tests"
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L33",
+        "text": "        return"
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L34",
+        "text": "    skip_regression_test = pytest.mark.skip("
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L35",
+        "text": "        reason=\"need --run-regression-tests option to run\""
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L36",
+        "text": "    )"
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L37",
+        "text": "    for item in items:"
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L38",
+        "text": "        if \"regression_test\" in item.keywords:"
+      },
+      {
+        "citation": "target-proposed:tests/conftest.py:L39",
+        "text": "            item.add_marker(skip_regression_test)"
+      },
+      {
+        "citation": "target-proposed:tests/regression_test.py:L58",
+        "text": "@pytest.mark.regression_test"
+      },
+      {
+        "citation": "target-proposed:tests/regression_test.py:L59",
+        "text": "@pytest.mark.parametrize(\"filename\", TEST_FILES_GLYPHS, ids=lambda p: p.name)"
+      },
+      {
+        "citation": "target-proposed:tests/regression_test.py:L60",
+        "text": "def test_glyphs_to_designspace(filename: Path, caplog: Any) -> None:"
+      },
+      {
+        "citation": "target-proposed:tests/regression_test.py:L61",
+        "text": "    with tempfile.TemporaryDirectory() as outputdir:"
+      },
+      {
+        "citation": "target-proposed:tests/regression_test.py:L62",
+        "text": "        tmp_dir = Path(outputdir)"
+      },
+      {
+        "citation": "target-proposed:tests/regression_test.py:L63",
+        "text": "        ds = tmp_dir / filename.with_suffix(\".designspace\").name"
+      },
+      {
+        "citation": "target-proposed:tests/regression_test.py:L64",
+        "text": ""
+      },
+      {
+        "citation": "target-proposed:tests/regression_test.py:L65",
+        "text": "        # Conversion can generate lots of warnings that we are not interested"
+      },
+      {
+        "citation": "target-proposed:tests/regression_test.py:L66",
+        "text": "        # in here and which can clog up error logs."
+      },
+      {
+        "citation": "target-proposed:tests/regression_test.py:L67",
+        "text": "        with caplog.at_level(logging.ERROR):"
+      },
+      {
+        "citation": "target-proposed:tests/regression_test.py:L68",
+        "text": "            glyphsLib.build_masters(filename, tmp_dir, None, designspace_path=ds)"
+      },
+      {
+        "citation": "target-proposed:tests/regression_test.py:L69",
+        "text": ""
+      },
+      {
+        "citation": "target-proposed:tests/regression_test.py:L70",
+        "text": "        reference_output_dir = filename.parent / filename.stem"
+      },
+      {
+        "citation": "target-proposed:tests/regression_test.py:L71",
+        "text": "        report = diff_directories(reference_output_dir, tmp_dir)"
+      },
+      {
+        "citation": "target-proposed:tests/regression_test.py:L72",
+        "text": "        if report:"
+      },
+      {
+        "citation": "target-proposed:tests/regression_test.py:L73",
+        "text": "            print(\"\".join(report))"
+      },
+      {
+        "citation": "target-proposed:tests/regression_test.py:L74",
+        "text": "        assert not report"
+      },
+      {
+        "citation": "target-proposed:tests/regression_test.py:L75",
+        "text": ""
+      },
+      {
+        "citation": "target-proposed:tests/regression_test.py:L76",
+        "text": ""
+      },
+      {
+        "citation": "target-proposed:tests/regression_test.py:L77",
+        "text": "@pytest.mark.regression_test"
+      },
+      {
+        "citation": "target-proposed:tests/regression_test.py:L78",
+        "text": "@pytest.mark.parametrize(\"filename\", TEST_FILES_DESIGNSPACE, ids=lambda p: p.name)"
+      },
+      {
+        "citation": "target-proposed:tests/regression_test.py:L79",
+        "text": "def test_designspace_to_glyphs(filename: Path, caplog: Any) -> None:"
+      },
+      {
+        "citation": "target-proposed:tests/regression_test.py:L80",
+        "text": "    with tempfile.TemporaryDirectory() as outputdir:"
+      },
+      {
+        "citation": "target-proposed:tox.ini:L1",
+        "text": "[tox]"
+      },
+      {
+        "citation": "target-proposed:tox.ini:L2",
+        "text": "envlist = lint, py39, py310, py311, py312, htmlcov"
+      },
+      {
+        "citation": "target-proposed:tox.ini:L3",
+        "text": "; if any of the requested python interpreters is unavailable (e.g. on the local dev"
+      },
+      {
+        "citation": "target-proposed:tox.ini:L4",
+        "text": "; workstation), the tests are skipped and tox won't return an error"
+      },
+      {
+        "citation": "target-proposed:tox.ini:L5",
+        "text": "skip_missing_interpreters = true"
+      },
+      {
+        "citation": "target-proposed:tox.ini:L6",
+        "text": "isolated_build = true"
+      },
+      {
+        "citation": "target-proposed:tox.ini:L7",
+        "text": ""
+      },
+      {
+        "citation": "target-proposed:tox.ini:L8",
+        "text": "[testenv]"
+      },
+      {
+        "citation": "target-proposed:tox.ini:L9",
+        "text": "deps ="
+      },
+      {
+        "citation": "target-proposed:tox.ini:L10",
+        "text": "    -r requirements.txt"
+      },
+      {
+        "citation": "target-proposed:tox.ini:L11",
+        "text": "    -r requirements-dev.txt"
+      },
+      {
+        "citation": "target-proposed:tox.ini:L12",
+        "text": "; downloads the latest pip, setuptools and wheel when creating the venv"
+      },
+      {
+        "citation": "target-proposed:tox.ini:L13",
+        "text": "download = true"
+      },
+      {
+        "citation": "target-proposed:tox.ini:L14",
+        "text": "commands ="
+      },
+      {
+        "citation": "target-proposed:tox.ini:L15",
+        "text": "    coverage run --parallel-mode -m pytest {posargs}"
+      }
+    ],
+    "document_identities": [
+      {
+        "source_id": "ci-observations",
+        "path": "ev-005-ci-results.json",
+        "sha256_text": "63d7f897e15d8c5b4b3f9478876182326812c17594b103bce2329bd182d7bf78"
+      },
+      {
+        "source_id": "pytest-new",
+        "path": "CHANGELOG.rst",
+        "sha256_text": "680460d28332abd6056df18288cd966fb86504fc4a9db94a1201b39f859aa423"
+      },
+      {
+        "source_id": "pytest-new",
+        "path": "doc/en/changelog.rst",
+        "sha256_text": "438ddceae52618648a990cf939e0670583150996d34d4e5f706bf7d4edeadd40"
+      },
+      {
+        "source_id": "target-base",
+        "path": ".github/workflows/regression.yml",
+        "sha256_text": "8ce672e72f10d1f7cfbe8727cf5808d6b0263fb3b4350f9bfc1f9fdfff4b3d89"
+      },
+      {
+        "source_id": "target-base",
+        "path": "pyproject.toml",
+        "sha256_text": "6c04496d766f15e0a70b1c0cc2d8a81afd61d2ce3456cbf2ab22ba7282f7317f"
+      },
+      {
+        "source_id": "target-base",
+        "path": "requirements-dev.in",
+        "sha256_text": "dcb89bbd6ff0be5f83d76a97df4b79f6f4b283b9a84e33b5f3bd8faeefc9cc71"
+      },
+      {
+        "source_id": "target-base",
+        "path": "requirements-dev.txt",
+        "sha256_text": "f9a866625e2a82fe09b4c0ad646ea1d5ab48398f20e9f7f7af322e7443e74606"
+      },
+      {
+        "source_id": "target-base",
+        "path": "tests/conftest.py",
+        "sha256_text": "1603b4c4e29969164416227e8442d524f5ce9095e04d7c0b522e236a7643f8d8"
+      },
+      {
+        "source_id": "target-proposed",
+        "path": ".github/workflows/ci.yml",
+        "sha256_text": "af09f984d02ffbf27b394eed97269c2b6ac779e7a712d89adf3aa38e48058811"
+      },
+      {
+        "source_id": "target-proposed",
+        "path": ".github/workflows/regression.yml",
+        "sha256_text": "8ce672e72f10d1f7cfbe8727cf5808d6b0263fb3b4350f9bfc1f9fdfff4b3d89"
+      },
+      {
+        "source_id": "target-proposed",
+        "path": "pyproject.toml",
+        "sha256_text": "6c04496d766f15e0a70b1c0cc2d8a81afd61d2ce3456cbf2ab22ba7282f7317f"
+      },
+      {
+        "source_id": "target-proposed",
+        "path": "requirements-dev.in",
+        "sha256_text": "dcb89bbd6ff0be5f83d76a97df4b79f6f4b283b9a84e33b5f3bd8faeefc9cc71"
+      },
+      {
+        "source_id": "target-proposed",
+        "path": "requirements-dev.txt",
+        "sha256_text": "d61c580da79c07296f782ce579bc16fac1216abd25c6ca40ec51653457b5fe30"
+      },
+      {
+        "source_id": "target-proposed",
+        "path": "tests/conftest.py",
+        "sha256_text": "1603b4c4e29969164416227e8442d524f5ce9095e04d7c0b522e236a7643f8d8"
+      },
+      {
+        "source_id": "target-proposed",
+        "path": "tests/regression_test.py",
+        "sha256_text": "6fd4b6f17d912886bbe733b588a94cd3f69d42477ffb0c9ef4b13edd48a8aaf6"
+      },
+      {
+        "source_id": "target-proposed",
+        "path": "tox.ini",
+        "sha256_text": "4280f8ed2297829f56bd1a4f947fdda295ff7691a753e914ef236df02a5654d9"
+      }
+    ]
+  }
+]

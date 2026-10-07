@@ -1,0 +1,967 @@
+{
+  "review_id": "qwen35-1-agent",
+  "case_id": "development-httpx-framework-ci",
+  "method": "agent",
+  "model": "qwen35",
+  "profile": "contract2-known-fixed-agent-v1",
+  "assistance": "AI-assisted known-case source adjudication; not blind or independent human acceptance",
+  "private_artifact_sha256": "a81ff8b7e7b0a0f2725d2b60b963d30a6cd339e0c4944218cf014788e103b258",
+  "corpus_sha256": "6e4ab534a86aaf9d3ebc23f66391f0976faa11c5e1602ba4f12b97b25dd0abe0",
+  "source_inventory": [
+    {
+      "source_id": "target-base",
+      "repository": "Aidan-Wallace/kubernetes-dashboard-token-api",
+      "revision": "b065646e4b7b894964567950f9ad770b02c136c2",
+      "file_count": 24,
+      "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+      "omitted_file_count": 3
+    },
+    {
+      "source_id": "target-proposed",
+      "repository": "Aidan-Wallace/kubernetes-dashboard-token-api",
+      "revision": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+      "file_count": 24,
+      "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+      "omitted_file_count": 3
+    },
+    {
+      "source_id": "httpx-old",
+      "repository": "encode/httpx",
+      "revision": "609df7ecc0f7cb10a1c998aa9c269bba77337c5f",
+      "file_count": 99,
+      "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+      "omitted_file_count": 25
+    },
+    {
+      "source_id": "httpx-new",
+      "repository": "encode/httpx",
+      "revision": "26d48e0634e6ee9cdc0533996db289ce4b430177",
+      "file_count": 99,
+      "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+      "omitted_file_count": 26
+    },
+    {
+      "source_id": "starlette-old",
+      "repository": "Kludex/starlette",
+      "revision": "be4f3e110ed1172ec9cb47a6209bd899a0d3a604",
+      "file_count": 105,
+      "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+      "omitted_file_count": 18
+    },
+    {
+      "source_id": "starlette-new",
+      "repository": "Kludex/starlette",
+      "revision": "554f368809e0d891a699667faf0cfbb20057eeb2",
+      "file_count": 105,
+      "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+      "omitted_file_count": 18
+    },
+    {
+      "source_id": "fastapi-reference",
+      "repository": "fastapi/fastapi",
+      "revision": "07684aea793d042fb5a12dde46dfe6d1e2196725",
+      "file_count": 2170,
+      "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+      "omitted_file_count": 230
+    },
+    {
+      "source_id": "ci-observations",
+      "repository": "Aidan-Wallace/kubernetes-dashboard-token-api",
+      "revision": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+      "file_count": 2,
+      "scope": "historical bounded public CI captures, not full logs or resolved environments"
+    }
+  ],
+  "review_outcome": "REVISE",
+  "advice_ready": false,
+  "mechanically_valid_final": true,
+  "report": {
+    "summary": "The investigation confirms a dependency update for `httpx` from version `0.27.2` to `0.28.1` in the `requirements.txt` file of the `Aidan-Wallace/kubernetes-dashboard-token-api` repository. Searches across the application (`app/`) and test (`tests/`) directories indicate that `httpx` is not directly imported or used in the codebase, suggesting it may be an unused dependency. Historical CI observations show a successful Docker build for the base revision but do not provide fresh runtime verification for the proposed version.",
+    "claims": [
+      {
+        "statement": "The httpx dependency version is updated from 0.27.2 to 0.28.1 in requirements.txt.",
+        "status": "asserted",
+        "evidence": [
+          {
+            "kind": "source_line",
+            "id": "target-base:requirements.txt:L2"
+          },
+          {
+            "kind": "source_line",
+            "id": "target-proposed:requirements.txt:L2"
+          }
+        ],
+        "missing_observation": ""
+      },
+      {
+        "statement": "The application code in app/ does not contain imports of httpx.",
+        "status": "asserted",
+        "evidence": [
+          {
+            "kind": "search_observation",
+            "id": "search_observation:079706e85b91467963ce"
+          }
+        ],
+        "missing_observation": ""
+      },
+      {
+        "statement": "The test files in tests/ do not contain imports of httpx.",
+        "status": "asserted",
+        "evidence": [
+          {
+            "kind": "search_observation",
+            "id": "search_observation:02126d253b4790db05d2"
+          }
+        ],
+        "missing_observation": ""
+      },
+      {
+        "statement": "A search for 'import httpx' across the entire target-proposed repository yields zero matches.",
+        "status": "asserted",
+        "evidence": [
+          {
+            "kind": "search_observation",
+            "id": "search_observation:ba9d7961ce98470bd5b3"
+          }
+        ],
+        "missing_observation": ""
+      },
+      {
+        "statement": "Historical CI observation E16 shows a successful Docker build for the base revision.",
+        "status": "asserted",
+        "evidence": [
+          {
+            "kind": "ci_runtime_observation",
+            "id": "ci_runtime_observation:1ffa480f66fe86630a95"
+          }
+        ],
+        "missing_observation": ""
+      }
+    ],
+    "conditions": [
+      "The application does not appear to use httpx directly based on source text analysis.",
+      "CI observations are illustrative and do not constitute fresh runtime verification of the proposed version."
+    ],
+    "unexamined": [
+      "Whether httpx is a transitive dependency required by another library (e.g., fastapi[standard]).",
+      "Runtime behavior changes in httpx 0.28.1 that might affect indirect usage or internal libraries."
+    ],
+    "recommendation": "Verify if httpx is actually used; if not, consider removing it to reduce dependencies. If used indirectly, the update appears low-risk given the minor version bump and lack of direct code references.",
+    "recommendation_status": "inferred",
+    "recommendation_evidence": [
+      {
+        "kind": "source_line",
+        "id": "target-proposed:requirements.txt:L2"
+      },
+      {
+        "kind": "search_observation",
+        "id": "search_observation:ba9d7961ce98470bd5b3"
+      }
+    ],
+    "recommendation_missing_observation": "",
+    "stopping_reason": "Investigation complete; sufficient evidence gathered to assess dependency update impact."
+  },
+  "claim_review": [
+    {
+      "id": "claim-0",
+      "surface": "claims",
+      "statement": "The httpx dependency version is updated from 0.27.2 to 0.28.1 in requirements.txt.",
+      "model_status": "asserted",
+      "evidence": [
+        {
+          "kind": "source_line",
+          "id": "target-base:requirements.txt:L2",
+          "exists": true,
+          "delivered": true,
+          "referenced": true
+        },
+        {
+          "kind": "source_line",
+          "id": "target-proposed:requirements.txt:L2",
+          "exists": true,
+          "delivered": true,
+          "referenced": true
+        }
+      ],
+      "semantic_support": "supported",
+      "reason": "Both exact pins read."
+    },
+    {
+      "id": "claim-1",
+      "surface": "claims",
+      "statement": "The application code in app/ does not contain imports of httpx.",
+      "model_status": "asserted",
+      "evidence": [
+        {
+          "kind": "search_observation",
+          "id": "search_observation:079706e85b91467963ce",
+          "exists": true,
+          "delivered": true,
+          "referenced": true
+        }
+      ],
+      "semantic_support": "scope_overreach",
+      "reason": "Zero literal httpx in retained proposed app/ supports scoped text absence, not exhaustive import/use semantics."
+    },
+    {
+      "id": "claim-2",
+      "surface": "claims",
+      "statement": "The test files in tests/ do not contain imports of httpx.",
+      "model_status": "asserted",
+      "evidence": [
+        {
+          "kind": "search_observation",
+          "id": "search_observation:02126d253b4790db05d2",
+          "exists": true,
+          "delivered": true,
+          "referenced": true
+        }
+      ],
+      "semantic_support": "scope_overreach",
+      "reason": "Zero literal httpx in retained proposed tests/ does not exclude FastAPI TestClient consumer."
+    },
+    {
+      "id": "claim-3",
+      "surface": "claims",
+      "statement": "A search for 'import httpx' across the entire target-proposed repository yields zero matches.",
+      "model_status": "asserted",
+      "evidence": [
+        {
+          "kind": "search_observation",
+          "id": "search_observation:ba9d7961ce98470bd5b3",
+          "exists": true,
+          "delivered": true,
+          "referenced": true
+        }
+      ],
+      "semantic_support": "scope_overreach",
+      "reason": "Entire repository exceeds retained text scope: source inventory explicitly excludes3 files."
+    },
+    {
+      "id": "claim-4",
+      "surface": "claims",
+      "statement": "Historical CI observation E16 shows a successful Docker build for the base revision.",
+      "model_status": "asserted",
+      "evidence": [
+        {
+          "kind": "ci_runtime_observation",
+          "id": "ci_runtime_observation:1ffa480f66fe86630a95",
+          "exists": true,
+          "delivered": true,
+          "referenced": true
+        }
+      ],
+      "semantic_support": "contradicted",
+      "reason": "E16 head is proposed atL22, not base. OnlyL1-20 delivered, so model invented base association rather than preserving unknown head; illustrative authority is acknowledged elsewhere."
+    },
+    {
+      "id": "wide-0",
+      "surface": "summary/recommendation",
+      "semantic_support": "unsupported",
+      "reason": "Literal import absence does not establish unused dependency; low risk from version label omits retained TestClient/actual upstream removals."
+    },
+    {
+      "id": "wide-1",
+      "surface": "stopping",
+      "semantic_support": "unsupported",
+      "reason": "Sufficient impact assessment despite no release interpretation/consumer trace."
+    }
+  ],
+  "unsupported_review_units": 5,
+  "contradicted_review_units": 1,
+  "counting_basis": "Each authored claim or cross-surface review unit counted once; overlapping repeated propositions are identifiable by surface/reason. These descriptive counts are not weighted scores or mutually independent errors.",
+  "obligation_review": [
+    {
+      "id": "H1",
+      "obligation": "Exact target pin transition and unchanged unpinned FastAPI declaration",
+      "retained_evidence": [
+        {
+          "source_id": "target-base",
+          "path": "requirements.txt",
+          "first_line": 1,
+          "last_line": 2,
+          "source_text_sha256": "18cad80487f07e0de68b9b1576dac1d0564bc6e0bde802054c7d2f36a24fbace",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [
+            "target-base:requirements.txt:L1",
+            "target-base:requirements.txt:L2"
+          ],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [
+            "target-base:requirements.txt:L2"
+          ],
+          "referenced_identical_target_revision_lines": []
+        },
+        {
+          "source_id": "target-proposed",
+          "path": "requirements.txt",
+          "first_line": 1,
+          "last_line": 2,
+          "source_text_sha256": "fb2d2df7bc2502337b1a551de591485d61bd8f0c00dc2897802fa6994d9328a3",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [
+            "target-proposed:requirements.txt:L1",
+            "target-proposed:requirements.txt:L2"
+          ],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [
+            "target-proposed:requirements.txt:L2"
+          ],
+          "referenced_identical_target_revision_lines": []
+        }
+      ],
+      "semantic_support_review": "Both pins/FastAPI declaration read.",
+      "applicable": true,
+      "delivery_note": "Line overlap is mechanical, not adequate semantic coverage. Initial update packet below separately supplies diff facts and unchanged context; source-line claim inspection also records packet delivery."
+    },
+    {
+      "id": "H2",
+      "obligation": "0.28.0 removals/deprecations and distinctions from unchanged supported SSL forms",
+      "retained_evidence": [
+        {
+          "source_id": "httpx-new",
+          "path": "CHANGELOG.md",
+          "first_line": 11,
+          "last_line": 31,
+          "source_text_sha256": "2cd04b965b20eff7a4d3b30cc020c63b125da9f731874513bad2e59ca9743258",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        }
+      ],
+      "semantic_support_review": "Not read.",
+      "applicable": true,
+      "delivery_note": "Line overlap is mechanical, not adequate semantic coverage. Initial update packet below separately supplies diff facts and unchanged context; source-line claim inspection also records packet delivery."
+    },
+    {
+      "id": "H3",
+      "obligation": "0.28.1 SSL fix and version/timing boundaries; do not import old release facts",
+      "retained_evidence": [
+        {
+          "source_id": "httpx-new",
+          "path": "CHANGELOG.md",
+          "first_line": 7,
+          "last_line": 9,
+          "source_text_sha256": "2cd04b965b20eff7a4d3b30cc020c63b125da9f731874513bad2e59ca9743258",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        }
+      ],
+      "semantic_support_review": "Not read.",
+      "applicable": true,
+      "delivery_note": "Line overlap is mechanical, not adequate semantic coverage. Initial update packet below separately supplies diff facts and unchanged context; source-line claim inspection also records packet delivery."
+    },
+    {
+      "id": "H4",
+      "obligation": "Actual target TestClient consumer and activation; inspect relevant tests",
+      "retained_evidence": [
+        {
+          "source_id": "target-proposed",
+          "path": "tests/test_routes.py",
+          "first_line": 2,
+          "last_line": 7,
+          "source_text_sha256": "54ce091cd5e7ec03d53606f59b713e87ff64a1d6d5922f61be23d97b049393f2",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        }
+      ],
+      "semantic_support_review": "tests/ literal httpx zero used without reading retained TestClient.",
+      "applicable": true,
+      "delivery_note": "Line overlap is mechanical, not adequate semantic coverage. Initial update packet below separately supplies diff facts and unchanged context; source-line claim inspection also records packet delivery."
+    },
+    {
+      "id": "H5",
+      "obligation": "Reference Starlette old/new forwarding difference and retained installed-target binding gap",
+      "retained_evidence": [
+        {
+          "source_id": "starlette-old",
+          "path": "starlette/testclient.py",
+          "first_line": 429,
+          "last_line": 434,
+          "source_text_sha256": "4ad9cf0a44243a5d82e3becfe19d8aad4d7ac5f7298fb35a6ba6273b940dffe8",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        },
+        {
+          "source_id": "starlette-new",
+          "path": "starlette/testclient.py",
+          "first_line": 455,
+          "last_line": 461,
+          "source_text_sha256": "acfaa9d5f54182455d3524b3e03b9deb85f9ddae77723e5ab03e864bcd12a88e",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        }
+      ],
+      "semantic_support_review": "Not read.",
+      "applicable": true,
+      "delivery_note": "Line overlap is mechanical, not adequate semantic coverage. Initial update packet below separately supplies diff facts and unchanged context; source-line claim inspection also records packet delivery."
+    },
+    {
+      "id": "H6",
+      "obligation": "FastAPI reference constraint, with reference-versus-installed identity preserved",
+      "retained_evidence": [
+        {
+          "source_id": "fastapi-reference",
+          "path": "pyproject.toml",
+          "first_line": 44,
+          "last_line": 44,
+          "source_text_sha256": "004151a59d1fba50b00b3e31b97ce216e25a0db53ba7d0bc8bd8c9a0b56fee31",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        }
+      ],
+      "semantic_support_review": "Not read.",
+      "applicable": true,
+      "delivery_note": "Line overlap is mechanical, not adequate semantic coverage. Initial update packet below separately supplies diff facts and unchanged context; source-line claim inspection also records packet delivery."
+    },
+    {
+      "id": "H7",
+      "obligation": "Python workflow PR path filters exclude requirements-only change",
+      "retained_evidence": [
+        {
+          "source_id": "target-proposed",
+          "path": ".github/workflows/python.yml",
+          "first_line": 1,
+          "last_line": 10,
+          "source_text_sha256": "2231c1c512a037fd56d713ccbe02bd0e877ec834058744f97c8e0a7daf138131",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        }
+      ],
+      "semantic_support_review": "Not read.",
+      "applicable": true,
+      "delivery_note": "Line overlap is mechanical, not adequate semantic coverage. Initial update packet below separately supplies diff facts and unchanged context; source-line claim inspection also records packet delivery."
+    },
+    {
+      "id": "H8",
+      "obligation": "Installation/test commands and Python environment; distinguish declaration from actual execution",
+      "retained_evidence": [
+        {
+          "source_id": "target-proposed",
+          "path": ".github/workflows/python.yml",
+          "first_line": 21,
+          "last_line": 34,
+          "source_text_sha256": "2231c1c512a037fd56d713ccbe02bd0e877ec834058744f97c8e0a7daf138131",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        }
+      ],
+      "semantic_support_review": "Not read.",
+      "applicable": true,
+      "delivery_note": "Line overlap is mechanical, not adequate semantic coverage. Initial update packet below separately supplies diff facts and unchanged context; source-line claim inspection also records packet delivery."
+    },
+    {
+      "id": "H9",
+      "obligation": "CI success capture authority and job/head association; illustrative/manual non-binding capture",
+      "retained_evidence": [
+        {
+          "source_id": "ci-observations",
+          "path": "E16-actions-run-and-job.json",
+          "first_line": 1,
+          "last_line": 34,
+          "source_text_sha256": "484f8adb389fc5a894bd0f63d1307dccdd861a580839823237fdaa9247e00ea0",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [
+            "ci-observations:E16-actions-run-and-job.json:L1",
+            "ci-observations:E16-actions-run-and-job.json:L2",
+            "ci-observations:E16-actions-run-and-job.json:L3",
+            "ci-observations:E16-actions-run-and-job.json:L4",
+            "ci-observations:E16-actions-run-and-job.json:L5",
+            "ci-observations:E16-actions-run-and-job.json:L6",
+            "ci-observations:E16-actions-run-and-job.json:L7",
+            "ci-observations:E16-actions-run-and-job.json:L8",
+            "ci-observations:E16-actions-run-and-job.json:L9",
+            "ci-observations:E16-actions-run-and-job.json:L10",
+            "ci-observations:E16-actions-run-and-job.json:L11",
+            "ci-observations:E16-actions-run-and-job.json:L12",
+            "ci-observations:E16-actions-run-and-job.json:L13",
+            "ci-observations:E16-actions-run-and-job.json:L14",
+            "ci-observations:E16-actions-run-and-job.json:L15",
+            "ci-observations:E16-actions-run-and-job.json:L16",
+            "ci-observations:E16-actions-run-and-job.json:L17",
+            "ci-observations:E16-actions-run-and-job.json:L18",
+            "ci-observations:E16-actions-run-and-job.json:L19",
+            "ci-observations:E16-actions-run-and-job.json:L20"
+          ],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        }
+      ],
+      "semantic_support_review": "L1-20 illustrative success delivered; headL22 not delivered, invented base association.",
+      "applicable": true,
+      "delivery_note": "Line overlap is mechanical, not adequate semantic coverage. Initial update packet below separately supplies diff facts and unchanged context; source-line claim inspection also records packet delivery."
+    },
+    {
+      "id": "H10",
+      "obligation": "HTTP410 log retrieval exact endpoint scope; no global absence or installed-version proof",
+      "retained_evidence": [
+        {
+          "source_id": "ci-observations",
+          "path": "E19-docker-log-retrieval-error.json",
+          "first_line": 1,
+          "last_line": 20,
+          "source_text_sha256": "1960a9f30eb940a7d29130caec4324686172f02ea2c9ca5901d7874b6f0f90f7",
+          "exists_in_frozen_corpus": true,
+          "delivered_exact_lines": [],
+          "delivered_identical_target_revision_lines": [],
+          "referenced_exact_lines": [],
+          "referenced_identical_target_revision_lines": []
+        }
+      ],
+      "semantic_support_review": "Not read.",
+      "applicable": true,
+      "delivery_note": "Line overlap is mechanical, not adequate semantic coverage. Initial update packet below separately supplies diff facts and unchanged context; source-line claim inspection also records packet delivery."
+    }
+  ],
+  "initial_update_packet": {
+    "corpus_sha256": "6e4ab534a86aaf9d3ebc23f66391f0976faa11c5e1602ba4f12b97b25dd0abe0",
+    "basis": "all retained base/head text paths; capture omissions remain in inventory",
+    "changed_paths": [
+      "requirements.txt"
+    ],
+    "diffs": [
+      {
+        "path": "requirements.txt",
+        "diff": "--- target-base/requirements.txt\n\n+++ target-proposed/requirements.txt\n\n@@ -1,4 +1,4 @@\n\n fastapi[standard]\n-httpx==0.27.2\n+httpx==0.28.1\n pytest-asyncio==0.25.3\n pytest-cov==6.0.0",
+        "evidence_refs": [
+          {
+            "kind": "diff",
+            "id": "diff:79c5e148c8d29776faa6"
+          }
+        ]
+      }
+    ],
+    "omissions": [],
+    "evidence_refs": [
+      {
+        "kind": "update_packet",
+        "id": "update_packet:ecd0de9a29dbaa162913"
+      }
+    ]
+  },
+  "delivered_complete_source_lines": [
+    "ci-observations:E16-actions-run-and-job.json:L1",
+    "ci-observations:E16-actions-run-and-job.json:L10",
+    "ci-observations:E16-actions-run-and-job.json:L11",
+    "ci-observations:E16-actions-run-and-job.json:L12",
+    "ci-observations:E16-actions-run-and-job.json:L13",
+    "ci-observations:E16-actions-run-and-job.json:L14",
+    "ci-observations:E16-actions-run-and-job.json:L15",
+    "ci-observations:E16-actions-run-and-job.json:L16",
+    "ci-observations:E16-actions-run-and-job.json:L17",
+    "ci-observations:E16-actions-run-and-job.json:L18",
+    "ci-observations:E16-actions-run-and-job.json:L19",
+    "ci-observations:E16-actions-run-and-job.json:L2",
+    "ci-observations:E16-actions-run-and-job.json:L20",
+    "ci-observations:E16-actions-run-and-job.json:L3",
+    "ci-observations:E16-actions-run-and-job.json:L4",
+    "ci-observations:E16-actions-run-and-job.json:L5",
+    "ci-observations:E16-actions-run-and-job.json:L6",
+    "ci-observations:E16-actions-run-and-job.json:L7",
+    "ci-observations:E16-actions-run-and-job.json:L8",
+    "ci-observations:E16-actions-run-and-job.json:L9",
+    "target-base:requirements.txt:L1",
+    "target-base:requirements.txt:L2",
+    "target-base:requirements.txt:L3",
+    "target-base:requirements.txt:L4",
+    "target-base:requirements.txt:L5",
+    "target-proposed:requirements.txt:L1",
+    "target-proposed:requirements.txt:L2",
+    "target-proposed:requirements.txt:L3",
+    "target-proposed:requirements.txt:L4",
+    "target-proposed:requirements.txt:L5",
+    "target-proposed:requirements.txt:L6",
+    "target-proposed:requirements.txt:L7"
+  ],
+  "scoped_zero_searches": [
+    {
+      "event_id": "event-005",
+      "delivered": true,
+      "observation": {
+        "tool": "search_sources",
+        "arguments": {
+          "query": "httpx",
+          "source_id": "target-proposed",
+          "path_prefix": "app/"
+        },
+        "scope": {
+          "corpus_sha256": "6e4ab534a86aaf9d3ebc23f66391f0976faa11c5e1602ba4f12b97b25dd0abe0",
+          "source": {
+            "source_id": "target-proposed",
+            "repository": "Aidan-Wallace/kubernetes-dashboard-token-api",
+            "revision": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+            "file_count": 24,
+            "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+            "omitted_file_count": 3
+          },
+          "source_id": "target-proposed",
+          "path": null,
+          "path_prefix": "app/",
+          "sources": null,
+          "completeness_basis": "retained frozen text only; inventory capture omissions remain excluded"
+        },
+        "mode": "literal-case-insensitive",
+        "query": "httpx",
+        "start": 0,
+        "requested_count": 6,
+        "total": 0,
+        "returned_count": 0,
+        "continuation": null,
+        "omissions": [],
+        "complete": true,
+        "returned_whole_scope": true,
+        "error": null
+      }
+    },
+    {
+      "event_id": "event-006",
+      "delivered": true,
+      "observation": {
+        "tool": "search_sources",
+        "arguments": {
+          "query": "httpx",
+          "source_id": "target-base",
+          "path_prefix": "app/"
+        },
+        "scope": {
+          "corpus_sha256": "6e4ab534a86aaf9d3ebc23f66391f0976faa11c5e1602ba4f12b97b25dd0abe0",
+          "source": {
+            "source_id": "target-base",
+            "repository": "Aidan-Wallace/kubernetes-dashboard-token-api",
+            "revision": "b065646e4b7b894964567950f9ad770b02c136c2",
+            "file_count": 24,
+            "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+            "omitted_file_count": 3
+          },
+          "source_id": "target-base",
+          "path": null,
+          "path_prefix": "app/",
+          "sources": null,
+          "completeness_basis": "retained frozen text only; inventory capture omissions remain excluded"
+        },
+        "mode": "literal-case-insensitive",
+        "query": "httpx",
+        "start": 0,
+        "requested_count": 6,
+        "total": 0,
+        "returned_count": 0,
+        "continuation": null,
+        "omissions": [],
+        "complete": true,
+        "returned_whole_scope": true,
+        "error": null
+      }
+    },
+    {
+      "event_id": "event-010",
+      "delivered": true,
+      "observation": {
+        "tool": "search_sources",
+        "arguments": {
+          "query": "httpx",
+          "source_id": "target-proposed",
+          "path_prefix": "tests/"
+        },
+        "scope": {
+          "corpus_sha256": "6e4ab534a86aaf9d3ebc23f66391f0976faa11c5e1602ba4f12b97b25dd0abe0",
+          "source": {
+            "source_id": "target-proposed",
+            "repository": "Aidan-Wallace/kubernetes-dashboard-token-api",
+            "revision": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+            "file_count": 24,
+            "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+            "omitted_file_count": 3
+          },
+          "source_id": "target-proposed",
+          "path": null,
+          "path_prefix": "tests/",
+          "sources": null,
+          "completeness_basis": "retained frozen text only; inventory capture omissions remain excluded"
+        },
+        "mode": "literal-case-insensitive",
+        "query": "httpx",
+        "start": 0,
+        "requested_count": 6,
+        "total": 0,
+        "returned_count": 0,
+        "continuation": null,
+        "omissions": [],
+        "complete": true,
+        "returned_whole_scope": true,
+        "error": null
+      }
+    },
+    {
+      "event_id": "event-011",
+      "delivered": true,
+      "observation": {
+        "tool": "search_sources",
+        "arguments": {
+          "query": "import httpx",
+          "source_id": "target-proposed"
+        },
+        "scope": {
+          "corpus_sha256": "6e4ab534a86aaf9d3ebc23f66391f0976faa11c5e1602ba4f12b97b25dd0abe0",
+          "source": {
+            "source_id": "target-proposed",
+            "repository": "Aidan-Wallace/kubernetes-dashboard-token-api",
+            "revision": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+            "file_count": 24,
+            "scope": "broad retained UTF-8 text; declared file types/byte limits; not installed runtime",
+            "omitted_file_count": 3
+          },
+          "source_id": "target-proposed",
+          "path": null,
+          "path_prefix": "",
+          "sources": null,
+          "completeness_basis": "retained frozen text only; inventory capture omissions remain excluded"
+        },
+        "mode": "literal-case-insensitive",
+        "query": "import httpx",
+        "start": 0,
+        "requested_count": 6,
+        "total": 0,
+        "returned_count": 0,
+        "continuation": null,
+        "omissions": [],
+        "complete": true,
+        "returned_whole_scope": true,
+        "error": null
+      }
+    }
+  ],
+  "tool_operations": [
+    {
+      "event_id": "event-001",
+      "tool": "list_sources",
+      "arguments": {},
+      "delivered": true
+    },
+    {
+      "event_id": "event-002",
+      "tool": "list_paths",
+      "arguments": {
+        "source_id": "target-base",
+        "offset": 0
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-003",
+      "tool": "search_sources",
+      "arguments": {
+        "query": "httpx",
+        "source_id": "target-proposed"
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-004",
+      "tool": "read_source",
+      "arguments": {
+        "source_id": "target-base",
+        "path": "requirements.txt",
+        "start_line": 1,
+        "line_count": 5
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-005",
+      "tool": "search_sources",
+      "arguments": {
+        "query": "httpx",
+        "source_id": "target-proposed",
+        "path_prefix": "app/"
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-006",
+      "tool": "search_sources",
+      "arguments": {
+        "query": "httpx",
+        "source_id": "target-base",
+        "path_prefix": "app/"
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-007",
+      "tool": "search_sources",
+      "arguments": {
+        "query": "httpx",
+        "source_id": "target-proposed"
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-008",
+      "tool": "read_source",
+      "arguments": {
+        "source_id": "target-proposed",
+        "path": "requirements.txt",
+        "start_line": 1,
+        "line_count": 7
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-009",
+      "tool": "list_paths",
+      "arguments": {
+        "source_id": "target-proposed",
+        "offset": 20
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-010",
+      "tool": "search_sources",
+      "arguments": {
+        "query": "httpx",
+        "source_id": "target-proposed",
+        "path_prefix": "tests/"
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-011",
+      "tool": "search_sources",
+      "arguments": {
+        "query": "import httpx",
+        "source_id": "target-proposed"
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-012",
+      "tool": "read_source",
+      "arguments": {
+        "source_id": "ci-observations",
+        "path": "logs.txt",
+        "start_line": 1,
+        "line_count": 20
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-013",
+      "tool": "list_paths",
+      "arguments": {
+        "source_id": "ci-observations",
+        "offset": 0
+      },
+      "delivered": true
+    },
+    {
+      "event_id": "event-014",
+      "tool": "read_source",
+      "arguments": {
+        "source_id": "ci-observations",
+        "path": "E16-actions-run-and-job.json",
+        "start_line": 1,
+        "line_count": 20
+      },
+      "delivered": true
+    }
+  ],
+  "tool_problems": [
+    {
+      "event_id": "event-012",
+      "tool": "read_source",
+      "arguments": {
+        "source_id": "ci-observations",
+        "path": "logs.txt",
+        "start_line": 1,
+        "line_count": 20
+      },
+      "problem": "('ci-observations', 'logs.txt')"
+    }
+  ],
+  "fixed_stage_review": [],
+  "rejected_candidates": [],
+  "dimensions": {
+    "relevant_evidence_coverage": "Pins and illustrative CI prefix; no upstream release, TestClient consumer or CI head page.",
+    "interpretation_correctness": "Wrong base association and literal import/use generalization.",
+    "unsupported_claims": {
+      "unsupported_review_units": 5,
+      "contradicted_review_units": 1
+    },
+    "scoped_negative_evidence": "See exact scope/mode/offset/completeness/capture omissions in scoped_zero_searches; every negative generalization is reviewed above. No global absence follows.",
+    "unresolved_quality": "Illustrative/nonfresh qualifier useful; indirect usage and runtime unknowns correctly named but not resolved.",
+    "stopping_quality": "Host reserve15calls; sufficient impact assessment claimed despite feasible key reads.",
+    "recommendation_usefulness": "Verify actual use is a useful task; removal/low-risk fallback unsupported by discovered evidence.",
+    "reviewer_effort": {
+      "active_seconds": null,
+      "assistance": "AI-assisted",
+      "effort_proxy": {
+        "final_claims": 5,
+        "wide_review_units": 2,
+        "stage_candidates": 0,
+        "rejected_candidates": 0
+      },
+      "note": "Unmeasured active review time; proxy counts are not elapsed time, independent effort or a fairness metric."
+    },
+    "resource_cost": {
+      "counters": {
+        "calls": 15,
+        "input_tokens": 107726,
+        "output_tokens": 5288,
+        "reasoning_tokens": 3624,
+        "tool_operations": 14,
+        "source_bytes": 18906,
+        "corrections": 0
+      },
+      "elapsed_seconds": 508.736,
+      "usage_complete": true,
+      "packing_events": 0,
+      "interpretation_only_provided_packet_bytes": 0,
+      "initial_update_packet_accounting": "Shared initial packet is preserved above and accounted in measured request input tokens; interpretation-only provided evidence pages are zero. Observation-byte counter follows the frozen harness."
+    }
+  },
+  "recommendation_review": {
+    "semantic_support": "unsupported",
+    "reason": "Verify actual use is a useful task; removal/low-risk fallback unsupported by discovered evidence.",
+    "evidence_mechanics": [
+      {
+        "kind": "source_line",
+        "id": "target-proposed:requirements.txt:L2",
+        "exists": true,
+        "delivered": true,
+        "referenced": true
+      },
+      {
+        "kind": "search_observation",
+        "id": "search_observation:ba9d7961ce98470bd5b3",
+        "exists": true,
+        "delivered": true,
+        "referenced": true
+      }
+    ]
+  }
+}

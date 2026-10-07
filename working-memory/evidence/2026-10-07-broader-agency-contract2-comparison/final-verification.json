@@ -1,0 +1,19 @@
+{
+  "focused_tests": {
+    "passed": 63,
+    "command": "PYTHONPATH=.:src /home/motafeq/projects/UpgradePilot/.venv/bin/python -m unittest experiments.tests.test_broader_agency_trial experiments.tests.test_evidence_gap_planner_model_boundary tests.test_support_drop_extractor -q"
+  },
+  "public_json_files_checked": 21,
+  "changed_markdown_links_checked": 61,
+  "source_claim_delivery_scope_excerpt_reconciliation": "passed",
+  "code_corpus_driver_dimensions_unchanged": true,
+  "receipt_accounting_fit_identity": "135/135 passed",
+  "all_selected_limits": "passed",
+  "empty_structured_replies": 0,
+  "case_packing_events": 0,
+  "proof_limits": [
+    "AI-assisted known-case semantic review REVISE8/8; no independent semantic/product acceptance.",
+    "No executable source change; full product/hosted regression not run.",
+    "Existing governance root-map/examples mismatch remains recorded failure."
+  ]
+}
