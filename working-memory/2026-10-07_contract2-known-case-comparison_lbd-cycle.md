@@ -5,7 +5,7 @@ Continues the accepted `74835751` checkpoint and [outer research record](2026-10
 A0 — DONE: research HEAD74835751 clean; main1dca2885 inspected read-only; main's unrelated untracked record preserved. Repair and interpretation accepted, not reopened.
 A1 — DONE, compressed: Ali supplies accepted checkpoint and exact continuation, explicitly distinguishes hybrid product direction from Investigator experiment. No contradictory evidence found.
 A2 — DONE, compressed: same known corpora/two larger deployments/eight assignments; fresh contract2 qualification; shared evidence/limits, Fixed4/4/3/3, nine frozen dimensions. Failure withholds a deployment rather than creating unqualified comparison. Final checkpoint requires joint selection.
-B — CURRENT: preparation and fresh deployment qualification.
+B — CURRENT: Gemma passes both fresh contract2 sequences (9 calls); its four selected cases started. Qwen qualification/cases remain pending.
 Verification gate — PENDING: 63/63 focused implementation checks pass; model qualification, complete cost/source review outstanding.
 D — PENDING: responsibility-by-responsibility evidence-backed explanation.
 E — PENDING: reconcile proof and pause before any next experiment; independent learner ownership remains unassessed.
@@ -28,3 +28,7 @@ No material contradiction with Ali's direction was found. Main's product Workspa
 ## Preparation proof and corrections
 
 Focused63/63 checks pass without executable changes. Temporary-driver preparation initially used the GGUF root for hub metadata and failed before loading/inference; corrected exact cache root and preserved the zero-call failure/hash. Driver lint/format and compilation pass before freeze. A governance-doctor invocation (its CLI does not implement --help) reports the existing root-map/examples marker mismatch; this unrelated governance debt is preserved, not repaired or called green. Local changed-artifact links/JSON and diff checks remain the relevant publication checks.
+
+Gemma fresh qualification passes both sequences/all four checks with complete usage, zero corrections/truncation. Sequence costs4/5 calls,25022 input/5535 generated/4049 reasoning total; source facts/ref mechanics exercised. Second sequence used separate tools and reached host-reserved reporting without an explicit finish call; this is preserved as stopping/resource behavior, not hidden as procedural perfection. Prior contract1 canaries were not reused.
+
+First Fixed upstream artifact is mechanically valid but uses a partial literal search of httpx-old and its0.27.2 changelog to infer0.28.x behavior/absence, while claiming the proposed changelog was reviewed. [Provisional source adjudication](evidence/2026-10-07-broader-agency-contract2-comparison/provisional-stage-review.json) separates pin facts, unsupported inference and contradicted examined-scope assertion; final case remains pending and may correct this. Consumer stage names a plausible but untraced FastAPI/Starlette relationship; direct-import negatives must retain exact capture/query scope. A CI read uses a workflow path in the capture-only source and returns a tool problem. These are preserved behavior, not grounds for changing the frozen policy during the comparison.

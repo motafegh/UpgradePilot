@@ -1,0 +1,38 @@
+{
+  "label": "Provisional stage adjudication; case still running, not a final case judgment",
+  "model": "gemma12",
+  "case_id": "development-httpx-framework-ci",
+  "method": "fixed",
+  "provider_receipt_index": 13,
+  "stage": "upstream changes",
+  "request_sha256": "f1e34cbd2b4a020a7732731644ff6dab9c40d64cc39ba6dfa1496bff054c9bb3",
+  "mechanical_artifact": "accepted by unchanged v2 shape/reference checks",
+  "source_findings": [
+    {
+      "claims": [
+        0,
+        1
+      ],
+      "assessment": "Supported declared old/proposed pins through exact delivered diff; no installed-version proof."
+    },
+    {
+      "claims": [
+        2,
+        3
+      ],
+      "assessment": "Unsupported version/coverage inference. Referenced search_observation44afe8d945aff545ca1b is a literal CHANGES search of httpx-old, six of17 matches with continuation6. Read window is httpx-old CHANGELOG L1-L20, headed0.27.2 atL7. No httpx-new changelog delivered at this point. Neither observation supports conclusions about0.28.x features or breaking-change absence."
+    },
+    {
+      "field": "conditions[1]",
+      "assessment": "Claimed review of0.28.x changelog is contradicted by the exact current retrieval trace. Proposed changelog exists in the frozen corpus but was not delivered by this stage."
+    }
+  ],
+  "counterevidence_in_frozen_corpus": [
+    "httpx-new:CHANGELOG.md:L28 removes proxies",
+    "httpx-new:CHANGELOG.md:L29 removes app",
+    "httpx-new:CHANGELOG.md:L21-L22 deprecates string verify/cert; this is not a uniform assertion that every standard use breaks"
+  ],
+  "final_report_review": "pending; later retrieval/challenge may correct or propagate these provisional assertions",
+  "reviewer_active_seconds": null,
+  "recorded_at_unix": 1791378197.1757329
+}

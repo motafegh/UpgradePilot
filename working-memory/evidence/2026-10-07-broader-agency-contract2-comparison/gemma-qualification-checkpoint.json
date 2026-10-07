@@ -1,0 +1,51 @@
+{
+  "model": "gemma12",
+  "outcome": "passed",
+  "evidence_contract_version": 2,
+  "private_probe_sha256": "a35dbb85665eefe2d3c85d06ab83712171d44195036dee52b4f5c1e7490bafe1",
+  "sequences": [
+    {
+      "case_id": "interface-canary-1",
+      "outcome": "completed_ungraded",
+      "qualification_checks": {
+        "two_scopes": true,
+        "later_followup": true,
+        "scoped_zero_search": true,
+        "report_citation": true
+      },
+      "counters": {
+        "calls": 4,
+        "input_tokens": 11793,
+        "output_tokens": 2795,
+        "reasoning_tokens": 2085,
+        "tool_operations": 5,
+        "source_bytes": 3984,
+        "corrections": 0
+      },
+      "elapsed_seconds": 385.166,
+      "usage_complete": true
+    },
+    {
+      "case_id": "interface-canary-2",
+      "outcome": "completed_ungraded",
+      "qualification_checks": {
+        "two_scopes": true,
+        "later_followup": true,
+        "scoped_zero_search": true,
+        "report_citation": true
+      },
+      "counters": {
+        "calls": 5,
+        "input_tokens": 13229,
+        "output_tokens": 2740,
+        "reasoning_tokens": 1964,
+        "tool_operations": 4,
+        "source_bytes": 3785,
+        "corrections": 0
+      },
+      "elapsed_seconds": 368.26,
+      "usage_complete": true
+    }
+  ],
+  "scope": "Mechanical tool/interface qualification, not semantic acceptance of target cases."
+}
