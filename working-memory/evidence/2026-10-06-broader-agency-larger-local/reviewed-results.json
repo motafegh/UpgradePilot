@@ -1,0 +1,1454 @@
+{
+  "scope": "Complete assisted formative known-case larger-local comparison; not protected evaluation/product/independent semantic acceptance",
+  "selected_and_reviewed_case_assignments": 8,
+  "mechanically_complete_reports": 4,
+  "advice_ready_reports": 0,
+  "truncated_responses": 0,
+  "code_freeze": {
+    "broader_agency_workspace.py": "ebc703dbfe59a8a3c3dfd70369b9907eac9202b50c099e582654b1e59ac9966c",
+    "broader_agency_trial.py": "aa3353c8c0415e0e581ae10572218500f756f05d6ea4e8ba2dc26b4d647bc08a",
+    "broader_agency_local.py": "336e2e0b3630bb10a43eb9d97df0cb1f40cdc1580510b0cd6bc2d18a36410bb1",
+    "broader_agency_pilot.py": "65d6cd58edde949688199f773e9e3a336a9d0f7f1e20c5282d001e2f33e491ba"
+  },
+  "source_corpus_sha256": "f528a27b04a80503a6145480980021a490c2b2c8a447cd71ab2178ddf38cd142",
+  "profile": {
+    "context": 32768,
+    "ordinary_and_final_output": 8192,
+    "trial_generated_including_reasoning": 131072,
+    "trial_input": 524288,
+    "calls": 16,
+    "tool_operations": 48,
+    "corrections": 2,
+    "request_timeout_seconds": 1800,
+    "trial_seconds": 14400
+  },
+  "model_summaries": [
+    {
+      "model": "gemma12",
+      "assignments": 4,
+      "mechanically_complete": 1,
+      "advice_ready": 0,
+      "summed_case_elapsed_seconds": 8896.783,
+      "case_counters": {
+        "calls": 59,
+        "input_tokens": 422546,
+        "output_tokens": 62358,
+        "reasoning_tokens": 53441,
+        "tool_operations": 40,
+        "source_bytes": 61012,
+        "corrections": 5
+      }
+    },
+    {
+      "model": "qwen35",
+      "assignments": 4,
+      "mechanically_complete": 3,
+      "advice_ready": 0,
+      "summed_case_elapsed_seconds": 2773.1,
+      "case_counters": {
+        "calls": 56,
+        "input_tokens": 538316,
+        "output_tokens": 22592,
+        "reasoning_tokens": 14438,
+        "tool_operations": 59,
+        "source_bytes": 104005,
+        "corrections": 6
+      }
+    }
+  ],
+  "qualifications": [
+    {
+      "model": "gemma12",
+      "outcome": "passed",
+      "sequence_outcomes": [
+        "completed_ungraded",
+        "completed_ungraded"
+      ],
+      "checks": [
+        {
+          "two_scopes": true,
+          "later_followup": true,
+          "scoped_zero_search": true,
+          "report_citation": true
+        },
+        {
+          "two_scopes": true,
+          "later_followup": true,
+          "scoped_zero_search": true,
+          "report_citation": true
+        }
+      ],
+      "counters": {
+        "calls": 8,
+        "input_tokens": 20065,
+        "output_tokens": 4801,
+        "reasoning_tokens": 3748,
+        "tool_operations": 10,
+        "source_bytes": 7156,
+        "corrections": 0
+      },
+      "elapsed_seconds": 552.7090000000001,
+      "assisted_source_review": {
+        "finding": "Both fresh 32K/8192-profile canaries pass all four declared checks, in four calls each, including batched initial three tools, later follow-up, explicit finish and source-linked reports. Every response has complete actual usage and no truncation. Report claims correctly cite deprecation, future removal and the target call site. The second summary adds a v1-to-v2 transition-away interpretation not established by these lines and leaves unexamined empty; passing the interface gate does not admit version-specific compatibility advice.",
+        "qualification_is_semantic_acceptance": false
+      },
+      "artifact_sha256": "4c49cfde38f7046a8f4e4ac9947be3730ed76e338c4c287eb0ce974609a78534"
+    },
+    {
+      "model": "qwen35",
+      "outcome": "passed",
+      "sequence_outcomes": [
+        "completed_ungraded",
+        "completed_ungraded"
+      ],
+      "checks": [
+        {
+          "two_scopes": true,
+          "later_followup": true,
+          "scoped_zero_search": true,
+          "report_citation": true
+        },
+        {
+          "two_scopes": true,
+          "later_followup": true,
+          "scoped_zero_search": true,
+          "report_citation": true
+        }
+      ],
+      "counters": {
+        "calls": 10,
+        "input_tokens": 30457,
+        "output_tokens": 4545,
+        "reasoning_tokens": 2962,
+        "tool_operations": 14,
+        "source_bytes": 9802,
+        "corrections": 0
+      },
+      "elapsed_seconds": 358.83,
+      "assisted_source_review": {
+        "finding": "Both fresh sequences pass all four declared tool/follow-up/zero-search/citation checks in five calls each with complete usage. Deprecation/future-removal/call-site claims are supported. Version-delta and current-functionality claims in summaries/recommendations exceed the small provided texts; the second sequence treats existing deprecation as introduced by v1-to-v2. Passing qualification is interface proof only.",
+        "qualification_is_semantic_acceptance": false
+      },
+      "artifact_sha256": "d9961053a3df151d11cd0e1fc654fc6bfc7cd88452f4365ab68daec4e4e616ec"
+    }
+  ],
+  "gemma_qualification_reuse": {
+    "prior_probe": ".tmp/broader-agency-pilot/larger-local-v2-capacity/execution-broader-agency-large-v2-gemma12-20261006-compatible-tools/probe.json",
+    "sha256": "4c49cfde38f7046a8f4e4ac9947be3730ed76e338c4c287eb0ce974609a78534",
+    "configuration_equal_except_instance_binding": true
+  },
+  "deployments": [
+    {
+      "model_key": "google/gemma-4-12b",
+      "main_gguf_sha256": "c088a44859de42a1966851b552ba628c0ff4419b87c4622539d69430f40024ed",
+      "load_configuration": {
+        "gpu": {
+          "ratio": 0.55,
+          "splitStrategy": "evenly",
+          "disabledGpus": []
+        },
+        "gpuStrictVramCap": true,
+        "offloadKVCacheToGpu": true,
+        "contextLength": 32768,
+        "flashAttention": true
+      },
+      "interface": "compatible-tools-v2",
+      "reasoning": "server-default-accounted",
+      "trial_limits": {
+        "calls": 16,
+        "input_tokens": 524288,
+        "output_tokens": 131072,
+        "tool_operations": 48,
+        "source_bytes": 8388608,
+        "seconds": 14400,
+        "action_output": 8192,
+        "final_output": 8192,
+        "corrections": 2
+      },
+      "artifact_sha256": "cb9d9acba0563efaaf1333ced8bcf20ea3791b5558eccb32cdfcda766c022a10"
+    },
+    {
+      "model_key": "qwen3.6-35b-a3b-ud",
+      "main_gguf_sha256": "2be7ef1ed7e1af8b10d3829102cf9a6c2bd5ddb64d675b4ece23a60799403d43",
+      "load_configuration": {
+        "gpu": {
+          "ratio": 0.45,
+          "splitStrategy": "evenly",
+          "disabledGpus": []
+        },
+        "gpuStrictVramCap": true,
+        "offloadKVCacheToGpu": true,
+        "contextLength": 32768,
+        "flashAttention": true,
+        "numExperts": 8
+      },
+      "interface": "compatible-tools-v2",
+      "reasoning": "server-default-accounted",
+      "trial_limits": {
+        "calls": 16,
+        "input_tokens": 524288,
+        "output_tokens": 131072,
+        "tool_operations": 48,
+        "source_bytes": 8388608,
+        "seconds": 14400,
+        "action_output": 8192,
+        "final_output": 8192,
+        "corrections": 2
+      },
+      "artifact_sha256": "9c11a6d17f68ddd6d954f2279a8aa2df16d6f80526a1bd67b271724025adea05"
+    },
+    {
+      "model_key": "google/gemma-4-12b",
+      "main_gguf_sha256": "c088a44859de42a1966851b552ba628c0ff4419b87c4622539d69430f40024ed",
+      "load_configuration": {
+        "gpu": {
+          "ratio": 0.55,
+          "splitStrategy": "evenly",
+          "disabledGpus": []
+        },
+        "gpuStrictVramCap": true,
+        "offloadKVCacheToGpu": true,
+        "contextLength": 32768,
+        "flashAttention": true
+      },
+      "interface": "compatible-tools-v2",
+      "reasoning": "server-default-accounted",
+      "trial_limits": {
+        "calls": 16,
+        "input_tokens": 524288,
+        "output_tokens": 131072,
+        "tool_operations": 48,
+        "source_bytes": 8388608,
+        "seconds": 14400,
+        "action_output": 8192,
+        "final_output": 8192,
+        "corrections": 2
+      },
+      "artifact_sha256": "d0f6af204501a43b152e7b9f12166848ac7a39e6637312db740695a974c4d79e"
+    }
+  ],
+  "case_results": [
+    {
+      "model": "gemma12",
+      "case_id": "development-httpx-framework-ci",
+      "method": "fixed",
+      "outcome": "report_contract_problem",
+      "mechanically_complete": false,
+      "advice_ready": false,
+      "usage_complete": true,
+      "counters": {
+        "calls": 15,
+        "input_tokens": 106025,
+        "output_tokens": 13343,
+        "reasoning_tokens": 9859,
+        "tool_operations": 7,
+        "source_bytes": 7768,
+        "corrections": 2
+      },
+      "elapsed_seconds": 1840.258,
+      "corpus_sha256": "6e4ab534a86aaf9d3ebc23f66391f0976faa11c5e1602ba4f12b97b25dd0abe0",
+      "packing_requests": 0,
+      "stage_artifacts": 5,
+      "complete_stage_artifacts": 0,
+      "truncated_responses": 0,
+      "mechanical_problems": [
+        "$.claims.citations: nonexistent retained references ['target-base: requirements.txt', 'httpx-old: CHANGELOG.md', 'httpx-new: CHANGELOG.md', 'starlette-old: requirements.txt', 'starlette-new: requirements.txt']",
+        "$.claims.citations: nonexistent retained references ['target-base', 'httpx-old', 'httpx-new', 'ci-observations']",
+        "$.claims.citations: nonexistent retained references ['target-base', 'httpx-old', 'httpx-new', 'ci-observations']",
+        "$.claims.citations: nonexistent retained references ['target-base:requirements.txt', 'target-base']",
+        "$.claims.citations: nonexistent retained references ['httpx-old:pyproject.toml', 'httpx-new:pyproject.toml', 'ci-observations:E16-actions-run-and-job.json']",
+        "$.claims.citations: nonexistent retained references ['target-base', 'httpx-old', 'httpx-new', 'ci-observations']",
+        "$.claims.citations: nonexistent retained references ['target-base:requirements.txt', 'httpx-old:pyproject.toml', 'httpx-new:pyproject.toml', 'ci-observations:E16-actions-run-and-job.json']",
+        "$.claims.citations: nonexistent retained references ['target-base', 'httpx-old', 'httpx-new', 'ci-observations']"
+      ],
+      "assisted_source_review": {
+        "finding": "The enlarged profile has no truncated replies and complete usage, but the fixed arm exhausts its two corrections and admits no report. All five stage artifacts have invalid references (bare paths or source identifiers), and the retained final candidate has the same defect. Seven operations deliver only the target HTTPX pin, scoped absence of the literal import httpx, upstream path inventory/filename mentions and CI filenames after a failed body read. No relevant release section, TestClient consumer, old/new Starlette forwarding, installed binding or CI capture body is read. The final low-risk/proceed advice and transport/timeout refinement claims therefore exceed delivered evidence. The CI-stable primary-test claim is unsupported; the workflow trigger excluding requirements-only changes is missed. Useful pin/absence clues and an explicit indirect-framework condition remain distinct from unsupported compatibility advice.",
+        "advice_ready": false,
+        "final_candidate_present": true,
+        "admitted_final_report": false,
+        "coverage": {
+          "upstream_delta": "missed; files inventoried but relevant changes unread",
+          "indirect_consumer": "generic condition only; actual TestClient/forwarding path missed",
+          "declared_vs_installed": "unpinned framework/actual installed binding unexamined",
+          "ci": "unsupported stable-test conclusion from filenames; requirements-only trigger exclusion missed"
+        },
+        "capacity": "all responses untruncated; 15 calls, 13343 generated including 9859 reasoning",
+        "limits": "Known-case assisted review; mechanical citation, stage scheduling and search/orientation limitations remain. No intrinsic model or causal agency verdict."
+      },
+      "source_operations_by_scope": [
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "import httpx",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "httpx-old"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "import httpx",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "httpx",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "CHANGELOG.md",
+            "source_id": "httpx-old"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "path": "ci-observations/results.json",
+            "source_id": "ci-observations"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "ci-observations"
+          }
+        }
+      ],
+      "artifact_sha256": "5ed8e087181fd04193697301d4fde8190e19275b850b21c3e35f0e58b98ab742"
+    },
+    {
+      "model": "gemma12",
+      "case_id": "development-httpx-framework-ci",
+      "method": "agent",
+      "outcome": "completed_ungraded",
+      "mechanically_complete": true,
+      "advice_ready": false,
+      "usage_complete": true,
+      "counters": {
+        "calls": 15,
+        "input_tokens": 108652,
+        "output_tokens": 14218,
+        "reasoning_tokens": 13410,
+        "tool_operations": 14,
+        "source_bytes": 22478,
+        "corrections": 0
+      },
+      "elapsed_seconds": 1999.516,
+      "corpus_sha256": "6e4ab534a86aaf9d3ebc23f66391f0976faa11c5e1602ba4f12b97b25dd0abe0",
+      "packing_requests": 0,
+      "stage_artifacts": 0,
+      "complete_stage_artifacts": 0,
+      "truncated_responses": 0,
+      "mechanical_problems": [],
+      "assisted_source_review": {
+        "finding": "Mechanically complete report declares safe/no-code-change and no overlap with removed APIs. The cited requirements L2 establishes only the pin, not absence of relevant consumer behavior. Search results actually delivered TestClient import/call and app/proxies removals; the report does not trace their relation, leaves framework internals unexamined, and recommends proceeding without conditions. Standard SSL no-change claim correctly matches upstream L19 but cannot establish whole-target compatibility. CI read covers only the first twenty lines of an illustrative reconstructed Docker capture, not target test activation or installed framework binding.",
+        "coverage": {
+          "upstream_delta": "partial; useful deprecation/removal lines delivered",
+          "indirect_consumer": "TestClient clues delivered but forwarding/linkage missed",
+          "declared_vs_installed": "missing framework resolution/installed binding",
+          "ci": "illustrative Docker capture first page; requirements-only test trigger exclusion missed"
+        },
+        "useful_source_facts": [
+          "Exact base/proposed HTTPX pins",
+          "Standard verify True/False/SSLContext no-change wording is genuinely supported by HTTPX-new CHANGELOG L19",
+          "Scoped literal query absence and TestClient source hits are investigative leads"
+        ],
+        "advice_ready": false,
+        "admitted_final_report": true,
+        "final_candidate_present": true,
+        "limits": "Assisted formative review of two known cases; same reviewer knows cases/model/arm labels. Navigation/reference/stage limitations remain. No intrinsic model or causal agency/size verdict."
+      },
+      "source_operations_by_scope": [
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "httpx",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "import httpx",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "path": ".",
+            "source_id": "ci-observations"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "httpx",
+            "source_id": "target-proposed"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "ci-observations"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "path": "E16-actions-run-and-job.json",
+            "source_id": "ci-observations"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "deprecated",
+            "source_id": "httpx-new"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "request",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "client",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "removed",
+            "source_id": "httpx-new"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "path": "CHANGELOG.md",
+            "source_id": "httpx-new"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "verify=",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "cert=",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "proxy",
+            "source_id": "target-base"
+          }
+        }
+      ],
+      "artifact_sha256": "4b7d6b5f4e79ff25655bf3ae4b86ed61c6e9d0b446415518500b8fc00bfd246f"
+    },
+    {
+      "model": "gemma12",
+      "case_id": "development-glyphslib-pytest-stopping",
+      "method": "agent",
+      "outcome": "report_contract_problem",
+      "mechanically_complete": false,
+      "advice_ready": false,
+      "usage_complete": true,
+      "counters": {
+        "calls": 14,
+        "input_tokens": 97197,
+        "output_tokens": 19471,
+        "reasoning_tokens": 18269,
+        "tool_operations": 12,
+        "source_bytes": 18387,
+        "corrections": 1
+      },
+      "elapsed_seconds": 2783.695,
+      "corpus_sha256": "8c8ef1a31b2c009d83803b8c94ce9a33af201de4ae49513e0a978f186d237101",
+      "packing_requests": 0,
+      "stage_artifacts": 0,
+      "complete_stage_artifacts": 0,
+      "truncated_responses": 0,
+      "mechanical_problems": [
+        "$.claims.citations: nonexistent retained references ['target-base:requirements-dev.txt', 'pytest-old', 'pytest-new', 'target-base:requirements-dev.in', 'pytest-old', 'pytest-new', 'ci-observations']",
+        "$.claims.citations: nonexistent retained references ['target-base:requirements-dev.txt', 'target-base:requirements-dev.in', 'pytest-old:.github/labels.toml', 'pytest-new:.github/labels.toml', 'ci-observations']"
+      ],
+      "assisted_source_review": {
+        "finding": "Final and its correction fail exact-line references. Both candidates advise proceeding based on patch numbering, an alleged unchanged xdist implementation and no CI issues. Upstream xdist searches delivered label/workflow mentions, not a behavioral delta; CI zero-hit searches for xdist/pytest do not establish successful checks or no issues. It reads the actual input constraint/direct xdist declaration and target pytest settings, but not the release description, tox installation/execution chain or CI body. Useful declarations remain valid; the no-regression interpretation is unsupported.",
+        "coverage": {
+          "pin_to_test_environment": "input constraint/xdist declaration/settings clues, no exact installation chain",
+          "ordinary_CI_matrix_and_head": "CI body unread; literal zero-hit misinterpreted",
+          "regression_install_execute": "command/parallel clues only; reinstall chain unread",
+          "upstream_release_materiality": "missing; unrelated xdist label/workflow hits used as delta evidence"
+        },
+        "useful_source_facts": [
+          "pytest>=2.8 input constraint",
+          "pytest-xdist directly declared in requirements-dev.in",
+          "Target pytest configuration and regression/parallel command search clues"
+        ],
+        "advice_ready": false,
+        "admitted_final_report": false,
+        "final_candidate_present": true,
+        "limits": "Assisted formative review of two known cases; same reviewer knows cases/model/arm labels. Navigation/reference/stage limitations remain. No intrinsic model or causal agency/size verdict."
+      },
+      "source_operations_by_scope": [
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "pytest",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "path": "pyproject.toml",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "path": ".",
+            "source_id": "ci-observations"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "xdist",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "path": "requirements-dev.in",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "xdist",
+            "source_id": "ci-observations"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "xdist",
+            "source_id": "pytest-old"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "xdist",
+            "source_id": "pytest-new"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "parallel",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "pytest",
+            "source_id": "ci-observations"
+          }
+        },
+        {
+          "tool": "finish_investigation",
+          "arguments": {}
+        }
+      ],
+      "artifact_sha256": "76301d3dcd2cba4d220a3526176421d9579791568f8e73c09fe04fc5b84871f7"
+    },
+    {
+      "model": "gemma12",
+      "case_id": "development-glyphslib-pytest-stopping",
+      "method": "fixed",
+      "outcome": "report_contract_problem",
+      "mechanically_complete": false,
+      "advice_ready": false,
+      "usage_complete": true,
+      "counters": {
+        "calls": 15,
+        "input_tokens": 110672,
+        "output_tokens": 15326,
+        "reasoning_tokens": 11903,
+        "tool_operations": 7,
+        "source_bytes": 12379,
+        "corrections": 2
+      },
+      "elapsed_seconds": 2273.314,
+      "corpus_sha256": "8c8ef1a31b2c009d83803b8c94ce9a33af201de4ae49513e0a978f186d237101",
+      "packing_requests": 0,
+      "stage_artifacts": 5,
+      "complete_stage_artifacts": 1,
+      "truncated_responses": 0,
+      "mechanical_problems": [
+        "$.claims.citations: nonexistent retained references ['target-base/requirements-dev.txt', 'target-proposed/requirements-dev.txt']",
+        "$.claims.citations: nonexistent retained references ['target-base/requirements-dev.txt', 'target-proposed/requirements-dev.txt']",
+        "$.claims.citations: nonexistent retained references ['requirements-dev.txt']",
+        "$.claims.citations: nonexistent retained references ['tests/builder/axes_test.py', 'tests/builder/builder_test.py', 'tests/builder/components_test.py', 'tests/builder/custom_params_test.py', 'tests/builder/designspace_gen_test.py', 'tests/builder/features_test.py', 'tests/builder/components_test.py']",
+        "$.claims.citations: nonexistent retained references ['tests/builder/axes_test.py', 'tests/builder/builder_test.py', 'tests/builder/components_test.py', 'tests/builder/custom_params_test.py', 'tests/builder/designspace_gen_test.py', 'tests/builder/features_test.py', 'ev-005-ci-results.json']",
+        "$.claims.citations: nonexistent retained references ['tests/builder/axes_test.py', 'tests/builder/builder_test.py', 'tests/builder/components_test.py', 'tests/builder/custom_params_test.py', 'tests/builder/designspace_gen_test.py', 'tests/builder/features_test.py', 'ev-005-ci-results.json']",
+        "$.claims.citations: nonexistent retained references ['tests/builder/axes_test.py', 'tests/builder/builder_test.py', 'tests/builder/components_test.py', 'tests/builder/custom_params_test.py', 'tests/builder/designspace_gen_test.py', 'tests/builder/features_test.py', 'ev-005-ci-results.json']"
+      ],
+      "assisted_source_review": {
+        "finding": "No admitted final; bare-path references fail despite correction. One synthesis artifact is mechanically complete because its claims have empty citation lists, while its unsupported verified statuses survive. Reads include target test-import previews and only the first twenty CI capture lines (ordinary Python 3.10 Ubuntu job is a real retained clue). Relevant upstream changes are never read; later no-breaking/low-risk framing comes from patch numbering. It does not establish pytest pin-to-installation, full CI matrix/head consumption or regression reinstall/test chain.",
+        "coverage": {
+          "pin_to_test_environment": "test import previews only, no pin/install chain",
+          "ordinary_CI_matrix_and_head": "bounded head/workflow/3.10 Ubuntu capture page only",
+          "regression_install_execute": "missed",
+          "upstream_release_materiality": "upstream inventoried/filename searched but actual release unread"
+        },
+        "useful_source_facts": [
+          "Real pytest imports in builder tests",
+          "Retained CI capture reports ordinary 3.10 Ubuntu success at the proposed head"
+        ],
+        "advice_ready": false,
+        "admitted_final_report": false,
+        "final_candidate_present": true,
+        "limits": "Assisted formative review of two known cases; same reviewer knows cases/model/arm labels. Navigation/reference/stage limitations remain. No intrinsic model or causal agency/size verdict.",
+        "additional_evidence": {
+          "complete_stage_artifacts": 1,
+          "empty_citation_lists_do_not_prove_supported_verified_claims": true
+        }
+      },
+      "source_operations_by_scope": [
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "pytest-old"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "CHANGELOG",
+            "source_id": "pytest-new"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "import pytest",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "path": ".github/workflows/test.yml",
+            "source_id": "ci-observations"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "ci-observations"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "path": "ev-005-ci-results.json",
+            "source_id": "ci-observations"
+          }
+        }
+      ],
+      "artifact_sha256": "3edfb8d80d327146f72fce0b73dd8bc54c1aaafa479a4bfb4a55691adf72db6f"
+    },
+    {
+      "model": "qwen35",
+      "case_id": "development-httpx-framework-ci",
+      "method": "agent",
+      "outcome": "completed_after_recovery_ungraded",
+      "mechanically_complete": true,
+      "advice_ready": false,
+      "usage_complete": true,
+      "counters": {
+        "calls": 11,
+        "input_tokens": 111788,
+        "output_tokens": 5476,
+        "reasoning_tokens": 3666,
+        "tool_operations": 17,
+        "source_bytes": 30604,
+        "corrections": 1
+      },
+      "elapsed_seconds": 648.311,
+      "corpus_sha256": "6e4ab534a86aaf9d3ebc23f66391f0976faa11c5e1602ba4f12b97b25dd0abe0",
+      "packing_requests": 0,
+      "stage_artifacts": 0,
+      "complete_stage_artifacts": 0,
+      "truncated_responses": 0,
+      "mechanical_problems": [
+        "$.claims.citations: nonexistent retained references ['target-base:app/utils.py:L1-L20', 'target-base:app/router/routes.py:L1-L63', 'httpx-new:CHANGELOG.md:L7-L19', 'ci-observations:E19-docker-log-retrieval-error.json:L16-L20']"
+      ],
+      "assisted_source_review": {
+        "finding": "Final passes after replacing rejected citation ranges with individual lines, but removes some explicit claims rather than proving them. Correct pin and Docker-log HTTP 410 facts coexist with a broader unsupported statement that build success cannot be verified: the read E16 capture itself reports Docker success, and E19 concerns one job-log endpoint, not all CI evidence. Both captures explicitly identify manual simulation/illustrative non-binding provenance. The investigation reads only initial upstream pages and application pages; misses TestClient, app/proxies removals, reference-to-installed framework binding and requirements-only trigger exclusion. Conditional framework caution is useful, but low-risk/technically-feasible advice based on absent direct imports is not established.",
+        "coverage": {
+          "upstream_delta": "initial SSL pages only; material API removals missed",
+          "indirect_consumer": "application pages; actual test/framework linkage missed",
+          "declared_vs_installed": "explicitly unexamined",
+          "ci": "one expired Docker-log endpoint generalized; illustrative success/capture scope and test trigger missing"
+        },
+        "useful_source_facts": [
+          "Exact old/new HTTPX pins",
+          "Actual HTTP 410 status for the one retained Docker-log retrieval attempt",
+          "Indirect framework compatibility and runtime-resolution gaps explicitly acknowledged"
+        ],
+        "advice_ready": false,
+        "admitted_final_report": true,
+        "final_candidate_present": true,
+        "limits": "Assisted formative review of two known cases; same reviewer knows cases/model/arm labels. Navigation/reference/stage limitations remain. No intrinsic model or causal agency/size verdict.",
+        "additional_evidence": {
+          "ci_provenance": "Both retained HTTPX CI artifacts label themselves manual_simulation / illustrative_non_binding; no fresh runtime proof"
+        }
+      },
+      "source_operations_by_scope": [
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "target-proposed"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "httpx-old"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "httpx-new"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-base",
+            "path": "app/router/routes.py"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "httpx-old",
+            "path": "CHANGELOG.md",
+            "line_count": 100
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "httpx",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "httpx-old",
+            "path": "CHANGELOG.md",
+            "line_count": 20
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "httpx",
+            "source_id": "target-proposed"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "ci-observations",
+            "path": "logs.txt",
+            "line_count": 20
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "ci-observations"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "ci-observations",
+            "path": "E16-actions-run-and-job.json"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "ci-observations",
+            "path": "E19-docker-log-retrieval-error.json"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "httpx-new",
+            "path": "CHANGELOG.md",
+            "line_count": 20
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-base",
+            "path": "app/utils.py"
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "httpx",
+            "source_id": "target-proposed"
+          }
+        },
+        {
+          "tool": "finish_investigation",
+          "arguments": {}
+        }
+      ],
+      "artifact_sha256": "8d8c80a276e90f7e02012aa19896702d64ecdc7bd01e3e729bf73b28d7317b4d"
+    },
+    {
+      "model": "qwen35",
+      "case_id": "development-httpx-framework-ci",
+      "method": "fixed",
+      "outcome": "completed_after_recovery_ungraded",
+      "mechanically_complete": true,
+      "advice_ready": false,
+      "usage_complete": true,
+      "counters": {
+        "calls": 15,
+        "input_tokens": 160178,
+        "output_tokens": 7590,
+        "reasoning_tokens": 4266,
+        "tool_operations": 14,
+        "source_bytes": 28886,
+        "corrections": 2
+      },
+      "elapsed_seconds": 951.208,
+      "corpus_sha256": "6e4ab534a86aaf9d3ebc23f66391f0976faa11c5e1602ba4f12b97b25dd0abe0",
+      "packing_requests": 0,
+      "stage_artifacts": 5,
+      "complete_stage_artifacts": 1,
+      "truncated_responses": 0,
+      "mechanical_problems": [
+        "$.claims.citations: nonexistent retained references ['source:httpx-new/CHANGELOG.md', 'source:httpx-new/CHANGELOG.md', 'source:httpx-old/CHANGELOG.md', 'source:httpx-new/CHANGELOG.md']",
+        "$.claims.citations: nonexistent retained references ['httpx-new/CHANGELOG.md', 'httpx-old/CHANGELOG.md', 'httpx-new/CHANGELOG.md', 'httpx-new/CHANGELOG.md']",
+        "$.claims.citations: nonexistent retained references ['source:httpx-new/CHANGELOG.md', 'source:httpx-old/CHANGELOG.md', 'source:httpx-new/CHANGELOG.md', 'source:httpx-new/CHANGELOG.md']",
+        "$.claims.citations: nonexistent retained references ['target-base:api_client.py', 'target-base:*test*']",
+        "$.claims.citations: nonexistent retained references ['target-base:app/utils.py', 'ci-observations:E16-actions-run-and-job.json']",
+        "$.claims.citations: nonexistent retained references ['target-base:app/main.py', 'target-base:app/config.py', 'target-base:app/router/routes.py']"
+      ],
+      "assisted_source_review": {
+        "finding": "Final passes after citation recovery; only one of five fixed-stage artifacts is complete. It correctly captures the proposed pin and general SSL-deprecation framing, and scopes no-direct-import language provisionally to application entry pages. It never reads the material app/proxies removals beyond the first changelog page, nor TestClient/Starlette forwarding, actual installed framework state or Python workflow activation. Proceeding because the proposed pin exists is not compatibility proof. Conditions focus on utility SSL/header/transport behavior without establishing that this is the relevant consumer path. Docker capture provenance is illustrative rather than live test proof.",
+        "coverage": {
+          "upstream_delta": "first twenty changelog lines; material removals missed",
+          "indirect_consumer": "partial application pages; actual TestClient/forwarding missed",
+          "declared_vs_installed": "missing",
+          "ci": "illustrative Docker capture first page, no test activation/installation"
+        },
+        "useful_source_facts": [
+          "Proposed HTTPX 0.28.1 pin",
+          "Limited SSL-deprecation wording at new CHANGELOG L13/L17",
+          "Scoped observation of no direct import in inspected application pages; indirect use explicitly acknowledged"
+        ],
+        "advice_ready": false,
+        "admitted_final_report": true,
+        "final_candidate_present": true,
+        "limits": "Assisted formative review of two known cases; same reviewer knows cases/model/arm labels. Navigation/reference/stage limitations remain. No intrinsic model or causal agency/size verdict."
+      },
+      "source_operations_by_scope": [
+        {
+          "tool": "list_sources",
+          "arguments": {}
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "httpx-old"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "httpx-new"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "httpx-old",
+            "path": "CHANGELOG.md",
+            "line_count": 100
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "httpx-new",
+            "path": "CHANGELOG.md",
+            "line_count": 100
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "httpx-old",
+            "path": "CHANGELOG.md",
+            "line_count": 20
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "httpx-new",
+            "path": "CHANGELOG.md",
+            "line_count": 20
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "ci-observations"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-base",
+            "path": "app/main.py",
+            "line_count": 20
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-base",
+            "path": "app/config.py",
+            "line_count": 20
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "ci-observations",
+            "path": "E16-actions-run-and-job.json",
+            "line_count": 20
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-base",
+            "path": "app/router/routes.py",
+            "line_count": 20
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-proposed",
+            "path": "requirements.txt",
+            "line_count": 10
+          }
+        }
+      ],
+      "artifact_sha256": "cf6f3bbb5c942babce3628c0f7d5e100df9c46cf76fe1194cf56a8ea280e503d"
+    },
+    {
+      "model": "qwen35",
+      "case_id": "development-glyphslib-pytest-stopping",
+      "method": "agent",
+      "outcome": "completed_after_recovery_ungraded",
+      "mechanically_complete": true,
+      "advice_ready": false,
+      "usage_complete": true,
+      "counters": {
+        "calls": 15,
+        "input_tokens": 175472,
+        "output_tokens": 5662,
+        "reasoning_tokens": 3375,
+        "tool_operations": 21,
+        "source_bytes": 35283,
+        "corrections": 1
+      },
+      "elapsed_seconds": 731.13,
+      "corpus_sha256": "8c8ef1a31b2c009d83803b8c94ce9a33af201de4ae49513e0a978f186d237101",
+      "packing_requests": 0,
+      "stage_artifacts": 0,
+      "complete_stage_artifacts": 0,
+      "truncated_responses": 0,
+      "mechanical_problems": [
+        "$.claims.citations: nonexistent retained references ['target-base:requirements-dev.txt', 'target-proposed:requirements-dev.txt']"
+      ],
+      "assisted_source_review": {
+        "finding": "Final passes after reference recovery. The public pytest initializer is in fact byte-identical in the full frozen corpus, so this clue is correct, but the model reads only the first twenty and final six lines; L1 citations do not demonstrate whole-file equality or stable internal behavior. It locates the root changelog pointer but does not follow its explicit doc/en/changelog.rst source path; specific 9.0.3 behavior/security fixes remain unread. The retained proposed-head CI capture genuinely reports ordinary 3.10/3.14 jobs and Regression Tests success. It does not read target tox/workflows/reinstall chain to establish installed pytest version, and attributes both workflow environments to the ordinary matrix although the regression job has no such binding. Patch-number/public-exports/green-capture framing exceeds the established compatibility path.",
+        "coverage": {
+          "pin_to_test_environment": "generic pin packet, no target install/execution chain",
+          "ordinary_CI_matrix_and_head": "useful retained head/ordinary matrix success facts",
+          "regression_install_execute": "success capture read; reinstall/run source and environment binding missing",
+          "upstream_release_materiality": "pointer identified but actual changelog unread; initializer equality is a limited correct clue"
+        },
+        "useful_source_facts": [
+          "Public src/pytest/__init__.py is genuinely identical across the frozen versions (independently checked by reviewer)",
+          "Retained exact-head Test + Deploy and Regression Tests success facts",
+          "Ordinary CI capture identifies Python 3.10/3.14 jobs"
+        ],
+        "advice_ready": false,
+        "admitted_final_report": true,
+        "final_candidate_present": true,
+        "limits": "Assisted formative review of two known cases; same reviewer knows cases/model/arm labels. Navigation/reference/stage limitations remain. No intrinsic model or causal agency/size verdict.",
+        "additional_evidence": {
+          "initializer_whole_file_equal_in_corpus": true,
+          "model_read_scope": "only L1-L20 and L180-L185",
+          "ci_capture_is_installed_version_proof": false
+        }
+      },
+      "source_operations_by_scope": [
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "pytest-old"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "pytest-new"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "pytest-old",
+            "prefix": "CHANGELOG"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "pytest-new",
+            "prefix": "CHANGELOG"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "pytest-old",
+            "path": "CHANGELOG.rst",
+            "start_line": 1,
+            "line_count": 50
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "pytest-new",
+            "path": "CHANGELOG.rst",
+            "start_line": 1,
+            "line_count": 50
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "pytest-old",
+            "path": "CHANGELOG.rst",
+            "start_line": 1,
+            "line_count": 20
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "pytest-new",
+            "path": "CHANGELOG.rst",
+            "start_line": 1,
+            "line_count": 20
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "import pytest|from pytest",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "pytest-old",
+            "path": "src/pytest/__init__.py",
+            "start_line": 1,
+            "line_count": 20
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "pytest-new",
+            "path": "src/pytest/__init__.py",
+            "start_line": 1,
+            "line_count": 20
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "pytest-old",
+            "path": "src/pytest/__init__.py",
+            "start_line": 180,
+            "line_count": 6
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "pytest-new",
+            "path": "src/pytest/__init__.py",
+            "start_line": 180,
+            "line_count": 6
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "ci-observations"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "ci-observations",
+            "path": "ev-005-ci-results.json",
+            "start_line": 1,
+            "line_count": 20
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "ci-observations",
+            "path": "ev-005-ci-results.json",
+            "start_line": 21,
+            "line_count": 48
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "ci-observations",
+            "path": "ev-005-ci-results.json",
+            "start_line": 21,
+            "line_count": 20
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "ci-observations",
+            "path": "ev-005-ci-results.json",
+            "start_line": 41,
+            "line_count": 28
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "ci-observations",
+            "path": "ev-005-ci-results.json",
+            "start_line": 41,
+            "line_count": 20
+          }
+        },
+        {
+          "tool": "finish_investigation",
+          "arguments": {}
+        }
+      ],
+      "artifact_sha256": "afa783dcacdb4ee23ef8ce3785e860c717dfb515714aac0b41b9f6d3866b8952"
+    },
+    {
+      "model": "qwen35",
+      "case_id": "development-glyphslib-pytest-stopping",
+      "method": "fixed",
+      "outcome": "report_contract_problem",
+      "mechanically_complete": false,
+      "advice_ready": false,
+      "usage_complete": true,
+      "counters": {
+        "calls": 15,
+        "input_tokens": 90878,
+        "output_tokens": 3864,
+        "reasoning_tokens": 3131,
+        "tool_operations": 7,
+        "source_bytes": 9232,
+        "corrections": 2
+      },
+      "elapsed_seconds": 442.451,
+      "corpus_sha256": "8c8ef1a31b2c009d83803b8c94ce9a33af201de4ae49513e0a978f186d237101",
+      "packing_requests": 0,
+      "stage_artifacts": 5,
+      "complete_stage_artifacts": 0,
+      "truncated_responses": 0,
+      "mechanical_problems": [
+        "$.claims.citations: nonexistent retained references ['CHANGELOG.rst', 'CHANGELOG.rst']",
+        "Expecting value: line 1 column 1 (char 0)",
+        "$.claims.citations: nonexistent retained references ['target-proposed/requirements-dev.txt', 'target-proposed/requirements-dev.txt']",
+        "Expecting value: line 1 column 1 (char 0)",
+        "Expecting value: line 1 column 1 (char 0)",
+        "Expecting value: line 1 column 1 (char 0)",
+        "Expecting value: line 1 column 1 (char 0)",
+        "Expecting value: line 1 column 1 (char 0)"
+      ],
+      "assisted_source_review": {
+        "finding": "No final candidate is produced; all five artifacts incomplete. First retained upstream stage invents console_output and Python 3.12 warning fixes without reading the release. Actual 9.0.3 changelog names Mapping ordering, conftest -p blocking, exceptiongroup traceback handling, subTest messages and insecure temporary directories instead. Invalid references survive correction, then six stage/report responses contain empty visible text despite normal stop and a full 8192 allowance. They consume 207-310 total tokens with 206-309 reasoning tokens. No reply is marked truncated. Pin search/read and discovered changelog path are useful; the source scope contains no actual release review or CI body after an oversized workflow read error. Empty-output cause remains unresolved; no reasoning salvage or automatic retry is performed.",
+        "coverage": {
+          "pin_to_test_environment": "actual requirements L60-L69 read; no install/execute chain",
+          "ordinary_CI_matrix_and_head": "oversized workflow request rejected, no capture body",
+          "regression_install_execute": "missed",
+          "upstream_release_materiality": "changelog filename discovered, content unread; first stage changes unsupported"
+        },
+        "useful_source_facts": [
+          "Actual base pytest 9.0.2 pin",
+          "Changelog path discovery"
+        ],
+        "advice_ready": false,
+        "admitted_final_report": false,
+        "final_candidate_present": false,
+        "limits": "Assisted formative review of two known cases; same reviewer knows cases/model/arm labels. Navigation/reference/stage limitations remain. No intrinsic model or causal agency/size verdict.",
+        "additional_evidence": {
+          "empty_visible_stage_report_responses": 6,
+          "finish_reason": "stop",
+          "wire_max_tokens": 8192,
+          "output_truncation": false,
+          "root_cause": "unresolved deployment/interface/model interaction; not an established cap failure"
+        }
+      },
+      "source_operations_by_scope": [
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "pytest-old"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "pytest-new"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "pytest-old",
+            "prefix": "CHANGELOG"
+          }
+        },
+        {
+          "tool": "list_paths",
+          "arguments": {
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-base",
+            "path": "requirements-dev.txt",
+            "start_line": 60,
+            "line_count": 10
+          }
+        },
+        {
+          "tool": "search_sources",
+          "arguments": {
+            "query": "console_output",
+            "source_id": "target-base"
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-base",
+            "path": ".github/workflows/ci.yml",
+            "start_line": 1,
+            "line_count": 50
+          }
+        }
+      ],
+      "artifact_sha256": "96da687445253e9806dfc4a62a25ea71cae275969c6eb480a7fb7947dda47318"
+    }
+  ],
+  "receipt_verification": {
+    "receipt_checks": [
+      {
+        "model": "gemma12",
+        "directory": ".tmp/broader-agency-pilot/larger-local-v2-capacity/execution-broader-agency-large-v2-gemma12-20261006-compatible-tools",
+        "attempted_calls": 33,
+        "accounted_responses": 32,
+        "unreported_usage": [
+          {
+            "attempt_number": 33,
+            "request_sha256": "9456f77189bceeeb6963dc1629b3ee64fc62859cd0577ece255ec555d4cbfe7a",
+            "input_usage": "unknown",
+            "generated_usage": "unknown"
+          }
+        ],
+        "known_tokens": {
+          "input_tokens": 171103,
+          "output_tokens": 24433,
+          "reasoning_tokens": 19575
+        },
+        "wire_max_tokens_all_8192": true,
+        "actual_usage_within_measured_context": true,
+        "truncated_responses": 0,
+        "empty_visible_no_tool_responses": [],
+        "private_receipt_sha256": "7e56bb5ac468fa4ea6c579291aee3123e6de2f641e20ff4bb92c128343dd7cc2"
+      },
+      {
+        "model": "gemma12",
+        "directory": ".tmp/broader-agency-pilot/larger-local-v2-capacity-continuation-20261007/execution-broader-agency-large-v2-gemma12-resume-20261007-compatible-tools",
+        "attempted_calls": 44,
+        "accounted_responses": 44,
+        "unreported_usage": [],
+        "known_tokens": {
+          "input_tokens": 316521,
+          "output_tokens": 49015,
+          "reasoning_tokens": 43582
+        },
+        "wire_max_tokens_all_8192": true,
+        "actual_usage_within_measured_context": true,
+        "truncated_responses": 0,
+        "empty_visible_no_tool_responses": [],
+        "private_receipt_sha256": "08dde8483889a018c202a044d5ad5b5694cae359c1bd1786cc01efd2551df523"
+      },
+      {
+        "model": "qwen35",
+        "directory": ".tmp/broader-agency-pilot/larger-local-v2-capacity-continuation-20261007/execution-broader-agency-large-v2-qwen35-resume-20261007-compatible-tools",
+        "attempted_calls": 66,
+        "accounted_responses": 66,
+        "unreported_usage": [],
+        "known_tokens": {
+          "input_tokens": 568773,
+          "output_tokens": 27137,
+          "reasoning_tokens": 17400
+        },
+        "wire_max_tokens_all_8192": true,
+        "actual_usage_within_measured_context": true,
+        "truncated_responses": 0,
+        "empty_visible_no_tool_responses": [
+          55,
+          59,
+          63,
+          64,
+          65,
+          66
+        ],
+        "private_receipt_sha256": "224d63f45e8a954c624d22f47d8be3500811ffa1ac6126d87c4b506f9ce24e62"
+      }
+    ],
+    "whole_corrected_batch_including_interruption": {
+      "attempted_calls": 143,
+      "accounted_responses": 142,
+      "input_tokens": 1056397,
+      "output_tokens": 100585,
+      "reasoning_tokens": 80557
+    },
+    "token_totals_are_lower_bounds": true,
+    "completed_qualification_case_counters": {
+      "calls": 133,
+      "input_tokens": 1011384,
+      "output_tokens": 94296,
+      "reasoning_tokens": 74589,
+      "tool_operations": 123,
+      "source_bytes": 181975,
+      "corrections": 11
+    },
+    "retained_prior_evidence_unchanged": true,
+    "code_and_corpus_unchanged": true,
+    "case_assignments_unique_and_complete": 8,
+    "saved_packet_contrast_separate": {
+      "attempted_calls": 1,
+      "accounted_responses": 1,
+      "input_tokens": 4307,
+      "output_tokens": 1136,
+      "reasoning_tokens": 805
+    },
+    "original_1024_profile_and_earlier_small_model_profiles": "separate; not pooled"
+  },
+  "bias": "Same source-informed AI reviewer sees case/model/arm labels; two known cases, no repetition or independent new cases; architecture/training/quantization/context/placement and output usage confounded. No causal agency/size effect or intrinsic model winner.",
+  "runtime_end_state": "Worker-completed; all owned models unloaded; fresh native inventory empty",
+  "pending": "Independent source/learner/product acceptance and broader architecture/authority decision remain open"
+}

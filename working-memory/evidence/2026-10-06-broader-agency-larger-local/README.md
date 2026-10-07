@@ -1,5 +1,45 @@
-# Larger local models — capacity diagnosis and reviewed evidence
+# Larger local models — completed reviewed comparison
 
+Recorded 2026-10-07. All **8/8** corrected-profile assignments are saved and manually checked against the same frozen sources. The seven-trial continuation completed and unloaded both owned models; fresh native inventory reports no loaded instances. No new inference is performed during this review.
+
+The **8192-token response / 32768-context** capacity repair works in this batch: zero reported truncations in all eight completed cases and accounted qualification responses. Gemma 12B produces **1/4** mechanically complete reports; Qwen3.6 35B-A3B produces **3/4**. **0/8** establish the complete selected advice-ready evidence path in this assisted known-case review. This preserves useful correct source clues separately from unsupported advice; it is not a claim that the models are useless or intrinsically incapable.
+
+| Model | Case | Policy | Report format/reference result | Complete stage artifacts | Case minutes | Advice-ready source path |
+|---|---|---|---|---:|---:|---|
+| Gemma 4 12B Q4_K_M | HTTPX | fixed | Fail | 0/5 | 30.7 | Incomplete |
+| Gemma 4 12B Q4_K_M | HTTPX | agent | Pass | — | 33.3 | Incomplete |
+| Gemma 4 12B Q4_K_M | pytest | agent | Fail | — | 46.4 | Incomplete |
+| Gemma 4 12B Q4_K_M | pytest | fixed | Fail | 1/5 | 37.9 | Incomplete |
+| Qwen3.6 35B-A3B IQ2_M | HTTPX | fixed | Pass after correction | 1/5 | 15.9 | Incomplete |
+| Qwen3.6 35B-A3B IQ2_M | HTTPX | agent | Pass after correction | — | 10.8 | Incomplete |
+| Qwen3.6 35B-A3B IQ2_M | pytest | agent | Pass after correction | — | 12.2 | Incomplete |
+| Qwen3.6 35B-A3B IQ2_M | pytest | fixed | Fail; empty final | 0/5 | 7.4 | Incomplete |
+
+The fixed policy performs named upstream → consumer → CI/conditions → synthesis → challenge stages. The agent chooses its retrieval order and when to finish. All eight use the same corpus, tasks, tools, reporting rules and per-trial capacity. The fixed runner's retrieval/stage constraints and the common navigation/reference limitations remain confounders; it is not established as the strongest fixed baseline. [Full reviewed results](reviewed-results.json) preserve per-case source obligations, correct clues, failures, counters and artifact hashes.
+
+## What the source review found
+
+- **HTTPX:** Gemma's agent actually sees TestClient and app/proxies removal clues, but its final safe/no-code-change claim cites only the dependency pin for absence of affected behavior. Its standard SSL claim correctly matches the changelog. Qwen retains correct pins/general SSL clues and conditional framework concerns, but does not trace the TestClient → Starlette → HTTPX path or distinguish reference framework versions from the installed environment. Both Qwen arms miss the material API removals beyond their initial changelog page.
+- **CI scope:** one HTTPX Docker log endpoint returns 410; that does not mean every CI observation is unavailable. The retained Docker capture itself reports success and explicitly labels its provenance `manual_simulation` / `illustrative_non_binding`. It does not prove application tests. None establishes the Python workflow's requirements-only path exclusion and actual installed framework binding.
+- **pytest:** Qwen's agent identifies genuinely identical public initializer files and retained proposed-head CI success facts. It reads only the initializer's edge pages, misses the explicitly linked release source and the target installation/execution chain, and overbinds the regression job to the ordinary Python matrix. Gemma's agent uses xdist label/workflow mentions and zero-hit CI queries as unsupported no-regression evidence. These useful declarations/capture clues do not establish installed-version compatibility or release materiality.
+- **Empty output is a separate problem:** Qwen pytest fixed produces six empty visible stage/report replies with normal stop, 207–310 generated tokens, 206–309 reasoning tokens and max_tokens=8192. No response is reported truncated. Its first stage claims unexamined console_output/Python-warning fixes absent from the actual 9.0.3 release section. Empty-output cause remains unresolved; no hidden retry, reasoning salvage or validator weakening was used.
+- **Artifact completeness is weak proof:** only two of twenty fixed-stage artifacts pass mechanically. Gemma's one passing pytest synthesis uses empty citation arrays even for verified claims. A stage label or valid JSON does not establish the named work was performed or its interpretation is supported.
+
+Qwen's four case elapsed times sum to **46.2 minutes**, versus Gemma's **148.3 minutes**. These include inference, retrieval and corrections and different generated/reasoning amounts. They are observed costs on these deployments, not a controlled speed or size benchmark; architecture, quantization, placement and training differ. No winner or causal agency/parameter-count effect is established.
+
+## Accounting and proof boundary
+
+Completed qualification/case rows total **133 accounted calls**, **1011384 input / 94296 generated / 74589 reasoning tokens**, 123 operations and 181975 observation bytes. Including the preserved user-interrupted attempt gives **143 attempts / 142 accounted responses**, known lower bounds **1056397 input / 100585 generated / 80557 reasoning tokens**. That interrupted request has unknown usage; it is not zero-cost or a fabricated formal trial. Its nine known operations remain separately preserved in pause evidence. The one saved-packet contrast is separate (4307 input / 1136 generated / 805 reasoning); including it gives 144 attempts/143 accounted responses and 1060704 input/101721 generated/81362 reasoning lower bounds. The older 1024-cap profile and previous small-model batches remain separate.
+
+Every receipt reconciles with completed rows or explicit interrupted facts. Every accounted response has max_tokens=8192, actual usage within the measured 32K context, and no length finish. Frozen executable/corpus identities, seven original retained artifact hashes and continuation driver identity are unchanged. All eight cases fit without history packing and no trial-event replay tool is used; missing evidence cannot be attributed to observed packing omissions in this batch. Gemma qualification is reused only after exact model/asset/load/provider equality apart from owned instance binding; Qwen passes two fresh sequences. Existing **53/53** capacity/source/transport checks remain historical proof of the unchanged executable; this closure freshly checks actual receipt/fit/source/review/artifact consistency rather than rerunning unchanged tests. Full product/experiment regression, target execution, fresh installed-package proof, protected/independent cases and learner ownership were not performed or established.
+
+This is an assisted formative review: the same AI reviewer knows both cases and sees model/arm labels. Exact source facts and model interpretation are separated, but there is no blinded or independent acceptance. Raw source, prompts, candidate bodies, provider reasoning and complete receipts remain private under ignored .tmp.
+
+## Recommended next responsibility
+
+Design a neutral source/navigation/reference contract with explicit line, scope-search, packet/event and uncertainty evidence forms; clarify pagination/path discovery and release pointers; strengthen unresolved-evidence tracking and review the fixed policy's retrieval sufficiency. Diagnose the saved empty-response packets separately. Then select a separately labelled whole-set comparison and independent new cases. These are recommendations, not implemented changes, protected comparison authorization or expanded product authority. The completed larger-model increment is closed; the wider research and Ali's architecture decision remain open. [MEMORY.md](../../../MEMORY.md) owns live continuation.
+
+## Historical capacity diagnosis and pause evidence
 Recorded 2026-10-06. Local experiment evidence; no product or independent semantic acceptance.
 
 The initial larger-model profile exposed an inadequate ordinary/stage output allowance: Gemma 4 12B passed two fresh interface canaries, then three real-case assignments each stopped at 1024 generated tokens. Each failing response recorded 1021 reasoning tokens and no usable continuation. This is observed output truncation, rather than a completed model-quality comparison.
