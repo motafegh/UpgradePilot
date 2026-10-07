@@ -1,0 +1,72 @@
+# Investigation Workspace and Investigator-interface Design Plan
+
+## Responsibility and outcome
+
+Design the product composition and update boundary between native evidence producers, an Investigator, independent evaluation and downstream synthesis. The outcome is a reviewable ownership/interface proposal and its proof/migration obligations, not an executable Investigator or another source-only prompt experiment. Live selection and cycle position belong only in [MEMORY.md](../MEMORY.md).
+
+The relevant product responsibility is evidence-backed dependency-update investigation for public Python maintainers. This cycle covers the shared knowledge and interface boundary through which existing and foreseeable investigation mechanisms can serve that responsibility. Acquisition breadth, semantic accuracy and recommendation usefulness still require later implementation and evaluation; the design must not imply that today's two impact mechanisms exhaust the product.
+
+## Controlling owners and entry evidence
+
+- [Core §§3–6.3](../docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md): evidence/trust, representation, retention and authority invariants.
+- [Product Decision Model §§5–14](../docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md): proposals, applicability, coverage, investigation, feedback, lineage and stopping semantics.
+- [ADR-0010](../docs/architecture/ADR-0010-package-manager-semantic-facts-and-runtime-dependency-state-composition.md) and [ADR-0011](../docs/architecture/ADR-0011-explicit-source-association-bases-and-proposal-boundary.md): domain-owned mechanical facts and distinct source-association/proposal boundaries.
+- [Maintainer Action Synthesis specification](../docs/specifications/UPGRADEPILOT_MAINTAINER_ACTION_SYNTHESIS_SPECIFICATION.md), [Charter](../PROJECT_CHARTER.md) and [Security](../SECURITY.md): controlled recommendation/execution, product scope and untrusted-content boundaries.
+- [Minimum Useful Generality](../docs/specifications/UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md): real cases pressure the design; they do not supply case-specific product answers.
+- [AUDIT-010](../audits/2026-10-07_AUDIT-010_hybrid-investigation-architecture-compatibility.md), main checkpoint `1dca28855c091bc99805c7b39b6ea513ea5235e5`: existing hybrid compatibility and the genuine workspace/interface delta. Selecting the hybrid direction alone requires no restatement ADR or specification amendment.
+- Research checkpoint `74835751cf53171ec31ce0fc01e505aaf4fae8e0`: [two-case interpretation review](https://github.com/motafegh/UpgradePilot/blob/74835751cf53171ec31ce0fc01e505aaf4fae8e0/working-memory/evidence/2026-10-07-broader-agency-evidence-interface/README.md). Mechanically complete known-case reports require semantic revision despite relevant supplied evidence. Attribution, composition, applicability and recommendation support remain separate problems; this is neither intrinsic model incapacity nor a Fixed-versus-Agent result.
+
+Inspect the native producer-to-consumer paths below before choosing a representation. Prior test results are dated evidence, not proof of a new design or current runtime.
+
+## Questions the design must resolve
+
+Names below describe responsibilities, not selected classes, modules or schema fields.
+
+| Design area | Required decision/output | Current anchor or constraint |
+| --- | --- | --- |
+| Workspace composition and ownership | Identify the owner that assembles investigation identity, native records, proposals, assessments, capabilities and history; separate composition from domain interpretation. Compare extending the current typed result with a separate composed workspace before adding a layer. | [PublicPullRequestInvestigation](../src/upgradepilot/investigation.py) is a typed result of a fixed sequence, not a general evolving ledger. |
+| Native deterministic records | Define retention and reference rules for exact domain records/content, available provenance, producer limitations and explicitly missing content. Identify any genuinely needed adapters and the earliest sufficient owner. | Preserve CI consumption/execution, package-manager facts, scoped command-completion state, dependency contexts and upstream authority without flattening their meanings. |
+| Evidence, proposals and evaluated propositions | Define distinguishable conceptual contracts and who may produce/admit each; prevent a proposal, valid JSON or citation from writing an established assessment. | [PropositionAssessment](../src/upgradepilot/impact/applicability.py) depends on its mechanism owner; it is not a general semantic validator. |
+| Typed evidence and missing-premise links | Bind references to native record kind, exact identity/scope and the specific proposition they support or fail to close. Represent required-but-unavailable evidence separately from a performed negative observation. | Coverage axes, source versus executed revision, temporal/environment context and absence scope remain explicit. |
+| Investigator capability/request interface | Define its input view, offered capability descriptions, proposed requests and no-request/unresolved outcomes; locate host-owned binding, eligibility and admission. Accommodate separately admitted discovery and proposition-relative follow-up without selecting a policy. | [Planner boundary](../experiments/evidence_gap_planner_model_boundary.py) and [action admission](../experiments/evidence_gap_action_admission.py) are narrow experiment evidence, not a product-wide interface to copy unchanged. |
+| Proposal admission and independent evaluation | Separate structural/reference/request admission from source support, applicability and action evaluation. Specify rejection, unsupported evaluation and genuine conflict; evaluation-method selection can remain open. | Literal reconstruction, delivery and type checks do not establish entailment. A second model is not independent source corroboration. |
+| Observation ingestion and knowledge update | Specify who records capability results/failures, validates their identity/meaning, invokes domain evaluators and advances the workspace view; describe ordering, stale-input handling and failure preservation. | Successful execution can yield unusable evidence. [Transition traces](../experiments/evidence_gap_investigation_transition.py) illustrate an explicit before/result/after boundary without defining the general product method. |
+| Candidate/proposition lineage | Preserve identity, revision/refinement relationships, triggering observations and assessment changes. Identify which changes invalidate earlier evaluations rather than silently overwriting them. | Product Decision Model §12 owns the semantics; no event-sourcing technology is implied. |
+| Current context and recoverable history | Define a bounded Investigator view and what remains available outside it, including source content, request/result/evaluation lineage and method identity where available. State recovery limits and context omissions explicitly. | Historically delivered evidence, currently supplied evidence and actual model understanding are different. No universal raw capture, storage technology or full replay promise is selected. |
+| Product/result/report relationships | Map bootstrap from existing producers, the relationship to the current investigation result, compatibility for current report/synthesis consumers, and separate saved-report versus future recoverable-investigation obligations. | [Report projection](../src/upgradepilot/report_projection.py) and [saved-report handling](../src/upgradepilot/report_file.py) cannot be reinterpreted as complete resumable state. |
+
+## Design sequence and deliverables
+
+1. Reconcile the accepted architecture and research delta, initialize the single cycle record, and orient Ali to the proposed responsibility before consequential design selection. Apply the canonical learning gates proportionately under root AGENTS.md.
+2. Trace native producer → composition → Investigator/validator → synthesis/report for representative paths. Produce a compact ownership/retention ledger, including existing sufficient owners and genuine missing owners.
+3. Compare the simplest credible workspace-composition alternatives. Write conceptual input/output contracts and one full request → admission → result → evaluation → knowledge-update flow. Include a source/semantic proposal flow as well as an evidence-acquisition request; do not pretend all proposals are executable actions.
+4. Walk the proposal through the cases below. Resolve boundary defects and explicitly preserve questions that depend on semantic evaluation methods or later mechanism experiments.
+5. If a consequential cross-module composition/update/interface method is proposed, prepare a focused ADR for review with alternatives, trade-offs, reversal and migration/proof consequences. Do not mark it accepted from the assistant's own recommendation. Amend a specification only if a genuinely new or changed stable semantic responsibility is identified; do not copy accepted semantics into a new owner.
+6. Verify the design's source/owner alignment and document integrity, teach the resulting decisions and limitations, then close or truthfully preserve unresolved design/ownership gaps. Hand off implementation requirements without starting Build.
+
+The cycle record owns dated reasoning, walkthrough results and learning. A plan coordinates the work; a justified ADR owns any accepted structural method. Avoid creating a second permanent design owner merely to store the same contract.
+
+## Review cases and proof boundary
+
+| Case/variation | What the design walkthrough must demonstrate |
+| --- | --- |
+| HTTPX supplied evidence, reference adapter text and illustrative Docker capture | Retain the useful removal fact while distinguishing reference versions from installed target binding; illustrative success cannot become current pipeline compatibility. Unused workflow/constraint evidence stays recoverable. |
+| Pytest release facts cited to a target-pin diff | A valid/delivered reference can fail support. Correct summary assertions outside a claims list also require attribution/evaluation; captured success cannot establish installed/executed pytest or unconditional proceed. |
+| Native command-completion witness versus unresolved environment/conditional selection | Preserve the existing sufficient domain proof and unsupported branches. The Investigator cannot reclassify command completion as later exercise or compatibility, or discard markers/extras to manufacture reachability. |
+| Support-drop claim followed by an exact target declaration, and unavailable/conflicting follow-up | An observation can refine a specific proposition through its evaluator; an acquisition failure, negative evidence and semantic conflict remain distinct. |
+| Candidate refinement and stale proposal | Show the original candidate, triggering observation, successor and affected evaluations. A request based on an earlier state cannot silently apply to a changed PR/scope/capability state. |
+| Bounded context, saved report and incomplete retained history | Distinguish omission from source absence and explain what can be recovered. Offline report opening stays offline and cannot claim continuation/replay from missing inputs. |
+
+HTTPX/pytest are inspected known-case research evidence, not unseen acceptance tests or a product oracle. Existing product paths supply different evidence strengths and failure variations. Use the same interface/ownership reasoning across them; reject a design that works only by case-specific assumptions.
+
+Design verification is source/owner tracing, contract/flow walkthroughs and documentation checks. It establishes a reviewed design proposal and its unresolved boundaries, not implemented recovery, automatic semantic validation, model quality, target compatibility, independent usefulness or a policy winner. Product/model/installed/hosted tests are unnecessary for documentation-only preparation; later Build owns executable proof.
+
+## Modification boundary, completion and stop line
+
+Allowed: this plan, the cycle record, necessary live-memory/audit-lifecycle reconciliation, and a justified focused architecture proposal or real specification delta for review. Do not edit product/experiment source, tests, prompts, schemas, defaults or runtime configuration in this cycle.
+
+Completion requires the ten design areas to have explicit ownership/interface decisions or precisely bounded unresolved method-dependent questions; review cases must expose no unexplained authority promotion or retention loss. A missing central composition/update/admission decision prevents closure as a complete design. Preserve learning gaps honestly in E.
+
+Do not select a framework/LangGraph, model, single/multiple agents, interpretation stages, persistence technology, concrete Investigator policy, exact expanded tool set or broader execution authority. Retain `source-only-api-change-v2` and its frozen reviewed FAILED/REVISE baseline; this cycle neither disposes of it nor promotes it as the workspace architecture.
+
+Main's workspace design and the independent repaired Fixed-versus-Agent research must converge through a later explicit integration decision: map the selected mechanism to the reviewed interface, resolve mismatches, agree semantic/variation/authority/retention proof and migration, and only then select a bounded Build. The workspace design does not infer a research winner; laboratory results do not silently become product owners. Reconcile the inherited [scheduled mechanism-evaluation obligation](../audits/scheduled/README.md) at that mechanism/integration boundary rather than bypassing or activating it here.

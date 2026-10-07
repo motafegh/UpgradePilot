@@ -6,6 +6,11 @@ Canonical audit records remain at stable paths directly under `audits/`. Existin
 
 Current active audits:
 
+- [ACTIVE — AUDIT-010 — Hybrid Investigation Architecture Compatibility and Interface Delta](../2026-10-07_AUDIT-010_hybrid-investigation-architecture-compatibility.md)
+  - selection basis: Ali proposes a bounded workspace/Investigator-interface design responsibility following the completed interpretation-only research result at `74835751`.
+  - execution owner: [Investigation Workspace and Investigator-interface Design Plan](../../plans/INVESTIGATION_WORKSPACE_AND_INVESTIGATOR_INTERFACE_DESIGN_PLAN.md); `../../MEMORY.md` alone owns the cycle phase and continuation.
+  - selected input is the genuine composition/update/proposal-admission delta. The accepted hybrid direction needs no restatement ADR/specification change. Source Build, concrete Investigator mechanism, framework/model/agent structure, persistence technology and execution expansion remain unselected; research and main require a later explicit integration decision. The audit's original dated review and proof cutoff remain unchanged.
+
 - [ACTIVE — AUDIT-009 — Post-Runtime-State Delta Readiness Audit](../2026-10-02_AUDIT-009_post-runtime-state-delta-readiness.md)
   - selection basis: Ali requested a full post-runtime-state delta audit and then authorized reconciliation of stale current-facing records before the next action-relative reachability comparison.
   - execution owners: `../../plans/END_TO_END_PRODUCT_FLOW_LEARNING_AND_EVIDENCE_TO_ACTION_EXECUTION_PLAN.md` and its parent `../../plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`; `../../MEMORY.md` alone owns the exact live slice.
