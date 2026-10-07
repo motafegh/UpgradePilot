@@ -11,15 +11,23 @@ A1 — DONE, proportionately compressed: Ali explicitly confirmed the architectu
 A2 — DONE: upcoming responsibility orientation completed; Ali cleared the pre-B understanding
      gate through explicit reasoning about evidence authority, provenance/use lineage and the
      distinction between the current typed investigation result and a future evolving workspace.
-B — CURRENT: B1 ownership/retention tracing is DONE; B2 workspace architecture is DONE and
-     accepted; B3 canonical Workspace interface/lifecycle contract design is DONE after the
-     focused 2026-10-08 review repair; B4 real-case pressure testing/consolidation is CURRENT
-     with five review-triggered walkthroughs complete and the broader pressure set remaining.
-Verification gate — PENDING for the complete design.
-D — PENDING: actual design/result learning and ownership review.
+B — DONE: B1/B2/B3 and B4 pressure/consolidation completed; B2 direction accepted;
+     complete method/recovery proposal remains subject to Ali's result review.
+Verification gate — GREEN for scoped design/source-owner alignment and document integrity;
+     58 native/report regressions pass; full doctor retains its inherited examples/ finding.
+D — CURRENT: evidence-backed result explanation prepared; Ali's method/recovery review and
+     ownership discussion pending, with no learner-mastery inference.
 E — PENDING: gap repair/defer and closure; no next Build selected.
 C — CONTINUOUS: scope, evidence distinctions and progression preserved here.
 ```
+
+### B4 takeover and explicit recovery scope — 2026-10-08
+
+Ali authorized this assistant to take over and fully complete B4, including an explicit decision on whether durable canonical Workspace recovery is an intended product responsibility and its minimum semantic boundary. Reconciled baseline: `5c32ed426832124ad098028c55355d9bbfd40c54`, equal to fetched `origin/main`; the unrelated untracked broad-audit cycle record is preserved. B3's repaired contract and five early walkthroughs are the starting point, not work to repeat.
+
+**Proportionate continuation:** existing A0/A1/A2 and Ali's prior gates already cover this same design responsibility → normally a fresh takeover could repeat onboarding → repeating the gates would interrupt expressly authorized, continuous-context B4 without adding proof → continue the same cycle, give a concise verified delta and recovery mental model, and preserve the new recovery decision here → documentation/design only, no source Build or learner-mastery inference. The primary operation remains Planning/Design, with Working Memory and Learning-by-Doing support; D/E remain open until actual result review and gap repair/defer.
+
+The added pressure is a product-responsibility decision, not a database decision: offline report reopening, canonical historical recovery and explicit fresh continuation must have separate effects. Charter §6 already anticipates persisted/replayable runs when activated; B4 must make the intended recovery promise precise rather than leave it indefinitely conditional or imply deterministic model replay.
 
 ## Current-state reconciliation and research delta
 
@@ -392,7 +400,7 @@ All consumers receive **one-way projections from the canonical Workspace**. Proj
 | **Evaluator projection** | exact evaluation subject; target revision/material basis; proposer citations; owner-selected relevant evidence/counterevidence/unknowns; scope/association/use/coverage information; evaluator method identity | limit evaluation to what the proposer chose to cite; silently manufacture unavailable evidence; conflate support with source existence |
 | **Synthesis projection** | exact decision identity; domain-owned evaluated candidates/propositions; candidate-discovery coverage limits; residual unknowns/conflicts; material failed/unsupported/stale acquisition/evaluation/adequacy outcomes; canonical investigation stopping state **where established**; provenance/coverage limits; repository context actually owned | treat raw proposals as permission; manufacture discovery completeness; convert procedural finish/unsupported adequacy into investigation stop; convert missing evaluator/capability into an action without Synthesis's own positive permission |
 | **Report projection** | the synthesis/action result plus material evidence links, findings, unknowns, limitations and projection/version/retention metadata | become canonical state; establish new semantics; claim resumability/replay from missing inputs |
-| **Recovery projection/checkpoint, if persistence is later admitted** | enough canonical Workspace state, revision identity, retained/recoverable native content, discovery/proposal/request/observation/evaluation/lineage state and method identities to satisfy an explicitly admitted continuation contract | reuse the saved human report as fake resumable state; promise universal raw capture/full replay without proof |
+| **Recovery projection/checkpoint** | one coherent declared canonical revision, its material evidence/history/method dependencies, retention gaps and unfinished work; the minimum recovery boundary proposed below | claim report prose or absent history is resumable/replayable state; automatically execute, retry or rebase recovered work |
 | **Temporary legacy `PublicPullRequestInvestigation` projection, only if independently justified during migration** | only meanings that can be losslessly/intentionally projected from the canonical Workspace/native owners, with explicit compatibility/version limits | run a second acquisition/orchestration path, become a second source of truth, or earn permanent retention merely because old tests/callers exist |
 
 ### Replacement-oriented migration completion conditions
@@ -405,7 +413,7 @@ Migration from the current fixed snapshot is complete only when all applicable c
 4. **Legacy bridge direction:** if a temporary `PublicPullRequestInvestigation` adapter is still needed, it is derived one-way **from the canonical Workspace** and has an independently justified compatibility/proof owner plus removal/reassessment trigger.
 5. **Behavior/proof parity plus intentional deltas:** current deterministic regression/report behavior and representative real-case semantics are verified through the Workspace path; new B3 obligations additionally cover pre-candidate discovery versus proposition-directed follow-up, proposal admission versus support, unsupported semantic/adequacy evaluation, failed/empty observations, bounded omission/evidence-use truth, same-target delayed results, counterevidence reevaluation and target-changing staleness.
 6. **No duplicate truth/evaluator ownership:** domain facts, proposition assessments and any canonical adequacy assessments have one authoritative owner; the Workspace and compatibility projections reference/project rather than recompute competing semantics.
-7. **Report versus recovery separation:** saved report opening remains an offline projection operation. Any admitted resumable investigation uses a Workspace recovery contract/checkpoint, not report prose or an obsolete snapshot.
+7. **Report versus recovery separation:** saved report opening remains an offline projection operation. Durable canonical Workspace recovery is an intended product responsibility under the B4 conclusion below; later migration acceptance must prove the reviewed recovery contract or explicitly preserve its staged implementation debt, rather than calling a report or obsolete snapshot resumable state.
 8. **Retirement decision executed:** when no independent compatibility/external obligation remains, remove `PublicPullRequestInvestigation` and its dedicated normal-path plumbing/tests rather than keeping a dormant second architecture. If a real external compatibility obligation survives, version and bound that adapter explicitly.
 9. **Documentation and tests name the canonical boundary:** active source comments, tests and user/developer-facing documentation stop teaching the old snapshot as the product investigation contract once cutover is complete.
 
@@ -455,11 +463,11 @@ Separately, counterevidence `O8` may arrive on the same `H1` and contradict an e
 
 **Pressure result:** passes; current validity follows exact target plus material basis, not revision-number equality.
 
-### B3 non-selections and remaining B4 pressure targets
+### B3 checkpoint — non-selections and remaining pressure targets
 
 B3 intentionally does **not** select exact Python type/module names, mutable versus immutable state objects, database/event-store/persistence technology, identifier/hash algorithms, framework/graph engine, discovery/Investigator model/topology/policy, capability catalog, semantic evaluator implementation or investigation-adequacy evaluator/method. It defines the responsibilities those choices must preserve.
 
-B4 still must pressure and consolidate the contract across the remaining planned variation set, especially:
+At the B3 checkpoint, B4 still owed the following pressures; the completed B4 section below records their resolution:
 
 - native command-completion evidence with unresolved environment/conditional activation;
 - support-drop candidate refinement, unavailable follow-up, scoped negative and genuine conflict;
@@ -467,6 +475,163 @@ B4 still must pressure and consolidate the contract across the remaining planned
 - migration projection loss/duplication risk and retirement triggers;
 - cross-case consistency of discovery, semantic-evaluator and adequacy gaps;
 - whether the surviving cross-module method is consequential/stable enough to justify a focused ADR proposal.
+
+## B4 — completed contract pressure and recovery-responsibility decision
+
+**Evidence class:** source-grounded conceptual walkthroughs and design reasoning. The five early B4 walkthroughs above remain part of this proof set. None is an executed Workspace transition or implemented recovery test. Hypothetical variations are identified below; existing tests establish only their native/current composition behavior.
+
+### Walkthrough 6 — command completion, unresolved environment and conditional activation
+
+**Anchors:** [native composer](../src/upgradepilot/ci/dependency_state.py), [command-state tests](../tests/test_ci_dependency_state.py), [conditional optional-requirement integration](../tests/test_conditional_pyproject_consumption.py), [report preservation](../tests/test_report.py), and ADR-0010.
+
+An exact direct-requirements pip command with established manager environment, installation destination, mutation mode, requirement handling and successful captured execution yields `RequirementSatisfiedAtCommandCompletion`. The Workspace binds that native witness and its exact dependency/workflow/revision/job/step/command/environment inputs. It neither downgrades sufficient native evidence into a generic model proposal nor upgrades command completion into fresh-install causality, later package use, test exercise or compatibility.
+
+A second command may have unresolved ambient/configuration semantics or failed execution. Its typed blocker remains separate; the first witness cannot close its proposition. A selected optional requirement such as `numpy[fast,gpu]; python_version < "3.12"` retains selected project extra, dependency extras and marker independently. Selection alone does not establish marker truth or runtime activation. An unselected extra differs from a selected but unevaluated marker.
+
+**End-to-end result:** native producer → exact bindings → evaluator/Investigator views preserving independent command/activation scopes → synthesis projection with established and unresolved states → report with unchanged proof strength. Today's report test preserves these scopes and outputs `abstain`; the Workspace adds lifecycle, not action permission. Unsupported marker semantics remain native limitations.
+
+**Pressure result:** passes. No generic confidence field, repeated package-manager interpretation or broader command-state claim is needed.
+
+### Walkthrough 7 — support-drop feedback, failure, scoped negatives and conflict
+
+**Anchors:** [support-drop owner](../src/upgradepilot/impact/python_support.py), [acquisition/assessment tests](../tests/test_python_support_impact.py), [applicability composition tests](../tests/test_impact_applicability.py), and Product Decision Model §§6–9/11–13.
+
+1. A grounded Python 3.9 support drop inside an exact dependency interval forms a candidate whose target exposure/activation still need evaluation. The admitted evaluator records unresolved target-declaration propositions; a request reads `pyproject.toml` at the exact target head.
+2. `requires-python >=3.9` can establish overlap through today's bounded evaluator; `>=3.10` refutes this **declared-installation-range path**. The new observation and successor assessment link to the original candidate/inputs. Neither result establishes discovery completeness or every runtime property. Ordinary proposition resolution does not require a new candidate identity.
+3. File unavailability, transport failure, malformed text, a real empty file and a scoped zero-result search retain their different meanings. None establishes global absence or refutes exposure by itself. Today's selector does not blindly repeat an attempted failed declaration read. A future alternate/retry requires discriminating value, changed conditions and admission, not unresolved status alone.
+4. **Unsupported-method distinction:** today's admitted support-drop evaluator can acquire a declaration yet return unresolved activation with sufficient acquired evidence because its bounded comparison does not support that form. Preserve that actual native assessment. For a new proposition family with **no admitted evaluator**, preserve an unsupported `EvaluationAttempt` and no fabricated assessment. More declarations do not supply a missing method.
+5. **Refinement variation:** follow-up might expose concern about actual CI use of a dropped Python line outside the declared installation range. Retain the original bounded candidate/assessment; a proposed successor or separate candidate explains the different mechanism and triggering observation. It cannot inherit established applicability from the original path. Evaluation requires its own owner and evidence; absent that method, preserve proposed lineage plus unsupported evaluation.
+6. **Conflict variation:** normalize proposition, identity, revision, context, scope and time before conflict evaluation. Installation-range declaration and captured runtime use are different propositions. Credible normalized evidence that remains contradictory about the same proposition requires an evaluator-owned conflicted successor preserving both records and the old assessment. If normalization/evaluation is unsupported, retain contrary inputs and the capability gap. Controlled composition tests prove preservation of an already established conflict, not general contradiction detection.
+
+**Pressure result:** passes after clarifying admitted-evaluator limitations versus absence of an evaluator. No native contract changes. New mechanism/refinement and normalization implementations remain open rather than being hidden inside ingestion.
+
+### Walkthrough 8 — bounded context and saved-report limits
+
+**Anchors:** [report projection omissions](../src/upgradepilot/report_projection.py), [offline decoder](../src/upgradepilot/report_file.py), [saved-record tests](../tests/test_report_file.py), and Core §§6.1–6.2.
+
+View V1 delivers an excerpt/reference and truthfully discloses material retained omissions. Examination/use stays unknown unless observable. A newly assembled V2 preserves V1's historical delivery identity; V2 cannot retroactively prove V1 used its content. Context assembled after recovery is a new view/run, not reconstructed model understanding or restored hidden runtime memory.
+
+Today's report explicitly omits complete operation history, code/model/prompt/config identity and full workflow/log/dependency/target content. Schema, integrity and reference checks cannot reconstruct those inputs. Opening it stays offline: no retrieval, evaluation, continuation or current-validity assertion. A valid saved report therefore fails the **canonical recovery** contract by design. Its digest checks recorded bytes, not provenance authenticity or semantic support.
+
+**Pressure result:** passes. Report retention stays consumer-relative. A canonical checkpoint is a distinct representation of the same investigation lineage, not a second truth path or an enlarged report format.
+
+### Explicit persistence/recovery-responsibility comparison
+
+| Alternative | Product consequence / burden | Decision |
+| --- | --- | --- |
+| Saved reports only; restart investigation | Lowest retention burden but loses objectives/needs, failure/evaluation lineage, retained context and interrupted-work distinctions. Reacquisition may not recover original evidence. | Rejected as the full intended responsibility. Report-only operation can be an explicitly incomplete implementation stage. |
+| Durable recovery of a coherent canonical checkpoint, then explicit validated continuation | Preserves material investigation knowledge and uncertainty across interruption. Requires versioned coherent recovery, evidence dependencies and explicit gap/continuation handling, without every transient byte or deterministic rerunning. | **Selected intended responsibility.** The narrowest honest durable recovery promise serving this investigation product. |
+| Full execution replay, including every model/tool/process state | Much greater capture/privacy/compatibility burden; visible inputs do not guarantee identical external sources/model output. Hidden runtime state is not an available product contract. | Not selected. Particular deterministic replay stages can later earn separate contracts/proof. |
+
+**Conclusion: yes, durable canonical Workspace recovery is intended.** This makes Charter §6's eventual persisted/replayable-run responsibility concrete for the selected architecture. It does not choose a database, activate implementation or establish durability. The new minimum semantic boundary is proposed for Core below; result review/acceptance remains separate from this assistant's recommendation. Leaving recovery merely conditional would leave an identified continuation consumer without a sufficient owner.
+
+### Minimum recovery semantics — proposed Core §6.4 delta for review
+
+**Promotion owner:** [Core specification](../docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md). The following is an exact proposed insertion, not a silent amendment to an accepted specification. Existing Core §§6.1–6.2, Product Decision Model and Security remain controlling. Acceptance should promote this section to Core; ADR-0012 owns the structural method rather than these framework-independent semantics.
+
+> **6.4 Canonical investigation recovery and explicit continuation**
+>
+> When canonical investigation recovery is activated, a durable checkpoint MUST declare one coherent investigation boundary: lineage, exact repository/PR/base/head/dependency transition, canonical revision and supported representation/semantic-version identity. Recovery MUST identify the persistence boundary; it MUST NOT imply preservation of later uncheckpointed activity. Checkpoint cadence and retention duration require an explicit implementation contract before durability is claimed.
+>
+> The checkpoint MUST preserve the material dependency closure needed to explain and continue that boundary: native identity/owner/scope/provenance and retained content or explicit recovery limitations; material proposal/admission and evaluation inputs/results; candidate/proposition lineage and reasons; discovery objectives/coverage; investigation needs; request/admission/attempt/observation/problem relationships; procedural termination, stopping proposals and adequacy assessments or unsupported/failed outcomes. Material views and available method/model/configuration identity MUST be retained at their admitted proof boundary, with missing provenance explicit. Reference-only content MUST NOT be labeled exact retained evidence. No universal raw capture, hidden model reasoning or secret retention is required or authorized.
+>
+> Recovery MUST preserve authority, assessment basis, open work and failed/unsupported/stale/conflicted distinctions. It MUST NOT convert proposals into assessments, omitted evidence into absence, ambiguous attempts into successes/negative observations, or procedural completion into adequate investigation. Completed observations absent from the declared boundary MUST NOT be invented.
+>
+> Supported representation, internal identities/references and integrity/coherence MUST be validated before recovered state is presented as canonical. Torn/invalid boundaries MUST NOT be silently merged or repaired into authoritative truth. A separately validated earlier boundary MAY be restored with explicit lost-progress limits. Incompatible versions, broken material references, missing required content and integrity problems MUST have explicit outcomes. Readable historical material MAY remain inspectable with declared limits; it MUST NOT be advertised as fully resumable where gaps block the next obligation.
+>
+> Recovery MUST be offline historical restoration. It MUST NOT issue requests, invoke models/evaluators, execute content, retry work, rebase targets or infer present source validity. Offline report opening remains a separate projection operation and MUST NOT reconstruct absent canonical state.
+>
+> Explicit continuation MUST distinguish fresh facts and state changes from the checkpoint. Before using recovered records/requests/assessments as current, validate the exact target and material identity/premise/scope/method/authority bindings; logical revision inequality alone is not staleness. Changed targets cannot be silently rebound. Missing methods/capabilities and material retention gaps MUST remain explicit and block affected operations without discarding unaffected evidence or manufacturing assessments.
+>
+> Pending, interrupted and completion-unknown attempts MUST remain distinguishable from unperformed requests and completed observations. Reconciliation/retry requires explicit continuation and current host admission under the capability's effects/authorization contract. Historical admission MUST NOT independently grant present execution authority or imply exactly-once execution. Duplicate results MUST be identified against request/attempt/observation identity and checked for contradictory content before ingestion.
+>
+> Recovered adequacy/synthesis conclusions MUST retain their historical basis. Material new evidence, discovery obligations, target/premise changes or newly feasible decision-critical checks require validity review and affected successor evaluation by the admitted owner before current use. Recovery cannot self-authorize stop/action; absent current adequacy/evaluation methods preserve unsupported evaluation rather than justified stop.
+>
+> Recovery promises MUST be evidenced through interruption, coherent restoration, missing/corrupted/incompatible dependencies, ambiguous attempts, target change and explicit continuation tests. Recovery does not establish deterministic replay, semantic correctness, current compatibility, discovery completeness or action permission.
+
+**Minimum does not mean report-sized:** retain the material content/history needed by the named continuation/evaluation consumer, rather than only final answers. Unrelated transient transport/debug bytes may be discarded with justification; a material source input cannot be hidden behind its citation/digest. Exact separately retained content is allowed when its identity/availability and recovery boundary are validated. Failed external reacquisition leaves explicit loss; newly retrieved bytes cannot overwrite what was originally supplied.
+
+### Walkthrough 9 — interruption and persistence failure pressure
+
+Starting state combines the real HTTPX binding gap, retained-but-undelivered pytest evidence and native command distinctions above. These checkpoint/fault variations are **hypothetical contract pressure**, not executed recovery experiments.
+
+| Trigger | Required result | Forbidden promotion |
+| --- | --- | --- |
+| Coherent K7 at exact H1 contains native records, open binding need, discovery objective, unsupported evaluations and retained omissions | Offline restore preserves declared W7 history, content/addressability, gaps and unfinished work; explicit continuation creates a new view/run with current admission. | Recovered → adequate; available → examined. |
+| R7 was started; process dies before a terminal observation is durably recorded | Preserve completion-unknown. Restoration issues no call. Explicit reconciliation may find an identity-validated result; a justified retry is a newly admitted attempt. | No result → failure, zero or success; old admission → retry permission. |
+| Observation was durably recorded but not evaluated | Preserve observation and pending evaluation; evaluate through the owner when available, without mandatory reacquisition. | Valid observation → semantic support; pending evaluation → acquisition loop. |
+| W8 references missing required content/history after interrupted persistence | Reject W8 as complete recovery; separately valid K7 can restore with explicit lost-progress limits. Partial material may remain historical. | Merged W7/W8 fragments → fabricated coherent W8. |
+| Retained blob disappears or only URL/digest survives | Declare exact-content loss and affected continuation limits, preserve unaffected records; retrieval is fresh attributed evidence. | Reference → preserved bytes; fresh body → original observation. |
+| Unsupported version, damaged bytes or broken references | Explicit incompatible/integrity/incomplete outcome, no automatic canonical import; independently valid earlier boundary carries its limits. | Decodable bytes → canonical truth or silent lossy migration. |
+| Head changes H1 → H2 | Offline H1 remains historical. Explicit H2 continuation creates separately bound successor state; reuse only independently valid material. | Opening → head refresh; old result → H2 evidence. |
+| Same H1, but association changes, counterevidence arrives or a critical check becomes feasible | Preserve old assessment/stop basis; validate affected bindings and create successor evaluation/adequacy attempts or unsupported gaps. | Same head → all old conclusions current. |
+| Result delivered twice or same observation identity has different content | One exact result contributes one canonical relationship; inconsistent identity/content is an ingestion integrity problem pending reconciliation. | Duplicate → independent corroboration; identity collision → semantic conflict. |
+| Only saved report survives | Offline report retains its projection meanings; missing canonical state is explicit. Fresh investigation is identified as new. | Report JSON/digest → checkpoint or recovered action authority. |
+
+**Pressure result:** B3's conditional recovery projection was insufficient to close this responsibility. The intended recovery decision and minimum proposed semantics repair that gap. No database, file/event-store layout, transaction mechanism, schedule, retention period or replay engine is selected. Coherent restoration is a semantic requirement, not event sourcing or immutable snapshots.
+
+### Walkthrough 10 — migration loss, duplicate ownership and retirement
+
+**Anchors:** B1's ledger, [fixed result](../src/upgradepilot/investigation.py), [synthesis](../src/upgradepilot/maintainer_action.py), [report projection](../src/upgradepilot/report_projection.py), and B3's nine migration conditions.
+
+| Surface | Required preservation / cutover | Loss or duplication pressure |
+| --- | --- | --- |
+| PR/dependency/source context and CI/runtime/package facts | Native bindings retain exact identity, markers/extras and independent command/blocker scopes; domain owners are reused. | Generic installed/CI-success flags lose scope/unknowns; Workspace reinterpretation creates competing truth. |
+| Upstream grounding/association, target relevance, support-drop/artifact assessments | Preserve native strength, inputs, limitations and provenance; new proposals remain attributed. | Proposal → grounded claim; declaration → runtime binding. |
+| Synthesis/report | Workspace-owned projections supply structured facts/gaps; report remains selective, synthesis owns permission. | Parsing prose or rerunning legacy acquisition restores a second canonical path. |
+| New lifecycle/recovery | Preserve objectives, needs, attempts, evaluations, lineage, views and adequacy in canonical state/checkpoints. | Old snapshot cannot encode them; treating its projection as complete silently drops new responsibilities. |
+| Temporary bridge | One-way from Workspace, independently justified caller/proof/compatibility use, explicit limits/removal trigger. | Parallel orchestration diverges; old tests alone do not earn permanent retention. |
+
+**Retirement criterion:** when CLI/orchestration, synthesis and report use Workspace projections, native regression meaning is preserved there, recovery/lifecycle proof meets admitted scope, and no identified external caller or necessary proof consumes the old snapshot, remove obsolete snapshot/plumbing and adapter-only tests. Migrate meaningful semantic assertions to native/Workspace consumers. A real surviving external contract earns a bounded/versioned adapter with a reassessment owner, not parallel acquisition.
+
+Later Build may stage durability/cutover only with explicit debt; a useful narrow slice is not completion of the full target. No source cutover occurs here.
+
+**Pressure result:** passes. Proof/retirement conditions are concrete without preselecting a compatibility API or preserving legacy architecture by default.
+
+### Cross-case consolidation and structural promotion
+
+All ten walkthroughs use one authority path: native producers retain facts; the host owns identity/reference/request eligibility and canonical revision publication; admitted evaluators own assessments; synthesis owns permission. The Workspace owns relationships/lifecycle/recovery without inheriting those authorities. Host ingestion validates result identity/effects before publication and cannot self-resolve semantic propositions.
+
+Three gaps remain distinct in operation and recovery: **discovery coverage** can be incomplete before candidates exist; **semantic evaluation capability** can be absent despite valid proposals; **adequacy evaluation capability** can be absent despite finished runs. None automatically authorizes action or acquisition. Independently justified objectives/needs can proceed; one unsupported role does not block unaffected operations. Material changes invalidate affected assessment/adequacy uses, rather than every record merely because a logical revision increased.
+
+B4 additionally clarifies native unsupported-comparison results versus missing evaluators, duplicate-content identity validation before support/conflict, and intended durable recovery. These are design obligations, not implemented behavior.
+
+Canonical composition, revision-bound host ingestion, separated admissions/evaluation, one-way projections and replacement migration are consequential cross-module methods warranting [ADR-0012](../docs/architecture/ADR-0012-canonical-investigation-workspace-and-recovery-boundary.md). It links existing semantics and this proposed Core delta without copying every field/walkthrough. **Status is Proposed:** B2's direction is accepted, but the completed method/recovery proposal awaits Ali's result review. No competing design owner/plan is created.
+
+### Complete design-area reconciliation
+
+| Plan design area | Result / remaining boundary |
+| --- | --- |
+| Workspace composition/ownership | B2 accepted distinct canonical lifecycle owner; ADR-0012 proposes its completed method. |
+| Native deterministic records | B1 ledger and walkthrough 6 preserve earliest sufficient native authority, exact identity and independent command/conditional scopes. |
+| Evidence/proposals/evaluated propositions | B3 and walkthroughs 4/7 preserve separate authority, native limitations and missing-evaluator outcomes. |
+| Typed evidence/use/derivation/missing premises | B3 native bindings/view relationships plus walkthroughs 3/8/9 retain material basis/omissions without inferring use. |
+| Investigator capability/request interface | B3 dual objective/need basis; walkthroughs 1/2/7 preserve pre-candidate discovery and discriminating follow-up. Policy/catalog remain method choices. |
+| Admission/independent evaluation | Structural/host admission separated from semantic and adequacy authority; walkthroughs 2/4/7. Evaluator mechanisms remain explicitly unselected. |
+| Observation ingestion/update | Host-controlled validation/publication, actual problem/empty/negative distinctions, material-basis validity and duplicate integrity; walkthroughs 5/7/9. |
+| Candidate/proposition lineage | B3 and walkthroughs 5/7 preserve original → observation → successor meaning; normalization/evaluation capability cannot be invented. |
+| Context/recoverable history | Walkthroughs 3/8/9 and explicit recovery comparison decide intended durable responsibility, minimum proposed Core semantics and failure boundaries. Technology/cadence/retention remain later contract choices. |
+| Product/result/report relationships | One-way consumer projections, offline report separation, canonical recovery and concrete replacement/retirement proof; walkthroughs 8/9/10. |
+
+No central composition/update/admission responsibility remains unexplained. The remaining method choices do not undermine the interface design; they are explicit prerequisites of later executable admission, not capability claims.
+
+### Formal design verification — 2026-10-08
+
+- **Source/owner alignment:** all ten design areas reconciled above; each pressure result retains native/domain/synthesis/security authority. The intended recovery boundary is a genuine new semantic refinement prepared for Core review; accepted specifications are untouched. ADR-0012 is Proposed, not self-accepted.
+- **Fresh native/current-product anchor proof:** `PYTHONPATH=tests:src .venv/bin/python3 -m unittest test_ci_dependency_state test_conditional_pyproject_consumption test_python_support_impact test_impact_applicability test_report test_report_file` — **58 tests PASS**. These offline tests establish today's bounded native composition, failure/unsupported/conditional preservation and saved-report behavior. They are not Workspace/recovery implementation tests.
+- **Document integrity:** five changed/new design/live/navigation documents have balanced fenced blocks; **70 local link occurrences resolve**; `git diff --check` passes. Selective repository internal-link, normative-ID uniqueness and audit-lifecycle checks pass.
+- **Inherited governance debt:** a fresh full `tools/agent-governance/governance_doctor.py` run fails with the same single `AGENTS.md responsibility map is missing owner marker examples/` finding. No new finding; unrelated governance repair remains outside this scope.
+- **Proof limit:** no product/experiment source, test, prompt, model, runtime or accepted specification change. No Workspace transition, recovery fault injection, live model, fresh-installed package, full product/experiment suite or hosted proof is performed. Conceptual variation walkthroughs plus anchor regressions justify a complete review proposal, not executable capability or semantic acceptance.
+
+### D result teaching and ownership discussion frontier
+
+A2 expected a composition/interface design without prematurely selecting mechanisms. B3 review found discovery/adequacy gaps; B4 exposed an additional recovery-responsibility gap and an important native-evaluator distinction. The resulting design is more complete, while the full product/semantic capability remains unimplemented.
+
+The practical learning model is: a retained exact command witness can remain established while another command's environment is unresolved; a valid API proposal can remain unevaluated because no method owns it; a finished mechanism can leave justified work; and a restored checkpoint can preserve all those facts without running anything. Explicit continuation changes knowledge through the same admission/evaluation path as normal operation. Recovery restores the investigation boundary, not model understanding or action permission.
+
+Prepared discussion questions: (1) a checkpoint restores an open binding request, but the target head changed—what stays valid historical evidence and what must be rebound/revalidated before current use? (2) on the same head, a previously unavailable decisive read becomes feasible—why is restoring the old stop assessment insufficient, and which owner can establish a successor conclusion? These are result/ownership discussion prompts, not additional permission gates before the already completed B4 work.
+
+Assistance state: Ali-directed, AI-authored/source-checked design; B2 direction explicitly Ali-accepted. Full ADR/Core recovery acceptance and learner ownership are not inferred. E closure remains pending result review and repair/defer of material gaps. The later mechanism-integration/Build responsibility is a handoff candidate only, not started here.
 
 ## A2 gate closure
 
@@ -494,12 +659,12 @@ The seven experiment-derived interface requirements are admitted as B2/B3 design
 
 This completed comparison does not contradict B1's ownership ledger. It strengthens the need for cross-domain composition and lifecycle contracts while leaving native domain owners intact. It does not authorize a deterministic-tool, critic, framework, multi-agent, unseen-evaluation or product-Workspace implementation experiment. Main remains the product contract owner; later research integration must map an admitted mechanism onto the reviewed interface explicitly.
 
-## Preparation progression and handoff
+## Historical preparation evidence and design handoff
 
 Prepared one bounded position-neutral plan covering Ali's ten questions, producer retention, conceptual flow, real-case walkthroughs, architectural promotion criteria and the later integration boundary. No architecture option, schema/type layout, evaluator method or Investigator policy is selected by that plan. AUDIT-010 is selected as a design input through its lifecycle index; its historical review text and proof cutoff remain unchanged.
 
 Preparation verification: **GREEN for scoped documentation integrity**: 35 local links across five touched/new documents resolve, fenced blocks balance, `git diff --check` passes, and selective repository link/audit-lifecycle/normative-ID checks pass. Full governance doctor remains **FAILED** with the same single inherited `AGENTS.md responsibility map is missing owner marker examples/` finding; the prior cycle already reproduced it at the untouched baseline. No new finding appeared and no unrelated repair was selected. Earlier 88-test architecture checks remain historical proof of existing boundaries; no product/experiment/model/installed/hosted suite is rerun or claimed as workspace acceptance.
 
-**Handoff after focused B3 repair / early B4 pressure:** remain in B4. Complete the remaining native command-completion/conditional-activation, support-drop refinement/conflict, broader report/recovery and migration loss/duplication pressure; repair any additional contract defect; consolidate the design and decide whether the surviving consequential cross-module method warrants a focused ADR proposal. Only after B4 completes should the formal design Verification gate run. Implementation remains unselected in this Planning/Design cycle. Code Build and concrete discovery/Investigator/semantic-or-adequacy evaluator remain unselected; research remains paused pending enough main Workspace/interface design for a later explicit integration decision.
+**Handoff after B4 takeover/completion:** B4's complete contract pressure and formal scoped design verification are finished. Discuss the actual method/recovery proposal and ownership cases in D; repair or explicitly defer material gaps in E before truthful cycle closure. ADR-0012 remains Proposed and the exact Core §6.4 recovery delta remains for review/promotion. No next Build, storage mechanism or concrete discovery/Investigator/semantic-or-adequacy evaluator is selected. A later explicit mechanism-integration decision must map the research mechanism onto this interface and own semantic/variation/recovery/migration proof; it is not activated by completing design pressure.
 
 Applied procedures: `UP-SKILL:upgradepilot-planning-design`, `UP-SKILL:upgradepilot-working-memory`, `UP-SKILL:upgradepilot-learning-by-doing`.
