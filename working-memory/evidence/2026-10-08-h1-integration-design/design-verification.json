@@ -1,0 +1,285 @@
+{
+  "scope": "H1 design/source/document verification only; no implementation, conformance execution or model qualification",
+  "checked_at_utc": "2026-10-07T22:50:31.900743+00:00",
+  "proposal_path": "proposals/2026-10-08_H1_WORKSPACE_INVESTIGATOR_INTEGRATION_EXPERIMENT_DESIGN.md",
+  "proposal_sha256": "31d24ad16a14ed170d84d86fe7aeb8260a181159741135a638a9fd721d364820",
+  "baseline_manifest_sha256": "3f5edc4001bae2abb8a1c7f1d8a38af602c79e6f67e8aa9363bf6deae283bde8",
+  "mechanical_checks": {
+    "status": "PASS",
+    "pinned_main_owner_checks": 22,
+    "unchanged_research_baseline_checks": 7,
+    "existing_dimension_count": 9,
+    "existing_dimension_hash_unchanged": true,
+    "changed_protected_executable_contract_paths": [],
+    "h1_local_links_checked": 20,
+    "pinned_git_links_checked": [
+      {
+        "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+        "path": "plans/INVESTIGATION_WORKSPACE_AND_INVESTIGATOR_INTERFACE_DESIGN_PLAN.md"
+      },
+      {
+        "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+        "path": "working-memory/2026-10-07_investigation-workspace-and-investigator-interface-design_lbd-cycle.md"
+      },
+      {
+        "commit": "08243e5b3e455ad26ae1cd142763f4d147269bc6",
+        "path": "docs/architecture/ADR-0012-canonical-investigation-workspace-and-recovery-boundary.md"
+      }
+    ],
+    "json_parse": true,
+    "markdown_fences_and_touched_whitespace": true,
+    "git_diff_check": true,
+    "research_checkout_source_spec_matches_pinned_b3": 15,
+    "new_artifact_json_parse_and_whitespace": true
+  },
+  "source_hash_checks": [
+    {
+      "kind": "pinned_main_owner",
+      "path": "plans/INVESTIGATION_WORKSPACE_AND_INVESTIGATOR_INTERFACE_DESIGN_PLAN.md",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "hash_matches": true
+    },
+    {
+      "kind": "pinned_main_owner",
+      "path": "working-memory/2026-10-07_investigation-workspace-and-investigator-interface-design_lbd-cycle.md",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "hash_matches": true
+    },
+    {
+      "kind": "pinned_main_owner",
+      "path": "docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "hash_matches": true
+    },
+    {
+      "kind": "pinned_main_owner",
+      "path": "docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "hash_matches": true
+    },
+    {
+      "kind": "pinned_main_owner",
+      "path": "src/upgradepilot/investigation.py",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "hash_matches": true
+    },
+    {
+      "kind": "pinned_main_owner",
+      "path": "src/upgradepilot/dependency/analysis.py",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "hash_matches": true
+    },
+    {
+      "kind": "pinned_main_owner",
+      "path": "src/upgradepilot/ci/dependency_exercise.py",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "hash_matches": true
+    },
+    {
+      "kind": "pinned_main_owner",
+      "path": "src/upgradepilot/ci/dependency_state.py",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "hash_matches": true
+    },
+    {
+      "kind": "pinned_main_owner",
+      "path": "src/upgradepilot/impact/applicability.py",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "hash_matches": true
+    },
+    {
+      "kind": "pinned_main_owner",
+      "path": "src/upgradepilot/maintainer_action.py",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "hash_matches": true
+    },
+    {
+      "kind": "pinned_main_owner",
+      "path": "audits/scheduled/README.md",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "hash_matches": true
+    },
+    {
+      "kind": "pinned_main_owner",
+      "path": "docs/specifications/UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "hash_matches": true
+    },
+    {
+      "kind": "pinned_main_owner",
+      "path": "docs/specifications/UPGRADEPILOT_MAINTAINER_ACTION_SYNTHESIS_SPECIFICATION.md",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "hash_matches": true
+    },
+    {
+      "kind": "pinned_main_owner",
+      "path": "src/upgradepilot/upstream/interval_evidence.py",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "hash_matches": true
+    },
+    {
+      "kind": "pinned_main_owner",
+      "path": "src/upgradepilot/upstream/changelog.py",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "hash_matches": true
+    },
+    {
+      "kind": "pinned_main_owner",
+      "path": "src/upgradepilot/target/relevance.py",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "hash_matches": true
+    },
+    {
+      "kind": "pinned_main_owner",
+      "path": "src/upgradepilot/upstream/support_drop.py",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "hash_matches": true
+    },
+    {
+      "kind": "pinned_main_owner",
+      "path": "src/upgradepilot/upstream/claim.py",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "hash_matches": true
+    },
+    {
+      "kind": "pinned_main_owner",
+      "path": "PROJECT_CHARTER.md",
+      "commit": "08243e5b3e455ad26ae1cd142763f4d147269bc6",
+      "hash_matches": true
+    },
+    {
+      "kind": "pinned_main_owner",
+      "path": "plans/INVESTIGATION_WORKSPACE_AND_INVESTIGATOR_INTERFACE_DESIGN_PLAN.md",
+      "commit": "08243e5b3e455ad26ae1cd142763f4d147269bc6",
+      "hash_matches": true
+    },
+    {
+      "kind": "pinned_main_owner",
+      "path": "docs/architecture/ADR-0012-canonical-investigation-workspace-and-recovery-boundary.md",
+      "commit": "08243e5b3e455ad26ae1cd142763f4d147269bc6",
+      "hash_matches": true
+    },
+    {
+      "kind": "pinned_main_owner",
+      "path": "working-memory/2026-10-07_investigation-workspace-and-investigator-interface-design_lbd-cycle.md",
+      "commit": "08243e5b3e455ad26ae1cd142763f4d147269bc6",
+      "hash_matches": true
+    },
+    {
+      "kind": "unchanged_research_baseline",
+      "path": "experiments/broader_agency_workspace.py",
+      "hash_matches": true
+    },
+    {
+      "kind": "unchanged_research_baseline",
+      "path": "experiments/broader_agency_evidence.py",
+      "hash_matches": true
+    },
+    {
+      "kind": "unchanged_research_baseline",
+      "path": "experiments/broader_agency_trial.py",
+      "hash_matches": true
+    },
+    {
+      "kind": "unchanged_research_baseline",
+      "path": "experiments/broader_agency_local.py",
+      "hash_matches": true
+    },
+    {
+      "kind": "unchanged_research_baseline",
+      "path": "experiments/broader_agency_pilot.py",
+      "hash_matches": true
+    },
+    {
+      "kind": "unchanged_research_baseline",
+      "path": "working-memory/evidence/2026-10-07-broader-agency-contract2-comparison/selection-freeze.json",
+      "hash_matches": true
+    },
+    {
+      "kind": "unchanged_research_baseline",
+      "path": "working-memory/evidence/2026-10-07-broader-agency-evidence-interface/evaluation-dimensions-v2.json",
+      "hash_matches": true
+    }
+  ],
+  "user_requirement_traceability": [
+    {
+      "requirement": 1,
+      "proposal_sections": "2",
+      "inspected_marker": "Contract-2 \u2192 B3 responsibility and reuse ledger"
+    },
+    {
+      "requirement": 2,
+      "proposal_sections": "2",
+      "inspected_marker": "Native fact-capability feasibility"
+    },
+    {
+      "requirement": 3,
+      "proposal_sections": "3",
+      "inspected_marker": "Minimum Investigator-facing projection and capability surface"
+    },
+    {
+      "requirement": 4,
+      "proposal_sections": "4",
+      "inspected_marker": "Pre-candidate path"
+    },
+    {
+      "requirement": 5,
+      "proposal_sections": "3\u20134",
+      "inspected_marker": "Stop path"
+    },
+    {
+      "requirement": 6,
+      "proposal_sections": "5",
+      "inspected_marker": "Comparison and causal controls"
+    },
+    {
+      "requirement": 7,
+      "proposal_sections": "4/5/7",
+      "inspected_marker": "development/regression cases"
+    },
+    {
+      "requirement": 8,
+      "proposal_sections": "6\u20137",
+      "inspected_marker": "Active-effort measurement protocol"
+    },
+    {
+      "requirement": 9,
+      "proposal_sections": "8",
+      "inspected_marker": "Main-owned ambiguities and integration dependencies"
+    }
+  ],
+  "assisted_design_review": {
+    "method": "source-first conceptual inspection by the experiment-design assistant; no independent acceptance",
+    "reviewed_distinctions": [
+      "immutable corpus versus main-owned evolving canonical state",
+      "native authority versus annotations/projection",
+      "pre-candidate objective versus genuine proposition-relative need",
+      "structural proposal admission versus evaluator assessment",
+      "unsupported/failed/stale evaluation versus evaluated non-final domain state",
+      "rejection/no-attempt versus failed/empty/scoped-zero observation",
+      "available/delivered/visible/observable-use/cited versus supported/sufficient",
+      "same-target revision changes versus material target/premise staleness",
+      "stop proposal versus procedural termination versus admitted adequacy",
+      "runtime evaluator authority versus offline source-review measurement",
+      "historical raw Agent versus shared B3 bridge control",
+      "structured view/fact-access bundle versus serialization-only causality",
+      "native prerequisites/common preparation versus fabricated stronger input",
+      "recovery versus separately activated deterministic retained-input replay"
+    ],
+    "known_case_walkthroughs": "HTTPX/pytest design/regression only; not executed H1 tests or unseen evaluation",
+    "owner_questions": "G1\u2013G8 retained; no alternative product contract invented"
+  },
+  "execution": {
+    "h1_implementation": false,
+    "product_source_or_tests_edited": false,
+    "tests_run": false,
+    "non_model_qualification_run": false,
+    "model_calls": 0,
+    "unseen_cases_selected": false,
+    "new_models_selected": false,
+    "critic_multi_agent_or_framework_added": false,
+    "recovery_or_replay_implemented_or_proven": false,
+    "recommendation_execution_authority_changed": false
+  },
+  "review_state": "Candidate design delivered; joint acceptance and learner ownership unassessed; stop before Build/run selection"
+}

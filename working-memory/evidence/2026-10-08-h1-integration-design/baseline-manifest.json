@@ -1,0 +1,166 @@
+{
+  "design_scope": "H1 integration/experiment design only; no implementation, qualification execution, model calls or unseen selection",
+  "main_b3_baseline": "5c32ed426832124ad098028c55355d9bbfd40c54",
+  "main_b3_status": "reviewed conceptual contract; not frozen implementation API",
+  "main_b4_observation": "At initial inspection, main had uncommitted plan/cycle/recovery ADR work. These drafts are observed dependencies, not adopted H1 requirements or implementation authority.",
+  "main_owned_baselines": [
+    {
+      "path": "plans/INVESTIGATION_WORKSPACE_AND_INVESTIGATOR_INTERFACE_DESIGN_PLAN.md",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "sha256": "80d81e348c20998adf62850661c44a11351916b36ad2abbe593bd620112f9317"
+    },
+    {
+      "path": "working-memory/2026-10-07_investigation-workspace-and-investigator-interface-design_lbd-cycle.md",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "sha256": "2366569ed1026e6845cad6f5f8948eb71d3e9dcb7cec05a81834efe41a0795ed"
+    },
+    {
+      "path": "docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "sha256": "1815bed6fb6b619069ffa2c8b95ab73d0fe282faf52d79a77d9bdfe445f2c209"
+    },
+    {
+      "path": "docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "sha256": "93e59663f8159e6dc3d0a469cac9a346ad85219b80ede03d6d26db607fd86258"
+    },
+    {
+      "path": "src/upgradepilot/investigation.py",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "sha256": "6b61f97af89f3ab617ea707971f78f28c5cf6a572d635274a50c7acd256dd3b5"
+    },
+    {
+      "path": "src/upgradepilot/dependency/analysis.py",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "sha256": "3358825a9a95b75bab277ff584316357587d1aef762f16855c035b9a2a873c51"
+    },
+    {
+      "path": "src/upgradepilot/ci/dependency_exercise.py",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "sha256": "023f3ce6aa8b9ef1b17b943859f90aa709ffb7c61b4abce646b27a066c56356a"
+    },
+    {
+      "path": "src/upgradepilot/ci/dependency_state.py",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "sha256": "3fb5a4d6f91fa7e04cc73fb4d6a5a3390544cedbfa60b1ea7c6ff0156acaceba"
+    },
+    {
+      "path": "src/upgradepilot/impact/applicability.py",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "sha256": "a1fbb1b1f0beb396ab227130d81a268603e3e0d459bff266dc426fdf7b6c3f3a"
+    },
+    {
+      "path": "src/upgradepilot/maintainer_action.py",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "sha256": "a5e718392419c2097362e771b7e2f54dc1bcf246d76317ddfa5eb48c9dfdffbd"
+    },
+    {
+      "path": "audits/scheduled/README.md",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "sha256": "db7b4e901b28321048aecb3757eb46efeffd321e1161673a12ad4b988308f501"
+    },
+    {
+      "path": "docs/specifications/UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "sha256": "e7dacfcd0839d3d78ea8b6489d4f21e5f3237aeab527ff411a5592c4a4a7f650"
+    },
+    {
+      "path": "docs/specifications/UPGRADEPILOT_MAINTAINER_ACTION_SYNTHESIS_SPECIFICATION.md",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "sha256": "fc4e98594ce3ca7873e021274b98038c686544e1ff681c42e8f913312f324c8e"
+    },
+    {
+      "path": "src/upgradepilot/upstream/interval_evidence.py",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "sha256": "72e318eb38ae98e55db74429a68b3b1cf0e3892ded8cb0b91224d23e4bbe7d5c"
+    },
+    {
+      "path": "src/upgradepilot/upstream/changelog.py",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "sha256": "bcbcc0fea3bf83a29c19d72692979c051691e2927e5e509a2488f4a5a08b34df"
+    },
+    {
+      "path": "src/upgradepilot/target/relevance.py",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "sha256": "0827bc4afc6d5921248404ee1c0b6ed519380c3a37ca9ef2cd8dac2a9e3d9a2c"
+    },
+    {
+      "path": "src/upgradepilot/upstream/support_drop.py",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "sha256": "bcde37d02a159b28f1446393581c0e79f71ef8e6a02fe3d19ae866d00eb0671a"
+    },
+    {
+      "path": "src/upgradepilot/upstream/claim.py",
+      "commit": "5c32ed426832124ad098028c55355d9bbfd40c54",
+      "sha256": "a9193e5e095305f391bdf673a1fb0c68743d6df4ea3eaa117c4e76bd47161311"
+    }
+  ],
+  "research_baselines": [
+    {
+      "path": "experiments/broader_agency_workspace.py",
+      "sha256": "96bc41109b71090b157bb21e37063e939d4f4bb0d7b8284ca7b315cf54d1d257",
+      "research_checkpoint": "cde0ea9906fa37e4184962d0ba65577e4d62396e"
+    },
+    {
+      "path": "experiments/broader_agency_evidence.py",
+      "sha256": "23e830b9823aba67e5148af2ecbb6ff88692a8c49274ddce764de788a54efef9",
+      "research_checkpoint": "cde0ea9906fa37e4184962d0ba65577e4d62396e"
+    },
+    {
+      "path": "experiments/broader_agency_trial.py",
+      "sha256": "10189d2b4cdcc29f9a03f67d0fe85ff678e5b36642721ebc48e53d2c9aed8d16",
+      "research_checkpoint": "cde0ea9906fa37e4184962d0ba65577e4d62396e"
+    },
+    {
+      "path": "experiments/broader_agency_local.py",
+      "sha256": "7ff1833a3b29653e874ac3fe3588fdd4fc8952e199187195e7cf22fd0275572a",
+      "research_checkpoint": "cde0ea9906fa37e4184962d0ba65577e4d62396e"
+    },
+    {
+      "path": "experiments/broader_agency_pilot.py",
+      "sha256": "2cf49d9584243e693dcf17c44f93505624b00e277645ad4b85d45c42026c6695",
+      "research_checkpoint": "cde0ea9906fa37e4184962d0ba65577e4d62396e"
+    },
+    {
+      "path": "working-memory/evidence/2026-10-07-broader-agency-contract2-comparison/selection-freeze.json",
+      "sha256": "974bda47b167d49174e2ed65e0c205102d559c9f60f429768537ecb7f4e38907",
+      "research_checkpoint": "cde0ea9906fa37e4184962d0ba65577e4d62396e"
+    },
+    {
+      "path": "working-memory/evidence/2026-10-07-broader-agency-evidence-interface/evaluation-dimensions-v2.json",
+      "sha256": "6836f2cce267bb41c3febe533414c309643447e16d03293312def516786a6efe",
+      "research_checkpoint": "cde0ea9906fa37e4184962d0ba65577e4d62396e"
+    }
+  ],
+  "main_source_workspace_api_search": "No canonical Workspace/DiscoveryObjective/InvestigationNeed implementation found under main src/upgradepilot at initial inspection. Current PublicPullRequestInvestigation remains a frozen result.",
+  "existing_dimensions_sha256": "6836f2cce267bb41c3febe533414c309643447e16d03293312def516786a6efe",
+  "unseen_cases_selected": false,
+  "new_model_selected": false,
+  "main_verification_cutoff": {
+    "commit": "08243e5b3e455ad26ae1cd142763f4d147269bc6",
+    "observed_delta": "B4 published at43b9b470; recovery/replay distinction clarified at08243e5b. ADR-0012 remains proposed and Core recovery delta awaits review. No executable source/tests changed after the B3 baseline. B3 remains the conceptual interface baseline; no H1 API freeze inferred.",
+    "owners": [
+      {
+        "path": "PROJECT_CHARTER.md",
+        "commit": "08243e5b3e455ad26ae1cd142763f4d147269bc6",
+        "sha256": "d37acf09842e2398eed5115ebf147328ac4822420a6add7db4b6166c033643a8"
+      },
+      {
+        "path": "plans/INVESTIGATION_WORKSPACE_AND_INVESTIGATOR_INTERFACE_DESIGN_PLAN.md",
+        "commit": "08243e5b3e455ad26ae1cd142763f4d147269bc6",
+        "sha256": "dd55a81c7eadd2f97916c8c63149370ade61aed55bf4fa45ce6aba5ca5521c68"
+      },
+      {
+        "path": "docs/architecture/ADR-0012-canonical-investigation-workspace-and-recovery-boundary.md",
+        "commit": "08243e5b3e455ad26ae1cd142763f4d147269bc6",
+        "sha256": "4a8b07ee02d8c55feaa28dd688535c776137ec577e17b0c7fadde56ca159c20d"
+      },
+      {
+        "path": "working-memory/2026-10-07_investigation-workspace-and-investigator-interface-design_lbd-cycle.md",
+        "commit": "08243e5b3e455ad26ae1cd142763f4d147269bc6",
+        "sha256": "7d60f826d0e578fd69da83fcb916b05258c659c0441bf6c98bb9c84bd007d743"
+      }
+    ],
+    "h1_consequence": "Preserve intended recovery and separately activated deterministic replay; neither is implemented or proven by H1. Reconcile main review before implementation selection."
+  }
+}
