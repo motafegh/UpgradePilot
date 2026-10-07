@@ -325,7 +325,7 @@ class LocalJSONActionProvider:
         )
 
     def harmless_probe(
-        self, *, call_budget=12, sequence_seconds=180, limits=None
+        self, *, call_budget=12, sequence_seconds=180, limits=None, contract_version=1
     ) -> dict:
         """Two fresh <=6-call source/follow-up/report sequences; no reference answers."""
         if type(call_budget) is not int or not 4 <= call_budget <= 12:
@@ -372,6 +372,7 @@ class LocalJSONActionProvider:
                 "agent",
                 self,
                 limits=probe_limits,
+                contract_version=contract_version,
             )
             observations = [
                 (e["event_id"], r)
@@ -413,7 +414,15 @@ class LocalJSONActionProvider:
                 and any(
                     c in references
                     for claim in result["report"]["claims"]
-                    for c in claim["citations"]
+                    for c in (
+                        claim.get("citations", [])
+                        if contract_version == 1
+                        else [
+                            r["id"]
+                            for r in claim["evidence"]
+                            if r["kind"] == "source_line"
+                        ]
+                    )
                 )
             )
             result["qualification_checks"] = {

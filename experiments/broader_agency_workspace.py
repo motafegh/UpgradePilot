@@ -199,6 +199,8 @@ class SourceWorkspace:
             "source_id": source,
             "path": args.get("path"),
             "path_prefix": args.get("path_prefix", ""),
+            "sources": self.sources if source is None else None,
+            "completeness_basis": "retained frozen text only; inventory capture omissions remain excluded",
         }
         mode = (
             "literal-case-insensitive"
@@ -243,6 +245,10 @@ class SourceWorkspace:
             "omissions": omissions,
             "complete": "tool_problem" not in result
             and not omissions
+            and result.get("next_line", result.get("next_offset")) is None,
+            "returned_whole_scope": "tool_problem" not in result
+            and not omissions
+            and start == (1 if tool in {"read_source", "read_observation"} else 0)
             and result.get("next_line", result.get("next_offset")) is None,
             "error": result.get("tool_problem"),
         }
@@ -308,6 +314,27 @@ class SourceWorkspace:
                 except (ValueError, KeyError):
                     missing.append(citation)
         return missing
+
+    def source_line(self, citation):
+        """Resolve exact full corpus text; existence does not imply delivery."""
+        try:
+            source, remainder = citation.split(":", 1)
+            path, raw_line = remainder.rsplit(":L", 1)
+            line = int(raw_line)
+            doc = self._documents[(source, path)]
+            if (
+                line < 1
+                or line > len(doc.text.splitlines())
+                or doc.citation(line) != citation
+            ):
+                return None
+            return {
+                "citation": citation,
+                "text": doc.text.splitlines()[line - 1],
+                "identity": doc.identity,
+            }
+        except (ValueError, KeyError):
+            return None
 
     def _source(self, value):
         if value not in {item["source_id"] for item in self.sources}:

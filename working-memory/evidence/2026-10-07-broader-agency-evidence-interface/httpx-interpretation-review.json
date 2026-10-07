@@ -1,0 +1,65 @@
+{
+  "case_id": "development-httpx-framework-ci",
+  "label": "interpretation-only known-case assisted source review",
+  "mechanical_outcome": "completed_ungraded",
+  "semantic_readiness": "REVISE",
+  "independent_review": false,
+  "claims": [
+    {
+      "claim_index": 0,
+      "review": "Supported target pin change by delivered exact diff."
+    },
+    {
+      "claim_index": 1,
+      "review": "Supported 0.28.0 proxies/app removals; possible breakage is conditional and reasonable."
+    },
+    {
+      "claim_index": 2,
+      "review": "Deprecation/warning interpretation supported; does not establish every SSL configuration succeeds. 0.28.1 client-certificate fix is omitted."
+    },
+    {
+      "claim_index": 3,
+      "review": "Old/new retained initializer bodies do differ as described, but cited L429/L455 only begin super calls. Removal is visible at old L430/new L455-L461. Reference versions are not installed target binding; maintained framework compatibility is unestablished."
+    },
+    {
+      "claim_index": 4,
+      "review": "Consequential unsupported authority/coverage inference. E16 page carries manual_simulation/illustrative_non_binding at L2/L3 and Docker Containers at L17, success at L19. It is not fresh or binding proof of pipeline compatibility; requirements-only change does not trigger the supplied Python workflow."
+    },
+    {
+      "claim_index": 5,
+      "review": "Expiry fact is scoped to one Docker-job log endpoint, as E19 L13/L20 specify. General historical-build-log unavailability exceeds it; explicit illustrative provenance also omitted."
+    },
+    {
+      "claim_index": 6,
+      "review": "Recommendation contains useful conditional direct-call/framework checking, but no installed FastAPI/Starlette binding, no CI activation analysis, and overstates compatibility from reference initialization/illustrative CI. Proceed is not accepted as advice-ready."
+    }
+  ],
+  "coverage": {
+    "delivered_but_unused": [
+      "target TestClient import/creation path",
+      "Python workflow requirements-only trigger exclusion",
+      "FastAPI reference Starlette constraint",
+      "CI illustrative provenance",
+      "0.28.1 SSL client-certificate fix"
+    ],
+    "honest_unknowns": [
+      "direct application instantiation not supplied exhaustively",
+      "complete installed dependency resolution absent"
+    ]
+  },
+  "dimensions": {
+    "interpretation_correctness": "Correct pin and principal removals/deprecations coexist with unsupported CI/reference-version inferences.",
+    "unsupported_claims": "CI compatibility and generalized log absence; full reference entailment inadequate for initializer compatibility.",
+    "scoped_negative_evidence": "No zero-hit search provided; log failure improperly generalized beyond its endpoint.",
+    "unresolved_quality": "Useful app/runtime caution, but exact installed framework binding and provenance limitations not maintained.",
+    "stopping_quality": "Source synthesis completed; decision-critical available workflow/provenance facts missed.",
+    "recommendation_usefulness": "Useful checks, but unsupported compatibility premise requires revision.",
+    "reviewer_effort": {
+      "assistance": "AI assisted, known cases and labelled model/arm",
+      "active_seconds": null,
+      "reason": "Active review time was not separately instrumented; no zero estimate fabricated.",
+      "review_elapsed_interval_seconds": 128.607
+    }
+  },
+  "proof_limit": "One curated known case with interface/data-delivery changes; not a causal F/A comparison, model winner, independent acceptance or complete runtime proof."
+}

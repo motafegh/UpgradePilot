@@ -1,0 +1,57 @@
+{
+  "case_id": "development-glyphslib-pytest-stopping",
+  "label": "interpretation-only known-case assisted source review",
+  "mechanical_outcome": "completed_ungraded",
+  "semantic_readiness": "REVISE",
+  "independent_review": false,
+  "claims": [
+    {
+      "claim_index": 0,
+      "review": "Pin change is supported by the exact delivered target diff. Only requirements-dev.txt changed is restricted to retained-text diff scope; a single cited diff cannot establish all-repository absence of other changes."
+    },
+    {
+      "claim_index": 1,
+      "review": "Named approx/conftest/exceptiongroup changes are real 9.0.3 changes in delivered pytest-new doc/en/changelog.rst L40/L43/L47/L50, but the cited target pin diff supplies no upstream behavioral evidence. Existing/delivered/referenced does not imply support."
+    },
+    {
+      "claim_index": 2,
+      "review": "Referenced captures report proposed-head ordinary 3.10 Ubuntu and 3.14 Windows successes. They do not establish actual installed/executed pytest9.0.3 or high compatibility. Delivered tox/reinstallation/regression activation sources are not traced; captured regression job has no ordinary Python/OS binding."
+    },
+    {
+      "claim_index": 3,
+      "review": "Unconditional proceed/high-compatibility inference exceeds pin plus captured success. Real bug/security fixes are useful facts, but remain unconnected to target exercise or supported source references in the recommendation."
+    }
+  ],
+  "coverage": {
+    "delivered_but_unused": [
+      "actual upstream release lines as supporting references",
+      "tox install requirements chain",
+      "regression reinstall/explicit activation",
+      "conftest regression selection",
+      "declared versus installed/executed binding"
+    ],
+    "correct_unreferenced_summary_facts": [
+      "non-string subTest printing fix",
+      "CVE-2025-71176 insecure temporary directory fix"
+    ],
+    "honest_unknowns": [
+      "target use of approx/exceptiongroup features",
+      "detailed internal implementation comparison"
+    ]
+  },
+  "dimensions": {
+    "interpretation_correctness": "Several release facts are correct; their pin-diff reference is wrong, and CI runtime/compatibility inference is unsupported.",
+    "unsupported_claims": "Actual pytest9.0.3 execution, high compatibility, unconditional proceed; only-file scope also exceeds a single diff.",
+    "scoped_negative_evidence": "No zero-hit search supplied; only-file absence claim lacks full scope support.",
+    "unresolved_quality": "Useful internal/test-feature unknowns but missing installed-binding fact is treated as known; general CI caveat does not retract the explicit assertion.",
+    "stopping_quality": "Synthesis stops with available installation/activation evidence unused and support relation incomplete.",
+    "recommendation_usefulness": "Release/security clues useful; proceed requires revision of evidence and proof limits.",
+    "reviewer_effort": {
+      "assistance": "AI assisted, known cases and labelled model/arm",
+      "active_seconds": null,
+      "reason": "Active review time not separately instrumented; unknown, not zero.",
+      "review_elapsed_interval_seconds": 173.457
+    }
+  },
+  "proof_limit": "Curated known-case interpretation only; not an F/A causal comparison, independent acceptance or target runtime proof."
+}

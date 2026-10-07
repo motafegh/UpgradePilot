@@ -1,0 +1,127 @@
+{
+  "results": [
+    {
+      "label": "saved-55-structured",
+      "visible_characters": 842,
+      "tool_calls": 0,
+      "reasoning_present": true,
+      "finish": "stop",
+      "input_tokens": 3557,
+      "output_tokens": 528,
+      "reasoning_tokens": 325,
+      "truncated": false,
+      "fit_verified": true,
+      "validation": {
+        "shape_valid": true,
+        "missing_references": [
+          "CHANGELOG.rst",
+          "CHANGELOG.rst"
+        ],
+        "semantic_review": "not_performed"
+      },
+      "elapsed_seconds": 41.499
+    },
+    {
+      "label": "saved-55-unconstrained",
+      "visible_characters": 188,
+      "tool_calls": 0,
+      "reasoning_present": true,
+      "finish": "stop",
+      "input_tokens": 3557,
+      "output_tokens": 107,
+      "reasoning_tokens": 50,
+      "truncated": false,
+      "fit_verified": true,
+      "validation": {
+        "shape_valid": false,
+        "problem": "Expecting value: line 1 column 1 (char 0)",
+        "semantic_review": "not_performed"
+      },
+      "elapsed_seconds": 7.311
+    },
+    {
+      "label": "saved-66-unconstrained",
+      "visible_characters": 1223,
+      "tool_calls": 0,
+      "reasoning_present": true,
+      "finish": "stop",
+      "input_tokens": 9816,
+      "output_tokens": 745,
+      "reasoning_tokens": 431,
+      "truncated": false,
+      "fit_verified": true,
+      "validation": {
+        "shape_valid": true,
+        "missing_references": [
+          "target-proposed/requirements-dev.txt",
+          "target-base:search_sources(console_output)"
+        ],
+        "semantic_review": "not_performed"
+      },
+      "elapsed_seconds": 78.163
+    },
+    {
+      "label": "saved-66-structured",
+      "visible_characters": 1081,
+      "tool_calls": 0,
+      "reasoning_present": true,
+      "finish": "stop",
+      "input_tokens": 9816,
+      "output_tokens": 480,
+      "reasoning_tokens": 232,
+      "truncated": false,
+      "fit_verified": true,
+      "validation": {
+        "shape_valid": true,
+        "missing_references": [
+          "target-proposed/requirements-dev.txt",
+          "target-proposed/requirements-dev.txt"
+        ],
+        "semantic_review": "not_performed"
+      },
+      "elapsed_seconds": 54.66
+    }
+  ],
+  "authority_change": false,
+  "mechanism_conclusion": "All four replies are visible, including both structured requests. Historical empty output did not reproduce; decoding removal is not justified.",
+  "conditional_replication": "Not triggered: neither pair changed empty/nonempty behavior.",
+  "attempts": 4,
+  "accounted_responses": 4,
+  "costs": {
+    "input_tokens": 26746,
+    "output_tokens": 1860,
+    "reasoning_tokens": 1038,
+    "elapsed_seconds": 181.633
+  },
+  "receipt_sha256": "86dbab4dae9486ea00806f3c2958df28c80a14c3a0d7c76c51bf58415d554de3",
+  "freeze": {
+    "source_receipt_sha256": "224d63f45e8a954c624d22f47d8be3500811ffa1ac6126d87c4b506f9ce24e62",
+    "corpus_sha256": "8c8ef1a31b2c009d83803b8c94ce9a33af201de4ae49513e0a978f186d237101",
+    "order": [
+      [
+        55,
+        "structured"
+      ],
+      [
+        55,
+        "unconstrained"
+      ],
+      [
+        66,
+        "unconstrained"
+      ],
+      [
+        66,
+        "structured"
+      ]
+    ],
+    "maximum_attempts": 4,
+    "conditional_replication_attempts": 2,
+    "driver_sha256": "13cbe31a3634d23ad862ab78e6aec3e346c3b4a5c61b906ce8b056bea7af99e7"
+  },
+  "closure": {
+    "owned_instance_unloaded": true,
+    "attempts": 4
+  },
+  "proof_limit": "Known saved packets; stochastic observations, not semantic acceptance or root-cause isolation. No provider decoding change selected."
+}

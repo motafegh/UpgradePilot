@@ -1,0 +1,425 @@
+{
+  "label": "interpretation-only known-case development, independent of F/A",
+  "rows": [
+    {
+      "case_id": "development-glyphslib-pytest-stopping",
+      "outcome": "completed_ungraded",
+      "provided_evidence_pages": 27,
+      "counters": {
+        "calls": 1,
+        "input_tokens": 21513,
+        "output_tokens": 6086,
+        "reasoning_tokens": 5296,
+        "tool_operations": 0,
+        "source_bytes": 62925,
+        "corrections": 0
+      },
+      "elapsed_seconds": 916.395,
+      "private_trial_sha256": "5d9e94bc9c2e119988c1822791771afc0f769fd88eca106da3bc758e5b58c7e4",
+      "review": "pytest-interpretation-review.json",
+      "semantic_readiness": "REVISE",
+      "mechanical_claim_evidence_records": [
+        {
+          "claim_index": 0,
+          "statement": "The update modifies only requirements-dev.txt in glyphsLib, changing pytest from 9.0.2 to 9.0.3.",
+          "status": "asserted",
+          "evidence": [
+            {
+              "kind": "diff",
+              "id": "diff:cc6cc04777cecee34a9f",
+              "exists": true,
+              "existence_basis": "trial_host_record",
+              "delivered": true,
+              "currently_visible": true,
+              "delivery_requests": [
+                "51d7bdb7fff66b53fa49d608657d3a35204142156c006a485a52ef4def698c13"
+              ],
+              "referenced": true,
+              "semantic_support": "not_reviewed"
+            }
+          ],
+          "semantic_support": "not_reviewed"
+        },
+        {
+          "claim_index": 1,
+          "statement": "pytest 9.0.3 introduces behavioral adjustments including stricter -p no: validation for conftest files, fixes to pytest.approx mapping key ordering, and exceptiongroup traceback handling.",
+          "status": "inferred",
+          "evidence": [
+            {
+              "kind": "diff",
+              "id": "diff:cc6cc04777cecee34a9f",
+              "exists": true,
+              "existence_basis": "trial_host_record",
+              "delivered": true,
+              "currently_visible": true,
+              "delivery_requests": [
+                "51d7bdb7fff66b53fa49d608657d3a35204142156c006a485a52ef4def698c13"
+              ],
+              "referenced": true,
+              "semantic_support": "not_reviewed"
+            }
+          ],
+          "semantic_support": "not_reviewed"
+        },
+        {
+          "claim_index": 2,
+          "statement": "The glyphsLib test suite runs successfully with pytest 9.0.3 across multiple Python versions and platforms in CI, indicating high compatibility.",
+          "status": "asserted",
+          "evidence": [
+            {
+              "kind": "ci_runtime_observation",
+              "id": "ci_runtime_observation:a6cc1ac64abece147d42",
+              "exists": true,
+              "existence_basis": "trial_host_record",
+              "delivered": true,
+              "currently_visible": true,
+              "delivery_requests": [
+                "51d7bdb7fff66b53fa49d608657d3a35204142156c006a485a52ef4def698c13"
+              ],
+              "referenced": true,
+              "semantic_support": "not_reviewed"
+            },
+            {
+              "kind": "ci_runtime_observation",
+              "id": "ci_runtime_observation:c67140c5f0176b869f72",
+              "exists": true,
+              "existence_basis": "trial_host_record",
+              "delivered": true,
+              "currently_visible": true,
+              "delivery_requests": [
+                "51d7bdb7fff66b53fa49d608657d3a35204142156c006a485a52ef4def698c13"
+              ],
+              "referenced": true,
+              "semantic_support": "not_reviewed"
+            }
+          ],
+          "semantic_support": "not_reviewed"
+        },
+        {
+          "claim_index": 3,
+          "statement": "Proceed with updating pytest to 9.0.3. The patch release contains bug fixes and security improvements, validated by successful CI runs across multiple environments without test failures.",
+          "status": "asserted",
+          "evidence": [
+            {
+              "kind": "diff",
+              "id": "diff:cc6cc04777cecee34a9f",
+              "exists": true,
+              "existence_basis": "trial_host_record",
+              "delivered": true,
+              "currently_visible": true,
+              "delivery_requests": [
+                "51d7bdb7fff66b53fa49d608657d3a35204142156c006a485a52ef4def698c13"
+              ],
+              "referenced": true,
+              "semantic_support": "not_reviewed"
+            },
+            {
+              "kind": "ci_runtime_observation",
+              "id": "ci_runtime_observation:a6cc1ac64abece147d42",
+              "exists": true,
+              "existence_basis": "trial_host_record",
+              "delivered": true,
+              "currently_visible": true,
+              "delivery_requests": [
+                "51d7bdb7fff66b53fa49d608657d3a35204142156c006a485a52ef4def698c13"
+              ],
+              "referenced": true,
+              "semantic_support": "not_reviewed"
+            }
+          ],
+          "semantic_support": "not_reviewed"
+        }
+      ]
+    },
+    {
+      "case_id": "development-httpx-framework-ci",
+      "outcome": "completed_ungraded",
+      "provided_evidence_pages": 22,
+      "counters": {
+        "calls": 1,
+        "input_tokens": 17844,
+        "output_tokens": 6040,
+        "reasoning_tokens": 5007,
+        "tool_operations": 0,
+        "source_bytes": 49996,
+        "corrections": 0
+      },
+      "elapsed_seconds": 779.33,
+      "private_trial_sha256": "31ca1ec78cc38f9d48862782cb1b0038309d4b41ea4f7a443f3b98631e99fd61",
+      "review": "httpx-interpretation-review.json",
+      "semantic_readiness": "REVISE",
+      "mechanical_claim_evidence_records": [
+        {
+          "claim_index": 0,
+          "statement": "The dependency update changes httpx version from 0.27.2 to 0.28.1 in requirements.txt.",
+          "status": "asserted",
+          "evidence": [
+            {
+              "kind": "diff",
+              "id": "diff:79c5e148c8d29776faa6",
+              "exists": true,
+              "existence_basis": "trial_host_record",
+              "delivered": true,
+              "currently_visible": true,
+              "delivery_requests": [
+                "c314c87596b04aaf8dc8aec0416ccb80b681b98778a9b3f85a2b302d4c0d6c6e"
+              ],
+              "referenced": true,
+              "semantic_support": "not_reviewed"
+            }
+          ],
+          "semantic_support": "not_reviewed"
+        },
+        {
+          "claim_index": 1,
+          "statement": "httpx 0.28.0 removes the deprecated `proxies` and `app` arguments, which may break code relying on them.",
+          "status": "inferred",
+          "evidence": [
+            {
+              "kind": "source_line",
+              "id": "httpx-new:CHANGELOG.md:L28",
+              "exists": true,
+              "existence_basis": "frozen_corpus",
+              "delivered": true,
+              "currently_visible": true,
+              "delivery_requests": [
+                "c314c87596b04aaf8dc8aec0416ccb80b681b98778a9b3f85a2b302d4c0d6c6e"
+              ],
+              "referenced": true,
+              "semantic_support": "not_reviewed"
+            },
+            {
+              "kind": "source_line",
+              "id": "httpx-new:CHANGELOG.md:L29",
+              "exists": true,
+              "existence_basis": "frozen_corpus",
+              "delivered": true,
+              "currently_visible": true,
+              "delivery_requests": [
+                "c314c87596b04aaf8dc8aec0416ccb80b681b98778a9b3f85a2b302d4c0d6c6e"
+              ],
+              "referenced": true,
+              "semantic_support": "not_reviewed"
+            }
+          ],
+          "semantic_support": "not_reviewed"
+        },
+        {
+          "claim_index": 2,
+          "statement": "httpx 0.28.0 deprecates string `verify` and the `cert` argument, triggering warnings but not immediate failures.",
+          "status": "inferred",
+          "evidence": [
+            {
+              "kind": "source_line",
+              "id": "httpx-new:CHANGELOG.md:L21",
+              "exists": true,
+              "existence_basis": "frozen_corpus",
+              "delivered": true,
+              "currently_visible": true,
+              "delivery_requests": [
+                "c314c87596b04aaf8dc8aec0416ccb80b681b98778a9b3f85a2b302d4c0d6c6e"
+              ],
+              "referenced": true,
+              "semantic_support": "not_reviewed"
+            },
+            {
+              "kind": "source_line",
+              "id": "httpx-new:CHANGELOG.md:L22",
+              "exists": true,
+              "existence_basis": "frozen_corpus",
+              "delivered": true,
+              "currently_visible": true,
+              "delivery_requests": [
+                "c314c87596b04aaf8dc8aec0416ccb80b681b98778a9b3f85a2b302d4c0d6c6e"
+              ],
+              "referenced": true,
+              "semantic_support": "not_reviewed"
+            }
+          ],
+          "semantic_support": "not_reviewed"
+        },
+        {
+          "claim_index": 3,
+          "statement": "Starlette's TestClient initialization was updated to remove `app=self.app` from the super().__init__ call, aligning with httpx transport patterns and suggesting maintained compatibility for framework test clients.",
+          "status": "inferred",
+          "evidence": [
+            {
+              "kind": "source_line",
+              "id": "starlette-old:starlette/testclient.py:L429",
+              "exists": true,
+              "existence_basis": "frozen_corpus",
+              "delivered": true,
+              "currently_visible": true,
+              "delivery_requests": [
+                "c314c87596b04aaf8dc8aec0416ccb80b681b98778a9b3f85a2b302d4c0d6c6e"
+              ],
+              "referenced": true,
+              "semantic_support": "not_reviewed"
+            },
+            {
+              "kind": "source_line",
+              "id": "starlette-new:starlette/testclient.py:L455",
+              "exists": true,
+              "existence_basis": "frozen_corpus",
+              "delivered": true,
+              "currently_visible": true,
+              "delivery_requests": [
+                "c314c87596b04aaf8dc8aec0416ccb80b681b98778a9b3f85a2b302d4c0d6c6e"
+              ],
+              "referenced": true,
+              "semantic_support": "not_reviewed"
+            }
+          ],
+          "semantic_support": "not_reviewed"
+        },
+        {
+          "claim_index": 4,
+          "statement": "A CI run for the proposed revision concluded successfully, indicating baseline pipeline compatibility with httpx 0.28.1.",
+          "status": "asserted",
+          "evidence": [
+            {
+              "kind": "ci_runtime_observation",
+              "id": "ci_runtime_observation:1054bc35fbbac8ab42a7",
+              "exists": true,
+              "existence_basis": "trial_host_record",
+              "delivered": true,
+              "currently_visible": true,
+              "delivery_requests": [
+                "c314c87596b04aaf8dc8aec0416ccb80b681b98778a9b3f85a2b302d4c0d6c6e"
+              ],
+              "referenced": true,
+              "semantic_support": "not_reviewed"
+            }
+          ],
+          "semantic_support": "not_reviewed"
+        },
+        {
+          "claim_index": 5,
+          "statement": "Historical build logs are unavailable due to expiration, preventing verification of exact dependency resolution and runtime behavior from captures.",
+          "status": "unresolved",
+          "evidence": [
+            {
+              "kind": "ci_runtime_observation",
+              "id": "ci_runtime_observation:1ae12f712498f3bb4873",
+              "exists": true,
+              "existence_basis": "trial_host_record",
+              "delivered": true,
+              "currently_visible": true,
+              "delivery_requests": [
+                "c314c87596b04aaf8dc8aec0416ccb80b681b98778a9b3f85a2b302d4c0d6c6e"
+              ],
+              "referenced": true,
+              "semantic_support": "not_reviewed"
+            }
+          ],
+          "semantic_support": "not_reviewed"
+        },
+        {
+          "claim_index": 6,
+          "statement": "Proceed with the update after verifying that no application code directly instantiates httpx.Client with `app=` or `proxies=`, and confirm that framework test clients (Starlette/FastAPI) function correctly with the new transport initialization pattern.",
+          "status": "inferred",
+          "evidence": [
+            {
+              "kind": "source_line",
+              "id": "httpx-new:CHANGELOG.md:L28",
+              "exists": true,
+              "existence_basis": "frozen_corpus",
+              "delivered": true,
+              "currently_visible": true,
+              "delivery_requests": [
+                "c314c87596b04aaf8dc8aec0416ccb80b681b98778a9b3f85a2b302d4c0d6c6e"
+              ],
+              "referenced": true,
+              "semantic_support": "not_reviewed"
+            },
+            {
+              "kind": "source_line",
+              "id": "starlette-new:starlette/testclient.py:L455",
+              "exists": true,
+              "existence_basis": "frozen_corpus",
+              "delivered": true,
+              "currently_visible": true,
+              "delivery_requests": [
+                "c314c87596b04aaf8dc8aec0416ccb80b681b98778a9b3f85a2b302d4c0d6c6e"
+              ],
+              "referenced": true,
+              "semantic_support": "not_reviewed"
+            }
+          ],
+          "semantic_support": "not_reviewed"
+        }
+      ]
+    }
+  ],
+  "costs": {
+    "calls": 2,
+    "input_tokens": 39357,
+    "output_tokens": 12126,
+    "reasoning_tokens": 10303,
+    "tool_operations": 0,
+    "source_bytes": 112921,
+    "corrections": 0
+  },
+  "elapsed_case_seconds": 1695.725,
+  "attempts": 2,
+  "responses": 2,
+  "mechanical_reports": 2,
+  "advice_ready_reports_in_assisted_review": 0,
+  "independent_review": false,
+  "receipt_sha256": "ad7574c2e09b8e030af84772f7dc655c0f15868c4287f7dca4e49272ed287a4d",
+  "freeze": {
+    "label": "interpretation-only known-case development; not F/A comparison",
+    "code": {
+      "broader_agency_evidence.py": "23e830b9823aba67e5148af2ecbb6ff88692a8c49274ddce764de788a54efef9",
+      "broader_agency_workspace.py": "96bc41109b71090b157bb21e37063e939d4f4bb0d7b8284ca7b315cf54d1d257",
+      "broader_agency_trial.py": "10189d2b4cdcc29f9a03f67d0fe85ff678e5b36642721ebc48e53d2c9aed8d16",
+      "broader_agency_local.py": "7ff1833a3b29653e874ac3fe3588fdd4fc8952e199187195e7cf22fd0275572a",
+      "broader_agency_pilot.py": "2cf49d9584243e693dcf17c44f93505624b00e277645ad4b85d45c42026c6695"
+    },
+    "driver_sha256": "b234994efcd87b79db3eb8f18c1efd368e9787262a786465c8c596517be7724f",
+    "selections_sha256": "f14ee2bf9cfa032bc76976a0fc3f5d75d483f161b1c0bbe6dcf33b0f3b2cb2e7",
+    "corpus_sha256": "f528a27b04a80503a6145480980021a490c2b2c8a447cd71ab2178ddf38cd142",
+    "maximum_attempts": 4,
+    "evidence_contract_version": 2,
+    "limits": {
+      "calls": 2,
+      "input_tokens": 524288,
+      "output_tokens": 16384,
+      "tool_operations": 48,
+      "source_bytes": 8388608,
+      "seconds": 3600,
+      "action_output": 8192,
+      "final_output": 8192,
+      "corrections": 1
+    }
+  },
+  "capacity_preflight": {
+    "measurements": [
+      {
+        "input_tokens": 17972,
+        "context_tokens": 32768,
+        "request_sha256": "c314c87596b04aaf8dc8aec0416ccb80b681b98778a9b3f85a2b302d4c0d6c6e",
+        "deployment_identity": "mWVlupwnS6H16Yx9xZKz49q1",
+        "case_id": "development-httpx-framework-ci",
+        "output_reserve": 8192,
+        "fits": true
+      },
+      {
+        "input_tokens": 21641,
+        "context_tokens": 32768,
+        "request_sha256": "51d7bdb7fff66b53fa49d608657d3a35204142156c006a485a52ef4def698c13",
+        "deployment_identity": "mWVlupwnS6H16Yx9xZKz49q1",
+        "case_id": "development-glyphslib-pytest-stopping",
+        "output_reserve": 8192,
+        "fits": true
+      }
+    ],
+    "inference_attempts": 0,
+    "all_fit": true
+  },
+  "executed_driver_snapshot_verified": true,
+  "published_driver_delta": "Explicit synchronous loop-variable binding and automatic snapshot retention; interface module hashes unchanged.",
+  "owned_instances_unloaded": true,
+  "anonymous_inventory_empty": true,
+  "limits": "Known cases, curated source windows, assisted labelled review, no target runtime execution, no causal policy comparison."
+}

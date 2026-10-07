@@ -1,0 +1,27 @@
+{
+  "label": "initial uncompressed metadata preparation; no inference",
+  "rows": [
+    {
+      "case_id": "development-glyphslib-pytest-stopping",
+      "outcome": "request_capacity_exceeded",
+      "calls": 0,
+      "measured_input": 32247,
+      "context_tokens": 32768,
+      "reserve": 8192
+    },
+    {
+      "case_id": "development-httpx-framework-ci",
+      "outcome": "request_capacity_exceeded",
+      "calls": 0,
+      "measured_input": 25861,
+      "context_tokens": 32768,
+      "reserve": 8192
+    }
+  ],
+  "inference_attempts": 0,
+  "closure": {
+    "owned_instance_unloaded": true,
+    "attempts": 0
+  },
+  "repair": "Compact shared observation view preserves exact text, scope, completeness and host audit provenance; new separately named preparation required."
+}

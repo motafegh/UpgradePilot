@@ -76,6 +76,7 @@ CASE_SPECS = (
     },
 )
 SOURCE_FILES = [
+    "broader_agency_evidence.py",
     "broader_agency_workspace.py",
     "broader_agency_trial.py",
     "broader_agency_local.py",
@@ -568,6 +569,7 @@ def execute_pilot(
     request_timeout_seconds=60,
     probe_sequence_seconds=180,
     trial_limits: TrialLimits | None = None,
+    contract_version=1,
 ) -> dict:
     limits = TrialLimits() if trial_limits is None else trial_limits
     validate_trial_limits(limits)
@@ -601,6 +603,7 @@ def execute_pilot(
     configuration["model_file_identity"] = model_identity
     configuration["probe_sequence_seconds"] = probe_sequence_seconds
     configuration["trial_limits"] = asdict(limits)
+    configuration["evidence_contract_version"] = contract_version
     configuration["model_file_hash_basis"] = (
         "caller-computed SHA256 before loading; model key/path/size checked here, not rehashed during inference"
     )
@@ -609,11 +612,14 @@ def execute_pilot(
     )
     results = []
     try:
-        probe = provider.harmless_probe(
-            call_budget=probe_call_budget,
-            sequence_seconds=probe_sequence_seconds,
-            limits=limits,
-        )
+        probe_options = {
+            "call_budget": probe_call_budget,
+            "sequence_seconds": probe_sequence_seconds,
+            "limits": limits,
+        }
+        if contract_version != 1:
+            probe_options["contract_version"] = contract_version
+        probe = provider.harmless_probe(**probe_options)
         (output / "probe.json").write_text(json.dumps(probe, indent=2) + "\n")
         if probe["outcome"] != "passed":
             result = {
@@ -638,6 +644,7 @@ def execute_pilot(
                     method,
                     provider,
                     limits=limits,
+                    contract_version=contract_version,
                 )
                 results.append(result)
                 (output / f"{case_index + 1}-{method}.json").write_text(
@@ -674,6 +681,13 @@ def main() -> int:
     parser.add_argument("--name", required=True)
     parser.add_argument("--prepare", action="store_true")
     parser.add_argument("--execute", action="store_true")
+    parser.add_argument(
+        "--evidence-contract",
+        type=int,
+        choices=[1, 2],
+        default=2,
+        help="v2 claim/evidence contract; v1 explicitly retains legacy experiment parsing",
+    )
     parser.add_argument("--model", default="gemma-4-e4b-it-ud")
     parser.add_argument("--model-identity", type=Path)
     parser.add_argument("--sdk-site", type=Path)
@@ -782,6 +796,7 @@ def main() -> int:
             request_timeout_seconds=args.request_timeout_seconds,
             probe_sequence_seconds=args.probe_sequence_seconds,
             trial_limits=limits,
+            contract_version=args.evidence_contract,
         )
     return (
         0

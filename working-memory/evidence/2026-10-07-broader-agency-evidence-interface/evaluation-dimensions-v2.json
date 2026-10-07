@@ -1,0 +1,43 @@
+{
+  "version": "claim-evidence-review-v2",
+  "scope": "Freeze these dimensions and case-specific source obligations before unseen evaluation; this record selects no unseen batch.",
+  "dimensions": [
+    {
+      "name": "relevant_evidence_coverage",
+      "assessment": "For each preregistered obligation, record relevant retained evidence, delivery and report use separately; report denominator and capture gaps."
+    },
+    {
+      "name": "interpretation_correctness",
+      "assessment": "Review every material proposition against source, preserving subject, operation, polarity, version and timing; distinguish unsupported from contradicted."
+    },
+    {
+      "name": "unsupported_claims",
+      "assessment": "Count and identify unsupported factual assertions/inferences across claims, summary, conditions and recommendation; an existing/delivered citation is insufficient."
+    },
+    {
+      "name": "scoped_negative_evidence",
+      "assessment": "Check query mode, source/path scope, retained capture omissions, offsets, page completeness and the exact absence proposition; reject generalization beyond scope."
+    },
+    {
+      "name": "unresolved_quality",
+      "assessment": "Distinguish decision-critical missing observations from vague caution, unnecessary unknowns and claims presented as known despite gaps."
+    },
+    {
+      "name": "stopping_quality",
+      "assessment": "Assess whether stopping follows sufficient evidence, decision-critical missing evidence or a resource/contract boundary; preserve missed feasible investigations."
+    },
+    {
+      "name": "recommendation_usefulness",
+      "assessment": "Judge supported specificity and actionable conditions for the maintainer; retain valid abstention/unresolved advice. Requires independent reviewer for unseen acceptance."
+    },
+    {
+      "name": "reviewer_effort",
+      "assessment": "Record actual active review time and corrections/ambiguities, separately from inference runtime. Assisted known-case review is labelled; unknown measurements remain unknown."
+    },
+    {
+      "name": "resource_cost",
+      "assessment": "Account every attempt, tokens including reasoning, operations, observation/provided-packet bytes, elapsed time, corrections, truncation, packing and unknown usage."
+    }
+  ],
+  "aggregation": "Per-case and per-claim profiles; no weighted composite or winner inference is admitted. Model identity, policy, corpus and reviewer assistance remain visible."
+}

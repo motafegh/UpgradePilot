@@ -12,6 +12,7 @@ import time
 from dataclasses import asdict, dataclass
 from typing import Protocol
 
+from .broader_agency_evidence import EVIDENCE_GUIDE, EVIDENCE_KINDS, TrialEvidence
 from .broader_agency_workspace import TOOL_GUIDE, SourceWorkspace, digest, strict_json
 
 
@@ -42,6 +43,36 @@ REPORT_SCHEMA = object_schema(
 )
 STAGE_SCHEMA = object_schema(
     {"summary": STRING, "claims": CLAIMS, "conditions": STRINGS, "unexamined": STRINGS}
+)
+REFERENCE_SCHEMA = object_schema(
+    {"kind": {"type": "string", "enum": list(EVIDENCE_KINDS)}, "id": STRING}
+)
+REFERENCES = {"type": "array", "items": REFERENCE_SCHEMA}
+CLAIM_SCHEMA_V2 = object_schema(
+    {
+        "statement": STRING,
+        "status": {"type": "string", "enum": ["asserted", "inferred", "unresolved"]},
+        "evidence": REFERENCES,
+        "missing_observation": STRING,
+    }
+)
+STAGE_SCHEMA_V2 = object_schema(
+    {
+        "summary": STRING,
+        "claims": {"type": "array", "items": CLAIM_SCHEMA_V2},
+        "conditions": STRINGS,
+        "unexamined": STRINGS,
+    }
+)
+REPORT_SCHEMA_V2 = object_schema(
+    {
+        **STAGE_SCHEMA_V2["properties"],
+        "recommendation": STRING,
+        "recommendation_status": CLAIM_SCHEMA_V2["properties"]["status"],
+        "recommendation_evidence": REFERENCES,
+        "recommendation_missing_observation": STRING,
+        "stopping_reason": STRING,
+    }
 )
 TOOL_ARGUMENTS = {
     "list_sources": object_schema({}),
@@ -79,7 +110,16 @@ TOOLS = tuple(
         "type": "function",
         "function": {
             "name": name,
-            "description": name.replace("_", " ") + "; see common tool guide",
+            "description": {
+                "list_sources": "List frozen source inventories and retained capture scope; no runtime inference.",
+                "list_paths": "Discover filenames by literal prefix; sorted twenty-path pages using offset.",
+                "read_source": "Read exact frozen lines: start_line is 1-based, line_count 1..20. Follow next_line for continuation.",
+                "read_observation": "Read captured CI/runtime text in <=20-line pages; capture provenance limits every conclusion.",
+                "search_sources": "Literal case-insensitive text search, not regex or filename search. Six previews/page; preserve exact scope for zero hits.",
+                "read_trial_event": "Read a prior trial event, 2400-character pages. Model notes are not independent source evidence.",
+                "record_note": "Store optional model-authored note <=2400 characters; not independently verified evidence.",
+                "finish_investigation": "Signal readiness for this stage/investigation; uncertainty is allowed in the subsequent report.",
+            }[name],
             "parameters": schema,
         },
     }
@@ -91,6 +131,24 @@ FIXED_STAGES = (
     ("assess conditions, environment and CI coverage", 4),
     ("synthesize provisional advice", 1),
     ("challenge advice against counterevidence and assumptions", 1),
+)
+FIXED_STAGES_V2 = (
+    (
+        "investigate upstream changes; follow discovered document pointers and compare relevant versions",
+        4,
+    ),
+    (
+        "investigate consumer and applicability; trace direct and indirect consumers without assuming activation",
+        4,
+    ),
+    (
+        "investigate environment, installation and CI; separate declaration, installed binding, activation and observed exercise",
+        3,
+    ),
+    (
+        "challenge preliminary conclusions; retrieve counterevidence and identify decision-critical unknowns",
+        3,
+    ),
 )
 
 
@@ -160,6 +218,8 @@ def request_identity(request: ModelRequest) -> str:
 
 
 def validate_shape(value, schema, path="$"):
+    if "enum" in schema and value not in schema["enum"]:
+        raise ValueError(f"{path}: unsupported value")
     kind = schema["type"]
     if kind == "object":
         if not isinstance(value, dict):
@@ -325,10 +385,18 @@ def run_investigation_trial(
     *,
     limits=None,
     clock=time.monotonic,
+    contract_version=1,
+    provided_evidence=None,
 ):
     limits = TrialLimits() if limits is None else limits
-    if method not in {"fixed", "agent"}:
-        raise ValueError("method must be fixed or agent")
+    if contract_version not in {1, 2}:
+        raise ValueError("unknown evidence contract version")
+    if method not in {"fixed", "agent", "interpretation"}:
+        raise ValueError("unknown investigation method")
+    if method == "interpretation" and (contract_version != 2 or not provided_evidence):
+        raise ValueError("interpretation requires v2 and a selected evidence packet")
+    if provided_evidence and method != "interpretation":
+        raise ValueError("provided evidence is not an F/A comparison arm")
     validate_trial_limits(limits)
     started = clock()
     counters = dict.fromkeys(
@@ -349,13 +417,38 @@ def run_investigation_trial(
     outcome = "call_budget_exhausted"
     deployment = None
     stage_index = stage_used = 0
-    flex = max(0, limits.calls - 14)  # 12 scheduled work calls + two report calls
+    fixed_stages = FIXED_STAGES_V2 if contract_version == 2 else FIXED_STAGES
+    flex = max(0, limits.calls - sum(s[1] for s in fixed_stages) - 2)
     early_artifact = False
-    report_mode = False
+    report_mode = method == "interpretation"
     correction_phase = None
     report_corrections = 0
     unknown_usage = False
     packet = workspace.update_packet()
+    ledger = TrialEvidence(workspace) if contract_version == 2 else None
+    delivered_packet = []
+    claim_inspections = []
+    if ledger:
+        packet = ledger.packet(packet)
+        for index, selection in enumerate(provided_evidence or []):
+            tool, arguments = selection["tool"], selection["arguments"]
+            if tool not in {"read_source", "read_observation"}:
+                raise ValueError("interpretation packet contains a discovery tool")
+            observation = workspace.invoke(tool, arguments)
+            if "tool_problem" in observation:
+                raise ValueError("invalid interpretation evidence selection")
+            delivered_packet.append(
+                ledger.observation(
+                    tool, arguments, observation, "provided-packet", str(index)
+                )
+            )
+        counters["source_bytes"] = (
+            len(json.dumps(delivered_packet, ensure_ascii=False).encode())
+            if delivered_packet
+            else 0
+        )
+        if counters["source_bytes"] > limits.source_bytes:
+            raise ValueError("provided evidence exceeds source byte allowance")
     while counters["calls"] < limits.calls:
         remaining = limits.seconds - (clock() - started)
         if remaining <= 0:
@@ -367,14 +460,14 @@ def run_investigation_trial(
             or output_left < 2 * limits.final_output + limits.action_output
         ):
             report_mode = True
-        if method == "fixed" and stage_index >= len(FIXED_STAGES):
+        if method == "fixed" and stage_index >= len(fixed_stages):
             report_mode = True
         phase = (
             "report"
             if report_mode
             else "stage"
             if method == "fixed"
-            and (early_artifact or stage_used >= FIXED_STAGES[stage_index][1] - 1)
+            and (early_artifact or stage_used >= fixed_stages[stage_index][1] - 1)
             else "investigate"
         )
         if correction_phase is not None and not report_mode:
@@ -384,7 +477,7 @@ def run_investigation_trial(
         stage = (
             "terminal report"
             if phase == "report"
-            else FIXED_STAGES[stage_index][0]
+            else fixed_stages[stage_index][0]
             if method == "fixed"
             else "choose useful investigation; signal finish_investigation when justified"
         )
@@ -393,9 +486,9 @@ def run_investigation_trial(
             outcome = "output_budget_exhausted"
             break
         schema = (
-            REPORT_SCHEMA
+            (REPORT_SCHEMA_V2 if ledger else REPORT_SCHEMA)
             if phase == "report"
-            else STAGE_SCHEMA
+            else (STAGE_SCHEMA_V2 if ledger else STAGE_SCHEMA)
             if phase == "stage"
             else None
         )
@@ -407,7 +500,8 @@ def run_investigation_trial(
         base = {
             "request": {
                 "system": "Investigate a dependency update for a maintainer. "
-                + TOOL_GUIDE,
+                + TOOL_GUIDE
+                + (EVIDENCE_GUIDE if ledger else ""),
                 "output_reserve": reserve,
                 "phase": phase,
                 "tools": TOOLS if phase == "investigate" else (),
@@ -428,6 +522,13 @@ def run_investigation_trial(
                 else None,
             },
         }
+        if ledger:
+            base["user"]["source_inventory_evidence"] = [ledger.inventory_reference]
+        if delivered_packet:
+            base["user"]["provided_evidence"] = delivered_packet
+            base["user"]["instruction"] += (
+                "; interpretation-only development: synthesize the supplied source observations; discovery is disabled"
+            )
         event_id = f"event-{len(trace) + 1:03d}"
         event = {"event_id": event_id, "phase": phase, "stage": stage}
         trace.append(event)
@@ -488,6 +589,8 @@ def run_investigation_trial(
             ):
                 outcome = "provider_accounting_or_identity_mismatch"
                 break
+            if ledger:
+                ledger.observe_request(request, measured.request_sha256)
             if reply.problem:
                 event["provider_problem"] = reply.problem
                 outcome = "provider_configuration_not_observed"
@@ -501,12 +604,31 @@ def run_investigation_trial(
             correction_phase = None
             try:
                 if phase in {"stage", "report"}:
+                    if not reply.text and not reply.tool_calls:
+                        raise ValueError(
+                            "empty provider artifact; reasoning is not a final answer"
+                        )
                     value = strict_json(reply.text)
                     validate_shape(value, schema)
-                    missing = workspace.validate_citations(value)
+                    if ledger:
+                        inspection, missing = ledger.inspect_claims(value)
+                        claim_inspections.append(
+                            {
+                                "event_id": event_id,
+                                "phase": phase,
+                                "claims": inspection,
+                                "problems": missing,
+                            }
+                        )
+                    else:
+                        missing = workspace.validate_citations(value)
                     if missing:
                         raise ValueError(
-                            "$.claims.citations: nonexistent retained references "
+                            (
+                                "$.claims: invalid evidence references/obligations "
+                                if ledger
+                                else "$.claims.citations: nonexistent retained references "
+                            )
                             + repr(missing)
                         )
                     public["artifact"] = value
@@ -524,9 +646,10 @@ def run_investigation_trial(
                             "event_id": event_id,
                             "artifact": value,
                             "complete": True,
+                            "investigation_adequacy": "not_reviewed",
                         }
                     )
-                    flex += max(0, FIXED_STAGES[stage_index][1] - stage_used)
+                    flex += max(0, fixed_stages[stage_index][1] - stage_used)
                     stage_index += 1
                     stage_used = 0
                     early_artifact = False
@@ -617,6 +740,10 @@ def run_investigation_trial(
                             "trial_event_id": event_id,
                             "tool_call_id": action["id"],
                         }
+                        if ledger:
+                            result = ledger.observation(
+                                name, args, result, event_id, action["id"]
+                            )
                         public["results"].append(
                             {"id": action["id"], "tool": name, "result": result}
                         )
@@ -718,4 +845,19 @@ def run_investigation_trial(
         "elapsed_seconds": round(clock() - started, 3),
         "trace": trace,
         "semantic_review": "not_performed",
+        "evidence_contract_version": contract_version,
+        "fixed_policy": fixed_stages if method == "fixed" else None,
+        "provided_evidence_pages": len(delivered_packet),
+        "claim_evidence_inspections": claim_inspections,
+        "evidence_records": [
+            {
+                "kind": kind,
+                "id": identifier,
+                "observation": value,
+                "delivery_requests": ledger.delivered.get((kind, identifier), []),
+            }
+            for (kind, identifier), value in ledger.records.items()
+        ]
+        if ledger
+        else [],
     }

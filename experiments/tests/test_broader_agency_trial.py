@@ -10,6 +10,7 @@ from tempfile import TemporaryDirectory
 from unittest import TestCase
 from unittest.mock import MagicMock, Mock, patch
 
+from experiments.broader_agency_evidence import TrialEvidence
 from experiments.broader_agency_local import LocalJSONActionProvider
 from experiments.broader_agency_pilot import (
     acquire_repository_text,
@@ -19,8 +20,10 @@ from experiments.broader_agency_pilot import (
     main,
 )
 from experiments.broader_agency_trial import (
+    FIXED_STAGES_V2,
     MeasuredRequest,
     ModelReply,
+    ModelRequest,
     TrialLimits,
     request_identity,
     run_investigation_trial,
@@ -127,6 +130,322 @@ class ScriptedProvider:
 
 
 CASE = {"case_id": "control", "dependency": "library", "old": "1", "proposed": "2"}
+
+
+def evidence_report(refs=None, status="asserted", missing=""):
+    references = (
+        [{"kind": "source_line", "id": "upstream:changes.md:L2"}]
+        if refs is None
+        else refs
+    )
+    return {
+        "summary": "Current removal.",
+        "claims": [
+            {
+                "statement": "The API is removed now.",
+                "status": status,
+                "evidence": references,
+                "missing_observation": missing,
+            }
+        ],
+        "recommendation": "Investigate.",
+        "recommendation_status": "unresolved",
+        "recommendation_evidence": [],
+        "recommendation_missing_observation": "installed runtime binding",
+        "conditions": [],
+        "unexamined": ["runtime"],
+        "stopping_reason": "insufficient evidence",
+    }
+
+
+class ClaimEvidenceContractTests(TestCase):
+    def test_compact_view_preserves_lines_scope_and_full_audit_provenance(self):
+        corpus = workspace()
+        corpus.sources[0]["omitted_file_count"] = 3
+        ledger = TrialEvidence(corpus)
+        args = {"source_id": "upstream", "path": "changes.md"}
+        full = corpus.invoke("read_source", args)
+        view = ledger.observation("read_source", args, full, "event-1", "call-1")
+        self.assertEqual(view["selected_lines"], full["selected_lines"])
+        self.assertEqual(view["next_line"], full["next_line"])
+        self.assertEqual(view["observation"]["arguments"], args)
+        ref = view["evidence_refs"][0]
+        self.assertEqual(ledger.records[(ref["kind"], ref["id"])]["result"], full)
+        request = ModelRequest(
+            "s",
+            json.dumps(
+                {
+                    "sources": corpus.sources,
+                    "source_inventory_evidence": [ledger.inventory_reference],
+                }
+            ),
+            1024,
+            history=({"results": [{"result": view}]},),
+        )
+        ledger.observe_request(request, "answered")
+        self.assertTrue(ledger.inspect(ledger.inventory_reference)["delivered"])
+        inventory = ledger.records[("inventory", ledger.inventory_reference["id"])]
+        self.assertEqual(inventory["sources"][0]["omitted_file_count"], 3)
+
+    def test_existing_undelivered_line_is_rejected_but_wrong_meaning_is_separate(self):
+        bad = evidence_report()
+        provider = ScriptedProvider([ready(), bad, bad])
+        result = run_investigation_trial(
+            CASE, workspace(), "agent", provider, contract_version=2
+        )
+        self.assertEqual(result["outcome"], "report_contract_problem")
+        ref = result["claim_evidence_inspections"][0]["claims"][0]["evidence"][0]
+        self.assertTrue(ref["exists"])
+        self.assertFalse(ref["delivered"])
+        self.assertTrue(ref["referenced"])
+        provider = ScriptedProvider([action(), ready(), bad])
+        result = run_investigation_trial(
+            CASE, workspace(), "agent", provider, contract_version=2
+        )
+        self.assertEqual(result["outcome"], "completed_ungraded")
+        self.assertEqual(result["semantic_review"], "not_performed")
+        self.assertEqual(
+            result["claim_evidence_inspections"][-1]["claims"][0]["semantic_support"],
+            "not_reviewed",
+        )
+
+    def test_assertions_need_evidence_and_unknowns_need_a_missing_observation(self):
+        for value in [
+            evidence_report([], "asserted"),
+            evidence_report([], "unresolved"),
+        ]:
+            result = run_investigation_trial(
+                CASE,
+                workspace(),
+                "agent",
+                ScriptedProvider([ready(), value, value]),
+                contract_version=2,
+            )
+            self.assertEqual(result["outcome"], "report_contract_problem")
+        unknown = evidence_report([], "unresolved", "target consumer activation")
+        result = run_investigation_trial(
+            CASE,
+            workspace(),
+            "agent",
+            ScriptedProvider([ready(), unknown]),
+            contract_version=2,
+        )
+        self.assertEqual(result["outcome"], "completed_ungraded")
+
+    def test_scoped_zero_search_is_citable_without_claiming_global_completeness(self):
+        corpus = workspace()
+        corpus.sources[1]["omitted_file_count"] = 2
+        ledger = TrialEvidence(corpus)
+        args = {"query": "ABSENT", "source_id": "target", "path_prefix": "app"}
+        result = ledger.observation(
+            "search_sources",
+            args,
+            corpus.invoke("search_sources", args),
+            "event-1",
+            "call-1",
+        )
+        ref = next(
+            r for r in result["evidence_refs"] if r["kind"] == "search_observation"
+        )
+        self.assertFalse(ledger.inspect(ref)["delivered"])
+        request = ModelRequest(
+            "system", "{}", 1024, history=({"results": [{"result": result}]},)
+        )
+        ledger.observe_request(request, "request-1")
+        rows, problems = ledger.inspect_claims(evidence_report([ref]))
+        self.assertFalse(problems)
+        self.assertTrue(rows[0]["evidence"][0]["delivered"])
+        obs = ledger.records[(ref["kind"], ref["id"])]["observation"]
+        self.assertEqual(obs["query"], "ABSENT")
+        self.assertEqual(obs["scope"]["path_prefix"], "app")
+        self.assertEqual(obs["scope"]["source"]["omitted_file_count"], 2)
+        self.assertEqual(obs["total"], 0)
+        self.assertIn("retained", obs["scope"]["completeness_basis"])
+
+    def test_partial_preview_does_not_deliver_an_exact_line_and_packing_is_visible(
+        self,
+    ):
+        corpus = SourceWorkspace(
+            [SourceDocument("s", "long.txt", "X" * 300, {})], [{"source_id": "s"}]
+        )
+        ledger = TrialEvidence(corpus)
+        args = {"query": "X", "source_id": "s"}
+        result = ledger.observation(
+            "search_sources",
+            args,
+            corpus.invoke("search_sources", args),
+            "event-1",
+            "call-1",
+        )
+        ref = {"kind": "source_line", "id": "s:long.txt:L1"}
+        ledger.observe_request(
+            ModelRequest("s", "{}", 1024, history=({"results": [{"result": result}]},)),
+            "partial",
+        )
+        self.assertTrue(ledger.inspect(ref)["exists"])
+        self.assertFalse(ledger.inspect(ref)["delivered"])
+        page = corpus.invoke("read_source", {"source_id": "s", "path": "long.txt"})
+        ledger.observe_request(
+            ModelRequest("s", "{}", 1024, history=({"results": [{"result": page}]},)),
+            "full",
+        )
+        self.assertTrue(ledger.inspect(ref)["currently_visible"])
+        ledger.observe_request(ModelRequest("s", "{}", 1024), "packed")
+        self.assertTrue(ledger.inspect(ref)["delivered"])
+        self.assertFalse(ledger.inspect(ref)["currently_visible"])
+
+    def test_packet_diff_capture_and_event_references_keep_their_provenance(self):
+        corpus = SourceWorkspace(
+            [
+                SourceDocument("target-base", "pin.txt", "old", {}),
+                SourceDocument("target-proposed", "pin.txt", "new", {}),
+                SourceDocument(
+                    "ci-observations",
+                    "capture.txt",
+                    "illustrative_non_binding\nsuccess\n",
+                    {},
+                ),
+            ],
+            [
+                {"source_id": "target-base"},
+                {"source_id": "target-proposed"},
+                {
+                    "source_id": "ci-observations",
+                    "scope": "historical illustrative capture",
+                },
+            ],
+        )
+        ledger = TrialEvidence(corpus)
+        packet = ledger.packet(corpus.update_packet())
+        args = {"source_id": "ci-observations", "path": "capture.txt"}
+        capture = ledger.observation(
+            "read_observation",
+            args,
+            corpus.invoke("read_observation", args),
+            "event-1",
+            "call-1",
+        )
+        refs = (
+            packet["evidence_refs"]
+            + packet["diffs"][0]["evidence_refs"]
+            + capture["evidence_refs"]
+        )
+        ledger.observe_request(
+            ModelRequest(
+                "s",
+                json.dumps({"update_packet": packet}),
+                1024,
+                history=({"results": [{"result": capture}]},),
+            ),
+            "delivery",
+        )
+        self.assertTrue(all(ledger.inspect(r)["delivered"] for r in refs))
+        self.assertEqual(
+            {r["kind"] for r in refs},
+            {"update_packet", "diff", "trial_event", "ci_runtime_observation"},
+        )
+        ci_ref = next(r for r in refs if r["kind"] == "ci_runtime_observation")
+        self.assertEqual(
+            ledger.records[(ci_ref["kind"], ci_ref["id"])]["capture_provenance"][
+                "scope"
+            ],
+            "historical illustrative capture",
+        )
+        fake = {"kind": "trial_event", "id": "event-999"}
+        self.assertFalse(ledger.inspect(fake)["exists"])
+
+    def test_fixed_retrieves_in_every_stage_under_the_same_shared_contract(self):
+        unknown = evidence_report([], "unresolved", "unexamined source context")
+        stage = {
+            k: v
+            for k, v in unknown.items()
+            if not k.startswith("recommendation") and k != "stopping_reason"
+        }
+        replies = []
+        for _, slots in FIXED_STAGES_V2:
+            replies.extend([action()] * (slots - 1) + [stage])
+        fixed_provider = ScriptedProvider(replies + [unknown])
+        agent_provider = ScriptedProvider([action(), ready(), unknown])
+        fixed = run_investigation_trial(
+            CASE, workspace(), "fixed", fixed_provider, contract_version=2
+        )
+        agent = run_investigation_trial(
+            CASE, workspace(), "agent", agent_provider, contract_version=2
+        )
+        self.assertEqual(fixed["outcome"], "completed_ungraded")
+        self.assertEqual(fixed["counters"]["calls"], 15)
+        self.assertEqual(fixed["counters"]["tool_operations"], 10)
+        self.assertEqual(len(fixed["fixed_stage_artifacts"]), 4)
+        self.assertEqual(
+            fixed_provider.requests[0].system, agent_provider.requests[0].system
+        )
+        self.assertEqual(
+            fixed_provider.requests[0].tools, agent_provider.requests[0].tools
+        )
+        self.assertEqual(fixed["limits"], agent["limits"])
+        self.assertTrue(
+            any(
+                r.tools
+                for r in fixed_provider.requests
+                if "challenge preliminary" in r.user
+            )
+        )
+
+    def test_interpretation_delivers_selected_lines_without_discovery_and_rejects_mixing(
+        self,
+    ):
+        selections = [
+            {
+                "tool": "read_source",
+                "arguments": {"source_id": "upstream", "path": "changes.md"},
+            }
+        ]
+        provider = ScriptedProvider([evidence_report()])
+        result = run_investigation_trial(
+            CASE,
+            workspace(),
+            "interpretation",
+            provider,
+            contract_version=2,
+            provided_evidence=selections,
+        )
+        self.assertEqual(result["outcome"], "completed_ungraded")
+        self.assertEqual(result["counters"]["tool_operations"], 0)
+        self.assertFalse(provider.requests[0].tools)
+        self.assertTrue(
+            result["claim_evidence_inspections"][0]["claims"][0]["evidence"][0][
+                "delivered"
+            ]
+        )
+        with self.assertRaises(ValueError):
+            run_investigation_trial(
+                CASE,
+                workspace(),
+                "agent",
+                provider,
+                contract_version=2,
+                provided_evidence=selections,
+            )
+
+    def test_empty_artifact_is_explicit_and_reasoning_cannot_become_a_report(self):
+        provider = ScriptedProvider([ready()])
+        original = provider.predict
+
+        def reply(request, measurement, timeout):
+            if request.phase == "report":
+                return ModelReply("", 80, 310, 309, "controlled", tool_calls=())
+            return original(request, measurement, timeout)
+
+        provider.predict = reply
+        result = run_investigation_trial(
+            CASE, workspace(), "agent", provider, contract_version=2
+        )
+        self.assertEqual(result["outcome"], "report_contract_problem")
+        self.assertIn(
+            "empty provider artifact",
+            result["trace"][-1]["public_event"]["error"]["problem"],
+        )
+        self.assertIsNone(result["report"])
 
 
 class SourceToolTests(TestCase):
@@ -705,6 +1024,44 @@ class PilotCompositionTests(TestCase):
                     )
                 model.get_info.assert_not_called()
                 self.assertFalse((Path(tmp) / "not-created").exists())
+
+    def test_repaired_pilot_routes_v2_to_qualification_and_all_four_assignments(self):
+        with TemporaryDirectory() as tmp:
+            directory = Path(tmp)
+            model, identity = self.prepare_control(directory)
+            unknown = evidence_report([], "unresolved", "runtime not captured")
+            stage = {
+                k: v
+                for k, v in unknown.items()
+                if not k.startswith("recommendation") and k != "stopping_reason"
+            }
+            fixed = []
+            for _, slots in FIXED_STAGES_V2:
+                fixed.extend([action()] * (slots - 1) + [stage])
+            provider = ScriptedProvider(
+                [*fixed, unknown, ready(), unknown, ready(), unknown, *fixed, unknown]
+            )
+            provider.configuration = lambda: {"interface": "controlled"}
+            provider.harmless_probe = Mock(return_value={"outcome": "passed"})
+            provider.close = Mock()
+            provider.private_receipts = []
+            with patch(
+                "experiments.broader_agency_pilot.LocalJSONActionProvider",
+                return_value=provider,
+            ):
+                result = execute_pilot(
+                    directory, model, None, identity, contract_version=2
+                )
+            self.assertEqual(
+                [t["evidence_contract_version"] for t in result["trials"]], [2] * 4
+            )
+            self.assertEqual(
+                [t["outcome"] for t in result["trials"]], ["completed_ungraded"] * 4
+            )
+            self.assertEqual(
+                provider.harmless_probe.call_args.kwargs["contract_version"], 2
+            )
+            self.assertEqual(result["configuration"]["evidence_contract_version"], 2)
 
     def test_code_corpus_or_model_identity_drift_prevents_probe_and_inference(self):
         for drift in ("code", "corpus", "model"):
