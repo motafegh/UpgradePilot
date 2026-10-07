@@ -436,3 +436,41 @@ Ali paused the corrected-profile run and subsequently explicitly requested resta
 Reuse Gemma's recorded qualification only after checking identical model-file hashes, resolved package assets, source/executable freeze and loaded/provider configuration apart from owned instance identifier/reference. Configuration drift withholds inference rather than silently accepting or rerunning qualification. Qwen follows the existing qualification and preselected diagnostic-exception rules. Preserve source/call/correction/time/output/context limits and all model-visible behavior from 17.1. Recheck shared-GPU ownership before each load; unload only owned instances.
 
 The user-interrupted attempt stays in the cost ledger. One fresh restart adds at most sixteen calls to 17.1's originally selected 153-attempt allowance: **169 aggregate maximum attempts** across this capacity profile, including the contrast, qualification and interrupted attempts. At this checkpoint, 34 attempts are retained including the contrast; the continuation has at most 112 case calls plus twelve Qwen qualification calls, giving an actual selected ceiling of **158 attempts** from the saved position. This extension admits exactly the requested interrupted-case restart, without failure-selective repeats or extra Gemma canaries. Preserve all per-attempt outcomes and receipt hashes and reconcile across both directories before whole-batch claims.
+
+
+## 18. Evidence-interface repair and empty-output diagnosis
+
+### 18.1 Questions and bounded responsibility
+
+Use the completed larger-local evidence as diagnostic input, preserving its outcomes. Separate (a) inability to return a usable artifact, (b) inability to navigate and acquire relevant evidence, and (c) unsupported interpretation despite delivered evidence. The experiment seeks broader useful investigation freedom; decision and execution authority require separate evidence. This responsibility changes only experiment interfaces, tests and evaluation artifacts. Product behavior, accepted specifications and external execution are outside it.
+
+### 18.2 Source-backed diagnosis
+
+`broader_agency_local.py` submits strict `response_format=json_schema` on compatible stage/report calls, preserves the raw response privately and extracts visible `message.content` separately from reasoning. Saved Qwen receipt indices 55, 59, 63–66 contain empty visible content, no tool calls, normal stop and reasoning content. They consume 207–310 generated tokens under max_tokens=8192. This establishes an empty provider response under the selected structured path, not output truncation or host loss of a visible final artifact. It does not isolate a model, server, template, schema or history cause.
+
+`SourceWorkspace.validate_citations` establishes canonical line existence only. It accepts empty citation lists and does not establish delivery or entailment. Line ranges and bare paths fail canonical matching. The workspace guide describes literal search and twenty-line reads, but tool-schema/interface alignment and report examples need inspection. Fixed stages can produce artifacts without sufficient observations; naming those stages does not prove coverage. Case-specific mistakes remain semantic failures even when interface repair may make them less likely.
+
+### 18.3 Controlled empty-output diagnostic
+
+Before changing the harness, preserve and hash the exact saved first empty stage request (receipt 55) and final request (66). For each, compare two fresh, non-retrying calls: original strict structured request and the same request with only `response_format` removed. Keep system/user/history, sampling, output capacity, model assets and load profile identical apart from required owned instance binding. Randomize or alternate pair order and save the selected order before inference. Maximum four inference attempts; do not add qualification or case calls to this diagnostic silently. Recheck inventory and ownership before load; use the prior 32K/8192 conservative Qwen deployment and account every attempt, including unknown usage.
+
+Both variants are diagnostic only. Parse any visible candidate against the unchanged original schema and canonical references after generation; do not treat removal of constrained decoding as relaxed acceptance. Never extract reasoning as the final answer. Classify visible/nonvisible, tool calls, finish, usage, shape and reference results separately. A changed outcome suggests a structured-path interaction in these saved packets; four calls cannot establish causation or model reliability. If both remain empty, retain the unresolved cause rather than escalating budgets. A subsequent reasoning/template/server contrast requires an explicit new frozen diagnostic design.
+
+### 18.4 Neutral evidence interface
+
+Prepare one shared interface for both fixed and agent arms:
+
+- Tool descriptions and examples state literal search, path discovery/pagination, twenty-line read limits and continuation. Explain how to follow a source's own document pointer without supplying case-specific paths or conclusions.
+- Report examples use canonical single-line citations. Keep historical references unchanged. Distinguish source facts, interpretation and unresolved propositions explicitly.
+- Require supporting evidence for asserted source facts and recommendations, while allowing an explicitly unresolved claim with a named missing observation. Do not force invented citations for uncertainty.
+- Represent inventory, scoped negative searches and execution events with typed, host-issued evidence identifiers. Such an identifier supports only its recorded scope; it cannot prove global absence or source semantics. Preserve source line references as a separate type.
+- Track what evidence was actually delivered. Reference existence, delivery and semantic support remain distinct checks; automatic delivery checks do not replace source review.
+- Fixed stages may report insufficient evidence. Allocate retrieval opportunities before synthesis proportionately under a shared total resource envelope; do not force a proceed decision or mark a named stage complete merely because its JSON parsed.
+
+Inspect producer → retained history → report validator → source review before choosing the smallest implementation. Existing behavior is evidence, not a reason to preserve an inadequate contract. Do not autofix old outputs or add the known cases' answers to prompts.
+
+### 18.5 Verification and subsequent comparison
+
+Focused tests must distinguish valid delivered citations, existing-but-undelivered references, unknown references, scoped absence and unsupported empty evidence. Test truthful unresolved reports and provider empty-output classification without copying implementation assertions. Preserve old result parsing or explicitly version the new output contract. Check both arms receive the same navigation/reference instructions and total limits.
+
+Freeze the resulting interface and an adequate fixed retrieval policy before any new whole-set run. Rerun the complete known-case set as development evidence, retaining failures and all costs. Select genuinely unseen cases and independent review criteria before those calls; keep their evidence separate. Model availability and comparable deployment qualification precede selecting that later batch. Neither this diagnostic nor interface repair admits higher recommendation/execution authority. Investigation freedom, supported interpretation, recommendation quality and authorized execution are separate evaluation dimensions.

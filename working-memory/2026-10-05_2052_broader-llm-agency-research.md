@@ -497,3 +497,12 @@ C — CONTINUOUS for overarching research: progression preserved in this single 
 ```
 
 Publication review: fifty scoped Markdown links resolve, fences balance, all public JSON parses, eight unique rows carry source reviews, four mechanical reports/two complete fixed artifacts match raw saved results, and exact whole initializer text equality is confirmed. All eight cases have zero packing requests and no event replay; no observed packing omission explains the source gaps here. No new inference or frozen executable change occurs during source adjudication.
+
+
+### 13. Failure diagnosis and neutral evidence-interface design (2026-10-07)
+
+Ali accepted the proposed next responsibility with “good go for next”. Continuing-context A0/A1 is compressed: the completed eight-case baseline and source limitations were explained immediately beforehand; no repeated onboarding gate adds value here. Scope is experiment-local diagnosis/design before repair, preserving all historical outcomes and main. Planning/Design is the primary operation for the unresolved interface/proof choices.
+
+Fresh source inspection confirms strict structured requests, direct visible-content extraction and citation existence-only validation. Fresh saved-wire inspection confirms all six Qwen empty replies (55/59/63/64/65/66): zero visible content/tools, reasoning present, normal stop, full8192 reserve; no token-cap explanation follows. Protocol section18 now specifies a four-attempt paired saved-request structured-decoding contrast, a neutral shared navigation/typed-reference/delivery/uncertainty interface, fixed retrieval sufficiency and separate development/independent evaluation. Removing constrained decoding is a diagnostic variable; acceptance remains unchanged. No paid call, fresh inference, executable edit or historical result repair occurred in this design increment.
+
+A2/B design — documented concrete scope, variables, call ceiling, fair-arm contract and proof limits. Verification — source/receipt inspection establishes observed mechanism; root cause remains unresolved. D — artifact production and meaningful evidence use are separate failure classes. E — bounded diagnosis/design delivered; implementation and selected diagnostic execution retain their own verification obligations. Learner ownership remains unassessed. C — same overarching record retained. UP-SKILL:upgradepilot-planning-design.
