@@ -2,6 +2,8 @@
 
 **Result for review, 2026-10-08.** Retain a small typed, storage-independent consumer boundary around host admission and native owners. The provisional SQLite WAL/FULL adapter and encoded-memory baseline produce identical declared interaction checkpoints across **21 scenarios × two backends × two transports = 84 traces**. This is lifecycle fidelity on disclosed fixtures, not semantic correctness, adequate investigation, Investigator superiority or production adoption.
 
+**Subsequent grounding qualification:** [scenario reachability and known-public native trial](../2026-10-08-workspace-experiment3-grounding/README.md) distinguish intrinsic/current/future/defensive roles. Here, “head/target change” means refusing continuation of an old exact-target lineage under a different target; it does not mutate historical SHA-bound evidence. Following a moved head would require a new lineage and explicit reuse/revalidation rules. The historical synthetic results below are unchanged.
+
 [Progressive cycle history](../../2026-10-08_workspace-implementation-architecture-research_lbd-cycle.md#experiment-3--authorization-question-and-setup) preserves assumptions, failures and reasoning changes. [Results](results.json) pin outcomes, selected inputs, checkpoint hashes, code/native-tree hashes, runtime/settings and parser costs. The [normal interaction checkpoint](interaction-checkpoint.json) retains the full experiment trace. [Main's ADR](../../../docs/architecture/ADR-0012-canonical-investigation-workspace-and-recovery-boundary.md) and the [research plan](../../../plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md) retain their authority; this evidence does not promote them.
 
 ## Setup and decomposition

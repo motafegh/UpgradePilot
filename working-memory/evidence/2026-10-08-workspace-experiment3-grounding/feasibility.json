@@ -1,0 +1,21 @@
+{
+  "identity": {
+    "repository": "pydantic/pydantic",
+    "number": 13432,
+    "title": "Bump soupsieve from 2.6 to 2.8.4",
+    "state": "closed",
+    "merged": true,
+    "author": "dependabot[bot]",
+    "base_ref": "main",
+    "base_sha": "652a61ce4f9d7d76eaada31535807a485ece0e21",
+    "head_ref": "dependabot/uv/soupsieve-2.8.4",
+    "head_sha": "aa2dc024d33f61cdef50bf1973ab5adf0a974f5a",
+    "changed_files": 1
+  },
+  "changed_files": [
+    "uv.lock"
+  ],
+  "dependency_type": "DependencyChangeAnalysis",
+  "dependency": "DependencyVersionChange(package='soupsieve', normalized_package='soupsieve', old_version='2.6', proposed_version='2.8.4', source_evidence=(DependencyChangeSourceEvidence(path='uv.lock', file_format='uv_lock', extraction_method='exact_base_head_files'),), limitations=())",
+  "acquisition": "anonymous direct native clients; feasibility probe, exact response capture follows"
+}
