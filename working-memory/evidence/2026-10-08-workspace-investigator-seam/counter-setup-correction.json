@@ -1,0 +1,14 @@
+{
+  "stage": "contrary-content matrix expansion",
+  "runner_status": "failed",
+  "prior_case_traces": 72,
+  "expected_selected": [
+    "counter:readme"
+  ],
+  "actual_selected": [
+    "counter:gap"
+  ],
+  "failure": "counter helper accepted content parameter but retained its gap fixture instead",
+  "interpretation": "Earlier counter_content_before matching outcome strings did not prove the named content case. Later independent selected-ID assertion exposed incorrect setup.",
+  "correction": "Retain supplied content and assert concrete selected identity before both content cases; rerun whole matrix."
+}

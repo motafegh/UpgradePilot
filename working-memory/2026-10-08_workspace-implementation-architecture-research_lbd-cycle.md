@@ -9,13 +9,13 @@
 
 ```text
 A0 — DONE: baseline, governance, native/consumer source and research evidence reconciled.
-A1 — DONE proportionately: Ali reviewed experiment 1 and authorized the next experiment.
+A1 — DONE proportionately: Ali accepted experiment 2 provisionally and authorized experiment 3 only.
 A2 — DONE for experiment boundary: approval plus concrete comparison/proof model presented;
      learner mastery is not inferred. No repeated gate for this continuous-context step.
-B — DONE for experiment 2: stores, faults/isolation/backup/loss comparisons and measured costs.
-Verification gate — GREEN scoped: 32 experiment tests, 58 native/report anchors, final runner/static/document checks.
-D — CURRENT for experiment 2 result review; experiment 1 review accepted, no learner mastery inferred.
-E — PENDING: research gaps/closure; experiments 3–4 remain unactivated.
+B — DONE for experiment 3: typed seam, native witness and lifecycle/invalidation pressure.
+Verification gate — GREEN scoped: 106 experiment tests, 58 native/report anchors, 84 matching traces; static/artifact/document checks.
+D — CURRENT for experiment 3 result review; prior reviews accepted, no learner mastery inferred.
+E — PENDING: research gaps/closure; experiment 4 remains unactivated.
 C — CONTINUOUS: retain meaningful reconciliation, decisions, evidence and handoff here.
 ```
 
@@ -163,3 +163,46 @@ Residual proof/design debt remains native codec/rehydration/versioning, complete
 `UP-SKILL:upgradepilot-planning-design`
 `UP-SKILL:upgradepilot-working-memory`
 `UP-SKILL:upgradepilot-build-implement`
+
+## Experiment 3 — authorization, question and setup
+
+Ali accepted experiment 2 provisionally and authorized only the planned interaction/lifecycle experiment. Main remains `08243e5b` after fresh fetch; branch starts this increment at `6221fce1`. Continue the same cycle proportionately under the already oriented, explicit authorization; repeated A gates would interrupt the instructed continuation. Present the concrete model, preserve learner/proof limits and stop at experiment 3 review. Migration and production adoption remain outside this increment.
+
+**Question/hypothesis:** a small typed interaction boundary can separate revision-bound reading, attributed requests/proposals, host admission, execution attempts, observations and owner evaluations without exposing storage. Revision mismatch alone should not invalidate a delayed same-target result: exact material bindings, current method/capability and host authority determine continuation. Recovery restores historical evidence, never present permission or an automatically retryable unknown attempt.
+
+**Setup:** deterministic scripted consumer, disclosed offline support-drop fixture, actual native investigation selector plus target declaration/relevance/impact owners. Acquisition is simulated exact-file delivery, not a GitHub/provider call. Compare direct Python interactions with a strict serialized request envelope where it tests attribution/field validation; use the provisional SQLite WAL/FULL checkpoint store through a host-only adapter and a memory baseline. Keep native payloads opaque on restoration; the retained-field codec remains experimental. General proposal evaluation and adequacy have no admitted executable owner here and must remain explicitly unsupported.
+
+**Proof program:** separate request/admission/attempt/observation records; view delivery versus omission and citation; delayed results after unrelated/material updates; same-head counterevidence; target changes; method/capability withdrawal and current authorization; identity/content collisions and exact duplicates; identical bytes in distinct scopes; stale publication followed by explicit refresh/revalidation; restoration and unknown completion without retry. The consumer contract exposes domain identities, basis, lifecycle, gaps and capability descriptions, never SQL/WAL/transaction details. Native evaluators receive host-selected relevant evidence/unknowns, not only proposer citations. Tests assert expected outcomes independently of transport/backend equality.
+
+**Initial alternatives:** separate host lifecycle, checkpoint adapter and native bridge modules rather than product packages/frameworks. Explicit material-slot bindings and evidence roles replace generic graph reachability as the invalidation criterion; historical reference edges still retain provenance. No automated semantic conflict or adequacy algorithm is introduced. Retain the experiment-2 file comparison, power-loss/physical-write debt and retention/capture limits; no hybrid reconsideration is warranted by this question.
+
+### Initial seam observations and proof correction
+
+The first focused run passed 21 of 22 tests; backend/transport comparison failed before SQLite execution because `create=True` was given an existing temporary directory. Preserve the [initial failure](evidence/2026-10-08-workspace-investigator-seam/initial-check.json); it is setup failure, not storage behavior or equivalence proof. Use a new store subdirectory and broaden independent recovery/authority assertions before accepting a matching trace. Initial oracles already distinguish revision mismatch from changed basis, retain rejected-result content as a problem, keep duplicate delivery from independent evidence, and preserve unsupported proposal/adequacy.
+
+Review also identified proof areas needing stronger coverage: a same-target evidence-set change must require result revalidation independently of premise-slot changes; method/capability changes must be reflected in evaluation-basis status; historical reads must not disclose checkpoint-internal state as Investigator evidence; proposal basis/method and present authority must be retained explicitly. These are prototype-design/proof refinements before acceptance, not contradictions in main.
+
+### Binding, responsibility and counterevidence refinements
+
+After an early 54-test green run, independent adversarial cases exposed two real prototype defects: a request could attach a newly introduced current premise to an older claimed revision; a proposal could inherit a new host method from an old delivered view. The [two failing assertions](evidence/2026-10-08-workspace-investigator-seam/binding-correction.txt) preserve the negative result. Admission now checks original revision bindings as well as current bindings; view/proposal records preserve their own basis and method. Historical graph links alone did not supply that temporal check. A private host facade separates consumer reads/requests/proposals from capability callbacks, native evaluation and checkpoint/policy operations. Current authority is checked before allowing a duplicate acknowledgement that creates new lifecycle state.
+
+Same-target counterevidence adds a material context binding and suspends the old need pending owner revalidation. A real native final assessment retires the selector's old need; it grants no adequacy or synthesis permission. Native evaluator selection includes all fixture-routed candidate-relevant inputs and unknowns, even when omitted from the consumer view. Contrary README content at a different exact path is retained alongside the declaration without inventing a semantic conflict: the current target-Python API admits only `pyproject.toml`, so this enlarged input set is unsupported. Relevance routing is supplied fixture setup, not semantic discovery proof.
+
+The matrix expansion found another setup/oracle failure: the counter helper accepted contrary-content input but silently retained its gap fixture. A matching `material_basis_changed` outcome initially passed the named content case; the later independent selected-ID assertion failed. Preserve the [expected/actual setup probe](evidence/2026-10-08-workspace-investigator-seam/counter-setup-correction.json). Repair the helper and assert concrete content identity in both before/after cases, then rerun the whole matrix. Matching outcomes/backend traces cannot establish correct stimulus coverage.
+
+Checkpoint engine failures are translated through a private portable error into `publication_unconfirmed`; the consumer cannot infer an execution failure or retry authority. Tests inject both pre-publication failure and committed-but-unacknowledged publication, then require explicit refresh/revalidation. This is seam handling of ambiguous publication, not new power-loss proof. Failures with known versus unknown capability completion are distinct and never become negative domain observations. Same identity and same exact-source aliases share one evidence basis; identical bytes in distinct scopes retain distinct identities.
+
+
+### Experiment 3 verified result and review handoff
+
+The final [evidence package](evidence/2026-10-08-workspace-investigator-seam/README.md) contains the executable responsibility/import map, 21-scenario expected-outcome matrix, 84 matching memory/SQLite × Python/wire traces, normal interaction checkpoint, strict request/projection sketches and minimum H1 projection requirements. The scripted consumer derives request scope/discriminator from delivered native need fields; policy, capability execution, native truth and persistence remain host-side. Native applicability is `established_applicable` on the disclosed exact-file fixture. General proposals/adequacy and enlarged counterevidence/unknown input sets remain unsupported.
+
+Fresh verification: **74 seam tests + 17 storage + 15 representation = 106 PASS**; **58 native/report anchors PASS**; final runner completes all 84 cases, preserving each family progressively. Same-target unrelated revision permits admission, while changed basis requires owner revalidation; current method/capability/target/authority withdrawal blocks old effects. Restoration stays historical until explicit binding/authority checks, and unknown completion grants no retry. Exact duplicate/alias data does not create independent support. These are lifecycle/fidelity results, not semantic correctness, broad discovery, adequate stopping or Investigator superiority.
+
+The representative request is 1,431 bytes; seven warm 1,000-iteration batches measure median typed construction 2.469 µs versus encode/decode 28.216 µs, excluding host/native/storage costs. Recommend typed Python as the simpler in-process baseline with an optional strict envelope when transport needs justify it. Keep the consumer contract independent of the provisional SQLite WAL/FULL adapter and storage exceptions. No evidence earns a framework, generic conflict/adequacy evaluator or hybrid store.
+
+Residual gaps: native codec/capture and retention roles/policy, supplied relevance/need registry/authentication rather than a general discovery/authority service, partial native family coverage, semantic revalidation methods, concurrency beyond local conditional publication, provider/model execution, replay and production cutover. The experiment-2 file evidence, power-loss/OS-crash limits and absent physical-write counters remain intact. Main's Proposed ADR/Core status and accepted native/synthesis owners are unchanged; no genuine contract contradiction emerged.
+
+**D/E boundary:** result learning and review are open; no learner mastery is inferred. The evidence supports reviewing why original binding provenance matters even when the current basis matches, why selecting counterevidence does not create a semantic conflict evaluator, and why unconfirmed publication cannot determine external completion. E preserves these as explicit review gaps; do not silently close the research cycle or start migration. Experiment 4 is only the next planned pointer, requiring separate activation after this review. No messages to H1, production adoption or main merge occurred.
+
+Final static/artifact review: five touched Python files pass Ruff/format; source/native-tree pins, normal checkpoint digest, all 84 matching trace hashes, JSON, touched links/fences and selective governance checks pass. `git diff --check` passes. [Verification receipt](evidence/2026-10-08-workspace-investigator-seam/verification.json) names exact commands and non-proof. Full governance doctor remains unrerun with main's inherited `examples/` marker finding; no production source/tests, dependencies, accepted contracts or research-plan scope changed. Publish this coherent result under the standing cadence, preserving the unrelated untracked broad-audit record.
