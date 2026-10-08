@@ -1,0 +1,19 @@
+{
+  "probe": "Omit a historical annotation from the current closure, then reintroduce different bytes under its old ID. Deliberately narrowed closure is an identity guard control, not accepted complete product history.",
+  "code_before_repair_sha256": "d812eb255856cb7706b5b9d585f8c5741ea6728975602bb22b8e18c93a736974",
+  "observed": [
+    {
+      "kind": "files",
+      "outcome": "accepted altered historical identity"
+    },
+    {
+      "kind": "sqlite-delete",
+      "outcome": "StoreDamaged: Immutable stored record identity/content collision"
+    },
+    {
+      "kind": "sqlite-wal",
+      "outcome": "StoreDamaged: Immutable stored record identity/content collision"
+    }
+  ],
+  "implication": "Checking only overlapping IDs in the latest snapshot is weaker than SQLite global immutable record identity; differential comparison must repair this before cost ranking."
+}
