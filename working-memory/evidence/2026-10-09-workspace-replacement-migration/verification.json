@@ -1,0 +1,65 @@
+{
+  "boundaries": {
+    "call_count_scope": "15 recorded application/native-boundary invocations; nested internal helpers are not counted as a global metric",
+    "live_provider_calls": 0,
+    "model_calls": 0,
+    "parity_consumer_attempts": {
+      "report_attempts": 4,
+      "synthesis_attempts": 7
+    },
+    "production_changes": false,
+    "projection_call_oracle": "current application/domain processing aliases and orchestration forbidden independently after capture; copying/synthesis/report allowed",
+    "target_execution": false,
+    "target_writes": false
+  },
+  "branch_base": "7a431616674bade7c0856a1c5bd9fcb7263525af",
+  "checkpoint_sha256": "3c9d9ff29f424eb345fdae502f583df59cc294c728803f7539b8c5ed0f3c3e0e",
+  "governance_debt": "Full doctor not rerun; inherited examples owner-marker finding retained",
+  "main_baseline": "08243e5b3e455ad26ae1cd142763f4d147269bc6",
+  "native_tree_sha256": "18b97ddcd673c3a5d39c50c68543eb2b00132f05066ec2f2d3f573d94c9484ac",
+  "not_proved": [
+    "production migration/cutover or broad legacy compatibility",
+    "cold trusted-native-object hydration",
+    "production canonical recovery/continuation or retained-input replay",
+    "complete native-family/retention coverage or minimal material-dependency selection",
+    "semantic correctness/model discovery/adequacy/Investigator superiority",
+    "fresh provider trust or real-world acquisition",
+    "power-loss durability/physical-write amplification/performance comparison",
+    "full product/experiment suite or hosted verification",
+    "learner mastery/main-owned ADR/Core acceptance"
+  ],
+  "proof_class": "one normal offline native producer sequence per backend; controlled inputs; synthetic consumer/lifecycle pressure",
+  "report_sha256": "63d614477d352c278de5b5aa494760d4f897facf53277a6d09a8d52534f1956b",
+  "source_sha256": {
+    "/home/motafeq/projects/UpgradePilot/experiments/run_workspace_migration_trial.py": "9b0fecdd09eccead18e6a55306ac97956548ce868289d4f87c140f622c9d64c8",
+    "experiments/tests/test_workspace_replacement_migration.py": "7dae5787b710d967cb81d1d4da508464e6470b45fc05e4e10fe8de628d69fc96",
+    "experiments/workspace_checkpoint_stores.py": "626878df1557a6e5e85aeb08e316a27c4b3648e45cfc4ca9b58b46b820adb524",
+    "experiments/workspace_replacement_migration.py": "428f697b5fe4058365d5de50c08f273492bcda7fc62c28d691d85c308c186268",
+    "experiments/workspace_revision_representation.py": "81967473660ff2f0017a1584eb4720b33a3a65d32d3413e39094b5833f1376fb",
+    "experiments/workspace_seam_checkpoints.py": "1e52be959d12c2b83cacfc97e8406e15a2cf981097f8fb173106863167cfb0aa"
+  },
+  "static": [
+    "Ruff check and format: three new Python modules",
+    "Exact source/test hashes and unchanged native tree",
+    "Eight progressively recorded result families; equal memory/SQLite summaries/checkpoints/reports",
+    "Checkpoint digest, 90-record closure and exact re-encode",
+    "Saved report hash and strict codec round trip",
+    "Evidence JSON syntax",
+    "Selective governance: internal links, normative IDs, audit lifecycle",
+    "Three touched documents: 47 local links and fenced blocks checked",
+    "git diff --check: PASS"
+  ],
+  "status": "green",
+  "tests": [
+    {
+      "command": "PYTHONPATH=src .venv/bin/python3 -m unittest experiments.tests.test_workspace_replacement_migration experiments.tests.test_workspace_public_grounding experiments.tests.test_workspace_investigator_seam experiments.tests.test_workspace_checkpoint_stores experiments.tests.test_workspace_revision_representation",
+      "passed": 121,
+      "scope": "9 migration + 112 inherited grounded seam/storage/representation"
+    },
+    {
+      "command": "PYTHONPATH=tests:src .venv/bin/python3 -m unittest test_investigation test_maintainer_action test_github_client test_github_repository test_upstream_interval_acquisition test_upstream_support_drop test_ci_dependency_state test_conditional_pyproject_consumption test_python_support_impact test_impact_applicability test_report test_report_file",
+      "passed": 115,
+      "scope": "normal producer, synthesis, native/report anchors; 43 closest consumers also passed preflight"
+    }
+  ]
+}

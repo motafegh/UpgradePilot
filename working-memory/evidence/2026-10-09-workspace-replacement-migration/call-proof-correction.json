@@ -1,0 +1,10 @@
+{
+  "question": "Do flat counters after capture prove consumer/restore phases cannot rerun a native owner?",
+  "prior_tests": "8 focused tests passed",
+  "setup": "Invoke an existing native owner after the producer capture context has exited; independent measurement control, not the normal migration case",
+  "instrumented_counter_unchanged": true,
+  "actual_extra_native_result": "unresolved",
+  "runner_sha256_before_correction": "c78e52789fa55eda161818fa3cebda7a6255a1482424487482e86894514d47a4",
+  "finding": "Delegating capture hooks are removed after orchestration. Counter equality alone cannot detect later domain calls.",
+  "correction": "During consumers and restore, explicitly reject producer/orchestrator and native-owner calls through current application/domain aliases. Count equality is secondary; preserve independent native state/material-input oracles."
+}
