@@ -1,6 +1,6 @@
 # Investigation Workspace implementation architecture research
 
-**Status:** Proposed research program for review; no prototype or production adoption selected.
+**Status:** Research program; activation, evidence and review position are owned by `MEMORY.md` and the linked cycle record. Production adoption is separate.
 **Responsibility:** Compare concrete implementations of main's canonical Workspace, producing discriminating evidence and recommendations for main. This is Workspace implementation R&D; the separate LLM/H1 workstream owns Investigator mechanisms.
 
 ## Constraints and entry evidence
@@ -82,4 +82,4 @@ Preparation may change this plan, its single [cycle record](../working-memory/20
 
 Recommend activating **experiment 1 only** first: retention closure determines what later stores must preserve. Its exclusions are temporary research sequencing; experiments 2–4 and broader native-family coverage remain necessary before production adoption. Reassess this ordering if closure cannot be understood without a small storage spike, recording its exact question and limits first.
 
-Stop now for review of this program. Each later coherent experiment ends with evidence, rejected options and remaining uncertainty before expanding. Main alone selects final method/technology, accepts semantic changes and authorizes production integration. A recommendation requires correctness/authority fidelity first, then measured cost and simpler-baseline comparison; no arbitrary aggregate score can offset a broken recovery boundary.
+Program review precedes experiment activation. Each coherent experiment ends with evidence, rejected options and remaining uncertainty before expanding. Main alone selects final method/technology, accepts semantic changes and authorizes production integration. A recommendation requires correctness/authority fidelity first, then measured cost and simpler-baseline comparison; no arbitrary aggregate score can offset a broken recovery boundary.
