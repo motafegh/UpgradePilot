@@ -9,15 +9,16 @@
 
 ```text
 A0 — DONE: baseline, governance, native/consumer source and research evidence reconciled.
-A1 — DONE proportionately: prior progression accepted; Ali authorized the proposed final consolidation.
-A2 — DONE for consolidation: cross-experiment recommendation, adoption gaps and main handoff scoped;
-     no new experiment or production authorization, no inferred learner mastery.
-B — DONE: four scoped experiments plus known-public grounding; consolidated recommendation prepared.
-Verification gate — GREEN for scoped documentation/evidence alignment. Recorded experiment-4 proof
-     remains 121 experiment / 115 focused product tests; executable files are unchanged, not rerun.
-D — CURRENT: consolidated result/proof boundaries prepared for review; no learner mastery inferred.
-E — PREPARED, review pending: explicit debt/owners and next decision; no automatic experiment 5.
-C — CONTINUOUS: retain meaningful reconciliation, decisions, evidence and handoff here.
+A1 — DONE proportionately: Ali described research as finalized and approved the four-note package.
+A2 — DONE: artifact coverage, depth, source horizon and non-production boundary approved.
+B — DONE: scoped research/handoff plus four grounded learning artifacts and short reading route.
+Verification gate — GREEN: document/source-horizon/coverage and selective governance checks;
+     recorded 121/115 runtime proof is historical, executables unchanged and tests not rerun.
+D — DONE for artifact delivery: mechanisms, corrections, proof limits and transfer questions preserved;
+     interactive learner assessment remains deliberately deferred, no mastery is inferred.
+E — DONE for scoped research/artifact handoff: residual product obligations explicit, no next experiment
+     or production adoption activated; main's separate design acceptance remains its own responsibility.
+C — DONE for this handoff: decision-relevant progression and learning evidence preserved here.
 ```
 
 ## Scope and cadence adjustment
@@ -311,3 +312,29 @@ D review focus: explain why coherent bytes and report parity still do not establ
 ### Consolidation verification
 
 Fresh scoped checks verify linked local paths/anchors and fenced blocks, all **28 experiment-source pins** across the five final result packages, E4 checkpoint/report digests, selective governance (internal links, normative IDs, audit lifecycle and state leaks) and clean diff formatting. Native product source/tests, all executable research code, accepted specification/ADR owners and dependencies have zero changes from the verified E4 increment; main's product/contract surface is unchanged. The prior 121/115 test receipt remains historical, not a fresh rerun. No benchmark, provider/model run or new recovery proof is claimed. Full governance doctor is unrerun, retaining the previously established examples-marker debt. Only this plan, cycle and branch-local live owner are edited; publish the coherent documentation handoff under the standing cadence, preserving the unrelated untracked file. Stop for final review before activating further research or production adoption.
+
+## Post-research learning artifacts — authorization and coverage (2026-10-09)
+
+Ali described the research/handoff as finalized and requested learning artifacts before new work. After reading the learning-artifact Skill and `learning/README.md`, proposed four responsibility-based notes plus a short reading route; “i agree go for them perfectly” authorizes the complete package, not another experiment. The research deliverable is accepted for this transition; learner ownership remains unassessed and deferred to optional later study. Continue this cycle's provenance rather than create a competing history or learning-status system.
+
+Coverage is pinned to `7ae80a07d5fb9180ddb30145ea389bebe6553c5f` (product baseline `08243e5b`). Read all supporting source/test/evidence at that horizon. Learning sources must never silently drift with main; each note will include immutable commit links. Four distinct learning responsibilities justify the package: (1) state/identity/material closure, (2) checkpoint persistence/failure recovery, (3) revision-bound consumer/host/native interaction, (4) grounded native integration/migration and proof. No separate glossary/workbook/audio files or durable coverage plan is justified; the approved in-session scope supplies proportional P0 planning.
+
+A0/A1/A2 for authoring are compressed under continuous-context authorization: the concrete scope, evidence horizon, four-part order and non-production boundary were presented and accepted. B is authoring plus evidence review; verification covers source/test-symbol and pinned-link accuracy, snapshot/claim boundaries, package coverage, fences and selective governance. D/E authoring handoff will identify what can be studied, proof limits and any deferred questions; artifact existence does not establish mastery. Runtime tests/benchmarks are unnecessary for this documentation-only responsibility, and recorded proof stays historical.
+
+Reading route: canonical constraints → current snapshot source/tests → exact experiment results/negative controls → selected cycle corrections. The public Soup Sieve case teaches a model-free native subset, while controlled normal orchestration teaches CI and consumer parity; do not merge them into a fictitious fully end-to-end live flow. Each note needs an actual source walkthrough, important failure paths/APIs, selective reasoning history, proof/non-proof, depth calibration, a fast return route and 3–5 optional transfer questions.
+
+UP-SKILL:upgradepilot-learning-artifact
+UP-SKILL:upgradepilot-planning-design
+UP-SKILL:upgradepilot-working-memory
+
+### Artifact drafts and source-grounded review
+
+Completed the [four-note package](../learning/2026-10-09-workspace-implementation-architecture-research/README.md) plus its short route. Each note walks actual types/functions and independent tests, links immutable source/evidence at the approved horizon, preserves important failures/corrections and distinguishes fact, provisional judgment and missing proof. First-note review established the publication/closure/identity depth before applying that standard to the remaining notes. A separate generic testing-history note was unnecessary: alias leaks, missing-input controls, SQL hook/counter failures and original/current binding repairs are taught beside their mechanisms. Each artifact has five optional transfer questions and a fast relearning route; no interactive assessment or learner mastery is claimed.
+
+Initial QA verifies all 29 distinct pinned repository links, named test symbols, the exact 121/115 historical receipt and unchanged checkpoint/report digests, with zero executable/specification/ADR changes. The source walkthrough explicitly distinguishes E1's full fixed-fixture target encoding from later normalized exact-target keys, the SQL partial-record-set hook from half-byte file staging, engine rw recovery from host continuation, native re-execution from hydration, and current synchronous orchestration from future asynchronous pressure. Final editorial review added an explicit reminder that the original product producer still constructs the legacy result: the capture/parity route is replacement feasibility, not a completed cutover. Package size is about 7,300 words across four focused notes and route; no duplicate glossary, contract, coverage plan, workbook or derivative formats were created. Final document/governance checks and publication remain to finish.
+
+### Artifact verification and delivery boundary
+
+Final scoped QA is GREEN: all five package files carry the exact research horizon; all 29 distinct immutable repository source/evidence paths and named test symbols resolve at that commit; local links/fences, four-topic coverage, fast return routes and all 20 optional transfer questions are checked. All 28 source pins across five result packages plus E4 checkpoint/report hashes still match. Selective governance (internal links, normative IDs, audit lifecycle, state leaks) and diff hygiene pass. No runtime tests or benchmarks are rerun for documentation authoring; the 121/115 receipt remains explicitly historical. Full governance doctor remains unrerun with its inherited examples-marker debt. Neither product/experiment code nor accepted owners/dependencies changed.
+
+The learning index links the frozen package without selecting live work. Branch-local `MEMORY.md` records artifact delivery and no further experiment activation. Ali's finalized-research statement accepts the research handoff for this transition; ownership assessment is deliberately deferred to later study under the artifact Skill, which does not require a lesson/quiz to author notes. D/E close this scoped delivery with cold native recovery, policy/family/schema/retirement and semantic/replay obligations preserved rather than resolved. Commit/push the coherent documentation increment under the standing publication cadence, excluding the unrelated broad-audit record. Stop after delivery; no new experiments, models, target operations, product repair, main merge or H1 messaging follows from artifact authorization.
