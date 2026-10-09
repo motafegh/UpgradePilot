@@ -151,6 +151,26 @@ When package-to-source exploration is admitted, the association basis MUST remai
 
 These invariants do not admit a new source policy or semantic role by themselves. The selected method/plan owns permitted examination effects and implementation scope; existing stronger contracts retain their meanings.
 
+### 6.4 Canonical investigation recovery and explicit continuation
+
+When canonical investigation recovery is activated, a durable checkpoint MUST declare one coherent investigation boundary: lineage, exact repository/PR/base/head/dependency transition, canonical revision and supported representation/semantic-version identity. Recovery MUST identify the persistence boundary; it MUST NOT imply preservation of later uncheckpointed activity. Checkpoint cadence and retention duration require an explicit implementation contract before durability is claimed.
+
+The checkpoint MUST preserve the material dependency closure needed to explain and continue that boundary: native identity/owner/scope/provenance and retained content or explicit recovery limitations; material proposal/admission and evaluation inputs/results; candidate/proposition lineage and reasons; discovery objectives/coverage; investigation needs; request/admission/attempt/observation/problem relationships; procedural termination, stopping proposals and adequacy assessments or unsupported/failed outcomes. Material views and available method/model/configuration identity MUST be retained at their admitted proof boundary, with missing provenance explicit. Reference-only content MUST NOT be labeled exact retained evidence. No universal raw capture, hidden model reasoning or secret retention is required or authorized.
+
+Recovery MUST preserve authority, assessment basis, open work and failed/unsupported/stale/conflicted distinctions. It MUST NOT convert proposals into assessments, omitted evidence into absence, ambiguous attempts into successes/negative observations, or procedural completion into adequate investigation. Completed observations absent from the declared boundary MUST NOT be invented.
+
+Supported representation, internal identities/references and integrity/coherence MUST be validated before recovered state is presented as canonical. Torn/invalid boundaries MUST NOT be silently merged or repaired into authoritative truth. A separately validated earlier boundary MAY be restored with explicit lost-progress limits. Incompatible versions, broken material references, missing required content and integrity problems MUST have explicit outcomes. Readable historical material MAY remain inspectable with declared limits; it MUST NOT be advertised as fully resumable where gaps block the next obligation.
+
+Recovery MUST be offline historical restoration. It MUST NOT issue requests, invoke models/evaluators, execute content, retry work, rebase targets or infer present source validity. Offline report opening remains a separate projection operation and MUST NOT reconstruct absent canonical state.
+
+Explicit continuation MUST distinguish fresh facts and state changes from the checkpoint. Before using recovered records/requests/assessments as current, validate the exact target and material identity/premise/scope/method/authority bindings; logical revision inequality alone is not staleness. Changed targets cannot be silently rebound. Missing methods/capabilities and material retention gaps MUST remain explicit and block affected operations without discarding unaffected evidence or manufacturing assessments.
+
+Pending, interrupted and completion-unknown attempts MUST remain distinguishable from unperformed requests and completed observations. Reconciliation/retry requires explicit continuation and current host admission under the capability's effects/authorization contract. Historical admission MUST NOT independently grant present execution authority or imply exactly-once execution. Duplicate results MUST be identified against request/attempt/observation identity and checked for contradictory content before ingestion.
+
+Recovered adequacy/synthesis conclusions MUST retain their historical basis. Material new evidence, discovery obligations, target/premise changes or newly feasible decision-critical checks require validity review and affected successor evaluation by the admitted owner before current use. Recovery cannot self-authorize stop/action; absent current adequacy/evaluation methods preserve unsupported evaluation rather than justified stop.
+
+Recovery promises MUST be evidenced through interruption, coherent restoration, missing/corrupted/incompatible dependencies, ambiguous attempts, target change and explicit continuation tests. Recovery does not discharge the separate replay responsibility: replay requires its own admitted re-execution boundary, retained inputs/method identities, equivalence criteria and executable proof independently of live source availability. Recovery does not establish deterministic replay, semantic correctness, current compatibility, discovery completeness or action permission.
+
 ## 7. Specialized specification relationships
 
 This core specification defines the stable trust/evidence/representation/failure invariants shared across admitted responsibilities and the project-wide implementation-retention/ownership constraints that apply when a material mechanism is added, repeated, or kept.
