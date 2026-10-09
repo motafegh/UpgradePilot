@@ -76,7 +76,10 @@ This section is navigation only. Each ADR's own `Status` field determines whethe
   — **Accepted design boundary.** Distinct publisher-declared/provenance source bases, bounded examination eligibility and attributed proposal effects; implementation/API-role adoption remain separately proven.
 
 - [`ADR-0012-canonical-investigation-workspace-and-recovery-boundary.md`](ADR-0012-canonical-investigation-workspace-and-recovery-boundary.md)
-  — **Proposed.** Canonical Workspace composition, revision-bound ingestion/admission, one-way projections, replacement migration and durable recovery boundary; acceptance and executable adoption require their own review/proof.
+  — **Accepted.** Canonical Workspace composition, revision-bound ingestion/admission, one-way projections, replacement migration and durable recovery boundary; executable adoption requires separate activation/proof.
+
+- [`ADR-0013-versioned-native-reconstruction-and-workspace-checkpoint-storage.md`](ADR-0013-versioned-native-reconstruction-and-workspace-checkpoint-storage.md)
+  — **Proposed.** Explicit owner/version native reconstruction, immutable Workspace revisions and coherent local SQLite checkpoint publication/backup; concrete method requires decision review before affected Build.
 
 Do not add labels such as **current ADR**, **active ADR**, or **next ADR** here. Live project position belongs only in `../../MEMORY.md`.
 

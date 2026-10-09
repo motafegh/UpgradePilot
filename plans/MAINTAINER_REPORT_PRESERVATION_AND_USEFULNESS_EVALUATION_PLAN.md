@@ -1,8 +1,9 @@
 # Maintainer Report, Preservation and Usefulness Evaluation Plan
 
-**Status:** prepared conditional plan; not implementation authorization or a passed usefulness gate.
+**Status:** execution/evaluation plan with separate feature-faithfulness and independent-usefulness gates; activation and proof status belong only in MEMORY.md.
 **Responsibility:** deliver and assess a faithful report of one normal dependency-update investigation, preserve the named result boundary, and determine whether it helps maintainers.
 **Selection gate:** [Product Direction and Maintainer Utility Investigation](PRODUCT_DIRECTION_AND_MAINTAINER_UTILITY_INVESTIGATION_PLAN.md).
+**Workspace relationship:** [Workspace implementation and migration](INVESTIGATION_WORKSPACE_IMPLEMENTATION_AND_MIGRATION_PLAN.md) owns canonical producer/consumer cutover and recovery; this plan owns report behavior and its usefulness study. Each has a separate activation/proof boundary.
 **Project route:** [Evidence-Derived Learning and Building Plan](UPGRADEPILOT_90_DAY_PLAN.md).
 **Live selection:** [MEMORY.md](../MEMORY.md) alone.
 
@@ -98,22 +99,63 @@ Run focused checks first, then the justified product regression and installed CL
 
 ## 5. Independent usefulness evaluation
 
-Reuse [the report development evaluator](../experiments/EVIDENCE_REPORT_DEVELOPMENT_EVALUATION.md) and its case/rubric files. Update evaluation machinery only when separately authorized. Preserve separate comparability, claim discipline, finding coverage, stopping and usability results.
+### Separate evaluation questions and readiness
 
-Predeclare:
+Reuse [the report development evaluator](../experiments/EVIDENCE_REPORT_DEVELOPMENT_EVALUATION.md) and its [case manifest](../experiments/evidence_report_development_cases.json) as development material. Assistant-authored labels, richer simulation interpretation and synthetic calibration need review; they are neither independent user results nor unseen cases. Revise executable evaluation machinery only under separate authorization.
 
-- normal product-output versus curated-evidence presentation mode;
-- exact cases/revisions, supported capabilities and unavailable inputs;
-- baseline current CLI and, for an outcome study, ordinary PR/CI/release-note review with equivalent decision-time information;
-- tasks, reviewer independence, assistance, order controls and time/error recording;
-- required findings/unknowns and forbidden stronger claims, hidden from producers;
-- success/rejection criteria and where outputs/judgments are preserved.
+| Question | Comparator / evidence | Readiness and limit |
+| --- | --- | --- |
+| Faithful implementation/migration | Original versus revised/direct/recovered report under equivalent native inputs, fixed time and declared generated-ID normalization | Product/consumer proof under the Workspace plan; equal reports alone establish no user benefit. |
+| Faithful presentation of supplied context | Declared curated packet versus report; preserve all supplied interpretation and scope disclosures | Development presentation review only. It cannot establish normal acquisition, extraction or discovery. |
+| Maintainer usefulness | Ordinary PR/CI/release-note/source review versus report-assisted review with equivalent decision-time source information | Exact normal producer outputs, comparable source packets, reviewed tasks/labels and independent reviewers. Can begin before Workspace completion or positive action admission. |
+| Post-cutover usefulness change | Reuse the frozen utility protocol where inputs/capabilities remain comparable | Separate from native parity; new lifecycle display/context cannot be assumed helpful. Mark changed evidence/modes and refreeze if comparison changes materially. |
 
-Minimum scoped acceptance: zero critical false/misattributed claims, all required bounded findings/unknowns preserved, and independent reviewers correctly recover exact update, important finding, supporting source, proof limit and justified next step or absence of one. Demonstrate concrete added utility on contrasting development cases relative to baseline. Do not assert a percentage/time improvement without a suitable measured comparison. Sample size and recruitment must match the strength of the intended claim; a small study establishes bounded usability, not population benefit.
+Prepare/freeze the protocol as soon as case feasibility is known. Do not delay the utility question until every future Workspace feature is complete. If representative existing reports meet readiness, explicitly select their study or record a reasoned deferral. Neither plan automatically launches acquisition/inference or recruits/messages reviewers.
 
-For later discovery/model generalization claims, establish protected evaluation with repository/release-family/time separation, human-adjudicated labels and decision-time inputs. Merge status and future incident history are not direct labels for a correct recommendation. Do not repurpose contaminated development cases as unseen evaluation.
+### Freeze a feasible normal-product pilot
 
-If independent reviewers are unavailable, implementation/faithfulness may be verified while usefulness remains explicit debt. Do not mark the entire plan passed or block unrelated deterministic work under a falsely completed gate. If a report is faithful but adds no useful assistance, simplify/revise it or activate the precise discovery/coverage prerequisite; more polished prose is not a remedy by itself.
+Before generating comparative outputs or observing reviewer answers, record one public-safe study manifest in the selected cycle's evidence directory. Include the following, with immutable output/input hashes added when actually produced:
+
+| Manifest group | Required contents |
+| --- | --- |
+| Claim and mode | Bounded development usability/utility question, normal versus curated mode, supported capability subset, proposed adoption/rejection consequence and explicit unearned claims. |
+| Cases and inputs | Repository/PR/base/head/dependency transition, observation/capture times actually available, exact decision-time sources and lawful retained-content/reference availability, case independence and known contamination. |
+| Product and baseline | Product/code/report/schema versions, actual configuration/model identity if used, complete allowed source packets and equal task/reference/time affordances. Missing identity stays explicit. |
+| Oracle | Independently reviewed required findings/unknowns, material source pointers, forbidden claims and interpretation of an absent justified next check. Hide oracle/expected answers from producers and reviewers during tasks. |
+| Participants and assignment | Relevant Python-maintainer/review experience, independence/assistance, case/condition/order allocation, label exposure and exclusions established before outcomes. |
+| Evidence and disposition | Output/task-answer paths/hashes, observations/errors/elapsed-time method, comparability/faithfulness/utility rules, failure/refusal handling and explicit inconclusive outcome. |
+
+Use at least three materially contrasting responsibility pressures for the initial pilot, not three near-duplicate updates: a normally reachable bounded finding with target/source scope; static versus command-completion/conditional-runtime limits; and degraded/unsupported evidence where the user must identify the missing obligation without inventing a remedy. Prefer existing retained/development cases when their actual normal producer inputs are available. CARLA/Dictare/Freqtrade simulation material may inform labels or curated review, but must not be injected into normal product inputs. The retained Pydantic/Soup Sieve support-drop subset is development grounding, not by itself a complete normal report case.
+
+Resolve feasibility before freezing the actual cases. When the normal producer cannot supply a case's material evidence, record the gap and select a feasible contrasting case or keep the normal study unready. Do not create a new engine capability merely to fill a study quota, hide unsupported cases after seeing output, or count related artifacts as independent cases. Exact mismatched inputs are `not_comparable`; matching inputs with false output identity are a critical product error, not an exclusion.
+
+The ordinary-review condition receives the same admissible decision-time source information, such as PR/diff, CI evidence and package/upstream texts, without UpgradePilot's derived findings or expected answers. The assisted condition receives that packet plus the actual report. Preserve access/navigation conditions and disclose if acquisition/presentation differences are part of the question. A richer report-only packet would confound information availability with report usefulness and requires a separately named comparison.
+
+### Reviewer tasks, independence and ordering
+
+For a bounded independent pilot, arrange at least two reviewers with relevant Python dependency-review familiarity who did not author the report, implementation or labels. Ali/assistant review remains useful development analysis but cannot be the independent result. If suitable reviewers are unavailable, preserve that debt and continue only independently authorized mechanical work.
+
+Each reviewer sees a case once in one condition. Assign both conditions for each case across different reviewers; rotate conditions across cases and balance task/order exposure as far as the small pilot permits. Do not have one reviewer examine the same case with and without the report and interpret their learned second answer as improvement. Record experience differences and residual allocation imbalance; the small pilot supports descriptive case-level observations, not a causal population/time-saving estimate.
+
+Ask each reviewer to recover:
+
+1. The exact dependency transition and analyzed/source revisions.
+2. The material supported finding, or the specific reason no finding is established.
+3. Its source and proof strength, including static/observed/applicable distinctions.
+4. The unresolved obligation that materially limits a conclusion.
+5. A justified next check and how its possible observations would matter, or why no such check is supported.
+
+Record task answers and source-navigation steps before debriefing. Elapsed task time excludes setup and is recorded by the same method for both conditions. Log requested clarification and substantive coaching; coached outcomes do not satisfy independent task recovery. Preference/confidence feedback supplements task evidence and cannot replace it. Do not add a semantic judge, model vote or new dashboard for this first manual study.
+
+### Acceptance, rejection and inconclusive results
+
+Report per case/condition: operational outcome/comparability; claim discipline; required finding/unknown coverage; stopping/next-check validity; reviewer task recovery; observed burden and assistance. Preserve the development evaluator's distinct failure/incomplete/not-scored meanings. Provider/model failure is operational evidence, not semantic abstention. Never pool unlike cases into one accuracy score or remove unsupported outputs from the denominator silently.
+
+Scoped acceptance requires zero critical false/misattributed/authority-promoting report claims, preservation of all applicable required findings and material unknowns, and independent assisted task recovery without substantive author coaching. A usefulness claim additionally requires identifiable practical assistance relative to ordinary review on more than one contrasting responsibility: for example locating a material source, avoiding a specific false inference or recognizing a discriminating check. Cite the actual answer/navigation evidence and retain cases with no benefit or added confusion. Honest blanket unknowns may pass some truthfulness checks while failing useful assistance.
+
+Reject affected output/method for critical false confidence or fabricated support. If faithful output adds no practical assistance, revise/simplify the report or investigate the precise missing producer/reasoning capability. If cases/reviewers are unavailable, inputs are incomparable or the benefit remains ambiguous, record `not_established`/inconclusive with the smallest discriminating follow-up; a polished report or positive preference is not a substitute. This pilot cannot establish population benefit, unseen semantic generalization or a percentage/time improvement without a separately suitable measured comparison.
+
+Any rubric/case correction after freeze preserves the original record, gives its evidence/reason and applies symmetrically; no silent relabeling to pass a favored output. Later discovery/model claims require protected repository/release-family/time-separated evidence and human-adjudicated labels. Merge status and future incidents are not direct truth labels for a recommendation.
 
 ## 6. Completion, stop and subsequent responsibilities
 
@@ -135,7 +177,9 @@ This is the concrete design to review before Build; its preparation does not pro
 
 ### Shared semantic projection
 
-Use one explicit projection from PublicPullRequestInvestigation into a responsibility-named report record. Human rendering and file encoding consume that record; offline decoding reconstructs only that report record, not domain objects or a new investigation. Do not serialize arbitrary dataclasses or Python class/import names as a public contract. No new dependency, inference model, score, database, generic event log or agent is needed.
+Use one explicit projection from the admitted native investigation inputs into a responsibility-named report record. Initial delivery uses `PublicPullRequestInvestigation`; [Workspace migration](INVESTIGATION_WORKSPACE_IMPLEMENTATION_AND_MIGRATION_PLAN.md) cuts over that input to a one-way Workspace-native projection while preserving report semantics. Any temporary legacy projection has a named parity/compatibility reason, explicit loss boundary and removal trigger under ADR-0012. This report plan does not retain a second producer or define the canonical recovery schema. Human rendering and file encoding consume the same report record; offline decoding reconstructs only that report record, not domain objects or a new investigation. Do not serialize arbitrary dataclasses or Python class/import names as a public contract. Ordinary reporting adds no dependency, inference model, score, database, generic event log or agent; Workspace persistence is owned separately.
+
+For a historical recovered Workspace, render the retained synthesis/conclusions and their basis. The normal projection's existing synthesis invocation must be separated from that historical path: Core §6.4 prohibits evaluators during recovery. Fresh synthesis under current conditions is a separately admitted evaluation, not an implicit effect of reopening or rendering history.
 
 The report boundary may describe owned states and their consequences through deterministic, source-grounded wording. It may not recompute applicability or discover new facts. Preserve static CI consumption, runtime correlation, command-completion state, actual later use and behavior as different propositions. In particular, command completion cannot become fresh-install causality or compatibility. A no-candidate result retains its evaluated horizon; it is not global absence of impacts.
 
