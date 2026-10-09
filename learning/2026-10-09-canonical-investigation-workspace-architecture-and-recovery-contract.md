@@ -343,10 +343,10 @@ Replay is not “open the checkpoint.” It is also not “rerun live GitHub/PyP
 A system may therefore have:
 
 ```text
-successful checkpoint recovery ✅
-trusted historical inspection ✅
-explicit continuation path ✅
-deterministic replay ❌ not yet implemented
+successful checkpoint recovery = yes
+trusted historical inspection = yes
+explicit continuation path = yes
+deterministic replay = not implemented
 ```
 
 without contradiction.
