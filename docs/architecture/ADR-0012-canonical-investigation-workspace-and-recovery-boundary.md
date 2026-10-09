@@ -1,11 +1,12 @@
 # ADR-0012 — Canonical Investigation Workspace and recovery boundary
 
-**Status:** Proposed for Ali's review; the B2 composition direction is already accepted, but this completed method and recovery boundary are not yet an accepted ADR or implemented capability.
-**Date:** 2026-10-08
+**Status:** Accepted after Ali's D result review on 2026-10-09; executable adoption remains a separate Build responsibility and is not implied by this ADR.
+**Date:** 2026-10-08  
+**Accepted:** 2026-10-09
 **Responsibility:** One evolving canonical investigation contract around native producers/evaluators, with revision-bound interaction, consumer projections, replacement migration and durable recovery.
-**Requirements:** [Charter §6](../../PROJECT_CHARTER.md), [Core §§3–6.3](../specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md), [Product Decision Model](../specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md), [Maintainer Action Synthesis](../specifications/UPGRADEPILOT_MAINTAINER_ACTION_SYNTHESIS_SPECIFICATION.md), [Security](../../SECURITY.md).
+**Requirements:** [Charter §6](../../PROJECT_CHARTER.md), [Core §§3–6.4](../specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md), [Product Decision Model](../specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md), [Maintainer Action Synthesis](../specifications/UPGRADEPILOT_MAINTAINER_ACTION_SYNTHESIS_SPECIFICATION.md), [Security](../../SECURITY.md).
 **Execution coordination:** [Workspace/interface design plan](../../plans/INVESTIGATION_WORKSPACE_AND_INVESTIGATOR_INTERFACE_DESIGN_PLAN.md).
-**Design and pressure evidence:** [single design-cycle record](../../working-memory/2026-10-07_investigation-workspace-and-investigator-interface-design_lbd-cycle.md), including its proposed Core §6.4 recovery semantics. That semantic delta requires review/promotion to its Core owner; this ADR does not silently amend the specification.
+**Design and pressure evidence:** [single design-cycle record](../../working-memory/2026-10-07_investigation-workspace-and-investigator-interface-design_lbd-cycle.md), including the Core §6.4 recovery semantics promoted during E closure. Research implementation evidence is retained on `main` as non-controlling evidence; it does not by itself amend this ADR or establish implementation.
 
 ## Context
 
@@ -13,7 +14,7 @@ The current [PublicPullRequestInvestigation](../../src/upgradepilot/investigatio
 
 Adaptive investigation requires additional cross-domain ownership: evolving target-bound state, bounded discovery before candidates, proposal/evaluation and request/observation histories, material premise bindings, bounded context, candidate refinement and adequacy authority. The saved report deliberately omits some content, method identity and operation history; it cannot supply canonical continuation. Adding all this to a frozen result or scattering it among uncoordinated owners obscures state validity and recovery.
 
-## Proposed decision
+## Decision
 
 Use a **distinct composed/evolving Investigation Workspace** as the product's canonical logical investigation state. Compose focused records/services around native records, rather than requiring one giant class or a universal evidence hierarchy. The Workspace owns investigation identity, cross-domain relationships, lifecycle and recovery; native owners retain factual/semantic authority and synthesis retains action permission.
 
@@ -50,9 +51,9 @@ Counterevidence and mechanism refinement preserve prior assessments/candidates a
 
 Investigator, evaluator, synthesis and report consume explicit one-way Workspace projections. Projection cannot strengthen evidence, recompute competing truth or invent omitted lifecycle state. Evaluator selection must include owner-relevant counterevidence/unknowns rather than inheriting proposer citations as its whole boundary.
 
-**Durable canonical Workspace recovery is an intended product responsibility.** Restore a declared coherent historical checkpoint with exact identity, material native content/recovery limits, method/basis/history and unfinished obligations. The proposed Core §6.4 delta owns the minimum semantics and fault outcomes. Recovery is offline; explicit continuation validates current target/premise/method/authorization bindings before new activity. Missing material state blocks affected continuation, not inspection of unaffected history.
+**Durable canonical Workspace recovery is an intended product responsibility.** Restore a declared coherent historical checkpoint with exact identity, material native content/recovery limits, method/basis/history and unfinished obligations. Accepted Core §6.4 owns the minimum semantics and fault outcomes. Recovery is offline; explicit continuation validates current target/premise/method/authorization bindings before new activity. Missing material state blocks affected continuation, not inspection of unaffected history.
 
-A saved report is insufficient for this boundary. A reference/digest is not retained content; interruption is not a negative observation; historical admission is not present execution permission. Recovery does not promise hidden model-state restoration, deterministic model rerunning or exactly-once capability effects. Storage technology, checkpoint frequency, retention period and implementation activation remain open.
+A saved report is insufficient for this boundary. A reference/digest is not retained content; interruption is not a negative observation; historical admission is not present execution permission. Recovery does not promise hidden model-state restoration, deterministic model rerunning or exactly-once capability effects. Storage technology, checkpoint frequency, retention period and implementation activation remain open at this architectural owner.
 
 **Replay is a separate retained product obligation.** Charter §6 and [the stage plan §9](../../plans/UPGRADEPILOT_90_DAY_PLAN.md#9-b3--acquisition-and-replay-robustness) require deterministic re-execution from retained inputs independently of live availability. Checkpoint restoration and validated continuation do not establish that behavior. Its admitted processing boundary, replay inputs/method identities and equivalence proof require separate activation; accepting this ADR or Core recovery semantics cannot mark replay fulfilled. This does not require fresh external calls or identical model output.
 
@@ -72,10 +73,10 @@ The selected composition adds identity, retention, projection and invalidation w
 
 ## Non-selections, reversal and acceptance boundary
 
-No Python class/module/schema layout, mutability choice, database/SQLite/file/event-store mechanism, framework, model, agent topology, discovery policy, capability catalog, semantic/adequacy evaluation method, broader execution authority or action default is selected. Security and existing semantic owners remain controlling.
+No Python class/module/schema layout, mutability choice, database/SQLite/file/event-store mechanism, framework, model, agent topology, discovery policy, capability catalog, semantic/adequacy evaluation method, broader execution authority or action default is selected **by this ADR**. Security and existing semantic owners remain controlling. The completed D/E review separately accepts several research-backed choices as provisional implementation-entry directions; those defaults remain subject to executable proof and do not retroactively turn this architecture ADR into a storage/framework specification.
 
 Before cutover, reversal can stop the Workspace adoption without changing native meanings or converting reports into checkpoints. After cutover, reverting to the old snapshot requires a deliberate capability/retention decision: it would otherwise lose newly admitted lifecycle/recovery state. Keep evidence history recoverable under its contract rather than silently downgrading it during rollback.
 
 Reassess if a native owner already satisfies an alleged new responsibility, a projection requires recomputing domain truth, a real compatibility obligation contradicts retirement, material retained context is missing, or valid variation cannot be represented without hidden authority promotion. Reopen the proper semantic/design owner before widening the method.
 
-Acceptance requires Ali's review of this method and the proposed Core recovery delta, including the recovery/replay distinction. Executable adoption then needs a separately admitted Build with canonical-path native regression proof, request/evaluation/adequacy and variation tests, delayed/stale/conflicting/duplicate results, recovery interruption/failure/continuation proof, and consumer cutover/retirement evidence. Replay remains a separately activated and proven obligation. This proposal and its conceptual walkthroughs establish no implemented Workspace, durability, model quality, compatibility or learner mastery.
+**Acceptance record:** Ali accepted this method and the linked Core recovery semantics during the 2026-10-09 D decision checkpoint, including the recovery/replay distinction. Executable adoption still needs a separately selected Build with canonical-path native regression proof, request/evaluation/adequacy and variation tests, delayed/stale/conflicting/duplicate results, recovery interruption/failure/continuation proof, native capture/versioned cold reconstruction, and consumer cutover/retirement evidence. Replay remains a separately activated and proven obligation. This accepted ADR establishes architecture, not an implemented Workspace, durability, model quality, compatibility or blanket learner mastery.
