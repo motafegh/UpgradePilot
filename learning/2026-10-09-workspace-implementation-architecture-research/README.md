@@ -34,4 +34,3 @@ Later audio/quiz transforms should use a note plus its 1–3 selected source/tes
 **Recorded verification:** the final migration receipt reports 121 scoped experiment tests and 115 focused product tests passing. Those results are historical evidence for the research code; authoring this package does not rerun them or establish product adoption, semantic adequacy or power-loss durability.
 
 `UP-SKILL:upgradepilot-learning-artifact`
-
