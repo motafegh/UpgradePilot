@@ -1,0 +1,93 @@
+{
+  "default_product_workspace": false,
+  "migration": false,
+  "native_tree_sha256": "18b97ddcd673c3a5d39c50c68543eb2b00132f05066ec2f2d3f573d94c9484ac",
+  "proof_class": "known public development/grounding case",
+  "retained_input_memory_reexecution": "input tape reconstructed only from checkpoint; byte-identical native summary/checkpoint; no network",
+  "source_sha256": {
+    "experiments/run_workspace_public_grounding.py": "33f2f240bc8b707be4e2b37971eeb5e519c5534dbf88ce91ae53994fa8052d0e",
+    "experiments/tests/test_workspace_public_grounding.py": "e5ba5756cc0ca6496dbf8b827ce75538dd91ac5ec4e3c056355ae215b100fc8c",
+    "experiments/workspace_checkpoint_stores.py": "626878df1557a6e5e85aeb08e316a27c4b3648e45cfc4ca9b58b46b820adb524",
+    "experiments/workspace_investigator_seam.py": "76066092058e8a15dbcc0b4e627359b1e7597b55387d2609a7038bf1c99df8bc",
+    "experiments/workspace_public_input_tape.py": "08ad6f73f230665c27f65435d3f7bc6ad35a7b52e8c87257c02c870fa0d66bfc",
+    "experiments/workspace_revision_representation.py": "81967473660ff2f0017a1584eb4720b33a3a65d32d3413e39094b5833f1376fb",
+    "experiments/workspace_seam_checkpoints.py": "1e52be959d12c2b83cacfc97e8406e15a2cf981097f8fb173106863167cfb0aa"
+  },
+  "sqlite_online_backup": "byte-identical latest checkpoint and original revision zero",
+  "sqlite_trial": {
+    "adequacy": "unsupported_no_admitted_evaluator",
+    "changelog_path": "docs/src/markdown/about/changelog.md",
+    "checkpoint_bytes": 3529144,
+    "checkpoint_sha256": "5cca11e816eddcd70f1abc70d05e26df77c0e82ccac2f4d99c5833473b2d9732",
+    "crossed_versions": [
+      "2.7",
+      "2.8",
+      "2.8.1",
+      "2.8.2",
+      "2.8.3",
+      "2.8.4"
+    ],
+    "dependency": {
+      "old": "2.6",
+      "package": "soupsieve",
+      "proposed": "2.8.4"
+    },
+    "http_requests": 14,
+    "initial_revision_unchanged": true,
+    "material_records": 68,
+    "model_calls": 0,
+    "native_after": "established_not_applicable",
+    "native_before": "unresolved",
+    "native_next_need": null,
+    "omitted_citation_rejected": true,
+    "relevance": "outside_declared_python_range",
+    "requires_python": ">=3.10",
+    "restored_historical_then_explicitly_validated": true,
+    "revision": 12,
+    "source_files": {
+      "file:4b8772caddc2d1b0": {
+        "bytes": 606307,
+        "path": "uv.lock",
+        "repository": "pydantic/pydantic",
+        "revision": "652a61ce4f9d7d76eaada31535807a485ece0e21",
+        "sha256": "ec25652a029534382c92c2dd553c29324963e606b8f6c8f8d2b5f1ff9973d829"
+      },
+      "file:83e890f8c7f88ad1": {
+        "bytes": 606313,
+        "path": "uv.lock",
+        "repository": "pydantic/pydantic",
+        "revision": "aa2dc024d33f61cdef50bf1973ab5adf0a974f5a",
+        "sha256": "dddaeef408f47c2fb1fe4e6c70a3fa9b3f7cb533d710b4c528f125d2ce0a2d7f"
+      },
+      "file:83fa33bd82580e25": {
+        "bytes": 17370,
+        "path": "docs/src/markdown/about/changelog.md",
+        "repository": "facelessuser/soupsieve",
+        "revision": "28108ab805818c832d9568142a99844fd95a0d39",
+        "sha256": "a52fbe9fb310c779b8ba5ff842031647c820a3cdb05ba1dd923cf73f85ca37c8"
+      },
+      "file:f9f35972549f5c9a": {
+        "bytes": 9085,
+        "path": "pyproject.toml",
+        "repository": "pydantic/pydantic",
+        "revision": "aa2dc024d33f61cdef50bf1973ab5adf0a974f5a",
+        "sha256": "8375abce73bfeab0ffd54df6934079380acab1fe0aac515b211c8f307cb53782"
+      }
+    },
+    "target": {
+      "author": "dependabot[bot]",
+      "base_ref": "main",
+      "base_sha": "652a61ce4f9d7d76eaada31535807a485ece0e21",
+      "changed_files": 1,
+      "head_ref": "dependabot/uv/soupsieve-2.8.4",
+      "head_sha": "aa2dc024d33f61cdef50bf1973ab5adf0a974f5a",
+      "merged": true,
+      "number": 13432,
+      "repository": "pydantic/pydantic",
+      "state": "closed",
+      "title": "Bump soupsieve from 2.6 to 2.8.4"
+    },
+    "upstream_commit": "28108ab805818c832d9568142a99844fd95a0d39"
+  },
+  "status": "complete"
+}

@@ -1,0 +1,501 @@
+{
+  "backend_equality": "exact summaries/checkpoints and report except generated UUID",
+  "cases": [
+    {
+      "backend": "memory",
+      "summary": {
+        "action": "abstain",
+        "calls": {
+          "acquisition:actions.jobs": 1,
+          "acquisition:actions.runs": 1,
+          "acquisition:pull.files": 1,
+          "acquisition:pull.identity": 1,
+          "acquisition:pypi.index": 1,
+          "acquisition:pypi.release": 2,
+          "acquisition:repository.changelog": 1,
+          "acquisition:repository.target": 1,
+          "acquisition:repository.workflow": 1,
+          "acquisition:upstream.changelog_path": 1,
+          "acquisition:upstream.repository": 1,
+          "acquisition:upstream.tag": 1,
+          "extractor:deterministic_fixture": 1,
+          "native:analyze_dependency_change": 1,
+          "native:assemble_upstream_interval_authority": 1,
+          "native:build_artifact_serviceability_impact_candidate": 1,
+          "native:build_python_support_drop_impact_candidate": 1,
+          "native:build_tagged_changelog_evidence": 1,
+          "native:evaluate_dependency_ci_coverage": 1,
+          "native:evaluate_python_support_drop_impact": 2,
+          "native:evaluate_runtime_dependency_state": 1,
+          "native:evaluate_target_python_relevance": 1,
+          "native:interpret_target_python_declaration": 1,
+          "native:release_interval_from_dependency_change": 1,
+          "native:select_crossed_release_index": 1,
+          "native:select_python_support_drop_investigation": 1,
+          "native:support_drop_runtime": 1,
+          "orchestration:investigate_public_pull_request": 1
+        },
+        "checkpoint_bytes": 322158,
+        "checkpoint_sha256": "3c9d9ff29f424eb345fdae502f583df59cc294c728803f7539b8c5ed0f3c3e0e",
+        "cold_restart": "unsupported_native_codec: live values unavailable",
+        "consumer_extra_native_or_acquisition_calls": 0,
+        "direct_refusal": {
+          "report": "investigation must be PublicPullRequestInvestigation",
+          "synthesis": "investigation must be PublicPullRequestInvestigation"
+        },
+        "exact_sources": [
+          {
+            "bytes": 58,
+            "scope": "example/project@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:pyproject.toml",
+            "sha256": "4e66c4afdf012dad4330f6444034c71c1ec9b53379acfd69cd3a0dd5bf4b711c"
+          },
+          {
+            "bytes": 539,
+            "scope": "example/project@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:.github/workflows/ci.yml",
+            "sha256": "130a7e9c6bd8eb8195929c4120a15f0dd0b86f568bd694516cd1dc0f93a578cd"
+          },
+          {
+            "bytes": 36,
+            "scope": "example/upstream@cccccccccccccccccccccccccccccccccccccccc:CHANGELOG.md",
+            "sha256": "6d1053ed4d11fbbe95e23bbf16cfb466288edab4e1cd5594e578c6c0eab21851"
+          }
+        ],
+        "model_calls": 0,
+        "native_acquisition_port_returns": 13,
+        "native_after": "established_applicable",
+        "native_before": "unresolved",
+        "native_owner_calls": 15,
+        "parity_consumer_attempts": {
+          "report_attempts": 4,
+          "synthesis_attempts": 7
+        },
+        "producer_result_fields": 24,
+        "records": 90,
+        "report_assessments": [
+          [
+            "dependency",
+            "supported",
+            "recorded_fact"
+          ],
+          [
+            "ci",
+            "supported_runtime_correlated",
+            "recorded_fact"
+          ],
+          [
+            "ci-workflow-1",
+            "supported_runtime_correlated",
+            "recorded_fact"
+          ],
+          [
+            "runtime",
+            "evaluated",
+            "recorded_fact"
+          ],
+          [
+            "runtime-command-1",
+            "satisfied_at_command_completion",
+            "recorded_fact"
+          ],
+          [
+            "runtime-command-2",
+            "unresolved",
+            "unresolved"
+          ],
+          [
+            "package",
+            "available",
+            "recorded_fact"
+          ],
+          [
+            "old-package",
+            "available",
+            "recorded_fact"
+          ],
+          [
+            "upstream-repository",
+            "available",
+            "recorded_fact"
+          ],
+          [
+            "upstream-interval",
+            "available",
+            "recorded_fact"
+          ],
+          [
+            "support-drop",
+            "grounded",
+            "grounded_interpretation"
+          ],
+          [
+            "artifact-candidate",
+            "not observed",
+            "recorded_fact"
+          ],
+          [
+            "artifact-environments",
+            "not activated",
+            "unresolved"
+          ],
+          [
+            "artifact-impact",
+            "not evaluated",
+            "unresolved"
+          ],
+          [
+            "target-python",
+            "available",
+            "recorded_fact"
+          ],
+          [
+            "python-relevance",
+            "declared_python_overlap",
+            "grounded_interpretation"
+          ],
+          [
+            "python-impact",
+            "established_applicable",
+            "grounded_interpretation"
+          ]
+        ],
+        "report_material_sha256": "63d614477d352c278de5b5aa494760d4f897facf53277a6d09a8d52534f1956b",
+        "report_time": "2026-10-09T00:00:00+00:00",
+        "residual_uncertainty": [
+          "Runtime requirement state for /opt/bootstrap/bin/python -m pip --python /opt/target/bin/python install --no-user --no-deps -r requirements.txt remains unresolved: Exact-process evidence for PIP_TARGET is unresolved: process_environment_ambient_sources_unresolved: No admitted declarative or command-local value establishes 'PIP_TARGET'; runner ambient state and other runtime producers have not been ruled out.",
+          "Command-completion evidence does not establish fresh installation, later package use or behavioral compatibility."
+        ],
+        "revision": 90,
+        "runtime_results": [
+          "RequirementSatisfiedAtCommandCompletion",
+          "RequirementStateProblem"
+        ]
+      }
+    },
+    {
+      "backend": "sqlite",
+      "summary": {
+        "action": "abstain",
+        "calls": {
+          "acquisition:actions.jobs": 1,
+          "acquisition:actions.runs": 1,
+          "acquisition:pull.files": 1,
+          "acquisition:pull.identity": 1,
+          "acquisition:pypi.index": 1,
+          "acquisition:pypi.release": 2,
+          "acquisition:repository.changelog": 1,
+          "acquisition:repository.target": 1,
+          "acquisition:repository.workflow": 1,
+          "acquisition:upstream.changelog_path": 1,
+          "acquisition:upstream.repository": 1,
+          "acquisition:upstream.tag": 1,
+          "extractor:deterministic_fixture": 1,
+          "native:analyze_dependency_change": 1,
+          "native:assemble_upstream_interval_authority": 1,
+          "native:build_artifact_serviceability_impact_candidate": 1,
+          "native:build_python_support_drop_impact_candidate": 1,
+          "native:build_tagged_changelog_evidence": 1,
+          "native:evaluate_dependency_ci_coverage": 1,
+          "native:evaluate_python_support_drop_impact": 2,
+          "native:evaluate_runtime_dependency_state": 1,
+          "native:evaluate_target_python_relevance": 1,
+          "native:interpret_target_python_declaration": 1,
+          "native:release_interval_from_dependency_change": 1,
+          "native:select_crossed_release_index": 1,
+          "native:select_python_support_drop_investigation": 1,
+          "native:support_drop_runtime": 1,
+          "orchestration:investigate_public_pull_request": 1
+        },
+        "checkpoint_bytes": 322158,
+        "checkpoint_sha256": "3c9d9ff29f424eb345fdae502f583df59cc294c728803f7539b8c5ed0f3c3e0e",
+        "cold_restart": "unsupported_native_codec: live values unavailable",
+        "consumer_extra_native_or_acquisition_calls": 0,
+        "direct_refusal": {
+          "report": "investigation must be PublicPullRequestInvestigation",
+          "synthesis": "investigation must be PublicPullRequestInvestigation"
+        },
+        "exact_sources": [
+          {
+            "bytes": 58,
+            "scope": "example/project@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:pyproject.toml",
+            "sha256": "4e66c4afdf012dad4330f6444034c71c1ec9b53379acfd69cd3a0dd5bf4b711c"
+          },
+          {
+            "bytes": 539,
+            "scope": "example/project@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:.github/workflows/ci.yml",
+            "sha256": "130a7e9c6bd8eb8195929c4120a15f0dd0b86f568bd694516cd1dc0f93a578cd"
+          },
+          {
+            "bytes": 36,
+            "scope": "example/upstream@cccccccccccccccccccccccccccccccccccccccc:CHANGELOG.md",
+            "sha256": "6d1053ed4d11fbbe95e23bbf16cfb466288edab4e1cd5594e578c6c0eab21851"
+          }
+        ],
+        "model_calls": 0,
+        "native_acquisition_port_returns": 13,
+        "native_after": "established_applicable",
+        "native_before": "unresolved",
+        "native_owner_calls": 15,
+        "parity_consumer_attempts": {
+          "report_attempts": 4,
+          "synthesis_attempts": 7
+        },
+        "producer_result_fields": 24,
+        "records": 90,
+        "report_assessments": [
+          [
+            "dependency",
+            "supported",
+            "recorded_fact"
+          ],
+          [
+            "ci",
+            "supported_runtime_correlated",
+            "recorded_fact"
+          ],
+          [
+            "ci-workflow-1",
+            "supported_runtime_correlated",
+            "recorded_fact"
+          ],
+          [
+            "runtime",
+            "evaluated",
+            "recorded_fact"
+          ],
+          [
+            "runtime-command-1",
+            "satisfied_at_command_completion",
+            "recorded_fact"
+          ],
+          [
+            "runtime-command-2",
+            "unresolved",
+            "unresolved"
+          ],
+          [
+            "package",
+            "available",
+            "recorded_fact"
+          ],
+          [
+            "old-package",
+            "available",
+            "recorded_fact"
+          ],
+          [
+            "upstream-repository",
+            "available",
+            "recorded_fact"
+          ],
+          [
+            "upstream-interval",
+            "available",
+            "recorded_fact"
+          ],
+          [
+            "support-drop",
+            "grounded",
+            "grounded_interpretation"
+          ],
+          [
+            "artifact-candidate",
+            "not observed",
+            "recorded_fact"
+          ],
+          [
+            "artifact-environments",
+            "not activated",
+            "unresolved"
+          ],
+          [
+            "artifact-impact",
+            "not evaluated",
+            "unresolved"
+          ],
+          [
+            "target-python",
+            "available",
+            "recorded_fact"
+          ],
+          [
+            "python-relevance",
+            "declared_python_overlap",
+            "grounded_interpretation"
+          ],
+          [
+            "python-impact",
+            "established_applicable",
+            "grounded_interpretation"
+          ]
+        ],
+        "report_material_sha256": "63d614477d352c278de5b5aa494760d4f897facf53277a6d09a8d52534f1956b",
+        "report_time": "2026-10-09T00:00:00+00:00",
+        "residual_uncertainty": [
+          "Runtime requirement state for /opt/bootstrap/bin/python -m pip --python /opt/target/bin/python install --no-user --no-deps -r requirements.txt remains unresolved: Exact-process evidence for PIP_TARGET is unresolved: process_environment_ambient_sources_unresolved: No admitted declarative or command-local value establishes 'PIP_TARGET'; runner ambient state and other runtime producers have not been ruled out.",
+          "Command-completion evidence does not establish fresh installation, later package use or behavioral compatibility."
+        ],
+        "revision": 90,
+        "runtime_results": [
+          "RequirementSatisfiedAtCommandCompletion",
+          "RequirementStateProblem"
+        ]
+      }
+    }
+  ],
+  "families": [
+    {
+      "backend": "memory",
+      "data": {
+        "calls": {
+          "acquisition:actions.jobs": 1,
+          "acquisition:actions.runs": 1,
+          "acquisition:pull.files": 1,
+          "acquisition:pull.identity": 1,
+          "acquisition:pypi.index": 1,
+          "acquisition:pypi.release": 2,
+          "acquisition:repository.changelog": 1,
+          "acquisition:repository.target": 1,
+          "acquisition:repository.workflow": 1,
+          "acquisition:upstream.changelog_path": 1,
+          "acquisition:upstream.repository": 1,
+          "acquisition:upstream.tag": 1,
+          "extractor:deterministic_fixture": 1,
+          "native:analyze_dependency_change": 1,
+          "native:assemble_upstream_interval_authority": 1,
+          "native:build_artifact_serviceability_impact_candidate": 1,
+          "native:build_python_support_drop_impact_candidate": 1,
+          "native:build_tagged_changelog_evidence": 1,
+          "native:evaluate_dependency_ci_coverage": 1,
+          "native:evaluate_python_support_drop_impact": 2,
+          "native:evaluate_runtime_dependency_state": 1,
+          "native:evaluate_target_python_relevance": 1,
+          "native:interpret_target_python_declaration": 1,
+          "native:release_interval_from_dependency_change": 1,
+          "native:select_crossed_release_index": 1,
+          "native:select_python_support_drop_investigation": 1,
+          "native:support_drop_runtime": 1,
+          "orchestration:investigate_public_pull_request": 1
+        },
+        "oracle": "independent native fact/state checks passed"
+      },
+      "family": "native"
+    },
+    {
+      "backend": "memory",
+      "data": {
+        "report": "investigation must be PublicPullRequestInvestigation",
+        "synthesis": "investigation must be PublicPullRequestInvestigation"
+      },
+      "family": "direct_consumer_refusal"
+    },
+    {
+      "backend": "memory",
+      "data": {
+        "all_fields": true,
+        "report": "equal except generated report UUID; fixed time; source IDs unchanged",
+        "synthesis": "equal including original fact/unknown/limit meanings"
+      },
+      "family": "legacy_parity"
+    },
+    {
+      "backend": "memory",
+      "data": {
+        "checkpoint_equal": true,
+        "cold_restart": "unsupported_native_codec: live values unavailable",
+        "consumer_or_restore_native_calls": 0,
+        "legacy_projection_cannot_represent": [
+          "source-input bundle",
+          "revision/history",
+          "view delivery/use",
+          "proposal/evaluation status",
+          "unknown completion/retry restriction"
+        ],
+        "offline_saved_report_equal": true
+      },
+      "family": "lifecycle_retention"
+    },
+    {
+      "backend": "sqlite",
+      "data": {
+        "calls": {
+          "acquisition:actions.jobs": 1,
+          "acquisition:actions.runs": 1,
+          "acquisition:pull.files": 1,
+          "acquisition:pull.identity": 1,
+          "acquisition:pypi.index": 1,
+          "acquisition:pypi.release": 2,
+          "acquisition:repository.changelog": 1,
+          "acquisition:repository.target": 1,
+          "acquisition:repository.workflow": 1,
+          "acquisition:upstream.changelog_path": 1,
+          "acquisition:upstream.repository": 1,
+          "acquisition:upstream.tag": 1,
+          "extractor:deterministic_fixture": 1,
+          "native:analyze_dependency_change": 1,
+          "native:assemble_upstream_interval_authority": 1,
+          "native:build_artifact_serviceability_impact_candidate": 1,
+          "native:build_python_support_drop_impact_candidate": 1,
+          "native:build_tagged_changelog_evidence": 1,
+          "native:evaluate_dependency_ci_coverage": 1,
+          "native:evaluate_python_support_drop_impact": 2,
+          "native:evaluate_runtime_dependency_state": 1,
+          "native:evaluate_target_python_relevance": 1,
+          "native:interpret_target_python_declaration": 1,
+          "native:release_interval_from_dependency_change": 1,
+          "native:select_crossed_release_index": 1,
+          "native:select_python_support_drop_investigation": 1,
+          "native:support_drop_runtime": 1,
+          "orchestration:investigate_public_pull_request": 1
+        },
+        "oracle": "independent native fact/state checks passed"
+      },
+      "family": "native"
+    },
+    {
+      "backend": "sqlite",
+      "data": {
+        "report": "investigation must be PublicPullRequestInvestigation",
+        "synthesis": "investigation must be PublicPullRequestInvestigation"
+      },
+      "family": "direct_consumer_refusal"
+    },
+    {
+      "backend": "sqlite",
+      "data": {
+        "all_fields": true,
+        "report": "equal except generated report UUID; fixed time; source IDs unchanged",
+        "synthesis": "equal including original fact/unknown/limit meanings"
+      },
+      "family": "legacy_parity"
+    },
+    {
+      "backend": "sqlite",
+      "data": {
+        "checkpoint_equal": true,
+        "cold_restart": "unsupported_native_codec: live values unavailable",
+        "consumer_or_restore_native_calls": 0,
+        "legacy_projection_cannot_represent": [
+          "source-input bundle",
+          "revision/history",
+          "view delivery/use",
+          "proposal/evaluation status",
+          "unknown completion/retry restriction"
+        ],
+        "offline_saved_report_equal": true
+      },
+      "family": "lifecycle_retention"
+    }
+  ],
+  "native_tree_sha256": "18b97ddcd673c3a5d39c50c68543eb2b00132f05066ec2f2d3f573d94c9484ac",
+  "production_cutover": false,
+  "proof_class": "normal offline native orchestration plus synthetic lifecycle pressure",
+  "source_sha256": {
+    "/home/motafeq/projects/UpgradePilot/experiments/run_workspace_migration_trial.py": "9b0fecdd09eccead18e6a55306ac97956548ce868289d4f87c140f622c9d64c8",
+    "experiments/tests/test_workspace_replacement_migration.py": "7dae5787b710d967cb81d1d4da508464e6470b45fc05e4e10fe8de628d69fc96",
+    "experiments/workspace_checkpoint_stores.py": "626878df1557a6e5e85aeb08e316a27c4b3648e45cfc4ca9b58b46b820adb524",
+    "experiments/workspace_replacement_migration.py": "428f697b5fe4058365d5de50c08f273492bcda7fc62c28d691d85c308c186268",
+    "experiments/workspace_revision_representation.py": "81967473660ff2f0017a1584eb4720b33a3a65d32d3413e39094b5833f1376fb",
+    "experiments/workspace_seam_checkpoints.py": "1e52be959d12c2b83cacfc97e8406e15a2cf981097f8fb173106863167cfb0aa"
+  },
+  "status": "complete"
+}

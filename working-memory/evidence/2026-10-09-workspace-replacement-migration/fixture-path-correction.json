@@ -1,0 +1,18 @@
+{
+  "question": "Does the disclosed offline fixture actually reach the intended normal native branches?",
+  "status": "setup_incomplete",
+  "pre_correction_source_sha256": "102ea55618e61e193f9d2472773651bf9e61bcf61a8cf0c3efa3543b7694872a",
+  "calls": {
+    "orchestration:investigate_public_pull_request": 1,
+    "acquisition:pull.identity": 1,
+    "acquisition:pull.files": 1,
+    "native:analyze_dependency_change": 1
+  },
+  "actual_dependency_problem": {
+    "reason": "missing_dependency_patch",
+    "detail": "No usable patch evidence was available for requirements.txt."
+  },
+  "python_impact_present": false,
+  "finding": "ChangedFile patch was omitted; current exact-requirements analysis consumes the validated changed-file patch, not separately acquired base/head files. Native branch correctly stopped.",
+  "correction": "Provide an explicit synthetic exact requirements patch, fix exact changelog-discovery record shape, and assert meaningful native branches independently before comparing consumer outputs. Do not manufacture base/head reads as normal producer evidence."
+}

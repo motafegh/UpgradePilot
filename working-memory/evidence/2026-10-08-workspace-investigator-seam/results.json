@@ -1,0 +1,1536 @@
+{
+  "cases": [
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "normal",
+      "checkpoint_sha256": "237d1391c2fa361e7535ef3a24d79f5c1dcba1661d8f9254a3026d83bb40f8a9",
+      "domain_outcomes": [
+        "established_applicable"
+      ],
+      "evidence_inputs": [
+        "target:source"
+      ],
+      "outcome": "observation_admitted",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 9,
+      "states": [
+        "citation_not_delivered_in_view",
+        "proposal_retained_evaluation_unsupported"
+      ],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "normal",
+      "checkpoint_sha256": "237d1391c2fa361e7535ef3a24d79f5c1dcba1661d8f9254a3026d83bb40f8a9",
+      "domain_outcomes": [
+        "established_applicable"
+      ],
+      "evidence_inputs": [
+        "target:source"
+      ],
+      "outcome": "observation_admitted",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 9,
+      "states": [
+        "citation_not_delivered_in_view",
+        "proposal_retained_evaluation_unsupported"
+      ],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "normal",
+      "checkpoint_sha256": "237d1391c2fa361e7535ef3a24d79f5c1dcba1661d8f9254a3026d83bb40f8a9",
+      "domain_outcomes": [
+        "established_applicable"
+      ],
+      "evidence_inputs": [
+        "target:source"
+      ],
+      "outcome": "observation_admitted",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 9,
+      "states": [
+        "citation_not_delivered_in_view",
+        "proposal_retained_evaluation_unsupported"
+      ],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "normal",
+      "checkpoint_sha256": "237d1391c2fa361e7535ef3a24d79f5c1dcba1661d8f9254a3026d83bb40f8a9",
+      "domain_outcomes": [
+        "established_applicable"
+      ],
+      "evidence_inputs": [
+        "target:source"
+      ],
+      "outcome": "observation_admitted",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 9,
+      "states": [
+        "citation_not_delivered_in_view",
+        "proposal_retained_evaluation_unsupported"
+      ],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "unrelated",
+      "checkpoint_sha256": "af88ca54044d2866a192350130a01932786c3f88be034b92878acca4179d6c1b",
+      "domain_outcomes": [
+        "established_applicable"
+      ],
+      "evidence_inputs": [
+        "target:source"
+      ],
+      "outcome": "observation_admitted",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 10,
+      "states": [
+        "citation_not_delivered_in_view",
+        "proposal_retained_evaluation_unsupported"
+      ],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "unrelated",
+      "checkpoint_sha256": "af88ca54044d2866a192350130a01932786c3f88be034b92878acca4179d6c1b",
+      "domain_outcomes": [
+        "established_applicable"
+      ],
+      "evidence_inputs": [
+        "target:source"
+      ],
+      "outcome": "observation_admitted",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 10,
+      "states": [
+        "citation_not_delivered_in_view",
+        "proposal_retained_evaluation_unsupported"
+      ],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "unrelated",
+      "checkpoint_sha256": "af88ca54044d2866a192350130a01932786c3f88be034b92878acca4179d6c1b",
+      "domain_outcomes": [
+        "established_applicable"
+      ],
+      "evidence_inputs": [
+        "target:source"
+      ],
+      "outcome": "observation_admitted",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 10,
+      "states": [
+        "citation_not_delivered_in_view",
+        "proposal_retained_evaluation_unsupported"
+      ],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "unrelated",
+      "checkpoint_sha256": "af88ca54044d2866a192350130a01932786c3f88be034b92878acca4179d6c1b",
+      "domain_outcomes": [
+        "established_applicable"
+      ],
+      "evidence_inputs": [
+        "target:source"
+      ],
+      "outcome": "observation_admitted",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 10,
+      "states": [
+        "citation_not_delivered_in_view",
+        "proposal_retained_evaluation_unsupported"
+      ],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "material",
+      "checkpoint_sha256": "ec51a33accfde7f1703d3cb09205f6b779a05a928a5aa48b128bfce22a524bc2",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "material_basis_changed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 5,
+      "states": [],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "material",
+      "checkpoint_sha256": "ec51a33accfde7f1703d3cb09205f6b779a05a928a5aa48b128bfce22a524bc2",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "material_basis_changed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 5,
+      "states": [],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "material",
+      "checkpoint_sha256": "ec51a33accfde7f1703d3cb09205f6b779a05a928a5aa48b128bfce22a524bc2",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "material_basis_changed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 5,
+      "states": [],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "material",
+      "checkpoint_sha256": "ec51a33accfde7f1703d3cb09205f6b779a05a928a5aa48b128bfce22a524bc2",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "material_basis_changed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 5,
+      "states": [],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "counter_before",
+      "checkpoint_sha256": "3a41858ebad3e41c7bd38adf09f49fdc18fecbb5301dca8b927eb83628e1c9d1",
+      "domain_outcomes": [],
+      "evidence_inputs": [
+        "counter:gap"
+      ],
+      "outcome": "material_basis_changed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 5,
+      "states": [],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "counter_before",
+      "checkpoint_sha256": "3a41858ebad3e41c7bd38adf09f49fdc18fecbb5301dca8b927eb83628e1c9d1",
+      "domain_outcomes": [],
+      "evidence_inputs": [
+        "counter:gap"
+      ],
+      "outcome": "material_basis_changed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 5,
+      "states": [],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "counter_before",
+      "checkpoint_sha256": "3a41858ebad3e41c7bd38adf09f49fdc18fecbb5301dca8b927eb83628e1c9d1",
+      "domain_outcomes": [],
+      "evidence_inputs": [
+        "counter:gap"
+      ],
+      "outcome": "material_basis_changed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 5,
+      "states": [],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "counter_before",
+      "checkpoint_sha256": "3a41858ebad3e41c7bd38adf09f49fdc18fecbb5301dca8b927eb83628e1c9d1",
+      "domain_outcomes": [],
+      "evidence_inputs": [
+        "counter:gap"
+      ],
+      "outcome": "material_basis_changed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 5,
+      "states": [],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "counter_content_before",
+      "checkpoint_sha256": "ede4abf3edad42f12b2a9c95f89fc8057726460b4660b84da89e5184d07e967b",
+      "domain_outcomes": [],
+      "evidence_inputs": [
+        "counter:readme"
+      ],
+      "outcome": "material_basis_changed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 5,
+      "states": [],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "counter_content_before",
+      "checkpoint_sha256": "ede4abf3edad42f12b2a9c95f89fc8057726460b4660b84da89e5184d07e967b",
+      "domain_outcomes": [],
+      "evidence_inputs": [
+        "counter:readme"
+      ],
+      "outcome": "material_basis_changed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 5,
+      "states": [],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "counter_content_before",
+      "checkpoint_sha256": "ede4abf3edad42f12b2a9c95f89fc8057726460b4660b84da89e5184d07e967b",
+      "domain_outcomes": [],
+      "evidence_inputs": [
+        "counter:readme"
+      ],
+      "outcome": "material_basis_changed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 5,
+      "states": [],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "counter_content_before",
+      "checkpoint_sha256": "ede4abf3edad42f12b2a9c95f89fc8057726460b4660b84da89e5184d07e967b",
+      "domain_outcomes": [],
+      "evidence_inputs": [
+        "counter:readme"
+      ],
+      "outcome": "material_basis_changed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 5,
+      "states": [],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "target",
+      "checkpoint_sha256": "03352952c134c0bc26b3bbc2188e901db296c0931a6acb60ad493956e87359e1",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "target_changed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "target",
+      "checkpoint_sha256": "03352952c134c0bc26b3bbc2188e901db296c0931a6acb60ad493956e87359e1",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "target_changed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "target",
+      "checkpoint_sha256": "03352952c134c0bc26b3bbc2188e901db296c0931a6acb60ad493956e87359e1",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "target_changed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "target",
+      "checkpoint_sha256": "03352952c134c0bc26b3bbc2188e901db296c0931a6acb60ad493956e87359e1",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "target_changed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "method",
+      "checkpoint_sha256": "c433dbcd7ae79bb5bdc6665cfd5410988267315a2b161f627e2ac37a1ea37fc0",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "method_changed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "method",
+      "checkpoint_sha256": "c433dbcd7ae79bb5bdc6665cfd5410988267315a2b161f627e2ac37a1ea37fc0",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "method_changed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "method",
+      "checkpoint_sha256": "c433dbcd7ae79bb5bdc6665cfd5410988267315a2b161f627e2ac37a1ea37fc0",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "method_changed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "method",
+      "checkpoint_sha256": "c433dbcd7ae79bb5bdc6665cfd5410988267315a2b161f627e2ac37a1ea37fc0",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "method_changed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "capability",
+      "checkpoint_sha256": "13f0881d0615a4db16d6535676ed12103fcefe9031a492588e6f98311894ac3a",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "capability_unavailable",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "capability",
+      "checkpoint_sha256": "13f0881d0615a4db16d6535676ed12103fcefe9031a492588e6f98311894ac3a",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "capability_unavailable",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "capability",
+      "checkpoint_sha256": "13f0881d0615a4db16d6535676ed12103fcefe9031a492588e6f98311894ac3a",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "capability_unavailable",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "capability",
+      "checkpoint_sha256": "13f0881d0615a4db16d6535676ed12103fcefe9031a492588e6f98311894ac3a",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "capability_unavailable",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "authority",
+      "checkpoint_sha256": "d5fdb9554931ca6d4242377f6be675b1bc1af57d58919ac4e65864961aa4ac28",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "current_authority_unavailable",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "authority",
+      "checkpoint_sha256": "d5fdb9554931ca6d4242377f6be675b1bc1af57d58919ac4e65864961aa4ac28",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "current_authority_unavailable",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "authority",
+      "checkpoint_sha256": "d5fdb9554931ca6d4242377f6be675b1bc1af57d58919ac4e65864961aa4ac28",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "current_authority_unavailable",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "authority",
+      "checkpoint_sha256": "d5fdb9554931ca6d4242377f6be675b1bc1af57d58919ac4e65864961aa4ac28",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "current_authority_unavailable",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "duplicate",
+      "checkpoint_sha256": "20aa8e66fef7ab1c314eb054b7dc881b5191085a0b2a7349c96b9c84280c2e8b",
+      "domain_outcomes": [],
+      "evidence_inputs": [
+        "target:source"
+      ],
+      "outcome": "duplicate_delivery",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "duplicate",
+      "checkpoint_sha256": "20aa8e66fef7ab1c314eb054b7dc881b5191085a0b2a7349c96b9c84280c2e8b",
+      "domain_outcomes": [],
+      "evidence_inputs": [
+        "target:source"
+      ],
+      "outcome": "duplicate_delivery",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "duplicate",
+      "checkpoint_sha256": "20aa8e66fef7ab1c314eb054b7dc881b5191085a0b2a7349c96b9c84280c2e8b",
+      "domain_outcomes": [],
+      "evidence_inputs": [
+        "target:source"
+      ],
+      "outcome": "duplicate_delivery",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "duplicate",
+      "checkpoint_sha256": "20aa8e66fef7ab1c314eb054b7dc881b5191085a0b2a7349c96b9c84280c2e8b",
+      "domain_outcomes": [],
+      "evidence_inputs": [
+        "target:source"
+      ],
+      "outcome": "duplicate_delivery",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "unknown",
+      "checkpoint_sha256": "daaeddaba6d2851751b21d682820899c44b8d0d81fe7e94034dbaf7848b72aa5",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "completion_unknown_no_auto_retry",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 3,
+      "states": [
+        "historical_only",
+        "current_bindings_validated"
+      ],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "unknown",
+      "checkpoint_sha256": "daaeddaba6d2851751b21d682820899c44b8d0d81fe7e94034dbaf7848b72aa5",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "completion_unknown_no_auto_retry",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 3,
+      "states": [
+        "historical_only",
+        "current_bindings_validated"
+      ],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "unknown",
+      "checkpoint_sha256": "daaeddaba6d2851751b21d682820899c44b8d0d81fe7e94034dbaf7848b72aa5",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "completion_unknown_no_auto_retry",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 3,
+      "states": [
+        "historical_only",
+        "current_bindings_validated"
+      ],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "unknown",
+      "checkpoint_sha256": "daaeddaba6d2851751b21d682820899c44b8d0d81fe7e94034dbaf7848b72aa5",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "completion_unknown_no_auto_retry",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 3,
+      "states": [
+        "historical_only",
+        "current_bindings_validated"
+      ],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "failed",
+      "checkpoint_sha256": "f78a10950c1b1426c46891a745072581d7675a68322336b6562bb7cba8d767a3",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "already_completed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "failed",
+      "checkpoint_sha256": "f78a10950c1b1426c46891a745072581d7675a68322336b6562bb7cba8d767a3",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "already_completed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "failed",
+      "checkpoint_sha256": "f78a10950c1b1426c46891a745072581d7675a68322336b6562bb7cba8d767a3",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "already_completed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "failed",
+      "checkpoint_sha256": "f78a10950c1b1426c46891a745072581d7675a68322336b6562bb7cba8d767a3",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "already_completed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "restore",
+      "checkpoint_sha256": "9f659b1c1a8d97876dd0447f8b9ae7820f8304e753e8821d6755c5e7e446fade",
+      "domain_outcomes": [
+        "established_applicable"
+      ],
+      "evidence_inputs": [
+        "target:source"
+      ],
+      "outcome": "observation_admitted",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 9,
+      "states": [
+        "historical_only",
+        "current_bindings_validated",
+        "citation_not_delivered_in_view",
+        "proposal_retained_evaluation_unsupported"
+      ],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "restore",
+      "checkpoint_sha256": "9f659b1c1a8d97876dd0447f8b9ae7820f8304e753e8821d6755c5e7e446fade",
+      "domain_outcomes": [
+        "established_applicable"
+      ],
+      "evidence_inputs": [
+        "target:source"
+      ],
+      "outcome": "observation_admitted",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 9,
+      "states": [
+        "historical_only",
+        "current_bindings_validated",
+        "citation_not_delivered_in_view",
+        "proposal_retained_evaluation_unsupported"
+      ],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "restore",
+      "checkpoint_sha256": "9f659b1c1a8d97876dd0447f8b9ae7820f8304e753e8821d6755c5e7e446fade",
+      "domain_outcomes": [
+        "established_applicable"
+      ],
+      "evidence_inputs": [
+        "target:source"
+      ],
+      "outcome": "observation_admitted",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 9,
+      "states": [
+        "historical_only",
+        "current_bindings_validated",
+        "citation_not_delivered_in_view",
+        "proposal_retained_evaluation_unsupported"
+      ],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "restore",
+      "checkpoint_sha256": "9f659b1c1a8d97876dd0447f8b9ae7820f8304e753e8821d6755c5e7e446fade",
+      "domain_outcomes": [
+        "established_applicable"
+      ],
+      "evidence_inputs": [
+        "target:source"
+      ],
+      "outcome": "observation_admitted",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 9,
+      "states": [
+        "historical_only",
+        "current_bindings_validated",
+        "citation_not_delivered_in_view",
+        "proposal_retained_evaluation_unsupported"
+      ],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "restore_method",
+      "checkpoint_sha256": "88f3c3837d2b0ab8ec277b7d39b09bcee1cb25fd8137b0fbf4c20c82b3c40768",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "method_changed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [
+        "historical_only",
+        "current_bindings_validated"
+      ],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "restore_method",
+      "checkpoint_sha256": "88f3c3837d2b0ab8ec277b7d39b09bcee1cb25fd8137b0fbf4c20c82b3c40768",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "method_changed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [
+        "historical_only",
+        "current_bindings_validated"
+      ],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "restore_method",
+      "checkpoint_sha256": "88f3c3837d2b0ab8ec277b7d39b09bcee1cb25fd8137b0fbf4c20c82b3c40768",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "method_changed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [
+        "historical_only",
+        "current_bindings_validated"
+      ],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "restore_method",
+      "checkpoint_sha256": "88f3c3837d2b0ab8ec277b7d39b09bcee1cb25fd8137b0fbf4c20c82b3c40768",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "method_changed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [
+        "historical_only",
+        "current_bindings_validated"
+      ],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "restore_capability",
+      "checkpoint_sha256": "d1cff371167613963e59f649526d3d76b98465e011bb7ae41002251f2dc11737",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "capability_unavailable",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [
+        "historical_only",
+        "current_bindings_validated"
+      ],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "restore_capability",
+      "checkpoint_sha256": "d1cff371167613963e59f649526d3d76b98465e011bb7ae41002251f2dc11737",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "capability_unavailable",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [
+        "historical_only",
+        "current_bindings_validated"
+      ],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "restore_capability",
+      "checkpoint_sha256": "d1cff371167613963e59f649526d3d76b98465e011bb7ae41002251f2dc11737",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "capability_unavailable",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [
+        "historical_only",
+        "current_bindings_validated"
+      ],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "restore_capability",
+      "checkpoint_sha256": "d1cff371167613963e59f649526d3d76b98465e011bb7ae41002251f2dc11737",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "capability_unavailable",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [
+        "historical_only",
+        "current_bindings_validated"
+      ],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "restore_target",
+      "checkpoint_sha256": "f25bbd0cbe31264fa0cbe6e183e785416ad752fa251b495078ee5878f3a7dabb",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "target_changed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [
+        "historical_only",
+        "target_changed"
+      ],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "restore_target",
+      "checkpoint_sha256": "f25bbd0cbe31264fa0cbe6e183e785416ad752fa251b495078ee5878f3a7dabb",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "target_changed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [
+        "historical_only",
+        "target_changed"
+      ],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "restore_target",
+      "checkpoint_sha256": "f25bbd0cbe31264fa0cbe6e183e785416ad752fa251b495078ee5878f3a7dabb",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "target_changed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [
+        "historical_only",
+        "target_changed"
+      ],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "restore_target",
+      "checkpoint_sha256": "f25bbd0cbe31264fa0cbe6e183e785416ad752fa251b495078ee5878f3a7dabb",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "target_changed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 4,
+      "states": [
+        "historical_only",
+        "target_changed"
+      ],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "omitted",
+      "checkpoint_sha256": "237d1391c2fa361e7535ef3a24d79f5c1dcba1661d8f9254a3026d83bb40f8a9",
+      "domain_outcomes": [
+        "established_applicable"
+      ],
+      "evidence_inputs": [
+        "target:source"
+      ],
+      "outcome": "observation_admitted",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 9,
+      "states": [
+        "citation_not_delivered_in_view",
+        "proposal_retained_evaluation_unsupported"
+      ],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "omitted",
+      "checkpoint_sha256": "237d1391c2fa361e7535ef3a24d79f5c1dcba1661d8f9254a3026d83bb40f8a9",
+      "domain_outcomes": [
+        "established_applicable"
+      ],
+      "evidence_inputs": [
+        "target:source"
+      ],
+      "outcome": "observation_admitted",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 9,
+      "states": [
+        "citation_not_delivered_in_view",
+        "proposal_retained_evaluation_unsupported"
+      ],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "omitted",
+      "checkpoint_sha256": "237d1391c2fa361e7535ef3a24d79f5c1dcba1661d8f9254a3026d83bb40f8a9",
+      "domain_outcomes": [
+        "established_applicable"
+      ],
+      "evidence_inputs": [
+        "target:source"
+      ],
+      "outcome": "observation_admitted",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 9,
+      "states": [
+        "citation_not_delivered_in_view",
+        "proposal_retained_evaluation_unsupported"
+      ],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "omitted",
+      "checkpoint_sha256": "237d1391c2fa361e7535ef3a24d79f5c1dcba1661d8f9254a3026d83bb40f8a9",
+      "domain_outcomes": [
+        "established_applicable"
+      ],
+      "evidence_inputs": [
+        "target:source"
+      ],
+      "outcome": "observation_admitted",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 9,
+      "states": [
+        "citation_not_delivered_in_view",
+        "proposal_retained_evaluation_unsupported"
+      ],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "counter_after",
+      "checkpoint_sha256": "c55d93bb003855167ddc248e406d5d56b95877b179a2732482d10ab3bc4121ce",
+      "domain_outcomes": [
+        "established_applicable",
+        "unsupported_owner_input_set"
+      ],
+      "evidence_inputs": [
+        "counter:gap",
+        "target:source"
+      ],
+      "outcome": "requires_owner_revalidation",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 7,
+      "states": [
+        "requires_owner_revalidation"
+      ],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "counter_after",
+      "checkpoint_sha256": "c55d93bb003855167ddc248e406d5d56b95877b179a2732482d10ab3bc4121ce",
+      "domain_outcomes": [
+        "established_applicable",
+        "unsupported_owner_input_set"
+      ],
+      "evidence_inputs": [
+        "counter:gap",
+        "target:source"
+      ],
+      "outcome": "requires_owner_revalidation",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 7,
+      "states": [
+        "requires_owner_revalidation"
+      ],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "counter_after",
+      "checkpoint_sha256": "c55d93bb003855167ddc248e406d5d56b95877b179a2732482d10ab3bc4121ce",
+      "domain_outcomes": [
+        "established_applicable",
+        "unsupported_owner_input_set"
+      ],
+      "evidence_inputs": [
+        "counter:gap",
+        "target:source"
+      ],
+      "outcome": "requires_owner_revalidation",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 7,
+      "states": [
+        "requires_owner_revalidation"
+      ],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "counter_after",
+      "checkpoint_sha256": "c55d93bb003855167ddc248e406d5d56b95877b179a2732482d10ab3bc4121ce",
+      "domain_outcomes": [
+        "established_applicable",
+        "unsupported_owner_input_set"
+      ],
+      "evidence_inputs": [
+        "counter:gap",
+        "target:source"
+      ],
+      "outcome": "requires_owner_revalidation",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 7,
+      "states": [
+        "requires_owner_revalidation"
+      ],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "counter_content_after",
+      "checkpoint_sha256": "9fd0ac88b46dc3fc9aece2095380602c399f00871ad1a75437081f9e59ecdbcd",
+      "domain_outcomes": [
+        "established_applicable",
+        "unsupported_owner_input_set"
+      ],
+      "evidence_inputs": [
+        "counter:readme",
+        "target:source"
+      ],
+      "outcome": "requires_owner_revalidation",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 7,
+      "states": [
+        "requires_owner_revalidation"
+      ],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "counter_content_after",
+      "checkpoint_sha256": "9fd0ac88b46dc3fc9aece2095380602c399f00871ad1a75437081f9e59ecdbcd",
+      "domain_outcomes": [
+        "established_applicable",
+        "unsupported_owner_input_set"
+      ],
+      "evidence_inputs": [
+        "counter:readme",
+        "target:source"
+      ],
+      "outcome": "requires_owner_revalidation",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 7,
+      "states": [
+        "requires_owner_revalidation"
+      ],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "counter_content_after",
+      "checkpoint_sha256": "9fd0ac88b46dc3fc9aece2095380602c399f00871ad1a75437081f9e59ecdbcd",
+      "domain_outcomes": [
+        "established_applicable",
+        "unsupported_owner_input_set"
+      ],
+      "evidence_inputs": [
+        "counter:readme",
+        "target:source"
+      ],
+      "outcome": "requires_owner_revalidation",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 7,
+      "states": [
+        "requires_owner_revalidation"
+      ],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "counter_content_after",
+      "checkpoint_sha256": "9fd0ac88b46dc3fc9aece2095380602c399f00871ad1a75437081f9e59ecdbcd",
+      "domain_outcomes": [
+        "established_applicable",
+        "unsupported_owner_input_set"
+      ],
+      "evidence_inputs": [
+        "counter:readme",
+        "target:source"
+      ],
+      "outcome": "requires_owner_revalidation",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 7,
+      "states": [
+        "requires_owner_revalidation"
+      ],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "cas_unrelated",
+      "checkpoint_sha256": "75fe4e4ff040f532096b804c98fadf58e357f7339b643f34cc997e1da057b362",
+      "domain_outcomes": [
+        "established_applicable"
+      ],
+      "evidence_inputs": [
+        "target:source"
+      ],
+      "outcome": "observation_admitted",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 10,
+      "states": [
+        "publication_conflict",
+        "citation_not_delivered_in_view",
+        "proposal_retained_evaluation_unsupported"
+      ],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "cas_unrelated",
+      "checkpoint_sha256": "75fe4e4ff040f532096b804c98fadf58e357f7339b643f34cc997e1da057b362",
+      "domain_outcomes": [
+        "established_applicable"
+      ],
+      "evidence_inputs": [
+        "target:source"
+      ],
+      "outcome": "observation_admitted",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 10,
+      "states": [
+        "publication_conflict",
+        "citation_not_delivered_in_view",
+        "proposal_retained_evaluation_unsupported"
+      ],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "cas_unrelated",
+      "checkpoint_sha256": "75fe4e4ff040f532096b804c98fadf58e357f7339b643f34cc997e1da057b362",
+      "domain_outcomes": [
+        "established_applicable"
+      ],
+      "evidence_inputs": [
+        "target:source"
+      ],
+      "outcome": "observation_admitted",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 10,
+      "states": [
+        "publication_conflict",
+        "citation_not_delivered_in_view",
+        "proposal_retained_evaluation_unsupported"
+      ],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "cas_unrelated",
+      "checkpoint_sha256": "75fe4e4ff040f532096b804c98fadf58e357f7339b643f34cc997e1da057b362",
+      "domain_outcomes": [
+        "established_applicable"
+      ],
+      "evidence_inputs": [
+        "target:source"
+      ],
+      "outcome": "observation_admitted",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 10,
+      "states": [
+        "publication_conflict",
+        "citation_not_delivered_in_view",
+        "proposal_retained_evaluation_unsupported"
+      ],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "cas_material",
+      "checkpoint_sha256": "58de6446d646f4c39bbd5486558f4cb543963bf25a25dad2f553d496358e1ee6",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "material_basis_changed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 5,
+      "states": [
+        "publication_conflict"
+      ],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "memory",
+      "case": "cas_material",
+      "checkpoint_sha256": "58de6446d646f4c39bbd5486558f4cb543963bf25a25dad2f553d496358e1ee6",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "material_basis_changed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 5,
+      "states": [
+        "publication_conflict"
+      ],
+      "transport": "wire"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "cas_material",
+      "checkpoint_sha256": "58de6446d646f4c39bbd5486558f4cb543963bf25a25dad2f553d496358e1ee6",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "material_basis_changed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 5,
+      "states": [
+        "publication_conflict"
+      ],
+      "transport": "python"
+    },
+    {
+      "adequacy": "unsupported_no_admitted_evaluator",
+      "backend": "sqlite",
+      "case": "cas_material",
+      "checkpoint_sha256": "58de6446d646f4c39bbd5486558f4cb543963bf25a25dad2f553d496358e1ee6",
+      "domain_outcomes": [],
+      "evidence_inputs": [],
+      "outcome": "material_basis_changed",
+      "projection_bytes": 5733,
+      "request_bytes": 1440,
+      "revision": 5,
+      "states": [
+        "publication_conflict"
+      ],
+      "transport": "wire"
+    }
+  ],
+  "envelope_cost": {
+    "batch": 1000,
+    "medians": {
+      "encode_decode": 28.215535,
+      "typed_construction": 2.468667
+    },
+    "repeats": 7,
+    "request_bytes": 1431,
+    "samples": {
+      "encode_decode": [
+        28.512318,
+        28.215535,
+        27.850551,
+        28.170969,
+        28.531336,
+        27.866584,
+        28.9533
+      ],
+      "typed_construction": [
+        2.532956,
+        2.468667,
+        2.2668049999999997,
+        2.805834,
+        2.1698180000000002,
+        2.179547,
+        2.9053310000000003
+      ]
+    },
+    "scope": "warm local parser/construction only; host validation and persistence excluded",
+    "unit": "microseconds_per_request"
+  },
+  "limits": [
+    "offline synthetic fixture",
+    "no semantic correctness or superiority",
+    "no full native codec/capture",
+    "no power-loss or physical-write proof",
+    "no product adoption or migration"
+  ],
+  "native_tree_sha256": "18b97ddcd673c3a5d39c50c68543eb2b00132f05066ec2f2d3f573d94c9484ac",
+  "provisional_store_settings": {
+    "busy_timeout": 250,
+    "foreign_keys": 1,
+    "journal_mode": "wal",
+    "page_size": 4096,
+    "sqlite_version": "3.45.1",
+    "synchronous": 2,
+    "wal_autocheckpoint": 1000
+  },
+  "python": "3.12.3",
+  "source_sha256": {
+    "experiments/run_workspace_seam_trials.py": "7d543d970d8c5a1a43e7e6c6bd92655ed7d6159b34599f59d29121f192fcdbce",
+    "experiments/tests/test_workspace_investigator_seam.py": "ef14560989ab14ccf0e7ab3ba0d22b88edc3bcd67b5e8b68967bbdcb48f3b4aa",
+    "experiments/workspace_checkpoint_stores.py": "626878df1557a6e5e85aeb08e316a27c4b3648e45cfc4ca9b58b46b820adb524",
+    "experiments/workspace_investigator_seam.py": "76066092058e8a15dbcc0b4e627359b1e7597b55387d2609a7038bf1c99df8bc",
+    "experiments/workspace_retention_corpus.py": "0f24ab5c27a153d7d41b9cc69b517d4fd73c7b183ff89d8bd27b1561a3159b73",
+    "experiments/workspace_revision_representation.py": "81967473660ff2f0017a1584eb4720b33a3a65d32d3413e39094b5833f1376fb",
+    "experiments/workspace_seam_checkpoints.py": "1e52be959d12c2b83cacfc97e8406e15a2cf981097f8fb173106863167cfb0aa",
+    "experiments/workspace_seam_native.py": "9d25131defa576fc0e57743e955c8b8173f252cc0a6ca3353b79167cbfe02bc5"
+  },
+  "status": "complete"
+}

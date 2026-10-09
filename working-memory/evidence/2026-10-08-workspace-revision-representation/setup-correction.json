@@ -1,0 +1,17 @@
+{
+  "probe": "same immutable repository/revision/path with different supplied text",
+  "corpus_code_before_repair_sha256": "f55ef6b6570996dcc169f670fd61d22c3c1f3d0c1cafcad8b8b8c5a4a89f4161",
+  "conflicts": [
+    {
+      "scope": "example/project@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:pyproject.toml",
+      "first_id": "support:target-text",
+      "first_digest": "a06a5ac651d474270916be230651bb12ecfade86e253e0fbbae3b9f38e8329c5",
+      "second_id": "extra:head",
+      "second_digest": "cc6bf0f18f9b373bbe70d3722557f45a03263e53ca6059b483a3a333440d6ab5",
+      "first_text": "[project]\nrequires-python = \">=3.8\"\n",
+      "second_text": "[project]\nname = \"demo-project\"\nversion = \"0.1\"\n[project.optional-dependencies]\nspeed = ['demo[fast]==2.0; python_version < \"3.12\"']\n"
+    }
+  ],
+  "consequence": "Initial combined fixture was internally inconsistent; prior green differential/round-trip tests did not detect it.",
+  "repair": "Use one shared pyproject input/content binding for native target relevance and conditional selection; add identity-content consistency probe and regression."
+}

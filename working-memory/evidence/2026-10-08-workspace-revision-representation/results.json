@@ -1,0 +1,549 @@
+{
+  "protocol": "retention/revision-only-v1",
+  "git_head_at_run": "05d427bab61a4f438661515655f25aa0a439af2c",
+  "native_source_tree": "b1b5d89fe2d0f650a717059e789c3cad0e03e7d5",
+  "experiment_source_sha256": {
+    "experiments/run_workspace_revision_comparison.py": "e20e9582ff37ccc000069901c271e25494f87d58180c721fd98c8e0af5fe1f92",
+    "experiments/workspace_revision_representation.py": "81967473660ff2f0017a1584eb4720b33a3a65d32d3413e39094b5833f1376fb",
+    "experiments/workspace_retention_corpus.py": "0f24ab5c27a153d7d41b9cc69b517d4fd73c7b183ff89d8bd27b1561a3159b73",
+    "experiments/tests/test_workspace_revision_representation.py": "bd7e20b58cce1b04e60700c70956e95c8d2989ca964a93a64fb22777b2491b39"
+  },
+  "environment": {
+    "python": "3.12.3",
+    "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "processor": "12th Gen Intel(R) Core(TM) i7-12700H",
+    "logical_cpus": 20,
+    "filesystem": "ext2/ext3"
+  },
+  "native_outcomes": {
+    "ci": {
+      "coverage": "supported_runtime_correlated",
+      "runtime": [
+        {
+          "type": "RequirementSatisfiedAtCommandCompletion",
+          "state": "bounded_witness",
+          "reason": null
+        },
+        {
+          "type": "RequirementStateProblem",
+          "state": "unresolved",
+          "reason": "process_environment_value_unresolved"
+        }
+      ]
+    },
+    "support": {
+      "before": "unresolved",
+      "relevance": "declared_python_overlap",
+      "after": "established_applicable",
+      "extraction": "supplied candidate, no semantic extractor"
+    },
+    "conditional": {
+      "marker": "python_version < \"3.12\"",
+      "consumptions": [
+        {
+          "state": "unresolved",
+          "reason": "changed_requirement_marker_not_evaluated"
+        }
+      ]
+    }
+  },
+  "trace": [
+    {
+      "revision": 0,
+      "records": 0,
+      "encoded_bytes": 1209,
+      "payload_bytes": 0,
+      "digest": "5e1680e7839dc5c805126dad52a8eb2188ef0cb4568c0d165b56ee8051aae2c5",
+      "retention_gaps": {},
+      "byte_equal": true
+    },
+    {
+      "revision": 1,
+      "records": 9,
+      "encoded_bytes": 44396,
+      "payload_bytes": 37255,
+      "digest": "9791e0f9b8ad1e628796202ba6e0e994052317f5c80bb82efea194a1bfa0e733",
+      "retention_gaps": {},
+      "byte_equal": true
+    },
+    {
+      "revision": 2,
+      "records": 24,
+      "encoded_bytes": 75853,
+      "payload_bytes": 61513,
+      "digest": "dc6f953f575b1a4997736823ce40d8a27a9284abae0cccefcdb8fa5bb4bcb291",
+      "retention_gaps": {},
+      "byte_equal": true
+    },
+    {
+      "revision": 3,
+      "records": 34,
+      "encoded_bytes": 79464,
+      "payload_bytes": 62241,
+      "digest": "4e9e7132ace3f7df9c32700f421e47bb80282095ed74c2d8f3aceae6fbe10e1b",
+      "retention_gaps": {
+        "method:missing": "Model/config identity not supplied; no model was invoked."
+      },
+      "byte_equal": true
+    },
+    {
+      "revision": 4,
+      "records": 36,
+      "encoded_bytes": 80115,
+      "payload_bytes": 62410,
+      "digest": "8e73e86d28a0ae33f8f4e91f7d4b67f378236376beb48f1825d681db26a2c52b",
+      "retention_gaps": {
+        "method:missing": "Model/config identity not supplied; no model was invoked."
+      },
+      "byte_equal": true
+    }
+  ],
+  "negative_controls": {
+    "aliased_read_only_proxy": {
+      "historical_record_ids_added": [
+        "extra:analysis",
+        "extra:base",
+        "extra:changed-file",
+        "extra:selection",
+        "extra:workflow",
+        "support:after",
+        "support:before",
+        "support:candidate",
+        "support:need",
+        "support:relevance",
+        "support:target-declaration",
+        "target:project-text",
+        "upstream:authority",
+        "upstream:grounded",
+        "upstream:proposal"
+      ],
+      "rejected": true,
+      "reason": "Published addressability changes when backing draft changes."
+    },
+    "result_only_capture": {
+      "structural_round_trip_passed": true,
+      "missing_independent_consumer_basis": [
+        "ci:input",
+        "ci:source-context",
+        "ci:workflow-text",
+        "dependency:base-text",
+        "dependency:head-text"
+      ],
+      "rejected": true,
+      "reason": "Declared-edge closure alone cannot prove material completeness."
+    },
+    "digest_only_identity": {
+      "same_bytes": true,
+      "scopes": [
+        "empty.txt",
+        "another-empty.txt"
+      ],
+      "byte_digests": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      ],
+      "rejected": true,
+      "reason": "One content digest cannot identify two scoped read observations."
+    }
+  },
+  "affected_by_target_declaration": [
+    "lineage",
+    "support:after",
+    "support:relevance",
+    "view:delivered"
+  ],
+  "benchmarks": [
+    {
+      "approach": "ImmutableSuccessorHistory",
+      "copies": 1,
+      "starting_records": 37,
+      "updates": 30,
+      "batch_size": 1,
+      "repeats": 5,
+      "publication_ns": {
+        "median": 14260.0,
+        "min": 11603,
+        "max": 55614
+      },
+      "total_update_ns": {
+        "median": 451112,
+        "min": 441775,
+        "max": 488358
+      },
+      "encode_ns": {
+        "median": 454210,
+        "min": 447849,
+        "max": 683829
+      },
+      "decode_ns": {
+        "median": 410594,
+        "min": 393294,
+        "max": 545211
+      },
+      "checkpoint_bytes": 89821,
+      "peak_index_allocation_bytes": 66662,
+      "history_revisions": 32,
+      "memory_scope": "index/closure operations; prebuilt immutable payload bytes excluded"
+    },
+    {
+      "approach": "MutableDraftHistory",
+      "copies": 1,
+      "starting_records": 37,
+      "updates": 30,
+      "batch_size": 1,
+      "repeats": 5,
+      "publication_ns": {
+        "median": 11867.0,
+        "min": 9847,
+        "max": 58376
+      },
+      "total_update_ns": {
+        "median": 377511,
+        "min": 365257,
+        "max": 429187
+      },
+      "encode_ns": {
+        "median": 453854,
+        "min": 407381,
+        "max": 494708
+      },
+      "decode_ns": {
+        "median": 394598,
+        "min": 383438,
+        "max": 414227
+      },
+      "checkpoint_bytes": 89821,
+      "peak_index_allocation_bytes": 68302,
+      "history_revisions": 32,
+      "memory_scope": "index/closure operations; prebuilt immutable payload bytes excluded"
+    },
+    {
+      "approach": "ImmutableSuccessorHistory",
+      "copies": 1,
+      "starting_records": 37,
+      "updates": 30,
+      "batch_size": 10,
+      "repeats": 5,
+      "publication_ns": {
+        "median": 21019,
+        "min": 17349,
+        "max": 42127
+      },
+      "total_update_ns": {
+        "median": 62473,
+        "min": 54185,
+        "max": 92866
+      },
+      "encode_ns": {
+        "median": 417158,
+        "min": 405107,
+        "max": 497162
+      },
+      "decode_ns": {
+        "median": 420206,
+        "min": 379527,
+        "max": 614955
+      },
+      "checkpoint_bytes": 89936,
+      "peak_index_allocation_bytes": 15930,
+      "history_revisions": 5,
+      "memory_scope": "index/closure operations; prebuilt immutable payload bytes excluded"
+    },
+    {
+      "approach": "MutableDraftHistory",
+      "copies": 1,
+      "starting_records": 37,
+      "updates": 30,
+      "batch_size": 10,
+      "repeats": 5,
+      "publication_ns": {
+        "median": 21663,
+        "min": 19812,
+        "max": 87057
+      },
+      "total_update_ns": {
+        "median": 68279,
+        "min": 60931,
+        "max": 127531
+      },
+      "encode_ns": {
+        "median": 446646,
+        "min": 429523,
+        "max": 630367
+      },
+      "decode_ns": {
+        "median": 414502,
+        "min": 375863,
+        "max": 421002
+      },
+      "checkpoint_bytes": 89936,
+      "peak_index_allocation_bytes": 17570,
+      "history_revisions": 5,
+      "memory_scope": "index/closure operations; prebuilt immutable payload bytes excluded"
+    },
+    {
+      "approach": "ImmutableSuccessorHistory",
+      "copies": 10,
+      "starting_records": 370,
+      "updates": 30,
+      "batch_size": 1,
+      "repeats": 5,
+      "publication_ns": {
+        "median": 85053.5,
+        "min": 73328,
+        "max": 209543
+      },
+      "total_update_ns": {
+        "median": 2609883,
+        "min": 2566495,
+        "max": 2794495
+      },
+      "encode_ns": {
+        "median": 4011910,
+        "min": 3679602,
+        "max": 4728900
+      },
+      "decode_ns": {
+        "median": 2777900,
+        "min": 2540279,
+        "max": 3307844
+      },
+      "checkpoint_bytes": 805375,
+      "peak_index_allocation_bytes": 487478,
+      "history_revisions": 32,
+      "memory_scope": "index/closure operations; prebuilt immutable payload bytes excluded"
+    },
+    {
+      "approach": "MutableDraftHistory",
+      "copies": 10,
+      "starting_records": 370,
+      "updates": 30,
+      "batch_size": 1,
+      "repeats": 5,
+      "publication_ns": {
+        "median": 74122.5,
+        "min": 66019,
+        "max": 120759
+      },
+      "total_update_ns": {
+        "median": 2247904,
+        "min": 2217403,
+        "max": 2403402
+      },
+      "encode_ns": {
+        "median": 3708373,
+        "min": 3481243,
+        "max": 3936135
+      },
+      "decode_ns": {
+        "median": 2950391,
+        "min": 2677465,
+        "max": 3448429
+      },
+      "checkpoint_bytes": 805375,
+      "peak_index_allocation_bytes": 500590,
+      "history_revisions": 32,
+      "memory_scope": "index/closure operations; prebuilt immutable payload bytes excluded"
+    },
+    {
+      "approach": "ImmutableSuccessorHistory",
+      "copies": 10,
+      "starting_records": 370,
+      "updates": 30,
+      "batch_size": 10,
+      "repeats": 5,
+      "publication_ns": {
+        "median": 108826,
+        "min": 99524,
+        "max": 127731
+      },
+      "total_update_ns": {
+        "median": 326438,
+        "min": 310777,
+        "max": 356376
+      },
+      "encode_ns": {
+        "median": 3658595,
+        "min": 3602255,
+        "max": 3801990
+      },
+      "decode_ns": {
+        "median": 2926604,
+        "min": 2676243,
+        "max": 3445161
+      },
+      "checkpoint_bytes": 805490,
+      "peak_index_allocation_bytes": 108282,
+      "history_revisions": 5,
+      "memory_scope": "index/closure operations; prebuilt immutable payload bytes excluded"
+    },
+    {
+      "approach": "MutableDraftHistory",
+      "copies": 10,
+      "starting_records": 370,
+      "updates": 30,
+      "batch_size": 10,
+      "repeats": 5,
+      "publication_ns": {
+        "median": 100154,
+        "min": 92280,
+        "max": 155321
+      },
+      "total_update_ns": {
+        "median": 316744,
+        "min": 282806,
+        "max": 373170
+      },
+      "encode_ns": {
+        "median": 3875622,
+        "min": 3686554,
+        "max": 4678371
+      },
+      "decode_ns": {
+        "median": 3071887,
+        "min": 2693534,
+        "max": 4061160
+      },
+      "checkpoint_bytes": 805490,
+      "peak_index_allocation_bytes": 121634,
+      "history_revisions": 5,
+      "memory_scope": "index/closure operations; prebuilt immutable payload bytes excluded"
+    },
+    {
+      "approach": "ImmutableSuccessorHistory",
+      "copies": 50,
+      "starting_records": 1850,
+      "updates": 30,
+      "batch_size": 1,
+      "repeats": 5,
+      "publication_ns": {
+        "median": 480400.5,
+        "min": 454376,
+        "max": 804773
+      },
+      "total_update_ns": {
+        "median": 14554930,
+        "min": 14295141,
+        "max": 16415441
+      },
+      "encode_ns": {
+        "median": 18121104,
+        "min": 16906934,
+        "max": 21926601
+      },
+      "decode_ns": {
+        "median": 12843723,
+        "min": 12504843,
+        "max": 14429401
+      },
+      "checkpoint_bytes": 3989135,
+      "peak_index_allocation_bytes": 1909190,
+      "history_revisions": 32,
+      "memory_scope": "index/closure operations; prebuilt immutable payload bytes excluded"
+    },
+    {
+      "approach": "MutableDraftHistory",
+      "copies": 50,
+      "starting_records": 1850,
+      "updates": 30,
+      "batch_size": 1,
+      "repeats": 5,
+      "publication_ns": {
+        "median": 417566.5,
+        "min": 395564,
+        "max": 878453
+      },
+      "total_update_ns": {
+        "median": 13024738,
+        "min": 12753524,
+        "max": 13423630
+      },
+      "encode_ns": {
+        "median": 17674753,
+        "min": 16773591,
+        "max": 18840156
+      },
+      "decode_ns": {
+        "median": 13384977,
+        "min": 13156671,
+        "max": 15013317
+      },
+      "checkpoint_bytes": 3989135,
+      "peak_index_allocation_bytes": 1964710,
+      "history_revisions": 32,
+      "memory_scope": "index/closure operations; prebuilt immutable payload bytes excluded"
+    },
+    {
+      "approach": "ImmutableSuccessorHistory",
+      "copies": 50,
+      "starting_records": 1850,
+      "updates": 30,
+      "batch_size": 10,
+      "repeats": 5,
+      "publication_ns": {
+        "median": 521091,
+        "min": 472864,
+        "max": 595773
+      },
+      "total_update_ns": {
+        "median": 1617872,
+        "min": 1457333,
+        "max": 1706198
+      },
+      "encode_ns": {
+        "median": 17593310,
+        "min": 16690466,
+        "max": 22417145
+      },
+      "decode_ns": {
+        "median": 13288491,
+        "min": 12368253,
+        "max": 14669427
+      },
+      "checkpoint_bytes": 3989250,
+      "peak_index_allocation_bytes": 418882,
+      "history_revisions": 5,
+      "memory_scope": "index/closure operations; prebuilt immutable payload bytes excluded"
+    },
+    {
+      "approach": "MutableDraftHistory",
+      "copies": 50,
+      "starting_records": 1850,
+      "updates": 30,
+      "batch_size": 10,
+      "repeats": 5,
+      "publication_ns": {
+        "median": 452555,
+        "min": 420711,
+        "max": 694420
+      },
+      "total_update_ns": {
+        "median": 1380779,
+        "min": 1275271,
+        "max": 1641314
+      },
+      "encode_ns": {
+        "median": 16906293,
+        "min": 16055890,
+        "max": 18552495
+      },
+      "decode_ns": {
+        "median": 13308500,
+        "min": 13221502,
+        "max": 15222314
+      },
+      "checkpoint_bytes": 3989250,
+      "peak_index_allocation_bytes": 471162,
+      "history_revisions": 5,
+      "memory_scope": "index/closure operations; prebuilt immutable payload bytes excluded"
+    }
+  ],
+  "limits": [
+    "Offline fixtures, not real acquisition or model/extraction evidence",
+    "Opaque pinned native-field encoding, no native rehydration/migration promise",
+    "Declared closure completeness requires independent consumer/capture audit",
+    "No durable store, crash recovery, concurrency, full consumer migration or replay",
+    "Scaled copies test volume only; no throughput requirement established"
+  ]
+}

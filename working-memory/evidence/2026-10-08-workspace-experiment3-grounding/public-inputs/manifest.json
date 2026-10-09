@@ -1,0 +1,199 @@
+{
+  "authentication": "anonymous; no tokens/netrc/cookies",
+  "input_boundary": "decoded HTTP body consumed by native clients; not compressed wire bytes",
+  "requests": [
+    {
+      "body": "response-000.body",
+      "bytes": 24262,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Thu, 08 Oct 2026 18:40:41 GMT",
+        "ETag": "\"a22c5a9e7b66417ad4faaa64c54e12d9cb9718dd27320b1ed7ee88763cfe9a3f\"",
+        "Last-Modified": "Wed, 15 Jul 2026 13:32:07 GMT"
+      },
+      "received_at": "2026-10-08T18:40:41.457683+00:00",
+      "sha256": "f75cf3c55192a66bcc1e5503d4f282704e4418269eab310f75721837cc706458",
+      "status": 200,
+      "url": "https://api.github.com/repos/pydantic/pydantic/pulls/13432"
+    },
+    {
+      "body": "response-001.body",
+      "bytes": 1876,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Thu, 08 Oct 2026 18:40:42 GMT",
+        "ETag": "W/\"0eba6c6a69bf871873e1ce59396a1a471f52a2ffb7ed03c54de7f9d5b2042e39\"",
+        "Last-Modified": "Wed, 15 Jul 2026 13:32:07 GMT"
+      },
+      "received_at": "2026-10-08T18:40:41.823958+00:00",
+      "sha256": "008c788ad09e80db8ab2cb47f308be564d85f919a0ad89c7d44377c25ab04875",
+      "status": 200,
+      "url": "https://api.github.com/repos/pydantic/pydantic/pulls/13432/files?per_page=100&page=1"
+    },
+    {
+      "body": "response-002.body",
+      "bytes": 24262,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Thu, 08 Oct 2026 18:40:41 GMT",
+        "ETag": "\"a22c5a9e7b66417ad4faaa64c54e12d9cb9718dd27320b1ed7ee88763cfe9a3f\"",
+        "Last-Modified": "Wed, 15 Jul 2026 13:32:07 GMT"
+      },
+      "received_at": "2026-10-08T18:40:41.936759+00:00",
+      "sha256": "f75cf3c55192a66bcc1e5503d4f282704e4418269eab310f75721837cc706458",
+      "status": 200,
+      "url": "https://api.github.com/repos/pydantic/pydantic/pulls/13432"
+    },
+    {
+      "body": "response-003.body",
+      "bytes": 836289,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Thu, 08 Oct 2026 18:40:42 GMT",
+        "ETag": "\"b4a68ab725de337889d50d5374ac0f05db7fb484\"",
+        "Last-Modified": "Mon, 06 Jul 2026 13:18:22 GMT"
+      },
+      "received_at": "2026-10-08T18:40:43.241295+00:00",
+      "sha256": "411e321cbd1e108fb8dfbb5c0e8022cbda0599154778ec5e1dcbc61ab47b2281",
+      "status": 200,
+      "url": "https://api.github.com/repos/pydantic/pydantic/contents/uv.lock?ref=652a61ce4f9d7d76eaada31535807a485ece0e21"
+    },
+    {
+      "body": "response-004.body",
+      "bytes": 836297,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Thu, 08 Oct 2026 18:40:44 GMT",
+        "ETag": "\"def33fe05d78ab851ce91a33db5bc55a439873a1\"",
+        "Last-Modified": "Fri, 10 Jul 2026 22:24:02 GMT"
+      },
+      "received_at": "2026-10-08T18:40:44.463008+00:00",
+      "sha256": "d869cf6403ac160c5f07a229b6d180e5ee5225604c2b5b1d4ef022828dc7a684",
+      "status": 200,
+      "url": "https://api.github.com/repos/pydantic/pydantic/contents/uv.lock?ref=aa2dc024d33f61cdef50bf1973ab5adf0a974f5a"
+    },
+    {
+      "body": "response-005.body",
+      "bytes": 35273,
+      "headers": {
+        "Date": "Thu, 08 Oct 2026 18:40:46 GMT",
+        "content-type": "application/json",
+        "etag": "\"xO/AsA6K25HsDrLtthBtDQ\""
+      },
+      "received_at": "2026-10-08T18:40:45.120709+00:00",
+      "sha256": "6090f2d5b986de99be8613eade96fe7df853d2df1ccce0a819d15c448ae9d3d7",
+      "status": 200,
+      "url": "https://pypi.org/pypi/soupsieve/2.8.4/json"
+    },
+    {
+      "body": "response-006.body",
+      "bytes": 9499,
+      "headers": {
+        "Date": "Thu, 08 Oct 2026 18:40:46 GMT",
+        "content-type": "application/vnd.pypi.integrity.v1+json",
+        "etag": "\"zfFbOYDGMFWm1DkBSJyz0Q\""
+      },
+      "received_at": "2026-10-08T18:40:45.439981+00:00",
+      "sha256": "b6c9cf7025928e4ec89c2f7e3a33123c763e77e3f2014cae03e1ed2b79a50657",
+      "status": 200,
+      "url": "https://pypi.org/integrity/soupsieve/2.8.4/soupsieve-2.8.4-py3-none-any.whl/provenance"
+    },
+    {
+      "body": "response-007.body",
+      "bytes": 9440,
+      "headers": {
+        "Date": "Thu, 08 Oct 2026 18:40:46 GMT",
+        "content-type": "application/vnd.pypi.integrity.v1+json",
+        "etag": "\"3KrHsgesF0PPRnSV/IyWig\""
+      },
+      "received_at": "2026-10-08T18:40:45.750357+00:00",
+      "sha256": "c7d98fd48c355ad47694f836159c468455dec1a61866f18009aedb8e8067e819",
+      "status": 200,
+      "url": "https://pypi.org/integrity/soupsieve/2.8.4/soupsieve-2.8.4.tar.gz/provenance"
+    },
+    {
+      "body": "response-008.body",
+      "bytes": 92920,
+      "headers": {
+        "Date": "Thu, 08 Oct 2026 18:40:46 GMT",
+        "content-type": "application/json",
+        "etag": "\"sXP3d0yjW6r5l69+riH/dw\""
+      },
+      "received_at": "2026-10-08T18:40:45.922169+00:00",
+      "sha256": "3f8fa8503acf61bb8c6c2ae2e223c56f947d7df5f0fc3b44d6714d62e96bd7b2",
+      "status": 200,
+      "url": "https://pypi.org/pypi/soupsieve/json"
+    },
+    {
+      "body": "response-009.body",
+      "bytes": 351,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Thu, 08 Oct 2026 18:40:47 GMT",
+        "ETag": "W/\"6daa092023de378704c75200e592b32157e81a008b1ec453bfd63a3602b32073\"",
+        "Last-Modified": "Mon, 05 Oct 2026 21:38:44 GMT"
+      },
+      "received_at": "2026-10-08T18:40:46.155045+00:00",
+      "sha256": "5c521cc514c4b07d2f5ca240dc0802e7830e2c6205e7aaefa121314af7b311b6",
+      "status": 200,
+      "url": "https://api.github.com/repos/facelessuser/soupsieve/git/ref/tags/2.8.4"
+    },
+    {
+      "body": "response-010.body",
+      "bytes": 1164,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Thu, 08 Oct 2026 18:40:47 GMT",
+        "ETag": "W/\"f6194e14177c0419a2f3063ea09dae0c0ce2fbbbacc89cd51e427fc986fca1a2\"",
+        "Last-Modified": "Sun, 24 May 2026 13:50:08 GMT"
+      },
+      "received_at": "2026-10-08T18:40:46.463229+00:00",
+      "sha256": "7e3eb357ce2a581a29c5156b5ea921f5eb4137d0518ba19d903fa9096942a840",
+      "status": 200,
+      "url": "https://api.github.com/repos/facelessuser/soupsieve/git/commits/28108ab805818c832d9568142a99844fd95a0d39"
+    },
+    {
+      "body": "response-011.body",
+      "bytes": 40725,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Thu, 08 Oct 2026 18:40:47 GMT",
+        "ETag": "W/\"802fdcf38aa54daac4a1f89e4034516c27b11eed8c4baf27c303cd047b4680fc\"",
+        "Last-Modified": "Mon, 05 Oct 2026 21:38:44 GMT"
+      },
+      "received_at": "2026-10-08T18:40:46.769469+00:00",
+      "sha256": "c7d44c9fb9a64b97dbdddec6b9ba666433f2b1c1fe0412abb4d001aa005b0459",
+      "status": 200,
+      "url": "https://api.github.com/repos/facelessuser/soupsieve/git/trees/183f563a271635247327f1f0b1dddb158e0add39?recursive=1"
+    },
+    {
+      "body": "response-012.body",
+      "bytes": 25074,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Thu, 08 Oct 2026 18:40:48 GMT",
+        "ETag": "\"6f221b7398681a580fa199044b3d3f1e11b55493\"",
+        "Last-Modified": "Sun, 24 May 2026 13:50:08 GMT"
+      },
+      "received_at": "2026-10-08T18:40:47.090289+00:00",
+      "sha256": "4691f7ebce4539eed698bafbda5821767321250e0b9295cca36b61763f281a78",
+      "status": 200,
+      "url": "https://api.github.com/repos/facelessuser/soupsieve/contents/docs/src/markdown/about/changelog.md?ref=28108ab805818c832d9568142a99844fd95a0d39"
+    },
+    {
+      "body": "response-013.body",
+      "bytes": 13496,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Thu, 08 Oct 2026 18:40:51 GMT",
+        "ETag": "\"8271997ab85caa1af522954812a2749784432dc7\"",
+        "Last-Modified": "Fri, 10 Jul 2026 22:24:02 GMT"
+      },
+      "received_at": "2026-10-08T18:40:49.918428+00:00",
+      "sha256": "6654ecb927c4d3b3310a3b80df15d9f56f6fc904fcb73fd92a625d24813a8a97",
+      "status": 200,
+      "url": "https://api.github.com/repos/pydantic/pydantic/contents/pyproject.toml?ref=aa2dc024d33f61cdef50bf1973ab5adf0a974f5a"
+    }
+  ],
+  "trial_started_at": "2026-10-08T18:40:40.629729+00:00"
+}

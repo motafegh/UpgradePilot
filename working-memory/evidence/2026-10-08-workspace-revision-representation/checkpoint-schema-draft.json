@@ -1,0 +1,32 @@
+{
+  "purpose": "Minimal experiment closure schema; structural checks in decode_checkpoint, not production admission",
+  "version": 1,
+  "header": {
+    "schema": "experiment.workspace-material-closure",
+    "native_encoding": "pinned-tagged-fields-v1-no-rehydration",
+    "lineage": "string",
+    "revision": "nonnegative integer",
+    "predecessor": "prior integer or null at revision zero",
+    "target": "exact UTF-8 tagged target identity fields",
+    "roots": "material consumer record IDs",
+    "triggering_records": "material update IDs"
+  },
+  "record": {
+    "id": "scoped stable identity",
+    "owner": "native module or experiment.lifecycle",
+    "kind": "native/source_text or simulated lifecycle kind",
+    "scope": "exact native origin or target scope",
+    "payload": "retained UTF-8 bytes represented as text; null only with explicit gap",
+    "dependencies": "material record IDs",
+    "gap": "explicit missing-content/provenance reason or null",
+    "digest": "SHA-256 of exact payload bytes or null; consistency only"
+  },
+  "obligations": [
+    "Every root/dependency/trigger resolves",
+    "Identity collisions rejected",
+    "No unknown version coercion",
+    "Declared gaps remain explicit",
+    "Retained zero bytes differ from missing content",
+    "Closure completeness is not inferred from structural success"
+  ]
+}

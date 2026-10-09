@@ -1,0 +1,17 @@
+{
+  "probe": "Does the SQL partial-write hook actually follow insertion of the fresh observation, rather than only processing already-stored bodies?",
+  "code_before_repair_sha256": "0b990b19be6420b655b96b1633b1bdd910cfe9dbb4265cd7aeb092ed84f28e8f",
+  "observed": [
+    {
+      "kind": "sqlite-delete",
+      "fresh_record_present_at_partial_hook": false,
+      "committed_reader_revision": 4
+    },
+    {
+      "kind": "sqlite-wal",
+      "fresh_record_present_at_partial_hook": false,
+      "committed_reader_revision": 4
+    }
+  ],
+  "repair": "Stage new-to-current record IDs first, and fire partial hook after the first record statement; add an independent hook-time assertion. Record insertion is atomic in SQLite, so this tests partial record-set staging rather than half a BLOB write."
+}

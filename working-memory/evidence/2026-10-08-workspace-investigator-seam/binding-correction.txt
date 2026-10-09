@@ -1,0 +1,27 @@
+FF
+======================================================================
+FAIL: test_request_cannot_claim_new_basis_at_an_older_revision (experiments.tests.test_workspace_investigator_seam.InvestigatorSeamTests.test_request_cannot_claim_new_basis_at_an_older_revision)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_workspace_investigator_seam.py", line 293, in test_request_cannot_claim_new_basis_at_an_older_revision
+    self.assertEqual(self.host.request(request).status, "basis_not_in_original_revision")
+AssertionError: 'admitted' != 'basis_not_in_original_revision'
+- admitted
++ basis_not_in_original_revision
+
+
+======================================================================
+FAIL: test_proposal_cannot_inherit_new_method_from_an_old_view (experiments.tests.test_workspace_investigator_seam.InvestigatorSeamTests.test_proposal_cannot_inherit_new_method_from_an_old_view)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_workspace_investigator_seam.py", line 298, in test_proposal_cannot_inherit_new_method_from_an_old_view
+    self.assertEqual(self.host.propose("proposal:implicit-method", view.revision, view.basis, view.view_id, ("support:candidate",), "claim").status, "proposal_basis_changed")
+AssertionError: 'proposal_retained_evaluation_unsupported' != 'proposal_basis_changed'
+- proposal_retained_evaluation_unsupported
++ proposal_basis_changed
+
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.003s
+
+FAILED (failures=2)

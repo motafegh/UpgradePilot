@@ -1,0 +1,11 @@
+{
+  "failure": "First comparison runner failed entering benchmarks because /proc/self/io was unavailable; completed fault-family assertions had not yet been flushed to results. No store failure was observed.",
+  "probe": {
+    "/proc/self/io": false,
+    "/proc/15032/io": false,
+    "/proc/self": true,
+    "/proc/cpuinfo": true
+  },
+  "code_before_repair_sha256": "976ee5717ea7e810e96c1c79b3c1b18b4fb892bf8ce95dd586a46b40f5c4b817",
+  "repair": "Record write counters as unavailable, add disclosed logical retained-value byte deltas, and flush each meaningful evidence family progressively so later measurement failure cannot erase earlier results."
+}

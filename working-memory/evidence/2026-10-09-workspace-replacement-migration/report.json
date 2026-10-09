@@ -1,0 +1,2299 @@
+{
+  "schema": "upgradepilot.investigation-report",
+  "schema_version": 1,
+  "report": {
+    "report_id": "00000000-0000-0000-0000-000000000000",
+    "generated_at": "2026-10-09T00:00:00+00:00",
+    "generator_version": "1",
+    "product_version": "0.0.0",
+    "auth_mode": "anonymous",
+    "production_limits": [
+      "Code revision, model/prompt/config identity and complete operation history are not recorded.",
+      "Generation time identifies report production; unavailable acquisition times remain unavailable."
+    ],
+    "identity": [
+      {
+        "name": "repository",
+        "label": "Repository",
+        "value": "example/project"
+      },
+      {
+        "name": "pull_number",
+        "label": "PR",
+        "value": "7"
+      },
+      {
+        "name": "title",
+        "label": "Title",
+        "value": "Bump demo"
+      },
+      {
+        "name": "author",
+        "label": "Author",
+        "value": "dependabot[bot]"
+      },
+      {
+        "name": "state",
+        "label": "State",
+        "value": "open"
+      },
+      {
+        "name": "merged",
+        "label": "Merged",
+        "value": "false"
+      },
+      {
+        "name": "base_ref",
+        "label": "Base ref",
+        "value": "main"
+      },
+      {
+        "name": "base_sha",
+        "label": "Base",
+        "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      {
+        "name": "head_ref",
+        "label": "Head ref",
+        "value": "update"
+      },
+      {
+        "name": "head_sha",
+        "label": "Head",
+        "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    ],
+    "assessments": [
+      {
+        "assessment_id": "dependency",
+        "topic": "Dependency change",
+        "owner": "dependency.change",
+        "state": "supported",
+        "status": "available",
+        "reason": "recorded_owner_result",
+        "detail": "One supported exact dependency version transition was established.",
+        "proposition": "Exact version transition only, not installation or compatibility.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-3",
+          "source-1",
+          "source-2"
+        ],
+        "facts": [
+          {
+            "name": "package",
+            "label": "Package",
+            "value": "demo"
+          },
+          {
+            "name": "normalized_package",
+            "label": "Normalized package",
+            "value": "demo"
+          },
+          {
+            "name": "old_version",
+            "label": "Old version",
+            "value": "1.0"
+          },
+          {
+            "name": "proposed_version",
+            "label": "Proposed version",
+            "value": "2.0"
+          },
+          {
+            "name": "changed_file_1",
+            "label": "Changed file",
+            "value": "requirements.txt (modified)"
+          }
+        ],
+        "limitations": []
+      },
+      {
+        "assessment_id": "ci",
+        "topic": "CI dependency coverage",
+        "owner": "ci.dependency_exercise",
+        "state": "supported_runtime_correlated",
+        "status": "available",
+        "reason": "successful_exact_head_ci_with_runtime_correlated_dependency_consumption",
+        "detail": "Workflow 'CI' contains supported static changed-dependency consumption whose owning user-defined run step is correlated to a completed-successful runtime step for the exact run attempt.",
+        "proposition": "Static consumption and exact-attempt command correlation; not changed-version use or compatibility.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-5",
+          "source-4"
+        ],
+        "facts": [],
+        "limitations": []
+      },
+      {
+        "assessment_id": "ci-workflow-1",
+        "topic": "Dependency coverage workflow CI",
+        "owner": "ci.dependency_exercise",
+        "state": "supported_runtime_correlated",
+        "status": "available",
+        "reason": "successful_ci_with_runtime_correlated_dependency_consumption",
+        "detail": "The exact-head workflow/run has successful runtime evidence, and at least one exact eligible static changed-dependency consumption occurrence earns bounded Runtime-Correlated Support.",
+        "proposition": "Workflow-scoped static/runtime relationships only.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-7",
+          "source-6",
+          "source-4"
+        ],
+        "facts": [
+          {
+            "name": "static_consumption",
+            "label": "Static consumption",
+            "value": "supported"
+          },
+          {
+            "name": "static_exercise",
+            "label": "Static direct exercise",
+            "value": "not_established"
+          },
+          {
+            "name": "runtime_consumption",
+            "label": "Runtime consumption correlation",
+            "value": "supported"
+          },
+          {
+            "name": "runtime_exercise",
+            "label": "Runtime direct exercise correlation",
+            "value": "not_established"
+          },
+          {
+            "name": "command_1",
+            "label": "Consumption command",
+            "value": "PIP_DRY_RUN=0 PIP_CONFIG_FILE=/dev/null PIP_TARGET= PIP_PREFIX= PIP_ROOT= PIP_ONLY_DEPS=0 PIP_ONLY_DEPENDENCIES=0 /opt/bootstrap/bin/python -m pip --python /opt/target/bin/python install --no-user --no-deps -r requirements.txt"
+          },
+          {
+            "name": "job_1",
+            "label": "Static job",
+            "value": "test"
+          },
+          {
+            "name": "state_1",
+            "label": "Consumption state",
+            "value": "supported"
+          },
+          {
+            "name": "reason_1",
+            "label": "Consumption reason",
+            "value": "direct_requirements_consumption_declared"
+          },
+          {
+            "name": "detail_1",
+            "label": "Consumption detail",
+            "value": "The static job directly declares installation from a trusted requirements dependency source. Execution is not established."
+          },
+          {
+            "name": "witness_1",
+            "label": "Reachability witness",
+            "value": ""
+          },
+          {
+            "name": "command_2",
+            "label": "Consumption command",
+            "value": "/opt/bootstrap/bin/python -m pip --python /opt/target/bin/python install --no-user --no-deps -r requirements.txt"
+          },
+          {
+            "name": "job_2",
+            "label": "Static job",
+            "value": "test"
+          },
+          {
+            "name": "state_2",
+            "label": "Consumption state",
+            "value": "supported"
+          },
+          {
+            "name": "reason_2",
+            "label": "Consumption reason",
+            "value": "direct_requirements_consumption_declared"
+          },
+          {
+            "name": "detail_2",
+            "label": "Consumption detail",
+            "value": "The static job directly declares installation from a trusted requirements dependency source. Execution is not established."
+          },
+          {
+            "name": "witness_2",
+            "label": "Reachability witness",
+            "value": ""
+          }
+        ],
+        "limitations": [
+          "The static job directly declares installation from a trusted requirements dependency source. Execution is not established.",
+          "No admitted direct changed-package invocation is ordered after supported static dependency consumption in the same job.",
+          "Exact eligible static dependency consumption occurrence 'test'/1 at source order 0 is owned by runtime step 2, and GitHub reports status='completed', conclusion='success' without visible continue-on-error masking.",
+          "No supported exact static direct package exercise occurrence is available for runtime strengthening."
+        ]
+      },
+      {
+        "assessment_id": "runtime",
+        "topic": "Runtime dependency state",
+        "owner": "ci.dependency_state",
+        "state": "evaluated",
+        "status": "available",
+        "reason": "runtime_dependency_state_candidates_evaluated",
+        "detail": "Evaluated 2 admitted exact direct-requirements command candidate(s) without collapsing their individual outcomes.",
+        "proposition": "First admitted direct-requirements/pip command-completion family only.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-8"
+        ],
+        "facts": [],
+        "limitations": []
+      },
+      {
+        "assessment_id": "runtime-command-1",
+        "topic": "Command-completion requirement state",
+        "owner": "ci.dependency_state",
+        "state": "satisfied_at_command_completion",
+        "status": "available",
+        "reason": "command_completion_witness",
+        "detail": "The proposed direct requirement is satisfied at successful command completion.",
+        "proposition": "Command-completion satisfaction only; fresh installation, later use and behavior are not established.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-10",
+          "source-9",
+          "source-4"
+        ],
+        "facts": [
+          {
+            "name": "workflow",
+            "label": "Workflow",
+            "value": ".github/workflows/ci.yml"
+          },
+          {
+            "name": "revision",
+            "label": "Workflow revision",
+            "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          {
+            "name": "job",
+            "label": "Job",
+            "value": "test"
+          },
+          {
+            "name": "step_source_index",
+            "label": "Static step index",
+            "value": "1"
+          },
+          {
+            "name": "command",
+            "label": "Command",
+            "value": "PIP_DRY_RUN=0 PIP_CONFIG_FILE=/dev/null PIP_TARGET= PIP_PREFIX= PIP_ROOT= PIP_ONLY_DEPS=0 PIP_ONLY_DEPENDENCIES=0 /opt/bootstrap/bin/python -m pip --python /opt/target/bin/python install --no-user --no-deps -r requirements.txt"
+          },
+          {
+            "name": "observation_boundary",
+            "label": "Observation boundary",
+            "value": "successful_command_completion"
+          },
+          {
+            "name": "execution_state",
+            "label": "Execution state",
+            "value": "supported"
+          },
+          {
+            "name": "execution_basis",
+            "label": "Execution basis",
+            "value": "supported"
+          },
+          {
+            "name": "runtime_step_number",
+            "label": "Runtime step number",
+            "value": "2"
+          },
+          {
+            "name": "runtime_status",
+            "label": "Runtime status",
+            "value": "completed"
+          },
+          {
+            "name": "runtime_conclusion",
+            "label": "Runtime conclusion",
+            "value": "success"
+          },
+          {
+            "name": "command_source_order",
+            "label": "Command source order",
+            "value": "0"
+          },
+          {
+            "name": "command_start_byte",
+            "label": "Command start byte",
+            "value": "0"
+          },
+          {
+            "name": "command_end_byte",
+            "label": "Command end byte",
+            "value": "226"
+          },
+          {
+            "name": "manager_environment",
+            "label": "Manager environment",
+            "value": "pip_python_target: /opt/target/bin/python"
+          },
+          {
+            "name": "manager_environment_source",
+            "label": "manager_environment winning source",
+            "value": "command_line"
+          },
+          {
+            "name": "installation_destination",
+            "label": "Installation destination",
+            "value": "manager_environment_scheme: None"
+          },
+          {
+            "name": "installation_destination_source",
+            "label": "installation_destination winning source",
+            "value": "manager_default"
+          },
+          {
+            "name": "package_mutation_mode",
+            "label": "Package mutation mode",
+            "value": "apply_changes"
+          },
+          {
+            "name": "package_mutation_mode_source",
+            "label": "package_mutation_mode winning source",
+            "value": "manager_default"
+          },
+          {
+            "name": "direct_requirement_handling",
+            "label": "Direct requirement handling",
+            "value": "handled"
+          },
+          {
+            "name": "direct_requirement_handling_source",
+            "label": "direct_requirement_handling winning source",
+            "value": "manager_default"
+          }
+        ],
+        "limitations": [
+          "Does not establish fresh-install causality.",
+          "Does not establish wheel, sdist, or other artifact identity.",
+          "Does not establish persistence after command completion.",
+          "Does not establish later package use or affected-behavior exercise.",
+          "Does not establish behavioral compatibility.",
+          "Does not grant maintainer-action permission."
+        ]
+      },
+      {
+        "assessment_id": "runtime-command-2",
+        "topic": "Command-completion requirement state",
+        "owner": "ci.dependency_state",
+        "state": "unresolved",
+        "status": "problem",
+        "reason": "process_environment_value_unresolved",
+        "detail": "Exact-process evidence for PIP_TARGET is unresolved: process_environment_ambient_sources_unresolved: No admitted declarative or command-local value establishes 'PIP_TARGET'; runner ambient state and other runtime producers have not been ruled out.",
+        "proposition": "Command-completion satisfaction only; fresh installation, later use and behavior are not established.",
+        "strength": "unresolved",
+        "source_ids": [
+          "source-12",
+          "source-11",
+          "source-4"
+        ],
+        "facts": [
+          {
+            "name": "workflow",
+            "label": "Workflow",
+            "value": ".github/workflows/ci.yml"
+          },
+          {
+            "name": "revision",
+            "label": "Workflow revision",
+            "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          {
+            "name": "job",
+            "label": "Job",
+            "value": "test"
+          },
+          {
+            "name": "step_source_index",
+            "label": "Static step index",
+            "value": "2"
+          },
+          {
+            "name": "command",
+            "label": "Command",
+            "value": "/opt/bootstrap/bin/python -m pip --python /opt/target/bin/python install --no-user --no-deps -r requirements.txt"
+          },
+          {
+            "name": "blocking_dimension",
+            "label": "Blocking semantic dimension",
+            "value": "installation_destination"
+          },
+          {
+            "name": "command_source_order",
+            "label": "Command source order",
+            "value": "0"
+          },
+          {
+            "name": "command_start_byte",
+            "label": "Command start byte",
+            "value": "0"
+          },
+          {
+            "name": "command_end_byte",
+            "label": "Command end byte",
+            "value": "112"
+          },
+          {
+            "name": "blocking_evidence_state",
+            "label": "blocking_evidence state",
+            "value": "unresolved"
+          },
+          {
+            "name": "blocking_evidence_reason",
+            "label": "blocking_evidence reason",
+            "value": "process_environment_value_unresolved"
+          },
+          {
+            "name": "blocking_evidence_detail",
+            "label": "blocking_evidence detail",
+            "value": "Exact-process evidence for PIP_TARGET is unresolved: process_environment_ambient_sources_unresolved: No admitted declarative or command-local value establishes 'PIP_TARGET'; runner ambient state and other runtime producers have not been ruled out."
+          }
+        ],
+        "limitations": []
+      },
+      {
+        "assessment_id": "package",
+        "topic": "Package evidence",
+        "owner": "pypi.release",
+        "state": "available",
+        "status": "available",
+        "reason": "recorded_owner_result",
+        "detail": "Exact published package metadata is available.",
+        "proposition": "Published release metadata and files, not observed target installation.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-14",
+          "source-13"
+        ],
+        "facts": [
+          {
+            "name": "requested_package",
+            "label": "Requested package",
+            "value": "demo"
+          },
+          {
+            "name": "requested_version",
+            "label": "Requested version",
+            "value": "2.0"
+          },
+          {
+            "name": "published_package",
+            "label": "Published package",
+            "value": "demo==2.0"
+          },
+          {
+            "name": "distribution_count",
+            "label": "Distribution files",
+            "value": "0"
+          }
+        ],
+        "limitations": []
+      },
+      {
+        "assessment_id": "old-package",
+        "topic": "Old package artifact evidence",
+        "owner": "pypi.release",
+        "state": "available",
+        "status": "available",
+        "reason": "recorded_owner_result",
+        "detail": "Exact published package metadata is available.",
+        "proposition": "Published release metadata and files, not observed target installation.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-16",
+          "source-15"
+        ],
+        "facts": [
+          {
+            "name": "requested_package",
+            "label": "Requested package",
+            "value": "demo"
+          },
+          {
+            "name": "requested_version",
+            "label": "Requested version",
+            "value": "1.0"
+          },
+          {
+            "name": "published_package",
+            "label": "Old published package",
+            "value": "demo==1.0"
+          },
+          {
+            "name": "distribution_count",
+            "label": "Old distribution files",
+            "value": "0"
+          }
+        ],
+        "limitations": []
+      },
+      {
+        "assessment_id": "upstream-repository",
+        "topic": "Upstream repository",
+        "owner": "upstream.repository",
+        "state": "available",
+        "status": "available",
+        "reason": "recorded_owner_result",
+        "detail": "Upstream repository identity was resolved from package provenance.",
+        "proposition": "Resolved upstream source identity, not semantic correctness.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-17"
+        ],
+        "facts": [
+          {
+            "name": "repository",
+            "label": "Upstream repository identity",
+            "value": "example/upstream"
+          },
+          {
+            "name": "unavailable_files",
+            "label": "Provenance unavailable files",
+            "value": "none"
+          }
+        ],
+        "limitations": []
+      },
+      {
+        "assessment_id": "upstream-interval",
+        "topic": "Upstream interval authority",
+        "owner": "upstream.interval",
+        "state": "available",
+        "status": "available",
+        "reason": "recorded_owner_result",
+        "detail": "An authoritative source covers the selected dependency release interval.",
+        "proposition": "Source authority for the evaluated interval, not corroboration of model interpretation.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-19",
+          "source-18"
+        ],
+        "facts": [
+          {
+            "name": "authority_basis",
+            "label": "Upstream interval authority basis",
+            "value": "tagged_changelog"
+          },
+          {
+            "name": "crossed_versions",
+            "label": "Crossed releases",
+            "value": "2.0"
+          }
+        ],
+        "limitations": []
+      },
+      {
+        "assessment_id": "support-drop",
+        "topic": "Upstream support-drop result",
+        "owner": "upstream.claim",
+        "state": "grounded",
+        "status": "available",
+        "reason": "recorded_owner_result",
+        "detail": "A proposed Python support-drop interpretation was grounded to exact authoritative source text.",
+        "proposition": "Grounding establishes source correspondence, not independent semantic corroboration.",
+        "strength": "grounded_interpretation",
+        "source_ids": [
+          "source-21",
+          "source-18",
+          "source-20"
+        ],
+        "facts": [
+          {
+            "name": "python_line",
+            "label": "Dropped Python line",
+            "value": "3.8"
+          },
+          {
+            "name": "introduced_in_version",
+            "label": "Introduced in upstream release",
+            "value": "2.0"
+          },
+          {
+            "name": "quote_1",
+            "label": "Grounded quote",
+            "value": "Drop support for Python 3.8."
+          }
+        ],
+        "limitations": []
+      },
+      {
+        "assessment_id": "artifact-candidate",
+        "topic": "Artifact serviceability candidate",
+        "owner": "impact.artifact_serviceability",
+        "state": "not observed",
+        "status": "available",
+        "reason": "recorded_owner_result",
+        "detail": "Exact old/proposed release comparison completed without a bounded published-wheel capability loss.",
+        "proposition": "No candidate within the evaluated published-wheel capability horizon; source builds and all other impacts remain unproven.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-22"
+        ],
+        "facts": [],
+        "limitations": []
+      },
+      {
+        "assessment_id": "artifact-environments",
+        "topic": "Target artifact environments",
+        "owner": "target.artifact_environment",
+        "state": "not activated",
+        "status": "not_evaluated",
+        "reason": "not_evaluated",
+        "detail": "This branch has no evaluated result in the recorded investigation.",
+        "proposition": "No positive or negative conclusion was established.",
+        "strength": "unresolved",
+        "source_ids": [
+          "source-23"
+        ],
+        "facts": [],
+        "limitations": []
+      },
+      {
+        "assessment_id": "artifact-impact",
+        "topic": "Artifact applicability",
+        "owner": "impact.artifact_serviceability",
+        "state": "not evaluated",
+        "status": "not_evaluated",
+        "reason": "not_evaluated",
+        "detail": "This branch has no evaluated result in the recorded investigation.",
+        "proposition": "No positive or negative conclusion was established.",
+        "strength": "unresolved",
+        "source_ids": [
+          "source-24"
+        ],
+        "facts": [],
+        "limitations": []
+      },
+      {
+        "assessment_id": "target-python",
+        "topic": "Target Python declaration",
+        "owner": "target.python",
+        "state": "available",
+        "status": "available",
+        "reason": "recorded_owner_result",
+        "detail": "A static target Python declaration is available.",
+        "proposition": "Declared Python support, not execution or installation.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-26",
+          "source-25"
+        ],
+        "facts": [
+          {
+            "name": "source",
+            "label": "Target Python source",
+            "value": "pyproject.toml @ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          {
+            "name": "requires_python",
+            "label": "Target requires-python",
+            "value": ">=3.8"
+          }
+        ],
+        "limitations": []
+      },
+      {
+        "assessment_id": "python-relevance",
+        "topic": "Target Python relevance",
+        "owner": "target.relevance",
+        "state": "declared_python_overlap",
+        "status": "available",
+        "reason": "recorded_owner_result",
+        "detail": "The target declaration admits stable Python 3.8.0, which belongs to the dropped Python 3.8 line.",
+        "proposition": "Target declaration overlap with the recorded support-drop interpretation.",
+        "strength": "grounded_interpretation",
+        "source_ids": [
+          "source-27",
+          "source-21",
+          "source-18",
+          "source-20",
+          "source-26",
+          "source-25"
+        ],
+        "facts": [],
+        "limitations": []
+      },
+      {
+        "assessment_id": "python-impact",
+        "topic": "Python support-drop applicability",
+        "owner": "impact.python_support",
+        "state": "established_applicable",
+        "status": "available",
+        "reason": "recorded_owner_result",
+        "detail": "At least one complete represented applicability path is established; other unresolved or conflicted alternatives are not required to establish candidate applicability.",
+        "proposition": "Applicability of a grounded interpretation, not independent corroboration or permission to block or merge.",
+        "strength": "grounded_interpretation",
+        "source_ids": [
+          "source-28",
+          "source-21",
+          "source-18",
+          "source-20",
+          "source-26",
+          "source-25",
+          "source-27",
+          "source-21",
+          "source-18",
+          "source-20",
+          "source-26",
+          "source-25"
+        ],
+        "facts": [],
+        "limitations": []
+      }
+    ],
+    "findings": [
+      {
+        "assessment_id": "dependency",
+        "statement": "One supported exact dependency version transition was established.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-3",
+          "source-1",
+          "source-2"
+        ]
+      },
+      {
+        "assessment_id": "ci",
+        "statement": "Workflow 'CI' contains supported static changed-dependency consumption whose owning user-defined run step is correlated to a completed-successful runtime step for the exact run attempt.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-5",
+          "source-4"
+        ]
+      },
+      {
+        "assessment_id": "ci-workflow-1",
+        "statement": "The exact-head workflow/run has successful runtime evidence, and at least one exact eligible static changed-dependency consumption occurrence earns bounded Runtime-Correlated Support.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-7",
+          "source-6",
+          "source-4"
+        ]
+      },
+      {
+        "assessment_id": "runtime",
+        "statement": "Evaluated 2 admitted exact direct-requirements command candidate(s) without collapsing their individual outcomes.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-8"
+        ]
+      },
+      {
+        "assessment_id": "runtime-command-1",
+        "statement": "The proposed direct requirement is satisfied at successful command completion.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-10",
+          "source-9",
+          "source-4"
+        ]
+      },
+      {
+        "assessment_id": "package",
+        "statement": "Exact published package metadata is available.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-14",
+          "source-13"
+        ]
+      },
+      {
+        "assessment_id": "old-package",
+        "statement": "Exact published package metadata is available.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-16",
+          "source-15"
+        ]
+      },
+      {
+        "assessment_id": "upstream-repository",
+        "statement": "Upstream repository identity was resolved from package provenance.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-17"
+        ]
+      },
+      {
+        "assessment_id": "upstream-interval",
+        "statement": "An authoritative source covers the selected dependency release interval.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-19",
+          "source-18"
+        ]
+      },
+      {
+        "assessment_id": "support-drop",
+        "statement": "A proposed Python support-drop interpretation was grounded to exact authoritative source text.",
+        "strength": "grounded_interpretation",
+        "source_ids": [
+          "source-21",
+          "source-18",
+          "source-20"
+        ]
+      },
+      {
+        "assessment_id": "artifact-candidate",
+        "statement": "Exact old/proposed release comparison completed without a bounded published-wheel capability loss.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-22"
+        ]
+      },
+      {
+        "assessment_id": "target-python",
+        "statement": "A static target Python declaration is available.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-26",
+          "source-25"
+        ]
+      },
+      {
+        "assessment_id": "python-relevance",
+        "statement": "The target declaration admits stable Python 3.8.0, which belongs to the dropped Python 3.8 line.",
+        "strength": "grounded_interpretation",
+        "source_ids": [
+          "source-27",
+          "source-21",
+          "source-18",
+          "source-20",
+          "source-26",
+          "source-25"
+        ]
+      },
+      {
+        "assessment_id": "python-impact",
+        "statement": "At least one complete represented applicability path is established; other unresolved or conflicted alternatives are not required to establish candidate applicability.",
+        "strength": "grounded_interpretation",
+        "source_ids": [
+          "source-28",
+          "source-21",
+          "source-18",
+          "source-20",
+          "source-26",
+          "source-25",
+          "source-27",
+          "source-21",
+          "source-18",
+          "source-20",
+          "source-26",
+          "source-25"
+        ]
+      }
+    ],
+    "unknowns": [
+      {
+        "assessment_id": "runtime-command-2",
+        "question": "What requirement state was established at this exact command?",
+        "reason": "Exact-process evidence for PIP_TARGET is unresolved: process_environment_ambient_sources_unresolved: No admitted declarative or command-local value establishes 'PIP_TARGET'; runner ambient state and other runtime producers have not been ruled out.",
+        "source_ids": [
+          "source-12",
+          "source-11",
+          "source-4"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      },
+      {
+        "assessment_id": "artifact-environments",
+        "question": "What does the target artifact environments branch establish?",
+        "reason": "This branch has no evaluated result in the recorded investigation.",
+        "source_ids": [
+          "source-23"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      },
+      {
+        "assessment_id": "artifact-impact",
+        "question": "What does the artifact applicability branch establish?",
+        "reason": "This branch has no evaluated result in the recorded investigation.",
+        "source_ids": [
+          "source-24"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      }
+    ],
+    "action": {
+      "state": "abstain",
+      "reasons": [
+        "No non-abstention maintainer-action permission is admitted at the current evaluator proof boundary."
+      ],
+      "uncertainty": [
+        "Runtime requirement state for /opt/bootstrap/bin/python -m pip --python /opt/target/bin/python install --no-user --no-deps -r requirements.txt remains unresolved: Exact-process evidence for PIP_TARGET is unresolved: process_environment_ambient_sources_unresolved: No admitted declarative or command-local value establishes 'PIP_TARGET'; runner ambient state and other runtime producers have not been ruled out.",
+        "Command-completion evidence does not establish fresh installation, later package use or behavioral compatibility."
+      ],
+      "limitations": [
+        "This first evaluator intentionally withholds merge, targeted-check, investigate, block, and defer until each action's positive prerequisites are proven through the normal producer path."
+      ],
+      "claim_limits": [
+        "This abstention is not a finding that the dependency update is safe or unsafe.",
+        "This result does not establish complete impact-candidate or repository-context coverage.",
+        "This result does not authorize repository mutation, approval, or automatic merge."
+      ]
+    },
+    "sources": [
+      {
+        "source_id": "source-1",
+        "kind": "pull_request",
+        "locator": "https://github.com/example/project/pull/7",
+        "identity": [
+          {
+            "name": "repository",
+            "label": "Repository",
+            "value": "example/project"
+          },
+          {
+            "name": "pull_number",
+            "label": "PR",
+            "value": "7"
+          },
+          {
+            "name": "title",
+            "label": "Title",
+            "value": "Bump demo"
+          },
+          {
+            "name": "author",
+            "label": "Author",
+            "value": "dependabot[bot]"
+          },
+          {
+            "name": "state",
+            "label": "State",
+            "value": "open"
+          },
+          {
+            "name": "merged",
+            "label": "Merged",
+            "value": "false"
+          },
+          {
+            "name": "base_ref",
+            "label": "Base ref",
+            "value": "main"
+          },
+          {
+            "name": "base_sha",
+            "label": "Base",
+            "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          },
+          {
+            "name": "head_ref",
+            "label": "Head ref",
+            "value": "update"
+          },
+          {
+            "name": "head_sha",
+            "label": "Head",
+            "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        ],
+        "method": "exact PR base/head identity acquisition",
+        "retrieved_at": null,
+        "retention": "reference_only",
+        "content": null,
+        "limitation": "Original input content is not retained in this report."
+      },
+      {
+        "source_id": "source-2",
+        "kind": "dependency_source",
+        "locator": "https://github.com/example/project/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/requirements.txt",
+        "identity": [
+          {
+            "name": "path",
+            "label": "Dependency evidence",
+            "value": "requirements.txt"
+          },
+          {
+            "name": "format",
+            "label": "Format",
+            "value": "exact_requirement"
+          },
+          {
+            "name": "base_sha",
+            "label": "Base",
+            "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          },
+          {
+            "name": "head_sha",
+            "label": "Head",
+            "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        ],
+        "method": "changed_file_patch",
+        "retrieved_at": null,
+        "retention": "reference_only",
+        "content": null,
+        "limitation": "Original input content is not retained in this report."
+      },
+      {
+        "source_id": "source-3",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "dependency"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "supported"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "recorded_owner_result"
+          },
+          {
+            "name": "package",
+            "label": "Package",
+            "value": "demo"
+          },
+          {
+            "name": "normalized_package",
+            "label": "Normalized package",
+            "value": "demo"
+          },
+          {
+            "name": "old_version",
+            "label": "Old version",
+            "value": "1.0"
+          },
+          {
+            "name": "proposed_version",
+            "label": "Proposed version",
+            "value": "2.0"
+          },
+          {
+            "name": "changed_file_1",
+            "label": "Changed file",
+            "value": "requirements.txt (modified)"
+          }
+        ],
+        "method": "dependency.change",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "One supported exact dependency version transition was established.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-4",
+        "kind": "workflow_execution",
+        "locator": "https://github.com/example/project/actions/runs/1001/attempts/1",
+        "identity": [
+          {
+            "name": "run_id",
+            "label": "Run",
+            "value": "1001"
+          },
+          {
+            "name": "run_attempt",
+            "label": "Attempt",
+            "value": "1"
+          },
+          {
+            "name": "head_sha",
+            "label": "Execution revision",
+            "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          {
+            "name": "status",
+            "label": "Status",
+            "value": "completed"
+          },
+          {
+            "name": "conclusion",
+            "label": "Conclusion",
+            "value": "success"
+          },
+          {
+            "name": "job_3001_name",
+            "label": "Job",
+            "value": "Tests"
+          },
+          {
+            "name": "job_3001_head_sha",
+            "label": "Job execution revision",
+            "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          {
+            "name": "job_3001_status",
+            "label": "Job status",
+            "value": "completed"
+          },
+          {
+            "name": "job_3001_conclusion",
+            "label": "Job conclusion",
+            "value": "success"
+          },
+          {
+            "name": "job_3001_steps",
+            "label": "Job steps",
+            "value": "3"
+          }
+        ],
+        "method": "exact-head run and captured-attempt jobs acquisition",
+        "retrieved_at": null,
+        "retention": "selected_facts",
+        "content": null,
+        "limitation": "Original input content is not retained in this report."
+      },
+      {
+        "source_id": "source-5",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "ci"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "supported_runtime_correlated"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "successful_exact_head_ci_with_runtime_correlated_dependency_consumption"
+          }
+        ],
+        "method": "ci.dependency_exercise",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "Workflow 'CI' contains supported static changed-dependency consumption whose owning user-defined run step is correlated to a completed-successful runtime step for the exact run attempt.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-6",
+        "kind": "workflow_source",
+        "locator": "https://github.com/example/project/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/.github/workflows/ci.yml",
+        "identity": [
+          {
+            "name": "path",
+            "label": "Workflow path",
+            "value": ".github/workflows/ci.yml"
+          },
+          {
+            "name": "revision",
+            "label": "Static revision",
+            "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        ],
+        "method": "static workflow interpretation",
+        "retrieved_at": null,
+        "retention": "reference_only",
+        "content": null,
+        "limitation": "Original input content is not retained in this report."
+      },
+      {
+        "source_id": "source-7",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "ci-workflow-1"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "supported_runtime_correlated"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "successful_ci_with_runtime_correlated_dependency_consumption"
+          },
+          {
+            "name": "static_consumption",
+            "label": "Static consumption",
+            "value": "supported"
+          },
+          {
+            "name": "static_exercise",
+            "label": "Static direct exercise",
+            "value": "not_established"
+          },
+          {
+            "name": "runtime_consumption",
+            "label": "Runtime consumption correlation",
+            "value": "supported"
+          },
+          {
+            "name": "runtime_exercise",
+            "label": "Runtime direct exercise correlation",
+            "value": "not_established"
+          },
+          {
+            "name": "command_1",
+            "label": "Consumption command",
+            "value": "PIP_DRY_RUN=0 PIP_CONFIG_FILE=/dev/null PIP_TARGET= PIP_PREFIX= PIP_ROOT= PIP_ONLY_DEPS=0 PIP_ONLY_DEPENDENCIES=0 /opt/bootstrap/bin/python -m pip --python /opt/target/bin/python install --no-user --no-deps -r requirements.txt"
+          },
+          {
+            "name": "job_1",
+            "label": "Static job",
+            "value": "test"
+          },
+          {
+            "name": "state_1",
+            "label": "Consumption state",
+            "value": "supported"
+          },
+          {
+            "name": "reason_1",
+            "label": "Consumption reason",
+            "value": "direct_requirements_consumption_declared"
+          },
+          {
+            "name": "detail_1",
+            "label": "Consumption detail",
+            "value": "The static job directly declares installation from a trusted requirements dependency source. Execution is not established."
+          },
+          {
+            "name": "witness_1",
+            "label": "Reachability witness",
+            "value": ""
+          },
+          {
+            "name": "command_2",
+            "label": "Consumption command",
+            "value": "/opt/bootstrap/bin/python -m pip --python /opt/target/bin/python install --no-user --no-deps -r requirements.txt"
+          },
+          {
+            "name": "job_2",
+            "label": "Static job",
+            "value": "test"
+          },
+          {
+            "name": "state_2",
+            "label": "Consumption state",
+            "value": "supported"
+          },
+          {
+            "name": "reason_2",
+            "label": "Consumption reason",
+            "value": "direct_requirements_consumption_declared"
+          },
+          {
+            "name": "detail_2",
+            "label": "Consumption detail",
+            "value": "The static job directly declares installation from a trusted requirements dependency source. Execution is not established."
+          },
+          {
+            "name": "witness_2",
+            "label": "Reachability witness",
+            "value": ""
+          }
+        ],
+        "method": "ci.dependency_exercise",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "The exact-head workflow/run has successful runtime evidence, and at least one exact eligible static changed-dependency consumption occurrence earns bounded Runtime-Correlated Support.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-8",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "runtime"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "evaluated"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "runtime_dependency_state_candidates_evaluated"
+          }
+        ],
+        "method": "ci.dependency_state",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "Evaluated 2 admitted exact direct-requirements command candidate(s) without collapsing their individual outcomes.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-9",
+        "kind": "workflow_source",
+        "locator": "https://github.com/example/project/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/.github/workflows/ci.yml",
+        "identity": [
+          {
+            "name": "workflow",
+            "label": "Workflow",
+            "value": ".github/workflows/ci.yml"
+          },
+          {
+            "name": "revision",
+            "label": "Workflow revision",
+            "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          {
+            "name": "job",
+            "label": "Job",
+            "value": "test"
+          },
+          {
+            "name": "step_source_index",
+            "label": "Static step index",
+            "value": "1"
+          },
+          {
+            "name": "command",
+            "label": "Command",
+            "value": "PIP_DRY_RUN=0 PIP_CONFIG_FILE=/dev/null PIP_TARGET= PIP_PREFIX= PIP_ROOT= PIP_ONLY_DEPS=0 PIP_ONLY_DEPENDENCIES=0 /opt/bootstrap/bin/python -m pip --python /opt/target/bin/python install --no-user --no-deps -r requirements.txt"
+          },
+          {
+            "name": "observation_boundary",
+            "label": "Observation boundary",
+            "value": "successful_command_completion"
+          },
+          {
+            "name": "execution_state",
+            "label": "Execution state",
+            "value": "supported"
+          },
+          {
+            "name": "execution_basis",
+            "label": "Execution basis",
+            "value": "supported"
+          },
+          {
+            "name": "runtime_step_number",
+            "label": "Runtime step number",
+            "value": "2"
+          },
+          {
+            "name": "runtime_status",
+            "label": "Runtime status",
+            "value": "completed"
+          },
+          {
+            "name": "runtime_conclusion",
+            "label": "Runtime conclusion",
+            "value": "success"
+          },
+          {
+            "name": "command_source_order",
+            "label": "Command source order",
+            "value": "0"
+          },
+          {
+            "name": "command_start_byte",
+            "label": "Command start byte",
+            "value": "0"
+          },
+          {
+            "name": "command_end_byte",
+            "label": "Command end byte",
+            "value": "226"
+          },
+          {
+            "name": "manager_environment",
+            "label": "Manager environment",
+            "value": "pip_python_target: /opt/target/bin/python"
+          },
+          {
+            "name": "manager_environment_source",
+            "label": "manager_environment winning source",
+            "value": "command_line"
+          },
+          {
+            "name": "installation_destination",
+            "label": "Installation destination",
+            "value": "manager_environment_scheme: None"
+          },
+          {
+            "name": "installation_destination_source",
+            "label": "installation_destination winning source",
+            "value": "manager_default"
+          },
+          {
+            "name": "package_mutation_mode",
+            "label": "Package mutation mode",
+            "value": "apply_changes"
+          },
+          {
+            "name": "package_mutation_mode_source",
+            "label": "package_mutation_mode winning source",
+            "value": "manager_default"
+          },
+          {
+            "name": "direct_requirement_handling",
+            "label": "Direct requirement handling",
+            "value": "handled"
+          },
+          {
+            "name": "direct_requirement_handling_source",
+            "label": "direct_requirement_handling winning source",
+            "value": "manager_default"
+          }
+        ],
+        "method": "scoped command assessment",
+        "retrieved_at": null,
+        "retention": "reference_only",
+        "content": null,
+        "limitation": "Original input content is not retained in this report."
+      },
+      {
+        "source_id": "source-10",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "runtime-command-1"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "satisfied_at_command_completion"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "command_completion_witness"
+          },
+          {
+            "name": "workflow",
+            "label": "Workflow",
+            "value": ".github/workflows/ci.yml"
+          },
+          {
+            "name": "revision",
+            "label": "Workflow revision",
+            "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          {
+            "name": "job",
+            "label": "Job",
+            "value": "test"
+          },
+          {
+            "name": "step_source_index",
+            "label": "Static step index",
+            "value": "1"
+          },
+          {
+            "name": "command",
+            "label": "Command",
+            "value": "PIP_DRY_RUN=0 PIP_CONFIG_FILE=/dev/null PIP_TARGET= PIP_PREFIX= PIP_ROOT= PIP_ONLY_DEPS=0 PIP_ONLY_DEPENDENCIES=0 /opt/bootstrap/bin/python -m pip --python /opt/target/bin/python install --no-user --no-deps -r requirements.txt"
+          },
+          {
+            "name": "observation_boundary",
+            "label": "Observation boundary",
+            "value": "successful_command_completion"
+          },
+          {
+            "name": "execution_state",
+            "label": "Execution state",
+            "value": "supported"
+          },
+          {
+            "name": "execution_basis",
+            "label": "Execution basis",
+            "value": "supported"
+          },
+          {
+            "name": "runtime_step_number",
+            "label": "Runtime step number",
+            "value": "2"
+          },
+          {
+            "name": "runtime_status",
+            "label": "Runtime status",
+            "value": "completed"
+          },
+          {
+            "name": "runtime_conclusion",
+            "label": "Runtime conclusion",
+            "value": "success"
+          },
+          {
+            "name": "command_source_order",
+            "label": "Command source order",
+            "value": "0"
+          },
+          {
+            "name": "command_start_byte",
+            "label": "Command start byte",
+            "value": "0"
+          },
+          {
+            "name": "command_end_byte",
+            "label": "Command end byte",
+            "value": "226"
+          },
+          {
+            "name": "manager_environment",
+            "label": "Manager environment",
+            "value": "pip_python_target: /opt/target/bin/python"
+          },
+          {
+            "name": "manager_environment_source",
+            "label": "manager_environment winning source",
+            "value": "command_line"
+          },
+          {
+            "name": "installation_destination",
+            "label": "Installation destination",
+            "value": "manager_environment_scheme: None"
+          },
+          {
+            "name": "installation_destination_source",
+            "label": "installation_destination winning source",
+            "value": "manager_default"
+          },
+          {
+            "name": "package_mutation_mode",
+            "label": "Package mutation mode",
+            "value": "apply_changes"
+          },
+          {
+            "name": "package_mutation_mode_source",
+            "label": "package_mutation_mode winning source",
+            "value": "manager_default"
+          },
+          {
+            "name": "direct_requirement_handling",
+            "label": "Direct requirement handling",
+            "value": "handled"
+          },
+          {
+            "name": "direct_requirement_handling_source",
+            "label": "direct_requirement_handling winning source",
+            "value": "manager_default"
+          }
+        ],
+        "method": "ci.dependency_state",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "The proposed direct requirement is satisfied at successful command completion.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-11",
+        "kind": "workflow_source",
+        "locator": "https://github.com/example/project/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/.github/workflows/ci.yml",
+        "identity": [
+          {
+            "name": "workflow",
+            "label": "Workflow",
+            "value": ".github/workflows/ci.yml"
+          },
+          {
+            "name": "revision",
+            "label": "Workflow revision",
+            "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          {
+            "name": "job",
+            "label": "Job",
+            "value": "test"
+          },
+          {
+            "name": "step_source_index",
+            "label": "Static step index",
+            "value": "2"
+          },
+          {
+            "name": "command",
+            "label": "Command",
+            "value": "/opt/bootstrap/bin/python -m pip --python /opt/target/bin/python install --no-user --no-deps -r requirements.txt"
+          },
+          {
+            "name": "blocking_dimension",
+            "label": "Blocking semantic dimension",
+            "value": "installation_destination"
+          },
+          {
+            "name": "command_source_order",
+            "label": "Command source order",
+            "value": "0"
+          },
+          {
+            "name": "command_start_byte",
+            "label": "Command start byte",
+            "value": "0"
+          },
+          {
+            "name": "command_end_byte",
+            "label": "Command end byte",
+            "value": "112"
+          },
+          {
+            "name": "blocking_evidence_state",
+            "label": "blocking_evidence state",
+            "value": "unresolved"
+          },
+          {
+            "name": "blocking_evidence_reason",
+            "label": "blocking_evidence reason",
+            "value": "process_environment_value_unresolved"
+          },
+          {
+            "name": "blocking_evidence_detail",
+            "label": "blocking_evidence detail",
+            "value": "Exact-process evidence for PIP_TARGET is unresolved: process_environment_ambient_sources_unresolved: No admitted declarative or command-local value establishes 'PIP_TARGET'; runner ambient state and other runtime producers have not been ruled out."
+          }
+        ],
+        "method": "scoped command assessment",
+        "retrieved_at": null,
+        "retention": "reference_only",
+        "content": null,
+        "limitation": "Original input content is not retained in this report."
+      },
+      {
+        "source_id": "source-12",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "runtime-command-2"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "unresolved"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "process_environment_value_unresolved"
+          },
+          {
+            "name": "workflow",
+            "label": "Workflow",
+            "value": ".github/workflows/ci.yml"
+          },
+          {
+            "name": "revision",
+            "label": "Workflow revision",
+            "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          {
+            "name": "job",
+            "label": "Job",
+            "value": "test"
+          },
+          {
+            "name": "step_source_index",
+            "label": "Static step index",
+            "value": "2"
+          },
+          {
+            "name": "command",
+            "label": "Command",
+            "value": "/opt/bootstrap/bin/python -m pip --python /opt/target/bin/python install --no-user --no-deps -r requirements.txt"
+          },
+          {
+            "name": "blocking_dimension",
+            "label": "Blocking semantic dimension",
+            "value": "installation_destination"
+          },
+          {
+            "name": "command_source_order",
+            "label": "Command source order",
+            "value": "0"
+          },
+          {
+            "name": "command_start_byte",
+            "label": "Command start byte",
+            "value": "0"
+          },
+          {
+            "name": "command_end_byte",
+            "label": "Command end byte",
+            "value": "112"
+          },
+          {
+            "name": "blocking_evidence_state",
+            "label": "blocking_evidence state",
+            "value": "unresolved"
+          },
+          {
+            "name": "blocking_evidence_reason",
+            "label": "blocking_evidence reason",
+            "value": "process_environment_value_unresolved"
+          },
+          {
+            "name": "blocking_evidence_detail",
+            "label": "blocking_evidence detail",
+            "value": "Exact-process evidence for PIP_TARGET is unresolved: process_environment_ambient_sources_unresolved: No admitted declarative or command-local value establishes 'PIP_TARGET'; runner ambient state and other runtime producers have not been ruled out."
+          }
+        ],
+        "method": "ci.dependency_state",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "Exact-process evidence for PIP_TARGET is unresolved: process_environment_ambient_sources_unresolved: No admitted declarative or command-local value establishes 'PIP_TARGET'; runner ambient state and other runtime producers have not been ruled out.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-13",
+        "kind": "package_metadata",
+        "locator": "https://pypi.org/pypi/demo/2.0/json",
+        "identity": [
+          {
+            "name": "requested_package",
+            "label": "Requested package",
+            "value": "demo"
+          },
+          {
+            "name": "requested_version",
+            "label": "Requested version",
+            "value": "2.0"
+          },
+          {
+            "name": "published_package",
+            "label": "Published package",
+            "value": "demo==2.0"
+          },
+          {
+            "name": "distribution_count",
+            "label": "Distribution files",
+            "value": "0"
+          }
+        ],
+        "method": "exact package-release metadata acquisition",
+        "retrieved_at": "2026-10-09T00:00:00+00:00",
+        "retention": "selected_facts",
+        "content": null,
+        "limitation": "Selected metadata retained as identity facts; raw provider JSON is not retained."
+      },
+      {
+        "source_id": "source-14",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "package"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "available"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "recorded_owner_result"
+          },
+          {
+            "name": "requested_package",
+            "label": "Requested package",
+            "value": "demo"
+          },
+          {
+            "name": "requested_version",
+            "label": "Requested version",
+            "value": "2.0"
+          },
+          {
+            "name": "published_package",
+            "label": "Published package",
+            "value": "demo==2.0"
+          },
+          {
+            "name": "distribution_count",
+            "label": "Distribution files",
+            "value": "0"
+          }
+        ],
+        "method": "pypi.release",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "Exact published package metadata is available.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-15",
+        "kind": "package_metadata",
+        "locator": "https://pypi.org/pypi/demo/1.0/json",
+        "identity": [
+          {
+            "name": "requested_package",
+            "label": "Requested package",
+            "value": "demo"
+          },
+          {
+            "name": "requested_version",
+            "label": "Requested version",
+            "value": "1.0"
+          },
+          {
+            "name": "published_package",
+            "label": "Old published package",
+            "value": "demo==1.0"
+          },
+          {
+            "name": "distribution_count",
+            "label": "Old distribution files",
+            "value": "0"
+          }
+        ],
+        "method": "exact package-release metadata acquisition",
+        "retrieved_at": "2026-10-09T00:00:00+00:00",
+        "retention": "selected_facts",
+        "content": null,
+        "limitation": "Selected metadata retained as identity facts; raw provider JSON is not retained."
+      },
+      {
+        "source_id": "source-16",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "old-package"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "available"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "recorded_owner_result"
+          },
+          {
+            "name": "requested_package",
+            "label": "Requested package",
+            "value": "demo"
+          },
+          {
+            "name": "requested_version",
+            "label": "Requested version",
+            "value": "1.0"
+          },
+          {
+            "name": "published_package",
+            "label": "Old published package",
+            "value": "demo==1.0"
+          },
+          {
+            "name": "distribution_count",
+            "label": "Old distribution files",
+            "value": "0"
+          }
+        ],
+        "method": "pypi.release",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "Exact published package metadata is available.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-17",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "upstream-repository"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "available"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "recorded_owner_result"
+          },
+          {
+            "name": "repository",
+            "label": "Upstream repository identity",
+            "value": "example/upstream"
+          },
+          {
+            "name": "unavailable_files",
+            "label": "Provenance unavailable files",
+            "value": "none"
+          }
+        ],
+        "method": "upstream.repository",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "Upstream repository identity was resolved from package provenance.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-18",
+        "kind": "tagged_changelog",
+        "locator": "https://github.com/example/upstream/blob/cccccccccccccccccccccccccccccccccccccccc/CHANGELOG.md",
+        "identity": [
+          {
+            "name": "repository",
+            "label": "Repository",
+            "value": "example/upstream"
+          },
+          {
+            "name": "revision",
+            "label": "Revision",
+            "value": "cccccccccccccccccccccccccccccccccccccccc"
+          },
+          {
+            "name": "path",
+            "label": "Path",
+            "value": "CHANGELOG.md"
+          }
+        ],
+        "method": "exact tagged changelog authority",
+        "retrieved_at": null,
+        "retention": "retained_text",
+        "content": "## 2.0\nDrop support for Python 3.8.\n",
+        "limitation": "Complete already-retained changelog text; no acquisition time was retained."
+      },
+      {
+        "source_id": "source-19",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "upstream-interval"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "available"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "recorded_owner_result"
+          },
+          {
+            "name": "authority_basis",
+            "label": "Upstream interval authority basis",
+            "value": "tagged_changelog"
+          },
+          {
+            "name": "crossed_versions",
+            "label": "Crossed releases",
+            "value": "2.0"
+          }
+        ],
+        "method": "upstream.interval",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "An authoritative source covers the selected dependency release interval.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-20",
+        "kind": "grounded_quote",
+        "locator": "https://github.com/example/upstream/blob/cccccccccccccccccccccccccccccccccccccccc/CHANGELOG.md",
+        "identity": [
+          {
+            "name": "offset_unit",
+            "label": "Quote offset unit",
+            "value": "unicode_codepoints"
+          },
+          {
+            "name": "quote_start",
+            "label": "Quote start",
+            "value": "7"
+          },
+          {
+            "name": "quote_end",
+            "label": "Quote end",
+            "value": "35"
+          },
+          {
+            "name": "source_kind",
+            "label": "Source kind",
+            "value": "tagged_changelog"
+          },
+          {
+            "name": "introduced_in_version",
+            "label": "Introduced in release",
+            "value": "2.0"
+          }
+        ],
+        "method": "exact source-quote offset grounding",
+        "retrieved_at": null,
+        "retention": "retained_text",
+        "content": "Drop support for Python 3.8.",
+        "limitation": "Exact excerpt with source offsets; omitted context is not represented by this excerpt."
+      },
+      {
+        "source_id": "source-21",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "support-drop"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "grounded"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "recorded_owner_result"
+          },
+          {
+            "name": "python_line",
+            "label": "Dropped Python line",
+            "value": "3.8"
+          },
+          {
+            "name": "introduced_in_version",
+            "label": "Introduced in upstream release",
+            "value": "2.0"
+          },
+          {
+            "name": "quote_1",
+            "label": "Grounded quote",
+            "value": "Drop support for Python 3.8."
+          }
+        ],
+        "method": "upstream.claim",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "A proposed Python support-drop interpretation was grounded to exact authoritative source text.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-22",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "artifact-candidate"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "not observed"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "recorded_owner_result"
+          }
+        ],
+        "method": "impact.artifact_serviceability",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "Exact old/proposed release comparison completed without a bounded published-wheel capability loss.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-23",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "artifact-environments"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "not activated"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "not_evaluated"
+          }
+        ],
+        "method": "target.artifact_environment",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "This branch has no evaluated result in the recorded investigation.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-24",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "artifact-impact"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "not evaluated"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "not_evaluated"
+          }
+        ],
+        "method": "impact.artifact_serviceability",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "This branch has no evaluated result in the recorded investigation.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-25",
+        "kind": "target_source",
+        "locator": "https://github.com/example/project/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/pyproject.toml",
+        "identity": [
+          {
+            "name": "source",
+            "label": "Target Python source",
+            "value": "pyproject.toml @ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          {
+            "name": "requires_python",
+            "label": "Target requires-python",
+            "value": ">=3.8"
+          }
+        ],
+        "method": "target Python declaration interpretation",
+        "retrieved_at": null,
+        "retention": "reference_only",
+        "content": null,
+        "limitation": "Original input content is not retained in this report."
+      },
+      {
+        "source_id": "source-26",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "target-python"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "available"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "recorded_owner_result"
+          },
+          {
+            "name": "source",
+            "label": "Target Python source",
+            "value": "pyproject.toml @ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          {
+            "name": "requires_python",
+            "label": "Target requires-python",
+            "value": ">=3.8"
+          }
+        ],
+        "method": "target.python",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "A static target Python declaration is available.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-27",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "python-relevance"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "declared_python_overlap"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "recorded_owner_result"
+          }
+        ],
+        "method": "target.relevance",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "The target declaration admits stable Python 3.8.0, which belongs to the dropped Python 3.8 line.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-28",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "python-impact"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "established_applicable"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "recorded_owner_result"
+          }
+        ],
+        "method": "impact.python_support",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "At least one complete represented applicability path is established; other unresolved or conflicted alternatives are not required to establish candidate applicability.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      }
+    ],
+    "preservation_limits": [
+      "Original workflow files/logs, dependency source files and arbitrary target code are not fully retained.",
+      "Source references are availability-dependent; opening does not retrieve them.",
+      "This record cannot replay analysis, resume an agent, or establish compatibility.",
+      "A file digest detects corruption, not authenticity or evidence truth."
+    ]
+  },
+  "integrity": {
+    "method": "sha256",
+    "digest": "66d432b9aadae1cbf4d808b37a7a504debbfddcac291de5cf0c8157d75d2fe36"
+  }
+}

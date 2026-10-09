@@ -1,0 +1,11 @@
+{
+  "status": "complete",
+  "native_before": "unresolved",
+  "native_after": "established_not_applicable",
+  "requires_python": ">=3.10",
+  "requests": 14,
+  "material_records": 65,
+  "checkpoint_bytes": 3535061,
+  "reexecution_scope": "external retained HTTP tape matched SQLite checkpoint through memory run",
+  "reasoning_update": "HTTP body bytes are retained but status/time/ordered-response metadata lives in the external tape. Add immutable partial/final capture manifests and test reconstruction from the checkpoint itself. Full input tape is a research replay control, not proposed product retention policy."
+}

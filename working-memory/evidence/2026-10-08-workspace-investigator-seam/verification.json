@@ -1,0 +1,38 @@
+{
+  "date": "2026-10-08",
+  "base_main": "08243e5b3e455ad26ae1cd142763f4d147269bc6",
+  "proof_class": "offline experimental interaction/lifecycle fidelity",
+  "experiments": {
+    "status": "PASS",
+    "tests": 106,
+    "seam_tests": 74,
+    "inherited_storage_representation_tests": 32,
+    "command": "PYTHONPATH=src .venv/bin/python3 -m unittest experiments.tests.test_workspace_investigator_seam experiments.tests.test_workspace_checkpoint_stores experiments.tests.test_workspace_revision_representation"
+  },
+  "native_report_anchors": {
+    "status": "PASS",
+    "tests": 58,
+    "command": "PYTHONPATH=tests:src .venv/bin/python3 -m unittest test_ci_dependency_state test_conditional_pyproject_consumption test_python_support_impact test_impact_applicability test_report test_report_file"
+  },
+  "matrix": {
+    "status": "PASS",
+    "scenarios": 21,
+    "traces": 84,
+    "command": "PYTHONPATH=src .venv/bin/python3 -m experiments.run_workspace_seam_trials --output working-memory/evidence/2026-10-08-workspace-investigator-seam"
+  },
+  "static_and_artifacts": [
+    "five touched Python files: Ruff and formatting PASS",
+    "source/native checkpoint hashes and 84 matching traces PASS",
+    "JSON, touched local links and fenced blocks PASS",
+    "selective internal-link, normative-ID and audit-lifecycle governance PASS",
+    "git diff --check PASS"
+  ],
+  "not_run": [
+    "full product or experiment suite",
+    "models/providers/target-code execution",
+    "hosted verification",
+    "power-loss or physical-write measurement",
+    "full governance doctor: inherited examples owner-marker finding remains historical"
+  ],
+  "authority": "experiment 3 only; result review pending, migration and production adoption unactivated"
+}

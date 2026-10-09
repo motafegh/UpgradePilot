@@ -1,0 +1,9 @@
+{
+  "question": "Does serializing the full native PR identity overbind the continuation target?",
+  "setup": "Known captured PR; alter only title, keeping repository/PR/base/head identical",
+  "source_sha256_before_correction": "95f109fab487de1c7c2370cb4a8a9a0009007d020fd922e6697d0a4823739f3a",
+  "same_exact_target": true,
+  "full_native_identity_token_equal": false,
+  "finding": "Full PR serialization includes descriptive metadata and would reject a metadata-only refresh as target_changed",
+  "decision": "Use only repository/PR/base/head for the real-trial opaque target token; native metadata remains retained evidence. Dependency/material changes remain basis checks. No product source or contract change."
+}

@@ -1,0 +1,59 @@
+{
+  "branch_base": "a3eb771f90341bc9ea39f935bf9564a9044bb301",
+  "checkpoint_sha256": "5cca11e816eddcd70f1abc70d05e26df77c0e82ccac2f4d99c5833473b2d9732",
+  "inherited_governance_debt": "full doctor not rerun; examples owner-marker finding retained from main",
+  "main_baseline": "08243e5b3e455ad26ae1cd142763f4d147269bc6",
+  "native_tree_sha256": "18b97ddcd673c3a5d39c50c68543eb2b00132f05066ec2f2d3f573d94c9484ac",
+  "not_proved": [
+    "full product or experiment suite",
+    "hosted or model verification",
+    "production Workspace recovery/replay/native hydration",
+    "semantic correctness/generalization or unseen acceptance",
+    "power-loss durability or physical write amplification",
+    "full native capture/retention policy",
+    "future concurrency necessity",
+    "migration, production adoption or main owner acceptance"
+  ],
+  "parsed_evidence_json_and_bodies": 20,
+  "proof_class": "known public development/grounding, no production adoption",
+  "public_input_boundary": {
+    "anonymous_GETs_in_trial": 14,
+    "body_boundary": "native-consumed decoded HTTP bytes; no credential-bearing transport capture",
+    "models": 0,
+    "retained_headers": "content-type/date/etag/last-modified only",
+    "target_execution": false,
+    "target_writes": false
+  },
+  "source_sha256": {
+    "experiments/run_workspace_public_grounding.py": "33f2f240bc8b707be4e2b37971eeb5e519c5534dbf88ce91ae53994fa8052d0e",
+    "experiments/tests/test_workspace_public_grounding.py": "e5ba5756cc0ca6496dbf8b827ce75538dd91ac5ec4e3c056355ae215b100fc8c",
+    "experiments/workspace_checkpoint_stores.py": "626878df1557a6e5e85aeb08e316a27c4b3648e45cfc4ca9b58b46b820adb524",
+    "experiments/workspace_investigator_seam.py": "76066092058e8a15dbcc0b4e627359b1e7597b55387d2609a7038bf1c99df8bc",
+    "experiments/workspace_public_input_tape.py": "08ad6f73f230665c27f65435d3f7bc6ad35a7b52e8c87257c02c870fa0d66bfc",
+    "experiments/workspace_revision_representation.py": "81967473660ff2f0017a1584eb4720b33a3a65d32d3413e39094b5833f1376fb",
+    "experiments/workspace_seam_checkpoints.py": "1e52be959d12c2b83cacfc97e8406e15a2cf981097f8fb173106863167cfb0aa"
+  },
+  "static": [
+    "Ruff check and format: three new Python modules",
+    "Exact experiment-source and native-tree hashes",
+    "Checkpoint digest, re-encode and 68-record closure",
+    "All 14 retained public inputs/headers and four exact texts match checkpoint",
+    "Evidence JSON/body parse",
+    "Selective governance internal links, normative IDs and audit lifecycle",
+    "Four touched documents: 60 local links and fenced blocks checked",
+    "git diff --check: PASS"
+  ],
+  "status": "green",
+  "tests": [
+    {
+      "command": "PYTHONPATH=src .venv/bin/python3 -m unittest experiments.tests.test_workspace_public_grounding experiments.tests.test_workspace_investigator_seam experiments.tests.test_workspace_checkpoint_stores experiments.tests.test_workspace_revision_representation",
+      "passed": 112,
+      "scope": "6 grounding + 74 seam + 17 storage + 15 representation"
+    },
+    {
+      "command": "PYTHONPATH=tests:src .venv/bin/python3 -m unittest test_github_client test_github_repository test_upstream_interval_acquisition test_upstream_support_drop test_ci_dependency_state test_conditional_pyproject_consumption test_python_support_impact test_impact_applicability test_report test_report_file",
+      "passed": 92,
+      "scope": "bounded native acquisition/grounding plus prior 58 native/report anchors"
+    }
+  ]
+}

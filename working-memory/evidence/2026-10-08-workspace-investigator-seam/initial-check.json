@@ -1,0 +1,9 @@
+{
+  "stage": "first focused run",
+  "tests": 22,
+  "passed": 21,
+  "errors": 1,
+  "error": "FileExistsError: SQLite create=True expects a new store directory, but the test passed the existing temporary-directory root",
+  "interpretation": "Fixture setup failure; SQLite transport/backend equivalence was not proved by this run",
+  "correction": "Use a new store subdirectory; broaden expected-outcome and recovery checks before accepting differential equality"
+}
