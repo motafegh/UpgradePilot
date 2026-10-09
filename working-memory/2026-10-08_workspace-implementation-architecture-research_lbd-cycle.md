@@ -1,6 +1,6 @@
 # Investigation Workspace implementation architecture research
 
-**Date:** 2026-10-08. **Operation:** Planning/Design preparation, then authorized experiment Build.
+**Date:** 2026-10-08; consolidation handoff 2026-10-09. **Operation:** Planning/Design preparation, authorized experiment Build, then research consolidation.
 **Branch:** `research/workspace-implementation-architecture-2026-10-08`.
 **Baseline:** freshly fetched `main = origin/main = 08243e5b3e455ad26ae1cd142763f4d147269bc6`.
 **Predecessor:** [main design cycle](2026-10-07_investigation-workspace-and-investigator-interface-design_lbd-cycle.md), a separate responsibility whose D/E review remains open.
@@ -9,14 +9,14 @@
 
 ```text
 A0 — DONE: baseline, governance, native/consumer source and research evidence reconciled.
-A1 — DONE proportionately: Ali accepted grounding for progression and authorized planned experiment 4.
-A2 — DONE for experiment 4: native capture, consumer/parity bridge and codec proof model presented;
-     learner mastery is not inferred. No repeated gate for this continuous-context step.
-B — DONE for experiment 4: one normal offline producer path and one-way consumer migration proof.
-Verification gate — GREEN: 121 experiment / 115 focused product tests, two equal backend trials,
-     exact source/checkpoint/report pins and scoped static/document checks.
-D — CURRENT for experiment 4 result review; prior progression accepted, no learner mastery inferred.
-E — PENDING: research gaps/closure; stop after experiment-4 result for review, no production cutover.
+A1 — DONE proportionately: prior progression accepted; Ali authorized the proposed final consolidation.
+A2 — DONE for consolidation: cross-experiment recommendation, adoption gaps and main handoff scoped;
+     no new experiment or production authorization, no inferred learner mastery.
+B — DONE: four scoped experiments plus known-public grounding; consolidated recommendation prepared.
+Verification gate — GREEN for scoped documentation/evidence alignment. Recorded experiment-4 proof
+     remains 121 experiment / 115 focused product tests; executable files are unchanged, not rerun.
+D — CURRENT: consolidated result/proof boundaries prepared for review; no learner mastery inferred.
+E — PREPARED, review pending: explicit debt/owners and next decision; no automatic experiment 5.
 C — CONTINUOUS: retain meaningful reconciliation, decisions, evidence and handoff here.
 ```
 
@@ -278,3 +278,36 @@ Fresh final proof: **9 migration + 112 inherited = 121 experiment tests PASS**, 
 **Recommendation for main:** prefer direct producer/consumer cutover after explicit production design/build activation. The one-way legacy bridge is experiment parity machinery with a named synthesis/report caller reason, explicit lifecycle/material-input loss and removal trigger; no external compatibility obligation is established. Do not copy consumers' semantic rules or adopt the research capture hooks, all-root dependency graph, typed cache or fixed legacy-field schema as production architecture. Cold native hydration is a demonstrated unsupported migration boundary, requiring an admitted native codec/capture method rather than tag import or automatic replay. Broader native families, authority/relevance/invalidation, schema evolution, retention/cadence, power-loss/physical-write limits, deterministic replay and rollback/retirement conditions remain explicit.
 
 **D/E boundary:** review why a successful legacy parity projection can still lose canonical recovery obligations, why matching tagged bytes is insufficient for cold native trust, and why true acquisition/domain calls must be distinguished from repeated consumer synthesis attempts in a proof. No ownership/mastery is inferred from approval or green tests. E research closure/architecture adoption decisions remain pending review; do not silently start production migration, broaden capture/codec work, change main acceptance, or message H1. Publish this coherent authorized result, preserving the unrelated broad-audit file. There is no automatically activated experiment 5.
+
+## Cross-experiment consolidation and main handoff (2026-10-09)
+
+### Authorization, reconciliation and bounded method
+
+Ali asked whether further branch work was needed. Recommendation: consolidate the four experiments and prioritize adoption gaps before deciding whether a narrowly scoped cold-native-codec proof earns further research. Ali's “go on then” activates that consolidation/handoff only. Fresh fetch again confirms `origin/main = 08243e5b3e455ad26ae1cd142763f4d147269bc6`; research HEAD at entry is `826596fb9f56d004c95c1d675b3dbc97bae1eb0d`. No changed main contract or native source requires rebase. The unrelated broad-audit record remains untouched.
+
+Continue this single cycle. Continuous-context adjustment under the Smart Situational Override: the concrete scope/proof distinction was already presented and explicitly approved, so repeat A1/A2 stops would interrupt the requested consolidation without new learning value. Compress those gates for documentation only; retain final result review, unassessed learner ownership and all implementation/adoption stop lines. No new evidence system, prototype, ADR or production plan is created.
+
+Question: do the accumulated results support an implementation direction, and which remaining uncertainty merits additional research rather than policy/design ownership? Read the experiment evidence and negative controls against the existing plan and unchanged native consumers. Add the [dated cross-experiment synthesis](../plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md#cross-experiment-recommendation-for-main--evidence-dated-2026-10-09) to that plan; leave earlier receipts and reasoning intact. No new runtime test is needed for documentation-only changes. Validation will check links/fences, evidence/source pins, selective governance, owner boundaries and focused diff hygiene; existing runtime results will be explicitly historical.
+
+UP-SKILL:upgradepilot-planning-design
+UP-SKILL:upgradepilot-working-memory
+
+### Reasoning carried forward and qualified
+
+Immutable successors, provisional SQLite WAL/FULL, typed storage-independent interactions and direct consumer cutover remain coherent recommendations. No evidence earns hybrid storage, event machinery, a scheduler/service or a broader Investigator comparison. The E2 actual rollback comparator was DELETE/EXTRA; do not inaccurately relabel it FULL during synthesis. File restore advantage, historical-identity repair, held readers, backup hazards and absent physical-write counters remain part of the recommendation, not discarded losing-option history.
+
+Three cross-experiment qualifications matter. First, the known public PR's two large lockfiles changed the source-size assumption without providing a new storage benchmark. Second, corrected exact-target tokens separate mutable descriptive metadata from historical target identity; adaptive target following would need another lineage. Third, public checkpoint-contained input re-execution and E4's cold native consumer refusal establish different capabilities. A replay recipe cannot silently stand in for typed recovery. Successful native/report parity depends on byte-matched live values, so the missing native codec is now a demonstrated adoption gap rather than merely an early caveat.
+
+Reject requiring every hypothetical native family or future adaptive capability before any production slice: main must admit the useful supported scope, and that scope needs complete capture/native/consumer proof plus explicit exclusions. This clarifies the plan's original broad coverage wording without reducing the product's accepted responsibility. Research remains development evidence; supplied meanings, unsupported evaluator/adequacy outcomes, overapproximate roots and capture hooks remain disclosed.
+
+### Handoff and review boundary
+
+The plan's compact matrix links each recommendation to discriminating evidence and uncertainty. Its adoption ledger assigns method/semantic acceptance, loss/retention/privacy policy and supported scope to main, while native capture/codec, schema handling and direct consumer/rollback proof belong to admitted implementation design/build. Power loss, physical write amplification, provider trust, broader family completeness and deterministic replay are unproved; this handoff does not turn them into promises or automatically demand more benchmarking.
+
+The strongest candidate follow-up is fresh-process typed reconstruction for the already exercised CI/runtime and Python-support families, without live cache or acquisition/evaluator reruns, with explicit schema/type mapping and missing/unsupported-material refusal. It is a proposed discriminating spike only. Main can instead resolve the method/proof in production design/build. Do not begin that spike, migrate product, merge main or message H1 under this increment.
+
+D review focus: explain why coherent bytes and report parity still do not establish cold native recovery; distinguish a main-owned policy choice from missing implementation proof; assess why the native-codec gap merits priority over another storage comparison. These topics are presented, not assessed as mastered. E has a prepared debt/ownership handoff; final review and research-cycle closure remain pending, separately from main acceptance/adoption.
+
+### Consolidation verification
+
+Fresh scoped checks verify linked local paths/anchors and fenced blocks, all **28 experiment-source pins** across the five final result packages, E4 checkpoint/report digests, selective governance (internal links, normative IDs, audit lifecycle and state leaks) and clean diff formatting. Native product source/tests, all executable research code, accepted specification/ADR owners and dependencies have zero changes from the verified E4 increment; main's product/contract surface is unchanged. The prior 121/115 test receipt remains historical, not a fresh rerun. No benchmark, provider/model run or new recovery proof is claimed. Full governance doctor is unrerun, retaining the previously established examples-marker debt. Only this plan, cycle and branch-local live owner are edited; publish the coherent documentation handoff under the standing cadence, preserving the unrelated untracked file. Stop for final review before activating further research or production adoption.
