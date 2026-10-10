@@ -72,6 +72,27 @@ Before default full-path cutover, account for every legacy field and material pr
 
 ## 4. Ordered implementation responsibilities
 
+### Technical stages and cycle boundaries
+
+Keep these six responsibilities as implementation/proof stages. A stage is not a prescribed full Learning-by-Doing cycle; one coherent cycle may cover several connected stages, with explicit internal verification and learning stops.
+
+| Stage | Implementation / proof responsibility |
+| --- | --- |
+| 1 | Concrete capture/consumer contracts and supported native capture/cold reconstruction. |
+| 2 | Immutable Workspace revisions and coherent durable checkpoint publication. |
+| 3 | Lifecycle, host admission and material-basis validity integration. |
+| 4 | Complete reconstruction/projection coverage across currently admitted native families. |
+| 5 | Direct synthesis/report consumer migration with retained historical conclusions. |
+| 6 | User-facing offline recovery/explicit continuation and final obsolete-plumbing retirement. |
+
+The Workspace native-foundation cycle groups stages 1 and 2: retained native meaning and its coherent durable publication form one responsibility. Its internal stops are:
+
+1. Verify supported native capture and fresh-process reconstruction, including missing/corrupt/wrong-target/unsupported-version refusals; review the actual result and learner gaps before durable publication work.
+2. Verify immutable publication, interruption/conflict/storage-refusal and validated-backup behavior; review the actual result and claim limits before the combined recovery proof.
+3. Prove fresh-process native reconstruction from a declared durable checkpoint, then complete evidence-backed D/E for the combined responsibility.
+
+These stops preserve focused proof and learning inside the same cycle and record. They do not close a separate full cycle per stage. Reassess subsequent cycle boundaries from the resulting engineering evidence, unresolved responsibilities, proof cost and learner ownership before semantic integration or product cutover. Later stage ordering may overlap where interface proof requires it; default cutover still requires the admitted family/consumer closure below. [MEMORY.md](../MEMORY.md) owns actual selection and phase position.
+
 ### Define the concrete capture and consumer contracts
 
 Resolve the selected codec family/version matrix and native-input closure against the ledger. Define the minimal Workspace identity/revision/record/basis and projection interfaces with explicit supported outcomes. Trace all 24 current legacy fields and hidden material inputs; classify retain/move/remove by admitted responsibility rather than constructor compatibility. Apply ADR-0013's accepted cadence/retention/backup/trust method; reconcile any material proposed departure at its owner before code depends on it.
