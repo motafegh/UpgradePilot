@@ -339,7 +339,19 @@ class CheckpointStore:
                     "SELECT revision_id FROM heads WHERE lineage_id=?",
                     (revision.lineage_id,),
                 ).fetchone()
-                actual = head[0] if head else None
+                has_revisions = (
+                    connection.execute(
+                        "SELECT 1 FROM revisions WHERE lineage_id=?",
+                        (revision.lineage_id,),
+                    ).fetchone()
+                    is not None
+                )
+                history = (
+                    self._history(connection, revision.lineage_id)
+                    if head is not None or has_revisions
+                    else ()
+                )
+                actual = history[-1] if history else None
                 if actual != revision.predecessor_id:
                     raise PublicationConflict(revision.predecessor_id, actual)
                 if connection.execute(
@@ -350,16 +362,10 @@ class CheckpointStore:
                         "immutable_identity_conflict",
                         "Revision identity is already published.",
                     )
-                if (
-                    actual is not None
-                    or connection.execute(
-                        "SELECT 1 FROM revisions WHERE lineage_id=?",
-                        (revision.lineage_id,),
-                    ).fetchone()
-                ):
+                if history:
                     # A successor extends retained history, not just an intact head.
                     # Inspect encoded closure only; unrelated lineages remain unaffected.
-                    for retained_id in self._history(connection, revision.lineage_id):
+                    for retained_id in history:
                         self._read(
                             connection,
                             revision.lineage_id,
