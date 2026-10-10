@@ -112,6 +112,17 @@ def _decode(records: dict[str, CapturedNativeRecord], family: str) -> object:
     empty = () if family == "ci_inputs" else None
     if family == "target_python":
         empty = {"source": None, "result": None}
+        # This family records acquisition and interpretation together. A selected but
+        # unexecuted read is not_evaluated; recorded requires its source and typed result,
+        # including unavailable-source/problem variants. Other families may record None.
+        target = cast(dict[str, object], value)
+        if record.outcome == "recorded" and (
+            target["source"] is None or target["result"] is None
+        ):
+            raise NativeReconstructionError(
+                "missing_native_material",
+                "Recorded target-Python acquisition lacks its source or result.",
+            )
     if record.outcome == "not_evaluated" and value != empty:
         raise _invalid("A not-evaluated record contains an evaluated value.")
     return value

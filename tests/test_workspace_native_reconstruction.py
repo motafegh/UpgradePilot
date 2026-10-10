@@ -513,6 +513,86 @@ class WorkspaceNativeReconstructionTests(unittest.TestCase):
                     },
                 )
 
+    def _pending_selected_acquisition(self, *, python_variant="outside"):
+        _, _, boundary, expected_ci, expected_python = captured_case(
+            python_variant=python_variant
+        )
+        self.assertIsNotNone(expected_python.investigation_selection)
+        self.assertIsNotNone(expected_python.target_python_source)
+        self.assertIsNotNone(expected_python.target_python_result)
+        # Retain the actual pre-assessment/selection, with later processing explicitly
+        # unexecuted. This tests future intermediate-state decoding, not publication.
+        for family, value in (
+            ("target_python", {"source": None, "result": None}),
+            ("target_relevance", None),
+            ("python_support_post_assessment", None),
+        ):
+            payload = encode_native_value(family, value)
+            boundary = altered_record(
+                boundary,
+                family,
+                payload=payload,
+                payload_digest=sha256(payload).hexdigest(),
+                outcome="not_evaluated",
+                producer_method=None,
+                retention_gaps=(),
+            )
+        pending_python = replace(
+            expected_python,
+            target_python_source=None,
+            target_python_result=None,
+            target_python_relevance_result=None,
+            impact_result=None,
+        )
+        return boundary, expected_ci, pending_python
+
+    def test_recorded_selected_acquisition_cannot_disappear_with_valid_digest(self):
+        for variant in ("outside", "unavailable"):
+            with self.subTest(original_source=variant):
+                boundary, expected_ci, _ = self._pending_selected_acquisition(
+                    python_variant=variant
+                )
+                # Contents/digests/reference closure remain valid. Claiming this empty
+                # acquisition was recorded is the sole contradicted outcome relationship.
+                recorded_empty = altered_record(
+                    boundary,
+                    "target_python",
+                    outcome="recorded",
+                    producer_method="target.python.interpret_target_python_declaration",
+                    retention_gaps=("producer_version_unavailable",),
+                )
+                self.assertEqual(
+                    self._cold_reconstruction(
+                        recorded_empty, "missing_native_material"
+                    ),
+                    {
+                        "ci": independent_native_values(expected_ci),
+                        "refusal": "missing_native_material",
+                        "blocked_controls": 4,
+                    },
+                )
+
+    def test_selected_not_evaluated_acquisition_remains_explicit_in_cold_projection(
+        self,
+    ):
+        boundary, expected_ci, pending_python = self._pending_selected_acquisition()
+        self.assertEqual(
+            self._cold_reconstruction(boundary),
+            {
+                "ci": independent_native_values(expected_ci),
+                "python": independent_native_values(pending_python),
+                "blocked_controls": 4,
+            },
+        )
+        restored = read_native_boundary(
+            encode_native_boundary(boundary), expected_target=boundary.target
+        )
+        record = next(
+            item for item in restored.records if item.family == "target_python"
+        )
+        self.assertEqual(record.outcome, "not_evaluated")
+        self.assertIsNone(record.producer_method)
+
     def test_problem_unresolved_not_applicable_and_not_evaluated_variants(self):
         for command, python, dependency_problem in (
             ("dry_run", "overlap", False),

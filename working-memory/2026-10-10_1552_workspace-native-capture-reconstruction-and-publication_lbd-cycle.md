@@ -1,7 +1,7 @@
 # Workspace native capture, reconstruction and durable publication — LbD cycle
 
 **Initialized:** 2026-10-10 15:52 Asia/Tehran.
-**Session status:** ACTIVE in B at the first internal result/learning review after repair; native reconstruction verified, durable publication pending.
+**Session status:** ACTIVE in B back at the first internal learning stop after second-review repair; tested native gate GREEN, durable publication held per Ali's instruction.
 **Primary operation:** Build/Implement; A0 initialization includes proportional execution-plan reconciliation.
 **Previous cycle:** [closed implementation/usefulness planning](2026-10-09_2045_workspace-implementation-and-usefulness-planning_lbd-cycle.md).
 **Owners:** [live position](../MEMORY.md), [implementation/migration plan](../plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_AND_MIGRATION_PLAN.md), [ADR-0012](../docs/architecture/ADR-0012-canonical-investigation-workspace-and-recovery-boundary.md), [ADR-0013](../docs/architecture/ADR-0013-versioned-native-reconstruction-and-workspace-checkpoint-storage.md), [Core §6.4](../docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md#64-canonical-investigation-recovery-and-explicit-continuation).
@@ -14,8 +14,8 @@ Cycle — Workspace native capture, reconstruction and durable publication
 A0 — DONE: accepted owners/current source/research reconciled; single record and living map created; stage/cycle boundary corrected.
 A1 — DONE: starting-state onboarding delivered; Ali had a meaningful challenge opportunity and replied "Good and we can continue" on October 10.
 A2 — DONE: Ali explicitly cleared the pre-B understanding gate and requested B on October 10; the deferred reasoning response is not independently demonstrated mastery.
-B — CURRENT: review reproduced and repaired the selected/acquired-path binding and JSON resource bounds; first internal result/learning review before durable publication.
-Verification gate — PENDING for the combined cycle: repaired native reconstruction internal gate GREEN for exercised scope; SQLite publication/backup/interruption and combined durable-checkpoint proof not implemented/run.
+B — CURRENT: second review's recorded-empty acquisition repaired and verified while preserving explicit not-evaluated intermediate decoding; back at the internal learning stop.
+Verification gate — PENDING for the combined cycle: second-review native engineering gate GREEN for exercised scope; SQLite publication/backup/interruption and combined durable-checkpoint proof not implemented/run.
 D — PENDING: combined result/evidence-backed ownership after sufficient verification.
 E — PENDING: gap repair/defer decision, closure and evidence-based next-boundary handoff.
 C — CONTINUOUS: meaningful reconciliation, learning, implementation/proof and handoff preserved here.
@@ -158,3 +158,19 @@ After repair: 58 focused tests PASS; 759/759 checkout product tests PASS; rebuil
 The native internal engineering gate is restored to GREEN for the exercised supported scope. Ali's external-assisted review materially improved the proof; this does not independently establish learner ownership of codec/semantic-version recovery reasoning. The next learning point is that individually valid records and valid digests do not prove the relationship between the requested material and acquired material. Durable publication remains next within this same cycle after the internal review; D/E remain pending for the combined result.
 
 Procedural provenance for the challenge: `UP-SKILL:upgradepilot-repository-audit`, with repair under the already active `UP-SKILL:upgradepilot-build-implement`, `UP-SKILL:upgradepilot-learning-by-doing` and `UP-SKILL:upgradepilot-working-memory`.
+
+## Recorded acquisition versus not-evaluated intermediate — second review, 2026-10-10
+
+Ali explicitly requested review/repair of recorded-empty target acquisition, valid-digest refusal proof, preservation of future legitimate not-evaluated intermediate revisions, focused/justified broader regression and return to the internal learning stop. Durable publication is explicitly excluded this turn. This remains diagnosis/repair inside the same authorized B cycle, with no new cycle, storage implementation or architecture decision.
+
+At `81cbd35d`, a fresh-process negative control failed for both available and unavailable original source variants: retain the actual pre-assessment/selection, clear later acquisition/relevance/post values consistently and recompute their digests, then mark the empty target acquisition recorded with valid recorded-method gap metadata. Boundary inspection and reconstruction accepted it. The companion explicit not-evaluated case passed. The preceding guard only checked nonempty source/path binding and allowed recorded-empty values for this family.
+
+Producer trace confirms `selection → acquisition → interpretation → capture_target(source, result) → complete`; even unavailable acquisition returns typed source and interpretation problem. Thus recorded `target_python` requires both fields under this combined family's current contract. Validate that outcome/content relationship in native envelope decoding, while leaving other families' legitimate recorded-empty outcomes and the explicit not-evaluated empty target state intact. The intermediate fixture proves decoder semantics, not an implemented revision/publication mechanism.
+
+Repair: `_decode` refuses `missing_native_material` if a recorded `target_python` lacks its source or typed result. This family-specific check closes empty and partial recorded acquisition without rejecting an explicit not-evaluated empty pair or broadly forbidding legitimate recorded `None` in other families. No selection/provider/interpreter/evaluator is executed during recovery. Refusal is a missing retained-material outcome, not an instruction to re-acquire it.
+
+Proof after repair: 60 focused native/CI/impact/orchestration tests PASS, including the new recorded-empty cold refusal and selected-not-evaluated cold acceptance controls. The latter retains the real pre-assessment/selection and verifies explicit outcome inspection; it makes no claim to produce/publish intermediate revisions. Both negative original-source variants retain valid digests/reference closure and unaffected CI reconstruction. Four actual forbidden-entry controls remain active in every child, with network access blocked. Current completed normal-capture/parity cases continue passing.
+
+Because envelope decoding is shared across native projections, full product regression and fresh-installed isolation are justified: 761/761 checkout PASS and rebuilt installed 761/761 PASS outside the checkout, with all 85 installed/source Python-file hashes matching. Installed pip check and both CLI help entry points PASS; two changed Python files pass Ruff lint/format. Three relevant owner/cycle documents retain 79 valid local links including seven anchors, balanced fences and truthful phase/scope status. All nine governance functions retain eight PASS plus the inherited `examples/` marker mismatch. No accepted specification/ADR, dependency, plan method or unrelated work changes.
+
+Return to the internal learning stop as instructed. The tested native engineering gate is GREEN; the internal stop is not closed and durable publication has not started. The concrete learning distinction is between an unexecuted selected request and a recorded completed acquisition whose retained result is unavailable: the former uses explicit not-evaluated/empty material; the latter requires typed source/problem evidence. Passing decoder tests neither creates intermediate publication nor grants continuation authority. The combined cycle Verification/D/E remain pending.
