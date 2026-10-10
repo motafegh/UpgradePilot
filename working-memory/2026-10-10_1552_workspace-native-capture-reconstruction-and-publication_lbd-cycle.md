@@ -267,7 +267,7 @@ Ali explicitly selected formal Phase D for the evidenced native capture/reconstr
 
 ### D learning route and checklist
 
-- [ ] **D1 — Why native recovery exists and where it stops.** Build the mental model from normal investigation → retained native material → fresh-process reconstruction. Distinguish recovery from replay, fresh investigation and continuation/current-authority validation.
+- [x] **D1 — Why native recovery exists and where it stops.** Build the mental model from normal investigation → retained native material → fresh-process reconstruction. Distinguish recovery from replay, fresh investigation and continuation/current-authority validation.
 - [ ] **D2 — Actual source/control flow.** Trace `investigate_public_pull_request` → `NativeInvestigationCapture` → family codecs/layouts → `CapturedNativeBoundary` → bounded read/decode → CI/Python projections. Understand which owner produces meaning and which layer only retains/composes it.
 - [ ] **D3 — The 11 native families and 18 declared edges.** Understand what each root represents, why the graph has those dependencies and why record references alone are insufficient to prove decoded-value relationships.
 - [ ] **D4 — Trust vocabulary: integrity, coherence, authenticity/admission and freshness.** Explain what digests, exact target SHA, host-owned capture, binding checks and later continuation each prove—and what they do not prove.
@@ -294,6 +294,7 @@ Ali explicitly selected formal Phase D for the evidenced native capture/reconstr
 
 ### Initial D ownership findings
 
+- **D1 ownership established:** Ali correctly reasoned that recovery must return the historical result `R` rather than execute a newer evaluator merely because current code changed. He also distinguished unsupported old codec/schema/semantic support as an explicit recovery refusal rather than a reason to reinterpret history, and correctly stated that a recovered result bound to one exact base/head must not be silently used for another head. Current recovery refuses target rebinding; any future cross-target continuation requires a separate explicit validity decision.
 - Ali already challenged the early explanation that "somebody changes a checkpoint" was the primary threat model and correctly separated capture/storage root-cause ownership from recovery refusal responsibility. This is meaningful early evidence for D4/D5 but does not complete them.
 - Ali independently proposed an intermediate/shared trusted representation idea to avoid duplicated validation across layers. This is meaningful architecture ownership evidence for D14, but the correct boundary between generic Workspace composition and domain-owned relationship meaning still needs explicit review against the implemented ledger.
 - The earlier A2 unsupported-codec reasoning was only partially demonstrated; D6 remains intentionally open.
