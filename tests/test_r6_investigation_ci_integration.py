@@ -17,7 +17,7 @@ from upgradepilot.dependency.change import (
 )
 from upgradepilot.dependency.environment import UvLockDependencyContext
 from upgradepilot.github.actions import WorkflowJob, WorkflowRun
-from upgradepilot.github.pull_request import PullRequestIdentity
+from upgradepilot.github.pull_request import ChangedFile, PullRequestIdentity
 from upgradepilot.github.repository import RepositoryTextFile
 from upgradepilot.investigation import investigate_public_pull_request
 from upgradepilot.pypi.release import PackageReleaseProblem
@@ -128,7 +128,9 @@ class R6InvestigationCIIntegrationTests(unittest.TestCase):
         support_drop_evaluator = Mock()
 
         pull_client.get_pull_request.return_value = identity
-        pull_client.get_changed_files.return_value = ()
+        pull_client.get_changed_files.return_value = (
+            ChangedFile("uv.lock", "modified", 1, 1, 2, None),
+        )
 
         run = WorkflowRun(
             run_id=29127613659,
