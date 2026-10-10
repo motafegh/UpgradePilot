@@ -195,12 +195,23 @@ class CheckpointStore:
     def create(cls, directory: Path, *, busy_timeout_ms: int = 1000) -> CheckpointStore:
         """Create a new host store; never initialize or replace an existing database."""
         store = cls(Path(directory), read_only=False, busy_timeout_ms=busy_timeout_ms)
+        reserved = False
+        initialized = False
         try:
             store.directory = _owned_directory(store.directory, create=True)
             store._path = store.directory / _DATABASE_NAME
+            if any(
+                os.path.lexists(store.directory / (_DATABASE_NAME + suffix))
+                for suffix in ("-wal", "-shm")
+            ):
+                raise _refuse(
+                    "store_already_exists",
+                    "Existing SQLite sidecars cannot be replaced.",
+                )
             descriptor = os.open(
                 store._path, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600
             )
+            reserved = True
             os.close(descriptor)
             with store._connection(verify=False) as connection:
                 connection.execute("BEGIN IMMEDIATE")
@@ -210,12 +221,21 @@ class CheckpointStore:
                 connection.execute(f"PRAGMA user_version={_SCHEMA_VERSION}")
                 connection.execute("COMMIT")
                 _verify_schema(connection)
+            initialized = True
         except FileExistsError as error:
             raise _refuse(
                 "store_already_exists", "Existing stores require explicit open."
             ) from error
         except (sqlite3.Error, OSError) as error:
             raise _storage_error(error) from error
+        finally:
+            # The connection has closed first. Never remove the directory, user files or
+            # a preexisting store; admission above excludes preexisting SQLite sidecars.
+            if reserved and not initialized:
+                for suffix in ("", "-wal", "-shm"):
+                    (store.directory / (_DATABASE_NAME + suffix)).unlink(
+                        missing_ok=True
+                    )
         return store
 
     @classmethod
@@ -284,6 +304,19 @@ class CheckpointStore:
             if connection is not None:
                 connection.close()
 
+    @staticmethod
+    def _validate_staged_revision(revision: CheckpointRevision) -> str:
+        """Validate supplied identity/material before publication or absence certainty."""
+        try:
+            digest = revision.digest()
+        except NativeReconstructionError as error:
+            raise _refuse("invalid_revision", str(error)) from error
+        if not 1 <= len(revision.boundary.records) <= _MAX_RECORDS:
+            raise _refuse(
+                "storage_resource_limit", "Revision must have 1..4096 records."
+            )
+        return digest
+
     def publish(self, revision: CheckpointRevision) -> PublicationReceipt:
         """Commit a successor once. Acknowledgement follows commit, never precedes it.
 
@@ -293,18 +326,11 @@ class CheckpointStore:
         """
         if self._read_only:
             raise _refuse("storage_read_only", "Inspection store cannot publish.")
+        digest = self._validate_staged_revision(revision)
         try:
-            digest = revision.digest()
             encoded = parse_json(encode_native_boundary(revision.boundary))
         except NativeReconstructionError as error:
             raise _refuse("invalid_revision", str(error)) from error
-        if (
-            not revision.boundary.records
-            or len(revision.boundary.records) > _MAX_RECORDS
-        ):
-            raise _refuse(
-                "storage_resource_limit", "Revision must have 1..4096 records."
-            )
         commit_attempted = False
         try:
             with self._connection() as connection:
@@ -325,13 +351,15 @@ class CheckpointStore:
                         "Revision identity is already published.",
                     )
                 if actual is not None:
-                    self._history(connection, revision.lineage_id)
-                    self._read(
-                        connection,
-                        revision.lineage_id,
-                        actual,
-                        revision.boundary.target,
-                    )
+                    # A successor extends retained history, not just an intact head.
+                    # Inspect encoded closure only; unrelated lineages remain unaffected.
+                    for retained_id in self._history(connection, revision.lineage_id):
+                        self._read(
+                            connection,
+                            revision.lineage_id,
+                            retained_id,
+                            revision.boundary.target,
+                        )
                 elif connection.execute(
                     "SELECT 1 FROM revisions WHERE lineage_id=?", (revision.lineage_id,)
                 ).fetchone():
@@ -672,18 +700,39 @@ class CheckpointStore:
     def inspect_publication(
         self, revision: CheckpointRevision
     ) -> Literal["published", "not_published"]:
-        """Return published/not_published only after identity inspection; errors remain unknown."""
+        """Inspect staged identity in a coherent lineage; errors remain unknown.
+
+        Absence also requires an intact current head. Selected published identities remain
+        inspectable where unrelated damaged material blocks further publication; neither
+        result certifies every retained historical revision.
+        """
+        self._validate_staged_revision(revision)
         with self._connection() as connection:
             connection.execute("BEGIN")
-            if connection.execute(
-                "SELECT 1 FROM heads WHERE lineage_id=?", (revision.lineage_id,)
-            ).fetchone():
+            head = connection.execute(
+                "SELECT revision_id FROM heads WHERE lineage_id=?",
+                (revision.lineage_id,),
+            ).fetchone()
+            if head is not None:
                 self._history(connection, revision.lineage_id)
+            elif connection.execute(
+                "SELECT 1 FROM revisions WHERE lineage_id=?", (revision.lineage_id,)
+            ).fetchone():
+                raise _refuse(
+                    "invalid_checkpoint_storage", "Lineage has revisions but no head."
+                )
             found = connection.execute(
                 "SELECT 1 FROM revisions WHERE lineage_id=? AND revision_id=?",
                 (revision.lineage_id, revision.revision_id),
             ).fetchone()
             if found is None:
+                if head is not None:
+                    self._read(
+                        connection,
+                        revision.lineage_id,
+                        head[0],
+                        revision.boundary.target,
+                    )
                 return "not_published"
             retained = self._read(
                 connection,
@@ -691,7 +740,6 @@ class CheckpointStore:
                 revision.revision_id,
                 revision.boundary.target,
             )
-            self._history(connection, revision.lineage_id)
             if retained != revision:
                 raise _refuse(
                     "immutable_identity_conflict",

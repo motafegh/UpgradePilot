@@ -120,10 +120,20 @@ def guard(frame, event, arg):
 target = ExactInvestigationTarget(**json.loads(sys.argv[2]))
 sys.setprofile(guard)
 with patch.object(socket.socket, 'connect', side_effect=AssertionError('network forbidden')):
-    if len(sys.argv) == 5:
+    if len(sys.argv) in (5, 6):
         try:
-            store = CheckpointStore.open(Path(sys.argv[1]), read_only=True)
-            store.read_revision('main', 'second', expected_target=target)
+            operation = sys.argv[5] if len(sys.argv) == 6 else 'read'
+            store = CheckpointStore.open(Path(sys.argv[1]), read_only=operation != 'publish')
+            if operation == 'read':
+                store.read_revision('main', 'second', expected_target=target)
+            else:
+                from upgradepilot.workspace.checkpoint_revision import CheckpointRevision
+                from upgradepilot.workspace.native_boundary import read_native_boundary
+                boundary = read_native_boundary(Path(sys.argv[3]).read_bytes(), expected_target=target)
+                revision = CheckpointRevision('main', 'third', 'second', boundary)
+                if operation == 'inspect': store.inspect_publication(revision)
+                elif operation == 'publish': store.publish(revision)
+                else: raise AssertionError('unknown storage control')
         except CheckpointStorageError as error:
             assert error.reason == sys.argv[4], error
             result = {'refusal': error.reason}
@@ -294,6 +304,299 @@ class WorkspaceCheckpointStoreTests(unittest.TestCase):
             "not_published",
         )
         self.assertEqual(self._read("second").revision, self._next())
+
+    def test_absent_publication_requires_coherent_lineage(self):
+        self.assertEqual(self.store.inspect_publication(self.initial), "not_published")
+        self.store.publish(self.initial)
+        self.store.publish(self._next())
+        absent = self._next(revision_id="third", predecessor="second")
+        self.assertEqual(self.store.inspect_publication(absent), "not_published")
+        variants = (
+            ("heads", "DELETE FROM heads"),
+            ("heads", "UPDATE heads SET revision_id='missing'"),
+            (
+                "revisions",
+                "UPDATE revisions SET predecessor_id='second' WHERE revision_id='initial'",
+            ),
+        )
+        for index, (table, sql) in enumerate(variants):
+            with self.subTest(damage=sql):
+                directory = self.root / ("absent-lineage-" + str(index))
+                self.store.backup(directory)
+                original = self.store
+                self.store = CheckpointStore.open(directory)
+                try:
+                    self._damage(table, sql)
+                    self._assert_reason(
+                        "invalid_checkpoint_storage",
+                        lambda: self.store.inspect_publication(absent),
+                    )
+                finally:
+                    self.store = original
+
+    def test_absent_publication_validates_staged_revision(self):
+        damaged = replace(
+            self.boundary,
+            records=(replace(self.boundary.records[0], payload_digest="wrong"),)
+            + self.boundary.records[1:],
+        )
+        variants = (
+            (replace(self.initial, lineage_id=""), "invalid_revision"),
+            (replace(self.initial, revision_id=""), "invalid_revision"),
+            (replace(self.initial, predecessor_id="initial"), "invalid_revision"),
+            (replace(self.initial, boundary=damaged), "invalid_revision"),
+            (
+                replace(self.initial, boundary=replace(self.boundary, records=())),
+                "storage_resource_limit",
+            ),
+        )
+        for revision, reason in variants:
+            with self.subTest(reason=reason, revision_id=revision.revision_id):
+                self._assert_reason(
+                    reason, lambda: self.store.inspect_publication(revision)
+                )
+        self.assertEqual(self.store.inspect_publication(self.initial), "not_published")
+
+    def test_absent_publication_refuses_invalid_head_material(self):
+        self.store.publish(self.initial)
+        self.store.publish(self._next())
+        absent = self._next(revision_id="third", predecessor="second")
+        variants = (
+            (
+                "revisions",
+                "UPDATE revisions SET digest='damaged-head' WHERE revision_id='second'",
+                (),
+            ),
+            (
+                "payloads",
+                "UPDATE payloads SET body=? WHERE digest=?",
+                (b"damaged-head-material", self.boundary.records[0].payload_digest),
+            ),
+        )
+        for index, (table, sql, values) in enumerate(variants):
+            with self.subTest(damage=table):
+                directory = self.root / ("absent-head-material-" + str(index))
+                self.store.backup(directory)
+                original = self.store
+                self.store = CheckpointStore.open(directory)
+                try:
+                    self._damage(table, sql, values)
+                    if table == "revisions":
+                        # A coherent selected A remains inspectable despite B's bad digest.
+                        self.assertEqual(
+                            self.store.inspect_publication(self.initial), "published"
+                        )
+                    self._assert_reason(
+                        "invalid_checkpoint_storage",
+                        lambda: self.store.inspect_publication(absent),
+                    )
+                finally:
+                    self.store = original
+
+    def test_successor_refuses_corrupt_retained_history_with_intact_head(self):
+        # Distinct IDs AND payloads isolate A's material from B's shared storage closure.
+        fresh = self._fresh_ids()
+        records = []
+        for record in fresh.records:
+            body = record.payload + b" "
+            records.append(
+                replace(record, payload=body, payload_digest=sha256(body).hexdigest())
+            )
+        second = self._next(boundary=replace(fresh, records=tuple(records)))
+        third = replace(second, revision_id="third", predecessor_id="second")
+        self.store.publish(self.initial)
+        self.store.publish(second)
+        variants = (
+            (
+                "revisions",
+                "UPDATE revisions SET digest='damaged' WHERE revision_id='initial'",
+                (),
+            ),
+            (
+                "payloads",
+                "UPDATE payloads SET body=? WHERE digest=?",
+                (b"damaged", self.boundary.records[0].payload_digest),
+            ),
+            (
+                "records",
+                "UPDATE records SET metadata=? WHERE record_id=?",
+                (b"{}", self.boundary.records[0].record_id),
+            ),
+            (
+                "record_inputs",
+                "DELETE FROM record_inputs WHERE record_id=?",
+                (self.boundary.records[1].record_id,),
+            ),
+            (
+                "revision_members",
+                "DELETE FROM revision_members WHERE revision_id='initial' AND position=0",
+                (),
+            ),
+        )
+        for index, (table, sql, values) in enumerate(variants):
+            with self.subTest(damage=table):
+                directory = self.root / ("historical-damage-" + str(index))
+                self.store.backup(directory)
+                original = self.store
+                self.store = CheckpointStore.open(directory)
+                try:
+                    self._damage(table, sql, values)
+                    self.assertEqual(self._read("second").revision, second)
+                    self.assertEqual(
+                        self.store.inspect_publication(second), "published"
+                    )
+                    self._assert_reason("invalid_checkpoint_storage", self._read)
+                    with self._database() as db:
+                        before = tuple(
+                            db.execute(f"SELECT count(*) FROM {name}").fetchone()[0]
+                            for name in (
+                                "revisions",
+                                "records",
+                                "payloads",
+                                "revision_members",
+                                "record_inputs",
+                            )
+                        )
+                    self._assert_reason(
+                        "invalid_checkpoint_storage", lambda: self.store.publish(third)
+                    )
+                    self.assertEqual(self._read("second").head_revision_id, "second")
+                    self.assertEqual(
+                        self.store.inspect_publication(third), "not_published"
+                    )
+                    with self._database() as db:
+                        after = tuple(
+                            db.execute(f"SELECT count(*) FROM {name}").fetchone()[0]
+                            for name in (
+                                "revisions",
+                                "records",
+                                "payloads",
+                                "revision_members",
+                                "record_inputs",
+                            )
+                        )
+                    self.assertEqual(after, before)
+                    # Refusal is scoped to the lineage being extended, not unrelated history.
+                    other = replace(self.initial, lineage_id="unaffected")
+                    self.store.publish(other)
+                    self.assertEqual(self.store.inspect_publication(other), "published")
+                finally:
+                    self.store = original
+
+    def test_failed_create_sqlite_full_cleans_only_exclusively_created_files(self):
+        directory = self.root / "failed-create"
+        directory.mkdir(mode=0o700)
+        sentinel = directory / "retained-user-file"
+        sentinel.write_bytes(b"keep")
+        real_connect = sqlite3.connect
+        initialized_tables = []
+        sqlite_failures = []
+
+        class InitializationFull(sqlite3.Connection):
+            def execute(self, sql, parameters=()):
+                if sql.startswith("CREATE TABLE records"):
+                    # Real engine exhaustion after the first table was created in the transaction.
+                    pages = super().execute("PRAGMA page_count").fetchone()[0]
+                    super().execute(f"PRAGMA max_page_count={pages}")
+                try:
+                    result = super().execute(sql, parameters)
+                except sqlite3.Error as error:
+                    sqlite_failures.append(error.sqlite_errorcode)
+                    raise
+                if sql.startswith("CREATE TABLE"):
+                    initialized_tables.append(sql)
+                return result
+
+        with patch(
+            "sqlite3.connect",
+            lambda *a, **k: real_connect(*a, factory=InitializationFull, **k),
+        ):
+            self._assert_reason(
+                "storage_full", lambda: CheckpointStore.create(directory)
+            )
+        self.assertEqual(len(initialized_tables), 1)
+        self.assertEqual(sqlite_failures, [sqlite3.SQLITE_FULL])
+        self.assertEqual(list(directory.iterdir()), [sentinel])
+        self.assertEqual(sentinel.read_bytes(), b"keep")
+        retried = CheckpointStore.create(directory)
+        retried.publish(self.initial)
+        self.assertEqual(self._read(store=retried).revision, self.initial)
+
+    def test_failed_create_after_commit_cleans_new_store_and_preserves_existing_store(
+        self,
+    ):
+        directory = self.root / "failed-verification"
+        with patch(
+            "upgradepilot.workspace.checkpoint_store._verify_schema",
+            side_effect=CheckpointStorageError("controlled_validation", "fail"),
+        ):
+            self._assert_reason(
+                "controlled_validation", lambda: CheckpointStore.create(directory)
+            )
+        self.assertEqual(list(directory.iterdir()), [])
+        CheckpointStore.create(directory)
+        self.store.publish(self.initial)
+        self._assert_reason(
+            "store_already_exists", lambda: CheckpointStore.create(self.store.directory)
+        )
+        self.assertEqual(self._read().revision, self.initial)
+
+    def test_create_refuses_preexisting_sidecars_without_touching_them(self):
+        for suffix in ("-wal", "-shm"):
+            with self.subTest(suffix=suffix):
+                directory = self.root / ("preexisting" + suffix)
+                directory.mkdir(mode=0o700)
+                sidecar = directory / ("workspace.sqlite3" + suffix)
+                sidecar.write_bytes(b"existing-host-file")
+                self._assert_reason(
+                    "store_already_exists", lambda: CheckpointStore.create(directory)
+                )
+                self.assertEqual(list(directory.iterdir()), [sidecar])
+                self.assertEqual(sidecar.read_bytes(), b"existing-host-file")
+
+    def test_cold_absence_and_historical_publication_refusals_keep_guards_active(self):
+        self.store.publish(self.initial)
+        self.store.publish(self._next())
+        data = self.root / "staged.json"
+        data.write_bytes(encode_native_boundary(self.boundary))
+        variants = (
+            ("inspect", "heads", "DELETE FROM heads"),
+            (
+                "publish",
+                "revisions",
+                "UPDATE revisions SET digest='damaged' WHERE revision_id='initial'",
+            ),
+        )
+        for operation, table, sql in variants:
+            with self.subTest(operation=operation):
+                directory = self.root / ("cold-audit-" + operation)
+                self.store.backup(directory)
+                original = self.store
+                self.store = CheckpointStore.open(directory)
+                try:
+                    self._damage(table, sql)
+                finally:
+                    self.store = original
+                child = subprocess.run(
+                    [
+                        sys.executable,
+                        "-c",
+                        _OFFLINE_CHILD,
+                        str(directory),
+                        self.target_json,
+                        str(data),
+                        "invalid_checkpoint_storage",
+                        operation,
+                    ],
+                    capture_output=True,
+                    text=True,
+                    timeout=20,
+                )
+                self.assertEqual(child.returncode, 0, child.stderr)
+                self.assertEqual(
+                    json.loads(child.stdout),
+                    {"blocked": 4, "refusal": "invalid_checkpoint_storage"},
+                )
 
     def test_duplicate_revision_and_changed_record_identity_are_refused(self):
         self.store.publish(self.initial)
