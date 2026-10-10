@@ -350,7 +350,13 @@ class CheckpointStore:
                         "immutable_identity_conflict",
                         "Revision identity is already published.",
                     )
-                if actual is not None:
+                if (
+                    actual is not None
+                    or connection.execute(
+                        "SELECT 1 FROM revisions WHERE lineage_id=?",
+                        (revision.lineage_id,),
+                    ).fetchone()
+                ):
                     # A successor extends retained history, not just an intact head.
                     # Inspect encoded closure only; unrelated lineages remain unaffected.
                     for retained_id in self._history(connection, revision.lineage_id):
@@ -360,13 +366,6 @@ class CheckpointStore:
                             retained_id,
                             revision.boundary.target,
                         )
-                elif connection.execute(
-                    "SELECT 1 FROM revisions WHERE lineage_id=?", (revision.lineage_id,)
-                ).fetchone():
-                    raise _refuse(
-                        "invalid_checkpoint_storage",
-                        "Lineage has revisions but no head.",
-                    )
                 for item in encoded["records"]:
                     body = item.pop("payload").encode("utf-8")
                     metadata = json_bytes(item)
@@ -636,14 +635,19 @@ class CheckpointStore:
         head = connection.execute(
             "SELECT revision_id FROM heads WHERE lineage_id=?", (lineage_id,)
         ).fetchone()
-        if head is None:
-            raise _refuse("missing_checkpoint_revision", "No declared lineage head.")
         parents = dict(
             connection.execute(
                 "SELECT revision_id,predecessor_id FROM revisions WHERE lineage_id=?",
                 (lineage_id,),
             )
         )
+        if head is None:
+            # Retained history without its declared head is damage, not absence.
+            if parents:
+                raise _refuse(
+                    "invalid_checkpoint_storage", "Lineage has revisions but no head."
+                )
+            raise _refuse("missing_checkpoint_revision", "No declared lineage head.")
         history = []
         visited: set[str] = set()
         current = head[0]
@@ -713,14 +717,13 @@ class CheckpointStore:
                 "SELECT revision_id FROM heads WHERE lineage_id=?",
                 (revision.lineage_id,),
             ).fetchone()
-            if head is not None:
+            if (
+                head is not None
+                or connection.execute(
+                    "SELECT 1 FROM revisions WHERE lineage_id=?", (revision.lineage_id,)
+                ).fetchone()
+            ):
                 self._history(connection, revision.lineage_id)
-            elif connection.execute(
-                "SELECT 1 FROM revisions WHERE lineage_id=?", (revision.lineage_id,)
-            ).fetchone():
-                raise _refuse(
-                    "invalid_checkpoint_storage", "Lineage has revisions but no head."
-                )
             found = connection.execute(
                 "SELECT 1 FROM revisions WHERE lineage_id=? AND revision_id=?",
                 (revision.lineage_id, revision.revision_id),

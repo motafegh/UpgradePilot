@@ -235,6 +235,25 @@ class WorkspaceCheckpointStoreTests(unittest.TestCase):
             for _, sql in triggers:
                 db.execute(sql)
 
+    def test_missing_head_distinguishes_absent_and_damaged_lineage(self):
+        with self.subTest(state="no head and no revisions"):
+            self._assert_reason("missing_checkpoint_revision", self._read)
+
+        self.store.publish(self.initial)
+        with self.subTest(state="valid lineage, selected revision absent"):
+            self._assert_reason(
+                "missing_checkpoint_revision", lambda: self._read("unpublished")
+            )
+
+        self._damage("heads", "DELETE FROM heads")
+        for selected in ("initial", "unpublished"):
+            with self.subTest(
+                state="retained revisions without head", selected=selected
+            ):
+                self._assert_reason(
+                    "invalid_checkpoint_storage", lambda: self._read(selected)
+                )
+
     def test_retained_views_membership_payloads_and_lineage_scope_are_immutable(self):
         receipt = self.store.publish(self.initial)
         view = self._read()

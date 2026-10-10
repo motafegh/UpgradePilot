@@ -618,7 +618,7 @@ class WorkspaceCheckpointReconstructionTests(unittest.TestCase):
                 (),
                 "invalid_checkpoint_storage",
             ),
-            ("heads", "DELETE FROM heads", (), "missing_checkpoint_revision"),
+            ("heads", "DELETE FROM heads", (), "invalid_checkpoint_storage"),
             (
                 "heads",
                 "UPDATE heads SET revision_id='missing'",
