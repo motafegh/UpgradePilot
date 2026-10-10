@@ -403,7 +403,9 @@ def rebound_claim(boundary, claim):
     )
 
 
-_RECOVERY_CHILD = r"""
+# Shared by the JSON-material and SQLite-selected recovery process proofs. The guard and
+# its actual-entry controls are identical; only the retained-material loading seam differs.
+_RECOVERY_GUARD = r"""
 import json, socket, sys
 from pathlib import Path
 from unittest.mock import patch
@@ -444,9 +446,11 @@ def guard(frame, event, arg):
             ('upgradepilot.github.repository', '_validate_exact_file_locator'),
             ('upgradepilot.github.repository', '_validate_bounded_utf8_text'),
         }
-        if (module in forbidden and not name.startswith('__') and (module, name) not in representation_helpers) or module.startswith(('openai.', 'httpx.')):
+        if (module in forbidden and not name.startswith('__') and (module, name) not in representation_helpers) or module.startswith(('openai.', 'httpx.', 'requests.')):
             raise RuntimeError('forbidden recovery re-entry: ' + module + '.' + name)
+"""
 
+_RECOVERY_PROJECTIONS = r"""
 target = ExactInvestigationTarget(**json.loads(sys.argv[2]))
 sys.setprofile(guard)
 with patch.object(socket.socket, 'connect', side_effect=AssertionError('network forbidden')):
@@ -465,6 +469,9 @@ with patch.object(socket.socket, 'connect', side_effect=AssertionError('network 
     # Preserve the original Python-only control's result spelling.
     if set(refusals) == {'python'}:
         result['refusal'] = result.pop('python_refusal')
+"""
+
+_RECOVERY_CONTROLS = r"""
 sys.setprofile(None)
 
 # Negative controls prove provider, model-bound evaluator, native evaluator and synthesis
@@ -488,6 +495,8 @@ assert len(blocked) == 4, blocked
 result['blocked_controls'] = len(blocked)
 print(json.dumps(result, sort_keys=True))
 """
+
+_RECOVERY_CHILD = _RECOVERY_GUARD + _RECOVERY_PROJECTIONS + _RECOVERY_CONTROLS
 
 
 class WorkspaceNativeReconstructionTests(unittest.TestCase):
