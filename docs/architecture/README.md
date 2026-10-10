@@ -79,7 +79,7 @@ This section is navigation only. Each ADR's own `Status` field determines whethe
   — **Accepted.** Canonical Workspace composition, revision-bound ingestion/admission, one-way projections, replacement migration and durable recovery boundary; executable adoption requires separate activation/proof.
 
 - [`ADR-0013-versioned-native-reconstruction-and-workspace-checkpoint-storage.md`](ADR-0013-versioned-native-reconstruction-and-workspace-checkpoint-storage.md)
-  — **Proposed.** Explicit owner/version native reconstruction, immutable Workspace revisions and coherent local SQLite checkpoint publication/backup; concrete method requires decision review before affected Build.
+  — **Accepted.** Explicit owner/version native reconstruction, immutable Workspace revisions and coherent local SQLite checkpoint publication/backup, with stated support/refusal and durability limits; executable adoption requires separate activation/proof.
 
 Do not add labels such as **current ADR**, **active ADR**, or **next ADR** here. Live project position belongs only in `../../MEMORY.md`.
 

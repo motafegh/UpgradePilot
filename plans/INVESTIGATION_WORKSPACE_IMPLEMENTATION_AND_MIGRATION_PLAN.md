@@ -1,6 +1,6 @@
 # Investigation Workspace Implementation and Migration Plan
 
-**Status:** prepared execution/proof plan; consequential proposed methods need decision review and production implementation needs separate activation.
+**Status:** prepared execution/proof plan under accepted architecture and reconstruction/storage methods; production implementation requires separate activation.
 **Responsibility:** replace the fixed investigation snapshot with a canonical evolving Workspace, preserve native meanings and material basis, prove cold recovery/explicit continuation and cut over supported consumers.
 **Live selection:** [MEMORY.md](../MEMORY.md) alone.
 
@@ -25,7 +25,7 @@ Native owners retain their bounded facts/evaluations. Workspace owns composition
 | [Product Decision Model](../docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md) | Discovery versus proposition-relative investigation, applicability, counterevidence, material validity and adequacy obligations. |
 | [Maintainer Action Synthesis](../docs/specifications/UPGRADEPILOT_MAINTAINER_ACTION_SYNTHESIS_SPECIFICATION.md) | Preserve the admitted action boundary and residual uncertainty during migration; no new permission. |
 | [ADR-0010](../docs/architecture/ADR-0010-package-manager-semantic-facts-and-runtime-dependency-state-composition.md), [ADR-0011](../docs/architecture/ADR-0011-explicit-source-association-bases-and-proposal-boundary.md) | Preserve independent native command/semantic facts and distinct source-association/proposal effects. |
-| [Proposed reconstruction/storage method](../docs/architecture/ADR-0013-versioned-native-reconstruction-and-workspace-checkpoint-storage.md) | Explicit owner codecs, immutable revisions and provisional local SQLite publication/backup. Resolve acceptance before affected Build. |
+| [Accepted reconstruction/storage method](../docs/architecture/ADR-0013-versioned-native-reconstruction-and-workspace-checkpoint-storage.md) | Explicit owner codecs, immutable revisions and provisional local SQLite publication/backup with stated support/refusal and durability limits. Apply the accepted method during separately activated Build. |
 | [Minimum Useful Generality](../docs/specifications/UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md), [Naming Clarity](../docs/specifications/UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md) | Representative actual input forms/variants and expressive responsibility names; no fixture-derived semantic answers or historical step-code architecture. |
 | [Report/usefulness plan](MAINTAINER_REPORT_PRESERVATION_AND_USEFULNESS_EVALUATION_PLAN.md#5-independent-usefulness-evaluation), [Security](../SECURITY.md) | Independent utility/semantic proof and deliberate local/public capture/authorization boundaries. |
 
@@ -39,7 +39,7 @@ Read the accepted owners, [implementation research synthesis](INVESTIGATION_WORK
 
 Entry requires: explicit implementation activation; A-phase orientation under the canonical cycle; accepted affected method decisions; an owner/type/version and consumer inventory for the selected slice; no unresolved material authority/retention conflict; proof resources for fresh-process recovery and the required negative controls. If a genuinely unresolved method would change the implementation, perform its smallest discriminating check; another broad research spike is not a default prerequisite.
 
-| Decision | Proposed implementation baseline / disposition |
+| Decision | Implementation baseline / disposition |
 | --- | --- |
 | Native representation | Explicit family/type/version codecs with separate capture envelopes and actual material-input references; no generic native-object hydration. |
 | Revision/storage | Immutable published successors; private standard-library SQLite WAL/FULL adapter with conditional predecessor publication. |
@@ -49,7 +49,7 @@ Entry requires: explicit implementation activation; A-phase orientation under th
 | Initial source scope | Local host-owned checkpoints outside Git; capture relevant public evidence and available public-safe provenance, with missing identities explicit. |
 | Routine Build details | Choose concrete modules, SQL columns, CLI spellings and bounded parser/resource limits from actual owner inputs; document and test their supported boundaries without another ADR per helper. |
 
-ADR-0013 owns the consequential proposal above. Existing Core/decision specifications already own the required meanings: no new specification is needed merely to restate recovery or proposal authority. If implementation design changes a stable semantic/compatibility contract, update its existing owner before coding that change. Review any independently required byte/schema compatibility promise at the codec boundary; Python dataclass layout is not that promise.
+ADR-0013 owns the accepted consequential method above. Existing Core/decision specifications already own the required meanings: no new specification is needed merely to restate recovery or proposal authority. If implementation design changes a stable semantic/compatibility contract, update its existing owner before coding that change. Review any independently required byte/schema compatibility promise at the codec boundary; Python dataclass layout is not that promise.
 
 ## 3. Native material and supported-family ledger
 
@@ -74,7 +74,7 @@ Before default full-path cutover, account for every legacy field and material pr
 
 ### Define the concrete capture and consumer contracts
 
-Resolve the selected codec family/version matrix and native-input closure against the ledger. Define the minimal Workspace identity/revision/record/basis and projection interfaces with explicit supported outcomes. Trace all 24 current legacy fields and hidden material inputs; classify retain/move/remove by admitted responsibility rather than constructor compatibility. Validate the proposed cadence/retention/backup/trust method at decision review before code depends on it.
+Resolve the selected codec family/version matrix and native-input closure against the ledger. Define the minimal Workspace identity/revision/record/basis and projection interfaces with explicit supported outcomes. Trace all 24 current legacy fields and hidden material inputs; classify retain/move/remove by admitted responsibility rather than constructor compatibility. Apply ADR-0013's accepted cadence/retention/backup/trust method; reconcile any material proposed departure at its owner before code depends on it.
 
 Deliverable: reviewable mappings and owner interfaces sufficient for the first capture/reconstruction action, plus a remaining-family/consumer ledger. Deepen this design only when a material question blocks execution. Keep field layouts/version handling with their responsible implementation and method owner.
 

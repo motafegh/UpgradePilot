@@ -1,7 +1,8 @@
 # Workspace implementation and usefulness planning
 
 Date/time: 2026-10-09 20:45 Asia/Tehran
-Session status: ACTIVE
+Session status: CLOSED through E with explicit technical-ownership deferral
+Closed: 2026-10-10
 Primary responsibility: Planning/Design — prepare a coherent Workspace implementation/migration plan, refine independent report usefulness evaluation and preserve consequential implementation decisions at their proper owner.
 Previous: [main reconciliation and onboarding](2026-10-09_2033_main-reconciliation-and-critical-onboarding_lbd-cycle.md).
 
@@ -12,9 +13,9 @@ A1 — DONE for continuity: Ali agreed with the delivered onboarding and then di
 A2 — DONE for this planning action, proportionately compressed: the previous explanation covered the two plan responsibilities, intended sequence/proof and conditional ADR; Ali explicitly directed their complete preparation.
 B — DONE: new implementation/migration plan, focused existing report/usefulness revision, Proposed ADR-0013 and necessary navigation/live-handoff reconciliation prepared.
 Verification gate — GREEN for scoped source/owner/document/diff alignment; full doctor retains its single inherited `examples/` failure. No executable mutation selected.
-D — CURRENT: evidence-backed result/decision explanation ready for delivery; technical reasoning and ownership review still open.
-E — PENDING: new consequential method review and learner ownership remain open; production Build remains unselected.
-C — CONTINUOUS: preserve meaningful decisions, source findings, verification and handoff in this single record.
+D — DONE for result/method review: concrete costs, source corrections and proof limits explained; Ali adopted ADR-0013 with stated limits. The two technical-ownership checks are explicitly DEFERRED at Ali's request, not passed.
+E — DONE: method/navigation/plan/live-position owners reconciled; ownership questions deferred to their relevant implementation responsibility; planning cycle closed without production Build or study activation.
+C — DONE: meaningful preparation, review, decision, verification, deferral and closure preserved in this single record.
 
 ## Authorization and proportional adaptation
 
@@ -67,3 +68,37 @@ Normal fresh-cycle onboarding and pre-action stops → repeated stops would dupl
 ## Result review and handoff as of this preparation
 
 Deliver the two-plan package and Proposed ADR with a concise explanation of cold reconstruction, historical synthesis, checkpoint/retention/backup/version proposals and utility proof. Ali's authorization completed the preparation action; it did not accept these newly concrete choices or establish technical ownership. Keep D/E open for result/method reasoning, accept/revise at the correct owner, then orient/select a separate first Build responsibility. The initial proposed Build proof is owner-version native capture/cold reconstruction; utility feasibility can be assessed independently and need not await complete Workspace adoption.
+
+## Closure continuation — 2026-10-10
+
+Ali requested current-state onboarding, received the reconciled product/design/research/planning model, then selected closure of this existing planning cycle. Continue this record; no new cycle, production Build or usefulness study is selected. Fetch confirms `main` and `origin/main` at `09619079` with no divergence. Preserve the pre-existing untracked broad-audit record.
+
+### D result and method review
+
+The prepared target remains native producers/evaluators → canonical Workspace → explicit consumers, with recovery and continuation separately controlled. The planning action fulfilled its A2 expectation of two distinct execution/evaluation owners and one justified method ADR. Its source-grounded corrections sharpened that expectation: the final 24-field result omits material `source_contexts`/`coverage_inputs`, the research projection cannot reconstruct native values after restart without live values, and current report projection calls synthesis. Therefore capture must precede those losses; supported reconstruction must use explicit owner/version codecs; historical synthesis must be retained with its basis instead of regenerated during recovery.
+
+Delivered the consequential method costs and boundaries: encoding restores admitted recorded values rather than current truth; expected-revision publication prevents competing-write loss but does not decide semantic validity; intent precedes execution and unknown completion does not authorize retry; per-publication checkpoints preserve only declared progress; initial all-revision retention permits storage growth and requires explicit storage refusal; validated backup/version refusal are implementation obligations, not capabilities established by this documentation. Local host-owned storage and original method identity remain required; checksums do not authenticate imported records.
+
+Engineering recommendation: adopt ADR-0013 with its stated support/refusal and durability limits. Keep implementation activation separate. Preserve complete supported-family/consumer cutover as the target while the first native CI/runtime and Python-support reconstruction proof remains bounded. Independent usefulness feasibility should be assessed early under the existing report plan; author labels, native parity or faithful historical rendering do not establish reviewer benefit.
+
+### Ownership and decision checkpoint
+
+Presented the concrete adoption/revision choice and two reasoning checks: what to expose/refuse for a checksummed checkpoint with an unsupported codec version; whether a changed synthesis method permits historical recovery to regenerate the conclusion. Ali selected **“Adopt with the stated limits”** and directed **“we will talk about this when it comes”** for the reasoning checks. This explicitly adopts the method and defers those checks; it does not demonstrate or diagnose technical ownership. Ordinary module/SQL/CLI/parser-limit details remain Build choices; no further broad research prerequisite was introduced.
+
+### E gap disposition and closure
+
+The consequential method decision is resolved: ADR-0013 is Accepted on 2026-10-10 with its support/refusal and durability limits. Reconciled its architecture/navigation entries and the implementation plan's references without changing Core, ADR-0012, Security or any product behavior. The full Workspace/native-consumer target and separate usefulness/replay proof boundaries remain intact.
+
+Technical ownership remains unassessed for unsupported-codec recovery and changed-method historical synthesis. At Ali's explicit direction, defer these questions to the concrete codec/recovery/historical-consumer responsibility when relevant. Revisit them proportionately in that work's orientation/evidence learning before recording mastery or relying on independent learner ownership. This is explicit deferred learning, not a failed answer, an invented diagnosed gap or an automatic future gate waiver. Other low-level module/schema/parser details remain intentionally deferred until actual Build inputs make them concrete.
+
+Established: two coherent planning owners, source-grounded capture/cutover obligations, accepted concrete reconstruction/storage method and independent usefulness protocol. Not established: production codecs/Workspace/store/recovery/continuation/cutover, semantic or adequacy evaluator competence, independent maintainer usefulness, power-loss durability or deterministic replay. Normal-input/reviewer availability remains a study prerequisite; inherited governance debt remains separate.
+
+Next responsibility for separate selection: implementation-entry orientation under the prepared plan, including the concrete capture/consumer contract ledger before the first CI/runtime and Python-support capture/cold-reconstruction proof. This addresses the research's live-value limitation while keeping complete supported-family cutover visible. Utility feasibility may be selected independently. Stop with this planning cycle CLOSED; no next cycle, production mutation, inference, recruitment or study is activated.
+
+### Verification and handoff checkpoint
+
+Fresh continuation checks: seven relevant documents, 111 local link/anchor occurrences and fence checks PASS. All nine governance check functions were executed: eight PASS; the root responsibility-map check reports only the inherited missing `examples/` owner marker. Whitespace check PASS. Method/plan/source review found no material conflict with accepted Workspace/recovery contracts. Repeat affected owner-status/link/diff checks after any adoption reconciliation.
+
+Final adoption reconciliation: seven relevant documents, **112 local link/anchor occurrences/fences PASS**; accepted ADR status, method/navigation agreement, truthful closed-with-deferral status and exact six-file scope PASS. Repeated all nine governance checks with the same eight passes and single inherited root-map finding. Product source/tests, experiments, tools, Skills, root governance/security and accepted specifications are unchanged. Publish this reviewed closure increment under the standing commit/push cadence; its containing Git commit supplies publication identity, and actual push/alignment evidence is reported at handoff.
+
+Runtime source/tests are unchanged; the 743 product/121 experiment passes remain dated October 9 evidence. The inherited doctor mismatch remains separate documentation/tool debt for this planning proof, not a newly introduced failure. No inference, live acquisition, user study, product codec/store/recovery/replay, installed or hosted validation was run.

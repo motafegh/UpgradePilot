@@ -1,13 +1,15 @@
 # ADR-0013 — Versioned native reconstruction and Workspace checkpoint storage
 
-**Status:** Proposed for decision review. The immutable-revision, provisional SQLite and direct-cutover directions were accepted at the 2026-10-09 implementation-entry checkpoint; the concrete method below requires review before affected production Build.
+**Status:** Accepted by Ali with the stated support/refusal and durability limits on 2026-10-10. Production implementation requires separate activation and proof.
 **Date:** 2026-10-09
+**Accepted:** 2026-10-10
 **Responsibility:** Preserve native owner meanings across cold Workspace restoration through explicit versioned codecs and coherent local checkpoint publication.
 **Requirements:** [Core §§3–6.4](../specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md), [ADR-0012](ADR-0012-canonical-investigation-workspace-and-recovery-boundary.md), [native semantic ownership](ADR-0010-package-manager-semantic-facts-and-runtime-dependency-state-composition.md), [source-association boundary](ADR-0011-explicit-source-association-bases-and-proposal-boundary.md), [Security](../../SECURITY.md).
 **Execution/proof:** [Workspace implementation and migration plan](../../plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_AND_MIGRATION_PLAN.md).
 **Evidence:** [revision research](../../working-memory/evidence/2026-10-08-workspace-revision-representation/README.md), [storage research](../../working-memory/evidence/2026-10-08-workspace-checkpoint-stores/README.md), [public grounding](../../working-memory/evidence/2026-10-08-workspace-experiment3-grounding/README.md), [migration research](../../working-memory/evidence/2026-10-09-workspace-replacement-migration/README.md).
+**Decision provenance:** [planning-cycle result review and closure](../../working-memory/2026-10-09_2045_workspace-implementation-and-usefulness-planning_lbd-cycle.md). Method adoption does not establish implementation or learner mastery.
 
-## Context and proposed method
+## Context and decision
 
 The research restores opaque bytes, but its migration projection still needs producer-captured live Python values. Input-tape re-execution can reproduce a native result; it cannot satisfy offline restoration without running producers/evaluators again. A saved report omits native inputs/history and cannot supply this boundary. Production needs an explicit reconstruction method instead of arbitrary class-tag hydration or a cache whose contents disappear at restart.
 
@@ -64,4 +66,4 @@ Explicit codecs, retained history and per-transition publication add implementat
 
 Before consumer cutover, stop adoption while preserving native behavior and acquired research evidence. After canonical history exists, reversal must preserve inspectable checkpoints/version support; returning to a legacy snapshot cannot silently discard history. Keep a one-way legacy projection only for a named parity/compatibility obligation and remove/reassess it when that obligation ends.
 
-Reassess if a required native family cannot be reconstructed without re-evaluation, the codec duplicates native semantics, storage cannot satisfy the declared loss/backup boundary, compatible schema evolution is infeasible, or representative cases need unsupported retained context. Resolve the owning method/contract before expanding implementation. Decision review must explicitly consider the per-publication cadence and conservative retention cost; ADR acceptance and production implementation remain separate.
+Reassess if a required native family cannot be reconstructed without re-evaluation, the codec duplicates native semantics, storage cannot satisfy the declared loss/backup boundary, compatible schema evolution is infeasible, or representative cases need unsupported retained context. Resolve the owning method/contract before expanding implementation. Acceptance includes the per-publication cadence and conservative initial retention cost described above; ADR acceptance and production implementation remain separate.
