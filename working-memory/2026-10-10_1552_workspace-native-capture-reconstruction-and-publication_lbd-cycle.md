@@ -1,7 +1,7 @@
 # Workspace native capture, reconstruction and durable publication — LbD cycle
 
 **Initialized:** 2026-10-10 15:52 Asia/Tehran.
-**Session status:** ACTIVE at A1 continuity/onboarding gate; substantive B has not started.
+**Session status:** ACTIVE at A2 upcoming-responsibility orientation / pre-B understanding gate; substantive B has not started.
 **Primary operation:** Build/Implement; A0 initialization includes proportional execution-plan reconciliation.
 **Previous cycle:** [closed implementation/usefulness planning](2026-10-09_2045_workspace-implementation-and-usefulness-planning_lbd-cycle.md).
 **Owners:** [live position](../MEMORY.md), [implementation/migration plan](../plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_AND_MIGRATION_PLAN.md), [ADR-0012](../docs/architecture/ADR-0012-canonical-investigation-workspace-and-recovery-boundary.md), [ADR-0013](../docs/architecture/ADR-0013-versioned-native-reconstruction-and-workspace-checkpoint-storage.md), [Core §6.4](../docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md#64-canonical-investigation-recovery-and-explicit-continuation).
@@ -12,8 +12,8 @@
 ```text
 Cycle — Workspace native capture, reconstruction and durable publication
 A0 — DONE: accepted owners/current source/research reconciled; single record and living map created; stage/cycle boundary corrected.
-A1 — CURRENT: continuity model prepared for onboarding; meaningful challenge opportunity pending.
-A2 — PENDING: concrete upcoming source, native-input/version and publication/proof orientation; pre-B gate not passed.
+A1 — DONE: starting-state onboarding delivered; Ali had a meaningful challenge opportunity and replied "Good and we can continue" on October 10.
+A2 — CURRENT: source/input/consumer and reconstruction/publication/proof model oriented; pre-B reasoning response pending.
 B — PENDING: no product source/test changes or native Workspace implementation in this cycle.
 Verification gate — PENDING: new product proofs not run; initialization-document checks are separate.
 D — PENDING: combined result/evidence-backed ownership after sufficient verification.
@@ -57,7 +57,27 @@ Later stage obligations: lifecycle/material-basis semantic integration; complete
 | A2 publication | Explain immutable revision/content/reference identity, expected predecessor versus material basis, commit versus acknowledgement, interrupted/unknown outcomes, local WAL/FULL limits, initial retention and validated online backup. |
 | A2 proof/non-goals | First supported native projections from a fresh process/durable checkpoint, not complete report recovery, semantic adequacy, current continuation authority, deterministic replay or power-loss proof. Historical synthesis remains retained-result consumption at its later boundary. |
 
-A1's continuity gate is pending. A2 does not begin until Ali has a meaningful opportunity to question/correct this current-state model. A2 owns the minimum-complete upcoming responsibility model and pre-B gate; selecting this cycle does not itself prove understanding. Refine this map if onboarding or exact source/input tracing exposes a gap.
+A1's continuity gate cleared after the starting-state model and challenge opportunity were delivered and Ali explicitly requested continuation. This establishes continuity to A2, not technical mastery or the pre-B understanding gate. A2 owns the minimum-complete upcoming responsibility model and pre-B gate; selecting this cycle does not itself prove understanding. Refine this map if onboarding or exact source/input tracing exposes a gap.
+
+## A2 upcoming responsibility — October 10
+
+The selected production path is existing native acquisition/evaluation → capture actual inputs/results and source/method bindings → explicit owner/version encoding → immutable revision → coherent local checkpoint → offline validation/reconstruction → supported native projections. The domain owner still evaluates; Workspace retains/composes/publishes the material. The SQLite adapter stores and validates the boundary without owning CI/impact semantics. The first supported consumers are CI/runtime and Python-impact native projections; synthesis/report migration remains later.
+
+Concrete input/consumer trace:
+
+- [CI coverage](../src/upgradepilot/ci/dependency_exercise.py) takes the dependency transition, `WorkflowDependencyCoverageInput` values and `source_contexts`; [runtime composition](../src/upgradepilot/ci/dependency_state.py) additionally consumes the coverage result. Retain exact run/jobs/steps/workflow text, relevant project/source contexts, command/environment/semantic provenance, results and blockers before local inputs disappear. The [real-producer command test](../tests/test_ci_dependency_state.py) distinguishes launcher `/opt/bootstrap/bin/python` from pip target `/opt/target/bin/python`. Its command-completion witness cannot expand into installation freshness, later use or compatibility during reconstruction.
+- [Python impact](../src/upgradepilot/impact/python_support.py) consumes the exact PR/dependency/upstream claim, then optional exact-target relevance. Retain candidate, pre-assessment, selection, supplied declaration/problem, relevance and post-assessment with their bases. [Impact tests](../tests/test_python_support_impact.py) distinguish a declaration not acquired from an attempted unavailable declaration; [orchestration tests](../tests/test_investigation.py) preserve pre-acquisition unresolved and later applicable/not-applicable/unresolved outcomes. These are existing controlled product cases, not a fresh external/model or semantic acceptance run.
+- Current [synthesis](../src/upgradepilot/maintainer_action.py) and [report projection](../src/upgradepilot/report_projection.py) consume runtime/impact uncertainty, identity and limitations. This consumer reading establishes preservation obligations; it does not admit full report reconstruction with unsupported remaining families.
+
+A codec is an explicit encoder/decoder for one admitted family and version. Preserve meaningful ordering, optionality, exact strings and nested variants. Decoding reconstructs retained typed values and validates representation/bindings; it does not rerun source parsers or evaluators. Compatible bytes alone do not establish supported semantics or trust. A host-owned checkpoint with an unsupported codec leaves unaffected inspectable history available where valid, but refuses the affected native projection; no live cache, current defaults, dynamic class import or producer rerun may substitute for support. Arbitrary untrusted import remains out of scope. The earlier unsupported-codec question is now concrete enough to revisit in the pre-B reasoning point; changed-synthesis ownership remains deferred to its historical-consumer boundary.
+
+Publication stores immutable records and revision membership, then conditionally advances the lineage head in one validated transaction. Expected predecessor prevents a concurrent overwrite; it is separate from whether an assessment's material premises remain valid. Pre-commit interruption leaves the last declared boundary; commit plus lost acknowledgement requires explicit identity reconciliation rather than retry. Initial retention keeps all declared revisions/material closure; validated SQLite online backup must restore that closure. Local WAL/FULL/process-kill tests do not establish device/power-loss guarantees. Present execution authority belongs to later explicit continuation.
+
+B will first finalize the concrete contract/remaining-family ledger, implement normal-path capture and supported native codecs, and obtain the independent cold-reconstruction proof before its internal result/learning stop. It will then implement coherent publication and its failure/backup proofs, review that result internally, and finally prove reconstruction from the durable checkpoint. Exact field layouts/table names remain implementation choices. Representative unsupported native outcomes and missing-input negative controls are mandatory alongside positives; no full consumer/default CLI cutover occurs in this cycle.
+
+Proof scope before implementation: native owner/codec/closure checks → normal-orchestration capture and fresh child-process native projection proof with independently forbidden provider/model/evaluator re-entry → real publication interruption/conflict/refusal/backup checks → combined durable-checkpoint reconstruction and justified broader product regressions. Compare complete supported native values, scopes, unknowns and consumer meanings, not only JSON/checksums. The initial proof does not earn complete canonical product recovery, new semantic evaluation, usefulness, replay, continuation or power-loss claims. This turn inspects source/tests; no new runtime proof is claimed.
+
+Pre-B reasoning point: in the existing runtime-witness case, explain what a new process may restore from a supported checkpoint without evaluating again, and what it should expose/refuse if the needed codec version is unsupported despite a valid checksum. Ali's response/questions will determine prerequisite repair or gate completion; passive continuation alone is not recorded as ownership.
 
 ## Internal verification and learning stops
 
@@ -73,4 +93,6 @@ Current evidence is owner/source inspection and Git reconciliation. Product veri
 
 Initialization-document verification: this record, the existing implementation plan's stage/cycle distinction and `MEMORY.md`'s changed live responsibility; three documents with 58 local links including seven anchors, fences and truthful phase status PASS. Owner/scope alignment and `git diff --check` PASS. All nine governance check functions executed: eight PASS; only the inherited root responsibility-map missing `examples/` marker remains. This is documentation proof, not the cycle's product Verification gate. No executable/accepted-specification files changed and no runtime tests rerun.
 
-Next: A1 current-state onboarding and continuity gate, then A2 source/proof orientation. No product Build result or cycle closure is claimed.
+A2 orientation/state verification: two documents changed; the same three relevant documents checked with 66 local links including seven anchors, fences and A0/A1 DONE → A2 CURRENT → B PENDING phase consistency PASS. Whitespace and owner/scope checks PASS; nine governance functions retain eight PASS and the same inherited `examples/` mismatch. No product source/tests changed or runtime tests run. Source/test inspection supplies the teaching examples, not a new product verification result.
+
+Next: finish A2's pre-B reasoning/understanding gate, then begin the bounded capture/reconstruction responsibility in this same cycle. No product Build result or cycle closure is claimed.
