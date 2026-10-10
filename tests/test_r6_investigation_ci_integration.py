@@ -21,6 +21,12 @@ from upgradepilot.github.pull_request import PullRequestIdentity
 from upgradepilot.github.repository import RepositoryTextFile
 from upgradepilot.investigation import investigate_public_pull_request
 from upgradepilot.pypi.release import PackageReleaseProblem
+from upgradepilot.workspace.native_boundary import (
+    encode_native_boundary,
+    read_native_boundary,
+)
+from upgradepilot.workspace.native_capture import NativeInvestigationCapture
+from upgradepilot.workspace.native_projection import reconstruct_ci_projection
 
 _REPOSITORY = "pydantic/pydantic"
 _HEAD_SHA = "aa2dc024d33f61cdef50bf1973ab5adf0a974f5a"
@@ -40,7 +46,7 @@ jobs:
       - run: uv run mkdocs build
 """
 
-_LOCK = '''version = 1
+_LOCK = """version = 1
 revision = 3
 [[package]]
 name = "pydantic"
@@ -72,11 +78,13 @@ dependencies = [{ name = "soupsieve" }]
 name = "soupsieve"
 version = "2.8.4"
 source = { registry = "https://pypi.org/simple" }
-'''
+"""
 
 
 class R6InvestigationCIIntegrationTests(unittest.TestCase):
-    def test_normal_investigation_derives_s001_docs_consumption_from_exact_sources(self) -> None:
+    def test_normal_investigation_derives_s001_docs_consumption_from_exact_sources(
+        self,
+    ) -> None:
         identity = PullRequestIdentity(
             repository=_REPOSITORY,
             number=13432,
@@ -144,11 +152,13 @@ class R6InvestigationCIIntegrationTests(unittest.TestCase):
         actions_client.get_exact_head_workflow_runs.return_value = (run,)
         actions_client.get_workflow_jobs.return_value = (job,)
 
-        repository_client.get_exact_head_workflow_file.return_value = RepositoryTextFile(
-            repository=_REPOSITORY,
-            path=".github/workflows/ci.yml",
-            revision=_HEAD_SHA,
-            content=_WORKFLOW,
+        repository_client.get_exact_head_workflow_file.return_value = (
+            RepositoryTextFile(
+                repository=_REPOSITORY,
+                path=".github/workflows/ci.yml",
+                revision=_HEAD_SHA,
+                content=_WORKFLOW,
+            )
         )
 
         def exact_head_file(_identity: PullRequestIdentity, path: str):
@@ -178,6 +188,7 @@ class R6InvestigationCIIntegrationTests(unittest.TestCase):
             detail="Stop unrelated upstream work in this orchestration regression.",
         )
 
+        capture = NativeInvestigationCapture()
         with patch(
             "upgradepilot.investigation.analyze_dependency_change",
             return_value=DependencyChangeAnalysis(
@@ -197,7 +208,23 @@ class R6InvestigationCIIntegrationTests(unittest.TestCase):
                 tag_client=tag_client,
                 changelog_client=changelog_client,
                 support_drop_evaluator=support_drop_evaluator,
+                native_capture=capture,
             )
+
+        # Retain the actual public-source uv/project inputs through the native capture seam,
+        # alongside the pre-existing consumption assertions. This is not full report cutover.
+        boundary = capture.snapshot()
+        restored = read_native_boundary(
+            encode_native_boundary(boundary), expected_target=boundary.target
+        )
+        native = reconstruct_ci_projection(restored, expected_target=boundary.target)
+        self.assertEqual(native.inputs.source_contexts, (context,))
+        self.assertEqual(native.ci_coverage_result, result.ci_coverage_result)
+        self.assertEqual(
+            native.runtime_dependency_state_result,
+            result.runtime_dependency_state_result,
+        )
+        self.assertTrue(native.workflow_inputs[0].project_environment_sources)
 
         coverage = result.ci_coverage_result
         self.assertIsNotNone(coverage)
@@ -232,7 +259,9 @@ class R6InvestigationCIIntegrationTests(unittest.TestCase):
             repository_client.get_exact_head_text_file.call_args_list,
             [call(identity, "pyproject.toml"), call(identity, "uv.lock")],
         )
-        repository_client.get_exact_head_workflow_file.assert_called_once_with(identity, run)
+        repository_client.get_exact_head_workflow_file.assert_called_once_with(
+            identity, run
+        )
 
 
 if __name__ == "__main__":

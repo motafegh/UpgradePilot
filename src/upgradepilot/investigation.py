@@ -17,7 +17,10 @@ from .ci.dependency_exercise import (
     WorkflowDependencyCoverageInput,
     evaluate_dependency_ci_coverage,
 )
-from .ci.dependency_state import RuntimeDependencyStateResult, evaluate_runtime_dependency_state
+from .ci.dependency_state import (
+    RuntimeDependencyStateResult,
+    evaluate_runtime_dependency_state,
+)
 from .ci.workflow_commands import WorkflowProjectEnvironmentSource
 from .dependency.analysis import DependencyChangeAnalysis, analyze_dependency_change
 from .dependency.change import DependencyChangeProblem, DependencyVersionChange
@@ -34,7 +37,11 @@ from .github.changelog import (
     DiscoveredChangelogPath,
     GitHubChangelogPathClient,
 )
-from .github.pull_request import ChangedFile, GitHubPullRequestClient, PullRequestIdentity
+from .github.pull_request import (
+    ChangedFile,
+    GitHubPullRequestClient,
+    PullRequestIdentity,
+)
 from .github.repository import GitHubRepositoryClient
 from .github.tag import (
     GitHubTagCommitClient,
@@ -98,6 +105,7 @@ from .upstream.repository import (
     UpstreamRepositoryResult,
 )
 from .upstream.support_drop import evaluate_support_drop_runtime
+from .workspace.native_capture import NativeInvestigationCapture
 
 SupportDropEvaluator = Callable[
     [AuthoritativeUpstreamIntervalEvidence],
@@ -134,15 +142,23 @@ class PublicPullRequestInvestigation:
     upstream_interval_result: UpstreamIntervalAuthorityResult | None = None
     upstream_support_drop_result: UpstreamSupportDropClaimResult | None = None
     target_python_relevance_result: TargetPythonRelevanceResult | None = None
-    python_support_drop_pre_investigation_result: PythonSupportDropImpactAssessment | None = None
-    python_support_drop_investigation_selection: PythonSupportDropInvestigationSelection | None = None
+    python_support_drop_pre_investigation_result: (
+        PythonSupportDropImpactAssessment | None
+    ) = None
+    python_support_drop_investigation_selection: (
+        PythonSupportDropInvestigationSelection | None
+    ) = None
     python_support_drop_impact_result: PythonSupportDropImpactAssessment | None = None
     old_package_result: PackageReleaseResult | None = None
-    artifact_serviceability_candidate_result: ArtifactServiceabilityCandidateResult = None
+    artifact_serviceability_candidate_result: ArtifactServiceabilityCandidateResult = (
+        None
+    )
     target_artifact_environment_results: tuple[
         DependencySourceArtifactEnvironmentResult, ...
     ] = ()
-    artifact_serviceability_impact_result: ArtifactServiceabilityImpactAssessment | None = None
+    artifact_serviceability_impact_result: (
+        ArtifactServiceabilityImpactAssessment | None
+    ) = None
 
 
 def investigate_public_pull_request(
@@ -159,8 +175,14 @@ def investigate_public_pull_request(
     tag_client: GitHubTagCommitClient | None = None,
     changelog_client: GitHubChangelogPathClient | None = None,
     support_drop_evaluator: SupportDropEvaluator | None = None,
+    native_capture: NativeInvestigationCapture | None = None,
 ) -> PublicPullRequestInvestigation:
-    """Run the current evidence graph without presentation or exit-policy logic."""
+    """Run the current evidence graph without presentation or exit-policy logic.
+
+    An explicit native_capture retains selected owner inputs/results at this same production
+    sequence. It adds no acquisition/evaluation pass and leaves the current report contract
+    intact. Its sealed native boundary is not yet a canonical durable investigation.
+    """
 
     pull_client = pull_client or GitHubPullRequestClient(token=token)
     actions_client = actions_client or GitHubActionsClient(token=token)
@@ -186,10 +208,17 @@ def investigate_public_pull_request(
         dependency_result: DependencyVersionChange | DependencyChangeProblem = (
             analysis_result.dependency
         )
-        source_contexts: tuple[DependencySourceContext, ...] = analysis_result.source_contexts
+        source_contexts: tuple[DependencySourceContext, ...] = (
+            analysis_result.source_contexts
+        )
     else:
         dependency_result = analysis_result
         source_contexts = ()
+
+    if native_capture is not None:
+        native_capture.start(
+            pull_request, changed_files, dependency_result, source_contexts
+        )
 
     target_python_result: TargetPythonEvidence | None = None
     workflow_evidence: tuple[tuple[WorkflowRun, tuple[WorkflowJob, ...]], ...] = ()
@@ -197,11 +226,15 @@ def investigate_public_pull_request(
     runtime_dependency_state_result: RuntimeDependencyStateResult | None = None
     package_result: PackageReleaseResult | None = None
     old_package_result: PackageReleaseResult | None = None
-    artifact_serviceability_candidate_result: ArtifactServiceabilityCandidateResult = None
+    artifact_serviceability_candidate_result: ArtifactServiceabilityCandidateResult = (
+        None
+    )
     target_artifact_environment_results: tuple[
         DependencySourceArtifactEnvironmentResult, ...
     ] = ()
-    artifact_serviceability_impact_result: ArtifactServiceabilityImpactAssessment | None = None
+    artifact_serviceability_impact_result: (
+        ArtifactServiceabilityImpactAssessment | None
+    ) = None
     upstream_repository_result: UpstreamRepositoryResult | None = None
     release_index_result: PackageReleaseIndexResult | None = None
     crossed_release_result: CrossedReleaseIndexSelectionResult | None = None
@@ -211,8 +244,12 @@ def investigate_public_pull_request(
     upstream_interval_result: UpstreamIntervalAuthorityResult | None = None
     upstream_support_drop_result: UpstreamSupportDropClaimResult | None = None
     target_python_relevance_result: TargetPythonRelevanceResult | None = None
-    python_support_drop_pre_investigation_result: PythonSupportDropImpactAssessment | None = None
-    python_support_drop_investigation_selection: PythonSupportDropInvestigationSelection | None = None
+    python_support_drop_pre_investigation_result: (
+        PythonSupportDropImpactAssessment | None
+    ) = None
+    python_support_drop_investigation_selection: (
+        PythonSupportDropInvestigationSelection | None
+    ) = None
     python_support_drop_impact_result: PythonSupportDropImpactAssessment | None = None
 
     if isinstance(dependency_result, DependencyVersionChange):
@@ -257,6 +294,12 @@ def investigate_public_pull_request(
             ci_coverage_result,
             source_contexts=source_contexts,
         )
+        if native_capture is not None:
+            native_capture.capture_ci(
+                tuple(coverage_inputs),
+                ci_coverage_result,
+                runtime_dependency_state_result,
+            )
 
         package_result = package_client.get_release(
             dependency_result.package,
@@ -323,9 +366,8 @@ def investigate_public_pull_request(
                     tag_commit_result.resolved_commit_sha,
                 )
 
-            if (
-                isinstance(tag_commit_result, GitHubTagCommitEvidence)
-                and isinstance(changelog_path_result, DiscoveredChangelogPath)
+            if isinstance(tag_commit_result, GitHubTagCommitEvidence) and isinstance(
+                changelog_path_result, DiscoveredChangelogPath
             ):
                 changelog_file = repository_client.get_exact_commit_text_file(
                     upstream_repository_result.repository,
@@ -358,6 +400,9 @@ def investigate_public_pull_request(
                         source_problems=(tagged_changelog_result,),
                     )
 
+            if native_capture is not None and upstream_interval_result is not None:
+                native_capture.capture_upstream_authority(upstream_interval_result)
+
             if isinstance(
                 upstream_interval_result,
                 AuthoritativeUpstreamIntervalEvidence,
@@ -365,6 +410,10 @@ def investigate_public_pull_request(
                 upstream_support_drop_result = support_drop_evaluator(
                     upstream_interval_result
                 )
+                if native_capture is not None:
+                    native_capture.capture_upstream_claim(
+                        upstream_support_drop_result, support_drop_evaluator
+                    )
 
                 if isinstance(
                     upstream_support_drop_result,
@@ -386,6 +435,11 @@ def investigate_public_pull_request(
                     python_support_drop_impact_result = (
                         python_support_drop_pre_investigation_result
                     )
+                    if native_capture is not None:
+                        native_capture.capture_python_pre(
+                            python_support_drop_pre_investigation_result,
+                            python_support_drop_investigation_selection,
+                        )
 
                     if python_support_drop_investigation_selection is not None:
                         if (
@@ -399,15 +453,24 @@ def investigate_public_pull_request(
                                 "exact pull-request repository and head revision."
                             )
 
-                        target_python_result = interpret_target_python_declaration(
+                        target_python_source = (
                             repository_client.get_exact_head_text_file(
                                 pull_request,
                                 python_support_drop_investigation_selection.path,
                             )
                         )
-                        target_python_relevance_result = evaluate_target_python_relevance(
-                            upstream_support_drop_result,
-                            target_python_result,
+                        target_python_result = interpret_target_python_declaration(
+                            target_python_source
+                        )
+                        if native_capture is not None:
+                            native_capture.capture_target(
+                                target_python_source, target_python_result
+                            )
+                        target_python_relevance_result = (
+                            evaluate_target_python_relevance(
+                                upstream_support_drop_result,
+                                target_python_result,
+                            )
                         )
                         python_support_drop_impact_result = (
                             evaluate_python_support_drop_impact(
@@ -415,12 +478,26 @@ def investigate_public_pull_request(
                                 target_python_relevance_result,
                             )
                         )
+                    if native_capture is not None:
+                        if target_python_relevance_result is not None:
+                            native_capture.capture_relevance(
+                                target_python_relevance_result
+                            )
+                        native_capture.capture_python_post(
+                            python_support_drop_impact_result,
+                            reevaluated=python_support_drop_investigation_selection
+                            is not None,
+                        )
                 else:
                     target_python_relevance_result = evaluate_target_python_relevance(
                         upstream_support_drop_result,
                         None,
                     )
+                    if native_capture is not None:
+                        native_capture.capture_relevance(target_python_relevance_result)
 
+    if native_capture is not None:
+        native_capture.complete()
     return PublicPullRequestInvestigation(
         pull_request=pull_request,
         changed_files=changed_files,
@@ -496,7 +573,9 @@ def _compose_target_artifact_environments(
                     "supported CI consumption does not match exact workflow identity"
                 )
             if not consumption.job_key:
-                raise ValueError("supported CI consumption must identify one consuming job")
+                raise ValueError(
+                    "supported CI consumption must identify one consuming job"
+                )
 
             matching_contexts = tuple(
                 context

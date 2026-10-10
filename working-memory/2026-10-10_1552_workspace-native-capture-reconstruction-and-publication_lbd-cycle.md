@@ -1,7 +1,7 @@
 # Workspace native capture, reconstruction and durable publication — LbD cycle
 
 **Initialized:** 2026-10-10 15:52 Asia/Tehran.
-**Session status:** ACTIVE at A2 upcoming-responsibility orientation / pre-B understanding gate; substantive B has not started.
+**Session status:** ACTIVE in B at the first internal result/learning stop: native capture/cold reconstruction verified; durable publication pending.
 **Primary operation:** Build/Implement; A0 initialization includes proportional execution-plan reconciliation.
 **Previous cycle:** [closed implementation/usefulness planning](2026-10-09_2045_workspace-implementation-and-usefulness-planning_lbd-cycle.md).
 **Owners:** [live position](../MEMORY.md), [implementation/migration plan](../plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_AND_MIGRATION_PLAN.md), [ADR-0012](../docs/architecture/ADR-0012-canonical-investigation-workspace-and-recovery-boundary.md), [ADR-0013](../docs/architecture/ADR-0013-versioned-native-reconstruction-and-workspace-checkpoint-storage.md), [Core §6.4](../docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md#64-canonical-investigation-recovery-and-explicit-continuation).
@@ -13,9 +13,9 @@
 Cycle — Workspace native capture, reconstruction and durable publication
 A0 — DONE: accepted owners/current source/research reconciled; single record and living map created; stage/cycle boundary corrected.
 A1 — DONE: starting-state onboarding delivered; Ali had a meaningful challenge opportunity and replied "Good and we can continue" on October 10.
-A2 — CURRENT: source/input/consumer and reconstruction/publication/proof model oriented; pre-B reasoning response pending.
-B — PENDING: no product source/test changes or native Workspace implementation in this cycle.
-Verification gate — PENDING: new product proofs not run; initialization-document checks are separate.
+A2 — DONE: Ali explicitly cleared the pre-B understanding gate and requested B on October 10; the deferred reasoning response is not independently demonstrated mastery.
+B — CURRENT: first native capture/cold reconstruction implemented and verified; internal result/learning review before durable publication.
+Verification gate — PENDING for the combined cycle: native reconstruction internal gate GREEN; SQLite publication/backup/interruption and combined durable-checkpoint proof not implemented/run.
 D — PENDING: combined result/evidence-backed ownership after sufficient verification.
 E — PENDING: gap repair/defer decision, closure and evidence-based next-boundary handoff.
 C — CONTINUOUS: meaningful reconciliation, learning, implementation/proof and handoff preserved here.
@@ -89,10 +89,50 @@ These are connected stops inside this cycle, not separate full LbD cycles. Actua
 
 ## Initialization evidence and continuation
 
-Current evidence is owner/source inspection and Git reconciliation. Product verification is PENDING. Historical proof remains 743 product and 121 focused Workspace experiment tests from the preceding reconciliation; those tests are not freshly rerun or promoted into this cycle's native/publication proof.
+At initialization, evidence was owner/source inspection and Git reconciliation; product verification was PENDING. The earlier 743 product and 121 focused Workspace experiment tests belonged to the preceding reconciliation and were not promoted into this cycle's native/publication proof. The B-result section below records this cycle's actual implementation verification.
 
 Initialization-document verification: this record, the existing implementation plan's stage/cycle distinction and `MEMORY.md`'s changed live responsibility; three documents with 58 local links including seven anchors, fences and truthful phase status PASS. Owner/scope alignment and `git diff --check` PASS. All nine governance check functions executed: eight PASS; only the inherited root responsibility-map missing `examples/` marker remains. This is documentation proof, not the cycle's product Verification gate. No executable/accepted-specification files changed and no runtime tests rerun.
 
 A2 orientation/state verification: two documents changed; the same three relevant documents checked with 66 local links including seven anchors, fences and A0/A1 DONE → A2 CURRENT → B PENDING phase consistency PASS. Whitespace and owner/scope checks PASS; nine governance functions retain eight PASS and the same inherited `examples/` mismatch. No product source/tests changed or runtime tests run. Source/test inspection supplies the teaching examples, not a new product verification result.
 
-Next: finish A2's pre-B reasoning/understanding gate, then begin the bounded capture/reconstruction responsibility in this same cycle. No product Build result or cycle closure is claimed.
+## B entry and contract decisions
+
+Ali explicitly said the A2 gate can be considered cleared and to proceed to B. This controls the process gate; it does not retroactively pass an unanswered ownership question. Revisit the actual result and ownership at the internal learning stop/D.
+
+The focused existing baseline (`test_ci_dependency_state`, `test_python_support_impact`, `test_investigation`, `test_r6_investigation_ci_integration`) passes 42 tests. Source inventory finds 77 reachable native record types across the selected CI/runtime and Python-support roots/shared material. This is concrete representation work, not a new evaluator or all-family cutover.
+
+Implementation route: fixed version-1 family/root/variant layouts and bounded scalar/sequence/record helpers; no runtime dataclass discovery, checkpoint-driven imports or arbitrary class hydration. Representation layouts remain with CI/impact and shared-input ownership. An opt-in capture seam on normal orchestration retains inputs/results without adding a second acquisition/evaluation sequence or changing the current report return contract. Separate CI and Python-support projections allow unsupported unrelated families to remain inspectable without inventing complete report recovery. Owner/method provenance missing from present interfaces is explicitly retained as a gap.
+
+## First native capture/reconstruction result — 2026-10-10 17:45
+
+Delivered production source:
+
+- [Normal orchestration](../src/upgradepilot/investigation.py) accepts an explicit `native_capture` and supplies its existing inputs/results at the native boundaries. Default acquisition/evaluation/report behavior remains the original path; capture adds no second producer sequence. Failed staging cannot be sealed as completed recovery.
+- [Capture](../src/upgradepilot/workspace/native_capture.py) holds encoded bytes, seals immutable records once and retains actual supplied inputs, outcomes, scoped identity, material references and explicit method/content gaps. Generated record IDs are separate from content digests and from target identity. There is no live-native-value recovery map.
+- [Family contracts](../src/upgradepilot/workspace/native_codecs.py) define 11 version-1 roots. The [shared-input](../src/upgradepilot/workspace/native_inputs_codec.py), [CI](../src/upgradepilot/ci/native_codec.py) and [Python impact](../src/upgradepilot/impact/python_support_codec.py) tables enumerate 44 + 27 + 6 = 77 fixed native layouts. Source inventory helped author these static declarations; production never discovers dataclass fields or imports checkpoint-supplied names. Uniform representation helpers avoid duplicated scalar/sequence validation without becoming an evidence evaluator.
+- [Boundary inspection](../src/upgradepilot/workspace/native_boundary.py) validates format, digests, exact target and material-reference closure. [Separate typed projections](../src/upgradepilot/workspace/native_projection.py) validate owner/version and cross-record scopes/bases before exposing supported CI/runtime or Python-support values. Unsupported unrelated codecs remain inspectable and need not block the unaffected projection. Unknown fields, missing optional fields, substituted identity and constructor normalization cannot silently produce repaired native truth.
+
+### Retention and remaining-field disposition
+
+All 24 legacy fields were traced. Thirteen have native material/projection equivalents here: PR identity, changed files, dependency result, target Python result, workflow run/jobs (from supplied CI inputs), CI coverage, runtime state, upstream interval authority, support-drop result, target relevance, pre-assessment, selection and final Python-impact assessment. Hidden source contexts, workflow/project-environment text and target declaration source are retained where supplied to the selected native owners.
+
+Eleven remain separate later-family/consumer obligations: proposed/old package release results, upstream repository result, release index/crossed selection, tag resolution, changelog discovery/separate tagged-changelog result, artifact candidate, target artifact environments and artifact impact. Shared upstream authority may contain tagged source content without preserving every earlier acquisition/problem branch. This first projection therefore cannot replace the complete report path. Initial shared layouts admit the context variants used by CI; the existing public-source uv regression now proves that its actual project/lock inputs and native results survive this capture seam.
+
+Available producer method labels are retained; absent producer versions are explicit gaps. Present producer interfaces declare no admitted semantic-version identities, so reconstruction refuses any declared version until a tested compatibility mapping exists. Representation codec support does not confer semantic-method support. Dependency-analysis call metadata/unsupplied source content and upstream interpretation call metadata are not fabricated. No raw model trace, hidden reasoning or credential capture is added. Fresh continuation and stronger source/semantic claims cannot be earned by these gaps or by representation fidelity.
+
+### Verification, correction and claim limits
+
+- Focused existing baseline: 42 PASS before implementation. Final focused native/CI/impact/orchestration scope: 54 PASS (`test_workspace_native_reconstruction`, `test_ci_dependency_state`, `test_python_support_impact`, `test_investigation`, `test_r6_investigation_ci_integration`).
+- Checkout product regression: 755/755 PASS. Rebuilt fresh-installed package: 755/755 PASS from outside the checkout with `PYTHONPATH` pointing only to tests; all 85 installed/source Python-file hashes match. Pip check and both installed CLI help entry points PASS. Temporary isolated validation root: `/tmp/upgradepilot-native-installed-xluejfg8` (not a checkpoint or committed product artifact).
+- [Native reconstruction tests](../tests/test_workspace_native_reconstruction.py) compare every native field with an independent test-only renderer in six fresh child-process cases: positive/outside, dry-run/applicable, ambient/unresolved, unavailable declaration, unsupported upstream claim and dependency-problem/not-evaluated branches. Four actual provider/model-bound/native-evaluator/synthesis entry-point negative controls prove the guard can fail; network connection is independently blocked during reconstruction. Existing controlled extraction/claim answers are disclosed; this is not a fresh external/model semantic acceptance run.
+- Refusal proof covers missing hidden input closure, damaged bytes, wrong envelope/payload target, wrong owner, unsupported codec with valid digest, unsupported declared producer version, unknown injected variant, omitted optional field, ambiguous JSON, unsupported boundary format and prohibited constructor repair. The field-layout drift check prevents new native fields from silently entering an old codec through defaults. An unsupported runtime codec or producer version blocks CI while supported Python history remains usable.
+- First child proof FAILED because a blanket native-module guard also blocked RepositoryTextFile's representation-only locator/text validators. Source inspection established those two helpers are pure structural checks allowed by ADR-0013; only those helpers were admitted. Acquisition/evaluation guards remain intact and their independent negative controls PASS. Decoder review also added refusal when an existing constructor normalizes a retained field; this is representation validation, not re-evaluation.
+- All 12 touched Python files pass Ruff lint/format. Source/owner/retention/dependency-direction review, AST parsing and whitespace checks pass. Three owner/cycle documents have 78 valid local links including seven anchors plus balanced fences and truthful phase status. All nine governance functions ran: eight PASS; only the inherited root `examples/` marker mismatch remains. No accepted specification/ADR methods or unrelated work are changed.
+
+The native reconstruction internal gate is GREEN for this exercised supported scope. The combined cycle gate remains PENDING: no SQLite revision publication, validated durable backup/interruption proof, complete canonical lifecycle history, report cutover, continuation, replay, power-loss or usefulness proof is claimed.
+
+### Internal learning review and continuation
+
+A2 expected that exact encoded bytes alone would not recover trusted native values. The actual result now reconstructs fixed supported native types with their complete retained scopes/unknowns, including pip launcher versus target identity and Python pre/post applicability history, without evaluator re-entry. Original method gaps remain distinct from codec version. Checksum integrity, supported reconstruction, scope binding and present execution authority remain separate.
+
+Ali has not yet reviewed this implementation result or demonstrated the deferred codec reasoning against it. Teach the actual result at this internal stop; permit questions/challenge and assess only meaningful ownership evidence. After that review, continue durable publication in this same cycle. D/E stay pending for the combined result; this is not a new cycle or a full cycle closure.
