@@ -1,7 +1,7 @@
 # Workspace native capture, reconstruction and durable publication — LbD cycle
 
 **Initialized:** 2026-10-10 15:52 Asia/Tehran.
-**Session status:** ACTIVE in B, returned to the first internal learning stop after the finite binding audit/repair; the exercised native engineering gate is GREEN, Ali/review examination remains open, and durable publication is held.
+**Session status:** ACTIVE in formal D-native evidence-backed learning/ownership after the finite binding audit/repair; the native reconstruction engineering sub-gate is GREEN, durable publication remains held, and combined-cycle verification remains pending.
 **Primary operation:** Build/Implement; A0 initialization includes proportional execution-plan reconciliation.
 **Previous cycle:** [closed implementation/usefulness planning](2026-10-09_2045_workspace-implementation-and-usefulness-planning_lbd-cycle.md).
 **Owners:** [live position](../MEMORY.md), [implementation/migration plan](../plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_AND_MIGRATION_PLAN.md), [ADR-0012](../docs/architecture/ADR-0012-canonical-investigation-workspace-and-recovery-boundary.md), [ADR-0013](../docs/architecture/ADR-0013-versioned-native-reconstruction-and-workspace-checkpoint-storage.md), [Core §6.4](../docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md#64-canonical-investigation-recovery-and-explicit-continuation).
@@ -14,10 +14,10 @@ Cycle — Workspace native capture, reconstruction and durable publication
 A0 — DONE: accepted owners/current source/research reconciled; single record and living map created; stage/cycle boundary corrected.
 A1 — DONE: starting-state onboarding delivered; Ali had a meaningful challenge opportunity and replied "Good and we can continue" on October 10.
 A2 — DONE: Ali explicitly cleared the pre-B understanding gate and requested B on October 10; the deferred reasoning response is not independently demonstrated mastery.
-B — CURRENT: comprehensive 11-family/18-edge binding audit and repair verified; at the first internal learning stop, preserving historical results and explicit not-evaluated intermediates.
-Verification gate — PENDING for the combined cycle: native engineering proof GREEN for the finite ledger; internal learning/review open; SQLite publication/backup/interruption and combined durable-checkpoint proof not implemented/run.
-D — PENDING: combined result/evidence-backed ownership after sufficient verification.
-E — PENDING: gap repair/defer decision, closure and evidence-based next-boundary handoff.
+B — PAUSED AT NATIVE MILESTONE: comprehensive 11-family/18-edge binding audit and repair verified; durable publication has not started.
+Verification gate — NATIVE SUB-GATE DONE / COMBINED GATE PENDING: native engineering proof GREEN for the finite ledger; SQLite publication/backup/interruption and combined durable-checkpoint proof remain unimplemented/unrun.
+D — CURRENT (native milestone): formal evidence-backed learning and ownership review selected by Ali before durable-publication B resumes.
+E — PENDING: gap repair/defer decision, closure and evidence-based next-boundary handoff after the combined responsibility is complete.
 C — CONTINUOUS: meaningful reconciliation, learning, implementation/proof and handoff preserved here.
 ```
 
@@ -26,6 +26,14 @@ C — CONTINUOUS: meaningful reconciliation, learning, implementation/proof and 
 Ali explicitly requested retaining the six technical responsibilities as implementation/proof stages, combining capture/reconstruction and durable publication in one coherent Workspace native-foundation cycle, using internal verification/learning stops, and reassessing cycle boundaries before semantic integration/product cutover.
 
 The earlier provisional one-stage/one-cycle estimate is not a governing cycle count. Native reconstruction and coherent retained publication share a recovery boundary; separating them into mandatory full cycles would prescribe learning/closure overhead before the evidence exists. The user-selected route keeps one A0/A1/A2 and one final D/E, with focused proof/learning reviews during B. It changes execution grouping, not accepted semantics, authority or proof obligations. The execution plan and live owner are reconciled; no new architecture decision is needed.
+
+### Formal D-native cadence refinement — 2026-10-10
+
+After the finite 11-family/18-edge binding audit produced a substantially larger and independently reviewable native-reconstruction result than the original internal stop anticipated, Ali explicitly selected beginning **formal Phase D now** and requested a durable learning checklist before any SQLite/durable-publication work continues.
+
+This is an explicit Smart Situational Override of the earlier "one final D only after combined publication" cadence, not a scope or architecture change. The displaced default is the single final D/E sequence for the combined cycle. The reason for the override is that the native reconstruction trust boundary is now sufficiently evidenced, conceptually dense, and foundational to the next storage responsibility that postponing ownership learning would increase misunderstanding and duplicate later teaching. The proof/risk effect is favorable: durable publication remains held while Ali establishes ownership of what will be persisted and later recovered. No product capability or acceptance claim is expanded.
+
+This D-native subphase may complete and return to B for durable publication in the **same cycle**; the combined cycle still requires its later verification and final ownership/closure reconciliation before E can close it. The compact `MEMORY.md` live route still points to review before durable publication, so phase-detail reconciliation may remain in this cycle record until D-native findings materially change the selected continuation or handoff.
 
 ## A0 current-state reconciliation
 
@@ -252,3 +260,42 @@ The native engineering result is sufficiently evidenced for the requested finite
 Return to the **first internal learning stop**, with Ali/review examination still OPEN. No new learning ownership is inferred from this AI-authored repair or green proof. Combined Verification/D/E remain PENDING. No SQLite, durable publication, backup, semantic integration, synthesis/report cutover, continuation or replay work has started. The next action is review of this result, not implementation of the next stage.
 
 Final owner/source checks: all three changed Python files pass Ruff lint/format; AST/dependency-direction inspection and whitespace checks pass. Three responsibility documents have 85 valid local links, including seven anchors, balanced fences and consistent phases/scope. All nine governance functions ran: eight PASS; the only failure remains the baseline `AGENTS.md` missing `examples/` owner marker. No unrelated governance repair was made. The coherent publication scope is five files: native projection, its native tests, the corrected CI integration fixture, this cycle record and `MEMORY.md`; the unrelated October 3 untracked record is preserved.
+
+## D-native evidence-backed learning and ownership — CURRENT
+
+Ali explicitly selected formal Phase D for the evidenced native capture/reconstruction milestone before any durable-publication work resumes. This D is not satisfied by presenting topics once. Coverage is marked only after the topic has been taught from current source/evidence and Ali has had a meaningful opportunity to explain, challenge, predict or reason about it. Ownership findings and gaps are recorded here in compact form; individual chat turns are not logged.
+
+### D learning route and checklist
+
+- [ ] **D1 — Why native recovery exists and where it stops.** Build the mental model from normal investigation → retained native material → fresh-process reconstruction. Distinguish recovery from replay, fresh investigation and continuation/current-authority validation.
+- [ ] **D2 — Actual source/control flow.** Trace `investigate_public_pull_request` → `NativeInvestigationCapture` → family codecs/layouts → `CapturedNativeBoundary` → bounded read/decode → CI/Python projections. Understand which owner produces meaning and which layer only retains/composes it.
+- [ ] **D3 — The 11 native families and 18 declared edges.** Understand what each root represents, why the graph has those dependencies and why record references alone are insufficient to prove decoded-value relationships.
+- [ ] **D4 — Trust vocabulary: integrity, coherence, authenticity/admission and freshness.** Explain what digests, exact target SHA, host-owned capture, binding checks and later continuation each prove—and what they do not prove.
+- [ ] **D5 — Capture vs storage/publication vs recovery responsibility.** Explain why producer/storage bugs remain owned by their layers while recovery must still refuse material that violates the recovery contract; avoid turning recovery into a universal duplicate validator.
+- [ ] **D6 — Codec/version/provenance model.** Distinguish capture/boundary format, family codec version, producer method identity and producer semantic version. Explain why valid bytes plus a valid checksum do not authorize unsupported semantic reconstruction and why an unrelated unsupported family need not destroy unaffected projections.
+- [ ] **D7 — Boundary/representation validation.** Understand exact target, digest/reference closure, owner/family/version checks, bounded JSON parsing, fixed variant/type tables, constructor-normalization refusal and the explicit resource-limit boundary.
+- [ ] **D8 — Structural/material binding versus semantic re-evaluation.** Use the real repaired cases: dependency-context provenance, uv/project source locators, CI correlation membership/text, grounded upstream source/quote, Python selection→pre-assessment, selected acquisition and nested relevance inputs. Be able to say which comparisons are allowed during recovery and which would become replay/evaluation.
+- [ ] **D9 — Outcome/lifecycle states.** Understand `recorded` versus `not_evaluated`, typed unavailable/problem results, unresolved states, selector abstention (`recorded None`), selected-but-unexecuted acquisition and coherent historical prefixes. Predict which combinations must reconstruct and which must refuse.
+- [ ] **D10 — CI/runtime reconstruction deep trace.** Follow dependency/source context → workflow/project inputs → CI coverage/correlation → admitted runtime assessments → command-completion witness. Revisit launcher `/opt/bootstrap/bin/python` versus target `/opt/target/bin/python`, command identity, semantic provenance and proof limits.
+- [ ] **D11 — Python-support reconstruction deep trace.** Follow retained upstream authority → support-drop claim → pre-assessment → historical selection/abstention → target source/result → relevance → post-assessment. Separate exact source/quote/basis binding from the preserved owner conclusion.
+- [ ] **D12 — Proof design and why the new tests matter.** Understand positive parity, valid-digest inconsistent-history controls, isolated baseline-red evidence, guarded fresh child processes, forbidden re-entry controls, unaffected-projection proof and broader checkout/fresh-installed regressions. Explain why a passing round trip alone was insufficient.
+- [ ] **D13 — Proof/non-proof and retained limitations.** Cover the 13 native-equivalent legacy fields versus 11 later obligations, missing producer semantic versions/call metadata/source content, host-owned admission boundary, no arbitrary checkpoint authentication, no SQLite durability, no complete canonical recovery, no continuation/replay/usefulness/power-loss claim.
+- [ ] **D14 — Architecture/maintainability critique: trusted core / IR pressure.** Examine whether the now-large `native_projection.py` validation role should remain projection-local or later become an explicit validated historical Workspace/native graph consumed by projections. Preserve the rule that Workspace can own composition/trust admission without stealing domain semantic ownership. Decide whether this is current debt, a later refactor trigger or merely design pressure.
+- [ ] **D15 — Ownership synthesis.** Ali should be able to trace one CI/runtime case and one Python-support case, explain integrity vs coherence, explain why exact SHA is necessary but insufficient for source/basis relationships, predict supported/unsupported codec behavior, distinguish structural validation from re-evaluation, and critique the shared-trusted-core/IR option in his own words.
+
+### D completion and progression rules
+
+- A checkbox means **covered with meaningful interaction**, not "assistant explained it." Record concise ownership evidence or remaining gap when each cluster closes.
+- Prefer small chunks and real current UpgradePilot source/tests. Do not force all 15 items into one session or require symbol/file-name memorization.
+- Reorder or combine adjacent items when Ali's questions show a better dependency path; preserve any material route change rather than mechanically following numbering.
+- If D exposes a technical contradiction in the supposedly green native result, return to B/diagnosis for that responsibility and reopen the relevant proof. If it exposes only an ownership/understanding gap, keep it in D for clarification and later E repair/defer handling.
+- Durable publication remains **held** until this formal D-native review reaches a sufficient ownership point chosen with Ali. Completing D-native does not close the combined cycle; B may then resume for the SQLite publication stage, whose own proof and later combined D/E remain required.
+- `MEMORY.md` compact live state remains compatible with the current route (review before durable publication). Reconcile it immediately if D changes the selected continuation, cycle boundary or material live blocker; otherwise reconcile at the next material handoff.
+
+### Initial D ownership findings
+
+- Ali already challenged the early explanation that "somebody changes a checkpoint" was the primary threat model and correctly separated capture/storage root-cause ownership from recovery refusal responsibility. This is meaningful early evidence for D4/D5 but does not complete them.
+- Ali independently proposed an intermediate/shared trusted representation idea to avoid duplicated validation across layers. This is meaningful architecture ownership evidence for D14, but the correct boundary between generic Workspace composition and domain-owned relationship meaning still needs explicit review against the implemented ledger.
+- The earlier A2 unsupported-codec reasoning was only partially demonstrated; D6 remains intentionally open.
+
+Procedural provenance for this formal D entry: `UP-SKILL:upgradepilot-learning-by-doing`; `UP-SKILL:upgradepilot-working-memory`.
