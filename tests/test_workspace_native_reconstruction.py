@@ -38,6 +38,7 @@ from upgradepilot.workspace.native_boundary import (
     read_native_boundary,
 )
 from upgradepilot.workspace.native_capture import NativeInvestigationCapture
+from upgradepilot.workspace.native_codecs import encode_native_value
 from upgradepilot.workspace.native_inputs_codec import LAYOUTS as INPUT_LAYOUTS
 from upgradepilot.workspace.native_projection import (
     CINativeProjection,
@@ -47,6 +48,7 @@ from upgradepilot.workspace.native_projection import (
     reconstruct_python_support_projection,
 )
 from upgradepilot.workspace.native_representation import NativeReconstructionError
+from upgradepilot.workspace import native_representation
 
 _WORKFLOW = """name: CI
 jobs:
@@ -203,6 +205,7 @@ from upgradepilot.ci.dependency_state import evaluate_runtime_dependency_state
 from upgradepilot.github.repository import GitHubRepositoryClient
 from upgradepilot.upstream.support_drop import evaluate_support_drop_runtime
 from upgradepilot.maintainer_action import synthesize_maintainer_action
+from upgradepilot.workspace.native_representation import NativeReconstructionError
 from test_workspace_native_reconstruction import independent_native_values
 
 # The guard watches actual Python re-entry, independent of injected clients/call counters.
@@ -220,7 +223,7 @@ forbidden = {
 }
 def guard(frame, event, arg):
     if event == 'call':
-        module = frame.f_globals.get('__name__', '')
+        module = frame.f_globals.get('__name__') or ''
         name = frame.f_code.co_name
         # Existing RepositoryTextFile constructors enforce representation-only path/revision
         # and bounded UTF-8 invariants. These two inspected helpers do not fetch or interpret.
@@ -236,8 +239,17 @@ sys.setprofile(guard)
 with patch.object(socket.socket, 'connect', side_effect=AssertionError('network forbidden')):
     boundary = read_native_boundary(Path(sys.argv[1]).read_bytes(), expected_target=target)
     ci = reconstruct_ci_projection(boundary, expected_target=target)
-    python = reconstruct_python_support_projection(boundary, expected_target=target)
-    result = {'ci': independent_native_values(ci), 'python': independent_native_values(python)}
+    if len(sys.argv) > 3:
+        try:
+            reconstruct_python_support_projection(boundary, expected_target=target)
+        except NativeReconstructionError as error:
+            assert error.reason == sys.argv[3], error
+            result = {'ci': independent_native_values(ci), 'refusal': error.reason}
+        else:
+            raise AssertionError('substituted Python material was accepted')
+    else:
+        python = reconstruct_python_support_projection(boundary, expected_target=target)
+        result = {'ci': independent_native_values(ci), 'python': independent_native_values(python)}
 sys.setprofile(None)
 
 # Negative controls prove provider, model-bound evaluator, native evaluator and synthesis
@@ -264,6 +276,54 @@ print(json.dumps(result, sort_keys=True))
 
 
 class WorkspaceNativeReconstructionTests(unittest.TestCase):
+    def test_json_resource_refusals_precede_parser_allocation(self):
+        cases = (
+            ("MAX_NATIVE_JSON_BYTES", 8, b"[]       "),
+            ("MAX_NATIVE_JSON_DEPTH", 2, b"[[[0]]]"),
+            ("MAX_NATIVE_JSON_STRUCTURAL_TOKENS", 4, b"[0,1,2,3]"),
+        )
+        for limit, maximum, payload in cases:
+            with (
+                self.subTest(limit=limit),
+                patch.object(native_representation, limit, maximum),
+                patch.object(native_representation.json, "loads") as parser,
+            ):
+                with self.assertRaisesRegex(
+                    NativeReconstructionError, "native_resource_limit"
+                ):
+                    native_representation.parse_json(payload)
+                parser.assert_not_called()
+
+    def test_json_exact_capacity_and_escaped_source_punctuation_are_supported(self):
+        with patch.object(native_representation, "MAX_NATIVE_JSON_BYTES", 8):
+            self.assertEqual(native_representation.parse_json(b"[]      "), [])
+        with (
+            patch.object(native_representation, "MAX_NATIVE_JSON_DEPTH", 2),
+            patch.object(native_representation, "MAX_NATIVE_JSON_STRUCTURAL_TOKENS", 4),
+        ):
+            self.assertEqual(native_representation.parse_json(b"[[0]]"), [[0]])
+            content = '[{}],: "quoted" \\ escaped'
+            # Escaped quotes/backslashes and punctuation in retained source are not nodes.
+            payload = native_representation.json_bytes({"source": content})
+            self.assertEqual(
+                native_representation.parse_json(payload), {"source": content}
+            )
+
+    def test_encoder_refuses_material_outside_decoder_capacity(self):
+        for limit, maximum, value in (
+            ("MAX_NATIVE_JSON_BYTES", 8, {"content": "oversized"}),
+            ("MAX_NATIVE_JSON_DEPTH", 2, [[[0]]]),
+            ("MAX_NATIVE_JSON_STRUCTURAL_TOKENS", 4, [0, 1, 2, 3]),
+        ):
+            with (
+                self.subTest(limit=limit),
+                patch.object(native_representation, limit, maximum),
+            ):
+                with self.assertRaisesRegex(
+                    NativeReconstructionError, "native_resource_limit"
+                ):
+                    native_representation.json_bytes(value)
+
     def test_v1_layouts_cannot_silently_fill_new_native_fields_from_defaults(self):
         # A new field on a reused constructor requires a reviewed codec compatibility
         # decision. This independent schema check catches drift even in unexercised variants.
@@ -368,6 +428,9 @@ class WorkspaceNativeReconstructionTests(unittest.TestCase):
             "python": independent_native_values(expected_python),
             "blocked_controls": 4,
         }
+        self.assertEqual(self._cold_reconstruction(boundary), expected)
+
+    def _cold_reconstruction(self, boundary, expected_refusal=None):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "native.json"
             path.write_bytes(encode_native_boundary(boundary))
@@ -384,15 +447,71 @@ class WorkspaceNativeReconstructionTests(unittest.TestCase):
                     ]
                 ),
             )
+            arguments = [
+                sys.executable,
+                "-c",
+                _RECOVERY_CHILD,
+                str(path),
+                json.dumps(target),
+            ]
+            if expected_refusal is not None:
+                arguments.append(expected_refusal)
             result = subprocess.run(
-                [sys.executable, "-c", _RECOVERY_CHILD, str(path), json.dumps(target)],
+                arguments,
                 env=env,
                 capture_output=True,
                 text=True,
                 timeout=20,
             )
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertEqual(json.loads(result.stdout), expected)
+        return json.loads(result.stdout)
+
+    def test_substituted_selected_source_refuses_with_valid_digests_in_cold_process(
+        self,
+    ):
+        for variant in ("outside", "unavailable"):
+            with self.subTest(source=variant):
+                _, _, boundary, expected_ci, expected_python = captured_case(
+                    python_variant=variant
+                )
+                # Keep every downstream source/result relationship coherent. Only the
+                # requested-selection -> acquired-path relationship is contradicted.
+                substituted_path = "substituted/pyproject.toml"
+                source = replace(
+                    expected_python.target_python_source, path=substituted_path
+                )
+                result = replace(
+                    expected_python.target_python_result, path=substituted_path
+                )
+                relevance = replace(
+                    expected_python.target_python_relevance_result,
+                    target_evidence=result,
+                )
+                post = replace(
+                    expected_python.impact_result, target_relevance=relevance
+                )
+                changed = {
+                    "target_python": {"source": source, "result": result},
+                    "target_relevance": relevance,
+                    "python_support_post_assessment": post,
+                }
+                for family, value in changed.items():
+                    payload = encode_native_value(family, value)
+                    boundary = altered_record(
+                        boundary,
+                        family,
+                        payload=payload,
+                        payload_digest=sha256(payload).hexdigest(),
+                    )
+                actual = self._cold_reconstruction(boundary, "invalid_native_material")
+                self.assertEqual(
+                    actual,
+                    {
+                        "ci": independent_native_values(expected_ci),
+                        "refusal": "invalid_native_material",
+                        "blocked_controls": 4,
+                    },
+                )
 
     def test_problem_unresolved_not_applicable_and_not_evaluated_variants(self):
         for command, python, dependency_problem in (

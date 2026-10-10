@@ -329,6 +329,12 @@ def reconstruct_python_support_projection(
             raise NativeReconstructionError(
                 "wrong_target", "Target declaration source has another scope."
             )
+        # Matching source/result identities alone cannot bind an acquired file to the
+        # retained request. Compare the recorded relationship without rerunning selection.
+        if selection is None or source.path != selection.path:
+            raise _invalid(
+                "Target declaration source is not bound to its selected acquisition path."
+            )
         if target_result is None or (target_result.path, target_result.revision) != (
             source.path,
             source.revision,

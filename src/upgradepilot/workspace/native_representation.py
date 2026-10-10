@@ -15,6 +15,16 @@ from typing import cast
 
 from packaging.version import InvalidVersion, Version
 
+# Initial representation capacity, including the complete native envelope. Repository text
+# is already bounded to 1 MB per file; 64 MiB leaves room for the selected multi-file inputs
+# and repeated native bases. These are explicit local capacity limits, not truncation or
+# a claim that every future investigation fits. Reassess with representative retained data.
+MAX_NATIVE_JSON_BYTES = 64 * 1024 * 1024
+MAX_NATIVE_JSON_DEPTH = 64
+# Count container delimiters, commas and colons outside strings before JSON allocations.
+# This also bounds wide arrays/objects independently of byte size and nesting depth.
+MAX_NATIVE_JSON_STRUCTURAL_TOKENS = 256 * 1024
+
 
 class NativeReconstructionError(ValueError):
     """Explicit unsupported/missing/invalid boundary; never a request to fetch or retry."""
@@ -81,17 +91,62 @@ def _unique_object(pairs: list[tuple[str, object]]) -> dict[str, object]:
     return result
 
 
+def _check_json_resources(payload: bytes) -> None:
+    """Bound byte size, nesting and width before constructing a JSON object graph.
+
+    This scan is not another JSON parser. The standard parser still owns syntax and UTF-8
+    validation. Quoted/escaped punctuation consumes bytes without becoming structure.
+    Callers supply bytes already in memory; future storage readers must bound their read
+    before allocation too. This does not promise a process-level memory/CPU quota.
+    """
+
+    def refuse(detail: str) -> NativeReconstructionError:
+        return NativeReconstructionError("native_resource_limit", detail)
+
+    if len(payload) > MAX_NATIVE_JSON_BYTES:
+        raise refuse(f"Native JSON exceeds {MAX_NATIVE_JSON_BYTES} bytes.")
+    depth = tokens = 0
+    quoted = escaped = False
+    for byte in payload:
+        if quoted:
+            if escaped:
+                escaped = False
+            elif byte == 92:  # backslash
+                escaped = True
+            elif byte == 34:  # quote
+                quoted = False
+            continue
+        if byte == 34:
+            quoted = True
+        elif byte in (123, 91):  # object/array opening
+            depth += 1
+            if depth > MAX_NATIVE_JSON_DEPTH:
+                raise refuse(f"Native JSON exceeds depth {MAX_NATIVE_JSON_DEPTH}.")
+        elif byte in (125, 93):
+            depth -= 1
+        if byte in (123, 91, 125, 93, 44, 58):
+            tokens += 1
+            if tokens > MAX_NATIVE_JSON_STRUCTURAL_TOKENS:
+                raise refuse(
+                    "Native JSON exceeds "
+                    f"{MAX_NATIVE_JSON_STRUCTURAL_TOKENS} structural tokens."
+                )
+
+
 def parse_json(payload: bytes) -> object:
-    """Reject ambiguous objects/non-finite scalars and parser nesting failures."""
+    """Bound allocations first, then reject ambiguous/non-finite/unreadable JSON."""
 
     def reject_constant(value: str) -> object:
         raise _invalid(f"Non-finite JSON scalar {value!r}.")
 
     if type(payload) is not bytes:
         raise _invalid("Encoded material must be immutable bytes.")
+    _check_json_resources(payload)
     try:
         return json.loads(
-            payload, object_pairs_hook=_unique_object, parse_constant=reject_constant
+            payload.decode("utf-8"),
+            object_pairs_hook=_unique_object,
+            parse_constant=reject_constant,
         )
     except NativeReconstructionError:
         raise
@@ -101,7 +156,7 @@ def parse_json(payload: bytes) -> object:
 
 def json_bytes(value: object) -> bytes:
     try:
-        return json.dumps(
+        payload = json.dumps(
             value,
             ensure_ascii=True,
             allow_nan=False,
@@ -110,6 +165,9 @@ def json_bytes(value: object) -> bytes:
         ).encode("utf-8")
     except (TypeError, ValueError, RecursionError) as error:
         raise _invalid("Value has no supported JSON representation.") from error
+    # Never emit a representation the decoder's declared capacity would refuse.
+    _check_json_resources(payload)
+    return payload
 
 
 class NativeValueCodec:
