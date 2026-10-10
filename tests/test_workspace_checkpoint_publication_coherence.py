@@ -5,21 +5,49 @@ from __future__ import annotations
 import sqlite3
 import tempfile
 import unittest
+from hashlib import sha256
 from pathlib import Path
-
-from test_workspace_native_reconstruction import captured_case
 
 from upgradepilot.workspace.checkpoint_revision import (
     CheckpointRevision,
     CheckpointStorageError,
 )
 from upgradepilot.workspace.checkpoint_store import CheckpointStore
+from upgradepilot.workspace.native_boundary import (
+    CapturedNativeBoundary,
+    CapturedNativeRecord,
+    ExactInvestigationTarget,
+)
 
 
 class WorkspaceCheckpointPublicationCoherenceTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.boundary = captured_case()[2]
+        target = ExactInvestigationTarget(
+            "example/project",
+            7,
+            "base-sha",
+            "head-sha",
+            "demo",
+            "1.0",
+            "2.0",
+        )
+        payload = b"{}"
+        record = CapturedNativeRecord(
+            "record-1",
+            "publication_control",
+            "workspace.test",
+            1,
+            target,
+            (),
+            payload,
+            sha256(payload).hexdigest(),
+            "recorded",
+            "controlled-test",
+            "1",
+            (),
+        )
+        cls.boundary = CapturedNativeBoundary(target, (record,))
 
     def setUp(self):
         temporary = tempfile.TemporaryDirectory(
