@@ -26,14 +26,29 @@ Procedural provenance: `UP-SKILL:upgradepilot-learning-by-doing`; `UP-SKILL:upgr
   - a digest proves byte integrity relative to the stored digest, not that independently valid records belong together historically;
   - Ali challenged an initially confusing example and correctly identified that normal encode→decode should preserve the same value. The clarified threat is an incoherent combination of individually valid records, not random codec mutation. Compact distinction: **codec correctness != graph coherence**.
 
-## Useful clarification captured during D3
+- [x] **D4 — Trust vocabulary: integrity, coherence, admission/authenticity and freshness.** Ali correctly classified four concrete cases: changed payload without updated digest as an integrity failure; individually valid records with mismatched decoded bases as coherence failure; a fully coherent self-constructed checkpoint outside the admitted host boundary as admission/authenticity failure; and a legitimate historical checkpoint whose PR head has since changed as a freshness/continuation-usability issue. He understands that none of these trust dimensions automatically proves the next.
 
-Current reconstruction does **not** manually serialize every UpgradePilot layer. It defines explicit fixed codecs/layouts for the selected native families; runtime encoding is automatic through those contracts. The current scope is the 11 native roots (with their reachable fixed layouts/variants), not the complete product. This clarification feeds later D6/D13/D14.
+- [x] **D5 — Capture/storage/recovery responsibility.** Ali correctly required recovery to refuse incoherent retained material. A follow-up correction established the important ownership split: the root defect belongs to whichever producer, capture or storage owner introduced the inconsistency; recovery owns detection/refusal at its exposure boundary, not root-cause ownership or semantic repair. Recovery must not fetch/re-run target acquisition, relevance evaluation, guess the intended record or silently rewrite history to repair a failed contract.
+
+## Useful clarifications captured during D
+
+Current reconstruction does **not** manually serialize every UpgradePilot layer. It defines explicit fixed codecs/layouts for the selected native families; runtime encoding is automatic through those contracts. The current scope is the 11 native roots (with their reachable fixed layouts/variants), not the complete product. This clarification feeds D6/D13/D14.
+
+Compact trust model now established:
+
+```text
+integrity        = retained bytes match their declared digest
+coherence        = retained decoded materials satisfy their declared historical relationships
+admission        = material is allowed to count as admitted UpgradePilot history
+freshness/use    = recovered historical material is separately valid/authorized for the present target/premises
+```
+
+A failure can originate in one layer while still requiring refusal by a later boundary. `root-cause owner != refusal owner`.
 
 ## Remaining formal D-native route
 
-- [ ] **D4 — Trust vocabulary:** integrity vs coherence vs authenticity/admission vs freshness/current validity.
-- [ ] **D5 — Capture vs storage/publication vs recovery responsibility.** Separate root-cause ownership from recovery refusal responsibility without duplicating every owner/evaluator.
+- [x] **D4 — Trust vocabulary:** integrity vs coherence vs authenticity/admission vs freshness/current validity.
+- [x] **D5 — Capture vs storage/publication vs recovery responsibility.** Separate root-cause ownership from recovery refusal responsibility without duplicating every owner/evaluator.
 - [ ] **D6 — Codec/version/provenance model.** Boundary format, family codec version, producer method identity and producer semantic version; unrelated unsupported-family behavior.
 - [ ] **D7 — Boundary/representation validation.** Exact target, digest/reference closure, fixed layouts/variants, bounded JSON/resource limits and constructor-normalization refusal.
 - [ ] **D8 — Structural/material binding vs semantic re-evaluation.** Use the real repaired binding cases and identify the line where validation would become replay/evaluation.
@@ -47,6 +62,6 @@ Current reconstruction does **not** manually serialize every UpgradePilot layer.
 
 ## Current decision point
 
-D1–D3 are meaningfully demonstrated. No technical contradiction has been found in the native reconstruction result during these learning steps. The next natural cluster is **D4 + D5**, because the questions already raised about digests, incoherent histories, capture/storage root causes and recovery refusal map directly onto the trust/responsibility vocabulary. D6/D7 should follow once that trust model is explicit; D8/D9 then apply it to concrete repaired cases and lifecycle states. D10–D13 deepen the two domain traces and proof boundaries, with D14/D15 reserved for architecture critique and synthesis.
+D1–D5 are meaningfully demonstrated. No technical contradiction has been found in the native reconstruction result during these learning steps. Continue with the compressed **D6 + D7 representation-mechanics block**: distinguish the several version/provenance identities first, then connect them to fixed type/layout validation and bounded representation parsing. D8/D9 then apply those mechanics to binding versus re-evaluation and lifecycle states. D10–D13 deepen the two domain traces and proof boundaries, with D14/D15 reserved for architecture critique and synthesis.
 
 Do not infer completion of any remaining item from this route. Each checkbox still requires meaningful interaction/ownership evidence before reconciliation into the canonical cycle record.
