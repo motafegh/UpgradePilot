@@ -1,6 +1,6 @@
 # Investigation Workspace Implementation and Migration Plan
 
-**Status:** prepared execution/proof plan under accepted architecture and reconstruction/storage methods; production implementation requires separate activation.
+**Status:** execution/proof plan under accepted architecture and reconstruction/storage methods; each implementation responsibility requires separate activation.
 **Responsibility:** replace the fixed investigation snapshot with a canonical evolving Workspace, preserve native meanings and material basis, prove cold recovery/explicit continuation and cut over supported consumers.
 **Live selection:** [MEMORY.md](../MEMORY.md) alone.
 
@@ -98,6 +98,8 @@ The Workspace native-foundation cycle groups stages 1 and 2: retained native mea
 These stops preserve focused proof and learning inside the same cycle and record. They do not close a separate full cycle per stage. Reassess subsequent cycle boundaries from the resulting engineering evidence, unresolved responsibilities, proof cost and learner ownership before semantic integration or product cutover. Later stage ordering may overlap where interface proof requires it; default cutover still requires the admitted family/consumer closure below. [MEMORY.md](../MEMORY.md) owns actual selection and phase position.
 
 The [combined checkpoint reconstruction proof](../tests/test_workspace_checkpoint_reconstruction.py) composes [declared-revision inspection](../src/upgradepilot/workspace/checkpoint_store.py) with the existing owner-specific native projections in a fresh read-only process. Its recovery inputs are the local store and explicit lineage/revision/exact-target selection; expected native values and JSON material are not recovery inputs. It covers the admitted 11-root CI/Python closure, version/input-binding refusal, coherent not-evaluated fixtures, selected earlier progress, validated backups and actual publication interruption under independent re-entry guards. It does not add a runtime recovery framework or establish complete canonical lifecycle/report/continuation coverage; those remain later responsibilities.
+
+The [publication-coherence controls](../tests/test_workspace_checkpoint_publication_coherence.py) independently prove that damaged retained lineage is refused before predecessor-conflict classification, while a nonexistent predecessor on a genuinely empty lineage remains a conflict. These storage controls do not invoke native acquisition or establish native semantic support.
 
 ### Define the concrete capture and consumer contracts
 

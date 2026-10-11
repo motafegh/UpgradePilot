@@ -1,6 +1,6 @@
 name: Product verification
 
-# Dispatch explicitly while the main implementation's executable proof is deferred.
+# Manual dispatch keeps hosted verification separate from local execution proof.
 # Enabling push/PR checks is a separate decision after the first hosted run is reviewed.
 on:
   workflow_dispatch:
