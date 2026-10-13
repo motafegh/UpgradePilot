@@ -25,4 +25,16 @@ Ali then requested independent branch/main learning review and explicitly author
 
 Updating this plan is AI-assisted coordination, not another completed learning session. Preserve D1–D7 without restarting; no remaining block or combined ownership check is passed by this publication. Product source/test proof remains the pinned main record, not a new test run. Review newer main/branch evidence before eventual reintegration; E closure and Stage 3+ need their own explicit progression/authorization.
 
+## Learning evidence after reconciliation — 2026-10-13
+
+**Block 3 — Historical material and outcome meaning: completed with meaningful interaction.** This is evidence for later canonical reconciliation, not a second live checklist. Ali demonstrated the following distinctions against the synchronized implementation and current storage repair history:
+
+- Recovery may validate that a retained result is bound to its retained historical inputs, but must not rerun today's selector/evaluator to replace the historical owner conclusion.
+- `target_python` with `outcome=recorded` and no retained source/result is contradictory and must refuse; the same empty representation with `outcome=not_evaluated` is a truthful unexecuted historical state.
+- A recorded selector `None` is historical abstention, not missing selection and not permission for recovery to infer a new read merely because the pre-assessment was unresolved.
+- A recorded target-Python selection followed by explicit `target_python=not_evaluated` is a coherent selected-but-unexecuted prefix; recovery preserves it rather than deciding whether execution should continue.
+- Storage absence, missing selected revision, damaged lineage, writer conflict and acknowledgement uncertainty are different states. In the concrete repaired publication-order case, retained revisions with a missing head must classify as `invalid_checkpoint_storage` before ordinary predecessor-conflict handling; corruption must not masquerade as concurrency.
+
+No technical contradiction was found. No product code/test/architecture change or new verification claim is implied by this learning record. **Next teaching dependency:** Block 4, Lesson 1 — durable publication identity and atomic publication (`lineage_id`, `revision_id`, `predecessor_id`, immutable material versus mutable head, and transaction ordering).
+
 Procedural provenance: earlier learning used `UP-SKILL:upgradepilot-learning-by-doing` and `UP-SKILL:upgradepilot-working-memory`; synchronization/review used `UP-SKILL:upgradepilot-repository-audit` and `UP-SKILL:upgradepilot-workstream-supervision`; this authorized plan/record update uses `UP-SKILL:upgradepilot-planning-design` and `UP-SKILL:upgradepilot-working-memory`.
