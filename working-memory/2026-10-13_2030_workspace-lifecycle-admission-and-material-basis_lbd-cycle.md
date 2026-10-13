@@ -1,7 +1,7 @@
 # Workspace lifecycle, host admission and material-basis validity — LbD cycle
 
 **Initialized:** 2026-10-13 20:30 Asia/Tehran.
-**Session status:** ACTIVE; A1 continuity/onboarding presented, response pending.
+**Session status:** ACTIVE in A2; upcoming responsibility orientation presented, pre-B understanding gate pending.
 **Primary operation:** Planning/Design for responsibility reconciliation and A-phase entry; Build/Implement is gated separately.
 **Previous engineering foundation:** [Stages 1–2 cycle](2026-10-10_1552_workspace-native-capture-reconstruction-and-publication_lbd-cycle.md). Its remaining D/E progression is independently owned on `learning/d-native-ownership-2026-10-10`; this record does not take it over.
 **Owners:** [live position](../MEMORY.md), [implementation/migration plan](../plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_AND_MIGRATION_PLAN.md#technical-stages-and-cycle-boundaries), [ADR-0012](../docs/architecture/ADR-0012-canonical-investigation-workspace-and-recovery-boundary.md), [ADR-0013](../docs/architecture/ADR-0013-versioned-native-reconstruction-and-workspace-checkpoint-storage.md), [Core §6.4](../docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md#64-canonical-investigation-recovery-and-explicit-continuation), [Product Decision Model](../docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md), [Operating Guide](../OPERATING_GUIDE.md).
@@ -12,8 +12,8 @@
 ```text
 Cycle — Workspace lifecycle, host admission and material-basis validity
 A0 — DONE: current main/owners/source/tests/proof reconciled; record and living A-phase map initialized.
-A1 — CURRENT: current-state onboarding presented; continuity gate awaits Ali's challenge/correction/response.
-A2 — PENDING: upcoming responsibility orientation and separate pre-B understanding gate.
+A1 — DONE: Ali accepted the current-state model and explicitly requested A2; no independent D/E mastery inferred.
+A2 — CURRENT: upcoming responsibility/flow/proof orientation presented; pre-B understanding gate remains pending.
 B — PENDING: no lifecycle product source/test implementation begun.
 Verification gate — PENDING: future Stage 3 behavior requires its own product proof.
 D — PENDING: learn from the sufficiently verified new result.
@@ -90,10 +90,61 @@ This map supports the existing plan; it is not another execution or semantic own
 
 ## A1 presentation and gate
 
-Present the established foundation, its evidence/limits and the missing lifecycle responsibility without repeating the independent native D lessons. Stage 3 is the evidence-supported next responsibility; A2 must teach its concrete flow, boundaries and proof before Build. A1 remains CURRENT until Ali has had the required meaningful challenge/correction opportunity; no understanding is inferred from this record or assistant explanation.
+The established foundation, its evidence/limits and the missing lifecycle responsibility were presented without repeating the independent native D lessons. Ali replied: "good and now we can go to A2". This clears the continuity gate and explicitly selects A2; it does not establish independent mastery of the foundation or clear the separate pre-B understanding gate.
+
+## A2 orientation — real flow, ownership and proof
+
+The admission/lifecycle/basis responsibility is clarified in the existing implementation plan, separating its subsection from later synthesis/report and recovery/continuation consumer migration. This is execution-boundary clarification under the accepted six stages and ADRs; no new semantic or storage-method owner is created. Main/origin remain aligned at the A0/A1 publication `1da3175b` on the A2 entry fetch; product trees are unchanged.
+
+The concrete existing path is `impact.python_support`: a grounded support-drop candidate has an unresolved exact-target declaration proposition; `select_python_support_drop_investigation` selects `acquire_exact_target_python_declaration` for `pyproject.toml` at the candidate's exact head. Orchestration checks repository/head, calls the existing provider, interprets the declaration, evaluates target relevance, then reevaluates impact. Existing tests distinguish not-yet-acquired material from an attempted declaration problem; a recorded problem does not reselect the same acquisition. This normal path supplies the production integration anchor, not a universal discovery policy.
+
+Upcoming B builds the Workspace-owned history/authority path around that sequence:
+
+```text
+native unresolved assessment and selection / proposition-relative need
+→ exact capability request with retained original target, revision, scope and material basis
+→ host admission/rejection under present capability/effects/authority
+→ durable admission/attempt intent before the read
+→ existing read and native interpretation, with actual observation/problem retained
+→ result identity/current material-basis validation
+→ existing owner reassessment and immutable successor with retained basis/history
+```
+
+Native owners retain factual/evaluation meaning; the Workspace owns cross-record identity/reference/history/current-basis relationships; the host owns executable admission; persistence owns atomic predecessor publication. New evaluation is explicit owner activity. Offline reconstruction reads historical results/history without provider/model/evaluator calls. A source read succeeding is not a support/applicability conclusion. Procedural finish is not an adequacy assessment; missing semantic/adequacy competence remains unsupported.
+
+### Concrete representation and interface boundary
+
+Inspected source shows `CapturedNativeBoundary` admits one record per native family, `NativeInvestigationCapture.snapshot()` requires completed staging, and `CheckpointRevision` currently carries only that native boundary. Repeated attempts and unfinished interaction history therefore require an explicit logical composition of native material and separately encoded typed lifecycle records. Reusing family slots as a changing global status or inventing native authority for host annotations would lose the accepted distinction.
+
+The logical design is fixed at this depth: one canonical Workspace revision retains native closure plus lifecycle history and their scoped links; typed in-process views expose admitted consumer material; publication uses the existing private SQLite method. The concrete format/codec/schema support map must be reconciled before the first capture/store edit in B. Preserve explicitly tested old-format inspection/native support where supported, otherwise refuse affected reconstruction; do not silently reinterpret old formats or add automatic migration. Exact classes/table layout remain routine implementation choices under ADR-0012/0013, with a Planning/Design return if a consequential method departure is needed.
+
+The primary code boundaries are existing orchestration, `workspace/` composition/capture/representation/projection/persistence, and native owner call sites/tests. Do not duplicate native acquisition/evaluation, introduce a second writable investigation, or add a framework/scheduler. Ordinary report behavior retains its current scope until full native coverage and consumer cutover earn replacement; no Stage 3 user-facing resume promise is made.
+
+### Validity and failure model taught
+
+Material basis means the specific native inputs, candidate/proposition, request meaning, scope and method/capability bindings on which work relied. A Workspace revision is the whole composed state; a material basis is the relevant dependency set. They are not interchangeable.
+
+- An unrelated same-target CI/history addition need not invalidate a delayed declaration result. Exact target/result/request and relevant premises must still match.
+- Changed candidate/source association, premise, scope or method cannot silently inherit an old assessment. Retain old history; validate/rebind explicitly or classify affected current use as stale/unsupported/unresolved as appropriate. A different head is a different exact target.
+- Loss of current execution authority prevents a new read. It does not erase an already recorded historical observation or grant authority merely because an old admission exists. Current evidential use remains subject to its separate basis validation.
+- Failed acquisition, successful empty result and scoped negative evidence remain distinct. Duplicate delivery is checked by request/attempt/result identity and content; it cannot become independent support. Contradictory content under one identity is an ingestion problem before semantic conflict evaluation.
+- Published intent followed by interruption without retained completion leaves unknown completion. Do not invent a result or retry automatically. Failed/unconfirmed publication cannot authorize the capability to proceed from an unestablished admission boundary.
+- Proposals/structural admission do not establish truth. Available, delivered, observably used, cited, evaluated support and sufficiency remain separate relationships; missing observable use remains unknown. Pre-candidate discovery objectives and proposition-relative needs stay distinct. Counterevidence retains earlier assessment and triggers the admitted owner's successor evaluation; no missing generic evaluator is replaced with a fabricated unresolved assessment.
+
+### Acceptance, exclusions and ownership gate
+
+Acceptance requires the real normal selected-read/reassessment path through the host plus cold retained native/lifecycle inspection and discriminating controls: admission/refusal, intent before execution, no operation after publication refusal/uncertainty, unrelated/material same-target change, target change, duplicate/contradictory identity, method/capability withdrawal, native/problem branches, counterevidence/unsupported assessment, views/omission/use truth, and unfinished attempt/procedural/adequacy state. Classify controlled future/defensive cases honestly; they do not establish production concurrency or Investigator competence.
+
+Verification proceeds focused lifecycle/native/storage/normal orchestration tests → affected cross-owner regressions → full checkout and fresh noneditable installed regression for the material source change. Include guarded fresh-process offline reconstruction and interruption controls; static checks cannot substitute for these tests. Product source/test inventory and exact supported version map are Build preflight obligations, not proof already earned by A2.
+
+Full family coverage, synthesis/report cutover, user-facing recovery/continuation, replay, new evaluators/discovery policy, concurrency scheduling, private data and external mutation remain later/separately admitted responsibilities. Their exclusion keeps Stage 3 coherent around lifecycle ownership while retaining all existing product facts and the explicit later gates. No claim of complete resumability, useful recommendations, semantic accuracy, power-loss durability or learner mastery follows.
+
+Two pre-B reasoning opportunities: explain why unrelated same-target progress differs from a material premise change for a delayed result; explain what published attempt intent without recorded completion proves and what is needed before another execution. A2 remains CURRENT until Ali has had the orientation/challenge opportunity and its understanding gate is addressed. Build has not begun.
 
 ## Record-increment validation and handoff
 
 Validation for this A0/A1 increment: both changed documents pass 26 local link and three anchor checks, balanced fences and phase/live-owner consistency. All nine governance functions ran: eight pass; only the inherited root `examples/` owner-marker mismatch remains. Whitespace passes. Product source/test Git trees remain identical to the verified foundation; no runtime tests were rerun and no Stage 3 Verification result is claimed. Publication scope is this cycle record and MEMORY.md only under the standing commit/push cadence; the unrelated untracked audit record is excluded.
 
-As of this handoff, STOP at A1; A2 and Build remain pending. The independent foundation D/E work continues without a timing dependency. Main's current selection is owned only by MEMORY.md.
+The preceding validation is the A0/A1 increment's historical evidence. The A2 update changes only this record, MEMORY.md and a position-neutral clarification of the existing implementation plan. Final scope checks pass: three documents, 69 local links, seven anchors, balanced fences, phase/live-state alignment, identical product source/test trees and whitespace. All nine governance checks ran: eight pass, retaining only the inherited root `examples/` owner-marker mismatch. No runtime product test is required or claimed for this orientation-only increment. Accepted specification/ADR methods and the independent learning branch were not changed.
+
+As of the A2 handoff, STOP at the separate pre-B understanding gate. A1 is DONE, A2 is CURRENT, B/Verification/D/E remain PENDING. The independent foundation D/E work continues without a timing dependency. Main's current selection is owned only by MEMORY.md.
