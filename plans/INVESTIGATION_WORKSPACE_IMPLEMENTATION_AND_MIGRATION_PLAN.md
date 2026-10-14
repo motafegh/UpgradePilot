@@ -3,6 +3,7 @@
 **Status:** execution/proof plan under accepted architecture and reconstruction/storage methods; each implementation responsibility requires separate activation.
 **Responsibility:** replace the fixed investigation snapshot with a canonical evolving Workspace, preserve native meanings and material basis, prove cold recovery/explicit continuation and cut over supported consumers.
 **Live selection:** [MEMORY.md](../MEMORY.md) alone.
+**Sequence decision:** Ali adopted the AI-facing lifecycle → verification/readiness decision → separately activated model-integration/evaluation sequence on 2026-10-14. This plan coordinates that sequence; actual activation and phase position remain in MEMORY.md.
 
 ## 1. Full target, boundaries and owners
 
@@ -133,6 +134,20 @@ Keep predecessor-conflict control separate from current result validity. Retain 
 
 Completion requires normal selected-read/reassessment integration plus discriminating lifecycle controls and offline reconstruction of its retained native/history closure. Include current normal branches, future accepted delayed-result/view/proposal pressures and defensive identity misuse as separately disclosed proof classes. Full native-family coverage, default synthesis/report cutover, user-facing recovery/continuation and replay have their later/separate gates; this lifecycle increment cannot claim their completion. Extend its supported boundary when those consumers require additional material closure rather than suppressing existing product facts.
 
+#### AI-facing acceptance and proof
+
+Lifecycle integration is also the product context/tool/evaluation boundary for an Investigator. Carry experiment-derived responsibilities into product-owned contracts and tests under ADR-0012; experiment controllers, fixture policy, source maps and transcripts do not become canonical product machinery. Preserve the accepted [support-drop LLM role](../docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md); no broader model or orchestration policy is adopted by building its host boundary.
+
+| Responsibility | Stage 3 acceptance / proof obligation |
+| --- | --- |
+| Context preparation | Typed bounded native/source views with exact identity, stable addressability, content/reference strength and truthful selection/omission limits. Retained source/native material remains available beyond human report summaries; delivered material does not imply observable use or semantic support. |
+| Structured requests/proposals | Explicit untrusted submission and result/problem boundaries. Host-owned capability meaning, target/scope/effects and fresh admission cannot be supplied or redefined by model output. Exercise malformed/extra-authority/unknown/stale submissions and prove no capability effect after refusal. |
+| Traceable operation | Retain original basis, admission, published intent, attempt, observation/problem and evaluation lineage; preserve duplicate/contradictory-content and unknown-completion outcomes. Retain actual available method/model/contract/configuration identity at its producer/composition boundary; missing metadata stays an explicit gap, including injected/custom producer cases. No hidden reasoning, credentials or invented call metadata. |
+| Evaluation and stopping | Native owners retain bounded meanings and relevant counterevidence/unknown inputs. Structural admission, unsupported/failed/stale evaluation, procedural finish and canonical adequacy remain distinct. A model's no-action/settled explanation cannot establish generic adequacy or recommendation permission. |
+| Production integration and retained proof | One normal native acquisition/evaluation sequence through the host; supported cold native/lifecycle inspection without calls; focused boundary and normal/problem integration controls followed by relevant full checkout/fresh-installed regressions. Controlled model-shaped inputs prove the mechanical contract; actual model behavior, semantic quality and independent usefulness need their own evidence. |
+
+At this responsibility's verification boundary, perform the §6 Investigator-integration readiness decision and record its disposition. Finish the cycle's required D/E ownership/closure before entering another substantive responsibility unless Ali explicitly selects a justified scheduling override. No particular model, tool schema, framework or agent count is required merely to pass the host-contract proof.
+
 ### Migrate synthesis/report and recovery/continuation consumers
 
 Cut synthesis/report to explicit Workspace-native inputs and keep their action/report contract unchanged. Normal synthesis runs through its owner and publishes its result/basis; historical rendering consumes the retained conclusion. Refactor the existing report-projection synthesis call at this boundary rather than treating it as permissible during recovery. Update CLI wiring and add distinct offline Workspace inspection and explicitly invoked continuation surfaces with truthful supported/refused outcomes; exact flags are routine Build choices. Current report `--open-report` remains its separate offline path. Recovery is side-effect-free; continuation revalidates target/material/method/authority and only then admits available capabilities/evaluation. Ambiguous completion remains unresolved until deliberate reconciliation.
@@ -167,12 +182,29 @@ Use the [migration tests](../experiments/tests/test_workspace_replacement_migrat
 | --- | --- | --- |
 | Independent report utility | Exact normal outputs, equivalent ordinary-review evidence and reviewed labels/reviewer protocol are ready. Existing output may qualify before Workspace completion. | Freeze/run the separately authorized [usefulness study](MAINTAINER_REPORT_PRESERVATION_AND_USEFULNESS_EVALUATION_PLAN.md#5-independent-usefulness-evaluation); do not make code parity its utility baseline. |
 | Post-migration utility regression | Direct/recovered consumers pass parity and equivalent case outputs can be produced. | Reassess added/lost user value under the same protocol; snapshot inputs and disclose changed evidence modes. |
-| Investigator mechanism comparison | Product-facing typed views/native facts and admitted request boundaries have reproducible contract tests; laboratory protocol can bind exact target/basis/authority. | Explicit joint selection under the laboratory's own protocol/local-only authorization; no automatic inference launch. |
+| Investigator mechanism comparison | Product-facing typed views/native facts and admitted request boundaries have reproducible contract tests; laboratory protocol can bind exact target/basis/authority. | Apply the explicit readiness decision below at the lifecycle verification boundary; jointly freeze/select any comparison under its own protocol/local-only authorization. No automatic inference launch. |
 | Semantic/adequacy method | A decision-critical unsupported owner prevents a useful proposition/stop/check; additional acquisition cannot resolve missing evaluation capability. | Select a bounded method/evaluation responsibility with baseline, protected evidence and rejection criteria. |
 | Deterministic replay | Required retained inputs/method identities and an independently useful re-execution boundary can be specified. | Activate its own scope/equivalence plan under Charter §6; never claim recovery as replay. |
 | Additional coverage/storage policy | A representative case or measured loss/volume defeats the declared native/retention boundary. | Review exact expansion, pruning/migration or storage alternative at its owner; preserve excluded capability and product cost. |
 
 At each satisfied handoff, MEMORY must select the follow-up or record an explicit evidence-backed defer/reject/reschedule disposition. Open advanced-method responsibilities cannot silently disappear behind more ordinary implementation. Independent reviewer availability does not block unrelated mechanical work, but usefulness remains unproved until its actual gate passes.
+
+### Investigator-integration readiness decision
+
+Review this boundary after lifecycle verification; full family/report/CLI migration is not an automatic prerequisite. Produce a small supported-interface and evidence map against the actual tested product commit:
+
+1. Product-owned revision/target/basis/views, objective/need origin, capability admission, observation/proposal ingestion, evaluator outcomes and lifecycle inspection. Reconcile these with the separately owned H1/laboratory consumption requirements; research cannot emulate a missing canonical seam with its own Workspace.
+2. Exact offered native families/source formats, references and actual required producer inputs. Establish common provenance/material preparation for both comparison arms or explicit unsupported scope. Do not fabricate complete PR/changed-file/runtime facts, selectively enrich one arm, or treat supplied extractor answers as independent inference evidence.
+3. Available native evaluation methods and explicit absent semantic/adequacy methods. Proposal-quality evaluation can proceed within a reviewed unsupported boundary; it cannot establish generic evaluated applicability, canonical adequacy or action permission. Source-only API semantic repair remains a separately selected responsibility.
+4. Present allowed effects, material-validity behavior, model-visible packing/omissions, operation accounting and available method/resource metadata. Refresh dated recovery/migration assumptions against accepted owners. Reconcile older bounded-planner/framework obligations explicitly; a dependency, successful one-action smoke or the existence of comparison code does not adopt LangGraph/LangChain.
+
+Record one of these dispositions with its evidence:
+
+- **READY FOR BOUNDED INTEGRATION/COMPARISON:** jointly select the exact supported claim, common baseline/inputs, interface version, local deployments, prompt/schema/tool/context policy, budgets, qualification/refusal controls and semantic/usefulness review boundary before implementation/runs. Preserve exposed development cases as development evidence; stronger claims require protected/independent proof. Retain attributed model proposals separately from product authority.
+- **NAMED PREREQUISITE:** identify the missing family/input/format/provenance/interface, the affected claim, the smallest separately admitted preparation or Stage 4 coverage responsibility and exact re-entry evidence. Do not postpone all AI work behind an unspecified whole-Workspace completion condition.
+- **DEFER / REJECT / RESCHEDULE:** explain the product/proof/complexity reason, retained control/learning value, affected capability cost and reassessment condition. Do not silently drop the responsibility.
+
+Subsequent context/prompt/model/tool-loop and semantic-method work earns its own bounded activation and frozen evaluation. Compare orchestration/framework choices with the ordinary synchronous baseline and credible future pressure when that decision becomes real; preserve the native/domain/persistence owners. No model/provider replacement, automatic fallback/retry, extra agent, framework, hosted/paid inference or target mutation is admitted by this sequence decision.
 
 ## 7. Completion, stop and modification boundary
 

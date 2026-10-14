@@ -1,8 +1,8 @@
 # Workspace lifecycle, host admission and material-basis validity — LbD cycle
 
 **Initialized:** 2026-10-13 20:30 Asia/Tehran.
-**Session status:** ACTIVE in A2; upcoming responsibility orientation presented, pre-B understanding gate pending.
-**Primary operation:** Planning/Design for responsibility reconciliation and A-phase entry; Build/Implement is gated separately.
+**Session status:** ACTIVE at Stage 3 Build entry after formal sequence adoption; representation/source/test preflight precedes executable changes.
+**Primary operation:** Planning/Design for formal sequence reconciliation, transitioning to authorized Build/Implement for the admitted Stage 3 responsibility.
 **Previous engineering foundation:** [Stages 1–2 cycle](2026-10-10_1552_workspace-native-capture-reconstruction-and-publication_lbd-cycle.md). Its remaining D/E progression is independently owned on `learning/d-native-ownership-2026-10-10`; this record does not take it over.
 **Owners:** [live position](../MEMORY.md), [implementation/migration plan](../plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_AND_MIGRATION_PLAN.md#technical-stages-and-cycle-boundaries), [ADR-0012](../docs/architecture/ADR-0012-canonical-investigation-workspace-and-recovery-boundary.md), [ADR-0013](../docs/architecture/ADR-0013-versioned-native-reconstruction-and-workspace-checkpoint-storage.md), [Core §6.4](../docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md#64-canonical-investigation-recovery-and-explicit-continuation), [Product Decision Model](../docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md), [Operating Guide](../OPERATING_GUIDE.md).
 **Procedures:** `UP-SKILL:upgradepilot-planning-design`; `UP-SKILL:upgradepilot-learning-by-doing`; `UP-SKILL:upgradepilot-working-memory`.
@@ -13,8 +13,8 @@
 Cycle — Workspace lifecycle, host admission and material-basis validity
 A0 — DONE: current main/owners/source/tests/proof reconciled; record and living A-phase map initialized.
 A1 — DONE: Ali accepted the current-state model and explicitly requested A2; no independent D/E mastery inferred.
-A2 — CURRENT: upcoming responsibility/flow/proof orientation presented; October 14 pre-B review checks how experiment-derived AI responsibilities enter this cycle and later work; understanding/selection remains pending.
-B — PENDING: no lifecycle product source/test implementation begun.
+A2 — DONE for action entry: Ali explicitly adopted the reviewed sequence; two reasoning checks remain deferred to D, with no independent mastery claim.
+B — CURRENT at entry: formal owners and concrete representation/source/test preflight; no lifecycle source/test implementation established yet.
 Verification gate — PENDING: future Stage 3 behavior requires its own product proof.
 D — PENDING: learn from the sufficiently verified new result.
 E — PENDING: gap disposition and closure after D.
@@ -177,3 +177,49 @@ The prior A2 explanation foregrounded operational state/publication. Its accepte
 **Decision boundary:** this is a recommendation, not an adopted model/framework, authorized H1 run, rewritten plan or cleared Build gate. Existing implementation-plan §6 already owns the follow-up trigger and requires explicit disposition; a new competing AI roadmap is unnecessary. If Ali chooses a changed live scope/sequence, reconcile the existing owners and A2 proof boundary before affected B. Product, research, mechanical, semantic and learner-ownership claims remain separate.
 
 **Review verification:** only this dated cycle record is changed. All 27 local links, two anchors, balanced fences, phase consistency and diff whitespace pass. Product/test/experiment trees, plans, accepted owners and MEMORY.md are unchanged; no model execution or fresh test result is claimed. Procedure provenance: `UP-SKILL:upgradepilot-repository-audit`; existing Planning/Design, Learning-by-Doing and Working Memory procedures remain composed.
+
+## Formal sequence adoption and Build entry — 2026-10-14
+
+Ali replied: "Good and I agree with you lets go for your recommended sequence formally". This explicitly adopts the reviewed engineering sequence and directs progression through it. Formal reconciliation belongs in the existing implementation/migration plan and MEMORY.md; no competing AI roadmap, new ADR or laboratory run is created. The plan now carries the AI-facing acceptance/proof matrix and the lifecycle-verification readiness decision, including ready/named-prerequisite/defer/reject/reschedule dispositions and the subsequent protocol-freeze boundary.
+
+### Action gate and learning evidence
+
+The full A2 responsibility/flow/proof orientation and subsequent AI relationship challenge were presented before this instruction. Treat Ali's explicit direction to proceed as clearing the action gate. It is not independent reasoning/ownership proof. The material-validity and interrupted-attempt reasoning checks remain deferred core learning for D/E of this cycle; they were not answered or marked passed.
+
+This is an explicit proportional cadence adaptation under the Smart Situational Override Rule: normal pre-B handling would seek the reasoning responses now; Ali has instead reviewed/challenged the upcoming responsibility and explicitly selected proceeding with the formal sequence. Requiring another approval would repeat his direction without adding engineering authorization. Proceed into entry preflight while preserving the deferred reasoning and requiring its repair/defer disposition in D/E. Scope, proof, native authority and later model-run gates do not change; independent Stages 1–2 D/E remains separate.
+
+### Concrete entry responsibility
+
+Build begins with the source-grounded publication representation and compatibility inventory required by the already reviewed A2 boundary. Current `CheckpointRevision` contains only `CapturedNativeBoundary`; native capture seals at completion and the boundary admits one record per native family. The new host must compose native material and separately encoded immutable lifecycle history with explicit references and supported-version handling. No routine implementation choice may silently reinterpret an existing format, manufacture native meaning, permit retry or create a second writable investigation.
+
+Entry proof remains bounded: inspect active source/test constructors, storage schema/digest/read/backup assumptions and native projection/capture call sites; choose the simplest coherent composition under ADR-0012/0013; record exact old/new support/refusal and focused/broader test scope before executable edits. A material new method/semantic ownership question returns to Planning/Design at its proper owner. Live model runs, a general Investigator policy, framework adoption and future semantic-method repair are not part of this formal adoption increment.
+
+**Formal increment verification:** validate changed plan/live/cycle links/anchors/fences, action-gate versus mastery/proof state, position-neutral plan ownership, unchanged accepted methods/source/tests and whitespace. Preserve actual outcomes before publication; documentation verification does not establish Stage 3 behavior.
+
+### Source/test entry preflight and observed baseline
+
+The Build/Implement procedure is active for entry preflight (`UP-SKILL:upgradepilot-build-implement`). ENVIRONMENT.md confirms the WSL checkout interpreter route. The inspected native capture/boundary, checkpoint revision/store, native projections and selected-read orchestration expose this concrete modification/proof inventory:
+
+| Boundary | Preserved responsibility | Stage 3 change/proof consequence |
+| --- | --- | --- |
+| Native capture | Actual supplied owner inputs/results, one producer sequence and final completion seal. | Add declared coherent progress publication through explicit composition; retain the completed-capture contract and refuse fabricated completion. |
+| Native envelope/projections | Fixed owner/type/version, one record per family, exact target/material closure and offline typed native reconstruction. | Native family bindings remain native; separately owned lifecycle history must preserve its own references/version/outcomes instead of masquerading as another native assessment. |
+| Revision/digest | Lineage/revision/predecessor identity bound to encoded material. | Compose the new lifecycle closure into the declared publication identity; retain an explicit old/new representation support/refusal map. Current digest meaning cannot silently change for old retained data. |
+| SQLite store/backup | Explicit schema 1/catalog, 1..4096 native records, immutable records/membership, coherent predecessors, commit-before-acknowledgement and validated backup. | Preserve this method and its corruption/interruption controls; an incompatible lifecycle layout needs an explicit supported schema/format boundary, without automatic migration or hidden retry. |
+| Normal native read | Mechanism-specific unresolved declaration selection, exact repository/head/path, one acquisition and native relevance/impact reassessment. | Insert host admission and durable attempt intent before the selected read; retain real outcomes/evaluations and their basis. Protect original native no-reselect/problem behavior and existing report scope. |
+
+Source inspection confirms current schema/format support is native-only version 1. This is the old-support inventory, not a selected or implemented new layout. The immediate source task is to finish the concrete versioned native/lifecycle composition under these owners, with old checkpoint inspectability/native support or explicit affected refusal, and then implement the admitted host path. Keep missing old lifecycle/method metadata explicit; do not backfill it as recovered state. No new substantive method conflict was found in entry preflight.
+
+Fresh preflight execution on unchanged product source/test trees:
+
+```text
+PYTHONPATH=tests:src .venv/bin/python3 -m unittest
+  test_workspace_checkpoint_store
+  test_workspace_checkpoint_publication_coherence
+  test_python_support_impact
+→ 49 tests PASS in 8.213 s, no skips.
+```
+
+This verifies the selected existing storage/publication/native baseline, not new Stage 3 functionality. Full checkout/fresh-installed suites were not rerun for formal plan adoption; the October 11 132/833/833 result remains separately recorded historical evidence. No source/test/experiment changes, live-model calls or provider inventory occurred. The formal increment checks pass for three changed documents, 81 local links, seven anchors, fences/phase/action-gate/proof/owner consistency and whitespace. All nine governance checks ran: eight pass; only the inherited root `examples/` owner-marker mismatch remains.
+
+**Formal adoption handoff:** the agreed sequence is now controlling execution coordination in the existing plan, with Build entry selected in MEMORY.md. B remains at representation/compatibility entry work; implementation and its Verification gate are incomplete. D/E and the readiness decision remain owed at their stated boundaries, and the deferred A2 reasoning is preserved. This increment publishes formal selection and an observed baseline, not lifecycle completion.
