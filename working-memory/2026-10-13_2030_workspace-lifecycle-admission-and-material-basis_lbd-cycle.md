@@ -1,7 +1,7 @@
 # Workspace lifecycle, host admission and material-basis validity — LbD cycle
 
 **Initialized:** 2026-10-13 20:30 Asia/Tehran.
-**Session status:** ACTIVE at the verified Stage 3 result/readiness boundary; B and Verification are complete for the admitted host scope, D/E pending.
+**Session status:** ENGINEERING HANDOFF CLOSED through E on 2026-10-14 under Ali's explicit scheduling override; Stage 3 D and learner-ownership closure remain DEFERRED to a separate learning session. This is not an unqualified full learning-cycle closure.
 **Primary operation:** authorized Build/Implement for the admitted Stage 3 responsibility, following completed Planning/Design reconciliation.
 **Previous engineering foundation:** [Stages 1–2 cycle](2026-10-10_1552_workspace-native-capture-reconstruction-and-publication_lbd-cycle.md). Its remaining D/E progression is independently owned on `learning/d-native-ownership-2026-10-10`; this record does not take it over.
 **Owners:** [live position](../MEMORY.md), [implementation/migration plan](../plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_AND_MIGRATION_PLAN.md#technical-stages-and-cycle-boundaries), [ADR-0012](../docs/architecture/ADR-0012-canonical-investigation-workspace-and-recovery-boundary.md), [ADR-0013](../docs/architecture/ADR-0013-versioned-native-reconstruction-and-workspace-checkpoint-storage.md), [Core §6.4](../docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md#64-canonical-investigation-recovery-and-explicit-continuation), [Product Decision Model](../docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md), [Operating Guide](../OPERATING_GUIDE.md).
@@ -16,9 +16,9 @@ A1 — DONE: Ali accepted the current-state model and explicitly requested A2; n
 A2 — DONE for action entry: Ali explicitly adopted the reviewed sequence; two reasoning checks remain deferred to D, with no independent mastery claim.
 B — DONE: generic host/current authority, published intent, outcomes, native reassessment, partial capture and material validity integrated through the normal selected-read caller; readiness disposition recorded.
 Verification gate — GREEN for admitted Stage 3: 25 host tests; 875 checkout and 875 fresh-installed tests; 92 source/installed hashes match; historical compatibility and guarded normal-path interruption/restoration pass.
-D — PENDING: learn from the sufficiently verified new result.
-E — PENDING: gap disposition and closure after D.
-C — CONTINUOUS: meaningful reconciliation, learning, decisions and evidence preserved here.
+D — DEFERRED by Ali: separate evidence-backed learning/ownership session; both A2 reasoning checks remain unassessed.
+E — DONE for engineering handoff under the recorded scheduling override: proof/non-proof, deferred learning and next responsibility consolidated; learner-ownership closure remains pending.
+C — DONE for this engineering handoff: meaningful progression preserved; any later D findings must reconcile this record and the responsible owner.
 ```
 
 ## A0 reconciliation and responsibility decision
@@ -305,4 +305,54 @@ Sixteen new guarded readers restore from store/selection only and exercise actua
 
 **Smallest re-entry evidence:** prepare a case-by-family matrix with genuine PR/change/dependency/workflow/release/tag/source provenance and explicit unsupported rows; a main-owned common source/reference and native-view bridge for both arms; exact offered effects/formats/methods, operation accounting and refusal canaries against this tested seam. This is a bounded preparation/interface responsibility, not an unspecified wait for full Stage 4–6 migration. If the selected comparison needs an absent native family, identify that exact Stage 4 expansion and affected claim. Once those prerequisites are evidenced, separately select/freeze the local comparison and qualification protocol before any model runs.
 
-**Same-cycle handoff:** Stage 3 B/Verification are complete for the declared supported host/native scope. D/E remain pending, including both deferred A2 reasoning checks; no learner ownership is inferred. Review/learn the verified source/evidence and repair/defer material gaps before closing this cycle or activating the named H1 preparation. Full-family/direct report/synthesis cutover, user-facing continuation, replay, general semantic/adequacy competence and independent usefulness remain separate obligations.
+**Verification-boundary handoff (before the E scheduling decision below):** Stage 3 B/Verification are complete for the declared supported host/native scope. D/E remained pending at that boundary, including both deferred A2 reasoning checks; no learner ownership was inferred. Full-family/direct report/synthesis cutover, user-facing continuation, replay, general semantic/adequacy competence and independent usefulness remain separate obligations.
+
+## E engineering handoff and explicit D deferral — 2026-10-14
+
+Ali explicitly requested deferring D to another session and proceeding with E and the next engineering-cycle decision. Reconciliation fetched `origin/main` and confirmed exact alignment at `9d394819`, the verified product horizon. Only the unrelated untracked October 3 audit record is outside this increment. The Stage 3 source/test tree identities still match the final verification above; no new product execution or learning assessment is claimed.
+
+### Scheduling exception and ownership disposition
+
+```text
+Circumstance/evidence — Stage 3 B/Verification are green for the admitted generic-host/native
+scope; Ali explicitly defers D and asks for E and the next engineering responsibility.
+→ Normal route — complete evidence-backed D, then repair/defer its identified gaps in E
+before closing the cycle and entering the next responsibility.
+→ Why worse here — requiring D now contradicts Ali's scheduling choice and needlessly
+couples evidenced engineering progression to a separately scheduled learning session.
+→ Override — complete E's engineering handoff and explicitly defer D, both A2 checks
+and learner-ownership closure; allow the next responsibility to enter its own A-phase.
+→ Effect — engineering handoff is closed; full learning-cycle closure and mastery are
+not claimed. No evidence, architecture, capability scope or Build gate is weakened.
+→ Reconciliation — keep the learning debt in this single cycle record and its compact
+status in MEMORY.md; reconcile a material learning contradiction before affected work.
+```
+
+The deferred Stage 3 learning is retained here for a separate session; no destination agent, task or branch has been selected or contacted. The existing `learning/d-native-ownership-2026-10-10` branch continues to own only the independently scheduled foundation learning; this E decision neither assigns Stage 3 learning to it nor changes its records.
+
+| Deferred learning / ownership question | E disposition and re-entry evidence |
+| --- | --- |
+| Why unrelated same-target progress differs from a material premise change for a delayed result. | Original A2 reasoning check remains unassessed. D must use the verified host/material-validity controls and distinguish original basis, current use and publication predecessor. |
+| What published attempt intent without recorded completion proves, and what is needed before another execution. | Original A2 reasoning check remains unassessed. D must use actual interruption, known non-execution, lost-acknowledgement and historical-admission refusal evidence; no automatic retry authority is inferred. |
+| Generic host versus the first Python caller; native evaluation versus attributed proposals and unsupported adequacy. | Evidence-backed teaching and ownership assessment are deferred, not passed or diagnosed as a specific learner deficit. Use the actual normal flow and controlled proposal/stop refusals. |
+| Partial native capture, immutable closure, schema compatibility and the implementation failures/corrections. | Deeper source/test ownership is deferred. Recover the final verified horizon plus the C progression above; distinguish controlled composition, generic defensive controls and live semantic/usefulness proof. |
+
+When that separate learning session occurs, assess these topics before claiming ownership and repair or explicitly defer any discovered material gaps. A learning finding that contradicts an engineering premise reopens the affected owner/responsibility; ordinary pending learning does not require repeating Build or waiting on the foundation stream.
+
+### Engineering result, proof and residual responsibility
+
+The delivered responsibility is one future-general synchronous Workspace host with present request admission/execution authority, intent before capability entry, retained actual outcomes, native-owned reassessment, original material bases and separately checked current validity. The real selected declaration-read path supplies its first production integration case; acquisition/evaluation still run through their existing owners. Immutable cumulative history and explicit schema-1/schema-2 support/refusal remain preserved. Default publication is volatile; supplying a schema-2 store is the durable acknowledgement path.
+
+The final Stage 3 evidence at `9d394819` remains **25 host tests, 875 checkout and 875 fresh-installed tests, 92 matching hashes**, with the normal controlled-provider flow, guarded recovery, interruption and historical compatibility controls described above. This E increment changes records/planning only; product suites are not rerun. It adds no live provider/model, independent semantic/usefulness, general concurrency, power-loss, exactly-once, user-facing continuation or replay proof. The inherited governance `examples/` marker mismatch remains separate debt.
+
+Full native-family coverage, direct report/synthesis migration, recovery/continuation consumer activation and replay retain their owning gates. Missing general semantic/adequacy competence remains unsupported. These are later capability/proof obligations, not silently completed by Stage 3 or renamed as learning debt.
+
+### Next engineering responsibility and stop line
+
+Recommend **common Investigator native-input and source-interface preparation**, the named prerequisite already identified at Stage 3 readiness. Its outcome is genuine common provenance/native inputs plus a product-owned, mechanically qualified source/reference/native-view bridge that both raw-navigation and structured-Workspace comparison arms can consume. Preserve H1's dependency/source-context and workflow/CI-strength hypothesis; a raw-text-only substitute cannot satisfy it. Missing release/tag or other family inputs must be honestly unsupported or separately admitted for expansion.
+
+The existing [implementation plan preparation boundary](../plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_AND_MIGRATION_PLAN.md#prepare-common-investigator-inputs-and-source-interfaces) owns scope, outputs, proof and stop conditions. Full migration is not a blanket prerequisite; any required Stage 4 expansion must name the affected family/claim and re-entry evidence. H1 remains a separately owned proposed comparison, not an adopted model protocol.
+
+**E stop:** this engineering handoff is complete with explicit learning deferral. The next responsibility begins with its own A0 reconciliation/cycle initialization and A1 continuity gate, then A2 before Build. No new cycle, implementation, evidence acquisition, model run, framework or external task dispatch is performed by this handoff.
+
+**E record/plan validation:** three changed documents pass 96 local links, nine anchors, balanced fences, qualified phase/learning-deferral/continuation and scope/proof checks. Exact source/test trees match the final Stage 3 proof; accepted specifications/ADRs are unchanged. All nine governance functions ran: eight pass, with only the inherited root `examples/` owner-marker mismatch. Whitespace and three-file publication scope pass. Product suites were not rerun for this records/planning-only increment; the prior verified result remains the product evidence. The unrelated untracked audit record is excluded from publication.
