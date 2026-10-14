@@ -77,6 +77,17 @@ class CapabilityObservation:
     outcome: Literal["observed", "empty", "scoped_negative", "problem"]
     scope: str
     detail: str
+    representation: str | None = None
+    retained_content: str | None = None
+
+
+@dataclass(frozen=True, slots=True)
+class ExecutionInterruption:
+    """Interrupted intent: external completion unknown, or execution known not started."""
+
+    attempt_id: str
+    problem_kind: str
+    completion: Literal["unknown", "not_started"] = "unknown"
 
 
 @dataclass(frozen=True, slots=True)
@@ -130,6 +141,7 @@ type LifecycleValue = (
     | RequestAdmission
     | ExecutionAttempt
     | CapabilityObservation
+    | ExecutionInterruption
     | EvaluationOutcome
     | ConsumerView
     | ObservableUse
@@ -210,6 +222,15 @@ _LAYOUTS = (
         ),
     ),
     RecordLayout(
+        "execution_interruption",
+        ExecutionInterruption,
+        (
+            ("attempt_id", str),
+            ("problem_kind", str),
+            ("completion", LiteralValues(("unknown", "not_started"))),
+        ),
+    ),
+    RecordLayout(
         "evaluation_outcome",
         EvaluationOutcome,
         (
@@ -266,6 +287,20 @@ _CODEC = NativeValueCodec((_METHOD,) + _LAYOUTS)
 _BY_KIND = {layout.variant: layout for layout in _LAYOUTS}
 _BY_TYPE = {layout.constructor: layout.variant for layout in _LAYOUTS}
 
+# Observation v1 keeps its exact four-field layout. V2 additionally retains actual
+# capability output with a declared non-executing representation; it grants no truth.
+_OBSERVATION_V2 = RecordLayout(
+    "capability_observation",
+    CapabilityObservation,
+    next(
+        layout.fields
+        for layout in _LAYOUTS
+        if layout.variant == "capability_observation"
+    )
+    + (("representation", _OPTIONAL_TEXT), ("retained_content", _OPTIONAL_TEXT)),
+)
+_CODEC_V2 = NativeValueCodec((_OBSERVATION_V2,))
+
 
 def encode_method_identity(method: LifecycleMethodIdentity) -> bytes:
     return _CODEC.encode(method, RecordRef("lifecycle_method"))
@@ -277,16 +312,22 @@ def decode_method_identity(data: bytes) -> LifecycleMethodIdentity:
     )
 
 
-def encode_lifecycle_value(value: LifecycleValue) -> tuple[str, bytes]:
+def encode_lifecycle_value(value: LifecycleValue) -> tuple[str, int, bytes]:
     kind = _BY_TYPE.get(type(value))
     if kind is None:
         raise NativeReconstructionError(
             "unsupported_lifecycle_codec", "Unknown lifecycle value."
         )
-    return kind, _CODEC.encode(value, RecordRef(kind))
+    if isinstance(value, CapabilityObservation) and (
+        value.representation is not None or value.retained_content is not None
+    ):
+        return kind, 2, _CODEC_V2.encode(value, RecordRef(kind))
+    return kind, 1, _CODEC.encode(value, RecordRef(kind))
 
 
 def decode_lifecycle_value(kind: str, version: int, payload: bytes) -> LifecycleValue:
+    if kind == "capability_observation" and version == 2:
+        return cast(LifecycleValue, _CODEC_V2.decode(payload, RecordRef(kind)))
     if version != 1 or kind not in _BY_KIND:
         raise NativeReconstructionError(
             "unsupported_lifecycle_codec", "No supported lifecycle kind/version."
@@ -304,6 +345,8 @@ def lifecycle_predecessors(value: LifecycleValue) -> tuple[str, ...]:
         case ExecutionAttempt(admission_id=reference):
             return (reference,)
         case CapabilityObservation(attempt_id=reference):
+            return (reference,)
+        case ExecutionInterruption(attempt_id=reference):
             return (reference,)
         case EvaluationOutcome(subject_id=reference):
             return (reference,)

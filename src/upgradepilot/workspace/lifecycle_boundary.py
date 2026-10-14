@@ -20,6 +20,7 @@ from .lifecycle_records import (
     DiscoveryObjective,
     EvaluationOutcome,
     ExecutionAttempt,
+    ExecutionInterruption,
     InvestigationNeed,
     LifecycleMethodIdentity,
     LifecycleValue,
@@ -114,14 +115,14 @@ def capture_lifecycle_record(
     native_record_ids: tuple[str, ...],
     method: LifecycleMethodIdentity,
 ) -> CapturedLifecycleRecord:
-    kind, body = encode_lifecycle_value(value)
+    kind, version, body = encode_lifecycle_value(value)
     record = CapturedLifecycleRecord(
         record_id,
         basis_revision_id,
         native_record_ids,
         lifecycle_predecessors(value),
         kind,
-        1,
+        version,
         body,
         sha256(body).hexdigest(),
         method,
@@ -290,6 +291,14 @@ def reconstruct_lifecycle_history(
             request = prior[admission.request_id]
             if value.scope != request.scope:
                 raise _invalid("Observation has another admitted request scope.")
+            if (value.representation is None) != (value.retained_content is None):
+                raise _invalid(
+                    "Retained capability content needs its representation identity."
+                )
+        if isinstance(value, ExecutionInterruption) and not isinstance(
+            parent, ExecutionAttempt
+        ):
+            raise _invalid("Interruption has no retained execution attempt.")
         if isinstance(value, EvaluationOutcome):
             if not isinstance(
                 parent,
