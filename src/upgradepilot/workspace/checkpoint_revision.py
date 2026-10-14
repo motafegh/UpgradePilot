@@ -12,8 +12,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from hashlib import sha256
 
+from .lifecycle_boundary import CapturedLifecycleHistory, encode_lifecycle_history
 from .native_boundary import CapturedNativeBoundary, encode_native_boundary
-from .native_representation import json_bytes
+from .native_representation import MAX_NATIVE_JSON_BYTES, json_bytes
 
 
 class CheckpointStorageError(ValueError):
@@ -55,6 +56,7 @@ class CheckpointRevision:
     revision_id: str
     predecessor_id: str | None
     boundary: CapturedNativeBoundary
+    lifecycle_history: CapturedLifecycleHistory | None = None
 
     def digest(self) -> str:
         """Bind header identity to the complete ordered encoded material, not its truth."""
@@ -72,18 +74,24 @@ class CheckpointRevision:
             raise CheckpointStorageError(
                 "invalid_revision", "Invalid predecessor identity."
             )
-        return sha256(
-            json_bytes(
-                {
-                    "lineage_id": self.lineage_id,
-                    "revision_id": self.revision_id,
-                    "predecessor_id": self.predecessor_id,
-                    "boundary_digest": sha256(
-                        encode_native_boundary(self.boundary)
-                    ).hexdigest(),
-                }
-            )
-        ).hexdigest()
+        native = encode_native_boundary(self.boundary)
+        identity = {
+            "lineage_id": self.lineage_id,
+            "revision_id": self.revision_id,
+            "predecessor_id": self.predecessor_id,
+            "boundary_digest": sha256(native).hexdigest(),
+        }
+        # Missing history is the original native-only format, not an empty recovered run.
+        # Preserve that exact digest contract for existing schema-1/native-only revisions.
+        if self.lifecycle_history is not None:
+            lifecycle = encode_lifecycle_history(self.lifecycle_history)
+            if len(native) + len(lifecycle) > MAX_NATIVE_JSON_BYTES:
+                raise CheckpointStorageError(
+                    "storage_resource_limit", "Composed revision exceeds read capacity."
+                )
+            identity["format_version"] = 2
+            identity["lifecycle_digest"] = sha256(lifecycle).hexdigest()
+        return sha256(json_bytes(identity)).hexdigest()
 
 
 @dataclass(frozen=True, slots=True)
@@ -100,6 +108,11 @@ class StoredCheckpoint:
     revision: CheckpointRevision
     head_revision_id: str
     excluded_successor_ids: tuple[str, ...]
+
+    @property
+    def lifecycle_recovery_status(self) -> str:
+        """Retention only; this does not assert codec support or current resume authority."""
+        return "not_retained" if self.revision.lifecycle_history is None else "retained"
 
 
 @dataclass(frozen=True, slots=True)
