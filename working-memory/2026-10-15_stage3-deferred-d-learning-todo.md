@@ -14,7 +14,7 @@ Follow these steps in order unless evidence gives a reason to change the sequenc
   - Be able to explain why a lifecycle record keeps its historical basis, why unrelated same-target progress may remain valid, why material/target/scope/method changes may make current use stale/unsupported, and why evidential validity still does not grant execution authority.
   - Resolve the parent cycle's first deferred A2 reasoning check.
 
-- [ ] **D2 — Published intent vs known non-execution vs unknown completion vs retry authority**
+- [x] **D2 — Published intent vs known non-execution vs unknown completion vs retry authority**
   - Use the real repository-read path, interruption/lost-acknowledgement controls and recovery behavior.
   - Be able to distinguish `intent_recorded`, `not_started`, completion unknown and completed observation/problem, and explain why none of these automatically grants retry authority.
   - Resolve the parent cycle's second deferred A2 reasoning check.
@@ -38,6 +38,14 @@ Follow these steps in order unless evidence gives a reason to change the sequenc
 3. **What it proves / does not prove** — Original basis remains historical and is never rewritten to the newest revision. Material validity answers present usability, not execution permission. Current authority is a separate present-time host decision. A stale material basis also blocks execution even when authority otherwise exists.
 4. **Open confusion or gap** — No material conceptual gap remains for D1. Code-level expectation clarified: learn the small decision logic inside the relevant functions, not merely their names and not every implementation line.
 5. **Disposition** — D1 sufficiently learned for this responsibility; first deferred A2 reasoning check resolved. Continue to D2.
+
+### D2 — 2026-10-15
+
+1. **Evidence used** — `workspace/lifecycle_records.py`, `workspace/lifecycle_host.py` (`execute_admission()`, `_publish()`, `attempt_completion()` and retry refusal), the repository-read adapter's completed `problem` result path, and host-integration tests for failed intent publication, authority withdrawal after intent, unknown completion, lost acknowledgement and duplicate execution refusal.
+2. **Ali's explanation** — If intent publication fails before being established, the provider is not entered and the host must not continue automatically. If intent is recorded but authority disappears before the provider call, the attempt is `not_started`. If the provider is entered and an unexpected error occurs without a retained observation, completion is unknown and automatic retry is unsafe. A bounded provider/acquisition problem returned by the adapter is still a completed observation, not unknown completion.
+3. **What it proves / does not prove** — Published intent is a durable pre-interaction fact, not evidence of completion. `not_started` requires positive retained evidence that the external call was not entered. Unknown completion preserves ambiguity instead of converting an exception into non-execution. A completed `problem` observation proves only that the admitted capability returned that bounded result. Any previous attempt blocks automatic retry; historical admission/intent do not restore live execution permission.
+4. **Open confusion or gap** — No material D2 gap remains. Useful cross-domain analogy recorded: the ordering is CEI-like (`check` current authority/material → durably record internal intent → external interaction), but unlike Solidity CEI it is not primarily a reentrancy pattern and does not provide one-transaction atomic rollback across SQLite and an external provider. The durable intent/observation/interruption model exists because those systems can fail independently and leave ambiguous completion.
+5. **Disposition** — D2 sufficiently learned for this responsibility; second deferred A2 reasoning check resolved. Continue to D3.
 
 ## How we record progress
 
