@@ -1,8 +1,8 @@
 # Common Investigator native inputs and source interfaces — LbD cycle
 
 **Initialized:** 2026-10-14 23:45 Asia/Tehran.
-**Session status:** B DONE / Verification GREEN for the admitted common-input/source-interface scope on 2026-10-15; this cycle's D ownership learning and E closure remain pending.
-**Primary operation:** Build/Implement for the admitted common-input/source-interface preparation; no model/framework runtime or inference activation.
+**Session status:** B DONE / Verification GREEN for the admitted common-input/source-interface scope on 2026-10-15; D ownership learning is CURRENT at D1 and E closure remains pending.
+**Primary operation:** Learning/ownership review of the verified common-input/source-interface preparation; no model/framework runtime or inference activation.
 **Previous engineering responsibility:** [Stage 3 cycle and E handoff](2026-10-13_2030_workspace-lifecycle-admission-and-material-basis_lbd-cycle.md#e-engineering-handoff-and-explicit-d-deferral--2026-10-14). Its separate [learning companion](2026-10-15_stage3-deferred-d-learning-todo.md) closes D1–D4 and both earlier reasoning checks at `cabf974b`, with no engineering contradiction. The independent foundation learning branch retains its own D/E; neither learning responsibility is restarted or waited on.
 **Owners:** [live position](../MEMORY.md), [existing preparation boundary](../plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_AND_MIGRATION_PLAN.md#prepare-common-investigator-inputs-and-source-interfaces), [ADR-0012](../docs/architecture/ADR-0012-canonical-investigation-workspace-and-recovery-boundary.md), [ADR-0013](../docs/architecture/ADR-0013-versioned-native-reconstruction-and-workspace-checkpoint-storage.md), [Core §§6.2–6.4](../docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md), [Product Decision Model §§9–13](../docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md), [Minimum Useful Generality](../docs/specifications/UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md), [Security](../SECURITY.md), [Operating Guide](../OPERATING_GUIDE.md).
 **Procedures:** `UP-SKILL:upgradepilot-planning-design`; `UP-SKILL:upgradepilot-learning-by-doing`; `UP-SKILL:upgradepilot-working-memory`; `UP-SKILL:upgradepilot-build-implement`.
@@ -16,7 +16,7 @@ A1 — DONE: Ali had the continuity/challenge opportunity and replied "good go f
 A2 — DONE for action entry: Ali requested simpler explanation, clarified AI timing/experiment reuse, stated understanding and explicitly selected B; two new reasoning answers remain unassessed for D, not passed.
 B — DONE: shared native prefix, frozen source/native delivery, attributed citations and common-input qualification implemented; no model work.
 Verification gate — GREEN: 23 new consumer tests; 898 checkout/898 fresh-installed tests, 96 matching Python hashes; two genuine public-input cases, guarded cold inspection and old-reader refusal.
-D — PENDING: learn from this cycle's sufficiently verified result; its two A2 reasoning checks remain unassessed. Stage 3 D closed separately; foundation learning remains independent.
+D — CURRENT: evidence-backed D1–D4 todo initialized below; D1 shared native preparation is selected first. The two A2 reasoning checks remain unassessed until the relevant D blocks.
 E — PENDING: gap disposition, truthful closure and refreshed Investigator readiness.
 C — CONTINUOUS: material reconciliation, learning, scope decisions and evidence preserved here.
 ```
@@ -165,5 +165,37 @@ During final fetch, `cabf974b` arrived with only the independent Stage 3 D compa
 ### D learning handoff and stop
 
 B and its Verification gate are complete for this responsibility. D remains pending and must use the actual result: trace shared native preparation → frozen source/native delivery → attributed citation/unsupported evaluation → cold inspection; compare A2's fair common-evidence model with real capture/enrichment/CI limits. Revisit the two unassessed A2 questions about selective enrichment and incomplete historical CI, then check delivered versus cited/evaluated authority and profile versus checkpoint retention. Passing code/tests supplies no learner response. E owns any gap repair/defer and closure. The next engineering recommendation is bounded local Investigator integration/qualification/comparison under a separately reconciled protocol and A-phase, with actual experiment reuse and the older planner disposition; no model, framework, prompt/protocol or further preparation work begins in this increment.
+
+### D learning todo — initialized 2026-10-16
+
+This is an ownership/learning track over the already verified `77d33dc1` result. It does not reopen B or Verification, change the readiness disposition, or authorize the next model/integration cycle. For each block, record Ali's explanation, the exact code/evidence used, what the result proves/does not prove, and any remaining gap before checking it complete.
+
+- [ ] **D1 — Shared native preparation and one-owner semantics**
+  - Trace `investigation_inputs.py` → normal `investigation.py` and model-free `workspace/preparation.py`.
+  - Understand why both future comparison treatments must reuse the same dependency/CI native owners instead of duplicating “agent CI” logic.
+  - Read the central logic of `acquire_dependency_inputs()` and `prepare_ci_evidence()`: exact frozen target checks, complete changed-file/dependency analysis, real workflow inputs, CI coverage and runtime-state owners.
+  - Explain what the partial prepared Workspace establishes and why unperformed upstream/semantic families remain `not_evaluated` rather than empty/safe.
+  - Include the implementation lesson from moved patch points: tests patch the dependency where the caller resolves it, not merely where the function was originally defined.
+
+- [ ] **D2 — Frozen source universe, identity and navigation strength**
+  - Trace `RetainedSourceScope`, `RetainedSourceFile`, `RetainedSourceCatalog`, `query()` and `_read()` in `workspace/source_access.py`.
+  - Distinguish source catalog from canonical Workspace/checkpoint, retained content from acquisition, exact reference/addressability from authenticity or semantic truth, and scoped negative from global absence.
+  - Understand `list/read/search/resolve`, bounded paging/resource limits, and why search previews do not count as full-line delivery/citation evidence.
+  - Review the 40 MB research-corpus conversion/capacity repair as a representation-boundary lesson rather than a reason to widen native/store contracts silently.
+
+- [ ] **D3 — Workspace delivery, citation and authority chain**
+  - Trace `WorkspaceEvidenceAccess`, `ViewDelivery`, `ContentCitation`, native views/pages and `propose_source()` through the generic host.
+  - Reconstruct one actual chain: admitted purpose → source/native delivery → exact delivered reference → attributed proposal/citation → unsupported semantic evaluation.
+  - Be able to explain `available ≠ delivered ≠ observably used ≠ cited ≠ evaluated support ≠ sufficient`, and why a valid citation still grants no truth, adequacy or action permission.
+  - Understand whole-native-record omission plus `native_page`, operation receipts/accounting, wrong-target/material/method/scope refusals and cold retained-delivery inspection.
+
+- [ ] **D4 — Real cases, fair comparison and recovery/retention boundary**
+  - Use the genuine HTTPX and glyphsLib preparations rather than hypothetical cases: HTTPX exact-head acquisition yields zero returned runs / `no_successful_ci` / `no_admitted_candidate`; glyphsLib yields two runs / `supported_not_correlated` / unresolved manager-environment candidates.
+  - Answer the first deferred A2 question: selective new workflow/job evidence for only one comparison arm changes evidence strength and confounds the experiment; enrichment requires a new common freeze for both arms or an explicit unsupported/excluded offering.
+  - Answer the second deferred A2 question: historical/raw CI material may remain visible at its actual provenance/strength when exact native-owner inputs are missing, but missing inputs cannot become synthetic native coverage/runtime truth, empty/negative evidence or a native-owner execution that never occurred.
+  - Explain profile versus checkpoint retention: the frozen source profile can contain the complete source inventory, while the Workspace checkpoint retains native premises plus actual delivered payload/history; recovery does not reconstruct the whole source catalog unless that separate profile is supplied.
+  - Close with the cycle proof boundary: common-input/source-interface prerequisite is satisfied for the declared initial dependency/source-context + CI offering, while semantic usefulness, model policy, broader native families, full migration, continuation and replay remain separate.
+
+**D completion condition:** D1–D4 have evidence-backed notes and Ali can explain the central ownership/truth boundaries in his own words; both deferred A2 questions are resolved from the verified real cases; any material contradiction has an explicit owner/disposition. Then E may repair/defer gaps, close this preparation cycle truthfully and hand off to a separately A-phased local Investigator integration/qualification/comparison responsibility.
 
 **Publication validation:** six changed Markdown records/owners/evidence documents pass 139 local links, 14 anchors and balanced fences. Product source/new diagnostics pass lint/format, the four inherited legacy-test diagnostics are baseline-matched, and whitespace passes. All 92 archived-source Python files match actual `f518597c` Git contents; all 96 installed/source hashes remain identical after the full installed suite. Accepted specifications/ADRs, experiment runtime/protocols, dependencies, independent learning records and the unrelated untracked audit are outside this increment. Publication uses the standing coherent-increment commit/push authorization; D/E remain open.
