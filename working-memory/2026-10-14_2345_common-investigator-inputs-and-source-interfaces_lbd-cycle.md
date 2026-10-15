@@ -1,9 +1,9 @@
 # Common Investigator native inputs and source interfaces — LbD cycle
 
 **Initialized:** 2026-10-14 23:45 Asia/Tehran.
-**Session status:** ACTIVE at A1 continuity/onboarding after A0 reconciliation; STOP before A2 and Build.
+**Session status:** ACTIVE at A2 upcoming-responsibility orientation after Ali's A1 continuation; STOP at the separate pre-B understanding gate.
 **Primary operation:** Planning/Design for the preparation responsibility's A-phase. Ali authorized starting the next cycle after Stage 3's E engineering handoff; no source implementation, acquisition or model run is activated at this gate.
-**Previous engineering responsibility:** [Stage 3 cycle and E handoff](2026-10-13_2030_workspace-lifecycle-admission-and-material-basis_lbd-cycle.md#e-engineering-handoff-and-explicit-d-deferral--2026-10-14). Its D/two reasoning checks/learner closure remain deferred there. The independent foundation learning branch retains its own D/E; neither learning responsibility is restarted or waited on.
+**Previous engineering responsibility:** [Stage 3 cycle and E handoff](2026-10-13_2030_workspace-lifecycle-admission-and-material-basis_lbd-cycle.md#e-engineering-handoff-and-explicit-d-deferral--2026-10-14). Its separate [learning companion](2026-10-15_stage3-deferred-d-learning-todo.md) reports D1/D2 and both earlier reasoning checks sufficiently learned; D3/D4 and learner closure remain open at the inspected `271aabae` horizon. The independent foundation learning branch retains its own D/E; neither learning responsibility is restarted or waited on.
 **Owners:** [live position](../MEMORY.md), [existing preparation boundary](../plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_AND_MIGRATION_PLAN.md#prepare-common-investigator-inputs-and-source-interfaces), [ADR-0012](../docs/architecture/ADR-0012-canonical-investigation-workspace-and-recovery-boundary.md), [ADR-0013](../docs/architecture/ADR-0013-versioned-native-reconstruction-and-workspace-checkpoint-storage.md), [Core §§6.2–6.4](../docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md), [Product Decision Model §§9–13](../docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md), [Minimum Useful Generality](../docs/specifications/UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md), [Security](../SECURITY.md), [Operating Guide](../OPERATING_GUIDE.md).
 **Procedures:** `UP-SKILL:upgradepilot-planning-design`; `UP-SKILL:upgradepilot-learning-by-doing`; `UP-SKILL:upgradepilot-working-memory`.
 
@@ -12,8 +12,8 @@
 ```text
 Cycle — Common Investigator native inputs and source interfaces
 A0 — DONE: current main/owners/previous handoff, actual host/native contracts and H1 input/source requirements reconciled; single record and living A-phase map initialized.
-A1 — CURRENT: continuity model presented; Ali's opportunity to challenge/correct precedes A2.
-A2 — PENDING: orient the exact common-input/source-interface responsibility and resolve its pre-B scope/proof gate.
+A1 — DONE: Ali had the continuity/challenge opportunity and replied "good go for next"; no independent mastery inferred.
+A2 — CURRENT: common-input/native/source/view/accounting responsibility, acquisition/retention boundaries and proof/refusal intent presented; separate pre-B gate remains open.
 B — PENDING: no preparation implementation or new acquisition.
 Verification gate — PENDING: historical Stage 3 proof and fresh static input checks are entry evidence, not this cycle's future acceptance.
 D — PENDING: learn from this cycle's sufficiently verified result; previous-cycle D deferrals remain separate.
@@ -78,8 +78,54 @@ The older planner plan's anti-preparation rule remains relevant: require a concr
 
 The presentation bridges Stage 3's verified generic authority/history seam to the qualified-evidence/source-interface frontier. H1 tests whether structured native knowledge/access improves investigation over raw navigation; both arms must share original evidence strength and the canonical authority boundary. The old comparison's mechanically valid reports still needed semantic revision, so better structure is a testable hypothesis, not an accepted semantic remedy.
 
-No new learner response is recorded at initialization. A1 remains CURRENT until Ali has a meaningful chance to question/correct this model. STOP here before A2; the prior "good go on" authorized entering A0/A1, not silently bypassing this cycle's continuity gate or starting Build.
+At initialization no new learner response was recorded, so A1 remained CURRENT. Ali subsequently replied "good go for next" after the continuity presentation. This clears the A1 continuation gate and selects A2; it does not establish independent mastery or authorize skipping the new pre-B gate.
 
 ## A0/A1 record validation and handoff
 
 Final records-only checks pass across three documents: 64 local links, seven anchors, balanced fences, A0/A1/continuation alignment, qualified historical/fresh evidence and deferred-learning/two-cycle ownership. Source/test trees match the Stage 3 proof; plans and accepted specifications/ADRs are unchanged. All nine governance functions ran: eight pass, with only the inherited root `examples/` owner-marker mismatch. Whitespace and exact three-file publication scope pass. Product suites are not rerun for this records-only increment; preparation implementation/verification and learner mastery are not claimed. This record and MEMORY.md own the new cycle/position, with only a forward navigation link added to the previous engineering handoff; the unrelated untracked audit and independent learning/research worktrees are excluded.
+
+## A2 orientation and source-grounded action boundary — 2026-10-15
+
+The entry fetch found three new remote learning-record commits after `630e3ca0`: `1e42a9b0`, `f6449a1f`, `271aabae`. Their sole changed file is the Stage 3 learning companion. Main fast-forwarded to `271aabae`; source/test trees remain exactly the verified Stage 3 trees. The companion records Ali's own reasoning and reports both prior checks resolved in D1/D2, with D3/D4 still pending. No material engineering contradiction is reported. This cycle acknowledges that progress without repeating the lessons, editing the companion or claiming complete ownership. The parent cycle/live-memory pointers are minimally reconciled to avoid continuing to call those two checks unassessed.
+
+### Responsibility, initial offering and flow
+
+The coherent outcome is a common qualified evidence/interface offering for a later single-Investigator comparison. Preserve its intended dependency/source-context and workflow/CI-strength treatment; raw-text-only access is insufficient. This cycle proves the product bridge and actual input basis before model behavior is evaluated. Full migration would add unrelated consumer/family work; a model smoke on unqualified inputs would test a different or confounded question.
+
+| Material / interface | Upcoming action and explicit limit |
+| --- | --- |
+| Exact PR/change/dependency/source inputs | Validate retained material against the actual `PullRequestIdentity`, complete `ChangedFile` evidence and `DependencyChangeAnalysis`/source-context contracts. Reuse what qualifies; acquire only exact missing public inputs when Build is admitted. Do not fabricate metadata, treat the patch alone as a complete PR or silently move the frozen head. |
+| CI coverage/runtime state | Use real `WorkflowDependencyCoverageInput` run/jobs/definition/project-source material and the existing CI owners. Keep static declaration, runtime correlation and dependency-state meanings separate. A historical summary is available raw evidence; absent qualified run/job/step inputs cannot become an empty observation or a synthetic native success. |
+| Pinned target/upstream source access | Provide bounded inventory/list/read/literal-search/reference resolution over the common frozen source universe, including raw Markdown/RST. Preserve actual capture and association strength; pinning repository text does not establish published-artifact origin or trusted release interval. No new semantic parser/evaluator is introduced. |
+| Native views and attributed submissions | Project existing native results with stable target/basis/owner/content references and honest omissions. Trusted composition/native owners admit purposes; model-shaped submissions remain proposals. Existing-record projection is not a new producer attempt, and procedural stopping is not adequacy. |
+| Method/resource/accounting | Expose preparation, actual backend/native calls, paging, delivery and failures/unknown usage. Keep common original inputs and authority rules while allowing the later treatment to differ in offered views/tools. Future assignments have separate mutable state; comparison budgets/prompts/deployments remain separately frozen. |
+
+```text
+qualified common public inputs + frozen source/capture identities
+→ existing dependency/CI native owners, once where actually invoked
+→ canonical native material / generic Workspace host and lifecycle
+→ bounded raw-source access and structured native views with exact references
+→ non-model conformance, operation accounting and refreshed readiness
+```
+
+The normal [orchestrator](../src/upgradepilot/investigation.py) currently acquires PR/complete changed files, runs [dependency analysis](../src/upgradepilot/dependency/analysis.py), builds exact workflow inputs and invokes the [CI owner](../src/upgradepilot/ci/dependency_exercise.py) before upstream semantic extraction. That bounded prefix is the reuse point if preparation needs product composition. Share it with the normal caller rather than duplicate it or run the whole pipeline with supplied semantic answers. The [host](../src/upgradepilot/workspace/lifecycle_host.py), [native capture](../src/upgradepilot/workspace/native_capture.py), projections and existing provider/codec owners remain the implementation seams. Product runtime must not import the research controller, corpus class or test helpers.
+
+### Acquisition, retention and fair-comparison boundary
+
+After Build admission, bounded missing-input acquisition may use the existing anonymous read-only providers for the known PR/repository/base/head and admitted upstream scopes. Retain acquisition time, actual methods and stronger/weaker capture limits. The [PR provider](../src/upgradepilot/github/pull_request.py) already verifies changed-file count/head locators and rechecks base/head/count around the mutable endpoint; preparation must preserve those checks. A later response outside the frozen target is refused, and unavailable history stays unavailable. Newly acquired retrospective evidence is not original decision-time availability. This orientation performs no acquisition.
+
+Any enrichment belongs to a new common input freeze for both arms; historical model runs are reference evidence, not controls for the enriched profile. Different view/tool offerings are the declared treatment; different underlying evidence strength, selective new evidence or privileged evaluator feedback would confound it. A native computation and its cost are visible even when one model tool requests several backend operations.
+
+Pure delivery of retained native/source material is a view/read operation with delivery accounting, not invented fresh acquisition. New source acquisition or native production uses its admitted operation path with current authority, published intent, outcome and basis. Retain actual supplied native premises and delivered content through supported representations; inventory/reference-only material keeps explicit availability/retention limits. The existing roughly 40 MB combined corpus does not imply a model-context requirement, full-checkpoint retention, per-case store capacity or recovery/continuation guarantee. Resolve explicit format/version/refusal and resource boundaries in Build preflight; a consequential storage/method departure returns to its proper owner first.
+
+### Acceptance, exclusions and understanding gate
+
+The existing plan now states the concrete preparation sequence and pass condition. Acceptance needs the offered case/family provenance map and frozen common profile, actual native input sufficiency/owner parity, working shared raw/native reference access and truthful accounting. Use known real retained-input cases plus discriminating variation/refusals: wrong target/material/reference, identity drift, missing or incomplete inputs, scoped empty/zero versus failed/unknown outcomes, scope/authority escalation, malformed/oversized content, omitted/delivered material and hidden backend work. Preserve original history and schema compatibility; qualify focused then affected full checkout/fresh-installed regressions for substantive product changes. Guard retained-state inspection against provider/evaluator re-entry where its claim requires it.
+
+If a required native input cannot be qualified, preserve a named blocked/unsupported offering and resolve the smallest repair or reviewed scope change. Do not declare readiness from a raw-only substitute, fabricated fields or stronger historical CI meaning. Any necessary extra native family is an exact Stage 4 expansion, not whole migration. No semantic/adequacy evaluator, existing specialist model call for bootstrap, model/framework runtime, prompt/deployment selection, paired trial, report cutover, target execution/mutation, user-facing continuation or replay is included. The refreshed readiness boundary must coordinate the older planner checkpoint and stop before a separately activated local comparison; do not invent another infrastructure phase without a concrete failed prerequisite.
+
+Two fair pre-B reasoning opportunities are presented after the model above: (1) if only the structured arm receives newly acquired workflow/job evidence absent from the raw arm's source universe, what would that do to the comparison and how should preparation change? (2) if a retained CI summary lacks the exact inputs required by its native owner, what can remain visible and which native claims or operations must stay unavailable? Responses and any gaps are pending; do not infer understanding from this written orientation. STOP at A2's separate pre-B gate.
+
+### A2 increment validation
+
+Final orientation/coordination checks pass across four documents: 126 local links, 11 anchors, balanced fences, A1/A2/pre-B status, genuine-input/acquisition/retention/comparison/proof boundaries and reported parallel-learning reconciliation. Exact source/test trees still match the verified Stage 3 horizon; accepted specifications/ADRs and the independently progressing D companion are unchanged. All nine governance functions ran: eight pass, with only inherited root `examples/` owner-marker debt. Whitespace and exact four-file publication scope pass. A final entry fetch remains aligned at `271aabae`. Product suites are not rerun for this records/planning-only increment; no preparation implementation, acquisition, inference or learner response is claimed. The unrelated untracked audit is excluded. STOP at the separate A2 pre-B understanding gate.
