@@ -2,8 +2,9 @@
 
 ``investigation.investigate_public_pull_request`` supplies material at its existing native
 boundaries. Staging contains immutable encoded bytes, never a projection's live-value cache.
-``snapshot`` seals one coherent native boundary; publication is a separate responsibility.
-The current report return type remains unchanged until the selected consumer cutover.
+``partial_snapshot`` declares unfinished native progress; ``snapshot`` requires completion.
+The generic lifecycle host publishes those boundaries without rerunning native processing.
+Legacy report facts remain during the selected consumer migration.
 """
 
 from __future__ import annotations
@@ -46,6 +47,7 @@ class _StagedCapture:
     evaluated: bool
     producer_method: str | None
     retention_gaps: tuple[str, ...]
+    input_record_ids: tuple[str, ...]
 
 
 class NativeInvestigationCapture:
@@ -108,6 +110,7 @@ class NativeInvestigationCapture:
     ) -> None:
         if self._target is None or self._sealed is not None:
             raise ValueError("Capture must be started and remain unpublished staging.")
+        self._refresh_pending_inputs()
         retained_gaps = gaps
         if evaluated:
             retained_gaps += ("producer_version_unavailable",)
@@ -119,6 +122,9 @@ class NativeInvestigationCapture:
             evaluated,
             method,
             retained_gaps,
+            tuple(
+                self._staged[name].record_id for name in FAMILY_CONTRACTS[family].inputs
+            ),
         )
 
     def capture_ci(
@@ -207,15 +213,37 @@ class NativeInvestigationCapture:
         )
         self._record("python_support_post_assessment", result, method=method)
 
-    def snapshot(self) -> CapturedNativeBoundary:
+    def _refresh_pending_inputs(self) -> None:
+        for family in self._staged:
+            item = self._staged[family]
+            inputs = tuple(
+                self._staged[name].record_id for name in FAMILY_CONTRACTS[family].inputs
+            )
+            if inputs != item.input_record_ids and not item.evaluated:
+                self._staged[family] = _StagedCapture(
+                    uuid4().hex,
+                    item.payload,
+                    False,
+                    None,
+                    item.retention_gaps,
+                    inputs,
+                )
+
+    def partial_snapshot(self) -> CapturedNativeBoundary:
+        """Declare current coherent progress without completing or sealing the invocation.
+
+        Unperformed placeholders follow current input identities and receive new identities
+        when those references change. Executed results keep their actual captured inputs;
+        replacing those inputs requires an owner-supplied successor result, never rebinding.
+        """
         if self._sealed is not None:
             return self._sealed
-        if self._target is None or not self._completed:
-            raise ValueError(
-                "No completed normal investigation has sealed this capture."
-            )
+        if self._target is None:
+            raise ValueError("Capture has not started.")
+        self._refresh_pending_inputs()
         records = []
-        for family, item in self._staged.items():
+        for family in self._staged:
+            item = self._staged[family]
             contract = FAMILY_CONTRACTS[family]
             records.append(
                 CapturedNativeRecord(
@@ -224,9 +252,7 @@ class NativeInvestigationCapture:
                     owner=contract.owner,
                     codec_version=1,
                     target=self._target,
-                    input_record_ids=tuple(
-                        self._staged[name].record_id for name in contract.inputs
-                    ),
+                    input_record_ids=item.input_record_ids,
                     payload=item.payload,
                     payload_digest=sha256(item.payload).hexdigest(),
                     outcome="recorded" if item.evaluated else "not_evaluated",
@@ -237,7 +263,16 @@ class NativeInvestigationCapture:
             )
         boundary = CapturedNativeBoundary(self._target, tuple(records))
         validate_native_boundary(boundary, expected_target=self._target)
-        self._sealed = boundary
+        return boundary
+
+    def snapshot(self) -> CapturedNativeBoundary:
+        """Return only the completed sealed capture; partial publication is explicit."""
+        if not self._completed:
+            raise ValueError(
+                "No completed normal investigation has sealed this capture."
+            )
+        if self._sealed is None:
+            self._sealed = self.partial_snapshot()
         return self._sealed
 
     def complete(self) -> None:

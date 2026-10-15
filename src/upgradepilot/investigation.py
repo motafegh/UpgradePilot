@@ -105,7 +105,19 @@ from .upstream.repository import (
     UpstreamRepositoryResult,
 )
 from .upstream.support_drop import evaluate_support_drop_runtime
+from .workspace.checkpoint_revision import CheckpointRevision
+from .workspace.lifecycle_host import ExecutionAuthority, InvestigationWorkspaceHost
+from .workspace.lifecycle_records import (
+    InvestigationNeed,
+    LifecycleMethodIdentity,
+    RequestAdmission,
+)
+from .workspace.material_validity import native_material_closure
 from .workspace.native_capture import NativeInvestigationCapture
+from .workspace.repository_read_capability import (
+    REPOSITORY_READ_CAPABILITY,
+    repository_read_capability,
+)
 
 SupportDropEvaluator = Callable[
     [AuthoritativeUpstreamIntervalEvidence],
@@ -159,6 +171,7 @@ class PublicPullRequestInvestigation:
     artifact_serviceability_impact_result: (
         ArtifactServiceabilityImpactAssessment | None
     ) = None
+    workspace_revision: CheckpointRevision | None = None
 
 
 def investigate_public_pull_request(
@@ -176,12 +189,15 @@ def investigate_public_pull_request(
     changelog_client: GitHubChangelogPathClient | None = None,
     support_drop_evaluator: SupportDropEvaluator | None = None,
     native_capture: NativeInvestigationCapture | None = None,
+    workspace_host: InvestigationWorkspaceHost | None = None,
 ) -> PublicPullRequestInvestigation:
     """Run the current evidence graph without presentation or exit-policy logic.
 
-    An explicit native_capture retains selected owner inputs/results at this same production
-    sequence. It adds no acquisition/evaluation pass and leaves the current report contract
-    intact. Its sealed native boundary is not yet a canonical durable investigation.
+    Native owners run once. A generic synchronous Workspace host publishes coherent native
+    progress and selected-capability lifecycle; supply a host with a schema-2 store for
+    durable publication. Default publication is volatile and chooses no filesystem location.
+    The legacy report fields remain during later consumer migration; workspace_revision is
+    the immutable canonical boundary, not a new evaluation or a resumable report.
     """
 
     pull_client = pull_client or GitHubPullRequestClient(token=token)
@@ -215,10 +231,40 @@ def investigate_public_pull_request(
         dependency_result = analysis_result
         source_contexts = ()
 
-    if native_capture is not None:
-        native_capture.start(
-            pull_request, changed_files, dependency_result, source_contexts
-        )
+    native_capture = native_capture or NativeInvestigationCapture()
+    workspace_host = workspace_host or InvestigationWorkspaceHost()
+    native_capture.start(
+        pull_request, changed_files, dependency_result, source_contexts
+    )
+    initial_boundary = native_capture.partial_snapshot()
+    native_evaluation_method = LifecycleMethodIdentity(
+        "impact.python_support",
+        "impact.python_support.evaluate_python_support_drop_impact",
+        None,
+        None,
+        "native-python-impact-caller/1",
+        None,
+        ("producer_version_unavailable",),
+    )
+    native_selection_method = LifecycleMethodIdentity(
+        "impact.python_support",
+        "impact.python_support.select_python_support_drop_investigation",
+        None,
+        None,
+        "native-investigation-selection/1",
+        None,
+        ("producer_version_unavailable",),
+    )
+    workspace_host.bind_native_callers(
+        authority=ExecutionAuthority(
+            initial_boundary.target,
+            frozenset({REPOSITORY_READ_CAPABILITY}),
+            frozenset({"repository_read"}),
+        ),
+        capabilities=(repository_read_capability(pull_request, repository_client),),
+        methods=(native_evaluation_method, native_selection_method),
+    )
+    workspace_host.initialize(initial_boundary)
 
     target_python_result: TargetPythonEvidence | None = None
     workflow_evidence: tuple[tuple[WorkflowRun, tuple[WorkflowJob, ...]], ...] = ()
@@ -294,12 +340,11 @@ def investigate_public_pull_request(
             ci_coverage_result,
             source_contexts=source_contexts,
         )
-        if native_capture is not None:
-            native_capture.capture_ci(
-                tuple(coverage_inputs),
-                ci_coverage_result,
-                runtime_dependency_state_result,
-            )
+        native_capture.capture_ci(
+            tuple(coverage_inputs),
+            ci_coverage_result,
+            runtime_dependency_state_result,
+        )
 
         package_result = package_client.get_release(
             dependency_result.package,
@@ -400,7 +445,7 @@ def investigate_public_pull_request(
                         source_problems=(tagged_changelog_result,),
                     )
 
-            if native_capture is not None and upstream_interval_result is not None:
+            if upstream_interval_result is not None:
                 native_capture.capture_upstream_authority(upstream_interval_result)
 
             if isinstance(
@@ -410,10 +455,9 @@ def investigate_public_pull_request(
                 upstream_support_drop_result = support_drop_evaluator(
                     upstream_interval_result
                 )
-                if native_capture is not None:
-                    native_capture.capture_upstream_claim(
-                        upstream_support_drop_result, support_drop_evaluator
-                    )
+                native_capture.capture_upstream_claim(
+                    upstream_support_drop_result, support_drop_evaluator
+                )
 
                 if isinstance(
                     upstream_support_drop_result,
@@ -435,11 +479,10 @@ def investigate_public_pull_request(
                     python_support_drop_impact_result = (
                         python_support_drop_pre_investigation_result
                     )
-                    if native_capture is not None:
-                        native_capture.capture_python_pre(
-                            python_support_drop_pre_investigation_result,
-                            python_support_drop_investigation_selection,
-                        )
+                    native_capture.capture_python_pre(
+                        python_support_drop_pre_investigation_result,
+                        python_support_drop_investigation_selection,
+                    )
 
                     if python_support_drop_investigation_selection is not None:
                         if (
@@ -453,52 +496,109 @@ def investigate_public_pull_request(
                                 "exact pull-request repository and head revision."
                             )
 
-                        target_python_source = (
-                            repository_client.get_exact_head_text_file(
-                                pull_request,
+                        basis = native_capture.partial_snapshot()
+                        workspace_host.publish_native_progress(basis)
+                        selection_record = next(
+                            record
+                            for record in basis.records
+                            if record.family == "python_support_selection"
+                        )
+                        need_id = workspace_host.add_purpose(
+                            InvestigationNeed(
+                                python_support_drop_investigation_selection.proposition_key,
+                                python_support_drop_investigation_selection.detail,
                                 python_support_drop_investigation_selection.path,
-                            )
+                            ),
+                            native_record_ids=native_material_closure(
+                                basis, (selection_record.record_id,)
+                            ),
+                            method=native_selection_method,
                         )
-                        target_python_result = interpret_target_python_declaration(
-                            target_python_source
+                        request_id = workspace_host.request_capability(
+                            need_id,
+                            REPOSITORY_READ_CAPABILITY,
+                            python_support_drop_investigation_selection.path,
                         )
-                        if native_capture is not None:
-                            native_capture.capture_target(
-                                target_python_source, target_python_result
+                        admission_id = workspace_host.admit_request(request_id)
+                        admission = workspace_host.lifecycle_value(admission_id)
+                        assert isinstance(admission, RequestAdmission)
+                        if admission.outcome == "admitted":
+                            observation_id, acquisition = (
+                                workspace_host.execute_admission(admission_id)
                             )
-                        target_python_relevance_result = (
-                            evaluate_target_python_relevance(
-                                upstream_support_drop_result,
-                                target_python_result,
+
+                            # The generic host retains the actual provider response first.
+                            # This existing native owner receives its full inputs, not a
+                            # model's proposal/citation subset or a host interpretation.
+                            def reassess_native():
+                                nonlocal target_python_result
+                                nonlocal target_python_relevance_result
+                                nonlocal python_support_drop_impact_result
+                                target_python_source = acquisition.value
+                                target_python_result = (
+                                    interpret_target_python_declaration(
+                                        target_python_source
+                                    )
+                                )
+                                native_capture.capture_target(
+                                    target_python_source, target_python_result
+                                )
+                                target_python_relevance_result = (
+                                    evaluate_target_python_relevance(
+                                        upstream_support_drop_result,
+                                        target_python_result,
+                                    )
+                                )
+                                native_capture.capture_relevance(
+                                    target_python_relevance_result
+                                )
+                                python_support_drop_impact_result = (
+                                    evaluate_python_support_drop_impact(
+                                        impact_candidate,
+                                        target_python_relevance_result,
+                                    )
+                                )
+                                native_capture.capture_python_post(
+                                    python_support_drop_impact_result, reevaluated=True
+                                )
+                                boundary = native_capture.partial_snapshot()
+                                assessment = next(
+                                    record
+                                    for record in boundary.records
+                                    if record.family == "python_support_post_assessment"
+                                )
+                                return boundary, assessment.record_id
+
+                            workspace_host.evaluate_native(
+                                observation_id,
+                                method=native_evaluation_method,
+                                evaluate=reassess_native,
                             )
-                        )
-                        python_support_drop_impact_result = (
-                            evaluate_python_support_drop_impact(
-                                impact_candidate,
-                                target_python_relevance_result,
-                            )
-                        )
-                    if native_capture is not None:
-                        if target_python_relevance_result is not None:
-                            native_capture.capture_relevance(
-                                target_python_relevance_result
-                            )
+                    if (
+                        target_python_relevance_result is not None
+                        and python_support_drop_investigation_selection is None
+                    ):
+                        native_capture.capture_relevance(target_python_relevance_result)
+                    if target_python_relevance_result is None:
                         native_capture.capture_python_post(
-                            python_support_drop_impact_result,
-                            reevaluated=python_support_drop_investigation_selection
-                            is not None,
+                            python_support_drop_impact_result, reevaluated=False
                         )
                 else:
                     target_python_relevance_result = evaluate_target_python_relevance(
                         upstream_support_drop_result,
                         None,
                     )
-                    if native_capture is not None:
-                        native_capture.capture_relevance(target_python_relevance_result)
+                    native_capture.capture_relevance(target_python_relevance_result)
 
-    if native_capture is not None:
-        native_capture.complete()
+    native_capture.complete()
+    workspace_host.publish_native_progress(native_capture.snapshot())
+    workspace_host.terminate(
+        workspace_host.lineage_id,
+        "completed",
+        "Normal procedural completion; investigation adequacy is not established.",
+    )
     return PublicPullRequestInvestigation(
+        workspace_revision=workspace_host.current,
         pull_request=pull_request,
         changed_files=changed_files,
         dependency_result=dependency_result,

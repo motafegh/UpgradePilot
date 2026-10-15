@@ -18,10 +18,11 @@ import os
 import sqlite3
 import stat
 import time
+from collections.abc import Iterator
 from contextlib import contextmanager
 from hashlib import sha256
 from pathlib import Path
-from typing import Iterator, Literal
+from typing import Literal
 
 from .checkpoint_revision import (
     BackupReceipt,
@@ -31,6 +32,13 @@ from .checkpoint_revision import (
     PublicationReceipt,
     StoredCheckpoint,
     UnconfirmedPublication,
+)
+from .lifecycle_boundary import (
+    MAX_LIFECYCLE_RECORDS,
+    CapturedLifecycleHistory,
+    encode_lifecycle_record,
+    read_lifecycle_record,
+    validate_lifecycle_history,
 )
 from .native_boundary import (
     ExactInvestigationTarget,
@@ -45,7 +53,6 @@ from .native_representation import (
 )
 
 _APPLICATION_ID = 0x55504350
-_SCHEMA_VERSION = 1
 _DATABASE_NAME = "workspace.sqlite3"
 _MAX_RECORDS = 4096
 
@@ -92,7 +99,35 @@ _SCHEMA = _TABLES + tuple(
     for table in _IMMUTABLE_TABLES
     for operation in ("UPDATE", "DELETE")
 )
-_SCHEMA_SQL = {" ".join(statement.split()) for statement in _SCHEMA}
+
+# Schema 2 adds separate immutable interaction records; schema 1 is never upgraded on open.
+# Native tables and native-only digest meaning are identical in the two supported profiles.
+_LIFECYCLE_TABLES = (
+    """CREATE TABLE lifecycle_records (
+        lineage_id TEXT NOT NULL, record_id TEXT NOT NULL, body BLOB NOT NULL,
+        digest TEXT NOT NULL, PRIMARY KEY (lineage_id, record_id)) STRICT""",
+    """CREATE TABLE revision_lifecycle (
+        lineage_id TEXT NOT NULL, revision_id TEXT NOT NULL, format_version INTEGER NOT NULL,
+        PRIMARY KEY (lineage_id, revision_id),
+        FOREIGN KEY (lineage_id, revision_id) REFERENCES revisions(lineage_id, revision_id)) STRICT""",
+    """CREATE TABLE revision_lifecycle_members (
+        lineage_id TEXT NOT NULL, revision_id TEXT NOT NULL, position INTEGER NOT NULL,
+        record_id TEXT NOT NULL, PRIMARY KEY (lineage_id, revision_id, position),
+        UNIQUE (lineage_id, revision_id, record_id),
+        FOREIGN KEY (lineage_id, revision_id) REFERENCES revision_lifecycle(lineage_id, revision_id),
+        FOREIGN KEY (lineage_id, record_id) REFERENCES lifecycle_records(lineage_id, record_id)) STRICT""",
+)
+_LIFECYCLE_SCHEMA = _LIFECYCLE_TABLES + tuple(
+    f"CREATE TRIGGER immutable_{table}_{operation.lower()} BEFORE {operation} ON {table} "
+    "BEGIN SELECT RAISE(ABORT, 'immutable checkpoint material'); END"
+    for table in (
+        "lifecycle_records",
+        "revision_lifecycle",
+        "revision_lifecycle_members",
+    )
+    for operation in ("UPDATE", "DELETE")
+)
+_SCHEMAS = {1: _SCHEMA, 2: _SCHEMA + _LIFECYCLE_SCHEMA}
 
 
 def _refuse(reason: str, detail: str) -> CheckpointStorageError:
@@ -151,12 +186,13 @@ def _check_database_file(path: Path) -> None:
         )
 
 
-def _verify_schema(connection: sqlite3.Connection) -> None:
+def _verify_schema(connection: sqlite3.Connection) -> int:
     if connection.execute("PRAGMA application_id").fetchone()[0] != _APPLICATION_ID:
         raise _refuse("unsupported_storage_schema", "Unknown Workspace store identity.")
-    if connection.execute("PRAGMA user_version").fetchone()[0] != _SCHEMA_VERSION:
+    version = connection.execute("PRAGMA user_version").fetchone()[0]
+    if version not in _SCHEMAS:
         raise _refuse(
-            "unsupported_storage_schema", "Only storage schema version 1 is supported."
+            "unsupported_storage_schema", "Only storage schemas 1 and 2 are supported."
         )
     sql = {
         " ".join(row[0].split())
@@ -164,11 +200,12 @@ def _verify_schema(connection: sqlite3.Connection) -> None:
             "SELECT sql FROM sqlite_schema WHERE sql IS NOT NULL AND name NOT LIKE 'sqlite_%'"
         )
     }
-    if sql != _SCHEMA_SQL:
+    if sql != {" ".join(statement.split()) for statement in _SCHEMAS[version]}:
         raise _refuse(
             "invalid_checkpoint_storage",
-            "Declared storage catalog differs from version 1.",
+            "Declared storage catalog differs from its supported version.",
         )
+    return version
 
 
 class CheckpointStore:
@@ -190,11 +227,25 @@ class CheckpointStore:
         self._path = directory / _DATABASE_NAME
         self._read_only = read_only
         self._busy_timeout_ms = busy_timeout_ms
+        self._schema_version = 1
 
     @classmethod
-    def create(cls, directory: Path, *, busy_timeout_ms: int = 1000) -> CheckpointStore:
-        """Create a new host store; never initialize or replace an existing database."""
+    def create(
+        cls,
+        directory: Path,
+        *,
+        busy_timeout_ms: int = 1000,
+        schema_version: int = 1,
+    ) -> CheckpointStore:
+        """Create a new host store; explicitly select schema 2 for lifecycle publication.
+
+        The native-only default is retained for existing admitted callers. No existing
+        database is initialized, replaced, upgraded or copied by this operation.
+        """
+        if type(schema_version) is not int or schema_version not in _SCHEMAS:
+            raise _refuse("unsupported_storage_schema", "Unsupported new-store schema.")
         store = cls(Path(directory), read_only=False, busy_timeout_ms=busy_timeout_ms)
+        store._schema_version = schema_version
         reserved = False
         initialized = False
         try:
@@ -215,10 +266,10 @@ class CheckpointStore:
             os.close(descriptor)
             with store._connection(verify=False) as connection:
                 connection.execute("BEGIN IMMEDIATE")
-                for statement in _SCHEMA:
+                for statement in _SCHEMAS[schema_version]:
                     connection.execute(statement)
                 connection.execute(f"PRAGMA application_id={_APPLICATION_ID}")
-                connection.execute(f"PRAGMA user_version={_SCHEMA_VERSION}")
+                connection.execute(f"PRAGMA user_version={schema_version}")
                 connection.execute("COMMIT")
                 _verify_schema(connection)
             initialized = True
@@ -270,7 +321,7 @@ class CheckpointStore:
             )
             connection.execute("PRAGMA trusted_schema=OFF")
             if verify:
-                _verify_schema(connection)
+                self._schema_version = _verify_schema(connection)
             # Check schema before any writable PRAGMA, so incompatible stores are not migrated.
             if self._read_only:
                 journal = connection.execute("PRAGMA journal_mode").fetchone()[0]
@@ -334,6 +385,11 @@ class CheckpointStore:
         commit_attempted = False
         try:
             with self._connection() as connection:
+                if revision.lifecycle_history is not None and self._schema_version != 2:
+                    raise _refuse(
+                        "unsupported_storage_schema",
+                        "Lifecycle publication requires a schema-2 store.",
+                    )
                 connection.execute("BEGIN IMMEDIATE")
                 head = connection.execute(
                     "SELECT revision_id FROM heads WHERE lineage_id=?",
@@ -362,17 +418,44 @@ class CheckpointStore:
                         "immutable_identity_conflict",
                         "Revision identity is already published.",
                     )
+                predecessor = None
                 if history:
                     # A successor extends retained history, not just an intact head.
                     # Inspect encoded closure only; unrelated lineages remain unaffected.
                     for retained_id in history:
-                        self._read(
+                        predecessor = self._read(
                             connection,
                             revision.lineage_id,
                             retained_id,
                             revision.boundary.target,
                         )
+                if (
+                    predecessor is not None
+                    and predecessor.lifecycle_history is not None
+                ):
+                    previous = predecessor.lifecycle_history.records
+                    if (
+                        revision.lifecycle_history is None
+                        or revision.lifecycle_history.records[: len(previous)]
+                        != previous
+                    ):
+                        raise _refuse(
+                            "invalid_revision",
+                            "A successor cannot remove or rewrite retained lifecycle history.",
+                        )
                 for item in encoded["records"]:
+                    if (
+                        self._schema_version == 2
+                        and connection.execute(
+                            "SELECT 1 FROM lifecycle_records WHERE lineage_id=? AND record_id=?",
+                            (revision.lineage_id, item["record_id"]),
+                        ).fetchone()
+                        is not None
+                    ):
+                        raise _refuse(
+                            "immutable_identity_conflict",
+                            "Native/lifecycle identity collision.",
+                        )
                     body = item.pop("payload").encode("utf-8")
                     metadata = json_bytes(item)
                     self._insert_immutable(
@@ -427,6 +510,43 @@ class CheckpointStore:
                             item["record_id"],
                         ),
                     )
+                if revision.lifecycle_history is not None:
+                    connection.execute(
+                        "INSERT INTO revision_lifecycle VALUES (?,?,1)",
+                        (revision.lineage_id, revision.revision_id),
+                    )
+                    for position, record in enumerate(
+                        revision.lifecycle_history.records
+                    ):
+                        if (
+                            connection.execute(
+                                "SELECT 1 FROM records WHERE lineage_id=? AND record_id=?",
+                                (revision.lineage_id, record.record_id),
+                            ).fetchone()
+                            is not None
+                        ):
+                            raise _refuse(
+                                "immutable_identity_conflict",
+                                "Lifecycle/native identity collision.",
+                            )
+                        body = encode_lifecycle_record(record)
+                        self._insert_immutable(
+                            connection,
+                            "lifecycle_records",
+                            ("lineage_id", "record_id"),
+                            (revision.lineage_id, record.record_id),
+                            ("body", "digest"),
+                            (body, sha256(body).hexdigest()),
+                        )
+                        connection.execute(
+                            "INSERT INTO revision_lifecycle_members VALUES (?,?,?,?)",
+                            (
+                                revision.lineage_id,
+                                revision.revision_id,
+                                position,
+                                record.record_id,
+                            ),
+                        )
                 if actual is None:
                     connection.execute(
                         "INSERT INTO heads VALUES (?,?)",
@@ -518,12 +638,41 @@ class CheckpointStore:
             )
         return body
 
+    @staticmethod
+    def _composed_material_size(
+        connection: sqlite3.Connection, lineage_id: str, revision_id: str
+    ) -> int:
+        """Count schema-2 retained bodies before loading another original basis.
+
+        Shared bodies are conservatively counted for each distinct referenced revision:
+        this reader retains each reconstructed basis separately. The limit is an encoded
+        material admission bound, not a promise about Python's total heap consumption.
+        """
+        identity = (lineage_id, revision_id)
+        native = connection.execute(
+            "SELECT length(v.target)+coalesce((SELECT sum(length(r.metadata)+length(p.body)) "
+            "FROM revision_members m JOIN records r USING(lineage_id,record_id) "
+            "JOIN payloads p ON p.lineage_id=r.lineage_id AND p.digest=r.payload_digest "
+            "WHERE m.lineage_id=v.lineage_id AND m.revision_id=v.revision_id),0) "
+            "FROM revisions v WHERE v.lineage_id=? AND v.revision_id=?",
+            identity,
+        ).fetchone()[0]
+        lifecycle = connection.execute(
+            "SELECT coalesce(sum(length(r.body)),0) FROM revision_lifecycle_members m "
+            "JOIN lifecycle_records r USING(lineage_id,record_id) "
+            "WHERE m.lineage_id=? AND m.revision_id=?",
+            identity,
+        ).fetchone()[0]
+        return native + lifecycle
+
     def _read(
         self,
         connection: sqlite3.Connection,
         lineage_id: str,
         revision_id: str,
         expected_target: ExactInvestigationTarget,
+        *,
+        validate_lifecycle: bool = True,
     ) -> CheckpointRevision:
         row = connection.execute(
             "SELECT predecessor_id,digest FROM revisions WHERE lineage_id=? AND revision_id=?",
@@ -628,13 +777,130 @@ class CheckpointStore:
             ),
             expected_target=expected_target,
         )
-        revision = CheckpointRevision(lineage_id, revision_id, row[0], boundary)
+        lifecycle = self._read_lifecycle(
+            connection,
+            lineage_id,
+            revision_id,
+            available_bytes=MAX_NATIVE_JSON_BYTES - total,
+        )
+        revision = CheckpointRevision(
+            lineage_id, revision_id, row[0], boundary, lifecycle
+        )
         if revision.digest() != row[1]:
             raise _refuse(
                 "invalid_checkpoint_storage",
                 "Revision identity/material digest disagrees.",
             )
+        if lifecycle is not None and validate_lifecycle:
+            # Restrict original bases to this selected boundary, excluding later progress.
+            history = self._history(connection, lineage_id)
+            ancestors = set(history[: history.index(revision_id) + 1])
+            bases = {revision_id: boundary}
+            closure_size = self._composed_material_size(
+                connection, lineage_id, revision_id
+            )
+            for record in lifecycle.records:
+                if record.basis_revision_id not in ancestors:
+                    raise _refuse(
+                        "invalid_checkpoint_storage",
+                        "Lifecycle basis is not a selected ancestor.",
+                    )
+                if record.basis_revision_id not in bases:
+                    closure_size += self._composed_material_size(
+                        connection, lineage_id, record.basis_revision_id
+                    )
+                    if closure_size > MAX_NATIVE_JSON_BYTES:
+                        raise _refuse(
+                            "storage_resource_limit",
+                            "Original-basis closure exceeds read capacity.",
+                        )
+                    bases[record.basis_revision_id] = self._read(
+                        connection,
+                        lineage_id,
+                        record.basis_revision_id,
+                        expected_target,
+                        validate_lifecycle=False,
+                    ).boundary
+            validate_lifecycle_history(lifecycle, bases=bases)
         return revision
+
+    def _read_lifecycle(
+        self,
+        connection: sqlite3.Connection,
+        lineage_id: str,
+        revision_id: str,
+        *,
+        available_bytes: int,
+    ) -> CapturedLifecycleHistory | None:
+        if self._schema_version == 1:
+            return None
+        identity = (lineage_id, revision_id)
+        header = connection.execute(
+            "SELECT format_version FROM revision_lifecycle WHERE lineage_id=? AND revision_id=?",
+            identity,
+        ).fetchone()
+        count = connection.execute(
+            "SELECT count(*) FROM revision_lifecycle_members WHERE lineage_id=? AND revision_id=?",
+            identity,
+        ).fetchone()[0]
+        if header is None:
+            if count:
+                raise _refuse(
+                    "missing_checkpoint_material", "Lifecycle membership has no header."
+                )
+            return None
+        if header != (1,):
+            raise _refuse(
+                "unsupported_lifecycle_format", "Unsupported lifecycle history format."
+            )
+        if count > MAX_LIFECYCLE_RECORDS:
+            raise _refuse(
+                "storage_resource_limit", "Lifecycle membership exceeds read capacity."
+            )
+        size = connection.execute(
+            "SELECT coalesce(sum(length(r.body)),0) FROM revision_lifecycle_members m "
+            "JOIN lifecycle_records r USING(lineage_id,record_id) "
+            "WHERE m.lineage_id=? AND m.revision_id=?",
+            identity,
+        ).fetchone()[0]
+        if (
+            size
+            + len(json_bytes({"format_version": 1, "records": []}))
+            + max(0, count - 1)
+            > available_bytes
+        ):
+            raise _refuse(
+                "storage_resource_limit",
+                "Composed lifecycle bodies exceed read capacity.",
+            )
+        records = []
+        for position, record_id in connection.execute(
+            "SELECT position,record_id FROM revision_lifecycle_members "
+            "WHERE lineage_id=? AND revision_id=? ORDER BY position",
+            identity,
+        ):
+            if position != len(records):
+                raise _refuse(
+                    "invalid_checkpoint_storage", "Noncontiguous lifecycle membership."
+                )
+            key = (lineage_id, record_id)
+            body = self._bounded_blob(
+                connection,
+                "SELECT length(body) FROM lifecycle_records WHERE lineage_id=? AND record_id=?",
+                key,
+            )
+            digest = connection.execute(
+                "SELECT digest FROM lifecycle_records WHERE lineage_id=? AND record_id=?",
+                key,
+            ).fetchone()[0]
+            record = read_lifecycle_record(body)
+            if sha256(body).hexdigest() != digest or record.record_id != record_id:
+                raise _refuse(
+                    "invalid_checkpoint_storage",
+                    "Corrupted lifecycle record identity/body.",
+                )
+            records.append(record)
+        return CapturedLifecycleHistory(tuple(records))
 
     @staticmethod
     def _history(connection: sqlite3.Connection, lineage_id: str) -> tuple[str, ...]:
@@ -757,7 +1023,7 @@ class CheckpointStore:
             return "published"
 
     def _validate_catalog(self, connection: sqlite3.Connection) -> BackupReceipt:
-        _verify_schema(connection)
+        self._schema_version = _verify_schema(connection)
         if connection.execute("PRAGMA integrity_check").fetchone() != ("ok",):
             raise _refuse(
                 "invalid_checkpoint_storage", "SQLite integrity check failed."
@@ -775,6 +1041,17 @@ class CheckpointStore:
                     "invalid_checkpoint_storage",
                     "Undeclared orphan material in catalog.",
                 )
+        if (
+            self._schema_version == 2
+            and connection.execute(
+                "SELECT 1 FROM lifecycle_records r LEFT JOIN revision_lifecycle_members m "
+                "USING(lineage_id,record_id) WHERE m.record_id IS NULL"
+            ).fetchone()
+            is not None
+        ):
+            raise _refuse(
+                "invalid_checkpoint_storage", "Undeclared orphan lifecycle material."
+            )
         count = 0
         heads = tuple(
             connection.execute(

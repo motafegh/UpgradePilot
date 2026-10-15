@@ -34,8 +34,8 @@ from upgradepilot.dependency.environment import (
     UvLockDependencyContext,
 )
 from upgradepilot.github.actions import WorkflowStep
-from upgradepilot.github.repository import RepositoryTextFile, UnavailableRepositoryFile
 from upgradepilot.github.release import GitHubReleaseEvidence
+from upgradepilot.github.repository import RepositoryTextFile, UnavailableRepositoryFile
 from upgradepilot.impact.python_support_codec import LAYOUTS as IMPACT_LAYOUTS
 from upgradepilot.investigation import investigate_public_pull_request
 from upgradepilot.target.python import TargetPythonDeclaration
@@ -50,6 +50,7 @@ from upgradepilot.upstream.interval import (
     assemble_upstream_interval_authority,
     release_interval_from_dependency_change,
 )
+from upgradepilot.workspace import native_representation
 from upgradepilot.workspace.native_boundary import (
     encode_native_boundary,
     read_native_boundary,
@@ -69,7 +70,6 @@ from upgradepilot.workspace.native_projection import (
     reconstruct_python_support_projection,
 )
 from upgradepilot.workspace.native_representation import NativeReconstructionError
-from upgradepilot.workspace import native_representation
 
 _WORKFLOW = """name: CI
 jobs:
@@ -112,6 +112,8 @@ def captured_case(
     dependency_problem=False,
     direct_invocation=False,
     second_source=False,
+    workspace_host=None,
+    before_target_read=None,
 ):
     h = _Harness()
     dependency = _dependency()
@@ -195,6 +197,8 @@ def captured_case(
     source = h.repository_client.get_exact_head_text_file.return_value
     if python_variant == "overlap":
         source = replace(source, content='[project]\nrequires-python = ">=3.9"\n')
+    elif python_variant == "empty":
+        source = replace(source, content="")
     elif python_variant == "unresolved":
         source = replace(source, content='[project]\nname = "demo"\n')
     elif python_variant == "unavailable":
@@ -206,6 +210,13 @@ def captured_case(
             "Controlled acquisition failure.",
         )
     h.repository_client.get_exact_head_text_file.return_value = source
+    if before_target_read is not None:
+
+        def selected_read(*args):
+            before_target_read(h)
+            return source
+
+        h.repository_client.get_exact_head_text_file.side_effect = selected_read
     analysis = DependencyChangeAnalysis(dependency, contexts)
     if dependency_problem:
         analysis = DependencyChangeProblem(
@@ -216,7 +227,11 @@ def captured_case(
         "upgradepilot.investigation.analyze_dependency_change", return_value=analysis
     ):
         original = investigate_public_pull_request(
-            "example/project", 7, native_capture=capture, **h.kwargs()
+            "example/project",
+            7,
+            native_capture=capture,
+            workspace_host=workspace_host,
+            **h.kwargs(),
         )
     boundary = capture.snapshot()
     inputs = NativeInvestigationInputs(
@@ -542,11 +557,11 @@ class WorkspaceNativeReconstructionTests(unittest.TestCase):
             with (
                 self.subTest(limit=limit),
                 patch.object(native_representation, limit, maximum),
-            ):
-                with self.assertRaisesRegex(
+                self.assertRaisesRegex(
                     NativeReconstructionError, "native_resource_limit"
-                ):
-                    native_representation.json_bytes(value)
+                ),
+            ):
+                native_representation.json_bytes(value)
 
     def test_v1_layouts_cannot_silently_fill_new_native_fields_from_defaults(self):
         # A new field on a reused constructor requires a reviewed codec compatibility
@@ -685,6 +700,7 @@ class WorkspaceNativeReconstructionTests(unittest.TestCase):
                 arguments.append(json.dumps(dict.fromkeys(names, expected_refusal)))
             result = subprocess.run(
                 arguments,
+                check=False,
                 env=env,
                 capture_output=True,
                 text=True,
@@ -1652,7 +1668,7 @@ class WorkspaceNativeReconstructionTests(unittest.TestCase):
         )
 
     def test_selection_is_bound_to_pre_assessment_without_rerunning_selector(self):
-        _, _, boundary, _, _ = captured_case()
+        _, _, _boundary, _, _ = captured_case()
         pending, _, expected = self._pending_selected_acquisition()
         values = retained_values(pending)
         selection = values["python_support_selection"]
@@ -2128,8 +2144,8 @@ class WorkspaceNativeReconstructionTests(unittest.TestCase):
         )
         value = json.loads(original.payload)
         del value["fields"]["assessments"]
-        for value in (value, {"variant": "__import__:os.system", "fields": {}}):
-            payload = json.dumps(value).encode()
+        for invalid_value in (value, {"variant": "__import__:os.system", "fields": {}}):
+            payload = json.dumps(invalid_value).encode()
             invalid = altered_record(
                 boundary,
                 original.family,
@@ -2194,14 +2210,16 @@ class WorkspaceNativeReconstructionTests(unittest.TestCase):
         analysis = DependencyChangeAnalysis(
             expected_ci.inputs.dependency_result, expected_ci.inputs.source_contexts
         )
-        with patch(
-            "upgradepilot.investigation.analyze_dependency_change",
-            return_value=analysis,
+        with (
+            patch(
+                "upgradepilot.investigation.analyze_dependency_change",
+                return_value=analysis,
+            ),
+            self.assertRaisesRegex(RuntimeError, "failed acquisition"),
         ):
-            with self.assertRaisesRegex(RuntimeError, "failed acquisition"):
-                investigate_public_pull_request(
-                    "example/project", 7, native_capture=capture, **h.kwargs()
-                )
+            investigate_public_pull_request(
+                "example/project", 7, native_capture=capture, **h.kwargs()
+            )
         with self.assertRaisesRegex(ValueError, "completed normal investigation"):
             capture.snapshot()
 
