@@ -2,7 +2,7 @@
 
 **Created:** 2026-10-15
 **Parent cycle:** [Workspace lifecycle, host admission and material-basis validity](2026-10-13_2030_workspace-lifecycle-admission-and-material-basis_lbd-cycle.md)
-**Status:** ACTIVE learning companion for the parent cycle's explicitly deferred D/learner-ownership work. It does not reopen Stage 3 engineering B/Verification/E, change product scope, or claim mastery.
+**Status:** CLOSED — D1–D4 sufficiently learned for the parent Stage 3 responsibility on 2026-10-15. Both deferred A2 reasoning checks are resolved from Ali's own explanations. This closure does not reopen Stage 3 engineering B/Verification/E, expand product scope, or claim mastery beyond the responsibility described below.
 **Purpose:** consolidate the verified Stage 3 result through real UpgradePilot code/tests and Product Simulation cases, record our reasoning, and surface any material contradiction back to the responsible owner before claiming learner ownership.
 
 ## Minimal learning plan
@@ -24,7 +24,7 @@ Follow these steps in order unless evidence gives a reason to change the sequenc
   - Distinguish native/domain-owned `InvestigationNeed` and evaluation from attributed proposals, capability admission, observable use, procedural termination and unsupported adequacy.
   - Confirm that the Python path is the first caller/proof case, not host architecture or universal investigation policy.
 
-- [ ] **D4 — End-to-end Stage 3 ownership and proof boundary**
+- [x] **D4 — End-to-end Stage 3 ownership and proof boundary**
   - Reconstruct one complete normal flow from native partial capture → need/request/admission → published intent → observation/problem → native reassessment → immutable Workspace successor → cold historical inspection.
   - Review partial capture, immutable closure, schema/version compatibility and the implementation failures/repairs discovered during verification.
   - State clearly what Stage 3 proves and does not prove: no model usefulness, generic semantic/adequacy competence, replay, exactly-once effects, power-loss guarantee, full native-family/report migration or user-facing continuation.
@@ -55,6 +55,14 @@ Follow these steps in order unless evidence gives a reason to change the sequenc
 4. **Open confusion or gap** — No material D3 gap remains. Refinement recorded: the boundary is not that an LLM is forbidden from uttering a decision-like statement; it is that such a statement remains a proposal unless the appropriate evaluator/synthesis owner establishes stronger meaning.
 5. **Disposition** — D3 sufficiently learned for this responsibility. The Python-support path is understood as the first production caller/proof case of the generic host, not as the architecture or universal investigation policy. Continue to D4.
 
+### D4 — 2026-10-15
+
+1. **Evidence used** — the Stage 3 normal production flow in `investigation.py`; `workspace/native_capture.py` partial-versus-completed capture semantics; the generic host request/admission/intent/observation/native-evaluation path; immutable Workspace publication/reconstruction behavior; and the recorded Stage 3 implementation/verification repairs for pending-input identity refresh, installed-test child-environment isolation and rejection retention on the original request basis.
+2. **Ali's explanation** — `partial_snapshot()` contains the coherent native material the investigation truthfully has up to that point; it is not one request record and it does not claim completion. The generic host owns request admission/execution/lifecycle handling, while the Python/domain owner owns the semantic interpretation and reassessment. Procedural `completed` means the normal run reached its completion point, not that investigation adequacy, upgrade safety or maintainer action permission was established. After restart, historical admissions are not executed again because recovery restores history while live admissions/current execution authority are cleared.
+3. **What it proves / does not prove** — Stage 3 now connects partial native capture → owner-backed need → request/admission → durable intent → bounded observation/interruption → native reassessment → immutable Workspace successor → cold historical inspection without changing the ownership boundaries learned in D1–D3. Historical recovery proves inspectability of supported retained state, not continuation, retry or replay. The Stage 3 verification establishes the admitted generic-host/native path and its tested failure distinctions; it does not establish model usefulness, generic semantic/adequacy competence, exactly-once external effects, power-loss durability, full native-family/report migration, user-facing continuation or replay.
+4. **Open confusion or gap** — No material Stage 3 ownership contradiction remains. Two wording refinements were resolved during the check: `partial_snapshot()` is the whole coherent unfinished native boundary rather than a request record, and a recovered `RequestAdmission(admitted)` is historical rather than current executable authority.
+5. **Disposition** — D4 sufficiently learned. D1–D4 and both deferred A2 reasoning checks are complete for this Stage 3 responsibility; no learning finding requires reopening Stage 3 engineering proof or changing the current common-Investigator preparation responsibility.
+
 ## How we record progress
 
 For each D step, append a short dated note containing:
@@ -69,8 +77,8 @@ Passing tests or agreement with an explanation is not learner-ownership evidence
 
 ## Coordination with the current engineering cycle
 
-The active engineering continuation is the [Common Investigator native inputs/source interfaces cycle](2026-10-14_2345_common-investigator-inputs-and-source-interfaces_lbd-cycle.md). Its A/B progression may continue independently under its own gates. This D companion should inform that work when relevant, but ordinary pending learning does not block it. If our learning reveals a real contradiction affecting the new cycle's assumptions, surface it before the affected Build decision.
+The active engineering continuation is the [Common Investigator native inputs/source interfaces cycle](2026-10-14_2345_common-investigator-inputs-and-source-interfaces_lbd-cycle.md). Its progression remains independently owned by that cycle. This completed Stage 3 D review found no contradiction requiring it to stop or reopen Stage 3 engineering. Any future finding that materially changes a Stage 3 premise still returns to the responsible owner rather than silently changing history.
 
 ## Completion condition
 
-This companion is complete when D1–D4 have evidence-backed notes, both deferred A2 reasoning checks have been answered in Ali's own reasoning, any material gaps have an explicit repair/defer disposition, and we can truthfully update the parent cycle's learner-ownership status without changing its already-verified engineering claims.
+**Satisfied on 2026-10-15.** D1–D4 have evidence-backed notes, both deferred A2 reasoning checks were answered in Ali's own reasoning, no material contradiction remains undisposed, and the parent Stage 3 cycle can truthfully mark learner ownership closed without changing its already-verified engineering claims.
