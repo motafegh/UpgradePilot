@@ -8,28 +8,20 @@ direct requirements, project-environment consumption, and direct invocation toge
 
 from __future__ import annotations
 
-import posixpath
 from collections.abc import Callable
 from dataclasses import dataclass
 
 from .ci.dependency_exercise import (
     DependencyCICoverageResult,
     WorkflowDependencyCoverageInput,
-    evaluate_dependency_ci_coverage,
 )
 from .ci.dependency_state import (
     RuntimeDependencyStateResult,
-    evaluate_runtime_dependency_state,
 )
-from .ci.workflow_commands import WorkflowProjectEnvironmentSource
-from .dependency.analysis import DependencyChangeAnalysis, analyze_dependency_change
 from .dependency.change import DependencyChangeProblem, DependencyVersionChange
 from .dependency.environment import (
     DependencySourceContext,
-    PyprojectDependencyGroupContext,
-    PyprojectOptionalExtraDependencyContext,
     RequirementsFileDependencyContext,
-    UvLockDependencyContext,
 )
 from .github.actions import GitHubActionsClient, WorkflowJob, WorkflowRun
 from .github.changelog import (
@@ -63,6 +55,7 @@ from .impact.python_support import (
     evaluate_python_support_drop_impact,
     select_python_support_drop_investigation,
 )
+from .investigation_inputs import acquire_dependency_inputs, prepare_ci_evidence
 from .pypi.release import (
     PackageReleaseEvidence,
     PackageReleaseIndexEvidence,
@@ -212,24 +205,13 @@ def investigate_public_pull_request(
     changelog_client = changelog_client or GitHubChangelogPathClient(token=token)
     support_drop_evaluator = support_drop_evaluator or evaluate_support_drop_runtime
 
-    pull_request = pull_client.get_pull_request(repository, pull_number)
-    changed_files = pull_client.get_changed_files(pull_request)
-    analysis_result = analyze_dependency_change(
-        pull_request,
-        changed_files,
-        repository_client,
+    acquired_inputs = acquire_dependency_inputs(
+        repository, pull_number, pull_client, repository_client
     )
-
-    if isinstance(analysis_result, DependencyChangeAnalysis):
-        dependency_result: DependencyVersionChange | DependencyChangeProblem = (
-            analysis_result.dependency
-        )
-        source_contexts: tuple[DependencySourceContext, ...] = (
-            analysis_result.source_contexts
-        )
-    else:
-        dependency_result = analysis_result
-        source_contexts = ()
+    pull_request = acquired_inputs.identity
+    changed_files = acquired_inputs.changed_files
+    dependency_result = acquired_inputs.dependency
+    source_contexts = acquired_inputs.source_contexts
 
     native_capture = native_capture or NativeInvestigationCapture()
     workspace_host = workspace_host or InvestigationWorkspaceHost()
@@ -299,51 +281,15 @@ def investigate_public_pull_request(
     python_support_drop_impact_result: PythonSupportDropImpactAssessment | None = None
 
     if isinstance(dependency_result, DependencyVersionChange):
-        workflow_runs = actions_client.get_exact_head_workflow_runs(pull_request)
-        workflow_evidence = tuple(
-            (run, actions_client.get_workflow_jobs(pull_request, run))
-            for run in workflow_runs
+        prepared_ci = prepare_ci_evidence(
+            acquired_inputs, actions_client, repository_client
         )
-        project_environment_sources = (
-            _acquire_project_environment_sources(
-                pull_request,
-                source_contexts,
-                repository_client,
-            )
-            if workflow_evidence
-            else ()
-        )
-
-        coverage_inputs: list[WorkflowDependencyCoverageInput] = []
-        for run, jobs in workflow_evidence:
-            definition = repository_client.get_exact_head_workflow_file(
-                pull_request,
-                run,
-            )
-            coverage_inputs.append(
-                WorkflowDependencyCoverageInput(
-                    run=run,
-                    jobs=jobs,
-                    definition=definition,
-                    project_environment_sources=project_environment_sources,
-                )
-            )
-
-        ci_coverage_result = evaluate_dependency_ci_coverage(
-            dependency_result,
-            coverage_inputs,
-            source_contexts=source_contexts,
-        )
-        runtime_dependency_state_result = evaluate_runtime_dependency_state(
-            dependency_result,
-            coverage_inputs,
-            ci_coverage_result,
-            source_contexts=source_contexts,
-        )
+        workflow_evidence = prepared_ci.workflow_evidence
+        coverage_inputs = list(prepared_ci.inputs)
+        ci_coverage_result = prepared_ci.coverage
+        runtime_dependency_state_result = prepared_ci.runtime
         native_capture.capture_ci(
-            tuple(coverage_inputs),
-            ci_coverage_result,
-            runtime_dependency_state_result,
+            prepared_ci.inputs, ci_coverage_result, runtime_dependency_state_result
         )
 
         package_result = package_client.get_release(
@@ -718,52 +664,6 @@ def _compose_target_artifact_environments(
             )
 
     return tuple(results)
-
-
-def _acquire_project_environment_sources(
-    identity: PullRequestIdentity,
-    source_contexts: tuple[DependencySourceContext, ...],
-    repository_client: GitHubRepositoryClient,
-) -> tuple[WorkflowProjectEnvironmentSource, ...]:
-    """Acquire exact files needed to derive project-selection consumption in CI."""
-
-    sources: list[WorkflowProjectEnvironmentSource] = []
-    for context in source_contexts:
-        if isinstance(context, UvLockDependencyContext):
-            lock_root = posixpath.dirname(context.source_path)
-            project_path = (
-                f"{lock_root}/pyproject.toml" if lock_root else "pyproject.toml"
-            )
-            sources.append(
-                WorkflowProjectEnvironmentSource(
-                    context=context,
-                    project_file=repository_client.get_exact_head_text_file(
-                        identity,
-                        project_path,
-                    ),
-                    lock_file=repository_client.get_exact_head_text_file(
-                        identity,
-                        context.source_path,
-                    ),
-                )
-            )
-            continue
-
-        if isinstance(
-            context,
-            (PyprojectOptionalExtraDependencyContext, PyprojectDependencyGroupContext),
-        ):
-            sources.append(
-                WorkflowProjectEnvironmentSource(
-                    context=context,
-                    project_file=repository_client.get_exact_head_text_file(
-                        identity,
-                        context.source_path,
-                    ),
-                )
-            )
-
-    return tuple(sources)
 
 
 def _resolve_proposed_version_tag(

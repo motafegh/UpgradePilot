@@ -224,7 +224,8 @@ def captured_case(
         )
     capture = NativeInvestigationCapture()
     with patch(
-        "upgradepilot.investigation.analyze_dependency_change", return_value=analysis
+        "upgradepilot.investigation_inputs.analyze_dependency_change",
+        return_value=analysis,
     ):
         original = investigate_public_pull_request(
             "example/project",
@@ -390,7 +391,7 @@ def captured_project_case(kind, *, unavailable=False, second_context=False):
     h.repository_client.get_exact_head_text_file.side_effect = exact_file
     capture = NativeInvestigationCapture()
     with patch(
-        "upgradepilot.investigation.analyze_dependency_change",
+        "upgradepilot.investigation_inputs.analyze_dependency_change",
         return_value=DependencyChangeAnalysis(dependency, contexts),
     ):
         original = investigate_public_pull_request(
@@ -1845,7 +1846,7 @@ class WorkspaceNativeReconstructionTests(unittest.TestCase):
         h = _Harness()
         capture = NativeInvestigationCapture()
         with patch(
-            "upgradepilot.investigation.analyze_dependency_change",
+            "upgradepilot.investigation_inputs.analyze_dependency_change",
             return_value=DependencyChangeAnalysis(_dependency(), ()),
         ):
             investigate_public_pull_request(
@@ -2212,7 +2213,7 @@ class WorkspaceNativeReconstructionTests(unittest.TestCase):
         )
         with (
             patch(
-                "upgradepilot.investigation.analyze_dependency_change",
+                "upgradepilot.investigation_inputs.analyze_dependency_change",
                 return_value=analysis,
             ),
             self.assertRaisesRegex(RuntimeError, "failed acquisition"),

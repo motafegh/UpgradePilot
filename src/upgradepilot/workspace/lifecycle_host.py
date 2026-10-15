@@ -31,6 +31,7 @@ from .lifecycle_records import (
     CapabilityObservation,
     CapabilityRequest,
     ConsumerView,
+    ContentCitation,
     DiscoveryObjective,
     EvaluationOutcome,
     ExecutionAttempt,
@@ -42,6 +43,7 @@ from .lifecycle_records import (
     ProceduralTermination,
     RequestAdmission,
     StoppingProposal,
+    ViewDelivery,
 )
 from .material_validity import (
     MaterialBasisValidity,
@@ -629,6 +631,52 @@ class InvestigationWorkspaceHost:
             tuple(available[identity] for identity in native_record_ids),
         )
 
+    def validate_view_access(
+        self, purpose_id: str, *, method: LifecycleMethodIdentity
+    ) -> DiscoveryObjective | InvestigationNeed:
+        """Check present purpose/material and installed read method before adapter work.
+
+        This grants only the caller's separately scoped retained-view operation; it does
+        not install capabilities or grant external execution authority.
+        """
+        purpose = self.lifecycle_value(purpose_id)
+        if not isinstance(purpose, (DiscoveryObjective, InvestigationNeed)):
+            raise WorkspaceHostError("view_without_admitted_purpose")
+        if self.current_validity(purpose_id).status != "valid":
+            raise WorkspaceHostError("stale_or_unsupported_view_purpose")
+        if method not in self._methods:
+            raise WorkspaceHostError("view_method_unavailable")
+        return purpose
+
+    def deliver_view(
+        self,
+        purpose_id: str,
+        view_id: str,
+        *,
+        representation: str,
+        content: str,
+        method: LifecycleMethodIdentity,
+    ) -> str:
+        """Publish actual adapter delivery, independently of acquisition or observable use.
+
+        Trusted adapters prepare bounded content and scope; retained history grants no
+        current access authority. The generic host binds delivery to its original native
+        view and purpose without interpreting source or native-domain payloads.
+        """
+        self.validate_view_access(purpose_id, method=method)
+        view = self.lifecycle_value(view_id)
+        if not isinstance(view, ConsumerView):
+            raise WorkspaceHostError("delivery_without_purpose_or_view")
+        if self.current_validity(view_id).status != "valid":
+            raise WorkspaceHostError("stale_or_unsupported_view_delivery")
+        basis = self._records[view_id]
+        return self._append(
+            ViewDelivery(purpose_id, view_id, representation, content),
+            basis.native_record_ids,
+            method=method,
+            basis=basis.basis_revision_id,
+        )
+
     def record_use(
         self, view_id: str, native_record_ids: tuple[str, ...], *, receipt: str
     ) -> str:
@@ -661,6 +709,42 @@ class InvestigationWorkspaceHost:
             AttributedProposal(view_id, subject, statement, cited_native_ids),
             references,
             basis=record.basis_revision_id,
+        )
+
+    def cite_delivery(
+        self,
+        proposal_id: str,
+        delivery_id: str,
+        reference: str,
+        *,
+        method: LifecycleMethodIdentity,
+    ) -> str:
+        """Retain an adapter-validated content reference as an attributed citation.
+
+        The representation-owning adapter checks addressability and actual delivery. This
+        generic host checks lineage/material links; neither layer evaluates entailment.
+        """
+        if not isinstance(
+            self.lifecycle_value(proposal_id), AttributedProposal
+        ) or not isinstance(self.lifecycle_value(delivery_id), ViewDelivery):
+            raise WorkspaceHostError("citation_without_proposal_or_delivery")
+        if (
+            method not in self._methods
+            or self.current_validity(delivery_id).status != "valid"
+        ):
+            raise WorkspaceHostError("citation_material_or_method_unavailable")
+        delivery = self._records[delivery_id]
+        references = tuple(
+            dict.fromkeys(
+                delivery.native_record_ids
+                + self._records[proposal_id].native_record_ids
+            )
+        )
+        return self._append(
+            ContentCitation(proposal_id, delivery_id, reference),
+            references,
+            method=method,
+            basis=delivery.basis_revision_id,
         )
 
     def evaluate_proposal(self, proposal_id: str) -> str:

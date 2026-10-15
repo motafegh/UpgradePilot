@@ -257,7 +257,7 @@ def _run(harness: _Harness, evaluator):
         source_evidence=harness.dependency.source_evidence[0],
     )
     with patch(
-        "upgradepilot.investigation.analyze_dependency_change",
+        "upgradepilot.investigation_inputs.analyze_dependency_change",
         return_value=DependencyChangeAnalysis(
             dependency=harness.dependency,
             source_contexts=(source_context,),

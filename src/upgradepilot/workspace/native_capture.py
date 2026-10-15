@@ -134,7 +134,7 @@ class NativeInvestigationCapture:
         runtime: RuntimeDependencyStateResult,
     ) -> None:
         self._record(
-            "ci_inputs", inputs, method="investigation.investigate_public_pull_request"
+            "ci_inputs", inputs, method="investigation_inputs.prepare_ci_evidence"
         )
         self._record(
             "ci_coverage",

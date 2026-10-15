@@ -1,9 +1,9 @@
 # Workspace lifecycle, host admission and material-basis validity — LbD cycle
 
 **Initialized:** 2026-10-13 20:30 Asia/Tehran.
-**Session status:** ENGINEERING HANDOFF CLOSED through E on 2026-10-14 under Ali's explicit scheduling override; Stage 3 D continues separately and learner-ownership closure remains open. This is not an unqualified full learning-cycle closure.
-**Engineering continuation:** [Common Investigator native inputs/source interfaces cycle](2026-10-14_2345_common-investigator-inputs-and-source-interfaces_lbd-cycle.md); this record retains the deferred Stage 3 learning/ownership responsibility.
-**Learning continuation (reconciled at `271aabae`, 2026-10-15):** the separate [Stage 3 D companion](2026-10-15_stage3-deferred-d-learning-todo.md) reports D1/D2 sufficiently learned and both earlier A2 reasoning checks resolved from Ali's explanations. D3/D4 and full learner-ownership closure remain open; the engineering handoff/proof is unchanged.
+**Session status:** CLOSED through E; engineering handoff completed on 2026-10-14 under Ali's scheduling override, and the separately completed D ownership review was reconciled on 2026-10-15.
+**Engineering handoff:** [Common Investigator native inputs/source interfaces cycle](2026-10-14_2345_common-investigator-inputs-and-source-interfaces_lbd-cycle.md).
+**Learning reconciliation (`cabf974b`, 2026-10-15):** the separate [Stage 3 D companion](2026-10-15_stage3-deferred-d-learning-todo.md) reports D1–D4 sufficiently learned and both earlier A2 reasoning checks resolved from Ali's explanations. No material gap or engineering contradiction remains for this responsibility. This closes the previously deferred ownership work without changing engineering proof or claiming mastery beyond its scope.
 **Primary operation:** authorized Build/Implement for the admitted Stage 3 responsibility, following completed Planning/Design reconciliation.
 **Previous engineering foundation:** [Stages 1–2 cycle](2026-10-10_1552_workspace-native-capture-reconstruction-and-publication_lbd-cycle.md). Its remaining D/E progression is independently owned on `learning/d-native-ownership-2026-10-10`; this record does not take it over.
 **Owners:** [live position](../MEMORY.md), [implementation/migration plan](../plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_AND_MIGRATION_PLAN.md#technical-stages-and-cycle-boundaries), [ADR-0012](../docs/architecture/ADR-0012-canonical-investigation-workspace-and-recovery-boundary.md), [ADR-0013](../docs/architecture/ADR-0013-versioned-native-reconstruction-and-workspace-checkpoint-storage.md), [Core §6.4](../docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md#64-canonical-investigation-recovery-and-explicit-continuation), [Product Decision Model](../docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md), [Operating Guide](../OPERATING_GUIDE.md).
@@ -18,9 +18,9 @@ A1 — DONE: Ali accepted the current-state model and explicitly requested A2; n
 A2 — DONE for action entry: Ali adopted the reviewed sequence; initially deferred reasoning checks are now reported resolved in D1/D2, without a full learner-ownership claim.
 B — DONE: generic host/current authority, published intent, outcomes, native reassessment, partial capture and material validity integrated through the normal selected-read caller; readiness disposition recorded.
 Verification gate — GREEN for admitted Stage 3: 25 host tests; 875 checkout and 875 fresh-installed tests; 92 source/installed hashes match; historical compatibility and guarded normal-path interruption/restoration pass.
-D — IN PROGRESS separately: companion reports D1/D2 and both A2 reasoning checks sufficiently learned at 271aabae; D3/D4 and full learner-ownership closure remain open.
-E — DONE for engineering handoff under the recorded scheduling override: proof/non-proof, deferred learning and next responsibility consolidated; learner-ownership closure remains pending.
-C — DONE for this engineering handoff: meaningful progression preserved; any later D findings must reconcile this record and the responsible owner.
+D — DONE separately: companion closure at cabf974b records D1–D4 and both A2 checks sufficiently learned, with no material contradiction.
+E — DONE: engineering handoff under the recorded scheduling override; later D closure reconciled without changing proof/scope or independent foundation learning.
+C — DONE: engineering progression and separately completed ownership handoff preserved.
 ```
 
 ## A0 reconciliation and responsibility decision

@@ -612,7 +612,7 @@ jobs:
             reason="no_supported_dependency_file",
             detail="No dependency source.",
         )
-        with patch("upgradepilot.investigation.analyze_dependency_change", return_value=problem):
+        with patch("upgradepilot.investigation_inputs.analyze_dependency_change", return_value=problem):
             result = investigate_public_pull_request("example/project", 7, **h.kwargs())
 
         self.assertIs(result.dependency_result, problem)
@@ -760,7 +760,7 @@ def _run(h: _Harness, dependency: DependencyVersionChange):
         source_evidence=dependency.source_evidence[0],
     )
     with patch(
-        "upgradepilot.investigation.analyze_dependency_change",
+        "upgradepilot.investigation_inputs.analyze_dependency_change",
         return_value=DependencyChangeAnalysis(
             dependency=dependency,
             source_contexts=(source_context,),

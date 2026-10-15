@@ -1,6 +1,6 @@
 # Bounded Product Agentic Investigation Planner and Orchestration Evaluation Plan
 
-**Status:** APPROVED + ACTIVATED — R7 activation prerequisite satisfied; checkpoint remains open until an explicit `ADOPT` / `RETAIN AS PILOT` / `REJECT` / `DEFER` disposition  
+**Status:** APPROVED — R7 prerequisite satisfied; original activation retained as history, with the bounded execution reschedule in §0.2. Method adoption/rejection remains undecided; `MEMORY.md` owns live selection.
 **Owner:** Ali Rajabi  
 **Route coordinate:** B2 / X1  
 **Live-state owner:** `../MEMORY.md`  
@@ -37,6 +37,14 @@ Apply `OPERATING_GUIDE.md` proportionality and Ceremony Tax directly to this che
 8. **Learning breadth matters.** This flagship checkpoint should expose Ali to real LLM planning, structured outputs, local inference, prompt/eval iteration, replay, baseline comparison, and failure diagnosis. Do not spend most of the checkpoint on pre-LLM ceremony when those later concepts can be reached safely with a smaller gate.
 
 These guards narrow process overhead; they do not weaken product evidence authority or the accepted protected-scoring oracle.
+
+### 0.2 Workspace-preparation handoff disposition — 2026-10-15
+
+The [common-input/source-interface responsibility](INVESTIGATION_WORKSPACE_IMPLEMENTATION_AND_MIGRATION_PLAN.md#prepare-common-investigator-inputs-and-source-interfaces) now supplies the canonical host, genuine dependency/CI inputs and frozen raw/native delivery seam needed to examine H1's broader consumption question. Its [dated engineering evidence](../working-memory/2026-10-14_2345_common-investigator-inputs-and-source-interfaces_lbd-cycle.md#verification-and-supported-interface-readiness--2026-10-15) does not answer this plan's action-relative planner question or adopt a framework.
+
+**Disposition: DEFER separate execution of the original snapshot-bound pilot/protected scoring to the next selected local Investigator protocol decision.** The evidence/authority interface has materially changed, so mechanically running its older snapshot request before reconciling the two questions could test a mismatched contract. This is a bounded reschedule, not rejection or completion. The accepted protocol/oracle and protected-set controls retain their ownership; earlier runs remain historical evidence. At the next protocol's A0/A2, explicitly decide whether to reuse/adapt this pilot alongside H1, or execute/disposition it separately before ordinary B2 continuation. Do not silently substitute H1 usefulness for this planner result, alter its oracle, or defer it again without decision-changing evidence.
+
+The immediate engineering recommendation is a separately authorized local, synchronous Investigator integration/qualification experiment using the proven seam; no further infrastructure prerequisite is selected without a concrete failed gate. Ordinary in-process orchestration remains the baseline. Framework adoption remains deferred until that experiment exposes a required capability the simpler baseline cannot supply. Neither this disposition nor the completed non-model preparation authorizes inference, new model/runtime dependencies or production planner adoption. `MEMORY.md` owns actual activation and learning progression.
 
 ## 1. Responsibility
 

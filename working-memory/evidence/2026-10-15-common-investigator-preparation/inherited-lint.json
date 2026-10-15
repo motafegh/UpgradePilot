@@ -1,0 +1,26 @@
+[
+  {
+    "path": "tests/test_investigation.py",
+    "code": "I001",
+    "line": 3,
+    "unchanged_from_cabf974b": true
+  },
+  {
+    "path": "tests/test_investigation.py",
+    "code": "F401",
+    "line": 38,
+    "unchanged_from_cabf974b": true
+  },
+  {
+    "path": "tests/test_investigation.py",
+    "code": "UP017",
+    "line": 47,
+    "unchanged_from_cabf974b": true
+  },
+  {
+    "path": "tests/test_step7f_end_to_end.py",
+    "code": "UP017",
+    "line": 37,
+    "unchanged_from_cabf974b": true
+  }
+]

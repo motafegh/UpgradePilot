@@ -17,6 +17,7 @@ from .lifecycle_records import (
     CapabilityObservation,
     CapabilityRequest,
     ConsumerView,
+    ContentCitation,
     DiscoveryObjective,
     EvaluationOutcome,
     ExecutionAttempt,
@@ -27,6 +28,7 @@ from .lifecycle_records import (
     ObservableUse,
     RequestAdmission,
     StoppingProposal,
+    ViewDelivery,
     decode_lifecycle_value,
     decode_method_identity,
     encode_lifecycle_value,
@@ -252,6 +254,7 @@ def reconstruct_lifecycle_history(
     """Expose supported typed history; no capability, native evaluation or policy calls."""
     validate_lifecycle_history(history, bases=bases)
     prior: dict[str, LifecycleValue] = {}
+    prior_captures: dict[str, CapturedLifecycleRecord] = {}
     result = []
     for record in history.records:
         value = decode_lifecycle_value(
@@ -266,6 +269,44 @@ def reconstruct_lifecycle_history(
             if record.predecessor_record_ids
             else None
         )
+        if isinstance(value, ContentCitation):
+            if not isinstance(
+                prior.get(value.proposal_id), AttributedProposal
+            ) or not isinstance(prior.get(value.delivery_id), ViewDelivery):
+                raise _invalid(
+                    "Content citation lacks its attributed proposal or actual delivery."
+                )
+            delivery_capture = prior_captures[value.delivery_id]
+            if (
+                record.basis_revision_id != delivery_capture.basis_revision_id
+                or not set(delivery_capture.native_record_ids)
+                <= set(record.native_record_ids)
+            ):
+                raise _invalid(
+                    "Content citation rebinds or omits its original delivery basis."
+                )
+            _text(value.reference)
+        if isinstance(value, ViewDelivery):
+            purpose = prior.get(value.purpose_id)
+            view = prior.get(value.view_id)
+            if not isinstance(
+                purpose, (InvestigationNeed, DiscoveryObjective)
+            ) or not isinstance(view, ConsumerView):
+                raise _invalid(
+                    "View delivery needs an admitted purpose and retained view."
+                )
+            if not value.representation or not value.retained_content:
+                raise _invalid("View delivery lacks its actual representation/content.")
+            required_material = set(
+                prior_captures[value.purpose_id].native_record_ids
+            ) | set(prior_captures[value.view_id].native_record_ids)
+            if (
+                record.basis_revision_id
+                != prior_captures[value.view_id].basis_revision_id
+            ):
+                raise _invalid("Delivery rebinds the original view basis.")
+            if not required_material <= set(record.native_record_ids):
+                raise _invalid("Delivery omits its view material basis.")
         if isinstance(value, CapabilityRequest) and not isinstance(
             parent, (InvestigationNeed, DiscoveryObjective)
         ):
@@ -361,5 +402,6 @@ def reconstruct_lifecycle_history(
             ):
                 raise _invalid("Observable use cannot claim undelivered material.")
         prior[record.record_id] = value
+        prior_captures[record.record_id] = record
         result.append(ReconstructedLifecycleRecord(record, value))
     return tuple(result)

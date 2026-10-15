@@ -107,6 +107,25 @@ class ConsumerView:
 
 
 @dataclass(frozen=True, slots=True)
+class ViewDelivery:
+    """Actual bounded consumer payload; delivery is not acquisition, use or truth."""
+
+    purpose_id: str
+    view_id: str
+    representation: str
+    retained_content: str
+
+
+@dataclass(frozen=True, slots=True)
+class ContentCitation:
+    """An attributed proposal's reference to delivered content, not evaluated support."""
+
+    proposal_id: str
+    delivery_id: str
+    reference: str
+
+
+@dataclass(frozen=True, slots=True)
 class ObservableUse:
     view_id: str
     native_ids: tuple[str, ...]
@@ -144,6 +163,8 @@ type LifecycleValue = (
     | ExecutionInterruption
     | EvaluationOutcome
     | ConsumerView
+    | ViewDelivery
+    | ContentCitation
     | ObservableUse
     | AttributedProposal
     | ProceduralTermination
@@ -251,6 +272,21 @@ _LAYOUTS = (
         ),
     ),
     RecordLayout(
+        "view_delivery",
+        ViewDelivery,
+        (
+            ("purpose_id", str),
+            ("view_id", str),
+            ("representation", str),
+            ("retained_content", str),
+        ),
+    ),
+    RecordLayout(
+        "content_citation",
+        ContentCitation,
+        (("proposal_id", str), ("delivery_id", str), ("reference", str)),
+    ),
+    RecordLayout(
         "observable_use",
         ObservableUse,
         (("view_id", str), ("native_ids", _STRINGS), ("receipt", str)),
@@ -338,6 +374,10 @@ def decode_lifecycle_value(kind: str, version: int, payload: bytes) -> Lifecycle
 def lifecycle_predecessors(value: LifecycleValue) -> tuple[str, ...]:
     """Representation-owned causal edges; the host still owns current admission."""
     match value:
+        case ContentCitation(proposal_id=proposal, delivery_id=delivery):
+            return (proposal, delivery)
+        case ViewDelivery(purpose_id=purpose, view_id=view):
+            return (purpose, view)
         case CapabilityRequest(purpose_id=reference):
             return (reference,)
         case RequestAdmission(request_id=reference):

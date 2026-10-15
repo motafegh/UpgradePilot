@@ -192,7 +192,7 @@ class R6InvestigationCIIntegrationTests(unittest.TestCase):
 
         capture = NativeInvestigationCapture()
         with patch(
-            "upgradepilot.investigation.analyze_dependency_change",
+            "upgradepilot.investigation_inputs.analyze_dependency_change",
             return_value=DependencyChangeAnalysis(
                 dependency=dependency,
                 source_contexts=(context,),
