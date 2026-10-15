@@ -9,7 +9,7 @@
 
 Follow these steps in order unless evidence gives a reason to change the sequence.
 
-- [ ] **D1 — Original basis vs current material validity vs current execution authority**
+- [x] **D1 — Original basis vs current material validity vs current execution authority**
   - Use the real `material_validity.py`/host behavior plus S013/S016-style cases.
   - Be able to explain why a lifecycle record keeps its historical basis, why unrelated same-target progress may remain valid, why material/target/scope/method changes may make current use stale/unsupported, and why evidential validity still does not grant execution authority.
   - Resolve the parent cycle's first deferred A2 reasoning check.
@@ -28,6 +28,16 @@ Follow these steps in order unless evidence gives a reason to change the sequenc
   - Reconstruct one complete normal flow from native partial capture → need/request/admission → published intent → observation/problem → native reassessment → immutable Workspace successor → cold historical inspection.
   - Review partial capture, immutable closure, schema/version compatibility and the implementation failures/repairs discovered during verification.
   - State clearly what Stage 3 proves and does not prove: no model usefulness, generic semantic/adequacy competence, replay, exactly-once effects, power-loss guarantee, full native-family/report migration or user-facing continuation.
+
+## Progress notes
+
+### D1 — 2026-10-15
+
+1. **Evidence used** — `workspace/material_validity.py`, the host's `current_validity()` and `_execution_refusal()` paths, plus the verified same-target/unrelated-vs-material-change controls discussed in the parent cycle.
+2. **Ali's explanation** — For a request created at R5, unrelated later progress does not make it stale when target/scope/method/capability and actual dependencies are unchanged. If execution authority is removed, the historical/current material can remain valid while the action is not authorized. If a native premise the request actually depends on changes, current use becomes stale.
+3. **What it proves / does not prove** — Original basis remains historical and is never rewritten to the newest revision. Material validity answers present usability, not execution permission. Current authority is a separate present-time host decision. A stale material basis also blocks execution even when authority otherwise exists.
+4. **Open confusion or gap** — No material conceptual gap remains for D1. Code-level expectation clarified: learn the small decision logic inside the relevant functions, not merely their names and not every implementation line.
+5. **Disposition** — D1 sufficiently learned for this responsibility; first deferred A2 reasoning check resolved. Continue to D2.
 
 ## How we record progress
 
