@@ -19,7 +19,7 @@ Follow these steps in order unless evidence gives a reason to change the sequenc
   - Be able to distinguish `intent_recorded`, `not_started`, completion unknown and completed observation/problem, and explain why none of these automatically grants retry authority.
   - Resolve the parent cycle's second deferred A2 reasoning check.
 
-- [ ] **D3 — Generic host and intelligence/truth authority boundaries**
+- [x] **D3 — Generic host and intelligence/truth authority boundaries**
   - Trace the real Python-support caller through the generic host, then map S013–S016 onto a future Investigator.
   - Distinguish native/domain-owned `InvestigationNeed` and evaluation from attributed proposals, capability admission, observable use, procedural termination and unsupported adequacy.
   - Confirm that the Python path is the first caller/proof case, not host architecture or universal investigation policy.
@@ -46,6 +46,14 @@ Follow these steps in order unless evidence gives a reason to change the sequenc
 3. **What it proves / does not prove** — Published intent is a durable pre-interaction fact, not evidence of completion. `not_started` requires positive retained evidence that the external call was not entered. Unknown completion preserves ambiguity instead of converting an exception into non-execution. A completed `problem` observation proves only that the admitted capability returned that bounded result. Any previous attempt blocks automatic retry; historical admission/intent do not restore live execution permission.
 4. **Open confusion or gap** — No material D2 gap remains. Useful cross-domain analogy recorded: the ordering is CEI-like (`check` current authority/material → durably record internal intent → external interaction), but unlike Solidity CEI it is not primarily a reentrancy pattern and does not provide one-transaction atomic rollback across SQLite and an external provider. The durable intent/observation/interruption model exists because those systems can fail independently and leave ambiguous completion.
 5. **Disposition** — D2 sufficiently learned for this responsibility; second deferred A2 reasoning check resolved. Continue to D3.
+
+### D3 — 2026-10-15
+
+1. **Evidence used** — the real Python-support caller in `investigation.py`, plus `workspace/lifecycle_host.py` paths for `add_purpose()`, `evaluate_native()`, `prepare_view()`, `record_use()`, `propose()`, `evaluate_proposal()`, `propose_stop()` and `terminate()`.
+2. **Ali's explanation** — LLMs/agents may make proposals but do not have authority to turn those proposals into product truth or execution authority. The generic host is mainly an orchestration/coordination and lifecycle-authority mechanism; semantic/domain meaning remains with the qualified native/domain owners, which the host can invoke. A proposed stop concerns stopping that investigation activity and does not by itself establish that the overall investigation is successful or adequate.
+3. **What it proves / does not prove** — A trusted `InvestigationNeed` is owner/admission-backed and is not equivalent to an LLM suggestion. A successful generic capability observation does not authorize the host to invent a domain conclusion; the native owner performs the interpretation/evaluation and the host retains it. The LLM may still propose strong statements such as “the upgrade is safe,” but without an admitted semantic/adequacy evaluator the retained truth is only an attributed proposal plus an `unsupported` evaluation outcome, not safety. `StoppingProposal`, procedural termination and investigation adequacy are separate states; even a completed run does not establish maintainer action permission.
+4. **Open confusion or gap** — No material D3 gap remains. Refinement recorded: the boundary is not that an LLM is forbidden from uttering a decision-like statement; it is that such a statement remains a proposal unless the appropriate evaluator/synthesis owner establishes stronger meaning.
+5. **Disposition** — D3 sufficiently learned for this responsibility. The Python-support path is understood as the first production caller/proof case of the generic host, not as the architecture or universal investigation policy. Continue to D4.
 
 ## How we record progress
 
