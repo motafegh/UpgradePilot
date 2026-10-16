@@ -145,6 +145,21 @@ Incident evidence: [`working-memory/2026-08-05_B2-step-7c-lm-studio-proxy-contam
 
 Implementation/ADR/tests—not this file—own the mechanism that enforces the security invariant.
 
+### Optional LM Studio Python SDK for experiments
+
+The existing optional `lmstudio==1.5.0` installation is isolated in ignored
+`.tmp/api-eval-sdk/lib/python3.12/site-packages` under the main checkout. It was deliberately
+kept outside the normal `.venv` and project dependencies; [the installation record](working-memory/2026-10-05_1950_api-change-interpretation-implementation_lbd-cycle.md#evaluation-preparation--actual-deployment-accounting-and-tooling)
+and [recorded invocation](working-memory/evidence/2026-10-05-api-interpretation-budget-and-diagnosis/README.md)
+own its history. Experiment CLIs with `--sdk-site` append that directory explicitly.
+Research worktrees can reuse the main checkout's absolute site path.
+
+Rechecked October 16: project Python imports SDK 1.5.0 successfully after appending that site
+path, without constructing a client. Failure to resolve `lmstudio` on the default `.venv`
+path is expected and does not demonstrate removal or an environment change. Check this
+existing route before proposing installation or a replacement transport. SDK import alone
+does not qualify a new deployment, backend, prompt template, token accounting or load settings.
+
 ## 6. Adopted local semantic deployment
 
 ADR-0006 owns the decision to use the bounded local support-drop semantic extractor. Reusable deployment facts:

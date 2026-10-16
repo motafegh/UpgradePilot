@@ -68,7 +68,24 @@
   "main_interpreter": {
     "python": "3.12.3",
     "requests": "2.34.2",
-    "lmstudio_sdk": null
+    "lmstudio_sdk": null,
+    "lmstudio_sdk_observation_scope": "Initial default sys.path only; deliberate isolated SDK installation was omitted by that check, not removed"
+  },
+  "existing_isolated_sdk": {
+    "correction_observed_on": "2026-10-16",
+    "site": "/home/motafeq/projects/UpgradePilot/.tmp/api-eval-sdk/lib/python3.12/site-packages",
+    "distribution": "lmstudio",
+    "version": "1.5.0",
+    "import_after_explicit_site_append": true,
+    "module_file": "/home/motafeq/projects/UpgradePilot/.tmp/api-eval-sdk/lib/python3.12/site-packages/lmstudio/__init__.py",
+    "client_and_chat_from_history_callable": true,
+    "client_constructed": false,
+    "network_load_inference_install_or_configuration_actions": 0,
+    "historical_installation_record": "working-memory/2026-10-05_1950_api-change-interpretation-implementation_lbd-cycle.md#evaluation-preparation--actual-deployment-accounting-and-tooling",
+    "historical_invocation_record": "working-memory/evidence/2026-10-05-api-interpretation-budget-and-diagnosis/README.md",
+    "research_reuse_record": "/home/motafeq/.codex/worktrees/broader-llm-agency-research/UpgradePilot/working-memory/2026-10-05_2052_broader-llm-agency-research.md",
+    "research_site_selection_source": "/home/motafeq/.codex/worktrees/broader-llm-agency-research/UpgradePilot/experiments/broader_agency_pilot.py",
+    "conclusion": "Existing --sdk-site route is available; default-path absence is not evidence of environment drift. Import does not qualify actual new-deployment behavior."
   },
   "actions": {
     "inventory_gets_in_this_artifact_capture": 1,
