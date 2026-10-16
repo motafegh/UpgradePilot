@@ -1,6 +1,6 @@
 # Bounded Product Agentic Investigation Planner and Orchestration Evaluation Plan
 
-**Status:** APPROVED — R7 prerequisite satisfied; original activation retained as history, with the bounded execution reschedule in §0.2. Method adoption/rejection remains undecided; `MEMORY.md` owns live selection.
+**Status:** APPROVED — original activation/reschedule retained as history in §0.2; §0.3 owns coordination with the Investigator comparison. Method adoption/rejection requires this plan's evidence; `MEMORY.md` owns live selection.
 **Owner:** Ali Rajabi  
 **Route coordinate:** B2 / X1  
 **Live-state owner:** `../MEMORY.md`  
@@ -45,6 +45,14 @@ The [common-input/source-interface responsibility](INVESTIGATION_WORKSPACE_IMPLE
 **Disposition: DEFER separate execution of the original snapshot-bound pilot/protected scoring to the next selected local Investigator protocol decision.** The evidence/authority interface has materially changed, so mechanically running its older snapshot request before reconciling the two questions could test a mismatched contract. This is a bounded reschedule, not rejection or completion. The accepted protocol/oracle and protected-set controls retain their ownership; earlier runs remain historical evidence. At the next protocol's A0/A2, explicitly decide whether to reuse/adapt this pilot alongside H1, or execute/disposition it separately before ordinary B2 continuation. Do not silently substitute H1 usefulness for this planner result, alter its oracle, or defer it again without decision-changing evidence.
 
 The immediate engineering recommendation is a separately authorized local, synchronous Investigator integration/qualification experiment using the proven seam; no further infrastructure prerequisite is selected without a concrete failed gate. Ordinary in-process orchestration remains the baseline. Framework adoption remains deferred until that experiment exposes a required capability the simpler baseline cannot supply. Neither this disposition nor the completed non-model preparation authorizes inference, new model/runtime dependencies or production planner adoption. `MEMORY.md` owns actual activation and learning progression.
+
+### 0.3 Investigator integration coordination
+
+The [Investigator comparison plan](INVESTIGATOR_INTEGRATION_AND_COMPARATIVE_EVALUATION_PLAN.md#6-explicit-disposition-of-the-older-action-planner-obligation) selects **separate action-relative evaluation**, reusing compatible transport/accounting only. This resolves the reuse/adaptation-versus-separate-execution question in §0.2 without declaring the checkpoint complete or changing its accepted oracle. Structured evidence use and useful action choice remain different claims. The H1 common source freeze does not replace this pilot's frozen planner-state/replay profile.
+
+At the first completed mechanical-integration gate, reconcile current contract/selector/transport identities, retained inputs, prior exposure and the earliest unfinished proof against this plan and its accepted protocol. Reuse valid prior work; do not restart every historical phase. If valid, select the separately authorized development/protected execution. If invalid or infeasible, make an explicit evidence-backed reject/defer or narrowly scoped protocol-repair decision, identifying the exact dependency, capability cost and re-entry evidence. Do not modify protected labels or silently translate historical semantics to fit current results.
+
+This entry review must not await H1 semantic success. Qualified H1 development may proceed independently of protected planner scoring, but the combined evaluation handoff cannot release ordinary B2 continuation until this obligation has an explicit disposition. General framework adoption remains unselected without actual pressure against synchronous Python. This coordination selects no inference run and grants no product adoption.
 
 ## 1. Responsibility
 

@@ -112,6 +112,8 @@ Reuse [the report development evaluator](../experiments/EVIDENCE_REPORT_DEVELOPM
 
 Prepare/freeze the protocol as soon as case feasibility is known. Do not delay the utility question until every future Workspace feature is complete. If representative existing reports meet readiness, explicitly select their study or record a reasoned deferral. Neither plan automatically launches acquisition/inference or recruits/messages reviewers.
 
+The [Investigator integration/evaluation handoff](INVESTIGATOR_INTEGRATION_AND_COMPARATIVE_EVALUATION_PLAN.md#8-future-responsibilities-activation-and-closure) is an explicit readiness review point, not a prerequisite that this study must wait for. Distinguish its laboratory proposal-quality/reviewer-effort evidence from this plan's actual normal-product maintainer task comparison. When selecting the next responsibility, record feasible normal reports, equivalent source packets and independent reviewer availability, or the exact missing condition and re-entry trigger in MEMORY. Do not infer an absent reviewer from a lack of outreach, and do not contact anyone without authorization.
+
 ### Freeze a feasible normal-product pilot
 
 Before generating comparative outputs or observing reviewer answers, record one public-safe study manifest in the selected cycle's evidence directory. Include the following, with immutable output/input hashes added when actually produced:

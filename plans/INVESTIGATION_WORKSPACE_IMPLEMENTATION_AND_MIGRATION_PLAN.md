@@ -195,6 +195,10 @@ At each satisfied handoff, MEMORY must select the follow-up or record an explici
 
 ### Investigator-integration readiness decision
 
+The [Investigator Integration and Comparative Evaluation Plan](INVESTIGATOR_INTEGRATION_AND_COMPARATIVE_EVALUATION_PLAN.md) owns the concrete shared-host adapter, raw-oriented versus structured-native comparison, qualification/run controls and experimental disposition. This Workspace plan retains product capture/lifecycle/migration responsibility. Use the experiment plan's supported seam map rather than treating the historical H1 proposal's missing conceptual API as an unimplemented product prerequisite.
+
+Readiness has two distinct parts: the interface's demonstrated behavior and the availability/qualification of the actual common input bundle. Recheck the latter at experiment entry even when interface tests passed. Missing temporary files require hash-verified recovery or explicitly new common acquisition/freeze under the experiment plan; they do not erase historical verification or justify a new generic infrastructure cycle. Common source profiles remain separate from checkpoints; retain both where the intended experiment needs both.
+
 Review this boundary after lifecycle verification; full family/report/CLI migration is not an automatic prerequisite. Produce a small supported-interface and evidence map against the actual tested product commit:
 
 1. Product-owned revision/target/basis/views, objective/need origin, capability admission, observation/proposal ingestion, evaluator outcomes and lifecycle inspection. Reconcile these with the separately owned H1/laboratory consumption requirements; research cannot emulate a missing canonical seam with its own Workspace.
