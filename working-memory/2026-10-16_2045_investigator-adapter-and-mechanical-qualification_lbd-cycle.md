@@ -1,15 +1,15 @@
-# Investigator adapter and mechanical qualification — prepared cycle
+# Investigator adapter and mechanical qualification — LbD cycle
 
 **Preparation date:** October 16, 2026, Asia/Tehran.
-**State:** PREPARED — NOT STARTED. Ali requested a record, compact todo and expectations now, with execution explicitly withheld. Preparing this file does not satisfy any cycle phase or select implementation details.
-**Responsibility when activated:** connect one bounded Investigator experiment to the existing product Workspace/evidence interfaces and prove mechanical fidelity, references, isolation, accounting and failure handling without model inference.
+**State at this handoff:** ACTIVE — A0 complete; A1 onboarding presented, continuity gate awaiting Ali's response. Ali explicitly activated the previously prepared cycle with “lets start our new cycle properly.” A2, Build and subsequent proof/learning remain pending.
+**Responsibility:** connect one bounded Investigator experiment to the existing product Workspace/evidence interfaces and prove mechanical fidelity, references, isolation, accounting and failure handling without model inference.
 **Owner:** [integration plan §5](../plans/INVESTIGATOR_INTEGRATION_AND_COMPARATIVE_EVALUATION_PLAN.md#5-ordered-execution-and-proof-gates), including the proposed adaptable cycle grouping, [older planner coordination](../plans/INVESTIGATOR_INTEGRATION_AND_COMPARATIVE_EVALUATION_PLAN.md#6-explicit-disposition-of-the-older-action-planner-obligation) and [usefulness readiness](../plans/INVESTIGATOR_INTEGRATION_AND_COMPARATIVE_EVALUATION_PLAN.md#8-future-responsibilities-activation-and-closure).
 **Predecessor:** [closed shared-input snapshot cycle](2026-10-16_2025_common-investigator-input-snapshot_lbd-cycle.md). [MEMORY.md](../MEMORY.md) alone owns live selection/activation.
-**Preparation horizon:** `main@32b3eeb920fa89a5cd495b1743b3da6d5db4c8eb`; future A0 must refresh relevant owners/source/evidence before action. This is an initial aid under the existing plan, not a second plan or proof that the adapter exists.
+**Preparation horizon:** `main@32b3eeb920fa89a5cd495b1743b3da6d5db4c8eb`, historical. **Activation/reconciliation horizon:** `main@3a7f96e85f159a6d6fddafeace069a4a8447cc81`, October 16, 2026, approximately 21:18 Asia/Tehran. This record supports the existing plan; it is not a second plan or proof that the adapter exists.
 
 ## Minimal initial todo
 
-- [ ] When Ali activates the cycle, perform A0: reconcile live owners, actual product and pinned research seams, existing tests and qualified input identities. Confirm the smallest adapter responsibility and reusable transport/accounting; inspect before choosing concrete exports/files.
+- [x] Perform A0: reconcile live owners, actual product and pinned research seams, existing tests and qualified input identities. Existing product delivery/citation machinery is the integration surface; research transport/accounting is a reuse candidate, not a compatible adapter already established. Concrete exports/files remain for A2.
 - [ ] Complete A1 continuity and its challenge opportunity; explain only the relevant delta and deferred understanding.
 - [ ] Complete A2 and its pre-B understanding gate: trace one real request/delivery/proposal, name exact experiment/product edit boundaries, credible failure states and the focused proof. Resolve consequential contract/design gaps before implementation.
 - [ ] Build the smallest bridge: strict request/tool/reference mapping, raw-control fidelity and structured views/pages; fresh host/lineage/context/notes/accounting per assignment; procedural stopping separated from adequacy/action authority.
@@ -26,14 +26,14 @@ All expectations below are hypotheses or intended outputs, not observations or g
 
 | Phase | Status | Initial expectation / question |
 | --- | --- | --- |
-| A0 | PENDING | Existing host/access seams should permit a small experiment bridge. Verify actual compatibility and any exact missing requirement; avoid a generic infrastructure restart. |
-| A1 | PENDING | Bridge the qualified data snapshot to an active consumer; identify what Ali needs refreshed without repeating unrelated foundation learning. |
+| A0 | DONE | Freshly fetched main matches origin/main; retained input and product-source identities match. Product delivery/citation seams and research-runner coupling inspected; same prepared record activated with the map below. |
+| A1 | CURRENT — continuity gate open | Explain what the snapshot and existing product host establish, the absent consumer bridge, and why research outputs/configuration are not ready controls. Await Ali's challenge/correction before A2. |
 | A2 | PENDING | Explain producer → host/access → adapter → attributed proposal and the authority/proof boundary. Can Ali reason about a rejected reference or an omitted page? |
 | B | PENDING | Likely pressure is schema/reference mapping, bounded context, truthful accounting and isolation. Do not compensate for adapter defects by changing semantic validators or supplying case answers. |
 | Verification gate | PENDING | Scripted consumers should distinguish correct mechanical behavior from refusal/failure. Green proof cannot establish model interpretation, usefulness or superiority. |
 | D | PENDING | Teach actual control/data/evidence flow, surprises and tests; inspect one changed-case failure and who owns it rather than quiz symbols. |
 | E | PENDING | Repair/defer material ownership gaps and truthfully close; select actual deployment/interface qualification only when the evidence supports that handoff. |
-| C | PREPARED; continuous preservation begins at activation | Reuse this one record for meaningful reasoning, corrections, evidence and learning once activated; no competing phase/status file. |
+| C | CONTINUOUS | Activation, entry evidence, boundaries and learning handoff preserved in this same record; no competing phase/status file. |
 
 ## Starting evidence, exclusions and reassessment triggers
 
@@ -43,7 +43,7 @@ The proposed later core design remains two cases × two treatments × two deploy
 
 The initial expectation is mechanical feasibility with bounded adapter work. Semantic gains remain uncertain and are a later comparison question. A missing canonical interface, misleading raw control, unaccounted backend work, shared mutable state or reference/authority escalation blocks affected progress and requires an exact repair/disposition. New product semantics or consequential architecture returns to its owner; a measured model/semantic limitation is not evidence to weaken mechanical proof. Ordinary bugs stay inside this responsibility. Proposed cycle count/scope may change with actual evidence, preserving gates and recording material reasons.
 
-## Preparation-only handoff
+## Historical preparation and amendments
 
 ### User-directed candidate and configuration amendments
 
@@ -53,10 +53,34 @@ The [read-only inventory and Qwen asset evidence](evidence/2026-10-16-local-mode
 
 Ali also required proportionate GPU offload and accurately justified context selection. The [plan's deployment-envelope procedure](../plans/INVESTIGATOR_INTEGRATION_AND_COMPARATIVE_EVALUATION_PLAN.md#smaller-model-candidates-and-measured-deployment-envelopes) now separates weight/cache placement, actual rendered-input tokens, output/reasoning reserve, context, memory headroom and complete responses. Smaller models may use high/full offload when measured fit permits; larger models use partial offload on the supported GPU. Future independent canaries must measure speed, memory, stop/completion and failures and justify every adjustment. Reference 32768 context is provisional, not a measured optimum; no offload percentage or new context is selected here. Requested and actually applied settings must match the recorded envelope for both treatments within a deployment. Qualification/sweep inference remains separately activated and charged; there is no hidden tuning on comparison outcomes.
 
-These are pre-start planning amendments. A0/A1/A2/B/Verification/D/E remain pending and C remains prepared, not active. The inventory read and model-file hash do not count as adapter A0 or model qualification. User-directed candidate changes are recorded without claiming that age alone establishes model quality.
+At the pre-start amendment horizon, A0/A1/A2/B/Verification/D/E remained pending and C remained prepared, not active. The inventory read and model-file hash did not count as adapter A0 or model qualification. User-directed candidate changes were recorded without claiming that age alone establishes model quality.
 
 Amendment validation checked three documents, 56 local links and ten anchors, fences/newlines/whitespace, all-pending phase status, candidate/count boundaries and measured fit/offload/fairness requirements. The new evidence JSON parses and records matching local/upstream full hashes; present size matches. All nine governance functions ran: eight pass, with only inherited `examples/` marker debt. Executable/test/accepted-owner paths are unchanged. No runtime tests or model/load/configuration sweeps were run; the asset hash is correspondence evidence only. Publication excludes raw weights, app settings, data snapshots, historical model records and the unrelated October 3 audit.
 
-Stop after record/live-owner preparation and document validation/publication. Await an explicit instruction to activate this cycle. At that time begin A0 in this same record; do not treat this preparation, earlier snapshot source inspection or forecast as completed adapter orientation or permission for Build/inference.
+The preparation-only handoff stopped after record/live-owner preparation and validation/publication. Ali's subsequent explicit activation supersedes that stop; the preparation itself was not counted as adapter orientation or model qualification.
 
-Procedural provenance for preparation: `UP-SKILL:upgradepilot-planning-design`; `UP-SKILL:upgradepilot-working-memory`. The future primary operation and Learning-by-Doing procedure apply on activation; no execution Skill activation is claimed for this unstarted cycle.
+Procedural provenance for preparation: `UP-SKILL:upgradepilot-planning-design`; `UP-SKILL:upgradepilot-working-memory`. At that historical point the primary execution operation and Learning-by-Doing procedure were reserved for activation; no execution Skill activation was claimed by preparation.
+
+## Activation — A0 reconciliation and A1 continuity
+
+Procedural provenance for the activated responsibility: `UP-SKILL:upgradepilot-build-implement`; `UP-SKILL:upgradepilot-learning-by-doing`; `UP-SKILL:upgradepilot-working-memory`. Activation enters A0/A1, not immediate implementation. Reusing the precreated cycle record follows Ali's explicit preparation/activation sequence and avoids a duplicate owner.
+
+Fresh `git fetch origin` leaves main and origin/main equal at the activation horizon. The unrelated untracked October 3 audit is preserved. All **17** files in the shared snapshot qualification inventory still match their recorded sizes/SHA256 hashes, including the validated backup; all **96** product Python hashes in its preparation manifest still match. This is a fresh identity/availability check, not a repeat of acquisition, guarded cold reconstruction or runtime suites. Earlier test/cold-reader results retain their original horizons.
+
+Source reconciliation confirms the integration surface in [consumer_access.py](../src/upgradepilot/workspace/consumer_access.py): `WorkspaceEvidenceAccess` binds an exact target/catalog, guards purpose/scope/method, records actual bounded raw/native deliveries and work receipts, and attributes proposals/citations. [The lifecycle host](../src/upgradepilot/workspace/lifecycle_host.py) distinguishes fresh `initialize(boundary)` from historical `restore(...)`. Assignment initialization must take retained native material into a fresh host, not restore the diagnostic's interaction history. Existing [consumer tests](../tests/test_workspace_consumer_access.py) cover scope/refusal, omissions/pages, delivery fidelity, reference escape, work counts and cold reading; new adapter proof should exercise new mappings rather than copy these tests.
+
+The separate research checkout still resolves to pinned `253b48de20b475eada48810d193bd420c51aa7d4`. Its `broader_agency_trial.py` runner consumes research `SourceWorkspace`/`TrialEvidence`; `broader_agency_local.py` supplies measured request/deployment accounting but discloses template-estimation limits. These are reuse candidates that need contract adaptation, not a finished product-host bridge. Main's `experiments/workspace_investigator_seam.py` is also an experiment-owned seam over research revision types, not the current product lifecycle implementation. No new missing canonical interface or need for a generic infrastructure restart was established by this entry inspection; detailed compatibility remains A2/B work.
+
+### Living A-phase orientation map
+
+- **A1 continuity:** recovered/qualified retained inputs → existing product host and evidence access → missing Investigator consumer connection. Distinguish retained native facts from demonstration history and research outcomes; preserve native CI/runtime unknowns rather than imply compatibility. Snapshot-cycle ownership questions remain deferred, not retroactively passed; independent foundation D/E is not restarted.
+- **A2 upcoming responsibility:** trace one request through purpose/guard, raw or native delivery, delivered reference and attributed proposal; explain host authority, omission/page behavior, fresh assignment state and observable costs. Then settle exact experiment edit/reuse boundaries and discriminating model-free proof before Build.
+- **Expected result and proof boundary:** a mechanically faithful, isolated experiment bridge and grounded protocol artifacts. Scripted success/failure proves delivery/contract behavior; it cannot establish model interpretation, stopping adequacy, comparative advantage or maintainer usefulness.
+- **Failure/unresolved states:** refusals without execution, reference escape, incomplete/omitted content, zero versus empty versus failed query, publication failure, stale material and unaccounted work. A missing required canonical interface must be named and routed before affected implementation.
+- **Non-goals and depth:** no inference/load/configuration sweep, new public acquisition, target execution, new semantic evaluator, replay or framework. Use a compact A1 because recent preparation was shared; A2 must still explain the unfamiliar adapter/reference/authority flow before its normal gate.
+
+A1 presents that continuity model to Ali; no understanding answer or gate passage is assumed. The four smaller candidates, verified Qwen asset, measured context/offload direction and unchanged two-deployment baseline are recorded in their owners. They need no fresh model operation to start this model-free cycle. At its completed mechanical gate, the older planner entry review and independent usefulness readiness remain explicit obligations.
+
+**Activation-record validation:** two changed documents, 32 local links/eight anchors, balanced fences/newlines and active/pending phase consistency pass; whitespace passes. All nine governance checks ran: eight pass, with only the inherited root `examples/` owner-marker mismatch. No executable/test or accepted semantic/method owner changed. Identity checks above are fresh; prior runtime/semantic proof was not rerun or enlarged.
+
+**Handoff at this dated point:** stop at the A1 continuity/onboarding gate and invite Ali's questions/corrections. Once that gate is satisfied, continue this same record into A2; do not skip to Build or model calls.
