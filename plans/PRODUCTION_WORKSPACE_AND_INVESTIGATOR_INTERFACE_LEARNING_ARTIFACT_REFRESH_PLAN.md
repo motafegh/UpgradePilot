@@ -1,276 +1,218 @@
 # Production Workspace and Investigator Interface Learning Artifact Refresh Plan
 
-**Responsibility:** Create a current, evidence-grounded learning package for the production Workspace, lifecycle host, common Investigator evidence interfaces, and current migration frontier; update the learning index so historical snapshots remain clearly historical and the new package becomes the current relearning reference for this responsibility.
+**Responsibility:** maintain a current, evidence-grounded learning package for the production Workspace, lifecycle host, common Investigator evidence interfaces, experiment-side mechanical adapter, and current migration frontier—without letting the package become a live-state owner or authorizing product/model work.
 
-**Plan type:** Compact bounded learning-artifact refresh plan. This plan coordinates artifact work only; it does not select product continuation, authorize engineering changes, or replace `MEMORY.md`.
+**Plan type:** bounded learning-artifact refresh plan. `MEMORY.md` remains the sole live project-position owner.
 
-**Artifact-task status:** COMPLETE and merge-ready on `learning/production-workspace-artifact-refresh-2026-10-16`; merge remains explicitly pending Ali's instruction. This status describes this plan artifact only and does not select the live product workstream.
+**Branch:** `learning/production-workspace-artifact-refresh-2026-10-16`.
 
-**Working snapshot for this task:** repository base `main@5187f40ba974341eb29d765363f093922a881803`. Product `src/` and `tests/` remain unchanged from the verified common-interface implementation horizon `77d33dc1`; later main commits add planning, input-retention/qualification evidence and prepared future-cycle records. The package therefore teaches the same implemented production architecture while using the newer single repository/evidence horizon for current supporting evidence.
+**Status:** EXTENDED after newer `main` work; substantive authoring is complete through the model-free Investigator mechanical adapter. Final branch-vs-main reconciliation and QA are pending before this plan can be marked merge-ready again. Merge remains explicitly prohibited until Ali asks for it.
 
-**Procedures:** `UP-SKILL:upgradepilot-planning-design`; `UP-SKILL:upgradepilot-learning-artifact`.
+## 1. Snapshot history and why the plan reopened
 
-## 1. Outcome and boundaries
+### Initial package horizon
 
-Produce one small ordered package under:
-
-```text
-learning/2026-10-16-production-workspace-and-investigator-interface/
-```
-
-The package should let Ali return later and accurately relearn:
+The first package was authored from:
 
 ```text
-production native capture / reconstruction / publication
-→ lifecycle host, material validity and execution truth
-→ frozen raw-source + structured native delivery/citation interfaces
-→ current end-to-end product flow and migration frontier
+main@5187f40ba974341eb29d765363f093922a881803
 ```
 
-The package must teach pinned implementation truth, meaningful engineering corrections, real-case evidence and explicit proof/non-proof without becoming a second live-state owner.
-
-### In scope
-
-- current production Workspace Stages 1–3 and their admitted CI/Python-support/native-input scope;
-- shared common-input/source-interface preparation implemented for future Investigator work;
-- Stage 3 D ownership lessons and common-preparation D1–D4 lessons already preserved in working memory;
-- the October 16 durable input-retention repair and newly qualified shared common-input snapshot as current evidence for source-profile/checkpoint availability and fair-comparison inputs;
-- current transitional product/migration state, including continued legacy synthesis/report/CLI consumers;
-- current accepted owners and directly relevant implementation/migration plans;
-- HTTPX and glyphsLib real-case evidence where it materially improves learning;
-- `learning/README.md` maintenance needed to point readers to the new package and mark older snapshots accurately.
-
-### Out of scope
-
-- starting, implementing or evaluating the prepared Investigator adapter cycle;
-- model/framework/prompt/multi-agent selection or inference runs;
-- teaching the selected Qwen/Gemma deployment protocol except where a one-sentence future-boundary note prevents confusion;
-- product source/test changes;
-- specification/ADR semantic changes;
-- Stages 4–6 implementation;
-- rewriting historical frozen learning artifacts to match current code;
-- merging independent branch-local mastery records as product proof;
-- new audio/quiz/flashcard derivatives.
-
-## 2. Authority and evidence route
-
-Use the smallest sufficient chain for each claim:
+At that point:
 
 ```text
-accepted specification / ADR / implementation plan when it owns the rule
-→ pinned production source and focused tests/evidence
-→ directly relevant working-memory D/E history and corrections
-→ representative real case where useful
-→ learning artifact
+production Workspace/native/host/source-interface implementation was stable
+common shared input snapshot was qualified
+future Investigator adapter cycle was prepared but not started
 ```
 
-Primary current owners/evidence include:
+The branch produced Notes 1–4, the package README and the root learning-index update, then passed a first merge-readiness check.
 
-- `docs/architecture/ADR-0012-canonical-investigation-workspace-and-recovery-boundary.md`;
-- `docs/architecture/ADR-0013-versioned-native-reconstruction-and-workspace-checkpoint-storage.md`;
-- `docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md` §6.4 and related evidence/authority sections;
-- `plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_AND_MIGRATION_PLAN.md`;
-- production Workspace/native/host/source-interface source and focused tests at the pinned horizon;
-- `working-memory/2026-10-13_2030_workspace-lifecycle-admission-and-material-basis_lbd-cycle.md`;
-- `working-memory/2026-10-15_stage3-deferred-d-learning-todo.md`;
-- `working-memory/2026-10-14_2345_common-investigator-inputs-and-source-interfaces_lbd-cycle.md`;
-- `working-memory/evidence/2026-10-15-common-investigator-preparation/`;
-- `working-memory/2026-10-16_1930_project-reentry-and-critical-continuation_lbd-cycle.md` and `working-memory/evidence/2026-10-16-investigator-input-retention/` for durable raw-input retention and the explicit old enriched-bundle loss;
-- `working-memory/2026-10-16_2025_common-investigator-input-snapshot_lbd-cycle.md` and `working-memory/evidence/2026-10-16-common-investigator-input-snapshot/` for the new qualified shared freeze and cold-read proof;
-- `plans/INVESTIGATOR_INTEGRATION_AND_COMPARATIVE_EVALUATION_PLAN.md` and `working-memory/2026-10-16_2045_investigator-adapter-and-mechanical-qualification_lbd-cycle.md` only to state the future boundary at the pinned horizon; live later progression belongs to `MEMORY.md` and its owning cycle, not this frozen package;
-- the Oct 9 research package only as historical predecessor/rationale evidence, never current implementation authority.
+### New main delta
 
-Do not use `MEMORY.md` as implementation proof. It may be consulted only to avoid misrepresenting live position or future work.
-
-## 3. Planned learning package
-
-### [x] Artifact 1 — Production native capture, reconstruction and checkpoint publication
-
-Created:
+A later refetch reached:
 
 ```text
-01_native_capture_reconstruction_and_checkpoint_publication.md
+main@4545d5f0b8717fb58c91e2a470aee5367b8d6846
 ```
 
-Covers proportionately:
-
-- why native owners remain semantic owners while capture preserves their exact meaning/material basis;
-- `NativeInvestigationCapture`, native representation/codecs and native projection roles;
-- partial coherent capture and `not_evaluated` versus empty/negative;
-- immutable Workspace revision/publication model;
-- SQLite checkpoint publication, predecessor conflict and cold reconstruction;
-- version/input/target/resource refusals;
-- checkpoint versus saved report;
-- recovery proof and explicit non-claims such as power-loss/exactly-once/full-family recovery;
-- meaningful Stage 1–2 implementation corrections and what they taught;
-- fast relearning route and transfer questions.
-
-### [x] Artifact 2 — Lifecycle host, material validity and execution truth
-
-Created:
+Compared with `5187f40`, product `src/` and normal `tests/` remain unchanged, but `main` now adds the experiment-owned Investigator mechanical bridge and proof:
 
 ```text
-02_lifecycle_host_material_validity_and_execution_truth.md
+experiments/investigator_workspace_adapter.py
+experiments/investigator_workspace_trial.py
+experiments/qualify_investigator_workspace.py
+experiments/tests/test_investigator_workspace_trial.py
+experiments/INVESTIGATOR_WORKSPACE_MECHANICAL_QUALIFICATION.md
+working-memory/evidence/2026-10-16-investigator-adapter-mechanical/*
+updated Investigator cycle/plan records
+parallel adapter D/E handoff
 ```
 
-Covers proportionately:
+This is a material learning delta even though it is not a product `src/` change. The package therefore reopened rather than merging a stale “adapter not started” learning boundary.
 
-- generic host responsibility versus native/domain truth ownership;
-- purpose/need/request/admission/attempt/observation/interruption/evaluation lifecycle;
-- Basis ≠ Validity ≠ Authority ≠ Publication predecessor;
-- intent-before-effect and the difference between `not_started`, completion unknown, completed observation/problem;
-- stale/unsupported/valid material basis;
-- proposal versus truth and stopping proposal versus procedural termination/adequacy;
-- recovery versus continuation/retry/replay;
-- first production caller and partial native reassessment;
-- real implementation repairs from Stage 3 and their engineering lesson;
-- fast relearning route and transfer questions.
+## 2. Package structure and horizons
 
-### [x] Artifact 3 — Frozen sources, native views, delivery and citations
-
-Created:
+Use two explicit horizons rather than silently rewriting the stable product snapshot:
 
 ```text
-03_frozen_sources_native_views_delivery_and_citations.md
+Notes 1–4  → product-foundation snapshot at 5187f40...
+Note 5     → experiment-adapter extension at 4545d5f0...
 ```
 
-Covers proportionately:
+This is allowed because the package now explicitly distinguishes the horizons and because product `src/`/normal `tests/` did not change between them.
 
-- shared dependency/CI native preparation and why future treatments share semantic producers;
-- `RetainedSourceScope`, `RetainedSourceCatalog` and frozen profile identity;
-- source catalog ≠ Workspace and retained content ≠ acquisition;
-- `list_sources`, `list_paths`, `search`, `read`, `resolve` strengths and limits;
-- `observed`, `empty`, `scoped_negative`, `problem` distinctions;
-- search preview ≠ complete delivered evidence;
-- `WorkspaceEvidenceAccess`, native whole-view omission and `native_page`;
-- `ViewDelivery`, `ContentCitation`, operation receipts/accounting;
-- available ≠ delivered ≠ observably used ≠ cited ≠ evaluated support ≠ sufficient ≠ action permission;
-- HTTPX and glyphsLib real-case evidence-strength examples;
-- common-freeze/fair-comparison rule without designing the next experiment;
-- profile versus checkpoint retention/recovery boundary;
-- the October 16 retention sequence: original research corpus retained durably, old October 15 enriched bundle explicitly unrecovered, then a new qualified shared freeze established with separate profiles/checkpoints/validated backup and guarded cold reads;
-- fast relearning route and transfer questions.
+### Completed foundation notes
 
-### [x] Artifact 4 — Current end-to-end flow and Workspace migration frontier
+- [x] `01_native_capture_reconstruction_and_checkpoint_publication.md`
+- [x] `02_lifecycle_host_material_validity_and_execution_truth.md`
+- [x] `03_frozen_sources_native_views_delivery_and_citations.md`
+- [x] `04_current_product_flow_and_workspace_migration_status.md`
 
-Created:
+Notes 1–3 remain stable product learning artifacts.
+
+Note 4 remains the product migration snapshot at `5187f40`; its old adapter-status statement is explicitly historical and superseded by Note 5/package README rather than being silently rewritten as though the adapter existed at that earlier horizon.
+
+### New extension note
+
+- [x] `05_investigator_adapter_mechanical_contract_packing_and_qualification.md`
+
+It teaches:
 
 ```text
-04_current_product_flow_and_workspace_migration_status.md
+fresh assignment isolation
+raw versus structured treatment restriction over common evidence
+closed request/tool schemas
+laboratory reference → actual product delivery mapping
+search preview versus source-line strength
+native whole record versus native page
+product delivery versus actual consumer-visible packed input
+whole-event packing and explicit omission metadata
+conservative admission charges versus actual access receipts
+bounded correction/failure/no-retry behavior
+attributed laboratory report and unsupported semantics
+procedural termination versus adequacy
+offline real-input qualification on HTTPX/glyphsLib
+mechanical manifest versus still-unqualified model deployment
 ```
 
-Covers proportionately:
+## 3. New evidence route
 
-- current top-level production flow from providers/native owners into canonical Workspace;
-- coexistence of canonical Workspace state with the still-live `PublicPullRequestInvestigation` compatibility/consumer path;
-- current synthesis/report/CLI dependency on the legacy result at the pinned horizon;
-- Stage 1/2/3 completed responsibility versus Stage 4/5/6 remaining migration responsibility;
-- why legacy removal before parity/coverage would be fake migration;
-- how future Investigator work connects without implying full migration is required first;
-- the Investigator integration/comparison plan only as a future owner at this snapshot;
-- historical Oct 9 research package as predecessor, not current implementation;
-- explicit distinction between current fact, accepted target architecture and future work;
-- fast relearning route and transfer questions.
+The extension is grounded primarily in:
 
-### [x] Package README — educational map
+- `experiments/investigator_workspace_adapter.py`;
+- `experiments/investigator_workspace_trial.py`;
+- `experiments/qualify_investigator_workspace.py`;
+- `experiments/tests/test_investigator_workspace_trial.py`;
+- `experiments/INVESTIGATOR_WORKSPACE_MECHANICAL_QUALIFICATION.md`;
+- `working-memory/evidence/2026-10-16-investigator-adapter-mechanical/README.md`;
+- `qualification.json` and `verification.json` in that evidence packet;
+- `working-memory/2026-10-16_2045_investigator-adapter-and-mechanical-qualification_lbd-cycle.md`;
+- `working-memory/2026-10-16_2215_adapter-d-e-parallel-supervision.md`.
 
-Created:
+The product host/source/native contracts from Notes 1–3 remain the authority for the underlying evidence mechanics. The experiment does not become a second canonical Workspace.
+
+## 4. Mechanical proof that may be taught
+
+The latest adapter evidence establishes only its declared scope:
 
 ```text
-learning/2026-10-16-production-workspace-and-investigator-interface/README.md
+13/13 new experiment controls PASS
+65/65 nearest product consumer/lifecycle/host tests PASS
+four real retained-input scripted assignments complete
+  HTTPX raw + structured
+  glyphsLib raw + structured
+17 retained artifacts reverified
+96 product Python hashes unchanged
+0 model calls
+0 native producer calls during qualification
+0 forbidden execution attempts in the bounded qualifier
+semantic evaluation remains unsupported
 ```
 
-It contains:
+The related older-planner entry review has:
 
-- exact repository/evidence horizon `5187f40...` and the unchanged product implementation horizon it contains;
-- authority map;
-- four-note reading order and learning outcome;
-- relationship to the Oct 9 research package;
-- current implementation versus historical-research distinction;
-- a fast-return route;
-- explicit non-claims that the package selects live project continuation or proves mastery.
+```text
+23 pass
+4 errors caused by untouched fixtures using removed segment_index construction
+```
 
-## 4. Learning index maintenance
+Teach this as composition/re-entry debt, not a proved planner semantic failure.
 
-### [x] Update `learning/README.md`
+Do not claim:
 
-Completed only the index/interpretation changes needed by the new package:
+```text
+full product suite rerun
+fresh installed suite rerun
+hosted CI
+model load/inference
+model transport correctness
+semantic usefulness
+raw-versus-structured superiority
+maintainer usefulness
+```
 
-- added the Oct 16 production package as the current production Workspace/Investigator-interface relearning reference;
-- kept the Oct 9 package and explicitly described it as the frozen research predecessor;
-- revised the Sept 19 `current-end-to-end-product-flow` index description so it is clearly a frozen Sept 19 snapshot, not today's production-architecture reference;
-- preserved historical package paths and snapshot contents;
-- did not turn the index into a live project tracker or study-order owner.
+## 5. Current engineering boundary represented by the package
 
-## 5. Evidence collection checklist
+At the extension horizon:
 
-### [x] Production foundation anchors
+```text
+production Workspace Stages 1–3            implemented/proven at admitted scope
+common input/source/native interface         implemented/proven
+mechanical Investigator adapter B            DONE
+adapter scoped Verification                  GREEN
+adapter D                                    CURRENT
+adapter E                                    PENDING
+Deployment & Model-Interface Qualification   allowed to begin in parallel under its own gates
+paired semantic comparison                   not started by this evidence
+product Stages 4–6 migration                 still separate and incomplete
+```
 
-Inspected pinned native capture/codec/projection/checkpoint/store source, reconstruction/publication tests, ADR-0013 and the Stage 1–2 implementation/proof record.
+Parallel sequencing does not close the adapter cycle. A material D/E contradiction remains a blocker for affected later inference/qualification.
 
-### [x] Lifecycle-host anchors
+## 6. Completed extension edits
 
-Inspected pinned `lifecycle_records.py`, `lifecycle_host.py`, `material_validity.py`, the first production caller, host integration tests, Stage 3 cycle and closed D companion.
+- [x] Added Note 5 for the mechanical adapter/trial/qualification responsibility.
+- [x] Updated the package README to use explicit product-foundation and adapter-extension horizons.
+- [x] Updated the package mental model to include the experiment adapter and trial packing/accounting layer.
+- [x] Corrected the package boundary from “adapter prepared — not started” to the evidenced B/Verification/D/E state at `4545d5f0...`.
+- [x] Preserved Notes 1–4 rather than rewriting their pinned historical product claims.
 
-### [x] Source/consumer-interface anchors
+The root `learning/README.md` already points to this package as the current production Workspace/Investigator-interface relearning reference. A root-index wording change is optional unless final QA shows its existing description materially contradicts the now-five-note package.
 
-Inspected pinned `investigation_inputs.py`, `workspace/preparation.py`, `source_access.py`, `consumer_access.py`, lifecycle delivery/citation records, Oct 15 interface qualification, Oct 16 retained-input evidence and the new qualified shared freeze. Their distinct horizons/claims remain explicit.
+## 7. Final QA before merge-readiness can be restored
 
-### [x] Migration/current-flow anchors
+- [ ] Refetch `main` once more after the extension authoring.
+- [ ] Compare latest `main` against `4545d5f0...` and classify any newer changes.
+- [ ] Verify product `src/`/normal `tests/` still have no newer material change relevant to Notes 1–4.
+- [ ] Verify the learning branch diff contains only this plan plus learning-package/index work.
+- [ ] Verify all six package files exist and package README links Note 5 correctly.
+- [ ] Verify Note 5 does not promote scripted qualification into model/semantic/usefulness proof.
+- [ ] Verify current adapter D/E wording is not stronger than its owning cycle/handoff.
+- [ ] Recheck whether the root learning index needs a small wording update.
 
-Inspected pinned `investigation.py`, `maintainer_action.py`, `report_projection.py`, `cli.py`, Workspace migration plan sections and the future integration plan/prepared adapter record only to delimit future work.
+## 8. Merge-readiness condition
 
-## 6. Quality and proof checklist
+This refresh becomes merge-ready again when:
 
-For every note:
+1. final main reconciliation finds no unincorporated material learning delta;
+2. the two-horizon package structure remains explicit and internally consistent;
+3. branch scope remains limited to learning artifacts/index plus this plan;
+4. no product/spec/ADR source is changed by this branch;
+5. the package accurately distinguishes product proof, experiment mechanical proof, model/deployment qualification and semantic/usefulness proof;
+6. merge remains pending Ali's explicit instruction.
 
-- [x] pin the exact repository/evidence horizon;
-- [x] distinguish current fact, evidenced rationale, engineering judgment and future/deferred work;
-- [x] use pinned source/tests as implementation truth rather than working memory alone;
-- [x] preserve native/domain authority boundaries;
-- [x] include a representative real flow/case where it materially helps;
-- [x] include important failure/refusal states and proof/non-proof;
-- [x] use `must master / understand operationally / lookup / deferred` depth calibration where useful;
-- [x] include a fast relearning route;
-- [x] avoid copying owner contracts or session chronology as the artifact body;
-- [x] avoid implying future Investigator/model work is implemented;
-- [x] avoid silently strengthening historical evidence or conflating the unrecovered October 15 bundle with the newly qualified October 16 freeze.
+## 9. Stop line
 
-Package/index QA:
+Do not from this learning branch:
 
-- [x] package-local and owner-relative link targets used by the package were checked against the branch/pinned repository paths; the package directory contains all five intended files;
-- [x] snapshot-horizon statements consistently identify `5187f40...`, with older proof counts explicitly labelled by their actual horizons;
-- [x] the four notes preserve accepted ADR/spec/plan ownership and do not promote working-memory history over those owners;
-- [x] Oct 9 and Sept 19 artifacts remain untouched as frozen snapshots; only their root-index descriptions changed where needed;
-- [x] no product source/tests/specifications/ADRs are modified by the learning branch;
-- [x] branch diff against `5187f40...` contains only this plan, the new learning package and `learning/README.md`.
+- merge to `main`;
+- change production `src/` or normal product tests;
+- modify accepted specifications/ADRs;
+- enter/repair the active adapter D/E cycle;
+- enter Deployment & Model-Interface Qualification;
+- load/run models or perform the paired comparison;
+- repair the older planner fixture drift;
+- implement Workspace migration Stages 4–6.
 
-## 7. Completion and merge-readiness condition
-
-All seven conditions are satisfied for this artifact task:
-
-1. all four notes and package README are authored and grounded at the declared `5187f40...` horizon;
-2. `learning/README.md` points to the new package and accurately labels the relevant historical snapshots without rewriting them;
-3. link/snapshot/authority/proof-boundary QA is complete at the bounded artifact scope;
-4. no unresolved factual contradiction was found in the new learning material;
-5. the branch diff is limited to the learning responsibility and this plan;
-6. final comparison against current `main@ea8c2b6bd551e8a7745a17bc02983329892ddf00` shows only later `MEMORY.md`, future Investigator-plan/cycle and local-model-evidence changes after the package horizon—**no `src/` or `tests/` change**. The package therefore remains intentionally pinned to `5187f40...` rather than silently mixing the later live A-phase into this educational snapshot;
-7. the branch is merge-ready without claiming or activating the separate future Investigator engineering cycle.
-
-### Final reconciliation disposition
-
-`main` advanced after this package's chosen horizon. The later delta activates and advances the separate Investigator adapter cycle through A0/A1 into A2 and records local-model planning evidence. Those are live/future-work records, not changes to the production Workspace/source-interface implementation taught here. Because `learning/README.md` and this package explicitly treat `MEMORY.md` as the sole live-position owner, retaining the single `5187f40...` snapshot is more truthful than rewriting all learning links/status language to chase the parallel session.
-
-A future production/source change that materially changes one of these responsibilities should earn a new or explicitly revised newer learning snapshot under the normal learning policy.
-
-## 8. Stop line and prohibited scope
-
-STOP now with the branch merge-ready. Do not:
-
-- enter or modify the separately active Investigator adapter cycle from this learning branch;
-- implement or run the future Investigator;
-- select/qualify models or change its experimental protocol;
-- modify production code/tests;
-- implement migration Stages 4–6;
-- rewrite historical snapshots to current behavior;
-- merge to `main` until Ali explicitly requests/approves the merge step.
+This plan only refreshes learning material from already-produced repository evidence.
