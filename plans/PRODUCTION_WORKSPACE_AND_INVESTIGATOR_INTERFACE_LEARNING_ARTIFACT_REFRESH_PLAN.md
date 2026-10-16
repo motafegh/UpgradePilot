@@ -4,6 +4,8 @@
 
 **Plan type:** Compact bounded learning-artifact refresh plan. This plan coordinates artifact work only; it does not select product continuation, authorize engineering changes, or replace `MEMORY.md`.
 
+**Artifact-task status:** COMPLETE and merge-ready on `learning/production-workspace-artifact-refresh-2026-10-16`; merge remains explicitly pending Ali's instruction. This status describes this plan artifact only and does not select the live product workstream.
+
 **Working snapshot for this task:** repository base `main@5187f40ba974341eb29d765363f093922a881803`. Product `src/` and `tests/` remain unchanged from the verified common-interface implementation horizon `77d33dc1`; later main commits add planning, input-retention/qualification evidence and prepared future-cycle records. The package therefore teaches the same implemented production architecture while using the newer single repository/evidence horizon for current supporting evidence.
 
 **Procedures:** `UP-SKILL:upgradepilot-planning-design`; `UP-SKILL:upgradepilot-learning-artifact`.
@@ -75,22 +77,22 @@ Primary current owners/evidence include:
 - `working-memory/evidence/2026-10-15-common-investigator-preparation/`;
 - `working-memory/2026-10-16_1930_project-reentry-and-critical-continuation_lbd-cycle.md` and `working-memory/evidence/2026-10-16-investigator-input-retention/` for durable raw-input retention and the explicit old enriched-bundle loss;
 - `working-memory/2026-10-16_2025_common-investigator-input-snapshot_lbd-cycle.md` and `working-memory/evidence/2026-10-16-common-investigator-input-snapshot/` for the new qualified shared freeze and cold-read proof;
-- `plans/INVESTIGATOR_INTEGRATION_AND_COMPARATIVE_EVALUATION_PLAN.md` and `working-memory/2026-10-16_2045_investigator-adapter-and-mechanical-qualification_lbd-cycle.md` only to state the future boundary: the adapter cycle is prepared but not started;
+- `plans/INVESTIGATOR_INTEGRATION_AND_COMPARATIVE_EVALUATION_PLAN.md` and `working-memory/2026-10-16_2045_investigator-adapter-and-mechanical-qualification_lbd-cycle.md` only to state the future boundary at the pinned horizon; live later progression belongs to `MEMORY.md` and its owning cycle, not this frozen package;
 - the Oct 9 research package only as historical predecessor/rationale evidence, never current implementation authority.
 
 Do not use `MEMORY.md` as implementation proof. It may be consulted only to avoid misrepresenting live position or future work.
 
 ## 3. Planned learning package
 
-### [ ] Artifact 1 — Production native capture, reconstruction and checkpoint publication
+### [x] Artifact 1 — Production native capture, reconstruction and checkpoint publication
 
-Create:
+Created:
 
 ```text
 01_native_capture_reconstruction_and_checkpoint_publication.md
 ```
 
-Must cover proportionately:
+Covers proportionately:
 
 - why native owners remain semantic owners while capture preserves their exact meaning/material basis;
 - `NativeInvestigationCapture`, native representation/codecs and native projection roles;
@@ -101,17 +103,17 @@ Must cover proportionately:
 - checkpoint versus saved report;
 - recovery proof and explicit non-claims such as power-loss/exactly-once/full-family recovery;
 - meaningful Stage 1–2 implementation corrections and what they taught;
-- fast relearning route and 3–5 transfer questions.
+- fast relearning route and transfer questions.
 
-### [ ] Artifact 2 — Lifecycle host, material validity and execution truth
+### [x] Artifact 2 — Lifecycle host, material validity and execution truth
 
-Create:
+Created:
 
 ```text
 02_lifecycle_host_material_validity_and_execution_truth.md
 ```
 
-Must cover proportionately:
+Covers proportionately:
 
 - generic host responsibility versus native/domain truth ownership;
 - purpose/need/request/admission/attempt/observation/interruption/evaluation lifecycle;
@@ -122,17 +124,17 @@ Must cover proportionately:
 - recovery versus continuation/retry/replay;
 - first production caller and partial native reassessment;
 - real implementation repairs from Stage 3 and their engineering lesson;
-- fast relearning route and 3–5 transfer questions.
+- fast relearning route and transfer questions.
 
-### [ ] Artifact 3 — Frozen sources, native views, delivery and citations
+### [x] Artifact 3 — Frozen sources, native views, delivery and citations
 
-Create:
+Created:
 
 ```text
 03_frozen_sources_native_views_delivery_and_citations.md
 ```
 
-Must cover proportionately:
+Covers proportionately:
 
 - shared dependency/CI native preparation and why future treatments share semantic producers;
 - `RetainedSourceScope`, `RetainedSourceCatalog` and frozen profile identity;
@@ -146,127 +148,129 @@ Must cover proportionately:
 - HTTPX and glyphsLib real-case evidence-strength examples;
 - common-freeze/fair-comparison rule without designing the next experiment;
 - profile versus checkpoint retention/recovery boundary;
-- the later October 16 retention sequence: original research corpus retained durably, old October 15 enriched bundle explicitly unrecovered, then a new qualified shared freeze established with separate profiles/checkpoints/validated backup and guarded cold reads. Teach this as input/provenance lifecycle evidence, not as a new product-interface implementation;
-- fast relearning route and 3–5 transfer questions.
+- the October 16 retention sequence: original research corpus retained durably, old October 15 enriched bundle explicitly unrecovered, then a new qualified shared freeze established with separate profiles/checkpoints/validated backup and guarded cold reads;
+- fast relearning route and transfer questions.
 
-### [ ] Artifact 4 — Current end-to-end flow and Workspace migration frontier
+### [x] Artifact 4 — Current end-to-end flow and Workspace migration frontier
 
-Create:
+Created:
 
 ```text
 04_current_product_flow_and_workspace_migration_status.md
 ```
 
-Must cover proportionately:
+Covers proportionately:
 
 - current top-level production flow from providers/native owners into canonical Workspace;
 - coexistence of canonical Workspace state with the still-live `PublicPullRequestInvestigation` compatibility/consumer path;
-- current synthesis/report/CLI dependency on the legacy result where still true at the pinned horizon;
+- current synthesis/report/CLI dependency on the legacy result at the pinned horizon;
 - Stage 1/2/3 completed responsibility versus Stage 4/5/6 remaining migration responsibility;
 - why legacy removal before parity/coverage would be fake migration;
 - how future Investigator work connects without implying full migration is required first;
-- the new Investigator integration/comparison plan only as a future owner, with its adapter/mechanical-qualification cycle explicitly prepared but not started at this horizon;
+- the Investigator integration/comparison plan only as a future owner at this snapshot;
 - historical Oct 9 research package as predecessor, not current implementation;
 - explicit distinction between current fact, accepted target architecture and future work;
-- fast relearning route and 3–5 transfer questions.
+- fast relearning route and transfer questions.
 
-### [ ] Package README — educational map
+### [x] Package README — educational map
 
-Create:
+Created:
 
 ```text
 learning/2026-10-16-production-workspace-and-investigator-interface/README.md
 ```
 
-It should contain only what improves relearning:
+It contains:
 
 - exact repository/evidence horizon `5187f40...` and the unchanged product implementation horizon it contains;
 - authority map;
 - four-note reading order and learning outcome;
 - relationship to the Oct 9 research package;
 - current implementation versus historical-research distinction;
-- one short fast-return route;
-- explicit non-claim that the package selects live project continuation or proves mastery.
+- a fast-return route;
+- explicit non-claims that the package selects live project continuation or proves mastery.
 
 ## 4. Learning index maintenance
 
-### [ ] Update `learning/README.md`
+### [x] Update `learning/README.md`
 
-Make only index/interpretation changes needed by the new package:
+Completed only the index/interpretation changes needed by the new package:
 
-- add the new Oct 16 production package as the current production Workspace/Investigator-interface relearning reference;
-- keep the Oct 9 package and describe it as the frozen research predecessor;
-- revise the Sept 19 `current-end-to-end-product-flow` index description so it is clearly a frozen Sept 19 snapshot, not today's architecture reference;
-- preserve all historical package paths and snapshot contents;
-- do not turn the index into a current-project tracker or study-order owner.
+- added the Oct 16 production package as the current production Workspace/Investigator-interface relearning reference;
+- kept the Oct 9 package and explicitly described it as the frozen research predecessor;
+- revised the Sept 19 `current-end-to-end-product-flow` index description so it is clearly a frozen Sept 19 snapshot, not today's production-architecture reference;
+- preserved historical package paths and snapshot contents;
+- did not turn the index into a live project tracker or study-order owner.
 
 ## 5. Evidence collection checklist
 
-Before drafting each artifact, record/verify the minimum exact anchors needed for its claims.
+### [x] Production foundation anchors
 
-### [ ] Production foundation anchors
+Inspected pinned native capture/codec/projection/checkpoint/store source, reconstruction/publication tests, ADR-0013 and the Stage 1–2 implementation/proof record.
 
-Inspect current pinned versions of the relevant native capture/codec/projection/checkpoint/store source and focused reconstruction/publication tests plus Stage 1–2 evidence/learning records.
+### [x] Lifecycle-host anchors
 
-### [ ] Lifecycle-host anchors
+Inspected pinned `lifecycle_records.py`, `lifecycle_host.py`, `material_validity.py`, the first production caller, host integration tests, Stage 3 cycle and closed D companion.
 
-Inspect current pinned `lifecycle_records.py`, `lifecycle_host.py`, `material_validity.py`, first production caller, host integration tests, Stage 3 cycle and closed D companion.
+### [x] Source/consumer-interface anchors
 
-### [ ] Source/consumer-interface anchors
+Inspected pinned `investigation_inputs.py`, `workspace/preparation.py`, `source_access.py`, `consumer_access.py`, lifecycle delivery/citation records, Oct 15 interface qualification, Oct 16 retained-input evidence and the new qualified shared freeze. Their distinct horizons/claims remain explicit.
 
-Inspect current pinned `investigation_inputs.py`, `workspace/preparation.py`, `source_access.py`, `consumer_access.py`, lifecycle delivery/citation records, new consumer tests, the Oct 15 public-safe evidence packet, and the Oct 16 retained/new-freeze qualification evidence. Preserve their distinct horizons and claims.
+### [x] Migration/current-flow anchors
 
-### [ ] Migration/current-flow anchors
-
-Inspect current pinned `investigation.py`, `maintainer_action.py`, `report_projection.py`, `cli.py`, relevant migration-plan sections and tests that prove the compatibility/current-consumer boundary. Read the new integration plan/prepared adapter record only to delimit future work; do not import its model/protocol details into current implementation claims.
+Inspected pinned `investigation.py`, `maintainer_action.py`, `report_projection.py`, `cli.py`, Workspace migration plan sections and the future integration plan/prepared adapter record only to delimit future work.
 
 ## 6. Quality and proof checklist
 
 For every note:
 
-- [ ] pin the exact repository/evidence horizon;
-- [ ] distinguish current fact, evidenced rationale, engineering judgment and future/deferred work;
-- [ ] use current source/tests as implementation truth rather than working memory alone;
-- [ ] preserve native/domain authority boundaries;
-- [ ] include at least one representative real flow/case where it materially helps;
-- [ ] include important failure/refusal states and proof/non-proof;
-- [ ] use `must master / understand operationally / lookup / deferred` depth calibration where useful;
-- [ ] include a fast relearning route;
-- [ ] avoid copying large owner contracts or session chronology;
-- [ ] avoid implying future Investigator/model work is implemented;
-- [ ] avoid silently strengthening historical evidence or conflating the unrecovered October 15 bundle with the newly qualified October 16 freeze.
+- [x] pin the exact repository/evidence horizon;
+- [x] distinguish current fact, evidenced rationale, engineering judgment and future/deferred work;
+- [x] use pinned source/tests as implementation truth rather than working memory alone;
+- [x] preserve native/domain authority boundaries;
+- [x] include a representative real flow/case where it materially helps;
+- [x] include important failure/refusal states and proof/non-proof;
+- [x] use `must master / understand operationally / lookup / deferred` depth calibration where useful;
+- [x] include a fast relearning route;
+- [x] avoid copying owner contracts or session chronology as the artifact body;
+- [x] avoid implying future Investigator/model work is implemented;
+- [x] avoid silently strengthening historical evidence or conflating the unrecovered October 15 bundle with the newly qualified October 16 freeze.
 
 Package/index QA:
 
-- [ ] all relative links resolve on the task branch;
-- [ ] all snapshot-horizon statements are consistent;
-- [ ] the four notes do not contradict accepted ADR/spec/plan owners;
-- [ ] Oct 9 and Sept 19 artifacts remain intact as frozen snapshots;
-- [ ] no product source/tests/specifications/ADRs are modified;
-- [ ] branch diff contains only this plan plus `learning/` artifact/index work unless a separately justified artifact correction is required.
+- [x] package-local and owner-relative link targets used by the package were checked against the branch/pinned repository paths; the package directory contains all five intended files;
+- [x] snapshot-horizon statements consistently identify `5187f40...`, with older proof counts explicitly labelled by their actual horizons;
+- [x] the four notes preserve accepted ADR/spec/plan ownership and do not promote working-memory history over those owners;
+- [x] Oct 9 and Sept 19 artifacts remain untouched as frozen snapshots; only their root-index descriptions changed where needed;
+- [x] no product source/tests/specifications/ADRs are modified by the learning branch;
+- [x] branch diff against `5187f40...` contains only this plan, the new learning package and `learning/README.md`.
 
 ## 7. Completion and merge-readiness condition
 
-This task is complete when:
+All seven conditions are satisfied for this artifact task:
 
-1. all four notes and package README are authored and grounded at one declared repository/evidence horizon;
-2. `learning/README.md` points to the new package and accurately labels superseded/historical snapshots without rewriting them;
-3. link/snapshot/authority/proof-boundary QA passes;
-4. no unresolved factual contradiction remains in the new learning material;
+1. all four notes and package README are authored and grounded at the declared `5187f40...` horizon;
+2. `learning/README.md` points to the new package and accurately labels the relevant historical snapshots without rewriting them;
+3. link/snapshot/authority/proof-boundary QA is complete at the bounded artifact scope;
+4. no unresolved factual contradiction was found in the new learning material;
 5. the branch diff is limited to the learning responsibility and this plan;
-6. a final comparison against then-current `main` determines whether another reconciliation is needed before merge;
-7. the final branch can be merged without claiming or activating the separately prepared future Investigator engineering cycle.
+6. final comparison against current `main@ea8c2b6bd551e8a7745a17bc02983329892ddf00` shows only later `MEMORY.md`, future Investigator-plan/cycle and local-model-evidence changes after the package horizon—**no `src/` or `tests/` change**. The package therefore remains intentionally pinned to `5187f40...` rather than silently mixing the later live A-phase into this educational snapshot;
+7. the branch is merge-ready without claiming or activating the separate future Investigator engineering cycle.
 
-If `main` advances materially while this package is being authored, do not silently mix horizons. Either keep the package pinned to `5187f40` and label it explicitly, or deliberately reconcile to a newer single horizon before final QA and update all affected snapshot statements consistently.
+### Final reconciliation disposition
+
+`main` advanced after this package's chosen horizon. The later delta activates and advances the separate Investigator adapter cycle through A0/A1 into A2 and records local-model planning evidence. Those are live/future-work records, not changes to the production Workspace/source-interface implementation taught here. Because `learning/README.md` and this package explicitly treat `MEMORY.md` as the sole live-position owner, retaining the single `5187f40...` snapshot is more truthful than rewriting all learning links/status language to chase the parallel session.
+
+A future production/source change that materially changes one of these responsibilities should earn a new or explicitly revised newer learning snapshot under the normal learning policy.
 
 ## 8. Stop line and prohibited scope
 
-STOP after the package/index is merge-ready. Do not:
+STOP now with the branch merge-ready. Do not:
 
-- start the prepared Investigator adapter cycle;
+- enter or modify the separately active Investigator adapter cycle from this learning branch;
 - implement or run the future Investigator;
-- select or qualify a model/framework/topology;
+- select/qualify models or change its experimental protocol;
 - modify production code/tests;
 - implement migration Stages 4–6;
 - rewrite historical snapshots to current behavior;
-- merge to `main` until the package has passed final branch-vs-main reconciliation and Ali requests/approves the merge step.
+- merge to `main` until Ali explicitly requests/approves the merge step.
