@@ -1,0 +1,87 @@
+{
+  "format": "investigator-deployment-cycle-entry/1",
+  "observed_at": "2026-10-16T22:49:45+03:30",
+  "git_base": "4545d5f0b8717fb58c91e2a470aee5367b8d6846",
+  "source_delta_from_adapter_build": "Only 41-line parallel supervision companion; no executable change",
+  "retained_artifact_hashes_verified": 17,
+  "adapter_code_test_hashes_verified": 4,
+  "prior_test_results_rerun": false,
+  "native_inventory_entry_count": 22,
+  "selected_and_alternate_registry_entries": [
+    {
+      "key": "qwen3.8-27b-ud",
+      "format": "gguf",
+      "architecture": "qwen35",
+      "registry_size_bytes": 16464440224,
+      "loaded_instance_count": 0
+    },
+    {
+      "key": "mimo-v2.6-distill-qwen-9b",
+      "format": "gguf",
+      "architecture": "qwen35",
+      "registry_size_bytes": 6202021408,
+      "loaded_instance_count": 0
+    },
+    {
+      "key": "google/gemma-4-12b",
+      "format": "gguf",
+      "architecture": "gemma4",
+      "registry_size_bytes": 7556574286,
+      "loaded_instance_count": 0
+    },
+    {
+      "key": "gemma-4-12b-it-qat",
+      "format": "gguf",
+      "architecture": "gemma4",
+      "registry_size_bytes": 6975878560,
+      "loaded_instance_count": 0
+    },
+    {
+      "key": "qwen3.5-9b-ud",
+      "format": "gguf",
+      "architecture": "qwen35",
+      "registry_size_bytes": 5966095584,
+      "loaded_instance_count": 0
+    },
+    {
+      "key": "gemma-4-e2b-it",
+      "format": "gguf",
+      "architecture": "gemma4",
+      "registry_size_bytes": 3427873920,
+      "loaded_instance_count": 0
+    },
+    {
+      "key": "gemma-4-e4b-it-ud",
+      "format": "gguf",
+      "architecture": "gemma4",
+      "registry_size_bytes": 5101713792,
+      "loaded_instance_count": 0
+    }
+  ],
+  "registry_limit": "Labels/sizes/registration are not exact GGUF/load/template/runtime qualification. QAT entry is distinct, not an added arm.",
+  "qwen_file": {
+    "path": "/mnt/f/LLM/lmstudio-community/Qwen3.8-27B-UD-Q4_K_M/Qwen3.8-27B-UD-Q4_K_M.gguf",
+    "bytes": 16464440224,
+    "full_sha256_rechecked": false,
+    "prior_correspondence_owner": "working-memory/evidence/2026-10-16-local-model-candidates/inventory-and-qwen-asset.json"
+  },
+  "main_interpreter": {
+    "python": "3.12.3",
+    "requests": "2.34.2",
+    "lmstudio_sdk": null
+  },
+  "actions": {
+    "inventory_gets_in_this_artifact_capture": 1,
+    "read_only_inventory_recheck_before_recording": true,
+    "model_loads": 0,
+    "inference_calls": 0,
+    "downloads": 0,
+    "dependency_installs": 0
+  },
+  "limits": [
+    "No actual backend/runtime version or template/fit measurement",
+    "No current token/context/offload/reasoning qualification",
+    "No model-selection or protocol revision inferred from candidate availability",
+    "No model output or semantic comparison produced"
+  ]
+}

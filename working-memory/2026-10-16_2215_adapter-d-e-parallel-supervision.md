@@ -1,7 +1,7 @@
 # Adapter D/E parallel supervision handoff
 
 **Date:** October 16, 2026.
-**Role:** non-owning companion note for the active `Investigator adapter and mechanical qualification` Learning-by-Doing cycle. The canonical cycle/status owner remains `working-memory/2026-10-16_2045_investigator-adapter-and-mechanical-qualification_lbd-cycle.md`; `MEMORY.md` remains the sole live-position owner. This note must be reconciled into those owners at the next safe update/closure and must not become a competing phase-status record.
+**Role:** non-owning companion note for the active `Investigator adapter and mechanical qualification` Learning-by-Doing cycle. The canonical cycle/status owner remains `working-memory/2026-10-16_2045_investigator-adapter-and-mechanical-qualification_lbd-cycle.md`; `MEMORY.md` remains the sole live-position owner. This allocation is now reconciled into those owners at [successor entry](2026-10-16_2247_investigator-deployment-and-model-interface-qualification_lbd-cycle.md). This note remains a coordination aid, not a competing phase-status record.
 
 ## User-selected parallel progression
 
