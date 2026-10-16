@@ -1,0 +1,85 @@
+{
+  "format": "local-model-candidate-preparation/1",
+  "observed_at": "2026-10-16T17:38:44.709598+00:00",
+  "scope": "Read-only inventory/asset correspondence and user-directed planning amendments; prepared adapter cycle remains unstarted.",
+  "native_inventory": {
+    "endpoint": "http://127.0.0.1:18080/api/v1/models",
+    "llm_entries": 20,
+    "embedding_entries": 2,
+    "loaded_instances": 0
+  },
+  "qwen_replacement": {
+    "local_key": "qwen3.8-27b-ud",
+    "local_path": "/mnt/f/LLM/lmstudio-community/Qwen3.8-27B-UD-Q4_K_M/Qwen3.8-27B-UD-Q4_K_M.gguf",
+    "filename": "Qwen3.8-27B-UD-Q4_K_M.gguf",
+    "file_bytes": 16464440224,
+    "sha256": "322e194ff79741c7baa497c240f677f54b201b0efab44ca8e50f122b39123482",
+    "file_stable_during_hash": true,
+    "gguf_magic": "GGUF",
+    "expected_repository": "unsloth/Qwen3.8-27B-GGUF",
+    "repository_revision": "4ca720788d1e01f1bff70c033e0d0028fd02e502",
+    "repository_file": "Qwen3.8-27B-UD-Q4_K_M.gguf",
+    "repository_lfs_sha256": "322e194ff79741c7baa497c240f677f54b201b0efab44ca8e50f122b39123482",
+    "repository_file_bytes": 16464440224,
+    "asset_correspondence": "size and full local SHA256 match public repository file metadata",
+    "source_metadata_url": "https://huggingface.co/api/models/unsloth/Qwen3.8-27B-GGUF?blobs=true",
+    "deployment_qualification": "pending; no load/canary/context/offload/runtime/template qualification"
+  },
+  "smaller_candidate_shortlist": [
+    {
+      "local_key": "gemma-4-e2b-it",
+      "local_path": "/mnt/f/LLM/lmstudio-community/gemma-4-E2B-it-Q4_K_M/gemma-4-E2B-it-Q4_K_M.gguf",
+      "file_bytes": 3427873920,
+      "quantization_label": "Q4_K_M",
+      "asset_sha256": "not measured in this inventory review",
+      "deployment_qualification": "pending"
+    },
+    {
+      "local_key": "gemma-4-e4b-it-ud",
+      "local_path": "/mnt/f/LLM/lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf",
+      "file_bytes": 5101713792,
+      "quantization_label": "Q4_K_XL",
+      "asset_sha256": "not measured in this inventory review",
+      "deployment_qualification": "pending"
+    },
+    {
+      "local_key": "mimo-v2.6-distill-qwen-9b",
+      "local_path": "/mnt/f/LLM/lmstudio-community/MiMo-V2.6-Distill-Qwen-9B-Q4_K_L/MiMo-V2.6-Distill-Qwen-9B-Q4_K_L.gguf",
+      "file_bytes": 6202021408,
+      "quantization_label": "Q4_K_L",
+      "asset_sha256": "not measured in this inventory review",
+      "deployment_qualification": "pending"
+    },
+    {
+      "local_key": "qwen3.5-9b-ud",
+      "local_path": "/mnt/f/LLM/lmstudio-community/Qwen3.5-9B-UD-Q4_K_XL/Qwen3.5-9B-UD-Q4_K_XL.gguf",
+      "file_bytes": 5966095584,
+      "quantization_label": "Q4_K_XL",
+      "asset_sha256": "not measured in this inventory review",
+      "deployment_qualification": "pending"
+    }
+  ],
+  "excluded_by_user": [
+    "Qwen3-4B-Instruct-2507",
+    "Ministral 3 3B Instruct 2512"
+  ],
+  "selection_boundary": {
+    "current_core_deployments": 2,
+    "current_core_assignments": 8,
+    "additional_smaller_arms": "not selected; explicit pre-run count/order/budget revision required"
+  },
+  "actions": {
+    "loads": 0,
+    "unloads": 0,
+    "inference_calls": 0,
+    "downloads_started": 0,
+    "model_files_modified": 0
+  },
+  "qualification_policy_owner": "plans/INVESTIGATOR_INTEGRATION_AND_COMPARATIVE_EVALUATION_PLAN.md#smaller-model-candidates-and-measured-deployment-envelopes",
+  "limits": [
+    "Asset correspondence is not successful runtime/model qualification.",
+    "Inventory capability/parameter/context labels are metadata, not benchmark or supported-load proof.",
+    "No age-based quality ranking is measured by this review.",
+    "Full hashing was performed for the newly completed Qwen asset only."
+  ]
+}
