@@ -1,0 +1,437 @@
+{
+  "format": "qualified-common-investigator-input-snapshot/1",
+  "qualified_at": "2026-10-16T16:59:14.016890+00:00",
+  "snapshot_id": "common-freeze-2026-10-16-2025",
+  "outcome": "qualified_mechanical_preparation_and_offline_availability",
+  "local_root": "/home/motafeq/.local/share/upgradepilot/investigator-inputs/common-freeze-2026-10-16-2025",
+  "validated_backup_root": "/home/motafeq/.local/share/upgradepilot/investigator-inputs/common-freeze-2026-10-16-2025/validated-backup",
+  "original_research_input_root": "/home/motafeq/.local/share/upgradepilot/investigator-inputs/research-corpus-2026-10-07-retained-2026-10-16",
+  "original_source_file_sha256": "e6e068de4eacc2ab2ee2028132dedb0bf7f547e18649fbbb0d159c6dfc6d0ebc",
+  "preparation_manifest_sha256": "e5b296dba68f7b6bb0c755e00681ec0db1ad8727ed9af51d417e5751a25bd4ac",
+  "code": {
+    "commit": "c1d490658e0339c53f2ac92be08056a7ec50ee6e",
+    "src_git_tree": "8dce2db51fa885c037e00ccc21df440ce312be09",
+    "product_python_files": 96,
+    "product_hashes_sha256": "c21b54b0a3eab6e052ff906edeb0eac80eafe6e4b74917a367e3dc1d731908c4",
+    "preparation_diagnostic_sha256": "917e5428ab8a96041e6652869fdddce662bdd466e497eacfb1f22d4979f42b0b",
+    "cold_reader_sha256": "f3e77fdf9cbf5a94976edf6a692b8f2cb5129da4ef2446d685b92fbd7ce9e73a"
+  },
+  "execution": {
+    "mode": "new_anonymous_public_acquisition",
+    "public_get_operations": 14,
+    "current_model_calls": 0,
+    "target_code_executions": 0,
+    "native_owner_runs_per_case": {
+      "development-httpx-framework-ci": {
+        "analyze_dependency_change": 1,
+        "evaluate_dependency_ci_coverage": 1,
+        "evaluate_runtime_dependency_state": 1
+      },
+      "development-glyphslib-pytest-stopping": {
+        "analyze_dependency_change": 1,
+        "evaluate_dependency_ci_coverage": 1,
+        "evaluate_runtime_dependency_state": 1
+      }
+    },
+    "guarded_cold_case_reads": 4,
+    "guards_per_cold_child": 9,
+    "directory_mode": "0700",
+    "file_mode": "0600",
+    "backup_api": "CheckpointStore.backup"
+  },
+  "cases": [
+    {
+      "case_id": "development-httpx-framework-ci",
+      "target": {
+        "repository": "Aidan-Wallace/kubernetes-dashboard-token-api",
+        "pull_number": 20,
+        "base_sha": "b065646e4b7b894964567950f9ad770b02c136c2",
+        "head_sha": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+        "normalized_package": "httpx",
+        "old_version": "0.27.2",
+        "proposed_version": "0.28.1"
+      },
+      "catalog_id": "288c3c88a12ed32706641b977f5a29b09d4727b6e9fa3de7ff2df23e28ba1bf3",
+      "lineage_id": "5bc82156edb74b91a96b204645478289",
+      "revision_id": "0797f32c78e443eaaad877e1ef27e145",
+      "checkpoint_digest": "991b5eb0cf2ca6d86319ef80f07f6939702f27e134f4a3954ca2e0bb619c7e5f",
+      "source_files": 2632,
+      "source_profile_bytes": 18873205,
+      "changed_files": 1,
+      "workflow_runs": 0,
+      "native_coverage": "no_successful_ci",
+      "native_runtime": {
+        "evaluation_state": "no_admitted_candidate",
+        "reason": "no_admitted_runtime_dependency_state_candidate",
+        "detail": "No supported direct-requirements/pip consumption entered the first command-derived runtime dependency-state proof family.",
+        "assessments": []
+      },
+      "native_owner_invocations": {
+        "analyze_dependency_change": 1,
+        "evaluate_dependency_ci_coverage": 1,
+        "evaluate_runtime_dependency_state": 1
+      },
+      "public_backend_operations": 4,
+      "proposal_evaluation": "unsupported",
+      "capture_limit": "Current API evidence is acquisition-time and retrospective; historical bounded/manual CI is separate raw source. Original source inventories retain their exclusions.",
+      "unavailable": [
+        "general API applicability",
+        "canonical adequacy",
+        "installed/artifact compatibility",
+        "strong release/interval authority without qualified family inputs"
+      ],
+      "acquisition_window": {
+        "first_started": "2026-10-16T16:56:06.024358+00:00",
+        "last_completed": "2026-10-16T16:56:10.053839+00:00",
+        "http_statuses": [
+          200,
+          200,
+          200,
+          200
+        ]
+      },
+      "delivery_count": 5,
+      "source_citation_count": 1
+    },
+    {
+      "case_id": "development-glyphslib-pytest-stopping",
+      "target": {
+        "repository": "googlefonts/glyphsLib",
+        "pull_number": 1145,
+        "base_sha": "044f19e4b1437bfc4343592486f4e3c6040306d9",
+        "head_sha": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+        "normalized_package": "pytest",
+        "old_version": "9.0.2",
+        "proposed_version": "9.0.3"
+      },
+      "catalog_id": "37f51311401773b05a7934945a2cc9d7904af044d328ec9fb1dae855062626ce",
+      "lineage_id": "e65dc25470c640978434ab5f8c6dda29",
+      "revision_id": "df54ee39679e488cb7ef3563619c6935",
+      "checkpoint_digest": "202f04de13ff2223d1ace35b36aafc0a98b5fde2a2abe2e26c8a6e568dce974e",
+      "source_files": 1384,
+      "source_profile_bytes": 16035160,
+      "changed_files": 1,
+      "workflow_runs": 2,
+      "native_coverage": "supported_not_correlated",
+      "native_runtime": {
+        "evaluation_state": "evaluated",
+        "reason": "runtime_dependency_state_candidates_evaluated",
+        "detail": "Evaluated 2 admitted exact direct-requirements command candidate(s) without collapsing their individual outcomes.",
+        "assessments": [
+          {
+            "consumption": {
+              "state": "supported",
+              "mechanism": "direct_requirements",
+              "normalized_package": "pytest",
+              "workflow_path": ".github/workflows/regression.yml",
+              "workflow_revision": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+              "job_key": "test",
+              "step_source_index": 2,
+              "command": "python -m pip install --upgrade pip\npython3 -m venv generate\n. ./generate/bin/activate && pip install -r requirements.txt -r requirements-dev.txt\n",
+              "reason": "direct_requirements_consumption_declared",
+              "detail": "The static job directly declares installation from a trusted requirements dependency source. Execution is not established.",
+              "source_path": "requirements-dev.txt",
+              "reachability_kind": null,
+              "witness_path": [],
+              "conditional_candidate_path": [],
+              "unresolved_conditions": [],
+              "command_location": {
+                "source_span": {
+                  "start_byte": 90,
+                  "end_byte": 145,
+                  "start_line": 2,
+                  "start_column": 29,
+                  "end_line": 2,
+                  "end_column": 84
+                },
+                "source_order": 3
+              },
+              "structural_context": [
+                "short_circuit"
+              ],
+              "whole_step_relation": null,
+              "execution_profile": "github_default_non_windows"
+            },
+            "result": {
+              "state": "unresolved",
+              "reason": "manager_environment_needs_lower_source_evidence",
+              "detail": "The invocation form is preserved, but no decisive pip --python selector is visible. Process-environment/configuration/executable evidence is still required before effective manager environment can be asserted.",
+              "blocking_dimension": "manager_environment",
+              "blocking_semantic_evidence": {
+                "state": "unresolved",
+                "dimension": "manager_environment",
+                "reason": "manager_environment_needs_lower_source_evidence",
+                "detail": "The invocation form is preserved, but no decisive pip --python selector is visible. Process-environment/configuration/executable evidence is still required before effective manager environment can be asserted.",
+                "command_location": {
+                  "source_span": {
+                    "start_byte": 90,
+                    "end_byte": 145,
+                    "start_line": 2,
+                    "start_column": 29,
+                    "end_line": 2,
+                    "end_column": 84
+                  },
+                  "source_order": 3
+                },
+                "resolved_prefix": [
+                  {
+                    "source_kind": "command_line",
+                    "disposition": "non_overriding",
+                    "detail": "No command-line pip --python retargeter is present.",
+                    "locator": "--python"
+                  }
+                ],
+                "blocking_source": "process_environment"
+              }
+            }
+          },
+          {
+            "consumption": {
+              "state": "supported",
+              "mechanism": "direct_requirements",
+              "normalized_package": "pytest",
+              "workflow_path": ".github/workflows/regression.yml",
+              "workflow_revision": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+              "job_key": "test",
+              "step_source_index": 5,
+              "command": "python3 -m venv regression\n. ./regression/bin/activate && pip install -r requirements.txt -r requirements-dev.txt\n",
+              "reason": "direct_requirements_consumption_declared",
+              "detail": "The static job directly declares installation from a trusted requirements dependency source. Execution is not established.",
+              "source_path": "requirements-dev.txt",
+              "reachability_kind": null,
+              "witness_path": [],
+              "conditional_candidate_path": [],
+              "unresolved_conditions": [],
+              "command_location": {
+                "source_span": {
+                  "start_byte": 58,
+                  "end_byte": 113,
+                  "start_line": 1,
+                  "start_column": 31,
+                  "end_line": 1,
+                  "end_column": 86
+                },
+                "source_order": 2
+              },
+              "structural_context": [
+                "short_circuit"
+              ],
+              "whole_step_relation": null,
+              "execution_profile": "github_default_non_windows"
+            },
+            "result": {
+              "state": "unresolved",
+              "reason": "manager_environment_needs_lower_source_evidence",
+              "detail": "The invocation form is preserved, but no decisive pip --python selector is visible. Process-environment/configuration/executable evidence is still required before effective manager environment can be asserted.",
+              "blocking_dimension": "manager_environment",
+              "blocking_semantic_evidence": {
+                "state": "unresolved",
+                "dimension": "manager_environment",
+                "reason": "manager_environment_needs_lower_source_evidence",
+                "detail": "The invocation form is preserved, but no decisive pip --python selector is visible. Process-environment/configuration/executable evidence is still required before effective manager environment can be asserted.",
+                "command_location": {
+                  "source_span": {
+                    "start_byte": 58,
+                    "end_byte": 113,
+                    "start_line": 1,
+                    "start_column": 31,
+                    "end_line": 1,
+                    "end_column": 86
+                  },
+                  "source_order": 2
+                },
+                "resolved_prefix": [
+                  {
+                    "source_kind": "command_line",
+                    "disposition": "non_overriding",
+                    "detail": "No command-line pip --python retargeter is present.",
+                    "locator": "--python"
+                  }
+                ],
+                "blocking_source": "process_environment"
+              }
+            }
+          }
+        ]
+      },
+      "native_owner_invocations": {
+        "analyze_dependency_change": 1,
+        "evaluate_dependency_ci_coverage": 1,
+        "evaluate_runtime_dependency_state": 1
+      },
+      "public_backend_operations": 10,
+      "proposal_evaluation": "unsupported",
+      "capture_limit": "Current API evidence is acquisition-time and retrospective; historical bounded/manual CI is separate raw source. Original source inventories retain their exclusions.",
+      "unavailable": [
+        "general API applicability",
+        "canonical adequacy",
+        "installed/artifact compatibility",
+        "strong release/interval authority without qualified family inputs"
+      ],
+      "acquisition_window": {
+        "first_started": "2026-10-16T16:56:13.465479+00:00",
+        "last_completed": "2026-10-16T16:56:21.215135+00:00",
+        "http_statuses": [
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200
+        ]
+      },
+      "delivery_count": 5,
+      "source_citation_count": 1
+    }
+  ],
+  "cold_original": [
+    {
+      "case": "development-httpx-framework-ci",
+      "native_coverage": "no_successful_ci",
+      "projection_sha256": "1444c65e232e721a5215d7099eb3a7a9d60836216d118191d02edfd9b19aefd3",
+      "guard_count": 9,
+      "retained_revisions": 16,
+      "lifecycle": "supported",
+      "deliveries": 5,
+      "citations": 1,
+      "proposal_evaluation": "unsupported",
+      "database_unchanged": true
+    },
+    {
+      "case": "development-glyphslib-pytest-stopping",
+      "native_coverage": "supported_not_correlated",
+      "projection_sha256": "2c9b8092ed977c27a751869285a8fd6ad88239afa3003298d206fee8a460b615",
+      "guard_count": 9,
+      "retained_revisions": 16,
+      "lifecycle": "supported",
+      "deliveries": 5,
+      "citations": 1,
+      "proposal_evaluation": "unsupported",
+      "database_unchanged": true
+    }
+  ],
+  "cold_backup": [
+    {
+      "case": "development-httpx-framework-ci",
+      "native_coverage": "no_successful_ci",
+      "projection_sha256": "1444c65e232e721a5215d7099eb3a7a9d60836216d118191d02edfd9b19aefd3",
+      "guard_count": 9,
+      "retained_revisions": 16,
+      "lifecycle": "supported",
+      "deliveries": 5,
+      "citations": 1,
+      "proposal_evaluation": "unsupported",
+      "database_unchanged": true
+    },
+    {
+      "case": "development-glyphslib-pytest-stopping",
+      "native_coverage": "supported_not_correlated",
+      "projection_sha256": "2c9b8092ed977c27a751869285a8fd6ad88239afa3003298d206fee8a460b615",
+      "guard_count": 9,
+      "retained_revisions": 16,
+      "lifecycle": "supported",
+      "deliveries": 5,
+      "citations": 1,
+      "proposal_evaluation": "unsupported",
+      "database_unchanged": true
+    }
+  ],
+  "files": [
+    {
+      "path": "manifest.json",
+      "bytes": 27075,
+      "sha256": "e5b296dba68f7b6bb0c755e00681ec0db1ad8727ed9af51d417e5751a25bd4ac"
+    },
+    {
+      "path": "case-1/common-sources.json",
+      "bytes": 18873205,
+      "sha256": "ca5f294866faf1eb7633ebc5af3a3e0a9fe65896a2ae5093c5f7241f2f97fed4"
+    },
+    {
+      "path": "case-1/public-acquisition.json",
+      "bytes": 64474,
+      "sha256": "eb0c5a4a9db18d22cbba17cc9959695e6df820572387e21e924c71c30df89bae"
+    },
+    {
+      "path": "case-1/checkpoint/workspace.sqlite3",
+      "bytes": 270336,
+      "sha256": "c28db2998569728dd21a9abbfe8851141983df6e65f7b32e189df1415d7421cd"
+    },
+    {
+      "path": "case-2/common-sources.json",
+      "bytes": 16035160,
+      "sha256": "1bb8e6d45e67e4c96cf95eb2c2e54dc94226830e629d9adda04597cc041406ac"
+    },
+    {
+      "path": "case-2/public-acquisition.json",
+      "bytes": 132367,
+      "sha256": "4e2bcff9980c51b0b0934e73314f05cf1d32ef5d15a20c171a28ab55899b0499"
+    },
+    {
+      "path": "case-2/checkpoint/workspace.sqlite3",
+      "bytes": 323584,
+      "sha256": "6812ccbfee0e95743712bf9826ffac6bb942877259ea898ee1a20badf7fd1a3f"
+    },
+    {
+      "path": "validated-backup/manifest.json",
+      "bytes": 27075,
+      "sha256": "e5b296dba68f7b6bb0c755e00681ec0db1ad8727ed9af51d417e5751a25bd4ac"
+    },
+    {
+      "path": "validated-backup/case-1/common-sources.json",
+      "bytes": 18873205,
+      "sha256": "ca5f294866faf1eb7633ebc5af3a3e0a9fe65896a2ae5093c5f7241f2f97fed4"
+    },
+    {
+      "path": "validated-backup/case-1/public-acquisition.json",
+      "bytes": 64474,
+      "sha256": "eb0c5a4a9db18d22cbba17cc9959695e6df820572387e21e924c71c30df89bae"
+    },
+    {
+      "path": "validated-backup/case-1/checkpoint/workspace.sqlite3",
+      "bytes": 270336,
+      "sha256": "e663b88fc5b0959777226b1082d7a8b3445b5c9dbb03adf97ce1472cf33f12d6"
+    },
+    {
+      "path": "validated-backup/case-2/common-sources.json",
+      "bytes": 16035160,
+      "sha256": "1bb8e6d45e67e4c96cf95eb2c2e54dc94226830e629d9adda04597cc041406ac"
+    },
+    {
+      "path": "validated-backup/case-2/public-acquisition.json",
+      "bytes": 132367,
+      "sha256": "4e2bcff9980c51b0b0934e73314f05cf1d32ef5d15a20c171a28ab55899b0499"
+    },
+    {
+      "path": "validated-backup/case-2/checkpoint/workspace.sqlite3",
+      "bytes": 323584,
+      "sha256": "950360524ffab0b1e0c381720ba0884456b7a79d2dedbc536eca947ac7462fb8"
+    },
+    {
+      "path": "cold-original.json",
+      "bytes": 960,
+      "sha256": "85117a9e4ae9fd185e129e57652346ab20bff5494fbda76be80ec0cd225415e4"
+    },
+    {
+      "path": "cold-backup.json",
+      "bytes": 960,
+      "sha256": "85117a9e4ae9fd185e129e57652346ab20bff5494fbda76be80ec0cd225415e4"
+    },
+    {
+      "path": "backup-verification.json",
+      "bytes": 1512,
+      "sha256": "5713cf1410b9256a1df2f21414b3ddc8a7a7f010c5b1091f4b2f49a8611f6b8f"
+    }
+  ],
+  "scope": [
+    "New dated shared snapshot for two exposed development cases; not recovery of the October 15 bytes.",
+    "Current API evidence retains acquisition-time strength; historical source/CI captures remain separately labelled.",
+    "No model, semantic usefulness, replay, continuation, power-loss or off-machine backup claim.",
+    "Product source/tests and diagnostic code unchanged; no new installed-suite or archived-reader verification.",
+    "Data snapshot manifest has no model configuration; upcoming deployment substitution belongs to the plan and future run manifest."
+  ]
+}
