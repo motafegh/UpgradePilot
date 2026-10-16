@@ -1,0 +1,90 @@
+{
+  "format": "investigator-input-retention/1",
+  "retained_at": "2026-10-16T16:15:13.234121+00:00",
+  "status": "original_research_corpus_retained_later_preparation_missing",
+  "local_directory": "/home/motafeq/.local/share/upgradepilot/investigator-inputs/research-corpus-2026-10-07-retained-2026-10-16",
+  "source_branch": "codex/broader-llm-agency-research-2026-10-05",
+  "source_commit": "253b48de20b475eada48810d193bd420c51aa7d4",
+  "product_checkout_commit": "c2d2666e885147ed7c300c6d34eccc3efc14f654",
+  "files": [
+    {
+      "file": "corpus.json",
+      "bytes": 40036196,
+      "sha256": "e6e068de4eacc2ab2ee2028132dedb0bf7f547e18649fbbb0d159c6dfc6d0ebc",
+      "original_path": "/home/motafeq/.codex/worktrees/broader-llm-agency-research/UpgradePilot/.tmp/broader-agency-pilot/contract2-comparison-20261007/corpus.json"
+    },
+    {
+      "file": "pre-inference-freeze.json",
+      "bytes": 1625,
+      "sha256": "09f7152e9e54b89a31cdc2976cecc1b1e6d6a7cab070ed0fd00b074fcf4691f3",
+      "original_path": "/home/motafeq/.codex/worktrees/broader-llm-agency-research/UpgradePilot/.tmp/broader-agency-pilot/contract2-comparison-20261007/pre-inference-freeze.json"
+    },
+    {
+      "file": "selection-freeze.json",
+      "bytes": 5361,
+      "sha256": "974bda47b167d49174e2ed65e0c205102d559c9f60f429768537ecb7f4e38907",
+      "original_path": "/home/motafeq/.codex/worktrees/broader-llm-agency-research/UpgradePilot/.tmp/broader-agency-pilot/contract2-comparison-20261007/selection-freeze.json"
+    },
+    {
+      "file": "targets.json",
+      "bytes": 505,
+      "sha256": "8cf3855c43119a4e8f1a012c26f6d3aaa4ce43b75b6f7acd3be86ea6686e9ad2",
+      "derivation": "Exact target mapping from committed October 15 qualification; not fresh acquisition."
+    }
+  ],
+  "bundle_canonical_sha256": "f528a27b04a80503a6145480980021a490c2b2c8a447cd71ab2178ddf38cd142",
+  "cases": [
+    {
+      "case_id": "development-httpx-framework-ci",
+      "target": {
+        "repository": "Aidan-Wallace/kubernetes-dashboard-token-api",
+        "pull_number": 20,
+        "base_sha": "b065646e4b7b894964567950f9ad770b02c136c2",
+        "head_sha": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+        "normalized_package": "httpx",
+        "old_version": "0.27.2",
+        "proposed_version": "0.28.1"
+      },
+      "documents": 2628,
+      "source_scopes": 8,
+      "corpus_identity": "6e4ab534a86aaf9d3ebc23f66391f0976faa11c5e1602ba4f12b97b25dd0abe0"
+    },
+    {
+      "case_id": "development-glyphslib-pytest-stopping",
+      "target": {
+        "repository": "googlefonts/glyphsLib",
+        "pull_number": 1145,
+        "base_sha": "044f19e4b1437bfc4343592486f4e3c6040306d9",
+        "head_sha": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+        "normalized_package": "pytest",
+        "old_version": "9.0.2",
+        "proposed_version": "9.0.3"
+      },
+      "documents": 1372,
+      "source_scopes": 5,
+      "corpus_identity": "8c8ef1a31b2c009d83803b8c94ce9a33af201de4ae49513e0a978f186d237101"
+    }
+  ],
+  "verification": {
+    "source_copy_hashes_match": true,
+    "october15_original_source_hash_matches": true,
+    "all_document_descriptors_match": true,
+    "strict_main_diagnostic_reader_passes_offline": true,
+    "network_calls": 0,
+    "native_owner_runs": 0,
+    "model_calls": 0,
+    "directory_mode": "0700",
+    "file_mode": "0600"
+  },
+  "missing": [
+    "October 15 common-sources.json profiles",
+    "October 15 public-acquisition.json enriched receipts",
+    "October 15 Workspace checkpoint stores"
+  ],
+  "limits": [
+    "Original source corpus and historical comparison metadata only; not the enriched October 15 common freeze.",
+    "No fresh native qualification, checkpoint restoration, inference, semantic or usefulness result.",
+    "Local retention on the same machine; no off-machine backup or disk-loss guarantee.",
+    "Historical selection settings are provenance, not a qualified future run configuration."
+  ]
+}
