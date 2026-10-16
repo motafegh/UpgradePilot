@@ -1,0 +1,34 @@
+{
+  "format": "investigator-mechanical-gate-related-entry-review/1",
+  "scope": "Entry/disposition only; no planner model execution or protected scoring",
+  "source_sha256": {
+    "plans/B2_X1_PHASE3_EVALUATION_PROTOCOL.md": "23a3fb87fd5bca85a2e4357d3336ef76683281a0434fe72890444cb1fe133822",
+    "experiments/b2_x1_planner_contract.py": "fd5b1b133d886c72f656f8d61786c1124b7c268e930926219cfbf6a90f81681d",
+    "src/upgradepilot/impact/python_support.py": "ea49b445c59502bd67207ceb286badaa879816684179e066e0d5e7dc6e1704f0",
+    "experiments/evidence_gap_planner_model_boundary.py": "024da2d25059f3169d6be5711a5861f7cf7438ce3c8181ca09e65b495f7af2aa",
+    "experiments/evidence_gap_product_planner_composition.py": "d04d0bd1dc6a30e3d6d07e1ee6cd48697dfbb1099718c7fc171db60ae87d159b",
+    "experiments/b2_x1_phase4a_planner_smoke.py": "c8c3af0c85db340e8749a860679e7727472a09bf9e3bd37da31a1dbc4d5de74d",
+    "experiments/tests/test_evidence_gap_product_planner_composition.py": "deab0a752fa97c80cc0bdd4d2ede64e0a379c10b31671d5efe1138d41608496c",
+    "src/upgradepilot/ci/consumption.py": "99f8b4bcefa52cd7df073b025357fd5b96e52a8d59a22f9447ad7c29ca7b7407"
+  },
+  "accepted_protocol_git_blob": "82cd30a4d42c3f941b0db5a3d7f29dd06b7e2610",
+  "accepted_protocol_contract_selector_pins_match": true,
+  "current_planner_test_command": "PYTHONPATH=src:. .venv/bin/python -m unittest experiments.tests.test_evidence_gap_planner_model_boundary experiments.tests.test_evidence_gap_product_planner_composition experiments.tests.test_local_evidence_gap_planner -q",
+  "planner_tests": {
+    "run": 27,
+    "pass": 23,
+    "errors": 4,
+    "failed_family": "test_evidence_gap_product_planner_composition",
+    "error": "TypeError: StaticDependencyConsumptionEvidence.__init__() got an unexpected keyword argument 'segment_index'",
+    "location": "experiments/tests/test_evidence_gap_product_planner_composition.py:270",
+    "scope": "Fixture construction fails before product-state projection; no current planner semantic failure proven",
+    "affected_paths_unchanged": true
+  },
+  "planner_entry_disposition": "NAMED DEFER: repair the current product-composition fixture/API correspondence, rerun this focused family, reconcile current versus frozen planner requests/exposure and qualify actual local transport before a separately activated planner run. Preserve prior narrow control proof; no broader planner/frame adoption.",
+  "retained_inputs": "H1 shared bundle is available but does not replace planner-state/replay inputs. The existing original protocol/contract/selector core Git pins match; remaining protected assets were not opened or claimed fully qualified.",
+  "exposure": "S001 and prior development outcomes are historical exposed material; not fresh holdouts. No protected request rendered, oracle body opened, label changed or planner score produced in this review.",
+  "capability_cost": "Current normal product-state-to-planner composition proof and a fresh action-relative direction disposition remain unavailable; H1 evidence-use proof cannot discharge them. Ordinary B2 continuation retains that gate.",
+  "reentry": "First repair the four fixture errors under the planner owner. Decide the exact retained-control/direction question and needed execution from current evidence; fresh protected quality evaluation is conditional under the later bounded-planner comparison plan, never automatic replay of exposed holdouts.",
+  "usefulness_entry_disposition": "NOT READY at this review: current artifacts are scripted laboratory outputs; no frozen normal-product report/equivalent decision-time packet/reviewed tasks/independent reviewer readiness is established.",
+  "usefulness_reentry": "Select a report/task/packet/reviewer feasibility and protocol responsibility under the existing report/usefulness plan. It need not wait for H1 semantic success or full migration. No reviewer outreach performed or authorized by this gate."
+}

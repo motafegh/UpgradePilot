@@ -35,6 +35,8 @@ This adapts the [H1 proposal at research commit 253b48de](https://github.com/mot
 
 Resolve exact adapter function names, tool schemas and public exports during the integration cycle against inspected source. They are implementation work, not reasons to create another architecture. If a required route is absent, identify the exact unmet claim and smallest product change before Build; do not emulate authoritative facts in the experiment. Source-only API semantic repair remains separately selected.
 
+The experiment-owned adapter, scripted driver, exact reference/charging contract and offline proof entry are documented in the [mechanical qualification guide](../experiments/INVESTIGATOR_WORKSPACE_MECHANICAL_QUALIFICATION.md). Its inference-withheld mechanical manifest does not replace actual deployment/model-interface qualification or the final run manifest.
+
 ## 3. Recover or establish the common input freeze
 
 Interface qualification and availability of the actual input bundle are separate entry conditions. The [October 15 qualification record](../working-memory/evidence/2026-10-15-common-investigator-preparation/qualification.json) supplies dated target/content/projection identities and historical proof. Its [evidence README](../working-memory/evidence/2026-10-15-common-investigator-preparation/README.md) identifies the original temporary paths; those paths are not a retention guarantee.

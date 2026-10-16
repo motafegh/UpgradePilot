@@ -1,0 +1,49 @@
+{
+  "format": "investigator-mechanical-verification/1",
+  "python": "3.12.3",
+  "source_sha256": {
+    "experiments/investigator_workspace_adapter.py": "c79764662c05302a2a60824f4ddd7c002a47791556d9bf0240b7f144d9766af8",
+    "experiments/investigator_workspace_trial.py": "26ffb5fdad71be2df7c68a26e6ba2b29a920085b8c116637a8b536b46455529a",
+    "experiments/qualify_investigator_workspace.py": "9da66d763a8a5b9b5328a7da90614c1cad40fba403f988984d55eaa37fa25b10",
+    "experiments/tests/test_investigator_workspace_trial.py": "c3aa23a9e97c4e5f15c5b8e8277b9c5e5b83f29476f24fa8224340fdb8715df1"
+  },
+  "new_experiment_tests": {
+    "passed": 13,
+    "command": "PYTHONPATH=src:. .venv/bin/python -m unittest discover -s experiments/tests -p test_investigator_workspace_trial.py -q"
+  },
+  "nearest_product_tests": {
+    "passed": 65,
+    "seconds": 20.678,
+    "command": "PYTHONPATH=src:tests:. .venv/bin/python -m unittest test_workspace_consumer_access test_workspace_lifecycle_publication test_workspace_host_integration -q"
+  },
+  "older_planner_entry_tests": {
+    "passed": 23,
+    "errors": 4,
+    "reason": "Untouched composition fixtures use removed segment_index argument"
+  },
+  "private_artifact_hashes_and_modes": "pass",
+  "final_manifest_code_hashes_match": "pass",
+  "product_import_direction": {
+    "files": 96,
+    "outcome": "pass"
+  },
+  "ruff": "0.17.1 temporary validation tool outside repository/environment; touched checks/format pass",
+  "not_run": [
+    "full product suite",
+    "fresh installed suite",
+    "hosted CI",
+    "model load/inference",
+    "semantic or maintainer usefulness evaluation"
+  ],
+  "final_termination_artifacts": "pass; explicit procedural outcome retained separately from unsupported semantic evaluation",
+  "qualification_sha256": "0ad5be6298edab69b6eb2ecf43b85ad8a77bd7c9df00c2c9ebff12de9af1be31",
+  "owner_validation": {
+    "documents": 5,
+    "local_links": 73,
+    "anchors": 10,
+    "phase_consistency": "pass",
+    "governance_pass": 8,
+    "governance_checks": 9,
+    "inherited_debt": "AGENTS.md responsibility map missing examples/ owner marker"
+  }
+}
