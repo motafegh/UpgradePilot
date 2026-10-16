@@ -1,7 +1,7 @@
 # Investigator adapter and mechanical qualification — LbD cycle
 
 **Preparation date:** October 16, 2026, Asia/Tehran.
-**State at this handoff:** OPEN — A0/A1/A2 and B complete; scoped Verification GREEN. D/E now progress in Ali's parallel learning session under the [supervision handoff](2026-10-16_2215_adapter-d-e-parallel-supervision.md). The [deployment/interface successor](2026-10-16_2247_investigator-deployment-and-model-interface-qualification_lbd-cycle.md) may proceed independently at Ali's explicit direction, subject to material-feedback reconciliation. This does not close this cycle or establish learner mastery.
+**State at this handoff:** CLOSED through E. A0/A1/A2/B complete; scoped Verification GREEN; D completed in Ali's separate learning session, E repaired/deferred the material gaps and closed this cycle. [Closure findings](2026-10-16_2301_adapter-d-e-closure-handoff.md) and [explicit reconciliation](2026-10-16_adapter-closure-and-deployment-cohort-reconciliation.md) preserve the decision. Real deployment/interface qualification belongs to the [successor](2026-10-16_2247_investigator-deployment-and-model-interface-qualification_lbd-cycle.md), with all mechanical proof limits retained.
 **Responsibility:** connect one bounded Investigator experiment to the existing product Workspace/evidence interfaces and prove mechanical fidelity, references, isolation, accounting and failure handling without model inference.
 **Owner:** [integration plan §5](../plans/INVESTIGATOR_INTEGRATION_AND_COMPARATIVE_EVALUATION_PLAN.md#5-ordered-execution-and-proof-gates), including the proposed adaptable cycle grouping, [older planner coordination](../plans/INVESTIGATOR_INTEGRATION_AND_COMPARATIVE_EVALUATION_PLAN.md#6-explicit-disposition-of-the-older-action-planner-obligation) and [usefulness readiness](../plans/INVESTIGATOR_INTEGRATION_AND_COMPARATIVE_EVALUATION_PLAN.md#8-future-responsibilities-activation-and-closure).
 **Predecessor:** [closed shared-input snapshot cycle](2026-10-16_2025_common-investigator-input-snapshot_lbd-cycle.md). [MEMORY.md](../MEMORY.md) alone owns live selection/activation.
@@ -16,7 +16,7 @@
 - [x] Prove success and discriminating failures with scripted/model-free consumers. New composition proof and nearest product proof cover the relevant new/established boundaries; real retained-case runs additionally qualify the normal offline integration.
 - [x] Produce grounded prompt/tool/reference/packing definitions and inference-withheld manifest structure. Actual deployment fields/token fit remain unresolved at the separate gate; no placeholder-bearing manifest can authorize inference.
 - [x] At the first completed mechanical gate, review the older planner entry and independent usefulness readiness. Concrete fixture-compatibility and reviewer/task/packet re-entry conditions recorded; no protected oracle bodies opened or model scores substituted.
-- [ ] Complete D/E from actual evidence, capture remaining risks and select/revise the next coherent responsibility. Do not automatically activate model calls.
+- [x] Complete D/E from actual evidence: no adapter repair indicated; actual model/context/reference qualification handed to the successor, planner fixture drift separately deferred, declaration/runtime ownership unassessed and explicitly deferred. Cycle CLOSED through E; no semantic acceptance or automatic inference follows.
 
 This todo is provisional. Refine it at A0/A2 and at material findings; routine implementation choices do not require new plans, and a material change must be reconciled with its proper owner before affected execution.
 
@@ -31,9 +31,9 @@ All expectations below are hypotheses or intended outputs, not observations or g
 | A2 | DONE — progression directed by Ali | Actual glyphsLib flow/scope/proof taught. Ali selected B; ownership of the declaration/runtime distinction remains unassessed, not passed. |
 | B | DONE | Experiment-owned adapter, bounded scripted driver, protocol/manifest contract and offline qualifier implemented; no product-source changes. Related entry review/dispositions recorded. |
 | Verification gate | GREEN — scoped | 13 new controls, 65 nearest product tests and four real retained-input scripts pass; Ruff/format/import-direction and artifact identity/mode checks pass. Older planner review separately has 23 pass/four inherited fixture errors; no global all-green claim. |
-| D | CURRENT — parallel learning session | Actual packing/visibility, work/publication, native pages and planner drift learning stays with Ali's separate session; this engineering session does not duplicate or assess it. |
-| E | PENDING — parallel learning session | Repair/defer findings and truthful closure remain due here. A material contradiction must block affected successor work; engineering progression alone does not close E. |
-| C | CONTINUOUS | Activation, entry evidence, boundaries and learning handoff preserved in this same record; no competing phase/status file. |
+| D | DONE | Separate learning reviewed packing versus actual model visibility, conservative charging versus receipts, publication failure, partial pages and planner fixture drift. No mechanical contradiction found; declaration/runtime ownership remains explicitly unassessed. |
+| E | DONE — CLOSED | No adapter repair required. Model/session/token/runtime qualification deferred to the successor; planner fixture repair to its owner; independent usefulness separately unestablished; narrow declaration/runtime learning deferred. |
+| C | DONE | Activation, implementation/proof, separate D learning and explicit E deferrals/closure reconciled in this record. |
 
 ## Starting evidence, exclusions and reassessment triggers
 
@@ -146,3 +146,7 @@ Begin D from an actual raw delivery, one structured native/page reference, its p
 ## Subsequent explicit parallel allocation
 
 Ali selected D/E in the parallel supervision/learning session and requested starting the successor here. The pulled companion records that allocation; canonical owners are reconciled now. This supersedes the earlier default E-before-successor stop without marking this cycle closed. D/E findings that invalidate mechanical fidelity, fair comparison, reference/packing behavior or successor entry must be reconciled before affected qualification/inference. The successor owns actual model-session/history semantics; cumulative scripted visibility is not proof of actual model memory. B/Verification evidence and all unanswered ownership questions retain their original limits. This record remains the detailed adapter-cycle owner, the companion remains non-owning, and MEMORY owns live coordination.
+
+## Canonical D/E closure reconciliation
+
+Fetched `60a21c37` and `65ac1783` on October 16; Ali explicitly directed folding their non-owning records into the canonical owners. D found no mechanical repair: prior B/Verification retain their dated horizons. Evidence omitted from the actual model request cannot remain report-eligible merely through cumulative laboratory visibility; actual request/history qualification is the successor obligation. Declaration-versus-installed/runtime/compatibility learning remains unassessed and explicitly deferred, not passed. Planner fixture/API repair remains with the planner owner; independent usefulness remains separately unestablished. E therefore closes this cycle with those named deferrals. The earlier open/parallel paragraphs above preserve scheduling history and are superseded by this closure. No model qualification, semantic correctness or maintainer benefit is established.
