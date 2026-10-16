@@ -153,6 +153,16 @@ def include_tokenizer_bos(rendered, policy, tokenize):
     return rendered
 
 
+def retain_visible_fragment(fragment, sink):
+    """Filter before persistence: partial visible text is evidence, reasoning text is not."""
+    if fragment.get("reasoningType") not in (None, "none"):
+        return False
+    if type(fragment.get("content")) is not str:
+        raise ValueError("invalid visible prediction fragment")
+    sink(fragment["content"].encode("utf-8"))
+    return True
+
+
 class SDKBinding:
     """Pinned installed SDK channel; one fresh explicit history for every prediction.
 
@@ -204,7 +214,7 @@ class SDKBinding:
     def tokenize(self, rendered):
         return list(self.model.tokenize(rendered))
 
-    def predict(self, measured, timeout):
+    def predict(self, measured, timeout, *, visible_sink):
         from lmstudio.json_api import ChatResponseEndpoint
         from lmstudio.sync_api import PredictionStream
 
@@ -215,7 +225,7 @@ class SDKBinding:
             def iter_message_events(endpoint, contents):
                 if contents and contents.get("type") == "fragment":
                     fragment = contents["fragment"]
-                    if fragment.get("reasoningType") not in (None, "none"):
+                    if not retain_visible_fragment(fragment, visible_sink):
                         endpoint.reasoning_observed = True
                         # Do not pass hidden content to the SDK's accumulated result.
                         return
@@ -422,12 +432,23 @@ class StatelessInvestigatorModel:
         usage_validated = False
         self.receipts.append(receipt)
         started = self.clock()
+        fragments_path = prefix.with_suffix(".visible-fragments.txt")
+        descriptor = os.open(
+            fragments_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600
+        )
+        fragments = os.fdopen(descriptor, "wb", buffering=0)
+        response_received = False
         try:
             content, metadata, reasoning = self.binding.predict(
-                measured, min(1800, remaining)
+                measured, min(1800, remaining), visible_sink=fragments.write
             )
+            response_received = True
             private_write(prefix.with_suffix(".visible-response.txt"), content)
             private_write(prefix.with_suffix(".metadata.json"), json_bytes(metadata))
+            if fragments_path.read_bytes() != content:
+                raise ValueError(
+                    "retained visible fragments differ from complete response"
+                )
             if digest(json_bytes(self.configuration)) != self.configuration_sha256:
                 raise ValueError("prediction configuration changed during call")
             stats = metadata["stats"]
@@ -484,6 +505,16 @@ class StatelessInvestigatorModel:
             receipt.update(outcome="failed", problem=f"{type(error).__name__}: {error}")
             raise
         finally:
+            # Unbuffered appends survive client termination; fsync confirms saved data
+            # on handled exits. Partial text never becomes an admitted response.
+            os.fsync(fragments.fileno())
+            fragments.close()
+            partial = fragments_path.read_bytes()
+            receipt.update(
+                visible_fragment_bytes=len(partial),
+                visible_fragments_sha256=digest(partial),
+                complete_response_received=response_received,
+            )
             receipt["elapsed_seconds"] = self.clock() - started
             private_write(prefix.with_suffix(".receipt.json"), json_bytes(receipt))
 

@@ -88,3 +88,14 @@ failures and reports stay in durable owner-only storage outside Git. Public-safe
 contains hashes/counts/limits and reproduction pointers. Local retention is not an
 off-machine backup. The completed mechanical cycle's historical proof remains distinct
 from current real-model qualification and later comparative/semantic/usefulness evidence.
+
+## Interrupted-stream retention
+
+The post-r4 repair persists visible fragments before SDK accumulation so client termination
+does not discard the received prefix. Reasoning fragments are filtered before that write.
+Handled exits fsync the fragment artifact and record its bytes/hash and whether a complete
+response was received. Partial text is never salvaged into an accepted response; missing
+usage stays unknown and blocks further calls in the assignment. This changed retention code
+requires a new source-bound freeze before inference; its new failure path has controlled
+test proof, not a silently inherited live qualification. Historical r4 prefix loss remains
+explicit rather than relabeled as retained.

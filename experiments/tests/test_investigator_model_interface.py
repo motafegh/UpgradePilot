@@ -46,7 +46,7 @@ class Binding:
     def tokenize(self, text):
         return [1] * 10
 
-    def predict(self, measured, timeout):
+    def predict(self, measured, timeout, *, visible_sink):
         self.calls += 1
         metadata = {
             "modelInfo": copy.deepcopy(self.current["model"]),
@@ -61,6 +61,7 @@ class Binding:
             },
         }
         self.edit(metadata)
+        visible_sink(self.response)
         return self.response, metadata, False
 
 
@@ -412,3 +413,49 @@ class QualificationFreezeTests(unittest.TestCase):
         self.assertNotIn(
             "llm.prediction.structured", fields(config()["layers"][0]["config"])
         )
+
+    def test_interrupted_stream_keeps_visible_prefix_and_unknown_usage_without_salvage(
+        self,
+    ):
+        from experiments.investigator_model_interface import retain_visible_fragment
+
+        with tempfile.TemporaryDirectory() as directory:
+            model = StatelessInvestigatorModel(
+                Binding(),
+                config(),
+                ModelLimits(context=10000),
+                Path(directory) / "assignment",
+            )
+
+            def terminated(measured, timeout, *, visible_sink):
+                retain_visible_fragment(
+                    {"content": '{"claims":', "reasoningType": "none"}, visible_sink
+                )
+                retain_visible_fragment(
+                    {
+                        "content": "DO NOT RETAIN HIDDEN TEXT",
+                        "reasoningType": "reasoning",
+                    },
+                    visible_sink,
+                )
+                raise RuntimeError("prediction terminated before success metadata")
+
+            model.binding.predict = terminated
+            with self.assertRaisesRegex(RuntimeError, "terminated"):
+                model(packed())
+            self.assertEqual(
+                (model.directory / "call-01.visible-fragments.txt").read_bytes(),
+                b'{"claims":',
+            )
+            self.assertFalse(
+                (model.directory / "call-01.visible-response.txt").exists()
+            )
+            receipt = json.loads(
+                (model.directory / "call-01.receipt.json").read_bytes()
+            )
+            self.assertEqual(receipt["visible_fragment_bytes"], 10)
+            self.assertIsNone(receipt["usage"])
+            self.assertFalse(receipt["complete_response_received"])
+            self.assertFalse(model.usage_complete)
+            with self.assertRaisesRegex(ValueError, "budget refuses"):
+                model(packed())

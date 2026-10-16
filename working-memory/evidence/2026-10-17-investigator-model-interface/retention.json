@@ -1,0 +1,16 @@
+{
+  "format": "investigator-interface-public-retention/1",
+  "local_root": "/home/motafeq/.local/share/upgradepilot/investigator-runs/deployment-interface-2026-10-16-r1",
+  "private_index": "/home/motafeq/.local/share/upgradepilot/investigator-runs/deployment-interface-2026-10-16-r1/retention-index.json",
+  "private_index_sha256": "050c07e4cab8141aaa77f0df6b8f1198a81857a9a84945dcd27298ff2348ab54",
+  "files": 3231,
+  "bytes": 81152410,
+  "owner_only_modes": "0700 directories/0600 files; validated",
+  "hashes_rechecked": 3231,
+  "model_weights": "Existing durable /mnt/f/LLM paths frozen by file identity; not copied into Git",
+  "limits": [
+    "Original interrupted r4 prefix unavailable; post-repair visible stream capture controlled-tested",
+    "Local disk retention is not off-machine backup",
+    "No active qualifier/sampler process or loaded core model at reconciliation"
+  ]
+}

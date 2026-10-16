@@ -89,3 +89,36 @@ CLI preparation additionally requires the retained `gemma-tokenizer-policy.json`
 `qwen-tokenizer-policy.json` via `--tokenizer-policy`. The schema/BOS preflight produced no
 new predictions; only execution under the exact r4 hash is admitted. Final focused controls
 are26; product source and the earlier65-test proof horizon are unchanged.
+
+## Final interrupted-run disposition and retention verification
+
+[Actual scalar results](actual-results.json), [separate interruption reconciliation](reconciled-interrupted-r4.json)
+and [final verification](verification.json) preserve the outcome without overwriting any
+original request/response/receipt. There was no original final `canary-r4/summary.json`;
+`canary-r4/reconciled-summary.json` is explicitly a later reconciliation. No qualifier or
+sampler process remained, and both core models were observed unloaded; no run was restarted.
+
+Gemma is withheld for skipping the empty read despite a completed valid cited report.
+Qwen passed structured/short, then raw/short report call5 terminated with unknown usage;
+its long sequences are withheld. This interruption does not diagnose model semantic
+quality. Total19 attempted calls are below48: known reported44,124 input/2,443 target
+generated plus1,551 additional draft tokens, with one call's usage unknown. Native versus
+client timing for Qwen's completed report differs(657.84s versus603.08s); preserve both,
+without inferring a precise ranking. Actual near-envelope model inference remains unproved.
+
+The interrupted report prefix was unavailable because the old binding retained text only
+on success. The repaired source now writes visible fragments before completion and filters
+reasoning before persistence. Its discriminating interruption test proves prefix retention,
+no hidden-text retention, no partial-response salvage and unknown-usage blocking. All27
+focused controls,65 nearest product tests and four final offline retained-input scripts
+pass. No live prediction was made after the repair; old freezes refuse its changed code.
+Future inference needs a fresh explicit freeze/re-entry, never selective replay of r4.
+
+All consequential private files are indexed by `retention-index.json` under the durable
+root, including the exact preserved SDK, source snapshots, original outputs/failed
+receipts, rendered inputs, current retention repair, preparation scripts/metadata,
+mechanical regressions and sampled telemetry. Owner-only modes and hashes are validated;
+public `retention.json` points to the private index without publishing bodies. Model
+weights remain at their recorded durable `/mnt/f/LLM/` paths. Local retention is not
+off-machine backup. The current cycle remains at B/Verification with both deployments
+withheld; its D/E and later semantic comparison are not silently completed.

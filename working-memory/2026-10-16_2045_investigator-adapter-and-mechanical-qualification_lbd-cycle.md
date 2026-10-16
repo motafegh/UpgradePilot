@@ -143,7 +143,7 @@ Begin D from an actual raw delivery, one structured native/page reference, its p
 
 **Final owner/evidence validation:** five Markdown documents, 73 local links/ten anchors, fences/newlines, whitespace and B-done/scoped-green/D-current/E-pending consistency pass; all four public evidence JSON files parse. All nine governance checks ran: eight pass, only inherited root `examples/` owner-marker debt remains. Final source/format and private artifact hash/mode/termination correspondence pass. Publication includes only the new experiment/proof/guide and relevant plan/live/cycle records; raw/private artifacts, model weights and the unrelated October 3 audit are excluded.
 
-## Subsequent explicit parallel allocation
+## Historical parallel allocation (superseded by E closure)
 
 Ali selected D/E in the parallel supervision/learning session and requested starting the successor here. The pulled companion records that allocation; canonical owners are reconciled now. This supersedes the earlier default E-before-successor stop without marking this cycle closed. D/E findings that invalidate mechanical fidelity, fair comparison, reference/packing behavior or successor entry must be reconciled before affected qualification/inference. The successor owns actual model-session/history semantics; cumulative scripted visibility is not proof of actual model memory. B/Verification evidence and all unanswered ownership questions retain their original limits. This record remains the detailed adapter-cycle owner, the companion remains non-owning, and MEMORY owns live coordination.
 

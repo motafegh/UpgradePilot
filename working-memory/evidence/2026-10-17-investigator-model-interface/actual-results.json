@@ -1,0 +1,651 @@
+{
+  "format": "investigator-interface-actual-results/1",
+  "observed_at": "2026-10-16T23:34:45.250167+00:00",
+  "runs": {
+    "canary-r3": {
+      "assignments": [
+        {
+          "assignment": {
+            "id": "g12-raw-1",
+            "model_key": "google/gemma-4-12b",
+            "sequence": 1,
+            "treatment": "raw"
+          },
+          "disposition": "withheld",
+          "disposition_reason": "required canary sequence did not complete",
+          "known_generated_tokens": 37,
+          "known_input_tokens": 1818,
+          "model_attempts": 1,
+          "outcome": "failed",
+          "problem": "ValueError: actual prompt usage differs from fully rendered tokenizer measurement",
+          "reasoning_tokens": null,
+          "usage_complete": true
+        },
+        {
+          "assignment": {
+            "id": "q38-structured-1",
+            "model_key": "qwen3.8-27b-ud",
+            "sequence": 1,
+            "treatment": "structured"
+          },
+          "disposition": "withheld",
+          "disposition_reason": "required canary sequence did not complete",
+          "known_generated_tokens": 35,
+          "known_input_tokens": 8858,
+          "model_attempts": 4,
+          "outcome": "failed",
+          "problem": null,
+          "reasoning_tokens": null,
+          "usage_complete": true
+        },
+        {
+          "assignment": {
+            "id": "g12-structured-1",
+            "model_key": "google/gemma-4-12b",
+            "sequence": 1,
+            "treatment": "structured"
+          },
+          "disposition": "withheld_before_call",
+          "disposition_reason": "earlier canary withheld this deployment",
+          "model_attempts": 0
+        },
+        {
+          "assignment": {
+            "id": "g12-structured-2",
+            "model_key": "google/gemma-4-12b",
+            "sequence": 2,
+            "treatment": "structured"
+          },
+          "disposition": "withheld_before_call",
+          "disposition_reason": "earlier canary withheld this deployment",
+          "model_attempts": 0
+        },
+        {
+          "assignment": {
+            "id": "g12-raw-2",
+            "model_key": "google/gemma-4-12b",
+            "sequence": 2,
+            "treatment": "raw"
+          },
+          "disposition": "withheld_before_call",
+          "disposition_reason": "earlier canary withheld this deployment",
+          "model_attempts": 0
+        },
+        {
+          "assignment": {
+            "id": "q38-raw-1",
+            "model_key": "qwen3.8-27b-ud",
+            "sequence": 1,
+            "treatment": "raw"
+          },
+          "disposition": "withheld_before_call",
+          "disposition_reason": "earlier canary withheld this deployment",
+          "model_attempts": 0
+        },
+        {
+          "assignment": {
+            "id": "q38-raw-2",
+            "model_key": "qwen3.8-27b-ud",
+            "sequence": 2,
+            "treatment": "raw"
+          },
+          "disposition": "withheld_before_call",
+          "disposition_reason": "earlier canary withheld this deployment",
+          "model_attempts": 0
+        },
+        {
+          "assignment": {
+            "id": "q38-structured-2",
+            "model_key": "qwen3.8-27b-ud",
+            "sequence": 2,
+            "treatment": "structured"
+          },
+          "disposition": "withheld_before_call",
+          "disposition_reason": "earlier canary withheld this deployment",
+          "model_attempts": 0
+        }
+      ],
+      "semantic_comparison_runs": 0,
+      "attempted_calls": 5,
+      "calls_with_unknown_usage": 0,
+      "known_reported_input_tokens": 10676,
+      "known_reported_target_generated_tokens": 72,
+      "reported_draft_tokens": 36,
+      "call_receipts": [
+        {
+          "assignment": "g12-raw-1",
+          "call": 1,
+          "outcome": "failed",
+          "problem": "ValueError: actual prompt usage differs from fully rendered tokenizer measurement",
+          "measured_input": 1817,
+          "reported_usage": {
+            "predictedTokensCount": 37,
+            "promptTokensCount": 1818,
+            "stopReason": "eosFound",
+            "timeToFirstTokenSec": 6.098658,
+            "tokensPerSecond": 7.879154776803243,
+            "totalTimeSec": 10.667676,
+            "totalTokensCount": 1855
+          },
+          "elapsed_seconds": 9.798253175000127,
+          "reasoning_fragment_observed": false,
+          "rendered_sha256": "f37d58ed5bb127458d46e791a9bacd54e3e317d5c7dbd75ba038d202eacb6d2f"
+        },
+        {
+          "assignment": "q38-structured-1",
+          "call": 1,
+          "outcome": "returned",
+          "problem": null,
+          "measured_input": 1839,
+          "reported_usage": {
+            "acceptedDraftTokensCount": 1,
+            "predictedTokensCount": 5,
+            "promptTokensCount": 1839,
+            "rejectedDraftTokensCount": 8,
+            "stopReason": "eosFound",
+            "timeToFirstTokenSec": 19.161896000000002,
+            "tokensPerSecond": 1.3076459365556345,
+            "totalDraftTokensCount": 9,
+            "totalTimeSec": 22.220828,
+            "totalTokensCount": 1844
+          },
+          "elapsed_seconds": 20.4582266540001,
+          "reasoning_fragment_observed": false,
+          "rendered_sha256": "437bb1146b15f38910055c24164f860fef0d3b0dca3fd702a61ee3bb07c69293"
+        },
+        {
+          "assignment": "q38-structured-1",
+          "call": 2,
+          "outcome": "returned",
+          "problem": null,
+          "measured_input": 1880,
+          "reported_usage": {
+            "acceptedDraftTokensCount": 19,
+            "predictedTokensCount": 26,
+            "promptTokensCount": 1880,
+            "rejectedDraftTokensCount": 2,
+            "stopReason": "eosFound",
+            "timeToFirstTokenSec": 12.94665,
+            "tokensPerSecond": 4.261375742544724,
+            "totalDraftTokensCount": 21,
+            "totalTimeSec": 18.813299999999998,
+            "totalTokensCount": 1906
+          },
+          "elapsed_seconds": 17.42562182300003,
+          "reasoning_fragment_observed": false,
+          "rendered_sha256": "dd430779e489d8c2a66ed1c788b45d40383c6ba1f82b57e9dc715b8006698cb8"
+        },
+        {
+          "assignment": "q38-structured-1",
+          "call": 3,
+          "outcome": "returned",
+          "problem": null,
+          "measured_input": 2549,
+          "reported_usage": {
+            "acceptedDraftTokensCount": 0,
+            "predictedTokensCount": 2,
+            "promptTokensCount": 2549,
+            "rejectedDraftTokensCount": 3,
+            "stopReason": "eosFound",
+            "timeToFirstTokenSec": 16.803346,
+            "tokensPerSecond": 1.2790749729795412,
+            "totalDraftTokensCount": 3,
+            "totalTimeSec": 17.585161,
+            "totalTokensCount": 2551
+          },
+          "elapsed_seconds": 16.468834685000047,
+          "reasoning_fragment_observed": false,
+          "rendered_sha256": "95bd62cc326c96d7682cb03b1620c5ab819e593760e2aabed429f034915aeb98"
+        },
+        {
+          "assignment": "q38-structured-1",
+          "call": 4,
+          "outcome": "returned",
+          "problem": null,
+          "measured_input": 2590,
+          "reported_usage": {
+            "acceptedDraftTokensCount": 0,
+            "predictedTokensCount": 2,
+            "promptTokensCount": 2590,
+            "rejectedDraftTokensCount": 3,
+            "stopReason": "eosFound",
+            "timeToFirstTokenSec": 18.658904,
+            "tokensPerSecond": 1.2113547549308195,
+            "totalDraftTokensCount": 3,
+            "totalTimeSec": 19.484426,
+            "totalTokensCount": 2592
+          },
+          "elapsed_seconds": 18.050271187999897,
+          "reasoning_fragment_observed": false,
+          "rendered_sha256": "d940513560fa5b3bc97a62b7d46f534f051d356cfce3ee52899705f35fa3926b"
+        }
+      ]
+    },
+    "canary-r4": {
+      "format": "investigator-interface-reconciled-interrupted-run/1",
+      "reconciled_at": "2026-10-16T23:34:45.228610+00:00",
+      "assignments": [
+        {
+          "assignment": {
+            "id": "g12-raw-1",
+            "model_key": "google/gemma-4-12b",
+            "sequence": 1,
+            "treatment": "raw"
+          },
+          "disposition": "withheld",
+          "disposition_reason": "required canary sequence did not complete",
+          "known_generated_tokens": 788,
+          "known_input_tokens": 9600,
+          "model_attempts": 4,
+          "outcome": "completed",
+          "problem": null,
+          "reasoning_tokens": null,
+          "usage_complete": true
+        },
+        {
+          "assignment": {
+            "id": "g12-structured-1",
+            "model_key": "google/gemma-4-12b",
+            "treatment": "structured",
+            "sequence": 1
+          },
+          "disposition": "withheld_before_call",
+          "model_attempts": 0,
+          "disposition_reason": "Gemma prior behavior gate failed"
+        },
+        {
+          "assignment": {
+            "id": "g12-structured-2",
+            "model_key": "google/gemma-4-12b",
+            "treatment": "structured",
+            "sequence": 2
+          },
+          "disposition": "withheld_before_call",
+          "model_attempts": 0,
+          "disposition_reason": "Gemma prior behavior gate failed"
+        },
+        {
+          "assignment": {
+            "id": "g12-raw-2",
+            "model_key": "google/gemma-4-12b",
+            "treatment": "raw",
+            "sequence": 2
+          },
+          "disposition": "withheld_before_call",
+          "model_attempts": 0,
+          "disposition_reason": "Gemma prior behavior gate failed"
+        },
+        {
+          "assignment": {
+            "id": "q38-structured-1",
+            "model_key": "qwen3.8-27b-ud",
+            "sequence": 1,
+            "treatment": "structured"
+          },
+          "disposition": "qualified",
+          "disposition_reason": "bounded synthetic interface sequence completed; no semantic acceptance",
+          "known_generated_tokens": 1503,
+          "known_input_tokens": 13660,
+          "model_attempts": 5,
+          "outcome": "completed",
+          "problem": null,
+          "reasoning_tokens": null,
+          "usage_complete": true
+        },
+        {
+          "assignment": {
+            "id": "q38-raw-1",
+            "model_key": "qwen3.8-27b-ud",
+            "sequence": 1,
+            "treatment": "raw"
+          },
+          "disposition": "withheld",
+          "disposition_reason": "required canary sequence did not complete",
+          "known_generated_tokens": 80,
+          "known_input_tokens": 10188,
+          "model_attempts": 5,
+          "outcome": "failed",
+          "problem": "LMStudioServerError: Chat response error: terminated",
+          "reasoning_tokens": null,
+          "usage_complete": false
+        },
+        {
+          "assignment": {
+            "id": "q38-raw-2",
+            "model_key": "qwen3.8-27b-ud",
+            "treatment": "raw",
+            "sequence": 2
+          },
+          "disposition": "withheld_before_call",
+          "model_attempts": 0,
+          "disposition_reason": "Qwen raw report terminated during interrupted run; no automatic retry"
+        },
+        {
+          "assignment": {
+            "id": "q38-structured-2",
+            "model_key": "qwen3.8-27b-ud",
+            "treatment": "structured",
+            "sequence": 2
+          },
+          "disposition": "withheld_before_call",
+          "model_attempts": 0,
+          "disposition_reason": "Qwen raw report terminated during interrupted run; no automatic retry"
+        }
+      ],
+      "semantic_comparison_runs": 0,
+      "interruption": "Conversation/tool processes interrupted; final original batch summary was not published. Per-call/assignment originals preserved unchanged. Cause of server termination is not established.",
+      "inference_restarted": false,
+      "original_final_summary_missing": true,
+      "attempted_calls": 14,
+      "calls_with_unknown_usage": 1,
+      "known_reported_input_tokens": 33448,
+      "known_reported_target_generated_tokens": 2371,
+      "reported_draft_tokens": 1515,
+      "call_receipts": [
+        {
+          "assignment": "g12-raw-1",
+          "call": 1,
+          "outcome": "returned",
+          "problem": null,
+          "measured_input": 1823,
+          "reported_usage": {
+            "predictedTokensCount": 34,
+            "promptTokensCount": 1823,
+            "stopReason": "eosFound",
+            "timeToFirstTokenSec": 6.12079,
+            "tokensPerSecond": 8.440115716544085,
+            "totalTimeSec": 10.030689,
+            "totalTokensCount": 1857
+          },
+          "elapsed_seconds": 9.228493929000251,
+          "reasoning_fragment_observed": false,
+          "rendered_sha256": "8be45e04798d4091de9d42db8f0fcfd31173f5c83fc0a9be7312b4211a0ad909"
+        },
+        {
+          "assignment": "g12-raw-1",
+          "call": 2,
+          "outcome": "returned",
+          "problem": null,
+          "measured_input": 2514,
+          "reported_usage": {
+            "predictedTokensCount": 44,
+            "promptTokensCount": 2514,
+            "stopReason": "eosFound",
+            "timeToFirstTokenSec": 5.999462,
+            "tokensPerSecond": 7.973451004163439,
+            "totalTimeSec": 11.392359,
+            "totalTokensCount": 2558
+          },
+          "elapsed_seconds": 10.59896156700006,
+          "reasoning_fragment_observed": false,
+          "rendered_sha256": "19aa6116b2fe82b305049678ae035ba36df94bbc0e0148bd347f14f5242fd059"
+        },
+        {
+          "assignment": "g12-raw-1",
+          "call": 3,
+          "outcome": "returned",
+          "problem": null,
+          "measured_input": 2872,
+          "reported_usage": {
+            "predictedTokensCount": 26,
+            "promptTokensCount": 2872,
+            "stopReason": "eosFound",
+            "timeToFirstTokenSec": 7.131034,
+            "tokensPerSecond": 7.965063320660387,
+            "totalTimeSec": 10.269741,
+            "totalTokensCount": 2898
+          },
+          "elapsed_seconds": 9.598103424999863,
+          "reasoning_fragment_observed": false,
+          "rendered_sha256": "b741d0e67a7b4193ad1af8094cef6f96406f7959fbbba1eb492e1a551f3a864a"
+        },
+        {
+          "assignment": "g12-raw-1",
+          "call": 4,
+          "outcome": "returned",
+          "problem": null,
+          "measured_input": 2391,
+          "reported_usage": {
+            "predictedTokensCount": 684,
+            "promptTokensCount": 2391,
+            "stopReason": "eosFound",
+            "timeToFirstTokenSec": 3.9949380000000003,
+            "tokensPerSecond": 6.6011037567384045,
+            "totalTimeSec": 107.46248299999999,
+            "totalTokensCount": 3075
+          },
+          "elapsed_seconds": 98.6778547140002,
+          "reasoning_fragment_observed": false,
+          "rendered_sha256": "5d977bd1e159de4c9be7ed50fe4c03b1401fd29ef15e50ffecc8a9cf92b1b682"
+        },
+        {
+          "assignment": "q38-raw-1",
+          "call": 1,
+          "outcome": "returned",
+          "problem": null,
+          "measured_input": 1709,
+          "reported_usage": {
+            "acceptedDraftTokensCount": 14,
+            "predictedTokensCount": 20,
+            "promptTokensCount": 1709,
+            "rejectedDraftTokensCount": 4,
+            "stopReason": "eosFound",
+            "timeToFirstTokenSec": 12.297891,
+            "tokensPerSecond": 2.1311402778221766,
+            "totalDraftTokensCount": 18,
+            "totalTimeSec": 21.213306,
+            "totalTokensCount": 1729
+          },
+          "elapsed_seconds": 19.726665452999896,
+          "reasoning_fragment_observed": false,
+          "rendered_sha256": "3e2a9e790b01ea4a36ee442e0ed2940db3d7f8e65c238d7d50118afba6fd7173"
+        },
+        {
+          "assignment": "q38-raw-1",
+          "call": 2,
+          "outcome": "returned",
+          "problem": null,
+          "measured_input": 2380,
+          "reported_usage": {
+            "acceptedDraftTokensCount": 20,
+            "predictedTokensCount": 27,
+            "promptTokensCount": 2380,
+            "rejectedDraftTokensCount": 1,
+            "stopReason": "eosFound",
+            "timeToFirstTokenSec": 17.463593,
+            "tokensPerSecond": 2.5975450601636396,
+            "totalDraftTokensCount": 21,
+            "totalTimeSec": 27.473044,
+            "totalTokensCount": 2407
+          },
+          "elapsed_seconds": 25.42310635399963,
+          "reasoning_fragment_observed": false,
+          "rendered_sha256": "e9208f60385653bacb87d447b7aab60ba963a430498ddac7d067f90becfd29bc"
+        },
+        {
+          "assignment": "q38-raw-1",
+          "call": 3,
+          "outcome": "returned",
+          "problem": null,
+          "measured_input": 2722,
+          "reported_usage": {
+            "acceptedDraftTokensCount": 14,
+            "predictedTokensCount": 20,
+            "promptTokensCount": 2722,
+            "rejectedDraftTokensCount": 4,
+            "stopReason": "eosFound",
+            "timeToFirstTokenSec": 19.272420999999998,
+            "tokensPerSecond": 1.5175566124494273,
+            "totalDraftTokensCount": 18,
+            "totalTimeSec": 31.792547,
+            "totalTokensCount": 2742
+          },
+          "elapsed_seconds": 29.395075249,
+          "reasoning_fragment_observed": false,
+          "rendered_sha256": "14d1c327322261311c973f95497dddf89462d485fa1dfc182a907075a38f912c"
+        },
+        {
+          "assignment": "q38-raw-1",
+          "call": 4,
+          "outcome": "returned",
+          "problem": null,
+          "measured_input": 3377,
+          "reported_usage": {
+            "acceptedDraftTokensCount": 8,
+            "predictedTokensCount": 13,
+            "promptTokensCount": 3377,
+            "rejectedDraftTokensCount": 4,
+            "stopReason": "eosFound",
+            "timeToFirstTokenSec": 29.612056,
+            "tokensPerSecond": 1.2449088415500775,
+            "totalDraftTokensCount": 12,
+            "totalTimeSec": 39.251315999999996,
+            "totalTokensCount": 3390
+          },
+          "elapsed_seconds": 36.25841151600025,
+          "reasoning_fragment_observed": false,
+          "rendered_sha256": "ce0c97fb0a2ea18210d9ace3a69ec84ef148ba6d201865d79646ec0b6c7cb3af"
+        },
+        {
+          "assignment": "q38-raw-1",
+          "call": 5,
+          "outcome": "failed",
+          "problem": "LMStudioServerError: Chat response error: terminated",
+          "measured_input": 2942,
+          "reported_usage": null,
+          "elapsed_seconds": 166.3837327860001,
+          "reasoning_fragment_observed": null,
+          "rendered_sha256": "fc178df8b870188bbfd1bdf59766fa09b37d31fbbf63406705012cc55f39fe49"
+        },
+        {
+          "assignment": "q38-structured-1",
+          "call": 1,
+          "outcome": "returned",
+          "problem": null,
+          "measured_input": 1842,
+          "reported_usage": {
+            "acceptedDraftTokensCount": 18,
+            "predictedTokensCount": 26,
+            "promptTokensCount": 1842,
+            "rejectedDraftTokensCount": 3,
+            "stopReason": "eosFound",
+            "timeToFirstTokenSec": 16.552561,
+            "tokensPerSecond": 2.4963064649544533,
+            "totalDraftTokensCount": 21,
+            "totalTimeSec": 26.567357000000005,
+            "totalTokensCount": 1868
+          },
+          "elapsed_seconds": 24.385555114,
+          "reasoning_fragment_observed": false,
+          "rendered_sha256": "040038a51883a48254c84ff9ca426c4969f5017f66d5ae17a9be14cfb147035a"
+        },
+        {
+          "assignment": "q38-structured-1",
+          "call": 2,
+          "outcome": "returned",
+          "problem": null,
+          "measured_input": 2510,
+          "reported_usage": {
+            "acceptedDraftTokensCount": 19,
+            "predictedTokensCount": 27,
+            "promptTokensCount": 2510,
+            "rejectedDraftTokensCount": 5,
+            "stopReason": "eosFound",
+            "timeToFirstTokenSec": 17.642,
+            "tokensPerSecond": 2.2937667682070164,
+            "totalDraftTokensCount": 24,
+            "totalTimeSec": 28.977066999999998,
+            "totalTokensCount": 2537
+          },
+          "elapsed_seconds": 26.77033829200036,
+          "reasoning_fragment_observed": false,
+          "rendered_sha256": "ea640593a53807302bf1df2d6db6b580d3800eb136d0b4cbca8226deaff3702f"
+        },
+        {
+          "assignment": "q38-structured-1",
+          "call": 3,
+          "outcome": "returned",
+          "problem": null,
+          "measured_input": 2856,
+          "reported_usage": {
+            "acceptedDraftTokensCount": 18,
+            "predictedTokensCount": 26,
+            "promptTokensCount": 2856,
+            "rejectedDraftTokensCount": 6,
+            "stopReason": "eosFound",
+            "timeToFirstTokenSec": 24.931670999999998,
+            "tokensPerSecond": 2.0991987274489374,
+            "totalDraftTokensCount": 24,
+            "totalTimeSec": 36.840977,
+            "totalTokensCount": 2882
+          },
+          "elapsed_seconds": 34.0117882479999,
+          "reasoning_fragment_observed": false,
+          "rendered_sha256": "6b070e4685a7c3398881b9d5b1d749f0cf34a83767ac48ce39408113355fecd8"
+        },
+        {
+          "assignment": "q38-structured-1",
+          "call": 4,
+          "outcome": "returned",
+          "problem": null,
+          "measured_input": 3508,
+          "reported_usage": {
+            "acceptedDraftTokensCount": 9,
+            "predictedTokensCount": 13,
+            "promptTokensCount": 3508,
+            "rejectedDraftTokensCount": 0,
+            "stopReason": "eosFound",
+            "timeToFirstTokenSec": 26.835176999999998,
+            "tokensPerSecond": 2.1457596659767453,
+            "totalDraftTokensCount": 9,
+            "totalTimeSec": 32.427602,
+            "totalTokensCount": 3521
+          },
+          "elapsed_seconds": 30.126245540000127,
+          "reasoning_fragment_observed": false,
+          "rendered_sha256": "4eb4ae793e4657aa6cc8f6f21941c208c62afe22f073e0be05a5f9fa2cd6a541"
+        },
+        {
+          "assignment": "q38-structured-1",
+          "call": 5,
+          "outcome": "returned",
+          "problem": null,
+          "measured_input": 2944,
+          "reported_usage": {
+            "acceptedDraftTokensCount": 954,
+            "predictedTokensCount": 1411,
+            "promptTokensCount": 2944,
+            "rejectedDraftTokensCount": 414,
+            "stopReason": "eosFound",
+            "timeToFirstTokenSec": 25.597063,
+            "tokensPerSecond": 2.230155925479691,
+            "totalDraftTokensCount": 1368,
+            "totalTimeSec": 657.839851,
+            "totalTokensCount": 4355
+          },
+          "elapsed_seconds": 603.076901941,
+          "reasoning_fragment_observed": false,
+          "rendered_sha256": "f963365d68ee129bd6806718aa447d3c72eb7c356e43ae9e1db60efe5a02f159"
+        }
+      ]
+    }
+  },
+  "later_semantic_comparison_runs": 0,
+  "limits": [
+    "Known reported usage is separate from unknown failed-call usage",
+    "Unreported reasoning counts remain unknown, not zero",
+    "Draft tokens are separately reported additional runtime work",
+    "Sampled machine memory is not a continuous/per-process peak",
+    "Canary completion is not semantic or generalization acceptance"
+  ],
+  "attempted_calls_total": 19,
+  "original_cycle_call_ceiling": 48,
+  "sampled_machine_resources": {
+    "samples": 2755,
+    "gpu_peak_used_mib": 5466,
+    "host_minimum_free_kib": 22237892,
+    "host_total_kib": 66826744,
+    "scope": "Entire retained telemetry period, including preparation/idles; not isolated process consumption",
+    "sampling": "GPU about1s/host about5s"
+  }
+}

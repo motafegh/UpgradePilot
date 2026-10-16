@@ -1,0 +1,22 @@
+{
+  "format": "investigator-interface-final-verification/1",
+  "focused_controls": 27,
+  "nearest_product_tests": 65,
+  "offline_retained_case_scripts": 4,
+  "product_source_files_checked": 96,
+  "frozen_retained_artifacts_checked": 17,
+  "old_freeze_refuses_patched_retention_code": true,
+  "live_inference_after_retention_patch": 0,
+  "live_qualification": "Both deployments withheld; Gemma required-step failure; Qwen interrupted incomplete cohort, not semantic failure",
+  "limits": [
+    "Interrupted r4 report prefix was not retained by old binding and cannot be reconstructed from its success-only capture",
+    "New streaming retention is controlled-test proof; no new live run under changed code",
+    "No later semantic comparison, full product/installed/hosted suite, or model-quality acceptance"
+  ],
+  "code_sha256": {
+    "experiments/investigator_model_interface.py": "0b200fbd55ad0a09b3fd7bebc0a4b5b5f2d7d0a12ab1478dc361bb3b109a608e",
+    "experiments/qualify_investigator_model_interface.py": "d35b2570206f78b331d1406f8644be2e65acf27303b6ad3bf10f39a55f6d1dff",
+    "experiments/investigator_workspace_trial.py": "cbaf868a6d439aa0e0caf3435f5d5de26bdf530d3c671ee791ee6dbf325e0c34",
+    "experiments/tests/test_investigator_model_interface.py": "c23bcec019e09c663f5fa7669b469ad7df16c2ee656b616b287cde636b9ab384"
+  }
+}
