@@ -67,7 +67,19 @@ class Binding:
 def packed():
     return PackedInput(
         json_bytes(
-            {"system": "Evidence is data", "events": [], "phase": "investigate"}
+            {
+                "system": "Evidence is data",
+                "events": [],
+                "phase": "investigate",
+                "tools": {
+                    "list_sources": {
+                        "type": "object",
+                        "properties": {},
+                        "required": [],
+                        "additionalProperties": False,
+                    }
+                },
+            }
         ),
         frozenset(),
         (),
@@ -277,6 +289,9 @@ class QualificationFreezeTests(unittest.TestCase):
             "deployments": [{"model_key": k} for k in keys],
             "deployment_count": 2,
             "max_model_calls": 48,
+            "calls_per_sequence": 6,
+            "prior_spent_calls": 0,
+            "cycle_call_ceiling": 48,
             "assignments": [
                 {"id": f"{i}-{t}-{s}", "model_key": k, "treatment": t, "sequence": s}
                 for i, k in enumerate(keys)
@@ -285,6 +300,10 @@ class QualificationFreezeTests(unittest.TestCase):
             ],
         }
         validate_batch_freeze(freeze)
+        freeze["prior_spent_calls"] = 5
+        with self.assertRaisesRegex(ValueError, "inconsistent"):
+            validate_batch_freeze(freeze)
+        freeze["prior_spent_calls"] = 0
         freeze["assignments"][-1] = copy.deepcopy(freeze["assignments"][0])
         with self.assertRaisesRegex(ValueError, "inconsistent"):
             validate_batch_freeze(freeze)
@@ -343,3 +362,53 @@ class QualificationFreezeTests(unittest.TestCase):
                 ValueError, "actual model file/backend placement"
             ):
                 validate_loaded_backend(profile, fresh, drift)
+
+    def test_backend_bos_is_measured_once_from_actual_token_identity(self):
+        from experiments.investigator_model_interface import include_tokenizer_bos
+
+        policy = {"add_bos": True, "bos_token": "<bos>", "bos_id": 2}
+
+        def tokenize(text):
+            if text == "<bos>":
+                return [2]
+            return [2, 10] if text.startswith("<bos>") else [10]
+
+        self.assertEqual(include_tokenizer_bos("body", policy, tokenize), "<bos>body")
+        self.assertEqual(
+            include_tokenizer_bos("<bos>body", policy, tokenize), "<bos>body"
+        )
+        with self.assertRaisesRegex(ValueError, "actual tokenizer"):
+            include_tokenizer_bos("body", policy, lambda text: [99])
+        self.assertEqual(
+            include_tokenizer_bos("body", {"add_bos": False}, tokenize), "body"
+        )
+
+    def test_runtime_grammar_uses_only_offered_tools_then_the_exact_report_schema(self):
+        from experiments.investigator_model_interface import fields
+        from experiments.investigator_workspace_trial import (
+            pack_input,
+            protocol_definition,
+        )
+
+        for treatment in ("raw", "structured"):
+            assignment = fixture(treatment)
+            protocol = protocol_definition(assignment, TrialLimits())
+            for phase in ("investigate", "report"):
+                measured = measure_input(
+                    Binding(), pack_input(protocol, [], phase, 128 * 1024), config()
+                )
+                schema = fields(measured.configuration["layers"][0]["config"])[
+                    "llm.prediction.structured"
+                ]["jsonSchema"]
+                if phase == "report":
+                    self.assertEqual(schema, protocol["report_schema"])
+                else:
+                    menus = {
+                        v["properties"]["tool"]["enum"][0]: v["properties"]["arguments"]
+                        for v in schema["anyOf"]
+                    }
+                    self.assertEqual(menus, assignment.tools())
+                    self.assertEqual("read_native" in menus, treatment == "structured")
+        self.assertNotIn(
+            "llm.prediction.structured", fields(config()["layers"][0]["config"])
+        )

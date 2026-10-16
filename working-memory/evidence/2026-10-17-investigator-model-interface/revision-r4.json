@@ -1,0 +1,47 @@
+{
+  "format": "investigator-interface-preflight-r4/1",
+  "prior_calls_spent": 5,
+  "maximum_new_calls": 40,
+  "aggregate_ceiling": 45,
+  "original_cycle_ceiling": 48,
+  "tests_passed": 26,
+  "models": [
+    {
+      "model_key": "google/gemma-4-12b",
+      "profile_sha256": "c54394759238ca10b06a389b59326429177800c85b7c53258db68224fd26bb05",
+      "measured_shapes": 12,
+      "input_tokens_min": 1823,
+      "input_tokens_max": 22476,
+      "tokenizer_policy": {
+        "add_bos": true,
+        "bos_id": 2,
+        "bos_token": "<bos>",
+        "evidence": "Gemma metadata explicitly add_bos_token=true; initial actual prompt count was rendered+1. Qwen measured prompt count exactly matched without automatic BOS; metadata does not enable it.",
+        "gguf_path": "/mnt/f/LLM/lmstudio-community/gemma-4-12B-it-GGUF/gemma-4-12B-it-Q4_K_M.gguf",
+        "gguf_sha256": "c088a44859de42a1966851b552ba628c0ff4419b87c4622539d69430f40024ed",
+        "tokenizer_metadata_sha256": "f9e7403f372562ec69a2b14aa59efbecf585e22605fa6bae49629af6b29300d4"
+      },
+      "mtp": null
+    },
+    {
+      "model_key": "qwen3.8-27b-ud",
+      "profile_sha256": "96734033cdf4e4c56fb935230ba17073330a93f4df0d2040225f346a1f472625",
+      "measured_shapes": 12,
+      "input_tokens_min": 1709,
+      "input_tokens_max": 22295,
+      "tokenizer_policy": {
+        "add_bos": false,
+        "bos_id": 248044,
+        "bos_token": "<|endoftext|>",
+        "evidence": "Gemma metadata explicitly add_bos_token=true; initial actual prompt count was rendered+1. Qwen measured prompt count exactly matched without automatic BOS; metadata does not enable it.",
+        "gguf_path": "/mnt/f/LLM/lmstudio-community/Qwen3.8-27B-UD-Q4_K_M/Qwen3.8-27B-UD-Q4_K_M.gguf",
+        "gguf_sha256": "322e194ff79741c7baa497c240f677f54b201b0efab44ca8e50f122b39123482",
+        "tokenizer_metadata_sha256": "ef9c99f93033a32533fbc12f9a643299496d898df806801c7e7b1edd77f9e3dd"
+      },
+      "mtp": true
+    }
+  ],
+  "freeze_sha256": "f40d40c7043c9ebbe244c8f24e5597534fcef106109b34f632973cd8fac55203",
+  "proof": "Inspected exact rendered requests, stage grammar and eligible references; BOS spelling/id verified from actual GGUF and live tokenizer. No new predictions before freeze.",
+  "later_semantic_comparison_runs": 0
+}

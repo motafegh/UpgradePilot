@@ -21,7 +21,10 @@ complete events actually included in this request. Omitted evidence must be re-r
 read-back pages retain their `trial_event` strength, not the original source strength.
 
 The same actual loaded template and prediction configuration stack render and predict.
-The full packed input and every eligible reference must survive rendering. The loaded
+The full packed input and every eligible reference must survive rendering. Automatic
+backend BOS insertion is represented explicitly from verified GGUF special-token identity;
+the SDK-rendered body alone may omit that token. Per-request runtime JSON grammar derives
+from the offered closed tool schemas, or the final report schema, without output repair. The loaded
 model tokenizes that exact rendering. Capacity admission reserves generated tokens and
 an explicit margin; token overflow removes whole events rather than shortening source
 text. A fixed prompt that cannot fit refuses. This is conservative packing, not an
@@ -54,7 +57,7 @@ an entire backend command line must never be emitted because it contains credent
 
 `python -m experiments.qualify_investigator_model_interface --help` describes the CLI.
 Preparation requires `--sdk-site`, `--model`, a new owned `--identifier`, an explicit
-`--load-config` JSON file and a new durable `--output` directory. It refuses interference
+`--load-config` JSON file, verified `--tokenizer-policy` JSON and a new durable `--output` directory. It refuses interference
 with pre-existing loaded models, loads only its own instance, records requested/applied
 settings and actual backend/template observations, measures twelve complete short/near-
 envelope/late/report shapes, snapshots the exact code, then unloads. It produces no model
@@ -66,14 +69,15 @@ assignment IDs, per-sequence and total budgets, actual profile/asset/runtime/cod
 request/history/reasoning settings and protocol revision. Execute only with
 `--execute-freeze` plus `--expected-freeze-sha256` and a new owner-only output directory.
 A code/profile/asset mismatch refuses before prediction. All four qualification assignments
-per deployment are explicit; each permits at most six calls. Later semantic assignments
+per deployment are explicit; each permits the frozen call allocation (at most six). Spent attempts from previous revisions
+remain inside the original cycle ceiling. Later semantic assignments
 are outside this command and remain separately gated.
 
 The two independent sequences use synthetic retained source/native inputs. The short
-sequence exercises a positive read, scoped-zero search, empty file, attributed note,
-procedural finish and cited report. The near-envelope sequence additionally pressures
-late/final input with neutral calibration text, a missing-source problem and event
-read-back; structured access also exercises a native unfinished result. Both treatments
+sequence exercises a positive read, scoped-zero search, empty file, procedural finish and cited report. The near-envelope sequence additionally pressures
+late/final input with neutral calibration text, a missing-source problem; structured access also exercises a native unfinished result.
+Separate real-model note/event-readback probes remain explicitly deferred under r4; their
+mechanical contracts are covered. The five-call sequences retain every selected plan gate. Both treatments
 share the same calibration padding within each deployment. A valid early stop or empty
 report cannot qualify skipped operations. No actual development case answers or protected
 oracle material enter these canaries. This is neither an agent-reasoning benchmark nor

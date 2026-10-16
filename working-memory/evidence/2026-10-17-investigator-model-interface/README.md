@@ -69,3 +69,23 @@ model file, placement/cache/template and model identity against inspected profil
 snapshots/AST correspondence establish unchanged preparation/rendering/tokenization/fixtures;
 only execution guarding changed. Current execution source is additionally retained in
 `execution-code/`. No profile or model output was silently relabeled.
+
+## Actual first result and revised bounded freeze
+
+[r3 result](canary-r3-result.json) retains five attempted calls: Gemma stopped on a verified
+automatic-BOS prompt-count mismatch; Qwen's exact prompt counts matched, but visible outputs
+failed the wire and exhausted corrections. Totals are 10,676 input,72 target generated and
+36 additionally reported Qwen draft tokens. No configuration qualifies and no semantic case
+ran in r3. Native MTP was already present in Qwen's frozen raw load record; it is not a proved
+cause of its output failure. All original outputs remain rejected in private retention.
+
+[Revised preflight](revision-r4.json) and [r4 freeze](canary-freeze-r4.json) bind verified
+actual BOS spelling/id and runtime JSON grammar from the existing offered contracts. No
+old output is repaired. Five-call sequences preserve all plan gate responsibilities while
+defering separate model note/readback probes:40 new maximum+5 spent=45 within the original48.
+Actual source_id/path arguments in synthetic instructions are now explicit. Final profiles
+are `gemma-preflight-r4b`/`qwen-preflight-r4b`; earlier r4 profiles remain retained. Current
+CLI preparation additionally requires the retained `gemma-tokenizer-policy.json` or
+`qwen-tokenizer-policy.json` via `--tokenizer-policy`. The schema/BOS preflight produced no
+new predictions; only execution under the exact r4 hash is admitted. Final focused controls
+are26; product source and the earlier65-test proof horizon are unchanged.

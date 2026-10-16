@@ -89,6 +89,32 @@ class MeasuredInput:
 
 def measure_input(binding, packed: PackedInput, configuration: dict) -> MeasuredInput:
     body = json.loads(packed.content)
+    configuration = deepcopy(configuration)
+    if body["phase"] == "report":
+        schema = body["report_schema"]
+    else:
+        schema = {
+            "anyOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "tool": {"type": "string", "enum": [name]},
+                        "arguments": arguments,
+                    },
+                    "required": ["tool", "arguments"],
+                    "additionalProperties": False,
+                }
+                for name, arguments in body["tools"].items()
+            ]
+        }
+        if not schema["anyOf"]:
+            raise ValueError("no offered tool schema for investigation")
+    configuration["layers"][0]["config"]["fields"].append(
+        {
+            "key": "llm.prediction.structured",
+            "value": {"type": "json", "jsonSchema": schema},
+        }
+    )
     # The whole packed object (including exact escaped event bytes) is a single user
     # message. There is no server-side prior-response ID or implicit conversation.
     messages = {
@@ -116,6 +142,17 @@ def measure_input(binding, packed: PackedInput, configuration: dict) -> Measured
     )
 
 
+def include_tokenizer_bos(rendered, policy, tokenize):
+    """Represent automatic backend BOS insertion, without an unexplained token allowance."""
+    if policy["add_bos"]:
+        marker, token = policy["bos_token"], policy["bos_id"]
+        if tokenize(marker) != [token]:
+            raise ValueError("BOS text does not match actual tokenizer identity")
+        if tokenize(rendered)[0] != token:
+            rendered = marker + rendered
+    return rendered
+
+
 class SDKBinding:
     """Pinned installed SDK channel; one fresh explicit history for every prediction.
 
@@ -124,8 +161,9 @@ class SDKBinding:
     intercepted before SDK 1.5.0 discards unknown fields; reasoning text is never retained.
     """
 
-    def __init__(self, model, sdk):
+    def __init__(self, model, sdk, tokenizer_policy):
         self.model, self.sdk = model, sdk
+        self.tokenizer_policy = deepcopy(tokenizer_policy)
 
     def raw_load(self):
         from lmstudio._sdk_models import LlmRpcGetLoadConfigParameter
@@ -140,7 +178,11 @@ class SDKBinding:
         return {"type": "query", "query": {"identifier": self.model.identifier}}
 
     def identity(self):
-        return {"model": self.model.get_info().to_dict(), "load": self.raw_load()}
+        return {
+            "model": self.model.get_info().to_dict(),
+            "load": self.raw_load(),
+            "tokenizer_input_policy": self.tokenizer_policy,
+        }
 
     def render(self, messages, configuration):
         from lmstudio._sdk_models import LlmRpcApplyPromptTemplateParameter
@@ -154,9 +196,10 @@ class SDKBinding:
                 "opts": {},
             }
         )
-        return self.model._session.remote_call("applyPromptTemplate", parameter)[
+        rendered = self.model._session.remote_call("applyPromptTemplate", parameter)[
             "formatted"
         ]
+        return include_tokenizer_bos(rendered, self.tokenizer_policy, self.tokenize)
 
     def tokenize(self, rendered):
         return list(self.model.tokenize(rendered))
@@ -359,7 +402,7 @@ class StatelessInvestigatorModel:
         prefix = self.directory / f"call-{number:02}"
         request = {
             "messages": measured.messages,
-            "configuration": self.configuration,
+            "configuration": measured.configuration,
             "reference_policy": REFERENCE_POLICY,
             "references": sorted(packed.reference_ids),
             "omitted_events": packed.omitted_event_ids,
@@ -413,7 +456,7 @@ class StatelessInvestigatorModel:
             ):
                 raise ValueError("response came from another model instance")
             applied = fields(metadata["predictionConfig"])
-            for setting in self.configuration["layers"][0]["config"]["fields"]:
+            for setting in measured.configuration["layers"][0]["config"]["fields"]:
                 if applied.get(setting["key"]) != setting["value"]:
                     raise ValueError(
                         "requested prediction setting not applied: " + setting["key"]

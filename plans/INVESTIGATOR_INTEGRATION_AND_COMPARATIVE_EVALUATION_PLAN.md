@@ -94,6 +94,34 @@ Select the fastest stable measured configuration that satisfies the declared inp
 
 Keep one frozen qualified envelope for both treatments within each deployment. Prefer comparable admitted context/packing conditions across models when feasible; if per-model hardware limits require different envelopes, preregister/disclose those differences and interpret cross-model results as deployment-specific, not a causal parameter-count ranking. Raw-versus-structured fairness, complete accounting, immutable outputs and no outcome-driven tuning remain mandatory. Fit estimates are preflight evidence, while successful load/canaries supply separate actual qualification; neither establishes semantic usefulness. No load, canary, automatic sweep or measured comparison is activated by this planning amendment.
 
+### Pre-comparison stateless qualification revision — October 17, 2026
+
+The first independent canaries spent five calls: Gemma exposed automatic BOS insertion
+missing from SDK text rendering; Qwen's visible output failed the tool/report wire despite
+matching measured prompt counts. Those failures remain rejected and separately retained.
+Neither was context overflow or output-budget exhaustion. Correct input measurement from
+actual tokenizer special-token identity and use the existing closed tool/report schemas
+as runtime JSON grammar, without repairing or promoting prior output. Apply this revised
+wire symmetrically before affected inference; explicit stateless reference eligibility
+and all identity/authority/fairness gates remain unchanged.
+
+The revised independent sequences use **five calls each**, still within the six-call
+upper bound: positive read/follow-up, scoped zero/empty/problem outcomes, real typed
+reference/report proposal and procedural stop remain required for both treatments.
+Separate model note/event-readback probes are deferred; their mechanical contracts remain
+proved, not newly claimed as real-model qualifications. They were additional probes, not
+requirements removed from the selected gate. Any later evidence that those tools are a
+material model-interface prerequisite triggers their explicit re-entry before affected use.
+
+Freeze two deployments × two treatments × two sequences = eight qualification assignments,
+40 new calls maximum; together with five prior attempts this is at most **45 of the original
+48 calls**, with no free retry/sweep. Failed deployments remain withheld with costs retained.
+Qwen's actually enabled native MTP setting is explicitly retained/disclosed as part of that
+deployment; reported draft tokens/latency are separate runtime costs, not an extra model arm
+or a claimed cause of the earlier output failure. The exact revision, profiles, order and
+budgets belong in the dated immutable batch freeze. The two-deployment/eight-case semantic
+comparison remains separately gated and is not activated by this revision.
+
 ## 5. Ordered execution and proof gates
 
 Use coherent Learning-by-Doing cycles; the first integration cycle may complete with no inference. Do not split obvious implementation details into separate ceremonial cycles. Each gate produces reviewable evidence and an explicit proceed/refuse/inconclusive result.

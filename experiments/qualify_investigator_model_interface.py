@@ -136,7 +136,11 @@ def validate_batch_freeze(freeze):
         or len(triples) != len(expected)
         or set(triples) != expected
         or len({a["id"] for a in assignments}) != len(assignments)
-        or freeze["max_model_calls"] != 6 * len(assignments)
+        or freeze["calls_per_sequence"] > 6
+        or freeze["calls_per_sequence"] < 2
+        or freeze["max_model_calls"] != freeze["calls_per_sequence"] * len(assignments)
+        or freeze["prior_spent_calls"] + freeze["max_model_calls"]
+        > freeze["cycle_call_ceiling"]
         or [a["model_key"] for a in assignments]
         != [key for key in keys for _ in range(4)]
     ):
@@ -164,7 +168,6 @@ def assess_canary(assignment, sequence, result):
             "read_source",
             "search_sources",
             "read_source",
-            "record_note",
             "finish_investigation",
         ]
         if sequence == 1
@@ -172,7 +175,6 @@ def assess_canary(assignment, sequence, result):
             "read_native" if assignment.treatment == "structured" else "read_source",
             "read_source",
             "read_source" if assignment.treatment == "structured" else "search_sources",
-            "read_trial_event",
             "finish_investigation",
         ]
     )
@@ -189,6 +191,11 @@ def assess_canary(assignment, sequence, result):
         return "withheld", "scoped zero/empty distinctions not exercised"
     if sequence == 2 and observations[1]["outcome"] != "problem":
         return "withheld", "missing-source problem not exercised"
+    positive = 0 if assignment.treatment == "raw" or sequence == 1 else 2
+    if observations[positive]["outcome"] != "observed" or not observations[
+        positive
+    ].get("evidence"):
+        return "withheld", "positive source read did not deliver evidence"
     if not result.report_publication["reference_mapping"]:
         return "withheld", "report cited no eligible evidence"
     return (
@@ -252,27 +259,27 @@ def canary_assignment(treatment):
 
 
 def canary_protocol(assignment, sequence, padding_count):
-    protocol = protocol_definition(assignment, TrialLimits(consumer_turns=6))
+    protocol = protocol_definition(assignment, TrialLimits(consumer_turns=5))
     if sequence == 1:
         actions = (
-            "read_source canary/probe.txt; search_sources in canary for exactly "
-            '"NO_SUCH_CANARY_MARKER_91"; read_source canary/empty.txt; record_note '
-            "with a currently visible typed evidence reference; finish_investigation; final report"
+            'read_source with source_id="canary", path="probe.txt"; search_sources in canary for exactly '
+            '"NO_SUCH_CANARY_MARKER_91"; read_source with source_id=canary, path=empty.txt; '
+            "finish_investigation; final report"
         )
     else:
         first = (
             'read_native families=["ci_coverage"]'
             if assignment.treatment == "structured"
-            else "read_source canary/probe.txt"
+            else 'read_source with source_id="canary", path="probe.txt"'
         )
         third = (
-            "read_source canary/probe.txt"
+            'read_source with source_id="canary", path="probe.txt"'
             if assignment.treatment == "structured"
             else 'search_sources in canary for exactly "NO_SUCH_CANARY_MARKER_91"'
         )
-        actions = f"{first}; read_source canary/missing.txt; {third}; read_trial_event event-1; finish_investigation; final report"
+        actions = f"{first}; read_source with source_id=canary, path=missing.txt; {third}; finish_investigation; final report"
     protocol["task"]["goal"] = (
-        "INDEPENDENT SYNTHETIC INTERFACE CANARY. In six responses perform "
+        "INDEPENDENT SYNTHETIC INTERFACE CANARY. In five responses perform "
         f'these steps in order, one per response: {actions}. Use source_id="canary" and path '
         "without the source prefix. Follow the actual tool schemas. In the final report cite "
         "at least one currently visible delivered typed reference, retain uncertainty about "
@@ -315,7 +322,7 @@ def representative_inputs(binding, configuration, treatment, sequence, padding_c
     return protocol, shapes
 
 
-def prepare_profile(sdk, model_key, identifier, requested, output):
+def prepare_profile(sdk, model_key, identifier, requested, output, tokenizer_policy):
     output.mkdir(mode=0o700, parents=True, exist_ok=False)
     for path in CODE_FILES:
         private_write(output / path.name, path.read_bytes())
@@ -332,7 +339,7 @@ def prepare_profile(sdk, model_key, identifier, requested, output):
             model = download.load_new_instance(
                 instance_identifier=identifier, config=requested, ttl=3600
             )
-            binding = SDKBinding(model, sdk)
+            binding = SDKBinding(model, sdk, tokenizer_policy)
             identity = binding.identity()
             backend = observe_owned_backend(output)
             configuration = prediction_configuration(identity["load"])
@@ -349,6 +356,7 @@ def prepare_profile(sdk, model_key, identifier, requested, output):
                 "code_sha256": code_hashes(),
                 "qualification": "preflight only; no inference or semantic outcome",
                 "backend_observation": backend,
+                "tokenizer_policy": tokenizer_policy,
             }
             if profile["context"] != requested["contextLength"]:
                 raise ValueError("requested context not applied")
@@ -448,7 +456,7 @@ def execute_frozen(sdk, freeze_path, expected_hash, output):
                     config=profile["requested_load"],
                     ttl=3600,
                 )
-                binding = SDKBinding(model, sdk)
+                binding = SDKBinding(model, sdk, profile["tokenizer_policy"])
                 identity = binding.identity()
                 observed_path = output / (
                     str(freeze["deployments"].index(deployment)) + "-backend"
@@ -478,14 +486,18 @@ def execute_frozen(sdk, freeze_path, expected_hash, output):
                     model_consumer = StatelessInvestigatorModel(
                         binding,
                         profile["prediction_configuration"],
-                        ModelLimits(context=profile["context"]),
+                        ModelLimits(
+                            context=profile["context"],
+                            calls=freeze["calls_per_sequence"],
+                            generated_total=freeze["calls_per_sequence"] * 8192,
+                        ),
                         output / assignment_spec["id"],
                     )
 
                     result = run_model_trial(
                         assignment,
                         model_consumer,
-                        limits=TrialLimits(consumer_turns=6),
+                        limits=TrialLimits(consumer_turns=freeze["calls_per_sequence"]),
                         protocol=protocol,
                     )
                     disposition, reason = assess_canary(assignment, sequence, result)
@@ -562,6 +574,7 @@ def main():
     parser.add_argument("--model", choices=CANDIDATES)
     parser.add_argument("--identifier")
     parser.add_argument("--load-config", type=Path)
+    parser.add_argument("--tokenizer-policy", type=Path)
     parser.add_argument("--execute-freeze", type=Path)
     parser.add_argument("--expected-freeze-sha256")
     args = parser.parse_args()
@@ -587,14 +600,22 @@ def main():
             raise
         print(json.dumps(result))
     else:
-        if not (args.model and args.identifier and args.load_config):
-            parser.error("preparation needs model/identifier/load-config")
+        if not (
+            args.model
+            and args.identifier
+            and args.load_config
+            and args.tokenizer_policy
+        ):
+            parser.error(
+                "preparation needs model/identifier/load-config/tokenizer-policy"
+            )
         profile = prepare_profile(
             sdk,
             args.model,
             args.identifier,
             json.loads(args.load_config.read_bytes()),
             args.output,
+            json.loads(args.tokenizer_policy.read_bytes()),
         )
         print(
             json.dumps(

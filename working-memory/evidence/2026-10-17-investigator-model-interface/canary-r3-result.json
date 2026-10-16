@@ -1,0 +1,105 @@
+{
+  "assignments": [
+    {
+      "assignment": {
+        "id": "g12-raw-1",
+        "model_key": "google/gemma-4-12b",
+        "sequence": 1,
+        "treatment": "raw"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 37,
+      "known_input_tokens": 1818,
+      "model_attempts": 1,
+      "outcome": "failed",
+      "problem": "ValueError: actual prompt usage differs from fully rendered tokenizer measurement",
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "q38-structured-1",
+        "model_key": "qwen3.8-27b-ud",
+        "sequence": 1,
+        "treatment": "structured"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 35,
+      "known_input_tokens": 8858,
+      "model_attempts": 4,
+      "outcome": "failed",
+      "problem": null,
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "g12-structured-1",
+        "model_key": "google/gemma-4-12b",
+        "sequence": 1,
+        "treatment": "structured"
+      },
+      "disposition": "withheld_before_call",
+      "disposition_reason": "earlier canary withheld this deployment",
+      "model_attempts": 0
+    },
+    {
+      "assignment": {
+        "id": "g12-structured-2",
+        "model_key": "google/gemma-4-12b",
+        "sequence": 2,
+        "treatment": "structured"
+      },
+      "disposition": "withheld_before_call",
+      "disposition_reason": "earlier canary withheld this deployment",
+      "model_attempts": 0
+    },
+    {
+      "assignment": {
+        "id": "g12-raw-2",
+        "model_key": "google/gemma-4-12b",
+        "sequence": 2,
+        "treatment": "raw"
+      },
+      "disposition": "withheld_before_call",
+      "disposition_reason": "earlier canary withheld this deployment",
+      "model_attempts": 0
+    },
+    {
+      "assignment": {
+        "id": "q38-raw-1",
+        "model_key": "qwen3.8-27b-ud",
+        "sequence": 1,
+        "treatment": "raw"
+      },
+      "disposition": "withheld_before_call",
+      "disposition_reason": "earlier canary withheld this deployment",
+      "model_attempts": 0
+    },
+    {
+      "assignment": {
+        "id": "q38-raw-2",
+        "model_key": "qwen3.8-27b-ud",
+        "sequence": 2,
+        "treatment": "raw"
+      },
+      "disposition": "withheld_before_call",
+      "disposition_reason": "earlier canary withheld this deployment",
+      "model_attempts": 0
+    },
+    {
+      "assignment": {
+        "id": "q38-structured-2",
+        "model_key": "qwen3.8-27b-ud",
+        "sequence": 2,
+        "treatment": "structured"
+      },
+      "disposition": "withheld_before_call",
+      "disposition_reason": "earlier canary withheld this deployment",
+      "model_attempts": 0
+    }
+  ],
+  "semantic_comparison_runs": 0
+}
