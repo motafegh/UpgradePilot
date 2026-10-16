@@ -194,7 +194,13 @@ class ScriptedTrialResult:
 
 
 def run_scripted_trial(
-    assignment: InvestigatorAssignment, consumer, *, limits=None, clock=time.monotonic
+    assignment: InvestigatorAssignment,
+    consumer,
+    *,
+    limits=None,
+    clock=time.monotonic,
+    reference_visibility="cumulative_script",
+    input_packer=pack_input,
 ) -> ScriptedTrialResult:
     """consumer receives PackedInput and returns exact tool/report JSON bytes.
 
@@ -202,6 +208,8 @@ def run_scripted_trial(
     Errors yield visible bounded corrections; originals remain distinct from accepted
     attribution. A report is not accepted solely because the callback returned JSON.
     """
+    if reference_visibility not in {"cumulative_script", "current_request"}:
+        raise ValueError("unknown reference visibility policy")
     limits = TrialLimits() if limits is None else limits
     if assignment.events or assignment.notes or assignment.ready:
         raise ValueError("trial requires a fresh assignment")
@@ -222,6 +230,7 @@ def run_scripted_trial(
         "assignment_composition_seconds": assignment.composition_seconds,
         "assignment_composition_publications": 2,
         "consumer_response_bytes": 0,
+        "reference_visibility": reference_visibility,
     }
     started = clock()
     publication = termination = problem = None
@@ -234,14 +243,19 @@ def run_scripted_trial(
             ):
                 break
             report_phase = assignment.ready
-            packed = pack_input(
+            packed = input_packer(
                 protocol,
                 history,
                 "report" if report_phase else "investigate",
                 limits.packed_input_bytes,
             )
             inputs.append(packed)
-            visible.update(packed.reference_ids)
+            # Scripts may remember prior inputs. Stateless inference cannot: only
+            # references in this exact request may authorize notes/report citations.
+            if reference_visibility == "current_request":
+                visible = set(packed.reference_ids)
+            else:
+                visible.update(packed.reference_ids)
             charges["packed_input_bytes"] += len(packed.content)
             charges["consumer_invocation_attempts"] += 1
             responses.append(

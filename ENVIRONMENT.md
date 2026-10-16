@@ -160,6 +160,13 @@ path is expected and does not demonstrate removal or an environment change. Chec
 existing route before proposing installation or a replacement transport. SDK import alone
 does not qualify a new deployment, backend, prompt template, token accounting or load settings.
 
+October 17 durability reconciliation: the original isolated SDK was copied intact to
+`/home/motafeq/.local/share/upgradepilot/investigator-runs/deployment-interface-2026-10-16-r1/sdk-1.5.0/lib/python3.12/site-packages`.
+The current qualifier selects that preserved copy through `--sdk-site`; project Python and
+dependency declarations remain unchanged. The deployment cycle/evidence index owns the
+copy correspondence and local retention limits. Preserve a durable SDK/installation receipt
+before relying on an ignored scratch installation for future reproduction.
+
 ## 6. Adopted local semantic deployment
 
 ADR-0006 owns the decision to use the bounded local support-drop semantic extractor. Reusable deployment facts:

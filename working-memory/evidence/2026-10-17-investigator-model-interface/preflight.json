@@ -1,0 +1,122 @@
+{
+  "format": "investigator-interface-preflight/1",
+  "retained_root": "/home/motafeq/.local/share/upgradepilot/investigator-runs/deployment-interface-2026-10-16-r1",
+  "models": [
+    {
+      "model_key": "google/gemma-4-12b",
+      "profile_sha256": "af57e2341219c8a79197338b0ca4b1ae5eec0ae3a9ef872ad7788def1a45364d",
+      "context": 32768,
+      "rendered_shapes": 12,
+      "input_tokens_min": 1817,
+      "input_tokens_max": 22460,
+      "backend_flags": {
+        "batch-size": "256",
+        "cache-type-k": "q8_0",
+        "cache-type-v": "q8_0",
+        "ctx-size": "32768",
+        "flash-attn": "auto",
+        "model": "F:\\LLM\\lmstudio-community\\gemma-4-12B-it-GGUF\\gemma-4-12B-it-Q4_K_M.gguf",
+        "n-gpu-layers": "22",
+        "parallel": "4",
+        "ubatch-size": "1120"
+      },
+      "loaded_template_sha256": "031f45711a263bdb0b9642fdba78e2cdf6990d6d965a0873aae05da49682d0ec"
+    },
+    {
+      "model_key": "qwen3.8-27b-ud",
+      "profile_sha256": "1f08328dc23a5472436c68bbf4aac5eb29d84f5930b57a7cdf7b69a5d50cc32e",
+      "context": 32768,
+      "rendered_shapes": 12,
+      "input_tokens_min": 1706,
+      "input_tokens_max": 22280,
+      "backend_flags": {
+        "batch-size": "256",
+        "cache-type-k": "q8_0",
+        "cache-type-v": "q8_0",
+        "ctx-size": "32768",
+        "flash-attn": "on",
+        "model": "F:\\LLM\\lmstudio-community\\Qwen3.8-27B-UD-Q4_K_M\\Qwen3.8-27B-UD-Q4_K_M.gguf",
+        "n-gpu-layers": "13",
+        "parallel": "4",
+        "ubatch-size": "512"
+      },
+      "loaded_template_sha256": "12827f24b742ea4e80cdc12dbcf9622227056b9f797252a3149263d4f9aaadce"
+    }
+  ],
+  "experiments_tests_passed": 24,
+  "nearest_product_tests_passed": 65,
+  "mechanical_regression_assignments": 4,
+  "model_inference_calls_before_freeze": 0,
+  "preparation_loads_in_cycle": 6,
+  "preparation_failures_retained": 1,
+  "core_asset_hashes": [
+    {
+      "path": "/mnt/f/LLM/lmstudio-community/gemma-4-12B-it-GGUF/gemma-4-12B-it-Q4_K_M.gguf",
+      "bytes": 7381384864,
+      "sha256": "c088a44859de42a1966851b552ba628c0ff4419b87c4622539d69430f40024ed",
+      "tokenizer_metadata_sha256": "f9e7403f372562ec69a2b14aa59efbecf585e22605fa6bae49629af6b29300d4"
+    },
+    {
+      "path": "/mnt/f/LLM/lmstudio-community/gemma-4-12B-it-GGUF/mmproj-gemma-4-12B-it-BF16.gguf",
+      "bytes": 175115296,
+      "sha256": "b162f6d350c69c2e21103feeeacd8db22fc1af9beb5979c25aae1c107cf01859",
+      "tokenizer_metadata_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/mnt/f/LLM/lmstudio-community/Qwen3.8-27B-UD-Q4_K_M/Qwen3.8-27B-UD-Q4_K_M.gguf",
+      "bytes": 16464440224,
+      "sha256": "322e194ff79741c7baa497c240f677f54b201b0efab44ca8e50f122b39123482",
+      "tokenizer_metadata_sha256": "ef9c99f93033a32533fbc12f9a643299496d898df806801c7e7b1edd77f9e3dd"
+    }
+  ],
+  "freeze_sha256": "c681d63482dc6ae6748ed734475fff33df3b833e77c6c743d4e34ecf82b7879a",
+  "limits": [
+    "No semantic comparison or model-quality result",
+    "Flash requested/reported true, backend flag auto; kernel choice not independently measured",
+    "No fixed seed or stochastic reliability claim",
+    "Local retained data and SDK are not an off-machine backup"
+  ],
+  "executed_freeze": "canary-freeze-r3.json",
+  "prior_unexecuted_freeze": [
+    "canary-freeze-r1.json",
+    "canary-freeze-r2.json"
+  ],
+  "preflight_execution_guard_correspondence": [
+    {
+      "profile": "gemma-preflight-c",
+      "unchanged_preparation_render_and_fixture_functions": [
+        "code_hashes",
+        "observe_owned_backend",
+        "validate_batch_freeze",
+        "assess_canary",
+        "canary_assignment",
+        "canary_protocol",
+        "representative_inputs",
+        "prepare_profile",
+        "main"
+      ],
+      "changed_execution_function": "execute_frozen",
+      "added_guard": "validate_loaded_backend",
+      "reason": "Recheck actual backend GGUF path, weight placement/cache/template and model identity after each fresh load; registry alias is insufficient",
+      "new_inference_calls": 0
+    },
+    {
+      "profile": "qwen-preflight-b",
+      "unchanged_preparation_render_and_fixture_functions": [
+        "code_hashes",
+        "observe_owned_backend",
+        "validate_batch_freeze",
+        "assess_canary",
+        "canary_assignment",
+        "canary_protocol",
+        "representative_inputs",
+        "prepare_profile",
+        "main"
+      ],
+      "changed_execution_function": "execute_frozen",
+      "added_guard": "validate_loaded_backend",
+      "reason": "Recheck actual backend GGUF path, weight placement/cache/template and model identity after each fresh load; registry alias is insufficient",
+      "new_inference_calls": 0
+    }
+  ]
+}
