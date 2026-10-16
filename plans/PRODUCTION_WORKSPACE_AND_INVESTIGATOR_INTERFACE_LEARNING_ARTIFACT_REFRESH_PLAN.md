@@ -6,7 +6,7 @@
 
 **Branch:** `learning/production-workspace-artifact-refresh-2026-10-16`.
 
-**Status:** EXTENDED after newer `main` work; substantive authoring is complete through the model-free Investigator mechanical adapter. Final branch-vs-main reconciliation and QA are pending before this plan can be marked merge-ready again. Merge remains explicitly prohibited until Ali asks for it.
+**Status:** EXTENDED and merge-ready at the latest reconciled horizon `main@4545d5f0b8717fb58c91e2a470aee5367b8d6846`. Merge remains explicitly prohibited until Ali asks for it.
 
 ## 1. Snapshot history and why the plan reopened
 
@@ -36,7 +36,7 @@ A later refetch reached:
 main@4545d5f0b8717fb58c91e2a470aee5367b8d6846
 ```
 
-Compared with `5187f40`, product `src/` and normal `tests/` remain unchanged, but `main` now adds the experiment-owned Investigator mechanical bridge and proof:
+Compared with `5187f40`, product `src/` and normal `tests/` remain unchanged, but `main` added the experiment-owned Investigator mechanical bridge and proof:
 
 ```text
 experiments/investigator_workspace_adapter.py
@@ -49,7 +49,7 @@ updated Investigator cycle/plan records
 parallel adapter D/E handoff
 ```
 
-This is a material learning delta even though it is not a product `src/` change. The package therefore reopened rather than merging a stale “adapter not started” learning boundary.
+This was a material learning delta even though it was not a product `src/` change. The package therefore reopened rather than merging a stale “adapter not started” learning boundary.
 
 ## 2. Package structure and horizons
 
@@ -60,7 +60,7 @@ Notes 1–4  → product-foundation snapshot at 5187f40...
 Note 5     → experiment-adapter extension at 4545d5f0...
 ```
 
-This is allowed because the package now explicitly distinguishes the horizons and because product `src/`/normal `tests/` did not change between them.
+Product `src/` and normal `tests/` did not change between them.
 
 ### Completed foundation notes
 
@@ -71,7 +71,7 @@ This is allowed because the package now explicitly distinguishes the horizons an
 
 Notes 1–3 remain stable product learning artifacts.
 
-Note 4 remains the product migration snapshot at `5187f40`; its old adapter-status statement is explicitly historical and superseded by Note 5/package README rather than being silently rewritten as though the adapter existed at that earlier horizon.
+Note 4 remains the product migration snapshot at `5187f40`; its old adapter-status statement is explicitly historical and superseded by Note 5/package README rather than silently rewritten as though the adapter existed at that earlier horizon.
 
 ### New extension note
 
@@ -110,9 +110,9 @@ The extension is grounded primarily in:
 - `working-memory/2026-10-16_2045_investigator-adapter-and-mechanical-qualification_lbd-cycle.md`;
 - `working-memory/2026-10-16_2215_adapter-d-e-parallel-supervision.md`.
 
-The product host/source/native contracts from Notes 1–3 remain the authority for the underlying evidence mechanics. The experiment does not become a second canonical Workspace.
+The product host/source/native contracts from Notes 1–3 remain authority for the underlying evidence mechanics. The experiment does not become a second canonical Workspace.
 
-## 4. Mechanical proof that may be taught
+## 4. Mechanical proof taught by the extension
 
 The latest adapter evidence establishes only its declared scope:
 
@@ -137,9 +137,9 @@ The related older-planner entry review has:
 4 errors caused by untouched fixtures using removed segment_index construction
 ```
 
-Teach this as composition/re-entry debt, not a proved planner semantic failure.
+The package classifies that as composition/re-entry debt, not a proved planner semantic failure.
 
-Do not claim:
+The package does not claim:
 
 ```text
 full product suite rerun
@@ -177,30 +177,47 @@ Parallel sequencing does not close the adapter cycle. A material D/E contradicti
 - [x] Updated the package mental model to include the experiment adapter and trial packing/accounting layer.
 - [x] Corrected the package boundary from “adapter prepared — not started” to the evidenced B/Verification/D/E state at `4545d5f0...`.
 - [x] Preserved Notes 1–4 rather than rewriting their pinned historical product claims.
+- [x] Updated root `learning/README.md` so the Oct 16 package entry now names both horizons and the mechanical-adapter extension.
 
-The root `learning/README.md` already points to this package as the current production Workspace/Investigator-interface relearning reference. A root-index wording change is optional unless final QA shows its existing description materially contradicts the now-five-note package.
+## 7. Final QA
 
-## 7. Final QA before merge-readiness can be restored
+- [x] Refetched `main` after extension authoring; it remains `4545d5f0b8717fb58c91e2a470aee5367b8d6846`.
+- [x] No newer unincorporated main delta exists after the adapter extension horizon.
+- [x] Product `src/` and normal `tests/` have no newer material change relevant to Notes 1–4 in the `5187f40... → 4545d5f0...` comparison.
+- [x] Branch diff from `5187f40...` contains only this plan plus learning package/index work.
+- [x] Package directory contains Notes 1–5 plus README.
+- [x] Package README links Note 5 and explicitly distinguishes the two horizons.
+- [x] Note 5 retains `model_calls=0`, unsupported semantics and the bounded proof/non-proof split.
+- [x] Adapter D/E wording matches the owning cycle and parallel-supervision handoff: D current, E pending, successor entry conditional on no material contradiction.
+- [x] Root learning index now describes the adapter extension without becoming a live-state tracker.
 
-- [ ] Refetch `main` once more after the extension authoring.
-- [ ] Compare latest `main` against `4545d5f0...` and classify any newer changes.
-- [ ] Verify product `src/`/normal `tests/` still have no newer material change relevant to Notes 1–4.
-- [ ] Verify the learning branch diff contains only this plan plus learning-package/index work.
-- [ ] Verify all six package files exist and package README links Note 5 correctly.
-- [ ] Verify Note 5 does not promote scripted qualification into model/semantic/usefulness proof.
-- [ ] Verify current adapter D/E wording is not stronger than its owning cycle/handoff.
-- [ ] Recheck whether the root learning index needs a small wording update.
+Current branch diff from `5187f40...` is limited to:
+
+```text
+learning/2026-10-16-production-workspace-and-investigator-interface/01_...
+learning/2026-10-16-production-workspace-and-investigator-interface/02_...
+learning/2026-10-16-production-workspace-and-investigator-interface/03_...
+learning/2026-10-16-production-workspace-and-investigator-interface/04_...
+learning/2026-10-16-production-workspace-and-investigator-interface/05_...
+learning/2026-10-16-production-workspace-and-investigator-interface/README.md
+learning/README.md
+plans/PRODUCTION_WORKSPACE_AND_INVESTIGATOR_INTERFACE_LEARNING_ARTIFACT_REFRESH_PLAN.md
+```
+
+No production source/test/specification/ADR file is changed by this learning branch.
 
 ## 8. Merge-readiness condition
 
-This refresh becomes merge-ready again when:
+All conditions are satisfied at the latest reconciled horizon:
 
 1. final main reconciliation finds no unincorporated material learning delta;
-2. the two-horizon package structure remains explicit and internally consistent;
-3. branch scope remains limited to learning artifacts/index plus this plan;
+2. the two-horizon package structure is explicit and internally consistent;
+3. branch scope is limited to learning artifacts/index plus this plan;
 4. no product/spec/ADR source is changed by this branch;
-5. the package accurately distinguishes product proof, experiment mechanical proof, model/deployment qualification and semantic/usefulness proof;
+5. the package distinguishes product proof, experiment mechanical proof, model/deployment qualification and semantic/usefulness proof;
 6. merge remains pending Ali's explicit instruction.
+
+A future new main commit may reopen this plan again if it introduces a material learning delta before merge.
 
 ## 9. Stop line
 
@@ -209,7 +226,7 @@ Do not from this learning branch:
 - merge to `main`;
 - change production `src/` or normal product tests;
 - modify accepted specifications/ADRs;
-- enter/repair the active adapter D/E cycle;
+- enter/repair adapter D/E;
 - enter Deployment & Model-Interface Qualification;
 - load/run models or perform the paired comparison;
 - repair the older planner fixture drift;
