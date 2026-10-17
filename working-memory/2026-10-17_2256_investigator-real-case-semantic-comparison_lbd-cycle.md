@@ -448,3 +448,8 @@ The newly frozen matrix is executing. Gemma12 Raw-short is WITHHELD after six ca
 ### Gemma12 revised-point matrix complete
 
 Gemma12's intended 8192 point completes all four independent sequences: Raw-short WITHHELD (six calls), Structured-short/Raw-long/Structured-long qualified (five calls each), **3/4 and 21 total calls**. All usage is known; independent receipt review shows zero requested/applied prediction-setting, rendered-prompt or model-instance mismatches. [Completed checkpoint](evidence/2026-10-18-investigator-semantic-comparison/gemma12-completed-checkpoint.json) retains exact per-call costs and timing definitions. The failure does not identify a causal effect of budget presentation versus generation allowance versus sampling; those changes/results are not pooled with historical 2048 qualification. Qwen27 is executing next; no semantic assignment has started.
+
+
+### Half-matrix checkpoint
+
+Qwen27 Raw-short and Structured-short each qualify in five calls; both long sequences remain unattempted/in progress at this horizon, so no Qwen27 4/4 claim follows. The [six completed sequences](evidence/2026-10-18-investigator-semantic-comparison/six-sequence-checkpoint.json) preserve 31 actual calls, known usage and separate draft-token scalars, with zero requested/applied, prompt-count or instance mismatches. Unreported separate reasoning usage is unknown. Active long-call costs are excluded from this completed-only checkpoint. No semantic assignment has started; Gemma12's negative still blocks admission.
