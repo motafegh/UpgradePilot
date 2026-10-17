@@ -162,3 +162,22 @@ retained in r5/small-assets.json. Both small Gemma files explicitly disable auto
 BOS; MiMo/Qwen3.5 omit the flag/BOS id, so their no-added-BOS policy remains subject to
 actual first-call prompt-count correspondence rather than inherited Qwen identity.
 No new inference at this verification horizon.
+
+All six r5 preflights complete with zero generation.72 actual rendered shapes inspected:
+complete packed bytes/reference ids survive actual templates, raw/structured/report menus
+match, measured maxima22581/22582/22389/22409/22573/22395 tokens plus2048+256 fit32768.
+Full small-Gemma backend flag999999 contrasts with actual MiMo29/32 and Qwen9B30/32
+blocks despite requested ratio1; raw applied ratio1 is not full-placement proof.
+Core actual layers22/13 remain partial. Both small Gemmas add_bos=false; their actual
+templates differ from Gemma12's BOS and thought-channel prefix. MiMo/Qwen templates
+expose empty think delimiters under explicit reasoning-off; only observed fragment/usage
+metadata can qualify that behavior. All exact originals remain private.
+
+The public [r5 freeze](evidence/2026-10-17-investigator-model-interface-r5/canary-freeze-r5.json)
+and private identical copy have SHA256
+b0670107c07021e102f055162996d1d5963beed29ac340c8ed85d321d5e212aa.
+Six deployments/24 ordered sequences/144 new max+19 prior/163 aggregate; output2048,
+case comparison still2/8 unstarted. Freeze binds actual profiles,code,asset/runtime
+identities and complete stateless/history/reasoning settings before generation. A first
+inspection command lacked PYTHONPATH and failed before any freeze write/inference;
+corrected to the established src:tests:. invocation. No model failure inferred.

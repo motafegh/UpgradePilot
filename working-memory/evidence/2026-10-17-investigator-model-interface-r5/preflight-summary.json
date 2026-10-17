@@ -1,0 +1,62 @@
+[
+  {
+    "actual_layers": "999999",
+    "inference_calls": 0,
+    "max_tokens": 22581,
+    "min_tokens": 1921,
+    "model_key": "gemma-4-e2b-it",
+    "outcome": "prepared",
+    "profile_path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/deployment-interface-2026-10-17-r5/ge2-preflight/profile.json",
+    "shapes": 12
+  },
+  {
+    "actual_layers": "999999",
+    "inference_calls": 0,
+    "max_tokens": 22582,
+    "min_tokens": 1921,
+    "model_key": "gemma-4-e4b-it-ud",
+    "outcome": "prepared",
+    "profile_path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/deployment-interface-2026-10-17-r5/ge4-preflight/profile.json",
+    "shapes": 12
+  },
+  {
+    "actual_layers": "29",
+    "inference_calls": 0,
+    "max_tokens": 22389,
+    "min_tokens": 1806,
+    "model_key": "mimo-v2.6-distill-qwen-9b",
+    "outcome": "prepared",
+    "profile_path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/deployment-interface-2026-10-17-r5/m9-preflight/profile.json",
+    "shapes": 12
+  },
+  {
+    "actual_layers": "30",
+    "inference_calls": 0,
+    "max_tokens": 22409,
+    "min_tokens": 1809,
+    "model_key": "qwen3.5-9b-ud",
+    "outcome": "prepared",
+    "profile_path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/deployment-interface-2026-10-17-r5/q9-preflight/profile.json",
+    "shapes": 12
+  },
+  {
+    "actual_layers": "22",
+    "inference_calls": 0,
+    "max_tokens": 22573,
+    "min_tokens": 1926,
+    "model_key": "google/gemma-4-12b",
+    "outcome": "prepared",
+    "profile_path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/deployment-interface-2026-10-17-r5/g12-preflight/profile.json",
+    "shapes": 12
+  },
+  {
+    "actual_layers": "13",
+    "inference_calls": 0,
+    "max_tokens": 22395,
+    "min_tokens": 1809,
+    "model_key": "qwen3.8-27b-ud",
+    "outcome": "prepared",
+    "profile_path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/deployment-interface-2026-10-17-r5/q27-preflight/profile.json",
+    "shapes": 12
+  }
+]

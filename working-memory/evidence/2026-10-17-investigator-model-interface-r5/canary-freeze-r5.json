@@ -1,0 +1,354 @@
+{
+  "format": "investigator-interface-canary-freeze/1",
+  "frozen_at": "2026-10-17T11:38:45.677676+00:00",
+  "protocol_revision": "sdk-stateless-interface-six-candidate-2026-10-17-r5",
+  "question": "Independent synthetic local interface/usage/reference qualification; no semantic case comparison",
+  "preflight_inspected": true,
+  "inference_admitted": true,
+  "deployment_count": 6,
+  "deployments": [
+    {
+      "model_key": "gemma-4-e2b-it",
+      "profile_path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/deployment-interface-2026-10-17-r5/ge2-preflight/profile.json",
+      "profile_sha256": "3f6729e91e54b67d7a988f03fdfcd8274b5d349fa23c5de79d3ca2e312d4357d"
+    },
+    {
+      "model_key": "gemma-4-e4b-it-ud",
+      "profile_path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/deployment-interface-2026-10-17-r5/ge4-preflight/profile.json",
+      "profile_sha256": "be9df8bf8b0ffdb8783f10187041699e17c707bea7780c4f97572640ac412d80"
+    },
+    {
+      "model_key": "mimo-v2.6-distill-qwen-9b",
+      "profile_path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/deployment-interface-2026-10-17-r5/m9-preflight/profile.json",
+      "profile_sha256": "400abda536bea396ed2bb7d8ea1370dc3ec6d3bc22cc7574a83ad4ea31b3a4e9"
+    },
+    {
+      "model_key": "qwen3.5-9b-ud",
+      "profile_path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/deployment-interface-2026-10-17-r5/q9-preflight/profile.json",
+      "profile_sha256": "517e24321472c82fec474e5332e0f00e0866ad97be41d9024e3a26bb001d8d27"
+    },
+    {
+      "model_key": "google/gemma-4-12b",
+      "profile_path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/deployment-interface-2026-10-17-r5/g12-preflight/profile.json",
+      "profile_sha256": "44fa9b2fbcf74931edb1cd4365001c7c9c8f3e2ed80d452086471cc5ccc04dc9"
+    },
+    {
+      "model_key": "qwen3.8-27b-ud",
+      "profile_path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/deployment-interface-2026-10-17-r5/q27-preflight/profile.json",
+      "profile_sha256": "2ab5cc42157f8baa8b1be9e7865dfbf89b2968e63d994d2c429119dcf21a7fe7"
+    }
+  ],
+  "available_candidates": [
+    "google/gemma-4-12b",
+    "qwen3.8-27b-ud",
+    "gemma-4-e2b-it",
+    "gemma-4-e4b-it-ud",
+    "mimo-v2.6-distill-qwen-9b",
+    "qwen3.5-9b-ud"
+  ],
+  "additional_candidates_measured": true,
+  "assignments": [
+    {
+      "id": "ge2-raw-1",
+      "model_key": "gemma-4-e2b-it",
+      "treatment": "raw",
+      "sequence": 1
+    },
+    {
+      "id": "ge2-structured-1",
+      "model_key": "gemma-4-e2b-it",
+      "treatment": "structured",
+      "sequence": 1
+    },
+    {
+      "id": "ge2-structured-2",
+      "model_key": "gemma-4-e2b-it",
+      "treatment": "structured",
+      "sequence": 2
+    },
+    {
+      "id": "ge2-raw-2",
+      "model_key": "gemma-4-e2b-it",
+      "treatment": "raw",
+      "sequence": 2
+    },
+    {
+      "id": "ge4-structured-1",
+      "model_key": "gemma-4-e4b-it-ud",
+      "treatment": "structured",
+      "sequence": 1
+    },
+    {
+      "id": "ge4-raw-1",
+      "model_key": "gemma-4-e4b-it-ud",
+      "treatment": "raw",
+      "sequence": 1
+    },
+    {
+      "id": "ge4-raw-2",
+      "model_key": "gemma-4-e4b-it-ud",
+      "treatment": "raw",
+      "sequence": 2
+    },
+    {
+      "id": "ge4-structured-2",
+      "model_key": "gemma-4-e4b-it-ud",
+      "treatment": "structured",
+      "sequence": 2
+    },
+    {
+      "id": "m9-raw-1",
+      "model_key": "mimo-v2.6-distill-qwen-9b",
+      "treatment": "raw",
+      "sequence": 1
+    },
+    {
+      "id": "m9-structured-1",
+      "model_key": "mimo-v2.6-distill-qwen-9b",
+      "treatment": "structured",
+      "sequence": 1
+    },
+    {
+      "id": "m9-structured-2",
+      "model_key": "mimo-v2.6-distill-qwen-9b",
+      "treatment": "structured",
+      "sequence": 2
+    },
+    {
+      "id": "m9-raw-2",
+      "model_key": "mimo-v2.6-distill-qwen-9b",
+      "treatment": "raw",
+      "sequence": 2
+    },
+    {
+      "id": "q9-structured-1",
+      "model_key": "qwen3.5-9b-ud",
+      "treatment": "structured",
+      "sequence": 1
+    },
+    {
+      "id": "q9-raw-1",
+      "model_key": "qwen3.5-9b-ud",
+      "treatment": "raw",
+      "sequence": 1
+    },
+    {
+      "id": "q9-raw-2",
+      "model_key": "qwen3.5-9b-ud",
+      "treatment": "raw",
+      "sequence": 2
+    },
+    {
+      "id": "q9-structured-2",
+      "model_key": "qwen3.5-9b-ud",
+      "treatment": "structured",
+      "sequence": 2
+    },
+    {
+      "id": "g12-raw-1",
+      "model_key": "google/gemma-4-12b",
+      "treatment": "raw",
+      "sequence": 1
+    },
+    {
+      "id": "g12-structured-1",
+      "model_key": "google/gemma-4-12b",
+      "treatment": "structured",
+      "sequence": 1
+    },
+    {
+      "id": "g12-structured-2",
+      "model_key": "google/gemma-4-12b",
+      "treatment": "structured",
+      "sequence": 2
+    },
+    {
+      "id": "g12-raw-2",
+      "model_key": "google/gemma-4-12b",
+      "treatment": "raw",
+      "sequence": 2
+    },
+    {
+      "id": "q27-structured-1",
+      "model_key": "qwen3.8-27b-ud",
+      "treatment": "structured",
+      "sequence": 1
+    },
+    {
+      "id": "q27-raw-1",
+      "model_key": "qwen3.8-27b-ud",
+      "treatment": "raw",
+      "sequence": 1
+    },
+    {
+      "id": "q27-raw-2",
+      "model_key": "qwen3.8-27b-ud",
+      "treatment": "raw",
+      "sequence": 2
+    },
+    {
+      "id": "q27-structured-2",
+      "model_key": "qwen3.8-27b-ud",
+      "treatment": "structured",
+      "sequence": 2
+    }
+  ],
+  "max_model_calls": 144,
+  "per_sequence": {
+    "calls": 6,
+    "input_tokens": 524288,
+    "generated_tokens": 12288,
+    "per_call_generation_reserve": 2048,
+    "admission_operations": 48,
+    "observation_bytes": 8388608,
+    "seconds": 14400,
+    "http_or_sdk_call_timeout_seconds": 1800,
+    "corrections": 2,
+    "terminal_corrections": 1
+  },
+  "request_history": "complete explicit stateless system/user messages; current-request-only evidence eligibility",
+  "prediction_controls": "Exact loaded template content frozen in profiles; explicit reasoning-off, temperature 0.2, no extra stop strings, stopAtLimit. No fixed seed requested or reproducibility claim. Actual applied settings/usage must match. Unreported reasoning tokens remain unknown.",
+  "context_policy": "32768 retained for original declared input/output envelope including8192 case reserve; synthetic qualification ceiling2048. No global-optimum claim.",
+  "early_failure_policy": "All independent sequences attempted once after behavioral failure; all four required to qualify. Load/identity error withholds deployment without fallback.",
+  "later_semantic_comparison_admitted": false,
+  "later_comparison_deployments": 2,
+  "later_case_assignments": 8,
+  "code_sha256": {
+    "experiments/investigator_model_interface.py": "0b200fbd55ad0a09b3fd7bebc0a4b5b5f2d7d0a12ab1478dc361bb3b109a608e",
+    "experiments/qualify_investigator_model_interface.py": "18fbc1de120bcadfc69f833b72a85600f4058f9c3ef3365369f080b16e26c13a",
+    "experiments/investigator_workspace_trial.py": "cbaf868a6d439aa0e0caf3435f5d5de26bdf530d3c671ee791ee6dbf325e0c34",
+    "experiments/investigator_workspace_adapter.py": "c79764662c05302a2a60824f4ddd7c002a47791556d9bf0240b7f144d9766af8"
+  },
+  "immutable_files": [
+    {
+      "path": "/mnt/f/LLM/lmstudio-community/gemma-4-12B-it-GGUF/gemma-4-12B-it-Q4_K_M.gguf",
+      "bytes": 7381384864,
+      "mtime_ns": 1780579220532791800,
+      "sha256": "c088a44859de42a1966851b552ba628c0ff4419b87c4622539d69430f40024ed",
+      "hash_scope": "Full hash measured during this cycle; unchanged size/mtime rechecked before execution"
+    },
+    {
+      "path": "/mnt/f/LLM/lmstudio-community/gemma-4-12B-it-GGUF/mmproj-gemma-4-12B-it-BF16.gguf",
+      "bytes": 175115296,
+      "mtime_ns": 1780578742342627700,
+      "sha256": "b162f6d350c69c2e21103feeeacd8db22fc1af9beb5979c25aae1c107cf01859",
+      "hash_scope": "Full hash measured during this cycle; unchanged size/mtime rechecked before execution"
+    },
+    {
+      "path": "/mnt/f/LLM/lmstudio-community/Qwen3.8-27B-UD-Q4_K_M/Qwen3.8-27B-UD-Q4_K_M.gguf",
+      "bytes": 16464440224,
+      "mtime_ns": 1792171700550134900,
+      "sha256": "322e194ff79741c7baa497c240f677f54b201b0efab44ca8e50f122b39123482",
+      "hash_scope": "Full hash measured during this cycle; unchanged size/mtime rechecked before execution"
+    },
+    {
+      "path": "/mnt/d/LM Studio/resources/app/package.json",
+      "bytes": 555,
+      "mtime_ns": 1791466964000000000,
+      "sha256": "bd242fcc495d2a5249bbb1f13c9421f26d86887285334f4d9c6a7afbe27f5ec5"
+    },
+    {
+      "path": "/mnt/c/Users/lenovo/.cache/lm-studio/extensions/backends/llama.cpp-win-x86_64-nvidia-cuda12-avx2-2.59.0/backend-manifest.json",
+      "bytes": 1160,
+      "mtime_ns": 946684800000000000,
+      "sha256": "c3b388a26f046d05937c98522ede3807b978170c1edcd9e58c7eaa3bb30aa151"
+    },
+    {
+      "path": "/mnt/c/Users/lenovo/.cache/lm-studio/extensions/backends/llama.cpp-win-x86_64-nvidia-cuda12-avx2-2.59.0/llama-server.exe",
+      "bytes": 20152,
+      "mtime_ns": 946684800000000000,
+      "sha256": "c6b398917bd2e9b1f10b66210a9b454b0c3808a36fa3bf04150f58b851cd9d8b"
+    },
+    {
+      "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/deployment-interface-2026-10-16-r1/sdk-1.5.0/lib/python3.12/site-packages/lmstudio/sync_api.py",
+      "bytes": 67930,
+      "mtime_ns": 1791221819826035088,
+      "sha256": "888360663dc5655e90c614ff64a285299f97a8f3a9cfeee28cac08dd42dac685"
+    },
+    {
+      "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/deployment-interface-2026-10-16-r1/sdk-1.5.0/lib/python3.12/site-packages/lmstudio/json_api.py",
+      "bytes": 90272,
+      "mtime_ns": 1791221819823956578,
+      "sha256": "32146d39cf215e5829102938252e219a2300253981520f7005ab765b8d4b1f80"
+    },
+    {
+      "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/deployment-interface-2026-10-16-r1/sdk-1.5.0/lib/python3.12/site-packages/lmstudio/_kv_config.py",
+      "bytes": 19204,
+      "mtime_ns": 1791221819822537442,
+      "sha256": "b7a23c41162bd3edc53ae7556b4a0bd2132601aed9c91822d13060e11912b4aa"
+    },
+    {
+      "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/deployment-interface-2026-10-16-r1/sdk-1.5.0/lib/python3.12/site-packages/lmstudio/_sdk_models/__init__.py",
+      "bytes": 377798,
+      "mtime_ns": 1791221819822907476,
+      "sha256": "8894904436f8b6322701c05e1fcc01728c3c772a8271ef4eba67ab25b335882a"
+    },
+    {
+      "path": "/mnt/f/LLM/lmstudio-community/gemma-4-E2B-it-Q4_K_M/gemma-4-E2B-it-Q4_K_M.gguf",
+      "bytes": 3427873920,
+      "mtime_ns": 1775367450000000000,
+      "sha256": "95182e70dd6694a797a3d832547e0dd1e19be3f45f03ecdcee0283276b660028"
+    },
+    {
+      "path": "/mnt/f/LLM/lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf",
+      "bytes": 5101713792,
+      "mtime_ns": 1775382678991318900,
+      "sha256": "e8cd1a4c5162dfa355c567b4099206793793b5548951f077f376a0076dc0a058"
+    },
+    {
+      "path": "/mnt/f/LLM/lmstudio-community/MiMo-V2.6-Distill-Qwen-9B-Q4_K_L/MiMo-V2.6-Distill-Qwen-9B-Q4_K_L.gguf",
+      "bytes": 6202021408,
+      "mtime_ns": 1790469186842720300,
+      "sha256": "db6b5e7b5d25525da87f4a3899555215693e8cf4ab1be9fff90ea5dee4ba957d"
+    },
+    {
+      "path": "/mnt/f/LLM/lmstudio-community/Qwen3.5-9B-UD-Q4_K_XL/Qwen3.5-9B-UD-Q4_K_XL.gguf",
+      "bytes": 5966095584,
+      "mtime_ns": 1772797259995786500,
+      "sha256": "6f5d30666c2d8ae16a306e616d95341dcf3cc46810df84d7e6f5a7d1e4c1b293"
+    }
+  ],
+  "sdk_site": "/home/motafeq/.local/share/upgradepilot/investigator-runs/deployment-interface-2026-10-16-r1/sdk-1.5.0/lib/python3.12/site-packages",
+  "resource_sampling": "GPU about 1s, Windows host about 5s; sampled machine peaks, not continuous maxima or isolated process consumption",
+  "previous_unexecuted_freeze": "r1/r2 unexecuted; r3 spent5; interrupted r4 spent14. r5 distinct, not pooled as same protocol.",
+  "asset_provenance": {
+    "qwen_repository": "unsloth/Qwen3.8-27B-GGUF",
+    "qwen_quantization": "UD-Q4_K_M",
+    "qwen_repository_revision": "4ca720788d1e01f1bff70c033e0d0028fd02e502",
+    "qwen_correspondence_owner": "working-memory/evidence/2026-10-16-local-model-candidates/inventory-and-qwen-asset.json",
+    "qwen_correspondence_owner_sha256": "7638b1be3c3672226581c1a71a0bf39752f01b7cc9dfdf9dcce8b73b21a9ec22",
+    "gemma_repository": "lmstudio-community/gemma-4-12B-it-GGUF",
+    "gemma_hub_package_manifest_revision": 5,
+    "gemma_repository_commit": "unknown; no commit identity invented; exact local files and running backend model path retained",
+    "smaller_models": "Exact local full hashes and tokenizer metadata in small-assets.json. Hub revisions unknown, no correspondence invented."
+  },
+  "runtime_versions": {
+    "lm_studio_package": "0.4.26+4",
+    "sdk": "1.5.0 existing isolated preserved installation",
+    "backend": "llama.cpp-win-x86_64-nvidia-cuda12-avx2@2.59.0",
+    "llama_cpp": "b11669/620d2225c per installed release metadata",
+    "gpu_driver": "617.42",
+    "gpu": "RTX 3070 Laptop / 8192 MiB",
+    "flash_attention": "requested/reported true, backend --flash-attn auto; independent kernel selection unknown"
+  },
+  "calls_per_sequence": 6,
+  "prior_spent_calls": 19,
+  "cycle_call_ceiling": 163,
+  "aggregate_attempt_ceiling_this_revision": 163,
+  "wire_revision": "Clarified ordered task, one extra response for correction, concise report, no forced tool. Strict offered-schema grammar, own BOS policy, complete stateless input/current-request citations, visible fragment retention.",
+  "deferred_model_tool_probes": "Separate note/event-readback model probes deferred; mechanical coverage remains. Every selected plan qualification gate (positive/follow-up/zero/empty/problem/reference/report/stop) remains.",
+  "runtime_optimizations": "Exact raw profiles frozen. Qwen27 native MTP retained; report draft costs separately. For others claim only exposed settings.",
+  "continue_independent_sequences_after_failure": true,
+  "prior_accounting": {
+    "calls": 19,
+    "reported_input_tokens": 44124,
+    "reported_target_generated_tokens": 2443,
+    "reported_draft_tokens": 1551,
+    "unknown_usage_calls": 1,
+    "reserved_unknown_target_generation_upper_bound": 8192,
+    "limit": "Reservation is budgeting, not measured usage. Preserve originals."
+  },
+  "repository_head": "901c7ce24f05cf173989e66cd9cd6b061d6200c1",
+  "qualification_only": true,
+  "qualification_report_words": 350
+}
