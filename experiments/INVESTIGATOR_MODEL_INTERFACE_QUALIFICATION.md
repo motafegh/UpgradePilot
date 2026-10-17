@@ -12,16 +12,26 @@ Read [the model binding](investigator_model_interface.py), then
 
 ## Actual request and reference boundary
 
-Every prediction supplies one complete explicit system/user history. The user message
-contains the entire packed task/tool/report/event object, including whole-event omissions.
+Every prediction supplies one complete explicit system/user history. Canonical packed
+bytes own admission/accounting and are retained separately. The actual user message
+presents fixed task/protocol/report facts first, then current phase/menu/omissions,
+then chronological original request/returned-observation pairs. It includes each original
+UTF8 request and exact observation JSON text directly, without another escape layer.
+No expected next action is supplied. A missing-file result may omit its path; retaining
+the actual prior arguments is necessary for complete stateless action history.
 No response ID, prior server conversation, model-authored hidden notebook or implicit chat
 history is used. Backend reuse of identical prefix computations does not grant extra
 conversation history. `current-complete-stateless-request/1` allows only references in the
-complete events actually included in this request. Omitted evidence must be re-read;
+complete returned observations actually included in this request. Model-authored prior
+requests grant no evidence authority, even when they contain a typed-looking reference.
+Internal native record/delivery/catalog IDs are not delivered typed citation IDs.
+Omitted request/result pairs stay omitted together and record each component's bytes/hash.
+Omitted evidence must be re-read;
 read-back pages retain their `trial_event` strength, not the original source strength.
 
 The same actual loaded template and prediction configuration stack render and predict.
-The full packed input and every eligible reference must survive rendering. Automatic
+Every presented input component and eligible reference must survive rendering. Exact
+canonical packed-input bytes/hash are retained beside each actual request/rendering. Automatic
 backend BOS insertion is represented explicitly from verified GGUF special-token identity;
 the SDK-rendered body alone may omit that token. Per-request runtime JSON grammar derives
 from the offered closed tool schemas, or the final report schema, without output repair. The loaded
@@ -56,6 +66,12 @@ an entire backend command line must never be emitted because it contains credent
 ## Preparation, freeze and canary execution
 
 `python -m experiments.qualify_investigator_model_interface --help` describes the CLI.
+For the revised cohort, `--prediction-base` points to this exact candidate's retained
+native applied prediction configuration, with source identity/hash. Pin exposed defaults
+including CPU threads, top-p/top-k and reasoning parser configuration. Current explicit
+template/reasoning/output overrides win; the old per-call runtime grammar is discarded
+and rebuilt from the current offered schema. Do not copy another model's defaults.
+
 Preparation requires `--sdk-site`, `--model`, a new owned `--identifier`, an explicit
 `--load-config` JSON file, verified `--tokenizer-policy` JSON and a new durable `--output` directory. It refuses interference
 with pre-existing loaded models, loads only its own instance, records requested/applied
@@ -70,14 +86,14 @@ request/history/reasoning settings and protocol revision. Execute only with
 `--execute-freeze` plus `--expected-freeze-sha256` and a new owner-only output directory.
 A code/profile/asset mismatch refuses before prediction. All four qualification assignments
 per deployment are explicit; each permits the frozen call allocation (at most six). Spent attempts from previous revisions
-remain inside the original cycle ceiling. Later semantic assignments
+remain inside the explicitly revised aggregate cycle ceiling. Later semantic assignments
 are outside this command and remain separately gated.
 
 The two independent sequences use synthetic retained source/native inputs. The short
 sequence exercises a positive read, scoped-zero search, empty file, procedural finish and cited report. The near-envelope sequence additionally pressures
 late/final input with neutral calibration text, a missing-source problem; structured access also exercises a native unfinished result.
-Separate real-model note/event-readback probes remain explicitly deferred under r4; their
-mechanical contracts are covered. The five-call sequences retain every selected plan gate. Both treatments
+Separate real-model note/event-readback probes remain explicitly deferred since r4; their
+mechanical contracts are covered. The five required steps plus at most one extra response retain every selected plan gate. Both treatments
 share the same calibration padding within each deployment. A valid early stop or empty
 report cannot qualify skipped operations. No actual development case answers or protected
 oracle material enter these canaries. This is neither an agent-reasoning benchmark nor
@@ -117,3 +133,24 @@ after a behavioral failure; all four must still qualify before that deployment's
 comparison. Load/profile failures are saved per deployment and do not substitute another
 model. Freeze new cohort/order and144 new/19 prior/163 aggregate call ceilings before
 inference. The later semantic design remains two deployments/eight case assignments.
+
+## Complete request/result history revision
+
+The r6 source adds model-authored request intent at the experiment AdapterEvent/driver
+boundary and packs it with its returned observation. The current reference whitelist
+still derives only from delivered observations; a proposed/forged ID cannot authorize
+itself. Unavailable/non-UTF8 historical intent stays explicitly unavailable, never
+repaired. The strict sequence assessor and output parser remain unchanged.
+
+The driver also retains actual report-refusal details with attempt numbers, including
+a final-turn refusal that cannot appear in a subsequent request. This prevents a
+generic turn-exhaustion outcome from hiding the underlying citation/schema rejection.
+Original rejected reports remain separate and unmodified.
+
+Freeze six deployments/24 new ordered sequences/144 new calls after actual preparation.
+All19 earlier calls and every actual r5 attempt remain charged; the explicit aggregate
+ceiling is267 (19 + at most104 r5 +144 r6), with no automatic further sweep. Two-deployment/
+eight-case semantic comparison stays unactivated. Same2048 synthetic generation limit,
+32768 context and actual per-model weight/KV settings remain;8192 is still the later
+case reserve, not newly established8192-token generation performance. Resource and
+semantic claims must retain those limits.

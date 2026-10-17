@@ -16,6 +16,7 @@ from dataclasses import asdict
 from pathlib import Path
 
 from experiments.investigator_model_interface import (
+    REQUEST_PRESENTATION,
     ModelLimits,
     SDKBinding,
     StatelessInvestigatorModel,
@@ -334,7 +335,14 @@ def representative_inputs(binding, configuration, treatment, sequence, padding_c
 
 
 def prepare_profile(
-    sdk, model_key, identifier, requested, output, tokenizer_policy, output_tokens=8192
+    sdk,
+    model_key,
+    identifier,
+    requested,
+    output,
+    tokenizer_policy,
+    output_tokens=8192,
+    prediction_base=None,
 ):
     output.mkdir(mode=0o700, parents=True, exist_ok=False)
     for path in CODE_FILES:
@@ -356,7 +364,9 @@ def prepare_profile(
             identity = binding.identity()
             backend = observe_owned_backend(output)
             configuration = prediction_configuration(
-                identity["load"], output_tokens=output_tokens
+                identity["load"],
+                output_tokens=output_tokens,
+                applied_base=prediction_base,
             )
             profile = {
                 "format": "investigator-interface-profile/1",
@@ -367,6 +377,10 @@ def prepare_profile(
                 "prediction_configuration": configuration,
                 "context": model.get_context_length(),
                 "output_tokens": output_tokens,
+                "request_presentation": REQUEST_PRESENTATION,
+                "prediction_base_sha256": digest(json_bytes(prediction_base))
+                if prediction_base is not None
+                else None,
                 "measurements": [],
                 "padding_count": 0,
                 "code_sha256": code_hashes(),
@@ -619,6 +633,7 @@ def main():
     parser.add_argument("--load-config", type=Path)
     parser.add_argument("--tokenizer-policy", type=Path)
     parser.add_argument("--output-tokens", type=int, default=8192)
+    parser.add_argument("--prediction-base", type=Path)
     parser.add_argument("--execute-freeze", type=Path)
     parser.add_argument("--expected-freeze-sha256")
     args = parser.parse_args()
@@ -661,6 +676,9 @@ def main():
             args.output,
             json.loads(args.tokenizer_policy.read_bytes()),
             args.output_tokens,
+            json.loads(args.prediction_base.read_bytes())
+            if args.prediction_base
+            else None,
         )
         print(
             json.dumps(

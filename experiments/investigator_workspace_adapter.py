@@ -218,6 +218,9 @@ class AdapterEvent:
     outcome: str
     elapsed_seconds: float
     access_receipts: tuple
+    # Original model-authored intent, never a delivered observation/reference.
+    # None explicitly marks unavailable/non-UTF8 legacy or malformed input.
+    request_text: str | None = None
 
 
 class InvestigatorAssignment:
@@ -336,7 +339,9 @@ class InvestigatorAssignment:
         before = len(self.access.receipts)
         identity = f"event-{len(self.events) + 1}"
         refs = []
+        request_text = None
         try:
+            request_text = request.decode("utf-8")
             if self.ready:
                 raise ValueError("investigation already requested finish")
             item = decode_object(request)
@@ -372,6 +377,7 @@ class InvestigatorAssignment:
             outcome,
             time.monotonic() - started,
             self.access.receipts[before:],
+            request_text,
         )
         self.events.append(event)
         return event

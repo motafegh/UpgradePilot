@@ -288,3 +288,47 @@ its new final-turn control passes without accepting/repairing the report. Shared
 clarifies delivered typed IDs versus internal record/delivery/catalog IDs.33 staged
 controls and Ruff/format pass; staged source hashes retained in r5/staged-verification.json.
 Canonical r5 execution code remains unchanged until normal batch completion.
+
+Material execution override: actual Qwen27 long calls use165–184s before first token
+and~0.8–1.1generated tokens/s, while all six already have actual calls and the missing
+prior-intent/shared serialized-history defect is diagnosed -> normal route completes
+every remaining r5 sequence before source repair -> that spends substantial additional
+time on the already superseded interface and delays the actual goal -> supersede r5
+after its current prediction completes, preserve exact unfinished/unattempted status
+and native receipts, then apply/verify/requalify the full six-candidate repaired cohort
+-> no r5 full-qualification claim, no failure-selective promotion or semantic comparison;
+all costs retained -> reconcile plan,MEMORY,separate superseded summary and new frozen
+prior-spend/config/code/order before any revised inference. This changes the earlier
+expectation of normal r5 completion for an explicitly evidenced better route.
+
+Qwen27 both short sequences qualify in five calls. Its Structured short report1002
+target tokens/native396.46s/client363.48s/~2.69tokens/s uses actual typed references and
+explicit capture/compatibility limits; MTP870draft/712accepted/158rejected are separately
+retained. Native and client clocks remain distinct.88 completed native metadata records
+were audited: every requested setting matches actual, including the small Gemmas whose
+token mismatch preempted that normal check; zero input-event omissions at that horizon.
+
+Supersession completed at2026-10-17T12:48:42Z after call4 of Qwen27 Raw long:92
+requests/92 saved native receipts, zero newly unknown usage, runner exit130 and native
+inventory unloaded.22 normal sequence summaries remain original; Qwen Raw long is
+partial and Structured long unattempted. The separate [superseded summary](evidence/2026-10-17-investigator-model-interface-r5/superseded-summary.json)
+never claims the original runner finished normally. Publication after the last saved
+prediction is unconfirmed; all proposed outputs and known costs remain retained.
+Known r5 usage1,072,548 input/7,162 generated/1,959 draft; cumulative111 attempts with
+the earlier one unknown r4 call still unknown. R6 maximum111+144=255<=267 ceiling.
+
+Only after runner exit/inventory-unloaded and verification that all four canonical
+r5 source hashes still matched its freeze, applied the separately staged repair to
+the four existing experiment modules.33 canonical focused controls pass(.308s),65
+nearest product tests pass(20.280s), four actual retained-case model-free regressions
+pass(2.140s) with17 input/96 product hashes unchanged, zero forbidden/model/native
+producer attempts. AST import direction96 files and touched Ruff/format pass. No
+product source/dependency/specification/ADR changes. Root r5 named staged files are
+explicitly labeled nonexecuted; actual r5 source is its preflight/freeze snapshots.
+
+Observed contextPrefill is absent/unexposed in five candidates and [] in Gemma12's
+native prediction metadata; do not copy the latter into other models or infer unknown
+setting semantics. Own-model exposed actual defaults are pinned as recorded, with full
+render/input correspondence required. Source repair is complete, fresh all-six r6
+zero-generation preparation is next before any revised inference. Later semantic
+comparison stays unactivated and parent adapter cycle remains CLOSED through E.

@@ -1,0 +1,4299 @@
+{
+  "format": "investigator-interface-inspection/1",
+  "observed_at": "2026-10-17T12:54:23.441743+00:00",
+  "batch": "canary-r5",
+  "complete_normal_batch": false,
+  "complete_accounting": true,
+  "semantic_case_runs": 0,
+  "assignments": [
+    {
+      "assignment": {
+        "id": "ge2-raw-1",
+        "model_key": "gemma-4-e2b-it",
+        "sequence": 1,
+        "treatment": "raw"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 26,
+      "known_input_tokens": 1922,
+      "model_attempts": 1,
+      "outcome": "failed",
+      "problem": "ValueError: actual prompt usage differs from fully rendered tokenizer measurement",
+      "reasoning_tokens": null,
+      "usage_complete": true,
+      "actual_tool_events": [],
+      "terminal_corrections": 0,
+      "report_refusal_details": null,
+      "report_published": false,
+      "calls": [
+        {
+          "id": "call-01",
+          "phase": "investigate",
+          "measured_input_tokens": 1921,
+          "eligible_reference_count": 0,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 1,
+            "complete_response_received": true,
+            "elapsed_seconds": 1.140974038999957,
+            "outcome": "failed",
+            "problem": "ValueError: actual prompt usage differs from fully rendered tokenizer measurement",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "d3b119119b041b14754c504cdf738f2ac7c129d814d8ea4dcbba71809a133c49",
+            "usage": {
+              "predictedTokensCount": 26,
+              "promptTokensCount": 1922,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 0.733318,
+              "tokensPerSecond": 51.90092321362212,
+              "totalTimeSec": 1.2150050000000001,
+              "totalTokensCount": 1948
+            },
+            "visible_fragment_bytes": 55,
+            "visible_fragments_sha256": "11850ccf6e2202915ec39201782623697931f461393efec2cffceadaa4b07c46"
+          },
+          "request_sha256": "d3b119119b041b14754c504cdf738f2ac7c129d814d8ea4dcbba71809a133c49",
+          "actual_prompt_matches_measurement": false,
+          "visible_response_sha256": "11850ccf6e2202915ec39201782623697931f461393efec2cffceadaa4b07c46",
+          "visible_response_bytes": 55,
+          "proposed_action": {
+            "tool": "finish_investigation",
+            "arguments": {}
+          }
+        }
+      ]
+    },
+    {
+      "assignment": {
+        "id": "ge2-structured-1",
+        "model_key": "gemma-4-e2b-it",
+        "sequence": 1,
+        "treatment": "structured"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 26,
+      "known_input_tokens": 2072,
+      "model_attempts": 1,
+      "outcome": "failed",
+      "problem": "ValueError: actual prompt usage differs from fully rendered tokenizer measurement",
+      "reasoning_tokens": null,
+      "usage_complete": true,
+      "actual_tool_events": [],
+      "terminal_corrections": 0,
+      "report_refusal_details": null,
+      "report_published": false,
+      "calls": [
+        {
+          "id": "call-01",
+          "phase": "investigate",
+          "measured_input_tokens": 2071,
+          "eligible_reference_count": 0,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 1,
+            "complete_response_received": true,
+            "elapsed_seconds": 0.6725289070000144,
+            "outcome": "failed",
+            "problem": "ValueError: actual prompt usage differs from fully rendered tokenizer measurement",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "7325ce25b3261f61579391cdc966dcedf021b16a3a65a3b25d461ba74f8e2796",
+            "usage": {
+              "predictedTokensCount": 26,
+              "promptTokensCount": 2072,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 0.21884,
+              "tokensPerSecond": 52.54264360955352,
+              "totalTimeSec": 0.694644,
+              "totalTokensCount": 2098
+            },
+            "visible_fragment_bytes": 55,
+            "visible_fragments_sha256": "11850ccf6e2202915ec39201782623697931f461393efec2cffceadaa4b07c46"
+          },
+          "request_sha256": "7325ce25b3261f61579391cdc966dcedf021b16a3a65a3b25d461ba74f8e2796",
+          "actual_prompt_matches_measurement": false,
+          "visible_response_sha256": "11850ccf6e2202915ec39201782623697931f461393efec2cffceadaa4b07c46",
+          "visible_response_bytes": 55,
+          "proposed_action": {
+            "tool": "finish_investigation",
+            "arguments": {}
+          }
+        }
+      ]
+    },
+    {
+      "assignment": {
+        "id": "ge2-structured-2",
+        "model_key": "gemma-4-e2b-it",
+        "sequence": 2,
+        "treatment": "structured"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 26,
+      "known_input_tokens": 20063,
+      "model_attempts": 1,
+      "outcome": "failed",
+      "problem": "ValueError: actual prompt usage differs from fully rendered tokenizer measurement",
+      "reasoning_tokens": null,
+      "usage_complete": true,
+      "actual_tool_events": [],
+      "terminal_corrections": 0,
+      "report_refusal_details": null,
+      "report_published": false,
+      "calls": [
+        {
+          "id": "call-01",
+          "phase": "investigate",
+          "measured_input_tokens": 20062,
+          "eligible_reference_count": 0,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 1,
+            "complete_response_received": true,
+            "elapsed_seconds": 6.8848063800001,
+            "outcome": "failed",
+            "problem": "ValueError: actual prompt usage differs from fully rendered tokenizer measurement",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "8028e75f9a216223e7d0180b6a2aa8f9d99ef9035195edd1bb90528a67e5c493",
+            "usage": {
+              "predictedTokensCount": 26,
+              "promptTokensCount": 20063,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 6.582686,
+              "tokensPerSecond": 29.890576577265943,
+              "totalTimeSec": 7.41907,
+              "totalTokensCount": 20089
+            },
+            "visible_fragment_bytes": 55,
+            "visible_fragments_sha256": "11850ccf6e2202915ec39201782623697931f461393efec2cffceadaa4b07c46"
+          },
+          "request_sha256": "8028e75f9a216223e7d0180b6a2aa8f9d99ef9035195edd1bb90528a67e5c493",
+          "actual_prompt_matches_measurement": false,
+          "visible_response_sha256": "11850ccf6e2202915ec39201782623697931f461393efec2cffceadaa4b07c46",
+          "visible_response_bytes": 55,
+          "proposed_action": {
+            "tool": "finish_investigation",
+            "arguments": {}
+          }
+        }
+      ]
+    },
+    {
+      "assignment": {
+        "id": "ge2-raw-2",
+        "model_key": "gemma-4-e2b-it",
+        "sequence": 2,
+        "treatment": "raw"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 26,
+      "known_input_tokens": 19923,
+      "model_attempts": 1,
+      "outcome": "failed",
+      "problem": "ValueError: actual prompt usage differs from fully rendered tokenizer measurement",
+      "reasoning_tokens": null,
+      "usage_complete": true,
+      "actual_tool_events": [],
+      "terminal_corrections": 0,
+      "report_refusal_details": null,
+      "report_published": false,
+      "calls": [
+        {
+          "id": "call-01",
+          "phase": "investigate",
+          "measured_input_tokens": 19922,
+          "eligible_reference_count": 0,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 1,
+            "complete_response_received": true,
+            "elapsed_seconds": 1.2642583739998372,
+            "outcome": "failed",
+            "problem": "ValueError: actual prompt usage differs from fully rendered tokenizer measurement",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "1b30b8762bcfaa4adacf1e805061bad7fc602921774ae7b88d091498c741f1d5",
+            "usage": {
+              "predictedTokensCount": 26,
+              "promptTokensCount": 19923,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 0.454164,
+              "tokensPerSecond": 30.153796423277285,
+              "totalTimeSec": 1.2832469999999998,
+              "totalTokensCount": 19949
+            },
+            "visible_fragment_bytes": 55,
+            "visible_fragments_sha256": "11850ccf6e2202915ec39201782623697931f461393efec2cffceadaa4b07c46"
+          },
+          "request_sha256": "1b30b8762bcfaa4adacf1e805061bad7fc602921774ae7b88d091498c741f1d5",
+          "actual_prompt_matches_measurement": false,
+          "visible_response_sha256": "11850ccf6e2202915ec39201782623697931f461393efec2cffceadaa4b07c46",
+          "visible_response_bytes": 55,
+          "proposed_action": {
+            "tool": "finish_investigation",
+            "arguments": {}
+          }
+        }
+      ]
+    },
+    {
+      "assignment": {
+        "id": "ge4-structured-1",
+        "model_key": "gemma-4-e4b-it-ud",
+        "sequence": 1,
+        "treatment": "structured"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 49,
+      "known_input_tokens": 2072,
+      "model_attempts": 1,
+      "outcome": "failed",
+      "problem": "ValueError: actual prompt usage differs from fully rendered tokenizer measurement",
+      "reasoning_tokens": null,
+      "usage_complete": true,
+      "actual_tool_events": [],
+      "terminal_corrections": 0,
+      "report_refusal_details": null,
+      "report_published": false,
+      "calls": [
+        {
+          "id": "call-01",
+          "phase": "investigate",
+          "measured_input_tokens": 2071,
+          "eligible_reference_count": 0,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 1,
+            "complete_response_received": true,
+            "elapsed_seconds": 2.500587159999668,
+            "outcome": "failed",
+            "problem": "ValueError: actual prompt usage differs from fully rendered tokenizer measurement",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "ade2a97ad63bb61a1a03e61a353192c92deb578e679a73f37ec29dc01a9e64dc",
+            "usage": {
+              "predictedTokensCount": 49,
+              "promptTokensCount": 2072,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 1.176412,
+              "tokensPerSecond": 31.49521567989313,
+              "totalTimeSec": 2.700453,
+              "totalTokensCount": 2121
+            },
+            "visible_fragment_bytes": 100,
+            "visible_fragments_sha256": "f5f6730247c8e8a52c5cd44d55596688f4426cd14edeaf45ecc105360c9d129f"
+          },
+          "request_sha256": "ade2a97ad63bb61a1a03e61a353192c92deb578e679a73f37ec29dc01a9e64dc",
+          "actual_prompt_matches_measurement": false,
+          "visible_response_sha256": "f5f6730247c8e8a52c5cd44d55596688f4426cd14edeaf45ecc105360c9d129f",
+          "visible_response_bytes": 100,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "assignment": {
+        "id": "ge4-raw-1",
+        "model_key": "gemma-4-e4b-it-ud",
+        "sequence": 1,
+        "treatment": "raw"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 49,
+      "known_input_tokens": 1922,
+      "model_attempts": 1,
+      "outcome": "failed",
+      "problem": "ValueError: actual prompt usage differs from fully rendered tokenizer measurement",
+      "reasoning_tokens": null,
+      "usage_complete": true,
+      "actual_tool_events": [],
+      "terminal_corrections": 0,
+      "report_refusal_details": null,
+      "report_published": false,
+      "calls": [
+        {
+          "id": "call-01",
+          "phase": "investigate",
+          "measured_input_tokens": 1921,
+          "eligible_reference_count": 0,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 1,
+            "complete_response_received": true,
+            "elapsed_seconds": 1.6051458849997289,
+            "outcome": "failed",
+            "problem": "ValueError: actual prompt usage differs from fully rendered tokenizer measurement",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "b9abce6b9af09d85f0505fad25472194129d32a4367bda4ae20102a26551e196",
+            "usage": {
+              "predictedTokensCount": 49,
+              "promptTokensCount": 1922,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 0.270084,
+              "tokensPerSecond": 33.24164180468873,
+              "totalTimeSec": 1.714056,
+              "totalTokensCount": 1971
+            },
+            "visible_fragment_bytes": 100,
+            "visible_fragments_sha256": "f5f6730247c8e8a52c5cd44d55596688f4426cd14edeaf45ecc105360c9d129f"
+          },
+          "request_sha256": "b9abce6b9af09d85f0505fad25472194129d32a4367bda4ae20102a26551e196",
+          "actual_prompt_matches_measurement": false,
+          "visible_response_sha256": "f5f6730247c8e8a52c5cd44d55596688f4426cd14edeaf45ecc105360c9d129f",
+          "visible_response_bytes": 100,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "assignment": {
+        "id": "ge4-raw-2",
+        "model_key": "gemma-4-e4b-it-ud",
+        "sequence": 2,
+        "treatment": "raw"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 49,
+      "known_input_tokens": 19923,
+      "model_attempts": 1,
+      "outcome": "failed",
+      "problem": "ValueError: actual prompt usage differs from fully rendered tokenizer measurement",
+      "reasoning_tokens": null,
+      "usage_complete": true,
+      "actual_tool_events": [],
+      "terminal_corrections": 0,
+      "report_refusal_details": null,
+      "report_published": false,
+      "calls": [
+        {
+          "id": "call-01",
+          "phase": "investigate",
+          "measured_input_tokens": 19922,
+          "eligible_reference_count": 0,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 1,
+            "complete_response_received": true,
+            "elapsed_seconds": 12.340415085000132,
+            "outcome": "failed",
+            "problem": "ValueError: actual prompt usage differs from fully rendered tokenizer measurement",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "45d1afd5a0427a6abc3934681191212e3a897af7226bc39d4851eca0369fcfa4",
+            "usage": {
+              "predictedTokensCount": 49,
+              "promptTokensCount": 19923,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 10.608913000000001,
+              "tokensPerSecond": 17.37854119456472,
+              "totalTimeSec": 13.370940000000001,
+              "totalTokensCount": 19972
+            },
+            "visible_fragment_bytes": 100,
+            "visible_fragments_sha256": "f5f6730247c8e8a52c5cd44d55596688f4426cd14edeaf45ecc105360c9d129f"
+          },
+          "request_sha256": "45d1afd5a0427a6abc3934681191212e3a897af7226bc39d4851eca0369fcfa4",
+          "actual_prompt_matches_measurement": false,
+          "visible_response_sha256": "f5f6730247c8e8a52c5cd44d55596688f4426cd14edeaf45ecc105360c9d129f",
+          "visible_response_bytes": 100,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "assignment": {
+        "id": "ge4-structured-2",
+        "model_key": "gemma-4-e4b-it-ud",
+        "sequence": 2,
+        "treatment": "structured"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 44,
+      "known_input_tokens": 20063,
+      "model_attempts": 1,
+      "outcome": "failed",
+      "problem": "ValueError: actual prompt usage differs from fully rendered tokenizer measurement",
+      "reasoning_tokens": null,
+      "usage_complete": true,
+      "actual_tool_events": [],
+      "terminal_corrections": 0,
+      "report_refusal_details": null,
+      "report_published": false,
+      "calls": [
+        {
+          "id": "call-01",
+          "phase": "investigate",
+          "measured_input_tokens": 20062,
+          "eligible_reference_count": 0,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 1,
+            "complete_response_received": true,
+            "elapsed_seconds": 3.062067789000139,
+            "outcome": "failed",
+            "problem": "ValueError: actual prompt usage differs from fully rendered tokenizer measurement",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "a5eda148cdd64ae1683e712d3afefbbd1f581f086a97dcafcaf92bbd9b3d4de7",
+            "usage": {
+              "predictedTokensCount": 44,
+              "promptTokensCount": 20063,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 0.8172140000000001,
+              "tokensPerSecond": 17.58450992788715,
+              "totalTimeSec": 3.262548,
+              "totalTokensCount": 20107
+            },
+            "visible_fragment_bytes": 93,
+            "visible_fragments_sha256": "788d8a2ee800ad7c9b72d82ffc26f0ba9448668ef82bde04b88d575a3d998248"
+          },
+          "request_sha256": "a5eda148cdd64ae1683e712d3afefbbd1f581f086a97dcafcaf92bbd9b3d4de7",
+          "actual_prompt_matches_measurement": false,
+          "visible_response_sha256": "788d8a2ee800ad7c9b72d82ffc26f0ba9448668ef82bde04b88d575a3d998248",
+          "visible_response_bytes": 93,
+          "proposed_action": {
+            "tool": "read_native",
+            "arguments": {
+              "families": [
+                "ci_coverage"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "assignment": {
+        "id": "m9-raw-1",
+        "model_key": "mimo-v2.6-distill-qwen-9b",
+        "sequence": 1,
+        "treatment": "raw"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 130,
+      "known_input_tokens": 20889,
+      "model_attempts": 6,
+      "outcome": "limit_exhausted",
+      "problem": "consumer turn budget exhausted",
+      "reasoning_tokens": null,
+      "usage_complete": true,
+      "actual_tool_events": [
+        {
+          "tool": "read_source",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "observed"
+        }
+      ],
+      "terminal_corrections": 0,
+      "report_refusal_details": null,
+      "report_published": false,
+      "calls": [
+        {
+          "id": "call-01",
+          "phase": "investigate",
+          "measured_input_tokens": 1806,
+          "eligible_reference_count": 0,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 1,
+            "complete_response_received": true,
+            "elapsed_seconds": 2.732258968000224,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "ae2ba42f17d1491239540bcb974d261701ac2271c987231dc980cb825f168993",
+            "usage": {
+              "predictedTokensCount": 20,
+              "promptTokensCount": 1806,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 1.975441,
+              "tokensPerSecond": 19.657361837197726,
+              "totalTimeSec": 2.942,
+              "totalTokensCount": 1826
+            },
+            "visible_fragment_bytes": 76,
+            "visible_fragments_sha256": "15f94af61cf67bbbce663862a6832604bf567d668825c495542b23d9d0983ce0"
+          },
+          "request_sha256": "ae2ba42f17d1491239540bcb974d261701ac2271c987231dc980cb825f168993",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "15f94af61cf67bbbce663862a6832604bf567d668825c495542b23d9d0983ce0",
+          "visible_response_bytes": 76,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-02",
+          "phase": "investigate",
+          "measured_input_tokens": 2473,
+          "eligible_reference_count": 1,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 2,
+            "complete_response_received": true,
+            "elapsed_seconds": 2.983643626999765,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "30fce08fc497764896ac28e9cb40069ebd9ba59e8620ab4c513b2b17e3193f17",
+            "usage": {
+              "predictedTokensCount": 20,
+              "promptTokensCount": 2473,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 2.189318,
+              "tokensPerSecond": 19.429707409058743,
+              "totalTimeSec": 3.167202,
+              "totalTokensCount": 2493
+            },
+            "visible_fragment_bytes": 76,
+            "visible_fragments_sha256": "15f94af61cf67bbbce663862a6832604bf567d668825c495542b23d9d0983ce0"
+          },
+          "request_sha256": "30fce08fc497764896ac28e9cb40069ebd9ba59e8620ab4c513b2b17e3193f17",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "15f94af61cf67bbbce663862a6832604bf567d668825c495542b23d9d0983ce0",
+          "visible_response_bytes": 76,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-03",
+          "phase": "investigate",
+          "measured_input_tokens": 3145,
+          "eligible_reference_count": 2,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 3,
+            "complete_response_received": true,
+            "elapsed_seconds": 3.636462857999959,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "3463ca6e306910ccc33a033888266b737ed4959c05012386fada57f708adb9b0",
+            "usage": {
+              "predictedTokensCount": 20,
+              "promptTokensCount": 3145,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 2.887366,
+              "tokensPerSecond": 18.954471359793775,
+              "totalTimeSec": 3.889768,
+              "totalTokensCount": 3165
+            },
+            "visible_fragment_bytes": 76,
+            "visible_fragments_sha256": "15f94af61cf67bbbce663862a6832604bf567d668825c495542b23d9d0983ce0"
+          },
+          "request_sha256": "3463ca6e306910ccc33a033888266b737ed4959c05012386fada57f708adb9b0",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "15f94af61cf67bbbce663862a6832604bf567d668825c495542b23d9d0983ce0",
+          "visible_response_bytes": 76,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-04",
+          "phase": "investigate",
+          "measured_input_tokens": 3818,
+          "eligible_reference_count": 3,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 4,
+            "complete_response_received": true,
+            "elapsed_seconds": 4.163759775000017,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "da6368e19346a92ed74639584d7b3e88b4553cbfb1e4232bc2a2d16e638e79d3",
+            "usage": {
+              "predictedTokensCount": 20,
+              "promptTokensCount": 3818,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 3.456471,
+              "tokensPerSecond": 18.16631162682189,
+              "totalTimeSec": 4.502363,
+              "totalTokensCount": 3838
+            },
+            "visible_fragment_bytes": 76,
+            "visible_fragments_sha256": "15f94af61cf67bbbce663862a6832604bf567d668825c495542b23d9d0983ce0"
+          },
+          "request_sha256": "da6368e19346a92ed74639584d7b3e88b4553cbfb1e4232bc2a2d16e638e79d3",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "15f94af61cf67bbbce663862a6832604bf567d668825c495542b23d9d0983ce0",
+          "visible_response_bytes": 76,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-05",
+          "phase": "investigate",
+          "measured_input_tokens": 4488,
+          "eligible_reference_count": 4,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 5,
+            "complete_response_received": true,
+            "elapsed_seconds": 5.021629755000049,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "56d402eaa5286a93f5fd5c4bde9bc3769a76103b7e7e5d258cf2406d56cc403a",
+            "usage": {
+              "predictedTokensCount": 25,
+              "promptTokensCount": 4488,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 4.123726,
+              "tokensPerSecond": 18.172704295270098,
+              "totalTimeSec": 5.444388,
+              "totalTokensCount": 4513
+            },
+            "visible_fragment_bytes": 91,
+            "visible_fragments_sha256": "5ecd59a1d6ee31ea5f4b3a97aea6edb2b45b32d1de83392309b81b896bc2374d"
+          },
+          "request_sha256": "56d402eaa5286a93f5fd5c4bde9bc3769a76103b7e7e5d258cf2406d56cc403a",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "5ecd59a1d6ee31ea5f4b3a97aea6edb2b45b32d1de83392309b81b896bc2374d",
+          "visible_response_bytes": 91,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary",
+              "line_count": 1
+            }
+          }
+        },
+        {
+          "id": "call-06",
+          "phase": "investigate",
+          "measured_input_tokens": 5159,
+          "eligible_reference_count": 5,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 6,
+            "complete_response_received": true,
+            "elapsed_seconds": 5.895073521000086,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "7c0a9e7bbcba3ef9f6d62f436687bb452b4a096dbacef3486622aa401548a756",
+            "usage": {
+              "predictedTokensCount": 25,
+              "promptTokensCount": 5159,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 5.028364,
+              "tokensPerSecond": 17.696974702174664,
+              "totalTimeSec": 6.3845279999999995,
+              "totalTokensCount": 5184
+            },
+            "visible_fragment_bytes": 91,
+            "visible_fragments_sha256": "5ecd59a1d6ee31ea5f4b3a97aea6edb2b45b32d1de83392309b81b896bc2374d"
+          },
+          "request_sha256": "7c0a9e7bbcba3ef9f6d62f436687bb452b4a096dbacef3486622aa401548a756",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "5ecd59a1d6ee31ea5f4b3a97aea6edb2b45b32d1de83392309b81b896bc2374d",
+          "visible_response_bytes": 91,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary",
+              "line_count": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "assignment": {
+        "id": "m9-structured-1",
+        "model_key": "mimo-v2.6-distill-qwen-9b",
+        "sequence": 1,
+        "treatment": "structured"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 152,
+      "known_input_tokens": 21699,
+      "model_attempts": 6,
+      "outcome": "limit_exhausted",
+      "problem": "consumer turn budget exhausted",
+      "reasoning_tokens": null,
+      "usage_complete": true,
+      "actual_tool_events": [
+        {
+          "tool": "read_source",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "observed"
+        }
+      ],
+      "terminal_corrections": 0,
+      "report_refusal_details": null,
+      "report_published": false,
+      "calls": [
+        {
+          "id": "call-01",
+          "phase": "investigate",
+          "measured_input_tokens": 1939,
+          "eligible_reference_count": 0,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 1,
+            "complete_response_received": true,
+            "elapsed_seconds": 2.8674912500000573,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "790e1f79f5842137160459882409fcaeca18f7e79bfd349e976e4147d55d282c",
+            "usage": {
+              "predictedTokensCount": 27,
+              "promptTokensCount": 1939,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 1.720068,
+              "tokensPerSecond": 19.88035087290033,
+              "totalTimeSec": 3.027892,
+              "totalTokensCount": 1966
+            },
+            "visible_fragment_bytes": 93,
+            "visible_fragments_sha256": "129e42bc130c1b0a658bb219025c528df696ba8b71a1bbd17c1637dfcd37c87b"
+          },
+          "request_sha256": "790e1f79f5842137160459882409fcaeca18f7e79bfd349e976e4147d55d282c",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "129e42bc130c1b0a658bb219025c528df696ba8b71a1bbd17c1637dfcd37c87b",
+          "visible_response_bytes": 93,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary",
+              "line_count": 100
+            }
+          }
+        },
+        {
+          "id": "call-02",
+          "phase": "investigate",
+          "measured_input_tokens": 2607,
+          "eligible_reference_count": 1,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 2,
+            "complete_response_received": true,
+            "elapsed_seconds": 3.4958945929997753,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "9c4ef380a6ec6bda9778b2dd3a13c1a2231dbf0fcb9181ff9ef3bfe6af48193f",
+            "usage": {
+              "predictedTokensCount": 25,
+              "promptTokensCount": 2607,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 2.465455,
+              "tokensPerSecond": 19.10738269460272,
+              "totalTimeSec": 3.721514,
+              "totalTokensCount": 2632
+            },
+            "visible_fragment_bytes": 91,
+            "visible_fragments_sha256": "5ecd59a1d6ee31ea5f4b3a97aea6edb2b45b32d1de83392309b81b896bc2374d"
+          },
+          "request_sha256": "9c4ef380a6ec6bda9778b2dd3a13c1a2231dbf0fcb9181ff9ef3bfe6af48193f",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "5ecd59a1d6ee31ea5f4b3a97aea6edb2b45b32d1de83392309b81b896bc2374d",
+          "visible_response_bytes": 91,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary",
+              "line_count": 1
+            }
+          }
+        },
+        {
+          "id": "call-03",
+          "phase": "investigate",
+          "measured_input_tokens": 3281,
+          "eligible_reference_count": 2,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 3,
+            "complete_response_received": true,
+            "elapsed_seconds": 3.949146049000319,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "8b36c0613f88d41e9d54f2d300e38d1ce03520a049575ab6c6df533742cbd576",
+            "usage": {
+              "predictedTokensCount": 25,
+              "promptTokensCount": 3281,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 2.968429,
+              "tokensPerSecond": 19.200522254205314,
+              "totalTimeSec": 4.218395,
+              "totalTokensCount": 3306
+            },
+            "visible_fragment_bytes": 91,
+            "visible_fragments_sha256": "5ecd59a1d6ee31ea5f4b3a97aea6edb2b45b32d1de83392309b81b896bc2374d"
+          },
+          "request_sha256": "8b36c0613f88d41e9d54f2d300e38d1ce03520a049575ab6c6df533742cbd576",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "5ecd59a1d6ee31ea5f4b3a97aea6edb2b45b32d1de83392309b81b896bc2374d",
+          "visible_response_bytes": 91,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary",
+              "line_count": 1
+            }
+          }
+        },
+        {
+          "id": "call-04",
+          "phase": "investigate",
+          "measured_input_tokens": 3950,
+          "eligible_reference_count": 3,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 4,
+            "complete_response_received": true,
+            "elapsed_seconds": 4.6559943649999695,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "2a7e5fbd428aae7b54385dbbcedbe2a9a0562e2fb92db0aa0801824d3e858136",
+            "usage": {
+              "predictedTokensCount": 25,
+              "promptTokensCount": 3950,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 3.7034450000000003,
+              "tokensPerSecond": 18.756828657933276,
+              "totalTimeSec": 4.982979,
+              "totalTokensCount": 3975
+            },
+            "visible_fragment_bytes": 91,
+            "visible_fragments_sha256": "5ecd59a1d6ee31ea5f4b3a97aea6edb2b45b32d1de83392309b81b896bc2374d"
+          },
+          "request_sha256": "2a7e5fbd428aae7b54385dbbcedbe2a9a0562e2fb92db0aa0801824d3e858136",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "5ecd59a1d6ee31ea5f4b3a97aea6edb2b45b32d1de83392309b81b896bc2374d",
+          "visible_response_bytes": 91,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary",
+              "line_count": 1
+            }
+          }
+        },
+        {
+          "id": "call-05",
+          "phase": "investigate",
+          "measured_input_tokens": 4624,
+          "eligible_reference_count": 4,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 5,
+            "complete_response_received": true,
+            "elapsed_seconds": 5.187511339000139,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "ac8ea46f988a49bc5f8b567f0d36ec2d18f73a59106cffa63cc92170ef7f4610",
+            "usage": {
+              "predictedTokensCount": 25,
+              "promptTokensCount": 4624,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 4.295674,
+              "tokensPerSecond": 18.201867815002284,
+              "totalTimeSec": 5.61422,
+              "totalTokensCount": 4649
+            },
+            "visible_fragment_bytes": 91,
+            "visible_fragments_sha256": "5ecd59a1d6ee31ea5f4b3a97aea6edb2b45b32d1de83392309b81b896bc2374d"
+          },
+          "request_sha256": "ac8ea46f988a49bc5f8b567f0d36ec2d18f73a59106cffa63cc92170ef7f4610",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "5ecd59a1d6ee31ea5f4b3a97aea6edb2b45b32d1de83392309b81b896bc2374d",
+          "visible_response_bytes": 91,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary",
+              "line_count": 1
+            }
+          }
+        },
+        {
+          "id": "call-06",
+          "phase": "investigate",
+          "measured_input_tokens": 5298,
+          "eligible_reference_count": 5,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 6,
+            "complete_response_received": true,
+            "elapsed_seconds": 5.844545817999915,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "f5c26b339982ac03a518f7eca30d5f69409c6e0cede3c466dcd5965a8759c633",
+            "usage": {
+              "predictedTokensCount": 25,
+              "promptTokensCount": 5298,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 4.994853,
+              "tokensPerSecond": 17.983253095554762,
+              "totalTimeSec": 6.329428,
+              "totalTokensCount": 5323
+            },
+            "visible_fragment_bytes": 91,
+            "visible_fragments_sha256": "5ecd59a1d6ee31ea5f4b3a97aea6edb2b45b32d1de83392309b81b896bc2374d"
+          },
+          "request_sha256": "f5c26b339982ac03a518f7eca30d5f69409c6e0cede3c466dcd5965a8759c633",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "5ecd59a1d6ee31ea5f4b3a97aea6edb2b45b32d1de83392309b81b896bc2374d",
+          "visible_response_bytes": 91,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary",
+              "line_count": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "assignment": {
+        "id": "m9-structured-2",
+        "model_key": "mimo-v2.6-distill-qwen-9b",
+        "sequence": 2,
+        "treatment": "structured"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 96,
+      "known_input_tokens": 127848,
+      "model_attempts": 6,
+      "outcome": "limit_exhausted",
+      "problem": "consumer turn budget exhausted",
+      "reasoning_tokens": null,
+      "usage_complete": true,
+      "actual_tool_events": [
+        {
+          "tool": "read_native",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_native",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_native",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_native",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_native",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_native",
+          "outcome": "observed"
+        }
+      ],
+      "terminal_corrections": 0,
+      "report_refusal_details": null,
+      "report_published": false,
+      "calls": [
+        {
+          "id": "call-01",
+          "phase": "investigate",
+          "measured_input_tokens": 19930,
+          "eligible_reference_count": 0,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 1,
+            "complete_response_received": true,
+            "elapsed_seconds": 19.945352729000206,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "550b6d6e33fbc14a922e485365c8e7b1970fb39cbab4461b35a2a3ca19cb99b9",
+            "usage": {
+              "predictedTokensCount": 16,
+              "promptTokensCount": 19930,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 20.362686,
+              "tokensPerSecond": 11.990685635398423,
+              "totalTimeSec": 21.613657000000003,
+              "totalTokensCount": 19946
+            },
+            "visible_fragment_bytes": 63,
+            "visible_fragments_sha256": "10760195372b3bde2aa7decf5b330aecd9cf8139d183f8de475fdb917b8bb5a0"
+          },
+          "request_sha256": "550b6d6e33fbc14a922e485365c8e7b1970fb39cbab4461b35a2a3ca19cb99b9",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "10760195372b3bde2aa7decf5b330aecd9cf8139d183f8de475fdb917b8bb5a0",
+          "visible_response_bytes": 63,
+          "proposed_action": {
+            "tool": "read_native",
+            "arguments": {
+              "families": [
+                "ci_coverage"
+              ]
+            }
+          }
+        },
+        {
+          "id": "call-02",
+          "phase": "investigate",
+          "measured_input_tokens": 20479,
+          "eligible_reference_count": 1,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 2,
+            "complete_response_received": true,
+            "elapsed_seconds": 20.83273103900001,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "c39af328a481113fc986276ea4abe77e98b348cf1394a0c4352bc2603a873f71",
+            "usage": {
+              "predictedTokensCount": 16,
+              "promptTokensCount": 20479,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 21.256401,
+              "tokensPerSecond": 11.78919967839063,
+              "totalTimeSec": 22.528752,
+              "totalTokensCount": 20495
+            },
+            "visible_fragment_bytes": 63,
+            "visible_fragments_sha256": "10760195372b3bde2aa7decf5b330aecd9cf8139d183f8de475fdb917b8bb5a0"
+          },
+          "request_sha256": "c39af328a481113fc986276ea4abe77e98b348cf1394a0c4352bc2603a873f71",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "10760195372b3bde2aa7decf5b330aecd9cf8139d183f8de475fdb917b8bb5a0",
+          "visible_response_bytes": 63,
+          "proposed_action": {
+            "tool": "read_native",
+            "arguments": {
+              "families": [
+                "ci_coverage"
+              ]
+            }
+          }
+        },
+        {
+          "id": "call-03",
+          "phase": "investigate",
+          "measured_input_tokens": 21031,
+          "eligible_reference_count": 2,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 3,
+            "complete_response_received": true,
+            "elapsed_seconds": 23.414976860000024,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "dd9ff8b560f056a42175489709089a7f2e941d3fae147cb712ac33c9b9c3e1af",
+            "usage": {
+              "predictedTokensCount": 16,
+              "promptTokensCount": 21031,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 23.725783,
+              "tokensPerSecond": 9.235992539780959,
+              "totalTimeSec": 25.349863999999997,
+              "totalTokensCount": 21047
+            },
+            "visible_fragment_bytes": 63,
+            "visible_fragments_sha256": "10760195372b3bde2aa7decf5b330aecd9cf8139d183f8de475fdb917b8bb5a0"
+          },
+          "request_sha256": "dd9ff8b560f056a42175489709089a7f2e941d3fae147cb712ac33c9b9c3e1af",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "10760195372b3bde2aa7decf5b330aecd9cf8139d183f8de475fdb917b8bb5a0",
+          "visible_response_bytes": 63,
+          "proposed_action": {
+            "tool": "read_native",
+            "arguments": {
+              "families": [
+                "ci_coverage"
+              ]
+            }
+          }
+        },
+        {
+          "id": "call-04",
+          "phase": "investigate",
+          "measured_input_tokens": 21584,
+          "eligible_reference_count": 3,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 4,
+            "complete_response_received": true,
+            "elapsed_seconds": 23.717206554999848,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "112045664c37a2e142555858964d72d28665790d3bd003f8dce37b13d5a1eb90",
+            "usage": {
+              "predictedTokensCount": 16,
+              "promptTokensCount": 21584,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 24.103158,
+              "tokensPerSecond": 9.603847685536733,
+              "totalTimeSec": 25.665032,
+              "totalTokensCount": 21600
+            },
+            "visible_fragment_bytes": 63,
+            "visible_fragments_sha256": "10760195372b3bde2aa7decf5b330aecd9cf8139d183f8de475fdb917b8bb5a0"
+          },
+          "request_sha256": "112045664c37a2e142555858964d72d28665790d3bd003f8dce37b13d5a1eb90",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "10760195372b3bde2aa7decf5b330aecd9cf8139d183f8de475fdb917b8bb5a0",
+          "visible_response_bytes": 63,
+          "proposed_action": {
+            "tool": "read_native",
+            "arguments": {
+              "families": [
+                "ci_coverage"
+              ]
+            }
+          }
+        },
+        {
+          "id": "call-05",
+          "phase": "investigate",
+          "measured_input_tokens": 22138,
+          "eligible_reference_count": 4,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 5,
+            "complete_response_received": true,
+            "elapsed_seconds": 24.4913407680001,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "307e1bcd560ae53a3a915357fff88ddb06839154368660ef61f6129f42031b2b",
+            "usage": {
+              "predictedTokensCount": 16,
+              "promptTokensCount": 22138,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 24.739100999999998,
+              "tokensPerSecond": 8.81979396961287,
+              "totalTimeSec": 26.439821,
+              "totalTokensCount": 22154
+            },
+            "visible_fragment_bytes": 63,
+            "visible_fragments_sha256": "10760195372b3bde2aa7decf5b330aecd9cf8139d183f8de475fdb917b8bb5a0"
+          },
+          "request_sha256": "307e1bcd560ae53a3a915357fff88ddb06839154368660ef61f6129f42031b2b",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "10760195372b3bde2aa7decf5b330aecd9cf8139d183f8de475fdb917b8bb5a0",
+          "visible_response_bytes": 63,
+          "proposed_action": {
+            "tool": "read_native",
+            "arguments": {
+              "families": [
+                "ci_coverage"
+              ]
+            }
+          }
+        },
+        {
+          "id": "call-06",
+          "phase": "investigate",
+          "measured_input_tokens": 22686,
+          "eligible_reference_count": 5,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 6,
+            "complete_response_received": true,
+            "elapsed_seconds": 24.568800787999862,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "aaa949d33b88695e80300948c630e72884af267dfa273fb974d154477e801997",
+            "usage": {
+              "predictedTokensCount": 16,
+              "promptTokensCount": 22686,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 24.760593,
+              "tokensPerSecond": 8.411730663113552,
+              "totalTimeSec": 26.543817,
+              "totalTokensCount": 22702
+            },
+            "visible_fragment_bytes": 63,
+            "visible_fragments_sha256": "10760195372b3bde2aa7decf5b330aecd9cf8139d183f8de475fdb917b8bb5a0"
+          },
+          "request_sha256": "aaa949d33b88695e80300948c630e72884af267dfa273fb974d154477e801997",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "10760195372b3bde2aa7decf5b330aecd9cf8139d183f8de475fdb917b8bb5a0",
+          "visible_response_bytes": 63,
+          "proposed_action": {
+            "tool": "read_native",
+            "arguments": {
+              "families": [
+                "ci_coverage"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "assignment": {
+        "id": "m9-raw-2",
+        "model_key": "mimo-v2.6-distill-qwen-9b",
+        "sequence": 2,
+        "treatment": "raw"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 145,
+      "known_input_tokens": 128851,
+      "model_attempts": 6,
+      "outcome": "limit_exhausted",
+      "problem": "consumer turn budget exhausted",
+      "reasoning_tokens": null,
+      "usage_complete": true,
+      "actual_tool_events": [
+        {
+          "tool": "read_source",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "observed"
+        }
+      ],
+      "terminal_corrections": 0,
+      "report_refusal_details": null,
+      "report_published": false,
+      "calls": [
+        {
+          "id": "call-01",
+          "phase": "investigate",
+          "measured_input_tokens": 19807,
+          "eligible_reference_count": 0,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 1,
+            "complete_response_received": true,
+            "elapsed_seconds": 21.99540985700014,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "d2bd7cb34ab240ffa4690b8cc98dc4e66c70d49a9042ad1df7b27ad92dfc841c",
+            "usage": {
+              "predictedTokensCount": 20,
+              "promptTokensCount": 19807,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 21.572881000000002,
+              "tokensPerSecond": 8.824887296899863,
+              "totalTimeSec": 23.725883000000003,
+              "totalTokensCount": 19827
+            },
+            "visible_fragment_bytes": 76,
+            "visible_fragments_sha256": "15f94af61cf67bbbce663862a6832604bf567d668825c495542b23d9d0983ce0"
+          },
+          "request_sha256": "d2bd7cb34ab240ffa4690b8cc98dc4e66c70d49a9042ad1df7b27ad92dfc841c",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "15f94af61cf67bbbce663862a6832604bf567d668825c495542b23d9d0983ce0",
+          "visible_response_bytes": 76,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-02",
+          "phase": "investigate",
+          "measured_input_tokens": 20476,
+          "eligible_reference_count": 1,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 2,
+            "complete_response_received": true,
+            "elapsed_seconds": 24.586445188000198,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "ba53dd790b7a68a2a7f7e8ffef9086024b281509135e7ac3495eab22e851815c",
+            "usage": {
+              "predictedTokensCount": 25,
+              "promptTokensCount": 20476,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 23.977551,
+              "tokensPerSecond": 9.389168107969173,
+              "totalTimeSec": 26.533687999999998,
+              "totalTokensCount": 20501
+            },
+            "visible_fragment_bytes": 91,
+            "visible_fragments_sha256": "5ecd59a1d6ee31ea5f4b3a97aea6edb2b45b32d1de83392309b81b896bc2374d"
+          },
+          "request_sha256": "ba53dd790b7a68a2a7f7e8ffef9086024b281509135e7ac3495eab22e851815c",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "5ecd59a1d6ee31ea5f4b3a97aea6edb2b45b32d1de83392309b81b896bc2374d",
+          "visible_response_bytes": 91,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary",
+              "line_count": 1
+            }
+          }
+        },
+        {
+          "id": "call-03",
+          "phase": "investigate",
+          "measured_input_tokens": 21138,
+          "eligible_reference_count": 2,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 3,
+            "complete_response_received": true,
+            "elapsed_seconds": 25.370396979999896,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "d4187e3ceccc8342a853c620ca91e807f837db86cea67095fabb234f088eb9fc",
+            "usage": {
+              "predictedTokensCount": 25,
+              "promptTokensCount": 21138,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 24.819233,
+              "tokensPerSecond": 9.35689295012698,
+              "totalTimeSec": 27.384187,
+              "totalTokensCount": 21163
+            },
+            "visible_fragment_bytes": 91,
+            "visible_fragments_sha256": "5ecd59a1d6ee31ea5f4b3a97aea6edb2b45b32d1de83392309b81b896bc2374d"
+          },
+          "request_sha256": "d4187e3ceccc8342a853c620ca91e807f837db86cea67095fabb234f088eb9fc",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "5ecd59a1d6ee31ea5f4b3a97aea6edb2b45b32d1de83392309b81b896bc2374d",
+          "visible_response_bytes": 91,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary",
+              "line_count": 1
+            }
+          }
+        },
+        {
+          "id": "call-04",
+          "phase": "investigate",
+          "measured_input_tokens": 21807,
+          "eligible_reference_count": 3,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 4,
+            "complete_response_received": true,
+            "elapsed_seconds": 25.36917823800013,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "da7022e5de0c89d0cf4a5cd6bd68302ef225a7a11aaad38b5d59cb60bec30a76",
+            "usage": {
+              "predictedTokensCount": 25,
+              "promptTokensCount": 21807,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 24.819318,
+              "tokensPerSecond": 9.258584154164685,
+              "totalTimeSec": 27.411506999999997,
+              "totalTokensCount": 21832
+            },
+            "visible_fragment_bytes": 91,
+            "visible_fragments_sha256": "5ecd59a1d6ee31ea5f4b3a97aea6edb2b45b32d1de83392309b81b896bc2374d"
+          },
+          "request_sha256": "da7022e5de0c89d0cf4a5cd6bd68302ef225a7a11aaad38b5d59cb60bec30a76",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "5ecd59a1d6ee31ea5f4b3a97aea6edb2b45b32d1de83392309b81b896bc2374d",
+          "visible_response_bytes": 91,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary",
+              "line_count": 1
+            }
+          }
+        },
+        {
+          "id": "call-05",
+          "phase": "investigate",
+          "measured_input_tokens": 22477,
+          "eligible_reference_count": 4,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 5,
+            "complete_response_received": true,
+            "elapsed_seconds": 25.27355124800033,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "0390724d1ea407246f60e139d06de7fedbb1872aa97c584c25776e77dc13e2c9",
+            "usage": {
+              "predictedTokensCount": 25,
+              "promptTokensCount": 22477,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 24.719049,
+              "tokensPerSecond": 9.28172231639303,
+              "totalTimeSec": 27.304775999999997,
+              "totalTokensCount": 22502
+            },
+            "visible_fragment_bytes": 91,
+            "visible_fragments_sha256": "5ecd59a1d6ee31ea5f4b3a97aea6edb2b45b32d1de83392309b81b896bc2374d"
+          },
+          "request_sha256": "0390724d1ea407246f60e139d06de7fedbb1872aa97c584c25776e77dc13e2c9",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "5ecd59a1d6ee31ea5f4b3a97aea6edb2b45b32d1de83392309b81b896bc2374d",
+          "visible_response_bytes": 91,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary",
+              "line_count": 1
+            }
+          }
+        },
+        {
+          "id": "call-06",
+          "phase": "investigate",
+          "measured_input_tokens": 23146,
+          "eligible_reference_count": 5,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 6,
+            "complete_response_received": true,
+            "elapsed_seconds": 26.296336438000253,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "f34ed4052d379533269adde56de0858333fba587abba7e1d03357b713e57cf67",
+            "usage": {
+              "predictedTokensCount": 25,
+              "promptTokensCount": 23146,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 25.869906999999998,
+              "tokensPerSecond": 9.275684951360628,
+              "totalTimeSec": 28.457317,
+              "totalTokensCount": 23171
+            },
+            "visible_fragment_bytes": 91,
+            "visible_fragments_sha256": "5ecd59a1d6ee31ea5f4b3a97aea6edb2b45b32d1de83392309b81b896bc2374d"
+          },
+          "request_sha256": "f34ed4052d379533269adde56de0858333fba587abba7e1d03357b713e57cf67",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "5ecd59a1d6ee31ea5f4b3a97aea6edb2b45b32d1de83392309b81b896bc2374d",
+          "visible_response_bytes": 91,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary",
+              "line_count": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "assignment": {
+        "id": "q9-structured-1",
+        "model_key": "qwen3.5-9b-ud",
+        "sequence": 1,
+        "treatment": "structured"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 935,
+      "known_input_tokens": 19445,
+      "model_attempts": 6,
+      "outcome": "completed",
+      "problem": null,
+      "reasoning_tokens": null,
+      "usage_complete": true,
+      "actual_tool_events": [
+        {
+          "tool": "read_source",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "observed"
+        },
+        {
+          "tool": "search_sources",
+          "outcome": "scoped_negative"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "empty"
+        },
+        {
+          "tool": "finish_investigation",
+          "outcome": "ready"
+        }
+      ],
+      "terminal_corrections": 0,
+      "report_refusal_details": null,
+      "report_published": true,
+      "calls": [
+        {
+          "id": "call-01",
+          "phase": "investigate",
+          "measured_input_tokens": 1942,
+          "eligible_reference_count": 0,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 1,
+            "complete_response_received": true,
+            "elapsed_seconds": 2.7828634470001816,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "720b5225dad64917d0203c0ccb85dd348f637142fc598ae3cb5b26bc534a06c4",
+            "usage": {
+              "predictedTokensCount": 20,
+              "promptTokensCount": 1942,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 2.093163,
+              "tokensPerSecond": 20.83792590252896,
+              "totalTimeSec": 3.004962,
+              "totalTokensCount": 1962
+            },
+            "visible_fragment_bytes": 76,
+            "visible_fragments_sha256": "15f94af61cf67bbbce663862a6832604bf567d668825c495542b23d9d0983ce0"
+          },
+          "request_sha256": "720b5225dad64917d0203c0ccb85dd348f637142fc598ae3cb5b26bc534a06c4",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "15f94af61cf67bbbce663862a6832604bf567d668825c495542b23d9d0983ce0",
+          "visible_response_bytes": 76,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-02",
+          "phase": "investigate",
+          "measured_input_tokens": 2607,
+          "eligible_reference_count": 1,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 2,
+            "complete_response_received": true,
+            "elapsed_seconds": 2.995001848999891,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "bc3b411ac31c4b14bea4b475ca4b6e2d0bb73d36ec1d0e1b34365d3b32e2e9c3",
+            "usage": {
+              "predictedTokensCount": 20,
+              "promptTokensCount": 2607,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 2.2578829999999996,
+              "tokensPerSecond": 20.85485133235059,
+              "totalTimeSec": 3.168942,
+              "totalTokensCount": 2627
+            },
+            "visible_fragment_bytes": 76,
+            "visible_fragments_sha256": "15f94af61cf67bbbce663862a6832604bf567d668825c495542b23d9d0983ce0"
+          },
+          "request_sha256": "bc3b411ac31c4b14bea4b475ca4b6e2d0bb73d36ec1d0e1b34365d3b32e2e9c3",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "15f94af61cf67bbbce663862a6832604bf567d668825c495542b23d9d0983ce0",
+          "visible_response_bytes": 76,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-03",
+          "phase": "investigate",
+          "measured_input_tokens": 3280,
+          "eligible_reference_count": 2,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 3,
+            "complete_response_received": true,
+            "elapsed_seconds": 4.710202009000113,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "61e464ca0afb7fddeadfecf02897961b066bcbead19841798632ec61f681f797",
+            "usage": {
+              "predictedTokensCount": 48,
+              "promptTokensCount": 3280,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 2.768612,
+              "tokensPerSecond": 20.66746229067598,
+              "totalTimeSec": 5.042718000000001,
+              "totalTokensCount": 3328
+            },
+            "visible_fragment_bytes": 119,
+            "visible_fragments_sha256": "1cd9f4a576b33359040cded77627bb23135843e6b87e5efa87c9e79175de59b9"
+          },
+          "request_sha256": "61e464ca0afb7fddeadfecf02897961b066bcbead19841798632ec61f681f797",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "1cd9f4a576b33359040cded77627bb23135843e6b87e5efa87c9e79175de59b9",
+          "visible_response_bytes": 119,
+          "proposed_action": {
+            "tool": "search_sources",
+            "arguments": {
+              "query": "NO_SUCH_CANARY_MARKER_91",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-04",
+          "phase": "investigate",
+          "measured_input_tokens": 3625,
+          "eligible_reference_count": 3,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 4,
+            "complete_response_received": true,
+            "elapsed_seconds": 4.30980145400008,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "2e46b3b947b246f5c8a256eaa0bf276d72b37929065e9dc54b97d3bce194c041",
+            "usage": {
+              "predictedTokensCount": 20,
+              "promptTokensCount": 3625,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 3.463564,
+              "tokensPerSecond": 17.073633188267358,
+              "totalTimeSec": 4.576390999999999,
+              "totalTokensCount": 3645
+            },
+            "visible_fragment_bytes": 76,
+            "visible_fragments_sha256": "a8320d01440e819661d08982163655de8ba350ab27c23e4b97f7f7f46a455f83"
+          },
+          "request_sha256": "2e46b3b947b246f5c8a256eaa0bf276d72b37929065e9dc54b97d3bce194c041",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "a8320d01440e819661d08982163655de8ba350ab27c23e4b97f7f7f46a455f83",
+          "visible_response_bytes": 76,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "empty.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-05",
+          "phase": "investigate",
+          "measured_input_tokens": 4280,
+          "eligible_reference_count": 4,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 5,
+            "complete_response_received": true,
+            "elapsed_seconds": 4.30081078000012,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "480cfa0ac6bec1d45a0a7c4690a937a434955a1ebbc732e000345fa7e404d2e6",
+            "usage": {
+              "predictedTokensCount": 13,
+              "promptTokensCount": 4280,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 3.800469,
+              "tokensPerSecond": 14.460915159015839,
+              "totalTimeSec": 4.630292000000001,
+              "totalTokensCount": 4293
+            },
+            "visible_fragment_bytes": 46,
+            "visible_fragments_sha256": "e36cfcf95249fa4dadab11e295bc47796abd71415221593ab1a0b10cb14451a8"
+          },
+          "request_sha256": "480cfa0ac6bec1d45a0a7c4690a937a434955a1ebbc732e000345fa7e404d2e6",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "e36cfcf95249fa4dadab11e295bc47796abd71415221593ab1a0b10cb14451a8",
+          "visible_response_bytes": 46,
+          "proposed_action": {
+            "tool": "finish_investigation",
+            "arguments": {}
+          }
+        },
+        {
+          "id": "call-06",
+          "phase": "report",
+          "measured_input_tokens": 3711,
+          "eligible_reference_count": 4,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 6,
+            "complete_response_received": true,
+            "elapsed_seconds": 47.122875905,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "a7fee6651de860ed5e9042274a285d936e01ebcbbf2c61227914994726f677c1",
+            "usage": {
+              "predictedTokensCount": 814,
+              "promptTokensCount": 3711,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 3.30387,
+              "tokensPerSecond": 16.91879345403765,
+              "totalTimeSec": 51.356942000000004,
+              "totalTokensCount": 4525
+            },
+            "visible_fragment_bytes": 3020,
+            "visible_fragments_sha256": "747c702477092ef72e4213f4095023a0fb907b29b64bf1a2f773a118d180025c"
+          },
+          "request_sha256": "a7fee6651de860ed5e9042274a285d936e01ebcbbf2c61227914994726f677c1",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "747c702477092ef72e4213f4095023a0fb907b29b64bf1a2f773a118d180025c",
+          "visible_response_bytes": 3020,
+          "report_summary": "The investigation executed five steps: reading probe.txt (found synthetic marker), searching for a non-existent marker (zero matches), and reading empty.txt (empty). No actual dependency update data was found. The system remains in a synthetic state with unresolved compatibility.",
+          "report_recommendation_status": "unresolved",
+          "report_reference_ids_not_currently_eligible": []
+        }
+      ]
+    },
+    {
+      "assignment": {
+        "id": "q9-raw-1",
+        "model_key": "qwen3.5-9b-ud",
+        "sequence": 1,
+        "treatment": "raw"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 169,
+      "known_input_tokens": 20924,
+      "model_attempts": 6,
+      "outcome": "limit_exhausted",
+      "problem": "consumer turn budget exhausted",
+      "reasoning_tokens": null,
+      "usage_complete": true,
+      "actual_tool_events": [
+        {
+          "tool": "read_source",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "empty"
+        },
+        {
+          "tool": "search_sources",
+          "outcome": "scoped_negative"
+        }
+      ],
+      "terminal_corrections": 0,
+      "report_refusal_details": null,
+      "report_published": false,
+      "calls": [
+        {
+          "id": "call-01",
+          "phase": "investigate",
+          "measured_input_tokens": 1809,
+          "eligible_reference_count": 0,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 1,
+            "complete_response_received": true,
+            "elapsed_seconds": 2.567675400999633,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "beea4396f9a87ab5f0108f498af32cfcfeeff559ca0832aee35771405b621c36",
+            "usage": {
+              "predictedTokensCount": 20,
+              "promptTokensCount": 1809,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 1.5450979999999999,
+              "tokensPerSecond": 16.991851959831262,
+              "totalTimeSec": 2.663281,
+              "totalTokensCount": 1829
+            },
+            "visible_fragment_bytes": 76,
+            "visible_fragments_sha256": "15f94af61cf67bbbce663862a6832604bf567d668825c495542b23d9d0983ce0"
+          },
+          "request_sha256": "beea4396f9a87ab5f0108f498af32cfcfeeff559ca0832aee35771405b621c36",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "15f94af61cf67bbbce663862a6832604bf567d668825c495542b23d9d0983ce0",
+          "visible_response_bytes": 76,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-02",
+          "phase": "investigate",
+          "measured_input_tokens": 2484,
+          "eligible_reference_count": 1,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 2,
+            "complete_response_received": true,
+            "elapsed_seconds": 3.1294939370000066,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "c9f54c4a753cef5c2cda796f5d7173d486d3ee8d460f33388dfe8efd974a68d1",
+            "usage": {
+              "predictedTokensCount": 20,
+              "promptTokensCount": 2484,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 2.188535,
+              "tokensPerSecond": 17.8200958158415,
+              "totalTimeSec": 3.254747,
+              "totalTokensCount": 2504
+            },
+            "visible_fragment_bytes": 76,
+            "visible_fragments_sha256": "15f94af61cf67bbbce663862a6832604bf567d668825c495542b23d9d0983ce0"
+          },
+          "request_sha256": "c9f54c4a753cef5c2cda796f5d7173d486d3ee8d460f33388dfe8efd974a68d1",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "15f94af61cf67bbbce663862a6832604bf567d668825c495542b23d9d0983ce0",
+          "visible_response_bytes": 76,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-03",
+          "phase": "investigate",
+          "measured_input_tokens": 3157,
+          "eligible_reference_count": 2,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 3,
+            "complete_response_received": true,
+            "elapsed_seconds": 3.7549484180003674,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "e8ef3eeaea1bc2802b47d7165494b5f7efa23233942a83ab4b91260ee96a2248",
+            "usage": {
+              "predictedTokensCount": 20,
+              "promptTokensCount": 3157,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 2.8136390000000002,
+              "tokensPerSecond": 16.29768144037193,
+              "totalTimeSec": 3.9794490000000002,
+              "totalTokensCount": 3177
+            },
+            "visible_fragment_bytes": 76,
+            "visible_fragments_sha256": "15f94af61cf67bbbce663862a6832604bf567d668825c495542b23d9d0983ce0"
+          },
+          "request_sha256": "e8ef3eeaea1bc2802b47d7165494b5f7efa23233942a83ab4b91260ee96a2248",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "15f94af61cf67bbbce663862a6832604bf567d668825c495542b23d9d0983ce0",
+          "visible_response_bytes": 76,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-04",
+          "phase": "investigate",
+          "measured_input_tokens": 3829,
+          "eligible_reference_count": 3,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 4,
+            "complete_response_received": true,
+            "elapsed_seconds": 4.2016310120002345,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "e21f50f88ef80f90f6e99a8baaad8fe3929526966b231076c78dfe398fe784d1",
+            "usage": {
+              "predictedTokensCount": 20,
+              "promptTokensCount": 3829,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 3.414236,
+              "tokensPerSecond": 17.084502647648318,
+              "totalTimeSec": 4.526355,
+              "totalTokensCount": 3849
+            },
+            "visible_fragment_bytes": 76,
+            "visible_fragments_sha256": "15f94af61cf67bbbce663862a6832604bf567d668825c495542b23d9d0983ce0"
+          },
+          "request_sha256": "e21f50f88ef80f90f6e99a8baaad8fe3929526966b231076c78dfe398fe784d1",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "15f94af61cf67bbbce663862a6832604bf567d668825c495542b23d9d0983ce0",
+          "visible_response_bytes": 76,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-05",
+          "phase": "investigate",
+          "measured_input_tokens": 4494,
+          "eligible_reference_count": 4,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 5,
+            "complete_response_received": true,
+            "elapsed_seconds": 6.251555901999836,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "04da57eb78702cc846c41bee2fadc706ded70b3c3d3eb74e33c8e16e73e6c081",
+            "usage": {
+              "predictedTokensCount": 41,
+              "promptTokensCount": 4494,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 4.228617,
+              "tokensPerSecond": 15.808695810260872,
+              "totalTimeSec": 6.758870000000001,
+              "totalTokensCount": 4535
+            },
+            "visible_fragment_bytes": 100,
+            "visible_fragments_sha256": "9cf2e400240608618bf68ba10815cde528551079dcc2b66dee2192806005f74a"
+          },
+          "request_sha256": "04da57eb78702cc846c41bee2fadc706ded70b3c3d3eb74e33c8e16e73e6c081",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "9cf2e400240608618bf68ba10815cde528551079dcc2b66dee2192806005f74a",
+          "visible_response_bytes": 100,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "empty.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-06",
+          "phase": "investigate",
+          "measured_input_tokens": 5151,
+          "eligible_reference_count": 5,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 6,
+            "complete_response_received": true,
+            "elapsed_seconds": 7.223645350999959,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "b7de5ca7b738199f227f88f1d4bd640b85fd94eca87047e783e69bad3d752edc",
+            "usage": {
+              "predictedTokensCount": 48,
+              "promptTokensCount": 5151,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 4.770181,
+              "tokensPerSecond": 15.43077638802296,
+              "totalTimeSec": 7.8160419999999995,
+              "totalTokensCount": 5199
+            },
+            "visible_fragment_bytes": 119,
+            "visible_fragments_sha256": "1cd9f4a576b33359040cded77627bb23135843e6b87e5efa87c9e79175de59b9"
+          },
+          "request_sha256": "b7de5ca7b738199f227f88f1d4bd640b85fd94eca87047e783e69bad3d752edc",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "1cd9f4a576b33359040cded77627bb23135843e6b87e5efa87c9e79175de59b9",
+          "visible_response_bytes": 119,
+          "proposed_action": {
+            "tool": "search_sources",
+            "arguments": {
+              "query": "NO_SUCH_CANARY_MARKER_91",
+              "source_id": "canary"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "assignment": {
+        "id": "q9-raw-2",
+        "model_key": "qwen3.5-9b-ud",
+        "sequence": 2,
+        "treatment": "raw"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 204,
+      "known_input_tokens": 126819,
+      "model_attempts": 6,
+      "outcome": "limit_exhausted",
+      "problem": "consumer turn budget exhausted",
+      "reasoning_tokens": null,
+      "usage_complete": true,
+      "actual_tool_events": [
+        {
+          "tool": "read_source",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "problem"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "problem"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "problem"
+        }
+      ],
+      "terminal_corrections": 0,
+      "report_refusal_details": null,
+      "report_published": false,
+      "calls": [
+        {
+          "id": "call-01",
+          "phase": "investigate",
+          "measured_input_tokens": 19810,
+          "eligible_reference_count": 0,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 1,
+            "complete_response_received": true,
+            "elapsed_seconds": 21.83139799799983,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "3af806d54a107d6153647de13ba97be1b86b44c92015a1ac38bbe6b610c4f74b",
+            "usage": {
+              "predictedTokensCount": 41,
+              "promptTokensCount": 19810,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 20.026314,
+              "tokensPerSecond": 11.016877029343178,
+              "totalTimeSec": 23.657107,
+              "totalTokensCount": 19851
+            },
+            "visible_fragment_bytes": 100,
+            "visible_fragments_sha256": "f5f6730247c8e8a52c5cd44d55596688f4426cd14edeaf45ecc105360c9d129f"
+          },
+          "request_sha256": "3af806d54a107d6153647de13ba97be1b86b44c92015a1ac38bbe6b610c4f74b",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "f5f6730247c8e8a52c5cd44d55596688f4426cd14edeaf45ecc105360c9d129f",
+          "visible_response_bytes": 100,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-02",
+          "phase": "investigate",
+          "measured_input_tokens": 20478,
+          "eligible_reference_count": 1,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 2,
+            "complete_response_received": true,
+            "elapsed_seconds": 21.276491187000374,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "05be9e3599788df2065d518d95b9866925b0d0ca477fac37eeb5e89403aeeef5",
+            "usage": {
+              "predictedTokensCount": 20,
+              "promptTokensCount": 20478,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 21.487312000000003,
+              "tokensPerSecond": 12.854113925335188,
+              "totalTimeSec": 22.965438000000002,
+              "totalTokensCount": 20498
+            },
+            "visible_fragment_bytes": 76,
+            "visible_fragments_sha256": "15f94af61cf67bbbce663862a6832604bf567d668825c495542b23d9d0983ce0"
+          },
+          "request_sha256": "05be9e3599788df2065d518d95b9866925b0d0ca477fac37eeb5e89403aeeef5",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "15f94af61cf67bbbce663862a6832604bf567d668825c495542b23d9d0983ce0",
+          "visible_response_bytes": 76,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-03",
+          "phase": "investigate",
+          "measured_input_tokens": 21148,
+          "eligible_reference_count": 2,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 3,
+            "complete_response_received": true,
+            "elapsed_seconds": 23.95658946499998,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "02b13b8f1aef66b59e2fb9110f25dc5cce62b35a54a9c35ef70dc03e1aeeb35a",
+            "usage": {
+              "predictedTokensCount": 41,
+              "promptTokensCount": 21148,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 22.880747,
+              "tokensPerSecond": 13.138770046888986,
+              "totalTimeSec": 25.925172,
+              "totalTokensCount": 21189
+            },
+            "visible_fragment_bytes": 102,
+            "visible_fragments_sha256": "9bbfb013e8e78e6bbb3043c489d27af1ef57a1bbe6cfb3072623e569042a6497"
+          },
+          "request_sha256": "02b13b8f1aef66b59e2fb9110f25dc5cce62b35a54a9c35ef70dc03e1aeeb35a",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "9bbfb013e8e78e6bbb3043c489d27af1ef57a1bbe6cfb3072623e569042a6497",
+          "visible_response_bytes": 102,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "missing.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-04",
+          "phase": "investigate",
+          "measured_input_tokens": 21401,
+          "eligible_reference_count": 2,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 4,
+            "complete_response_received": true,
+            "elapsed_seconds": 23.69418321499961,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "f88572d811b4809812b84720b6cb932205d4541394a064266ed5b0f927170d90",
+            "usage": {
+              "predictedTokensCount": 41,
+              "promptTokensCount": 21401,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 21.895691,
+              "tokensPerSecond": 10.69591643280491,
+              "totalTimeSec": 25.635436,
+              "totalTokensCount": 21442
+            },
+            "visible_fragment_bytes": 102,
+            "visible_fragments_sha256": "9bbfb013e8e78e6bbb3043c489d27af1ef57a1bbe6cfb3072623e569042a6497"
+          },
+          "request_sha256": "f88572d811b4809812b84720b6cb932205d4541394a064266ed5b0f927170d90",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "9bbfb013e8e78e6bbb3043c489d27af1ef57a1bbe6cfb3072623e569042a6497",
+          "visible_response_bytes": 102,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "missing.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-05",
+          "phase": "investigate",
+          "measured_input_tokens": 21654,
+          "eligible_reference_count": 2,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 5,
+            "complete_response_received": true,
+            "elapsed_seconds": 21.72096013500004,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "93c1df676f39e39f067c8056d9c4c1719615278c63a955f390db0233b7edc1c7",
+            "usage": {
+              "predictedTokensCount": 20,
+              "promptTokensCount": 21654,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 21.970055,
+              "tokensPerSecond": 12.759924703012752,
+              "totalTimeSec": 23.459092000000002,
+              "totalTokensCount": 21674
+            },
+            "visible_fragment_bytes": 76,
+            "visible_fragments_sha256": "15f94af61cf67bbbce663862a6832604bf567d668825c495542b23d9d0983ce0"
+          },
+          "request_sha256": "93c1df676f39e39f067c8056d9c4c1719615278c63a955f390db0233b7edc1c7",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "15f94af61cf67bbbce663862a6832604bf567d668825c495542b23d9d0983ce0",
+          "visible_response_bytes": 76,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-06",
+          "phase": "investigate",
+          "measured_input_tokens": 22328,
+          "eligible_reference_count": 3,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 6,
+            "complete_response_received": true,
+            "elapsed_seconds": 24.324901201999637,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "98a04d640466f710ee565e066e1b9040ffc42706130eb62438ba4d78acb1755d",
+            "usage": {
+              "predictedTokensCount": 41,
+              "promptTokensCount": 22328,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 22.70315,
+              "tokensPerSecond": 11.060809009692587,
+              "totalTimeSec": 26.319522,
+              "totalTokensCount": 22369
+            },
+            "visible_fragment_bytes": 102,
+            "visible_fragments_sha256": "9bbfb013e8e78e6bbb3043c489d27af1ef57a1bbe6cfb3072623e569042a6497"
+          },
+          "request_sha256": "98a04d640466f710ee565e066e1b9040ffc42706130eb62438ba4d78acb1755d",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "9bbfb013e8e78e6bbb3043c489d27af1ef57a1bbe6cfb3072623e569042a6497",
+          "visible_response_bytes": 102,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "missing.txt",
+              "source_id": "canary"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "assignment": {
+        "id": "q9-structured-2",
+        "model_key": "qwen3.5-9b-ud",
+        "sequence": 2,
+        "treatment": "structured"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 184,
+      "known_input_tokens": 127775,
+      "model_attempts": 6,
+      "outcome": "limit_exhausted",
+      "problem": "consumer turn budget exhausted",
+      "reasoning_tokens": null,
+      "usage_complete": true,
+      "actual_tool_events": [
+        {
+          "tool": "read_native",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_native",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_native",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_native",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_native",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_native",
+          "outcome": "observed"
+        }
+      ],
+      "terminal_corrections": 0,
+      "report_refusal_details": null,
+      "report_published": false,
+      "calls": [
+        {
+          "id": "call-01",
+          "phase": "investigate",
+          "measured_input_tokens": 19933,
+          "eligible_reference_count": 0,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 1,
+            "complete_response_received": true,
+            "elapsed_seconds": 19.92683160100023,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "6eb6a07b5f2d8566760362584ca7824dabf5ef61f2bcff593a16abf984d5820d",
+            "usage": {
+              "predictedTokensCount": 16,
+              "promptTokensCount": 19933,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 20.118469,
+              "tokensPerSecond": 10.86336994771822,
+              "totalTimeSec": 21.499256000000003,
+              "totalTokensCount": 19949
+            },
+            "visible_fragment_bytes": 63,
+            "visible_fragments_sha256": "10760195372b3bde2aa7decf5b330aecd9cf8139d183f8de475fdb917b8bb5a0"
+          },
+          "request_sha256": "6eb6a07b5f2d8566760362584ca7824dabf5ef61f2bcff593a16abf984d5820d",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "10760195372b3bde2aa7decf5b330aecd9cf8139d183f8de475fdb917b8bb5a0",
+          "visible_response_bytes": 63,
+          "proposed_action": {
+            "tool": "read_native",
+            "arguments": {
+              "families": [
+                "ci_coverage"
+              ]
+            }
+          }
+        },
+        {
+          "id": "call-02",
+          "phase": "investigate",
+          "measured_input_tokens": 20475,
+          "eligible_reference_count": 1,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 2,
+            "complete_response_received": true,
+            "elapsed_seconds": 22.33165892199986,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "9e66f9ece6817e67b4083c1c0d14793ada69c412b0849cc4dd1b91b0628b8050",
+            "usage": {
+              "predictedTokensCount": 38,
+              "promptTokensCount": 20475,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 20.793526,
+              "tokensPerSecond": 11.08782999779442,
+              "totalTimeSec": 24.130518000000002,
+              "totalTokensCount": 20513
+            },
+            "visible_fragment_bytes": 93,
+            "visible_fragments_sha256": "788d8a2ee800ad7c9b72d82ffc26f0ba9448668ef82bde04b88d575a3d998248"
+          },
+          "request_sha256": "9e66f9ece6817e67b4083c1c0d14793ada69c412b0849cc4dd1b91b0628b8050",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "788d8a2ee800ad7c9b72d82ffc26f0ba9448668ef82bde04b88d575a3d998248",
+          "visible_response_bytes": 93,
+          "proposed_action": {
+            "tool": "read_native",
+            "arguments": {
+              "families": [
+                "ci_coverage"
+              ]
+            }
+          }
+        },
+        {
+          "id": "call-03",
+          "phase": "investigate",
+          "measured_input_tokens": 21025,
+          "eligible_reference_count": 2,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 3,
+            "complete_response_received": true,
+            "elapsed_seconds": 23.46261355999968,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "e7db795cc1497cf2289fcedd8ab87f6e48123e1f356d7a6a2ad3b24eb6c4c891",
+            "usage": {
+              "predictedTokensCount": 38,
+              "promptTokensCount": 21025,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 21.996016,
+              "tokensPerSecond": 11.213878053016185,
+              "totalTimeSec": 25.295499,
+              "totalTokensCount": 21063
+            },
+            "visible_fragment_bytes": 93,
+            "visible_fragments_sha256": "788d8a2ee800ad7c9b72d82ffc26f0ba9448668ef82bde04b88d575a3d998248"
+          },
+          "request_sha256": "e7db795cc1497cf2289fcedd8ab87f6e48123e1f356d7a6a2ad3b24eb6c4c891",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "788d8a2ee800ad7c9b72d82ffc26f0ba9448668ef82bde04b88d575a3d998248",
+          "visible_response_bytes": 93,
+          "proposed_action": {
+            "tool": "read_native",
+            "arguments": {
+              "families": [
+                "ci_coverage"
+              ]
+            }
+          }
+        },
+        {
+          "id": "call-04",
+          "phase": "investigate",
+          "measured_input_tokens": 21568,
+          "eligible_reference_count": 3,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 4,
+            "complete_response_received": true,
+            "elapsed_seconds": 23.939821164000023,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "d6dc9b6926777bc48da3b17b5359040f14c6149d8335e7e7fe286a8199cbfb34",
+            "usage": {
+              "predictedTokensCount": 38,
+              "promptTokensCount": 21568,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 22.580328,
+              "tokensPerSecond": 11.38319336107551,
+              "totalTimeSec": 25.830734,
+              "totalTokensCount": 21606
+            },
+            "visible_fragment_bytes": 93,
+            "visible_fragments_sha256": "788d8a2ee800ad7c9b72d82ffc26f0ba9448668ef82bde04b88d575a3d998248"
+          },
+          "request_sha256": "d6dc9b6926777bc48da3b17b5359040f14c6149d8335e7e7fe286a8199cbfb34",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "788d8a2ee800ad7c9b72d82ffc26f0ba9448668ef82bde04b88d575a3d998248",
+          "visible_response_bytes": 93,
+          "proposed_action": {
+            "tool": "read_native",
+            "arguments": {
+              "families": [
+                "ci_coverage"
+              ]
+            }
+          }
+        },
+        {
+          "id": "call-05",
+          "phase": "investigate",
+          "measured_input_tokens": 22113,
+          "eligible_reference_count": 4,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 5,
+            "complete_response_received": true,
+            "elapsed_seconds": 22.290629293000165,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "fa40d4ef811eb191315b0e81c179e129f0290f2a9c1cee6748655cd091ec3591",
+            "usage": {
+              "predictedTokensCount": 16,
+              "promptTokensCount": 22113,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 22.681853,
+              "tokensPerSecond": 11.046745407867935,
+              "totalTimeSec": 24.039718999999998,
+              "totalTokensCount": 22129
+            },
+            "visible_fragment_bytes": 63,
+            "visible_fragments_sha256": "10760195372b3bde2aa7decf5b330aecd9cf8139d183f8de475fdb917b8bb5a0"
+          },
+          "request_sha256": "fa40d4ef811eb191315b0e81c179e129f0290f2a9c1cee6748655cd091ec3591",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "10760195372b3bde2aa7decf5b330aecd9cf8139d183f8de475fdb917b8bb5a0",
+          "visible_response_bytes": 63,
+          "proposed_action": {
+            "tool": "read_native",
+            "arguments": {
+              "families": [
+                "ci_coverage"
+              ]
+            }
+          }
+        },
+        {
+          "id": "call-06",
+          "phase": "investigate",
+          "measured_input_tokens": 22661,
+          "eligible_reference_count": 5,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 6,
+            "complete_response_received": true,
+            "elapsed_seconds": 24.372037248000197,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "92d1e1c8ebd027fd391250738e179a0e1cf5504fbdd05ef26bc1692bee9b205b",
+            "usage": {
+              "predictedTokensCount": 38,
+              "promptTokensCount": 22661,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 22.952571,
+              "tokensPerSecond": 10.908115343001265,
+              "totalTimeSec": 26.344541,
+              "totalTokensCount": 22699
+            },
+            "visible_fragment_bytes": 93,
+            "visible_fragments_sha256": "788d8a2ee800ad7c9b72d82ffc26f0ba9448668ef82bde04b88d575a3d998248"
+          },
+          "request_sha256": "92d1e1c8ebd027fd391250738e179a0e1cf5504fbdd05ef26bc1692bee9b205b",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "788d8a2ee800ad7c9b72d82ffc26f0ba9448668ef82bde04b88d575a3d998248",
+          "visible_response_bytes": 93,
+          "proposed_action": {
+            "tool": "read_native",
+            "arguments": {
+              "families": [
+                "ci_coverage"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "assignment": {
+        "id": "g12-raw-1",
+        "model_key": "google/gemma-4-12b",
+        "sequence": 1,
+        "treatment": "raw"
+      },
+      "disposition": "qualified",
+      "disposition_reason": "bounded synthetic interface sequence completed; no semantic acceptance",
+      "known_generated_tokens": 788,
+      "known_input_tokens": 14316,
+      "model_attempts": 5,
+      "outcome": "completed",
+      "problem": null,
+      "reasoning_tokens": null,
+      "usage_complete": true,
+      "actual_tool_events": [
+        {
+          "tool": "read_source",
+          "outcome": "observed"
+        },
+        {
+          "tool": "search_sources",
+          "outcome": "scoped_negative"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "empty"
+        },
+        {
+          "tool": "finish_investigation",
+          "outcome": "ready"
+        }
+      ],
+      "terminal_corrections": 0,
+      "report_refusal_details": null,
+      "report_published": true,
+      "calls": [
+        {
+          "id": "call-01",
+          "phase": "investigate",
+          "measured_input_tokens": 1926,
+          "eligible_reference_count": 0,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 1,
+            "complete_response_received": true,
+            "elapsed_seconds": 9.187302834000093,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "6720fde36e63f24c3609e2165872598a92875a8ef12eb8c8053d4e65309c11c7",
+            "usage": {
+              "predictedTokensCount": 34,
+              "promptTokensCount": 1926,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 6.012569,
+              "tokensPerSecond": 8.315972690345687,
+              "totalTimeSec": 9.980836,
+              "totalTokensCount": 1960
+            },
+            "visible_fragment_bytes": 82,
+            "visible_fragments_sha256": "eaffbae0ff38a6e796fc160050c9c3b6860a7a4ed0b2ec12549cdc94115ddce4"
+          },
+          "request_sha256": "6720fde36e63f24c3609e2165872598a92875a8ef12eb8c8053d4e65309c11c7",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "eaffbae0ff38a6e796fc160050c9c3b6860a7a4ed0b2ec12549cdc94115ddce4",
+          "visible_response_bytes": 82,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-02",
+          "phase": "investigate",
+          "measured_input_tokens": 2615,
+          "eligible_reference_count": 1,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 2,
+            "complete_response_received": true,
+            "elapsed_seconds": 11.134901722999984,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "d1749974f34e5385a3bb4a68ffcfee82abd96e954b1ba07c2b11e80f4d48fc78",
+            "usage": {
+              "predictedTokensCount": 44,
+              "promptTokensCount": 2615,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 6.405475999999999,
+              "tokensPerSecond": 7.726875438455257,
+              "totalTimeSec": 11.970468,
+              "totalTokensCount": 2659
+            },
+            "visible_fragment_bytes": 101,
+            "visible_fragments_sha256": "67f1d3e706e3b3639c8666557e2801f2cf8e47177ac29d19bac7d17063c5501c"
+          },
+          "request_sha256": "d1749974f34e5385a3bb4a68ffcfee82abd96e954b1ba07c2b11e80f4d48fc78",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "67f1d3e706e3b3639c8666557e2801f2cf8e47177ac29d19bac7d17063c5501c",
+          "visible_response_bytes": 101,
+          "proposed_action": {
+            "tool": "search_sources",
+            "arguments": {
+              "query": "NO_SUCH_CANARY_MARKER_91",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-03",
+          "phase": "investigate",
+          "measured_input_tokens": 2973,
+          "eligible_reference_count": 2,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 3,
+            "complete_response_received": true,
+            "elapsed_seconds": 15.760597422000046,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "2f5666f1e5035134c86fc553be9c6d0b0baa28879941f04f9cbfccc5e03e5926",
+            "usage": {
+              "predictedTokensCount": 49,
+              "promptTokensCount": 2973,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 7.854397,
+              "tokensPerSecond": 5.253924928199096,
+              "totalTimeSec": 16.990423999999997,
+              "totalTokensCount": 3022
+            },
+            "visible_fragment_bytes": 100,
+            "visible_fragments_sha256": "9cf2e400240608618bf68ba10815cde528551079dcc2b66dee2192806005f74a"
+          },
+          "request_sha256": "2f5666f1e5035134c86fc553be9c6d0b0baa28879941f04f9cbfccc5e03e5926",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "9cf2e400240608618bf68ba10815cde528551079dcc2b66dee2192806005f74a",
+          "visible_response_bytes": 100,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "empty.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-04",
+          "phase": "investigate",
+          "measured_input_tokens": 3641,
+          "eligible_reference_count": 3,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 4,
+            "complete_response_received": true,
+            "elapsed_seconds": 10.61785001599992,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "af1960200edaa2c48d4c8ca4333d09165a5687ac9648f5077210bfec751e6823",
+            "usage": {
+              "predictedTokensCount": 26,
+              "promptTokensCount": 3641,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 7.084773,
+              "tokensPerSecond": 5.857020294809603,
+              "totalTimeSec": 11.353155,
+              "totalTokensCount": 3667
+            },
+            "visible_fragment_bytes": 55,
+            "visible_fragments_sha256": "11850ccf6e2202915ec39201782623697931f461393efec2cffceadaa4b07c46"
+          },
+          "request_sha256": "af1960200edaa2c48d4c8ca4333d09165a5687ac9648f5077210bfec751e6823",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "11850ccf6e2202915ec39201782623697931f461393efec2cffceadaa4b07c46",
+          "visible_response_bytes": 55,
+          "proposed_action": {
+            "tool": "finish_investigation",
+            "arguments": {}
+          }
+        },
+        {
+          "id": "call-05",
+          "phase": "report",
+          "measured_input_tokens": 3161,
+          "eligible_reference_count": 3,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 5,
+            "complete_response_received": true,
+            "elapsed_seconds": 125.67550433500037,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "d21c1802986213be37a413ccb48fb6a8fa09660fb92afab7eb8a5ff7f5e4ea1b",
+            "usage": {
+              "predictedTokensCount": 635,
+              "promptTokensCount": 3161,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 4.167408,
+              "tokensPerSecond": 4.770897836242062,
+              "totalTimeSec": 137.05644099999998,
+              "totalTokensCount": 3796
+            },
+            "visible_fragment_bytes": 1901,
+            "visible_fragments_sha256": "4c2f0d10148a3b0ad4c16f4c9e25d9ff1ed06e09759afbd17d0f64b1cb3a6521"
+          },
+          "request_sha256": "d21c1802986213be37a413ccb48fb6a8fa09660fb92afab7eb8a5ff7f5e4ea1b",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "4c2f0d10148a3b0ad4c16f4c9e25d9ff1ed06e09759afbd17d0f64b1cb3a6521",
+          "visible_response_bytes": 1901,
+          "report_summary": "The investigation confirmed the presence of a 'ready' marker in probe.txt, a zero-match result for the specific canary string, and an empty content state for empty.txt. These results are distinct: the search was a scoped zero match, while the empty.txt read was an empty file outcome.",
+          "report_recommendation_status": "asserted",
+          "report_reference_ids_not_currently_eligible": []
+        }
+      ]
+    },
+    {
+      "assignment": {
+        "id": "g12-structured-1",
+        "model_key": "google/gemma-4-12b",
+        "sequence": 1,
+        "treatment": "structured"
+      },
+      "disposition": "qualified",
+      "disposition_reason": "bounded synthetic interface sequence completed; no semantic acceptance",
+      "known_generated_tokens": 960,
+      "known_input_tokens": 14899,
+      "model_attempts": 5,
+      "outcome": "completed",
+      "problem": null,
+      "reasoning_tokens": null,
+      "usage_complete": true,
+      "actual_tool_events": [
+        {
+          "tool": "read_source",
+          "outcome": "observed"
+        },
+        {
+          "tool": "search_sources",
+          "outcome": "scoped_negative"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "empty"
+        },
+        {
+          "tool": "finish_investigation",
+          "outcome": "ready"
+        }
+      ],
+      "terminal_corrections": 0,
+      "report_refusal_details": null,
+      "report_published": true,
+      "calls": [
+        {
+          "id": "call-01",
+          "phase": "investigate",
+          "measured_input_tokens": 2076,
+          "eligible_reference_count": 0,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 1,
+            "complete_response_received": true,
+            "elapsed_seconds": 11.570340564999697,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "05f91f2d9f7ddb9191037ba97a476e2ecf81b03b103e7afe05fe9fefa8b05aa0",
+            "usage": {
+              "predictedTokensCount": 34,
+              "promptTokensCount": 2076,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 6.778703999999999,
+              "tokensPerSecond": 5.891320139513601,
+              "totalTimeSec": 12.380165000000002,
+              "totalTokensCount": 2110
+            },
+            "visible_fragment_bytes": 82,
+            "visible_fragments_sha256": "eaffbae0ff38a6e796fc160050c9c3b6860a7a4ed0b2ec12549cdc94115ddce4"
+          },
+          "request_sha256": "05f91f2d9f7ddb9191037ba97a476e2ecf81b03b103e7afe05fe9fefa8b05aa0",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "eaffbae0ff38a6e796fc160050c9c3b6860a7a4ed0b2ec12549cdc94115ddce4",
+          "visible_response_bytes": 82,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-02",
+          "phase": "investigate",
+          "measured_input_tokens": 2762,
+          "eligible_reference_count": 1,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 2,
+            "complete_response_received": true,
+            "elapsed_seconds": 14.99521373000016,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "56af56d86ab9923b14ec13fb183878f8d6171fb48e9a1dd3b2c5f188091108b3",
+            "usage": {
+              "predictedTokensCount": 44,
+              "promptTokensCount": 2762,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 7.41959,
+              "tokensPerSecond": 4.953162092920629,
+              "totalTimeSec": 16.100913000000002,
+              "totalTokensCount": 2806
+            },
+            "visible_fragment_bytes": 101,
+            "visible_fragments_sha256": "67f1d3e706e3b3639c8666557e2801f2cf8e47177ac29d19bac7d17063c5501c"
+          },
+          "request_sha256": "56af56d86ab9923b14ec13fb183878f8d6171fb48e9a1dd3b2c5f188091108b3",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "67f1d3e706e3b3639c8666557e2801f2cf8e47177ac29d19bac7d17063c5501c",
+          "visible_response_bytes": 101,
+          "proposed_action": {
+            "tool": "search_sources",
+            "arguments": {
+              "query": "NO_SUCH_CANARY_MARKER_91",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-03",
+          "phase": "investigate",
+          "measured_input_tokens": 3118,
+          "eligible_reference_count": 2,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 3,
+            "complete_response_received": true,
+            "elapsed_seconds": 17.4280236540003,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "2d87aca5a67e6ce274883308969b070a34d207a2d38d6b9940974cd2a0b7680c",
+            "usage": {
+              "predictedTokensCount": 34,
+              "promptTokensCount": 3118,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 12.337108,
+              "tokensPerSecond": 5.146399469764903,
+              "totalTimeSec": 18.749358,
+              "totalTokensCount": 3152
+            },
+            "visible_fragment_bytes": 82,
+            "visible_fragments_sha256": "fb1d86e3c86e15ac3290fb13a9b0445541502162ec3c93c3cf4494b72bdf031b"
+          },
+          "request_sha256": "2d87aca5a67e6ce274883308969b070a34d207a2d38d6b9940974cd2a0b7680c",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "fb1d86e3c86e15ac3290fb13a9b0445541502162ec3c93c3cf4494b72bdf031b",
+          "visible_response_bytes": 82,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "empty.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-04",
+          "phase": "investigate",
+          "measured_input_tokens": 3787,
+          "eligible_reference_count": 3,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 4,
+            "complete_response_received": true,
+            "elapsed_seconds": 13.013759286000095,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "e6837f2c5712d155f37ec75b3ded750e608d6c96ef5111fcf7b48f1544cf4f13",
+            "usage": {
+              "predictedTokensCount": 26,
+              "promptTokensCount": 3787,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 7.828066,
+              "tokensPerSecond": 4.049260386393383,
+              "totalTimeSec": 14.002032999999999,
+              "totalTokensCount": 3813
+            },
+            "visible_fragment_bytes": 55,
+            "visible_fragments_sha256": "11850ccf6e2202915ec39201782623697931f461393efec2cffceadaa4b07c46"
+          },
+          "request_sha256": "e6837f2c5712d155f37ec75b3ded750e608d6c96ef5111fcf7b48f1544cf4f13",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "11850ccf6e2202915ec39201782623697931f461393efec2cffceadaa4b07c46",
+          "visible_response_bytes": 55,
+          "proposed_action": {
+            "tool": "finish_investigation",
+            "arguments": {}
+          }
+        },
+        {
+          "id": "call-05",
+          "phase": "report",
+          "measured_input_tokens": 3156,
+          "eligible_reference_count": 3,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 5,
+            "complete_response_received": true,
+            "elapsed_seconds": 131.33838557199988,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "954daa52820163f6a366de8046c72c04d4b32915a094ac1aa2b1826034b05c74",
+            "usage": {
+              "predictedTokensCount": 822,
+              "promptTokensCount": 3156,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 4.559949,
+              "tokensPerSecond": 5.920676734648848,
+              "totalTimeSec": 143.22653,
+              "totalTokensCount": 3978
+            },
+            "visible_fragment_bytes": 2140,
+            "visible_fragments_sha256": "5fc4cdb558a27d3e0da5f8039d527cd745df226d059a07b5e5487bb81af726fa"
+          },
+          "request_sha256": "954daa52820163f6a366de8046c72c04d4b32915a094ac1aa2b1826034b05c74",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "5fc4cdb558a27d3e0da5f8039d527cd745df226d059a07b5e5487bb81af726fa",
+          "visible_response_bytes": 2140,
+          "report_summary": "The investigation confirmed the presence of 'Synthetic retained marker: interface-ready.' in probe.txt (4d4be7ac425297669759034f88dec5a041c9f861ba0b7c1242caa8aa1b4c4b74). A search for 'NO_SUCH_CANARY_MARKER_91' returned zero results (4583ba6f4630bfcc047b271bc602fe3e33aef1a18da92c168df89d891e3fa39e). The file 'empty.txt' was read but contained no content (88a9c006a127e7efdd572546c9c4b260915cbc1ef769d1c86b39a4ad12c175faa).",
+          "report_recommendation_status": "asserted",
+          "report_reference_ids_not_currently_eligible": []
+        }
+      ]
+    },
+    {
+      "assignment": {
+        "id": "g12-structured-2",
+        "model_key": "google/gemma-4-12b",
+        "sequence": 2,
+        "treatment": "structured"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 699,
+      "known_input_tokens": 125661,
+      "model_attempts": 6,
+      "outcome": "limit_exhausted",
+      "problem": "consumer turn budget exhausted",
+      "reasoning_tokens": null,
+      "usage_complete": true,
+      "actual_tool_events": [
+        {
+          "tool": "read_native",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "problem"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "problem"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "observed"
+        },
+        {
+          "tool": "finish_investigation",
+          "outcome": "ready"
+        }
+      ],
+      "terminal_corrections": 1,
+      "report_refusal_details": null,
+      "report_published": false,
+      "calls": [
+        {
+          "id": "call-01",
+          "phase": "investigate",
+          "measured_input_tokens": 20067,
+          "eligible_reference_count": 0,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 1,
+            "complete_response_received": true,
+            "elapsed_seconds": 59.379522266000095,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "527aed28bffe9817b1ef580eb0af02de4eeea61b8f17b9e9f52415537231a9c8",
+            "usage": {
+              "predictedTokensCount": 26,
+              "promptTokensCount": 20067,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 57.49667,
+              "tokensPerSecond": 3.5732223290377485,
+              "totalTimeSec": 64.493156,
+              "totalTokensCount": 20093
+            },
+            "visible_fragment_bytes": 67,
+            "visible_fragments_sha256": "506685d83779e23773770f4c94abc094c699ee62d90ac4755c0e5413f492ec28"
+          },
+          "request_sha256": "527aed28bffe9817b1ef580eb0af02de4eeea61b8f17b9e9f52415537231a9c8",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "506685d83779e23773770f4c94abc094c699ee62d90ac4755c0e5413f492ec28",
+          "visible_response_bytes": 67,
+          "proposed_action": {
+            "tool": "read_native",
+            "arguments": {
+              "families": [
+                "ci_coverage"
+              ]
+            }
+          }
+        },
+        {
+          "id": "call-02",
+          "phase": "investigate",
+          "measured_input_tokens": 20621,
+          "eligible_reference_count": 1,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 2,
+            "complete_response_received": true,
+            "elapsed_seconds": 66.92430186699994,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "e1c81726277a01340c4409498f1e1d3bcbf615fe1bb0d7abaa4be7afdaa3df42",
+            "usage": {
+              "predictedTokensCount": 34,
+              "promptTokensCount": 20621,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 63.477538,
+              "tokensPerSecond": 3.566894677706746,
+              "totalTimeSec": 72.729283,
+              "totalTokensCount": 20655
+            },
+            "visible_fragment_bytes": 84,
+            "visible_fragments_sha256": "db3486fb89709ff0ee80f459cb8bff9108203dbc7b8195e39c29f2ffa21ab403"
+          },
+          "request_sha256": "e1c81726277a01340c4409498f1e1d3bcbf615fe1bb0d7abaa4be7afdaa3df42",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "db3486fb89709ff0ee80f459cb8bff9108203dbc7b8195e39c29f2ffa21ab403",
+          "visible_response_bytes": 84,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "missing.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-03",
+          "phase": "investigate",
+          "measured_input_tokens": 20872,
+          "eligible_reference_count": 1,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 3,
+            "complete_response_received": true,
+            "elapsed_seconds": 67.42185143799998,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "2cc299b6274f5725e4f4fb348966247026fe25ab08db5e31afdcafbfebfc54e4",
+            "usage": {
+              "predictedTokensCount": 34,
+              "promptTokensCount": 20872,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 64.55191,
+              "tokensPerSecond": 3.7860426962360423,
+              "totalTimeSec": 73.26813500000002,
+              "totalTokensCount": 20906
+            },
+            "visible_fragment_bytes": 84,
+            "visible_fragments_sha256": "db3486fb89709ff0ee80f459cb8bff9108203dbc7b8195e39c29f2ffa21ab403"
+          },
+          "request_sha256": "2cc299b6274f5725e4f4fb348966247026fe25ab08db5e31afdcafbfebfc54e4",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "db3486fb89709ff0ee80f459cb8bff9108203dbc7b8195e39c29f2ffa21ab403",
+          "visible_response_bytes": 84,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "missing.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-04",
+          "phase": "investigate",
+          "measured_input_tokens": 21123,
+          "eligible_reference_count": 1,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 4,
+            "complete_response_received": true,
+            "elapsed_seconds": 68.26029199599998,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "1eca91b546e466c454f21eb6a65b4541518e2a18ca118f4666e96a1c6819cf98",
+            "usage": {
+              "predictedTokensCount": 34,
+              "promptTokensCount": 21123,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 65.743796,
+              "tokensPerSecond": 3.913734182732249,
+              "totalTimeSec": 74.175641,
+              "totalTokensCount": 21157
+            },
+            "visible_fragment_bytes": 82,
+            "visible_fragments_sha256": "eaffbae0ff38a6e796fc160050c9c3b6860a7a4ed0b2ec12549cdc94115ddce4"
+          },
+          "request_sha256": "1eca91b546e466c454f21eb6a65b4541518e2a18ca118f4666e96a1c6819cf98",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "eaffbae0ff38a6e796fc160050c9c3b6860a7a4ed0b2ec12549cdc94115ddce4",
+          "visible_response_bytes": 82,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-05",
+          "phase": "investigate",
+          "measured_input_tokens": 21804,
+          "eligible_reference_count": 2,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 5,
+            "complete_response_received": true,
+            "elapsed_seconds": 71.09988520599927,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "b1ff6a19570b6b4bbce4da1b2afcd4700ecfbb17065a190365d39a132df8ad6d",
+            "usage": {
+              "predictedTokensCount": 26,
+              "promptTokensCount": 21804,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 69.814773,
+              "tokensPerSecond": 3.3660681214094987,
+              "totalTimeSec": 77.24183599999999,
+              "totalTokensCount": 21830
+            },
+            "visible_fragment_bytes": 55,
+            "visible_fragments_sha256": "11850ccf6e2202915ec39201782623697931f461393efec2cffceadaa4b07c46"
+          },
+          "request_sha256": "b1ff6a19570b6b4bbce4da1b2afcd4700ecfbb17065a190365d39a132df8ad6d",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "11850ccf6e2202915ec39201782623697931f461393efec2cffceadaa4b07c46",
+          "visible_response_bytes": 55,
+          "proposed_action": {
+            "tool": "finish_investigation",
+            "arguments": {}
+          }
+        },
+        {
+          "id": "call-06",
+          "phase": "report",
+          "measured_input_tokens": 21174,
+          "eligible_reference_count": 2,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 6,
+            "complete_response_received": true,
+            "elapsed_seconds": 197.86648053499994,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "09a671657f58bafd779a32ce03f3b9143cc90b765990c8f16d6056ae67f4ca09",
+            "usage": {
+              "predictedTokensCount": 545,
+              "promptTokensCount": 21174,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 65.243134,
+              "tokensPerSecond": 3.619395686800757,
+              "totalTimeSec": 215.544468,
+              "totalTokensCount": 21719
+            },
+            "visible_fragment_bytes": 1856,
+            "visible_fragments_sha256": "84eb070be4d522db502075707bdcf019abc58b256f8603ac9b927a95a992e74a"
+          },
+          "request_sha256": "09a671657f58bafd779a32ce03f3b9143cc90b765990c8f16d6056ae67f4ca09",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "84eb070be4d522db502075707bdcf019abc58b256f8603ac9b927a95a992e74a",
+          "visible_response_bytes": 1856,
+          "report_summary": "The investigation confirmed the presence of a synthetic canary marker in 'probe.txt' and identified a non-evaluated native record for 'ci_coverage'. The attempt to read 'missing.txt' resulted in an unavailable path error.",
+          "report_recommendation_status": "asserted",
+          "report_reference_ids_not_currently_eligible": [
+            "3ae236125978459fa8232102583f60aff"
+          ]
+        }
+      ]
+    },
+    {
+      "assignment": {
+        "id": "g12-raw-2",
+        "model_key": "google/gemma-4-12b",
+        "sequence": 2,
+        "treatment": "raw"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 204,
+      "known_input_tokens": 125494,
+      "model_attempts": 6,
+      "outcome": "limit_exhausted",
+      "problem": "consumer turn budget exhausted",
+      "reasoning_tokens": null,
+      "usage_complete": true,
+      "actual_tool_events": [
+        {
+          "tool": "read_source",
+          "outcome": "observed"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "problem"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "problem"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "problem"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "problem"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "problem"
+        }
+      ],
+      "terminal_corrections": 0,
+      "report_refusal_details": null,
+      "report_published": false,
+      "calls": [
+        {
+          "id": "call-01",
+          "phase": "investigate",
+          "measured_input_tokens": 19927,
+          "eligible_reference_count": 0,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 1,
+            "complete_response_received": true,
+            "elapsed_seconds": 60.49530926300031,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "ede7f9b233026c1040ad8055218a2e69d432b5ed03d57554a00991467f9d7dc5",
+            "usage": {
+              "predictedTokensCount": 34,
+              "promptTokensCount": 19927,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 57.553108,
+              "tokensPerSecond": 4.050761690498239,
+              "totalTimeSec": 65.699724,
+              "totalTokensCount": 19961
+            },
+            "visible_fragment_bytes": 82,
+            "visible_fragments_sha256": "eaffbae0ff38a6e796fc160050c9c3b6860a7a4ed0b2ec12549cdc94115ddce4"
+          },
+          "request_sha256": "ede7f9b233026c1040ad8055218a2e69d432b5ed03d57554a00991467f9d7dc5",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "eaffbae0ff38a6e796fc160050c9c3b6860a7a4ed0b2ec12549cdc94115ddce4",
+          "visible_response_bytes": 82,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-02",
+          "phase": "investigate",
+          "measured_input_tokens": 20610,
+          "eligible_reference_count": 1,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 2,
+            "complete_response_received": true,
+            "elapsed_seconds": 66.41254552999999,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "f102635ca25673cc882f4420ea562685dc796b1676ab7fd93d4d210d14b4325a",
+            "usage": {
+              "predictedTokensCount": 34,
+              "promptTokensCount": 20610,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 63.299016,
+              "tokensPerSecond": 3.730335198877735,
+              "totalTimeSec": 72.14540600000001,
+              "totalTokensCount": 20644
+            },
+            "visible_fragment_bytes": 84,
+            "visible_fragments_sha256": "db3486fb89709ff0ee80f459cb8bff9108203dbc7b8195e39c29f2ffa21ab403"
+          },
+          "request_sha256": "f102635ca25673cc882f4420ea562685dc796b1676ab7fd93d4d210d14b4325a",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "db3486fb89709ff0ee80f459cb8bff9108203dbc7b8195e39c29f2ffa21ab403",
+          "visible_response_bytes": 84,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "missing.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-03",
+          "phase": "investigate",
+          "measured_input_tokens": 20862,
+          "eligible_reference_count": 1,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 3,
+            "complete_response_received": true,
+            "elapsed_seconds": 67.78428318200076,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "990f1de28bcf9dfe62b6d6b4441cfea5601279cd255c7ac6c67abdb6db6ebe2d",
+            "usage": {
+              "predictedTokensCount": 34,
+              "promptTokensCount": 20862,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 65.277153,
+              "tokensPerSecond": 3.9440994419816398,
+              "totalTimeSec": 73.644082,
+              "totalTokensCount": 20896
+            },
+            "visible_fragment_bytes": 84,
+            "visible_fragments_sha256": "db3486fb89709ff0ee80f459cb8bff9108203dbc7b8195e39c29f2ffa21ab403"
+          },
+          "request_sha256": "990f1de28bcf9dfe62b6d6b4441cfea5601279cd255c7ac6c67abdb6db6ebe2d",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "db3486fb89709ff0ee80f459cb8bff9108203dbc7b8195e39c29f2ffa21ab403",
+          "visible_response_bytes": 84,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "missing.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-04",
+          "phase": "investigate",
+          "measured_input_tokens": 21116,
+          "eligible_reference_count": 1,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 4,
+            "complete_response_received": true,
+            "elapsed_seconds": 71.21455159699963,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "9b815a1fda9ad74d41c907816b121c5413008d1e917547c18c761c828f1d7cd8",
+            "usage": {
+              "predictedTokensCount": 34,
+              "promptTokensCount": 21116,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 66.088371,
+              "tokensPerSecond": 2.9223207300134293,
+              "totalTimeSec": 77.38076600000001,
+              "totalTokensCount": 21150
+            },
+            "visible_fragment_bytes": 84,
+            "visible_fragments_sha256": "db3486fb89709ff0ee80f459cb8bff9108203dbc7b8195e39c29f2ffa21ab403"
+          },
+          "request_sha256": "9b815a1fda9ad74d41c907816b121c5413008d1e917547c18c761c828f1d7cd8",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "db3486fb89709ff0ee80f459cb8bff9108203dbc7b8195e39c29f2ffa21ab403",
+          "visible_response_bytes": 84,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "missing.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-05",
+          "phase": "investigate",
+          "measured_input_tokens": 21363,
+          "eligible_reference_count": 1,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 5,
+            "complete_response_received": true,
+            "elapsed_seconds": 68.87636129799921,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "8e44afaf8c718ac4fae620553e8fc27bd18ce37fe8847736158f6ebb23aab349",
+            "usage": {
+              "predictedTokensCount": 34,
+              "promptTokensCount": 21363,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 66.11234900000001,
+              "tokensPerSecond": 3.7773799954991945,
+              "totalTimeSec": 74.848563,
+              "totalTokensCount": 21397
+            },
+            "visible_fragment_bytes": 84,
+            "visible_fragments_sha256": "db3486fb89709ff0ee80f459cb8bff9108203dbc7b8195e39c29f2ffa21ab403"
+          },
+          "request_sha256": "8e44afaf8c718ac4fae620553e8fc27bd18ce37fe8847736158f6ebb23aab349",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "db3486fb89709ff0ee80f459cb8bff9108203dbc7b8195e39c29f2ffa21ab403",
+          "visible_response_bytes": 84,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "missing.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-06",
+          "phase": "investigate",
+          "measured_input_tokens": 21616,
+          "eligible_reference_count": 1,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 6,
+            "complete_response_received": true,
+            "elapsed_seconds": 71.41102391200002,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "5d49a919a01e0620823dbbc6068cf82d058c456e18a9d2ebba8df8d128f5684e",
+            "usage": {
+              "predictedTokensCount": 34,
+              "promptTokensCount": 21616,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 67.72751,
+              "tokensPerSecond": 3.3406868938171783,
+              "totalTimeSec": 77.605718,
+              "totalTokensCount": 21650
+            },
+            "visible_fragment_bytes": 84,
+            "visible_fragments_sha256": "db3486fb89709ff0ee80f459cb8bff9108203dbc7b8195e39c29f2ffa21ab403"
+          },
+          "request_sha256": "5d49a919a01e0620823dbbc6068cf82d058c456e18a9d2ebba8df8d128f5684e",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "db3486fb89709ff0ee80f459cb8bff9108203dbc7b8195e39c29f2ffa21ab403",
+          "visible_response_bytes": 84,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "missing.txt",
+              "source_id": "canary"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "assignment": {
+        "id": "q27-structured-1",
+        "model_key": "qwen3.8-27b-ud",
+        "sequence": 1,
+        "treatment": "structured"
+      },
+      "disposition": "qualified",
+      "disposition_reason": "bounded synthetic interface sequence completed; no semantic acceptance",
+      "known_generated_tokens": 1082,
+      "known_input_tokens": 14190,
+      "model_attempts": 5,
+      "outcome": "completed",
+      "problem": null,
+      "reasoning_tokens": null,
+      "usage_complete": true,
+      "actual_tool_events": [
+        {
+          "tool": "read_source",
+          "outcome": "observed"
+        },
+        {
+          "tool": "search_sources",
+          "outcome": "scoped_negative"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "empty"
+        },
+        {
+          "tool": "finish_investigation",
+          "outcome": "ready"
+        }
+      ],
+      "terminal_corrections": 0,
+      "report_refusal_details": null,
+      "report_published": true,
+      "calls": [
+        {
+          "id": "call-01",
+          "phase": "investigate",
+          "measured_input_tokens": 1942,
+          "eligible_reference_count": 0,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 1,
+            "complete_response_received": true,
+            "elapsed_seconds": 24.34011352000016,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "7b4aa8b5e20636ffa8ff5cc26c8a993a8ff861390bf456fddd1700c3919eaf0c",
+            "usage": {
+              "acceptedDraftTokensCount": 14,
+              "predictedTokensCount": 20,
+              "promptTokensCount": 1942,
+              "rejectedDraftTokensCount": 4,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 17.648408,
+              "tokensPerSecond": 2.145101677255002,
+              "totalDraftTokensCount": 18,
+              "totalTimeSec": 26.505796999999998,
+              "totalTokensCount": 1962
+            },
+            "visible_fragment_bytes": 76,
+            "visible_fragments_sha256": "15f94af61cf67bbbce663862a6832604bf567d668825c495542b23d9d0983ce0"
+          },
+          "request_sha256": "7b4aa8b5e20636ffa8ff5cc26c8a993a8ff861390bf456fddd1700c3919eaf0c",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "15f94af61cf67bbbce663862a6832604bf567d668825c495542b23d9d0983ce0",
+          "visible_response_bytes": 76,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-02",
+          "phase": "investigate",
+          "measured_input_tokens": 2613,
+          "eligible_reference_count": 1,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 2,
+            "complete_response_received": true,
+            "elapsed_seconds": 31.870444725000198,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "d42e348bd00ce89b9554ef16fc172dbd49bb6c4ff513057de13ff17c9a620687",
+            "usage": {
+              "acceptedDraftTokensCount": 18,
+              "predictedTokensCount": 27,
+              "promptTokensCount": 2613,
+              "rejectedDraftTokensCount": 6,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 22.495313999999997,
+              "tokensPerSecond": 2.156558517468871,
+              "totalDraftTokensCount": 24,
+              "totalTimeSec": 34.551559999999995,
+              "totalTokensCount": 2640
+            },
+            "visible_fragment_bytes": 95,
+            "visible_fragments_sha256": "9faa5186d4443252f12a3720a98fcb72622834c85e5cd5579f5a13c915972845"
+          },
+          "request_sha256": "d42e348bd00ce89b9554ef16fc172dbd49bb6c4ff513057de13ff17c9a620687",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "9faa5186d4443252f12a3720a98fcb72622834c85e5cd5579f5a13c915972845",
+          "visible_response_bytes": 95,
+          "proposed_action": {
+            "tool": "search_sources",
+            "arguments": {
+              "query": "NO_SUCH_CANARY_MARKER_91",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-03",
+          "phase": "investigate",
+          "measured_input_tokens": 2965,
+          "eligible_reference_count": 2,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 3,
+            "complete_response_received": true,
+            "elapsed_seconds": 36.81481237800017,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "64d11f31f3e74c813d87f6e7d7909e23aa8f52bb289845315f4724e52b23d75b",
+            "usage": {
+              "acceptedDraftTokensCount": 14,
+              "predictedTokensCount": 20,
+              "promptTokensCount": 2965,
+              "rejectedDraftTokensCount": 4,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 28.638933,
+              "tokensPerSecond": 1.6912167547953785,
+              "totalDraftTokensCount": 18,
+              "totalTimeSec": 39.873448,
+              "totalTokensCount": 2985
+            },
+            "visible_fragment_bytes": 76,
+            "visible_fragments_sha256": "a8320d01440e819661d08982163655de8ba350ab27c23e4b97f7f7f46a455f83"
+          },
+          "request_sha256": "64d11f31f3e74c813d87f6e7d7909e23aa8f52bb289845315f4724e52b23d75b",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "a8320d01440e819661d08982163655de8ba350ab27c23e4b97f7f7f46a455f83",
+          "visible_response_bytes": 76,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "empty.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-04",
+          "phase": "investigate",
+          "measured_input_tokens": 3618,
+          "eligible_reference_count": 3,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 4,
+            "complete_response_received": true,
+            "elapsed_seconds": 38.155213092999475,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "a5658017714a5515e3e4fd67b51fef7c63ced678641aa853ff3196594366fa98",
+            "usage": {
+              "acceptedDraftTokensCount": 9,
+              "predictedTokensCount": 13,
+              "promptTokensCount": 3618,
+              "rejectedDraftTokensCount": 0,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 36.032505,
+              "tokensPerSecond": 2.2501283979517077,
+              "totalDraftTokensCount": 9,
+              "totalTimeSec": 41.365534,
+              "totalTokensCount": 3631
+            },
+            "visible_fragment_bytes": 46,
+            "visible_fragments_sha256": "e36cfcf95249fa4dadab11e295bc47796abd71415221593ab1a0b10cb14451a8"
+          },
+          "request_sha256": "a5658017714a5515e3e4fd67b51fef7c63ced678641aa853ff3196594366fa98",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "e36cfcf95249fa4dadab11e295bc47796abd71415221593ab1a0b10cb14451a8",
+          "visible_response_bytes": 46,
+          "proposed_action": {
+            "tool": "finish_investigation",
+            "arguments": {}
+          }
+        },
+        {
+          "id": "call-05",
+          "phase": "report",
+          "measured_input_tokens": 3052,
+          "eligible_reference_count": 3,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 5,
+            "complete_response_received": true,
+            "elapsed_seconds": 363.4776122630001,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "b2dbcc07a28c5e20859cb9488f073cdadee40c71e3f19f8d68943ee34c0bcbfa",
+            "usage": {
+              "acceptedDraftTokensCount": 712,
+              "predictedTokensCount": 1002,
+              "promptTokensCount": 3052,
+              "rejectedDraftTokensCount": 158,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 24.707224999999998,
+              "tokensPerSecond": 2.6926713188118505,
+              "totalDraftTokensCount": 870,
+              "totalTimeSec": 396.457016,
+              "totalTokensCount": 4054
+            },
+            "visible_fragment_bytes": 3001,
+            "visible_fragments_sha256": "3d35741ff0ebeb0759db222892acfefd096e344faae1772e360986ba55d7c63e"
+          },
+          "request_sha256": "b2dbcc07a28c5e20859cb9488f073cdadee40c71e3f19f8d68943ee34c0bcbfa",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "3d35741ff0ebeb0759db222892acfefd096e344faae1772e360986ba55d7c63e",
+          "visible_response_bytes": 3001,
+          "report_summary": "The synthetic interface canary investigation was completed. Three evidence operations were performed: reading probe.txt (1 line), searching for a non-existent marker (0 matches), and reading empty.txt (empty). All outcomes are scoped to the frozen capture with no real compatibility implications.",
+          "report_recommendation_status": "unresolved",
+          "report_reference_ids_not_currently_eligible": []
+        }
+      ]
+    },
+    {
+      "assignment": {
+        "id": "q27-raw-1",
+        "model_key": "qwen3.8-27b-ud",
+        "sequence": 1,
+        "treatment": "raw"
+      },
+      "disposition": "qualified",
+      "disposition_reason": "bounded synthetic interface sequence completed; no semantic acceptance",
+      "known_generated_tokens": 1027,
+      "known_input_tokens": 13676,
+      "model_attempts": 5,
+      "outcome": "completed",
+      "problem": null,
+      "reasoning_tokens": null,
+      "usage_complete": true,
+      "actual_tool_events": [
+        {
+          "tool": "read_source",
+          "outcome": "observed"
+        },
+        {
+          "tool": "search_sources",
+          "outcome": "scoped_negative"
+        },
+        {
+          "tool": "read_source",
+          "outcome": "empty"
+        },
+        {
+          "tool": "finish_investigation",
+          "outcome": "ready"
+        }
+      ],
+      "terminal_corrections": 0,
+      "report_refusal_details": null,
+      "report_published": true,
+      "calls": [
+        {
+          "id": "call-01",
+          "phase": "investigate",
+          "measured_input_tokens": 1809,
+          "eligible_reference_count": 0,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 1,
+            "complete_response_received": true,
+            "elapsed_seconds": 18.08188794599937,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "ae3f2a99af3cb369d3a40e7f950ef84ad283db2b63acfaefede60e4b0c07dfe6",
+            "usage": {
+              "acceptedDraftTokensCount": 14,
+              "predictedTokensCount": 20,
+              "promptTokensCount": 1809,
+              "rejectedDraftTokensCount": 4,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 12.507325000000002,
+              "tokensPerSecond": 2.763728822927894,
+              "totalDraftTokensCount": 18,
+              "totalTimeSec": 19.382095,
+              "totalTokensCount": 1829
+            },
+            "visible_fragment_bytes": 76,
+            "visible_fragments_sha256": "15f94af61cf67bbbce663862a6832604bf567d668825c495542b23d9d0983ce0"
+          },
+          "request_sha256": "ae3f2a99af3cb369d3a40e7f950ef84ad283db2b63acfaefede60e4b0c07dfe6",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "15f94af61cf67bbbce663862a6832604bf567d668825c495542b23d9d0983ce0",
+          "visible_response_bytes": 76,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-02",
+          "phase": "investigate",
+          "measured_input_tokens": 2482,
+          "eligible_reference_count": 1,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 2,
+            "complete_response_received": true,
+            "elapsed_seconds": 29.46871620299953,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "0cbe0ed2392a0681c44bb43c7fbe3726993321e05c1d4253023ae0ec59c1b8d8",
+            "usage": {
+              "acceptedDraftTokensCount": 18,
+              "predictedTokensCount": 27,
+              "promptTokensCount": 2482,
+              "rejectedDraftTokensCount": 6,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 19.300544000000002,
+              "tokensPerSecond": 2.074850056172575,
+              "totalDraftTokensCount": 24,
+              "totalTimeSec": 31.83157,
+              "totalTokensCount": 2509
+            },
+            "visible_fragment_bytes": 95,
+            "visible_fragments_sha256": "9faa5186d4443252f12a3720a98fcb72622834c85e5cd5579f5a13c915972845"
+          },
+          "request_sha256": "0cbe0ed2392a0681c44bb43c7fbe3726993321e05c1d4253023ae0ec59c1b8d8",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "9faa5186d4443252f12a3720a98fcb72622834c85e5cd5579f5a13c915972845",
+          "visible_response_bytes": 95,
+          "proposed_action": {
+            "tool": "search_sources",
+            "arguments": {
+              "query": "NO_SUCH_CANARY_MARKER_91",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-03",
+          "phase": "investigate",
+          "measured_input_tokens": 2839,
+          "eligible_reference_count": 2,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 3,
+            "complete_response_received": true,
+            "elapsed_seconds": 31.679348749999917,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "0ed2ee5a3b0bd557e2b4cf548d6f33b48db2c1292ba1a9aca31c143d13eafbd5",
+            "usage": {
+              "acceptedDraftTokensCount": 14,
+              "predictedTokensCount": 20,
+              "promptTokensCount": 2839,
+              "rejectedDraftTokensCount": 4,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 24.90324,
+              "tokensPerSecond": 2.030699039286972,
+              "totalDraftTokensCount": 18,
+              "totalTimeSec": 34.259624,
+              "totalTokensCount": 2859
+            },
+            "visible_fragment_bytes": 76,
+            "visible_fragments_sha256": "a8320d01440e819661d08982163655de8ba350ab27c23e4b97f7f7f46a455f83"
+          },
+          "request_sha256": "0ed2ee5a3b0bd557e2b4cf548d6f33b48db2c1292ba1a9aca31c143d13eafbd5",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "a8320d01440e819661d08982163655de8ba350ab27c23e4b97f7f7f46a455f83",
+          "visible_response_bytes": 76,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "empty.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-04",
+          "phase": "investigate",
+          "measured_input_tokens": 3490,
+          "eligible_reference_count": 3,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 4,
+            "complete_response_received": true,
+            "elapsed_seconds": 32.11916470399956,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "848e9fd95b8bd9ca44a6bba98510e1ab3a054e48e71fb289846ee23833437126",
+            "usage": {
+              "acceptedDraftTokensCount": 8,
+              "predictedTokensCount": 13,
+              "promptTokensCount": 3490,
+              "rejectedDraftTokensCount": 4,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 28.637276999999997,
+              "tokensPerSecond": 1.9822692622059885,
+              "totalDraftTokensCount": 12,
+              "totalTimeSec": 34.690945,
+              "totalTokensCount": 3503
+            },
+            "visible_fragment_bytes": 46,
+            "visible_fragments_sha256": "e36cfcf95249fa4dadab11e295bc47796abd71415221593ab1a0b10cb14451a8"
+          },
+          "request_sha256": "848e9fd95b8bd9ca44a6bba98510e1ab3a054e48e71fb289846ee23833437126",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "e36cfcf95249fa4dadab11e295bc47796abd71415221593ab1a0b10cb14451a8",
+          "visible_response_bytes": 46,
+          "proposed_action": {
+            "tool": "finish_investigation",
+            "arguments": {}
+          }
+        },
+        {
+          "id": "call-05",
+          "phase": "report",
+          "measured_input_tokens": 3056,
+          "eligible_reference_count": 3,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 5,
+            "complete_response_received": true,
+            "elapsed_seconds": 373.48761729499984,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "bfead8b598a0b5fb88997b6888a2d1293a48c0fad94aeaf10d23447befddecf5",
+            "usage": {
+              "acceptedDraftTokensCount": 656,
+              "predictedTokensCount": 947,
+              "promptTokensCount": 3056,
+              "rejectedDraftTokensCount": 214,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 24.526686,
+              "tokensPerSecond": 2.4709098813248103,
+              "totalDraftTokensCount": 870,
+              "totalTimeSec": 407.381604,
+              "totalTokensCount": 4003
+            },
+            "visible_fragment_bytes": 3231,
+            "visible_fragments_sha256": "1d28910deb52cce029cec025d4184595ce748faf42d835c9c4ee62842e958422"
+          },
+          "request_sha256": "bfead8b598a0b5fb88997b6888a2d1293a48c0fad94aeaf10d23447befddecf5",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "1d28910deb52cce029cec025d4184595ce748faf42d835c9c4ee62842e958422",
+          "visible_response_bytes": 3231,
+          "report_summary": "Investigated a synthetic interface canary in the qualification/synthetic repository. Read probe.txt (1 line: 'Synthetic retained marker: interface-ready.'), performed a scoped search for 'NO_SUCH_CANARY_MARKER_91' (0 matches, scoped_negative), and read empty.txt (empty file). All outcomes are limited to the frozen capture; no compatibility or runtime conclusions can be drawn. The zero-match search, empty-file read, and marker-line read represent distinct outcome types.",
+          "report_recommendation_status": "unresolved",
+          "report_reference_ids_not_currently_eligible": []
+        }
+      ]
+    },
+    {
+      "assignment": {
+        "id": "q27-raw-2",
+        "model_key": "qwen3.8-27b-ud",
+        "treatment": "raw",
+        "sequence": 2
+      },
+      "disposition": "superseded_after_completed_predictions",
+      "model_attempts": 4,
+      "known_input_tokens": 82102,
+      "known_generated_tokens": 92,
+      "usage_complete": true,
+      "disposition_reason": "Common request-history repair selected; original trial/batch not normally completed, no model-failure or qualification claim.",
+      "publication_after_last_prediction": "unconfirmed after saved prediction boundary; not inferred from proposed action",
+      "calls": [
+        {
+          "id": "call-01",
+          "phase": "investigate",
+          "measured_input_tokens": 19810,
+          "eligible_reference_count": 0,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 1,
+            "complete_response_received": true,
+            "elapsed_seconds": 172.59569389099943,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "4ce65ed054167a449ee238317222ac5c121889b0e107ff4aa4555f5dcf4bfbef",
+            "usage": {
+              "acceptedDraftTokensCount": 18,
+              "predictedTokensCount": 26,
+              "promptTokensCount": 19810,
+              "rejectedDraftTokensCount": 3,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 164.95012899999998,
+              "tokensPerSecond": 1.087834546109303,
+              "totalDraftTokensCount": 21,
+              "totalTimeSec": 187.931565,
+              "totalTokensCount": 19836
+            },
+            "visible_fragment_bytes": 82,
+            "visible_fragments_sha256": "eaffbae0ff38a6e796fc160050c9c3b6860a7a4ed0b2ec12549cdc94115ddce4"
+          },
+          "request_sha256": "4ce65ed054167a449ee238317222ac5c121889b0e107ff4aa4555f5dcf4bfbef",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "eaffbae0ff38a6e796fc160050c9c3b6860a7a4ed0b2ec12549cdc94115ddce4",
+          "visible_response_bytes": 82,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "probe.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-02",
+          "phase": "investigate",
+          "measured_input_tokens": 20479,
+          "eligible_reference_count": 1,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 2,
+            "complete_response_received": true,
+            "elapsed_seconds": 190.90748723400066,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "41671a3c2b0ab498bec8ea9d6c1a4c90789bd8a87f659c6324d24b5d5140d692",
+            "usage": {
+              "acceptedDraftTokensCount": 12,
+              "predictedTokensCount": 20,
+              "promptTokensCount": 20479,
+              "rejectedDraftTokensCount": 9,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 183.957204,
+              "tokensPerSecond": 0.7995682668019592,
+              "totalDraftTokensCount": 21,
+              "totalTimeSec": 207.72002799999999,
+              "totalTokensCount": 20499
+            },
+            "visible_fragment_bytes": 78,
+            "visible_fragments_sha256": "4023b4cda5be7dbc006dc41106ef4ff82d94f0e348ace46caf7d5f3652bef0f1"
+          },
+          "request_sha256": "41671a3c2b0ab498bec8ea9d6c1a4c90789bd8a87f659c6324d24b5d5140d692",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "4023b4cda5be7dbc006dc41106ef4ff82d94f0e348ace46caf7d5f3652bef0f1",
+          "visible_response_bytes": 78,
+          "proposed_action": {
+            "tool": "read_source",
+            "arguments": {
+              "path": "missing.txt",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-03",
+          "phase": "investigate",
+          "measured_input_tokens": 20733,
+          "eligible_reference_count": 1,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 3,
+            "complete_response_received": true,
+            "elapsed_seconds": 203.4167812759997,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "e59907e5877ff09eef9ab4c7b260e56f959f6d52e0d14f57e86e26f2a70c9282",
+            "usage": {
+              "acceptedDraftTokensCount": 23,
+              "predictedTokensCount": 33,
+              "promptTokensCount": 20733,
+              "rejectedDraftTokensCount": 4,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 189.524339,
+              "tokensPerSecond": 1.004679199181513,
+              "totalDraftTokensCount": 27,
+              "totalTimeSec": 221.375302,
+              "totalTokensCount": 20766
+            },
+            "visible_fragment_bytes": 101,
+            "visible_fragments_sha256": "67f1d3e706e3b3639c8666557e2801f2cf8e47177ac29d19bac7d17063c5501c"
+          },
+          "request_sha256": "e59907e5877ff09eef9ab4c7b260e56f959f6d52e0d14f57e86e26f2a70c9282",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "67f1d3e706e3b3639c8666557e2801f2cf8e47177ac29d19bac7d17063c5501c",
+          "visible_response_bytes": 101,
+          "proposed_action": {
+            "tool": "search_sources",
+            "arguments": {
+              "query": "NO_SUCH_CANARY_MARKER_91",
+              "source_id": "canary"
+            }
+          }
+        },
+        {
+          "id": "call-04",
+          "phase": "investigate",
+          "measured_input_tokens": 21080,
+          "eligible_reference_count": 2,
+          "omitted_event_count": 0,
+          "receipt": {
+            "attempt": 4,
+            "complete_response_received": true,
+            "elapsed_seconds": 189.4309999449997,
+            "outcome": "returned",
+            "reasoning_fragment_observed": false,
+            "request_sha256": "a0cafdb3133e70ab5b6026cc44c299de3d1fa6e9b59ed956c9e44f639f7e48c4",
+            "usage": {
+              "acceptedDraftTokensCount": 9,
+              "predictedTokensCount": 13,
+              "promptTokensCount": 21080,
+              "rejectedDraftTokensCount": 0,
+              "stopReason": "eosFound",
+              "timeToFirstTokenSec": 195.82831099999999,
+              "tokensPerSecond": 1.1793127319192194,
+              "totalDraftTokensCount": 9,
+              "totalTimeSec": 206.003729,
+              "totalTokensCount": 21093
+            },
+            "visible_fragment_bytes": 46,
+            "visible_fragments_sha256": "e36cfcf95249fa4dadab11e295bc47796abd71415221593ab1a0b10cb14451a8"
+          },
+          "request_sha256": "a0cafdb3133e70ab5b6026cc44c299de3d1fa6e9b59ed956c9e44f639f7e48c4",
+          "actual_prompt_matches_measurement": true,
+          "visible_response_sha256": "e36cfcf95249fa4dadab11e295bc47796abd71415221593ab1a0b10cb14451a8",
+          "visible_response_bytes": 46,
+          "proposed_action": {
+            "tool": "finish_investigation",
+            "arguments": {}
+          }
+        }
+      ]
+    },
+    {
+      "assignment": {
+        "id": "q27-structured-2",
+        "model_key": "qwen3.8-27b-ud",
+        "treatment": "structured",
+        "sequence": 2
+      },
+      "disposition": "superseded_before_call",
+      "model_attempts": 0,
+      "known_input_tokens": 0,
+      "known_generated_tokens": 0,
+      "usage_complete": true,
+      "disposition_reason": "Common request-history repair selected; original trial/batch not normally completed, no model-failure or qualification claim.",
+      "calls": []
+    }
+  ],
+  "totals": {
+    "attempts": 92,
+    "known_input_tokens": 1072548,
+    "known_target_generated_tokens": 7162,
+    "known_draft_tokens": 1959,
+    "unknown_usage_calls": 0,
+    "reasoning_usage_unreported_calls": 92
+  },
+  "deployment_failures": [],
+  "limits": [
+    "AI-assisted descriptive inspection over synthetic inputs only. No real-case semantic comparison, ranking or independent product acceptance.",
+    "Known draft counts sum reported fields only; absent reasoning/draft usage is not assumed zero.",
+    "Native and client timing clocks remain distinct; no precise causal throughput ranking.",
+    "Original frozen dispositions remain unchanged; a valid extra operation may still fail the strict sequence gate."
+  ]
+}

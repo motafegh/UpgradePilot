@@ -1,0 +1,424 @@
+{
+  "format": "investigator-interface-superseded-run/1",
+  "normal_batch_completion": false,
+  "assignments": [
+    {
+      "assignment": {
+        "id": "ge2-raw-1",
+        "model_key": "gemma-4-e2b-it",
+        "sequence": 1,
+        "treatment": "raw"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 26,
+      "known_input_tokens": 1922,
+      "model_attempts": 1,
+      "outcome": "failed",
+      "problem": "ValueError: actual prompt usage differs from fully rendered tokenizer measurement",
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "ge2-structured-1",
+        "model_key": "gemma-4-e2b-it",
+        "sequence": 1,
+        "treatment": "structured"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 26,
+      "known_input_tokens": 2072,
+      "model_attempts": 1,
+      "outcome": "failed",
+      "problem": "ValueError: actual prompt usage differs from fully rendered tokenizer measurement",
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "ge2-structured-2",
+        "model_key": "gemma-4-e2b-it",
+        "sequence": 2,
+        "treatment": "structured"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 26,
+      "known_input_tokens": 20063,
+      "model_attempts": 1,
+      "outcome": "failed",
+      "problem": "ValueError: actual prompt usage differs from fully rendered tokenizer measurement",
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "ge2-raw-2",
+        "model_key": "gemma-4-e2b-it",
+        "sequence": 2,
+        "treatment": "raw"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 26,
+      "known_input_tokens": 19923,
+      "model_attempts": 1,
+      "outcome": "failed",
+      "problem": "ValueError: actual prompt usage differs from fully rendered tokenizer measurement",
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "ge4-structured-1",
+        "model_key": "gemma-4-e4b-it-ud",
+        "sequence": 1,
+        "treatment": "structured"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 49,
+      "known_input_tokens": 2072,
+      "model_attempts": 1,
+      "outcome": "failed",
+      "problem": "ValueError: actual prompt usage differs from fully rendered tokenizer measurement",
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "ge4-raw-1",
+        "model_key": "gemma-4-e4b-it-ud",
+        "sequence": 1,
+        "treatment": "raw"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 49,
+      "known_input_tokens": 1922,
+      "model_attempts": 1,
+      "outcome": "failed",
+      "problem": "ValueError: actual prompt usage differs from fully rendered tokenizer measurement",
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "ge4-raw-2",
+        "model_key": "gemma-4-e4b-it-ud",
+        "sequence": 2,
+        "treatment": "raw"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 49,
+      "known_input_tokens": 19923,
+      "model_attempts": 1,
+      "outcome": "failed",
+      "problem": "ValueError: actual prompt usage differs from fully rendered tokenizer measurement",
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "ge4-structured-2",
+        "model_key": "gemma-4-e4b-it-ud",
+        "sequence": 2,
+        "treatment": "structured"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 44,
+      "known_input_tokens": 20063,
+      "model_attempts": 1,
+      "outcome": "failed",
+      "problem": "ValueError: actual prompt usage differs from fully rendered tokenizer measurement",
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "m9-raw-1",
+        "model_key": "mimo-v2.6-distill-qwen-9b",
+        "sequence": 1,
+        "treatment": "raw"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 130,
+      "known_input_tokens": 20889,
+      "model_attempts": 6,
+      "outcome": "limit_exhausted",
+      "problem": "consumer turn budget exhausted",
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "m9-structured-1",
+        "model_key": "mimo-v2.6-distill-qwen-9b",
+        "sequence": 1,
+        "treatment": "structured"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 152,
+      "known_input_tokens": 21699,
+      "model_attempts": 6,
+      "outcome": "limit_exhausted",
+      "problem": "consumer turn budget exhausted",
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "m9-structured-2",
+        "model_key": "mimo-v2.6-distill-qwen-9b",
+        "sequence": 2,
+        "treatment": "structured"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 96,
+      "known_input_tokens": 127848,
+      "model_attempts": 6,
+      "outcome": "limit_exhausted",
+      "problem": "consumer turn budget exhausted",
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "m9-raw-2",
+        "model_key": "mimo-v2.6-distill-qwen-9b",
+        "sequence": 2,
+        "treatment": "raw"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 145,
+      "known_input_tokens": 128851,
+      "model_attempts": 6,
+      "outcome": "limit_exhausted",
+      "problem": "consumer turn budget exhausted",
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "q9-structured-1",
+        "model_key": "qwen3.5-9b-ud",
+        "sequence": 1,
+        "treatment": "structured"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 935,
+      "known_input_tokens": 19445,
+      "model_attempts": 6,
+      "outcome": "completed",
+      "problem": null,
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "q9-raw-1",
+        "model_key": "qwen3.5-9b-ud",
+        "sequence": 1,
+        "treatment": "raw"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 169,
+      "known_input_tokens": 20924,
+      "model_attempts": 6,
+      "outcome": "limit_exhausted",
+      "problem": "consumer turn budget exhausted",
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "q9-raw-2",
+        "model_key": "qwen3.5-9b-ud",
+        "sequence": 2,
+        "treatment": "raw"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 204,
+      "known_input_tokens": 126819,
+      "model_attempts": 6,
+      "outcome": "limit_exhausted",
+      "problem": "consumer turn budget exhausted",
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "q9-structured-2",
+        "model_key": "qwen3.5-9b-ud",
+        "sequence": 2,
+        "treatment": "structured"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 184,
+      "known_input_tokens": 127775,
+      "model_attempts": 6,
+      "outcome": "limit_exhausted",
+      "problem": "consumer turn budget exhausted",
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "g12-raw-1",
+        "model_key": "google/gemma-4-12b",
+        "sequence": 1,
+        "treatment": "raw"
+      },
+      "disposition": "qualified",
+      "disposition_reason": "bounded synthetic interface sequence completed; no semantic acceptance",
+      "known_generated_tokens": 788,
+      "known_input_tokens": 14316,
+      "model_attempts": 5,
+      "outcome": "completed",
+      "problem": null,
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "g12-structured-1",
+        "model_key": "google/gemma-4-12b",
+        "sequence": 1,
+        "treatment": "structured"
+      },
+      "disposition": "qualified",
+      "disposition_reason": "bounded synthetic interface sequence completed; no semantic acceptance",
+      "known_generated_tokens": 960,
+      "known_input_tokens": 14899,
+      "model_attempts": 5,
+      "outcome": "completed",
+      "problem": null,
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "g12-structured-2",
+        "model_key": "google/gemma-4-12b",
+        "sequence": 2,
+        "treatment": "structured"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 699,
+      "known_input_tokens": 125661,
+      "model_attempts": 6,
+      "outcome": "limit_exhausted",
+      "problem": "consumer turn budget exhausted",
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "g12-raw-2",
+        "model_key": "google/gemma-4-12b",
+        "sequence": 2,
+        "treatment": "raw"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 204,
+      "known_input_tokens": 125494,
+      "model_attempts": 6,
+      "outcome": "limit_exhausted",
+      "problem": "consumer turn budget exhausted",
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "q27-structured-1",
+        "model_key": "qwen3.8-27b-ud",
+        "sequence": 1,
+        "treatment": "structured"
+      },
+      "disposition": "qualified",
+      "disposition_reason": "bounded synthetic interface sequence completed; no semantic acceptance",
+      "known_generated_tokens": 1082,
+      "known_input_tokens": 14190,
+      "model_attempts": 5,
+      "outcome": "completed",
+      "problem": null,
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "q27-raw-1",
+        "model_key": "qwen3.8-27b-ud",
+        "sequence": 1,
+        "treatment": "raw"
+      },
+      "disposition": "qualified",
+      "disposition_reason": "bounded synthetic interface sequence completed; no semantic acceptance",
+      "known_generated_tokens": 1027,
+      "known_input_tokens": 13676,
+      "model_attempts": 5,
+      "outcome": "completed",
+      "problem": null,
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "q27-raw-2",
+        "model_key": "qwen3.8-27b-ud",
+        "treatment": "raw",
+        "sequence": 2
+      },
+      "disposition": "superseded_after_completed_predictions",
+      "model_attempts": 4,
+      "known_input_tokens": 82102,
+      "known_generated_tokens": 92,
+      "usage_complete": true,
+      "disposition_reason": "Common request-history repair selected; original trial/batch not normally completed, no model-failure or qualification claim.",
+      "publication_after_last_prediction": "unconfirmed after saved prediction boundary; not inferred from proposed action"
+    },
+    {
+      "assignment": {
+        "id": "q27-structured-2",
+        "model_key": "qwen3.8-27b-ud",
+        "treatment": "structured",
+        "sequence": 2
+      },
+      "disposition": "superseded_before_call",
+      "model_attempts": 0,
+      "known_input_tokens": 0,
+      "known_generated_tokens": 0,
+      "usage_complete": true,
+      "disposition_reason": "Common request-history repair selected; original trial/batch not normally completed, no model-failure or qualification claim."
+    }
+  ],
+  "calls": 92,
+  "unknown_usage_calls": 0,
+  "semantic_comparison_runs": 0,
+  "boundary": {
+    "format": "owned-qualifier-supersession-boundary/1",
+    "observed_at": "2026-10-17T12:48:42.783813+00:00",
+    "pid": 4615,
+    "request_count_before_signal": 92,
+    "receipt_count_before_signal": 92,
+    "unknown_usage_receipts_before_signal": 0,
+    "last_request": "/home/motafeq/.local/share/upgradepilot/investigator-runs/deployment-interface-2026-10-17-r5/canary-r5/q27-raw-2/call-04.request.json",
+    "last_receipt_sha256": "40c6dbd32dcb2d1c8ccc3e1ba2c49a40bef1d370766cb99a2415d1e36c72b577",
+    "signal": "SIGINT exact owned process",
+    "limitation": "Synthetic host publication after last prediction may be interrupted; do not claim normal trial/batch completion."
+  }
+}

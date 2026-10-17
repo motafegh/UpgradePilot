@@ -1,0 +1,9 @@
+{
+  "format": "qualification-supersession-decision/1",
+  "decided_at": "2026-10-17T12:45:04.146868+00:00",
+  "freeze_sha256": "b0670107c07021e102f055162996d1d5963beed29ac340c8ed85d321d5e212aa",
+  "reason": "Complete actual stateless request history omits prior action arguments; long Qwen calls incur165-184s TTFT. Supersede old representation after current completed prediction; apply and fully qualify common repair across all six.",
+  "normal_completion_claim": false,
+  "semantic_comparison_runs": 0,
+  "preserve": "Every original, spent attempt, native usage, incomplete/unknown publication boundary; no old-output promotion."
+}

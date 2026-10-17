@@ -173,8 +173,14 @@ must be diagnosed, recorded and frozen as a distinct revision before affected ca
 
 ### Complete stateless observation presentation repair — October 17, 2026
 
-After completing the frozen six-candidate batch, permit one common request-presentation
-repair before withholding deployments solely on that interface. Source inspection shows
+After preserving the frozen six-candidate batch outcomes, permit one common request-
+presentation repair before withholding deployments solely on that interface. The old
+batch may be explicitly superseded at a completed prediction boundary when actual
+latency and the shared history defect make completing the remaining old-format runs
+worse than applying/requalifying the repair. Preserve all originals/costs; label
+unfinished/unattempted sequences superseded, never completed or model failures. A
+separate supersession record must identify the boundary and actual/unknown usage; do
+not fabricate the original runner's normal-completion summary. Source inspection shows
 that canonical JSON wraps each observation as an escaped string and sorts changing
 history before the large fixed task. Completed short runs show repeated operations despite
 included history; long calls repeatedly pay substantial first-token latency. These are

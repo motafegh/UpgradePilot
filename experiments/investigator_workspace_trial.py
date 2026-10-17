@@ -101,6 +101,12 @@ def protocol_definition(
 def pack_input(
     protocol: dict, history: list[AdapterEvent], phase: str, capacity: int
 ) -> PackedInput:
+    """Keep newest whole request/result pairs; only delivered refs grant visibility.
+
+    Original UTF8 request intent is separate from returned observation content. Omitted
+    pairs retain each component's bytes/hash; unavailable legacy intent stays explicit.
+    Showing a proposed reference in prior intent does not make it eligible evidence.
+    """
     selected = []
 
     def render(events):
@@ -110,6 +116,12 @@ def pack_input(
                 "event_id": e.event_id,
                 "bytes": len(e.content),
                 "sha256": hashlib.sha256(e.content).hexdigest(),
+                "request_bytes": len(e.request_text.encode())
+                if e.request_text is not None
+                else None,
+                "request_sha256": hashlib.sha256(e.request_text.encode()).hexdigest()
+                if e.request_text is not None
+                else None,
             }
             for e in history
             if e.event_id not in ids
@@ -122,7 +134,12 @@ def pack_input(
             "tools": protocol["tools"] if phase == "investigate" else {},
             "report_schema": protocol["report_schema"],
             "events": [
-                {"event_id": e.event_id, "content": e.content.decode()} for e in events
+                {
+                    "event_id": e.event_id,
+                    "request_text": e.request_text,
+                    "content": e.content.decode(),
+                }
+                for e in events
             ],
             "omitted_events": omitted,
         }
@@ -224,6 +241,7 @@ def run_scripted_trial(
         "packed_input_bytes": 0,
         "corrections": 0,
         "terminal_corrections": 0,
+        "report_refusals": [],
         "model_calls": 0,
         "model_tokens": None,
         "native_producer_calls": 0,
@@ -293,9 +311,18 @@ def run_scripted_trial(
                 except CheckpointStorageError:
                     raise
                 except ValueError as error:
+                    # Retain the last refusal even when no following model request
+                    # exists to carry its correction event. Originals stay separate.
+                    charges["report_refusals"].append(
+                        {"consumer_attempt": len(responses), "detail": str(error)}
+                    )
                     if charges["terminal_corrections"] >= limits.terminal_corrections:
                         raise
                     charges["terminal_corrections"] += 1
+                    try:
+                        request_text = response.decode("utf-8")
+                    except UnicodeDecodeError:
+                        request_text = None
                     event = AdapterEvent(
                         f"report-error-{len(responses)}",
                         json_bytes(
@@ -309,6 +336,7 @@ def run_scripted_trial(
                         "refused",
                         0,
                         (),
+                        request_text,
                     )
             else:
                 charges["tool_requests"] += 1

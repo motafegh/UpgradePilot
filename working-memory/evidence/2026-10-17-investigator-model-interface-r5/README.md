@@ -17,3 +17,23 @@ Local retention is not an off-machine backup.
 At this preflight horizon no r5 inference has run. Preparation and batch freeze must be
 completed/inspected before any generation.29 focused controls and65 nearest product
 tests pass; touched Ruff/format and owner links pass.
+
+## Superseded execution disposition
+
+The separately named [superseded summary](superseded-summary.json) preserves22 normal
+sequence records, one partial and one unattempted sequence; it is not the original
+runner's normal-completion summary. [Actual receipts/inspection](actual-results.json)
+account for92 calls, all with native usage; no new unknown-usage call was introduced.
+The owned runner was interrupted only after a saved prediction receipt, then exited
+and unloaded its model. Publication after the last prediction is unconfirmed.
+
+The [supersession decision](supersession-decision.json) preserves why: prior request
+arguments were missing from stateless history; observations were double-escaped; long
+Qwen calls paid165–184s before first token. The common interface repair is separately
+qualified across all six; old outcomes are never relabeled or pooled as new successes.
+Both Gemma12 short and Qwen27 short sequences qualified; neither full deployment
+qualified. Small Gemmas had a runtime/render BOS discrepancy; MiMo repeated operations;
+Qwen9 produced one cited report with redundant operations but did not qualify. Long
+Gemma12 Structured also proposed an internal record ID as a citation, correctly refused.
+All findings are synthetic interface evidence; later real-case comparison remains
+unstarted. The earlier r4 unknown usage remains unknown, separate from this batch.

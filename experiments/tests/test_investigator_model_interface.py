@@ -143,8 +143,38 @@ class ModelInterfaceTests(unittest.TestCase):
                 model.binding.response,
             )
             self.assertEqual(
+                (model.directory / "call-01.packed-input.json").read_bytes(),
+                packed().content,
+            )
+            self.assertEqual(
                 (model.directory / "call-01.request.json").stat().st_mode & 0o777, 0o600
             )
+
+    def test_exact_observation_text_is_visible_once_after_fixed_task(self):
+        from experiments.investigator_workspace_trial import (
+            pack_input,
+            protocol_definition,
+        )
+
+        assignment = fixture("raw")
+        protocol = protocol_definition(assignment, TrialLimits())
+        protocol["task"]["goal"] = 'Inspect the quoted "version" without changing it.'
+        event = assignment.invoke(
+            request("read_source", source_id="target", path="requirements.txt")
+        )
+        p = pack_input(protocol, [event], "investigate", 128 * 1024)
+        measured = measure_input(Binding(), p, config())
+        user = measured.messages["messages"][1]["content"]
+        observation = event.content.decode()
+        # Protect model-visible readability and exact retained bytes, not one JSON
+        # indentation or header spelling. The old doubly escaped envelope fails here.
+        self.assertIn(observation, user)
+        self.assertEqual(user.count(observation), 1)
+        self.assertLess(
+            user.index(json_bytes(protocol["task"]).decode()), user.index(observation)
+        )
+        self.assertTrue(all(ref in user for ref in p.reference_ids))
+        self.assertEqual(json.loads(p.content)["events"][0]["content"], observation)
 
     def test_context_and_cumulative_output_admission_happen_before_prediction(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -159,6 +189,57 @@ class ModelInterfaceTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "exceeds context"):
                 model(packed())
             self.assertEqual(model.binding.calls, 0)
+
+    def test_stateless_history_keeps_actual_arguments_without_granting_requested_evidence(
+        self,
+    ):
+        from experiments.investigator_workspace_trial import (
+            pack_input,
+            protocol_definition,
+        )
+        from experiments.qualify_investigator_model_interface import canary_assignment
+
+        a = canary_assignment("raw")
+        action = request("read_source", source_id="canary", path="missing.txt")
+        missing = a.invoke(action)
+        # The actual problem observation does not identify the requested path.
+        # Complete stateless history must retain the original intent separately.
+        self.assertNotIn("missing.txt", missing.content.decode())
+        self.assertEqual(missing.request_text, action.decode())
+        forged = a.invoke(
+            request(
+                "read_source",
+                source_id="canary",
+                path="probe.txt",
+                evidence=[{"id": "forged-reference", "kind": "source_line"}],
+            )
+        )
+        self.assertEqual(forged.outcome, "refused")
+        p = pack_input(
+            protocol_definition(a, TrialLimits()),
+            [missing, forged],
+            "investigate",
+            128 * 1024,
+        )
+        user = measure_input(Binding(), p, config()).messages["messages"][1]["content"]
+        self.assertIn(action.decode(), user)
+        self.assertIn(missing.content.decode(), user)
+        self.assertIn("forged-reference", user)
+        self.assertNotIn("forged-reference", p.reference_ids)
+        self.assertEqual(
+            json.loads(p.content)["events"][0]["request_text"], action.decode()
+        )
+
+    def test_final_turn_report_refusal_keeps_its_reason_without_another_request(self):
+        a = fixture("raw")
+        responses = iter([request("finish_investigation"), b"{}"])
+        result = run_scripted_trial(
+            a, lambda p: next(responses), limits=TrialLimits(consumer_turns=2)
+        )
+        self.assertIsNone(result.report_publication)
+        self.assertEqual(result.charges["report_refusals"][0]["consumer_attempt"], 2)
+        self.assertTrue(result.charges["report_refusals"][0]["detail"])
+        self.assertEqual(result.charges["terminal_corrections"], 1)
 
     def test_deployment_drift_refuses_before_call(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -540,6 +621,33 @@ class QualificationFreezeTests(unittest.TestCase):
         self.assertNotIn(
             "llm.prediction.structured", fields(config()["layers"][0]["config"])
         )
+
+    def test_actual_sampler_defaults_are_pinned_without_inheriting_prior_grammar(self):
+        from experiments.investigator_model_interface import fields
+
+        loaded = {
+            "fields": [
+                {
+                    "key": "llm.load.promptTemplate",
+                    "value": {"jinjaPromptTemplate": {"template": "EXACT"}},
+                }
+            ]
+        }
+        actual = {
+            "fields": [
+                {"key": "llm.prediction.topKSampling", "value": 64},
+                {"key": "llm.prediction.reasoning.enableThinking", "value": True},
+                {"key": "llm.prediction.structured", "value": {"old": "grammar"}},
+            ]
+        }
+        original = copy.deepcopy(actual)
+        frozen = fields(
+            prediction_configuration(loaded, applied_base=actual)["layers"][0]["config"]
+        )
+        self.assertEqual(frozen["llm.prediction.topKSampling"], 64)
+        self.assertFalse(frozen["llm.prediction.reasoning.enableThinking"])
+        self.assertNotIn("llm.prediction.structured", frozen)
+        self.assertEqual(actual, original)
 
     def test_interrupted_stream_keeps_visible_prefix_and_unknown_usage_without_salvage(
         self,
