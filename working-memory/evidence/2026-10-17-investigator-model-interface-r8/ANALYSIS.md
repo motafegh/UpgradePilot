@@ -79,3 +79,23 @@ The later case baseline remains two deployments/eight assignments and unactivate
 R8's2048 generated-token canary cap differs from the planned8192 case allowance.
 Preflight fitting an8192 reserve proves capacity for its inspected shapes, not actual
 8192-token generation, real-case report adequacy or a ready case manifest.
+
+## Qwen27 Raw long completed checkpoint
+
+[Eleven completed sequences](eleven-sequence-checkpoint.json): Qwen27 Raw long passes
+in five calls; only Structured long remains pending. The combined completed-only ledger
+is55 calls/602,254 input/10,206 target/2,673 draft,zero new unknown; active calls excluded.
+Its full report correctly uses delivered marker/search IDs, notes no eligible reference
+was delivered for the failed read, scopes absence to the capture and recommends no
+dependency update action. Other two searched files are explicitly unexamined individually.
+
+The report's no-further-operations wording must be read with its actual report menu:
+tools=[] after finish. It is not proof that no unread source data exists. The same
+phase check corrects the stronger earlier [r6 stopping criticism](../2026-10-17-investigator-model-interface-r6/ANALYSIS.md),
+without changing any qualification disposition. Prescribed interface operations do
+not establish autonomous investigation or stopping adequacy.
+
+The report's client elapsed669.323s differs from native total730.057s/TTFT180.035s;
+native usage is20,659 input/762 target/723 draft. Preserve original timing fields and
+their unestablished measurement relationship. This exact point is slow enough to matter
+to a later case-budget decision, without proving a causal runtime/model speed ranking.

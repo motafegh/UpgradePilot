@@ -633,3 +633,21 @@ actually null, so its missing-content statement is not false; omission of the
 explicit not_evaluated status is an informativeness gap. The clear unsupported
 marker-to-readiness/proceed inferences remain distinct, stronger findings. This
 corrects descriptive analysis only and leaves every frozen disposition unchanged.
+
+Qwen27 Raw long completes five calls/interface-qualified. Report correctly scopes
+failed-read absence and explicitly notes no delivered failure reference; native
+prompt20659/target762/draft723,client669.323s vs native730.057s/TTFT180.035s.
+Native/client timing relationship remains unestablished. Eleven-sequence completed-only
+checkpoint:55calls/602254input/10206target/2673draft,zero new unknown; final Structured
+long remains due. Current raw-load profile also explicitly freezes draftMtp=true as
+an applied setting; embedded draft prediction is not another deployment arm.
+
+Second reviewer correction: report-phase tools=[] after finish. Qwen27 Raw-long's
+no-further-operations phrase does not prove it claimed source-universe exhaustion;
+its unexamined field lists the other two files. Exact r6 Qwen27 Structured-long and
+MiMo report requests also have tools=[]: earlier public 'tools still offered' criticism
+was wrong, and no-further-offered-evidence wording is scope-dependent. Correct those
+descriptive judgments without rewriting original outputs/dispositions/private indexes.
+Canaries prescribe operations, so neither their completion nor such report wording
+establishes autonomous discovery/stopping adequacy. This reviewer-side learning belongs
+in D as well as the model-side findings; do not automatically blame model internals.

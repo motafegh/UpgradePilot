@@ -24,15 +24,18 @@ attempts, rather than treating a completed process or typed JSON as useful analy
 - Gemma12 Raw short recommends proceeding with the update based on synthetic interface
   checks. That exceeds its evidence despite valid IDs and an interface pass. Its other
   reports distinguish source/search/problem outcomes, but do not establish compatibility.
-- Qwen27 generally preserves frozen-capture/runtime uncertainty. Structured long says
-  no further operations are available even though other source/tool options remain.
-  This unsupported stopping statement is retained, not silently repaired.
+- Qwen27 generally preserves frozen-capture/runtime uncertainty. Review correction:
+  Structured long says no further operations are available in a report request with
+  tools=[]; earlier criticism that tools were still offered at that phase was wrong.
+  Other captured files remained unread, but report-phase action availability and source
+  universe exhaustion are different claims. It explicitly lists unexamined files.
 - Qwen9's Raw reports overstate negative/missing evidence and mix successful marker
   reads with statements about all outcomes being negative/empty. Both Structured
   reports have no citations; strict withholding is an actual observed result.
 - MiMo often describes the scoped observations sensibly but invents update_packet/
-  native citation IDs, repeats them after correction, and claims the available evidence
-  is exhausted while catalog entries remain unread. Raw short's partial report is
+  native citation IDs and repeats them after correction. Its no-further-offered-evidence
+  wording is scope-dependent: report-phase tools are empty while catalog files remain
+  unread. Do not turn that ambiguity into a proven global-exhaustion error. Raw short's partial report is
   repetitive, not proof that a larger context/output limit alone would solve it.
 - E2B ignores required operations in some sequences and uses event-1 as an eligible
   trial-event citation without its delivered typed reference. E4B similarly cites
@@ -51,3 +54,9 @@ correctness, independent usefulness, learner ownership or acceptance of a real u
 The later paired two-deployment/eight-case comparison has not run. Native-mode
 follow-up is separately admitted/frozen in [r7](../2026-10-17-investigator-model-interface-r7/README.md);
 old results are not pooled, repaired or promoted by that follow-up.
+
+The later report-phase review correction changes descriptive criticism only; original
+dispositions, exact raw artifacts and closed local retention index remain unchanged.
+Prescribed canary operations do not establish autonomous evidence discovery or stopping
+adequacy. Phase/menu/citation observations must be checked before attributing a failure
+to a model, just as fully rendered history must be checked before blaming its memory.
