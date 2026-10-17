@@ -596,3 +596,21 @@ marker as interface/system readiness. Actual native observation checked against 
 report, not inferred from valid citation IDs. Preserve4/4 interface result with those
 semantic limits. Publish this eight-sequence/40-call checkpoint while Qwen27 runs;
 active Qwen27 calls are excluded from its totals. Frozen settings/order/code unchanged.
+
+Handoff boundary checked during Qwen27 execution: the controlling plan still names
+Gemma12/Qwen3.8-27B and exactly two deployments/eight case assignments; old Qwen3.6
+appears only as the explicitly superseded candidate. The mechanical manifest has no
+model deployment and remains non-inference evidence, not an accidentally executable
+old-model manifest. R8's2048 synthetic generation cap is distinct from the planned
+8192 case allowance: current full-rendered preparation fits an8192 reserve, but that
+is capacity evidence, not observed8192-token generation/real-report adequacy. The
+later real-case request/configuration/assignment/review freeze and activation remain
+required; no automatic transfer of a larger output limit or new semantic model arm.
+
+Qwen27's two short sequences complete in10 calls/27665 input/2161 target/1878 draft,
+zero newly unknown usage. Both full visible reports checked; correct delivered IDs,
+scoped zero/empty/marker observations, no update-compatibility claim, and explicit
+ready-versus-unsupported-adequacy distinction. Final Structured-short packed request
+confirms visible finish control history has no typed trial_event evidence ref; do
+not equate generic event visibility with that evidence family. Publish ten-sequence
+completed-only checkpoint while both long sequences remain due; no4/4 claim yet.

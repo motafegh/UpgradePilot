@@ -1,7 +1,8 @@
 # Current-runtime completion — progressive actual findings
 
 The first checkpoint covered Qwen9; the appended checkpoint now includes Gemma12.
-Qwen27 results remain pending at this horizon; [MEMORY](../../../MEMORY.md) owns continuation.
+Qwen27's appended short-sequence checkpoint is complete; its two long sequences
+remain pending at this horizon. [MEMORY](../../../MEMORY.md) owns continuation.
 All runs use synthetic interface inputs, not the later paired real-case comparison.
 
 [Qwen9 actual checkpoint](qwen9-completed-checkpoint.json): four independent sequences,
@@ -42,3 +43,24 @@ record includes outcome=not_evaluated/payload=null. The report also overstates t
 synthetic marker as confirmation that the system is interface-ready. Record existence,
 an observed marker and actual system readiness remain different claims. These defects
 do not change the frozen interface dispositions or establish semantic acceptance.
+
+## Qwen27 short-sequence checkpoint
+
+[Ten completed sequences](ten-sequence-checkpoint.json) include Qwen27's two short
+passes in10 calls/27,665 input/2,161 target/1,878 reported draft tokens,zero new unknown
+usage. Both full visible reports were read: they use correct delivered references,
+scope the marker/zero/empty observations, avoid actual update compatibility claims,
+and explicitly distinguish finish_investigation's ready outcome from unsupported
+adequacy. Its two long sequences remain pending; no4/4 deployment qualification yet.
+The combined completed-only checkpoint has50 calls/499,455 input/9,358 target/1,878
+draft. Currently active long-sequence calls are excluded from those checkpoint totals.
+
+The final packed Structured-short request was also checked against its wording:
+finish control history is visible, but the eligible evidence set contains only three
+source/search references. A generic control event is not automatically a delivered
+typed trial_event evidence reference. Preserve that distinction during semantic review.
+
+The later case baseline remains two deployments/eight assignments and unactivated.
+R8's2048 generated-token canary cap differs from the planned8192 case allowance.
+Preflight fitting an8192 reserve proves capacity for its inspected shapes, not actual
+8192-token generation, real-case report adequacy or a ready case manifest.
