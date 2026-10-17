@@ -1,0 +1,6 @@
+{
+  "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Distill-Qwen-9B/resolve/2367e865d009c13ac81713a2878291d33ab28177/chat_template.jinja",
+  "sha256": "59a64ebb4df6d1489d09a91267cf3ceb106162d4a893c4f84833cfb8c897ff63",
+  "local_template_sha256": "59a64ebb4df6d1489d09a91267cf3ceb106162d4a893c4f84833cfb8c897ff63",
+  "same": true
+}

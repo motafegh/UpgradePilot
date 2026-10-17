@@ -235,6 +235,49 @@ revision; descriptive review separately identifies redundant-but-complete operat
 missing operations and unsupported report statements. Later semantic comparison remains
 two deployments/eight case assignments and unactivated.
 
+### 4.9 Bounded native-mode follow-up after the complete r6 cohort
+
+Finish r6 unchanged; retain every failed sequence and its actual visible output. Its
+strict reasoning-off requirement is a deployment condition, not a general model-quality
+verdict. In r6, small Gemmas intermittently return reasoning-labelled fragments despite
+the applied off flag; MiMo reaches required operations but repeats/exhausts a report or
+uses ineligible references. Do not erase these outcomes or merely increase context.
+
+Admit **three fresh configuration deployments / 12 sequences / 72 calls maximum**:
+Gemma E2B, Gemma E4B, then MiMo9B, each short Raw, short Structured, long Raw, long
+Structured. All six candidate assets remain available. This is a bounded qualification
+follow-up, not three additional arms in the later two-deployment/eight-assignment case
+comparison. Before affected inference, freeze exact completed prior spend plus72 within
+an explicitly revised **327 aggregate call ceiling** (111 prior +144 r6 maximum +72).
+No automatic further parameter sweep is admitted.
+
+Use each actual loaded template with thinking explicitly on. Keep complete stateless
+request/result history, current-request reference admission, runtime grammar, context32768,
+weight placement and CPU q8_0 KV unchanged. Apply/verify temperature1/top-p0.95/top-k64
+for E2B/E4B, and temperature0.6/top-p0.95/top-k20 for MiMo. Explicitly disable extra
+min-p/repetition filtering rather than claiming absent r6 sampler fields resolved their
+effective defaults. These recipes are grounded in the [Google model card](https://ai.google.dev/gemma/docs/core/model_card_4)
+and MiMo's [published generation configuration](https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Distill-Qwen-9B/blob/2367e865d009c13ac81713a2878291d33ab28177/generation_config.json).
+The [MiMo card](https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Distill-Qwen-9B)
+uses thinking mode; [Google's thinking documentation](https://ai.google.dev/gemma/docs/capabilities/thinking)
+distinguishes small-Gemma and larger-Gemma off templates. Do not transplant the12B
+empty-thought prefix into small models or change GGUF/tokenizer identity.
+
+Raise only this declared native-mode output allowance to8192 target-generated tokens
+per call, including any internal generation, with49152 maximum per sequence and the
+same six-call/14400-second sequence limits. This uses the previously measured reserve
+to permit thinking plus a concise visible report; it is not a claim that repetition or
+invalid citations will be solved by more tokens. Reinspect every fully rendered shape
+with actual native-mode configuration before freezing/executing. Requested/applied
+identity/configuration and actual prompt-count checks remain mandatory.
+
+The transport must permit reasoning-labelled fragments only when thinking was explicitly
+requested and verified applied; it must continue discarding them before SDK accumulation
+and artifact storage. Off-mode violations still fail. Retain visible responses and scalar
+usage/flags only; absent separate reasoning-token counts remain unknown. Preserve the
+strict sequence/citation/report guards. Report native-mode outcomes separately from r6;
+different samplers/modes are not a causal single-variable or intrinsic model ranking.
+
 ## 5. Ordered execution and proof gates
 
 Use coherent Learning-by-Doing cycles; the first integration cycle may complete with no inference. Do not split obvious implementation details into separate ceremonial cycles. Each gate produces reviewable evidence and an explicit proceed/refuse/inconclusive result.

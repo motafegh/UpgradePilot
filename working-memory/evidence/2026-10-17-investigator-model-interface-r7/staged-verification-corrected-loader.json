@@ -1,0 +1,13 @@
+{
+  "tests": 35,
+  "failures": 0,
+  "errors": 0,
+  "staged_only": true,
+  "source_sha256": {
+    "investigator_model_interface.py": "f42a9e28779bb6a545982352332a1ec28c3a4eac117209e93bfa0fc32ab59031",
+    "test_investigator_model_interface.py": "d867f7bd701fe35685cdc49842f4907ef0c600b7197654db181239405550a899",
+    "qualify_investigator_model_interface.py": "3d114bdccfc8c164b960b60ab97118ca7d96cd3899af669ceee4ab454b8c8904",
+    "investigator_workspace_adapter.py": "b9ed4a2533fc671a3026d066154cfb14910ced5551dd13664b0c3e562ba08321",
+    "investigator_workspace_trial.py": "7a883f318a244612edbe5ec4691ae967b4f7722a1db4dfbc7a1d20a34137ec30"
+  }
+}

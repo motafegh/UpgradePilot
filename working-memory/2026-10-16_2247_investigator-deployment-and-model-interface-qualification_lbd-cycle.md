@@ -356,3 +356,64 @@ The [r6 freeze](evidence/2026-10-17-investigator-model-interface-r6/canary-freez
 SHA256f6a7b34560f5a44759d901fa65cdf69fe22a096ca081c8ab2d9d1965496556e5
 fixes all6/24 ordered IDs, own native settings,111 prior+144 new max255<=267 and
 unchanged later2-deployment/eight-case nonactivation before any revised inference.
+
+### R6 live diagnosis and native-mode follow-up decision
+
+R6 remains running with unchanged source/freeze. Both small Gemmas now match actual
+prompt counts after the BOS representation fix. E2B spends8 calls, E4B16; all eight
+sequences withheld. Some fail because reasoning-labelled fragments appear despite
+native enableThinking=false; the retained scalar flag alone does not establish their
+nonempty length, and no hidden content was retained or inspected. Other failures are
+skipped operations or foreign citations. MiMo spends23 calls across four withheld
+sequences: the repaired history permits the required four operations, but Raw short's
+report hits2048 with repeated claims; other reports use ineligible references. All
+known native usage remains saved. Qwen9 Raw short qualifies; Structured short completes
+without eligible citations and remains withheld. This is partial evidence, not a final
+all-six disposition. Continue the remaining frozen independent sequences unchanged.
+
+Planning/Design support revisits the actual operating mode, rather than forcing all
+models to pass. Public primary-source research is retained under durable owner-only
+r7: MiMo model API revision2367e865d009c13ac81713a2878291d33ab28177, generation_config
+T0.6/K20/P0.95, metadata receipt URLs/hashes. Its card uses thinking on. Google docs
+distinguish small off templates from12B empty-thought blocks; no guessed template
+transplant is warranted. Google recommends T1/K64/P0.95. Earlier own-model native
+predictionConfig exposes CPU/tools but omits top-p/top-k; pinning exposed settings
+does not establish those absent effective sampler defaults. Preserve that limitation.
+
+Material adaptation: applied off-mode violations plus MiMo's actual repetition/citation
+failures and documented intended mode -> normal shared off-only qualification -> that
+would withhold these deployments without examining a credible native operating point
+-> plan section4.9 admits one separately frozen native-mode configuration per E2B/E4B/
+MiMo, three deployments/12 sequences/72 calls, revised327 aggregate ceiling -> same
+assets, history/reference/privacy/strict guards; native-mode8192 allowance and declared
+provider-grounded samplers change comparability, so outcomes remain separate and no
+intrinsic ranking or later case-arm expansion follows -> exact actual prior spend,
+profiles/rendering/order/code/config/budget frozen before any follow-up inference.
+No automatic parameter sweep or implicit later semantic comparison. This is continuous
+B diagnosis inside Ali's repeated authorization, not a new architectural responsibility
+or a reopened parent cycle; A-phase intent remains established, D/E remain pending.
+Stage code privately while r6 runs; apply only after its normal completion and source
+identity check. The three native settings will be tested before any actual model call.
+
+Native-mode source remains private staged-only while r6 core models run.35 staged
+controls pass, including explicit/applied on-mode versus strict off-mode and declared
+sampling/default compatibility; the existing pre-accumulation hidden-fragment filter
+is unchanged. First staged harness invocation failed to bind its loaded test module
+into the parent Python package (14 tests,1 loader error); corrected harness binds the
+parent attribute,35 pass. Both logs/verification records retained in r7. Staged Ruff
+and format pass. No running r6 executable was changed. Qwen9 completes all four r6
+sequences: Raw short/long qualify, both Structured reports cite no eligible evidence
+and remain withheld. This is an actual negative reference-use result, not missing work.
+MiMo's generation config was independently fetched at exact API revision and matched
+the earlier main URL bytes. Primary metadata/templates never become case evidence.
+
+Primary-source cross-check: MiMo actual loaded Jinja template equals the pinned
+upstream3916-byte template exactly; comparison/hash receipt retained, without claiming
+unknown local GGUF weight-revision correspondence. No speculative parser/template
+replacement is justified. All four Qwen9 visible reports inspected: both Raw interface
+passes cite actual eligible IDs but contain overbroad absence/negative statements; both
+Structured reports cite nothing despite delivered references, so strict gate withholds.
+This reinforces interface qualification ≠ semantic validity. Original outputs remain
+unchanged. Partial r6 inspection after16 sequences:67 calls,865563 input/18119 target
+generated,zero newly unknown usage; separate reasoning usage remains unreported. This
+partial snapshot excludes active core calls and is not the final cohort total.

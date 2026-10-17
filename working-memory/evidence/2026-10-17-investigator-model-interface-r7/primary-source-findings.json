@@ -1,0 +1,33 @@
+{
+  "observed_at": "2026-10-17T13:46:25.612814+00:00",
+  "mimo_generation_config": {
+    "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Distill-Qwen-9B/resolve/2367e865d009c13ac81713a2878291d33ab28177/generation_config.json",
+    "revision": "2367e865d009c13ac81713a2878291d33ab28177",
+    "sha256": "aaed5b26f1cae55c1ceb58fc483c3cd65ee8d386b61daec3d7a9df82432d9205",
+    "value": {
+      "eos_token_id": [
+        248046,
+        248044
+      ],
+      "do_sample": true,
+      "temperature": 0.6,
+      "top_k": 20,
+      "top_p": 0.95
+    }
+  },
+  "google_thinking": {
+    "url": "https://ai.google.dev/gemma/docs/capabilities/thinking",
+    "facts": "E2B/E4B off has bare model prefix; on puts <|think|> in initial system. Larger12/26/31B off adds empty thought channel. No small-template mutation justified."
+  },
+  "google_sampling": {
+    "url": "https://ai.google.dev/gemma/docs/core/model_card_4",
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 64
+  },
+  "mimo_card": {
+    "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Distill-Qwen-9B",
+    "facts": "Quickstart explicitly enables thinking and uses mimo reasoning parser. Local backend parser must be checked, not assumed from this example."
+  },
+  "limits": "Public source research only; no model inference, no change of local GGUF identity/provenance, no hidden reasoning retained. SDK topK/topP/minP/repeat native key shapes checked locally."
+}
