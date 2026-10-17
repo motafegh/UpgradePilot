@@ -16,9 +16,11 @@ distinguish scoped positive/zero/empty observations and retain synthetic compati
 uncertainty. Raw long has valid citations but recommends proceeding with the dependency
 update assuming the interface-ready marker is sufficient. That inference exceeds the
 evidence: a synthetic source marker establishes no update compatibility or permission.
-Structured long keeps an unresolved update conclusion and ci_coverage not_evaluated,
-but says no evidence was provided for the missing-file read outcome while elsewhere
-acknowledging its visible returned problem. This is an evidence-accounting inconsistency.
+Structured long keeps an unresolved update conclusion and ci_coverage not_evaluated.
+Its statement that no evidence was provided for the missing-file read outcome needs
+careful interpretation: the failure observation is visible, but no typed failure
+reference was delivered. The wording is ambiguous between no citable evidence and
+an unknown outcome; an actual contradiction is not established by that phrase alone.
 
 Preserve the original interface passes and these separate semantic defects. No output
 is repaired/regraded and no canary result is promoted into product acceptance.
@@ -43,6 +45,8 @@ record includes outcome=not_evaluated/payload=null. The report also overstates t
 synthetic marker as confirmation that the system is interface-ready. Record existence,
 an observed marker and actual system readiness remain different claims. These defects
 do not change the frozen interface dispositions or establish semantic acceptance.
+The omitted native outcome is an informativeness gap: the delivered payload is null,
+so stating that substantive payload content is unavailable is not itself a false claim.
 
 Review correction after checking the exact packed request: the failed read's returned
 problem has evidence=[] and contributes no eligible typed reference. Its uncited
@@ -51,6 +55,9 @@ is a separate descriptive choice rather than a failed frozen gate. Do not penali
 model for omitting a reference that the interface never delivered or encourage invention
 of one. The stronger marker/readiness overstatement and omitted native outcome findings
 remain supported by the actual reports. Original4/4 dispositions remain unchanged.
+The same correction qualifies the earlier Qwen9 evidence-accounting criticism:
+ambiguous wording is not proven failure to see an observation. Keep the clearly
+unsupported Raw-long proceed recommendation separate from that weaker interpretation.
 
 ## Qwen27 short-sequence checkpoint
 

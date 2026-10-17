@@ -624,3 +624,12 @@ gate. Broader readiness and omitted native not_evaluated findings remain. Correc
 the public analysis while preserving original dispositions and prior reasoning here.
 This is an interface/report-proof boundary, not authorization to add product problem
 citations, invent IDs, weaken the guard or change frozen inference source.
+
+Apply that same distinction to review language: Qwen9 Structured long's 'no evidence
+provided' can mean no citable typed failure ref, while its prose acknowledges the
+problem. Earlier inconsistency wording was too strong; preserve it as ambiguous,
+not a proven failure to see the observation. Gemma12's absent native payload is
+actually null, so its missing-content statement is not false; omission of the
+explicit not_evaluated status is an informativeness gap. The clear unsupported
+marker-to-readiness/proceed inferences remain distinct, stronger findings. This
+corrects descriptive analysis only and leaves every frozen disposition unchanged.
