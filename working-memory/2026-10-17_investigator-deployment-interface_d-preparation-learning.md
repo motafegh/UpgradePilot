@@ -31,6 +31,17 @@ Target concepts: token, tokenizer, chat template, BOS/EOS, context window, input
 
 Use the real `1817 measured / 1818 runtime` prompt-count discrepancy and later small-Gemma BOS observations as the primary example.
 
+#### Runtime-control subtopics placed into the existing questions
+
+These are **not eleven new ownership questions**. They are deeper runtime topics to learn when their parent question or a later optimization responsibility makes them relevant.
+
+- **Q3 — context/capacity:** RoPE Frequency Base and RoPE Frequency Scale. Learn their positional/context role at a conceptual level with Q3; defer tuning details unless we deliberately study context extension or positional scaling.
+- **Q4 — runtime placement/memory/prefill:** evaluation batch size, physical/micro-batch size, max concurrent predictions, unified KV cache, `mmap`, Flash Attention, K-cache quantization type and V-cache quantization type. Learn enough under Q4 to understand what resource/runtime dimension each controls; detailed benchmarking belongs to a later performance responsibility.
+- **Q5 — generation configuration:** speculative decoding belongs with next-token generation/sampling because it changes the decoding path and introduces a draft deployment. Learn the concept with Q5; do not treat it as part of current r6 unless explicitly selected/frozen.
+- **Q10/Q13 — experiment identity:** if any material runtime control above changes between experimental revisions, decide whether that creates a different deployment/configuration and preserve comparability rather than pooling results blindly.
+
+The current learning goal is therefore to know **what each knob controls and when it matters**, not to optimize every knob during interface qualification.
+
 ### L2 — Stateless history, observations and reference authority
 
 Own why r5's earlier "complete stateless history" was incomplete and why r6 retains exact model request/result pairs.
@@ -79,6 +90,22 @@ After L1-L4, summarize each candidate only from retained evidence:
 
 For each: what worked, what failed, failure class, what remains unknown, and what the next discriminating experiment is intended to establish. Keep interface qualification separate from real HTTPX/glyphsLib semantic comparison.
 
+## Deferred runtime-performance learning/optimization queue
+
+This queue prevents useful LM Studio/llama.cpp controls from being forgotten without turning the current qualification into a parameter sweep. It is **not automatically selected implementation work**.
+
+When model/interface qualification is stable and a performance/resource responsibility is selected, revisit:
+
+1. evaluation batch size and physical/micro-batch size — prompt/prefill throughput versus memory pressure;
+2. Flash Attention — attention memory/throughput and actual-kernel verification rather than requested-setting assumptions;
+3. KV-cache placement and K/V quantization — memory, speed and any quality/correctness trade-offs;
+4. speculative decoding — main/draft compatibility, generation throughput, memory/accounting and deployment identity;
+5. `mmap` — load/startup and host-memory/page-cache behavior if loading becomes a bottleneck;
+6. max concurrent predictions + unified KV cache — only when concurrent investigators/agents or serving throughput becomes a real requirement;
+7. RoPE base/scale — only for an explicit context-extension/positional-behavior question, not routine tuning.
+
+For any selected benchmark, freeze model/template/context/sampler/reasoning/evidence task and change only the intended runtime dimension where possible. Measure at least prompt time/TTFT, generation throughput, RAM/VRAM, stability and correctness guardrails. Requested configuration never substitutes for observed applied/runtime state.
+
 ## Ownership questions
 
 These questions are the learning gates. Answers may be brief, but should be in Ali's own words. They are not pass/fail trivia; unclear answers identify the next teaching target.
@@ -89,11 +116,11 @@ These questions are the learning gates. Answers may be brief, but should be in A
 
 **Q2.** What is a token? What are BOS and EOS? Why could our rendered/tokenized request measure 1817 tokens while the runtime reports 1818, and why is that one-token difference important rather than harmless bookkeeping?
 
-**Q3.** What is the difference between the context window, current input tokens and generation/output reserve? Why does `input + output reserve + margin < context` prove capacity admission but not prove that the model can generate the full reserve correctly or quickly?
+**Q3.** What is the difference between the context window, current input tokens and generation/output reserve? Why does `input + output reserve + margin < context` prove capacity admission but not prove that the model can generate the full reserve correctly or quickly? Runtime supplement: know that RoPE base/scale affect positional/context interpretation; detailed tuning is deferred unless context extension becomes an explicit responsibility.
 
-**Q4.** What do GPU weight offload and KV-cache placement mean, and why did `requested offload ratio = 1.0` fail to prove actual full GPU placement for MiMo/Qwen9?
+**Q4.** What do GPU weight offload and KV-cache placement mean, and why did `requested offload ratio = 1.0` fail to prove actual full GPU placement for MiMo/Qwen9? Runtime supplement: identify the roles (not yet optimize) of evaluation batch size, physical/micro-batch size, max concurrent predictions, unified KV cache, `mmap`, Flash Attention and K/V cache quantization.
 
-**Q5.** What do temperature, top-p and top-k control at a high level? Why must a model-specific native-mode follow-up with different sampling/thinking settings be treated as a different deployment configuration rather than pooled with r6?
+**Q5.** What do temperature, top-p and top-k control at a high level? Why must a model-specific native-mode follow-up with different sampling/thinking settings be treated as a different deployment configuration rather than pooled with r6? Generation supplement: understand speculative decoding and why enabling a draft model changes the decoding/deployment configuration.
 
 ### B. Stateless history and evidence/reference authority
 
@@ -107,13 +134,13 @@ These questions are the learning gates. Answers may be brief, but should be in A
 
 ### C. Qualification design
 
-**Q10.** What is the difference between a model candidate, a deployment/configuration, a canary sequence and the later semantic case assignment?
+**Q10.** What is the difference between a model candidate, a deployment/configuration, a canary sequence and the later semantic case assignment? Include why material runtime controls can be part of deployment identity when they change execution behavior/resources.
 
 **Q11.** Why do we test both Raw and Structured treatments and both short and near-envelope sequences? What distinct failure would each dimension help expose?
 
 **Q12.** Why does `Raw short qualified` not mean the whole deployment is qualified? What must be true before a deployment can be admitted to the later paired semantic comparison?
 
-**Q13.** Why can't we simply combine successes from r3/r4/r5/r6 as if they were one experiment? What kinds of protocol/configuration changes make the revisions non-poolable?
+**Q13.** Why can't we simply combine successes from r3/r4/r5/r6 as if they were one experiment? What kinds of protocol/configuration changes make the revisions non-poolable? Apply the same reasoning to later runtime optimizations instead of silently pooling materially different configurations.
 
 ### D. Reading failures correctly
 
@@ -145,11 +172,12 @@ These questions are the learning gates. Answers may be brief, but should be in A
 
 Use this sequence unless a live B result later makes another dependency more urgent:
 
-1. Q1-Q5 with the real request-to-first-token pipeline.
+1. Q1-Q5 with the real request-to-first-token pipeline; cover only the conceptual runtime supplements needed now.
 2. Q6-Q9 with r5 -> r6 stateless-history repair.
 3. Q10-Q13 with the actual qualification/freeze design.
 4. Q14-Q16 using real failure records one by one.
 5. Q17-Q20 only after the mechanics are understood; use them as synthesis/D-preparation.
+6. Revisit the deferred runtime-performance queue only when a performance/resource/concurrency/context-extension responsibility is selected; do not delay current D merely to benchmark every LM Studio knob.
 
 Avoid answering all twenty at once. Work in small groups, correct misconceptions immediately, and record only stable learner-owned conclusions.
 
@@ -160,6 +188,18 @@ Avoid answering all twenty at once. Work in small groups, correct misconceptions
 Ali's explanation, reviewed October 17: UpgradePilot first renders its request through the selected model's chat template, then tokenizes that rendered representation into token IDs. LM Studio orchestrates the loaded local deployment and llama.cpp performs the underlying inference. Model layers may be placed partly in GPU VRAM while remaining layers are CPU-executed from system RAM. The model generates subsequent tokens, the LM Studio SDK carries the streamed result/configuration/usage back to Python, and UpgradePilot's adapter/validators decide whether the generated output is admissible. Refinement retained: LM Studio and llama.cpp are different layers, and GPU weight offload should not be described as a separate "offload to RAM" operation.
 
 **Q1 status:** OWNED at the current learning depth.
+
+### Q2 — tokens, BOS/EOS and runtime correspondence
+
+Ali's explanation, reviewed October 17: a token is a unit selected from the specific model tokenizer's vocabulary and represented by an ID; tokenization can differ between models. BOS/EOS are special sequence-boundary tokens. The important meaning of the `1817 measured / 1818 runtime` discrepancy was not the capacity cost of one token but evidence that our assumed input/runtime model did not yet exactly correspond to what the backend actually consumed. Therefore the extra transformation had to be identified/represented rather than dismissed.
+
+**Q2 status:** OWNED at the current learning depth.
+
+### Q3 — context capacity versus demonstrated behavior
+
+Ali's explanation, reviewed October 17: the context window is the total token capacity available to the model for the sequence; input tokens occupy capacity before generation and an output reserve is capacity intentionally kept available for possible generation. `input + reserve + margin <= context` establishes admission/capacity fit only. It does not establish correct model behavior, successful use of the full reserve, semantic quality, latency or generation performance. Refinement retained: reserved output capacity is not the same as actual generated-token count.
+
+**Q3 status:** OWNED at the current learning depth. RoPE base/scale remain a queued deeper supplement rather than a prerequisite for this ownership.
 
 ## Formal-D reuse criteria
 
@@ -174,6 +214,7 @@ When canonical B/Verification is complete:
    - remaining unknowns/debt.
 4. Do not copy temporary branch statements that became stale.
 5. Merge only the supported D learning/conclusions after canonical D is selected; leave implementation and experiment evidence owned by their main-branch records.
+6. Do not make deferred runtime-performance optimization a blocker for D unless final B exposes it as necessary to interpret a qualification result.
 
 ## Progress
 
@@ -183,10 +224,16 @@ When canonical B/Verification is complete:
 - [ ] L4 failure diagnosis/repair discipline owned
 - [ ] L5 per-model/current-state synthesis owned
 - [x] Q1 answered/reviewed
-- [ ] Q2-Q5 answered/reviewed
+- [x] Q2 answered/reviewed
+- [x] Q3 answered/reviewed
+- [ ] Q4-Q5 answered/reviewed
 - [ ] Q6-Q9 answered/reviewed
 - [ ] Q10-Q13 answered/reviewed
 - [ ] Q14-Q16 answered/reviewed
 - [ ] Q17-Q20 answered/reviewed
+- [ ] Q3 supplement: RoPE base/scale reviewed if/when context-extension work is selected
+- [ ] Q4 supplement: batch/concurrency/unified-KV/mmap/Flash/KV-quantization reviewed at appropriate depth
+- [ ] Q5 supplement: speculative decoding reviewed at appropriate depth
+- [ ] Deferred runtime-performance characterization selected/reviewed if product needs justify it
 - [ ] Reconciled against completed B evidence
 - [ ] Folded into formal canonical D
