@@ -15,10 +15,12 @@ from experiments.investigator_model_interface import (
     StatelessInvestigatorModel,
     measure_input,
     prediction_configuration,
+    run_model_trial,
 )
 from experiments.investigator_workspace_trial import (
     PackedInput,
     TrialLimits,
+    protocol_definition,
     run_scripted_trial,
 )
 from experiments.tests.test_investigator_workspace_trial import fixture, report, request
@@ -107,6 +109,113 @@ def config(**options):
 
 
 class ModelInterfaceTests(unittest.TestCase):
+    def test_token_repacking_keeps_one_budget_snapshot_and_drops_omitted_authority(
+        self,
+    ):
+        from experiments.investigator_workspace_trial import protocol_definition
+
+        assignment = fixture()
+        event = assignment.invoke(
+            request("read_source", source_id="target", path="requirements.txt")
+        )
+        ticks = iter([0, 1])
+        with tempfile.TemporaryDirectory() as directory:
+            binding = Binding()
+            binding.tokenize = lambda text: (
+                [0] * (2000 if "pytest==9.0.3" in text else 10)
+            )
+            model = StatelessInvestigatorModel(
+                binding,
+                config(),
+                ModelLimits(context=10000),
+                Path(directory) / "assignment",
+                clock=lambda: next(ticks),
+            )
+            packed = model.pack(
+                protocol_definition(assignment, TrialLimits()),
+                [event],
+                "report",
+                128 * 1024,
+            )
+            self.assertEqual(packed.omitted_event_ids, (event.event_id,))
+            self.assertFalse(packed.reference_ids)
+            budget = json.loads(packed.content)["budget_observation"]
+            self.assertEqual(
+                budget["model"]["remaining_before_this_request"]["seconds_at_snapshot"],
+                14399,
+            )
+            self.assertEqual(binding.calls, 0)
+
+    def test_live_budgets_follow_refused_calls_and_override_frozen_task_counters(self):
+        assignment = fixture()
+        snapshots = []
+
+        class BudgetBinding(Binding):
+            def predict(binding, measured, timeout, *, visible_sink):
+                body = json.loads(measured.packed.content)
+                snapshots.append(body["budget_observation"])
+                if len(snapshots) == 1:
+                    binding.response = request("unoffered_tool")
+                elif len(snapshots) == 2:
+                    binding.response = request(
+                        "read_source", source_id="target", path="requirements.txt"
+                    )
+                elif len(snapshots) == 3:
+                    binding.response = request("finish_investigation")
+                else:
+                    refs = [
+                        assignment.references[r].wire()
+                        for r in measured.packed.reference_ids
+                    ]
+                    binding.response = report(refs)
+                return super().predict(measured, timeout, visible_sink=visible_sink)
+
+        with tempfile.TemporaryDirectory() as directory:
+            model = self.model(directory, binding=BudgetBinding(), calls=4)
+            frozen = protocol_definition(assignment, TrialLimits())
+            frozen["budget_observation"]["trial_remaining"]["operation_units"] = 99999
+            result = run_model_trial(
+                assignment, model, limits=TrialLimits(consumer_turns=4), protocol=frozen
+            )
+            self.assertEqual(result.outcome, "completed")
+            self.assertEqual(
+                [s["trial_remaining"]["operation_units"] for s in snapshots],
+                [48, 47, 43, 40],
+            )
+            self.assertEqual(
+                [
+                    s["trial_remaining"]["invocations_including_this_request"]
+                    for s in snapshots
+                ],
+                [4, 3, 2, 1],
+            )
+            self.assertEqual(snapshots[1]["trial_remaining"]["corrections"], 1)
+            self.assertEqual(
+                [
+                    s["model"]["remaining_before_this_request"][
+                        "calls_including_this_request"
+                    ]
+                    for s in snapshots
+                ],
+                [4, 3, 2, 1],
+            )
+            self.assertEqual(
+                [
+                    s["model"]["remaining_before_this_request"]["input_tokens"]
+                    for s in snapshots
+                ],
+                [524288, 524278, 524268, 524258],
+            )
+            self.assertEqual(result.charges["admission_operations"], 14)
+            saved = json.loads(
+                (model.directory / "call-04.packed-input.json").read_bytes()
+            )
+            self.assertEqual(saved["budget_observation"], snapshots[-1])
+            other = protocol_definition(fixture(), TrialLimits())
+            self.assertEqual(
+                other["budget_observation"]["trial_remaining"]["operation_units"], 48
+            )
+
     def model(self, directory, binding=None, **limits):
         return StatelessInvestigatorModel(
             binding or Binding(),
@@ -332,6 +441,15 @@ class ModelInterfaceTests(unittest.TestCase):
                 model(packed())
             self.assertEqual(model.binding.calls, 1)
             self.assertFalse(model.usage_complete)
+            assignment = fixture()
+            observed = model.pack(
+                protocol_definition(assignment, TrialLimits()), [], "report", 128 * 1024
+            )
+            budget = json.loads(observed.content)["budget_observation"]["model"]
+            self.assertIsNone(budget["remaining_before_this_request"]["input_tokens"])
+            self.assertIsNone(
+                budget["remaining_before_this_request"]["generated_tokens"]
+            )
 
     def test_request_local_scope_refuses_a_reference_omitted_from_final_input(self):
         from experiments.investigator_workspace_trial import pack_input
@@ -376,6 +494,84 @@ class ModelInterfaceTests(unittest.TestCase):
 
 
 class QualificationFreezeTests(unittest.TestCase):
+    def test_semantic_schedule_requires_every_pair_and_balanced_first_treatments(self):
+        from experiments.run_investigator_semantic_comparison import validate_schedule
+
+        assignments = []
+        for m in range(3):
+            for c in range(2):
+                first = "raw" if (m + c) % 2 == 0 else "structured"
+                for t in (first, "structured" if first == "raw" else "raw"):
+                    assignments.append(
+                        {
+                            "id": f"m{m}-c{c}-{t}",
+                            "model_key": str(m),
+                            "case_id": str(c),
+                            "treatment": t,
+                        }
+                    )
+        validate_schedule(assignments, ["0", "1", "2"], ["0", "1"])
+        with self.assertRaisesRegex(ValueError, "incomplete/duplicate"):
+            validate_schedule(
+                assignments[:-1] + [assignments[0]], ["0", "1", "2"], ["0", "1"]
+            )
+        biased = sorted(assignments, key=lambda a: a["treatment"] != "raw")
+        with self.assertRaisesRegex(ValueError, "unbalanced"):
+            validate_schedule(biased, ["0", "1", "2"], ["0", "1"])
+
+    def test_semantic_admission_rejects_failed_matrix_and_different_profile(self):
+        from experiments.qualify_investigator_model_interface import code_hashes, digest
+        from experiments.run_investigator_semantic_comparison import (
+            require_qualification,
+        )
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            assignment = {"id": "new-raw-short", "model_key": "point"}
+            deployments = [{"model_key": "point", "profile_sha256": "exact"}]
+            content = json_bytes(
+                {
+                    "code_sha256": code_hashes(),
+                    "assignments": [assignment],
+                    "deployments": deployments,
+                }
+            )
+            (root / "freeze.json").write_bytes(content)
+            freeze = {
+                "deployments": deployments,
+                "interface_qualification": {
+                    "freeze_path": str(root / "freeze.json"),
+                    "freeze_sha256": digest(content),
+                    "results_root": str(root),
+                },
+            }
+            (root / "summary.json").write_bytes(
+                json_bytes(
+                    {
+                        "assignments": [
+                            {"assignment": assignment, "disposition": "withheld"}
+                        ]
+                    }
+                )
+            )
+            with self.assertRaisesRegex(ValueError, "matrix did not qualify"):
+                require_qualification(freeze)
+            (root / "summary.json").write_bytes(
+                json_bytes(
+                    {
+                        "assignments": [
+                            {"assignment": assignment, "disposition": "qualified"}
+                        ]
+                    }
+                )
+            )
+            require_qualification(freeze)
+            freeze["deployments"] = [
+                {"model_key": "point", "profile_sha256": "different"}
+            ]
+            with self.assertRaisesRegex(ValueError, "profile/configuration mismatch"):
+                require_qualification(freeze)
+
     def test_loaded_template_without_prediction_stop_field_is_preserved(self):
         from experiments.investigator_model_interface import fields
 

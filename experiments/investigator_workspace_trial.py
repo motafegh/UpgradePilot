@@ -69,6 +69,45 @@ class PackedInput:
     omitted_event_ids: tuple[str, ...]
 
 
+def trial_budget_observation(limits, charges, seconds_remaining):
+    """Expose driver-owned allowance before the next invocation, not evidence.
+
+    Model token/call facts are joined by StatelessInvestigatorModel.pack. No counter
+    comes from the model's notes or omitted history. Completion costs are disclosed;
+    only the existing termination unit is reserved by enforcement.
+    """
+    return {
+        "format": "investigator-budget-observation/1",
+        "trial_limits": asdict(limits),
+        "trial_remaining": {
+            "invocations_including_this_request": limits.consumer_turns
+            - charges.get("consumer_invocation_attempts", 0),
+            "operation_units": limits.operations
+            - charges.get("admission_operations", 0),
+            "observation_bytes": limits.observation_bytes
+            - charges.get("observation_bytes", 0),
+            "corrections": limits.corrections - charges.get("corrections", 0),
+            "terminal_corrections": limits.terminal_corrections
+            - charges.get("terminal_corrections", 0),
+            "seconds_at_snapshot": round(max(0, seconds_remaining), 3),
+        },
+        "operation_charges": {
+            "tools": TOOL_CHARGES,
+            "report_base": 4,
+            "per_unique_report_reference": 1,
+            "termination_reserved": 1,
+        },
+        "completion": (
+            "Remaining invocations include this response. Finish and report need separate "
+            "invocations. Preserve finish=3, report=4+unique references and termination=1 "
+            "operation units. Only termination is enforced as reserved; other remaining "
+            "capacity is not all discovery capacity. No automatic finish or adequacy proof."
+        ),
+        "model": None,
+        "limit": "Runner control metadata, not source evidence or citation authority. Time is sampled; actual admission still applies.",
+    }
+
+
 def protocol_definition(
     assignment: InvestigatorAssignment, limits: TrialLimits
 ) -> dict:
@@ -90,6 +129,7 @@ def protocol_definition(
             "max_native_bytes": assignment.access.max_native_bytes,
         },
         "limits": asdict(limits),
+        "budget_observation": trial_budget_observation(limits, {}, limits.seconds),
         "tool_charges": TOOL_CHARGES,
         "report_charge": "4 + unique typed evidence references; malformed wire costs 1",
         "charging": "Conservative admission units; every request charged, early refusals not refunded; termination reserves 1.",
@@ -133,6 +173,7 @@ def pack_input(
             "phase": phase,
             "tools": protocol["tools"] if phase == "investigate" else {},
             "report_schema": protocol["report_schema"],
+            "budget_observation": protocol["budget_observation"],
             "events": [
                 {
                     "event_id": e.event_id,
@@ -255,14 +296,21 @@ def run_scripted_trial(
     outcome = "limit_exhausted"
     try:
         for _ in range(limits.consumer_turns):
+            elapsed = clock() - started
             if (
-                clock() - started >= limits.seconds
+                elapsed >= limits.seconds
                 or charges["admission_operations"] + 1 >= limits.operations
             ):
                 break
             report_phase = assignment.ready
+            request_protocol = {
+                **protocol,
+                "budget_observation": trial_budget_observation(
+                    limits, charges, limits.seconds - elapsed
+                ),
+            }
             packed = input_packer(
-                protocol,
+                request_protocol,
                 history,
                 "report" if report_phase else "investigate",
                 limits.packed_input_bytes,

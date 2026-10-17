@@ -6,6 +6,30 @@ This experiment qualifies the real local model/request boundary after the model-
 owns budgets/fairness/gates; [MEMORY](../MEMORY.md) alone owns live progression.
 A successful canary is interface evidence, never a semantic comparison or product acceptance.
 
+## Budget observation revision
+
+Complete requests now include `investigator-budget-observation/1`. The trial driver
+supplies remaining invocations/operation units/observations/corrections and sampled
+time; model packing joins actual model-call/token allowances. Counts include the
+upcoming invocation but exclude its not-yet-measured token cost. Snapshots remain
+stable during repacking, survive event omission and stay visible in report phase.
+Frozen task definitions cannot override live counters. Unknown usage remains null
+and blocks subsequent prediction through the existing guard.
+
+Tool costs and finish/report/termination obligations are visible, while only the
+existing termination unit is enforced as reserved. This does not add automatic
+stopping, guarantee report completion or prove adequacy. Preflight measures the
+full budget representation; the changed source/request contract needs its own
+source-bound qualification for all selected deployments before semantic use.
+
+The [semantic comparison runner](run_investigator_semantic_comparison.py) consumes
+a separate complete comparison freeze. It refuses before loading a model unless
+the exact newly bound canary matrix qualified for every selected profile. It checks
+the 12-assignment coverage/order, common inputs, source/contract/reviewer identities
+and model/runtime file correspondence. Every semantic assignment starts with fresh
+Workspace and model-instance state. Original results and costs remain separate from
+offline semantic review; failed/unknown usage never becomes a successful sample.
+
 Read [the model binding](investigator_model_interface.py), then
 [the qualifier](qualify_investigator_model_interface.py), alongside
 [the focused tests](tests/test_investigator_model_interface.py).

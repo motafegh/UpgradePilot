@@ -23,6 +23,7 @@ from experiments.investigator_model_interface import (
     digest,
     import_isolated_sdk,
     measure_input,
+    model_budget_observation,
     prediction_configuration,
     private_write,
     run_model_trial,
@@ -308,9 +309,16 @@ def canary_protocol(assignment, sequence, padding_count):
     return protocol
 
 
-def representative_inputs(binding, configuration, treatment, sequence, padding_count):
+def representative_inputs(
+    binding, configuration, treatment, sequence, padding_count, model_limits
+):
     assignment = canary_assignment(treatment)
     protocol = canary_protocol(assignment, sequence, padding_count)
+    # Shape calibration, not a live spend claim. Include the same full model-budget
+    # representation as live requests so fit cannot omit its token cost.
+    protocol["budget_observation"]["model"] = model_budget_observation(
+        model_limits, 0, 0, 0, True, model_limits.seconds
+    )
     history = []
     shapes = []
     # Real adapter events over synthetic retained inputs, not fabricated delivery JSON.
@@ -412,7 +420,17 @@ def prepare_profile(
             for sequence, count in ((1, 0), (2, padding)):
                 for treatment in ("raw", "structured"):
                     protocol, shapes = representative_inputs(
-                        binding, configuration, treatment, sequence, count
+                        binding,
+                        configuration,
+                        treatment,
+                        sequence,
+                        count,
+                        ModelLimits(
+                            context=profile["context"],
+                            calls=6,
+                            generated_per_call=output_tokens,
+                            generated_total=6 * output_tokens,
+                        ),
                     )
                     private_write(
                         output / f"{treatment}-{sequence}.protocol.json",

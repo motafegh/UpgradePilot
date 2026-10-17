@@ -295,9 +295,42 @@ class InvestigatorCompositionTests(unittest.TestCase):
         omitted = pack_input(protocol, [event], "investigate", empty_size + 250)
         self.assertEqual(omitted.omitted_event_ids, (event.event_id,))
         self.assertEqual(omitted.reference_ids, frozenset())
+        self.assertEqual(
+            json.loads(full.content)["budget_observation"],
+            json.loads(omitted.content)["budget_observation"],
+        )
         self.assertNotIn(b"pytest==9.0.3", omitted.content)
         with self.assertRaises(ValueError):
             pack_input(protocol, [], "investigate", 1)
+
+    def test_spare_calls_do_not_make_read_plus_completion_affordable(self):
+        a = fixture()
+        responses = iter(
+            [
+                request("read_source", source_id="target", path="requirements.txt"),
+                request("finish_investigation"),
+            ]
+        )
+        refs = []
+        snapshots = []
+
+        def consumer(packed):
+            body = json.loads(packed.content)
+            snapshots.append(body["budget_observation"])
+            for event in body["events"]:
+                refs.extend(json.loads(event["content"]).get("evidence", []))
+            return report(refs[:1]) if body["phase"] == "report" else next(responses)
+
+        result = run_scripted_trial(
+            a, consumer, limits=TrialLimits(consumer_turns=3, operations=9)
+        )
+        self.assertEqual(result.outcome, "limit_exhausted")
+        self.assertIsNone(result.report_publication)
+        self.assertIn("operation admission refused", result.problem)
+        self.assertEqual(
+            snapshots[-1]["trial_remaining"]["invocations_including_this_request"], 1
+        )
+        self.assertEqual(snapshots[-1]["trial_remaining"]["operation_units"], 2)
 
     def test_scripted_run_publishes_attribution_and_procedural_finish_without_model(
         self,

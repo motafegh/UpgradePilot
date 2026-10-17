@@ -32,7 +32,7 @@ from experiments.investigator_workspace_trial import (
 from upgradepilot.workspace.native_representation import json_bytes
 
 REFERENCE_POLICY = "current-complete-stateless-request/1"
-REQUEST_PRESENTATION = "complete-fixed-first-request-observation-pairs/2"
+REQUEST_PRESENTATION = "complete-fixed-first-request-observation-pairs-with-budget/3"
 WIRE_INSTRUCTION = """Return exactly one JSON object, without markdown or commentary.
 For phase investigate return {\"tool\": an offered name, \"arguments\": its schema object}.
 For phase report return the entire report_schema object. All state is explicit in this
@@ -82,6 +82,36 @@ class ModelLimits:
             raise ValueError("no model input capacity after generation reserve")
 
 
+def model_budget_observation(
+    limits,
+    calls_used,
+    input_tokens_used,
+    generated_tokens_used,
+    usage_complete,
+    seconds_remaining,
+):
+    """Join actual prior model spend; unknown usage cannot become zero remaining spend.
+
+    Representative preflight shapes also use this format with explicitly simulated
+    zero prior spend. Actual requests use only the model's receipts/counters.
+    """
+    return {
+        "limits": vars(limits),
+        "remaining_before_this_request": {
+            "calls_including_this_request": limits.calls - calls_used,
+            "input_tokens": limits.input_total - input_tokens_used
+            if usage_complete
+            else None,
+            "generated_tokens": limits.generated_total - generated_tokens_used
+            if usage_complete
+            else None,
+            "seconds_at_snapshot": round(max(0, seconds_remaining), 3),
+        },
+        "usage_complete": usage_complete,
+        "limit": "Token remainder excludes this request; exact rendering/admission follows. Unknown prior usage blocks prediction.",
+    }
+
+
 @dataclass(frozen=True)
 class MeasuredInput:
     packed: PackedInput
@@ -101,7 +131,7 @@ def present_request_body(body: dict) -> str:
     remains untrusted data. Prior requests describe attempted intent, not evidence.
     No expected next action or implicit history is supplied.
     """
-    changing = {"phase", "tools", "events", "omitted_events"}
+    changing = {"phase", "tools", "events", "omitted_events", "budget_observation"}
     fixed = {key: value for key, value in body.items() if key not in changing}
     current = {key: body[key] for key in changing - {"events"} if key in body}
     sections = [
@@ -486,6 +516,18 @@ class StatelessInvestigatorModel:
         Whole-event omission metadata remains explicit. Fixed prompt overflow refuses.
         Each candidate is measured with the actual loaded tokenizer and frozen template.
         """
+        # Sample once per invocation. Repacking must not move the accounting facts
+        # under the tokenizer or claim that this yet-unmeasured request was spent.
+        budget = deepcopy(protocol["budget_observation"])
+        budget["model"] = model_budget_observation(
+            self.limits,
+            len(self.receipts),
+            self.input_tokens,
+            self.output_tokens,
+            self.usage_complete,
+            self.limits.seconds - (self.clock() - self.started),
+        )
+        protocol = {**protocol, "budget_observation": budget}
         while True:
             packed = pack_input(protocol, history, phase, capacity)
             try:
@@ -630,7 +672,10 @@ def run_model_trial(assignment, model, *, limits, protocol=None):
     """Use the existing admission/accounting engine with request-local evidence only."""
 
     def pack(default_protocol, history, phase, capacity):
-        return model.pack(protocol or default_protocol, history, phase, capacity)
+        selected = dict(protocol or default_protocol)
+        # A frozen task can override the generic task, never the current ledger.
+        selected["budget_observation"] = default_protocol["budget_observation"]
+        return model.pack(selected, history, phase, capacity)
 
     result = run_scripted_trial(
         assignment,
