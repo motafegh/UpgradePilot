@@ -1,0 +1,42 @@
+{
+  "at": "2026-10-17T23:26:40.543627+00:00",
+  "completed_only": [
+    {
+      "assignment": {
+        "id": "budget-v1-gemma12-raw-short",
+        "model_key": "google/gemma-4-12b",
+        "sequence": 1,
+        "treatment": "raw"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 1975,
+      "known_input_tokens": 21266,
+      "model_attempts": 6,
+      "outcome": "failed",
+      "problem": "ValueError: foreign, unoffered or not-input-visible evidence reference",
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "budget-v1-gemma12-structured-short",
+        "model_key": "google/gemma-4-12b",
+        "sequence": 1,
+        "treatment": "structured"
+      },
+      "disposition": "qualified",
+      "disposition_reason": "bounded synthetic interface sequence completed; no semantic acceptance",
+      "known_generated_tokens": 1055,
+      "known_input_tokens": 17235,
+      "model_attempts": 5,
+      "outcome": "completed",
+      "problem": null,
+      "reasoning_tokens": null,
+      "usage_complete": true
+    }
+  ],
+  "semantic_assignments_attempted": 0,
+  "first_negative_trace": "Gemma12 Raw-short source reference copied as 60 characters instead of the 64-character delivered ID, repeated in its terminal correction. Other cited IDs were eligible; no event omission caused the failure.",
+  "limit": "Dated partial checkpoint; remaining independent sequences retain their frozen order. No source/configuration/validator change, salvage or rerun."
+}
