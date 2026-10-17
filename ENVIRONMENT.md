@@ -179,6 +179,16 @@ prelude is the repair hypothesis, not a proven backend root cause; native prompt
 IDs were not exposed. The [deployment cycle](working-memory/2026-10-16_2247_investigator-deployment-and-model-interface-qualification_lbd-cycle.md)
 owns dated attempts, repair and proof. Recheck after model/backend/template changes.
 
+### Requested maximum GPU offload can vary in actual placement
+
+October17 CUDA llama.cpp2.59.0 preparation gave MiMo9B29 then30 backend GPU layers,
+and Qwen3.5-9B30 then an all-layer flag, with identical ratio1 requests. Freeze and
+recheck actual backend placement; a requested percentage alone is insufficient. The
+qualification cycle records a high fixed ratio0.85 point (28 layers in both) selected
+before revised inference, with CPU q8_0 KV unchanged. This is a measured local operating
+point, not a universal ratio or proven optimum; recheck after hardware/model/runtime
+or available-memory changes.
+
 ## 6. Adopted local semantic deployment
 
 ADR-0006 owns the decision to use the bounded local support-drop semantic extractor. Reusable deployment facts:

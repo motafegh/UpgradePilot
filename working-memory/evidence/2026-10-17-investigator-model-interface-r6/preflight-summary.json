@@ -1,0 +1,80 @@
+[
+  {
+    "model_key": "gemma-4-e2b-it",
+    "profile_path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/deployment-interface-2026-10-17-r6/ge2-preflight/profile.json",
+    "min_tokens": 2006,
+    "max_tokens": 22492,
+    "requested_gpu_ratio": 1.0,
+    "backend_gpu_layers": "999999",
+    "context": 32768,
+    "output_tokens": 2048,
+    "own_native_prediction_base_sha256": "3761e803dfc7035aeb461eedabbcaff8d76b96f66990edcb451278c3ea88878d",
+    "bos_policy": true,
+    "inference_calls": 0
+  },
+  {
+    "model_key": "gemma-4-e4b-it-ud",
+    "profile_path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/deployment-interface-2026-10-17-r6/ge4-preflight/profile.json",
+    "min_tokens": 2006,
+    "max_tokens": 22489,
+    "requested_gpu_ratio": 1.0,
+    "backend_gpu_layers": "999999",
+    "context": 32768,
+    "output_tokens": 2048,
+    "own_native_prediction_base_sha256": "3761e803dfc7035aeb461eedabbcaff8d76b96f66990edcb451278c3ea88878d",
+    "bos_policy": true,
+    "inference_calls": 0
+  },
+  {
+    "model_key": "mimo-v2.6-distill-qwen-9b",
+    "profile_path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/deployment-interface-2026-10-17-r6/m9-fixed-offload-preflight/profile.json",
+    "min_tokens": 1893,
+    "max_tokens": 22236,
+    "requested_gpu_ratio": 0.85,
+    "backend_gpu_layers": "28",
+    "context": 32768,
+    "output_tokens": 2048,
+    "own_native_prediction_base_sha256": "6ad4b3daa87592c2a22cdff35c9ebd14ea81a7acd6c29e496f9cb92eda2d9ba7",
+    "bos_policy": false,
+    "inference_calls": 0
+  },
+  {
+    "model_key": "qwen3.5-9b-ud",
+    "profile_path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/deployment-interface-2026-10-17-r6/q9-fixed-offload-preflight/profile.json",
+    "min_tokens": 1896,
+    "max_tokens": 22254,
+    "requested_gpu_ratio": 0.85,
+    "backend_gpu_layers": "28",
+    "context": 32768,
+    "output_tokens": 2048,
+    "own_native_prediction_base_sha256": "b41ae92e8378e9130e455705c89f3bb6eb7fc8b976c95cefa0249f753bf182ce",
+    "bos_policy": false,
+    "inference_calls": 0
+  },
+  {
+    "model_key": "google/gemma-4-12b",
+    "profile_path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/deployment-interface-2026-10-17-r6/g12-preflight/profile.json",
+    "min_tokens": 2010,
+    "max_tokens": 22486,
+    "requested_gpu_ratio": 0.45,
+    "backend_gpu_layers": "22",
+    "context": 32768,
+    "output_tokens": 2048,
+    "own_native_prediction_base_sha256": "28f762750e164304c23f6d403b7c2a2f7d15189946033c11c8d85eb594f9624c",
+    "bos_policy": true,
+    "inference_calls": 0
+  },
+  {
+    "model_key": "qwen3.8-27b-ud",
+    "profile_path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/deployment-interface-2026-10-17-r6/q27-preflight/profile.json",
+    "min_tokens": 1896,
+    "max_tokens": 22237,
+    "requested_gpu_ratio": 0.2,
+    "backend_gpu_layers": "13",
+    "context": 32768,
+    "output_tokens": 2048,
+    "own_native_prediction_base_sha256": "16c83f9b1c4ee68f3adcd9ad29c0573599dbee956b4ddda056b54dfc4a99fc37",
+    "bos_policy": false,
+    "inference_calls": 0
+  }
+]

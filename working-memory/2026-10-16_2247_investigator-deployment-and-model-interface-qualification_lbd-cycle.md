@@ -332,3 +332,27 @@ setting semantics. Own-model exposed actual defaults are pinned as recorded, wit
 render/input correspondence required. Source repair is complete, fresh all-six r6
 zero-generation preparation is next before any revised inference. Later semantic
 comparison stays unactivated and parent adapter cycle remains CLOSED through E.
+
+All six revised zero-generation preflights succeed with complete prior-intent/result
+presentation, own native sampler/parser defaults and verified small-Gemma <bos>/id2
+representation. Actual automatic GPU placement drifted despite ratio1: MiMo29(r5)
+->30(r6), Qwen9 30(r5)->all-layer sentinel(r6). Requested percentage is insufficient
+to freeze actual placement. Before any r6 inference, prepare two separately retained
+fixed-offload profiles at requested0.85, actual backend28 layers each. That high point
+is below the smallest observed automatic cap and preserves headroom; both treatments
+share it. Preserve unused ratio1 profiles, disclose this configuration change and do
+not attribute subsequent timing differences solely to presentation. Small Gemmas retain
+all-layer flags; larger models22/13 stay partial. CPU q8_0 KV/context32768 unchanged.
+All additional preparation has zero model outputs/calls, not extra experimental arms.
+
+R6 selected-profile inspection complete:72 actual rendered shapes include full
+canonical facts, exact prior request/returned observation texts, currently eligible
+refs and correct Raw/Structured/report menus. Actual backend model paths match own
+GGUF policies and full asset hashes; runtime path unchanged. Selected maxima22492,22489,
+22236,22254,22486,22237 plus2048+256 and original8192+256 both fit32768; this is capacity
+math, not8192-generation-speed/completeness proof. Source hashes match all selected
+profiles; MiMo/Qwen9 fixed profiles28 layers supersede their unused ratio1 preparations.
+The [r6 freeze](evidence/2026-10-17-investigator-model-interface-r6/canary-freeze-r6.json)
+SHA256f6a7b34560f5a44759d901fa65cdf69fe22a096ca081c8ab2d9d1965496556e5
+fixes all6/24 ordered IDs, own native settings,111 prior+144 new max255<=267 and
+unchanged later2-deployment/eight-case nonactivation before any revised inference.

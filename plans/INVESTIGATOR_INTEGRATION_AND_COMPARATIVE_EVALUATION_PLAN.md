@@ -65,7 +65,7 @@ The following is the **planned development baseline**, adapted from H1, not infe
 | Assignments | Two cases × two treatments × two deployments: eight planned assignments, one each. Within deployment 1 use HTTPX raw→structured and glyphsLib structured→raw; reverse those orders for deployment 2. Serial execution, fresh contexts/state. One sample cannot estimate stochastic reliability or general superiority. |
 | Case ceilings | 16 total model calls; 524288 input tokens; 131072 generated tokens including reported reasoning; 48 charged operations; 8 MiB delivered observations; 14400 seconds. Output ceiling/final reserve 8192 tokens; context 32768 is the inherited provisional reference, to be justified or explicitly revised by measured deployment-envelope qualification below; temperature 0.2; HTTP timeout 1800 seconds. Corrections consume these ceilings: at most two visible corrections, at most one terminal correction. No failure-selective retry or output salvage. |
 | Charging and packing | Freeze exact tool-to-backend accounting before calls. Count rejected requests, pages, native calls and underlying operations, not just wrappers. Retain whole-event omissions, unknown usage, timeouts and failures. Unreported reasoning/timeout usage is unknown, not zero. No hidden reasoning retention. |
-| Qualification | Two fresh canary sequences per treatment/deployment, up to six model calls each; both treatments must qualify before that deployment's paired case runs. Up to 48 qualification + 128 case calls overall. A failed pair stays withheld with costs retained. |
+| Qualification | Two fresh canary sequences per treatment/deployment, up to six model calls each; both treatments must qualify before that deployment's paired case runs. The dated qualification revision freezes its own cohort/order/aggregate call ceiling; the expanded six-candidate re-entry explicitly supersedes the original48 qualification ceiling. The later eight-case-assignment budget remains128 calls. A failed pair stays withheld with costs retained. |
 | Review | Freeze source obligations and nine-dimension definitions before outputs. Balance/arm-mask first review where feasible; record revealed identities and assistance. Development review may be AI-assisted and cannot establish independent acceptance. |
 
 These are maximum inherited envelopes, not a target for resource spending. Early mechanical failure stops the affected configuration. Any change affecting comparability is versioned before the affected batch and applied symmetrically; preserve prior artifacts. Do not tune against measured outputs and pool them into the same experiment.
@@ -222,7 +222,14 @@ Represent the small Gemmas' observed runtime special-token prelude using actual 
 BOS identity verification and exact prompt-count admission, retaining their contradictory
 file metadata and the fact that native prompt token IDs are unexposed. Preserve2048
 synthetic-only output limit,32768 context, reasoning-off and already measured weight/KV
-settings unless actual fit drift requires a separately recorded change. Recheck all
+settings unless actual fit drift requires a separately recorded change. Zero-generation
+reloads showed MiMo ratio1 applying29 then30 layers, and Qwen9 ratio1 applying30 then
+the all-layer sentinel. Before r6 inference substitute requested ratio0.85 for these two
+slots, yielding28 backend layers in both inspected profiles: high partial offload below
+the lowest observed automatic cap. Preserve the unused ratio1 preparations, verify the
+fixed actual layer count at execution reload and disclose that change; it is not a new
+candidate arm, global optimum or causal presentation-only performance comparison.
+Recheck all
 rendered shapes after the presentation revision. Retain the strict assessor for this
 revision; descriptive review separately identifies redundant-but-complete operations,
 missing operations and unsupported report statements. Later semantic comparison remains
