@@ -1,239 +1,185 @@
 # Investigator deployment/interface — D preparation learning companion
 
 **Branch:** `learning/deployment-interface-d-prep-2026-10-17`
-**Base:** `main@a95c2369c71fcb8e8824f11181c04b1bb7042ac1`
+**Original base:** `main@a95c2369c71fcb8e8824f11181c04b1bb7042ac1`
+**Final evidence horizon reconciled:** `main@c414a6e9bacd572d2d04c38ca54b313f73e83846`
 **Date:** October 17, 2026
-**Status:** ACTIVE — learning/D-preparation only; **not** the canonical D owner and **not** formal D completion.
+**Status:** RECONCILED LEARNING COMPANION — core learning owned through the final qualification evidence; two canonical-D ownership checks remain for Ali. This file is not the canonical D owner and does not close D/E by itself.
 
 ## Purpose and boundary
 
-This companion records targeted learning while the main deployment/model-interface cycle remains in B/Verification. It exists so the eventual formal D can review and consolidate already-owned understanding instead of repeating a long onboarding.
+This companion records learner-owned understanding for the deployment/model-interface qualification responsibility. It was created while main Build/Verification was still active, then reconciled after the bounded qualification work completed.
 
-It must not:
+It does not own model dispositions, experiment evidence, live MEMORY, semantic acceptance, usefulness, product migration, or later case activation. Final engineering truth remains on `main` in the deployment-cycle record and retained evidence.
 
-- change `main`, live `MEMORY.md`, experiment code, model configuration, budgets or qualification outcomes;
-- run or resume model inference;
-- relabel failed/withheld/partial results;
-- declare deployment qualification, semantic quality, usefulness, B completion, D completion or E disposition;
-- replace the canonical deployment-cycle record or its evidence.
+Ali requested that teaching avoid opaque experiment labels such as revision numbers unless their meaning is explained. This reconciliation therefore uses descriptive experimental horizons rather than requiring revision-label memorization.
 
-When B is actually complete, reconcile this companion against the final B evidence. Only supported learning should be folded into the canonical D record; stale questions/answers stay historical rather than being copied blindly.
+## Final main state used for reconciliation
 
-## Minimal learning plan
+The bounded deployment/interface engineering responsibility is complete and Verification is GREEN. All six candidates now have actual current CUDA llama.cpp 2.60.0 observations under frozen deployment points:
 
-### L1 — Real local-LLM execution pipeline
+- Gemma 4 12B — 4/4 canary-qualified.
+- Qwen3.8-27B UD-Q4_K_M — 4/4 canary-qualified.
+- Gemma 4 E4B — 4/4 canary-qualified.
+- Qwen3.5-9B — 4/4 canary-qualified.
+- Gemma 4 E2B — 2/4, WITHHELD.
+- MiMo-V2.6-Distill-Qwen-9B — 2/4, WITHHELD.
 
-Own the concrete path:
+Across the current-runtime cohorts, 119 prediction calls have zero requested/applied prediction-setting mismatches, zero native-load/identity mismatches, and zero fully rendered prompt-token mismatches. The qualification work therefore established a strong measured correspondence between the frozen requests/configurations and the observed runtime for these exact deployment points.
 
-`UpgradePilot request -> chat/template rendering -> tokenizer/token IDs -> special tokens -> context admission -> LM Studio/llama.cpp backend -> CPU/GPU/KV placement -> generation/sampling/thinking -> streamed fragments/usage -> SDK -> strict Investigator adapter`.
+The real HTTPX/glyphsLib semantic comparison remains unactivated. Interface qualification does not establish semantic correctness, autonomous discovery/stopping adequacy, maintainer usefulness, action permission, generalization, or globally optimal deployment settings.
 
-Target concepts: token, tokenizer, chat template, BOS/EOS, context window, input tokens, generation reserve, sampler, temperature/top-p/top-k, reasoning/thinking mode, backend, SDK, GPU offload, KV cache, requested versus actually applied configuration.
+## Learner-owned block 1 — request to runtime/model output
 
-Use the real `1817 measured / 1818 runtime` prompt-count discrepancy and later small-Gemma BOS observations as the primary example.
+Ali owns the concrete path at the current required depth:
 
-#### Runtime-control subtopics placed into the existing questions
+`UpgradePilot request -> model chat-template rendering -> tokenizer/token IDs -> special-token handling -> context admission -> LM Studio orchestration -> llama.cpp/backend inference -> CPU/GPU/KV placement -> generation/sampling/thinking -> streamed fragments/usage -> SDK -> strict UpgradePilot adapter/assessor`
 
-These are **not eleven new ownership questions**. They are deeper runtime topics to learn when their parent question or a later optimization responsibility makes them relevant.
+Stable learner-owned conclusions:
 
-- **Q3 — context/capacity:** RoPE Frequency Base and RoPE Frequency Scale. Learn their positional/context role at a conceptual level with Q3; defer tuning details unless we deliberately study context extension or positional scaling.
-- **Q4 — runtime placement/memory/prefill:** evaluation batch size, physical/micro-batch size, max concurrent predictions, unified KV cache, `mmap`, Flash Attention, K-cache quantization type and V-cache quantization type. Learn enough under Q4 to understand what resource/runtime dimension each controls; detailed benchmarking belongs to a later performance responsibility.
-- **Q5 — generation configuration:** speculative decoding belongs with next-token generation/sampling because it changes the decoding path and introduces a draft deployment. Learn the concept with Q5; do not treat it as part of current r6 unless explicitly selected/frozen.
-- **Q10/Q13 — experiment identity:** if any material runtime control above changes between experimental revisions, decide whether that creates a different deployment/configuration and preserve comparability rather than pooling results blindly.
+- A token is a tokenizer-specific vocabulary unit represented by an ID; it is not necessarily a word.
+- BOS/EOS are Beginning/End Of Sequence markers.
+- The earlier `1817 measured / 1818 runtime` discrepancy mattered because it exposed incomplete measurement/runtime correspondence, not because one token materially threatened capacity.
+- Context is total sequence capacity; input occupies part of it and generation reserve is intentionally retained possible output capacity. `input + reserve + margin <= context` proves fit only, not correctness, speed, full-reserve use, or semantic adequacy.
+- Model weights are persistent trained parameters; KV cache is temporary Key/Value attention state for already processed sequence tokens.
+- Requested GPU offload is an intention. Actual observed placement is stronger evidence; a nominal `ratio=1.0` did not itself prove physical placement.
+- Temperature changes sampling concentration/variation. Top-k restricts next-token candidates to the k highest-probability options. Top-p retains the smallest high-probability set reaching cumulative probability p.
+- Thinking mode and sampler/runtime differences can materially change a deployment. A later configuration succeeding after an earlier one fails establishes that exact later operating point, not that one changed parameter caused the improvement or that it is globally correct/optimal.
+- Runtime controls such as batching, Flash Attention, KV quantization/placement, mmap, concurrency/unified KV, speculative decoding and RoPE remain understood at role level; detailed optimization is deferred until a real performance/context/concurrency responsibility requires it.
 
-The current learning goal is therefore to know **what each knob controls and when it matters**, not to optimize every knob during interface qualification.
+**Block 1 status: OWNED.**
 
-### L2 — Stateless history, observations and reference authority
+## Learner-owned block 2 — stateless history and evidence/reference authority
 
-Own why r5's earlier "complete stateless history" was incomplete and why r6 retains exact model request/result pairs.
+Stable learner-owned conclusions:
 
-Target distinctions:
+- Stateless means no trusted hidden server conversation. Everything the model is allowed to rely on for the current call must be explicit in that call.
+- Complete interaction history requires both the prior model-authored request and the returned system observation. The request preserves what was attempted; the observation preserves what the system actually returned.
+- A previous model request has zero evidence authority. It is intent/history, not evidence.
+- A Workspace/tool observation is delivered data, but still has bounded provenance/scope and is not automatically broad semantic truth.
+- Only a typed evidence reference actually delivered as eligible by the system can authorize a report citation.
+- Internal record/delivery/catalog IDs are not automatically citation references.
+- A model-manufactured reference remains invalid even if the next stateless request shows the model its own earlier text containing that ID.
+- Canonical packed/accounting representation and model-readable presentation may differ in format if they preserve the same admitted information faithfully; accounting one history while showing materially different history would be invalid.
+- Omitted evidence cannot silently remain authoritative; it must be reread/redelivered when needed.
 
-- model request/intent != returned observation;
-- observation != semantic truth;
-- prior model request text != evidence authority;
-- internal native record/delivery/catalog ID != delivered typed citation reference;
-- canonical packed/accounting representation != model-visible presentation, while both must correspond losslessly;
-- omitted evidence/history cannot remain silently usable.
+Final-main refinement now incorporated:
 
-### L3 — Qualification experiment mechanics
+- **visible observation != citable typed reference.** A failed read/problem may be visible to the model while the interface supplies `evidence=[]`. Review must not punish the model for failing to cite an unavailable reference or encourage invented citations.
+- A report-phase empty tool menu after procedural finish is not proof that the source universe itself is exhausted.
 
-Own the chain:
+**Block 2 status: OWNED.**
 
-`candidate -> exact deployment configuration -> preflight -> freeze -> independent canary sequence -> model calls -> strict assessor -> qualified/withheld/partial -> deployment disposition`.
+## Learner-owned block 3 — qualification design
 
-Understand Raw versus Structured, short versus near-envelope, correction allowance, budgets, why one passing sequence does not qualify a deployment, why revisions r3/r4/r5/r6 remain separate, and why synthetic interface qualification does not establish semantic correctness or maintainer usefulness.
+Stable learner-owned conclusions:
 
-### L4 — Failure diagnosis and repair discipline
+- Model candidate = underlying model asset under consideration.
+- Deployment = exact model plus material runtime/template/tokenizer/context/sampler/thinking/placement/transport conditions.
+- Preflight establishes identity/readiness/fit before live qualification; it is not a canary result.
+- Canary qualification actually exercises the model against the bounded Investigator interface and establishes interface operability only.
+- Real semantic case assignments later ask whether a qualified deployment can interpret real dependency-update evidence correctly and usefully.
+- Raw and Structured are different evidence-access treatments; a Raw pass does not establish Structured capability.
+- Short and near-envelope sequences exercise different context/history pressure; a short pass does not establish realistic longer interaction behavior.
+- One passing sequence cannot qualify an entire deployment. Required conditions must be satisfied before the deployment is admitted to the intended paired comparison.
+- Material changes to history handling, runtime/backend, thinking, sampling, generation allowance, transport or other consequential controls create separately versioned experimental/deployment conditions. Old and new results remain evidence about their own conditions rather than being blindly pooled.
 
-For each real failure, identify the strongest justified class before deciding whether to repair, rerun, preserve, or withhold:
+**Block 3 status: OWNED.**
 
-- experiment/interface defect;
-- runtime/configuration correspondence failure;
-- interruption/incomplete evidence;
-- model interaction/instruction-following failure;
-- reference/citation-use failure;
-- generation/resource limit;
-- semantic-quality problem.
+## Learner-owned block 4 — failure diagnosis and repair discipline
 
-Use actual examples: BOS +1 mismatch; LM Studio `terminated`; missing request arguments in history; MiMo repeated operations; Qwen9 Structured reports with no eligible citations; Gemma12 internal-record-ID citation; 2048-token exhaustion/repetition; reasoning-labelled fragments while thinking-off was required; requested GPU ratio versus variable actual layer placement.
+Stable learner-owned conclusions:
 
-### L5 — Per-model and cycle-state synthesis
+- If our stateless representation omits exact previous request information, resulting repetition is primarily an interface defect; after repairing the history, equivalent repetition can become evidence about the tested deployment.
+- A completed interface-valid report can still be semantically wrong or unsupported. Interface validation and semantic evaluation answer different questions.
+- Configuration tuning is legitimate when hypothesis-driven, bounded and separately versioned. Repeatedly changing settings until a specific canary passes risks evaluation overfitting and weakens generalization evidence.
+- Interruption/incomplete usage should be retained as incomplete evidence rather than relabeled as a semantic model failure.
+- Requested-versus-observed runtime mismatches must be resolved before assigning model blame.
+- Citation/reference failure, model interaction failure, generation/resource exhaustion and semantic-quality failure are distinct classes and should not be collapsed into one generic “model failed” label.
 
-After L1-L4, summarize each candidate only from retained evidence:
+Final-main reviewer-side lesson now incorporated:
 
-- Gemma 4 E2B
-- Gemma 4 E4B
-- MiMo-V2.6-Distill-Qwen-9B
-- Qwen3.5-9B
-- Gemma 4 12B
-- Qwen3.8-27B
+- Failure diagnosis applies to our review too. Earlier criticisms were corrected after tracing actual phase state and citation visibility. We should not infer model internals or fault the model for information/authority the interface did not provide.
 
-For each: what worked, what failed, failure class, what remains unknown, and what the next discriminating experiment is intended to establish. Keep interface qualification separate from real HTTPX/glyphsLib semantic comparison.
+**Block 4 status: OWNED.**
 
-## Deferred runtime-performance learning/optimization queue
+## Learner-owned block 5 — final evidence synthesis
 
-This queue prevents useful LM Studio/llama.cpp controls from being forgotten without turning the current qualification into a parameter sweep. It is **not automatically selected implementation work**.
+Ali's final synthesis, reconciled against completed main evidence:
 
-When model/interface qualification is stable and a performance/resource responsibility is selected, revisit:
+- Interface qualification is not semantic validation. A model can satisfy tools/schema/reference/procedural requirements and still make a claim that the cited evidence does not entail.
+- A later deployment succeeding after an earlier deployment fails cannot be attributed to a single parameter when multiple runtime/sampling/thinking controls changed.
+- Qualification belongs to the runtime/configuration where it was observed. A material backend change requires current-runtime evidence rather than silently inheriting old passes.
+- Across different models/methods/scenarios we must verify that the runtime actually applied the elements and parameters we believe we are testing and keep materially different conditions separate.
 
-1. evaluation batch size and physical/micro-batch size — prompt/prefill throughput versus memory pressure;
-2. Flash Attention — attention memory/throughput and actual-kernel verification rather than requested-setting assumptions;
-3. KV-cache placement and K/V quantization — memory, speed and any quality/correctness trade-offs;
-4. speculative decoding — main/draft compatibility, generation throughput, memory/accounting and deployment identity;
-5. `mmap` — load/startup and host-memory/page-cache behavior if loading becomes a bottleneck;
-6. max concurrent predictions + unified KV cache — only when concurrent investigators/agents or serving throughput becomes a real requirement;
-7. RoPE base/scale — only for an explicit context-extension/positional-behavior question, not routine tuning.
+Final candidate-state synthesis:
 
-For any selected benchmark, freeze model/template/context/sampler/reasoning/evidence task and change only the intended runtime dimension where possible. Measure at least prompt time/TTFT, generation throughput, RAM/VRAM, stability and correctness guardrails. Requested configuration never substitutes for observed applied/runtime state.
+- Gemma 4 12B: exact current point is 4/4 interface-qualified. Semantic/report review still found overstatement/informativeness limits; no semantic acceptance.
+- Qwen3.8-27B: exact current point is 4/4 interface-qualified. Final reports show careful scope/reference handling; practical latency/cost is significant. No intrinsic superiority or semantic acceptance.
+- Gemma 4 E4B: exact native thinking-on point is 4/4 interface-qualified. Earlier failure under a materially different deployment remains valid historical evidence and is not erased. Current success does not establish which changed factor caused improvement.
+- Qwen3.5-9B: exact current point is 4/4 interface-qualified, while one Raw-long report still gives a clear example of a validly cited but unsupported “proceed” inference. This is the strongest concrete demonstration of interface success != semantic correctness.
+- Gemma 4 E2B: current point is 2/4 and WITHHELD with completed negative qualification evidence.
+- MiMo-V2.6-Distill-Qwen-9B: current point is 2/4 and WITHHELD with completed negative qualification evidence.
 
-## Ownership questions
+What remains deliberately unestablished: real dependency-update semantics, autonomous discovery/stopping adequacy, maintainer usefulness, generalization, action permission, real-case 8192-output adequacy, globally optimal configuration and any intrinsic model ranking.
 
-These questions are the learning gates. Answers may be brief, but should be in Ali's own words. They are not pass/fail trivia; unclear answers identify the next teaching target.
+**Block 5 conceptual synthesis status: OWNED. Formal canonical-D ownership still requires Ali's two final responses below.**
 
-### A. Request-to-model fundamentals
+## Formal-D ownership checks still required
 
-**Q1.** Starting from an UpgradePilot Investigator request, what are the major steps before the model produces its first visible token? Where do the chat template, tokenizer, LM Studio, llama.cpp/backend, GPU/CPU placement and SDK each belong?
+Main's canonical D packet asks Ali to answer these in his own words. This companion must not fabricate ownership.
 
-**Q2.** What is a token? What are BOS and EOS? Why could our rendered/tokenized request measure 1817 tokens while the runtime reports 1818, and why is that one-token difference important rather than harmless bookkeeping?
+1. Why can Qwen3.5-9B pass all four interface sequences while its “proceed with update” recommendation still lack support? What additional source-to-conclusion review remains necessary?
+2. If Gemma 4 E4B were selected for the later real comparison, why can its qualification not silently create a third deployment arm? What must be explicitly decided and frozen before affected inference?
 
-**Q3.** What is the difference between the context window, current input tokens and generation/output reserve? Why does `input + output reserve + margin < context` prove capacity admission but not prove that the model can generate the full reserve correctly or quickly? Runtime supplement: know that RoPE base/scale affect positional/context interpretation; detailed tuning is deferred unless context extension becomes an explicit responsibility.
+These are the only meaningful learner-ownership checks still open for this cycle at the current depth.
 
-**Q4.** What do GPU weight offload and KV-cache placement mean, and why did `requested offload ratio = 1.0` fail to prove actual full GPU placement for MiMo/Qwen9? Runtime supplement: identify the roles (not yet optimize) of evaluation batch size, physical/micro-batch size, max concurrent predictions, unified KV cache, `mmap`, Flash Attention and K/V cache quantization.
+## Remaining debt / explicitly deferred learning
 
-**Q5.** What do temperature, top-p and top-k control at a high level? Why must a model-specific native-mode follow-up with different sampling/thinking settings be treated as a different deployment configuration rather than pooled with r6? Generation supplement: understand speculative decoding and why enabling a draft model changes the decoding/deployment configuration.
+Not blockers for D unless a later responsibility makes them decision-critical:
 
-### B. Stateless history and evidence/reference authority
+- detailed batch/micro-batch optimization;
+- actual Flash Attention kernel characterization;
+- KV-placement/quantization benchmarks;
+- speculative-decoding evaluation;
+- mmap/load benchmarking;
+- concurrent prediction/unified-KV study;
+- RoPE/context-extension tuning;
+- stateful LM Studio versus explicit stateless transport comparison;
+- REST SSE versus current SDK streaming observability comparison.
 
-**Q6.** What do we mean by a "complete stateless request"? Why was r5's earlier representation not actually a complete interaction history even though previous observations were included?
+The following final-main limitations remain engineering/project debt rather than learner confusion:
 
-**Q7.** Explain the difference among: previous model request, Workspace observation, delivered evidence reference, internal native record ID and a final citation. Which of these can authorize a report citation, and why?
-
-**Q8.** Why is it acceptable for r6 to keep canonical packed bytes for accounting while presenting the same information to the model in a more readable fixed-first request/result format? What correspondence must still be preserved?
-
-**Q9.** Suppose a previous model request contains a forged-looking typed reference ID, but no returned observation delivered that reference. Why must that ID remain ineligible even though the current stateless request lets the model see its own old request?
-
-### C. Qualification design
-
-**Q10.** What is the difference between a model candidate, a deployment/configuration, a canary sequence and the later semantic case assignment? Include why material runtime controls can be part of deployment identity when they change execution behavior/resources.
-
-**Q11.** Why do we test both Raw and Structured treatments and both short and near-envelope sequences? What distinct failure would each dimension help expose?
-
-**Q12.** Why does `Raw short qualified` not mean the whole deployment is qualified? What must be true before a deployment can be admitted to the later paired semantic comparison?
-
-**Q13.** Why can't we simply combine successes from r3/r4/r5/r6 as if they were one experiment? What kinds of protocol/configuration changes make the revisions non-poolable? Apply the same reasoning to later runtime optimizations instead of silently pooling materially different configurations.
-
-### D. Reading failures correctly
-
-**Q14.** Classify each of these and state what it establishes versus what it does not establish:
-
-1. prompt usage is rendered-token-count +1;
-2. LM Studio returns `Chat response error: terminated` with unknown final usage;
-3. MiMo repeatedly performs the same operation;
-4. Qwen9 Structured reaches a report but cites no eligible evidence;
-5. Gemma12 cites an internal native record ID instead of the delivered typed reference;
-6. a report reaches the 2048-token ceiling while repeating claims;
-7. reasoning-labelled fragments appear while the frozen deployment requires thinking off.
-
-**Q15.** When is a failure evidence that our interface should be repaired, and when should it remain a genuine model/deployment failure? Why is "change things until the model passes" scientifically weak?
-
-**Q16.** What is the difference between an interface-qualification success and semantic correctness? Use the Qwen9 Raw result as an example: how can an interface pass coexist with overbroad/unsupported claims?
-
-### E. Current evidence and next discriminating work
-
-**Q17.** In your own words, what did r3, r4, r5 and the partially published r6 each teach us? Name the main reason each revision existed rather than listing every commit.
-
-**Q18.** Based on the currently published checkpoint, what is established and not established for each of the six candidates? Do not infer final r6 results that are not published.
-
-**Q19.** Why can a bounded native-mode follow-up for E2B/E4B/MiMo be technically justified without erasing their r6 failures? Why must native-mode outcomes remain separate from r6 and from the later semantic comparison?
-
-**Q20.** Before formal D closes, what should we compare between A2 expectations and actual B evidence? Which surprises materially changed our understanding of the model/runtime/interface boundary?
-
-## Suggested learning order
-
-Use this sequence unless a live B result later makes another dependency more urgent:
-
-1. Q1-Q5 with the real request-to-first-token pipeline; cover only the conceptual runtime supplements needed now.
-2. Q6-Q9 with r5 -> r6 stateless-history repair.
-3. Q10-Q13 with the actual qualification/freeze design.
-4. Q14-Q16 using real failure records one by one.
-5. Q17-Q20 only after the mechanics are understood; use them as synthesis/D-preparation.
-6. Revisit the deferred runtime-performance queue only when a performance/resource/concurrency/context-extension responsibility is selected; do not delay current D merely to benchmark every LM Studio knob.
-
-Avoid answering all twenty at once. Work in small groups, correct misconceptions immediately, and record only stable learner-owned conclusions.
-
-## Learner-owned conclusions
-
-### Q1 — request to validated output
-
-Ali's explanation, reviewed October 17: UpgradePilot first renders its request through the selected model's chat template, then tokenizes that rendered representation into token IDs. LM Studio orchestrates the loaded local deployment and llama.cpp performs the underlying inference. Model layers may be placed partly in GPU VRAM while remaining layers are CPU-executed from system RAM. The model generates subsequent tokens, the LM Studio SDK carries the streamed result/configuration/usage back to Python, and UpgradePilot's adapter/validators decide whether the generated output is admissible. Refinement retained: LM Studio and llama.cpp are different layers, and GPU weight offload should not be described as a separate "offload to RAM" operation.
-
-**Q1 status:** OWNED at the current learning depth.
-
-### Q2 — tokens, BOS/EOS and runtime correspondence
-
-Ali's explanation, reviewed October 17: a token is a unit selected from the specific model tokenizer's vocabulary and represented by an ID; tokenization can differ between models. BOS/EOS are special sequence-boundary tokens. The important meaning of the `1817 measured / 1818 runtime` discrepancy was not the capacity cost of one token but evidence that our assumed input/runtime model did not yet exactly correspond to what the backend actually consumed. Therefore the extra transformation had to be identified/represented rather than dismissed.
-
-**Q2 status:** OWNED at the current learning depth.
-
-### Q3 — context capacity versus demonstrated behavior
-
-Ali's explanation, reviewed October 17: the context window is the total token capacity available to the model for the sequence; input tokens occupy capacity before generation and an output reserve is capacity intentionally kept available for possible generation. `input + reserve + margin <= context` establishes admission/capacity fit only. It does not establish correct model behavior, successful use of the full reserve, semantic quality, latency or generation performance. Refinement retained: reserved output capacity is not the same as actual generated-token count.
-
-**Q3 status:** OWNED at the current learning depth. RoPE base/scale remain a queued deeper supplement rather than a prerequisite for this ownership.
+- one historical terminated-call usage remains unknown;
+- retained run roots are local-only, not off-machine backup/full runtime-binary archives;
+- current settings are qualified operating points, not global optima;
+- real-case comparison requires its own case/configuration/order/budget/review freeze before inference.
 
 ## Formal-D reuse criteria
 
-When canonical B/Verification is complete:
+After Ali answers the two ownership checks:
 
-1. Rebase/reconcile this branch against the final B evidence; do not assume the current `a95c2369` horizon is final.
-2. Review Q1-Q20 and mark which answers are genuinely owned, partially owned, contradicted by later B evidence or still open.
-3. Map owned learning into canonical D responsibilities:
-   - actual runtime/interface model versus A2 expectations;
-   - failure ownership and repair decisions;
-   - evidence limits and deployment dispositions;
-   - remaining unknowns/debt.
-4. Do not copy temporary branch statements that became stale.
-5. Merge only the supported D learning/conclusions after canonical D is selected; leave implementation and experiment evidence owned by their main-branch records.
-6. Do not make deferred runtime-performance optimization a blocker for D unless final B exposes it as necessary to interpret a qualification result.
+1. record those answers here as learner-owned conclusions;
+2. compare them with main's D packet without importing stale revision-label summaries;
+3. identify any actual contradiction or missing concept;
+4. if none, update canonical D on `main` with the supported learner-owned conclusions;
+5. perform E repair/defer/closure truthfully;
+6. only then decide which learning-branch records are worth merging, rather than merging the temporary branch wholesale.
 
 ## Progress
 
-- [ ] L1 request-to-model pipeline owned
-- [ ] L2 stateless history/reference authority owned
-- [ ] L3 qualification mechanics owned
-- [ ] L4 failure diagnosis/repair discipline owned
-- [ ] L5 per-model/current-state synthesis owned
-- [x] Q1 answered/reviewed
-- [x] Q2 answered/reviewed
-- [x] Q3 answered/reviewed
-- [ ] Q4-Q5 answered/reviewed
-- [ ] Q6-Q9 answered/reviewed
-- [ ] Q10-Q13 answered/reviewed
-- [ ] Q14-Q16 answered/reviewed
-- [ ] Q17-Q20 answered/reviewed
-- [ ] Q3 supplement: RoPE base/scale reviewed if/when context-extension work is selected
-- [ ] Q4 supplement: batch/concurrency/unified-KV/mmap/Flash/KV-quantization reviewed at appropriate depth
-- [ ] Q5 supplement: speculative decoding reviewed at appropriate depth
-- [ ] Deferred runtime-performance characterization selected/reviewed if product needs justify it
-- [ ] Reconciled against completed B evidence
+- [x] L1 request-to-model pipeline owned
+- [x] L2 stateless history/reference authority owned
+- [x] L3 qualification mechanics owned
+- [x] L4 failure diagnosis/repair discipline owned
+- [x] L5 conceptual per-model/current-state synthesis owned
+- [x] Q1-Q5 answered/reviewed at required depth
+- [x] Q6-Q9 answered/reviewed at required depth
+- [x] Q10-Q13 answered/reviewed at required depth
+- [x] Q14-Q16 answered/reviewed at required depth
+- [x] Reconciled against completed B/Verification evidence
+- [ ] Final canonical-D ownership check 1 answered by Ali
+- [ ] Final canonical-D ownership check 2 answered by Ali
 - [ ] Folded into formal canonical D
+- [ ] E repair/defer/closure completed
+- [ ] Temporary learning-branch merge/disposition decided
