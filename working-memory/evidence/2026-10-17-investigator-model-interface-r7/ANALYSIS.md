@@ -50,6 +50,16 @@ The source freeze stayed unchanged through normal completion and owned models un
 All raw requests/renderings/visible outputs/configurations/code/telemetry remain in
 durable owner-only r7 storage; local retention is not off-machine backup.
 
+Completed [retention verification](retention-summary.json) checks720 files/27,702,486
+bytes against the local per-file size/SHA256/mode index; its own SHA256 is
+`b9a3064dd0637435cd4c4a12208ff32ff4e1166e56fb584a8dabd28fdd0183f7`.
+The [resource summary](resource-and-latency-summary.json) includes2051 samples within
+the approximate request/receipt write window: sampled whole-machine GPU peak6614MiB,
+host minimum free30,378,692KiB,zero sample errors. These are sampled machine observations,
+not continuous maxima or exclusive per-model allocation. Client call-time sums are
+E2B392.03s/E4B682.57s/MiMo1108.06s across17/20/22 calls; different generated lengths,
+tasks and settings prevent interpreting them as a causal speed ranking.
+
 [The separately admitted r8 completion](../2026-10-17-investigator-model-interface-r8/README.md)
 binds the remaining three candidates to current2.60.0 before any later case decision.
 The later comparison remains two deployments/eight assignments and unactivated.

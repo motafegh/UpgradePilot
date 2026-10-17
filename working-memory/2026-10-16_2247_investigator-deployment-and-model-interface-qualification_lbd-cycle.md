@@ -562,3 +562,20 @@ asset/runtime/order/budgets before calls: SHA256
 bb5bcd1ae12acfea18e4da98d35bd4bacdb3fc57e38bb196422ccfc1be7ee7e5,
 278 actual prior+72 new max350<=363. The two-deployment/eight-case design stays
 unactivated. No source change or new dependency/framework/transport was needed.
+
+R8 execution starts only after `ab0183a9` publishes the complete r7 analysis and
+exact r8 pre-run freeze to origin/main. This preserves the before-inference horizon.
+Ali explicitly reiterates progressive recording/publication: publish coherent verified
+increments during the work rather than accumulating everything until final closure.
+Raw private evidence remains durable locally; public-safe summaries/configuration
+freezes are committed and pushed. This does not assert off-machine raw-artifact backup.
+
+R7 retention closes at720 indexed files/27,702,486 bytes, every size/hash/0600 mode
+rechecked; index SHA256 b9a3064dd0637435cd4c4a12208ff32ff4e1166e56fb584a8dabd28fdd0183f7.
+Resource inspection records2051 samples, whole-machine sampled peak6614MiB and
+minimum host-free30,378,692KiB,zero sample errors; no process-exclusive/continuous-peak
+or causal ranking claim. R7 is now immutable at that retention horizon; subsequent
+cross-cohort checkers/results are retained in r8. Public record checks pass10 documents,
+113 local targets/13 JSON files and96 product import-direction scans, with frozen
+execution source unchanged. R8 first independent Raw-short Qwen9 sequence qualifies
+with five calls; remaining sequences are still pending, not inferred from that result.

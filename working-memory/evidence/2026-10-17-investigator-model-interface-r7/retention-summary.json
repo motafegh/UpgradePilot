@@ -1,0 +1,9 @@
+{
+  "created_at": "2026-10-17T17:30:58.297746+00:00",
+  "local_root": "/home/motafeq/.local/share/upgradepilot/investigator-runs/deployment-interface-2026-10-17-r7",
+  "indexed_files": 720,
+  "indexed_bytes": 27702486,
+  "index_sha256": "b9a3064dd0637435cd4c4a12208ff32ff4e1166e56fb584a8dabd28fdd0183f7",
+  "every_indexed_file_size_hash_mode_verified": true,
+  "limits": "Exact local bytes at the completed horizon. No off-machine backup, archived model/runtime binary or hidden-reasoning retention claim."
+}
