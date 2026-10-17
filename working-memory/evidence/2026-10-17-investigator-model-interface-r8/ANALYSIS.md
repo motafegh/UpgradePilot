@@ -35,14 +35,22 @@ checkpoint is40 calls/471,790 input/7,197 target; it excludes active Qwen27 call
 All four Gemma12 visible reports were read. Both short reports correctly cite marker,
 zero-search and empty-file observations, assert only synthetic task completion and
 explicitly disclaim actual compatibility proof. Raw long keeps that compatibility
-limit, but labels an observed read failure as inferred without a citation and calls
-the interface confirmed-ready from the marker alone. Structured long cites correct
+limit, labels the failed read as inferred and calls the interface confirmed-ready
+from the marker alone. Structured long cites correct
 native/source references but omits the native record's explicit not_evaluated value,
 saying its specific content is not provided in the summary. Its actual delivered
 record includes outcome=not_evaluated/payload=null. The report also overstates the
 synthetic marker as confirmation that the system is interface-ready. Record existence,
 an observed marker and actual system readiness remain different claims. These defects
 do not change the frozen interface dispositions or establish semantic acceptance.
+
+Review correction after checking the exact packed request: the failed read's returned
+problem has evidence=[] and contributes no eligible typed reference. Its uncited
+description is therefore not a citation-admission failure, and inferred status wording
+is a separate descriptive choice rather than a failed frozen gate. Do not penalize a
+model for omitting a reference that the interface never delivered or encourage invention
+of one. The stronger marker/readiness overstatement and omitted native outcome findings
+remain supported by the actual reports. Original4/4 dispositions remain unchanged.
 
 ## Qwen27 short-sequence checkpoint
 

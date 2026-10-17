@@ -614,3 +614,13 @@ ready-versus-unsupported-adequacy distinction. Final Structured-short packed req
 confirms visible finish control history has no typed trial_event evidence ref; do
 not equate generic event visibility with that evidence family. Publish ten-sequence
 completed-only checkpoint while both long sequences remain due; no4/4 claim yet.
+
+Review correction from producer/delivery/consumer tracing: Gemma12's missing-file
+observation is an explicit problem with evidence=[], so the report request has only
+marker/search eligible refs. Earlier review noted its inferred/uncited failure wording
+as a weakness; do not misclassify that as citation-admission failure or blame omission
+of an unavailable typed ref. Keep the status wording as descriptive, not a failed
+gate. Broader readiness and omitted native not_evaluated findings remain. Correct
+the public analysis while preserving original dispositions and prior reasoning here.
+This is an interface/report-proof boundary, not authorization to add product problem
+citations, invent IDs, weaken the guard or change frozen inference source.
