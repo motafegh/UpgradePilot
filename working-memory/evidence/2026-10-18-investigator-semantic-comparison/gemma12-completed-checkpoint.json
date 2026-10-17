@@ -1,0 +1,318 @@
+{
+  "observed_at": "2026-10-17T23:38:16.662994+00:00",
+  "completed_assignments": [
+    {
+      "assignment": {
+        "id": "budget-v1-gemma12-raw-long",
+        "model_key": "google/gemma-4-12b",
+        "sequence": 2,
+        "treatment": "raw"
+      },
+      "disposition": "qualified",
+      "disposition_reason": "bounded synthetic interface sequence completed; no semantic acceptance",
+      "known_generated_tokens": 908,
+      "known_input_tokens": 105827,
+      "model_attempts": 5,
+      "outcome": "completed",
+      "problem": null,
+      "reasoning_tokens": null,
+      "usage_complete": true,
+      "charged_operations": 22,
+      "corrections": 0,
+      "terminal_corrections": 0,
+      "report_refusals": []
+    },
+    {
+      "assignment": {
+        "id": "budget-v1-gemma12-raw-short",
+        "model_key": "google/gemma-4-12b",
+        "sequence": 1,
+        "treatment": "raw"
+      },
+      "disposition": "withheld",
+      "disposition_reason": "required canary sequence did not complete",
+      "known_generated_tokens": 1975,
+      "known_input_tokens": 21266,
+      "model_attempts": 6,
+      "outcome": "failed",
+      "problem": "ValueError: foreign, unoffered or not-input-visible evidence reference",
+      "reasoning_tokens": null,
+      "usage_complete": true,
+      "charged_operations": 30,
+      "corrections": 1,
+      "terminal_corrections": 1,
+      "report_refusals": [
+        {
+          "consumer_attempt": 5,
+          "detail": "foreign, unoffered or not-input-visible evidence reference"
+        },
+        {
+          "consumer_attempt": 6,
+          "detail": "foreign, unoffered or not-input-visible evidence reference"
+        }
+      ]
+    },
+    {
+      "assignment": {
+        "id": "budget-v1-gemma12-structured-long",
+        "model_key": "google/gemma-4-12b",
+        "sequence": 2,
+        "treatment": "structured"
+      },
+      "disposition": "qualified",
+      "disposition_reason": "bounded synthetic interface sequence completed; no semantic acceptance",
+      "known_generated_tokens": 995,
+      "known_input_tokens": 106508,
+      "model_attempts": 5,
+      "outcome": "completed",
+      "problem": null,
+      "reasoning_tokens": null,
+      "usage_complete": true,
+      "charged_operations": 22,
+      "corrections": 0,
+      "terminal_corrections": 0,
+      "report_refusals": []
+    },
+    {
+      "assignment": {
+        "id": "budget-v1-gemma12-structured-short",
+        "model_key": "google/gemma-4-12b",
+        "sequence": 1,
+        "treatment": "structured"
+      },
+      "disposition": "qualified",
+      "disposition_reason": "bounded synthetic interface sequence completed; no semantic acceptance",
+      "known_generated_tokens": 1055,
+      "known_input_tokens": 17235,
+      "model_attempts": 5,
+      "outcome": "completed",
+      "problem": null,
+      "reasoning_tokens": null,
+      "usage_complete": true,
+      "charged_operations": 23,
+      "corrections": 0,
+      "terminal_corrections": 0,
+      "report_refusals": []
+    }
+  ],
+  "completed_assignment_calls": [
+    {
+      "assignment": "budget-v1-gemma12-raw-long",
+      "call": "call-01",
+      "outcome": "returned",
+      "input_tokens": 20466,
+      "generated_tokens": 34,
+      "client_seconds": 68.30419867599994,
+      "native_seconds": 74.258902,
+      "reasoning_tokens": null
+    },
+    {
+      "assignment": "budget-v1-gemma12-raw-long",
+      "call": "call-02",
+      "outcome": "returned",
+      "input_tokens": 21085,
+      "generated_tokens": 34,
+      "client_seconds": 15.162475918999917,
+      "native_seconds": 16.438672999999998,
+      "reasoning_tokens": null
+    },
+    {
+      "assignment": "budget-v1-gemma12-raw-long",
+      "call": "call-03",
+      "outcome": "returned",
+      "input_tokens": 21338,
+      "generated_tokens": 44,
+      "client_seconds": 18.469446179999977,
+      "native_seconds": 20.036175,
+      "reasoning_tokens": null
+    },
+    {
+      "assignment": "budget-v1-gemma12-raw-long",
+      "call": "call-04",
+      "outcome": "returned",
+      "input_tokens": 21690,
+      "generated_tokens": 20,
+      "client_seconds": 16.239443788000244,
+      "native_seconds": 17.604934999999998,
+      "reasoning_tokens": null
+    },
+    {
+      "assignment": "budget-v1-gemma12-raw-long",
+      "call": "call-05",
+      "outcome": "returned",
+      "input_tokens": 21248,
+      "generated_tokens": 776,
+      "client_seconds": 170.44785984200007,
+      "native_seconds": 185.84754500000003,
+      "reasoning_tokens": null
+    },
+    {
+      "assignment": "budget-v1-gemma12-raw-short",
+      "call": "call-01",
+      "outcome": "returned",
+      "input_tokens": 2465,
+      "generated_tokens": 34,
+      "client_seconds": 10.0513015800002,
+      "native_seconds": 10.912789,
+      "reasoning_tokens": null
+    },
+    {
+      "assignment": "budget-v1-gemma12-raw-short",
+      "call": "call-02",
+      "outcome": "returned",
+      "input_tokens": 3088,
+      "generated_tokens": 44,
+      "client_seconds": 9.10313665600006,
+      "native_seconds": 9.884322000000001,
+      "reasoning_tokens": null
+    },
+    {
+      "assignment": "budget-v1-gemma12-raw-short",
+      "call": "call-03",
+      "outcome": "returned",
+      "input_tokens": 3442,
+      "generated_tokens": 34,
+      "client_seconds": 8.973905611000191,
+      "native_seconds": 9.752047000000001,
+      "reasoning_tokens": null
+    },
+    {
+      "assignment": "budget-v1-gemma12-raw-short",
+      "call": "call-04",
+      "outcome": "returned",
+      "input_tokens": 4052,
+      "generated_tokens": 26,
+      "client_seconds": 9.65278229400019,
+      "native_seconds": 10.380280999999998,
+      "reasoning_tokens": null
+    },
+    {
+      "assignment": "budget-v1-gemma12-raw-short",
+      "call": "call-05",
+      "outcome": "returned",
+      "input_tokens": 3615,
+      "generated_tokens": 919,
+      "client_seconds": 131.02792005200035,
+      "native_seconds": 142.77067099999996,
+      "reasoning_tokens": null
+    },
+    {
+      "assignment": "budget-v1-gemma12-raw-short",
+      "call": "call-06",
+      "outcome": "returned",
+      "input_tokens": 4604,
+      "generated_tokens": 918,
+      "client_seconds": 141.25797745399996,
+      "native_seconds": 153.93426399999998,
+      "reasoning_tokens": null
+    },
+    {
+      "assignment": "budget-v1-gemma12-structured-long",
+      "call": "call-01",
+      "outcome": "returned",
+      "input_tokens": 20606,
+      "generated_tokens": 26,
+      "client_seconds": 11.754140324000218,
+      "native_seconds": 12.729211,
+      "reasoning_tokens": null
+    },
+    {
+      "assignment": "budget-v1-gemma12-structured-long",
+      "call": "call-02",
+      "outcome": "returned",
+      "input_tokens": 21118,
+      "generated_tokens": 34,
+      "client_seconds": 71.64141989400014,
+      "native_seconds": 78.031632,
+      "reasoning_tokens": null
+    },
+    {
+      "assignment": "budget-v1-gemma12-structured-long",
+      "call": "call-03",
+      "outcome": "returned",
+      "input_tokens": 21373,
+      "generated_tokens": 34,
+      "client_seconds": 18.343677851999928,
+      "native_seconds": 19.828489,
+      "reasoning_tokens": null
+    },
+    {
+      "assignment": "budget-v1-gemma12-structured-long",
+      "call": "call-04",
+      "outcome": "returned",
+      "input_tokens": 21998,
+      "generated_tokens": 26,
+      "client_seconds": 16.672911847999785,
+      "native_seconds": 18.078517,
+      "reasoning_tokens": null
+    },
+    {
+      "assignment": "budget-v1-gemma12-structured-long",
+      "call": "call-05",
+      "outcome": "returned",
+      "input_tokens": 21413,
+      "generated_tokens": 875,
+      "client_seconds": 188.07631201499998,
+      "native_seconds": 205.07549000000003,
+      "reasoning_tokens": null
+    },
+    {
+      "assignment": "budget-v1-gemma12-structured-short",
+      "call": "call-01",
+      "outcome": "returned",
+      "input_tokens": 2615,
+      "generated_tokens": 34,
+      "client_seconds": 10.367509732000144,
+      "native_seconds": 11.127911,
+      "reasoning_tokens": null
+    },
+    {
+      "assignment": "budget-v1-gemma12-structured-short",
+      "call": "call-02",
+      "outcome": "returned",
+      "input_tokens": 3236,
+      "generated_tokens": 44,
+      "client_seconds": 10.07232328400005,
+      "native_seconds": 10.927567,
+      "reasoning_tokens": null
+    },
+    {
+      "assignment": "budget-v1-gemma12-structured-short",
+      "call": "call-03",
+      "outcome": "returned",
+      "input_tokens": 3586,
+      "generated_tokens": 34,
+      "client_seconds": 9.693089547999989,
+      "native_seconds": 10.389363000000001,
+      "reasoning_tokens": null
+    },
+    {
+      "assignment": "budget-v1-gemma12-structured-short",
+      "call": "call-04",
+      "outcome": "returned",
+      "input_tokens": 4190,
+      "generated_tokens": 26,
+      "client_seconds": 11.119557240000177,
+      "native_seconds": 11.949100999999999,
+      "reasoning_tokens": null
+    },
+    {
+      "assignment": "budget-v1-gemma12-structured-short",
+      "call": "call-05",
+      "outcome": "returned",
+      "input_tokens": 3608,
+      "generated_tokens": 917,
+      "client_seconds": 139.22085967600015,
+      "native_seconds": 151.706909,
+      "reasoning_tokens": null
+    }
+  ],
+  "known_input_tokens": 250836,
+  "known_generated_tokens": 4933,
+  "unknown_usage_calls": 0,
+  "requested_applied_prediction_mismatches": [],
+  "rendered_prompt_mismatches": [],
+  "instance_mismatches": [],
+  "semantic_assignments_attempted": 0,
+  "limits": "Completed assignment evidence only; partial/active calls are excluded here. No semantic grading, hidden reasoning, native/client timing equivalence or model superiority."
+}
