@@ -2,7 +2,7 @@
 
 **Date/horizon:** October 16, 2026, Asia/Tehran; A0 from `main@4545d5f0` after a successful fast-forward pull.
 **Responsibility:** qualify actual local deployment identities, bounded resource envelopes and the real model/request/tool/reference interface for the admitted Investigator comparison, or explicitly withhold an unqualified deployment.
-**State at this handoff:** A0 complete; continuous-context A1 reconciled; A2 complete by Ali's explicit scoped B instruction; B source/retention work delivered, runtime Verification WITHHELD; D/E pending; C continuous. This record is the single detailed owner for this successor cycle; [MEMORY](../MEMORY.md) alone owns live selection.
+**State at this handoff (October17):** A0/A1/A2 complete; B/Verification current. Complete six-candidate r6 results are retained; native-mode r7 is complete and current-runtime r8 is prepared/inspected/frozen. Scoped engineering checks are green; deployment dispositions remain configuration-specific. D/E pending; C continuous. This record is the single detailed owner for this successor cycle; [MEMORY](../MEMORY.md) alone owns live selection.
 **Owners:** [integration plan](../plans/INVESTIGATOR_INTEGRATION_AND_COMPARATIVE_EVALUATION_PLAN.md), especially §4 measured deployment envelopes and §5 model-interface qualification; [environment](../ENVIRONMENT.md); [security](../SECURITY.md).
 **Related cycle:** [adapter/mechanical cycle](2026-10-16_2045_investigator-adapter-and-mechanical-qualification_lbd-cycle.md), now CLOSED through E after the [closure handoff](2026-10-16_2301_adapter-d-e-closure-handoff.md) and [reconciliation decision](2026-10-16_adapter-closure-and-deployment-cohort-reconciliation.md). Its model-free proof remains bounded; actual model/reference visibility belongs here.
 **Procedural provenance:** `UP-SKILL:upgradepilot-build-implement`; `UP-SKILL:upgradepilot-learning-by-doing`; `UP-SKILL:upgradepilot-working-memory`.
@@ -15,8 +15,8 @@
 | A0 | DONE | Pulled the explicit parallel handoff, reconciled canonical owners, checked unchanged bridge/input identities and the smallest local runtime facts; initialized this record/map. |
 | A1 | DONE — continuous-context compression | Only pulled delta is Ali's already-explained scheduling decision; prior B/proof is unchanged. New runtime/session facts are included in the A2 packet; no mastery inferred. |
 | A2 | DONE — Ali explicitly directed scoped B | Explain actual deployment versus asset availability, request/history visibility, measured context/offload, bounded canaries, model selection and withheld-versus-qualified outcomes. |
-| B | CURRENT — bounded result delivered | Stateless bridge, actual profiles, attempted qualification and durable streaming repair delivered. Full runtime qualification remains withheld; a fresh frozen re-entry is required before further calls. |
-| Verification gate | WITHHELD — runtime qualification | Scoped implementation controls 27/27, nearest product 65/65 and final four model-free scripts pass. Gemma misses a required step; Qwen has one qualified short sequence but an interrupted raw report and no long sequences. Neither full deployment is admitted. |
+| B | CURRENT — bounded cohorts progressing | Complete stateless request/result bridge, streaming/privacy/default/mode/KV guards delivered. R6 completed all six; r7 native-mode cohort complete, r8 current2.60.0 binding for remaining three prepared/frozen under explicit budget revision. |
+| Verification gate | CURRENT — engineering green, configuration-specific results | Final35 focused/65 nearest product controls, prior four model-free regressions, current source/import/record checks pass. R6:108 calls, Gemma12/Qwen27 each4/4 at2.59.0; other four withheld overall. R7 complete59 calls: E4B4/4,E2B2/4,MiMo2/4; r8 prepared/frozen current2.60.0 points; no silent transfer of old passes or semantic case admission. |
 | D | PENDING | Learn from actual runtime/interface evidence and compare expectations; do not duplicate the adapter's parallel learning. |
 | E | PENDING | Repair/defer material gaps and close this responsibility truthfully before selecting semantic comparison. |
 | C | CONTINUOUS | Preserve configuration/protocol decisions, trials/costs/failures, corrections, proof limits and parallel feedback in this same record. |
@@ -46,11 +46,11 @@ Source confirms the two key unfinished interface requirements. The main scripted
 
 - [x] Reconcile the parallel handoff, prior green mechanical entry and actual read-only availability; initialize this cycle.
 - [x] Finish A2/pre-B understanding: Ali explicitly directed B and its stateless/SDK/configuration/visibility boundaries.
-- [x] Freeze the qualification cohort before inference in [r3](evidence/2026-10-17-investigator-model-interface/canary-freeze-r3.json): two core deployments, eight independent canary sequences, 48 maximum calls; all six candidates remain available. The recorded core remains Gemma 4 12B + Qwen3.8-27B; four smaller candidates are not silently extra arms. Each extra measured deployment adds four paired-case assignments and its own qualification budget. Any substitution/count change must be explicit before affected outcomes.
-- [ ] Resolve exact GGUF file parts/sizes/hashes (including the Gemma identity), runtime/backend/version, template content/hash, reasoning controls, requested/applied placement and supported transport/tokenization. Start from the existing isolated SDK/`--sdk-site` route; verify its actual new-deployment behavior before selecting any dependency or transport change.
-- [x] Implement and test the bounded real request/usage/session-visibility bridge, including post-interruption visible-fragment retention. No new live qualification is claimed after that repair. Freeze exact wire/parser/prompt/tools/reference/packing/manifest definitions and capacity rules before inference; no placeholder-bearing manifest is runnable.
-- [ ] Measure representative fully rendered short/near-envelope/late/final requests; choose justified context/offload/cache settings and record observed speed, memory, complete visible output and failures. Distinguish input overflow, generation exhaustion, timeout, memory failure, malformed/empty output and substantive incompleteness before changing settings. Retain failed configurations/costs.
-- [ ] Qualify both treatments using independent outcome-blind canaries: two fresh sequences per treatment/deployment, at most six calls each, **up to 48 calls for the unchanged core**. Resource/configuration sweeps must fit a declared allocation or receive a versioned budget revision before calls; no free exploration. This cycle does not activate the later eight case assignments.
+- [x] Freeze the qualification cohort before inference in [r3](evidence/2026-10-17-investigator-model-interface/canary-freeze-r3.json): two core deployments, eight independent canary sequences, 48 maximum calls; all six candidates remain available. The recorded core remains Gemma 4 12B + Qwen3.8-27B; four smaller candidates are not silently extra arms. This is the historical r3 horizon, superseded by later explicit qualification revisions. Extra qualification configurations require their own freeze/budget; only additional selected semantic-comparison deployments would add four actual case assignments each. The later comparison remains two deployments/eight assignments.
+- [x] Resolve exact local GGUF parts/full hashes, actual runtime/backend/templates/tokenizer policy, reasoning/placement and existing isolated SDK transport for the observed profiles. R6 qualified/withheld all six; new2.60.0 operating points are separately prepared/frozen before their calls. Unknown upstream correspondence, unexposed native token IDs/parser defaults and flash-auto kernel limits stay explicit.
+- [x] Implement/test and exercise the bounded real request/usage/session-visibility bridge, including post-interruption visible-fragment retention, complete intent/result history and declared native mode/sampler support. Freeze exact wire/parser/prompt/tools/reference/packing/manifest definitions and capacity rules before inference; no placeholder-bearing manifest is runnable.
+- [x] Measure representative fully rendered short/near-envelope/late/final requests for all r6/r7 profiles (repeat for r8 before its calls); choose justified context/offload/cache settings and record observed speed, memory, complete visible output and failures. Distinguish input overflow, generation exhaustion, timeout, memory failure, malformed/empty output and substantive incompleteness before changing settings. Retain failed configurations/costs.
+- [ ] Finish configuration-specific qualification/dispositions on current runtime: r6 all24 sequences complete, r7 native12 complete, r8 remaining-three12 prepared/inspected/frozen. Exact prior spend/configuration/order is frozen before each affected cohort; global ceiling363, with older immutable cohort bounds retained. No automatic sweep or later eight-case activation.
 - [ ] Record qualified/withheld dispositions, compare A2 predictions with evidence, complete this cycle's D/E and select a successor only from actual results.
 
 **Prediction:** actual template/token/history correspondence and complete structured responses are more uncertain than source delivery. Memory pressure may require different per-model operating points, so comparisons remain deployment-specific with one frozen envelope per treatment pair. Existing host/access APIs should remain sufficient; no generic infrastructure restart is justified. Actual model output may require a bounded configuration/interface repair or withholding; good canaries still do not establish correct dependency reasoning.
@@ -518,3 +518,47 @@ r6's unexposed sampler defaults were known. Multiple changes preclude causal run
 comparison. Native r7 cohort/code stays frozen; remaining profiles can be prepared
 only after it normally unloads. All six available assets will have a measured current
 runtime operating point, with legitimate withheld results preserved.
+
+Cycle-summary reconciliation: replaced the obsolete27-test/two-core-interrupted
+status at the top with actual35-control/r6-complete/r7-running/r8-admitted state.
+The old r3 todo is now explicitly historical; qualification-only extra configurations
+do not themselves add semantic case arms. Current semantic design stays2×2×2=8.
+MEMORY's older A2/parallel-parent-open continuation is similarly labeled superseded;
+parent remains CLOSED through E. No historical failed/superseded outcome is erased.
+
+Native r7 intermediate evidence: E2B spends17 calls, short Raw foreign event label
+refusal, short Structured skips empty-file read; both long sequences qualify5 calls
+each. Its reports remain shallow: Raw short claims procedural steps were followed
+while actual events show an early finish, and long reports cite scoped observations
+without establishing update evidence. E4B spends20 calls, all four sequences qualify
+with exactly five each. All four visible reports inspected: positive/zero/empty/problem/
+not_evaluated outcomes and actual typed IDs are preserved, compatibility generally
+left uncertain. Raw long loosely calls the interface marker a dependency-update marker,
+so4/4 is still not semantic acceptance. Neither a causal thinking-mode benefit nor
+a context-length benefit follows from this changed-runtime/mode/sampler/n=1 evidence.
+MiMo remains active; all costs/dispositions will be finalized after normal completion.
+
+### Native cohort complete; current-runtime completion frozen before calls
+
+R7 finishes normally:59 calls/12 sequences,741996 input/34148 target-generated,zero
+newly unknown usage; all59 lack separate reasoning counts. E2B17 calls2/4, E4B20
+calls4/4, MiMo22 calls2/4. MiMo's both long reports fail reference admission even
+after the sixth-call correction: Raw repeats an internal32-character native ID;
+Structured mixes internal/catalog/omitted-page IDs and invented source-hash:L1:1
+with delivered refs. Its omission-versus-not_evaluated wording also exceeds evidence.
+Every completed visible report/correction reviewed; no repair/regrading/pooling.
+R7 source hashes unchanged through completion, owned inventory unloaded, sampler
+stopped. Cumulative278 calls,known3217230 input/71152 target/7692 draft,one old r4
+unknown remains.350-word guidance is not a frozen hard word-count gate; original
+strict assessor dispositions stay unchanged, prose quality/verbosity reviewed separately.
+
+R8 zero-generation preflights all pass: Qwen9/Gemma12/Qwen27 maxima22252/22486/22250,
+backend layers28/22/13,declared off/T0.2/K40/P.95/min-p-off/repetition-off,2048 cap,
+32k serial unified CPU q8_0 KV. All36 full rendered shapes/current refs/menus/original
+intent/result pairs inspected; maxima also fit8192+256. New startup-log byte window
+contains exactly the three owned load records, each n_ctx_slot32768/kv_unified=true;
+only allowlisted scalars saved, no generation/log payload copied. Frozen source/profile/
+asset/runtime/order/budgets before calls: SHA256
+bb5bcd1ae12acfea18e4da98d35bd4bacdb3fc57e38bb196422ccfc1be7ee7e5,
+278 actual prior+72 new max350<=363. The two-deployment/eight-case design stays
+unactivated. No source change or new dependency/framework/transport was needed.

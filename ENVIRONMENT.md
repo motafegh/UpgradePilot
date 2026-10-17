@@ -197,8 +197,10 @@ No installation/update was performed by this session; cause/timing of selection 
 is not established. New loads use ubatch512 and ctx-size32768/parallel4; r6 used
 ubatch1120 and ctx-size131072/parallel4. Latest three preparation startup scalar logs
 report n_ctx_slot32768 and kv_unified=true. Do not infer per-request capacity by blindly
-dividing ctx-size by parallel. Freeze explicit unified-KV flags and actual native load/
-prompt measurements after runtime changes. MiMo requests/reports flash true with actual
+dividing ctx-size by parallel. These qualifications use one active prediction at a
+time; per-slot32768 in a shared pool does not prove four simultaneous32768 requests
+fit. Freeze explicit unified-KV flags and actual native load/prompt measurements after
+runtime changes. MiMo requests/reports flash true with actual
 flag on; small Gemma flag auto leaves kernel choice unexposed. Exact dated receipts
 belong to the active cycle, not this reusable environment note.
 

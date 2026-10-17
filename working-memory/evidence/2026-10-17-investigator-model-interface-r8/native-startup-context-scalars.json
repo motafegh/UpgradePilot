@@ -1,0 +1,1 @@
+{"expected_models_in_order":["qwen3.5-9b-ud","google/gemma-4-12b","qwen3.8-27b-ud"],"inference_calls":0,"new_loads":[{"kv_unified":"true","n_ctx_slot":"32768"},{"kv_unified":"true","n_ctx_slot":"32768"},{"kv_unified":"true","n_ctx_slot":"32768"}],"only_allowlisted_scalars":true}

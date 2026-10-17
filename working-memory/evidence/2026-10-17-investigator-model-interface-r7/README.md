@@ -51,3 +51,6 @@ come from the running cohort. MiMo's thinking-on template intentionally ends at 
 bare assistant header; its off variant adds an empty thought block. No Qwen-format
 open-tag assumption or template patch was used. All current model candidates remain
 available and the real-case semantic comparison remains unstarted.
+
+The native cohort subsequently completed normally. [Actual analysis](ANALYSIS.md) and
+[all receipt summaries](actual-results.json) preserve its full outcome horizon.
