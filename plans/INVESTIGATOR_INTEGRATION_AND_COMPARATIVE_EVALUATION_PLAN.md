@@ -321,6 +321,28 @@ configuration/assignment order/budgets/review before activation. The two-deploym
 eight-assignment case design remains unchanged; no smaller-model substitution or
 additional arm is implicit. D/E and any next selected cycle retain their normal owners.
 
+### Budget visibility and stopping interpretation
+
+Budget-aware investigation requires separating runner enforcement, model-visible capacity and semantic adequacy. The experiment runner owns accounting and refusal; the Investigator receives factual control metadata and still chooses its own requests/finish proposal. Budget metadata grants no source-reference or action authority.
+
+Use a versioned budget observation in each complete request, common to Raw and Structured within a deployment. Freeze its exact fields, units and semantics with the input contract before inference:
+
+| Facts supplied | Authoritative producer / meaning |
+| --- | --- |
+| Invocation ceiling and remaining invocations | Trial driver; remainder includes the upcoming invocation, successful or failed. Finish and report each consume an invocation. |
+| Operation ceiling, remaining admission units and charge schedule | Existing driver ledger; conservative charges remain distinct from actual backend receipts. Expose finish=3, report=4 plus unique typed references, termination=1, and the offered tool charges. |
+| Observation-byte and correction allowances remaining | Existing driver counters, including terminal corrections separately. Refusals retain their existing charges; no refund or repaired history. |
+| Model-call ceiling/remainder, context/generation allowance, remaining cumulative input/generated-token allowance | Model binding's actual limits and validated prior receipts; remainder is before charging the upcoming request. Current rendered input still needs actual token admission. Unreported usage is not zero; incomplete usage retains the existing refusal behavior. |
+| Time allowance remaining at snapshot | Respective driver/model deadline owners; identify the sampling point. Distinct clocks are not silently merged. Time may elapse during packing/generation; the snapshot is not a completion guarantee. |
+
+Capture driver state before packing the next invocation; enrich it from the model ledger before actual rendering/token measurement. Keep that snapshot stable through any whole-event repacking for the same invocation. Budget facts survive event omission, remain present in report phase, and are retained in the exact packed/rendered artifacts. Model-authored requests, notes or reported counters cannot overwrite them. Do not subtract a predicted size for the budget text from itself: token remainders describe validated prior spend; normal actual measurement admits the upcoming request.
+
+Explain completion cost in the input. Remaining calls/operations are not all discovery capacity: investigation needs a finish invocation and a later report invocation, finish/report admission units and the existing termination unit. Report cost depends on its unique citations. This revision supplies visibility; it does not claim a newly enforced finish/report reservation, guaranteed report completion or optimal allocation. Existing guards remain authoritative, and an unaffordable report remains an explicit incomplete result. A new automatic stop/forced-report policy would be a separate decision.
+
+Bounded modification/proof scope is the existing experiment driver/model packing seam, synthetic request-shape preparation, focused tests and experiment contract documentation. No product budget service, new dependency, semantic evaluator or source-family expansion is required. Verify changing remainders across calls/refusals, report/termination costs, exact rendering, retention under omissions, assignment isolation, unknown usage and refusal before backend work. Preserve existing reference and accounting controls. No model load/inference is needed for those implementation checks.
+
+The changed request contract invalidates silent inheritance of old source-bound interface qualification for successor admission. Freeze the revised code/input contract, real-case fit and a bounded representative Raw/Structured × short/near-envelope synthetic requalification for every selected deployment affected by it, including E4B. Gemma12/Qwen27 additionally change to the intended 8192 allowance; qualify the combined intended points once rather than staging redundant inference revisions. Retain old results unchanged. Complete the full pre-inference freeze, including separate requalification order/budget, before any prediction; complete required qualification/dispositions before semantic assignments.
+
 ## 5. Ordered execution and proof gates
 
 Use coherent Learning-by-Doing cycles; the first integration cycle may complete with no inference. Do not split obvious implementation details into separate ceremonial cycles. Each gate produces reviewable evidence and an explicit proceed/refuse/inconclusive result.
@@ -378,6 +400,25 @@ Carry forward the [nine-dimension definitions at the research cutoff](https://gi
 | Resource cost | Preparation plus every model/backend/native/view attempt, measured tokens/bytes/time, packing, corrections and unknown usage. |
 
 Freeze source obligations before output review and hide them from the Investigator. New obligations found during review are supplemental, preserving the original denominator. Review every material assertion, including summaries/recommendations; valid citation shape does not prove entailment. Preserve the immutable model output separately from review corrections. Record active review timers with pauses; do not infer effort from model wall time. AI-assisted known-case review is formative, not independent or unseen proof.
+
+### Concrete review records and stopping distinctions
+
+The pre-inference freeze must resolve case-specific obligations from the actual retained sources, using the same denominator across treatments/deployments. Keep reviewer material outside model inputs and record its exact identity and capture horizon. The following are record requirements, not an automatic semantic grader:
+
+| Review record | Minimum content |
+| --- | --- |
+| Source obligation | Stable ID; exact case/source locator; decision-relevant question; evidence that can support, contradict or leave it unresolved; capture/applicability limits; materiality and reason. Distinguish unavailable evidence from available evidence not discovered. |
+| Evidence-use trace | For each obligation, separately record availability in the common universe, delivery/omission, observable use, citation and semantic support. A large delivery or valid reference does not satisfy an obligation by itself. |
+| Material proposition | Original report/note surface and locator, exact proposition, asserted/inferred/unresolved status, cited/source passage, support disposition with reason, and decision consequence. Review summary, conditions and recommendation as well as the claims array. Deduplicate repeated propositions while retaining every surface. |
+| Support disposition | Supported, supported only at a narrower scope, unsupported, contradicted or unresolved from the retained evidence. These are offline review labels; preserve source reasons and do not promote them into product enums/evaluations. |
+| Stopping record | Actual termination cause, voluntary finish if any, last investigation-phase tools and visible budget, actual remaining capacity, at least the materially relevant feasible discriminator or the reason none can be established, and unresolved consequence. No obligation to invent a discriminator outside the source/capability boundary. |
+| Effort and masking | Reviewer identity/assistance, known prior case exposure, first-pass masking and actual leakage/reveal order, active source-check/triage/revision intervals and pauses. Unknown time remains unknown. |
+
+Classify procedural finish, external call/operation/token/time cutoff, interface/reference refusal and runtime failure separately before interpreting stopping quality. A voluntary finish does not establish adequate investigation; a cutoff does not establish that the model believed the evidence sufficient. A report-phase empty tool menu describes that phase, not source exhaustion. Evaluate feasible next investigation steps against the capability/budget state before finish or cutoff, including completion costs and whether the model actually saw the relevant constraint. Reviewer corrections never alter the original outcome.
+
+For example, the retained HTTPX acquisition's lack of exact-head CI runs can support only its capture-scoped observation, not universal CI absence or update incompatibility. The glyphsLib static installation declarations must not be promoted into verified installed/runtime binding. These existing case boundaries calibrate review scope; exact obligations/passages must still be source-checked and frozen before inference, and no expected answer enters the Investigator request.
+
+Keep the nine dimensions as separate profiles with within-deployment Raw/Structured comparisons first. Record decision-critical false confidence/authority promotion explicitly, retain incomplete assignments and triage costs, and use the retain/reject/inconclusive rules below rather than inventing a weighted winner. Absence of a critical error does not by itself demonstrate useful gain.
 
 - **Retain as development pilot:** paired evidence identifies useful gains in correct evidence use/coverage/uncertainty or stopping, with no hidden critical unsupported claims or authority violations and explicit cost trade-offs. Mixed per-case effects remain visible.
 - **Reject the affected configuration/claim:** authority or identity promotion, material false confidence, or a claimed advantage resting on unequal information/hidden costs. Distinguish product adapter defects from model errors before choosing repair.

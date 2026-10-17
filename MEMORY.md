@@ -1,6 +1,6 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-10-17
+**Last updated:** 2026-10-18
 **Authority:** sole owner of the live project position, current blockers, selected continuation, and current learning depth. Detailed historical evidence remains in the linked cycle/evidence records; this file intentionally summarizes the current live state.
 
 **Publication cadence:** Ali explicitly authorizes committing and pushing each coherent, appropriately validated in-scope increment as work progresses. Record actual proof and remaining debt with each increment; this publication instruction does not expand the selected implementation responsibility.
@@ -12,6 +12,8 @@ The canonical Investigator Workspace foundation and adapter/mechanical integrati
 Build and bounded Verification for the deployment/interface responsibility are GREEN. No semantic correctness, autonomous discovery/stopping adequacy, maintainer usefulness, action permission, protected-case generalization or production adoption follows from the canaries.
 
 The paired real-case semantic comparison pre-inference freeze/execution-disposition cycle is **ACTIVE** in [the successor LbD cycle record](working-memory/2026-10-17_2256_investigator-real-case-semantic-comparison_lbd-cycle.md), under the [Investigator integration/comparison plan](plans/INVESTIGATOR_INTEGRATION_AND_COMPARATIVE_EVALUATION_PLAN.md) as explicitly amended by the [three-deployment semantic-comparison decision](plans/INVESTIGATOR_SEMANTIC_COMPARISON_THREE_DEPLOYMENT_AMENDMENT_2026-10-17.md). **A0 and A1 are DONE; A2 is CURRENT at the normal pre-B understanding stop gate; B and all new model inference remain PENDING.** Ali explicitly clarified and owns that Gemma12/Qwen27 `2048 -> 8192` is a material prediction-configuration change from the exact qualified point: rendered/context capacity fit, requested-versus-applied configuration correspondence and bounded changed-point interface requalification are separate admission proofs. Capacity fit alone cannot transfer the old 4/4 qualification. Older two-deployment/eight-assignment statements in retained r8 evidence preserve their historical horizon and are superseded for this successor by the three-deployment amendment.
+
+October 18 takeover review freshly confirmed the scoped tests/input retention and identified that the runner enforces budgets which its current packed model request does not expose. Ali directed continuation of the recommended contract/review clarification. The controlling plan now specifies factual model-visible budget observations and concrete offline semantic-review records. This is **planning, not implementation or cleared learner ownership**: A2 remains open; executable source and inference are unchanged. Because the proposed shared input contract changes for all three deployments, successor admission requires source-bound qualification of all three under the revised contract, including E4B. Combine that proof with the intended Gemma12/Qwen27 8192-point qualification rather than running redundant revisions. Exact case obligations, field identities, budgets/order and qualification freeze remain for B after the A2 gate.
 
 ## Final current-runtime qualification result
 
@@ -82,7 +84,7 @@ Before **any new model inference**, the active successor cycle must publish and 
 - failure/refusal/no-rerun/versioned-repair rules;
 - owner-only retention destinations and public-safe evidence paths.
 
-The intended 8192 Gemma12/Qwen27 points are not semantically admissible merely because 8192 fits inside context. Because output allowance changes from their exact 2048-qualified points, they require versioned bounded interface requalification under the controlling plan/amendment after the complete pre-inference freeze and before any real-case semantic assignment. E4B already qualified at 8192, but exact real-case fit/configuration/current correspondence still must be verified; material drift likewise triggers requalification.
+The intended 8192 Gemma12/Qwen27 points are not semantically admissible merely because 8192 fits inside context. Because output allowance changes from their exact 2048-qualified points, they require versioned bounded interface requalification under the controlling plan/amendment after the complete pre-inference freeze and before any real-case semantic assignment. E4B already qualified at 8192, but the planned shared budget-observation input change also requires its source-bound interface requalification; the old result remains evidence for the old contract. Verify real-case fit/configuration/current correspondence for all three. No inference is admitted by this planning clarification.
 
 The existing semantic per-assignment ceilings imply a conservative 192-call aggregate maximum for 12 assignments unless the successor explicitly freezes a lower justified ceiling before inference. Ceilings are not spending targets. Any new interface-requalification calls have a separate explicitly frozen ledger; they are neither free nor silently charged as semantic assignments.
 

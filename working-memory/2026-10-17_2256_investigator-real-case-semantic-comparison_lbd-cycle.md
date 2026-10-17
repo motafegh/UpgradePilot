@@ -14,7 +14,7 @@
 | --- | --- | --- |
 | A0 | **DONE** | Reconciled live owners, previous closure, amendment, final deployment/interface evidence, durable common-input snapshot, current experiment contracts and semantic-review owner; initialized this one cycle record. |
 | A1 | **DONE** | Ali explicitly agreed with the reconstructed state and cleared the continuity gate. His configuration-proof correction is incorporated below rather than treated as a contradiction. |
-| A2 | **CURRENT — STOP GATE** | Orient the 12-assignment freeze/execution/review responsibility, the separate fit/correspondence/requalification proofs, important data/control/evidence flow, proof boundary, failure states and non-goals. |
+| A2 | **CURRENT — STOP GATE** | Orient the 12-assignment freeze/execution/review responsibility, separate fit/correspondence/requalification proofs and October 18 budget-visibility/review clarification. The proposed shared request change affects all three selected deployments; learner ownership of the revised boundary remains unassessed. |
 | B | PENDING | Prepare/verify the successor freeze first; no model inference is admitted until that freeze is complete and justified. Any required non-semantic requalification then runs under its own frozen budget before semantic-assignment admission. |
 | Verification gate | PENDING | Must verify exact inputs/configuration/order/contracts/fit/review/accounting/retention, required interface requalification and later the attempted comparison evidence. |
 | D | PENDING | Evidence-backed learning from the actual comparison/review result. |
@@ -388,3 +388,29 @@ The current `protocol_definition` retains limits and tool/report charging, but `
 **Review limits/handoff:** no full product/installed/hosted suite, model load/inference, fresh runtime qualification, target execution/acquisition, hidden reasoning inspection or independent semantic/usefulness acceptance occurred. No source defect requiring reopening completed interface qualification was established in this bounded sample. Resume by discussing these findings at the existing A2 gate, resolving any selected input/review-contract change with its proper owner, then deciding B scope. This review does not satisfy the gate on Ali's behalf.
 
 Procedural provenance: `UP-SKILL:upgradepilot-repository-audit`; `UP-SKILL:upgradepilot-workstream-supervision`; continuous preservation uses the existing `UP-SKILL:upgradepilot-working-memory` route.
+
+## October 18 planning follow-up — budget visibility and concrete review
+
+Ali directed continuation with “go on for it” after the takeover recommendations. Continued the existing A2 responsibility through bounded Planning/Design; no new cycle or executable mutation. Read the plan owner, inspected the driver/model ledger and packing seams, and used the applicable Operating Guide rationale/decision-readiness sections. The controlling integration plan now owns the reusable contract/proof requirements; this record preserves their reasoning and time-scoped handoff.
+
+### Design and responsibility placement
+
+- Keep enforcement in the existing trial/model guards. Add a factual model-visible budget observation from those same authoritative ledgers, not counters inferred from model notes/history. Static maximum, remainder before the next invocation and final completion cost are different facts.
+- The trial driver owns turns, operation units, observations, corrections and its deadline. The model binding owns model calls, validated token spend, context/output allowance and its deadline. Joining them in experiment request composition needs no new product service, dependency, evaluator or durable architecture decision.
+- Snapshot driver state before packing; enrich from model state before rendering. Keep the snapshot stable while repacking that invocation. The upcoming invocation is included in the displayed remaining count; the upcoming rendered input is not already deducted from prior-spend token remainder. Existing actual token/configuration admission remains authoritative.
+- Expose exact operation costs and the finish/report/termination obligations, without claiming that the current driver reserves completion capacity it does not reserve. A finish consumes one model invocation and three operation units; a report consumes another invocation and four plus unique citations; termination reserves one operation unit. More calls alone do not imply enough operations for another read plus completion. Time values are sampled allowances, not guaranteed future capacity.
+- The credible alternative is retaining invisible budgets and narrowing stopping interpretation to external cutoffs versus voluntary finish. Prefer factual visibility because the selected scientific question includes allocation/stopping under bounded capacity. This supports the full responsibility without adding automatic stopping policy, optimal scheduling or semantic adequacy claims.
+
+### Review protocol made concrete
+
+The existing plan's nine dimensions now have explicit record requirements for source obligations, evidence-use trace, each material proposition/support reason, stopping cause/state/discriminator and reviewer effort/masking. Review all report surfaces, keep available/delivered/used/cited/supported distinct, preserve immutable outputs and separate unsupported from contradicted or unresolved. Treat the HTTPX capture-scoped CI absence and glyphsLib declaration-versus-runtime boundary as real calibration examples; exact case passages/obligations still require source-check/freeze during B, outside model inputs. No automated semantic grader or protected-case acceptance is introduced.
+
+### Proof consequence and bounded implementation handoff
+
+The proposed budget observation changes the common request contract for **all three** deployments. Therefore the earlier A2 statement that unchanged E4B configuration could inherit its 8192 canaries no longer suffices for the revised input contract. Old qualifications remain unchanged historical evidence. After implementation/model-free proof and the complete pre-inference freeze, requalify the revised contract for all selected points; combine Gemma12/Qwen27's 8192 allowance with that same revision. Freeze the exact bounded matrix/order/call ceiling before inference rather than start another tuning sweep or redundant qualification revisions.
+
+Expected B edit scope is the existing experiment driver/model packing path, synthetic representative-shape preparation, focused tests and contract guides. Test authoritative/decreasing counters across accepted/refused calls, completion costs, unchanged enforcement, assignment isolation, budget visibility through omissions/report phase, exact rendering and unknown-usage refusal. Product code, model roster, case universe, tool authority and semantic ceilings are not expanded by this design.
+
+Validation passed for all three changed documents: 41 local links, two anchors, balanced fences, final newlines and `git diff --check`. Only the plan/live-memory/cycle record changed; all four r8 frozen executable hashes still match. Runtime tests were not repeated for this documentation-only increment. No model-free implementation proof, actual freeze, model load/inference or semantic review execution is claimed. A2 ownership remains open: explain why spare model calls can coexist with insufficient operation units to read again and still finish/report, and why a budget-driven stop does not establish adequacy. Resume at that understanding boundary before B. These questions are learning/ownership checks, not approval requests for a hidden implementation.
+
+Procedural provenance: `UP-SKILL:upgradepilot-planning-design`; existing Learning-by-Doing and Working-Memory routes continue to apply.
