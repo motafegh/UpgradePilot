@@ -11,15 +11,15 @@ The canonical Investigator Workspace foundation and adapter/mechanical integrati
 
 Build and bounded Verification for the deployment/interface responsibility are GREEN. No semantic correctness, autonomous discovery/stopping adequacy, maintainer usefulness, action permission, protected-case generalization or production adoption follows from the canaries.
 
-The paired real-case semantic comparison pre-inference freeze/execution-disposition cycle is now **ACTIVE** in [the successor LbD cycle record](working-memory/2026-10-17_2256_investigator-real-case-semantic-comparison_lbd-cycle.md), under the [Investigator integration/comparison plan](plans/INVESTIGATOR_INTEGRATION_AND_COMPARATIVE_EVALUATION_PLAN.md) as explicitly amended by the [three-deployment semantic-comparison decision](plans/INVESTIGATOR_SEMANTIC_COMPARISON_THREE_DEPLOYMENT_AMENDMENT_2026-10-17.md). **A0 is DONE; A1 is CURRENT at the normal continuity/onboarding stop gate; A2/B and all semantic inference remain PENDING.** A0 found no executable regression or controlling-design contradiction. Older two-deployment/eight-assignment statements in retained r8 evidence preserve their historical horizon and are superseded for this successor by the three-deployment amendment. Successor-specific input/configuration/fit/review/accounting/retention freeze remains required before any real-case model call.
+The paired real-case semantic comparison pre-inference freeze/execution-disposition cycle is **ACTIVE** in [the successor LbD cycle record](working-memory/2026-10-17_2256_investigator-real-case-semantic-comparison_lbd-cycle.md), under the [Investigator integration/comparison plan](plans/INVESTIGATOR_INTEGRATION_AND_COMPARATIVE_EVALUATION_PLAN.md) as explicitly amended by the [three-deployment semantic-comparison decision](plans/INVESTIGATOR_SEMANTIC_COMPARISON_THREE_DEPLOYMENT_AMENDMENT_2026-10-17.md). **A0 and A1 are DONE; A2 is CURRENT at the normal pre-B understanding stop gate; B and all new model inference remain PENDING.** Ali explicitly clarified and owns that Gemma12/Qwen27 `2048 -> 8192` is a material prediction-configuration change from the exact qualified point: rendered/context capacity fit, requested-versus-applied configuration correspondence and bounded changed-point interface requalification are separate admission proofs. Capacity fit alone cannot transfer the old 4/4 qualification. Older two-deployment/eight-assignment statements in retained r8 evidence preserve their historical horizon and are superseded for this successor by the three-deployment amendment.
 
 ## Final current-runtime qualification result
 
 All six selected candidates have actual CUDA llama.cpp 2.60.0 observations at frozen operating points. [Final evidence](working-memory/evidence/2026-10-17-investigator-model-interface-r8/ANALYSIS.md) and the [exact candidate catalog](working-memory/evidence/2026-10-17-investigator-model-interface-r8/current-runtime-candidates.json) own the details.
 
-- Gemma 4 12B — **4/4 canary-qualified**.
-- Qwen3.8-27B UD-Q4_K_M — **4/4 canary-qualified**.
-- Gemma 4 E4B — **4/4 canary-qualified** at its exact native thinking-on deployment.
+- Gemma 4 12B — **4/4 canary-qualified** at the exact 2048-generation current-runtime point.
+- Qwen3.8-27B UD-Q4_K_M — **4/4 canary-qualified** at the exact 2048-generation current-runtime point.
+- Gemma 4 E4B — **4/4 canary-qualified** at its exact native thinking-on 8192-generation deployment.
 - Qwen3.5-9B — **4/4 canary-qualified**.
 - Gemma 4 E2B — **2/4, WITHHELD**.
 - MiMo-V2.6-Distill-Qwen-9B — **2/4, WITHHELD**.
@@ -68,20 +68,23 @@ Ali explicitly owns that E4B cannot be appended as untracked extra calls: changi
 
 ## Required successor freeze before inference
 
-The active successor cycle must publish/verify before any real-case model call:
+Before **any new model inference**, the active successor cycle must publish and verify a complete freeze covering:
 
-- exact common HTTPX/glyphsLib case/source/native input identities and availability;
-- exact three deployment identities/configurations at the intended real-case points;
-- all 12 assignment IDs and a declared balanced serial execution order;
+- exact common HTTPX/glyphsLib case/source/native input identities and current offline availability;
+- exact three intended deployment identities/configurations, including the intended 8192 real-case generation allowance;
+- all 12 semantic assignment IDs and a declared balanced serial execution order;
 - exact prompts, tools, reference policy, packing/omission policy and report schema;
-- per-assignment and aggregate budgets/accounting;
-- real-case rendered-token/context/output fit, including the planned 8192 generation allowance;
-- requested-versus-applied runtime/configuration correspondence;
+- per-assignment and aggregate semantic budgets/accounting;
+- the separate bounded budget/order/protocol for any required non-semantic changed-point interface requalification;
+- real-case rendered-token/context/output fit;
+- requested-versus-applied runtime/configuration correspondence requirements;
 - semantic-review obligations, masking/order/assistance/source-check procedure;
-- failure/refusal/no-rerun rules;
+- failure/refusal/no-rerun/versioned-repair rules;
 - owner-only retention destinations and public-safe evidence paths.
 
-The existing per-assignment ceilings imply a conservative 192-call aggregate maximum for 12 assignments unless the successor explicitly freezes a lower justified ceiling before inference. Ceilings are not spending targets.
+The intended 8192 Gemma12/Qwen27 points are not semantically admissible merely because 8192 fits inside context. Because output allowance changes from their exact 2048-qualified points, they require versioned bounded interface requalification under the controlling plan/amendment after the complete pre-inference freeze and before any real-case semantic assignment. E4B already qualified at 8192, but exact real-case fit/configuration/current correspondence still must be verified; material drift likewise triggers requalification.
+
+The existing semantic per-assignment ceilings imply a conservative 192-call aggregate maximum for 12 assignments unless the successor explicitly freezes a lower justified ceiling before inference. Ceilings are not spending targets. Any new interface-requalification calls have a separate explicitly frozen ledger; they are neither free nor silently charged as semantic assignments.
 
 ## Next scientific questions
 
