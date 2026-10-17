@@ -278,21 +278,22 @@ class QualificationFreezeTests(unittest.TestCase):
 
     def test_duplicate_assignment_cannot_masquerade_as_balanced_batch(self):
         from experiments.qualify_investigator_model_interface import (
+            CANDIDATES,
             validate_batch_freeze,
         )
 
-        keys = ["google/gemma-4-12b", "qwen3.8-27b-ud"]
+        keys = list(CANDIDATES)
         freeze = {
             "format": "investigator-interface-canary-freeze/1",
             "preflight_inspected": True,
             "inference_admitted": True,
             "later_semantic_comparison_admitted": False,
             "deployments": [{"model_key": k} for k in keys],
-            "deployment_count": 2,
-            "max_model_calls": 48,
+            "deployment_count": 6,
+            "max_model_calls": 144,
             "calls_per_sequence": 6,
             "prior_spent_calls": 0,
-            "cycle_call_ceiling": 48,
+            "cycle_call_ceiling": 144,
             "assignments": [
                 {"id": f"{i}-{t}-{s}", "model_key": k, "treatment": t, "sequence": s}
                 for i, k in enumerate(keys)
@@ -327,6 +328,132 @@ class QualificationFreezeTests(unittest.TestCase):
         result = run_scripted_trial(a, early)
         self.assertEqual(result.outcome, "completed")
         self.assertEqual(assess_canary(a, 1, result)[0], "withheld")
+
+    def test_refused_request_remains_charged_but_one_correction_can_complete_canary(
+        self,
+    ):
+        from experiments.qualify_investigator_model_interface import (
+            assess_canary,
+            canary_assignment,
+            canary_protocol,
+        )
+
+        a = canary_assignment("raw")
+        responses = iter(
+            [
+                b"not json",
+                request("read_source", source_id="canary", path="probe.txt"),
+                request(
+                    "search_sources",
+                    source_id="canary",
+                    query="NO_SUCH_CANARY_MARKER_91",
+                ),
+                request("read_source", source_id="canary", path="empty.txt"),
+                request("finish_investigation"),
+            ]
+        )
+
+        def consumer(p):
+            body = json.loads(p.content)
+            evidence = [
+                ref
+                for event in body["events"]
+                for ref in json.loads(event["content"]).get("evidence", [])
+            ]
+            return report(evidence) if body["phase"] == "report" else next(responses)
+
+        result = run_scripted_trial(a, consumer, limits=TrialLimits(consumer_turns=6))
+        self.assertEqual(result.outcome, "completed", result.problem)
+        self.assertEqual(result.charges["corrections"], 1)
+        self.assertEqual(result.charges["consumer_invocation_attempts"], 6)
+        self.assertEqual(assess_canary(a, 1, result)[0], "qualified")
+        self.assertEqual(canary_protocol(a, 1, 0)["limits"]["consumer_turns"], 6)
+
+    def test_load_failure_is_retained_and_does_not_suppress_independent_candidate(self):
+        from types import SimpleNamespace
+
+        from experiments.qualify_investigator_model_interface import (
+            code_hashes,
+            digest,
+            execute_frozen,
+        )
+
+        attempted = []
+
+        class Download:
+            def __init__(self, key):
+                self.model_key = key
+
+            def load_new_instance(self, **kwargs):
+                attempted.append(self.model_key)
+                raise ValueError("controlled load refusal")
+
+        class Client:
+            def __init__(self, address):
+                self.llm = SimpleNamespace(
+                    list_loaded=list,
+                    list_downloaded=lambda: [Download(key) for key in keys],
+                )
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                return False
+
+        keys = ["gemma-4-e2b-it", "gemma-4-e4b-it-ud"]
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            deployments = []
+            for i, key in enumerate(keys):
+                content = json_bytes(
+                    {"model_key": key, "identifier": f"owned-{i}", "requested_load": {}}
+                )
+                path = root / f"profile-{i}.json"
+                path.write_bytes(content)
+                deployments.append(
+                    {
+                        "model_key": key,
+                        "profile_path": str(path),
+                        "profile_sha256": digest(content),
+                    }
+                )
+            freeze = {
+                "format": "investigator-interface-canary-freeze/1",
+                "preflight_inspected": True,
+                "inference_admitted": True,
+                "later_semantic_comparison_admitted": False,
+                "deployments": deployments,
+                "deployment_count": 2,
+                "max_model_calls": 48,
+                "calls_per_sequence": 6,
+                "prior_spent_calls": 19,
+                "cycle_call_ceiling": 67,
+                "assignments": [
+                    {
+                        "id": f"{i}-{t}-{s}",
+                        "model_key": k,
+                        "treatment": t,
+                        "sequence": s,
+                    }
+                    for i, k in enumerate(keys)
+                    for t in ("raw", "structured")
+                    for s in (1, 2)
+                ],
+                "code_sha256": code_hashes(),
+                "immutable_files": [],
+            }
+            content = json_bytes(freeze)
+            path = root / "freeze.json"
+            path.write_bytes(content)
+            output = root / "results"
+            results = execute_frozen(
+                SimpleNamespace(Client=Client), path, digest(content), output
+            )
+            self.assertEqual(attempted, keys)
+            self.assertEqual(sum(item["model_attempts"] for item in results), 0)
+            self.assertEqual(len(list(output.glob("deployment-*-failure.json"))), 2)
+            self.assertEqual(len(results), 8)
 
     def test_registry_alias_does_not_hide_a_changed_actual_gguf_or_placement(self):
         from experiments.qualify_investigator_model_interface import (

@@ -118,3 +118,47 @@ The interruption exposed a real retention gap: prior SDK binding accumulated fra
 Final [verification](evidence/2026-10-17-investigator-model-interface/verification.json):27 focused controls PASS;65 nearest product tests PASS(20.496s); four final offline actual-retained-case scripts PASS with zero model calls, unchanged17 input and96 product-source hashes; import direction, touched Ruff/format and owner link/JSON/whitespace checks pass. Full product, installed and hosted suites were not rerun. The unrelated October3 audit remains excluded.
 
 **Cycle frontier:** B's transport/mechanical and retention repair are delivered; runtime qualification remains WITHHELD and the cycle is not closed or advanced to D/E as successful model qualification. All six candidates remain available, only two core deployments were measured, and the later two-case/two-treatment/two-deployment eight assignments remain unstarted. Re-entry requires an explicit current-code/profile/protocol/count/order/budget freeze that preserves all19 attempts and interruption/behavior dispositions; no failure-selective replay or free sweep. Decide that bounded re-entry before later semantic comparison. The prior adapter cycle remains CLOSED through E; planner fixture and independent usefulness responsibilities remain separately deferred/unestablished.
+
+## Explicit continuation and six-candidate qualification re-entry
+
+Ali challenged the ambiguous handoff, established that only two candidates had run, and
+explicitly authorized continued work through recoverable failures. Fetch finds main equal
+to origin/main at507c77dc; no new parallel changes. Continue this same cycle at B/Verification,
+not a new cycle or repeated A gate. The preceding explanations plus explicit continuation
+provide the scope/understanding opportunity; learner ownership is not inferred.
+
+UP-SKILL:upgradepilot-planning-design composes with the already active Build/LbD/memory
+procedures for the material cohort/budget revision. The plan now admits six qualification
+deployments/24 sequences/144 maximum new calls,19 earlier attempts retained/163 aggregate
+ceiling. Later semantic design stays two deployments/eight case assignments, unactivated.
+All six receive the same clarified task and2048 synthetic-only output ceiling (earlier
+complete Qwen1411 tokens); original case reserve stays8192. Context32768 is retained for
+the original declared envelope, not called optimal. Small candidates request full weight
+offload with CPU q8_0 KV; actual fit/headroom must be inspected.
+
+Material adaptation: behavioral early-withhold prevented observing independent remaining
+sequences -> normal route stopped a deployment after its first failure -> Ali requests
+actual candidate views and sustained diagnosis -> execute every independent frozen
+sequence, preserving each failure and requiring all four to qualify -> more explicitly
+budgeted diagnostic evidence, unchanged comparison gates -> reconcile plan,freeze,results
+and MEMORY before claims. A load/identity error still withholds its deployment. No hidden
+retry, forced tool choice, output repair or case scoring.
+
+Source inspection found that the old five-call sequence had no room for its advertised
+correction, and the assessor counted a refused request against the required exact action
+sequence. Neither explains Gemma's no-correction skipped empty read. Clarify the distinction
+between zero search and empty read symmetrically; permit one extra response and assess
+required actual operations while retaining/charging refusals. Controlled proof must verify
+that correction cannot substitute for a missing operation. Durable new artifacts live at
+/home/motafeq/.local/share/upgradepilot/investigator-runs/deployment-interface-2026-10-17-r5;
+no consequential output is assigned to temporary storage.
+
+Re-entry source verification:29 focused controls pass, including six-arm budget/order
+rejection, retained correction/completion and independent candidate continuation after
+load refusal.65 nearest product tests pass(21.834s); Ruff/format and whitespace pass.
+A test initially referred to a nonexistent result.responses field; corrected to the
+actual invocation charge before passing. Full hashes for all four small GGUFs are
+retained in r5/small-assets.json. Both small Gemma files explicitly disable automatic
+BOS; MiMo/Qwen3.5 omit the flag/BOS id, so their no-added-BOS policy remains subject to
+actual first-call prompt-count correspondence rather than inherited Qwen identity.
+No new inference at this verification horizon.

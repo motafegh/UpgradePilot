@@ -122,6 +122,55 @@ or a claimed cause of the earlier output failure. The exact revision, profiles, 
 budgets belong in the dated immutable batch freeze. The two-deployment/eight-case semantic
 comparison remains separately gated and is not activated by this revision.
 
+### Six-candidate qualification re-entry — October 17, 2026
+
+Ali's explicit instruction to continue after the incomplete two-core work admits a
+separate **six-deployment qualification cohort**, not six semantic comparison arms.
+Qualify Gemma 4 E2B, Gemma 4 E4B, MiMo-V2.6-Distill-Qwen-9B, Qwen3.5-9B,
+Gemma 4 12B and Qwen3.8-27B UD-Q4_K_M, serially in that order. Alternate which treatment
+starts per deployment; each has short Raw/Structured and long Raw/Structured sequences.
+Freeze the exact 24 ordered sequence identities before inference. The later semantic
+comparison remains **two deployments / eight case assignments**, unactivated; selecting
+smaller replacements there requires its own explicit pre-comparison decision/revision.
+
+The revision permits at most six calls per sequence (five required steps plus at most
+one extra response), **144 new calls**, with all **19 earlier attempts** retained:
+**163 aggregate qualification calls maximum**. This explicitly supersedes the old
+48-call qualification ceiling rather than treating unused calls or added arms as free.
+Reserve the full earlier 8192-token allowance for the interrupted call whose actual usage
+is unavailable; never substitute that conservative budget reservation for measured usage.
+The later case budget is unchanged. No hidden retry, automatic sweep or salvage is admitted.
+
+Use the same clarified ordered task for every candidate/treatment. Explicitly distinguish
+zero-match search from the separately required empty-file read and ask for a concise
+report of at most 350 words. Permit 2048 generated tokens per call for these synthetic
+interface tasks: the earlier complete Qwen report used 1411, leaving over 600 tokens of
+headroom; truncation remains a failed check, never an accepted shorter report. This
+qualification-only limit does not change the 8192-token case-study reserve. Keep context
+32768 for the declared original input/output envelope; do not claim an optimal context
+without comparative speed/completeness measurements. Use actual GGUF/BOS metadata and live
+render/token measurements. Keep CPU q8_0 KV and batch256 as the controlled baseline; use
+full weight offload for the four smaller candidates only if actual load/resource evidence
+supports headroom, retaining partial offload for the two larger deployments. Retain actual
+native MTP and requested/applied reasoning configuration; unsupported settings withhold.
+
+The earlier valid Gemma report omitted a required operation. Task clarification is an
+interface-scaffolding revision, not evidence that its cause is known or that autonomous
+investigation improved. Assess actual operations, outcomes and cited evidence; never force
+the correct tool via the runtime grammar. Keep all refused originals and their charges,
+while allowing a corrected request to satisfy the still-required operation. Strict JSON,
+usage/configuration correspondence and current-request-only evidence admission remain.
+
+For this diagnostic cohort, a behavioral failure withholds that sequence/deployment's
+later comparison but does not suppress the other independent frozen sequences. This
+replaces deployment-wide early withholding to provide the requested six-candidate views.
+A load/identity failure withholds that deployment and is recorded without a fallback;
+other independent candidates may proceed. An interrupted/unknown-usage call is charged
+its reserved upper bound and never retried within the revision. Qualification requires
+all four sequences; partial completion is reported as partial. Inspect actual outputs
+and costs from every attempted assignment, including failures. Any further adjustment
+must be diagnosed, recorded and frozen as a distinct revision before affected calls.
+
 ## 5. Ordered execution and proof gates
 
 Use coherent Learning-by-Doing cycles; the first integration cycle may complete with no inference. Do not split obvious implementation details into separate ceremonial cycles. Each gate produces reviewable evidence and an explicit proceed/refuse/inconclusive result.

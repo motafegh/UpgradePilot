@@ -99,3 +99,21 @@ usage stays unknown and blocks further calls in the assignment. This changed ret
 requires a new source-bound freeze before inference; its new failure path has controlled
 test proof, not a silently inherited live qualification. Historical r4 prefix loss remains
 explicit rather than relabeled as retained.
+
+## Six-candidate diagnostic revision
+
+The October17 re-entry uses the same actual transport/authority checks for all six
+candidates,24 independent sequences and at most six responses each. The sixth response
+provides correction headroom; refusals remain charged and retained, and cannot replace
+a required successful operation. The shared task explicitly distinguishes zero search
+from a separate empty-file read. It is scaffolded interface qualification, not autonomous
+planning evidence. No grammar constrains the model to the expected next action.
+
+Preparation accepts `--output-tokens` (default8192); r5 freezes2048 for concise synthetic
+reports, unchanged32768 context and the original8192 case reserve. Exact prediction and
+ModelLimits generation ceilings must agree. The batch freeze can explicitly set
+`continue_independent_sequences_after_failure` so remaining independent sequences run
+after a behavioral failure; all four must still qualify before that deployment's later
+comparison. Load/profile failures are saved per deployment and do not substitute another
+model. Freeze new cohort/order and144 new/19 prior/163 aggregate call ceilings before
+inference. The later semantic design remains two deployments/eight case assignments.

@@ -178,7 +178,11 @@ def assess_canary(assignment, sequence, result):
             "finish_investigation",
         ]
     )
-    observations = [json.loads(e.content) for e in assignment.events]
+    # A refused request remains charged/retained but cannot replace a required read.
+    # The frozen sixth call permits one correction without erasing its original.
+    observations = [
+        json.loads(e.content) for e in assignment.events if e.outcome != "refused"
+    ]
     if (
         result.outcome != "completed"
         or [e.get("tool") for e in observations] != expected
@@ -259,7 +263,7 @@ def canary_assignment(treatment):
 
 
 def canary_protocol(assignment, sequence, padding_count):
-    protocol = protocol_definition(assignment, TrialLimits(consumer_turns=5))
+    protocol = protocol_definition(assignment, TrialLimits(consumer_turns=6))
     if sequence == 1:
         actions = (
             'read_source with source_id="canary", path="probe.txt"; search_sources in canary for exactly '
@@ -279,11 +283,18 @@ def canary_protocol(assignment, sequence, padding_count):
         )
         actions = f"{first}; read_source with source_id=canary, path=missing.txt; {third}; finish_investigation; final report"
     protocol["task"]["goal"] = (
-        "INDEPENDENT SYNTHETIC INTERFACE CANARY. In five responses perform "
+        "INDEPENDENT SYNTHETIC INTERFACE CANARY. Perform five required steps, "
+        "with at most six responses including any correction. Perform "
         f'these steps in order, one per response: {actions}. Use source_id="canary" and path '
         "without the source prefix. Follow the actual tool schemas. In the final report cite "
         "at least one currently visible delivered typed reference, retain uncertainty about "
         "runtime/compatibility, and distinguish scoped zero, empty and missing-file outcomes. "
+        "A zero-match search does NOT replace the separate empty-file read. An empty or "
+        "missing-file result counts as an attempted step; continue to the next listed step. "
+        "Do not finish before all three requested evidence operations have been attempted "
+        "in order. Read the included events to determine the next step; do not repeat a "
+        "completed operation. Keep the final report concise, at most 350 words, with every "
+        "required schema field and no invented compatibility conclusion. "
         "This tests interface completion, not real dependency reasoning."
     )
     protocol["task"]["capacity_calibration"] = PADDING * padding_count
@@ -322,7 +333,9 @@ def representative_inputs(binding, configuration, treatment, sequence, padding_c
     return protocol, shapes
 
 
-def prepare_profile(sdk, model_key, identifier, requested, output, tokenizer_policy):
+def prepare_profile(
+    sdk, model_key, identifier, requested, output, tokenizer_policy, output_tokens=8192
+):
     output.mkdir(mode=0o700, parents=True, exist_ok=False)
     for path in CODE_FILES:
         private_write(output / path.name, path.read_bytes())
@@ -342,7 +355,9 @@ def prepare_profile(sdk, model_key, identifier, requested, output, tokenizer_pol
             binding = SDKBinding(model, sdk, tokenizer_policy)
             identity = binding.identity()
             backend = observe_owned_backend(output)
-            configuration = prediction_configuration(identity["load"])
+            configuration = prediction_configuration(
+                identity["load"], output_tokens=output_tokens
+            )
             profile = {
                 "format": "investigator-interface-profile/1",
                 "model_key": model_key,
@@ -351,6 +366,7 @@ def prepare_profile(sdk, model_key, identifier, requested, output, tokenizer_pol
                 "initial_identity": identity,
                 "prediction_configuration": configuration,
                 "context": model.get_context_length(),
+                "output_tokens": output_tokens,
                 "measurements": [],
                 "padding_count": 0,
                 "code_sha256": code_hashes(),
@@ -374,7 +390,10 @@ def prepare_profile(sdk, model_key, identifier, requested, output, tokenizer_pol
                         json_bytes(protocol),
                     )
                     for label, measurement in shapes:
-                        if measurement.tokens + 8192 + 256 > profile["context"]:
+                        if (
+                            measurement.tokens + output_tokens + 256
+                            > profile["context"]
+                        ):
                             raise ValueError(
                                 "representative complete input/reserve cannot fit"
                             )
@@ -433,6 +452,9 @@ def execute_frozen(sdk, freeze_path, expected_hash, output):
             raise ValueError("hashed local asset/runtime changed before inference")
     output.mkdir(mode=0o700, parents=True, exist_ok=False)
     summaries = []
+    output_tokens = freeze.get("per_sequence", {}).get(
+        "per_call_generation_reserve", 8192
+    )
     with sdk.Client("127.0.0.1:18080") as client:
         if client.llm.list_loaded():
             raise ValueError("pre-existing loaded models; no implicit unload")
@@ -444,6 +466,8 @@ def execute_frozen(sdk, freeze_path, expected_hash, output):
             profile = json.loads(data)
             if profile["model_key"] != deployment["model_key"]:
                 raise ValueError("profile belongs to another selected deployment")
+            if profile.get("output_tokens", 8192) != output_tokens:
+                raise ValueError("profile generation reserve differs from freeze")
             model = None
             try:
                 download = next(
@@ -489,7 +513,9 @@ def execute_frozen(sdk, freeze_path, expected_hash, output):
                         ModelLimits(
                             context=profile["context"],
                             calls=freeze["calls_per_sequence"],
-                            generated_total=freeze["calls_per_sequence"] * 8192,
+                            generated_per_call=output_tokens,
+                            generated_total=freeze["calls_per_sequence"]
+                            * output_tokens,
                         ),
                         output / assignment_spec["id"],
                     )
@@ -544,8 +570,25 @@ def execute_frozen(sdk, freeze_path, expected_hash, output):
                         output / f"{assignment_spec['id']}.summary.json",
                         json_bytes(summaries[-1]),
                     )
-                    if disposition != "qualified":
+                    if disposition != "qualified" and not freeze.get(
+                        "continue_independent_sequences_after_failure", False
+                    ):
                         break
+            except Exception as error:  # noqa: BLE001 - preserve each independent deployment failure
+                # A broken load/profile prevents this deployment's calls, not the
+                # independent candidates. Preserve it without an implicit fallback.
+                private_write(
+                    output
+                    / f"deployment-{freeze['deployments'].index(deployment)}-failure.json",
+                    json_bytes(
+                        {
+                            "model_key": deployment["model_key"],
+                            "error": f"{type(error).__name__}: {error}",
+                            "disposition": "withheld",
+                            "semantic_comparison_runs": 0,
+                        }
+                    ),
+                )
             finally:
                 if model is not None:
                     model.unload()
@@ -575,6 +618,7 @@ def main():
     parser.add_argument("--identifier")
     parser.add_argument("--load-config", type=Path)
     parser.add_argument("--tokenizer-policy", type=Path)
+    parser.add_argument("--output-tokens", type=int, default=8192)
     parser.add_argument("--execute-freeze", type=Path)
     parser.add_argument("--expected-freeze-sha256")
     args = parser.parse_args()
@@ -616,6 +660,7 @@ def main():
             json.loads(args.load_config.read_bytes()),
             args.output,
             json.loads(args.tokenizer_policy.read_bytes()),
+            args.output_tokens,
         )
         print(
             json.dumps(
