@@ -1,0 +1,64 @@
+{
+  "at": "2026-10-17T23:16:47.217639+00:00",
+  "gate_P": "verified_complete_before_new_prediction",
+  "source_commit": "ef3b21ece8b9438b03023090f0949e6560175a70",
+  "private_root": "/home/motafeq/.local/share/upgradepilot/investigator-runs/semantic-comparison-2026-10-18-budget-v1",
+  "private_semantic_freeze_sha256": "2219590bd7a0530667785e7d4e7db79957d79a7fb6943fd58161e1c2e275d7f0",
+  "private_interface_freeze_sha256": "e92d7fc7cb90ca25805174d1f21c470996bcb4bc3be2c74361895601b972e5fc",
+  "review_obligations": 12,
+  "review_obligations_sha256": "ab7d496b88e3bb9e007777a474f0e08040be4a08ad3faa01a41c2e8a63848215",
+  "research_dimensions_sha256": "6836f2cce267bb41c3febe533414c309643447e16d03293312def516786a6efe",
+  "bound_files": 37,
+  "current_input_identity_checks": "pass",
+  "focused_experiment_tests": 40,
+  "nearest_workspace_tests": 65,
+  "synthetic_preflight": [
+    {
+      "model_key": "google/gemma-4-12b",
+      "shapes": 12,
+      "max_input_tokens": 22920,
+      "generation_reserve": 8192,
+      "margin": 256,
+      "context": 32768
+    },
+    {
+      "model_key": "qwen3.8-27b-ud",
+      "shapes": 12,
+      "max_input_tokens": 22658,
+      "generation_reserve": 8192,
+      "margin": 256,
+      "context": 32768
+    },
+    {
+      "model_key": "gemma-4-e4b-it-ud",
+      "shapes": 12,
+      "max_input_tokens": 22937,
+      "generation_reserve": 8192,
+      "margin": 256,
+      "context": 32768
+    }
+  ],
+  "real_case_shapes": [
+    {
+      "model_key": "google/gemma-4-12b",
+      "assignments": 4,
+      "measured_shapes": 23,
+      "max_input_tokens": 7871
+    },
+    {
+      "model_key": "qwen3.8-27b-ud",
+      "assignments": 4,
+      "measured_shapes": 23,
+      "max_input_tokens": 7456
+    },
+    {
+      "model_key": "gemma-4-e4b-it-ud",
+      "assignments": 4,
+      "measured_shapes": 23,
+      "max_input_tokens": 7878
+    }
+  ],
+  "predictions_at_publication": 0,
+  "remaining_proof": "Actual revised interface qualification for all three; conditional semantic execution then offline source-to-claim review.",
+  "retention_limit": "Durable owner-only local retention; no off-machine backup/runtime binary archive or semantic acceptance."
+}
