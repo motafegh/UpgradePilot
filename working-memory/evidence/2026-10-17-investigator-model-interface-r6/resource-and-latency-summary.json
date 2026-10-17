@@ -1,0 +1,46 @@
+{
+  "window_start": "2026-10-17T13:13:09.268973+00:00",
+  "window_end": "2026-10-17T15:03:33.217530+00:00",
+  "samples": 5801,
+  "machine_gpu_sampled_peak_mib": 5798,
+  "host_sampled_min_free_kib": 30156564,
+  "model_call_client_seconds": {
+    "ge2": {
+      "calls": 8,
+      "sum_seconds": 42.37561822000134,
+      "median_call_seconds": 4.480056578000131,
+      "max_call_seconds": 15.665392857999905
+    },
+    "ge4": {
+      "calls": 16,
+      "sum_seconds": 407.07129563799754,
+      "median_call_seconds": 6.253496883499338,
+      "max_call_seconds": 111.39572134899936
+    },
+    "m9": {
+      "calls": 23,
+      "sum_seconds": 921.7248108530039,
+      "median_call_seconds": 4.3367212129996915,
+      "max_call_seconds": 154.25282731900006
+    },
+    "q9": {
+      "calls": 20,
+      "sum_seconds": 382.3768343060001,
+      "median_call_seconds": 4.883215193500291,
+      "max_call_seconds": 96.89791386499928
+    },
+    "g12": {
+      "calls": 21,
+      "sum_seconds": 1203.6597306229978,
+      "median_call_seconds": 13.069276145999538,
+      "max_call_seconds": 213.5839626249999
+    },
+    "q27": {
+      "calls": 20,
+      "sum_seconds": 3050.083369113998,
+      "median_call_seconds": 24.682034287499846,
+      "max_call_seconds": 845.3388917799984
+    }
+  },
+  "limits": "Machine sampled peaks within actual call window, not continuous maxima or process-isolated allocation. Native vs client clocks are distinct. No causal throughput ranking."
+}

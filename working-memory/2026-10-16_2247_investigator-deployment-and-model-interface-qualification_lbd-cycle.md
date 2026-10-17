@@ -465,3 +465,25 @@ flags freeze requested/applied checks; actual backend file/release metadata hash
 R7 freezes3 deployments/12 ordered sequences/72 new max,219 actual prior,291 revision
 maximum within327 aggregate ceiling. Exact freeze and inspection are publicly retained
 in the r7 evidence folder before inference. No old outcome pooling or automatic sweep.
+
+Final pre-call focused35 controls pass(.336s), including explicit KV-drift assertions;
+Ruff and whitespace pass. R7 freeze SHA256
+68a4e819520d6f2c8fe7e45dcbfa0a0d3df0fcfca5ba533526962ef0f764b71a
+was recorded/committed before launching the bounded SDK cohort. Native launch uses
+the exact existing durable r1 --sdk-site; no dependency install/replacement transport.
+Read-only app file-version recheck resolves D:\LM Studio\LM Studio.exe0.4.26+4 and
+GPU RTX3070 Laptop8192MiB/driver617.42 unchanged; backend selection alone changed.
+
+Push rejected because a parallel author added9e19c254's deferred stateful/SSE note.
+Fetched/reviewed its sole100-line documentation change, explicitly no current-cycle
+effect; merged without executable changes and revalidated r7 frozen source hashes.
+No migration, changed budget, hidden history or altered reference authority follows.
+
+R6 public actual-results plus ANALYSIS record all candidate operations/failures and
+visible report inspection. Resource summary uses5801 samples within actual call window
+13:13:09–15:03:33 UTC: whole-machine sampled GPU peak5798MiB, minimum host free
+30156564KiB. These are sampled machine observations, not exclusive process or continuous
+maxima. Qwen27 client call time totals3050.08s, longest845.34s; clocks/conditions vary,
+so no causal model speed ranking. Complete r5/r6 directories now have owner-only files/
+directories and per-file size/SHA256 retention indexes; r7 holds a separate index summary.
+Local retention does not assert off-machine backup or repair old r4 lost prefix.

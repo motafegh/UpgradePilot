@@ -40,3 +40,7 @@ retained-case mechanical scripts pass, with17 input/96 product hashes unchanged 
 zero model/network/native-producer/target attempts in those scripts. AST import direction
 and touched Ruff/format pass. All native preparation is zero-generation. Live inference
 results must be recorded independently; neither preparation nor tests qualify a model.
+
+The cohort subsequently completed normally. See [actual result analysis](ANALYSIS.md)
+and [all retained synthetic receipt summaries](actual-results.json) for the completed
+horizon; the preparation statements above retain their original pre-call horizon.
