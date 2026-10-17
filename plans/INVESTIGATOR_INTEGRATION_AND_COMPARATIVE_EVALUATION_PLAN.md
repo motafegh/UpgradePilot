@@ -283,6 +283,33 @@ usage/flags only; absent separate reasoning-token counts remain unknown. Preserv
 strict sequence/citation/report guards. Report native-mode outcomes separately from r6;
 different samplers/modes are not a causal single-variable or intrinsic model ranking.
 
+### 4.10 Bind the remaining candidates to the newly selected runtime
+
+The observed2.59.0→2.60.0 change prevents inheriting the r6 core-profile passes as
+current-runtime qualification. After r7 completes unchanged, admit one separately
+frozen2.60.0 operating point for Qwen9B, Gemma12B and Qwen27B, in that order:
+**three configuration deployments /12 sequences /72 calls maximum**. Each uses short
+Raw, short Structured, long Raw, long Structured. The overall asset cohort remains
+the same six candidates; this is not an expansion of the later two-deployment/eight-case
+comparison. Revise the aggregate ceiling explicitly to **363 calls** (219 actual
+before r7 +72 r7 maximum +72 r8 maximum); freeze actual completed prior spend before
+new inference, not this conservative maximum as measured usage.
+
+Keep complete stateless history, source/reference/menu/report/strict-sequence guards,
+32768 context,CPU q8_0 KV and existing measured weight placement. Use thinking off,
+2048 per-call/12288 per-sequence generation,temperature0.2 and explicitly top-k40 /
+top-p0.95 with extra min-p/repetition filters disabled. This is a declared controlled
+interface operating point, not an optimum or a claim about unresolved r6 defaults.
+The explicit samplers plus backend change preclude attributing differences to runtime
+alone. No changes to case prompts, protected material, output repair or forced tools.
+
+Prepare/inspect all36 actual rendered shapes and exact current executable, template,
+tokenizer, asset, load, unified-KV and prediction settings; freeze identities/order/code/
+configuration/budgets before affected calls. Verify requested/applied correspondence
+and actual measured prompt usage in every prediction. Preserve r6/r7 originals,
+including every withheld outcome, and report all new dispositions separately. No
+further automatic sweep or semantic case inference follows this bounded completion.
+
 ## 5. Ordered execution and proof gates
 
 Use coherent Learning-by-Doing cycles; the first integration cycle may complete with no inference. Do not split obvious implementation details into separate ceremonial cycles. Each gate produces reviewable evidence and an explicit proceed/refuse/inconclusive result.

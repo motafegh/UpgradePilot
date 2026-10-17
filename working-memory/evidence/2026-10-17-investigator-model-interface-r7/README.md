@@ -30,3 +30,24 @@ remains two deployments/eight assignments and unactivated.
 Private durable owner-only artifacts, staged code, failed/passing logs and metadata:
 `/home/motafeq/.local/share/upgradepilot/investigator-runs/deployment-interface-2026-10-17-r7`.
 Local retention does not claim off-machine backup.
+
+Subsequent execution-entry horizon: canonical native-mode support is applied and final35
+focused controls/65 nearest product tests pass. [The actual freeze](canary-freeze-r7.json),
+SHA256 `68a4e819520d6f2c8fe7e45dcbfa0a0d3df0fcfca5ba533526962ef0f764b71a`,
+binds three actual profiles and [36 inspected renderings](preflight-inspection.json)
+before any revised inference. Actual prior spend219 +72 =291 maximum within327 ceiling.
+
+The observed selected backend changed to CUDA llama.cpp2.60.0/b11698/2a667032d while
+LM Studio app0.4.26+4/GPU driver617.42 remain rechecked unchanged. Requested context
+32768 is confirmed by native startup n_ctx_slot32768 and unified KV; new actual flags
+are explicitly recorded/checked, including ubatch512/parallel4, MiMo flash on and
+Gemmas auto. Unused first preparations and all pre-inference inspection/helper failures
+remain privately retained. Source/plan/environment/cycle owners record the discovery;
+no causal single-variable improvement claim is possible across the changed conditions.
+
+Final rendered maxima22491/22477/22245 plus8192 generation allowance and256 margin
+fit32768. This is measured input capacity; actual generated completeness/speed must
+come from the running cohort. MiMo's thinking-on template intentionally ends at the
+bare assistant header; its off variant adds an empty thought block. No Qwen-format
+open-tag assumption or template patch was used. All current model candidates remain
+available and the real-case semantic comparison remains unstarted.

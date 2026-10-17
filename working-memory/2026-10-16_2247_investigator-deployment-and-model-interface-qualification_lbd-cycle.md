@@ -487,3 +487,34 @@ maxima. Qwen27 client call time totals3050.08s, longest845.34s; clocks/condition
 so no causal model speed ranking. Complete r5/r6 directories now have owner-only files/
 directories and per-file size/SHA256 retention indexes; r7 holds a separate index summary.
 Local retention does not assert off-machine backup or repair old r4 lost prefix.
+
+Execution-entry record checks:8 documents/99 local links/9 JSON files/fences pass,
+96 product modules have no forbidden experiment/test/tool import, touched three-file
+Ruff/format pass. R7 frozen source unchanged through remote merge; no full/installed/
+hosted suite rerun for this experiment-only change. Native-mode live receipts already
+confirm requested/applied on-mode, explicit samplers and prompt usage with hidden
+fragments discarded before accumulation/storage. This fixes the mode support boundary,
+not the model's planning/citation behavior; E2B's first two sequences remain withheld
+for foreign references/early completion. Continue all remaining independent frozen
+sequences, not an unbudgeted retry of those failures.
+
+Current-runtime completion decision (plan §4.10): all four native E2B sequences
+finish; both long pass and both short withheld. Do not infer a beneficial context
+effect: short/long canary operation sequences differ, settings/runtime also differ
+from r6, and there is one stochastic sequence per condition. E4B is running.
+
+Material evidence/runtime adaptation: r6 core passes bind2.59.0, new native loads
+select2.60.0 -> normal r7-only completion would hand off old core qualification
+without current-runtime proof -> leaving that as a later surprise would undercut
+this cycle's deployment/interface goal -> finish r7, then one bounded current2.60.0
+point each for remaining Qwen9/Gemma12/Qwen27 (three configurations/12 sequences/72
+new maximum), explicitly revised363 aggregate ceiling with actual prior spend frozen
+after r7 -> unchanged six assets/later two-deployment/eight-case nonactivation, no
+semantic acceptance, extra cost/transparency preserved -> update plan/live owner,
+prepare/inspect/freeze before any r8 inference. This is current-runtime binding, not
+a parameter sweep or escalation until all models pass. Existing off/T0.2/2048 point
+is retained with explicit K40/P0.95/min-p-off/repetition-off instead of pretending
+r6's unexposed sampler defaults were known. Multiple changes preclude causal runtime
+comparison. Native r7 cohort/code stays frozen; remaining profiles can be prepared
+only after it normally unloads. All six available assets will have a measured current
+runtime operating point, with legitimate withheld results preserved.
