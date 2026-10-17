@@ -167,6 +167,18 @@ dependency declarations remain unchanged. The deployment cycle/evidence index ow
 copy correspondence and local retention limits. Preserve a durable SDK/installation receipt
 before relying on an ignored scratch installation for future reproduction.
 
+### Observed small-Gemma tokenizer/runtime discrepancy
+
+October17 interface qualification on the installed CUDA llama.cpp2.59.0 backend found
+Gemma4 E2B/E4B files explicitly setting `tokenizer.ggml.add_bos_token=false`, while
+actual prompt usage was SDK-rendered token count+1 in all four independent shapes per
+model. Metadata alone therefore does not qualify backend input accounting. Keep exact
+file metadata and observed counts separate; verify actual special-token identity/rendering
+and require exact live prompt correspondence before tool admission. An automatic BOS
+prelude is the repair hypothesis, not a proven backend root cause; native prompt token
+IDs were not exposed. The [deployment cycle](working-memory/2026-10-16_2247_investigator-deployment-and-model-interface-qualification_lbd-cycle.md)
+owns dated attempts, repair and proof. Recheck after model/backend/template changes.
+
 ## 6. Adopted local semantic deployment
 
 ADR-0006 owns the decision to use the bounded local support-drop semantic extractor. Reusable deployment facts:

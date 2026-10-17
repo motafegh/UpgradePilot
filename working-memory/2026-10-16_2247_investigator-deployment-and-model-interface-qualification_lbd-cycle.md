@@ -181,3 +181,34 @@ case comparison still2/8 unstarted. Freeze binds actual profiles,code,asset/runt
 identities and complete stateless/history/reasoning settings before generation. A first
 inspection command lacked PYTHONPATH and failed before any freeze write/inference;
 corrected to the established src:tests:. invocation. No model failure inferred.
+
+Live r5 checkpoint: both small Gemmas spent four calls each, one per independent
+sequence; every actual prompt count equals rendered+1, despite own metadata explicitly
+add_bos=false. Guard refuses before dispatch; original E2B outputs finish immediately,
+E4B proposes the requested first source/native tool. No original is repaired or accepted.
+The supported repair hypothesis is an actual runtime BOS prelude inconsistent with the
+file flag; verify <bos>/id2 through the actual tokenizer, represent the prelude explicitly,
+and require exact actual-count confirmation under a separate freeze. Native actual token
+IDs are not exposed, so retain that interpretation limit rather than call it a proven
+backend root cause.
+
+MiMo short Raw and Structured both match usage/config/JSON but repeat the first source
+read six times and exhaust turn allocation. Long Structured repeats its native first
+operation. Not a generation-budget/memory diagnosis; retain actual outputs/receipts.
+Long first-token times around20–21s for16-token replies contrast with short ~2–5s; native
+and client clocks remain distinct. Actual machine sampled GPU peak6364MiB with no observed
+exhaustion. Continue all frozen candidates/sequences and analyze retained originals.
+
+Further inspection: MiMo all four sequences match transport/config/counts but exhaust
+six responses repeating the first requested operation; no final report. Qwen3.5-9B
+Structured short performs positive-read twice, zero search, empty read and finish,
+then generates a report. Its valid redundant read consumes the sixth allowance. The
+frozen assessor requires exact operation order, so distinguish actual gate coverage/
+redundancy from strict disposition. Do not silently weaken/relabel the frozen gate.
+
+Source-level performance observation for future measurement: pack_input constructs
+static task/tool fields before history, but canonical json_bytes sorts keys, moving
+changing events before the large fixed task/calibration text. Complete stateless
+requests therefore need not preserve a long identical prefix. This is a cache-efficiency
+hypothesis, not a proven explanation for timing or repetition; no packing/source change
+or persistent session is introduced in the frozen batch.
