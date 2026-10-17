@@ -153,6 +153,14 @@ Use this sequence unless a live B result later makes another dependency more urg
 
 Avoid answering all twenty at once. Work in small groups, correct misconceptions immediately, and record only stable learner-owned conclusions.
 
+## Learner-owned conclusions
+
+### Q1 — request to validated output
+
+Ali's explanation, reviewed October 17: UpgradePilot first renders its request through the selected model's chat template, then tokenizes that rendered representation into token IDs. LM Studio orchestrates the loaded local deployment and llama.cpp performs the underlying inference. Model layers may be placed partly in GPU VRAM while remaining layers are CPU-executed from system RAM. The model generates subsequent tokens, the LM Studio SDK carries the streamed result/configuration/usage back to Python, and UpgradePilot's adapter/validators decide whether the generated output is admissible. Refinement retained: LM Studio and llama.cpp are different layers, and GPU weight offload should not be described as a separate "offload to RAM" operation.
+
+**Q1 status:** OWNED at the current learning depth.
+
 ## Formal-D reuse criteria
 
 When canonical B/Verification is complete:
@@ -174,7 +182,8 @@ When canonical B/Verification is complete:
 - [ ] L3 qualification mechanics owned
 - [ ] L4 failure diagnosis/repair discipline owned
 - [ ] L5 per-model/current-state synthesis owned
-- [ ] Q1-Q5 answered/reviewed
+- [x] Q1 answered/reviewed
+- [ ] Q2-Q5 answered/reviewed
 - [ ] Q6-Q9 answered/reviewed
 - [ ] Q10-Q13 answered/reviewed
 - [ ] Q14-Q16 answered/reviewed
