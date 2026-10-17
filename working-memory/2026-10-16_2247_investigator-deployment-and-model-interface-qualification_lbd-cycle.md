@@ -587,3 +587,12 @@ long contradicts its own visible missing-file problem by claiming no outcome evi
 The interface assessor correctly remains separate from semantic evaluation:4/4 passes
 are retained alongside those defects. Public-safe actual checkpoint/analysis published
 while Gemma12 proceeds; no changes to frozen code, parameters, count or ordering.
+
+R8 Gemma12 completes4/4 sequences in20 calls,237069 input/3858 target,zero new
+unknown. All four reports inspected: both short outputs stay scoped, Raw long marks
+an observed read failure inferred/uncited, Structured long omits the delivered native
+record's explicit not_evaluated/payload=null value; both long reports overstate the
+marker as interface/system readiness. Actual native observation checked against the
+report, not inferred from valid citation IDs. Preserve4/4 interface result with those
+semantic limits. Publish this eight-sequence/40-call checkpoint while Qwen27 runs;
+active Qwen27 calls are excluded from its totals. Frozen settings/order/code unchanged.

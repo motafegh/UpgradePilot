@@ -1,7 +1,7 @@
 # Current-runtime completion — progressive actual findings
 
-This checkpoint covers the completed Qwen9 configuration only. Gemma12/Qwen27
-results are pending at this horizon; [MEMORY](../../../MEMORY.md) owns continuation.
+The first checkpoint covered Qwen9; the appended checkpoint now includes Gemma12.
+Qwen27 results remain pending at this horizon; [MEMORY](../../../MEMORY.md) owns continuation.
 All runs use synthetic interface inputs, not the later paired real-case comparison.
 
 [Qwen9 actual checkpoint](qwen9-completed-checkpoint.json): four independent sequences,
@@ -23,3 +23,22 @@ Preserve the original interface passes and these separate semantic defects. No o
 is repaired/regraded and no canary result is promoted into product acceptance.
 The exact requests/renderings/native metadata/visible streams/reports remain in the
 durable owner-only r8 root named in the [pre-run snapshot](README.md).
+
+## Gemma12 completed checkpoint
+
+[Eight completed sequences](qwen9-gemma12-completed-checkpoint.json) retain both
+finished configurations. Gemma12 uses20 calls/237,069 input/3,858 target-generated
+tokens,zero newly unknown usage; all4/4 qualify with five calls each. The combined
+checkpoint is40 calls/471,790 input/7,197 target; it excludes active Qwen27 calls.
+
+All four Gemma12 visible reports were read. Both short reports correctly cite marker,
+zero-search and empty-file observations, assert only synthetic task completion and
+explicitly disclaim actual compatibility proof. Raw long keeps that compatibility
+limit, but labels an observed read failure as inferred without a citation and calls
+the interface confirmed-ready from the marker alone. Structured long cites correct
+native/source references but omits the native record's explicit not_evaluated value,
+saying its specific content is not provided in the summary. Its actual delivered
+record includes outcome=not_evaluated/payload=null. The report also overstates the
+synthetic marker as confirmation that the system is interface-ready. Record existence,
+an observed marker and actual system readiness remain different claims. These defects
+do not change the frozen interface dispositions or establish semantic acceptance.
