@@ -579,3 +579,11 @@ cross-cohort checkers/results are retained in r8. Public record checks pass10 do
 113 local targets/13 JSON files and96 product import-direction scans, with frozen
 execution source unchanged. R8 first independent Raw-short Qwen9 sequence qualifies
 with five calls; remaining sequences are still pending, not inferred from that result.
+
+R8 Qwen9 completes all four sequences in20 calls:234721 input/3339 target,zero new
+unknown usage. All four visible reports reviewed. Raw long recommends proceeding
+from the synthetic interface marker despite lacking compatibility evidence; Structured
+long contradicts its own visible missing-file problem by claiming no outcome evidence.
+The interface assessor correctly remains separate from semantic evaluation:4/4 passes
+are retained alongside those defects. Public-safe actual checkpoint/analysis published
+while Gemma12 proceeds; no changes to frozen code, parameters, count or ordering.
