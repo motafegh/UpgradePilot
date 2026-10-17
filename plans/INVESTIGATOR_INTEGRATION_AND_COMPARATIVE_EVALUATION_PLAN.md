@@ -271,6 +271,11 @@ invalid citations will be solved by more tokens. Reinspect every fully rendered 
 with actual native-mode configuration before freezing/executing. Requested/applied
 identity/configuration and actual prompt-count checks remain mandatory.
 
+Actual follow-up preparation selected backend2.60.0/b11698/2a667032d, replacing r6's2.59.0, with changed ubatch/context allocation and MiMo flash flag on. Freeze this
+observed runtime and unified-KV flags before inference; native startup scalars must
+confirm32768 per-slot capacity. Preserve unused preparations and runtime-change
+evidence. This additional confound precludes attribution to reasoning/sampling alone.
+
 The transport must permit reasoning-labelled fragments only when thinking was explicitly
 requested and verified applied; it must continue discarding them before SDK accumulation
 and artifact storage. Off-mode violations still fail. Retain visible responses and scalar

@@ -81,7 +81,7 @@ $safe = @($items | ForEach-Object {
     $match = [regex]::Match($line, '--' + $flag + '\s+(.+?)(?=\s+--|$)');
     if ($match.Success) { $flags[$flag] = $match.Groups[1].Value }
   }
-  [pscustomobject]@{executable=$_.ExecutablePath; flags=$flags; cpu_kv=$line.Contains('--no-kv-offload')}
+  [pscustomobject]@{executable=$_.ExecutablePath; flags=$flags; cpu_kv=$line.Contains('--no-kv-offload'); kv_unified_flag=[regex]::IsMatch($line, '(^|\s)--kv-unified(\s|$)'); no_kv_unified_flag=[regex]::IsMatch($line, '(^|\s)--no-kv-unified(\s|$)')}
 }); ConvertTo-Json -InputObject $safe -Depth 5 -Compress"""
     result = subprocess.run(
         [
@@ -151,7 +151,13 @@ def validate_batch_freeze(freeze):
 def validate_loaded_backend(profile, identity, observation):
     """A registry alias/load receipt alone does not bind the actual GGUF or placement."""
     expected = profile["backend_observation"]
-    for key in ("executable", "cpu_kv", "backend_template_sha256"):
+    for key in (
+        "executable",
+        "cpu_kv",
+        "backend_template_sha256",
+        "kv_unified_flag",
+        "no_kv_unified_flag",
+    ):
         if observation[key] != expected[key]:
             raise ValueError("actual backend/template/cache changed since preflight")
     for key, value in expected["flags"].items():
@@ -343,6 +349,11 @@ def prepare_profile(
     tokenizer_policy,
     output_tokens=8192,
     prediction_base=None,
+    *,
+    reasoning=False,
+    temperature=0.2,
+    top_k=None,
+    top_p=None,
 ):
     output.mkdir(mode=0o700, parents=True, exist_ok=False)
     for path in CODE_FILES:
@@ -367,6 +378,10 @@ def prepare_profile(
                 identity["load"],
                 output_tokens=output_tokens,
                 applied_base=prediction_base,
+                reasoning=reasoning,
+                temperature=temperature,
+                top_k=top_k,
+                top_p=top_p,
             )
             profile = {
                 "format": "investigator-interface-profile/1",
@@ -634,6 +649,10 @@ def main():
     parser.add_argument("--tokenizer-policy", type=Path)
     parser.add_argument("--output-tokens", type=int, default=8192)
     parser.add_argument("--prediction-base", type=Path)
+    parser.add_argument("--reasoning", choices=("off", "on"), default="off")
+    parser.add_argument("--temperature", type=float, default=0.2)
+    parser.add_argument("--top-k", type=int)
+    parser.add_argument("--top-p", type=float)
     parser.add_argument("--execute-freeze", type=Path)
     parser.add_argument("--expected-freeze-sha256")
     args = parser.parse_args()
@@ -679,6 +698,10 @@ def main():
             json.loads(args.prediction_base.read_bytes())
             if args.prediction_base
             else None,
+            reasoning=args.reasoning == "on",
+            temperature=args.temperature,
+            top_k=args.top_k,
+            top_p=args.top_p,
         )
         print(
             json.dumps(

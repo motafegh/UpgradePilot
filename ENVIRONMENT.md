@@ -189,6 +189,19 @@ before revised inference, with CPU q8_0 KV unchanged. This is a measured local o
 point, not a universal ratio or proven optimum; recheck after hardware/model/runtime
 or available-memory changes.
 
+### Backend identity and unified-context changes must be rechecked
+
+October17 native-mode preparation after completed r6 observed CUDA llama.cpp2.60.0
+(b11698/2a667032d in installed release metadata), replacing the earlier2.59.0 process.
+No installation/update was performed by this session; cause/timing of selection change
+is not established. New loads use ubatch512 and ctx-size32768/parallel4; r6 used
+ubatch1120 and ctx-size131072/parallel4. Latest three preparation startup scalar logs
+report n_ctx_slot32768 and kv_unified=true. Do not infer per-request capacity by blindly
+dividing ctx-size by parallel. Freeze explicit unified-KV flags and actual native load/
+prompt measurements after runtime changes. MiMo requests/reports flash true with actual
+flag on; small Gemma flag auto leaves kernel choice unexposed. Exact dated receipts
+belong to the active cycle, not this reusable environment note.
+
 ## 6. Adopted local semantic deployment
 
 ADR-0006 owns the decision to use the bounded local support-drop semantic extractor. Reusable deployment facts:

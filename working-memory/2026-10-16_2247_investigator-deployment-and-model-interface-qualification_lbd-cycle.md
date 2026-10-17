@@ -417,3 +417,51 @@ This reinforces interface qualification ≠ semantic validity. Original outputs 
 unchanged. Partial r6 inspection after16 sequences:67 calls,865563 input/18119 target
 generated,zero newly unknown usage; separate reasoning usage remains unreported. This
 partial snapshot excludes active core calls and is not the final cohort total.
+
+### R6 completed normally; actual outputs reviewed; r7 frozen before inference
+
+All24 r6 sequences finished normally,108 native calls,1358562 input/27399 target
+generated/4182 draft tokens,zero newly unknown usage. Gemma12 and Qwen27 qualify4/4
+sequences each; Qwen9 Raw2/2 but Structured0/2, all E2B/E4B/MiMo sequences withheld.
+Cumulative219 calls,known2475234 input/37004 target/7692 draft; the one earlier r4
+unknown remains. Four original executable hashes match r6 freeze through completion;
+owned inventory unloaded before applying the native-mode source. Sampler stopped with
+its durable flag. No later semantic comparison. All completed visible reports reviewed,
+including refusals/corrections: Gemma12 Raw short makes unsupported update-proceed
+recommendation despite only synthetic interface evidence; its Structured long corrects
+one mistyped native citation on sixth call. Qwen27 generally scopes capture/runtime
+uncertainty well but Structured long incorrectly says no further operations available
+while tools/other sources remain offered. Qwen9 overstates missing/negative evidence;
+E2B long copies calibration number16000 into report fields; E4B confuses internal/event
+IDs with delivered references; MiMo repeatedly cites unavailable native/update_packet
+IDs and overstates no further evidence despite unread catalog entries. Strict guards
+withhold invalid IDs. Interface pass does not establish semantic correctness.
+
+Native-mode source applied only after normal r6 completion/source validation/unloaded
+inventory.35 canonical controls pass;65 nearest product tests pass22.570s. Native
+preparation newly selects CUDA backend2.60.0, b11698/2a667032d from installed metadata,
+not r6's2.59.0. No installation/update by this session; cause/timing unknown. New flags
+ubatch512/ctx32768/parallel4 replace1120/131072/4; MiMo flash=on, Gemmas=auto. Resolve
+context ambiguity before inference: startup scalar fields confirm last three owned
+preparations n_ctx_slot32768,kv_unified=true. Capture only allowlisted runtime scalar
+fields, no log payloads/generations/credentials. Add explicit kv-unified/no-kv-unified
+flag observation/reload guards and reprepare all three; original preparations retained.
+Direct binary --help exits53 with empty output, retained as failed non-inference probe;
+installed metadata plus native logs suffice without installing DLLs/changing environment.
+A helper path replacement accidentally changed its r6 input profile path; it fails before
+load and is corrected, with both logs retained. Native profile controls now cover KV flag
+drift as well as identity/offload. Previous35-control result precedes that additional
+assertion; final controls run again below. No adapter/product/accepted owner changed.
+
+Selected final r7 profiles: E2B/E4B all-layer flag, MiMo28; CPU q8_0 KV,context32768.
+36 actual whole rendered shapes inspected, maxima22491/22477/22245 +8192+256 fit.
+Full present_request_body, original intent/result bytes, currently eligible IDs and
+Raw/Structured menus survive template rendering. MiMo template thinking-on intentionally
+ends with bare assistant header, off adds <think></think>; the first offline inspector
+incorrectly expected a Qwen-style open <think> suffix, fails before freeze/inference,
+then corrects from exact pinned template. No model template is altered to satisfy it.
+All profile code hashes match current code. Explicit samplers/mode/output and unified
+flags freeze requested/applied checks; actual backend file/release metadata hashed.
+R7 freezes3 deployments/12 ordered sequences/72 new max,219 actual prior,291 revision
+maximum within327 aggregate ceiling. Exact freeze and inspection are publicly retained
+in the r7 evidence folder before inference. No old outcome pooling or automatic sweep.

@@ -341,8 +341,30 @@ def import_isolated_sdk(site: Path):
     return lmstudio
 
 
-def prediction_configuration(raw_load, *, output_tokens=8192, applied_base=None):
-    """Freeze the actual loaded template, explicit reasoning-off and overflow refusal."""
+def prediction_configuration(
+    raw_load,
+    *,
+    output_tokens=8192,
+    applied_base=None,
+    reasoning=False,
+    temperature=0.2,
+    top_k=None,
+    top_p=None,
+):
+    """Freeze loaded template/mode and optionally a complete declared sampling point.
+
+    Omitted sampling arguments preserve the earlier off-mode protocol. An explicit
+    top-k/top-p pair also disables extra min-p/repetition filters, so the declared
+    native recipe cannot silently inherit unknown server sampling defaults.
+    """
+    if type(reasoning) is not bool or not 0 <= temperature <= 2:
+        raise ValueError("invalid explicit prediction mode/temperature")
+    if (top_k is None) != (top_p is None):
+        raise ValueError("explicit sampling requires both top-k and top-p")
+    if top_k is not None and (
+        type(top_k) is not int or top_k < 0 or not 0 < top_p <= 1
+    ):
+        raise ValueError("invalid explicit top-k/top-p")
     template = deepcopy(fields(raw_load)["llm.load.promptTemplate"])
     if not template.get("jinjaPromptTemplate", {}).get("template"):
         raise ValueError("actual loaded template content is unavailable")
@@ -359,9 +381,9 @@ def prediction_configuration(raw_load, *, output_tokens=8192, applied_base=None)
                         {"key": "llm.prediction.promptTemplate", "value": template},
                         {
                             "key": "llm.prediction.reasoning.enableThinking",
-                            "value": False,
+                            "value": reasoning,
                         },
-                        {"key": "llm.prediction.temperature", "value": 0.2},
+                        {"key": "llm.prediction.temperature", "value": temperature},
                         {
                             "key": "llm.prediction.maxPredictedTokens",
                             "value": {"checked": True, "value": output_tokens},
@@ -375,6 +397,25 @@ def prediction_configuration(raw_load, *, output_tokens=8192, applied_base=None)
             }
         ]
     }
+
+    if top_k is not None:
+        configuration["layers"][0]["config"]["fields"].extend(
+            [
+                {"key": "llm.prediction.topKSampling", "value": top_k},
+                {
+                    "key": "llm.prediction.topPSampling",
+                    "value": {"checked": True, "value": top_p},
+                },
+                {
+                    "key": "llm.prediction.minPSampling",
+                    "value": {"checked": False, "value": 0},
+                },
+                {
+                    "key": "llm.prediction.repeatPenalty",
+                    "value": {"checked": False, "value": 1},
+                },
+            ]
+        )
 
     if applied_base is not None:
         # Freeze exposed defaults from this exact deployment's retained native receipt,
@@ -550,7 +591,7 @@ class StatelessInvestigatorModel:
                     )
             if self.binding.identity() != self.identity:
                 raise ValueError("deployment changed during prediction")
-            if reasoning:
+            if reasoning and not applied.get("llm.prediction.reasoning.enableThinking"):
                 raise ValueError(
                     "reasoning-off request produced reasoning fragments; content discarded"
                 )

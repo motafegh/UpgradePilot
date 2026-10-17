@@ -29,6 +29,7 @@ class Binding:
     def __init__(self):
         self.current = {"model": {"instanceReference": "instance-one"}, "load": {}}
         self.calls = 0
+        self.reasoning = False
         self.response = b'{"tool":"list_sources","arguments":{}}'
         self.edit = lambda metadata: None
 
@@ -62,7 +63,7 @@ class Binding:
         }
         self.edit(metadata)
         visible_sink(self.response)
-        return self.response, metadata, False
+        return self.response, metadata, self.reasoning
 
 
 def packed():
@@ -87,7 +88,7 @@ def packed():
     )
 
 
-def config():
+def config(**options):
     return prediction_configuration(
         {
             "fields": [
@@ -100,7 +101,8 @@ def config():
                     },
                 }
             ]
-        }
+        },
+        **options,
     )
 
 
@@ -122,6 +124,48 @@ class ModelInterfaceTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "lost or transformed"):
             measure_input(binding, packed(), config())
         self.assertEqual(binding.calls, 0)
+
+    def test_reasoning_fragments_require_explicit_and_applied_on_mode(self):
+        for enabled in (False, True):
+            with (
+                self.subTest(enabled=enabled),
+                tempfile.TemporaryDirectory() as directory,
+            ):
+                binding = Binding()
+                binding.reasoning = True
+                model = StatelessInvestigatorModel(
+                    binding,
+                    config(reasoning=enabled),
+                    ModelLimits(context=10000),
+                    Path(directory) / "assignment",
+                )
+                if enabled:
+                    self.assertEqual(model(packed()), binding.response)
+                    receipt = json.loads(
+                        (model.directory / "call-01.receipt.json").read_bytes()
+                    )
+                    self.assertTrue(receipt["reasoning_fragment_observed"])
+                else:
+                    with self.assertRaisesRegex(ValueError, "reasoning-off"):
+                        model(packed())
+        with tempfile.TemporaryDirectory() as directory:
+            binding = Binding()
+            binding.reasoning = True
+
+            def mismatch(metadata):
+                for setting in metadata["predictionConfig"]["fields"]:
+                    if setting["key"] == "llm.prediction.reasoning.enableThinking":
+                        setting["value"] = False
+
+            binding.edit = mismatch
+            model = StatelessInvestigatorModel(
+                binding,
+                config(reasoning=True),
+                ModelLimits(context=10000),
+                Path(directory) / "assignment",
+            )
+            with self.assertRaisesRegex(ValueError, "not applied"):
+                model(packed())
 
     def test_exact_visible_response_and_usage_with_no_implicit_history(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -544,6 +588,8 @@ class QualificationFreezeTests(unittest.TestCase):
         backend = {
             "executable": "backend",
             "cpu_kv": True,
+            "kv_unified_flag": True,
+            "no_kv_unified_flag": False,
             "backend_template_sha256": "template",
             "flags": {
                 "model": "frozen.gguf",
@@ -564,6 +610,11 @@ class QualificationFreezeTests(unittest.TestCase):
         actual = copy.deepcopy(backend)
         actual["flags"]["chat-template-file"] = "new-temporary-file"
         validate_loaded_backend(profile, fresh, actual)
+        for key in ("kv_unified_flag", "no_kv_unified_flag"):
+            drift = copy.deepcopy(actual)
+            drift[key] = not drift[key]
+            with self.assertRaisesRegex(ValueError, "backend/template/cache changed"):
+                validate_loaded_backend(profile, fresh, drift)
         for key, value in [("model", "other.gguf"), ("n-gpu-layers", "11")]:
             drift = copy.deepcopy(actual)
             drift["flags"][key] = value
@@ -621,6 +672,31 @@ class QualificationFreezeTests(unittest.TestCase):
         self.assertNotIn(
             "llm.prediction.structured", fields(config()["layers"][0]["config"])
         )
+
+    def test_native_sampling_and_mode_override_only_declared_fields(self):
+        from experiments.investigator_model_interface import fields
+
+        frozen = fields(
+            config(
+                reasoning=True,
+                temperature=0.6,
+                top_k=20,
+                top_p=0.95,
+                output_tokens=8192,
+            )["layers"][0]["config"]
+        )
+        self.assertTrue(frozen["llm.prediction.reasoning.enableThinking"])
+        self.assertEqual(frozen["llm.prediction.temperature"], 0.6)
+        self.assertEqual(frozen["llm.prediction.topKSampling"], 20)
+        self.assertEqual(
+            frozen["llm.prediction.topPSampling"], {"checked": True, "value": 0.95}
+        )
+        self.assertFalse(frozen["llm.prediction.minPSampling"]["checked"])
+        self.assertFalse(frozen["llm.prediction.repeatPenalty"]["checked"])
+        old = fields(config()["layers"][0]["config"])
+        self.assertFalse(old["llm.prediction.reasoning.enableThinking"])
+        self.assertEqual(old["llm.prediction.temperature"], 0.2)
+        self.assertNotIn("llm.prediction.topKSampling", old)
 
     def test_actual_sampler_defaults_are_pinned_without_inheriting_prior_grammar(self):
         from experiments.investigator_model_interface import fields

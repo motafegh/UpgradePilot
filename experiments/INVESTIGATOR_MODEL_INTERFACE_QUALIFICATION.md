@@ -154,3 +154,29 @@ eight-case semantic comparison stays unactivated. Same2048 synthetic generation 
 32768 context and actual per-model weight/KV settings remain;8192 is still the later
 case reserve, not newly established8192-token generation performance. Resource and
 semantic claims must retain those limits.
+
+## Declared native-mode qualification
+
+Plan §4.9 admits one native-mode point each for E2B/E4B/MiMo after the complete
+r6 cohort: three configuration deployments/12 sequences/72 calls,219 actual prior
+attempts and327 aggregate ceiling. The later two-deployment/eight-case comparison
+remains unactivated. Old failures remain unchanged.
+
+Preparation additionally accepts `--reasoning on|off` (default off), `--temperature`
+(default0.2) and a paired `--top-k`/`--top-p`. Explicit top-k/top-p also disables
+extra min-p/repetition filters. Defaults preserve r6 behavior. Thinking-on permits
+reasoning-labelled fragments only after requested/applied settings match; those
+fragments still never enter SDK accumulation, visible artifacts or subsequent history.
+The same strict off violation and all usage/render/reference/sequence guards remain.
+Absent separate reasoning-token usage is unknown. Native output allowance8192 includes
+internal generation, rather than promising8192 visible answer tokens.
+
+New loads observed CUDA llama.cpp2.60.0/b11698/2a667032d rather than r6's2.59.0.
+Freeze the new exact executable/configuration and explicitly observed unified-KV
+flags. Native startup scalar logs confirm32768 context per slot with unified KV;
+backend ctx-size32768/parallel4 must not be divided by four without checking this.
+MiMo flash flag is on; Gemmas auto remains a kernel-selection unknown. Changed
+runtime/sampler/mode/batching makes this an operating-point qualification, not a
+causal comparison against r6. Requested/applied correspondence is checked per call.
+Earlier statements about pinned native sampler defaults mean only exposed fields;
+absent top-p/top-k values in r6 metadata were not resolved by pinning CPU/tools.
