@@ -1,7 +1,7 @@
 # Investigator real-case Raw-vs-Structured semantic comparison — LbD cycle
 
 **Date/horizon:** October 17, 2026, +03:30; A0 reconciled from `main@ce96280c4d271e63ad0b60db9dd1c1f8e635f71b`.
-**Session status:** ACTIVE — A0 complete; A1 continuity/onboarding current at its normal stop gate.
+**Session status:** ACTIVE — A0 complete; A1 cleared by Ali; A2 current at the normal pre-B understanding stop gate.
 **Responsibility:** freeze and verify the paired real-case Raw-vs-Structured semantic comparison over two exposed development cases and three selected deployments, then only after the pre-inference gates are satisfied attempt the admitted assignments, preserve immutable outcomes/failures/costs, perform source-to-claim semantic review and reach a bounded retain/reject/inconclusive disposition.
 **Live owner:** [MEMORY.md](../MEMORY.md) alone owns current continuation.
 **Controlling owners:** [Investigator integration/comparison plan](../plans/INVESTIGATOR_INTEGRATION_AND_COMPARATIVE_EVALUATION_PLAN.md), explicitly amended by the [three-deployment semantic-comparison decision](../plans/INVESTIGATOR_SEMANTIC_COMPARISON_THREE_DEPLOYMENT_AMENDMENT_2026-10-17.md).
@@ -13,10 +13,10 @@
 | Phase | Status | Current meaning |
 | --- | --- | --- |
 | A0 | **DONE** | Reconciled live owners, previous closure, amendment, final deployment/interface evidence, durable common-input snapshot, current experiment contracts and semantic-review owner; initialized this one cycle record. |
-| A1 | **CURRENT — STOP GATE** | Bring Ali from the closed deployment/interface responsibility to the exact successor entry state; preserve questions/challenges before A2. |
-| A2 | PENDING | Orient the 12-assignment freeze/execution/review responsibility, important data/control/evidence flow, proof boundary, failure states and non-goals. |
-| B | PENDING | Prepare/verify the successor freeze first; semantic inference remains forbidden until that freeze is complete and justified. Later execution is separately gated by the verified freeze. |
-| Verification gate | PENDING | Must verify exact inputs/configuration/order/contracts/fit/review/accounting/retention and later the attempted comparison evidence. |
+| A1 | **DONE** | Ali explicitly agreed with the reconstructed state and cleared the continuity gate. His configuration-proof correction is incorporated below rather than treated as a contradiction. |
+| A2 | **CURRENT — STOP GATE** | Orient the 12-assignment freeze/execution/review responsibility, the separate fit/correspondence/requalification proofs, important data/control/evidence flow, proof boundary, failure states and non-goals. |
+| B | PENDING | Prepare/verify the successor freeze first; no model inference is admitted until that freeze is complete and justified. Any required non-semantic requalification then runs under its own frozen budget before semantic-assignment admission. |
+| Verification gate | PENDING | Must verify exact inputs/configuration/order/contracts/fit/review/accounting/retention, required interface requalification and later the attempted comparison evidence. |
 | D | PENDING | Evidence-backed learning from the actual comparison/review result. |
 | E | PENDING | Repair/defer D gaps, disposition the experiment and hand off the next responsibility. |
 | C | **CONTINUOUS** | Preserve meaningful progression, failures/corrections, proof/non-proof and learner gaps in this record. |
@@ -73,7 +73,13 @@ Final current-runtime evidence records CUDA llama.cpp 2.60.0 (`b11698/2a667032d`
 
 Interface qualification does not establish semantic correctness, autonomous discovery/stopping, usefulness, action permission or generalization.
 
-**Important successor configuration consequence:** Gemma12 and Qwen27 qualified with a 2048 synthetic generation cap, while the comparison plan/amendment carries an 8192 real-case allowance. Capacity-fit evidence showed the relevant synthetic/preflight shapes can fit an 8192 reserve inside 32768, but that is not the same as an observed 8192 real-case deployment/prediction configuration. The successor freeze must therefore make the intended 8192 case configuration explicit and obtain the required pre-inference fit/runtime correspondence evidence before semantic assignments. It may not silently call the old 2048 point and the new 8192 point “the same configuration.” E4B already used 8192 during qualification, but its actual real-case request shapes still require successor fit/correspondence checks.
+**Important successor configuration consequence:** Gemma12 and Qwen27 qualified with a 2048 synthetic generation cap, while the comparison plan/amendment carries an 8192 real-case allowance. Ali explicitly corrected the proof model at A1: 2048 → 8192 is a **material prediction-configuration change from the exact qualified point**, not merely a context-capacity question. The successor therefore keeps three independent proofs separate:
+
+1. **Rendered/context capacity fit** — actual fully rendered real-case/late-history/final-report input plus 8192 generated-token reserve plus justified margin must fit the selected context without silent loss/truncation.
+2. **Requested-versus-applied correspondence** — the intended load/prediction configuration, including the 8192 generation allowance and all other material controls, must match the actually observed runtime/applied state.
+3. **Bounded interface requalification at the changed point** — because Gemma12/Qwen27 would no longer be at their exact 2048-qualified point, the changed 8192 points must receive the versioned bounded correspondence/qualification proof required by the controlling plan/amendment before their semantic assignments are admitted.
+
+Capacity-fit evidence cannot transfer the prior 4/4 qualification by itself. The old 4/4 result remains evidence about the old 2048 operating point. E4B already qualified with 8192, so no output-limit change is inferred for it, but its exact real-case shapes/configuration and current correspondence still must be frozen and verified; any material drift would likewise trigger versioned requalification rather than inheritance.
 
 ### 6. Existing experiment contract entering the freeze
 
@@ -125,7 +131,7 @@ There are, however, **real pre-inference blockers by design**—normal prerequis
 
 - current offline availability/hash/store validation of the common snapshot and validated backup has not yet been re-established for this successor;
 - the three intended deployments must be re-observed at the exact successor configuration/runtime horizon rather than assumed from dated qualification receipts;
-- Gemma12/Qwen27 require an explicit 8192 case-allowance configuration/fit/correspondence disposition because their qualified synthetic calls used 2048;
+- Gemma12/Qwen27 require explicit versioned 8192 operating points with capacity-fit, applied-correspondence **and bounded interface-requalification** proof because their qualified synthetic calls used 2048;
 - exact real-case rendered request shapes/tokens, late-history packing and final-report fit are not yet successor evidence;
 - the 12 assignment IDs and balanced serial order are not yet frozen;
 - exact prompt/tool/reference/packing/report identities for the semantic batch are not yet published as one successor manifest;
@@ -142,14 +148,14 @@ No model load or inference is justified before those items are resolved in the p
 - Why E4B changes the semantic experiment design rather than merely adding four casual calls.
 - Why old `2 deployments / 8 assignments` statements remain historical evidence while the amendment controls this successor.
 - Why qualified interface points still need successor-specific case/input/configuration/fit/review freeze.
-- The specific 2048-versus-8192 consequence for Gemma12/Qwen27.
+- The specific 2048-versus-8192 consequence for Gemma12/Qwen27, including the distinction between capacity fit, applied correspondence and requalification.
 
 ### A2 upcoming-responsibility topics
 
 - Common case freeze → fresh assignment host/lineage → Raw/Structured capability boundary → complete stateless model request → strict tool/reference/report admission → immutable output/accounting → offline source-to-claim review → bounded disposition.
 - How to choose/freeze all 12 IDs and a balanced serial order without outcome-dependent scheduling.
-- Exact budget/accounting model: per-assignment ceilings versus aggregate ceilings, prior qualification spend kept separate, ceilings not targets.
-- Real-case token/context/output fit and requested-versus-observed runtime correspondence.
+- Exact budget/accounting model: per-assignment ceilings versus aggregate ceilings, prior qualification/requalification spend kept separate, ceilings not targets.
+- Real-case token/context/output fit, requested-versus-observed runtime correspondence and changed-point interface requalification as separate gates.
 - Semantic-review masking/source obligations and how reviewer evidence stays outside model input.
 - Failure/refusal/no-rerun/withholding semantics and the line between experiment evidence and product authority.
 
@@ -159,12 +165,190 @@ Expected cycle output is one truthful frozen 12-assignment protocol followed, on
 
 ### Stop conditions / non-goals
 
-Stop/reconcile before affected inference on input drift/unavailability, identity/configuration mismatch, unverified 8192 fit/correspondence, placeholder manifest fields, unequal evidence universes, protocol/order/budget changes, protected-review leakage or a required product-authority change. No cloud fallback, target execution/mutation, hidden-reasoning retention, extra model arm, multi-agent/critic topology, outcome-driven tuning or premature productization is admitted.
+Stop/reconcile before affected inference on input drift/unavailability, identity/configuration mismatch, unverified 8192 fit/correspondence/requalification, placeholder manifest fields, unequal evidence universes, protocol/order/budget changes, protected-review leakage or a required product-authority change. No cloud fallback, target execution/mutation, hidden-reasoning retention, extra model arm, multi-agent/critic topology, outcome-driven tuning or premature productization is admitted.
 
-## A1 continuity packet — current gate
+## A1 continuity packet and gate closure
 
-The successor begins from a **qualified delivery/interface mechanism, not a qualified semantic Investigator**. The real scientific question is now whether Structured native evidence improves evidence use/interpretation/uncertainty/stopping/recommendation quality relative to Raw navigation over the same evidence universe, with E4B adding the bounded smaller-deployment/resource question.
+The successor begins from a **qualified delivery/interface mechanism, not a qualified semantic Investigator**. The real scientific question is whether Structured native evidence improves evidence use/interpretation/uncertainty/stopping/recommendation quality relative to Raw navigation over the same evidence universe, with E4B adding the bounded smaller-deployment/resource question.
 
-The immediate work is therefore not “run the models.” It is to make the comparison scientifically and operationally determinate before the first outcome exists: exact shared cases, exact three deployments, exact 12 assignments/order, exact contracts/budgets, actual real-case fit/configuration correspondence, review protocol, retention/accounting and no-rerun rules.
+Ali explicitly agreed with the A1 reconstruction and cleared the continuity gate. He added one material proof clarification: Gemma12/Qwen27 2048 → 8192 is a prediction-configuration change, so capacity fit must not be treated as qualification transfer. This clarification is consistent with the controlling amendment's rule that any material change from a qualified point is versioned and receives bounded correspondence/qualification proof before semantic admission.
 
-**A1 gate is intentionally open.** A2/B have not been started and no inference has been performed. Ali has the normal opportunity to challenge/correct this reconstructed current-state model before we orient the detailed freeze/execution flow.
+A1 is therefore **DONE**. No B work or model inference occurred during this transition.
+
+## A2 — upcoming responsibility orientation
+
+### 1. What this cycle is actually testing
+
+The primary experiment is not “which model answers best.” It is a controlled **representation/access comparison** over the same retained evidence universe:
+
+`same case evidence + same task/authority/budgets + fresh assignment state`
+
+→ Raw treatment: bounded source navigation
+
+versus
+
+→ Structured treatment: the same source navigation **plus** admitted native records/pages.
+
+The primary question is whether Structured access produces better evidence coverage, interpretation, uncertainty handling, stopping and recommendations. The three deployments let us see whether that treatment effect appears similarly or differently across the two larger baselines and the smaller E4B point. Cross-model observations remain deployment-specific; this design does not estimate intrinsic model ranking or stochastic reliability.
+
+### 2. The end-to-end evidence/control flow
+
+For each eventual semantic assignment the intended flow is:
+
+`exact retained case snapshot`
+→ `fresh product Workspace host + lineage`
+→ `treatment-specific capability menu`
+→ `complete explicit stateless request using the frozen prompt/tool/report contract`
+→ `exact qualified deployment point`
+→ `strict tool/reference/report admission`
+→ `immutable original output + complete accounting`
+→ `offline source-to-claim semantic review`
+→ `paired development disposition`.
+
+The product Workspace remains authoritative for evidence identity/material validity. The Investigator produces attributed interpretation/report material. Offline review validates claims; it does not retroactively change the model output or become runtime feedback. Final product/action decisions remain outside this experiment.
+
+### 3. Two pre-semantic admission gates
+
+A2 makes the ordering explicit so qualification work cannot be confused with semantic work.
+
+#### Gate P — complete pre-inference freeze before any new model prediction
+
+Before **any** new model inference, B must publish and verify a complete successor freeze that fixes:
+
+- exact HTTPX/glyphsLib retained input identities and current offline availability checks;
+- exact intended three deployment configurations, including the intended 8192 case allowance;
+- exact 12 semantic assignment IDs and balanced serial order;
+- exact prompt/system/task/tool/reference/packing/omission/report contracts and code identities;
+- semantic per-assignment and aggregate ceilings;
+- a **separate bounded requalification budget/order/protocol** for every changed deployment point that requires model-interface proof;
+- real-case rendering/token-fit measurement procedure;
+- review source obligations, masking/order/assistance/timing/source-check procedure;
+- accounting/retention/public-safe evidence paths;
+- failure/refusal/no-rerun/versioned-repair rules.
+
+This freeze must contain no unknown placeholder that will later be filled opportunistically from outputs. A deployment may be explicitly marked `WITHHELD_PENDING_REQUALIFICATION`; that is a real state, not a placeholder.
+
+Only after Gate P is verified may any frozen non-semantic qualification prediction occur.
+
+#### Gate Q — exact deployment-point/interface admission before semantic assignments
+
+The 12 real-case assignments remain withheld until their deployment points satisfy the required interface proof.
+
+For **Gemma12 and Qwen27**, 8192 changes `maxPredictedTokens` from the exact 2048 current-runtime qualified point. Their admission therefore needs all three:
+
+`real rendered-shape capacity fit`
++
+`requested/applied configuration correspondence at the 8192 point`
++
+`bounded outcome-blind interface requalification at that changed point`.
+
+The controlling plan's normal proof shape covers both treatments and both short and near-envelope/late-final behavior, including complete visible structured responses, tool/reference behavior, honest omissions and final report production. The strong default for B is therefore to freeze the full representative Raw/Structured × short/near-envelope synthetic matrix at the 8192 point rather than weaken proof merely because the old 2048 point passed. These are **synthetic interface canaries**, not HTTPX/glyphsLib semantic runs.
+
+For **E4B**, the previously qualified point already used 8192. B still must verify exact real-case rendering/fit and current configuration identity/correspondence. If current inspection shows no material configuration/runtime drift, the existing 4/4 qualification remains evidence for that same exact point; if a material point changes, E4B enters the same versioned requalification rule rather than silently inheriting its prior pass.
+
+Complete all required deployment-point qualification/dispositions **before starting any of the 12 semantic assignments**. This prevents semantic outcomes from influencing later configuration tuning. A failed changed point is retained as a negative qualification result. Reducing the experiment to fewer deployments, changing configuration, or substituting another model would require a new explicit pre-semantic protocol revision before any semantic outcome, not an automatic fallback.
+
+### 4. What “balanced 12 assignments” means
+
+There are six case×deployment pairs; each pair contains Raw and Structured. Three deployments make perfect per-case treatment-order symmetry impossible, but we can still balance deliberately.
+
+The intended balancing rule for B to instantiate exactly is:
+
+- within **each deployment**, one case is Raw-first and the other Structured-first;
+- across all six case×deployment pairs, exactly **three are Raw-first and three Structured-first**;
+- because each case has three deployments, one case will necessarily be 2:1 in one first-treatment direction and the other case will use the inverse 1:2 split;
+- rotate case/deployment serial positions so one treatment or one case is not systematically early or late;
+- every assignment gets fresh Workspace/context state; execution remains serial;
+- the exact 12 IDs/order are frozen before outputs and never rearranged because a previous assignment was slow, failed or surprising.
+
+B will choose the concrete IDs/order using that rule and verify the mapping mechanically. The rule is fixed now; the exact schedule is intentionally left to the freeze rather than invented during A2.
+
+### 5. Budget and accounting model
+
+The amendment carries semantic per-assignment ceilings of:
+
+- 16 model calls;
+- 524,288 input tokens;
+- 131,072 generated tokens including reported reasoning where applicable;
+- 48 charged operations;
+- 8 MiB delivered observations;
+- 14,400 seconds;
+- 8192 generated-token per-call/final reserve target subject to exact qualification.
+
+Across 12 assignments, the conservative semantic maxima are 192 calls, 6,291,456 input tokens, 1,572,864 generated tokens, 576 charged operations, 96 MiB observations and 172,800 seconds. They are ceilings, not targets.
+
+Any new synthetic requalification needed to admit changed 8192 deployment points has a **separate explicitly frozen budget and ledger**. It is neither silently deducted from the semantic 192-call ceiling nor treated as free. Final resource reporting distinguishes preparation/requalification cost from within-assignment semantic cost while still retaining the total operational cost of reaching the comparison result. Earlier deployment/interface spend remains historical prior spend, not a semantic assignment result.
+
+### 6. Prompt/tool/reference/packing fairness
+
+Both treatments share the same system/task authority, target transition, source universe, report schema, stateless-history rule, correction rules and source-navigation capabilities. Structured differs only by the declared native record/page capabilities.
+
+Important fairness constraints:
+
+- no solved path, expected answer, case-specific obligation, reviewer label or outcome-derived hint enters model input;
+- Raw being unable to call a native tool means the view is **withheld by treatment**, not nonexistent evidence;
+- whole-event packing/omission policy is common and frozen; no arm receives selective history enrichment;
+- current-request-only reference eligibility remains authoritative for stateless inference;
+- reviewer/source obligations are outside the model context;
+- any transport/interface difference forced by a deployment is declared and qualified before outcomes, not patched afterward.
+
+### 7. Semantic review protocol
+
+Before model outputs exist, B must preregister case-specific source obligations for HTTPX and glyphsLib against the frozen common evidence. Those obligations stay hidden from the Investigator and form the original coverage denominator; genuinely new obligations discovered during review are supplemental rather than silently changing that denominator.
+
+The review sequence should preserve masking as far as practical:
+
+1. first-pass semantic review uses treatment/deployment masking where feasible and records any identity leakage/unmasking;
+2. every material proposition in claims, summary, conditions and recommendation is checked against the actual cited/source evidence for support, scope, polarity, version/time and applicability;
+3. stopping is checked against remaining feasible discriminators at the actual capability/budget boundary, not merely the presence of a finish event;
+4. reviewer assistance and active review time are recorded; unknown effort remains unknown;
+5. treatment/deployment identities are then revealed for paired interpretation and resource/cost comparison.
+
+The nine dimensions remain separate profiles; there is no weighted winner score. AI-assisted review of these exposed development cases is useful formative evidence but cannot establish independent maintainer acceptance or protected-case generalization.
+
+### 8. Failure, refusal and no-rerun semantics
+
+The experiment must make failure informative rather than disappear it.
+
+- Each semantic assignment is one frozen sample. No failure-selective rerun or output salvage.
+- Allowed visible corrections happen only inside the same assignment under the already frozen correction/call/operation ceilings; rejected originals and costs remain retained.
+- Timeout, empty output, malformed output, reference refusal, generation exhaustion, runtime/configuration mismatch and semantic incompleteness remain distinct outcomes.
+- Unknown usage is unknown, never zero; conservative reservation may bound it without relabeling it measured usage.
+- A pre-semantic qualification failure withholds the affected deployment point. A discriminating repair, if justified, requires a versioned pre-semantic revision and fresh bounded proof before semantic outcomes; it is not tuning-until-pass.
+- Once semantic outcomes begin, no configuration/prompt/packing/order/budget change may be tuned and then pooled into the same comparison.
+- Withheld/failed/incomplete assignments remain in the disposition; the final outcome may legitimately be inconclusive.
+
+### 9. What B will and will not do
+
+If the A2 gate clears, B begins with **freeze construction and verification**, not model calls. It will first establish current retained-input availability, exact identities/contracts/order/budgets/review/retention and real rendered-fit evidence, and freeze any required synthetic requalification protocol.
+
+Only after Gate P is complete may the separately frozen interface requalification inference occur. Only after Gate Q is satisfied may the 12 real-case semantic assignments begin.
+
+B remains experiment-owned. Product code may be used through its supported Workspace interfaces, but product source must not depend on experiment code. If B discovers a genuinely missing product seam or authority requirement, it stops and returns to that owner rather than emulating authority or prematurely productizing the harness.
+
+### 10. Acceptance and non-proof boundary
+
+A successful cycle can establish a bounded development conclusion about whether Structured native access improves evidence use over Raw navigation for these two exposed cases under the exact three frozen deployments and measured costs.
+
+It **cannot** establish:
+
+- stochastic reliability from one sample per condition;
+- intrinsic model superiority;
+- general semantic competence;
+- protected-case generalization;
+- independent maintainer usefulness;
+- product action permission;
+- production adoption;
+- a reason to copy the experiment harness into product code.
+
+A result can therefore be technically successful even when the correct disposition is **reject** or **inconclusive**, provided the evidence and failure states are preserved truthfully.
+
+## A2 pre-B understanding gate — CURRENT
+
+The main new ownership distinction is:
+
+`fits in context` **does not mean** `runtime applied the intended configuration`, and neither means `the changed deployment point is interface-qualified`.
+
+For Gemma12/Qwen27, the intended 8192 point must independently satisfy all three before semantic admission. The prior 4/4 canary result remains attached to the exact 2048 point and is not silently transferred.
+
+No B work, model load or model inference has been performed in A2. The normal pre-B understanding gate remains open.
