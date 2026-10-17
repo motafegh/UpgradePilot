@@ -212,3 +212,79 @@ changing events before the large fixed task/calibration text. Complete stateless
 requests therefore need not preserve a long identical prefix. This is a cache-efficiency
 hypothesis, not a proven explanation for timing or repetition; no packing/source change
 or persistent session is introduced in the frozen batch.
+
+Shared interface repair selected after frozen r5 completion: actual observation bytes
+are currently escaped within the full request JSON, and sorted keys put changing history
+before static calibration/task. Repetition with complete history plus repeated long
+first-token costs justify a single common presentation recheck, not a proven cause or
+model-internal claim. The plan now admits direct exact observation contents after fixed
+task/menu state in the same explicit stateless two-message request; no step counter,
+forced action, response salvage, exposed omitted evidence or relaxed assessor. This
+remains the current deployment/interface responsibility. Ali's explicit sustained Build
+authorization and preceding orientation cover the repair; preserve actual findings
+and gate limits rather than stopping at first behavior failure.
+
+r5 process/code remains untouched while running. Once it finishes, change/test the
+experiment presentation, prepare/inspect all six exact revised profiles and separately
+freeze24 new sequence IDs/144 maximum calls. Aggregate explicit ceiling267 includes19
+earlier attempts+r5 at most104 (eight small-Gemma attempts already spent)+144 revised
+maximum. Existing r5 outcomes remain frozen historical results, no pooling/relabeling.
+Small-Gemma BOS representation is reverified in the same preparation, with contradictory
+file flags retained. Later semantic comparison remains2 deployments/eight assignments.
+
+First Qwen9 Structured report (814 generated tokens, native51.36s/client47.12s) completed
+with citations/uncertainty, but its positive-read duplication causes strict withholding.
+Content inspection also finds unsupported global absence/unexamined claims: requirements.txt
+remains unread, while the report says no manifest/further evidence exists. This is an
+AI-assisted synthetic-report fidelity observation, not a protected-case semantic score
+or independent usefulness judgment. Other Qwen9 sequences repeat source/native reads.
+
+Gemma12 short Raw and Structured now both qualify in five calls after the shared task
+clarification; the prior skipped empty read is actually exercised, not a weakened check.
+Raw short report635 tokens/native137.06s/client125.68s/~4.77tokens/s distinguishes
+positive/zero/empty with cited source observations and no compatibility claim. Long
+Structured starts with the requested native read then missing-file problem; actual
+first-token costs57–63s on20k inputs support the fixed-prefix performance hypothesis,
+without proving cache internals.
+
+The staged (not running r5) presentation passes31 focused controls, including a new
+old-format-failing exact-observation/readability regression, canonical packed-input
+retention beside the actual request, and per-candidate native default pinning without
+inheriting prior per-call grammar. Original r5 source remains unchanged. A first ad hoc
+control searched for an unescaped goal inside JSON and failed; corrected to compare its
+exact canonical task serialization. These are model-free staging controls, not new live
+qualification. Native receipts expose CPU7/topP0.95/topK64 and parser controls for Gemma12;
+r6 will freeze every candidate's own observed applied fields, never copy them across
+models. Keep unreported reasoning counts unknown.
+
+Concrete stateless-history defect found during the long Gemma12 sequence: the missing
+source observation reports invalid_source_query without the requested path, and packed
+history contains only results, not the preceding model request arguments. Complete
+serialized input was previously overstated as complete interaction history. This does
+not invalidate request-local reference eligibility, but weakens attribution of repeated
+operations to model capability. The selected repair now retains original UTF8 intent
+in experiment AdapterEvent (explicit None for unavailable/non-UTF8 historical input),
+packs intent/result together, and presents both byte-exact texts chronologically.
+Prior requests remain model-authored intent with zero reference authority; product
+source/lifecycle authority stays unchanged. Whole-event omission accounts for both.
+
+This is the earliest sufficient experiment owner: actual request -> adapter invocation/
+report refusal -> observation with retained intent -> trial packing -> actual model
+rendering -> strict returned-output admission. No product field or durable Workspace
+recovery/replay guarantee is introduced.32 staged controls pass, including a real
+missing-path observation plus a refused request containing a forged typed reference:
+intent remains visible but forged IDs remain ineligible. Staging first hit a relative
+mechanical-manifest source-path error; corrected private snapshot filenames, without
+changing runtime source or hiding that failed check. R5 remains frozen/running.
+
+Gemma12 long Structured report content is complete but cites internal native record
+id3ae236... instead of actually delivered native_record typed id021415... . Trial
+charges show terminal_corrections1 and overall turn exhaustion; the old driver does
+not retain its final report-refusal detail once no next input exists. Supported failure
+is wrong reference identity plus repeated missing read; do not call it an output-token
+exhaustion or invent the original missing refusal text. Exact originals remain.
+A staged driver fix retains each actual report-refusal detail with its attempt number;
+its new final-turn control passes without accepting/repairing the report. Shared wire
+clarifies delivered typed IDs versus internal record/delivery/catalog IDs.33 staged
+controls and Ruff/format pass; staged source hashes retained in r5/staged-verification.json.
+Canonical r5 execution code remains unchanged until normal batch completion.

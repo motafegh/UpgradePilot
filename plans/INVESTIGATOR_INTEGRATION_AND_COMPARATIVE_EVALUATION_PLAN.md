@@ -171,6 +171,57 @@ all four sequences; partial completion is reported as partial. Inspect actual ou
 and costs from every attempted assignment, including failures. Any further adjustment
 must be diagnosed, recorded and frozen as a distinct revision before affected calls.
 
+### Complete stateless observation presentation repair — October 17, 2026
+
+After completing the frozen six-candidate batch, permit one common request-presentation
+repair before withholding deployments solely on that interface. Source inspection shows
+that canonical JSON wraps each observation as an escaped string and sorts changing
+history before the large fixed task. Completed short runs show repeated operations despite
+included history; long calls repeatedly pay substantial first-token latency. These are
+supported presentation/cache-efficiency hypotheses, not established model-internal causes.
+
+Keep the canonical packed bytes for admission/accounting, but present their complete
+contents as fixed protocol/task/report fields first, then current phase/menu/omissions,
+then chronological event identifiers, each original UTF8 model-authored request and
+its exact original returned observation JSON content. Actual missing-file observations
+may omit the path, so results alone do not provide complete stateless action history.
+Retain the original request separately at the experiment adapter/driver boundary;
+non-UTF8 or historical unavailable intent stays explicitly unavailable, never repaired.
+Omit request/result pairs together and retain omission bytes/hashes for both components.
+Past requested/forged citations grant no evidence authority: eligible IDs still come
+only from the included delivered observations, never from prior request text.
+Do not duplicate or rewrite source content, omit facts, add hidden memory, reveal omitted
+evidence or force an expected next action. Every component and every eligible reference
+must survive actual template rendering; generation must use that exact measured request.
+Two explicit system/user messages remain complete stateless inputs. This is a common
+interface revision, not an outcome-driven case prompt change or relaxed qualification gate.
+
+Apply the same representation to all six candidates and requalify four sequences each:
+**six deployments / 24 new sequences / 144 new calls maximum**, with the preceding
+19 attempts plus every actual r5 attempt retained separately. r5's eight small-Gemma
+calls are already spent; its remaining four deployments can spend at most96, so its
+actual total is at most104. The aggregate cycle ceiling is explicitly revised from163
+to **267 calls maximum** (19 +104 +144), not an uncharged retry. Freeze actual prior
+spend, current code/profiles, all24 distinct ordered IDs and exact ceilings before new
+inference. Earlier outcomes keep their original dispositions and are never pooled as
+same-protocol successes. No further automatic sweep is admitted by this amendment.
+
+Explicitly pin each candidate's exposed actual prediction defaults from its own r5 native
+receipt (including CPU threads, sampler and reasoning parser settings), retaining source
+identity/hash. Override template/reasoning/output only with the declared current values;
+never inherit another model's defaults or reuse its prior per-call runtime grammar.
+Actual applied values must match those requested in every new prediction.
+
+Represent the small Gemmas' observed runtime special-token prelude using actual tokenizer
+BOS identity verification and exact prompt-count admission, retaining their contradictory
+file metadata and the fact that native prompt token IDs are unexposed. Preserve2048
+synthetic-only output limit,32768 context, reasoning-off and already measured weight/KV
+settings unless actual fit drift requires a separately recorded change. Recheck all
+rendered shapes after the presentation revision. Retain the strict assessor for this
+revision; descriptive review separately identifies redundant-but-complete operations,
+missing operations and unsupported report statements. Later semantic comparison remains
+two deployments/eight case assignments and unactivated.
+
 ## 5. Ordered execution and proof gates
 
 Use coherent Learning-by-Doing cycles; the first integration cycle may complete with no inference. Do not split obvious implementation details into separate ceremonial cycles. Each gate produces reviewable evidence and an explicit proceed/refuse/inconclusive result.
