@@ -1,0 +1,34 @@
+{
+  "created_at": "2026-10-17T18:42:07.206769+00:00",
+  "window_start": "2026-10-17T17:29:42.101701+00:00",
+  "window_end": "2026-10-17T18:41:39.296494+00:00",
+  "window_basis": "Request and receipt file modification times, retained write-boundary approximation; not native monotonic clocks.",
+  "samples": 3810,
+  "machine_gpu_sampled_peak_mib": 6319,
+  "host_sampled_min_free_kib": 18680784,
+  "sample_errors": 0,
+  "model_call_client_seconds": {
+    "g12": {
+      "calls": 20,
+      "sum_seconds": 844.6863627810053,
+      "median_call_seconds": 10.124076742000398,
+      "max_call_seconds": 173.84481193600004,
+      "draft_count_reported_calls": 0
+    },
+    "q9": {
+      "calls": 20,
+      "sum_seconds": 376.3675541229968,
+      "median_call_seconds": 4.875331791499775,
+      "max_call_seconds": 108.47465800200007,
+      "draft_count_reported_calls": 0
+    },
+    "q27": {
+      "calls": 20,
+      "sum_seconds": 2701.820173867003,
+      "median_call_seconds": 26.310965681001107,
+      "max_call_seconds": 669.3231876940008,
+      "draft_count_reported_calls": 20
+    }
+  },
+  "limits": "Sampled whole-machine observations within approximate call window, not continuous peaks, isolated per-model allocation, causal ranking or native/client-clock equivalence."
+}

@@ -1,0 +1,435 @@
+{
+  "format": "saved-native-controls-observation/1",
+  "deployments": [
+    {
+      "model": "ge2",
+      "cohort": "r7",
+      "calls": 17,
+      "native_metadata_calls": 17,
+      "requested_applied_mismatches": [],
+      "prompt_measurement_mismatches": [],
+      "load_metadata_mismatches": [],
+      "native_control_values": {
+        "llm.prediction.llama.cpuThreads": [
+          7
+        ],
+        "llm.prediction.contextOverflowPolicy": [
+          "stopAtLimit"
+        ],
+        "llm.prediction.maxPredictedTokens": [
+          {
+            "checked": true,
+            "value": 8192
+          }
+        ],
+        "llm.prediction.minPSampling": [
+          {
+            "checked": false,
+            "value": 0
+          }
+        ],
+        "llm.prediction.reasoning.enableThinking": [
+          true
+        ],
+        "llm.prediction.repeatPenalty": [
+          {
+            "checked": false,
+            "value": 1
+          }
+        ],
+        "llm.prediction.temperature": [
+          1
+        ],
+        "llm.prediction.topKSampling": [
+          64
+        ],
+        "llm.prediction.topPSampling": [
+          {
+            "checked": true,
+            "value": 0.95
+          }
+        ],
+        "llm.load.offloadKVCacheToGpu": [
+          false
+        ],
+        "llm.load.llama.cpuThreadPoolSize": [
+          10
+        ],
+        "llm.load.contextLength": [
+          32768
+        ],
+        "llm.load.llama.flashAttention": [
+          true
+        ]
+      },
+      "render_template_sha256": [
+        "55572b8d3c8342044e25874c73fe5234b661fa0a57a57f6ef75b58e03d7d959a"
+      ],
+      "stop_reasons": {
+        "eosFound": 17
+      },
+      "reasoning_labelled_calls": 17,
+      "max_input_tokens": 21599,
+      "max_target_generated_tokens": 1674
+    },
+    {
+      "model": "ge4",
+      "cohort": "r7",
+      "calls": 20,
+      "native_metadata_calls": 20,
+      "requested_applied_mismatches": [],
+      "prompt_measurement_mismatches": [],
+      "load_metadata_mismatches": [],
+      "native_control_values": {
+        "llm.prediction.llama.cpuThreads": [
+          7
+        ],
+        "llm.prediction.contextOverflowPolicy": [
+          "stopAtLimit"
+        ],
+        "llm.prediction.maxPredictedTokens": [
+          {
+            "checked": true,
+            "value": 8192
+          }
+        ],
+        "llm.prediction.minPSampling": [
+          {
+            "checked": false,
+            "value": 0
+          }
+        ],
+        "llm.prediction.reasoning.enableThinking": [
+          true
+        ],
+        "llm.prediction.repeatPenalty": [
+          {
+            "checked": false,
+            "value": 1
+          }
+        ],
+        "llm.prediction.temperature": [
+          1
+        ],
+        "llm.prediction.topKSampling": [
+          64
+        ],
+        "llm.prediction.topPSampling": [
+          {
+            "checked": true,
+            "value": 0.95
+          }
+        ],
+        "llm.load.offloadKVCacheToGpu": [
+          false
+        ],
+        "llm.load.llama.cpuThreadPoolSize": [
+          7
+        ],
+        "llm.load.contextLength": [
+          32768
+        ],
+        "llm.load.llama.flashAttention": [
+          true
+        ]
+      },
+      "render_template_sha256": [
+        "55572b8d3c8342044e25874c73fe5234b661fa0a57a57f6ef75b58e03d7d959a"
+      ],
+      "stop_reasons": {
+        "eosFound": 20
+      },
+      "reasoning_labelled_calls": 19,
+      "max_input_tokens": 21571,
+      "max_target_generated_tokens": 1956
+    },
+    {
+      "model": "m9",
+      "cohort": "r7",
+      "calls": 22,
+      "native_metadata_calls": 22,
+      "requested_applied_mismatches": [],
+      "prompt_measurement_mismatches": [],
+      "load_metadata_mismatches": [],
+      "native_control_values": {
+        "llm.prediction.llama.cpuThreads": [
+          7
+        ],
+        "llm.prediction.contextOverflowPolicy": [
+          "stopAtLimit"
+        ],
+        "llm.prediction.maxPredictedTokens": [
+          {
+            "checked": true,
+            "value": 8192
+          }
+        ],
+        "llm.prediction.minPSampling": [
+          {
+            "checked": false,
+            "value": 0
+          }
+        ],
+        "llm.prediction.reasoning.enableThinking": [
+          true
+        ],
+        "llm.prediction.repeatPenalty": [
+          {
+            "checked": false,
+            "value": 1
+          }
+        ],
+        "llm.prediction.temperature": [
+          0.6
+        ],
+        "llm.prediction.topKSampling": [
+          20
+        ],
+        "llm.prediction.topPSampling": [
+          {
+            "checked": true,
+            "value": 0.95
+          }
+        ],
+        "llm.load.offloadKVCacheToGpu": [
+          false
+        ],
+        "llm.load.llama.cpuThreadPoolSize": [
+          7
+        ],
+        "llm.load.contextLength": [
+          32768
+        ],
+        "llm.load.llama.flashAttention": [
+          true
+        ]
+      },
+      "render_template_sha256": [
+        "59a64ebb4df6d1489d09a91267cf3ceb106162d4a893c4f84833cfb8c897ff63"
+      ],
+      "stop_reasons": {
+        "eosFound": 22
+      },
+      "reasoning_labelled_calls": 4,
+      "max_input_tokens": 22777,
+      "max_target_generated_tokens": 2474
+    },
+    {
+      "model": "g12",
+      "cohort": "r8",
+      "calls": 20,
+      "native_metadata_calls": 20,
+      "requested_applied_mismatches": [],
+      "prompt_measurement_mismatches": [],
+      "load_metadata_mismatches": [],
+      "native_control_values": {
+        "llm.prediction.temperature": [
+          0.2
+        ],
+        "llm.prediction.llama.cpuThreads": [
+          7
+        ],
+        "llm.prediction.topPSampling": [
+          {
+            "checked": true,
+            "value": 0.95
+          }
+        ],
+        "llm.prediction.topKSampling": [
+          40
+        ],
+        "llm.prediction.contextOverflowPolicy": [
+          "stopAtLimit"
+        ],
+        "llm.prediction.maxPredictedTokens": [
+          {
+            "checked": true,
+            "value": 2048
+          }
+        ],
+        "llm.prediction.minPSampling": [
+          {
+            "checked": false,
+            "value": 0
+          }
+        ],
+        "llm.prediction.reasoning.enableThinking": [
+          false
+        ],
+        "llm.prediction.repeatPenalty": [
+          {
+            "checked": false,
+            "value": 1
+          }
+        ],
+        "llm.load.offloadKVCacheToGpu": [
+          false
+        ],
+        "llm.load.llama.cpuThreadPoolSize": [
+          7
+        ],
+        "llm.load.contextLength": [
+          32768
+        ],
+        "llm.load.llama.flashAttention": [
+          true
+        ]
+      },
+      "render_template_sha256": [
+        "031f45711a263bdb0b9642fdba78e2cdf6990d6d965a0873aae05da49682d0ec"
+      ],
+      "stop_reasons": {
+        "eosFound": 20
+      },
+      "reasoning_labelled_calls": 0,
+      "max_input_tokens": 21541,
+      "max_target_generated_tokens": 920
+    },
+    {
+      "model": "q27",
+      "cohort": "r8",
+      "calls": 20,
+      "native_metadata_calls": 20,
+      "requested_applied_mismatches": [],
+      "prompt_measurement_mismatches": [],
+      "load_metadata_mismatches": [],
+      "native_control_values": {
+        "llm.prediction.llama.cpuThreads": [
+          7
+        ],
+        "llm.prediction.contextOverflowPolicy": [
+          "stopAtLimit"
+        ],
+        "llm.prediction.maxPredictedTokens": [
+          {
+            "checked": true,
+            "value": 2048
+          }
+        ],
+        "llm.prediction.minPSampling": [
+          {
+            "checked": false,
+            "value": 0
+          }
+        ],
+        "llm.prediction.reasoning.enableThinking": [
+          false
+        ],
+        "llm.prediction.repeatPenalty": [
+          {
+            "checked": false,
+            "value": 1
+          }
+        ],
+        "llm.prediction.temperature": [
+          0.2
+        ],
+        "llm.prediction.topKSampling": [
+          40
+        ],
+        "llm.prediction.topPSampling": [
+          {
+            "checked": true,
+            "value": 0.95
+          }
+        ],
+        "llm.load.offloadKVCacheToGpu": [
+          false
+        ],
+        "llm.load.llama.cpuThreadPoolSize": [
+          7
+        ],
+        "llm.load.contextLength": [
+          32768
+        ],
+        "llm.load.llama.flashAttention": [
+          true
+        ],
+        "llm.load.speculativeDecoding.draftMtp": [
+          true
+        ]
+      },
+      "render_template_sha256": [
+        "12827f24b742ea4e80cdc12dbcf9622227056b9f797252a3149263d4f9aaadce"
+      ],
+      "stop_reasons": {
+        "eosFound": 20
+      },
+      "reasoning_labelled_calls": 0,
+      "max_input_tokens": 21355,
+      "max_target_generated_tokens": 1034
+    },
+    {
+      "model": "q9",
+      "cohort": "r8",
+      "calls": 20,
+      "native_metadata_calls": 20,
+      "requested_applied_mismatches": [],
+      "prompt_measurement_mismatches": [],
+      "load_metadata_mismatches": [],
+      "native_control_values": {
+        "llm.prediction.llama.cpuThreads": [
+          7
+        ],
+        "llm.prediction.contextOverflowPolicy": [
+          "stopAtLimit"
+        ],
+        "llm.prediction.maxPredictedTokens": [
+          {
+            "checked": true,
+            "value": 2048
+          }
+        ],
+        "llm.prediction.minPSampling": [
+          {
+            "checked": false,
+            "value": 0
+          }
+        ],
+        "llm.prediction.reasoning.enableThinking": [
+          false
+        ],
+        "llm.prediction.repeatPenalty": [
+          {
+            "checked": false,
+            "value": 1
+          }
+        ],
+        "llm.prediction.temperature": [
+          0.2
+        ],
+        "llm.prediction.topKSampling": [
+          40
+        ],
+        "llm.prediction.topPSampling": [
+          {
+            "checked": true,
+            "value": 0.95
+          }
+        ],
+        "llm.load.offloadKVCacheToGpu": [
+          false
+        ],
+        "llm.load.llama.cpuThreadPoolSize": [
+          7
+        ],
+        "llm.load.contextLength": [
+          32768
+        ],
+        "llm.load.llama.flashAttention": [
+          true
+        ]
+      },
+      "render_template_sha256": [
+        "7f0e529032c25183bcd66c7f238da2d377f43be754a94e2725a58c4e16d2ed67"
+      ],
+      "stop_reasons": {
+        "eosFound": 20
+      },
+      "reasoning_labelled_calls": 0,
+      "max_input_tokens": 21415,
+      "max_target_generated_tokens": 774
+    }
+  ],
+  "limits": "Descriptive saved native metadata; requested/applied correspondence is not model semantic correctness. Hidden content is never read; reported reasoning-label flags do not measure hidden token counts. Exact remaining config/templates/assets/runtime binding stay in each immutable freeze/profile."
+}

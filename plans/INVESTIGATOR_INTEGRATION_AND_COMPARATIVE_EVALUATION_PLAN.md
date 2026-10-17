@@ -310,6 +310,17 @@ and actual measured prompt usage in every prediction. Preserve r6/r7 originals,
 including every withheld outcome, and report all new dispositions separately. No
 further automatic sweep or semantic case inference follows this bounded completion.
 
+Execution disposition (October17): [r8 completes all12 sequences/60 calls](../working-memory/evidence/2026-10-17-investigator-model-interface-r8/ANALYSIS.md),
+each remaining deployment4/4 at the exact frozen point. Together with r7, all six
+have current2.60.0 observations: Gemma12/Qwen27/E4B/Qwen9 qualify4/4; E2B/MiMo remain
+WITHHELD2/4 with actual failures retained. This completes the bounded qualification
+responsibility, not semantic adoption or autonomous investigation/stopping proof.
+The planned real-case8192 generation allowance differs from r8's2048 canary cap;
+capacity-fit evidence does not prove real-report adequacy. Freeze actual case inputs,
+configuration/assignment order/budgets/review before activation. The two-deployment/
+eight-assignment case design remains unchanged; no smaller-model substitution or
+additional arm is implicit. D/E and any next selected cycle retain their normal owners.
+
 ## 5. Ordered execution and proof gates
 
 Use coherent Learning-by-Doing cycles; the first integration cycle may complete with no inference. Do not split obvious implementation details into separate ceremonial cycles. Each gate produces reviewable evidence and an explicit proceed/refuse/inconclusive result.

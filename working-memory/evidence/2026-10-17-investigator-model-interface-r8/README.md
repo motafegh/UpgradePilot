@@ -32,3 +32,14 @@ Actual outcomes and new costs must be recorded independently; this preparation d
 not qualify a model. Raw artifacts/code/templates/telemetry are durably retained at
 `/home/motafeq/.local/share/upgradepilot/investigator-runs/deployment-interface-2026-10-17-r8`.
 Local retention does not assert off-machine backup or archived runtime binaries.
+
+## Completed evidence horizon
+
+The [final analysis](ANALYSIS.md) and [actual results](actual-results.json) complete all12
+frozen sequences/60 calls. The [all-six catalog](current-runtime-candidates.json)
+joins r7/r8 current-runtime configurations; [native controls](observed-applied-controls.json),
+[resource observations](resource-and-latency-summary.json) and [post-batch verification](post-batch-verification.json)
+bound the proof. Earlier checkpoints remain separately retained. No semantic cases ran.
+[Retention](retention-summary.json) verifies600 local files/22,798,015 bytes; full raw
+index and exact bytes remain owner-only locally. [Accounting](final-accounting.json)
+preserves known totals and the earlier unknown separately.

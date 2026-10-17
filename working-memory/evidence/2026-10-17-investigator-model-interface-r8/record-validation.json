@@ -1,0 +1,10 @@
+{
+  "documents": 11,
+  "local_links": 145,
+  "json_files": 26,
+  "missing_links": [],
+  "product_modules": 96,
+  "forbidden_imports": [],
+  "r8_frozen_source_unchanged": true,
+  "limits": "Local target/fence/JSON/import checks, not hosted validation or semantic truth."
+}

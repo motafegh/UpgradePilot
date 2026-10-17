@@ -1,0 +1,644 @@
+{
+  "format": "current-runtime-candidate-evidence/1",
+  "observed_at": "2026-10-17T18:42:07.172215+00:00",
+  "runtime": {
+    "backend": "CUDA llama.cpp2.60.0",
+    "change_from_r6": "2.59.0 ->2.60.0, ubatch1120 ->512, ctx-size131072 ->32768 with unified KV/parallel4; MiMo flash flag on, Gemmas auto. No update performed by this session; cause unknown. Multiple differences preclude causal mode-only comparison.",
+    "llama_cpp": "b11698/2a667032d per installed display-data",
+    "sdk": "Existing isolated1.5.0 selected through --sdk-site"
+  },
+  "request_history": "Two complete explicit system/user messages; fixed task first, current phase/menu/omissions, chronological exact model-authored request and returned observation pairs. Prior intent never grants evidence authority. No server response ID or implicit conversation.",
+  "deployments": [
+    {
+      "model_key": "gemma-4-e2b-it",
+      "cohort": "r7",
+      "freeze_sha256": "68a4e819520d6f2c8fe7e45dcbfa0a0d3df0fcfca5ba533526962ef0f764b71a",
+      "profile_sha256": "ef7157dfbf174939ccd65e5facaa289dd346db504945aea0532d4d3f6ae3c43c",
+      "exact_asset": {
+        "add_bos": true,
+        "bos_id": 2,
+        "bos_token": "<bos>",
+        "evidence": "r5 all four own-model actual prompt counts=SDK rendering+1 despite GGUF flag false. Represent BOS <bos>/id2, verified through actual tokenizer in every rendering. Actual native token IDs unexposed; runtime BOS interpretation must match actual prompt usage before tool admission.",
+        "gguf_add_bos_token": false,
+        "gguf_path": "/mnt/f/LLM/lmstudio-community/gemma-4-E2B-it-Q4_K_M/gemma-4-E2B-it-Q4_K_M.gguf",
+        "gguf_sha256": "95182e70dd6694a797a3d832547e0dd1e19be3f45f03ecdcee0283276b660028",
+        "tokenizer_metadata_sha256": "56996a193330523c1db21659c415af8aad9de25afb5c6f589132075fc6359d24"
+      },
+      "requested_load": {
+        "contextLength": 32768,
+        "evalBatchSize": 256,
+        "flashAttention": true,
+        "gpu": {
+          "ratio": 1.0
+        },
+        "keepModelInMemory": true,
+        "llamaKCacheQuantizationType": "q8_0",
+        "llamaVCacheQuantizationType": "q8_0",
+        "offloadKVCacheToGpu": false,
+        "tryMmap": true
+      },
+      "applied_mtp_fields": {},
+      "requested_prediction": {
+        "llm.prediction.contextOverflowPolicy": "stopAtLimit",
+        "llm.prediction.llama.cpuThreads": 7,
+        "llm.prediction.maxPredictedTokens": {
+          "checked": true,
+          "value": 8192
+        },
+        "llm.prediction.minPSampling": {
+          "checked": false,
+          "value": 0
+        },
+        "llm.prediction.reasoning.enableThinking": true,
+        "llm.prediction.repeatPenalty": {
+          "checked": false,
+          "value": 1
+        },
+        "llm.prediction.temperature": 1.0,
+        "llm.prediction.tools": {
+          "type": "none"
+        },
+        "llm.prediction.topKSampling": 64,
+        "llm.prediction.topPSampling": {
+          "checked": true,
+          "value": 0.95
+        }
+      },
+      "prediction_template_sha256": "55572b8d3c8342044e25874c73fe5234b661fa0a57a57f6ef75b58e03d7d959a",
+      "observed_backend": {
+        "backend_template_sha256": "55572b8d3c8342044e25874c73fe5234b661fa0a57a57f6ef75b58e03d7d959a",
+        "cpu_kv": true,
+        "executable": "C:\\Users\\lenovo\\.cache\\lm-studio\\extensions\\backends\\llama.cpp-win-x86_64-nvidia-cuda12-avx2-2.60.0\\llama-server.exe",
+        "flags": {
+          "batch-size": "256",
+          "cache-type-k": "q8_0",
+          "cache-type-v": "q8_0",
+          "ctx-size": "32768",
+          "flash-attn": "auto",
+          "model": "F:\\LLM\\lmstudio-community\\gemma-4-E2B-it-Q4_K_M\\gemma-4-E2B-it-Q4_K_M.gguf",
+          "n-gpu-layers": "999999",
+          "parallel": "4",
+          "ubatch-size": "512"
+        },
+        "kv_unified_flag": true,
+        "no_kv_unified_flag": false
+      },
+      "context": 32768,
+      "generation_per_call": 8192,
+      "calls": 17,
+      "qualified_sequences": 2,
+      "qualification_disposition": "withheld",
+      "sequences": [
+        {
+          "id": "r7-ge2-raw-1",
+          "disposition": "withheld",
+          "reason": "required canary sequence did not complete"
+        },
+        {
+          "id": "r7-ge2-structured-1",
+          "disposition": "withheld",
+          "reason": "required canary sequence did not complete"
+        },
+        {
+          "id": "r7-ge2-raw-2",
+          "disposition": "qualified",
+          "reason": "bounded synthetic interface sequence completed; no semantic acceptance"
+        },
+        {
+          "id": "r7-ge2-structured-2",
+          "disposition": "qualified",
+          "reason": "bounded synthetic interface sequence completed; no semantic acceptance"
+        }
+      ]
+    },
+    {
+      "model_key": "gemma-4-e4b-it-ud",
+      "cohort": "r7",
+      "freeze_sha256": "68a4e819520d6f2c8fe7e45dcbfa0a0d3df0fcfca5ba533526962ef0f764b71a",
+      "profile_sha256": "3fdb08e6b65fc9aee31424450f1f5a33fde4712de3abd63a10fdf3c64f32b08d",
+      "exact_asset": {
+        "add_bos": true,
+        "bos_id": 2,
+        "bos_token": "<bos>",
+        "evidence": "r5 all four own-model actual prompt counts=SDK rendering+1 despite GGUF flag false. Represent BOS <bos>/id2, verified through actual tokenizer in every rendering. Actual native token IDs unexposed; runtime BOS interpretation must match actual prompt usage before tool admission.",
+        "gguf_add_bos_token": false,
+        "gguf_path": "/mnt/f/LLM/lmstudio-community/gemma-4-E4B-it-UD-Q4_K_XL/gemma-4-E4B-it-UD-Q4_K_XL.gguf",
+        "gguf_sha256": "e8cd1a4c5162dfa355c567b4099206793793b5548951f077f376a0076dc0a058",
+        "tokenizer_metadata_sha256": "56996a193330523c1db21659c415af8aad9de25afb5c6f589132075fc6359d24"
+      },
+      "requested_load": {
+        "contextLength": 32768,
+        "evalBatchSize": 256,
+        "flashAttention": true,
+        "gpu": {
+          "ratio": 1.0
+        },
+        "keepModelInMemory": true,
+        "llamaKCacheQuantizationType": "q8_0",
+        "llamaVCacheQuantizationType": "q8_0",
+        "offloadKVCacheToGpu": false,
+        "tryMmap": true
+      },
+      "applied_mtp_fields": {},
+      "requested_prediction": {
+        "llm.prediction.contextOverflowPolicy": "stopAtLimit",
+        "llm.prediction.llama.cpuThreads": 7,
+        "llm.prediction.maxPredictedTokens": {
+          "checked": true,
+          "value": 8192
+        },
+        "llm.prediction.minPSampling": {
+          "checked": false,
+          "value": 0
+        },
+        "llm.prediction.reasoning.enableThinking": true,
+        "llm.prediction.repeatPenalty": {
+          "checked": false,
+          "value": 1
+        },
+        "llm.prediction.temperature": 1.0,
+        "llm.prediction.tools": {
+          "type": "none"
+        },
+        "llm.prediction.topKSampling": 64,
+        "llm.prediction.topPSampling": {
+          "checked": true,
+          "value": 0.95
+        }
+      },
+      "prediction_template_sha256": "55572b8d3c8342044e25874c73fe5234b661fa0a57a57f6ef75b58e03d7d959a",
+      "observed_backend": {
+        "backend_template_sha256": "55572b8d3c8342044e25874c73fe5234b661fa0a57a57f6ef75b58e03d7d959a",
+        "cpu_kv": true,
+        "executable": "C:\\Users\\lenovo\\.cache\\lm-studio\\extensions\\backends\\llama.cpp-win-x86_64-nvidia-cuda12-avx2-2.60.0\\llama-server.exe",
+        "flags": {
+          "batch-size": "256",
+          "cache-type-k": "q8_0",
+          "cache-type-v": "q8_0",
+          "ctx-size": "32768",
+          "flash-attn": "auto",
+          "model": "F:\\LLM\\lmstudio-community\\gemma-4-E4B-it-UD-Q4_K_XL\\gemma-4-E4B-it-UD-Q4_K_XL.gguf",
+          "n-gpu-layers": "999999",
+          "parallel": "4",
+          "ubatch-size": "512"
+        },
+        "kv_unified_flag": true,
+        "no_kv_unified_flag": false
+      },
+      "context": 32768,
+      "generation_per_call": 8192,
+      "calls": 20,
+      "qualified_sequences": 4,
+      "qualification_disposition": "canary-qualified",
+      "sequences": [
+        {
+          "id": "r7-ge4-raw-1",
+          "disposition": "qualified",
+          "reason": "bounded synthetic interface sequence completed; no semantic acceptance"
+        },
+        {
+          "id": "r7-ge4-structured-1",
+          "disposition": "qualified",
+          "reason": "bounded synthetic interface sequence completed; no semantic acceptance"
+        },
+        {
+          "id": "r7-ge4-raw-2",
+          "disposition": "qualified",
+          "reason": "bounded synthetic interface sequence completed; no semantic acceptance"
+        },
+        {
+          "id": "r7-ge4-structured-2",
+          "disposition": "qualified",
+          "reason": "bounded synthetic interface sequence completed; no semantic acceptance"
+        }
+      ]
+    },
+    {
+      "model_key": "mimo-v2.6-distill-qwen-9b",
+      "cohort": "r7",
+      "freeze_sha256": "68a4e819520d6f2c8fe7e45dcbfa0a0d3df0fcfca5ba533526962ef0f764b71a",
+      "profile_sha256": "2a97b8c0f2a618fc9ae0f252c7f4d43278998416b6e1750dfe35d08cbbb63a14",
+      "exact_asset": {
+        "add_bos": false,
+        "bos_id": null,
+        "bos_token": null,
+        "evidence": "Own GGUF metadata omits automatic BOS; r5 actual prompt counts matched SDK rendering in every completed call for this exact asset/runtime. No old Qwen identity inherited.",
+        "gguf_path": "/mnt/f/LLM/lmstudio-community/MiMo-V2.6-Distill-Qwen-9B-Q4_K_L/MiMo-V2.6-Distill-Qwen-9B-Q4_K_L.gguf",
+        "gguf_sha256": "db6b5e7b5d25525da87f4a3899555215693e8cf4ab1be9fff90ea5dee4ba957d",
+        "tokenizer_metadata_sha256": "6bf4cd2ae362dbcd4bfcbcadaff76e64cbf1f774d47e214fa3edfc218fb48d22"
+      },
+      "requested_load": {
+        "contextLength": 32768,
+        "evalBatchSize": 256,
+        "flashAttention": true,
+        "gpu": {
+          "ratio": 0.85
+        },
+        "keepModelInMemory": true,
+        "llamaKCacheQuantizationType": "q8_0",
+        "llamaVCacheQuantizationType": "q8_0",
+        "offloadKVCacheToGpu": false,
+        "tryMmap": true
+      },
+      "applied_mtp_fields": {},
+      "requested_prediction": {
+        "llm.prediction.contextOverflowPolicy": "stopAtLimit",
+        "llm.prediction.llama.cpuThreads": 7,
+        "llm.prediction.maxPredictedTokens": {
+          "checked": true,
+          "value": 8192
+        },
+        "llm.prediction.minPSampling": {
+          "checked": false,
+          "value": 0
+        },
+        "llm.prediction.reasoning.enableThinking": true,
+        "llm.prediction.repeatPenalty": {
+          "checked": false,
+          "value": 1
+        },
+        "llm.prediction.temperature": 0.6,
+        "llm.prediction.tools": {
+          "type": "none"
+        },
+        "llm.prediction.topKSampling": 20,
+        "llm.prediction.topPSampling": {
+          "checked": true,
+          "value": 0.95
+        }
+      },
+      "prediction_template_sha256": "59a64ebb4df6d1489d09a91267cf3ceb106162d4a893c4f84833cfb8c897ff63",
+      "observed_backend": {
+        "backend_template_sha256": "59a64ebb4df6d1489d09a91267cf3ceb106162d4a893c4f84833cfb8c897ff63",
+        "cpu_kv": true,
+        "executable": "C:\\Users\\lenovo\\.cache\\lm-studio\\extensions\\backends\\llama.cpp-win-x86_64-nvidia-cuda12-avx2-2.60.0\\llama-server.exe",
+        "flags": {
+          "batch-size": "256",
+          "cache-type-k": "q8_0",
+          "cache-type-v": "q8_0",
+          "ctx-size": "32768",
+          "flash-attn": "on",
+          "model": "F:\\LLM\\lmstudio-community\\MiMo-V2.6-Distill-Qwen-9B-Q4_K_L\\MiMo-V2.6-Distill-Qwen-9B-Q4_K_L.gguf",
+          "n-gpu-layers": "28",
+          "parallel": "4",
+          "ubatch-size": "512"
+        },
+        "kv_unified_flag": true,
+        "no_kv_unified_flag": false
+      },
+      "context": 32768,
+      "generation_per_call": 8192,
+      "calls": 22,
+      "qualified_sequences": 2,
+      "qualification_disposition": "withheld",
+      "sequences": [
+        {
+          "id": "r7-m9-raw-1",
+          "disposition": "qualified",
+          "reason": "bounded synthetic interface sequence completed; no semantic acceptance"
+        },
+        {
+          "id": "r7-m9-structured-1",
+          "disposition": "qualified",
+          "reason": "bounded synthetic interface sequence completed; no semantic acceptance"
+        },
+        {
+          "id": "r7-m9-raw-2",
+          "disposition": "withheld",
+          "reason": "required canary sequence did not complete"
+        },
+        {
+          "id": "r7-m9-structured-2",
+          "disposition": "withheld",
+          "reason": "required canary sequence did not complete"
+        }
+      ]
+    },
+    {
+      "model_key": "qwen3.5-9b-ud",
+      "cohort": "r8",
+      "freeze_sha256": "bb5bcd1ae12acfea18e4da98d35bd4bacdb3fc57e38bb196422ccfc1be7ee7e5",
+      "profile_sha256": "0d5febc14f2038523277a9e3845d726a0b1628f4783449da2d05a172e8797837",
+      "exact_asset": {
+        "add_bos": false,
+        "bos_id": null,
+        "bos_token": null,
+        "evidence": "Own GGUF metadata omits automatic BOS; r5 actual prompt counts matched SDK rendering in every completed call for this exact asset/runtime. No old Qwen identity inherited.",
+        "gguf_path": "/mnt/f/LLM/lmstudio-community/Qwen3.5-9B-UD-Q4_K_XL/Qwen3.5-9B-UD-Q4_K_XL.gguf",
+        "gguf_sha256": "6f5d30666c2d8ae16a306e616d95341dcf3cc46810df84d7e6f5a7d1e4c1b293",
+        "tokenizer_metadata_sha256": "f2e099248bafad0073a8ae55a33635d024ea80377f7a61ac6b80881adcd4bbe5"
+      },
+      "requested_load": {
+        "contextLength": 32768,
+        "evalBatchSize": 256,
+        "flashAttention": true,
+        "gpu": {
+          "ratio": 0.85
+        },
+        "keepModelInMemory": true,
+        "llamaKCacheQuantizationType": "q8_0",
+        "llamaVCacheQuantizationType": "q8_0",
+        "offloadKVCacheToGpu": false,
+        "tryMmap": true
+      },
+      "applied_mtp_fields": {},
+      "requested_prediction": {
+        "llm.prediction.contextOverflowPolicy": "stopAtLimit",
+        "llm.prediction.llama.cpuThreads": 7,
+        "llm.prediction.maxPredictedTokens": {
+          "checked": true,
+          "value": 2048
+        },
+        "llm.prediction.minPSampling": {
+          "checked": false,
+          "value": 0
+        },
+        "llm.prediction.reasoning.enableThinking": false,
+        "llm.prediction.repeatPenalty": {
+          "checked": false,
+          "value": 1
+        },
+        "llm.prediction.temperature": 0.2,
+        "llm.prediction.tools": {
+          "type": "none"
+        },
+        "llm.prediction.topKSampling": 40,
+        "llm.prediction.topPSampling": {
+          "checked": true,
+          "value": 0.95
+        }
+      },
+      "prediction_template_sha256": "7f0e529032c25183bcd66c7f238da2d377f43be754a94e2725a58c4e16d2ed67",
+      "observed_backend": {
+        "backend_template_sha256": "7f0e529032c25183bcd66c7f238da2d377f43be754a94e2725a58c4e16d2ed67",
+        "cpu_kv": true,
+        "executable": "C:\\Users\\lenovo\\.cache\\lm-studio\\extensions\\backends\\llama.cpp-win-x86_64-nvidia-cuda12-avx2-2.60.0\\llama-server.exe",
+        "flags": {
+          "batch-size": "256",
+          "cache-type-k": "q8_0",
+          "cache-type-v": "q8_0",
+          "ctx-size": "32768",
+          "flash-attn": "on",
+          "model": "F:\\LLM\\lmstudio-community\\Qwen3.5-9B-UD-Q4_K_XL\\Qwen3.5-9B-UD-Q4_K_XL.gguf",
+          "n-gpu-layers": "28",
+          "parallel": "4",
+          "ubatch-size": "512"
+        },
+        "kv_unified_flag": true,
+        "no_kv_unified_flag": false
+      },
+      "context": 32768,
+      "generation_per_call": 2048,
+      "calls": 20,
+      "qualified_sequences": 4,
+      "qualification_disposition": "canary-qualified",
+      "sequences": [
+        {
+          "id": "r8-q9-raw-1",
+          "disposition": "qualified",
+          "reason": "bounded synthetic interface sequence completed; no semantic acceptance"
+        },
+        {
+          "id": "r8-q9-structured-1",
+          "disposition": "qualified",
+          "reason": "bounded synthetic interface sequence completed; no semantic acceptance"
+        },
+        {
+          "id": "r8-q9-raw-2",
+          "disposition": "qualified",
+          "reason": "bounded synthetic interface sequence completed; no semantic acceptance"
+        },
+        {
+          "id": "r8-q9-structured-2",
+          "disposition": "qualified",
+          "reason": "bounded synthetic interface sequence completed; no semantic acceptance"
+        }
+      ]
+    },
+    {
+      "model_key": "google/gemma-4-12b",
+      "cohort": "r8",
+      "freeze_sha256": "bb5bcd1ae12acfea18e4da98d35bd4bacdb3fc57e38bb196422ccfc1be7ee7e5",
+      "profile_sha256": "e6c9f04c230eb2d917688d39d416e11758387ee875152150dc113e3235e7758f",
+      "exact_asset": {
+        "add_bos": true,
+        "bos_id": 2,
+        "bos_token": "<bos>",
+        "evidence": "Gemma metadata explicitly add_bos_token=true; initial actual prompt count was rendered+1. Qwen measured prompt count exactly matched without automatic BOS; metadata does not enable it.",
+        "gguf_path": "/mnt/f/LLM/lmstudio-community/gemma-4-12B-it-GGUF/gemma-4-12B-it-Q4_K_M.gguf",
+        "gguf_sha256": "c088a44859de42a1966851b552ba628c0ff4419b87c4622539d69430f40024ed",
+        "tokenizer_metadata_sha256": "f9e7403f372562ec69a2b14aa59efbecf585e22605fa6bae49629af6b29300d4"
+      },
+      "requested_load": {
+        "contextLength": 32768,
+        "evalBatchSize": 256,
+        "flashAttention": true,
+        "gpu": {
+          "ratio": 0.45
+        },
+        "keepModelInMemory": true,
+        "llamaKCacheQuantizationType": "q8_0",
+        "llamaVCacheQuantizationType": "q8_0",
+        "offloadKVCacheToGpu": false,
+        "tryMmap": true
+      },
+      "applied_mtp_fields": {},
+      "requested_prediction": {
+        "llm.prediction.contextOverflowPolicy": "stopAtLimit",
+        "llm.prediction.contextPrefill": [],
+        "llm.prediction.llama.cpuThreads": 7,
+        "llm.prediction.maxPredictedTokens": {
+          "checked": true,
+          "value": 2048
+        },
+        "llm.prediction.minPSampling": {
+          "checked": false,
+          "value": 0
+        },
+        "llm.prediction.reasoning.enableThinking": false,
+        "llm.prediction.reasoning.parsing": {
+          "enabled": true,
+          "endString": "<channel|>",
+          "startString": "<|channel>thought"
+        },
+        "llm.prediction.repeatPenalty": {
+          "checked": false,
+          "value": 1
+        },
+        "llm.prediction.temperature": 0.2,
+        "llm.prediction.tools": {
+          "type": "none"
+        },
+        "llm.prediction.topKSampling": 40,
+        "llm.prediction.topPSampling": {
+          "checked": true,
+          "value": 0.95
+        },
+        "llm.prediction.vision.ignoreModelPreferredMaxImageDimension": false,
+        "llm.prediction.vision.userMaxImageDimensionPixels": {
+          "checked": true,
+          "value": 2048
+        }
+      },
+      "prediction_template_sha256": "031f45711a263bdb0b9642fdba78e2cdf6990d6d965a0873aae05da49682d0ec",
+      "observed_backend": {
+        "backend_template_sha256": "031f45711a263bdb0b9642fdba78e2cdf6990d6d965a0873aae05da49682d0ec",
+        "cpu_kv": true,
+        "executable": "C:\\Users\\lenovo\\.cache\\lm-studio\\extensions\\backends\\llama.cpp-win-x86_64-nvidia-cuda12-avx2-2.60.0\\llama-server.exe",
+        "flags": {
+          "batch-size": "256",
+          "cache-type-k": "q8_0",
+          "cache-type-v": "q8_0",
+          "ctx-size": "32768",
+          "flash-attn": "auto",
+          "model": "F:\\LLM\\lmstudio-community\\gemma-4-12B-it-GGUF\\gemma-4-12B-it-Q4_K_M.gguf",
+          "n-gpu-layers": "22",
+          "parallel": "4",
+          "ubatch-size": "1120"
+        },
+        "kv_unified_flag": true,
+        "no_kv_unified_flag": false
+      },
+      "context": 32768,
+      "generation_per_call": 2048,
+      "calls": 20,
+      "qualified_sequences": 4,
+      "qualification_disposition": "canary-qualified",
+      "sequences": [
+        {
+          "id": "r8-g12-raw-1",
+          "disposition": "qualified",
+          "reason": "bounded synthetic interface sequence completed; no semantic acceptance"
+        },
+        {
+          "id": "r8-g12-structured-1",
+          "disposition": "qualified",
+          "reason": "bounded synthetic interface sequence completed; no semantic acceptance"
+        },
+        {
+          "id": "r8-g12-raw-2",
+          "disposition": "qualified",
+          "reason": "bounded synthetic interface sequence completed; no semantic acceptance"
+        },
+        {
+          "id": "r8-g12-structured-2",
+          "disposition": "qualified",
+          "reason": "bounded synthetic interface sequence completed; no semantic acceptance"
+        }
+      ]
+    },
+    {
+      "model_key": "qwen3.8-27b-ud",
+      "cohort": "r8",
+      "freeze_sha256": "bb5bcd1ae12acfea18e4da98d35bd4bacdb3fc57e38bb196422ccfc1be7ee7e5",
+      "profile_sha256": "308274d014d4199de59f8f932bff186e93034bda56f396c5bcc7b29a33f27580",
+      "exact_asset": {
+        "add_bos": false,
+        "bos_id": 248044,
+        "bos_token": "<|endoftext|>",
+        "evidence": "Gemma metadata explicitly add_bos_token=true; initial actual prompt count was rendered+1. Qwen measured prompt count exactly matched without automatic BOS; metadata does not enable it.",
+        "gguf_path": "/mnt/f/LLM/lmstudio-community/Qwen3.8-27B-UD-Q4_K_M/Qwen3.8-27B-UD-Q4_K_M.gguf",
+        "gguf_sha256": "322e194ff79741c7baa497c240f677f54b201b0efab44ca8e50f122b39123482",
+        "tokenizer_metadata_sha256": "ef9c99f93033a32533fbc12f9a643299496d898df806801c7e7b1edd77f9e3dd"
+      },
+      "requested_load": {
+        "contextLength": 32768,
+        "evalBatchSize": 256,
+        "flashAttention": true,
+        "gpu": {
+          "ratio": 0.2
+        },
+        "keepModelInMemory": true,
+        "llamaKCacheQuantizationType": "q8_0",
+        "llamaVCacheQuantizationType": "q8_0",
+        "offloadKVCacheToGpu": false,
+        "tryMmap": true
+      },
+      "applied_mtp_fields": {
+        "llm.load.speculativeDecoding.draftMtp": true
+      },
+      "requested_prediction": {
+        "llm.prediction.contextOverflowPolicy": "stopAtLimit",
+        "llm.prediction.llama.cpuThreads": 7,
+        "llm.prediction.maxPredictedTokens": {
+          "checked": true,
+          "value": 2048
+        },
+        "llm.prediction.minPSampling": {
+          "checked": false,
+          "value": 0
+        },
+        "llm.prediction.reasoning.enableThinking": false,
+        "llm.prediction.repeatPenalty": {
+          "checked": false,
+          "value": 1
+        },
+        "llm.prediction.temperature": 0.2,
+        "llm.prediction.tools": {
+          "type": "none"
+        },
+        "llm.prediction.topKSampling": 40,
+        "llm.prediction.topPSampling": {
+          "checked": true,
+          "value": 0.95
+        }
+      },
+      "prediction_template_sha256": "12827f24b742ea4e80cdc12dbcf9622227056b9f797252a3149263d4f9aaadce",
+      "observed_backend": {
+        "backend_template_sha256": "12827f24b742ea4e80cdc12dbcf9622227056b9f797252a3149263d4f9aaadce",
+        "cpu_kv": true,
+        "executable": "C:\\Users\\lenovo\\.cache\\lm-studio\\extensions\\backends\\llama.cpp-win-x86_64-nvidia-cuda12-avx2-2.60.0\\llama-server.exe",
+        "flags": {
+          "batch-size": "256",
+          "cache-type-k": "q8_0",
+          "cache-type-v": "q8_0",
+          "ctx-size": "32768",
+          "flash-attn": "on",
+          "model": "F:\\LLM\\lmstudio-community\\Qwen3.8-27B-UD-Q4_K_M\\Qwen3.8-27B-UD-Q4_K_M.gguf",
+          "n-gpu-layers": "13",
+          "parallel": "4",
+          "ubatch-size": "512"
+        },
+        "kv_unified_flag": true,
+        "no_kv_unified_flag": false
+      },
+      "context": 32768,
+      "generation_per_call": 2048,
+      "calls": 20,
+      "qualified_sequences": 4,
+      "qualification_disposition": "canary-qualified",
+      "sequences": [
+        {
+          "id": "r8-q27-raw-1",
+          "disposition": "qualified",
+          "reason": "bounded synthetic interface sequence completed; no semantic acceptance"
+        },
+        {
+          "id": "r8-q27-structured-1",
+          "disposition": "qualified",
+          "reason": "bounded synthetic interface sequence completed; no semantic acceptance"
+        },
+        {
+          "id": "r8-q27-raw-2",
+          "disposition": "qualified",
+          "reason": "bounded synthetic interface sequence completed; no semantic acceptance"
+        },
+        {
+          "id": "r8-q27-structured-2",
+          "disposition": "qualified",
+          "reason": "bounded synthetic interface sequence completed; no semantic acceptance"
+        }
+      ]
+    }
+  ],
+  "later_comparison_deployments": 2,
+  "later_case_assignments": 8,
+  "later_semantic_comparison_admitted": false,
+  "limits": [
+    "Exact synthetic operating-point observations, not intrinsic model ranking or semantic/product acceptance.",
+    "Different mode/samplers/generation allowances prevent causal cross-model conclusions; one sequence per condition.",
+    "Backend flags/applied metadata do not independently prove every physical tensor placement or auto-selected kernel.",
+    "CPU q8_0 unified KV/32768 context with four advertised slots is qualified for serial single prediction only.",
+    "Asset identity preserves locally measured bytes; upstream weight revision is not invented. Gemma12 projector is separately bound in the r8 immutable_files freeze."
+  ]
+}

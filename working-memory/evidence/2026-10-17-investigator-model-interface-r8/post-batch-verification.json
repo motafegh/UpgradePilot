@@ -1,0 +1,30 @@
+{
+  "observed_at": "2026-10-17T18:42:27.162889+00:00",
+  "normal_runner_exit": 0,
+  "normal_sampler_exit": 0,
+  "loaded_identifiers": [],
+  "r8_frozen_source_unchanged": true,
+  "prior_completed_indexes": [
+    {
+      "cohort": "r5",
+      "files": 891,
+      "index_sha256": "4695f315065f661248d3a0b7e726402d2e01e1ec3bb7cb1af4eaf0ead73add60",
+      "verified": true
+    },
+    {
+      "cohort": "r6",
+      "files": 1164,
+      "index_sha256": "4b074fa618aa93c0bf3d64d4b7a179e51b3a6ba54ab31f7ba6b84a9cf1715244",
+      "verified": true
+    },
+    {
+      "cohort": "r7",
+      "files": 720,
+      "index_sha256": "b9a3064dd0637435cd4c4a12208ff32ff4e1166e56fb584a8dabd28fdd0183f7",
+      "verified": true
+    }
+  ],
+  "later_semantic_comparison_runs": 0,
+  "immutable_asset_runtime_stats_unchanged": true,
+  "immutable_files_checked": 7
+}

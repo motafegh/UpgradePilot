@@ -2,7 +2,7 @@
 
 **Date/horizon:** October 16, 2026, Asia/Tehran; A0 from `main@4545d5f0` after a successful fast-forward pull.
 **Responsibility:** qualify actual local deployment identities, bounded resource envelopes and the real model/request/tool/reference interface for the admitted Investigator comparison, or explicitly withhold an unqualified deployment.
-**State at this handoff (October17):** A0/A1/A2 complete; B/Verification current. Complete six-candidate r6 results are retained; native-mode r7 is complete and current-runtime r8 is prepared/inspected/frozen. Scoped engineering checks are green; deployment dispositions remain configuration-specific. D/E pending; C continuous. This record is the single detailed owner for this successor cycle; [MEMORY](../MEMORY.md) alone owns live selection.
+**State at this handoff (October17):** A0/A1/A2/B complete; Verification GREEN for bounded implementation/qualification. All six have actual current2.60.0 points: Gemma12/Qwen27/E4B/Qwen9 each4/4; E2B/MiMo each2/4 WITHHELD. R7/r8 normal complete, all119 native metadata/configuration/prompt measurements match. D current; E pending; C continuous. Model failures are completed negative results, not unattempted jobs. This record is the single detailed owner for this successor cycle; [MEMORY](../MEMORY.md) alone owns live selection.
 **Owners:** [integration plan](../plans/INVESTIGATOR_INTEGRATION_AND_COMPARATIVE_EVALUATION_PLAN.md), especially §4 measured deployment envelopes and §5 model-interface qualification; [environment](../ENVIRONMENT.md); [security](../SECURITY.md).
 **Related cycle:** [adapter/mechanical cycle](2026-10-16_2045_investigator-adapter-and-mechanical-qualification_lbd-cycle.md), now CLOSED through E after the [closure handoff](2026-10-16_2301_adapter-d-e-closure-handoff.md) and [reconciliation decision](2026-10-16_adapter-closure-and-deployment-cohort-reconciliation.md). Its model-free proof remains bounded; actual model/reference visibility belongs here.
 **Procedural provenance:** `UP-SKILL:upgradepilot-build-implement`; `UP-SKILL:upgradepilot-learning-by-doing`; `UP-SKILL:upgradepilot-working-memory`.
@@ -15,10 +15,10 @@
 | A0 | DONE | Pulled the explicit parallel handoff, reconciled canonical owners, checked unchanged bridge/input identities and the smallest local runtime facts; initialized this record/map. |
 | A1 | DONE — continuous-context compression | Only pulled delta is Ali's already-explained scheduling decision; prior B/proof is unchanged. New runtime/session facts are included in the A2 packet; no mastery inferred. |
 | A2 | DONE — Ali explicitly directed scoped B | Explain actual deployment versus asset availability, request/history visibility, measured context/offload, bounded canaries, model selection and withheld-versus-qualified outcomes. |
-| B | CURRENT — bounded cohorts progressing | Complete stateless request/result bridge, streaming/privacy/default/mode/KV guards delivered. R6 completed all six; r7 native-mode cohort complete, r8 current2.60.0 binding for remaining three prepared/frozen under explicit budget revision. |
-| Verification gate | CURRENT — engineering green, configuration-specific results | Final35 focused/65 nearest product controls, prior four model-free regressions, current source/import/record checks pass. R6:108 calls, Gemma12/Qwen27 each4/4 at2.59.0; other four withheld overall. R7 complete59 calls: E4B4/4,E2B2/4,MiMo2/4; r8 prepared/frozen current2.60.0 points; no silent transfer of old passes or semantic case admission. |
-| D | PENDING | Learn from actual runtime/interface evidence and compare expectations; do not duplicate the adapter's parallel learning. |
-| E | PENDING | Repair/defer material gaps and close this responsibility truthfully before selecting semantic comparison. |
+| B | DONE | Complete stateless history/streaming/privacy/native mode and configuration guards delivered; all selected r7/r8 sequences executed and actual reports reviewed. Four current profiles qualify4/4; E2B/MiMo2/4 WITHHELD. |
+| Verification gate | GREEN — bounded responsibility, not all-model acceptance | 35 focused/65 nearest product controls, four model-free regressions;119 current native receipts match requested/applied prediction, load identity and measured prompt counts. Normal completion/unload/source/retention checks; exact model dispositions retained. |
+| D | CURRENT — evidence-backed packet recorded; ownership unverified | Learn actual flow, failures/configuration changes/reviewer corrections and proof boundaries; compare A2 expectations. Await meaningful ownership response, not assumed mastery. |
+| E | PENDING | Repair or explicitly defer important D gaps; retain historical unknown usage and real-case/non-optimality limits; close cycle before selecting case-freeze successor. |
 | C | CONTINUOUS | Preserve configuration/protocol decisions, trials/costs/failures, corrections, proof limits and parallel feedback in this same record. |
 
 ## A0 reconciliation and learning/cadence adaptations
@@ -651,3 +651,104 @@ descriptive judgments without rewriting original outputs/dispositions/private in
 Canaries prescribe operations, so neither their completion nor such report wording
 establishes autonomous discovery/stopping adequacy. This reviewer-side learning belongs
 in D as well as the model-side findings; do not automatically blame model internals.
+
+## B / Verification complete — current-runtime cohort reconciled
+
+R8 finishes normally:12 sequences/60 calls, each Qwen9/Gemma12/Qwen27 point4/4 in20
+calls. Actual705731 input/11068 target/3447 reported draft; zero newly unknown usage.
+Final Qwen27 Structured-long report read: correct source/native refs, explicit
+not_evaluated/null, failed read with no delivered reference, no compatibility/action
+claim. All completed reports/corrections and tool events inspected. R7+r8 together
+24 sequences/119 calls: E4B/Gemma12/Qwen27/Qwen9 qualify4/4; E2B/MiMo remain2/4
+WITHHELD. Those are completed negative results, not unattempted jobs or intrinsic
+model-quality verdicts. All six assets remain available; no automatic further sweep.
+
+Independent saved-metadata inspection covers all119 calls: zero requested/applied
+prediction mismatches, zero native-load/fresh-identity mismatches, zero fully rendered
+prompt-token mismatches. Runner/sampler exit0, SDK inventory empty, frozen source
+unchanged. Prior r5/r6/r7 indexes reverify every byte/hash/0600 mode:891/1164/720 files.
+R8 final index follows after all private summaries/scripts/telemetry are closed.
+Current source35 focused/65 nearest product controls and earlier four model-free
+regressions remain the relevant proof; no later executable changes or full-suite claim.
+
+Actual cumulative338 calls<=350 r8 frozen revision maximum<=363 aggregate ceiling;
+known3922961 input/82220 target/11139 draft, one older r4 unknown usage unchanged.
+Current r7+r8 points119 calls/1447727 input/45216 target/3447 reported draft, no new
+unknown;119 separate reasoning counts unreported. No hidden-token reconstruction.
+R8 samples3810 observations in the approximate actual-call window: whole-machine
+sampled peak6319MiB/minimum host-free18680784KiB/zero sampling errors. Client sums
+Qwen9 376.37s/Gemma12 844.69s/Qwen27 2701.82s; native/client metrics are kept separate,
+not normalized into an intrinsic model ranking. Qwen27's669.32s largest call is a
+real planning cost, not evidence that another operating point is globally optimal.
+
+Publication was progressive: code/plan/pre-run freezes, completed r6/r7 evidence,
+r7 retention, Qwen9, Gemma12, Qwen27 short and Raw-long checkpoints, and reviewer
+corrections were separately committed/pushed while the batch ran. Fresh fetch before
+completion found main/origin0/0 divergence; unrelated October3 audit untouched.
+Final public evidence/owners reconcile after retention verification. Later real cases
+remain two deployments/eight assignments and unactivated.
+
+## D — evidence-backed learning and ownership packet
+
+The concrete path is frozen profile and current packed input -> complete stateless
+presentation -> actual template/tokenizer measurement -> pinned SDK RPC prediction ->
+visible stream/native metadata receipt -> current-request reference guard -> tool/report
+publication -> strict synthetic sequence assessor. The source owners are
+[model interface](../experiments/investigator_model_interface.py),
+[qualification driver](../experiments/qualify_investigator_model_interface.py) and
+[trial/packing bridge](../experiments/investigator_workspace_trial.py); the
+[final evidence](evidence/2026-10-17-investigator-model-interface-r8/ANALYSIS.md)
+links all exact configurations, original outcomes and proof limits.
+
+Meaningful expectation-versus-reality lessons:
+
+- SDK availability is interpreter/path-specific. The main venv omitted the deliberately
+  isolated existing SDK; using --sdk-site recovered it without a dependency install.
+  The later native backend nevertheless changed2.59.0->2.60.0, so current passes needed
+  a separately frozen completion rather than inherited runtime assumptions.
+- Script memory is not model-visible context. The old model history lost prior requested
+  arguments while retaining results; an unavailable-path problem did not name that path.
+  Exact original request plus returned observation restores interpretability. Prior
+  intent still grants no evidence authority, and omitted observations remain uncitable.
+- A visible diagnostic can lack a typed citation reference: failed read evidence=[] is
+  not an undiscovered observation. A report-phase empty menu is not an exhausted source
+  universe. Our own initial criticisms needed correction after tracing these boundaries;
+  no speculative model-internal explanation or original-output repair was justified.
+- Valid schema/current IDs/procedural ready do not prove entailment or adequacy. Qwen9
+  Raw-long validly cites the interface marker yet recommends proceeding with an update;
+  compatibility evidence is absent. Qwen27's explicit ready/unsupported distinction is
+  a useful contrasting report, not proof of general superiority. Gemma12's omitted
+  native not_evaluated status is an informativeness gap, not proof that payload=null
+  was secretly available or that the model hallucinated an actual payload.
+- The32k context is justified by measured full-input+generation-reserve+margin fit for
+  inspected shapes; it is not a global optimum. CPU q8 KV and weight flags are separate
+  controls. Four advertised unified-cache slots do not prove four concurrent32k requests.
+  R8 actually generates under2048 cap; an8192 reserve fitting does not establish real
+  case/report adequacy. Different mode/sampler/runtime points preclude causal rankings.
+
+The engineering jobs are complete. Learner ownership is **unverified**, not inferred
+from AI-authored code/analysis or passing tests. Meaningful D checks for Ali:
+
+1. Why can Qwen9 pass all four interface sequences yet its proceed recommendation still
+   lack support? Which additional source-to-conclusion review remains necessary?
+2. If E4B is selected for a later comparison, what must be explicitly decided/frozen
+   before affected inference, and why does its qualification not silently create a
+   third case deployment?
+
+No response/ownership result is fabricated. E remains pending for repair/defer and
+truthful closure. Preserve the older unknown usage, local-only retention/no full runtime
+archive, actual operating-point limits and unestablished semantic/usefulness/autonomy
+claims. The next responsibility candidate is actual case/configuration/review freeze
+under the existing integration plan, with a cost-aware deployment decision before
+activation; this packet neither begins that cycle nor launches the paired comparison.
+
+Final C retention/publication reconciliation: r8 closes at600 indexed files/22,798,015
+bytes; every size/SHA256/0600 mode verifies, directories0700. Index SHA256
+ba54645fd808ca44023ccc306b15afe21ce55cfbce652b42d54484d313dd9613.
+All seven frozen external weight/projector/runtime file size/mtime bindings also remain
+unchanged; earlier full hashes are the frozen identities, not newly rehashed vendor
+binaries. Final accounting is machine-derived from immutable prior spend plus actual
+r8 receipts. No closed raw root is modified after indexing; final record validation
+writes public counts into the repository. MEMORY now selects D/then E, with B jobs
+complete and individual configuration withholding retained. No learner ownership or
+later semantic activation is declared.

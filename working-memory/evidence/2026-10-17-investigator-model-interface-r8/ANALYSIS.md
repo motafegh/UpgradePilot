@@ -1,8 +1,8 @@
 # Current-runtime completion — progressive actual findings
 
-The first checkpoint covered Qwen9; the appended checkpoint now includes Gemma12.
-Qwen27's appended short-sequence checkpoint is complete; its two long sequences
-remain pending at this horizon. [MEMORY](../../../MEMORY.md) owns continuation.
+The bounded r8 cohort is now complete. Earlier checkpoints below retain their original
+horizons; the final reconciliation follows them. [MEMORY](../../../MEMORY.md) alone
+owns continuation.
 All runs use synthetic interface inputs, not the later paired real-case comparison.
 
 [Qwen9 actual checkpoint](qwen9-completed-checkpoint.json): four independent sequences,
@@ -99,3 +99,82 @@ The report's client elapsed669.323s differs from native total730.057s/TTFT180.03
 native usage is20,659 input/762 target/723 draft. Preserve original timing fields and
 their unestablished measurement relationship. This exact point is slow enough to matter
 to a later case-budget decision, without proving a causal runtime/model speed ranking.
+
+## Final completion and all-six current-runtime disposition
+
+[All12 r8 sequences](actual-results.json) finish normally: each candidate20 calls/4
+qualified sequences,60 calls total,705,731 input/11,068 target-generated/3,447 reported
+draft tokens,zero newly unknown usage. Qwen27's final Structured-long report was read:
+correct delivered source/native IDs, explicit not_evaluated/null, scoped failed read
+with no delivered evidence ref, no action/compatibility claim. All completed visible
+reports/corrections and actual tool events were inspected, not just summary pass counts.
+
+Combining separately frozen [r7](../2026-10-17-investigator-model-interface-r7/ANALYSIS.md)
+and r8 points yields the following current2.60.0 observations, without pooling old
+failed results or claiming controlled cross-model superiority:
+
+| Candidate | Mode/sampling; generation cap | Calls | Sequences | Disposition |
+| --- | --- | ---: | ---: | --- |
+| Gemma 4 12B |off,T.2/K40/P.95;2048|20|4/4|Canary-qualified exact point|
+| Qwen3.8-27B UD-Q4_K_M |off,T.2/K40/P.95;2048|20|4/4|Canary-qualified exact point|
+| Gemma 4 E2B |on,T1/K64/P.95;8192|17|2/4|WITHHELD: early completion/skipped operation/ineligible refs in short sequences|
+| Gemma 4 E4B |on,T1/K64/P.95;8192|20|4/4|Canary-qualified exact point|
+| MiMo-V2.6-Distill-Qwen-9B |on,T.6/K20/P.95;8192|22|2/4|WITHHELD: ineligible long-report refs after correction|
+| Qwen3.5-9B |off,T.2/K40/P.95;2048|20|4/4|Canary-qualified exact point|
+
+[The exact candidate catalog](current-runtime-candidates.json) joins local asset
+filename/SHA256, tokenizer/BOS policy, requested load/prediction controls, actual
+backend placement/cache/template identities, frozen configuration and original
+dispositions. MTP=true is an exposed applied Qwen27 load setting, checked through the
+full raw-load identity, with native draft usage saved; it is not an extra deployment.
+All use context32768/CPU q8_0 K/V/unified cache with serial single prediction.
+Backend weight-layer flags are22/13/all/all/28/28 respectively; those flags do not
+independently prove each tensor's physical residency. Auto kernel selection remains
+unexposed for the Gemmas. No claim of globally optimal context/offload/settings.
+
+[Observed native controls](observed-applied-controls.json) independently compare all119
+current-runtime calls:119 native metadata receipts,zero requested/prediction-setting
+mismatches,zero native-load/identity mismatches,zero fully rendered prompt-token
+mismatches. Separate reasoning counts remain unreported; hidden fragments were
+discarded before accumulation/storage. No hidden-token reconstruction or output salvage.
+
+[Post-batch checks](post-batch-verification.json): runner/sampler exit0,loaded SDK
+inventory empty,frozen source hashes unchanged. Earlier r5/r6/r7 completed retention
+indexes all reverify:891/1164/720 files respectively. Final r8 retention is summarized
+separately below. Existing35 focused and65 nearest product controls remain applicable;
+no executable change occurred after their verification. No full/installed/hosted suite
+result is used to claim acceptance of these experiment-only changes.
+
+[R8 resource/timing observations](resource-and-latency-summary.json) include3810
+samples in the approximate actual-call window: sampled whole-machine peak6319MiB,
+minimum host-free18,680,784KiB,zero sample errors. Client call-time sums are
+Qwen9 376.37s/Gemma12 844.69s/Qwen27 2701.82s,20 calls each. Qwen27's largest call
+is669.32s. Native/client definitions differ; sampled values are not continuous maxima,
+process-exclusive allocation or an intrinsic model speed ranking.
+
+Across all revisions there are338 attempts,known3,922,961 input/82,220 target-generated/
+11,139 draft tokens,with the one earlier r4 terminated-call usage still unknown.
+Current r7+r8 points use119 calls,1,447,727 input/45,216 target/3,447 reported draft;
+all new usage is complete. Absence of separate draft/reasoning fields is not zero.
+R8 actual60<=72 new; actual cumulative338<=350 revision maximum<=363 aggregate ceiling.
+
+Completed WITHHELD points are negative qualification results, not unattempted jobs.
+Four4/4 points demonstrate the bounded interface contract; prescribed operations do
+not establish autonomous discovery/stopping adequacy, valid citations do not establish
+entailment, and synthetic context fit does not establish real-case report adequacy.
+The clear Qwen9 Raw-long proceed inference remains a semantic warning, not a failed
+interface grade. Weaker descriptive criticisms were corrected against actual phase/
+reference visibility, as recorded above. No intrinsic model ranking or independent
+acceptance follows. The later comparison still has two deployments/eight assignments
+and has not started; actual case requests/configuration/budgets/review need their own freeze.
+
+[Final r8 retention](retention-summary.json) verifies600 files/22,798,015 bytes, each
+size/SHA256/0600 mode checked, all directories0700. Local index SHA256:
+`ba54645fd808ca44023ccc306b15afe21ce55cfbce652b42d54484d313dd9613`.
+This includes all raw canary requests/renderings/visible outputs/native receipts,
+preparations/configuration/source/template snapshots, failed diagnostic/preparation
+records, offline analysis code/results and telemetry in this root. No hidden fragments,
+full model/runtime binary archive or off-machine backup is claimed. The closed r8 root
+is unchanged after indexing; final public record validation writes to the repository.
+[Final accounting](final-accounting.json) derives cumulative totals from actual r8
+usage plus the immutable pre-run prior-spend ledger, preserving the old unknown.

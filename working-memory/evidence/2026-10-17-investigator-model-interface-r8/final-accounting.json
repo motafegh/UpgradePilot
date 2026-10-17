@@ -1,0 +1,45 @@
+{
+  "observed_at": "2026-10-17T18:45:21.390681+00:00",
+  "prior_spend_as_frozen": {
+    "attempts": 278,
+    "earlier_unknown_target_generation_reserved": 8192,
+    "earlier_unknown_usage_calls": 1,
+    "known_reported_draft_tokens": 7692,
+    "known_reported_input_tokens": 3217230,
+    "known_reported_target_generated_tokens": 71152,
+    "limit": "The one earlier r4 unknown usage remains unknown; known totals add only reported fields. No r6/r7 outcome pooling.",
+    "r3": 5,
+    "r4": 14,
+    "r5": 92,
+    "r6": 108,
+    "r7": 59
+  },
+  "r8_actual": {
+    "attempts": 60,
+    "known_input_tokens": 705731,
+    "known_target_generated_tokens": 11068,
+    "known_draft_tokens": 3447,
+    "unknown_usage_calls": 0,
+    "reasoning_usage_unreported_calls": 60
+  },
+  "cumulative": {
+    "attempts": 338,
+    "known_input_tokens": 3922961,
+    "known_target_generated_tokens": 82220,
+    "known_reported_draft_tokens": 11139,
+    "unknown_usage_calls": 1
+  },
+  "current_runtime_r7_plus_r8": {
+    "attempts": 119,
+    "known_input_tokens": 1447727,
+    "known_target_generated_tokens": 45216,
+    "known_draft_tokens": 3447,
+    "unknown_usage_calls": 0,
+    "reasoning_usage_unreported_calls": 119
+  },
+  "r8_new_call_limit": 72,
+  "r8_revision_maximum": 350,
+  "aggregate_ceiling": 363,
+  "semantic_case_runs": 0,
+  "limits": "Known fields only. Earlier unknown-generation reserve8192 is a budget provision, not measured usage. Absent draft/reasoning fields are not zero; no outcome pooling."
+}
