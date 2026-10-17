@@ -11,7 +11,7 @@ The canonical Investigator Workspace foundation and adapter/mechanical integrati
 
 Build and bounded Verification for the deployment/interface responsibility are GREEN. No semantic correctness, autonomous discovery/stopping adequacy, maintainer usefulness, action permission, protected-case generalization or production adoption follows from the canaries.
 
-The **next selected responsibility** is the paired real-case semantic comparison **pre-inference freeze and execution/disposition cycle** under the [Investigator integration/comparison plan](plans/INVESTIGATOR_INTEGRATION_AND_COMPARATIVE_EVALUATION_PLAN.md) as explicitly amended by the [three-deployment semantic-comparison decision](plans/INVESTIGATOR_SEMANTIC_COMPARISON_THREE_DEPLOYMENT_AMENDMENT_2026-10-17.md). No semantic inference is activated merely by this selection; the successor must complete its normal A-phase and publish the required freeze first.
+The paired real-case semantic comparison pre-inference freeze/execution-disposition cycle is now **ACTIVE** in [the successor LbD cycle record](working-memory/2026-10-17_2256_investigator-real-case-semantic-comparison_lbd-cycle.md), under the [Investigator integration/comparison plan](plans/INVESTIGATOR_INTEGRATION_AND_COMPARATIVE_EVALUATION_PLAN.md) as explicitly amended by the [three-deployment semantic-comparison decision](plans/INVESTIGATOR_SEMANTIC_COMPARISON_THREE_DEPLOYMENT_AMENDMENT_2026-10-17.md). **A0 is DONE; A1 is CURRENT at the normal continuity/onboarding stop gate; A2/B and all semantic inference remain PENDING.** A0 found no executable regression or controlling-design contradiction. Older two-deployment/eight-assignment statements in retained r8 evidence preserve their historical horizon and are superseded for this successor by the three-deployment amendment. Successor-specific input/configuration/fit/review/accounting/retention freeze remains required before any real-case model call.
 
 ## Final current-runtime qualification result
 
@@ -68,7 +68,7 @@ Ali explicitly owns that E4B cannot be appended as untracked extra calls: changi
 
 ## Required successor freeze before inference
 
-The next cycle must publish/verify before any real-case model call:
+The active successor cycle must publish/verify before any real-case model call:
 
 - exact common HTTPX/glyphsLib case/source/native input identities and availability;
 - exact three deployment identities/configurations at the intended real-case points;
