@@ -4,7 +4,7 @@
 **Original base:** `main@a95c2369c71fcb8e8824f11181c04b1bb7042ac1`
 **Final evidence horizon reconciled:** `main@c414a6e9bacd572d2d04c38ca54b313f73e83846`
 **Date:** October 17, 2026
-**Status:** RECONCILED LEARNING COMPANION — core learning owned through the final qualification evidence; two canonical-D ownership checks remain for Ali. This file is not the canonical D owner and does not close D/E by itself.
+**Status:** RECONCILED LEARNING COMPANION — core learning owned through the final qualification evidence; canonical-D semantic-support ownership is established, while the semantic-cohort revision decision must be carried into the owning plan before affected inference. This file is not the canonical D owner and does not close D/E by itself.
 
 ## Purpose and boundary
 
@@ -123,16 +123,40 @@ Final candidate-state synthesis:
 
 What remains deliberately unestablished: real dependency-update semantics, autonomous discovery/stopping adequacy, maintainer usefulness, generalization, action permission, real-case 8192-output adequacy, globally optimal configuration and any intrinsic model ranking.
 
-**Block 5 conceptual synthesis status: OWNED. Formal canonical-D ownership still requires Ali's two final responses below.**
+**Block 5 conceptual synthesis status: OWNED.**
 
-## Formal-D ownership checks still required
+## Final canonical-D ownership responses
 
-Main's canonical D packet asks Ali to answer these in his own words. This companion must not fabricate ownership.
+### Semantic-support check — OWNED
 
-1. Why can Qwen3.5-9B pass all four interface sequences while its “proceed with update” recommendation still lack support? What additional source-to-conclusion review remains necessary?
-2. If Gemma 4 E4B were selected for the later real comparison, why can its qualification not silently create a third deployment arm? What must be explicitly decided and frozen before affected inference?
+Ali's response: interface passing does not mean the result is semantically correct or validated. A model can use valid citations and still go beyond what those citations establish, so the resulting recommendation can remain wrong or unsupported.
 
-These are the only meaningful learner-ownership checks still open for this cycle at the current depth.
+Refinement: the missing layer is **source-to-claim semantic/entailment review**: inspect whether the cited evidence actually supports each material proposition/recommendation, preserves scope and uncertainty, and does not convert a marker/observation into compatibility or permission that was never established.
+
+### E4B semantic-cohort decision — explicit scope change selected
+
+Ali disagrees with leaving E4B outside the real semantic comparison. Because its current exact deployment is 4/4 canary-qualified and shows useful potential, he explicitly wants E4B included in the semantic qualification/comparison work.
+
+This does **not** authorize silently appending an untracked arm to the existing two-deployment protocol. It changes the selected next-cycle scope and therefore must be reconciled with the owning plan before affected inference. The intended revised comparison becomes, unless later owner evidence changes it:
+
+`2 development cases × 2 evidence treatments × 3 deployments = 12 assignments`
+
+with the existing Gemma 4 12B and Qwen3.8-27B deployments plus the qualified Gemma 4 E4B deployment.
+
+Before any affected real-case inference, the next-cycle owner must explicitly freeze/revise at least:
+
+- the three exact deployment identities/configurations;
+- assignment IDs and balanced execution order;
+- total and per-assignment model-call/token/time/operation budgets;
+- generation/context settings and treatment symmetry rules;
+- common case/source/native input identities;
+- prompt/tool/reference/packing/report contracts;
+- semantic-review obligations, masking/order where feasible, and reviewer procedure;
+- accounting/comparability rules and failure/no-rerun policy.
+
+The scientific reason for adding E4B is now explicit: test whether a substantially smaller but interface-qualified deployment can achieve useful real semantic evidence use relative to the two larger qualified baselines, with its resource/cost trade-off preserved. This is a deliberate expansion of the question, not an accidental consequence of a canary pass.
+
+**Cohort-decision ownership note:** Ali selected the expansion. The protocol-change rationale and required freeze consequences are recorded here for planning/E handoff; the owning main plan must be revised before inference.
 
 ## Remaining debt / explicitly deferred learning
 
@@ -157,14 +181,12 @@ The following final-main limitations remain engineering/project debt rather than
 
 ## Formal-D reuse criteria
 
-After Ali answers the two ownership checks:
-
-1. record those answers here as learner-owned conclusions;
-2. compare them with main's D packet without importing stale revision-label summaries;
-3. identify any actual contradiction or missing concept;
-4. if none, update canonical D on `main` with the supported learner-owned conclusions;
-5. perform E repair/defer/closure truthfully;
-6. only then decide which learning-branch records are worth merging, rather than merging the temporary branch wholesale.
+1. Map the semantic-support learner-owned conclusion into canonical D.
+2. Carry the explicit E4B three-deployment scope decision into E/planning rather than silently executing against the old two-deployment baseline.
+3. Identify any actual contradiction or missing concept; none is currently apparent at the required learning depth.
+4. Update canonical D on `main` with supported learner-owned conclusions.
+5. Perform E repair/defer/closure truthfully, including the required plan/protocol revision before semantic inference.
+6. Only then decide which learning-branch records are worth merging, rather than merging the temporary branch wholesale.
 
 ## Progress
 
@@ -178,8 +200,9 @@ After Ali answers the two ownership checks:
 - [x] Q10-Q13 answered/reviewed at required depth
 - [x] Q14-Q16 answered/reviewed at required depth
 - [x] Reconciled against completed B/Verification evidence
-- [ ] Final canonical-D ownership check 1 answered by Ali
-- [ ] Final canonical-D ownership check 2 answered by Ali
+- [x] Final canonical-D semantic-support check answered by Ali
+- [x] E4B semantic-cohort expansion explicitly selected by Ali
 - [ ] Folded into formal canonical D
+- [ ] Owning semantic-comparison plan revised to three deployments / 12 assignments
 - [ ] E repair/defer/closure completed
 - [ ] Temporary learning-branch merge/disposition decided
