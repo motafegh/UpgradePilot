@@ -1,0 +1,103 @@
+{
+  "observed_at": "2026-10-18T14:30:54.826165+00:00",
+  "completed_assignments": [
+    {
+      "assignment": {
+        "id": "reference-v2-gemma12-raw-short",
+        "model_key": "google/gemma-4-12b",
+        "sequence": 1,
+        "treatment": "raw"
+      },
+      "disposition": "qualified",
+      "disposition_reason": "bounded synthetic interface sequence completed; no semantic acceptance",
+      "known_generated_tokens": 1129,
+      "known_input_tokens": 18599,
+      "model_attempts": 5,
+      "outcome": "completed",
+      "problem": null,
+      "reasoning_tokens": null,
+      "usage_complete": true,
+      "charged_operations": 23,
+      "corrections": 0,
+      "terminal_corrections": 0,
+      "report_refusals": []
+    }
+  ],
+  "completed_assignment_calls": [
+    {
+      "assignment": "reference-v2-gemma12-raw-short",
+      "call": "call-01",
+      "outcome": "returned",
+      "input_tokens": 2556,
+      "generated_tokens": 34,
+      "client_seconds": 9.930781091003155,
+      "native_seconds": 10.797079,
+      "reasoning_tokens": null,
+      "reported_draft_tokens": null,
+      "reported_accepted_draft_tokens": null,
+      "reported_rejected_draft_tokens": null
+    },
+    {
+      "assignment": "reference-v2-gemma12-raw-short",
+      "call": "call-02",
+      "outcome": "returned",
+      "input_tokens": 3267,
+      "generated_tokens": 44,
+      "client_seconds": 12.504405085004692,
+      "native_seconds": 13.473229,
+      "reasoning_tokens": null,
+      "reported_draft_tokens": null,
+      "reported_accepted_draft_tokens": null,
+      "reported_rejected_draft_tokens": null
+    },
+    {
+      "assignment": "reference-v2-gemma12-raw-short",
+      "call": "call-03",
+      "outcome": "returned",
+      "input_tokens": 3933,
+      "generated_tokens": 34,
+      "client_seconds": 12.692830537998816,
+      "native_seconds": 13.689388000000001,
+      "reasoning_tokens": null,
+      "reported_draft_tokens": null,
+      "reported_accepted_draft_tokens": null,
+      "reported_rejected_draft_tokens": null
+    },
+    {
+      "assignment": "reference-v2-gemma12-raw-short",
+      "call": "call-04",
+      "outcome": "returned",
+      "input_tokens": 4728,
+      "generated_tokens": 26,
+      "client_seconds": 13.531126862006204,
+      "native_seconds": 14.596073,
+      "reasoning_tokens": null,
+      "reported_draft_tokens": null,
+      "reported_accepted_draft_tokens": null,
+      "reported_rejected_draft_tokens": null
+    },
+    {
+      "assignment": "reference-v2-gemma12-raw-short",
+      "call": "call-05",
+      "outcome": "returned",
+      "input_tokens": 4115,
+      "generated_tokens": 991,
+      "client_seconds": 138.13302055199892,
+      "native_seconds": 150.52894899999998,
+      "reasoning_tokens": null,
+      "reported_draft_tokens": null,
+      "reported_accepted_draft_tokens": null,
+      "reported_rejected_draft_tokens": null
+    }
+  ],
+  "known_input_tokens": 18599,
+  "known_generated_tokens": 1129,
+  "unknown_usage_calls": 0,
+  "known_reported_draft_tokens": 0,
+  "draft_usage_unreported_calls": 5,
+  "requested_applied_prediction_mismatches": [],
+  "rendered_prompt_mismatches": [],
+  "instance_mismatches": [],
+  "semantic_assignments_attempted": 0,
+  "limits": "Completed assignment evidence only; partial/active calls are excluded here. No semantic grading, hidden reasoning, native/client timing equivalence or model superiority."
+}
