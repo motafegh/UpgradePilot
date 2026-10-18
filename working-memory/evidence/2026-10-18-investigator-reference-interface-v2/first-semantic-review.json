@@ -1,0 +1,227 @@
+{
+  "format": "investigator-formative-source-review/1",
+  "view": 1,
+  "case_id": "development-httpx-framework-ci",
+  "outcome": "limit_exhausted",
+  "report_present": false,
+  "note_propositions_present": false,
+  "review_scope": "Every completed visible response and all delivered events; no final report or note assertions exist. Source truth and navigation previews are separate. Same exposed-case AI reviewer, not independent/blind.",
+  "material_propositions": [],
+  "coverage": [
+    {
+      "obligation_id": "development-httpx-framework-ci-transition",
+      "available": true,
+      "delivered": "Source inventory/search navigation only; no successful targeted source passage or native read",
+      "used": "Navigation requests; no report use",
+      "cited": false,
+      "supported": "unaddressed_no_report"
+    },
+    {
+      "obligation_id": "development-httpx-framework-ci-test-consumer",
+      "available": true,
+      "delivered": "Source inventory/search navigation only; no successful targeted source passage or native read",
+      "used": "Navigation requests; no report use",
+      "cited": false,
+      "supported": "unaddressed_no_report"
+    },
+    {
+      "obligation_id": "development-httpx-framework-ci-api-change",
+      "available": true,
+      "delivered": "Source inventory/search navigation only; no successful targeted source passage or native read",
+      "used": "Navigation requests; no report use",
+      "cited": false,
+      "supported": "unaddressed_no_report"
+    },
+    {
+      "obligation_id": "development-httpx-framework-ci-framework-path",
+      "available": true,
+      "delivered": "Source inventory/search navigation only; no successful targeted source passage or native read",
+      "used": "Navigation requests; no report use",
+      "cited": false,
+      "supported": "unaddressed_no_report"
+    },
+    {
+      "obligation_id": "development-httpx-framework-ci-ci-scope",
+      "available": true,
+      "delivered": "Source inventory/search navigation only; no successful targeted source passage or native read",
+      "used": "Navigation requests; no report use",
+      "cited": false,
+      "supported": "unaddressed_no_report"
+    },
+    {
+      "obligation_id": "development-httpx-framework-ci-binding-and-decision",
+      "available": true,
+      "delivered": "Source inventory/search navigation only; no successful targeted source passage or native read",
+      "used": "Navigation requests; no report use",
+      "cited": false,
+      "supported": "unaddressed_no_report"
+    }
+  ],
+  "source_checks": [
+    {
+      "source_id": "target-base",
+      "path": "requirements.txt",
+      "sha256": "18cad80487f07e0de68b9b1576dac1d0564bc6e0bde802054c7d2f36a24fbace",
+      "passage": "fastapi[standard]\nhttpx==0.27.2\npytest-asyncio==0.25.3\npytest-cov==6.0.0\npytest==8.3.3\npython-dotenv\nruff==0.9.6"
+    },
+    {
+      "source_id": "target-proposed",
+      "path": "requirements.txt",
+      "sha256": "fb2d2df7bc2502337b1a551de591485d61bd8f0c00dc2897802fa6994d9328a3",
+      "passage": "fastapi[standard]\nhttpx==0.28.1\npytest-asyncio==0.25.3\npytest-cov==6.0.0\npytest==8.3.3\npython-dotenv\nruff==0.9.6"
+    }
+  ],
+  "observations": [
+    {
+      "locator": "call-03,call-05,call-07 through call-12; events3,5,7 through11",
+      "finding": "Redundant source_id path prefix. Seven reads dispatched as invalid_source_query; the eighth read request was refused before dispatch. No recovery despite capture-scoped problems.",
+      "limit": "Observed requests/returned problems; no model-internal attribution."
+    },
+    {
+      "locator": "calls10-12 budget_observation; charges",
+      "finding": "At call10,12 operation units remained; finish3+empty-evidence report4+termination1 was affordable. At call11,8 remained: same completion with no evidence references still affordable. It instead dispatched another read; at call12,4 remained, so read4+reserved termination1 was refused. Final admission_operations46 includes refusal/termination; no finish/report.",
+      "limit": "An empty report would preserve procedural completion only, not establish source support. Earlier relevant source queries were feasible."
+    }
+  ],
+  "dimensions": {
+    "relevant_evidence_coverage": "0/6 obligations supported by a report; common relevant source retained, unsuccessful addressing rather than source exhaustion.",
+    "interpretation_correctness": "No material report/note proposition to grade; not a success.",
+    "unsupported_claims": "No report/note assertions emitted; no rate denominator, not evidence of truthfulness.",
+    "scoped_negative_evidence": "No broader absence asserted in report; problem observations are query-scoped, not source absence.",
+    "unresolved_quality": "No report; decision-critical uncertainty not communicated.",
+    "stopping_quality": "Failed budget allocation and path recovery; external operation admission cutoff, not justified finish/source exhaustion.",
+    "recommendation_usefulness": "No recommendation; not demonstrated.",
+    "reviewer_effort": "Actual interval recorded separately; prior preparation and independent human effort unknown.",
+    "resource_cost": {
+      "access_receipts": [
+        {
+          "delivered_bytes": 4848,
+          "delivery_id": "19fb22f7ea154f3f9e235172e6f3b5b9",
+          "detail": "Actual delivery; no hidden use or semantic support inferred.",
+          "examined_files": 0,
+          "examined_lines": 0,
+          "operation": "source:list_sources",
+          "outcome": "observed"
+        },
+        {
+          "delivered_bytes": 6806,
+          "delivery_id": "1037d27484fe4e928df0effb7f56cba6",
+          "detail": "Actual delivery; no hidden use or semantic support inferred.",
+          "examined_files": 2632,
+          "examined_lines": 395243,
+          "operation": "source:search",
+          "outcome": "observed"
+        },
+        {
+          "delivered_bytes": 438,
+          "delivery_id": "49b1377537d8499cb26062fd12524998",
+          "detail": "Actual delivery; no hidden use or semantic support inferred.",
+          "examined_files": 0,
+          "examined_lines": 0,
+          "operation": "source:read",
+          "outcome": "problem"
+        },
+        {
+          "delivered_bytes": 6437,
+          "delivery_id": "c7270e8f0cd047148e69e1f5c780eba3",
+          "detail": "Actual delivery; no hidden use or semantic support inferred.",
+          "examined_files": 2632,
+          "examined_lines": 395243,
+          "operation": "source:search",
+          "outcome": "observed"
+        },
+        {
+          "delivered_bytes": 438,
+          "delivery_id": "c8e4efc4419e4a339aafa2e2bfe505a5",
+          "detail": "Actual delivery; no hidden use or semantic support inferred.",
+          "examined_files": 0,
+          "examined_lines": 0,
+          "operation": "source:read",
+          "outcome": "problem"
+        },
+        {
+          "delivered_bytes": 6437,
+          "delivery_id": "6aed01b9dbd944a599ae12845df8c2f7",
+          "detail": "Actual delivery; no hidden use or semantic support inferred.",
+          "examined_files": 2632,
+          "examined_lines": 395243,
+          "operation": "source:search",
+          "outcome": "observed"
+        },
+        {
+          "delivered_bytes": 438,
+          "delivery_id": "36125fe9b0d74db8b7ba7e0ab50e7953",
+          "detail": "Actual delivery; no hidden use or semantic support inferred.",
+          "examined_files": 0,
+          "examined_lines": 0,
+          "operation": "source:read",
+          "outcome": "problem"
+        },
+        {
+          "delivered_bytes": 438,
+          "delivery_id": "4b2509a5b58c493cba88753cb485cb07",
+          "detail": "Actual delivery; no hidden use or semantic support inferred.",
+          "examined_files": 0,
+          "examined_lines": 0,
+          "operation": "source:read",
+          "outcome": "problem"
+        },
+        {
+          "delivered_bytes": 438,
+          "delivery_id": "e6d0bd6841694249b68e09f498ce3d20",
+          "detail": "Actual delivery; no hidden use or semantic support inferred.",
+          "examined_files": 0,
+          "examined_lines": 0,
+          "operation": "source:read",
+          "outcome": "problem"
+        },
+        {
+          "delivered_bytes": 438,
+          "delivery_id": "168cc981a1c64da3b5b05b09800af946",
+          "detail": "Actual delivery; no hidden use or semantic support inferred.",
+          "examined_files": 0,
+          "examined_lines": 0,
+          "operation": "source:read",
+          "outcome": "problem"
+        },
+        {
+          "delivered_bytes": 438,
+          "delivery_id": "1eba1a59b4f94a05b69b217274f95570",
+          "detail": "Actual delivery; no hidden use or semantic support inferred.",
+          "examined_files": 0,
+          "examined_lines": 0,
+          "operation": "source:read",
+          "outcome": "problem"
+        }
+      ],
+      "admission_operations": 46,
+      "assignment_composition_publications": 2,
+      "assignment_composition_seconds": 0.0019116659968858585,
+      "consumer_invocation_attempts": 12,
+      "consumer_response_bytes": 1298,
+      "corrections": 0,
+      "elapsed_seconds": 544.4258431939961,
+      "model_calls": 12,
+      "model_tokens": {
+        "generated": 550,
+        "input": 144345
+      },
+      "model_usage_complete": true,
+      "native_producer_calls": 0,
+      "observation_bytes": 31671,
+      "packed_input_bytes": 404370,
+      "reasoning_tokens": null,
+      "reference_visibility": "current_request",
+      "report_refusals": [],
+      "terminal_corrections": 0,
+      "tool_requests": 11
+    }
+  },
+  "critical_false_confidence": "not assessable: no advice or material report/note assertions; output absence is not semantic success",
+  "semantic_disposition": "incomplete_no_report; no within-pair advantage inferred yet",
+  "review_corrections": [
+    "Initial derived narrative counted eight dispatched reads and a ninth refusal; corrected against seven actual read access receipts and eight read responses. Originals unchanged."
+  ],
+  "assignment_id": "gemma12-httpx-raw",
+  "original_assignment_sha256": "8bd73728268b1b866de0b4a8b8152a514b16d94ccbc16fd98fa1dc44c75404a9"
+}
