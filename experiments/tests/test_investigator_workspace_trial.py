@@ -132,6 +132,21 @@ def schema_pairs(array):
 
 
 class InvestigatorCompositionTests(unittest.TestCase):
+    def test_interruption_terminates_and_preserves_primary_when_termination_fails(self):
+        assignment = fixture()
+        def interrupted(packed):
+            raise KeyboardInterrupt("operator stop")
+        with patch.object(assignment.host, "terminate", side_effect=OSError("terminal write failed")) as terminate:
+            with self.assertRaisesRegex(KeyboardInterrupt, "operator stop"):
+                run_scripted_trial(assignment, interrupted)
+        terminate.assert_called_once()
+        result = assignment.last_trial_result
+        self.assertIn("KeyboardInterrupt", result.problem)
+        self.assertIn("terminal write failed", result.charges["termination_problem"])
+        self.assertEqual(result.charges["consumer_invocation_attempts"], 1)
+        self.assertEqual(result.original_responses, (None,))
+        self.assertIsNone(result.termination_id)
+
     def test_correction_keeps_invalid_intent_out_of_new_citation_choices(self):
         for treatment in ("raw", "structured"):
             a = fixture(treatment)

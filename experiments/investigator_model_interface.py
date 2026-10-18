@@ -30,6 +30,12 @@ from experiments.investigator_workspace_trial import (
     pack_input,
     run_scripted_trial,
 )
+from experiments.investigator_run_control import (
+    MonotonicDeadline,
+    PredictionDeadlineExceeded,
+    problem_text,
+    receive_controlled_prediction,
+)
 from upgradepilot.workspace.native_representation import json_bytes
 
 REFERENCE_POLICY = "current-complete-stateless-request/2"
@@ -63,6 +69,44 @@ def private_write(path: Path, content: bytes):
         stream.write(content)
 
 
+def finalize_owned_runtime(model, list_loaded, receipt_path, *, seconds=60):
+    """Unload only the caller-owned instance, retaining cleanup separately on failure.
+
+    Invoke from the orchestration caller's finally block. A pending prediction or
+    operator interruption remains primary even if unload, confirmation or storage fails.
+    An unconfirmed cleanup always fails a previously successful orchestration call.
+    """
+    primary = sys.exception()
+    failure = traceback = None
+    record = {"identifier": model.identifier, "unload_requested": False, "confirmed": False}
+    try:
+        with MonotonicDeadline(seconds, label="owned-runtime cleanup").enforce():
+            record["unload_requested"] = True
+            model.unload()
+            remaining = list_loaded()
+            record["remaining_identifiers"] = [item.identifier for item in remaining]
+            if remaining:
+                raise ValueError("runtime cleanup/isolation unconfirmed; further prediction withheld")
+            record["confirmed"] = True
+    except BaseException as error:
+        failure, traceback = error, error.__traceback__
+        record["problem"] = problem_text(error)
+    try:
+        private_write(receipt_path, json_bytes(record))
+    except BaseException as error:
+        record["receipt_problem"] = problem_text(error)
+        if failure is None:
+            failure, traceback = error, error.__traceback__
+    if failure is not None:
+        if primary is not None:
+            primary.add_note("Owned-runtime cleanup: " + problem_text(failure))
+            if "receipt_problem" in record:
+                primary.add_note(record["receipt_problem"])
+        else:
+            raise failure.with_traceback(traceback)
+    return record
+
+
 def fields(config: dict) -> dict:
     values = config["fields"]
     result = {item["key"]: item["value"] for item in values}
@@ -80,6 +124,7 @@ class ModelLimits:
     calls: int = 6
     margin: int = 256
     seconds: int = 14400
+    prediction_seconds: int = 1800
 
     def __post_init__(self):
         if any(type(value) is not int or value < 1 for value in vars(self).values()):
@@ -302,7 +347,11 @@ class SDKBinding:
 
     def predict(self, measured, timeout, *, visible_sink):
         from lmstudio.json_api import ChatResponseEndpoint
-        from lmstudio.sync_api import PredictionStream
+
+        started = time.monotonic()
+        self.last_prediction_control = {}
+        self.last_prediction_metadata = None
+        self.last_prediction_reasoning = False
 
         class CapturedEndpoint(ChatResponseEndpoint):
             metadata = None
@@ -313,6 +362,7 @@ class SDKBinding:
                     fragment = contents["fragment"]
                     if not retain_visible_fragment(fragment, visible_sink):
                         endpoint.reasoning_observed = True
+                        self.last_prediction_reasoning = True
                         # Do not pass hidden content to the SDK's accumulated result.
                         return
                 if contents and contents.get("type") == "success":
@@ -325,8 +375,14 @@ class SDKBinding:
                             "predictionConfig",
                         )
                     }
+                    # Retain scalar terminal evidence even if a deadline/interrupt
+                    # prevents predict() from returning the completed result.
+                    self.last_prediction_metadata = endpoint.metadata
                 yield from super().iter_message_events(contents)
 
+        # Inactivity and total elapsed allowances are distinct. A whole prediction's
+        # allowance also bounds a single silent prompt-processing wait; no arbitrary
+        # short idle timeout is introduced. The monotonic timer enforces total time.
         self.sdk.set_sync_api_timeout(timeout)
         endpoint = CapturedEndpoint(
             self.model.identifier,
@@ -340,10 +396,12 @@ class SDKBinding:
             None,
         )
         endpoint.creation_params["predictionConfigStack"] = measured.configuration
-        with PredictionStream(
-            self.model._session._create_channel(endpoint), endpoint
-        ) as stream:
-            result = stream.wait_for_result()
+        result = receive_controlled_prediction(
+            self.model._session._create_channel(endpoint),
+            endpoint,
+            timeout - (time.monotonic() - started),
+            self.last_prediction_control,
+        )
         if endpoint.metadata is None:
             raise ValueError(
                 "prediction ended without actual configuration/usage receipt"
@@ -500,6 +558,23 @@ class StatelessInvestigatorModel:
         self.receipts = []
         self.input_tokens = self.output_tokens = 0
         self.usage_complete = True
+        self.blocked = False
+
+    def _account_usage(self, receipt, metadata):
+        """Measured spend is independent of publication/admission and reservations."""
+        stats = metadata["stats"]
+        receipt["usage"] = stats
+        values = [stats.get(k) for k in (
+            "promptTokensCount", "predictedTokensCount", "totalTokensCount"
+        )]
+        if any(type(v) is not int or v < 0 for v in values):
+            raise ValueError("missing/invalid actual model usage")
+        prompt, generated, total = values
+        if total != prompt + generated:
+            raise ValueError("missing/invalid actual model usage total")
+        self.input_tokens += prompt
+        self.output_tokens += generated
+        self.usage_complete = True
 
     def prepare(self, packed):
         if digest(json_bytes(self.configuration)) != self.configuration_sha256:
@@ -548,7 +623,56 @@ class StatelessInvestigatorModel:
                     raise ValueError("fixed rendered prompt cannot fit") from error
                 capacity = min(capacity - 1, len(packed.content) - 1)
 
+    def _validate_return(self, measured, content, metadata, reasoning, receipt, prefix, fragments_path):
+        """Validate/preserve a complete return under the caller's finalization timer."""
+        self._account_usage(receipt, metadata)
+        receipt["reasoning_fragment_observed"] = reasoning
+        private_write(prefix.with_suffix(".visible-response.txt"), content)
+        private_write(prefix.with_suffix(".metadata.json"), json_bytes(metadata))
+        if fragments_path.read_bytes() != content:
+            raise ValueError(
+                "retained visible fragments differ from complete response"
+            )
+        if digest(json_bytes(self.configuration)) != self.configuration_sha256:
+            raise ValueError("prediction configuration changed during call")
+        stats = metadata["stats"]
+        prompt, generated = stats["promptTokensCount"], stats["predictedTokensCount"]
+        if prompt != measured.tokens:
+            raise ValueError(
+                "actual prompt usage differs from fully rendered tokenizer measurement"
+            )
+        if (
+            metadata["modelInfo"]["instanceReference"]
+            != self.identity["model"]["instanceReference"]
+        ):
+            raise ValueError("response came from another model instance")
+        applied = fields(metadata["predictionConfig"])
+        for setting in measured.configuration["layers"][0]["config"]["fields"]:
+            if applied.get(setting["key"]) != setting["value"]:
+                raise ValueError(
+                    "requested prediction setting not applied: " + setting["key"]
+                )
+        if self.binding.identity() != self.identity:
+            raise ValueError("deployment changed during prediction")
+        if reasoning and not applied.get("llm.prediction.reasoning.enableThinking"):
+            raise ValueError(
+                "reasoning-off request produced reasoning fragments; content discarded"
+            )
+        if (
+            stats["stopReason"] not in {"eosFound", "stopStringFound"}
+            or generated >= self.limits.generated_per_call
+            or prompt + generated + self.limits.margin > self.limits.context
+        ):
+            raise ValueError(
+                "generation incomplete, exhausted or outside context envelope"
+            )
+        if not content.strip():
+            raise ValueError("empty visible model response")
+        receipt["outcome"] = "returned"
+
     def __call__(self, packed):
+        if self.blocked or not self.usage_complete:
+            raise ValueError("model budget refuses prediction after failed/unknown attempt")
         measured = self.prepare(packed)
         remaining = self.limits.seconds - (self.clock() - self.started)
         if (
@@ -592,95 +716,111 @@ class StatelessInvestigatorModel:
             "request_sha256": digest(json_bytes(request)),
             "usage": None,
             "outcome": "attempted",
+            "reserved_input_tokens": measured.tokens,
+            "reserved_generated_tokens": self.limits.generated_per_call,
+            "secondary_problems": [],
         }
-        usage_validated = False
         self.receipts.append(receipt)
+        # An attempted dispatch is unknown until scalar terminal usage is validated.
+        # This includes KeyboardInterrupt/SystemExit and failures opening local files.
+        self.usage_complete = False
         started = self.clock()
+        allowance = min(self.limits.prediction_seconds, remaining)
+        receipt["prediction_allowance_seconds"] = allowance
         fragments_path = prefix.with_suffix(".visible-fragments.txt")
-        descriptor = os.open(
-            fragments_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600
-        )
-        fragments = os.fdopen(descriptor, "wb", buffering=0)
+        fragments = None
         response_received = False
+        primary = traceback = content = metadata = None
+        finalization_origin = None
         try:
+            # A separate immutable reservation makes a missing final receipt an orphan
+            # attempt rather than an unattempted case after process interruption.
+            private_write(prefix.with_suffix(".attempt.json"), json_bytes(receipt))
+            descriptor = os.open(
+                fragments_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600
+            )
+            fragments = os.fdopen(descriptor, "wb", buffering=0)
             content, metadata, reasoning = self.binding.predict(
-                measured, min(1800, remaining), visible_sink=fragments.write
+                measured, allowance, visible_sink=fragments.write
             )
             response_received = True
-            private_write(prefix.with_suffix(".visible-response.txt"), content)
-            private_write(prefix.with_suffix(".metadata.json"), json_bytes(metadata))
-            if fragments_path.read_bytes() != content:
-                raise ValueError(
-                    "retained visible fragments differ from complete response"
+            prediction_elapsed = self.clock() - started
+            control = getattr(self.binding, "last_prediction_control", {})
+            finalization_origin = self.clock() - control.get("finalization_elapsed_seconds", 0)
+            with MonotonicDeadline(
+                60 - (self.clock() - finalization_origin), clock=self.clock,
+                label="response validation/storage",
+            ).enforce():
+                self._validate_return(
+                    measured, content, metadata, reasoning, receipt, prefix, fragments_path
                 )
-            if digest(json_bytes(self.configuration)) != self.configuration_sha256:
-                raise ValueError("prediction configuration changed during call")
-            stats = metadata["stats"]
-            receipt.update(usage=stats, reasoning_fragment_observed=reasoning)
-            values = [
-                stats.get(k)
-                for k in (
-                    "promptTokensCount",
-                    "predictedTokensCount",
-                    "totalTokensCount",
-                )
-            ]
-            if any(type(v) is not int or v < 0 for v in values):
-                raise ValueError("missing/invalid actual model usage")
-            prompt, generated, total = values
-            self.input_tokens += prompt
-            self.output_tokens += generated
-            usage_validated = True
-            if total != prompt + generated or prompt != measured.tokens:
-                raise ValueError(
-                    "actual prompt usage differs from fully rendered tokenizer measurement"
-                )
-            if (
-                metadata["modelInfo"]["instanceReference"]
-                != self.identity["model"]["instanceReference"]
-            ):
-                raise ValueError("response came from another model instance")
-            applied = fields(metadata["predictionConfig"])
-            for setting in measured.configuration["layers"][0]["config"]["fields"]:
-                if applied.get(setting["key"]) != setting["value"]:
-                    raise ValueError(
-                        "requested prediction setting not applied: " + setting["key"]
-                    )
-            if self.binding.identity() != self.identity:
-                raise ValueError("deployment changed during prediction")
-            if reasoning and not applied.get("llm.prediction.reasoning.enableThinking"):
-                raise ValueError(
-                    "reasoning-off request produced reasoning fragments; content discarded"
-                )
-            if (
-                stats["stopReason"] not in {"eosFound", "stopStringFound"}
-                or generated >= self.limits.generated_per_call
-                or prompt + generated + self.limits.margin > self.limits.context
-            ):
-                raise ValueError(
-                    "generation incomplete, exhausted or outside context envelope"
-                )
-            if not content.strip():
-                raise ValueError("empty visible model response")
-            receipt["outcome"] = "returned"
-            return content
-        except Exception as error:
-            self.usage_complete = usage_validated
+                if prediction_elapsed - control.get("finalization_elapsed_seconds", 0) >= allowance:
+                    raise PredictionDeadlineExceeded("late response exceeds prediction allowance")
+        except BaseException as error:
+            primary, traceback = error, error.__traceback__
             receipt.update(outcome="failed", problem=f"{type(error).__name__}: {error}")
-            raise
+            # A cancelled/late terminal packet can carry known spend even though the
+            # result remains failed and cannot be published as successful content.
+            interrupted_metadata = getattr(self.binding, "last_prediction_metadata", None)
+            if not self.usage_complete and interrupted_metadata is not None:
+                try:
+                    self._account_usage(receipt, interrupted_metadata)
+                    control = getattr(self.binding, "last_prediction_control", {})
+                    finalization_origin = self.clock() - control.get("finalization_elapsed_seconds", 0)
+                    with MonotonicDeadline(
+                        60 - (self.clock() - finalization_origin), clock=self.clock,
+                        label="interrupted metadata storage",
+                    ).enforce():
+                        private_write(prefix.with_suffix(".metadata.json"), json_bytes(interrupted_metadata))
+                except BaseException as secondary:
+                    receipt["secondary_problems"].append(problem_text(secondary))
         finally:
             # Unbuffered appends survive client termination; fsync confirms saved data
             # on handled exits. Partial text never becomes an admitted response.
-            os.fsync(fragments.fileno())
-            fragments.close()
-            partial = fragments_path.read_bytes()
-            receipt.update(
-                visible_fragment_bytes=len(partial),
-                visible_fragments_sha256=digest(partial),
-                complete_response_received=response_received,
-            )
-            receipt["elapsed_seconds"] = self.clock() - started
-            private_write(prefix.with_suffix(".receipt.json"), json_bytes(receipt))
+            def preserve_failure(error):
+                nonlocal primary, traceback
+                if primary is None:
+                    primary, traceback = error, error.__traceback__
+                    receipt.update(outcome="failed", problem=problem_text(error))
+                else:
+                    receipt["secondary_problems"].append(problem_text(error))
+
+            control = getattr(self.binding, "last_prediction_control", {})
+            if finalization_origin is None:
+                finalization_origin = self.clock() - control.get("finalization_elapsed_seconds", 0)
+            try:
+                with MonotonicDeadline(
+                    60 - (self.clock() - finalization_origin), clock=self.clock,
+                    label="attempt receipt finalization",
+                ).enforce():
+                    if fragments is not None:
+                        for finalize in (lambda: os.fsync(fragments.fileno()), fragments.close):
+                            try:
+                                finalize()
+                            except BaseException as error:
+                                preserve_failure(error)
+                    try:
+                        partial = fragments_path.read_bytes() if fragments_path.exists() else b""
+                        receipt.update(
+                            visible_fragment_bytes=len(partial),
+                            visible_fragments_sha256=digest(partial),
+                        )
+                    except BaseException as error:
+                        preserve_failure(error)
+                    receipt["complete_response_received"] = response_received
+                    receipt["control"] = getattr(self.binding, "last_prediction_control", None)
+                    receipt["elapsed_seconds"] = self.clock() - started
+                    try:
+                        private_write(prefix.with_suffix(".receipt.json"), json_bytes(receipt))
+                    except BaseException as error:
+                        preserve_failure(error)
+            except BaseException as error:
+                preserve_failure(error)
+            if primary is not None:
+                self.blocked = True
+        if primary is not None:
+            raise primary.with_traceback(traceback)
+        return content
 
 
 def run_model_trial(assignment, model, *, limits, protocol=None):

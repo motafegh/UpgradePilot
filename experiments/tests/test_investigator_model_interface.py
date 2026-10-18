@@ -8,6 +8,7 @@ import copy
 import json
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 from experiments.investigator_model_interface import (
@@ -109,6 +110,96 @@ def config(**options):
 
 
 class ModelInterfaceTests(unittest.TestCase):
+    def test_cancelled_terminal_usage_is_known_but_failed_model_cannot_be_reused(self):
+        from experiments.investigator_run_control import PredictionDeadlineExceeded
+        with tempfile.TemporaryDirectory() as directory:
+            binding = Binding()
+            original = binding.predict
+            def late(measured, timeout, *, visible_sink):
+                content, metadata, reasoning = original(measured, timeout, visible_sink=visible_sink)
+                binding.last_prediction_metadata = metadata
+                binding.last_prediction_control = {"terminal_received": True, "finalization_elapsed_seconds": 0}
+                raise PredictionDeadlineExceeded("late terminal packet")
+            binding.predict = late
+            model = StatelessInvestigatorModel(
+                binding, config(), ModelLimits(context=10000), Path(directory) / "attempt"
+            )
+            with self.assertRaises(PredictionDeadlineExceeded):
+                model(packed())
+            self.assertTrue(model.usage_complete)
+            self.assertEqual((model.input_tokens, model.output_tokens), (10, 3))
+            self.assertTrue(model.blocked)
+            receipt = json.loads((model.directory / "call-01.receipt.json").read_bytes())
+            self.assertFalse(receipt["complete_response_received"])
+            self.assertEqual(receipt["outcome"], "failed")
+            self.assertFalse((model.directory / "call-01.visible-response.txt").exists())
+            with self.assertRaisesRegex(ValueError, "budget refuses"):
+                model(packed())
+
+    def test_owned_cleanup_failure_retains_primary_and_confirmation_failure_is_not_success(self):
+        from types import SimpleNamespace
+        from experiments.investigator_model_interface import finalize_owned_runtime
+        with tempfile.TemporaryDirectory() as directory:
+            def unload():
+                raise OSError("owned unload failed")
+            model = SimpleNamespace(identifier="owned", unload=unload)
+            def interrupted():
+                try:
+                    raise KeyboardInterrupt("prediction primary")
+                finally:
+                    finalize_owned_runtime(model, lambda: [], Path(directory) / "cleanup.json")
+            with self.assertRaisesRegex(KeyboardInterrupt, "prediction primary") as raised:
+                interrupted()
+            record = json.loads((Path(directory) / "cleanup.json").read_bytes())
+            self.assertFalse(record["confirmed"])
+            self.assertIn("owned unload failed", raised.exception.__notes__[0])
+            model.unload = lambda: None
+            with self.assertRaisesRegex(ValueError, "unconfirmed"):
+                finalize_owned_runtime(model, lambda: [model], Path(directory) / "unconfirmed.json")
+
+    def test_keyboard_interrupt_keeps_unknown_attempt_and_primary_after_fsync_failure(self):
+        with tempfile.TemporaryDirectory() as directory:
+            binding = Binding()
+            def interrupted(measured, timeout, *, visible_sink):
+                visible_sink(b'{"claims":')
+                raise KeyboardInterrupt("operator stop")
+            binding.predict = interrupted
+            model = StatelessInvestigatorModel(
+                binding, config(), ModelLimits(context=10000), Path(directory) / "attempt"
+            )
+            with patch("experiments.investigator_model_interface.os.fsync", side_effect=OSError("fsync failed")):
+                with self.assertRaisesRegex(KeyboardInterrupt, "operator stop"):
+                    model(packed())
+            receipt = json.loads((model.directory / "call-01.receipt.json").read_bytes())
+            self.assertIn("KeyboardInterrupt", receipt["problem"])
+            self.assertIn("OSError: fsync failed", receipt["secondary_problems"])
+            self.assertIsNone(receipt["usage"])
+            self.assertEqual(receipt["reserved_generated_tokens"], 8192)
+            self.assertFalse(model.usage_complete)
+            with self.assertRaisesRegex(ValueError, "budget refuses"):
+                model(packed())
+
+    def test_missing_receipt_keeps_reservation_and_does_not_mask_primary(self):
+        from experiments.investigator_model_interface import private_write
+        with tempfile.TemporaryDirectory() as directory:
+            model = StatelessInvestigatorModel(
+                Binding(), config(), ModelLimits(context=10000), Path(directory) / "attempt"
+            )
+            def interrupted(*args, **kwargs):
+                raise KeyboardInterrupt("primary")
+            def write(path, content):
+                if path.name.endswith(".receipt.json"):
+                    raise OSError("receipt disk failed")
+                return private_write(path, content)
+            model.binding.predict = interrupted
+            with patch("experiments.investigator_model_interface.private_write", side_effect=write):
+                with self.assertRaisesRegex(KeyboardInterrupt, "primary"):
+                    model(packed())
+            self.assertTrue((model.directory / "call-01.attempt.json").exists())
+            self.assertFalse((model.directory / "call-01.receipt.json").exists())
+            self.assertIn("OSError: receipt disk failed", model.receipts[0]["secondary_problems"])
+            self.assertTrue(model.blocked)
+
     def test_nonempty_citation_schema_is_exact_in_runtime_configuration(self):
         from experiments.investigator_model_interface import fields
         from experiments.investigator_workspace_trial import pack_input

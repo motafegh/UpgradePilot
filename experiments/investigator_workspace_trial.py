@@ -357,6 +357,7 @@ def run_scripted_trial(
     started = clock()
     publication = termination = problem = None
     outcome = "limit_exhausted"
+    interruption = interruption_traceback = None
     try:
         for _ in range(limits.consumer_turns):
             elapsed = clock() - started
@@ -470,8 +471,10 @@ def run_scripted_trial(
                     break
         else:
             problem = "consumer turn budget exhausted"
-    except Exception as error:  # noqa: BLE001 - callback failures are retained trial outcomes
+    except BaseException as error:  # retain interruption, then terminate and re-raise it
         outcome, problem = "failed", f"{type(error).__name__}: {error}"
+        if not isinstance(error, Exception):
+            interruption, interruption_traceback = error, error.__traceback__
     if outcome != "failed" and clock() - started >= limits.seconds:
         outcome, problem = (
             "limit_exhausted",
@@ -484,11 +487,14 @@ def run_scripted_trial(
             outcome,
             problem or "Scripted procedural result; adequacy remains unsupported.",
         )
-    except Exception as error:  # noqa: BLE001 - retain failed/unconfirmed terminal publication
-        outcome, problem = "failed", f"termination publication failed: {error}"
+    except BaseException as error:  # secondary storage failure never erases prediction cause
+        charges["termination_problem"] = f"{type(error).__name__}: {error}"
+        outcome, problem = "failed", problem or f"termination publication failed: {error}"
+        if not isinstance(error, Exception) and interruption is None:
+            interruption, interruption_traceback = error, error.__traceback__
     charges["elapsed_seconds"] = clock() - started
     charges["access_receipts"] = [asdict(r) for r in assignment.access.receipts]
-    return ScriptedTrialResult(
+    result = ScriptedTrialResult(
         outcome,
         tuple(responses),
         tuple(inputs),
@@ -497,6 +503,12 @@ def run_scripted_trial(
         charges,
         problem,
     )
+    # Orchestration can retain the procedural failure even when control-flow
+    # interruption must escape. It is never a canonical successful observation.
+    assignment.last_trial_result = result
+    if interruption is not None:
+        raise interruption.with_traceback(interruption_traceback)
+    return result
 
 
 def mechanical_manifest(

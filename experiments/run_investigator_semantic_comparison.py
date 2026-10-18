@@ -19,6 +19,7 @@ from experiments.investigator_model_interface import (
     StatelessInvestigatorModel,
     digest,
     fields,
+    finalize_owned_runtime,
     import_isolated_sdk,
     private_write,
     run_model_trial,
@@ -424,13 +425,16 @@ def execute_comparison(sdk, freeze_path, expected_hash, output):
                     ),
                     flush=True,
                 )
-                if not consumer.usage_complete:
+                if not consumer.usage_complete or consumer.blocked:
                     raise ValueError(
                         "unknown usage; remaining batch withheld, no rerun"
                     )
             finally:
                 if model is not None:
-                    model.unload()
+                    finalize_owned_runtime(
+                        model, client.llm.list_loaded,
+                        output / (spec["id"] + ".cleanup.json"),
+                    )
     private_write(output / "summary.json", json_bytes({"assignments": rows}))
     return rows
 

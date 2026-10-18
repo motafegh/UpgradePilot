@@ -59,6 +59,7 @@ CANDIDATES = (
 )
 CODE_FILES = (
     Path("experiments/investigator_model_interface.py"),
+    Path("experiments/investigator_run_control.py"),
     Path("experiments/qualify_investigator_model_interface.py"),
     Path("experiments/investigator_workspace_trial.py"),
     Path("experiments/investigator_workspace_adapter.py"),
