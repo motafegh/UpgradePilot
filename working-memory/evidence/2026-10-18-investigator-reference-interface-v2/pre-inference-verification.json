@@ -1,0 +1,19 @@
+{
+  "asset_scope": "Model full hashes inherited from prior receipts; current size/mtime checked. Small runtime bytes rehashed. No off-machine backup/full runtime archive.",
+  "at": "2026-10-18T14:24:15.694058+00:00",
+  "bound_files": 60,
+  "cold_inputs": "Original full identity and supported original/backup native reads pass; backup SQLite bytes are independently snapshotted, not equated with original backup-API source bytes.",
+  "experiment_seam_tests": 123,
+  "gate_P": "verified_complete_before_new_prediction",
+  "nearest_workspace_tests": 65,
+  "old_evidence_unchanged": true,
+  "private_interface_freeze_sha256": "54491d78faddfcc645aa2bc0f343e8d81bb35fc561827a1228da65ecb5e64061",
+  "private_root": "/home/motafeq/.local/share/upgradepilot/investigator-runs/semantic-comparison-2026-10-18-reference-v2",
+  "private_semantic_freeze_sha256": "d9ec5c86f341f095cece29f9717c2fb1f9c9fb29f9661293e34a509d4b65bbe1",
+  "qualification_assignments": 12,
+  "qualification_calls_max": 72,
+  "real_predictions_before_freeze": 0,
+  "semantic_assignments": 12,
+  "semantic_calls_max": 192,
+  "source_files": 6
+}
