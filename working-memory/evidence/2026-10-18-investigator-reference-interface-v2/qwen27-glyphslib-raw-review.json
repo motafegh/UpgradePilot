@@ -1,0 +1,495 @@
+{
+  "format": "investigator-formative-source-review/1",
+  "view": 3,
+  "case_id": "development-glyphslib-pytest-stopping",
+  "outcome": "limit_exhausted",
+  "report_present": true,
+  "report_published": false,
+  "note_propositions_present": false,
+  "review_scope": "Complete attempted report despite operation refusal; every material claim,missing-observation,summary,condition,recommendation,stopping and unexamined assertion. No notes exist. Same exposed-case AI reviewer, not blind/independent.",
+  "material_propositions": [
+    {
+      "id": "P01",
+      "original_locator": "call-12/claims/0/statement",
+      "original_field_value": "The pinned version of pytest in requirements-dev.txt changes from 9.0.2 in the base revision (044f19e) to 9.0.3 in the head revision (f3cda8a).",
+      "proposition": "Exact base/head pytest pin transition9.0.2 to9.0.3",
+      "disposition": "supported",
+      "source_reason": "Events4/5 requirements-dev.txt L65 with exact SHAs and correct cited pages60-79.",
+      "citation_support": "supported",
+      "decision_critical": false
+    },
+    {
+      "id": "P02",
+      "original_locator": "call-12/claims/0/missing_observation",
+      "original_field_value": "No evidence of the specific diff or commit message explaining the change.",
+      "proposition": "No dedicated diff/commit-message evidence was examined",
+      "disposition": "narrower_scope_only",
+      "source_reason": "No such artifact read; comparison of delivered files directly establishes line change. Does not establish absence of all diff evidence from source universe.",
+      "citation_support": "not_applicable",
+      "decision_critical": false
+    },
+    {
+      "id": "P03",
+      "original_locator": "call-12/claims/1/statement",
+      "original_field_value": "The input file requirements-dev.in declares a minimum version constraint of pytest>=2.8, which is satisfied by both 9.0.2 and 9.0.3.",
+      "proposition": "Proposed requirements-dev.in declares pytest>=2.8; both named versions satisfy lower bound",
+      "disposition": "supported",
+      "source_reason": "Event6 full input file L5; numerical version comparison, not installed compatibility.",
+      "citation_support": "supported",
+      "decision_critical": false
+    },
+    {
+      "id": "P04",
+      "original_locator": "call-12/claims/1/missing_observation",
+      "original_field_value": "The base revision's requirements-dev.in was not explicitly read, but the proposed version shows a minimum constraint of 2.8.",
+      "proposition": "Base input file not read; proposed lower bound read",
+      "disposition": "supported",
+      "source_reason": "Actual response trace and event6 support both clauses.",
+      "citation_support": "not_applicable",
+      "decision_critical": false
+    },
+    {
+      "id": "P05",
+      "original_locator": "call-12/claims/2/statement",
+      "original_field_value": "In the visible portions of requirements-dev.txt (lines 1-40 and 60-80), the only difference between the base and head revisions is the pytest version pin. Other dependencies like iniconfig, execnet, and pytest-xdist remain at the same versions.",
+      "proposition": "Only pytest pin differs in examined portions",
+      "disposition": "narrower_scope_only",
+      "source_reason": "Full-file independent diff finds only L65 differs; actual delivered union is1-40 and60-79, not60-80. Citations are just events9/10 at21-40 and do not cover differing pin at65.",
+      "citation_support": "partial",
+      "decision_critical": false
+    },
+    {
+      "id": "P06",
+      "original_locator": "call-12/claims/2/statement",
+      "original_field_value": "In the visible portions of requirements-dev.txt (lines 1-40 and 60-80), the only difference between the base and head revisions is the pytest version pin. Other dependencies like iniconfig, execnet, and pytest-xdist remain at the same versions.",
+      "proposition": "execnet,iniconfig,pytest-xdist remain unchanged",
+      "disposition": "supported",
+      "source_reason": "Delivered pages cover execnet L21,iniconfig L39,xdist L72; both source versions equal. Actual cited21-40 pages support first two, not xdist.",
+      "citation_support": "partial",
+      "decision_critical": false
+    },
+    {
+      "id": "P07",
+      "original_locator": "call-12/claims/2/missing_observation",
+      "original_field_value": "The full requirements-dev.txt files were only partially read (lines 1-20 and 21-40, 60-80). Other dependencies might have changed, but only the pytest line was confirmed to differ in the visible range.",
+      "proposition": "Files were partially read and other unexamined portions could differ",
+      "disposition": "narrower_scope_only",
+      "source_reason": "True partial-inspection uncertainty; exact pages60-79 instead of60-80. Whole-file reviewer diff subsequently finds no other difference, but reviewer truth was not model evidence.",
+      "citation_support": "not_applicable",
+      "decision_critical": false
+    },
+    {
+      "id": "P08",
+      "original_locator": "call-12/summary",
+      "original_field_value": "The investigation confirms that the pull request updates the pinned version of pytest in requirements-dev.txt from 9.0.2 to 9.0.3. This is a patch version update. The input constraint in requirements-dev.in (pytest>=2.8) is satisfied. No other visible changes to dependencies were found in the examined lines of the lock file.",
+      "proposition": "PR pin transition is confirmed",
+      "disposition": "supported",
+      "source_reason": "Events4/5 L65. This is a declaration, not installed pytest.",
+      "citation_support": "not_applicable",
+      "decision_critical": false
+    },
+    {
+      "id": "P09",
+      "original_locator": "call-12/summary",
+      "original_field_value": "The investigation confirms that the pull request updates the pinned version of pytest in requirements-dev.txt from 9.0.2 to 9.0.3. This is a patch version update. The input constraint in requirements-dev.in (pytest>=2.8) is satisfied. No other visible changes to dependencies were found in the examined lines of the lock file.",
+      "proposition": "9.0.2 to9.0.3 is a numerical patch-component change",
+      "disposition": "supported",
+      "source_reason": "Observed version strings; no version-policy/compatibility promise follows.",
+      "citation_support": "not_applicable",
+      "decision_critical": false
+    },
+    {
+      "id": "P10",
+      "original_locator": "call-12/summary",
+      "original_field_value": "The investigation confirms that the pull request updates the pinned version of pytest in requirements-dev.txt from 9.0.2 to 9.0.3. This is a patch version update. The input constraint in requirements-dev.in (pytest>=2.8) is satisfied. No other visible changes to dependencies were found in the examined lines of the lock file.",
+      "proposition": "Input lower bound is satisfied",
+      "disposition": "supported",
+      "source_reason": "Event6 L5 and versions.",
+      "citation_support": "not_applicable",
+      "decision_critical": false
+    },
+    {
+      "id": "P11",
+      "original_locator": "call-12/summary",
+      "original_field_value": "The investigation confirms that the pull request updates the pinned version of pytest in requirements-dev.txt from 9.0.2 to 9.0.3. This is a patch version update. The input constraint in requirements-dev.in (pytest>=2.8) is satisfied. No other visible changes to dependencies were found in the examined lines of the lock file.",
+      "proposition": "No other change in examined lock/declaration lines",
+      "disposition": "supported",
+      "source_reason": "Independent comparison over actual delivered union confirms. Do not expand to full repository or installed state.",
+      "citation_support": "not_applicable",
+      "decision_critical": false
+    },
+    {
+      "id": "P12",
+      "original_locator": "call-12/conditions/0",
+      "original_field_value": "The investigation is limited to the retained capture of the repository at the specified SHAs.",
+      "proposition": "Evidence scope is retained specified-SHA capture",
+      "disposition": "supported",
+      "source_reason": "All source events carry exact bounded source identities; no external acquisition.",
+      "citation_support": "not_applicable",
+      "decision_critical": false
+    },
+    {
+      "id": "P13",
+      "original_locator": "call-12/conditions/1",
+      "original_field_value": "No runtime execution or installation of the dependencies was performed.",
+      "proposition": "No runtime execution/installation was performed by this investigation",
+      "disposition": "supported",
+      "source_reason": "Only ten source operations plus finish; no target execution tool.",
+      "citation_support": "not_applicable",
+      "decision_critical": false
+    },
+    {
+      "id": "P14",
+      "original_locator": "call-12/conditions/2",
+      "original_field_value": "The compatibility of pytest 9.0.3 with the specific test suite of glyphsLib is not verified by this investigation.",
+      "proposition": "Compatibility with this test suite is unverified by this investigation",
+      "disposition": "supported",
+      "source_reason": "No actual installed-version/runtime binding established; caution appropriate.",
+      "citation_support": "not_applicable",
+      "decision_critical": false
+    },
+    {
+      "id": "P15",
+      "original_locator": "call-12/recommendation",
+      "original_field_value": "Verify that the test suite passes with pytest 9.0.3 by running the CI pipeline or local tests, as the version bump is a patch update and likely low-risk, but no execution evidence is available in this capture.",
+      "proposition": "Verify tests with pytest9.0.3",
+      "disposition": "supported",
+      "source_reason": "Reasonable proposed check, not action permission. Does not identify separate tox/regression manager environments or correlate existing successful jobs.",
+      "citation_support": "not_applicable",
+      "decision_critical": false
+    },
+    {
+      "id": "P16",
+      "original_locator": "call-12/recommendation",
+      "original_field_value": "Verify that the test suite passes with pytest 9.0.3 by running the CI pipeline or local tests, as the version bump is a patch update and likely low-risk, but no execution evidence is available in this capture.",
+      "proposition": "Version change is a numerical patch update",
+      "disposition": "supported",
+      "source_reason": "Observed version strings; limited to numerical description.",
+      "citation_support": "not_applicable",
+      "decision_critical": false
+    },
+    {
+      "id": "P17",
+      "original_locator": "call-12/recommendation",
+      "original_field_value": "Verify that the test suite passes with pytest 9.0.3 by running the CI pipeline or local tests, as the version bump is a patch update and likely low-risk, but no execution evidence is available in this capture.",
+      "proposition": "Patch update likely low-risk",
+      "disposition": "unsupported",
+      "source_reason": "No pytest change/API review, consumer/CI/runtime binding or supported risk policy. Version component alone cannot establish low risk.",
+      "citation_support": "unsupported",
+      "decision_critical": true
+    },
+    {
+      "id": "P18",
+      "original_locator": "call-12/recommendation",
+      "original_field_value": "Verify that the test suite passes with pytest 9.0.3 by running the CI pipeline or local tests, as the version bump is a patch update and likely low-risk, but no execution evidence is available in this capture.",
+      "proposition": "No execution evidence is available in this capture",
+      "disposition": "contradicted",
+      "source_reason": "ci-observations/ev-005-ci-results.json records exact-head successful Test+Deploy and Regression jobs. It does not prove installed pytest9.0.3; unexamined observations are not absent evidence.",
+      "citation_support": "unsupported",
+      "decision_critical": true
+    },
+    {
+      "id": "P19",
+      "original_locator": "call-12/recommendation_missing_observation",
+      "original_field_value": "No CI logs or test execution results are available in the retained capture to confirm success or failure of the update.",
+      "proposition": "No complete CI runtime logs bind success to installed pytest9.0.3",
+      "disposition": "narrower_scope_only",
+      "source_reason": "Retained source contains bounded job/step observations, not full installed-version logs; exact binding remains unresolved. The unqualified original statement is too broad.",
+      "citation_support": "not_applicable",
+      "decision_critical": false
+    },
+    {
+      "id": "P20",
+      "original_locator": "call-12/recommendation_missing_observation",
+      "original_field_value": "No CI logs or test execution results are available in the retained capture to confirm success or failure of the update.",
+      "proposition": "No test execution results are available in retained capture",
+      "disposition": "contradicted",
+      "source_reason": "Exact-head CI result source is present, successful jobs at L6-7,18-46,53-64. Source inventory exposed ci-observations, never read. Actual version/manager correlation still unestablished.",
+      "citation_support": "not_applicable",
+      "decision_critical": true
+    },
+    {
+      "id": "P21",
+      "original_locator": "call-12/stopping_reason",
+      "original_field_value": "Budget exhausted or sufficient evidence gathered for the declared dependency update investigation.",
+      "proposition": "Budget exhausted or sufficient evidence gathered",
+      "disposition": "unsupported",
+      "source_reason": "At finish8 operations remained; only a zero-citation report4+finish3+termination1 fit. Actual five-ref report needed10 units after finish but5 remained. Adequacy not established: CI/workflows/runtime binding unexamined. Vague disjunction conceals actual allocation failure.",
+      "citation_support": "not_applicable",
+      "decision_critical": false
+    },
+    {
+      "id": "P22",
+      "original_locator": "call-12/unexamined/0",
+      "original_field_value": "The full content of requirements-dev.txt beyond the examined lines (1-40, 60-80).",
+      "proposition": "Full declarations beyond examined portions were unexamined",
+      "disposition": "narrower_scope_only",
+      "source_reason": "True omission, but model overstates examined range by one line:60-79 returned, not60-80.",
+      "citation_support": "not_applicable",
+      "decision_critical": false
+    },
+    {
+      "id": "P23",
+      "original_locator": "call-12/unexamined/1",
+      "original_field_value": "The base revision's requirements-dev.in file.",
+      "proposition": "Base requirements-dev.in not read",
+      "disposition": "supported",
+      "source_reason": "No matching read in trace.",
+      "citation_support": "not_applicable",
+      "decision_critical": false
+    },
+    {
+      "id": "P24",
+      "original_locator": "call-12/unexamined/2",
+      "original_field_value": "Any changes to test code or CI configuration that might be affected by the pytest version bump.",
+      "proposition": "Test code and CI configuration unexamined",
+      "disposition": "supported",
+      "source_reason": "Search navigation hints do not constitute source reads; no workflow/test source passage read.",
+      "citation_support": "not_applicable",
+      "decision_critical": false
+    },
+    {
+      "id": "P25",
+      "original_locator": "call-12/unexamined/3",
+      "original_field_value": "The actual changelog or release notes for pytest 9.0.3.",
+      "proposition": "pytest9.0.3 changelog/release notes unexamined",
+      "disposition": "supported",
+      "source_reason": "No upstream pytest source read; omitted, not claimed unavailable.",
+      "citation_support": "not_applicable",
+      "decision_critical": false
+    }
+  ],
+  "proposition_counts": {
+    "supported": 16,
+    "narrower_scope_only": 5,
+    "unsupported": 2,
+    "contradicted": 2
+  },
+  "coverage": [
+    {
+      "obligation_id": "development-glyphslib-pytest-stopping-transition",
+      "available": true,
+      "delivered": "Exact source pin pages4/5",
+      "used": "Attempted report claims0 and summary",
+      "cited": "Exact source_line refs in attempted report; publication refused before dispatch",
+      "supported": "supported_attempt_only"
+    },
+    {
+      "obligation_id": "development-glyphslib-pytest-stopping-main-ci-route",
+      "available": true,
+      "delivered": "Source inventory/navigation only",
+      "used": "Not substantively addressed",
+      "cited": false,
+      "supported": "unaddressed"
+    },
+    {
+      "obligation_id": "development-glyphslib-pytest-stopping-regression-route",
+      "available": true,
+      "delivered": "Workflow regression pytest command search preview only",
+      "used": "Not substantively addressed",
+      "cited": false,
+      "supported": "unaddressed"
+    },
+    {
+      "obligation_id": "development-glyphslib-pytest-stopping-ci-correlation",
+      "available": true,
+      "delivered": "Source inventory/navigation only",
+      "used": "Not substantively addressed",
+      "cited": false,
+      "supported": "unaddressed"
+    },
+    {
+      "obligation_id": "development-glyphslib-pytest-stopping-runtime-uncertainty",
+      "available": true,
+      "delivered": "Source inventory/navigation only",
+      "used": "Generic unverified-compatibility condition; no precise installed/manager binding",
+      "cited": false,
+      "supported": "partial_generic_uncertainty"
+    },
+    {
+      "obligation_id": "development-glyphslib-pytest-stopping-stopping-and-advice",
+      "available": true,
+      "delivered": "Source inventory/navigation only",
+      "used": "Not substantively addressed",
+      "cited": false,
+      "supported": "unaddressed"
+    }
+  ],
+  "source_checks": [
+    {
+      "source_id": "target-base",
+      "path": "requirements-dev.txt",
+      "sha256": "f9a866625e2a82fe09b4c0ad646ea1d5ab48398f20e9f7f7af322e7443e74606"
+    },
+    {
+      "source_id": "target-proposed",
+      "path": "requirements-dev.txt",
+      "sha256": "d61c580da79c07296f782ce579bc16fac1216abd25c6ca40ec51653457b5fe30",
+      "finding": "Full-file comparison differs only at L65; reviewer truth distinct from inspected pages."
+    },
+    {
+      "source_id": "target-proposed",
+      "path": "requirements-dev.in",
+      "sha256": "dcb89bbd6ff0be5f83d76a97df4b79f6f4b283b9a84e33b5f3bd8faeefc9cc71",
+      "lines": "5",
+      "finding": "pytest>=2.8."
+    },
+    {
+      "source_id": "ci-observations",
+      "path": "ev-005-ci-results.json",
+      "sha256": "63d7f897e15d8c5b4b3f9478876182326812c17594b103bce2329bd182d7bf78",
+      "lines": "2-64",
+      "finding": "Exact head success observations exist; installed pytest/manager correlation not established."
+    }
+  ],
+  "observations": [
+    {
+      "locator": "call-12 budget and exact emitted refs",
+      "finding": "Five unique refs; required report4+5refs+termination1=10 units versus5 remaining. Refusal before dispatch charges1; final45 operations=40 source+3 finish+1 refusal+1 termination. No strict-reference or semantic-validator rejection; no report publication/mapping. Model usage remains known."
+    },
+    {
+      "locator": "calls10-11 budget",
+      "finding": "At call10,12 operations remained, enough for finish3+report4+up to4refs+termination1. Another four-unit read left8, enough only for zero-reference finish/report. Further declared source/CI inquiry had been feasible earlier instead of four low-value additional declaration-page reads."
+    },
+    {
+      "locator": "all call omissions",
+      "finding": "No event omitted; missing CI/workflow evidence was available but unrequested. No native producer call."
+    }
+  ],
+  "dimensions": {
+    "relevant_evidence_coverage": "1/6 supported in attempted report,0 published. Input lower-bound check is useful supplemental evidence and does not change denominator6. Runtime uncertainty only generic.",
+    "interpretation_correctness": "Exact declaration and lower-bound facts correct. Minor page-end overstatement; composite claim citations partial. CI-availability assertion contradicted.",
+    "unsupported_claims": {
+      "supported": 16,
+      "narrower_scope_only": 5,
+      "unsupported": 2,
+      "contradicted": 2
+    },
+    "scoped_negative_evidence": "Scoped visible-file differences mostly respected; no-result-availability claim overreaches capture despite available CI source.",
+    "unresolved_quality": "Correctly declines runtime compatibility; fails to name exact manager/installed-version gap and confuses unexamined observations with unavailable observations.",
+    "stopping_quality": "Report cost not reserved; generic budget-or-sufficient reason does not establish adequacy. Optional declaration pagination consumed completion/critical-query capacity.",
+    "recommendation_usefulness": "Verify tests is reasonable but generic; low-risk inference unsupported. Host withheld report before publication on operations, independently of semantic truth.",
+    "reviewer_effort": "Actual interval logged; prior preparation/human effort unknown.",
+    "resource_cost": {
+      "access_receipts": [
+        {
+          "delivered_bytes": 3989,
+          "delivery_id": "afc9f3541e6c45bdafa93bf8767c23f4",
+          "detail": "Actual delivery; no hidden use or semantic support inferred.",
+          "examined_files": 0,
+          "examined_lines": 0,
+          "operation": "source:list_sources",
+          "outcome": "observed"
+        },
+        {
+          "delivered_bytes": 21672,
+          "delivery_id": "10d5afa9a62e4cefbcb9555110ad3d6d",
+          "detail": "Actual delivery; no hidden use or semantic support inferred.",
+          "examined_files": 113,
+          "examined_lines": 0,
+          "operation": "source:list_paths",
+          "outcome": "observed"
+        },
+        {
+          "delivered_bytes": 5143,
+          "delivery_id": "171ee8f5fb8b4a439a1ff0e8790e8d19",
+          "detail": "Actual delivery; no hidden use or semantic support inferred.",
+          "examined_files": 113,
+          "examined_lines": 35791,
+          "operation": "source:search",
+          "outcome": "observed"
+        },
+        {
+          "delivered_bytes": 1977,
+          "delivery_id": "92a54396e020417f88ac07c6bc5c4124",
+          "detail": "Actual delivery; no hidden use or semantic support inferred.",
+          "examined_files": 1,
+          "examined_lines": 20,
+          "operation": "source:read",
+          "outcome": "observed"
+        },
+        {
+          "delivered_bytes": 1969,
+          "delivery_id": "fe44c45ea9234608af9706d3fc93ad8f",
+          "detail": "Actual delivery; no hidden use or semantic support inferred.",
+          "examined_files": 1,
+          "examined_lines": 20,
+          "operation": "source:read",
+          "outcome": "observed"
+        },
+        {
+          "delivered_bytes": 1733,
+          "delivery_id": "71a078af6f1c4bb7bbb8bf5a95754432",
+          "detail": "Actual delivery; no hidden use or semantic support inferred.",
+          "examined_files": 1,
+          "examined_lines": 14,
+          "operation": "source:read",
+          "outcome": "observed"
+        },
+        {
+          "delivered_bytes": 1962,
+          "delivery_id": "11de0d0163aa4324a91681eabffd9f05",
+          "detail": "Actual delivery; no hidden use or semantic support inferred.",
+          "examined_files": 1,
+          "examined_lines": 20,
+          "operation": "source:read",
+          "outcome": "observed"
+        },
+        {
+          "delivered_bytes": 1970,
+          "delivery_id": "c182bb5a48f9442c89342199292e4c89",
+          "detail": "Actual delivery; no hidden use or semantic support inferred.",
+          "examined_files": 1,
+          "examined_lines": 20,
+          "operation": "source:read",
+          "outcome": "observed"
+        },
+        {
+          "delivered_bytes": 1954,
+          "delivery_id": "b5a26f00551e4dcf94afe2ef5afa82ac",
+          "detail": "Actual delivery; no hidden use or semantic support inferred.",
+          "examined_files": 1,
+          "examined_lines": 20,
+          "operation": "source:read",
+          "outcome": "observed"
+        },
+        {
+          "delivered_bytes": 1946,
+          "delivery_id": "645690903d6b408aac111c238c2f45e4",
+          "detail": "Actual delivery; no hidden use or semantic support inferred.",
+          "examined_files": 1,
+          "examined_lines": 20,
+          "operation": "source:read",
+          "outcome": "observed"
+        }
+      ],
+      "admission_operations": 45,
+      "assignment_composition_publications": 2,
+      "assignment_composition_seconds": 0.0019587989954743534,
+      "consumer_invocation_attempts": 12,
+      "consumer_response_bytes": 4867,
+      "corrections": 0,
+      "elapsed_seconds": 2639.3828984619977,
+      "model_calls": 12,
+      "model_tokens": {
+        "generated": 1571,
+        "input": 212257
+      },
+      "model_usage_complete": true,
+      "native_producer_calls": 0,
+      "observation_bytes": 50921,
+      "packed_input_bytes": 601811,
+      "reasoning_tokens": null,
+      "reference_visibility": "current_request",
+      "report_refusals": [],
+      "terminal_corrections": 0,
+      "tool_requests": 11
+    }
+  },
+  "critical_false_confidence": true,
+  "critical_false_confidence_reason": "Attempted low-risk advice rests on unsupported patch-risk inference and false absence of captured execution results; host did not publish it. Exact installed-version compatibility remains unresolved.",
+  "semantic_disposition": "attempted_report_not_published; unsupported_low_risk_and_ci_availability; preserve both semantic and budget failures",
+  "counting_limit": "Atomic reviewed proposition occurrences across fields; repetitions are not independent facts or samples. Support in an attempted report is not publication.",
+  "assignment_id": "qwen27-glyphslib-raw",
+  "original_assignment_sha256": "68fa29f1a1db8be3b0255fe392953da0636ee51cdfccba3b4f0e866cc159dd86"
+}
