@@ -1,0 +1,200 @@
+{
+  "recorded_at": "2026-10-18T11:16:21.221491+00:00",
+  "format": "investigator-revised-interface-result/1",
+  "disposition": "withheld_required_interface_matrix_failed_no_automatic_repair",
+  "qualification_call_ceiling": 72,
+  "qualification_calls": 62,
+  "per_model": [
+    {
+      "model_key": "google/gemma-4-12b",
+      "qualified_sequences": 3,
+      "total_sequences": 4,
+      "calls": 21,
+      "input_tokens": 250836,
+      "target_generated_tokens": 4933,
+      "client_prediction_seconds_sum": 1085.6522494650017,
+      "native_reported_seconds_sum": 1181.664794,
+      "maximum_client_call_seconds": 188.07631201499998,
+      "reported_draft_tokens": null,
+      "reported_accepted_draft_tokens": null,
+      "reported_rejected_draft_tokens": null
+    },
+    {
+      "model_key": "qwen3.8-27b-ud",
+      "qualified_sequences": 4,
+      "total_sequences": 4,
+      "calls": 20,
+      "input_tokens": 242203,
+      "target_generated_tokens": 3870,
+      "client_prediction_seconds_sum": 3642.863278153,
+      "native_reported_seconds_sum": 4027.2966189999997,
+      "maximum_client_call_seconds": 686.0433412480006,
+      "reported_draft_tokens": 3462,
+      "reported_accepted_draft_tokens": 2702,
+      "reported_rejected_draft_tokens": 760
+    },
+    {
+      "model_key": "gemma-4-e4b-it-ud",
+      "qualified_sequences": 3,
+      "total_sequences": 4,
+      "calls": 21,
+      "input_tokens": 268717,
+      "target_generated_tokens": 14320,
+      "client_prediction_seconds_sum": 767.8640700579981,
+      "native_reported_seconds_sum": 851.461826,
+      "maximum_client_call_seconds": 119.22787050400075,
+      "reported_draft_tokens": null,
+      "reported_accepted_draft_tokens": null,
+      "reported_rejected_draft_tokens": null
+    }
+  ],
+  "known_input_tokens": 761756,
+  "known_target_generated_tokens": 23123,
+  "unknown_usage_calls": 0,
+  "separate_reasoning_tokens": null,
+  "draft_accounting_limit": "Reported Qwen speculative draft counts are separate; do not add them to target-generated tokens as unique generation. Unreported draft/reasoning counts are unknown, not zero.",
+  "charged_trial_operation_units": 285,
+  "delivered_observation_bytes": 38336,
+  "report_refusals": 4,
+  "terminal_corrections": 2,
+  "semantic_assignments_attempted": 0,
+  "semantic_calls": 0,
+  "unspent_semantic_call_ceiling": 192,
+  "timing": {
+    "pipeline_start_utc": "2026-10-17T23:17:25.876693+00:00",
+    "pipeline_result_utc": "2026-10-18T00:59:19.680278+00:00",
+    "pipeline_wall_seconds": 6113.803585,
+    "client_prediction_seconds_sum": 5496.379597675999,
+    "native_reported_seconds_sum": 6060.423239,
+    "limit": "Separate client/native timing domains; no equivalence, timing subtraction attribution, or total preparation/human effort claim. Zero-generation preparation and prior 338 prediction attempts remain separately retained historical cost."
+  },
+  "resources": {
+    "samples": 547,
+    "first_sample_utc": "2026-10-17T23:17:44.683830+00:00",
+    "last_sample_utc": "2026-10-18T00:59:14.049264+00:00",
+    "sample_errors": 0,
+    "minimum_wsl_mem_available_kib": 51781292,
+    "maximum_sampled_whole_machine_gpu_used_mib": 5650,
+    "gpu_total_mib_observed": [
+      8192
+    ],
+    "maximum_sampled_gpu_utilization_percent": 93,
+    "limit": "Allowlisted nominal 10-second whole-machine samples; starts after pipeline initialization. Not continuous maxima, process-exclusive attribution, preparation coverage or peak WSL memory used."
+  },
+  "failure_reference_audit": [
+    {
+      "assignment": "budget-v1-gemma12-raw-short",
+      "call": 5,
+      "request_sha256": "c137543583d33d663e04c0e746223ca6e68802931e0c6db4e9015e3025e2628c",
+      "visible_response_sha256": "ebb58feb141aaaff3b4f1253742b701d9779f55a56dbb735a681375f69f98a43",
+      "eligible_reference_count": 3,
+      "omitted_event_count": 0,
+      "invalid_references": [
+        {
+          "location": "$.claims[0].evidence[0]",
+          "claimed_kind": "source_line",
+          "id_characters": 60,
+          "id_sha256": "302e5fb4da7fbdbcf2c04732c326cb7acc454789e6d9b666888f5fad4db29796",
+          "matches_delivery_id_of_problem_with_no_evidence": false,
+          "maximum_similarity_to_eligible_id_for_diagnosis_only": 0.9354838709677419
+        },
+        {
+          "location": "$.recommendation_evidence[0]",
+          "claimed_kind": "source_line",
+          "id_characters": 60,
+          "id_sha256": "302e5fb4da7fbdbcf2c04732c326cb7acc454789e6d9b666888f5fad4db29796",
+          "matches_delivery_id_of_problem_with_no_evidence": false,
+          "maximum_similarity_to_eligible_id_for_diagnosis_only": 0.9354838709677419
+        }
+      ]
+    },
+    {
+      "assignment": "budget-v1-gemma12-raw-short",
+      "call": 6,
+      "request_sha256": "20fbc089fcfe0b0f5668c9936b75105856036c4cb5dfa2b5b754a21ba65ccf1d",
+      "visible_response_sha256": "5b5c5c71a3e3d3d3c23dde43e97950c527733d1177924a94d3e473c8a11f7530",
+      "eligible_reference_count": 3,
+      "omitted_event_count": 0,
+      "invalid_references": [
+        {
+          "location": "$.claims[0].evidence[0]",
+          "claimed_kind": "source_line",
+          "id_characters": 60,
+          "id_sha256": "302e5fb4da7fbdbcf2c04732c326cb7acc454789e6d9b666888f5fad4db29796",
+          "matches_delivery_id_of_problem_with_no_evidence": false,
+          "maximum_similarity_to_eligible_id_for_diagnosis_only": 0.9354838709677419
+        },
+        {
+          "location": "$.recommendation_evidence[0]",
+          "claimed_kind": "source_line",
+          "id_characters": 60,
+          "id_sha256": "302e5fb4da7fbdbcf2c04732c326cb7acc454789e6d9b666888f5fad4db29796",
+          "matches_delivery_id_of_problem_with_no_evidence": false,
+          "maximum_similarity_to_eligible_id_for_diagnosis_only": 0.9354838709677419
+        }
+      ]
+    },
+    {
+      "assignment": "budget-v1-gemma-e4b-raw-long",
+      "call": 5,
+      "request_sha256": "362426b134a044790fe770d2e0acf02e0930a3c7064cdbbcaa87cd9b25170425",
+      "visible_response_sha256": "0c058e1fb18f0d5c7835fbdcd29fd770b029a1a5f59ab12bbb8aae519ed65491",
+      "eligible_reference_count": 2,
+      "omitted_event_count": 0,
+      "invalid_references": [
+        {
+          "location": "$.claims[1].evidence[0]",
+          "claimed_kind": "source_line",
+          "id_characters": 32,
+          "id_sha256": "c0730b93dad18ddbfd93e14af6ff4b26f884aa111b92aba63a39fcdb57925b72",
+          "matches_delivery_id_of_problem_with_no_evidence": true,
+          "maximum_similarity_to_eligible_id_for_diagnosis_only": 0.2708333333333333
+        }
+      ]
+    },
+    {
+      "assignment": "budget-v1-gemma-e4b-raw-long",
+      "call": 6,
+      "request_sha256": "2cb823baef38e68283f38895a575aecf2802aad529aa0621d1f951fa8c9e1c56",
+      "visible_response_sha256": "f87632d94b5f999e9b7250d96d8a54011c58655459ce573b0eafd71a5fc04043",
+      "eligible_reference_count": 2,
+      "omitted_event_count": 0,
+      "invalid_references": [
+        {
+          "location": "$.claims[1].evidence[0]",
+          "claimed_kind": "source_line",
+          "id_characters": 32,
+          "id_sha256": "c0730b93dad18ddbfd93e14af6ff4b26f884aa111b92aba63a39fcdb57925b72",
+          "matches_delivery_id_of_problem_with_no_evidence": true,
+          "maximum_similarity_to_eligible_id_for_diagnosis_only": 0.2708333333333333
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "verified_at": "2026-10-18T11:16:21.221442+00:00",
+    "private_semantic_freeze_sha256": "2219590bd7a0530667785e7d4e7db79957d79a7fb6943fd58161e1c2e275d7f0",
+    "private_interface_freeze_sha256": "e92d7fc7cb90ca25805174d1f21c470996bcb4bc3be2c74361895601b972e5fc",
+    "unchanged_experiment_source_files": 6,
+    "verified_bound_files": 37,
+    "verified_input_files": 17,
+    "verified_product_python_files": 96,
+    "model_runtime_size_mtime_bindings": 7,
+    "asset_scope": "Model full hashes inherited from prior receipts; current size/mtime verified. Small runtime metadata/launcher bytes freshly hashed before freeze. No new full-weight hashing or full runtime-binary archive.",
+    "verified_call_artifact_sets": 62,
+    "verified_actual_budget_snapshots": 62,
+    "verified_load_backend_deployments": 3,
+    "requested_applied_prediction_mismatches": 0,
+    "prompt_token_mismatches": 0,
+    "model_instance_mismatches": 0,
+    "unknown_usage_calls": 0,
+    "complete_assignment_order_matches_freeze": true,
+    "negative_gate_recheck": "required interface matrix did not qualify; semantic batch withheld",
+    "semantic_assignments_attempted": 0,
+    "semantic_output_directory_exists": false,
+    "loaded_models_after_run": 0,
+    "pipeline_exit": 0,
+    "sampler_exit": 0
+  },
+  "proof_limit": "Synthetic interface evidence only. No autonomous real-case semantic behavior, evidence exhaustion/adequacy, treatment benefit, model ranking, usefulness or product action acceptance."
+}

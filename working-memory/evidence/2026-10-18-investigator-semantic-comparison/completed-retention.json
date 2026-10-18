@@ -1,0 +1,12 @@
+{
+  "format": "investigator-completed-retention-index/1",
+  "created_at": "2026-10-18T11:16:21.340606+00:00",
+  "local_root": "/home/motafeq/.local/share/upgradepilot/investigator-runs/semantic-comparison-2026-10-18-budget-v1",
+  "file_count": 749,
+  "total_bytes": 25816105,
+  "scope": "Every file under the completed private root except this final index; all directories 0700/files 0600. External weights/runtime/common inputs are referenced bindings, not copied here. Local retention only; no off-machine backup or power-loss proof.",
+  "index_sha256": "31b955ee5e200d29ba117f56cca0fba04b3111e5780aa2c481aac9347ceb59b7",
+  "index_bytes": 137990,
+  "index_mode": "0600",
+  "revalidated_after_write": true
+}

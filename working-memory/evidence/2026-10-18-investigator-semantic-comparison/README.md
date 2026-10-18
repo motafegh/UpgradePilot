@@ -1,4 +1,4 @@
-# Investigator semantic comparison — October 18 frozen entry
+# Investigator semantic comparison — October 18 freeze and qualification result
 
 This is dated experiment evidence, not live state. [MEMORY](../../../MEMORY.md) alone owns continuation; the [cycle record](../../2026-10-17_2256_investigator-real-case-semantic-comparison_lbd-cycle.md) owns progression.
 
@@ -12,6 +12,8 @@ Zero-generation preparations and representative real-case traversals prove inspe
 ## Completed qualification checkpoint
 
 [All 12 revised-contract sequences](completed-matrix-checkpoint.json) completed: Gemma12 3/4, Qwen27 4/4, E4B 3/4. Gemma12 Raw-short and E4B Raw-long are WITHHELD after strict evidence-reference validation failures. The 62 actual calls have known usage: 761,756 input and 23,123 target-generated tokens. No requested/applied prediction-setting, rendered-prompt or instance mismatches were found. **Zero real-case semantic assignments were attempted** because the required all-selected-point admission gate failed. Original failures remain unchanged; no selective rerun or semantic conclusion follows.
+
+[The completed analysis](ANALYSIS.md) explains the distinct copying/authority failures, measured costs, proof limits and bounded design recommendation. [Final machine-readable results](final-results.json) include all 62 budget/artifact checks, three saved backend/load checks, unchanged freeze/source/input checks and the expected negative gate. [The final retention summary](completed-retention.json) binds 749 private files by a revalidated index; raw payloads remain local. These are completed negative qualification results, not an accepted semantic comparison.
 
 ## Asset verification scope
 
