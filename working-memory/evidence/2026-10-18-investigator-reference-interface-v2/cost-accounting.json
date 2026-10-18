@@ -1,0 +1,2729 @@
+{
+  "format": "investigator-original-cost-accounting/1",
+  "observed_at": "2026-10-18T18:19:36.157703+00:00",
+  "stages": [
+    {
+      "stage": "interface-results",
+      "assignments": [
+        {
+          "assignment": {
+            "id": "reference-v2-gemma12-raw-short",
+            "model_key": "google/gemma-4-12b",
+            "sequence": 1,
+            "treatment": "raw"
+          },
+          "outcome": "completed",
+          "problem": null,
+          "report_published": true,
+          "charges": {
+            "access_receipts": [
+              {
+                "delivered_bytes": 1020,
+                "delivery_id": "12994c2b4c67458392e1af98fa46ceb4",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 1,
+                "examined_lines": 1,
+                "operation": "source:read",
+                "outcome": "observed"
+              },
+              {
+                "delivered_bytes": 451,
+                "delivery_id": "ca98a8d93e20408db70e338c6ef164e1",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 3,
+                "examined_lines": 2,
+                "operation": "source:search",
+                "outcome": "scoped_negative"
+              },
+              {
+                "delivered_bytes": 972,
+                "delivery_id": "6e99f0d44d0f48fe9edc72beb43aa229",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 1,
+                "examined_lines": 0,
+                "operation": "source:read",
+                "outcome": "empty"
+              }
+            ],
+            "admission_operations": 23,
+            "assignment_composition_publications": 2,
+            "assignment_composition_seconds": 0.001123570000345353,
+            "consumer_invocation_attempts": 5,
+            "consumer_response_bytes": 3163,
+            "corrections": 0,
+            "elapsed_seconds": 187.45246396100265,
+            "model_calls": 5,
+            "model_tokens": {
+              "generated": 1129,
+              "input": 18599
+            },
+            "model_usage_complete": true,
+            "native_producer_calls": 0,
+            "observation_bytes": 3440,
+            "packed_input_bytes": 54302,
+            "reasoning_tokens": null,
+            "reference_visibility": "current_request",
+            "report_refusals": [],
+            "terminal_corrections": 0,
+            "tool_requests": 4
+          },
+          "calls": [
+            {
+              "call": "call-01",
+              "outcome": "returned",
+              "input_tokens": 2556,
+              "target_generated_tokens": 34,
+              "client_seconds": 9.930781091003155,
+              "native_seconds": 10.797079,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 2556
+            },
+            {
+              "call": "call-02",
+              "outcome": "returned",
+              "input_tokens": 3267,
+              "target_generated_tokens": 44,
+              "client_seconds": 12.504405085004692,
+              "native_seconds": 13.473229,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 3267
+            },
+            {
+              "call": "call-03",
+              "outcome": "returned",
+              "input_tokens": 3933,
+              "target_generated_tokens": 34,
+              "client_seconds": 12.692830537998816,
+              "native_seconds": 13.689388000000001,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 3933
+            },
+            {
+              "call": "call-04",
+              "outcome": "returned",
+              "input_tokens": 4728,
+              "target_generated_tokens": 26,
+              "client_seconds": 13.531126862006204,
+              "native_seconds": 14.596073,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 4728
+            },
+            {
+              "call": "call-05",
+              "outcome": "returned",
+              "input_tokens": 4115,
+              "target_generated_tokens": 991,
+              "client_seconds": 138.13302055199892,
+              "native_seconds": 150.52894899999998,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 4115
+            }
+          ]
+        },
+        {
+          "assignment": {
+            "id": "reference-v2-gemma12-structured-short",
+            "model_key": "google/gemma-4-12b",
+            "sequence": 1,
+            "treatment": "structured"
+          },
+          "outcome": "completed",
+          "problem": null,
+          "report_published": true,
+          "charges": {
+            "access_receipts": [
+              {
+                "delivered_bytes": 1020,
+                "delivery_id": "4dc5e3d0019c48fa8155f7cd89d5feb6",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 1,
+                "examined_lines": 1,
+                "operation": "source:read",
+                "outcome": "observed"
+              },
+              {
+                "delivered_bytes": 451,
+                "delivery_id": "b8a30929067449efb6b5cca05e72f7bf",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 3,
+                "examined_lines": 2,
+                "operation": "source:search",
+                "outcome": "scoped_negative"
+              },
+              {
+                "delivered_bytes": 972,
+                "delivery_id": "c651db7fc49e4e7f8efa64c459be59b2",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 1,
+                "examined_lines": 0,
+                "operation": "source:read",
+                "outcome": "empty"
+              }
+            ],
+            "admission_operations": 23,
+            "assignment_composition_publications": 2,
+            "assignment_composition_seconds": 0.0018745179986581206,
+            "consumer_invocation_attempts": 5,
+            "consumer_response_bytes": 2807,
+            "corrections": 0,
+            "elapsed_seconds": 206.77889386999595,
+            "model_calls": 5,
+            "model_tokens": {
+              "generated": 985,
+              "input": 19082
+            },
+            "model_usage_complete": true,
+            "native_producer_calls": 0,
+            "observation_bytes": 3440,
+            "packed_input_bytes": 56498,
+            "reasoning_tokens": null,
+            "reference_visibility": "current_request",
+            "report_refusals": [],
+            "terminal_corrections": 0,
+            "tool_requests": 4
+          },
+          "calls": [
+            {
+              "call": "call-01",
+              "outcome": "returned",
+              "input_tokens": 2706,
+              "target_generated_tokens": 34,
+              "client_seconds": 11.817402191001747,
+              "native_seconds": 12.644056,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 2706
+            },
+            {
+              "call": "call-02",
+              "outcome": "returned",
+              "input_tokens": 3403,
+              "target_generated_tokens": 44,
+              "client_seconds": 14.938730818001204,
+              "native_seconds": 16.057015,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 3403
+            },
+            {
+              "call": "call-03",
+              "outcome": "returned",
+              "input_tokens": 4048,
+              "target_generated_tokens": 34,
+              "client_seconds": 15.003917454996554,
+              "native_seconds": 16.113397,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 4048
+            },
+            {
+              "call": "call-04",
+              "outcome": "returned",
+              "input_tokens": 4839,
+              "target_generated_tokens": 26,
+              "client_seconds": 18.981509445002303,
+              "native_seconds": 20.4176,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 4839
+            },
+            {
+              "call": "call-05",
+              "outcome": "returned",
+              "input_tokens": 4086,
+              "target_generated_tokens": 847,
+              "client_seconds": 145.00188038500346,
+              "native_seconds": 157.91551499999997,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 4086
+            }
+          ]
+        },
+        {
+          "assignment": {
+            "id": "reference-v2-gemma12-raw-long",
+            "model_key": "google/gemma-4-12b",
+            "sequence": 2,
+            "treatment": "raw"
+          },
+          "outcome": "completed",
+          "problem": null,
+          "report_published": true,
+          "charges": {
+            "access_receipts": [
+              {
+                "delivered_bytes": 1020,
+                "delivery_id": "7f8f2b7bb0474cf9b1fb21c09f8820ba",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 1,
+                "examined_lines": 1,
+                "operation": "source:read",
+                "outcome": "observed"
+              },
+              {
+                "delivered_bytes": 438,
+                "delivery_id": "834af6c5b7e5436e8df9fc51cfa60c05",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 0,
+                "examined_lines": 0,
+                "operation": "source:read",
+                "outcome": "problem"
+              },
+              {
+                "delivered_bytes": 451,
+                "delivery_id": "092176c1004f4cbdbc6b4589384f2c39",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 3,
+                "examined_lines": 2,
+                "operation": "source:search",
+                "outcome": "scoped_negative"
+              }
+            ],
+            "admission_operations": 22,
+            "assignment_composition_publications": 2,
+            "assignment_composition_seconds": 0.0027781090029748157,
+            "consumer_invocation_attempts": 5,
+            "consumer_response_bytes": 2656,
+            "corrections": 0,
+            "elapsed_seconds": 455.8981862419969,
+            "model_calls": 5,
+            "model_tokens": {
+              "generated": 930,
+              "input": 107136
+            },
+            "model_usage_complete": true,
+            "native_producer_calls": 0,
+            "observation_bytes": 2766,
+            "packed_input_bytes": 584016,
+            "reasoning_tokens": null,
+            "reference_visibility": "current_request",
+            "report_refusals": [],
+            "terminal_corrections": 0,
+            "tool_requests": 4
+          },
+          "calls": [
+            {
+              "call": "call-01",
+              "outcome": "returned",
+              "input_tokens": 20557,
+              "target_generated_tokens": 34,
+              "client_seconds": 70.42755763300374,
+              "native_seconds": 76.510677,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 20557
+            },
+            {
+              "call": "call-02",
+              "outcome": "returned",
+              "input_tokens": 21259,
+              "target_generated_tokens": 34,
+              "client_seconds": 81.23891837400151,
+              "native_seconds": 88.272635,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 21259
+            },
+            {
+              "call": "call-03",
+              "outcome": "returned",
+              "input_tokens": 21525,
+              "target_generated_tokens": 44,
+              "client_seconds": 23.32881586300209,
+              "native_seconds": 25.328705000000003,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 21525
+            },
+            {
+              "call": "call-04",
+              "outcome": "returned",
+              "input_tokens": 22175,
+              "target_generated_tokens": 20,
+              "client_seconds": 89.32693501999893,
+              "native_seconds": 97.065833,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 22175
+            },
+            {
+              "call": "call-05",
+              "outcome": "returned",
+              "input_tokens": 21620,
+              "target_generated_tokens": 798,
+              "client_seconds": 188.84517213000072,
+              "native_seconds": 205.925615,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 21620
+            }
+          ]
+        },
+        {
+          "assignment": {
+            "id": "reference-v2-gemma12-structured-long",
+            "model_key": "google/gemma-4-12b",
+            "sequence": 2,
+            "treatment": "structured"
+          },
+          "outcome": "completed",
+          "problem": null,
+          "report_published": true,
+          "charges": {
+            "access_receipts": [
+              {
+                "delivered_bytes": 710,
+                "delivery_id": "ec1e271748c34efeb76ed6c57edbf790",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 0,
+                "examined_lines": 0,
+                "operation": "native:view",
+                "outcome": "observed"
+              },
+              {
+                "delivered_bytes": 438,
+                "delivery_id": "c9a86865c6d74ea7964b9347e1b9ed9b",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 0,
+                "examined_lines": 0,
+                "operation": "source:read",
+                "outcome": "problem"
+              },
+              {
+                "delivered_bytes": 1020,
+                "delivery_id": "4964609dbbeb4408ad0e87f07f146a75",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 1,
+                "examined_lines": 1,
+                "operation": "source:read",
+                "outcome": "observed"
+              }
+            ],
+            "admission_operations": 22,
+            "assignment_composition_publications": 2,
+            "assignment_composition_seconds": 0.0027323320027790032,
+            "consumer_invocation_attempts": 5,
+            "consumer_response_bytes": 2716,
+            "corrections": 0,
+            "elapsed_seconds": 421.58812788300565,
+            "model_calls": 5,
+            "model_tokens": {
+              "generated": 922,
+              "input": 107918
+            },
+            "model_usage_complete": true,
+            "native_producer_calls": 0,
+            "observation_bytes": 3020,
+            "packed_input_bytes": 585702,
+            "reasoning_tokens": null,
+            "reference_visibility": "current_request",
+            "report_refusals": [],
+            "terminal_corrections": 0,
+            "tool_requests": 4
+          },
+          "calls": [
+            {
+              "call": "call-01",
+              "outcome": "returned",
+              "input_tokens": 20697,
+              "target_generated_tokens": 26,
+              "client_seconds": 63.44243703900429,
+              "native_seconds": 68.86708499999999,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 20697
+            },
+            {
+              "call": "call-02",
+              "outcome": "returned",
+              "input_tokens": 21321,
+              "target_generated_tokens": 34,
+              "client_seconds": 73.719914952002,
+              "native_seconds": 80.058579,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 21321
+            },
+            {
+              "call": "call-03",
+              "outcome": "returned",
+              "input_tokens": 21589,
+              "target_generated_tokens": 34,
+              "client_seconds": 16.78007666800113,
+              "native_seconds": 18.201900000000002,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 21589
+            },
+            {
+              "call": "call-04",
+              "outcome": "returned",
+              "input_tokens": 22514,
+              "target_generated_tokens": 20,
+              "client_seconds": 69.81023355999787,
+              "native_seconds": 75.796022,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 22514
+            },
+            {
+              "call": "call-05",
+              "outcome": "returned",
+              "input_tokens": 21797,
+              "target_generated_tokens": 808,
+              "client_seconds": 195.19090525900538,
+              "native_seconds": 212.82741700000003,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 21797
+            }
+          ]
+        },
+        {
+          "assignment": {
+            "id": "reference-v2-qwen27-raw-short",
+            "model_key": "qwen3.8-27b-ud",
+            "sequence": 1,
+            "treatment": "raw"
+          },
+          "outcome": "completed",
+          "problem": null,
+          "report_published": true,
+          "charges": {
+            "access_receipts": [
+              {
+                "delivered_bytes": 1020,
+                "delivery_id": "5c4940708f544e5d903d8152c2e6c3d9",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 1,
+                "examined_lines": 1,
+                "operation": "source:read",
+                "outcome": "observed"
+              },
+              {
+                "delivered_bytes": 451,
+                "delivery_id": "bc4288b41b734adb903b32ab5c39b8c3",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 3,
+                "examined_lines": 2,
+                "operation": "source:search",
+                "outcome": "scoped_negative"
+              },
+              {
+                "delivered_bytes": 972,
+                "delivery_id": "87ca828030ea436ba2e45f50f0afc1c7",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 1,
+                "examined_lines": 0,
+                "operation": "source:read",
+                "outcome": "empty"
+              }
+            ],
+            "admission_operations": 23,
+            "assignment_composition_publications": 2,
+            "assignment_composition_seconds": 0.0010537959969951771,
+            "consumer_invocation_attempts": 5,
+            "consumer_response_bytes": 3976,
+            "corrections": 0,
+            "elapsed_seconds": 545.5804792569979,
+            "model_calls": 5,
+            "model_tokens": {
+              "generated": 1234,
+              "input": 17460
+            },
+            "model_usage_complete": true,
+            "native_producer_calls": 0,
+            "observation_bytes": 3440,
+            "packed_input_bytes": 54247,
+            "reasoning_tokens": null,
+            "reference_visibility": "current_request",
+            "report_refusals": [],
+            "terminal_corrections": 0,
+            "tool_requests": 4
+          },
+          "calls": [
+            {
+              "call": "call-01",
+              "outcome": "returned",
+              "input_tokens": 2387,
+              "target_generated_tokens": 20,
+              "client_seconds": 21.583305002000998,
+              "native_seconds": 23.505114000000003,
+              "reported_draft_tokens": 18,
+              "reported_accepted_draft_tokens": 14,
+              "reported_rejected_draft_tokens": 4,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 2387
+            },
+            {
+              "call": "call-02",
+              "outcome": "returned",
+              "input_tokens": 3062,
+              "target_generated_tokens": 27,
+              "client_seconds": 32.47250977800286,
+              "native_seconds": 35.246764,
+              "reported_draft_tokens": 21,
+              "reported_accepted_draft_tokens": 19,
+              "reported_rejected_draft_tokens": 2,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 3062
+            },
+            {
+              "call": "call-03",
+              "outcome": "returned",
+              "input_tokens": 3687,
+              "target_generated_tokens": 26,
+              "client_seconds": 35.67608889999974,
+              "native_seconds": 38.67740799999999,
+              "reported_draft_tokens": 21,
+              "reported_accepted_draft_tokens": 19,
+              "reported_rejected_draft_tokens": 2,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 3687
+            },
+            {
+              "call": "call-04",
+              "outcome": "returned",
+              "input_tokens": 4446,
+              "target_generated_tokens": 15,
+              "client_seconds": 37.13672451399907,
+              "native_seconds": 40.230786,
+              "reported_draft_tokens": 12,
+              "reported_accepted_draft_tokens": 10,
+              "reported_rejected_draft_tokens": 2,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 4446
+            },
+            {
+              "call": "call-05",
+              "outcome": "returned",
+              "input_tokens": 3878,
+              "target_generated_tokens": 1146,
+              "client_seconds": 417.93972830299754,
+              "native_seconds": 455.675409,
+              "reported_draft_tokens": 1005,
+              "reported_accepted_draft_tokens": 811,
+              "reported_rejected_draft_tokens": 194,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 3878
+            }
+          ]
+        },
+        {
+          "assignment": {
+            "id": "reference-v2-qwen27-structured-short",
+            "model_key": "qwen3.8-27b-ud",
+            "sequence": 1,
+            "treatment": "structured"
+          },
+          "outcome": "completed",
+          "problem": null,
+          "report_published": true,
+          "charges": {
+            "access_receipts": [
+              {
+                "delivered_bytes": 1020,
+                "delivery_id": "e75600fdac3d42eaba9e03c063e65184",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 1,
+                "examined_lines": 1,
+                "operation": "source:read",
+                "outcome": "observed"
+              },
+              {
+                "delivered_bytes": 451,
+                "delivery_id": "4eaae08721e54efb87a96593af978c11",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 3,
+                "examined_lines": 2,
+                "operation": "source:search",
+                "outcome": "scoped_negative"
+              },
+              {
+                "delivered_bytes": 972,
+                "delivery_id": "ff3381c423df42c9ba8c97726c5f9d0b",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 1,
+                "examined_lines": 0,
+                "operation": "source:read",
+                "outcome": "empty"
+              }
+            ],
+            "admission_operations": 23,
+            "assignment_composition_publications": 2,
+            "assignment_composition_seconds": 0.0014944399954401888,
+            "consumer_invocation_attempts": 5,
+            "consumer_response_bytes": 3496,
+            "corrections": 0,
+            "elapsed_seconds": 516.1606524500021,
+            "model_calls": 5,
+            "model_tokens": {
+              "generated": 1133,
+              "input": 18089
+            },
+            "model_usage_complete": true,
+            "native_producer_calls": 0,
+            "observation_bytes": 3440,
+            "packed_input_bytes": 56433,
+            "reasoning_tokens": null,
+            "reference_visibility": "current_request",
+            "report_refusals": [],
+            "terminal_corrections": 0,
+            "tool_requests": 4
+          },
+          "calls": [
+            {
+              "call": "call-01",
+              "outcome": "returned",
+              "input_tokens": 2520,
+              "target_generated_tokens": 20,
+              "client_seconds": 22.2912144649963,
+              "native_seconds": 24.053075,
+              "reported_draft_tokens": 18,
+              "reported_accepted_draft_tokens": 14,
+              "reported_rejected_draft_tokens": 4,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 2520
+            },
+            {
+              "call": "call-02",
+              "outcome": "returned",
+              "input_tokens": 3223,
+              "target_generated_tokens": 27,
+              "client_seconds": 37.628583719000744,
+              "native_seconds": 40.800536,
+              "reported_draft_tokens": 21,
+              "reported_accepted_draft_tokens": 20,
+              "reported_rejected_draft_tokens": 1,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 3223
+            },
+            {
+              "call": "call-03",
+              "outcome": "returned",
+              "input_tokens": 3847,
+              "target_generated_tokens": 20,
+              "client_seconds": 35.991503049997846,
+              "native_seconds": 39.007256999999996,
+              "reported_draft_tokens": 18,
+              "reported_accepted_draft_tokens": 13,
+              "reported_rejected_draft_tokens": 5,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 3847
+            },
+            {
+              "call": "call-04",
+              "outcome": "returned",
+              "input_tokens": 4604,
+              "target_generated_tokens": 15,
+              "client_seconds": 41.897994733000814,
+              "native_seconds": 45.43941,
+              "reported_draft_tokens": 12,
+              "reported_accepted_draft_tokens": 10,
+              "reported_rejected_draft_tokens": 2,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 4604
+            },
+            {
+              "call": "call-05",
+              "outcome": "returned",
+              "input_tokens": 3895,
+              "target_generated_tokens": 1051,
+              "client_seconds": 377.48508443000173,
+              "native_seconds": 410.63929099999996,
+              "reported_draft_tokens": 897,
+              "reported_accepted_draft_tokens": 751,
+              "reported_rejected_draft_tokens": 146,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 3895
+            }
+          ]
+        },
+        {
+          "assignment": {
+            "id": "reference-v2-qwen27-raw-long",
+            "model_key": "qwen3.8-27b-ud",
+            "sequence": 2,
+            "treatment": "raw"
+          },
+          "outcome": "completed",
+          "problem": null,
+          "report_published": true,
+          "charges": {
+            "access_receipts": [
+              {
+                "delivered_bytes": 1020,
+                "delivery_id": "3c1ebdf1b2104e7eb7485ad228a7a557",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 1,
+                "examined_lines": 1,
+                "operation": "source:read",
+                "outcome": "observed"
+              },
+              {
+                "delivered_bytes": 438,
+                "delivery_id": "ebafcd235eb44559a176b80e46efb98d",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 0,
+                "examined_lines": 0,
+                "operation": "source:read",
+                "outcome": "problem"
+              },
+              {
+                "delivered_bytes": 451,
+                "delivery_id": "12173f84493c4d5b8d3b7d5c86892135",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 3,
+                "examined_lines": 2,
+                "operation": "source:search",
+                "outcome": "scoped_negative"
+              }
+            ],
+            "admission_operations": 22,
+            "assignment_composition_publications": 2,
+            "assignment_composition_seconds": 0.0025677760058897547,
+            "consumer_invocation_attempts": 5,
+            "consumer_response_bytes": 2874,
+            "corrections": 0,
+            "elapsed_seconds": 1369.1159042619984,
+            "model_calls": 5,
+            "model_tokens": {
+              "generated": 880,
+              "input": 106218
+            },
+            "model_usage_complete": true,
+            "native_producer_calls": 0,
+            "observation_bytes": 2766,
+            "packed_input_bytes": 583969,
+            "reasoning_tokens": null,
+            "reference_visibility": "current_request",
+            "report_refusals": [],
+            "terminal_corrections": 0,
+            "tool_requests": 4
+          },
+          "calls": [
+            {
+              "call": "call-01",
+              "outcome": "returned",
+              "input_tokens": 20388,
+              "target_generated_tokens": 20,
+              "client_seconds": 164.84599687700393,
+              "native_seconds": 179.50374500000004,
+              "reported_draft_tokens": 18,
+              "reported_accepted_draft_tokens": 14,
+              "reported_rejected_draft_tokens": 4,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 20388
+            },
+            {
+              "call": "call-02",
+              "outcome": "returned",
+              "input_tokens": 21089,
+              "target_generated_tokens": 20,
+              "client_seconds": 178.79958323999745,
+              "native_seconds": 194.538628,
+              "reported_draft_tokens": 18,
+              "reported_accepted_draft_tokens": 13,
+              "reported_rejected_draft_tokens": 5,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 21089
+            },
+            {
+              "call": "call-03",
+              "outcome": "returned",
+              "input_tokens": 21339,
+              "target_generated_tokens": 33,
+              "client_seconds": 184.03084692700213,
+              "native_seconds": 200.670655,
+              "reported_draft_tokens": 27,
+              "reported_accepted_draft_tokens": 23,
+              "reported_rejected_draft_tokens": 4,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 21339
+            },
+            {
+              "call": "call-04",
+              "outcome": "returned",
+              "input_tokens": 21958,
+              "target_generated_tokens": 13,
+              "client_seconds": 177.56408008700237,
+              "native_seconds": 193.167391,
+              "reported_draft_tokens": 9,
+              "reported_accepted_draft_tokens": 9,
+              "reported_rejected_draft_tokens": 0,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 21958
+            },
+            {
+              "call": "call-05",
+              "outcome": "returned",
+              "input_tokens": 21444,
+              "target_generated_tokens": 794,
+              "client_seconds": 662.3074928919959,
+              "native_seconds": 722.448561,
+              "reported_draft_tokens": 702,
+              "reported_accepted_draft_tokens": 559,
+              "reported_rejected_draft_tokens": 143,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 21444
+            }
+          ]
+        },
+        {
+          "assignment": {
+            "id": "reference-v2-qwen27-structured-long",
+            "model_key": "qwen3.8-27b-ud",
+            "sequence": 2,
+            "treatment": "structured"
+          },
+          "outcome": "completed",
+          "problem": null,
+          "report_published": true,
+          "charges": {
+            "access_receipts": [
+              {
+                "delivered_bytes": 710,
+                "delivery_id": "e3f05b910de44891ab73adff0abd0669",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 0,
+                "examined_lines": 0,
+                "operation": "native:view",
+                "outcome": "observed"
+              },
+              {
+                "delivered_bytes": 438,
+                "delivery_id": "af2cf335a1d94d9fbd6784c05d935fe7",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 0,
+                "examined_lines": 0,
+                "operation": "source:read",
+                "outcome": "problem"
+              },
+              {
+                "delivered_bytes": 1020,
+                "delivery_id": "150f7744ea164a779541445efc64ba95",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 1,
+                "examined_lines": 1,
+                "operation": "source:read",
+                "outcome": "observed"
+              }
+            ],
+            "admission_operations": 22,
+            "assignment_composition_publications": 2,
+            "assignment_composition_seconds": 0.0027389559982111678,
+            "consumer_invocation_attempts": 5,
+            "consumer_response_bytes": 2995,
+            "corrections": 0,
+            "elapsed_seconds": 1371.2608597809958,
+            "model_calls": 5,
+            "model_tokens": {
+              "generated": 831,
+              "input": 106940
+            },
+            "model_usage_complete": true,
+            "native_producer_calls": 0,
+            "observation_bytes": 3020,
+            "packed_input_bytes": 585683,
+            "reasoning_tokens": null,
+            "reference_visibility": "current_request",
+            "report_refusals": [],
+            "terminal_corrections": 0,
+            "tool_requests": 4
+          },
+          "calls": [
+            {
+              "call": "call-01",
+              "outcome": "returned",
+              "input_tokens": 20511,
+              "target_generated_tokens": 16,
+              "client_seconds": 163.0795684429977,
+              "native_seconds": 177.418506,
+              "reported_draft_tokens": 12,
+              "reported_accepted_draft_tokens": 11,
+              "reported_rejected_draft_tokens": 1,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 20511
+            },
+            {
+              "call": "call-02",
+              "outcome": "returned",
+              "input_tokens": 21143,
+              "target_generated_tokens": 26,
+              "client_seconds": 194.48753408800258,
+              "native_seconds": 211.60134,
+              "reported_draft_tokens": 24,
+              "reported_accepted_draft_tokens": 17,
+              "reported_rejected_draft_tokens": 7,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 21143
+            },
+            {
+              "call": "call-03",
+              "outcome": "returned",
+              "input_tokens": 21398,
+              "target_generated_tokens": 26,
+              "client_seconds": 192.18413382800645,
+              "native_seconds": 209.564864,
+              "reported_draft_tokens": 21,
+              "reported_accepted_draft_tokens": 19,
+              "reported_rejected_draft_tokens": 2,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 21398
+            },
+            {
+              "call": "call-04",
+              "outcome": "returned",
+              "input_tokens": 22268,
+              "target_generated_tokens": 13,
+              "client_seconds": 183.84876647399506,
+              "native_seconds": 199.968723,
+              "reported_draft_tokens": 9,
+              "reported_accepted_draft_tokens": 9,
+              "reported_rejected_draft_tokens": 0,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 22268
+            },
+            {
+              "call": "call-05",
+              "outcome": "returned",
+              "input_tokens": 21620,
+              "target_generated_tokens": 750,
+              "client_seconds": 636.2057125249994,
+              "native_seconds": 693.9723769999999,
+              "reported_draft_tokens": 657,
+              "reported_accepted_draft_tokens": 530,
+              "reported_rejected_draft_tokens": 127,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 21620
+            }
+          ]
+        },
+        {
+          "assignment": {
+            "id": "reference-v2-gemma-e4b-raw-short",
+            "model_key": "gemma-4-e4b-it-ud",
+            "sequence": 1,
+            "treatment": "raw"
+          },
+          "outcome": "completed",
+          "problem": null,
+          "report_published": true,
+          "charges": {
+            "access_receipts": [
+              {
+                "delivered_bytes": 1020,
+                "delivery_id": "3883f2a168b9444d89e9bb5aefb0bcb9",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 1,
+                "examined_lines": 1,
+                "operation": "source:read",
+                "outcome": "observed"
+              },
+              {
+                "delivered_bytes": 451,
+                "delivery_id": "3a0890740ef245ec8388ab351d947614",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 3,
+                "examined_lines": 2,
+                "operation": "source:search",
+                "outcome": "scoped_negative"
+              },
+              {
+                "delivered_bytes": 972,
+                "delivery_id": "949eb0b940e94784951422a39e0c58e4",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 1,
+                "examined_lines": 0,
+                "operation": "source:read",
+                "outcome": "empty"
+              }
+            ],
+            "admission_operations": 23,
+            "assignment_composition_publications": 2,
+            "assignment_composition_seconds": 0.0012890879952465184,
+            "consumer_invocation_attempts": 5,
+            "consumer_response_bytes": 3012,
+            "corrections": 0,
+            "elapsed_seconds": 107.16211253700021,
+            "model_calls": 5,
+            "model_tokens": {
+              "generated": 2771,
+              "input": 18662
+            },
+            "model_usage_complete": true,
+            "native_producer_calls": 0,
+            "observation_bytes": 3440,
+            "packed_input_bytes": 54380,
+            "reasoning_tokens": null,
+            "reference_visibility": "current_request",
+            "report_refusals": [],
+            "terminal_corrections": 0,
+            "tool_requests": 4
+          },
+          "calls": [
+            {
+              "call": "call-01",
+              "outcome": "returned",
+              "input_tokens": 2553,
+              "target_generated_tokens": 234,
+              "client_seconds": 7.994933284004219,
+              "native_seconds": 8.674277,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 2553
+            },
+            {
+              "call": "call-02",
+              "outcome": "returned",
+              "input_tokens": 3273,
+              "target_generated_tokens": 388,
+              "client_seconds": 13.785986912997032,
+              "native_seconds": 14.965078000000002,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 3273
+            },
+            {
+              "call": "call-03",
+              "outcome": "returned",
+              "input_tokens": 3940,
+              "target_generated_tokens": 259,
+              "client_seconds": 10.802809057997365,
+              "native_seconds": 11.707056,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 3940
+            },
+            {
+              "call": "call-04",
+              "outcome": "returned",
+              "input_tokens": 4758,
+              "target_generated_tokens": 261,
+              "client_seconds": 11.710783123999136,
+              "native_seconds": 12.678179,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 4758
+            },
+            {
+              "call": "call-05",
+              "outcome": "returned",
+              "input_tokens": 4138,
+              "target_generated_tokens": 1629,
+              "client_seconds": 62.0056922540025,
+              "native_seconds": 67.560732,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 4138
+            }
+          ]
+        },
+        {
+          "assignment": {
+            "id": "reference-v2-gemma-e4b-structured-short",
+            "model_key": "gemma-4-e4b-it-ud",
+            "sequence": 1,
+            "treatment": "structured"
+          },
+          "outcome": "completed",
+          "problem": null,
+          "report_published": true,
+          "charges": {
+            "access_receipts": [
+              {
+                "delivered_bytes": 1020,
+                "delivery_id": "ad520404b31f4bf88f154f58d13a663a",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 1,
+                "examined_lines": 1,
+                "operation": "source:read",
+                "outcome": "observed"
+              },
+              {
+                "delivered_bytes": 451,
+                "delivery_id": "5bf6fd9938db44deac7a147cc6ee52a5",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 3,
+                "examined_lines": 2,
+                "operation": "source:search",
+                "outcome": "scoped_negative"
+              },
+              {
+                "delivered_bytes": 972,
+                "delivery_id": "f56cb16a93de41b8bc6d1aa29217f753",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 1,
+                "examined_lines": 0,
+                "operation": "source:read",
+                "outcome": "empty"
+              }
+            ],
+            "admission_operations": 23,
+            "assignment_composition_publications": 2,
+            "assignment_composition_seconds": 0.0023773960056132637,
+            "consumer_invocation_attempts": 5,
+            "consumer_response_bytes": 2856,
+            "corrections": 0,
+            "elapsed_seconds": 122.15234149999742,
+            "model_calls": 5,
+            "model_tokens": {
+              "generated": 3045,
+              "input": 19334
+            },
+            "model_usage_complete": true,
+            "native_producer_calls": 0,
+            "observation_bytes": 3440,
+            "packed_input_bytes": 56588,
+            "reasoning_tokens": null,
+            "reference_visibility": "current_request",
+            "report_refusals": [],
+            "terminal_corrections": 0,
+            "tool_requests": 4
+          },
+          "calls": [
+            {
+              "call": "call-01",
+              "outcome": "returned",
+              "input_tokens": 2703,
+              "target_generated_tokens": 510,
+              "client_seconds": 18.729817573999753,
+              "native_seconds": 20.346082,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 2703
+            },
+            {
+              "call": "call-02",
+              "outcome": "returned",
+              "input_tokens": 3431,
+              "target_generated_tokens": 371,
+              "client_seconds": 14.051349173001654,
+              "native_seconds": 15.240627,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 3431
+            },
+            {
+              "call": "call-03",
+              "outcome": "returned",
+              "input_tokens": 4112,
+              "target_generated_tokens": 228,
+              "client_seconds": 10.244245638001303,
+              "native_seconds": 11.082735,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 4112
+            },
+            {
+              "call": "call-04",
+              "outcome": "returned",
+              "input_tokens": 4928,
+              "target_generated_tokens": 228,
+              "client_seconds": 10.91693067199958,
+              "native_seconds": 11.826349,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 4928
+            },
+            {
+              "call": "call-05",
+              "outcome": "returned",
+              "input_tokens": 4160,
+              "target_generated_tokens": 1708,
+              "client_seconds": 67.17880803900334,
+              "native_seconds": 73.16817099999999,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 4160
+            }
+          ]
+        },
+        {
+          "assignment": {
+            "id": "reference-v2-gemma-e4b-raw-long",
+            "model_key": "gemma-4-e4b-it-ud",
+            "sequence": 2,
+            "treatment": "raw"
+          },
+          "outcome": "completed",
+          "problem": null,
+          "report_published": true,
+          "charges": {
+            "access_receipts": [
+              {
+                "delivered_bytes": 1020,
+                "delivery_id": "19ea782de59f40379f1a65ff2e0c76ad",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 1,
+                "examined_lines": 1,
+                "operation": "source:read",
+                "outcome": "observed"
+              },
+              {
+                "delivered_bytes": 438,
+                "delivery_id": "fb135971063d457f812d3ebb40ee5810",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 0,
+                "examined_lines": 0,
+                "operation": "source:read",
+                "outcome": "problem"
+              },
+              {
+                "delivered_bytes": 451,
+                "delivery_id": "8ebddeff407c4ac4b2e2e18e039aec83",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 3,
+                "examined_lines": 2,
+                "operation": "source:search",
+                "outcome": "scoped_negative"
+              }
+            ],
+            "admission_operations": 22,
+            "assignment_composition_publications": 2,
+            "assignment_composition_seconds": 0.0023413840026478283,
+            "consumer_invocation_attempts": 5,
+            "consumer_response_bytes": 2954,
+            "corrections": 0,
+            "elapsed_seconds": 285.842965019001,
+            "model_calls": 5,
+            "model_tokens": {
+              "generated": 3693,
+              "input": 107273
+            },
+            "model_usage_complete": true,
+            "native_producer_calls": 0,
+            "observation_bytes": 2766,
+            "packed_input_bytes": 584241,
+            "reasoning_tokens": null,
+            "reference_visibility": "current_request",
+            "report_refusals": [],
+            "terminal_corrections": 0,
+            "tool_requests": 4
+          },
+          "calls": [
+            {
+              "call": "call-01",
+              "outcome": "returned",
+              "input_tokens": 20554,
+              "target_generated_tokens": 237,
+              "client_seconds": 26.55477351900481,
+              "native_seconds": 28.763337,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 20554
+            },
+            {
+              "call": "call-02",
+              "outcome": "returned",
+              "input_tokens": 21263,
+              "target_generated_tokens": 274,
+              "client_seconds": 28.990304514001764,
+              "native_seconds": 31.454641000000002,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 21263
+            },
+            {
+              "call": "call-03",
+              "outcome": "returned",
+              "input_tokens": 21544,
+              "target_generated_tokens": 373,
+              "client_seconds": 24.07796107199829,
+              "native_seconds": 26.175017,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 21544
+            },
+            {
+              "call": "call-04",
+              "outcome": "returned",
+              "input_tokens": 22233,
+              "target_generated_tokens": 904,
+              "client_seconds": 69.4092073339998,
+              "native_seconds": 75.538939,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 22233
+            },
+            {
+              "call": "call-05",
+              "outcome": "returned",
+              "input_tokens": 21679,
+              "target_generated_tokens": 1905,
+              "client_seconds": 134.0272676310051,
+              "native_seconds": 146.11534,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 21679
+            }
+          ]
+        },
+        {
+          "assignment": {
+            "id": "reference-v2-gemma-e4b-structured-long",
+            "model_key": "gemma-4-e4b-it-ud",
+            "sequence": 2,
+            "treatment": "structured"
+          },
+          "outcome": "completed",
+          "problem": null,
+          "report_published": true,
+          "charges": {
+            "access_receipts": [
+              {
+                "delivered_bytes": 710,
+                "delivery_id": "201c7486a8e147ff9cc0ede9c258af81",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 0,
+                "examined_lines": 0,
+                "operation": "native:view",
+                "outcome": "observed"
+              },
+              {
+                "delivered_bytes": 438,
+                "delivery_id": "f93b6847f9034f9aa4810b9dcb3af8b0",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 0,
+                "examined_lines": 0,
+                "operation": "source:read",
+                "outcome": "problem"
+              },
+              {
+                "delivered_bytes": 1020,
+                "delivery_id": "c3ebd75396e9434797aa7335080069e2",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 1,
+                "examined_lines": 1,
+                "operation": "source:read",
+                "outcome": "observed"
+              }
+            ],
+            "admission_operations": 22,
+            "assignment_composition_publications": 2,
+            "assignment_composition_seconds": 0.0021538569999393076,
+            "consumer_invocation_attempts": 5,
+            "consumer_response_bytes": 2915,
+            "corrections": 0,
+            "elapsed_seconds": 271.59459553700435,
+            "model_calls": 5,
+            "model_tokens": {
+              "generated": 3284,
+              "input": 108013
+            },
+            "model_usage_complete": true,
+            "native_producer_calls": 0,
+            "observation_bytes": 3020,
+            "packed_input_bytes": 585889,
+            "reasoning_tokens": null,
+            "reference_visibility": "current_request",
+            "report_refusals": [],
+            "terminal_corrections": 0,
+            "tool_requests": 4
+          },
+          "calls": [
+            {
+              "call": "call-01",
+              "outcome": "returned",
+              "input_tokens": 20694,
+              "target_generated_tokens": 331,
+              "client_seconds": 31.884417821005627,
+              "native_seconds": 34.623110000000004,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 20694
+            },
+            {
+              "call": "call-02",
+              "outcome": "returned",
+              "input_tokens": 21334,
+              "target_generated_tokens": 814,
+              "client_seconds": 63.07899943400116,
+              "native_seconds": 68.649156,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 21334
+            },
+            {
+              "call": "call-03",
+              "outcome": "returned",
+              "input_tokens": 21599,
+              "target_generated_tokens": 246,
+              "client_seconds": 27.38693849000265,
+              "native_seconds": 29.769053,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 21599
+            },
+            {
+              "call": "call-04",
+              "outcome": "returned",
+              "input_tokens": 22546,
+              "target_generated_tokens": 26,
+              "client_seconds": 14.03195693899761,
+              "native_seconds": 15.095291,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 22546
+            },
+            {
+              "call": "call-05",
+              "outcome": "returned",
+              "input_tokens": 21840,
+              "target_generated_tokens": 1867,
+              "client_seconds": 132.71441386499646,
+              "native_seconds": 144.677102,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 21840
+            }
+          ]
+        }
+      ],
+      "attempted_call_requests": 60,
+      "pending_receipts": 0,
+      "calls_without_known_usage": 0,
+      "known_input_tokens": 754724,
+      "known_target_generated_tokens": 20837,
+      "client_seconds": {
+        "known_sum": 5841.6806195430545,
+        "reported_calls": 60,
+        "unreported_calls": 0
+      },
+      "native_seconds": {
+        "known_sum": 6359.326881,
+        "reported_calls": 60,
+        "unreported_calls": 0
+      },
+      "reported_draft_tokens": {
+        "known_sum": 3540,
+        "reported_calls": 20,
+        "unreported_calls": 40
+      },
+      "reported_accepted_draft_tokens": {
+        "known_sum": 2885,
+        "reported_calls": 20,
+        "unreported_calls": 40
+      },
+      "reported_rejected_draft_tokens": {
+        "known_sum": 655,
+        "reported_calls": 20,
+        "unreported_calls": 40
+      },
+      "trial_elapsed_seconds_sum": 5860.587582298998,
+      "trial_timing_limit": "Sum of recorded trial wall durations; excludes preparation/load/backend validation, whole-pipeline publication and reviewer work."
+    },
+    {
+      "stage": "semantic-results",
+      "assignments": [
+        {
+          "assignment": {
+            "case_id": "development-httpx-framework-ci",
+            "id": "gemma12-httpx-raw",
+            "model_key": "google/gemma-4-12b",
+            "treatment": "raw"
+          },
+          "outcome": "limit_exhausted",
+          "problem": "operation admission refused before dispatch",
+          "report_published": false,
+          "charges": {
+            "access_receipts": [
+              {
+                "delivered_bytes": 4848,
+                "delivery_id": "19fb22f7ea154f3f9e235172e6f3b5b9",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 0,
+                "examined_lines": 0,
+                "operation": "source:list_sources",
+                "outcome": "observed"
+              },
+              {
+                "delivered_bytes": 6806,
+                "delivery_id": "1037d27484fe4e928df0effb7f56cba6",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 2632,
+                "examined_lines": 395243,
+                "operation": "source:search",
+                "outcome": "observed"
+              },
+              {
+                "delivered_bytes": 438,
+                "delivery_id": "49b1377537d8499cb26062fd12524998",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 0,
+                "examined_lines": 0,
+                "operation": "source:read",
+                "outcome": "problem"
+              },
+              {
+                "delivered_bytes": 6437,
+                "delivery_id": "c7270e8f0cd047148e69e1f5c780eba3",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 2632,
+                "examined_lines": 395243,
+                "operation": "source:search",
+                "outcome": "observed"
+              },
+              {
+                "delivered_bytes": 438,
+                "delivery_id": "c8e4efc4419e4a339aafa2e2bfe505a5",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 0,
+                "examined_lines": 0,
+                "operation": "source:read",
+                "outcome": "problem"
+              },
+              {
+                "delivered_bytes": 6437,
+                "delivery_id": "6aed01b9dbd944a599ae12845df8c2f7",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 2632,
+                "examined_lines": 395243,
+                "operation": "source:search",
+                "outcome": "observed"
+              },
+              {
+                "delivered_bytes": 438,
+                "delivery_id": "36125fe9b0d74db8b7ba7e0ab50e7953",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 0,
+                "examined_lines": 0,
+                "operation": "source:read",
+                "outcome": "problem"
+              },
+              {
+                "delivered_bytes": 438,
+                "delivery_id": "4b2509a5b58c493cba88753cb485cb07",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 0,
+                "examined_lines": 0,
+                "operation": "source:read",
+                "outcome": "problem"
+              },
+              {
+                "delivered_bytes": 438,
+                "delivery_id": "e6d0bd6841694249b68e09f498ce3d20",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 0,
+                "examined_lines": 0,
+                "operation": "source:read",
+                "outcome": "problem"
+              },
+              {
+                "delivered_bytes": 438,
+                "delivery_id": "168cc981a1c64da3b5b05b09800af946",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 0,
+                "examined_lines": 0,
+                "operation": "source:read",
+                "outcome": "problem"
+              },
+              {
+                "delivered_bytes": 438,
+                "delivery_id": "1eba1a59b4f94a05b69b217274f95570",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 0,
+                "examined_lines": 0,
+                "operation": "source:read",
+                "outcome": "problem"
+              }
+            ],
+            "admission_operations": 46,
+            "assignment_composition_publications": 2,
+            "assignment_composition_seconds": 0.0019116659968858585,
+            "consumer_invocation_attempts": 12,
+            "consumer_response_bytes": 1298,
+            "corrections": 0,
+            "elapsed_seconds": 544.4258431939961,
+            "model_calls": 12,
+            "model_tokens": {
+              "generated": 550,
+              "input": 144345
+            },
+            "model_usage_complete": true,
+            "native_producer_calls": 0,
+            "observation_bytes": 31671,
+            "packed_input_bytes": 404370,
+            "reasoning_tokens": null,
+            "reference_visibility": "current_request",
+            "report_refusals": [],
+            "terminal_corrections": 0,
+            "tool_requests": 11
+          },
+          "calls": [
+            {
+              "call": "call-01",
+              "outcome": "returned",
+              "input_tokens": 2387,
+              "target_generated_tokens": 19,
+              "client_seconds": 7.941661868004303,
+              "native_seconds": 8.625848,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 2387
+            },
+            {
+              "call": "call-02",
+              "outcome": "returned",
+              "input_tokens": 4592,
+              "target_generated_tokens": 24,
+              "client_seconds": 13.53020491800271,
+              "native_seconds": 14.582276000000002,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 4592
+            },
+            {
+              "call": "call-03",
+              "outcome": "returned",
+              "input_tokens": 8408,
+              "target_generated_tokens": 39,
+              "client_seconds": 34.7434531359977,
+              "native_seconds": 37.683271999999995,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 8408
+            },
+            {
+              "call": "call-04",
+              "outcome": "returned",
+              "input_tokens": 8685,
+              "target_generated_tokens": 38,
+              "client_seconds": 33.24100049700064,
+              "native_seconds": 36.058763,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 8685
+            },
+            {
+              "call": "call-05",
+              "outcome": "returned",
+              "input_tokens": 11844,
+              "target_generated_tokens": 56,
+              "client_seconds": 46.4035763139982,
+              "native_seconds": 50.407396,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 11844
+            },
+            {
+              "call": "call-06",
+              "outcome": "returned",
+              "input_tokens": 12134,
+              "target_generated_tokens": 38,
+              "client_seconds": 44.25394765999954,
+              "native_seconds": 48.045622,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 12134
+            },
+            {
+              "call": "call-07",
+              "outcome": "returned",
+              "input_tokens": 15324,
+              "target_generated_tokens": 56,
+              "client_seconds": 59.4667459340053,
+              "native_seconds": 64.633723,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 15324
+            },
+            {
+              "call": "call-08",
+              "outcome": "returned",
+              "input_tokens": 15612,
+              "target_generated_tokens": 56,
+              "client_seconds": 57.75579390100029,
+              "native_seconds": 62.794144,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 15612
+            },
+            {
+              "call": "call-09",
+              "outcome": "returned",
+              "input_tokens": 15899,
+              "target_generated_tokens": 56,
+              "client_seconds": 59.20900434299983,
+              "native_seconds": 64.305051,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 15899
+            },
+            {
+              "call": "call-10",
+              "outcome": "returned",
+              "input_tokens": 16195,
+              "target_generated_tokens": 56,
+              "client_seconds": 60.16516984199552,
+              "native_seconds": 65.412457,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 16195
+            },
+            {
+              "call": "call-11",
+              "outcome": "returned",
+              "input_tokens": 16486,
+              "target_generated_tokens": 56,
+              "client_seconds": 60.57955112099444,
+              "native_seconds": 65.86972200000001,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 16486
+            },
+            {
+              "call": "call-12",
+              "outcome": "returned",
+              "input_tokens": 16779,
+              "target_generated_tokens": 56,
+              "client_seconds": 62.754297234998376,
+              "native_seconds": 68.248955,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 16779
+            }
+          ]
+        },
+        {
+          "assignment": {
+            "case_id": "development-httpx-framework-ci",
+            "id": "gemma12-httpx-structured",
+            "model_key": "google/gemma-4-12b",
+            "treatment": "structured"
+          },
+          "outcome": "completed",
+          "problem": null,
+          "report_published": true,
+          "charges": {
+            "access_receipts": [
+              {
+                "delivered_bytes": 4848,
+                "delivery_id": "21c91088d6ab4795a959160706a6a2d7",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 0,
+                "examined_lines": 0,
+                "operation": "source:list_sources",
+                "outcome": "observed"
+              },
+              {
+                "delivered_bytes": 440,
+                "delivery_id": "156cef16f6c34c9298da25adf74e1139",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 2632,
+                "examined_lines": 395243,
+                "operation": "source:search",
+                "outcome": "scoped_negative"
+              },
+              {
+                "delivered_bytes": 440,
+                "delivery_id": "c21244f26242494ba74c5e17717aac8e",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 2632,
+                "examined_lines": 395243,
+                "operation": "source:search",
+                "outcome": "scoped_negative"
+              },
+              {
+                "delivered_bytes": 6806,
+                "delivery_id": "030536dd73c64aba866025ab0f60dd80",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 2632,
+                "examined_lines": 395243,
+                "operation": "source:search",
+                "outcome": "observed"
+              },
+              {
+                "delivered_bytes": 6806,
+                "delivery_id": "630dcc36699b44519bc602a6d941d5e4",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 2632,
+                "examined_lines": 395243,
+                "operation": "source:search",
+                "outcome": "observed"
+              },
+              {
+                "delivered_bytes": 1563,
+                "delivery_id": "8b2617e073434cd2ac11aade625bc1df",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 1,
+                "examined_lines": 7,
+                "operation": "source:read",
+                "outcome": "observed"
+              },
+              {
+                "delivered_bytes": 1571,
+                "delivery_id": "b4898a837ef5450ea3c9cd4a94be18c8",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 1,
+                "examined_lines": 7,
+                "operation": "source:read",
+                "outcome": "observed"
+              }
+            ],
+            "admission_operations": 38,
+            "assignment_composition_publications": 2,
+            "assignment_composition_seconds": 0.0013182539987610653,
+            "consumer_invocation_attempts": 9,
+            "consumer_response_bytes": 2997,
+            "corrections": 0,
+            "elapsed_seconds": 492.521916175996,
+            "model_calls": 9,
+            "model_tokens": {
+              "generated": 990,
+              "input": 86125
+            },
+            "model_usage_complete": true,
+            "native_producer_calls": 0,
+            "observation_bytes": 26356,
+            "packed_input_bytes": 237885,
+            "reasoning_tokens": null,
+            "reference_visibility": "current_request",
+            "report_refusals": [],
+            "terminal_corrections": 0,
+            "tool_requests": 8
+          },
+          "calls": [
+            {
+              "call": "call-01",
+              "outcome": "returned",
+              "input_tokens": 2537,
+              "target_generated_tokens": 19,
+              "client_seconds": 10.123683133999293,
+              "native_seconds": 10.993206,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 2537
+            },
+            {
+              "call": "call-02",
+              "outcome": "returned",
+              "input_tokens": 4755,
+              "target_generated_tokens": 26,
+              "client_seconds": 19.104974657995626,
+              "native_seconds": 20.579094,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 4755
+            },
+            {
+              "call": "call-03",
+              "outcome": "returned",
+              "input_tokens": 5391,
+              "target_generated_tokens": 26,
+              "client_seconds": 19.348525184999744,
+              "native_seconds": 20.918709,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 5391
+            },
+            {
+              "call": "call-04",
+              "outcome": "returned",
+              "input_tokens": 5893,
+              "target_generated_tokens": 37,
+              "client_seconds": 23.2811954639983,
+              "native_seconds": 25.2212,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 5893
+            },
+            {
+              "call": "call-05",
+              "outcome": "returned",
+              "input_tokens": 9602,
+              "target_generated_tokens": 37,
+              "client_seconds": 35.34258909599885,
+              "native_seconds": 38.366535000000006,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 9602
+            },
+            {
+              "call": "call-06",
+              "outcome": "returned",
+              "input_tokens": 13306,
+              "target_generated_tokens": 50,
+              "client_seconds": 50.2964974610004,
+              "native_seconds": 54.655350000000006,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 13306
+            },
+            {
+              "call": "call-07",
+              "outcome": "returned",
+              "input_tokens": 14487,
+              "target_generated_tokens": 53,
+              "client_seconds": 57.7032758580026,
+              "native_seconds": 62.732019,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 14487
+            },
+            {
+              "call": "call-08",
+              "outcome": "returned",
+              "input_tokens": 15589,
+              "target_generated_tokens": 28,
+              "client_seconds": 52.695224913004495,
+              "native_seconds": 57.258201,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 15589
+            },
+            {
+              "call": "call-09",
+              "outcome": "returned",
+              "input_tokens": 14565,
+              "target_generated_tokens": 714,
+              "client_seconds": 221.10671518099844,
+              "native_seconds": 241.015462,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 14565
+            }
+          ]
+        },
+        {
+          "assignment": {
+            "case_id": "development-glyphslib-pytest-stopping",
+            "id": "qwen27-glyphslib-raw",
+            "model_key": "qwen3.8-27b-ud",
+            "treatment": "raw"
+          },
+          "outcome": "limit_exhausted",
+          "problem": "operation admission refused before dispatch",
+          "report_published": false,
+          "charges": {
+            "access_receipts": [
+              {
+                "delivered_bytes": 3989,
+                "delivery_id": "afc9f3541e6c45bdafa93bf8767c23f4",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 0,
+                "examined_lines": 0,
+                "operation": "source:list_sources",
+                "outcome": "observed"
+              },
+              {
+                "delivered_bytes": 21672,
+                "delivery_id": "10d5afa9a62e4cefbcb9555110ad3d6d",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 113,
+                "examined_lines": 0,
+                "operation": "source:list_paths",
+                "outcome": "observed"
+              },
+              {
+                "delivered_bytes": 5143,
+                "delivery_id": "171ee8f5fb8b4a439a1ff0e8790e8d19",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 113,
+                "examined_lines": 35791,
+                "operation": "source:search",
+                "outcome": "observed"
+              },
+              {
+                "delivered_bytes": 1977,
+                "delivery_id": "92a54396e020417f88ac07c6bc5c4124",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 1,
+                "examined_lines": 20,
+                "operation": "source:read",
+                "outcome": "observed"
+              },
+              {
+                "delivered_bytes": 1969,
+                "delivery_id": "fe44c45ea9234608af9706d3fc93ad8f",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 1,
+                "examined_lines": 20,
+                "operation": "source:read",
+                "outcome": "observed"
+              },
+              {
+                "delivered_bytes": 1733,
+                "delivery_id": "71a078af6f1c4bb7bbb8bf5a95754432",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 1,
+                "examined_lines": 14,
+                "operation": "source:read",
+                "outcome": "observed"
+              },
+              {
+                "delivered_bytes": 1962,
+                "delivery_id": "11de0d0163aa4324a91681eabffd9f05",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 1,
+                "examined_lines": 20,
+                "operation": "source:read",
+                "outcome": "observed"
+              },
+              {
+                "delivered_bytes": 1970,
+                "delivery_id": "c182bb5a48f9442c89342199292e4c89",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 1,
+                "examined_lines": 20,
+                "operation": "source:read",
+                "outcome": "observed"
+              },
+              {
+                "delivered_bytes": 1954,
+                "delivery_id": "b5a26f00551e4dcf94afe2ef5afa82ac",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 1,
+                "examined_lines": 20,
+                "operation": "source:read",
+                "outcome": "observed"
+              },
+              {
+                "delivered_bytes": 1946,
+                "delivery_id": "645690903d6b408aac111c238c2f45e4",
+                "detail": "Actual delivery; no hidden use or semantic support inferred.",
+                "examined_files": 1,
+                "examined_lines": 20,
+                "operation": "source:read",
+                "outcome": "observed"
+              }
+            ],
+            "admission_operations": 45,
+            "assignment_composition_publications": 2,
+            "assignment_composition_seconds": 0.0019587989954743534,
+            "consumer_invocation_attempts": 12,
+            "consumer_response_bytes": 4867,
+            "corrections": 0,
+            "elapsed_seconds": 2639.3828984619977,
+            "model_calls": 12,
+            "model_tokens": {
+              "generated": 1571,
+              "input": 212257
+            },
+            "model_usage_complete": true,
+            "native_producer_calls": 0,
+            "observation_bytes": 50921,
+            "packed_input_bytes": 601811,
+            "reasoning_tokens": null,
+            "reference_visibility": "current_request",
+            "report_refusals": [],
+            "terminal_corrections": 0,
+            "tool_requests": 11
+          },
+          "calls": [
+            {
+              "call": "call-01",
+              "outcome": "returned",
+              "input_tokens": 2232,
+              "target_generated_tokens": 13,
+              "client_seconds": 23.5738024079983,
+              "native_seconds": 25.65827,
+              "reported_draft_tokens": 12,
+              "reported_accepted_draft_tokens": 8,
+              "reported_rejected_draft_tokens": 4,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 2232
+            },
+            {
+              "call": "call-02",
+              "outcome": "returned",
+              "input_tokens": 3973,
+              "target_generated_tokens": 20,
+              "client_seconds": 37.60377075600263,
+              "native_seconds": 40.788786,
+              "reported_draft_tokens": 18,
+              "reported_accepted_draft_tokens": 13,
+              "reported_rejected_draft_tokens": 5,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 3973
+            },
+            {
+              "call": "call-03",
+              "outcome": "returned",
+              "input_tokens": 14305,
+              "target_generated_tokens": 26,
+              "client_seconds": 130.4006079249957,
+              "native_seconds": 142.003336,
+              "reported_draft_tokens": 24,
+              "reported_accepted_draft_tokens": 17,
+              "reported_rejected_draft_tokens": 7,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 14305
+            },
+            {
+              "call": "call-04",
+              "outcome": "returned",
+              "input_tokens": 17031,
+              "target_generated_tokens": 36,
+              "client_seconds": 178.47156864200224,
+              "native_seconds": 194.339821,
+              "reported_draft_tokens": 36,
+              "reported_accepted_draft_tokens": 23,
+              "reported_rejected_draft_tokens": 13,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 17031
+            },
+            {
+              "call": "call-05",
+              "outcome": "returned",
+              "input_tokens": 18348,
+              "target_generated_tokens": 27,
+              "client_seconds": 163.09231457399437,
+              "native_seconds": 177.572971,
+              "reported_draft_tokens": 24,
+              "reported_accepted_draft_tokens": 18,
+              "reported_rejected_draft_tokens": 6,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 18348
+            },
+            {
+              "call": "call-06",
+              "outcome": "returned",
+              "input_tokens": 19574,
+              "target_generated_tokens": 22,
+              "client_seconds": 172.03748217699467,
+              "native_seconds": 187.30082900000002,
+              "reported_draft_tokens": 24,
+              "reported_accepted_draft_tokens": 13,
+              "reported_rejected_draft_tokens": 11,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 19574
+            },
+            {
+              "call": "call-07",
+              "outcome": "returned",
+              "input_tokens": 20691,
+              "target_generated_tokens": 34,
+              "client_seconds": 189.6812905159968,
+              "native_seconds": 206.489337,
+              "reported_draft_tokens": 33,
+              "reported_accepted_draft_tokens": 22,
+              "reported_rejected_draft_tokens": 11,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 20691
+            },
+            {
+              "call": "call-08",
+              "outcome": "returned",
+              "input_tokens": 21913,
+              "target_generated_tokens": 35,
+              "client_seconds": 207.9158619669979,
+              "native_seconds": 226.37397399999998,
+              "reported_draft_tokens": 30,
+              "reported_accepted_draft_tokens": 24,
+              "reported_rejected_draft_tokens": 6,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 21913
+            },
+            {
+              "call": "call-09",
+              "outcome": "returned",
+              "input_tokens": 23100,
+              "target_generated_tokens": 36,
+              "client_seconds": 216.89525581600174,
+              "native_seconds": 236.157488,
+              "reported_draft_tokens": 36,
+              "reported_accepted_draft_tokens": 23,
+              "reported_rejected_draft_tokens": 13,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 23100
+            },
+            {
+              "call": "call-10",
+              "outcome": "returned",
+              "input_tokens": 24306,
+              "target_generated_tokens": 35,
+              "client_seconds": 213.423393801997,
+              "native_seconds": 232.32829999999998,
+              "reported_draft_tokens": 27,
+              "reported_accepted_draft_tokens": 25,
+              "reported_rejected_draft_tokens": 2,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 24306
+            },
+            {
+              "call": "call-11",
+              "outcome": "returned",
+              "input_tokens": 23859,
+              "target_generated_tokens": 13,
+              "client_seconds": 188.45220233700093,
+              "native_seconds": 204.994807,
+              "reported_draft_tokens": 12,
+              "reported_accepted_draft_tokens": 9,
+              "reported_rejected_draft_tokens": 3,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 23859
+            },
+            {
+              "call": "call-12",
+              "outcome": "returned",
+              "input_tokens": 22925,
+              "target_generated_tokens": 1274,
+              "client_seconds": 914.8306226880013,
+              "native_seconds": 997.472367,
+              "reported_draft_tokens": 1107,
+              "reported_accepted_draft_tokens": 905,
+              "reported_rejected_draft_tokens": 202,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 22925
+            }
+          ]
+        },
+        {
+          "assignment": {
+            "case_id": "development-glyphslib-pytest-stopping",
+            "id": "qwen27-glyphslib-structured",
+            "model_key": "qwen3.8-27b-ud",
+            "treatment": "structured"
+          },
+          "outcome": "active_or_interrupted",
+          "problem": null,
+          "report_published": false,
+          "charges": null,
+          "calls": [
+            {
+              "call": "call-01",
+              "outcome": "returned",
+              "input_tokens": 2365,
+              "target_generated_tokens": 13,
+              "client_seconds": 19.719990022000275,
+              "native_seconds": 21.465976,
+              "reported_draft_tokens": 12,
+              "reported_accepted_draft_tokens": 8,
+              "reported_rejected_draft_tokens": 4,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 2365
+            },
+            {
+              "call": "call-02",
+              "outcome": "returned",
+              "input_tokens": 4091,
+              "target_generated_tokens": 34,
+              "client_seconds": 42.36070456000016,
+              "native_seconds": 46.026896,
+              "reported_draft_tokens": 30,
+              "reported_accepted_draft_tokens": 23,
+              "reported_rejected_draft_tokens": 7,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 4091
+            },
+            {
+              "call": "call-03",
+              "outcome": "returned",
+              "input_tokens": 5550,
+              "target_generated_tokens": 48,
+              "client_seconds": 65.25981441800104,
+              "native_seconds": 70.845099,
+              "reported_draft_tokens": 39,
+              "reported_accepted_draft_tokens": 34,
+              "reported_rejected_draft_tokens": 5,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 5550
+            },
+            {
+              "call": "call-04",
+              "outcome": "returned",
+              "input_tokens": 7703,
+              "target_generated_tokens": 58,
+              "client_seconds": 87.7505634879999,
+              "native_seconds": 95.41881699999999,
+              "reported_draft_tokens": 48,
+              "reported_accepted_draft_tokens": 41,
+              "reported_rejected_draft_tokens": 7,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 7703
+            },
+            {
+              "call": "call-05",
+              "outcome": "returned",
+              "input_tokens": 10109,
+              "target_generated_tokens": 58,
+              "client_seconds": 105.03190222599369,
+              "native_seconds": 114.21662599999999,
+              "reported_draft_tokens": 45,
+              "reported_accepted_draft_tokens": 42,
+              "reported_rejected_draft_tokens": 3,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 10109
+            },
+            {
+              "call": "call-06",
+              "outcome": "returned",
+              "input_tokens": 10758,
+              "target_generated_tokens": 45,
+              "client_seconds": 104.2112289680008,
+              "native_seconds": 113.321854,
+              "reported_draft_tokens": 36,
+              "reported_accepted_draft_tokens": 32,
+              "reported_rejected_draft_tokens": 4,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 10758
+            },
+            {
+              "call": "call-07",
+              "outcome": "returned",
+              "input_tokens": 12650,
+              "target_generated_tokens": 55,
+              "client_seconds": 121.01225166399672,
+              "native_seconds": 131.69272700000002,
+              "reported_draft_tokens": 42,
+              "reported_accepted_draft_tokens": 40,
+              "reported_rejected_draft_tokens": 2,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 12650
+            },
+            {
+              "call": "call-08",
+              "outcome": "returned",
+              "input_tokens": 14541,
+              "target_generated_tokens": 49,
+              "client_seconds": 136.68046389400115,
+              "native_seconds": 148.779228,
+              "reported_draft_tokens": 36,
+              "reported_accepted_draft_tokens": 36,
+              "reported_rejected_draft_tokens": 0,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 14541
+            },
+            {
+              "call": "call-09",
+              "outcome": "returned",
+              "input_tokens": 16115,
+              "target_generated_tokens": 41,
+              "client_seconds": 148.68665476400201,
+              "native_seconds": 161.786142,
+              "reported_draft_tokens": 33,
+              "reported_accepted_draft_tokens": 29,
+              "reported_rejected_draft_tokens": 4,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 16115
+            },
+            {
+              "call": "call-10",
+              "outcome": "returned",
+              "input_tokens": 18156,
+              "target_generated_tokens": 55,
+              "client_seconds": 176.34524100600538,
+              "native_seconds": 189.414247,
+              "reported_draft_tokens": 42,
+              "reported_accepted_draft_tokens": 40,
+              "reported_rejected_draft_tokens": 2,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 18156
+            },
+            {
+              "call": "call-11",
+              "outcome": "returned",
+              "input_tokens": 19047,
+              "target_generated_tokens": 13,
+              "client_seconds": 153.90788138900098,
+              "native_seconds": 167.462206,
+              "reported_draft_tokens": 12,
+              "reported_accepted_draft_tokens": 9,
+              "reported_rejected_draft_tokens": 3,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 19047
+            },
+            {
+              "call": "call-12",
+              "outcome": "attempted",
+              "input_tokens": null,
+              "target_generated_tokens": null,
+              "client_seconds": 1740.4714567409974,
+              "native_seconds": null,
+              "reported_draft_tokens": null,
+              "reported_accepted_draft_tokens": null,
+              "reported_rejected_draft_tokens": null,
+              "reasoning_tokens": null,
+              "measured_request_tokens_not_actual_usage": 17901
+            }
+          ]
+        },
+        {
+          "assignment": {
+            "case_id": "development-httpx-framework-ci",
+            "id": "gemma-e4b-httpx-structured",
+            "model_key": "gemma-4-e4b-it-ud",
+            "treatment": "structured"
+          },
+          "outcome": "unattempted",
+          "problem": null,
+          "report_published": false,
+          "charges": null,
+          "calls": []
+        },
+        {
+          "assignment": {
+            "case_id": "development-httpx-framework-ci",
+            "id": "gemma-e4b-httpx-raw",
+            "model_key": "gemma-4-e4b-it-ud",
+            "treatment": "raw"
+          },
+          "outcome": "unattempted",
+          "problem": null,
+          "report_published": false,
+          "charges": null,
+          "calls": []
+        },
+        {
+          "assignment": {
+            "case_id": "development-glyphslib-pytest-stopping",
+            "id": "gemma12-glyphslib-structured",
+            "model_key": "google/gemma-4-12b",
+            "treatment": "structured"
+          },
+          "outcome": "unattempted",
+          "problem": null,
+          "report_published": false,
+          "charges": null,
+          "calls": []
+        },
+        {
+          "assignment": {
+            "case_id": "development-glyphslib-pytest-stopping",
+            "id": "gemma12-glyphslib-raw",
+            "model_key": "google/gemma-4-12b",
+            "treatment": "raw"
+          },
+          "outcome": "unattempted",
+          "problem": null,
+          "report_published": false,
+          "charges": null,
+          "calls": []
+        },
+        {
+          "assignment": {
+            "case_id": "development-httpx-framework-ci",
+            "id": "qwen27-httpx-structured",
+            "model_key": "qwen3.8-27b-ud",
+            "treatment": "structured"
+          },
+          "outcome": "unattempted",
+          "problem": null,
+          "report_published": false,
+          "charges": null,
+          "calls": []
+        },
+        {
+          "assignment": {
+            "case_id": "development-httpx-framework-ci",
+            "id": "qwen27-httpx-raw",
+            "model_key": "qwen3.8-27b-ud",
+            "treatment": "raw"
+          },
+          "outcome": "unattempted",
+          "problem": null,
+          "report_published": false,
+          "charges": null,
+          "calls": []
+        },
+        {
+          "assignment": {
+            "case_id": "development-glyphslib-pytest-stopping",
+            "id": "gemma-e4b-glyphslib-raw",
+            "model_key": "gemma-4-e4b-it-ud",
+            "treatment": "raw"
+          },
+          "outcome": "unattempted",
+          "problem": null,
+          "report_published": false,
+          "charges": null,
+          "calls": []
+        },
+        {
+          "assignment": {
+            "case_id": "development-glyphslib-pytest-stopping",
+            "id": "gemma-e4b-glyphslib-structured",
+            "model_key": "gemma-4-e4b-it-ud",
+            "treatment": "structured"
+          },
+          "outcome": "unattempted",
+          "problem": null,
+          "report_published": false,
+          "charges": null,
+          "calls": []
+        }
+      ],
+      "attempted_call_requests": 45,
+      "pending_receipts": 0,
+      "calls_without_known_usage": 1,
+      "known_input_tokens": 563812,
+      "known_target_generated_tokens": 3580,
+      "client_seconds": {
+        "known_sum": 6566.863414466978,
+        "reported_calls": 45,
+        "unreported_calls": 0
+      },
+      "native_seconds": {
+        "known_sum": 5250.317109,
+        "reported_calls": 44,
+        "unreported_calls": 1
+      },
+      "reported_draft_tokens": {
+        "known_sum": 1758,
+        "reported_calls": 23,
+        "unreported_calls": 22
+      },
+      "reported_accepted_draft_tokens": {
+        "known_sum": 1434,
+        "reported_calls": 23,
+        "unreported_calls": 22
+      },
+      "reported_rejected_draft_tokens": {
+        "known_sum": 324,
+        "reported_calls": 23,
+        "unreported_calls": 22
+      },
+      "trial_elapsed_seconds_sum": 3676.33065783199,
+      "trial_timing_limit": "Sum of recorded trial wall durations; excludes preparation/load/backend validation, whole-pipeline publication and reviewer work."
+    }
+  ],
+  "pipeline_wall_seconds": 13650.340309,
+  "resource_sampling": {
+    "samples": 1285,
+    "first_at": "2026-10-18T14:17:10.060811+00:00",
+    "last_at": "2026-10-18T18:13:08.698752+00:00",
+    "max_sampled_gpu_mib": 5936,
+    "gpu_total_mib_values": [
+      8192
+    ],
+    "min_sampled_wsl_mem_available_kib": 51523060,
+    "sample_errors": [],
+    "limit": "Nominal10s whole-machine sampling; no continuous peak, process-exclusive attribution, per-process model RAM or sampled-pressure causality."
+  },
+  "limits": [
+    "Every request attempt remains separate; pending/unknown usage is not zero.",
+    "Native-reported timing, client prediction timing, trial wall timing and pipeline UTC wall span have distinct measurement domains; equivalence is unestablished.",
+    "Reported draft/accepted/rejected scalars remain separate from target generation; missing draft/reasoning breakdown stays unknown.",
+    "Previous400 qualification attempts, preparation, reviewer active effort and human work are outside these new inference totals.",
+    "This collector performs no semantic grading, source acquisition or prediction."
+  ]
+}

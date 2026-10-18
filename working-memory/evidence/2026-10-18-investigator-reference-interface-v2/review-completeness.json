@@ -1,0 +1,38 @@
+{
+  "format": "investigator-derived-review-completeness/1",
+  "checked_reviews": [
+    {
+      "view": 1,
+      "substantive_fields_accounted": 0,
+      "atomic_propositions": 0,
+      "source_hashes_verified": 2,
+      "obligations": 6,
+      "review_sha256": "7a1e2a8de669db07806c258b8b5258378c2ec6c94c80dc55696beda57957b1fe"
+    },
+    {
+      "view": 2,
+      "substantive_fields_accounted": 10,
+      "atomic_propositions": 16,
+      "source_hashes_verified": 3,
+      "obligations": 6,
+      "review_sha256": "917460b4891b5c19b23a50bb60df6ee7d91acd2a0043817ce2e5228aa68aa873"
+    },
+    {
+      "view": 3,
+      "substantive_fields_accounted": 17,
+      "atomic_propositions": 25,
+      "source_hashes_verified": 4,
+      "obligations": 6,
+      "review_sha256": "0b843ed1c12a8c8e26637e35009144342067bed7f68ca9ed9e0140110831c1ba"
+    },
+    {
+      "view": 4,
+      "substantive_fields_accounted": 0,
+      "atomic_propositions": 0,
+      "source_hashes_verified": 0,
+      "obligations": 6,
+      "review_sha256": "b41868c5284f8369cd5266abfbf3816a6511706eae3a07691b7afaf2dd1e4214"
+    }
+  ],
+  "limit": "This checks original-field coverage, exact field copies, source hashes and fixed obligation membership only. It cannot establish whether a reviewer interpretation is correct, complete within a compound sentence, independent or useful."
+}

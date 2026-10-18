@@ -28,3 +28,12 @@ The common original's exact 17-file inventory and product-source basis revalidat
 Exact profiles, requested/rendered/schema/visible-result artifacts, source snapshots, review obligations and failures remain owner-only under `/home/motafeq/.local/share/upgradepilot/investigator-runs/semantic-comparison-2026-10-18-reference-v2`. Public checkpoints disclose completed outcomes, costs and hashes. Model full hashes are inherited receipts with current size/mtime checks; small installed backend metadata/launcher files were rehashed. No full-weight rehash, full runtime archive, off-machine backup or power-loss claim is made.
 
 Native JSON-schema compatibility and real model adherence require the frozen charged canaries. Only the full admission conjunction permits real-case execution. Completion/eligible citations still do not establish entailment, stopping adequacy, usefulness, action permission, generalization or intrinsic model ranking. Original/rejected/corrected outputs stay distinct; no hidden reasoning content is retained or examined.
+
+## Execution and review horizon
+
+[The completed analysis](ANALYSIS.md) records12/12 qualified sequences, followed by three completed semantic assignments, one externally interrupted assignment and eight unattempted assignments. The operator mistook file-timestamp age for prediction duration; the retained interruption receipt is1740.47 seconds, below1800. Actual overrun is unproved. The independent SDK inter-message-versus-total-deadline control gap remains unresolved. This is an incomplete experiment, with no automatic retry, ranking/adoption or D/E.
+
+- [Qualification/admission](qualification-results.json) and [12-assignment disposition](final-results.json).
+- [Interruption and corrected attribution](interruption-checkpoint.json).
+- [Partial native trace review](qwen27-glyphslib-structured-interrupted-review.json).
+- [Cost accounting](cost-accounting.json), [review coverage](review-completeness.json), [review effort limits](review-effort.json) and [integrity verification](final-verification.json).

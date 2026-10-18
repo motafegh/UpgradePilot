@@ -1,0 +1,21 @@
+{
+  "at": "2026-10-18T18:21:48.091704+00:00",
+  "format": "investigator-post-stop-integrity-proof/1",
+  "new_frozen_source_files": 6,
+  "new_bound_files": 60,
+  "common_input_files": 17,
+  "product_source_files": 96,
+  "original_qualification_matrix_and_admission": "unchanged pass12/12",
+  "prior_failed_cohort_retention": {
+    "files": 749,
+    "bytes": 25816105,
+    "index_sha256": "31b955ee5e200d29ba117f56cca0fba04b3111e5780aa2c481aac9347ceb59b7",
+    "exact_membership_hash_size_modes": "pass"
+  },
+  "known_complete_call_artifact_sets": 104,
+  "interrupted_call_unknown_usage": 1,
+  "post_stop_loaded_models": 0,
+  "pipeline_exit_code": 130,
+  "sampler_exit_code": 0,
+  "limits": "Integrity and actual known-call correspondence only. No total elapsed-deadline proof, full product/installed/hosted test claim, semantic acceptance, repaired output or off-machine backup."
+}

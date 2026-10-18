@@ -1,0 +1,157 @@
+{
+  "format": "investigator-formative-source-review/1",
+  "view": 4,
+  "case_id": "development-glyphslib-pytest-stopping",
+  "outcome": "externally_interrupted",
+  "report_present": false,
+  "report_published": false,
+  "note_propositions_present": false,
+  "review_scope": "Eleven complete tool responses and their retained delivered native observations; no notes. The final9032-byte report prefix is syntactically incomplete and no complete response/metadata/usage was received. No semantic grade is assigned to it and no repaired JSON/report is manufactured. Native-delivery observations below are reviewer findings, not model claims. Same exposed-case AI reviewer, not independent/blind.",
+  "material_propositions": [],
+  "coverage": [
+    {
+      "obligation_id": "development-glyphslib-pytest-stopping-transition",
+      "available": true,
+      "delivered": "Native investigation_inputs record gives exact changed declaration/pull target",
+      "used": "Discovery request/read observed; final report use not graded",
+      "cited": "Incomplete output: not graded",
+      "supported": "not_graded_incomplete_report"
+    },
+    {
+      "obligation_id": "development-glyphslib-pytest-stopping-main-ci-route",
+      "available": true,
+      "delivered": "ci_inputs workflow text pages contain tox route; tox.ini source not read",
+      "used": "Discovery request/read observed; final report use not graded",
+      "cited": "Incomplete output: not graded",
+      "supported": "not_graded_incomplete_report"
+    },
+    {
+      "obligation_id": "development-glyphslib-pytest-stopping-regression-route",
+      "available": true,
+      "delivered": "ci_inputs pages deliver regression environment/install/test declarations",
+      "used": "Discovery request/read observed; final report use not graded",
+      "cited": "Incomplete output: not graded",
+      "supported": "not_graded_incomplete_report"
+    },
+    {
+      "obligation_id": "development-glyphslib-pytest-stopping-ci-correlation",
+      "available": true,
+      "delivered": "ci_inputs and ci_coverage pages deliver successful exact-head jobs plus supported_not_correlated limit",
+      "used": "Discovery request/read observed; final report use not graded",
+      "cited": "Incomplete output: not graded",
+      "supported": "not_graded_incomplete_report"
+    },
+    {
+      "obligation_id": "development-glyphslib-pytest-stopping-runtime-uncertainty",
+      "available": true,
+      "delivered": "runtime_dependency_state pages deliver manager_environment unresolved/process-environment evidence gap",
+      "used": "Discovery request/read observed; final report use not graded",
+      "cited": "Incomplete output: not graded",
+      "supported": "not_graded_incomplete_report"
+    },
+    {
+      "obligation_id": "development-glyphslib-pytest-stopping-stopping-and-advice",
+      "available": true,
+      "delivered": "Evidence available for advice; no complete report/stopping justification received",
+      "used": "Discovery request/read observed; final report use not graded",
+      "cited": "Incomplete output: not graded",
+      "supported": "not_graded_incomplete_report"
+    }
+  ],
+  "source_checks": [],
+  "native_page_checks": [
+    {
+      "family": "ci_inputs",
+      "record_id": "21cb40e49d6445a48b247fd1a748e61f",
+      "events": [
+        "event-3",
+        "event-4",
+        "event-5"
+      ],
+      "pages": 3,
+      "characters": 8389,
+      "payload_sha256": "e32c895b7440c9055ca03962062696cc7cd58b00d30d9e8f62abc56513d9ae9f",
+      "contiguous_payload_complete": true,
+      "limit": "Reviewer verifies delivered text-page coverage/digest only; pages retain native_page authority and are never minted into a new native_record citation."
+    },
+    {
+      "family": "ci_coverage",
+      "record_id": "278f095b020e4db7bfde1afca14c232f",
+      "events": [
+        "event-6",
+        "event-7",
+        "event-8"
+      ],
+      "pages": 3,
+      "characters": 11331,
+      "payload_sha256": "e91804fe9025f79c4cb0658eb73121c732a41cf516bc19b862ce630f72ff9f09",
+      "contiguous_payload_complete": true,
+      "limit": "Reviewer verifies delivered text-page coverage/digest only; pages retain native_page authority and are never minted into a new native_record citation."
+    },
+    {
+      "family": "runtime_dependency_state",
+      "record_id": "c8277deec9944427ab5f4ede4e878c70",
+      "events": [
+        "event-9",
+        "event-10"
+      ],
+      "pages": 2,
+      "characters": 5350,
+      "payload_sha256": "73b55f755e33e6267f0cf930d684b16636d55739cb33c0ce6c1f825ef14a5734",
+      "contiguous_payload_complete": true,
+      "limit": "Reviewer verifies delivered text-page coverage/digest only; pages retain native_page authority and are never minted into a new native_record citation."
+    }
+  ],
+  "observations": [
+    {
+      "locator": "calls02-10 and retained event content",
+      "finding": "One read_native requests investigation_inputs,ci_inputs,ci_coverage,runtime_dependency_state. Eight page reads complete three omitted payloads in3+3+2 pages; all offsets/digests revalidate. No read_source or record_note. This differs from the Raw declaration-only path."
+    },
+    {
+      "locator": "ci_coverage pages",
+      "finding": "Delivered native state says supported_not_correlated and identifies unresolved static-job-name runtime correlation; it is not absence of successful CI."
+    },
+    {
+      "locator": "runtime_dependency_state pages",
+      "finding": "Delivered native material identifies manager_environment unresolved and missing process-environment/configuration/executable evidence; no installed pytest state is established."
+    },
+    {
+      "locator": "call12 budget_observation",
+      "finding": "Pre-report snapshot shows5 remaining units after40 discovery+3 finish units. Any positive-citation report4+N+termination1 needs more than5. No final report was received, so actual emitted reference count/cost and final host ledger are not inferred."
+    },
+    {
+      "locator": "call12 original receipt,pipeline failure,external interruption disposition",
+      "finding": "Externally interrupted prediction1740.471 seconds; original receipt attempted/usage:null, complete_response_received:false,9032 prefix bytes. File timestamp age did not establish prediction duration; SDK timeout is inter-message inactivity. No actual1800-second overrun was proven."
+    }
+  ],
+  "dimensions": {
+    "relevant_evidence_coverage": "Native delivery reaches more of the preregistered evidence chain than Raw; no report-supported obligation count or treatment advantage is assigned.",
+    "interpretation_correctness": "No complete report to grade. Delivered native limitations are preserved as source facts, not outcome promotion.",
+    "unsupported_claims": "Not graded for incomplete report; no complete note assertions exist.",
+    "scoped_negative_evidence": "Native unresolved correlation/manager environment is not global CI absence or proof of installed compatibility. No final model absence claim graded.",
+    "unresolved_quality": "Decision-critical native uncertainty was delivered; model handling of it remains ungraded.",
+    "stopping_quality": "Finish was procedural with adequacy unsupported; only zero-citation report fit remaining budget. Operator interruption prevents final outcome attribution.",
+    "recommendation_usefulness": "No complete received/published recommendation; unknown, not successful or a model semantic failure.",
+    "reviewer_effort": "Actual interval separately logged; partial trace review only.",
+    "resource_cost": {
+      "attempted_calls": 12,
+      "known_usage_calls": 11,
+      "unknown_usage_calls": 1,
+      "known_input_tokens": 121085,
+      "known_target_generated_tokens": 469,
+      "interrupted_prediction_seconds": 1740.4714567409974,
+      "pre_report_operations_remaining": 5,
+      "final_trial_charges": "unavailable: no final assignment record",
+      "native_tool_requests": {
+        "read_native": 1,
+        "read_native_page": 8
+      },
+      "native_producer_charge_total": "not reconstructed as a final host ledger"
+    }
+  },
+  "critical_false_confidence": "not graded: no complete report",
+  "semantic_disposition": "externally_interrupted_incomplete_no_model_timeout_or_semantic_verdict",
+  "within_pair_limit": "Native uptake/delivery differs from Raw, but neither report was published and the Structured report is incomplete. The operator interruption confounds a final paired comparison.",
+  "assignment_id": "qwen27-glyphslib-structured",
+  "original_last_packed_sha256": "7bde84fc2e8b1cf68aef759e499f89ce240945c8c7628967fc8c8c40541f489b"
+}

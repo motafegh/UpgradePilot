@@ -1,0 +1,45 @@
+{
+  "events": [
+    {
+      "at": "2026-10-18T16:26:42.367962+00:00",
+      "event": "active_start",
+      "scope": "view-01 trace/proposition/source review"
+    },
+    {
+      "at": "2026-10-18T16:27:36.480363+00:00",
+      "event": "active_end",
+      "scope": "view-01 trace/proposition/source review"
+    },
+    {
+      "at": "2026-10-18T16:33:25.557005+00:00",
+      "event": "active_start",
+      "scope": "view-02 trace/proposition/source review"
+    },
+    {
+      "at": "2026-10-18T16:35:07.613073+00:00",
+      "event": "active_end",
+      "scope": "view-02 trace/proposition/source review"
+    },
+    {
+      "at": "2026-10-18T17:21:16.735558+00:00",
+      "event": "active_start",
+      "scope": "view-03 attempted report/trace/source review"
+    },
+    {
+      "at": "2026-10-18T17:23:23.396205+00:00",
+      "event": "active_end",
+      "scope": "view-03 attempted report/trace/source review"
+    },
+    {
+      "at": "2026-10-18T18:17:02.997694+00:00",
+      "event": "active_start",
+      "scope": "interrupted view04 delivered-native trace review, no report salvage"
+    },
+    {
+      "at": "2026-10-18T18:18:50.330451+00:00",
+      "event": "active_end",
+      "scope": "interrupted view04 delivered-native trace review, no report salvage"
+    }
+  ],
+  "limit": "Recorded UTC source-review intervals only; no exact monotonic active-effort total or independent human effort measured. Prior preparation and some synthesis/corrections remain untimed."
+}

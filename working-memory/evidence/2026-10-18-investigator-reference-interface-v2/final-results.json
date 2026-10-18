@@ -1,0 +1,195 @@
+{
+  "format": "investigator-reference-v2-final-disposition/1",
+  "at": "2026-10-18T18:23:49.857901+00:00",
+  "engineering_disposition": "Reference contract repaired and12/12 new canaries qualified; hard elapsed-time control/observability and completion-budget proof remain unresolved.",
+  "scientific_disposition": "INCOMPLETE: three completed semantic assignments, one externally interrupted, eight unattempted. No complete paired three-deployment comparison, ranking, adoption or usefulness acceptance.",
+  "operator_error": "File-timestamp age was mistaken for prediction duration; externally stopped at retained1740.471-second monotonic duration. Actual1800-second overrun not established. SDK inter-message timeout gap is independently confirmed in source.",
+  "qualification": {
+    "sequences": 12,
+    "qualified": 12,
+    "calls": 60,
+    "known_input_tokens": 754724,
+    "known_target_generated_tokens": 20837,
+    "unknown_usage_calls": 0
+  },
+  "semantic": {
+    "assignment_outcomes": 3,
+    "interrupted": 1,
+    "unattempted": 8,
+    "attempted_calls": 45,
+    "known_usage_calls": 44,
+    "unknown_usage_calls": 1,
+    "known_input_tokens": 563812,
+    "known_target_generated_tokens": 3580,
+    "known_totals_limit": "Unknown interrupted prediction usage is excluded; not treated as zero. Requested rendered prompt17901 tokens is measurement, not actual usage receipt."
+  },
+  "assignments": [
+    {
+      "assignment": {
+        "case_id": "development-httpx-framework-ci",
+        "id": "gemma12-httpx-raw",
+        "model_key": "google/gemma-4-12b",
+        "treatment": "raw"
+      },
+      "disposition": "limit_exhausted",
+      "review_file": "first-semantic-review.json",
+      "review_sha256": "0c582700073c752bd9487e614cc804ccf6b0e54c875624d1a02e2eef5c8a33ed",
+      "review_private_sha256": "7a1e2a8de669db07806c258b8b5258378c2ec6c94c80dc55696beda57957b1fe",
+      "report_published": false,
+      "report_status": "none",
+      "semantic_disposition": "incomplete_no_report; no within-pair advantage inferred yet",
+      "critical_false_confidence": "not assessable: no advice or material report/note assertions; output absence is not semantic success"
+    },
+    {
+      "assignment": {
+        "case_id": "development-httpx-framework-ci",
+        "id": "gemma12-httpx-structured",
+        "model_key": "google/gemma-4-12b",
+        "treatment": "structured"
+      },
+      "disposition": "completed",
+      "review_file": "gemma12-httpx-structured-review.json",
+      "review_sha256": "43ab65984b40d621fd7838633e65ab5b02ab75b72db992faddf1b8c930842a5f",
+      "review_private_sha256": "917460b4891b5c19b23a50bb60df6ee7d91acd2a0043817ce2e5228aa68aa873",
+      "report_published": true,
+      "report_status": "complete_published",
+      "semantic_disposition": "published_but_semantically_unsupported_recommendation; no acceptance",
+      "critical_false_confidence": true
+    },
+    {
+      "assignment": {
+        "case_id": "development-glyphslib-pytest-stopping",
+        "id": "qwen27-glyphslib-raw",
+        "model_key": "qwen3.8-27b-ud",
+        "treatment": "raw"
+      },
+      "disposition": "limit_exhausted",
+      "review_file": "qwen27-glyphslib-raw-review.json",
+      "review_sha256": "48585324579d4f3f227a0069d47c0a0049ff3003caf106e1caed9b52d2467464",
+      "review_private_sha256": "0b843ed1c12a8c8e26637e35009144342067bed7f68ca9ed9e0140110831c1ba",
+      "report_published": false,
+      "report_status": "complete_attempt_not_published",
+      "semantic_disposition": "attempted_report_not_published; unsupported_low_risk_and_ci_availability; preserve both semantic and budget failures",
+      "critical_false_confidence": true
+    },
+    {
+      "assignment": {
+        "case_id": "development-glyphslib-pytest-stopping",
+        "id": "qwen27-glyphslib-structured",
+        "model_key": "qwen3.8-27b-ud",
+        "treatment": "structured"
+      },
+      "disposition": "externally_interrupted",
+      "review_file": "qwen27-glyphslib-structured-interrupted-review.json",
+      "review_sha256": "6d6ed7206fff089c07014722ffe82993b5a44bd00381b6e9d1da6ebd21b9cfc2",
+      "review_private_sha256": "b41868c5284f8369cd5266abfbf3816a6511706eae3a07691b7afaf2dd1e4214",
+      "report_published": false,
+      "report_status": "incomplete_prefix_no_received_response",
+      "semantic_disposition": "externally_interrupted_incomplete_no_model_timeout_or_semantic_verdict",
+      "critical_false_confidence": "not graded: no complete report"
+    },
+    {
+      "assignment": {
+        "case_id": "development-httpx-framework-ci",
+        "id": "gemma-e4b-httpx-structured",
+        "model_key": "gemma-4-e4b-it-ud",
+        "treatment": "structured"
+      },
+      "disposition": "WITHHELD_UNATTEMPTED",
+      "cause": "Whole pipeline externally interrupted; unknown usage and unresolved run-control proof prevent automatic continuation.",
+      "report_published": false,
+      "semantic_disposition": "not_evaluated"
+    },
+    {
+      "assignment": {
+        "case_id": "development-httpx-framework-ci",
+        "id": "gemma-e4b-httpx-raw",
+        "model_key": "gemma-4-e4b-it-ud",
+        "treatment": "raw"
+      },
+      "disposition": "WITHHELD_UNATTEMPTED",
+      "cause": "Whole pipeline externally interrupted; unknown usage and unresolved run-control proof prevent automatic continuation.",
+      "report_published": false,
+      "semantic_disposition": "not_evaluated"
+    },
+    {
+      "assignment": {
+        "case_id": "development-glyphslib-pytest-stopping",
+        "id": "gemma12-glyphslib-structured",
+        "model_key": "google/gemma-4-12b",
+        "treatment": "structured"
+      },
+      "disposition": "WITHHELD_UNATTEMPTED",
+      "cause": "Whole pipeline externally interrupted; unknown usage and unresolved run-control proof prevent automatic continuation.",
+      "report_published": false,
+      "semantic_disposition": "not_evaluated"
+    },
+    {
+      "assignment": {
+        "case_id": "development-glyphslib-pytest-stopping",
+        "id": "gemma12-glyphslib-raw",
+        "model_key": "google/gemma-4-12b",
+        "treatment": "raw"
+      },
+      "disposition": "WITHHELD_UNATTEMPTED",
+      "cause": "Whole pipeline externally interrupted; unknown usage and unresolved run-control proof prevent automatic continuation.",
+      "report_published": false,
+      "semantic_disposition": "not_evaluated"
+    },
+    {
+      "assignment": {
+        "case_id": "development-httpx-framework-ci",
+        "id": "qwen27-httpx-structured",
+        "model_key": "qwen3.8-27b-ud",
+        "treatment": "structured"
+      },
+      "disposition": "WITHHELD_UNATTEMPTED",
+      "cause": "Whole pipeline externally interrupted; unknown usage and unresolved run-control proof prevent automatic continuation.",
+      "report_published": false,
+      "semantic_disposition": "not_evaluated"
+    },
+    {
+      "assignment": {
+        "case_id": "development-httpx-framework-ci",
+        "id": "qwen27-httpx-raw",
+        "model_key": "qwen3.8-27b-ud",
+        "treatment": "raw"
+      },
+      "disposition": "WITHHELD_UNATTEMPTED",
+      "cause": "Whole pipeline externally interrupted; unknown usage and unresolved run-control proof prevent automatic continuation.",
+      "report_published": false,
+      "semantic_disposition": "not_evaluated"
+    },
+    {
+      "assignment": {
+        "case_id": "development-glyphslib-pytest-stopping",
+        "id": "gemma-e4b-glyphslib-raw",
+        "model_key": "gemma-4-e4b-it-ud",
+        "treatment": "raw"
+      },
+      "disposition": "WITHHELD_UNATTEMPTED",
+      "cause": "Whole pipeline externally interrupted; unknown usage and unresolved run-control proof prevent automatic continuation.",
+      "report_published": false,
+      "semantic_disposition": "not_evaluated"
+    },
+    {
+      "assignment": {
+        "case_id": "development-glyphslib-pytest-stopping",
+        "id": "gemma-e4b-glyphslib-structured",
+        "model_key": "gemma-4-e4b-it-ud",
+        "treatment": "structured"
+      },
+      "disposition": "WITHHELD_UNATTEMPTED",
+      "cause": "Whole pipeline externally interrupted; unknown usage and unresolved run-control proof prevent automatic continuation.",
+      "report_published": false,
+      "semantic_disposition": "not_evaluated"
+    }
+  ],
+  "review_limits": [
+    "Exposed development cases; same source-aware AI reviewer, known frozen order and native tool shapes leak identity/treatment. No independent blind or unseen acceptance.",
+    "Every substantive field of the two complete report attempts reviewed;41 atomic occurrences are not independent facts/samples. Partial report prefix not repaired, parsed into an accepted report or semantically graded.",
+    "Available/delivered/used/cited/supported remain distinct. Source hash and valid citation are not entailment.",
+    "Four source-review activity intervals logged in UTC; total active monotonic effort, prior preparation/some analysis and independent human effort are not established. No exact reviewer-effort total claimed."
+  ],
+  "next_selection": "Bounded monotonic deadline/cancellation/terminal accounting and completion-affordability design/proof before future inference. Navigation recovery and evidence-priority/confidence policy remain evidence-backed candidates. No new repair, replay, arm or D/E activated."
+}
