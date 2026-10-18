@@ -10,6 +10,8 @@
 
 **Amendment note:** this audit was sharpened after its initial publication to make the observed completion-affordability arithmetic, controller invariant, confounding structure and successor stopping logic explicit. The amendment adds no new model inference, changes no retained experiment result, and does not select an implementation mechanism. The inspected experiment/evidence horizon remains `e0a6de39`; the amendment is an interpretive and handoff refinement over the same retained evidence plus the audit's already recorded independent checks.
 
+**Successor planning reference (October 19):** Ali accepted the amendment review and the refinement now owned by [the successor plan](../plans/INVESTIGATOR_RUN_CONTROL_COMPLETION_AND_CAPABILITY_DIAGNOSTIC_PLAN.md): a supplied-evidence diagnostic needs safe control and its own proven fixed terminal allowance, while implementation of general adaptive discovery budgeting can remain conditional on the diagnostic result. Read the prerequisite in the successor-responsibility discussion at that scoped strength. This coordination reference changes no audited observation, original result or architecture and grants no implementation/inference activation. The audit's original handoff remains the dated boundary preceding that planning decision.
+
 ## 1. Assessment
 
 There is evidence for Ali's concern that the present route is spending too much effort on experiment machinery relative to useful investigation output. The evidence does **not** establish that these models cannot handle dependency-update analysis, that native evidence is ineffective, or that the accepted hybrid architecture should be abandoned.

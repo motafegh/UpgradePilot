@@ -6,6 +6,10 @@ Canonical audit records remain at stable paths directly under `audits/`. Existin
 
 Current active audits:
 
+- [ACTIVE — AUDIT-011 — Investigator Experiment Validity, Bottlenecks and Useful Progress](../2026-10-18_AUDIT-011_investigator-experiment-validity-and-progress.md)
+  - selection basis: Ali accepted the audit/amendment review and authorized writing the bounded successor plan, including the refinement that fixed-packet interpretation need not await a general adaptive discovery-budget implementation.
+  - execution owner: [Investigator Run Control, Completion and Capability Diagnostic Plan](../../plans/INVESTIGATOR_RUN_CONTROL_COMPLETION_AND_CAPABILITY_DIAGNOSTIC_PLAN.md). Audit findings are selected planning inputs; this lifecycle entry grants no Build, model loading, inference, automatic navigation repair or product adoption. Original incomplete semantic evidence and its separate D/E boundary remain intact; `../../MEMORY.md` owns exact continuation.
+
 - [ACTIVE — AUDIT-010 — Hybrid Investigation Architecture Compatibility and Interface Delta](../2026-10-07_AUDIT-010_hybrid-investigation-architecture-compatibility.md)
   - selection basis: Ali proposes a bounded workspace/Investigator-interface design responsibility following the completed interpretation-only research result at `74835751`.
   - execution owner: [Investigation Workspace and Investigator-interface Design Plan](../../plans/INVESTIGATION_WORKSPACE_AND_INVESTIGATOR_INTERFACE_DESIGN_PLAN.md); `../../MEMORY.md` alone owns the cycle phase and continuation.

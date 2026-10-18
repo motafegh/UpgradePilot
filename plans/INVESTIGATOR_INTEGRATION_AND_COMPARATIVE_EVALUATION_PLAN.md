@@ -4,6 +4,8 @@
 **Responsibility:** integrate a single local Investigator with the product Workspace and determine whether structured native evidence access improves its evidence use over raw-oriented navigation.
 **Live selection:** [MEMORY.md](../MEMORY.md) alone. This plan defines execution and proof, not current progress.
 
+**Bounded successor coordination:** [The run-control, completion and capability diagnostic plan](INVESTIGATOR_RUN_CONTROL_COMPLETION_AND_CAPABILITY_DIAGNOSTIC_PLAN.md) owns the separately admitted response to AUDIT-011. Its supplied-evidence, report-only diagnostic is a distinct protocol with its own freeze, qualification scope, resource ceiling and activation; it is not an extra arm or a resumption of this plan's frozen Raw/Structured matrix. Its fixed terminal allowance can be proved before a general adaptive discovery-reserve mechanism is implemented. Existing comparison evidence/authority rules remain applicable, and historical assignments, failed outputs and unused allowances are never rewritten or transferred. This reference does not activate successor implementation or inference.
+
 ## 1. Product purpose, scope and owners
 
 The product responsibility is useful, evidence-backed dependency-update assistance for public Python maintainers. This experiment measures a bounded mechanism contributing to that responsibility: finding relevant evidence, interpreting it correctly, preserving material uncertainty and proposing justified next work or stopping. It does not establish maintainer benefit, general semantic competence or permission to act merely by producing a report.
