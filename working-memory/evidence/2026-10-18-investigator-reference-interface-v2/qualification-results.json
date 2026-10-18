@@ -1,0 +1,223 @@
+{
+  "at": "2026-10-18T16:12:54.660162+00:00",
+  "phase": "qualification-complete",
+  "assignments": [
+    {
+      "assignment": {
+        "id": "reference-v2-gemma12-raw-short",
+        "model_key": "google/gemma-4-12b",
+        "sequence": 1,
+        "treatment": "raw"
+      },
+      "disposition": "qualified",
+      "disposition_reason": "bounded synthetic interface sequence completed; no semantic acceptance",
+      "known_generated_tokens": 1129,
+      "known_input_tokens": 18599,
+      "model_attempts": 5,
+      "outcome": "completed",
+      "problem": null,
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "reference-v2-gemma12-structured-short",
+        "model_key": "google/gemma-4-12b",
+        "sequence": 1,
+        "treatment": "structured"
+      },
+      "disposition": "qualified",
+      "disposition_reason": "bounded synthetic interface sequence completed; no semantic acceptance",
+      "known_generated_tokens": 985,
+      "known_input_tokens": 19082,
+      "model_attempts": 5,
+      "outcome": "completed",
+      "problem": null,
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "reference-v2-gemma12-raw-long",
+        "model_key": "google/gemma-4-12b",
+        "sequence": 2,
+        "treatment": "raw"
+      },
+      "disposition": "qualified",
+      "disposition_reason": "bounded synthetic interface sequence completed; no semantic acceptance",
+      "known_generated_tokens": 930,
+      "known_input_tokens": 107136,
+      "model_attempts": 5,
+      "outcome": "completed",
+      "problem": null,
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "reference-v2-gemma12-structured-long",
+        "model_key": "google/gemma-4-12b",
+        "sequence": 2,
+        "treatment": "structured"
+      },
+      "disposition": "qualified",
+      "disposition_reason": "bounded synthetic interface sequence completed; no semantic acceptance",
+      "known_generated_tokens": 922,
+      "known_input_tokens": 107918,
+      "model_attempts": 5,
+      "outcome": "completed",
+      "problem": null,
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "reference-v2-qwen27-raw-short",
+        "model_key": "qwen3.8-27b-ud",
+        "sequence": 1,
+        "treatment": "raw"
+      },
+      "disposition": "qualified",
+      "disposition_reason": "bounded synthetic interface sequence completed; no semantic acceptance",
+      "known_generated_tokens": 1234,
+      "known_input_tokens": 17460,
+      "model_attempts": 5,
+      "outcome": "completed",
+      "problem": null,
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "reference-v2-qwen27-structured-short",
+        "model_key": "qwen3.8-27b-ud",
+        "sequence": 1,
+        "treatment": "structured"
+      },
+      "disposition": "qualified",
+      "disposition_reason": "bounded synthetic interface sequence completed; no semantic acceptance",
+      "known_generated_tokens": 1133,
+      "known_input_tokens": 18089,
+      "model_attempts": 5,
+      "outcome": "completed",
+      "problem": null,
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "reference-v2-qwen27-raw-long",
+        "model_key": "qwen3.8-27b-ud",
+        "sequence": 2,
+        "treatment": "raw"
+      },
+      "disposition": "qualified",
+      "disposition_reason": "bounded synthetic interface sequence completed; no semantic acceptance",
+      "known_generated_tokens": 880,
+      "known_input_tokens": 106218,
+      "model_attempts": 5,
+      "outcome": "completed",
+      "problem": null,
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "reference-v2-qwen27-structured-long",
+        "model_key": "qwen3.8-27b-ud",
+        "sequence": 2,
+        "treatment": "structured"
+      },
+      "disposition": "qualified",
+      "disposition_reason": "bounded synthetic interface sequence completed; no semantic acceptance",
+      "known_generated_tokens": 831,
+      "known_input_tokens": 106940,
+      "model_attempts": 5,
+      "outcome": "completed",
+      "problem": null,
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "reference-v2-gemma-e4b-raw-short",
+        "model_key": "gemma-4-e4b-it-ud",
+        "sequence": 1,
+        "treatment": "raw"
+      },
+      "disposition": "qualified",
+      "disposition_reason": "bounded synthetic interface sequence completed; no semantic acceptance",
+      "known_generated_tokens": 2771,
+      "known_input_tokens": 18662,
+      "model_attempts": 5,
+      "outcome": "completed",
+      "problem": null,
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "reference-v2-gemma-e4b-structured-short",
+        "model_key": "gemma-4-e4b-it-ud",
+        "sequence": 1,
+        "treatment": "structured"
+      },
+      "disposition": "qualified",
+      "disposition_reason": "bounded synthetic interface sequence completed; no semantic acceptance",
+      "known_generated_tokens": 3045,
+      "known_input_tokens": 19334,
+      "model_attempts": 5,
+      "outcome": "completed",
+      "problem": null,
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "reference-v2-gemma-e4b-raw-long",
+        "model_key": "gemma-4-e4b-it-ud",
+        "sequence": 2,
+        "treatment": "raw"
+      },
+      "disposition": "qualified",
+      "disposition_reason": "bounded synthetic interface sequence completed; no semantic acceptance",
+      "known_generated_tokens": 3693,
+      "known_input_tokens": 107273,
+      "model_attempts": 5,
+      "outcome": "completed",
+      "problem": null,
+      "reasoning_tokens": null,
+      "usage_complete": true
+    },
+    {
+      "assignment": {
+        "id": "reference-v2-gemma-e4b-structured-long",
+        "model_key": "gemma-4-e4b-it-ud",
+        "sequence": 2,
+        "treatment": "structured"
+      },
+      "disposition": "qualified",
+      "disposition_reason": "bounded synthetic interface sequence completed; no semantic acceptance",
+      "known_generated_tokens": 3284,
+      "known_input_tokens": 108013,
+      "model_attempts": 5,
+      "outcome": "completed",
+      "problem": null,
+      "reasoning_tokens": null,
+      "usage_complete": true
+    }
+  ],
+  "admission": {
+    "disposition": "permitted",
+    "format": "investigator-semantic-admission/1",
+    "problem": null,
+    "qualification_artifact_index_sha256": "21c8e9cc975750a858f9ebd9ec81289c6882fb0a2decbea8ff0266fdcbc3b8c2",
+    "qualification_freeze_sha256": "54491d78faddfcc645aa2bc0f343e8d81bb35fc561827a1228da65ecb5e64061",
+    "semantic_freeze_sha256": "d9ec5c86f341f095cece29f9717c2fb1f9c9fb29f9661293e34a509d4b65bbe1"
+  },
+  "calls": 60,
+  "known_input_tokens": 754724,
+  "known_generated_tokens": 20837,
+  "semantic_assignments_attempted_at_checkpoint": 0,
+  "limit": "Synthetic interface results only; all original/correction bytes retained. No semantic acceptance or selective rerun."
+}
