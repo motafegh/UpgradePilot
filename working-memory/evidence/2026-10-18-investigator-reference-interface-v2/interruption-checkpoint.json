@@ -1,0 +1,464 @@
+{
+  "format": "investigator-external-interruption-disposition/1",
+  "at": "2026-10-18T18:16:19.224465+00:00",
+  "frozen_semantic_sha256": "d9ec5c86f341f095cece29f9717c2fb1f9c9fb29f9661293e34a509d4b65bbe1",
+  "disposition": "incomplete_externally_interrupted_no_rerun",
+  "actor": "Codex operator",
+  "cause": "Operator sent SIGINT to pipeline PID42395 after misinterpreting file-timestamp request age as prediction duration. Source inspection confirms SDK timeout is inter-message inactivity, but actual1800-second prediction overrun was not established.",
+  "operator_correction": {
+    "unreliable_progress_proxy_observed_seconds": 1809,
+    "actual_retained_prediction_elapsed_seconds": 1740.4714567409974,
+    "actual_limit_exceeded_proven": false,
+    "cause_of_clock_domain_difference": "unestablished; file timestamp age is not monotonic prediction duration",
+    "limit": "The interruption is an operator/control failure, not a model timeout or semantic failure."
+  },
+  "sdk_timeout_evidence": {
+    "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/deployment-interface-2026-10-16-r1/sdk-1.5.0/lib/python3.12/site-packages/lmstudio/sync_api.py",
+    "sha256": "888360663dc5655e90c614ff64a285299f97a8f3a9cfeee28cac08dd42dac685",
+    "function": "SyncChannel.timeout / rx_stream",
+    "definition": "Permitted time between received messages for this channel.",
+    "finding": "No total prediction wall-clock cancellation is implemented in SDKBinding.predict."
+  },
+  "completed_assignments": [
+    {
+      "assignment": {
+        "case_id": "development-httpx-framework-ci",
+        "id": "gemma12-httpx-raw",
+        "model_key": "google/gemma-4-12b",
+        "treatment": "raw"
+      },
+      "charges": {
+        "access_receipts": [
+          {
+            "delivered_bytes": 4848,
+            "delivery_id": "19fb22f7ea154f3f9e235172e6f3b5b9",
+            "detail": "Actual delivery; no hidden use or semantic support inferred.",
+            "examined_files": 0,
+            "examined_lines": 0,
+            "operation": "source:list_sources",
+            "outcome": "observed"
+          },
+          {
+            "delivered_bytes": 6806,
+            "delivery_id": "1037d27484fe4e928df0effb7f56cba6",
+            "detail": "Actual delivery; no hidden use or semantic support inferred.",
+            "examined_files": 2632,
+            "examined_lines": 395243,
+            "operation": "source:search",
+            "outcome": "observed"
+          },
+          {
+            "delivered_bytes": 438,
+            "delivery_id": "49b1377537d8499cb26062fd12524998",
+            "detail": "Actual delivery; no hidden use or semantic support inferred.",
+            "examined_files": 0,
+            "examined_lines": 0,
+            "operation": "source:read",
+            "outcome": "problem"
+          },
+          {
+            "delivered_bytes": 6437,
+            "delivery_id": "c7270e8f0cd047148e69e1f5c780eba3",
+            "detail": "Actual delivery; no hidden use or semantic support inferred.",
+            "examined_files": 2632,
+            "examined_lines": 395243,
+            "operation": "source:search",
+            "outcome": "observed"
+          },
+          {
+            "delivered_bytes": 438,
+            "delivery_id": "c8e4efc4419e4a339aafa2e2bfe505a5",
+            "detail": "Actual delivery; no hidden use or semantic support inferred.",
+            "examined_files": 0,
+            "examined_lines": 0,
+            "operation": "source:read",
+            "outcome": "problem"
+          },
+          {
+            "delivered_bytes": 6437,
+            "delivery_id": "6aed01b9dbd944a599ae12845df8c2f7",
+            "detail": "Actual delivery; no hidden use or semantic support inferred.",
+            "examined_files": 2632,
+            "examined_lines": 395243,
+            "operation": "source:search",
+            "outcome": "observed"
+          },
+          {
+            "delivered_bytes": 438,
+            "delivery_id": "36125fe9b0d74db8b7ba7e0ab50e7953",
+            "detail": "Actual delivery; no hidden use or semantic support inferred.",
+            "examined_files": 0,
+            "examined_lines": 0,
+            "operation": "source:read",
+            "outcome": "problem"
+          },
+          {
+            "delivered_bytes": 438,
+            "delivery_id": "4b2509a5b58c493cba88753cb485cb07",
+            "detail": "Actual delivery; no hidden use or semantic support inferred.",
+            "examined_files": 0,
+            "examined_lines": 0,
+            "operation": "source:read",
+            "outcome": "problem"
+          },
+          {
+            "delivered_bytes": 438,
+            "delivery_id": "e6d0bd6841694249b68e09f498ce3d20",
+            "detail": "Actual delivery; no hidden use or semantic support inferred.",
+            "examined_files": 0,
+            "examined_lines": 0,
+            "operation": "source:read",
+            "outcome": "problem"
+          },
+          {
+            "delivered_bytes": 438,
+            "delivery_id": "168cc981a1c64da3b5b05b09800af946",
+            "detail": "Actual delivery; no hidden use or semantic support inferred.",
+            "examined_files": 0,
+            "examined_lines": 0,
+            "operation": "source:read",
+            "outcome": "problem"
+          },
+          {
+            "delivered_bytes": 438,
+            "delivery_id": "1eba1a59b4f94a05b69b217274f95570",
+            "detail": "Actual delivery; no hidden use or semantic support inferred.",
+            "examined_files": 0,
+            "examined_lines": 0,
+            "operation": "source:read",
+            "outcome": "problem"
+          }
+        ],
+        "admission_operations": 46,
+        "assignment_composition_publications": 2,
+        "assignment_composition_seconds": 0.0019116659968858585,
+        "consumer_invocation_attempts": 12,
+        "consumer_response_bytes": 1298,
+        "corrections": 0,
+        "elapsed_seconds": 544.4258431939961,
+        "model_calls": 12,
+        "model_tokens": {
+          "generated": 550,
+          "input": 144345
+        },
+        "model_usage_complete": true,
+        "native_producer_calls": 0,
+        "observation_bytes": 31671,
+        "packed_input_bytes": 404370,
+        "reasoning_tokens": null,
+        "reference_visibility": "current_request",
+        "report_refusals": [],
+        "terminal_corrections": 0,
+        "tool_requests": 11
+      },
+      "outcome": "limit_exhausted",
+      "problem": "operation admission refused before dispatch"
+    },
+    {
+      "assignment": {
+        "case_id": "development-httpx-framework-ci",
+        "id": "gemma12-httpx-structured",
+        "model_key": "google/gemma-4-12b",
+        "treatment": "structured"
+      },
+      "charges": {
+        "access_receipts": [
+          {
+            "delivered_bytes": 4848,
+            "delivery_id": "21c91088d6ab4795a959160706a6a2d7",
+            "detail": "Actual delivery; no hidden use or semantic support inferred.",
+            "examined_files": 0,
+            "examined_lines": 0,
+            "operation": "source:list_sources",
+            "outcome": "observed"
+          },
+          {
+            "delivered_bytes": 440,
+            "delivery_id": "156cef16f6c34c9298da25adf74e1139",
+            "detail": "Actual delivery; no hidden use or semantic support inferred.",
+            "examined_files": 2632,
+            "examined_lines": 395243,
+            "operation": "source:search",
+            "outcome": "scoped_negative"
+          },
+          {
+            "delivered_bytes": 440,
+            "delivery_id": "c21244f26242494ba74c5e17717aac8e",
+            "detail": "Actual delivery; no hidden use or semantic support inferred.",
+            "examined_files": 2632,
+            "examined_lines": 395243,
+            "operation": "source:search",
+            "outcome": "scoped_negative"
+          },
+          {
+            "delivered_bytes": 6806,
+            "delivery_id": "030536dd73c64aba866025ab0f60dd80",
+            "detail": "Actual delivery; no hidden use or semantic support inferred.",
+            "examined_files": 2632,
+            "examined_lines": 395243,
+            "operation": "source:search",
+            "outcome": "observed"
+          },
+          {
+            "delivered_bytes": 6806,
+            "delivery_id": "630dcc36699b44519bc602a6d941d5e4",
+            "detail": "Actual delivery; no hidden use or semantic support inferred.",
+            "examined_files": 2632,
+            "examined_lines": 395243,
+            "operation": "source:search",
+            "outcome": "observed"
+          },
+          {
+            "delivered_bytes": 1563,
+            "delivery_id": "8b2617e073434cd2ac11aade625bc1df",
+            "detail": "Actual delivery; no hidden use or semantic support inferred.",
+            "examined_files": 1,
+            "examined_lines": 7,
+            "operation": "source:read",
+            "outcome": "observed"
+          },
+          {
+            "delivered_bytes": 1571,
+            "delivery_id": "b4898a837ef5450ea3c9cd4a94be18c8",
+            "detail": "Actual delivery; no hidden use or semantic support inferred.",
+            "examined_files": 1,
+            "examined_lines": 7,
+            "operation": "source:read",
+            "outcome": "observed"
+          }
+        ],
+        "admission_operations": 38,
+        "assignment_composition_publications": 2,
+        "assignment_composition_seconds": 0.0013182539987610653,
+        "consumer_invocation_attempts": 9,
+        "consumer_response_bytes": 2997,
+        "corrections": 0,
+        "elapsed_seconds": 492.521916175996,
+        "model_calls": 9,
+        "model_tokens": {
+          "generated": 990,
+          "input": 86125
+        },
+        "model_usage_complete": true,
+        "native_producer_calls": 0,
+        "observation_bytes": 26356,
+        "packed_input_bytes": 237885,
+        "reasoning_tokens": null,
+        "reference_visibility": "current_request",
+        "report_refusals": [],
+        "terminal_corrections": 0,
+        "tool_requests": 8
+      },
+      "outcome": "completed",
+      "problem": null
+    },
+    {
+      "assignment": {
+        "case_id": "development-glyphslib-pytest-stopping",
+        "id": "qwen27-glyphslib-raw",
+        "model_key": "qwen3.8-27b-ud",
+        "treatment": "raw"
+      },
+      "charges": {
+        "access_receipts": [
+          {
+            "delivered_bytes": 3989,
+            "delivery_id": "afc9f3541e6c45bdafa93bf8767c23f4",
+            "detail": "Actual delivery; no hidden use or semantic support inferred.",
+            "examined_files": 0,
+            "examined_lines": 0,
+            "operation": "source:list_sources",
+            "outcome": "observed"
+          },
+          {
+            "delivered_bytes": 21672,
+            "delivery_id": "10d5afa9a62e4cefbcb9555110ad3d6d",
+            "detail": "Actual delivery; no hidden use or semantic support inferred.",
+            "examined_files": 113,
+            "examined_lines": 0,
+            "operation": "source:list_paths",
+            "outcome": "observed"
+          },
+          {
+            "delivered_bytes": 5143,
+            "delivery_id": "171ee8f5fb8b4a439a1ff0e8790e8d19",
+            "detail": "Actual delivery; no hidden use or semantic support inferred.",
+            "examined_files": 113,
+            "examined_lines": 35791,
+            "operation": "source:search",
+            "outcome": "observed"
+          },
+          {
+            "delivered_bytes": 1977,
+            "delivery_id": "92a54396e020417f88ac07c6bc5c4124",
+            "detail": "Actual delivery; no hidden use or semantic support inferred.",
+            "examined_files": 1,
+            "examined_lines": 20,
+            "operation": "source:read",
+            "outcome": "observed"
+          },
+          {
+            "delivered_bytes": 1969,
+            "delivery_id": "fe44c45ea9234608af9706d3fc93ad8f",
+            "detail": "Actual delivery; no hidden use or semantic support inferred.",
+            "examined_files": 1,
+            "examined_lines": 20,
+            "operation": "source:read",
+            "outcome": "observed"
+          },
+          {
+            "delivered_bytes": 1733,
+            "delivery_id": "71a078af6f1c4bb7bbb8bf5a95754432",
+            "detail": "Actual delivery; no hidden use or semantic support inferred.",
+            "examined_files": 1,
+            "examined_lines": 14,
+            "operation": "source:read",
+            "outcome": "observed"
+          },
+          {
+            "delivered_bytes": 1962,
+            "delivery_id": "11de0d0163aa4324a91681eabffd9f05",
+            "detail": "Actual delivery; no hidden use or semantic support inferred.",
+            "examined_files": 1,
+            "examined_lines": 20,
+            "operation": "source:read",
+            "outcome": "observed"
+          },
+          {
+            "delivered_bytes": 1970,
+            "delivery_id": "c182bb5a48f9442c89342199292e4c89",
+            "detail": "Actual delivery; no hidden use or semantic support inferred.",
+            "examined_files": 1,
+            "examined_lines": 20,
+            "operation": "source:read",
+            "outcome": "observed"
+          },
+          {
+            "delivered_bytes": 1954,
+            "delivery_id": "b5a26f00551e4dcf94afe2ef5afa82ac",
+            "detail": "Actual delivery; no hidden use or semantic support inferred.",
+            "examined_files": 1,
+            "examined_lines": 20,
+            "operation": "source:read",
+            "outcome": "observed"
+          },
+          {
+            "delivered_bytes": 1946,
+            "delivery_id": "645690903d6b408aac111c238c2f45e4",
+            "detail": "Actual delivery; no hidden use or semantic support inferred.",
+            "examined_files": 1,
+            "examined_lines": 20,
+            "operation": "source:read",
+            "outcome": "observed"
+          }
+        ],
+        "admission_operations": 45,
+        "assignment_composition_publications": 2,
+        "assignment_composition_seconds": 0.0019587989954743534,
+        "consumer_invocation_attempts": 12,
+        "consumer_response_bytes": 4867,
+        "corrections": 0,
+        "elapsed_seconds": 2639.3828984619977,
+        "model_calls": 12,
+        "model_tokens": {
+          "generated": 1571,
+          "input": 212257
+        },
+        "model_usage_complete": true,
+        "native_producer_calls": 0,
+        "observation_bytes": 50921,
+        "packed_input_bytes": 601811,
+        "reasoning_tokens": null,
+        "reference_visibility": "current_request",
+        "report_refusals": [],
+        "terminal_corrections": 0,
+        "tool_requests": 11
+      },
+      "outcome": "limit_exhausted",
+      "problem": "operation admission refused before dispatch"
+    }
+  ],
+  "interrupted_assignment": {
+    "assignment": {
+      "case_id": "development-glyphslib-pytest-stopping",
+      "id": "qwen27-glyphslib-structured",
+      "model_key": "qwen3.8-27b-ud",
+      "treatment": "structured"
+    },
+    "prediction_attempts": 12,
+    "returned_known_usage_calls": 11,
+    "interrupted_unknown_usage_calls": 1,
+    "original_last_receipt": {
+      "attempt": 12,
+      "complete_response_received": false,
+      "elapsed_seconds": 1740.4714567409974,
+      "outcome": "attempted",
+      "request_sha256": "8ccf28368d9e87128ccb4a63c1ea4d060be77720e73e15999adeda832863504d",
+      "usage": null,
+      "visible_fragment_bytes": 9032,
+      "visible_fragments_sha256": "3c46df625691eed04e2d99cb156a67432c1a6aede779be2ac7ff5a2bd9f59e5a"
+    },
+    "assignment_record_exists": false,
+    "checkpoint_exists": false,
+    "complete_response_exists": false,
+    "report_published": false,
+    "limit": "Original last receipt remains outcome attempted with usage null; derived disposition supplies ended/interrupted status without rewriting it. No completed trial/termination record is fabricated."
+  },
+  "unattempted_assignments": [
+    {
+      "case_id": "development-httpx-framework-ci",
+      "id": "gemma-e4b-httpx-structured",
+      "model_key": "gemma-4-e4b-it-ud",
+      "treatment": "structured"
+    },
+    {
+      "case_id": "development-httpx-framework-ci",
+      "id": "gemma-e4b-httpx-raw",
+      "model_key": "gemma-4-e4b-it-ud",
+      "treatment": "raw"
+    },
+    {
+      "case_id": "development-glyphslib-pytest-stopping",
+      "id": "gemma12-glyphslib-structured",
+      "model_key": "google/gemma-4-12b",
+      "treatment": "structured"
+    },
+    {
+      "case_id": "development-glyphslib-pytest-stopping",
+      "id": "gemma12-glyphslib-raw",
+      "model_key": "google/gemma-4-12b",
+      "treatment": "raw"
+    },
+    {
+      "case_id": "development-httpx-framework-ci",
+      "id": "qwen27-httpx-structured",
+      "model_key": "qwen3.8-27b-ud",
+      "treatment": "structured"
+    },
+    {
+      "case_id": "development-httpx-framework-ci",
+      "id": "qwen27-httpx-raw",
+      "model_key": "qwen3.8-27b-ud",
+      "treatment": "raw"
+    },
+    {
+      "case_id": "development-glyphslib-pytest-stopping",
+      "id": "gemma-e4b-glyphslib-raw",
+      "model_key": "gemma-4-e4b-it-ud",
+      "treatment": "raw"
+    },
+    {
+      "case_id": "development-glyphslib-pytest-stopping",
+      "id": "gemma-e4b-glyphslib-structured",
+      "model_key": "gemma-4-e4b-it-ud",
+      "treatment": "structured"
+    }
+  ],
+  "semantic_attempted_calls": 45,
+  "semantic_known_usage_calls": 44,
+  "semantic_unknown_usage_calls": 1,
+  "loaded_models_after_cleanup": 0,
+  "pipeline_exit_code": 130,
+  "sampler_exit_code": 0,
+  "boundary": "No source/profile/freeze/output repair, retry, successful-subset comparison or D/E. Unknown usage and unresolved control proof withhold further inference; finish retained evidence review/publication."
+}
