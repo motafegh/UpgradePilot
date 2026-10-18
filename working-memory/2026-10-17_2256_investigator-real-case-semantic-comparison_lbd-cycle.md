@@ -15,8 +15,8 @@
 | A0 | **DONE** | Reconciled live owners, previous closure, amendment, final deployment/interface evidence, durable common-input snapshot, current experiment contracts and semantic-review owner; initialized this one cycle record. |
 | A1 | **DONE** | Ali explicitly agreed with the reconstructed state and cleared the continuity gate. His configuration-proof correction is incorporated below rather than treated as a contradiction. |
 | A2 | **DONE — progression explicitly directed** | Orientation and the budget/proof consequence were presented; Ali explicitly selected B fully. The budget-allocation reasoning answer remains unassessed and is preserved for D, not recorded as mastered. |
-| B | **CURRENT** | Implement model-visible budget metadata and focused proof, then complete the successor freeze before any prediction. Required synthetic requalification has a separate frozen budget before semantic admission. |
-| Verification gate | PENDING — scoped implementation GREEN | 40 focused experiment tests and 65 nearest Workspace controls pass. Complete freeze, actual interface requalification and conditional semantic result/review remain required. |
+| B | **AT FAILED ADMISSION GATE** | Budget observation/runner implemented; complete freeze verified; all 12 independent qualification sequences finished. Real-case semantics withheld by the declared all-selected-point gate; final failure/retention review is being consolidated. |
+| Verification gate | **FAILED for semantic admission; scoped implementation GREEN** | 40 focused experiment tests and 65 nearest Workspace controls pass. Revised-contract matrix: Gemma12 3/4, Qwen27 4/4, E4B 3/4; zero real-case semantic assignments attempted. |
 | D | PENDING | Evidence-backed learning from the actual comparison/review result. |
 | E | PENDING | Repair/defer D gaps, disposition the experiment and hand off the next responsibility. |
 | C | **CONTINUOUS** | Preserve meaningful progression, failures/corrections, proof/non-proof and learner gaps in this record. |
@@ -453,3 +453,12 @@ Gemma12's intended 8192 point completes all four independent sequences: Raw-shor
 ### Half-matrix checkpoint
 
 Qwen27 Raw-short and Structured-short each qualify in five calls; both long sequences remain unattempted/in progress at this horizon, so no Qwen27 4/4 claim follows. The [six completed sequences](evidence/2026-10-18-investigator-semantic-comparison/six-sequence-checkpoint.json) preserve 31 actual calls, known usage and separate draft-token scalars, with zero requested/applied, prompt-count or instance mismatches. Unreported separate reasoning usage is unknown. Active long-call costs are excluded from this completed-only checkpoint. No semantic assignment has started; Gemma12's negative still blocks admission.
+
+
+Review clarification during execution: model-weight full SHA256 receipts were inherited from the prior qualified asset catalog and current size/mtime were rechecked; weights were not fully rehashed in this successor. Copied historical `hash_scope` annotations retain their earlier cycle horizon. Small runtime metadata/launcher bytes were rehashed before the freeze. Added this distinction to the dated evidence README without changing frozen bytes, source, settings or any result. No stronger binary reproducibility/security claim is made.
+
+### Complete revised-contract matrix — failed semantic admission
+
+All 12 independent sequences finished under the frozen continue-independent-sequences policy. Gemma12 is **3/4, 21 calls**; Qwen27 is **4/4, 20 calls**; E4B is **3/4, 21 calls**. E4B Raw-long joins Gemma12 Raw-short as WITHHELD after strict evidence-reference failures. No failed output was repaired or rerun. The [completed matrix checkpoint](evidence/2026-10-18-investigator-semantic-comparison/completed-matrix-checkpoint.json) records **62/72 allowed calls**, **761,756 input / 23,123 target-generated tokens**, no unknown usage and zero inspected prediction-setting, rendered-prompt or instance mismatches. Draft-token counts remain separately attributed; unreported reasoning usage is unknown.
+
+The pipeline exited with `withheld_required_interface_matrix_failed_no_automatic_repair`; **zero semantic assignments** were attempted. The sampler also exited. This is a completed negative admission result, not an accepted semantic comparison and not permission to tune until passing. Final immutable failure analysis, retention/resource summary and owner reconciliation remain in this same B/verification responsibility. Ali explicitly reinforced progressive recording/commit/push publication during the run; publish this completed-result checkpoint before the final evidence consolidation.
