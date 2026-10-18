@@ -8,13 +8,15 @@
 
 **Authority:** non-controlling evidence and recommendations. Implementation, another inference batch, experiment redesign and adoption require a subsequent decision. Lifecycle selection is recorded in the [audit indexes](README.md); [MEMORY.md](../MEMORY.md) owns live continuation.
 
+**Amendment note:** this audit was sharpened after its initial publication to make the observed completion-affordability arithmetic, controller invariant, confounding structure and successor stopping logic explicit. The amendment adds no new model inference, changes no retained experiment result, and does not select an implementation mechanism. The inspected experiment/evidence horizon remains `e0a6de39`; the amendment is an interpretive and handoff refinement over the same retained evidence plus the audit's already recorded independent checks.
+
 ## 1. Assessment
 
 There is evidence for Ali's concern that the present route is spending too much effort on experiment machinery relative to useful investigation output. The evidence does **not** establish that these models cannot handle dependency-update analysis, that native evidence is ineffective, or that the accepted hybrid architecture should be abandoned.
 
 The immediate problem is a combination of:
 
-1. **A controller that permits discovery to consume the capacity needed to publish an evidenced result.** This affected an actual complete report attempt and constrains the observed native navigation path.
+1. **A controller that permits discovery to consume the capacity needed to publish an evidenced result.** In the observed Qwen Raw and Structured-native paths, the controller admitted valid investigation actions until the remaining operation balance was below the cost of the intended cited terminal product. This is stronger than merely poor model budgeting: completion affordability is not maintained as a controller invariant.
 2. **Insufficiently specified navigation and decision guidance.** Qualification gives exact actions and path syntax; real investigation receives a generic goal and schema-only tools. A qualified model repeatedly failed a routine addressing operation.
 3. **A costly evidence interface.** Whole native JSON records need many character pages; inventories and repeated history consume substantial input and local runtime. More evidence can make completion harder under the same limits.
 4. **Real semantic failures.** The complete reports make unsupported low-risk judgments and confuse unexamined evidence with unavailable evidence. Citation repair does not address these failures.
@@ -23,7 +25,9 @@ The immediate problem is a combination of:
 
 The evidence-preservation and strict reference work is valuable and should be retained. It has made this audit possible. However, additional qualification rounds, fixtures or model candidates are useful only if they discriminate a particular cause or protect a necessary boundary. They are not progress toward a useful report merely because they pass.
 
-**Engineering recommendation:** first make a bounded run reliably controllable and affordable to complete; then select a small diagnostic experiment that separates evidence interpretation from discovery. Use the current cases as development material, and require new evidence before claiming an improvement. Do not automatically repeat the full 12-assignment batch or add agents/models/native families.
+The observed Qwen arithmetic is an important confound, but it is **not the sole explanation for the incomplete experiment**. Gemma Raw independently demonstrates navigation/recovery failure. Gemma Structured completed within its resource contract yet produced unsupported semantic conclusions. Qwen Raw combines useful factual extraction, semantic overreach and terminal-affordability failure. Qwen Structured combines actual native uptake, a structurally expensive path and an external interruption. The present matrix therefore mixes distinct failure mechanisms; it must not be reduced to either “the models are bad” or “the ledger alone caused the result.”
+
+**Engineering recommendation:** do not resume the old 12-assignment batch merely to complete its denominator. First select bounded responsibilities that make execution controllable and terminal completion affordable. Then run a capability-localizing diagnostic that separates interpretation from discovery. Use the current exposed cases only as development material, require new evidence before claiming improvement, and do not automatically add agents/models/native families. A successor plan must predeclare its proof budget, any real-model-call ceiling, and stop/reject consequences before execution.
 
 ## 2. Scope, evidence and independent checks
 
@@ -102,7 +106,7 @@ The semantic comparison attempted the first four assignments before interruption
 
 The two complete report texts each address only **one of six preregistered obligations** at the recorded supported-coverage level. This is an obligation-coverage result, not 16.7% factual accuracy. Qwen's report contains several correct factual statements. The existing reviews enumerate 41 atomic proposition occurrences across both reports; repetitions and multiple surfaces are not independent samples.
 
-The incomplete matrix cannot establish Raw/Structured benefit, deployment ranking, reliability, or usefulness. Gemma's report-completion difference cannot establish native benefit because it never used native tools. The changed tool menu could itself affect behavior, but that is unmeasured.
+The incomplete matrix cannot establish Raw/Structured benefit, deployment ranking, reliability, or usefulness. Gemma's report-completion difference cannot establish native benefit because it never used native tools. The changed tool menu could itself affect behavior, but that is unmeasured. The Qwen pair is additionally confounded by terminal-affordability arithmetic: the actually admitted evidence-rich paths could no longer afford the intended cited terminal product. That fact weakens representation/treatment attribution; it does not erase the independent navigation and semantic failures observed elsewhere.
 
 ### Cost and progress
 
@@ -116,19 +120,34 @@ This does not mean qualification was worthless or all earlier effort was avoidab
 
 Priorities describe project consequence: **P1** materially blocks useful or interpretable progress; **P2** is a consequential limitation or repair prerequisite. They are not claims of deployed production incidents.
 
-### AUDIT-011-F1 — P1: completion affordability is disclosed but not protected
+### AUDIT-011-F1 — P1: completion affordability is not a protected invariant
 
 **Observed:** `trial_budget_observation` discloses finish=3, report=4+unique references, termination=1. `run_scripted_trial` reserves only termination. Discovery remains admissible while it can make an evidenced report impossible. Report cost is checked only **after the model generates it**.
 
-For Qwen Raw, ten discovery operations cost 40, finish cost 3, leaving 5. Five unique report citations cost 4+5, plus termination=1: **10 required versus 5 available**. The 914.83-second client report call produced content the controller then refused before publication. Reducing the report to zero citations could fit the numeric remainder; that would not provide the intended evidenced output.
+The two actually observed Qwen paths make the arithmetic concrete:
 
-The existing `test_spare_calls_do_not_make_read_plus_completion_affordable` correctly proves refusal. It does **not** prove a useful controller prevents reaching that state. The protection is currently a loss-containment boundary, not completion planning.
+| Observed path | Admitted pre-report cost | Remaining of 48 | Evidenced terminal need at that point |
+| --- | ---: | ---: | ---: |
+| Qwen Raw | ten discovery operations `10 × 4 = 40`, then `finish = 3` → **43** | **5** | actual five-reference report: `report 4 + references 5 + termination 1 = 10` |
+| Qwen Structured native | `list_sources 4 + read_native 4 + eight native pages 32 + finish 3 = 43` | **5** | even one-reference report: `report 4 + reference 1 + termination 1 = 6`; the trace had ten eligible typed references |
 
-**Consequence:** a high-evidence run can fail more readily than a shallow report. Unpublished reports also lack ordinary trial-level publication/evaluation state, though their original bytes remain available for review.
+For Qwen Raw, the 914.83-second client report call therefore produced content that the controller could predictably refuse before publication once its five distinct citations were known. For the Structured path, the natural full native traversal actually taken reached a state where even a one-reference report could not fit. These are **structurally unaffordable states reached through controller-admitted actions**.
 
-**Disposition:** design an explicit completion allowance across operations, calls, token reserve and deadline. Credible options are a declared citation allowance, a bounded intended-reference set, or reserving all eligible references. Reserving all seen references is simple but can prematurely stop discovery because inventories/repeated reads also create references. A chosen subset needs an honest procedure and must not suppress inconvenient evidence. Forced resource termination must remain distinct from a claim of adequate investigation. Do not silently change the old freeze or lower citation standards.
+This is **not** proof that every possible Raw or Structured investigation is incapable of finishing within 48 units. A different path could read less, omit an inventory, narrow its claims or use fewer references. The defect is more precise: **the controller permits state transitions that can make the declared evidenced terminal product unaffordable, while still treating the preceding actions as admissible investigation.** The existing `test_spare_calls_do_not_make_read_plus_completion_affordable` proves refusal after the fact; it does not prove that the controller preserves the ability to complete.
 
-**Evidence:** `investigator_workspace_trial.py:122`, `:266`, `:404`; original Qwen Raw calls 11–12 and assignment charges; offline results.
+**Required successor invariant:** before admitting another discovery action, the controller must preserve the **declared terminal-completion reserve** required by the selected contract. That reserve must explicitly account for `finish`, report publication under the admitted citation allowance, termination, and any separately selected call/token/deadline reserve. The invariant must be checkable before the next action; it cannot depend on hoping the model later uses fewer citations.
+
+The exact terminal-pricing mechanism is **not selected by this audit**. Credible candidates include:
+
+1. current per-reference charging plus a protected declared citation allowance;
+2. a fixed report package that permits up to a declared maximum number of distinct references;
+3. a bounded intended-reference reservation established before report generation.
+
+“Reserve every seen reference” is simple but can freeze discovery prematurely because inventories, repeated reads and other observations also mint eligible references. A fixed package avoids report cost growing with every offered reference but introduces an explicit maximum citation allowance; if material support requires more references, the report must narrow, defer or declare unresolved evidence rather than silently omit support. Any chosen subset/reservation procedure must not suppress inconvenient evidence or weaken reference authority.
+
+**Consequence:** a high-evidence run can fail more readily than a shallow report. The current protection is a loss-containment boundary, not completion planning. Unpublished reports also lack ordinary trial-level publication/evaluation state, though their original bytes remain available for review. Forced resource termination must remain distinct from a claim of adequate investigation.
+
+**Evidence:** `investigator_workspace_trial.py:122`, `:266`, `:404`; original Qwen Raw calls 11–12 and assignment charges; Structured native calls 2–11; offline results.
 
 ### AUDIT-011-F2 — P1: timeout does not enforce total prediction or trial elapsed bounds
 
@@ -168,11 +187,11 @@ Gemma Raw requested `source_id=target-proposed`, `path=target-proposed/requireme
 
 **Observed:** the semantic freeze selects `max_native_bytes=4096`; native whole-record selection leaves 2048 bytes for payload items. In glyphsLib the native payloads are 8,389 bytes (`ci_inputs`), 11,331 (`ci_coverage`) and 5,350 (`runtime_dependency_state`). Full text delivery requires **3+3+2 pages**. The actual Structured trace follows exactly that path after its initial inventory/native request.
 
-Its observed sequence costs `list_sources 4 + read_native 4 + eight pages 32 + finish 3 = 43`, again leaving 5 for report plus termination. It has **ten eligible typed references**. Even one cited reference would require 6 units at report time; an eight-page citation set would require more. This is a structural completion constraint on that path, independent of whether the interrupted report would have been semantically good.
+Its observed sequence costs `list_sources 4 + read_native 4 + eight pages 32 + finish 3 = 43`, again leaving 5 for report plus termination. It has **ten eligible typed references**. Even one cited reference would require 6 units at report time; an eight-page citation set would require more. Therefore the issue is not merely that native traversal is expensive: **under the current operation/report charging contract, the natural complete native route actually taken becomes incompatible with even a minimally cited terminal report.** This is the native-side concrete instance of F1's missing terminal-affordability invariant.
 
-This is not proof that all native investigation is impossible within 48 units. A model could select fewer pages, omit initial source listing, or stop with a narrower specific uncertainty. It does prove that the natural full-record route actually taken is not compatible with an evidenced report under these charges.
+This is not proof that all native investigation is impossible within 48 units. A model could select fewer pages, omit initial source listing, or stop with a narrower specific uncertainty. It does prove that the full-record route actually taken is not compatible with an evidenced report under these charges.
 
-**Disposition:** test a better matched offering: a fit-qualified larger native view, compact typed projections with preserved premises/unknowns, or semantic pages that align with meaningful evidence units. Simply increasing a byte limit trades page calls for larger inputs and still needs measurement. Do not compress away unresolved/counterevidence fields or present a partial page as a complete record. Determine the smallest adequate change before adding another native family or retrieval framework.
+**Disposition:** first require any successor completion contract to prove affordability against the actual 3+3+2 native shape. Then compare the smallest evidence-delivery changes that preserve decision-relevant premises and unknowns: a fit-qualified larger native view, compact typed projections, or semantic pages aligned with meaningful evidence units. Simply increasing a byte limit trades page calls for larger inputs and still needs measurement. Do not compress away unresolved/counterevidence fields or present a partial page as a complete record. Do not add another native family or retrieval framework before the current route can be shown feasible under a declared terminal reserve.
 
 **Evidence:** frozen `max_native_bytes`; `consumer_access.py:native_view/native_page`; retained native payloads; Structured calls 2–11. Synthetic long Structured qualification reads a small native record; it never exercises `read_native_page`.
 
@@ -230,16 +249,20 @@ An additional important scope check is HTTPX `ci-observations/E16-actions-run-an
 
 **Observed:** Raw/Structured changes a representation-and-native-analysis access bundle. Outcomes also depend on discovery, path use, pagination, history packing, citation cost, stopping and inference configuration. The accepted plan already acknowledges the treatment is not serialization alone. The current run cannot distinguish “could not find the evidence” from “could not reason with relevant evidence” with the efficiency needed for the next decision.
 
+Completion affordability **materially confounds the observed Qwen pair**, but the experiment is not simply measuring which arm exhausts the ledger first. Gemma Raw failed navigation/recovery; Gemma Structured completed and still produced unsupported semantic advice. The correct experimental conclusion is therefore that the broad comparison currently mixes controller economics, interface usability, discovery, interpretation and stopping strongly enough that a treatment-effect claim would be uninterpretable.
+
 **Disposition:** select a separate diagnostic ladder, preserving current results as an incomplete development experiment:
 
 1. **Scripted feasibility:** a trusted script traverses actual interfaces and can publish a properly attributed report within the proposed resource contract. This proves route feasibility only.
-2. **Supplied-evidence interpretation:** the same qualified deployment receives a frozen packet of actual relevant source passages, without answers/labels, and must produce scoped conclusions/uncertainty. This removes discovery as a cause and measures interpretation/reporting.
-3. **Discovery with the improved generic interface:** restore navigation and compare delivery/use/support, with the same semantic criteria and adequate completion allowance.
-4. **Paired mechanism comparison:** only then invest in the broader model/treatment matrix when it can discriminate the selected hypothesis.
+2. **Supplied-evidence interpretation:** the same qualified deployment receives a frozen packet of actual relevant source passages, with provenance/scope/uncertainty preserved but without answers or reviewer labels, and must produce scoped conclusions/uncertainty. This removes discovery as a cause and measures interpretation/reporting.
+3. **Discovery with the improved generic interface:** only if interpretation is adequate, restore autonomous navigation and compare delivery/use/support under the same semantic criteria and adequate completion allowance.
+4. **Paired mechanism comparison:** only after the preceding responsibilities are credible should a broader model/treatment matrix be funded to answer a treatment question.
 
-Each step needs a named question and stop/reject condition. Do not add all of them as arms to the existing freeze: interpretation-only packets are explicitly excluded there. A future diagnostic requires a new bounded design decision. Reuse existing source-interpretation/report-review machinery where appropriate, but not old outcomes as new controls.
+Each step needs a named question, bounded resource envelope and predeclared stop/reject consequence. Do not add all of them as arms to the existing freeze: interpretation-only packets are explicitly excluded there. A future diagnostic requires a new bounded design decision. Reuse existing source-interpretation/report-review machinery where appropriate, but not old outcomes as new controls.
 
-If supplied evidence still produces unsupported conclusions, target semantic method/model adequacy. If supplied evidence works but discovery fails, target navigation/evidence selection. If neither can finish, fix the controller before judging either capability.
+**Required diagnostic stopping logic:** before the supplied-evidence diagnostic runs, define what constitutes a materially unacceptable interpretation result and what action follows. If relevant provenance-preserving evidence is supplied directly and the selected deployment still produces decision-critical unsupported advice, promotes uncertainty into reassurance, or otherwise fails the predeclared semantic adequacy gate, **do not spend the next increment optimizing autonomous discovery for that result**. The next decision should target interpretation method/model adequacy or compare a simpler deterministic evidence-preparation plus bounded-interpretation boundary. If supplied-evidence interpretation is adequate but autonomous discovery later fails, localize subsequent work to navigation/evidence selection rather than semantic reasoning. If neither path can finish under the selected resource contract, return to controller/interface feasibility before judging capability.
+
+This is a development stop rule, not a permanent claim that autonomous investigation can never work. A later materially different method may earn a new bounded test. What is prohibited is an open-ended loop of prompt/tool/model changes without a newly declared hypothesis and stopping line.
 
 ### AUDIT-011-F12 — P1 proof limitation: available results cannot support a winner or independent acceptance
 
@@ -289,8 +312,8 @@ The goal is independent proof responsibilities, not a test-count target. Reuse/e
 | P1 continuous stream past monotonic deadline, plus silence | Deadline enforced while messages continue and while no message arrives; bounded cancellation/cleanup | Fake clock/channel controller test, then one charged transport qualification if selected |
 | P1 late success/cancellation race | Distinguish complete trustworthy usage, unknown usage, cancellation request and confirmed termination; no false timeout attribution | Deterministic transport seam |
 | P1 actual `KeyboardInterrupt`, selected signal/exit handling | Conservative usage state and terminal accounting on real exception classes; no implicit continuation | Model wrapper/orchestrator integration; process probe only for the admitted signal contract |
-| P1 report with 0/1/several distinct references near budget limit | Discovery preserves an affordable completion allowance; already generated report is not predictably rejected for unavoidable cost | Trial/controller fixture, including reference growth/omission |
-| P1 actual large native shape with 3+3+2 pages | Material native uncertainty and final supported citations survive traversal within declared resources | Real product/native adapter composition fixture; scripted consumer proves feasibility |
+| P1 report with 0/1/several distinct references near budget limit | Discovery preserves a declared terminal-completion reserve; an admitted discovery step cannot make the selected report package unaffordable | Trial/controller fixture, including reference growth/omission and the selected terminal-pricing rule |
+| P1 actual large native shape with 3+3+2 pages | Material native uncertainty and final supported citations survive traversal within the declared reserve/resource contract | Real product/native adapter composition fixture; scripted consumer proves feasibility |
 | P1 source-relative path error and recovery | Generic tool help/error semantics allow recovery; source problem is not confused with global absence | Adapter/source fixture plus separate behavioral canary if contract changes |
 | P1 plausible semver reassurance contradicted or unsupported by sources | Model preserves declaration/runtime/applicability separation and does not manufacture low-risk advice | Frozen supplied-evidence semantic diagnostic; unit tests cannot prove model judgment |
 | P1 available but unread CI/changelog versus genuinely absent material | Specific uncertainty, accurate availability and useful next work | Catalog/delivery fixture plus semantic diagnostic |
@@ -311,21 +334,40 @@ These are proposed responsibilities, not an activated plan.
 | Resume/repeat the existing broad matrix immediately | More outcomes under a familiar setup | Control/affordability defects, poor localization, high cost; old batch cannot be silently resumed | Not recommended |
 | Add more models or a critic/multi-agent system | More candidate outputs | Existing failures remain confounded; more resource/coordination cost | No present evidence justifies it |
 | Only increase call/token/operation ceilings | May permit longer traces and reports | Repetition, irrelevant evidence and unsupported advice can consume the extra budget | Useful only after feasibility measurements, not as the main repair |
-| Improve generic tools and completion/control, then run a narrow diagnostic | Makes a bounded useful output possible and identifies discovery versus interpretation limits | Still needs future semantic evidence and unseen validation | Recommended next direction |
+| Select run-control correctness, completion-affordability and then a narrow capability diagnostic | Separates deterministic controller proof from contract economics and semantic capability | Still needs future discovery/usability and unseen validation if interpretation passes | Recommended next direction |
 | Replace the entire Workspace/hybrid architecture | Could remove some current machinery | Discards integrity/retention gains without evidence they cause semantic failure | Not justified |
 | Prefer deterministic preparation plus bounded interpretation if discovery adds no value | Simpler candidate architecture and clearer capability boundary | Full adaptive discovery remains deferred; a method comparison must earn adoption | Credible alternative to keep open |
 
-### First decision: controllable and affordable completion
+### Successor responsibility A: run-control correctness
 
-The relevant full responsibility is evidence-backed investigation leading to useful, calibrated advice. The proposed first repair includes monotonic control/cancellation, conservative interrupted usage/terminal accounting, and a report allowance that survives meaningful discovery. It should be proven against a real multi-page evidence shape and generic malformed-path recovery.
+Treat F2/F3 as one coherent run-control responsibility rather than mixing them with evidence-interface redesign. The bounded target is an authoritative monotonic total deadline, explicit cancellation semantics, conservative interrupted/unknown-usage state, and truthful terminal/cleanup accounting. Cancellation request, server termination, complete response, partial prefix and trustworthy usage must remain distinct states.
 
-It temporarily excludes new semantic methods, model selection, new native families and user-benefit claims because those cannot be discriminated while the controller can prevent completion. This narrowing is technically justified by observed failures, not by an easier acceptance target. Re-enter semantics as soon as the existing evidence route can finish under a coherent contract; do not make controller work an open-ended infrastructure program.
+This responsibility should be primarily deterministic. Prove continuous-fragment and silence deadline cases, cancellation/late-success races, actual `KeyboardInterrupt`/selected abrupt-exit handling, cleanup and non-reuse after unknown usage. A charged transport check is warranted only if the selected mechanism requires real SDK behavior to establish its claim. Do not attach semantic prompt/navigation changes merely because the files are nearby.
 
-### Second decision: locate the capability bottleneck
+### Successor responsibility B: completion-affordability contract
 
-Freeze the smallest diagnostic that can answer whether these deployments can interpret a supplied relevant packet correctly. The packet must preserve actual source/capture/runtime uncertainty and contain no desired answer. Judge materially supported conclusions, false confidence and specific useful next work, not JSON or keyword presence. Then test generic discovery separately if interpretation is adequate.
+Treat F1/F5 as a separate contract-design responsibility. Define the terminal product the controller promises to keep affordable, select the citation/report pricing mechanism, and enforce the terminal-reserve invariant **before** admitting each discovery action. Include operations, call availability and any token/deadline reserve that can make completion impossible; do not reserve only termination.
 
-This adds a diagnostic responsibility excluded by the current comparison plan; it therefore requires explicit design selection and protocol reconciliation. It is not an extra untracked arm. If supplied-evidence performance is inadequate, compare a simpler interpretation method or deployment before expanding autonomous discovery. If adequate, improve and compare navigation without calling that an interpretation failure.
+The actual Qwen Raw arithmetic and the glyphsLib 3+3+2 native shape are required regression/feasibility fixtures because they exposed the defect. The proof must show both sides of the contract: meaningful discovery remains possible, and a cited terminal product within the declared allowance remains affordable. Reserving all eligible references, fixed citation packages and intended-reference reservations are alternatives to compare; none is selected by this audit.
+
+Path-address guidance/recovery is related to Investigator usability but is **not part of the same invariant**. It should be selected separately if later evidence says discovery/navigation is the bottleneck. This prevents a controller repair from silently becoming a broad prompt/tool redesign.
+
+### Successor responsibility C: locate the capability bottleneck
+
+Only after the selected controller/affordability responsibilities are credible, freeze the smallest diagnostic that can answer whether the selected deployment can interpret a supplied relevant packet correctly. The packet must preserve actual source/capture/runtime uncertainty and contain no desired answer, solved path or reviewer-only labels. Judge materially supported conclusions, false confidence, treatment of uncertainty and specific useful next work—not JSON shape or keyword presence.
+
+This diagnostic is intentionally different from autonomous discovery. If supplied-evidence interpretation is inadequate under the predeclared semantic gate, **stop spending the next increment on autonomous-discovery optimization** and decide among interpretation-method/model changes or a simpler deterministic evidence-preparation plus bounded-interpretation design. If supplied-evidence interpretation is adequate, autonomous discovery becomes a justified next hypothesis and navigation/tool guidance can be tested separately. If the diagnostic cannot finish under the selected controller contract, that is a controller/interface result, not semantic failure.
+
+Before execution, the successor plan must state:
+
+- the exact question and excluded claims;
+- deterministic fixtures and real-model calls, if any;
+- maximum allowed model-call/resource budget rather than an open-ended tuning loop;
+- the semantic accept/reject criteria and how disagreement is adjudicated;
+- the explicit consequence of failure, success and inconclusive evidence;
+- what evidence permits the next responsibility and what remains prohibited.
+
+The audit does not provide calendar estimates because no implementation mechanism has yet been selected. That is a planning task, not evidence from the audited run. The next plan should nevertheless provide a bounded proof/inference budget and stopping line before authorization.
 
 ### Later decision: useful generality and maintainer value
 
@@ -335,11 +377,13 @@ After the development bottleneck is understood, use a separately frozen unseen c
 
 **Retain:** product-owned evidence/material authority; frozen common inputs; strict request-local typed references; requested/applied runtime checks; exact original and rejected outputs; whole-event omission honesty; separate semantic review; immutable negative/incomplete results and actual cost accounting. These directly serve provenance, measurement and review.
 
-**Improve or simplify:** generic tool guidance and recovery, completion allowance, native delivery shape, repeated descriptor/history cost, monotonic run control, exception-safe terminal accounting, and a compact current experiment contract. Each needs the smallest focused proof that protects its actual responsibility.
+**Improve or simplify when selected:** monotonic run control and interruption accounting; terminal-completion reserve; native delivery shape; generic tool guidance/recovery; repeated descriptor/history cost; and a compact current experiment contract. These are distinct responsibilities and should not be activated as one undifferentiated repair bundle merely because the audit found them together.
 
 **Defer pending a discriminating result:** additional candidate sweeps, more agents/frameworks, stateful transport replacement, broad runtime optimization, new native families, automatic semantic judges, productization and whole-experiment harness migration. Prior code and spent effort are not retention authority; equally, unfamiliar complexity is not evidence it should be deleted.
 
 The independent audit supports retaining the hybrid direction as a candidate while changing the development route. It does not establish that the final product must depend on an autonomous Investigator: if a simpler evidence-preparation plus interpretation method performs better, the Charter's usefulness responsibility should decide.
+
+The incomplete reference-v2 matrix is an immutable development result, **not a suspended batch that should be resumed merely because eight assignments remain**. Any future inference after controller/contract changes is a new explicitly selected protocol with its own freeze and claim boundaries. The completed subset must not be used to rank Raw vs Structured or deployments, and unspent old allowance is not automatic retry budget.
 
 ## 9. Evidence references and limits
 
@@ -350,8 +394,8 @@ The independent audit supports retaining the hybrid direction as a candidate whi
 - Fresh audit [program](../working-memory/evidence/2026-10-18-investigator-independent-audit/offline_audit.py), [results](../working-memory/evidence/2026-10-18-investigator-independent-audit/offline-results.json), and [cycle progression](../working-memory/2026-10-18_investigator-experiments-independent-audit_lbd-cycle.md).
 - External primary corroboration: [LM Studio SDK timeouts](https://lmstudio.ai/docs/python), [cancellation](https://lmstudio.ai/docs/python/llm-prediction/cancelling-predictions), and [SWE-agent's interface study](https://arxiv.org/abs/2405.15793). The latter supports treating the tool/observation interface as a serious engineering variable; its different models/tasks do not prove any proposed UpgradePilot change will work. Recommendations here are inferences from local failures, not imported benchmark guarantees.
 
-Unresolved: counterfactual quality of the interrupted report; intrinsic model competence or comparative ranking; exact unknown token usage; cause of the file-age/monotonic discrepancy; performance of proposed repairs; unseen reliability; independent user benefit. None is filled in by test success, a valid citation, an AI review, or a larger fixture count.
+Unresolved: counterfactual quality of the interrupted report; intrinsic model competence or comparative ranking; exact unknown token usage; cause of the file-age/monotonic discrepancy; performance of proposed repairs; unseen reliability; independent user benefit; and which terminal-pricing/citation-reserve mechanism best balances evidence acquisition with report affordability. None is filled in by test success, a valid citation, an AI review, arithmetic from one path, or a larger fixture count.
 
-**Handoff:** the audit deliverable is complete; recommendations remain unselected. Decide the bounded controller/interface and diagnostic responsibilities before further inference or implementation. The existing semantic cycle is not closed or advanced through D/E by this audit.
+**Handoff:** the audit deliverable, including its completion-invariant and decision-boundary amendment, is complete; recommendations remain unselected. Do **not** resume the eight unattempted semantic assignments, implement a citation-pricing mechanism, modify navigation, run a supplied-evidence diagnostic, add models/agents, or advance semantic-cycle D/E solely because this audit recommends those directions. The next project decision should select a bounded successor responsibility and plan it with explicit proof scope, resource ceiling and stop/reject consequences. The existing semantic cycle remains incomplete at B and its retained results remain immutable evidence.
 
 Procedural provenance: `UP-SKILL:upgradepilot-repository-audit`; `UP-SKILL:upgradepilot-learning-by-doing`; `UP-SKILL:upgradepilot-working-memory`.
