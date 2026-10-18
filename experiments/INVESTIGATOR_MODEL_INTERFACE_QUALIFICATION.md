@@ -45,10 +45,19 @@ No expected next action is supplied. A missing-file result may omit its path; re
 the actual prior arguments is necessary for complete stateless action history.
 No response ID, prior server conversation, model-authored hidden notebook or implicit chat
 history is used. Backend reuse of identical prefix computations does not grant extra
-conversation history. `current-complete-stateless-request/1` allows only references in the
+conversation history. `current-complete-stateless-request/2` allows only references in the
 complete returned observations actually included in this request. Model-authored prior
 requests grant no evidence authority, even when they contain a typed-looking reference.
 Internal native record/delivery/catalog IDs are not delivered typed citation IDs.
+The `/2` adapter carries trusted `(kind,id)` pairs from actual registration through
+whole-event selection. Each candidate pack compiles a closed per-kind citation schema
+for claims, recommendation and notes; repacking rebuilds it before measurement. No-pair
+arrays have `maxItems: 0`. Exact reference IDs and strict host/admission checks remain
+unchanged; source strings and model intent cannot populate this metadata. Returned-event
+envelopes expose factual `typed_citation_available`, preserving original observation text.
+A problem with no typed evidence stays uncitable and may be recorded in existing
+uncertainty/missing-observation fields. Empty/scoped-negative results can still have
+real references. This is eligibility control, not entailment or adequacy evaluation.
 Omitted request/result pairs stay omitted together and record each component's bytes/hash.
 Omitted evidence must be re-read;
 read-back pages retain their `trial_event` strength, not the original source strength.
@@ -63,6 +72,17 @@ model tokenizes that exact rendering. Capacity admission reserves generated toke
 an explicit margin; token overflow removes whole events rather than shortening source
 text. A fixed prompt that cannot fit refuses. This is conservative packing, not an
 optimal-packing algorithm or proof of semantic comprehension.
+
+`complete-fixed-first-request-observation-pairs-with-budget/4` and
+`investigator-request-local-reference-schema/1` identify this presentation/policy.
+Actual requests retain exact typed pairs, derived-schema and packed/rendered hashes.
+New qualification/semantic freezes use `/2`; older results remain historical and unchanged.
+Semantic scheduling requires inverse per-case 1:2 / 2:1 treatment-first counts as well
+as global 3/3 and per-deployment inversion. The semantic freeze names the exact case
+orientation. An append-only `investigator-semantic-admission/1` receipt binds both
+pre-run freezes and all qualification originals after the matrix finishes, without
+rewriting either freeze. Admission rechecks those bytes, known usage and actual
+configuration/prompt/instance correspondence before model loading or output creation.
 
 Original visible response bytes and raw scalar usage/applied configuration are retained
 before strict adapter admission. There is no output coercion, JSON salvage or hidden

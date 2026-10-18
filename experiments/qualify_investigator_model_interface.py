@@ -30,6 +30,7 @@ from experiments.investigator_model_interface import (
 )
 from experiments.investigator_workspace_adapter import InvestigatorAssignment
 from experiments.investigator_workspace_trial import (
+    REFERENCE_SCHEMA_POLICY,
     TrialLimits,
     pack_input,
     protocol_definition,
@@ -116,7 +117,8 @@ $safe = @($items | ForEach-Object {
 def validate_batch_freeze(freeze):
     """Arm selection/order and every assignment are explicit before any SDK load/call."""
     if (
-        freeze["format"] != "investigator-interface-canary-freeze/1"
+        freeze["format"] != "investigator-interface-canary-freeze/2"
+        or freeze.get("reference_schema_policy") != REFERENCE_SCHEMA_POLICY
         or not freeze["preflight_inspected"]
         or not freeze["inference_admitted"]
         or freeze["later_semantic_comparison_admitted"]
@@ -401,6 +403,7 @@ def prepare_profile(
                 "context": model.get_context_length(),
                 "output_tokens": output_tokens,
                 "request_presentation": REQUEST_PRESENTATION,
+                "reference_schema_policy": REFERENCE_SCHEMA_POLICY,
                 "prediction_base_sha256": digest(json_bytes(prediction_base))
                 if prediction_base is not None
                 else None,
@@ -505,6 +508,7 @@ def execute_frozen(sdk, freeze_path, expected_hash, output):
     with sdk.Client("127.0.0.1:18080") as client:
         if client.llm.list_loaded():
             raise ValueError("pre-existing loaded models; no implicit unload")
+        stop_cohort = False
         for deployment in freeze["deployments"]:
             path = Path(deployment["profile_path"])
             data = path.read_bytes()
@@ -617,6 +621,13 @@ def execute_frozen(sdk, freeze_path, expected_hash, output):
                         output / f"{assignment_spec['id']}.summary.json",
                         json_bytes(summaries[-1]),
                     )
+                    # A report-reference refusal is an ordinary known-usage negative.
+                    # Transport/configuration/usage failures are not a tuning opportunity.
+                    stop_cohort = not model_consumer.usage_complete
+                    if stop_cohort or any(
+                        r["outcome"] == "failed" for r in model_consumer.receipts
+                    ):
+                        break
                     if disposition != "qualified" and not freeze.get(
                         "continue_independent_sequences_after_failure", False
                     ):
@@ -639,6 +650,8 @@ def execute_frozen(sdk, freeze_path, expected_hash, output):
             finally:
                 if model is not None:
                     model.unload()
+            if stop_cohort:
+                break
     completed_ids = {item["assignment"]["id"] for item in summaries}
     for assignment in freeze["assignments"]:
         if assignment["id"] not in completed_ids:

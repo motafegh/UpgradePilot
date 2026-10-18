@@ -10,11 +10,14 @@ from __future__ import annotations
 
 import hashlib
 import time
+from copy import deepcopy
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
 from experiments.investigator_workspace_adapter import (
     CONTRACT,
+    KINDS,
+    REFERENCE,
     REPORT_SCHEMA,
     SYSTEM_PROMPT,
     AdapterEvent,
@@ -61,12 +64,59 @@ TOOL_CHARGES = {
     "finish_investigation": 3,
 }
 
+REFERENCE_SCHEMA_POLICY = "investigator-request-local-reference-schema/1"
+
+
+def closed_reference_array(pairs):
+    """Select exact delivered typed pairs, never a kind/ID Cartesian product.
+
+    Packing supplies trusted producer metadata. Text in observations or prior requests
+    is deliberately not parsed to create options. The adapter still owns admission.
+    """
+    groups = {}
+    identities = {}
+    for pair in pairs:
+        if (
+            type(pair) is not tuple
+            or len(pair) != 2
+            or pair[0] not in KINDS
+            or type(pair[1]) is not str
+            or not pair[1]
+            or identities.get(pair[1], pair[0]) != pair[0]
+        ):
+            raise ValueError("invalid or ambiguous trusted reference metadata")
+        kind, identity = pair
+        identities[identity] = kind
+        groups.setdefault(kind, set()).add(identity)
+    schema = {"type": "array", "maxItems": 128}
+    if not groups:
+        return {**schema, "maxItems": 0, "items": deepcopy(REFERENCE)}
+    schema["items"] = {
+        "anyOf": [
+            {
+                "type": "object",
+                "properties": {
+                    "kind": {"type": "string", "enum": [kind]},
+                    "id": {"type": "string", "enum": sorted(groups[kind])},
+                },
+                "required": ["kind", "id"],
+                "additionalProperties": False,
+            }
+            for kind in sorted(groups)
+        ]
+    }
+    return schema
+
 
 @dataclass(frozen=True)
 class PackedInput:
     content: bytes
-    reference_ids: frozenset[str]
+    reference_pairs: frozenset[tuple[str, str]]
     omitted_event_ids: tuple[str, ...]
+
+    @property
+    def reference_ids(self):
+        return frozenset(identity for _, identity in self.reference_pairs)
 
 
 def trial_budget_observation(limits, charges, seconds_remaining):
@@ -114,6 +164,7 @@ def protocol_definition(
     """Exact prompts/schemas/packing/charging; context tokens are not inferred from bytes."""
     return {
         "contract": CONTRACT,
+        "reference_schema_policy": REFERENCE_SCHEMA_POLICY,
         "system": SYSTEM_PROMPT,
         "task": {
             "target": asdict(assignment.host.current.boundary.target),
@@ -150,6 +201,16 @@ def pack_input(
     selected = []
 
     def render(events):
+        pairs = frozenset(pair for event in events for pair in event.reference_pairs)
+        citations = closed_reference_array(pairs)
+        report_schema = deepcopy(protocol["report_schema"])
+        report_schema["properties"]["claims"]["items"]["properties"]["evidence"] = (
+            citations
+        )
+        report_schema["properties"]["recommendation_evidence"] = citations
+        tools = deepcopy(protocol["tools"]) if phase == "investigate" else {}
+        if "record_note" in tools:
+            tools["record_note"]["properties"]["evidence"] = citations
         ids = {e.event_id for e in events}
         omitted = [
             {
@@ -168,15 +229,17 @@ def pack_input(
         ]
         body = {
             "contract": CONTRACT,
+            "reference_schema_policy": REFERENCE_SCHEMA_POLICY,
             "system": protocol["system"],
             "task": protocol["task"],
             "phase": phase,
-            "tools": protocol["tools"] if phase == "investigate" else {},
-            "report_schema": protocol["report_schema"],
+            "tools": tools,
+            "report_schema": report_schema,
             "budget_observation": protocol["budget_observation"],
             "events": [
                 {
                     "event_id": e.event_id,
+                    "typed_citation_available": bool(e.reference_pairs),
                     "request_text": e.request_text,
                     "content": e.content.decode(),
                 }
@@ -196,7 +259,7 @@ def pack_input(
             "fixed prompt/tool/schema/omission metadata exceeds input byte envelope"
         )
     return PackedInput(
-        content, frozenset(r for e in selected for r in e.reference_ids), omitted
+        content, frozenset(r for e in selected for r in e.reference_pairs), omitted
     )
 
 

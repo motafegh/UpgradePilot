@@ -29,7 +29,7 @@ from upgradepilot.workspace.source_access import (
     source_reference_was_delivered,
 )
 
-CONTRACT = "investigator-contract2-workspace/1"
+CONTRACT = "investigator-contract2-workspace/2"
 NATIVE_FAMILIES = (
     "investigation_inputs",
     "ci_inputs",
@@ -214,13 +214,17 @@ class EvidenceReference:
 class AdapterEvent:
     event_id: str
     content: bytes
-    reference_ids: tuple[str, ...]
+    reference_pairs: tuple[tuple[str, str], ...]
     outcome: str
     elapsed_seconds: float
     access_receipts: tuple
     # Original model-authored intent, never a delivered observation/reference.
     # None explicitly marks unavailable/non-UTF8 legacy or malformed input.
     request_text: str | None = None
+
+    @property
+    def reference_ids(self):
+        return tuple(identity for _, identity in self.reference_pairs)
 
 
 class InvestigatorAssignment:
@@ -373,7 +377,7 @@ class InvestigatorAssignment:
         event = AdapterEvent(
             identity,
             json_bytes(result),
-            tuple(ref.id for ref in refs),
+            tuple((ref.kind, ref.id) for ref in refs),
             outcome,
             time.monotonic() - started,
             self.access.receipts[before:],

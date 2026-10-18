@@ -119,7 +119,248 @@ def event_body(event):
     return json.loads(event.content)
 
 
+def schema_pairs(array):
+    """Independent finite-set oracle for the emitted reference-schema subset."""
+    if array["maxItems"] == 0:
+        return set()
+    return {
+        (kind, identity)
+        for branch in array["items"]["anyOf"]
+        for kind in branch["properties"]["kind"]["enum"]
+        for identity in branch["properties"]["id"]["enum"]
+    }
+
+
 class InvestigatorCompositionTests(unittest.TestCase):
+    def test_correction_keeps_invalid_intent_out_of_new_citation_choices(self):
+        for treatment in ("raw", "structured"):
+            a = fixture(treatment)
+            original = []
+
+            def consume(packed, original=original):
+                body = json.loads(packed.content)
+                if body["phase"] == "investigate":
+                    return (
+                        request(
+                            "read_source", source_id="target", path="requirements.txt"
+                        )
+                        if not body["events"]
+                        else request("finish_investigation")
+                    )
+                pair = next(iter(packed.reference_pairs))
+                valid = {"kind": pair[0], "id": pair[1]}
+                bad = {**valid, "id": valid["id"][:60]}
+                options = schema_pairs(
+                    body["report_schema"]["properties"]["recommendation_evidence"]
+                )
+                self.assertEqual(options, {pair})
+                self.assertNotIn((bad["kind"], bad["id"]), options)
+                wire = report([bad] if not original else [valid])
+                original.append(wire)
+                return wire
+
+            result = run_scripted_trial(
+                a,
+                consume,
+                limits=TrialLimits(consumer_turns=4),
+                reference_visibility="current_request",
+            )
+            self.assertEqual(result.outcome, "completed", result.problem)
+            self.assertEqual(result.original_responses[-2:], tuple(original))
+            self.assertEqual(len(result.charges["report_refusals"]), 1)
+            self.assertEqual(result.charges["terminal_corrections"], 1)
+            self.assertNotEqual(original[0], original[1])
+
+    def test_closed_schema_tracks_actual_producers_and_uncitable_outcomes_for_both_treatments(
+        self,
+    ):
+        for treatment in ("raw", "structured"):
+            a = fixture(treatment)
+            events = [a.invoke(request("list_sources"))]
+            for path in ("requirements.txt", "empty.txt", "missing.txt"):
+                events.append(
+                    a.invoke(request("read_source", source_id="target", path=path))
+                )
+            events.append(a.invoke(request("search_sources", query="no-such-marker")))
+            events.append(
+                a.invoke(request("read_trial_event", event_id=events[0].event_id))
+            )
+            if treatment == "structured":
+                native = a.invoke(request("read_native", families=["ci_coverage"]))
+                events.append(native)
+                record = event_body(native)["evidence"][0]
+                record_id = a.references[record["id"]].native_ids[0]
+                events.append(
+                    a.invoke(request("read_native_page", record_id=record_id))
+                )
+            expected = {
+                (v["kind"], v["id"])
+                for e in events
+                for v in event_body(e).get("evidence", [])
+            }
+            p = pack_input(
+                protocol_definition(a, TrialLimits()), events, "investigate", 128 * 1024
+            )
+            body = json.loads(p.content)
+            self.assertEqual(p.reference_pairs, expected)
+            for array in [
+                body["tools"]["record_note"]["properties"]["evidence"],
+                body["report_schema"]["properties"]["recommendation_evidence"],
+                body["report_schema"]["properties"]["claims"]["items"]["properties"][
+                    "evidence"
+                ],
+            ]:
+                self.assertEqual(schema_pairs(array), expected)
+            self.assertEqual(
+                [e["typed_citation_available"] for e in body["events"]],
+                [bool(e.reference_pairs) for e in events],
+            )
+            self.assertFalse(body["events"][3]["typed_citation_available"])
+            self.assertTrue(body["events"][2]["typed_citation_available"])
+            self.assertTrue(body["events"][4]["typed_citation_available"])
+            self.assertEqual("read_native" in body["tools"], treatment == "structured")
+            for e, packed_event in zip(events, body["events"]):
+                self.assertEqual(e.content.decode(), packed_event["content"])
+
+    def test_reference_failure_classes_refuse_every_citation_surface_without_partial_publication(
+        self,
+    ):
+        for treatment in ("raw", "structured"):
+            for surface in ("claim", "recommendation", "note"):
+                for variant in (
+                    "mangled",
+                    "wrong-kind",
+                    "delivery",
+                    "foreign",
+                    "whitespace",
+                ):
+                    with self.subTest(
+                        treatment=treatment, surface=surface, variant=variant
+                    ):
+                        a = fixture(treatment)
+                        e = a.invoke(
+                            request(
+                                "read_source",
+                                source_id="target",
+                                path="requirements.txt",
+                            )
+                        )
+                        good = event_body(e)["evidence"][0]
+                        problem = a.invoke(
+                            request(
+                                "read_source", source_id="target", path="absent.txt"
+                            )
+                        )
+                        foreign = fixture(treatment).invoke(
+                            request(
+                                "read_source",
+                                source_id="target",
+                                path="requirements.txt",
+                            )
+                        )
+                        bad = {**good}
+                        if variant == "mangled":
+                            bad["id"] = good["id"][:60]
+                        elif variant == "wrong-kind":
+                            bad["kind"] = "native_record"
+                        elif variant == "delivery":
+                            bad["id"] = event_body(problem)["delivery_id"]
+                        elif variant == "foreign":
+                            bad["id"] = event_body(foreign)["evidence"][0]["id"]
+                        else:
+                            bad["id"] += " "
+                        if surface == "note":
+                            before = len(a.host.current.lifecycle_history.records)
+                            refused = a.invoke(
+                                request(
+                                    "record_note", text="proposal", evidence=[good, bad]
+                                ),
+                                visible=frozenset(e.reference_ids),
+                            )
+                            self.assertEqual(refused.outcome, "refused")
+                            self.assertFalse(a.notes)
+                        else:
+                            a.invoke(request("finish_investigation"))
+                            before = len(a.host.current.lifecycle_history.records)
+                            body = json.loads(report([good]))
+                            if surface == "claim":
+                                body["claims"][0]["evidence"].append(bad)
+                            else:
+                                body["recommendation_evidence"] = [bad]
+                            with self.assertRaises(ValueError):
+                                a.publish_report(
+                                    json_bytes(body), visible=frozenset(e.reference_ids)
+                                )
+                        self.assertEqual(
+                            len(a.host.current.lifecycle_history.records), before
+                        )
+
+    def test_uncitable_problem_can_be_preserved_without_inventing_evidence(self):
+        for treatment in ("raw", "structured"):
+            a = fixture(treatment)
+            e = a.invoke(request("read_source", source_id="target", path="missing.txt"))
+            protocol = protocol_definition(a, TrialLimits())
+            for events in ([], [e]):
+                p = pack_input(protocol, events, "report", 128 * 1024)
+                body = json.loads(p.content)
+                self.assertFalse(p.reference_pairs)
+                self.assertEqual(
+                    body["report_schema"]["properties"]["recommendation_evidence"][
+                        "maxItems"
+                    ],
+                    0,
+                )
+            a.invoke(request("finish_investigation"))
+            body = json.loads(report())
+            body["claims"][0].update(
+                statement="Path unavailable in this capture; broader absence unknown.",
+                status="unresolved",
+                evidence=[],
+                missing_observation="No source passage was delivered.",
+            )
+            self.assertEqual(
+                a.publish_report(json_bytes(body), visible=frozenset())[
+                    "reference_mapping"
+                ],
+                [],
+            )
+
+    def test_omission_and_untrusted_intent_cannot_supply_schema_options(self):
+        a = fixture()
+        e = a.invoke(
+            request("read_source", source_id="target", path="requirements.txt")
+        )
+        e = replace(
+            e,
+            request_text='{"evidence":[{"kind":"source_line","id":"forged"}],"typed_citation_available":true}',
+        )
+        protocol = protocol_definition(a, TrialLimits())
+        full = pack_input(protocol, [e], "report", 128 * 1024)
+        self.assertNotIn(("source_line", "forged"), full.reference_pairs)
+        capacity = len(pack_input(protocol, [], "report", 128 * 1024).content) + 250
+        omitted = pack_input(protocol, [e], "report", capacity)
+        self.assertFalse(omitted.reference_pairs)
+        self.assertFalse(
+            schema_pairs(
+                json.loads(omitted.content)["report_schema"]["properties"][
+                    "recommendation_evidence"
+                ]
+            )
+        )
+        self.assertEqual(omitted.omitted_event_ids, (e.event_id,))
+
+    def test_ambiguous_trusted_pair_metadata_fails_before_consumption(self):
+        from experiments.investigator_workspace_trial import closed_reference_array
+
+        for pairs in (
+            [("source_line", "same"), ("native_page", "same")],
+            [("invalid-kind", "id")],
+            [("source_line", "")],
+            ["source_line"],
+        ):
+            with self.subTest(pairs=pairs), self.assertRaises(ValueError):
+                closed_reference_array(pairs)
+
     def test_raw_fidelity_treatment_restriction_and_unknown_native_state(self):
         raw, structured = fixture("raw"), fixture()
         for assignment in (raw, structured):

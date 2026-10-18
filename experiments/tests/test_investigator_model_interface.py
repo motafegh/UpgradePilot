@@ -109,6 +109,48 @@ def config(**options):
 
 
 class ModelInterfaceTests(unittest.TestCase):
+    def test_nonempty_citation_schema_is_exact_in_runtime_configuration(self):
+        from experiments.investigator_model_interface import fields
+        from experiments.investigator_workspace_trial import pack_input
+        from experiments.tests.test_investigator_workspace_trial import schema_pairs
+
+        for treatment in ("raw", "structured"):
+            a = fixture(treatment)
+            e = a.invoke(
+                request("read_source", source_id="target", path="requirements.txt")
+            )
+            problem = a.invoke(
+                request("read_source", source_id="target", path="missing.txt")
+            )
+            for phase in ("investigate", "report"):
+                p = pack_input(
+                    protocol_definition(a, TrialLimits()),
+                    [e, problem],
+                    phase,
+                    128 * 1024,
+                )
+                measured = measure_input(Binding(), p, config())
+                schema = fields(measured.configuration["layers"][0]["config"])[
+                    "llm.prediction.structured"
+                ]["jsonSchema"]
+                if phase == "report":
+                    self.assertEqual(
+                        schema_pairs(schema["properties"]["recommendation_evidence"]),
+                        p.reference_pairs,
+                    )
+                else:
+                    note = next(
+                        b
+                        for b in schema["anyOf"]
+                        if b["properties"]["tool"]["enum"] == ["record_note"]
+                    )
+                    self.assertEqual(
+                        schema_pairs(
+                            note["properties"]["arguments"]["properties"]["evidence"]
+                        ),
+                        p.reference_pairs,
+                    )
+
     def test_token_repacking_keeps_one_budget_snapshot_and_drops_omitted_authority(
         self,
     ):
@@ -226,7 +268,9 @@ class ModelInterfaceTests(unittest.TestCase):
 
     def test_complete_render_and_reference_loss_refuse_without_prediction(self):
         binding = Binding()
-        p = PackedInput(packed().content, frozenset({"undelivered"}), ())
+        p = PackedInput(
+            packed().content, frozenset({("source_line", "undelivered")}), ()
+        )
         with self.assertRaisesRegex(ValueError, "lost an eligible"):
             measure_input(binding, p, config())
         binding.render = lambda *args: "truncated"
@@ -289,7 +333,7 @@ class ModelInterfaceTests(unittest.TestCase):
                 ["system", "user"],
             )
             self.assertEqual(
-                artifact["reference_policy"], "current-complete-stateless-request/1"
+                artifact["reference_policy"], "current-complete-stateless-request/2"
             )
             self.assertEqual(
                 (model.directory / "call-01.visible-response.txt").read_bytes(),
@@ -494,6 +538,176 @@ class ModelInterfaceTests(unittest.TestCase):
 
 
 class QualificationFreezeTests(unittest.TestCase):
+    def test_unknown_usage_stops_the_entire_frozen_qualification_cohort(self):
+        from types import SimpleNamespace
+        from unittest.mock import patch
+
+        from experiments.qualify_investigator_model_interface import (
+            code_hashes,
+            digest,
+            execute_frozen,
+        )
+
+        loaded = []
+        binding = Binding()
+        binding.edit = lambda meta: meta["stats"].pop("predictedTokensCount")
+        keys = ["gemma-4-e2b-it", "gemma-4-e4b-it-ud"]
+
+        class Download:
+            def __init__(self, key):
+                self.model_key = key
+
+            def load_new_instance(self, **kwargs):
+                loaded.append(self.model_key)
+                return SimpleNamespace(unload=lambda: None)
+
+        class Client:
+            def __init__(self, *args):
+                self.llm = SimpleNamespace(
+                    list_loaded=list,
+                    list_downloaded=lambda: [Download(k) for k in keys],
+                )
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                return False
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            deployments = []
+            for n, k in enumerate(keys):
+                profile = {
+                    "model_key": k,
+                    "identifier": str(n),
+                    "requested_load": {},
+                    "prediction_configuration": config(),
+                    "tokenizer_policy": {},
+                    "context": 10000,
+                    "initial_identity": binding.identity(),
+                }
+                content = json_bytes(profile)
+                path = root / f"profile-{n}.json"
+                path.write_bytes(content)
+                deployments.append(
+                    {
+                        "model_key": k,
+                        "profile_path": str(path),
+                        "profile_sha256": digest(content),
+                    }
+                )
+            freeze = {
+                "format": "investigator-interface-canary-freeze/2",
+                "reference_schema_policy": "investigator-request-local-reference-schema/1",
+                "preflight_inspected": True,
+                "inference_admitted": True,
+                "later_semantic_comparison_admitted": False,
+                "deployments": deployments,
+                "deployment_count": 2,
+                "max_model_calls": 48,
+                "calls_per_sequence": 6,
+                "prior_spent_calls": 0,
+                "cycle_call_ceiling": 48,
+                "assignments": [
+                    {
+                        "id": f"{n}-{t}-{s}",
+                        "model_key": k,
+                        "treatment": t,
+                        "sequence": s,
+                    }
+                    for n, k in enumerate(keys)
+                    for s in (1, 2)
+                    for t in ("raw", "structured")
+                ],
+                "code_sha256": code_hashes(),
+                "immutable_files": [],
+                "continue_independent_sequences_after_failure": True,
+            }
+            content = json_bytes(freeze)
+            path = root / "freeze.json"
+            path.write_bytes(content)
+            with (
+                patch(
+                    "experiments.qualify_investigator_model_interface.SDKBinding",
+                    return_value=binding,
+                ),
+                patch(
+                    "experiments.qualify_investigator_model_interface.observe_owned_backend",
+                    return_value={},
+                ),
+                patch(
+                    "experiments.qualify_investigator_model_interface.validate_loaded_backend"
+                ),
+            ):
+                rows = execute_frozen(
+                    SimpleNamespace(Client=Client),
+                    path,
+                    digest(content),
+                    root / "results",
+                )
+            self.assertEqual(loaded, [keys[0]])
+            self.assertEqual(binding.calls, 1)
+            self.assertEqual(sum(r["model_attempts"] for r in rows), 1)
+            self.assertFalse(rows[0]["usage_complete"])
+            self.assertTrue(
+                all(r["disposition"] == "withheld_before_call" for r in rows[1:])
+            )
+
+    def test_all_pair_first_patterns_enforce_inverse_case_balance(self):
+        from itertools import product
+
+        from experiments.run_investigator_semantic_comparison import (
+            validate_case_balance,
+            validate_schedule,
+        )
+
+        accepted = []
+        for bits in product((False, True), repeat=6):
+            rows = []
+            for m in range(3):
+                for c in range(2):
+                    first = "raw" if bits[2 * m + c] else "structured"
+                    for t in (first, "structured" if first == "raw" else "raw"):
+                        rows.append(
+                            {
+                                "id": f"{m}-{c}-{t}",
+                                "model_key": str(m),
+                                "case_id": str(c),
+                                "treatment": t,
+                            }
+                        )
+            valid = all(bits[2 * m] != bits[2 * m + 1] for m in range(3)) and sum(
+                bits[2 * m] for m in range(3)
+            ) in (1, 2)
+            if valid:
+                validate_schedule(rows, ["0", "1", "2"], ["0", "1"])
+                counts = {
+                    str(c): sum(bits[2 * m + c] for m in range(3)) for c in range(2)
+                }
+                balance = {
+                    "format": "investigator-semantic-treatment-first-balance/1",
+                    "raw_first_by_case": counts,
+                }
+                validate_case_balance(rows, ["0", "1"], balance)
+                with self.assertRaisesRegex(ValueError, "named-case"):
+                    validate_case_balance(
+                        rows,
+                        ["0", "1"],
+                        {
+                            **balance,
+                            "raw_first_by_case": {
+                                "0": 3 - counts["0"],
+                                "1": 3 - counts["1"],
+                            },
+                        },
+                    )
+                accepted.append(bits)
+            else:
+                with self.assertRaises(ValueError):
+                    validate_schedule(rows, ["0", "1", "2"], ["0", "1"])
+        self.assertEqual(len(accepted), 6)
+
     def test_semantic_schedule_requires_every_pair_and_balanced_first_treatments(self):
         from experiments.run_investigator_semantic_comparison import validate_schedule
 
@@ -519,18 +733,26 @@ class QualificationFreezeTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "unbalanced"):
             validate_schedule(biased, ["0", "1", "2"], ["0", "1"])
 
-    def test_semantic_admission_rejects_failed_matrix_and_different_profile(self):
+    def test_semantic_admission_binds_original_calls_results_profiles_and_receipt(self):
+        from unittest.mock import patch
+
         from experiments.qualify_investigator_model_interface import code_hashes, digest
         from experiments.run_investigator_semantic_comparison import (
+            create_admission_receipt,
             require_qualification,
         )
 
+        policy = "investigator-request-local-reference-schema/1"
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
+            results = root / "results"
+            results.mkdir()
             assignment = {"id": "new-raw-short", "model_key": "point"}
             deployments = [{"model_key": "point", "profile_sha256": "exact"}]
             content = json_bytes(
                 {
+                    "format": "investigator-interface-canary-freeze/2",
+                    "reference_schema_policy": policy,
                     "code_sha256": code_hashes(),
                     "assignments": [assignment],
                     "deployments": deployments,
@@ -539,38 +761,99 @@ class QualificationFreezeTests(unittest.TestCase):
             (root / "freeze.json").write_bytes(content)
             freeze = {
                 "deployments": deployments,
+                "reference_schema_policy": policy,
+                "admission_receipt": {
+                    "path": str(root / "admit.json"),
+                    "index_path": str(root / "index.json"),
+                },
                 "interface_qualification": {
                     "freeze_path": str(root / "freeze.json"),
                     "freeze_sha256": digest(content),
-                    "results_root": str(root),
+                    "results_root": str(results),
                 },
             }
-            (root / "summary.json").write_bytes(
-                json_bytes(
-                    {
-                        "assignments": [
-                            {"assignment": assignment, "disposition": "withheld"}
-                        ]
-                    }
+            row = {"assignment": assignment, "disposition": "withheld"}
+
+            def write_summary():
+                (results / "summary.json").write_bytes(
+                    json_bytes({"assignments": [row]})
                 )
-            )
+
+            write_summary()
             with self.assertRaisesRegex(ValueError, "matrix did not qualify"):
-                require_qualification(freeze)
-            (root / "summary.json").write_bytes(
-                json_bytes(
-                    {
-                        "assignments": [
-                            {"assignment": assignment, "disposition": "qualified"}
-                        ]
-                    }
-                )
+                require_qualification(freeze, "semantic-hash")
+            binding = Binding()
+            model = StatelessInvestigatorModel(
+                binding,
+                config(),
+                ModelLimits(context=10000),
+                results / assignment["id"],
             )
-            require_qualification(freeze)
+            model(packed())
+            row.update(
+                disposition="qualified",
+                usage_complete=True,
+                outcome="completed",
+                model_attempts=1,
+                known_input_tokens=10,
+                known_generated_tokens=3,
+            )
+            write_summary()
+            with self.assertRaises(FileNotFoundError):
+                require_qualification(freeze, "semantic-hash")
+            with patch(
+                "experiments.run_investigator_semantic_comparison.verify_freeze",
+                return_value=(freeze, {}),
+            ):
+                self.assertEqual(
+                    create_admission_receipt(root / "semantic.json", "semantic-hash")[
+                        "disposition"
+                    ],
+                    "permitted",
+                )
+                with self.assertRaises(FileExistsError):
+                    create_admission_receipt(root / "semantic.json", "semantic-hash")
+            require_qualification(freeze, "semantic-hash")
+            with self.assertRaisesRegex(ValueError, "receipt/artifact mismatch"):
+                require_qualification(freeze, "foreign-freeze-hash")
+            (results / "unexpected.txt").write_text("new artifact")
+            with self.assertRaisesRegex(ValueError, "receipt/artifact mismatch"):
+                require_qualification(freeze, "semantic-hash")
+            (results / "unexpected.txt").unlink()
             freeze["deployments"] = [
                 {"model_key": "point", "profile_sha256": "different"}
             ]
             with self.assertRaisesRegex(ValueError, "profile/configuration mismatch"):
-                require_qualification(freeze)
+                require_qualification(freeze, "semantic-hash")
+            freeze["deployments"] = deployments
+            mp = results / assignment["id"] / "call-01.metadata.json"
+            meta = json.loads(mp.read_bytes())
+            meta["modelInfo"]["instanceReference"] = "foreign"
+            mp.write_bytes(json_bytes(meta))
+            with self.assertRaisesRegex(ValueError, "artifact/configuration mismatch"):
+                require_qualification(freeze, "semantic-hash")
+            from types import SimpleNamespace
+
+            from experiments.run_investigator_semantic_comparison import (
+                execute_comparison,
+            )
+
+            with (
+                patch(
+                    "experiments.run_investigator_semantic_comparison.verify_freeze",
+                    return_value=(freeze, {}),
+                ),
+                self.assertRaises(ValueError),
+            ):
+                execute_comparison(
+                    SimpleNamespace(
+                        Client=lambda *args: self.fail("must not load before admission")
+                    ),
+                    root / "semantic.json",
+                    "semantic-hash",
+                    root / "semantic-output",
+                )
+            self.assertFalse((root / "semantic-output").exists())
 
     def test_loaded_template_without_prediction_stop_field_is_preserved(self):
         from experiments.investigator_model_interface import fields
@@ -605,7 +888,8 @@ class QualificationFreezeTests(unittest.TestCase):
 
         keys = list(CANDIDATES)
         freeze = {
-            "format": "investigator-interface-canary-freeze/1",
+            "format": "investigator-interface-canary-freeze/2",
+            "reference_schema_policy": "investigator-request-local-reference-schema/1",
             "preflight_inspected": True,
             "inference_admitted": True,
             "later_semantic_comparison_admitted": False,
@@ -740,7 +1024,8 @@ class QualificationFreezeTests(unittest.TestCase):
                     }
                 )
             freeze = {
-                "format": "investigator-interface-canary-freeze/1",
+                "format": "investigator-interface-canary-freeze/2",
+                "reference_schema_policy": "investigator-request-local-reference-schema/1",
                 "preflight_inspected": True,
                 "inference_admitted": True,
                 "later_semantic_comparison_admitted": False,
@@ -857,13 +1142,17 @@ class QualificationFreezeTests(unittest.TestCase):
                     "llm.prediction.structured"
                 ]["jsonSchema"]
                 if phase == "report":
-                    self.assertEqual(schema, protocol["report_schema"])
+                    self.assertEqual(
+                        schema, json.loads(measured.packed.content)["report_schema"]
+                    )
                 else:
                     menus = {
                         v["properties"]["tool"]["enum"][0]: v["properties"]["arguments"]
                         for v in schema["anyOf"]
                     }
-                    self.assertEqual(menus, assignment.tools())
+                    self.assertEqual(
+                        menus, json.loads(measured.packed.content)["tools"]
+                    )
                     self.assertEqual("read_native" in menus, treatment == "structured")
         self.assertNotIn(
             "llm.prediction.structured", fields(config()["layers"][0]["config"])

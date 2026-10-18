@@ -25,14 +25,15 @@ from dataclasses import dataclass, replace
 from pathlib import Path
 
 from experiments.investigator_workspace_trial import (
+    REFERENCE_SCHEMA_POLICY,
     PackedInput,
     pack_input,
     run_scripted_trial,
 )
 from upgradepilot.workspace.native_representation import json_bytes
 
-REFERENCE_POLICY = "current-complete-stateless-request/1"
-REQUEST_PRESENTATION = "complete-fixed-first-request-observation-pairs-with-budget/3"
+REFERENCE_POLICY = "current-complete-stateless-request/2"
+REQUEST_PRESENTATION = "complete-fixed-first-request-observation-pairs-with-budget/4"
 WIRE_INSTRUCTION = """Return exactly one JSON object, without markdown or commentary.
 For phase investigate return {\"tool\": an offered name, \"arguments\": its schema object}.
 For phase report return the entire report_schema object. All state is explicit in this
@@ -43,6 +44,11 @@ reference authority.
 Copy the delivered typed reference kind/id; internal native record, delivery and catalog
 IDs are not citation references. Use read_trial_event or re-read sources to recover
 omitted evidence before citing it.
+Citation arrays select only the exact typed pairs offered by this request's schema.
+typed_citation_available=false means that observation supplies no typed citation.
+Delivery IDs are not substitutes. Preserve unavailable/problem capture limits in the
+existing missing-observation, uncertainty or unexamined fields, with empty evidence
+where appropriate. Do not invent a source citation or infer global absence.
 """
 
 
@@ -560,6 +566,15 @@ class StatelessInvestigatorModel:
             "messages": measured.messages,
             "configuration": measured.configuration,
             "reference_policy": REFERENCE_POLICY,
+            "reference_schema_policy": REFERENCE_SCHEMA_POLICY,
+            "reference_pairs": sorted(packed.reference_pairs),
+            "derived_schema_sha256": digest(
+                json_bytes(
+                    fields(measured.configuration["layers"][0]["config"])[
+                        "llm.prediction.structured"
+                    ]["jsonSchema"]
+                )
+            ),
             "request_presentation": REQUEST_PRESENTATION,
             "packed_input_sha256": digest(packed.content),
             "references": sorted(packed.reference_ids),

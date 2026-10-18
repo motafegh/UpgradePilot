@@ -18,12 +18,17 @@ from experiments.investigator_model_interface import (
     SDKBinding,
     StatelessInvestigatorModel,
     digest,
+    fields,
     import_isolated_sdk,
     private_write,
     run_model_trial,
 )
 from experiments.investigator_workspace_adapter import InvestigatorAssignment
-from experiments.investigator_workspace_trial import TrialLimits, protocol_definition
+from experiments.investigator_workspace_trial import (
+    REFERENCE_SCHEMA_POLICY,
+    TrialLimits,
+    protocol_definition,
+)
 from experiments.qualify_investigator_model_interface import (
     code_hashes,
     observe_owned_backend,
@@ -98,15 +103,42 @@ def validate_schedule(assignments, model_keys, case_ids):
         for m in model_keys
     ):
         raise ValueError("unbalanced treatment-first schedule")
+    if sorted(sum(firsts[m, c] == "raw" for m in model_keys) for c in case_ids) != [
+        1,
+        2,
+    ]:
+        raise ValueError("unbalanced per-case treatment-first schedule")
 
 
-def require_qualification(freeze):
+def validate_case_balance(assignments, case_ids, balance):
+    """The immutable manifest names which case receives each inverse orientation."""
+    firsts = {}
+    for row in assignments:
+        firsts.setdefault((row["model_key"], row["case_id"]), row["treatment"])
+    if balance.get(
+        "format"
+    ) != "investigator-semantic-treatment-first-balance/1" or balance.get(
+        "raw_first_by_case"
+    ) != {
+        c: sum(t == "raw" for (_, case), t in firsts.items() if case == c)
+        for c in case_ids
+    }:
+        raise ValueError("named-case treatment-first balance mismatch")
+
+
+def read_qualified_matrix(freeze):
     """All selected points must finish the newly bound matrix; no arm fallback."""
     spec = freeze["interface_qualification"]
     content = Path(spec["freeze_path"]).read_bytes()
     if digest(content) != spec["freeze_sha256"]:
         raise ValueError("qualification freeze drift")
     qualification = json.loads(content)
+    if (
+        qualification.get("format") != "investigator-interface-canary-freeze/2"
+        or qualification.get("reference_schema_policy") != REFERENCE_SCHEMA_POLICY
+        or freeze.get("reference_schema_policy") != REFERENCE_SCHEMA_POLICY
+    ):
+        raise ValueError("qualification reference contract mismatch")
     if qualification["code_sha256"] != code_hashes():
         raise ValueError("qualification belongs to different source")
     rows = json.loads((Path(spec["results_root"]) / "summary.json").read_bytes())[
@@ -115,10 +147,12 @@ def require_qualification(freeze):
     wanted = {a["id"]: a for a in qualification["assignments"]}
     if (
         len(rows) != len(wanted)
-        or {r["assignment"]["id"] for r in rows} != set(wanted)
+        or [r["assignment"] for r in rows] != qualification["assignments"]
         or any(
             r["assignment"] != wanted[r["assignment"]["id"]]
             or r["disposition"] != "qualified"
+            or not r.get("usage_complete")
+            or r.get("outcome") != "completed"
             for r in rows
         )
     ):
@@ -127,6 +161,133 @@ def require_qualification(freeze):
         )
     if qualification["deployments"] != freeze["deployments"]:
         raise ValueError("qualification profile/configuration mismatch")
+    root = Path(spec["results_root"])
+    for row in rows:
+        verified = verify_call_artifacts(root / row["assignment"]["id"])
+        if verified != (
+            row["model_attempts"],
+            row["known_input_tokens"],
+            row["known_generated_tokens"],
+        ):
+            raise ValueError("qualification accounting/receipt mismatch")
+    return rows
+
+
+def verify_call_artifacts(directory):
+    """Recheck retained actual usage/configuration, without rerunning a prediction."""
+    receipts = sorted(directory.glob("call-*.receipt.json"))
+    if not receipts:
+        raise ValueError("missing qualification call artifacts")
+    inputs = generated = 0
+    for number, path in enumerate(receipts, 1):
+        if path.name != f"call-{number:02}.receipt.json":
+            raise ValueError("noncontiguous qualification call artifacts")
+        prefix = directory / f"call-{number:02}"
+        read = lambda suffix, prefix=prefix: Path(str(prefix) + suffix).read_bytes()
+        request = json.loads(read(".request.json"))
+        receipt = json.loads(path.read_bytes())
+        meta = json.loads(read(".metadata.json"))
+        stats = receipt["usage"]
+        requested = fields(request["configuration"]["layers"][0]["config"])
+        applied = fields(meta["predictionConfig"])
+        if (
+            receipt["outcome"] != "returned"
+            or not receipt["complete_response_received"]
+            or receipt["request_sha256"] != digest(json_bytes(request))
+            or request["packed_input_sha256"] != digest(read(".packed-input.json"))
+            or request["rendered_sha256"] != digest(read(".rendered.txt"))
+            or request.get("reference_schema_policy") != REFERENCE_SCHEMA_POLICY
+            or request["derived_schema_sha256"]
+            != digest(json_bytes(requested["llm.prediction.structured"]["jsonSchema"]))
+            or any(applied.get(k) != v for k, v in requested.items())
+            or meta["modelInfo"]["instanceReference"]
+            != request["identity"]["model"]["instanceReference"]
+            or stats != meta["stats"]
+            or any(
+                type(stats.get(k)) is not int or stats[k] < 0
+                for k in (
+                    "promptTokensCount",
+                    "predictedTokensCount",
+                    "totalTokensCount",
+                )
+            )
+            or stats["promptTokensCount"] != request["rendered_tokens"]
+            or stats["promptTokensCount"] + stats["predictedTokensCount"]
+            != stats["totalTokensCount"]
+            or read(".visible-response.txt") != read(".visible-fragments.txt")
+            or receipt["visible_fragments_sha256"]
+            != digest(read(".visible-fragments.txt"))
+        ):
+            raise ValueError("qualification call artifact/configuration mismatch")
+        inputs += stats["promptTokensCount"]
+        generated += stats["predictedTokensCount"]
+    return len(receipts), inputs, generated
+
+
+def qualification_artifact_index(root):
+    """Bind all qualification originals; index/receipt live outside this closed root."""
+    result = []
+    for path in sorted(root.rglob("*")):
+        if path.is_symlink():
+            raise ValueError("qualification artifact symlink")
+        if path.is_file():
+            content = path.read_bytes()
+            result.append(
+                {
+                    "path": str(path.relative_to(root)),
+                    "bytes": len(content),
+                    "sha256": digest(content),
+                }
+            )
+    return result
+
+
+def create_admission_receipt(freeze_path, expected_hash):
+    """Append the observed gate result without modifying either pre-run freeze."""
+    freeze, _ = verify_freeze(freeze_path, expected_hash)
+    disposition, problem = "permitted", None
+    try:
+        read_qualified_matrix(freeze)
+    except (ValueError, OSError, KeyError, TypeError) as error:
+        disposition, problem = "withheld", str(error)
+    spec = freeze["admission_receipt"]
+    index = qualification_artifact_index(
+        Path(freeze["interface_qualification"]["results_root"])
+    )
+    private_write(Path(spec["index_path"]), json_bytes(index))
+    receipt = {
+        "format": "investigator-semantic-admission/1",
+        "semantic_freeze_sha256": expected_hash,
+        "qualification_freeze_sha256": freeze["interface_qualification"][
+            "freeze_sha256"
+        ],
+        "qualification_artifact_index_sha256": digest(json_bytes(index)),
+        "disposition": disposition,
+        "problem": problem,
+    }
+    private_write(Path(spec["path"]), json_bytes(receipt))
+    return receipt
+
+
+def require_qualification(freeze, expected_hash):
+    """Recheck exact current results and the append-only receipt before semantic load."""
+    read_qualified_matrix(freeze)
+    spec = freeze["admission_receipt"]
+    receipt = json.loads(Path(spec["path"]).read_bytes())
+    index_bytes = Path(spec["index_path"]).read_bytes()
+    if (
+        receipt.get("format") != "investigator-semantic-admission/1"
+        or receipt.get("disposition") != "permitted"
+        or receipt.get("semantic_freeze_sha256") != expected_hash
+        or receipt.get("qualification_freeze_sha256")
+        != freeze["interface_qualification"]["freeze_sha256"]
+        or receipt.get("qualification_artifact_index_sha256") != digest(index_bytes)
+        or json.loads(index_bytes)
+        != qualification_artifact_index(
+            Path(freeze["interface_qualification"]["results_root"])
+        )
+    ):
+        raise ValueError("qualification admission receipt/artifact mismatch")
 
 
 def verify_freeze(path, expected_hash):
@@ -134,14 +295,19 @@ def verify_freeze(path, expected_hash):
     if digest(content) != expected_hash:
         raise ValueError("semantic freeze hash mismatch")
     freeze = json.loads(content)
-    if freeze["format"] != "investigator-semantic-comparison-freeze/1":
+    if freeze["format"] != "investigator-semantic-comparison-freeze/2":
         raise ValueError("unsupported semantic freeze")
+    if freeze.get("reference_schema_policy") != REFERENCE_SCHEMA_POLICY:
+        raise ValueError("semantic reference contract mismatch")
     if freeze["code_sha256"] != comparison_code_hashes():
         raise ValueError("semantic source drift")
     validate_schedule(
         freeze["assignments"],
         [d["model_key"] for d in freeze["deployments"]],
         freeze["case_ids"],
+    )
+    validate_case_balance(
+        freeze["assignments"], freeze["case_ids"], freeze["treatment_first_balance"]
     )
     for item in freeze["bound_files"]:
         if digest(Path(item["path"]).read_bytes()) != item["sha256"]:
@@ -162,7 +328,9 @@ def verify_freeze(path, expected_hash):
 
 def execute_comparison(sdk, freeze_path, expected_hash, output):
     freeze, qualification = verify_freeze(freeze_path, expected_hash)
-    require_qualification(freeze)  # Before model loading or semantic output creation.
+    require_qualification(
+        freeze, expected_hash
+    )  # Before model loading/output creation.
     output.mkdir(mode=0o700, parents=True, exist_ok=False)
     private_write(output / "executed-freeze.json", freeze_path.read_bytes())
     rows = []
