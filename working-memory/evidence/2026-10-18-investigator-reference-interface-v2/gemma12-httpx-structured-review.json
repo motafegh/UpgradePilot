@@ -1,0 +1,362 @@
+{
+  "format": "investigator-formative-source-review/1",
+  "view": 2,
+  "case_id": "development-httpx-framework-ci",
+  "outcome": "completed",
+  "report_present": true,
+  "note_propositions_present": false,
+  "review_scope": "Every material proposition across three claims, all missing-observation fields, summary, condition, recommendation, stopping and unexamined item. No notes exist. Same exposed-case AI reviewer, known order/native leakage; not independent/blind.",
+  "material_propositions": [
+    {
+      "id": "P01",
+      "original_locator": "call-09/claims/0/statement",
+      "original_field_value": "The base version of httpx is 0.27.2.",
+      "proposition": "Base declaration pins HTTPX0.27.2",
+      "disposition": "supported",
+      "source_reason": "Delivered event6 source_line mapping target-base requirements.txt L2, exact hash verified.",
+      "consequence": "Valid declaration claim, not installed runtime proof.",
+      "decision_critical": false
+    },
+    {
+      "id": "P02",
+      "original_locator": "call-09/claims/1/statement",
+      "original_field_value": "The proposed version of httpx is 0.28.1.",
+      "proposition": "Proposed declaration pins HTTPX0.28.1",
+      "disposition": "supported",
+      "source_reason": "Delivered event7 source_line mapping target-proposed requirements.txt L2, exact hash verified.",
+      "consequence": "Valid declaration claim, not installed runtime proof.",
+      "decision_critical": false
+    },
+    {
+      "id": "P03",
+      "original_locator": "call-09/claims/2/statement",
+      "original_field_value": "The application uses httpx for making HTTP requests, as evidenced by the inclusion in requirements.txt.",
+      "proposition": "Application actually makes HTTP requests with HTTPX because it is listed",
+      "disposition": "unsupported",
+      "source_reason": "No application usage file read; dependency inclusion alone does not prove invocation or purpose. Evidence array empty. Retained target tests/test_routes.py L2,L7 uses framework TestClient, a missed route.",
+      "consequence": "Unsupported usage inference.",
+      "decision_critical": false
+    },
+    {
+      "id": "P04",
+      "original_locator": "call-09/claims/2/missing_observation",
+      "original_field_value": "No specific usage of httpx features (e.g., specific methods or advanced features) was identified in the local repository code.",
+      "proposition": "No specific usage was identified by this investigation",
+      "disposition": "narrower_scope_only",
+      "source_reason": "Trace reads only two requirements files; global httpx search returns first20/4061, all FastAPI-reference navigation rather than target usage.",
+      "consequence": "True only as limited search failure; does not establish absence.",
+      "decision_critical": false
+    },
+    {
+      "id": "P05",
+      "original_locator": "call-09/summary",
+      "original_field_value": "The project 'kubernetes-dashboard-token-api' is updating the 'httpx' dependency from version 0.27.2 to 0.28.1. The dependency is listed in requirements.txt. No specific complex usage of httpx was identified in the local source code that would indicate a high risk of regression from this minor version update.",
+      "proposition": "Named target updates declaration from0.27.2 to0.28.1 in requirements",
+      "disposition": "supported",
+      "source_reason": "Task target identity plus delivered events6/7.",
+      "consequence": "Correct scoped transition.",
+      "decision_critical": false
+    },
+    {
+      "id": "P06",
+      "original_locator": "call-09/summary",
+      "original_field_value": "The project 'kubernetes-dashboard-token-api' is updating the 'httpx' dependency from version 0.27.2 to 0.28.1. The dependency is listed in requirements.txt. No specific complex usage of httpx was identified in the local source code that would indicate a high risk of regression from this minor version update.",
+      "proposition": "No complex local usage would indicate high regression risk",
+      "disposition": "unsupported",
+      "source_reason": "No target application/test inspection and no old/new HTTPX comparison. Non-identification cannot support risk inference.",
+      "consequence": "Unsafe assurance from missing investigation.",
+      "decision_critical": true
+    },
+    {
+      "id": "P07",
+      "original_locator": "call-09/conditions/0",
+      "original_field_value": "The investigation is limited to the provided source code and does not include a dynamic analysis of the library's behavior or compatibility with the specific application logic.",
+      "proposition": "Analysis is source-only without dynamic compatibility execution",
+      "disposition": "supported",
+      "source_reason": "Only seven source tool operations plus finish; no dynamic tool or execution.",
+      "consequence": "Honest limitation; does not rescue unsupported recommendation.",
+      "decision_critical": false
+    },
+    {
+      "id": "P08",
+      "original_locator": "call-09/recommendation",
+      "original_field_value": "The update from 0.27.2 to 0.28.1 is a minor version bump. Since the application's use of httpx appears standard (basic requests), the risk of breaking changes is low, but a verification of the specific changes in httpx 0.28.x is recommended before merging.",
+      "proposition": "0.27 to0.28 is a numerical minor-component change",
+      "disposition": "supported",
+      "source_reason": "Version strings in delivered requirements.",
+      "consequence": "Numerical description only; no compatibility policy inferred.",
+      "decision_critical": false
+    },
+    {
+      "id": "P09",
+      "original_locator": "call-09/recommendation",
+      "original_field_value": "The update from 0.27.2 to 0.28.1 is a minor version bump. Since the application's use of httpx appears standard (basic requests), the risk of breaking changes is low, but a verification of the specific changes in httpx 0.28.x is recommended before merging.",
+      "proposition": "Application uses standard basic requests",
+      "disposition": "unsupported",
+      "source_reason": "No usage source read/citation; unrelated FastAPI-reference preview is not target proof.",
+      "consequence": "Decision-critical premise absent.",
+      "decision_critical": true
+    },
+    {
+      "id": "P10",
+      "original_locator": "call-09/recommendation",
+      "original_field_value": "The update from 0.27.2 to 0.28.1 is a minor version bump. Since the application's use of httpx appears standard (basic requests), the risk of breaking changes is low, but a verification of the specific changes in httpx 0.28.x is recommended before merging.",
+      "proposition": "Breaking-change risk is low",
+      "disposition": "unsupported",
+      "source_reason": "No app-use/compatibility evidence or version-policy proof. Retained HTTPX CHANGELOG.md L28-L29 removes proxies/app; target TestClient path exists, actual installed framework unresolved.",
+      "consequence": "Critical false confidence: low-risk advice depends on unsupported usage premise.",
+      "decision_critical": true
+    },
+    {
+      "id": "P11",
+      "original_locator": "call-09/recommendation",
+      "original_field_value": "The update from 0.27.2 to 0.28.1 is a minor version bump. Since the application's use of httpx appears standard (basic requests), the risk of breaking changes is low, but a verification of the specific changes in httpx 0.28.x is recommended before merging.",
+      "proposition": "Verify HTTPX0.28 changes before merging",
+      "disposition": "supported",
+      "source_reason": "Reasonable proposed next evidence check, not factual compatibility/action authorization. Relevant captured changelog/source already available.",
+      "consequence": "Useful direction but too generic; fails to name framework binding/test-client discriminator.",
+      "decision_critical": false
+    },
+    {
+      "id": "P12",
+      "original_locator": "call-09/recommendation_missing_observation",
+      "original_field_value": "No specific breaking changes in httpx 0.28.1 were identified in the provided evidence.",
+      "proposition": "No breaking changes were identified in the inspected evidence",
+      "disposition": "narrower_scope_only",
+      "source_reason": "Only declarations were read; retained changelog and source include removals but were never delivered.",
+      "consequence": "Valid only as admitted non-investigation, not absence of changes.",
+      "decision_critical": false
+    },
+    {
+      "id": "P13",
+      "original_locator": "call-09/stopping_reason",
+      "original_field_value": "The investigation confirmed the version change in requirements.txt and identified the presence of httpx in the project. No specific usage patterns in the local code were identified that would suggest high risk from the minor version bump.",
+      "proposition": "Investigation confirmed transition/presence",
+      "disposition": "supported",
+      "source_reason": "Events6/7.",
+      "consequence": "Scoped success.",
+      "decision_critical": false
+    },
+    {
+      "id": "P14",
+      "original_locator": "call-09/stopping_reason",
+      "original_field_value": "The investigation confirmed the version change in requirements.txt and identified the presence of httpx in the project. No specific usage patterns in the local code were identified that would suggest high risk from the minor version bump.",
+      "proposition": "No local usage suggests high risk from minor update",
+      "disposition": "unsupported",
+      "source_reason": "Unscoped global partial navigation and requirements only; no targeted consumer/API/workflow evidence.",
+      "consequence": "Finish not evidence-backed adequacy.",
+      "decision_critical": true
+    },
+    {
+      "id": "P15",
+      "original_locator": "call-09/unexamined/0",
+      "original_field_value": "The specific changelog of httpx between 0.27.2 and 0.28.1 was not analyzed as it was not provided in the source universe.",
+      "proposition": "Changelog was not analyzed",
+      "disposition": "supported",
+      "source_reason": "No changelog read in full trace.",
+      "consequence": "Honest omission.",
+      "decision_critical": false
+    },
+    {
+      "id": "P16",
+      "original_locator": "call-09/unexamined/0",
+      "original_field_value": "The specific changelog of httpx between 0.27.2 and 0.28.1 was not analyzed as it was not provided in the source universe.",
+      "proposition": "Changelog was not provided in source universe",
+      "disposition": "contradicted",
+      "source_reason": "Retained httpx-new CHANGELOG.md SHA2562cd04b965b20eff7a4d3b30cc020c63b125da9f731874513bad2e59ca9743258; L7,11,28-29 contain release/removal material.",
+      "consequence": "Confuses unexamined with unavailable; falsely narrows capability.",
+      "decision_critical": false
+    }
+  ],
+  "coverage": [
+    {
+      "obligation_id": "development-httpx-framework-ci-transition",
+      "available": true,
+      "delivered": "Full base/proposed requirements, events6/7",
+      "used": "Transition in claims0/1,summary,stopping",
+      "cited": "Exact two source_line references",
+      "supported": "supported"
+    },
+    {
+      "obligation_id": "development-httpx-framework-ci-test-consumer",
+      "available": true,
+      "delivered": "Not delivered beyond source inventory/navigation",
+      "used": "Not substantively addressed",
+      "cited": false,
+      "supported": "unaddressed"
+    },
+    {
+      "obligation_id": "development-httpx-framework-ci-api-change",
+      "available": true,
+      "delivered": "Not delivered beyond source inventory/navigation",
+      "used": "Not substantively addressed",
+      "cited": false,
+      "supported": "unaddressed"
+    },
+    {
+      "obligation_id": "development-httpx-framework-ci-framework-path",
+      "available": true,
+      "delivered": "Not delivered beyond source inventory/navigation",
+      "used": "Not substantively addressed",
+      "cited": false,
+      "supported": "unaddressed"
+    },
+    {
+      "obligation_id": "development-httpx-framework-ci-ci-scope",
+      "available": true,
+      "delivered": "Not delivered beyond source inventory/navigation",
+      "used": "Not substantively addressed",
+      "cited": false,
+      "supported": "unaddressed"
+    },
+    {
+      "obligation_id": "development-httpx-framework-ci-binding-and-decision",
+      "available": true,
+      "delivered": "Full base/proposed requirements, events6/7",
+      "used": "Not substantively addressed",
+      "cited": false,
+      "supported": "unaddressed"
+    }
+  ],
+  "source_checks": [
+    {
+      "source_id": "target-proposed",
+      "path": "tests/test_routes.py",
+      "lines": "2-7",
+      "sha256": "54ce091cd5e7ec03d53606f59b713e87ff64a1d6d5922f61be23d97b049393f2",
+      "passage": "from fastapi.testclient import TestClient; client = TestClient(app)"
+    },
+    {
+      "source_id": "httpx-new",
+      "path": "httpx/_client.py",
+      "lines": "639-661",
+      "sha256": "c43f941baefe58c91e96d00039e1868fe719d91453026d7db1647194563bff8d",
+      "finding": "Client signature has no app parameter."
+    },
+    {
+      "source_id": "httpx-new",
+      "path": "CHANGELOG.md",
+      "lines": "7-35",
+      "sha256": "2cd04b965b20eff7a4d3b30cc020c63b125da9f731874513bad2e59ca9743258",
+      "finding": "0.28 changelog retained; app and proxies removed L28-L29."
+    }
+  ],
+  "observations": [
+    {
+      "locator": "events2/3",
+      "finding": "Exact searches httpx_new and httpx-new return scoped zero over retained content; neither is a source-id inventory query nor proves HTTPX source absent."
+    },
+    {
+      "locator": "events4/5",
+      "finding": "Same unscoped httpx search repeats first20 of4061; next_offset20, all first-page matches from fastapi-reference. No target-wide absence established."
+    },
+    {
+      "locator": "call-08 budget_observation",
+      "finding": "20 operations,9 invocations,ample token/time/observation capacity remained before finish. A targeted source read cost4 plus finish3+report4+up to3refs+termination1 fits15; one or two critical targeted reads remained feasible. All events included in final input; no omission explanation."
+    }
+  ],
+  "dimensions": {
+    "relevant_evidence_coverage": "1/6 preregistered obligations supported; transition only. Framework consumer/API/path/CI/binding missed.",
+    "interpretation_correctness": "Declaration claims correct; actual usage/risk inference unsupported and changelog unavailability contradicted.",
+    "unsupported_claims": "16 atomic material propositions:8 supported,5 unsupported,2 narrower_scope_only,1 contradicted. Repeated surfaces retained; not16 independent facts.",
+    "scoped_negative_evidence": "Scoped literal zero and partial unrelated first-page search cannot support local usage absence or low risk.",
+    "unresolved_quality": "No dynamic analysis candidly acknowledged; installed framework and compatibility discriminator omitted; false unavailable-changelog explanation.",
+    "stopping_quality": "Premature procedural finish despite feasible decision-critical source reads; ready event explicitly adequacy unsupported.",
+    "recommendation_usefulness": "Generic verify-before-merge has limited value; unsupported basic-usage/low-risk assurance is decision-critical.",
+    "reviewer_effort": "Actual source-check interval separately logged; human effort unknown.",
+    "resource_cost": {
+      "access_receipts": [
+        {
+          "delivered_bytes": 4848,
+          "delivery_id": "21c91088d6ab4795a959160706a6a2d7",
+          "detail": "Actual delivery; no hidden use or semantic support inferred.",
+          "examined_files": 0,
+          "examined_lines": 0,
+          "operation": "source:list_sources",
+          "outcome": "observed"
+        },
+        {
+          "delivered_bytes": 440,
+          "delivery_id": "156cef16f6c34c9298da25adf74e1139",
+          "detail": "Actual delivery; no hidden use or semantic support inferred.",
+          "examined_files": 2632,
+          "examined_lines": 395243,
+          "operation": "source:search",
+          "outcome": "scoped_negative"
+        },
+        {
+          "delivered_bytes": 440,
+          "delivery_id": "c21244f26242494ba74c5e17717aac8e",
+          "detail": "Actual delivery; no hidden use or semantic support inferred.",
+          "examined_files": 2632,
+          "examined_lines": 395243,
+          "operation": "source:search",
+          "outcome": "scoped_negative"
+        },
+        {
+          "delivered_bytes": 6806,
+          "delivery_id": "030536dd73c64aba866025ab0f60dd80",
+          "detail": "Actual delivery; no hidden use or semantic support inferred.",
+          "examined_files": 2632,
+          "examined_lines": 395243,
+          "operation": "source:search",
+          "outcome": "observed"
+        },
+        {
+          "delivered_bytes": 6806,
+          "delivery_id": "630dcc36699b44519bc602a6d941d5e4",
+          "detail": "Actual delivery; no hidden use or semantic support inferred.",
+          "examined_files": 2632,
+          "examined_lines": 395243,
+          "operation": "source:search",
+          "outcome": "observed"
+        },
+        {
+          "delivered_bytes": 1563,
+          "delivery_id": "8b2617e073434cd2ac11aade625bc1df",
+          "detail": "Actual delivery; no hidden use or semantic support inferred.",
+          "examined_files": 1,
+          "examined_lines": 7,
+          "operation": "source:read",
+          "outcome": "observed"
+        },
+        {
+          "delivered_bytes": 1571,
+          "delivery_id": "b4898a837ef5450ea3c9cd4a94be18c8",
+          "detail": "Actual delivery; no hidden use or semantic support inferred.",
+          "examined_files": 1,
+          "examined_lines": 7,
+          "operation": "source:read",
+          "outcome": "observed"
+        }
+      ],
+      "admission_operations": 38,
+      "assignment_composition_publications": 2,
+      "assignment_composition_seconds": 0.0013182539987610653,
+      "consumer_invocation_attempts": 9,
+      "consumer_response_bytes": 2997,
+      "corrections": 0,
+      "elapsed_seconds": 492.521916175996,
+      "model_calls": 9,
+      "model_tokens": {
+        "generated": 990,
+        "input": 86125
+      },
+      "model_usage_complete": true,
+      "native_producer_calls": 0,
+      "observation_bytes": 26356,
+      "packed_input_bytes": 237885,
+      "reasoning_tokens": null,
+      "reference_visibility": "current_request",
+      "report_refusals": [],
+      "terminal_corrections": 0,
+      "tool_requests": 8
+    }
+  },
+  "critical_false_confidence": true,
+  "critical_false_confidence_reason": "Low-risk advice rests on unobserved basic-request usage and missed available breaking-change/framework evidence. This does not prove target is incompatible; installed framework remains unresolved.",
+  "semantic_disposition": "published_but_semantically_unsupported_recommendation; no acceptance",
+  "within_pair_limit": "Observed completion/navigation improvement over view01, but neither read native records and both fail intended semantic coverage; single exposed case cannot establish treatment advantage.",
+  "assignment_id": "gemma12-httpx-structured",
+  "original_assignment_sha256": "cd44af4e80cb8c8a67679ea97c54aac2adc59234915d18dcebc72e0522b4c37b"
+}
