@@ -528,3 +528,7 @@ The completed-only snapshot captured Raw-near-envelope finishing during publicat
 ### Reference-v2 Gemma12 matrix complete
 
 Gemma12 completes 4/4 at the frozen reference-v2 point in 20 calls, with 252,735 input and 3,966 generated tokens, all usage known and no inspected config/prompt/instance mismatch. Qwen27 is executing next; E4B remains required. No semantic assignment is admitted from this single completed deployment. [Completed evidence](evidence/2026-10-18-investigator-reference-interface-v2/gemma12-completed-checkpoint.json) preserves per-call costs and native/client timing separately. The prior 3/4 budget-contract result and its rejected original remain unchanged; this is the new source-bound point, not a semantic result or model ranking.
+
+### Reference-v2 half-matrix checkpoint
+
+Half of the new matrix is complete: six qualified sequences / 30 calls, 288,284 input and 6,333 generated tokens. All usage is known, with no inspected prediction-setting, prompt-count or instance mismatch. Gemma12 is 4/4; Qwen27 is 2/2 short with both long sequences required; E4B's four remain required. No semantic assignment is admitted. [Completed-only evidence](evidence/2026-10-18-investigator-reference-interface-v2/half-matrix-checkpoint.json) preserves native/client durations and Qwen draft scalars separately; missing reasoning/draft fields remain unknown. No causal/semantic or reliability conclusion is inferred from a one-sample interface pass.
