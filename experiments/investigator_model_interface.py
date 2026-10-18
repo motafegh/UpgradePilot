@@ -40,6 +40,7 @@ from upgradepilot.workspace.native_representation import json_bytes
 
 REFERENCE_POLICY = "current-complete-stateless-request/2"
 REQUEST_PRESENTATION = "complete-fixed-first-request-observation-pairs-with-budget/4"
+SUPPLIED_REQUEST_PRESENTATION = "complete-supplied-evidence-report-only/1"
 WIRE_INSTRUCTION = """Return exactly one JSON object, without markdown or commentary.
 For phase investigate return {\"tool\": an offered name, \"arguments\": its schema object}.
 For phase report return the entire report_schema object. All state is explicit in this
@@ -125,12 +126,15 @@ class ModelLimits:
     margin: int = 256
     seconds: int = 14400
     prediction_seconds: int = 1800
+    finalization_seconds: int = 60
 
     def __post_init__(self):
         if any(type(value) is not int or value < 1 for value in vars(self).values()):
             raise ValueError("model limits must be positive integers")
         if self.context <= self.generated_per_call + self.margin:
             raise ValueError("no model input capacity after generation reserve")
+        if self.finalization_seconds > 60:
+            raise ValueError("finalization allowance exceeds 60 seconds")
 
 
 def model_budget_observation(
@@ -183,6 +187,7 @@ def present_request_body(body: dict) -> str:
     No expected next action or implicit history is supplied.
     """
     changing = {"phase", "tools", "events", "omitted_events", "budget_observation"}
+    supplied = request_presentation(body) == SUPPLIED_REQUEST_PRESENTATION
     fixed = {key: value for key, value in body.items() if key not in changing}
     current = {key: body[key] for key in changing - {"events"} if key in body}
     sections = [
@@ -204,7 +209,8 @@ def present_request_body(body: dict) -> str:
                         if k not in {"content", "request_text"}
                     }
                 ).decode(),
-                "MODEL-AUTHORED PRIOR REQUEST: intent only, not evidence",
+                "TRUSTED PREPARATION REQUEST: access intent only, not evidence"
+                if supplied else "MODEL-AUTHORED PRIOR REQUEST: intent only, not evidence",
                 event.get("request_text")
                 if event.get("request_text") is not None
                 else "Prior request text unavailable.",
@@ -215,6 +221,15 @@ def present_request_body(body: dict) -> str:
     if not body["events"]:
         sections.append("No observations have been received yet.")
     return "\n".join(sections)
+
+
+def request_presentation(body):
+    producer = body.get("task", {}).get("prior_request_producer")
+    if producer is None:
+        return REQUEST_PRESENTATION
+    if producer != "trusted_diagnostic_preparation" or body["phase"] != "report":
+        raise ValueError("unsupported observation-request producer or phase")
+    return SUPPLIED_REQUEST_PRESENTATION
 
 
 def measure_input(binding, packed: PackedInput, configuration: dict) -> MeasuredInput:
@@ -248,9 +263,19 @@ def measure_input(binding, packed: PackedInput, configuration: dict) -> Measured
     # Every selected fact/event remains explicit. Stable task bytes precede changing
     # history; exact observations are not double-escaped. No implicit conversation.
     user_content = present_request_body(body)
+    wire_instruction = WIRE_INSTRUCTION
+    if request_presentation(body) == SUPPLIED_REQUEST_PRESENTATION:
+        wire_instruction = wire_instruction.replace(
+            "Prior model-authored requests describe attempted actions,",
+            "Trusted preparation requests describe supplied access intent,",
+        ).replace(
+            "Use read_trial_event or re-read sources to recover\nomitted evidence before citing it.",
+            "All required supplied observations must be present; an empty tool menu\n"
+            "does not establish source-universe exhaustion or autonomous stopping adequacy.",
+        )
     messages = {
         "messages": [
-            {"role": "system", "content": body["system"] + "\n" + WIRE_INSTRUCTION},
+            {"role": "system", "content": body["system"] + "\n" + wire_instruction},
             {"role": "user", "content": user_content},
         ]
     }
@@ -302,9 +327,10 @@ class SDKBinding:
     intercepted before SDK 1.5.0 discards unknown fields; reasoning text is never retained.
     """
 
-    def __init__(self, model, sdk, tokenizer_policy):
+    def __init__(self, model, sdk, tokenizer_policy, *, finalization_seconds=60):
         self.model, self.sdk = model, sdk
         self.tokenizer_policy = deepcopy(tokenizer_policy)
+        self.finalization_seconds = finalization_seconds
 
     def raw_load(self):
         from lmstudio._sdk_models import LlmRpcGetLoadConfigParameter
@@ -383,7 +409,6 @@ class SDKBinding:
         # Inactivity and total elapsed allowances are distinct. A whole prediction's
         # allowance also bounds a single silent prompt-processing wait; no arbitrary
         # short idle timeout is introduced. The monotonic timer enforces total time.
-        self.sdk.set_sync_api_timeout(timeout)
         endpoint = CapturedEndpoint(
             self.model.identifier,
             self.sdk.Chat.from_history(measured.messages),
@@ -396,12 +421,25 @@ class SDKBinding:
             None,
         )
         endpoint.creation_params["predictionConfigStack"] = measured.configuration
-        result = receive_controlled_prediction(
-            self.model._session._create_channel(endpoint),
-            endpoint,
-            timeout - (time.monotonic() - started),
-            self.last_prediction_control,
-        )
+        preparation_elapsed = time.monotonic() - started
+        previous_timeout = self.sdk.get_sync_api_timeout()
+        self.sdk.set_sync_api_timeout(timeout)
+        try:
+            result = receive_controlled_prediction(
+                self.model._session._create_channel(endpoint), endpoint,
+                timeout - preparation_elapsed, self.last_prediction_control,
+                finalization_seconds=self.finalization_seconds,
+            )
+        finally:
+            # A one-second cancellation probe must not leave later identity/render/
+            # tokenizer calls with a one-second inactivity timeout.
+            self.sdk.set_sync_api_timeout(previous_timeout)
+            if "prediction_elapsed_seconds" in self.last_prediction_control:
+                self.last_prediction_control["prediction_elapsed_seconds"] += preparation_elapsed
+                self.last_prediction_control["deadline_seconds"] = timeout
+                self.last_prediction_control["prediction_elapsed_bound_met"] = (
+                    self.last_prediction_control["prediction_elapsed_seconds"] < timeout
+                )
         if endpoint.metadata is None:
             raise ValueError(
                 "prediction ended without actual configuration/usage receipt"
@@ -542,6 +580,8 @@ class StatelessInvestigatorModel:
             deepcopy(configuration),
             limits,
         )
+        if getattr(binding, "finalization_seconds", limits.finalization_seconds) != limits.finalization_seconds:
+            raise ValueError("binding/model finalization allowances differ")
         prediction_fields = fields(self.configuration["layers"][0]["config"])
         if prediction_fields["llm.prediction.maxPredictedTokens"] != {
             "checked": True,
@@ -591,12 +631,7 @@ class StatelessInvestigatorModel:
             )
         return measured
 
-    def pack(self, protocol, history, phase, capacity):
-        """Newest whole events; token overflow removes whole events, never source text.
-
-        Whole-event omission metadata remains explicit. Fixed prompt overflow refuses.
-        Each candidate is measured with the actual loaded tokenizer and frozen template.
-        """
+    def _protocol_with_model_budget(self, protocol):
         # Sample once per invocation. Repacking must not move the accounting facts
         # under the tokenizer or claim that this yet-unmeasured request was spent.
         budget = deepcopy(protocol["budget_observation"])
@@ -608,7 +643,27 @@ class StatelessInvestigatorModel:
             self.usage_complete,
             self.limits.seconds - (self.clock() - self.started),
         )
-        protocol = {**protocol, "budget_observation": budget}
+        return {**protocol, "budget_observation": budget}
+
+    def pack_complete(self, protocol, history, phase, capacity):
+        """Keep all required packet events; actual rendering/admission follows.
+
+        Zero-generation preflight can measure this entire request even when it will
+        exceed context. Prediction still calls prepare() and refuses that overflow.
+        This route never optimizes a supplied packet by deleting its required events.
+        """
+        packed = pack_input(self._protocol_with_model_budget(protocol), history, phase, capacity)
+        if packed.omitted_event_ids:
+            raise ValueError("required supplied-packet material omitted; no prediction")
+        return packed
+
+    def pack(self, protocol, history, phase, capacity):
+        """Newest whole events; token overflow removes whole events, never source text.
+
+        Autonomous trials retain explicit omissions. Supplied-evidence composition uses
+        pack_complete instead, so oversized full packets remain measurable/refusable.
+        """
+        protocol = self._protocol_with_model_budget(protocol)
         while True:
             packed = pack_input(protocol, history, phase, capacity)
             try:
@@ -671,6 +726,7 @@ class StatelessInvestigatorModel:
         receipt["outcome"] = "returned"
 
     def __call__(self, packed):
+        call_started = self.clock()
         if self.blocked or not self.usage_complete:
             raise ValueError("model budget refuses prediction after failed/unknown attempt")
         measured = self.prepare(packed)
@@ -699,7 +755,7 @@ class StatelessInvestigatorModel:
                     ]["jsonSchema"]
                 )
             ),
-            "request_presentation": REQUEST_PRESENTATION,
+            "request_presentation": request_presentation(json.loads(packed.content)),
             "packed_input_sha256": digest(packed.content),
             "references": sorted(packed.reference_ids),
             "omitted_events": packed.omitted_event_ids,
@@ -732,6 +788,7 @@ class StatelessInvestigatorModel:
         response_received = False
         primary = traceback = content = metadata = None
         finalization_origin = None
+        prediction_started = None
         try:
             # A separate immutable reservation makes a missing final receipt an orphan
             # attempt rather than an unattempted case after process interruption.
@@ -740,15 +797,21 @@ class StatelessInvestigatorModel:
                 fragments_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600
             )
             fragments = os.fdopen(descriptor, "wb", buffering=0)
+            prediction_started = self.clock()
+            allowance = min(allowance, self.limits.seconds - (prediction_started - self.started))
+            if allowance <= 0:
+                raise ValueError("model deadline refuses dispatch after request preparation")
+            receipt["prediction_allowance_seconds"] = allowance
+            receipt["request_preparation_elapsed_seconds"] = prediction_started - call_started
             content, metadata, reasoning = self.binding.predict(
                 measured, allowance, visible_sink=fragments.write
             )
             response_received = True
-            prediction_elapsed = self.clock() - started
+            prediction_elapsed = self.clock() - prediction_started
             control = getattr(self.binding, "last_prediction_control", {})
             finalization_origin = self.clock() - control.get("finalization_elapsed_seconds", 0)
             with MonotonicDeadline(
-                60 - (self.clock() - finalization_origin), clock=self.clock,
+                self.limits.finalization_seconds - (self.clock() - finalization_origin), clock=self.clock,
                 label="response validation/storage",
             ).enforce():
                 self._validate_return(
@@ -768,7 +831,7 @@ class StatelessInvestigatorModel:
                     control = getattr(self.binding, "last_prediction_control", {})
                     finalization_origin = self.clock() - control.get("finalization_elapsed_seconds", 0)
                     with MonotonicDeadline(
-                        60 - (self.clock() - finalization_origin), clock=self.clock,
+                        self.limits.finalization_seconds - (self.clock() - finalization_origin), clock=self.clock,
                         label="interrupted metadata storage",
                     ).enforce():
                         private_write(prefix.with_suffix(".metadata.json"), json_bytes(interrupted_metadata))
@@ -788,9 +851,13 @@ class StatelessInvestigatorModel:
             control = getattr(self.binding, "last_prediction_control", {})
             if finalization_origin is None:
                 finalization_origin = self.clock() - control.get("finalization_elapsed_seconds", 0)
+            # The report-only orchestration shares this absolute deadline. A receipt
+            # snapshot alone would miss time spent writing that receipt or returning.
+            self.finalization_started = finalization_origin
+            self.finalization_expires = finalization_origin + self.limits.finalization_seconds
             try:
                 with MonotonicDeadline(
-                    60 - (self.clock() - finalization_origin), clock=self.clock,
+                    self.limits.finalization_seconds - (self.clock() - finalization_origin), clock=self.clock,
                     label="attempt receipt finalization",
                 ).enforce():
                     if fragments is not None:
@@ -809,6 +876,11 @@ class StatelessInvestigatorModel:
                         preserve_failure(error)
                     receipt["complete_response_received"] = response_received
                     receipt["control"] = getattr(self.binding, "last_prediction_control", None)
+                    receipt["prediction_elapsed_seconds"] = control.get(
+                        "prediction_elapsed_seconds",
+                        max(0, finalization_origin - prediction_started) if prediction_started is not None else None,
+                    )
+                    receipt["finalization_elapsed_seconds"] = self.clock() - finalization_origin
                     receipt["elapsed_seconds"] = self.clock() - started
                     try:
                         private_write(prefix.with_suffix(".receipt.json"), json_bytes(receipt))

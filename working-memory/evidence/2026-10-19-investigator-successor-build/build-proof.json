@@ -1,0 +1,41 @@
+{
+  "scope": "experiment mechanical and nearest product controls; runtime readiness separately WITHHELD",
+  "checks": [
+    {
+      "scope": "control/model/trial/supplied-packet/runner/seam with preserved SDK selected",
+      "passed": 158
+    },
+    {
+      "scope": "nearest Workspace consumer/host/lifecycle controls",
+      "passed": 65,
+      "timing": "earlier same Build; product source remains unchanged"
+    }
+  ],
+  "distinct_tests": 223,
+  "prediction_attempts": 0,
+  "source_sha256": {
+    "experiments/investigator_run_control.py": "925814a7db46ba8cbe11ed943529e81d21b93b4d666bf583267266ab461dfaec",
+    "experiments/investigator_model_interface.py": "5d5df0152525cda53bc02c369c6e63b90fef0dcbd77027c9e8bb9372ef2ad8cd",
+    "experiments/investigator_supplied_evidence.py": "0474310f2de14682704a674d96466f6bd892bb1ae9ad4e65f923488b629d6ac9",
+    "experiments/investigator_workspace_trial.py": "bb00b9adc0f945d07e63306f2c0641bd53d86f4e78a976dd81e7b4b88e00ae54",
+    "experiments/investigator_workspace_adapter.py": "da356ae9cef38f6ca4051559485ebc62289e636b9920b3d3c2f401b93b3f6a72",
+    "experiments/prepare_investigator_supplied_evidence.py": "f88d3a5d56dd873130dbfaf9bbfc3aea6214a1776ddedba8eee981409d67a9b7",
+    "experiments/run_investigator_semantic_comparison.py": "c963d00dce739feff52edf74bdd3e079853cfe5dbdfa9f92215bc081d177b3cb",
+    "experiments/qualify_investigator_workspace.py": "9da66d763a8a5b9b5328a7da90614c1cad40fba403f988984d55eaa37fa25b10",
+    "experiments/qualify_investigator_model_interface.py": "33b30a7c54d0039ac3c6086cf834924b13527584c467d5715383f3f8dea1ad84",
+    "experiments/run_investigator_supplied_evidence.py": "2e760d11c65762b891ad030b038a84519ce09f8429e838249b0d9e7f7191258a"
+  },
+  "recipes_sha256": "be75dbe2dd2d7680437c30e5aa152c6fafc7785804d4e8c0352b9404ee74b690",
+  "reviewer_protocol_sha256": "37579067521c5129826c7ea9f6879da2cad830236718a7be57eec02aad6529e9",
+  "actual_runtime_preflight": "Failed input-cap gate; original failed count not retained, corrected preflight not rerun",
+  "static_checks": [
+    "compileall",
+    "git diff --check",
+    "local links and independent resource arithmetic"
+  ],
+  "limits": [
+    "Actual backend cancellation still needs its activated probe.",
+    "No complete current runtime freeze or real semantic output.",
+    "Ruff absent; no formatter dependency installed."
+  ]
+}

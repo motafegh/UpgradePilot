@@ -1,0 +1,146 @@
+{
+  "scope": "scripted complete-reference report publication and termination; no semantic acceptance",
+  "private_root": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-preparation-r5",
+  "preparation_sha256": "153736ec7f3e3f1109cd96803ceec5509c1592b759730d1bfb660f7d7f2eeaf0",
+  "source_sha256": {
+    "experiments/investigator_model_interface.py": "5d5df0152525cda53bc02c369c6e63b90fef0dcbd77027c9e8bb9372ef2ad8cd",
+    "experiments/investigator_run_control.py": "925814a7db46ba8cbe11ed943529e81d21b93b4d666bf583267266ab461dfaec",
+    "experiments/investigator_supplied_evidence.py": "0474310f2de14682704a674d96466f6bd892bb1ae9ad4e65f923488b629d6ac9",
+    "experiments/investigator_workspace_adapter.py": "da356ae9cef38f6ca4051559485ebc62289e636b9920b3d3c2f401b93b3f6a72",
+    "experiments/investigator_workspace_trial.py": "bb00b9adc0f945d07e63306f2c0641bd53d86f4e78a976dd81e7b4b88e00ae54",
+    "experiments/prepare_investigator_supplied_evidence.py": "f88d3a5d56dd873130dbfaf9bbfc3aea6214a1776ddedba8eee981409d67a9b7",
+    "experiments/qualify_investigator_workspace.py": "9da66d763a8a5b9b5328a7da90614c1cad40fba403f988984d55eaa37fa25b10",
+    "experiments/run_investigator_semantic_comparison.py": "c963d00dce739feff52edf74bdd3e079853cfe5dbdfa9f92215bc081d177b3cb"
+  },
+  "cases": [
+    {
+      "case_id": "development-httpx-framework-ci",
+      "catalog_id": "288c3c88a12ed32706641b977f5a29b09d4727b6e9fa3de7ff2df23e28ba1bf3",
+      "eligible_references": 16,
+      "feasibility_outcome": "completed",
+      "feasibility_units": 76,
+      "label": "packet-a",
+      "packed_bytes": 71012,
+      "required_material_event_ids": [
+        "event-1",
+        "event-2",
+        "event-3",
+        "event-4",
+        "event-5",
+        "event-6",
+        "event-7",
+        "event-8",
+        "event-9",
+        "event-10",
+        "event-11",
+        "event-12",
+        "event-13",
+        "event-14"
+      ],
+      "selection_inventory_sha256": "ed234cad5192f0c75a4d2373b5afbf0500397cb5430d3a28a4ff7070ebec635b",
+      "semantic_acceptance": "not_evaluated",
+      "setup_reads": 13,
+      "source_pair": false,
+      "target": {
+        "base_sha": "b065646e4b7b894964567950f9ad770b02c136c2",
+        "head_sha": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+        "normalized_package": "httpx",
+        "old_version": "0.27.2",
+        "proposed_version": "0.28.1",
+        "pull_number": 20,
+        "repository": "Aidan-Wallace/kubernetes-dashboard-token-api"
+      }
+    },
+    {
+      "case_id": "development-httpx-framework-ci",
+      "catalog_id": "288c3c88a12ed32706641b977f5a29b09d4727b6e9fa3de7ff2df23e28ba1bf3",
+      "eligible_references": 3,
+      "feasibility_outcome": "completed",
+      "feasibility_units": 23,
+      "label": "packet-b",
+      "packed_bytes": 26691,
+      "required_material_event_ids": [
+        "event-1",
+        "event-2",
+        "event-3",
+        "event-4"
+      ],
+      "selection_inventory_sha256": "c908a2b13ec7c5bbfd9eff3d6b491dd79815c45b6a98e59f8c15a52470b20495",
+      "semantic_acceptance": "not_evaluated",
+      "setup_reads": 3,
+      "source_pair": true,
+      "target": {
+        "base_sha": "b065646e4b7b894964567950f9ad770b02c136c2",
+        "head_sha": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+        "normalized_package": "httpx",
+        "old_version": "0.27.2",
+        "proposed_version": "0.28.1",
+        "pull_number": 20,
+        "repository": "Aidan-Wallace/kubernetes-dashboard-token-api"
+      }
+    },
+    {
+      "case_id": "development-glyphslib-pytest-stopping",
+      "catalog_id": "37f51311401773b05a7934945a2cc9d7904af044d328ec9fb1dae855062626ce",
+      "eligible_references": 13,
+      "feasibility_outcome": "completed",
+      "feasibility_units": 61,
+      "label": "packet-c",
+      "packed_bytes": 86854,
+      "required_material_event_ids": [
+        "event-1",
+        "event-2",
+        "event-3",
+        "event-4",
+        "event-5",
+        "event-6",
+        "event-7",
+        "event-8",
+        "event-9",
+        "event-10",
+        "event-11"
+      ],
+      "selection_inventory_sha256": "1fc230c32ff09b2e8c3483c332f5e48e8dad615e71cfc23022498bbbeefe7f3c",
+      "semantic_acceptance": "not_evaluated",
+      "setup_reads": 10,
+      "source_pair": false,
+      "target": {
+        "base_sha": "044f19e4b1437bfc4343592486f4e3c6040306d9",
+        "head_sha": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+        "normalized_package": "pytest",
+        "old_version": "9.0.2",
+        "proposed_version": "9.0.3",
+        "pull_number": 1145,
+        "repository": "googlefonts/glyphsLib"
+      }
+    },
+    {
+      "case_id": "development-httpx-framework-ci",
+      "catalog_id": "288c3c88a12ed32706641b977f5a29b09d4727b6e9fa3de7ff2df23e28ba1bf3",
+      "eligible_references": 3,
+      "feasibility_outcome": "completed",
+      "feasibility_units": 23,
+      "label": "packet-d",
+      "packed_bytes": 26697,
+      "required_material_event_ids": [
+        "event-1",
+        "event-2",
+        "event-3",
+        "event-4"
+      ],
+      "selection_inventory_sha256": "6ec70f6b59f9bee9674aa644bdb24e9a3dc79cf57b5a0b22c3c0557d9f3afe5d",
+      "semantic_acceptance": "not_evaluated",
+      "setup_reads": 3,
+      "source_pair": true,
+      "target": {
+        "base_sha": "b065646e4b7b894964567950f9ad770b02c136c2",
+        "head_sha": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+        "normalized_package": "httpx",
+        "old_version": "0.27.2",
+        "proposed_version": "0.28.1",
+        "pull_number": 20,
+        "repository": "Aidan-Wallace/kubernetes-dashboard-token-api"
+      }
+    }
+  ]
+}

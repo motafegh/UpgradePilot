@@ -85,6 +85,10 @@ Start with the existing scoped SDK and explicit stream cancellation. Compare onl
 
 Select the simpler mechanism that establishes the complete contract. A transport switch or additional dependency requires a separate evidenced need; it is not a default fallback. Consult installed SDK source and current official documentation for unresolved SDK semantics. Freeze an inactivity timeout separately from the total elapsed deadline with a workload-based reason; do not choose an idle limit that predictably kills normal prompt processing.
 
+**Selected WSL implementation:** use a temporary main-thread POSIX timer around the existing synchronous SDK channel, with monotonic checks and same-channel cancellation/drain. Refuse another timer owner or an unsupported thread/platform. This avoids SDK cross-thread ownership and a worker process. The diagnostic allocates up to 50 seconds of shared finalization per attempt (six × 50 = 300), then up to 50 seconds for owned unload and 10 seconds for SDK client release: the existing 360-second aggregate finalization ceiling is preserved. Real backend cancellation is still a separately activated first probe; installed-SDK/fake-channel proof alone cannot replace it.
+
+Non-prediction SDK RPC inactivity is 600 seconds within the total preparation/batch deadlines, permitting slow local load/render operations. Each prediction scopes its own inactivity allowance to its admitted prediction deadline and restores the prior RPC timeout afterward. In particular, the one-second cancellation probe cannot shorten later identity/render/tokenizer RPCs. These are distinct from the monotonic total deadlines.
+
 The implementation-entry record must name the chosen mechanism, timer origin, cancellation owner, drain bound, cleanup owner, terminal accounting, known limitations and focused tests. Unresolved claims about cancellation safety block that mechanism. No new real inference is needed to compare fake-clock/channel behavior.
 
 ### Focused proof
@@ -116,19 +120,21 @@ Retain the complete existing report field family where adequate. Change the task
 
 ### Fixed allowance
 
-The baseline allows **at most 12 trusted source/native setup reads and 12 distinct eligible evidence references per case**. No model-driven discovery, notes, search retries or correction calls are included. A native view may return several references; enforce both limits independently. Every retained/cited passage must cover the material proposition; fitting the allowance cannot justify dropping counterevidence or citing a partial record as complete.
+The baseline allows **at most 13 trusted source/native setup reads and 16 distinct eligible evidence references per case**. No model-driven discovery, notes, search retries or correction calls are included. A native view may return several references; enforce both limits independently. Every retained/cited passage must cover the material proposition; fitting the allowance cannot justify dropping counterevidence or citing a partial record as complete.
 
 Use existing conservative admission units, prospectively versioned for this report-only entry:
 
 | Component | Maximum per diagnostic case |
 | --- | ---: |
-| Trusted setup reads | `12 × 4 = 48` units |
+| Trusted setup reads | `13 × 4 = 52` units |
 | Procedural finish | 3 units |
-| One report publication with up to 12 distinct references | `4 + 12 = 16` units |
+| One report publication with up to 16 distinct references | `4 + 16 = 20` units |
 | Termination | 1 unit |
-| **Complete allowance** | **68 units** |
+| **Complete allowance** | **76 units** |
 
-The fixed packet cannot consume the report allowance. Enforce these bounds before its model call; no publication-cost surprise may be deferred until after generation. Initial host/purpose composition publications, model load/render/tokenizer work and preparation/review costs remain separately recorded, as in their actual existing accounting classes; the 68 units are not a claim to bound every physical operation or wall-clock cost.
+**October 19 preparation correction:** the draft allowed 12 reads / 12 references / 68 units. Complete retained HTTPX preparation needs 12 source reads plus one native view returning four records: 13 reads / 16 references / 76 units. This preserves requirements/caller/callee/framework, both workflows, Dockerfile and both historical CI capture-limit records. The old cap refuses before dispatch; dropping this material would weaken the diagnostic. This prospective correction increases only fixed delivery/publication capacity, before any diagnostic output. Calls, tokens, time, case order and activation gates are unchanged; aggregate admission capacity becomes 340 units. The [Build cycle](../working-memory/2026-10-19_investigator-successor-build_lbd-cycle.md) preserves the counterexample and reconciliation.
+
+The fixed packet cannot consume the report allowance. Enforce these bounds before its model call; no publication-cost surprise may be deferred until after generation. Initial host/purpose composition publications, model load/render/tokenizer work and preparation/review costs remain separately recorded, as in their actual existing accounting classes; the 76 units are not a claim to bound every physical operation or wall-clock cost.
 
 The guarantee is available capacity for one **contract-valid** terminal attempt within its declared citation allowance. It does not guarantee model adherence, correct citations, useful content, successful storage or completion before the deadline. Honest unavailable/empty evidence never requires inventing a citation. Invalid or incomplete output stays rejected; no automatic repair or second attempt is included.
 
@@ -198,9 +204,9 @@ These are finite **plan ceilings**, chosen to make the diagnostic small enough t
 | Generation ceiling per attempt | Existing 8,192 tokens | Existing 8,192 tokens | **49,152 generated tokens** |
 | Total prediction elapsed ceiling per attempt | 300 seconds | 900 seconds | **4,200 prediction seconds** |
 | Cancel/drain/finalization allowance | At most 60 seconds per attempt | At most 60 seconds per attempt | **360 additional seconds** |
-| Workspace admission units | At most 18 per probe | At most 68 per case | **308 units** |
+| Workspace admission units | At most 18 per probe | At most 76 per case | **340 units** |
 
-For report-only probes, at most two setup reads/two references cost `8 + finish 3 + report 6 + termination 1 = 18`. A cancelled probe retains its real attempted charges and does not acquire a fictional publication. Diagnostic aggregate units are `4 × 68 = 272`; probes add at most 36. Counts refer to conservative admission units, not unobserved producer calls.
+For report-only probes, at most two setup reads/two references cost `8 + finish 3 + report 6 + termination 1 = 18`. A cancelled probe retains its real attempted charges and does not acquire a fictional publication. Diagnostic aggregate units are `4 × 76 = 304`; probes add at most 36. Counts refer to conservative admission units, not unobserved producer calls.
 
 Zero-generation load/identity/render preparation has a separate **1,200-second elapsed preparation ceiling** and no prediction budget. The charged batch's total elapsed limit from its first attempt to final cleanup is at most **4,800 seconds**: 4,200 prediction seconds, 360 finalization seconds and 240 seconds of orchestration margin. Each attempt/finalization is also bounded above as shown; the margin cannot enlarge a prediction ceiling. Host/model preparation costs and reviewer effort are reported separately. If the declared preparation or fit is infeasible, stop for a versioned disposition rather than repeatedly loading/tuning until it passes. Full model-weight hashing need not be repeated where an inherited hash plus justified current checks suffices; never represent stat checks as a new full hash.
 
@@ -224,6 +230,8 @@ Before any prediction, publish and verify a fresh, complete manifest binding:
 - public-safe evidence paths and the explicit activation allowing this bounded batch after its prerequisites.
 
 Pre-inference paths/identities/hashes must be real and resolved. No placeholder freeze, mock deployment or fabricated source reference may reach prediction. The plan itself may identify preparation work that is not yet performed; it cannot serve as the run manifest.
+
+Zero-generation preflight retains the full exact packed/rendered inputs and measured token counts for every role before fit disposition, including an oversized request. It records the per-input cap separately from the context/generation/margin envelope. A failed role cannot be omitted from the denominator or repaired by whole-event deletion. Within the one admitted preparation, finish the independent measurements under its deadline, then withhold the executable freeze if any required fit fails. Further load/fit work needs a versioned disposition; no automatic cap increase or repeat-until-fit loop follows.
 
 Separate frozen source identity from assignment-local identity. Source/catalog/record/payload and selection identities are concrete in the freeze. Fresh hosts mint their own delivery IDs and typed citation pairs; bind those actual mappings and exact rendered bytes in the pre-dispatch request record and validate them against the frozen source payloads and declared mapping policy. The authority-bearing request must contain only real IDs from that fresh assignment. A separate scripted feasibility assignment cannot donate its IDs or terminated mutable state. Any intentionally fresh host/revision metadata must be named and checked against its actual owner; no generic normalization may hide content/source/policy drift. Measure actual fit again before prediction, because fresh reference spelling can change token counts.
 
@@ -294,9 +302,11 @@ An unseen sample and independent source review remain necessary before broad gen
 
 ### Entry and modification sequence
 
+Implementation entry points are [run control](../experiments/investigator_run_control.py), [model transport/accounting](../experiments/investigator_model_interface.py), [report-only composition](../experiments/investigator_supplied_evidence.py), [explicit real packet recipes](../experiments/investigator_supplied_evidence_packets.json), [offline preparation/retention](../experiments/prepare_investigator_supplied_evidence.py) and [gated runtime preparation/execution](../experiments/run_investigator_supplied_evidence.py). Their tests establish mechanical boundaries; dated evidence owns actual observations and MEMORY alone owns readiness/continuation.
+
 1. Enter the selected Planning/Build responsibility under its normal Learning-by-Doing cycle. Reconcile live owners and source before acting; maintain one coherent cycle record per substantive responsibility.
 2. Resolve the run-control mechanism and implement only its admitted scope after Build authorization. Complete focused/broader proof and preserve failures.
-3. Prepare the report-only entry and actual supplied packets; prove strict attribution, full required delivery and the 68-unit fixed allowance offline. Do not implement general adaptive reserve/navigation merely to reach this gate.
+3. Prepare the report-only entry and actual supplied packets; prove strict attribution, full required delivery and the 76-unit fixed allowance offline. Do not implement general adaptive reserve/navigation merely to reach this gate.
 4. Perform separately authorized zero-generation identity/render/fit preparation, complete and publish the new freeze and obtain explicit bounded inference activation.
 5. Run the needed probes and then the frozen four-case diagnostic within §6; retain all attempts, failures, unattempted cases and actual usage.
 6. Review and disposition under §7; teach from the evidenced result and repair/defer material ownership gaps. Select the next responsibility according to the result, without automatically performing it.

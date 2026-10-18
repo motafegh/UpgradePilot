@@ -110,6 +110,25 @@ def config(**options):
 
 
 class ModelInterfaceTests(unittest.TestCase):
+    def test_request_storage_time_does_not_become_prediction_elapsed_time(self):
+        from experiments.investigator_model_interface import private_write
+        now = [0.0]
+        with tempfile.TemporaryDirectory() as directory:
+            model = StatelessInvestigatorModel(
+                Binding(), config(), ModelLimits(context=10000, prediction_seconds=1, seconds=100),
+                Path(directory) / "attempt", clock=lambda: now[0],
+            )
+            def slow_reservation(path, content):
+                if path.name.endswith(".attempt.json"):
+                    now[0] += 10
+                return private_write(path, content)
+            with patch("experiments.investigator_model_interface.private_write", side_effect=slow_reservation):
+                model(packed())
+            receipt = model.receipts[0]
+            self.assertEqual(receipt["outcome"], "returned")
+            self.assertEqual(receipt["request_preparation_elapsed_seconds"], 10)
+            self.assertEqual(receipt["prediction_elapsed_seconds"], 0)
+
     def test_cancelled_terminal_usage_is_known_but_failed_model_cannot_be_reused(self):
         from experiments.investigator_run_control import PredictionDeadlineExceeded
         with tempfile.TemporaryDirectory() as directory:

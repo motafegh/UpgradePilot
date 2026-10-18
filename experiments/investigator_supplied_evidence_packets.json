@@ -1,0 +1,298 @@
+{
+  "format": "investigator-supplied-evidence-recipes/1",
+  "cases": [
+    {
+      "label": "packet-a",
+      "case_id": "development-httpx-framework-ci",
+      "source_pair": false,
+      "requests": [
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-proposed",
+            "path": "requirements.txt",
+            "start_line": 1,
+            "line_count": 100
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-proposed",
+            "path": "tests/test_routes.py",
+            "start_line": 1,
+            "line_count": 100
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "fastapi-reference",
+            "path": "fastapi/testclient.py",
+            "start_line": 1,
+            "line_count": 100
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "httpx-old",
+            "path": "httpx/_client.py",
+            "start_line": 574,
+            "line_count": 100
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "httpx-new",
+            "path": "httpx/_client.py",
+            "start_line": 594,
+            "line_count": 100
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "starlette-old",
+            "path": "starlette/testclient.py",
+            "start_line": 392,
+            "line_count": 100
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "starlette-new",
+            "path": "starlette/testclient.py",
+            "start_line": 418,
+            "line_count": 100
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-proposed",
+            "path": ".github/workflows/python.yml",
+            "start_line": 1,
+            "line_count": 100
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-proposed",
+            "path": ".github/workflows/docker.yaml",
+            "start_line": 1,
+            "line_count": 100
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-proposed",
+            "path": "Dockerfile",
+            "start_line": 1,
+            "line_count": 100
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "ci-observations",
+            "path": "E16-actions-run-and-job.json",
+            "start_line": 1,
+            "line_count": 100
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "ci-observations",
+            "path": "E19-docker-log-retrieval-error.json",
+            "start_line": 1,
+            "line_count": 100
+          }
+        },
+        {
+          "tool": "read_native",
+          "arguments": {
+            "families": [
+              "investigation_inputs",
+              "ci_inputs",
+              "ci_coverage",
+              "runtime_dependency_state"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "label": "packet-b",
+      "case_id": "development-httpx-framework-ci",
+      "source_pair": true,
+      "requests": [
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "httpx-old",
+            "path": "httpx/_client.py",
+            "start_line": 574,
+            "line_count": 100
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "httpx-new",
+            "path": "httpx/_client.py",
+            "start_line": 594,
+            "line_count": 100
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "starlette-new",
+            "path": "starlette/testclient.py",
+            "start_line": 418,
+            "line_count": 100
+          }
+        }
+      ]
+    },
+    {
+      "label": "packet-c",
+      "case_id": "development-glyphslib-pytest-stopping",
+      "source_pair": false,
+      "requests": [
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-base",
+            "path": "requirements-dev.txt",
+            "start_line": 1,
+            "line_count": 100
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-proposed",
+            "path": "requirements-dev.txt",
+            "start_line": 1,
+            "line_count": 100
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-proposed",
+            "path": ".github/workflows/ci.yml",
+            "start_line": 1,
+            "line_count": 100
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-proposed",
+            "path": ".github/workflows/ci.yml",
+            "start_line": 101,
+            "line_count": 100
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-proposed",
+            "path": "tox.ini",
+            "start_line": 1,
+            "line_count": 100
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-proposed",
+            "path": ".github/workflows/regression.yml",
+            "start_line": 1,
+            "line_count": 100
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-proposed",
+            "path": "tests/conftest.py",
+            "start_line": 1,
+            "line_count": 100
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "target-proposed",
+            "path": "tests/regression_test.py",
+            "start_line": 1,
+            "line_count": 100
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "ci-observations",
+            "path": "ev-005-ci-results.json",
+            "start_line": 1,
+            "line_count": 100
+          }
+        },
+        {
+          "tool": "read_native",
+          "arguments": {
+            "families": [
+              "investigation_inputs",
+              "ci_inputs",
+              "ci_coverage",
+              "runtime_dependency_state"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "label": "packet-d",
+      "case_id": "development-httpx-framework-ci",
+      "source_pair": true,
+      "requests": [
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "httpx-old",
+            "path": "httpx/_client.py",
+            "start_line": 574,
+            "line_count": 100
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "httpx-new",
+            "path": "httpx/_client.py",
+            "start_line": 594,
+            "line_count": 100
+          }
+        },
+        {
+          "tool": "read_source",
+          "arguments": {
+            "source_id": "starlette-old",
+            "path": "starlette/testclient.py",
+            "start_line": 392,
+            "line_count": 100
+          }
+        }
+      ]
+    }
+  ]
+}

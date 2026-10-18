@@ -1,0 +1,46 @@
+{
+  "cleanup": {
+    "confirmed": true,
+    "identifier": "up-semantic-budget-v1-gemma12",
+    "remaining_identifiers": [],
+    "unload_requested": true
+  },
+  "client_cleanup": {
+    "confirmed": true,
+    "elapsed_seconds": 0.0021653710000464343
+  },
+  "completed_zero_generation_roles": [
+    "probe-cancel",
+    "probe-report"
+  ],
+  "established_token_interval": {
+    "basis": "complete request passed context-reserve admission then failed the distinct per-input cap",
+    "maximum_inclusive": 24320,
+    "minimum_exclusive": 16000
+  },
+  "failed_case": "packet-a",
+  "failed_render_token_count": "not retained by original preflight; unknown exact count",
+  "freeze_published": false,
+  "next": "Repair failure retention/complete measurement; no token-cap increase, prediction or fit retry activated.",
+  "outcome": "WITHHELD: actual complete HTTPX input exceeds 16000-token prospective cap",
+  "prediction_attempts": 0,
+  "profile_sha256": "793bed85004fe1567c0d567155051e5887a893749e9c6d45c277e40065ff9531",
+  "retained_original_runtime": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-runtime-r1",
+  "source_sha256": {
+    "experiments/investigator_model_interface.py": "9a530ca5852677a42cc68fa8b8a94b096ab418842d28fa542cec08ff69797563",
+    "experiments/investigator_run_control.py": "925814a7db46ba8cbe11ed943529e81d21b93b4d666bf583267266ab461dfaec",
+    "experiments/investigator_supplied_evidence.py": "93e9c1de162da6bf369dc094f0d2ecab9ed4c193edfb527513071de565aa944e",
+    "experiments/investigator_workspace_adapter.py": "da356ae9cef38f6ca4051559485ebc62289e636b9920b3d3c2f401b93b3f6a72",
+    "experiments/investigator_workspace_trial.py": "bb00b9adc0f945d07e63306f2c0641bd53d86f4e78a976dd81e7b4b88e00ae54",
+    "experiments/prepare_investigator_supplied_evidence.py": "a9007fe12584ff28f7f015bf4ef9e877446cbce8d66a383c33b55fc233f2b5b6",
+    "experiments/qualify_investigator_model_interface.py": "33b30a7c54d0039ac3c6086cf834924b13527584c467d5715383f3f8dea1ad84",
+    "experiments/qualify_investigator_workspace.py": "9da66d763a8a5b9b5328a7da90614c1cad40fba403f988984d55eaa37fa25b10",
+    "experiments/run_investigator_semantic_comparison.py": "c963d00dce739feff52edf74bdd3e079853cfe5dbdfa9f92215bc081d177b3cb",
+    "experiments/run_investigator_supplied_evidence.py": "974992e1f0ac5a8373de73f810285a656293864abad168a56e91ad31e0ba2b91"
+  },
+  "unmeasured_roles": [
+    "packet-b",
+    "packet-c",
+    "packet-d"
+  ]
+}

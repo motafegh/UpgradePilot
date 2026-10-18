@@ -1,0 +1,19 @@
+{
+  "index_path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-runtime-r1-disposition-r1/completed-retention-index.json",
+  "index_sha256": "ed0fbdb4e7af9e2b904a9b708355204894f8d7865423d8363669a263d91eff41",
+  "files_excluding_index": 200,
+  "bytes_excluding_index": 3146996,
+  "directory_modes": "0700",
+  "file_modes": "0600",
+  "roots": [
+    "supplied-evidence-2026-10-19-preparation-r1",
+    "supplied-evidence-2026-10-19-preparation-r2",
+    "supplied-evidence-2026-10-19-preparation-r3",
+    "supplied-evidence-2026-10-19-preparation-r4",
+    "supplied-evidence-2026-10-19-preparation-r5",
+    "supplied-evidence-2026-10-19-review-r1",
+    "supplied-evidence-2026-10-19-runtime-r1",
+    "supplied-evidence-2026-10-19-runtime-r1-disposition-r1"
+  ],
+  "limit": "Local owner-only retention; not off-machine backup, full model archive or current-source admission of old preparation versions."
+}

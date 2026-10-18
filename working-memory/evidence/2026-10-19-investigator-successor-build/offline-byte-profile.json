@@ -1,0 +1,34 @@
+{
+  "scope": "static bytes only; no tokenizer/template/model-budget measurement; r5 fresh IDs are not the failed runtime-r1 IDs",
+  "limit": "Not a token estimate, reduction experiment or permission to omit material",
+  "cases": [
+    {
+      "label": "packet-a",
+      "user_presentation_bytes": 63832,
+      "schema_bytes_in_user_presentation": 4043,
+      "source_line_text_bytes_excluding_line_separators": 21767,
+      "native_payload_json_bytes_before_delivery_escaping": 1995
+    },
+    {
+      "label": "packet-b",
+      "user_presentation_bytes": 24769,
+      "schema_bytes_in_user_presentation": 1963,
+      "source_line_text_bytes_excluding_line_separators": 11761,
+      "native_payload_json_bytes_before_delivery_escaping": 0
+    },
+    {
+      "label": "packet-c",
+      "user_presentation_bytes": 77170,
+      "schema_bytes_in_user_presentation": 3641,
+      "source_line_text_bytes_excluding_line_separators": 15206,
+      "native_payload_json_bytes_before_delivery_escaping": 26578
+    },
+    {
+      "label": "packet-d",
+      "user_presentation_bytes": 24775,
+      "schema_bytes_in_user_presentation": 1963,
+      "source_line_text_bytes_excluding_line_separators": 11767,
+      "native_payload_json_bytes_before_delivery_escaping": 0
+    }
+  ]
+}

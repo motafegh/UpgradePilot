@@ -54,6 +54,29 @@ class Channel:
 
 class PredictionControlTests(unittest.TestCase):
     @unittest.skipUnless(importlib.util.find_spec("lmstudio"), "optional preserved SDK not selected")
+    def test_sdk_prediction_restores_rpc_idle_timeout_after_interruption(self):
+        import lmstudio
+        from types import SimpleNamespace
+        from experiments.investigator_model_interface import SDKBinding
+        @contextmanager
+        def interrupted_channel():
+            raise KeyboardInterrupt("channel entry interrupted")
+            yield
+        model = SimpleNamespace(identifier="synthetic-channel-only",
+            _session=SimpleNamespace(_create_channel=lambda endpoint: interrupted_channel()))
+        binding = SDKBinding(model, lmstudio, {})
+        measured = SimpleNamespace(messages={"messages": [{"role": "user", "content": "Synthetic control only"}]}, configuration={"layers": []})
+        previous = lmstudio.get_sync_api_timeout()
+        lmstudio.set_sync_api_timeout(17)
+        try:
+            with self.assertRaisesRegex(KeyboardInterrupt, "channel entry interrupted"):
+                binding.predict(measured, .1, visible_sink=lambda content: None)
+            self.assertEqual(lmstudio.get_sync_api_timeout(), 17)
+            self.assertFalse(binding.last_prediction_control["channel_opened"])
+        finally:
+            lmstudio.set_sync_api_timeout(previous)
+
+    @unittest.skipUnless(importlib.util.find_spec("lmstudio"), "optional preserved SDK not selected")
     def test_installed_sdk_queue_wait_interrupts_and_cancel_uses_same_channel(self):
         from concurrent.futures import Future
         from lmstudio.sync_api import SyncChannel
