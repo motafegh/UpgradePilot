@@ -37,3 +37,5 @@ Native JSON-schema compatibility and real model adherence require the frozen cha
 - [Interruption and corrected attribution](interruption-checkpoint.json).
 - [Partial native trace review](qwen27-glyphslib-structured-interrupted-review.json).
 - [Cost accounting](cost-accounting.json), [review coverage](review-completeness.json), [review effort limits](review-effort.json) and [integrity verification](final-verification.json).
+
+[Final private retention](completed-retention.json): Final owner-only local retention binds 1,111 files / 35,347,347 bytes, excluding its index; index SHA256 2444de93ddff7a3d061aae1273983f37a561bd56769f0495cdbe45a35a99e9a3. Exact membership, hashes, sizes and0700-directory/0600-file modes pass. No further private-root writes follow indexing. External weight/runtime/input assets remain referenced rather than fully copied; this is not off-machine backup or power-loss proof.
