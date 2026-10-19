@@ -1,0 +1,172 @@
+{
+ "format": "investigator-capability-diagnostic-review/1",
+ "source_horizon": "13643c99",
+ "freeze_sha256": "c5e06b1b759b8cacaacf1c59bfaedf1556254f81ad709f615c64adf8c61c27b0",
+ "reviewer": "AI-assisted source-aware review; not independent human acceptance",
+ "review_protocol": "supplied-evidence-2026-10-19-review-r1/review-protocol.json (frozen before outputs)",
+ "materiality": "All 20 material obligations must be specifically supported or specifically justified unresolved; zero decision-critical unsupported/contradicted advice.",
+ "cases": {
+  "packet-a": {
+   "case": "HTTPX PR context",
+   "execution": "completed; complete report published; complete known usage",
+   "classification": "semantically inadequate",
+   "obligations": [
+    {
+     "id": "transition",
+     "verdict": "partially supported",
+     "reason": "Identifies httpx 0.28.1 in requirements and 0.27.2 to 0.28.1 in the summary, but never preserves the unpinned FastAPI context or declines to name a resolved Starlette version."
+    },
+    {
+     "id": "target-consumer",
+     "verdict": "partially supported",
+     "reason": "Claim 'test suite uses FastAPI's TestClient' matches the supplied 'from fastapi.testclient import TestClient', but the captured re-export is not traced and installed-version authority is not discussed."
+    },
+    {
+     "id": "callee-change",
+     "verdict": "unsupported (omitted)",
+     "reason": "The report never mentions the supplied httpx.Client 'app' keyword or its removal. Supplied evidence: httpx-old L574+ passes 'app: ...'; httpx-new L594+ signature has no 'app'."
+    },
+    {
+     "id": "framework-path",
+     "verdict": "unsupported (omitted)",
+     "reason": "No relation between starlette-old super().__init__(app=self.app) and the removal is stated; no conditional bridge to the target runtime."
+    },
+    {
+     "id": "ci-scope",
+     "verdict": "partially supported",
+     "reason": "States no exact-head CI coverage and notes the 410 log-retrieval error, but does not distinguish workflow path filters/test steps from Docker steps, nor the illustrative/manual_simulation provenance of the historical build job."
+    },
+    {
+     "id": "runtime-and-next-work",
+     "verdict": "unsupported (decision-critical)",
+     "reason": "Recommendation asserts 'the change is likely safe' with empty recommendation_evidence, on an assumed 'standard FastAPI/Starlette' premise, instead of naming the missing installed-framework binding. No bounded next work beyond the CI observation."
+    }
+   ]
+  },
+  "packet-b": {
+   "case": "Captured newer consumer comparison",
+   "execution": "completed; complete report published; complete known usage",
+   "classification": "semantically inadequate",
+   "obligations": [
+    {
+     "id": "caller-callee-identities",
+     "verdict": "contradicted",
+     "reason": "Asserts Starlette's TestClient 'passes the verify parameter directly to the super() constructor'. The supplied starlette-new super() call (L418+) passes base_url, headers, transport, follow_redirects, cookies only - no verify."
+    },
+    {
+     "id": "call-signature-relation",
+     "verdict": "unsupported",
+     "reason": "Analyses a real but non-required change (verify: VerifyTypes to ssl.SSLContext | str | bool) and never traces the presence/absence of the 'app' keyword, which is the material relation."
+    },
+    {
+     "id": "scoped-consequence",
+     "verdict": "contradicted (decision-critical)",
+     "reason": "Concludes the change 'maintains functional compatibility' - a global safety inference - and never makes the required observation that this newer caller no longer passes app, so that removal does not establish this call's failure."
+    },
+    {
+     "id": "remaining-limit",
+     "verdict": "unsupported",
+     "reason": "Conditions mention reliance on httpx.Client, but the compatibility recommendation is not limited to the captured reference pair or to source-level scope."
+    }
+   ]
+  },
+  "packet-c": {
+   "case": "glyphsLib PR context",
+   "execution": "completed; complete report published; complete known usage",
+   "classification": "semantically inadequate",
+   "obligations": [
+    {
+     "id": "transition",
+     "verdict": "supported",
+     "reason": "Correct pytest 9.0.2 to 9.0.3 in requirements-dev.txt."
+    },
+    {
+     "id": "main-ci-route",
+     "verdict": "partially supported",
+     "reason": "Identifies the Test + Deploy workflow, but never traces tox -e py through tox dependency files/requirements-dev.in or separates lint/deploy scope, although that evidence was supplied."
+    },
+    {
+     "id": "regression-route",
+     "verdict": "partially supported",
+     "reason": "Names the Regression Tests workflow but does not distinguish known-good generation from proposed regression environments or their collection gating."
+    },
+    {
+     "id": "ci-correlation",
+     "verdict": "contradicted (decision-critical)",
+     "reason": "Recommendation 'verified as covered by both the primary CI pipeline and the dedicated regression test suite' is asserted from historical captures and overstates their scope; it does not preserve the captured-time/revision limit independent of installed pytest identity."
+    },
+    {
+     "id": "runtime-uncertainty",
+     "verdict": "unsupported",
+     "reason": "No statement distinguishes a planned install/command relation from an admitted runtime observation, and no installed pytest identity is treated as unresolved."
+    },
+    {
+     "id": "stopping-and-next-work",
+     "verdict": "unsupported",
+     "reason": "Unexamined list is limited to internal pytest changes; it gives no specific justified next work for the decisive installed-runtime/binding question."
+    }
+   ]
+  },
+  "packet-d": {
+   "case": "Captured older consumer comparison",
+   "execution": "completed; complete report published; complete known usage",
+   "classification": "semantically inadequate",
+   "obligations": [
+    {
+     "id": "caller-callee-identities",
+     "verdict": "contradicted",
+     "reason": "Again describes the consumer as passing 'verify' to super(); the supplied starlette-old call (L392+) passes app=self.app and never passes verify."
+    },
+    {
+     "id": "call-signature-relation",
+     "verdict": "unsupported",
+     "reason": "Never contrasts the supplied old caller's app=self.app with the new callee's absent app keyword."
+    },
+    {
+     "id": "scoped-consequence",
+     "verdict": "contradicted (decision-critical)",
+     "reason": "Concludes the change is 'structurally compatible', which inverts the supplied source relation: this captured older caller supplies app and the new callee removed it. No execution is required to identify that scoped source-level incompatibility."
+    },
+    {
+     "id": "remaining-limit",
+     "verdict": "unsupported",
+     "reason": "The stated runtime limit does not repair the inverted compatibility claim or a specific observable call fact."
+    }
+   ]
+  }
+ },
+ "correct_statements_preserved": [
+  "httpx verify parameter typing is VerifyTypes in 0.27.2 and ssl.SSLContext | str | bool in 0.28.1 (packets b/d) - true but not the material relation.",
+  "pytest 9.0.2 to 9.0.3 in requirements-dev.txt (packet c).",
+  "Target test module imports FastAPI TestClient; Docker step installs from requirements.txt (packet a).",
+  "Both workflows exist and are named; historical successful job observations are present (packet c)."
+ ],
+ "cohort": {
+  "cases": 4,
+  "adequate": 0,
+  "inadequate": 4,
+  "inconclusive": 0,
+  "control_failures": 0,
+  "unknown_usage_attempts": 0,
+  "decision": "Any comparable case semantically inadequate selects the plan section 7 branch: do not fund autonomous-discovery optimization from this result; select a bounded interpretation-method or simpler evidence-preparation plus interpretation comparison."
+ },
+ "contract_findings": [
+  {
+   "id": "empty-recommendation-evidence",
+   "finding": "The report schema admits recommendation_status='inferred' with an empty recommendation_evidence list. Three of four reports used this to emit the decision-critical conclusion without any cited support.",
+   "consequence": "A structural route exists for unsupported advice even under complete supplied evidence; a later protocol should decide whether a recommendation must carry at least one eligible support reference or be expressed as an unresolved/scoped conclusion."
+  },
+  {
+   "id": "adjacent-detail-displacement",
+   "finding": "Packets b/d contained the decisive app removal and the consumer's app=self.app call, yet both reports substituted the adjacent, real verify type-hint change and asserted consumer behaviour the supplied lines do not show.",
+   "consequence": "The dominant failure is interpretation/selection under complete evidence, not evidence acquisition. Discovery improvements cannot address it."
+  }
+ ],
+ "limits": [
+  "One sample per case, four cases, one deployment at one operating point.",
+  "Two cases derive from the same exposed HTTPX material; not independent generalization samples.",
+  "Review is AI-assisted and source-aware with prior case exposure; no masked, independent human acceptance.",
+  "No target execution, installed-version verification, or maintainer usefulness evidence.",
+  "Complete reports were published; semantic adequacy was not part of execution admission."
+ ]
+}

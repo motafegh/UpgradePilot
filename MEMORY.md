@@ -7,6 +7,25 @@
 
 ## Current position
 
+**Capability diagnostic executed — first real semantic evidence.** On 2026-10-19 the
+bound activation `c5e06b1b759b8cacaacf1c59bfaedf1556254f81ad709f615c64adf8c61c27b0` was run once to
+fresh `supplied-evidence-2026-10-19-diagnostic-r4`: all five roles completed with complete known
+usage — 66,920 input / 4,373 generated tokens, 180 admission units, 1,028.44 prediction seconds,
+1,034.63 batch seconds, zero unknown usage, cleanup confirmed. [The frozen review and
+disposition](working-memory/evidence/2026-10-19-investigator-capability-diagnostic/README.md)
+classifies **all four comparable cases semantically inadequate**: reports never identify the
+supplied `app`-keyword removal that the cases turn on, two substitute an adjacent real `verify`
+type-hint change and assert consumer behaviour the supplied call does not show, and the reports
+emit decision-critical "likely safe" / "verified as covered" / "structurally compatible"
+conclusions with empty or unsupported recommendation evidence. Under plan §7 this selects the
+"do not fund autonomous-discovery optimization" branch; the next responsibility is a bounded
+interpretation-method or simpler evidence-preparation comparison decision. Two contract findings
+are recorded: the schema admits unsupported recommendations, and the failure is interpretation
+under complete evidence, not acquisition. This is one sample per case on exposed material: no
+model ranking, reliability, maintainer usefulness or product adoption follows. Control/fit
+verification is GREEN; the capability result is a completed negative; the build cycle's D/E and
+learner ownership remain pending.
+
 Ali accepted the [amended AUDIT-011](audits/2026-10-18_AUDIT-011_investigator-experiment-validity-and-progress.md) review and explicitly authorized writing [the successor run-control, completion and capability diagnostic plan](plans/INVESTIGATOR_RUN_CONTROL_COMPLETION_AND_CAPABILITY_DIAGNOSTIC_PLAN.md). The [planning cycle](working-memory/2026-10-18_investigator-successor-planning_lbd-cycle.md) preserves the design and proof boundary. The selected plan separates run-control correctness, a fixed report-only completion allowance and a small supplied-evidence diagnostic; general adaptive discovery pricing/navigation remains conditional on the capability result. The diagnostic baseline is one Gemma12 operating point, four one-shot development cases and at most two named non-semantic probes (six total attempts), with explicit token/time/operation ceilings and fresh freeze/activation requirements. Its first activated cohort failed the cancellation/usage gate; no semantic case was attempted.
 
 **Selected Build:** Ali authorized the plan's Build, lossless presentation and then the concrete capacity revision. The [same Build cycle](working-memory/2026-10-19_investigator-successor-build_lbd-cycle.md) owns progression. Delivered run control/accounting, strict report-only composition, real packets, reversible `/2` presentation and a runner that separates the immutable parent from a prospective request and actual observed capacity profile. Source-bound r7 preserves every stable selection and completes maximum-reference feasibility at 76/23/61/23 units. The preceding increment passed162 focused/control/model/report-only/runner/seam tests plus65 nearest Workspace tests (227 distinct). This increment reran the overlapping10 control tests successfully; their uncovered queue boundary is reproduced separately. No product source changed.

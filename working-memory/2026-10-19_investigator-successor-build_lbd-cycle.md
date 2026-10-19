@@ -241,3 +241,41 @@ Select fresh r12/runtime-r8 and diagnostic-r4, maximum5 new predictions and8 acr
 Fresh174-test focused/seam suite passes in7.785 seconds; the prior65 nearest Workspace checks retain their unchanged product horizon (239 distinct). r12 offline source/retention admission passes and every material selection/refcount/feasibility matches r11. [GPU-release intent](evidence/2026-10-19-investigator-successor-build/gpu-release-intent.json) binds the prospective request, exact source/reviewer/closed-control identities, budgets and no-retry consequences before loading.
 
 Actual runtime-r8 preflight at22b796a1 passes ratio0.45/exact22 GPU layers, complete fits and cleanup, zero predictions. Verified freeze `c5e06b1b759b8cacaacf1c59bfaedf1556254f81ad709f615c64adf8c61c27b0` and profile `a2b4dc2ed3f4090f8bd618bdafad5cca2e396f66f39258edbad142ad2dfd8d73` bind current source/SDK/reviewer/closed-control/input identities. [Readiness](evidence/2026-10-19-investigator-successor-build/gpu-release-readiness.json) records all token counts. Publish [exact matching activation](evidence/2026-10-19-investigator-successor-build/gpu-release-activation.json), then execute fresh diagnostic-r4 once. Canary failure withholds all semantic cases; successful readiness is not semantic acceptance.
+
+### Actual diagnostic-r4 execution, frozen review and disposition
+
+Ali explicitly directed executing the armed r4. Ran the exact bound activation
+`c5e06b1b759b8cacaacf1c59bfaedf1556254f81ad709f615c64adf8c61c27b0` once at unchanged source
+`13643c99` into fresh `supplied-evidence-2026-10-19-diagnostic-r4`. All five roles completed with
+complete known usage: **66,920 input / 4,373 generated tokens, 180 admission units, 1,028.44
+prediction seconds, 1,034.63 batch seconds, zero unknown-usage attempts**; owned model unload and
+client release confirmed. This is the first complete semantic observation in the lineage and the
+first cohort to close without an unknown-usage attempt. Control, affordability and fit work
+delivered: the loop is now measurable, complete and cheap (19 minutes, 67k input tokens).
+
+The frozen source-aware review against the 20 pre-output obligations finds **all four comparable
+cases semantically inadequate** (0 adequate, 0 inconclusive, 0 control failures). Reports never
+identify the supplied `app`-keyword removal that the case turns on (packets a/b/d); packets b/d
+substitute a real but non-required `verify` type-hint change and assert that the consumer passes
+`verify` to `super()`, which the supplied call does not show (contradicted); packet-d concludes
+"structurally compatible" — the inverse of the supplied relation where its caller passes
+`app=self.app` and the new callee removed `app`; packet-a recommends "likely safe" and packet-c
+"verified as covered" by CI, both with empty or unsupported recommendation support. Correct
+statements are preserved separately (the `verify` typing change is real, pytest transition,
+TestClient import, Docker install, both workflows). [The full review, accounting and disposition
+are public-safe](../working-memory/evidence/2026-10-19-investigator-capability-diagnostic/README.md);
+exact requests/receipts/publications remain in the owner-only root, bound by its retention index.
+
+Two contract-level findings are recorded rather than repaired here: the report schema admits
+`recommendation_status: "inferred"` with an empty `recommendation_evidence` list (three of four
+reports used this for decision-critical advice), and adjacent-detail displacement shows the
+failure is interpretation/selection under **complete** evidence, not acquisition.
+
+Disposition per plan §7: all cases are semantically inadequate, which selects the
+"do not fund autonomous-discovery optimization" branch and requires a bounded
+interpretation-method or simpler evidence-preparation plus interpretation comparison as the next
+decision. Discovery/navigation work remains unattempted and deferred behind that decision. No
+retry, slot transfer, model substitution, output repair or regrading occurred; the prior
+unknown-usage lineage costs stay separate. No model ranking, reliability, maintainer usefulness,
+product adoption or learner ownership is inferred. Control/fit verification is GREEN and the
+capability result is a completed negative; canonical D/E remain pending.
