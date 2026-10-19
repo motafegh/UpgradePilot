@@ -1,0 +1,18 @@
+{
+  "format": "investigator-complete-fit-retention-summary/1",
+  "index_path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-runtime-r2-disposition-r1/completed-retention-index.json",
+  "index_sha256": "d86f57d6d323050c1dd73ea065e2e963c254f79261aaf0dac346e78df33fe9cc",
+  "files_excluding_index": 39,
+  "bytes_excluding_index": 824570,
+  "directory_modes": "0700",
+  "file_modes": "0600",
+  "roots": [
+    "supplied-evidence-2026-10-19-runtime-r2",
+    "supplied-evidence-2026-10-19-runtime-r2-disposition-r1"
+  ],
+  "exact_membership_hash_size_mode_check": "passed",
+  "prior_retention_index_sha256": "ed0fbdb4e7af9e2b904a9b708355204894f8d7865423d8363669a263d91eff41",
+  "prior_200_files_membership_hash_size_mode_check": "passed unchanged",
+  "current_r5_preparation_admission": "passed",
+  "limit": "Local owner-only retention, not off-machine backup or full model/runtime archive."
+}
