@@ -1,0 +1,36 @@
+{
+  "format": "investigator-evidence-first-final-verification/1",
+  "recorded_utc": "2026-10-19T20:23:07.410011+00:00",
+  "implementation_commit": "9c6b3720",
+  "activation_commit": "523ca28d",
+  "review_sha256": "646a8288798766e1e9e8ade4252ad55cc9fb29bb9f44f9f2cceca1deaba06bc6",
+  "comparison_review_sha256": "dee5368181e3a5c49bc9c811177ea627ad7600094f63899cc640e0051d4724fb",
+  "review_protocol_unchanged": true,
+  "obligations_reviewed": 20,
+  "claims_reviewed": 26,
+  "adequate_cases": 0,
+  "inadequate_cases": 4,
+  "original_report_input_and_citation_bindings_verified": true,
+  "new_retention": [
+    {
+      "root": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-runtime-r9",
+      "files": 36,
+      "bytes": 694616,
+      "membership_hash_size_modes_verified": true
+    },
+    {
+      "root": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r5",
+      "files": 61,
+      "bytes": 1309918,
+      "membership_hash_size_modes_verified": true
+    }
+  ],
+  "offline_preparation_verified": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-preparation-r13",
+  "baseline_bound_artifacts_unchanged": 11,
+  "baseline_retention_files_unchanged": 61,
+  "loaded_model_instances_at_final_check": [],
+  "all_declared_execution_resource_ceilings_met": true,
+  "local_markdown_json_checks": "passed",
+  "test_horizon": "174 composed offline tests at unchanged implementation source; not rerun for documentation-only updates",
+  "limits": "Identity/accounting checks are mechanical; semantic judgments are source-aware AI-assisted review, not an independent human verdict."
+}

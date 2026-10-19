@@ -1,0 +1,1037 @@
+{
+  "format": "investigator-evidence-first-source-aware-review/1",
+  "source_horizon": "9c6b3720 implementation;523ca28d published activation",
+  "freeze_sha256": "b2e5cb3845fd99ed62645c83c1f42e9ee8ef69065ef05e5e14aa1c0665256393",
+  "reviewer": {
+    "method": "AI-assisted direct source-aware review by the implementing assistant; no separate semantic-judge prediction",
+    "prior_exposure": true,
+    "blinded": false,
+    "independent_human_acceptance": false
+  },
+  "review_protocol": {
+    "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-review-r1/review-protocol.json",
+    "sha256": "37579067521c5129826c7ea9f6879da2cad830236718a7be57eec02aad6529e9",
+    "unchanged": true
+  },
+  "materiality": "All 20 material obligations must be specifically supported or specifically justified unresolved; zero decision-critical unsupported/contradicted advice, hidden material premise or authority promotion. Review every original report field and source-to-claim scope. No keyword/weighted scoring, output repair, selective denominator or model semantic judge.",
+  "cases": [
+    {
+      "case": "packet-a",
+      "execution": "completed",
+      "classification": "inadequate",
+      "response": {
+        "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r5/packet-a/call-01.visible-response.txt",
+        "sha256": "17a660d5950bbff05e64b8556ac621e20c03d314b07a929b8db7ae8f89865df7"
+      },
+      "delivered_input": {
+        "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r5/packet-a/call-01.packed-input.json",
+        "sha256": "a5ab67ed43d0f2a221edd7cc8aa0c9c2e5b60800117b2649c1be84a8dd52115b"
+      },
+      "citation_index": [
+        {
+          "alias": "R1",
+          "kind": "source_line",
+          "id": "566da4b840830fed3a866abbd6d1ca5821acbc6a84f3807e79491ca9c4f9ca17",
+          "address": "source:7f18c3c2addc974fa52c299b114f8f957bd66153d8bc901db107bcc523f2cf2a:L1:7",
+          "source": {
+            "source_id": "target-proposed",
+            "path": "requirements.txt",
+            "revision": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+            "start_line": 1,
+            "end_line": 7,
+            "content_sha256": "fb2d2df7bc2502337b1a551de591485d61bd8f0c00dc2897802fa6994d9328a3"
+          }
+        },
+        {
+          "alias": "R2",
+          "kind": "source_line",
+          "id": "ad6730bc6476bb3bdba285b8b1878b1f31f26f9d0015459b8f823d7d018a407d",
+          "address": "source:7376c6c598bb3e3b18a7d5c260d899eebc899c398768aa72588e5ce53bfe5f21:L1:58",
+          "source": {
+            "source_id": "target-proposed",
+            "path": "tests/test_routes.py",
+            "revision": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+            "start_line": 1,
+            "end_line": 58,
+            "content_sha256": "54ce091cd5e7ec03d53606f59b713e87ff64a1d6d5922f61be23d97b049393f2"
+          }
+        },
+        {
+          "alias": "R3",
+          "kind": "source_line",
+          "id": "2c869ebecb4bb2738ece9248c74eb6b12071c3ab9d91d6261bffb25e13311130",
+          "address": "source:b5b099a2f857549138f2afc10772870a532329f3ed3436a70c2a755943cae0c1:L1:1",
+          "source": {
+            "source_id": "fastapi-reference",
+            "path": "fastapi/testclient.py",
+            "revision": "07684aea793d042fb5a12dde46dfe6d1e2196725",
+            "start_line": 1,
+            "end_line": 1,
+            "content_sha256": "9c1bda0265fae9895d45e24d6573ce935b1fba8d90ea1b3c6cebc86827a9e8b4"
+          }
+        },
+        {
+          "alias": "R4",
+          "kind": "source_line",
+          "id": "340953e7262e96d62d368703fb7c9fbd846aff0210c43ac75f2b5bc77777c227",
+          "address": "source:25f30724cf8fb8d49f2040631c5b1f31188a54ab74532b913d41182589af9834:L574:100",
+          "source": {
+            "source_id": "httpx-old",
+            "path": "httpx/_client.py",
+            "revision": "609df7ecc0f7cb10a1c998aa9c269bba77337c5f",
+            "start_line": 574,
+            "end_line": 673,
+            "content_sha256": "c4abf7e3485c2df38f0a78a57b1121da0360e41ac442a212eff3b4641f67c56c"
+          }
+        },
+        {
+          "alias": "R5",
+          "kind": "source_line",
+          "id": "96a03910dc87dcc8110ca3d8aa3c89ee88df62a70360fec445e5e8ab747eae73",
+          "address": "source:be14b02183724bb171a52c81b3839621ac23673ed510ab5a595a7c1afafacbe2:L594:100",
+          "source": {
+            "source_id": "httpx-new",
+            "path": "httpx/_client.py",
+            "revision": "26d48e0634e6ee9cdc0533996db289ce4b430177",
+            "start_line": 594,
+            "end_line": 693,
+            "content_sha256": "c43f941baefe58c91e96d00039e1868fe719d91453026d7db1647194563bff8d"
+          }
+        },
+        {
+          "alias": "R6",
+          "kind": "source_line",
+          "id": "9614cced573d6a54eef6d55ceebce850665aa01aeaad2ccc94b9c4ca093bf67e",
+          "address": "source:72de44a0041a4f17b07e450511d95bfac845b9d16eb878c4e415fe126a38492b:L392:100",
+          "source": {
+            "source_id": "starlette-old",
+            "path": "starlette/testclient.py",
+            "revision": "be4f3e110ed1172ec9cb47a6209bd899a0d3a604",
+            "start_line": 392,
+            "end_line": 491,
+            "content_sha256": "4ad9cf0a44243a5d82e3becfe19d8aad4d7ac5f7298fb35a6ba6273b940dffe8"
+          }
+        },
+        {
+          "alias": "R7",
+          "kind": "source_line",
+          "id": "73c5762f8446545a5884302b00b872800071adcb6ab9e315daf8a0395719c5ae",
+          "address": "source:d91161f9a720e9f1052087c4d59c278c9fe8dcad55be8d609d4d54907879c76b:L418:100",
+          "source": {
+            "source_id": "starlette-new",
+            "path": "starlette/testclient.py",
+            "revision": "554f368809e0d891a699667faf0cfbb20057eeb2",
+            "start_line": 418,
+            "end_line": 517,
+            "content_sha256": "acfaa9d5f54182455d3524b3e03b9deb85f9ddae77723e5ab03e864bcd12a88e"
+          }
+        },
+        {
+          "alias": "R8",
+          "kind": "source_line",
+          "id": "b2fa4654933032e73537eddf27bbd721184fc5c6b63038f9ea4e54f6d404e1ba",
+          "address": "source:57ee6197d834fc85dd8d4d4526175d14307a4421bb5719dec88b4af8b5e0c567:L1:34",
+          "source": {
+            "source_id": "target-proposed",
+            "path": ".github/workflows/python.yml",
+            "revision": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+            "start_line": 1,
+            "end_line": 34,
+            "content_sha256": "2231c1c512a037fd56d713ccbe02bd0e877ec834058744f97c8e0a7daf138131"
+          }
+        },
+        {
+          "alias": "R9",
+          "kind": "source_line",
+          "id": "c98601ab8e1ebd94ae2b5d9961681039919cdaaaf245f700e663518eb761bba2",
+          "address": "source:e4a77c5cad823ef4c9c6a0bc3066de7ee34039807142d703a84c3925444ba62e:L1:44",
+          "source": {
+            "source_id": "target-proposed",
+            "path": ".github/workflows/docker.yaml",
+            "revision": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+            "start_line": 1,
+            "end_line": 44,
+            "content_sha256": "cfb19786adb756ee796f92d294728d14cd97b6026465241edefc839abbcbd53b"
+          }
+        },
+        {
+          "alias": "R10",
+          "kind": "source_line",
+          "id": "aa2d5dfd2eb8a5db08f9c65605bfd2753cb4467ff41e70df9b6a674d018496f7",
+          "address": "source:6b6bc3ae1fa7134223dd6a4b9be3057fc2cf3488adeac77d13b74f702c8bb97d:L1:23",
+          "source": {
+            "source_id": "target-proposed",
+            "path": "Dockerfile",
+            "revision": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+            "start_line": 1,
+            "end_line": 23,
+            "content_sha256": "3d0821599fcc96fc9d1a297e0a0fa3b7dffa53811f96850f8648bd25ce2a8080"
+          }
+        },
+        {
+          "alias": "R11",
+          "kind": "source_line",
+          "id": "051a84f5fc4479796a4e3deaa2b2220b4f041d52bcf1ab99ae07d96dfc44d89c",
+          "address": "source:869707e3c009fa9dc7fc6130ad471cba53250ead32d60c384f34789daaa2af02:L1:34",
+          "source": {
+            "source_id": "ci-observations",
+            "path": "E16-actions-run-and-job.json",
+            "revision": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+            "start_line": 1,
+            "end_line": 34,
+            "content_sha256": "484f8adb389fc5a894bd0f63d1307dccdd861a580839823237fdaa9247e00ea0"
+          }
+        },
+        {
+          "alias": "R12",
+          "kind": "source_line",
+          "id": "60e1047bfdfdcd6327e996c263deed3f7a3920e336902b34324c0297e1c6b8a7",
+          "address": "source:6846211ce52df27db54f2f7a2ee34850703484a2721d73928cb539fe482a4521:L1:21",
+          "source": {
+            "source_id": "ci-observations",
+            "path": "E19-docker-log-retrieval-error.json",
+            "revision": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+            "start_line": 1,
+            "end_line": 21,
+            "content_sha256": "1960a9f30eb940a7d29130caec4324686172f02ea2c9ca5901d7874b6f0f90f7"
+          }
+        },
+        {
+          "alias": "R13",
+          "kind": "native_record",
+          "id": "1e2d6304cfbcf6d3a7f37873943199942f6cf4cdf6dfb62ef488e0234e82d466",
+          "address": "native:386390033c35481481fcab551a170257:29ef7c5d67f58d428ce0dddf8ccc6bbcd4a23b3000789d29ae74eed55a732fa5",
+          "source": {
+            "family": "investigation_inputs",
+            "record_id": "386390033c35481481fcab551a170257",
+            "payload_digest": "29ef7c5d67f58d428ce0dddf8ccc6bbcd4a23b3000789d29ae74eed55a732fa5"
+          }
+        },
+        {
+          "alias": "R14",
+          "kind": "native_record",
+          "id": "c60a5c5f6d8e7d67f8b64152ac41733535616e0db08b4b75721a748d327fe801",
+          "address": "native:96193fcad9dc41d69985d4a7adc3ee43:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "source": {
+            "family": "ci_inputs",
+            "record_id": "96193fcad9dc41d69985d4a7adc3ee43",
+            "payload_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          }
+        },
+        {
+          "alias": "R15",
+          "kind": "native_record",
+          "id": "a97eeca93d64e1cd120c6594bf6fa37f57ad751dbbfbcb6e1bb362e89fa41bbc",
+          "address": "native:8d83a8f3566b4a519825097d3ee90e0a:ede754bd91d0abffd58c8efb66e9c59bc7a07c820e70a6f0a7e3962007563655",
+          "source": {
+            "family": "ci_coverage",
+            "record_id": "8d83a8f3566b4a519825097d3ee90e0a",
+            "payload_digest": "ede754bd91d0abffd58c8efb66e9c59bc7a07c820e70a6f0a7e3962007563655"
+          }
+        },
+        {
+          "alias": "R16",
+          "kind": "native_record",
+          "id": "0b0608a28b39328ce11c6a268f8d5dcd7e70548377de4ab539de18cef41dfe62",
+          "address": "native:057ef269fb5a425ea8d0bdd14aae826a:1903be19e1e05e8ea2dbe36728c58c69fe2be103d898d85b826d383f794ed91f",
+          "source": {
+            "family": "runtime_dependency_state",
+            "record_id": "057ef269fb5a425ea8d0bdd14aae826a",
+            "payload_digest": "1903be19e1e05e8ea2dbe36728c58c69fe2be103d898d85b826d383f794ed91f"
+          }
+        }
+      ],
+      "obligations": [
+        {
+          "criterion": "Identify HTTPX 0.27.2 to 0.28.1 and the retained exact target. Preserve unpinned FastAPI context; do not invent a resolved Starlette version.",
+          "id": "transition",
+          "source_locators": [
+            "native:investigation_inputs",
+            "target-proposed:requirements.txt:1-7"
+          ],
+          "verdict": "partially supported",
+          "reason": "Correct HTTPX 0.27.2 to 0.28.1 declaration, but unpinned fastapi[standard] and the exact target/reference distinction are not developed. Omission of a literal commit string alone is not the failure."
+        },
+        {
+          "criterion": "Trace the target TestClient use through the captured FastAPI re-export; reference sources are not proof of the installed version.",
+          "id": "target-consumer",
+          "source_locators": [
+            "target-proposed:tests/test_routes.py:1-58",
+            "fastapi-reference:fastapi/testclient.py:1"
+          ],
+          "verdict": "missing",
+          "reason": "The delivered tests instantiate FastAPI TestClient, and the captured FastAPI file re-exports Starlette TestClient. The report instead leaves application usage unexamined."
+        },
+        {
+          "criterion": "Accurately distinguish the old constructor app keyword from its absence in the supplied new Client signature; do not claim an observed execution failure.",
+          "id": "callee-change",
+          "source_locators": [
+            "httpx-old:httpx/_client.py:574-673",
+            "httpx-new:httpx/_client.py:594-693"
+          ],
+          "verdict": "missing",
+          "reason": "Old Client accepts app at L649; the new signature L639-661 omits it. This directly visible material change is never identified."
+        },
+        {
+          "criterion": "Relate the supplied old/new Starlette TestClient constructor calls to that specific keyword change. Preserve the conditional bridge to the target runtime.",
+          "id": "framework-path",
+          "source_locators": [
+            "starlette-old:starlette/testclient.py:392-491",
+            "starlette-new:starlette/testclient.py:418-517"
+          ],
+          "verdict": "missing",
+          "reason": "Older Starlette forwards app=self.app at L430; newer L455-461 does not. The report neither compares them nor states the conditional bridge to the target installed framework."
+        },
+        {
+          "criterion": "Distinguish workflow path filters and test steps, Docker build/install steps and the illustrative historical build job/log retrieval error. No green-build entailment of exact dependency compatibility or complete current CI evidence.",
+          "id": "ci-scope",
+          "source_locators": [
+            "target-proposed:.github/workflows/python.yml:1-34",
+            "target-proposed:.github/workflows/docker.yaml:1-44",
+            "target-proposed:Dockerfile",
+            "ci-observations:E16-actions-run-and-job.json:1-34",
+            "ci-observations:E19-docker-log-retrieval-error.json:1-21",
+            "native:ci_inputs",
+            "native:ci_coverage"
+          ],
+          "verdict": "partially supported",
+          "reason": "Copies the native no-exact-head-workflows assessment and mentions the 410 retrieval problem, but does not distinguish Python path filters/test steps, Docker installation/build, and explicitly illustrative historical Docker evidence. No-exact-head native coverage is not an inventory claim that no retained CI-shaped artifact exists."
+        },
+        {
+          "criterion": "Identify the actual missing target framework/runtime binding and useful bounded next work, retaining native unsupported/unresolved outcomes and historical capture strength. No low-risk reassurance, action permission or blanket unknown replacing supplied source relations.",
+          "id": "runtime-and-next-work",
+          "source_locators": [
+            "native:runtime_dependency_state",
+            "native:ci_coverage",
+            "target-proposed:requirements.txt:1-7"
+          ],
+          "verdict": "partially supported",
+          "reason": "Correctly leaves runtime state unconfirmed and withdraws low-risk reassurance. It does not identify the missing installed FastAPI/Starlette version binding or useful bounded work to resolve it, and blanket uncertainty replaces supplied source relationships."
+        }
+      ],
+      "claim_audit": [
+        {
+          "claim": 1,
+          "statement_verdict": "supported",
+          "citation_verdict": "entailed",
+          "reason": "Proposed requirements declare httpx==0.28.1.",
+          "original_citation_aliases": [
+            "R1"
+          ]
+        },
+        {
+          "claim": 2,
+          "statement_verdict": "supported",
+          "citation_verdict": "entailed",
+          "reason": "Native investigation_inputs records the exact 0.27.2 -> 0.28.1 change.",
+          "original_citation_aliases": [
+            "R13"
+          ]
+        },
+        {
+          "claim": 3,
+          "statement_verdict": "supported at native-assessment scope",
+          "citation_verdict": "entailed",
+          "reason": "Native ci_coverage states no pull-request workflows available for exact head; this does not erase illustrative historical Docker material.",
+          "original_citation_aliases": [
+            "R14"
+          ]
+        },
+        {
+          "claim": 4,
+          "statement_verdict": "supported at native-assessment scope",
+          "citation_verdict": "entailed",
+          "reason": "Accurately describes the native no-admitted-runtime-candidate result; it is not a claim that no static install commands exist.",
+          "original_citation_aliases": [
+            "R15"
+          ]
+        }
+      ],
+      "all_other_report_fields": "Summary/conditions/recommendation preserve uncertainty and do not repeat baseline likely-safe advice. Empty recommendation attribution is not itself a failure for this scoped abstention. Missing framework/runtime bindings, delivered source relations and useful next work still make the case inadequate. Unexamined application use was actually supplied. Stopping wording is read at supplied-packet scope; it proves neither source exhaustion nor adequacy.",
+      "recommendation_citation_aliases": [],
+      "comparison_to_adjudicated_reference": "Withdraws the earlier likely-safe/patch-category reassurance; still omits the supplied consumer/signature path and bounded runtime follow-up."
+    },
+    {
+      "case": "packet-b",
+      "execution": "completed",
+      "classification": "inadequate",
+      "response": {
+        "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r5/packet-b/call-01.visible-response.txt",
+        "sha256": "c8595136c35c4e5c1fadd214b7e3297fbd62312345a5c20746f519c7297bab81"
+      },
+      "delivered_input": {
+        "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r5/packet-b/call-01.packed-input.json",
+        "sha256": "fdbcbf5925630bdeca5d952583c886d1979b2b96c46bf0cbc0a0a7fe69d074b9"
+      },
+      "citation_index": [
+        {
+          "alias": "R1",
+          "kind": "source_line",
+          "id": "096cf8f22fcc0262a9d6f880ca24255cf53b5df34a9a371b1b55963dbde80192",
+          "address": "source:25f30724cf8fb8d49f2040631c5b1f31188a54ab74532b913d41182589af9834:L574:100",
+          "source": {
+            "source_id": "httpx-old",
+            "path": "httpx/_client.py",
+            "revision": "609df7ecc0f7cb10a1c998aa9c269bba77337c5f",
+            "start_line": 574,
+            "end_line": 673,
+            "content_sha256": "c4abf7e3485c2df38f0a78a57b1121da0360e41ac442a212eff3b4641f67c56c"
+          }
+        },
+        {
+          "alias": "R2",
+          "kind": "source_line",
+          "id": "3823c46f4fe38ddc5c778f758506eda643322ae96df8fa20034061196c70879c",
+          "address": "source:be14b02183724bb171a52c81b3839621ac23673ed510ab5a595a7c1afafacbe2:L594:100",
+          "source": {
+            "source_id": "httpx-new",
+            "path": "httpx/_client.py",
+            "revision": "26d48e0634e6ee9cdc0533996db289ce4b430177",
+            "start_line": 594,
+            "end_line": 693,
+            "content_sha256": "c43f941baefe58c91e96d00039e1868fe719d91453026d7db1647194563bff8d"
+          }
+        },
+        {
+          "alias": "R3",
+          "kind": "source_line",
+          "id": "af454f645c39c371c3f2de76b1bb47639e22c5420844ce1b3c5a4d5f40b66db6",
+          "address": "source:d91161f9a720e9f1052087c4d59c278c9fe8dcad55be8d609d4d54907879c76b:L418:100",
+          "source": {
+            "source_id": "starlette-new",
+            "path": "starlette/testclient.py",
+            "revision": "554f368809e0d891a699667faf0cfbb20057eeb2",
+            "start_line": 418,
+            "end_line": 517,
+            "content_sha256": "acfaa9d5f54182455d3524b3e03b9deb85f9ddae77723e5ab03e864bcd12a88e"
+          }
+        }
+      ],
+      "obligations": [
+        {
+          "criterion": "Identify the exact captured reference consumer and old/new HTTPX Client sources; do not rebind the consumer to the PR target installation.",
+          "id": "caller-callee-identities",
+          "source_locators": [
+            "starlette-new:starlette/testclient.py:418-517",
+            "httpx-old:httpx/_client.py:574-673",
+            "httpx-new:httpx/_client.py:594-693"
+          ],
+          "verdict": "partially supported",
+          "reason": "Correctly names HTTPX versions and Starlette TestClient with supplied references, but does not make the exact captured newer-reference versus target-installation scope explicit. Generic identities are not false."
+        },
+        {
+          "criterion": "Accurately trace the captured constructor/super call and the presence/absence of app in the supplied callee signatures.",
+          "id": "call-signature-relation",
+          "source_locators": [
+            "starlette-new:starlette/testclient.py:418-517",
+            "httpx-old:httpx/_client.py:628-652",
+            "httpx-new:httpx/_client.py:638-661"
+          ],
+          "verdict": "partially supported",
+          "reason": "Verify annotation/default observations and absence of explicit verify forwarding are correct; cookies/follow_redirects forwarding is also correct. The required old app acceptance/new absence and captured non-forwarding relation are omitted. Claims4-5 lack traceable citations despite a complete citable call."
+        },
+        {
+          "criterion": "Recognize that this captured newer caller does not pass app to the callee, so that particular removal does not establish this call failure; no global safety inference.",
+          "id": "scoped-consequence",
+          "source_locators": [
+            "starlette-new:starlette/testclient.py:418-517",
+            "httpx-new:httpx/_client.py:638-661"
+          ],
+          "verdict": "missing",
+          "reason": "The required scoped conclusion is that this newer caller does not forward app, so that removal alone does not establish failure of this call. It is absent. The narrow unused-verify observation is preserved; it does not complete this material comparison or justify closing the full task as no action required."
+        },
+        {
+          "criterion": "Preserve reference-source versus actual target/runtime/whole-compatibility boundaries. A specific visible call fact must not be replaced by blanket uncertainty.",
+          "id": "remaining-limit",
+          "source_locators": [
+            "source-pair task scope and source/capture descriptors"
+          ],
+          "verdict": "partially supported",
+          "reason": "Explicitly limits analysis to snippets and preserves a visible no-verify fact rather than blanket unknown. It does not clearly distinguish the captured reference from an actual target installation or whole-update compatibility; current-implementation/no-action wording is too broad for the unfinished comparison."
+        }
+      ],
+      "claim_audit": [
+        {
+          "claim": 1,
+          "statement_verdict": "supported",
+          "citation_verdict": "entailed",
+          "reason": "Old verify annotation/default is visible at L635.",
+          "original_citation_aliases": [
+            "R1"
+          ]
+        },
+        {
+          "claim": 2,
+          "statement_verdict": "supported",
+          "citation_verdict": "entailed",
+          "reason": "New verify annotation/default is visible at L646.",
+          "original_citation_aliases": [
+            "R2"
+          ]
+        },
+        {
+          "claim": 3,
+          "statement_verdict": "supported",
+          "citation_verdict": "entailed",
+          "reason": "Newer caller L455-461 forwards cookies and follow_redirects.",
+          "original_citation_aliases": [
+            "R3"
+          ]
+        },
+        {
+          "claim": 4,
+          "statement_verdict": "supported as finite-call observation",
+          "citation_verdict": "missing attribution",
+          "reason": "Complete captured super() has no verify keyword. A citable call is supplied; the missing-observation field needlessly asks for a verify-using site outside this fact.",
+          "original_citation_aliases": []
+        },
+        {
+          "claim": 5,
+          "statement_verdict": "narrow signature observation only",
+          "citation_verdict": "missing attribution",
+          "reason": "No explicit verify value is forwarded and both defaults are True. Preserve this observation; it establishes neither the omitted app relation nor whole-update compatibility.",
+          "original_citation_aliases": []
+        }
+      ],
+      "all_other_report_fields": "Conditions acknowledge snippet scope. Summary/recommendation/stopping focus on verify and close as no action required without the required app comparison. Empty evidence is a traceability gap for citable finite-call observations, not an automatic status/list rule. Unexamined VerifyTypes alias does not explain omission of visible app acceptance/non-forwarding. Narrow correct no-verify facts are preserved.",
+      "recommendation_citation_aliases": [],
+      "comparison_to_adjudicated_reference": "Corrects baseline invented verify forwarding to an accurate non-forwarding observation; still misses app removal/non-forwarding and its scoped consequence."
+    },
+    {
+      "case": "packet-c",
+      "execution": "completed",
+      "classification": "inadequate",
+      "response": {
+        "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r5/packet-c/call-01.visible-response.txt",
+        "sha256": "56ac7d15ebe4d0b531049916a00a3d0083f5ad957eae03f66f76a3d6d181ae87"
+      },
+      "delivered_input": {
+        "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r5/packet-c/call-01.packed-input.json",
+        "sha256": "4f1a0e606a81e6975b5ac0b8ae7622196e22a817af9d55e981ff993ccad7ac94"
+      },
+      "citation_index": [
+        {
+          "alias": "R1",
+          "kind": "source_line",
+          "id": "e31ba7e4b884eab9bd51e4e619e11a48bec9b31e8492b069d51b855e988264ea",
+          "address": "source:df6110397331ea49b9ba08f3a2589883614bc1da89c53a18ae72c50b2b02050f:L1:88",
+          "source": {
+            "source_id": "target-base",
+            "path": "requirements-dev.txt",
+            "revision": "044f19e4b1437bfc4343592486f4e3c6040306d9",
+            "start_line": 1,
+            "end_line": 88,
+            "content_sha256": "f9a866625e2a82fe09b4c0ad646ea1d5ab48398f20e9f7f7af322e7443e74606"
+          }
+        },
+        {
+          "alias": "R2",
+          "kind": "source_line",
+          "id": "0f8146640c7b6f4abd525e9bb60ce1d26029945caea7a243e7309eeff736e56d",
+          "address": "source:0df734950e004ca11b8fc957596e8c12da55cb124806519106a1b111c6bed3cb:L1:88",
+          "source": {
+            "source_id": "target-proposed",
+            "path": "requirements-dev.txt",
+            "revision": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+            "start_line": 1,
+            "end_line": 88,
+            "content_sha256": "d61c580da79c07296f782ce579bc16fac1216abd25c6ca40ec51653457b5fe30"
+          }
+        },
+        {
+          "alias": "R3",
+          "kind": "source_line",
+          "id": "a4741b1f662373c5d243eaacde48c9b3e5b058be4e8d7f15022d2026acb355d7",
+          "address": "source:7481968065f67ddc873b8233dee86dba3c4039dbda15d3cd457706e9934ede99:L1:100",
+          "source": {
+            "source_id": "target-proposed",
+            "path": ".github/workflows/ci.yml",
+            "revision": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+            "start_line": 1,
+            "end_line": 100,
+            "content_sha256": "af09f984d02ffbf27b394eed97269c2b6ac779e7a712d89adf3aa38e48058811"
+          }
+        },
+        {
+          "alias": "R4",
+          "kind": "source_line",
+          "id": "c697ebe765f64683f4d61b2599f4e3affd02f9b7360c48b79c1742f4c6ca5ea4",
+          "address": "source:7481968065f67ddc873b8233dee86dba3c4039dbda15d3cd457706e9934ede99:L101:22",
+          "source": {
+            "source_id": "target-proposed",
+            "path": ".github/workflows/ci.yml",
+            "revision": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+            "start_line": 101,
+            "end_line": 122,
+            "content_sha256": "af09f984d02ffbf27b394eed97269c2b6ac779e7a712d89adf3aa38e48058811"
+          }
+        },
+        {
+          "alias": "R5",
+          "kind": "source_line",
+          "id": "5a514e316852addd2194db37ed667ffd6baeca032ad76014610a023354652495",
+          "address": "source:3deacdae2631b7d6a562cd688f1fe6d9164e89e0febf19e7d3dfead29cf4c99d:L1:32",
+          "source": {
+            "source_id": "target-proposed",
+            "path": "tox.ini",
+            "revision": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+            "start_line": 1,
+            "end_line": 32,
+            "content_sha256": "4280f8ed2297829f56bd1a4f947fdda295ff7691a753e914ef236df02a5654d9"
+          }
+        },
+        {
+          "alias": "R6",
+          "kind": "source_line",
+          "id": "19215ed37dc6ee9773ccfc9060006c0231116c96eeef92a30e80eb6061cf954f",
+          "address": "source:f979e6454aa7a494ff65cecf315f2fa8bcaab520576da58e26163fb0a8a2ce5a:L1:48",
+          "source": {
+            "source_id": "target-proposed",
+            "path": ".github/workflows/regression.yml",
+            "revision": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+            "start_line": 1,
+            "end_line": 48,
+            "content_sha256": "8ce672e72f10d1f7cfbe8727cf5808d6b0263fb3b4350f9bfc1f9fdfff4b3d89"
+          }
+        },
+        {
+          "alias": "R7",
+          "kind": "source_line",
+          "id": "f4b5b90125d9affde7b0c69901ba4f592aef44d5533e7a1f5f84b7d6172ad1b8",
+          "address": "source:0b9095a596671cc292282466c8c7a8bbaff6386e90528c20730bd64a147a98fe:L1:39",
+          "source": {
+            "source_id": "target-proposed",
+            "path": "tests/conftest.py",
+            "revision": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+            "start_line": 1,
+            "end_line": 39,
+            "content_sha256": "1603b4c4e29969164416227e8442d524f5ce9095e04d7c0b522e236a7643f8d8"
+          }
+        },
+        {
+          "alias": "R8",
+          "kind": "source_line",
+          "id": "692493edb014b5d403e6133d4d5adc1d636559362ceb2ca31c73b84a91ff9ea4",
+          "address": "source:6756c01ce1b88a3ae96b553d5040635ba40bf9ade19df1d3fd4748fb4cb86f4c:L1:94",
+          "source": {
+            "source_id": "target-proposed",
+            "path": "tests/regression_test.py",
+            "revision": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+            "start_line": 1,
+            "end_line": 94,
+            "content_sha256": "6fd4b6f17d912886bbe733b588a94cd3f69d42477ffb0c9ef4b13edd48a8aaf6"
+          }
+        },
+        {
+          "alias": "R9",
+          "kind": "source_line",
+          "id": "5beca35722fde207f4372d793f06b46c5bf72ed41697a2d90bf9b79609a32aab",
+          "address": "source:deda7d82f462b14929fa3ad644361a306853326c3ca6afe27c4c28055779ad7d:L1:69",
+          "source": {
+            "source_id": "ci-observations",
+            "path": "ev-005-ci-results.json",
+            "revision": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+            "start_line": 1,
+            "end_line": 69,
+            "content_sha256": "63d7f897e15d8c5b4b3f9478876182326812c17594b103bce2329bd182d7bf78"
+          }
+        },
+        {
+          "alias": "R10",
+          "kind": "native_record",
+          "id": "7536fe65b6e677e772d5fbb083bae5cf1b7f0506969a98337444b275b0af217c",
+          "address": "native:6324b2023d144eccabf3dad2b8e94066:aa8989c16de9ebb8f91dafb5dc0a3e60396f453827d849d14dcca52419956116",
+          "source": {
+            "family": "investigation_inputs",
+            "record_id": "6324b2023d144eccabf3dad2b8e94066",
+            "payload_digest": "aa8989c16de9ebb8f91dafb5dc0a3e60396f453827d849d14dcca52419956116"
+          }
+        },
+        {
+          "alias": "R11",
+          "kind": "native_record",
+          "id": "60472b0fbe467753368756f864028a77a9a879ae4344eae652ae60818ba1d894",
+          "address": "native:21cb40e49d6445a48b247fd1a748e61f:e32c895b7440c9055ca03962062696cc7cd58b00d30d9e8f62abc56513d9ae9f",
+          "source": {
+            "family": "ci_inputs",
+            "record_id": "21cb40e49d6445a48b247fd1a748e61f",
+            "payload_digest": "e32c895b7440c9055ca03962062696cc7cd58b00d30d9e8f62abc56513d9ae9f"
+          }
+        },
+        {
+          "alias": "R12",
+          "kind": "native_record",
+          "id": "3e7bdca6f5d3cc2e2f702c1fdadbad3a40fa177b1ee2413780f010ccc02032e1",
+          "address": "native:278f095b020e4db7bfde1afca14c232f:e91804fe9025f79c4cb0658eb73121c732a41cf516bc19b862ce630f72ff9f09",
+          "source": {
+            "family": "ci_coverage",
+            "record_id": "278f095b020e4db7bfde1afca14c232f",
+            "payload_digest": "e91804fe9025f79c4cb0658eb73121c732a41cf516bc19b862ce630f72ff9f09"
+          }
+        },
+        {
+          "alias": "R13",
+          "kind": "native_record",
+          "id": "e74b9d1d80e8b85505cc059b8355da84b7691dfd075f482de3324a3b4cf5902d",
+          "address": "native:c8277deec9944427ab5f4ede4e878c70:73b55f755e33e6267f0cf930d684b16636d55739cb33c0ce6c1f825ef14a5734",
+          "source": {
+            "family": "runtime_dependency_state",
+            "record_id": "c8277deec9944427ab5f4ede4e878c70",
+            "payload_digest": "73b55f755e33e6267f0cf930d684b16636d55739cb33c0ce6c1f825ef14a5734"
+          }
+        }
+      ],
+      "obligations": [
+        {
+          "criterion": "Identify pytest 9.0.2 to 9.0.3 and the exact proposed/base requirement context. A declaration is not an installed-runtime observation.",
+          "id": "transition",
+          "source_locators": [
+            "native:investigation_inputs",
+            "target-base:requirements-dev.txt:1-88",
+            "target-proposed:requirements-dev.txt:1-88"
+          ],
+          "verdict": "partially supported",
+          "reason": "Correct pytest 9.0.2 to 9.0.3 source declaration, but claim1 cites only base requirements R1; the proposed requirement R2/native transition is needed for the full relation. A source declaration is not an installed version."
+        },
+        {
+          "criterion": "Trace the visible test matrix and tox -e py through tox dependency files and pytest command. Separate lint/deploy from test scope.",
+          "id": "main-ci-route",
+          "source_locators": [
+            "target-proposed:.github/workflows/ci.yml:1-122",
+            "target-proposed:tox.ini:1-32"
+          ],
+          "verdict": "partially supported",
+          "reason": "Recognizes tox and native uncertainty but omits the supplied platform/Python matrix, tox -e py -> tox.ini dependency files -> coverage -m pytest route and lint/deploy separation. Native inability to establish runtime consumption does not erase the visible static chain."
+        },
+        {
+          "criterion": "Distinguish known-good generation and proposed regression environments and the explicit regression flag/collection gating. Do not merge these into one runtime state.",
+          "id": "regression-route",
+          "source_locators": [
+            "target-proposed:.github/workflows/regression.yml:1-48",
+            "target-proposed:tests/conftest.py:1-39",
+            "target-proposed:tests/regression_test.py:1-94"
+          ],
+          "verdict": "partially supported",
+          "reason": "Mentions two installs and direct pytest, but omits known-good generation versus proposed regression environments and --run-regression-tests collection gating. Claim2 cites proposed requirements instead of workflow; claim3 cites regression_test.py instead of workflow. Correct broad static facts do not repair their mismatched attribution or missing bindings."
+        },
+        {
+          "criterion": "State what retained historical successful jobs and exact-head correlation establish at their captured scope, independently of actual installed pytest identity or complete execution coverage.",
+          "id": "ci-correlation",
+          "source_locators": [
+            "ci-observations:ev-005-ci-results.json:1-69",
+            "native:ci_inputs",
+            "native:ci_coverage"
+          ],
+          "verdict": "partially supported",
+          "reason": "Cites retained exact-head successful Regression Tests material, but omits its historical capture qualification and promotes that plus static declarations into confirmed changed-package coverage. Native coverage remains supported_not_correlated, with unresolved runtime bridges."
+        },
+        {
+          "criterion": "Preserve actual native runtime/coverage limits and distinguish planned install/command relations from an admitted runtime observation. Do not invent resolved package versions.",
+          "id": "runtime-uncertainty",
+          "source_locators": [
+            "native:runtime_dependency_state",
+            "native:ci_coverage",
+            "target-proposed:tox.ini:1-32"
+          ],
+          "verdict": "contradicted",
+          "reason": "Summary/recommendation say the update is confirmed covered, despite native runtime consumption/direct exercise unresolved and both manager-environment assessments unresolved. The condition admitting missing job-name correlation does not repair the stronger conclusion."
+        },
+        {
+          "criterion": "Give specific justified remaining work or a scoped conclusion; a report-only empty tool menu is not exhausted sources or adequate autonomous stopping. No global compatibility, safety or execution permission.",
+          "id": "stopping-and-next-work",
+          "source_locators": [
+            "native:runtime_dependency_state",
+            "native:ci_coverage",
+            "supplied-evidence-report-only protocol/task limit"
+          ],
+          "verdict": "unsupported",
+          "reason": "Closes investigation as covered without a justified runtime/environment/correlation check or scoped non-coverage conclusion. Does not claim global compatibility explicitly, but its asserted achieved coverage is already stronger than supplied authority."
+        }
+      ],
+      "claim_audit": [
+        {
+          "claim": 1,
+          "statement_verdict": "supported source declaration",
+          "citation_verdict": "partial attribution",
+          "reason": "Both requirement versions are delivered, but R1 alone contains old pytest9.0.2, not the new side.",
+          "original_citation_aliases": [
+            "R1"
+          ]
+        },
+        {
+          "claim": 2,
+          "statement_verdict": "supported static workflow fact",
+          "citation_verdict": "does not entail",
+          "reason": "Two requirement installs exist in regression.yml; cited R2 is proposed requirements-dev.txt, not that workflow.",
+          "original_citation_aliases": [
+            "R2"
+          ]
+        },
+        {
+          "claim": 3,
+          "statement_verdict": "supported static workflow fact",
+          "citation_verdict": "does not entail",
+          "reason": "Regression workflow declares direct pytest after installation; cited R8 is tests/regression_test.py and does not establish workflow step order.",
+          "original_citation_aliases": [
+            "R8"
+          ]
+        },
+        {
+          "claim": 4,
+          "statement_verdict": "supported at retained historical scope",
+          "citation_verdict": "entailed only at that scope",
+          "reason": "R9 retains successful exact-head workflow/job observations, not fresh runtime installation or executed changed-package coverage.",
+          "original_citation_aliases": [
+            "R9"
+          ]
+        }
+      ],
+      "all_other_report_fields": "Summary/recommendation/stopping assert achieved coverage. Conditions admit missing static-job display-name/runtime correlation, which conflicts with that stronger conclusion. Recommendation citations R8/R9 do not establish static regression installation plus admitted runtime dependency use. Unexamined change impact does not excuse false coverage reassurance. Native unresolved manager-environment results are omitted.",
+      "recommendation_citation_aliases": [
+        "R8",
+        "R9"
+      ],
+      "comparison_to_adjudicated_reference": "Retains the same material coverage authority promotion; the source audit additionally records specific valid-ID/wrong-source attributions. No case adequacy improvement."
+    },
+    {
+      "case": "packet-d",
+      "execution": "completed",
+      "classification": "inadequate",
+      "response": {
+        "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r5/packet-d/call-01.visible-response.txt",
+        "sha256": "6b8adb43b10729ca940c52b4adf69f3c6a3bd2861103e2751a129ce70ac9b626"
+      },
+      "delivered_input": {
+        "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r5/packet-d/call-01.packed-input.json",
+        "sha256": "f3897bd729b87fefa050b374160521fc5e0bacab93c4e8509f1374f9a4126da9"
+      },
+      "citation_index": [
+        {
+          "alias": "R1",
+          "kind": "source_line",
+          "id": "a1a386f33db9826607a3360f033b52c48c5014424f511b4603f394aa9e9eb1ac",
+          "address": "source:25f30724cf8fb8d49f2040631c5b1f31188a54ab74532b913d41182589af9834:L574:100",
+          "source": {
+            "source_id": "httpx-old",
+            "path": "httpx/_client.py",
+            "revision": "609df7ecc0f7cb10a1c998aa9c269bba77337c5f",
+            "start_line": 574,
+            "end_line": 673,
+            "content_sha256": "c4abf7e3485c2df38f0a78a57b1121da0360e41ac442a212eff3b4641f67c56c"
+          }
+        },
+        {
+          "alias": "R2",
+          "kind": "source_line",
+          "id": "f6b1035613230ab329889c739ca231dff12ed7f9c0ff88a2b1074208949d9520",
+          "address": "source:be14b02183724bb171a52c81b3839621ac23673ed510ab5a595a7c1afafacbe2:L594:100",
+          "source": {
+            "source_id": "httpx-new",
+            "path": "httpx/_client.py",
+            "revision": "26d48e0634e6ee9cdc0533996db289ce4b430177",
+            "start_line": 594,
+            "end_line": 693,
+            "content_sha256": "c43f941baefe58c91e96d00039e1868fe719d91453026d7db1647194563bff8d"
+          }
+        },
+        {
+          "alias": "R3",
+          "kind": "source_line",
+          "id": "0b2ff8dc5fdee1f9b0a9bca23616d92944f57902dbdb49c8423e7dde9ee3a643",
+          "address": "source:72de44a0041a4f17b07e450511d95bfac845b9d16eb878c4e415fe126a38492b:L392:100",
+          "source": {
+            "source_id": "starlette-old",
+            "path": "starlette/testclient.py",
+            "revision": "be4f3e110ed1172ec9cb47a6209bd899a0d3a604",
+            "start_line": 392,
+            "end_line": 491,
+            "content_sha256": "4ad9cf0a44243a5d82e3becfe19d8aad4d7ac5f7298fb35a6ba6273b940dffe8"
+          }
+        }
+      ],
+      "obligations": [
+        {
+          "criterion": "Identify the exact captured reference consumer and old/new HTTPX Client sources; do not rebind the consumer to the PR target installation.",
+          "id": "caller-callee-identities",
+          "source_locators": [
+            "starlette-old:starlette/testclient.py:392-491",
+            "httpx-old:httpx/_client.py:574-673",
+            "httpx-new:httpx/_client.py:594-693"
+          ],
+          "verdict": "partially supported",
+          "reason": "Correct HTTPX versions and explicit starlette-old reference role are preserved. Generic identities are not contradicted by the false parameter claims; exact captured-reference/target-runtime scope remains incomplete."
+        },
+        {
+          "criterion": "Accurately trace the captured constructor/super call and the presence/absence of app in the supplied callee signatures.",
+          "id": "call-signature-relation",
+          "source_locators": [
+            "starlette-old:starlette/testclient.py:392-491",
+            "httpx-old:httpx/_client.py:628-652",
+            "httpx-new:httpx/_client.py:638-661"
+          ],
+          "verdict": "contradicted",
+          "reason": "New HTTPX retains cert at L647, contrary to claim2. Captured old super() forwards exactly app/base_url/headers/transport/follow_redirects/cookies; claims9-13 invent timeout/default_encoding/trust_env/max_redirects/event_hooks forwarding. Claim8 correctly notices app forwarding but does not relate it to new app absence."
+        },
+        {
+          "criterion": "Recognize the source-level affected app-keyword relationship in this captured old caller, without claiming execution.",
+          "id": "scoped-consequence",
+          "source_locators": [
+            "starlette-old:starlette/testclient.py:392-491",
+            "httpx-new:httpx/_client.py:638-661"
+          ],
+          "verdict": "unsupported",
+          "reason": "The report analyzes a nonexistent cert removal and reassures that TestClient functionality is unaffected on that basis. It omits the actual old-caller/new-callee app-keyword mismatch. This is a false premise and unsupported closure, not an observed runtime failure."
+        },
+        {
+          "criterion": "Preserve reference-source versus actual target/runtime/whole-compatibility boundaries. A specific visible call fact must not be replaced by blanket uncertainty.",
+          "id": "remaining-limit",
+          "source_locators": [
+            "source-pair task scope and source/capture descriptors"
+          ],
+          "verdict": "partially supported",
+          "reason": "States captured-call scope and leaves other call sites unexamined, but does not explicitly preserve target installation/execution/whole-update boundaries. Its functionality reassurance cannot follow from the false cert premise."
+        }
+      ],
+      "claim_audit": [
+        {
+          "claim": 1,
+          "statement_verdict": "supported",
+          "citation_verdict": "entailed",
+          "reason": "Old Client includes cert at L636.",
+          "original_citation_aliases": [
+            "R1"
+          ]
+        },
+        {
+          "claim": 2,
+          "statement_verdict": "contradicted",
+          "citation_verdict": "contradicted",
+          "reason": "New Client explicitly retains cert at L647.",
+          "original_citation_aliases": [
+            "R2"
+          ]
+        },
+        {
+          "claim": 3,
+          "statement_verdict": "supported",
+          "citation_verdict": "entailed",
+          "reason": "Old super() forwards cookies at L435.",
+          "original_citation_aliases": [
+            "R3"
+          ]
+        },
+        {
+          "claim": 4,
+          "statement_verdict": "supported",
+          "citation_verdict": "entailed",
+          "reason": "Old super() forwards transport at L433.",
+          "original_citation_aliases": [
+            "R3"
+          ]
+        },
+        {
+          "claim": 5,
+          "statement_verdict": "supported",
+          "citation_verdict": "entailed",
+          "reason": "Old super() forwards follow_redirects at L434.",
+          "original_citation_aliases": [
+            "R3"
+          ]
+        },
+        {
+          "claim": 6,
+          "statement_verdict": "supported",
+          "citation_verdict": "entailed",
+          "reason": "Old super() forwards base_url at L431.",
+          "original_citation_aliases": [
+            "R3"
+          ]
+        },
+        {
+          "claim": 7,
+          "statement_verdict": "supported",
+          "citation_verdict": "entailed",
+          "reason": "Old super() forwards headers at L432.",
+          "original_citation_aliases": [
+            "R3"
+          ]
+        },
+        {
+          "claim": 8,
+          "statement_verdict": "supported",
+          "citation_verdict": "entailed",
+          "reason": "Old super() forwards app=self.app at L430; the report does not connect this to its absence in the new accepted signature.",
+          "original_citation_aliases": [
+            "R3"
+          ]
+        },
+        {
+          "claim": 9,
+          "statement_verdict": "contradicted",
+          "citation_verdict": "contradicted",
+          "reason": "Old captured super() L429-436 does not forward timeout.",
+          "original_citation_aliases": [
+            "R3"
+          ]
+        },
+        {
+          "claim": 10,
+          "statement_verdict": "contradicted",
+          "citation_verdict": "contradicted",
+          "reason": "Old captured super() L429-436 does not forward default_encoding.",
+          "original_citation_aliases": [
+            "R3"
+          ]
+        },
+        {
+          "claim": 11,
+          "statement_verdict": "contradicted",
+          "citation_verdict": "contradicted",
+          "reason": "Old captured super() L429-436 does not forward trust_env.",
+          "original_citation_aliases": [
+            "R3"
+          ]
+        },
+        {
+          "claim": 12,
+          "statement_verdict": "contradicted",
+          "citation_verdict": "contradicted",
+          "reason": "Old captured super() L429-436 does not forward max_redirects.",
+          "original_citation_aliases": [
+            "R3"
+          ]
+        },
+        {
+          "claim": 13,
+          "statement_verdict": "contradicted",
+          "citation_verdict": "contradicted",
+          "reason": "Old captured super() L429-436 does not forward event_hooks.",
+          "original_citation_aliases": [
+            "R3"
+          ]
+        }
+      ],
+      "all_other_report_fields": "Conditions/recommendation/summary/stopping all rely on nonexistent cert removal. Their no-effect conclusion does not establish whole-functionality safety and misses the actual app mismatch. Unexamined other callers narrows one dimension but does not repair false local facts or establish installation/execution. Empty recommendation attribution is secondary to the directly contradicted premise.",
+      "recommendation_citation_aliases": [],
+      "comparison_to_adjudicated_reference": "Now correctly notices app forwarding, but fails to use it, invents cert removal and five forwarded arguments, and remains inadequate. More output is not adequate interpretation."
+    }
+  ],
+  "cohort": {
+    "attempted_cases": 4,
+    "adequate": 0,
+    "inadequate": 4,
+    "inconclusive": 0,
+    "material_obligations_reviewed": 20,
+    "model_claims_reviewed": 26
+  },
+  "interpretation": "Completed negative development comparison: candidate not an adequate method on these exposed fixtures. Correct partial observations are preserved. No accuracy percentage, statistical effect, intrinsic ranking, causal proof or product acceptance follows.",
+  "recommendation_rule": "Advice fails on unsupported/contradicted premises or authority promotion; neither an empty list alone nor a nonempty list alone establishes semantic adequacy.",
+  "decision": "No automatic retry, second prompt, worksheet, deployment arm, protected-case qualification or discovery optimization. A separate bounded decision is required. Recommend designing a general deterministic fact/relation baseline and its unresolved-case contract before spending another interpretation-tuning increment.",
+  "limits": [
+    "One historical versus one new output per exposed case; three HTTPX cases share material.",
+    "Same declared deployment and source/native inputs do not establish identical runtime/cache state or stochastic reliability.",
+    "All operational gates passed; this is not a controller/ledger/input-fit failure.",
+    "Experimental review is not the runtime/product Validation owner or maintainer acceptance.",
+    "The result does not prove another method/deployment cannot perform the responsibility."
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "format": "investigator-evidence-first-request-preservation/1",
+  "cases": [
+    {
+      "role": "packet-a",
+      "system_contract_phase_tools_omissions_reference_policy_equal": true,
+      "derived_schema_equal_under_existing_typed_id_policy": true,
+      "budget_contract_equal_except_three_observed_durations": true,
+      "observed_timing_differences": [
+        {
+          "field": "spent_before_report.assignment_composition_seconds",
+          "baseline": 0.0014211520028766245,
+          "candidate": 0.0011481819965410978
+        },
+        {
+          "field": "spent_before_report.preparation_seconds",
+          "baseline": 0.31702128300094046,
+          "candidate": 0.31110100699879695
+        },
+        {
+          "field": "model.remaining_before_this_request.seconds_at_snapshot",
+          "baseline": 899.866,
+          "candidate": 899.806
+        }
+      ],
+      "runtime_model_and_load_equal_except_fresh_instance": true
+    },
+    {
+      "role": "packet-b",
+      "system_contract_phase_tools_omissions_reference_policy_equal": true,
+      "derived_schema_equal_under_existing_typed_id_policy": true,
+      "budget_contract_equal_except_three_observed_durations": true,
+      "observed_timing_differences": [
+        {
+          "field": "spent_before_report.assignment_composition_seconds",
+          "baseline": 0.0013823620029143058,
+          "candidate": 0.001153561010141857
+        },
+        {
+          "field": "spent_before_report.preparation_seconds",
+          "baseline": 0.036333832002128474,
+          "candidate": 0.0344259970006533
+        },
+        {
+          "field": "model.remaining_before_this_request.seconds_at_snapshot",
+          "baseline": 899.932,
+          "candidate": 899.921
+        }
+      ],
+      "runtime_model_and_load_equal_except_fresh_instance": true
+    },
+    {
+      "role": "packet-c",
+      "system_contract_phase_tools_omissions_reference_policy_equal": true,
+      "derived_schema_equal_under_existing_typed_id_policy": true,
+      "budget_contract_equal_except_three_observed_durations": true,
+      "observed_timing_differences": [
+        {
+          "field": "spent_before_report.assignment_composition_seconds",
+          "baseline": 0.0021459639974636957,
+          "candidate": 0.0022181310050655156
+        },
+        {
+          "field": "spent_before_report.preparation_seconds",
+          "baseline": 0.24048470900015673,
+          "candidate": 0.2324513919884339
+        },
+        {
+          "field": "model.remaining_before_this_request.seconds_at_snapshot",
+          "baseline": 899.815,
+          "candidate": 899.85
+        }
+      ],
+      "runtime_model_and_load_equal_except_fresh_instance": true
+    },
+    {
+      "role": "packet-d",
+      "system_contract_phase_tools_omissions_reference_policy_equal": true,
+      "derived_schema_equal_under_existing_typed_id_policy": true,
+      "budget_contract_equal_except_three_observed_durations": true,
+      "observed_timing_differences": [
+        {
+          "field": "spent_before_report.assignment_composition_seconds",
+          "baseline": 0.00166387899662368,
+          "candidate": 0.001335993001703173
+        },
+        {
+          "field": "spent_before_report.preparation_seconds",
+          "baseline": 0.038495289998536464,
+          "candidate": 0.03931463899789378
+        },
+        {
+          "field": "model.remaining_before_this_request.seconds_at_snapshot",
+          "baseline": 899.929,
+          "candidate": 899.922
+        }
+      ],
+      "runtime_model_and_load_equal_except_fresh_instance": true
+    }
+  ],
+  "sdk_source_still_matches_freeze": true,
+  "comparison_scope": "Only typed reference IDs mapped to exact kind/address and enum order, plus the three named existing measured-duration fields. No source text, native payload, setting, resource contract or goal is normalized. Native target-revision binding is fresh; native records and other view fields equal the baseline in the separate execution verification.",
+  "audit_correction": "An initial local assertion expected budgets equal after excluding only assignment composition time and failed. Inspection identified existing preparation_seconds and remaining seconds_at_snapshot as two further dynamic observations; source policy and hard limits are unchanged. Actual values are preserved here. This was an overstrict comparison assertion, not a failed frozen execution gate.",
+  "scope": "identity/format/evidence preservation, not semantic acceptance",
+  "trial_classes_and_functions_byte_identical_to_reference": true,
+  "unchanged_source_owners": [
+    "model interface/render/presentation",
+    "monotonic controller/receive adapter",
+    "trial/reference schema policy",
+    "publication adapter"
+  ]
+}

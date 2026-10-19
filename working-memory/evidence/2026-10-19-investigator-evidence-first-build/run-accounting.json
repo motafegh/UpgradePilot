@@ -1,0 +1,135 @@
+{
+  "format": "investigator-evidence-first-comparison-accounting/1",
+  "candidate_summary_sha256": "6783b6943f11e2a1304ce25b480999cf077a1304533097e821a60af36f28804d",
+  "roles": [
+    {
+      "role": "probe-report",
+      "baseline": {
+        "input": 3277,
+        "generated": 608,
+        "prediction_seconds": 83.157512718004
+      },
+      "candidate": {
+        "input": 3420,
+        "generated": 561,
+        "prediction_seconds": 79.11466934699274
+      },
+      "candidate_sizing_target_missed": false,
+      "candidate_hard_generation_ceiling_met": true
+    },
+    {
+      "role": "packet-a",
+      "baseline": {
+        "input": 22364,
+        "generated": 1089,
+        "prediction_seconds": 303.49570810799923
+      },
+      "candidate": {
+        "input": 22472,
+        "generated": 932,
+        "prediction_seconds": 264.18846816600126
+      },
+      "candidate_sizing_target_missed": false,
+      "candidate_hard_generation_ceiling_met": true
+    },
+    {
+      "role": "packet-b",
+      "baseline": {
+        "input": 7880,
+        "generated": 857,
+        "prediction_seconds": 167.80478345499432
+      },
+      "candidate": {
+        "input": 8039,
+        "generated": 969,
+        "prediction_seconds": 184.48679095999978
+      },
+      "candidate_sizing_target_missed": false,
+      "candidate_hard_generation_ceiling_met": true
+    },
+    {
+      "role": "packet-c",
+      "baseline": {
+        "input": 25527,
+        "generated": 957,
+        "prediction_seconds": 306.50062980799703
+      },
+      "candidate": {
+        "input": 25626,
+        "generated": 1136,
+        "prediction_seconds": 325.5669919899956
+      },
+      "candidate_sizing_target_missed": false,
+      "candidate_hard_generation_ceiling_met": true
+    },
+    {
+      "role": "packet-d",
+      "baseline": {
+        "input": 7872,
+        "generated": 862,
+        "prediction_seconds": 167.4808025989987
+      },
+      "candidate": {
+        "input": 8033,
+        "generated": 2235,
+        "prediction_seconds": 409.2770006329956
+      },
+      "candidate_sizing_target_missed": true,
+      "candidate_hard_generation_ceiling_met": true
+    }
+  ],
+  "candidate": {
+    "finalization_seconds": 1.6613131869962672,
+    "generated": 5833,
+    "input": 67590,
+    "known_usage_attempts": 5,
+    "operations": 180,
+    "prediction_seconds": 1262.633921095985,
+    "unknown_usage_attempts": 0
+  },
+  "baseline": {
+    "finalization_seconds": 1.954223174994695,
+    "generated": 4373,
+    "input": 66920,
+    "known_usage_attempts": 5,
+    "operations": 180,
+    "prediction_seconds": 1028.4394366879933,
+    "unknown_usage_attempts": 0
+  },
+  "candidate_batch_seconds": 1268.5799287199916,
+  "baseline_batch_seconds": 1034.6323671220016,
+  "candidate_execution_timing": {
+    "batch_origin": 70133.918253865,
+    "clock_scope": "process-local monotonic seconds; no cross-process subtraction",
+    "cold_setup_before_batch_seconds": 6.942290378006874,
+    "execution_elapsed_seconds": 1275.5222542039992,
+    "execution_origin": 70126.975963487,
+    "model_load_identity_seconds": 6.838409014002536
+  },
+  "candidate_preparation_seconds": 11.76776373400935,
+  "observed_deltas": {
+    "input": 670,
+    "generated": 1460,
+    "generated_percent": 33.38669105876973,
+    "prediction_seconds": 234.1944844079917,
+    "prediction_percent": 22.77183041154045
+  },
+  "scoped_successor_lineage": {
+    "actual_attempts": 13,
+    "known_usage_attempts": 10,
+    "known_input": 134510,
+    "known_generated": 10206,
+    "earlier_unknown_attempts": 3,
+    "earlier_unknown_reservations": {
+      "input": 12288,
+      "generated": 24576
+    },
+    "unknown_usage_preserved": true
+  },
+  "limits": [
+    "Observed sample costs, not causal latency estimates or reliability proof.",
+    "SDK backend totalTimeSec and client monotonic prediction time are separate measurements; throughput does not erase prompt processing.",
+    "Batch duration is not whole-invocation duration. Separate preparation and publication/operator intervals remain separate.",
+    "The 2048 target is advisory; only packet-d exceeds it. All hard limits pass."
+  ]
+}
