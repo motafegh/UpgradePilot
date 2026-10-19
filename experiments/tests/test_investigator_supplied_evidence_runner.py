@@ -60,6 +60,7 @@ class CohortBinding(Binding):
                 "cancellation_requested": True, "terminal_received": True,
                 "channel_released": True, "secondary_problems": [],
                 "prediction_elapsed_seconds": .001, "finalization_elapsed_seconds": 0,
+                "receive_ownership": {"receiver_stopped": True},
             }
             raise PredictionDeadlineExceeded("simulated controlled probe deadline")
         return content, metadata, reasoning

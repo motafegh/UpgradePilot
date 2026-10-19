@@ -3,6 +3,12 @@
 Owner: [Build cycle](../../2026-10-19_investigator-successor-build_lbd-cycle.md).
 Scope: implementation proof, bounded zero-generation fit and the separately activated diagnostic evidence under the [successor plan](../../../plans/INVESTIGATOR_RUN_CONTROL_COMPLETION_AND_CAPABILITY_DIAGNOSTIC_PLAN.md).
 
+## Directed receive-ownership repair
+
+Ali explicitly directed fixing reasonable blockers and progressing. The repair owns one asynchronous SDK queue read until endpoint acknowledgment, reuses it after interruption, defers Python control handlers during the short local handoff, restores timer/exit handlers on every path, and uses the independent finalization deadline for drain. The installed SDK, channel, transport, model, source selections and semantic obligations stay fixed. Payload-free receive counts expose ownership without retaining hidden reasoning. [The offline proof](receive-repair-proof.json) records170 focused/control/model/report-only/runner/seam plus65 nearest Workspace passing tests (235 distinct), including eight new queue/race checks. The preliminary OS-masking repair failed the continuous-fragment race; the final Python-handler deferral passes it. The cycle preserves that correction.
+
+Fresh r8 preparation preserves all four stable material inventories, reference counts and76/23/61/23-unit completion feasibility. The directed continuation admits a fresh source-bound runtime-r5 freeze and one new six-slot diagnostic, keeping the old failed probe's unknown reservation as separate additional lineage cost. This offline proof alone does not qualify actual cancellation or establish semantic adequacy. The earlier failed execution and diagnosis below remain immutable evidence at their source horizon.
+
 ## Activated diagnostic: control gate failure and receive-ownership finding
 
 [The complete disposition](diagnostic-disposition.md) records the explicitly [activated](diagnostic-activation.json) runtime-r4 cohort at `c4c833e6`. [Exact results](diagnostic-result.json): one cancellation probe attempted, monotonic deadline at1.000142099 seconds, cancellation requested/channel released, no terminal/usage receipt and zero visible bytes. The report canary and all four semantic cases were withheld; no report can be reviewed. Known token subtotals0/0 do not mean actual zero consumption. Conservative reservation is4,096 input/8,192 generated. Owned unload and client release confirmed separately; no retry occurred.

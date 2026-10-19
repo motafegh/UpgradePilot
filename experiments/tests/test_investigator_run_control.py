@@ -1,11 +1,14 @@
 """Deadline/cancel/interruption proof; no installed backend or model inference."""
 
 import os
+import asyncio
 import importlib.util
 import signal
+import threading
 import time
 import unittest
 from contextlib import contextmanager
+from types import SimpleNamespace
 
 from experiments.investigator_run_control import (
     MonotonicDeadline,
@@ -228,3 +231,176 @@ class PredictionControlTests(unittest.TestCase):
             self.assertGreater(signal.getitimer(signal.ITIMER_REAL)[0], 0)
         finally:
             signal.setitimer(signal.ITIMER_REAL, 0)
+
+
+@unittest.skipUnless(importlib.util.find_spec("lmstudio"), "optional preserved SDK not selected")
+class RetainedSDKQueueTests(unittest.TestCase):
+    """Use the actual SDK queue/getter/handler shape, with no network or model."""
+
+    @contextmanager
+    def queue_channel(self, reply="success", *, delay=0, initial=(), hook=None):
+        from lmstudio._ws_impl import AsyncWebsocketHandler
+        from lmstudio.sync_api import SyncChannel
+        from experiments.investigator_model_interface import retained_prediction_channel
+
+        loop = asyncio.new_event_loop()
+        previous_handlers = {kind: signal.getsignal(kind) for kind in
+                             (signal.SIGALRM, signal.SIGINT, signal.SIGTERM)}
+        thread = threading.Thread(target=loop.run_forever, daemon=True)
+        thread.start()
+        sent, control = [], {}
+
+        def submit(coroutine):
+            return asyncio.run_coroutine_threadsafe(coroutine, loop)
+
+        handler = object.__new__(AsyncWebsocketHandler)
+        handler._task_manager = SimpleNamespace(run_coroutine_threadsafe=submit)
+        queue, getter = handler.new_threadsafe_rx_queue()
+
+        def wire(kind):
+            if kind == "channelClose":
+                return {"type": kind, "channelId": 1}
+            return {"type": "channelSend", "channelId": 1, "message": {"type": kind}}
+
+        async def enqueue(kinds, after=0):
+            await asyncio.sleep(after)
+            for sequence, kind in enumerate(kinds):
+                message = wire(kind)
+                if kind == "fragment":
+                    message["message"]["sequence"] = sequence
+                queue.put_nowait(message)
+
+        class SDKEndpoint(Endpoint):
+            notice_prefix = "local retained queue proof"
+            def iter_message_events(self, contents):
+                result = super().iter_message_events(contents["type"])
+                if hook:
+                    hook(self, contents)
+                return result
+            def handle_rx_event(self, event):
+                pass
+
+        endpoint = SDKEndpoint()
+        def send(message):
+            sent.append(message)
+            if reply:
+                kinds = [reply, "channelClose"] if reply != "channelClose" else [reply]
+                submit(enqueue(kinds, delay))
+        channel = SyncChannel(1, getter, endpoint, send, {}, timeout=.001)
+        @contextmanager
+        def opened():
+            if initial:
+                submit(enqueue(initial)).result(1)
+            yield channel
+        try:
+            yield retained_prediction_channel(opened(), control), endpoint, control, sent, channel
+        finally:
+            async def cleanup():
+                current = asyncio.current_task()
+                tasks = [task for task in asyncio.all_tasks() if task is not current]
+                for task in tasks:
+                    task.cancel()
+                await asyncio.gather(*tasks, return_exceptions=True)
+            submit(cleanup()).result(1)
+            loop.call_soon_threadsafe(loop.stop)
+            thread.join(1)
+            self.assertFalse(thread.is_alive())
+            loop.close()
+            for kind, previous in previous_handlers.items():
+                self.assertEqual(signal.getsignal(kind), previous)
+
+    def test_blocked_queue_deadline_retains_reply_for_same_receive(self):
+        with self.queue_channel() as (context, endpoint, control, sent, _):
+            with self.assertRaises(PredictionDeadlineExceeded):
+                receive_controlled_prediction(context, endpoint, .03, control, finalization_seconds=.3)
+            self.assertTrue(control["terminal_received"])
+            self.assertTrue(control["channel_released"])
+            self.assertEqual(control["secondary_problems"], [])
+            self.assertEqual(len(sent), 1)
+            ownership = control["receive_ownership"]
+            self.assertEqual(ownership["submitted"], 1)
+            self.assertEqual(ownership["pending_reuses"], 1)
+            self.assertEqual(ownership["events"], {"success": 1})
+            self.assertTrue(ownership["receiver_stopped"])
+
+    def test_already_dequeued_success_survives_interruption_before_dispatch(self):
+        with self.queue_channel(reply=None, initial=("success", "channelClose")) as (context, endpoint, control, _, channel):
+            original = channel._api_channel.handle_rx_message
+            first = [True]
+            def interrupted(message):
+                result = original(message)
+                if first[0]:
+                    first[0] = False
+                    raise KeyboardInterrupt("after dequeue, before endpoint")
+                return result
+            channel._api_channel.handle_rx_message = interrupted
+            with self.assertRaisesRegex(KeyboardInterrupt, "after dequeue"):
+                receive_controlled_prediction(context, endpoint, .3, control, finalization_seconds=.3)
+            self.assertTrue(control["terminal_received"])
+            self.assertEqual(endpoint.metadata, {"actual_usage": 7})
+            self.assertEqual(control["receive_ownership"]["submitted"], 1)
+            self.assertEqual(control["receive_ownership"]["events"], {"success": 1})
+
+    def test_sigint_during_terminal_handoff_preserves_metadata_once(self):
+        def interrupt(endpoint, contents):
+            if contents["type"] == "success":
+                os.kill(os.getpid(), signal.SIGINT)
+        with self.queue_channel(reply=None, initial=("success",), hook=interrupt) as (context, endpoint, control, sent, _):
+            with self.assertRaises(KeyboardInterrupt):
+                receive_controlled_prediction(context, endpoint, .3, control, finalization_seconds=.3)
+            self.assertTrue(control["terminal_received"])
+            self.assertFalse(control["cancellation_requested"])
+            self.assertEqual(control["receive_ownership"]["acknowledged"], 1)
+            self.assertEqual(endpoint.metadata, {"actual_usage": 7})
+            self.assertEqual(sent, [])
+
+    def test_sigterm_during_terminal_handoff_is_preserved_as_exit(self):
+        def interrupt(endpoint, contents):
+            if contents["type"] == "success":
+                os.kill(os.getpid(), signal.SIGTERM)
+        with self.queue_channel(reply=None, initial=("success",), hook=interrupt) as (context, endpoint, control, _, _):
+            with self.assertRaises(SystemExit) as raised:
+                receive_controlled_prediction(context, endpoint, .3, control, finalization_seconds=.3)
+            self.assertEqual(raised.exception.code, 143)
+            self.assertTrue(control["terminal_received"])
+            self.assertEqual(control["receive_ownership"]["events"], {"success": 1})
+
+    def test_continuous_queue_fragments_are_acknowledged_once_across_deadline(self):
+        seen = []
+        def fragment(endpoint, contents):
+            if contents["type"] == "fragment":
+                seen.append(contents["sequence"])
+                time.sleep(.002)
+        with self.queue_channel(initial=("fragment",) * 20, hook=fragment) as (context, endpoint, control, _, _):
+            with self.assertRaises(PredictionDeadlineExceeded):
+                receive_controlled_prediction(context, endpoint, .01, control, finalization_seconds=.3)
+            self.assertEqual(seen, list(range(20)))
+            self.assertTrue(control["terminal_received"])
+            self.assertEqual(control["receive_ownership"]["events"], {"fragment": 20, "success": 1})
+
+    def test_delayed_cancel_reply_uses_finalization_bound_not_prediction_idle(self):
+        with self.queue_channel(delay=.06) as (context, endpoint, control, _, _):
+            with self.assertRaises(PredictionDeadlineExceeded):
+                receive_controlled_prediction(context, endpoint, .02, control, finalization_seconds=.3)
+            self.assertTrue(control["terminal_received"])
+            self.assertGreater(control["finalization_elapsed_seconds"], .04)
+            self.assertEqual(control["secondary_problems"], [])
+
+    def test_missing_terminal_stays_unknown_after_channel_close(self):
+        with self.queue_channel(reply="channelClose") as (context, endpoint, control, _, _):
+            with self.assertRaises(PredictionDeadlineExceeded):
+                receive_controlled_prediction(context, endpoint, .02, control, finalization_seconds=.3)
+            self.assertFalse(control["terminal_received"])
+            self.assertEqual(control["runtime_quiescence"], "unconfirmed")
+            self.assertTrue(control["channel_released"])
+            self.assertEqual(control["receive_ownership"]["events"], {"channelClose": 1})
+
+    def test_silent_cancel_is_finite_and_pending_receive_cancellation_is_recorded(self):
+        with self.queue_channel(reply=None) as (context, endpoint, control, _, _):
+            started = time.monotonic()
+            with self.assertRaises(PredictionDeadlineExceeded):
+                receive_controlled_prediction(context, endpoint, .02, control, finalization_seconds=.03)
+            self.assertLess(time.monotonic() - started, .5)
+            self.assertFalse(control["terminal_received"])
+            self.assertTrue(control["receive_ownership"]["pending_cancel_requested"])
+            self.assertTrue(control["secondary_problems"])

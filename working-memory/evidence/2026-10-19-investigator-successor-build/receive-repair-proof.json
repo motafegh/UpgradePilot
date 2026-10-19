@@ -1,0 +1,65 @@
+{
+  "format": "investigator-receive-repair-proof/1",
+  "authorization": "Ali explicitly directs fixing reasonable blockers and continuing",
+  "source_sha256": {
+    "experiments/investigator_run_control.py": "c1ccbca729f819ba19b3482ad82aa039fe3059b17acf2ce8939e4ce0994c67ef",
+    "experiments/investigator_model_interface.py": "3b7eb52cc73aa930831b10d6ad7eb57bdd7ddc592d4edfa6cce7e89c5f4ebe34",
+    "experiments/investigator_supplied_evidence.py": "0474310f2de14682704a674d96466f6bd892bb1ae9ad4e65f923488b629d6ac9",
+    "experiments/investigator_workspace_trial.py": "bb00b9adc0f945d07e63306f2c0641bd53d86f4e78a976dd81e7b4b88e00ae54",
+    "experiments/investigator_workspace_adapter.py": "da356ae9cef38f6ca4051559485ebc62289e636b9920b3d3c2f401b93b3f6a72",
+    "experiments/prepare_investigator_supplied_evidence.py": "f88d3a5d56dd873130dbfaf9bbfc3aea6214a1776ddedba8eee981409d67a9b7",
+    "experiments/run_investigator_semantic_comparison.py": "c963d00dce739feff52edf74bdd3e079853cfe5dbdfa9f92215bc081d177b3cb",
+    "experiments/qualify_investigator_workspace.py": "9da66d763a8a5b9b5328a7da90614c1cad40fba403f988984d55eaa37fa25b10",
+    "experiments/qualify_investigator_model_interface.py": "33b30a7c54d0039ac3c6086cf834924b13527584c467d5715383f3f8dea1ad84",
+    "experiments/run_investigator_supplied_evidence.py": "b448a0f037ea02c545eafc0897d3e37aeb4628e35605ddab5f11e237ea816cb1"
+  },
+  "tests": {
+    "focused_control_model_report_runner_seam": 170,
+    "nearest_workspace": 65,
+    "distinct": 235,
+    "sdk_selected": true
+  },
+  "new_regression_cases": 8,
+  "old_failed_cohort": "supplied-evidence-2026-10-19-diagnostic-r1",
+  "old_unknown_usage_reservation": {
+    "input": 4096,
+    "generated": 8192
+  },
+  "new_cohort_ceilings": {
+    "attempts": 6,
+    "input_tokens": 77192,
+    "generated_tokens": 49152,
+    "admission_units": 340,
+    "prediction_seconds": 4200,
+    "finalization_seconds": 360,
+    "batch_seconds": 4800
+  },
+  "max_lineage_attempts_including_old_failed_probe": 7,
+  "corrections": [
+    "Retain one async queue-get future until acknowledged endpoint delivery",
+    "Defer Python control handlers, not just OS signal delivery, during local handoff",
+    "Restore all handlers on exceptions",
+    "Use independent finalization deadline for drain",
+    "Record payload-free receive ownership and require stopped receiver for cancellation qualification"
+  ],
+  "pre_runtime_limit": "Offline mechanical proof only; actual repaired cancellation and semantic adequacy pending",
+  "preparation_r8_admission": "passed",
+  "all_four_stable_selection_inventories_reference_counts_and_terminal_costs_unchanged": true,
+  "runtime_r5": {
+    "freeze_sha256": "f3b4e418bd9c3b643306ffe751747fd64723af16272d2224972bb1951fae70f0",
+    "capacity_profile_sha256": "ce5f0ff0f3eb89ac4dd2c1ac5763c36268c3b7879548998b1479c8429eef1ef7",
+    "fit_tokens": {
+      "packet-a": 22369,
+      "packet-b": 7881,
+      "packet-c": 25484,
+      "packet-d": 7879,
+      "probe-cancel": 3278,
+      "probe-report": 3286
+    },
+    "omitted_events": 0,
+    "prediction_attempts": 0,
+    "owned_cleanup_confirmed": true,
+    "client_cleanup_confirmed": true,
+    "admission": "passed"
+  }
+}

@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import math
 import signal
+import sys
 import threading
 import time
 from contextlib import contextmanager
@@ -30,6 +31,56 @@ class PredictionDeadlineExceeded(Exception):
 
 def problem_text(error):
     return f"{type(error).__name__}: {error}"
+
+
+_handoff_depth = 0
+_deferred_signals = {}
+
+
+def dispatch_control_signal(signum, callback):
+    """Python handlers run on the main thread even for another thread's signal.
+
+    pthread_sigmask on the main thread is insufficient with the SDK's event-loop
+    thread. Defer our Python handler explicitly during the local handoff instead.
+    The dictionary coalesces repeated instances of the three owned control signals.
+    """
+    if _handoff_depth:
+        _deferred_signals.setdefault(signum, callback)
+    else:
+        callback()
+
+
+@contextmanager
+def defer_control_signals():
+    """Make one local receive handoff atomic; never mask a network/queue wait.
+
+    A terminal already dequeued must reach metadata capture before its receive is
+    acknowledged. Deferred deadline/exit signals run as soon as this short handoff
+    ends; the subsequent monotonic check still refuses a late result.
+    """
+    global _handoff_depth
+    _handoff_depth += 1
+    try:
+        yield
+    finally:
+        _handoff_depth -= 1
+        if not _handoff_depth:
+            callbacks = list(_deferred_signals.values())
+            _deferred_signals.clear()
+            primary = sys.exception()
+            raised = None
+            for callback in callbacks:
+                try:
+                    callback()
+                except BaseException as error:
+                    if primary is not None:
+                        primary.add_note("Deferred control signal: " + problem_text(error))
+                    elif raised is None:
+                        raised = error
+                    else:
+                        raised.add_note("Deferred control signal: " + problem_text(error))
+            if raised is not None:
+                raise raised
 
 
 class MonotonicDeadline:
@@ -63,26 +114,48 @@ class MonotonicDeadline:
             raise ValueError("another owner already holds the process timer")
         previous_alarm = signal.getsignal(signal.SIGALRM)
         previous_term = signal.getsignal(signal.SIGTERM)
+        previous_int = signal.getsignal(signal.SIGINT)
         if previous_alarm != signal.SIG_DFL:
             raise ValueError("another owner already holds SIGALRM")
 
-        def alarm(signum, frame):
+        active = True
+
+        def check_alarm():
             # An early wake cannot shorten the declared monotonic allowance.
-            signal.setitimer(signal.ITIMER_REAL, self.check())
+            if active:
+                signal.setitimer(signal.ITIMER_REAL, self.check())
+
+        def alarm(signum, frame):
+            dispatch_control_signal(signum, check_alarm)
 
         def terminate(signum, frame):
-            raise SystemExit(128 + signum)
+            def exit_process():
+                raise SystemExit(128 + signum)
+            dispatch_control_signal(signum, exit_process)
 
-        signal.signal(signal.SIGALRM, alarm)
-        signal.signal(signal.SIGTERM, terminate)
+        def interrupt(signum, frame):
+            handler = previous_int
+            if handler == signal.SIG_IGN:
+                return
+            if handler == signal.SIG_DFL:
+                handler = signal.default_int_handler
+            dispatch_control_signal(signum, lambda: handler(signum, frame))
+
         try:
-            signal.setitimer(signal.ITIMER_REAL, self.check())
+            with defer_control_signals():
+                signal.signal(signal.SIGALRM, alarm)
+                signal.signal(signal.SIGTERM, terminate)
+                signal.signal(signal.SIGINT, interrupt)
+                signal.setitimer(signal.ITIMER_REAL, self.check())
             yield self
             self.check()
         finally:
-            signal.setitimer(signal.ITIMER_REAL, 0)
-            signal.signal(signal.SIGALRM, previous_alarm)
-            signal.signal(signal.SIGTERM, previous_term)
+            with defer_control_signals():
+                active = False
+                signal.setitimer(signal.ITIMER_REAL, 0)
+                signal.signal(signal.SIGALRM, previous_alarm)
+                signal.signal(signal.SIGTERM, previous_term)
+                signal.signal(signal.SIGINT, previous_int)
 
 
 def receive_controlled_prediction(
@@ -122,9 +195,12 @@ def receive_controlled_prediction(
         for contents in channel.rx_stream():
             # Handle a terminal receipt before the post-message deadline check so a
             # late success preserves known usage without becoming an on-time success.
-            for event in endpoint.iter_message_events(contents):
-                endpoint.handle_rx_event(event)
-            control["terminal_received"] = bool(endpoint.is_finished)
+            with defer_control_signals():
+                for event in endpoint.iter_message_events(contents):
+                    endpoint.handle_rx_event(event)
+                control["terminal_received"] = bool(endpoint.is_finished)
+                if hasattr(channel, "acknowledge_receive"):
+                    channel.acknowledge_receive()
             bound.check()
             if endpoint.is_finished:
                 return endpoint.result()
@@ -148,6 +224,8 @@ def receive_controlled_prediction(
                 with MonotonicDeadline(
                     finalization_seconds, clock=clock, label="cancel/drain/release"
                 ).enforce() as finalization:
+                    if hasattr(channel, "begin_finalization"):
+                        channel.begin_finalization(finalization.expires)
                     try:
                         if primary is not None and not endpoint.is_finished:
                             control["cancellation_requested"] = True
@@ -159,9 +237,9 @@ def receive_controlled_prediction(
                     finally:
                         # Release is attempted even if cancellation/drain failed. It
                         # shares the same allowance rather than receiving another 60s.
-                        finalization.check()
                         channel_context.__exit__(None, None, None)
                         control["channel_released"] = True
+                        finalization.check()
             except BaseException as error:
                 if primary is None:
                     primary, traceback = error, error.__traceback__

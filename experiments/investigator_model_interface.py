@@ -15,12 +15,14 @@ binding fails on unsupported shapes; it does not install/patch the SDK or switch
 from __future__ import annotations
 
 import hashlib
+import asyncio
 import importlib.metadata
 import json
 import os
 import sys
 import time
 from copy import deepcopy
+from contextlib import contextmanager
 from dataclasses import dataclass, replace
 from pathlib import Path
 
@@ -33,6 +35,7 @@ from experiments.investigator_workspace_trial import (
 from experiments.investigator_run_control import (
     MonotonicDeadline,
     PredictionDeadlineExceeded,
+    defer_control_signals,
     problem_text,
     receive_controlled_prediction,
 )
@@ -348,6 +351,127 @@ def retain_visible_fragment(fragment, sink):
     return True
 
 
+class RetainedPredictionChannel:
+    """Own the pinned SDK's queue read until endpoint delivery is acknowledged.
+
+    SDK 1.5.0 abandons its asynchronous queue-get future on a foreground signal.
+    This per-prediction adapter uses the same queue, task manager, protocol handler
+    and cancellation sender. An interrupted wait retains its future for drain;
+    no second queue consumer is submitted until the first event is acknowledged.
+    Only event-kind counts are recorded, never payloads or hidden reasoning.
+    """
+
+    def __init__(self, channel, control):
+        from lmstudio._ws_impl import AsyncWebsocketHandler
+
+        getter = channel._get_message
+        method = getattr(getter, "func", None)
+        if (getattr(method, "__func__", None) is not AsyncWebsocketHandler._rx_queue_get_threadsafe
+            or len(getter.args) != 1 or getter.keywords):
+            raise ValueError("unsupported SDK prediction queue getter")
+        handler, self.queue = method.__self__, getter.args[0]
+        self.submit = handler._task_manager.run_coroutine_threadsafe
+        self.channel, self.pending, self.task_holder = channel, None, None
+        self.finished = False
+        self.finalization_expires = None
+        self.record = control["receive_ownership"] = {
+            "submitted": 0, "acknowledged": 0, "interrupted_waits": 0,
+            "pending_reuses": 0, "events": {}, "pending_cancel_requested": False,
+            "receiver_stopped": True,
+        }
+
+    def begin_finalization(self, expires):
+        self.finalization_expires = expires
+
+    async def _read(self, holder):
+        holder["task"] = asyncio.current_task()
+        return await self.queue.get()
+
+    def rx_stream(self):
+        while not self.finished:
+            # Creation and ownership publication must also survive a signal.
+            with defer_control_signals():
+                if self.pending is None:
+                    self.task_holder = {}
+                    self.pending = self.submit(self._read(self.task_holder))
+                    self.record["submitted"] += 1
+                    self.record["receiver_stopped"] = False
+                else:
+                    self.record["pending_reuses"] += 1
+            try:
+                message = self.pending.result()
+            except BaseException:
+                self.record["interrupted_waits"] += 1
+                raise
+            # The future remains owned even if a signal arrives between result(),
+            # SDK unwrapping and endpoint handling. Only the controller acknowledges.
+            if message is None:
+                from lmstudio.json_api import LMStudioWebsocketError
+                raise LMStudioWebsocketError("Client unexpectedly disconnected.")
+            contents = self.channel._api_channel.handle_rx_message(message)
+            if contents is None:
+                with defer_control_signals():
+                    self.finished = True
+                    self.acknowledge_receive()
+                break
+            yield contents
+
+    def acknowledge_receive(self):
+        message = self.pending.result()
+        kind = message.get("message", {}).get("type") if message.get("type") == "channelSend" else message.get("type")
+        if kind not in {"success", "fragment", "promptProcessingProgress", "channelClose",
+                        "toolCallGenerationStart", "toolCallGenerationEnd", "error"}:
+            kind = "other"
+        events = self.record["events"]
+        events[kind] = events.get(kind, 0) + 1
+        self.pending = self.task_holder = None
+        self.record["acknowledged"] += 1
+        self.record["receiver_stopped"] = True
+
+    def cancel(self):
+        if not self.finished:
+            self.channel.cancel()
+
+    def close(self):
+        if self.pending is None:
+            return
+        pending, holder = self.pending, self.task_holder
+        if pending.done():
+            self.record["receiver_stopped"] = True
+            return
+        pending.cancel()
+        self.record["pending_cancel_requested"] = True
+
+        async def join():
+            # Submission/cancel callbacks precede this task on the same SDK loop.
+            await asyncio.sleep(0)
+            task = holder.get("task")
+            if task is not None:
+                task.cancel()
+                await asyncio.gather(task, return_exceptions=True)
+
+        joined = self.submit(join())
+        remaining = max(0, (self.finalization_expires or time.monotonic()) - time.monotonic())
+        if remaining:
+            joined.result(remaining)
+            self.record["receiver_stopped"] = True
+        else:
+            # No new cleanup allowance after the shared deadline. Cancellation is
+            # requested; absent confirmation remains visible and cannot qualify.
+            self.record["receiver_stopped"] = False
+
+
+@contextmanager
+def retained_prediction_channel(channel_context, control):
+    """Scope the receive owner to one SDK prediction; never mutate SDK globals."""
+    with channel_context as channel:
+        owned = RetainedPredictionChannel(channel, control)
+        try:
+            yield owned
+        finally:
+            owned.close()
+
+
 class SDKBinding:
     """Pinned installed SDK channel; one fresh explicit history for every prediction.
 
@@ -455,7 +579,9 @@ class SDKBinding:
         self.sdk.set_sync_api_timeout(timeout)
         try:
             result = receive_controlled_prediction(
-                self.model._session._create_channel(endpoint), endpoint,
+                retained_prediction_channel(
+                    self.model._session._create_channel(endpoint), self.last_prediction_control
+                ), endpoint,
                 timeout - preparation_elapsed, self.last_prediction_control,
                 finalization_seconds=self.finalization_seconds,
             )

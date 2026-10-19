@@ -392,6 +392,7 @@ def probe_passed(role, trial, consumer):
             and "PredictionDeadlineExceeded" in receipt.get("problem", "")
             and control.get("cancellation_requested") and control.get("terminal_received")
             and control.get("channel_released") and not control.get("secondary_problems")
+            and control.get("receive_ownership", {}).get("receiver_stopped") is True
         ):
             return False
         metadata = json.loads((consumer.directory / "call-01.metadata.json").read_bytes())
