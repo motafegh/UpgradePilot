@@ -1,0 +1,77 @@
+{
+  "format": "investigator-gpu-release-runtime-readiness/1",
+  "source_commit": "22b796a1",
+  "root": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-runtime-r8",
+  "preparation_root": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-preparation-r12",
+  "verify_freeze": "pass; current source/SDK/input/reviewer/closed-control binding",
+  "result": {
+    "freeze_sha256": "c5e06b1b759b8cacaacf1c59bfaedf1556254f81ad709f615c64adf8c61c27b0",
+    "profile_sha256": "a2b4dc2ed3f4090f8bd618bdafad5cca2e396f66f39258edbad142ad2dfd8d73",
+    "prediction_attempts": 0,
+    "preparation_elapsed_seconds": 10.65401582600316,
+    "context": 36864,
+    "gpu_ratio": 0.45,
+    "gpu_layers": 22,
+    "fit": {
+      "packet-a": {
+        "rendered_tokens": 22381,
+        "input_cap_met": true,
+        "context_reserve_met": true,
+        "omitted_events": []
+      },
+      "packet-b": {
+        "rendered_tokens": 7873,
+        "input_cap_met": true,
+        "context_reserve_met": true,
+        "omitted_events": []
+      },
+      "packet-c": {
+        "rendered_tokens": 25498,
+        "input_cap_met": true,
+        "context_reserve_met": true,
+        "omitted_events": []
+      },
+      "packet-d": {
+        "rendered_tokens": 7893,
+        "input_cap_met": true,
+        "context_reserve_met": true,
+        "omitted_events": []
+      },
+      "probe-cancel": {
+        "rendered_tokens": 3273,
+        "input_cap_met": true,
+        "context_reserve_met": true,
+        "omitted_events": []
+      },
+      "probe-report": {
+        "rendered_tokens": 3243,
+        "input_cap_met": true,
+        "context_reserve_met": true,
+        "omitted_events": []
+      }
+    },
+    "execution_roles": [
+      "probe-report",
+      "packet-a",
+      "packet-b",
+      "packet-c",
+      "packet-d"
+    ],
+    "execution_ceilings": {
+      "admission_units": 322,
+      "attempts": 5,
+      "batch_seconds": 4800,
+      "finalization_seconds": 310,
+      "generated_tokens": 40960,
+      "input_tokens": 73096,
+      "prediction_seconds": 4200,
+      "preparation_seconds": 1200
+    },
+    "cleanup_confirmed": {
+      "cleanup.json": true,
+      "client-cleanup.json": true
+    }
+  },
+  "limits": "identity/full fit only; no prediction or semantic qualification",
+  "activation_scope": "one fresh diagnostic-r4 five-role cohort after publication; authorized prior sequence and explicit GPU-free continuation; no retry/old batch reuse"
+}

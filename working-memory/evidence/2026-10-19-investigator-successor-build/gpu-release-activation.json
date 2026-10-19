@@ -1,0 +1,30 @@
+{
+  "format": "investigator-supplied-evidence-activation/1",
+  "authorization": "Ali previously authorized the finite sequence, paused runtime until GPU free, then explicitly said ok gpu is free now; exact restored point and 300-second canary declared before preparation",
+  "freeze": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-runtime-r8/freeze.json",
+  "freeze_sha256": "c5e06b1b759b8cacaacf1c59bfaedf1556254f81ad709f615c64adf8c61c27b0",
+  "output": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r4",
+  "roles": [
+    "probe-report",
+    "packet-a",
+    "packet-b",
+    "packet-c",
+    "packet-d"
+  ],
+  "ceilings": {
+    "admission_units": 322,
+    "attempts": 5,
+    "batch_seconds": 4800,
+    "finalization_seconds": 310,
+    "generated_tokens": 40960,
+    "input_tokens": 73096,
+    "prediction_seconds": 4200,
+    "preparation_seconds": 1200
+  },
+  "prior_unknown_reservation": {
+    "input": 12288,
+    "generated": 24576
+  },
+  "semantic_acceptance": "not established; offline review only after execution",
+  "failure_policy": "hard failure/unknown usage withholds remaining roles; no retry"
+}
