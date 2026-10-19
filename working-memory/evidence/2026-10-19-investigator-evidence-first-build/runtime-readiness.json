@@ -1,0 +1,147 @@
+{
+  "format": "investigator-evidence-first-runtime-readiness/1",
+  "recorded_utc": "2026-10-19T19:48:42.756328+00:00",
+  "implementation_commit": "9c6b372087c1a9015d9f57e2a749dfb4f7c70d07",
+  "freeze": {
+    "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-runtime-r9/freeze.json",
+    "sha256": "b2e5cb3845fd99ed62645c83c1f42e9ee8ef69065ef05e5e14aa1c0665256393"
+  },
+  "capacity_profile": {
+    "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-runtime-r9/capacity-profile.json",
+    "sha256": "d05c494b0c491a99c958542357cfaa0197ef37628c9d731ef70b7c9b3000b1f1"
+  },
+  "method": {
+    "goal_sha256": {
+      "captured_consumer": "dd209ecc1dc34dad03ccf4bccb531e79596b5fb1763b9e160bf6c7d1c8754f2f",
+      "pr_context": "46b41e579aabb95b489a189584ac206c5798a9b4f4dcc48e2784056f844eb1a3"
+    },
+    "id": "investigator-evidence-first-existing-report-instructions/1",
+    "intentional_model_input_change": "task.goal"
+  },
+  "fit": {
+    "packet-a": {
+      "rendered_tokens": 22467,
+      "input_cap_met": true,
+      "context_reserve_met": true,
+      "task_goal_sha256": "46b41e579aabb95b489a189584ac206c5798a9b4f4dcc48e2784056f844eb1a3",
+      "mechanical_output_sizing": {
+        "advisory_target": 2048,
+        "bytes": 2235,
+        "scope": "maximum-reference mechanical serialization only; semantic fit and latency unproved",
+        "sha256": "d5623f7d37fab376793886856c7d22d038bad00edfbf8c7109477a07fcaab704",
+        "tokens": 1169,
+        "within_advisory_target": true
+      }
+    },
+    "packet-b": {
+      "rendered_tokens": 8017,
+      "input_cap_met": true,
+      "context_reserve_met": true,
+      "task_goal_sha256": "dd209ecc1dc34dad03ccf4bccb531e79596b5fb1763b9e160bf6c7d1c8754f2f",
+      "mechanical_output_sizing": {
+        "advisory_target": 2048,
+        "bytes": 992,
+        "scope": "maximum-reference mechanical serialization only; semantic fit and latency unproved",
+        "sha256": "7652540c0c296428ace1f7c6bf300a24cda0ece65a09f57c302f7fb12af90c2a",
+        "tokens": 323,
+        "within_advisory_target": true
+      }
+    },
+    "packet-c": {
+      "rendered_tokens": 25642,
+      "input_cap_met": true,
+      "context_reserve_met": true,
+      "task_goal_sha256": "46b41e579aabb95b489a189584ac206c5798a9b4f4dcc48e2784056f844eb1a3",
+      "mechanical_output_sizing": {
+        "advisory_target": 2048,
+        "bytes": 1950,
+        "scope": "maximum-reference mechanical serialization only; semantic fit and latency unproved",
+        "sha256": "28b0a48e6f6713201dc402aab889483fdb9c7bf09fc7e736881f2ad0b763f52f",
+        "tokens": 986,
+        "within_advisory_target": true
+      }
+    },
+    "packet-d": {
+      "rendered_tokens": 8016,
+      "input_cap_met": true,
+      "context_reserve_met": true,
+      "task_goal_sha256": "dd209ecc1dc34dad03ccf4bccb531e79596b5fb1763b9e160bf6c7d1c8754f2f",
+      "mechanical_output_sizing": {
+        "advisory_target": 2048,
+        "bytes": 992,
+        "scope": "maximum-reference mechanical serialization only; semantic fit and latency unproved",
+        "sha256": "fc8c38d3b28140f2e906fbd4af451a23f7b1c4a55bca252c4049e16ab43c2706",
+        "tokens": 324,
+        "within_advisory_target": true
+      }
+    },
+    "probe-cancel": {
+      "rendered_tokens": 3405,
+      "input_cap_met": true,
+      "context_reserve_met": true,
+      "task_goal_sha256": "46b41e579aabb95b489a189584ac206c5798a9b4f4dcc48e2784056f844eb1a3",
+      "mechanical_output_sizing": {
+        "advisory_target": 2048,
+        "bytes": 897,
+        "scope": "maximum-reference mechanical serialization only; semantic fit and latency unproved",
+        "sha256": "62b2db546eed72d6de98641c189a73d3ae429fecbb462a17aad8d26acef4105e",
+        "tokens": 257,
+        "within_advisory_target": true
+      }
+    },
+    "probe-report": {
+      "rendered_tokens": 3420,
+      "input_cap_met": true,
+      "context_reserve_met": true,
+      "task_goal_sha256": "46b41e579aabb95b489a189584ac206c5798a9b4f4dcc48e2784056f844eb1a3",
+      "mechanical_output_sizing": {
+        "advisory_target": 2048,
+        "bytes": 897,
+        "scope": "maximum-reference mechanical serialization only; semantic fit and latency unproved",
+        "sha256": "1cbb358b6f29f281fbe5ad8e95d90176b44e4cffab24b50273a7b534bac18d0a",
+        "tokens": 262,
+        "within_advisory_target": true
+      }
+    }
+  },
+  "preparation_seconds": 11.76776373400935,
+  "prediction_attempts": 0,
+  "model_cleanup": {
+    "confirmed": true,
+    "identifier": "up-supplied-gpu-gemma12-36864-v1",
+    "remaining_identifiers": [],
+    "unload_requested": true
+  },
+  "client_cleanup": {
+    "confirmed": true,
+    "elapsed_seconds": 0.003430404991377145
+  },
+  "profile_comparison": {
+    "baseline_sha256": "a2b4dc2ed3f4090f8bd618bdafad5cca2e396f66f39258edbad142ad2dfd8d73",
+    "changed_paths": [
+      "/backend_observation/flags/chat-template-file",
+      "/code_sha256/experiments/investigator_supplied_evidence.py",
+      "/code_sha256/experiments/run_investigator_supplied_evidence.py",
+      "/initial_identity/model/instanceReference"
+    ],
+    "meaning": "Two intentional source hashes, fresh instance reference and runtime-generated template file path; actual template content hash, settings and other profile fields unchanged."
+  },
+  "roles": [
+    "probe-report",
+    "packet-a",
+    "packet-b",
+    "packet-c",
+    "packet-d"
+  ],
+  "ceilings": {
+    "admission_units": 322,
+    "attempts": 5,
+    "batch_seconds": 4800,
+    "finalization_seconds": 310,
+    "generated_tokens": 40960,
+    "input_tokens": 73096,
+    "prediction_seconds": 4200,
+    "preparation_seconds": 1200
+  },
+  "scope": "actual load/render/tokenize/fit and cleanup; semantic execution not yet attempted"
+}

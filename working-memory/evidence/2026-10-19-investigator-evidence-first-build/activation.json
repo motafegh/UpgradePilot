@@ -1,0 +1,54 @@
+{
+  "format": "investigator-evidence-first-freeze-activation/1",
+  "recorded_utc": "2026-10-19T19:48:42.758818+00:00",
+  "authorization": "Ali explicitly accepted the revised finite plan and directed Build/fixing reasonable blockers in this conversation; the conditional sequence needs no repeated internal approval.",
+  "freeze_path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-runtime-r9/freeze.json",
+  "freeze_sha256": "b2e5cb3845fd99ed62645c83c1f42e9ee8ef69065ef05e5e14aa1c0665256393",
+  "activate_freeze_sha256": "b2e5cb3845fd99ed62645c83c1f42e9ee8ef69065ef05e5e14aa1c0665256393",
+  "output": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r5",
+  "execution_roles": [
+    "probe-report",
+    "packet-a",
+    "packet-b",
+    "packet-c",
+    "packet-d"
+  ],
+  "execution_ceilings": {
+    "admission_units": 322,
+    "attempts": 5,
+    "batch_seconds": 4800,
+    "finalization_seconds": 310,
+    "generated_tokens": 40960,
+    "input_tokens": 73096,
+    "prediction_seconds": 4200,
+    "preparation_seconds": 1200
+  },
+  "method": {
+    "goal_sha256": {
+      "captured_consumer": "dd209ecc1dc34dad03ccf4bccb531e79596b5fb1763b9e160bf6c7d1c8754f2f",
+      "pr_context": "46b41e579aabb95b489a189584ac206c5798a9b4f4dcc48e2784056f844eb1a3"
+    },
+    "id": "investigator-evidence-first-existing-report-instructions/1",
+    "intentional_model_input_change": "task.goal"
+  },
+  "control_prerequisite": {
+    "control_source_sha256": "c1ccbca729f819ba19b3482ad82aa039fe3059b17acf2ce8939e4ce0994c67ef",
+    "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-control-proof-r1/control-evidence.json",
+    "receive_adapter_sha256": "0814f4807cd37691ad49999b2509280284ae2625d0f8eb15bdc9e414500fee58",
+    "scope": "isolated terminal cancellation/receive-stop/owned cleanup; token usage unknown",
+    "sdk_source_sha256": {
+      "_ws_impl.py": "a9123686ddccbf07ff3d3fe292b490c38d32441ddd74b22e02e3ba3a2e4e6704",
+      "_ws_thread.py": "d1ceecd0d10ec8d53242ecfb52abdf829d261e63051a3c04b27e4ac809acfe1d",
+      "json_api.py": "32146d39cf215e5829102938252e219a2300253981520f7005ab765b8d4b1f80",
+      "sdk_api.py": "c21aed37e101ec53185ed9df6b0ef45f07aa1a7fd7ea61f782ac4361f44fd29d",
+      "sync_api.py": "888360663dc5655e90c614ff64a285299f97a8f3a9cfeee28cac08dd42dac685"
+    },
+    "sha256": "2ce415fc5873e1728389144ae258eb9d80b3ff0a89dbe94ea90d62dc05165095",
+    "unknown_usage_reservation": {
+      "generated": 8192,
+      "input": 4096
+    }
+  },
+  "conditions": "First actual prediction is report canary; four cases follow in frozen order only if hard gates pass. No retry/resume/substitution/new cancellation call or semantic feedback between cases.",
+  "semantic_acceptance": "unassessed until source-aware offline review; no product action permission"
+}
