@@ -1,0 +1,52 @@
+{
+  "format": "investigator-supplied-diagnostic-activation/1",
+  "authorization": "Ali: well done and go on, selecting the immediately preceding matching-freeze handoff",
+  "base_commit": "c4c833e6",
+  "freeze_path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-runtime-r4/freeze.json",
+  "freeze_sha256": "a94101982226436f6ef993c80af041e2b425994aaa13afcbddd95714f65f8b42",
+  "observed_profile_sha256": "7c43296f207f324725ee094a232206f57f2eb972df52224f8640f883742b5efd",
+  "source_sha256": {
+    "experiments/investigator_run_control.py": "925814a7db46ba8cbe11ed943529e81d21b93b4d666bf583267266ab461dfaec",
+    "experiments/investigator_model_interface.py": "6876644051366faf1d14879dfda5ba2ac1f285940fde9a22ccc6262014d2110b",
+    "experiments/investigator_supplied_evidence.py": "0474310f2de14682704a674d96466f6bd892bb1ae9ad4e65f923488b629d6ac9",
+    "experiments/investigator_workspace_trial.py": "bb00b9adc0f945d07e63306f2c0641bd53d86f4e78a976dd81e7b4b88e00ae54",
+    "experiments/investigator_workspace_adapter.py": "da356ae9cef38f6ca4051559485ebc62289e636b9920b3d3c2f401b93b3f6a72",
+    "experiments/prepare_investigator_supplied_evidence.py": "f88d3a5d56dd873130dbfaf9bbfc3aea6214a1776ddedba8eee981409d67a9b7",
+    "experiments/run_investigator_semantic_comparison.py": "c963d00dce739feff52edf74bdd3e079853cfe5dbdfa9f92215bc081d177b3cb",
+    "experiments/qualify_investigator_workspace.py": "9da66d763a8a5b9b5328a7da90614c1cad40fba403f988984d55eaa37fa25b10",
+    "experiments/qualify_investigator_model_interface.py": "33b30a7c54d0039ac3c6086cf834924b13527584c467d5715383f3f8dea1ad84",
+    "experiments/run_investigator_supplied_evidence.py": "d521ddcc92bafb3a4a7601331dcd25073abd5282731ebbea1e9ca19d09b42367"
+  },
+  "sdk_source_sha256": {
+    "_ws_impl.py": "a9123686ddccbf07ff3d3fe292b490c38d32441ddd74b22e02e3ba3a2e4e6704",
+    "_ws_thread.py": "d1ceecd0d10ec8d53242ecfb52abdf829d261e63051a3c04b27e4ac809acfe1d",
+    "json_api.py": "32146d39cf215e5829102938252e219a2300253981520f7005ab765b8d4b1f80",
+    "sdk_api.py": "c21aed37e101ec53185ed9df6b0ef45f07aa1a7fd7ea61f782ac4361f44fd29d",
+    "sync_api.py": "888360663dc5655e90c614ff64a285299f97a8f3a9cfeee28cac08dd42dac685"
+  },
+  "reviewer": {
+    "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-review-r1/review-protocol.json",
+    "sha256": "37579067521c5129826c7ea9f6879da2cad830236718a7be57eec02aad6529e9"
+  },
+  "roles": [
+    "probe-cancel",
+    "probe-report",
+    "packet-a",
+    "packet-b",
+    "packet-c",
+    "packet-d"
+  ],
+  "ceilings": {
+    "attempts": 6,
+    "input_tokens": 77192,
+    "generated_tokens": 49152,
+    "prediction_seconds": 4200,
+    "finalization_seconds": 360,
+    "batch_seconds": 4800,
+    "preparation_seconds": 1200,
+    "admission_units": 340
+  },
+  "output_root": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r1",
+  "source_aware_review": "after execution; no interim feedback or keyword grading",
+  "hard_stop": "unknown usage or hard control/interface/delivery failure; no retries, slot transfers, output repair, new models or original-matrix resume"
+}

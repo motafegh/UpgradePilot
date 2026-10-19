@@ -1,0 +1,129 @@
+{
+  "format": "investigator-cancellation-queue-analysis/1",
+  "prediction_attempts": 0,
+  "network_connections": 0,
+  "source_and_sdk_hashes_match_activation": true,
+  "cases": [
+    {
+      "case": "ordinary-terminal",
+      "primary_problem": null,
+      "control": {
+        "dispatch_reserved": true,
+        "channel_opened": true,
+        "cancellation_requested": false,
+        "terminal_received": true,
+        "channel_released": true,
+        "secondary_problems": [],
+        "deadline_seconds": 0.5,
+        "finalization_allowance_seconds": 0.5,
+        "prediction_elapsed_seconds": 0.00036570100201060995,
+        "finalization_elapsed_seconds": 0.00002119999408023432,
+        "prediction_elapsed_bound_met": true,
+        "runtime_quiescence": "terminal_protocol_received"
+      },
+      "sent": [],
+      "queue_receive_futures": [
+        {
+          "state": "completed",
+          "wire_type": "channelSend",
+          "message_type": "success"
+        }
+      ],
+      "events_delivered_to_endpoint": [
+        "success"
+      ],
+      "synthetic_terminal_observed": true
+    },
+    {
+      "case": "monotonic-interruption",
+      "primary_problem": "PredictionDeadlineExceeded: prediction monotonic deadline reached",
+      "control": {
+        "dispatch_reserved": true,
+        "channel_opened": true,
+        "cancellation_requested": true,
+        "terminal_received": false,
+        "channel_released": true,
+        "secondary_problems": [
+          "ValueError: prediction channel ended without a terminal response"
+        ],
+        "deadline_seconds": 0.08,
+        "finalization_allowance_seconds": 0.5,
+        "primary_problem": "PredictionDeadlineExceeded: prediction monotonic deadline reached",
+        "prediction_elapsed_seconds": 0.08010127700254088,
+        "finalization_elapsed_seconds": 0.00039594300324097276,
+        "prediction_elapsed_bound_met": false,
+        "runtime_quiescence": "unconfirmed"
+      },
+      "sent": [
+        {
+          "type": "channelSend",
+          "channelId": 1,
+          "message": {
+            "type": "cancel"
+          }
+        }
+      ],
+      "queue_receive_futures": [
+        {
+          "state": "completed",
+          "wire_type": "channelSend",
+          "message_type": "success"
+        },
+        {
+          "state": "completed",
+          "wire_type": "channelClose",
+          "message_type": null
+        }
+      ],
+      "events_delivered_to_endpoint": [],
+      "synthetic_terminal_observed": false
+    },
+    {
+      "case": "sdk-idle-timeout",
+      "primary_problem": "LMStudioTimeoutError: ",
+      "control": {
+        "dispatch_reserved": true,
+        "channel_opened": true,
+        "cancellation_requested": true,
+        "terminal_received": true,
+        "channel_released": true,
+        "secondary_problems": [],
+        "deadline_seconds": 0.5,
+        "finalization_allowance_seconds": 0.5,
+        "primary_problem": "LMStudioTimeoutError: ",
+        "prediction_elapsed_seconds": 0.020182052001473494,
+        "finalization_elapsed_seconds": 0.0004289779972168617,
+        "prediction_elapsed_bound_met": true,
+        "runtime_quiescence": "terminal_protocol_received"
+      },
+      "sent": [
+        {
+          "type": "channelSend",
+          "channelId": 1,
+          "message": {
+            "type": "cancel"
+          }
+        }
+      ],
+      "queue_receive_futures": [
+        {
+          "state": "cancelled"
+        },
+        {
+          "state": "completed",
+          "wire_type": "channelSend",
+          "message_type": "success"
+        }
+      ],
+      "events_delivered_to_endpoint": [
+        "success"
+      ],
+      "synthetic_terminal_observed": true
+    }
+  ],
+  "limits": [
+    "Synthetic local queue and endpoint; no actual server wire trace or usage.",
+    "Proves a sufficient receive-loss mechanism, not the exact live wire sequence.",
+    "Does not repair implementation, qualify cancellation or authorize another call."
+  ]
+}

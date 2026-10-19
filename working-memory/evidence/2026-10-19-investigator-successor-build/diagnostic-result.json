@@ -1,0 +1,107 @@
+{
+  "format": "investigator-activated-diagnostic-result/1",
+  "base_commit": "c4c833e6",
+  "freeze_sha256": "a94101982226436f6ef993c80af041e2b425994aaa13afcbddd95714f65f8b42",
+  "diagnostic_root": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r1",
+  "disposition": "incomplete/inconclusive; control gate failed",
+  "prediction_attempts": 1,
+  "known_usage_attempts": 0,
+  "unknown_usage_attempts": 1,
+  "semantic_cases_attempted": 0,
+  "semantic_cases_reviewable": 0,
+  "unattempted_roles": [
+    "probe-report",
+    "packet-a",
+    "packet-b",
+    "packet-c",
+    "packet-d"
+  ],
+  "problem": "ValueError: unknown usage; whole remaining cohort withheld",
+  "probe_receipt": {
+    "attempt": 1,
+    "complete_response_received": false,
+    "control": {
+      "cancellation_requested": true,
+      "channel_opened": true,
+      "channel_released": true,
+      "deadline_seconds": 1,
+      "dispatch_reserved": true,
+      "finalization_allowance_seconds": 50,
+      "finalization_elapsed_seconds": 0.00603171900002053,
+      "prediction_elapsed_bound_met": false,
+      "prediction_elapsed_seconds": 1.0001420990010956,
+      "primary_problem": "PredictionDeadlineExceeded: prediction monotonic deadline reached",
+      "runtime_quiescence": "unconfirmed",
+      "secondary_problems": [
+        "ValueError: prediction channel ended without a terminal response"
+      ],
+      "terminal_received": false
+    },
+    "elapsed_seconds": 1.0179689479991794,
+    "finalization_elapsed_seconds": 0.01769096200587228,
+    "outcome": "failed",
+    "prediction_allowance_seconds": 1,
+    "prediction_elapsed_seconds": 1.0001420990010956,
+    "problem": "PredictionDeadlineExceeded: prediction monotonic deadline reached",
+    "request_preparation_elapsed_seconds": 0.05622180499631213,
+    "request_sha256": "fb1fa6ba518c0d6d238d483a6b7440257058c052c3d82e83d9bb826ece39d338",
+    "reserved_generated_tokens": 8192,
+    "reserved_input_tokens": 3281,
+    "secondary_problems": [],
+    "usage": null,
+    "visible_fragment_bytes": 0,
+    "visible_fragments_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "observed_request": {
+    "preliminary_rendered_tokens": 3279,
+    "callback_rendered_tokens": 3281,
+    "callback_input_reservation": 3281,
+    "role_input_reservation": 4096,
+    "generated_reservation": 8192,
+    "omitted_events": []
+  },
+  "measured_known_usage": {
+    "finalization_seconds": 0.9533194879986695,
+    "generated": 0,
+    "input": 0,
+    "known_usage_attempts": 0,
+    "operations": 12,
+    "prediction_seconds": 1.0001420990010956,
+    "unknown_usage_attempts": 1
+  },
+  "batch_elapsed_seconds": 2.0113904569952865,
+  "owned_runtime_cleanup": {
+    "confirmed": true,
+    "identifier": "up-supplied-capacity-gemma12-36864-v1",
+    "remaining_identifiers": [],
+    "unload_requested": true
+  },
+  "client_cleanup": {
+    "confirmed": true,
+    "elapsed_seconds": 0.0018107229989254847
+  },
+  "artifact_sha256": {
+    "backend/backend-observation.json": "4581fc09b1a0a581ae08c5c80c1be62a74656fc8e70a1a0e3f85c60c8c719ff1",
+    "backend/backend-template.jinja": "031f45711a263bdb0b9642fdba78e2cdf6990d6d965a0873aae05da49682d0ec",
+    "cleanup.json": "33cd28bbc9d902f6b02c8f41a7699684e629d7b062239531049d78616744afd1",
+    "client-cleanup.json": "11059ace23450ef58d0f11b34673a0e7f9e4bc1241146bbf5d74f627a7fe0897",
+    "executed-freeze.json": "a94101982226436f6ef993c80af041e2b425994aaa13afcbddd95714f65f8b42",
+    "probe-cancel/call-01.attempt.json": "21b5733cf35c0871c210f1429e6649258afcdbaee729e09dd535cc20f2f4dc29",
+    "probe-cancel/call-01.packed-input.json": "fd8d43327f207d7ffd28c02291e4b3a444cf1dd05b622b88841cc9eda87cc952",
+    "probe-cancel/call-01.receipt.json": "cf4b2f6947ce91f13d4453301122617cde2836c5b64c9e4a70439ee0ad32c2e0",
+    "probe-cancel/call-01.rendered.txt": "2d33f8d591939d62e8c9635eb3d442aeab32fe78f11299efd1424c9a22e3239f",
+    "probe-cancel/call-01.request.json": "fb1fa6ba518c0d6d238d483a6b7440257058c052c3d82e83d9bb826ece39d338",
+    "probe-cancel/call-01.visible-fragments.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "probe-cancel/reference-map.json": "117e5a31e639e0f7e5fca9b6c724a6c958ef4ed329760dbda19c17ebdb14d274",
+    "probe-cancel.reservation.json": "e8a19ef470d3d0009d9da51552997531ac21c439a4cd7c6d33d2ee56787c6e53",
+    "probe-cancel.result.json": "58cb6ca990fc0d92e8e5f241e58e67116e19a205d94da4150410cf21860086d4",
+    "summary.json": "10a12d88efe64cce6ca9c124d4bf5fbb0cca729a7c6720145fd812e5c80776f0"
+  },
+  "limits": [
+    "Zero known token subtotals are not zero actual consumption.",
+    "No terminal usage/configuration receipt; no semantic verdict.",
+    "Owned unload is confirmed later and does not recover terminal usage.",
+    "No live wire trace was retained; offline queue loss is a sufficient mechanism.",
+    "No retry, resumed cohort or inference repair was performed."
+  ]
+}

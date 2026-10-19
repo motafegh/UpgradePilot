@@ -1,0 +1,44 @@
+{
+  "format": "investigator-diagnostic-retention-summary/1",
+  "index_path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r1-disposition-r1/completed-retention-index.json",
+  "index_sha256": "7e63cb0454e39fd9799b5a30ffb74285c13ead03a73e823e02b7721e4cc70377",
+  "files_excluding_index": 42,
+  "bytes_excluding_index": 765036,
+  "roots": [
+    "supplied-evidence-2026-10-19-diagnostic-r1",
+    "supplied-evidence-2026-10-19-diagnostic-r1-disposition-r1"
+  ],
+  "directory_modes": "0700",
+  "file_modes": "0600",
+  "exact_membership_hash_size_mode_check": "passed",
+  "prior_retention_checks": [
+    {
+      "index_sha256": "ed0fbdb4e7af9e2b904a9b708355204894f8d7865423d8363669a263d91eff41",
+      "files": 200,
+      "membership_hash_size_mode_check": "passed unchanged"
+    },
+    {
+      "index_sha256": "d86f57d6d323050c1dd73ea065e2e963c254f79261aaf0dac346e78df33fe9cc",
+      "files": 39,
+      "membership_hash_size_mode_check": "passed unchanged"
+    },
+    {
+      "index_sha256": "1d91dec581896b4a57e058e1134620c2e75c85a9724806a190fd1b26242f03c6",
+      "files": 79,
+      "membership_hash_size_mode_check": "passed unchanged"
+    },
+    {
+      "index_sha256": "9baed476fc25daf6bf87650d569bc156669226c98b4714a8957d5c47452d2336",
+      "files": 82,
+      "membership_hash_size_mode_check": "passed unchanged"
+    }
+  ],
+  "prior_unchanged_files": 400,
+  "current_source_preparation_freeze_admission": "passed; failed control outcome remains immutable",
+  "archived_documentation_note": "The archived disposition draft has a prose count of16 execution files. Exact execution membership is15; the current public disposition corrects that text. The 42-file index and all retained data remain unchanged.",
+  "limits": [
+    "Local owner-only retention; not off-machine backup or a full model/runtime archive.",
+    "One actual prediction has unknown usage; no terminal receipt recovered.",
+    "Offline queue counterexample is synthetic and does not reconstruct the live wire sequence."
+  ]
+}
