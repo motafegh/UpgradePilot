@@ -2,13 +2,13 @@
 
 **Created:** October 19, 2026. **Final revision:** October 20, 2026.
 
-**Status:** Finalized proposal for Ali's decision; non-controlling and not yet admitted.
+**Status:** Finalized direction accepted by Ali on October 20 for the bounded investigation/planning gate. This remains a non-controlling rationale; no implementation architecture, model topology or product method is admitted by it.
 
 **Decision owner:** Ali Rajabi.
 
 **Scope:** Reconcile experiment evidence with accepted product responsibilities; propose a bounded product-value and feasibility decision before further implementation or inference.
 
-**Live position:** [MEMORY.md](../MEMORY.md) alone owns selected continuation. “Finalized” describes this document, not acceptance of its proposed direction.
+**Live position:** [MEMORY.md](../MEMORY.md) alone owns selected continuation. The [investigation plan](../plans/PRODUCT_VALUE_AND_TRANSPARENT_BASELINE_FEASIBILITY_INVESTIGATION_PLAN.md) coordinates the bounded gate; acceptance of the direction and plan writing does not execute it.
 
 ## 1. Recommended decision
 
@@ -188,7 +188,7 @@ An experiment's offline reviewer remains its evaluator. Passing that review does
 
 ## 8. First bounded decision gate and cost contract
 
-If Ali accepts this proposal, write **one bounded plan**, rather than expanding the old experiment plan or opening a family of framework plans. Its output is a defensible next-investment decision.
+The accepted gate is coordinated by **one bounded investigation plan**, rather than expanding the old experiment plan or opening a family of framework plans. Its output is a defensible next-investment decision.
 
 **Proposed ceiling for that future planning gate:** one coherent cycle, at most six active engineering hours: up to two for comparison-input readiness, two for producer/consumer and representation tracing, two for alternatives and the decision packet. These are proposed ceilings, not retrospective measurements of this proposal revision. Record actual effort honestly; reaching the ceiling returns an incomplete/inconclusive design with a named gap, not an automatic extension.
 
@@ -266,9 +266,9 @@ Maintain the existing controls without speculative infrastructure growth. Fix a 
 
 This revision also incorporates the [prior strategic review](../working-memory/2026-10-20_investigator-product-direction-proposal-review_lbd-cycle.md): correct causal overreach; reuse owners; tighten grammar/binding; distinguish CI calibration from source extraction; move value/cost earlier; replace mandatory stages with a discriminating gate; preserve sampling, review and qualification limits.
 
-## 12. Decision text for Ali
+## 12. Accepted direction and its limited consequence
 
-Proposed for acceptance, not a recorded acceptance:
+Ali accepted the bounded direction after the October 20 finalization and subsequently authorized writing its investigation plan. The decision text below records that limited direction; it does not authorize investigation execution, Build or the conditional later methods:
 
 > Retain UpgradePilot's accepted hybrid evidence/authority architecture and current experiment infrastructure. Preserve the completed negative results and discontinue automatic tuning/resumption on the exposed Investigator line. Select one bounded planning/feasibility gate with product-versus-transparent-baseline readiness first, a concrete consumer, reuse of existing state/evidence owners, explicit engineering and resource ceilings, and honest stop/reject/inconclusive outcomes. A deterministic source-relation capability is one candidate, not a predetermined subsystem. Additional positive actions, semantic validators, models, agents, protected evaluations and autonomous discovery each require their own justified scope and proof. Finalizing this proposal does not authorize those actions.
 
@@ -288,4 +288,4 @@ Accepted owners and relevant existing product source are linked in §§3–8. Ad
 - [Simulation authority](../product-simulation/AGENTS.md), [simulation navigation](../product-simulation/README.md), [historical D1 synthesis](../product-simulation/D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md) and [bounded implemented-foundation transfer evaluation](../product-simulation/IMPLEMENTED_FOUNDATION_TRANSFER_EVALUATION_2026-08-11.md).
 - Broader comparison evidence: Git object `cde0ea9906fa37e4184962d0ba65577e4d62396e:working-memory/evidence/2026-10-07-broader-agency-contract2-comparison/`; interpretation diagnostic inspected through `253b48de20b475eada48810d193bd420c51aa7d4:working-memory/evidence/2026-10-07-broader-agency-evidence-interface/`.
 
-The revision changes a proposal and dated/live-state reconciliation only. It does not establish a runnable six-case benchmark, admit a source extractor/evaluator/action, perform target execution, or select a model topology. Further work follows an explicit decision on the finalized proposal.
+The revision changes a proposal and dated/live-state reconciliation only. It does not establish a runnable six-case benchmark, admit a source extractor/evaluator/action, perform target execution, or select a model topology. The accepted direction authorizes preparation of the linked investigation plan; performing that plan or its recommended next action requires the corresponding selection.
