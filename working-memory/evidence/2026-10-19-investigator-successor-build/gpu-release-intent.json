@@ -1,0 +1,148 @@
+{
+  "format": "investigator-gpu-release-continuation-intent/1",
+  "date": "2026-10-19",
+  "authorization": "Ali: ok gpu is free now; resume the previously authorized finite sequence after fresh source-bound prerequisites",
+  "gpu_before_load": {
+    "total_mib": 8192,
+    "used_mib": 1605,
+    "free_mib": 6414,
+    "loaded_local_instances": 0,
+    "scope": "point_in_time_read_only_snapshot"
+  },
+  "request": {
+    "model_key": "google/gemma-4-12b",
+    "identifier": "up-supplied-gpu-gemma12-36864-v1",
+    "requested_load": {
+      "contextLength": 36864,
+      "evalBatchSize": 256,
+      "flashAttention": true,
+      "gpu": {
+        "ratio": 0.45
+      },
+      "keepModelInMemory": true,
+      "llamaKCacheQuantizationType": "q8_0",
+      "llamaVCacheQuantizationType": "q8_0",
+      "offloadKVCacheToGpu": false,
+      "tryMmap": true
+    }
+  },
+  "required_observed_gpu_layers": 22,
+  "per_role_prediction_seconds": {
+    "probe-report": 300,
+    "packet-a": 900,
+    "packet-b": 900,
+    "packet-c": 900,
+    "packet-d": 900
+  },
+  "execution_roles": [
+    "probe-report",
+    "packet-a",
+    "packet-b",
+    "packet-c",
+    "packet-d"
+  ],
+  "execution_ceilings": {
+    "attempts": 5,
+    "input_tokens": 73096,
+    "generated_tokens": 40960,
+    "prediction_seconds": 4200,
+    "finalization_seconds": 310,
+    "batch_seconds": 4800,
+    "preparation_seconds": 1200,
+    "admission_units": 322
+  },
+  "cohort": "fresh diagnostic-r4; no old batch reuse or new cancellation prediction",
+  "lineage": {
+    "prior_attempts": 3,
+    "prior_unknown_usage_attempts": 3,
+    "prior_reserved_input": 12288,
+    "prior_reserved_generated": 24576,
+    "maximum_new_attempts": 5,
+    "maximum_actual_attempts_if_all_new_roles_run": 8
+  },
+  "preparation": {
+    "root": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-preparation-r12",
+    "manifest_sha256": "56034b0de5e2fe88ed7a79d55384947dffcc0775776abca863db2d4f7f2a8cf2",
+    "index_sha256": "39c3fa3f9baeb033308c31ee0eac3b5cf3fd1515ae2023522ce7d881395b782e",
+    "source_integrity_verified": true,
+    "material_selection_and_feasibility_unchanged_from_r11": true,
+    "cases": [
+      {
+        "eligible_references": 16,
+        "feasibility_units": 76,
+        "label": "packet-a",
+        "selection_inventory_sha256": "ed234cad5192f0c75a4d2373b5afbf0500397cb5430d3a28a4ff7070ebec635b"
+      },
+      {
+        "eligible_references": 3,
+        "feasibility_units": 23,
+        "label": "packet-b",
+        "selection_inventory_sha256": "c908a2b13ec7c5bbfd9eff3d6b491dd79815c45b6a98e59f8c15a52470b20495"
+      },
+      {
+        "eligible_references": 13,
+        "feasibility_units": 61,
+        "label": "packet-c",
+        "selection_inventory_sha256": "1fc230c32ff09b2e8c3483c332f5e48e8dad615e71cfc23022498bbbeefe7f3c"
+      },
+      {
+        "eligible_references": 3,
+        "feasibility_units": 23,
+        "label": "packet-d",
+        "selection_inventory_sha256": "6ec70f6b59f9bee9674aa644bdb24e9a3dc79cf57b5a0b22c3c0557d9f3afe5d"
+      }
+    ]
+  },
+  "isolated_control_prerequisite": {
+    "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-control-proof-r1/control-evidence.json",
+    "sha256": "2ce415fc5873e1728389144ae258eb9d80b3ff0a89dbe94ea90d62dc05165095",
+    "receive_adapter_sha256": "0814f4807cd37691ad49999b2509280284ae2625d0f8eb15bdc9e414500fee58",
+    "control_source_sha256": "c1ccbca729f819ba19b3482ad82aa039fe3059b17acf2ce8939e4ce0994c67ef",
+    "sdk_source_sha256": {
+      "_ws_impl.py": "a9123686ddccbf07ff3d3fe292b490c38d32441ddd74b22e02e3ba3a2e4e6704",
+      "_ws_thread.py": "d1ceecd0d10ec8d53242ecfb52abdf829d261e63051a3c04b27e4ac809acfe1d",
+      "json_api.py": "32146d39cf215e5829102938252e219a2300253981520f7005ab765b8d4b1f80",
+      "sdk_api.py": "c21aed37e101ec53185ed9df6b0ef45f07aa1a7fd7ea61f782ac4361f44fd29d",
+      "sync_api.py": "888360663dc5655e90c614ff64a285299f97a8f3a9cfeee28cac08dd42dac685"
+    },
+    "unknown_usage_reservation": {
+      "input": 4096,
+      "generated": 8192
+    },
+    "scope": "isolated terminal cancellation/receive-stop/owned cleanup; token usage unknown"
+  },
+  "reviewer": {
+    "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-review-r1/review-protocol.json",
+    "sha256": "37579067521c5129826c7ea9f6879da2cad830236718a7be57eec02aad6529e9"
+  },
+  "code_sha256": {
+    "experiments/investigator_run_control.py": "c1ccbca729f819ba19b3482ad82aa039fe3059b17acf2ce8939e4ce0994c67ef",
+    "experiments/investigator_model_interface.py": "d795c6649b0dce45e1956653e793d7586c799d90aa165fbaedb1046fc78f44da",
+    "experiments/investigator_supplied_evidence.py": "0474310f2de14682704a674d96466f6bd892bb1ae9ad4e65f923488b629d6ac9",
+    "experiments/investigator_workspace_trial.py": "bb00b9adc0f945d07e63306f2c0641bd53d86f4e78a976dd81e7b4b88e00ae54",
+    "experiments/investigator_workspace_adapter.py": "da356ae9cef38f6ca4051559485ebc62289e636b9920b3d3c2f401b93b3f6a72",
+    "experiments/prepare_investigator_supplied_evidence.py": "f88d3a5d56dd873130dbfaf9bbfc3aea6214a1776ddedba8eee981409d67a9b7",
+    "experiments/run_investigator_semantic_comparison.py": "c963d00dce739feff52edf74bdd3e079853cfe5dbdfa9f92215bc081d177b3cb",
+    "experiments/qualify_investigator_workspace.py": "9da66d763a8a5b9b5328a7da90614c1cad40fba403f988984d55eaa37fa25b10",
+    "experiments/qualify_investigator_model_interface.py": "33b30a7c54d0039ac3c6086cf834924b13527584c467d5715383f3f8dea1ad84",
+    "experiments/run_investigator_supplied_evidence.py": "1478707d4b22c09d59e2a1e19dedbc7a66e197c5fa73622ff4bec89c4bb5644f"
+  },
+  "proof": {
+    "focused_tests": 174,
+    "focused_seconds": 7.785,
+    "nearest_workspace_tests_prior_unchanged_product_horizon": 65,
+    "distinct_tests": 239,
+    "no_product_source_change": true
+  },
+  "runtime_preflight": "one fresh runtime-r8; no predictions; exact identity/full fit required",
+  "activation": "only after verified new freeze; publish exact hash before matching activation",
+  "stop": "hard failure or unknown usage withholds later roles without retry",
+  "excluded": [
+    "CPU fallback execution",
+    "placement sweep",
+    "semantic feedback or output repair",
+    "model substitution",
+    "old matrix continuation",
+    "semantic acceptance from readiness"
+  ]
+}

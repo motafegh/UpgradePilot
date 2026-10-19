@@ -3,6 +3,10 @@
 Owner: [Build cycle](../../2026-10-19_investigator-successor-build_lbd-cycle.md).
 Scope: implementation proof, bounded zero-generation fit and the separately activated diagnostic evidence under the [successor plan](../../../plans/INVESTIGATOR_RUN_CONTROL_COMPLETION_AND_CAPABILITY_DIAGNOSTIC_PLAN.md).
 
+## GPU-release continuation intent
+
+[The prospective intent](gpu-release-intent.json) records Ali’s explicit GPU-free signal,6414MiB free/zero loaded instances, restored ratio0.45/exact22-layer point and300-second canary. Fresh174 focused checks pass; r12 source/retention and unchanged complete packet feasibility pass. One new profile/fit/freeze is required before a single five-role activation. CPU fallback stays unrun; three previous unknown attempts and all negative results remain immutable. This intent is not runtime qualification or semantic proof.
+
 ## Offline preparation and explicit runtime hold
 
 [The offline hold evidence](offline-runtime-hold.json) binds239 passing relevant tests and fresh r11 preparation, with unchanged material/reference/terminal feasibility and verified owner-only retention/source identity. A CPU-only candidate and numeric prompt-progress retention were prepared before Ali explicitly directed waiting until he says the GPU is free. Neither a CPU runtime nor another prediction was started. No runtime-r8/freeze/diagnostic-r4 exists. Model execution, all LM Studio activity and GPU-availability polling wait for that explicit signal; then the operating point must be reconciled before fresh runtime qualification. Actual lineage remains three unknown attempts and zero semantic cases. Earlier evidence below retains its own horizon.
