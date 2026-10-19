@@ -3,6 +3,10 @@
 Owner: [Build cycle](../../2026-10-19_investigator-successor-build_lbd-cycle.md).
 Scope: implementation proof, bounded zero-generation fit and the separately activated diagnostic evidence under the [successor plan](../../../plans/INVESTIGATOR_RUN_CONTROL_COMPLETION_AND_CAPABILITY_DIAGNOSTIC_PLAN.md).
 
+## Offline preparation and explicit runtime hold
+
+[The offline hold evidence](offline-runtime-hold.json) binds239 passing relevant tests and fresh r11 preparation, with unchanged material/reference/terminal feasibility and verified owner-only retention/source identity. A CPU-only candidate and numeric prompt-progress retention were prepared before Ali explicitly directed waiting until he says the GPU is free. Neither a CPU runtime nor another prediction was started. No runtime-r8/freeze/diagnostic-r4 exists. Model execution, all LM Studio activity and GPU-availability polling wait for that explicit signal; then the operating point must be reconciled before fresh runtime qualification. Actual lineage remains three unknown attempts and zero semantic cases. Earlier evidence below retains its own horizon.
+
 ## Delivered repairs and measured runtime boundary
 
 [The full repair/resource disposition](receive-repair-disposition.md) records the implemented receive owner, signal-race and metadata-retention fixes,238 passing relevant tests and actual repaired terminal/cleanup evidence. [The real report-canary result](resource-canary-result.json) preserves the next failure:299.821152 prediction seconds,3269 request tokens,11 prompt-progress events, zero visible output and missing numeric usage. All16 requested settings and the exact model instance match the retained terminal metadata; cleanup confirms. All four semantic cases remain unattempted. Three lineage calls retain unknown usage and12,288 input/24,576 generated conservative reservation; zero known token subtotals do not imply zero consumption.

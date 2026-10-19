@@ -57,6 +57,25 @@ class Channel:
 
 class PredictionControlTests(unittest.TestCase):
     @unittest.skipUnless(importlib.util.find_spec("lmstudio"), "optional preserved SDK not selected")
+    def test_sdk_prompt_progress_is_retained_as_scalar_before_interruption(self):
+        import lmstudio
+        from contextlib import nullcontext
+        from unittest.mock import patch
+        from experiments.investigator_model_interface import SDKBinding
+        model = SimpleNamespace(identifier="synthetic-progress-only",
+            _session=SimpleNamespace(_create_channel=lambda endpoint: nullcontext()))
+        binding = SDKBinding(model, lmstudio, {})
+        measured = SimpleNamespace(messages={"messages": [{"role": "user", "content": "Synthetic progress only"}]}, configuration={"layers": []})
+        def observe(context, endpoint, seconds, control, **kwargs):
+            for event in endpoint.iter_message_events({"type": "promptProcessingProgress", "progress": .25}):
+                endpoint.handle_rx_event(event)
+            raise KeyboardInterrupt("after prompt progress")
+        with patch("experiments.investigator_model_interface.receive_controlled_prediction", side_effect=observe):
+            with self.assertRaisesRegex(KeyboardInterrupt, "after prompt progress"):
+                binding.predict(measured, .1, visible_sink=lambda content: None)
+        self.assertEqual(binding.last_prediction_control["last_reported_prompt_processing_progress"], .25)
+
+    @unittest.skipUnless(importlib.util.find_spec("lmstudio"), "optional preserved SDK not selected")
     def test_sdk_prediction_restores_rpc_idle_timeout_after_interruption(self):
         import lmstudio
         from types import SimpleNamespace

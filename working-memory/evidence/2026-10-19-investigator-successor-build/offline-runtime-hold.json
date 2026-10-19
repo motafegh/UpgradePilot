@@ -1,0 +1,96 @@
+{
+  "format": "investigator-offline-runtime-hold/1",
+  "date": "2026-10-19",
+  "user_instruction": "Ok for the running llm and lm studio wait until i say the gpu is free",
+  "runtime_status": "held_until_explicit_user_gpu_free_signal; no_model_or_LM_Studio_activity_or_GPU_polling",
+  "prospective_cpu_candidate": {
+    "identifier": "up-supplied-cpu-gemma12-36864-v1",
+    "gpu_ratio": 0.0,
+    "expected_gpu_layers": 0,
+    "report_canary_seconds": 600,
+    "status": "offline_candidate_only; not_loaded_not_qualified_not_activated",
+    "resume_requirement": "reconcile_appropriate_operating_point_after_user_signal_then_fresh_source_bound_profile_fit_freeze"
+  },
+  "completed_offline_work": {
+    "prompt_progress": "retain_only_numeric_wire_reported_progress_in_range_0_to_1; historical_fraction_unavailable",
+    "focused_tests": 174,
+    "nearest_workspace_tests_previous_unchanged_product_horizon": 65,
+    "distinct_tests": 239,
+    "tests_construct_no_client_or_backend": true
+  },
+  "preparation": {
+    "root": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-preparation-r11",
+    "manifest_sha256": "95400b3a9f1fddf872bd84e5377e61e11cd4f869b2c33bca701c2b10be8eb2ca",
+    "retention_index_sha256": "62e5b0cf1050e227a68e9032069262381bf998986f78497a4d5d27a65dda1084",
+    "retained_files_excluding_index": 35,
+    "retained_bytes_excluding_index": 567433,
+    "membership_hash_size_and_owner_only_modes_verified": true,
+    "source_identity_verified": true,
+    "selection_inventory_and_feasibility_unchanged_from_r10": true,
+    "cases": [
+      {
+        "label": "packet-a",
+        "case_id": "development-httpx-framework-ci",
+        "selection_inventory_sha256": "ed234cad5192f0c75a4d2373b5afbf0500397cb5430d3a28a4ff7070ebec635b",
+        "setup_reads": 13,
+        "eligible_references": 16,
+        "feasibility_units": 76,
+        "feasibility_outcome": "completed"
+      },
+      {
+        "label": "packet-b",
+        "case_id": "development-httpx-framework-ci",
+        "selection_inventory_sha256": "c908a2b13ec7c5bbfd9eff3d6b491dd79815c45b6a98e59f8c15a52470b20495",
+        "setup_reads": 3,
+        "eligible_references": 3,
+        "feasibility_units": 23,
+        "feasibility_outcome": "completed"
+      },
+      {
+        "label": "packet-c",
+        "case_id": "development-glyphslib-pytest-stopping",
+        "selection_inventory_sha256": "1fc230c32ff09b2e8c3483c332f5e48e8dad615e71cfc23022498bbbeefe7f3c",
+        "setup_reads": 10,
+        "eligible_references": 13,
+        "feasibility_units": 61,
+        "feasibility_outcome": "completed"
+      },
+      {
+        "label": "packet-d",
+        "case_id": "development-httpx-framework-ci",
+        "selection_inventory_sha256": "6ec70f6b59f9bee9674aa644bdb24e9a3dc79cf57b5a0b22c3c0557d9f3afe5d",
+        "setup_reads": 3,
+        "eligible_references": 3,
+        "feasibility_units": 23,
+        "feasibility_outcome": "completed"
+      }
+    ],
+    "code_sha256": {
+      "experiments/investigator_model_interface.py": "d795c6649b0dce45e1956653e793d7586c799d90aa165fbaedb1046fc78f44da",
+      "experiments/investigator_run_control.py": "c1ccbca729f819ba19b3482ad82aa039fe3059b17acf2ce8939e4ce0994c67ef",
+      "experiments/investigator_supplied_evidence.py": "0474310f2de14682704a674d96466f6bd892bb1ae9ad4e65f923488b629d6ac9",
+      "experiments/investigator_workspace_adapter.py": "da356ae9cef38f6ca4051559485ebc62289e636b9920b3d3c2f401b93b3f6a72",
+      "experiments/investigator_workspace_trial.py": "bb00b9adc0f945d07e63306f2c0641bd53d86f4e78a976dd81e7b4b88e00ae54",
+      "experiments/prepare_investigator_supplied_evidence.py": "f88d3a5d56dd873130dbfaf9bbfc3aea6214a1776ddedba8eee981409d67a9b7",
+      "experiments/qualify_investigator_workspace.py": "9da66d763a8a5b9b5328a7da90614c1cad40fba403f988984d55eaa37fa25b10",
+      "experiments/run_investigator_semantic_comparison.py": "c963d00dce739feff52edf74bdd3e079853cfe5dbdfa9f92215bc081d177b3cb"
+    }
+  },
+  "no_new_runtime_roots": {
+    "supplied-evidence-2026-10-19-runtime-r8": false,
+    "supplied-evidence-2026-10-19-diagnostic-r4": false
+  },
+  "unchanged_actual_lineage": {
+    "attempts": 3,
+    "unknown_usage_attempts": 3,
+    "conservative_reserved_input": 12288,
+    "conservative_reserved_generated": 24576,
+    "semantic_cases_attempted": 0
+  },
+  "proof_limits": [
+    "No CPU runtime qualification or prediction",
+    "No semantic result or learner ownership",
+    "No automatic resume or old-cohort reuse",
+    "Prior sealed evidence remains immutable"
+  ]
+}

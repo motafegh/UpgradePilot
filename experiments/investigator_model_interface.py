@@ -537,6 +537,10 @@ class SDKBinding:
             reasoning_observed = False
 
             def iter_message_events(endpoint, contents):
+                if contents and contents.get("type") == "promptProcessingProgress":
+                    progress = contents.get("progress")
+                    if type(progress) in (int, float) and 0 <= progress <= 1:
+                        self.last_prediction_control["last_reported_prompt_processing_progress"] = progress
                 if contents and contents.get("type") == "fragment":
                     fragment = contents["fragment"]
                     if not retain_visible_fragment(fragment, visible_sink):

@@ -41,9 +41,9 @@ REFERENCE_PROFILE_SHA256 = "793bed85004fe1567c0d567155051e5887a893749e9c6d45c277
 FREEZE_FORMAT = "investigator-supplied-evidence-runtime-freeze/3"
 CAPACITY_PROFILE_FORMAT = "investigator-supplied-evidence-capacity-profile/1"
 CONTEXT = 36864
-CAPACITY_IDENTIFIER = "up-supplied-resource-gemma12-36864-v1"
-GPU_RATIO = 0.10
-GPU_LAYERS = "5"
+CAPACITY_IDENTIFIER = "up-supplied-cpu-gemma12-36864-v1"
+GPU_RATIO = 0.0
+GPU_LAYERS = "0"
 ROLES = ("probe-cancel", "probe-report", "packet-a", "packet-b", "packet-c", "packet-d")
 INPUT_CAPS = dict(zip(ROLES, (4096, 4096, 24000, 9000, 27000, 9000), strict=True))
 CEILINGS = {
@@ -290,7 +290,8 @@ def new_trial(role, preparation, qualification, recipes):
         }}) for path in ("probe.txt", "requirements.txt")]
         trial = SuppliedEvidenceTrial(
             assignment, requests, case_label=role,
-            limits=SuppliedEvidenceLimits(reads=2, references=2, operations=18, seconds=300),
+            limits=SuppliedEvidenceLimits(reads=2, references=2, operations=18,
+                                        seconds=600 if role == "probe-report" else 300),
         )
         trial.prepare()
         return trial
@@ -307,8 +308,8 @@ def model_limits(role, *, seconds=None):
     return ModelLimits(
         context=CONTEXT, generated_per_call=8192, generated_total=8192,
         input_total=INPUT_CAPS[role], calls=1,
-        seconds=seconds or (300 if probe else 900),
-        prediction_seconds=1 if role == "probe-cancel" else (300 if probe else 900),
+        seconds=seconds or (600 if role == "probe-report" else (300 if probe else 900)),
+        prediction_seconds=1 if role == "probe-cancel" else (600 if probe else 900),
         finalization_seconds=50,
     )
 
