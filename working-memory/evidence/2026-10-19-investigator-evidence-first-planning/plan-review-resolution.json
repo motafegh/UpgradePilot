@@ -1,0 +1,99 @@
+{
+  "format": "investigator-comparison-plan-review-resolution/1",
+  "date": "2026-10-19",
+  "authorization": "Ali explicitly requested a thorough revision after the two supplied reviews and source-aware assessment",
+  "review_origin": "two user-supplied AI reviews; no new agents contacted",
+  "prior_plan": {
+    "commit": "cbc5b061",
+    "path": "plans/INVESTIGATOR_EVIDENCE_FIRST_INTERPRETATION_COMPARISON_PLAN.md",
+    "sha256": "8bc69cf0da4d2cb1e82bd438dfed085bc7dd84d82e54cd9058c8e09553209904",
+    "candidate": "unimplemented worksheet/report envelope"
+  },
+  "revised_candidate": "exact generic task goals in unchanged report format; only intentional model-facing method change is task.goal",
+  "baseline_goal_texts": {
+    "PR_BRIEF": "Identify what changed, what the supplied consumer/upstream/CI evidence establishes, which material premises remain unresolved, and what justified next work follows. Use only the supplied packet; no discovery or source-exhaustion claim is implied. Return the full report, ordinarily at most 600 words without hiding material uncertainty.",
+    "SOURCE_PAIR_BRIEF": "Interpret the specific captured consumer call and the supplied before/after callee signatures. Explain their scoped relationship concerning this change and the remaining limits. These are reference sources, not an observed target installation or execution. Return the full report, ordinarily at most 600 words."
+  },
+  "timing_source": {
+    "path": "working-memory/evidence/2026-10-19-investigator-capability-diagnostic/run-accounting.json",
+    "sha256": "42985995158f49c215021e579f6530ee48a09241197ad182ad4e91f55dda6ffa"
+  },
+  "timing_checks": [
+    {
+      "role": "packet-a",
+      "actual_generated_tokens": 1089,
+      "actual_client_prediction_seconds": 303.49570810799923,
+      "end_to_end_output_tokens_per_second": 3.5881891272494646,
+      "illustrative_double_output_seconds_at_same_average": 606.9914162159985,
+      "interpretation": "includes prompt processing; illustrative scaling only, not latency forecast or candidate observation"
+    },
+    {
+      "role": "packet-c",
+      "actual_generated_tokens": 957,
+      "actual_client_prediction_seconds": 306.50062980799703,
+      "end_to_end_output_tokens_per_second": 3.122342686863316,
+      "illustrative_double_output_seconds_at_same_average": 613.0012596159941,
+      "interpretation": "includes prompt processing; illustrative scaling only, not latency forecast or candidate observation"
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "review-one-time-headroom",
+      "decision": "qualify; retain existing per-role deadlines",
+      "reason": "The300-second aggregate gap is real but does not establish insufficient900-second case allowances. The claimed40-100 percent growth does not itself imply a timeout. Remove worksheet growth rather than automatically allocate more time. Later operational failure preserves prior semantic evidence."
+    },
+    {
+      "id": "review-one-worksheet-bounds",
+      "decision": "resolve by removing the unimplemented worksheet envelope",
+      "reason": "Use existing report claims/schema. No new array or projection and no hidden row/character rejection. Exact hard8192-token/time limits and advisory600-word/2048-token sizing target are explicit; any future worksheet needs practical bounds before a separate decision."
+    },
+    {
+      "id": "review-one-extra-boundary-call",
+      "decision": "accept clarification",
+      "reason": "All pre-load boundary proof uses an injected/fake binding at the real seam with no backend/client/tokenizer/prediction. The first real prediction is the canary within five total."
+    },
+    {
+      "id": "review-one-prompt-envelope-confound",
+      "decision": "select the simpler instruction-only candidate now",
+      "reason": "Changes only approved task.goal text within existing fields; do not implement the wrapper or automatically add an isolation arm. A historical one-shot comparison still cannot establish causality."
+    },
+    {
+      "id": "review-one-deterministic-competitor",
+      "decision": "accept responsibility-level ranking",
+      "reason": "Prefer existing deterministic owners for mechanical relations and preserve native semantics; do not assume a general source interpreter already exists or write known-answer rules. Final synthesis already has a deterministic-baseline requirement."
+    },
+    {
+      "id": "review-two-recommendation-safety",
+      "decision": "accept explicit content/premise rule; refine blanket list/status test",
+      "reason": "Unsupported factual reassurance/action advice fails regardless of status or citations. A scoped inquiry/abstention can follow explicit missing premises without inventing an uncitable reference. Same twenty obligations and existing schema remain unchanged."
+    },
+    {
+      "id": "review-two-protected-transition",
+      "decision": "accept with material-change and exposure precision",
+      "reason": "Finish development, freeze exact method/policy, select protected cases under declared eligibility and separate budget, evaluate unchanged. Material changes invalidate affected qualification; exposed cases do not become unseen by rerun. Editorial changes need classification, not automatic inference."
+    },
+    {
+      "id": "review-two-product-validation",
+      "decision": "accept with existing-owner and scope precision",
+      "reason": "Experimental review is not product validation or action permission. Qualify admitted evaluation-to-synthesis owners before product use; no mandatory extra LLM or duplicate generic evaluator."
+    }
+  ],
+  "preserved": [
+    "model/assets/load/sampler/thinking",
+    "complete material recipes and order",
+    "base report schema/reference policy/publication",
+    "twenty review obligations and original adjudication",
+    "finite call/time/token/operation ceilings"
+  ],
+  "no_implementation_or_inference": true,
+  "limits": [
+    "A plan is not performance, semantic or product proof.",
+    "The task revision is based on exposed development errors.",
+    "No additional method, protected case or product validator is activated."
+  ],
+  "candidate_goal_sha256": {
+    "pr_context": "46b41e579aabb95b489a189584ac206c5798a9b4f4dcc48e2784056f844eb1a3",
+    "captured_consumer": "dd209ecc1dc34dad03ccf4bccb531e79596b5fb1763b9e160bf6c7d1c8754f2f"
+  },
+  "candidate_goal_encoding": "UTF-8; each approved fenced paragraph without surrounding newline"
+}

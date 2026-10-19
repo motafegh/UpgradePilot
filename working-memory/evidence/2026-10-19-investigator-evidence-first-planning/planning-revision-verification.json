@@ -1,0 +1,90 @@
+{
+  "format": "investigator-comparison-planning-revision-verification/1",
+  "date": "2026-10-19",
+  "revision_entry": "cbc5b061; planning artifacts only",
+  "artifact_sha256": {
+    "plans/INVESTIGATOR_EVIDENCE_FIRST_INTERPRETATION_COMPARISON_PLAN.md": "0e08f43c197a6c88c173ed04e957f6c209adf8fe9d5880cc2fe223d7c477d4a4",
+    "working-memory/evidence/2026-10-19-investigator-evidence-first-planning/plan-review-resolution.json": "7b88192ccb5c3eab742b2f47834a16792694d426d3fa0e7535771ae431cf7e81",
+    "working-memory/evidence/2026-10-19-investigator-evidence-first-planning/baseline-binding.json": "5423f4c3ac764bd9964142662cb3eb89680ed7aef24870e83b9bdffd6b39b62b",
+    "working-memory/evidence/2026-10-19-investigator-evidence-first-planning/planning-verification.json": "0f170197853990f04f3e91704ff77eb156e091c6ac16778c2457d0529209944a",
+    "working-memory/evidence/2026-10-19-investigator-capability-diagnostic/review-adjudication.json": "3b70840950f35f9596628fa41328fba93a7e04d76c9f760f0343115a8ce02cb4"
+  },
+  "historical_initial_proof": {
+    "path": "working-memory/evidence/2026-10-19-investigator-evidence-first-planning/planning-verification.json",
+    "unchanged_from_commit": "cbc5b061",
+    "old_plan_sha256": "8bc69cf0da4d2cb1e82bd438dfed085bc7dd84d82e54cd9058c8e09553209904",
+    "interpretation": "its plan hash resolves at that historical commit, not the current revision"
+  },
+  "candidate": {
+    "method": "exact task.goal instructions within unchanged report fields",
+    "goal_sha256": {
+      "pr_context": "46b41e579aabb95b489a189584ac206c5798a9b4f4dcc48e2784056f844eb1a3",
+      "captured_consumer": "dd209ecc1dc34dad03ccf4bccb531e79596b5fb1763b9e160bf6c7d1c8754f2f"
+    },
+    "base_report_schema_sha256": "b0f80f50551c9c5db9f296ea4bfb9ae35628ee98e9ebd55322fa4bbfe8dbb2bb",
+    "extra_envelope_or_projection": false,
+    "goal_source_implementation_changed": false
+  },
+  "checks": {
+    "eight_review_items_explicitly_resolved": "pass",
+    "two_exact_goal_paragraphs_and_hashes": "pass",
+    "prior_plan_and_initial_proof_historical_identity": "pass",
+    "actual_baseline_paths_and_hashes": "pass",
+    "source_sdk_input_reviewer_runtime_freeze_binding": "pass",
+    "original_review_adjudication_accounting_retention_and_twenty_obligations": "unchanged and valid",
+    "private_run_membership_hash_size_owner_only_modes": "pass",
+    "resource_context_and_stage_arithmetic": "pass",
+    "markdown_links_json_and_diff_whitespace": "pass",
+    "accepted_owner_and_authorization_consistency": "source-aware manual review"
+  },
+  "retention": {
+    "files": 61,
+    "bytes": 1283758,
+    "file_modes": "0600",
+    "directory_modes": "0700"
+  },
+  "resources": {
+    "maximum_real_calls": 5,
+    "first_real_call": "report canary",
+    "offline_seam_test": "injected/fake binding; zero real calls",
+    "input_ceiling": 73096,
+    "per_call_generation_ceiling": 8192,
+    "combined_generation_ceiling": 40960,
+    "output_sizing_target": 2048,
+    "sizing_target_is_stop_or_semantic_gate": false,
+    "report_word_guidance": 600,
+    "prediction_role_seconds": [
+      300,
+      900,
+      900,
+      900,
+      900
+    ],
+    "role_seconds_sum": 3900,
+    "aggregate_prediction_ceiling": 4200,
+    "unassigned_not_transferable_seconds": 300,
+    "batch_seconds": 4800,
+    "cold_setup_seconds": 1380,
+    "execution_stage_sum_seconds": 6180,
+    "separate_zero_generation_preparation_seconds": 1200,
+    "admission_units_ceiling": 322,
+    "exact_recipe_maximum_with_canary": 201,
+    "finalization_seconds": 310,
+    "prior_actual_calls": 8,
+    "maximum_scoped_lineage_calls": 13
+  },
+  "activity": {
+    "executable_source_changes": false,
+    "new_unit_tests_or_test_runs": false,
+    "model_loading_rendering_tokenization_prediction": false,
+    "candidate_freeze_or_activation_created": false,
+    "global_memory_written": false
+  },
+  "limits": [
+    "Planning consistency is not implementation, fit, latency or semantic proof.",
+    "Exact goal selection is based on exposed development errors; one historical comparison cannot establish causality or reliability.",
+    "Sizing targets do not guarantee runtime feasibility or justify truncation.",
+    "Protected cases/runs, product validation and action permission are not activated.",
+    "Historical239-test proof and predecessor learner D/E retain their recorded horizons."
+  ]
+}
