@@ -1,0 +1,82 @@
+{
+  "format": "investigator-evidence-first-pre-load-intent/1",
+  "authorization": "Ali accepts the revised plan and directs building/fixing blockers; finite conditional sequence authorized in this conversation.",
+  "method": {
+    "id": "investigator-evidence-first-existing-report-instructions/1",
+    "intentional_model_input_change": "task.goal",
+    "goal_sha256": {
+      "pr_context": "46b41e579aabb95b489a189584ac206c5798a9b4f4dcc48e2784056f844eb1a3",
+      "captured_consumer": "dd209ecc1dc34dad03ccf4bccb531e79596b5fb1763b9e160bf6c7d1c8754f2f"
+    }
+  },
+  "code_sha256": {
+    "experiments/investigator_run_control.py": "c1ccbca729f819ba19b3482ad82aa039fe3059b17acf2ce8939e4ce0994c67ef",
+    "experiments/investigator_model_interface.py": "d795c6649b0dce45e1956653e793d7586c799d90aa165fbaedb1046fc78f44da",
+    "experiments/investigator_supplied_evidence.py": "7c3d71b30c9513614f7abd542a46a733d7e6bd06baf8a044d7d85496ebc6b430",
+    "experiments/investigator_workspace_trial.py": "bb00b9adc0f945d07e63306f2c0641bd53d86f4e78a976dd81e7b4b88e00ae54",
+    "experiments/investigator_workspace_adapter.py": "da356ae9cef38f6ca4051559485ebc62289e636b9920b3d3c2f401b93b3f6a72",
+    "experiments/prepare_investigator_supplied_evidence.py": "f88d3a5d56dd873130dbfaf9bbfc3aea6214a1776ddedba8eee981409d67a9b7",
+    "experiments/run_investigator_semantic_comparison.py": "c963d00dce739feff52edf74bdd3e079853cfe5dbdfa9f92215bc081d177b3cb",
+    "experiments/qualify_investigator_workspace.py": "9da66d763a8a5b9b5328a7da90614c1cad40fba403f988984d55eaa37fa25b10",
+    "experiments/qualify_investigator_model_interface.py": "33b30a7c54d0039ac3c6086cf834924b13527584c467d5715383f3f8dea1ad84",
+    "experiments/run_investigator_supplied_evidence.py": "d6ccde55a5d4352a4ad5fa39a217a3db5f40f2c830ddb4853391035a15885256"
+  },
+  "preparation": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-preparation-r13",
+  "runtime_output": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-runtime-r9",
+  "diagnostic_output": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r5",
+  "reviewer": {
+    "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-review-r1/review-protocol.json",
+    "sha256": "37579067521c5129826c7ea9f6879da2cad830236718a7be57eec02aad6529e9"
+  },
+  "isolated_control_prerequisite": {
+    "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-control-proof-r1/control-evidence.json",
+    "sha256": "2ce415fc5873e1728389144ae258eb9d80b3ff0a89dbe94ea90d62dc05165095",
+    "receive_adapter_sha256": "0814f4807cd37691ad49999b2509280284ae2625d0f8eb15bdc9e414500fee58",
+    "control_source_sha256": "c1ccbca729f819ba19b3482ad82aa039fe3059b17acf2ce8939e4ce0994c67ef",
+    "sdk_source_sha256": {
+      "_ws_impl.py": "a9123686ddccbf07ff3d3fe292b490c38d32441ddd74b22e02e3ba3a2e4e6704",
+      "_ws_thread.py": "d1ceecd0d10ec8d53242ecfb52abdf829d261e63051a3c04b27e4ac809acfe1d",
+      "json_api.py": "32146d39cf215e5829102938252e219a2300253981520f7005ab765b8d4b1f80",
+      "sdk_api.py": "c21aed37e101ec53185ed9df6b0ef45f07aa1a7fd7ea61f782ac4361f44fd29d",
+      "sync_api.py": "888360663dc5655e90c614ff64a285299f97a8f3a9cfeee28cac08dd42dac685"
+    },
+    "unknown_usage_reservation": {
+      "input": 4096,
+      "generated": 8192
+    },
+    "scope": "isolated terminal cancellation/receive-stop/owned cleanup; token usage unknown"
+  },
+  "execution_roles": [
+    "probe-report",
+    "packet-a",
+    "packet-b",
+    "packet-c",
+    "packet-d"
+  ],
+  "execution_ceilings": {
+    "attempts": 5,
+    "input_tokens": 73096,
+    "generated_tokens": 40960,
+    "prediction_seconds": 4200,
+    "finalization_seconds": 310,
+    "batch_seconds": 4800,
+    "preparation_seconds": 1200,
+    "admission_units": 322
+  },
+  "preparation_seconds": 1200,
+  "context": 36864,
+  "output_reserve": 8192,
+  "margin": 256,
+  "gpu_ratio": 0.45,
+  "observed_gpu_layers_required": 22,
+  "role_prediction_seconds": {
+    "probe-report": 300,
+    "packet-a": 900,
+    "packet-b": 900,
+    "packet-c": 900,
+    "packet-d": 900
+  },
+  "freeze": "must be actual fresh source-bound fit; no placeholder activation",
+  "no_extra_prediction": true,
+  "stop": "hard fit/canary/interface/control/usage/publication failure preserves evidence and withholds later predictions without retry"
+}

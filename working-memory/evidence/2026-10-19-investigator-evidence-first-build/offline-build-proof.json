@@ -1,0 +1,247 @@
+{
+  "format": "investigator-evidence-first-build-proof/1",
+  "recorded_utc": "2026-10-19T19:46:48.598325+00:00",
+  "starting_commit": "e5ce838447454c1316a9c9e44480c0498afa932e",
+  "plan": {
+    "path": "plans/INVESTIGATOR_EVIDENCE_FIRST_INTERPRETATION_COMPARISON_PLAN.md",
+    "sha256": "0e08f43c197a6c88c173ed04e957f6c209adf8fe9d5880cc2fe223d7c477d4a4"
+  },
+  "method": {
+    "id": "investigator-evidence-first-existing-report-instructions/1",
+    "intentional_model_input_change": "task.goal",
+    "goal_sha256": {
+      "pr_context": "46b41e579aabb95b489a189584ac206c5798a9b4f4dcc48e2784056f844eb1a3",
+      "captured_consumer": "dd209ecc1dc34dad03ccf4bccb531e79596b5fb1763b9e160bf6c7d1c8754f2f"
+    }
+  },
+  "code_sha256": {
+    "experiments/investigator_run_control.py": "c1ccbca729f819ba19b3482ad82aa039fe3059b17acf2ce8939e4ce0994c67ef",
+    "experiments/investigator_model_interface.py": "d795c6649b0dce45e1956653e793d7586c799d90aa165fbaedb1046fc78f44da",
+    "experiments/investigator_supplied_evidence.py": "7c3d71b30c9513614f7abd542a46a733d7e6bd06baf8a044d7d85496ebc6b430",
+    "experiments/investigator_workspace_trial.py": "bb00b9adc0f945d07e63306f2c0641bd53d86f4e78a976dd81e7b4b88e00ae54",
+    "experiments/investigator_workspace_adapter.py": "da356ae9cef38f6ca4051559485ebc62289e636b9920b3d3c2f401b93b3f6a72",
+    "experiments/prepare_investigator_supplied_evidence.py": "f88d3a5d56dd873130dbfaf9bbfc3aea6214a1776ddedba8eee981409d67a9b7",
+    "experiments/run_investigator_semantic_comparison.py": "c963d00dce739feff52edf74bdd3e079853cfe5dbdfa9f92215bc081d177b3cb",
+    "experiments/qualify_investigator_workspace.py": "9da66d763a8a5b9b5328a7da90614c1cad40fba403f988984d55eaa37fa25b10",
+    "experiments/qualify_investigator_model_interface.py": "33b30a7c54d0039ac3c6086cf834924b13527584c467d5715383f3f8dea1ad84",
+    "experiments/run_investigator_supplied_evidence.py": "d6ccde55a5d4352a4ad5fa39a217a3db5f40f2c830ddb4853391035a15885256"
+  },
+  "base_report_schema_sha256": "b0f80f50551c9c5db9f296ea4bfb9ae35628ee98e9ebd55322fa4bbfe8dbb2bb",
+  "tests": {
+    "focused": {
+      "count": 25,
+      "outcome": "passed"
+    },
+    "composed_suite": {
+      "count": 174,
+      "elapsed_seconds": 8.009,
+      "outcome": "passed",
+      "includes_focused": true
+    },
+    "scope": "injected/fake bindings; zero real SDK clients/backend renders/tokenizations/predictions"
+  },
+  "baseline_binding": {
+    "path": "working-memory/evidence/2026-10-19-investigator-evidence-first-planning/baseline-binding.json",
+    "sha256": "5423f4c3ac764bd9964142662cb3eb89680ed7aef24870e83b9bdffd6b39b62b"
+  },
+  "historical_bindings_verified": 11,
+  "baseline_retention_verified": {
+    "files": 61,
+    "bytes": 1283758,
+    "membership_hash_size_owner_modes": true
+  },
+  "fresh_preparation": {
+    "root": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-preparation-r13",
+    "manifest_sha256": "678cd2e6b50257fb18becaf7387ca6c84c27d6b14da2268101a838f9d5d298b1",
+    "retention_index_sha256": "1d0817514a2b852a347c9cba59c57fc9359cb7d9bbd8f4542a4aab0eb927a9a0",
+    "cases": [
+      {
+        "case_id": "development-httpx-framework-ci",
+        "catalog_id": "288c3c88a12ed32706641b977f5a29b09d4727b6e9fa3de7ff2df23e28ba1bf3",
+        "eligible_references": 16,
+        "feasibility_outcome": "completed",
+        "feasibility_units": 76,
+        "label": "packet-a",
+        "packed_bytes": 71906,
+        "required_material_event_ids": [
+          "event-1",
+          "event-2",
+          "event-3",
+          "event-4",
+          "event-5",
+          "event-6",
+          "event-7",
+          "event-8",
+          "event-9",
+          "event-10",
+          "event-11",
+          "event-12",
+          "event-13",
+          "event-14"
+        ],
+        "selection_inventory_sha256": "ed234cad5192f0c75a4d2373b5afbf0500397cb5430d3a28a4ff7070ebec635b",
+        "semantic_acceptance": "not_evaluated",
+        "setup_reads": 13,
+        "source_pair": false,
+        "target": {
+          "base_sha": "b065646e4b7b894964567950f9ad770b02c136c2",
+          "head_sha": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+          "normalized_package": "httpx",
+          "old_version": "0.27.2",
+          "proposed_version": "0.28.1",
+          "pull_number": 20,
+          "repository": "Aidan-Wallace/kubernetes-dashboard-token-api"
+        }
+      },
+      {
+        "case_id": "development-httpx-framework-ci",
+        "catalog_id": "288c3c88a12ed32706641b977f5a29b09d4727b6e9fa3de7ff2df23e28ba1bf3",
+        "eligible_references": 3,
+        "feasibility_outcome": "completed",
+        "feasibility_units": 23,
+        "label": "packet-b",
+        "packed_bytes": 27512,
+        "required_material_event_ids": [
+          "event-1",
+          "event-2",
+          "event-3",
+          "event-4"
+        ],
+        "selection_inventory_sha256": "c908a2b13ec7c5bbfd9eff3d6b491dd79815c45b6a98e59f8c15a52470b20495",
+        "semantic_acceptance": "not_evaluated",
+        "setup_reads": 3,
+        "source_pair": true,
+        "target": {
+          "base_sha": "b065646e4b7b894964567950f9ad770b02c136c2",
+          "head_sha": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+          "normalized_package": "httpx",
+          "old_version": "0.27.2",
+          "proposed_version": "0.28.1",
+          "pull_number": 20,
+          "repository": "Aidan-Wallace/kubernetes-dashboard-token-api"
+        }
+      },
+      {
+        "case_id": "development-glyphslib-pytest-stopping",
+        "catalog_id": "37f51311401773b05a7934945a2cc9d7904af044d328ec9fb1dae855062626ce",
+        "eligible_references": 13,
+        "feasibility_outcome": "completed",
+        "feasibility_units": 61,
+        "label": "packet-c",
+        "packed_bytes": 87749,
+        "required_material_event_ids": [
+          "event-1",
+          "event-2",
+          "event-3",
+          "event-4",
+          "event-5",
+          "event-6",
+          "event-7",
+          "event-8",
+          "event-9",
+          "event-10",
+          "event-11"
+        ],
+        "selection_inventory_sha256": "1fc230c32ff09b2e8c3483c332f5e48e8dad615e71cfc23022498bbbeefe7f3c",
+        "semantic_acceptance": "not_evaluated",
+        "setup_reads": 10,
+        "source_pair": false,
+        "target": {
+          "base_sha": "044f19e4b1437bfc4343592486f4e3c6040306d9",
+          "head_sha": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+          "normalized_package": "pytest",
+          "old_version": "9.0.2",
+          "proposed_version": "9.0.3",
+          "pull_number": 1145,
+          "repository": "googlefonts/glyphsLib"
+        }
+      },
+      {
+        "case_id": "development-httpx-framework-ci",
+        "catalog_id": "288c3c88a12ed32706641b977f5a29b09d4727b6e9fa3de7ff2df23e28ba1bf3",
+        "eligible_references": 3,
+        "feasibility_outcome": "completed",
+        "feasibility_units": 23,
+        "label": "packet-d",
+        "packed_bytes": 27518,
+        "required_material_event_ids": [
+          "event-1",
+          "event-2",
+          "event-3",
+          "event-4"
+        ],
+        "selection_inventory_sha256": "6ec70f6b59f9bee9674aa644bdb24e9a3dc79cf57b5a0b22c3c0557d9f3afe5d",
+        "semantic_acceptance": "not_evaluated",
+        "setup_reads": 3,
+        "source_pair": true,
+        "target": {
+          "base_sha": "b065646e4b7b894964567950f9ad770b02c136c2",
+          "head_sha": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+          "normalized_package": "httpx",
+          "old_version": "0.27.2",
+          "proposed_version": "0.28.1",
+          "pull_number": 20,
+          "repository": "Aidan-Wallace/kubernetes-dashboard-token-api"
+        }
+      }
+    ]
+  },
+  "isolated_control_prerequisite": {
+    "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-control-proof-r1/control-evidence.json",
+    "sha256": "2ce415fc5873e1728389144ae258eb9d80b3ff0a89dbe94ea90d62dc05165095",
+    "receive_adapter_sha256": "0814f4807cd37691ad49999b2509280284ae2625d0f8eb15bdc9e414500fee58",
+    "control_source_sha256": "c1ccbca729f819ba19b3482ad82aa039fe3059b17acf2ce8939e4ce0994c67ef",
+    "sdk_source_sha256": {
+      "_ws_impl.py": "a9123686ddccbf07ff3d3fe292b490c38d32441ddd74b22e02e3ba3a2e4e6704",
+      "_ws_thread.py": "d1ceecd0d10ec8d53242ecfb52abdf829d261e63051a3c04b27e4ac809acfe1d",
+      "json_api.py": "32146d39cf215e5829102938252e219a2300253981520f7005ab765b8d4b1f80",
+      "sdk_api.py": "c21aed37e101ec53185ed9df6b0ef45f07aa1a7fd7ea61f782ac4361f44fd29d",
+      "sync_api.py": "888360663dc5655e90c614ff64a285299f97a8f3a9cfeee28cac08dd42dac685"
+    },
+    "unknown_usage_reservation": {
+      "input": 4096,
+      "generated": 8192
+    },
+    "scope": "isolated terminal cancellation/receive-stop/owned cleanup; token usage unknown"
+  },
+  "reviewer": {
+    "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-review-r1/review-protocol.json",
+    "sha256": "37579067521c5129826c7ea9f6879da2cad830236718a7be57eec02aad6529e9"
+  },
+  "execution_roles": [
+    "probe-report",
+    "packet-a",
+    "packet-b",
+    "packet-c",
+    "packet-d"
+  ],
+  "execution_ceilings": {
+    "attempts": 5,
+    "input_tokens": 73096,
+    "generated_tokens": 40960,
+    "prediction_seconds": 4200,
+    "finalization_seconds": 310,
+    "batch_seconds": 4800,
+    "preparation_seconds": 1200,
+    "admission_units": 322
+  },
+  "model_inventory": {
+    "loaded_instances": [],
+    "selected_model_available": true
+  },
+  "gpu_observation": {
+    "name": "NVIDIA GeForce RTX 3070 Laptop GPU",
+    "total_mib": 8192,
+    "used_mib": 1425,
+    "free_mib": 6594,
+    "utilization_percent": 6,
+    "scope": "pre-load observation; no persistent availability guarantee"
+  },
+  "prediction_attempts": 0,
+  "runtime_preparation": "not_yet_started",
+  "limits": [
+    "Offline proof does not establish real fit, latency, semantic adequacy or product acceptance.",
+    "Sizing measures the existing mechanical report only and never supplies it as model input.",
+    "Prior failures and original reviews remain immutable."
+  ]
+}

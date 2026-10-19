@@ -1,9 +1,10 @@
-"""Prepare a source-bound runtime freeze, or explicitly activate its six-slot diagnostic.
+"""Prepare a source-bound runtime freeze, or activate its finite diagnostic contract.
 
 Both entry points are local-only and separately operated. `prepare_runtime` loads the
 single intended point to measure complete requests without prediction. `execute` accepts
-only that verified freeze plus its explicit activation hash, runs the cancellation and
-report-reference probes first, and withholds all later work on a hard failure. Semantic
+only that verified freeze plus its explicit activation hash, requires isolated cancellation
+proof or its declared probe, and runs the report canary before cases. A hard failure
+withholds all later work. Semantic
 grading is offline source review; this module never supplies or scores expected answers.
 
 Neither CLI mode is invoked by offline packet preparation or by the test suite. Runtime
@@ -27,7 +28,9 @@ from experiments.investigator_model_interface import (
     measure_input, request_presentation, SUPPLIED_REQUEST_PRESENTATION,
 )
 from experiments.investigator_run_control import MonotonicDeadline, problem_text
-from experiments.investigator_supplied_evidence import SuppliedEvidenceLimits, SuppliedEvidenceTrial
+from experiments.investigator_supplied_evidence import (
+    PR_BRIEF, SOURCE_PAIR_BRIEF, SuppliedEvidenceLimits, SuppliedEvidenceTrial, mechanical_report,
+)
 from experiments.prepare_investigator_supplied_evidence import (
     PREPARATION_CODE, prepare_recipe, read_recipes, selection_inventory, verify_prepared_packets,
 )
@@ -38,7 +41,7 @@ from upgradepilot.workspace.native_representation import json_bytes
 
 REFERENCE_PROFILE = Path.home() / ".local/share/upgradepilot/investigator-runs/semantic-comparison-2026-10-18-reference-v2/gemma12-preflight/profile.json"
 REFERENCE_PROFILE_SHA256 = "793bed85004fe1567c0d567155051e5887a893749e9c6d45c277e40065ff9531"
-FREEZE_FORMAT = "investigator-supplied-evidence-runtime-freeze/3"
+FREEZE_FORMAT = "investigator-supplied-evidence-runtime-freeze/4"
 CAPACITY_PROFILE_FORMAT = "investigator-supplied-evidence-capacity-profile/1"
 CONTEXT = 36864
 CAPACITY_IDENTIFIER = "up-supplied-gpu-gemma12-36864-v1"
@@ -51,6 +54,19 @@ CEILINGS = {
     "prediction_seconds": 4200, "finalization_seconds": 360,
     "batch_seconds": 4800, "preparation_seconds": 1200, "admission_units": 340,
 }
+OUTPUT_SIZING_TARGET = 2048
+
+
+def interpretation_method():
+    """Out-of-band identity only; never another field in the model's request."""
+    return {
+        "id": "investigator-evidence-first-existing-report-instructions/1",
+        "intentional_model_input_change": "task.goal",
+        "goal_sha256": {
+            "pr_context": digest(PR_BRIEF.encode()),
+            "captured_consumer": digest(SOURCE_PAIR_BRIEF.encode()),
+        },
+    }
 
 
 def source_hashes():
@@ -351,6 +367,7 @@ def prepare_runtime(sdk, preparation_root, reviewer_path, output, *, control_pro
         "preparation_sha256": digest((preparation_root / "preparation.json").read_bytes()),
         "reference_profile_sha256": REFERENCE_PROFILE_SHA256,
         "code_sha256": source_hashes(), "reviewer": review,
+        "interpretation_method": interpretation_method(),
         "sdk_source_sha256": sdk_source_identity(sdk),
         "non_prediction_rpc_idle_seconds": 600,
         "asset_stats": asset_stats(parent),
@@ -392,11 +409,25 @@ def prepare_runtime(sdk, preparation_root, reviewer_path, output, *, control_pro
                     measured = measure_input(binding, packed, profile["prediction_configuration"])
                     private_write(consumer.directory / "fit-packed-input.json", packed.content)
                     private_write(consumer.directory / "fit-rendered.txt", measured.rendered.encode())
+                    # Serialization/reference overhead only, never supplied to the model.
+                    # Tokenization shares the same bounded zero-generation preparation.
+                    mechanical = mechanical_report(packed)
+                    output_tokens = binding.tokenize(mechanical.decode())
+                    if not output_tokens or any(type(t) is not int or t < 0 for t in output_tokens):
+                        raise ValueError("invalid mechanical-output tokenizer result")
+                    private_write(consumer.directory / "fit-mechanical-report.json", mechanical)
                     freeze["fit"][role] = {
                         "request_presentation": request_presentation(json.loads(packed.content)),
                         "rendered_tokens": measured.tokens,
                         "rendered_sha256": digest(measured.rendered.encode()),
                         "packed_sha256": digest(packed.content),
+                        "task_goal_sha256": digest(json.loads(packed.content)["task"]["goal"].encode()),
+                        "mechanical_output_sizing": {
+                            "scope": "maximum-reference mechanical serialization only; semantic fit and latency unproved",
+                            "sha256": digest(mechanical), "bytes": len(mechanical),
+                            "tokens": len(output_tokens), "advisory_target": OUTPUT_SIZING_TARGET,
+                            "within_advisory_target": len(output_tokens) <= OUTPUT_SIZING_TARGET,
+                        },
                         "token_ids_sha256": measured.token_ids_sha256,
                         "reference_pairs": sorted(packed.reference_pairs),
                         "omitted_events": packed.omitted_event_ids,
@@ -435,6 +466,7 @@ def verify_freeze(path, expected_hash):
         freeze["format"] != FREEZE_FORMAT or freeze["ceilings"] != CEILINGS
         or freeze["activation"] != "requires_explicit_matching_freeze_hash"
         or freeze["roles"] != list(ROLES) or freeze["code_sha256"] != source_hashes()
+        or freeze.get("interpretation_method") != interpretation_method()
         or freeze["reference_profile_sha256"] != REFERENCE_PROFILE_SHA256
         or set(freeze["fit"]) != set(ROLES) or freeze["prediction_attempts"] != 0
         or freeze["cancellation_probe"]["prediction_deadline_seconds"] != 1
@@ -473,6 +505,19 @@ def verify_freeze(path, expected_hash):
         for filename, key in (("fit-packed-input.json", "packed_sha256"), ("fit-rendered.txt", "rendered_sha256")):
             if digest((path.parent / role / filename).read_bytes()) != fit[key]:
                 raise ValueError("retained actual fit artifact drift")
+        packed = json.loads((path.parent / role / "fit-packed-input.json").read_bytes())
+        goal_hash = digest(packed["task"]["goal"].encode())
+        if goal_hash != fit.get("task_goal_sha256") or goal_hash not in interpretation_method()["goal_sha256"].values():
+            raise ValueError("retained task goal differs from the frozen interpretation method")
+        sizing = fit["mechanical_output_sizing"]
+        mechanical = (path.parent / role / "fit-mechanical-report.json").read_bytes()
+        if (
+            digest(mechanical) != sizing["sha256"] or len(mechanical) != sizing["bytes"]
+            or type(sizing["tokens"]) is not int or sizing["tokens"] < 1
+            or sizing["advisory_target"] != OUTPUT_SIZING_TARGET
+            or sizing["within_advisory_target"] != (sizing["tokens"] <= OUTPUT_SIZING_TARGET)
+        ):
+            raise ValueError("retained mechanical output sizing drift")
     if reviewer_identity(Path(freeze["reviewer"]["path"])) != freeze["reviewer"]:
         raise ValueError("review protocol drift")
     root = Path(freeze["preparation_root"])
@@ -529,19 +574,26 @@ def execute(sdk, freeze_path, expected_hash, activation_hash, output):
     rows = [{"role": role, "execution": "unattempted", "semantic_acceptance": "not_evaluated"} for role in freeze["execution_roles"]]
     spent = {"input": 0, "generated": 0, "operations": 0, "prediction_seconds": 0,
         "finalization_seconds": 0, "known_usage_attempts": 0, "unknown_usage_attempts": 0}
+    execution_started = time.monotonic()
     batch_started = None
+    load_elapsed = None
     failure = traceback = None
     client_cleanup = {}
     try:
         with bounded_client(sdk, output / "client-cleanup.json", client_cleanup) as client:
             model = None
             try:
-                with MonotonicDeadline(1140, label="diagnostic model load").enforce():
-                    model = load_owned(client, profile)
-                    binding = SDKBinding(model, sdk, profile["tokenizer_policy"], finalization_seconds=50)
-                    validate_owned(binding, profile, output / "backend")
+                load_started = time.monotonic()
+                try:
+                    with MonotonicDeadline(1140, label="diagnostic model load").enforce():
+                        model = load_owned(client, profile)
+                        binding = SDKBinding(model, sdk, profile["tokenizer_policy"], finalization_seconds=50)
+                        validate_owned(binding, profile, output / "backend")
+                finally:
+                    load_elapsed = time.monotonic() - load_started
                 for row in rows:
                     role = row["role"]
+                    preparation_started = time.monotonic()
                     row["preparation"] = "started"
                     row["preparation_operation_reservation"] = 18 if role.startswith("probe-") else 76
                     remaining = 4800 if batch_started is None else 4800 - (time.monotonic() - batch_started)
@@ -559,6 +611,8 @@ def execute(sdk, freeze_path, expected_hash, activation_hash, output):
                             asdict(reference) for reference in trial.assignment.references.values()
                         ]))
                     row["preparation"] = "completed"
+                    row["preparation_elapsed_seconds"] = time.monotonic() - preparation_started
+                    row["task_goal_sha256"] = digest(json.loads(packed.content)["task"]["goal"].encode())
                     if batch_started is None:
                         batch_started = time.monotonic()
                     consumer.limits = replace(consumer.limits, seconds=min(
@@ -643,6 +697,13 @@ def execute(sdk, freeze_path, expected_hash, activation_hash, output):
     summary = {"rows": rows, "measured_known_usage": spent,
         "problem": problem_text(failure) if failure else None,
         "batch_elapsed_seconds": time.monotonic() - batch_started if batch_started else 0,
+        "execution_timing": {
+            "clock_scope": "process-local monotonic seconds; no cross-process subtraction",
+            "execution_origin": execution_started, "batch_origin": batch_started,
+            "model_load_identity_seconds": load_elapsed,
+            "cold_setup_before_batch_seconds": batch_started - execution_started if batch_started else None,
+            "execution_elapsed_seconds": time.monotonic() - execution_started,
+        },
         "semantic_acceptance": "not_evaluated; offline frozen source review required"}
     try:
         private_write(output / "summary.json", json_bytes(summary))

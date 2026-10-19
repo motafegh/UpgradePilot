@@ -1,0 +1,11 @@
+# Evidence-first interpretation Build evidence
+
+This dated record belongs to the [Build cycle](../../2026-10-19_investigator-evidence-first-interpretation-build_lbd-cycle.md) under the [accepted comparison plan](../../../plans/INVESTIGATOR_EVIDENCE_FIRST_INTERPRETATION_COMPARISON_PLAN.md). It is experiment evidence, not product admission or a second live-position owner.
+
+[Offline proof](offline-build-proof.json) binds exact goals, source/schema identity, the historical baseline, fresh complete packets and the unchanged isolated cancellation prerequisite. Twenty-five focused tests and the inclusive174-test composition suite pass with injected/fake bindings. Each category's seam proof invokes its fake boundary once; no real SDK client, backend rendering/tokenization or prediction is hidden in it. All61 baseline files retain membership/hash/size/owner modes. The new packet selections and maximum-reference completion costs remain76/23/61/23.
+
+[Pre-load intent](pre-load-intent.json) records the user's finite conditional Build/run authorization and prospective roots/settings/budgets. It is not an executable freeze. The actual runtime profile, complete fits and matching activation must be recorded before prediction. No new cancellation prediction, baseline rerun, worksheet, model arm, target execution or adoption is included.
+
+Source changes select the two accepted goals inside existing report fields and retain method hashes outside input. Preparation tokenizes the existing maximum-reference mechanical report to measure JSON/reference overhead; its contents never enter model input and its2,048-token target is advisory. Execution also retains monotonic stage origins/durations so batch time is not presented as whole-invocation time. Controller/receive adapter, base report schema, evidence/reference authority and deployment settings remain unchanged.
+
+All model outputs and complete requests belong in fresh private owner-only roots outside Git. Public records bind their identity and source-aware conclusions without copying private payloads or hidden reasoning. The original reference/review/adjudication remain immutable.

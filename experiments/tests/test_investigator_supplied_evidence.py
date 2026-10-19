@@ -8,24 +8,24 @@ from unittest.mock import patch
 
 from experiments.investigator_model_interface import (
     ModelLimits, StatelessInvestigatorModel, measure_input, present_supplied_observation,
-    SUPPLIED_REQUEST_PRESENTATION, fields,
+    SUPPLIED_REQUEST_PRESENTATION, fields, digest,
 )
 from experiments.investigator_supplied_evidence import (
     SuppliedEvidenceLimits, SuppliedEvidenceTrial, mechanical_report,
 )
 from experiments.investigator_workspace_trial import run_scripted_trial
-from experiments.investigator_workspace_adapter import InvestigatorAssignment
+from experiments.investigator_workspace_adapter import InvestigatorAssignment, REPORT_SCHEMA
 from experiments.prepare_investigator_supplied_evidence import selection_inventory, read_recipes
 from experiments.tests.test_investigator_model_interface import Binding, config
 from experiments.tests.test_investigator_workspace_trial import fixture, request, report
 from upgradepilot.workspace.native_representation import json_bytes
 
 
-def trial(*, reads=1, limits=None, assignment=None):
+def trial(*, reads=1, limits=None, assignment=None, source_pair=False):
     return SuppliedEvidenceTrial(
         assignment or fixture(),
         [request("read_source", source_id="target", path="requirements.txt", line_count=1)] * reads,
-        case_label="packet-a", limits=limits,
+        case_label="packet-a", limits=limits, source_pair=source_pair,
     )
 
 
@@ -212,21 +212,33 @@ class SuppliedEvidenceTests(unittest.TestCase):
         self.assertIsNone(result.termination_id)
 
     def test_one_actual_model_boundary_call_uses_all_fields_and_real_local_references(self):
-        prepared = trial()
-        prepared.prepare()
-        with tempfile.TemporaryDirectory() as directory:
-            binding = Binding()
-            binding.response = mechanical_report(prepared.pack())
-            model = StatelessInvestigatorModel(
-                binding, config(), ModelLimits(context=10000, calls=1, prediction_seconds=900),
-                Path(directory) / "attempt",
-            )
-            result = prepared.run(model)
-            self.assertEqual(result.outcome, "completed")
-            self.assertEqual(binding.calls, 1)
-            self.assertTrue(result.charges["model_usage_complete"])
-            request_record = json.loads((model.directory / "call-01.request.json").read_bytes())
-            self.assertEqual(request_record["request_presentation"], SUPPLIED_REQUEST_PRESENTATION)
+        # Both categories use the same opaque case label: selection is by responsibility,
+        # not a known case/answer. Binding is injected; no SDK client or backend exists.
+        goals = (
+            "46b41e579aabb95b489a189584ac206c5798a9b4f4dcc48e2784056f844eb1a3",
+            "dd209ecc1dc34dad03ccf4bccb531e79596b5fb1763b9e160bf6c7d1c8754f2f",
+        )
+        self.assertEqual(digest(json_bytes(REPORT_SCHEMA)),
+            "b0f80f50551c9c5db9f296ea4bfb9ae35628ee98e9ebd55322fa4bbfe8dbb2bb")
+        for source_pair, goal_hash in zip((False, True), goals, strict=True):
+            with self.subTest(source_pair=source_pair), tempfile.TemporaryDirectory() as directory:
+                prepared = trial(source_pair=source_pair)
+                packed = prepared.prepare()
+                body = json.loads(packed.content)
+                self.assertEqual(digest(body["task"]["goal"].encode()), goal_hash)
+                self.assertNotIn("interpretation_method", body["task"])
+                binding = Binding()
+                binding.response = mechanical_report(packed)
+                model = StatelessInvestigatorModel(
+                    binding, config(), ModelLimits(context=10000, calls=1, prediction_seconds=900),
+                    Path(directory) / "attempt",
+                )
+                result = prepared.run(model)
+                self.assertEqual(result.outcome, "completed")
+                self.assertEqual(binding.calls, 1)
+                self.assertTrue(result.charges["model_usage_complete"])
+                request_record = json.loads((model.directory / "call-01.request.json").read_bytes())
+                self.assertEqual(request_record["request_presentation"], SUPPLIED_REQUEST_PRESENTATION)
 
     def test_interruption_is_recorded_terminated_and_reraised(self):
         prepared = trial()

@@ -263,13 +263,19 @@ class RunnerTests(unittest.TestCase):
     def test_preflight_has_no_predictions_and_fit_source_drift_withholds_execution(self):
         with tempfile.TemporaryDirectory() as directory:
             root, binding = Path(directory), CohortBinding()
+            # An overhead estimate above the advisory target is retained, not rejected.
+            binding.tokenize = lambda text: [1] * (3000 if "Mechanical report-only publication proof" in text else 10)
             stack, sdk, preparation, reviewer = self.environment(root, binding)
             with stack:
                 output = root / "runtime"
                 freeze = runner.prepare_runtime(sdk, preparation, reviewer, output)
                 self.assertEqual(binding.calls, 0)
                 self.assertEqual(freeze["prediction_attempts"], 0)
+                self.assertEqual(freeze["interpretation_method"], runner.interpretation_method())
                 self.assertEqual(len(freeze["fit"]), 6)
+                for fit in freeze["fit"].values():
+                    self.assertEqual(fit["mechanical_output_sizing"]["tokens"], 3000)
+                    self.assertFalse(fit["mechanical_output_sizing"]["within_advisory_target"])
                 self.assertTrue(all(fit["request_presentation"] == runner.SUPPLIED_REQUEST_PRESENTATION
                     for fit in freeze["fit"].values()))
                 path = output / "freeze.json"
@@ -285,6 +291,17 @@ class RunnerTests(unittest.TestCase):
                 stale_path.write_bytes(json_bytes(stale))
                 with self.assertRaisesRegex(ValueError, "presentation identity drift"):
                     runner.verify_freeze(stale_path, digest(stale_path.read_bytes()))
+                stale = json.loads(path.read_bytes())
+                stale["interpretation_method"]["goal_sha256"]["pr_context"] = "changed"
+                stale_path.write_bytes(json_bytes(stale))
+                with self.assertRaisesRegex(ValueError, "drifted"):
+                    runner.verify_freeze(stale_path, digest(stale_path.read_bytes()))
+                mechanical = output / "packet-a/fit-mechanical-report.json"
+                original = mechanical.read_bytes()
+                mechanical.write_bytes(b"changed")
+                with self.assertRaisesRegex(ValueError, "output sizing drift"):
+                    runner.verify_freeze(path, checksum)
+                mechanical.write_bytes(original)
                 (output / "packet-a/fit-rendered.txt").write_text("changed")
                 with self.assertRaisesRegex(ValueError, "fit artifact drift"):
                     runner.verify_freeze(path, checksum)
