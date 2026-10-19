@@ -1,0 +1,165 @@
+{
+  "format": "investigator-resource-report-canary-result/1",
+  "source_commit": "9f4a5df4",
+  "root": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r3",
+  "disposition": "ValueError: unknown usage; whole remaining cohort withheld",
+  "roles": [
+    {
+      "role": "probe-report",
+      "execution": "failed",
+      "prediction_attempts": 1,
+      "usage_complete": false
+    },
+    {
+      "role": "packet-a",
+      "execution": "unattempted",
+      "prediction_attempts": null,
+      "usage_complete": null
+    },
+    {
+      "role": "packet-b",
+      "execution": "unattempted",
+      "prediction_attempts": null,
+      "usage_complete": null
+    },
+    {
+      "role": "packet-c",
+      "execution": "unattempted",
+      "prediction_attempts": null,
+      "usage_complete": null
+    },
+    {
+      "role": "packet-d",
+      "execution": "unattempted",
+      "prediction_attempts": null,
+      "usage_complete": null
+    }
+  ],
+  "canary_receipt": {
+    "attempt": 1,
+    "complete_response_received": false,
+    "control": {
+      "cancellation_requested": true,
+      "channel_opened": true,
+      "channel_released": true,
+      "deadline_seconds": 299.820701001001,
+      "dispatch_reserved": true,
+      "finalization_allowance_seconds": 50,
+      "finalization_elapsed_seconds": 0.01148836799984565,
+      "prediction_elapsed_bound_met": false,
+      "prediction_elapsed_seconds": 299.82115182100097,
+      "primary_problem": "PredictionDeadlineExceeded: prediction monotonic deadline reached",
+      "receive_ownership": {
+        "acknowledged": 12,
+        "events": {
+          "promptProcessingProgress": 11,
+          "success": 1
+        },
+        "interrupted_waits": 1,
+        "pending_cancel_requested": false,
+        "pending_reuses": 1,
+        "receiver_stopped": true,
+        "submitted": 12
+      },
+      "runtime_quiescence": "terminal_protocol_received",
+      "secondary_problems": [],
+      "terminal_received": true
+    },
+    "elapsed_seconds": 299.844632858003,
+    "finalization_elapsed_seconds": 0.02329446499788901,
+    "outcome": "failed",
+    "prediction_allowance_seconds": 299.820701001001,
+    "prediction_elapsed_seconds": 299.82115182100097,
+    "problem": "PredictionDeadlineExceeded: prediction monotonic deadline reached",
+    "request_preparation_elapsed_seconds": 0.07450372799939942,
+    "request_sha256": "42e8d79de54816c700176d7be8b8642a798f8e2e4c40548eeed509c36847b065",
+    "reserved_generated_tokens": 8192,
+    "reserved_input_tokens": 3269,
+    "secondary_problems": [
+      "ValueError: missing/invalid actual model usage"
+    ],
+    "usage": {
+      "stopReason": "userStopped"
+    },
+    "visible_fragment_bytes": 0,
+    "visible_fragments_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "actual_request_tokens": 3269,
+  "terminal_metadata_retained": true,
+  "actual_instance_matches": true,
+  "requested_setting_count": 16,
+  "prediction_setting_mismatches": [],
+  "measured_known_usage": {
+    "finalization_seconds": 1.619108220009366,
+    "generated": 0,
+    "input": 0,
+    "known_usage_attempts": 0,
+    "operations": 12,
+    "prediction_seconds": 299.82115182100097,
+    "unknown_usage_attempts": 1
+  },
+  "batch_elapsed_seconds": 301.5171669679985,
+  "cleanup": {
+    "confirmed": true,
+    "identifier": "up-supplied-resource-gemma12-36864-v1",
+    "remaining_identifiers": [],
+    "unload_requested": true
+  },
+  "client_cleanup": {
+    "confirmed": true,
+    "elapsed_seconds": 0.003390659003343899
+  },
+  "artifact_sha256": {
+    "backend/backend-observation.json": "3371836e14736fa18b7eb6f15bbc40a9082823c8dba17db5c1b943298c473d0c",
+    "backend/backend-template.jinja": "031f45711a263bdb0b9642fdba78e2cdf6990d6d965a0873aae05da49682d0ec",
+    "cleanup.json": "7240ced91c936a31685a4b6235ea4e9283ab388e31f60be0f2d977165dbf123a",
+    "client-cleanup.json": "bf800405169beb629f2471eb039ed45b38cf0ef6130352806d135e2df9f682e5",
+    "executed-freeze.json": "0067f9884cc44c8a3175d5beb40787f055f123c59256a1f4c169acc10fad4145",
+    "probe-report/call-01.attempt.json": "d725d37db880402227ddf2201a1419657e11d994de0e37943de4067c151733b7",
+    "probe-report/call-01.metadata.json": "573710458b1af1ec0d0873d4b861888ec815cb23ac07d788733fe6b7e24e2d5f",
+    "probe-report/call-01.packed-input.json": "9ac36b7193798e227a72350717cd7e823e21b1faa5372fa84afc8d3824fa23de",
+    "probe-report/call-01.receipt.json": "207ab0748ae7732d87ef6520e35b51ba03b1f5dc0e3eacc7a30f3225c3274ace",
+    "probe-report/call-01.rendered.txt": "8b2a755ab189605171ce65b989e87b5736ec6d0c01f3ce86ffcdc4082915933f",
+    "probe-report/call-01.request.json": "42e8d79de54816c700176d7be8b8642a798f8e2e4c40548eeed509c36847b065",
+    "probe-report/call-01.visible-fragments.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "probe-report/reference-map.json": "3a6cb5e2405a55db9496d56df9ecd0c2164845a65faf62baa46a5c1e1c12f3ea",
+    "probe-report.reservation.json": "bd618afd597a2974750c18feed04440b28f58d5c666fc0242c4574375904f885",
+    "probe-report.result.json": "74b7d85cdba313a1ed9c02a702a204a51578a16a9ea5d565a0cee2ec5839fbde",
+    "summary.json": "b7b1b6591ae7c76658a6236d24b1286caf73e447ba0ed6eeb3be8c5825f73a2a"
+  },
+  "lineage": {
+    "attempts": 3,
+    "unknown_attempts": 3,
+    "semantic_cases_attempted": 0,
+    "conservative_unknown_reservation": {
+      "input": 12288,
+      "generated": 24576
+    }
+  },
+  "resource_observations": {
+    "windows_backend_sample": {
+      "cpu_seconds": 426.3125,
+      "working_set_mib": 8600,
+      "host_free_physical_mib": 28889,
+      "host_total_physical_mib": 65260
+    },
+    "gpu_during_call": {
+      "gpu_utilization_percent": 100,
+      "memory_utilization_percent": 18,
+      "used_mib": 7613,
+      "power_watts": 106.75
+    },
+    "after_cleanup_dedicated_memory_counter": {
+      "process_name": "sp26-cod",
+      "dedicated_mib": 5314
+    },
+    "limits": "Point-in-time whole-machine/process counters, not independent attribution of prediction latency. No unrelated application modified."
+  },
+  "limits": [
+    "Zero known token subtotals are not actual zero consumption.",
+    "11 prompt-progress events and no fragment events do not provide final progress fraction or token throughput.",
+    "No complete output or semantic verdict.",
+    "Original failed cohorts remain failed; no report repair or selective retry.",
+    "Resource owner input requested while offline repair/evidence verification continues."
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "format": "investigator-historical-runtime-context/1",
+  "historical_receipt_path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/semantic-comparison-2026-10-18-reference-v2/interface-results/reference-v2-gemma12-structured-short/call-05.receipt.json",
+  "receipt_sha256": "a10b7112e076fbfc1c57833fb512ea347de52246a4683b6d1cf71d4312592066",
+  "profile_path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/semantic-comparison-2026-10-18-reference-v2/gemma12-preflight/profile.json",
+  "profile_sha256": "793bed85004fe1567c0d567155051e5887a893749e9c6d45c277e40065ff9531",
+  "historical_context": 32768,
+  "historical_gpu_layers": "22",
+  "historical_elapsed_seconds": 145.00188038500346,
+  "historical_usage": {
+    "predictedTokensCount": 847,
+    "promptTokensCount": 4086,
+    "stopReason": "eosFound",
+    "timeToFirstTokenSec": 6.9022619999999995,
+    "tokensPerSecond": 5.602157315292056,
+    "totalTimeSec": 157.91551499999997,
+    "totalTokensCount": 4933
+  },
+  "current_canary_context": 36864,
+  "current_canary_gpu_layers": 5,
+  "current_observation": "299.821152 seconds, no visible fragment, no numeric usage",
+  "limits": [
+    "Historical qualification, not a current rerun or controlled throughput comparison.",
+    "Context/task/schema/reference/request and external workload differ.",
+    "Supports returning to the qualified resource point as a candidate, not a proven latency root cause or speed guarantee."
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "format": "investigator-receive-repair-retention-summary/1",
+  "index_path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-receive-repair-disposition-r1/completed-retention-index.json",
+  "index_sha256": "74a4c3194dec051853d96744d1e39bef57b56fa7c5a64ad233b7e9acbdcef547",
+  "files_excluding_index": 258,
+  "bytes_excluding_index": 4648512,
+  "roots": [
+    "supplied-evidence-2026-10-19-preparation-r8",
+    "supplied-evidence-2026-10-19-preparation-r9",
+    "supplied-evidence-2026-10-19-preparation-r10",
+    "supplied-evidence-2026-10-19-runtime-r5",
+    "supplied-evidence-2026-10-19-runtime-r6",
+    "supplied-evidence-2026-10-19-runtime-r7",
+    "supplied-evidence-2026-10-19-diagnostic-r2",
+    "supplied-evidence-2026-10-19-diagnostic-r3",
+    "supplied-evidence-2026-10-19-control-proof-r1",
+    "supplied-evidence-2026-10-19-runtime-r6-source-r1",
+    "supplied-evidence-2026-10-19-receive-repair-disposition-r1"
+  ],
+  "directory_modes": "0700",
+  "file_modes": "0600",
+  "membership_hash_size_mode_check": "passed",
+  "prior_retention_checks": [
+    {
+      "index_sha256": "ed0fbdb4e7af9e2b904a9b708355204894f8d7865423d8363669a263d91eff41",
+      "files": 200,
+      "check": "passed unchanged"
+    },
+    {
+      "index_sha256": "d86f57d6d323050c1dd73ea065e2e963c254f79261aaf0dac346e78df33fe9cc",
+      "files": 39,
+      "check": "passed unchanged"
+    },
+    {
+      "index_sha256": "1d91dec581896b4a57e058e1134620c2e75c85a9724806a190fd1b26242f03c6",
+      "files": 79,
+      "check": "passed unchanged"
+    },
+    {
+      "index_sha256": "9baed476fc25daf6bf87650d569bc156669226c98b4714a8957d5c47452d2336",
+      "files": 82,
+      "check": "passed unchanged"
+    },
+    {
+      "index_sha256": "7e63cb0454e39fd9799b5a30ffb74285c13ead03a73e823e02b7721e4cc70377",
+      "files": 42,
+      "check": "passed unchanged"
+    }
+  ],
+  "prior_unchanged_files": 442,
+  "prior_indexes": 5,
+  "current_source_profile_fit_external_control_binding": "passed; no successful report canary or semantic verdict",
+  "limits": [
+    "Local owner-only retention, not off-machine backup or full model/runtime archive.",
+    "Three actual attempted calls retain unknown token usage; conservative reservation12288/24576.",
+    "Software fixes are delivered; current runtime throughput and external GPU resource boundary remain unresolved.",
+    "Historical timing is not a current rerun or controlled performance comparison."
+  ]
+}
