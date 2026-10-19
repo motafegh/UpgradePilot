@@ -1,11 +1,11 @@
-# Investigator product-direction proposal — strategic review
+# Investigator product-direction proposal — strategic review and finalization
 
-Date: October 20, 2026 (Asia/Tehran). Primary operation: Repository Audit / Review.
+Date: October 20, 2026 (Asia/Tehran). Initial operation: Repository Audit / Review; subsequent explicitly requested finalization: Planning/Design with source-backed review.
 Inspected main: `766fe8a7`, fast-forwarded from `b2948711` after an explicit user request to pull the other assistant's proposal and assess the project direction before deciding further work.
 Subject: [responsibility-decomposition proposal](../proposals/2026-10-19_INVESTIGATOR_RESPONSIBILITY_DECOMPOSITION_AND_PRODUCT_DIRECTION_PROPOSAL.md).
 Previous evidence: [completed comparison/source review](evidence/2026-10-19-investigator-evidence-first-build/COMPARISON_REVIEW.md).
 
-## Scope, authorization and proportionality
+## Initial review horizon — scope, authorization and proportionality
 
 Ali asks to pause further development, analyze whether the increasingly deep path is appropriate, review the new proposal and then decide. Authorization is Git synchronization and source/evidence-backed review. No proposal acceptance, plan/specification/source/test change, model loading or inference is selected. The unrelated October 3 untracked audit draft remains untouched.
 
@@ -18,7 +18,7 @@ Continuous-context adaptation: Ali has just received the completed negative comp
 - A0 — DONE: Git/current live owner, proposal, Charter and relevant evidence/architecture owners reconciled; exact pulled delta verified.
 - A1 — DONE at directed review depth: current comparison completed mechanically but failed all four semantic cases; the earlier deterministic-baseline suggestion is a recommendation under review, not accepted strategy.
 - A2 — DONE at review scope: distinguish numerical/source evidence, accepted trust architecture, current implementation gaps, causal hypotheses and choices about the cheapest useful next step.
-- B — DONE: whole proposal reviewed; material evidence/authority/implementation and sequencing claims traced below.
+- B — DONE: initial proposal reviewed and, after Ali explicitly requested finalization, fully revised in place with adjudication of all seven additional suggestions. See the dated continuation below.
 - Verification gate — GREEN for the bounded review: numerical/source/ownership and record-integrity checks pass; causal and method-selection uncertainties remain explicit. No inference or test rerun selected.
 - D — CURRENT: written evidence-backed explanation and decision-relevant trade-offs supplied; learner ownership unassessed.
 - E — PENDING: joint direction decision; no automatic next plan or implementation.
@@ -127,3 +127,34 @@ The pulled change is exactly one proposal, with no code/control changes. Read al
 ## D/E handoff
 
 The crucial distinction for discussion is trust architecture versus capability diagnosis versus product-method selection. The architecture is accepted and its attribution/unsupported-evaluation/action guards are implemented; a domain-level semantic evaluator remains missing. The causal diagnosis remains partly unresolved, and method selection needs a bounded cost/value decision. The correct lesson is neither to discard all earned engineering nor to assume another layer is progress. Written feedback supplies that model. Ali's acceptance/challenge and learner ownership remain unassessed; E and any selected next work remain pending. The proposal, specifications, plans, source and MEMORY.md are not changed by this review.
+
+
+## October 20 continuation — authorized final proposal revision
+
+Ali asks to check seven additional ideas, finalize, and write the full final proposal based on everything. This explicitly expands the initial read-only review to proposal writing and necessary state reconciliation, not implementation, comparison execution, strategy acceptance or inference. Continue this same coherent artifact-review responsibility; do not create a competing proposal or cycle.
+
+Apply `UP-SKILL:upgradepilot-planning-design` and continue `UP-SKILL:upgradepilot-working-memory`. Continuous-context A1/A2 compression is proportionate: the review model and qualifications were already presented, and Ali explicitly requests the final writing. Teach the corrected product-comparison/consumer/evidence model while preparing the artifact; do not claim learner ownership from that instruction. The normal repeated orientation stop would delay the explicitly requested reviewable artifact without changing its proof or authority. No Build, experiment, trust or external-target boundary is waived.
+
+### Additional source checks and adjudication
+
+Read product-simulation/AGENTS.md before the local simulation owners. Inspect the baseline v0.1 rules/dimensions, simulation navigation, S006 artifact/identity/coverage explanation and synthesis, and the bounded implemented-foundation transfer evaluation. Search executable owners for the named simulation comparator; no matching complete six-case product-comparison harness is identified by that search. Existing S001 real-flow proofs and narrower post-implementation evaluations prevent an honest claim that product evaluation never happened. S006 explicitly uses a different bundle and preserves evaluator oracle exposure. Therefore accept early product comparison as a priority, but condition CPU-only/no-model replay on actual retained inputs, normal producer reachability and fair denominator. No new evaluation was run and no full per-case replay inventory is claimed.
+
+Inspect current PropositionState/PropositionAssessment/applicability composition and the action/report owners. Read the synthesis specification's exact targeted-check permission and producer-reachability requirements. Accept existing proposition semantics as the starting point, concrete consumer and code-home decisions before Build. Reject the assertion that there is no consumer: reports consume synthesis. Do not force a positive action or add a generic producer without demonstrating need.
+
+Accept deterministic-first derivation and source checks with independent expectations/counterexamples; same algorithm twice is not independent proof. A semantic reviewer needs the proposition/evidence but can be blind to proposer identity/preferred verdict. Measure supported positive retention, false acceptance/rejection, justified unknowns and costs. Agreement alone cannot establish truth. Reject suggestion (g)'s impossibility and no-model-quality-risk claims: the negative evidence does not isolate those causes.
+
+### Artifact and owner changes
+
+Rewrite the existing proposal in place, incorporating the initial seven review qualifications plus additional suggestions (a)–(g). It now puts product-value/comparison readiness first; maps implemented versus missing responsibility; defines one proposed six-active-hour, zero-inference design gate; requires consumer/representation/code-home decisions; treats source extraction as one selectable alternative; qualifies grammar/binding/generality; gives discriminating validation and protected-method freeze rules; and makes later roles/actions/discovery conditional rather than a committed programme. Six hours is a proposed future cap, not measured effort for this revision. Proposal remains non-controlling/finalized for decision.
+
+Reconcile MEMORY.md to the actual proposal-finalization handoff, without selecting the proposed next gate. Reconcile original comparison session/B wording to execution discontinued/incomplete-inconclusive and completed evidence publication. This is administrative reconciliation of the existing immutable-result/no-resume rule, not a claim the full original B objective succeeded or that learner D/E closed. Append the reason to that original cycle; preserve dated history,3/1/8 outcomes, unknown usage, control debt and every frozen artifact. No experiment plan, accepted specification, source/test, original review/result or retention index changes. The unrelated October 3 draft remains untouched.
+
+### D/E and remaining decision
+
+The important ownership distinction is now explicit in the artifact: accepted trust architecture, unproved capability diagnosis, product comparison readiness, useful consumer and method selection are separate. Deterministic-first does not imply deterministic-only; a report consumer does not imply action permission; an incomplete experiment's execution ending does not discharge learner D/E. Written explanation is provided, learner ownership remains unassessed. E and acceptance/selection of any next planning responsibility remain pending.
+
+### Final revision verification
+
+Four intended Markdown documents change: owning proposal, live MEMORY.md, this progression record and the original comparison cycle's execution-disposition reconciliation. Check all 106 local links and the one linked anchor across those documents, balanced fences, final newlines and `git diff --check`: pass. Proposal is 291 lines, SHA256 `d6d13d43c42de5a1d6a9562f7629e486b9e1b7c0c83d2da015a60bcc9c255065`. The initial byte-identical hash above remains the earlier review horizon, not the final revision identity.
+
+Diff-scope assertion confirms no product/experiment/test/tool source, accepted plan/specification/ADR, frozen input/output/result, original evidence review or retention index changes. No runtime tests are rerun for this documentation-only responsibility. No new case readiness inventory, CPU comparison, target code execution, model load or prediction is claimed. Source-backed inspection supports the qualifications; selection of a method and its effectiveness remain unproved. Publish this coherent increment under Ali's standing in-scope commit/push instruction; preserve the unrelated untracked draft. D/E remain pending as described above.
