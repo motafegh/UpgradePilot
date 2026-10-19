@@ -16,6 +16,7 @@ import argparse
 import json
 import time
 from dataclasses import asdict, replace
+from copy import deepcopy
 from contextlib import contextmanager
 from pathlib import Path
 
@@ -36,10 +37,14 @@ from upgradepilot.workspace.native_representation import json_bytes
 
 REFERENCE_PROFILE = Path.home() / ".local/share/upgradepilot/investigator-runs/semantic-comparison-2026-10-18-reference-v2/gemma12-preflight/profile.json"
 REFERENCE_PROFILE_SHA256 = "793bed85004fe1567c0d567155051e5887a893749e9c6d45c277e40065ff9531"
-FREEZE_FORMAT = "investigator-supplied-evidence-runtime-freeze/1"
+FREEZE_FORMAT = "investigator-supplied-evidence-runtime-freeze/2"
+CAPACITY_PROFILE_FORMAT = "investigator-supplied-evidence-capacity-profile/1"
+CONTEXT = 36864
+CAPACITY_IDENTIFIER = "up-supplied-capacity-gemma12-36864-v1"
 ROLES = ("probe-cancel", "probe-report", "packet-a", "packet-b", "packet-c", "packet-d")
+INPUT_CAPS = dict(zip(ROLES, (4096, 4096, 24000, 9000, 27000, 9000), strict=True))
 CEILINGS = {
-    "attempts": 6, "input_tokens": 72192, "generated_tokens": 49152,
+    "attempts": 6, "input_tokens": 77192, "generated_tokens": 49152,
     "prediction_seconds": 4200, "finalization_seconds": 360,
     "batch_seconds": 4800, "preparation_seconds": 1200, "admission_units": 340,
 }
@@ -60,9 +65,54 @@ def sdk_source_identity(sdk):
 
 
 def reference_profile():
+    """Immutable 32k parent; never presented as qualification of the new point."""
     if digest(REFERENCE_PROFILE.read_bytes()) != REFERENCE_PROFILE_SHA256:
         raise ValueError("intended retained deployment profile unavailable/drifted; no substitute")
     return json.loads(REFERENCE_PROFILE.read_bytes())
+
+
+def capacity_load_request(parent):
+    """Prospective request only; contains no purported new observations."""
+    requested = deepcopy(parent["requested_load"])
+    requested["contextLength"] = CONTEXT
+    return {"model_key": parent["model_key"], "identifier": CAPACITY_IDENTIFIER,
+        "requested_load": requested}
+
+
+def observed_capacity_profile(parent, identity, backend):
+    """Validate the sole declared delta, then retain actual observed identity/backend.
+
+    The projection below is an expectation against the immutable parent, not an edited
+    observation. Only context and the instance label may differ; full load/template,
+    placement, cache and model checks stay with the existing qualifier. The returned
+    profile uses the actual arguments, never the projected parent's observations.
+    """
+    expected = deepcopy(parent)
+    expected["initial_identity"]["model"].update(
+        contextLength=CONTEXT, identifier=CAPACITY_IDENTIFIER,
+    )
+    load_fields = expected["initial_identity"]["load"]["fields"]
+    context_fields = [item for item in load_fields if item["key"] == "llm.load.contextLength"]
+    if len(context_fields) != 1:
+        raise ValueError("parent load has no unique context field")
+    context_fields[0]["value"] = CONTEXT
+    expected["backend_observation"]["flags"]["ctx-size"] = str(CONTEXT)
+    validate_loaded_backend(expected, identity, backend)
+    if identity["load"] != expected["initial_identity"]["load"]:
+        raise ValueError("capacity load changed outside the declared context delta")
+    return {
+        "format": CAPACITY_PROFILE_FORMAT,
+        **capacity_load_request(parent),
+        "parent_reference_profile_sha256": REFERENCE_PROFILE_SHA256,
+        "context": identity["model"]["contextLength"], "output_tokens": 8192,
+        "initial_identity": identity, "backend_observation": backend,
+        "prediction_configuration": deepcopy(parent["prediction_configuration"]),
+        "prediction_base_sha256": parent["prediction_base_sha256"],
+        "tokenizer_policy": deepcopy(parent["tokenizer_policy"]),
+        "request_presentation": SUPPLIED_REQUEST_PRESENTATION,
+        "code_sha256": source_hashes(),
+        "qualification": "actual loaded identity/backend only; packet fit is separately frozen; inference unqualified",
+    }
 
 
 def asset_stats(profile):
@@ -167,8 +217,8 @@ def new_trial(role, preparation, qualification, recipes):
 def model_limits(role, *, seconds=None):
     probe = role.startswith("probe-")
     return ModelLimits(
-        context=32768, generated_per_call=8192, generated_total=8192,
-        input_total=4096 if probe else 16000, calls=1,
+        context=CONTEXT, generated_per_call=8192, generated_total=8192,
+        input_total=INPUT_CAPS[role], calls=1,
         seconds=seconds or (300 if probe else 900),
         prediction_seconds=1 if role == "probe-cancel" else (300 if probe else 900),
         finalization_seconds=50,
@@ -197,7 +247,8 @@ def prepare_runtime(sdk, preparation_root, reviewer_path, output):
     """Separately authorized zero-generation load/render/fit; never calls predict()."""
     preparation = verify_prepared_packets(preparation_root)
     review = reviewer_identity(reviewer_path)
-    profile = reference_profile()
+    parent = reference_profile()
+    requested = capacity_load_request(parent)
     qualification = json.loads(Path(preparation["qualified_input_path"]).read_bytes())
     recipes = read_recipes(preparation_root / "packet-recipes.json")
     private_root(output)
@@ -210,7 +261,8 @@ def prepare_runtime(sdk, preparation_root, reviewer_path, output):
         "code_sha256": source_hashes(), "reviewer": review,
         "sdk_source_sha256": sdk_source_identity(sdk),
         "non_prediction_rpc_idle_seconds": 600,
-        "asset_stats": asset_stats(profile),
+        "asset_stats": asset_stats(parent),
+        "capacity_contract": {"context": CONTEXT, "input_caps": INPUT_CAPS},
         "ceilings": CEILINGS, "roles": list(ROLES),
         "cancellation_probe": {"required": True, "prediction_deadline_seconds": 1,
             "pass": "deadline failure with terminal protocol, known usage and channel release; then fresh callback only"},
@@ -219,15 +271,24 @@ def prepare_runtime(sdk, preparation_root, reviewer_path, output):
     private_write(output / "preflight-intent.json", json_bytes({
         **freeze, "format": "investigator-supplied-evidence-runtime-preflight-intent/1",
     }))
-    private_write(output / "reference-profile.json", json_bytes(profile))
+    private_write(output / "reference-profile.json", json_bytes(parent))
+    private_write(output / "capacity-load-request.json", json_bytes(requested))
     with bounded_client(sdk, output / "client-cleanup.json", {}) as client:
         model = None
         try:
             with MonotonicDeadline(1140, label="zero-generation load/fit").enforce():
-                model = load_owned(client, profile)
-                binding = SDKBinding(model, sdk, profile["tokenizer_policy"], finalization_seconds=50)
-                freeze["identity"] = validate_owned(binding, profile, output / "backend")
-                private_write(output / "actual-identity.json", json_bytes(freeze["identity"]))
+                model = load_owned(client, requested)
+                binding = SDKBinding(model, sdk, parent["tokenizer_policy"], finalization_seconds=50)
+                identity = binding.identity()
+                private_write(output / "actual-identity.json", json_bytes(identity))
+                backend_root = output / "backend"
+                backend_root.mkdir(mode=0o700)
+                backend = observe_owned_backend(backend_root)
+                private_write(output / "actual-backend.json", json_bytes(backend))
+                profile = observed_capacity_profile(parent, identity, backend)
+                profile_bytes = json_bytes(profile)
+                private_write(output / "capacity-profile.json", profile_bytes)
+                freeze.update(identity=identity, capacity_profile_sha256=digest(profile_bytes))
                 for role in ROLES:
                     trial = new_trial(role, preparation, qualification, recipes)
                     consumer = StatelessInvestigatorModel(
@@ -246,7 +307,7 @@ def prepare_runtime(sdk, preparation_root, reviewer_path, output):
                         "reference_pairs": sorted(packed.reference_pairs),
                         "omitted_events": packed.omitted_event_ids,
                         "input_cap_met": measured.tokens <= model_limits(role).input_total,
-                        "context_reserve_met": measured.tokens + 8192 + 256 <= 32768,
+                        "context_reserve_met": measured.tokens + 8192 + 256 <= CONTEXT,
                     }
                     # Persist failed measurements before withholding. Tokenization of
                     # complete input is not neural prediction and needs no truncation.
@@ -286,14 +347,23 @@ def verify_freeze(path, expected_hash):
         or freeze["cancellation_probe"]["required"] is not True
         or not 0 <= freeze["preparation_elapsed_seconds"] < 1200
         or freeze["non_prediction_rpc_idle_seconds"] != 600
+        or freeze.get("capacity_contract") != {"context": CONTEXT, "input_caps": INPUT_CAPS}
     ):
         raise ValueError("unsupported/drifted/incomplete diagnostic freeze")
+    profile_bytes = (path.parent / "capacity-profile.json").read_bytes()
+    if digest(profile_bytes) != freeze.get("capacity_profile_sha256"):
+        raise ValueError("observed capacity profile identity drift")
+    profile = json.loads(profile_bytes)
+    parent = reference_profile()
+    if profile != observed_capacity_profile(parent, freeze["identity"], profile["backend_observation"]):
+        raise ValueError("observed capacity profile differs from its declared inheritance")
     for role, fit in freeze["fit"].items():
         if fit.get("request_presentation") != SUPPLIED_REQUEST_PRESENTATION:
             raise ValueError("supplied presentation identity drift; fresh fit required")
         if not 0 < fit["rendered_tokens"] <= model_limits(role).input_total or fit["omitted_events"]:
             raise ValueError("complete actual request fit not established")
-        if not fit["input_cap_met"] or not fit["context_reserve_met"]:
+        if (not fit["input_cap_met"] or not fit["context_reserve_met"]
+            or fit["rendered_tokens"] + 8192 + 256 > CONTEXT):
             raise ValueError("required input/context fit gate failed")
         if not fit.get("preparation_termination_id"):
             raise ValueError("preflight host terminal publication unconfirmed")
@@ -345,7 +415,7 @@ def execute(sdk, freeze_path, expected_hash, activation_hash, output):
     freeze, preparation = verify_freeze(freeze_path, expected_hash)
     if sdk_source_identity(sdk) != freeze["sdk_source_sha256"]:
         raise ValueError("installed SDK source differs from the runtime freeze")
-    profile = reference_profile()
+    profile = json.loads((freeze_path.parent / "capacity-profile.json").read_bytes())
     root = Path(freeze["preparation_root"])
     qualification = json.loads(Path(preparation["qualified_input_path"]).read_bytes())
     recipes = read_recipes(root / "packet-recipes.json")

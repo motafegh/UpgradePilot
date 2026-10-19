@@ -1,0 +1,37 @@
+{
+  "format": "investigator-capacity-successor-retention-summary/1",
+  "index_path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-runtime-r4-disposition-r1/completed-retention-index.json",
+  "index_sha256": "9baed476fc25daf6bf87650d569bc156669226c98b4714a8957d5c47452d2336",
+  "files_excluding_index": 82,
+  "bytes_excluding_index": 1557994,
+  "roots": [
+    "supplied-evidence-2026-10-19-preparation-r7",
+    "supplied-evidence-2026-10-19-runtime-r4",
+    "supplied-evidence-2026-10-19-runtime-r4-disposition-r1"
+  ],
+  "directory_modes": "0700",
+  "file_modes": "0600",
+  "exact_membership_hash_size_mode_check": "passed",
+  "prior_retention_checks": [
+    {
+      "index_sha256": "ed0fbdb4e7af9e2b904a9b708355204894f8d7865423d8363669a263d91eff41",
+      "files": 200,
+      "membership_hash_size_mode_check": "passed unchanged"
+    },
+    {
+      "index_sha256": "d86f57d6d323050c1dd73ea065e2e963c254f79261aaf0dac346e78df33fe9cc",
+      "files": 39,
+      "membership_hash_size_mode_check": "passed unchanged"
+    },
+    {
+      "index_sha256": "1d91dec581896b4a57e058e1134620c2e75c85a9724806a190fd1b26242f03c6",
+      "files": 79,
+      "membership_hash_size_mode_check": "passed unchanged"
+    }
+  ],
+  "current_preparation_and_freeze_admission": "passed",
+  "limitations": [
+    "Local owner-only retention; not off-machine backup or a full model/runtime archive.",
+    "Original profile and earlier failed outcomes remain immutable; a new fit does not alter them."
+  ]
+}

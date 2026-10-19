@@ -6,6 +6,7 @@ No production alternate deployment or unqualified inference path is introduced.
 """
 
 import json
+from copy import deepcopy
 import tempfile
 import unittest
 from contextlib import ExitStack
@@ -92,6 +93,8 @@ class RunnerTests(unittest.TestCase):
             loaded.clear()
         model = SimpleNamespace(identifier="owned-test-instance", unload=unload)
         def load(client, profile):
+            self.assertEqual(profile["requested_load"]["contextLength"], runner.CONTEXT)
+            self.assertEqual(profile["identifier"], runner.CAPACITY_IDENTIFIER)
             loaded.append(model)
             return model
         class Client:
@@ -105,7 +108,24 @@ class RunnerTests(unittest.TestCase):
         sdk = SimpleNamespace(Client=lambda address: Client(),
             get_sync_api_timeout=lambda: timeout[0],
             set_sync_api_timeout=lambda value: timeout.__setitem__(0, value))
-        profile = {"prediction_configuration": config(), "tokenizer_policy": {}}
+        parent_load = {"fields": [{"key": "llm.load.contextLength", "value": 32768},
+            {"key": "synthetic.otherLoad", "value": "must not change"}]}
+        backend = {"executable": "synthetic-backend", "cpu_kv": True,
+            "backend_template_sha256": "synthetic-template", "kv_unified_flag": False,
+            "no_kv_unified_flag": True,
+            "flags": {"ctx-size": "32768", "n-gpu-layers": "synthetic-placement"}}
+        profile = {"prediction_configuration": config(), "prediction_base_sha256": "synthetic-base",
+            "tokenizer_policy": {}, "requested_load": {"contextLength": 32768, "gpu": {"ratio": .45}},
+            "model_key": "synthetic-model", "identifier": "synthetic-parent", "context": 32768,
+            "initial_identity": {"model": {"instanceReference": "parent-instance",
+                "identifier": "synthetic-parent", "contextLength": 32768, "modelKey": "synthetic-model"},
+                "load": parent_load}, "backend_observation": backend}
+        binding.current = deepcopy(profile["initial_identity"])
+        binding.current["model"].update(instanceReference="test-capacity-instance",
+            identifier=runner.CAPACITY_IDENTIFIER, contextLength=runner.CONTEXT)
+        binding.current["load"]["fields"][0]["value"] = runner.CONTEXT
+        actual_backend = deepcopy(backend)
+        actual_backend["flags"]["ctx-size"] = str(runner.CONTEXT)
         def new_trial(role, *args):
             limit = SuppliedEvidenceLimits(reads=2, references=2, operations=18, seconds=300) if role.startswith("probe-") else None
             trial = SuppliedEvidenceTrial(fixture(), [request("read_source", source_id="target", path="requirements.txt", line_count=1)],
@@ -120,6 +140,7 @@ class RunnerTests(unittest.TestCase):
         stack.enter_context(patch.object(runner, "private_root", side_effect=lambda output: output.mkdir()))
         stack.enter_context(patch.object(runner, "load_owned", side_effect=load))
         stack.enter_context(patch.object(runner, "validate_owned", return_value=binding.identity()))
+        stack.enter_context(patch.object(runner, "observe_owned_backend", return_value=actual_backend))
         stack.enter_context(patch.object(runner, "SDKBinding", return_value=binding))
         stack.enter_context(patch.object(runner, "new_trial", side_effect=new_trial))
         return stack, sdk, preparation, reviewer
@@ -129,6 +150,37 @@ class RunnerTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "activation required"):
             runner.execute(sdk, Path("absent"), "a" * 64, "b" * 64, Path("unused"))
         sdk.Client.assert_not_called()
+
+    def test_capacity_delta_requires_actual_context_and_preserves_all_other_owners(self):
+        with tempfile.TemporaryDirectory() as directory:
+            binding = CohortBinding()
+            stack, _, _, _ = self.environment(Path(directory), binding)
+            with stack:
+                parent = runner.reference_profile()
+                saved = deepcopy(parent)
+                backend = runner.observe_owned_backend(Path(directory))
+                actual = runner.observed_capacity_profile(parent, binding.identity(), backend)
+                self.assertEqual(parent, saved)
+                self.assertEqual(actual["context"], 36864)
+                self.assertEqual(actual["initial_identity"], binding.identity())
+                self.assertEqual(actual["backend_observation"], backend)
+                self.assertEqual(actual["requested_load"], {**parent["requested_load"], "contextLength": 36864})
+                self.assertEqual(actual["prediction_configuration"], parent["prediction_configuration"])
+                self.assertEqual(sum(runner.INPUT_CAPS.values()), 77192)
+                self.assertEqual([runner.model_limits(role).input_total for role in runner.ROLES],
+                    [4096, 4096, 24000, 9000, 27000, 9000])
+                for defect in ("old-context", "other-load", "placement", "template"):
+                    identity, observation = binding.identity(), deepcopy(backend)
+                    if defect == "old-context":
+                        identity["model"]["contextLength"] = 32768
+                    elif defect == "other-load":
+                        identity["load"]["fields"][1]["value"] = "undeclared"
+                    elif defect == "placement":
+                        observation["flags"]["n-gpu-layers"] = "changed"
+                    else:
+                        observation["backend_template_sha256"] = "changed"
+                    with self.subTest(defect=defect), self.assertRaises(ValueError):
+                        runner.observed_capacity_profile(parent, identity, observation)
 
     def test_preflight_has_no_predictions_and_fit_source_drift_withholds_execution(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -145,6 +197,10 @@ class RunnerTests(unittest.TestCase):
                 path = output / "freeze.json"
                 checksum = digest(path.read_bytes())
                 runner.verify_freeze(path, checksum)
+                observed_path = output / "capacity-profile.json"
+                observed = json.loads(observed_path.read_bytes())
+                self.assertEqual(observed["initial_identity"], binding.identity())
+                self.assertEqual(observed["context"], 36864)
                 stale = json.loads(path.read_bytes())
                 stale["fit"]["packet-a"]["request_presentation"] = "complete-supplied-evidence-report-only/1"
                 stale_path = output / "stale-presentation-freeze.json"
@@ -154,6 +210,29 @@ class RunnerTests(unittest.TestCase):
                 (output / "packet-a/fit-rendered.txt").write_text("changed")
                 with self.assertRaisesRegex(ValueError, "fit artifact drift"):
                     runner.verify_freeze(path, checksum)
+
+    def test_capacity_profile_or_role_contract_drift_withholds_with_recomputed_hash(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root, binding = Path(directory), CohortBinding()
+            stack, sdk, preparation, reviewer = self.environment(root, binding)
+            with stack:
+                output = root / "runtime"
+                runner.prepare_runtime(sdk, preparation, reviewer, output)
+                path = output / "freeze.json"
+                original = json.loads(path.read_bytes())
+                changed = deepcopy(original)
+                changed["capacity_contract"]["input_caps"]["packet-a"] += 1
+                path.write_bytes(json_bytes(changed))
+                with self.assertRaisesRegex(ValueError, "drifted"):
+                    runner.verify_freeze(path, digest(path.read_bytes()))
+                profile_path = output / "capacity-profile.json"
+                profile = json.loads(profile_path.read_bytes())
+                profile["prediction_configuration"]["layers"][0]["config"]["fields"][0]["value"] = "undeclared"
+                profile_path.write_bytes(json_bytes(profile))
+                original["capacity_profile_sha256"] = digest(profile_path.read_bytes())
+                path.write_bytes(json_bytes(original))
+                with self.assertRaisesRegex(ValueError, "declared inheritance"):
+                    runner.verify_freeze(path, digest(path.read_bytes()))
 
     def test_preflight_cap_failure_publishes_no_freeze_and_cleans_owned_runtime(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -194,7 +273,7 @@ class RunnerTests(unittest.TestCase):
     def test_complete_overcontext_input_is_measured_without_omitting_required_events(self):
         with tempfile.TemporaryDirectory() as directory:
             root, binding = Path(directory), CohortBinding()
-            binding.tokenize = lambda text: [1] * (25000 if "packet-a" in text else 10)
+            binding.tokenize = lambda text: [1] * (30000 if "packet-a" in text else 10)
             stack, sdk, preparation, reviewer = self.environment(root, binding)
             with stack:
                 output = root / "runtime"
@@ -203,7 +282,7 @@ class RunnerTests(unittest.TestCase):
                 evidence = json.loads((output / "runtime-preflight.json").read_bytes())
             self.assertEqual(binding.calls, 0)
             self.assertEqual(len(evidence["fit"]), 6)
-            self.assertEqual(evidence["fit"]["packet-a"]["rendered_tokens"], 25000)
+            self.assertEqual(evidence["fit"]["packet-a"]["rendered_tokens"], 30000)
             self.assertFalse(evidence["fit"]["packet-a"]["context_reserve_met"])
             self.assertEqual(evidence["fit"]["packet-a"]["omitted_events"], [])
             self.assertTrue(evidence["fit"]["packet-a"]["reference_pairs"])

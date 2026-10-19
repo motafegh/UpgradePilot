@@ -1,0 +1,141 @@
+{
+  "format": "investigator-capacity-successor-result/1",
+  "runtime_root": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-runtime-r4",
+  "freeze_sha256": "a94101982226436f6ef993c80af041e2b425994aaa13afcbddd95714f65f8b42",
+  "observed_capacity_profile_sha256": "7c43296f207f324725ee094a232206f57f2eb972df52224f8640f883742b5efd",
+  "measurement_intent_sha256": "3cfcc72f06d559740a528e24d76e5335f68e295f4a531cb1af7580a4b489add5",
+  "source_sha256": {
+    "experiments/investigator_run_control.py": "925814a7db46ba8cbe11ed943529e81d21b93b4d666bf583267266ab461dfaec",
+    "experiments/investigator_model_interface.py": "6876644051366faf1d14879dfda5ba2ac1f285940fde9a22ccc6262014d2110b",
+    "experiments/investigator_supplied_evidence.py": "0474310f2de14682704a674d96466f6bd892bb1ae9ad4e65f923488b629d6ac9",
+    "experiments/investigator_workspace_trial.py": "bb00b9adc0f945d07e63306f2c0641bd53d86f4e78a976dd81e7b4b88e00ae54",
+    "experiments/investigator_workspace_adapter.py": "da356ae9cef38f6ca4051559485ebc62289e636b9920b3d3c2f401b93b3f6a72",
+    "experiments/prepare_investigator_supplied_evidence.py": "f88d3a5d56dd873130dbfaf9bbfc3aea6214a1776ddedba8eee981409d67a9b7",
+    "experiments/run_investigator_semantic_comparison.py": "c963d00dce739feff52edf74bdd3e079853cfe5dbdfa9f92215bc081d177b3cb",
+    "experiments/qualify_investigator_workspace.py": "9da66d763a8a5b9b5328a7da90614c1cad40fba403f988984d55eaa37fa25b10",
+    "experiments/qualify_investigator_model_interface.py": "33b30a7c54d0039ac3c6086cf834924b13527584c467d5715383f3f8dea1ad84",
+    "experiments/run_investigator_supplied_evidence.py": "d521ddcc92bafb3a4a7601331dcd25073abd5282731ebbea1e9ca19d09b42367"
+  },
+  "context": 36864,
+  "input_caps": {
+    "probe-cancel": 4096,
+    "probe-report": 4096,
+    "packet-a": 24000,
+    "packet-b": 9000,
+    "packet-c": 27000,
+    "packet-d": 9000
+  },
+  "ceilings": {
+    "attempts": 6,
+    "input_tokens": 77192,
+    "generated_tokens": 49152,
+    "prediction_seconds": 4200,
+    "finalization_seconds": 360,
+    "batch_seconds": 4800,
+    "preparation_seconds": 1200,
+    "admission_units": 340
+  },
+  "actual_sdk_and_backend_context": 36864,
+  "changed_load_fields": [
+    "llm.load.contextLength"
+  ],
+  "model_identity_changes": [
+    "contextLength",
+    "identifier",
+    "instanceReference"
+  ],
+  "inherited_sampler_template_tokenizer_cache_offload_checks": "passed",
+  "rows": [
+    {
+      "role": "probe-cancel",
+      "rendered_tokens": 3273,
+      "input_cap": 4096,
+      "cap_headroom": 823,
+      "context_input_ceiling": 28416,
+      "context_headroom": 25143,
+      "references": 2,
+      "request_presentation": "complete-supplied-evidence-report-only/2",
+      "omitted_events": [],
+      "event_roundtrip_and_artifact_hashes": "passed"
+    },
+    {
+      "role": "probe-report",
+      "rendered_tokens": 3266,
+      "input_cap": 4096,
+      "cap_headroom": 830,
+      "context_input_ceiling": 28416,
+      "context_headroom": 25150,
+      "references": 2,
+      "request_presentation": "complete-supplied-evidence-report-only/2",
+      "omitted_events": [],
+      "event_roundtrip_and_artifact_hashes": "passed"
+    },
+    {
+      "role": "packet-a",
+      "rendered_tokens": 22359,
+      "input_cap": 24000,
+      "cap_headroom": 1641,
+      "context_input_ceiling": 28416,
+      "context_headroom": 6057,
+      "references": 16,
+      "request_presentation": "complete-supplied-evidence-report-only/2",
+      "omitted_events": [],
+      "event_roundtrip_and_artifact_hashes": "passed"
+    },
+    {
+      "role": "packet-b",
+      "rendered_tokens": 7893,
+      "input_cap": 9000,
+      "cap_headroom": 1107,
+      "context_input_ceiling": 28416,
+      "context_headroom": 20523,
+      "references": 3,
+      "request_presentation": "complete-supplied-evidence-report-only/2",
+      "omitted_events": [],
+      "event_roundtrip_and_artifact_hashes": "passed"
+    },
+    {
+      "role": "packet-c",
+      "rendered_tokens": 25447,
+      "input_cap": 27000,
+      "cap_headroom": 1553,
+      "context_input_ceiling": 28416,
+      "context_headroom": 2969,
+      "references": 13,
+      "request_presentation": "complete-supplied-evidence-report-only/2",
+      "omitted_events": [],
+      "event_roundtrip_and_artifact_hashes": "passed"
+    },
+    {
+      "role": "packet-d",
+      "rendered_tokens": 7899,
+      "input_cap": 9000,
+      "cap_headroom": 1101,
+      "context_input_ceiling": 28416,
+      "context_headroom": 20517,
+      "references": 3,
+      "request_presentation": "complete-supplied-evidence-report-only/2",
+      "omitted_events": [],
+      "event_roundtrip_and_artifact_hashes": "passed"
+    }
+  ],
+  "measured_input_sum": 70137,
+  "aggregate_input_headroom": 7055,
+  "typed_deliveries_roundtripped": 33,
+  "preparation_elapsed_seconds": 17.081902122998144,
+  "prediction_attempts": 0,
+  "executable_freeze_created": true,
+  "activation": "not_granted; requires explicit matching freeze hash",
+  "owned_unload_confirmed": true,
+  "client_release_confirmed": true,
+  "tests": {
+    "focused_control_model_report_runner_seam": 162,
+    "nearest_workspace": 65
+  },
+  "limitations": [
+    "Identity and full-fit proof only; actual prediction cancellation/usage probes remain unqualified.",
+    "No semantic output, usefulness/generalization or production acceptance.",
+    "Asset checks inherit the retained hash plus current size/mtime, not a fresh full-weight hash.",
+    "Fresh execution must recheck source/settings/assets and actual request fit; no pooling or retries."
+  ]
+}
