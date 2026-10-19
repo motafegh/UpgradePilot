@@ -140,9 +140,17 @@ class RunnerTests(unittest.TestCase):
                 self.assertEqual(binding.calls, 0)
                 self.assertEqual(freeze["prediction_attempts"], 0)
                 self.assertEqual(len(freeze["fit"]), 6)
+                self.assertTrue(all(fit["request_presentation"] == runner.SUPPLIED_REQUEST_PRESENTATION
+                    for fit in freeze["fit"].values()))
                 path = output / "freeze.json"
                 checksum = digest(path.read_bytes())
                 runner.verify_freeze(path, checksum)
+                stale = json.loads(path.read_bytes())
+                stale["fit"]["packet-a"]["request_presentation"] = "complete-supplied-evidence-report-only/1"
+                stale_path = output / "stale-presentation-freeze.json"
+                stale_path.write_bytes(json_bytes(stale))
+                with self.assertRaisesRegex(ValueError, "presentation identity drift"):
+                    runner.verify_freeze(stale_path, digest(stale_path.read_bytes()))
                 (output / "packet-a/fit-rendered.txt").write_text("changed")
                 with self.assertRaisesRegex(ValueError, "fit artifact drift"):
                     runner.verify_freeze(path, checksum)

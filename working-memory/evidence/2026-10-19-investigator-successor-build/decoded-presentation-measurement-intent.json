@@ -1,0 +1,47 @@
+{
+  "format": "investigator-decoded-presentation-measurement-intent/1",
+  "base_commit": "154fe703",
+  "candidate_set": [
+    "complete-supplied-evidence-report-only/2"
+  ],
+  "roles": [
+    "probe-cancel",
+    "probe-report",
+    "packet-a",
+    "packet-b",
+    "packet-c",
+    "packet-d"
+  ],
+  "baseline": "retained runtime-r2 measurements; no baseline reload",
+  "preparation_root": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-preparation-r6",
+  "preparation_sha256": "016444b58a430fdd8873beccf0078e3487093266da2de245a4bcd577462c6840",
+  "reviewer_sha256": "37579067521c5129826c7ea9f6879da2cad830236718a7be57eec02aad6529e9",
+  "reference_profile_sha256": "793bed85004fe1567c0d567155051e5887a893749e9c6d45c277e40065ff9531",
+  "runtime_output": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-runtime-r3",
+  "code_sha256": {
+    "experiments/investigator_run_control.py": "925814a7db46ba8cbe11ed943529e81d21b93b4d666bf583267266ab461dfaec",
+    "experiments/investigator_model_interface.py": "6876644051366faf1d14879dfda5ba2ac1f285940fde9a22ccc6262014d2110b",
+    "experiments/investigator_supplied_evidence.py": "0474310f2de14682704a674d96466f6bd892bb1ae9ad4e65f923488b629d6ac9",
+    "experiments/investigator_workspace_trial.py": "bb00b9adc0f945d07e63306f2c0641bd53d86f4e78a976dd81e7b4b88e00ae54",
+    "experiments/investigator_workspace_adapter.py": "da356ae9cef38f6ca4051559485ebc62289e636b9920b3d3c2f401b93b3f6a72",
+    "experiments/prepare_investigator_supplied_evidence.py": "f88d3a5d56dd873130dbfaf9bbfc3aea6214a1776ddedba8eee981409d67a9b7",
+    "experiments/run_investigator_semantic_comparison.py": "c963d00dce739feff52edf74bdd3e079853cfe5dbdfa9f92215bc081d177b3cb",
+    "experiments/qualify_investigator_workspace.py": "9da66d763a8a5b9b5328a7da90614c1cad40fba403f988984d55eaa37fa25b10",
+    "experiments/qualify_investigator_model_interface.py": "33b30a7c54d0039ac3c6086cf834924b13527584c467d5715383f3f8dea1ad84",
+    "experiments/run_investigator_supplied_evidence.py": "49145735378265038ed8b793e61bc3fcec365d58d714c92370bb1f2c3a2edd75"
+  },
+  "ceilings": {
+    "attempts": 6,
+    "input_tokens": 72192,
+    "generated_tokens": 49152,
+    "prediction_seconds": 4200,
+    "finalization_seconds": 360,
+    "batch_seconds": 4800,
+    "preparation_seconds": 1200,
+    "admission_units": 340
+  },
+  "loads_allowed": 1,
+  "prediction_attempts_allowed": 0,
+  "new_variants_after_load": false,
+  "automatic_cap_increase": false
+}

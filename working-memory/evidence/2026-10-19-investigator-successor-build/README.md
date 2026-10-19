@@ -3,15 +3,21 @@
 Owner: [Build cycle](../../2026-10-19_investigator-successor-build_lbd-cycle.md).
 Scope: implementation proof and bounded zero-generation fit evidence under the [successor plan](../../../plans/INVESTIGATOR_RUN_CONTROL_COMPLETION_AND_CAPABILITY_DIAGNOSTIC_PLAN.md).
 
+## Implemented lossless presentation and its measured limit
+
+[Decoded-presentation disposition](decoded-presentation-disposition.md) records the implemented `/2` baseline, 160 focused and 65 nearest Workspace passing tests, all 33 delivery byte-exact inverse checks and fresh r6 source-bound preparation with unchanged evidence selections. [Predeclared measurement intent](decoded-presentation-measurement-intent.json) and [runtime-r3 result](decoded-presentation-runtime-result.json) retain the one-candidate verification: inputs 3,256/3,275/22,297/7,893/25,496/7,864 tokens. HTTPX still fails 16,000; glyphsLib still exceeds the 24,320 physical input envelope by 1,176. No prediction, omission or freeze; cleanup confirmed.
+
+The baseline improves delivery size but is insufficient. A concrete 36,864-context / 77,192-aggregate capacity successor is documented **for review only**; the model, existing profile and admitted budgets have not changed. No repeat load or further compaction mechanism was selected. [Offline implementation proof](decoded-presentation-offline-proof.json) distinguishes identical-body byte savings from actual run-to-run token differences. [Retention](decoded-presentation-retention.json) preserves the new preparation/runtime/source horizon without altering older indexes. Earlier sections below retain their own historical scope; r6 is the preparation admitted by the `/2` source horizon.
+
 ## Corrected complete-input measurement
 
 [The complete-fit disposition](runtime-complete-fit-disposition.md) records the later explicitly directed, measurement-only runtime-r2 continuation. All six roles were measured: probes 3,314/3,294; HTTPX 23,449; newer consumer 8,250; glyphsLib 26,603; older consumer 8,259 input tokens. HTTPX fails the 16,000 cap; glyphsLib also exceeds the 24,320 context input envelope. No omissions, predictions or executable freeze; owned unload/client release confirmed. [Exact safe analysis](runtime-complete-fit-analysis.json), [offline reproduction script](analyze-complete-fit.py) and [new retention summary](runtime-complete-fit-retention.json) preserve source/hash/gate/round-trip evidence. Original runtime-r1 and prior completed indexes are unchanged.
 
-The bounded plan now specifies a common lossless presentation correction before another allowance expansion. All 33 typed deliveries round-trip byte-exactly in an offline decode candidate; it saves 3,974/5,160 bytes in the two PR presentations, with token savings unmeasured. Runtime presentation, input caps, operating point and aggregate ceiling are unchanged. The next implementation/measurement sequence is concrete; no further load or inference is activated by this evidence.
+At the runtime-r2 publication horizon, the plan specified the common lossless presentation correction before another allowance expansion. All 33 typed deliveries round-tripped byte-exactly in the offline candidate, with 3,974/5,160 byte savings in the PR presentations and token savings then unmeasured. Runtime presentation had not yet changed. The later implementation/measurement is recorded above; the original candidate evidence remains unchanged.
 
 ## Initial implementation and first failed preparation
 
-[Initial control proof](control-proof.json) records the first202 passing checks at `07e0a28b`. [Final Build proof](build-proof.json) records158 focused/control/report-only/runner/seam tests and 65 nearest Workspace controls (223 distinct tests across this Build), current source hashes and limitations. The optional preserved SDK was selected for actual queue/cancel/timeout-restoration tests without a model server. Product source is unchanged; no dependency was installed.
+[Initial control proof](control-proof.json) records the first202 passing checks at `07e0a28b`. [Initial completed Build proof](build-proof.json) records158 focused/control/report-only/runner/seam tests and 65 nearest Workspace controls (223 distinct tests at that horizon), then-current source hashes and limitations. The optional preserved SDK was selected for actual queue/cancel/timeout-restoration tests without a model server. Product source is unchanged; no dependency was installed.
 
 **Readiness remains WITHHELD.** One real zero-generation runtime preflight loaded the intended Gemma12 point and stopped at the complete HTTPX packet exceeding16,000 input tokens. No prediction was attempted, no executable freeze was written, and owned unload/client release were confirmed. Exact rejected count/rendering was not retained by that initial preflight; only16,000 < tokens ≤24,320 is established from its passed context-reserve check and failed input-cap check. The remaining three semantic roles were unmeasured. [Runtime disposition](runtime-fit-disposition.json) preserves this limited negative evidence and its original source hashes. It is neither a semantic failure nor completed interface qualification.
 
@@ -19,7 +25,7 @@ At the initial publication horizon, the corrected preflight retained intent/curr
 
 ## Packet and retention evidence
 
-[Offline packet feasibility](offline-packet-feasibility.json) binds current-source preparation r5 and all four maximum-reference scripted publications/terminations:
+[Initial offline packet feasibility](offline-packet-feasibility.json) binds preparation r5 at its source horizon and all four maximum-reference scripted publications/terminations:
 
 | Packet | Trusted reads | Eligible references | Admission units through termination |
 | --- | ---: | ---: | ---: |
@@ -32,7 +38,7 @@ The original12-read/12-reference/68-unit draft could not preserve the complete H
 
 [Static byte accounting](offline-byte-profile.json) records model-facing user-presentation bytes and source/native/schema components. It excludes actual tokenizer/chat-template/model-budget measurement and uses r5 host IDs. It is not a token estimate, an ablation result or permission to remove material. It helps localize the next packet/allowance investigation without another runtime call.
 
-[Retention summary](private-retention-summary.json) binds200 owner-only files /3,146,996 bytes across the five immutable offline preparation snapshots, separate20-obligation reviewer protocol, failed runtime and its exact pre-repair source/disposition archive, excluding the aggregate index itself. Directories are0700 and files0600. These are local retention checks, not off-machine backup or a full model/runtime archive. Only r5 passes current preparation-source admission; older snapshots intentionally retain their old source horizon. Original prior experiment roots are untouched.
+[Initial retention summary](private-retention-summary.json) binds200 owner-only files /3,146,996 bytes across the five immutable offline preparation snapshots, separate20-obligation reviewer protocol, failed runtime and its exact pre-repair source/disposition archive, excluding the aggregate index itself. Directories are0700 and files0600. These are local retention checks, not off-machine backup or a full model/runtime archive. Only r5 passed preparation-source admission at that publication horizon; all snapshots intentionally retain their original code identity. Original prior experiment roots are untouched.
 
 ## Implementation route and operation boundaries
 

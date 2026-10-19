@@ -1,0 +1,84 @@
+{
+  "format": "investigator-decoded-presentation-offline-proof/1",
+  "base_commit": "154fe703",
+  "legacy_presentation_source_sha256": "5d5df0152525cda53bc02c369c6e63b90fef0dcbd77027c9e8bb9372ef2ad8cd",
+  "new_model_boundary_sha256": "6876644051366faf1d14879dfda5ba2ac1f285940fde9a22ccc6262014d2110b",
+  "new_runner_sha256": "49145735378265038ed8b793e61bc3fcec365d58d714c92370bb1f2c3a2edd75",
+  "request_presentation": "complete-supplied-evidence-report-only/2",
+  "autonomous_request_presentation": "complete-fixed-first-request-observation-pairs-with-budget/4",
+  "typed_deliveries_roundtripped": 33,
+  "rows": [
+    {
+      "role": "probe-cancel",
+      "typed_deliveries_roundtripped": 2,
+      "canonical_packet_unchanged": true,
+      "exact_citation_pairs_visible": true,
+      "legacy_user_bytes": 8831,
+      "decoded_user_bytes": 8655,
+      "saved_bytes": 176,
+      "autonomous_branch_equal_to_legacy_for_same_body": true
+    },
+    {
+      "role": "probe-report",
+      "typed_deliveries_roundtripped": 2,
+      "canonical_packet_unchanged": true,
+      "exact_citation_pairs_visible": true,
+      "legacy_user_bytes": 8833,
+      "decoded_user_bytes": 8657,
+      "saved_bytes": 176,
+      "autonomous_branch_equal_to_legacy_for_same_body": true
+    },
+    {
+      "role": "packet-a",
+      "typed_deliveries_roundtripped": 13,
+      "canonical_packet_unchanged": true,
+      "exact_citation_pairs_visible": true,
+      "legacy_user_bytes": 64312,
+      "decoded_user_bytes": 60338,
+      "saved_bytes": 3974,
+      "autonomous_branch_equal_to_legacy_for_same_body": true
+    },
+    {
+      "role": "packet-b",
+      "typed_deliveries_roundtripped": 3,
+      "canonical_packet_unchanged": true,
+      "exact_citation_pairs_visible": true,
+      "legacy_user_bytes": 25248,
+      "decoded_user_bytes": 24112,
+      "saved_bytes": 1136,
+      "autonomous_branch_equal_to_legacy_for_same_body": true
+    },
+    {
+      "role": "packet-c",
+      "typed_deliveries_roundtripped": 10,
+      "canonical_packet_unchanged": true,
+      "exact_citation_pairs_visible": true,
+      "legacy_user_bytes": 77649,
+      "decoded_user_bytes": 72489,
+      "saved_bytes": 5160,
+      "autonomous_branch_equal_to_legacy_for_same_body": true
+    },
+    {
+      "role": "packet-d",
+      "typed_deliveries_roundtripped": 3,
+      "canonical_packet_unchanged": true,
+      "exact_citation_pairs_visible": true,
+      "legacy_user_bytes": 25252,
+      "decoded_user_bytes": 24116,
+      "saved_bytes": 1136,
+      "autonomous_branch_equal_to_legacy_for_same_body": true
+    }
+  ],
+  "preparation_root": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-preparation-r6",
+  "preparation_sha256": "016444b58a430fdd8873beccf0078e3487093266da2de245a4bcd577462c6840",
+  "test_results": {
+    "focused_control_model_report_runner_seam": 160,
+    "nearest_workspace": 65
+  },
+  "limits": [
+    "Offline byte comparison uses the identical runtime-r2 canonical bodies; candidate token cost remains unmeasured.",
+    "Legacy functions were selected by AST from hash-verified own-repository source.",
+    "Autonomous equality compares the two rendering branches for the same producer-free bodies; it is not a new autonomous run.",
+    "No prediction, feedback, source selection change or resource increase."
+  ]
+}

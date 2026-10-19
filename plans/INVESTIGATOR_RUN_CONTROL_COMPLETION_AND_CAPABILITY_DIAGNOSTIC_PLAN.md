@@ -251,6 +251,8 @@ For a selected presentation-correction increment, preserve the product prerequis
 
 This temporary increment improves delivery feasibility, not discovery or maintainer usefulness. It excludes metadata interning/deduplication machinery, upstream product codecs, navigation, model changes and semantic experimentation. Re-enter those responsibilities only with a concrete remaining-cost or product-evidence reason. The resource table above and current runtime admission remain unchanged until an explicit versioned decision changes them; this subsection is a bounded design/proof contract and does not itself activate another load or inference batch.
 
+For a later explicitly selected capacity successor, treat a larger context as a **new operating point** even when model/assets and sampler remain the same. Preserve the old profile, prepare a real new profile/load/backend/render identity, declare per-role and aggregate ceilings before output, and retain source-bound fit plus applicable probe/activation requirements. The [October 19 decoded-presentation disposition](../working-memory/evidence/2026-10-19-investigator-successor-build/decoded-presentation-disposition.md) compares a concrete 36,864-context / 77,192-aggregate proposal with further representation work and reduced output capacity. Those numbers are a review candidate only; the admitted resource table, source limits and selected operating point are unchanged by the proposal.
+
 ## 7. Semantic review, acceptance and branch consequences
 
 ### Freeze review obligations before output

@@ -22,7 +22,7 @@ from pathlib import Path
 from experiments.investigator_model_interface import (
     ModelLimits, SDKBinding, StatelessInvestigatorModel, digest, fields,
     finalize_owned_runtime, import_isolated_sdk, private_write,
-    measure_input,
+    measure_input, request_presentation, SUPPLIED_REQUEST_PRESENTATION,
 )
 from experiments.investigator_run_control import MonotonicDeadline, problem_text
 from experiments.investigator_supplied_evidence import SuppliedEvidenceLimits, SuppliedEvidenceTrial
@@ -238,6 +238,7 @@ def prepare_runtime(sdk, preparation_root, reviewer_path, output):
                     private_write(consumer.directory / "fit-packed-input.json", packed.content)
                     private_write(consumer.directory / "fit-rendered.txt", measured.rendered.encode())
                     freeze["fit"][role] = {
+                        "request_presentation": request_presentation(json.loads(packed.content)),
                         "rendered_tokens": measured.tokens,
                         "rendered_sha256": digest(measured.rendered.encode()),
                         "packed_sha256": digest(packed.content),
@@ -288,6 +289,8 @@ def verify_freeze(path, expected_hash):
     ):
         raise ValueError("unsupported/drifted/incomplete diagnostic freeze")
     for role, fit in freeze["fit"].items():
+        if fit.get("request_presentation") != SUPPLIED_REQUEST_PRESENTATION:
+            raise ValueError("supplied presentation identity drift; fresh fit required")
         if not 0 < fit["rendered_tokens"] <= model_limits(role).input_total or fit["omitted_events"]:
             raise ValueError("complete actual request fit not established")
         if not fit["input_cap_met"] or not fit["context_reserve_met"]:
