@@ -1,0 +1,237 @@
+{
+  "format": "investigator-capability-diagnostic-review-adjudication/1",
+  "date": "2026-10-19",
+  "authorization": "Ali explicitly requests applying the four qualifications and then writing the bounded comparison decision",
+  "initial_review": {
+    "path": "review.json",
+    "sha256": "0cf8321fe00c32da230d26a91d252d620d586d9ff1941edfbd10043f05308658",
+    "commit": "5d412679",
+    "preservation": "byte-identical initial labels and reasons; read together with this explicit overlay"
+  },
+  "initial_summary": {
+    "path": "README.md",
+    "commit": "5d412679",
+    "sha256_before_correction": "3447b4d45d705d71c0e6765b30aaf6992fa759a1f54432526e2b6e5ded5a91da"
+  },
+  "unchanged_records": {
+    "review.json": "0cf8321fe00c32da230d26a91d252d620d586d9ff1941edfbd10043f05308658",
+    "run-accounting.json": "42985995158f49c215021e579f6530ee48a09241197ad182ad4e91f55dda6ffa",
+    "retention-summary.json": "feb8d854a296e89a38d509bc0238f16ac71afe44deb03b9d3ec08060d72b334d"
+  },
+  "frozen_review_protocol": {
+    "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-review-r1/review-protocol.json",
+    "sha256": "37579067521c5129826c7ea9f6879da2cad830236718a7be57eec02aad6529e9",
+    "obligations": 20,
+    "changed": false
+  },
+  "executed_freeze_sha256": "c5e06b1b759b8cacaacf1c59bfaedf1556254f81ad709f615c64adf8c61c27b0",
+  "reviewer": "AI-assisted source-aware second pass; prior case/review exposure; not blinded or independent human review",
+  "qualifications": [
+    {
+      "id": "semantic-observation-scope",
+      "correction": "This is the first completed four-case supplied-evidence diagnostic, not the first complete semantic observation across the Investigator lineage. Earlier Gemma/Qwen complete report texts were already source-reviewed. All five calls in this cohort have known usage; no first-ever zero-unknown claim across older qualification cohorts."
+    },
+    {
+      "id": "older-newer-caller-contrast",
+      "correction": "Both source-pair packets contain old/new HTTPX signatures. Only the older captured Starlette caller forwards app=self.app; the newer caller does not. Neither forwards verify in its supplied super() call. The app removal applies to HTTPX-related cases, not the glyphsLib pytest case."
+    },
+    {
+      "id": "obligation-specific-labels",
+      "correction": "Separate generic correct identities, false call behavior and unsupported versus contradicted consequences. Five obligation labels are explicitly adjudicated below; all four case classifications remain inadequate. Counts describe frozen obligations, not factual accuracy, independent samples or severity weights."
+    },
+    {
+      "id": "discovery-inference-scope",
+      "correction": "Discovery is removed from this diagnostic and does not explain its material failures under delivered evidence. The result prioritizes interpretation-method/deployment diagnosis; it does not establish that navigation is solved, never useful, or incapable of improving a different future configuration."
+    }
+  ],
+  "obligation_overrides": [
+    {
+      "case": "packet-b",
+      "obligation": "caller-callee-identities",
+      "initial_verdict": "contradicted",
+      "adjudicated_verdict": "partially supported",
+      "reason": "The report identifies HTTPX versions and the Starlette TestClient class, but not the exact captured reference consumer identity/scope. Its false verify-forwarding claim is a call-relation error, not evidence that all named identities are false.",
+      "original_response": {
+        "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r4/packet-b/call-01.visible-response.txt",
+        "sha256": "81eea7855990fc7e76d61bf65ccbd4039cfb137a15129a9d0fadd920bfdf7f35"
+      },
+      "delivered_input": {
+        "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r4/packet-b/call-01.packed-input.json",
+        "sha256": "af266025ca42a3f42df9cc5f05f27a70cc778e82f385e666ffe67f81f449e687"
+      }
+    },
+    {
+      "case": "packet-b",
+      "obligation": "call-signature-relation",
+      "initial_verdict": "unsupported",
+      "adjudicated_verdict": "contradicted",
+      "reason": "The captured newer super() call at starlette-new L455-461 forwards base_url, headers, transport, follow_redirects and cookies; it does not forward verify. The report explicitly asserts verify forwarding and omits the material app-removal/non-forwarding relation.",
+      "original_response": {
+        "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r4/packet-b/call-01.visible-response.txt",
+        "sha256": "81eea7855990fc7e76d61bf65ccbd4039cfb137a15129a9d0fadd920bfdf7f35"
+      },
+      "delivered_input": {
+        "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r4/packet-b/call-01.packed-input.json",
+        "sha256": "af266025ca42a3f42df9cc5f05f27a70cc778e82f385e666ffe67f81f449e687"
+      }
+    },
+    {
+      "case": "packet-b",
+      "obligation": "scoped-consequence",
+      "initial_verdict": "contradicted (decision-critical)",
+      "adjudicated_verdict": "unsupported (decision-critical)",
+      "reason": "The report supports its functional-compatibility reassurance with an invented verify-forwarding premise and omits the required scoped conclusion about the absent app forwarding. This is unsupported/overbroad; absence of app in the newer call does not itself establish the opposite compatibility conclusion.",
+      "original_response": {
+        "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r4/packet-b/call-01.visible-response.txt",
+        "sha256": "81eea7855990fc7e76d61bf65ccbd4039cfb137a15129a9d0fadd920bfdf7f35"
+      },
+      "delivered_input": {
+        "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r4/packet-b/call-01.packed-input.json",
+        "sha256": "af266025ca42a3f42df9cc5f05f27a70cc778e82f385e666ffe67f81f449e687"
+      }
+    },
+    {
+      "case": "packet-d",
+      "obligation": "caller-callee-identities",
+      "initial_verdict": "contradicted",
+      "adjudicated_verdict": "partially supported",
+      "reason": "HTTPX versions and the Starlette TestClient class are identified generically. Exact captured consumer identity and reference/runtime scope are missing. Move the false forwarded-argument assertion to the call-relation obligation.",
+      "original_response": {
+        "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r4/packet-d/call-01.visible-response.txt",
+        "sha256": "436950952f9f5d95de4e7105497b17eb6e481db2495d7f0513fcb45e8584a412"
+      },
+      "delivered_input": {
+        "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r4/packet-d/call-01.packed-input.json",
+        "sha256": "208e603be8a21a726f166a00606b016e9b39642b723308e06094b35c46edb315"
+      }
+    },
+    {
+      "case": "packet-d",
+      "obligation": "call-signature-relation",
+      "initial_verdict": "unsupported",
+      "adjudicated_verdict": "contradicted",
+      "reason": "The captured older super() call at starlette-old L429-436 forwards app=self.app at L430 and does not forward verify. The report asserts verify forwarding and misses the old-caller/new-callee app mismatch.",
+      "original_response": {
+        "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r4/packet-d/call-01.visible-response.txt",
+        "sha256": "436950952f9f5d95de4e7105497b17eb6e481db2495d7f0513fcb45e8584a412"
+      },
+      "delivered_input": {
+        "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r4/packet-d/call-01.packed-input.json",
+        "sha256": "208e603be8a21a726f166a00606b016e9b39642b723308e06094b35c46edb315"
+      }
+    }
+  ],
+  "case_summaries": {
+    "packet-a": {
+      "initial_counts": {
+        "supported": 0,
+        "partially_supported": 3,
+        "unsupported_or_omitted": 3,
+        "contradicted": 0
+      },
+      "adjudicated_counts": {
+        "supported": 0,
+        "partially_supported": 3,
+        "unsupported_or_omitted": 3,
+        "contradicted": 0
+      },
+      "classification": "semantically inadequate",
+      "classification_changed": false,
+      "unchanged_obligations": [
+        "transition",
+        "target-consumer",
+        "callee-change",
+        "framework-path",
+        "ci-scope",
+        "runtime-and-next-work"
+      ]
+    },
+    "packet-b": {
+      "initial_counts": {
+        "supported": 0,
+        "partially_supported": 0,
+        "unsupported_or_omitted": 2,
+        "contradicted": 2
+      },
+      "adjudicated_counts": {
+        "supported": 0,
+        "partially_supported": 1,
+        "unsupported_or_omitted": 2,
+        "contradicted": 1
+      },
+      "classification": "semantically inadequate",
+      "classification_changed": false,
+      "unchanged_obligations": [
+        "remaining-limit"
+      ]
+    },
+    "packet-c": {
+      "initial_counts": {
+        "supported": 1,
+        "partially_supported": 2,
+        "unsupported_or_omitted": 2,
+        "contradicted": 1
+      },
+      "adjudicated_counts": {
+        "supported": 1,
+        "partially_supported": 2,
+        "unsupported_or_omitted": 2,
+        "contradicted": 1
+      },
+      "classification": "semantically inadequate",
+      "classification_changed": false,
+      "unchanged_obligations": [
+        "transition",
+        "main-ci-route",
+        "regression-route",
+        "ci-correlation",
+        "runtime-uncertainty",
+        "stopping-and-next-work"
+      ]
+    },
+    "packet-d": {
+      "initial_counts": {
+        "supported": 0,
+        "partially_supported": 0,
+        "unsupported_or_omitted": 2,
+        "contradicted": 2
+      },
+      "adjudicated_counts": {
+        "supported": 0,
+        "partially_supported": 1,
+        "unsupported_or_omitted": 1,
+        "contradicted": 2
+      },
+      "classification": "semantically inadequate",
+      "classification_changed": false,
+      "unchanged_obligations": [
+        "scoped-consequence",
+        "remaining-limit"
+      ]
+    }
+  },
+  "recommendation_contract_qualification": {
+    "observation": "Three recommendations have empty evidence lists; the glyphsLib recommendation has two references and still overstates support.",
+    "consequence": "A nonempty-list rule can improve structural attribution but cannot establish entailment, correct selection, runtime scope or recommendation adequacy. Strict publication was intentionally not semantic approval. No validator/schema repair is enacted by this adjudication."
+  },
+  "cohort_disposition": {
+    "adequate": 0,
+    "inadequate": 4,
+    "inconclusive": 0,
+    "control_failures": 0,
+    "changed": false,
+    "consequence": "Retain immutable negative baseline; plan one bounded interpretation-method comparison before funding autonomous-discovery optimization."
+  },
+  "verification": {
+    "freeze_source_sdk_input_reviewer_binding": "pass",
+    "retained_files": 61,
+    "retained_bytes": 1283758,
+    "membership_hash_size_owner_only_modes": "pass",
+    "no_new_inference": true
+  },
+  "limits": [
+    "Only the listed labels/reasons are adjudicated; original review is unchanged.",
+    "No new outputs, retries, semantic success, model ranking or product adoption.",
+    "Case-level outcomes remain unchanged; future candidate review uses the unchanged frozen obligations."
+  ]
+}

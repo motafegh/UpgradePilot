@@ -1,0 +1,160 @@
+{
+  "format": "investigator-evidence-first-comparison-baseline/1",
+  "date": "2026-10-19",
+  "scope": "immutable historical reference for a proposed development-method comparison; not a candidate runtime freeze or activation",
+  "baseline_source_horizon": "13643c99",
+  "original_public_record_commit": "5d412679",
+  "run_root": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r4",
+  "executed_freeze": {
+    "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r4/executed-freeze.json",
+    "sha256": "c5e06b1b759b8cacaacf1c59bfaedf1556254f81ad709f615c64adf8c61c27b0"
+  },
+  "runtime_freeze": {
+    "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-runtime-r8/freeze.json",
+    "sha256": "c5e06b1b759b8cacaacf1c59bfaedf1556254f81ad709f615c64adf8c61c27b0"
+  },
+  "capacity_profile": {
+    "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-runtime-r8/capacity-profile.json",
+    "sha256": "a2b4dc2ed3f4090f8bd618bdafad5cca2e396f66f39258edbad142ad2dfd8d73"
+  },
+  "preparation_manifest": {
+    "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-preparation-r12/preparation.json",
+    "sha256": "56034b0de5e2fe88ed7a79d55384947dffcc0775776abca863db2d4f7f2a8cf2"
+  },
+  "preparation_retention_index": {
+    "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-preparation-r12/retention-index.json",
+    "sha256": "39c3fa3f9baeb033308c31ee0eac3b5cf3fd1515ae2023522ce7d881395b782e"
+  },
+  "recipes": {
+    "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-preparation-r12/packet-recipes.json",
+    "sha256": "be75dbe2dd2d7680437c30e5aa152c6fafc7785804d4e8c0352b9404ee74b690"
+  },
+  "qualified_inputs": {
+    "path": "/home/motafeq/.local/share/upgradepilot/investigator-inputs/common-freeze-2026-10-16-2025/qualification.json",
+    "sha256": "46afdaa524a0f6681088ca78a1d83874ca8072c44fcc38d9e88a6f5efaf5d495"
+  },
+  "original_review": {
+    "path": "working-memory/evidence/2026-10-19-investigator-capability-diagnostic/review.json",
+    "sha256": "0cf8321fe00c32da230d26a91d252d620d586d9ff1941edfbd10043f05308658"
+  },
+  "review_adjudication": {
+    "path": "working-memory/evidence/2026-10-19-investigator-capability-diagnostic/review-adjudication.json",
+    "sha256": "3b70840950f35f9596628fa41328fba93a7e04d76c9f760f0343115a8ce02cb4"
+  },
+  "review_protocol": {
+    "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-review-r1/review-protocol.json",
+    "sha256": "37579067521c5129826c7ea9f6879da2cad830236718a7be57eec02aad6529e9"
+  },
+  "accounting": {
+    "path": "working-memory/evidence/2026-10-19-investigator-capability-diagnostic/run-accounting.json",
+    "sha256": "42985995158f49c215021e579f6530ee48a09241197ad182ad4e91f55dda6ffa"
+  },
+  "run_retention": {
+    "path": "working-memory/evidence/2026-10-19-investigator-capability-diagnostic/retention-summary.json",
+    "sha256": "feb8d854a296e89a38d509bc0238f16ac71afe44deb03b9d3ec08060d72b334d"
+  },
+  "case_order": [
+    "packet-a",
+    "packet-b",
+    "packet-c",
+    "packet-d"
+  ],
+  "cases": [
+    {
+      "label": "packet-a",
+      "case_id": "development-httpx-framework-ci",
+      "source_pair": false,
+      "selection_inventory_sha256": "ed234cad5192f0c75a4d2373b5afbf0500397cb5430d3a28a4ff7070ebec635b",
+      "setup_reads": 13,
+      "eligible_references": 16,
+      "feasibility_units": 76
+    },
+    {
+      "label": "packet-b",
+      "case_id": "development-httpx-framework-ci",
+      "source_pair": true,
+      "selection_inventory_sha256": "c908a2b13ec7c5bbfd9eff3d6b491dd79815c45b6a98e59f8c15a52470b20495",
+      "setup_reads": 3,
+      "eligible_references": 3,
+      "feasibility_units": 23
+    },
+    {
+      "label": "packet-c",
+      "case_id": "development-glyphslib-pytest-stopping",
+      "source_pair": false,
+      "selection_inventory_sha256": "1fc230c32ff09b2e8c3483c332f5e48e8dad615e71cfc23022498bbbeefe7f3c",
+      "setup_reads": 10,
+      "eligible_references": 13,
+      "feasibility_units": 61
+    },
+    {
+      "label": "packet-d",
+      "case_id": "development-httpx-framework-ci",
+      "source_pair": true,
+      "selection_inventory_sha256": "6ec70f6b59f9bee9674aa644bdb24e9a3dc79cf57b5a0b22c3c0557d9f3afe5d",
+      "setup_reads": 3,
+      "eligible_references": 3,
+      "feasibility_units": 23
+    }
+  ],
+  "reference_verdict": {
+    "adequate": 0,
+    "inadequate": 4,
+    "inconclusive": 0,
+    "control_failures": 0,
+    "interpretation": "case verdict unchanged by adjudication; obligation counts are not factual accuracy"
+  },
+  "known_baseline_usage": {
+    "finalization_seconds": 1.954223174994695,
+    "generated": 4373,
+    "input": 66920,
+    "known_usage_attempts": 5,
+    "operations": 180,
+    "prediction_seconds": 1028.4394366879933,
+    "unknown_usage_attempts": 0
+  },
+  "baseline_batch_seconds": 1034.6323671220016,
+  "earlier_successor_attempts": {
+    "attempts": 3,
+    "unknown_usage_attempts": 3,
+    "reserved_input": 12288,
+    "reserved_generated": 24576,
+    "additional_to_baseline": true
+  },
+  "isolated_control_prerequisite": {
+    "control_source_sha256": "c1ccbca729f819ba19b3482ad82aa039fe3059b17acf2ce8939e4ce0994c67ef",
+    "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-control-proof-r1/control-evidence.json",
+    "receive_adapter_sha256": "0814f4807cd37691ad49999b2509280284ae2625d0f8eb15bdc9e414500fee58",
+    "scope": "isolated terminal cancellation/receive-stop/owned cleanup; token usage unknown",
+    "sdk_source_sha256": {
+      "_ws_impl.py": "a9123686ddccbf07ff3d3fe292b490c38d32441ddd74b22e02e3ba3a2e4e6704",
+      "_ws_thread.py": "d1ceecd0d10ec8d53242ecfb52abdf829d261e63051a3c04b27e4ac809acfe1d",
+      "json_api.py": "32146d39cf215e5829102938252e219a2300253981520f7005ab765b8d4b1f80",
+      "sdk_api.py": "c21aed37e101ec53185ed9df6b0ef45f07aa1a7fd7ea61f782ac4361f44fd29d",
+      "sync_api.py": "888360663dc5655e90c614ff64a285299f97a8f3a9cfeee28cac08dd42dac685"
+    },
+    "sha256": "2ce415fc5873e1728389144ae258eb9d80b3ff0a89dbe94ea90d62dc05165095",
+    "unknown_usage_reservation": {
+      "generated": 8192,
+      "input": 4096
+    }
+  },
+  "inherited_request_caps": {
+    "probe-report": 4096,
+    "packet-a": 24000,
+    "packet-b": 9000,
+    "packet-c": 27000,
+    "packet-d": 9000
+  },
+  "candidate_not_yet_available": [
+    "implementation source identity",
+    "fresh preparation/output roots",
+    "actual profile and rendered fit",
+    "candidate source-bound freeze and matching activation"
+  ],
+  "limits": [
+    "Baseline cases and source relations are exposed development material.",
+    "No baseline rerun or original-label mutation.",
+    "Same-deployment one-shot historical comparison cannot isolate causality or estimate reliability."
+  ]
+}

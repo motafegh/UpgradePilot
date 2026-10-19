@@ -312,6 +312,8 @@ Cohort completeness and known semantic findings remain separate. A hard failure 
 
 Failure/inconclusive evidence is a valid delivered outcome. Closure requires its truthful disposition, actual cost/proof limits and the cycle's D/E learning/handoff; it does not require manufacturing a positive result. An unresolved proof gate remains unresolved, not renamed complete.
 
+A separately authorized interpretation-method comparison may use the [evidence-first comparison plan](INVESTIGATOR_EVIDENCE_FIRST_INTERPRETATION_COMPARISON_PLAN.md). That contract preserves the completed diagnostic as historical evidence; it does not resume its frozen batch or automatically activate another model call.
+
 ## 8. Conditional general adaptive affordability and discovery
 
 If a later decision selects autonomous discovery, first define the terminal product it must keep affordable and choose a mechanism prospectively. The **new experiment contract**, not the historical code/specification, must admit this invariant:

@@ -1,7 +1,7 @@
 # Investigator successor — controlled report-only diagnostic Build
 
 Date: October 19, 2026 (Asia/Tehran). Primary operation: Build / Implement.
-Session status: B/runtime verification resumed after Ali explicitly says the GPU is free. Restored22-layer/300-second-canary point selected; fresh source-bound preparation/fit/freeze precedes a single five-role diagnostic. Prior failures and CPU candidate remain immutable/unrun respectively. Starting revision: `2b1a8cde` on main.
+Session status: B/verification delivered with the completed negative four-case diagnostic; initial review preserved and later explicitly adjudicated. D/E and learner ownership remain pending. Separate [comparison planning cycle](2026-10-19_investigator-evidence-first-interpretation-planning_lbd-cycle.md) records the newly authorized planning responsibility. Starting revision: `2b1a8cde` on main.
 Previous: [successor planning cycle](2026-10-18_investigator-successor-planning_lbd-cycle.md).
 Owner: [successor plan](../plans/INVESTIGATOR_RUN_CONTROL_COMPLETION_AND_CAPABILITY_DIAGNOSTIC_PLAN.md).
 
@@ -16,10 +16,10 @@ Continuous-context adaptation: the normal A1/A2 dialogue stops would repeat the 
 - A0 — DONE: live owners/plan/recent main and relevant source/tests reconciled; this single cycle record created. No intervening tracked changes.
 - A1 — DONE at directed continuity depth: audit and successor plan remain the basis; original matrix is immutable and withheld.
 - A2 — DONE at directed Build depth: synchronous main-thread deadline/cancel ownership and fixed-packet/non-semantic proof boundaries explained; learner mastery remains unassessed.
-- B — CURRENT at resumed runtime verification: Ali explicitly released GPU hold; restored22-layer/300-second-canary point selected for one new five-role cohort after fresh source-bound identity/fit/freeze. Prior failures retained; CPU candidate remains unrun.
-- Verification gate — GREEN for239 focused/nearest Workspace tests, actual terminal-cancellation/receive-stop/owned-cleanup, metadata retention/settings/instance correspondence and r10/runtime-r7 full fit. FAILED for actual report-canary latency/usage qualification at5 layers. Three lineage calls retain unknown usage; no semantic verdict. Hardware/resource snapshots do not prove exact causal latency attribution.
+- B — DONE for the selected diagnostic: five complete accounted reports; four cases semantically inadequate under frozen obligations. Original review is preserved with explicit adjudication. CPU candidate remains unrun.
+- Verification gate — GREEN for239 focused/nearest checks at their recorded horizons and actual five-role identity/fit/accounting/publication/cleanup. The semantic result is a completed negative (0 adequate/4 inadequate), not a runtime proof debt or product pass. Three earlier unknown attempts/reservations remain separate.
 - D — PENDING for the newly exposed receive/control boundary; prior written capacity learning is preserved. Written diagnosis distinguishes orphaned receive, cancellation request, terminal receipt and later owned cleanup. Learner ownership remains unassessed.
-- E — PENDING: no closure or successful control handoff. Receive-ownership repair/proof is the bounded candidate; architecture and new inference require their own decision. No automatic original-cycle D/E.
+- E — PENDING: learner gap review or explicit deferral and cycle closure remain. The selected implementation/runtime verification is delivered with a negative semantic outcome; the separate comparison plan does not close this cycle or authorize new inference.
 - C — CONTINUOUS: preserve meaningful decisions, evolution, verification and handoff here.
 
 ## Living orientation map
@@ -249,9 +249,7 @@ Ali explicitly directed executing the armed r4. Ran the exact bound activation
 `13643c99` into fresh `supplied-evidence-2026-10-19-diagnostic-r4`. All five roles completed with
 complete known usage: **66,920 input / 4,373 generated tokens, 180 admission units, 1,028.44
 prediction seconds, 1,034.63 batch seconds, zero unknown-usage attempts**; owned model unload and
-client release confirmed. This is the first complete semantic observation in the lineage and the
-first cohort to close without an unknown-usage attempt. Control, affordability and fit work
-delivered: the loop is now measurable, complete and cheap (19 minutes, 67k input tokens).
+client release confirmed. This is the first completed four-case supplied-evidence diagnostic; earlier report texts already supplied semantic evidence. All five calls here have known usage. Control, affordability and fit work delivered at this point; recorded batch elapsed is17.24 minutes, without a comparative cost/usefulness claim.
 
 The frozen source-aware review against the 20 pre-output obligations finds **all four comparable
 cases semantically inadequate** (0 adequate, 0 inconclusive, 0 control failures). Reports never
@@ -266,10 +264,7 @@ TestClient import, Docker install, both workflows). [The full review, accounting
 are public-safe](../working-memory/evidence/2026-10-19-investigator-capability-diagnostic/README.md);
 exact requests/receipts/publications remain in the owner-only root, bound by its retention index.
 
-Two contract-level findings are recorded rather than repaired here: the report schema admits
-`recommendation_status: "inferred"` with an empty `recommendation_evidence` list (three of four
-reports used this for decision-critical advice), and adjacent-detail displacement shows the
-failure is interpretation/selection under **complete** evidence, not acquisition.
+Qualified findings, not source repairs: three recommendations have empty support lists, but packet-c cites two references and still overstates support; requiring a citation is insufficient semantic repair. The caller contrast is older forwards app/newer does not, neither forwards verify. These failures localize interpretation/selection in this supplied-evidence setup; they do not establish that autonomous navigation is solved or never useful.
 
 Disposition per plan §7: all cases are semantically inadequate, which selects the
 "do not fund autonomous-discovery optimization" branch and requires a bounded
@@ -279,3 +274,10 @@ retry, slot transfer, model substitution, output repair or regrading occurred; t
 unknown-usage lineage costs stay separate. No model ranking, reliability, maintainer usefulness,
 product adoption or learner ownership is inferred. Control/fit verification is GREEN and the
 capability result is a completed negative; canonical D/E remain pending.
+
+
+### Authorized review adjudication and planning handoff
+
+Ali explicitly requests applying the four second-pass qualifications and proceeding with the bounded comparison decision. [The adjudication](evidence/2026-10-19-investigator-capability-diagnostic/review-adjudication.json) binds the original review hash, unchanged20-obligation protocol and original response/input sources. Five labels are explicitly corrected: both source-pair identity obligations become partially supported, their false verify-forwarding assertions move to contradicted call relations, and the newer-case overbroad consequence is unsupported rather than demonstrated inverse compatibility. All four case-level failures remain unchanged. The summary corrects first-observation scope, older/newer caller contrast and discovery generalization; original review/accounting/retention/private outputs remain byte-identical.
+
+The distinct [comparison planning cycle](2026-10-19_investigator-evidence-first-interpretation-planning_lbd-cycle.md) owns the authorized response-method design. This Build cycle's D/E and unanswered ownership questions stay pending; no automatic cycle closure, inference, model substitution or discovery engineering follows.

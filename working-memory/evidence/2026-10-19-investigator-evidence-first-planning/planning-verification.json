@@ -1,0 +1,59 @@
+{
+  "format": "investigator-evidence-first-planning-verification/1",
+  "date": "2026-10-19",
+  "source_horizon": "5d412679; documentation changes only",
+  "artifact_sha256": {
+    "plans/INVESTIGATOR_EVIDENCE_FIRST_INTERPRETATION_COMPARISON_PLAN.md": "8bc69cf0da4d2cb1e82bd438dfed085bc7dd84d82e54cd9058c8e09553209904",
+    "working-memory/evidence/2026-10-19-investigator-capability-diagnostic/review-adjudication.json": "3b70840950f35f9596628fa41328fba93a7e04d76c9f760f0343115a8ce02cb4",
+    "working-memory/evidence/2026-10-19-investigator-evidence-first-planning/baseline-binding.json": "5423f4c3ac764bd9964142662cb3eb89680ed7aef24870e83b9bdffd6b39b62b"
+  },
+  "checks": {
+    "initial_review_accounting_retention_byte_equal_to_recorded_commit": "pass",
+    "original_reviewer_hash_and_twenty_obligations": "pass",
+    "five_explicit_label_overrides_and_derived_counts": "pass",
+    "all_four_case_classifications_unchanged": "pass",
+    "baseline_source_sdk_input_reviewer_and_freeze_binding": "pass",
+    "all_bound_historical_paths_and_hashes": "pass",
+    "private_run_exact_membership_hash_size_owner_only_modes": "pass",
+    "resource_arithmetic_and_stage_timing_scope": "pass",
+    "changed_and_new_markdown_links": "pass",
+    "json_parse_and_diff_whitespace": "pass",
+    "owner_and_authorization_consistency": "source-aware manual review"
+  },
+  "retention": {
+    "files": 61,
+    "bytes": 1283758,
+    "directories_mode": "0700",
+    "files_mode": "0600",
+    "original_root_modified": false
+  },
+  "resource_checks": {
+    "new_calls_maximum": 5,
+    "new_input_maximum": 73096,
+    "new_generated_maximum": 40960,
+    "role_prediction_maxima_seconds": 3900,
+    "aggregate_prediction_ceiling_seconds": 4200,
+    "batch_seconds": 4800,
+    "cold_setup_stage_maxima_seconds": 1380,
+    "execution_stage_sum_seconds": 6180,
+    "separate_zero_generation_preparation_seconds": 1200,
+    "admission_ceiling": 322,
+    "exact_recipe_maximum_with_canary": 201,
+    "finalization_seconds": 310,
+    "actual_prior_attempts": 8,
+    "maximum_lineage_attempts_if_candidate_fully_executes": 13
+  },
+  "no_new_execution": {
+    "product_or_experiment_source_changes": false,
+    "unit_tests_run": false,
+    "model_load_render_tokenize_predict": false,
+    "candidate_implementation_exists": false,
+    "candidate_actual_fit_or_freeze_exists": false
+  },
+  "limits": [
+    "Planning consistency is not executable proof or semantic improvement.",
+    "The existing239-test result remains historical at its recorded source horizon.",
+    "Same-deployment exposed-case historical comparison is descriptive, not causal or reliability proof.",
+    "Learner ownership and both cycles closure are not inferred."
+  ]
+}
