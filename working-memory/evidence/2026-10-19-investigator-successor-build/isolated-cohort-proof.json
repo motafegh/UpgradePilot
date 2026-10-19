@@ -1,0 +1,79 @@
+{
+  "format": "investigator-isolated-control-cohort-proof/1",
+  "source_sha256": {
+    "experiments/investigator_run_control.py": "c1ccbca729f819ba19b3482ad82aa039fe3059b17acf2ce8939e4ce0994c67ef",
+    "experiments/investigator_model_interface.py": "dfb491c307134c55385df8e9bf3dce8b62178ea6e427243d9a57592159017f94",
+    "experiments/investigator_supplied_evidence.py": "0474310f2de14682704a674d96466f6bd892bb1ae9ad4e65f923488b629d6ac9",
+    "experiments/investigator_workspace_trial.py": "bb00b9adc0f945d07e63306f2c0641bd53d86f4e78a976dd81e7b4b88e00ae54",
+    "experiments/investigator_workspace_adapter.py": "da356ae9cef38f6ca4051559485ebc62289e636b9920b3d3c2f401b93b3f6a72",
+    "experiments/prepare_investigator_supplied_evidence.py": "f88d3a5d56dd873130dbfaf9bbfc3aea6214a1776ddedba8eee981409d67a9b7",
+    "experiments/run_investigator_semantic_comparison.py": "c963d00dce739feff52edf74bdd3e079853cfe5dbdfa9f92215bc081d177b3cb",
+    "experiments/qualify_investigator_workspace.py": "9da66d763a8a5b9b5328a7da90614c1cad40fba403f988984d55eaa37fa25b10",
+    "experiments/qualify_investigator_model_interface.py": "33b30a7c54d0039ac3c6086cf834924b13527584c467d5715383f3f8dea1ad84",
+    "experiments/run_investigator_supplied_evidence.py": "a290369cc13e9b8eb56f48414631a8f71ff68381611d3005338048c9867043a4"
+  },
+  "focused_tests": 173,
+  "nearest_workspace_tests": 65,
+  "distinct_tests": 238,
+  "execution_roles": [
+    "probe-report",
+    "packet-a",
+    "packet-b",
+    "packet-c",
+    "packet-d"
+  ],
+  "ceilings": {
+    "attempts": 5,
+    "input_tokens": 73096,
+    "generated_tokens": 40960,
+    "admission_units": 322,
+    "prediction_seconds": 4200,
+    "finalization_seconds": 310,
+    "batch_seconds": 4800
+  },
+  "prior_unknown_attempts": 2,
+  "prior_unknown_reservations": {
+    "input": 8192,
+    "generated": 16384
+  },
+  "max_lineage_attempts": 7,
+  "semantic_output_feedback": false,
+  "product_source_changed": false,
+  "runtime_r7": {
+    "freeze_sha256": "0067f9884cc44c8a3175d5beb40787f055f123c59256a1f4c169acc10fad4145",
+    "profile_sha256": "96ec429f20eadb69764b41e34b75de52b29602ff710cb330779f9081791afd50",
+    "context": 36864,
+    "gpu_ratio": 0.1,
+    "gpu_layers": 5,
+    "fit_tokens": {
+      "packet-a": 22415,
+      "packet-b": 7862,
+      "packet-c": 25476,
+      "packet-d": 7885,
+      "probe-cancel": 3276,
+      "probe-report": 3270
+    },
+    "execution_roles": [
+      "probe-report",
+      "packet-a",
+      "packet-b",
+      "packet-c",
+      "packet-d"
+    ],
+    "execution_ceilings": {
+      "admission_units": 322,
+      "attempts": 5,
+      "batch_seconds": 4800,
+      "finalization_seconds": 310,
+      "generated_tokens": 40960,
+      "input_tokens": 73096,
+      "prediction_seconds": 4200,
+      "preparation_seconds": 1200
+    },
+    "prediction_attempts": 0,
+    "owned_cleanup_confirmed": true,
+    "client_cleanup_confirmed": true,
+    "source_profile_fit_control_admission": "passed",
+    "material_selections_unchanged": true
+  }
+}

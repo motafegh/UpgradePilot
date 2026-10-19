@@ -67,6 +67,79 @@ class CohortBinding(Binding):
 
 
 class RunnerTests(unittest.TestCase):
+    def test_isolated_control_uses_fresh_five_role_cohort_with_strict_usage(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root, binding = Path(directory), CohortBinding()
+            stack, sdk, preparation, reviewer = self.environment(root, binding)
+            external = {"path": "synthetic-isolated-control", "sdk_source_sha256": {"synthetic_sdk": "test"}}
+            with stack, patch.object(runner, "closed_control_probe", return_value=external):
+                runtime = root / "runtime"
+                runner.prepare_runtime(sdk, preparation, reviewer, runtime,
+                                       control_probe=Path("synthetic-isolated-control"))
+                frozen = json.loads((runtime / "freeze.json").read_bytes())
+                self.assertEqual(frozen["execution_roles"], list(runner.ROLES[1:]))
+                self.assertEqual(frozen["execution_ceilings"]["attempts"], 5)
+                self.assertEqual(frozen["execution_ceilings"]["input_tokens"], 73096)
+                self.assertEqual(frozen["execution_ceilings"]["generated_tokens"], 40960)
+                self.assertFalse(frozen["cancellation_probe"]["required"])
+                h = digest((runtime / "freeze.json").read_bytes())
+                result = runner.execute(sdk, runtime / "freeze.json", h, h, root / "execution")
+                self.assertEqual([row["role"] for row in result["rows"]], list(runner.ROLES[1:]))
+                self.assertTrue(all(row["execution"] == "completed" for row in result["rows"]))
+                self.assertEqual(result["measured_known_usage"]["known_usage_attempts"], 5)
+                self.assertEqual(result["measured_known_usage"]["unknown_usage_attempts"], 0)
+
+    def test_closed_control_requires_original_artifacts_sources_terminal_and_cleanup(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            run = root / "closed"
+            (run / "probe-cancel").mkdir(parents=True)
+            source = Path("experiments/investigator_model_interface.py").read_bytes()
+            (root / "source.py").write_bytes(source)
+            frozen = {"code_sha256": {
+                "experiments/investigator_model_interface.py": digest(source),
+                "experiments/investigator_run_control.py": digest(Path("experiments/investigator_run_control.py").read_bytes())},
+                "sdk_source_sha256": {"synthetic": "pinned"},
+                "capacity_contract": {"context": runner.CONTEXT, "input_caps": runner.INPUT_CAPS},
+                "reference_profile_sha256": runner.REFERENCE_PROFILE_SHA256}
+            receipt = {"problem": "PredictionDeadlineExceeded", "usage": {"stopReason": "userStopped"},
+                "control": {"cancellation_requested": True, "terminal_received": True,
+                    "channel_released": True, "secondary_problems": [],
+                    "receive_ownership": {"receiver_stopped": True, "submitted": 1,
+                                          "acknowledged": 1, "events": {"success": 1}}}}
+            records = {"executed-freeze.json": frozen, "probe-cancel/call-01.receipt.json": receipt,
+                "summary.json": {"rows": [{"role": "probe-cancel", "prediction_attempts": 1,
+                    "execution": "failed", "model_receipts": [receipt], "usage_complete": False},
+                    *[{"role": role, "execution": "unattempted"} for role in runner.ROLES[1:]]]},
+                "cleanup.json": {"confirmed": True, "remaining_identifiers": []},
+                "client-cleanup.json": {"confirmed": True}}
+            for name, content in records.items():
+                (run / name).write_bytes(json_bytes(content))
+            def evidence():
+                body = {"format": "investigator-closed-control-probe/1", "root": str(run),
+                    "model_interface_source": str(root / "source.py"),
+                    "unknown_usage_reservation": {"input": 4096, "generated": 8192},
+                    "artifact_sha256": {str(p.relative_to(run)): digest(p.read_bytes())
+                                        for p in run.rglob("*") if p.is_file()}}
+                path = root / "evidence.json"
+                path.write_bytes(json_bytes(body))
+                return path
+            path = evidence()
+            self.assertIn("token usage unknown", runner.closed_control_probe(path)["scope"])
+            for field in ("terminal_received", "channel_released", "cancellation_requested"):
+                receipt["control"][field] = False
+                (run / "probe-cancel/call-01.receipt.json").write_bytes(json_bytes(receipt))
+                with self.subTest(field=field), self.assertRaises(ValueError):
+                    runner.closed_control_probe(evidence())
+                receipt["control"][field] = True
+            (run / "probe-cancel/call-01.receipt.json").write_bytes(json_bytes(receipt))
+            path = evidence()
+            (run / "cleanup.json").write_bytes(b"{}")
+            with self.assertRaisesRegex(ValueError, "artifact drift"):
+                runner.closed_control_probe(path)
+            with self.assertRaisesRegex(ValueError, "cleanup evidence incomplete"):
+                runner.closed_control_probe(evidence())
+
     def environment(self, root, binding, *, cleanup_failure=False):
         preparation = root / "preparation"
         preparation.mkdir()
@@ -110,7 +183,8 @@ class RunnerTests(unittest.TestCase):
             get_sync_api_timeout=lambda: timeout[0],
             set_sync_api_timeout=lambda value: timeout.__setitem__(0, value))
         parent_load = {"fields": [{"key": "llm.load.contextLength", "value": 32768},
-            {"key": "synthetic.otherLoad", "value": "must not change"}]}
+            {"key": "synthetic.otherLoad", "value": "must not change"},
+            {"key": "llm.load.llama.acceleration.offloadRatio", "value": .45}]}
         backend = {"executable": "synthetic-backend", "cpu_kv": True,
             "backend_template_sha256": "synthetic-template", "kv_unified_flag": False,
             "no_kv_unified_flag": True,
@@ -125,8 +199,10 @@ class RunnerTests(unittest.TestCase):
         binding.current["model"].update(instanceReference="test-capacity-instance",
             identifier=runner.CAPACITY_IDENTIFIER, contextLength=runner.CONTEXT)
         binding.current["load"]["fields"][0]["value"] = runner.CONTEXT
+        binding.current["load"]["fields"][2]["value"] = runner.GPU_RATIO
         actual_backend = deepcopy(backend)
         actual_backend["flags"]["ctx-size"] = str(runner.CONTEXT)
+        actual_backend["flags"]["n-gpu-layers"] = runner.GPU_LAYERS
         def new_trial(role, *args):
             limit = SuppliedEvidenceLimits(reads=2, references=2, operations=18, seconds=300) if role.startswith("probe-") else None
             trial = SuppliedEvidenceTrial(fixture(), [request("read_source", source_id="target", path="requirements.txt", line_count=1)],
@@ -165,7 +241,8 @@ class RunnerTests(unittest.TestCase):
                 self.assertEqual(actual["context"], 36864)
                 self.assertEqual(actual["initial_identity"], binding.identity())
                 self.assertEqual(actual["backend_observation"], backend)
-                self.assertEqual(actual["requested_load"], {**parent["requested_load"], "contextLength": 36864})
+                self.assertEqual(actual["requested_load"], {**parent["requested_load"], "contextLength": 36864,
+                    "gpu": {**parent["requested_load"]["gpu"], "ratio": runner.GPU_RATIO}})
                 self.assertEqual(actual["prediction_configuration"], parent["prediction_configuration"])
                 self.assertEqual(sum(runner.INPUT_CAPS.values()), 77192)
                 self.assertEqual([runner.model_limits(role).input_total for role in runner.ROLES],

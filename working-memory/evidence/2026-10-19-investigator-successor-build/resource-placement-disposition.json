@@ -1,0 +1,46 @@
+{
+  "format": "investigator-resource-placement-failure/1",
+  "prediction_attempts": 0,
+  "requested_gpu_ratio": 0.45,
+  "expected_gpu_layers": 22,
+  "observed_gpu_layers": 5,
+  "problem": "actual model file/backend placement changed: n-gpu-layers",
+  "cleanup": {
+    "confirmed": true,
+    "identifier": "up-supplied-capacity-gemma12-36864-v1",
+    "remaining_identifiers": [],
+    "unload_requested": true
+  },
+  "client_cleanup": {
+    "confirmed": true,
+    "elapsed_seconds": 0.003600992997235153
+  },
+  "gpu_after_unload": {
+    "total_mib": 8192,
+    "used_mib": 6767,
+    "free_mib": 1252,
+    "llama_compute_entries": 0,
+    "other_compute_entries": 21
+  },
+  "gpu_scope": "Windows nvidia-smi snapshot; whole-machine usage, no independent process-memory attribution or causal application claim",
+  "artifact_sha256": {
+    "actual-backend.json": "f4eeb96fb27a2ab21582321989280b4f7f1bff0668e9d8fbcd4db689570f176b",
+    "actual-identity.json": "1618217ff94948f30172a67a1fe2100ccc8623c1aab4d01a8a3a14023ccfd637",
+    "backend/backend-observation.json": "f4eeb96fb27a2ab21582321989280b4f7f1bff0668e9d8fbcd4db689570f176b",
+    "backend/backend-template.jinja": "031f45711a263bdb0b9642fdba78e2cdf6990d6d965a0873aae05da49682d0ec",
+    "capacity-load-request.json": "099ef1a2b6fc829488b9909c67da94b54d37b265fc0934558155323e3e7d8461",
+    "cleanup.json": "33cd28bbc9d902f6b02c8f41a7699684e629d7b062239531049d78616744afd1",
+    "client-cleanup.json": "65ad443b7e5190dc99b197ab107c970704d2f1588488320943c41dc8063aa73b",
+    "preflight-intent.json": "784d419619beaaf2dad93ba82ebc60399f32e277344901ec6249d459f5cf1b65",
+    "reference-profile.json": "793bed85004fe1567c0d567155051e5887a893749e9c6d45c277e40065ff9531"
+  },
+  "exact_source_archive": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-runtime-r6-source-r1",
+  "selected_before_semantic_outputs": {
+    "gpu_ratio": 0.1,
+    "expected_gpu_layers": 5,
+    "model": "unchanged",
+    "sampler": "unchanged",
+    "context": 36864,
+    "generation": 8192
+  }
+}

@@ -835,10 +835,10 @@ class StatelessInvestigatorModel:
 
     def _validate_return(self, measured, content, metadata, reasoning, receipt, prefix, fragments_path):
         """Validate/preserve a complete return under the caller's finalization timer."""
-        self._account_usage(receipt, metadata)
         receipt["reasoning_fragment_observed"] = reasoning
         private_write(prefix.with_suffix(".visible-response.txt"), content)
         private_write(prefix.with_suffix(".metadata.json"), json_bytes(metadata))
+        self._account_usage(receipt, metadata)
         if fragments_path.read_bytes() != content:
             raise ValueError(
                 "retained visible fragments differ from complete response"
@@ -980,9 +980,8 @@ class StatelessInvestigatorModel:
             # A cancelled/late terminal packet can carry known spend even though the
             # result remains failed and cannot be published as successful content.
             interrupted_metadata = getattr(self.binding, "last_prediction_metadata", None)
-            if not self.usage_complete and interrupted_metadata is not None:
+            if not self.usage_complete and interrupted_metadata is not None and not response_received:
                 try:
-                    self._account_usage(receipt, interrupted_metadata)
                     control = getattr(self.binding, "last_prediction_control", {})
                     finalization_origin = self.clock() - control.get("finalization_elapsed_seconds", 0)
                     with MonotonicDeadline(
@@ -990,6 +989,7 @@ class StatelessInvestigatorModel:
                         label="interrupted metadata storage",
                     ).enforce():
                         private_write(prefix.with_suffix(".metadata.json"), json_bytes(interrupted_metadata))
+                        self._account_usage(receipt, interrupted_metadata)
                 except BaseException as secondary:
                     receipt["secondary_problems"].append(problem_text(secondary))
         finally:

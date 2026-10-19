@@ -13,6 +13,7 @@ ownership/backend checks reuse the existing qualifier; unknown usage is never ze
 from __future__ import annotations
 
 import argparse
+import ast
 import json
 import time
 from dataclasses import asdict, replace
@@ -37,10 +38,12 @@ from upgradepilot.workspace.native_representation import json_bytes
 
 REFERENCE_PROFILE = Path.home() / ".local/share/upgradepilot/investigator-runs/semantic-comparison-2026-10-18-reference-v2/gemma12-preflight/profile.json"
 REFERENCE_PROFILE_SHA256 = "793bed85004fe1567c0d567155051e5887a893749e9c6d45c277e40065ff9531"
-FREEZE_FORMAT = "investigator-supplied-evidence-runtime-freeze/2"
+FREEZE_FORMAT = "investigator-supplied-evidence-runtime-freeze/3"
 CAPACITY_PROFILE_FORMAT = "investigator-supplied-evidence-capacity-profile/1"
 CONTEXT = 36864
-CAPACITY_IDENTIFIER = "up-supplied-capacity-gemma12-36864-v1"
+CAPACITY_IDENTIFIER = "up-supplied-resource-gemma12-36864-v1"
+GPU_RATIO = 0.10
+GPU_LAYERS = "5"
 ROLES = ("probe-cancel", "probe-report", "packet-a", "packet-b", "packet-c", "packet-d")
 INPUT_CAPS = dict(zip(ROLES, (4096, 4096, 24000, 9000, 27000, 9000), strict=True))
 CEILINGS = {
@@ -75,16 +78,17 @@ def capacity_load_request(parent):
     """Prospective request only; contains no purported new observations."""
     requested = deepcopy(parent["requested_load"])
     requested["contextLength"] = CONTEXT
+    requested["gpu"]["ratio"] = GPU_RATIO
     return {"model_key": parent["model_key"], "identifier": CAPACITY_IDENTIFIER,
         "requested_load": requested}
 
 
 def observed_capacity_profile(parent, identity, backend):
-    """Validate the sole declared delta, then retain actual observed identity/backend.
+    """Validate declared context/placement deltas, then retain actual observations.
 
     The projection below is an expectation against the immutable parent, not an edited
-    observation. Only context and the instance label may differ; full load/template,
-    placement, cache and model checks stay with the existing qualifier. The returned
+    observation. Context, declared GPU ratio/layers and the instance label may differ;
+    all other load/template/cache/model checks stay with the qualifier. The returned
     profile uses the actual arguments, never the projected parent's observations.
     """
     expected = deepcopy(parent)
@@ -96,10 +100,15 @@ def observed_capacity_profile(parent, identity, backend):
     if len(context_fields) != 1:
         raise ValueError("parent load has no unique context field")
     context_fields[0]["value"] = CONTEXT
+    offload = [item for item in load_fields if item["key"] == "llm.load.llama.acceleration.offloadRatio"]
+    if len(offload) != 1:
+        raise ValueError("parent load has no unique offload ratio")
+    offload[0]["value"] = GPU_RATIO
     expected["backend_observation"]["flags"]["ctx-size"] = str(CONTEXT)
+    expected["backend_observation"]["flags"]["n-gpu-layers"] = GPU_LAYERS
     validate_loaded_backend(expected, identity, backend)
     if identity["load"] != expected["initial_identity"]["load"]:
-        raise ValueError("capacity load changed outside the declared context delta")
+        raise ValueError("load changed outside the declared context/placement deltas")
     return {
         "format": CAPACITY_PROFILE_FORMAT,
         **capacity_load_request(parent),
@@ -194,6 +203,85 @@ def reviewer_identity(path):
     return {"path": str(path.resolve()), "sha256": digest(path.read_bytes())}
 
 
+def closed_control_probe(path):
+    """Bind isolated cancellation facts, preserving its failed/unknown accounting.
+
+    No old outcome is regraded. The receive/control code must be byte-identical to
+    the observed mechanism; metadata retention outside that adapter may be repaired.
+    New reports still require complete numeric usage in a fresh owned runtime.
+    """
+    evidence = json.loads(path.read_bytes())
+    if evidence.get("format") != "investigator-closed-control-probe/1":
+        raise ValueError("unsupported isolated control evidence")
+    root = Path(evidence["root"])
+    actual = {str(p.relative_to(root)) for p in root.rglob("*") if p.is_file()}
+    if actual != set(evidence["artifact_sha256"]):
+        raise ValueError("closed control artifact membership drift")
+    for relative, expected in evidence["artifact_sha256"].items():
+        target = (root / relative).resolve()
+        if not target.is_relative_to(root.resolve()) or digest(target.read_bytes()) != expected:
+            raise ValueError("closed control artifact drift")
+    def read(relative):
+        return json.loads((root / relative).read_bytes())
+    frozen, receipt = read("executed-freeze.json"), read("probe-cancel/call-01.receipt.json")
+    summary = read("summary.json")
+    control = receipt.get("control") or {}
+    ownership = control.get("receive_ownership") or {}
+    if not (
+        control.get("cancellation_requested") and control.get("terminal_received")
+        and control.get("channel_released") and not control.get("secondary_problems")
+        and ownership.get("receiver_stopped") is True
+        and ownership.get("submitted") == ownership.get("acknowledged")
+        and ownership.get("events", {}).get("success") == 1
+        and (receipt.get("usage") or {}).get("stopReason") == "userStopped"
+        and "PredictionDeadlineExceeded" in receipt.get("problem", "")
+        and read("cleanup.json").get("confirmed") is True
+        and read("cleanup.json").get("remaining_identifiers") == []
+        and read("client-cleanup.json").get("confirmed") is True
+        and summary["rows"][0]["role"] == "probe-cancel"
+        and [row["role"] for row in summary["rows"]] == list(ROLES)
+        and summary["rows"][0]["execution"] == "failed"
+        and summary["rows"][0]["prediction_attempts"] == 1
+        and summary["rows"][0]["model_receipts"] == [receipt]
+        and summary["rows"][0]["usage_complete"] is False
+        and all(row["execution"] == "unattempted" for row in summary["rows"][1:])
+        and evidence["unknown_usage_reservation"] == {"input": 4096, "generated": 8192}
+        and frozen["capacity_contract"] == {"context": CONTEXT, "input_caps": INPUT_CAPS}
+        and frozen["reference_profile_sha256"] == REFERENCE_PROFILE_SHA256
+    ):
+        raise ValueError("isolated control/owned cleanup evidence incomplete")
+    control_path = "experiments/investigator_run_control.py"
+    if digest(Path(control_path).read_bytes()) != frozen["code_sha256"][control_path]:
+        raise ValueError("control implementation differs from observed cancellation")
+    prior_source = Path(evidence["model_interface_source"]).read_text()
+    model_path = Path("experiments/investigator_model_interface.py")
+    if digest(prior_source.encode()) != frozen["code_sha256"][str(model_path)]:
+        raise ValueError("observed receive-adapter source unavailable")
+    def adapter_hash(source):
+        node = next(n for n in ast.parse(source).body if isinstance(n, ast.ClassDef)
+                    and n.name == "RetainedPredictionChannel")
+        return digest(ast.get_source_segment(source, node).encode())
+    adapter = adapter_hash(prior_source)
+    if adapter_hash(model_path.read_text()) != adapter:
+        raise ValueError("receive adapter differs from observed cancellation")
+    return {"path": str(path.resolve()), "sha256": digest(path.read_bytes()),
+        "receive_adapter_sha256": adapter, "control_source_sha256": frozen["code_sha256"][control_path],
+        "sdk_source_sha256": frozen["sdk_source_sha256"],
+        "unknown_usage_reservation": evidence["unknown_usage_reservation"],
+        "scope": "isolated terminal cancellation/receive-stop/owned cleanup; token usage unknown"}
+
+
+def execution_contract(external_control):
+    """An isolated control prerequisite cannot donate its slot to a new report."""
+    limits = dict(CEILINGS)
+    roles = list(ROLES)
+    if external_control is not None:
+        roles = roles[1:]
+        limits.update(attempts=5, input_tokens=73096, generated_tokens=40960,
+                      admission_units=322, finalization_seconds=310)
+    return roles, limits
+
+
 def new_trial(role, preparation, qualification, recipes):
     if role.startswith("probe-"):
         assignment = canary_assignment("structured")
@@ -243,12 +331,16 @@ def validate_owned(binding, profile, output):
     return identity
 
 
-def prepare_runtime(sdk, preparation_root, reviewer_path, output):
+def prepare_runtime(sdk, preparation_root, reviewer_path, output, *, control_probe=None):
     """Separately authorized zero-generation load/render/fit; never calls predict()."""
     preparation = verify_prepared_packets(preparation_root)
     review = reviewer_identity(reviewer_path)
     parent = reference_profile()
     requested = capacity_load_request(parent)
+    external = closed_control_probe(control_probe) if control_probe is not None else None
+    execution_roles, execution_ceilings = execution_contract(external)
+    if external is not None and external["sdk_source_sha256"] != sdk_source_identity(sdk):
+        raise ValueError("SDK differs from isolated control evidence")
     qualification = json.loads(Path(preparation["qualified_input_path"]).read_bytes())
     recipes = read_recipes(preparation_root / "packet-recipes.json")
     private_root(output)
@@ -264,7 +356,9 @@ def prepare_runtime(sdk, preparation_root, reviewer_path, output):
         "asset_stats": asset_stats(parent),
         "capacity_contract": {"context": CONTEXT, "input_caps": INPUT_CAPS},
         "ceilings": CEILINGS, "roles": list(ROLES),
-        "cancellation_probe": {"required": True, "prediction_deadline_seconds": 1,
+        "external_control_probe": external,
+        "execution_roles": execution_roles, "execution_ceilings": execution_ceilings,
+        "cancellation_probe": {"required": external is None, "prediction_deadline_seconds": 1,
             "pass": "deadline failure with terminal protocol, known usage and channel release; then fresh callback only"},
         "fit": {}, "prediction_attempts": 0,
     }
@@ -344,12 +438,21 @@ def verify_freeze(path, expected_hash):
         or freeze["reference_profile_sha256"] != REFERENCE_PROFILE_SHA256
         or set(freeze["fit"]) != set(ROLES) or freeze["prediction_attempts"] != 0
         or freeze["cancellation_probe"]["prediction_deadline_seconds"] != 1
-        or freeze["cancellation_probe"]["required"] is not True
+        or freeze["cancellation_probe"]["required"] != (freeze.get("external_control_probe") is None)
         or not 0 <= freeze["preparation_elapsed_seconds"] < 1200
         or freeze["non_prediction_rpc_idle_seconds"] != 600
         or freeze.get("capacity_contract") != {"context": CONTEXT, "input_caps": INPUT_CAPS}
     ):
         raise ValueError("unsupported/drifted/incomplete diagnostic freeze")
+    external = freeze.get("external_control_probe")
+    if external is not None and (
+        closed_control_probe(Path(external["path"])) != external
+        or external["sdk_source_sha256"] != freeze["sdk_source_sha256"]
+    ):
+        raise ValueError("isolated control evidence drift")
+    roles, limits = execution_contract(external)
+    if freeze.get("execution_roles") != roles or freeze.get("execution_ceilings") != limits:
+        raise ValueError("execution roles/ceilings differ from declared control scope")
     profile_bytes = (path.parent / "capacity-profile.json").read_bytes()
     if digest(profile_bytes) != freeze.get("capacity_profile_sha256"):
         raise ValueError("observed capacity profile identity drift")
@@ -422,7 +525,8 @@ def execute(sdk, freeze_path, expected_hash, activation_hash, output):
     recipes = read_recipes(root / "packet-recipes.json")
     private_root(output)
     private_write(output / "executed-freeze.json", freeze_path.read_bytes())
-    rows = [{"role": role, "execution": "unattempted", "semantic_acceptance": "not_evaluated"} for role in ROLES]
+    execution_limits = freeze["execution_ceilings"]
+    rows = [{"role": role, "execution": "unattempted", "semantic_acceptance": "not_evaluated"} for role in freeze["execution_roles"]]
     spent = {"input": 0, "generated": 0, "operations": 0, "prediction_seconds": 0,
         "finalization_seconds": 0, "known_usage_attempts": 0, "unknown_usage_attempts": 0}
     batch_started = None
@@ -500,7 +604,7 @@ def execute(sdk, freeze_path, expected_hash, activation_hash, output):
                         raise ValueError("no prediction receipt; later cohort withheld")
                     if not consumer.usage_complete:
                         raise ValueError("unknown usage; whole remaining cohort withheld")
-                    if any(spent[key] > CEILINGS[limit] for key, limit in (
+                    if any(spent[key] > execution_limits[limit] for key, limit in (
                         ("input", "input_tokens"), ("generated", "generated_tokens"),
                         ("operations", "admission_units"), ("prediction_seconds", "prediction_seconds"),
                         ("finalization_seconds", "finalization_seconds"),
@@ -519,7 +623,7 @@ def execute(sdk, freeze_path, expected_hash, activation_hash, output):
                         finalizing = time.monotonic()
                         remaining_batch = 60 if batch_started is None else 4800 - (finalizing - batch_started)
                         finalize_owned_runtime(model, client.llm.list_loaded, output / "cleanup.json",
-                            seconds=min(50, max(.001, remaining_batch - 10), max(.001, 350 - spent["finalization_seconds"])))
+                            seconds=min(50, max(.001, remaining_batch - 10), max(.001, execution_limits["finalization_seconds"] - 10 - spent["finalization_seconds"])))
                     except BaseException as error:
                         if failure is None:
                             failure, traceback = error, error.__traceback__
@@ -534,7 +638,7 @@ def execute(sdk, freeze_path, expected_hash, activation_hash, output):
     except BaseException as error:
         failure, traceback = error, error.__traceback__
     spent["finalization_seconds"] += client_cleanup.get("elapsed_seconds", 0)
-    if failure is None and (spent["finalization_seconds"] > 360 or (batch_started is not None and time.monotonic() - batch_started >= 4800)):
+    if failure is None and (spent["finalization_seconds"] > execution_limits["finalization_seconds"] or (batch_started is not None and time.monotonic() - batch_started >= 4800)):
         failure = ValueError("finalization/batch ceiling exceeded; no acceptance")
     summary = {"rows": rows, "measured_known_usage": spent,
         "problem": problem_text(failure) if failure else None,
@@ -559,6 +663,7 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--preparation", type=Path)
     parser.add_argument("--reviewer-protocol", type=Path)
+    parser.add_argument("--completed-control-probe", type=Path)
     parser.add_argument("--freeze", type=Path)
     parser.add_argument("--freeze-sha256")
     parser.add_argument("--activate-freeze-sha256")
@@ -567,7 +672,8 @@ def main():
         if args.preparation is None or args.reviewer_protocol is None:
             parser.error("runtime preparation needs actual offline preparation and reviewer protocol")
         sdk = import_isolated_sdk(args.sdk_site)
-        result = prepare_runtime(sdk, args.preparation, args.reviewer_protocol, args.output)
+        result = prepare_runtime(sdk, args.preparation, args.reviewer_protocol, args.output,
+                                 control_probe=args.completed_control_probe)
         print(json.dumps({"freeze_sha256": digest((args.output / "freeze.json").read_bytes()), "prediction_attempts": result["prediction_attempts"]}))
     else:
         if args.freeze is None or not args.freeze_sha256 or args.activate_freeze_sha256 != args.freeze_sha256:

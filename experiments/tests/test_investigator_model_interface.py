@@ -176,6 +176,26 @@ class ModelInterfaceTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "unconfirmed"):
                 finalize_owned_runtime(model, lambda: [model], Path(directory) / "unconfirmed.json")
 
+    def test_cancelled_terminal_with_missing_counters_is_retained_and_stays_unknown(self):
+        from experiments.investigator_run_control import PredictionDeadlineExceeded
+        with tempfile.TemporaryDirectory() as directory:
+            binding = Binding()
+            original = binding.predict
+            def cancelled(measured, timeout, *, visible_sink):
+                _, metadata, _ = original(measured, timeout, visible_sink=visible_sink)
+                metadata["stats"] = {"stopReason": "userStopped"}
+                binding.last_prediction_metadata = metadata
+                raise PredictionDeadlineExceeded("cancelled with no numeric counters")
+            binding.predict = cancelled
+            model = StatelessInvestigatorModel(binding, config(), ModelLimits(context=10000), Path(directory) / "attempt")
+            with self.assertRaises(PredictionDeadlineExceeded):
+                model(packed())
+            retained = json.loads((model.directory / "call-01.metadata.json").read_bytes())
+            self.assertEqual(retained["stats"], {"stopReason": "userStopped"})
+            self.assertFalse(model.usage_complete)
+            self.assertTrue(model.blocked)
+            self.assertEqual(model.receipts[0]["usage"], {"stopReason": "userStopped"})
+
     def test_keyboard_interrupt_keeps_unknown_attempt_and_primary_after_fsync_failure(self):
         with tempfile.TemporaryDirectory() as directory:
             binding = Binding()
@@ -595,6 +615,8 @@ class ModelInterfaceTests(unittest.TestCase):
                 model(packed())
             self.assertEqual(model.binding.calls, 1)
             self.assertFalse(model.usage_complete)
+            self.assertTrue((model.directory / "call-01.metadata.json").exists())
+            self.assertTrue((model.directory / "call-01.visible-response.txt").exists())
             assignment = fixture()
             observed = model.pack(
                 protocol_definition(assignment, TrialLimits()), [], "report", 128 * 1024

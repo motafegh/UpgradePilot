@@ -1,0 +1,60 @@
+{
+  "format": "investigator-repaired-diagnostic-activation/1",
+  "authorization": "Ali explicitly directs fixing reasonable blockers and continuing; bounded repair plus new cohort selected in plan before predictions",
+  "base_commit": "855d6e49e2504870f8ef0a73f3ccef14362aaf85",
+  "freeze_path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-runtime-r5/freeze.json",
+  "freeze_sha256": "f3b4e418bd9c3b643306ffe751747fd64723af16272d2224972bb1951fae70f0",
+  "profile_sha256": "ce5f0ff0f3eb89ac4dd2c1ac5763c36268c3b7879548998b1479c8429eef1ef7",
+  "source_sha256": {
+    "experiments/investigator_model_interface.py": "3b7eb52cc73aa930831b10d6ad7eb57bdd7ddc592d4edfa6cce7e89c5f4ebe34",
+    "experiments/investigator_run_control.py": "c1ccbca729f819ba19b3482ad82aa039fe3059b17acf2ce8939e4ce0994c67ef",
+    "experiments/investigator_supplied_evidence.py": "0474310f2de14682704a674d96466f6bd892bb1ae9ad4e65f923488b629d6ac9",
+    "experiments/investigator_workspace_adapter.py": "da356ae9cef38f6ca4051559485ebc62289e636b9920b3d3c2f401b93b3f6a72",
+    "experiments/investigator_workspace_trial.py": "bb00b9adc0f945d07e63306f2c0641bd53d86f4e78a976dd81e7b4b88e00ae54",
+    "experiments/prepare_investigator_supplied_evidence.py": "f88d3a5d56dd873130dbfaf9bbfc3aea6214a1776ddedba8eee981409d67a9b7",
+    "experiments/qualify_investigator_model_interface.py": "33b30a7c54d0039ac3c6086cf834924b13527584c467d5715383f3f8dea1ad84",
+    "experiments/qualify_investigator_workspace.py": "9da66d763a8a5b9b5328a7da90614c1cad40fba403f988984d55eaa37fa25b10",
+    "experiments/run_investigator_semantic_comparison.py": "c963d00dce739feff52edf74bdd3e079853cfe5dbdfa9f92215bc081d177b3cb",
+    "experiments/run_investigator_supplied_evidence.py": "b448a0f037ea02c545eafc0897d3e37aeb4628e35605ddab5f11e237ea816cb1"
+  },
+  "sdk_sha256": {
+    "_ws_impl.py": "a9123686ddccbf07ff3d3fe292b490c38d32441ddd74b22e02e3ba3a2e4e6704",
+    "_ws_thread.py": "d1ceecd0d10ec8d53242ecfb52abdf829d261e63051a3c04b27e4ac809acfe1d",
+    "json_api.py": "32146d39cf215e5829102938252e219a2300253981520f7005ab765b8d4b1f80",
+    "sdk_api.py": "c21aed37e101ec53185ed9df6b0ef45f07aa1a7fd7ea61f782ac4361f44fd29d",
+    "sync_api.py": "888360663dc5655e90c614ff64a285299f97a8f3a9cfeee28cac08dd42dac685"
+  },
+  "reviewer": {
+    "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-review-r1/review-protocol.json",
+    "sha256": "37579067521c5129826c7ea9f6879da2cad830236718a7be57eec02aad6529e9"
+  },
+  "roles": [
+    "probe-cancel",
+    "probe-report",
+    "packet-a",
+    "packet-b",
+    "packet-c",
+    "packet-d"
+  ],
+  "ceilings": {
+    "admission_units": 340,
+    "attempts": 6,
+    "batch_seconds": 4800,
+    "finalization_seconds": 360,
+    "generated_tokens": 49152,
+    "input_tokens": 77192,
+    "prediction_seconds": 4200,
+    "preparation_seconds": 1200
+  },
+  "output_root": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r2",
+  "prior_cohort": "supplied-evidence-2026-10-19-diagnostic-r1",
+  "prior_unknown_attempts": 1,
+  "prior_unknown_token_reservation": {
+    "input": 4096,
+    "generated": 8192
+  },
+  "max_new_attempts": 6,
+  "max_lineage_attempts": 7,
+  "case_retry_or_feedback": false,
+  "hard_failure_policy": "withhold affected batch; preserve evidence and continue reasonable offline repair within authorization"
+}

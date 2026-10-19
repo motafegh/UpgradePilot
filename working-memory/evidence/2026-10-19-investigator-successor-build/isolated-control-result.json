@@ -1,0 +1,136 @@
+{
+  "format": "investigator-isolated-control-result/1",
+  "source_commit": "855d6e49",
+  "original_cohort_disposition": "ValueError: unknown usage; whole remaining cohort withheld",
+  "original_role_statuses": [
+    {
+      "role": "probe-cancel",
+      "execution": "failed",
+      "prediction_attempts": 1,
+      "usage_complete": false
+    },
+    {
+      "role": "probe-report",
+      "execution": "unattempted",
+      "prediction_attempts": null,
+      "usage_complete": null
+    },
+    {
+      "role": "packet-a",
+      "execution": "unattempted",
+      "prediction_attempts": null,
+      "usage_complete": null
+    },
+    {
+      "role": "packet-b",
+      "execution": "unattempted",
+      "prediction_attempts": null,
+      "usage_complete": null
+    },
+    {
+      "role": "packet-c",
+      "execution": "unattempted",
+      "prediction_attempts": null,
+      "usage_complete": null
+    },
+    {
+      "role": "packet-d",
+      "execution": "unattempted",
+      "prediction_attempts": null,
+      "usage_complete": null
+    }
+  ],
+  "control_receipt": {
+    "attempt": 1,
+    "complete_response_received": false,
+    "control": {
+      "cancellation_requested": true,
+      "channel_opened": true,
+      "channel_released": true,
+      "deadline_seconds": 1,
+      "dispatch_reserved": true,
+      "finalization_allowance_seconds": 50,
+      "finalization_elapsed_seconds": 0.005372137005906552,
+      "prediction_elapsed_bound_met": false,
+      "prediction_elapsed_seconds": 1.0001815680079744,
+      "primary_problem": "PredictionDeadlineExceeded: prediction monotonic deadline reached",
+      "receive_ownership": {
+        "acknowledged": 3,
+        "events": {
+          "promptProcessingProgress": 2,
+          "success": 1
+        },
+        "interrupted_waits": 1,
+        "pending_cancel_requested": false,
+        "pending_reuses": 1,
+        "receiver_stopped": true,
+        "submitted": 3
+      },
+      "runtime_quiescence": "terminal_protocol_received",
+      "secondary_problems": [],
+      "terminal_received": true
+    },
+    "elapsed_seconds": 1.0092162380024092,
+    "finalization_elapsed_seconds": 0.008931634001783095,
+    "outcome": "failed",
+    "prediction_allowance_seconds": 1,
+    "prediction_elapsed_seconds": 1.0001815680079744,
+    "problem": "PredictionDeadlineExceeded: prediction monotonic deadline reached",
+    "request_preparation_elapsed_seconds": 0.04583404100412736,
+    "request_sha256": "23be76977bfd172cebea8e820079453f0369f3694c7dce35746dc07ba344763a",
+    "reserved_generated_tokens": 8192,
+    "reserved_input_tokens": 3265,
+    "secondary_problems": [
+      "ValueError: missing/invalid actual model usage"
+    ],
+    "usage": {
+      "stopReason": "userStopped"
+    },
+    "visible_fragment_bytes": 0,
+    "visible_fragments_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "measured_known_usage": {
+    "finalization_seconds": 0.7910472870062222,
+    "generated": 0,
+    "input": 0,
+    "known_usage_attempts": 0,
+    "operations": 12,
+    "prediction_seconds": 1.0001815680079744,
+    "unknown_usage_attempts": 1
+  },
+  "batch_elapsed_seconds": 1.8388217949977843,
+  "cleanup": {
+    "confirmed": true,
+    "identifier": "up-supplied-capacity-gemma12-36864-v1",
+    "remaining_identifiers": [],
+    "unload_requested": true
+  },
+  "client_cleanup": {
+    "confirmed": true,
+    "elapsed_seconds": 0.002506851997168269
+  },
+  "isolated_control_binding": {
+    "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-control-proof-r1/control-evidence.json",
+    "sha256": "2ce415fc5873e1728389144ae258eb9d80b3ff0a89dbe94ea90d62dc05165095",
+    "receive_adapter_sha256": "0814f4807cd37691ad49999b2509280284ae2625d0f8eb15bdc9e414500fee58",
+    "control_source_sha256": "c1ccbca729f819ba19b3482ad82aa039fe3059b17acf2ce8939e4ce0994c67ef",
+    "sdk_source_sha256": {
+      "_ws_impl.py": "a9123686ddccbf07ff3d3fe292b490c38d32441ddd74b22e02e3ba3a2e4e6704",
+      "_ws_thread.py": "d1ceecd0d10ec8d53242ecfb52abdf829d261e63051a3c04b27e4ac809acfe1d",
+      "json_api.py": "32146d39cf215e5829102938252e219a2300253981520f7005ab765b8d4b1f80",
+      "sdk_api.py": "c21aed37e101ec53185ed9df6b0ef45f07aa1a7fd7ea61f782ac4361f44fd29d",
+      "sync_api.py": "888360663dc5655e90c614ff64a285299f97a8f3a9cfeee28cac08dd42dac685"
+    },
+    "unknown_usage_reservation": {
+      "input": 4096,
+      "generated": 8192
+    },
+    "scope": "isolated terminal cancellation/receive-stop/owned cleanup; token usage unknown"
+  },
+  "limits": [
+    "Original cohort failed; five roles unattempted.",
+    "Numeric cancelled-token usage remains unknown.",
+    "Old complete terminal metadata was not retained; its missing-counter stats are in the receipt.",
+    "New report canary still requires exact complete numeric usage/settings/instance correspondence."
+  ]
+}
