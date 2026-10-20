@@ -14,23 +14,35 @@
     "observation_time": "2026-10-20T16:47:07Z"
   },
   "qualification": "qualified_as_unresolved_control",
-  "qualification_reason": "Fresh exact-head CI has rich steps for executed jobs and provider-unavailable/null steps for two skipped jobs. Static workflow includes a matrix job, which the current correlation owner intentionally excludes. The tox transition is explicit but the workflow does not install requirements.txt or invoke tox, so no dependency exercise should be inferred.",
+  "qualification_reason": "Fresh exact-head CI has rich steps for executed jobs and provider-unavailable/null steps for two skipped jobs. The static workflow contains jobs without explicit literal display names and also a later matrix job. Under the current correlation owner's check order the first expected refusal is static_job_name_missing on pre-commit; matrix expansion remains a secondary unsupported shape. The tox transition is explicit but the observed workflow does not install requirements.txt or invoke tox, so no dependency exercise should be inferred.",
   "selected_workflow": {
     "workflow_name": "CI",
     "workflow_path": ".github/workflows/tests.yml",
     "run_id": 36798375619,
     "run_attempt": 1,
     "runtime_step_state": "mixed: non_empty_array plus field_absent_or_unavailable",
-    "static_correlation_eligibility": "intentionally_unsupported_matrix",
+    "static_correlation_eligibility": "intentionally_unsupported_static_job_name_missing",
+    "expected_first_correlation_reason": "static_job_name_missing",
+    "secondary_unsupported_shapes": ["static_job_strategy_unsupported"],
     "dependency_runtime_state_eligibility": "not_established",
-    "expected_unresolved_boundary": "Matrix expansion prevents current static↔runtime bijection; requirements.txt transition is not consumed by the observed CI commands and tox is not invoked."
+    "expected_unresolved_boundary": "Current owner should first refuse the unnamed pre-commit static job rather than guess a display name; the later matrix is independently unsupported. The requirements.txt transition is not consumed by the observed CI commands and tox is not invoked."
   },
   "capture_fidelity": {
     "provider_api": "structured provider fields exposed by GitHub connector; not HTTP-wire bytes",
-    "source_files": "lossless UTF-8 contents returned by GitHub connector",
+    "source_files": "authoritative provider-exact overlays are byte-identical to the frozen upstream Git blobs",
     "critical_limitation": "Byte-for-byte original HTTP response bodies/headers could not be retained with the available connector."
   },
   "authoritative_dependency_transition_artifact": "raw/pr.diff",
+  "authoritative_workflow_source_artifact": "raw/workflow.provider-exact.yml",
+  "authoritative_dependency_source_artifacts": [
+    "raw/requirements.base.provider-exact.txt",
+    "raw/requirements.head.provider-exact.txt"
+  ],
+  "capture_repair": {
+    "state": "repaired_additively_without_overwriting_raw",
+    "problem": "Initial workflow and base/head requirements source copies omitted the frozen upstream files' final newline during text persistence.",
+    "resolution": "Preserve the original copies unchanged as non-authoritative audit evidence and add provider-exact overlays whose Git blob identities are identical to the frozen upstream source blobs."
+  },
   "artifacts": [
     {
       "path": "raw/provider-meta.json",
@@ -67,41 +79,80 @@
     },
     {
       "path": "raw/workflow.yml",
-      "source_provider": "GitHub repository source",
-      "retrieval_identity": "executablebooks/mdformat-footnote:.github/workflows/tests.yml@c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
+      "source_provider": "GitHub connector text persistence",
+      "retrieval_identity": "initial persisted .github/workflows/tests.yml@c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
       "observation_time": "2026-10-20T16:47:07Z",
       "target_revision": "c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
       "byte_size": 4353,
       "sha256": "025fc280503d35d824dbdf0cb64618673d0a1c0055870558d1801913e769ddb6",
       "git_blob_sha1": "a4eca8f90e09255f960d1047f60dd645cf65d6ca",
+      "role": "capture_error_non_authoritative",
+      "limitation": "Final newline from the frozen upstream workflow source was omitted during text persistence."
+    },
+    {
+      "path": "raw/workflow.provider-exact.yml",
+      "source_provider": "GitHub repository source",
+      "retrieval_identity": "provider-exact executablebooks/mdformat-footnote:.github/workflows/tests.yml@c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
+      "observation_time": "2026-10-20T16:47:07Z",
+      "target_revision": "c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
+      "byte_size": 4354,
+      "sha256": "a40a4a045d8bf2731dcf2d2771aa12af89fe0742acb72c3e5cc1179006f40f6c",
+      "git_blob_sha1": "9643a4ea975e7182c548e4bc8e94accb93aa0056",
+      "upstream_git_blob_sha1": "9643a4ea975e7182c548e4bc8e94accb93aa0056",
       "role": "authoritative_target_revision_source"
     },
     {
       "path": "raw/requirements.base.txt",
-      "source_provider": "GitHub repository source",
-      "retrieval_identity": "requirements.txt@9a174e4cba089f4b117134a220164bdc20f070fe",
+      "source_provider": "GitHub connector text persistence",
+      "retrieval_identity": "initial persisted requirements.txt@9a174e4cba089f4b117134a220164bdc20f070fe",
       "observation_time": "2026-10-20T16:47:07Z",
       "target_revision": "9a174e4cba089f4b117134a220164bdc20f070fe",
       "byte_size": 78,
       "sha256": "0cd4c073db5b52c219bc8ee90ae49ea32174f6c17079a2f82e6f8666e076b922",
       "git_blob_sha1": "8b13dbb4f45b0d003c97fe794b46fdcf1ddeab42",
+      "role": "capture_error_non_authoritative",
+      "limitation": "Final newline from the frozen base source was omitted during text persistence."
+    },
+    {
+      "path": "raw/requirements.base.provider-exact.txt",
+      "source_provider": "GitHub repository source",
+      "retrieval_identity": "provider-exact requirements.txt@9a174e4cba089f4b117134a220164bdc20f070fe",
+      "observation_time": "2026-10-20T16:47:07Z",
+      "target_revision": "9a174e4cba089f4b117134a220164bdc20f070fe",
+      "byte_size": 79,
+      "sha256": "2f858fb5cd36687c4b0c2e948c702cbb25db9241cbd95d4f80453a4253e3645b",
+      "git_blob_sha1": "994653111f7abfd53b8e4e0f932a1696dcf87189",
+      "upstream_git_blob_sha1": "994653111f7abfd53b8e4e0f932a1696dcf87189",
       "role": "authoritative_base_dependency_source"
     },
     {
       "path": "raw/requirements.head.txt",
-      "source_provider": "GitHub repository source",
-      "retrieval_identity": "requirements.txt@c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
+      "source_provider": "GitHub connector text persistence",
+      "retrieval_identity": "initial persisted requirements.txt@c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
       "observation_time": "2026-10-20T16:47:07Z",
       "target_revision": "c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
       "byte_size": 78,
       "sha256": "66bbe335a255c4f63f85e80e2b72456ece0a4911ffa00532a2659b57e6bad4f5",
       "git_blob_sha1": "71d68233f71dfeba3b24b2edf4f1611875ceb1c3",
+      "role": "capture_error_non_authoritative",
+      "limitation": "Final newline from the frozen head source was omitted during text persistence."
+    },
+    {
+      "path": "raw/requirements.head.provider-exact.txt",
+      "source_provider": "GitHub repository source",
+      "retrieval_identity": "provider-exact requirements.txt@c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
+      "observation_time": "2026-10-20T16:47:07Z",
+      "target_revision": "c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
+      "byte_size": 79,
+      "sha256": "6c582927e8f5e79caeb45fc5b858070ce8e77562f2a1f000fbba9312cb31a9f5",
+      "git_blob_sha1": "b6afd3da9c4d83bbf7c82b2c1e9c7d900c03b790",
+      "upstream_git_blob_sha1": "b6afd3da9c4d83bbf7c82b2c1e9c7d900c03b790",
       "role": "authoritative_head_dependency_source"
     }
   ],
   "logs_artifacts_policy": {
     "retained": false,
-    "reason": "No material need; job step summaries already expose the mixed availability and matrix boundary."
+    "reason": "No material need; job step summaries already expose mixed availability. Static workflow itself supplies the missing-name and later-matrix refusal shapes."
   },
-  "raw_immutability": "Files below raw/ are immutable after publication; corrections or later interpretation are additive outside raw/."
+  "raw_immutability": "Files below raw/ are immutable after publication; detected persistence defects were repaired additively with provider-exact overlays and the earlier copies remain explicitly non-authoritative."
 }
