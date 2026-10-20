@@ -6,12 +6,12 @@ Canonical audit records remain at stable paths directly under `audits/`. Existin
 
 Current active audits:
 
-- [ACTIVE — AUDIT-018 — Cross-domain Remediation Priorities and Dependency Order](../2026-10-20_AUDIT-018_cross-domain-remediation-priorities.md)
-  - selection basis: the dedicated project-wide audit/correction branch completed governance, product-value, architecture, proof and Investigator-methodology passes and consolidated their surviving findings into one remediation order.
-  - execution owner: [Project-wide Technical Audit and Correction Program Plan](../../plans/PROJECT_WIDE_TECHNICAL_AUDIT_AND_CORRECTION_PROGRAM_PLAN.md). The current selected responsibility is Wave 1 truth/lifecycle/governance correction on `audit/project-wide-system-audit-2026-10-20`; later proof, Workspace-cutover and semantic-experiment waves remain gated by their named prerequisites.
-  - latest reconciled upstream horizon: `main@bfcc8b916fc33523a535f7c5a994d118d09552b8`. Main's parallel product-value plan revision is convergent input that still requires semantic reconciliation before final integration.
+- [ACTIVE — AUDIT-019 — Phase-B Product-Value Reconciliation and Audit-Program Reprioritization](../2026-10-20_AUDIT-019_phase-b-product-value-reconciliation-and-audit-program-reprioritization.md)
+  - selection basis: main completed the bounded product-value feasibility Phase B at `cbba2c88`, establishing a credible finite S002/S004 retained-native-CI versus transparent-baseline component comparison before more architecture or semantic investment. AUDIT-019 reconciles that new evidence with the project-wide audit/correction program.
+  - execution owner: [Project-wide Technical Audit and Correction Program Plan](../../plans/PROJECT_WIDE_TECHNICAL_AUDIT_AND_CORRECTION_PROGRAM_PLAN.md), with current branch progression in [Stage 7 remediation](../../working-memory/2026-10-20_stage7-remediation-progress.md). Workspace closure design is parked behind the comparison result; only comparison-independent governance/proof corrections continue meanwhile.
+  - latest reconciled upstream horizon: `main@3344982c10e75863b4f4b922984e3b10b63f3b80`. The later AI-native/career horizon proposal is explicitly non-controlling and does not supersede the Phase-B product handoff in `MEMORY.md`.
 
-AUDIT-009, AUDIT-010 and AUDIT-011 are no longer current engineering inputs and have been moved to ABSORBED. Their dated evidence remains immutable and continues to support the later architecture/experiment conclusions. AUDIT-012 through AUDIT-017 are also ABSORBED into AUDIT-018 for lifecycle purposes; they remain the detailed stage evidence behind the consolidated disposition.
+AUDIT-018 is now ABSORBED as the predecessor cross-domain remediation order; AUDIT-019 supersedes it only for current sequencing/latest-main reconciliation and carries its still-valid findings forward. AUDIT-009 through AUDIT-017 remain absorbed historical/detail evidence.
 
 AUDIT-005 remains SCHEDULED and is not the selected current engineering workstream unless its activation condition is separately re-established by the live owner.
 
