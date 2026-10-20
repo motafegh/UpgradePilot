@@ -1,0 +1,2479 @@
+{
+  "source_revision": "bfcc8b916fc33523a535f7c5a994d118d09552b8",
+  "scope": "local retained-file identity and availability; no semantic or authenticity proof",
+  "screened_universe": 16,
+  "deep_selected": [
+    "S001",
+    "S002",
+    "S004",
+    "S010",
+    "S012",
+    "S016"
+  ],
+  "cases": [
+    {
+      "scenario": "S001",
+      "directory": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4",
+      "deep_selected": true,
+      "files": [
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/CASE.md",
+          "bytes": 65038,
+          "sha256": "c7e5cbbb49dea563f4b859e99009ca67cb00dc1ced9c92dd96f3e7107c29c1be",
+          "tracked_blob": "0a729ff8f9b9a82766eefa272df794d888107a57",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/README.md",
+          "bytes": 2174,
+          "sha256": "0051e37bd3bcf74ef854fa7085cd6a241deec1bfc93b02568e71634917fe28d5",
+          "tracked_blob": "2a107317a8a51d642dd25af624592aebea955585",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/BASELINE_RESULT.json",
+          "bytes": 3312,
+          "sha256": "2df5516f35e2395107be7fa7dcf68b82ab2b1a5a7945f319f0a931f1975d1b43",
+          "tracked_blob": "ab96c2d39d8e7fee784849c818d1f2de2d2f4b2c",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/CASE_IDENTITY.json",
+          "bytes": 1703,
+          "sha256": "88f1c487e1087777cd035174584f98b415f867d872be364e901349fde875ea52",
+          "tracked_blob": "a124240ff7387c42bb266c384da4c4788f4457e5",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/CLAIMS_AND_INTERPRETATIONS.jsonl",
+          "bytes": 17794,
+          "sha256": "384689cbb8acd65b2807c55fb5881a540f7bdf9957677b5e7f8a2d2928bd5419",
+          "tracked_blob": "58f9326a9ab3a98d6cabfd0f9f51cc9a490dc059",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/DECISION.json",
+          "bytes": 3398,
+          "sha256": "ffcf41a9edc2ce7169f2b28b3dd80c34c040d16bfee47ddfcec3e28e025bba91",
+          "tracked_blob": "335fce6f640ba086365611cabe38547efcbf2d6f",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/EVIDENCE_ITEMS.jsonl",
+          "bytes": 24581,
+          "sha256": "fd61f6dbc8e147317da714b620da4a14f8c9ad16e2289c847919233aa71d9de6",
+          "tracked_blob": "5269267a550c42140d2147a35b14d79c7162eaa7",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/FINDINGS.json",
+          "bytes": 11381,
+          "sha256": "5d4301fee245ad838befafb2cbf1dee8afa1f951ee8f2f2a3e71171990f3feb3",
+          "tracked_blob": "b12f0a5542f028a3eaf2716efff3ffe0699efb45",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/FOLLOW_UP_STATE.json",
+          "bytes": 1619,
+          "sha256": "570e3dbeec29870e7568f1b128858d34b97651895e8b62c8c45748bc8241c6df",
+          "tracked_blob": "be73db384e5f946bf33a61d127544a1c3a0f995d",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/HUMAN_REPORT.md",
+          "bytes": 2167,
+          "sha256": "90dcfa6b17a284abd9d606ffc80531d69c7abb5d0460767019461c2e662f4fed",
+          "tracked_blob": "77f6de10ed591763e2e70aac2133cde729f93048",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/INVOCATION.json",
+          "bytes": 1358,
+          "sha256": "19565fb75c95709b729dc4bf5db5a75104b183567b311da1c662659d99052e8a",
+          "tracked_blob": "edd58aaa4b098fffbae70ca4388c4e0a8ff580d7",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/MACHINE_REPORT.json",
+          "bytes": 1914,
+          "sha256": "224bd8adc45d9cffe50c5ee936950ecf609a3389fd6429fc031e710c6ce02a6d",
+          "tracked_blob": "f5e4496c556e3b2039789458391d70eb32d3e98f",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/OPERATION_EVENTS.jsonl",
+          "bytes": 49469,
+          "sha256": "e72d38a783c9802ffc8627ac49233426b2bf9d9d2e706d870e52210c690786c3",
+          "tracked_blob": "2272c916195fc0d80b8a9ba1efc683fe2d78be11",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/REVIEW_AND_OWNERSHIP.json",
+          "bytes": 2850,
+          "sha256": "da280c1a1756f4aaa32dfb66f3225d948aa3249e59c2014bf8b45e489756cbb0",
+          "tracked_blob": "f8ab58e7370af94740dfba07dd3c48fead9db381",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/RUN_MANIFEST.json",
+          "bytes": 10661,
+          "sha256": "07bc5f149abf783716c0d0b33fee7a40e86405c8eafeaa1aa21858cb906124b4",
+          "tracked_blob": "52586b4610e4e1a7ca17556ff3754948603889ba",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/checks/artifact-validation.json",
+          "bytes": 762,
+          "sha256": "124412bd6d273ae77c0bf86e5cecda3ef4790bdf183b5362abb66d3a1c8ec309",
+          "tracked_blob": "ada420408bc1bad547a72c350fcd217cabbb0afc",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-001-pr-metadata.json",
+          "bytes": 712,
+          "sha256": "001816db7e7ee20c36ba6b6f8f7ad8050004ec1f6bf9c81ce354c8b64c855723",
+          "tracked_blob": "68ba59834d36ea4f0bbb4dcfa6542045aecf3826",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-002-release-notes.md",
+          "bytes": 1223,
+          "sha256": "d53fb9035e26352aef69e7b4e9b91bc7d957ba02e1244e3e188b4640170d17c2",
+          "tracked_blob": "053c390d7065d8c5e3a4e000ef57df17e8c1989d",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-003-uv-lock.patch",
+          "bytes": 832,
+          "sha256": "061e60bd832ddc91da640178baae00e7bdc69b82e5aa6182eddfc0b4dcbf204d",
+          "tracked_blob": "0fe379bc017f5ed2357321dbd6cfb1f031a492bb",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-004-target-manifest.toml",
+          "bytes": 390,
+          "sha256": "86f364dbe3ebc40df5e2f1365d3b1ea65eb053fa98d7468e7f487f3d061e5e36",
+          "tracked_blob": "e7cdeeb33a6a910abe4a5a892745a8bd63616012",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-005-dependency-path.toml",
+          "bytes": 395,
+          "sha256": "5be31af951e4e8a33e2283fe81048ab97fa7be7b08c88e32105b1741ac90910d",
+          "tracked_blob": "927a2817d613d21eb7bc6b4ea3d88761670277f2",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-006-target-usage.py",
+          "bytes": 697,
+          "sha256": "9fd646b665610e79f5a51512fd687ab529ce30f9b755f3a8f9418b7352b38b10",
+          "tracked_blob": "d8e29f12ec4663aa8f77af11fc60c2bd371dc06e",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-007-mkdocs-hooks.yml",
+          "bytes": 174,
+          "sha256": "45195f224b5598568f0eda9953ddc054f891ae7439bbb6feaf430bfa32c26b3c",
+          "tracked_blob": "00fa5e4e3db8d19b4cc53f712d6a67ce59970445",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-008-ci-docs-build.yml",
+          "bytes": 514,
+          "sha256": "c5f3bf866139ae7137012dc97089a359374cad82ab6a960e28736872a07931c5",
+          "tracked_blob": "fa076e0793c1b243b20e0753558378934b733635",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-009-docs-publish.yml",
+          "bytes": 534,
+          "sha256": "7242cbaa07e0aef27da9836947f30b99d8a15866d715726ee86e6298efff7998",
+          "tracked_blob": "bc0dba1ca083d645a310824b873fd2bfda04b3ac",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-010-upstream-metadata.toml",
+          "bytes": 112,
+          "sha256": "02f9de41de560aa66c99f30eb0ad20f99985553e86ba317df8b38f1b0e5b1a33",
+          "tracked_blob": "f0b087fee680ec970b2579c8e91c99472cbf36cf",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-011-upstream-changelog.md",
+          "bytes": 552,
+          "sha256": "bd840d3dc04857e8e55433fdda556dc8f8106db91c73a4bdf02b79e4d0ad7ddb",
+          "tracked_blob": "1bcd9644897398ad3e970459842cd5a96b2e8061",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-012-pypi-metadata.json",
+          "bytes": 687,
+          "sha256": "85cdac66b3818dee7de4e0aaec7fce3febb14c35c129dc5d5baf6b2c234c0ba4",
+          "tracked_blob": "07f2d67d6c50543ef94888636e01f4512b0d91e9",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-013-advisories.json",
+          "bytes": 817,
+          "sha256": "bc71e453bd291eafd9b6693547feb33687b17c225d2dcd228ed5411985c954c0",
+          "tracked_blob": "fb3d94ec52bee51559530096d8e44d70c6eb9ed8",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-014-dependabot-config.yml",
+          "bytes": 350,
+          "sha256": "c1a277f48e67c5023c968d690baa3353ee3352ffa9f4e9f2a5ff41c9ebe1a86b",
+          "tracked_blob": "aa4c4c0b872ce713f1e2be34c424bacc7561ad6e",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-015-ci-run-summary.json",
+          "bytes": 590,
+          "sha256": "5ef8eaddd0e58cc52a93fe408b18df54beb6fe184cd58bcfe3d00b44f829f1d8",
+          "tracked_blob": "ceaec055ff24bd097ba90f61c9ee1f82f6647010",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-016-postmerge-retrieval.json",
+          "bytes": 433,
+          "sha256": "e726707a4873758168746134de448f09a83e41818a11feb53794eb58d75dc542",
+          "tracked_blob": "32bbb9937cabe8c53100c2f21cd3344e78099b50",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-017-review-context.json",
+          "bytes": 351,
+          "sha256": "edf90bef9b1e704d3a44c37b239637e0a4d5ea405c88f6dd6383a3372e227315",
+          "tracked_blob": "3c33186512af3615d05700fc3911ddd289dd4478",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-018-unrecoverable-history.json",
+          "bytes": 852,
+          "sha256": "6e52e5c07795caed8363be53ef24db910c468150cf6e41a76d5f311728d28962",
+          "tracked_blob": "455708a0d9620d30bd9e3565fbbce486163d94ab",
+          "matches_index": true
+        }
+      ]
+    },
+    {
+      "scenario": "S002",
+      "directory": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1",
+      "deep_selected": true,
+      "files": [
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/CASE.md",
+          "bytes": 20206,
+          "sha256": "fcfa4d16db0d2178a4ca0fc9665e66f2cc74343b7facec8674ca95be702b8901",
+          "tracked_blob": "06e1b381650382d7e51d9789d72b0db3d49dabf4",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/README.md",
+          "bytes": 2117,
+          "sha256": "9b045c69406c9d50fd1975402a47755c53349187fbc6482ddf80cad78f25751a",
+          "tracked_blob": "efffd1dd98dc8b968f9b533bcbe5d0c2efdf5145",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/BASELINE_RESULT.json",
+          "bytes": 3198,
+          "sha256": "f27f1cb497d696695fe0c71d6386066dd74cc476a47febe71582066d42440d6a",
+          "tracked_blob": "c82edc85c05725e1b9397dc9fb973c50d56ba6a7",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/CASE_IDENTITY.json",
+          "bytes": 1886,
+          "sha256": "9f28a2fe960a729784c8460f67681c7df7951371058f62af5204ecb1a4458d7a",
+          "tracked_blob": "e7822de048aec108927731a86b59dbcff708e9f7",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/CLAIMS_AND_INTERPRETATIONS.jsonl",
+          "bytes": 8955,
+          "sha256": "0770d34c04a3642464395f720b0ee2b37e6a2601bf3230782cfcb1b9642e964d",
+          "tracked_blob": "25bb146558a3d75e1b0f3c134b8a13796028414c",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/DECISION.json",
+          "bytes": 4026,
+          "sha256": "30576d0d5f061d4523a81ba998d6e9a460f896322ea46def74cb7e0723f1304d",
+          "tracked_blob": "411b6ec82f6006d4532f344c268db07c75564a69",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/EVIDENCE_ITEMS.jsonl",
+          "bytes": 15619,
+          "sha256": "25dac167ec12873a44b7c58bcf2c89d22d36db35aac2dc51ccc7f8feefcfecd9",
+          "tracked_blob": "44ce1830e22854cd2221ff696154bf2ac1b287d7",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/FINDINGS.json",
+          "bytes": 6737,
+          "sha256": "9089e8b2472ab8ed9d60f8f594c275c3bb540ee2ce71c892ba228bff3b4b8609",
+          "tracked_blob": "820c4d074fa5eb08c9e47ff6f678012abf9767d0",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/FOLLOW_UP_STATE.json",
+          "bytes": 2020,
+          "sha256": "be76e852a4bab3e38012917fbafffd4c4e51e6ea4da287ff0b02050ad56a8869",
+          "tracked_blob": "5fb3ff4deb08d7b239367b36b91b11f39bf22600",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/HUMAN_REPORT.md",
+          "bytes": 2506,
+          "sha256": "c1e6fb166eee22826cbcbe4bb8b73e1019d6e0434cb53f9344c8e9b4cb46e40a",
+          "tracked_blob": "9d32c4ea639afa1e36e534ac02bb092b239f655e",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/INVOCATION.json",
+          "bytes": 2252,
+          "sha256": "451ac38d924e0900a56a511696b679e652184f68f45ea4bca06570368fa74dba",
+          "tracked_blob": "49f862749060faf25badfafbacc5eda8620e35e9",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/MACHINE_REPORT.json",
+          "bytes": 4598,
+          "sha256": "0bebfa331a0718582fe931ef031cbbc28179bad6b660e8dcf34fbf32f7b245fb",
+          "tracked_blob": "445029d82bd5d939839881a62979115bd3860f29",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/OPERATION_EVENTS.jsonl",
+          "bytes": 26655,
+          "sha256": "0a3a8a54c8399d32f9f4289cf9e89d9077cb8360052612f1b624f8f39c4e64ba",
+          "tracked_blob": "107e7d31b2cf081e7e5619fd9bab6771bb2b80b0",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/REVIEW_AND_OWNERSHIP.json",
+          "bytes": 2474,
+          "sha256": "423811796f492299a9449b50a99783627738ee1478ffa9365617254da4017684",
+          "tracked_blob": "966eb05a0446ddfbe1b748eb055d299d146fa966",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/RUN_MANIFEST.json",
+          "bytes": 11409,
+          "sha256": "39c7d83ba90ad7945f9ccbd5a30d1918523662745a89b6a0de7db78b79ab1459",
+          "tracked_blob": "ac89aed6367a085c4d197f3eff1b61b8643cce85",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/checks/CK01-static-relevance-review.md",
+          "bytes": 1211,
+          "sha256": "c8b272a1b823a1e6203f1d7bdb961941636e5094e48960e2fc888d5d2f59b008",
+          "tracked_blob": "1fa727ae540ce755d8ee4050db3a13d190da6e85",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/checks/CK02-compatibility-threshold-review.md",
+          "bytes": 829,
+          "sha256": "1cb68c1440ca9ee49aa245b2afe7c236c4c6131f9385cfe52447fdc2edcf041d",
+          "tracked_blob": "1caaa9293092f83e3b5b252988cf683eef95c028",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/checks/CK03-ci-authority-review.md",
+          "bytes": 1058,
+          "sha256": "330518955216762e8b51a023fc208e418b9399bc010ca15c6fda33ef380c5e64",
+          "tracked_blob": "b2e96d3c785ed39d40890d86a6b67b85390a7b11",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/checks/CK04-bundle-validation.json",
+          "bytes": 1661,
+          "sha256": "d6644c871ed457ba663efdf19bda3417678074b5c92e6527f70a08c3de550825",
+          "tracked_blob": "ed2b0021ccbe96f37d25a6c186c146f763270cda",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E01-pr20-metadata.json",
+          "bytes": 1172,
+          "sha256": "e6d48bfae2358d2e46922e05d87fbe2b8ad429e8ba8d41ec5b170bf29cc6743f",
+          "tracked_blob": "50a40d8b3aa967ab095f996d2be06509b7712242",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E02-pr20-requirements.patch",
+          "bytes": 123,
+          "sha256": "1a5092d9575ef5771af058386b5cc82dc5978f3429a5ec44cccd2ee94aedfed6",
+          "tracked_blob": "86d3d3e477d5c3b2f3c732f9388a33893a7dd559",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E03-pr17-supersession.json",
+          "bytes": 778,
+          "sha256": "ddbbc8fc8e52fafae9e742de84d4e0ba7d0f99f7948fbbf29c1cb55323b435d0",
+          "tracked_blob": "10f2581c2b1e2c1ae4ef1e4f2fa7ce2646be2212",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E04-base-requirements.txt",
+          "bytes": 113,
+          "sha256": "110aa53ff8f52aaca29219a1ac25019219c2abd86091e9f95861043e5f8b2d25",
+          "tracked_blob": "a68109a910312daaa4a4eaeb5cf5638cb52945ac",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E05-head-requirements.txt",
+          "bytes": 113,
+          "sha256": "df39aa8b7a297f0077850b636d062161639ad0178b1dc3df85e93d2f0e06b992",
+          "tracked_blob": "b2b0d2fa63d76fedc4be0cef4587d38aeb7763c1",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E06-tests-test_routes.py",
+          "bytes": 1036,
+          "sha256": "5abb84c69fef843d32d25ed56aa9312f8702d40b4ee3a0be2c4de95e3540083d",
+          "tracked_blob": "ee3e71ee1d86d6ff9a4cf21baa21562d83638e6a",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E07-application-httpx-search.json",
+          "bytes": 701,
+          "sha256": "99857a3bc935348e2cec6484f2ee8976f55c4344e7c486563c5c69ac1e9c7969",
+          "tracked_blob": "c125b99685ebff7cb866a4c5c27dd32cf47a001e",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E08-readme-and-docker-context.md",
+          "bytes": 709,
+          "sha256": "cbbb0ffef87048bc6a3ddf9741d33dac1cedd5b6ec7d679bb5858baa239bd8c5",
+          "tracked_blob": "adc2a970983cf12c9660961dac7cc3cd0a1aee50",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E09-httpx-0.28.1-changelog.md",
+          "bytes": 701,
+          "sha256": "b121b3fd00ead09707ca7a6a0f604e6ea2b145fb7b94ee42a5f11a91b511f9a6",
+          "tracked_blob": "be9eefeb2129af34fd147cbdcc351210b6120fa2",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E10-httpx-0.28.1-python-metadata.toml",
+          "bytes": 123,
+          "sha256": "5a100591f226c0d2d168f0b006e6e31f17ff462781dd8df333249ab8aa0b5ef3",
+          "tracked_blob": "a50811dca1773248f79c53f37e90a6d93db345d2",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E11-fastapi-0.115.2-metadata.toml",
+          "bytes": 414,
+          "sha256": "c822e8680d0d76fbb886ad6b120e7d09aee4e248204bd33e27764b7fc27c1923",
+          "tracked_blob": "0019b67b868441145ac74fe901c9e41c8db92a2d",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E12-starlette-0.36.3-testclient.py",
+          "bytes": 462,
+          "sha256": "48c58e64c32ee3984dd29aed442ef9fdd97cd94bf326cef888955a1aed2520c2",
+          "tracked_blob": "2a01b3951b95faa5a99d134aa7d08507e6d1ee13",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E13-starlette-0.37.2-testclient.py",
+          "bytes": 436,
+          "sha256": "79894dd9f6d5f86d2f0b4022c6f555f8a050b715b32d1ad45512fe7d8dac5066",
+          "tracked_blob": "e13ee5dbe38a9ff7094edf7e6c92cd26d64a7f6c",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E14-docker-workflow.yaml",
+          "bytes": 927,
+          "sha256": "5ce460740949ddf2c97e3c0c0fc1ca0653e7b029d574baee4e4f7fb4c26e8512",
+          "tracked_blob": "e26744d334291aaa26717f0fd093ef4c9bdbc424",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E15-Dockerfile",
+          "bytes": 708,
+          "sha256": "04a23b0cc89d2ee58c03f75989faf0322ab0278cdac15e2f7073cccc9178461e",
+          "tracked_blob": "8a39adafe1fb537ec21519e2f527f06b8b05b4f1",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E16-actions-run-and-job.json",
+          "bytes": 924,
+          "sha256": "e5db81b9720edc6aaae64fb2da0c1500e6cf66c8bdbbf05caaa8a5591efa89ad",
+          "tracked_blob": "1872b8db966a7f8eb3f784fc4fc0460d1874c082",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E17-python-workflow.yml",
+          "bytes": 653,
+          "sha256": "ac9e14419fee01afa1505aaade96b900998a6944a0c9faaf0ea8d982ee91d520",
+          "tracked_blob": "3a424a4a2d0ea0348950f6d5eff59be1d91ef7f5",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E18-head-workflow-lookup.json",
+          "bytes": 785,
+          "sha256": "dd8d5ff15680993cb7ad134db20d8087f8a248065b2dca30e584de004308eab3",
+          "tracked_blob": "395a17914849d6e6dd3ff473ad0caf550d78d3eb",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E19-docker-log-retrieval-error.json",
+          "bytes": 688,
+          "sha256": "38d64f1631a41bc08a9d88e02fc1704da41b8136adba7a10a2e4881bd22a4cfb",
+          "tracked_blob": "b0140c8783d0177190db001881511c3fb9023695",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E20-pr20-discussion.json",
+          "bytes": 646,
+          "sha256": "279062db99fc39f0e2dcb49d7826faa4277e84da7ec4302e1d12397c7bb1e571",
+          "tracked_blob": "3d52b96fb95ca0f6083c83046b07209b4853acd5",
+          "matches_index": true
+        }
+      ]
+    },
+    {
+      "scenario": "S003",
+      "directory": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2",
+      "deep_selected": false,
+      "files": [
+        {
+          "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/CASE.md",
+          "bytes": 9659,
+          "sha256": "21f90b0c428fb8e7c339d35f38da25ae9d1f01122f162730ecc6ae898d22aaf2",
+          "tracked_blob": "105a4d895b0033fc072d75e58e294e135dc874c9",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/README.md",
+          "bytes": 2180,
+          "sha256": "b0426b4f66550b38899913ef2ec64d07aaad02ecbd832a164237a926ec3289a3",
+          "tracked_blob": "03f0a1068e97c56d918bd0359259fe5798ae1c27",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/BASELINE_RESULT.json",
+          "bytes": 4278,
+          "sha256": "49bb4ee2c59c0cea3d36f503b484a8102ebbfe2aec16350f19466b8df9e50a68",
+          "tracked_blob": "a41ee8594462ed2f3d42b629138171dd2600a41e",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/CASE_IDENTITY.json",
+          "bytes": 1329,
+          "sha256": "77e992fad2dd5e8042f45cdffa38caf6d8792466f1d9a893a096bf66f815cc73",
+          "tracked_blob": "8e5512b0a6eedb7dbd032984f7fde447c3f66bef",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/CHECK_EXECUTIONS.jsonl",
+          "bytes": 3529,
+          "sha256": "b80c4bffc603ed31619920cbef281b5f5d9ea1389312f68117b43a1880086e32",
+          "tracked_blob": "96d2b7c06f7fa8901db298735197540f1b149cfd",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/CLAIMS_AND_INTERPRETATIONS.jsonl",
+          "bytes": 6353,
+          "sha256": "4428038ed30286f5ba97c9cfc37c45bd52107054ed438c480679958c0c669702",
+          "tracked_blob": "32b9b28cc419b5f98bf4700d9d1c911c5f03f437",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/DECISION.json",
+          "bytes": 8045,
+          "sha256": "0cd428fa6ea5de87136f9e4f8ff67d6caeefd20ca3113574137b2b265b47e487",
+          "tracked_blob": "bec460754fcd37e80d25e91ff42ff8c3531b437d",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/EVIDENCE_ITEMS.jsonl",
+          "bytes": 9221,
+          "sha256": "534e75abfbf49138903a3fa816c89b1081c8c3c768f8dc7b7069f497dc1163d3",
+          "tracked_blob": "0b6a74403cf65b66357c28d5307c40a3dff90a91",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/FAILURE_ATTRIBUTION.json",
+          "bytes": 3336,
+          "sha256": "2763b2f8cb5173df7c4b26ce126b29e7da3caed9fecb4e579c41fac27c6622d3",
+          "tracked_blob": "94fe8ee4f861083e131c57acfd78e7be68327c8a",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/FINDINGS.json",
+          "bytes": 4278,
+          "sha256": "f9706f9dbb9c7586d9ba3f650e79bf6711402c20785a93fb5b2abb90bc3a509a",
+          "tracked_blob": "f47a2f3b5f9271e4b43eb7aa485fe5cf3953b9cb",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/FOLLOW_UP_STATE.json",
+          "bytes": 2250,
+          "sha256": "bc7e831df9383d7c3edd8285ce94a04b6f73021c0aeba070229ec059a964062d",
+          "tracked_blob": "fc727d63d59c6af9dbf4a8c301737fd4e49709c2",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/HUMAN_REPORT.md",
+          "bytes": 2512,
+          "sha256": "57140791f88bbd5de341635e54ab95b4793f71725ab71a7cb24eeeb78036515a",
+          "tracked_blob": "766779af1f14b0115dbf2583367c9f5dfa0ceecd",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/INVOCATION.json",
+          "bytes": 889,
+          "sha256": "8bfc3d60db581f5bb9cfbf4347db094ba928c1450d1a2eea12dfbb7f87d39c39",
+          "tracked_blob": "01d9ad9fcb4dc32c8046397b2d6174227d91510a",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/MACHINE_REPORT.json",
+          "bytes": 3726,
+          "sha256": "5b987c00efcce06707ec52d5401b4286e142fc9d105ebec1593e1db85fe76ab0",
+          "tracked_blob": "f0230087ac60c557a5d0159d6279a3e0391acec1",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/OPERATION_EVENTS.jsonl",
+          "bytes": 13118,
+          "sha256": "2abc867f0113e6061ff5f12d1a7b80e16fc96bd32f8aa7692460e6f9a8149b3f",
+          "tracked_blob": "4ab3e12fa064c5fe111c188b5fc23487cf9db1e3",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/REVIEW_AND_OWNERSHIP.json",
+          "bytes": 3012,
+          "sha256": "c8ac5b35e4875b3ee34bcf7b8cea14a5128ecd8316d44e43c87e4f1f1a40ab11",
+          "tracked_blob": "f2a0f0b4e92fdfe8947440bc3ea944f186b04339",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/RUN_MANIFEST.json",
+          "bytes": 9785,
+          "sha256": "86caf8aa76df51a988c148b74d678443638022204d8d046a928728681f098b5e",
+          "tracked_blob": "25ace41f7d9080c8c9c81eacaa15a30fdce86a37",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/checks/bundle-validation.json",
+          "bytes": 1706,
+          "sha256": "f67cd6ae970f7ec252ec741cff858c5f5c0d5f501faac42f22a4d104e9735f79",
+          "tracked_blob": "a1208d562c8031436443733bee21267725b9c319",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/checks/prospective-checkpoints.json",
+          "bytes": 1554,
+          "sha256": "50cadb3e58efdd779e3323f6c139e234d6ae7efd4dcbff9308143cb28ba62e5e",
+          "tracked_blob": "2c86cec38d9bae173c8d149c8fa18badb289eeb6",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/checks/validate_bundle.py",
+          "bytes": 9015,
+          "sha256": "f9a2b34fffa1287a874783cab8b0cfcb23fa6325e08f1e9bf1c93e98db10ca22",
+          "tracked_blob": "ee133ca0f8fd096e585094f71d4977ca6cd08fa2",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/raw/ev-002-pr-mutation.patch",
+          "bytes": 316,
+          "sha256": "41c8e4846f53ab3e05a68133347d4a6a4b64001ba47a62ebce1c31d3241dcd55",
+          "tracked_blob": "6852ae74be15a1c16223a909823dc409e2968e31",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/raw/ev-003-baseline-ci-summary.json",
+          "bytes": 393,
+          "sha256": "e01dfffe6f3393b94f76cc4679586e6131396905e96f6cdcf1f9bd69d58c7b5e",
+          "tracked_blob": "268257d5e51d02d93b2e6dcf3a4501ab4df9b182",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/raw/ev-004-linters-workflow.json",
+          "bytes": 363,
+          "sha256": "34c7dfd6733bafcbe6e849afe4f374c0aae26ad2daec78725926caf33e02cd3c",
+          "tracked_blob": "5336c2ed478b798dbe192c2e66665e9e0641d2fb",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/raw/ev-005-selected-run-jobs.json",
+          "bytes": 441,
+          "sha256": "827cfb7ea86cab2ec1d4f23fc544baa236405404b82f1f5048abd830cccfc8b1",
+          "tracked_blob": "c54af8c66fa24337955762fbf8dbb2cea84fd9ae",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/raw/ev-006-selected-job-environment.json",
+          "bytes": 472,
+          "sha256": "fc4a5bb39fa87744e898d9e1a1b61b616f2f4edd44b0afcd6dda6208b79109d3",
+          "tracked_blob": "e617e8f414b969308f68fa442324bd645134fdce",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/raw/ev-008-comparison-pr342.json",
+          "bytes": 351,
+          "sha256": "e9b2955cf8d878e5b675e805a735da7b8064afdbd58a410a1745ca674508db73",
+          "tracked_blob": "9d91933423e149045e67007ad9dc399c1dbf1da0",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/raw/ev-009-comparison-run-jobs.json",
+          "bytes": 441,
+          "sha256": "cfd2cfc4eba282bd4f74affaf10eef3555c84112edfaa313e0a1e27826c4f100",
+          "tracked_blob": "d1ad17ff8097ce891ff52b5161c035080d78af1a",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/raw/ev-010-comparison-environment.json",
+          "bytes": 482,
+          "sha256": "5dd055b9a6ee62e28b9fb3c3c797aa95e8ba01c6aef139c66094a1ef59c13a2d",
+          "tracked_blob": "2372e78e7c5789d73fbbd4b49dfb32c59f853e1f",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/raw/ev-011-local-reproduction-attempt.json",
+          "bytes": 483,
+          "sha256": "ee82ddeb0f9d2f13c0c2b7dc07bb847b189299778c39a78ffdb2dd71e033503d",
+          "tracked_blob": "88dec34114e249d6a1fe378c147c987c5c36329b",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/raw/ev-012-base-toolchain.json",
+          "bytes": 342,
+          "sha256": "21d85f13ad7d0801db92926c89281af4351fc67305fce902863683a8fc9656df",
+          "tracked_blob": "f1f9e0edd0d50ccf626c1c025a87d65cdf5e0a41",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/raw/ev-013-head-toolchain.json",
+          "bytes": 233,
+          "sha256": "3b8d1981324161fb12869249e232146dbd507298c2836854a503dfb3f91712b6",
+          "tracked_blob": "878439d27d31e13da139e11cefe0991e771936a1",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/raw/ev-014-base-peer-constraints.json",
+          "bytes": 330,
+          "sha256": "39cf5bd681870f3d82b6a944a3ff107e8872401a9a009b32ec2553df4e273d47",
+          "tracked_blob": "c19947e64f883ed430afef718820e587943ce287",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/raw/ev-015-head-peer-constraints.json",
+          "bytes": 412,
+          "sha256": "a5883af9e0e23f60340f9b54a24457f88fa4d1b90027626c50bacd5ee551a902",
+          "tracked_blob": "a1200087e3639a7c4b9a7f5d74c07c2197d7d6c5",
+          "matches_index": true
+        }
+      ]
+    },
+    {
+      "scenario": "S004",
+      "directory": "product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3",
+      "deep_selected": true,
+      "files": [
+        {
+          "path": "product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/CASE.md",
+          "bytes": 6355,
+          "sha256": "6fdfcede75c906f6015b38d1dfd7fdc01fd8cc85b385026bc0cc60fef3290b02",
+          "tracked_blob": "bb207198bc5f1da849e3fbcdbd2be2576fc312f2",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/README.md",
+          "bytes": 2182,
+          "sha256": "ca8068181324afb1476a6a820e2b3c012d2c748f376adb0be1fac377a2846128",
+          "tracked_blob": "9ab703a9d961aa5e8f4e7b4774ce663571c0b40b",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/BASELINE_RESULT.json",
+          "bytes": 2746,
+          "sha256": "c90259c3dcb80049ba8fd270496e5fd6366cb71296682d81159264f1751121c9",
+          "tracked_blob": "00cd5d8a2475f686e9c09c821497cb8b0da08260",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/CASE_IDENTITY.json",
+          "bytes": 995,
+          "sha256": "ff4fb101d17abe4c7bc0889f485961a6191da6bd30d77019c8db85f9c23f3804",
+          "tracked_blob": "f5601c8d87003eef16550e79435575b26edd025e",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/CLAIMS_AND_INTERPRETATIONS.jsonl",
+          "bytes": 2836,
+          "sha256": "9a994c5a06de1c75cf042b788839b0880dcd8402b714c28083ea6b7e9f6a291d",
+          "tracked_blob": "f451a371deafd0bf270f3077df00a688c3a83a39",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/DECISION.json",
+          "bytes": 3807,
+          "sha256": "f70ff3e372c475cd1cf15cdc745340e1689cf562d783993bc5737dc7e9bafc25",
+          "tracked_blob": "21fd06a6b68a2a5f114e5c20afb4182d73822273",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/EVIDENCE_ITEMS.jsonl",
+          "bytes": 3544,
+          "sha256": "1605ee1f1b0ae762f22063368a90b53bfb8a6b4006ea3301854afa6895e7c24b",
+          "tracked_blob": "d511ec01f430992293a4d53f62aefde8fb9a50b5",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/FINDINGS.json",
+          "bytes": 3343,
+          "sha256": "906349ab2fd24882d4ac0577b9a079e2b62f089a43562ae7cd13dbfcd7ef5074",
+          "tracked_blob": "156deb718c36eb65dfcfe0f9705d13a2a477112b",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/FOLLOW_UP_STATE.json",
+          "bytes": 1342,
+          "sha256": "7c8c116539848c8f8fa97812bfe126d2d2ca2fe3c797a3c26a2355ca58512d7d",
+          "tracked_blob": "0c68015ebfad02c41dc256b218bf7bbaf248cb66",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/HUMAN_REPORT.md",
+          "bytes": 1758,
+          "sha256": "603783e9e200d5bfbb98555eef55f5a8787e7ece6166e9a5c9071e77cc95c0e9",
+          "tracked_blob": "00d686df615b96f750983d724f442b10b7a5757d",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/INVOCATION.json",
+          "bytes": 955,
+          "sha256": "7dfb4dd4967c78ea82bb99f3c5e1e31016f4a6560182c9adfff315cd80aa129e",
+          "tracked_blob": "933ca116bf6d263488daa5554de7c542ef964f31",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/MACHINE_REPORT.json",
+          "bytes": 2308,
+          "sha256": "7806a3b4bf0f8869a54e463be6d89825495dd3460d23fdb525fd8237606aaa50",
+          "tracked_blob": "ebb03eada27f16974a935c96c0f95ea124191f10",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/OPERATION_EVENTS.jsonl",
+          "bytes": 4023,
+          "sha256": "f6e2bdf8af1d1ee5c497f7fdbfc5efd03b4b9043fcee4e65b0e96116ad872fbc",
+          "tracked_blob": "b7f8d8a335d95543ebfa6d5bf9a44eb3c592fd44",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/REVIEW_AND_OWNERSHIP.json",
+          "bytes": 1721,
+          "sha256": "8ada8e49d4d37d4bd62b27e13c927990dbb7dd292d210b45e615d280f9d013e0",
+          "tracked_blob": "599155f26bfc0442867a2ca285ce858ddb2b29fd",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/RUN_MANIFEST.json",
+          "bytes": 2699,
+          "sha256": "a3c83828f7a1a05d6e14820a7c80708f96e3a0f42758bb2bc08eaefe9df83026",
+          "tracked_blob": "385e4877e816d2e5931199e535431e7f21cb2eb4",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/STOPPING_EVALUATION.json",
+          "bytes": 3791,
+          "sha256": "b951048a9c08649fb4c268f74feabebd373a529ca3d5b29f77096e9d27d46e7e",
+          "tracked_blob": "519e30c21c79d023b8c54e8fdaf6be284c3a37ba",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/checks/bundle-validation.json",
+          "bytes": 3059,
+          "sha256": "d0a1876efb6efa314fd1454c68a09defd2961938830fe14f3bc076d69cbf5c38",
+          "tracked_blob": "4d4d87f4e6c07a9eed456935d903d483e4f7d7be",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/checks/fresh-clone-attempt.json",
+          "bytes": 1080,
+          "sha256": "bd9753cedec39bb6260ed3bf1e2ac4f26d46c4b7b5e1ff7e12847dccd204a6d4",
+          "tracked_blob": "7c0a5586e41b46486aaf1e5bb599513196afd3b5",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/checks/prospective-checkpoints.json",
+          "bytes": 2678,
+          "sha256": "9d5d52c5ddc2ad33a6afcfdb5d61069171768b51a253ce0ef5159f744d5a969d",
+          "tracked_blob": "83dc4b1f5de722c7c1867d0febd432348915c99d",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/checks/validate_bundle.py",
+          "bytes": 8260,
+          "sha256": "a59d5d0ccbc32ba59959ae8e99721f086ccb552fd5b22b7d94578686ed6ba7b8",
+          "tracked_blob": "249af381e5cb7293f63eed5b785a59fdbf9852dc",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/raw/ev-001-pr-summary.json",
+          "bytes": 671,
+          "sha256": "91095228bdfc80ad7c4d0544ca73ffbf8925fe829885df8917b9fbecfdbcd7dc",
+          "tracked_blob": "916c6b9f253bf7e292c10b1e96fd3f9f7d38110a",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/raw/ev-002-requirements-dev.patch",
+          "bytes": 186,
+          "sha256": "2cd0fac3d8e68b769887490d0048e9b05a5f4bea5498b8eee4b00f59c83a7a56",
+          "tracked_blob": "e369725f63c4759380e3bc227763f6c3829d164d",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/raw/ev-003-direct-role-and-tox-path.txt",
+          "bytes": 732,
+          "sha256": "09d9e3c0f244c28352267fe8339e21003e607fb9808579c2fd5f5df85631684a",
+          "tracked_blob": "d94c54576c4b264e1bd5e134097dabdb066a271c",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/raw/ev-004-ci-workflows.txt",
+          "bytes": 1921,
+          "sha256": "1fb1e7d9a3372f9c0aa91d84abd89c0a6164c33fd1880c084dcb377d0d87d9c4",
+          "tracked_blob": "36601866c96817db6d691c6d494f0f80db788afb",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/raw/ev-005-ci-results.json",
+          "bytes": 1518,
+          "sha256": "aafd1164f4c3cff806120f89162c7c3cd2e5ac8bf7cda08638bbb6e45c2c9096",
+          "tracked_blob": "3714427c3afa3016d7956287385d744970739824",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/raw/ev-006-upstream-release.rst",
+          "bytes": 632,
+          "sha256": "c3dc253285811870387438e03a5ce740ce4f5353d35c81f2b92c2e89987ced67",
+          "tracked_blob": "28f6239071b277012b1fc3c01de86568f1c2bf31",
+          "matches_index": true
+        }
+      ]
+    },
+    {
+      "scenario": "S005",
+      "directory": "product-simulation/scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1",
+      "deep_selected": false,
+      "files": [
+        {
+          "path": "product-simulation/scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/CASE.md",
+          "bytes": 4089,
+          "sha256": "cb7ed687bfc91c8b6967e7e9b227967becbed1fa1084c38dac059e0d42989eba",
+          "tracked_blob": "80b7bd17674af1bc3cc1ae7fb2ff4a9c41d89a51",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/README.md",
+          "bytes": 1931,
+          "sha256": "feb8b61169867f192cade3beb8beaee7644f03cbae00a268c13a8f6ff14ec0a4",
+          "tracked_blob": "15daf5bdf00b324eb5f95b743e342a8542c3b623",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/artifacts/BASELINE_RESULT.json",
+          "bytes": 2602,
+          "sha256": "a8ec5f384da2abb21e027c07eafd22d044f9f0486764d9b1d536c72f58800b3b",
+          "tracked_blob": "f0bf5a8237da4b237b57896ea9c19c33079134c4",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/artifacts/CASE_IDENTITY.json",
+          "bytes": 1088,
+          "sha256": "02fdd96a743e4dbdf0acad2c8682cbcc63707883909ea2724a84dd28554ebd98",
+          "tracked_blob": "934259ac18ef7c758197e208580ea7e22e13e164",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/artifacts/CHECK_EXECUTIONS.jsonl",
+          "bytes": 2123,
+          "sha256": "45cfe83dfe21d9bc37131ba52f7ce411a0a2fceb9b833ed7a8fc6b916494bf31",
+          "tracked_blob": "a6b0b28471feaafc9a3bdd07d9a69a07b1510245",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/artifacts/CLAIMS_AND_INTERPRETATIONS.jsonl",
+          "bytes": 2451,
+          "sha256": "e1dc5ad6e7175d1a8097e3f2d00bd029c143a02ebda773f301545244f9cfb2d8",
+          "tracked_blob": "088f66ee04cfb5a56025df3997edc01715c972bd",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/artifacts/DECISION.json",
+          "bytes": 2630,
+          "sha256": "40b8771ffc8dba4b0819b91bb5d2570aa5c026184b014026949325923bb45ebe",
+          "tracked_blob": "39744d54eb10a69e6f7ced75dd70240c104c9b97",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/artifacts/EVIDENCE_ITEMS.jsonl",
+          "bytes": 2744,
+          "sha256": "6e0dc1f780cc3cb1c1fa6e95422dd329cd77c0f55358c97495305e1c44e769ca",
+          "tracked_blob": "660d98b2abd2a45f77510ddfdcbe1fe5742a03c1",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/artifacts/FINDINGS.json",
+          "bytes": 3252,
+          "sha256": "6ebeb147e2575a1a1381efecd333ac10de15b95427a34fbf7b3b8d27074281ec",
+          "tracked_blob": "3c4cb064bf3c6a70ff0fcb8be076f056ac8ef0c8",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/artifacts/FOLLOW_UP_STATE.json",
+          "bytes": 1310,
+          "sha256": "b35d0ce067c5f5c21b76db834cbc8b6ea797be0b7f762baa7343908609a29f56",
+          "tracked_blob": "f2a485c302caecede7fb96974119f31dff8c21ba",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/artifacts/HUMAN_REPORT.md",
+          "bytes": 1626,
+          "sha256": "30fe453c1fdb2c08ff4fb21eed616a63f4fe689381569dbb94c9ab984c128fc2",
+          "tracked_blob": "0f84c9dc3304a240572e4d60160bd73debfe320e",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/artifacts/INVOCATION.json",
+          "bytes": 967,
+          "sha256": "41ad7e07fe21e0fe7fe68aa2d391236ff9e5a9d8caf0ff5c2b32896ad7f1e3c7",
+          "tracked_blob": "6ae2c331041430867064319354d1e155ef9c2488",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/artifacts/MACHINE_REPORT.json",
+          "bytes": 1375,
+          "sha256": "b86a0526bee884f761cffd9a1ed151fe4133d77c500d8945eb76ad4d026bdcc4",
+          "tracked_blob": "f29d83c3116f89842160db2cb9d21f8dddd76a75",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/artifacts/OPERATION_EVENTS.jsonl",
+          "bytes": 4718,
+          "sha256": "04c6db31f8a72eb51dc6a5757e5a66b169e4605b3e5308ec75fffe5d4b5f8211",
+          "tracked_blob": "810d8b83fa6e780358191e8c89c4a3ad5d278d3b",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/artifacts/REVIEW_AND_OWNERSHIP.json",
+          "bytes": 1597,
+          "sha256": "fa0aee0dfd18040d3914fc0761572ff0582fcecb4939d43f3cfb97aa7433862a",
+          "tracked_blob": "7dcf8d6b587ba4a6a10981f40c79680b6566ee29",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/artifacts/RUN_MANIFEST.json",
+          "bytes": 2251,
+          "sha256": "f513dbc3339fcb89d2d26204e4637f86fded2370f8d222d7bc286a4d8e664d88",
+          "tracked_blob": "bfbc66a14c2b06b986069de2194871a58626f84e",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/artifacts/checks/bundle-validation.json",
+          "bytes": 2382,
+          "sha256": "2ec8cb22bcc9a856efbf35a0d0d512ba9d2e86834ba4729d34380a1a0a713cda",
+          "tracked_blob": "2ce5bd74c72dc854cd440d3388014324b023b357",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/artifacts/checks/fresh-clone-attempt.json",
+          "bytes": 782,
+          "sha256": "914ad89f54eb07557d7e79dbf1a4fae968dc86edefe4187c21c0f09c773f96fd",
+          "tracked_blob": "65a3d29562c85d6d98e96d662ff7f3574b8905b1",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/artifacts/checks/prospective-checkpoints.json",
+          "bytes": 1882,
+          "sha256": "01ed79f50fd542d8b4229721da120e23857a82dbf19d79341010d6a553c8b889",
+          "tracked_blob": "0742a0c8c0a0ee65d22cf885a29781399c84a09b",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/artifacts/checks/validate_bundle.py",
+          "bytes": 5304,
+          "sha256": "9a87c28f4f87842e8cf291ce951fdbbe3c40d925b4649f8f45ef8dba88a1b68e",
+          "tracked_blob": "bc9f47fecaa168594559bdef54758226729f739c",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/artifacts/raw/ev-001-pr-identity.json",
+          "bytes": 560,
+          "sha256": "74fd784b2d9f2f742a0a0f7e2168ab0c7529126479324ed0a1daa82becb10f9f",
+          "tracked_blob": "356a3ea584c4245511c8e4c619b65736a85643b9",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/artifacts/raw/ev-002-uv-lock.patch",
+          "bytes": 499,
+          "sha256": "79b9d06887b3202d42a6ed171ff3f70775bd043989e5139bf3c9753f86974e5c",
+          "tracked_blob": "710650c11d6a305634ae9f3f7bf97bf2420c1c9f",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/artifacts/raw/ev-003-lock-backed-test-path.txt",
+          "bytes": 776,
+          "sha256": "ece686b2e7e3588262bcbd5d609b0104ae1a5e5d88f2ec59a852a939c80ffdac",
+          "tracked_blob": "79be2bab61f50828040eab1b8fdf9c3ee88a98dd",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/artifacts/raw/ev-004-ci-matrix.json",
+          "bytes": 1033,
+          "sha256": "6b133aa9b411f611de30bffa5080c4ac766376eb05eb835a90b468c9391c9be2",
+          "tracked_blob": "9daa2bd1c7b387049a657b2dda501b9a14411328",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/artifacts/raw/ev-005-pytest-9.1-scope.txt",
+          "bytes": 914,
+          "sha256": "5138f01a5bb9628a5c3e5c063f2fb31b10531c335dd093867ba8681cf9bded70",
+          "tracked_blob": "47a705bff1cef64c14507c7125a148100d0f362d",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/artifacts/raw/ev-006-target-surface-map.json",
+          "bytes": 1922,
+          "sha256": "20059544d4efb66b30ebb9754f3fc3b045f75411d9037e44c9736a4694fd835e",
+          "tracked_blob": "6be999d5267d319c4fc2d8110d412d36897ab784",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/artifacts/raw/ev-007-frozen-current-comparison.json",
+          "bytes": 681,
+          "sha256": "68dc55a7ead9995b5ce1ecad685c6200f85c969edfc8d7f0477bb4e761d3ec60",
+          "tracked_blob": "f7f22d6d7718f115c2da1a6c4034fe368b6ccbc7",
+          "matches_index": true
+        }
+      ]
+    },
+    {
+      "scenario": "S006",
+      "directory": "product-simulation/scenarios/S006-qldebugger-pydantic-validator-coverage-gap",
+      "deep_selected": false,
+      "files": [
+        {
+          "path": "product-simulation/scenarios/S006-qldebugger-pydantic-validator-coverage-gap/README.md",
+          "bytes": 12305,
+          "sha256": "9709a6d33e52c2ec0689865992f9190701af39c323dd1cd6b23c57220d5276cf",
+          "tracked_blob": "ee9f74d0e4cd994d30b657ce2826d8973c49598b",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S006-qldebugger-pydantic-validator-coverage-gap/artifacts/BASELINE_RESULT.json",
+          "bytes": 3375,
+          "sha256": "909088e08ffa37059024bbcb4bc008d10baf30c06d536206bae9789d54272106",
+          "tracked_blob": "59d81fae14a6aa810715bfdb1bd9c727c933d990",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S006-qldebugger-pydantic-validator-coverage-gap/artifacts/CASE_IDENTITY.json",
+          "bytes": 1829,
+          "sha256": "57e2eaeed7c4ccfbef38bc0fc089a99b7456354dcf9efbaf8f90f98d0ab95bc1",
+          "tracked_blob": "ceadc76c2fb857e2633c69fe6ada2da297ceac5a",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S006-qldebugger-pydantic-validator-coverage-gap/artifacts/ORACLE_AND_STOPPING_EVALUATION.json",
+          "bytes": 5264,
+          "sha256": "1694fe738c25cac0dc2149f4687d054445837878234d86b87e8041df5a430e11",
+          "tracked_blob": "18f27bc02423eaa63fa02f3d66d7b7b5661b7afa",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S006-qldebugger-pydantic-validator-coverage-gap/artifacts/TARGETED_CHECK_RECOMMENDATION.json",
+          "bytes": 5126,
+          "sha256": "bbb2b7bbcfcd521de4bc69f6997c05842087a1402b0031185293d8bcd21f22d2",
+          "tracked_blob": "d620f9bd21d40f941b8d9db3c033e59e0855c340",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S006-qldebugger-pydantic-validator-coverage-gap/artifacts/UPSTREAM_AND_TARGET_ACTIVATION.json",
+          "bytes": 4215,
+          "sha256": "e97d5069ce08b75c99aa96d91ba2a72919d54a113863f3c551b4da667a3780df",
+          "tracked_blob": "8821e901a95b4b9735e057babef065932341e8a6",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S006-qldebugger-pydantic-validator-coverage-gap/artifacts/VISIBLE_COVERAGE_EVALUATION.json",
+          "bytes": 4355,
+          "sha256": "d758437e4c6eb2c0179427a9c0b41a71bd8b6b8e6d2ad4990bfa1d6a1c19a98f",
+          "tracked_blob": "c01c465d213c5c118fee99a8e01b3b89e5a9cf5d",
+          "matches_index": true
+        }
+      ]
+    },
+    {
+      "scenario": "S007",
+      "directory": "product-simulation/scenarios/S007-biomedparse-torch-cuda-family-resolution",
+      "deep_selected": false,
+      "files": [
+        {
+          "path": "product-simulation/scenarios/S007-biomedparse-torch-cuda-family-resolution/README.md",
+          "bytes": 5138,
+          "sha256": "5e49769cfec1b876e7631c3c3640d2251f1901e3cd414f8ef3d47e202123c783",
+          "tracked_blob": "344e45a12bc104983b17ad5b353849e8dcaf6e66",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S007-biomedparse-torch-cuda-family-resolution/artifacts/CASE_IDENTITY_AND_TARGET_CONTEXT.json",
+          "bytes": 2241,
+          "sha256": "1458397ae8fcba7dcb9d4959779d557888f9472928435b181718d841a30e6b0e",
+          "tracked_blob": "feb50bfc7b371e44c2a0ca59585a5e744d819639",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S007-biomedparse-torch-cuda-family-resolution/artifacts/INVESTIGATION_SELECTION_AND_STOPPING.json",
+          "bytes": 5451,
+          "sha256": "3931351faade413b2f73da61ccb73e77e2cd1b264258f73f89f8aa39e300addd",
+          "tracked_blob": "966992abf9ba3e94077ae87303084c1062a74f6e",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S007-biomedparse-torch-cuda-family-resolution/artifacts/PACKAGE_FAMILY_EVIDENCE.json",
+          "bytes": 5813,
+          "sha256": "414ad181cbf9b96a464a2a55f01614f527c43778cacd9e3142bcd7115e54a2d3",
+          "tracked_blob": "bfc4ad29d2a16d0d95af364450b5be3f7b3dee08",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S007-biomedparse-torch-cuda-family-resolution/artifacts/PROPOSITION_MAP.json",
+          "bytes": 5364,
+          "sha256": "02961ad8b641c395991f6ea482a2bcc9d3da19c461fe48a6e27ac7af76352225",
+          "tracked_blob": "dd9665c24ceb08968888bddb48d8fc1440b11539",
+          "matches_index": true
+        }
+      ]
+    },
+    {
+      "scenario": "S008",
+      "directory": "product-simulation/scenarios/S008-carla-opencv-python36-artifact-fallback",
+      "deep_selected": false,
+      "files": [
+        {
+          "path": "product-simulation/scenarios/S008-carla-opencv-python36-artifact-fallback/README.md",
+          "bytes": 5661,
+          "sha256": "652ed2bc5185a7842748646a2b840d7c53893a4c73435c217d6c9d5af499104e",
+          "tracked_blob": "aedf0a060bbb49a0c27acbde3e18023c69c8190a",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S008-carla-opencv-python36-artifact-fallback/artifacts/CASE_IDENTITY.json",
+          "bytes": 1154,
+          "sha256": "7c322afb141145d6941b980ee43e05a663454cc42dcd5127d86f52659ab8da94",
+          "tracked_blob": "d37ba0afdf8bb62b18317a4e913502fafdcd4900",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S008-carla-opencv-python36-artifact-fallback/artifacts/COVERAGE_AND_STOPPING_EVALUATION.json",
+          "bytes": 3626,
+          "sha256": "acbf2336b2138e1e5ec8fc70b6ff0a37c119dfecbf792f35b8b795dfc2d95a33",
+          "tracked_blob": "406c2a7d28d29770b9089c2a1d5ed3892ed095c9",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S008-carla-opencv-python36-artifact-fallback/artifacts/TARGET_INSTALLATION_CONTEXT.json",
+          "bytes": 2065,
+          "sha256": "744002979f67cec8c62b6b214c11f31acfa42b53d0135f0cbeed08c407bf470d",
+          "tracked_blob": "5050496e5a891c48cf7cc080c90f24e57327eb8b",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S008-carla-opencv-python36-artifact-fallback/artifacts/UPSTREAM_DISTRIBUTION_TRANSITION.json",
+          "bytes": 2215,
+          "sha256": "2be19a5765e7063dc81377ddf157a2e7b2e4e52fe6695cb620f62e4ec6d54cf1",
+          "tracked_blob": "2c1e313e50250530bd9601c027e3bb00e75b42e8",
+          "matches_index": true
+        }
+      ]
+    },
+    {
+      "scenario": "S009",
+      "directory": "product-simulation/scenarios/S009-cgm-pandas-publication-reproducibility-contract",
+      "deep_selected": false,
+      "files": [
+        {
+          "path": "product-simulation/scenarios/S009-cgm-pandas-publication-reproducibility-contract/README.md",
+          "bytes": 5421,
+          "sha256": "b4b7ba322a6434be034d7a854e45e43478f0e427e021b0a15af5743bf9f4d456",
+          "tracked_blob": "e0d4eac8024ad61c1730ff8812d1054f114b2200",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S009-cgm-pandas-publication-reproducibility-contract/artifacts/BOUNDARY_AND_STOPPING.json",
+          "bytes": 2241,
+          "sha256": "ddc3e1486844548c94fe3fc2729d14584c9113290f2d64d81c77a380adbd7c32",
+          "tracked_blob": "90f1f876fab3c220f001fd33b74e1821e5cd348d",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S009-cgm-pandas-publication-reproducibility-contract/artifacts/CASE_IDENTITY.json",
+          "bytes": 970,
+          "sha256": "9d2121ac4159d35359b7e4fef1685c93b1148a5e78a4f8f1ca23c1a776ccad7b",
+          "tracked_blob": "1a88f360830cebbb033803ae006368148f43e6e6",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S009-cgm-pandas-publication-reproducibility-contract/artifacts/REPRODUCIBILITY_CONTEXT.json",
+          "bytes": 2458,
+          "sha256": "08bcb72ea148fa2e1e6a56b9081ed03b70f13d43ac4f22226bbe8fbd7b365fbd",
+          "tracked_blob": "48062a1316d2759142c9a18c66e49cce6176323b",
+          "matches_index": true
+        }
+      ]
+    },
+    {
+      "scenario": "S010",
+      "directory": "product-simulation/scenarios/S010-podcast-script-numpy-discovery-breadth",
+      "deep_selected": true,
+      "files": [
+        {
+          "path": "product-simulation/scenarios/S010-podcast-script-numpy-discovery-breadth/README.md",
+          "bytes": 5814,
+          "sha256": "2fcfd0f47a78a98d9469c60013ca2e4650a4ebb6bd97282a43d163d0f14cb812",
+          "tracked_blob": "a3bc17c8439a7e8b42511bd7fc9602155549b10d",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S010-podcast-script-numpy-discovery-breadth/artifacts/CASE_IDENTITY_AND_PROPOSAL.json",
+          "bytes": 992,
+          "sha256": "d6d5f7b84071150d07ded001e756abcd7be18319178a208b0d68cbb5ac8d815b",
+          "tracked_blob": "7bca01f3e23a185c30506bbc047ae33f90ccb520",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S010-podcast-script-numpy-discovery-breadth/artifacts/DISCOVERY_COVERAGE_AND_STOPPING.json",
+          "bytes": 3085,
+          "sha256": "1526d0ea724c5106da5365dc04bd5c7a9a0aac967b6b08cbf0d2e2f5270a1ea2",
+          "tracked_blob": "efd261642b438f12506d4ecd81995c69bff2f4b9",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S010-podcast-script-numpy-discovery-breadth/artifacts/MECHANISM_DISCOVERY_MAP.json",
+          "bytes": 3440,
+          "sha256": "dfe901723f04870daca1c83725a77f3ee807ee32e7603631ac129e90ae65b5eb",
+          "tracked_blob": "dd21bd94331510785bc8677381f07d820a61feb1",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S010-podcast-script-numpy-discovery-breadth/artifacts/TARGET_RUNTIME_AND_GUARD_CONTEXT.json",
+          "bytes": 1451,
+          "sha256": "c9df06edbfbb93ccc7cee0b7cc4ff55a92778e256dbfc2d8ea27355958e4c3a8",
+          "tracked_blob": "1e747ccca7858ce048225f3035cf27cc1a8929e2",
+          "matches_index": true
+        }
+      ]
+    },
+    {
+      "scenario": "S011",
+      "directory": "product-simulation/scenarios/S011-dictare-mlx-optional-extra-ci-coverage",
+      "deep_selected": false,
+      "files": [
+        {
+          "path": "product-simulation/scenarios/S011-dictare-mlx-optional-extra-ci-coverage/README.md",
+          "bytes": 4938,
+          "sha256": "61b393169f09aa6f202727c6cf7a34511dfb1f376e2625e2b7ad29cc903a8caf",
+          "tracked_blob": "dc62007fbbf9a3cd0b7d23f408fc2244bd0edaf2",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S011-dictare-mlx-optional-extra-ci-coverage/artifacts/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+          "bytes": 949,
+          "sha256": "6e551765b8c452a0354f1cb565c03a5afd42fd62783d7c431590e04af5b47b20",
+          "tracked_blob": "2e7c63698debd150920514b7f6567b35e4712313",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S011-dictare-mlx-optional-extra-ci-coverage/artifacts/CI_COVERAGE_BOUNDARY.json",
+          "bytes": 1795,
+          "sha256": "a928d61e1f3d9275add1fd47df842bfc9ccc7c2edea7874a9d34131c090249c8",
+          "tracked_blob": "ffee2e3d1c172a434ae2f4203552f3a815da6180",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S011-dictare-mlx-optional-extra-ci-coverage/artifacts/COORDINATED_FAMILY_CONTEXT.json",
+          "bytes": 1678,
+          "sha256": "ee6416b88d5824f47398c20ba6eef88698e9f8d90e854f235f42758baed12166",
+          "tracked_blob": "5b5483f0bd28bc3a77efb3127f8a131fb1e50fbf",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S011-dictare-mlx-optional-extra-ci-coverage/artifacts/DISCOVERY_AND_STOPPING.json",
+          "bytes": 2476,
+          "sha256": "6d815426b654e2ed20d8aeec9d0dc62b349ddc68cc39a870cd514231cc890593",
+          "tracked_blob": "5446b6716fb2358633e8ad45bc272a252db3cd48",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S011-dictare-mlx-optional-extra-ci-coverage/artifacts/OPTIONAL_ACTIVATION_PATH.json",
+          "bytes": 1615,
+          "sha256": "b9304e41eed508288edc21f0e3eb7d9de83f0a10f6d34dcbaea62b897e5c5fc8",
+          "tracked_blob": "0c389f7bec268576f9e6459046533b618b7b0bd6",
+          "matches_index": true
+        }
+      ]
+    },
+    {
+      "scenario": "S012",
+      "directory": "product-simulation/scenarios/S012-freqtrade-sklearn-persisted-artifact-version-boundary",
+      "deep_selected": true,
+      "files": [
+        {
+          "path": "product-simulation/scenarios/S012-freqtrade-sklearn-persisted-artifact-version-boundary/README.md",
+          "bytes": 6629,
+          "sha256": "640afcd429364eb135598c7623b4d3332ee2ef44c7de4f0eefefb4ac72c8723b",
+          "tracked_blob": "b750391a28c2cbe0b00d60fa2f9ca9fd769298f3",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S012-freqtrade-sklearn-persisted-artifact-version-boundary/artifacts/ARTIFACT_ACTIVATION_AND_STATE.json",
+          "bytes": 2220,
+          "sha256": "2009f58ef05497e8d5d4c7f9d56ceaa5417e8eb0da456ff91c4fc775ac9c73d4",
+          "tracked_blob": "3778185403e599351ac8348cc8be2fa3b4f7b0fc",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S012-freqtrade-sklearn-persisted-artifact-version-boundary/artifacts/CASE_IDENTITY_AND_TRANSITION.json",
+          "bytes": 901,
+          "sha256": "d6208fc3d0bd6e7d9d018ebb35b05853abbbf67ee0557f1339ebcab1135df23a",
+          "tracked_blob": "4496017e28a03ce313a186b4aa1ca704051db5b8",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S012-freqtrade-sklearn-persisted-artifact-version-boundary/artifacts/DISCOVERY_AND_STOPPING.json",
+          "bytes": 2403,
+          "sha256": "91594b71f50891744a66f11d8dcd2ddfa3c10192cc73af10046b2ecc6d4718ef",
+          "tracked_blob": "c15f6d500f070770ecf9fbc199b7851b04ee4207",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S012-freqtrade-sklearn-persisted-artifact-version-boundary/artifacts/PERSISTED_ARTIFACT_PATH.json",
+          "bytes": 2007,
+          "sha256": "fda22544821a865d1d84ee3610eb56ec100b0177a26ad803732d4c4f7ea6c44a",
+          "tracked_blob": "a2462000bed14d7517ba09339892bc92482c5765",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S012-freqtrade-sklearn-persisted-artifact-version-boundary/artifacts/UPSTREAM_PERSISTENCE_CONTRACT.json",
+          "bytes": 1412,
+          "sha256": "89fe2d7a939365bcf45877b068e239da11ce289776884332d15e6447b2adbaec",
+          "tracked_blob": "b6282646ff4db246cc848021df03c71abb0f7b9f",
+          "matches_index": true
+        }
+      ]
+    },
+    {
+      "scenario": "S013",
+      "directory": "product-simulation/scenarios/S013-langchain-anyio-uv-no-sync-prior-sync-state",
+      "deep_selected": false,
+      "files": [
+        {
+          "path": "product-simulation/scenarios/S013-langchain-anyio-uv-no-sync-prior-sync-state/README.md",
+          "bytes": 4591,
+          "sha256": "5471be7aa662f01c20e3421842703857dd9d5948c65c258451438c975673fe0b",
+          "tracked_blob": "610cb6be699b0700cb7104d45e02a34159fc336e",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S013-langchain-anyio-uv-no-sync-prior-sync-state/artifacts/CASE_IDENTITY_AND_TRANSITION.json",
+          "bytes": 689,
+          "sha256": "7e79e213bdbe2c3e9de2c8c8727f48fe05beb7f46dbfd6734c1d9b37e2db81f1",
+          "tracked_blob": "4edd2c96d0f9415f7a9542de90fa2c8edb03d282",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S013-langchain-anyio-uv-no-sync-prior-sync-state/artifacts/DISCOVERY_AND_STOPPING.json",
+          "bytes": 976,
+          "sha256": "c3536c2083c73e37b43b6c16a670243d9b552dd2f119f94577372d3bab42d5ee",
+          "tracked_blob": "3bd3e6e67ed924cd6fc01e4b9ca8ee3ef0c9066e",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S013-langchain-anyio-uv-no-sync-prior-sync-state/artifacts/ENVIRONMENT_AND_COMMAND_SEQUENCE.json",
+          "bytes": 628,
+          "sha256": "7f9a7d23030da4250288625a7aa010cb8a81422bcc8cc34ce6b35bf6f0b2c543",
+          "tracked_blob": "76a63edf96132a1aade2241dfeb8ff0cd435fe50",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S013-langchain-anyio-uv-no-sync-prior-sync-state/artifacts/RUNTIME_STATE_AND_EXERCISE.json",
+          "bytes": 1282,
+          "sha256": "7bc014888789ab2c7794fa168a83037d864ad70a8af392dc3e62b1616f948957",
+          "tracked_blob": "c4864b8ff8fd1167b55acfb1f1c92eb65f473740",
+          "matches_index": true
+        }
+      ]
+    },
+    {
+      "scenario": "S014",
+      "directory": "product-simulation/scenarios/S014-production-ready-cicd-pip-already-satisfied-vs-installed",
+      "deep_selected": false,
+      "files": [
+        {
+          "path": "product-simulation/scenarios/S014-production-ready-cicd-pip-already-satisfied-vs-installed/README.md",
+          "bytes": 4686,
+          "sha256": "dbd4777c6f3c9ceac2e0b134e68209a33744224441635f5f18f9287a9a035184",
+          "tracked_blob": "5aeaece69cae6a65c59565875b955fe11456ab93",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S014-production-ready-cicd-pip-already-satisfied-vs-installed/artifacts/BASE_STATE_CHANGE.json",
+          "bytes": 532,
+          "sha256": "878f950064acd55e6418d24cba68a1e699a8f10a34e741aed59f8582ed638ca3",
+          "tracked_blob": "2d9129a21f701340321bfe45d15fd9d4d1d416f4",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S014-production-ready-cicd-pip-already-satisfied-vs-installed/artifacts/CASE_IDENTITY_AND_CONTROL.json",
+          "bytes": 758,
+          "sha256": "c7119f642630e76b41913c44504197bdd3816364eab432ec641dc77ab1c41b5b",
+          "tracked_blob": "060999d700a49c859ce7078ba031c3808f0897e1",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S014-production-ready-cicd-pip-already-satisfied-vs-installed/artifacts/PROOF_BOUNDARY_AND_STOP.json",
+          "bytes": 836,
+          "sha256": "3ebc9f16ec5dd9b354b3ab9cabe317318c24b93217ae3c645d90a0945ad693da",
+          "tracked_blob": "08aae9ba5ca51b2b4b9a752a8f43f457371ceb07",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S014-production-ready-cicd-pip-already-satisfied-vs-installed/artifacts/PR_ALREADY_SATISFIED_STATE.json",
+          "bytes": 637,
+          "sha256": "2c19eabc4281e57dcad816083ecba391e3eebfabd5e2d41754f62f27bd7579a3",
+          "tracked_blob": "2a97662a31306c3c0d35e3e8bf59f60dd6b42b0a",
+          "matches_index": true
+        }
+      ]
+    },
+    {
+      "scenario": "S015",
+      "directory": "product-simulation/scenarios/S015-charset-normalizer-marker-scoped-pytest",
+      "deep_selected": false,
+      "files": [
+        {
+          "path": "product-simulation/scenarios/S015-charset-normalizer-marker-scoped-pytest/README.md",
+          "bytes": 4904,
+          "sha256": "62ebfafed20a11f5df92060a6fb1bb65fec792df1e50e51640a7fab6112fa388",
+          "tracked_blob": "3f2f7dec3d9699dbf7bb844aa29f132ee55b3a34",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S015-charset-normalizer-marker-scoped-pytest/artifacts/CASE_IDENTITY_AND_SOURCE.json",
+          "bytes": 662,
+          "sha256": "a8a3681a64d0a50553607358913bff2feba1884c3db73ecfe59cbe4018889e7a",
+          "tracked_blob": "46bf5ef4a30740f848b15b02980d3a0a0e1a6b86",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S015-charset-normalizer-marker-scoped-pytest/artifacts/CURRENT_PRODUCT_PROJECTION.json",
+          "bytes": 630,
+          "sha256": "e11b252647153a39378c61d621f57d567c401dab6aed66e7dbe986b7c8f49625",
+          "tracked_blob": "ce15c83b43c26bd78ac7b03098633cb39114c687",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S015-charset-normalizer-marker-scoped-pytest/artifacts/PY38_APPLICABLE_FAILURE.json",
+          "bytes": 689,
+          "sha256": "2841314afb739a7b369af9246a7c622cf23265e7a843d20dc90f6bbc2c2bfc1b",
+          "tracked_blob": "c8da74cdff3dd2d02886f19668396bb0274248e5",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S015-charset-normalizer-marker-scoped-pytest/artifacts/PY39_INAPPLICABLE_SUCCESS.json",
+          "bytes": 532,
+          "sha256": "e92bc1e6e6e3e8e25953baf179305638f907c18aa37d1e85704e4801f79924e4",
+          "tracked_blob": "3e1a22ea290a82266e4edd9edfe50db3827ff534",
+          "matches_index": true
+        }
+      ]
+    },
+    {
+      "scenario": "S016",
+      "directory": "product-simulation/scenarios/S016-thumbor-uv-selector-scope-coverage",
+      "deep_selected": true,
+      "files": [
+        {
+          "path": "product-simulation/scenarios/S016-thumbor-uv-selector-scope-coverage/README.md",
+          "bytes": 4960,
+          "sha256": "b2bc054d8038fe7f55b78ad2a65fcf6159803e77eac6bd6560a1a31cbacaa647",
+          "tracked_blob": "3564c91b3372754ad7369058267c05d510bafa59",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S016-thumbor-uv-selector-scope-coverage/artifacts/CASE_IDENTITY_AND_LOCK_TRANSITION.json",
+          "bytes": 824,
+          "sha256": "420981442701b66f490871a6fbd9f4812c37ebb6fbec07260cac1d331f41d7d5",
+          "tracked_blob": "7ec1c5d028cb8871e035e3d3ef5f6081f76ab974",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S016-thumbor-uv-selector-scope-coverage/artifacts/CURRENT_PRODUCT_PROJECTION_AND_STOP.json",
+          "bytes": 994,
+          "sha256": "e2a509bb37a7efa8f0180da078e3e57c229f554be082e93208afbcc2736bcf2d",
+          "tracked_blob": "56de7aa3327a55ba0f8a549803be9b48b13ce9d5",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S016-thumbor-uv-selector-scope-coverage/artifacts/RELEASE_GROUP_NEGATIVE_CONTROL.json",
+          "bytes": 1015,
+          "sha256": "603f4c051d89ed06a59f3a30639561fbcafc33d7cfae2680d0506921a346d653",
+          "tracked_blob": "5f77f0403a7ac4d5134c57deeccb1d5a8c7c8bfc",
+          "matches_index": true
+        },
+        {
+          "path": "product-simulation/scenarios/S016-thumbor-uv-selector-scope-coverage/artifacts/TESTS_EXTRA_POSITIVE_RUNTIME.json",
+          "bytes": 553,
+          "sha256": "3739a2beb0fe0230d0f854591f836b60df4c9d10489b081250c7ab8753f6f6da",
+          "tracked_blob": "287d78b022ecc29d798ff860a56ed3bda28567b7",
+          "matches_index": true
+        }
+      ]
+    }
+  ],
+  "legacy_manifest_checks": [
+    {
+      "scenario": "S001",
+      "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/CASE.md",
+      "exists": true,
+      "matches_recorded_sha256": false
+    },
+    {
+      "scenario": "S001",
+      "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/README.md",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S001",
+      "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/BASELINE_RESULT.json",
+      "exists": true,
+      "matches_recorded_sha256": false
+    },
+    {
+      "scenario": "S001",
+      "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/CASE_IDENTITY.json",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S001",
+      "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/CLAIMS_AND_INTERPRETATIONS.jsonl",
+      "exists": true,
+      "matches_recorded_sha256": false
+    },
+    {
+      "scenario": "S001",
+      "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/DECISION.json",
+      "exists": true,
+      "matches_recorded_sha256": false
+    },
+    {
+      "scenario": "S001",
+      "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/EVIDENCE_ITEMS.jsonl",
+      "exists": true,
+      "matches_recorded_sha256": false
+    },
+    {
+      "scenario": "S001",
+      "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/FINDINGS.json",
+      "exists": true,
+      "matches_recorded_sha256": false
+    },
+    {
+      "scenario": "S001",
+      "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/FOLLOW_UP_STATE.json",
+      "exists": true,
+      "matches_recorded_sha256": false
+    },
+    {
+      "scenario": "S001",
+      "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/HUMAN_REPORT.md",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S001",
+      "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/INVOCATION.json",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S001",
+      "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/MACHINE_REPORT.json",
+      "exists": true,
+      "matches_recorded_sha256": false
+    },
+    {
+      "scenario": "S001",
+      "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/OPERATION_EVENTS.jsonl",
+      "exists": true,
+      "matches_recorded_sha256": false
+    },
+    {
+      "scenario": "S001",
+      "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/REVIEW_AND_OWNERSHIP.json",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S001",
+      "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/checks/validate_bundle.py",
+      "exists": false,
+      "matches_recorded_sha256": false
+    },
+    {
+      "scenario": "S001",
+      "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-001-pr-metadata.json",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S001",
+      "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-002-release-notes.md",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S001",
+      "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-003-uv-lock.patch",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S001",
+      "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-004-target-manifest.toml",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S001",
+      "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-005-dependency-path.toml",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S001",
+      "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-006-target-usage.py",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S001",
+      "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-007-mkdocs-hooks.yml",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S001",
+      "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-008-ci-docs-build.yml",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S001",
+      "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-009-docs-publish.yml",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S001",
+      "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-010-upstream-metadata.toml",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S001",
+      "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-011-upstream-changelog.md",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S001",
+      "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-012-pypi-metadata.json",
+      "exists": true,
+      "matches_recorded_sha256": false
+    },
+    {
+      "scenario": "S001",
+      "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-013-advisories.json",
+      "exists": true,
+      "matches_recorded_sha256": false
+    },
+    {
+      "scenario": "S001",
+      "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-014-dependabot-config.yml",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S001",
+      "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-015-ci-run-summary.json",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S001",
+      "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-016-postmerge-retrieval.json",
+      "exists": true,
+      "matches_recorded_sha256": false
+    },
+    {
+      "scenario": "S001",
+      "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-017-review-context.json",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S001",
+      "path": "product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/artifacts/raw/ev-018-unrecoverable-history.json",
+      "exists": true,
+      "matches_recorded_sha256": false
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/CASE.md",
+      "exists": true,
+      "matches_recorded_sha256": false
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/README.md",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/BASELINE_RESULT.json",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/CASE_IDENTITY.json",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/CLAIMS_AND_INTERPRETATIONS.jsonl",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/DECISION.json",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/EVIDENCE_ITEMS.jsonl",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/FINDINGS.json",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/FOLLOW_UP_STATE.json",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/HUMAN_REPORT.md",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/INVOCATION.json",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/MACHINE_REPORT.json",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/OPERATION_EVENTS.jsonl",
+      "exists": true,
+      "matches_recorded_sha256": false
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/REVIEW_AND_OWNERSHIP.json",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/checks/CK01-static-relevance-review.md",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/checks/CK02-compatibility-threshold-review.md",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/checks/CK03-ci-authority-review.md",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/checks/CK04-bundle-validation.json",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E01-pr20-metadata.json",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E02-pr20-requirements.patch",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E03-pr17-supersession.json",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E04-base-requirements.txt",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E05-head-requirements.txt",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E06-tests-test_routes.py",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E07-application-httpx-search.json",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E08-readme-and-docker-context.md",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E09-httpx-0.28.1-changelog.md",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E10-httpx-0.28.1-python-metadata.toml",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E11-fastapi-0.115.2-metadata.toml",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E12-starlette-0.36.3-testclient.py",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E13-starlette-0.37.2-testclient.py",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E14-docker-workflow.yaml",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E15-Dockerfile",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E16-actions-run-and-job.json",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E17-python-workflow.yml",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E18-head-workflow-lookup.json",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E19-docker-log-retrieval-error.json",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S002",
+      "path": "product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/raw/E20-pr20-discussion.json",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S003",
+      "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/CASE.md",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S003",
+      "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/README.md",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S003",
+      "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/BASELINE_RESULT.json",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S003",
+      "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/CASE_IDENTITY.json",
+      "exists": true,
+      "matches_recorded_sha256": false
+    },
+    {
+      "scenario": "S003",
+      "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/CHECK_EXECUTIONS.jsonl",
+      "exists": true,
+      "matches_recorded_sha256": false
+    },
+    {
+      "scenario": "S003",
+      "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/CLAIMS_AND_INTERPRETATIONS.jsonl",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S003",
+      "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/DECISION.json",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S003",
+      "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/EVIDENCE_ITEMS.jsonl",
+      "exists": true,
+      "matches_recorded_sha256": false
+    },
+    {
+      "scenario": "S003",
+      "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/FAILURE_ATTRIBUTION.json",
+      "exists": true,
+      "matches_recorded_sha256": false
+    },
+    {
+      "scenario": "S003",
+      "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/FINDINGS.json",
+      "exists": true,
+      "matches_recorded_sha256": false
+    },
+    {
+      "scenario": "S003",
+      "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/FOLLOW_UP_STATE.json",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S003",
+      "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/HUMAN_REPORT.md",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S003",
+      "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/INVOCATION.json",
+      "exists": true,
+      "matches_recorded_sha256": false
+    },
+    {
+      "scenario": "S003",
+      "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/MACHINE_REPORT.json",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S003",
+      "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/OPERATION_EVENTS.jsonl",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S003",
+      "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/REVIEW_AND_OWNERSHIP.json",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S003",
+      "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/checks/prospective-checkpoints.json",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S003",
+      "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/checks/validate_bundle.py",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S003",
+      "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/raw/ev-002-pr-mutation.patch",
+      "exists": true,
+      "matches_recorded_sha256": true
+    },
+    {
+      "scenario": "S003",
+      "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/raw/ev-003-baseline-ci-summary.json",
+      "exists": true,
+      "matches_recorded_sha256": false
+    },
+    {
+      "scenario": "S003",
+      "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/raw/ev-004-linters-workflow.json",
+      "exists": true,
+      "matches_recorded_sha256": false
+    },
+    {
+      "scenario": "S003",
+      "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/raw/ev-005-selected-run-jobs.json",
+      "exists": true,
+      "matches_recorded_sha256": false
+    },
+    {
+      "scenario": "S003",
+      "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/raw/ev-006-selected-job-environment.json",
+      "exists": true,
+      "matches_recorded_sha256": false
+    },
+    {
+      "scenario": "S003",
+      "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/raw/ev-008-comparison-pr342.json",
+      "exists": true,
+      "matches_recorded_sha256": false
+    },
+    {
+      "scenario": "S003",
+      "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/raw/ev-009-comparison-run-jobs.json",
+      "exists": true,
+      "matches_recorded_sha256": false
+    },
+    {
+      "scenario": "S003",
+      "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/raw/ev-010-comparison-environment.json",
+      "exists": true,
+      "matches_recorded_sha256": false
+    },
+    {
+      "scenario": "S003",
+      "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/raw/ev-011-local-reproduction-attempt.json",
+      "exists": true,
+      "matches_recorded_sha256": false
+    },
+    {
+      "scenario": "S003",
+      "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/raw/ev-012-base-toolchain.json",
+      "exists": true,
+      "matches_recorded_sha256": false
+    },
+    {
+      "scenario": "S003",
+      "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/raw/ev-013-head-toolchain.json",
+      "exists": true,
+      "matches_recorded_sha256": false
+    },
+    {
+      "scenario": "S003",
+      "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/raw/ev-014-base-peer-constraints.json",
+      "exists": true,
+      "matches_recorded_sha256": false
+    },
+    {
+      "scenario": "S003",
+      "path": "product-simulation/scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/artifacts/raw/ev-015-head-peer-constraints.json",
+      "exists": true,
+      "matches_recorded_sha256": false
+    }
+  ],
+  "qualified_common_inputs": {
+    "root": "/home/motafeq/.local/share/upgradepilot/investigator-inputs/common-freeze-2026-10-16-2025",
+    "qualification_sha256": "46afdaa524a0f6681088ca78a1d83874ca8072c44fcc38d9e88a6f5efaf5d495",
+    "manifest_sha256": "e5b296dba68f7b6bb0c755e00681ec0db1ad8727ed9af51d417e5751a25bd4ac",
+    "declared_members": [
+      {
+        "path": "manifest.json",
+        "bytes": 27075,
+        "sha256": "e5b296dba68f7b6bb0c755e00681ec0db1ad8727ed9af51d417e5751a25bd4ac"
+      },
+      {
+        "path": "case-1/common-sources.json",
+        "bytes": 18873205,
+        "sha256": "ca5f294866faf1eb7633ebc5af3a3e0a9fe65896a2ae5093c5f7241f2f97fed4"
+      },
+      {
+        "path": "case-1/public-acquisition.json",
+        "bytes": 64474,
+        "sha256": "eb0c5a4a9db18d22cbba17cc9959695e6df820572387e21e924c71c30df89bae"
+      },
+      {
+        "path": "case-1/checkpoint/workspace.sqlite3",
+        "bytes": 270336,
+        "sha256": "c28db2998569728dd21a9abbfe8851141983df6e65f7b32e189df1415d7421cd"
+      },
+      {
+        "path": "case-2/common-sources.json",
+        "bytes": 16035160,
+        "sha256": "1bb8e6d45e67e4c96cf95eb2c2e54dc94226830e629d9adda04597cc041406ac"
+      },
+      {
+        "path": "case-2/public-acquisition.json",
+        "bytes": 132367,
+        "sha256": "4e2bcff9980c51b0b0934e73314f05cf1d32ef5d15a20c171a28ab55899b0499"
+      },
+      {
+        "path": "case-2/checkpoint/workspace.sqlite3",
+        "bytes": 323584,
+        "sha256": "6812ccbfee0e95743712bf9826ffac6bb942877259ea898ee1a20badf7fd1a3f"
+      },
+      {
+        "path": "validated-backup/manifest.json",
+        "bytes": 27075,
+        "sha256": "e5b296dba68f7b6bb0c755e00681ec0db1ad8727ed9af51d417e5751a25bd4ac"
+      },
+      {
+        "path": "validated-backup/case-1/common-sources.json",
+        "bytes": 18873205,
+        "sha256": "ca5f294866faf1eb7633ebc5af3a3e0a9fe65896a2ae5093c5f7241f2f97fed4"
+      },
+      {
+        "path": "validated-backup/case-1/public-acquisition.json",
+        "bytes": 64474,
+        "sha256": "eb0c5a4a9db18d22cbba17cc9959695e6df820572387e21e924c71c30df89bae"
+      },
+      {
+        "path": "validated-backup/case-1/checkpoint/workspace.sqlite3",
+        "bytes": 270336,
+        "sha256": "e663b88fc5b0959777226b1082d7a8b3445b5c9dbb03adf97ce1472cf33f12d6"
+      },
+      {
+        "path": "validated-backup/case-2/common-sources.json",
+        "bytes": 16035160,
+        "sha256": "1bb8e6d45e67e4c96cf95eb2c2e54dc94226830e629d9adda04597cc041406ac"
+      },
+      {
+        "path": "validated-backup/case-2/public-acquisition.json",
+        "bytes": 132367,
+        "sha256": "4e2bcff9980c51b0b0934e73314f05cf1d32ef5d15a20c171a28ab55899b0499"
+      },
+      {
+        "path": "validated-backup/case-2/checkpoint/workspace.sqlite3",
+        "bytes": 323584,
+        "sha256": "950360524ffab0b1e0c381720ba0884456b7a79d2dedbc536eca947ac7462fb8"
+      },
+      {
+        "path": "cold-original.json",
+        "bytes": 960,
+        "sha256": "85117a9e4ae9fd185e129e57652346ab20bff5494fbda76be80ec0cd225415e4"
+      },
+      {
+        "path": "cold-backup.json",
+        "bytes": 960,
+        "sha256": "85117a9e4ae9fd185e129e57652346ab20bff5494fbda76be80ec0cd225415e4"
+      },
+      {
+        "path": "backup-verification.json",
+        "bytes": 1512,
+        "sha256": "5713cf1410b9256a1df2f21414b3ddc8a7a7f010c5b1091f4b2f49a8611f6b8f"
+      }
+    ],
+    "verified_members": 17,
+    "hash_size_mismatches": [],
+    "frozen_product_source_entries": 96,
+    "current_product_source_mismatches": [],
+    "proof_limit": "Exact local retained files and source correspondence; no new native, baseline or model execution. Private original payloads remain outside Git.",
+    "source_membership_matches": true
+  },
+  "qualified_common_case_observations": [
+    {
+      "scenario": "S002",
+      "case_directory": "case-1",
+      "acquisition_first": "2026-10-16T16:56:06.024358+00:00",
+      "acquisition_last": "2026-10-16T16:56:10.053839+00:00",
+      "pr_body_sha256": "179e4ce07210cb1b800cadff842cb63438a7afbaec0d199678c61fecf1c25f3a",
+      "pr_body_bytes": 9348,
+      "author": "dependabot[bot]",
+      "api_run_count": 0,
+      "retained_run_count": 0,
+      "target": {
+        "base_sha": "b065646e4b7b894964567950f9ad770b02c136c2",
+        "head_sha": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+        "normalized_package": "httpx",
+        "old_version": "0.27.2",
+        "proposed_version": "0.28.1",
+        "pull_number": 20,
+        "repository": "Aidan-Wallace/kubernetes-dashboard-token-api"
+      },
+      "source_files": 2632,
+      "catalog_id": "288c3c88a12ed32706641b977f5a29b09d4727b6e9fa3de7ff2df23e28ba1bf3"
+    },
+    {
+      "scenario": "S004",
+      "case_directory": "case-2",
+      "acquisition_first": "2026-10-16T16:56:13.465479+00:00",
+      "acquisition_last": "2026-10-16T16:56:21.215135+00:00",
+      "pr_body_sha256": "9e5273cfe42221a430afeeb700e4fbf0a3742532a9af0412e805f566902c5b34",
+      "pr_body_bytes": 7762,
+      "author": "dependabot[bot]",
+      "api_run_count": 2,
+      "retained_run_count": 2,
+      "target": {
+        "base_sha": "044f19e4b1437bfc4343592486f4e3c6040306d9",
+        "head_sha": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+        "normalized_package": "pytest",
+        "old_version": "9.0.2",
+        "proposed_version": "9.0.3",
+        "pull_number": 1145,
+        "repository": "googlefonts/glyphsLib"
+      },
+      "source_files": 1384,
+      "catalog_id": "37f51311401773b05a7934945a2cc9d7904af044d328ec9fb1dae855062626ce"
+    }
+  ],
+  "baseline_specification": {
+    "path": "product-simulation/TRANSPARENT_BASELINE_SPECIFICATION.md",
+    "version": "simulation-transparent-baseline-v0.1",
+    "sha256": "a9093136b66d1131cb7c32b9a70728782641cb624332279e09126c22f622957a",
+    "new_outcomes_computed": false
+  },
+  "qualified_common_stored_native_observations": [
+    {
+      "case_directory": "case-1",
+      "qualified_revision_id": "0797f32c78e443eaaad877e1ef27e145",
+      "scope": "read-only JSON inspection of selected stored revision, not product decoder invocation",
+      "ci_coverage": {
+        "record_id": "8d83a8f3566b4a519825097d3ee90e0a",
+        "payload_digest": "ede754bd91d0abffd58c8efb66e9c59bc7a07c820e70a6f0a7e3962007563655",
+        "outcome": "recorded",
+        "producer_version": null,
+        "retention_gaps": [
+          "producer_version_unavailable"
+        ],
+        "state": "no_successful_ci",
+        "reason": "no_exact_head_workflows"
+      },
+      "runtime_dependency_state": {
+        "record_id": "057ef269fb5a425ea8d0bdd14aae826a",
+        "payload_digest": "1903be19e1e05e8ea2dbe36728c58c69fe2be103d898d85b826d383f794ed91f",
+        "outcome": "recorded",
+        "producer_version": null,
+        "retention_gaps": [
+          "producer_version_unavailable"
+        ],
+        "state": "no_admitted_candidate",
+        "reason": "no_admitted_runtime_dependency_state_candidate",
+        "assessments": []
+      }
+    },
+    {
+      "case_directory": "case-2",
+      "qualified_revision_id": "df54ee39679e488cb7ef3563619c6935",
+      "scope": "read-only JSON inspection of selected stored revision, not product decoder invocation",
+      "ci_coverage": {
+        "record_id": "278f095b020e4db7bfde1afca14c232f",
+        "payload_digest": "e91804fe9025f79c4cb0658eb73121c732a41cf516bc19b862ce630f72ff9f09",
+        "outcome": "recorded",
+        "producer_version": null,
+        "retention_gaps": [
+          "producer_version_unavailable"
+        ],
+        "state": "supported_not_correlated",
+        "reason": "successful_exact_head_ci_with_static_dependency_consumption"
+      },
+      "runtime_dependency_state": {
+        "record_id": "c8277deec9944427ab5f4ede4e878c70",
+        "payload_digest": "73b55f755e33e6267f0cf930d684b16636d55739cb33c0ce6c1f825ef14a5734",
+        "outcome": "recorded",
+        "producer_version": null,
+        "retention_gaps": [
+          "producer_version_unavailable"
+        ],
+        "state": "evaluated",
+        "reason": "runtime_dependency_state_candidates_evaluated",
+        "assessments": [
+          {
+            "state": "unresolved",
+            "reason": "manager_environment_needs_lower_source_evidence",
+            "blocking_dimension": "manager_environment"
+          },
+          {
+            "state": "unresolved",
+            "reason": "manager_environment_needs_lower_source_evidence",
+            "blocking_dimension": "manager_environment"
+          }
+        ]
+      }
+    }
+  ]
+}
