@@ -6,21 +6,14 @@ Canonical audit records remain at stable paths directly under `audits/`. Existin
 
 Current active audits:
 
-- [ACTIVE — AUDIT-011 — Investigator Experiment Validity, Bottlenecks and Useful Progress](../2026-10-18_AUDIT-011_investigator-experiment-validity-and-progress.md)
-  - selection basis: Ali accepted the audit/amendment review and authorized writing the bounded successor plan, including the refinement that fixed-packet interpretation need not await a general adaptive discovery-budget implementation.
-  - execution owner: [Investigator Run Control, Completion and Capability Diagnostic Plan](../../plans/INVESTIGATOR_RUN_CONTROL_COMPLETION_AND_CAPABILITY_DIAGNOSTIC_PLAN.md). Audit findings are selected planning inputs; this lifecycle entry grants no Build, model loading, inference, automatic navigation repair or product adoption. Original incomplete semantic evidence and its separate D/E boundary remain intact; `../../MEMORY.md` owns exact continuation.
+- [ACTIVE — AUDIT-018 — Cross-domain Remediation Priorities and Dependency Order](../2026-10-20_AUDIT-018_cross-domain-remediation-priorities.md)
+  - selection basis: the dedicated project-wide audit/correction branch completed governance, product-value, architecture, proof and Investigator-methodology passes and consolidated their surviving findings into one remediation order.
+  - execution owner: [Project-wide Technical Audit and Correction Program Plan](../../plans/PROJECT_WIDE_TECHNICAL_AUDIT_AND_CORRECTION_PROGRAM_PLAN.md). The current selected responsibility is Wave 1 truth/lifecycle/governance correction on `audit/project-wide-system-audit-2026-10-20`; later proof, Workspace-cutover and semantic-experiment waves remain gated by their named prerequisites.
+  - latest reconciled upstream horizon: `main@bfcc8b916fc33523a535f7c5a994d118d09552b8`. Main's parallel product-value plan revision is convergent input that still requires semantic reconciliation before final integration.
 
-- [ACTIVE — AUDIT-010 — Hybrid Investigation Architecture Compatibility and Interface Delta](../2026-10-07_AUDIT-010_hybrid-investigation-architecture-compatibility.md)
-  - selection basis: Ali proposes a bounded workspace/Investigator-interface design responsibility following the completed interpretation-only research result at `74835751`.
-  - execution owner: [Investigation Workspace and Investigator-interface Design Plan](../../plans/INVESTIGATION_WORKSPACE_AND_INVESTIGATOR_INTERFACE_DESIGN_PLAN.md); `../../MEMORY.md` alone owns the cycle phase and continuation.
-  - selected input is the genuine composition/update/proposal-admission delta. The accepted hybrid direction needs no restatement ADR/specification change. Source Build, concrete Investigator mechanism, framework/model/agent structure, persistence technology and execution expansion remain unselected; research and main require a later explicit integration decision. The audit's original dated review and proof cutoff remain unchanged.
+AUDIT-009, AUDIT-010 and AUDIT-011 are no longer current engineering inputs and have been moved to ABSORBED. Their dated evidence remains immutable and continues to support the later architecture/experiment conclusions. AUDIT-012 through AUDIT-017 are also ABSORBED into AUDIT-018 for lifecycle purposes; they remain the detailed stage evidence behind the consolidated disposition.
 
-- [ACTIVE — AUDIT-009 — Post-Runtime-State Delta Readiness Audit](../2026-10-02_AUDIT-009_post-runtime-state-delta-readiness.md)
-  - selection basis: Ali requested a full post-runtime-state delta audit and then authorized reconciliation of stale current-facing records before the next action-relative reachability comparison.
-  - execution owners: `../../plans/END_TO_END_PRODUCT_FLOW_LEARNING_AND_EVIDENCE_TO_ACTION_EXECUTION_PLAN.md` and its parent `../../plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`; `../../MEMORY.md` alone owns the exact live slice.
-  - current coordination boundary (2026-10-02): Runtime Dependency-State Cycle 1 is closed and Product Verification #17 remains the product proof anchor. The next selected responsibility is the parent action-relative reachability comparison. AUDIT-009 is the current delta-readiness input; it does not authorize F5/F7, Runtime-State Cycle 2, AI activation, or maintainer-action implementation.
-
-AUDIT-008 has been moved to ABSORBED because AUDIT-009 and the completed F3/F4/F9/F11/F6 records now carry its current conclusions forward. AUDIT-008 remains the historical baseline and source of finding provenance. AUDIT-005 remains SCHEDULED and is not the selected current engineering workstream.
+AUDIT-005 remains SCHEDULED and is not the selected current engineering workstream unless its activation condition is separately re-established by the live owner.
 
 Active audits remain **non-controlling evidence**. The active plan, specifications/ADRs where applicable, source/tests, and `MEMORY.md` own execution, stable decisions, behavior, and live continuation.
 
