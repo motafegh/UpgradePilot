@@ -70,7 +70,7 @@ Pass `owner/repository` and a positive PR number as separate arguments, not a fu
 
 A real investigation reads public GitHub/PyPI/upstream evidence. When sufficient upstream evidence activates Python-support semantic extraction, it calls the local provider configured in [the extractor](src/upgradepilot/upstream/support_drop_extractor.py):
 
-- LM Studio base: `http://127.0.0.1:12345`;
+- LM Studio base: `http://127.0.0.1:18080`;
 - model key: `gemma-4-e4b-it-ud`;
 - semantic request timeout: 180 seconds, not a total-investigation time limit.
 
