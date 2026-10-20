@@ -1,9 +1,17 @@
 name: Product verification
 
-# Manual dispatch keeps hosted verification separate from local execution proof.
-# Enabling push/PR checks is a separate decision after the first hosted run is reviewed.
+# Keep canonical integration proof deterministic and independent of local-model,
+# live-acquisition and experiment infrastructure. Manual dispatch remains available for
+# explicit branch verification; pull requests and direct pushes targeting main verify the
+# installed product automatically.
 on:
   workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
 
 permissions:
   contents: read
