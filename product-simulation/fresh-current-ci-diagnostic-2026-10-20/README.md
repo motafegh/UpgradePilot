@@ -13,7 +13,7 @@ A green GitHub job is not evidence that an updated dependency was installed, imp
 | Case | Transition | Diagnostic role | Qualification |
 | --- | --- | --- | --- |
 | `FCI001-openai-agents-mcp` | `mcp 2.0.0 -> 2.3.0` | Positive current YAML↔runtime correlation shape with non-empty GitHub step summaries | `qualified_for_current_ci_diagnostic` |
-| `FCI002-mdformat-footnote-tox` | `tox>=4.61.1 -> >=4.64.4` | tox-oriented matrix refusal control; executed jobs have steps while skipped publish jobs retain unavailable/null steps | `qualified_as_unresolved_control` |
+| `FCI002-mdformat-footnote-tox` | `tox>=4.61.1 -> >=4.64.4` | tox-oriented unresolved control with mixed runtime step availability; first correlation refusal is missing static job name, with a later matrix as a secondary unsupported shape | `qualified_as_unresolved_control` |
 | `FCI003-pasarguard-fastapi` | `fastapi>=0.143.2 -> >=0.143.3` | Rich non-empty runtime steps but no explicit static job display names; correlator must refuse rather than guess | `qualified_as_unresolved_control` |
 
 Three cases are sufficient for the selected responsibilities; the objective is discrimination and reproducibility, not case count.
@@ -30,19 +30,27 @@ Cohort-level records:
 
 - `CANDIDATE_SELECTION.md` — admitted/rejected candidates and stop decision;
 - `READINESS_MATRIX.md` — what each case can diagnose and where unresolved boundaries are expected;
-- `REPLAY_VERIFICATION.md` — fresh-process/offline replay method, results and capture-repair audit;
+- `REPLAY_VERIFICATION.md` — corrected fresh-process/offline replay method, results and capture-repair audit;
+- `RETENTION_CORRECTIONS.md` — additive source-byte and semantic corrections found by post-publication audit;
 - `FINAL_REPORT.md` — concise outcome, limitations and recommended next diagnostic;
-- `verify_bundle.py` — no-network integrity/identity verifier for a fresh checkout.
+- `verify_bundle.py` — no-network integrity/source-fidelity/identity verifier for a fresh checkout.
 
 ## Raw/provider separation and immutability
 
-Files below `raw/` are immutable after publication. Verification found that the first manually persisted PR-diff reconstructions for FCI001 and FCI003 had whitespace introduced on otherwise blank context lines. Those files were **not overwritten**: they remain preserved and explicitly marked non-authoritative. Additive `pr.provider-exact.diff` files match the original captured provider bytes and are the manifest-selected producer inputs. FCI002's original diff was exact.
+Files below `raw/` are immutable after publication. Verification found two classes of persistence defect in early cohort construction:
+
+1. the first manually persisted PR-diff reconstructions for FCI001 and FCI003 introduced whitespace on otherwise blank context lines;
+2. the first FCI001 workflow copy and FCI002 workflow/base/head requirements copies omitted the frozen upstream files' final newline during connector-to-text persistence.
+
+None of those files was overwritten. They remain preserved and explicitly non-authoritative. Additive `pr.provider-exact.diff` and `*.provider-exact.*` source overlays are the manifest-selected authoritative inputs. Their Git object identities match the captured provider bytes or frozen upstream source Git blobs as appropriate.
+
+FCI002's original PR diff was exact. FCI003's retained workflow/base/head source files were already byte-identical to their frozen upstream Git blobs.
 
 ## Capture-fidelity limitation
 
 The available GitHub connector exposes structured provider fields used by the current diagnostic path plus repository source/diff text, but it does not export the original HTTP response body and headers byte-for-byte. Provider API captures are therefore **structured provider captures**, not HTTP-wire archives. Manifests make this limitation explicit; no unexposed field is claimed as retained.
 
-Source and authoritative diff artifacts are retained losslessly, with byte size, SHA-256 and Git object identity.
+For authoritative source/diff artifacts, byte size, SHA-256 and Git object identity are retained. Provider-exact source overlays additionally record frozen upstream Git blob identity so replay can distinguish self-consistent storage from actual upstream byte fidelity.
 
 ## Logs and workflow artifacts
 
