@@ -16,11 +16,11 @@ A0 — DONE: reconciled current main, Charter, route, live memory, recent Invest
 
 A1 — DONE by justified continuity compression: the immediately preceding strategy discussion already reconstructed the current project/career state and Ali explicitly accepted moving the strategy into a separate research branch. No contradictory new main evidence appeared between that discussion and branch creation except the expected FCI001 progress, which was incorporated into the base.
 
-A2 — DONE by justified scope compression: Ali explicitly selected separate-branch research/design first and deferred any merge/adoption decision until research completes and main is rechecked. The branch responsibility, proof boundary, non-goals, and final reconciliation requirement are now formalized in the branch-local research/design plan.
+A2 — DONE by justified scope compression: Ali explicitly selected separate-branch research/design first and deferred any merge/adoption decision until research completes and main is rechecked. The branch responsibility, proof boundary, non-goals, and final reconciliation requirement are formalized in the branch-local research/design plan.
 
-B — CURRENT: build the evidence-backed capability inventory and gap classification before proposing concrete additions.
+B — CURRENT: initial capability evidence inventory completed; next design responsibility is to turn the highest-value findings into precise integration/ownership/security/external-validation options without creating implementation tasks prematurely.
 
-Verification gate — PENDING: verify classifications against actual repository evidence and, where career-market claims materially influence priority, current diverse external role evidence.
+Verification gate — PARTIAL: repository classifications are source/evidence-backed; current market/security evidence was sampled to test prioritization. Full verification remains pending for the final strategy, particularly after the current `main` FCI/product-value work closes and before any integration recommendation.
 
 D — PENDING: explain the resulting prioritized strategy, rejected/deferred alternatives, and why each retained capability belongs in product, experiment, learning, portfolio/external validation, or nowhere for now.
 
@@ -52,28 +52,78 @@ C — CONTINUOUS: preserve branch research decisions, evidence changes, rejected
 
 These hypotheses must be challenged against repository evidence and current role evidence; none is admitted merely because it matches the preceding discussion.
 
-## First research responsibility
+## First research responsibility — completed inventory pass
 
-Construct the capability evidence inventory before designing solutions.
+The first pass classified the material capability families from the horizon proposal against current project evidence. The detailed result is preserved in [`../proposals/2026-10-20_AI_NATIVE_ENGINEERING_AND_CAREER_CAPABILITY_RESEARCH_FINDINGS.md`](../proposals/2026-10-20_AI_NATIVE_ENGINEERING_AND_CAREER_CAPABILITY_RESEARCH_FINDINGS.md).
 
-For each material capability family, capture at least:
+The strongest preliminary pattern is not “UpgradePilot needs more technology.” It is:
 
 ```text
-current product capability/proof
-current engineering proof
-AI-native/agent proof
-Ali-owned proof
-external/user proof
-employer-facing legibility
-current gap
-natural integration surface
-provisional priority
-counterargument / reason to stop
+substantial existing engineering
++ incomplete Ali-owned qualification
++ incomplete external usefulness evidence
++ several genuine missing evidence classes
 ```
 
-Start with the high-leverage families named in the research/design plan, but keep the horizon broad enough to identify an unexpectedly stronger opportunity.
+### Existing strengths that should primarily be qualified/exposed rather than reimplemented
 
-Do not create implementation tasks yet.
+- exact evidence/provenance and authority separation;
+- evaluation discipline, baseline comparison and negative-result preservation;
+- SQLite-backed immutable Workspace checkpoint/durability work;
+- broad deterministic product/experiment testing;
+- explicit security/trust policy around untrusted evidence and external action;
+- measured model/runtime resource and cost evidence.
+
+### Genuine missing evidence classes with likely high compound value
+
+- explicit AI/agent threat model plus adversarial attack/containment tests;
+- independent maintainer/user/open-source validation;
+- coherent operational trace/diagnosis evidence;
+- concise reviewer-first/employer-facing proof surface.
+
+### Important career capabilities that should not automatically become product features
+
+- independent Python/SQL fluency;
+- Linux/process/filesystem diagnosis;
+- networking/HTTP/TLS/proxy diagnosis;
+- backend/API fundamentals;
+- cloud/container fundamentals when useful for deployment practice.
+
+### Explicit current resistance/defer set
+
+Do not treat the following as gaps merely because they appear in job descriptions or the horizon catalog:
+
+- more agents/multi-agent architecture;
+- PostgreSQL replacing meaningful SQLite work without a concurrency/query need;
+- vector database/RAG without a measured retrieval bottleneck;
+- microservices/queues/distributed workers without an operational requirement;
+- Kubernetes/multi-cloud;
+- large frontend implementation;
+- learned ranking/ML before enough data and transparent baselines exist.
+
+## Current-main progression observed while the branch was researching
+
+`main` advanced after branch creation from `ecd11a4a` to observed `862731e0` through two additional Fresh Current CI diagnostic case commits. The changes were confined to `product-simulation/` evidence, not product source/architecture.
+
+Material new evidence:
+
+- FCI002 exposes non-empty current GitHub runtime step data but has matrix/dynamic-name pressure that the current correlator should refuse rather than guess; green pytest does not prove the updated tox dependency was installed/exercised.
+- FCI003 also exposes non-empty runtime steps and no matrix, but lacks explicit literal static job `name:` values; the current correlation owner intentionally refuses YAML-job-key → runtime-display-name inference, and green `make` jobs do not by themselves prove exact FastAPI install/exercise.
+
+This is consistent with the branch strategy: trustworthy refusal and located uncertainty can be stronger evidence than forcing a broader positive correlation result. No research-branch rebase/merge is justified merely to ingest these new exposed fixtures; the completed main disposition will be reread at the final reconciliation gate.
+
+## Next research responsibility
+
+Before implementation proposals, design and compare the following at a responsibility level:
+
+1. **Ali-owned capability evidence mechanism** — smallest durable way to record capability claim, exact evidence, current ownership level and next proof without building a second project-management system or proficiency-score bureaucracy.
+2. **AI-security signature thread** — smallest 3–5 attack families that naturally exercise current/near-term UpgradePilot trust boundaries, with deterministic invariants, observable blocked/contained effects, residual-risk recording and regression proof.
+3. **External validation thread** — maturity trigger, sample size/participant type, structured feedback questions, negative-feedback retention and claim boundary.
+4. **Operational diagnosis thread** — operator questions that are currently expensive to answer and the simplest structured event/trace baseline before considering OpenTelemetry or a monitoring stack.
+5. **Reviewer-first proof surface** — what an unfamiliar reviewer should understand in approximately 1, 3 and 10 minutes without reading internal governance history.
+6. **Separate fundamentals track** — which skills should be practised outside product architecture and how UpgradePilot incidents/data can provide realistic exercises without turning them into product requirements.
+
+Do not create product implementation tasks until these designs make the responsibility, owner, baseline, proof/rejection criteria and career/product boundaries clear.
 
 UP-SKILL:upgradepilot-planning-design
 UP-SKILL:upgradepilot-learning-by-doing
