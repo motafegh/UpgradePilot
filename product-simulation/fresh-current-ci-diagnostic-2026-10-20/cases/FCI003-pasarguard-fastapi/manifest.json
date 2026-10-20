@@ -1,21 +1,125 @@
 {
-  "case_id":"FCI003",
-  "manifest_schema":"fci-case-manifest-v1",
-  "cohort_role":"fresh_exposed_development_diagnostic",
-  "exposure_status":"exposed; inspected/selected during development; not a holdout or acceptance case",
-  "identity":{"repository":"PasarGuard/panel","pr_number":1044,"base_sha":"67096b59e80769e84b7a29012da62b8a78a7e273","head_sha":"ffecd3d66aa307590dd41d7cc755dde7a5b5644b","dependency":"fastapi","old_version":">=0.143.2","proposed_version":">=0.143.3","observation_time":"2026-10-20T16:47:07Z"},
-  "qualification":"qualified_as_unresolved_control",
-  "qualification_reason":"Fresh exact-head migration workflow has five jobs with non-empty step arrays and no matrix/reusable jobs, but every static job lacks an explicit literal display name. The current correlator must refuse instead of guessing job-id equals runtime display-name.",
-  "selected_workflow":{"workflow_name":"Test Database Migrations","workflow_path":".github/workflows/test-database-migrations.yml","run_id":39445488948,"run_attempt":1,"runtime_step_state":"non_empty_array for all five jobs","static_correlation_eligibility":"intentionally_unsupported_static_job_name_missing","dependency_runtime_state_eligibility":"not_established_by_current_workflow_commands","expected_unresolved_boundary":"Do not equate YAML job keys with runtime display names. The visible workflow invokes make targets; successful job/test summaries do not themselves prove the FastAPI requirement was installed or exercised."},
-  "capture_fidelity":{"provider_api":"structured provider fields exposed by GitHub connector; not HTTP-wire bytes","source_files":"lossless UTF-8 contents returned by GitHub connector","critical_limitation":"Byte-for-byte original HTTP response bodies/headers could not be retained with the available connector."},
-  "artifacts":[
-    {"path":"raw/provider-meta.json","source_provider":"GitHub","retrieval_identity":"connector captures for PR #1044, exact-head runs and run 39445488948 attempt 1 identity","observation_time":"2026-10-20T16:47:07Z","target_revision":"ffecd3d66aa307590dd41d7cc755dde7a5b5644b","byte_size":2444,"sha256":"30a2aad627e161b184c060d2c95b97f05ff20301468854fb98aa368098445638"},
-    {"path":"raw/jobs-attempt-1.json","source_provider":"GitHub","retrieval_identity":"run 39445488948 attempt 1 job capture","observation_time":"2026-10-20T16:47:07Z","target_revision":"ffecd3d66aa307590dd41d7cc755dde7a5b5644b","byte_size":6700,"sha256":"d0433679090825b149ac4a81234013c5a8cfeb2f2d609ac732844918a6ff28f1"},
-    {"path":"raw/pr.diff","source_provider":"GitHub","retrieval_identity":"PR #1044 diff","observation_time":"2026-10-20T16:47:07Z","target_revision":"67096b59e80769e84b7a29012da62b8a78a7e273..ffecd3d66aa307590dd41d7cc755dde7a5b5644b","byte_size":2499,"sha256":"a86db196e424bb70c4ac5bf265acd3b3bbe327f5ab7001fc1d1a2c2f093dbd1f"},
-    {"path":"raw/workflow.yml","source_provider":"GitHub repository source","retrieval_identity":"PasarGuard/panel:.github/workflows/test-database-migrations.yml@ffecd3d66aa307590dd41d7cc755dde7a5b5644b","observation_time":"2026-10-20T16:47:07Z","target_revision":"ffecd3d66aa307590dd41d7cc755dde7a5b5644b","byte_size":11653,"sha256":"5abf31aed80059c28416c6bcd7d8df15f0eea25de1e641c1c93b9af369723597"},
-    {"path":"raw/pyproject.base.toml","source_provider":"GitHub repository source","retrieval_identity":"pyproject.toml@67096b59e80769e84b7a29012da62b8a78a7e273","observation_time":"2026-10-20T16:47:07Z","target_revision":"67096b59e80769e84b7a29012da62b8a78a7e273","byte_size":2122,"sha256":"e9033c32ab5a6a5e51927c00d7447850cd0f458bf60e8ce8e091fe4db16067a2"},
-    {"path":"raw/pyproject.head.toml","source_provider":"GitHub repository source","retrieval_identity":"pyproject.toml@ffecd3d66aa307590dd41d7cc755dde7a5b5644b","observation_time":"2026-10-20T16:47:07Z","target_revision":"ffecd3d66aa307590dd41d7cc755dde7a5b5644b","byte_size":2122,"sha256":"e2e8a3019e8e1bd5dfcc9497c1459e4848c5ebdc0d80c7e185e0904ce8ff1959"}
+  "case_id": "FCI003",
+  "manifest_schema": "fci-case-manifest-v1",
+  "cohort_role": "fresh_exposed_development_diagnostic",
+  "exposure_status": "exposed; inspected/selected during development; not a holdout or acceptance case",
+  "identity": {
+    "repository": "PasarGuard/panel",
+    "pr_number": 1044,
+    "base_sha": "67096b59e80769e84b7a29012da62b8a78a7e273",
+    "head_sha": "ffecd3d66aa307590dd41d7cc755dde7a5b5644b",
+    "dependency": "fastapi",
+    "old_version": ">=0.143.2",
+    "proposed_version": ">=0.143.3",
+    "observation_time": "2026-10-20T16:47:07Z"
+  },
+  "qualification": "qualified_as_unresolved_control",
+  "qualification_reason": "Fresh exact-head migration workflow has five jobs with non-empty step arrays and no matrix/reusable jobs, but every static job lacks an explicit literal display name. The current correlator must refuse instead of guessing job-id equals runtime display-name.",
+  "selected_workflow": {
+    "workflow_name": "Test Database Migrations",
+    "workflow_path": ".github/workflows/test-database-migrations.yml",
+    "run_id": 39445488948,
+    "run_attempt": 1,
+    "runtime_step_state": "non_empty_array for all five jobs",
+    "static_correlation_eligibility": "intentionally_unsupported_static_job_name_missing",
+    "dependency_runtime_state_eligibility": "not_established_by_current_workflow_commands",
+    "expected_unresolved_boundary": "Do not equate YAML job keys with runtime display names. The visible workflow invokes make targets; successful job/test summaries do not themselves prove the FastAPI requirement was installed or exercised."
+  },
+  "capture_fidelity": {
+    "provider_api": "structured provider fields exposed by GitHub connector; not HTTP-wire bytes",
+    "source_files": "lossless UTF-8 contents returned by GitHub connector",
+    "critical_limitation": "Byte-for-byte original HTTP response bodies/headers could not be retained with the available connector."
+  },
+  "authoritative_dependency_transition_artifact": "raw/pr.provider-exact.diff",
+  "capture_repair": {
+    "state": "repaired_additively_without_overwriting_raw",
+    "problem": "Initial raw/pr.diff reconstruction inserted one ASCII space on each of two otherwise blank diff-context lines.",
+    "detection": "Post-publication Git-object verification found byte-size/blob-identity disagreement with the original captured provider diff.",
+    "resolution": "Preserve raw/pr.diff unchanged as a non-authoritative capture-error artifact and add raw/pr.provider-exact.diff whose Git blob identity and SHA-256 match the original captured provider response bytes."
+  },
+  "artifacts": [
+    {
+      "path": "raw/provider-meta.json",
+      "source_provider": "GitHub",
+      "retrieval_identity": "connector captures for PR #1044, exact-head runs and run 39445488948 attempt 1 identity",
+      "observation_time": "2026-10-20T16:47:07Z",
+      "target_revision": "ffecd3d66aa307590dd41d7cc755dde7a5b5644b",
+      "byte_size": 2444,
+      "sha256": "30a2aad627e161b184c060d2c95b97f05ff20301468854fb98aa368098445638",
+      "git_blob_sha1": "49e362976c3976a73f4c97156b0a1c54ea641dd3",
+      "role": "authoritative_structured_provider_capture"
+    },
+    {
+      "path": "raw/jobs-attempt-1.json",
+      "source_provider": "GitHub",
+      "retrieval_identity": "run 39445488948 attempt 1 job capture",
+      "observation_time": "2026-10-20T16:47:07Z",
+      "target_revision": "ffecd3d66aa307590dd41d7cc755dde7a5b5644b",
+      "byte_size": 6700,
+      "sha256": "d0433679090825b149ac4a81234013c5a8cfeb2f2d609ac732844918a6ff28f1",
+      "git_blob_sha1": "8b3dd963d66f8b089c9f8a0996d432bc39801cf6",
+      "role": "authoritative_run_attempt_job_capture"
+    },
+    {
+      "path": "raw/pr.diff",
+      "source_provider": "GitHub capture reconstruction",
+      "retrieval_identity": "initial persisted reconstruction of PR #1044 diff",
+      "observation_time": "2026-10-20T16:47:07Z",
+      "target_revision": "67096b59e80769e84b7a29012da62b8a78a7e273..ffecd3d66aa307590dd41d7cc755dde7a5b5644b",
+      "byte_size": 2501,
+      "sha256": "67a04137a053e895cc5ef79d6e77a300e2ca40df06e3d7b70fbad70a25d8dd1c",
+      "git_blob_sha1": "e3349626b7ff966f32fd90f78f9c7c76a5647b34",
+      "role": "capture_error_non_authoritative",
+      "limitation": "Two blank context lines contain an introduced ASCII space; do not use as provider-exact producer input."
+    },
+    {
+      "path": "raw/pr.provider-exact.diff",
+      "source_provider": "GitHub",
+      "retrieval_identity": "exact captured PR #1044 diff bytes",
+      "observation_time": "2026-10-20T16:47:07Z",
+      "target_revision": "67096b59e80769e84b7a29012da62b8a78a7e273..ffecd3d66aa307590dd41d7cc755dde7a5b5644b",
+      "byte_size": 2499,
+      "sha256": "a86db196e424bb70c4ac5bf265acd3b3bbe327f5ab7001fc1d1a2c2f093dbd1f",
+      "git_blob_sha1": "00e77bcd80bfddcf1df5f45c961e68c84b123d99",
+      "role": "authoritative_provider_exact_diff"
+    },
+    {
+      "path": "raw/workflow.yml",
+      "source_provider": "GitHub repository source",
+      "retrieval_identity": "PasarGuard/panel:.github/workflows/test-database-migrations.yml@ffecd3d66aa307590dd41d7cc755dde7a5b5644b",
+      "observation_time": "2026-10-20T16:47:07Z",
+      "target_revision": "ffecd3d66aa307590dd41d7cc755dde7a5b5644b",
+      "byte_size": 11653,
+      "sha256": "5abf31aed80059c28416c6bcd7d8df15f0eea25de1e641c1c93b9af369723597",
+      "git_blob_sha1": "acc8795bf9c5029afa5014d48c543547f4062381",
+      "role": "authoritative_target_revision_source"
+    },
+    {
+      "path": "raw/pyproject.base.toml",
+      "source_provider": "GitHub repository source",
+      "retrieval_identity": "pyproject.toml@67096b59e80769e84b7a29012da62b8a78a7e273",
+      "observation_time": "2026-10-20T16:47:07Z",
+      "target_revision": "67096b59e80769e84b7a29012da62b8a78a7e273",
+      "byte_size": 2122,
+      "sha256": "e9033c32ab5a6a5e51927c00d7447850cd0f458bf60e8ce8e091fe4db16067a2",
+      "git_blob_sha1": "f9065d98665bac405f618bf1f6d47137e5f8baec",
+      "role": "authoritative_base_dependency_source"
+    },
+    {
+      "path": "raw/pyproject.head.toml",
+      "source_provider": "GitHub repository source",
+      "retrieval_identity": "pyproject.toml@ffecd3d66aa307590dd41d7cc755dde7a5b5644b",
+      "observation_time": "2026-10-20T16:47:07Z",
+      "target_revision": "ffecd3d66aa307590dd41d7cc755dde7a5b5644b",
+      "byte_size": 2122,
+      "sha256": "e2e8a3019e8e1bd5dfcc9497c1459e4848c5ebdc0d80c7e185e0904ce8ff1959",
+      "git_blob_sha1": "27dc0e96abd27e9b03ed27d799f7b3c30d3bd646",
+      "role": "authoritative_head_dependency_source"
+    }
   ],
-  "logs_artifacts_policy":{"retained":false,"reason":"No material need; current step summaries plus exact workflow source are sufficient for the declared refusal diagnostic."},
-  "raw_immutability":"Files below raw/ are immutable after this publication; corrections/interpretations must be additive outside raw/."
+  "logs_artifacts_policy": {
+    "retained": false,
+    "reason": "No material need; current step summaries plus exact workflow source are sufficient for the declared refusal diagnostic."
+  },
+  "raw_immutability": "Files below raw/ are immutable after publication. The detected capture defect was repaired additively with a new exact artifact; the flawed artifact remains preserved and explicitly non-authoritative."
 }
