@@ -1,0 +1,27 @@
+{
+  "attempted_gets": 0,
+  "case_wall_seconds": 0.43476157700024487,
+  "requested_cases": 3,
+  "retained_body_bytes": 0,
+  "rows": [
+    {
+      "case_id": "FCI001",
+      "result_sha256": "3fb4bdfe2f502b725aef776b8a05e73353e6f129ed3e685f1da9be6da19eea18",
+      "state": "completed"
+    },
+    {
+      "case_id": "FCI002",
+      "result_sha256": "8f7d6d446d79ecc1e8c350cd858d44af5ddcdc1c558ec877ad28b46477581465",
+      "state": "completed"
+    },
+    {
+      "case_id": "FCI003",
+      "result_sha256": "31340f7384f1bfe0488b541a428093ab28b2ad934847e235db9a0a1df999ba99",
+      "state": "completed"
+    }
+  ],
+  "stage": "offline",
+  "unchanged_frozen_inputs": true,
+  "utc_end": "2026-10-20T18:56:03.399716+00:00",
+  "whole_elapsed_seconds": 0.44879276800020307
+}

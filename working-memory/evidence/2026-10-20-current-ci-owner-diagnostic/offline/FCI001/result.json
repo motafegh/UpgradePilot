@@ -1,0 +1,79 @@
+{
+  "case_id": "FCI001",
+  "conditional_label": "derived scope premise, not a provider job-head observation",
+  "conditional_owner": {
+    "detail": "Static ordinary jobs and user-declared steps were matched one-to-one to runtime jobs and ordered runtime step summaries.",
+    "matched_jobs": 1,
+    "reason": "workflow_jobs_and_steps_correlated",
+    "state": "correlated",
+    "step_execution": [
+      {
+        "basis": "runtime_non_success",
+        "job_id": 118463822902,
+        "job_key": "readiness",
+        "reason": "correlated_step_execution_not_successful",
+        "runtime_conclusion": "skipped",
+        "runtime_name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+        "runtime_status": "completed",
+        "runtime_step_number": 2,
+        "state": "not_established",
+        "static_step_index": 0
+      },
+      {
+        "basis": "runtime_non_success",
+        "job_id": 118463822902,
+        "job_key": "readiness",
+        "reason": "correlated_step_execution_not_successful",
+        "runtime_conclusion": "skipped",
+        "runtime_name": "Validate the release candidate and queued release tree",
+        "runtime_status": "completed",
+        "runtime_step_number": 3,
+        "state": "not_established",
+        "static_step_index": 1
+      }
+    ]
+  },
+  "elapsed_seconds": 0.007881840001573437,
+  "jobs": [
+    {
+      "conditional_head_scope": {
+        "label": "derived scope premise, not a provider job-head observation",
+        "provider_observation": false,
+        "source": "selected_run.head_sha",
+        "value": "8549af29bb5d4b061e3beb41b487ceb669cfb5c0"
+      },
+      "job_id": 118463822902,
+      "missing": [
+        "head_sha"
+      ],
+      "observed": {
+        "conclusion": "success",
+        "id": 118463822902,
+        "name": "Release readiness",
+        "run_id": 39372679381,
+        "status": "completed"
+      },
+      "pointer": "/jobs/0",
+      "source": "product-simulation/fresh-current-ci-diagnostic-2026-10-20/cases/FCI001-openai-agents-mcp/raw/provider-capture.json",
+      "source_sha256": "d9d824138af6dd8c84bc1d81cc30ba317f1bb1e9d1347103a37b6d8d543ee33c",
+      "steps_count": 4,
+      "steps_shape": "non_empty_array",
+      "strict": {
+        "detail": "GitHub workflow-job item is missing required field: head_sha.",
+        "state": "refused"
+      }
+    }
+  ],
+  "run_parser": "admitted_with_minimal_saved_head_context",
+  "run_workflow_id_join": {
+    "join_pointer": "/exact_head_runs/1/workflow_id",
+    "selected_pointer": "/selected_run",
+    "source": "product-simulation/fresh-current-ci-diagnostic-2026-10-20/cases/FCI001-openai-agents-mcp/raw/provider-capture.json"
+  },
+  "state": "completed",
+  "strict_admission": "input_unavailable",
+  "track": "retained",
+  "transport_limit": "Reduced structured capture; no complete pagination/attempt-response envelope",
+  "utc_end": "2026-10-20T18:56:03.088987+00:00",
+  "utc_start": "2026-10-20T18:56:03.081105+00:00"
+}
