@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Offline integrity and identity verifier for the exposed FCI cohort.
+"""Offline integrity, source-fidelity and identity verifier for the exposed FCI cohort.
 
 This script performs no network access. Run it from the cohort root or pass the
 cohort root as argv[1]. It verifies retained bytes, manifest hashes/Git blob
-identities, and the frozen PR/run/job relationships encoded in retained JSON.
+identities, upstream Git identities recorded for provider-exact source overlays,
+and the frozen PR/run/job relationships encoded in retained JSON.
 """
 
 from __future__ import annotations
@@ -60,6 +61,18 @@ def classify_steps(job: dict) -> str:
     return "non_empty_array"
 
 
+def require_authoritative_artifact(
+    case_id: str,
+    artifacts_by_path: dict[str, dict],
+    path: str,
+    role: str,
+) -> dict:
+    require(path in artifacts_by_path, f"{case_id}: authoritative artifact absent: {path}")
+    artifact = artifacts_by_path[path]
+    require(artifact.get("role") == role, f"{case_id}:{path}: unexpected authoritative role")
+    return artifact
+
+
 def verify_case(case_dir: Path) -> dict:
     manifest = load_json(case_dir / "manifest.json")
     case_id = manifest["case_id"]
@@ -67,6 +80,7 @@ def verify_case(case_dir: Path) -> dict:
     selected = manifest["selected_workflow"]
 
     artifacts_by_path: dict[str, dict] = {}
+    upstream_exact_count = 0
     for artifact in manifest["artifacts"]:
         rel = artifact["path"]
         require(rel not in artifacts_by_path, f"{case_id}: duplicate artifact path {rel}")
@@ -74,21 +88,52 @@ def verify_case(case_dir: Path) -> dict:
         path = case_dir / rel
         require(path.is_file(), f"{case_id}: missing retained artifact {rel}")
         data = path.read_bytes()
+        actual_git = git_blob_sha1(data)
         require(len(data) == artifact["byte_size"], f"{case_id}:{rel}: byte-size mismatch")
         require(sha256(data) == artifact["sha256"], f"{case_id}:{rel}: SHA-256 mismatch")
         expected_git = artifact.get("git_blob_sha1")
         if expected_git is not None:
-            require(git_blob_sha1(data) == expected_git, f"{case_id}:{rel}: Git blob identity mismatch")
+            require(actual_git == expected_git, f"{case_id}:{rel}: Git blob identity mismatch")
+        upstream_git = artifact.get("upstream_git_blob_sha1")
+        if upstream_git is not None:
+            require(actual_git == upstream_git, f"{case_id}:{rel}: frozen upstream Git identity mismatch")
+            upstream_exact_count += 1
         require(artifact.get("observation_time"), f"{case_id}:{rel}: observation time missing")
         require(artifact.get("retrieval_identity"), f"{case_id}:{rel}: retrieval identity missing")
         require(artifact.get("target_revision"), f"{case_id}:{rel}: target revision missing")
 
-    authoritative = manifest["authoritative_dependency_transition_artifact"]
-    require(authoritative in artifacts_by_path, f"{case_id}: authoritative transition artifact absent")
-    require(
-        artifacts_by_path[authoritative].get("role") == "authoritative_provider_exact_diff",
-        f"{case_id}: authoritative transition artifact is not provider-exact",
+    authoritative_transition = manifest["authoritative_dependency_transition_artifact"]
+    require_authoritative_artifact(
+        case_id,
+        artifacts_by_path,
+        authoritative_transition,
+        "authoritative_provider_exact_diff",
     )
+
+    authoritative_workflow = manifest.get("authoritative_workflow_source_artifact")
+    if authoritative_workflow is not None:
+        workflow_artifact = require_authoritative_artifact(
+            case_id,
+            artifacts_by_path,
+            authoritative_workflow,
+            "authoritative_target_revision_source",
+        )
+        require(
+            workflow_artifact.get("upstream_git_blob_sha1") == workflow_artifact.get("git_blob_sha1"),
+            f"{case_id}: authoritative workflow is not bound to frozen upstream Git identity",
+        )
+
+    for source_path in manifest.get("authoritative_dependency_source_artifacts", []):
+        source_artifact = artifacts_by_path.get(source_path)
+        require(source_artifact is not None, f"{case_id}: authoritative dependency source absent: {source_path}")
+        require(
+            source_artifact.get("role") in {"authoritative_base_dependency_source", "authoritative_head_dependency_source"},
+            f"{case_id}:{source_path}: unexpected dependency-source role",
+        )
+        require(
+            source_artifact.get("upstream_git_blob_sha1") == source_artifact.get("git_blob_sha1"),
+            f"{case_id}:{source_path}: dependency source is not bound to frozen upstream Git identity",
+        )
 
     provider = provider_capture(case_dir)
     pr = provider["pr"]
@@ -117,10 +162,20 @@ def verify_case(case_dir: Path) -> dict:
     if case_id == "FCI001":
         require(states == ["non_empty_array"], "FCI001: expected one non-empty step array")
         require(selected["static_correlation_eligibility"] == "eligible_for_current_owner", "FCI001: eligibility drift")
+        require(upstream_exact_count >= 1, "FCI001: provider-exact workflow source binding missing")
     elif case_id == "FCI002":
         require("non_empty_array" in states, "FCI002: executed jobs lost runtime steps")
         require("field_absent_or_unavailable" in states, "FCI002: skipped-job unavailable step state lost")
-        require(selected["static_correlation_eligibility"] == "intentionally_unsupported_matrix", "FCI002: matrix boundary drift")
+        require(
+            selected["static_correlation_eligibility"] == "intentionally_unsupported_static_job_name_missing",
+            "FCI002: first static-name boundary drift",
+        )
+        require(selected.get("expected_first_correlation_reason") == "static_job_name_missing", "FCI002: first reason drift")
+        require(
+            "static_job_strategy_unsupported" in selected.get("secondary_unsupported_shapes", []),
+            "FCI002: secondary matrix boundary lost",
+        )
+        require(upstream_exact_count >= 3, "FCI002: provider-exact workflow/dependency source bindings missing")
     elif case_id == "FCI003":
         require(all(state == "non_empty_array" for state in states), "FCI003: expected all job steps non-empty")
         require(
@@ -135,6 +190,7 @@ def verify_case(case_dir: Path) -> dict:
         "artifact_count": len(artifacts_by_path),
         "job_count": len(jobs),
         "step_states": sorted(set(states)),
+        "upstream_exact_artifact_count": upstream_exact_count,
         "qualification": manifest["qualification"],
     }
 
