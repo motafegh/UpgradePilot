@@ -53,15 +53,21 @@ The workflow-source change is committed on the audit branch, but no new hosted r
 
 GitHub still reports `main` unprotected with no required status checks/rulesets. The connected GitHub tool exposes protection/ruleset reads but no administration write action, so requiring the new `Installed package and deterministic product tests` status on `main` needs an authorized GitHub repository-admin action outside the current connector.
 
-### Python support policy remains open
+### Python support/proof policy — decided, owner wording pending
 
-Package metadata still declares `requires-python = ">=3.12"`; the deterministic hosted job currently proves Python 3.12 only. Do not narrow or broaden support by guess. Before final integration choose and record one explicit policy:
+Recorded [the Python support/proof disposition](evidence/2026-10-20-python-support-proof-policy.md).
 
-- a named supported-minor matrix with hosted proof; or
-- 3.12 as current qualified line with broader packaging admissibility explicitly described as unqualified; or
-- a deliberately narrowed package support range backed by evidence.
+Current claim model:
 
-Current README's `3.12 or newer` wording therefore remains a proof-scope item to reconcile before integration, even though package metadata permits it syntactically.
+```text
+package metadata admits Python >=3.12
+current hosted qualified line = Python 3.12
+later Python minors = packaging-admissible but not yet covered by the repository's hosted compatibility matrix
+```
+
+Do **not** add an upper Python bound merely to mirror today's one-line CI proof; no evidence currently establishes later minors are incompatible. Also do not present `>=3.12` as though every later minor has been hosted-qualified.
+
+Before branch integration, reconcile README/Product-verification wording with this distinction and record exact interpreter(s) actually proven by the integrated workflow. The current audit-branch README still needs that user-facing proof-scope edit; do not call this correction complete until the owner text and hosted proof are aligned.
 
 ## Workspace migration prerequisite delivered — now parked
 
@@ -124,7 +130,7 @@ Current branch work is:
 1. preserve AUDIT-019 as the current supervisory/reprioritization input;
 2. continue only comparison-independent corrections:
    - Smart Override root semantic clarification;
-   - Python support/proof reconciliation;
+   - README/Product-verification owner wording for the now-decided Python support/proof boundary;
    - deterministic CI hosted proof/integration administration;
    - newly discovered documentation/lifecycle truth defects;
 3. supervise/review the main S002/S004 comparison if Ali selects it;
