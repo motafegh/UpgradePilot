@@ -1,0 +1,18 @@
+{
+  "case_id":"FCI001",
+  "manifest_schema":"fci-case-manifest-v1",
+  "cohort_role":"fresh_exposed_development_diagnostic",
+  "exposure_status":"exposed; inspected/selected during development; not a holdout or acceptance case",
+  "identity":{"repository":"openai/openai-agents-python","pr_number":5404,"base_sha":"64cd5dfc5a1579870dcbed0ea42b27aa84033fee","head_sha":"8549af29bb5d4b061e3beb41b487ceb669cfb5c0","dependency":"mcp","old_version":"2.0.0","proposed_version":"2.3.0","observation_time":"2026-10-20T16:47:07Z"},
+  "qualification":"qualified_for_current_ci_diagnostic",
+  "qualification_reason":"Fresh exact-head pull-request run exists; selected ordinary workflow has an explicit literal job name, no matrix/reusable job, and a non-empty runtime step array. It is suitable for current acquisition and YAML↔runtime identity-correlation diagnostics, while dependency/runtime-state claims remain out of scope.",
+  "selected_workflow":{"workflow_name":"Release Readiness","workflow_path":".github/workflows/release-readiness.yml","run_id":39372679381,"run_attempt":1,"runtime_step_state":"non_empty_array","static_correlation_eligibility":"eligible_for_current_owner","dependency_runtime_state_eligibility":"not_eligible_current_supported_family","expected_unresolved_boundary":"Both user workflow steps were skipped for this Dependabot PR; the update is lockfile/uv-shaped, so correlation can establish identity only and must not imply dependency install/exercise."},
+  "capture_fidelity":{"provider_api":"structured provider fields exposed by GitHub connector; not HTTP-wire bytes","source_files":"lossless UTF-8 contents returned by GitHub connector","critical_limitation":"Byte-for-byte original HTTP response bodies/headers could not be retained with the available connector. This is explicit and must not be silently upgraded into a wire-archive claim."},
+  "artifacts":[
+    {"path":"raw/provider-capture.json","source_provider":"GitHub","retrieval_identity":"connector captures for PR #5404, exact-head runs, run 39372679381 attempt 1 jobs","observation_time":"2026-10-20T16:47:07Z","target_revision":"8549af29bb5d4b061e3beb41b487ceb669cfb5c0","byte_size":3041,"sha256":"d9d824138af6dd8c84bc1d81cc30ba317f1bb1e9d1347103a37b6d8d543ee33c"},
+    {"path":"raw/pr.diff","source_provider":"GitHub","retrieval_identity":"PR #5404 diff","observation_time":"2026-10-20T16:47:07Z","target_revision":"64cd5dfc5a1579870dcbed0ea42b27aa84033fee..8549af29bb5d4b061e3beb41b487ceb669cfb5c0","byte_size":3159,"sha256":"60459a4267250234f77fc1738230fd6d47a7582815c92ccc57e0e3e682014c62"},
+    {"path":"raw/workflow.yml","source_provider":"GitHub repository source","retrieval_identity":"openai/openai-agents-python:.github/workflows/release-readiness.yml@8549af29bb5d4b061e3beb41b487ceb669cfb5c0","observation_time":"2026-10-20T16:47:07Z","target_revision":"8549af29bb5d4b061e3beb41b487ceb669cfb5c0","byte_size":1189,"sha256":"55a094af1352f6664f4918a07a5d526a6649c58a03aae225e0eec08068a4c16b"}
+  ],
+  "logs_artifacts_policy":{"retained":false,"reason":"No material need for current correlation; avoids unnecessary size/security/privacy surface."},
+  "raw_immutability":"Files below raw/ are immutable after this publication; corrections/interpretations must be additive outside raw/."
+}

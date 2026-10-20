@@ -1,0 +1,31 @@
+{
+  "capture_fidelity": {
+    "limitation": "The connector exposes the exact provider fields consumed here but not a byte-for-byte HTTP body/header archive. Source-file contents and PR diff below are retained losslessly as returned by the connector. Do not treat this capture as an HTTP-wire archive.",
+    "mode": "github_connector_structured_provider_capture",
+    "observation_time": "2026-10-20T16:47:07Z",
+    "provider": "GitHub"
+  },
+  "capture_schema": "fci-provider-capture-v1",
+  "exact_head_runs": [
+    {"conclusion":"success","id":39372679412,"name":"CodeQL","run_number":1139,"status":"completed","workflow_id":356231324},
+    {"conclusion":"success","id":39372679381,"name":"Release Readiness","run_number":384,"status":"completed","workflow_id":369694204},
+    {"conclusion":"success","id":39372679397,"name":"Tests","run_number":10792,"status":"completed","workflow_id":149114105}
+  ],
+  "jobs": [
+    {
+      "conclusion":"success","id":118463822902,"name":"Release readiness","run_id":39372679381,"status":"completed",
+      "steps":[
+        {"conclusion":"success","name":"Set up job","number":1,"status":"completed"},
+        {"conclusion":"skipped","name":"Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1","number":2,"status":"completed"},
+        {"conclusion":"skipped","name":"Validate the release candidate and queued release tree","number":3,"status":"completed"},
+        {"conclusion":"success","name":"Complete job","number":4,"status":"completed"}
+      ]
+    }
+  ],
+  "logs_artifacts_reason":"Not required by the current YAML↔runtime correlation owner; avoiding unnecessary size/security/privacy surface.",
+  "logs_or_artifacts_retained":false,
+  "pr":{"base_ref":"main","base_sha":"64cd5dfc5a1579870dcbed0ea42b27aa84033fee","changed_files":1,"created_at":"2026-10-20T05:01:35Z","head_ref":"dependabot/uv/mcp-2.3.0","head_sha":"8549af29bb5d4b061e3beb41b487ceb669cfb5c0","number":5404,"state":"open","title":"fix(deps): bump mcp from 2.0.0 to 2.3.0","updated_at":"2026-10-20T05:05:39Z"},
+  "request_identities":{"diff":"GitHub PR diff for openai/openai-agents-python#5404","exact_head_runs":"GET /repos/openai/openai-agents-python/actions/runs?event=pull_request&head_sha=8549af29bb5d4b061e3beb41b487ceb669cfb5c0&per_page=100","jobs_attempt":"run 39372679381, verified run_attempt=1; connector job capture for that run","pr":"GET /repos/openai/openai-agents-python/pulls/5404","selected_run":"GET /repos/openai/openai-agents-python/actions/runs/39372679381"},
+  "selected_run":{"conclusion":"success","created_at":"2026-10-20T05:01:41Z","event":"pull_request","head_sha":"8549af29bb5d4b061e3beb41b487ceb669cfb5c0","id":39372679381,"name":"Release Readiness","path":".github/workflows/release-readiness.yml","pull_request_binding":{"base_sha":"64cd5dfc5a1579870dcbed0ea42b27aa84033fee","head_sha":"8549af29bb5d4b061e3beb41b487ceb669cfb5c0","number":5404},"run_attempt":1,"status":"completed","updated_at":"2026-10-20T05:01:47Z"},
+  "step_availability":{"Release readiness":"non_empty_array"}
+}
