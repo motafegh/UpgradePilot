@@ -1,0 +1,564 @@
+{
+  "accounting": {
+    "historical_cost": "14 public GET operations and six native owner invocations at original preparation; earlier corpus/model and human preparation costs not reconstructed, not zero",
+    "model_calls": 0,
+    "new_acquisition": 0,
+    "target_commands": 0
+  },
+  "aggregate_case_seconds": 0.4848710200003552,
+  "counts": {
+    "completed": 2,
+    "input_unavailable": 0,
+    "operationally_failed": 0,
+    "unattempted_budget": 0
+  },
+  "freeze_sha256": "44afe9ed9647f410b93d43a74dbabdeb487cd001b6c7c8e2da7ef8494e577cf9",
+  "mode": "retained-native-CI-output; no fresh producer derivation",
+  "original_inventory_reverified_after": true,
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "rows": [
+    {
+      "baseline": {
+        "baseline_version": "simulation-transparent-baseline-v0.1",
+        "benefit_signal_changes_action": false,
+        "comparison_dimensions": {
+          "action": "unavailable: component scope",
+          "status": "source-aware review pending"
+        },
+        "full_investigation_outcome": {
+          "reason": "Retained CI component only; no full investigation/action synthesized",
+          "status": "unavailable"
+        },
+        "input_translation": {
+          "ci_conclusion": "missing",
+          "ci_source": {
+            "conclusions": [],
+            "limit": "October acquisition-time query, not historical CI absence or compatibility",
+            "query": "https://api.github.com/repos/Aidan-Wallace/kubernetes-dashboard-token-api/actions/runs?event=pull_request&head_sha=391508134b083b8f54461c0b576e8f7985c6ecb4&per_page=100&page=1",
+            "run_ids": [],
+            "total_count": 0
+          },
+          "dependency_directness": "direct",
+          "directness_basis": {
+            "added": "+httpx==0.28.1",
+            "patch_sha256": "4daf4c37190b91ef6f127a70c0782b37bfb9347caaf07fc486387e46bcecee19",
+            "path": "requirements.txt",
+            "removed": "-httpx==0.27.2"
+          },
+          "release_notes": {
+            "body_sha256": "179e4ce07210cb1b800cadff842cb63438a7afbaec0d199678c61fecf1c25f3a",
+            "raw_section_sha256": "b25126a4426425ca798d5948705eb0a145871ac3eb8c0f03a7044f6c344e6545",
+            "section_character_span": [
+              70,
+              2345
+            ],
+            "text_bytes": 1222,
+            "text_sha256": "a51693e8d430262caf029dacabc5501f4a9053c1b21ff2cfceaf75cf8309b05b",
+            "translation": "HTML text nodes after summary, entity-decoded, whitespace retained, no inserted separators"
+          },
+          "version_category": "minor",
+          "version_derivation": "Mechanical PEP 440 major/minor/release-component comparison for these Python versions; no behavioral SemVer inference"
+        },
+        "keyword_matches": {
+          "benefit": [],
+          "caution": [
+            "removed",
+            "deprecated",
+            "deprecation"
+          ]
+        },
+        "limitations": [
+          "Cannot select the relevant check"
+        ],
+        "matched_rule_id": "B02",
+        "outcome": "run_targeted_checks",
+        "reasons": [
+          "No passing current CI conclusion is available"
+        ],
+        "restricted_inputs": {
+          "ci_conclusion": "missing",
+          "dependency_directness": "direct",
+          "release_note_text_sha256": "a51693e8d430262caf029dacabc5501f4a9053c1b21ff2cfceaf75cf8309b05b",
+          "version_category": "minor"
+        },
+        "reviewer_status": "pending source-aware review"
+      },
+      "case_id": "development-httpx-framework-ci",
+      "elapsed_seconds": 0.04493548099981126,
+      "native_ci": {
+        "ci_coverage": {
+          "detail": "No pull-request workflow runs were available for the exact head SHA.",
+          "reason": "no_exact_head_workflows",
+          "state": "no_successful_ci",
+          "workflows": []
+        },
+        "dependency": {
+          "normalized_package": "httpx",
+          "old_version": "0.27.2",
+          "proposed_version": "0.28.1"
+        },
+        "maintainer_action": {
+          "reason": "Retained CI component; synthesis not invoked",
+          "status": "unavailable"
+        },
+        "runtime_dependency_state": {
+          "assessments": [],
+          "detail": "No supported direct-requirements/pip consumption entered the first command-derived runtime dependency-state proof family.",
+          "evaluation_state": "no_admitted_candidate",
+          "reason": "no_admitted_runtime_dependency_state_candidate"
+        },
+        "target": {
+          "author": "dependabot[bot]",
+          "base_ref": "main",
+          "base_sha": "b065646e4b7b894964567950f9ad770b02c136c2",
+          "changed_files": 1,
+          "head_ref": "dependabot/pip/httpx-0.28.1",
+          "head_sha": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+          "merged": true,
+          "number": 20,
+          "repository": "Aidan-Wallace/kubernetes-dashboard-token-api",
+          "state": "closed",
+          "title": "Bump httpx from 0.27.2 to 0.28.1"
+        }
+      },
+      "native_payload": {
+        "bytes": 3348,
+        "path": "/home/motafeq/.local/share/upgradepilot/retained-ci-baseline-runs/2026-10-20-comparison-r1/case-1-native.json",
+        "sha256": "bfd2f002ff1158ae7255aa998ffd6a8f08d2356738bfaa03ad6c77119064d8b6"
+      },
+      "retention": {
+        "copy_sha256_after": "c28db2998569728dd21a9abbfe8851141983df6e65f7b32e189df1415d7421cd",
+        "excluded_successor_ids": [],
+        "head_revision_id": "0797f32c78e443eaaad877e1ef27e145",
+        "native_records": [
+          {
+            "codec_version": 1,
+            "family": "investigation_inputs",
+            "owner": "investigation",
+            "payload_digest": "29ef7c5d67f58d428ce0dddf8ccc6bbcd4a23b3000789d29ae74eed55a732fa5",
+            "producer_method": "workspace.native_capture.NativeInvestigationCapture.start",
+            "producer_version": null,
+            "record_id": "386390033c35481481fcab551a170257",
+            "retention_gaps": [
+              "dependency_analysis_call_metadata_and_unsupplied_source_content_not_retained",
+              "producer_version_unavailable"
+            ]
+          },
+          {
+            "codec_version": 1,
+            "family": "ci_inputs",
+            "owner": "ci.dependency_exercise",
+            "payload_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+            "producer_method": "investigation_inputs.prepare_ci_evidence",
+            "producer_version": null,
+            "record_id": "96193fcad9dc41d69985d4a7adc3ee43",
+            "retention_gaps": [
+              "producer_version_unavailable"
+            ]
+          },
+          {
+            "codec_version": 1,
+            "family": "ci_coverage",
+            "owner": "ci.dependency_exercise",
+            "payload_digest": "ede754bd91d0abffd58c8efb66e9c59bc7a07c820e70a6f0a7e3962007563655",
+            "producer_method": "ci.dependency_exercise.evaluate_dependency_ci_coverage",
+            "producer_version": null,
+            "record_id": "8d83a8f3566b4a519825097d3ee90e0a",
+            "retention_gaps": [
+              "producer_version_unavailable"
+            ]
+          },
+          {
+            "codec_version": 1,
+            "family": "runtime_dependency_state",
+            "owner": "ci.dependency_state",
+            "payload_digest": "1903be19e1e05e8ea2dbe36728c58c69fe2be103d898d85b826d383f794ed91f",
+            "producer_method": "ci.dependency_state.evaluate_runtime_dependency_state",
+            "producer_version": null,
+            "record_id": "057ef269fb5a425ea8d0bdd14aae826a",
+            "retention_gaps": [
+              "producer_version_unavailable"
+            ]
+          },
+          {
+            "codec_version": 1,
+            "family": "upstream_authority",
+            "owner": "upstream.interval",
+            "payload_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+            "producer_method": null,
+            "producer_version": null,
+            "record_id": "8824be66308b4ef2a01a136533c2e19e",
+            "retention_gaps": []
+          },
+          {
+            "codec_version": 1,
+            "family": "upstream_support_drop",
+            "owner": "upstream.claim",
+            "payload_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+            "producer_method": null,
+            "producer_version": null,
+            "record_id": "0bf8acf957d742a9838e3034ca798adc",
+            "retention_gaps": []
+          },
+          {
+            "codec_version": 1,
+            "family": "python_support_pre_assessment",
+            "owner": "impact.python_support",
+            "payload_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+            "producer_method": null,
+            "producer_version": null,
+            "record_id": "8e64e463ecbb409390cff0aae71b28f6",
+            "retention_gaps": []
+          },
+          {
+            "codec_version": 1,
+            "family": "python_support_selection",
+            "owner": "impact.python_support",
+            "payload_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+            "producer_method": null,
+            "producer_version": null,
+            "record_id": "8406f7eb672847699fb067f6d9718e20",
+            "retention_gaps": []
+          },
+          {
+            "codec_version": 1,
+            "family": "target_python",
+            "owner": "target.python",
+            "payload_digest": "c1b6f8741338f704ea84af684174066eb89fcf14a0f66a72276726c36929d71b",
+            "producer_method": null,
+            "producer_version": null,
+            "record_id": "3ab363bc05ff4ef2820019a0388dbad1",
+            "retention_gaps": []
+          },
+          {
+            "codec_version": 1,
+            "family": "target_relevance",
+            "owner": "target.relevance",
+            "payload_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+            "producer_method": null,
+            "producer_version": null,
+            "record_id": "db98751587d94f509462bd357c99f090",
+            "retention_gaps": []
+          },
+          {
+            "codec_version": 1,
+            "family": "python_support_post_assessment",
+            "owner": "impact.python_support",
+            "payload_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+            "producer_method": null,
+            "producer_version": null,
+            "record_id": "e06170997bb848c18856a09857854b90",
+            "retention_gaps": []
+          }
+        ],
+        "original_sha256": "c28db2998569728dd21a9abbfe8851141983df6e65f7b32e189df1415d7421cd",
+        "selected_revision_id": "0797f32c78e443eaaad877e1ef27e145"
+      },
+      "status": "completed",
+      "whole_child_seconds": 0.23063401500075997
+    },
+    {
+      "baseline": {
+        "baseline_version": "simulation-transparent-baseline-v0.1",
+        "benefit_signal_changes_action": false,
+        "comparison_dimensions": {
+          "action": "unavailable: component scope",
+          "status": "source-aware review pending"
+        },
+        "full_investigation_outcome": {
+          "reason": "Retained CI component only; no full investigation/action synthesized",
+          "status": "unavailable"
+        },
+        "input_translation": {
+          "ci_conclusion": "passing",
+          "ci_source": {
+            "conclusions": [
+              "success",
+              "success"
+            ],
+            "limit": "October acquisition-time query, not historical CI absence or compatibility",
+            "query": "https://api.github.com/repos/googlefonts/glyphsLib/actions/runs?event=pull_request&head_sha=f3cda8a94600e58d27f1bc17c99b7693718b6350&per_page=100&page=1",
+            "run_ids": [
+              24378200511,
+              24378200519
+            ],
+            "total_count": 2
+          },
+          "dependency_directness": "direct",
+          "directness_basis": {
+            "added": "+pytest==9.0.3",
+            "patch_sha256": "a5c064d4acf76650c294c990bed741806366c8a24ba08dc800849338d8c0a397",
+            "path": "requirements-dev.txt",
+            "removed": "-pytest==9.0.2"
+          },
+          "release_notes": {
+            "body_sha256": "9e5273cfe42221a430afeeb700e4fbf0a3742532a9af0412e805f566902c5b34",
+            "raw_section_sha256": "8330165f70b0fc4238b7a8d4a54a690d6b0da207a2cfc2d0ca9a2ca157aad65e",
+            "section_character_span": [
+              74,
+              3030
+            ],
+            "text_bytes": 1481,
+            "text_sha256": "b5894673602f37f26fbb9a1424604ec074e0304280c65dd0f783e42d525a52b3",
+            "translation": "HTML text nodes after summary, entity-decoded, whitespace retained, no inserted separators"
+          },
+          "version_category": "patch",
+          "version_derivation": "Mechanical PEP 440 major/minor/release-component comparison for these Python versions; no behavioral SemVer inference"
+        },
+        "keyword_matches": {
+          "benefit": [
+            "cve",
+            "fixed",
+            "bug fix"
+          ],
+          "caution": []
+        },
+        "limitations": [
+          "Does not know whether CI exercised the dependency or release claims are relevant or true"
+        ],
+        "matched_rule_id": "B05",
+        "outcome": "merge_after_normal_review",
+        "reasons": [
+          "Ordinary-size update with passing CI and no coarse breaking signal"
+        ],
+        "restricted_inputs": {
+          "ci_conclusion": "passing",
+          "dependency_directness": "direct",
+          "release_note_text_sha256": "b5894673602f37f26fbb9a1424604ec074e0304280c65dd0f783e42d525a52b3",
+          "version_category": "patch"
+        },
+        "reviewer_status": "pending source-aware review"
+      },
+      "case_id": "development-glyphslib-pytest-stopping",
+      "elapsed_seconds": 0.06651688700003433,
+      "native_ci": {
+        "ci_coverage": {
+          "detail": "Successful exact-head CI evidence exists for workflow 'Regression Tests', and its exact static definition contains supported changed-dependency consumption. The static consuming declaration is not safely correlated to successful runtime step execution.",
+          "reason": "successful_exact_head_ci_with_static_dependency_consumption",
+          "state": "supported_not_correlated",
+          "workflows": [
+            {
+              "consumption_command": "python -m pip install --upgrade pip\npython3 -m venv generate\n. ./generate/bin/activate && pip install -r requirements.txt -r requirements-dev.txt\n",
+              "consumption_reason": "direct_requirements_consumption_declared",
+              "consumption_state": "supported",
+              "detail": "Supported static dependency consumption exists, but the bounded workflow runtime bridge is unavailable: static_job_name_missing: Job 'test' has no explicit display name for bounded correlation.",
+              "direct_exercise_reason": "direct_package_invocation_after_consumption",
+              "direct_exercise_state": "supported",
+              "execution_command": ". ./regression/bin/activate && pytest --run-regression-tests tests/regression_test.py -n auto",
+              "reason": "successful_ci_with_static_dependency_consumption",
+              "runtime_consumption_reason": "workflow_runtime_correlation_unresolved",
+              "runtime_consumption_state": "unresolved",
+              "runtime_direct_exercise_reason": "workflow_runtime_correlation_unresolved",
+              "runtime_direct_exercise_state": "unresolved",
+              "state": "supported_not_correlated",
+              "workflow_name": "Regression Tests",
+              "workflow_path": ".github/workflows/regression.yml"
+            },
+            {
+              "consumption_command": "pip install tox coverage",
+              "consumption_reason": "direct_install_command_analysis_unresolved",
+              "consumption_state": "unresolved",
+              "detail": "The workflow has successful exact-head runtime evidence, but static changed-dependency consumption is not established.",
+              "direct_exercise_reason": "direct_exercise_prerequisite_unresolved",
+              "direct_exercise_state": "unresolved",
+              "execution_command": null,
+              "reason": "static_dependency_consumption_not_supported",
+              "runtime_consumption_reason": "static_dependency_consumption_unresolved",
+              "runtime_consumption_state": "unresolved",
+              "runtime_direct_exercise_reason": "static_direct_package_exercise_unresolved",
+              "runtime_direct_exercise_state": "unresolved",
+              "state": "unresolved",
+              "workflow_name": "Test + Deploy",
+              "workflow_path": ".github/workflows/ci.yml"
+            }
+          ]
+        },
+        "dependency": {
+          "normalized_package": "pytest",
+          "old_version": "9.0.2",
+          "proposed_version": "9.0.3"
+        },
+        "maintainer_action": {
+          "reason": "Retained CI component; synthesis not invoked",
+          "status": "unavailable"
+        },
+        "runtime_dependency_state": {
+          "assessments": [
+            {
+              "blocking_dimension": "manager_environment",
+              "command": "python -m pip install --upgrade pip\npython3 -m venv generate\n. ./generate/bin/activate && pip install -r requirements.txt -r requirements-dev.txt\n",
+              "detail": "The invocation form is preserved, but no decisive pip --python selector is visible. Process-environment/configuration/executable evidence is still required before effective manager environment can be asserted.",
+              "job_key": "test",
+              "reason": "manager_environment_needs_lower_source_evidence",
+              "state": "unresolved",
+              "workflow_path": ".github/workflows/regression.yml"
+            },
+            {
+              "blocking_dimension": "manager_environment",
+              "command": "python3 -m venv regression\n. ./regression/bin/activate && pip install -r requirements.txt -r requirements-dev.txt\n",
+              "detail": "The invocation form is preserved, but no decisive pip --python selector is visible. Process-environment/configuration/executable evidence is still required before effective manager environment can be asserted.",
+              "job_key": "test",
+              "reason": "manager_environment_needs_lower_source_evidence",
+              "state": "unresolved",
+              "workflow_path": ".github/workflows/regression.yml"
+            }
+          ],
+          "detail": "Evaluated 2 admitted exact direct-requirements command candidate(s) without collapsing their individual outcomes.",
+          "evaluation_state": "evaluated",
+          "reason": "runtime_dependency_state_candidates_evaluated"
+        },
+        "target": {
+          "author": "dependabot[bot]",
+          "base_ref": "main",
+          "base_sha": "044f19e4b1437bfc4343592486f4e3c6040306d9",
+          "changed_files": 1,
+          "head_ref": "dependabot/pip/pytest-9.0.3",
+          "head_sha": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+          "merged": true,
+          "number": 1145,
+          "repository": "googlefonts/glyphsLib",
+          "state": "closed",
+          "title": "Bump pytest from 9.0.2 to 9.0.3"
+        }
+      },
+      "native_payload": {
+        "bytes": 40589,
+        "path": "/home/motafeq/.local/share/upgradepilot/retained-ci-baseline-runs/2026-10-20-comparison-r1/case-2-native.json",
+        "sha256": "34961e8f816ef84d112c24d7a4ce49324c5a085fb70bcb7a88bafcfdbd0eeb0e"
+      },
+      "retention": {
+        "copy_sha256_after": "6812ccbfee0e95743712bf9826ffac6bb942877259ea898ee1a20badf7fd1a3f",
+        "excluded_successor_ids": [],
+        "head_revision_id": "df54ee39679e488cb7ef3563619c6935",
+        "native_records": [
+          {
+            "codec_version": 1,
+            "family": "investigation_inputs",
+            "owner": "investigation",
+            "payload_digest": "aa8989c16de9ebb8f91dafb5dc0a3e60396f453827d849d14dcca52419956116",
+            "producer_method": "workspace.native_capture.NativeInvestigationCapture.start",
+            "producer_version": null,
+            "record_id": "6324b2023d144eccabf3dad2b8e94066",
+            "retention_gaps": [
+              "dependency_analysis_call_metadata_and_unsupplied_source_content_not_retained",
+              "producer_version_unavailable"
+            ]
+          },
+          {
+            "codec_version": 1,
+            "family": "ci_inputs",
+            "owner": "ci.dependency_exercise",
+            "payload_digest": "e32c895b7440c9055ca03962062696cc7cd58b00d30d9e8f62abc56513d9ae9f",
+            "producer_method": "investigation_inputs.prepare_ci_evidence",
+            "producer_version": null,
+            "record_id": "21cb40e49d6445a48b247fd1a748e61f",
+            "retention_gaps": [
+              "producer_version_unavailable"
+            ]
+          },
+          {
+            "codec_version": 1,
+            "family": "ci_coverage",
+            "owner": "ci.dependency_exercise",
+            "payload_digest": "e91804fe9025f79c4cb0658eb73121c732a41cf516bc19b862ce630f72ff9f09",
+            "producer_method": "ci.dependency_exercise.evaluate_dependency_ci_coverage",
+            "producer_version": null,
+            "record_id": "278f095b020e4db7bfde1afca14c232f",
+            "retention_gaps": [
+              "producer_version_unavailable"
+            ]
+          },
+          {
+            "codec_version": 1,
+            "family": "runtime_dependency_state",
+            "owner": "ci.dependency_state",
+            "payload_digest": "73b55f755e33e6267f0cf930d684b16636d55739cb33c0ce6c1f825ef14a5734",
+            "producer_method": "ci.dependency_state.evaluate_runtime_dependency_state",
+            "producer_version": null,
+            "record_id": "c8277deec9944427ab5f4ede4e878c70",
+            "retention_gaps": [
+              "producer_version_unavailable"
+            ]
+          },
+          {
+            "codec_version": 1,
+            "family": "upstream_authority",
+            "owner": "upstream.interval",
+            "payload_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+            "producer_method": null,
+            "producer_version": null,
+            "record_id": "9ac561344e4d425bbe32e4b75234b5a4",
+            "retention_gaps": []
+          },
+          {
+            "codec_version": 1,
+            "family": "upstream_support_drop",
+            "owner": "upstream.claim",
+            "payload_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+            "producer_method": null,
+            "producer_version": null,
+            "record_id": "de76cf6742b64b3ab5de6ddafc35f738",
+            "retention_gaps": []
+          },
+          {
+            "codec_version": 1,
+            "family": "python_support_pre_assessment",
+            "owner": "impact.python_support",
+            "payload_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+            "producer_method": null,
+            "producer_version": null,
+            "record_id": "f5057e2a90d44156b5191ef4cc4d9947",
+            "retention_gaps": []
+          },
+          {
+            "codec_version": 1,
+            "family": "python_support_selection",
+            "owner": "impact.python_support",
+            "payload_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+            "producer_method": null,
+            "producer_version": null,
+            "record_id": "54b8474d8c6c4540bf4cd1840d0d5c13",
+            "retention_gaps": []
+          },
+          {
+            "codec_version": 1,
+            "family": "target_python",
+            "owner": "target.python",
+            "payload_digest": "c1b6f8741338f704ea84af684174066eb89fcf14a0f66a72276726c36929d71b",
+            "producer_method": null,
+            "producer_version": null,
+            "record_id": "0a324bea34c747359791ade628524ece",
+            "retention_gaps": []
+          },
+          {
+            "codec_version": 1,
+            "family": "target_relevance",
+            "owner": "target.relevance",
+            "payload_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+            "producer_method": null,
+            "producer_version": null,
+            "record_id": "48baf306a93a45f795303dfa33d2d39f",
+            "retention_gaps": []
+          },
+          {
+            "codec_version": 1,
+            "family": "python_support_post_assessment",
+            "owner": "impact.python_support",
+            "payload_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+            "producer_method": null,
+            "producer_version": null,
+            "record_id": "8b371d91409c4718b5d74db5ea9ff838",
+            "retention_gaps": []
+          }
+        ],
+        "original_sha256": "6812ccbfee0e95743712bf9826ffac6bb942877259ea898ee1a20badf7fd1a3f",
+        "selected_revision_id": "df54ee39679e488cb7ef3563619c6935"
+      },
+      "status": "completed",
+      "whole_child_seconds": 0.25423700499959523
+    }
+  ],
+  "semantic_review": "pending; operational completion is not semantic adequacy or information value",
+  "started_utc": "2026-10-20T16:03:28.864179+00:00",
+  "whole_seconds": 0.58644384299987
+}
