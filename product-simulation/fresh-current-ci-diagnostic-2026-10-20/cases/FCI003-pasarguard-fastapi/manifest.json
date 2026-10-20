@@ -27,15 +27,20 @@
   },
   "capture_fidelity": {
     "provider_api": "structured provider fields exposed by GitHub connector; not HTTP-wire bytes",
-    "source_files": "lossless UTF-8 contents returned by GitHub connector",
+    "source_files": "retained workflow/base/head source Git blob identities are identical to the frozen upstream source blobs",
     "critical_limitation": "Byte-for-byte original HTTP response bodies/headers could not be retained with the available connector."
   },
   "authoritative_dependency_transition_artifact": "raw/pr.provider-exact.diff",
+  "authoritative_workflow_source_artifact": "raw/workflow.yml",
+  "authoritative_dependency_source_artifacts": [
+    "raw/pyproject.base.toml",
+    "raw/pyproject.head.toml"
+  ],
   "capture_repair": {
     "state": "repaired_additively_without_overwriting_raw",
     "problem": "Initial raw/pr.diff reconstruction inserted one ASCII space on each of two otherwise blank diff-context lines.",
     "detection": "Post-publication Git-object verification found byte-size/blob-identity disagreement with the original captured provider diff.",
-    "resolution": "Preserve raw/pr.diff unchanged as a non-authoritative capture-error artifact and add raw/pr.provider-exact.diff whose Git blob identity and SHA-256 match the original captured provider response bytes."
+    "resolution": "Preserve raw/pr.diff unchanged as a non-authoritative capture-error artifact and add raw/pr.provider-exact.diff whose Git blob identity and SHA-256 match the original captured provider response bytes. Workflow and dependency source files already matched frozen upstream Git objects and required no source overlay."
   },
   "artifacts": [
     {
@@ -92,6 +97,7 @@
       "byte_size": 11653,
       "sha256": "5abf31aed80059c28416c6bcd7d8df15f0eea25de1e641c1c93b9af369723597",
       "git_blob_sha1": "acc8795bf9c5029afa5014d48c543547f4062381",
+      "upstream_git_blob_sha1": "acc8795bf9c5029afa5014d48c543547f4062381",
       "role": "authoritative_target_revision_source"
     },
     {
@@ -103,6 +109,7 @@
       "byte_size": 2122,
       "sha256": "e9033c32ab5a6a5e51927c00d7447850cd0f458bf60e8ce8e091fe4db16067a2",
       "git_blob_sha1": "f9065d98665bac405f618bf1f6d47137e5f8baec",
+      "upstream_git_blob_sha1": "f9065d98665bac405f618bf1f6d47137e5f8baec",
       "role": "authoritative_base_dependency_source"
     },
     {
@@ -114,6 +121,7 @@
       "byte_size": 2122,
       "sha256": "e2e8a3019e8e1bd5dfcc9497c1459e4848c5ebdc0d80c7e185e0904ce8ff1959",
       "git_blob_sha1": "27dc0e96abd27e9b03ed27d799f7b3c30d3bd646",
+      "upstream_git_blob_sha1": "27dc0e96abd27e9b03ed27d799f7b3c30d3bd646",
       "role": "authoritative_head_dependency_source"
     }
   ],
