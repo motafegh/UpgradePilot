@@ -1,12 +1,13 @@
 # Stage 5 Investigator / LLM / agent experiment methodology and machinery audit
 
 **Date:** 2026-10-20  
-**Status:** ACTIVE  
+**Status:** CLOSED — experiment lifecycle/methodology classified; no inference selected  
 **Mode:** cross-responsibility Repository Audit  
 **Branch:** `audit/project-wide-system-audit-2026-10-20`  
 **Main base last reconciled:** `a1c291c6cf9238493eeb666b184192ed178b90f1`  
 **Program:** [Project-wide technical audit and correction program](../plans/PROJECT_WIDE_TECHNICAL_AUDIT_AND_CORRECTION_PROGRAM_PLAN.md)  
-**Prior result:** [AUDIT-016](../audits/2026-10-20_AUDIT-016_test-proof-and-operational-integrity.md)
+**Prior result:** [AUDIT-016](../audits/2026-10-20_AUDIT-016_test-proof-and-operational-integrity.md)  
+**Durable result:** [AUDIT-017](../audits/2026-10-20_AUDIT-017_investigator-experiment-methodology-and-machinery.md)
 
 ## Audit-program cadence
 
@@ -14,41 +15,75 @@
 
 No separate D/E learning ceremony is required for this audit slice.
 
-## Audit question
+## 1. Question answered
 
-After the October Investigator research, qualification and semantic cohorts, determine which experiment methods/infrastructure still have a justified current responsibility and which should be simplified, archived, deferred or stopped.
+Stage 5 reconciled AUDIT-011 with the later r4/r5 supplied-evidence results, the completed broader Fixed/Agent research branch and current experiment source. It classified which mechanisms still have a current reusable lab responsibility versus which runners now primarily reproduce historical cohorts.
 
-Audit:
+## 2. Main result
 
-1. what AUDIT-011 established about completion affordability, navigation, evidence interfaces, semantic failures and run control;
-2. what later supplied-evidence r4/r5 cohorts changed or did not change;
-3. qualification versus semantic attempt/cost balance;
-4. whether deployment/model-interface qualification machinery should remain reusable infrastructure;
-5. whether autonomous discovery, single-pass supplied-evidence interpretation, multi-role decomposition and model/deployment changes are distinct hypotheses;
-6. whether any experiment path has become fixture-specific or historical after its question was answered;
-7. whether experiment source/tests are being retained by actual future utility or only sunk cost/history;
-8. what exact residual question would justify another model call.
+The experiment programme's live bottleneck has changed.
 
-## Boundaries
+AUDIT-011's broad autonomous comparison exposed real control/interface/discovery/semantic confounds and recommended a supplied-evidence interpretation diagnostic. Main later executed that localization:
 
-- no model calls, loading, GPU work or experiment execution;
-- historical outputs/results remain immutable;
-- negative/inconclusive experiments remain valid evidence when method was rigorous;
-- passing experiment tests prove machinery, not product usefulness;
-- do not keep a runner/framework merely because it was expensive to build;
-- do not delete reusable accounting/control infrastructure merely because a semantic hypothesis failed;
-- same-model role agreement is not independent evidence;
-- exposed HTTPX/glyphsLib and related development cases do not qualify generality.
+- r4: 5/5 roles complete, zero control failures, 0/4 semantic cases adequate;
+- r5 instruction-only comparison: 5/5 roles complete, 0/4 adequate despite partial improvements;
+- broader Fixed/Agent research: 8/8 mechanically valid reports, 0/8 advice-ready; Agent cost/discovery advantages mixed with persistent semantic failures.
 
-## Initial pressure points
+Therefore **another autonomous-discovery optimization or prompt/model sweep is not the default next move**. Future inference needs a named residual product responsibility that simpler deterministic/native work cannot answer.
 
-- AUDIT-011: historical lineage ~91.1% qualification attempts; control/navigation/interface costs dominated useful semantic progress;
-- broader Fixed/Agent: 8/8 mechanically valid, 0/8 advice-ready after source review;
-- interpretation-only supplied evidence also failed semantically;
-- main r4/r5 completed bounded cohorts but all four cases remained semantically inadequate, with only partial corrections;
-- autonomous Agent sometimes acquired useful evidence and used less input/time, but failures persisted and comparison cannot establish general superiority;
-- current product-value audit requires residual product question before another semantic experiment.
+## 3. Lifecycle classification
 
-## Provenance
+### Reusable laboratory substrate
+
+Retain, under experiment-only authority and future requalification when their interface/runtime assumptions change:
+
+- `investigator_run_control.py`;
+- `investigator_model_interface.py` lower-level strict request/receipt/config/cleanup mechanisms;
+- `investigator_workspace_adapter.py` as a lab bridge into product-owned Workspace/source authority;
+- `investigator_workspace_trial.py` model-free protocol/packing/reference/publication proof;
+- `investigator_supplied_evidence.py` as a generic simpler report-only semantic baseline.
+
+### Narrow/requalify rather than use wholesale
+
+- `qualify_investigator_model_interface.py`: retain identity/backend/render/capacity mechanisms, but do not treat the old six-model Raw/Structured matrix as the standing admission cost for future experiments.
+- deterministic API/source research such as `api_python_bindings.py`: retain as candidate research input only; port/reuse into product only if a later selected producer/consumer responsibility independently justifies it.
+
+### Historical/dormant cohort runners
+
+- `run_investigator_semantic_comparison.py`: exact old three-deployment/two-case/Raw-Structured comparison is closed/inconclusive and should not be resumed to finish its denominator.
+- `run_investigator_supplied_evidence.py`: binds the specific Gemma12 operating point, packet roles and r4/r5 freeze; retain for provenance/reproduction, not as the default launcher for a new hypothesis.
+- exact supplied-evidence packet recipes: exposed development material and historical reproduction input, not a protected future corpus.
+
+### Superseded as active architecture
+
+Workspace prototype/revision/migration experiment modules remain historical architecture evidence. ADR-0012/0013 and `src/upgradepilot/workspace/` now own the accepted/current Workspace method. Future product migration should extend active product owners/tests, not prototype experiment routes, unless a new research question explicitly selects them.
+
+## 4. Methodology decisions
+
+- future model calls require a named residual product question;
+- autonomous discovery should not be optimized before a selected interpretation method earns semantic adequacy on supplied evidence;
+- requalification must be proportional to the interface/deployment claim that changed;
+- multi-role decomposition is a valid candidate only as a discriminating same-evidence responsibility-isolation experiment;
+- materially tuned semantics require newly protected future cases for broader claims;
+- strict references/accounting/cleanup/freeze retention earned real value and should be preserved proportionately;
+- negative/inconclusive experiment outputs remain immutable useful evidence.
+
+## 5. New repository-structure finding
+
+`experiments/` has no README/lifecycle index despite mixing reusable substrate, conditional deterministic research, historical cohort runners and superseded architecture prototypes.
+
+This is a P2 maintainability/selection problem because executable historical files can look equally current to a new session.
+
+The first experiment-area correction should be a compact `experiments/README.md` lifecycle/ownership map, not a general framework rewrite or physical file purge. Moving/deleting files should wait for reference/import auditing.
+
+## 6. Verification boundary
+
+No model call, model load, GPU action, target execution, experiment rerun or historical evidence mutation occurred. The audit used retained experiment evidence, current source and the completed research-branch checkpoint at `cde0ea9906fa37e4184962d0ba65577e4d62396e`.
+
+## 7. Handoff
+
+Stage 5 closes under the focused audit-program cadence.
+
+**Next:** Stage 6 consolidated cross-domain decision review. It should resolve priorities/dependencies among AUDIT-013 through AUDIT-017 and select a correction order before broad remediation. Low-risk documentation/lifecycle corrections may then be applied first; architecture/proof/CI changes should follow their own bounded owner/proof boundaries.
 
 `UP-SKILL:upgradepilot-repository-audit`
