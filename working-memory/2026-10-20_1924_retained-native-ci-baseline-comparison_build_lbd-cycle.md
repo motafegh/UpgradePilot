@@ -36,3 +36,7 @@ Source path: CheckpointStore.open(read_only=True) → read_revision with exact l
 UP-SKILL:upgradepilot-build-implement
 UP-SKILL:upgradepilot-learning-by-doing
 UP-SKILL:upgradepilot-working-memory
+
+## Publication reconciliation
+
+Initial push rejected: remote had Ali's 3344982c proposal addition after local origin snapshot cbba2c88. Fetched Git metadata, inspected changed-file list: one new AI-native/career horizon proposal, no current owners/source/test changes. Merged without rewriting either history. Proposal remains unadmitted; no need to load its unrelated 2056 lines or change this scope. Initial “matches origin” was cached-ref agreement, not a current remote guarantee. No target/source evidence acquisition occurred.
