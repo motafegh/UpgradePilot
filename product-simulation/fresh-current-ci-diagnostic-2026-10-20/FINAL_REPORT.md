@@ -18,7 +18,7 @@ Classification: `qualified_for_current_ci_diagnostic`.
 
 Why: the exact PR head has current GitHub Actions evidence with a non-empty runtime step array, and the selected `Release Readiness` workflow is an ordinary single-job shape with an explicit literal job display name. Under the current correlation owner's contract it is the positive-path case.
 
-Boundary: both user-defined steps were skipped for this Dependabot PR, and the transition is uv/lockfile shaped. This case can test acquisition/provenance/correlation identity but cannot establish installation or exercise of mcp 2.3.0.
+Boundary: both user-defined steps were skipped for this Dependabot PR, and the transition is uv/lockfile shaped. This is a candidate identity-correlation control after input admission, not a completed acquisition/correlation proof; it cannot establish installation or exercise of mcp 2.3.0.
 
 ### FCI002 — executablebooks/mdformat-footnote#50 — tox>=4.61.1 -> tox>=4.64.4
 
@@ -43,7 +43,7 @@ For every case the repository preserves a manifest with frozen repository/PR/bas
 Retained evidence includes, where material:
 
 - structured GitHub PR/run/job/step provider captures;
-- exact-head run identity and exact run-attempt job capture;
+- exact-head run identity and structured job captures with a declared selected run/attempt association;
 - provider-exact target-revision workflow source;
 - provider-exact PR diff used to establish the dependency transition;
 - FCI002 provider-exact base/head `requirements.txt`;
@@ -72,6 +72,14 @@ The verifier now checks recorded upstream Git object identities rather than trea
 
 These were **cohort acquisition/retention defects in this capture procedure**, not evidence of a defect in `src/upgradepilot/`.
 
+## Subsequent record-admission qualification
+
+The [main re-entry review](../../working-memory/2026-10-20_2156_fresh-current-ci-reentry-and-owner-admission-review.md) checked a boundary that source-byte verification does not exercise. All 19 saved job records lack the `head_sha` required by the current product job parser; narrow probes refuse each record. Selected-run `workflow_id` is absent from the selected-run object but recoverable by an explicit join to its retained exact-head run-list entry. Job-level head observations must not be invented from the PR/run head.
+
+The reduced query/job captures omit normal pagination/total-count envelopes and do not retain every workflow needed by a complete public-PR investigation. Attempt association is documented, but a literal attempt-specific transport exchange is not archived. Thus the cohort supports preserved source/runtime shapes and a scoped owner diagnostic, not an unmodified complete acquisition replay. Any correlation-only typed projection using derived scope premises must be labelled conditional and cannot independently prove provider acquisition, job-head validation or runtime dependency state.
+
+These are input-completeness/readiness qualifications, not evidence that the existing product parser is wrong to require its fields. The corrected source-byte replay remains valid within its declared proof class, and no raw file or historical output is rewritten by this clarification. Correlation expectations still need an actual owner execution on admitted or explicitly premise-dependent inputs.
+
 ## Does anything already suggest an UpgradePilot acquisition/retention defect?
 
 Not yet.
@@ -84,9 +92,9 @@ A real product defect should be recorded only if the next diagnostic shows one o
 
 ## Best next current-CI diagnostic
 
-Run the three cases through the current owners in this order:
+First resolve record admission and declare the exact proof seam. The source/runtime shape order for an admitted-input or explicitly conditional correlation diagnostic is:
 
-1. **FCI001 positive path:** reconstruct from retained evidence, parse the provider-exact workflow, and require a supported YAML↔runtime identity-correlation result without upgrading skipped steps into dependency execution.
+1. **FCI001 positive-path candidate:** parse the provider-exact workflow and test YAML↔runtime identity correlation without upgrading skipped steps into successful execution. Report any scope premises alongside the result; do not treat such a projection as acquisition replay.
 2. **FCI002 refusal control:** require `static_job_name_missing` as the first unsupported/unresolved result; preserve `steps: null` separately from an empty list. Also retain the later matrix as a secondary unsupported static shape.
 3. **FCI003 refusal control:** require explicit unsupported/unresolved handling for missing static job display names despite rich runtime steps.
 
