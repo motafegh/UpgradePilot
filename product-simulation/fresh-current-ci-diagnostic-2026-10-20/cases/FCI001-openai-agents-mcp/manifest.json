@@ -27,15 +27,18 @@
   },
   "capture_fidelity": {
     "provider_api": "structured provider fields exposed by GitHub connector; not HTTP-wire bytes",
-    "source_files": "lossless UTF-8 contents returned by GitHub connector",
+    "source_files": "authoritative provider-exact overlays are byte-identical to the frozen upstream Git blobs",
     "critical_limitation": "Byte-for-byte original HTTP response bodies/headers could not be retained with the available connector. This is explicit and must not be silently upgraded into a wire-archive claim."
   },
   "authoritative_dependency_transition_artifact": "raw/pr.provider-exact.diff",
+  "authoritative_workflow_source_artifact": "raw/workflow.provider-exact.yml",
   "capture_repair": {
     "state": "repaired_additively_without_overwriting_raw",
-    "problem": "Initial raw/pr.diff reconstruction inserted one ASCII space on each of three otherwise blank diff-context lines.",
-    "detection": "Post-publication Git-object verification found byte-size/blob-identity disagreement with the original captured provider diff.",
-    "resolution": "Preserve raw/pr.diff unchanged as a non-authoritative capture-error artifact and add raw/pr.provider-exact.diff whose Git blob identity and SHA-256 match the original captured provider response bytes."
+    "problems": [
+      "Initial raw/pr.diff reconstruction inserted one ASCII space on each of three otherwise blank diff-context lines.",
+      "Initial raw/workflow.yml persistence omitted the upstream file's final newline."
+    ],
+    "resolution": "Preserve the original persisted files unchanged as non-authoritative audit evidence; use additive provider-exact diff/workflow artifacts whose Git blob identities match the captured provider bytes and frozen upstream source."
   },
   "artifacts": [
     {
@@ -74,13 +77,26 @@
     },
     {
       "path": "raw/workflow.yml",
-      "source_provider": "GitHub repository source",
-      "retrieval_identity": "openai/openai-agents-python:.github/workflows/release-readiness.yml@8549af29bb5d4b061e3beb41b487ceb669cfb5c0",
+      "source_provider": "GitHub connector text persistence",
+      "retrieval_identity": "initial persisted .github/workflows/release-readiness.yml@8549af29bb5d4b061e3beb41b487ceb669cfb5c0",
       "observation_time": "2026-10-20T16:47:07Z",
       "target_revision": "8549af29bb5d4b061e3beb41b487ceb669cfb5c0",
       "byte_size": 1189,
       "sha256": "55a094af1352f6664f4918a07a5d526a6649c58a03aae225e0eec08068a4c16b",
       "git_blob_sha1": "63f5ee224190db7a3c59d7c16129a373ed864396",
+      "role": "capture_error_non_authoritative",
+      "limitation": "Final newline from the frozen upstream source was omitted during text persistence."
+    },
+    {
+      "path": "raw/workflow.provider-exact.yml",
+      "source_provider": "GitHub repository source",
+      "retrieval_identity": "provider-exact openai/openai-agents-python:.github/workflows/release-readiness.yml@8549af29bb5d4b061e3beb41b487ceb669cfb5c0",
+      "observation_time": "2026-10-20T16:47:07Z",
+      "target_revision": "8549af29bb5d4b061e3beb41b487ceb669cfb5c0",
+      "byte_size": 1190,
+      "sha256": "d97f57822bc6ec868d0e640d8e5b17e717672c5c261ab1f10dbb596c10b218cd",
+      "git_blob_sha1": "fb2110166d4df410cea5f181d0e75a55b92824a4",
+      "upstream_git_blob_sha1": "fb2110166d4df410cea5f181d0e75a55b92824a4",
       "role": "authoritative_target_revision_source"
     }
   ],
@@ -88,5 +104,5 @@
     "retained": false,
     "reason": "No material need for current correlation; avoids unnecessary size/security/privacy surface."
   },
-  "raw_immutability": "Files below raw/ are immutable after publication. The detected capture defect was repaired additively with a new exact artifact; the flawed artifact remains preserved and explicitly non-authoritative."
+  "raw_immutability": "Files below raw/ are immutable after publication. Detected capture defects were repaired additively; flawed artifacts remain preserved and explicitly non-authoritative."
 }
