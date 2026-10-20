@@ -34,3 +34,11 @@ UP-SKILL:upgradepilot-build-implement
 UP-SKILL:upgradepilot-planning-design
 UP-SKILL:upgradepilot-working-memory
 UP-SKILL:upgradepilot-learning-by-doing
+
+## B — preparation and machinery proof
+
+Published contract activation 977abe8b before source work. Implemented one disposable experiment using existing DTOs/parsers/correlation/execution and the normal public PR/Actions/repository acquisition clients. No product owner changed. Separate exclusive stage directories, field provenance and per-job scope premise, input/source freeze, offline socket/process guard, normal-client drift checks, anonymous actual-send recording, decoded-body caps, safe receipts and parent/worker watchdogs provide the selected evidence boundaries.
+
+Preparation: first 11 experiment +29 product tests passed. A newly added redirect test initially failed because its synthetic Response omitted the real adapter's request binding; corrected that fixture, not product behavior. Final selected 62 tests pass (12 new,50 existing); compilation, diff whitespace and cohort verifier pass. Previous 25-file original-cohort preservation snapshot matches. Ruff unavailable; no install/run. No real-case correlation outputs produced during machinery tests. Original-capture locations in manifests/construction records identify no retained original job heads; no unrelated recovery scan performed.
+
+[Pre-execution packet](evidence/2026-10-20-current-ci-owner-diagnostic/PRE_EXECUTION.md) and source/input freeze are ready for publication before the single retained batch, then a separate single live batch. All original raw/manifests remain untouched. Runtime proof remains pending until those batches and paired review; green synthetic tests are not case results.
