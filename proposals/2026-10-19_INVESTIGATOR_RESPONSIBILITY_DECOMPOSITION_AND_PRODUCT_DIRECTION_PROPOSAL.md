@@ -72,11 +72,11 @@ Start representation design from `PropositionState`, `PropositionAssessment` and
 
 The Charter's thesis concerns better supported, more useful decisions from richer evidence compared with a transparent baseline. The [simulation baseline v0.1](../product-simulation/TRANSPARENT_BASELINE_SPECIFICATION.md) uses version category, current CI conclusion, dependency directness and literal release-note keyword signals. Preserve its exact rule order and input restrictions. Its coarse action names are comparator outputs, not permissions automatically available to the current product.
 
-Historical simulations compare full investigations with that baseline. There are also post-implementation transfer evaluations and real product-path proofs. Neither substitutes for a declared automated end-to-end product-versus-baseline evaluation. The inspected records do not establish the proposed complete six-case benchmark; do not describe all previous product evaluation as nonexistent.
+Historical simulations compare full investigations with that baseline. There are also post-implementation transfer evaluations and real product-path proofs. Neither substitutes for a declared automated end-to-end product-versus-baseline evaluation. The inspected records do not establish a complete runnable benchmark across the candidate scenarios; do not describe all previous product evaluation as nonexistent.
 
 ### 4.1 Comparison-readiness check comes first
 
-Use exposed S001–S006 as **candidate development material**, not a newly protected validation set. Check eligibility against the admitted Python Dependabot/product mechanism boundary; historical scenario inclusion does not automatically establish runtime support or authorize a new simulation. Inspect each case rather than assuming uniform frozen replayability:
+Lightly screen exposed S001–S016 as **candidate development material**, then select the smallest discriminating deep-readiness cohort by responsibility coverage, reachability, decision value and cost. Do not deeply analyze all sixteen by default or select by chronology. Record eligibility, distinct mechanism, obvious retained-evidence gaps, plausible mode, reviewer/oracle exposure and selection value in the light pass. All sixteen remain exposed material, not newly protected holdouts; do not add S017+ here. S003 is TypeScript/npm historical pressure, outside supported Python runtime coverage. Check the admitted Python Dependabot/product mechanism boundary; historical scenario inclusion does not automatically establish runtime support or authorize a new simulation. For the selected deep cohort, inspect rather than assume uniform frozen replayability:
 
 - identify exact PR/head/dependency/environment identities and the case's admitted question;
 - inventory retained machine inputs, source bytes, timestamps and provenance, including missing historical CI or external artifacts;
@@ -97,7 +97,7 @@ Predeclare:
 2. Separate restricted baseline inputs from richer product inputs, as intended by the thesis; neither arm may receive hidden oracle conclusions. Disclose unequal acquisition and preparation costs.
 3. Normal product path versus controlled replay, adapter behavior and any manual preparation. They support different claims.
 4. Case-specific source-backed obligations and review rules fixed before viewing new outputs. Historical expected decisions are evidence to inspect, not unquestionable ground truth.
-5. Full denominator: completed, unsupported, unavailable, operationally failed and semantically inadequate cases. Publish readiness for all six candidates even if only a subset is runnable; never present that subset as six-case product coverage.
+5. Separate denominators: screening attempted/completed out of sixteen, selected/inspected deep cases and comparison-ready cases per mode. Preserve exclusions, uninspected material and omitted responsibilities; non-selection is not an unsupported verdict. A later comparison must report completed, unsupported, unavailable, operationally failed and semantically inadequate cases without presenting its subset as full scenario coverage.
 6. Resource ceilings, reviewer independence/assistance, exposure, uncertainty and stopping consequences.
 
 Use the existing baseline comparison dimensions: action, reasoning, uncertainty, targeted action, evidence authority, failure behavior, cost and user value. An abstain-only product cannot demonstrate superiority in actionable recommendation merely by avoiding all positive recommendations. It can demonstrate narrower, source-supported uncertainty or a useful finding; measure and label that narrower outcome separately.
@@ -106,7 +106,7 @@ Retain a baseline-sufficient/no-added-value control, supported positive findings
 
 ### 4.3 Decision consequences
 
-- **Ready:** propose a finite CPU-only offline comparison in the next authorized plan, with a fixed cohort and cost ceiling. Run it before investing in a general new interpretation subsystem when it can discriminate the investment decision.
+- **Ready:** propose a finite CPU-only offline comparison with a fixed cohort and cost ceiling in a reviewable next-action contract; a complete findings packet may own that contract without another plan. Explicit acceptance is required before execution. Prefer it before a general new interpretation subsystem when it can discriminate the investment decision.
 - **Partly ready:** report the full readiness denominator and limitations; select a justified subset only if its narrower question is useful. Decide whether missing input/adapter work is worth doing.
 - **Not ready:** produce the exact prerequisite/gap and its cost. Do not start a benchmark framework or manually fill semantics until the case “works.”
 - **Baseline sufficient / product adds no material value:** preserve that finding; redirect, narrow or stop the proposed capability rather than expand the architecture.
@@ -182,7 +182,7 @@ Measure false acceptance, false rejection, appropriate unresolved/conflicted han
 
 The existing comparison reviews are AI-assisted and source-aware. Reviewer/implementer overlap limits independent corroboration. Do not confuse that limitation with proof that the deployed model acted as its own runtime validator. A future reviewer plan should separate implementation, rubric freezing and adjudication where feasible, and disclose overlap where not.
 
-For review, an `asserted` or `inferred` recommendation with zero supporting recommendation evidence is semantically inadequate. Nonempty citations still require actual support for each material premise; source identity alone is not entailment. Preserve this distinction without silently changing a frozen experiment schema or regrading its original outcomes.
+For future review, a recommendation, reassurance, compatibility/risk conclusion or requested action is semantically inadequate when a material premise is unsupported, contradicted, stronger than admitted evidence, or a decision-critical unresolved premise is suppressed. Nonempty citations do not cure that failure. A scoped abstention, uncertainty statement or bounded next-evidence request may remain adequate when it explicitly names the missing/unresolved observation without promoting absence into a technical conclusion. An empty recommendation citation list is not automatically inadequate; preserved missing evidence is not negative evidence. Semantic adequacy does not itself admit an action permission. This correction does not change frozen experiment schemas, original outputs or historical verdicts.
 
 An experiment's offline reviewer remains its evaluator. Passing that review does **not** establish an admitted product Validation owner. Before recommendation/product adoption, separately design and qualify the required evaluation boundary and action permissions. No report schema, nonempty citation list or accurate worksheet can replace that proof.
 
@@ -190,7 +190,7 @@ An experiment's offline reviewer remains its evaluator. Passing that review does
 
 The accepted gate is coordinated by **one bounded investigation plan**, rather than expanding the old experiment plan or opening a family of framework plans. Its output is a defensible next-investment decision.
 
-**Proposed ceiling for that future planning gate:** one coherent cycle, at most six active engineering hours: up to two for comparison-input readiness, two for producer/consumer and representation tracing, two for alternatives and the decision packet. These are proposed ceilings, not retrospective measurements of this proposal revision. Record actual effort honestly; reaching the ceiling returns an incomplete/inconclusive design with a named gap, not an automatic extension.
+**Proposed ceiling for that future planning gate:** one coherent cycle, at most six active engineering hours: up to two for light screening and selected deep readiness, two for producer/consumer and representation tracing, two for alternatives and the decision packet. Screening sixteen scenarios reallocates the first two hours; it does not expand the total or require a fixed deep-cohort size. These are proposed ceilings, not retrospective measurements of this proposal revision. Record actual effort honestly; reaching the ceiling returns an incomplete/inconclusive design with a named gap, not an automatic extension.
 
 **Resource boundary:** zero model predictions, zero GPU/model loading, zero target code/check execution and no new acquisition campaign in this design gate. Use retained evidence and local source. An unavailable item remains unavailable. Any later CPU evaluation, acquisition, build or inference requires its own finite scope and authorization; “CPU-only” does not waive those responsibilities.
 
@@ -200,7 +200,7 @@ The plan must settle, before Build:
 | --- | --- |
 | Product question and value | Exact supported maintainer question, normal consumer and observable improvement over the simple comparator. |
 | Comparison readiness | Per-case input/producer/oracle/exposure inventory; runnable denominator, missing prerequisites and fair metrics. |
-| Alternatives | Existing deterministic owner repair; bounded source relation; useful action-permission work if premises exist; discriminating semantic diagnostic; stop/defer. Compare likely information/value and cost without pretending an unmeasured estimate is fact. |
+| Alternatives | Existing deterministic owner repair; bounded source relation; single-pass semantic diagnostic; bounded multi-role interpretation/validation; a materially different deployment/model test for a named residual question; useful action-permission work if premises exist; finite product/baseline comparison; narrow/stop/defer. Compare likely information/value and cost without pretending an unmeasured estimate is fact. |
 | Representation | Reuse current proposition/applicability/lifecycle owners where semantics fit; name the missing responsibility rather than invent generic types. |
 | Code home | Decide experiment versus product responsibility, integration seam, adoption/disposal path and applicable tests. Do not defer this decision into Build. |
 | Proof and boundaries | Supported input/capture/grammar/binding, negative controls, unknowns, actual producer path, consumer evidence and authority limits. |
@@ -210,6 +210,10 @@ The plan must settle, before Build:
 The recommended default for an unqualified parser feasibility probe is disposable `experiments/` work using product APIs. If the selected responsibility is an already admitted product derivation, implementation may belong in `src/upgradepilot/` with product tests. The plan must justify the choice. Directory placement does not prove capability or adoption. Product runtime must never import experiments/tests/tools; no permanent parallel truth path is authorized.
 
 A narrow slice must name excluded product capabilities, why they are deferred rather than conveniently ignored, and what evidence permits re-entry. A helpful source fact is a step toward the product responsibility, not a substitute for the full maintainer decision.
+
+Bounded multi-role work tests responsibility isolation, scoped contexts and typed proposition/evaluation handoffs against one response carrying those responsibilities together. It is an explicit candidate, not a framework or mandatory agent topology. A later experiment may use the same model in isolated calls to reduce deployment confounding. Preserve counterevidence from the older staged Fixed method, added call/handoff costs, lack of evidential independence from model agreement and the failure of always-reject/unresolved policies. The investigation must give this option a reasoned select/defer/reject/unresolved disposition without running it.
+
+A complete findings/action contract still requires Ali's explicit review and acceptance before Build, source/test changes, benchmark execution, model/agent inference, network acquisition, target execution or product-action admission. Artifact completeness does not authorize execution; MEMORY.md owns the subsequent selection.
 
 ## 9. Conditional later decisions, not a committed sequence
 
@@ -288,4 +292,6 @@ Accepted owners and relevant existing product source are linked in §§3–8. Ad
 - [Simulation authority](../product-simulation/AGENTS.md), [simulation navigation](../product-simulation/README.md), [historical D1 synthesis](../product-simulation/D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md) and [bounded implemented-foundation transfer evaluation](../product-simulation/IMPLEMENTED_FOUNDATION_TRANSFER_EVALUATION_2026-08-11.md).
 - Broader comparison evidence: Git object `cde0ea9906fa37e4184962d0ba65577e4d62396e:working-memory/evidence/2026-10-07-broader-agency-contract2-comparison/`; interpretation diagnostic inspected through `253b48de20b475eada48810d193bd420c51aa7d4:working-memory/evidence/2026-10-07-broader-agency-evidence-interface/`.
 
-The revision changes a proposal and dated/live-state reconciliation only. It does not establish a runnable six-case benchmark, admit a source extractor/evaluator/action, perform target execution, or select a model topology. The accepted direction authorizes preparation of the linked investigation plan; performing that plan or its recommended next action requires the corresponding selection.
+The revision changes a proposal and dated/live-state reconciliation only. It does not establish a runnable benchmark, admit a source extractor/evaluator/action, perform target execution, or select a model topology. The accepted direction authorizes preparation of the linked investigation plan; performing that plan or its recommended next action requires the corresponding selection.
+
+The subsequent October 20 [plan-review correction](../working-memory/2026-10-20_product-value-feasibility-plan_review_patch-notes.md) is reconciled here only where cohort scope, alternatives, review semantics and contract authorization would otherwise conflict with the plan. [The same planning cycle](../working-memory/2026-10-20_product-value-and-baseline-feasibility-investigation-planning_lbd-cycle.md) preserves revision proof; earlier source-review and finalization hashes retain their original horizons. No case readiness or semantic experiment is performed by this document revision.

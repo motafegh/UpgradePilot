@@ -12,13 +12,13 @@ This investigation establishes **comparison readiness and a source-backed invest
 
 On execution, keep detailed progression in one investigation cycle record and place the findings packet at `working-memory/evidence/<execution-date>-product-value-and-transparent-baseline-feasibility/FINDINGS.md`; do not precreate results during plan writing. Deliver that one dated packet containing:
 
-- a six-case readiness matrix, including excluded, unavailable and uninspected cases;
+- a lightweight S001–S016 screening matrix and detailed readiness for the smallest discriminating deep cohort, including exclusions, unavailable and uninspected material;
 - a proposed fair comparison protocol with exact supported scope and review obligations;
 - one concrete producer-to-consumer trace and a before/after benefit hypothesis;
 - a comparison of credible next increments, with a preferred option and counterarguments;
 - a complete bounded action contract for that option, or the exact missing premise and a narrow/stop/inconclusive disposition.
 
-Do not create a general evaluation framework or a mandatory sequence of later plans. If the findings packet can specify the selected next action completely, it may serve as its reviewable handoff without another document. Material new product semantics or architecture still require their proper owner before Build.
+Do not create a general evaluation framework or a mandatory sequence of later plans. If the findings packet can specify the selected next action completely, it may serve as its reviewable handoff without another document. Even a complete contract requires Ali's explicit review and acceptance before any Build, source/test modification, benchmark execution, model/agent inference, network acquisition, target execution or product-action admission. The contract is not self-authorizing; MEMORY.md records the selected continuation after that decision. Material new product semantics or architecture still require their proper owner before Build.
 
 ## 2. Owners, entry and modification boundary
 
@@ -45,7 +45,7 @@ The investigation has a **six-active-engineering-hour ceiling**, normally alloca
 
 | Work | Budget |
 | --- | --- |
-| Six-case comparison readiness | Up to two hours, normally at most twenty minutes per initial case pass |
+| Lightweight sixteen-scenario screening, then selected deep readiness | Up to two hours; normally about 45 minutes screening and 75 minutes deep readiness, without a fixed deep-case count |
 | Producer/consumer and representation trace | Up to two hours |
 | Alternatives, comparison protocol and decision packet | Up to two hours |
 
@@ -55,9 +55,9 @@ Hard resource limits: **zero product/experiment model predictions, zero model lo
 
 A missing asset or blocked case is a finding. After a bounded local lookup, preserve the exact gap and proceed with independent rows/work; do not spend the remaining budget repairing inputs or inventing labels. If the ceiling is reached, publish available findings, uninspected work and an inconclusive/narrow/stop consequence. Do not present budget exhaustion as evidence that the product or method cannot work.
 
-## 4. Inspect retained case readiness
+## 4. Screen retained scenarios, then inspect selected case readiness
 
-Inventory these exact historical candidates; case IDs are provenance, not new product support promises:
+Use two levels: lightly screen S001–S016, then select the smallest deep-readiness cohort that discriminates the investment decision. Case IDs are provenance, not new product support promises. The table identifies questions to inspect, not current eligibility, retained-input availability or evaluation verdicts:
 
 | Candidate evidence | Initial role to inspect, not a frozen evaluation verdict |
 | --- | --- |
@@ -67,8 +67,30 @@ Inventory these exact historical candidates; case IDs are provenance, not new pr
 | [glyphsLib / pytest patch update](../product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/README.md) (S004) | Baseline-sufficient stopping control |
 | [modelarrayio / pytest update](../product-simulation/scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/README.md) (S005) | Historically misleading coarse action |
 | [qldebugger / Pydantic validator case](../product-simulation/scenarios/S006-qldebugger-pydantic-validator-coverage-gap/README.md) (S006) | Discriminating check design, different artifact bundle and disclosed oracle exposure |
+| [BiomedParse / Torch-CUDA family](../product-simulation/scenarios/S007-biomedparse-torch-cuda-family-resolution/README.md) (S007) | Coordinated package-family reasoning and investigation pruning |
+| [CARLA / OpenCV artifact fallback](../product-simulation/scenarios/S008-carla-opencv-python36-artifact-fallback/README.md) (S008) | Artifact serviceability and source-fallback separation |
+| [CGM / pandas publication](../product-simulation/scenarios/S009-cgm-pandas-publication-reproducibility-contract/README.md) (S009) | Publication, reproducibility and provenance contracts |
+| [podcast-script / NumPy requirement](../product-simulation/scenarios/S010-podcast-script-numpy-discovery-breadth/README.md) (S010) | Multiple independently grounded mechanisms from one proposal |
+| [Dictare / MLX optional extra](../product-simulation/scenarios/S011-dictare-mlx-optional-extra-ci-coverage/README.md) (S011) | Optional-environment activation and CI coverage |
+| [Freqtrade / scikit-learn persisted artifact](../product-simulation/scenarios/S012-freqtrade-sklearn-persisted-artifact-version-boundary/README.md) (S012) | Persisted-artifact producer-version provenance |
+| [LangChain / anyio prior sync](../product-simulation/scenarios/S013-langchain-anyio-uv-no-sync-prior-sync-state/README.md) (S013) | Prior state formation versus later no-sync exercise |
+| [production-ready-cicd / pip command](../product-simulation/scenarios/S014-production-ready-cicd-pip-already-satisfied-vs-installed/README.md) (S014) | Command completion versus installation provenance |
+| [charset-normalizer / pytest marker](../product-simulation/scenarios/S015-charset-normalizer-marker-scoped-pytest/README.md) (S015) | Marker applicability across runtime environments |
+| [Thumbor / uv selector scope](../product-simulation/scenarios/S016-thumbor-uv-selector-scope-coverage/README.md) (S016) | Lock membership versus selected-environment reachability |
 
-For each row record:
+For each lightweight screening row capture only:
+
+1. product-boundary eligibility and mechanism/responsibility exercised;
+2. obvious retained-evidence availability/gaps and plausible evaluation mode;
+3. distinct comparison responsibility versus duplication of another scenario;
+4. material reviewer/oracle/exposure limits;
+5. provisional deep-readiness value and inclusion/exclusion reason.
+
+Use bounded local inspection; detailed identity/hash/producer work belongs to the selected deep cohort. Historical completion alone proves neither present replayability nor product support. S003 remains TypeScript/npm historical attribution pressure, outside supported Python runtime coverage. All sixteen are exposed development evidence; later scenario numbers do not make them protected holdouts. Do not admit S017+ or begin new case discovery here.
+
+Select deep cases by responsibility coverage, retained-input reachability, discriminating value and cost, not scenario chronology or expected favorable answers. Seek, where retained material supports them: a baseline-sufficient/no-value control, misleading coarse reassurance, source/API relation, CI/runtime/environment coverage, dependency/package/environment state, multiple mechanisms, provenance/persisted state and justified unknown/stopping. These are contrasts to seek, not a mandatory case per category. No fixed deep-cohort size is required. Record overlaps, omitted responsibilities and the effect on conclusions; a larger cohort needs a reason within the unchanged six-hour ceiling. If none is useful/reachable, report non-selection.
+
+For each selected deep-readiness row record:
 
 1. **Eligibility and question:** actual ecosystem, automation author, dependency transition and mechanism within the admitted product boundary. Out-of-scope historical material may inform failure design but cannot count as supported Python runtime coverage.
 2. **Identity and time:** repository/PR, base/head, dependency/environment identities, observations actually retained and historical information boundary. Later evidence cannot silently enter an earlier decision comparison.
@@ -87,7 +109,7 @@ Distinguish these modes explicitly:
 
 Current source hints: [investigate_public_pull_request](../src/upgradepilot/investigation.py) defaults to [evaluate_support_drop_runtime](../src/upgradepilot/upstream/support_drop.py), whose eligible source-window path uses `LocalSupportDropExtractor`. Therefore a no-new-model full product comparison is not established merely because downstream validation is deterministic. A supplied evaluator or retained extraction must be declared as a replay/component premise. Do not bypass a model and call the altered route the unchanged fresh product. Do not invoke the entry point to discover its dependencies; inspect source.
 
-Finish a row for all six candidates even when the result is excluded/uninspected. A runnable subset may be proposed only with its actual denominator, supported claim and explicit losses. Do not add cases merely to improve counts or substitute another case without a material uncertainty and a separately justified decision.
+Account for all sixteen screening candidates, marking uninspected rows explicitly if the ceiling prevents completion. Separately report screening attempted/completed out of sixteen, deep-cohort selected/inspected and later comparison-ready counts in each declared mode. A candidate omitted from deep inspection is not thereby unsupported or unavailable. A runnable subset may be proposed only with its actual denominator, supported claim and explicit losses. Missing assets remain readiness findings; do not repair/reacquire them, expand the universe or substitute cases merely to improve counts.
 
 ## 5. Specify a fair comparison without running it
 
@@ -104,9 +126,11 @@ Specify for the proposed comparison:
 
 Compare action permission, material source-supported reasons, located uncertainty, specificity of justified next evidence/checks, evidence authority, failure handling, cost and user value. More detail/citations and blanket abstention do not establish benefit. An accurate, useful finding may show a narrower benefit while a non-abstain action remains unavailable; report both facts.
 
-Use a source-backed supported positive, an unsupported reassurance/counterexample and justified unknown handling when the retained subset actually represents them. Retain the baseline-sufficient/no-added-value control where comparable. Missing controls limit the conclusion; they are not permission to manufacture case answers. An asserted/inferred recommendation with no supporting recommendation evidence is inadequate; nonempty references still need entailment for its material premises. A model's agreement or an offline reviewer is not an admitted product Validation owner.
+Use a source-backed supported positive, an unsupported reassurance/counterexample and justified unknown handling when the retained subset actually represents them. Retain the baseline-sufficient/no-added-value control where comparable. Missing controls limit the conclusion; they are not permission to manufacture case answers.
 
-Readiness success means a specified, defensible comparison could be attempted under its declared mode and costs. It does not mean either arm wins, the comparison is independent, or all six cases are supported.
+Any recommendation, reassurance, compatibility/risk conclusion or requested action is semantically inadequate when a material premise is unsupported, contradicted, stronger than admitted evidence, or a decision-critical unresolved premise is suppressed. Nonempty citations do not cure that failure. A scoped abstention, uncertainty statement or bounded next-evidence request may remain adequate when it explicitly names the missing/unresolved observation and does not promote that absence into a factual technical conclusion. No recommendation citation is not automatic inadequacy; an explicitly preserved missing observation is not negative evidence. Check claims of absence/completeness against the actual bounded evidence and decision-model owner. These criteria do not amend a frozen schema or regrade historical outputs. A model's agreement or an offline reviewer is not an admitted product Validation owner; semantic adequacy alone does not admit an action permission.
+
+Readiness success means a specified, defensible comparison could be attempted under its declared mode and costs. It does not mean either arm wins, the comparison is independent, or all screened/deep cases are supported.
 
 ## 6. Trace one useful consumer and the cheapest sufficient owner
 
@@ -129,9 +153,15 @@ Compare only credible alternatives exposed by the evidence:
 | Finite offline product/baseline comparison | Retained inputs, explicit mode, a fair rubric and a plausible decision it can change |
 | Repair/reuse an existing deterministic producer or projection | A demonstrated lost/incorrect fact and a reachable useful consumer |
 | Bounded deterministic source relation | A mechanically expressible gap, real capture/binding inputs, generality and visible benefit |
+| Single-pass semantic interpretation diagnostic/improvement | A residual meaning/calibration question that simpler deterministic work cannot answer; a new finite method decision rather than automatic exposed-fixture tuning |
+| Bounded multi-role semantic interpretation/validation experiment | Available facts/relations are lost or conflated in one pass, and scoped responsibilities plus typed handoffs offer a discriminating hypothesis |
+| Materially different deployment/model test | A specific residual capability question justifies the added qualification, runtime and inference cost |
 | Positive action-permission work | Existing or justified narrow producer derivations can meet the accepted permission; no semantic weakening |
-| Focused semantic diagnostic | A residual meaning/calibration uncertainty that simpler deterministic work cannot answer |
 | Narrow, defer or stop | Missing premises, insufficient value, inadequate coverage or disproportionate cost |
+
+For multi-role work, evaluate the hypothesis of the same bounded evidence with separated relation/proposition analysis, validation/challenge and synthesis responsibilities versus one response carrying them together. Evidence selection is another possible responsibility only when relevant. Roles are not mandatory agents, processes, model families or frameworks. A later comparison may use the same model in isolated calls to reduce deployment confounding. Specify any scoped-context differences, typed handoffs, resource differences and source-backed review obligations before proposing that experiment; this investigation runs none of it.
+
+Record counterevidence: older Fixed work already used stages and still failed; additional calls create cost, handoff and failure modes; same-model or different-model agreement is not independent evidence; an always-reject/unresolved validator cannot establish useful discrimination. Compare preserved supported findings, false acceptance/rejection and justified unknowns, not agreement alone. Existing deterministic/native owners may solve the selected gap more cheaply. State whether multi-role work is worth selecting, deferred, rejected for this gap or unresolved. Give an evidence-based disposition for each named alternative without inventing a full design for an inapplicable option. No framework, parser, model topology or positive action is preselected.
 
 For each credible option record evidence, expected information/benefit, remaining uncertainty, effort/resource estimate and maintenance/replacement cost. Estimates remain estimates. State why the preferred option beats the simpler alternative and the strongest counterargument. Do not turn a weighted score or known expected answer into the decision authority.
 
@@ -145,10 +175,12 @@ A material method change after development requires a new exact freeze and fresh
 
 Before publishing the findings, check every material claim against its linked source/input and confirm:
 
-- six inventory rows exist with honest eligibility, mode, readiness and exposure; runnable subset and total inspected denominator are explicit;
+- sixteen lightweight screening rows exist with honest eligibility, mode, exposure, selection reason or explicit uninspected state; deep-cohort selection, omitted responsibilities and separate screening/deep/runnable denominators are explicit;
 - the protocol preserves comparator restrictions, source/time identities and useful-positive/false-positive/unknown distinctions;
+- semantic review checks material premises and preserved uncertainty, not citation-list cardinality; historical frozen verdicts remain unchanged;
 - the consumer trace identifies an actual producer and earliest sufficient owner or records its exact absence;
-- the selected contract is reviewable without inventing further architecture, or non-selection states the missing premise;
+- named alternatives include bounded multi-role work with its counterevidence, cost and disposition; no inference occurs;
+- the recommended contract is reviewable without inventing further architecture, or non-selection states the missing premise; explicit acceptance is still required before any follow-on execution;
 - effort/resource accounting and skipped work are honest, local links/hashes cited are checkable, and no forbidden execution or frozen-evidence changes occurred.
 
 This read-only responsibility needs document/data/source verification, not a product test-suite rerun. Record semantic uncertainty rather than promoting a link/hash check into semantic proof.
