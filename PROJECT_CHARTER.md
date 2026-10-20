@@ -8,12 +8,13 @@ If changing circumstances justify expanding, shrinking, replacing, or otherwise 
 
 **Status:** Controlling stable project charter  
 **Owner:** Ali Rajabi  
-**Execution period:** 2026-07-20 to 2026-10-17  
+**Initial 90-day execution period:** 2026-07-20 to 2026-10-17  
+**Post-period continuity:** The date window was the initial planning/execution horizon, not an automatic project or Charter expiry. After 2026-10-17 this Charter remains controlling until Ali explicitly supersedes, reframes, narrows or terminates its owned responsibilities.  
 **Responsibility:** Mission, user, supported decision, product boundary, outcome classes, evidence doctrine, admission rules, termination conditions, and claim limits
 
 ## 1. Project decision
 
-UpgradePilot is the selected primary learning-by-building flagship for the current 90-day execution period.
+UpgradePilot was selected as the primary learning-by-building flagship for the initial 90-day execution period and continues under this Charter after that horizon unless explicitly re-chartered, reframed or terminated.
 
 It is a production-oriented evidence-backed dependency-update decision system for maintainers of public Python repositories.
 
@@ -181,6 +182,6 @@ Do not claim:
 
 ## 12. Change control
 
-Change this charter only when the mission, user, supported decision, frozen boundary, required outcomes, evidence doctrine, admission rules, termination conditions, or claim limits change.
+Change this charter only when the mission, user, supported decision, frozen boundary, required outcomes, evidence doctrine, admission rules, termination conditions, claim limits, or the meaning of this Charter's continuing authority changes.
 
-Do not update it for ordinary project progress, tests, commits, current plans, exact next actions, or Career review state.
+Do not update it for ordinary project progress, tests, commits, current plans, exact next actions, or Career review state. Clarifying an elapsed planning horizon without changing product responsibilities is governance maintenance, not an extension of technical scope.
