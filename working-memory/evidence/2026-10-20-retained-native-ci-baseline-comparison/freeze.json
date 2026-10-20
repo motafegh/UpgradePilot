@@ -1,0 +1,153 @@
+{
+  "baseline_specification_sha256": "a9093136b66d1131cb7c32b9a70728782641cb624332279e09126c22f622957a",
+  "caps": {
+    "aggregate_case_seconds": 180,
+    "case_seconds": 60,
+    "engineering_hours": 4,
+    "evidence_bytes": 5242880,
+    "model_calls": 0,
+    "new_acquisition": 0,
+    "target_commands": 0,
+    "whole_seconds": 300
+  },
+  "cases": [
+    {
+      "baseline_translation": {
+        "ci_conclusion": "missing",
+        "ci_source": {
+          "conclusions": [],
+          "limit": "October acquisition-time query, not historical CI absence or compatibility",
+          "query": "https://api.github.com/repos/Aidan-Wallace/kubernetes-dashboard-token-api/actions/runs?event=pull_request&head_sha=391508134b083b8f54461c0b576e8f7985c6ecb4&per_page=100&page=1",
+          "run_ids": [],
+          "total_count": 0
+        },
+        "dependency_directness": "direct",
+        "directness_basis": {
+          "added": "+httpx==0.28.1",
+          "patch_sha256": "4daf4c37190b91ef6f127a70c0782b37bfb9347caaf07fc486387e46bcecee19",
+          "path": "requirements.txt",
+          "removed": "-httpx==0.27.2"
+        },
+        "release_notes": {
+          "body_sha256": "179e4ce07210cb1b800cadff842cb63438a7afbaec0d199678c61fecf1c25f3a",
+          "raw_section_sha256": "b25126a4426425ca798d5948705eb0a145871ac3eb8c0f03a7044f6c344e6545",
+          "section_character_span": [
+            70,
+            2345
+          ],
+          "text_bytes": 1222,
+          "text_sha256": "a51693e8d430262caf029dacabc5501f4a9053c1b21ff2cfceaf75cf8309b05b",
+          "translation": "HTML text nodes after summary, entity-decoded, whitespace retained, no inserted separators"
+        },
+        "version_category": "minor",
+        "version_derivation": "Mechanical PEP 440 major/minor/release-component comparison for these Python versions; no behavioral SemVer inference"
+      },
+      "case_id": "development-httpx-framework-ci",
+      "checkpoint_digest": "991b5eb0cf2ca6d86319ef80f07f6939702f27e134f4a3954ca2e0bb619c7e5f",
+      "directory": "case-1",
+      "lineage_id": "5bc82156edb74b91a96b204645478289",
+      "revision_id": "0797f32c78e443eaaad877e1ef27e145",
+      "target": {
+        "base_sha": "b065646e4b7b894964567950f9ad770b02c136c2",
+        "head_sha": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+        "normalized_package": "httpx",
+        "old_version": "0.27.2",
+        "proposed_version": "0.28.1",
+        "pull_number": 20,
+        "repository": "Aidan-Wallace/kubernetes-dashboard-token-api"
+      }
+    },
+    {
+      "baseline_translation": {
+        "ci_conclusion": "passing",
+        "ci_source": {
+          "conclusions": [
+            "success",
+            "success"
+          ],
+          "limit": "October acquisition-time query, not historical CI absence or compatibility",
+          "query": "https://api.github.com/repos/googlefonts/glyphsLib/actions/runs?event=pull_request&head_sha=f3cda8a94600e58d27f1bc17c99b7693718b6350&per_page=100&page=1",
+          "run_ids": [
+            24378200511,
+            24378200519
+          ],
+          "total_count": 2
+        },
+        "dependency_directness": "direct",
+        "directness_basis": {
+          "added": "+pytest==9.0.3",
+          "patch_sha256": "a5c064d4acf76650c294c990bed741806366c8a24ba08dc800849338d8c0a397",
+          "path": "requirements-dev.txt",
+          "removed": "-pytest==9.0.2"
+        },
+        "release_notes": {
+          "body_sha256": "9e5273cfe42221a430afeeb700e4fbf0a3742532a9af0412e805f566902c5b34",
+          "raw_section_sha256": "8330165f70b0fc4238b7a8d4a54a690d6b0da207a2cfc2d0ca9a2ca157aad65e",
+          "section_character_span": [
+            74,
+            3030
+          ],
+          "text_bytes": 1481,
+          "text_sha256": "b5894673602f37f26fbb9a1424604ec074e0304280c65dd0f783e42d525a52b3",
+          "translation": "HTML text nodes after summary, entity-decoded, whitespace retained, no inserted separators"
+        },
+        "version_category": "patch",
+        "version_derivation": "Mechanical PEP 440 major/minor/release-component comparison for these Python versions; no behavioral SemVer inference"
+      },
+      "case_id": "development-glyphslib-pytest-stopping",
+      "checkpoint_digest": "202f04de13ff2223d1ace35b36aafc0a98b5fde2a2abe2e26c8a6e568dce974e",
+      "directory": "case-2",
+      "lineage_id": "e65dc25470c640978434ab5f8c6dda29",
+      "revision_id": "df54ee39679e488cb7ef3563619c6935",
+      "target": {
+        "base_sha": "044f19e4b1437bfc4343592486f4e3c6040306d9",
+        "head_sha": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+        "normalized_package": "pytest",
+        "old_version": "9.0.2",
+        "proposed_version": "9.0.3",
+        "pull_number": 1145,
+        "repository": "googlefonts/glyphsLib"
+      }
+    }
+  ],
+  "experiment_sha256": "919ae73768024ce414c61017e8cb0009cc684d646f3c7b261e99cb7c26693cd0",
+  "format": "retained-native-ci-baseline-freeze/1",
+  "inventory_sha256": "047798e878f563e02d90159245f8c8e32860facf46879992dc24d067fea6f65b",
+  "manifest_sha256": "e5b296dba68f7b6bb0c755e00681ec0db1ad8727ed9af51d417e5751a25bd4ac",
+  "root": "/home/motafeq/.local/share/upgradepilot/investigator-inputs/common-freeze-2026-10-16-2025",
+  "rubric": {
+    "credit": "Supported reasons, located uncertainty and specific justified evidence questions; baseline limitations receive full credit. Detail/citations alone earn no value.",
+    "decisions": [
+      "useful component information: propose one bounded next investment",
+      "no added material value: stop automatic expansion",
+      "input/operational/semantic failure: exact gap and inconclusive disposition"
+    ],
+    "glyphslib": {
+      "forbidden": [
+        "changed version installed from job success",
+        "compatibility from job success",
+        "positive action permission"
+      ],
+      "required": [
+        "exact transition",
+        "supported static declarations",
+        "uncorrelated runtime",
+        "manager-environment unknowns retained"
+      ]
+    },
+    "httpx": {
+      "forbidden": [
+        "API compatibility",
+        "installed framework identity",
+        "CI never existed",
+        "positive action permission"
+      ],
+      "required": [
+        "exact transition",
+        "October query returned zero workflows; historical CI absence not inferred"
+      ]
+    },
+    "limits": "Two exposed source-aware cases; implementer and reviewer overlap; no full action comparison, independent maintainer usefulness, positive compatibility control or general reliability claim.",
+    "question": "Does retained native CI add material source-supported information beyond the restricted baseline?"
+  }
+}

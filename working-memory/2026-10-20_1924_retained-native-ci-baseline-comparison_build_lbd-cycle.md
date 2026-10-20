@@ -40,3 +40,15 @@ UP-SKILL:upgradepilot-working-memory
 ## Publication reconciliation
 
 Initial push rejected: remote had Ali's 3344982c proposal addition after local origin snapshot cbba2c88. Fetched Git metadata, inspected changed-file list: one new AI-native/career horizon proposal, no current owners/source/test changes. Merged without rewriting either history. Proposal remains unadmitted; no need to load its unrelated 2056 lines or change this scope. Initial “matches origin” was cached-ref agreement, not a current remote guarantee. No target/source evidence acquisition occurred.
+
+## Build and focused proof, before retained execution
+
+Implemented one disposable comparison module and its distinct proof family under experiments/. Baseline takes only four fields; source translation uses captured PR/API responses, never scenario answers/native conclusions. Preparation freezes exact release-section character spans/raw/text hashes, input translation, rubric, executable and caps without evaluating an arm. Exact native revision reads use owner-only copies and the existing store/projection APIs; full outputs remain private. Each child blocks actual network/process entry, is timeout-bounded, and retains a completed baseline arm before native decoding. Parent persists each row and never retries failures. Unsupported storage/codec inputs refuse; no migration.
+
+Initial focused invocation failed to import upgradepilot.workspace because the explicit PYTHONPATH omitted src; corrected command uses PYTHONPATH=src:tests:. First real focused tests exposed HTMLParser's internal integer offset colliding with helper offset(); renamed character_offset, retained discriminating span/refusal tests. These are pre-execution implementation failures; no comparison consumed. Ruff unavailable in the existing environment; no dependency installed and no Ruff success claimed. AST parse/source/diff review used alongside behavior tests.
+
+Eleven new focused tests pass, covering first-match baseline rules, benefit non-authority, four-input isolation, faithful text nodes/spans/refusal, exact target/hash mismatch refusal, owned-copy unresolved propagation/original immutability, actual socket/process audit blocking, changed freeze refusal, and failed-row continuation without retry. Fixture capture uses existing mocked product proof data, not a retained comparison case.
+
+Prepared frozen translations: HTTPX minor/direct/missing, unique release details span [70,2345], 1222 text bytes; glyphsLib patch/direct/passing, span [74,3030], 1481 text bytes. Keyword evaluation and retained native decoding have not occurred. All 17 input member identities and exact 96-source correspondence revalidate; no inherited historical result rewritten.
+
+Broader reused-seam proof: three existing WorkspaceCheckpointReconstructionTests passed in13.233 seconds: complete native values/store/validated backup, unsupported codecs/semantic versions, and storage integrity/schema/target/selection. This is seam proof, not retained-case output or full-product usefulness. Implementation and freeze are ready for progressive publication before the authorized single execution.
