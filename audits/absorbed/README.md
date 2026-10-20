@@ -26,6 +26,8 @@ Current absorbed audits:
 - [ABSORBED — AUDIT-015 — Workspace Authority and Consumer Cutover](../2026-10-20_AUDIT-015_workspace-authority-and-consumer-cutover.md)
 - [ABSORBED — AUDIT-016 — Test, Proof and Operational Integrity](../2026-10-20_AUDIT-016_test-proof-and-operational-integrity.md)
 - [ABSORBED — AUDIT-017 — Investigator Experiment Methodology and Machinery Lifecycle](../2026-10-20_AUDIT-017_investigator-experiment-methodology-and-machinery.md)
-  - absorbed 2026-10-20: AUDIT-013 through AUDIT-017 remain the detailed evidence owners for their domains; AUDIT-018 now owns the selected cross-domain remediation order.
+  - absorbed 2026-10-20: AUDIT-013 through AUDIT-017 remain the detailed evidence owners for their domains; AUDIT-018 became the first consolidated cross-domain remediation order.
+- [ABSORBED — AUDIT-018 — Cross-domain Remediation Priorities and Dependency Order](../2026-10-20_AUDIT-018_cross-domain-remediation-priorities.md)
+  - absorbed 2026-10-20: main's completed Phase-B product-value feasibility investigation supplied new evidence that changed immediate sequencing. AUDIT-019 now carries the current order, preserving AUDIT-018's surviving findings while parking new Workspace closure work behind the finite S002/S004 component comparison.
 
 These records remain useful historical/review evidence, but they are **not active implementation work** and must not compete with the newer owning artifacts. Reopening one requires a new concrete trigger rather than merely re-reading the historical recommendation.
