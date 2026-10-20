@@ -3,8 +3,9 @@
 **Date:** 2026-10-20  
 **Status:** ACTIVE  
 **Branch:** `audit/project-wide-system-audit-2026-10-20`  
-**Latest reconciled main:** `bfcc8b916fc33523a535f7c5a994d118d09552b8`  
-**Selected order:** [AUDIT-018](../audits/2026-10-20_AUDIT-018_cross-domain-remediation-priorities.md)
+**Latest reconciled main:** `3344982c10e75863b4f4b922984e3b10b63f3b80`  
+**Current audit-program input:** [AUDIT-019](../audits/2026-10-20_AUDIT-019_phase-b-product-value-reconciliation-and-audit-program-reprioritization.md)  
+**Predecessor order:** [AUDIT-018](../audits/2026-10-20_AUDIT-018_cross-domain-remediation-priorities.md)
 
 ## Focused audit-program cadence
 
@@ -18,7 +19,7 @@ No mandatory D/E learning ceremony is used for this audit/correction branch unle
 
 - corrected README LM Studio base from stale `127.0.0.1:12345` to canonical `127.0.0.1:18080`;
 - clarified `PROJECT_CHARTER.md` so 2026-07-20→2026-10-17 is the **initial** 90-day horizon, not automatic Charter/project expiry;
-- reconciled audit lifecycle: AUDIT-018 is current active audit-program input; superseded AUDIT-009/010/011 and detailed Stage-1→5 audits are indexed as absorbed without rewriting their bodies;
+- reconciled audit lifecycle around one current successor audit instead of multiple stale current inputs;
 - created `experiments/README.md` distinguishing reusable lab substrate, conditional research, historical/dormant cohort runners and Workspace prototype research superseded as active architecture.
 
 ### Still open from Wave 1
@@ -50,7 +51,7 @@ The job itself remains unchanged in proof responsibility:
 
 The workflow-source change is committed on the audit branch, but no new hosted run of this changed trigger has occurred yet. Treat hosted execution as pending proof, not inferred success.
 
-GitHub still reports `main` unprotected with no required status checks/rulesets. The connected GitHub tool exposes protection/ruleset reads but no administration write action, so requiring the new `Installed package and deterministic product tests` status on `main` needs an authorized GitHub repository-admin action outside the current connector (for example Ali's GitHub settings UI).
+GitHub still reports `main` unprotected with no required status checks/rulesets. The connected GitHub tool exposes protection/ruleset reads but no administration write action, so requiring the new `Installed package and deterministic product tests` status on `main` needs an authorized GitHub repository-admin action outside the current connector.
 
 ### Python support policy remains open
 
@@ -62,7 +63,7 @@ Package metadata still declares `requires-python = ">=3.12"`; the deterministic 
 
 Current README's `3.12 or newer` wording therefore remains a proof-scope item to reconcile before integration, even though package metadata permits it syntactically.
 
-## Wave-4 Workspace migration prerequisite delivered
+## Workspace migration prerequisite delivered — now parked
 
 Created:
 
@@ -77,40 +78,86 @@ semantic owner/origin
 → migration disposition
 ```
 
-### Key result
+Key result: do not copy the legacy dataclass one-field/one-family into Workspace. Existing CI/Python-support closure is coherent; `workflow_evidence` is derivable from captured `ci_inputs`. The genuine missing closure clusters remain package/upstream material and artifact-serviceability.
 
-Do not copy the legacy dataclass one-field/one-family into Workspace.
+**After main Phase B, new architecture work from this ledger is paused rather than selected.** The ledger remains valid preparation evidence if a later product-value result selects Workspace closure.
 
-Already captured:
+## Main Phase-B reconciliation
 
-- exact investigation inputs/PR/dependency/changed files;
-- CI inputs/coverage/runtime state;
-- upstream authority/support-drop result;
-- Python-support pre/selection/target/relevance/post closure.
+Main `cbba2c88` completed the product-value and transparent-baseline feasibility investigation with no executable product/experiment changes.
 
-`workflow_evidence` does not need a new family: captured `ci_inputs` already retains each exact `WorkflowRun` and `WorkflowJob` tuple plus static definition/environment sources. The migrated report can project run/job evidence from that canonical input.
+Accepted audit observations:
 
-The genuine missing closure clusters are:
+- 16/16 scenarios screened;
+- six deeply inspected;
+- only S002 and S004 ready for the declared retained-native-CI-output comparison;
+- no fresh end-to-end benchmark qualified or executed;
+- S004 demonstrates that existing deterministic/native CI owners already preserve important authority/uncertainty boundaries that later semantic interpretation can overstate;
+- the proposed next step is a finite two-case component information-value comparison before another interpretation architecture.
 
-1. **package/upstream material closure** — proposed/old package release, upstream repository/provenance, release index/window/tag/changelog intermediates/material needed for current report/stop explanations;
-2. **artifact-serviceability closure** — old/new package artifact evidence, source-bound target artifact-environment associations, candidate and impact assessment.
+AUDIT-019 accepts that recommendation as technically credible, subject to Ali's explicit selection on main.
 
-The ledger explicitly warns not to create five separate upstream top-level families merely because five legacy intermediate fields exist. First decide whether exact intermediate source/problem semantics can live as retained input/material closure for `upstream_authority` without information loss.
+### Required interpretation boundary
 
-## Current next responsibility
+A negative comparison result may establish only:
 
-Design the smallest **package/upstream material closure** representation needed by actual report/synthesis consumers, then the artifact-serviceability closure. This is architecture/design work before source implementation.
+> the retained native-CI component showed no material incremental information value over transparent baseline v0.1 on the two exposed S002/S004 cases under the frozen October evidence boundary.
 
-Before entering that design, recheck latest `main`; sibling product-value plan edits remain unresolved for final integration but do not block this Workspace owner analysis.
+It must not be promoted into a project-wide no-value, deterministic-method no-value, Workspace rejection, hybrid-architecture rejection or general reliability conclusion.
 
-## Non-selected work
+A positive result is equally narrow: exposed-case component benefit, not full-product superiority or maintainer usefulness.
 
-Still not selected:
+## Latest main after Phase B
 
-- model calls or new semantic experiment;
-- autonomous discovery optimization;
-- agent framework;
-- Workspace direct-consumer source cutover;
-- deterministic replay implementation;
-- mass test cleanup;
-- automatic merge of this branch into main.
+`main` then advanced to `3344982c` with one new exploratory proposal:
+
+`proposals/2026-10-20_UPGRADEPILOT_AI_NATIVE_ENGINEERING_AND_CAREER_CAPABILITY_HORIZON_PROPOSAL.md`
+
+The proposal explicitly has no controlling authority. Main `MEMORY.md` still retains the product-value feasibility handoff and says the comparison contract requires review/acceptance before execution. Therefore the proposal does not change our supervisory sequencing.
+
+## Current next responsibility on this audit branch
+
+Do **not** enter package/upstream Workspace design yet.
+
+Current branch work is:
+
+1. preserve AUDIT-019 as the current supervisory/reprioritization input;
+2. continue only comparison-independent corrections:
+   - Smart Override root semantic clarification;
+   - Python support/proof reconciliation;
+   - deterministic CI hosted proof/integration administration;
+   - newly discovered documentation/lifecycle truth defects;
+3. supervise/review the main S002/S004 comparison if Ali selects it;
+4. once its result exists, audit what it actually changes and select the cheapest justified owner/capability;
+5. resume Workspace closure only if that later evidence makes it a priority.
+
+## Explicitly paused pending comparison result
+
+- package/upstream Workspace closure design;
+- artifact-serviceability Workspace closure design;
+- direct Workspace consumer cutover;
+- new deterministic source-relation subsystem;
+- new semantic validator;
+- prompt/model iteration;
+- multi-role interpretation/validation experiment;
+- different model/deployment experiment;
+- positive action-permission expansion.
+
+## Branch integration boundary
+
+Do not merge this branch wholesale into `main`.
+
+The branches contain overlapping product-value-plan edits plus independent audit/governance/CI work. Integrate later by coherent responsibility after semantic reconciliation and proof, not by commit chronology.
+
+Likely future integration groups:
+
+```text
+truth/lifecycle documentation corrections
+canonical deterministic CI change + hosted/admin proof
+Smart Override clarification
+Python support/proof clarification
+selected audit records
+only those product-value plan distinctions not already superseded by main
+```
+
+`UP-SKILL:upgradepilot-repository-audit`
