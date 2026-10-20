@@ -1,0 +1,87 @@
+{
+  "proof_class": "experiment machinery and two retained component outputs; not product/usefulness acceptance",
+  "tests": {
+    "new_focused": 11,
+    "reused_product_seam": 3,
+    "product_seam_seconds": 13.233,
+    "full_suite": "not run: no product source change",
+    "ruff": "unavailable; no installation",
+    "syntax_and_diff": "AST parse and git diff --check pass"
+  },
+  "identity_checks": {
+    "original_indexed_members": 17,
+    "qualification_sha256_verified": true,
+    "exact_product_source_files": 96,
+    "scenario_files_unchanged": 217,
+    "executable_sha256_verified": true,
+    "freeze_sha256": "44afe9ed9647f410b93d43a74dbabdeb487cd001b6c7c8e2da7ef8494e577cf9",
+    "raw_results_sha256": "5f1016dd7c010ebc3881273435800f00b8401c82fd1f9c623c5b61ff026df956",
+    "private_payload_hashes_and_permissions_verified": true,
+    "original_checkpoint_hashes_unchanged": true,
+    "recorded_producer_version_gaps_preserved": true,
+    "unrelated_not_evaluated_families": 7
+  },
+  "execution": {
+    "whole_seconds": 0.58644384299987,
+    "aggregate_case_seconds": 0.4848710200003552,
+    "counts": {
+      "completed": 2,
+      "input_unavailable": 0,
+      "operationally_failed": 0,
+      "unattempted_budget": 0
+    },
+    "new_model_calls": 0,
+    "gpu_or_model_loads": 0,
+    "new_network_evidence": 0,
+    "target_commands": 0,
+    "installs": 0,
+    "reruns": 0
+  },
+  "effort": {
+    "meter_start_utc": "2026-10-20T15:54:22.769748+00:00",
+    "measured_elapsed_seconds_at_verification": 816.1707684450002,
+    "unmeasured_pre_meter_reserve_seconds": 900,
+    "conservative_accounted_seconds_at_verification": 1716.1707684450002,
+    "ceiling_seconds": 14400,
+    "qualification": "Continuous active-turn meter includes tool/validation/publication latency. Initial owner/skill/source inspection unmeasured, conservatively reserved15minutes; final delivery bookkeeping after this snapshot not included. No exact all-inclusive effort claim.",
+    "measured_elapsed_seconds_at_finalization": 915.9324430340002,
+    "conservative_accounted_seconds_at_finalization": 1815.9324430340002
+  },
+  "retention": {
+    "private_root": "/home/motafeq/.local/share/upgradepilot/retained-ci-baseline-runs/2026-10-20-comparison-r1",
+    "private_files": [
+      {
+        "path": "case-1-native.json",
+        "bytes": 3348,
+        "sha256": "bfd2f002ff1158ae7255aa998ffd6a8f08d2356738bfaa03ad6c77119064d8b6"
+      },
+      {
+        "path": "case-1-partial.json",
+        "bytes": 2591,
+        "sha256": "ad65a529a01335980cfcbdde0b860ddecb5b7ccb288d96ac1559baa40e6469e5"
+      },
+      {
+        "path": "case-2-native.json",
+        "bytes": 40589,
+        "sha256": "34961e8f816ef84d112c24d7a4ce49324c5a085fb70bcb7a88bafcfdbd0eeb0e"
+      },
+      {
+        "path": "case-2-partial.json",
+        "bytes": 2746,
+        "sha256": "b452f6727140329a0e6ed91312f10d917978205d0779897058c8588c3c32142b"
+      }
+    ],
+    "raw_originals": "Referenced unchanged, not copied into Git",
+    "generated_comparison_evidence_ceiling_bytes": 5242880,
+    "generated_comparison_evidence_bytes": 106632,
+    "generated_artifacts_bytes_including_code_tests_cycle": 161414
+  },
+  "review_sha256": "470a86bca268d9b8c2eb933e4c1b7b03f7176ec2806e87574122fdce312ab11e",
+  "document_checks": {
+    "markdown_documents": 4,
+    "local_links": 63,
+    "fences_and_final_newlines": "pass",
+    "raw_results_byte_identical_to_published_commit": "fbd70cf3",
+    "product_source_tests_plans_simulation_and_docs_unchanged_from": "cbba2c88"
+  }
+}

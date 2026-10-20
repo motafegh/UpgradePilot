@@ -1,0 +1,115 @@
+{
+  "format": "retained-native-ci-baseline-source-review/1",
+  "raw_results_sha256": "5f1016dd7c010ebc3881273435800f00b8401c82fd1f9c623c5b61ff026df956",
+  "freeze_sha256": "44afe9ed9647f410b93d43a74dbabdeb487cd001b6c7c8e2da7ef8494e577cf9",
+  "reviewer": "same AI implementer; source-aware exposed-case review, not independent",
+  "mode": "retained CI component, no new producer derivation or full-product action",
+  "counts": {
+    "requested": 2,
+    "attempted": 2,
+    "completed": 2,
+    "input_unavailable": 0,
+    "operationally_failed": 0,
+    "unattempted": 0,
+    "narrow_review_obligations_satisfied": 2,
+    "narrow_review_semantically_inadequate": 0,
+    "full_product_semantic_adequacy": "unassessed",
+    "information_no_material_addition": 1,
+    "information_located_evidence_gap": 1
+  },
+  "rows": [
+    {
+      "case_id": "development-httpx-framework-ci",
+      "baseline_rule": "B02",
+      "baseline_outcome": "run_targeted_checks",
+      "native_action": "unavailable: component scope",
+      "required_obligations": "satisfied for exact transition and bounded missing-observation handling",
+      "unsupported_reassurance_found": false,
+      "critical_unknowns_preserved": true,
+      "information_value": "no material CI increment",
+      "full_comparison_classification": "unavailable: no full investigation or matching action"
+    },
+    {
+      "case_id": "development-glyphslib-pytest-stopping",
+      "baseline_rule": "B05",
+      "baseline_outcome": "merge_after_normal_review",
+      "native_action": "unavailable: component scope",
+      "required_obligations": "satisfied for exact transition, supported static declarations, unresolved runtime correlation/environment",
+      "unsupported_reassurance_found": false,
+      "critical_unknowns_preserved": true,
+      "information_value": "limited useful specificity; maintainer value/action superiority unestablished",
+      "full_comparison_classification": "unavailable: no full investigation or matching action",
+      "source_review_corrections": [
+        "Captured job step arrays all empty; job-name fallback alone cannot establish command execution",
+        "Separate main known-good/generate and later regression checkout/environment routes; no version witness inferred from static declaration",
+        "Unresolved manager_environment is not evidence of a wrong environment"
+      ]
+    }
+  ],
+  "source_checks": {
+    "workflows": [
+      {
+        "captured_url": "https://api.github.com/repos/googlefonts/glyphsLib/contents/.github/workflows/regression.yml?ref=f3cda8a94600e58d27f1bc17c99b7693718b6350",
+        "content_sha256": "8ce672e72f10d1f7cfbe8727cf5808d6b0263fb3b4350f9bfc1f9fdfff4b3d89"
+      },
+      {
+        "captured_url": "https://api.github.com/repos/googlefonts/glyphsLib/contents/.github/workflows/ci.yml?ref=f3cda8a94600e58d27f1bc17c99b7693718b6350",
+        "content_sha256": "af09f984d02ffbf27b394eed97269c2b6ac779e7a712d89adf3aa38e48058811"
+      }
+    ],
+    "jobs": [
+      {
+        "captured_url": "https://api.github.com/repos/googlefonts/glyphsLib/actions/runs/24378200511/attempts/1/jobs?per_page=100&page=1",
+        "job_count": 1,
+        "empty_step_arrays": 1,
+        "jobs": [
+          {
+            "id": 71195942011,
+            "name": "test",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "captured_url": "https://api.github.com/repos/googlefonts/glyphsLib/actions/runs/24378200519/attempts/1/jobs?per_page=100&page=1",
+        "job_count": 6,
+        "empty_step_arrays": 6,
+        "jobs": [
+          {
+            "id": 71195941956,
+            "name": "test (3.14, ubuntu-latest)",
+            "conclusion": "success"
+          },
+          {
+            "id": 71195941965,
+            "name": "test (3.10, windows-latest)",
+            "conclusion": "success"
+          },
+          {
+            "id": 71195941977,
+            "name": "lint",
+            "conclusion": "success"
+          },
+          {
+            "id": 71195941982,
+            "name": "test (3.10, ubuntu-latest)",
+            "conclusion": "success"
+          },
+          {
+            "id": 71195941987,
+            "name": "test (3.14, windows-latest)",
+            "conclusion": "success"
+          },
+          {
+            "id": 71196261332,
+            "name": "deploy",
+            "conclusion": "skipped"
+          }
+        ]
+      }
+    ]
+  },
+  "decision": "Defer producer rewrites, correlation expansion, further inference and multi-role implementation. Recommend a separate bounded design decision on preserving existing typed CI/report authority in experimental Investigator final presentation; reuse existing owner or stop if sufficient.",
+  "adoption": "none; runner retained only as reproducible experiment evidence",
+  "learning": "Written D explanation; learner ownership unassessed; E pending; predecessor debt unchanged"
+}
