@@ -1,0 +1,27 @@
+{
+  "charged_wall_seconds_through_verification_including_600s_preflight_reserve": 1292.7951456819992,
+  "cost_limits": "Historical capture/model/human costs unknown where unmeasured; current anonymous GET acquisition18. No retries or additional official batches.",
+  "current_public_private_packet_bytes": 464432,
+  "engineering_ceiling_seconds": 10800,
+  "final_evidence_limit_bytes": 15728640,
+  "frozen_source_input_paths": 124,
+  "links_checked": 72,
+  "maximum_body_bytes": 42550,
+  "new_project_model_predictions": 0,
+  "official_output_hashes": {
+    "live/FCI001/result.json": "e2ba88a1741195c7ff3111cd0c8e064f7e564cd938b4c712d561b77aa317deb2",
+    "live/FCI002/result.json": "fb4dab6b443b15fee057d91fb3fa74c1f07c136dc159759244c9d5d82bf1d728",
+    "live/FCI003/result.json": "fb9d84891890c1f737f5474dc47e11b865bc0ecd0b2bddcb2c765b778d3bd321",
+    "offline/FCI001/result.json": "3fb4bdfe2f502b725aef776b8a05e73353e6f129ed3e685f1da9be6da19eea18",
+    "offline/FCI002/result.json": "8f7d6d446d79ecc1e8c350cd858d44af5ddcdc1c558ec877ad28b46477581465",
+    "offline/FCI003/result.json": "31340f7384f1bfe0488b541a428093ab28b2ad934847e235db9a0a1df999ba99"
+  },
+  "original_cohort_paths_unchanged": 25,
+  "private_body_hashes_verified": 18,
+  "proof": "62 selected tests passed before execution; no executable changes since freeze. Original verifier passed before execution; repeated final integrity verification is justified by official acquisition/retention.",
+  "remaining_accounting": "Final Git publication/handoff follows; retain a conservative charged total below30 minutes if completed within that bound. No exact inclusive human/engineering effort claim.",
+  "retained_decoded_body_bytes": 348462,
+  "source_repair": "none",
+  "target_commands_or_installs": 0,
+  "verified_utc": "2026-10-20T19:00:55.770836+00:00"
+}

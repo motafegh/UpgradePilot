@@ -1,0 +1,135 @@
+{
+  "cases": [
+    {
+      "case_id": "FCI001",
+      "complete_job_total": 1,
+      "complete_run_total": 3,
+      "conditional_and_fresh_owner_equal": true,
+      "final_pr_state": "open",
+      "fresh_job_step_shapes": [
+        "non_empty_array"
+      ],
+      "frozen_job_step_shapes": [
+        "non_empty_array"
+      ],
+      "initial_pr_state": "open",
+      "job_heads_observed_and_preserved": 1,
+      "old_to_new_admitted_job_differences": [],
+      "provider_contents_blob": "fb2110166d4df410cea5f181d0e75a55b92824a4",
+      "provider_step_fields_outside_current_dto": [
+        "completed_at",
+        "started_at"
+      ],
+      "receipts_verified": 6,
+      "run_detail_attempt": 1,
+      "run_pull_request_numbers": [
+        5404
+      ],
+      "selected_run_attempt": 1,
+      "workflow_id": 369694204
+    },
+    {
+      "case_id": "FCI002",
+      "complete_job_total": 13,
+      "complete_run_total": 1,
+      "conditional_and_fresh_owner_equal": true,
+      "final_pr_state": "open",
+      "fresh_job_step_shapes": [
+        "non_empty_array",
+        "non_empty_array",
+        "non_empty_array",
+        "non_empty_array",
+        "non_empty_array",
+        "non_empty_array",
+        "non_empty_array",
+        "non_empty_array",
+        "non_empty_array",
+        "non_empty_array",
+        "non_empty_array",
+        "empty_array",
+        "empty_array"
+      ],
+      "frozen_job_step_shapes": [
+        "non_empty_array",
+        "non_empty_array",
+        "non_empty_array",
+        "non_empty_array",
+        "non_empty_array",
+        "non_empty_array",
+        "non_empty_array",
+        "non_empty_array",
+        "non_empty_array",
+        "non_empty_array",
+        "non_empty_array",
+        "null",
+        "null"
+      ],
+      "initial_pr_state": "open",
+      "job_heads_observed_and_preserved": 13,
+      "old_to_new_admitted_job_differences": [
+        {
+          "field": "admitted_steps",
+          "fresh": [],
+          "frozen": null,
+          "job_id": 110167025171
+        },
+        {
+          "field": "admitted_steps",
+          "fresh": [],
+          "frozen": null,
+          "job_id": 110167025680
+        }
+      ],
+      "provider_contents_blob": "9643a4ea975e7182c548e4bc8e94accb93aa0056",
+      "provider_step_fields_outside_current_dto": [
+        "completed_at",
+        "started_at"
+      ],
+      "receipts_verified": 6,
+      "run_detail_attempt": 1,
+      "run_pull_request_numbers": [
+        50
+      ],
+      "selected_run_attempt": 1,
+      "workflow_id": 6943835
+    },
+    {
+      "case_id": "FCI003",
+      "complete_job_total": 5,
+      "complete_run_total": 2,
+      "conditional_and_fresh_owner_equal": true,
+      "final_pr_state": "closed",
+      "fresh_job_step_shapes": [
+        "non_empty_array",
+        "non_empty_array",
+        "non_empty_array",
+        "non_empty_array",
+        "non_empty_array"
+      ],
+      "frozen_job_step_shapes": [
+        "non_empty_array",
+        "non_empty_array",
+        "non_empty_array",
+        "non_empty_array",
+        "non_empty_array"
+      ],
+      "initial_pr_state": "closed",
+      "job_heads_observed_and_preserved": 5,
+      "old_to_new_admitted_job_differences": [],
+      "provider_contents_blob": "acc8795bf9c5029afa5014d48c543547f4062381",
+      "provider_step_fields_outside_current_dto": [
+        "completed_at",
+        "started_at"
+      ],
+      "receipts_verified": 6,
+      "run_detail_attempt": 1,
+      "run_pull_request_numbers": [],
+      "selected_run_attempt": 1,
+      "workflow_id": 185409669
+    }
+  ],
+  "original_frozen_inputs_unchanged": true,
+  "review_correction": "Initial whole-step-object equality assertion rejected intentional DTO omission of started_at/completed_at. Compared the admitted number/name/status/conclusion fields instead; no acquisition was retried or owner output changed.",
+  "reviewed_utc": "2026-10-20T18:58:07.205517+00:00",
+  "reviewer": "source-aware implementer; no independent reviewer"
+}
