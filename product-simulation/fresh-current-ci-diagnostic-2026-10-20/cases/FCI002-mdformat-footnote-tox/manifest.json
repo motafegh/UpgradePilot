@@ -1,21 +1,107 @@
 {
-  "case_id":"FCI002",
-  "manifest_schema":"fci-case-manifest-v1",
-  "cohort_role":"fresh_exposed_development_diagnostic",
-  "exposure_status":"exposed; inspected/selected during development; not a holdout or acceptance case",
-  "identity":{"repository":"executablebooks/mdformat-footnote","pr_number":50,"base_sha":"9a174e4cba089f4b117134a220164bdc20f070fe","head_sha":"c4b631da85386c18ad691c9d3d6af35b72e3a9ab","dependency":"tox","old_version":">=4.61.1","proposed_version":">=4.64.4","observation_time":"2026-10-20T16:47:07Z"},
-  "qualification":"qualified_as_unresolved_control",
-  "qualification_reason":"Fresh exact-head CI has rich steps for executed jobs and provider-unavailable/null steps for two skipped jobs. Static workflow includes a matrix job, which the current correlation owner intentionally excludes. The tox transition is explicit but the workflow does not install requirements.txt or invoke tox, so no dependency exercise should be inferred.",
-  "selected_workflow":{"workflow_name":"CI","workflow_path":".github/workflows/tests.yml","run_id":36798375619,"run_attempt":1,"runtime_step_state":"mixed: non_empty_array plus field_absent_or_unavailable","static_correlation_eligibility":"intentionally_unsupported_matrix","dependency_runtime_state_eligibility":"not_established","expected_unresolved_boundary":"Matrix expansion prevents current static↔runtime bijection; requirements.txt transition is not consumed by the observed CI commands and tox is not invoked."},
-  "capture_fidelity":{"provider_api":"structured provider fields exposed by GitHub connector; not HTTP-wire bytes","source_files":"lossless UTF-8 contents returned by GitHub connector","critical_limitation":"Byte-for-byte original HTTP response bodies/headers could not be retained with the available connector."},
-  "artifacts":[
-    {"path":"raw/provider-meta.json","source_provider":"GitHub","retrieval_identity":"connector captures for PR #50, exact-head runs and run 36798375619 attempt 1 identity","observation_time":"2026-10-20T16:47:07Z","target_revision":"c4b631da85386c18ad691c9d3d6af35b72e3a9ab","byte_size":2316,"sha256":"ddb445a08e6d1bb1444283f540c86d95dc7d3be5ad51d6432fae8a5b65d4cf15"},
-    {"path":"raw/jobs-attempt-1.json","source_provider":"GitHub","retrieval_identity":"run 36798375619 attempt 1 job capture","observation_time":"2026-10-20T16:47:07Z","target_revision":"c4b631da85386c18ad691c9d3d6af35b72e3a9ab","byte_size":9718,"sha256":"36e75996518696935d687c133e18e56c365e4161172e16d3f18c5188a6b6a8e7"},
-    {"path":"raw/pr.diff","source_provider":"GitHub","retrieval_identity":"PR #50 diff","observation_time":"2026-10-20T16:47:07Z","target_revision":"9a174e4cba089f4b117134a220164bdc20f070fe..c4b631da85386c18ad691c9d3d6af35b72e3a9ab","byte_size":238,"sha256":"73334422d825146bdc8db7f1b8f92b61876299c8dc2137713d28aa3d3d1ab12d"},
-    {"path":"raw/workflow.yml","source_provider":"GitHub repository source","retrieval_identity":"executablebooks/mdformat-footnote:.github/workflows/tests.yml@c4b631da85386c18ad691c9d3d6af35b72e3a9ab","observation_time":"2026-10-20T16:47:07Z","target_revision":"c4b631da85386c18ad691c9d3d6af35b72e3a9ab","byte_size":4353,"sha256":"025fc280503d35d824dbdf0cb64618673d0a1c0055870558d1801913e769ddb6"},
-    {"path":"raw/requirements.base.txt","source_provider":"GitHub repository source","retrieval_identity":"requirements.txt@9a174e4cba089f4b117134a220164bdc20f070fe","observation_time":"2026-10-20T16:47:07Z","target_revision":"9a174e4cba089f4b117134a220164bdc20f070fe","byte_size":78,"sha256":"0cd4c073db5b52c219bc8ee90ae49ea32174f6c17079a2f82e6f8666e076b922"},
-    {"path":"raw/requirements.head.txt","source_provider":"GitHub repository source","retrieval_identity":"requirements.txt@c4b631da85386c18ad691c9d3d6af35b72e3a9ab","observation_time":"2026-10-20T16:47:07Z","target_revision":"c4b631da85386c18ad691c9d3d6af35b72e3a9ab","byte_size":78,"sha256":"66bbe335a255c4f63f85e80e2b72456ece0a4911ffa00532a2659b57e6bad4f5"}
+  "case_id": "FCI002",
+  "manifest_schema": "fci-case-manifest-v1",
+  "cohort_role": "fresh_exposed_development_diagnostic",
+  "exposure_status": "exposed; inspected/selected during development; not a holdout or acceptance case",
+  "identity": {
+    "repository": "executablebooks/mdformat-footnote",
+    "pr_number": 50,
+    "base_sha": "9a174e4cba089f4b117134a220164bdc20f070fe",
+    "head_sha": "c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
+    "dependency": "tox",
+    "old_version": ">=4.61.1",
+    "proposed_version": ">=4.64.4",
+    "observation_time": "2026-10-20T16:47:07Z"
+  },
+  "qualification": "qualified_as_unresolved_control",
+  "qualification_reason": "Fresh exact-head CI has rich steps for executed jobs and provider-unavailable/null steps for two skipped jobs. Static workflow includes a matrix job, which the current correlation owner intentionally excludes. The tox transition is explicit but the workflow does not install requirements.txt or invoke tox, so no dependency exercise should be inferred.",
+  "selected_workflow": {
+    "workflow_name": "CI",
+    "workflow_path": ".github/workflows/tests.yml",
+    "run_id": 36798375619,
+    "run_attempt": 1,
+    "runtime_step_state": "mixed: non_empty_array plus field_absent_or_unavailable",
+    "static_correlation_eligibility": "intentionally_unsupported_matrix",
+    "dependency_runtime_state_eligibility": "not_established",
+    "expected_unresolved_boundary": "Matrix expansion prevents current static↔runtime bijection; requirements.txt transition is not consumed by the observed CI commands and tox is not invoked."
+  },
+  "capture_fidelity": {
+    "provider_api": "structured provider fields exposed by GitHub connector; not HTTP-wire bytes",
+    "source_files": "lossless UTF-8 contents returned by GitHub connector",
+    "critical_limitation": "Byte-for-byte original HTTP response bodies/headers could not be retained with the available connector."
+  },
+  "authoritative_dependency_transition_artifact": "raw/pr.diff",
+  "artifacts": [
+    {
+      "path": "raw/provider-meta.json",
+      "source_provider": "GitHub",
+      "retrieval_identity": "connector captures for PR #50, exact-head runs and run 36798375619 attempt 1 identity",
+      "observation_time": "2026-10-20T16:47:07Z",
+      "target_revision": "c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
+      "byte_size": 2316,
+      "sha256": "ddb445a08e6d1bb1444283f540c86d95dc7d3be5ad51d6432fae8a5b65d4cf15",
+      "git_blob_sha1": "768220110fb0d9fb060725187c082ee9639b4f9c",
+      "role": "authoritative_structured_provider_capture"
+    },
+    {
+      "path": "raw/jobs-attempt-1.json",
+      "source_provider": "GitHub",
+      "retrieval_identity": "run 36798375619 attempt 1 job capture",
+      "observation_time": "2026-10-20T16:47:07Z",
+      "target_revision": "c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
+      "byte_size": 9718,
+      "sha256": "36e75996518696935d687c133e18e56c365e4161172e16d3f18c5188a6b6a8e7",
+      "git_blob_sha1": "3063c7f6143c62c018c2ddee61f6d0959ebfe822",
+      "role": "authoritative_run_attempt_job_capture"
+    },
+    {
+      "path": "raw/pr.diff",
+      "source_provider": "GitHub",
+      "retrieval_identity": "exact captured PR #50 diff bytes",
+      "observation_time": "2026-10-20T16:47:07Z",
+      "target_revision": "9a174e4cba089f4b117134a220164bdc20f070fe..c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
+      "byte_size": 238,
+      "sha256": "73334422d825146bdc8db7f1b8f92b61876299c8dc2137713d28aa3d3d1ab12d",
+      "git_blob_sha1": "24e463d1743e1090bee2d7625ed2b22fa49bbaeb",
+      "role": "authoritative_provider_exact_diff"
+    },
+    {
+      "path": "raw/workflow.yml",
+      "source_provider": "GitHub repository source",
+      "retrieval_identity": "executablebooks/mdformat-footnote:.github/workflows/tests.yml@c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
+      "observation_time": "2026-10-20T16:47:07Z",
+      "target_revision": "c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
+      "byte_size": 4353,
+      "sha256": "025fc280503d35d824dbdf0cb64618673d0a1c0055870558d1801913e769ddb6",
+      "git_blob_sha1": "a4eca8f90e09255f960d1047f60dd645cf65d6ca",
+      "role": "authoritative_target_revision_source"
+    },
+    {
+      "path": "raw/requirements.base.txt",
+      "source_provider": "GitHub repository source",
+      "retrieval_identity": "requirements.txt@9a174e4cba089f4b117134a220164bdc20f070fe",
+      "observation_time": "2026-10-20T16:47:07Z",
+      "target_revision": "9a174e4cba089f4b117134a220164bdc20f070fe",
+      "byte_size": 78,
+      "sha256": "0cd4c073db5b52c219bc8ee90ae49ea32174f6c17079a2f82e6f8666e076b922",
+      "git_blob_sha1": "8b13dbb4f45b0d003c97fe794b46fdcf1ddeab42",
+      "role": "authoritative_base_dependency_source"
+    },
+    {
+      "path": "raw/requirements.head.txt",
+      "source_provider": "GitHub repository source",
+      "retrieval_identity": "requirements.txt@c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
+      "observation_time": "2026-10-20T16:47:07Z",
+      "target_revision": "c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
+      "byte_size": 78,
+      "sha256": "66bbe335a255c4f63f85e80e2b72456ece0a4911ffa00532a2659b57e6bad4f5",
+      "git_blob_sha1": "71d68233f71dfeba3b24b2edf4f1611875ceb1c3",
+      "role": "authoritative_head_dependency_source"
+    }
   ],
-  "logs_artifacts_policy":{"retained":false,"reason":"No material need; job step summaries already expose the mixed availability and matrix boundary."},
-  "raw_immutability":"Files below raw/ are immutable after this publication; corrections/interpretations must be additive outside raw/."
+  "logs_artifacts_policy": {
+    "retained": false,
+    "reason": "No material need; job step summaries already expose the mixed availability and matrix boundary."
+  },
+  "raw_immutability": "Files below raw/ are immutable after publication; corrections or later interpretation are additive outside raw/."
 }
