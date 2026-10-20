@@ -1,0 +1,23 @@
+{
+  "attempted_gets": 18,
+  "elapsed_seconds": 9.694187969000268,
+  "retained_body_bytes": 348462,
+  "rows": [
+    {
+      "case_id": "FCI001",
+      "result_sha256": "e2ba88a1741195c7ff3111cd0c8e064f7e564cd938b4c712d561b77aa317deb2",
+      "state": "completed"
+    },
+    {
+      "case_id": "FCI002",
+      "result_sha256": "fb4dab6b443b15fee057d91fb3fa74c1f07c136dc159759244c9d5d82bf1d728",
+      "state": "completed"
+    },
+    {
+      "case_id": "FCI003",
+      "result_sha256": "fb9d84891890c1f737f5474dc47e11b865bc0ecd0b2bddcb2c765b778d3bd321",
+      "state": "completed"
+    }
+  ],
+  "stage": "live"
+}

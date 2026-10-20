@@ -1,0 +1,18 @@
+{
+  "utc_start": "2026-10-20T18:56:37.735450+00:00",
+  "command": [
+    "/home/motafeq/projects/UpgradePilot/.venv/bin/python3",
+    "experiments/current_ci_owner_diagnostic.py",
+    "live",
+    "working-memory/evidence/2026-10-20-current-ci-owner-diagnostic/freeze.json",
+    "working-memory/evidence/2026-10-20-current-ci-owner-diagnostic/live",
+    "/home/motafeq/.local/share/upgradepilot/current-ci-owner-diagnostic-2026-10-20/private/live"
+  ],
+  "timeout_seconds": 300,
+  "environment": "GITHUB_TOKEN and proxy variables removed process-locally; normal no-netrc session; no credential loading",
+  "returncode": 0,
+  "stdout": "",
+  "stderr": "",
+  "whole_startup_inclusive_seconds": 9.840602629999921,
+  "utc_end": "2026-10-20T18:56:47.576065+00:00"
+}

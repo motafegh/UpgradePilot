@@ -1,0 +1,714 @@
+{
+  "attempted_gets": 6,
+  "case_id": "FCI002",
+  "claim_limit": "Selected CI acquisition/correlation only; no dependency state, semantic usefulness or action authority",
+  "elapsed_seconds": 3.691218982999999,
+  "exact_head_run_ids": [
+    36798375619
+  ],
+  "final_pr": {
+    "base_sha": "9a174e4cba089f4b117134a220164bdc20f070fe",
+    "changed_files": 1,
+    "head_sha": "c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
+    "state": "open"
+  },
+  "initial_pr": {
+    "base_sha": "9a174e4cba089f4b117134a220164bdc20f070fe",
+    "changed_files": 1,
+    "head_sha": "c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
+    "state": "open"
+  },
+  "job_heads": "observed_and_validated_by_normal_product_client",
+  "jobs": [
+    {
+      "conclusion": "success",
+      "head_sha": "c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
+      "job_id": 110166937718,
+      "name": "build",
+      "run_id": 36798375619,
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v7",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Set up Python",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Install build tooling",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Build a binary wheel and a source tarball",
+          "number": 5,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Store the distribution packages",
+          "number": 6,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Set up Python",
+          "number": 11,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v7",
+          "number": 12,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 13,
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "conclusion": "success",
+      "head_sha": "c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
+      "job_id": 110166937948,
+      "name": "pre-commit-hook",
+      "run_id": 36798375619,
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v7",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Set up Python",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Installation (deps and package)",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "run pre-commit with plugin",
+          "number": 5,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Set up Python",
+          "number": 9,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v7",
+          "number": 10,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 11,
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "conclusion": "success",
+      "head_sha": "c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
+      "job_id": 110166937974,
+      "name": "pre-commit",
+      "run_id": 36798375619,
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v7",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Set up Python",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run pre-commit/action@v3.0.1",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run pre-commit/action@v3.0.1",
+          "number": 6,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Set up Python",
+          "number": 7,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v7",
+          "number": 8,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 9,
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "conclusion": "success",
+      "head_sha": "c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
+      "job_id": 110166937990,
+      "name": "tests (3.13, windows-latest)",
+      "run_id": 36798375619,
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v7",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Set up Python 3.13",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Installation (deps and package)",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run pytest",
+          "number": 5,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Set up Python 3.13",
+          "number": 9,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v7",
+          "number": 10,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 11,
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "conclusion": "success",
+      "head_sha": "c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
+      "job_id": 110166938019,
+      "name": "tests (3.12, windows-latest)",
+      "run_id": 36798375619,
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v7",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Set up Python 3.12",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Installation (deps and package)",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run pytest",
+          "number": 5,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Set up Python 3.12",
+          "number": 9,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v7",
+          "number": 10,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 11,
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "conclusion": "success",
+      "head_sha": "c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
+      "job_id": 110166938034,
+      "name": "tests (3.10, windows-latest)",
+      "run_id": 36798375619,
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v7",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Set up Python 3.10",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Installation (deps and package)",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run pytest",
+          "number": 5,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Set up Python 3.10",
+          "number": 9,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v7",
+          "number": 10,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 11,
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "conclusion": "success",
+      "head_sha": "c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
+      "job_id": 110166938046,
+      "name": "tests (3.13, ubuntu-latest)",
+      "run_id": 36798375619,
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v7",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Set up Python 3.13",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Installation (deps and package)",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run pytest",
+          "number": 5,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Set up Python 3.13",
+          "number": 9,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v7",
+          "number": 10,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 11,
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "conclusion": "success",
+      "head_sha": "c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
+      "job_id": 110166938047,
+      "name": "tests (3.10, ubuntu-latest)",
+      "run_id": 36798375619,
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v7",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Set up Python 3.10",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Installation (deps and package)",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run pytest",
+          "number": 5,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Set up Python 3.10",
+          "number": 9,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v7",
+          "number": 10,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 11,
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "conclusion": "success",
+      "head_sha": "c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
+      "job_id": 110166938050,
+      "name": "tests (3.11, windows-latest)",
+      "run_id": 36798375619,
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v7",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Set up Python 3.11",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Installation (deps and package)",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run pytest",
+          "number": 5,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Set up Python 3.11",
+          "number": 9,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v7",
+          "number": 10,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 11,
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "conclusion": "success",
+      "head_sha": "c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
+      "job_id": 110166938062,
+      "name": "tests (3.11, ubuntu-latest)",
+      "run_id": 36798375619,
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v7",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Set up Python 3.11",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Installation (deps and package)",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run pytest",
+          "number": 5,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Set up Python 3.11",
+          "number": 9,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v7",
+          "number": 10,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 11,
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "conclusion": "success",
+      "head_sha": "c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
+      "job_id": 110166938152,
+      "name": "tests (3.12, ubuntu-latest)",
+      "run_id": 36798375619,
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v7",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Set up Python 3.12",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Installation (deps and package)",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run pytest",
+          "number": 5,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Set up Python 3.12",
+          "number": 9,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v7",
+          "number": 10,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 11,
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "conclusion": "skipped",
+      "head_sha": "c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
+      "job_id": 110167025171,
+      "name": "Publish Python \ud83d\udc0d distribution \ud83d\udce6 to PyPI",
+      "run_id": 36798375619,
+      "status": "completed",
+      "steps": []
+    },
+    {
+      "conclusion": "skipped",
+      "head_sha": "c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
+      "job_id": 110167025680,
+      "name": "Sign the Python \ud83d\udc0d distribution \ud83d\udce6 with Sigstore and upload them to GitHub Release",
+      "run_id": 36798375619,
+      "status": "completed",
+      "steps": []
+    }
+  ],
+  "owner": {
+    "detail": "Job 'pre-commit' has no explicit display name for bounded correlation.",
+    "matched_jobs": 0,
+    "reason": "static_job_name_missing",
+    "state": "unresolved",
+    "step_execution": []
+  },
+  "retained_body_bytes": 116751,
+  "selected_run": {
+    "conclusion": "success",
+    "event": "pull_request",
+    "head_sha": "c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
+    "name": "CI",
+    "run_attempt": 1,
+    "run_id": 36798375619,
+    "status": "completed",
+    "workflow_id": 6943835
+  },
+  "state": "completed",
+  "track": "separately_fresh",
+  "utc_end": "2026-10-20T18:56:44.472112+00:00",
+  "utc_start": "2026-10-20T18:56:40.780894+00:00",
+  "workflow": {
+    "frozen_sha256": "a40a4a045d8bf2731dcf2d2771aa12af89fe0742acb72c3e5cc1179006f40f6c",
+    "path": ".github/workflows/tests.yml",
+    "revision": "c4b631da85386c18ad691c9d3d6af35b72e3a9ab",
+    "sha256": "a40a4a045d8bf2731dcf2d2771aa12af89fe0742acb72c3e5cc1179006f40f6c"
+  }
+}

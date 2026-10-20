@@ -1,0 +1,113 @@
+{
+  "attempted_gets": 6,
+  "case_id": "FCI001",
+  "claim_limit": "Selected CI acquisition/correlation only; no dependency state, semantic usefulness or action authority",
+  "elapsed_seconds": 2.653185881999889,
+  "exact_head_run_ids": [
+    39372679397,
+    39372679381,
+    39372679412
+  ],
+  "final_pr": {
+    "base_sha": "64cd5dfc5a1579870dcbed0ea42b27aa84033fee",
+    "changed_files": 1,
+    "head_sha": "8549af29bb5d4b061e3beb41b487ceb669cfb5c0",
+    "state": "open"
+  },
+  "initial_pr": {
+    "base_sha": "64cd5dfc5a1579870dcbed0ea42b27aa84033fee",
+    "changed_files": 1,
+    "head_sha": "8549af29bb5d4b061e3beb41b487ceb669cfb5c0",
+    "state": "open"
+  },
+  "job_heads": "observed_and_validated_by_normal_product_client",
+  "jobs": [
+    {
+      "conclusion": "success",
+      "head_sha": "8549af29bb5d4b061e3beb41b487ceb669cfb5c0",
+      "job_id": 118463822902,
+      "name": "Release readiness",
+      "run_id": 39372679381,
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Validate the release candidate and queued release tree",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 4,
+          "status": "completed"
+        }
+      ]
+    }
+  ],
+  "owner": {
+    "detail": "Static ordinary jobs and user-declared steps were matched one-to-one to runtime jobs and ordered runtime step summaries.",
+    "matched_jobs": 1,
+    "reason": "workflow_jobs_and_steps_correlated",
+    "state": "correlated",
+    "step_execution": [
+      {
+        "basis": "runtime_non_success",
+        "job_id": 118463822902,
+        "job_key": "readiness",
+        "reason": "correlated_step_execution_not_successful",
+        "runtime_conclusion": "skipped",
+        "runtime_name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+        "runtime_status": "completed",
+        "runtime_step_number": 2,
+        "state": "not_established",
+        "static_step_index": 0
+      },
+      {
+        "basis": "runtime_non_success",
+        "job_id": 118463822902,
+        "job_key": "readiness",
+        "reason": "correlated_step_execution_not_successful",
+        "runtime_conclusion": "skipped",
+        "runtime_name": "Validate the release candidate and queued release tree",
+        "runtime_status": "completed",
+        "runtime_step_number": 3,
+        "state": "not_established",
+        "static_step_index": 1
+      }
+    ]
+  },
+  "retained_body_bytes": 121810,
+  "selected_run": {
+    "conclusion": "success",
+    "event": "pull_request",
+    "head_sha": "8549af29bb5d4b061e3beb41b487ceb669cfb5c0",
+    "name": "Release Readiness",
+    "run_attempt": 1,
+    "run_id": 39372679381,
+    "status": "completed",
+    "workflow_id": 369694204
+  },
+  "state": "completed",
+  "track": "separately_fresh",
+  "utc_end": "2026-10-20T18:56:40.643025+00:00",
+  "utc_start": "2026-10-20T18:56:37.989840+00:00",
+  "workflow": {
+    "frozen_sha256": "d97f57822bc6ec868d0e640d8e5b17e717672c5c261ab1f10dbb596c10b218cd",
+    "path": ".github/workflows/release-readiness.yml",
+    "revision": "8549af29bb5d4b061e3beb41b487ceb669cfb5c0",
+    "sha256": "d97f57822bc6ec868d0e640d8e5b17e717672c5c261ab1f10dbb596c10b218cd"
+  }
+}
