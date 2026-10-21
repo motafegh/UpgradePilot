@@ -1,0 +1,16 @@
+{
+  "format": "ci-presentation-render-repair/1",
+  "input_json": {
+    "working-memory/evidence/2026-10-21-investigator-native-ci-presentation/execution/case-1/ci-presentation.json": "7980a63423b1f3a90c1bec2b62dce39a3b99054102b3e51c7af01f8ea6ae315b",
+    "working-memory/evidence/2026-10-21-investigator-native-ci-presentation/execution/case-2/ci-presentation.json": "9e4b5a6b11f209fdd96fe65d18e6fd2f9131901805d96eeb4ba0fd54d60a4b14"
+  },
+  "original_execution_freeze_sha256": "c4c209eadaaad44228d498efe3edf2121d513abc8b892c4dcec47d9123b22dc0",
+  "proof_recipe_sha256": "efb1e61d0c000d9fe10517f1aa12a24e128320593a5186c9ac608d0dec0a5e2d",
+  "scope": "Render saved presentation records only; no native reconstruction, proposal execution or official cohort rerun",
+  "source_files": {
+    "experiments/investigator_ci_presentation.py": "71410e1c117ab093a4d113b452d1afb81455377e3326bfc4ef3daea75343a5e6",
+    "experiments/tests/test_investigator_ci_presentation.py": "e9e6c198f14b5f8921bd44594992a8544812bdf90ed00308ca037891e9b9c90a",
+    "src/upgradepilot/report.py": "59e1ffdb7aa85432a152ef6012bb4c901e00591254e11040a03629f1c37d516e",
+    "src/upgradepilot/report_projection.py": "e1f395d0ad5bb4713239c91147e045880b6926cf6cedf799da12617f69497232"
+  }
+}

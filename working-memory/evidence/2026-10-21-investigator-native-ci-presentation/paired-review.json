@@ -1,0 +1,88 @@
+{
+  "cases": [
+    {
+      "assessments": 2,
+      "case_id": "development-httpx-framework-ci",
+      "ci_state": "no_successful_ci",
+      "command_states": [],
+      "interpretation_difference": "No material additional CI information over the original scoped unknowns; no compatibility conclusion.",
+      "interpretation_evaluation": "unsupported",
+      "matching_original_model_input_native_records": 4,
+      "original_model_recommendation_sha256": "2d64e9ca72752d05a8b5f580b049e26b11a2f8f99eaf1a39f285b09790aede7b",
+      "original_model_summary_sha256": "6ad49cf3a289d19c943435bd95fea9ec0ebafbb39e05626e3b41877ce8365a56",
+      "runtime_state": "no_admitted_candidate",
+      "same_native_payload_as_prior_comparison": true,
+      "source_reference_closure": true,
+      "sources": 2,
+      "unknowns": 2,
+      "workflow_states": []
+    },
+    {
+      "assessments": 6,
+      "case_id": "development-glyphslib-pytest-stopping",
+      "ci_state": "supported_not_correlated",
+      "command_states": [
+        {
+          "blocking_dimension": "manager_environment",
+          "state": "unresolved"
+        },
+        {
+          "blocking_dimension": "manager_environment",
+          "state": "unresolved"
+        }
+      ],
+      "interpretation_difference": "Original model summary/recommendation promoted static declarations into confirmed coverage; the CI view preserves supported static declarations, unresolved runtime correlation and manager-environment limits.",
+      "interpretation_evaluation": "unsupported",
+      "matching_original_model_input_native_records": 4,
+      "original_model_recommendation_sha256": "460010cc9e9ac7cda9637b30a035e4389d68f268c2224c0d73978dc1c1145ad9",
+      "original_model_summary_sha256": "fe7f3f98b508a8722ba8a41e95fb8813f851756f5f6b3c8b14be911704f8fad6",
+      "runtime_state": "evaluated",
+      "same_native_payload_as_prior_comparison": true,
+      "source_reference_closure": true,
+      "sources": 12,
+      "unknowns": 3,
+      "workflow_states": [
+        {
+          "coverage_axes": {
+            "runtime_consumption": "unresolved",
+            "runtime_exercise": "unresolved",
+            "static_consumption": "supported",
+            "static_exercise": "supported"
+          },
+          "state": "supported_not_correlated"
+        },
+        {
+          "coverage_axes": {
+            "runtime_consumption": "unresolved",
+            "runtime_exercise": "unresolved",
+            "static_consumption": "unresolved",
+            "static_exercise": "unresolved"
+          },
+          "state": "unresolved"
+        }
+      ]
+    }
+  ],
+  "first_human_view": "failed line-preservation; originals retained",
+  "format": "native-ci-presentation-paired-review/1",
+  "native_case_reruns": 0,
+  "official_batches": 1,
+  "official_cases": 2,
+  "preservation": {
+    "historical_source_count": 96,
+    "original_member_count": 17,
+    "source_delta": {
+      "src/upgradepilot/report.py": {
+        "current": "59e1ffdb7aa85432a152ef6012bb4c901e00591254e11040a03629f1c37d516e",
+        "historical": "ed979e43b7af47c4e9fa026ce782ec101d963d7ea3bac1e5114ffd48127a913e"
+      },
+      "src/upgradepilot/report_projection.py": {
+        "current": "e1f395d0ad5bb4713239c91147e045880b6926cf6cedf799da12617f69497232",
+        "historical": "c6a71736a09d607621a2db70f9dd6e7ee0b2b94b6323ab5c035226abe142e5bd"
+      }
+    },
+    "unchanged_native_owners": true
+  },
+  "repaired_view": "render-only verified, original structured fields unchanged",
+  "reviewer": "source-aware implementer; no independent evaluation"
+}

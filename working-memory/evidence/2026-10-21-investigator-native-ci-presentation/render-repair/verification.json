@@ -1,0 +1,28 @@
+{
+  "elapsed_seconds": 0.003813018000073498,
+  "native_reconstructions": 0,
+  "official_case_reruns": 0,
+  "proposal_retries": 0,
+  "rows": [
+    {
+      "all_recorded_artifact_fields_equal": true,
+      "case": "case-1",
+      "full_product_ci_body_preserved": true,
+      "original_json_sha256": "7980a63423b1f3a90c1bec2b62dce39a3b99054102b3e51c7af01f8ea6ae315b",
+      "original_text_lines": 11,
+      "original_text_sha256": "7745c91867527e506325df408bb365dfa9e18ff6847ebe43847629c8c234a648",
+      "repair_text_lines": 65,
+      "repair_text_sha256": "d5477df8e617d35a66adca5eb0003617e65dbf50afd4c3e9db09c30d61df8a6f"
+    },
+    {
+      "all_recorded_artifact_fields_equal": true,
+      "case": "case-2",
+      "full_product_ci_body_preserved": true,
+      "original_json_sha256": "9e4b5a6b11f209fdd96fe65d18e6fd2f9131901805d96eeb4ba0fd54d60a4b14",
+      "original_text_lines": 11,
+      "original_text_sha256": "3208d5e273f1583663399e5d6979582875ddfda66248d9b0153eef76cbb8f54e",
+      "repair_text_lines": 257,
+      "repair_text_sha256": "4e50d64d146b9591003051ed62556e66e84796455209f5237eab33e4696bc9a8"
+    }
+  ]
+}

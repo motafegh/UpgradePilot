@@ -1,0 +1,30 @@
+{
+  "charged_wall_seconds_through_verification_including_120s_reserve": 1659.4515127949999,
+  "current_public_private_evidence_bytes": 213000,
+  "engineering_limit_seconds": 10800,
+  "evidence_limit_bytes": 5242880,
+  "fci_original_files_verified": 25,
+  "format": "native-ci-presentation-final-verification/1",
+  "historical_product_files": 96,
+  "initial_execution_freeze_paths": 110,
+  "intentional_product_delta": [
+    "src/upgradepilot/report.py",
+    "src/upgradepilot/report_projection.py"
+  ],
+  "native_case_reruns": 0,
+  "native_payloads_identical_to_prior_comparison": true,
+  "new_acquisition_or_target_execution_or_installs": 0,
+  "new_predictions_or_loading": 0,
+  "original_common_members": 17,
+  "original_model_files_verified": 61,
+  "original_model_input_native_record_context_matches": 8,
+  "original_official_case_rows": 2,
+  "proof": "92 broader tests passed; seven current consumer tests add two distinct tests for94 unique checks; after display repair42 nearest tests pass. First human displays failed; separately bound render-only repair preserves all fields and the product-rendered body.",
+  "remaining_accounting": "Final publication/handoff follows; conservative charged total below one hour if completed within that bound, not exact inclusive human effort.",
+  "repaired_display_rows": 2,
+  "source_reference_closure": true,
+  "subsequent_declared_render_repair_paths": [
+    "experiments/investigator_ci_presentation.py",
+    "experiments/tests/test_investigator_ci_presentation.py"
+  ]
+}
