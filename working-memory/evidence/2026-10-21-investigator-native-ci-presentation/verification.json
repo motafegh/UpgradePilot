@@ -1,4 +1,17 @@
 {
+  "artifact_whitespace": {
+    "lines": [
+      34,
+      40,
+      61,
+      67,
+      73,
+      79
+    ],
+    "meaning": "Six unchanged empty-value Reachability witness lines end with the product renderer separator. Retained byte-for-byte; not source-code whitespace. Default git diff --check flags these generated lines.",
+    "path": "render-repair/case-2.txt",
+    "source_and_document_diff_check": "Pass with only this exact faithful generated artifact excluded; all other paths checked."
+  },
   "charged_wall_seconds_through_verification_including_120s_reserve": 1659.4515127949999,
   "current_public_private_evidence_bytes": 213000,
   "engineering_limit_seconds": 10800,
