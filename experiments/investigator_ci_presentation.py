@@ -109,7 +109,9 @@ class CIPresentation:
                 "authority_limit": "CI view copies native owner meaning; interpretation is not semantically accepted; no maintainer action is synthesized."}
 
     def render(self) -> str:
-        lines = [render_ci_report(self.ci), "", "Capture basis",
+        # Split the rendered body into display lines before the final metadata sanitizer.
+        # Treating the whole body as one line stripped its meaningful newline separators.
+        lines = [*render_ci_report(self.ci).splitlines(), "", "Capture basis",
                  json.dumps(self.native_basis, sort_keys=True), "", "Separate laboratory interpretation"]
         if self.interpretation is None:
             lines.append("Unavailable: no bound original interpretation supplied.")

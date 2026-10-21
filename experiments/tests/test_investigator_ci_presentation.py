@@ -12,6 +12,7 @@ from test_workspace_native_reconstruction import captured_case
 from experiments import investigator_ci_presentation as presentation
 from upgradepilot.workspace.native_boundary import exact_investigation_target
 from upgradepilot.workspace.native_projection import reconstruct_ci_projection
+from upgradepilot.report import render_ci_report
 
 
 def native_case():
@@ -45,6 +46,7 @@ class CIPresentationTests(unittest.TestCase):
             view = presentation.compose_ci_presentation(projection, native_basis={"retention_gap": "controlled"}, interpretation=reference)
         self.assertTrue(any(a.state == "satisfied_at_command_completion" for a in view.ci.assessments))
         self.assertNotIn("INVENTED_CI_COMPATIBILITY_MARKER", view.render())
+        self.assertTrue(view.render().startswith(render_ci_report(view.ci) + "\n\nCapture basis\n"))
         self.assertNotIn("INVENTED_CI_COMPATIBILITY_MARKER", json.dumps(view.artifact()))
         self.assertEqual(view.artifact()["interpretation"]["response_sha256"], presentation.digest(content))
         self.assertEqual(view.artifact()["interpretation"]["evaluation"], "unsupported")
