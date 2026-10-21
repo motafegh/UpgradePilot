@@ -1,0 +1,9 @@
+{
+  "case_id": "development-glyphslib-pytest-stopping",
+  "elapsed_seconds": 0.07632675199965888,
+  "interpretation_evaluation": "unsupported",
+  "native_payload_bytes": 40589,
+  "native_payload_sha256": "34961e8f816ef84d112c24d7a4ce49324c5a085fb70bcb7a88bafcfdbd0eeb0e",
+  "original_checkpoint_unchanged": true,
+  "state": "completed"
+}

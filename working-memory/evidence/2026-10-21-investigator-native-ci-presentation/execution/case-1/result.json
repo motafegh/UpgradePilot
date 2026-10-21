@@ -1,0 +1,9 @@
+{
+  "case_id": "development-httpx-framework-ci",
+  "elapsed_seconds": 0.054524195000340114,
+  "interpretation_evaluation": "unsupported",
+  "native_payload_bytes": 3348,
+  "native_payload_sha256": "bfd2f002ff1158ae7255aa998ffd6a8f08d2356738bfaa03ad6c77119064d8b6",
+  "original_checkpoint_unchanged": true,
+  "state": "completed"
+}

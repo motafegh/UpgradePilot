@@ -1,0 +1,19 @@
+{
+  "utc_start": "2026-10-21T13:28:31.478138+00:00",
+  "command": [
+    "/home/motafeq/projects/UpgradePilot/.venv/bin/python3",
+    "experiments/investigator_ci_presentation.py",
+    "run",
+    "working-memory/evidence/2026-10-21-investigator-native-ci-presentation/freeze.json",
+    "working-memory/evidence/2026-10-21-investigator-native-ci-presentation/execution",
+    "/home/motafeq/.local/share/upgradepilot/ci-presentation/2026-10-21-proof-r1"
+  ],
+  "whole_timeout_seconds": 120,
+  "attempt": 1,
+  "environment": "Process-local token/proxy isolation; offline worker socket/process guard; no models or target execution",
+  "returncode": 0,
+  "stdout": "",
+  "stderr": "",
+  "startup_inclusive_elapsed_seconds": 1.1723106039999038,
+  "utc_end": "2026-10-21T13:28:32.650466+00:00"
+}

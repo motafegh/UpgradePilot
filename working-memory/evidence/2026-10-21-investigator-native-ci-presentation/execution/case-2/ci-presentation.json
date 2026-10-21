@@ -1,0 +1,1653 @@
+{
+  "authority_limit": "CI view copies native owner meaning; interpretation is not semantically accepted; no maintainer action is synthesized.",
+  "ci_view": {
+    "assessments": [
+      {
+        "assessment_id": "ci",
+        "detail": "Successful exact-head CI evidence exists for workflow 'Regression Tests', and its exact static definition contains supported changed-dependency consumption. The static consuming declaration is not safely correlated to successful runtime step execution.",
+        "facts": [],
+        "limitations": [],
+        "owner": "ci.dependency_exercise",
+        "proposition": "Static consumption and exact-attempt command correlation; not changed-version use or compatibility.",
+        "reason": "successful_exact_head_ci_with_static_dependency_consumption",
+        "source_ids": [
+          "source-3",
+          "source-1",
+          "source-2"
+        ],
+        "state": "supported_not_correlated",
+        "status": "available",
+        "strength": "recorded_fact",
+        "topic": "CI dependency coverage"
+      },
+      {
+        "assessment_id": "ci-workflow-1",
+        "detail": "Supported static dependency consumption exists, but the bounded workflow runtime bridge is unavailable: static_job_name_missing: Job 'test' has no explicit display name for bounded correlation.",
+        "facts": [
+          {
+            "label": "Static consumption",
+            "name": "static_consumption",
+            "value": "supported"
+          },
+          {
+            "label": "Static direct exercise",
+            "name": "static_exercise",
+            "value": "supported"
+          },
+          {
+            "label": "Runtime consumption correlation",
+            "name": "runtime_consumption",
+            "value": "unresolved"
+          },
+          {
+            "label": "Runtime direct exercise correlation",
+            "name": "runtime_exercise",
+            "value": "unresolved"
+          },
+          {
+            "label": "Consumption command",
+            "name": "command_1",
+            "value": "python -m pip install --upgrade pip\npython3 -m venv generate\n. ./generate/bin/activate && pip install -r requirements.txt -r requirements-dev.txt\n"
+          },
+          {
+            "label": "Static job",
+            "name": "job_1",
+            "value": "test"
+          },
+          {
+            "label": "Consumption state",
+            "name": "state_1",
+            "value": "supported"
+          },
+          {
+            "label": "Consumption reason",
+            "name": "reason_1",
+            "value": "direct_requirements_consumption_declared"
+          },
+          {
+            "label": "Consumption detail",
+            "name": "detail_1",
+            "value": "The static job directly declares installation from a trusted requirements dependency source. Execution is not established."
+          },
+          {
+            "label": "Reachability witness",
+            "name": "witness_1",
+            "value": ""
+          },
+          {
+            "label": "Consumption command",
+            "name": "command_2",
+            "value": "python3 -m venv regression\n. ./regression/bin/activate && pip install -r requirements.txt -r requirements-dev.txt\n"
+          },
+          {
+            "label": "Static job",
+            "name": "job_2",
+            "value": "test"
+          },
+          {
+            "label": "Consumption state",
+            "name": "state_2",
+            "value": "supported"
+          },
+          {
+            "label": "Consumption reason",
+            "name": "reason_2",
+            "value": "direct_requirements_consumption_declared"
+          },
+          {
+            "label": "Consumption detail",
+            "name": "detail_2",
+            "value": "The static job directly declares installation from a trusted requirements dependency source. Execution is not established."
+          },
+          {
+            "label": "Reachability witness",
+            "name": "witness_2",
+            "value": ""
+          }
+        ],
+        "limitations": [
+          "The static job directly declares installation from a trusted requirements dependency source. Execution is not established.",
+          "The static job directly invokes the changed package after a supported dependency-consumption declaration. Runtime execution is classified separately.",
+          "Supported static dependency consumption exists, but the bounded workflow runtime bridge is unavailable: static_job_name_missing: Job 'test' has no explicit display name for bounded correlation.",
+          "Supported static direct package exercise exists, but the bounded workflow runtime bridge is unavailable: static_job_name_missing: Job 'test' has no explicit display name for bounded correlation."
+        ],
+        "owner": "ci.dependency_exercise",
+        "proposition": "Workflow-scoped static/runtime relationships only.",
+        "reason": "successful_ci_with_static_dependency_consumption",
+        "source_ids": [
+          "source-5",
+          "source-4",
+          "source-1",
+          "source-2"
+        ],
+        "state": "supported_not_correlated",
+        "status": "available",
+        "strength": "recorded_fact",
+        "topic": "Dependency coverage workflow Regression Tests"
+      },
+      {
+        "assessment_id": "ci-workflow-2",
+        "detail": "The workflow has successful exact-head runtime evidence, but static changed-dependency consumption is not established.",
+        "facts": [
+          {
+            "label": "Static consumption",
+            "name": "static_consumption",
+            "value": "unresolved"
+          },
+          {
+            "label": "Static direct exercise",
+            "name": "static_exercise",
+            "value": "unresolved"
+          },
+          {
+            "label": "Runtime consumption correlation",
+            "name": "runtime_consumption",
+            "value": "unresolved"
+          },
+          {
+            "label": "Runtime direct exercise correlation",
+            "name": "runtime_exercise",
+            "value": "unresolved"
+          },
+          {
+            "label": "Consumption command",
+            "name": "command_1",
+            "value": "pip install tox coverage"
+          },
+          {
+            "label": "Static job",
+            "name": "job_1",
+            "value": "test"
+          },
+          {
+            "label": "Consumption state",
+            "name": "state_1",
+            "value": "unresolved"
+          },
+          {
+            "label": "Consumption reason",
+            "name": "reason_1",
+            "value": "direct_install_command_analysis_unresolved"
+          },
+          {
+            "label": "Consumption detail",
+            "name": "detail_1",
+            "value": "Static command analysis could not safely establish the run-step command structure (dynamic_runner_platform); no textual fallback was used."
+          },
+          {
+            "label": "Reachability witness",
+            "name": "witness_1",
+            "value": ""
+          },
+          {
+            "label": "Consumption command",
+            "name": "command_2",
+            "value": "tox -e py"
+          },
+          {
+            "label": "Static job",
+            "name": "job_2",
+            "value": "test"
+          },
+          {
+            "label": "Consumption state",
+            "name": "state_2",
+            "value": "unresolved"
+          },
+          {
+            "label": "Consumption reason",
+            "name": "reason_2",
+            "value": "direct_install_command_analysis_unresolved"
+          },
+          {
+            "label": "Consumption detail",
+            "name": "detail_2",
+            "value": "Static command analysis could not safely establish the run-step command structure (dynamic_runner_platform); no textual fallback was used."
+          },
+          {
+            "label": "Reachability witness",
+            "name": "witness_2",
+            "value": ""
+          },
+          {
+            "label": "Consumption command",
+            "name": "command_3",
+            "value": "coverage combine\ncoverage xml\n"
+          },
+          {
+            "label": "Static job",
+            "name": "job_3",
+            "value": "test"
+          },
+          {
+            "label": "Consumption state",
+            "name": "state_3",
+            "value": "unresolved"
+          },
+          {
+            "label": "Consumption reason",
+            "name": "reason_3",
+            "value": "direct_install_command_analysis_unresolved"
+          },
+          {
+            "label": "Consumption detail",
+            "name": "detail_3",
+            "value": "Static command analysis could not safely establish the run-step command structure (dynamic_runner_platform); no textual fallback was used."
+          },
+          {
+            "label": "Reachability witness",
+            "name": "witness_3",
+            "value": ""
+          },
+          {
+            "label": "Consumption command",
+            "name": "command_4",
+            "value": "# GH checkout action doesn't preserve tag annotations, we must fetch them\n# https://github.com/actions/checkout/issues/290\ngit fetch --tags --force\n# strip leading 'refs/tags/' to get the tag name\nTAG_NAME=\"${GITHUB_REF##*/}\"\n# Dump tag message to temporary .md file (excluding the PGP signature at the bottom)\nTAG_MESSAGE=$(git tag -l --format='%(contents)' $TAG_NAME | sed -n '/-----BEGIN PGP SIGNATURE-----/q;p')\necho \"$TAG_MESSAGE\" > \"${{ runner.temp }}/release_notes.md\"\n# if the tag has a pre-release suffix mark the Github Release accordingly\nif egrep -q \"$PRERELEASE_TAG_PATTERN\" <<< \"$TAG_NAME\"; then\n  echo \"Tag contains a pre-release suffix\"\n  echo \"IS_PRERELEASE=true\" >> \"$GITHUB_ENV\"\nelse\n  echo \"Tag does not contain pre-release suffix\"\n  echo \"IS_PRERELEASE=false\" >> \"$GITHUB_ENV\"\nfi\n"
+          },
+          {
+            "label": "Static job",
+            "name": "job_4",
+            "value": "deploy"
+          },
+          {
+            "label": "Consumption state",
+            "name": "state_4",
+            "value": "unresolved"
+          },
+          {
+            "label": "Consumption reason",
+            "name": "reason_4",
+            "value": "direct_install_command_analysis_unresolved"
+          },
+          {
+            "label": "Consumption detail",
+            "name": "detail_4",
+            "value": "Static command analysis could not safely establish the run-step command structure (material_shell_parse_error); no textual fallback was used."
+          },
+          {
+            "label": "Reachability witness",
+            "name": "witness_4",
+            "value": ""
+          }
+        ],
+        "limitations": [
+          "Static command analysis could not safely establish the run-step command structure (dynamic_runner_platform); no textual fallback was used.",
+          "Direct exercise cannot be established while static consumption is unresolved.",
+          "Runtime dependency consumption cannot be strengthened while static evidence itself is unresolved.",
+          "Runtime direct package exercise cannot be strengthened while static evidence itself is unresolved."
+        ],
+        "owner": "ci.dependency_exercise",
+        "proposition": "Workflow-scoped static/runtime relationships only.",
+        "reason": "static_dependency_consumption_not_supported",
+        "source_ids": [
+          "source-7",
+          "source-6",
+          "source-1",
+          "source-2"
+        ],
+        "state": "unresolved",
+        "status": "available",
+        "strength": "recorded_fact",
+        "topic": "Dependency coverage workflow Test + Deploy"
+      },
+      {
+        "assessment_id": "runtime",
+        "detail": "Evaluated 2 admitted exact direct-requirements command candidate(s) without collapsing their individual outcomes.",
+        "facts": [],
+        "limitations": [],
+        "owner": "ci.dependency_state",
+        "proposition": "First admitted direct-requirements/pip command-completion family only.",
+        "reason": "runtime_dependency_state_candidates_evaluated",
+        "source_ids": [
+          "source-8"
+        ],
+        "state": "evaluated",
+        "status": "available",
+        "strength": "recorded_fact",
+        "topic": "Runtime dependency state"
+      },
+      {
+        "assessment_id": "runtime-command-1",
+        "detail": "The invocation form is preserved, but no decisive pip --python selector is visible. Process-environment/configuration/executable evidence is still required before effective manager environment can be asserted.",
+        "facts": [
+          {
+            "label": "Workflow",
+            "name": "workflow",
+            "value": ".github/workflows/regression.yml"
+          },
+          {
+            "label": "Workflow revision",
+            "name": "revision",
+            "value": "f3cda8a94600e58d27f1bc17c99b7693718b6350"
+          },
+          {
+            "label": "Job",
+            "name": "job",
+            "value": "test"
+          },
+          {
+            "label": "Static step index",
+            "name": "step_source_index",
+            "value": "2"
+          },
+          {
+            "label": "Command",
+            "name": "command",
+            "value": "python -m pip install --upgrade pip\npython3 -m venv generate\n. ./generate/bin/activate && pip install -r requirements.txt -r requirements-dev.txt\n"
+          },
+          {
+            "label": "Blocking semantic dimension",
+            "name": "blocking_dimension",
+            "value": "manager_environment"
+          },
+          {
+            "label": "Command source order",
+            "name": "command_source_order",
+            "value": "3"
+          },
+          {
+            "label": "Command start byte",
+            "name": "command_start_byte",
+            "value": "90"
+          },
+          {
+            "label": "Command end byte",
+            "name": "command_end_byte",
+            "value": "145"
+          },
+          {
+            "label": "blocking_evidence state",
+            "name": "blocking_evidence_state",
+            "value": "unresolved"
+          },
+          {
+            "label": "blocking_evidence reason",
+            "name": "blocking_evidence_reason",
+            "value": "manager_environment_needs_lower_source_evidence"
+          },
+          {
+            "label": "blocking_evidence detail",
+            "name": "blocking_evidence_detail",
+            "value": "The invocation form is preserved, but no decisive pip --python selector is visible. Process-environment/configuration/executable evidence is still required before effective manager environment can be asserted."
+          }
+        ],
+        "limitations": [],
+        "owner": "ci.dependency_state",
+        "proposition": "Command-completion satisfaction only; fresh installation, later use and behavior are not established.",
+        "reason": "manager_environment_needs_lower_source_evidence",
+        "source_ids": [
+          "source-10",
+          "source-9",
+          "source-1",
+          "source-2"
+        ],
+        "state": "unresolved",
+        "status": "problem",
+        "strength": "unresolved",
+        "topic": "Command-completion requirement state"
+      },
+      {
+        "assessment_id": "runtime-command-2",
+        "detail": "The invocation form is preserved, but no decisive pip --python selector is visible. Process-environment/configuration/executable evidence is still required before effective manager environment can be asserted.",
+        "facts": [
+          {
+            "label": "Workflow",
+            "name": "workflow",
+            "value": ".github/workflows/regression.yml"
+          },
+          {
+            "label": "Workflow revision",
+            "name": "revision",
+            "value": "f3cda8a94600e58d27f1bc17c99b7693718b6350"
+          },
+          {
+            "label": "Job",
+            "name": "job",
+            "value": "test"
+          },
+          {
+            "label": "Static step index",
+            "name": "step_source_index",
+            "value": "5"
+          },
+          {
+            "label": "Command",
+            "name": "command",
+            "value": "python3 -m venv regression\n. ./regression/bin/activate && pip install -r requirements.txt -r requirements-dev.txt\n"
+          },
+          {
+            "label": "Blocking semantic dimension",
+            "name": "blocking_dimension",
+            "value": "manager_environment"
+          },
+          {
+            "label": "Command source order",
+            "name": "command_source_order",
+            "value": "2"
+          },
+          {
+            "label": "Command start byte",
+            "name": "command_start_byte",
+            "value": "58"
+          },
+          {
+            "label": "Command end byte",
+            "name": "command_end_byte",
+            "value": "113"
+          },
+          {
+            "label": "blocking_evidence state",
+            "name": "blocking_evidence_state",
+            "value": "unresolved"
+          },
+          {
+            "label": "blocking_evidence reason",
+            "name": "blocking_evidence_reason",
+            "value": "manager_environment_needs_lower_source_evidence"
+          },
+          {
+            "label": "blocking_evidence detail",
+            "name": "blocking_evidence_detail",
+            "value": "The invocation form is preserved, but no decisive pip --python selector is visible. Process-environment/configuration/executable evidence is still required before effective manager environment can be asserted."
+          }
+        ],
+        "limitations": [],
+        "owner": "ci.dependency_state",
+        "proposition": "Command-completion satisfaction only; fresh installation, later use and behavior are not established.",
+        "reason": "manager_environment_needs_lower_source_evidence",
+        "source_ids": [
+          "source-12",
+          "source-11",
+          "source-1",
+          "source-2"
+        ],
+        "state": "unresolved",
+        "status": "problem",
+        "strength": "unresolved",
+        "topic": "Command-completion requirement state"
+      }
+    ],
+    "findings": [
+      {
+        "assessment_id": "ci",
+        "source_ids": [
+          "source-3",
+          "source-1",
+          "source-2"
+        ],
+        "statement": "Successful exact-head CI evidence exists for workflow 'Regression Tests', and its exact static definition contains supported changed-dependency consumption. The static consuming declaration is not safely correlated to successful runtime step execution.",
+        "strength": "recorded_fact"
+      },
+      {
+        "assessment_id": "ci-workflow-1",
+        "source_ids": [
+          "source-5",
+          "source-4",
+          "source-1",
+          "source-2"
+        ],
+        "statement": "Supported static dependency consumption exists, but the bounded workflow runtime bridge is unavailable: static_job_name_missing: Job 'test' has no explicit display name for bounded correlation.",
+        "strength": "recorded_fact"
+      },
+      {
+        "assessment_id": "ci-workflow-2",
+        "source_ids": [
+          "source-7",
+          "source-6",
+          "source-1",
+          "source-2"
+        ],
+        "statement": "The workflow has successful exact-head runtime evidence, but static changed-dependency consumption is not established.",
+        "strength": "recorded_fact"
+      },
+      {
+        "assessment_id": "runtime",
+        "source_ids": [
+          "source-8"
+        ],
+        "statement": "Evaluated 2 admitted exact direct-requirements command candidate(s) without collapsing their individual outcomes.",
+        "strength": "recorded_fact"
+      }
+    ],
+    "identity": [
+      {
+        "label": "Repository",
+        "name": "repository",
+        "value": "googlefonts/glyphsLib"
+      },
+      {
+        "label": "PR",
+        "name": "pull_number",
+        "value": "1145"
+      },
+      {
+        "label": "Title",
+        "name": "title",
+        "value": "Bump pytest from 9.0.2 to 9.0.3"
+      },
+      {
+        "label": "Author",
+        "name": "author",
+        "value": "dependabot[bot]"
+      },
+      {
+        "label": "State",
+        "name": "state",
+        "value": "closed"
+      },
+      {
+        "label": "Merged",
+        "name": "merged",
+        "value": "true"
+      },
+      {
+        "label": "Base ref",
+        "name": "base_ref",
+        "value": "main"
+      },
+      {
+        "label": "Base",
+        "name": "base_sha",
+        "value": "044f19e4b1437bfc4343592486f4e3c6040306d9"
+      },
+      {
+        "label": "Head ref",
+        "name": "head_ref",
+        "value": "dependabot/pip/pytest-9.0.3"
+      },
+      {
+        "label": "Head",
+        "name": "head_sha",
+        "value": "f3cda8a94600e58d27f1bc17c99b7693718b6350"
+      },
+      {
+        "label": "Dependency",
+        "name": "package",
+        "value": "pytest"
+      },
+      {
+        "label": "Old version",
+        "name": "old_version",
+        "value": "9.0.2"
+      },
+      {
+        "label": "Proposed version",
+        "name": "proposed_version",
+        "value": "9.0.3"
+      }
+    ],
+    "limits": [
+      "Recorded CI owner results only; no live refresh or new domain evaluation.",
+      "Static declarations, correlated execution and command-completion state retain different scopes.",
+      "This view establishes neither whole-update compatibility nor maintainer-action permission.",
+      "Source references do not retain original raw inputs; capture provenance/gaps belong to the supplying boundary."
+    ],
+    "sources": [
+      {
+        "content": null,
+        "identity": [
+          {
+            "label": "Run",
+            "name": "run_id",
+            "value": "24378200511"
+          },
+          {
+            "label": "Attempt",
+            "name": "run_attempt",
+            "value": "1"
+          },
+          {
+            "label": "Execution revision",
+            "name": "head_sha",
+            "value": "f3cda8a94600e58d27f1bc17c99b7693718b6350"
+          },
+          {
+            "label": "Status",
+            "name": "status",
+            "value": "completed"
+          },
+          {
+            "label": "Conclusion",
+            "name": "conclusion",
+            "value": "success"
+          },
+          {
+            "label": "Job",
+            "name": "job_71195942011_name",
+            "value": "test"
+          },
+          {
+            "label": "Job execution revision",
+            "name": "job_71195942011_head_sha",
+            "value": "f3cda8a94600e58d27f1bc17c99b7693718b6350"
+          },
+          {
+            "label": "Job status",
+            "name": "job_71195942011_status",
+            "value": "completed"
+          },
+          {
+            "label": "Job conclusion",
+            "name": "job_71195942011_conclusion",
+            "value": "success"
+          },
+          {
+            "label": "Job steps",
+            "name": "job_71195942011_steps",
+            "value": "0"
+          }
+        ],
+        "kind": "workflow_execution",
+        "limitation": "Original input content is not retained in this report.",
+        "locator": "https://github.com/googlefonts/glyphsLib/actions/runs/24378200511/attempts/1",
+        "method": "exact-head run and captured-attempt jobs acquisition",
+        "retention": "selected_facts",
+        "retrieved_at": null,
+        "source_id": "source-1"
+      },
+      {
+        "content": null,
+        "identity": [
+          {
+            "label": "Run",
+            "name": "run_id",
+            "value": "24378200519"
+          },
+          {
+            "label": "Attempt",
+            "name": "run_attempt",
+            "value": "1"
+          },
+          {
+            "label": "Execution revision",
+            "name": "head_sha",
+            "value": "f3cda8a94600e58d27f1bc17c99b7693718b6350"
+          },
+          {
+            "label": "Status",
+            "name": "status",
+            "value": "completed"
+          },
+          {
+            "label": "Conclusion",
+            "name": "conclusion",
+            "value": "success"
+          },
+          {
+            "label": "Job",
+            "name": "job_71195941956_name",
+            "value": "test (3.14, ubuntu-latest)"
+          },
+          {
+            "label": "Job execution revision",
+            "name": "job_71195941956_head_sha",
+            "value": "f3cda8a94600e58d27f1bc17c99b7693718b6350"
+          },
+          {
+            "label": "Job status",
+            "name": "job_71195941956_status",
+            "value": "completed"
+          },
+          {
+            "label": "Job conclusion",
+            "name": "job_71195941956_conclusion",
+            "value": "success"
+          },
+          {
+            "label": "Job steps",
+            "name": "job_71195941956_steps",
+            "value": "0"
+          },
+          {
+            "label": "Job",
+            "name": "job_71195941965_name",
+            "value": "test (3.10, windows-latest)"
+          },
+          {
+            "label": "Job execution revision",
+            "name": "job_71195941965_head_sha",
+            "value": "f3cda8a94600e58d27f1bc17c99b7693718b6350"
+          },
+          {
+            "label": "Job status",
+            "name": "job_71195941965_status",
+            "value": "completed"
+          },
+          {
+            "label": "Job conclusion",
+            "name": "job_71195941965_conclusion",
+            "value": "success"
+          },
+          {
+            "label": "Job steps",
+            "name": "job_71195941965_steps",
+            "value": "0"
+          },
+          {
+            "label": "Job",
+            "name": "job_71195941977_name",
+            "value": "lint"
+          },
+          {
+            "label": "Job execution revision",
+            "name": "job_71195941977_head_sha",
+            "value": "f3cda8a94600e58d27f1bc17c99b7693718b6350"
+          },
+          {
+            "label": "Job status",
+            "name": "job_71195941977_status",
+            "value": "completed"
+          },
+          {
+            "label": "Job conclusion",
+            "name": "job_71195941977_conclusion",
+            "value": "success"
+          },
+          {
+            "label": "Job steps",
+            "name": "job_71195941977_steps",
+            "value": "0"
+          },
+          {
+            "label": "Job",
+            "name": "job_71195941982_name",
+            "value": "test (3.10, ubuntu-latest)"
+          },
+          {
+            "label": "Job execution revision",
+            "name": "job_71195941982_head_sha",
+            "value": "f3cda8a94600e58d27f1bc17c99b7693718b6350"
+          },
+          {
+            "label": "Job status",
+            "name": "job_71195941982_status",
+            "value": "completed"
+          },
+          {
+            "label": "Job conclusion",
+            "name": "job_71195941982_conclusion",
+            "value": "success"
+          },
+          {
+            "label": "Job steps",
+            "name": "job_71195941982_steps",
+            "value": "0"
+          },
+          {
+            "label": "Job",
+            "name": "job_71195941987_name",
+            "value": "test (3.14, windows-latest)"
+          },
+          {
+            "label": "Job execution revision",
+            "name": "job_71195941987_head_sha",
+            "value": "f3cda8a94600e58d27f1bc17c99b7693718b6350"
+          },
+          {
+            "label": "Job status",
+            "name": "job_71195941987_status",
+            "value": "completed"
+          },
+          {
+            "label": "Job conclusion",
+            "name": "job_71195941987_conclusion",
+            "value": "success"
+          },
+          {
+            "label": "Job steps",
+            "name": "job_71195941987_steps",
+            "value": "0"
+          },
+          {
+            "label": "Job",
+            "name": "job_71196261332_name",
+            "value": "deploy"
+          },
+          {
+            "label": "Job execution revision",
+            "name": "job_71196261332_head_sha",
+            "value": "f3cda8a94600e58d27f1bc17c99b7693718b6350"
+          },
+          {
+            "label": "Job status",
+            "name": "job_71196261332_status",
+            "value": "completed"
+          },
+          {
+            "label": "Job conclusion",
+            "name": "job_71196261332_conclusion",
+            "value": "skipped"
+          },
+          {
+            "label": "Job steps",
+            "name": "job_71196261332_steps",
+            "value": "0"
+          }
+        ],
+        "kind": "workflow_execution",
+        "limitation": "Original input content is not retained in this report.",
+        "locator": "https://github.com/googlefonts/glyphsLib/actions/runs/24378200519/attempts/1",
+        "method": "exact-head run and captured-attempt jobs acquisition",
+        "retention": "selected_facts",
+        "retrieved_at": null,
+        "source_id": "source-2"
+      },
+      {
+        "content": "Successful exact-head CI evidence exists for workflow 'Regression Tests', and its exact static definition contains supported changed-dependency consumption. The static consuming declaration is not safely correlated to successful runtime step execution.",
+        "identity": [
+          {
+            "label": "Assessment",
+            "name": "assessment_id",
+            "value": "ci"
+          },
+          {
+            "label": "Recorded state",
+            "name": "state",
+            "value": "supported_not_correlated"
+          },
+          {
+            "label": "Recorded reason",
+            "name": "reason",
+            "value": "successful_exact_head_ci_with_static_dependency_consumption"
+          }
+        ],
+        "kind": "producer_assessment",
+        "limitation": "Retained producer assessment, not the original raw input.",
+        "locator": null,
+        "method": "ci.dependency_exercise",
+        "retention": "producer_result",
+        "retrieved_at": null,
+        "source_id": "source-3"
+      },
+      {
+        "content": null,
+        "identity": [
+          {
+            "label": "Workflow path",
+            "name": "path",
+            "value": ".github/workflows/regression.yml"
+          },
+          {
+            "label": "Static revision",
+            "name": "revision",
+            "value": "f3cda8a94600e58d27f1bc17c99b7693718b6350"
+          }
+        ],
+        "kind": "workflow_source",
+        "limitation": "Original input content is not retained in this report.",
+        "locator": "https://github.com/googlefonts/glyphsLib/blob/f3cda8a94600e58d27f1bc17c99b7693718b6350/.github/workflows/regression.yml",
+        "method": "static workflow interpretation",
+        "retention": "reference_only",
+        "retrieved_at": null,
+        "source_id": "source-4"
+      },
+      {
+        "content": "Supported static dependency consumption exists, but the bounded workflow runtime bridge is unavailable: static_job_name_missing: Job 'test' has no explicit display name for bounded correlation.",
+        "identity": [
+          {
+            "label": "Assessment",
+            "name": "assessment_id",
+            "value": "ci-workflow-1"
+          },
+          {
+            "label": "Recorded state",
+            "name": "state",
+            "value": "supported_not_correlated"
+          },
+          {
+            "label": "Recorded reason",
+            "name": "reason",
+            "value": "successful_ci_with_static_dependency_consumption"
+          },
+          {
+            "label": "Static consumption",
+            "name": "static_consumption",
+            "value": "supported"
+          },
+          {
+            "label": "Static direct exercise",
+            "name": "static_exercise",
+            "value": "supported"
+          },
+          {
+            "label": "Runtime consumption correlation",
+            "name": "runtime_consumption",
+            "value": "unresolved"
+          },
+          {
+            "label": "Runtime direct exercise correlation",
+            "name": "runtime_exercise",
+            "value": "unresolved"
+          },
+          {
+            "label": "Consumption command",
+            "name": "command_1",
+            "value": "python -m pip install --upgrade pip\npython3 -m venv generate\n. ./generate/bin/activate && pip install -r requirements.txt -r requirements-dev.txt\n"
+          },
+          {
+            "label": "Static job",
+            "name": "job_1",
+            "value": "test"
+          },
+          {
+            "label": "Consumption state",
+            "name": "state_1",
+            "value": "supported"
+          },
+          {
+            "label": "Consumption reason",
+            "name": "reason_1",
+            "value": "direct_requirements_consumption_declared"
+          },
+          {
+            "label": "Consumption detail",
+            "name": "detail_1",
+            "value": "The static job directly declares installation from a trusted requirements dependency source. Execution is not established."
+          },
+          {
+            "label": "Reachability witness",
+            "name": "witness_1",
+            "value": ""
+          },
+          {
+            "label": "Consumption command",
+            "name": "command_2",
+            "value": "python3 -m venv regression\n. ./regression/bin/activate && pip install -r requirements.txt -r requirements-dev.txt\n"
+          },
+          {
+            "label": "Static job",
+            "name": "job_2",
+            "value": "test"
+          },
+          {
+            "label": "Consumption state",
+            "name": "state_2",
+            "value": "supported"
+          },
+          {
+            "label": "Consumption reason",
+            "name": "reason_2",
+            "value": "direct_requirements_consumption_declared"
+          },
+          {
+            "label": "Consumption detail",
+            "name": "detail_2",
+            "value": "The static job directly declares installation from a trusted requirements dependency source. Execution is not established."
+          },
+          {
+            "label": "Reachability witness",
+            "name": "witness_2",
+            "value": ""
+          }
+        ],
+        "kind": "producer_assessment",
+        "limitation": "Retained producer assessment, not the original raw input.",
+        "locator": null,
+        "method": "ci.dependency_exercise",
+        "retention": "producer_result",
+        "retrieved_at": null,
+        "source_id": "source-5"
+      },
+      {
+        "content": null,
+        "identity": [
+          {
+            "label": "Workflow path",
+            "name": "path",
+            "value": ".github/workflows/ci.yml"
+          },
+          {
+            "label": "Static revision",
+            "name": "revision",
+            "value": "f3cda8a94600e58d27f1bc17c99b7693718b6350"
+          }
+        ],
+        "kind": "workflow_source",
+        "limitation": "Original input content is not retained in this report.",
+        "locator": "https://github.com/googlefonts/glyphsLib/blob/f3cda8a94600e58d27f1bc17c99b7693718b6350/.github/workflows/ci.yml",
+        "method": "static workflow interpretation",
+        "retention": "reference_only",
+        "retrieved_at": null,
+        "source_id": "source-6"
+      },
+      {
+        "content": "The workflow has successful exact-head runtime evidence, but static changed-dependency consumption is not established.",
+        "identity": [
+          {
+            "label": "Assessment",
+            "name": "assessment_id",
+            "value": "ci-workflow-2"
+          },
+          {
+            "label": "Recorded state",
+            "name": "state",
+            "value": "unresolved"
+          },
+          {
+            "label": "Recorded reason",
+            "name": "reason",
+            "value": "static_dependency_consumption_not_supported"
+          },
+          {
+            "label": "Static consumption",
+            "name": "static_consumption",
+            "value": "unresolved"
+          },
+          {
+            "label": "Static direct exercise",
+            "name": "static_exercise",
+            "value": "unresolved"
+          },
+          {
+            "label": "Runtime consumption correlation",
+            "name": "runtime_consumption",
+            "value": "unresolved"
+          },
+          {
+            "label": "Runtime direct exercise correlation",
+            "name": "runtime_exercise",
+            "value": "unresolved"
+          },
+          {
+            "label": "Consumption command",
+            "name": "command_1",
+            "value": "pip install tox coverage"
+          },
+          {
+            "label": "Static job",
+            "name": "job_1",
+            "value": "test"
+          },
+          {
+            "label": "Consumption state",
+            "name": "state_1",
+            "value": "unresolved"
+          },
+          {
+            "label": "Consumption reason",
+            "name": "reason_1",
+            "value": "direct_install_command_analysis_unresolved"
+          },
+          {
+            "label": "Consumption detail",
+            "name": "detail_1",
+            "value": "Static command analysis could not safely establish the run-step command structure (dynamic_runner_platform); no textual fallback was used."
+          },
+          {
+            "label": "Reachability witness",
+            "name": "witness_1",
+            "value": ""
+          },
+          {
+            "label": "Consumption command",
+            "name": "command_2",
+            "value": "tox -e py"
+          },
+          {
+            "label": "Static job",
+            "name": "job_2",
+            "value": "test"
+          },
+          {
+            "label": "Consumption state",
+            "name": "state_2",
+            "value": "unresolved"
+          },
+          {
+            "label": "Consumption reason",
+            "name": "reason_2",
+            "value": "direct_install_command_analysis_unresolved"
+          },
+          {
+            "label": "Consumption detail",
+            "name": "detail_2",
+            "value": "Static command analysis could not safely establish the run-step command structure (dynamic_runner_platform); no textual fallback was used."
+          },
+          {
+            "label": "Reachability witness",
+            "name": "witness_2",
+            "value": ""
+          },
+          {
+            "label": "Consumption command",
+            "name": "command_3",
+            "value": "coverage combine\ncoverage xml\n"
+          },
+          {
+            "label": "Static job",
+            "name": "job_3",
+            "value": "test"
+          },
+          {
+            "label": "Consumption state",
+            "name": "state_3",
+            "value": "unresolved"
+          },
+          {
+            "label": "Consumption reason",
+            "name": "reason_3",
+            "value": "direct_install_command_analysis_unresolved"
+          },
+          {
+            "label": "Consumption detail",
+            "name": "detail_3",
+            "value": "Static command analysis could not safely establish the run-step command structure (dynamic_runner_platform); no textual fallback was used."
+          },
+          {
+            "label": "Reachability witness",
+            "name": "witness_3",
+            "value": ""
+          },
+          {
+            "label": "Consumption command",
+            "name": "command_4",
+            "value": "# GH checkout action doesn't preserve tag annotations, we must fetch them\n# https://github.com/actions/checkout/issues/290\ngit fetch --tags --force\n# strip leading 'refs/tags/' to get the tag name\nTAG_NAME=\"${GITHUB_REF##*/}\"\n# Dump tag message to temporary .md file (excluding the PGP signature at the bottom)\nTAG_MESSAGE=$(git tag -l --format='%(contents)' $TAG_NAME | sed -n '/-----BEGIN PGP SIGNATURE-----/q;p')\necho \"$TAG_MESSAGE\" > \"${{ runner.temp }}/release_notes.md\"\n# if the tag has a pre-release suffix mark the Github Release accordingly\nif egrep -q \"$PRERELEASE_TAG_PATTERN\" <<< \"$TAG_NAME\"; then\n  echo \"Tag contains a pre-release suffix\"\n  echo \"IS_PRERELEASE=true\" >> \"$GITHUB_ENV\"\nelse\n  echo \"Tag does not contain pre-release suffix\"\n  echo \"IS_PRERELEASE=false\" >> \"$GITHUB_ENV\"\nfi\n"
+          },
+          {
+            "label": "Static job",
+            "name": "job_4",
+            "value": "deploy"
+          },
+          {
+            "label": "Consumption state",
+            "name": "state_4",
+            "value": "unresolved"
+          },
+          {
+            "label": "Consumption reason",
+            "name": "reason_4",
+            "value": "direct_install_command_analysis_unresolved"
+          },
+          {
+            "label": "Consumption detail",
+            "name": "detail_4",
+            "value": "Static command analysis could not safely establish the run-step command structure (material_shell_parse_error); no textual fallback was used."
+          },
+          {
+            "label": "Reachability witness",
+            "name": "witness_4",
+            "value": ""
+          }
+        ],
+        "kind": "producer_assessment",
+        "limitation": "Retained producer assessment, not the original raw input.",
+        "locator": null,
+        "method": "ci.dependency_exercise",
+        "retention": "producer_result",
+        "retrieved_at": null,
+        "source_id": "source-7"
+      },
+      {
+        "content": "Evaluated 2 admitted exact direct-requirements command candidate(s) without collapsing their individual outcomes.",
+        "identity": [
+          {
+            "label": "Assessment",
+            "name": "assessment_id",
+            "value": "runtime"
+          },
+          {
+            "label": "Recorded state",
+            "name": "state",
+            "value": "evaluated"
+          },
+          {
+            "label": "Recorded reason",
+            "name": "reason",
+            "value": "runtime_dependency_state_candidates_evaluated"
+          }
+        ],
+        "kind": "producer_assessment",
+        "limitation": "Retained producer assessment, not the original raw input.",
+        "locator": null,
+        "method": "ci.dependency_state",
+        "retention": "producer_result",
+        "retrieved_at": null,
+        "source_id": "source-8"
+      },
+      {
+        "content": null,
+        "identity": [
+          {
+            "label": "Workflow",
+            "name": "workflow",
+            "value": ".github/workflows/regression.yml"
+          },
+          {
+            "label": "Workflow revision",
+            "name": "revision",
+            "value": "f3cda8a94600e58d27f1bc17c99b7693718b6350"
+          },
+          {
+            "label": "Job",
+            "name": "job",
+            "value": "test"
+          },
+          {
+            "label": "Static step index",
+            "name": "step_source_index",
+            "value": "2"
+          },
+          {
+            "label": "Command",
+            "name": "command",
+            "value": "python -m pip install --upgrade pip\npython3 -m venv generate\n. ./generate/bin/activate && pip install -r requirements.txt -r requirements-dev.txt\n"
+          },
+          {
+            "label": "Blocking semantic dimension",
+            "name": "blocking_dimension",
+            "value": "manager_environment"
+          },
+          {
+            "label": "Command source order",
+            "name": "command_source_order",
+            "value": "3"
+          },
+          {
+            "label": "Command start byte",
+            "name": "command_start_byte",
+            "value": "90"
+          },
+          {
+            "label": "Command end byte",
+            "name": "command_end_byte",
+            "value": "145"
+          },
+          {
+            "label": "blocking_evidence state",
+            "name": "blocking_evidence_state",
+            "value": "unresolved"
+          },
+          {
+            "label": "blocking_evidence reason",
+            "name": "blocking_evidence_reason",
+            "value": "manager_environment_needs_lower_source_evidence"
+          },
+          {
+            "label": "blocking_evidence detail",
+            "name": "blocking_evidence_detail",
+            "value": "The invocation form is preserved, but no decisive pip --python selector is visible. Process-environment/configuration/executable evidence is still required before effective manager environment can be asserted."
+          }
+        ],
+        "kind": "workflow_source",
+        "limitation": "Original input content is not retained in this report.",
+        "locator": "https://github.com/googlefonts/glyphsLib/blob/f3cda8a94600e58d27f1bc17c99b7693718b6350/.github/workflows/regression.yml",
+        "method": "scoped command assessment",
+        "retention": "reference_only",
+        "retrieved_at": null,
+        "source_id": "source-9"
+      },
+      {
+        "content": "The invocation form is preserved, but no decisive pip --python selector is visible. Process-environment/configuration/executable evidence is still required before effective manager environment can be asserted.",
+        "identity": [
+          {
+            "label": "Assessment",
+            "name": "assessment_id",
+            "value": "runtime-command-1"
+          },
+          {
+            "label": "Recorded state",
+            "name": "state",
+            "value": "unresolved"
+          },
+          {
+            "label": "Recorded reason",
+            "name": "reason",
+            "value": "manager_environment_needs_lower_source_evidence"
+          },
+          {
+            "label": "Workflow",
+            "name": "workflow",
+            "value": ".github/workflows/regression.yml"
+          },
+          {
+            "label": "Workflow revision",
+            "name": "revision",
+            "value": "f3cda8a94600e58d27f1bc17c99b7693718b6350"
+          },
+          {
+            "label": "Job",
+            "name": "job",
+            "value": "test"
+          },
+          {
+            "label": "Static step index",
+            "name": "step_source_index",
+            "value": "2"
+          },
+          {
+            "label": "Command",
+            "name": "command",
+            "value": "python -m pip install --upgrade pip\npython3 -m venv generate\n. ./generate/bin/activate && pip install -r requirements.txt -r requirements-dev.txt\n"
+          },
+          {
+            "label": "Blocking semantic dimension",
+            "name": "blocking_dimension",
+            "value": "manager_environment"
+          },
+          {
+            "label": "Command source order",
+            "name": "command_source_order",
+            "value": "3"
+          },
+          {
+            "label": "Command start byte",
+            "name": "command_start_byte",
+            "value": "90"
+          },
+          {
+            "label": "Command end byte",
+            "name": "command_end_byte",
+            "value": "145"
+          },
+          {
+            "label": "blocking_evidence state",
+            "name": "blocking_evidence_state",
+            "value": "unresolved"
+          },
+          {
+            "label": "blocking_evidence reason",
+            "name": "blocking_evidence_reason",
+            "value": "manager_environment_needs_lower_source_evidence"
+          },
+          {
+            "label": "blocking_evidence detail",
+            "name": "blocking_evidence_detail",
+            "value": "The invocation form is preserved, but no decisive pip --python selector is visible. Process-environment/configuration/executable evidence is still required before effective manager environment can be asserted."
+          }
+        ],
+        "kind": "producer_assessment",
+        "limitation": "Retained producer assessment, not the original raw input.",
+        "locator": null,
+        "method": "ci.dependency_state",
+        "retention": "producer_result",
+        "retrieved_at": null,
+        "source_id": "source-10"
+      },
+      {
+        "content": null,
+        "identity": [
+          {
+            "label": "Workflow",
+            "name": "workflow",
+            "value": ".github/workflows/regression.yml"
+          },
+          {
+            "label": "Workflow revision",
+            "name": "revision",
+            "value": "f3cda8a94600e58d27f1bc17c99b7693718b6350"
+          },
+          {
+            "label": "Job",
+            "name": "job",
+            "value": "test"
+          },
+          {
+            "label": "Static step index",
+            "name": "step_source_index",
+            "value": "5"
+          },
+          {
+            "label": "Command",
+            "name": "command",
+            "value": "python3 -m venv regression\n. ./regression/bin/activate && pip install -r requirements.txt -r requirements-dev.txt\n"
+          },
+          {
+            "label": "Blocking semantic dimension",
+            "name": "blocking_dimension",
+            "value": "manager_environment"
+          },
+          {
+            "label": "Command source order",
+            "name": "command_source_order",
+            "value": "2"
+          },
+          {
+            "label": "Command start byte",
+            "name": "command_start_byte",
+            "value": "58"
+          },
+          {
+            "label": "Command end byte",
+            "name": "command_end_byte",
+            "value": "113"
+          },
+          {
+            "label": "blocking_evidence state",
+            "name": "blocking_evidence_state",
+            "value": "unresolved"
+          },
+          {
+            "label": "blocking_evidence reason",
+            "name": "blocking_evidence_reason",
+            "value": "manager_environment_needs_lower_source_evidence"
+          },
+          {
+            "label": "blocking_evidence detail",
+            "name": "blocking_evidence_detail",
+            "value": "The invocation form is preserved, but no decisive pip --python selector is visible. Process-environment/configuration/executable evidence is still required before effective manager environment can be asserted."
+          }
+        ],
+        "kind": "workflow_source",
+        "limitation": "Original input content is not retained in this report.",
+        "locator": "https://github.com/googlefonts/glyphsLib/blob/f3cda8a94600e58d27f1bc17c99b7693718b6350/.github/workflows/regression.yml",
+        "method": "scoped command assessment",
+        "retention": "reference_only",
+        "retrieved_at": null,
+        "source_id": "source-11"
+      },
+      {
+        "content": "The invocation form is preserved, but no decisive pip --python selector is visible. Process-environment/configuration/executable evidence is still required before effective manager environment can be asserted.",
+        "identity": [
+          {
+            "label": "Assessment",
+            "name": "assessment_id",
+            "value": "runtime-command-2"
+          },
+          {
+            "label": "Recorded state",
+            "name": "state",
+            "value": "unresolved"
+          },
+          {
+            "label": "Recorded reason",
+            "name": "reason",
+            "value": "manager_environment_needs_lower_source_evidence"
+          },
+          {
+            "label": "Workflow",
+            "name": "workflow",
+            "value": ".github/workflows/regression.yml"
+          },
+          {
+            "label": "Workflow revision",
+            "name": "revision",
+            "value": "f3cda8a94600e58d27f1bc17c99b7693718b6350"
+          },
+          {
+            "label": "Job",
+            "name": "job",
+            "value": "test"
+          },
+          {
+            "label": "Static step index",
+            "name": "step_source_index",
+            "value": "5"
+          },
+          {
+            "label": "Command",
+            "name": "command",
+            "value": "python3 -m venv regression\n. ./regression/bin/activate && pip install -r requirements.txt -r requirements-dev.txt\n"
+          },
+          {
+            "label": "Blocking semantic dimension",
+            "name": "blocking_dimension",
+            "value": "manager_environment"
+          },
+          {
+            "label": "Command source order",
+            "name": "command_source_order",
+            "value": "2"
+          },
+          {
+            "label": "Command start byte",
+            "name": "command_start_byte",
+            "value": "58"
+          },
+          {
+            "label": "Command end byte",
+            "name": "command_end_byte",
+            "value": "113"
+          },
+          {
+            "label": "blocking_evidence state",
+            "name": "blocking_evidence_state",
+            "value": "unresolved"
+          },
+          {
+            "label": "blocking_evidence reason",
+            "name": "blocking_evidence_reason",
+            "value": "manager_environment_needs_lower_source_evidence"
+          },
+          {
+            "label": "blocking_evidence detail",
+            "name": "blocking_evidence_detail",
+            "value": "The invocation form is preserved, but no decisive pip --python selector is visible. Process-environment/configuration/executable evidence is still required before effective manager environment can be asserted."
+          }
+        ],
+        "kind": "producer_assessment",
+        "limitation": "Retained producer assessment, not the original raw input.",
+        "locator": null,
+        "method": "ci.dependency_state",
+        "retention": "producer_result",
+        "retrieved_at": null,
+        "source_id": "source-12"
+      }
+    ],
+    "unknowns": [
+      {
+        "assessment_id": "ci",
+        "consequence": "A maintainer-action consequence is not established.",
+        "question": "Was static dependency consumption correlated to successful exact-attempt execution?",
+        "reason": "Successful exact-head CI evidence exists for workflow 'Regression Tests', and its exact static definition contains supported changed-dependency consumption. The static consuming declaration is not safely correlated to successful runtime step execution.",
+        "source_ids": [
+          "source-3",
+          "source-1",
+          "source-2"
+        ]
+      },
+      {
+        "assessment_id": "runtime-command-1",
+        "consequence": "A maintainer-action consequence is not established.",
+        "question": "What requirement state was established at this exact command?",
+        "reason": "The invocation form is preserved, but no decisive pip --python selector is visible. Process-environment/configuration/executable evidence is still required before effective manager environment can be asserted.",
+        "source_ids": [
+          "source-10",
+          "source-9",
+          "source-1",
+          "source-2"
+        ]
+      },
+      {
+        "assessment_id": "runtime-command-2",
+        "consequence": "A maintainer-action consequence is not established.",
+        "question": "What requirement state was established at this exact command?",
+        "reason": "The invocation form is preserved, but no decisive pip --python selector is visible. Process-environment/configuration/executable evidence is still required before effective manager environment can be asserted.",
+        "source_ids": [
+          "source-12",
+          "source-11",
+          "source-1",
+          "source-2"
+        ]
+      }
+    ]
+  },
+  "format": "investigator-native-ci-presentation/1",
+  "interpretation": {
+    "evaluation": "unsupported",
+    "packed_input_sha256": "4f1a0e606a81e6975b5ac0b8ae7622196e22a817af9d55e981ff993ccad7ac94",
+    "proposal_id": "9068f43d6cb54d0f9f6c57fe5457e49f",
+    "publication_result_sha256": "d5b2cf9b6c82748f43d6f2783234d34ac87fc4f5b8dc7f539d5f9c9ab72f12b3",
+    "response_path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r5/packet-c/call-01.visible-response.txt",
+    "response_sha256": "56ac7d15ebe4d0b531049916a00a3d0083f5ad957eae03f66f76a3d6d181ae87",
+    "role": "packet-c",
+    "status": "retained_attributed_proposal",
+    "target": {
+      "base_sha": "044f19e4b1437bfc4343592486f4e3c6040306d9",
+      "head_sha": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+      "normalized_package": "pytest",
+      "old_version": "9.0.2",
+      "proposed_version": "9.0.3",
+      "pull_number": 1145,
+      "repository": "googlefonts/glyphsLib"
+    }
+  },
+  "native_basis": {
+    "copy_sha256_after": "6812ccbfee0e95743712bf9826ffac6bb942877259ea898ee1a20badf7fd1a3f",
+    "excluded_successor_ids": [],
+    "head_revision_id": "df54ee39679e488cb7ef3563619c6935",
+    "native_records": [
+      {
+        "codec_version": 1,
+        "family": "investigation_inputs",
+        "owner": "investigation",
+        "payload_digest": "aa8989c16de9ebb8f91dafb5dc0a3e60396f453827d849d14dcca52419956116",
+        "producer_method": "workspace.native_capture.NativeInvestigationCapture.start",
+        "producer_version": null,
+        "record_id": "6324b2023d144eccabf3dad2b8e94066",
+        "retention_gaps": [
+          "dependency_analysis_call_metadata_and_unsupplied_source_content_not_retained",
+          "producer_version_unavailable"
+        ]
+      },
+      {
+        "codec_version": 1,
+        "family": "ci_inputs",
+        "owner": "ci.dependency_exercise",
+        "payload_digest": "e32c895b7440c9055ca03962062696cc7cd58b00d30d9e8f62abc56513d9ae9f",
+        "producer_method": "investigation_inputs.prepare_ci_evidence",
+        "producer_version": null,
+        "record_id": "21cb40e49d6445a48b247fd1a748e61f",
+        "retention_gaps": [
+          "producer_version_unavailable"
+        ]
+      },
+      {
+        "codec_version": 1,
+        "family": "ci_coverage",
+        "owner": "ci.dependency_exercise",
+        "payload_digest": "e91804fe9025f79c4cb0658eb73121c732a41cf516bc19b862ce630f72ff9f09",
+        "producer_method": "ci.dependency_exercise.evaluate_dependency_ci_coverage",
+        "producer_version": null,
+        "record_id": "278f095b020e4db7bfde1afca14c232f",
+        "retention_gaps": [
+          "producer_version_unavailable"
+        ]
+      },
+      {
+        "codec_version": 1,
+        "family": "runtime_dependency_state",
+        "owner": "ci.dependency_state",
+        "payload_digest": "73b55f755e33e6267f0cf930d684b16636d55739cb33c0ce6c1f825ef14a5734",
+        "producer_method": "ci.dependency_state.evaluate_runtime_dependency_state",
+        "producer_version": null,
+        "record_id": "c8277deec9944427ab5f4ede4e878c70",
+        "retention_gaps": [
+          "producer_version_unavailable"
+        ]
+      }
+    ],
+    "original_sha256": "6812ccbfee0e95743712bf9826ffac6bb942877259ea898ee1a20badf7fd1a3f",
+    "selected_checkpoint_digest": "202f04de13ff2223d1ace35b36aafc0a98b5fde2a2abe2e26c8a6e568dce974e",
+    "selected_lineage_id": "e65dc25470c640978434ab5f8c6dda29",
+    "selected_revision_id": "df54ee39679e488cb7ef3563619c6935"
+  },
+  "target": {
+    "base_sha": "044f19e4b1437bfc4343592486f4e3c6040306d9",
+    "head_sha": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+    "normalized_package": "pytest",
+    "old_version": "9.0.2",
+    "proposed_version": "9.0.3",
+    "pull_number": 1145,
+    "repository": "googlefonts/glyphsLib"
+  }
+}

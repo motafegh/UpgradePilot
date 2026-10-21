@@ -1,0 +1,295 @@
+{
+  "authority_limit": "CI view copies native owner meaning; interpretation is not semantically accepted; no maintainer action is synthesized.",
+  "ci_view": {
+    "assessments": [
+      {
+        "assessment_id": "ci",
+        "detail": "No pull-request workflow runs were available for the exact head SHA.",
+        "facts": [],
+        "limitations": [],
+        "owner": "ci.dependency_exercise",
+        "proposition": "Static consumption and exact-attempt command correlation; not changed-version use or compatibility.",
+        "reason": "no_exact_head_workflows",
+        "source_ids": [
+          "source-1"
+        ],
+        "state": "no_successful_ci",
+        "status": "available",
+        "strength": "recorded_fact",
+        "topic": "CI dependency coverage"
+      },
+      {
+        "assessment_id": "runtime",
+        "detail": "No supported direct-requirements/pip consumption entered the first command-derived runtime dependency-state proof family.",
+        "facts": [],
+        "limitations": [],
+        "owner": "ci.dependency_state",
+        "proposition": "First admitted direct-requirements/pip command-completion family only.",
+        "reason": "no_admitted_runtime_dependency_state_candidate",
+        "source_ids": [
+          "source-2"
+        ],
+        "state": "no_admitted_candidate",
+        "status": "available",
+        "strength": "recorded_fact",
+        "topic": "Runtime dependency state"
+      }
+    ],
+    "findings": [
+      {
+        "assessment_id": "ci",
+        "source_ids": [
+          "source-1"
+        ],
+        "statement": "No pull-request workflow runs were available for the exact head SHA.",
+        "strength": "recorded_fact"
+      },
+      {
+        "assessment_id": "runtime",
+        "source_ids": [
+          "source-2"
+        ],
+        "statement": "No supported direct-requirements/pip consumption entered the first command-derived runtime dependency-state proof family.",
+        "strength": "recorded_fact"
+      }
+    ],
+    "identity": [
+      {
+        "label": "Repository",
+        "name": "repository",
+        "value": "Aidan-Wallace/kubernetes-dashboard-token-api"
+      },
+      {
+        "label": "PR",
+        "name": "pull_number",
+        "value": "20"
+      },
+      {
+        "label": "Title",
+        "name": "title",
+        "value": "Bump httpx from 0.27.2 to 0.28.1"
+      },
+      {
+        "label": "Author",
+        "name": "author",
+        "value": "dependabot[bot]"
+      },
+      {
+        "label": "State",
+        "name": "state",
+        "value": "closed"
+      },
+      {
+        "label": "Merged",
+        "name": "merged",
+        "value": "true"
+      },
+      {
+        "label": "Base ref",
+        "name": "base_ref",
+        "value": "main"
+      },
+      {
+        "label": "Base",
+        "name": "base_sha",
+        "value": "b065646e4b7b894964567950f9ad770b02c136c2"
+      },
+      {
+        "label": "Head ref",
+        "name": "head_ref",
+        "value": "dependabot/pip/httpx-0.28.1"
+      },
+      {
+        "label": "Head",
+        "name": "head_sha",
+        "value": "391508134b083b8f54461c0b576e8f7985c6ecb4"
+      },
+      {
+        "label": "Dependency",
+        "name": "package",
+        "value": "httpx"
+      },
+      {
+        "label": "Old version",
+        "name": "old_version",
+        "value": "0.27.2"
+      },
+      {
+        "label": "Proposed version",
+        "name": "proposed_version",
+        "value": "0.28.1"
+      }
+    ],
+    "limits": [
+      "Recorded CI owner results only; no live refresh or new domain evaluation.",
+      "Static declarations, correlated execution and command-completion state retain different scopes.",
+      "This view establishes neither whole-update compatibility nor maintainer-action permission.",
+      "Source references do not retain original raw inputs; capture provenance/gaps belong to the supplying boundary."
+    ],
+    "sources": [
+      {
+        "content": "No pull-request workflow runs were available for the exact head SHA.",
+        "identity": [
+          {
+            "label": "Assessment",
+            "name": "assessment_id",
+            "value": "ci"
+          },
+          {
+            "label": "Recorded state",
+            "name": "state",
+            "value": "no_successful_ci"
+          },
+          {
+            "label": "Recorded reason",
+            "name": "reason",
+            "value": "no_exact_head_workflows"
+          }
+        ],
+        "kind": "producer_assessment",
+        "limitation": "Retained producer assessment, not the original raw input.",
+        "locator": null,
+        "method": "ci.dependency_exercise",
+        "retention": "producer_result",
+        "retrieved_at": null,
+        "source_id": "source-1"
+      },
+      {
+        "content": "No supported direct-requirements/pip consumption entered the first command-derived runtime dependency-state proof family.",
+        "identity": [
+          {
+            "label": "Assessment",
+            "name": "assessment_id",
+            "value": "runtime"
+          },
+          {
+            "label": "Recorded state",
+            "name": "state",
+            "value": "no_admitted_candidate"
+          },
+          {
+            "label": "Recorded reason",
+            "name": "reason",
+            "value": "no_admitted_runtime_dependency_state_candidate"
+          }
+        ],
+        "kind": "producer_assessment",
+        "limitation": "Retained producer assessment, not the original raw input.",
+        "locator": null,
+        "method": "ci.dependency_state",
+        "retention": "producer_result",
+        "retrieved_at": null,
+        "source_id": "source-2"
+      }
+    ],
+    "unknowns": [
+      {
+        "assessment_id": "ci",
+        "consequence": "A maintainer-action consequence is not established.",
+        "question": "Was static dependency consumption correlated to successful exact-attempt execution?",
+        "reason": "No pull-request workflow runs were available for the exact head SHA.",
+        "source_ids": [
+          "source-1"
+        ]
+      },
+      {
+        "assessment_id": "runtime",
+        "consequence": "A maintainer-action consequence is not established.",
+        "question": "Is the changed requirement satisfied at an admitted command-completion boundary?",
+        "reason": "No supported direct-requirements/pip consumption entered the first command-derived runtime dependency-state proof family.",
+        "source_ids": [
+          "source-2"
+        ]
+      }
+    ]
+  },
+  "format": "investigator-native-ci-presentation/1",
+  "interpretation": {
+    "evaluation": "unsupported",
+    "packed_input_sha256": "a5ab67ed43d0f2a221edd7cc8aa0c9c2e5b60800117b2649c1be84a8dd52115b",
+    "proposal_id": "3a7869410eb54bb8a54b2d951ef86753",
+    "publication_result_sha256": "e69b2f779fccc69cda367e17cb36291be3581e59e407882d599722b9e272c2f1",
+    "response_path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r5/packet-a/call-01.visible-response.txt",
+    "response_sha256": "17a660d5950bbff05e64b8556ac621e20c03d314b07a929b8db7ae8f89865df7",
+    "role": "packet-a",
+    "status": "retained_attributed_proposal",
+    "target": {
+      "base_sha": "b065646e4b7b894964567950f9ad770b02c136c2",
+      "head_sha": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+      "normalized_package": "httpx",
+      "old_version": "0.27.2",
+      "proposed_version": "0.28.1",
+      "pull_number": 20,
+      "repository": "Aidan-Wallace/kubernetes-dashboard-token-api"
+    }
+  },
+  "native_basis": {
+    "copy_sha256_after": "c28db2998569728dd21a9abbfe8851141983df6e65f7b32e189df1415d7421cd",
+    "excluded_successor_ids": [],
+    "head_revision_id": "0797f32c78e443eaaad877e1ef27e145",
+    "native_records": [
+      {
+        "codec_version": 1,
+        "family": "investigation_inputs",
+        "owner": "investigation",
+        "payload_digest": "29ef7c5d67f58d428ce0dddf8ccc6bbcd4a23b3000789d29ae74eed55a732fa5",
+        "producer_method": "workspace.native_capture.NativeInvestigationCapture.start",
+        "producer_version": null,
+        "record_id": "386390033c35481481fcab551a170257",
+        "retention_gaps": [
+          "dependency_analysis_call_metadata_and_unsupplied_source_content_not_retained",
+          "producer_version_unavailable"
+        ]
+      },
+      {
+        "codec_version": 1,
+        "family": "ci_inputs",
+        "owner": "ci.dependency_exercise",
+        "payload_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "producer_method": "investigation_inputs.prepare_ci_evidence",
+        "producer_version": null,
+        "record_id": "96193fcad9dc41d69985d4a7adc3ee43",
+        "retention_gaps": [
+          "producer_version_unavailable"
+        ]
+      },
+      {
+        "codec_version": 1,
+        "family": "ci_coverage",
+        "owner": "ci.dependency_exercise",
+        "payload_digest": "ede754bd91d0abffd58c8efb66e9c59bc7a07c820e70a6f0a7e3962007563655",
+        "producer_method": "ci.dependency_exercise.evaluate_dependency_ci_coverage",
+        "producer_version": null,
+        "record_id": "8d83a8f3566b4a519825097d3ee90e0a",
+        "retention_gaps": [
+          "producer_version_unavailable"
+        ]
+      },
+      {
+        "codec_version": 1,
+        "family": "runtime_dependency_state",
+        "owner": "ci.dependency_state",
+        "payload_digest": "1903be19e1e05e8ea2dbe36728c58c69fe2be103d898d85b826d383f794ed91f",
+        "producer_method": "ci.dependency_state.evaluate_runtime_dependency_state",
+        "producer_version": null,
+        "record_id": "057ef269fb5a425ea8d0bdd14aae826a",
+        "retention_gaps": [
+          "producer_version_unavailable"
+        ]
+      }
+    ],
+    "original_sha256": "c28db2998569728dd21a9abbfe8851141983df6e65f7b32e189df1415d7421cd",
+    "selected_checkpoint_digest": "991b5eb0cf2ca6d86319ef80f07f6939702f27e134f4a3954ca2e0bb619c7e5f",
+    "selected_lineage_id": "5bc82156edb74b91a96b204645478289",
+    "selected_revision_id": "0797f32c78e443eaaad877e1ef27e145"
+  },
+  "target": {
+    "base_sha": "b065646e4b7b894964567950f9ad770b02c136c2",
+    "head_sha": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+    "normalized_package": "httpx",
+    "old_version": "0.27.2",
+    "proposed_version": "0.28.1",
+    "pull_number": 20,
+    "repository": "Aidan-Wallace/kubernetes-dashboard-token-api"
+  }
+}
