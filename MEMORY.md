@@ -1,11 +1,13 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-10-20
+**Last updated:** 2026-10-21
 **Authority:** sole owner of the live project position, current blockers, selected continuation, and current learning depth. Detailed historical evidence remains in the linked cycle/evidence records; this file intentionally summarizes the current live state.
 
 **Publication cadence:** Ali explicitly authorizes committing and pushing each coherent, appropriately validated in-scope increment as work progresses. Record actual proof and remaining debt with each increment; this publication instruction does not expand the selected implementation responsibility.
 
 ## Current position
+
+**Selected responsibility: Investigator CI presentation Planning/Design.** Ali selected the previous diagnostic's exact next recommendation. [The design cycle](working-memory/2026-10-21_investigator-ci-presentation-design_lbd-cycle.md) traces current main63298cfc: deterministic product reports preserve native CI states; experimental model-authored report publication does not call that projection and establishes attribution/reference validity rather than entailment. Design must compare reuse of the existing projection with a minimal CI-only presentation seam, without fabricating a full investigation or treating a native appendix as correction of contradictory model prose. Source-backed design is in progress; no executable change, inference or next Build selected.31 existing report/trial tests pass freshly; this proves current behavior, not the proposed composition. Predecessor learner D/E remains unassessed and is not closed by continuation.
 
 **Current-CI diagnostic B/verification delivered; D ownership and next decision open.** [The selected retained/fresh contract](plans/CURRENT_CI_RETAINED_INPUT_ADMISSION_AND_OWNER_DIAGNOSTIC_PLAN.md) was executed once per stage. [Paired review](working-memory/evidence/2026-10-20-current-ci-owner-diagnostic/PAIRED_REVIEW.md) records strict frozen refusal for 19/19 missing job heads, three completed conditional checks, then three completed normal fresh acquisitions with 19/19 observed/validated heads. FCI001 correlates but both user steps are skipped/not_established; FCI002/3 first refuse static_job_name_missing. Fresh FCI002 skipped publish jobs have empty step arrays versus frozen nulls; FCI003 is now closed, with exact frozen base/head/run/attempt retained and no invented PR association. All frozen source/input identities remain unchanged. No acquisition/correlation/execution defect demonstrated; no product owner repair, semantic regrade, extra official run, model/GPU/target execution or install occurred. The normal provider path works on these exact selections; historical glyphsLib missing-step cause and its interpretation failure remain unresolved/unchanged.
 
