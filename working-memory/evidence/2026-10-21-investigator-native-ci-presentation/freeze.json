@@ -1,0 +1,306 @@
+{
+  "caps": {
+    "aggregate_seconds": 60,
+    "case_seconds": 30,
+    "evidence_bytes": 5242880,
+    "whole_seconds": 120
+  },
+  "cases": [
+    {
+      "interpretation_files": {
+        "packed": {
+          "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r5/packet-a/call-01.packed-input.json",
+          "sha256": "a5ab67ed43d0f2a221edd7cc8aa0c9c2e5b60800117b2649c1be84a8dd52115b"
+        },
+        "publication": {
+          "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r5/packet-a.result.json",
+          "sha256": "e69b2f779fccc69cda367e17cb36291be3581e59e407882d599722b9e272c2f1"
+        },
+        "response": {
+          "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r5/packet-a/call-01.visible-response.txt",
+          "sha256": "17a660d5950bbff05e64b8556ac621e20c03d314b07a929b8db7ae8f89865df7"
+        }
+      },
+      "interpretation_reference": {
+        "evaluation": "unsupported",
+        "packed_input_sha256": "a5ab67ed43d0f2a221edd7cc8aa0c9c2e5b60800117b2649c1be84a8dd52115b",
+        "proposal_id": "3a7869410eb54bb8a54b2d951ef86753",
+        "publication_result_sha256": "e69b2f779fccc69cda367e17cb36291be3581e59e407882d599722b9e272c2f1",
+        "response_path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r5/packet-a/call-01.visible-response.txt",
+        "response_sha256": "17a660d5950bbff05e64b8556ac621e20c03d314b07a929b8db7ae8f89865df7",
+        "role": "packet-a",
+        "target": {
+          "base_sha": "b065646e4b7b894964567950f9ad770b02c136c2",
+          "head_sha": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+          "normalized_package": "httpx",
+          "old_version": "0.27.2",
+          "proposed_version": "0.28.1",
+          "pull_number": 20,
+          "repository": "Aidan-Wallace/kubernetes-dashboard-token-api"
+        }
+      },
+      "selection": {
+        "baseline_translation": {
+          "ci_conclusion": "missing",
+          "ci_source": {
+            "conclusions": [],
+            "limit": "October acquisition-time query, not historical CI absence or compatibility",
+            "query": "https://api.github.com/repos/Aidan-Wallace/kubernetes-dashboard-token-api/actions/runs?event=pull_request&head_sha=391508134b083b8f54461c0b576e8f7985c6ecb4&per_page=100&page=1",
+            "run_ids": [],
+            "total_count": 0
+          },
+          "dependency_directness": "direct",
+          "directness_basis": {
+            "added": "+httpx==0.28.1",
+            "patch_sha256": "4daf4c37190b91ef6f127a70c0782b37bfb9347caaf07fc486387e46bcecee19",
+            "path": "requirements.txt",
+            "removed": "-httpx==0.27.2"
+          },
+          "release_notes": {
+            "body_sha256": "179e4ce07210cb1b800cadff842cb63438a7afbaec0d199678c61fecf1c25f3a",
+            "raw_section_sha256": "b25126a4426425ca798d5948705eb0a145871ac3eb8c0f03a7044f6c344e6545",
+            "section_character_span": [
+              70,
+              2345
+            ],
+            "text_bytes": 1222,
+            "text_sha256": "a51693e8d430262caf029dacabc5501f4a9053c1b21ff2cfceaf75cf8309b05b",
+            "translation": "HTML text nodes after summary, entity-decoded, whitespace retained, no inserted separators"
+          },
+          "version_category": "minor",
+          "version_derivation": "Mechanical PEP 440 major/minor/release-component comparison for these Python versions; no behavioral SemVer inference"
+        },
+        "case_id": "development-httpx-framework-ci",
+        "checkpoint_digest": "991b5eb0cf2ca6d86319ef80f07f6939702f27e134f4a3954ca2e0bb619c7e5f",
+        "directory": "case-1",
+        "lineage_id": "5bc82156edb74b91a96b204645478289",
+        "revision_id": "0797f32c78e443eaaad877e1ef27e145",
+        "target": {
+          "base_sha": "b065646e4b7b894964567950f9ad770b02c136c2",
+          "head_sha": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+          "normalized_package": "httpx",
+          "old_version": "0.27.2",
+          "proposed_version": "0.28.1",
+          "pull_number": 20,
+          "repository": "Aidan-Wallace/kubernetes-dashboard-token-api"
+        }
+      }
+    },
+    {
+      "interpretation_files": {
+        "packed": {
+          "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r5/packet-c/call-01.packed-input.json",
+          "sha256": "4f1a0e606a81e6975b5ac0b8ae7622196e22a817af9d55e981ff993ccad7ac94"
+        },
+        "publication": {
+          "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r5/packet-c.result.json",
+          "sha256": "d5b2cf9b6c82748f43d6f2783234d34ac87fc4f5b8dc7f539d5f9c9ab72f12b3"
+        },
+        "response": {
+          "path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r5/packet-c/call-01.visible-response.txt",
+          "sha256": "56ac7d15ebe4d0b531049916a00a3d0083f5ad957eae03f66f76a3d6d181ae87"
+        }
+      },
+      "interpretation_reference": {
+        "evaluation": "unsupported",
+        "packed_input_sha256": "4f1a0e606a81e6975b5ac0b8ae7622196e22a817af9d55e981ff993ccad7ac94",
+        "proposal_id": "9068f43d6cb54d0f9f6c57fe5457e49f",
+        "publication_result_sha256": "d5b2cf9b6c82748f43d6f2783234d34ac87fc4f5b8dc7f539d5f9c9ab72f12b3",
+        "response_path": "/home/motafeq/.local/share/upgradepilot/investigator-runs/supplied-evidence-2026-10-19-diagnostic-r5/packet-c/call-01.visible-response.txt",
+        "response_sha256": "56ac7d15ebe4d0b531049916a00a3d0083f5ad957eae03f66f76a3d6d181ae87",
+        "role": "packet-c",
+        "target": {
+          "base_sha": "044f19e4b1437bfc4343592486f4e3c6040306d9",
+          "head_sha": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+          "normalized_package": "pytest",
+          "old_version": "9.0.2",
+          "proposed_version": "9.0.3",
+          "pull_number": 1145,
+          "repository": "googlefonts/glyphsLib"
+        }
+      },
+      "selection": {
+        "baseline_translation": {
+          "ci_conclusion": "passing",
+          "ci_source": {
+            "conclusions": [
+              "success",
+              "success"
+            ],
+            "limit": "October acquisition-time query, not historical CI absence or compatibility",
+            "query": "https://api.github.com/repos/googlefonts/glyphsLib/actions/runs?event=pull_request&head_sha=f3cda8a94600e58d27f1bc17c99b7693718b6350&per_page=100&page=1",
+            "run_ids": [
+              24378200511,
+              24378200519
+            ],
+            "total_count": 2
+          },
+          "dependency_directness": "direct",
+          "directness_basis": {
+            "added": "+pytest==9.0.3",
+            "patch_sha256": "a5c064d4acf76650c294c990bed741806366c8a24ba08dc800849338d8c0a397",
+            "path": "requirements-dev.txt",
+            "removed": "-pytest==9.0.2"
+          },
+          "release_notes": {
+            "body_sha256": "9e5273cfe42221a430afeeb700e4fbf0a3742532a9af0412e805f566902c5b34",
+            "raw_section_sha256": "8330165f70b0fc4238b7a8d4a54a690d6b0da207a2cfc2d0ca9a2ca157aad65e",
+            "section_character_span": [
+              74,
+              3030
+            ],
+            "text_bytes": 1481,
+            "text_sha256": "b5894673602f37f26fbb9a1424604ec074e0304280c65dd0f783e42d525a52b3",
+            "translation": "HTML text nodes after summary, entity-decoded, whitespace retained, no inserted separators"
+          },
+          "version_category": "patch",
+          "version_derivation": "Mechanical PEP 440 major/minor/release-component comparison for these Python versions; no behavioral SemVer inference"
+        },
+        "case_id": "development-glyphslib-pytest-stopping",
+        "checkpoint_digest": "202f04de13ff2223d1ace35b36aafc0a98b5fde2a2abe2e26c8a6e568dce974e",
+        "directory": "case-2",
+        "lineage_id": "e65dc25470c640978434ab5f8c6dda29",
+        "revision_id": "df54ee39679e488cb7ef3563619c6935",
+        "target": {
+          "base_sha": "044f19e4b1437bfc4343592486f4e3c6040306d9",
+          "head_sha": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+          "normalized_package": "pytest",
+          "old_version": "9.0.2",
+          "proposed_version": "9.0.3",
+          "pull_number": 1145,
+          "repository": "googlefonts/glyphsLib"
+        }
+      }
+    }
+  ],
+  "common_root": "/home/motafeq/.local/share/upgradepilot/investigator-inputs/common-freeze-2026-10-16-2025",
+  "format": "investigator-native-ci-presentation/1/freeze",
+  "preservation": {
+    "historical_source_count": 96,
+    "original_member_count": 17,
+    "source_delta": {
+      "src/upgradepilot/report.py": {
+        "current": "59e1ffdb7aa85432a152ef6012bb4c901e00591254e11040a03629f1c37d516e",
+        "historical": "ed979e43b7af47c4e9fa026ce782ec101d963d7ea3bac1e5114ffd48127a913e"
+      },
+      "src/upgradepilot/report_projection.py": {
+        "current": "e1f395d0ad5bb4713239c91147e045880b6926cf6cedf799da12617f69497232",
+        "historical": "c6a71736a09d607621a2db70f9dd6e7ee0b2b94b6323ab5c035226abe142e5bd"
+      }
+    },
+    "unchanged_native_owners": true
+  },
+  "review": "Same source-aware implementer/reviewer; exposed retained development cases. No semantic regrade or independent usefulness claim.",
+  "source_files": {
+    "experiments/investigator_ci_presentation.py": "285872f6b327794f8d1d66642e58da3e665cb2e3a6f898dca79f80f30e862f63",
+    "experiments/retained_native_ci_baseline_comparison.py": "919ae73768024ce414c61017e8cb0009cc684d646f3c7b261e99cb7c26693cd0",
+    "experiments/tests/test_investigator_ci_presentation.py": "b98a7a97b08829960051f8d5685761d84d3dce01b9c4d04433aaf14bac6732d7",
+    "plans/INVESTIGATOR_NATIVE_CI_PRESENTATION_PLAN.md": "713a7bdfab1ca8717289ac453b53ee5b4c3a35b5a96107c661ec928808d9fc00",
+    "src/upgradepilot/__init__.py": "72f39b52ce7518aa290dde500df1fe8f7714a74aabe2a8e428ae6806014733b5",
+    "src/upgradepilot/__main__.py": "c21eab7a117f68d26cb0ae67367ec482ba299ebadae9e736591fd50204d9a5d6",
+    "src/upgradepilot/ci/__init__.py": "e266021052132cf90c5c02faee767df1fac7973a0d30d2c6cd772f8124ac2f2d",
+    "src/upgradepilot/ci/consumption.py": "99f8b4bcefa52cd7df073b025357fd5b96e52a8d59a22f9447ad7c29ca7b7407",
+    "src/upgradepilot/ci/dependency_exercise.py": "023f3ce6aa8b9ef1b17b943859f90aa709ffb7c61b4abce646b27a066c56356a",
+    "src/upgradepilot/ci/dependency_state.py": "3fb5a4d6f91fa7e04cc73fb4d6a5a3390544cedbfa60b1ea7c6ff0156acaceba",
+    "src/upgradepilot/ci/executable_selection.py": "038a2f599c8f5fc3645d671f19bcd5640ac7da6964a846c61699b30752a8b13e",
+    "src/upgradepilot/ci/native_codec.py": "8975273f83cec79285ed5a931560f7d81afa711c211861b7c237cb71ec97d18f",
+    "src/upgradepilot/ci/runtime_execution.py": "46b44d5a9abfa19cf262dc46f1bef73b72c1c9d3a9f2abdeb40ecc152baea4b5",
+    "src/upgradepilot/ci/runtime_strengthening.py": "884307e52168de9715cf7e01b6a8b16f6c162d673d3692c328afd689ab35a488",
+    "src/upgradepilot/ci/static_command_order.py": "0a683df244c14a535f92e3662c07f3155ff8ea51ada6d04d145d6f1399b437d6",
+    "src/upgradepilot/ci/workflow_commands.py": "c665b5f889c4eb18ee9e42c251d07a851492973f8b273472b6c106f5a826d11c",
+    "src/upgradepilot/ci/workflow_runtime_correlation.py": "ec9644e509c6c162ef476eb437f903aa777d70f9e0bff1c13674e8b4227eef9b",
+    "src/upgradepilot/cli.py": "9335ba8345b4cf9891499984056e14a4b7522b10bf820592e3899ca7fbb04281",
+    "src/upgradepilot/dependency/__init__.py": "fef9c39d89bbfd604435cf7546e0b2eb4abf981db7890c328649bd43b812ceb2",
+    "src/upgradepilot/dependency/analysis.py": "3358825a9a95b75bab277ff584316357587d1aef762f16855c035b9a2a873c51",
+    "src/upgradepilot/dependency/change.py": "acf294612a6d4d3b5083c646add7590fac6542e833078637ed93061f2b72bc98",
+    "src/upgradepilot/dependency/direct_install.py": "d3b4dd533a84d43bfd1ee56bc8859df9f485640ccd966523a30a922368ff8fd1",
+    "src/upgradepilot/dependency/environment.py": "1b1240d4d7c592dd4566b11f3170b145a522e55a0ecc0f06da744440d6715152",
+    "src/upgradepilot/dependency/environment_membership.py": "ded0c8bd12049549060194a5948f39c350ff20c48a5aa98abf35b278ad53fd7f",
+    "src/upgradepilot/dependency/environment_selection.py": "66565aaf24dc8f642d1da8d17a1431ed45079b4e7f128acd75d5c82ddf417873",
+    "src/upgradepilot/dependency/package_manager_config.py": "171dc145c9917f9719a904e9bef890a26019a94d04fc13ffb9e38ec64789d643",
+    "src/upgradepilot/dependency/package_manager_operation.py": "9a0b2e7cf5e7a302f504f6baf1a457847851fcb4977375488f7c8cb5bedf54fa",
+    "src/upgradepilot/dependency/package_manager_semantics.py": "f72b42881e5cbdb08b2283a8be208b7e6aa05ddc84cfbd20f0a6e8c956ffa14b",
+    "src/upgradepilot/dependency/pyproject.py": "00773f19b88a747cd920b3a3940641fd938bda16c17b50b0e630871e3b6b1001",
+    "src/upgradepilot/dependency/requirements.py": "b0c30857cf8f9da02b7b2b09ecd8a4db13b3a66be43a8ddcde76959df7d4a9b9",
+    "src/upgradepilot/dependency/uv_lock.py": "a9bacda8da3903a1aa757e8a837ba7e2c7db0371f7b96e995f62099a3b53ee1f",
+    "src/upgradepilot/dependency/uv_lock_structure.py": "866d24f24e00d5c32983bd17eab0058c8ce9b769693d0ce7ee427f4d6d42fb8e",
+    "src/upgradepilot/dependency/uv_reachability.py": "f520c008735ea8431167a4f0b866bd6efed249e82ebfaba8afd2b34c4ca92b17",
+    "src/upgradepilot/dependency/versioning.py": "cf9a585f6fbe7a47f3a60dcd2d335ad9b1aee1cb81eb69e1a88027252cf365d5",
+    "src/upgradepilot/dependency/workflow_context.py": "893aab102ebc0f7efdc7861b8337b3a2474c668e75040cac0f9720bda49e7ead",
+    "src/upgradepilot/github/__init__.py": "e3af84e52ea2353cebc0e4701af71fd48e819a029ed06e6919a1446b8e76d9fc",
+    "src/upgradepilot/github/actions.py": "c13adc5d38e227c4056b4d516cf9b34c642e35729cc19da2bb1426b22b176257",
+    "src/upgradepilot/github/api.py": "dd470987507324322d6eec9022a10f1c132fcf173b6d5b5fbd45886e3889be13",
+    "src/upgradepilot/github/auth_session.py": "251e56b2faddef821ca97fd14e5d3f69957f25670950fdf6a0825ca74cb56f3d",
+    "src/upgradepilot/github/changelog.py": "6db510ab6ac8624d96db987aa5cc9e7e74c793eb83ab53b4201e0d2f55658c2d",
+    "src/upgradepilot/github/executable_selection.py": "bef66038dc3c51e734508edcf3bc0ac93e85b7ba7e4db92ed5222713e2aeb66f",
+    "src/upgradepilot/github/identity.py": "06317e5b9855c1fd9997d46d347da0f83acd99276ff256b1cab1864209c8dd1d",
+    "src/upgradepilot/github/process_environment.py": "b0249b215939ca95778e7d5d1e98cdacb4f93ee12866eef60242cbcdd6126427",
+    "src/upgradepilot/github/pull_request.py": "f5a605e8d69df3808b10137e000fe366bae8ecb2df4b115a41e9b54dd2555d41",
+    "src/upgradepilot/github/release.py": "cab6bc52be08c91e0409552ab7c2d28acb26b43337336451a6939d8df8e1abb0",
+    "src/upgradepilot/github/repository.py": "ee2a116e449cdd1a6198d970d1ca840bfa5563ca9edffe4ebd22acb425aaac93",
+    "src/upgradepilot/github/tag.py": "c2a4c73ca1fb6053373dbfdd894bf61ac08b38361a6bf1691f0b1df6b1f5b22c",
+    "src/upgradepilot/github/workflow_command_analysis.py": "622e2ce02e330ebd7f92692b341df5e911084a84a4d7a502579b129d0716b452",
+    "src/upgradepilot/github/workflow_command_location.py": "8d80994f02bc6d88ccfe22c21b24bdd6630b7145a7beb2b509bd7d22c2cd08a2",
+    "src/upgradepilot/github/workflow_command_shell.py": "0a325a3e578659329fa5727c07c512d797b1e41273816f77255eeb0294d0f22b",
+    "src/upgradepilot/github/workflow_definition.py": "cd3a8f39903a36ff1b586f41de529343decf11bb6fe8aadcee7113fbb07b045d",
+    "src/upgradepilot/github/workflow_environment.py": "7429aca6ee5b350cae3eb54aeaaf245de8ce8156d13b6b22c93f1e9dc9871e23",
+    "src/upgradepilot/impact/__init__.py": "3b34972c1a5292eaa86ba11d4a179e0f41ef6f9ef7ecbff3d145d13d9c60c913",
+    "src/upgradepilot/impact/applicability.py": "a1fbb1b1f0beb396ab227130d81a268603e3e0d459bff266dc426fdf7b6c3f3a",
+    "src/upgradepilot/impact/artifact_serviceability.py": "183368ac12574888297a9a75e6f316662851e741b9f4e4a95041aa010b59fcfc",
+    "src/upgradepilot/impact/python_support.py": "ea49b445c59502bd67207ceb286badaa879816684179e066e0d5e7dc6e1704f0",
+    "src/upgradepilot/impact/python_support_codec.py": "eccd52e562b58b4036fe279780db16b4dbf1a996bc0869d623b22b3b9ae6ad6d",
+    "src/upgradepilot/investigation.py": "8903124f725ccfe9e2696fe22823eb910044d5a99b640d0431f8fee59bea3b47",
+    "src/upgradepilot/investigation_inputs.py": "35f893290ccc6e7ee521624dff43afeb905252a1d8e2744fe4ae86023628bfae",
+    "src/upgradepilot/json_contract.py": "26789c345f354fff27f049d487d5e02ac969611886aeb06f3b04194ad63ec5e3",
+    "src/upgradepilot/maintainer_action.py": "a5e718392419c2097362e771b7e2f54dc1bcf246d76317ddfa5eb48c9dfdffbd",
+    "src/upgradepilot/package_identity.py": "15da1cdb3b57a4694a2044775f0d5e1da99c4e64301d1d85a88870032eedf2b0",
+    "src/upgradepilot/pypi/__init__.py": "dde24aa35c9faab759178796f6aeba88415f1fbf5fa18d75f114df55123bbd46",
+    "src/upgradepilot/pypi/api.py": "9fa05b970bf29fec4f6a078b2be07097318367369d9f4844c5cf83225faf60fd",
+    "src/upgradepilot/pypi/provenance.py": "db896b5301e1ed27d8fe28f110321abb9e6795af9bdfbf8629d97d30aaa79fe5",
+    "src/upgradepilot/pypi/release.py": "683b5d4904cd5f069e7f046b8f7294b2d7b4f26e05adb1bb147bfcd4855454f7",
+    "src/upgradepilot/report.py": "59e1ffdb7aa85432a152ef6012bb4c901e00591254e11040a03629f1c37d516e",
+    "src/upgradepilot/report_file.py": "4a8d1e09c27c7b84b760ea99ec3de8c0eee0c372e2d8c126069dc2d71fef4237",
+    "src/upgradepilot/report_projection.py": "e1f395d0ad5bb4713239c91147e045880b6926cf6cedf799da12617f69497232",
+    "src/upgradepilot/repository_path.py": "691a0e0036cd08eab3d11e2f7cdb7f73656df8d50538cc352ffb7b995f04f1e6",
+    "src/upgradepilot/target/__init__.py": "0834cf14b4704ba8fb29a5b99546cabf77e709f8b365bba6ed708f798bbf2142",
+    "src/upgradepilot/target/artifact_environment.py": "4ca234c73e72e0a115531fc07108ddd1f9cd50b3c8f851d5d8f0c6b2f0fd91a8",
+    "src/upgradepilot/target/python.py": "5ec59e9211733e3312f7c103a4d980ce01b61e00a6c99299000b1dd6379fbd7e",
+    "src/upgradepilot/target/python_specifier.py": "14074fe7745ab7373e845146f4c739725874a2966c44bf48798ebad36aeddf87",
+    "src/upgradepilot/target/relevance.py": "0827bc4afc6d5921248404ee1c0b6ed519380c3a37ca9ef2cd8dac2a9e3d9a2c",
+    "src/upgradepilot/upstream/__init__.py": "0911dd55404968c7b5bb66c4a4747b794108115e7b34b5580661ae19e5819dfc",
+    "src/upgradepilot/upstream/changelog.py": "bcbcc0fea3bf83a29c19d72692979c051691e2927e5e509a2488f4a5a08b34df",
+    "src/upgradepilot/upstream/claim.py": "a9193e5e095305f391bdf673a1fb0c68743d6df4ea3eaa117c4e76bd47161311",
+    "src/upgradepilot/upstream/interval.py": "cf2ca4ac15e30cfa8ca77d0759983ba737e000a9bb144e9d801f753f214595ef",
+    "src/upgradepilot/upstream/interval_evidence.py": "72e318eb38ae98e55db74429a68b3b1cf0e3892ded8cb0b91224d23e4bbe7d5c",
+    "src/upgradepilot/upstream/repository.py": "20cc528eb983ec42f7f164ab74568352608afca36716a90a34e1bde1fee8e5e5",
+    "src/upgradepilot/upstream/support_drop.py": "bcde37d02a159b28f1446393581c0e79f71ef8e6a02fe3d19ae866d00eb0671a",
+    "src/upgradepilot/upstream/support_drop_extractor.py": "7b74b736265eab410e8e363b5a3592be2a1e2dcb6e67a709dd350effbbd0c199",
+    "src/upgradepilot/workspace/__init__.py": "860a088a80bc7778f39faf29063558bfccf6effb2240bc71b75e85adf7015a92",
+    "src/upgradepilot/workspace/checkpoint_revision.py": "c848bd0c9ca17deef0ff3a6da0a817303a7457182b969441cea4f1a7024c1a18",
+    "src/upgradepilot/workspace/checkpoint_store.py": "5c8e041cf512af294c87aa15c242f6da0b5fa02b04d8b0563e23114330ec322a",
+    "src/upgradepilot/workspace/consumer_access.py": "dfb196c841f25e2ad0c928b08a0f5129c5bf082c14f836d12c45d4b2e54b017c",
+    "src/upgradepilot/workspace/lifecycle_boundary.py": "20b4872c303c1af4b080cb171c06c8ae712863a64388ef9c5d793f8b06a5c117",
+    "src/upgradepilot/workspace/lifecycle_host.py": "731e832ccb2170424917e2de624a798f718de00b34c2041b420d5c674460db98",
+    "src/upgradepilot/workspace/lifecycle_records.py": "8d9f3d194fc73b97ff3e65b53eaa39fa8710aea3b3c85efc1ae401db1b8d20bc",
+    "src/upgradepilot/workspace/material_validity.py": "1c5e9f5f7767b0800f4bd371e56a42a23cbd3846c9e7749db3d72aca77c96117",
+    "src/upgradepilot/workspace/native_boundary.py": "2f1b9d5db609f27c0d0c1eb9cdfcacf6c8fbaff9f21e58fa3d11c6409b9f6ca2",
+    "src/upgradepilot/workspace/native_capture.py": "c344dae683aa19cd3b0eed7d10f1cb6b231a60443277e313e5538c1f5b318236",
+    "src/upgradepilot/workspace/native_codecs.py": "c47339cd4151a4a02bdd531af044237bdf422a88a572e83d82fcf6e616dc7642",
+    "src/upgradepilot/workspace/native_inputs_codec.py": "1413c927c50cf6168afe51706f5a38f0e62328a1e15dda076d335b75a19421e6",
+    "src/upgradepilot/workspace/native_projection.py": "f3a5ba4e32b008d497e2116b782b77049be9d1067d2759d74988447a30b60b56",
+    "src/upgradepilot/workspace/native_representation.py": "2a9f510e453a7e33c079c8370dfcbe3136b3d6b1eb1591b005b953c9cf34710c",
+    "src/upgradepilot/workspace/preparation.py": "42839b8974df5db4a70e50af08e5e6397f54c5b06e188af72fb1798d8af7dce9",
+    "src/upgradepilot/workspace/repository_read_capability.py": "f1b05d8bc9be787509604313cd93d64cf0dcca5c0afa6be2334fd93c4b6c8c18",
+    "src/upgradepilot/workspace/source_access.py": "56e34abe836ef6edec7142a003844532b445a7e31afaa1006598f892327bbb84",
+    "tests/test_ci_dependency_state.py": "8aee73b87b10ab52d8336b7762033593941d9bf40df03a3f7124d183c638f3f5",
+    "tests/test_cli.py": "25d32d7c2909b0d6e1c2eaada402a2af2bcf473e16a4b1e854eb96efbd4c0bd6",
+    "tests/test_investigation.py": "3bcabb824eca6abc588649d41b83cbe3de7e98071d3d3ccb4632e9ce859ced29",
+    "tests/test_report.py": "3b9c4573d68540e74854c2686d8006149d6d2870f5bde126c4627a50390d34f9",
+    "tests/test_report_file.py": "9567463c0cb20242fc4aa9774a687d36a236a573a8239e6cc54962f0ff44032c",
+    "tests/test_workspace_checkpoint_reconstruction.py": "909c96692d80fa3815ec12a6436a5d7854e043ea00ac4dbbac977b3ab7ff5847",
+    "tests/test_workspace_native_reconstruction.py": "0a134738ee0ae2da8d2886e7bb88f8d2883b3d736a9a3732035a1a3ae784f6ad",
+    "working-memory/evidence/2026-10-19-investigator-evidence-first-build/run-retention.json": "ac845f2845134d8e0b1b8111156272507e6aa2d0f4a1eb732a7407ef56259d6c",
+    "working-memory/evidence/2026-10-20-product-value-and-transparent-baseline-feasibility/input-inventory.json": "047798e878f563e02d90159245f8c8e32860facf46879992dc24d067fea6f65b",
+    "working-memory/evidence/2026-10-20-retained-native-ci-baseline-comparison/freeze.json": "44afe9ed9647f410b93d43a74dbabdeb487cd001b6c7c8e2da7ef8494e577cf9"
+  }
+}

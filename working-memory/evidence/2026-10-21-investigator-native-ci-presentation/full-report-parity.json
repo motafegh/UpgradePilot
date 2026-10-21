@@ -1,0 +1,9 @@
+{
+  "prechange_controls": {
+    "static.json": "529fadae5d19d85face6f702c53be033563695c8d326d3f9bd303b272096993f",
+    "normal.txt": "faf88cdb1084e24a960ab8836897f4abdcf8f5e1082e1451eb92b8de49ee4cf6",
+    "normal.json": "6564eb35dad5c9f90982b7b99dfe20573551a1b39681e61929122ad194142d23",
+    "static.txt": "e89629152cc99bf14bd26ad9eefac2c86a736a09fe1cbe5529acfd29197e2c2e"
+  },
+  "verified_after_extraction": "Both full report JSON/text controls match byte for byte; fixed report UUID/time; controlled normal/static provider harnesses."
+}
