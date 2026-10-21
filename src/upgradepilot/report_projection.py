@@ -1,6 +1,7 @@
 """Explicit projection of owned investigation facts into the shared report contract.
 
-Read ``project_investigation_report`` then its evidence-family helpers. No dataclass
+Read ``project_investigation_report`` for full results or ``project_ci_report`` for
+admitted CI-only inputs, then their shared evidence-family mapping. No dataclass
 reflection, domain reparsing, network acquisition or new impact/action inference occurs.
 Each assessment cites its producer result; retained upstream text has its own exact source.
 Absent inputs stay explicit, and an empty candidate horizon never becomes absence of risk.
@@ -13,15 +14,21 @@ from importlib.metadata import PackageNotFoundError, version
 from urllib.parse import quote
 from uuid import uuid4
 
-from .ci.dependency_state import RequirementSatisfiedAtCommandCompletion
-from .dependency.change import DependencyVersionChange
+from .ci.dependency_exercise import DependencyCICoverageResult
+from .ci.dependency_state import (
+    RequirementSatisfiedAtCommandCompletion,
+    RuntimeDependencyStateResult,
+)
+from .dependency.change import DependencyChangeProblem, DependencyVersionChange
 from .dependency.package_manager_semantics import (
     DirectRequirementHandlingFact,
     InstallationDestinationFact,
     ManagerEnvironmentSelectionFact,
     PackageMutationModeFact,
 )
+from .github.actions import WorkflowJob, WorkflowRun
 from .github.changelog import ChangelogPathDiscoveryProblem
+from .github.pull_request import PullRequestIdentity
 from .github.tag import GitHubTagCommitProblem
 from .impact.artifact_serviceability import (
     ArtifactServiceabilityEvidenceProblem,
@@ -32,6 +39,7 @@ from .investigation import PublicPullRequestInvestigation
 from .maintainer_action import synthesize_maintainer_action
 from .pypi.release import PackageReleaseEvidence, PackageReleaseIndexProblem
 from .report import (
+    CIReport,
     InvestigationReport,
     ReportAction,
     ReportAssessment,
@@ -56,11 +64,10 @@ def _fact(name: str, label: str, value: object) -> ReportFact:
     return ReportFact(name, label, str(value) if value is not None else "not recorded")
 
 
-class _ReportProjection:
-    """Invocation-local accumulation; never retained as agent/orchestration state."""
+class _ReportEvidence:
+    """Shared invocation-local report accumulation, independent of application scope."""
 
-    def __init__(self, result: PublicPullRequestInvestigation) -> None:
-        self.result = result
+    def __init__(self) -> None:
         self.assessments: list[ReportAssessment] = []
         self.sources: list[ReportSource] = []
         self.findings: list[ReportFinding] = []
@@ -187,6 +194,71 @@ class _ReportProjection:
         )
 
 
+class _ReportProjection(_ReportEvidence):
+    """Full-report context; the partial CI route never fabricates this application result."""
+
+    def __init__(self, result: PublicPullRequestInvestigation) -> None:
+        super().__init__()
+        self.result = result
+
+
+def project_ci_report(
+    *,
+    pull_request: PullRequestIdentity,
+    dependency_result: DependencyVersionChange | DependencyChangeProblem,
+    workflow_evidence: tuple[tuple[WorkflowRun, tuple[WorkflowJob, ...]], ...],
+    ci_coverage_result: DependencyCICoverageResult | None,
+    runtime_dependency_state_result: RuntimeDependencyStateResult | None,
+) -> CIReport:
+    """Copy admitted CI-native fields through the full report's single CI mapping.
+
+    The normal partial caller is a validated CINativeProjection. Its reconstruction
+    owns material/target validity; this function neither revalidates that boundary nor
+    evaluates domains. None means no evaluated result, not absent risk. No full
+    investigation, model interpretation or maintainer synthesis is needed or invented.
+    """
+    p = _ReportEvidence()
+    _project_ci(
+        p, pull_request=pull_request, workflow_evidence=workflow_evidence,
+        ci_coverage_result=ci_coverage_result,
+        runtime_dependency_state_result=runtime_dependency_state_result,
+    )
+    identity = _pull_request_identity(pull_request)
+    if isinstance(dependency_result, DependencyVersionChange):
+        identity += (
+            _fact("package", "Dependency", dependency_result.normalized_package),
+            _fact("old_version", "Old version", dependency_result.old_version),
+            _fact("proposed_version", "Proposed version", dependency_result.proposed_version),
+        )
+    else:
+        identity += (_fact("dependency_problem", "Dependency transition problem", dependency_result.reason),)
+    return CIReport(
+        identity, tuple(p.assessments), tuple(p.findings), tuple(p.unknowns),
+        tuple(p.sources),
+        (
+            "Recorded CI owner results only; no live refresh or new domain evaluation.",
+            "Static declarations, correlated execution and command-completion state retain different scopes.",
+            "This view establishes neither whole-update compatibility nor maintainer-action permission.",
+            "Source references do not retain original raw inputs; capture provenance/gaps belong to the supplying boundary.",
+        ),
+    )
+
+
+def _pull_request_identity(pr: PullRequestIdentity) -> tuple[ReportFact, ...]:
+    return (
+        _fact("repository", "Repository", pr.repository),
+        _fact("pull_number", "PR", pr.number),
+        _fact("title", "Title", pr.title),
+        _fact("author", "Author", pr.author),
+        _fact("state", "State", pr.state),
+        _fact("merged", "Merged", str(pr.merged).lower()),
+        _fact("base_ref", "Base ref", pr.base_ref),
+        _fact("base_sha", "Base", pr.base_sha),
+        _fact("head_ref", "Head ref", pr.head_ref),
+        _fact("head_sha", "Head", pr.head_sha),
+    )
+
+
 def project_investigation_report(
     result: PublicPullRequestInvestigation,
     *,
@@ -201,18 +273,7 @@ def project_investigation_report(
         raise ValueError("report generation time must be timezone-aware")
     p = _ReportProjection(result)
     pr = result.pull_request
-    identity = (
-        _fact("repository", "Repository", pr.repository),
-        _fact("pull_number", "PR", pr.number),
-        _fact("title", "Title", pr.title),
-        _fact("author", "Author", pr.author),
-        _fact("state", "State", pr.state),
-        _fact("merged", "Merged", str(pr.merged).lower()),
-        _fact("base_ref", "Base ref", pr.base_ref),
-        _fact("base_sha", "Base", pr.base_sha),
-        _fact("head_ref", "Head ref", pr.head_ref),
-        _fact("head_sha", "Head", pr.head_sha),
-    )
+    identity = _pull_request_identity(pr)
     pr_source = p.source(
         "pull_request",
         locator=f"https://github.com/{pr.repository}/pull/{pr.number}",
@@ -220,7 +281,11 @@ def project_investigation_report(
         method="exact PR base/head identity acquisition",
     )
     _project_dependency(p, pr_source)
-    _project_ci(p)
+    _project_ci(
+        p, pull_request=pr, workflow_evidence=result.workflow_evidence,
+        ci_coverage_result=result.ci_coverage_result,
+        runtime_dependency_state_result=result.runtime_dependency_state_result,
+    )
     _project_packages(p)
     _project_upstream(p)
     _project_artifact(p)
@@ -327,15 +392,19 @@ def _project_dependency(p: _ReportProjection, pr_source: str) -> None:
     )
 
 
-def _project_ci(p: _ReportProjection) -> None:
-    result = p.result
+def _project_ci(
+    p: _ReportEvidence, *, pull_request: PullRequestIdentity,
+    workflow_evidence: tuple[tuple[WorkflowRun, tuple[WorkflowJob, ...]], ...],
+    ci_coverage_result: DependencyCICoverageResult | None,
+    runtime_dependency_state_result: RuntimeDependencyStateResult | None,
+) -> None:
     run_refs = []
-    for run, jobs in result.workflow_evidence:
+    for run, jobs in workflow_evidence:
         run_refs.append(
             p.source(
                 "workflow_execution",
                 method="exact-head run and captured-attempt jobs acquisition",
-                locator=f"https://github.com/{result.pull_request.repository}/actions/runs/{run.run_id}/attempts/{run.run_attempt}",
+                locator=f"https://github.com/{pull_request.repository}/actions/runs/{run.run_id}/attempts/{run.run_attempt}",
                 identity=(
                     _fact("run_id", "Run", run.run_id),
                     _fact("run_attempt", "Attempt", run.run_attempt),
@@ -368,7 +437,7 @@ def _project_ci(p: _ReportProjection) -> None:
                 ),
             )
         )
-    ci = result.ci_coverage_result
+    ci = ci_coverage_result
     if ci is None:
         p.not_evaluated("ci", "CI dependency coverage", "ci.dependency_exercise")
     else:
@@ -391,13 +460,13 @@ def _project_ci(p: _ReportProjection) -> None:
                 "workflow_source",
                 method="static workflow interpretation",
                 locator=_repository_file_locator(
-                    result.pull_request.repository,
-                    result.pull_request.head_sha,
+                    pull_request.repository,
+                    pull_request.head_sha,
                     workflow.workflow_path,
                 ),
                 identity=(
                     _fact("path", "Workflow path", workflow.workflow_path),
-                    _fact("revision", "Static revision", result.pull_request.head_sha),
+                    _fact("revision", "Static revision", pull_request.head_sha),
                 ),
             )
             facts = [
@@ -456,7 +525,7 @@ def _project_ci(p: _ReportProjection) -> None:
                     workflow.runtime_direct_exercise_detail,
                 ),
             )
-    runtime = result.runtime_dependency_state_result
+    runtime = runtime_dependency_state_result
     if runtime is None:
         p.not_evaluated("runtime", "Runtime dependency state", "ci.dependency_state")
         return
@@ -568,7 +637,7 @@ def _project_ci(p: _ReportProjection) -> None:
             method="scoped command assessment",
             identity=tuple(facts),
             locator=_repository_file_locator(
-                result.pull_request.repository, c.workflow_revision, c.workflow_path
+                pull_request.repository, c.workflow_revision, c.workflow_path
             ),
         )
         p.assess(

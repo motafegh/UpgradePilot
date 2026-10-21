@@ -20,3 +20,9 @@ Living orientation map: native result versus report projection versus laboratory
 UP-SKILL:upgradepilot-build-implement
 UP-SKILL:upgradepilot-working-memory
 UP-SKILL:upgradepilot-learning-by-doing
+
+## Shared product projection increment
+
+Pre-change controlled normal-path reports (normal/static workflows, fixed report ID/time) were saved privately under /tmp before editing. Original17 common members and96 product files matched the historical freeze at entry. Extracted CIReport/project_ci_report and shared assessment/source rendering; the existing full report uses the same CI mapping and retains its schema/action route. CI-only inputs are explicit already-owned DTOs, so no fabricated full application result or duplicate native validator is introduced. The report collector's evidence-only base is shared with full-report context; this is local composition, not durable orchestration state.
+
+35 report/save/CLI tests pass; both pre-change full JSON and rendered-text controls remain byte-identical. Extended existing mixed real-command producer/static tests with complete CI field/source-graph parity, plus absent-result/no-synthesis proof. An initial patch put mixed-command assertions into an artifact-only test, causing IndexError; moved them into the intended mixed-command test and reran successfully. No product behavior failure or real-case execution occurred. Source semantics/correlation/acquisition owners unchanged. Consumer/freeze/real-case verification remain pending.

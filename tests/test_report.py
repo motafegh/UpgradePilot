@@ -3,15 +3,16 @@
 from __future__ import annotations
 
 import unittest
-from dataclasses import replace
+from dataclasses import asdict, replace
 from datetime import UTC, datetime
+from unittest.mock import patch
 
 from test_cli import _artifact_candidate_investigation, _supported_investigation
 from test_investigation import _dependency, _Harness, _run
 
-from upgradepilot.report import render_investigation_report
+from upgradepilot.report import render_ci_report, render_investigation_report
 from upgradepilot.report_file import decode_report, encode_report
-from upgradepilot.report_projection import project_investigation_report
+from upgradepilot.report_projection import project_ci_report, project_investigation_report
 from upgradepilot.upstream.claim import (
     GroundedPythonSupportDropClaim,
     GroundedUpstreamClaimSource,
@@ -23,7 +24,57 @@ from upgradepilot.upstream.interval import (
 )
 
 
+def _ci_report(investigation):
+    return project_ci_report(
+        pull_request=investigation.pull_request,
+        dependency_result=investigation.dependency_result,
+        workflow_evidence=investigation.workflow_evidence,
+        ci_coverage_result=investigation.ci_coverage_result,
+        runtime_dependency_state_result=investigation.runtime_dependency_state_result,
+    )
+
+
+def _assert_ci_parity(test, investigation):
+    """Compare every owned field and the exact source graph, allowing ID allocation only."""
+    full = project_investigation_report(investigation)
+    partial = _ci_report(investigation)
+    assessments = tuple(a for a in full.assessments if a.owner.startswith("ci."))
+    keys = {a.assessment_id for a in assessments}
+    findings = tuple(f for f in full.findings if f.assessment_id in keys)
+    unknowns = tuple(u for u in full.unknowns if u.assessment_id in keys)
+    refs = {ref for a in assessments for ref in a.source_ids}
+    sources = tuple(source for source in full.sources if source.source_id in refs)
+
+    def canonical(assessments, findings, unknowns, sources):
+        mapping = {source.source_id: f"s{i}" for i, source in enumerate(sources)}
+        def remap(item):
+            # A missing reference raises rather than being erased by normalization.
+            return asdict(replace(item, source_ids=tuple(mapping[r] for r in item.source_ids)))
+        return ([remap(a) for a in assessments], [remap(f) for f in findings],
+                [remap(u) for u in unknowns],
+                [asdict(replace(s, source_id=mapping[s.source_id])) for s in sources])
+
+    test.assertEqual(canonical(assessments, findings, unknowns, sources),
+                     canonical(partial.assessments, partial.findings, partial.unknowns, partial.sources))
+    return partial
+
+
 class ReportProjectionTests(unittest.TestCase):
+    def test_ci_only_preserves_available_and_not_evaluated_without_synthesizing_action(self):
+        investigation = _run(_Harness(), _dependency())
+        for value in (investigation, replace(investigation, ci_coverage_result=None,
+                                             runtime_dependency_state_result=None)):
+            with self.subTest(ci=value.ci_coverage_result):
+                _assert_ci_parity(self, value)
+                with patch("upgradepilot.report_projection.synthesize_maintainer_action", side_effect=AssertionError("partial synthesis")):
+                    report = _ci_report(value)
+                    rendered = render_ci_report(report)
+                self.assertNotIn("Maintainer action:", rendered)
+                self.assertIn("no live refresh", rendered)
+                self.assertIn("compatibility", rendered)
+        self.assertEqual([a.status for a in report.assessments], ["not_evaluated", "not_evaluated"])
+        self.assertEqual(len(report.unknowns), 2)
+
     def test_normal_application_composition_retains_source_and_bounded_no_claim(self):
         harness = _Harness()
         investigation = _run(harness, _dependency())
@@ -197,6 +248,10 @@ class ReportProjectionTests(unittest.TestCase):
             any("later package use" in u for u in report.action.uncertainty)
         )
         self.assertEqual(report.action.state, "abstain")
+        partial = _assert_ci_parity(self, investigation)
+        partial_commands = [a for a in partial.assessments if a.assessment_id.startswith("runtime-command-")]
+        self.assertEqual(partial_commands[0].state, "satisfied_at_command_completion")
+        self.assertNotEqual(partial_commands[1].state, partial_commands[0].state)
 
     def test_halted_upstream_question_links_the_actual_prerequisite_problem(self):
         harness = _Harness()
@@ -230,6 +285,8 @@ class ReportProjectionTests(unittest.TestCase):
             )
         )
         self.assertEqual(report.action.state, "abstain")
+        partial = _assert_ci_parity(self, investigation)
+        self.assertIn("supported_not_correlated", render_ci_report(partial))
 
     def test_source_location_encodes_real_filename_characters_without_losing_identity(
         self,

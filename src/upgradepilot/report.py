@@ -90,6 +90,23 @@ class InvestigationReport:
     preservation_limits: tuple[str, ...]
 
 
+@dataclass(frozen=True, slots=True)
+class CIReport:
+    """CI-only presentation of owned results; no synthetic whole-result or action.
+
+    Uses the same assessment/source records as InvestigationReport. Native material
+    identities and historical retention gaps belong to the caller's capture boundary.
+    This is an internal view, not a new saved-report file format.
+    """
+
+    identity: tuple[ReportFact, ...]
+    assessments: tuple[ReportAssessment, ...]
+    findings: tuple[ReportFinding, ...]
+    unknowns: tuple[ReportUnknown, ...]
+    sources: tuple[ReportSource, ...]
+    limits: tuple[str, ...]
+
+
 def render_investigation_report(
     report: InvestigationReport, *, saved: bool = False
 ) -> str:
@@ -109,7 +126,35 @@ def render_investigation_report(
         )
     )
     lines.extend(f"{fact.label}: {fact.value}" for fact in report.identity)
-    for assessment in report.assessments:
+    lines.extend(_assessment_lines(report.assessments, report.unknowns))
+    lines.extend(("", f"Maintainer action: {report.action.state}"))
+    lines.extend(f"Action reason: {reason}" for reason in report.action.reasons)
+    lines.extend(
+        f"Remaining uncertainty: {value}" for value in report.action.uncertainty
+    )
+    lines.extend(f"Action limitation: {value}" for value in report.action.limitations)
+    lines.extend(f"Claim limit: {value}" for value in report.action.claim_limits)
+    lines.extend(_source_lines(report.sources))
+    lines.extend(("", "Report limits"))
+    lines.extend(report.production_limits + report.preservation_limits)
+    return _display_lines(lines)
+
+
+def render_ci_report(report: CIReport) -> str:
+    """Display CI owner results without importing interpretation or granting actions."""
+    lines = ["UpgradePilot CI evidence", "Mode: recorded CI view; no live refresh"]
+    lines.extend(f"{fact.label}: {fact.value}" for fact in report.identity)
+    lines.extend(_assessment_lines(report.assessments, report.unknowns))
+    lines.extend(_source_lines(report.sources))
+    lines.extend(("", "CI view limits", *report.limits))
+    return _display_lines(lines)
+
+
+def _assessment_lines(
+    assessments: tuple[ReportAssessment, ...], unknowns: tuple[ReportUnknown, ...]
+) -> list[str]:
+    lines: list[str] = []
+    for assessment in assessments:
         lines.extend(("", f"{assessment.topic}: {assessment.state}"))
         lines.extend(f"{fact.label}: {fact.value}" for fact in assessment.facts)
         lines.extend((f"Reason: {assessment.reason}", f"Detail: {assessment.detail}"))
@@ -118,7 +163,7 @@ def render_investigation_report(
         lines.append("Sources: " + ", ".join(assessment.source_ids))
         lines.extend(f"Limitation: {limit}" for limit in assessment.limitations)
     lines.extend(("", "Unresolved questions"))
-    for unknown in report.unknowns:
+    for unknown in unknowns:
         lines.extend(
             (
                 f"Question: {unknown.question}",
@@ -127,15 +172,12 @@ def render_investigation_report(
                 "Sources: " + ", ".join(unknown.source_ids),
             )
         )
-    lines.extend(("", f"Maintainer action: {report.action.state}"))
-    lines.extend(f"Action reason: {reason}" for reason in report.action.reasons)
-    lines.extend(
-        f"Remaining uncertainty: {value}" for value in report.action.uncertainty
-    )
-    lines.extend(f"Action limitation: {value}" for value in report.action.limitations)
-    lines.extend(f"Claim limit: {value}" for value in report.action.claim_limits)
-    lines.extend(("", "Evidence sources"))
-    for source in report.sources:
+    return lines
+
+
+def _source_lines(sources: tuple[ReportSource, ...]) -> list[str]:
+    lines = ["", "Evidence sources"]
+    for source in sources:
         lines.append(
             f"{source.source_id}: {source.kind.replace('_', ' ')} | "
             f"{source.retention.replace('_', ' ')}"
@@ -155,8 +197,10 @@ def render_investigation_report(
         )
         lines.append(f"  Acquisition time: {source.retrieved_at or 'not recorded'}")
         lines.append(f"  Preservation limit: {source.limitation}")
-    lines.extend(("", "Report limits"))
-    lines.extend(report.production_limits + report.preservation_limits)
+    return lines
+
+
+def _display_lines(lines: list[str]) -> str:
     # External source text remains untrusted display data. Strip terminal controls without
     # changing the retained record, so reopening cannot execute terminal escape sequences.
     return "\n".join(
