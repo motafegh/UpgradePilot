@@ -1,0 +1,191 @@
+{
+  "review_class": "exposed source-aware implementer representation review; not independent oracle/utility result",
+  "normal_report_identity": "matches frozen preflight-selected repository/PR/base/head/transition",
+  "normal_requests": 13,
+  "preflight_requests_separate": 1,
+  "full_consumed_normal_bodies": 6,
+  "status_only_unconsumed_normal_bodies": 7,
+  "source_reference_mapping": [
+    {
+      "source": "source-1",
+      "kind": "pull_request",
+      "requests": [
+        1,
+        3
+      ],
+      "meaning": "two exact identity snapshots; PR still open/unmerged"
+    },
+    {
+      "source": "source-2",
+      "kind": "dependency_source",
+      "requests": [
+        2
+      ],
+      "meaning": "changed requirements.txt patch retained, not a complete head file"
+    },
+    {
+      "source": "source-6",
+      "kind": "package_metadata",
+      "requests": [
+        5
+      ],
+      "meaning": "complete proposed release JSON inventory"
+    },
+    {
+      "source": "source-8",
+      "kind": "package_metadata",
+      "requests": [
+        6
+      ],
+      "meaning": "complete old release JSON inventory"
+    },
+    {
+      "source": "source-13",
+      "kind": "artifact_capabilities",
+      "requests": [
+        5,
+        6
+      ],
+      "meaning": "derived exact tag comparison matches filenames using the same packaging parser; not independent semantic adjudication"
+    }
+  ],
+  "release_inventory": {
+    "old_distribution_files": 27,
+    "old_wheels": 27,
+    "old_unique_tags": 27,
+    "old_sdist_available": false,
+    "proposed_distribution_files": 7,
+    "proposed_wheels": 6,
+    "proposed_unique_tags": 8,
+    "proposed_sdist_available": true,
+    "removed_exact_tags": [
+      "cp27-cp27m-macosx_10_9_x86_64",
+      "cp27-cp27m-manylinux1_i686",
+      "cp27-cp27m-manylinux1_x86_64",
+      "cp27-cp27m-win32",
+      "cp27-cp27m-win_amd64",
+      "cp27-cp27mu-manylinux1_i686",
+      "cp27-cp27mu-manylinux1_x86_64",
+      "cp35-cp35m-macosx_10_9_x86_64",
+      "cp35-cp35m-manylinux1_i686",
+      "cp35-cp35m-manylinux1_x86_64",
+      "cp35-cp35m-win32",
+      "cp35-cp35m-win_amd64",
+      "cp36-cp36m-macosx_10_9_x86_64",
+      "cp36-cp36m-manylinux1_i686",
+      "cp36-cp36m-manylinux1_x86_64",
+      "cp36-cp36m-win32",
+      "cp36-cp36m-win_amd64",
+      "cp37-cp37m-macosx_10_9_x86_64",
+      "cp37-cp37m-manylinux1_i686",
+      "cp37-cp37m-manylinux1_x86_64",
+      "cp37-cp37m-win32",
+      "cp37-cp37m-win_amd64",
+      "cp38-cp38-macosx_10_9_x86_64",
+      "cp38-cp38-manylinux1_i686",
+      "cp38-cp38-manylinux1_x86_64",
+      "cp38-cp38-win32",
+      "cp38-cp38-win_amd64"
+    ],
+    "added_exact_tags": [
+      "cp37-abi3-macosx_10_16_x86_64",
+      "cp37-abi3-macosx_11_0_arm64",
+      "cp37-abi3-manylinux2014_aarch64",
+      "cp37-abi3-manylinux2014_x86_64",
+      "cp37-abi3-manylinux_2_17_aarch64",
+      "cp37-abi3-manylinux_2_17_x86_64",
+      "cp37-abi3-win32",
+      "cp37-abi3-win_amd64"
+    ],
+    "report_sets_equal_source_filename_tag_difference": true
+  },
+  "other_material_inputs": [
+    {
+      "requests": [
+        4
+      ],
+      "meaning": "new exact-head query returned0 runs; does not establish global CI absence"
+    },
+    {
+      "requests": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "meaning": "actual provenance404 statuses for all7 proposed distributions; bodies not consumed, not empty complete responses"
+    }
+  ],
+  "report_assessments": {
+    "dependency": {
+      "state": "supported",
+      "strength": "recorded_fact"
+    },
+    "ci": {
+      "state": "no_successful_ci",
+      "strength": "recorded_fact"
+    },
+    "runtime": {
+      "state": "no_admitted_candidate",
+      "strength": "recorded_fact"
+    },
+    "package": {
+      "state": "available",
+      "strength": "recorded_fact"
+    },
+    "old-package": {
+      "state": "available",
+      "strength": "recorded_fact"
+    },
+    "upstream-repository": {
+      "state": "source_unavailable",
+      "strength": "unresolved"
+    },
+    "upstream-interval": {
+      "state": "not established",
+      "strength": "unresolved"
+    },
+    "support-drop": {
+      "state": "not evaluated",
+      "strength": "unresolved"
+    },
+    "artifact-candidate": {
+      "state": "established",
+      "strength": "candidate"
+    },
+    "artifact-environments": {
+      "state": "not established",
+      "strength": "unresolved"
+    },
+    "artifact-impact": {
+      "state": "unresolved",
+      "strength": "recorded_fact"
+    },
+    "target-python": {
+      "state": "not activated",
+      "strength": "unresolved"
+    },
+    "python-relevance": {
+      "state": "not evaluated",
+      "strength": "unresolved"
+    }
+  },
+  "unknown_count": 10,
+  "action": "abstain",
+  "non_claims": [
+    "No target Python3.6 context injected from manual case",
+    "Removed exact tags are not27 broken target environments; alternative ABI/platform compatibility needs target evidence",
+    "Source distribution availability is not source-build success",
+    "No source/build/install/compatibility conclusion or positive action",
+    "No independent usefulness or model-quality result"
+  ],
+  "prepared_contrasts": {
+    "httpx": "normal matched source packet already retained",
+    "opencv": "second mechanically prepared contrast with supported artifact candidate and unresolved target impact",
+    "remaining": "third contrasting normal finding/conditional-target case not yet prepared"
+  },
+  "participant_availability": "unconfirmed; no contact or study activation"
+}

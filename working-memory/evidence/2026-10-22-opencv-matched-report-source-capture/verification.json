@@ -1,0 +1,166 @@
+{
+  "proof": "PASS for exposed byte/mode/source/report representation checks",
+  "frozen_members_verified": 102,
+  "private_members": [
+    {
+      "capture": "normal",
+      "path": "capture.json",
+      "bytes": 12431,
+      "sha256": "298b671067d3bcde78d644227dbe7a88b8aabe05a58352cb34a23dce30f883ac",
+      "mode": "0600"
+    },
+    {
+      "capture": "normal",
+      "path": "contract.json",
+      "bytes": 585,
+      "sha256": "2f1fa78cade0acd539a7ad10e66b1e29d341cbeedf02f07496a2a8d030ae0ded",
+      "mode": "0600"
+    },
+    {
+      "capture": "normal",
+      "path": "report-sources.json",
+      "bytes": 2773,
+      "sha256": "140162a5eaf853e403df5558e2957054b262577af474593fa2da9dced1c82e87",
+      "mode": "0600"
+    },
+    {
+      "capture": "normal",
+      "path": "report.json",
+      "bytes": 72214,
+      "sha256": "9f6b2d79a08421db5c113a9a0e38d34176728352d8644c52ddc86a2acea88116",
+      "mode": "0600"
+    },
+    {
+      "capture": "normal",
+      "path": "report.txt",
+      "bytes": 14981,
+      "sha256": "76e46b341366558fffa8a42049e1816e018fbc71184174d143d2790b95d6f53b",
+      "mode": "0600"
+    },
+    {
+      "capture": "normal",
+      "path": "sources/0001.body",
+      "bytes": 24077,
+      "sha256": "9b92282f619112739356f9c0ed5049322e4856b2bf632662a8e6efd8c161e0b1",
+      "mode": "0600"
+    },
+    {
+      "capture": "normal",
+      "path": "sources/0002.body",
+      "bytes": 710,
+      "sha256": "ebd119d7b45f74ab88eaa53b3973d057385172ad15205cd3c9b7d3c370ad3f58",
+      "mode": "0600"
+    },
+    {
+      "capture": "normal",
+      "path": "sources/0003.body",
+      "bytes": 24077,
+      "sha256": "9b92282f619112739356f9c0ed5049322e4856b2bf632662a8e6efd8c161e0b1",
+      "mode": "0600"
+    },
+    {
+      "capture": "normal",
+      "path": "sources/0004.body",
+      "bytes": 36,
+      "sha256": "a2790a384d7d281e7395679000c35d27768d89dbd7052f725b8f4688beb59915",
+      "mode": "0600"
+    },
+    {
+      "capture": "normal",
+      "path": "sources/0005.body",
+      "bytes": 26429,
+      "sha256": "f9538edd5d6879e10529eed77755cff45338e0533ec6c4b4590ccd3de76709f3",
+      "mode": "0600"
+    },
+    {
+      "capture": "normal",
+      "path": "sources/0006.body",
+      "bytes": 36671,
+      "sha256": "7721441d4bb6530ecf4a3e8bdbafc6181b7c6dfecf423089ea4ff75e815cf10b",
+      "mode": "0600"
+    },
+    {
+      "capture": "normal",
+      "path": "sources/0007.body",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0600"
+    },
+    {
+      "capture": "normal",
+      "path": "sources/0008.body",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0600"
+    },
+    {
+      "capture": "normal",
+      "path": "sources/0009.body",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0600"
+    },
+    {
+      "capture": "normal",
+      "path": "sources/0010.body",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0600"
+    },
+    {
+      "capture": "normal",
+      "path": "sources/0011.body",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0600"
+    },
+    {
+      "capture": "normal",
+      "path": "sources/0012.body",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0600"
+    },
+    {
+      "capture": "normal",
+      "path": "sources/0013.body",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0600"
+    },
+    {
+      "capture": "normal",
+      "path": "sources/index.json",
+      "bytes": 9819,
+      "sha256": "8a62a31c0c8ceefa34dc0bfd270d23ce94d2da3c4db72e996ad6e42eafbe8b43",
+      "mode": "0600"
+    },
+    {
+      "capture": "preflight",
+      "path": "0001.body",
+      "bytes": 24077,
+      "sha256": "9b92282f619112739356f9c0ed5049322e4856b2bf632662a8e6efd8c161e0b1",
+      "mode": "0600"
+    },
+    {
+      "capture": "preflight",
+      "path": "index.json",
+      "bytes": 993,
+      "sha256": "286bd2f8cc5f9b59ef7437555904bff8c4a0559ae7975f020914d24f4456d45d",
+      "mode": "0600"
+    }
+  ],
+  "private_file_count": 21,
+  "private_bytes": 249873,
+  "prior_httpx_private_files_unchanged": 14,
+  "original_report_hashes_unchanged": 6,
+  "normal_requests": 13,
+  "preflight_requests": 1,
+  "packaging_version_at_review": "26.2",
+  "removed_exact_tags": 27,
+  "added_exact_tags": 8,
+  "independent_study_results": 0,
+  "new_test_runs": 0,
+  "recipe_sha256": "d1a42500efadab268baf44d1c62f3a6df38d38d53d1bda301bb5979d94a95b76",
+  "non_claim": "Same-library representation check is not independent semantic or utility proof"
+}

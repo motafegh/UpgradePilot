@@ -5,11 +5,11 @@ Previous: [diagnostic Build and HTTPX case](2026-10-22_matched-report-source-cap
 
 A0 — DONE: fetched origin; entry main77f745c8 and origin/main agree. All100 previous producer/tool/test/plan/contract identities revalidate. Current artifact composition/source/report tests and historical OpenCV normal receipt inspected. Unrelated untracked October3 audit preserved.
 A1/A2 — Teaching DEFERRED by Ali; this familiar verified-tool continuation needs no repeated teaching gate. Learner ownership remains unassessed.
-B — CURRENT: separate anonymous PR-identity preflight, immutable operational selection, one new normal OpenCV source/report capture, source-aware artifact/applicability review.
-Verification gate — PENDING actual capture/mapping/retention proof. Prior9 diagnostic/79 inclusive tests remain historical and source-compatible; no code change requires repetition yet.
+B — DONE: separate identity preflight, one frozen normal OpenCV capture and source-aware release/tag/applicability review delivered.
+Verification gate — GREEN for the scoped capture/representation responsibility:102 frozen identities, strict report/render/source mapping,21 private files and unchanged prior HTTPX/original reports verify. Prior9/79 tests remain historical source-compatible; zero new test runs or utility verdicts.
 D — DEFERRED elsewhere; learning topics recorded below.
-E — PENDING engineering handoff.
-C — CONTINUOUS.
+E — DONE engineering closure with learning deferred; third contrasting normal case and independent study prerequisites remain separate.
+C — DONE for this bounded capture cycle.
 
 ## Scope and proportional method
 
@@ -39,3 +39,13 @@ One anonymous normal GitHub identity GET completes in0.997266s, retaining24,077 
 Freeze739ae68c was published before the one normal attempt. Process exit0, exact bound identity/transition and normal report captured:13 anonymous GETs,112,000 retained decoded bytes,7.479024s internal/7.779505s startup-inclusive, no model/GPU/target execution/install/retry. Including separate preflight:14 GETs and136,077 retained bytes, with preflight kept outside the normal packet.6 normal responses are fully consumed;7 provenance404 responses remain explicitly body_not_consumed. Original historical reports and HTTPX capture are untouched.
 
 The new normal report observes an artifact candidate (27 exact tags removed/8 added) and available proposed source distribution; target environment associations remain not established, target applicability unresolved, action abstain. These are captured native outputs pending source/tag/reference review, not independent judgments or compatibility findings. Publish raw report/index/receipts before paired review.
+
+## Source-aware review and engineering closure
+
+[Reviewed result](evidence/2026-10-22-opencv-matched-report-source-capture/REVIEW.md) links the fresh normal report,102-member freeze, source index and source-aware paired mapping. All4 external references and the derived artifact-tag source are accounted for. Current retained old inventory:27 wheels/no sdist; proposed:6 wheels/one sdist; source filename parsing with the same packaging26.2 library reproduces exact27 removed/8 added tag sets retained in the report. This checks representation rather than independent semantic truth. Target associations stay not established, impact unresolved, action abstain. No manual Python3.6 context or source-build success was invented. The earlier projection correction remains effective; no supported owner defect was exposed.
+
+[Repeatable verification](evidence/2026-10-22-opencv-matched-report-source-capture/verify_retention.py) and [receipt](evidence/2026-10-22-opencv-matched-report-source-capture/verification.json) bind21 private files/249,873 bytes across normal/preflight directories, all hashes/modes, report strict decode/render equality, unchanged14 prior HTTPX files and6 original report hashes. No src/tests/tools/experiments/product-simulation delta from77f745c8; no new tests, installs, runtime-owner changes, model inference or reviewer outcomes. Prior9/79 proof remains explicitly historical, not rerun.
+
+Engineering readiness now has2 matched contrasts, not3 independent useful-case acceptances. The next responsibility is current source/runtime/model-aware admission for the remaining positive/conditional-target case (Soup Sieve candidate), with exact budgets/freeze before any inference. Independent reviewers/adjudicator/protocol are still unconfirmed/unexecuted. Learning stays elsewhere: record ABI3/alternative-compatibility versus exact tag differences, unavailable sourcebuild evidence, and empty-target-association semantics; no ownership answers or teaching gate inferred. Progressive publication:a34306b6 activation,739ae68c preflight/freeze,3d0eec49 raw normal outputs, final reviewed handoff follows.
+
+Final checks: all102 frozen identities still match; verification recipe hash matches its receipt;26 local Markdown targets resolve; public evidence159,027 bytes before the final receipt, below5MiB. No source/test/tool/experiment/simulation changes or new test runs. Final scope whitespace check and publication complete the engineering handoff; unrelated untracked October3 audit is retained.
