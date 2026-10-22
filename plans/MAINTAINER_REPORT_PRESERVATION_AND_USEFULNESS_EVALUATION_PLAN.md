@@ -116,6 +116,8 @@ The [Investigator integration/evaluation handoff](INVESTIGATOR_INTEGRATION_AND_C
 
 ### Freeze a feasible normal-product pilot
 
+Matched source/report preparation may precede study readiness as a separately bounded developer diagnostic. Observe the existing normal producer's requests and consumed response bytes; retain the normal report separately from the ordinary-review source packet. Record partial/unread/failed inputs explicitly, preserve streamed error semantics, and do not build a baseline from report conclusions. Diagnostic budgets or unadmitted model access must stop capture rather than manufacture a normal provider failure. Keep decoded bodies private with public-safe hashes/receipts and bind the exact code/case/identity/limits before live execution. This preparation does not require a new public report schema or imply replay, semantic acceptance, independent labels or a started utility study. Existing producer/client seams are implementation options, not a requirement to change domain owners.
+
 Before generating comparative outputs or observing reviewer answers, record one public-safe study manifest in the selected cycle's evidence directory. Include the following, with immutable output/input hashes added when actually produced:
 
 | Manifest group | Required contents |
