@@ -1,0 +1,18 @@
+{
+  "outcome": "process_completed",
+  "exit_code": 0,
+  "stdout": "{\"outcome\": \"normal_report_captured\", \"requests\": 8, \"decoded_body_bytes\": 77977, \"elapsed_seconds\": 4.183781476000149}\n",
+  "stderr": "",
+  "startup_inclusive_seconds": 4.502642351999384,
+  "executed_commit": "b925b382f34ef6be9bfba62865f8eddbd24366e2",
+  "freeze_sha256": "02856020ea0052cbe0cc52f6847fbcbf28a0c3310464a6bfe192a904e0544165",
+  "command": [
+    ".venv/bin/python3",
+    "-m",
+    "tools.capture_report_sources",
+    "--contract",
+    "working-memory/evidence/2026-10-22-matched-report-source-capture/contract.json",
+    "--output",
+    "/home/motafeq/.local/share/upgradepilot/report-source-captures/httpx-normal-2026-10-22"
+  ]
+}

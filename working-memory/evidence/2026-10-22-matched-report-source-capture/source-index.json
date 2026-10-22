@@ -1,0 +1,148 @@
+{
+  "format": "upgradepilot.diagnostic-http-sources/1",
+  "meaning": "Normal producer HTTP observations, not findings or expected answers",
+  "body_representation": "Requests decoded entity bytes, not wire compression",
+  "body_hash_scope": "Retained response prefix; full body only for body_complete",
+  "requests": [
+    {
+      "number": 1,
+      "method": "GET",
+      "url": "https://api.github.com/repos/Aidan-Wallace/kubernetes-dashboard-token-api/pulls/20",
+      "started_at": "2026-10-22T17:01:17.426100+00:00",
+      "state": "body_complete",
+      "status": 200,
+      "response_url": "https://api.github.com/repos/Aidan-Wallace/kubernetes-dashboard-token-api/pulls/20",
+      "headers": {
+        "Content-Length": "29496",
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      "body": "0001.body",
+      "body_bytes": 29496,
+      "body_sha256": "b19cec81741eb1545cf7e3b5ba034c68e610b9c4970609198b33bfaf3f841c8c",
+      "finished_at": "2026-10-22T17:01:18.399555+00:00"
+    },
+    {
+      "number": 2,
+      "method": "GET",
+      "url": "https://api.github.com/repos/Aidan-Wallace/kubernetes-dashboard-token-api/pulls/20/files?per_page=100&page=1",
+      "started_at": "2026-10-22T17:01:18.400240+00:00",
+      "state": "body_complete",
+      "status": 200,
+      "response_url": "https://api.github.com/repos/Aidan-Wallace/kubernetes-dashboard-token-api/pulls/20/files?per_page=100&page=1",
+      "headers": {
+        "Content-Length": "356",
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Encoding": "gzip"
+      },
+      "body": "0002.body",
+      "body_bytes": 721,
+      "body_sha256": "19af613be7a54b92da1d81a1d1a46102314cba0c1db00e9d91a2af9db9dfbcca",
+      "finished_at": "2026-10-22T17:01:18.827688+00:00"
+    },
+    {
+      "number": 3,
+      "method": "GET",
+      "url": "https://api.github.com/repos/Aidan-Wallace/kubernetes-dashboard-token-api/pulls/20",
+      "started_at": "2026-10-22T17:01:18.837290+00:00",
+      "state": "body_complete",
+      "status": 200,
+      "response_url": "https://api.github.com/repos/Aidan-Wallace/kubernetes-dashboard-token-api/pulls/20",
+      "headers": {
+        "Content-Length": "29496",
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      "body": "0003.body",
+      "body_bytes": 29496,
+      "body_sha256": "b19cec81741eb1545cf7e3b5ba034c68e610b9c4970609198b33bfaf3f841c8c",
+      "finished_at": "2026-10-22T17:01:19.062185+00:00"
+    },
+    {
+      "number": 4,
+      "method": "GET",
+      "url": "https://api.github.com/repos/Aidan-Wallace/kubernetes-dashboard-token-api/actions/runs?event=pull_request&head_sha=391508134b083b8f54461c0b576e8f7985c6ecb4&per_page=100&page=1",
+      "started_at": "2026-10-22T17:01:19.063788+00:00",
+      "state": "body_complete",
+      "status": 200,
+      "response_url": "https://api.github.com/repos/Aidan-Wallace/kubernetes-dashboard-token-api/actions/runs?event=pull_request&head_sha=391508134b083b8f54461c0b576e8f7985c6ecb4&per_page=100&page=1",
+      "headers": {
+        "Content-Length": "56",
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Encoding": "gzip"
+      },
+      "body": "0004.body",
+      "body_bytes": 36,
+      "body_sha256": "a2790a384d7d281e7395679000c35d27768d89dbd7052f725b8f4688beb59915",
+      "finished_at": "2026-10-22T17:01:19.666412+00:00"
+    },
+    {
+      "number": 5,
+      "method": "GET",
+      "url": "https://pypi.org/pypi/httpx/0.28.1/json",
+      "started_at": "2026-10-22T17:01:19.667414+00:00",
+      "state": "body_complete",
+      "status": 200,
+      "response_url": "https://pypi.org/pypi/httpx/0.28.1/json",
+      "headers": {
+        "Content-Length": "3595",
+        "Content-Type": "application/json",
+        "Content-Encoding": "gzip"
+      },
+      "body": "0005.body",
+      "body_bytes": 9117,
+      "body_sha256": "293bfab7bf587fcd0825f1bd8eed8e6303285ba14801b15659853827cbe30796",
+      "finished_at": "2026-10-22T17:01:20.240402+00:00"
+    },
+    {
+      "number": 6,
+      "method": "GET",
+      "url": "https://pypi.org/pypi/httpx/0.27.2/json",
+      "started_at": "2026-10-22T17:01:20.250997+00:00",
+      "state": "body_complete",
+      "status": 200,
+      "response_url": "https://pypi.org/pypi/httpx/0.27.2/json",
+      "headers": {
+        "Content-Length": "3592",
+        "Content-Type": "application/json",
+        "Content-Encoding": "gzip"
+      },
+      "body": "0006.body",
+      "body_bytes": 9111,
+      "body_sha256": "7446aaeeb6033d077d6526f0e9e99cc854cf2ff6f51a3f1e18cd361a8f8750c3",
+      "finished_at": "2026-10-22T17:01:20.451744+00:00"
+    },
+    {
+      "number": 7,
+      "method": "GET",
+      "url": "https://pypi.org/integrity/httpx/0.28.1/httpx-0.28.1-py3-none-any.whl/provenance",
+      "started_at": "2026-10-22T17:01:20.460795+00:00",
+      "state": "body_not_consumed",
+      "status": 404,
+      "response_url": "https://pypi.org/integrity/httpx/0.28.1/httpx-0.28.1-py3-none-any.whl/provenance",
+      "headers": {
+        "Content-Length": "71",
+        "Content-Type": "application/json"
+      },
+      "body": "0007.body",
+      "body_bytes": 0,
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "finished_at": "2026-10-22T17:01:20.999431+00:00"
+    },
+    {
+      "number": 8,
+      "method": "GET",
+      "url": "https://pypi.org/integrity/httpx/0.28.1/httpx-0.28.1.tar.gz/provenance",
+      "started_at": "2026-10-22T17:01:21.001973+00:00",
+      "state": "body_not_consumed",
+      "status": 404,
+      "response_url": "https://pypi.org/integrity/httpx/0.28.1/httpx-0.28.1.tar.gz/provenance",
+      "headers": {
+        "Content-Length": "61",
+        "Content-Type": "application/json"
+      },
+      "body": "0008.body",
+      "body_bytes": 0,
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "finished_at": "2026-10-22T17:01:21.592050+00:00"
+    }
+  ]
+}
