@@ -1,0 +1,100 @@
+{
+  "purpose": "Bounded historical-report readiness inspection; not a utility study freeze",
+  "source_head": "07833843dbf596aba0c4d3db07993a1c7a875ed3",
+  "selection_path": "working-memory/evidence/2026-10-22-maintainer-utility-readiness/selection.json",
+  "reports": [
+    {
+      "label": "soupsieve-support-drop",
+      "role": "candidate",
+      "path": "working-memory/evidence/2026-10-03-report-model-recovery/live-model-investigation-report.json",
+      "historical_sha256": "e2171c660736b2c457bd9a95a4bdc0abbb32665a3a7dfb91d6685cfdbdb84997",
+      "original_receipt": "working-memory/evidence/2026-10-03-report-model-recovery/live-model-verification-manifest.json"
+    },
+    {
+      "label": "httpx-source-unavailable",
+      "role": "candidate",
+      "path": "working-memory/evidence/2026-10-03-report-development-case-check/httpx-api-context-report.json",
+      "historical_sha256": "a82d75e24cf8c4a8c03746f209e470ecfe0f32a3f0635a53a707f0b11e2aaf97",
+      "original_receipt": "working-memory/evidence/2026-10-03-report-development-case-check/execution-results.json"
+    },
+    {
+      "label": "opencv-artifact-uncertainty",
+      "role": "candidate",
+      "path": "working-memory/evidence/2026-10-03-report-development-case-check/opencv-artifact-report-after-repair.json",
+      "historical_sha256": "ad11adf0307a1edee855a8f54734f8d453d41c721cd3e2ee4412a80ecf186be7",
+      "original_receipt": "working-memory/evidence/2026-10-03-report-development-case-check/repair-verification.json"
+    },
+    {
+      "label": "soupsieve-provider-connection-failure",
+      "role": "same-case-control",
+      "path": "working-memory/evidence/2026-10-03-report-save-open/public-investigation-report.json",
+      "historical_sha256": "96e3dbcd467c6d8211fb4afaefdac1a3ad13f5ba956f1faea61ccfdac122d7cf",
+      "original_receipt": "working-memory/evidence/2026-10-03-report-save-open/verification-manifest.json"
+    },
+    {
+      "label": "soupsieve-tag-rate-limit",
+      "role": "same-case-control",
+      "path": "working-memory/evidence/2026-10-03-report-model-recovery/rate-limited-investigation-report.json",
+      "historical_sha256": "19bbe7e31715abd22fb9773f70fe62f270e81496a0c7340be6e7359f325a595a",
+      "original_receipt": "working-memory/evidence/2026-10-03-report-model-recovery/verification-manifest.json"
+    },
+    {
+      "label": "opencv-before-projection-repair",
+      "role": "same-case-control",
+      "path": "working-memory/evidence/2026-10-03-report-development-case-check/opencv-artifact-report-before-repair.json",
+      "historical_sha256": "d3be8dc75909772e2d7eb40329dd1b8ce22d1c98dbfdd42cb0ad1b25aaca72a3",
+      "original_receipt": "working-memory/evidence/2026-10-03-report-development-case-check/execution-results.json"
+    }
+  ],
+  "inspection_sources": [
+    {
+      "path": "src/upgradepilot/report.py",
+      "sha256": "59e1ffdb7aa85432a152ef6012bb4c901e00591254e11040a03629f1c37d516e"
+    },
+    {
+      "path": "src/upgradepilot/report_file.py",
+      "sha256": "4a8d1e09c27c7b84b760ea99ec3de8c0eee0c372e2d8c126069dc2d71fef4237"
+    },
+    {
+      "path": "src/upgradepilot/cli.py",
+      "sha256": "9335ba8345b4cf9891499984056e14a4b7522b10bf820592e3899ca7fbb04281"
+    },
+    {
+      "path": "working-memory/evidence/2026-10-22-maintainer-utility-readiness/inspect_reports.py",
+      "sha256": "871060cf88bd4ff58cf82eb3f5cac50febc52138d12b8765e9310a94ef449061"
+    },
+    {
+      "path": "working-memory/evidence/2026-10-03-report-model-recovery/live-model-verification-manifest.json",
+      "sha256": "38e84bd582a708c323cc39a7af3af8a8b7abec9e679706854c905d8037d98606"
+    },
+    {
+      "path": "working-memory/evidence/2026-10-03-report-development-case-check/execution-results.json",
+      "sha256": "0e84ae2e257e01de0fa9ae32985dc44d551114517f0598ab0914d78c06c86a73"
+    },
+    {
+      "path": "working-memory/evidence/2026-10-03-report-development-case-check/repair-verification.json",
+      "sha256": "2d56661ae71df717fe61f4ba5ed30f8c422a426b4fd96d0170947666b7fb188d"
+    },
+    {
+      "path": "working-memory/evidence/2026-10-03-report-save-open/verification-manifest.json",
+      "sha256": "835d850e634aee5a50354d92bf15b8de9be510120134debe857447890d55bf18"
+    },
+    {
+      "path": "working-memory/evidence/2026-10-03-report-model-recovery/verification-manifest.json",
+      "sha256": "f9b8cb615b923de2a813f146bc486a334732c6250af37a81a7513a6ec057dcb8"
+    }
+  ],
+  "limits": {
+    "network_requests": 0,
+    "model_calls": 0,
+    "target_execution": 0,
+    "max_reports": 6,
+    "execution_timeout_seconds": 60
+  },
+  "participant_availability": "unconfirmed; user question pending; no contact authorized",
+  "claim_limits": [
+    "No utility or semantic scoring",
+    "No baseline derived from report conclusions",
+    "No original report changes or historical refresh"
+  ]
+}

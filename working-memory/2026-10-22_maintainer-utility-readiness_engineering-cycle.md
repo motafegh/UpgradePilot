@@ -32,3 +32,13 @@ Learning topics to retain: historical report reopening versus fresh investigatio
 
 UP-SKILL:upgradepilot-planning-design
 UP-SKILL:upgradepilot-working-memory
+
+## Retained report verification and source ledger
+
+A pre-execution selection binds six historical report hashes from their original receipts, inspection source hashes and zero-network/60-second limits. The one-off inspect_reports.py uses current strict decoding, encode/decode record equality and actual cli.main --open-report behind denied requests/socket connection calls. All6 reopen with exit0 and exact saved-record rendering, zero network attempts, unchanged originals; measured internal wall0.145609s. Three successful normal-report candidates and three same-case failure/before-repair controls remain separate denominators. No product behavior was edited, so no unrelated product regression suite was rerun.
+
+Among the3 candidates there are67 report source entries:43 producer_result,12 selected_facts,10 reference_only,2 retained_text. The2 texts are one full tagged changelog and a model-selected grounded quote from that same source, not2 independent authoritative inputs. Full dependency/workflow/target inputs and provider response bodies are not established by those entries. The reviewed original receipts contain no complete comparable October3 source-packet index. This is a scoped availability finding, not a global claim that no such bytes exist anywhere. October16 HTTPX native/source catalogs and retrospective simulation excerpts cannot fill October3 gaps without a new identity/horizon declaration.
+
+No new acquisition/correlation/runtime defect is demonstrated. Existing saved-report retention explicitly discloses partial source retention; that is not by itself a broken reporting contract. The useful next technical responsibility is matched normal acquisition/report-source preparation with complete ordinary-review access, kept separate from reviewer outcomes and product retention changes. Independent reviewers/adjudicators remain unconfirmed; question sent to Ali, no external contact.
+
+Recipe and receipts: [inspection code](evidence/2026-10-22-maintainer-utility-readiness/inspect_reports.py), [pre-inspection selection](evidence/2026-10-22-maintainer-utility-readiness/selection.json), [report/source ledger](evidence/2026-10-22-maintainer-utility-readiness/report-inventory.json).
