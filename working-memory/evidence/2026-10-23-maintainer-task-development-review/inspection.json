@@ -1,0 +1,122 @@
+{
+  "mode": "exposed_ai_assisted_development_review",
+  "cases": {
+    "httpx": {
+      "original_report_sha256": "fbc88dba74e2ff92efbeeca7762b7218d0796348e239a863ba09f60d4db035ad",
+      "source_index_sha256": "34fb9393349bf001b4a83bc34e53de0542e1f4d3295f6490412b86e954c9cda2",
+      "product_source_files_verified": 96,
+      "http_observations_verified": 8,
+      "complete_bodies": 6,
+      "status_only_bodies": 2,
+      "decoded_bytes_verified": 77977,
+      "pr_body_characters": 9348,
+      "pr_body_utf8_sha256": "179e4ce07210cb1b800cadff842cb63438a7afbaec0d199678c61fecf1c25f3a",
+      "spans_in_decoded_pr_body": {
+        "app_removal": {
+          "start_character": 1387,
+          "end_character": 1449,
+          "occurrences": 2,
+          "text_sha256": "0f778a419856dae923ab8853c1d2dede6492f32b989110d2d90bdacbaa82c255"
+        },
+        "cert_deprecation": {
+          "start_character": 966,
+          "end_character": 1014,
+          "occurrences": 2,
+          "text_sha256": "e144de1e3f60d373119378fa5b92e1aeeb391648cf4988f6848da86c6447eba1"
+        }
+      },
+      "pr_body_retained_in_report": false,
+      "report_lines": 273,
+      "report_words": 1518,
+      "assessments": 13,
+      "findings": 6,
+      "unknowns": 9,
+      "sources": 17,
+      "removed_exact_tags": [],
+      "added_exact_tags": [],
+      "proposed_sdist": true,
+      "maintainer_action": "abstain"
+    },
+    "opencv": {
+      "original_report_sha256": "9f6b2d79a08421db5c113a9a0e38d34176728352d8644c52ddc86a2acea88116",
+      "source_index_sha256": "8a62a31c0c8ceefa34dc0bfd270d23ce94d2da3c4db72e996ad6e42eafbe8b43",
+      "product_source_files_verified": 96,
+      "http_observations_verified": 13,
+      "complete_bodies": 6,
+      "status_only_bodies": 7,
+      "decoded_bytes_verified": 112000,
+      "pr_body_characters": 5900,
+      "pr_body_utf8_sha256": "e0b59d6d5b77b49da8f06e548508dc2282009d9d78f51b9bea996e2c7ea69d47",
+      "spans_in_decoded_pr_body": {
+        "python_support": {
+          "start_character": 2839,
+          "end_character": 2866,
+          "occurrences": 1,
+          "text_sha256": "4c2c607ad36904502398eae9be71379ce59e7e8a19649299195336c31a6d4b31"
+        },
+        "truncation": {
+          "start_character": 3360,
+          "end_character": 3375,
+          "occurrences": 1,
+          "text_sha256": "7dbd57c870e2bc3f0ee8d4126df2b59f5209d8d75b92b7361ebf7f1851d7439d"
+        }
+      },
+      "pr_body_retained_in_report": false,
+      "report_lines": 286,
+      "report_words": 1664,
+      "assessments": 13,
+      "findings": 7,
+      "unknowns": 10,
+      "sources": 18,
+      "removed_exact_tags": [
+        "cp27-cp27m-macosx_10_9_x86_64",
+        "cp27-cp27m-manylinux1_i686",
+        "cp27-cp27m-manylinux1_x86_64",
+        "cp27-cp27m-win32",
+        "cp27-cp27m-win_amd64",
+        "cp27-cp27mu-manylinux1_i686",
+        "cp27-cp27mu-manylinux1_x86_64",
+        "cp35-cp35m-macosx_10_9_x86_64",
+        "cp35-cp35m-manylinux1_i686",
+        "cp35-cp35m-manylinux1_x86_64",
+        "cp35-cp35m-win32",
+        "cp35-cp35m-win_amd64",
+        "cp36-cp36m-macosx_10_9_x86_64",
+        "cp36-cp36m-manylinux1_i686",
+        "cp36-cp36m-manylinux1_x86_64",
+        "cp36-cp36m-win32",
+        "cp36-cp36m-win_amd64",
+        "cp37-cp37m-macosx_10_9_x86_64",
+        "cp37-cp37m-manylinux1_i686",
+        "cp37-cp37m-manylinux1_x86_64",
+        "cp37-cp37m-win32",
+        "cp37-cp37m-win_amd64",
+        "cp38-cp38-macosx_10_9_x86_64",
+        "cp38-cp38-manylinux1_i686",
+        "cp38-cp38-manylinux1_x86_64",
+        "cp38-cp38-win32",
+        "cp38-cp38-win_amd64"
+      ],
+      "added_exact_tags": [
+        "cp37-abi3-macosx_10_16_x86_64",
+        "cp37-abi3-macosx_11_0_arm64",
+        "cp37-abi3-manylinux2014_aarch64",
+        "cp37-abi3-manylinux2014_x86_64",
+        "cp37-abi3-manylinux_2_17_aarch64",
+        "cp37-abi3-manylinux_2_17_x86_64",
+        "cp37-abi3-win32",
+        "cp37-abi3-win_amd64"
+      ],
+      "proposed_sdist": true,
+      "maintainer_action": "abstain"
+    }
+  },
+  "non_claims": [
+    "independent utility",
+    "semantic grading",
+    "task-time savings",
+    "target compatibility",
+    "fresh acquisition",
+    "native replay"
+  ]
+}

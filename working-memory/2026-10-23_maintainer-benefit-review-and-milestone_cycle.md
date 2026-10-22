@@ -44,6 +44,14 @@ Both complete PR JSON bodies contain copied release context: HTTPX has removals/
 
 This sharpens the prior audit: missing upstream publisher provenance does not imply the retained ordinary-review packet lacks all release-note context. The final review must preserve that correction and compare omitted context alongside the report's valid narrower findings. The distinction can change the investment choice without a third live capture.
 
+## Completed development review
+
+[Review](evidence/2026-10-23-maintainer-task-development-review/REVIEW.md), [read-only reproduction recipe](evidence/2026-10-23-maintainer-task-development-review/inspect_retained_cases.py) and [inspection receipt](evidence/2026-10-23-maintainer-task-development-review/inspection.json) preserve both cases. All21 observations/189,977 decoded bytes verify; both strict reports decode, public/private report/index/receipt copies match, and both96-file product source hash sets match. Direct filename tag-field expansion reproduces OpenCV's full27 removed/8 added sets without the product owner/packaging parser; HTTPX has no changed exact tag set. No target compatibility follows.
+
+HTTPX contributes narrow no-run/runtime/artifact explanations but omits copied API/deprecation context; OpenCV contributes real inventory summarization while missing copied support context and retaining unresolved target effect. PR descriptions are mutable/copy-attributed observations, not stronger upstream authority. Reports have273/286 lines and9/10 unknowns; repetition is observed, cognitive/time cost unmeasured. No additional critical false runtime/compatibility/action assertion was established in the scoped review.
+
+The preferred next design is normal PR-description preservation and inspectable attributed source access. It is an enabling step with a strong duplication counterargument: reviewers already can open the PR. Require an exact offline or downstream consumer need and usable inspection route; do not call retention alone useful or add raw HTML to the summary by default. Scope, transfer/versioning and consumer access must be settled before Build. No immediate third capture is required to establish this missing producer transfer.
+
 UP-SKILL:upgradepilot-planning-design
 UP-SKILL:upgradepilot-repository-audit
 UP-SKILL:upgradepilot-working-memory
