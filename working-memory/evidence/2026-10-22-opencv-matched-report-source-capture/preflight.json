@@ -1,0 +1,31 @@
+{
+  "purpose": "Separately retained current PR identity preflight; not a normal source/report case",
+  "private_output": "/home/motafeq/.local/share/upgradepilot/report-source-captures/opencv-preflight-2026-10-22",
+  "producer": "GitHubPullRequestClient.get_pull_request",
+  "limits": {
+    "max_requests": 1,
+    "max_body_bytes": 8388608,
+    "max_total_body_bytes": 8388608,
+    "max_elapsed_seconds": 30
+  },
+  "external_timeout_seconds": 45,
+  "tool_sha256": "3d1e565aae2ea98a388f0bfb40a91667cef0a1b1a80bfd43e47369a06552ac5b",
+  "outcome": "identity_acquired",
+  "identity": {
+    "repository": "carla-simulator/scenario_runner",
+    "number": 1111,
+    "title": "Bump opencv-python from 4.2.0.32 to 4.8.1.78",
+    "state": "open",
+    "merged": false,
+    "author": "dependabot[bot]",
+    "base_ref": "master",
+    "base_sha": "7758d066080f180f8296887ed89b7c723a54706a",
+    "head_ref": "dependabot/pip/opencv-python-4.8.1.78",
+    "head_sha": "f32ad2d23a9abee47c566dfbed2b822d953a09e2",
+    "changed_files": 1
+  },
+  "elapsed_seconds": 0.9972660889998224,
+  "requests": 1,
+  "decoded_body_bytes": 24077,
+  "source_index_sha256": "286bd2f8cc5f9b59ef7437555904bff8c4a0559ae7975f020914d24f4456d45d"
+}

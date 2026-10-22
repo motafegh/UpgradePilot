@@ -1,0 +1,25 @@
+{
+  "format": "upgradepilot.diagnostic-http-sources/1",
+  "meaning": "Normal producer HTTP observations, not findings or expected answers",
+  "body_representation": "Requests decoded entity bytes, not wire compression",
+  "body_hash_scope": "Retained response prefix; full body only for body_complete",
+  "requests": [
+    {
+      "number": 1,
+      "method": "GET",
+      "url": "https://api.github.com/repos/carla-simulator/scenario_runner/pulls/1111",
+      "started_at": "2026-10-22T17:21:23.220637+00:00",
+      "state": "body_complete",
+      "status": 200,
+      "response_url": "https://api.github.com/repos/carla-simulator/scenario_runner/pulls/1111",
+      "headers": {
+        "Content-Length": "24077",
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      "body": "0001.body",
+      "body_bytes": 24077,
+      "body_sha256": "9b92282f619112739356f9c0ed5049322e4856b2bf632662a8e6efd8c161e0b1",
+      "finished_at": "2026-10-22T17:21:24.215769+00:00"
+    }
+  ]
+}

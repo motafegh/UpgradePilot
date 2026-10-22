@@ -1,0 +1,18 @@
+{
+  "purpose": "One normal OpenCV artifact/applicability source-report contrast; not independent utility study",
+  "expected_identity": {
+    "repository": "carla-simulator/scenario_runner",
+    "pull_number": "1111",
+    "base_sha": "7758d066080f180f8296887ed89b7c723a54706a",
+    "head_sha": "f32ad2d23a9abee47c566dfbed2b822d953a09e2",
+    "package": "opencv-python",
+    "old_version": "4.2.0.32",
+    "proposed_version": "4.8.1.78"
+  },
+  "limits": {
+    "max_requests": 32,
+    "max_body_bytes": 8388608,
+    "max_total_body_bytes": 33554432,
+    "max_elapsed_seconds": 120
+  }
+}

@@ -27,3 +27,9 @@ Learning elsewhere: open-PR base/head drift and preflight versus captured identi
 
 UP-SKILL:upgradepilot-build-implement
 UP-SKILL:upgradepilot-working-memory
+
+## Separate identity preflight and operational selection
+
+One anonymous normal GitHub identity GET completes in0.997266s, retaining24,077 decoded bytes separately. PR1111 remains open/unmerged and base/head match the older frozen selection. New contract selects those observed identities and the exact OpenCV4.2.0.32→4.8.1.78 change before case output. No old report, raw capture or manual target context is fed into the normal application.
+
+[Preflight receipt](evidence/2026-10-22-opencv-matched-report-source-capture/preflight.json) and private source index remain separate from the future normal packet. [Operational freeze](evidence/2026-10-22-opencv-matched-report-source-capture/freeze.json) binds102 code/test/owner/contract/preflight identities, including all96 product Python files.32 normal GET/120s action/150s external/8MiB-body/32MiB-total caps, plus the already measured1 preflight GET. No new code or test changes; prior9/79 tests remain historical source-compatible baseline. Publish before the one normal capture.

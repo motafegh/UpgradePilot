@@ -1,0 +1,444 @@
+{
+  "purpose": "One normal OpenCV matched-source operational proof; not study freeze",
+  "entry_commit": "77f745c8",
+  "preflight_commit": "a34306b646b77800dfdd32aa2ecf32814309def7",
+  "source_members": [
+    {
+      "path": "experiments/tests/test_report_source_capture.py",
+      "sha256": "f47f4563bcfbfbf4c8062b19fde56153baae6d0be88a8d9827353a535952954d"
+    },
+    {
+      "path": "plans/MAINTAINER_REPORT_PRESERVATION_AND_USEFULNESS_EVALUATION_PLAN.md",
+      "sha256": "8a4b8a776a91df22275abd95a25ab26eecad5f579fda5031c847e843c6c92675"
+    },
+    {
+      "path": "src/upgradepilot/__init__.py",
+      "sha256": "72f39b52ce7518aa290dde500df1fe8f7714a74aabe2a8e428ae6806014733b5"
+    },
+    {
+      "path": "src/upgradepilot/__main__.py",
+      "sha256": "c21eab7a117f68d26cb0ae67367ec482ba299ebadae9e736591fd50204d9a5d6"
+    },
+    {
+      "path": "src/upgradepilot/ci/__init__.py",
+      "sha256": "e266021052132cf90c5c02faee767df1fac7973a0d30d2c6cd772f8124ac2f2d"
+    },
+    {
+      "path": "src/upgradepilot/ci/consumption.py",
+      "sha256": "99f8b4bcefa52cd7df073b025357fd5b96e52a8d59a22f9447ad7c29ca7b7407"
+    },
+    {
+      "path": "src/upgradepilot/ci/dependency_exercise.py",
+      "sha256": "023f3ce6aa8b9ef1b17b943859f90aa709ffb7c61b4abce646b27a066c56356a"
+    },
+    {
+      "path": "src/upgradepilot/ci/dependency_state.py",
+      "sha256": "3fb5a4d6f91fa7e04cc73fb4d6a5a3390544cedbfa60b1ea7c6ff0156acaceba"
+    },
+    {
+      "path": "src/upgradepilot/ci/executable_selection.py",
+      "sha256": "038a2f599c8f5fc3645d671f19bcd5640ac7da6964a846c61699b30752a8b13e"
+    },
+    {
+      "path": "src/upgradepilot/ci/native_codec.py",
+      "sha256": "8975273f83cec79285ed5a931560f7d81afa711c211861b7c237cb71ec97d18f"
+    },
+    {
+      "path": "src/upgradepilot/ci/runtime_execution.py",
+      "sha256": "46b44d5a9abfa19cf262dc46f1bef73b72c1c9d3a9f2abdeb40ecc152baea4b5"
+    },
+    {
+      "path": "src/upgradepilot/ci/runtime_strengthening.py",
+      "sha256": "884307e52168de9715cf7e01b6a8b16f6c162d673d3692c328afd689ab35a488"
+    },
+    {
+      "path": "src/upgradepilot/ci/static_command_order.py",
+      "sha256": "0a683df244c14a535f92e3662c07f3155ff8ea51ada6d04d145d6f1399b437d6"
+    },
+    {
+      "path": "src/upgradepilot/ci/workflow_commands.py",
+      "sha256": "c665b5f889c4eb18ee9e42c251d07a851492973f8b273472b6c106f5a826d11c"
+    },
+    {
+      "path": "src/upgradepilot/ci/workflow_runtime_correlation.py",
+      "sha256": "ec9644e509c6c162ef476eb437f903aa777d70f9e0bff1c13674e8b4227eef9b"
+    },
+    {
+      "path": "src/upgradepilot/cli.py",
+      "sha256": "9335ba8345b4cf9891499984056e14a4b7522b10bf820592e3899ca7fbb04281"
+    },
+    {
+      "path": "src/upgradepilot/dependency/__init__.py",
+      "sha256": "fef9c39d89bbfd604435cf7546e0b2eb4abf981db7890c328649bd43b812ceb2"
+    },
+    {
+      "path": "src/upgradepilot/dependency/analysis.py",
+      "sha256": "3358825a9a95b75bab277ff584316357587d1aef762f16855c035b9a2a873c51"
+    },
+    {
+      "path": "src/upgradepilot/dependency/change.py",
+      "sha256": "acf294612a6d4d3b5083c646add7590fac6542e833078637ed93061f2b72bc98"
+    },
+    {
+      "path": "src/upgradepilot/dependency/direct_install.py",
+      "sha256": "d3b4dd533a84d43bfd1ee56bc8859df9f485640ccd966523a30a922368ff8fd1"
+    },
+    {
+      "path": "src/upgradepilot/dependency/environment.py",
+      "sha256": "1b1240d4d7c592dd4566b11f3170b145a522e55a0ecc0f06da744440d6715152"
+    },
+    {
+      "path": "src/upgradepilot/dependency/environment_membership.py",
+      "sha256": "ded0c8bd12049549060194a5948f39c350ff20c48a5aa98abf35b278ad53fd7f"
+    },
+    {
+      "path": "src/upgradepilot/dependency/environment_selection.py",
+      "sha256": "66565aaf24dc8f642d1da8d17a1431ed45079b4e7f128acd75d5c82ddf417873"
+    },
+    {
+      "path": "src/upgradepilot/dependency/package_manager_config.py",
+      "sha256": "171dc145c9917f9719a904e9bef890a26019a94d04fc13ffb9e38ec64789d643"
+    },
+    {
+      "path": "src/upgradepilot/dependency/package_manager_operation.py",
+      "sha256": "9a0b2e7cf5e7a302f504f6baf1a457847851fcb4977375488f7c8cb5bedf54fa"
+    },
+    {
+      "path": "src/upgradepilot/dependency/package_manager_semantics.py",
+      "sha256": "f72b42881e5cbdb08b2283a8be208b7e6aa05ddc84cfbd20f0a6e8c956ffa14b"
+    },
+    {
+      "path": "src/upgradepilot/dependency/pyproject.py",
+      "sha256": "00773f19b88a747cd920b3a3940641fd938bda16c17b50b0e630871e3b6b1001"
+    },
+    {
+      "path": "src/upgradepilot/dependency/requirements.py",
+      "sha256": "b0c30857cf8f9da02b7b2b09ecd8a4db13b3a66be43a8ddcde76959df7d4a9b9"
+    },
+    {
+      "path": "src/upgradepilot/dependency/uv_lock.py",
+      "sha256": "a9bacda8da3903a1aa757e8a837ba7e2c7db0371f7b96e995f62099a3b53ee1f"
+    },
+    {
+      "path": "src/upgradepilot/dependency/uv_lock_structure.py",
+      "sha256": "866d24f24e00d5c32983bd17eab0058c8ce9b769693d0ce7ee427f4d6d42fb8e"
+    },
+    {
+      "path": "src/upgradepilot/dependency/uv_reachability.py",
+      "sha256": "f520c008735ea8431167a4f0b866bd6efed249e82ebfaba8afd2b34c4ca92b17"
+    },
+    {
+      "path": "src/upgradepilot/dependency/versioning.py",
+      "sha256": "cf9a585f6fbe7a47f3a60dcd2d335ad9b1aee1cb81eb69e1a88027252cf365d5"
+    },
+    {
+      "path": "src/upgradepilot/dependency/workflow_context.py",
+      "sha256": "893aab102ebc0f7efdc7861b8337b3a2474c668e75040cac0f9720bda49e7ead"
+    },
+    {
+      "path": "src/upgradepilot/github/__init__.py",
+      "sha256": "e3af84e52ea2353cebc0e4701af71fd48e819a029ed06e6919a1446b8e76d9fc"
+    },
+    {
+      "path": "src/upgradepilot/github/actions.py",
+      "sha256": "c13adc5d38e227c4056b4d516cf9b34c642e35729cc19da2bb1426b22b176257"
+    },
+    {
+      "path": "src/upgradepilot/github/api.py",
+      "sha256": "dd470987507324322d6eec9022a10f1c132fcf173b6d5b5fbd45886e3889be13"
+    },
+    {
+      "path": "src/upgradepilot/github/auth_session.py",
+      "sha256": "251e56b2faddef821ca97fd14e5d3f69957f25670950fdf6a0825ca74cb56f3d"
+    },
+    {
+      "path": "src/upgradepilot/github/changelog.py",
+      "sha256": "6db510ab6ac8624d96db987aa5cc9e7e74c793eb83ab53b4201e0d2f55658c2d"
+    },
+    {
+      "path": "src/upgradepilot/github/executable_selection.py",
+      "sha256": "bef66038dc3c51e734508edcf3bc0ac93e85b7ba7e4db92ed5222713e2aeb66f"
+    },
+    {
+      "path": "src/upgradepilot/github/identity.py",
+      "sha256": "06317e5b9855c1fd9997d46d347da0f83acd99276ff256b1cab1864209c8dd1d"
+    },
+    {
+      "path": "src/upgradepilot/github/process_environment.py",
+      "sha256": "b0249b215939ca95778e7d5d1e98cdacb4f93ee12866eef60242cbcdd6126427"
+    },
+    {
+      "path": "src/upgradepilot/github/pull_request.py",
+      "sha256": "f5a605e8d69df3808b10137e000fe366bae8ecb2df4b115a41e9b54dd2555d41"
+    },
+    {
+      "path": "src/upgradepilot/github/release.py",
+      "sha256": "cab6bc52be08c91e0409552ab7c2d28acb26b43337336451a6939d8df8e1abb0"
+    },
+    {
+      "path": "src/upgradepilot/github/repository.py",
+      "sha256": "ee2a116e449cdd1a6198d970d1ca840bfa5563ca9edffe4ebd22acb425aaac93"
+    },
+    {
+      "path": "src/upgradepilot/github/tag.py",
+      "sha256": "c2a4c73ca1fb6053373dbfdd894bf61ac08b38361a6bf1691f0b1df6b1f5b22c"
+    },
+    {
+      "path": "src/upgradepilot/github/workflow_command_analysis.py",
+      "sha256": "622e2ce02e330ebd7f92692b341df5e911084a84a4d7a502579b129d0716b452"
+    },
+    {
+      "path": "src/upgradepilot/github/workflow_command_location.py",
+      "sha256": "8d80994f02bc6d88ccfe22c21b24bdd6630b7145a7beb2b509bd7d22c2cd08a2"
+    },
+    {
+      "path": "src/upgradepilot/github/workflow_command_shell.py",
+      "sha256": "0a325a3e578659329fa5727c07c512d797b1e41273816f77255eeb0294d0f22b"
+    },
+    {
+      "path": "src/upgradepilot/github/workflow_definition.py",
+      "sha256": "cd3a8f39903a36ff1b586f41de529343decf11bb6fe8aadcee7113fbb07b045d"
+    },
+    {
+      "path": "src/upgradepilot/github/workflow_environment.py",
+      "sha256": "7429aca6ee5b350cae3eb54aeaaf245de8ce8156d13b6b22c93f1e9dc9871e23"
+    },
+    {
+      "path": "src/upgradepilot/impact/__init__.py",
+      "sha256": "3b34972c1a5292eaa86ba11d4a179e0f41ef6f9ef7ecbff3d145d13d9c60c913"
+    },
+    {
+      "path": "src/upgradepilot/impact/applicability.py",
+      "sha256": "a1fbb1b1f0beb396ab227130d81a268603e3e0d459bff266dc426fdf7b6c3f3a"
+    },
+    {
+      "path": "src/upgradepilot/impact/artifact_serviceability.py",
+      "sha256": "183368ac12574888297a9a75e6f316662851e741b9f4e4a95041aa010b59fcfc"
+    },
+    {
+      "path": "src/upgradepilot/impact/python_support.py",
+      "sha256": "ea49b445c59502bd67207ceb286badaa879816684179e066e0d5e7dc6e1704f0"
+    },
+    {
+      "path": "src/upgradepilot/impact/python_support_codec.py",
+      "sha256": "eccd52e562b58b4036fe279780db16b4dbf1a996bc0869d623b22b3b9ae6ad6d"
+    },
+    {
+      "path": "src/upgradepilot/investigation.py",
+      "sha256": "8903124f725ccfe9e2696fe22823eb910044d5a99b640d0431f8fee59bea3b47"
+    },
+    {
+      "path": "src/upgradepilot/investigation_inputs.py",
+      "sha256": "35f893290ccc6e7ee521624dff43afeb905252a1d8e2744fe4ae86023628bfae"
+    },
+    {
+      "path": "src/upgradepilot/json_contract.py",
+      "sha256": "26789c345f354fff27f049d487d5e02ac969611886aeb06f3b04194ad63ec5e3"
+    },
+    {
+      "path": "src/upgradepilot/maintainer_action.py",
+      "sha256": "a5e718392419c2097362e771b7e2f54dc1bcf246d76317ddfa5eb48c9dfdffbd"
+    },
+    {
+      "path": "src/upgradepilot/package_identity.py",
+      "sha256": "15da1cdb3b57a4694a2044775f0d5e1da99c4e64301d1d85a88870032eedf2b0"
+    },
+    {
+      "path": "src/upgradepilot/pypi/__init__.py",
+      "sha256": "dde24aa35c9faab759178796f6aeba88415f1fbf5fa18d75f114df55123bbd46"
+    },
+    {
+      "path": "src/upgradepilot/pypi/api.py",
+      "sha256": "9fa05b970bf29fec4f6a078b2be07097318367369d9f4844c5cf83225faf60fd"
+    },
+    {
+      "path": "src/upgradepilot/pypi/provenance.py",
+      "sha256": "db896b5301e1ed27d8fe28f110321abb9e6795af9bdfbf8629d97d30aaa79fe5"
+    },
+    {
+      "path": "src/upgradepilot/pypi/release.py",
+      "sha256": "683b5d4904cd5f069e7f046b8f7294b2d7b4f26e05adb1bb147bfcd4855454f7"
+    },
+    {
+      "path": "src/upgradepilot/report.py",
+      "sha256": "59e1ffdb7aa85432a152ef6012bb4c901e00591254e11040a03629f1c37d516e"
+    },
+    {
+      "path": "src/upgradepilot/report_file.py",
+      "sha256": "4a8d1e09c27c7b84b760ea99ec3de8c0eee0c372e2d8c126069dc2d71fef4237"
+    },
+    {
+      "path": "src/upgradepilot/report_projection.py",
+      "sha256": "e1f395d0ad5bb4713239c91147e045880b6926cf6cedf799da12617f69497232"
+    },
+    {
+      "path": "src/upgradepilot/repository_path.py",
+      "sha256": "691a0e0036cd08eab3d11e2f7cdb7f73656df8d50538cc352ffb7b995f04f1e6"
+    },
+    {
+      "path": "src/upgradepilot/target/__init__.py",
+      "sha256": "0834cf14b4704ba8fb29a5b99546cabf77e709f8b365bba6ed708f798bbf2142"
+    },
+    {
+      "path": "src/upgradepilot/target/artifact_environment.py",
+      "sha256": "4ca234c73e72e0a115531fc07108ddd1f9cd50b3c8f851d5d8f0c6b2f0fd91a8"
+    },
+    {
+      "path": "src/upgradepilot/target/python.py",
+      "sha256": "5ec59e9211733e3312f7c103a4d980ce01b61e00a6c99299000b1dd6379fbd7e"
+    },
+    {
+      "path": "src/upgradepilot/target/python_specifier.py",
+      "sha256": "14074fe7745ab7373e845146f4c739725874a2966c44bf48798ebad36aeddf87"
+    },
+    {
+      "path": "src/upgradepilot/target/relevance.py",
+      "sha256": "0827bc4afc6d5921248404ee1c0b6ed519380c3a37ca9ef2cd8dac2a9e3d9a2c"
+    },
+    {
+      "path": "src/upgradepilot/upstream/__init__.py",
+      "sha256": "0911dd55404968c7b5bb66c4a4747b794108115e7b34b5580661ae19e5819dfc"
+    },
+    {
+      "path": "src/upgradepilot/upstream/changelog.py",
+      "sha256": "bcbcc0fea3bf83a29c19d72692979c051691e2927e5e509a2488f4a5a08b34df"
+    },
+    {
+      "path": "src/upgradepilot/upstream/claim.py",
+      "sha256": "a9193e5e095305f391bdf673a1fb0c68743d6df4ea3eaa117c4e76bd47161311"
+    },
+    {
+      "path": "src/upgradepilot/upstream/interval.py",
+      "sha256": "cf2ca4ac15e30cfa8ca77d0759983ba737e000a9bb144e9d801f753f214595ef"
+    },
+    {
+      "path": "src/upgradepilot/upstream/interval_evidence.py",
+      "sha256": "72e318eb38ae98e55db74429a68b3b1cf0e3892ded8cb0b91224d23e4bbe7d5c"
+    },
+    {
+      "path": "src/upgradepilot/upstream/repository.py",
+      "sha256": "20cc528eb983ec42f7f164ab74568352608afca36716a90a34e1bde1fee8e5e5"
+    },
+    {
+      "path": "src/upgradepilot/upstream/support_drop.py",
+      "sha256": "bcde37d02a159b28f1446393581c0e79f71ef8e6a02fe3d19ae866d00eb0671a"
+    },
+    {
+      "path": "src/upgradepilot/upstream/support_drop_extractor.py",
+      "sha256": "7b74b736265eab410e8e363b5a3592be2a1e2dcb6e67a709dd350effbbd0c199"
+    },
+    {
+      "path": "src/upgradepilot/workspace/__init__.py",
+      "sha256": "860a088a80bc7778f39faf29063558bfccf6effb2240bc71b75e85adf7015a92"
+    },
+    {
+      "path": "src/upgradepilot/workspace/checkpoint_revision.py",
+      "sha256": "c848bd0c9ca17deef0ff3a6da0a817303a7457182b969441cea4f1a7024c1a18"
+    },
+    {
+      "path": "src/upgradepilot/workspace/checkpoint_store.py",
+      "sha256": "5c8e041cf512af294c87aa15c242f6da0b5fa02b04d8b0563e23114330ec322a"
+    },
+    {
+      "path": "src/upgradepilot/workspace/consumer_access.py",
+      "sha256": "dfb196c841f25e2ad0c928b08a0f5129c5bf082c14f836d12c45d4b2e54b017c"
+    },
+    {
+      "path": "src/upgradepilot/workspace/lifecycle_boundary.py",
+      "sha256": "20b4872c303c1af4b080cb171c06c8ae712863a64388ef9c5d793f8b06a5c117"
+    },
+    {
+      "path": "src/upgradepilot/workspace/lifecycle_host.py",
+      "sha256": "731e832ccb2170424917e2de624a798f718de00b34c2041b420d5c674460db98"
+    },
+    {
+      "path": "src/upgradepilot/workspace/lifecycle_records.py",
+      "sha256": "8d9f3d194fc73b97ff3e65b53eaa39fa8710aea3b3c85efc1ae401db1b8d20bc"
+    },
+    {
+      "path": "src/upgradepilot/workspace/material_validity.py",
+      "sha256": "1c5e9f5f7767b0800f4bd371e56a42a23cbd3846c9e7749db3d72aca77c96117"
+    },
+    {
+      "path": "src/upgradepilot/workspace/native_boundary.py",
+      "sha256": "2f1b9d5db609f27c0d0c1eb9cdfcacf6c8fbaff9f21e58fa3d11c6409b9f6ca2"
+    },
+    {
+      "path": "src/upgradepilot/workspace/native_capture.py",
+      "sha256": "c344dae683aa19cd3b0eed7d10f1cb6b231a60443277e313e5538c1f5b318236"
+    },
+    {
+      "path": "src/upgradepilot/workspace/native_codecs.py",
+      "sha256": "c47339cd4151a4a02bdd531af044237bdf422a88a572e83d82fcf6e616dc7642"
+    },
+    {
+      "path": "src/upgradepilot/workspace/native_inputs_codec.py",
+      "sha256": "1413c927c50cf6168afe51706f5a38f0e62328a1e15dda076d335b75a19421e6"
+    },
+    {
+      "path": "src/upgradepilot/workspace/native_projection.py",
+      "sha256": "f3a5ba4e32b008d497e2116b782b77049be9d1067d2759d74988447a30b60b56"
+    },
+    {
+      "path": "src/upgradepilot/workspace/native_representation.py",
+      "sha256": "2a9f510e453a7e33c079c8370dfcbe3136b3d6b1eb1591b005b953c9cf34710c"
+    },
+    {
+      "path": "src/upgradepilot/workspace/preparation.py",
+      "sha256": "42839b8974df5db4a70e50af08e5e6397f54c5b06e188af72fb1798d8af7dce9"
+    },
+    {
+      "path": "src/upgradepilot/workspace/repository_read_capability.py",
+      "sha256": "f1b05d8bc9be787509604313cd93d64cf0dcca5c0afa6be2334fd93c4b6c8c18"
+    },
+    {
+      "path": "src/upgradepilot/workspace/source_access.py",
+      "sha256": "56e34abe836ef6edec7142a003844532b445a7e31afaa1006598f892327bbb84"
+    },
+    {
+      "path": "tools/capture_report_sources.py",
+      "sha256": "3d1e565aae2ea98a388f0bfb40a91667cef0a1b1a80bfd43e47369a06552ac5b"
+    },
+    {
+      "path": "working-memory/evidence/2026-10-22-opencv-matched-report-source-capture/contract.json",
+      "sha256": "2f1fa78cade0acd539a7ad10e66b1e29d341cbeedf02f07496a2a8d030ae0ded"
+    },
+    {
+      "path": "working-memory/evidence/2026-10-22-opencv-matched-report-source-capture/preflight-source-index.json",
+      "sha256": "286bd2f8cc5f9b59ef7437555904bff8c4a0559ae7975f020914d24f4456d45d"
+    },
+    {
+      "path": "working-memory/evidence/2026-10-22-opencv-matched-report-source-capture/preflight.json",
+      "sha256": "d2fd833bcd55fc4528ddcc8ea068ddb4b556f5c07631b65cad03a0445a35daf4"
+    }
+  ],
+  "command": [
+    ".venv/bin/python3",
+    "-m",
+    "tools.capture_report_sources",
+    "--contract",
+    "working-memory/evidence/2026-10-22-opencv-matched-report-source-capture/contract.json",
+    "--output",
+    "/home/motafeq/.local/share/upgradepilot/report-source-captures/opencv-normal-2026-10-22"
+  ],
+  "private_output": "/home/motafeq/.local/share/upgradepilot/report-source-captures/opencv-normal-2026-10-22",
+  "environment": {
+    "PYTHONPATH": "src:.",
+    "NETRC": "/dev/null",
+    "auth": "anonymous; process-local token/proxy isolation"
+  },
+  "external_timeout_seconds": 150,
+  "expected_normal_cases": 1,
+  "preflight_requests": 1,
+  "max_total_requests_including_preflight": 33,
+  "model_calls_allowed": 0,
+  "target_execution_allowed": 0,
+  "retry_allowed": false,
+  "public_evidence_max_bytes": 5242880,
+  "claim_limits": [
+    "Current acquisition horizon; no historical capture merge",
+    "No normal-input injection from manual Python3.6 case",
+    "Published wheel/source availability is not target applicability or source-build outcome",
+    "No independent adjudication/usefulness/study activation"
+  ]
+}
