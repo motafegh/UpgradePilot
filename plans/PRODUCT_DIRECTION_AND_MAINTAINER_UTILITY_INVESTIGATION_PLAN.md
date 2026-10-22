@@ -105,6 +105,16 @@ The larger horizon remains visible: grouped/transitive changes, other bots/ecosy
 
 ## 5. Owner reconciliation and decision gate
 
+### Task-first reassessment after delivered reports
+
+When a whole-project review or task review exposes a gap, select the next milestone by the maintainer task and earliest missing evidence transfer, rather than by the next unfilled case slot. The bounded task is: recover the exact update, a material supported finding or attributed source observation, its missing applicability premise, and the relevant inspectable evidence without inventing an action. Broad interpretation and final action permission retain their existing owners.
+
+The [October23 development review](../working-memory/evidence/2026-10-23-maintainer-task-development-review/REVIEW.md) is entry evidence: normal retained PR responses contain copied change context that the identity-only product boundary does not carry into reports. It supports considering source preservation/access before more acquisition, not declaring independent utility or treating copied prose as authoritative upstream evidence. The [report plan's source-access design checkpoint](MAINTAINER_REPORT_PRESERVATION_AND_USEFULNESS_EVALUATION_PLAN.md#design-normal-pr-description-preservation-and-source-inspection-when-justified) owns the bounded design/proof route; this is not a new master plan or an adoption of a semantic method.
+
+If Ali selects assistant review, perform source-aware development task review and preserve prior exposure/implementer overlap. It can support a next-investment decision without external recruitment. It cannot discharge the independent usefulness gate. Keep reviewer availability unconfirmed unless known; do not infer that a self-review instruction means independent reviewers are unavailable.
+
+Before selecting another normal capture, identify the distinct responsibility pressure or prerequisite it would resolve and the decision its output can change. A third case is justified by that contribution and a separate acquisition/model budget, not the number three alone. Defer it if the existing inputs already establish the immediate gap. Before a capability Build, resolve its admitted consumer, omitted product responsibilities, simplest implementation/proof and stopping outcome in the proper owner. Retention alone is not the user-value acceptance test.
+
 Prepare a short direction decision with: selected user outcome, compared alternatives, exact case evidence, assumptions, counterevidence, admitted first responsibility, deferred capabilities and reassessment trigger. Preserve it in the cycle record; promote stable accepted conclusions to their normal owners.
 
 Include the completed rubric for each alternative and explain which dimensions actually discriminate the choice. A truthfulness violation or an unsupported action premise excludes that proposed output regardless of other benefits; an unresolved risk needs a concrete mitigation/proof gate. Weak current reachability does not automatically reject a valuable future direction, but its missing producers and evidence cost must be explicit.
