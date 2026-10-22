@@ -7,11 +7,11 @@ Previous: [native CI presentation Build](2026-10-21_investigator-native-ci-prese
 A0 — DONE: fetched origin; HEAD and origin/main equal at75c64e1b; unrelated untracked October3 audit preserved. Current report/native-CI results and usefulness owner reconciled. This cycle is the detailed progression record.
 A1 — DEFERRED teaching by explicit user instruction; recent engineering state inspected, learner understanding unassessed.
 A2 — DEFERRED teaching by explicit user instruction; engineering responsibility is to verify available normal reports, equal-information ordinary-review inputs and study entry gaps, then select the exact justified next preparation.
-B — CURRENT: inspect retained normal-report candidates and original producer/source provenance, strict offline reopening and matched-source feasibility; preserve original bytes and classify unavailable evidence honestly.
-Verification gate — PENDING: repeatable bounded artifact/source checks, actual report decoding/rendering and recorded identities; no new semantic or independent utility claims.
+B — DONE: inspected three normal-report candidates and three same-case controls; strict offline reopen/round-trip and source ledger establish exact retained availability and missing matched-packet conditions.
+Verification gate — GREEN for readiness inspection:6/6 strict reopen/round-trip/CLI, zero network attempts, original historical hashes/bytes preserved. Source-entry accounting and final artifact/reference checks recorded separately; no utility result inferred.
 D — DEFERRED to learning elsewhere; topics recorded progressively.
-E — PENDING engineering result/next responsibility, with learning debt explicitly handed off.
-C — CONTINUOUS.
+E — DONE engineering readiness handoff; learning topics deferred explicitly. Matched normal-report/source capture preparation is the justified next technical responsibility; independent study is unready.
+C — DONE for this bounded readiness record.
 
 ## Authorization and method adaptation
 
@@ -42,3 +42,13 @@ Among the3 candidates there are67 report source entries:43 producer_result,12 se
 No new acquisition/correlation/runtime defect is demonstrated. Existing saved-report retention explicitly discloses partial source retention; that is not by itself a broken reporting contract. The useful next technical responsibility is matched normal acquisition/report-source preparation with complete ordinary-review access, kept separate from reviewer outcomes and product retention changes. Independent reviewers/adjudicators remain unconfirmed; question sent to Ali, no external contact.
 
 Recipe and receipts: [inspection code](evidence/2026-10-22-maintainer-utility-readiness/inspect_reports.py), [pre-inspection selection](evidence/2026-10-22-maintainer-utility-readiness/selection.json), [report/source ledger](evidence/2026-10-22-maintainer-utility-readiness/report-inventory.json).
+
+## Readiness decision and engineering closure
+
+[Readiness findings and exact capture handoff](evidence/2026-10-22-maintainer-utility-readiness/READINESS.md) give the3 candidate reports, partial source-retention evidence, independent adjudication/participant/protocol gaps and the next normal-source/report preparation sequence.0/3 complete matched ordinary-review packets are established within inspected scope, not a claim of global nonexistence. Existing native FCI/component evidence is not silently promoted to a full normal report case. No product defect or model/runtime repair is selected; old report contract intentionally discloses incomplete raw-source retention.
+
+The next investment is observational matched-capture preparation at the normal producer/client boundary, preferably diagnostic machinery using existing seams rather than a new product engine. Its operational/source/model budget must be explicit before acquisition; Soup Sieve's historical success required a model, so fresh no-inference reachability cannot be assumed. Reviewer/adjudicator inputs remain independent prerequisites for the actual study, not an excuse to delay justified technical preparation. No recorder/capture/study execution is represented as implemented in this readiness cycle.
+
+Learning remains elsewhere by Ali's instruction: source-vs-producer content, non-independent quote/count traps, historical reopen versus current normal run, matched evidence/decision-time boundaries, controls/cases and independent task/adjudication distinctions. No ownership answers are inferred or required here.
+
+Final verification: all6 original report hashes and all bound inspection source/receipt hashes still match; inventory selection hash matches;14 local Markdown targets resolve; inspection script parses; no src/tests delta from75c64e1b; git diff --check passes. Evidence before the final verification receipt is339,696 bytes. Participant question remains unanswered at this horizon. Published initialization07833843 and inspection receipts3bf93f16 progressively; final readiness/verification owner reconciliation follows. Independent study and new capture remain unexecuted, with learning explicitly deferred rather than passed.

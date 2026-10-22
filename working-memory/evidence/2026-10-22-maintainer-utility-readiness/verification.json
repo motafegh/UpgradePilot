@@ -1,0 +1,14 @@
+{
+  "checks": "PASS",
+  "reports": 6,
+  "candidate_cases": 3,
+  "same_case_controls": 3,
+  "network_attempts": 0,
+  "source_and_report_hashes_unchanged": true,
+  "local_markdown_targets_checked": 14,
+  "new_product_source_or_test_changes": false,
+  "independent_study_started": false,
+  "qualified_matched_packets_in_inspected_scope": 0,
+  "scope": "Offline readiness; no general or semantic acceptance",
+  "artifact_bytes_before_this_receipt": 339696
+}
