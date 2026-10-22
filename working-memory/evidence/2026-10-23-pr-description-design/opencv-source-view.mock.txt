@@ -1,0 +1,13 @@
+DESIGN MOCK-UP: source inspection is not implemented in the current CLI.
+This file shows one selected excerpt; the proposed explicit viewer shows the whole retained body.
+Proposed invocation: upgradepilot --open-report FUTURE_REPORT.json --show-source source-1
+Source ID: source-1 (illustrative report-local ID)
+Source class: observed pull-request description
+Observation time (retained input fixture): 2026-10-22T17:23:04.777752+00:00
+Description UTF-8 bytes: 5902
+Description SHA-256: e0b59d6d5b77b49da8f06e548508dc2282009d9d78f51b9bea996e2c7ea69d47
+Meaning: copied source context; upstream coverage and target applicability are unassessed.
+Display: literal source with terminal controls removed; stored text stays unchanged.
+--- selected excerpt from original decoded PR body ---
+<li>Dropped Python 3.6 support.</li>
+--- end selected design excerpt ---

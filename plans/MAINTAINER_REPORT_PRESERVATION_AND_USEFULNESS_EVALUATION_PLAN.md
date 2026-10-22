@@ -322,6 +322,8 @@ Keep `PullRequestIdentity` and its codec-v1 fields unchanged. In the existing [P
 
 The wrapper binds description to the same initial response's identity. The existing final PR read still checks base/head/count around changed-file acquisition. It does not replace the first description, compare descriptions, add a request, establish atomicity or freeze text merely because the head is unchanged. A same-head description edit is a different observation, not a stale commit file or automatic continuation event. No update/retry capability is added.
 
+Use an optional provider `now` clock alongside its existing token/session/timeout constructor arguments, defaulting to UTC now. The producer takes the observation timestamp after the successful response/identity interpretation; report generation cannot supply or reconstruct it. Existing identity-only callers need no clock or description consumer.
+
 Initial retention cap: **262,144 UTF-8 bytes (256KiB)** for one description. This covers the two observed inputs with ample room but is a product bound, not an asserted GitHub maximum or prevalence result. Reject retention when character count already exceeds the byte cap; otherwise strict UTF-8 encoding uses at most four times that cap before checking actual bytes. Do not allocate a second unbounded encoding of a clearly oversized body. The limit bounds additional description retention, not the existing HTTP/JSON transport's total memory. Reassess on representative refusal evidence rather than truncate or silently raise limits.
 
 | Provider outcome | Retention and downstream behavior |
@@ -332,6 +334,8 @@ Initial retention cap: **262,144 UTF-8 bytes (256KiB)** for one description. Thi
 | Non-string / non-UTF-8-encodable string | `invalid_type` / `invalid_text`; no coercion, replacement characters or retained text/hash |
 | Body above cap | `over_limit`; no prefix/hash; retain byte count only when actually calculated |
 | Failed request, invalid outer JSON or invalid required PR identity | Existing acquisition/response failure propagates; do not invent a description-only success or semantic abstention |
+
+Admission order is field presence/null/type, character-count precheck, strict UTF-8 encoding, byte cap, then empty/retained. The first sufficient refusal wins. An over-limit result does not claim the rest of an unencoded string was Unicode-valid. The seven state strings are producer representation outcomes; a source viewer does not reclassify them from prose.
 
 For source-field problems, valid identity/dependency/CI/package evidence can still proceed. No partial-description state is emitted: either retain the full decoded field or explain its absence. A complete PR body may itself quote truncated upstream notes, as OpenCV does; retain those original markers and state that upstream coverage is unassessed. Do not infer source completeness or semantic meaning with keyword rules. Record validation checks only these representation/identity invariants, never whether the described change is true.
 
@@ -351,6 +355,8 @@ Enrich the existing PR `ReportSource` rather than allocate a competing source or
 
 Keep public report schema1 and its digest definition: all chosen fields/kind/retention values already exist. Use generator version2 for the changed source projection and renderer version2 for its new availability cue; these are method/display identities, not schema or model versions. Preserve old generator identity on decoded files. A newer renderer may identify itself while preserving recorded historical meanings. Existing report-file limits continue to apply; no content may be dropped to fit a failed save. Whole-report integrity does not authenticate user-edited source facts, and the viewer adds no second semantic validator.
 
+Reversal can disable capture for later runs without rewriting retained native/report records. Earlier software can still inspect supported report-schema1 content; it has no new source-view command, and unsupported native description decoding remains explicit. Do not delete the additive family, downgrade its payload to a legacy layout or claim the older interface exposes the new capability. No automatic stored-record migration or pruning is selected.
+
 The normal report lists the source's retained/reference-only state and a short attribution/access cue. It does not print a long description by default. The usable flow is:
 
 ```text
@@ -367,6 +373,8 @@ Put source lookup/rendering with [report rendering](../src/upgradepilot/report.p
 ### Build scope, verification and stopping outcome
 
 One coherent Build covers provider observation, shared preparation/native capture/codec/projection, report source mapping, offline viewer/CLI/help and directly relevant tests/README. Update the Workspace family ledger by reference; do not migrate all report/synthesis families or import experiment/tool code. The saved source and native record have different concrete inspection/recovery consumers; each representation earns its own boundary. No dependency, live capture, model invocation, target execution, new action, semantic keyword interpreter or automatic retry is required. Retained-case proofs use controlled provider inputs with clear fixture labels; they do not reopen an official acquisition batch.
+
+Keep active regression/hosted tests portable: use reviewed public-safe minimal PR-response fixtures with attributed text excerpts and labeled constructed state/control cases, not paths into private local captures or wholesale API dumps. Separately run the two complete retained descriptions through controlled normal composition locally, binding the original private response hashes and keeping originals read-only. Preserve new controlled output/receipts under a distinct identity; keep unreviewed full input/output payloads private and publish safe hashes/review excerpts. This is a finite composition check, not a general replay engine. Missing private inputs are explicit proof debt, never a network fallback or a reason to claim the complete retained-case check passed from excerpts alone.
 
 | Required proof | Discriminating checks |
 | --- | --- |

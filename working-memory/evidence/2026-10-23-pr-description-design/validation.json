@@ -1,0 +1,44 @@
+{
+  "proof": "planning scope only",
+  "product_source_revision": "e35b5062",
+  "documents_checked": 5,
+  "local_links_and_anchors": 160,
+  "existing_native_tests": 2,
+  "existing_native_test_seconds": 5.661,
+  "report_shape_witnesses": 8,
+  "historical_report_hashes": 6,
+  "original_http_observation_hashes": 21,
+  "source_view_mockups": 2,
+  "product_and_original_capture_paths_unchanged": true,
+  "producer_native_family_and_viewer_implementation_proved": false,
+  "members": [
+    {
+      "path": "working-memory/evidence/2026-10-23-pr-description-design/DESIGN_REVIEW.md",
+      "sha256": "ee78a191747afd2f31d3bd8e13d163dc48ebfb9b673ab24e42ce5eee3698e714"
+    },
+    {
+      "path": "working-memory/evidence/2026-10-23-pr-description-design/compatibility-witness.json",
+      "sha256": "adff571d139660558032bfb010c1b2dd58075d46f08ed21d5f6d9f6f9f1a7250"
+    },
+    {
+      "path": "working-memory/evidence/2026-10-23-pr-description-design/compatibility_witness.py",
+      "sha256": "79d3c86bcc76b8b514ebd0eb221b1b05b3b1198c0dd291df6f47a06d97b1d860"
+    },
+    {
+      "path": "working-memory/evidence/2026-10-23-pr-description-design/httpx-source-view.mock.txt",
+      "sha256": "4f34ba13f38a68ab27a588a51a6a441b29c3655cbd921dba9a71a1a8957df2da"
+    },
+    {
+      "path": "working-memory/evidence/2026-10-23-pr-description-design/opencv-source-view.mock.txt",
+      "sha256": "df2a10c5547144f501a1736a22be621637c43bd4cedbc9b56c3de47e8cab2cfe"
+    },
+    {
+      "path": "plans/MAINTAINER_REPORT_PRESERVATION_AND_USEFULNESS_EVALUATION_PLAN.md",
+      "sha256": "9585ddd30c5274ab314b5f4f3b3f475667000f3438b2ce7b8a40acce8d85b9c1"
+    },
+    {
+      "path": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_AND_MIGRATION_PLAN.md",
+      "sha256": "67d569d8e5e83809cc9e88f744704e6b1412c87e1ea214a90a98b197a07a8f9e"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "mode": "planning_only_report_shape_witness",
+  "schema_version": 1,
+  "cases": {
+    "httpx": {
+      "original_report_sha256": "fbc88dba74e2ff92efbeeca7762b7218d0796348e239a863ba09f60d4db035ad",
+      "original_pr_response_sha256": "b19cec81741eb1545cf7e3b5ba034c68e610b9c4970609198b33bfaf3f841c8c",
+      "decoded_description_utf8_bytes": 9348,
+      "decoded_description_sha256": "179e4ce07210cb1b800cadff842cb63438a7afbaec0d199678c61fecf1c25f3a",
+      "compatible_report_source_shapes": [
+        "retained",
+        "empty",
+        "null",
+        "not_recorded"
+      ],
+      "original_domain_records_unchanged": true,
+      "current_renderer_does_not_dump_body": true,
+      "original_file_unchanged": true
+    },
+    "opencv": {
+      "original_report_sha256": "9f6b2d79a08421db5c113a9a0e38d34176728352d8644c52ddc86a2acea88116",
+      "original_pr_response_sha256": "9b92282f619112739356f9c0ed5049322e4856b2bf632662a8e6efd8c161e0b1",
+      "decoded_description_utf8_bytes": 5902,
+      "decoded_description_sha256": "e0b59d6d5b77b49da8f06e548508dc2282009d9d78f51b9bea996e2c7ea69d47",
+      "compatible_report_source_shapes": [
+        "retained",
+        "empty",
+        "null",
+        "not_recorded"
+      ],
+      "original_domain_records_unchanged": true,
+      "current_renderer_does_not_dump_body": true,
+      "original_file_unchanged": true
+    }
+  },
+  "producer_or_viewer_implemented": false,
+  "non_claims": [
+    "new provider/native codec",
+    "implemented source viewer",
+    "automatic semantic interpretation",
+    "independent utility",
+    "fresh normal investigation",
+    "native recovery or replay"
+  ]
+}

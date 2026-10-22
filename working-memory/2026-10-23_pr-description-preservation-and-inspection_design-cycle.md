@@ -13,11 +13,11 @@ Situational adaptation: ongoing context and Ali's instruction to learn elsewhere
 - A0 — DONE: reconcile live position, report plan, provider/application/native/report source, native compatibility owners and existing test seams.
 - A1 — COMPRESSED: prior review established acquired copied context lost at the identity-only DTO.
 - A2 — COMPRESSED: preserve an untrusted observation, carry it without domain evaluation, support explicit offline inspection, distinguish old/not-recorded/problem states.
-- B — CURRENT: close concrete design in the existing report plan.
-- Verification gate — PENDING: static producer/consumer/compatibility review and bounded retained-data design witnesses; no implementation proof.
+- B — DONE: concrete source/native/report/CLI/failure/compatibility/acceptance design closed in existing report plan §10.
+- Verification gate — GREEN at planning scope: static end-to-end trace,2 existing compatibility tests and8 data-shape witnesses; final document checks below. New source/native/viewer implementation is unproved.
 - D — DEFERRED elsewhere: preserve learning questions without claiming ownership.
-- E — PENDING: Build-ready scope/proof handoff or explicit design gap.
-- C — CONTINUOUS in this record.
+- E — engineering handoff delivered; learner D/E deferred elsewhere: one bounded Build responsibility, with no remaining design decision disguised as later planning.
+- C — preserved through this handoff in one record.
 
 ## Source findings and decisions under refinement
 
@@ -40,6 +40,22 @@ Errors are explicit: argument misuse2, bad saved file6, unknown/unretained sourc
 No new specification/ADR is required: Core6.1/6.2 and ADR0012/0013 already own preservation, untrusted content, one-way projections and explicit codecs. Added the source family to the Workspace plan ledger by reference. Independent utility, semantic-role adoption, action permission, third capture and replay remain separate.
 
 Fresh existing compatibility checks:2 targeted tests pass in5.661s (`test_v1_layouts_cannot_silently_fill_new_native_fields_from_defaults`, `test_unrelated_unsupported_versions_preserve_every_unaffected_projection`). They establish current schema-drift protection and scope of refusal, not implementation/proof of the proposed new family/viewer. The full899-test suite remains prior evidence, not rerun here.
+
+## Design verification and final handoff
+
+[Design review](evidence/2026-10-23-pr-description-design/DESIGN_REVIEW.md), [bounded data recipe](evidence/2026-10-23-pr-description-design/compatibility_witness.py), [receipt](evidence/2026-10-23-pr-description-design/compatibility-witness.json) and two clearly labeled source-view mock-ups preserve the result. Eight in-memory hypothetical shapes pass the unchanged report schema1 decoder across the two original report records, preserving domain/action fields and original files. Text sizes9,348/5,902 UTF-8 bytes fit the chosen256KiB limit. Synthetic IDs/generation time and diagnostic source completion timestamps are explicitly design data, not fabricated normal provider output or an official rerun.
+
+Critical review retained three practical constraints: the original HTML stays literal only in explicit source inspection; saving is opt-in and a failed/omitted save cannot imply durable access; the first sufficient size/type/encoding refusal does not claim validity of uninspected text. Generator/renderer2 are prospective method identities with schema1 unchanged. Rollback must preserve retained bodies and explicit unsupported capability rather than rewrite old layouts.
+
+Further proof clarification separates portable reviewed public-safe fixtures from two full-description local controlled checks using private frozen inputs. No hosted/private-path dependency, raw API archive in Git, false excerpt-as-full-case proof or reacquisition fallback. One attempted documentation context edit failed atomically; corrected it with exact context, without changing implementation or frozen evidence.
+
+No new specification/ADR or master plan is needed; Core6.1/6.2 and ADR0012/0013 cover the meanings/methods. Only the report plan's execution contract and Workspace family ledger changed. The named offline consumer defeats the simpler mutable URL baseline for this narrow responsibility; it does not defeat the ordinary PR page for unrestricted online review or establish general usefulness.
+
+Next responsibility is one source-to-offline-access Build with the exact scope/proof in report plan §10, not another planning checkpoint. Product/source/test implementation was not performed in this design cycle. Controlled normal composition, new native cold reconstruction, all source states/capacity and CLI errors, exact stored versus safe displayed content, old records, unchanged non-source behavior, full regression and installed CLI remain Build proof. No fresh acquisition/model/target execution/third case follows from this design.
+
+Learning topics for the separate session: immutable identity versus mutable observation; decoded-field hash versus wire-response digest; additive family versus changing a shared codec; explicit source access versus semantic interpretation; record shape compatibility versus executed behavior; scoped unsupported versions versus integrity failure; retaining exact data while sanitizing display. Learner ownership remains unassessed.
+
+Final document/data qualification is preserved in [validation receipt](evidence/2026-10-23-pr-description-design/validation.json): links/anchors/syntax/whitespace, original report/source hashes, evidence/design identities and exact proof/non-proof. No product, tests, tools, experiments, hosted workflow or package declaration changed. Original capture paths and unrelated untracked October3 file remain outside the publication delta.
 
 UP-SKILL:upgradepilot-planning-design
 UP-SKILL:upgradepilot-working-memory
