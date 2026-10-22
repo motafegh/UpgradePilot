@@ -1,0 +1,234 @@
+{
+  "format": "upgradepilot.diagnostic-http-sources/1",
+  "meaning": "Normal producer HTTP observations, not findings or expected answers",
+  "body_representation": "Requests decoded entity bytes, not wire compression",
+  "body_hash_scope": "Retained response prefix; full body only for body_complete",
+  "requests": [
+    {
+      "number": 1,
+      "method": "GET",
+      "url": "https://api.github.com/repos/carla-simulator/scenario_runner/pulls/1111",
+      "started_at": "2026-10-22T17:23:03.941734+00:00",
+      "state": "body_complete",
+      "status": 200,
+      "response_url": "https://api.github.com/repos/carla-simulator/scenario_runner/pulls/1111",
+      "headers": {
+        "Content-Length": "24077",
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      "body": "0001.body",
+      "body_bytes": 24077,
+      "body_sha256": "9b92282f619112739356f9c0ed5049322e4856b2bf632662a8e6efd8c161e0b1",
+      "finished_at": "2026-10-22T17:23:04.777752+00:00"
+    },
+    {
+      "number": 2,
+      "method": "GET",
+      "url": "https://api.github.com/repos/carla-simulator/scenario_runner/pulls/1111/files?per_page=100&page=1",
+      "started_at": "2026-10-22T17:23:04.778414+00:00",
+      "state": "body_complete",
+      "status": 200,
+      "response_url": "https://api.github.com/repos/carla-simulator/scenario_runner/pulls/1111/files?per_page=100&page=1",
+      "headers": {
+        "Content-Length": "362",
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Encoding": "gzip"
+      },
+      "body": "0002.body",
+      "body_bytes": 710,
+      "body_sha256": "ebd119d7b45f74ab88eaa53b3973d057385172ad15205cd3c9b7d3c370ad3f58",
+      "finished_at": "2026-10-22T17:23:05.403977+00:00"
+    },
+    {
+      "number": 3,
+      "method": "GET",
+      "url": "https://api.github.com/repos/carla-simulator/scenario_runner/pulls/1111",
+      "started_at": "2026-10-22T17:23:05.405091+00:00",
+      "state": "body_complete",
+      "status": 200,
+      "response_url": "https://api.github.com/repos/carla-simulator/scenario_runner/pulls/1111",
+      "headers": {
+        "Content-Length": "24077",
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      "body": "0003.body",
+      "body_bytes": 24077,
+      "body_sha256": "9b92282f619112739356f9c0ed5049322e4856b2bf632662a8e6efd8c161e0b1",
+      "finished_at": "2026-10-22T17:23:05.529064+00:00"
+    },
+    {
+      "number": 4,
+      "method": "GET",
+      "url": "https://api.github.com/repos/carla-simulator/scenario_runner/actions/runs?event=pull_request&head_sha=f32ad2d23a9abee47c566dfbed2b822d953a09e2&per_page=100&page=1",
+      "started_at": "2026-10-22T17:23:05.530324+00:00",
+      "state": "body_complete",
+      "status": 200,
+      "response_url": "https://api.github.com/repos/carla-simulator/scenario_runner/actions/runs?event=pull_request&head_sha=f32ad2d23a9abee47c566dfbed2b822d953a09e2&per_page=100&page=1",
+      "headers": {
+        "Content-Length": "56",
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Encoding": "gzip"
+      },
+      "body": "0004.body",
+      "body_bytes": 36,
+      "body_sha256": "a2790a384d7d281e7395679000c35d27768d89dbd7052f725b8f4688beb59915",
+      "finished_at": "2026-10-22T17:23:06.170328+00:00"
+    },
+    {
+      "number": 5,
+      "method": "GET",
+      "url": "https://pypi.org/pypi/opencv-python/4.8.1.78/json",
+      "started_at": "2026-10-22T17:23:06.181251+00:00",
+      "state": "body_complete",
+      "status": 200,
+      "response_url": "https://pypi.org/pypi/opencv-python/4.8.1.78/json",
+      "headers": {
+        "Content-Length": "9040",
+        "Content-Type": "application/json",
+        "Content-Encoding": "gzip"
+      },
+      "body": "0005.body",
+      "body_bytes": 26429,
+      "body_sha256": "f9538edd5d6879e10529eed77755cff45338e0533ec6c4b4590ccd3de76709f3",
+      "finished_at": "2026-10-22T17:23:06.711640+00:00"
+    },
+    {
+      "number": 6,
+      "method": "GET",
+      "url": "https://pypi.org/pypi/opencv-python/4.2.0.32/json",
+      "started_at": "2026-10-22T17:23:06.712505+00:00",
+      "state": "body_complete",
+      "status": 200,
+      "response_url": "https://pypi.org/pypi/opencv-python/4.2.0.32/json",
+      "headers": {
+        "Content-Length": "9999",
+        "Content-Type": "application/json",
+        "Content-Encoding": "gzip"
+      },
+      "body": "0006.body",
+      "body_bytes": 36671,
+      "body_sha256": "7721441d4bb6530ecf4a3e8bdbafc6181b7c6dfecf423089ea4ff75e815cf10b",
+      "finished_at": "2026-10-22T17:23:06.913994+00:00"
+    },
+    {
+      "number": 7,
+      "method": "GET",
+      "url": "https://pypi.org/integrity/opencv-python/4.8.1.78/opencv-python-4.8.1.78.tar.gz/provenance",
+      "started_at": "2026-10-22T17:23:06.915862+00:00",
+      "state": "body_not_consumed",
+      "status": 404,
+      "response_url": "https://pypi.org/integrity/opencv-python/4.8.1.78/opencv-python-4.8.1.78.tar.gz/provenance",
+      "headers": {
+        "Content-Length": "71",
+        "Content-Type": "application/json"
+      },
+      "body": "0007.body",
+      "body_bytes": 0,
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "finished_at": "2026-10-22T17:23:07.510430+00:00"
+    },
+    {
+      "number": 8,
+      "method": "GET",
+      "url": "https://pypi.org/integrity/opencv-python/4.8.1.78/opencv_python-4.8.1.78-cp37-abi3-macosx_10_16_x86_64.whl/provenance",
+      "started_at": "2026-10-22T17:23:07.521710+00:00",
+      "state": "body_not_consumed",
+      "status": 404,
+      "response_url": "https://pypi.org/integrity/opencv-python/4.8.1.78/opencv_python-4.8.1.78-cp37-abi3-macosx_10_16_x86_64.whl/provenance",
+      "headers": {
+        "Content-Length": "98",
+        "Content-Type": "application/json"
+      },
+      "body": "0008.body",
+      "body_bytes": 0,
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "finished_at": "2026-10-22T17:23:08.098035+00:00"
+    },
+    {
+      "number": 9,
+      "method": "GET",
+      "url": "https://pypi.org/integrity/opencv-python/4.8.1.78/opencv_python-4.8.1.78-cp37-abi3-macosx_11_0_arm64.whl/provenance",
+      "started_at": "2026-10-22T17:23:08.108217+00:00",
+      "state": "body_not_consumed",
+      "status": 404,
+      "response_url": "https://pypi.org/integrity/opencv-python/4.8.1.78/opencv_python-4.8.1.78-cp37-abi3-macosx_11_0_arm64.whl/provenance",
+      "headers": {
+        "Content-Length": "96",
+        "Content-Type": "application/json"
+      },
+      "body": "0009.body",
+      "body_bytes": 0,
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "finished_at": "2026-10-22T17:23:08.693445+00:00"
+    },
+    {
+      "number": 10,
+      "method": "GET",
+      "url": "https://pypi.org/integrity/opencv-python/4.8.1.78/opencv_python-4.8.1.78-cp37-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl/provenance",
+      "started_at": "2026-10-22T17:23:08.703738+00:00",
+      "state": "body_not_consumed",
+      "status": 404,
+      "response_url": "https://pypi.org/integrity/opencv-python/4.8.1.78/opencv_python-4.8.1.78-cp37-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl/provenance",
+      "headers": {
+        "Content-Length": "122",
+        "Content-Type": "application/json",
+        "Content-Encoding": "gzip"
+      },
+      "body": "0010.body",
+      "body_bytes": 0,
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "finished_at": "2026-10-22T17:23:09.298188+00:00"
+    },
+    {
+      "number": 11,
+      "method": "GET",
+      "url": "https://pypi.org/integrity/opencv-python/4.8.1.78/opencv_python-4.8.1.78-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl/provenance",
+      "started_at": "2026-10-22T17:23:09.308381+00:00",
+      "state": "body_not_consumed",
+      "status": 404,
+      "response_url": "https://pypi.org/integrity/opencv-python/4.8.1.78/opencv_python-4.8.1.78-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl/provenance",
+      "headers": {
+        "Content-Length": "121",
+        "Content-Type": "application/json"
+      },
+      "body": "0011.body",
+      "body_bytes": 0,
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "finished_at": "2026-10-22T17:23:10.056802+00:00"
+    },
+    {
+      "number": 12,
+      "method": "GET",
+      "url": "https://pypi.org/integrity/opencv-python/4.8.1.78/opencv_python-4.8.1.78-cp37-abi3-win32.whl/provenance",
+      "started_at": "2026-10-22T17:23:10.067466+00:00",
+      "state": "body_not_consumed",
+      "status": 404,
+      "response_url": "https://pypi.org/integrity/opencv-python/4.8.1.78/opencv_python-4.8.1.78-cp37-abi3-win32.whl/provenance",
+      "headers": {
+        "Content-Length": "84",
+        "Content-Type": "application/json"
+      },
+      "body": "0012.body",
+      "body_bytes": 0,
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "finished_at": "2026-10-22T17:23:10.684865+00:00"
+    },
+    {
+      "number": 13,
+      "method": "GET",
+      "url": "https://pypi.org/integrity/opencv-python/4.8.1.78/opencv_python-4.8.1.78-cp37-abi3-win_amd64.whl/provenance",
+      "started_at": "2026-10-22T17:23:10.696083+00:00",
+      "state": "body_not_consumed",
+      "status": 404,
+      "response_url": "https://pypi.org/integrity/opencv-python/4.8.1.78/opencv_python-4.8.1.78-cp37-abi3-win_amd64.whl/provenance",
+      "headers": {
+        "Content-Length": "88",
+        "Content-Type": "application/json"
+      },
+      "body": "0013.body",
+      "body_bytes": 0,
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "finished_at": "2026-10-22T17:23:11.402738+00:00"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "outcome": "process_completed",
+  "exit_code": 0,
+  "stdout": "{\"outcome\": \"normal_report_captured\", \"requests\": 13, \"decoded_body_bytes\": 112000, \"elapsed_seconds\": 7.479024365000441}\n",
+  "stderr": "",
+  "startup_inclusive_seconds": 7.779504832000384,
+  "executed_commit": "739ae68c07a6c802ff4fcfa487824f77f48efe84",
+  "freeze_sha256": "31637c5e8fb8c23d47cb9787d157acb4c3f45a22b9f481a7f730615b0662c430",
+  "command": [
+    ".venv/bin/python3",
+    "-m",
+    "tools.capture_report_sources",
+    "--contract",
+    "working-memory/evidence/2026-10-22-opencv-matched-report-source-capture/contract.json",
+    "--output",
+    "/home/motafeq/.local/share/upgradepilot/report-source-captures/opencv-normal-2026-10-22"
+  ]
+}
