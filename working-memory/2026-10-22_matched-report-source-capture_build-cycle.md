@@ -27,3 +27,9 @@ Learning elsewhere: why observing a stream differs from eager buffering; decoded
 
 UP-SKILL:upgradepilot-build-implement
 UP-SKILL:upgradepilot-working-memory
+
+## Implementation, proof and live preparation
+
+Implemented tools/capture_report_sources.py and9 distinct diagnostic tests. The synchronous adapter/iterator/close observer tees bytes without eager PyPI reads and preserves native report meanings. Controlled actual application/report parity passes with report ID/time normalization only; compressed-body, stream failure, HTTP/malformed closure, destination/auth/model refusal, identity drift and caps/private retention are exercised.79 inclusive nearest tests pass in1.224s; after final index wording,9 focused tests pass again. Existing JobHunter Ruff binary check/format passes; no installation or product source mutation. Removed speculative cached-response handling after JUST review; normal HTTPAdapter returns unread responses. Initial lint issues corrected, terminal/provider broad catches explicitly justified, no test failure or real-case result was hidden.
+
+[Operational proof packet](evidence/2026-10-22-matched-report-source-capture/PRE_EXECUTION.md) and100-member freeze bind all96 product files plus tool/test/plan/contract. One newly dated HTTPX exact-normal acquisition is selected for mechanical proof, not a three-case utility study.32 GET/8MiB-body/32MiB-total/120s action/150s external/public5MiB caps; zero inference/GPU/target execution/installs; model-required/identity drift/transport/cap failures preserve incomplete evidence without fabricated semantic results. The fresh private output path does not yet exist. Publish this coherent increment before the one live attempt.

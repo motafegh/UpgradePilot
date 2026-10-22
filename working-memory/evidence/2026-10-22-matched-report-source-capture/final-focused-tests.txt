@@ -1,0 +1,6 @@
+.........
+----------------------------------------------------------------------
+Ran 9 tests in 1.073s
+
+OK
+{"outcome": "capture_stopped", "requests": 0, "decoded_body_bytes": 0, "elapsed_seconds": 0.99999701500019}

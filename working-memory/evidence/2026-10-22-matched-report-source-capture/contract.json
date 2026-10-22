@@ -1,0 +1,18 @@
+{
+  "purpose": "One normal HTTPX acquisition/report matched-source mechanical proof; not independent utility study",
+  "expected_identity": {
+    "repository": "Aidan-Wallace/kubernetes-dashboard-token-api",
+    "pull_number": "20",
+    "base_sha": "b065646e4b7b894964567950f9ad770b02c136c2",
+    "head_sha": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+    "package": "httpx",
+    "old_version": "0.27.2",
+    "proposed_version": "0.28.1"
+  },
+  "limits": {
+    "max_requests": 32,
+    "max_body_bytes": 8388608,
+    "max_total_body_bytes": 33554432,
+    "max_elapsed_seconds": 120
+  }
+}

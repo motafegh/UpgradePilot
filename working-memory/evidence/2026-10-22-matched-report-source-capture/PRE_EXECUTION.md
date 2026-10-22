@@ -1,0 +1,28 @@
+# Matched normal-source/report capture: operational proof contract
+
+The [existing usefulness plan](../../../plans/MAINTAINER_REPORT_PRESERVATION_AND_USEFULNESS_EVALUATION_PLAN.md#5-independent-usefulness-evaluation) owns the later study. This packet freezes one developer-diagnostic acquisition proof, not a study protocol, reviewer task or semantic experiment. [Build cycle](../../2026-10-22_matched-report-source-capture_build-cycle.md).
+
+## Delivered code and focused proof
+
+[capture_report_sources.py](../../../tools/capture_report_sources.py) runs the unchanged normal investigation and report projection. It observes Requests HTTPAdapter responses and the exact decoded byte chunks at their normal consumption point, preserving status/body/transport failure placement. A new private directory contains the normal report and a separate sources/index.json plus response bodies; no report findings or expected answers enter that source packet. The report source-reference list supports subsequent source-aware coverage review, not automatic coverage certification.
+
+This is a synchronous WSL/POSIX diagnostic. It does not install a new product capture API, alter saved report schema or replay native/semantic analysis. The old GitHub-only preparation recorder remains unchanged; universal HTTP/source retention is not adopted into product runtime.
+
+[Tests](../../../experiments/tests/test_report_source_capture.py) exercise the actual normal application through controlled HTTP responses, then compare whole reports allowing only report ID/time differences. Additional proof protects GitHub/non-streamed and gzip-decoded PyPI/streamed native-result parity; body-prefix/error-category preservation; malformed/status-only source handling; refused POST/credential/destination/redirect; per-body/aggregate/request/time caps; model refusal outside broad provider handlers; identity drift and acquisition failure without a semantic report; private modes, hashes and no replacement. Nine diagnostic tests pass. The inclusive79 diagnostic/report/save/CLI/GitHub/PyPI/provenance tests pass in1.224s. After final index-description clarity,9 focused tests pass again. Ruff check/format use the already available JobHunter developer binary; no installation/dependency change. No live acquisition has occurred in these tests.
+
+Initial lint found import ordering, test loop variable binding and deliberately broad terminal/provider catches. Imports/loop binding were corrected; the two broad handlers have narrow justified suppressions: one preserves terminal diagnostic errors, the other reproduces the existing model owner's handler in the refusal test. Review removed an unused already-buffered-response branch: the admitted HTTPAdapter seam returns unread responses, so no speculative alternate-adapter contract is retained. Atomic receipt writes clean their own temporary file on interruption.
+
+## One live mechanical acquisition proof
+
+[Contract](contract.json) selects Aidan-Wallace/kubernetes-dashboard-token-api PR20, exact baseb065646e4b7b894964567950f9ad770b02c136c2/head391508134b083b8f54461c0b576e8f7985c6ecb4 and HTTPX0.27.2→0.28.1. This is an exposed development case and a new acquisition horizon. Old October3/16/20 results remain immutable and are not new-run ground truth. Present PR state/run availability may differ; exact identity drift is not_comparable.
+
+[Freeze](freeze.json) binds100 exact source/contract members, including all96 product Python files, before execution. It records the exact command and fresh private path. Limits:32 anonymous public HTTPS GETs to api.github.com/pypi.org;8MiB per response/32MiB total decoded retained bytes;120s acquisition deadline using POSIX alarm and monotonic checks;150s external startup/finalization watchdog;≤5MiB public evidence; one attempt, no retry. Ordinary Requests per-call timeouts remain unchanged. The alarm stops the operation, while final receipt/cleanup and startup are bounded by the external watchdog; do not call cleanup overhead an acquisition-time success.
+
+The CLI clears process-local token/proxy variables and uses NETRC=/dev/null; prepared auth/cookie headers and non-GET/other hosts are refused before transmission. No credentials, machine config changes, model/GPU calls, target code/workflow execution, package install or external mutation. If the current normal path reaches a model request, stop the diagnostic before HTTP transmission, preserve partial inputs and emit no completed normal report. Do not simulate a provider failure to complete the case.
+
+Bodies stay in a new0700 directory outside Git; files are0600. Public review may retain hashes, request/status receipts and reviewed report artifacts. body_complete means the entire consumed response was exhausted; body_not_consumed and partial/error rows never claim an empty/complete provider body. Hashes on partial rows bind only the retained prefix. A status-only or failed source can be legitimate normal input, not a recording success invented from absence.
+
+Success for this proof requires an exact normal report, preserved bytes/HTTP identities, and source-aware confirmation that the supplied ordinary-review packet explains its scoped source observations. A completed capture alone does not independently validate semantic conclusions, confirm all reference mappings, qualify three study cases, arrange independent participants or establish utility. Failures/stops remain in the denominator and preserve partial artifacts. Participant availability remains unconfirmed; no contact or study activation follows.
+
+UP-SKILL:upgradepilot-build-implement
+UP-SKILL:upgradepilot-working-memory

@@ -1,0 +1,22 @@
+.......................................usage: upgradepilot [-h] [--github-auth {anonymous,token-env}]
+                    [--save-report PATH] [--open-report PATH]
+                    [repository] [pull_number]
+upgradepilot: error: --open-report cannot be combined with investigation, save or authentication arguments
+usage: upgradepilot [-h] [--github-auth {anonymous,token-env}]
+                    [--save-report PATH] [--open-report PATH]
+                    [repository] [pull_number]
+upgradepilot: error: --open-report cannot be combined with investigation, save or authentication arguments
+usage: upgradepilot [-h] [--github-auth {anonymous,token-env}]
+                    [--save-report PATH] [--open-report PATH]
+                    [repository] [pull_number]
+upgradepilot: error: --open-report cannot be combined with investigation, save or authentication arguments
+usage: upgradepilot [-h] [--github-auth {anonymous,token-env}]
+                    [--save-report PATH] [--open-report PATH]
+                    [repository] [pull_number]
+upgradepilot: error: repository and pull_number are required for an investigation
+........................................
+----------------------------------------------------------------------
+Ran 79 tests in 1.224s
+
+OK
+{"outcome": "capture_stopped", "requests": 0, "decoded_body_bytes": 0, "elapsed_seconds": 1.00058184000045}
