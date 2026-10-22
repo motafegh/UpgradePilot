@@ -1,0 +1,34 @@
+# Maintainer utility readiness — engineering cycle
+
+Date: October 22, 2026 (Asia/Tehran).
+Primary operation: bounded Planning/Design investigation under [report usefulness §5](../plans/MAINTAINER_REPORT_PRESERVATION_AND_USEFULNESS_EVALUATION_PLAN.md#5-independent-usefulness-evaluation); implement a concrete preparation gap only when evidence supports it inside Ali's authorized project progression.
+Previous: [native CI presentation Build](2026-10-21_investigator-native-ci-presentation_build_lbd-cycle.md).
+
+A0 — DONE: fetched origin; HEAD and origin/main equal at75c64e1b; unrelated untracked October3 audit preserved. Current report/native-CI results and usefulness owner reconciled. This cycle is the detailed progression record.
+A1 — DEFERRED teaching by explicit user instruction; recent engineering state inspected, learner understanding unassessed.
+A2 — DEFERRED teaching by explicit user instruction; engineering responsibility is to verify available normal reports, equal-information ordinary-review inputs and study entry gaps, then select the exact justified next preparation.
+B — CURRENT: inspect retained normal-report candidates and original producer/source provenance, strict offline reopening and matched-source feasibility; preserve original bytes and classify unavailable evidence honestly.
+Verification gate — PENDING: repeatable bounded artifact/source checks, actual report decoding/rendering and recorded identities; no new semantic or independent utility claims.
+D — DEFERRED to learning elsewhere; topics recorded progressively.
+E — PENDING engineering result/next responsibility, with learning debt explicitly handed off.
+C — CONTINUOUS.
+
+## Authorization and method adaptation
+
+Ali: "Go for next of project building phases, the learning phase will be happen somewhere else you just record what should be learn." Normal route would repeat learning gates and guided ownership before another cycle. That conflicts with the user's chosen session purpose, so perform engineering inspection/preparation directly, record learning topics, and preserve unassessed understanding. This changes teaching cadence only; it does not waive accepted semantics, independent review, acquisition/inference scope, external-contact authorization or verification.
+
+Scope: check existing normal reports and comparable source packets under the existing plan. Do not create a second usefulness plan or claim study activation while case/protocol/reviewer entries are absent. Reviewer availability is unconfirmed, not absent; no outreach is authorized. No model/GPU calls, target execution, new acquisition or dependencies are selected for this readiness investigation. Hashes and source metadata do not establish authenticity or historical decision-time availability.
+
+## Starting evidence and action sequence
+
+The new experimental HTTPX/glyphsLib CI views prove scoped presentation, not full normal-product study inputs. October3 ordinary installed CLI records provide three concrete candidates: Soup Sieve successful bounded support-drop/target applicability, HTTPX unavailable upstream source/CI, and OpenCV removed artifact tags with unresolved target applicability. Earlier failure/before-repair records remain controls, not extra independent cases. Candidate input/source bytes and comparable ordinary-review packets must be inspected rather than inferred from report URLs or rich manual simulation packets.
+
+1. Bind/read candidate reports with current strict saved-report owner; retain exact generator/historical horizon and inspect source retention.
+2. Trace original acquisition receipts and raw source availability for equivalent ordinary review; do not derive a baseline from findings or import manual expected answers.
+3. Record readiness per candidate and exact participant/oracle/protocol gaps; prepare the smallest concrete engineering handoff that these observations justify.
+4. Validate artifact identities/references and publish coherent increments. No reviewer outcomes, usefulness, compatibility or permission follows from preparation.
+
+Learning topics to retain: historical report reopening versus fresh investigation; source evidence versus producer-derived facts; equal information versus report assistance; exposed development cases versus independent review; feasibility/preparation versus frozen study activation; distinctions inherited from the previous CI cycle.
+
+UP-SKILL:upgradepilot-planning-design
+UP-SKILL:upgradepilot-working-memory

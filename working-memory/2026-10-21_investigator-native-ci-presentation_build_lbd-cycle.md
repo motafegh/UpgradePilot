@@ -7,9 +7,9 @@ A1 — DONE for scope: continuity/design and exact implementation sequence were 
 A2 — DONE for scope: shared CI-only projection and deterministic experimental consumer; test parity and authority boundaries; freeze new code, run the two historical native cases once, review outputs/differences. No new model/acquisition/runtime-support/action scope.
 B — DONE: shared projection/consumer, one two-case composition batch, exposed display defect and bounded renderer repair; original outputs preserved.
 Verification gate — GREEN for the repaired bounded consumer: initial display failure preserved;94 distinct tests covered,42 nearest tests green after fix; source/native/model identities and real-record render-only repair verify. No semantic/usefulness acceptance inferred.
-D — CURRENT after sufficient verified outputs as requested: written result/difference/repair learning is delivered; guided ownership answers remain unassessed.
-E — PENDING.
-C — CONTINUOUS.
+D — DEFERRED by Ali on October 22: written result/difference/repair explanation delivered; further teaching and ownership assessment will happen elsewhere, with topics retained below.
+E — DONE for engineering handoff on October 22: bounded implementation/proof delivered; learner ownership explicitly deferred, not inferred. Follow-on readiness work has its own cycle.
+C — DONE for this engineering record; learning debt remains linked.
 
 Gate adaptation: continuous detailed design/implementation explanation plus Ali's explicit execution instruction → normal repeated A1/pre-B stops → repeating that selection would delay already understood bounded work → proceed with preserved scope and concise updates, then learning after verified real outputs as requested → no additional product authority or method inferred → preserve actual differences, failures and proof limits for D/E. Predecessor planning/diagnostic learning is not retroactively closed.
 
@@ -62,3 +62,11 @@ Final preservation:17 common input members,61 original model-result files and25 
 D can now use real outputs and this actual debugging correction, rather than hypothetical examples. Written learning explains shared meaning without partial synthesis, available/evaluated/established/cited distinctions, and why typed/keyword proof missed the composed display boundary. Suggested ownership questions are in the review; Ali has not answered and mastery/E closure is not inferred. MEMORY.md selects that learning continuation and preserves all prior debt; no follow-on implementation or model/utility experiment is selected. Progressive publication:ab36dea8 activation,c121767c shared projection,bf32c65f consumer/freeze,62e13221 first outputs,0a3b2995 bounded renderer repair, followed by review/repair-proof handoff.
 
 Final artifact whitespace check flagged six generated `Reachability witness: ` empty-value lines in the corrected glyphsLib text. Retain their exact bytes because they are the unchanged product-rendered body, not source-code errors. Default git diff --check is therefore qualified, not an unconditional final PASS: source/docs/all other paths pass with only that exact generated artifact excluded, and verification.json records the six line numbers. Commit044d746e's generated-output check reported them before publication; the shell continued to commit, so this follow-up explicitly reconciles the recorded check instead of rewriting evidence or pretending it passed. No executable change or extra test/case run is needed for this data-format qualification.
+
+## October 22 — engineering handoff and learning elsewhere
+
+Ali explicitly selects progression through project building phases and asks to record learning topics rather than conduct teaching here. This overrides repeated learning/understanding stops for the authorized engineering progression; it does not establish learner mastery or alter proof/security boundaries. Engineering closure includes this explicit learning deferral, not a successful D assessment.
+
+Topics for the other learning session: trace native CI assessments through project_ci_report into full/partial consumers; distinguish available/evaluated/established and static/execution/dependency-state/compatibility/action; explain why valid references and identical delivered records did not prevent the glyphsLib overclaim; trace the multiline-renderer failure and discriminating prefix regression; distinguish original failed output, render-only repair proof and a silent rerun/regrade; distinguish faithfulness from independent maintainer usefulness. Start from REVIEW.md and the actual corrected views above. No learner answers have been assessed.
+
+Continued by: [maintainer utility readiness engineering cycle](2026-10-22_maintainer-utility-readiness_engineering-cycle.md).
