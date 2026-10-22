@@ -1,0 +1,97 @@
+{
+  "review_class": "source-aware implementer engineering review; not independent semantic/utility adjudication",
+  "capture_report_identity": "matches exact frozen expected identity",
+  "request_rows": 8,
+  "full_consumed_bodies": 6,
+  "status_only_unconsumed_bodies": 2,
+  "retained_decoded_bytes": 77977,
+  "source_reference_mapping": [
+    {
+      "report_source": "source-1",
+      "source_kind": "pull_request",
+      "request_numbers": [
+        1,
+        3
+      ],
+      "representation": "complete API bodies, including both identity snapshots"
+    },
+    {
+      "report_source": "source-2",
+      "source_kind": "dependency_source",
+      "request_numbers": [
+        2
+      ],
+      "representation": "changed-file patch supporting exact pin transition; full head requirements.txt not acquired or retained"
+    },
+    {
+      "report_source": "source-6",
+      "source_kind": "package_metadata",
+      "request_numbers": [
+        5
+      ],
+      "representation": "complete release JSON; exact httpx0.28.1 identity"
+    },
+    {
+      "report_source": "source-8",
+      "source_kind": "package_metadata",
+      "request_numbers": [
+        6
+      ],
+      "representation": "complete release JSON; exact httpx0.27.2 identity"
+    }
+  ],
+  "additional_material_input_mapping": [
+    {
+      "assessment": "ci/runtime",
+      "request_numbers": [
+        4
+      ],
+      "meaning": "exact-head query observed zero runs at this new capture; no runtime candidate, not global CI absence"
+    },
+    {
+      "assessment": "upstream-repository",
+      "request_numbers": [
+        5,
+        7,
+        8
+      ],
+      "meaning": "distribution records plus two actual provenance404 statuses; no response bodies consumed for those404s"
+    },
+    {
+      "assessment": "artifact-candidate",
+      "request_numbers": [
+        5,
+        6
+      ],
+      "meaning": "owned package comparison over complete retained release metadata; no new independent semantic verdict"
+    }
+  ],
+  "producer_assessment_sources": {
+    "count": 13,
+    "meaning": "derived owner results in report only, not raw source packet; remaining not-evaluated branches follow owned prerequisites"
+  },
+  "normal_input_scope": "all eight observed normal HTTP interactions; complete consumed bytes or explicit status-only input. Not a complete repository snapshot or all provider response bodies.",
+  "retrospective_horizon": "October22 acquisition, not evidence of availability at original PR decision time; no historical capture merge",
+  "report_semantics": {
+    "dependency": "supported",
+    "ci": "no_successful_ci",
+    "runtime": "no_admitted_candidate",
+    "package": "available",
+    "old-package": "available",
+    "upstream-repository": "source_unavailable",
+    "upstream-interval": "not established",
+    "support-drop": "not evaluated",
+    "artifact-candidate": "not observed",
+    "artifact-environments": "not activated",
+    "artifact-impact": "not evaluated",
+    "target-python": "not activated",
+    "python-relevance": "not evaluated"
+  },
+  "unknowns": 9,
+  "action": "abstain",
+  "independent_study_started": false,
+  "qualified_current_mechanical_cases": 1,
+  "planned_independent_pilot_cases": 3,
+  "participant_availability": "unconfirmed; no reviewer contact",
+  "limits": "No inference/discovery/compatibility/usefulness/generalization result; report-source mapping is source-aware and exposed"
+}

@@ -5,11 +5,11 @@ Previous: [readiness engineering cycle](2026-10-22_maintainer-utility-readiness_
 
 A0 — DONE: fetched origin; entry main242cf32d and origin/main agree. Readiness receipts establish3 historical candidates but0 qualified matched packets in inspected retention. Current normal application, Requests GitHub/PyPI clients, old GitHub-only preparation recorder, report codec/CLI/tests and source/trust owners inspected. Unrelated untracked October3 audit preserved.
 A1/A2 — Teaching DEFERRED by Ali; engineering responsibility established from the preceding handoff and "Go on". Understanding unassessed; no teaching gate in this session.
-B — CURRENT: diagnostic recording of normal HTTP inputs plus the normal report; controlled composition/failure proof, then bounded live proof if admissible.
-Verification gate — PENDING.
+B — DONE: observational HTTP source/report diagnostic and one frozen exact-normal HTTPX capture; source-aware paired review and byte/mode/source verification delivered.
+Verification gate — GREEN for the scoped diagnostic/capture:9 distinct diagnostic/79 inclusive nearest tests, Ruff, one normal live capture,100 frozen identities and14 private-file hashes/modes verify. No semantic/usefulness acceptance inferred.
 D — DEFERRED elsewhere; learning topics retained below.
-E — PENDING engineering handoff.
-C — CONTINUOUS.
+E — DONE engineering closure with explicit deferred learning; another contrasting matched capture and independent study prerequisites remain separate.
+C — DONE for this bounded Build record.
 
 ## Selected responsibility and local design
 
@@ -39,3 +39,13 @@ Implemented tools/capture_report_sources.py and9 distinct diagnostic tests. The 
 Code/proof/operational freeze published asb925b382 before execution. The one HTTPX capture completed normally:8 anonymous GETs,77,977 retained decoded bytes,4.183781s internal and4.502642s startup-inclusive, process exit0. Exact frozen repository/PR/base/head/HTTPX transition match. New full normal report, source index and receipt are retained; source body bytes remain private in the frozen new path. All private files inspected are0600. No model request or target execution occurred. Raw output completion is not yet source-mapping or utility acceptance.
 
 Source shape:6 completed response bodies;2 PyPI provenance404 responses were closed without consumption, retained explicitly as body_not_consumed with only header/status evidence. PR identities were acquired twice around changed-file acquisition; no-run query is a new October22 observation. The dependency change uses the retained changed-file patch; no full requirements.txt input was acquired, so the report's head-file reference must not be labelled retained full-file content. Preserve these limits in paired review. No normal producer/parser/correlation/runtime semantic owner changed, and no original report/capture was modified or rerun.
+
+## Source-aware review, final proof and engineering closure
+
+[Reviewed result](evidence/2026-10-22-matched-report-source-capture/REVIEW.md) and [paired mapping](evidence/2026-10-22-matched-report-source-capture/paired-review.json) link4 external report references to the retained PR snapshots/diff/package bodies and the actual CI/provenance queries. The changed-file patch supports the exact transition, while the head requirements.txt locator stays reference-only; body_not_consumed404 receipts are status evidence, not complete empty bodies. Report source_unavailable/no-candidate/abstain meanings persist. This is retrospective October22 evidence and exposed source-aware engineering review, not old decision-time acquisition or independent semantic acceptance.
+
+[Verification recipe](evidence/2026-10-22-matched-report-source-capture/verify_retention.py) checks100 frozen identities, private/public byte equality, strict report decoding, all14 private files/152,152 bytes with0700/0600 modes, and unchanged6 original report hashes. src/tests/product-simulation remain unchanged from242cf32d. One capture/one normal report out of one requested mechanical case;3-case independent study is not ready. No inference/GPU/target execution/installs, participant outreach or utility outcomes.79 nearest tests and final9 focused tests are green; existing external developer Ruff available and passed, not an UpgradePilot dependency.
+
+Progressive commits:8ed6732b activation; b925b382 tested implementation/operational freeze; c91c5efb raw new capture artifacts before paired review; final reviewed evidence/live handoff follows. Learning elsewhere includes the actual diff/full-file and404-unconsumed discoveries alongside the observer/exception/budget/source-equality topics above; ownership remains unassessed. No teaching stop is reintroduced. The next engineering responsibility is another contrasting source/report packet (OpenCV is a candidate); Soup Sieve needs an explicitly bounded model/acquisition decision. Independent reviewers/adjudicator/protocol remain separate unconfirmed study prerequisites.
+
+Final closure checks: all100 operational freeze identities remain unchanged; review recipe hash matches its receipt;24 local Markdown targets resolve; public evidence114,894 bytes before its final check receipt, below5MiB; full responsibility-range git diff --check and touched tool/test Ruff pass. All new private body files remain outside Git; the unrelated untracked October3 audit is preserved. No extra native/live/model execution was used during review.

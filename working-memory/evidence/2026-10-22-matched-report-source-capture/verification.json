@@ -1,0 +1,100 @@
+{
+  "proof": "PASS for byte retention, private modes and scoped composition",
+  "private_members": [
+    {
+      "path": "capture.json",
+      "bytes": 12405,
+      "sha256": "573e145bdc37bcbe4c1f098b068a36a487fd60edbbb5dc6c9c4bd735278d7e52",
+      "mode": "0600"
+    },
+    {
+      "path": "contract.json",
+      "bytes": 588,
+      "sha256": "33b467581c0400e24b91e8e967f74febf7309b21c8b632d3fb9770c74a02e47c",
+      "mode": "0600"
+    },
+    {
+      "path": "report-sources.json",
+      "bytes": 2641,
+      "sha256": "c34f65e1a49a038a5718c6f59fd4d7c349aa9b4db85476e097007d54befb48c1",
+      "mode": "0600"
+    },
+    {
+      "path": "report.json",
+      "bytes": 39036,
+      "sha256": "fbc88dba74e2ff92efbeeca7762b7218d0796348e239a863ba09f60d4db035ad",
+      "mode": "0600"
+    },
+    {
+      "path": "report.txt",
+      "bytes": 13551,
+      "sha256": "77e09a12841e74efd4fe36c03831dff4313c22f3606e3ac25544def5fdd071c4",
+      "mode": "0600"
+    },
+    {
+      "path": "sources/0001.body",
+      "bytes": 29496,
+      "sha256": "b19cec81741eb1545cf7e3b5ba034c68e610b9c4970609198b33bfaf3f841c8c",
+      "mode": "0600"
+    },
+    {
+      "path": "sources/0002.body",
+      "bytes": 721,
+      "sha256": "19af613be7a54b92da1d81a1d1a46102314cba0c1db00e9d91a2af9db9dfbcca",
+      "mode": "0600"
+    },
+    {
+      "path": "sources/0003.body",
+      "bytes": 29496,
+      "sha256": "b19cec81741eb1545cf7e3b5ba034c68e610b9c4970609198b33bfaf3f841c8c",
+      "mode": "0600"
+    },
+    {
+      "path": "sources/0004.body",
+      "bytes": 36,
+      "sha256": "a2790a384d7d281e7395679000c35d27768d89dbd7052f725b8f4688beb59915",
+      "mode": "0600"
+    },
+    {
+      "path": "sources/0005.body",
+      "bytes": 9117,
+      "sha256": "293bfab7bf587fcd0825f1bd8eed8e6303285ba14801b15659853827cbe30796",
+      "mode": "0600"
+    },
+    {
+      "path": "sources/0006.body",
+      "bytes": 9111,
+      "sha256": "7446aaeeb6033d077d6526f0e9e99cc854cf2ff6f51a3f1e18cd361a8f8750c3",
+      "mode": "0600"
+    },
+    {
+      "path": "sources/0007.body",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0600"
+    },
+    {
+      "path": "sources/0008.body",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0600"
+    },
+    {
+      "path": "sources/index.json",
+      "bytes": 5954,
+      "sha256": "34fb9393349bf001b4a83bc34e53de0542e1f4d3295f6490412b86e954c9cda2",
+      "mode": "0600"
+    }
+  ],
+  "private_file_count": 14,
+  "private_bytes": 152152,
+  "frozen_members_verified": 100,
+  "original_reports_verified": 6,
+  "product_tests_simulation_unchanged": true,
+  "diagnostic_tests": 9,
+  "inclusive_nearest_tests": 79,
+  "live_attempts": 1,
+  "live_normal_reports": 1,
+  "independent_study_results": 0,
+  "recipe_sha256": "33715451d0bf82f501e76503eec839f65a7d267afc53583514ef987eadeca347"
+}

@@ -1,0 +1,9 @@
+{
+  "proof": "PASS for frozen identity, local links, unchanged product and public size",
+  "frozen_members_unchanged": 100,
+  "markdown_targets_checked": 24,
+  "public_bytes_at_check": 114894,
+  "private_retention_verifier_hash_matches": true,
+  "no_product_or_product_test_or_simulation_changes": true,
+  "claim_limits": "Scoped mechanical capture and source-aware exposed review only; no independent utility"
+}
