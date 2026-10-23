@@ -1,0 +1,150 @@
+{
+  "mode": "exposed_implementer_development_review",
+  "source_revision": "9f362d1f",
+  "new_acquisition_inference_target_execution": false,
+  "cases": {
+    "httpx": {
+      "report_id": "72081813-39ef-402a-8e51-ec40f6ac9073",
+      "report_sha256": "4f28c94de82458182837ce1276f9c182c1bf0e8530ed8142a0f14b7439dbaf92",
+      "original_report_sha256": "fbc88dba74e2ff92efbeeca7762b7218d0796348e239a863ba09f60d4db035ad",
+      "original_pr_response_sha256": "b19cec81741eb1545cf7e3b5ba034c68e610b9c4970609198b33bfaf3f841c8c",
+      "source_index_sha256": "34fb9393349bf001b4a83bc34e53de0542e1f4d3295f6490412b86e954c9cda2",
+      "frozen_http_observations_verified": 8,
+      "complete_bodies": 6,
+      "unconsumed_status_only_bodies": 2,
+      "source_id": "source-1",
+      "description_utf8_bytes": 9348,
+      "description_sha256": "179e4ce07210cb1b800cadff842cb63438a7afbaec0d199678c61fecf1c25f3a",
+      "observed_at": "2026-10-23T12:03:01.688113+00:00",
+      "old_retention": "reference_only",
+      "new_retention": "retained_text",
+      "recorded_generator": "2",
+      "saved_summary_lines": 278,
+      "source_view_lines": 141,
+      "saved_summary_words": 1580,
+      "unknowns": 9,
+      "source_view_sha256": "70afdfb997a301f64aa01d91ba873f3f5516b1c781a9dac74623d05127031642",
+      "review_passage_locations": {
+        "app_mentions": [
+          {
+            "codepoint_start": 1402,
+            "codepoint_end": 1418,
+            "decoded_body_line": 25,
+            "span_sha256": "34cacad6a2a5ea88fb4506d7ad9b21aec30a05d4c9a4fc4e45e8d0e46ada0ef2"
+          },
+          {
+            "codepoint_start": 3645,
+            "codepoint_end": 3661,
+            "decoded_body_line": 55,
+            "span_sha256": "34cacad6a2a5ea88fb4506d7ad9b21aec30a05d4c9a4fc4e45e8d0e46ada0ef2"
+          }
+        ],
+        "proxies_mentions": [
+          {
+            "codepoint_start": 1326,
+            "codepoint_end": 1346,
+            "decoded_body_line": 24,
+            "span_sha256": "d9dd7dbfbb54e661615e68bda1755a7693f40a3925002bc7a7783562edb2f722"
+          },
+          {
+            "codepoint_start": 3569,
+            "codepoint_end": 3589,
+            "decoded_body_line": 54,
+            "span_sha256": "d9dd7dbfbb54e661615e68bda1755a7693f40a3925002bc7a7783562edb2f722"
+          }
+        ],
+        "cert_mentions": [
+          {
+            "codepoint_start": 970,
+            "codepoint_end": 987,
+            "decoded_body_line": 19,
+            "span_sha256": "ea846466507e6c50aca24dcc498778a27ea247a063a70b6ba00b68b48ce278e8"
+          },
+          {
+            "codepoint_start": 3211,
+            "codepoint_end": 3228,
+            "decoded_body_line": 49,
+            "span_sha256": "ea846466507e6c50aca24dcc498778a27ea247a063a70b6ba00b68b48ce278e8"
+          }
+        ],
+        "verify_mentions": [
+          {
+            "codepoint_start": 864,
+            "codepoint_end": 883,
+            "decoded_body_line": 18,
+            "span_sha256": "9d68c0fb9461e722917fbcef87bb79ab61898c6f88e37e572b8fe9be44461b99"
+          },
+          {
+            "codepoint_start": 3105,
+            "codepoint_end": 3124,
+            "decoded_body_line": 48,
+            "span_sha256": "9d68c0fb9461e722917fbcef87bb79ab61898c6f88e37e572b8fe9be44461b99"
+          }
+        ]
+      },
+      "cli_summary_and_source_exit_codes": [
+        0,
+        0
+      ],
+      "identity_domain_action_parity": true,
+      "input_and_output_files_unchanged": true,
+      "task_benefit_or_time_saving_measured": false
+    },
+    "opencv": {
+      "report_id": "26581e5e-a854-4ec1-a11c-20a0c98d7b99",
+      "report_sha256": "598428152581dce3dfb303f611b7ae64317855e6492b7ca4390ff322af165cfb",
+      "original_report_sha256": "9f6b2d79a08421db5c113a9a0e38d34176728352d8644c52ddc86a2acea88116",
+      "original_pr_response_sha256": "9b92282f619112739356f9c0ed5049322e4856b2bf632662a8e6efd8c161e0b1",
+      "source_index_sha256": "8a62a31c0c8ceefa34dc0bfd270d23ce94d2da3c4db72e996ad6e42eafbe8b43",
+      "frozen_http_observations_verified": 13,
+      "complete_bodies": 6,
+      "unconsumed_status_only_bodies": 7,
+      "source_id": "source-1",
+      "description_utf8_bytes": 5902,
+      "description_sha256": "e0b59d6d5b77b49da8f06e548508dc2282009d9d78f51b9bea996e2c7ea69d47",
+      "observed_at": "2026-10-23T12:03:01.719989+00:00",
+      "old_retention": "reference_only",
+      "new_retention": "retained_text",
+      "recorded_generator": "2",
+      "saved_summary_lines": 291,
+      "source_view_lines": 127,
+      "saved_summary_words": 1726,
+      "unknowns": 10,
+      "source_view_sha256": "55764376259e07a81c28e2bbb64803203076aa660484e97315353cf0fee4c7e4",
+      "review_passage_locations": {
+        "release_heading": [
+          {
+            "codepoint_start": 2092,
+            "codepoint_end": 2109,
+            "decoded_body_line": 39,
+            "span_sha256": "873bcd980f69f4fa3b3f828904e04c0cd7ad847763267721a03a67137058dbdc"
+          }
+        ],
+        "support_statement": [
+          {
+            "codepoint_start": 2839,
+            "codepoint_end": 2866,
+            "decoded_body_line": 48,
+            "span_sha256": "4c2c607ad36904502398eae9be71379ce59e7e8a19649299195336c31a6d4b31"
+          }
+        ],
+        "truncation_marker": [
+          {
+            "codepoint_start": 3360,
+            "codepoint_end": 3375,
+            "decoded_body_line": 57,
+            "span_sha256": "7dbd57c870e2bc3f0ee8d4126df2b59f5209d8d75b92b7361ebf7f1851d7439d"
+          }
+        ]
+      },
+      "cli_summary_and_source_exit_codes": [
+        0,
+        0
+      ],
+      "identity_domain_action_parity": true,
+      "input_and_output_files_unchanged": true,
+      "task_benefit_or_time_saving_measured": false
+    }
+  },
+  "forbidden_work_attempts": 0
+}
