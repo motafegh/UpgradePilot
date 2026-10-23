@@ -8,11 +8,11 @@ Continues the [source-access Build](2026-10-23_pr-description-and-offline-source
 
 - A0 — DONE: current Git/MEMORY, completed Build, prior case review and active report/direction owners agree.908-test proof is prior-cycle evidence, not a fresh run here.
 - A1/A2 — DONE, compressed: the previous handoff selected concrete task review; Ali said go for next. Standing learning-elsewhere instruction permits compressed teaching gates, with topics retained rather than mastery inferred.
-- B — CURRENT: inspect actual saved reports/source views and compare task support with the preceding output.
-- Verification gate — PENDING: source/report identity, exact view access, prior/new domain parity, immutable originals and evidence pointers.
+- B — DONE: actual saved source/task review and existing-owner/alternative analysis delivered.
+- Verification gate — GREEN:21 HTTP observations and4 offline CLI views validated; deterministic inspection receipt reproduced; domain/action parity and original bytes preserved.
 - D — DEFERRED: separate learning, no independent reviewer or learner-ownership claim.
-- E — PENDING: smallest evidence-supported next responsibility, with alternatives and residual limits.
-- C — CONTINUOUS.
+- E — DONE: next design recommendation, counterargument and deferred learning/utility limits recorded.
+- C — DONE: cycle closed with explicit learning deferral.
 
 ## Review question fixed before this inspection
 
@@ -38,3 +38,13 @@ Actual source inspection recovers HTTPX copied argument removals/deprecations an
 Broader-plan reconciliation: the product-value/baseline feasibility investigation was already executed on October20, not merely planned. Its dated FINDINGS and subsequent two-case CI comparison remain historical evidence; no repeated S001–S016 screen or baseline run is justified by this review. The external memory summary's prepared-plan horizon is older than these current repository owners. Existing source/adapter/AST binding experiments are substantial but unadopted; they retain examination/sample/runtime limits.
 
 The remaining task gap is automated source-grounded change/target reasoning; a current normal packet's missing target evidence and an earlier curated experiment's interpretation failure despite supplied sources are different causes. Alternatives and final next-responsibility recommendation remain to be consolidated.
+
+## Final review / verification / E handoff
+
+[Review](evidence/2026-10-23-source-access-task-review/REVIEW.md) answers all five declared tasks across both cases. Offline source access recovers copied change context, not automated interpretation or target applicability. Literal HTML has no observed blocking defect here; no new lower-owner repair is justified. The key engineering distinction is missing target premises in current normal packets versus demonstrated semantic failure in earlier richer packets. No independent task-time/usefulness claim is made.
+
+Existing call-keyword/binding, exact source acquisition and adapter-sampling experiments must be reused/qualified rather than rebuilt. Recommended separate next responsibility: bounded deterministic API call/signature evidence baseline design under the existing API/source trial. It must earn a concrete consumer, qualify retained source completeness/identity and explicit correspondence, preserve dynamic/dispatch/version unknowns, and allow reuse/narrow/defer/stop. This review does not activate implementation, new inference, acquisition, protected-case execution or product adoption. The earlier feasibility investigation and native-CI comparison are already delivered; no repeat is selected.
+
+Verification: the same inspection receipt reproduces exactly on a second read-only run;14 local links resolve and git diff --check passes. Product/test/experiment/tool/plan/spec/ADR/workflow/dependency files are unchanged from9f362d1f. Prior908-test verification is historical and was not rerun for this review. No existing input/output changed. Publication checkpoint0a227a9f retained the mechanical result before final judgment.
+
+D remains explicitly deferred to the separate learning session. Record the distinctions in the review's learning handoff, with no ownership/mastery inference. E closes the selected review and leaves the proposed design for Ali's next selection. MEMORY alone owns the live continuation.
