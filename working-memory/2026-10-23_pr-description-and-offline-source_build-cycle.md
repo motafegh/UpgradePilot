@@ -9,11 +9,11 @@ Continues the [completed design cycle](2026-10-23_pr-description-preservation-an
 - A0 — DONE: main and source agree with the completed design handoff; unrelated untracked October 3 audit record preserved.
 - A1 — DONE, compressed: the preceding explanation covered current capabilities, recent corrections and remaining proof limits; Ali explicitly requested full execution.
 - A2 — DONE, compressed: implement initial PR observation → additive native family → existing report source → explicit offline inspection; no semantic/action changes or additional acquisition.
-- B — CURRENT: provider/native/report/CLI implementation and integration.
-- Verification gate — PENDING: focused, retained full-case, cold-process, historical, installed and full regression proof.
+- B — DONE: provider/native/report/CLI source preservation and inspection delivered.
+- Verification gate — GREEN:908 product tests plus retained full-case/cold-process/historical/installed checks; details below.
 - D — DEFERRED: learning happens elsewhere at Ali's standing request; preserve useful topics and actual evidence here without claiming learner ownership.
-- E — PENDING: consolidate proof, defer learning gaps explicitly and hand off the bounded result.
-- C — CONTINUOUS.
+- E — DONE: proof/limits consolidated; learning deferred explicitly; bounded consumer-review handoff recorded.
+- C — DONE; cycle closed after explicit learning deferral.
 
 ## Procedure adaptation and orientation map
 
@@ -43,3 +43,19 @@ Complete retained response composition succeeds for HTTPX (9,348 description byt
 A sampled historical migration experiment fails10 subcases across9 tests on the unchanged baseline and changed source: it patches an old application-level analyze_dependency_change symbol moved before this cycle. It is an existing experimental compatibility debt, not a source-access regression. No repair to that unselected research mechanism is included.
 
 Full product regression, installed CLI, six historical reports and final source review remain pending at this checkpoint.
+
+## Verification checkpoint 2
+
+Implementation/focused proof published progressively as85491b89. The first full regression ran908 tests/112.503s with11 failures, all in checkpoint tests' old fixed11-record/18-edge expectations or their assumption that every new family affected Python. Updated SQL expectations to compare stored cardinalities to the submitted immutable boundary, kept the CI/Python edge scope explicit, and required their projections to survive unknown description versions.48 checkpoint tests pass/40.827s. Full regression is being repeated; no product integrity contract was weakened.
+
+Six historical reports reopen under the new renderer with strict round-trip equality, original hashes and recorded generator identities preserved; zero network attempts/0.164786s. Fresh temporary venv with normal package-index access installed the product successfully. Actual installed module is outside the checkout; installed console script opens both private new reports and produces the exact expected source views behind denied provider/network/synthesis/save entry points. pip check and both help entry points pass.32 focused tests also pass against that installed package/0.444s (PYTHONPATH excludes src). No project dependency changed; installed dependency versions are recorded in the receipt. Hosted verification remains manual/uninvoked.
+
+Source review removed a duplicate diagnostic-test import and clarified the injected clock. These test-only corrections do not change the installed product snapshot. The current experimental native offering still enumerates only its admitted dependency/CI families; description access is not silently offered to a model.
+
+## Verification gate / D and E disposition
+
+Final full deterministic regression:908 tests/130.019s, OK. The [verified result](evidence/2026-10-23-pr-description-build/REVIEW.md) consolidates portable product tests, complete controlled retained cases, cold-process source reconstruction, six historical reports, installed console entry and existing experimental debt. Runtime source has not changed after the implementation increment; remaining changes reconcile test assumptions, evidence and documentation. No hosted run/model/new public capture/target execution occurred.
+
+D learning/mastery remains deferred at Ali's standing request. Record topics for the separate learning session: mutable observation versus commit identity; observation time/hash versus generation time; seven representation states versus historical absence; additive codecs and affected-version refusal; input-closure validation versus semantic evaluation; saved exact text versus sanitized literal display; shared test clocks and architecture-independent cardinality assertions. No learner ownership is inferred.
+
+E explicitly defers those learning gaps and the baseline-failing historical research seam. The declared feature is complete and the engineering cycle closes with scoped proof. Time-scoped next responsibility: examine the now-accessible copied PR context in concrete maintainer tasks and select the next evidence-supported product capability; do not automatically begin model interpretation, third capture, stronger actions or another broad migration. MEMORY owns the actual continuation.

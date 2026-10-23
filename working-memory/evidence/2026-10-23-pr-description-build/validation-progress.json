@@ -29,5 +29,65 @@
     "baseline_commit": "5a1a7641",
     "first_error": "upgradepilot.investigation has no attribute analyze_dependency_change",
     "disposition": "pre-existing stale experimental orchestration seam, outside selected source-access implementation"
+  },
+  "full_regression_initial": {
+    "tests": 908,
+    "seconds": 112.503,
+    "outcome": "failed",
+    "failures": 11,
+    "cause": "checkpoint tests hard-coded old family/edge/storage counts and treated optional source as a Python input"
+  },
+  "checkpoint_after_correction": {
+    "tests": 48,
+    "seconds": 40.827,
+    "outcome": "passed",
+    "correction": "derive SQL cardinalities from submitted immutable boundary; source remains outside CI/Python closure"
+  },
+  "installed_focused": {
+    "tests": 32,
+    "seconds": 0.444,
+    "outcome": "passed",
+    "environment": "fresh pip-installed environment; PYTHONPATH=tests:. without src"
+  },
+  "historical_reports": {
+    "reports": 6,
+    "network_attempts": 0,
+    "seconds": 0.16478615900268778,
+    "outcome": "passed",
+    "original_bytes_unchanged": true
+  },
+  "full_regression_final": {
+    "tests": 908,
+    "seconds": 130.019,
+    "outcome": "passed",
+    "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:tests:. .venv/bin/python3 -m unittest discover -s tests -q"
+  },
+  "implementation_commit": "85491b89",
+  "changed_executable_and_test_hashes": {
+    "experiments/tests/test_report_source_capture.py": "aa5434206eeaff70033f713d6b9ceb1dabc3a96eab9ab8a1e98d555499124ce8",
+    "src/upgradepilot/cli.py": "bf2034ddb8d619aa738c9cbdcd0cc49b9f153b6ee06b4c32334445d3a1862410",
+    "src/upgradepilot/github/pull_request.py": "36ae996270d442ddbc96073c5b63224801a7d590ff9060c0dfdfa09744400fca",
+    "src/upgradepilot/investigation.py": "bbe9a45a47d4acd4c0cbbb4f9189bcba12c78c798be9b2a804d933484ea5294d",
+    "src/upgradepilot/investigation_inputs.py": "cafc5f52d7d61bf6b021663541c1f1460541e50e83e1e6670a189ecc13a62c18",
+    "src/upgradepilot/report.py": "729851b16c787d817ce2097a45aad83fa8b68d8644284b2a48a3de6024310d4d",
+    "src/upgradepilot/report_projection.py": "1017063f149c485a60d461f3b02a28e5394e259ecbde40ba5bf50858b6bdccf0",
+    "src/upgradepilot/workspace/native_capture.py": "153cdb57ca9b5e54532e025034c4edf9df697ed5e9b896dfeff4a87e79830678",
+    "src/upgradepilot/workspace/native_codecs.py": "50e8909ee3da1dbb88467fd459147672eb73d47ae7638601a30ba2de39522bae",
+    "src/upgradepilot/workspace/native_inputs_codec.py": "e38f4ab7d191d719c639ea2216fffa980fa69272305ad8355fe626ff7ed75ae4",
+    "src/upgradepilot/workspace/native_projection.py": "c4e847b452f5d270f4e7ffcb982dee3f25e0209cb9d5389e24c15fabac372bdf",
+    "tests/test_conditional_pyproject_consumption.py": "369635203dadae5ffb6811862c0780cfbc4364993072fd38a8c68fd13eb883d1",
+    "tests/test_github_client.py": "98751fa58e142af6116034986f86939c59399231ef61eef1998f2183114c0ce3",
+    "tests/test_investigation.py": "6302ceebf9aadd174b604f679e410c3eba8bffe6d2ba02dd9faa6e18a6db8233",
+    "tests/test_pull_request_description.py": "1325b2a53e88bda5dd56d913fd2fc2abd78aac79f9516b0533e25ec9f5e0b514",
+    "tests/test_r6_investigation_ci_integration.py": "be733a8439cdabb7236e011ad53c0a7f993c8418fc2f8b8ad9926bd53e488052",
+    "tests/test_step7f_end_to_end.py": "ca1e51d88455d07847be25ba4af14539835831770256916c129dcdbcb1b928d2",
+    "tests/test_workspace_checkpoint_reconstruction.py": "ba7098f435a82791719b61f4c3f1aae3a28fb976c416866755e86153652a837f",
+    "tests/test_workspace_checkpoint_store.py": "d39cff3b9d9b4e1bd4a1dc00ce045e51890aaea76dab04e65b1db5dff590f51a",
+    "tests/test_workspace_native_reconstruction.py": "3a116b80c0b3cfdcdab6b2f6f4d72682c21895284cdf4f9f1ed29be158e8962a"
+  },
+  "documentation_checks": {
+    "local_links_checked": 171,
+    "missing_targets": 0,
+    "git_diff_check": "passed"
   }
 }

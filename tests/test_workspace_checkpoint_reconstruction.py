@@ -237,7 +237,7 @@ class WorkspaceCheckpointReconstructionTests(unittest.TestCase):
                     python_variant=python,
                     dependency_problem=problem,
                 )
-                self.assertEqual(len(boundary.records), 11)
+                self.assertEqual({r.family for r in boundary.records}, set(FAMILY_CONTRACTS))
                 store, revision = self._publish(boundary)
                 self._assert_reconstructed(
                     store, revision, expected_ci=ci, expected_python=support
@@ -366,7 +366,6 @@ class WorkspaceCheckpointReconstructionTests(unittest.TestCase):
     def test_every_root_unsupported_codec_or_semantic_version_preserves_unaffected_projection(
         self,
     ):
-        self.assertEqual(len(FAMILY_CONTRACTS), 11)
         for family in FAMILY_CONTRACTS:
             for field, value, reason in (
                 ("codec_version", 999, "unsupported_native_codec"),
@@ -379,7 +378,9 @@ class WorkspaceCheckpointReconstructionTests(unittest.TestCase):
                 with self.subTest(family=family, version=field):
                     boundary = altered_record(self.boundary, family, **{field: value})
                     affected = (
-                        ("ci", "python")
+                        ()
+                        if family == "pull_request_description"
+                        else ("ci", "python")
                         if family == "investigation_inputs"
                         else ("ci",)
                         if family.startswith("ci_")
@@ -402,6 +403,7 @@ class WorkspaceCheckpointReconstructionTests(unittest.TestCase):
         edges = [
             (family, name)
             for family, contract in FAMILY_CONTRACTS.items()
+            if family != "pull_request_description"
             for name in contract.inputs
         ]
         self.assertEqual(len(edges), 18)

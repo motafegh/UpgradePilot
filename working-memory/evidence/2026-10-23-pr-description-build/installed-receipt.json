@@ -1,0 +1,35 @@
+{
+  "installed_module": "/tmp/upgradepilot-description-install-rH7UaR/venv/lib/python3.12/site-packages/upgradepilot/__init__.py",
+  "cases": {
+    "httpx": {
+      "return_code": 0,
+      "view_sha256": "4430456a15a99a86898c3e12254e620815e46b8ac852cf7fd946d537da3f296e",
+      "original_report_unchanged": true,
+      "source_bytes": 9348
+    },
+    "opencv": {
+      "return_code": 0,
+      "view_sha256": "198be45241766c90275d1d17a9f3f8bd7879aab4eab6e62b1f44e63646687002",
+      "original_report_unchanged": true,
+      "source_bytes": 5902
+    }
+  },
+  "network_provider_synthesis_save_forbidden": true,
+  "distributions": {
+    "pip": "24.0",
+    "tree-sitter": "0.25.0",
+    "tree-sitter-batch": "0.11.1",
+    "requests": "2.34.2",
+    "PyYAML": "6.0.3",
+    "upgradepilot": "0.0.0",
+    "certifi": "2026.10.23",
+    "tree-sitter-pwsh": "0.38.1",
+    "idna": "3.20",
+    "packaging": "26.3",
+    "charset-normalizer": "3.5.2",
+    "urllib3": "2.8.0",
+    "tree-sitter-bash": "0.25.1"
+  },
+  "pip_check_and_both_help_entrypoints": "passed",
+  "installation": "fresh venv; pip install . with normal package-index access; no dependency added to project"
+}

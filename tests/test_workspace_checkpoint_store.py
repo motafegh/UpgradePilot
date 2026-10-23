@@ -268,10 +268,10 @@ class WorkspaceCheckpointStoreTests(unittest.TestCase):
             view.revision.revision_id = "mutated"
         with self._database() as db:
             self.assertEqual(
-                db.execute("SELECT count(*) FROM records").fetchone()[0], 11
+                db.execute("SELECT count(*) FROM records").fetchone()[0], len(self.initial.boundary.records)
             )
             self.assertEqual(
-                db.execute("SELECT count(*) FROM revision_members").fetchone()[0], 22
+                db.execute("SELECT count(*) FROM revision_members").fetchone()[0], 2 * len(self.initial.boundary.records)
             )
             for table in (
                 "records",
@@ -286,7 +286,7 @@ class WorkspaceCheckpointStoreTests(unittest.TestCase):
         self.store.publish(other)
         with self._database() as db:
             self.assertEqual(
-                db.execute("SELECT count(*) FROM records").fetchone()[0], 22
+                db.execute("SELECT count(*) FROM records").fetchone()[0], 2 * len(self.initial.boundary.records)
             )
 
     def test_new_record_identity_shares_payload_without_cross_lineage_deduplication(
@@ -303,7 +303,7 @@ class WorkspaceCheckpointStoreTests(unittest.TestCase):
                 db.execute("SELECT count(*) FROM payloads").fetchone()[0], before
             )
             self.assertEqual(
-                db.execute("SELECT count(*) FROM records").fetchone()[0], 22
+                db.execute("SELECT count(*) FROM records").fetchone()[0], 2 * len(self.initial.boundary.records)
             )
 
     def test_stale_and_root_predecessors_conflict_without_changing_history(self):
@@ -845,7 +845,7 @@ class WorkspaceCheckpointStoreTests(unittest.TestCase):
         self.assertEqual(self._read().revision, self.initial)
         with self._database() as db:
             self.assertEqual(
-                db.execute("SELECT count(*) FROM records").fetchone()[0], 11
+                db.execute("SELECT count(*) FROM records").fetchone()[0], len(self.initial.boundary.records)
             )
             self.assertEqual(
                 db.execute("SELECT count(*) FROM revisions").fetchone()[0], 1
