@@ -58,6 +58,9 @@ from .upstream.interval import (
 )
 from .upstream.interval_evidence import CrossedReleaseIndexSelectionProblem
 from .upstream.repository import UpstreamRepositoryEvidence
+from .workspace.native_boundary import exact_investigation_target
+from .workspace.native_projection import reconstruct_pull_request_description
+from .workspace.native_representation import NativeReconstructionError
 
 
 def _fact(name: str, label: str, value: object) -> ReportFact:
@@ -274,12 +277,7 @@ def project_investigation_report(
     p = _ReportProjection(result)
     pr = result.pull_request
     identity = _pull_request_identity(pr)
-    pr_source = p.source(
-        "pull_request",
-        locator=f"https://github.com/{pr.repository}/pull/{pr.number}",
-        identity=identity,
-        method="exact PR base/head identity acquisition",
-    )
+    pr_source = _project_pull_request_source(p, identity)
     _project_dependency(p, pr_source)
     _project_ci(
         p, pull_request=pr, workflow_evidence=result.workflow_evidence,
@@ -305,7 +303,7 @@ def project_investigation_report(
     return InvestigationReport(
         str(uuid4()),
         produced.astimezone(UTC).isoformat(),
-        "1",
+        "2",
         product_version,
         auth_mode,
         (
@@ -324,6 +322,57 @@ def project_investigation_report(
             "This record cannot replay analysis, resume an agent, or establish compatibility.",
             "A file digest detects corruption, not authenticity or evidence truth.",
         ),
+    )
+
+
+def _project_pull_request_source(
+    p: _ReportProjection, identity: tuple[ReportFact, ...]
+) -> str:
+    """Attribute a source from Workspace without promoting copied text to a finding.
+
+    Only unsupported decoding is optional unavailability. Corruption, substituted inputs
+    and target mismatch must reach the caller as an integrity failure.
+    """
+    result = p.result
+    description = None
+    state = "not_recorded"
+    limitation = "PR description was not recorded in this investigation."
+    if result.workspace_revision is not None:
+        try:
+            description = reconstruct_pull_request_description(
+                result.workspace_revision.boundary,
+                expected_target=exact_investigation_target(
+                    result.pull_request, result.dependency_result
+                ),
+            )
+        except NativeReconstructionError as exc:
+            if exc.reason not in {
+                "unsupported_native_codec", "unsupported_native_semantic_version"
+            }:
+                raise
+            state = "unsupported"
+            limitation = f"PR description unavailable: {exc.reason}."
+    if description is not None:
+        state = description.state
+        limitation = (
+            f"Initial PR body observation: {state}; retention bound 262144 UTF-8 bytes. "
+            "PR-authored/copied context is unverified; upstream coverage is unassessed. "
+            "Later PR edits are not refreshed; this source grants no finding or action permission."
+        )
+        identity += (
+            _fact("description_source_url", "Observed API source", description.source_url),
+            _fact("description_utf8_bytes", "Description UTF-8 bytes", description.utf8_bytes),
+            _fact("description_sha256", "Description SHA-256", description.content_sha256),
+        )
+    identity += (_fact("description_state", "PR description state", state),)
+    return p.source(
+        "pull_request",
+        locator=f"https://github.com/{result.pull_request.repository}/pull/{result.pull_request.number}",
+        identity=identity,
+        method="exact PR base/head identity acquisition; initial PR body observation",
+        content=description.text if description is not None else None,
+        retrieved_at=description.observed_at.isoformat() if description is not None else None,
+        limitation=limitation,
     )
 
 

@@ -6,6 +6,8 @@ membership, and projects reports. These tests establish no live install/marker t
 
 from __future__ import annotations
 
+from test_github_client import _observation
+
 import unittest
 from unittest.mock import Mock
 
@@ -169,7 +171,7 @@ class ConditionalPyprojectConsumptionTests(unittest.TestCase):
                 repository, _ = _provider(marker)
                 repository.get_exact_head_workflow_file.return_value = _workflow()
                 pull = Mock()
-                pull.get_pull_request.return_value = _IDENTITY
+                pull.get_pull_request_observation.return_value = _observation(_IDENTITY)
                 pull.get_changed_files.return_value = (_CHANGED,)
                 actions = Mock()
                 actions.get_exact_head_workflow_runs.return_value = (

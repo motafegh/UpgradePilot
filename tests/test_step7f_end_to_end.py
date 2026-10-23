@@ -8,6 +8,8 @@ controlled HTTP response, but the product executes the real Step 7B source windo
 
 from __future__ import annotations
 
+from test_github_client import _observation
+
 import json
 import unittest
 from datetime import datetime, timezone
@@ -182,7 +184,7 @@ class _Harness:
             provenance_unavailable_files=(),
         )
 
-        self.pull_client.get_pull_request.return_value = self.identity
+        self.pull_client.get_pull_request_observation.return_value = _observation(self.identity)
         self.pull_client.get_changed_files.return_value = (
             ChangedFile(
                 filename="requirements.txt",

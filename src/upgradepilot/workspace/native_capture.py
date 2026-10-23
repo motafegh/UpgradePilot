@@ -20,7 +20,9 @@ from ..ci.dependency_exercise import (
 from ..ci.dependency_state import RuntimeDependencyStateResult
 from ..dependency.change import DependencyChangeProblem, DependencyVersionChange
 from ..dependency.environment import DependencySourceContext
-from ..github.pull_request import ChangedFile, PullRequestIdentity
+from ..github.pull_request import (
+    ChangedFile, PullRequestIdentity, PullRequestDescriptionObservation,
+)
 from ..github.repository import RepositoryFileEvidence
 from ..impact.python_support import (
     PythonSupportDropImpactAssessment,
@@ -70,6 +72,8 @@ class NativeInvestigationCapture:
         changed_files: tuple[ChangedFile, ...],
         dependency: DependencyVersionChange | DependencyChangeProblem,
         source_contexts: tuple[DependencySourceContext, ...],
+        *,
+        description: PullRequestDescriptionObservation | None = None,
     ) -> None:
         if self._target is not None:
             raise ValueError(
@@ -98,6 +102,11 @@ class NativeInvestigationCapture:
             if family == "target_python":
                 value = {"source": None, "result": None}
             self._record(family, value, method=None, evaluated=False)
+        if description is not None:
+            self._record(
+                "pull_request_description", description,
+                method="github.pull_request.GitHubPullRequestClient.get_pull_request_observation",
+            )
 
     def _record(
         self,

@@ -152,6 +152,11 @@ FAMILY_CONTRACTS = {
         _optional("python_support_drop_impact_assessment"),
         ("python_support_pre_assessment", "target_relevance"),
     ),
+    "pull_request_description": NativeFamilyContract(
+        "github.pull_request",
+        _optional("pull_request_description_observation"),
+        ("investigation_inputs",),
+    ),
 }
 
 _VALUES = NativeValueCodec(INPUT_LAYOUTS + CI_LAYOUTS + IMPACT_LAYOUTS)

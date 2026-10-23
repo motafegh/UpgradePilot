@@ -30,6 +30,8 @@ from upgradepilot.github.actions import (
 from upgradepilot.github.pull_request import (
     ChangedFile,
     PullRequestIdentity,
+    PullRequestDescriptionObservation,
+    DESCRIPTION_STATES,
 )
 from upgradepilot.github.release import (
     GitHubReleaseEvidence,
@@ -92,6 +94,18 @@ from upgradepilot.workspace.native_representation import (
 
 # This is an admitted representation table, not a runtime dataclass discovery mechanism.
 LAYOUTS = (
+    RecordLayout(
+        "pull_request_description_observation",
+        PullRequestDescriptionObservation,
+        (
+            ("state", LiteralValues(DESCRIPTION_STATES)),
+            ("text", Either((str, type(None)))),
+            ("source_url", str),
+            ("observed_at", datetime),
+            ("content_sha256", Either((str, type(None)))),
+            ("utf8_bytes", Either((int, type(None)))),
+        ),
+    ),
     RecordLayout(
         "authoritative_upstream_interval_evidence",
         AuthoritativeUpstreamIntervalEvidence,

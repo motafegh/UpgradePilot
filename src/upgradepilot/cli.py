@@ -14,7 +14,7 @@ from collections.abc import Sequence
 from .github.api import GitHubAcquisitionError, GitHubResponseError
 from .github.identity import UpgradePilotInputError
 from .investigation import investigate_public_pull_request
-from .report import render_investigation_report
+from .report import ReportSourceUnavailable, render_investigation_report, render_report_source
 from .report_file import (
     ReportSaveError,
     ReportValidationError,
@@ -22,6 +22,7 @@ from .report_file import (
     save_report,
 )
 from .report_projection import project_investigation_report
+from .workspace.native_representation import NativeReconstructionError
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -58,12 +59,18 @@ def build_parser() -> argparse.ArgumentParser:
         metavar="PATH",
         help="Open a saved report offline without gathering new evidence.",
     )
+    parser.add_argument(
+        "--show-source", metavar="SOURCE_ID",
+        help="Inspect one retained original text source; requires --open-report.",
+    )
     return parser
 
 
 def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
+    if args.show_source is not None and args.open_report is None:
+        parser.error("--show-source requires --open-report")
     if args.open_report is not None:
         if (
             args.repository is not None
@@ -79,7 +86,15 @@ def main(argv: Sequence[str] | None = None) -> int:
         except ReportValidationError as exc:
             print(f"Saved report rejected: {exc}")
             return 6
-        print(render_investigation_report(report, saved=True))
+        if args.show_source is not None:
+            try:
+                display = render_report_source(report, args.show_source)
+            except ReportSourceUnavailable as exc:
+                print(f"Source unavailable: {exc}")
+                return 7
+        else:
+            display = render_investigation_report(report, saved=True)
+        print(display)
         return 0
     if args.repository is None or args.pull_number is None:
         parser.error("repository and pull_number are required for an investigation")
@@ -114,7 +129,11 @@ def main(argv: Sequence[str] | None = None) -> int:
         print(f"Detail: {exc}")
         return 4
 
-    report = project_investigation_report(investigation, auth_mode=auth_mode)
+    try:
+        report = project_investigation_report(investigation, auth_mode=auth_mode)
+    except NativeReconstructionError as exc:
+        print(f"Report projection rejected: {exc}")
+        return 8
     print(render_investigation_report(report))
     if args.save_report is not None:
         try:

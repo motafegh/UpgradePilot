@@ -7,6 +7,8 @@ sources and derive R3 -> R4 -> R5 evidence from the admitted workflow definition
 
 from __future__ import annotations
 
+from test_github_client import _observation
+
 import unittest
 from unittest.mock import Mock, call, patch
 
@@ -127,7 +129,7 @@ class R6InvestigationCIIntegrationTests(unittest.TestCase):
         changelog_client = Mock()
         support_drop_evaluator = Mock()
 
-        pull_client.get_pull_request.return_value = identity
+        pull_client.get_pull_request_observation.return_value = _observation(identity)
         pull_client.get_changed_files.return_value = (
             ChangedFile("uv.lock", "modified", 1, 1, 2, None),
         )

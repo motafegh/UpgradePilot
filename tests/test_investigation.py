@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from test_github_client import _observation
+
 import unittest
 from datetime import datetime, timezone
 from unittest.mock import Mock, call, patch
@@ -655,7 +657,7 @@ class _Harness:
         self.package = _package("1.1")
         self.upstream = _upstream(self.package)
         self.workflow_run: WorkflowRun | None = None
-        self.pull_client.get_pull_request.return_value = self.identity
+        self.pull_client.get_pull_request_observation.return_value = _observation(self.identity)
         self.pull_client.get_changed_files.return_value = (_changed_file(),)
         self.actions_client.get_exact_head_workflow_runs.return_value = ()
         self.package_client.get_release.side_effect = self._get_release

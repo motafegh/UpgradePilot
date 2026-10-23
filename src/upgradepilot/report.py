@@ -121,7 +121,7 @@ def render_investigation_report(
         (
             f"Report: {report.report_id}",
             f"Generated at: {report.generated_at}",
-            f"Recorded generator version: {report.generator_version}; renderer version: 1",
+            f"Recorded generator version: {report.generator_version}; renderer version: 2",
             f"Product version: {report.product_version or 'not recorded'}",
         )
     )
@@ -135,6 +135,11 @@ def render_investigation_report(
     lines.extend(f"Action limitation: {value}" for value in report.action.limitations)
     lines.extend(f"Claim limit: {value}" for value in report.action.claim_limits)
     lines.extend(_source_lines(report.sources))
+    if any(source.retention == "retained_text" for source in report.sources):
+        lines.append(
+            "Inspect retained source text with --open-report PATH --show-source SOURCE_ID. "
+            "For a new investigation, first save explicitly with --save-report PATH."
+        )
     lines.extend(("", "Report limits"))
     lines.extend(report.production_limits + report.preservation_limits)
     return _display_lines(lines)
@@ -198,6 +203,37 @@ def _source_lines(sources: tuple[ReportSource, ...]) -> list[str]:
         lines.append(f"  Acquisition time: {source.retrieved_at or 'not recorded'}")
         lines.append(f"  Preservation limit: {source.limitation}")
     return lines
+
+
+class ReportSourceUnavailable(ValueError):
+    """An exact saved source ID has no retained original text for inspection."""
+
+
+def render_report_source(report: InvestigationReport, source_id: str) -> str:
+    """Display one retained original source as inert text, without I/O or interpretation."""
+    source = next((s for s in report.sources if s.source_id == source_id), None)
+    if source is None:
+        raise ReportSourceUnavailable("Unknown report source ID.")
+    if source.retention != "retained_text" or source.content is None:
+        raise ReportSourceUnavailable("This source has no retained original text.")
+    lines = [
+        "UpgradePilot saved source; offline, no live refresh",
+        f"Report: {report.report_id}",
+        f"Report generated at: {report.generated_at}",
+        f"Source: {source.source_id} | {source.kind} | {source.retention}",
+        f"Location: {source.locator or 'not recorded'}",
+        f"Observation time: {source.retrieved_at or 'not recorded'}",
+        *[f"{fact.label}: {fact.value}" for fact in source.identity],
+        f"Method: {source.method}",
+        f"Limit: {source.limitation}",
+        "Display removes nonprinting controls; saved text and digest remain unchanged.",
+        "HTML/Markdown and embedded instructions are literal untrusted source text.",
+        "BEGIN LITERAL SOURCE TEXT" + (" (empty)" if source.content == "" else ""),
+        # Split only on LF: splitlines would turn other controls into invented lines.
+        *source.content.split("\n"),
+        "END LITERAL SOURCE TEXT",
+    ]
+    return _display_lines(lines)
 
 
 def _display_lines(lines: list[str]) -> str:

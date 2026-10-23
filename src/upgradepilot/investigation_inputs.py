@@ -34,6 +34,7 @@ from .github.pull_request import (
     ChangedFile,
     GitHubPullRequestClient,
     PullRequestIdentity,
+    PullRequestDescriptionObservation,
 )
 from .github.repository import GitHubRepositoryClient
 
@@ -44,6 +45,7 @@ class AcquiredDependencyInputs:
     changed_files: tuple[ChangedFile, ...]
     dependency: DependencyVersionChange | DependencyChangeProblem
     source_contexts: tuple[DependencySourceContext, ...]
+    description: PullRequestDescriptionObservation
 
 
 @dataclass(frozen=True, slots=True)
@@ -63,7 +65,8 @@ def acquire_dependency_inputs(
     expected_base: str | None = None,
     expected_head: str | None = None,
 ) -> AcquiredDependencyInputs:
-    identity = pull_client.get_pull_request(repository, pull_number)
+    observation = pull_client.get_pull_request_observation(repository, pull_number)
+    identity = observation.identity
     if (expected_base is not None and identity.base_sha != expected_base) or (
         expected_head is not None and identity.head_sha != expected_head
     ):
@@ -72,9 +75,9 @@ def acquire_dependency_inputs(
     analysis = analyze_dependency_change(identity, changed, repository_client)
     if isinstance(analysis, DependencyChangeAnalysis):
         return AcquiredDependencyInputs(
-            identity, changed, analysis.dependency, analysis.source_contexts
+            identity, changed, analysis.dependency, analysis.source_contexts, observation.description
         )
-    return AcquiredDependencyInputs(identity, changed, analysis, ())
+    return AcquiredDependencyInputs(identity, changed, analysis, (), observation.description)
 
 
 def prepare_ci_evidence(

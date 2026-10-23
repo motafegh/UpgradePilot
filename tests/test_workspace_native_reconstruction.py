@@ -7,6 +7,8 @@ compares every native field; it is not a product serialization/reconstruction me
 
 from __future__ import annotations
 
+from test_github_client import _observation
+
 import json
 import os
 import subprocess
@@ -124,7 +126,7 @@ def captured_case(
             + (replace(dependency.source_evidence[0], path="other-requirements.txt"),),
         )
         h.identity = replace(h.identity, changed_files=2)
-        h.pull_client.get_pull_request.return_value = h.identity
+        h.pull_client.get_pull_request_observation.return_value = _observation(h.identity)
         h.pull_client.get_changed_files.return_value += (
             replace(
                 h.pull_client.get_changed_files.return_value[0],
@@ -361,7 +363,7 @@ def captured_project_case(kind, *, unavailable=False, second_context=False):
             ),
         )
         h.identity = replace(h.identity, changed_files=2)
-        h.pull_client.get_pull_request.return_value = h.identity
+        h.pull_client.get_pull_request_observation.return_value = _observation(h.identity)
         h.pull_client.get_changed_files.return_value += (
             replace(
                 h.pull_client.get_changed_files.return_value[0],
@@ -740,9 +742,10 @@ class WorkspaceNativeReconstructionTests(unittest.TestCase):
         edges = [
             (family, name)
             for family, contract in FAMILY_CONTRACTS.items()
+            if family != "pull_request_description"
             for name in contract.inputs
         ]
-        self.assertEqual((len(FAMILY_CONTRACTS), len(edges)), (11, 18))
+        self.assertEqual(len(edges), 18)
         for family, name in edges:
             with self.subTest(family=family, input=name):
                 record = records[family]
@@ -1571,6 +1574,9 @@ class WorkspaceNativeReconstructionTests(unittest.TestCase):
     def test_unrelated_unsupported_versions_preserve_every_unaffected_projection(self):
         _, _, boundary, _, _ = captured_case()
         for family in FAMILY_CONTRACTS:
+            if family == "pull_request_description":
+                # This optional source is outside both CI and Python input closures.
+                continue
             for field, value, reason in (
                 ("codec_version", 999, "unsupported_native_codec"),
                 (
@@ -1599,6 +1605,8 @@ class WorkspaceNativeReconstructionTests(unittest.TestCase):
     ):
         _, _, boundary, _, _ = captured_case()
         for record in boundary.records:
+            if record.family == "pull_request_description":
+                continue
             with self.subTest(family=record.family):
                 missing = altered_record(
                     boundary,
@@ -1825,6 +1833,7 @@ class WorkspaceNativeReconstructionTests(unittest.TestCase):
                 "investigation_inputs",
                 "ci_inputs",
                 "python_support_selection",
+                "pull_request_description",
             ):
                 continue
             with self.subTest(recorded_empty=family):

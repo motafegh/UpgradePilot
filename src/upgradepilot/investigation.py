@@ -216,7 +216,8 @@ def investigate_public_pull_request(
     native_capture = native_capture or NativeInvestigationCapture()
     workspace_host = workspace_host or InvestigationWorkspaceHost()
     native_capture.start(
-        pull_request, changed_files, dependency_result, source_contexts
+        pull_request, changed_files, dependency_result, source_contexts,
+        description=acquired_inputs.description,
     )
     initial_boundary = native_capture.partial_snapshot()
     native_evaluation_method = LifecycleMethodIdentity(

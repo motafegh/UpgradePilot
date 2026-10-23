@@ -30,6 +30,7 @@ from tools.capture_report_sources import (
 )
 from upgradepilot.github.auth_session import GitHubPublicSession
 from upgradepilot.github.pull_request import GitHubPullRequestClient
+from upgradepilot.github.pull_request import GitHubPullRequestClient
 from upgradepilot.investigation import investigate_public_pull_request
 from upgradepilot.pypi.release import PyPIReleaseClient
 from upgradepilot.report_file import read_report
@@ -90,6 +91,9 @@ class ReportSourceCaptureTests(unittest.TestCase):
             tempfile.TemporaryDirectory() as directory,
             patch.dict(os.environ, {"NETRC": os.devnull}),
             patch.object(HTTPAdapter, "send", normal_transport),
+            # Both composed runs observe controlled source data at the same test time;
+            # actual observation times are now part of report-source parity.
+            patch("upgradepilot.investigation.GitHubPullRequestClient", side_effect=lambda **kwargs: GitHubPullRequestClient(now=lambda: datetime(2026, 10, 23, tzinfo=UTC), **kwargs)),
         ):
             ordinary = project_investigation_report(
                 investigate_public_pull_request(IDENTITY.repository, IDENTITY.number)

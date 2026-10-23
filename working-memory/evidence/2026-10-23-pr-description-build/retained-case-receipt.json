@@ -1,0 +1,48 @@
+{
+  "cases": {
+    "httpx": {
+      "mode": "controlled_normal_composition_from_frozen_responses",
+      "source_packet": "working-memory/evidence/2026-10-22-matched-report-source-capture",
+      "private_output": "/home/motafeq/.local/share/upgradepilot/pr-description-build/controlled-20261023T120301680051Z/httpx",
+      "original_report_sha256": "fbc88dba74e2ff92efbeeca7762b7218d0796348e239a863ba09f60d4db035ad",
+      "original_pr_response_sha256": "b19cec81741eb1545cf7e3b5ba034c68e610b9c4970609198b33bfaf3f841c8c",
+      "description_utf8_bytes": 9348,
+      "description_sha256": "179e4ce07210cb1b800cadff842cb63438a7afbaec0d199678c61fecf1c25f3a",
+      "new_report_id": "72081813-39ef-402a-8e51-ec40f6ac9073",
+      "new_observed_at": "2026-10-23T12:03:01.688113+00:00",
+      "historical_response_completed_at": "2026-10-22T17:01:18.399555+00:00",
+      "request_count": 8,
+      "added_requests": 0,
+      "domain_findings_unknowns_action_unchanged": true,
+      "source_save_open_view_exact": true,
+      "original_inputs_reports_unchanged": true,
+      "new_report_sha256": "4f28c94de82458182837ce1276f9c182c1bf0e8530ed8142a0f14b7439dbaf92",
+      "new_view_sha256": "70afdfb997a301f64aa01d91ba873f3f5516b1c781a9dac74623d05127031642"
+    },
+    "opencv": {
+      "mode": "controlled_normal_composition_from_frozen_responses",
+      "source_packet": "working-memory/evidence/2026-10-22-opencv-matched-report-source-capture",
+      "private_output": "/home/motafeq/.local/share/upgradepilot/pr-description-build/controlled-20261023T120301680051Z/opencv",
+      "original_report_sha256": "9f6b2d79a08421db5c113a9a0e38d34176728352d8644c52ddc86a2acea88116",
+      "original_pr_response_sha256": "9b92282f619112739356f9c0ed5049322e4856b2bf632662a8e6efd8c161e0b1",
+      "description_utf8_bytes": 5902,
+      "description_sha256": "e0b59d6d5b77b49da8f06e548508dc2282009d9d78f51b9bea996e2c7ea69d47",
+      "new_report_id": "26581e5e-a854-4ec1-a11c-20a0c98d7b99",
+      "new_observed_at": "2026-10-23T12:03:01.719989+00:00",
+      "historical_response_completed_at": "2026-10-22T17:23:04.777752+00:00",
+      "request_count": 13,
+      "added_requests": 0,
+      "domain_findings_unknowns_action_unchanged": true,
+      "source_save_open_view_exact": true,
+      "original_inputs_reports_unchanged": true,
+      "new_report_sha256": "598428152581dce3dfb303f611b7ae64317855e6492b7ca4390ff322af165cfb",
+      "new_view_sha256": "55764376259e07a81c28e2bbb64803203076aa660484e97315353cf0fee4c7e4"
+    }
+  },
+  "live_network_model_target_execution": false,
+  "not_established": [
+    "semantic correctness",
+    "independent usefulness",
+    "general replay"
+  ]
+}

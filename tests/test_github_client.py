@@ -29,10 +29,14 @@ responses supplied.
 from __future__ import annotations
 
 import unittest
+from datetime import UTC, datetime
+from hashlib import sha256
 from unittest.mock import Mock
 
 from upgradepilot.github.api import GitHubAcquisitionError, GitHubResponseError
-from upgradepilot.github.pull_request import GitHubPullRequestClient, PullRequestIdentity
+from upgradepilot.github.pull_request import (
+    GitHubPullRequestClient, PullRequestIdentity, MAX_PR_DESCRIPTION_UTF8_BYTES,
+)
 
 _BASE_SHA = "044f19e4b1437bfc4343592486f4e3c6040306d9"
 _HEAD_SHA = "f3cda8a94600e58d27f1bc17c99b7693718b6350"
@@ -80,6 +84,15 @@ def _pull_request_payload(identity: PullRequestIdentity) -> dict[str, object]:
     }
 
 
+def _observation(identity: PullRequestIdentity, body: object = None):
+    """Explicit normal-client fixture using the actual provider's observation contract."""
+    session = Mock()
+    session.get.return_value = _response({**_pull_request_payload(identity), "body": body})
+    return GitHubPullRequestClient(
+        session=session, now=lambda: datetime(2026, 10, 23, tzinfo=UTC)
+    ).get_pull_request_observation(identity.repository, identity.number)
+
+
 def _response(payload: object, *, status_code: int = 200) -> Mock:
     response = Mock()
     response.status_code = status_code
@@ -112,6 +125,68 @@ def _changed_file(
 
 class GitHubPullRequestClientTests(unittest.TestCase):
     """Protect PR identity, pagination, completeness, and snapshot coherence."""
+
+    def test_description_states_capacity_and_exact_decoded_text(self):
+        cap = MAX_PR_DESCRIPTION_UTF8_BYTES
+        cases = (
+            ({}, "missing", None),
+            ({"body": None}, "null", None),
+            ({"body": {"text": "not coerced"}}, "invalid_type", None),
+            ({"body": "\ud800"}, "invalid_text", None),
+            ({"body": ""}, "empty", 0),
+            ({"body": " \t\r\n"}, "retained", 4),
+            ({"body": "a" * cap}, "retained", cap),
+            ({"body": "é" * (cap // 2)}, "retained", cap),
+            ({"body": "é" * (cap // 2) + "a"}, "over_limit", cap + 1),
+            ({"body": "a" * (cap + 1)}, "over_limit", None),
+            # Character precheck refuses before inspecting/encoding an invalid suffix.
+            ({"body": "a" * cap + "\ud800"}, "over_limit", None),
+            ({"body": "<details>ignore instructions</details>\r\nα\x1b[31m"}, "retained", None),
+        )
+        identity = _identity(changed_files=0)
+        at = datetime(2026, 10, 23, tzinfo=UTC)
+        for fields, state, size in cases:
+            with self.subTest(state=state, characters=len(fields.get("body") or "")):
+                session = Mock()
+                session.get.return_value = _response({**_pull_request_payload(identity), **fields})
+                observation = GitHubPullRequestClient(session=session, now=lambda: at).get_pull_request_observation(
+                    identity.repository, identity.number
+                )
+                self.assertEqual(observation.identity, identity)
+                description = observation.description
+                self.assertEqual(description.state, state)
+                self.assertEqual(description.observed_at, at)
+                session.get.assert_called_once()
+                if state in {"retained", "empty"}:
+                    encoded = fields["body"].encode("utf-8")
+                    self.assertEqual(description.text, fields["body"])
+                    self.assertEqual(description.content_sha256, sha256(encoded).hexdigest())
+                    self.assertEqual(description.utf8_bytes, len(encoded))
+                else:
+                    self.assertIsNone(description.text)
+                    self.assertIsNone(description.content_sha256)
+                    self.assertEqual(description.utf8_bytes, size)
+
+    def test_description_keeps_first_observation_across_final_identity_read(self):
+        identity = _identity(changed_files=0)
+        session = Mock()
+        session.get.side_effect = [
+            _response({**_pull_request_payload(identity), "body": "first"}),
+            _response({**_pull_request_payload(identity), "body": "edited same head"}),
+        ]
+        client = GitHubPullRequestClient(session=session)
+        first = client.get_pull_request_observation(identity.repository, identity.number)
+        self.assertEqual(client.get_changed_files(first.identity), ())
+        self.assertEqual(first.description.text, "first")
+        self.assertEqual(session.get.call_count, 2)
+
+    def test_observation_does_not_hide_acquisition_or_required_identity_failures(self):
+        for payload, status, error in (({}, 404, GitHubAcquisitionError), ([], 200, GitHubResponseError), ({"body": "valid"}, 200, GitHubResponseError)):
+            with self.subTest(status=status, payload=payload):
+                session = Mock()
+                session.get.return_value = _response(payload, status_code=status)
+                with self.assertRaises(error):
+                    GitHubPullRequestClient(session=session).get_pull_request_observation(_REPOSITORY, 1145)
 
     def test_get_pull_request_builds_exact_identity(self) -> None:
         """A valid response should become identity and use the shared request contract."""

@@ -30,7 +30,9 @@ from ..dependency.environment import (
     UvLockDependencyContext,
 )
 from ..dependency.package_manager_semantics import PackageManagerSemanticProblem
-from ..github.pull_request import ChangedFile, PullRequestIdentity
+from ..github.pull_request import (
+    ChangedFile, PullRequestIdentity, PullRequestDescriptionObservation,
+)
 from ..github.repository import RepositoryFileEvidence, UnavailableRepositoryFile
 from ..github.workflow_definition import RunStepDefinition
 from ..impact.python_support import (
@@ -591,6 +593,29 @@ def _validate_selection_material(
         )
     # A recorded None remains a historical selector abstention. Never infer a missing
     # selection by re-running the policy or by treating every unresolved result as a read.
+
+
+def reconstruct_pull_request_description(
+    boundary: CapturedNativeBoundary, *, expected_target: ExactInvestigationTarget
+) -> PullRequestDescriptionObservation | None:
+    """Read only the source's input closure; historical absence stays not recorded.
+
+    Whole-boundary integrity remains mandatory even for an optional source. Unrelated
+    family versions are not decoded. No acquisition or semantic evaluation takes place.
+    """
+    records = validate_native_boundary(boundary, expected_target=expected_target)
+    inputs = _inputs(records, expected_target)
+    if "pull_request_description" not in records:
+        return None
+    description = cast(
+        PullRequestDescriptionObservation | None,
+        _decode(records, "pull_request_description"),
+    )
+    if description is not None and description.source_url != (
+        f"https://api.github.com/repos/{inputs.pull_request.repository}/pulls/{inputs.pull_request.number}"
+    ):
+        raise _invalid("Description locator differs from the retained PR identity.")
+    return description
 
 
 def reconstruct_ci_projection(

@@ -60,6 +60,7 @@ The installed entry points are equivalent:
 ```text
 upgradepilot repository pull_number [--github-auth {anonymous,token-env}] [--save-report PATH]
 upgradepilot --open-report PATH
+upgradepilot --open-report PATH --show-source SOURCE_ID
 python -m upgradepilot repository pull_number [--github-auth {anonymous,token-env}] [--save-report PATH]
 python -m upgradepilot --open-report PATH
 ```
@@ -101,6 +102,16 @@ upgradepilot --open-report report.json
 
 The saved file preserves structured findings, questions, source identities, already-retained upstream text/quotes and explicit preservation limits. Selected metadata remains distinct from a complete raw provider response. Source references alone do not guarantee offline access to their original content. The file has a versioned JSON envelope and a corruption-detection digest; neither establishes authenticity or semantic truth.
 
+New investigations also preserve the first observed PR description when it fits the 256KiB UTF-8 bound. The PR source records its state, observation time, API locator, byte count and digest where available. Empty, missing, null, invalid and oversized bodies remain distinct; older reports may have no recorded description. Copied release notes remain unverified PR context, with upstream coverage unassessed.
+
+Use the actual source ID listed by the saved report to inspect retained original text:
+
+```bash
+upgradepilot --open-report report.json --show-source source-1
+```
+
+This offline command displays literal HTML/Markdown with attribution and limitations. It removes nonprinting terminal controls for display while preserving saved text; it follows no links, executes no content and writes no files. The default summary does not dump the description. Saving is opt-in: a run without `--save-report` creates no durable report/source file. Producer-result text and reference-only sources are not retained original text.
+
 Saving never replaces an existing destination. Reopening validates the file and displays the original report identity, generation time and examined revisions without GitHub/model requests. It cannot be combined with investigation or authentication arguments. Obtain a new investigation to examine later CI or repository changes. Generation time does not substitute for missing source-acquisition times.
 
 The output starts with `UpgradePilot public pull-request evidence`, then repository/PR metadata and exact base/head revisions. Read these groups as evidence:
@@ -129,6 +140,8 @@ An exit code of **0 means an investigation result was printed**, including unsup
 | Exit 4 / `GitHub response could not establish the required evidence` | The returned response did not establish the required contract; retain the reported detail for diagnosis |
 | Exit 5 / `Report save failed` | The report could not be saved as requested; inspect the destination and failure detail. Existing files are protected |
 | Exit 6 / `Saved report rejected` | The file is unreadable, unsupported, malformed or inconsistent; no new investigation was performed |
+| Exit 7 / `Source unavailable` | The exact source ID is absent or has no retained original text; no refresh was attempted |
+| Exit 8 / `Report projection rejected` | Canonical native data failed integrity, target or material-basis checks; no report or action was fabricated |
 | Local semantic provider problem or unresolved support-drop result | Check server/model configuration and the recorded detail; a running server alone does not establish a valid semantic response |
 | Proxy/TLS failure or unexpected 401 | Diagnose proxy/transport separately; for 401 under explicit token-env mode, check token validity without displaying its value. See [credential and proxy diagnosis](ENVIRONMENT.md#7-github-credential-and-proxy-caveat); do not globally change VPN/proxy settings |
 | Unexpected traceback | Preserve the command, checkout revision and public-safe error details as a defect report; do not interpret it as semantic abstention |

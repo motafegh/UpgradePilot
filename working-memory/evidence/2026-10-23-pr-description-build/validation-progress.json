@@ -1,0 +1,33 @@
+{
+  "initial_focused": {
+    "tests": 94,
+    "seconds": 66.987,
+    "outcome": "failed",
+    "failures": 5,
+    "cause": "existing CI/Python test families assumed every family belonged to their projection; new optional description is independent"
+  },
+  "provider_and_source": {
+    "tests": 22,
+    "seconds": 0.403,
+    "outcome": "passed"
+  },
+  "focused_after_correction": {
+    "tests": 103,
+    "seconds": 68.27,
+    "outcome": "passed"
+  },
+  "capture_diagnostic": {
+    "tests": 9,
+    "seconds": 1.08,
+    "outcome": "passed",
+    "correction": "inject identical provider clock for controlled report parity"
+  },
+  "historical_research_migration": {
+    "tests": 9,
+    "errors": 10,
+    "outcome": "failed_on_baseline_and_changed_source",
+    "baseline_commit": "5a1a7641",
+    "first_error": "upgradepilot.investigation has no attribute analyze_dependency_change",
+    "disposition": "pre-existing stale experimental orchestration seam, outside selected source-access implementation"
+  }
+}
