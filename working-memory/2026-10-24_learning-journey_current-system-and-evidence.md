@@ -76,7 +76,9 @@ The original route had seven broad subjects. The later route elaboration separat
 - [x] Complete the saved-A/live-B reasoning exercise: Ali chose A; clarify that no-refresh semantics apply even when internet is available.
 - [x] Explain that reopening reads the saved report independently of GitHub and the original in-memory investigation.
 - [x] Deliver the full HTTPX input-to-report walkthrough; Ali reconstructed the main data path.
-- [ ] **CURRENT:** complete the pending source-localization exercise after the reconstruction corrections.
+- [x] Complete the introductory source-localization exercise: Ali identified the first mismatch after correct decoding, at source selection.
+- [x] Introduce the actual exact-ID lookup and distinct unknown-source versus unavailable-original-text refusals using HTTPX sources1–3.
+- [ ] **CURRENT:** independently explain why a found producer-result source with text is refused by the original-source viewer.
 - [ ] Trace concrete report projection, encoding, validation, lookup and rendering source with failure-path tests.
 - [ ] Practise missing/empty/null/invalid/oversized description distinctions, historical absence, bad file/source ID and corruption outcomes.
 
@@ -113,11 +115,11 @@ The original route had seven broad subjects. The later route elaboration separat
 
 ## Exact learning resume point
 
-The connected HTTPX walkthrough has been taught, and Ali has reconstructed the main description path. The teacher then corrected the explicit acquired-input handoff, selected-field capture, projection-versus-save boundary and Workspace lifetime. **Ali has not yet answered the following exercise or independently demonstrated those corrections in a second trace.**
+The connected HTTPX walkthrough and its introductory diagnostic exercise are complete at the taught depth. Ali initially chose the later path but was unsure why. After the last-known-correct-checkpoint explanation, he identified the first inconsistency after reading/decoding and chose the code selecting the source inside the viewer. This is demonstrated initial localization reasoning, not full debugging/source mastery.
 
-> Hypothetical debugging exercise, not an observed defect: the saved JSON's intended source contains description A. Opening that same file with the intended source ID displays description B. Would you begin with GitHub acquisition, or with the later file-decoding/source-selection/rendering path? Which known fact narrows the search?
+Teaching now reads actual `render_report_source`: exact-ID lookup, no-match `None`, retained-text/content checks and scoped refusal. Real retained HTTPX sources are source-1/pull_request/retained_text/has content; source-2/dependency_source/reference_only/no content; source-3/producer_assessment/producer_result/has content. Read-only probes show source1 renders, unknown ID is refused, and sources2/3 are refused as lacking retained original text for this command. Existing records are unchanged; these are pure saved-record inspections, not fresh acquisition or semantic evaluation.
 
-Resume by hearing Ali's reasoning, then explain or repair the relevant boundary. Do not supply an invented learner answer or mark the exercise complete. Use this to connect data-flow reconstruction to diagnosis; continue with an appropriately sized source/test chunk from the route rather than restarting orientation or repeating the entire dry-run discussion.
+**Pending reasoning exercise:** requesting source-3 finds an existing record with content. Explain why lookup can succeed while this viewer still refuses it; identify which guard applies and what distinction its retention label preserves. Do not mark this answered in advance. Python `next`/generator syntax is operational reading depth; the expanded search loop is a teaching equivalent, not a product rewrite. Missing record versus existing record without content are different boundaries. Continue to source/file representation or a meaningful test after checking the response, without restarting previous lessons.
 
 ## Meaningful learning progression and corrections
 
@@ -133,6 +135,8 @@ Resume by hearing Ali's reasoning, then explain or repair the relevant boundary.
 | Independent evidence and redundant investigation | Explained that separate evidence must retain its own meaning, then challenged why more installation proof would be needed if installed state were already adequately proven. | Accepted the challenge: reuse adequate same-scope evidence and stop that proof branch. Another check needs a different unresolved proposition, relevant state change/conflict or justified independent boundary. A limitation of one observation does not cancel another adequate proof. |
 | Scope and current implementation | Discussed package/version/environment/time and later behavior/state as distinct questions. | Current runtime feature is a bounded per-command proof route, not a general observer/adaptive stopping engine. Do not describe a hypothetical alternative proof path as implemented. |
 | HTTPX end-to-end reconstruction | Named provider observation, identity/description, capture, retained description record, Workspace revision, report projection/content, saving and offline reading without refetch/reanalysis. | Correct main path. Teacher added `AcquiredDependencyInputs.description`, explicit rather than automatic-all-arguments capture, optional separate CLI save, and non-erasing Workspace finish semantics. Confirmation through diagnosis is pending. |
+| Debugging localization | Ali selected the later file-decoding/source-selection/rendering path, while explicitly reporting uncertainty about the reason. | Correct direction only. Teacher explains that the saved intended source already contains A and that the offline path reads it without acquisition. Last-known-correct checkpoint and earliest-divergence reasoning are being taught; transfer answer remains pending. |
+| Localization follow-up | Ali explained that the first inconsistency occurs after reading/decoding and chose the source-selection code inside the viewer. | Introductory exercise complete: decoded A is the known-correct checkpoint; selected B is the first divergent value. No real bug was observed or repaired. Actual lookup/refusal code is the next unit; its learner reasoning is pending. |
 
 The learner's spontaneous necessity question is evidence of initial engineering judgment on that boundary. It does not establish mastery of all stopping logic, all CI semantics, full source ownership or general product architecture. No percentages, scores or completed-module mastery are inferred.
 
@@ -170,3 +174,7 @@ Created retrospectively at Ali's explicit request, using the actual conversation
 
 UP-SKILL:upgradepilot-learning-only
 UP-SKILL:upgradepilot-working-memory
+
+## Learning checkpoint — October24: localization into actual source lookup
+
+Recorded the learner's causal localization answer and completed only that introductory exercise. The actual saved-source function was inspected, with a read-only probe of HTTPX sources1–3 and an unknown ID. Teaching distinguishes search success from permission to present a record as original retained text. A producer-result record is preserved analysis, not missing data or original PR text; ordinary report assessments remain its presentation path. Existing source-view tests cover success/unknown/reference-only behavior; no new test or source change was made. Next learner response remains pending.
