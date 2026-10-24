@@ -2,7 +2,8 @@
 
 **Status:** decision candidate, non-controlling research/learning evidence  
 **Branch:** `research/real-world-engineering-practices-2026-10-24`  
-**Related study:** `working-memory/2026-10-24_real-world-engineering-practices_project-fit_cycle.md`
+**Related study:** `working-memory/2026-10-24_real-world-engineering-practices_project-fit_cycle.md`  
+**Concrete pre-template:** `working-memory/evidence/2026-10-24-real-world-engineering-practices/engineering-guide-pretemplate.md`
 
 ## Question
 
@@ -20,11 +21,12 @@ UpgradePilot already has several strong but intentionally different owners:
 - `docs/architecture/` — accepted consequential implementation/structural choices.
 - `plans/` — bounded future or active responsibility execution/proof plans.
 - `MEMORY.md` — sole live project position/continuation owner.
+- `working-memory/` — dated engineering journey and provenance: investigations, alternatives, failures, corrections, experiments, proof transitions, implementation handoffs and reasoning that may later be promoted to a durable owner. It is historical evidence/reasoning, not the authority for current accepted semantics.
 - `learning/` — reusable educational artifacts and commit-pinned snapshots; intentionally not a live/current system manual or project-status owner.
 
-Therefore the repository has rich authoritative material but lacks one obvious human-facing answer to:
+Therefore the repository has rich authoritative and historical material but lacks one obvious human-facing answer to:
 
-> "I am an engineer joining or returning to UpgradePilot. What is the current system, how do its major parts fit together, what concepts must I understand, and where do I go deeper?"
+> "I am an engineer joining or returning to UpgradePilot. What is the current system, how do its major parts fit together, what concepts must I understand, how did the important engineering decisions evolve, and where do I go deeper?"
 
 ## Recommended concept
 
@@ -34,7 +36,7 @@ This is closer to a **system/engineering guide** than to a playbook or runbook.
 
 Its responsibility should be:
 
-> Give a technically accurate, current, project-specific mental model of UpgradePilot to a human engineer, while linking to canonical owners rather than duplicating their contracts.
+> Give a technically accurate, current, project-specific mental model of UpgradePilot to a human engineer, while linking to canonical owners rather than duplicating their contracts and selectively linking to working-memory when the engineering journey materially explains the present design.
 
 ## What it should contain
 
@@ -47,9 +49,35 @@ A useful first version would cover:
 5. **Major data/control flows** — representative normal investigation, saved-report/offline-source flow, Workspace/native flow and selected semantic/evaluation flow.
 6. **State and persistence model** — what is volatile, what is durable, snapshots/checkpoints/revisions, saved reports, reconstruction/recovery/replay distinctions.
 7. **Proof model** — unit/integration/product regression, controlled cases, live acquisition, installed-package proof, hosted proof, experiments and independent usefulness; what each establishes and does not establish.
-8. **How to change the system safely** — where new provider evidence, domain semantics, Workspace representations, report fields, action rules or experiments belong; link to specifications/ADRs/plans rather than restating them.
-9. **Failure and uncertainty model** — major problem/unknown categories and why the product refuses to collapse them into false certainty.
-10. **Navigation map** — direct pointers to current canonical owners for exact semantics, implementation truth, live state, history and learning material.
+8. **Engineering journey / design evolution** — selected major transitions from earlier assumptions or failures through experiments/corrections to the current design, with links to the exact working-memory/evidence records. This is selective rationale/history, not a chronological dump.
+9. **How to change the system safely** — where new provider evidence, domain semantics, Workspace representations, report fields, action rules or experiments belong; link to specifications/ADRs/plans rather than restating them.
+10. **Failure and uncertainty model** — major problem/unknown categories and why the product refuses to collapse them into false certainty.
+11. **Navigation map** — direct pointers to current canonical owners for exact semantics, implementation truth, live state, historical reasoning/evidence, and reusable learning material.
+
+## Working-memory's specific role
+
+`working-memory/` should be treated as a first-class **engineering-history/provenance layer** for the guide.
+
+The guide should use it when history materially improves current understanding, especially for:
+
+- why a current architecture/semantic boundary exists;
+- which earlier approach failed or proved insufficient;
+- how an experiment changed a design decision;
+- what regression/failure exposed a missing responsibility;
+- how a staged migration evolved;
+- why some apparently attractive capability remains rejected/deferred;
+- what proof was obtained and what remained unproved at a consequential transition.
+
+A useful pattern is:
+
+```text
+current mechanism / decision
+→ concise explanation of the pressure or correction that produced it
+→ link to current canonical owner for exact accepted rule
+→ link to selected working-memory/evidence record for the engineering journey
+```
+
+The guide should **not** read like a full project diary. Old working-memory is historical evidence, so it must be reconciled against current source/owners before being presented as present fact.
 
 ## What it should NOT become
 
@@ -57,7 +85,7 @@ Do not make it:
 
 - a second `MEMORY.md` or current-task tracker;
 - a copy of specifications/ADRs/plans;
-- a giant historical narrative;
+- a giant historical narrative or transcript of `working-memory/`;
 - an AI-agent instruction file;
 - a replacement for README quickstart;
 - a collection of exact operational command sequences that belong in runbooks;
@@ -66,7 +94,7 @@ Do not make it:
 
 The guide should describe the **current durable mental model**, and link out for details that have stronger owners.
 
-## Relationship to playbooks/runbooks
+## Relationship to playbooks/runbooks and history
 
 Recommended documentation stack:
 
@@ -75,10 +103,14 @@ README.md
   external/product entry + quickstart
         ↓
 Project Engineering Guide
-  coherent current human mental model of UpgradePilot
+  coherent current human mental model
+  + selective engineering-journey context
         ↓
 canonical owners
   Charter / specifications / ADRs / source / tests / MEMORY
+        ↘
+historical reasoning/evidence
+  working-memory / audits / simulations / experiment evidence
         ↓
 scenario procedures when justified
   playbooks
@@ -87,15 +119,15 @@ exact operational procedures when justified
   runbooks
 ```
 
-A playbook answers "what should we do when situation X happens?" A runbook answers "what exact steps/commands perform operation X?" Neither replaces the engineering guide.
+A playbook answers "what should we do when situation X happens?" A runbook answers "what exact steps/commands perform operation X?" Working-memory answers "how and why did this engineering state emerge?" None replaces the engineering guide.
 
 ## Why this is useful for UpgradePilot specifically
 
-The project now has enough subsystem depth, evidence semantics, staged migration boundaries and proof distinctions that a new or returning engineer must synthesize many files to recover the whole system. `docs/README.md` solves ownership/findability but intentionally does not teach the whole technical model. `learning/` has valuable detailed snapshots but intentionally remains historical/educational rather than a single current system guide.
+The project now has enough subsystem depth, evidence semantics, staged migration boundaries and proof distinctions that a new or returning engineer must synthesize many files to recover the whole system. `docs/README.md` solves ownership/findability but intentionally does not teach the whole technical model. `working-memory/` preserves a rich engineering journey but is intentionally historical and distributed. `learning/` has valuable detailed snapshots but intentionally remains educational rather than a single current system guide.
 
-A thin engineering guide can therefore reduce orientation cost without creating a second source of truth, provided it obeys a strict "summarize and link, do not re-own" rule.
+A thin engineering guide can therefore reduce orientation cost without creating a second source of truth. It can also make the project's recorded journey useful: instead of forcing a reader to discover hundreds of dated records, it can point to the few historical records that explain the most consequential current mechanisms and corrections.
 
-It also has career/portfolio value: a reviewer can see that Ali understands not only individual code paths but the system architecture, responsibility boundaries, proof model and change discipline in transferable engineering terms.
+It also has career/portfolio value: a reviewer can see that Ali understands not only individual code paths but the system architecture, responsibility boundaries, proof model, engineering evolution and change discipline in transferable engineering terms.
 
 ## Naming candidate
 
@@ -112,7 +144,7 @@ Do not create a directory merely for taxonomy. A single file is sufficient until
 
 **`ADOPT_LATER_IF_EARNED` with a strong positive recommendation.**
 
-This appears materially more useful than a generic engineering handbook because it fills a concrete documentation gap: current project-specific human system understanding. It should be promoted only after this research branch finishes and is reconciled against then-current `main`, because main is actively changing and the guide would be a durable accepted artifact.
+This appears materially more useful than a generic engineering handbook because it fills a concrete documentation gap: current project-specific human system understanding while providing a curated entry into the already-preserved engineering journey. It should be promoted only after this research branch finishes and is reconciled against then-current `main`, because main is actively changing and the guide would be a durable accepted artifact.
 
 ## Follow-on playbook trigger
 
