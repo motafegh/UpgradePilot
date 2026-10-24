@@ -78,8 +78,10 @@ The original route had seven broad subjects. The later route elaboration separat
 - [x] Deliver the full HTTPX input-to-report walkthrough; Ali reconstructed the main data path.
 - [x] Complete the introductory source-localization exercise: Ali identified the first mismatch after correct decoding, at source selection.
 - [x] Introduce the actual exact-ID lookup and distinct unknown-source versus unavailable-original-text refusals using HTTPX sources1–3.
-- [ ] **CURRENT:** independently explain why a found producer-result source with text is refused by the original-source viewer.
-- [ ] Trace concrete report projection, encoding, validation, lookup and rendering source with failure-path tests.
+- [x] Trace the source-3 refusal condition: Ali correctly identified the true retention comparison and the effect of Boolean `or`, despite present content.
+- [x] Introduce empty text versus absent content and inspect the existing empty-source test.
+- [x] Complete the introductory truthiness-change review: Ali identified that the replacement merges empty text and None; teacher identifies valid retained empty text as the incorrectly rejected input.
+- [ ] **NEXT, connected block:** trace concrete report projection, encoding, validation, lookup and rendering source with failure-path tests.
 - [ ] Practise missing/empty/null/invalid/oversized description distinctions, historical absence, bad file/source ID and corruption outcomes.
 
 ### 7. Tests, experiments, failures and proof limits
@@ -102,6 +104,23 @@ The original route had seven broad subjects. The later route elaboration separat
 - [ ] Reconstruct a coherent overall case and its limitations, interpret relevant tests and challenge one meaningful design choice.
 - [ ] Ali explicitly decides whether to continue learning, repair remaining gaps or return to another project operation. Learning progress does not authorize Build automatically.
 
+## Delivery grouping and pace — revised October24 at Ali's request
+
+Ali asked to cover more material per step and progress faster while retaining learning quality and returning to project delivery. Earlier introductory teaching used many small variants of the same boundary; compress that cadence now. The eight subjects/checklists above remain the curriculum/progress record. The four groups below organize delivery rather than create a second checklist or four guaranteed messages/sessions.
+
+| Connected block | Included responsibilities and real examples | Intended learning result |
+| --- | --- | --- |
+| Data contracts, preservation and failure behavior — NEXT | Finish HTTPX acquisition/input/capture/Workspace/report/save/open handoffs; use missing/empty/version/integrity examples and one representative test. Treat deep SQLite/storage internals operationally unless needed. | Trace a value, explain the relevant representation/failure boundaries and interpret a test without repeating every source-view condition exercise. |
+| CI evidence as one complete case | FCI frozen/fresh identity, configuration/runtime correlation, skipped execution, scoped command/environment evidence and a contrasting controlled test. | Explain which proposition is supported or blocked and which owner/source would resolve a material gap. |
+| Impact and target relevance | HTTPX copied changes/caller/signature relations, OpenCV artifact/environment limits, and a bounded Python-support example. Connect these to findings, applicability and action permission. | Distinguish source meaning from target effects using real contrasting mechanisms; this still contains substantial new material. |
+| Experimental failures, proof and the next design | Interpret the existing negative semantic results, useful test/fixture limits, product versus experiment status, existing AST/source owners and the proposed bounded source-relation responsibility. | Read and challenge a consequential design/proof choice and identify what remains unknown before a return-to-engineering decision. |
+
+Use a coherent real case/data flow plus representative code and tests per block, then one integrated reconstruction/diagnosis/design question. Do not ask a new question for every operator/field or repeat a correctly explained point. Repair actual blocking gaps locally and move on; use later natural retrieval to assess retained understanding. Incidental syntax/library details may remain recognize-and-lookup knowledge. A block can span more than one exchange if required; there is no invented completion percentage or fixed duration.
+
+Return-to-engineering readiness concerns the selected upcoming responsibility: explain its purpose and scope, trace its main input/output and failures, distinguish evidence/authority limits, interpret a relevant test, and reason about one meaningful design/debugging choice. Completion of every deep checklist item is not a universal prerequisite. Unfinished material remains visible with a reason/re-entry trigger; do not silently count deferred depth as mastered. The complete eight-subject journey remains available after engineering resumes.
+
+**Mode boundary:** this pace change does not resume Build. Ali still owns the explicit return-to-engineering decision. When selected, continue focused learning with real slices and verified results; do not require complete repository mastery before useful project progress. Define engineering completion by an accepted bounded product milestone and its proof, not by all learning checkboxes or repeated infrastructure expansion.
+
 ## Journey identity and operating agreement
 
 - Created October24,2026, reconstructing the learning already underway in this conversation across October23–24. No exact earlier message times or historical learning durations are invented.
@@ -119,9 +138,17 @@ The connected HTTPX walkthrough and its introductory diagnostic exercise are com
 
 Teaching now reads actual `render_report_source`: exact-ID lookup, no-match `None`, retained-text/content checks and scoped refusal. Real retained HTTPX sources are source-1/pull_request/retained_text/has content; source-2/dependency_source/reference_only/no content; source-3/producer_assessment/producer_result/has content. Read-only probes show source1 renders, unknown ID is refused, and sources2/3 are refused as lacking retained original text for this command. Existing records are unchanged; these are pure saved-record inspections, not fresh acquisition or semantic evaluation.
 
-**Pending reasoning exercise:** requesting source-3 finds an existing record with content. Explain why lookup can succeed while this viewer still refuses it; identify which guard applies and what distinction its retention label preserves. Do not mark this answered in advance. Python `next`/generator syntax is operational reading depth; the expanded search loop is a teaching equivalent, not a product rewrite. Missing record versus existing record without content are different boundaries. Continue to source/file representation or a meaningful test after checking the response, without restarting previous lessons.
+Ali correctly read the source-3 guard: `or` requires only one true condition, and `source.retention != "retained_text"` supplies it. This demonstrates the Boolean/branch reasoning; source-versus-producer-result meaning has been explained but not independently reconstructed in detail. Revisit that meaning naturally rather than repeat an already answered condition question.
+
+Teaching now distinguishes valid empty retained text (`""`) from absent content (`None`), uses the current projection/viewer and existing controlled empty-source test, and explains why Python truthiness would merge the two. The real HTTPX description is nonempty; the empty case is explicitly a controlled fixture.
+
+**Latest completed exercise:** Ali correctly identified that `not source.content` cannot distinguish empty text from None. The concrete affected valid input is `retention="retained_text", content=""`, which the proposed change would wrongly reject. Introductory review complete; no product edit occurred.
+
+**Exact next learning responsibility:** begin the connected data-contract/preservation/failure/test block in the delivery grouping above, using existing HTTPX evidence and current source. Combine related mechanisms into a coherent walkthrough and one meaningful exercise; do not restart the completed empty/None or source-lookup micro-questions. Deep proof and independent source/test ownership remain open. Ali asked for the route overview and faster pacing; the next block itself has not yet been delivered.
 
 ## Meaningful learning progression and corrections
+
+This table preserves progression in order. Later responses resolve earlier pending notes; the exact resume point above owns the current learning continuation.
 
 | Subject | Ali's demonstrated answer or question | Correction, limit or remaining depth |
 | --- | --- | --- |
@@ -137,6 +164,8 @@ Teaching now reads actual `render_report_source`: exact-ID lookup, no-match `Non
 | HTTPX end-to-end reconstruction | Named provider observation, identity/description, capture, retained description record, Workspace revision, report projection/content, saving and offline reading without refetch/reanalysis. | Correct main path. Teacher added `AcquiredDependencyInputs.description`, explicit rather than automatic-all-arguments capture, optional separate CLI save, and non-erasing Workspace finish semantics. Confirmation through diagnosis is pending. |
 | Debugging localization | Ali selected the later file-decoding/source-selection/rendering path, while explicitly reporting uncertainty about the reason. | Correct direction only. Teacher explains that the saved intended source already contains A and that the offline path reads it without acquisition. Last-known-correct checkpoint and earliest-divergence reasoning are being taught; transfer answer remains pending. |
 | Localization follow-up | Ali explained that the first inconsistency occurs after reading/decoding and chose the source-selection code inside the viewer. | Introductory exercise complete: decoded A is the known-correct checkpoint; selected B is the first divergent value. No real bug was observed or repaired. Actual lookup/refusal code is the next unit; its learner reasoning is pending. |
+| Source-view refusal condition | Ali correctly evaluated the `or` condition and identified the producer-result retention comparison as the refusal cause, even though content is present. | Condition-reading exercise complete. Semantic source/assessment distinction remains a later retrieval target. Next unit is empty string versus None and the regression a truthiness substitution would cause; review answer pending. |
+| Truthiness review and pacing | Ali identified the empty/None collapse in the alternative guard and requested broader/faster coverage, an overview of remaining work and a balance between learning and project completion. | Named the valid retained-empty input that would be wrongly rejected. Introductory exercise complete. Delivery now groups the same curriculum into four connected blocks with fewer integrated checks; no Build or broad mastery is inferred. |
 
 The learner's spontaneous necessity question is evidence of initial engineering judgment on that boundary. It does not establish mastery of all stopping logic, all CI semantics, full source ownership or general product architecture. No percentages, scores or completed-module mastery are inferred.
 
@@ -178,3 +207,7 @@ UP-SKILL:upgradepilot-working-memory
 ## Learning checkpoint — October24: localization into actual source lookup
 
 Recorded the learner's causal localization answer and completed only that introductory exercise. The actual saved-source function was inspected, with a read-only probe of HTTPX sources1–3 and an unknown ID. Teaching distinguishes search success from permission to present a record as original retained text. A producer-result record is preserved analysis, not missing data or original PR text; ordinary report assessments remain its presentation path. Existing source-view tests cover success/unknown/reference-only behavior; no new test or source change was made. Next learner response remains pending.
+
+## Learning checkpoint — October24: faster connected teaching
+
+Completed the pending truthiness review at introductory depth and recorded Ali's explicit pace correction. The teacher accepts that the earlier question cadence was too granular for the intended return to delivery. The curriculum is retained; delivery is consolidated into four blocks, one integrated check per coherent unit, with just-in-time depth and explicit deferrals. These are coordination groups, not engineering phases or a time estimate. Next block remains untaught. Product mode and source/tests/accepted plans remain unchanged.
