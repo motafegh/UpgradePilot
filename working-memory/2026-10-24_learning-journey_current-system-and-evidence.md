@@ -24,8 +24,8 @@ The original route had seven broad subjects. The later route elaboration separat
 - [x] Complete the same-head/edited-description prediction: Ali correctly identified unchanged head, changed description hash and later observation time.
 - [x] Introduce the final PR identity reread around changed-file acquisition and its non-atomic observation boundary.
 - [x] Discuss exact proposition scope: package/version/environment/time; reuse adequate evidence rather than demand duplicate proof.
-- [ ] Trace exact target/run/attempt/input bindings and the relevant validation/refusal branches in source.
-- [ ] Study the FCI frozen-versus-fresh distinction: missing historical fields cannot be retroactively filled from later observations.
+- [x] Guided Block2 source reading of exact head/run/attempt/job bindings and their acquisition/correlation refusals; independent application remains pending.
+- [x] Explain the FCI frozen/conditional/separately fresh evidence tracks and why later observations cannot repair missing historical fields.
 - [ ] Practise detecting mismatched, stale, incomplete and contradictory evidence with real retained cases.
 
 ### 3. CI: configuration, execution and bounded dependency state
@@ -40,8 +40,8 @@ The original route had seven broad subjects. The later route elaboration separat
 - [x] Explain successful dry-run behavior using an existing controlled product test; do not present that test as a positive real HTTPX CI observation.
 - [x] Introduce `state`/`reason`/`detail`, `not_established` versus absence, and overall `no_admitted_candidate` versus per-command results.
 - [x] Work through why a successful dry run must not be reported as a failed installation; preserve separately supported evidence meanings.
-- [ ] Trace actual CI preparation, correlation, execution and dependency-state code with their discriminating tests.
-- [ ] Deepen command/environment/source identity, installation destination and effective configuration reasoning.
+- [x] Guided Block2 trace of actual CI preparation, correlation, step/command execution and dependency-state composition, with six discriminating existing tests.
+- [x] Explain the command/source/environment scope and four package-manager dimensions in the connected Block2 path; detailed parser/configuration implementation remains lookup/deferred depth.
 - [ ] Independently interpret positive/problem/unresolved outcomes and diagnose missing evidence without relying on memorized labels.
 
 ### 4. Change meaning, impact and target applicability
@@ -82,7 +82,7 @@ The original route had seven broad subjects. The later route elaboration separat
 - [x] Introduce empty text versus absent content and inspect the existing empty-source test.
 - [x] Complete the introductory truthiness-change review: Ali identified that the replacement merges empty text and None; teacher identifies valid retained empty text as the incorrectly rejected input.
 - [x] Guided Block1 walkthrough of report projection, encoding, non-replacing publication, file validation, lookup and rendering with an existing focused test.
-- [ ] **CURRENT:** apply the Block1 failure-boundary exercise and interpret what the focused test proves.
+- [ ] **DEFERRED BY ALI:** apply the Block1 failure-boundary exercise and interpret what the focused test proves; teaching is covered, answers are unassessed.
 - [ ] Practise missing/empty/null/invalid/oversized description distinctions, historical absence, bad file/source ID and corruption outcomes.
 
 ### 7. Tests, experiments, failures and proof limits
@@ -111,12 +111,14 @@ Ali asked to cover more material per step and progress faster while retaining le
 
 | Connected block | Included responsibilities and real examples | Intended learning result |
 | --- | --- | --- |
-| Data contracts, preservation and failure behavior — CURRENT; integrated exercise pending | Finish HTTPX acquisition/input/capture/Workspace/report/save/open handoffs; use missing/empty/version/integrity examples and one representative test. Treat deep SQLite/storage internals operationally unless needed. | Trace a value, explain the relevant representation/failure boundaries and interpret a test without repeating every source-view condition exercise. |
-| CI evidence as one complete case | FCI frozen/fresh identity, configuration/runtime correlation, skipped execution, scoped command/environment evidence and a contrasting controlled test. | Explain which proposition is supported or blocked and which owner/source would resolve a material gap. |
-| Impact and target relevance | HTTPX copied changes/caller/signature relations, OpenCV artifact/environment limits, and a bounded Python-support example. Connect these to findings, applicability and action permission. | Distinguish source meaning from target effects using real contrasting mechanisms; this still contains substantial new material. |
+| Data contracts, preservation and failure behavior — taught; exercise deferred by Ali | Finish HTTPX acquisition/input/capture/Workspace/report/save/open handoffs; use missing/empty/version/integrity examples and one representative test. Treat deep SQLite/storage internals operationally unless needed. | Trace a value, explain the relevant representation/failure boundaries and interpret a test without repeating every source-view condition exercise. |
+| CI evidence as one complete case — taught; practice deferred by Ali | FCI frozen/fresh identity, configuration/runtime correlation, skipped execution, scoped command/environment evidence and a contrasting controlled test. | Explain which proposition is supported or blocked and which owner/source would resolve a material gap. |
+| Impact and target relevance — NEXT | HTTPX copied changes/caller/signature relations, OpenCV artifact/environment limits, and a bounded Python-support example. Connect these to findings, applicability and action permission. | Distinguish source meaning from target effects using real contrasting mechanisms; this still contains substantial new material. |
 | Experimental failures, proof and the next design | Interpret the existing negative semantic results, useful test/fixture limits, product versus experiment status, existing AST/source owners and the proposed bounded source-relation responsibility. | Read and challenge a consequential design/proof choice and identify what remains unknown before a return-to-engineering decision. |
 
 Ali explicitly reconfirmed that important code/source explanations are desired and must not be skipped to accelerate. Preserve responsibility-bearing excerpts, explain unfamiliar material syntax and decisions, and show their actual caller/data/consumer relationship. Faster delivery comes from grouping related mechanisms and reducing repetitive checks, not removing important source understanding.
+
+**October24 sequencing update:** Ali explicitly said to keep questions for later and proceed to the next block fully. Continue connected teaching without end-of-block quizzes for now. Preserve unanswered exercises below and leave independent-understanding items unchecked; do not infer mastery or block requested teaching on those answers. This instruction supersedes the earlier answer-before-advancing cadence.
 
 Use a coherent real case/data flow plus representative code and tests per block, then one integrated reconstruction/diagnosis/design question. Do not ask a new question for every operator/field or repeat a correctly explained point. Repair actual blocking gaps locally and move on; use later natural retrieval to assess retained understanding. Incidental syntax/library details may remain recognize-and-lookup knowledge. A block can span more than one exchange if required; there is no invented completion percentage or fixed duration.
 
@@ -147,9 +149,15 @@ Teaching now distinguishes valid empty retained text (`""`) from absent content 
 
 **Latest completed exercise:** Ali correctly identified that `not source.content` cannot distinguish empty text from None. The concrete affected valid input is `retention="retained_text", content=""`, which the proposed change would wrongly reject. Introductory review complete; no product edit occurred.
 
-**Current connected block:** Block1 data contracts/preservation/failure/test walkthrough, with important real source excerpts. It covers provider-owned observation/invariants/seven field states and size bound; acquired-input handoff; explicit codec layout/capture/Workspace boundary; target/reference/hash validation; scoped optional version refusal versus corrupt native refusal; report projection; independent saved-report schema/digest; non-replacing save and offline read; current source viewer and existing test. This is guided teaching, not independent module mastery. SQLite internals/generic codec recursion/full replay remain deferred depth.
+**Completed guided teaching:** Block1 data contracts/preservation/failures/test and Block2 CI evidence/code are covered at the explained depth. Ali explicitly postponed questions; no integrated answers or new mastery are inferred. Do not repeat a pending quiz before the next requested lesson.
 
-**Pending integrated exercise (hypothetical controls, not actual defects):** classify (A) a PR description above the256KiB retention bound with otherwise valid identity, (B) an intact description native record declaring unsupported codec999, (C) a corrupted native description payload whose stored digest no longer matches, and (D) a saved report whose content changes without updating its integrity digest. For each identify the earliest relevant owner and whether the user gets an otherwise usable report with unavailable source or a refusal. Also explain which property the focused test protects and what source-truth/compatibility claim it cannot establish. Do not record an answer or advance to the next block before the learner's reasoning. No exact error-code memorization is required.
+**Exact next teaching responsibility:** Block3 impact and target relevance, with important actual code and real retained HTTPX, OpenCV and Python-support examples. Start from the source statement → mechanism/candidate → target premises/applicability → report/action boundary. Preserve current normal versus experimental versus curated evidence distinctions; no new acquisition/model/target execution follows.
+
+## Deferred reasoning/practice bank — questions for later at Ali's request
+
+- **Block1, unanswered:** classify (A) a description above256KiB with valid PR identity, (B) an intact optional native description with unsupported codec999, (C) native description payload changed without its digest, and (D) saved-report content changed without its report-integrity digest. Identify the earliest relevant owner and unavailable-source versus refusal behavior, plus the focused test's proof/non-proof.
+- **Block2, not yet asked/answered:** trace a case with a valid exact-attempt job but missing static display name; a correlated completed/skipped step; and a successful step containing an ineligible conditional install command. Distinguish acquisition, correlation, step execution, exact-command execution and package-state conclusions. Explain why a fresh observed job head does not retroactively admit an old missing-head capture.
+- Check the learner's independent source/test understanding when Ali chooses to return to practice. Keep taught checkboxes distinct from answered/verified practice. Do not fabricate learner responses, mark postponed work complete, or treat continuing teaching as a return to engineering.
 
 ## Meaningful learning progression and corrections
 
@@ -172,6 +180,7 @@ This table preserves progression in order. Later responses resolve earlier pendi
 | Source-view refusal condition | Ali correctly evaluated the `or` condition and identified the producer-result retention comparison as the refusal cause, even though content is present. | Condition-reading exercise complete. Semantic source/assessment distinction remains a later retrieval target. Next unit is empty string versus None and the regression a truthiness substitution would cause; review answer pending. |
 | Truthiness review and pacing | Ali identified the empty/None collapse in the alternative guard and requested broader/faster coverage, an overview of remaining work and a balance between learning and project completion. | Named the valid retained-empty input that would be wrongly rejected. Introductory exercise complete. Delivery now groups the same curriculum into four connected blocks with fewer integrated checks; no Build or broad mastery is inferred. |
 | Block1 code preference and teaching | Ali accepted the four-block pace and explicitly asked to keep important code/source explanations. | Teacher provides the connected real-source lifecycle lesson and one integrated failure/test exercise. Guided coverage is recorded; learner response and independent application remain pending. |
+| Deferring questions and Block2 | Ali explicitly requested questions later and full continuation to the next teaching block. | Earlier answer-before-advancing cadence is superseded. Block1 exercise remains unanswered. Block2 explains provider admission, correlation, execution eligibility, package-state composition, real FCI tracks and six focused tests; independent practice is deferred. |
 
 The learner's spontaneous necessity question is evidence of initial engineering judgment on that boundary. It does not establish mastery of all stopping logic, all CI semantics, full source ownership or general product architecture. No percentages, scores or completed-module mastery are inferred.
 
@@ -225,3 +234,13 @@ Recorded the explicit code-reading preference. Inspected provider record/parser,
 Fresh local teaching proof: the existing `test_source_cli_is_offline_read_only_with_distinct_error_outcomes` passed1 test/0.038s. Its intentional misuse check prints parser usage; the test still succeeds. Fixture work uses temporary files and controlled providers, not actual target/model execution. Existing real HTTPX native-boundary reconstruction also succeeds behind denied network/acquisition; codec1/owner github.pull_request/one input reference,9,348 UTF-8 bytes, native payload digest matches, and decoded native text equals saved report source text. This is bounded reconstruction fidelity, not a new live acquisition, complete checkpoint/replay, semantic acceptance or learner-owned proof. Existing originals remain unchanged.
 
 Next is the integrated Block1 exercise in the resume point. Full historical908-test proof was not rerun. No AI inference, new package installation, target execution or source/test mutation.
+
+## Learning checkpoint — October24: Block2 CI evidence and deferred exercises
+
+User-directed adaptation: questions are postponed; teaching proceeds without claiming unanswered checkpoints are passed. Inspected Actions acquisition/run-attempt endpoint/required job identity, shared CI preparation, bounded correlator, step and exact-command execution, package-state composition and controlled tests. Read retained FCI001–3 results: selected attempts1;1/13/5 job heads/run IDs match their selected run and PR; FCI001 correlated, FCI002/3 unresolved/static_job_name_missing. These are October20 selected-CI diagnostic observations, not fresh calls today or whole-product results.
+
+Actual FCI001: Release readiness job success; Set up job success; checkout completed/skipped; release validation completed/skipped; Complete job success. Completed step status does not substitute for successful conclusion. Current correlation permits runtime setup/post steps between uniquely matched ordered user steps. FCI002's later matrix is not its observed first refusal. FCI003's empty explicit PR-association array is not invented into a positive link. Frozen19 missing heads remain unchanged; conditional assumptions and later observed heads retain distinct proof classes.
+
+Fresh teaching verification:6 existing tests passed/0.005s—captured second-attempt job endpoint, named-job/user-step correlation, missing literal-name refusal, continue-on-error masking, conditional-command ineligibility despite step success, and controlled positive package-state composition. No live acquisition, model call, target execution, source/test change or full908-test rerun. Reading retained public results does not rerun either official diagnostic batch. Positive test witness is not attributed to an FCI case; that diagnostic did not invoke the package-state or action evaluators.
+
+Block2 preserves reuse and ownership: normal acquisition → exact static/runtime input bundle → static consumption/correlation → step/exact-command interpretation → same-command package-manager/state composition → report. A layer adds a distinct proposition, not a new investigation merely to repeat known evidence. Next lesson is Block3; deferred practice remains in the bank.
