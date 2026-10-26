@@ -65,6 +65,10 @@ Opening turn: Ali requested separate records and learning during real investigat
 
 Initial record validation:89 local file references across this record, the originating review and root MEMORY resolve; git diff --check passes. No source/test/plan/spec/ADR changes or new runtime checks. These document checks support initialization only, not the milestone's substantive verification gate.
 
+### Prerequisite repair: the proposed milestone explanation was too abstract
+
+Ali explicitly said he did not understand the opening explanation. Do not count the recommendation or first product-scope question as understood/accepted. Teacher's explanation mixed outcome versus feature, source relationships, implementation reachability and evaluation vocabulary too early. Repair locally with one real HTTPX review situation: current access to copied change notes versus a proposed explanation connecting a captured framework call to the changed interface, while actual framework version remains unknown. Define abstention simply as insufficient evidence to recommend accepting/rejecting the update; explain that useful information and a final recommendation are different deliverables. Leave the broader proof vocabulary and priority table for later. No new question bank or learning-only course; return to the same milestone decision after Ali has a meaningful chance to challenge the simpler model. A2 remains current; no milestone, Build or scope decision follows from this repair, and learner understanding remains unassessed.
+
 UP-SKILL:upgradepilot-planning-design
 UP-SKILL:upgradepilot-learning-by-doing
 UP-SKILL:upgradepilot-working-memory
