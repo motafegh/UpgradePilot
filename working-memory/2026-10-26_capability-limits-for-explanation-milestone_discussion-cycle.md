@@ -7,9 +7,9 @@ Second of Ali's three separately recorded subjects. It follows the [agreed expla
 - A0 — DONE: reconciled mainf54d2498 and preceding decision, prior audit and source-access review; rechecked single-transition analysis, ordinary named-job correlation, direct-requirements state and abstain-only evaluator source anchors. No executable delta was found.
 - A1 — DONE for continuity: the explanation goal and completion conditions are explicitly agreed. Report capability has not thereby been implemented or independently validated.
 - A2 — DONE for the selected investigation scope: after orientation Ali explicitly requested full read-only findings on both missing-source and interpretation gaps, progressive recording and teaching before joint decisions. This is investigation authorization, not capability design/Build acceptance or learner mastery.
-- B — CURRENT: trace normal and experimental producers, verify retained material and existing fact extraction, run discriminating controlled checks and formulate evidence-backed expansion/deferral choices.
-- Verification gate — PENDING: source/normal-path and real-case feasibility against proposed dispositions; documentation initialization is not capability proof.
-- D — PENDING: explain evidence-backed priorities and check consequential understanding proportionately.
+- B — DONE for this bounded two-gap investigation: traced normal/experimental acquisition, retained inputs and actual extractor output; qualified7 files/7 delivered pages and formulated decisions below. No implementation or scope acceptance.
+- Verification gate — GREEN for the investigation claims: pinned retained-byte/page checks and12 focused existing tests/0.020s pass. This is not method implementation, broad semantic acceptance or normal-product milestone proof.
+- D — CURRENT: teach the actual findings and implications using the real source chain; Ali's challenge/understanding/priority choice remains open.
 - E — PENDING: agree the supported capability envelope and handoff to a separately recorded Workspace migration discussion.
 - C — CONTINUOUS: preserve actual user reasoning, changed recommendations, cases, proof limits and accepted/deferred decisions.
 
@@ -60,6 +60,59 @@ Qualified that existing local catalog through the actual product read_source_cat
 The [retained source inspection receipt](evidence/2026-10-26-explanation-source-and-analysis-gaps/retained-source-inspection.json) records source identities/hashes/coverage, AST inspection facts and existing-extractor output; it publishes no raw private sources/prompts. The small AST signature inspection is a read-only diagnostic, not an implemented product/experiment signature-relation owner or a frozen semantic regrade. Runtime/model/acquisition counts remain zero.
 
 Preliminary conclusion: gap1 is partly integration/reachability plus explicit source-retention/correspondence requirements. Reuse existing bounded acquirers/readers first. Choosing a normal user-facing integration remains unaccepted and separate from proving that a historical experiment could fetch the source.
+
+## Investigation checkpoint: what existing analysis does and does not establish
+
+The current ReferenceFact carries source/line/expression, established lexical import or limitation, explicit keyword names, a positional syntax-item count and ordered/scoped BindingAssessment traces. Its binding trace retains source spans, but the output is not a callable-signature inventory or a complete call-binding/dispatch result. Functions/classes are analyzed for scoped bindings and references; no exposed accepted-parameter record or caller-to-signature relation is emitted. Positional item counts do not expand *args; ** is deliberately recorded without inventing keys. Full call-occurrence and signature identity/parameter-kind representation must be qualified rather than duplicating the existing analyzer.
+
+Running the current extract_python_facts on the7 qualified files confirms:
+
+| Captured source | Fresh inspected fact | Boundary retained |
+| --- | --- | --- |
+| Target tests | TestClient(app) at line7 has established lexical origin fastapi.testclient.TestClient, one positional item | Static import association, not observed execution or installed framework proof |
+| FastAPI re-export module | Imports TestClient from starlette.testclient | Source-level re-export fact, not automatic target package/version resolution |
+| Older Starlette TestClient constructor | super().__init__ at line429 explicitly supplies app, base_url, headers, transport, follow_redirects, cookies | Existing extractor preserves keywords but reports unknown imported origin for this super receiver; no established MRO/dispatch is invented |
+| Newer Starlette TestClient constructor | super().__init__ at line455 supplies the same list except app | This call does not explicitly forward app; the outer constructor still accepts app positionally |
+| Older HTTPX Client signature | Complete retained signature includes app and cert and no **kwargs receiver | Read-only AST signature inspection, not a newly implemented callable owner |
+| Proposed HTTPX Client signature | Complete retained signature lacks app, retains cert and has no **kwargs receiver | Supports an explicit parameter fact; deprecated meaning and runtime effects remain distinct |
+
+The manual conditional source comparison is consequently feasible on these retained bytes: **if** the older captured caller is paired with the proposed captured HTTPX initializer, its explicit app keyword is absent from that initializer's accepted signature. The newer captured call does not have that particular forwarding mismatch. This does not prove which framework the target actually installed, actual dispatch or test failure, or whole-call/update compatibility. Inspecting complete signatures does not turn repository source into distribution-build correspondence.
+
+The retained October19 source-aware review already records the erroneous cert-removal/five-extra-forwarded-argument claims and material omitted app relation. The current source facts recover the relevant explicit details, and the7 delivered-page comparisons show those bytes were actually supplied then. This is evidence for the location of the interpretation/composition gap, not a new prediction, repair or semantic regrade. Interface delivery/citation correctness was never sufficient semantic acceptance.
+
+Also distinguish two experimental consumers: run_interpretation_trial acquires source/context, but its model call receives acquired.upstream only. That source-only role is deliberately not a target-relationship evaluator. The broader supplied-evidence Investigator did receive target/caller/callee pages and still failed. Do not blame the source-only decoder for not doing an unadmitted target role or present the broader role's failures as a defect in citation recovery.
+
+The normal report projection copies the current result's dependency/CI/package/upstream/artifact/Python assessments and synthesis; it has no API relation input to consume. Therefore a correct lab extraction alone cannot meet the agreed normal user-facing milestone. Method qualification, native/product admission, minimal source retention and report integration are separate necessary handoffs. Completing all Workspace families is not shown necessary before an offline structural trial; the required canonical consumer/retention boundary belongs in the third discussion.
+
+## Fresh controlled proof
+
+12 existing tests pass/0.020s: target inventory-driven acquisition without CI; truncation/read/budget omissions; local namespace collision; static import/call/base facts; latest satisfying sample versus resolution; declared import/metadata adapter chain; alias restoration through acquisition/serialization/replay/exploration; conditional origins refusing positive exploration; unexamined budget candidates; delayed global-read uncertainty; binding trace exhaustion; and wrong-meaning/real-quote proposals not becoming semantic acceptance. All providers are controlled. No real GitHub/PyPI/model request, third-party target execution, installed-package check, broad product regression or frozen experiment rerun occurred.
+
+The October4 packet's six producer file hashes still match current source. Its historical50-request run,12 target files,61 references,11 module samples across4 release identities and10 unexamined candidates remain dated observations, not a new run. Current normal indices are separate October22 observations; the shared full-source catalog and delivered pages have their own dates and capture basis. None are merged into a fictional single run or historic installed environment. All source/packed/profile hashes checked still match their pinned evidence.
+
+## Evidence-backed recommendations and decision points
+
+| Decision question | Finding | Recommended next disposition, pending Ali |
+| --- | --- | --- |
+| Need another general acquirer? | A generic bounded ordinary-PR experiment already obtains relevant target files and explores justified adapter sources | Reuse/qualify existing owners; plan minimal normal-path adoption only after selected consumer proof, not a parallel acquisition engine |
+| Need more current acquisition before deciding the structural method? | Required old/new/caller/re-export source bytes are retained, parseable and delivered-page consistent | Use the qualified offline evidence first. New live reads require a named missing premise and separate bounded selection, not a blanket new capture |
+| Need another keyword/import analyzer? | Existing producer emits the exact old/new explicit keyword lists and conservative binding limits | KEEP/reuse. Extend only missing callable/signature and relation identity/semantics if baseline output is inadequate |
+| Need full Python/runtime resolution now? | Captured source can support a conditional relation; actual unpinned framework/version/dispatch stays unresolved | Do not solve a general resolver/MRO/behavior engine to obtain the first useful explanation. Keep the condition visible; expand only if the milestone requires a stronger target claim |
+| Is a new model/prompt trial the immediate answer? | Mechanical facts are available; richer source delivery already failed semantically | Qualify a deterministic structural baseline and its consumer first; a new semantic method needs its own evidence/budget/admission, not automatic inference |
+| Must CI/manager coverage expand first? | Existing experimental source acquisition is independent of successful CI; source mismatch is not package-state proof | No blanket prerequisite. Retain unsupported CI/manager outcomes; expand only when a selected real proposition requires them |
+| Does a curated offline result complete the milestone? | Normal report currently lacks this source/relation consumer | No. Require a thin explicit path from qualified method to ordinary acquisition/native retention/report consumer, or keep it labelled experiment-only and milestone incomplete |
+
+Recommendation for the next concrete contract, not accepted implementation: qualify/reuse source inputs and explicit call facts; define bounded callable/signature facts and conditional correspondence; deliver one readable/reopenable evidence example with real positive/negative/unresolved controls; then select the smallest normal product/canonical source-retention/report integration needed for the agreed milestone. Current selected evidence does not require raising source caps or creating a universal archive. The manifested50-request exploration limit genuinely leaves candidates unexamined; it is not a request to raise that limit before task/value needs are known.
+
+Still-open choices for joint decision: (1) initial supported source/construct/correspondence envelope; (2) minimum saved evidence and experiment versus normal-product consumer handoff; (3) real contrasting cases and honest acceptance scope beyond this exposed development source pair; (4) whether any actual target-version evidence is essential for the chosen explanation or can remain an explicit condition; (5) Workspace integration scope/trigger in the third record. Independent usefulness remains separate and the child plan's proposed time/implementation ceilings are not silently accepted here.
+
+## Teaching and handoff
+
+Explain acquisition as obtaining source, retention as keeping/recovering its exact bytes, source analysis as observing code facts, and correspondence as establishing which call/function/version may be connected. Use the actual TestClient → FastAPI re-export → captured Starlette call → captured HTTPX signature chain. Explicitly distinguish syntax facts, conditional relationship and actual target behavior. Show that the existing keyword extraction already works, while signature/dispatch composition and the normal report consumer remain different responsibilities. This is a connected explanation, not a new quiz or a fifth standalone learning block.
+
+Ali requested the findings and teaching before joint decisions. The investigation provides evidence-backed recommendations but does not approve scope expansion, activate the caller/signature implementation or settle Workspace priority. Keep D/E open for the resulting discussion. Preserve the evidence-backed milestone goal rather than narrow it to a passing parser inventory.
+
+Final record checks:85 local file references across this discussion, plan-authoring handoff and root MEMORY resolve; the receipt parses and contains7 qualified files/7 delivered-page checks/12-test proof with original hashes unchanged; git diff --check passes. No executable/test/plan/specification/ADR diff. The first source-readiness checkpoint was separately published as32f853fd before final analysis/teaching handoff; the present increment adds interpretation/consumer findings and proof. Records are ready for discussion, not a completed capability implementation or a closed independent-understanding cycle.
 
 UP-SKILL:upgradepilot-planning-design
 UP-SKILL:upgradepilot-learning-by-doing

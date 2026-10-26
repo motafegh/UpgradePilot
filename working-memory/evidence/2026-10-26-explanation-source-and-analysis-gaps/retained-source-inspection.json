@@ -492,5 +492,39 @@
       "api_release_window_manifest.py": true,
       "api_python_bindings.py": true
     }
-  }
+  },
+  "focused_test_verification": {
+    "command_prefix": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:tests:. .venv/bin/python3 -m unittest",
+    "tests": [
+      "experiments.tests.test_api_target_context.AcquisitionTests.test_inventory_drives_paths_candidates_and_no_ci_dependency",
+      "experiments.tests.test_api_target_context.AcquisitionTests.test_truncation_read_failure_and_budget_omissions_visible",
+      "experiments.tests.test_api_target_context.AcquisitionTests.test_local_namespace_does_not_become_distribution_candidate",
+      "experiments.tests.test_api_target_context.SyntaxTests.test_import_alias_direct_call_and_class_base",
+      "experiments.tests.test_api_adapter_exploration.SamplingTests.test_latest_stable_constraint_is_sampling_not_resolved_version",
+      "experiments.tests.test_api_adapter_exploration.ChainTests.test_normal_chain_follows_acquired_imports_and_exact_metadata",
+      "experiments.tests.test_api_adapter_exploration.ChainTests.test_restored_alias_reaches_adapter_chain_through_acquisition_and_replay",
+      "experiments.tests.test_api_adapter_exploration.ChainTests.test_conditional_possible_origin_does_not_trigger_positive_exploration",
+      "experiments.tests.test_api_adapter_exploration.ChainTests.test_budgets_keep_unexamined_candidates_and_do_not_claim_coverage",
+      "experiments.tests.test_api_python_bindings.BindingTests.test_delayed_global_read_never_uses_definition_time_as_proof",
+      "experiments.tests.test_api_python_bindings.BindingTests.test_trace_budget_is_visible_and_cannot_become_positive",
+      "experiments.tests.test_api_change_interpretation.InterpretationTests.test_meaning_is_not_deterministic_acceptance_and_empty_is_not_negative_claim"
+    ],
+    "count": 12,
+    "result": "OK",
+    "reported_seconds": 0.02,
+    "exit_code": 0,
+    "scope": "controlled experiment contracts, not fresh external behavior or semantic acceptance"
+  },
+  "current_inspected_code_sha256": {
+    "src/upgradepilot/investigation.py": "bbe9a45a47d4acd4c0cbbb4f9189bcba12c78c798be9b2a804d933484ea5294d",
+    "src/upgradepilot/investigation_inputs.py": "cafc5f52d7d61bf6b021663541c1f1460541e50e83e1e6670a189ecc13a62c18",
+    "src/upgradepilot/report_projection.py": "1017063f149c485a60d461f3b02a28e5394e259ecbde40ba5bf50858b6bdccf0",
+    "experiments/api_target_context.py": "718ee467d83b8e7e71168e7d8c7d5264ff234fd4730b938092921be352900e6b",
+    "experiments/api_python_bindings.py": "215e96e8e066cfae3a08c7a28f991cb810c8ec7da14e14abb85326509e93166a",
+    "experiments/api_adapter_exploration.py": "23df94917a53c8742c5c8b707f7911cac525eb6284433b836cca5081c7e4aaa7",
+    "experiments/api_target_context_smoke.py": "d1e227b3bd536fab4cad3c3d0e9f020738055dc638ba628b516300f859a531b1",
+    "experiments/api_change_interpretation_trial.py": "6d108a8255834941cf40d5774dd48ac23386981204ab90508c95567b560fafb6",
+    "src/upgradepilot/workspace/source_access.py": "56e34abe836ef6edec7142a003844532b445a7e31afaa1006598f892327bbb84"
+  },
+  "after_inspection_original_catalog_and_packed_input_hashes_unchanged": true
 }
