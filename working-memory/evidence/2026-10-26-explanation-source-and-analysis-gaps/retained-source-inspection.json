@@ -1,0 +1,496 @@
+{
+  "kind": "read_only_retained_source_qualification_and_fact_inspection",
+  "source_horizon": "main 6ebb42c9; historical captures separately attributed",
+  "qualified_catalog_sha256": "ca5f294866faf1eb7633ebc5af3a3e0a9fe65896a2ae5093c5f7241f2f97fed4",
+  "qualified_catalog_id": "288c3c88a12ed32706641b977f5a29b09d4727b6e9fa3de7ff2df23e28ba1bf3",
+  "qualified_catalog_files": 2632,
+  "selected_files": [
+    {
+      "source_id": "target-proposed",
+      "repository": "Aidan-Wallace/kubernetes-dashboard-token-api",
+      "revision": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+      "path": "requirements.txt",
+      "sha256": "fb2d2df7bc2502337b1a551de591485d61bd8f0c00dc2897802fa6994d9328a3",
+      "utf8_bytes": 112,
+      "source_lines": 7,
+      "capture_basis": "[\"fresh public exact-commit archive\"]",
+      "coverage_limit": "{\"file_count\": 24, \"omitted_file_count\": 3, \"repository\": \"Aidan-Wallace/kubernetes-dashboard-token-api\", \"revision\": \"391508134b083b8f54461c0b576e8f7985c6ecb4\", \"scope\": \"broad retained UTF-8 text; declared file types/byte limits; not installed runtime\", \"source_id\": \"target-proposed\"}"
+    },
+    {
+      "source_id": "target-proposed",
+      "repository": "Aidan-Wallace/kubernetes-dashboard-token-api",
+      "revision": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+      "path": "tests/test_routes.py",
+      "sha256": "54ce091cd5e7ec03d53606f59b713e87ff64a1d6d5922f61be23d97b049393f2",
+      "utf8_bytes": 1865,
+      "source_lines": 58,
+      "capture_basis": "[\"fresh public exact-commit archive\"]",
+      "coverage_limit": "{\"file_count\": 24, \"omitted_file_count\": 3, \"repository\": \"Aidan-Wallace/kubernetes-dashboard-token-api\", \"revision\": \"391508134b083b8f54461c0b576e8f7985c6ecb4\", \"scope\": \"broad retained UTF-8 text; declared file types/byte limits; not installed runtime\", \"source_id\": \"target-proposed\"}",
+      "full_retained_file_parses": true,
+      "existing_extractor_gaps": [],
+      "relevant_existing_call_facts": [
+        {
+          "line": 7,
+          "expression": "TestClient",
+          "lexical_import": "fastapi.testclient.TestClient",
+          "keywords": [],
+          "positional_syntax_items": 1,
+          "binding_state": "established"
+        }
+      ]
+    },
+    {
+      "source_id": "fastapi-reference",
+      "repository": "fastapi/fastapi",
+      "revision": "07684aea793d042fb5a12dde46dfe6d1e2196725",
+      "path": "fastapi/testclient.py",
+      "sha256": "9c1bda0265fae9895d45e24d6573ce935b1fba8d90ea1b3c6cebc86827a9e8b4",
+      "utf8_bytes": 66,
+      "source_lines": 1,
+      "capture_basis": "[\"fresh public exact-commit archive\"]",
+      "coverage_limit": "{\"file_count\": 2170, \"omitted_file_count\": 230, \"repository\": \"fastapi/fastapi\", \"revision\": \"07684aea793d042fb5a12dde46dfe6d1e2196725\", \"scope\": \"broad retained UTF-8 text; declared file types/byte limits; not installed runtime\", \"source_id\": \"fastapi-reference\"}",
+      "full_retained_file_parses": true,
+      "existing_extractor_gaps": [],
+      "imports": [
+        {
+          "module": "starlette.testclient",
+          "member": "TestClient",
+          "relative_level": 0
+        }
+      ],
+      "relevant_existing_call_facts": []
+    },
+    {
+      "source_id": "httpx-old",
+      "repository": "encode/httpx",
+      "revision": "609df7ecc0f7cb10a1c998aa9c269bba77337c5f",
+      "path": "httpx/_client.py",
+      "sha256": "c4abf7e3485c2df38f0a78a57b1121da0360e41ac442a212eff3b4641f67c56c",
+      "utf8_bytes": 68032,
+      "source_lines": 2065,
+      "capture_basis": "[\"fresh public exact-commit archive\"]",
+      "coverage_limit": "{\"file_count\": 99, \"omitted_file_count\": 25, \"repository\": \"encode/httpx\", \"revision\": \"609df7ecc0f7cb10a1c998aa9c269bba77337c5f\", \"scope\": \"broad retained UTF-8 text; declared file types/byte limits; not installed runtime\", \"source_id\": \"httpx-old\"}",
+      "full_retained_file_parses": true,
+      "existing_extractor_gaps": [],
+      "relevant_existing_call_facts": [
+        {
+          "line": 653,
+          "expression": "super().__init__",
+          "lexical_import": null,
+          "keywords": [
+            "auth",
+            "params",
+            "headers",
+            "cookies",
+            "timeout",
+            "follow_redirects",
+            "max_redirects",
+            "event_hooks",
+            "base_url",
+            "trust_env",
+            "default_encoding"
+          ],
+          "positional_syntax_items": 0,
+          "binding_state": "unknown"
+        },
+        {
+          "line": 1400,
+          "expression": "super().__init__",
+          "lexical_import": null,
+          "keywords": [
+            "auth",
+            "params",
+            "headers",
+            "cookies",
+            "timeout",
+            "follow_redirects",
+            "max_redirects",
+            "event_hooks",
+            "base_url",
+            "trust_env",
+            "default_encoding"
+          ],
+          "positional_syntax_items": 0,
+          "binding_state": "unknown"
+        }
+      ],
+      "inspected_constructor": {
+        "class": "Client",
+        "line": 628,
+        "end_line": 724,
+        "positional_only": [],
+        "positional_or_keyword": [
+          "self"
+        ],
+        "keyword_only": [
+          "auth",
+          "params",
+          "headers",
+          "cookies",
+          "verify",
+          "cert",
+          "http1",
+          "http2",
+          "proxy",
+          "proxies",
+          "mounts",
+          "timeout",
+          "follow_redirects",
+          "limits",
+          "max_redirects",
+          "event_hooks",
+          "base_url",
+          "transport",
+          "app",
+          "trust_env",
+          "default_encoding"
+        ],
+        "vararg": null,
+        "kwarg": null,
+        "bases": [
+          "BaseClient"
+        ]
+      }
+    },
+    {
+      "source_id": "httpx-new",
+      "repository": "encode/httpx",
+      "revision": "26d48e0634e6ee9cdc0533996db289ce4b430177",
+      "path": "httpx/_client.py",
+      "sha256": "c43f941baefe58c91e96d00039e1868fe719d91453026d7db1647194563bff8d",
+      "utf8_bytes": 65714,
+      "source_lines": 2019,
+      "capture_basis": "[\"fresh public exact-commit archive\"]",
+      "coverage_limit": "{\"file_count\": 99, \"omitted_file_count\": 26, \"repository\": \"encode/httpx\", \"revision\": \"26d48e0634e6ee9cdc0533996db289ce4b430177\", \"scope\": \"broad retained UTF-8 text; declared file types/byte limits; not installed runtime\", \"source_id\": \"httpx-new\"}",
+      "full_retained_file_parses": true,
+      "existing_extractor_gaps": [],
+      "relevant_existing_call_facts": [
+        {
+          "line": 662,
+          "expression": "super().__init__",
+          "lexical_import": null,
+          "keywords": [
+            "auth",
+            "params",
+            "headers",
+            "cookies",
+            "timeout",
+            "follow_redirects",
+            "max_redirects",
+            "event_hooks",
+            "base_url",
+            "trust_env",
+            "default_encoding"
+          ],
+          "positional_syntax_items": 0,
+          "binding_state": "unknown"
+        },
+        {
+          "line": 1376,
+          "expression": "super().__init__",
+          "lexical_import": null,
+          "keywords": [
+            "auth",
+            "params",
+            "headers",
+            "cookies",
+            "timeout",
+            "follow_redirects",
+            "max_redirects",
+            "event_hooks",
+            "base_url",
+            "trust_env",
+            "default_encoding"
+          ],
+          "positional_syntax_items": 0,
+          "binding_state": "unknown"
+        }
+      ],
+      "inspected_constructor": {
+        "class": "Client",
+        "line": 639,
+        "end_line": 716,
+        "positional_only": [],
+        "positional_or_keyword": [
+          "self"
+        ],
+        "keyword_only": [
+          "auth",
+          "params",
+          "headers",
+          "cookies",
+          "verify",
+          "cert",
+          "trust_env",
+          "http1",
+          "http2",
+          "proxy",
+          "mounts",
+          "timeout",
+          "follow_redirects",
+          "limits",
+          "max_redirects",
+          "event_hooks",
+          "base_url",
+          "transport",
+          "default_encoding"
+        ],
+        "vararg": null,
+        "kwarg": null,
+        "bases": [
+          "BaseClient"
+        ]
+      }
+    },
+    {
+      "source_id": "starlette-old",
+      "repository": "Kludex/starlette",
+      "revision": "be4f3e110ed1172ec9cb47a6209bd899a0d3a604",
+      "path": "starlette/testclient.py",
+      "sha256": "4ad9cf0a44243a5d82e3becfe19d8aad4d7ac5f7298fb35a6ba6273b940dffe8",
+      "utf8_bytes": 29345,
+      "source_lines": 814,
+      "capture_basis": "[\"fresh public exact-commit archive\"]",
+      "coverage_limit": "{\"file_count\": 105, \"omitted_file_count\": 18, \"repository\": \"Kludex/starlette\", \"revision\": \"be4f3e110ed1172ec9cb47a6209bd899a0d3a604\", \"scope\": \"broad retained UTF-8 text; declared file types/byte limits; not installed runtime\", \"source_id\": \"starlette-old\"}",
+      "full_retained_file_parses": true,
+      "existing_extractor_gaps": [],
+      "relevant_existing_call_facts": [
+        {
+          "line": 419,
+          "expression": "_TestClientTransport",
+          "lexical_import": null,
+          "keywords": [
+            "portal_factory",
+            "raise_server_exceptions",
+            "root_path",
+            "app_state"
+          ],
+          "positional_syntax_items": 1,
+          "binding_state": "unknown"
+        },
+        {
+          "line": 429,
+          "expression": "super().__init__",
+          "lexical_import": null,
+          "keywords": [
+            "app",
+            "base_url",
+            "headers",
+            "transport",
+            "follow_redirects",
+            "cookies"
+          ],
+          "positional_syntax_items": 0,
+          "binding_state": "unknown"
+        }
+      ],
+      "inspected_constructor": {
+        "class": "TestClient",
+        "line": 397,
+        "end_line": 436,
+        "positional_only": [],
+        "positional_or_keyword": [
+          "self",
+          "app",
+          "base_url",
+          "raise_server_exceptions",
+          "root_path",
+          "backend",
+          "backend_options",
+          "cookies",
+          "headers",
+          "follow_redirects"
+        ],
+        "keyword_only": [],
+        "vararg": null,
+        "kwarg": null,
+        "bases": [
+          "httpx.Client"
+        ]
+      }
+    },
+    {
+      "source_id": "starlette-new",
+      "repository": "Kludex/starlette",
+      "revision": "554f368809e0d891a699667faf0cfbb20057eeb2",
+      "path": "starlette/testclient.py",
+      "sha256": "acfaa9d5f54182455d3524b3e03b9deb85f9ddae77723e5ab03e864bcd12a88e",
+      "utf8_bytes": 30367,
+      "source_lines": 839,
+      "capture_basis": "[\"fresh public exact-commit archive\"]",
+      "coverage_limit": "{\"file_count\": 105, \"omitted_file_count\": 18, \"repository\": \"Kludex/starlette\", \"revision\": \"554f368809e0d891a699667faf0cfbb20057eeb2\", \"scope\": \"broad retained UTF-8 text; declared file types/byte limits; not installed runtime\", \"source_id\": \"starlette-new\"}",
+      "full_retained_file_parses": true,
+      "existing_extractor_gaps": [],
+      "relevant_existing_call_facts": [
+        {
+          "line": 445,
+          "expression": "_TestClientTransport",
+          "lexical_import": null,
+          "keywords": [
+            "portal_factory",
+            "raise_server_exceptions",
+            "root_path",
+            "app_state"
+          ],
+          "positional_syntax_items": 1,
+          "binding_state": "unknown"
+        },
+        {
+          "line": 455,
+          "expression": "super().__init__",
+          "lexical_import": null,
+          "keywords": [
+            "base_url",
+            "headers",
+            "transport",
+            "follow_redirects",
+            "cookies"
+          ],
+          "positional_syntax_items": 0,
+          "binding_state": "unknown"
+        }
+      ],
+      "inspected_constructor": {
+        "class": "TestClient",
+        "line": 423,
+        "end_line": 461,
+        "positional_only": [],
+        "positional_or_keyword": [
+          "self",
+          "app",
+          "base_url",
+          "raise_server_exceptions",
+          "root_path",
+          "backend",
+          "backend_options",
+          "cookies",
+          "headers",
+          "follow_redirects"
+        ],
+        "keyword_only": [],
+        "vararg": null,
+        "kwarg": null,
+        "bases": [
+          "httpx.Client"
+        ]
+      }
+    }
+  ],
+  "historical_packed_input_sha256": "a5ab67ed43d0f2a221edd7cc8aa0c9c2e5b60800117b2649c1be84a8dd52115b",
+  "delivered_page_checks": [
+    {
+      "source_id": "target-proposed",
+      "path": "requirements.txt",
+      "start_line": 1,
+      "line_count": 7,
+      "matches_qualified_catalog": true
+    },
+    {
+      "source_id": "target-proposed",
+      "path": "tests/test_routes.py",
+      "start_line": 1,
+      "line_count": 58,
+      "matches_qualified_catalog": true
+    },
+    {
+      "source_id": "fastapi-reference",
+      "path": "fastapi/testclient.py",
+      "start_line": 1,
+      "line_count": 1,
+      "matches_qualified_catalog": true
+    },
+    {
+      "source_id": "httpx-old",
+      "path": "httpx/_client.py",
+      "start_line": 574,
+      "line_count": 100,
+      "matches_qualified_catalog": true
+    },
+    {
+      "source_id": "httpx-new",
+      "path": "httpx/_client.py",
+      "start_line": 594,
+      "line_count": 100,
+      "matches_qualified_catalog": true
+    },
+    {
+      "source_id": "starlette-old",
+      "path": "starlette/testclient.py",
+      "start_line": 392,
+      "line_count": 100,
+      "matches_qualified_catalog": true
+    },
+    {
+      "source_id": "starlette-new",
+      "path": "starlette/testclient.py",
+      "start_line": 418,
+      "line_count": 100,
+      "matches_qualified_catalog": true
+    }
+  ],
+  "proof_limits": [
+    "no new acquisition/model/target execution",
+    "AST signature facts are a diagnostic inspection, not an implemented signature relation owner",
+    "no runtime dispatch/installed version/compatibility/action proof",
+    "no frozen prediction rerun, review correction or semantic regrade"
+  ],
+  "normal_product_source_indices": [
+    {
+      "index_path": "working-memory/evidence/2026-10-22-matched-report-source-capture/source-index.json",
+      "sha256": "34fb9393349bf001b4a83bc34e53de0542e1f4d3295f6490412b86e954c9cda2",
+      "request_count": 8,
+      "request_urls": [
+        "https://api.github.com/repos/Aidan-Wallace/kubernetes-dashboard-token-api/pulls/20",
+        "https://api.github.com/repos/Aidan-Wallace/kubernetes-dashboard-token-api/pulls/20/files?per_page=100&page=1",
+        "https://api.github.com/repos/Aidan-Wallace/kubernetes-dashboard-token-api/pulls/20",
+        "https://api.github.com/repos/Aidan-Wallace/kubernetes-dashboard-token-api/actions/runs?event=pull_request&head_sha=391508134b083b8f54461c0b576e8f7985c6ecb4&per_page=100&page=1",
+        "https://pypi.org/pypi/httpx/0.28.1/json",
+        "https://pypi.org/pypi/httpx/0.27.2/json",
+        "https://pypi.org/integrity/httpx/0.28.1/httpx-0.28.1-py3-none-any.whl/provenance",
+        "https://pypi.org/integrity/httpx/0.28.1/httpx-0.28.1.tar.gz/provenance"
+      ],
+      "target_tree_or_python_framework_source_request_present": false
+    },
+    {
+      "index_path": "working-memory/evidence/2026-10-22-opencv-matched-report-source-capture/source-index.json",
+      "sha256": "8a62a31c0c8ceefa34dc0bfd270d23ce94d2da3c4db72e996ad6e42eafbe8b43",
+      "request_count": 13,
+      "request_urls": [
+        "https://api.github.com/repos/carla-simulator/scenario_runner/pulls/1111",
+        "https://api.github.com/repos/carla-simulator/scenario_runner/pulls/1111/files?per_page=100&page=1",
+        "https://api.github.com/repos/carla-simulator/scenario_runner/pulls/1111",
+        "https://api.github.com/repos/carla-simulator/scenario_runner/actions/runs?event=pull_request&head_sha=f32ad2d23a9abee47c566dfbed2b822d953a09e2&per_page=100&page=1",
+        "https://pypi.org/pypi/opencv-python/4.8.1.78/json",
+        "https://pypi.org/pypi/opencv-python/4.2.0.32/json",
+        "https://pypi.org/integrity/opencv-python/4.8.1.78/opencv-python-4.8.1.78.tar.gz/provenance",
+        "https://pypi.org/integrity/opencv-python/4.8.1.78/opencv_python-4.8.1.78-cp37-abi3-macosx_10_16_x86_64.whl/provenance",
+        "https://pypi.org/integrity/opencv-python/4.8.1.78/opencv_python-4.8.1.78-cp37-abi3-macosx_11_0_arm64.whl/provenance",
+        "https://pypi.org/integrity/opencv-python/4.8.1.78/opencv_python-4.8.1.78-cp37-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl/provenance",
+        "https://pypi.org/integrity/opencv-python/4.8.1.78/opencv_python-4.8.1.78-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl/provenance",
+        "https://pypi.org/integrity/opencv-python/4.8.1.78/opencv_python-4.8.1.78-cp37-abi3-win32.whl/provenance",
+        "https://pypi.org/integrity/opencv-python/4.8.1.78/opencv_python-4.8.1.78-cp37-abi3-win_amd64.whl/provenance"
+      ],
+      "target_tree_or_python_framework_source_request_present": false
+    }
+  ],
+  "historical_ordinary_experimental_acquisition": {
+    "manifest_path": "working-memory/evidence/2026-10-04-ordered-scoped-bindings/live-pr-context.json",
+    "sha256": "1e79f2b75abd1cbaf79a7deb61fec1d8f4b9ee68cbd9834c586443ac6976a5dc",
+    "github_requests": 50,
+    "target_files": 12,
+    "target_reference_count": 61,
+    "target_candidate_count": 8,
+    "adapter_module_samples": 11,
+    "adapter_release_identities": 4,
+    "unexamined_adapter_candidates": 10,
+    "target_and_adapter_manifest_embeds_full_source_text": false,
+    "current_producer_hash_matches": {
+      "api_target_context.py": true,
+      "api_adapter_exploration.py": true,
+      "api_target_context_smoke.py": true,
+      "api_change_source_acquisition.py": true,
+      "api_release_window_manifest.py": true,
+      "api_python_bindings.py": true
+    }
+  }
+}
