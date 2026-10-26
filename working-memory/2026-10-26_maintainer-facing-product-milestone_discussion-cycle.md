@@ -8,7 +8,7 @@ Primary operation: Planning/Design with Learning-by-Doing and continuous working
 
 - A0 — DONE: reconciled maine6697e12, live handoff, accepted Charter/route and report/direction owners, source-access task review and recorded boundary/migration findings. Initialized this one cycle record.
 - A1 — DONE at continuity depth: Ali explicitly accepted the preceding review after the substantive explanation and selected the first discussion. This accepts the discussion route, not independent mastery or any particular milestone.
-- A2 — CURRENT: explain milestone versus feature, consumer/baseline/outcome/proof and credible next-milestone trade-offs; present a candidate for challenge before conducting the full scope/acceptance investigation.
+- A2 — CURRENT: the simpler explanation repaired enough of the opening confusion for Ali to select explanation-first as the initial goal. Supported scope, concrete completion criteria and proof remain to be oriented/settled; independent reconstruction is not inferred.
 - B — PENDING: jointly settle milestone question, compare what current normal cases already supply and what result would be materially new, identify feasible proof and unresolved choices.
 - Verification gate — PENDING: check any selected milestone against normal producer reachability, real contrasts, baseline, failure criteria and current accepted owners. Initial documentation checks do not satisfy this substantive gate.
 - D — PENDING: source/evidence-backed explanation and ownership findings after the investigation result.
@@ -30,7 +30,9 @@ Decision-relevant learning:
 - Scope: choose exclusions and meaningful contrasts before outputs, and preserve unsupported cases; do not define supported retrospectively as cases that pass.
 - Product outcome does not automatically select caller/signature parsing, full Workspace completion or new action policy. Those are alternatives/dependencies to qualify after the outcome is understood.
 
-## Candidate milestone — proposed, not accepted
+## Explanation-first goal accepted; detailed milestone contract still proposed
+
+October26 decision: after the simpler real-case explanation, Ali said he understood better and selected the recommended explanation-first outcome as the first goal. Useful source-backed explanation may be delivered while the final action remains abstain. This selects the goal direction only; it does not accept a particular construct/input envelope, exact acceptance protocol, caller/signature method, Workspace sequence or implementation.
 
 For a declared supported subset of public Python Dependabot updates, UpgradePilot helps a maintainer understand and verify a material relationship between the update and their project, or a precisely located missing premise, through an inspectable saved report. Success requires a meaningful gain over the current report/source baseline on an important target-relevance task; reformatting source text or returning generic unknowns is insufficient.
 
@@ -48,12 +50,12 @@ Illustration from HTTPX: the current normal report can expose copied app/proxies
 | Better target-specific explanation first — initial recommendation | User can verify an important update-to-target relationship and distinguish the exact missing premise | Needs reachable source/relation/evaluation evidence; cannot succeed merely as an isolated signature inventory |
 | A positively admitted maintainer action first | User receives an action beyond abstention with trustworthy reasons | Needs action-specific normal producer premises and defeater handling; may postpone useful explanation while those are unavailable |
 
-These are prioritization alternatives inside the existing project responsibility, not proposals to change the Charter or discard later obligations. The explanation-first candidate can retain explained abstention. Whether that is sufficient for this milestone is the first consequential user-value question; do not infer acceptance from agreement to start discussion.
+These are prioritization alternatives inside the existing project responsibility, not proposals to change the Charter or discard later obligations. Ali subsequently selected explanation-first with abstention permitted for the initial goal. The table preserves the alternatives and reasoning; final scope/completion proof remains open.
 
 ## Items to resolve through the discussion
 
 1. Exact maintainer task and observable improvement over the current baseline.
-2. Whether a substantive explanation with abstention can complete this milestone, or a stronger action is essential.
+2. RESOLVED for initial goal direction: a useful source-backed explanation may be delivered with abstention; a stronger action is not required merely to complete this first goal.
 3. Supported input/capability envelope and real positive/refuted/unresolved contrasts; avoid all-unknown or known-fixture-only acceptance.
 4. Proof levels: correctness and normal reachability, exposed development task review, independent usefulness still requiring the existing protocol.
 5. Completion/rejection outcome and a finite investigation/building horizon once scope is credible.
@@ -68,6 +70,12 @@ Initial record validation:89 local file references across this record, the origi
 ### Prerequisite repair: the proposed milestone explanation was too abstract
 
 Ali explicitly said he did not understand the opening explanation. Do not count the recommendation or first product-scope question as understood/accepted. Teacher's explanation mixed outcome versus feature, source relationships, implementation reachability and evaluation vocabulary too early. Repair locally with one real HTTPX review situation: current access to copied change notes versus a proposed explanation connecting a captured framework call to the changed interface, while actual framework version remains unknown. Define abstention simply as insufficient evidence to recommend accepting/rejecting the update; explain that useful information and a final recommendation are different deliverables. Leave the broader proof vocabulary and priority table for later. No new question bank or learning-only course; return to the same milestone decision after Ali has a meaningful chance to challenge the simpler model. A2 remains current; no milestone, Build or scope decision follows from this repair, and learner understanding remains unassessed.
+
+### Goal direction selected after the simpler explanation
+
+Ali: "Ok now i got better, so i think that first you recommended is good for our first goal." Record this as a product-direction choice and reported improved understanding, not independent technical mastery. The accepted first goal is helping a maintainer understand what may matter to the project, why, and what remains unknown; final recommendation can remain abstain.
+
+Next proposed clarification: the report should explain the relevant dependency change, the supported connection to target code/environment, exact supporting sources, remaining material unknown and which missing fact would resolve it when justified. Existing identity/save/source capabilities are reused; the intended gain is the explanation. Proposed completion checks are a real material improvement over current output through the declared user path, correct positive/not-applicable/unresolved distinctions, inspectable evidence, and preserved saved output without invented versions, execution, compatibility or action authority. These checks are teacher proposals for the ongoing discussion, not already accepted case/proof scope. Keep the first discussion open; do not move to the second/third records or execute the structural plan yet.
 
 UP-SKILL:upgradepilot-planning-design
 UP-SKILL:upgradepilot-learning-by-doing
