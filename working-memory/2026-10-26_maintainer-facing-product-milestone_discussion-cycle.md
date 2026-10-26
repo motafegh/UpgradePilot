@@ -8,9 +8,9 @@ Primary operation: Planning/Design with Learning-by-Doing and continuous working
 
 - A0 — DONE: reconciled maine6697e12, live handoff, accepted Charter/route and report/direction owners, source-access task review and recorded boundary/migration findings. Initialized this one cycle record.
 - A1 — DONE at continuity depth: Ali explicitly accepted the preceding review after the substantive explanation and selected the first discussion. This accepts the discussion route, not independent mastery or any particular milestone.
-- A2 — CURRENT: the simpler explanation repaired enough of the opening confusion for Ali to select explanation-first as the initial goal. Supported scope, concrete completion criteria and proof remain to be oriented/settled; independent reconstruction is not inferred.
-- B — PENDING: jointly settle milestone question, compare what current normal cases already supply and what result would be materially new, identify feasible proof and unresolved choices.
-- Verification gate — PENDING: check any selected milestone against normal producer reachability, real contrasts, baseline, failure criteria and current accepted owners. Initial documentation checks do not satisfy this substantive gate.
+- A2 — DONE for goal/condition decisions: simpler explanation followed by the proposed output and completion conditions; Ali explicitly agreed with both. No independent technical reconstruction is inferred.
+- B — DONE for goal and completion-condition agreement: explanation-first, abstention permitted, five practical report questions and honest positive/refuted/unresolved outcomes. Supported envelope, concrete case/proof feasibility and implementation remain unresolved.
+- Verification gate — definition-level consistency only: agreed outcome preserves existing Charter/report/authority boundaries and current baseline; normal producer feasibility and execution acceptance remain unproved until supported scope/cases are qualified. No implementation success is claimed.
 - D — PENDING: source/evidence-backed explanation and ownership findings after the investigation result.
 - E — PENDING: decision or explicit unresolved/deferred outcome and handoff to the second separately recorded subject.
 - C — CONTINUOUS: preserve actual user reasoning, doubts, changes, evidence and decisions as discussion progresses.
@@ -30,7 +30,7 @@ Decision-relevant learning:
 - Scope: choose exclusions and meaningful contrasts before outputs, and preserve unsupported cases; do not define supported retrospectively as cases that pass.
 - Product outcome does not automatically select caller/signature parsing, full Workspace completion or new action policy. Those are alternatives/dependencies to qualify after the outcome is understood.
 
-## Explanation-first goal accepted; detailed milestone contract still proposed
+## Goal and completion conditions agreed; implementation envelope unresolved
 
 October26 decision: after the simpler real-case explanation, Ali said he understood better and selected the recommended explanation-first outcome as the first goal. Useful source-backed explanation may be delivered while the final action remains abstain. This selects the goal direction only; it does not accept a particular construct/input envelope, exact acceptance protocol, caller/signature method, Workspace sequence or implementation.
 
@@ -76,6 +76,12 @@ Ali explicitly said he did not understand the opening explanation. Do not count 
 Ali: "Ok now i got better, so i think that first you recommended is good for our first goal." Record this as a product-direction choice and reported improved understanding, not independent technical mastery. The accepted first goal is helping a maintainer understand what may matter to the project, why, and what remains unknown; final recommendation can remain abstain.
 
 Next proposed clarification: the report should explain the relevant dependency change, the supported connection to target code/environment, exact supporting sources, remaining material unknown and which missing fact would resolve it when justified. Existing identity/save/source capabilities are reused; the intended gain is the explanation. Proposed completion checks are a real material improvement over current output through the declared user path, correct positive/not-applicable/unresolved distinctions, inspectable evidence, and preserved saved output without invented versions, execution, compatibility or action authority. These checks are teacher proposals for the ongoing discussion, not already accepted case/proof scope. Keep the first discussion open; do not move to the second/third records or execute the structural plan yet.
+
+### Completion conditions accepted and scope discussion entered
+
+Ali subsequently said: "Good and i think these proposed completion conditions are good." This explicitly accepts the proposed definition-level completion conditions, not evidence that the product already meets them. The agreed report questions are: what changed; where it connects to the project; supporting evidence; material missing information; and which missing fact would resolve uncertainty where justified. Completion must demonstrate a material improvement over today's report/source view and honest supported concern/conditional mismatch, bounded non-applicability and specific unresolved outcomes. Repeated notes, generic unknowns or an isolated parser demonstration are insufficient; source identity, saved inspection and claim limits remain intact.
+
+This settles the goal and completion-condition portion of subject1. Keep feasibility, supported cases, numeric budgets, independent utility and implementation unproved; they are not inferred from Ali's agreement. The [second separate discussion](2026-10-26_capability-limits-for-explanation-milestone_discussion-cycle.md) now examines which temporary capability exclusions matter to this accepted goal. Subject1 remains available for consolidation after subjects2/3 expose dependencies; no complete production-ready milestone contract or full cycle closure is asserted prematurely.
 
 UP-SKILL:upgradepilot-planning-design
 UP-SKILL:upgradepilot-learning-by-doing
