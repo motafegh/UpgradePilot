@@ -6,6 +6,8 @@
 **Other owners:** [Core](../docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md), [Product Decision Model](../docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md), [Minimum Useful Generality](../docs/specifications/UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md), [Security](../SECURITY.md), [report usefulness plan](MAINTAINER_REPORT_PRESERVATION_AND_USEFULNESS_EVALUATION_PLAN.md).
 Live selection/results belong only in [MEMORY.md](../MEMORY.md).
 
+The [deterministic API call and signature evidence plan](DETERMINISTIC_API_CALL_AND_SIGNATURE_EVIDENCE_PLAN.md) is a separately reviewable child for structural source facts and qualified caller/callee relations. It defines a proposed qualification/design-to-implementation route; its draft does not activate execution or replace this parent's ordinary trial reachability, semantic admission, independent evaluation or product-adoption gates.
+
 ## 1. Outcome, scope and proof classes
 
 Deliver a reproducible isolated trial which starts from repository/PR identity and normally acquires a useful source-linked API change/exposure proposal or an explained unresolved result. Normal means ordinary acquisition within the trial, not adoption into the public product CLI. Preserve the unchanged product baseline report for comparison.
