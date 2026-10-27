@@ -114,6 +114,14 @@ Ali requested the findings and teaching before joint decisions. The investigatio
 
 Final record checks:85 local file references across this discussion, plan-authoring handoff and root MEMORY resolve; the receipt parses and contains7 qualified files/7 delivered-page checks/12-test proof with original hashes unchanged; git diff --check passes. No executable/test/plan/specification/ADR diff. The first source-readiness checkpoint was separately published as32f853fd before final analysis/teaching handoff; the present increment adds interpretation/consumer findings and proof. Records are ready for discussion, not a completed capability implementation or a closed independent-understanding cycle.
 
+## October27 — D understanding gap and teaching repair
+
+Ali explicitly reports that the findings explanation is still not understood. D remains CURRENT; neither the preceding detailed explanation nor investigation verification establishes learner understanding or accepts implementation scope. Continue this same discussion cycle rather than reopening the closed standalone learning path.
+
+Teaching repair focuses on one real retained chain: project TestClient use → FastAPI re-export → Starlette caller → HTTPX initializer. Explain caller arguments versus accepted parameters using clearly labelled abbreviated source, then distinguish absent source in the inspected normal captures from incorrect interpretation despite supplied source. Use the old/new Starlette forwarding contrast to explain why removing HTTPX's app parameter alone cannot prove target breakage; actual installed framework identity and runtime dispatch remain unproved. Explain existing acquisition and call-keyword reuse only after that concrete model, and describe the proposed structured conditional finding as future behavior rather than implemented report output. Defer inventory counts, hashes, migration internals and unresolved construct taxonomy until needed for a meaningful decision. Quizzes remain deferred; no new design/Build acceptance is requested or inferred during this repair.
+
+Evidence refreshed from the existing public retained-source receipt and live discussion owners; no new acquisition, inference, target execution or executable change. Only dated discussion/live coordination records change. The original twelve-test result remains historical investigation evidence, not a fresh run or semantic correctness proof.
+
 UP-SKILL:upgradepilot-planning-design
 UP-SKILL:upgradepilot-learning-by-doing
 UP-SKILL:upgradepilot-working-memory
