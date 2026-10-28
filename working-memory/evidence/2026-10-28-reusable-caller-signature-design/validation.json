@@ -157,5 +157,11 @@
       "diagnostic": "'value' parameter is positional only, but was passed as a keyword"
     },
     "disposition": "Helper cannot be the sole implementation or oracle. No third-party code executed."
-  }
+  },
+  "document_checks": {
+    "local_file_references": 123,
+    "missing": 0,
+    "proof": "Document/source consistency; no proposed capability implemented."
+  },
+  "reviewed_design_sha256": "3cf21cb634d5db1d7ebab2ba3ab5a466169925a8ec6a2616922a07400c6ec771"
 }
