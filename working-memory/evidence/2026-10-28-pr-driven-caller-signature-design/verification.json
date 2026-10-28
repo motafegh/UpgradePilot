@@ -1,0 +1,35 @@
+{
+  "kind": "design_consistency_and_reused_owner_baseline_not_integration_implementation",
+  "code_horizon": "f55d7108; later commits in this cycle are planning/records only",
+  "local_references_checked": 144,
+  "missing_references": 0,
+  "inspected_code_sha256": {
+    "src/upgradepilot/investigation_inputs.py": "cafc5f52d7d61bf6b021663541c1f1460541e50e83e1e6670a189ecc13a62c18",
+    "src/upgradepilot/investigation.py": "bbe9a45a47d4acd4c0cbbb4f9189bcba12c78c798be9b2a804d933484ea5294d",
+    "src/upgradepilot/report_projection.py": "1017063f149c485a60d461f3b02a28e5394e259ecbde40ba5bf50858b6bdccf0",
+    "src/upgradepilot/workspace/native_codecs.py": "50e8909ee3da1dbb88467fd459147672eb73d47ae7638601a30ba2de39522bae",
+    "src/upgradepilot/workspace/preparation.py": "42839b8974df5db4a70e50af08e5e6397f54c5b06e188af72fb1798d8af7dce9",
+    "experiments/api_target_context_smoke.py": "d1e227b3bd536fab4cad3c3d0e9f020738055dc638ba628b516300f859a531b1",
+    "experiments/api_target_context.py": "718ee467d83b8e7e71168e7d8c7d5264ff234fd4730b938092921be352900e6b",
+    "experiments/api_adapter_exploration.py": "23df94917a53c8742c5c8b707f7911cac525eb6284433b836cca5081c7e4aaa7",
+    "experiments/api_change_source_acquisition.py": "cfaa2e5ac1edb29c0bd6ace06dfe7d75c8d789e688ffa280e7fbd3a45ce72f16"
+  },
+  "checker_code_identity_unchanged": true,
+  "frozen_attempt_members_verified": 10,
+  "frozen_attempts_unchanged": true,
+  "protected_executable_spec_adr_diff": "none",
+  "fresh_focused_tests": {
+    "count": 6,
+    "seconds": 0.008,
+    "class": "existing controlled source-owner baseline",
+    "tests": [
+      "SamplingTests.test_latest_stable_constraint_is_sampling_not_resolved_version",
+      "ChainTests.test_conditional_possible_origin_does_not_trigger_positive_exploration",
+      "ChainTests.test_normal_chain_follows_acquired_imports_and_exact_metadata",
+      "ChainTests.test_budgets_keep_unexamined_candidates_and_do_not_claim_coverage",
+      "ChainTests.test_same_release_modules_share_registry_tag_tree_budget",
+      "AcquisitionTests.test_inventory_drives_paths_candidates_and_no_ci_dependency"
+    ]
+  },
+  "proposal_status": "Integration families, ordinary envelope, extra trial budgets and native adoption remain proposed for review. No fresh target acquisition/implementation/model/target execution or new end-to-end proof."
+}

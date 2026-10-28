@@ -7,9 +7,9 @@ Ali selects the explained next design cycle: connect ordinary repository/PR inpu
 - A0 — DONE: mainf55d7108 and two-case evidence/method identities reconciled; shared native dependency acquisition, experimental target/adapter/upstream paths, saved checker and Workspace/report owners inspected. Preserve unrelated October3 untracked audit.
 - A1 — DONE for design continuity under the adaptation below: Ali questioned component proof versus full PR flow, received a simpler explanation and explicitly reports better understanding before selecting this cycle. No code-level mastery inferred.
 - A2 — DONE for Planning/Design under the adaptation below: prepare concrete owner/input/source/correspondence/retention/consumer/proof decisions and alternatives for review; no implementation, fresh acquisition or method execution selected.
-- B — CURRENT: draft the integration design, Workspace delivery-scope discussion and bounded execution/proof additions in the existing parent plan.
-- Verification gate — PENDING: source/owner consistency, scope/generality and proof-boundary review, local references, unchanged executable/frozen-evidence checks and focused existing-owner checks where discriminating.
-- D — PENDING: teach actual design choices and consequential trade-offs from the concrete artifacts.
+- B — DONE for the concrete proposal: integration source/candidate/retention/consumer design, separate Workspace delivery-scope discussion and parent-plan execution/proof additions prepared. Proposed choices remain subject to review; no implementation.
+- Verification gate — GREEN for planning consistency:6 existing focused owner tests pass/0.008s; references/protected-source checks and10 frozen-attempt member hashes verify. This does not prove the proposed source closure, budgets or end-to-end integration.
+- D — CURRENT: explain actual reuse, sampled-versus-exact source, conditional candidate paths, minimum retention and product adoption trade-offs; independent ownership remains unassessed.
 - E — PENDING: user review/decision, unresolved design debt and bounded Build handoff; no implicit implementation activation.
 - C — CONTINUOUS: preserve material reasoning, corrections, proposed/accepted/deferred distinctions and progressive publication.
 
@@ -50,6 +50,14 @@ Proposed ordinary envelope version2 preserves version1 curated history and actua
 Workspace discussion distinguishes experiment data from canonical native state. Recommendation: useful ordinary experimental proof, then explicit minimum native material/codec/direct consumer/report compatibility contract before product adoption. Full-domain migration/recovery/replay/legacy retirement remain named separate obligations and triggers; neither complete-everything-first nor indefinite consumer deferral is selected. This is the third substantive subject record, supporting the one active cycle rather than owning another phase tracker.
 
 Fresh scoped baseline verification:6 existing controlled target/adapter tests pass/0.008s for sample-versus-resolution meaning, conditional-origin positive refusal, normal source chain, omissions/budgets, per-release cache reuse and CI-independent target acquisition. These verify reused current owners, not the unimplemented integration proposal. No new provider/model/target execution, product/source/test modification or frozen case rerun occurs.
+
+## Verification and review handoff
+
+The [verification receipt](evidence/2026-10-28-pr-driven-caller-signature-design/verification.json) records current inspected source hashes, fresh6-test baseline, local-reference checks, unchanged checker identity and10 unchanged frozen members across both real attempts. Product/experiment/test/tool/specification/ADR code has no diff fromf55d7108. Only planning and dated coordination artifacts change; no new native family, schema implementation, fresh acquisition, model work or target execution occurs.
+
+The proposal is internally consistent with existing source/authority/Workspace owners and gives controlled-provider proof before any live request. Source-discovery families, version2 ordinary envelope, extra aggregate bounds and eventual native/report contract are proposed choices, not implemented or globally accepted contracts. Exact budget feasibility and per-increment supported constructs must be established during the selected implementation entry; an unproductive all-unknown path cannot satisfy the full milestone. Retain source-only semantics separately from the parent's unadopted general semantic-role/usefulness obligations.
+
+Publication is progressive: e2f32ced opens the cycle and closes the prior bounded handoff with explicit learning deferral;56e90bd1 publishes the concrete proposal, third Workspace subject and parent-plan changes before final verification/handoff. D/user review and E remain open. Next is review of the actual PR/source/candidate/saved-consumer flow and its first coherent implementation scope, not automatic Build or a live PR run.
 
 UP-SKILL:upgradepilot-planning-design
 UP-SKILL:upgradepilot-learning-by-doing
