@@ -1,0 +1,99 @@
+CALLER / DECLARED SIGNATURE EVIDENCE
+Proof: retained_curated_source_comparison
+Conditional source comparisons; installed versions, runtime and compatibility are not established.
+Source capture: selected_files_and_curated_pairs_only; ordinary_discovery_and_target_runtime_unproved
+
+PAIR older-forwarder-old-httpx | receiver: one_receiver_assumed
+Caller: starlette-old Kludex/starlette@be4f3e110ed1172ec9cb47a6209bd899a0d3a604 starlette/testclient.py:429 (unit 72de44a0041a4f17b07e450511d95bfac845b9d16eb878c4e415fe126a38492b)
+Declared receiver: httpx-old encode/httpx@609df7ecc0f7cb10a1c998aa9c269bba77337c5f httpx/_client.py:628 (unit 25f30724cf8fb8d49f2040631c5b1f31188a54ab74532b913d41182589af9834)
+Call expression: super().__init__
+Explicit keywords: app, base_url, headers, transport, follow_redirects, cookies
+Parameters: self[positional_or_keyword], auth[keyword_only,optional], params[keyword_only,optional], headers[keyword_only,optional], cookies[keyword_only,optional], verify[keyword_only,optional], cert[keyword_only,optional], http1[keyword_only,optional], http2[keyword_only,optional], proxy[keyword_only,optional], proxies[keyword_only,optional], mounts[keyword_only,optional], timeout[keyword_only,optional], follow_redirects[keyword_only,optional], limits[keyword_only,optional], max_redirects[keyword_only,optional], event_hooks[keyword_only,optional], base_url[keyword_only,optional], transport[keyword_only,optional], app[keyword_only,optional], trust_env[keyword_only,optional], default_encoding[keyword_only,optional]
+Outcome under stated premises: bound
+Complete syntactic binding checked: True
+Keyword app: named_parameter
+Keyword base_url: named_parameter
+Keyword headers: named_parameter
+Keyword transport: named_parameter
+Keyword follow_redirects: named_parameter
+Keyword cookies: named_parameter
+Premise/limit: call_reaches_selected_declared_signature
+Premise/limit: target_installed_versions_and_runtime_not_established
+Premise/limit: one_bound_positional_receiver_assumed
+Next evidence: establish which revision of Kludex/starlette the actual target uses; this captured caller is be4f3e110ed1172ec9cb47a6209bd899a0d3a604.
+Next evidence: establish whether super().__init__ reaches Client.__init__ in encode/httpx@609df7ecc0f7cb10a1c998aa9c269bba77337c5f with receiver mode one_receiver_assumed.
+
+PAIR older-forwarder-proposed-httpx | receiver: one_receiver_assumed
+Caller: starlette-old Kludex/starlette@be4f3e110ed1172ec9cb47a6209bd899a0d3a604 starlette/testclient.py:429 (unit 72de44a0041a4f17b07e450511d95bfac845b9d16eb878c4e415fe126a38492b)
+Declared receiver: httpx-new encode/httpx@26d48e0634e6ee9cdc0533996db289ce4b430177 httpx/_client.py:639 (unit be14b02183724bb171a52c81b3839621ac23673ed510ab5a595a7c1afafacbe2)
+Call expression: super().__init__
+Explicit keywords: app, base_url, headers, transport, follow_redirects, cookies
+Parameters: self[positional_or_keyword], auth[keyword_only,optional], params[keyword_only,optional], headers[keyword_only,optional], cookies[keyword_only,optional], verify[keyword_only,optional], cert[keyword_only,optional], trust_env[keyword_only,optional], http1[keyword_only,optional], http2[keyword_only,optional], proxy[keyword_only,optional], mounts[keyword_only,optional], timeout[keyword_only,optional], follow_redirects[keyword_only,optional], limits[keyword_only,optional], max_redirects[keyword_only,optional], event_hooks[keyword_only,optional], base_url[keyword_only,optional], transport[keyword_only,optional], default_encoding[keyword_only,optional]
+Outcome under stated premises: rejected
+Complete syntactic binding checked: True
+Keyword app: not_received
+Keyword base_url: named_parameter
+Keyword headers: named_parameter
+Keyword transport: named_parameter
+Keyword follow_redirects: named_parameter
+Keyword cookies: named_parameter
+Violation: unexpected_keyword app
+Premise/limit: call_reaches_selected_declared_signature
+Premise/limit: target_installed_versions_and_runtime_not_established
+Premise/limit: one_bound_positional_receiver_assumed
+Next evidence: establish which revision of Kludex/starlette the actual target uses; this captured caller is be4f3e110ed1172ec9cb47a6209bd899a0d3a604.
+Next evidence: establish whether super().__init__ reaches Client.__init__ in encode/httpx@26d48e0634e6ee9cdc0533996db289ce4b430177 with receiver mode one_receiver_assumed.
+
+PAIR newer-forwarder-proposed-httpx | receiver: one_receiver_assumed
+Caller: starlette-new Kludex/starlette@554f368809e0d891a699667faf0cfbb20057eeb2 starlette/testclient.py:455 (unit d91161f9a720e9f1052087c4d59c278c9fe8dcad55be8d609d4d54907879c76b)
+Declared receiver: httpx-new encode/httpx@26d48e0634e6ee9cdc0533996db289ce4b430177 httpx/_client.py:639 (unit be14b02183724bb171a52c81b3839621ac23673ed510ab5a595a7c1afafacbe2)
+Call expression: super().__init__
+Explicit keywords: base_url, headers, transport, follow_redirects, cookies
+Parameters: self[positional_or_keyword], auth[keyword_only,optional], params[keyword_only,optional], headers[keyword_only,optional], cookies[keyword_only,optional], verify[keyword_only,optional], cert[keyword_only,optional], trust_env[keyword_only,optional], http1[keyword_only,optional], http2[keyword_only,optional], proxy[keyword_only,optional], mounts[keyword_only,optional], timeout[keyword_only,optional], follow_redirects[keyword_only,optional], limits[keyword_only,optional], max_redirects[keyword_only,optional], event_hooks[keyword_only,optional], base_url[keyword_only,optional], transport[keyword_only,optional], default_encoding[keyword_only,optional]
+Outcome under stated premises: bound
+Complete syntactic binding checked: True
+Keyword base_url: named_parameter
+Keyword headers: named_parameter
+Keyword transport: named_parameter
+Keyword follow_redirects: named_parameter
+Keyword cookies: named_parameter
+Premise/limit: call_reaches_selected_declared_signature
+Premise/limit: target_installed_versions_and_runtime_not_established
+Premise/limit: one_bound_positional_receiver_assumed
+Next evidence: establish which revision of Kludex/starlette the actual target uses; this captured caller is 554f368809e0d891a699667faf0cfbb20057eeb2.
+Next evidence: establish whether super().__init__ reaches Client.__init__ in encode/httpx@26d48e0634e6ee9cdc0533996db289ce4b430177 with receiver mode one_receiver_assumed.
+
+PAIR target-call-older-testclient | receiver: one_receiver_assumed
+Caller: target-proposed Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4 tests/test_routes.py:7 (unit 7376c6c598bb3e3b18a7d5c260d899eebc899c398768aa72588e5ce53bfe5f21)
+Declared receiver: starlette-old Kludex/starlette@be4f3e110ed1172ec9cb47a6209bd899a0d3a604 starlette/testclient.py:397 (unit 72de44a0041a4f17b07e450511d95bfac845b9d16eb878c4e415fe126a38492b)
+Call expression: TestClient
+Explicit keywords: 
+Parameters: self[positional_or_keyword], app[positional_or_keyword], base_url[positional_or_keyword,optional], raise_server_exceptions[positional_or_keyword,optional], root_path[positional_or_keyword,optional], backend[positional_or_keyword,optional], backend_options[positional_or_keyword,optional], cookies[positional_or_keyword,optional], headers[positional_or_keyword,optional], follow_redirects[positional_or_keyword,optional]
+Outcome under stated premises: bound
+Complete syntactic binding checked: True
+Premise/limit: call_reaches_selected_declared_signature
+Premise/limit: target_installed_versions_and_runtime_not_established
+Premise/limit: one_bound_positional_receiver_assumed
+Next evidence: establish whether TestClient reaches TestClient.__init__ in Kludex/starlette@be4f3e110ed1172ec9cb47a6209bd899a0d3a604 with receiver mode one_receiver_assumed.
+
+PAIR target-call-newer-testclient | receiver: one_receiver_assumed
+Caller: target-proposed Aidan-Wallace/kubernetes-dashboard-token-api@391508134b083b8f54461c0b576e8f7985c6ecb4 tests/test_routes.py:7 (unit 7376c6c598bb3e3b18a7d5c260d899eebc899c398768aa72588e5ce53bfe5f21)
+Declared receiver: starlette-new Kludex/starlette@554f368809e0d891a699667faf0cfbb20057eeb2 starlette/testclient.py:423 (unit d91161f9a720e9f1052087c4d59c278c9fe8dcad55be8d609d4d54907879c76b)
+Call expression: TestClient
+Explicit keywords: 
+Parameters: self[positional_or_keyword], app[positional_or_keyword], base_url[positional_or_keyword,optional], raise_server_exceptions[positional_or_keyword,optional], root_path[positional_or_keyword,optional], backend[positional_or_keyword,optional], backend_options[positional_or_keyword,optional], cookies[positional_or_keyword,optional], headers[positional_or_keyword,optional], follow_redirects[positional_or_keyword,optional]
+Outcome under stated premises: bound
+Complete syntactic binding checked: True
+Premise/limit: call_reaches_selected_declared_signature
+Premise/limit: target_installed_versions_and_runtime_not_established
+Premise/limit: one_bound_positional_receiver_assumed
+Next evidence: establish whether TestClient reaches TestClient.__init__ in Kludex/starlette@554f368809e0d891a699667faf0cfbb20057eeb2 with receiver mode one_receiver_assumed.
+
+SAVED SOURCES (explicit unit IDs for offline source inspection)
+b5b099a2f857549138f2afc10772870a532329f3ed3436a70c2a755943cae0c1 fastapi-reference fastapi/testclient.py
+be14b02183724bb171a52c81b3839621ac23673ed510ab5a595a7c1afafacbe2 httpx-new httpx/_client.py
+25f30724cf8fb8d49f2040631c5b1f31188a54ab74532b913d41182589af9834 httpx-old httpx/_client.py
+d91161f9a720e9f1052087c4d59c278c9fe8dcad55be8d609d4d54907879c76b starlette-new starlette/testclient.py
+72de44a0041a4f17b07e450511d95bfac845b9d16eb878c4e415fe126a38492b starlette-old starlette/testclient.py
+7f18c3c2addc974fa52c299b114f8f957bd66153d8bc901db107bcc523f2cf2a target-proposed requirements.txt
+7376c6c598bb3e3b18a7d5c260d899eebc899c398768aa72588e5ce53bfe5f21 target-proposed tests/test_routes.py

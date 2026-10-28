@@ -6,7 +6,9 @@ import json
 import os
 import subprocess
 import sys
-from dataclasses import asdict, replace
+from contextlib import redirect_stdout
+from dataclasses import asdict
+from io import StringIO
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from unittest import TestCase
@@ -15,7 +17,7 @@ from unittest.mock import patch
 from experiments.api_call_signature import SourceSpan
 from experiments.api_call_signature_trial import (
     AnalysisLimits, SELECTION_FORMAT, open_comparison, prepare_comparison,
-    read_comparison, render_comparison, render_source, run_comparison,
+    main, read_comparison, render_comparison, render_source, run_comparison,
 )
 from upgradepilot.workspace.native_boundary import ExactInvestigationTarget
 from upgradepilot.workspace.native_representation import json_bytes
@@ -59,6 +61,7 @@ class RetainedCompositionTests(TestCase):
         self.assertIn("retained_curated_source_comparison", view)
         self.assertIn("call_reaches_selected_declared_signature", view)
         self.assertIn("Keyword timeout: not_received", view)
+        self.assertIn("Next evidence: establish whether send reaches send in owner/project@", view)
 
     def test_selection_cannot_supply_expected_answer_or_upgrade_wrong_target(self):
         source, selections = inputs()
@@ -97,6 +100,7 @@ class RetainedCompositionTests(TestCase):
             lambda d: d["files"][0]["facts"]["calls"][0]["span"].update(end_column=9999),
             lambda d: d["pairs"][0]["comparison"].update(call_id="0" * 64),
             lambda d: d["pairs"][0]["comparison"].update(remaining_premises=[]),
+            lambda d: d["pairs"][0]["comparison"].update(outcome="bound", violations=[]),
             lambda d: d.update(companion_path="/etc/passwd"),
         ]
         for mutate in mutations:
@@ -132,6 +136,22 @@ class RetainedCompositionTests(TestCase):
             prepare_comparison(source, json_bytes(raw), AnalysisLimits(max_pairs=1))
         with self.assertRaises(ValueError):
             AnalysisLimits(timeout_seconds=61)
+        with self.assertRaises(ValueError):
+            AnalysisLimits(max_files=10 ** 1000)
+
+    def test_exact_work_limits_pass_and_serialized_output_limit_refuses(self):
+        result, companion = prepare_comparison(*inputs(), AnalysisLimits())
+        body, _ = read_comparison(result, companion)
+        limits = AnalysisLimits(max_files=body["work"]["source_files"],
+                                max_source_bytes=body["work"]["source_bytes"],
+                                max_nodes=body["work"]["ast_nodes"],
+                                max_facts=body["work"]["facts"], max_pairs=1)
+        prepare_comparison(*inputs(), limits)
+        with patch("experiments.api_call_signature_trial.MAX_OUTPUT_BYTES", min(len(result), len(companion)) - 1):
+            with self.assertRaises(ValueError):
+                prepare_comparison(*inputs(), AnalysisLimits())
+            with self.assertRaises(ValueError):
+                read_comparison(result, companion)
 
 
 class AttemptAndReopenTests(TestCase):
@@ -198,3 +218,26 @@ class AttemptAndReopenTests(TestCase):
                                  limits=AnalysisLimits(memory_bytes=1))
         self.assertEqual(attempt["state"], "failed")
         self.assertFalse((directory / "result.json").exists())
+
+    def test_validation_cannot_admit_a_result_after_the_total_deadline(self):
+        directory = self.root / "late"
+        result, companion = prepare_comparison(*inputs(), AnalysisLimits())
+
+        def finished_worker(*args, **kwargs):
+            (directory / "_worker-result.json").write_bytes(result)
+            (directory / "_worker-sources.json").write_bytes(companion)
+            return subprocess.CompletedProcess([], 0, b"", b"")
+
+        with patch("experiments.api_call_signature_trial.subprocess.run", side_effect=finished_worker), patch(
+            "experiments.api_call_signature_trial.time.monotonic", side_effect=[0, 0, 61, 61]
+        ):
+            attempt = run_comparison(self.source, self.selections, directory)
+        self.assertEqual(attempt["state"], "timed_out")
+        self.assertFalse((directory / "result.json").exists())
+
+    def test_compare_cli_preserves_json_line_breaks(self):
+        output = StringIO()
+        with patch("experiments.api_call_signature_trial.run_comparison", return_value={"state": "completed", "reason": None}), redirect_stdout(output):
+            self.assertEqual(main(["compare", "--sources", str(self.source), "--selections", str(self.selections), "--output", str(self.root / "unused")]), 0)
+        self.assertIn('\n  "state"', output.getvalue())
+        self.assertEqual(json.loads(output.getvalue())["state"], "completed")

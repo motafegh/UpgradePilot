@@ -1,0 +1,196 @@
+{
+  "kind": "retained_source_comparison_and_offline_consumer_verification",
+  "official_attempt": "attempt-01",
+  "producer_commit": "4dc4303b",
+  "official_attempt_seconds": 1.3412597710002956,
+  "work": {
+    "ast_nodes": 24934,
+    "facts": 1153,
+    "selected_pairs": 5,
+    "source_bytes": 195501,
+    "source_files": 7
+  },
+  "comparisons": [
+    {
+      "pair": "older-forwarder-old-httpx",
+      "outcome": "bound",
+      "checks_complete": true,
+      "violations": [],
+      "premises": [
+        "call_reaches_selected_declared_signature",
+        "target_installed_versions_and_runtime_not_established",
+        "one_bound_positional_receiver_assumed"
+      ]
+    },
+    {
+      "pair": "older-forwarder-proposed-httpx",
+      "outcome": "rejected",
+      "checks_complete": true,
+      "violations": [
+        {
+          "parameter": "app",
+          "reason": "unexpected_keyword"
+        }
+      ],
+      "premises": [
+        "call_reaches_selected_declared_signature",
+        "target_installed_versions_and_runtime_not_established",
+        "one_bound_positional_receiver_assumed"
+      ]
+    },
+    {
+      "pair": "newer-forwarder-proposed-httpx",
+      "outcome": "bound",
+      "checks_complete": true,
+      "violations": [],
+      "premises": [
+        "call_reaches_selected_declared_signature",
+        "target_installed_versions_and_runtime_not_established",
+        "one_bound_positional_receiver_assumed"
+      ]
+    },
+    {
+      "pair": "target-call-older-testclient",
+      "outcome": "bound",
+      "checks_complete": true,
+      "violations": [],
+      "premises": [
+        "call_reaches_selected_declared_signature",
+        "target_installed_versions_and_runtime_not_established",
+        "one_bound_positional_receiver_assumed"
+      ]
+    },
+    {
+      "pair": "target-call-newer-testclient",
+      "outcome": "bound",
+      "checks_complete": true,
+      "violations": [],
+      "premises": [
+        "call_reaches_selected_declared_signature",
+        "target_installed_versions_and_runtime_not_established",
+        "one_bound_positional_receiver_assumed"
+      ]
+    }
+  ],
+  "cert_parameter_retained_sources": [
+    "httpx-new",
+    "httpx-old"
+  ],
+  "private_saved_files": {
+    "result.json": {
+      "sha256": "3a6b874967d413f89155895d51368fddbb2e15a257ff8977448a350b26a41580",
+      "bytes": 1620583
+    },
+    "view.txt": {
+      "sha256": "d0bd57fec01eb2bb6ee8d530c941c51fb2893584c12c533161595db65205b88c",
+      "bytes": 8996
+    },
+    "attempt.json": {
+      "sha256": "bf5d8c092679cab4feffa79a3cc2444697b8f5f1be4b6ab67133b5255a262d7e",
+      "bytes": 1270
+    },
+    "sources.json": {
+      "sha256": "8de0c185a5be747ec1044eca9b7a8446fbd1652db2a7ed25b82ab832d5c88da1",
+      "bytes": 208566
+    },
+    "attempt-started.json": {
+      "sha256": "feaf6d28e7e4b60216f707d1ddae70612577baa24f812a95550652af88f7724f",
+      "bytes": 977
+    }
+  },
+  "cold_offline_calls": 8,
+  "cold_offline_elapsed_seconds": 1.605658656999367,
+  "source_views": [
+    {
+      "source_id": "fastapi-reference",
+      "path": "fastapi/testclient.py",
+      "unit_id": "b5b099a2f857549138f2afc10772870a532329f3ed3436a70c2a755943cae0c1",
+      "start_line": 1,
+      "output_bytes": 230,
+      "output_sha256": "35fbe736a24df6a809057acc92a67c2e0092b9b9033339428149bc5514a3c2f5",
+      "exit_code": 0
+    },
+    {
+      "source_id": "httpx-new",
+      "path": "httpx/_client.py",
+      "unit_id": "be14b02183724bb171a52c81b3839621ac23673ed510ab5a595a7c1afafacbe2",
+      "start_line": 639,
+      "output_bytes": 1770,
+      "output_sha256": "fc42fdd16f1f0536efb44bfc2e5bab75e17410a78868cfc96a275e1540f16ca9",
+      "exit_code": 0
+    },
+    {
+      "source_id": "httpx-old",
+      "path": "httpx/_client.py",
+      "unit_id": "25f30724cf8fb8d49f2040631c5b1f31188a54ab74532b913d41182589af9834",
+      "start_line": 628,
+      "output_bytes": 1809,
+      "output_sha256": "662d23cbbfa0469b6345ebc03169fdd45bb25c260fead96f9d717187dae33896",
+      "exit_code": 0
+    },
+    {
+      "source_id": "starlette-new",
+      "path": "starlette/testclient.py",
+      "unit_id": "d91161f9a720e9f1052087c4d59c278c9fe8dcad55be8d609d4d54907879c76b",
+      "start_line": 423,
+      "output_bytes": 1788,
+      "output_sha256": "66898b12e978f5ce643b212875ab10a2973b08d71d2b490b9dddefda39d857de",
+      "exit_code": 0
+    },
+    {
+      "source_id": "starlette-old",
+      "path": "starlette/testclient.py",
+      "unit_id": "72de44a0041a4f17b07e450511d95bfac845b9d16eb878c4e415fe126a38492b",
+      "start_line": 397,
+      "output_bytes": 1813,
+      "output_sha256": "ee8c0edc67abb1145c540e71f036a86030ac1918f33d258c794c1089d961173c",
+      "exit_code": 0
+    },
+    {
+      "source_id": "target-proposed",
+      "path": "requirements.txt",
+      "unit_id": "7f18c3c2addc974fa52c299b114f8f957bd66153d8bc901db107bcc523f2cf2a",
+      "start_line": 1,
+      "output_bytes": 284,
+      "output_sha256": "cf02d68f9d5af33eefecf0c0c6efb4a955bccd1039f6ab7a763dfd8a2154e471",
+      "exit_code": 0
+    },
+    {
+      "source_id": "target-proposed",
+      "path": "tests/test_routes.py",
+      "unit_id": "7376c6c598bb3e3b18a7d5c260d899eebc899c398768aa72588e5ce53bfe5f21",
+      "start_line": 1,
+      "output_bytes": 1437,
+      "output_sha256": "78a8195c9fabdc235a3746fd0f552ee5d473f689b7b65551f53821ec5fda2111",
+      "exit_code": 0
+    }
+  ],
+  "guarded_in_process_open": "passed with socket/ast.parse/extractor forbidden",
+  "original_attempt_all_files_unchanged": true,
+  "original_catalog_unchanged": true,
+  "source_and_selection_inputs_unchanged": true,
+  "current_code_sha256": {
+    "experiments/api_call_signature.py": "6c6940769a0bc9e24d924865f87dbf9376cd3536e4ffe5fb81d3e919e45e8338",
+    "experiments/api_call_signature_trial.py": "154d3cd5b5036b95f6cdc82821ea279ad2b24edb455b9dd5629cc8f39515f814",
+    "experiments/api_python_bindings.py": "215e96e8e066cfae3a08c7a28f991cb810c8ec7da14e14abb85326509e93166a",
+    "src/upgradepilot/workspace/source_access.py": "56e34abe836ef6edec7142a003844532b445a7e31afaa1006598f892327bbb84",
+    "src/upgradepilot/workspace/native_representation.py": "2a9f510e453a7e33c079c8370dfcbe3136b3d6b1eb1591b005b953c9cf34710c"
+  },
+  "changed_since_frozen_producer": [
+    "experiments/api_call_signature_trial.py"
+  ],
+  "change_scope": "reader validation/span efficiency, clearer evidence prompts, deadline admission and CLI JSON display; core binder unchanged; original real analysis not rerun",
+  "tests": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:tests:. .venv/bin/python3 -m unittest discover -s experiments/tests -p 'test_api*.py' -q",
+    "passed": 165,
+    "seconds": 1.081,
+    "new_tests_included": 29
+  },
+  "proof_limits": [
+    "Five curated comparisons within one retained HTTPX/Starlette scenario, not five independent real cases.",
+    "No ordinary automatic source discovery, installed-version/dispatch proof, runtime execution, whole-update compatibility or action permission.",
+    "No new target acquisition, model use, third-party execution or original-case regrade.",
+    "Exposed assistant development review, not independently measured usefulness.",
+    "Experiment output, not native Workspace/product report adoption."
+  ]
+}

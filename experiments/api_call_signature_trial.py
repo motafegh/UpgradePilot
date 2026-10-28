@@ -13,7 +13,6 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import math
 import os
 import re
 import subprocess
@@ -65,7 +64,7 @@ class AnalysisLimits:
         for field, ceiling in zip(fields(self), ceilings):
             value = getattr(self, field.name)
             expected = (int, float) if field.name == "timeout_seconds" else (int,)
-            if type(value) not in expected or not math.isfinite(value) or not 0 < value <= ceiling:
+            if type(value) not in expected or not 0 < value <= ceiling:
                 raise ValueError("Invalid analysis limit: " + field.name)
 
 
@@ -123,11 +122,16 @@ def _span(raw, text=None) -> SourceSpan:
     if text is not None:
         # Split only on LF, as Python AST line coordinates do; Unicode separators
         # inside a string must not turn into invented source lines.
-        lines = text.split("\n")
+        lines = text if type(text) is list else [line.encode("utf-8") for line in text.split("\n")]
         for line, column in ((span.line, span.column), (span.end_line, span.end_column)):
-            if line > len(lines) or column > len(lines[line - 1].encode("utf-8")):
+            if line > len(lines) or column > len(lines[line - 1]):
                 raise ValueError("Source span outside retained bytes.")
-            lines[line - 1].encode("utf-8")[:column].decode("utf-8")
+            # The original text is already valid Unicode. A boundary cannot
+            # point into a UTF-8 continuation byte; avoid repeatedly decoding
+            # entire line prefixes for every saved trace step.
+            encoded = lines[line - 1]
+            if column < len(encoded) and encoded[column] & 0xC0 == 0x80:
+                raise ValueError("Source column splits a UTF-8 character.")
     return span
 
 
@@ -362,6 +366,13 @@ def _read_comparison(raw, call, signature, receiver):
             _text(item["parameter"])
         violations.append(BindingViolation(**item))
     unresolved, premises = _strings(data["unresolved_checks"]), _strings(data["remaining_premises"])
+    not_received = {r.name for r in reception if r.outcome == "not_received"}
+    keyword_violations = {v.parameter for v in violations if v.reason in {"unexpected_keyword", "positional_only_by_keyword"}}
+    if not_received != keyword_violations:
+        raise ValueError("Keyword rejection witness/violation mismatch.")
+    parameter_names = {p.name for p in signature.parameters}
+    if any(v.parameter is not None and v.parameter not in parameter_names | set(call.keywords) for v in violations):
+        raise ValueError("Foreign violation parameter.")
     supported_complete = (call.complete and signature.complete and not signature.limitations
                           and receiver != "unresolved" and "starred" not in call.positional
                           and None not in call.keywords)
@@ -438,11 +449,12 @@ def read_comparison(result_data: bytes, companion_data: bytes):
             raise ValueError("Invalid source analysis work/identity.")
         _strings(facts["problems"])
         node_count += facts["ast_nodes"]
+        physical_lines = [line.encode("utf-8") for line in file.content.split("\n")]
         for field, kind, destination in (("calls", "call", calls), ("signatures", "signature", signatures)):
             if type(facts[field]) is not list:
                 raise ValueError("Invalid source facts.")
             for raw_fact in facts[field]:
-                fact = _read_fact(raw_fact, kind, descriptor["file_id"], file.content, item["coverage"] == "complete_file")
+                fact = _read_fact(raw_fact, kind, descriptor["file_id"], physical_lines, item["coverage"] == "complete_file")
                 if fact.fact_id in destination:
                     raise ValueError("Duplicate source fact.")
                 destination[fact.fact_id] = fact
@@ -532,7 +544,17 @@ def render_comparison(body) -> str:
             lines.append("Violation: " + violation["reason"] + " " + (violation["parameter"] or ""))
         lines.extend("Unresolved check: " + reason for reason in comparison["unresolved_checks"])
         lines.extend("Premise/limit: " + reason for reason in comparison["remaining_premises"])
-        lines.extend(["Next evidence: establish the actual target version/call relationship before claiming target effect.", ""])
+        caller_source = units[call["unit_id"]]["descriptor"]
+        receiver_source = units[signature["unit_id"]]["descriptor"]
+        if (caller_source["repository"], caller_source["revision"]) != (body["target"]["repository"], body["target"]["head_sha"]):
+            lines.append("Next evidence: establish which revision of " + caller_source["repository"]
+                         + " the actual target uses; this captured caller is " + caller_source["revision"] + ".")
+        lines.extend([
+            "Next evidence: establish whether " + call["expression"] + " reaches "
+            + signature["qualified_name"] + " in " + receiver_source["repository"] + "@"
+            + receiver_source["revision"] + " with receiver mode " + pair["receiver_mode"] + ".",
+            "",
+        ])
     lines.append("SAVED SOURCES (explicit unit IDs for offline source inspection)")
     for unit in units.values():
         descriptor = unit["descriptor"]
@@ -601,6 +623,14 @@ def run_comparison(source_path: Path, selection_path: Path, directory: Path, *, 
     limits = limits or AnalysisLimits()
     directory.mkdir(mode=0o700)
     started = time.monotonic()
+    deadline = started + limits.timeout_seconds
+
+    def remaining():
+        seconds = deadline - time.monotonic()
+        if seconds <= 0:
+            raise subprocess.TimeoutExpired("caller/signature admission", limits.timeout_seconds)
+        return seconds
+
     attempt = {"format": "caller-signature-attempt/1", "started_at": datetime.now(UTC).isoformat(),
                "state": "started", "reason": None, "elapsed_seconds": None,
                "input_sha256": {}, "code_sha256": code_identity(), "limits": asdict(limits),
@@ -615,7 +645,7 @@ def run_comparison(source_path: Path, selection_path: Path, directory: Path, *, 
             sys.executable, "-m", "experiments.api_call_signature_trial", "_worker",
             str(source_path.resolve()), str(selection_path.resolve()), str(directory.resolve()),
             json.dumps(asdict(limits)),
-        ], stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, timeout=limits.timeout_seconds, check=False)
+        ], stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, timeout=remaining(), check=False)
         attempt["worker_returncode"] = completed.returncode
         if completed.returncode:
             raise ValueError("bounded_worker_failed: " + completed.stderr.decode("utf-8", errors="replace")[:2000])
@@ -626,9 +656,12 @@ def run_comparison(source_path: Path, selection_path: Path, directory: Path, *, 
                 or body["inputs"]["selections_sha256"] != attempt["input_sha256"]["selections"]
                 or body["code_sha256"] != attempt["code_sha256"] or code_identity() != attempt["code_sha256"]):
             raise ValueError("Inputs or method changed across the attempt.")
+        view = (render_comparison(body) + "\n").encode()
+        remaining()
         (directory / "_worker-sources.json").rename(directory / "sources.json")
         (directory / "_worker-result.json").rename(directory / "result.json")
-        _write_new(directory / "view.txt", (render_comparison(body) + "\n").encode())
+        _write_new(directory / "view.txt", view)
+        remaining()
         attempt.update(state="completed", result_sha256=_digest(result), companion_sha256=_digest(companion))
     except subprocess.TimeoutExpired:
         attempt.update(state="timed_out", reason="bounded_worker_deadline; no completed comparison admitted")
@@ -665,7 +698,7 @@ def main(argv=None) -> int:
                     AnalysisLimits(**json.loads(args.limits)))
         elif args.command == "compare":
             attempt = run_comparison(args.sources, args.selections, args.output)
-            print(_display([json.dumps(attempt, indent=2)]))
+            print(_display(json.dumps(attempt, indent=2).split("\n")))
             return 0 if attempt["state"] == "completed" else 1
         else:
             body, catalog = open_comparison(args.result)
