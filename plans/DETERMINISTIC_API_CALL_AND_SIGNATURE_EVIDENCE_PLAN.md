@@ -1,6 +1,6 @@
 # Deterministic API call and signature evidence plan
 
-**Status:** Draft for discussion and decision. Plan authoring does not authorize execution, implementation or product adoption.  
+**Status:** Concrete experiment design selected for bounded implementation by Ali after design review. This admits the retained-source extraction/binding/saved-view increment; ordinary discovery, broader real-case claims and product adoption retain their separate proof/admission boundaries.
 **Responsibility:** qualify, design and, after separate activation, implement and evaluate bounded source-backed evidence connecting explicit Python call arguments with qualified callable signatures.  
 **Parent:** [API change and target exposure feasibility plan](UPSTREAM_API_CHANGE_AND_TARGET_EXPOSURE_FEASIBILITY_PLAN.md). This child owns the structural call/signature increment; the parent retains ordinary trial acquisition, broader interpretation/exposure, independent admission and product-promotion gates.  
 **Live selection and results:** [MEMORY.md](../MEMORY.md) alone. Dated execution and design reasoning belong in the selected working-memory record.

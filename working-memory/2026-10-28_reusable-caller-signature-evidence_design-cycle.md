@@ -2,6 +2,8 @@
 
 ## Responsibility and status
 
+**Build continuation:** Ali explicitly authorizes building after the design handoff. Execution continues in the [Build cycle](2026-10-28_reusable-caller-signature-evidence_build-cycle.md). Status below is the design-handoff horizon; approval selects implementation responsibility and does not certify mastery or product acceptance.
+
 Continue the [two-gap discussion](2026-10-26_capability-limits-for-explanation-milestone_discussion-cycle.md) into the expressly requested reusable capability design, under the [existing caller/signature plan](../plans/DETERMINISTIC_API_CALL_AND_SIGNATURE_EVIDENCE_PLAN.md). Ali selected reusable design grounded in retained HTTPX and broader evidence, after challenging a possible HTTPX-only implementation. This cycle owns concrete experiment contract design and its review, not a second product specification, completed implementation or Workspace migration decision.
 
 - A0 — DONE: main cf394b1e; preceding findings/receipt, selected plan, shared binding producer and target/adapter manifests reconciled. Only the unrelated October3 untracked audit file exists; preserve it. The prior7-file qualification and12-test result are historical inputs, not repeated or upgraded into new proof.
