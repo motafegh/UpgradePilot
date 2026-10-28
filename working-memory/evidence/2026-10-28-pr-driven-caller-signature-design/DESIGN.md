@@ -67,7 +67,11 @@ Reuse flat/src module grammar, exact inventory and generic path reconstruction. 
 
 The new owner is a bounded source-correspondence operation above acquisition and below the checker. It consumes immutable source units plus existing imported-origin evidence, produces evidence-linked candidates and omissions, and never edits the origin owner's conclusions. Use a small typed path of observed source steps; no universal graph engine, SAT system or second general variable-flow interpreter is needed.
 
+The [explicit comparison with uv_reachability](UV_REACHABILITY_COMPARISON.md) supplies reuse/separation rationale. Reuse exact-identity joins, conditional diagnostics, state-aware bounded traversal, coverage-qualified negatives, shared structural admission and separate consumers. Keep UV types, selectors/markers, numeric limits and one-witness/one-diagnostic policies at their dependency owner; no private helper import or generic graph extraction is justified. A dependency path cannot supply a Python callable edge, and source discovery does not require positive UV/CI evidence.
+
 Each candidate binds call/signature IDs, package/source roles, discovery family, exact source-step references, receiver mode and residual premises. A source step identifies the observed import, re-export, definition, base or protocol expression, its source/span and what remains conditional. The checker continues to report local rejected/bound/undetermined under those premises. Candidate generation is not applicability evaluation.
+
+Keep source-candidate association, local comparison and discovery coverage separately inspectable. Premises stay attached to their path; alternatives are not merged into an asserted conjunction. Traversal/memoization must preserve material source/version/definition, binding context, operation/receiver and premise differences. Finding one candidate does not discharge old/proposed or meaningful-alternative obligations. Deterministic ordering/deduplication is not likelihood or applicability ranking. Useful candidates may survive partial discovery, while capped/unavailable/unsupported/unexamined work stays explicit; zero candidates then cannot mean no exposure. A bounded no-candidate statement applies only to the named examined supported domain.
 
 When following calls inside a selected initializer/function, retain exact lexical containment and the condition that execution reaches that body/branch. A call nested in a different function, lambda or callback is not automatically executed by the enclosing call. Do not promote every same-library reference into target exposure merely because its file was acquired.
 
@@ -104,6 +108,8 @@ Source collection and analysis have separate retained boundaries. Freeze actual 
 Opening checks fixed formats, target/material/source references and integrity and renders saved data only: no provider/model/AST/checker/correspondence/synthesis reruns. Keep old curated bundles readable with their historical proof class. Missing method/codec/source text has an explicit supported inspection/refusal state, not fallback acquisition. Host storage remains private; publish reviewed facts/receipts rather than raw API/model content.
 
 The ordinary view must explain what changed or stayed compatible at the declared boundary, where a candidate connects to target source, which evidence supports that candidate, remaining version/namespace/dispatch premises, and a justified next observation. It must show incomplete discovery coverage and independently keep the checker's local status separate from actual target applicability and action permission.
+
+Render or link to retained source-step paths, exact path-local blockers and omissions. Test producer→saved→human-view completeness for these fields, not only parity between two consumers of one mapping. The UV comparison demonstrates an existing CI report omission despite retained native diagnostics; do not reproduce it in the API consumer or silently widen this design into a UV/report repair.
 
 ## 7. Bounds and work allocation for review
 

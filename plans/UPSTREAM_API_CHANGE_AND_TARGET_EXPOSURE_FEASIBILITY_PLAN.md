@@ -112,6 +112,8 @@ Run the focused tests and normal composition/recovery proof appropriate to each 
 
 ### Connect ordinary PR acquisition to source-derived caller/signature evidence
 
+The [UV/source correspondence comparison](../working-memory/evidence/2026-10-28-pr-driven-caller-signature-design/UV_REACHABILITY_COMPARISON.md) refines the candidate/proof design: reuse identity, conditional-path, bounded-traversal and coverage discipline, while keeping dependency reachability and Python source association as separate owners. Do not import UV's result/private helpers or copy its one-witness/one-diagnostic policy. Preserve material old/proposed/receiver/premise alternatives, separate candidate/comparison/coverage answers, and prove path/blocker delivery through the actual saved human view. The exposed existing CI presentation omission is a separate repair candidate, not an API implementation prerequisite or authorization to modify UV.
+
 After the linked integration contract is reviewed and its relevant Build responsibility is selected:
 
 1. Reuse one initial PR observation and native dependency prefix through acquire_dependency_inputs. Preserve exact target, description, changed-file validation and source contexts; do not call another complete investigation or re-evaluate CI/runtime owners merely to obtain API inputs.

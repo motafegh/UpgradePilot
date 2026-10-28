@@ -1,0 +1,100 @@
+{
+  "kind": "uv_source_correspondence_design_comparison_not_new_source_owner_implementation",
+  "code_horizon": "e32c764e; subsequent comparison commits are records/design only",
+  "fresh_tests": {
+    "count": 27,
+    "seconds": 0.012,
+    "selectors": [
+      "tests.test_uv_selected_root_reachability",
+      "tests.test_uv_lock_structure",
+      "tests.test_uv_package_scope",
+      "tests.test_ci_dependency_coverage.DependencyCICoverageTests.test_uv_conditional_candidate_remains_unresolved_consumption",
+      "tests.test_ci_dependency_coverage.DependencyCICoverageTests.test_uv_bound_project_not_established_maps_without_strengthening",
+      "tests.test_ci_dependency_coverage.DependencyCICoverageTests.test_uv_not_established_cannot_be_rebound_to_all_workspace_scope",
+      "tests.test_ci_dependency_coverage.DependencyCICoverageTests.test_s001_shape_supports_consumption_without_direct_soupsieve_exercise",
+      "tests.test_report.ReportProjectionTests.test_ci_only_preserves_available_and_not_evaluated_without_synthesizing_action"
+    ],
+    "command_prefix": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:tests:. .venv/bin/python3 -m unittest",
+    "command_suffix": "-q",
+    "proof_class": "existing controlled product owners; no proposed source-correspondence code"
+  },
+  "controlled_probes": {
+    "count": 3,
+    "receipt": "uv-composition-diagnostic.json",
+    "first_probe_correction_preserved": true,
+    "native_codec_scope": "ci_coverage value round-trip, not complete Workspace reconstruction"
+  },
+  "source_sha256": {
+    "src/upgradepilot/dependency/uv_reachability.py": "f520c008735ea8431167a4f0b866bd6efed249e82ebfaba8afd2b34c4ca92b17",
+    "src/upgradepilot/dependency/uv_lock_structure.py": "866d24f24e00d5c32983bd17eab0058c8ce9b769693d0ce7ee427f4d6d42fb8e",
+    "src/upgradepilot/ci/workflow_commands.py": "c665b5f889c4eb18ee9e42c251d07a851492973f8b273472b6c106f5a826d11c",
+    "src/upgradepilot/ci/consumption.py": "99f8b4bcefa52cd7df073b025357fd5b96e52a8d59a22f9447ad7c29ca7b7407",
+    "src/upgradepilot/ci/dependency_exercise.py": "023f3ce6aa8b9ef1b17b943859f90aa709ffb7c61b4abce646b27a066c56356a",
+    "src/upgradepilot/ci/native_codec.py": "8975273f83cec79285ed5a931560f7d81afa711c211861b7c237cb71ec97d18f",
+    "src/upgradepilot/report_projection.py": "1017063f149c485a60d461f3b02a28e5394e259ecbde40ba5bf50858b6bdccf0",
+    "src/upgradepilot/report.py": "729851b16c787d817ce2097a45aad83fa8b68d8644284b2a48a3de6024310d4d",
+    "src/upgradepilot/workspace/native_codecs.py": "50e8909ee3da1dbb88467fd459147672eb73d47ae7638601a30ba2de39522bae",
+    "experiments/api_python_bindings.py": "215e96e8e066cfae3a08c7a28f991cb810c8ec7da14e14abb85326509e93166a",
+    "experiments/api_call_signature.py": "6c6940769a0bc9e24d924865f87dbf9376cd3536e4ffe5fb81d3e919e45e8338",
+    "experiments/api_call_signature_trial.py": "154d3cd5b5036b95f6cdc82821ea279ad2b24edb455b9dd5629cc8f39515f814"
+  },
+  "local_references_checked": 153,
+  "missing_references": 0,
+  "protected_executable_spec_adr_diff_since_code_horizon": [],
+  "frozen_attempt_members_verified": 10,
+  "frozen_members": [
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "result.json",
+      "sha256": "3a6b874967d413f89155895d51368fddbb2e15a257ff8977448a350b26a41580"
+    },
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "view.txt",
+      "sha256": "d0bd57fec01eb2bb6ee8d530c941c51fb2893584c12c533161595db65205b88c"
+    },
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "attempt.json",
+      "sha256": "bf5d8c092679cab4feffa79a3cc2444697b8f5f1be4b6ab67133b5255a262d7e"
+    },
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "sources.json",
+      "sha256": "8de0c185a5be747ec1044eca9b7a8446fbd1652db2a7ed25b82ab832d5c88da1"
+    },
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "attempt-started.json",
+      "sha256": "feaf6d28e7e4b60216f707d1ddae70612577baa24f812a95550652af88f7724f"
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "result.json",
+      "sha256": "dcdf848f0f0c79fddcc091cbfa596e3fb813ece3714204b9152e70c22c7bab09"
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "view.txt",
+      "sha256": "19a38c6246ed7e9f19bf828de493d7c3373d4b44d9787a7f755be5cec9659d97"
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "attempt.json",
+      "sha256": "0595030c7fe82931ca0a440539ddf4023137d5fda2e9c162210fc21ee60c3aca"
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "sources.json",
+      "sha256": "770ab80fea86f6895fc52e278548d075414fe859f28ee09edb2c382c6296124d"
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "attempt-started.json",
+      "sha256": "11ab490a3429882a51062a06bc3afb395ed0db2652ea4cad786899c463a09d04"
+    }
+  ],
+  "inspection_only_original_real_cases_not_rerun": true,
+  "network_model_target_execution": "none; Git fetch/push are repository coordination only",
+  "limits": "No full regression, new source discovery implementation, real PR acquisition, generality/usefulness/runtime/adoption acceptance. CI presentation gap recorded, not repaired."
+}
