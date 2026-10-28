@@ -37,6 +37,20 @@ The same-context discussion already gave Ali meaningful opportunities to challen
 
 These facts refine the required connections without altering the agreed product goal. The trial must not earn acceptance merely by accepting an empty/all-unknown output when relevant sources/correspondence are missing.
 
+## Concrete design and parent-plan checkpoint
+
+Prepared the [integration proposal](evidence/2026-10-28-pr-driven-caller-signature-design/DESIGN.md) and the separately requested [Workspace migration/delivery subject](2026-10-28_workspace-migration-scope-for-api-delivery_discussion.md). Updated the existing parent plan's execution/proof section and replaced its stale child-draft description with dated curated-proof references. No new master plan, accepted specification or ADR is created; all new correspondence families/budgets/native adoption choices are proposals for review.
+
+Recommended source path reuses the single native PR/dependency prefix, exact inventory and existing release/module examination, then produces source-derived candidate traces for the tested checker. Exact old/proposed changed-package sources remain distinct from constraint-selected adapter samples. Conditional origin alternatives can justify explicitly labelled bounded examination, never a fabricated positive lexical_import. Relative/re-export/internal-module closure and repeated definition/protocol cases need their own admitted source-candidate operation, not a second general import-flow engine or package-specific answer rule.
+
+The first proposed source closure handles import/re-export/declaration and initializer/base candidates; the separately evidenced limited allocation/getter/returned-class/__call__ pattern addresses the demonstrated pytest mark interaction. Dynamic execution/namespace/MRO/branch outcomes remain conditions, not inferred truth. Deferring that family loses its ordinary reachability and cannot be hidden behind a smaller direct-call test passing. Code/table names for known libraries are examples only, not method inputs.
+
+Proposed ordinary envelope version2 preserves version1 curated history and actual material source closure. Offline open decodes without acquisition/checker/reanalysis. Trial bounds retain existing hard ceilings, with proposed aggregate provider/time/intra-source counters requiring controlled allocation proof before any live request. The target scan can starve library closure under the current shared quota; design must expose that rather than promise arbitrary full-repository coverage or relax caps for a fixture.
+
+Workspace discussion distinguishes experiment data from canonical native state. Recommendation: useful ordinary experimental proof, then explicit minimum native material/codec/direct consumer/report compatibility contract before product adoption. Full-domain migration/recovery/replay/legacy retirement remain named separate obligations and triggers; neither complete-everything-first nor indefinite consumer deferral is selected. This is the third substantive subject record, supporting the one active cycle rather than owning another phase tracker.
+
+Fresh scoped baseline verification:6 existing controlled target/adapter tests pass/0.008s for sample-versus-resolution meaning, conditional-origin positive refusal, normal source chain, omissions/budgets, per-release cache reuse and CI-independent target acquisition. These verify reused current owners, not the unimplemented integration proposal. No new provider/model/target execution, product/source/test modification or frozen case rerun occurs.
+
 UP-SKILL:upgradepilot-planning-design
 UP-SKILL:upgradepilot-learning-by-doing
 UP-SKILL:upgradepilot-working-memory

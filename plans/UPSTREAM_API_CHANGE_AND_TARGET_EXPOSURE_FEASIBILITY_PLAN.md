@@ -6,7 +6,9 @@
 **Other owners:** [Core](../docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md), [Product Decision Model](../docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md), [Minimum Useful Generality](../docs/specifications/UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md), [Security](../SECURITY.md), [report usefulness plan](MAINTAINER_REPORT_PRESERVATION_AND_USEFULNESS_EVALUATION_PLAN.md).
 Live selection/results belong only in [MEMORY.md](../MEMORY.md).
 
-The [deterministic API call and signature evidence plan](DETERMINISTIC_API_CALL_AND_SIGNATURE_EVIDENCE_PLAN.md) is a separately reviewable child for structural source facts and qualified caller/callee relations. It defines a proposed qualification/design-to-implementation route; its draft does not activate execution or replace this parent's ordinary trial reachability, semantic admission, independent evaluation or product-adoption gates.
+The [deterministic API call and signature evidence plan](DETERMINISTIC_API_CALL_AND_SIGNATURE_EVIDENCE_PLAN.md) owns the separately reviewable structural source-fact/checker responsibility. Its dated [HTTPX](../working-memory/evidence/2026-10-28-caller-signature-build/REVIEW.md) and [glyphsLib/pytest](../working-memory/evidence/2026-10-28-caller-signature-second-real-case/REVIEW.md) evidence is curated component proof; it does not replace this parent's ordinary trial reachability, semantic admission, independent evaluation or product-adoption gates.
+
+The [PR-driven integration design proposal](../working-memory/evidence/2026-10-28-pr-driven-caller-signature-design/DESIGN.md) supplies the source-discovery/correspondence/retention contract for review. Its [Workspace scope discussion](../working-memory/2026-10-28_workspace-migration-scope-for-api-delivery_discussion.md) records minimal adoption obligations and broader migration re-entry conditions. The proposal and the execution consequences below do not activate implementation, fresh acquisition or product adoption.
 
 ## 1. Outcome, scope and proof classes
 
@@ -107,6 +109,24 @@ Build partial-window retention first, then ordered/scoped bindings, as independe
 | Generality and claims | Constructed controls labeled as such; relevant real Python target evidence supplements them before broader claims; development case and frozen varied-case protocol remain unchanged; static association does not establish installation, activation, exercised compatibility, model semantics or usefulness |
 
 Run the focused tests and normal composition/recovery proof appropriate to each increment, then the active trial regression. Inspect product regression obligations if a shared boundary changes; experiment tests alone cannot establish product adoption. Freeze unresolved representation/construct choices before the respective Build increment. Stop and return to the proper owner if the design requires a new durable cross-layer contract or expanded product authority.
+
+### Connect ordinary PR acquisition to source-derived caller/signature evidence
+
+After the linked integration contract is reviewed and its relevant Build responsibility is selected:
+
+1. Reuse one initial PR observation and native dependency prefix through acquire_dependency_inputs. Preserve exact target, description, changed-file validation and source contexts; do not call another complete investigation or re-evaluate CI/runtime owners merely to obtain API inputs.
+2. Reuse existing inventory, declared-source association, exact-release/tag/tree/module and scoped binding owners. Distinguish old/proposed changed-package source from labelled framework samples; preserve publisher/tag/layout conflicts and missing material. Conditional exploration must carry its own basis and cannot populate a positive lexical_import by coercion.
+3. Add bounded source-derived candidates through import/re-export/declaration and initializer/base paths, then the separately evidenced limited allocation/getter/protocol pattern needed by real variadic calls. Preserve alternatives, repeated definitions, receiver/dispatch/version premises and omissions. These are conditional source relationships, not effective runtime call-graph proof.
+4. Reuse the tested checker and shared source/fact/reader responsibilities. Save an explicit ordinary-proof envelope and minimum complete source/material closure; keep old curated envelopes readable. Opening must not acquire, run AST/correspondence/checker logic, invoke a model or regenerate synthesis.
+5. Prove controlled repository/PR-only composition and request allocation before selecting a fresh ordinary acquisition contract. No target path, source version/pair or expected answer may enter as a normal-runner argument. Preserve failed/unavailable/exhausted paths and do not accept all-unknown procedural success as useful end-to-end evidence.
+
+These are coherent staged responsibilities, not a single oversized implementation batch. The source/fact/consumer seam should be tested as a whole within each admitted increment; protocol support may be separate, with its deferred product cost and re-entry evidence explicit. Do not count a direct-call-only slice as completing the broader ordinary route when a required adapter/protocol case remains unreachable.
+
+The proposed design retains the existing50-GitHub-request/source/checker ceilings and adds explicit reviewable aggregate-provider/intra-module/time allocation. Verify the exact shared-cache and target-scan/source-closure budgets before live execution; a source-starved normal route needs a recorded policy/design decision, not hidden case selectors or automatic cap increases. Initial validation is controlled/retained and model-free. Fresh acquisition, if separately selected, is a new capture/attempt, never a merge into historical cases or a retry allowance for frozen model evaluations.
+
+Required discriminating proof includes renamed modules/aliases, relative and star re-exports, repeated/decorated definitions, direct/initializer/protocol forms, conditional origin exploration without positive promotion, missing/ambiguous old/new source, sampled-versus-actual versions, bounded cycles/budgets, candidate trace integrity, immutable attempts and versioned cold reopening. Preserve the already established native-source/CI/runtime/action semantics and the two original curated results. Ordinary experimental proof is not independent semantic or usefulness admission.
+
+Before normal product adoption, select the minimum native API material/codec/direct consumer contract under ADR0012/0013, settle report/version compatibility and prove the actual normal CLI→Workspace→report/source path. Do not import experiments into product, add permanent parallel legacy API state or claim full migration/recovery from an experiment bundle. After useful ordinary proof, explicitly decide adoption versus justified defer/reject before opening more capability experiments; broader artifact/synthesis/report/user-recovery migration remains separately named debt.
 
 ### Implement bounded change interpretation and proposal composition
 
