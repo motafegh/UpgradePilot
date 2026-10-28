@@ -2,6 +2,8 @@
 
 ## Responsibility and status
 
+**October28 continuation:** Ali selects reusable caller/signature design grounded in retained HTTPX and broader evidence. Concrete design work continues in the [new design cycle](2026-10-28_reusable-caller-signature-evidence_design-cycle.md); the phase status below describes this discussion's pre-handoff horizon. The user has accepted the recommended direction, not every supported-construct trade-off, independent mastery, executable implementation or full Workspace migration scope. Remaining learning/decision debt carries forward explicitly.
+
 Second of Ali's three separately recorded subjects. It follows the [agreed explanation goal and completion conditions](2026-10-26_maintainer-facing-product-milestone_discussion-cycle.md) and uses the [boundary/migration review](2026-10-26_intentional-limits-and-workspace-migration_review-cycle.md). Decide which temporary exclusions materially prevent that outcome, what can remain supported/unresolved/deferred, and the evidence needed to expand. This is Planning/Design with Learning-by-Doing, not capability implementation or a claim that legitimate unsupported cases are bugs. Root MEMORY owns live continuation.
 
 - A0 — DONE: reconciled mainf54d2498 and preceding decision, prior audit and source-access review; rechecked single-transition analysis, ordinary named-job correlation, direct-requirements state and abstain-only evaluator source anchors. No executable delta was found.
