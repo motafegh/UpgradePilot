@@ -5,6 +5,8 @@
 **Parent:** [API change and target exposure feasibility plan](UPSTREAM_API_CHANGE_AND_TARGET_EXPOSURE_FEASIBILITY_PLAN.md). This child owns the structural call/signature increment; the parent retains ordinary trial acquisition, broader interpretation/exposure, independent admission and product-promotion gates.  
 **Live selection and results:** [MEMORY.md](../MEMORY.md) alone. Dated execution and design reasoning belong in the selected working-memory record.
 
+**Concrete design for review:** [reusable caller/signature experiment contract](../working-memory/evidence/2026-10-28-reusable-caller-signature-design/DESIGN.md). It specifies source/fact reuse, supported syntactic binding, curated versus ordinary correspondence, receiver premises, saved consumer/retention, finite limits and broader proof. It is a proposed experiment contract, not product adoption or implementation evidence.
+
 ## 1. Product purpose and bounded outcome
 
 UpgradePilot must help a maintainer understand the effect of a dependency update on the exact target repository. A release-note statement or a successful CI job alone cannot establish that effect. A useful API explanation needs a justified relationship between a relevant caller and the changed interface.
@@ -88,6 +90,8 @@ The recommendations below guide qualification. They are not an already accepted 
 Do not parse ellipsis-filled excerpts by silently filling bodies or signatures. A source-derived fragment can be examined only with a declared extraction/remapping method and adequate coverage for its proposition; otherwise preserve a useful limitation. Do not equate a literal spelling such as super().__init__ with a resolved target without sufficient class/dispatch evidence. A curated pairing can support a conditional comparison while actual dispatch remains unknown.
 
 Before coding, record the selected construct set, result contract, consumer, limits and alternatives/disposition in dated design evidence referenced from this plan. Promote to a specification or ADR only if the decision actually changes stable product semantics or a consequential durable method. Otherwise retain an experiment-local design under existing owners. Resolve material scope/proof changes with Ali rather than silently shrinking the task to the easiest passing fixture.
+
+Use the linked concrete design to review these decisions as one coherent contract rather than reopen each as an abstract questionnaire. Its two scopes distinguish explicit-keyword reception from complete syntactic binding, and retain source/receiver/dispatch/version premises independently. Exact source readiness already established in the [dated retained inspection](../working-memory/evidence/2026-10-26-explanation-source-and-analysis-gaps/retained-source-inspection.json) may be reused after checking material identities; do not repeat qualification from zero or treat historical checks as new execution.
 
 ## 6. Ordered execution and decision boundaries
 

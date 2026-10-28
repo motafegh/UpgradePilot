@@ -1,0 +1,161 @@
+{
+  "kind": "design-review-checks-not-capability-implementation",
+  "runtime": "3.12.3",
+  "proof_limits": [
+    "Trusted synthetic standard-library binding oracle, not the proposed analyzer.",
+    "Existing analyzer span reuse check, not a new call-to-signature capability.",
+    "Historical receipt inspected, not source reacquisition or model regrade.",
+    "No target/framework code execution, network acquisition, inference or new real-case acceptance.",
+    "One additional trusted locally authored control body was called and exposed a local stdlib helper disagreement; fourteen helper controls passing did not qualify all rules."
+  ],
+  "diagnostic_correction": "Initial ad hoc check expected three analyzer return values; inspected actual two-value API and corrected this diagnostic. No product defect or source change.",
+  "stdlib_binding_controls": [
+    {
+      "control": "ordinary_and_default",
+      "signature": "(a, b=None, *, c)",
+      "expected": "bound",
+      "stdlib_observed": "bound"
+    },
+    {
+      "control": "missing_keyword_only",
+      "signature": "(a, b=None, *, c)",
+      "expected": "rejected",
+      "stdlib_observed": "rejected"
+    },
+    {
+      "control": "too_many_positional",
+      "signature": "(a, b=None, *, c)",
+      "expected": "rejected",
+      "stdlib_observed": "rejected"
+    },
+    {
+      "control": "duplicate_binding",
+      "signature": "(a, b=None, *, c)",
+      "expected": "rejected",
+      "stdlib_observed": "rejected"
+    },
+    {
+      "control": "unexpected_keyword",
+      "signature": "(a, b=None, *, c)",
+      "expected": "rejected",
+      "stdlib_observed": "rejected"
+    },
+    {
+      "control": "variadic_positional_and_keyword",
+      "signature": "(a, *items, **options)",
+      "expected": "bound",
+      "stdlib_observed": "bound"
+    },
+    {
+      "control": "positional_only_name_enters_kwargs",
+      "signature": "(a, /, **options)",
+      "expected": "bound",
+      "stdlib_observed": "bound"
+    },
+    {
+      "control": "positional_only_slot_not_filled_by_keyword",
+      "signature": "(a, /, **options)",
+      "expected": "rejected",
+      "stdlib_observed": "rejected"
+    },
+    {
+      "control": "strict_positional_only_keyword",
+      "signature": "(a, /)",
+      "expected": "rejected",
+      "stdlib_observed": "rejected"
+    },
+    {
+      "control": "keyword_only_rejects_positional",
+      "signature": "(*, c)",
+      "expected": "rejected",
+      "stdlib_observed": "rejected"
+    },
+    {
+      "control": "keyword_only_accepts_keyword",
+      "signature": "(*, c)",
+      "expected": "bound",
+      "stdlib_observed": "bound"
+    },
+    {
+      "control": "assumed_receiver_old_keyword",
+      "signature": "(self, *, app=None)",
+      "expected": "bound",
+      "stdlib_observed": "bound"
+    },
+    {
+      "control": "assumed_receiver_new_keyword",
+      "signature": "(self, *, transport=None)",
+      "expected": "rejected",
+      "stdlib_observed": "rejected"
+    },
+    {
+      "control": "variadic_name_is_not_keyword_parameter",
+      "signature": "(*items)",
+      "expected": "rejected",
+      "stdlib_observed": "rejected"
+    }
+  ],
+  "existing_analyzer_same_line_call_spans": [
+    [
+      2,
+      0,
+      2,
+      9
+    ],
+    [
+      2,
+      11,
+      2,
+      20
+    ]
+  ],
+  "historical_receipt_sha256": "a3a1c5f1c23871bba22a8107bc544e82a43ec32dffa7d3b1d7f98c725c0b2d73",
+  "historical_source_expectations": {
+    "old_app_parameter": true,
+    "proposed_app_parameter": false,
+    "proposed_variadic_keywords": false,
+    "cert_parameter_both": true,
+    "forwarded": {
+      "starlette-old": {
+        "line": 429,
+        "keywords": [
+          "app",
+          "base_url",
+          "headers",
+          "transport",
+          "follow_redirects",
+          "cookies"
+        ],
+        "binding_state": "unknown"
+      },
+      "starlette-new": {
+        "line": 455,
+        "keywords": [
+          "base_url",
+          "headers",
+          "transport",
+          "follow_redirects",
+          "cookies"
+        ],
+        "binding_state": "unknown"
+      }
+    }
+  },
+  "selected_source_utf8_bytes": 195501,
+  "stdlib_helper_discrepancy": {
+    "trusted_control": "def f(value=0, /, **options): return value, options",
+    "call": "f(value=2)",
+    "expected_python_binding": "bound",
+    "trusted_control_actual": [
+      0,
+      {
+        "value": 2
+      }
+    ],
+    "signature_helper": {
+      "outcome": "rejected",
+      "diagnostic": "'value' parameter is positional only, but was passed as a keyword"
+    },
+    "disposition": "Helper cannot be the sole implementation or oracle. No third-party code executed."
+  }
+}

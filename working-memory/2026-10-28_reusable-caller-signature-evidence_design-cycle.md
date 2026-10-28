@@ -7,7 +7,7 @@ Continue the [two-gap discussion](2026-10-26_capability-limits-for-explanation-m
 - A0 — DONE: main cf394b1e; preceding findings/receipt, selected plan, shared binding producer and target/adapter manifests reconciled. Only the unrelated October3 untracked audit file exists; preserve it. The prior7-file qualification and12-test result are historical inputs, not repeated or upgraded into new proof.
 - A1 — DONE for design continuity under the compression below: two source/interpretation gaps, existing reuse and generality concern carried forward. No independent mastery inferred.
 - A2 — DONE for Planning/Design under the compression below: produce an explicit source/argument/signature/correspondence/result/retention/consumer contract with real and controlled proof, supported limits and adoption boundary. This does not pre-authorize executable implementation or resolve full migration.
-- B — CURRENT: design the smallest useful reusable relation capability; preserve important corrections progressively.
+- B — CURRENT: concrete [experiment contract](evidence/2026-10-28-reusable-caller-signature-design/DESIGN.md) drafted; review against source/owners and preserve important corrections before handoff.
 - Verification gate — PENDING: owner/source consistency, binding-rule review, worked contract cases, artifact/reference and unchanged-code checks. No new capability test result can exist before implementation.
 - D — PENDING: teach the resulting source-fact versus correspondence versus conditional-binding distinction and supported coverage.
 - E — PENDING: preserve design-review decisions/debt and the exact next implementation or design responsibility without claiming product acceptance.
@@ -31,6 +31,26 @@ Existing ReferenceFact already owns keyword names, syntactic positional count an
 The existing plan already demands constructor/receiver decisions, positional-only and **kwargs contrasts, variant names and a second materially different real case. The new contract must settle these concerns without silently reducing the capability to keyword-name subtraction, solving all Python dispatch or declaring experimental output a normal product report.
 
 Applicable owners consulted: plans navigation, Core JUST/OBS/PROV/recovery boundaries, Product Decision Model, Minimum Useful Generality, Naming Clarity, ADR-0011/0012, relevant Operating Guide sections and Security source-data constraints. Python binding reference is checked at the local3.12 language boundary rather than using the unversioned documentation as a runtime compatibility claim.
+
+## Concrete design checkpoint
+
+The selected recommendation is a reusable declared-signature/argument binder with two explicit scopes: keyword reception and complete supported syntactic binding. It covers parameter kinds/default presence/variadic reception and non-expanded positional/keyword arguments. Caller expansions remain explicit; an independently definite unsupported explicit keyword can still be reported. This is broader than an HTTPX app-name rule without pretending to solve arbitrary Python execution.
+
+Correspondence is independent of binding: curated source pair versus evidence-derived source link; no caller-supplied answer; receiver binding as-written, one receiver explicitly assumed, or unresolved. The real super call stays unknown under the existing analyzer; comparisons are conditional on reaching the selected initializer. Missing target installation/dispatch is not erased. Direct ordinary discovery and full product delivery are separate acceptance obligations rather than fabricated capabilities.
+
+Existing full trace spans are sufficient to disambiguate supported references without a new binding manifest version. A direct check of two identical imported call spellings on one line retained distinct call spans. Extension adds missing argument/signature structure beside shared facts, not another import engine. Signature/argument values and full catalog/model input retention are unnecessary: default presence and selected full source files earn the admitted consumer/proof responsibilities.
+
+The proposed consumer is one experiment compare/open entry with a saved result bound to a minimal existing-catalog subset. Reader integrity and offline inspection are distinct from reanalysis/Workspace recovery. Proposed work/candidate/output/time/memory caps are finite and unmeasured; time enforcement belongs around the parsing worker, not only after parsing. Normal product adoption requires explicit native evidence closure/report integration and active tests, with the separate migration subject still open.
+
+Validation so far:14 trusted locally authored stdlib signature-binding controls match expected binding/rejection; existing same-line trace reuse checks pass; the historical receipt matches old/proposed app, retained cert, old/new forwarding and unknown super-binding design expectations. Selected7 files total195,501 UTF-8 bytes. [Validation receipt](evidence/2026-10-28-reusable-caller-signature-design/validation.json) labels these as design checks, not implementation tests. The first ad hoc span check mistakenly unpacked three values from the two-value analyze_python_bindings API; inspected the real producer and corrected the diagnostic. No source defect, source repair, new model result or new real-case acceptance follows.
+
+The existing plan now links the concrete contract and requires reuse of historical qualified inputs after identity checks. No new master plan/ADR/specification is created. A second materially different real case remains required before broader real-case claims; no ready second case or normal PR-driven source route is invented.
+
+## Review correction: stdlib delegation is not automatically adequate
+
+During simpler-baseline review, considered constructing inspect.Signature from AST facts and delegating binding rather than implementing slot rules. A fifteenth trusted control exposed a local Python3.12.3 discrepancy: `def f(value=0, /, **options)` accepts `f(value=2)` with positional default0 and options containing value2, but inspect.signature(f).bind(value=2) rejects it as a positional-only keyword. Earlier14 controls passing were insufficient helper qualification. Preserve this result; it does not imply a target problem, a defect in shared UpgradePilot owners or failure of all stdlib versions.
+
+Corrected design/proof: a small explicit source-shape binder follows documented Python rules, with trusted, side-effect-free locally authored calls as discriminating controls and the inspect helper as a limited comparator. Actual execution here is only the authored control function, never retained target/framework source, source defaults/annotations or a target environment. No stdlib patch or new dependency is justified. This is a meaningful design correction and rejected simpler alternative, not a hidden test repair.
 
 UP-SKILL:upgradepilot-planning-design
 UP-SKILL:upgradepilot-learning-by-doing
