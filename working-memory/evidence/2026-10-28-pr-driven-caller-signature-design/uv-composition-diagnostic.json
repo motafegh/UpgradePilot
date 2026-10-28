@@ -1,0 +1,50 @@
+{
+  "kind": "controlled_uv_owner_composition_and_presentation_diagnostic_not_new_real_case",
+  "code_horizon": "e32c764e",
+  "fixtures": [
+    "tests/test_uv_selected_root_reachability.py::_s001_lock",
+    "tests/test_ci_dependency_coverage.py::_uv_dependency,_input,_job",
+    "tests/test_investigation.py::_identity"
+  ],
+  "input": {
+    "workflow_command": "uv sync --all-packages --group docs",
+    "lock_edge_marker": "python_version >= '3.12'",
+    "sources": "Controlled exact workflow/project/lock records; no precomposed dependency evidence"
+  },
+  "ordinary_static_collector": {
+    "consumption_state": "unresolved",
+    "reason": "uv_selected_root_conditional_candidate_unresolved",
+    "conditional_candidate_path": [
+      "mkdocs-llmstxt",
+      "beautifulsoup4",
+      "soupsieve"
+    ],
+    "unresolved_conditions": [
+      "edge marker to 'soupsieve': python_version >= '3.12'"
+    ]
+  },
+  "native_ci_coverage_codec_round_trip_equal": true,
+  "report": {
+    "projection": "project_ci_report -> render_ci_report",
+    "unresolved_reason_preserved_as_fact": true,
+    "conditional_path_middle_node_visible": false,
+    "raw_condition_visible": false,
+    "conclusion": "Concrete presentation omission; retained owner evidence survives. No false reachable/supported promotion observed."
+  },
+  "traversal_bound_probe": {
+    "temporary_control": "_MAX_VISITED_STATES = 0",
+    "state": "unresolved",
+    "reason": "uv_selected_root_traversal_bound_exceeded"
+  },
+  "conditional_then_unconditional_same_nodes_probe": {
+    "state": "reachable",
+    "witness_path": [
+      "mkdocs-llmstxt",
+      "beautifulsoup4",
+      "soupsieve"
+    ]
+  },
+  "diagnostic_correction": "First probe wrongly expected the per-consumption reason as ReportAssessment.reason; it is correctly retained in ReportAssessment.facts. Corrected the probe; no source change or frozen evaluation rerun.",
+  "network_model_target_execution": "none",
+  "scope": "Controlled source-to-CI-owner composition and native value-codec/report seams, not provider acquisition or canonical Workspace reconstruction."
+}

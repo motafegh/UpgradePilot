@@ -62,3 +62,17 @@ Publication is progressive: e2f32ced opens the cycle and closes the prior bounde
 UP-SKILL:upgradepilot-planning-design
 UP-SKILL:upgradepilot-learning-by-doing
 UP-SKILL:upgradepilot-working-memory
+
+## UV comparison — source/composition checkpoint
+
+Ali explicitly asks to compare the proposed source-correspondence owner with `uv_reachability`, decide reuse versus separation and record related discoveries. Continue this design-review cycle; there is no implemented source-correspondence owner yet. Use Audit for the existing-owner comparison, with the existing Planning/Design authorization for proposal refinements. No product/test repair or new live acquisition is selected. Fetch confirms maine32c764e equals origin/main; an unrelated remote research branch and the untracked October3 audit are untouched.
+
+Trace inspected: exact lock/source context + explicit uv selection → shared `uv_lock_structure` admission → `uv_reachability` projection/traversal → `workflow_commands` ordinary source collector → `consumption` composition → dependency CI coverage → native CI codec → report projection/rendering. Positive reachability is an existential exact-lock proposition; a conditional diagnostic never supplies that witness. Python source candidates have different identities, alternatives and downstream questions, so neither the uv result type nor its one-witness/one-diagnostic policy can become the source-correspondence contract.
+
+Fresh27 existing tests pass/0.012s: selected-root reachability, shared lock structure, package scope, four composition guards and CI-only report parity. Three additional controlled probes confirm bound exhaustion remains unresolved, a conditional route does not hide an unconditional route through the same packages, and a marker-bearing path survives ordinary static collection plus native CI-value codec round-trip. These are controlled owner/seam proofs, not a new real PR run or full Workspace recovery.
+
+The [composition diagnostic](evidence/2026-10-28-pr-driven-caller-signature-design/uv-composition-diagnostic.json) demonstrates a presentation omission: CI evidence retains `conditional_candidate_path` and raw `unresolved_conditions`; `report_projection._project_ci` copies the unresolved reason/detail but not those two fields. The rendered view therefore cannot show this candidate's route or exact blocker. No false-positive promotion or reachability defect was observed. The earliest repair owner would be report projection, not uv traversal, acquisition or runtime state. Preserve this finding for explicit disposition rather than silently fixing outside this comparison.
+
+Diagnostic correction: an initial assertion incorrectly expected the per-consumption reason in the workflow assessment's reason field. The source mapping correctly retains it as a consumption fact; correcting that probe confirms the actual omission above. No frozen evaluation was rerun/regraded or implementation changed. Next within this responsibility: make the reusable patterns, deliberate differences, candidate/coverage policy and presentation proof obligations explicit in the existing proposal.
+
+UP-SKILL:upgradepilot-repository-audit
