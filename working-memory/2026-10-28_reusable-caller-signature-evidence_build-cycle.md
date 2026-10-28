@@ -2,6 +2,8 @@
 
 ## Responsibility and status
 
+**Continuation:** Ali selects the second-real-case qualification and unchanged-method evaluation, now recorded in the [next cycle](2026-10-28_second-real-caller-signature-case_qualification-and-evaluation-cycle.md). Status below remains the first Build handoff; independent learning ownership and broader/product proof are not inferred complete.
+
 Ali explicitly says "Good now lets go for building perfectly" after the [concrete design](evidence/2026-10-28-reusable-caller-signature-design/DESIGN.md) and its explanation. Implement one coherent experimental source-extraction/binding/saved-offline-view responsibility under the [selected plan](../plans/DETERMINISTIC_API_CALL_AND_SIGNATURE_EVIDENCE_PLAN.md). Broader real-case acceptance, ordinary PR discovery, native/product report adoption, full Workspace migration and action authority remain separate obligations.
 
 - A0 — DONE: main2a1f19a1, design/qualification receipts, current source-catalog and binding APIs, nearest tests and runtime/security owners checked. Preserve unrelated untracked October3 audit. No intervening executable changes.

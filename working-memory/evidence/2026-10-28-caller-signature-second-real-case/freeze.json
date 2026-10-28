@@ -1,0 +1,263 @@
+{
+  "kind": "second_real_case_pre_execution_freeze",
+  "producer_commit": "1475abd3",
+  "proof_class": "retained_curated_source_comparison",
+  "target": {
+    "repository": "googlefonts/glyphsLib",
+    "pull_number": 1145,
+    "base_sha": "044f19e4b1437bfc4343592486f4e3c6040306d9",
+    "head_sha": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+    "normalized_package": "pytest",
+    "old_version": "9.0.2",
+    "proposed_version": "9.0.3"
+  },
+  "private_namespace": "caller-signature-evidence/retained-glyphslib-pytest-2026-10-28",
+  "original_catalog_sha256": "1bb8e6d45e67e4c96cf95eb2c2e54dc94226830e629d9adda04597cc041406ac",
+  "subset_catalog_id": "d9913a290e01c8e8edd6a4b396321992fd583e77fb0cedac8e89ee790f5243b4",
+  "source_profile_sha256": "770ab80fea86f6895fc52e278548d075414fe859f28ee09edb2c382c6296124d",
+  "selections_sha256": "6fdf4c67398209ac8ed25eee3986f70d133ddb9486494841d2aa709641d7cce7",
+  "selected_files": [
+    {
+      "source_id": "pytest-new",
+      "path": "src/_pytest/mark/__init__.py",
+      "content_sha256": "dfc1fbc21da4dd264c64d6700213db1c1c693f161b9fec33995b465188a0bf37",
+      "coverage": "complete_file"
+    },
+    {
+      "source_id": "pytest-new",
+      "path": "src/_pytest/mark/structures.py",
+      "content_sha256": "92b950eec1145149858f2df28e85c0d017224e052992532d2ea4e528eb04c1a7",
+      "coverage": "complete_file"
+    },
+    {
+      "source_id": "pytest-new",
+      "path": "src/_pytest/raises.py",
+      "content_sha256": "f3a57e8686398586daebd9e9cab1fbaf891035bf108e8b986fc4b27462e68d57",
+      "coverage": "complete_file"
+    },
+    {
+      "source_id": "pytest-new",
+      "path": "src/pytest/__init__.py",
+      "content_sha256": "7be7a1e2218dc59a19d1ad131e4abe21172a295087efc72898938248782e8766",
+      "coverage": "complete_file"
+    },
+    {
+      "source_id": "pytest-old",
+      "path": "src/_pytest/mark/__init__.py",
+      "content_sha256": "dfc1fbc21da4dd264c64d6700213db1c1c693f161b9fec33995b465188a0bf37",
+      "coverage": "complete_file"
+    },
+    {
+      "source_id": "pytest-old",
+      "path": "src/_pytest/mark/structures.py",
+      "content_sha256": "918f3cb7d117aca993d949c8873b50a02119294493c037e3d93227402b59c392",
+      "coverage": "complete_file"
+    },
+    {
+      "source_id": "pytest-old",
+      "path": "src/_pytest/raises.py",
+      "content_sha256": "f3a57e8686398586daebd9e9cab1fbaf891035bf108e8b986fc4b27462e68d57",
+      "coverage": "complete_file"
+    },
+    {
+      "source_id": "pytest-old",
+      "path": "src/pytest/__init__.py",
+      "content_sha256": "7be7a1e2218dc59a19d1ad131e4abe21172a295087efc72898938248782e8766",
+      "coverage": "complete_file"
+    },
+    {
+      "source_id": "target-base",
+      "path": "requirements-dev.txt",
+      "content_sha256": "f9a866625e2a82fe09b4c0ad646ea1d5ab48398f20e9f7f7af322e7443e74606",
+      "coverage": "complete_file"
+    },
+    {
+      "source_id": "target-proposed",
+      "path": "requirements-dev.txt",
+      "content_sha256": "d61c580da79c07296f782ce579bc16fac1216abd25c6ca40ec51653457b5fe30",
+      "coverage": "complete_file"
+    },
+    {
+      "source_id": "target-proposed",
+      "path": "tests/builder/components_test.py",
+      "content_sha256": "fd3ee3325c50f51bce6ebbdb22d2638b42d9912782dc465c81f5a749bd98252e",
+      "coverage": "complete_file"
+    },
+    {
+      "source_id": "target-proposed",
+      "path": "tests/regression_test.py",
+      "content_sha256": "6fd4b6f17d912886bbe733b588a94cd3f69d42477ffb0c9ef4b13edd48a8aaf6",
+      "coverage": "complete_file"
+    }
+  ],
+  "pairs": [
+    {
+      "id": "direct-raises-pytest-old",
+      "caller": {
+        "source_id": "target-proposed",
+        "path": "tests/builder/components_test.py",
+        "span": {
+          "line": 50,
+          "column": 9,
+          "end_line": 50,
+          "end_column": 45
+        }
+      },
+      "callee": {
+        "source_id": "pytest-old",
+        "path": "src/_pytest/raises.py",
+        "span": {
+          "line": 104,
+          "column": 0,
+          "end_line": 300,
+          "end_column": 19
+        }
+      },
+      "receiver_mode": "as_written"
+    },
+    {
+      "id": "parametrize-variadic-pytest-old",
+      "caller": {
+        "source_id": "target-proposed",
+        "path": "tests/regression_test.py",
+        "span": {
+          "line": 59,
+          "column": 1,
+          "end_line": 59,
+          "end_column": 77
+        }
+      },
+      "callee": {
+        "source_id": "pytest-old",
+        "path": "src/_pytest/mark/structures.py",
+        "span": {
+          "line": 390,
+          "column": 4,
+          "end_line": 403,
+          "end_column": 46
+        }
+      },
+      "receiver_mode": "one_receiver_assumed"
+    },
+    {
+      "id": "direct-raises-pytest-new",
+      "caller": {
+        "source_id": "target-proposed",
+        "path": "tests/builder/components_test.py",
+        "span": {
+          "line": 50,
+          "column": 9,
+          "end_line": 50,
+          "end_column": 45
+        }
+      },
+      "callee": {
+        "source_id": "pytest-new",
+        "path": "src/_pytest/raises.py",
+        "span": {
+          "line": 104,
+          "column": 0,
+          "end_line": 300,
+          "end_column": 19
+        }
+      },
+      "receiver_mode": "as_written"
+    },
+    {
+      "id": "parametrize-variadic-pytest-new",
+      "caller": {
+        "source_id": "target-proposed",
+        "path": "tests/regression_test.py",
+        "span": {
+          "line": 59,
+          "column": 1,
+          "end_line": 59,
+          "end_column": 77
+        }
+      },
+      "callee": {
+        "source_id": "pytest-new",
+        "path": "src/_pytest/mark/structures.py",
+        "span": {
+          "line": 390,
+          "column": 4,
+          "end_line": 403,
+          "end_column": 46
+        }
+      },
+      "receiver_mode": "one_receiver_assumed"
+    },
+    {
+      "id": "parametrize-receiver-unresolved",
+      "caller": {
+        "source_id": "target-proposed",
+        "path": "tests/regression_test.py",
+        "span": {
+          "line": 59,
+          "column": 1,
+          "end_line": 59,
+          "end_column": 77
+        }
+      },
+      "callee": {
+        "source_id": "pytest-new",
+        "path": "src/_pytest/mark/structures.py",
+        "span": {
+          "line": 390,
+          "column": 4,
+          "end_line": 403,
+          "end_column": 46
+        }
+      },
+      "receiver_mode": "unresolved"
+    }
+  ],
+  "review_expectations": {
+    "direct-raises-pytest-old": "bound",
+    "parametrize-variadic-pytest-old": "bound",
+    "direct-raises-pytest-new": "bound",
+    "parametrize-variadic-pytest-new": "bound",
+    "parametrize-receiver-unresolved": "undetermined"
+  },
+  "required_findings": {
+    "parametrize-variadic-pytest-old": {
+      "ids": "variadic_keyword",
+      "complete": true
+    },
+    "parametrize-variadic-pytest-new": {
+      "ids": "variadic_keyword",
+      "complete": true
+    },
+    "parametrize-receiver-unresolved": {
+      "ids": "variadic_keyword",
+      "complete": false,
+      "unresolved_check": "receiver_binding_unresolved"
+    }
+  },
+  "forbidden_conclusions": [
+    "Interpret ids as a declared named parameter rather than variadic keyword reception.",
+    "Select an overload stub by name as the implementation.",
+    "Bound means actual execution, compatibility or semantically valid ids.",
+    "Discharge an unresolved receiver merely because the other conditional pair binds.",
+    "Claim historical glyphsLib CI/runtime issues were repaired.",
+    "Claim ordinary automatic source discovery or normal product adoption."
+  ],
+  "code_sha256": {
+    "experiments/api_call_signature.py": "6c6940769a0bc9e24d924865f87dbf9376cd3536e4ffe5fb81d3e919e45e8338",
+    "experiments/api_call_signature_trial.py": "154d3cd5b5036b95f6cdc82821ea279ad2b24edb455b9dd5629cc8f39515f814",
+    "experiments/api_python_bindings.py": "215e96e8e066cfae3a08c7a28f991cb810c8ec7da14e14abb85326509e93166a",
+    "src/upgradepilot/workspace/source_access.py": "56e34abe836ef6edec7142a003844532b445a7e31afaa1006598f892327bbb84",
+    "src/upgradepilot/workspace/native_representation.py": "2a9f510e453a7e33c079c8370dfcbe3136b3d6b1eb1591b005b953c9cf34710c"
+  },
+  "limits": {
+    "max_files": 32,
+    "max_source_bytes": 4194304,
+    "max_nodes_per_file": 100000,
+    "max_nodes": 250000,
+    "max_facts": 4096,
+    "max_pairs": 256,
+    "timeout_seconds": 60.0,
+    "memory_bytes": 536870912
+  },
+  "first_run_policy": "Run unchanged code first. Preserve every attempt; no outcome-based case replacement."
+}

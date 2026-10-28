@@ -1,0 +1,318 @@
+{
+  "kind": "retained_real_case_source_readiness_before_new_analyzer_output",
+  "selected": "glyphsLib PR1145 pytest9.0.2-to-9.0.3 direct raises and parametrize variadic reception",
+  "selection_reason": "Different target/library and structural forms: direct function without receiver, call with two positional arguments and explicit ids received by *args/**kwargs under an explicit callable receiver premise; overloaded definitions require exact implementation spans. No analyzer outcome used for selection.",
+  "target": {
+    "repository": "googlefonts/glyphsLib",
+    "pull_number": 1145,
+    "base_sha": "044f19e4b1437bfc4343592486f4e3c6040306d9",
+    "head_sha": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+    "normalized_package": "pytest",
+    "old_version": "9.0.2",
+    "proposed_version": "9.0.3"
+  },
+  "original_catalog_sha256": "1bb8e6d45e67e4c96cf95eb2c2e54dc94226830e629d9adda04597cc041406ac",
+  "original_catalog_id": "37f51311401773b05a7934945a2cc9d7904af044d328ec9fb1dae855062626ce",
+  "original_catalog_files": 1384,
+  "qualification_file_sha256": "46afdaa524a0f6681088ca78a1d83874ca8072c44fcc38d9e88a6f5efaf5d495",
+  "selected_files": [
+    {
+      "source_id": "pytest-new",
+      "path": "src/_pytest/mark/__init__.py",
+      "bytes": 9870,
+      "sha256": "dfc1fbc21da4dd264c64d6700213db1c1c693f161b9fec33995b465188a0bf37",
+      "scope": {
+        "source_id": "pytest-new",
+        "repository": "pytest-dev/pytest",
+        "revision": "a7d58d7a21b78581e636bbbdea13c66ad1657c1e",
+        "kind": "repository_text",
+        "capture_basis": "[\"fresh public exact-commit archive\"]",
+        "coverage_limit": "{\"file_count\": 573, \"omitted_file_count\": 46, \"repository\": \"pytest-dev/pytest\", \"revision\": \"a7d58d7a21b78581e636bbbdea13c66ad1657c1e\", \"scope\": \"broad retained UTF-8 text; declared file types/byte limits; not installed runtime\", \"source_id\": \"pytest-new\"}"
+      },
+      "capture_metadata": {
+        "basis": "fresh public exact-commit archive",
+        "path": "src/_pytest/mark/__init__.py",
+        "repository": "pytest-dev/pytest",
+        "revision": "a7d58d7a21b78581e636bbbdea13c66ad1657c1e"
+      },
+      "coverage": "complete retained file from recorded archive/Git-blob capture, not inferred from parsing",
+      "full_file_parses": true
+    },
+    {
+      "source_id": "pytest-new",
+      "path": "src/_pytest/mark/structures.py",
+      "bytes": 23073,
+      "sha256": "92b950eec1145149858f2df28e85c0d017224e052992532d2ea4e528eb04c1a7",
+      "scope": {
+        "source_id": "pytest-new",
+        "repository": "pytest-dev/pytest",
+        "revision": "a7d58d7a21b78581e636bbbdea13c66ad1657c1e",
+        "kind": "repository_text",
+        "capture_basis": "[\"fresh public exact-commit archive\"]",
+        "coverage_limit": "{\"file_count\": 573, \"omitted_file_count\": 46, \"repository\": \"pytest-dev/pytest\", \"revision\": \"a7d58d7a21b78581e636bbbdea13c66ad1657c1e\", \"scope\": \"broad retained UTF-8 text; declared file types/byte limits; not installed runtime\", \"source_id\": \"pytest-new\"}"
+      },
+      "capture_metadata": {
+        "basis": "fresh public exact-commit archive",
+        "path": "src/_pytest/mark/structures.py",
+        "repository": "pytest-dev/pytest",
+        "revision": "a7d58d7a21b78581e636bbbdea13c66ad1657c1e"
+      },
+      "coverage": "complete retained file from recorded archive/Git-blob capture, not inferred from parsing",
+      "full_file_parses": true
+    },
+    {
+      "source_id": "pytest-new",
+      "path": "src/_pytest/raises.py",
+      "bytes": 60082,
+      "sha256": "f3a57e8686398586daebd9e9cab1fbaf891035bf108e8b986fc4b27462e68d57",
+      "scope": {
+        "source_id": "pytest-new",
+        "repository": "pytest-dev/pytest",
+        "revision": "a7d58d7a21b78581e636bbbdea13c66ad1657c1e",
+        "kind": "repository_text",
+        "capture_basis": "[\"fresh public exact-commit archive\"]",
+        "coverage_limit": "{\"file_count\": 573, \"omitted_file_count\": 46, \"repository\": \"pytest-dev/pytest\", \"revision\": \"a7d58d7a21b78581e636bbbdea13c66ad1657c1e\", \"scope\": \"broad retained UTF-8 text; declared file types/byte limits; not installed runtime\", \"source_id\": \"pytest-new\"}"
+      },
+      "capture_metadata": {
+        "basis": "fresh public exact-commit archive",
+        "path": "src/_pytest/raises.py",
+        "repository": "pytest-dev/pytest",
+        "revision": "a7d58d7a21b78581e636bbbdea13c66ad1657c1e"
+      },
+      "coverage": "complete retained file from recorded archive/Git-blob capture, not inferred from parsing",
+      "full_file_parses": true
+    },
+    {
+      "source_id": "pytest-new",
+      "path": "src/pytest/__init__.py",
+      "bytes": 5582,
+      "sha256": "7be7a1e2218dc59a19d1ad131e4abe21172a295087efc72898938248782e8766",
+      "scope": {
+        "source_id": "pytest-new",
+        "repository": "pytest-dev/pytest",
+        "revision": "a7d58d7a21b78581e636bbbdea13c66ad1657c1e",
+        "kind": "repository_text",
+        "capture_basis": "[\"fresh public exact-commit archive\"]",
+        "coverage_limit": "{\"file_count\": 573, \"omitted_file_count\": 46, \"repository\": \"pytest-dev/pytest\", \"revision\": \"a7d58d7a21b78581e636bbbdea13c66ad1657c1e\", \"scope\": \"broad retained UTF-8 text; declared file types/byte limits; not installed runtime\", \"source_id\": \"pytest-new\"}"
+      },
+      "capture_metadata": {
+        "basis": "fresh public exact-commit archive",
+        "path": "src/pytest/__init__.py",
+        "repository": "pytest-dev/pytest",
+        "revision": "a7d58d7a21b78581e636bbbdea13c66ad1657c1e"
+      },
+      "coverage": "complete retained file from recorded archive/Git-blob capture, not inferred from parsing",
+      "full_file_parses": true
+    },
+    {
+      "source_id": "pytest-old",
+      "path": "src/_pytest/mark/__init__.py",
+      "bytes": 9870,
+      "sha256": "dfc1fbc21da4dd264c64d6700213db1c1c693f161b9fec33995b465188a0bf37",
+      "scope": {
+        "source_id": "pytest-old",
+        "repository": "pytest-dev/pytest",
+        "revision": "3d10b5148e03eb82b3ee29181dbdc73cf82699e2",
+        "kind": "repository_text",
+        "capture_basis": "[\"fresh public exact-commit archive\"]",
+        "coverage_limit": "{\"file_count\": 572, \"omitted_file_count\": 45, \"repository\": \"pytest-dev/pytest\", \"revision\": \"3d10b5148e03eb82b3ee29181dbdc73cf82699e2\", \"scope\": \"broad retained UTF-8 text; declared file types/byte limits; not installed runtime\", \"source_id\": \"pytest-old\"}"
+      },
+      "capture_metadata": {
+        "basis": "fresh public exact-commit archive",
+        "path": "src/_pytest/mark/__init__.py",
+        "repository": "pytest-dev/pytest",
+        "revision": "3d10b5148e03eb82b3ee29181dbdc73cf82699e2"
+      },
+      "coverage": "complete retained file from recorded archive/Git-blob capture, not inferred from parsing",
+      "full_file_parses": true
+    },
+    {
+      "source_id": "pytest-old",
+      "path": "src/_pytest/mark/structures.py",
+      "bytes": 23074,
+      "sha256": "918f3cb7d117aca993d949c8873b50a02119294493c037e3d93227402b59c392",
+      "scope": {
+        "source_id": "pytest-old",
+        "repository": "pytest-dev/pytest",
+        "revision": "3d10b5148e03eb82b3ee29181dbdc73cf82699e2",
+        "kind": "repository_text",
+        "capture_basis": "[\"fresh public exact-commit archive\"]",
+        "coverage_limit": "{\"file_count\": 572, \"omitted_file_count\": 45, \"repository\": \"pytest-dev/pytest\", \"revision\": \"3d10b5148e03eb82b3ee29181dbdc73cf82699e2\", \"scope\": \"broad retained UTF-8 text; declared file types/byte limits; not installed runtime\", \"source_id\": \"pytest-old\"}"
+      },
+      "capture_metadata": {
+        "basis": "fresh public exact-commit archive",
+        "path": "src/_pytest/mark/structures.py",
+        "repository": "pytest-dev/pytest",
+        "revision": "3d10b5148e03eb82b3ee29181dbdc73cf82699e2"
+      },
+      "coverage": "complete retained file from recorded archive/Git-blob capture, not inferred from parsing",
+      "full_file_parses": true
+    },
+    {
+      "source_id": "pytest-old",
+      "path": "src/_pytest/raises.py",
+      "bytes": 60082,
+      "sha256": "f3a57e8686398586daebd9e9cab1fbaf891035bf108e8b986fc4b27462e68d57",
+      "scope": {
+        "source_id": "pytest-old",
+        "repository": "pytest-dev/pytest",
+        "revision": "3d10b5148e03eb82b3ee29181dbdc73cf82699e2",
+        "kind": "repository_text",
+        "capture_basis": "[\"fresh public exact-commit archive\"]",
+        "coverage_limit": "{\"file_count\": 572, \"omitted_file_count\": 45, \"repository\": \"pytest-dev/pytest\", \"revision\": \"3d10b5148e03eb82b3ee29181dbdc73cf82699e2\", \"scope\": \"broad retained UTF-8 text; declared file types/byte limits; not installed runtime\", \"source_id\": \"pytest-old\"}"
+      },
+      "capture_metadata": {
+        "basis": "fresh public exact-commit archive",
+        "path": "src/_pytest/raises.py",
+        "repository": "pytest-dev/pytest",
+        "revision": "3d10b5148e03eb82b3ee29181dbdc73cf82699e2"
+      },
+      "coverage": "complete retained file from recorded archive/Git-blob capture, not inferred from parsing",
+      "full_file_parses": true
+    },
+    {
+      "source_id": "pytest-old",
+      "path": "src/pytest/__init__.py",
+      "bytes": 5582,
+      "sha256": "7be7a1e2218dc59a19d1ad131e4abe21172a295087efc72898938248782e8766",
+      "scope": {
+        "source_id": "pytest-old",
+        "repository": "pytest-dev/pytest",
+        "revision": "3d10b5148e03eb82b3ee29181dbdc73cf82699e2",
+        "kind": "repository_text",
+        "capture_basis": "[\"fresh public exact-commit archive\"]",
+        "coverage_limit": "{\"file_count\": 572, \"omitted_file_count\": 45, \"repository\": \"pytest-dev/pytest\", \"revision\": \"3d10b5148e03eb82b3ee29181dbdc73cf82699e2\", \"scope\": \"broad retained UTF-8 text; declared file types/byte limits; not installed runtime\", \"source_id\": \"pytest-old\"}"
+      },
+      "capture_metadata": {
+        "basis": "fresh public exact-commit archive",
+        "path": "src/pytest/__init__.py",
+        "repository": "pytest-dev/pytest",
+        "revision": "3d10b5148e03eb82b3ee29181dbdc73cf82699e2"
+      },
+      "coverage": "complete retained file from recorded archive/Git-blob capture, not inferred from parsing",
+      "full_file_parses": true
+    },
+    {
+      "source_id": "target-base",
+      "path": "requirements-dev.txt",
+      "bytes": 1800,
+      "sha256": "f9a866625e2a82fe09b4c0ad646ea1d5ab48398f20e9f7f7af322e7443e74606",
+      "scope": {
+        "source_id": "target-base",
+        "repository": "googlefonts/glyphsLib",
+        "revision": "044f19e4b1437bfc4343592486f4e3c6040306d9",
+        "kind": "repository_text",
+        "capture_basis": "[\"fresh complete public commit tree and Git-blob-verified raw text\"]",
+        "coverage_limit": "{\"file_count\": 113, \"omitted_file_count\": 25572, \"repository\": \"googlefonts/glyphsLib\", \"revision\": \"044f19e4b1437bfc4343592486f4e3c6040306d9\", \"scope\": \"broad retained UTF-8 text; declared file types/byte limits; not installed runtime\", \"source_id\": \"target-base\"}"
+      },
+      "capture_metadata": {
+        "basis": "fresh complete public commit tree and Git-blob-verified raw text",
+        "git_blob_sha1": "70f457840ea0b9eb9f04361f74890b66e8e3c89a",
+        "path": "requirements-dev.txt",
+        "repository": "googlefonts/glyphsLib",
+        "revision": "044f19e4b1437bfc4343592486f4e3c6040306d9"
+      },
+      "coverage": "complete retained file from recorded archive/Git-blob capture, not inferred from parsing"
+    },
+    {
+      "source_id": "target-proposed",
+      "path": "requirements-dev.txt",
+      "bytes": 1800,
+      "sha256": "d61c580da79c07296f782ce579bc16fac1216abd25c6ca40ec51653457b5fe30",
+      "scope": {
+        "source_id": "target-proposed",
+        "repository": "googlefonts/glyphsLib",
+        "revision": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+        "kind": "repository_text",
+        "capture_basis": "[\"fresh complete public commit tree and Git-blob-verified raw text\"]",
+        "coverage_limit": "{\"file_count\": 113, \"omitted_file_count\": 25572, \"repository\": \"googlefonts/glyphsLib\", \"revision\": \"f3cda8a94600e58d27f1bc17c99b7693718b6350\", \"scope\": \"broad retained UTF-8 text; declared file types/byte limits; not installed runtime\", \"source_id\": \"target-proposed\"}"
+      },
+      "capture_metadata": {
+        "basis": "fresh complete public commit tree and Git-blob-verified raw text",
+        "git_blob_sha1": "cc5c75989c7a561f4ccf375aff085a2820e20218",
+        "path": "requirements-dev.txt",
+        "repository": "googlefonts/glyphsLib",
+        "revision": "f3cda8a94600e58d27f1bc17c99b7693718b6350"
+      },
+      "coverage": "complete retained file from recorded archive/Git-blob capture, not inferred from parsing"
+    },
+    {
+      "source_id": "target-proposed",
+      "path": "tests/builder/components_test.py",
+      "bytes": 1837,
+      "sha256": "fd3ee3325c50f51bce6ebbdb22d2638b42d9912782dc465c81f5a749bd98252e",
+      "scope": {
+        "source_id": "target-proposed",
+        "repository": "googlefonts/glyphsLib",
+        "revision": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+        "kind": "repository_text",
+        "capture_basis": "[\"fresh complete public commit tree and Git-blob-verified raw text\"]",
+        "coverage_limit": "{\"file_count\": 113, \"omitted_file_count\": 25572, \"repository\": \"googlefonts/glyphsLib\", \"revision\": \"f3cda8a94600e58d27f1bc17c99b7693718b6350\", \"scope\": \"broad retained UTF-8 text; declared file types/byte limits; not installed runtime\", \"source_id\": \"target-proposed\"}"
+      },
+      "capture_metadata": {
+        "basis": "fresh complete public commit tree and Git-blob-verified raw text",
+        "git_blob_sha1": "5b5307929ff617eec795cadc393792bacf111b40",
+        "path": "tests/builder/components_test.py",
+        "repository": "googlefonts/glyphsLib",
+        "revision": "f3cda8a94600e58d27f1bc17c99b7693718b6350"
+      },
+      "coverage": "complete retained file from recorded archive/Git-blob capture, not inferred from parsing",
+      "full_file_parses": true
+    },
+    {
+      "source_id": "target-proposed",
+      "path": "tests/regression_test.py",
+      "bytes": 3224,
+      "sha256": "6fd4b6f17d912886bbe733b588a94cd3f69d42477ffb0c9ef4b13edd48a8aaf6",
+      "scope": {
+        "source_id": "target-proposed",
+        "repository": "googlefonts/glyphsLib",
+        "revision": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+        "kind": "repository_text",
+        "capture_basis": "[\"fresh complete public commit tree and Git-blob-verified raw text\"]",
+        "coverage_limit": "{\"file_count\": 113, \"omitted_file_count\": 25572, \"repository\": \"googlefonts/glyphsLib\", \"revision\": \"f3cda8a94600e58d27f1bc17c99b7693718b6350\", \"scope\": \"broad retained UTF-8 text; declared file types/byte limits; not installed runtime\", \"source_id\": \"target-proposed\"}"
+      },
+      "capture_metadata": {
+        "basis": "fresh complete public commit tree and Git-blob-verified raw text",
+        "git_blob_sha1": "55451435ff044efdef80fd2bb7f51b4ea8db6bb2",
+        "path": "tests/regression_test.py",
+        "repository": "googlefonts/glyphsLib",
+        "revision": "f3cda8a94600e58d27f1bc17c99b7693718b6350"
+      },
+      "coverage": "complete retained file from recorded archive/Git-blob capture, not inferred from parsing",
+      "full_file_parses": true
+    }
+  ],
+  "declared_pytest_lines": {
+    "target-base": [
+      {
+        "line": 65,
+        "text": "pytest==9.0.2"
+      }
+    ],
+    "target-proposed": [
+      {
+        "line": 65,
+        "text": "pytest==9.0.3"
+      }
+    ]
+  },
+  "not_selected": [
+    {
+      "candidate": "Requests retained release-only calibration",
+      "reason": "A release paragraph alone does not establish target caller plus full old/proposed signatures; no global source absence claimed."
+    }
+  ],
+  "source_relationships": [
+    "target import pytest at captured head",
+    "pytest package re-exports raises from _pytest.raises and MARK_GEN as mark from _pytest.mark",
+    "mark module re-exports MARK_GEN from structures; captured MarkGenerator.__getattr__ returns MarkDecorator",
+    "selected raises and MarkDecorator.__call__ are undecorated implementations after overload declarations"
+  ],
+  "proof_limits": [
+    "Selected retained files only; target catalog omitted many files.",
+    "No installed-version, effective descriptor/dispatch, package-to-commit build, test execution, ids semantic validity or whole-update compatibility proof.",
+    "Known historical glyphsLib CI and model limitations remain unchanged.",
+    "Exposed assistant source qualification, not independent acceptance."
+  ]
+}
