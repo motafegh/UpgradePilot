@@ -122,6 +122,12 @@ Teaching repair focuses on one real retained chain: project TestClient use → F
 
 Evidence refreshed from the existing public retained-source receipt and live discussion owners; no new acquisition, inference, target execution or executable change. Only dated discussion/live coordination records change. The original twelve-test result remains historical investigation evidence, not a fresh run or semantic correctness proof.
 
+## October28 — reusable responsibility versus HTTPX-specific repair
+
+Ali agrees with the recommendations and asks whether the design would serve only HTTPX or cover other cases. Preserve the concern as a scope requirement: the selected explanation goal requires reusable source-backed mechanisms for an explicitly supported class of Python caller/signature relationships; HTTPX/Starlette is a real development case, not a package-name/keyword-specific rule or the complete product scope. The draft already requires controls varying names/modules/keywords independently and a second materially different real API case under the parent before broader claims. Re-read these provisions rather than claiming fresh multi-case validation.
+
+Teaching distinction: reusable algorithm over qualified caller/signature evidence versus the exact constructs and source/dispatch premises that it can support. Direct calls, constructors, wrappers and inheritance can create different proof needs; no universal Python dispatch or compatibility checker is promised. Source facts and conditional comparisons must remain useful when actual installed versions/dispatch are unknown. Other concerns such as behavioral changes, runtime state, artifact/platform support and semantic deprecation are separate product responsibilities. Agreement with the recommendation does not settle every construct, authorize Build, prove learner mastery or close D/E. Existing source-readiness findings remain reusable; no new acquisition, model run, target execution or capability proof occurs in this clarification.
+
 UP-SKILL:upgradepilot-planning-design
 UP-SKILL:upgradepilot-learning-by-doing
 UP-SKILL:upgradepilot-working-memory
