@@ -1,0 +1,402 @@
+{
+  "kind": "second_real_retained_caller_signature_case_review",
+  "producer_code_commit": "1475abd3",
+  "freeze_commit": "d742864e",
+  "attempt": "attempt-01",
+  "unchanged_first_run": true,
+  "method_sha256": {
+    "experiments/api_call_signature.py": "6c6940769a0bc9e24d924865f87dbf9376cd3536e4ffe5fb81d3e919e45e8338",
+    "experiments/api_call_signature_trial.py": "154d3cd5b5036b95f6cdc82821ea279ad2b24edb455b9dd5629cc8f39515f814",
+    "experiments/api_python_bindings.py": "215e96e8e066cfae3a08c7a28f991cb810c8ec7da14e14abb85326509e93166a",
+    "src/upgradepilot/workspace/source_access.py": "56e34abe836ef6edec7142a003844532b445a7e31afaa1006598f892327bbb84",
+    "src/upgradepilot/workspace/native_representation.py": "2a9f510e453a7e33c079c8370dfcbe3136b3d6b1eb1591b005b953c9cf34710c"
+  },
+  "elapsed_seconds": 1.0227696080000896,
+  "work": {
+    "ast_nodes": 20917,
+    "facts": 1113,
+    "selected_pairs": 5,
+    "source_bytes": 205876,
+    "source_files": 12
+  },
+  "comparisons": [
+    {
+      "id": "direct-raises-pytest-old",
+      "outcome": "bound",
+      "checks_complete": true,
+      "keyword_reception": [],
+      "violations": [],
+      "unresolved_checks": [],
+      "premises": [
+        "call_reaches_selected_declared_signature",
+        "target_installed_versions_and_runtime_not_established"
+      ],
+      "selected_signature": {
+        "source_id": "pytest-old",
+        "path": "src/_pytest/raises.py",
+        "qualified_name": "raises",
+        "span": {
+          "column": 0,
+          "end_column": 19,
+          "end_line": 300,
+          "line": 104
+        },
+        "parameters": [
+          {
+            "has_default": true,
+            "kind": "positional_or_keyword",
+            "name": "expected_exception"
+          },
+          {
+            "has_default": false,
+            "kind": "variadic_positional",
+            "name": "args"
+          },
+          {
+            "has_default": false,
+            "kind": "variadic_keyword",
+            "name": "kwargs"
+          }
+        ],
+        "decorators": []
+      }
+    },
+    {
+      "id": "parametrize-variadic-pytest-old",
+      "outcome": "bound",
+      "checks_complete": true,
+      "keyword_reception": [
+        {
+          "name": "ids",
+          "outcome": "variadic_keyword"
+        }
+      ],
+      "violations": [],
+      "unresolved_checks": [],
+      "premises": [
+        "call_reaches_selected_declared_signature",
+        "target_installed_versions_and_runtime_not_established",
+        "one_bound_positional_receiver_assumed"
+      ],
+      "selected_signature": {
+        "source_id": "pytest-old",
+        "path": "src/_pytest/mark/structures.py",
+        "qualified_name": "MarkDecorator.__call__",
+        "span": {
+          "column": 4,
+          "end_column": 46,
+          "end_line": 403,
+          "line": 390
+        },
+        "parameters": [
+          {
+            "has_default": false,
+            "kind": "positional_or_keyword",
+            "name": "self"
+          },
+          {
+            "has_default": false,
+            "kind": "variadic_positional",
+            "name": "args"
+          },
+          {
+            "has_default": false,
+            "kind": "variadic_keyword",
+            "name": "kwargs"
+          }
+        ],
+        "decorators": []
+      }
+    },
+    {
+      "id": "direct-raises-pytest-new",
+      "outcome": "bound",
+      "checks_complete": true,
+      "keyword_reception": [],
+      "violations": [],
+      "unresolved_checks": [],
+      "premises": [
+        "call_reaches_selected_declared_signature",
+        "target_installed_versions_and_runtime_not_established"
+      ],
+      "selected_signature": {
+        "source_id": "pytest-new",
+        "path": "src/_pytest/raises.py",
+        "qualified_name": "raises",
+        "span": {
+          "column": 0,
+          "end_column": 19,
+          "end_line": 300,
+          "line": 104
+        },
+        "parameters": [
+          {
+            "has_default": true,
+            "kind": "positional_or_keyword",
+            "name": "expected_exception"
+          },
+          {
+            "has_default": false,
+            "kind": "variadic_positional",
+            "name": "args"
+          },
+          {
+            "has_default": false,
+            "kind": "variadic_keyword",
+            "name": "kwargs"
+          }
+        ],
+        "decorators": []
+      }
+    },
+    {
+      "id": "parametrize-variadic-pytest-new",
+      "outcome": "bound",
+      "checks_complete": true,
+      "keyword_reception": [
+        {
+          "name": "ids",
+          "outcome": "variadic_keyword"
+        }
+      ],
+      "violations": [],
+      "unresolved_checks": [],
+      "premises": [
+        "call_reaches_selected_declared_signature",
+        "target_installed_versions_and_runtime_not_established",
+        "one_bound_positional_receiver_assumed"
+      ],
+      "selected_signature": {
+        "source_id": "pytest-new",
+        "path": "src/_pytest/mark/structures.py",
+        "qualified_name": "MarkDecorator.__call__",
+        "span": {
+          "column": 4,
+          "end_column": 46,
+          "end_line": 403,
+          "line": 390
+        },
+        "parameters": [
+          {
+            "has_default": false,
+            "kind": "positional_or_keyword",
+            "name": "self"
+          },
+          {
+            "has_default": false,
+            "kind": "variadic_positional",
+            "name": "args"
+          },
+          {
+            "has_default": false,
+            "kind": "variadic_keyword",
+            "name": "kwargs"
+          }
+        ],
+        "decorators": []
+      }
+    },
+    {
+      "id": "parametrize-receiver-unresolved",
+      "outcome": "undetermined",
+      "checks_complete": false,
+      "keyword_reception": [
+        {
+          "name": "ids",
+          "outcome": "variadic_keyword"
+        }
+      ],
+      "violations": [],
+      "unresolved_checks": [
+        "receiver_binding_unresolved",
+        "full_argument_binding_not_checked"
+      ],
+      "premises": [
+        "call_reaches_selected_declared_signature",
+        "target_installed_versions_and_runtime_not_established"
+      ],
+      "selected_signature": {
+        "source_id": "pytest-new",
+        "path": "src/_pytest/mark/structures.py",
+        "qualified_name": "MarkDecorator.__call__",
+        "span": {
+          "column": 4,
+          "end_column": 46,
+          "end_line": 403,
+          "line": 390
+        },
+        "parameters": [
+          {
+            "has_default": false,
+            "kind": "positional_or_keyword",
+            "name": "self"
+          },
+          {
+            "has_default": false,
+            "kind": "variadic_positional",
+            "name": "args"
+          },
+          {
+            "has_default": false,
+            "kind": "variadic_keyword",
+            "name": "kwargs"
+          }
+        ],
+        "decorators": []
+      }
+    }
+  ],
+  "cold_offline_calls": 13,
+  "cold_offline_elapsed_seconds": 2.5755175220001547,
+  "source_views": [
+    {
+      "source_id": "pytest-new",
+      "path": "src/_pytest/mark/__init__.py",
+      "unit_id": "2a0010391a7030cca021c19c7c7d9160e06bb973724fefe9d78f244cfdc0ed5c",
+      "start_line": 1,
+      "exit_code": 0,
+      "bytes": 1423,
+      "sha256": "9419655839fe6da18d58541cbf99c6aa915240a1a37098c7a8a37ca8351e19de"
+    },
+    {
+      "source_id": "pytest-new",
+      "path": "src/_pytest/mark/structures.py",
+      "unit_id": "5a7e33c8fe16225dc5d6c8255d814c166ec3a9a9aac0c40a96c008aab88459ac",
+      "start_line": 380,
+      "exit_code": 0,
+      "bytes": 1930,
+      "sha256": "7bbcd7680d18e8301c6a7e22bea075529f7459f1655e2db1465a5b17eb2cb17b"
+    },
+    {
+      "source_id": "pytest-new",
+      "path": "src/_pytest/raises.py",
+      "unit_id": "bc52a14a18a6d1d070e803d520d38ad1a2c21aee379d22e2fd7cf87c5255e0f3",
+      "start_line": 74,
+      "exit_code": 0,
+      "bytes": 1465,
+      "sha256": "99815987ef1b685b78799c80fb650aa996d753a8ab3a062cb7f631c22bbf518d"
+    },
+    {
+      "source_id": "pytest-new",
+      "path": "src/pytest/__init__.py",
+      "unit_id": "034fc83620e54e121d31bc51a1550eab2219a48ecdfcf3fc84927c8df077871b",
+      "start_line": 1,
+      "exit_code": 0,
+      "bytes": 1829,
+      "sha256": "8708df8c98a8718dd901248fc5bd1d0fae6faa3263b1ef9096cb9ba6535b03b5"
+    },
+    {
+      "source_id": "pytest-old",
+      "path": "src/_pytest/mark/__init__.py",
+      "unit_id": "7c9f00f05e6a088e96fe94f5148e508d52a76d15d9f2c2a649475130abf28b20",
+      "start_line": 1,
+      "exit_code": 0,
+      "bytes": 1423,
+      "sha256": "596e5365e561da432a6a8660dcbc5ec98609b05337472e99e6776d54e6aa8052"
+    },
+    {
+      "source_id": "pytest-old",
+      "path": "src/_pytest/mark/structures.py",
+      "unit_id": "f50a085addbf18b55d54d9f4905377ad95d8c876a3fccd39e9eec194746a217a",
+      "start_line": 380,
+      "exit_code": 0,
+      "bytes": 1930,
+      "sha256": "e85e6ad6b498766b815453d9143b3439064f4a6b02f23d9c49b19eaabe8fed11"
+    },
+    {
+      "source_id": "pytest-old",
+      "path": "src/_pytest/raises.py",
+      "unit_id": "8e85bf83f47b1f615328bc5aa849557a12f98c669be244617571ed488687e641",
+      "start_line": 74,
+      "exit_code": 0,
+      "bytes": 1465,
+      "sha256": "4d8a2db3f3f0ca5d975ffb978869d77d33c73345965cee23f805e55ce60e1c78"
+    },
+    {
+      "source_id": "pytest-old",
+      "path": "src/pytest/__init__.py",
+      "unit_id": "6b6fca1cfd2a15f2c057affd4c51403da8e5fb9c58ab4217cec1adaecf735f91",
+      "start_line": 1,
+      "exit_code": 0,
+      "bytes": 1829,
+      "sha256": "eb905dafcf63e2e03eba85121c2858f6f615073ae43acfac841e1cb7c7368e3b"
+    },
+    {
+      "source_id": "target-base",
+      "path": "requirements-dev.txt",
+      "unit_id": "df6110397331ea49b9ba08f3a2589883614bc1da89c53a18ae72c50b2b02050f",
+      "start_line": 1,
+      "exit_code": 0,
+      "bytes": 1123,
+      "sha256": "a3e85f81b96adb08e897a10072661d794bc5802624a0b984a221b89f3f25b5bf"
+    },
+    {
+      "source_id": "target-proposed",
+      "path": "requirements-dev.txt",
+      "unit_id": "0df734950e004ca11b8fc957596e8c12da55cb124806519106a1b111c6bed3cb",
+      "start_line": 1,
+      "exit_code": 0,
+      "bytes": 1127,
+      "sha256": "dfff156f5b62d789cc9e597defc9ad2245206b50d7646c60df57bc9ead8bedc4"
+    },
+    {
+      "source_id": "target-proposed",
+      "path": "tests/builder/components_test.py",
+      "unit_id": "32f3247fc6af1a865eedeaa250305b7e97e68c555fcf5d20766ea79f2cd4d9ac",
+      "start_line": 40,
+      "exit_code": 0,
+      "bytes": 612,
+      "sha256": "7e9502b16c1bb84f860c5845f0184abfa44a7a557be6b03bb9c5c6cbab08936f"
+    },
+    {
+      "source_id": "target-proposed",
+      "path": "tests/regression_test.py",
+      "unit_id": "6756c01ce1b88a3ae96b553d5040635ba40bf9ade19df1d3fd4748fb4cb86f4c",
+      "start_line": 54,
+      "exit_code": 0,
+      "bytes": 2002,
+      "sha256": "edf5af1a06c7374b3d27224576117ea80cc5963c1af1efedf02c0d2e51074346"
+    }
+  ],
+  "guarded_no_network_no_ast_no_analyzer_open": "passed",
+  "original_new_attempt_files_unchanged": true,
+  "original_common_catalog_unchanged": true,
+  "frozen_new_inputs_unchanged": true,
+  "previous_httpx_attempt_all_files_unchanged": true,
+  "files": {
+    "result.json": {
+      "bytes": 1635179,
+      "sha256": "dcdf848f0f0c79fddcc091cbfa596e3fb813ece3714204b9152e70c22c7bab09"
+    },
+    "view.txt": {
+      "bytes": 6802,
+      "sha256": "19a38c6246ed7e9f19bf828de493d7c3373d4b44d9787a7f755be5cec9659d97"
+    },
+    "attempt.json": {
+      "bytes": 1270,
+      "sha256": "0595030c7fe82931ca0a440539ddf4023137d5fda2e9c162210fc21ee60c3aca"
+    },
+    "sources.json": {
+      "bytes": 220100,
+      "sha256": "770ab80fea86f6895fc52e278548d075414fe859f28ee09edb2c382c6296124d"
+    },
+    "attempt-started.json": {
+      "bytes": 977,
+      "sha256": "11ab490a3429882a51062a06bc3afb395ed0db2652ea4cad786899c463a09d04"
+    }
+  },
+  "prior_test_proof": {
+    "passed": 165,
+    "seconds": 1.081,
+    "proof": "Prior API regression on hash-identical method code; not rerun or relabelled as fresh."
+  },
+  "disposition": "Retain unchanged method for the demonstrated direct-function/variadic-reception/receiver-unknown envelope; no repair exposed. Ordinary discovery and product adoption remain separate.",
+  "proof_limits": [
+    "One additional real retained target/library scenario with four conditional comparisons and one premise variation, not five independent cases.",
+    "Variadic ids reception is not proof of parameter semantics, valid values or test execution.",
+    "Source-role/tag/distribution/installed/descriptor correspondence remains unproved where not admitted.",
+    "No historical glyphsLib CI/runtime or model result is rerun, repaired or regraded.",
+    "No new target acquisition, model, installation or third-party execution.",
+    "Exposed assistant review; independent utility and unrestricted generality unproved."
+  ]
+}

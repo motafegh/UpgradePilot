@@ -1,0 +1,85 @@
+CALLER / DECLARED SIGNATURE EVIDENCE
+Proof: retained_curated_source_comparison
+Conditional source comparisons; installed versions, runtime and compatibility are not established.
+Source capture: selected_files_and_curated_pairs_only; ordinary_discovery_and_target_runtime_unproved
+
+PAIR direct-raises-pytest-old | receiver: as_written
+Caller: target-proposed googlefonts/glyphsLib@f3cda8a94600e58d27f1bc17c99b7693718b6350 tests/builder/components_test.py:50 (unit 32f3247fc6af1a865eedeaa250305b7e97e68c555fcf5d20766ea79f2cd4d9ac)
+Declared receiver: pytest-old pytest-dev/pytest@3d10b5148e03eb82b3ee29181dbdc73cf82699e2 src/_pytest/raises.py:104 (unit 8e85bf83f47b1f615328bc5aa849557a12f98c669be244617571ed488687e641)
+Call expression: pytest.raises
+Explicit keywords: 
+Parameters: expected_exception[positional_or_keyword,optional], args[variadic_positional], kwargs[variadic_keyword]
+Outcome under stated premises: bound
+Complete syntactic binding checked: True
+Premise/limit: call_reaches_selected_declared_signature
+Premise/limit: target_installed_versions_and_runtime_not_established
+Next evidence: establish whether pytest.raises reaches raises in pytest-dev/pytest@3d10b5148e03eb82b3ee29181dbdc73cf82699e2 with receiver mode as_written.
+
+PAIR parametrize-variadic-pytest-old | receiver: one_receiver_assumed
+Caller: target-proposed googlefonts/glyphsLib@f3cda8a94600e58d27f1bc17c99b7693718b6350 tests/regression_test.py:59 (unit 6756c01ce1b88a3ae96b553d5040635ba40bf9ade19df1d3fd4748fb4cb86f4c)
+Declared receiver: pytest-old pytest-dev/pytest@3d10b5148e03eb82b3ee29181dbdc73cf82699e2 src/_pytest/mark/structures.py:390 (unit f50a085addbf18b55d54d9f4905377ad95d8c876a3fccd39e9eec194746a217a)
+Call expression: pytest.mark.parametrize
+Explicit keywords: ids
+Parameters: self[positional_or_keyword], args[variadic_positional], kwargs[variadic_keyword]
+Outcome under stated premises: bound
+Complete syntactic binding checked: True
+Keyword ids: variadic_keyword
+Premise/limit: call_reaches_selected_declared_signature
+Premise/limit: target_installed_versions_and_runtime_not_established
+Premise/limit: one_bound_positional_receiver_assumed
+Next evidence: establish whether pytest.mark.parametrize reaches MarkDecorator.__call__ in pytest-dev/pytest@3d10b5148e03eb82b3ee29181dbdc73cf82699e2 with receiver mode one_receiver_assumed.
+
+PAIR direct-raises-pytest-new | receiver: as_written
+Caller: target-proposed googlefonts/glyphsLib@f3cda8a94600e58d27f1bc17c99b7693718b6350 tests/builder/components_test.py:50 (unit 32f3247fc6af1a865eedeaa250305b7e97e68c555fcf5d20766ea79f2cd4d9ac)
+Declared receiver: pytest-new pytest-dev/pytest@a7d58d7a21b78581e636bbbdea13c66ad1657c1e src/_pytest/raises.py:104 (unit bc52a14a18a6d1d070e803d520d38ad1a2c21aee379d22e2fd7cf87c5255e0f3)
+Call expression: pytest.raises
+Explicit keywords: 
+Parameters: expected_exception[positional_or_keyword,optional], args[variadic_positional], kwargs[variadic_keyword]
+Outcome under stated premises: bound
+Complete syntactic binding checked: True
+Premise/limit: call_reaches_selected_declared_signature
+Premise/limit: target_installed_versions_and_runtime_not_established
+Next evidence: establish whether pytest.raises reaches raises in pytest-dev/pytest@a7d58d7a21b78581e636bbbdea13c66ad1657c1e with receiver mode as_written.
+
+PAIR parametrize-variadic-pytest-new | receiver: one_receiver_assumed
+Caller: target-proposed googlefonts/glyphsLib@f3cda8a94600e58d27f1bc17c99b7693718b6350 tests/regression_test.py:59 (unit 6756c01ce1b88a3ae96b553d5040635ba40bf9ade19df1d3fd4748fb4cb86f4c)
+Declared receiver: pytest-new pytest-dev/pytest@a7d58d7a21b78581e636bbbdea13c66ad1657c1e src/_pytest/mark/structures.py:390 (unit 5a7e33c8fe16225dc5d6c8255d814c166ec3a9a9aac0c40a96c008aab88459ac)
+Call expression: pytest.mark.parametrize
+Explicit keywords: ids
+Parameters: self[positional_or_keyword], args[variadic_positional], kwargs[variadic_keyword]
+Outcome under stated premises: bound
+Complete syntactic binding checked: True
+Keyword ids: variadic_keyword
+Premise/limit: call_reaches_selected_declared_signature
+Premise/limit: target_installed_versions_and_runtime_not_established
+Premise/limit: one_bound_positional_receiver_assumed
+Next evidence: establish whether pytest.mark.parametrize reaches MarkDecorator.__call__ in pytest-dev/pytest@a7d58d7a21b78581e636bbbdea13c66ad1657c1e with receiver mode one_receiver_assumed.
+
+PAIR parametrize-receiver-unresolved | receiver: unresolved
+Caller: target-proposed googlefonts/glyphsLib@f3cda8a94600e58d27f1bc17c99b7693718b6350 tests/regression_test.py:59 (unit 6756c01ce1b88a3ae96b553d5040635ba40bf9ade19df1d3fd4748fb4cb86f4c)
+Declared receiver: pytest-new pytest-dev/pytest@a7d58d7a21b78581e636bbbdea13c66ad1657c1e src/_pytest/mark/structures.py:390 (unit 5a7e33c8fe16225dc5d6c8255d814c166ec3a9a9aac0c40a96c008aab88459ac)
+Call expression: pytest.mark.parametrize
+Explicit keywords: ids
+Parameters: self[positional_or_keyword], args[variadic_positional], kwargs[variadic_keyword]
+Outcome under stated premises: undetermined
+Complete syntactic binding checked: False
+Keyword ids: variadic_keyword
+Unresolved check: receiver_binding_unresolved
+Unresolved check: full_argument_binding_not_checked
+Premise/limit: call_reaches_selected_declared_signature
+Premise/limit: target_installed_versions_and_runtime_not_established
+Next evidence: establish whether pytest.mark.parametrize reaches MarkDecorator.__call__ in pytest-dev/pytest@a7d58d7a21b78581e636bbbdea13c66ad1657c1e with receiver mode unresolved.
+
+SAVED SOURCES (explicit unit IDs for offline source inspection)
+2a0010391a7030cca021c19c7c7d9160e06bb973724fefe9d78f244cfdc0ed5c pytest-new src/_pytest/mark/__init__.py
+5a7e33c8fe16225dc5d6c8255d814c166ec3a9a9aac0c40a96c008aab88459ac pytest-new src/_pytest/mark/structures.py
+bc52a14a18a6d1d070e803d520d38ad1a2c21aee379d22e2fd7cf87c5255e0f3 pytest-new src/_pytest/raises.py
+034fc83620e54e121d31bc51a1550eab2219a48ecdfcf3fc84927c8df077871b pytest-new src/pytest/__init__.py
+7c9f00f05e6a088e96fe94f5148e508d52a76d15d9f2c2a649475130abf28b20 pytest-old src/_pytest/mark/__init__.py
+f50a085addbf18b55d54d9f4905377ad95d8c876a3fccd39e9eec194746a217a pytest-old src/_pytest/mark/structures.py
+8e85bf83f47b1f615328bc5aa849557a12f98c669be244617571ed488687e641 pytest-old src/_pytest/raises.py
+6b6fca1cfd2a15f2c057affd4c51403da8e5fb9c58ab4217cec1adaecf735f91 pytest-old src/pytest/__init__.py
+df6110397331ea49b9ba08f3a2589883614bc1da89c53a18ae72c50b2b02050f target-base requirements-dev.txt
+0df734950e004ca11b8fc957596e8c12da55cb124806519106a1b111c6bed3cb target-proposed requirements-dev.txt
+32f3247fc6af1a865eedeaa250305b7e97e68c555fcf5d20766ea79f2cd4d9ac target-proposed tests/builder/components_test.py
+6756c01ce1b88a3ae96b553d5040635ba40bf9ade19df1d3fd4748fb4cb86f4c target-proposed tests/regression_test.py

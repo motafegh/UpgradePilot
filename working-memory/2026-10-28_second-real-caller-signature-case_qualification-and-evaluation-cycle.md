@@ -7,9 +7,9 @@ Ali explicitly selects the proposed next responsibility: qualify a materially di
 - A0 — DONE: main1475abd3, live handoff/design/source receipts and retained catalog identities reconciled. Preserve unrelated untracked October3 audit. No intervening executable changes; prior165-test/HTTPX results remain historical until specifically reused or checked.
 - A1 — DONE for this execution under the adaptation below: reusable binder and one curated real scenario exist; broader evidence and ordinary reachability remain unproved.
 - A2 — DONE for the selected qualification/run: inspect retained source only, freeze before new analyzer output, execute unchanged code, distinguish structural success/rejection/unknown from installed identity and runtime proof. Defects, if demonstrated, require preserved counterexamples and scoped regression/repair.
-- B — CURRENT: source readiness and candidate selection; no new analyzer outcome has been observed.
-- Verification gate — PENDING: retained source/pair qualification, frozen expected/forbidden contrasts, bounded execution and cold consumer/source proof.
-- D — PENDING: teach actual contrasts, discoveries and proof limits.
+- B — DONE for the selected retained trial: qualified/froze second scenario and ran the existing method unchanged once; four conditional bound comparisons and one receiver-undetermined comparison match all expectations.
+- Verification gate — GREEN for this scope: first attempt1.022769608s;12 files/205,876 bytes/20,917 AST nodes/1,113 facts;13 cold views2.575517522s and guarded no-network/no-AST/no-analyzer opening pass. Original/new/HTTPX artifact hashes and method identities verify; broader product and independent usefulness claims remain unearned.
+- D — CURRENT: teach direct/variadic/default/receiver facts, same-named overload selection, actual contrasts and proof limits; no independent mastery inferred.
 - E — PENDING: disposition, residual debt and next responsibility; no implied independent mastery or product acceptance.
 - C — CONTINUOUS: preserve meaningful qualification, freeze, outcomes, failures/corrections and publication.
 
@@ -36,6 +36,22 @@ Selected two real source interactions: target pytest.raises(MissingComponentErro
 The first two kinds produce four expected bound comparisons under explicit as-written/one-receiver premises. A fifth comparison uses the same real parametrize call with receiver unresolved: expect undetermined full binding while retaining variadic reception of ids. This varies an evidence premise, not source content; it is not another independent real case. No synthetic ids argument or altered target call is injected.
 
 Published [source readiness](evidence/2026-10-28-caller-signature-second-real-case/readiness.json) and [freeze](evidence/2026-10-28-caller-signature-second-real-case/freeze.json) before any new analyzer result: source hashes, exact AST selectors, separate expected/forbidden outcomes, unchanged code identities and original resource limits. Method hashes match the previous Build's current-code receipt. Raw subset/selections are in the new private0700/0600 retained-glyphslib-pytest namespace. No new acquisition or source/test changes were needed for readiness.
+
+## First-run result and consumer verification
+
+Pre-execution qualification/freeze was progressively committed/pushed asd742864e before comparison. The one official new attempt completes in1.022769608s and matches every frozen predicate. Both old/proposed direct raises calls bind without receiver insertion. Both real parametrize calls conditionally bind with one assumed receiver, and ids is explicitly variadic-keyword reception. Leaving that receiver unresolved yields undetermined full binding while preserving the ids observation. No rejection, hidden retry, case replacement, package rule or method repair occurs.
+
+The selected source12-file envelope yields20,917 AST nodes/1,113 facts. Correct implementation selections avoid the decorated overload stubs; the actual target ids lambda/defaults/module globbing are never evaluated. Thirteen cold CLI views pass in2.575517522s; guarded actual-result reopening forbids socket/AST/extractor operations and passes. Public [review](evidence/2026-10-28-caller-signature-second-real-case/REVIEW.md), [actual view](evidence/2026-10-28-caller-signature-second-real-case/comparison-view.txt) and [receipt](evidence/2026-10-28-caller-signature-second-real-case/inspection.json) preserve exact outcomes, work and proof limits. Raw source/results remain private.
+
+Checked every new attempt file, frozen source/selections, original common case2 catalog and all earlier HTTPX attempt files unchanged. Method identity equals the pre-execution freeze and prior Build's current-code receipt. Reuse the165-test API proof at that exact code horizon; do not call it a newly executed suite. No executable/tests/product/specification/ADR/dependency changes or new target acquisition/inference/third-party execution took place.
+
+## Disposition, learning and handoff
+
+Retain the unchanged method for the demonstrated conditional source-binding envelope. Evidence now covers two real target/library scenarios and all three local outcomes across them, while the fifth pytest comparison is a changed premise on a real pair, not a fifth independent case. ids reception through **kwargs does not establish its semantics/valid values; bound does not establish execution, actual target routing or whole-update compatibility. No historical glyphsLib CI/runtime/model limit was repaired or regraded.
+
+Delivered the selected qualification/run/consumer responsibility; D/user review and E remain open. Next proposed responsibility is bounded design of ordinary experimental source acquisition/retention/correspondence integration without curated answer selectors, preserving actual gaps and reconciling minimum retained consumer evidence with the pending Workspace migration subject. Do not perform that next design/build or full native/product migration automatically in this cycle. Preserve unrelated October3 audit and freeze this case without outcome-based expansion.
+
+Final artifact verification:105 local references resolve; freeze, method, attempt and receipt provenance agree; public actual-view/attempt hashes match the private originals; git diff --check passes. There is no executable/test/product/specification/ADR diff from1475abd3. Readiness/freeze and final results are separate coherent publications. These checks verify record integrity, not independent usefulness or learner mastery.
 
 UP-SKILL:upgradepilot-build-implement
 UP-SKILL:upgradepilot-learning-by-doing
