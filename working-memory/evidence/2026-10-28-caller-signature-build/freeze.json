@@ -1,0 +1,216 @@
+{
+  "kind": "retained_curated_source_comparison_pre_execution_freeze",
+  "private_namespace": "caller-signature-evidence/retained-httpx-2026-10-28",
+  "original_catalog_sha256": "ca5f294866faf1eb7633ebc5af3a3e0a9fe65896a2ae5093c5f7241f2f97fed4",
+  "subset_catalog_id": "5e839189ed2798bb4cad184bdc60747e2c8cefe457818f8eb7406f8ed6230ff5",
+  "source_profile_sha256": "8de0c185a5be747ec1044eca9b7a8446fbd1652db2a7ed25b82ab832d5c88da1",
+  "selections_sha256": "1a3bb5953b52e66202894da1ccacd87a8317740637ac8b0ceaa0a00eb70f7764",
+  "target": {
+    "repository": "Aidan-Wallace/kubernetes-dashboard-token-api",
+    "pull_number": 20,
+    "base_sha": "b065646e4b7b894964567950f9ad770b02c136c2",
+    "head_sha": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+    "normalized_package": "httpx",
+    "old_version": "0.27.2",
+    "proposed_version": "0.28.1"
+  },
+  "files": [
+    {
+      "source_id": "fastapi-reference",
+      "path": "fastapi/testclient.py",
+      "content_sha256": "9c1bda0265fae9895d45e24d6573ce935b1fba8d90ea1b3c6cebc86827a9e8b4",
+      "coverage": "complete_file"
+    },
+    {
+      "source_id": "httpx-new",
+      "path": "httpx/_client.py",
+      "content_sha256": "c43f941baefe58c91e96d00039e1868fe719d91453026d7db1647194563bff8d",
+      "coverage": "complete_file"
+    },
+    {
+      "source_id": "httpx-old",
+      "path": "httpx/_client.py",
+      "content_sha256": "c4abf7e3485c2df38f0a78a57b1121da0360e41ac442a212eff3b4641f67c56c",
+      "coverage": "complete_file"
+    },
+    {
+      "source_id": "starlette-new",
+      "path": "starlette/testclient.py",
+      "content_sha256": "acfaa9d5f54182455d3524b3e03b9deb85f9ddae77723e5ab03e864bcd12a88e",
+      "coverage": "complete_file"
+    },
+    {
+      "source_id": "starlette-old",
+      "path": "starlette/testclient.py",
+      "content_sha256": "4ad9cf0a44243a5d82e3becfe19d8aad4d7ac5f7298fb35a6ba6273b940dffe8",
+      "coverage": "complete_file"
+    },
+    {
+      "source_id": "target-proposed",
+      "path": "requirements.txt",
+      "content_sha256": "fb2d2df7bc2502337b1a551de591485d61bd8f0c00dc2897802fa6994d9328a3",
+      "coverage": "complete_file"
+    },
+    {
+      "source_id": "target-proposed",
+      "path": "tests/test_routes.py",
+      "content_sha256": "54ce091cd5e7ec03d53606f59b713e87ff64a1d6d5922f61be23d97b049393f2",
+      "coverage": "complete_file"
+    }
+  ],
+  "pairs": [
+    {
+      "id": "older-forwarder-old-httpx",
+      "caller": {
+        "source_id": "starlette-old",
+        "path": "starlette/testclient.py",
+        "span": {
+          "line": 429,
+          "column": 8,
+          "end_line": 436,
+          "end_column": 9
+        }
+      },
+      "callee": {
+        "source_id": "httpx-old",
+        "path": "httpx/_client.py",
+        "span": {
+          "line": 628,
+          "column": 4,
+          "end_line": 724,
+          "end_column": 57
+        }
+      },
+      "receiver_mode": "one_receiver_assumed"
+    },
+    {
+      "id": "older-forwarder-proposed-httpx",
+      "caller": {
+        "source_id": "starlette-old",
+        "path": "starlette/testclient.py",
+        "span": {
+          "line": 429,
+          "column": 8,
+          "end_line": 436,
+          "end_column": 9
+        }
+      },
+      "callee": {
+        "source_id": "httpx-new",
+        "path": "httpx/_client.py",
+        "span": {
+          "line": 639,
+          "column": 4,
+          "end_line": 716,
+          "end_column": 57
+        }
+      },
+      "receiver_mode": "one_receiver_assumed"
+    },
+    {
+      "id": "newer-forwarder-proposed-httpx",
+      "caller": {
+        "source_id": "starlette-new",
+        "path": "starlette/testclient.py",
+        "span": {
+          "line": 455,
+          "column": 8,
+          "end_line": 461,
+          "end_column": 9
+        }
+      },
+      "callee": {
+        "source_id": "httpx-new",
+        "path": "httpx/_client.py",
+        "span": {
+          "line": 639,
+          "column": 4,
+          "end_line": 716,
+          "end_column": 57
+        }
+      },
+      "receiver_mode": "one_receiver_assumed"
+    },
+    {
+      "id": "target-call-older-testclient",
+      "caller": {
+        "source_id": "target-proposed",
+        "path": "tests/test_routes.py",
+        "span": {
+          "line": 7,
+          "column": 13,
+          "end_line": 7,
+          "end_column": 28
+        }
+      },
+      "callee": {
+        "source_id": "starlette-old",
+        "path": "starlette/testclient.py",
+        "span": {
+          "line": 397,
+          "column": 4,
+          "end_line": 436,
+          "end_column": 9
+        }
+      },
+      "receiver_mode": "one_receiver_assumed"
+    },
+    {
+      "id": "target-call-newer-testclient",
+      "caller": {
+        "source_id": "target-proposed",
+        "path": "tests/test_routes.py",
+        "span": {
+          "line": 7,
+          "column": 13,
+          "end_line": 7,
+          "end_column": 28
+        }
+      },
+      "callee": {
+        "source_id": "starlette-new",
+        "path": "starlette/testclient.py",
+        "span": {
+          "line": 423,
+          "column": 4,
+          "end_line": 461,
+          "end_column": 9
+        }
+      },
+      "receiver_mode": "one_receiver_assumed"
+    }
+  ],
+  "review_expectations": {
+    "older-forwarder-old-httpx": "bound",
+    "older-forwarder-proposed-httpx": "rejected",
+    "newer-forwarder-proposed-httpx": "bound",
+    "target-call-older-testclient": "bound",
+    "target-call-newer-testclient": "bound"
+  },
+  "forbidden_conclusions": [
+    "Actual installed framework/source versions",
+    "Established super/MRO dispatch",
+    "Observed target runtime failure or successful execution",
+    "cert removal based on signature presence",
+    "Whole-update compatibility or action permission",
+    "Ordinary automatic source discovery"
+  ],
+  "limits": {
+    "max_files": 32,
+    "max_source_bytes": 4194304,
+    "max_nodes_per_file": 100000,
+    "max_nodes": 250000,
+    "max_facts": 4096,
+    "max_pairs": 256,
+    "timeout_seconds": 60.0,
+    "memory_bytes": 536870912
+  },
+  "code_sha256": {
+    "experiments/api_call_signature.py": "6c6940769a0bc9e24d924865f87dbf9376cd3536e4ffe5fb81d3e919e45e8338",
+    "experiments/api_call_signature_trial.py": "c896686c479fb35f8d5e1f09b5c912036216f9196077c01f9bf2b4ef2f1e7b3c",
+    "experiments/api_python_bindings.py": "215e96e8e066cfae3a08c7a28f991cb810c8ec7da14e14abb85326509e93166a",
+    "src/upgradepilot/workspace/source_access.py": "56e34abe836ef6edec7142a003844532b445a7e31afaa1006598f892327bbb84",
+    "src/upgradepilot/workspace/native_representation.py": "2a9f510e453a7e33c079c8370dfcbe3136b3d6b1eb1591b005b953c9cf34710c"
+  },
+  "proof_class": "retained curated comparison; no live acquisition/inference/target execution"
+}

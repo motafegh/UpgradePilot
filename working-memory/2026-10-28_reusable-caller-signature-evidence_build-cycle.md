@@ -32,6 +32,14 @@ Added experiment-local api_call_signature.py and responsibility-owned controls. 
 
 Verification:15 new tests pass/0.008s, including15 locally authored runtime-binding table controls; new+shared binding+target tests pass68/0.037s. The optional positional-only/default/**kwargs regression passes against actual trusted control calls rather than the divergent inspect helper. No retained target code is executed. A documentation diff check caught trailing Markdown whitespace on the newly edited plan status; corrected without semantic change. This checkpoint is a core implementation result, not yet the complete saved-consumer or retained-case proof.
 
+## Runner/consumer and real-input freeze checkpoint
+
+Added the explicit curated compare/open experiment entry, strict data/reference/coverage/receiver validation, selected-source catalog companion, terminal-safe human/source views, input/method identity freeze, immutable private attempts and bounded parsing/analysis subprocess. Source view uses physical LF coordinates consistent with AST spans. Partial or killed worker output cannot reopen as completed; failures/timeouts remain attempt records. No embedded companion paths/URLs are followed and open never invokes analysis, acquisition or inference.
+
+11 new runner tests pass/0.675s; new+neighboring binding/target/adapter/interpretation/public-PR tests pass129/0.832s. Tests cover actual cold subprocess open/source inspection, no network/reanalysis, wrong target/hash/version/spans, explicit unavailable selectors, limited source, injected answers, source/AST/fact/pair caps, immutable attempts, deadlines, missing input and an actual low-memory worker refusal. Product source/packaging remains unchanged.
+
+Before new retained result inspection, froze [seven-file/five-pair contract](evidence/2026-10-28-caller-signature-build/freeze.json): qualified195,501 bytes, exact old/proposed source roles, full call/definition spans, receiver assumptions, expected/forbidden outcomes, all limits and method hashes. Private subset/selections have0700/0600 ownership modes; original catalog hash and each file hash match the prior receipt. Expectations are separate public review material, never fields supplied to the analyzer. The five comparisons are curated source pairs, not five independent real cases or ordinary discovery proof. No retained comparison has yet executed at this checkpoint.
+
 UP-SKILL:upgradepilot-build-implement
 UP-SKILL:upgradepilot-learning-by-doing
 UP-SKILL:upgradepilot-working-memory
