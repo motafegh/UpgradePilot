@@ -9,9 +9,9 @@ Ali explicitly selects the proposed next responsibility: qualify a materially di
 - A2 — DONE for the selected qualification/run: inspect retained source only, freeze before new analyzer output, execute unchanged code, distinguish structural success/rejection/unknown from installed identity and runtime proof. Defects, if demonstrated, require preserved counterexamples and scoped regression/repair.
 - B — DONE for the selected retained trial: qualified/froze second scenario and ran the existing method unchanged once; four conditional bound comparisons and one receiver-undetermined comparison match all expectations.
 - Verification gate — GREEN for this scope: first attempt1.022769608s;12 files/205,876 bytes/20,917 AST nodes/1,113 facts;13 cold views2.575517522s and guarded no-network/no-AST/no-analyzer opening pass. Original/new/HTTPX artifact hashes and method identities verify; broader product and independent usefulness claims remain unearned.
-- D — CURRENT: teach direct/variadic/default/receiver facts, same-named overload selection, actual contrasts and proof limits; no independent mastery inferred.
-- E — PENDING: disposition, residual debt and next responsibility; no implied independent mastery or product acceptance.
-- C — CONTINUOUS: preserve meaningful qualification, freeze, outcomes, failures/corrections and publication.
+- D — DONE for guided result/continuity explanation: actual contrasts and component-versus-PR flow explained and challenged; independent code-level ownership remains unassessed/deferred.
+- E — DONE for this bounded engineering handoff: unchanged-method disposition and proof limits preserved; Ali selects the next integration design cycle. Code-level practice/mastery and independent usefulness remain explicitly deferred, not certified.
+- C — DONE for this cycle: qualification, freeze, outcomes, evidence and continuation preserved.
 
 ## Scope and gate adaptation
 
@@ -52,6 +52,10 @@ Retain the unchanged method for the demonstrated conditional source-binding enve
 Delivered the selected qualification/run/consumer responsibility; D/user review and E remain open. Next proposed responsibility is bounded design of ordinary experimental source acquisition/retention/correspondence integration without curated answer selectors, preserving actual gaps and reconciling minimum retained consumer evidence with the pending Workspace migration subject. Do not perform that next design/build or full native/product migration automatically in this cycle. Preserve unrelated October3 audit and freeze this case without outcome-based expansion.
 
 Final artifact verification:105 local references resolve; freeze, method, attempt and receipt provenance agree; public actual-view/attempt hashes match the private originals; git diff --check passes. There is no executable/test/product/specification/ADR diff from1475abd3. Readiness/freeze and final results are separate coherent publications. These checks verify record integrity, not independent usefulness or learner mastery.
+
+## Closure and continuation
+
+After Ali's follow-up questions, clarified that the two retained cases prove selected comparisons, whereas an ordinary PR flow must find evidence itself. Ali reports better understanding, accepts the proposed design-cycle route and explicitly selects it. Close this bounded qualification/evaluation cycle with code-level practice and independent learner ownership deferred; do not convert agreement into mastery. Integration work continues in the [new design cycle](2026-10-28_pr-driven-caller-signature-integration_design-cycle.md). Frozen case results and historical CI/model limits remain unchanged.
 
 UP-SKILL:upgradepilot-build-implement
 UP-SKILL:upgradepilot-learning-by-doing
