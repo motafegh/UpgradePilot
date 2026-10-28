@@ -10,6 +10,10 @@ from unittest.mock import patch
 from test_cli import _artifact_candidate_investigation, _supported_investigation
 from test_investigation import _dependency, _Harness, _run
 
+from upgradepilot.dependency.analysis import DependencyChangeAnalysis
+from upgradepilot.dependency.environment import UvLockDependencyContext
+from upgradepilot.github.repository import RepositoryTextFile
+from upgradepilot.investigation import investigate_public_pull_request
 from upgradepilot.report import render_ci_report, render_investigation_report
 from upgradepilot.report_file import decode_report, encode_report
 from upgradepilot.report_projection import project_ci_report, project_investigation_report
@@ -60,6 +64,103 @@ def _assert_ci_parity(test, investigation):
 
 
 class ReportProjectionTests(unittest.TestCase):
+    def test_uv_conditional_path_and_blockers_reach_saved_and_ci_views(self):
+        # Actual CI owners derive evidence from controlled source records. The two
+        # conditional markers conflict; displaying them must not imply satisfiability.
+        for mode in ("conditional", "unconditional", "no_path"):
+            with self.subTest(mode=mode):
+                harness = _Harness()
+                dependency = _dependency()
+                evidence = replace(
+                    dependency.source_evidence[0], path="uv.lock",
+                    file_format="uv_lock", extraction_method="exact_base_head_files",
+                )
+                dependency = replace(dependency, source_evidence=(evidence,))
+                context = UvLockDependencyContext(
+                    harness.identity.repository, harness.identity.head_sha, "demo", evidence,
+                )
+                changed = harness.pull_client.get_changed_files.return_value[0]
+                harness.pull_client.get_changed_files.return_value = (
+                    replace(changed, filename="uv.lock"),
+                )
+                harness.set_workflow(
+                    "jobs:\n  docs:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n"
+                    "      - run: uv sync --group docs\n", job_names=("docs",),
+                )
+                conditional = mode == "conditional"
+                root_marker = ', marker = "python_version < \'3.12\'"' if conditional else ""
+                edge_marker = ', marker = "python_version >= \'3.12\'"' if conditional else ""
+                dependencies = (
+                    f'dependencies = [{{ name = "demo"{edge_marker} }}]'
+                    if mode != "no_path" else ""
+                )
+                lock_text = f'''version = 1
+revision = 1
+[[package]]
+name = "target-project"
+source = {{ editable = "." }}
+[package.dev-dependencies]
+docs = [{{ name = "bridge"{root_marker} }}]
+[[package]]
+name = "bridge"
+version = "1.0"
+source = {{ registry = "https://pypi.org/simple" }}
+{dependencies}
+[[package]]
+name = "demo"
+version = "1.1"
+source = {{ registry = "https://pypi.org/simple" }}
+'''
+                project_file = harness.repository_client.get_exact_head_text_file.return_value
+
+                def exact_file(identity, path):
+                    if path == "uv.lock":
+                        return RepositoryTextFile(
+                            identity.repository, path, identity.head_sha, lock_text,
+                        )
+                    self.assertEqual(path, "pyproject.toml")
+                    return project_file
+
+                harness.repository_client.get_exact_head_text_file.side_effect = exact_file
+                # The harness controls providers and the transition answer. Selection,
+                # lock traversal, CI composition and report mapping run normally.
+                with patch(
+                    "upgradepilot.investigation_inputs.analyze_dependency_change",
+                    return_value=DependencyChangeAnalysis(dependency, (context,)),
+                ):
+                    investigation = investigate_public_pull_request(
+                        "example/project", 7, **harness.kwargs(),
+                    )
+                consumption = investigation.ci_coverage_result.workflows[0].consumptions[0]
+                partial = _assert_ci_parity(self, investigation)
+                report = project_investigation_report(investigation)
+                opened = decode_report(encode_report(report))
+                self.assertEqual(opened, report)
+                self.assertEqual(opened.action.state, "abstain")
+                expected_state = {
+                    "conditional": "unresolved", "unconditional": "supported",
+                    "no_path": "not_established",
+                }[mode]
+                self.assertEqual(consumption.state, expected_state)
+                conditional_label = "Conditional reachability candidate (diagnostic only)"
+                condition_label = "Unevaluated reachability condition"
+                for view in (
+                    render_ci_report(partial), render_investigation_report(opened, saved=True),
+                ):
+                    self.assertIn(f"Consumption state: {expected_state}", view)
+                    if mode == "conditional":
+                        self.assertEqual(consumption.conditional_candidate_path, ("bridge", "demo"))
+                        self.assertEqual(len(consumption.unresolved_conditions), 2)
+                        self.assertIn(f"{conditional_label}: bridge -> demo", view)
+                        for condition in consumption.unresolved_conditions:
+                            self.assertIn(f"{condition_label}: {condition}", view)
+                        self.assertNotIn("Reachability witness: bridge -> demo", view)
+                    else:
+                        self.assertNotIn(conditional_label, view)
+                        self.assertNotIn(condition_label, view)
+                        if mode == "unconditional":
+                            self.assertIn("Reachability witness: bridge -> demo", view)
+
     def test_ci_only_preserves_available_and_not_evaluated_without_synthesizing_action(self):
         investigation = _run(_Harness(), _dependency())
         for value in (investigation, replace(investigation, ci_coverage_result=None,

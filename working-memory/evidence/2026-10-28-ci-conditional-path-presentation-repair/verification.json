@@ -1,0 +1,119 @@
+{
+  "kind": "bounded_ci_conditional_diagnostic_presentation_repair",
+  "entry_revision": "7abd839e",
+  "cycle_opening_commit": "e2eadd2f",
+  "source_sha256": {
+    "src/upgradepilot/report_projection.py": "6ba9ae28b1f37eccab583af53c97d0bf02fc95a7afd3f6541e593890dc0d0279",
+    "tests/test_report.py": "99305b6f87b5fa3fc57b6db9af40274c042a0d14d75b86893efa7daa8d926cf8"
+  },
+  "implementation": "Copy nonempty retained conditional_candidate_path and every unresolved_conditions item into existing ReportFact records in the shared CI report mapping.",
+  "regression": {
+    "selector": "tests.test_report.ReportProjectionTests.test_uv_conditional_path_and_blockers_reach_saved_and_ci_views",
+    "variants": [
+      "conditional with contradictory unevaluated markers",
+      "unconditional witness",
+      "fully traversed no path"
+    ],
+    "fixture_correction": "Initial workflow omitted runner platform, so normal command analysis correctly refused. Added runs-on ubuntu-latest; no guard changed.",
+    "before_fix": "Corrected source-derived regression fails one conditional subtest on missing rendered path; other two controls pass.",
+    "after_fix": "Focused test passes/0.037s; subsequent test-only readability refinements are covered by the final full suite.",
+    "scope": "Controlled provider/transition normal application and CI owners, shared projection, CI rendering, full report encoding/decoding and saved rendering; not real PR acquisition."
+  },
+  "final_product_regression": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:tests:. .venv/bin/python3 -m unittest discover -s tests -q",
+    "count": 909,
+    "seconds": 171.555,
+    "result": "OK",
+    "note": "Includes the new regression; expected CLI argument-refusal messages are negative-fixture output."
+  },
+  "affected_experiment_consumer": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:tests:. .venv/bin/python3 -m unittest experiments.tests.test_investigator_ci_presentation -q",
+    "count": 7,
+    "seconds": 0.465,
+    "result": "OK",
+    "scope": "Controlled native-owner/consumer tests, no frozen official-case rerun or model invocation."
+  },
+  "controlled_repeat_of_prior_diagnostic": {
+    "fixtures": [
+      "tests/test_uv_selected_root_reachability.py::_s001_lock",
+      "tests/test_ci_dependency_coverage.py::_uv_dependency,_input,_job",
+      "tests/test_investigation.py::_identity"
+    ],
+    "prior_receipt": "working-memory/evidence/2026-10-28-pr-driven-caller-signature-design/uv-composition-diagnostic.json",
+    "prior_receipt_unchanged_sha256": "a11e4cd1107e43414612d8a3ec10785400fdcaaecd0f25b6e4b3980ba180653c",
+    "new_view": "after-ci-view-excerpt.txt",
+    "new_view_sha256": "6c138de325b6bc8cbc911a35da291698892ff0a97f6415ee29d74ab2c8113dff",
+    "native_ci_value_roundtrip_equal": true,
+    "state": "unresolved",
+    "exact_path_and_raw_condition_now_visible": true,
+    "not_a_full_workspace_reconstruction": true
+  },
+  "frozen_attempt_members_verified": 10,
+  "frozen_members": [
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "result.json",
+      "sha256": "3a6b874967d413f89155895d51368fddbb2e15a257ff8977448a350b26a41580"
+    },
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "view.txt",
+      "sha256": "d0bd57fec01eb2bb6ee8d530c941c51fb2893584c12c533161595db65205b88c"
+    },
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "attempt.json",
+      "sha256": "bf5d8c092679cab4feffa79a3cc2444697b8f5f1be4b6ab67133b5255a262d7e"
+    },
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "sources.json",
+      "sha256": "8de0c185a5be747ec1044eca9b7a8446fbd1652db2a7ed25b82ab832d5c88da1"
+    },
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "attempt-started.json",
+      "sha256": "feaf6d28e7e4b60216f707d1ddae70612577baa24f812a95550652af88f7724f"
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "result.json",
+      "sha256": "dcdf848f0f0c79fddcc091cbfa596e3fb813ece3714204b9152e70c22c7bab09"
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "view.txt",
+      "sha256": "19a38c6246ed7e9f19bf828de493d7c3373d4b44d9787a7f755be5cec9659d97"
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "attempt.json",
+      "sha256": "0595030c7fe82931ca0a440539ddf4023137d5fda2e9c162210fc21ee60c3aca"
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "sources.json",
+      "sha256": "770ab80fea86f6895fc52e278548d075414fe859f28ee09edb2c382c6296124d"
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "attempt-started.json",
+      "sha256": "11ab490a3429882a51062a06bc3afb395ed0db2652ea4cad786899c463a09d04"
+    }
+  ],
+  "executable_spec_adr_diff_paths": [
+    "src/upgradepilot/report_projection.py",
+    "tests/test_report.py"
+  ],
+  "local_references_checked": 110,
+  "missing_local_references": 0,
+  "compatibility": "No saved schema/codec change. Already saved report projections remain historical; open does not backfill fields.",
+  "non_proof": [
+    "marker evaluation or satisfiability",
+    "runtime installation/execution or compatibility",
+    "maintainer-action permission",
+    "automatic API source discovery or native adoption",
+    "independent usefulness or learner mastery"
+  ],
+  "external_work": "No new provider acquisition, model inference/loading, third-party code execution or frozen evaluation rerun. Git fetch/push are project coordination only."
+}

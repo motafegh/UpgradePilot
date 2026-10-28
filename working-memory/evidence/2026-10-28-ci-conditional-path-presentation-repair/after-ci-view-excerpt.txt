@@ -1,0 +1,8 @@
+CONTROLLED CI VIEW EXCERPT — not a fresh real PR acquisition
+CI dependency coverage: unresolved
+Consumption state: unresolved
+Consumption reason: uv_selected_root_conditional_candidate_unresolved
+Consumption detail: A deterministic structural path reaches the changed package only through unevaluated marker/resolution conditions. The candidate is diagnostic only; the conditions have not been evaluated for compatibility or target applicability.
+Conditional reachability candidate (diagnostic only): mkdocs-llmstxt -> beautifulsoup4 -> soupsieve
+Unevaluated reachability condition: edge marker to 'soupsieve': python_version >= '3.12'
+This view establishes neither whole-update compatibility nor maintainer-action permission.

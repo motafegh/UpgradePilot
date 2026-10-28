@@ -557,6 +557,24 @@ def _project_ci(
                         ),
                     )
                 )
+                # These are retained diagnostics, not an unconditional witness or
+                # evidence that the encountered conditions can hold together.
+                if consumption.conditional_candidate_path:
+                    facts.append(
+                        _fact(
+                            f"conditional_path_{j}",
+                            "Conditional reachability candidate (diagnostic only)",
+                            " -> ".join(consumption.conditional_candidate_path),
+                        )
+                    )
+                facts.extend(
+                    _fact(
+                        f"unresolved_condition_{j}_{k}",
+                        "Unevaluated reachability condition",
+                        condition,
+                    )
+                    for k, condition in enumerate(consumption.unresolved_conditions, 1)
+                )
             p.assess(
                 f"ci-workflow-{i}",
                 f"Dependency coverage workflow {workflow.workflow_name}",
