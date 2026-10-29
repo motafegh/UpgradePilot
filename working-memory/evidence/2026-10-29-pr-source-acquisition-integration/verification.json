@@ -1,0 +1,147 @@
+{
+  "kind": "shared_native_input_and_bounded_source_acquisition_increment_not_callable_or_product_adoption",
+  "client_date": "2026-10-29",
+  "entry_revision": "993684d2",
+  "progressive_commits": [
+    "3fa1cf71",
+    "b0770683",
+    "865ade5b"
+  ],
+  "fresh_validation": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:tests:. .venv/bin/python3 -m unittest discover -s experiments/tests -p 'test_api*.py' -q",
+    "tests": 184,
+    "seconds": 1.185,
+    "result": "OK",
+    "new_tests_over_previous_165": 19,
+    "negative_fixture_output": "The printed I001 no-observations record is controlled fixture output, not inference."
+  },
+  "native_prefix_checkpoint": {
+    "tests": 25,
+    "seconds": 0.224,
+    "result": "OK",
+    "scope": "ordinary PR/interpretation/replay composition at prefix increment"
+  },
+  "source_sha256": {
+    "experiments/api_target_context_smoke.py": "9ed42ca48cb909067f2b67b0dc75051e29be6b7cdbf4de52a96f456244d4ccfa",
+    "experiments/api_adapter_exploration.py": "307e6c79d4a7f9e3364055a9011d64a58ae12b9c7190e735be34ebed4396660c",
+    "experiments/tests/test_api_public_pr_context.py": "e688c1b5ea0f0f7ee976883f7af8cbdca44fe40f06c33e76e1a18628e2131622",
+    "experiments/tests/test_api_adapter_exploration.py": "2eb7a83cd275c26012c22f402a355d29eca4270ce39918ec77a8bc68ff1426c3",
+    "src/upgradepilot/investigation_inputs.py": "cafc5f52d7d61bf6b021663541c1f1460541e50e83e1e6670a189ecc13a62c18"
+  },
+  "source_qualification_sampling_ast_parity": {
+    "normalization": "self._source_owner.provider -> self.provider for moved private inspection method only",
+    "functions": {
+      "_inspect_release": true,
+      "_module_path": true,
+      "select_exploration_version": true
+    },
+    "meaning": "Same admitted qualification/path/sample logic, not proof of every new cache/orchestration contract."
+  },
+  "current_control_source_identities_match": true,
+  "controlled_evidence": {
+    "ordinary-control.json": "d212fbc203bb3bb810852a9d36473abca3cea283e13cb944730d9a040a306f74",
+    "ordinary-control-current.json": "e2ccdf014c115e0aa6a5c2a83e39d323a228d827b104845bb705b2cc0fa48638",
+    "request-allocation-controls.json": "0df27398968319fbcda2af06b140d853363da193dc9ebd89c5a5650933488e89"
+  },
+  "proof_classes": {
+    "ordinary-control.json": "initial controlled ordinary composition before native deferral; preserved without regrading",
+    "ordinary-control-current.json": "current controlled ordinary composition, all HTTP forbidden; tiny source fixtures including valid empty changed modules",
+    "request-allocation-controls.json": "request-charge model through fake transport and actual transport limit; not actual live endpoint costs/timing/reservation policy"
+  },
+  "source_work_current_control": {
+    "release_identities": [
+      [
+        "bridge",
+        "2.0"
+      ],
+      [
+        "mediator",
+        "2.0"
+      ],
+      [
+        "vendor",
+        "1.0"
+      ],
+      [
+        "vendor",
+        "2.0"
+      ]
+    ],
+    "module_attempts": 4,
+    "source_bytes": 83
+  },
+  "native_version_requests_current_control": [
+    "native_old_version",
+    "native_proposed_version"
+  ],
+  "protected_product_test_tool_spec_adr_diff": [],
+  "product_regression": {
+    "status": "historical proof reused at unchanged product source/tests",
+    "prior_count": 909,
+    "prior_seconds": 171.555,
+    "rerun": false,
+    "receipt": "../2026-10-28-ci-conditional-path-presentation-repair/verification.json"
+  },
+  "frozen_attempt_members_verified": 10,
+  "frozen_members": [
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "result.json",
+      "sha256": "3a6b874967d413f89155895d51368fddbb2e15a257ff8977448a350b26a41580"
+    },
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "view.txt",
+      "sha256": "d0bd57fec01eb2bb6ee8d530c941c51fb2893584c12c533161595db65205b88c"
+    },
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "attempt.json",
+      "sha256": "bf5d8c092679cab4feffa79a3cc2444697b8f5f1be4b6ab67133b5255a262d7e"
+    },
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "sources.json",
+      "sha256": "8de0c185a5be747ec1044eca9b7a8446fbd1652db2a7ed25b82ab832d5c88da1"
+    },
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "attempt-started.json",
+      "sha256": "feaf6d28e7e4b60216f707d1ddae70612577baa24f812a95550652af88f7724f"
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "result.json",
+      "sha256": "dcdf848f0f0c79fddcc091cbfa596e3fb813ece3714204b9152e70c22c7bab09"
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "view.txt",
+      "sha256": "19a38c6246ed7e9f19bf828de493d7c3373d4b44d9787a7f755be5cec9659d97"
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "attempt.json",
+      "sha256": "0595030c7fe82931ca0a440539ddf4023137d5fda2e9c162210fc21ee60c3aca"
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "sources.json",
+      "sha256": "770ab80fea86f6895fc52e278548d075414fe859f28ee09edb2c382c6296124d"
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "attempt-started.json",
+      "sha256": "11ab490a3429882a51062a06bc3afb395ed0db2652ea4cad786899c463a09d04"
+    }
+  ],
+  "local_references_checked": 122,
+  "missing_local_references": 0,
+  "remaining_limits": [
+    "No callable/re-export/initializer/protocol correspondence or new checker results",
+    "Legacy manifest is not full source-text retention or Workspace recovery",
+    "Live staged reservation, annotated-tag cost, aggregate-body and deadline policy still need selection/proof",
+    "Independent semantic/usefulness/action admission and learner mastery not established"
+  ],
+  "external_work": "No real provider acquisition, model loading/inference or target execution. Test HTTP is mocked; Git fetch/push is repository coordination. No frozen attempt rerun/regrade."
+}
