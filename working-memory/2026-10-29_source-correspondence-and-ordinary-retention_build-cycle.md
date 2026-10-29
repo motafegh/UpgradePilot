@@ -13,9 +13,9 @@ Entry: main6130489d; fetch confirms HEAD/origin main equal. The unrelated untrac
 - A2 — DONE with adaptation below: preceding overview explicitly described direct/re-export/initializer candidates, unchanged checker, full source retention and offline opening; current commentary confirms scope.
 - B — DONE: direct/re-export/initializer candidates, unchanged checker, ordinary format2 retention and offline consumer.
 - Verification gate — GREEN for this experiment increment: controlled composition, failure/coverage controls, bounded worker, source integrity and fixed v1 compatibility; no live/product proof.
-- D — CURRENT: guided result and reasoning handoff; deeper learning/practice remains unassessed.
-- E — PENDING: explicit residual scope and next responsibility.
-- C — CONTINUOUS: update this single record at meaningful decisions/corrections/proof checkpoints.
+- D — DONE as guided engineering handoff: source/result/evidence explained and learning route retained; independent mastery unassessed.
+- E — DONE: deeper independent learning explicitly deferred, engineering proof/non-proof consolidated and next responsibility handed off.
+- C — DONE: meaningful progression preserved and published incrementally through closure.
 
 ## A-phase map and gate adaptation
 
@@ -67,5 +67,17 @@ Inclusive API proof after corrections:204 tests/2.076s (20 new over184); no full
 Two original v1 HTTPX/pytest bundles were opened as fixed saved DATA, with AST/network/checker forbidden. This is new read-only compatibility evidence, not a replay, source analysis, result regeneration or regrade. Five saved comparisons each and7/12 source files decode; all10 frozen member hashes match before and after opening. No raw real-source bundle was published.
 
 Final source review removed unused queue payload and made malformed discovery-shape admission explicitly refuse before field access. The existing corruption control now covers that case. Inclusive suite remains204 tests/2.179s. Earlier snapshot controls/receipt are retained at their exact code hashes; final horizon proof is recorded separately rather than overwriting immutable attempts. Product src/tests/tools/specs/ADRs remain unchanged from entry6130489d.
+
+## Evidence-backed learning / closure
+
+A2 expectation was acquisition→source relationships→unchanged checker→saved ordinary explanation. The actual controlled result establishes that path for the admitted direct/re-export/initializer family, including a useful old/proposed contrast and explicit unavailable/refused states. It also exposed real namespace/display flaws within the new layer; their correction and tests are part of the engineering result. No lower-level owner was changed merely to support an unsupported pattern.
+
+The [final receipt](evidence/2026-10-29-source-correspondence-and-ordinary-retention/final-verification.json) binds the final4274cf1c source horizon, a separately named immutable controlled attempt,204/2.179s inclusive tests, offline API opening with AST/network/checker forbidden, exact CLI view reproduction and unchanged earlier controls. Shared curated decoding stayed unchanged across the final correction, so its actual two-case read-only compatibility proof remains applicable. Initial artifacts remain historical snapshots rather than being rewritten as final-horizon outputs.
+
+Later learning route: (1) ordinary repo/PR prefix and observed description; (2) qualified source roles and internal-module requests; (3) target import/alias witness and binding uncertainty; (4) re-export/initializer/base source path with alternatives; (5) one-receiver local comparison versus execution applicability; (6) missing-side/export-write/namespace-collision diagnostics; (7) complete retained text, format1/2 and fixed opening; (8) bounded worker failures and integrity; (9) why native Workspace/report adoption remains separate. Use the saved controlled example for this new flow and the original real HTTPX/pytest evidence for their existing curated proof. Do not conflate those proof classes.
+
+Independent explanation/practice and deeper teaching are deferred for Ali's later learning use, as requested; no understanding or mastery is inferred from AI implementation, agreement or passing tests. Technical/source decisions, corrections and proof can now be reconstructed without the chat.
+
+Next under the existing design: qualify/build the separately bounded protocol/factory source pattern needed by the pytest case. Fresh ordinary live acquisition still requires actual staged request/body/deadline allocation and its own frozen contract. Native API types/codecs/material closure/report/CLI adoption follows useful ordinary evidence and a concrete adoption decision. No fresh run, model trial, target execution, full migration, universal compatibility or maintainer action permission is authorized or established by this closure.
 
 Procedures: UP-SKILL:upgradepilot-build-implement; UP-SKILL:upgradepilot-learning-by-doing; UP-SKILL:upgradepilot-working-memory.

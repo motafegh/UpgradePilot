@@ -25,7 +25,7 @@ The extraction/binding checker is unchanged. A local rejected/bound/undetermined
 
 ## Actual controlled result
 
-[The saved ordinary control](controlled-ordinary/view.txt) starts with repository/PR and controlled provider records, with real HTTP forbidden. It discovers target→bridge re-export→mediator.Client initializer→declared vendor.Base/super initialization→relative vendor implementation.
+[The final saved ordinary control](controlled-ordinary-final/view.txt) starts with repository/PR and controlled provider records, with real HTTP forbidden. It discovers target→bridge re-export→mediator.Client initializer→declared vendor.Base/super initialization→relative vendor implementation.
 
 | Comparison role | Version | Local outcome | Meaning |
 | --- | --- | --- | --- |
@@ -35,7 +35,7 @@ The extraction/binding checker is unchanged. A local rejected/bound/undetermined
 
 One PR observation, zero identity-only refetches, one changed-file read. Shared source work:4 release identities,6 module questions,298 admitted library-text bytes. Retained analysis:8 files/368 text bytes,55 AST nodes,6 facts,3 comparisons. These intentionally tiny authored sources demonstrate ordinary composition and discriminatory output; they are not measurements on GitHub or independent generality evidence. The public bundle contains only locally authored control text.
 
-[CONTROL_REVIEW.json](CONTROL_REVIEW.json) summarizes role-labelled findings and premises. The complete [result](controlled-ordinary/result.json), [source companion](controlled-ordinary/sources.json), prepared input and started/final attempt receipts remain available. The saved view is derived data; opening validates and renders the result/source companion rather than trusting view.txt.
+[CONTROL_REVIEW.json](CONTROL_REVIEW.json) summarizes role-labelled findings and premises from the first snapshot. The final complete [result](controlled-ordinary-final/result.json), [source companion](controlled-ordinary-final/sources.json), prepared input and started/final attempt receipts remain available. The saved view is derived data; opening validates and renders the result/source companion rather than trusting view.txt. The initial controlled-ordinary bundle/receipt stays unchanged at4aa41f72; final source-shape admission and unused-payload cleanup are bound separately at4274cf1c in [the final receipt](final-verification.json).
 
 [The incomplete retained control](retained-incomplete-control/view.txt) has an old declaration and an empty proposed module. It retains one old-side comparison plus a missing-declaration gap. It does not report an API removal or compatibility from the missing side. Its proof class is retained_component_discovery, distinct from controlled ordinary composition.
 
@@ -52,7 +52,15 @@ One PR observation, zero identity-only refetches, one changed-file read. Shared 
 
 ## Verification and preservation
 
-[verification.json](verification.json) records204 passing API experiment tests/2.076s,20 added over the184-test entry. It binds method/test/control hashes and exact proof scopes. Tests discriminate aliases, relative/star re-exports, repeated/decorated declarations, conditional origins, parent initialization and multiple bases, skipped nested callbacks, renamed/src layouts, local collisions, invalid syntax, overwritten/deleted exports, missing sides, cycles, pair/path/resource limits, worker failure/deadline, immutable attempts, multiline output, source inspection and corruption. Existing curated/interpretation/replay controls remain green. Printed I001 negative fixture output is not inference.
+[final-verification.json](final-verification.json) records204 passing API experiment tests/2.179s,20 added over the184-test entry; [the earlier receipt](verification.json) preserves204/2.076s at its own source horizon. Receipts bind method/test/control hashes and exact proof scopes. Tests discriminate aliases, relative/star re-exports, repeated/decorated declarations, conditional origins, parent initialization and multiple bases, skipped nested callbacks, renamed/src layouts, local collisions, invalid syntax, overwritten/deleted exports, missing sides, cycles, pair/path/resource limits, worker failure/deadline, immutable attempts, multiline output, source inspection and corruption. Existing curated/interpretation/replay controls remain green. Printed I001 negative fixture output is not inference.
+
+Inspect from the repository root with the project environment:
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:tests:. .venv/bin/python3 -m experiments.api_ordinary_call_signature_trial open --result working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/controlled-ordinary-final
+```
+
+Add `--source UNIT_ID --start-line N --line-count N` using an ID printed by that view for literal saved source. There is deliberately no fresh-acquisition CLI in this increment. Reproduce the controlled normal-entry behavior through `experiments.tests.test_api_source_correspondence.OrdinaryRetentionTests`; its normal-entry control forbids HTTP. Artifact opening does not import those test controls.
 
 Both original HTTPX and glyphsLib/pytest v1 bundles were opened read-only with AST/network/checker forbidden:5 saved comparisons each,7/12 retained files respectively. All10 frozen member hashes match before/after. No original result was reanalyzed, regenerated, repaired or regraded.
 

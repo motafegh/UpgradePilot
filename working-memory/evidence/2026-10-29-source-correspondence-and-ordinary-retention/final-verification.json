@@ -1,0 +1,113 @@
+{
+  "client_date": "2026-10-29",
+  "method_revision": "4274cf1c",
+  "entry_revision": "6130489d",
+  "fresh_validation": {
+    "tests": 204,
+    "seconds": 2.179,
+    "result": "OK",
+    "new_over_entry": 20,
+    "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:tests:. .venv/bin/python3 -m unittest discover -s experiments/tests -p 'test_api*.py' -q"
+  },
+  "method_sha256": {
+    "experiments/api_call_signature.py": "6c6940769a0bc9e24d924865f87dbf9376cd3536e4ffe5fb81d3e919e45e8338",
+    "experiments/api_call_signature_trial.py": "02013aae7ecc891b8b7ebca445f89a9613c96beaf05649d4edd3a4ea0db6c366",
+    "experiments/api_python_bindings.py": "215e96e8e066cfae3a08c7a28f991cb810c8ec7da14e14abb85326509e93166a",
+    "src/upgradepilot/workspace/source_access.py": "56e34abe836ef6edec7142a003844532b445a7e31afaa1006598f892327bbb84",
+    "src/upgradepilot/workspace/native_representation.py": "2a9f510e453a7e33c079c8370dfcbe3136b3d6b1eb1591b005b953c9cf34710c",
+    "experiments/api_source_correspondence.py": "5c51f3f3f29f14da22d45b548dc98f1e23ec8314f9532d9c69442db3aa0d9a94",
+    "experiments/api_ordinary_call_signature_trial.py": "bf58a97b5ee103082df4059421196ba6bc501754151cf38817fa27ab7c2db5f5",
+    "experiments/api_target_context_smoke.py": "9ed42ca48cb909067f2b67b0dc75051e29be6b7cdbf4de52a96f456244d4ccfa",
+    "experiments/api_adapter_exploration.py": "307e6c79d4a7f9e3364055a9011d64a58ae12b9c7190e735be34ebed4396660c",
+    "experiments/api_target_context.py": "718ee467d83b8e7e71168e7d8c7d5264ff234fd4730b938092921be352900e6b",
+    "experiments/api_change_source_acquisition.py": "cfaa2e5ac1edb29c0bd6ace06dfe7d75c8d789e688ffa280e7fbd3a45ce72f16",
+    "src/upgradepilot/investigation_inputs.py": "cafc5f52d7d61bf6b021663541c1f1460541e50e83e1e6670a189ecc13a62c18"
+  },
+  "test_sha256": "1263d88a72392752bce30664357bc45ddddb8666e592c21d9d134e1fc896019b",
+  "ordinary_control": {
+    "proof_class": "controlled_ordinary_pr_composition",
+    "role_outcomes": {
+      "constraint_sample": "bound",
+      "native_proposed_version": "rejected",
+      "native_old_version": "bound"
+    },
+    "source_work": {
+      "module_attempts": 6,
+      "release_identities": [
+        [
+          "bridge",
+          "2.0"
+        ],
+        [
+          "mediator",
+          "2.0"
+        ],
+        [
+          "vendor",
+          "1.0"
+        ],
+        [
+          "vendor",
+          "2.0"
+        ]
+      ],
+      "source_bytes": 298
+    },
+    "analysis_work": {
+      "ast_nodes": 55,
+      "facts": 6,
+      "selected_pairs": 3,
+      "source_bytes": 368,
+      "source_files": 8
+    },
+    "pr_observations": 1,
+    "identity_only_refetches": 0,
+    "changed_file_reads": 1,
+    "cold_open": "AST/network/checker forbidden",
+    "cli_view_matches_saved": true
+  },
+  "prior_controls_unchanged": true,
+  "prior_control_method_revision": "4aa41f72",
+  "legacy_compatibility": {
+    "evidence": "verification.json",
+    "same_curated_decoder_hash": true,
+    "scope": "two actual saved v1 bundles read-only, no AST/network/checker or result regrade, ten member hashes unchanged"
+  },
+  "product_source_test_tool_spec_adr_diff": [],
+  "product_regression": "not rerun; product boundary unchanged",
+  "local_references_checked": 19,
+  "non_proof": [
+    "fresh live acquisition",
+    "factory/protocol closure",
+    "native/product integration",
+    "effective exports, installed versions, namespace, MRO or execution",
+    "independent semantic/usefulness acceptance",
+    "learner mastery"
+  ],
+  "artifact_sha256": {
+    "CONTROL_REVIEW.json": "ce7afe59c62d731a04750bb0f927234a05c6611748d8afed83f878bb1d34a658",
+    "REVIEW.md": "391b7d994beea240496683755ba7568e71205ce736e13101527627dc27776c09",
+    "controlled-analysis-refusal/attempt-started.json": "70807c2d7f36e060c6f7567b19df98a9055300328f28539c26d8733a7224551b",
+    "controlled-analysis-refusal/attempt.json": "d39f85c28ddb61a5118da7a2d021cbf7f7269f8f1a91081aafc58572bf3be22b",
+    "controlled-analysis-refusal/input.json": "2507fc181e7aba55799261385f0bd92ed2f4ee083c050518506948afea658765",
+    "controlled-ordinary/attempt-started.json": "3f29936d557733ff421fb6328a0b64a85eb3fe025add963b5357468dd4a1cc62",
+    "controlled-ordinary/attempt.json": "c058cfa1e3fb204f256ef0fa7b8af30724bde12a1c4f67bd246be003096bd29b",
+    "controlled-ordinary/input.json": "ce11dc770a59ebe42ee6000bcfa2f114843364e4bab146cd8b0cd0e983bf2c80",
+    "controlled-ordinary/result.json": "2dab80ef6e0545769be3ffdb8ff8147dd9be16f93763c030597b6e930b27ea46",
+    "controlled-ordinary/sources.json": "6cabb2fdf48883e2c1a439627fdc004685c5dddb14067030132f44437827540a",
+    "controlled-ordinary/view.txt": "c33c0d49692348263a52f31108cf72a6951917b4bc7c2651b2f5a19f8c0989f8",
+    "controlled-ordinary-final/attempt-started.json": "b259f45edc1948a076199f952020a064461cfac40475bde9a8a9a0913b80b4a8",
+    "controlled-ordinary-final/attempt.json": "be57e3d66a5b584ed8ef64a746a1cc42e2cbeff53bdb01aaf3b9a1f7e8adc781",
+    "controlled-ordinary-final/input.json": "54a4371957dfada5fadb308b72488082a5f02aa629a3fdf4ac94e74a395a271d",
+    "controlled-ordinary-final/result.json": "af15392198de784ba08cdda13e3612340a986beb575704a252378b2bee199613",
+    "controlled-ordinary-final/sources.json": "6cabb2fdf48883e2c1a439627fdc004685c5dddb14067030132f44437827540a",
+    "controlled-ordinary-final/view.txt": "c33c0d49692348263a52f31108cf72a6951917b4bc7c2651b2f5a19f8c0989f8",
+    "retained-incomplete-control/attempt-started.json": "40ca4fdbb295172a0bc61eee2b73e72cf84da2cc426699a2f52d765813fccfab",
+    "retained-incomplete-control/attempt.json": "ea70bf7cdfc1a302074e38668753688b898851918642a8b0e4356ef027b34da2",
+    "retained-incomplete-control/input.json": "2507fc181e7aba55799261385f0bd92ed2f4ee083c050518506948afea658765",
+    "retained-incomplete-control/result.json": "632120cf0cf7aafdbff235d970c0f2132272b2c8de797b46e66145a6ac2226fb",
+    "retained-incomplete-control/sources.json": "cb75e8d4302cdcba0c409101172e17a987cdc5af6cb061618286c104fdfe34ba",
+    "retained-incomplete-control/view.txt": "0c1b7c22f5e26c6a2b2337ccb5d398d40ba8bd98e10df5ef1253b64099aae819",
+    "verification.json": "b1e0b207afc2280a514acdc4eaf389ac70b13d11d84104bb02cacddb8e0767b8"
+  }
+}
