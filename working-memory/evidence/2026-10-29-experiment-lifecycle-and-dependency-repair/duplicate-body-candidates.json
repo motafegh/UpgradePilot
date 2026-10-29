@@ -1,0 +1,204 @@
+{
+  "scope": "same AST function body in non-test experiment source, minimum12 nodes; names/parameters/docstrings excluded; not a semantic equivalence assertion",
+  "candidates": [
+    [
+      {
+        "path": "experiments/b2_x1_e3_minimal_s001_planner_probe.py",
+        "function": "_local_session",
+        "line": 63
+      },
+      {
+        "path": "experiments/b2_x1_e4_closed_action_binding_probe.py",
+        "function": "_local_session",
+        "line": 62
+      },
+      {
+        "path": "experiments/b2_x1_e4_json_schema_binding_probe.py",
+        "function": "_local_session",
+        "line": 65
+      },
+      {
+        "path": "experiments/b2_x1_e5_no_tool_disposition_probe.py",
+        "function": "_local_session",
+        "line": 198
+      },
+      {
+        "path": "experiments/local_evidence_gap_planner.py",
+        "function": "build_lm_studio_session",
+        "line": 105
+      }
+    ],
+    [
+      {
+        "path": "experiments/b2_x1_e3_minimal_s001_planner_probe.py",
+        "function": "_available_model_ids",
+        "line": 71
+      },
+      {
+        "path": "experiments/b2_x1_e4_closed_action_binding_probe.py",
+        "function": "_available_model_ids",
+        "line": 70
+      },
+      {
+        "path": "experiments/b2_x1_e4_json_schema_binding_probe.py",
+        "function": "_available_model_ids",
+        "line": 73
+      },
+      {
+        "path": "experiments/b2_x1_e5_no_tool_disposition_probe.py",
+        "function": "_available_model_ids",
+        "line": 204
+      }
+    ],
+    [
+      {
+        "path": "experiments/b2_x1_e3_minimal_s001_planner_probe.py",
+        "function": "_extract_text_completion",
+        "line": 91
+      },
+      {
+        "path": "experiments/b2_x1_e4_closed_action_binding_probe.py",
+        "function": "_extract_text_completion",
+        "line": 90
+      },
+      {
+        "path": "experiments/b2_x1_e4_json_schema_binding_probe.py",
+        "function": "_extract_text_completion",
+        "line": 93
+      },
+      {
+        "path": "experiments/b2_x1_e5_no_tool_disposition_probe.py",
+        "function": "_extract_text_completion",
+        "line": 224
+      }
+    ],
+    [
+      {
+        "path": "experiments/b2_x1_phase4a_planner_smoke.py",
+        "function": "available_model_ids",
+        "line": 141
+      },
+      {
+        "path": "experiments/step6_support_drop_smoke.py",
+        "function": "_available_model_ids",
+        "line": 236
+      }
+    ],
+    [
+      {
+        "path": "experiments/b2_x1_phase4a_planner_smoke.py",
+        "function": "post_completion",
+        "line": 160
+      },
+      {
+        "path": "experiments/step6_support_drop_smoke.py",
+        "function": "_post_completion",
+        "line": 253
+      }
+    ],
+    [
+      {
+        "path": "experiments/b2_x1_planner_contract.py",
+        "function": "_trimmed",
+        "line": 449
+      },
+      {
+        "path": "experiments/evidence_gap_action_admission.py",
+        "function": "_trimmed",
+        "line": 338
+      },
+      {
+        "path": "experiments/evidence_gap_planner_model_boundary.py",
+        "function": "_trimmed",
+        "line": 348
+      }
+    ],
+    [
+      {
+        "path": "experiments/b2_x1_planner_contract.py",
+        "function": "_require_trimmed",
+        "line": 453
+      },
+      {
+        "path": "experiments/evidence_gap_action_admission.py",
+        "function": "_require_trimmed",
+        "line": 342
+      },
+      {
+        "path": "experiments/evidence_gap_planner_model_boundary.py",
+        "function": "_require_trimmed",
+        "line": 352
+      }
+    ],
+    [
+      {
+        "path": "experiments/b2_x1_planner_contract.py",
+        "function": "_require_canonical_repository",
+        "line": 458
+      },
+      {
+        "path": "experiments/evidence_gap_action_admission.py",
+        "function": "_require_canonical_repository",
+        "line": 347
+      }
+    ],
+    [
+      {
+        "path": "experiments/b2_x1_planner_contract.py",
+        "function": "_require_canonical_revision",
+        "line": 463
+      },
+      {
+        "path": "experiments/evidence_gap_action_admission.py",
+        "function": "_require_canonical_revision",
+        "line": 352
+      }
+    ],
+    [
+      {
+        "path": "experiments/b2_x1_planner_contract.py",
+        "function": "_require_repository_path",
+        "line": 468
+      },
+      {
+        "path": "experiments/evidence_gap_action_admission.py",
+        "function": "_require_repository_path",
+        "line": 357
+      }
+    ],
+    [
+      {
+        "path": "experiments/run_workspace_revision_comparison.py",
+        "function": "_summary",
+        "line": 38
+      },
+      {
+        "path": "experiments/workspace_checkpoint_trials.py",
+        "function": "_stats",
+        "line": 705
+      }
+    ],
+    [
+      {
+        "path": "experiments/step6_support_drop_contract_v2_live_evaluation.py",
+        "function": "_write_json",
+        "line": 215
+      },
+      {
+        "path": "experiments/step6_support_drop_contract_v2_replay.py",
+        "function": "_write_json",
+        "line": 163
+      },
+      {
+        "path": "experiments/step6_support_drop_evaluation.py",
+        "function": "_write_output",
+        "line": 326
+      },
+      {
+        "path": "experiments/step6_support_drop_smoke.py",
+        "function": "_write_output",
+        "line": 489
+      }
+    ]
+  ]
+}

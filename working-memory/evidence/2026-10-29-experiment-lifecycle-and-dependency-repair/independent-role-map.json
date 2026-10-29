@@ -1,0 +1,1618 @@
+{
+  "revision": "97983da343d9199b09304ba179d4e7cefbd5b722",
+  "note": "Independent dated role analysis, not the future subsystem registry. Roles overlap. Frozen outcomes do not imply every source file is immutable.",
+  "artifacts": [
+    {
+      "path": "experiments/EVIDENCE_REPORT_DEVELOPMENT_EVALUATION.md",
+      "family": "report_evaluation",
+      "roles": [
+        "qualification_protocol"
+      ],
+      "maintenance": "retained_development_protocol",
+      "evidence": "plans/MAINTAINER_REPORT_PRESERVATION_AND_USEFULNESS_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "family": "investigator",
+      "roles": [
+        "qualification_protocol"
+      ],
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/INVESTIGATOR_WORKSPACE_MECHANICAL_QUALIFICATION.md",
+      "family": "investigator",
+      "roles": [
+        "qualification_protocol"
+      ],
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/api_adapter_context_replay.py",
+      "family": "api_source",
+      "roles": [
+        "family_substrate",
+        "trial_runner",
+        "retained_reader_or_protocol"
+      ],
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "non_test_consumers": [
+        "experiments.api_change_interpretation_trial"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/api_adapter_exploration.py",
+      "family": "api_source",
+      "roles": [
+        "family_substrate"
+      ],
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "non_test_consumers": [
+        "experiments.api_adapter_context_replay",
+        "experiments.api_ordinary_call_signature_trial",
+        "experiments.api_target_context_smoke"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/api_call_signature.py",
+      "family": "api_source",
+      "roles": [
+        "family_substrate"
+      ],
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "non_test_consumers": [
+        "experiments.api_call_signature_trial",
+        "experiments.api_ordinary_call_signature_trial",
+        "experiments.api_source_correspondence"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/api_call_signature_trial.py",
+      "family": "api_source",
+      "roles": [
+        "family_substrate",
+        "trial_runner",
+        "retained_reader_or_protocol"
+      ],
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "non_test_consumers": [
+        "experiments.api_ordinary_call_signature_trial"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/api_change_interpretation.py",
+      "family": "api_source",
+      "roles": [
+        "family_substrate"
+      ],
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "non_test_consumers": [
+        "experiments.api_change_interpretation_evaluation",
+        "experiments.api_change_interpretation_trial"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/api_change_interpretation_evaluation.py",
+      "family": "api_source",
+      "roles": [
+        "trial_runner"
+      ],
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/api_change_interpretation_trial.py",
+      "family": "api_source",
+      "roles": [
+        "family_substrate",
+        "trial_runner",
+        "retained_reader_or_protocol"
+      ],
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "non_test_consumers": [
+        "experiments.api_change_interpretation_evaluation"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/api_change_source_acquisition.py",
+      "family": "api_source",
+      "roles": [
+        "family_substrate"
+      ],
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "non_test_consumers": [
+        "experiments.api_adapter_context_replay",
+        "experiments.api_adapter_exploration",
+        "experiments.api_change_interpretation",
+        "experiments.api_change_interpretation_trial",
+        "experiments.api_change_source_smoke",
+        "experiments.api_ordinary_call_signature_trial",
+        "experiments.api_release_window_manifest",
+        "experiments.api_target_context",
+        "experiments.api_target_context_smoke"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/api_change_source_smoke.py",
+      "family": "api_source",
+      "roles": [
+        "trial_runner"
+      ],
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/api_ordinary_call_signature_trial.py",
+      "family": "api_source",
+      "roles": [
+        "trial_runner",
+        "retained_reader_or_protocol"
+      ],
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/api_python_bindings.py",
+      "family": "api_source",
+      "roles": [
+        "family_substrate"
+      ],
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "non_test_consumers": [
+        "experiments.api_adapter_context_replay",
+        "experiments.api_call_signature",
+        "experiments.api_call_signature_trial",
+        "experiments.api_ordinary_call_signature_trial",
+        "experiments.api_source_correspondence",
+        "experiments.api_target_context",
+        "experiments.api_target_context_smoke"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/api_release_window_manifest.py",
+      "family": "api_source",
+      "roles": [
+        "family_substrate"
+      ],
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "non_test_consumers": [
+        "experiments.api_change_interpretation",
+        "experiments.api_change_source_smoke",
+        "experiments.api_target_context_smoke"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/api_source_correspondence.py",
+      "family": "api_source",
+      "roles": [
+        "family_substrate"
+      ],
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "non_test_consumers": [
+        "experiments.api_ordinary_call_signature_trial"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/api_target_context.py",
+      "family": "api_source",
+      "roles": [
+        "family_substrate"
+      ],
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "non_test_consumers": [
+        "experiments.api_adapter_context_replay",
+        "experiments.api_adapter_exploration",
+        "experiments.api_target_context_smoke"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/api_target_context_smoke.py",
+      "family": "api_source",
+      "roles": [
+        "family_substrate",
+        "trial_runner"
+      ],
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "non_test_consumers": [
+        "experiments.api_change_interpretation_trial",
+        "experiments.api_ordinary_call_signature_trial"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/b2_x1_e1_support_drop_semantic_probe.py",
+      "family": "evidence_gap",
+      "roles": [
+        "trial_runner"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/b2_x1_e2_s001_state_origin_probe.py",
+      "family": "evidence_gap",
+      "roles": [
+        "family_substrate",
+        "trial_runner"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [
+        "experiments.b2_x1_e3_minimal_s001_planner_probe"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/b2_x1_e3_minimal_s001_planner_probe.py",
+      "family": "evidence_gap",
+      "roles": [
+        "trial_runner"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/b2_x1_e4_closed_action_binding_probe.py",
+      "family": "evidence_gap",
+      "roles": [
+        "trial_runner"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/b2_x1_e4_deterministic_admission_probe.py",
+      "family": "evidence_gap",
+      "roles": [
+        "trial_runner"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/b2_x1_e4_json_schema_binding_probe.py",
+      "family": "evidence_gap",
+      "roles": [
+        "trial_runner"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/b2_x1_e5_no_tool_disposition_probe.py",
+      "family": "evidence_gap",
+      "roles": [
+        "trial_runner"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/b2_x1_evidence_gap_admission.py",
+      "family": "evidence_gap",
+      "roles": [
+        "compatibility_alias"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [
+        "experiments.b2_x1_s001_real_flow_a3_smoke",
+        "experiments.b2_x1_s001_real_flow_a4_transition"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/b2_x1_evidence_gap_composition.py",
+      "family": "evidence_gap",
+      "roles": [
+        "compatibility_alias"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [
+        "experiments.b2_x1_s001_real_flow_a3_smoke",
+        "experiments.b2_x1_s001_real_flow_a4_transition",
+        "experiments.b2_x1_s001_real_flow_composition_probe"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/b2_x1_evidence_gap_model.py",
+      "family": "evidence_gap",
+      "roles": [
+        "compatibility_alias"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [
+        "experiments.b2_x1_s001_real_flow_a3_smoke",
+        "experiments.b2_x1_s001_real_flow_a4_transition"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/b2_x1_evidence_gap_planner.py",
+      "family": "evidence_gap",
+      "roles": [
+        "compatibility_alias"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [
+        "experiments.b2_x1_s001_real_flow_a3_smoke",
+        "experiments.b2_x1_s001_real_flow_a4_transition",
+        "experiments.b2_x1_s001_real_flow_composition_probe"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/b2_x1_evidence_gap_transition.py",
+      "family": "evidence_gap",
+      "roles": [
+        "compatibility_alias"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [
+        "experiments.b2_x1_s001_real_flow_a4_transition"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/b2_x1_phase3b_harness.py",
+      "family": "evidence_gap",
+      "roles": [
+        "family_substrate"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [
+        "experiments.b2_x1_phase4a_planner_smoke"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/b2_x1_phase4a_planner_smoke.py",
+      "family": "evidence_gap",
+      "roles": [
+        "trial_runner"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/b2_x1_planner_contract.py",
+      "family": "evidence_gap",
+      "roles": [
+        "family_substrate"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [
+        "experiments.b2_x1_e4_closed_action_binding_probe",
+        "experiments.b2_x1_e4_deterministic_admission_probe",
+        "experiments.b2_x1_e4_json_schema_binding_probe",
+        "experiments.b2_x1_phase3b_harness",
+        "experiments.b2_x1_phase4a_planner_smoke"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/b2_x1_s001_real_flow_a3_smoke.py",
+      "family": "evidence_gap",
+      "roles": [
+        "trial_runner"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/b2_x1_s001_real_flow_a4_transition.py",
+      "family": "evidence_gap",
+      "roles": [
+        "trial_runner"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/b2_x1_s001_real_flow_composition_probe.py",
+      "family": "evidence_gap",
+      "roles": [
+        "trial_runner"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/current_ci_owner_diagnostic.py",
+      "family": "ci_diagnostics",
+      "roles": [
+        "trial_runner"
+      ],
+      "maintenance": "retained_diagnostic",
+      "evidence": "plans/CURRENT_CI_RETAINED_INPUT_ADMISSION_AND_OWNER_DIAGNOSTIC_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/evidence_gap_action_admission.py",
+      "family": "evidence_gap",
+      "roles": [
+        "family_substrate"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [
+        "experiments.b2_x1_evidence_gap_admission",
+        "experiments.evidence_gap_implementation_semantic_comparison",
+        "experiments.evidence_gap_investigation_transition",
+        "experiments.evidence_gap_product_planner_composition",
+        "experiments.langgraph.evidence_gap_ordinary_python_control_adapters"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/evidence_gap_implementation_semantic_comparison.py",
+      "family": "evidence_gap",
+      "roles": [
+        "experimental_component"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/evidence_gap_investigation_transition.py",
+      "family": "evidence_gap",
+      "roles": [
+        "family_substrate"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [
+        "experiments.b2_x1_evidence_gap_transition",
+        "experiments.evidence_gap_implementation_semantic_comparison"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/evidence_gap_planner_model_boundary.py",
+      "family": "evidence_gap",
+      "roles": [
+        "family_substrate"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [
+        "experiments.b2_x1_evidence_gap_planner",
+        "experiments.evidence_gap_action_admission",
+        "experiments.evidence_gap_implementation_semantic_comparison",
+        "experiments.evidence_gap_investigation_transition",
+        "experiments.evidence_gap_product_planner_composition",
+        "experiments.langgraph.evidence_gap_ordinary_python_control_adapters",
+        "experiments.local_evidence_gap_planner"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/evidence_gap_product_planner_composition.py",
+      "family": "evidence_gap",
+      "roles": [
+        "family_substrate"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [
+        "experiments.b2_x1_evidence_gap_composition",
+        "experiments.langgraph.evidence_gap_ordinary_python_control_adapters"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/evidence_report_development_cases.json",
+      "family": "report_evaluation",
+      "roles": [
+        "retained_data"
+      ],
+      "maintenance": "retained_development_protocol",
+      "evidence": "plans/MAINTAINER_REPORT_PRESERVATION_AND_USEFULNESS_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/evidence_report_rubric_calibration.json",
+      "family": "report_evaluation",
+      "roles": [
+        "retained_data"
+      ],
+      "maintenance": "retained_development_protocol",
+      "evidence": "plans/MAINTAINER_REPORT_PRESERVATION_AND_USEFULNESS_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/investigator_ci_presentation.py",
+      "family": "ci_diagnostics",
+      "roles": [
+        "trial_runner"
+      ],
+      "maintenance": "retained_diagnostic",
+      "evidence": "plans/INVESTIGATOR_NATIVE_CI_PRESENTATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/investigator_model_interface.py",
+      "family": "investigator",
+      "roles": [
+        "family_substrate"
+      ],
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "non_test_consumers": [
+        "experiments.prepare_investigator_supplied_evidence",
+        "experiments.qualify_investigator_model_interface",
+        "experiments.run_investigator_semantic_comparison",
+        "experiments.run_investigator_supplied_evidence"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/investigator_run_control.py",
+      "family": "investigator",
+      "roles": [
+        "family_substrate"
+      ],
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "non_test_consumers": [
+        "experiments.investigator_model_interface",
+        "experiments.investigator_supplied_evidence",
+        "experiments.run_investigator_supplied_evidence"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/investigator_supplied_evidence.py",
+      "family": "investigator",
+      "roles": [
+        "family_substrate"
+      ],
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "non_test_consumers": [
+        "experiments.prepare_investigator_supplied_evidence",
+        "experiments.run_investigator_supplied_evidence"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/investigator_supplied_evidence_packets.json",
+      "family": "investigator",
+      "roles": [
+        "retained_data"
+      ],
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/investigator_workspace_adapter.py",
+      "family": "investigator",
+      "roles": [
+        "family_substrate"
+      ],
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "non_test_consumers": [
+        "experiments.investigator_supplied_evidence",
+        "experiments.investigator_workspace_trial",
+        "experiments.qualify_investigator_model_interface",
+        "experiments.qualify_investigator_workspace",
+        "experiments.run_investigator_semantic_comparison"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/investigator_workspace_trial.py",
+      "family": "investigator",
+      "roles": [
+        "family_substrate",
+        "retained_reader_or_protocol"
+      ],
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "non_test_consumers": [
+        "experiments.investigator_model_interface",
+        "experiments.investigator_supplied_evidence",
+        "experiments.qualify_investigator_model_interface",
+        "experiments.qualify_investigator_workspace",
+        "experiments.run_investigator_semantic_comparison"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/langgraph/__init__.py",
+      "family": "evidence_gap",
+      "roles": [
+        "experimental_component"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/langgraph/evidence_gap_ordinary_python_control_adapters.py",
+      "family": "evidence_gap",
+      "roles": [
+        "family_substrate"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [
+        "experiments.langgraph.r4a_control_adapters",
+        "experiments.real_pydantic_python_support_langgraph_evidence_gap_smoke"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/langgraph/evidence_gap_workflow.py",
+      "family": "evidence_gap",
+      "roles": [
+        "family_substrate"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [
+        "experiments.evidence_gap_implementation_semantic_comparison",
+        "experiments.langgraph.evidence_gap_ordinary_python_control_adapters",
+        "experiments.real_pydantic_python_support_langgraph_evidence_gap_smoke"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/langgraph/r4a_control_adapters.py",
+      "family": "evidence_gap",
+      "roles": [
+        "compatibility_alias"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/local_evidence_gap_planner.py",
+      "family": "evidence_gap",
+      "roles": [
+        "family_substrate"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [
+        "experiments.b2_x1_evidence_gap_model",
+        "experiments.langgraph.evidence_gap_ordinary_python_control_adapters",
+        "experiments.real_pydantic_python_support_langgraph_evidence_gap_smoke"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/prepare_investigator_supplied_evidence.py",
+      "family": "investigator",
+      "roles": [
+        "family_substrate",
+        "trial_runner"
+      ],
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "non_test_consumers": [
+        "experiments.run_investigator_supplied_evidence"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/qualify_investigator_model_interface.py",
+      "family": "investigator",
+      "roles": [
+        "family_substrate",
+        "trial_runner"
+      ],
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "non_test_consumers": [
+        "experiments.run_investigator_semantic_comparison",
+        "experiments.run_investigator_supplied_evidence"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/qualify_investigator_workspace.py",
+      "family": "investigator",
+      "roles": [
+        "family_substrate",
+        "trial_runner"
+      ],
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "non_test_consumers": [
+        "experiments.prepare_investigator_supplied_evidence",
+        "experiments.run_investigator_semantic_comparison"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/real_pydantic_python_support_langgraph_evidence_gap_smoke.py",
+      "family": "evidence_gap",
+      "roles": [
+        "trial_runner"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/retained_native_ci_baseline_comparison.py",
+      "family": "ci_diagnostics",
+      "roles": [
+        "family_substrate",
+        "trial_runner"
+      ],
+      "maintenance": "retained_diagnostic",
+      "evidence": "plans/CURRENT_CI_RETAINED_INPUT_ADMISSION_AND_OWNER_DIAGNOSTIC_PLAN.md",
+      "non_test_consumers": [
+        "experiments.investigator_ci_presentation"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/run_investigator_semantic_comparison.py",
+      "family": "investigator",
+      "roles": [
+        "family_substrate",
+        "trial_runner"
+      ],
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "non_test_consumers": [
+        "experiments.prepare_investigator_supplied_evidence"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/run_investigator_supplied_evidence.py",
+      "family": "investigator",
+      "roles": [
+        "trial_runner"
+      ],
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/run_workspace_migration_trial.py",
+      "family": "workspace_research",
+      "roles": [
+        "trial_runner",
+        "retained_reader_or_protocol"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/run_workspace_public_grounding.py",
+      "family": "workspace_research",
+      "roles": [
+        "trial_runner"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/run_workspace_revision_comparison.py",
+      "family": "workspace_research",
+      "roles": [
+        "family_substrate",
+        "trial_runner"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "non_test_consumers": [
+        "experiments.workspace_checkpoint_trials"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/run_workspace_seam_trials.py",
+      "family": "workspace_research",
+      "roles": [
+        "trial_runner",
+        "retained_reader_or_protocol"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/step6_support_drop_contract_v2.py",
+      "family": "support_drop",
+      "roles": [
+        "family_substrate"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md",
+      "non_test_consumers": [
+        "experiments.step6_support_drop_contract_v2_live_evaluation",
+        "experiments.step6_support_drop_contract_v2_replay"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/step6_support_drop_contract_v2_assessment.py",
+      "family": "support_drop",
+      "roles": [
+        "trial_runner",
+        "retained_reader_or_protocol"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/step6_support_drop_contract_v2_live_evaluation.py",
+      "family": "support_drop",
+      "roles": [
+        "trial_runner"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/step6_support_drop_contract_v2_replay.py",
+      "family": "support_drop",
+      "roles": [
+        "trial_runner",
+        "retained_reader_or_protocol"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/step6_support_drop_evaluation.py",
+      "family": "support_drop",
+      "roles": [
+        "family_substrate",
+        "trial_runner"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md",
+      "non_test_consumers": [
+        "experiments.step6_support_drop_contract_v2_assessment",
+        "experiments.step6_support_drop_contract_v2_live_evaluation",
+        "experiments.step6_support_drop_contract_v2_replay"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/step6_support_drop_semantic_corpus.json",
+      "family": "support_drop",
+      "roles": [
+        "retained_data"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/step6_support_drop_smoke.py",
+      "family": "support_drop",
+      "roles": [
+        "family_substrate",
+        "trial_runner"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md",
+      "non_test_consumers": [
+        "experiments.step6_support_drop_contract_v2",
+        "experiments.step6_support_drop_contract_v2_live_evaluation",
+        "experiments.step6_support_drop_contract_v2_replay",
+        "experiments.step6_support_drop_evaluation"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/__init__.py",
+      "family": "test_support",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "test_support",
+      "evidence": "AGENTS.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_api_adapter_exploration.py",
+      "family": "api_source",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_api_call_signature.py",
+      "family": "api_source",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_api_call_signature_trial.py",
+      "family": "api_source",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_api_change_interpretation.py",
+      "family": "api_source",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_api_change_interpretation_evaluation.py",
+      "family": "api_source",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_api_change_source_acquisition.py",
+      "family": "api_source",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_api_public_pr_context.py",
+      "family": "api_source",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_api_python_bindings.py",
+      "family": "api_source",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_api_source_correspondence.py",
+      "family": "api_source",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_api_target_context.py",
+      "family": "api_source",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_b2_x1_e1_support_drop_semantic_probe.py",
+      "family": "evidence_gap",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_b2_x1_phase3b_harness.py",
+      "family": "evidence_gap",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_b2_x1_phase4a_planner_smoke.py",
+      "family": "evidence_gap",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_b2_x1_planner_contract.py",
+      "family": "evidence_gap",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_current_ci_owner_diagnostic.py",
+      "family": "ci_diagnostics",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "retained_diagnostic",
+      "evidence": "plans/CURRENT_CI_RETAINED_INPUT_ADMISSION_AND_OWNER_DIAGNOSTIC_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_evidence_gap_action_admission.py",
+      "family": "evidence_gap",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_evidence_gap_implementation_semantic_comparison.py",
+      "family": "evidence_gap",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_evidence_gap_investigation_transition.py",
+      "family": "evidence_gap",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_evidence_gap_planner_model_boundary.py",
+      "family": "evidence_gap",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_evidence_gap_product_planner_composition.py",
+      "family": "evidence_gap",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_investigator_ci_presentation.py",
+      "family": "ci_diagnostics",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "retained_diagnostic",
+      "evidence": "plans/INVESTIGATOR_NATIVE_CI_PRESENTATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_investigator_model_interface.py",
+      "family": "investigator",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_investigator_run_control.py",
+      "family": "investigator",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_investigator_supplied_evidence.py",
+      "family": "investigator",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_investigator_supplied_evidence_runner.py",
+      "family": "investigator",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_investigator_workspace_trial.py",
+      "family": "investigator",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_langgraph_evidence_gap_ordinary_python_control_adapters.py",
+      "family": "evidence_gap",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_langgraph_evidence_gap_workflow.py",
+      "family": "evidence_gap",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_local_evidence_gap_planner.py",
+      "family": "evidence_gap",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_report_source_capture.py",
+      "family": "test_support",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "test_support",
+      "evidence": "AGENTS.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_retained_native_ci_baseline_comparison.py",
+      "family": "ci_diagnostics",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "retained_diagnostic",
+      "evidence": "plans/CURRENT_CI_RETAINED_INPUT_ADMISSION_AND_OWNER_DIAGNOSTIC_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_step6_support_drop_contract_v2.py",
+      "family": "support_drop",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_step6_support_drop_contract_v2_assessment.py",
+      "family": "support_drop",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_step6_support_drop_contract_v2_live_evaluation.py",
+      "family": "support_drop",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_step6_support_drop_evaluation_harness.py",
+      "family": "support_drop",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_step6_support_drop_semantic_corpus.py",
+      "family": "support_drop",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_step6_support_drop_smoke_harness.py",
+      "family": "support_drop",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_step6c_local_http_runner.py",
+      "family": "support_drop",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_workspace_checkpoint_stores.py",
+      "family": "workspace_research",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_workspace_investigator_seam.py",
+      "family": "workspace_research",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_workspace_public_grounding.py",
+      "family": "workspace_research",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_workspace_replacement_migration.py",
+      "family": "workspace_research",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/tests/test_workspace_revision_representation.py",
+      "family": "workspace_research",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/workspace_checkpoint_stores.py",
+      "family": "workspace_research",
+      "roles": [
+        "family_substrate",
+        "retained_reader_or_protocol"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "non_test_consumers": [
+        "experiments.workspace_checkpoint_trials",
+        "experiments.workspace_seam_checkpoints"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/workspace_checkpoint_trials.py",
+      "family": "workspace_research",
+      "roles": [
+        "trial_runner",
+        "retained_reader_or_protocol"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "non_test_consumers": [],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/workspace_investigator_seam.py",
+      "family": "workspace_research",
+      "roles": [
+        "family_substrate"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "non_test_consumers": [
+        "experiments.run_workspace_public_grounding",
+        "experiments.run_workspace_seam_trials",
+        "experiments.workspace_seam_checkpoints",
+        "experiments.workspace_seam_native"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/workspace_public_input_tape.py",
+      "family": "workspace_research",
+      "roles": [
+        "family_substrate"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "non_test_consumers": [
+        "experiments.run_workspace_public_grounding"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/workspace_replacement_migration.py",
+      "family": "workspace_research",
+      "roles": [
+        "family_substrate"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "non_test_consumers": [
+        "experiments.run_workspace_migration_trial"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/workspace_retention_corpus.py",
+      "family": "workspace_research",
+      "roles": [
+        "family_substrate"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "non_test_consumers": [
+        "experiments.run_workspace_revision_comparison",
+        "experiments.workspace_checkpoint_trials",
+        "experiments.workspace_replacement_migration",
+        "experiments.workspace_seam_native"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/workspace_revision_representation.py",
+      "family": "workspace_research",
+      "roles": [
+        "family_substrate",
+        "retained_reader_or_protocol"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "non_test_consumers": [
+        "experiments.run_workspace_migration_trial",
+        "experiments.run_workspace_public_grounding",
+        "experiments.run_workspace_revision_comparison",
+        "experiments.run_workspace_seam_trials",
+        "experiments.workspace_checkpoint_stores",
+        "experiments.workspace_checkpoint_trials",
+        "experiments.workspace_investigator_seam",
+        "experiments.workspace_replacement_migration",
+        "experiments.workspace_retention_corpus",
+        "experiments.workspace_seam_checkpoints",
+        "experiments.workspace_seam_native"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/workspace_seam_checkpoints.py",
+      "family": "workspace_research",
+      "roles": [
+        "family_substrate"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "non_test_consumers": [
+        "experiments.run_workspace_migration_trial",
+        "experiments.run_workspace_public_grounding",
+        "experiments.run_workspace_seam_trials"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    },
+    {
+      "path": "experiments/workspace_seam_native.py",
+      "family": "workspace_research",
+      "roles": [
+        "family_substrate"
+      ],
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "non_test_consumers": [
+        "experiments.run_workspace_seam_trials"
+      ],
+      "classification_basis": "source docstring/entrypoint/import consumers plus named plan/evidence; not live execution selection or product admission"
+    }
+  ]
+}
