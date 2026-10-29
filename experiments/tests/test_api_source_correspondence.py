@@ -249,6 +249,18 @@ def ordinary_control():
 
 
 class OrdinaryRetentionTests(TestCase):
+    def test_current_ordinary_method_binds_support_without_curated_runner_dependency(self):
+        result, companion = prepare_ordinary_comparison(prepared("from vendor import send\nsend()\n",
+            "def send():\n pass\n", "def send():\n pass\n"), AnalysisLimits())
+        body, _ = read_ordinary_comparison(result, companion)
+        support = "experiments/api_signature_evidence.py"
+        self.assertEqual(body["code_sha256"][support], hashlib.sha256(Path(support).read_bytes()).hexdigest())
+        self.assertNotIn("experiments/api_call_signature_trial.py", body["code_sha256"])
+        self.assertEqual(len(body["code_sha256"]), 12)
+        body["code_sha256"]["experiments/unadmitted_support.py"] = "0" * 64
+        with self.assertRaisesRegex(ValueError, "method source closure"):
+            read_ordinary_comparison(json_bytes(body), companion)
+
     def test_ordinary_entry_closes_reexport_sources_and_retains_initial_observation(self):
         (catalog, modules, acquisition), pulls, explorer = ordinary_control()
         self.assertEqual(pulls.get_pull_request_observation.call_count, 1)

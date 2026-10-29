@@ -50,6 +50,16 @@ def inputs(*, callee="def send(*, deadline=None):\n pass\n", caller="from vendor
 
 
 class RetainedCompositionTests(TestCase):
+    def test_current_method_binds_shared_support_and_unknown_partial_closure_refuses(self):
+        result, companion = prepare_comparison(*inputs(), AnalysisLimits())
+        body = json.loads(result)
+        support = "experiments/api_signature_evidence.py"
+        self.assertEqual(body["code_sha256"][support], hashlib.sha256(Path(support).read_bytes()).hexdigest())
+        self.assertEqual(len(body["code_sha256"]), 6)
+        body["code_sha256"].pop("experiments/api_call_signature.py")
+        with self.assertRaisesRegex(ValueError, "method source closure"):
+            read_comparison(json_bytes(body), companion)
+
     def test_complete_comparison_round_trip_preserves_conditional_claim(self):
         result, companion = prepare_comparison(*inputs(), AnalysisLimits())
         body, catalog = read_comparison(result, companion)

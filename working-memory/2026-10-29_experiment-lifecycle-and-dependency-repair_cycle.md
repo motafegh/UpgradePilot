@@ -10,8 +10,8 @@ Entry checkout629ede16; fetch exposed40994b0d (audit) and97983da3 (activation). 
 
 - A0 — DONE: current main, audit, root/operation owners, experiment inventory/source preflight reconciled.
 - A1 — DONE proportionately: explicit user steering replaces protocol expansion with independent subsystem analysis; two remote documentation commits explained.
-- A2 — DONE for analysis; repair orientation follows independently preserved findings and concrete design.
-- B — CURRENT: independent inventory/import/lifecycle/frozen-contract reconstruction; NO source repairs selected yet.
+- A2 — DONE: independent gate preserved first; concrete repair/identity/retention model explained and recorded before Build.
+- B — CURRENT: selected organization/public-support repair implemented; final controlled contrast and disposition pending.
 - Verification gate — PENDING: analysis comparison first; later focused/inclusive and frozen compatibility proof for selected repairs.
 - D — PENDING: evidence-backed explanation and later-learning route.
 - E — PENDING: resolution/defer decisions and explicit expansion-gate disposition.
@@ -44,3 +44,23 @@ Independent reconstruction and O1–O6/F1–F5 adjudication were committed/pushe
 The [bounded repair plan](../plans/EXPERIMENT_ORGANIZATION_AND_DEPENDENCY_BOUNDARY_REPAIR_PLAN.md) now selects a stable-path role index/membership model, source-only dependency check and one shared signature-evidence owner for the actual identical two-consumer contract. No speculative directory tree, generic utility framework or product promotion. Publicizing helpers inside the old runner would leave the runner dependency; mass extraction would needlessly invalidate other source-bound methods. Historical31 private imports remain exact scoped exceptions with re-entry triggers.
 
 Repair A2: unchanged checker/binder/acquirer outcomes; separate runner attempt protocols; common evidence decoding/limits/IO/display under an explicit public owner. Future curated source closure grows5→6; ordinary12 keys replaces old runner with support source. Fixed historical sets remain readable without recomputation; all frozen bytes stay unchanged. Current-new producer identities must bind support. This is an experiment implementation organization decision, not a change to native specs/ADRs or product report semantics. User's combined design/execute authorization permits proceeding after this concrete gate; no further permission stop is necessary.
+
+## B — selected repair and corrections
+
+`experiments/README.md` now owns role/family meanings, navigation/public reuse and stable-path/evidence rules; `role_inventory.json` classifies all131 resulting artifacts (entry127 plus README, registry, one evidence-support module and one boundary-test module). Exact family membership avoids the false family cycle a name-only classifier would create for workspace_investigator_seam; it belongs to Workspace research, not the later Investigator qualification stack. No actual cross-family runtime import needs admission at this horizon.
+
+The new source-only `tools/check_experiment_boundaries.py` verifies recursive membership/owners/roles, static dependency direction/cycles, runtime-test separation, src package/entry boundaries, unresolved product dynamic loading and exact private exceptions. Six responsibility-owned negative-control tests invoke it on locally authored source trees rather than importing tools or inspected source. No generic framework, native dependency or live runner is added.
+
+`api_signature_evidence.py` owns public bounded IO/text/span/digest handling, AnalysisLimits, fixed fact/comparison/source decoding and terminal/source display. Curated runner retains selections/attempt/CLI and historical public exports. Ordinary runner now imports support directly, not another runner or its8 private helpers. Nineteen moved definitions have exact AST parity after normalizing public names/docstrings. Signature checker, scoped binder, source association/acquisition and outcomes are unchanged.
+
+Identity admission explicitly supports legacy5/current6 curated and legacy/current12 ordinary sets; future ordinary closure contains support instead of curated runner. Added two focused producer/closure controls; extra/partial unsupported sets refuse. Initial mechanical extraction exposed digest/location helper dependencies and an import-block adjacency mistake; those were corrected at the shared owner before acceptance. No old reader assertion, native contract or frozen result was weakened to hide them.
+
+First checker run caught the draft registry's insufficient role for api_adapter_context_replay: decode_adapter_seed is already public shared saved-binding support used by interpretation. Inspected its code and classified reader/substrate/runner, documenting its exact API instead of moving it to satisfy filename/layer purity. The layer rule admits explicitly owned composition/substrate, not arbitrary runner imports. Other historical31 private symbols remain exact scoped exceptions; stale/new exceptions fail.
+
+## Verification checkpoint
+
+- Static check passes:131 artifacts/122 Python modules/255 internal edges/31 closed private symbols/96 native Python files; no static cycles, product reverse import or runtime test import.
+- Focused shared/curated/ordinary proof34 tests/1.631s; API206 tests/2.801s (2 producer-method controls added); boundary6 controls pass. Source/role-only later check reruns are recorded with final receipt.
+- [Shared-support compatibility](evidence/2026-10-29-experiment-lifecycle-and-dependency-repair/shared-support-compatibility.json):19 structurally equivalent moved definitions, actual HTTPX/pytest v1 opening (5 saved comparisons each),3 existing ordinary v2 controls opening (3/3/1 comparisons), AST/network/checker forbidden. All10 frozen private member hashes unchanged. No source/finding recomputation or regrade.
+- [Broad post-repair baseline comparison](evidence/2026-10-29-experiment-lifecycle-and-dependency-repair/post-repair-tests.json):599 tests/41.136s, same1 failure/25 errors/11 optional skips by exact identity as the unchanged591-test baseline;8 added tests. This is no-new-regression evidence, NOT a green full suite. Historical fixture/owner incompatibilities remain named debt, not product defects or accepted current conformance.
+- Final controlled normal-entry contrast, frozen artifact manifest, local link/identity checks and audit disposition remain to consolidate. No native source changes or fresh product regression claimed.

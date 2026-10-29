@@ -32,10 +32,12 @@ from upgradepilot.workspace.source_access import (
 
 from .api_adapter_exploration import PythonModuleSourceRequest
 from .api_call_signature import METHOD_VERSION, AnalysisLimit
-from .api_call_signature_trial import (
+from .api_signature_evidence import (
     AnalysisLimits, MAX_CATALOG_BYTES, MAX_OUTPUT_BYTES, MAX_SELECTION_BYTES,
-    _digest, _display, _read_bytes, _span, _strings, _target, _text, _write_new,
-    code_identity, read_comparison_records, render_comparison, render_source,
+    content_digest, render_terminal_lines, read_bounded_bytes, read_source_span,
+    read_string_sequence, read_investigation_target, read_bounded_text, write_new_output,
+    signature_code_identity, admit_method_source_names, CURATED_HISTORICAL_SOURCES,
+    SIGNATURE_SUPPORT_SOURCES, read_comparison_records, render_comparison, render_source,
 )
 from .api_change_source_acquisition import AcquisitionProblem
 from .api_source_correspondence import (
@@ -49,20 +51,22 @@ from .api_target_context_smoke import (
 FORMAT = "caller-signature-evidence/2"
 INPUT_FORMAT = "ordinary-caller-signature-input/1"
 PROOF_CLASSES = {"controlled_ordinary_pr_composition", "retained_component_discovery"}
+ORDINARY_METHOD_SOURCES = (
+    "experiments/api_source_correspondence.py", "experiments/api_ordinary_call_signature_trial.py",
+    "experiments/api_target_context_smoke.py", "experiments/api_adapter_exploration.py",
+    "experiments/api_target_context.py", "experiments/api_change_source_acquisition.py",
+    "src/upgradepilot/investigation_inputs.py",
+)
 
 
 def ordinary_code_identity():
     root = Path(__file__).resolve().parents[1]
-    names = ("experiments/api_source_correspondence.py", "experiments/api_ordinary_call_signature_trial.py",
-             "experiments/api_target_context_smoke.py", "experiments/api_adapter_exploration.py",
-             "experiments/api_target_context.py", "experiments/api_change_source_acquisition.py",
-             "src/upgradepilot/investigation_inputs.py")
-    return {**code_identity(), **{name: _digest((root / name).read_bytes()) for name in names}}
+    return {**signature_code_identity(), **{name: content_digest((root / name).read_bytes()) for name in ORDINARY_METHOD_SOURCES}}
 
 
 def _source_label(role, package, version, file):
     identity = json_bytes([role, package, version, file.repository, file.revision])
-    return "source-" + _digest(identity)[:32]
+    return "source-" + content_digest(identity)[:32]
 
 
 def prepare_ordinary_inputs(trial, session, source_run):
@@ -209,7 +213,7 @@ def _read_modules(raw, catalog):
         if data["role"] not in roles:
             raise ValueError("Unsupported source role.")
         for field in ("module", "package", "version"):
-            _text(data[field])
+            read_bounded_text(data[field])
         scope = next(s for s in catalog.scopes if s.source_id == key[0])
         if data["role"] == "target" and (scope.repository, scope.revision) != (catalog.target.repository, catalog.target.head_sha):
             raise ValueError("Target source revision mismatch.")
@@ -217,7 +221,7 @@ def _read_modules(raw, catalog):
             expected = catalog.target.old_version if data["role"] == "native_old_version" else catalog.target.proposed_version
             if (data["package"], data["version"]) != (catalog.target.normalized_package, expected):
                 raise ValueError("Native source role/transition mismatch.")
-        data["dependencies"] = _strings(data["dependencies"], maximum=256)
+        data["dependencies"] = read_string_sequence(data["dependencies"], maximum=256)
         modules.append(PythonSourceModule(**data))
     if seen != {key for key in files if key[1].endswith(".py")}:
         raise ValueError("Unclassified Python source.")
@@ -229,7 +233,7 @@ def prepare_ordinary_comparison(input_data, limits):
     if raw["format"] != INPUT_FORMAT or raw["proof_class"] not in PROOF_CLASSES:
         raise ValueError("Unsupported ordinary input/proof.")
     source_data = json_bytes(raw["catalog"])
-    catalog = read_source_catalog(source_data, expected_target=_target(raw["catalog"]["target"]))
+    catalog = read_source_catalog(source_data, expected_target=read_investigation_target(raw["catalog"]["target"]))
     if catalog.target is None or catalog.target.normalized_package is None:
         raise ValueError("Ordinary discovery needs a native transition.")
     modules = _read_modules(raw["modules"], catalog)
@@ -242,9 +246,9 @@ def prepare_ordinary_comparison(input_data, limits):
     companion = encode_source_catalog(catalog)
     body = dict(format=FORMAT, method_version=METHOD_VERSION, proof_class=raw["proof_class"],
         target=asdict(catalog.target), runtime=sys.version.split()[0], code_sha256=ordinary_code_identity(),
-        limits=asdict(limits), inputs=dict(catalog_sha256=_digest(source_data), catalog_id=catalog.identity,
-                                        discovery_input_sha256=_digest(input_data)),
-        companion_sha256=_digest(companion), companion_id=catalog.identity,
+        limits=asdict(limits), inputs=dict(catalog_sha256=content_digest(source_data), catalog_id=catalog.identity,
+                                        discovery_input_sha256=content_digest(input_data)),
+        companion_sha256=content_digest(companion), companion_id=catalog.identity,
         files=units, pairs=pairs,
         work=dict(source_files=len(catalog.files), source_bytes=sum(len(f.content.encode()) for f in catalog.files),
                   ast_nodes=sum(u["facts"]["ast_nodes"] for u in units if u["facts"]),
@@ -270,7 +274,10 @@ def read_ordinary_comparison(result, companion):
         or type(body["correspondence_version"]) is not int or body["correspondence_version"] != CORRESPONDENCE_VERSION
         or body["proof_class"] not in PROOF_CLASSES):
         raise ValueError("Unsupported ordinary format/method/proof.")
-    body, catalog = read_comparison_records(body, companion, method_sources=set(ordinary_code_identity()),
+    source_names = admit_method_source_names(body["code_sha256"],
+        current=(*SIGNATURE_SUPPORT_SOURCES, *ORDINARY_METHOD_SOURCES),
+        historical=((*CURATED_HISTORICAL_SOURCES, *ORDINARY_METHOD_SOURCES),))
+    body, catalog = read_comparison_records(body, companion, method_sources=source_names,
                                             allow_empty_pairs=True, input_digest_field="discovery_input_sha256")
     if (type(body["discovery"]) is not dict or body["inputs"]["catalog_id"] != catalog.identity
         or body["inputs"]["catalog_sha256"] != body["companion_sha256"]
@@ -305,8 +312,8 @@ def _validate_acquisition(acquisition):
     target, changed, adapters = (ordinary.get(field, {}) for field in ("target", "changed_package_sources", "adapters"))
     if any(type(item) is not dict for item in (target, changed, adapters)):
         raise ValueError("Invalid acquisition coverage record.")
-    _strings(target.get("omitted_paths", []), maximum=20_000)
-    _strings(changed.get("unexamined_modules", []), maximum=20_000)
+    read_string_sequence(target.get("omitted_paths", []), maximum=20_000)
+    read_string_sequence(changed.get("unexamined_modules", []), maximum=20_000)
     for attempts in (acquisition.get("internal_module_requests", []), changed.get("attempts", [])):
         if type(attempts) is not list or len(attempts) > 256:
             raise ValueError("Invalid source attempt receipt.")
@@ -316,24 +323,24 @@ def _validate_acquisition(acquisition):
             if type(attempt.get("request")) is not dict:
                 raise ValueError("Invalid source request receipt.")
             for field in ("package", "version", "module"):
-                _text(attempt["request"].get(field))
+                read_bounded_text(attempt["request"].get(field))
             if attempt["state"] != "module_examined":
                 for field in ("stage", "reason", "detail"):
-                    _text(attempt.get(field), maximum=16_384)
+                    read_bounded_text(attempt.get(field), maximum=16_384)
     omissions = acquisition.get("material_omissions", [])
     if type(omissions) is not list or len(omissions) > 20_000:
         raise ValueError("Invalid material omissions.")
     for omission in omissions:
         item = object_fields(omission, ("repository", "revision", "path", "role", "reason"))
         for value in item.values():
-            _text(value)
+            read_bounded_text(value)
     problems = adapters.get("problems", [])
     if type(problems) is not list or len(problems) > 256:
         raise ValueError("Invalid adapter problems.")
     for problem in problems:
         item = object_fields(problem, ("stage", "reason", "detail"))
         for value in item.values():
-            _text(value, maximum=16_384)
+            read_bounded_text(value, maximum=16_384)
 
 
 def _validate_discovery(body, catalog, modules):
@@ -346,7 +353,7 @@ def _validate_discovery(body, catalog, modules):
     for field in ("gaps_omitted", "states_examined"):
         if type(discovery[field]) is not int or discovery[field] < 0:
             raise ValueError("Invalid discovery work.")
-    _text(discovery["coverage"])
+    read_bounded_text(discovery["coverage"])
     units = {u["descriptor"]["file_id"]: u for u in body["files"]}
     texts = {catalog.descriptor(f)["file_id"]: f.content for f in catalog.files}
     facts = {f["fact_id"]: f for u in units.values() if u["facts"]
@@ -371,15 +378,15 @@ def _validate_discovery(body, catalog, modules):
         d = units[callee["unit_id"]]["descriptor"]
         if json_bytes(c["callee_role"]) != json_bytes(module_by_key[(d["source_id"], d["path"])]):
             raise ValueError("Candidate source role mismatch.")
-        _strings(c["premises"], maximum=256)
+        read_string_sequence(c["premises"], maximum=256)
         if type(c["steps"]) is not list or not 1 <= len(c["steps"]) <= discovery["max_path_steps"]:
             raise ValueError("Invalid source path capacity.")
         for step in c["steps"]:
             s = object_fields(step, ("unit_id", "span", "operation", "expression"))
             if s["unit_id"] not in texts or s["operation"] not in {"call", "import_origin", "reexport", "declaration", "class_declaration", "initializer", "declared_base"}:
                 raise ValueError("Foreign source path step.")
-            _span(s["span"], texts[s["unit_id"]])
-            _text(s["expression"], maximum=4 * 1024 * 1024)
+            read_source_span(s["span"], texts[s["unit_id"]])
+            read_bounded_text(s["expression"], maximum=4 * 1024 * 1024)
             span = s["span"]
             lines = [line.encode() for line in texts[s["unit_id"]].split("\n")]
             selected = lines[span["line"] - 1:span["end_line"]]
@@ -397,10 +404,10 @@ def _validate_discovery(body, catalog, modules):
         g = object_fields(gap, ("reason", "unit_id", "span", "detail"))
         if g["unit_id"] not in texts:
             raise ValueError("Foreign gap source.")
-        _text(g["reason"])
-        _text(g["detail"])
+        read_bounded_text(g["reason"])
+        read_bounded_text(g["detail"])
         if g["span"] is not None:
-            _span(g["span"], texts[g["unit_id"]])
+            read_source_span(g["span"], texts[g["unit_id"]])
 
 
 def render_ordinary_comparison(body):
@@ -436,15 +443,15 @@ def render_ordinary_comparison(body):
     for problem in ordinary.get("adapters", {}).get("problems", ()):
         lines.append("Adapter source unavailable: " + problem["stage"] + "/" + problem["reason"] + " | " + problem["detail"])
     lines.append("No candidates does not establish no exposure. Next evidence: resolve the displayed path/version/coverage premises.")
-    return _display(lines)
+    return render_terminal_lines(lines)
 
 
 def _worker(input_path, directory, limits):
     import resource
     resource.setrlimit(resource.RLIMIT_AS, (limits.memory_bytes, limits.memory_bytes))
-    result, companion = prepare_ordinary_comparison(_read_bytes(input_path, MAX_CATALOG_BYTES), limits)
-    _write_new(directory / "_worker-result.json", result)
-    _write_new(directory / "_worker-sources.json", companion)
+    result, companion = prepare_ordinary_comparison(read_bounded_bytes(input_path, MAX_CATALOG_BYTES), limits)
+    write_new_output(directory / "_worker-result.json", result)
+    write_new_output(directory / "_worker-sources.json", companion)
 
 
 def run_ordinary_comparison(input_data, directory, *, limits=None):
@@ -453,22 +460,22 @@ def run_ordinary_comparison(input_data, directory, *, limits=None):
     directory.mkdir(mode=0o700)
     start = time.monotonic()
     attempt = dict(format="ordinary-caller-signature-attempt/1", state="started", reason=None,
-        started_at=datetime.now(UTC).isoformat(), elapsed_seconds=None, input_sha256=_digest(input_data),
+        started_at=datetime.now(UTC).isoformat(), elapsed_seconds=None, input_sha256=content_digest(input_data),
         code_sha256=ordinary_code_identity(), limits=asdict(limits),
         result_sha256=None, companion_sha256=None, worker_returncode=None)
-    _write_new(directory / "attempt-started.json", json_bytes(attempt))
+    write_new_output(directory / "attempt-started.json", json_bytes(attempt))
     try:
         if len(input_data) > MAX_CATALOG_BYTES:
             raise AnalysisLimit("encoded_input_or_output_capacity")
-        _write_new(directory / "input.json", input_data)
+        write_new_output(directory / "input.json", input_data)
         completed = subprocess.run([sys.executable, "-m", "experiments.api_ordinary_call_signature_trial", "_worker",
             str((directory / "input.json").resolve()), str(directory.resolve()), json.dumps(asdict(limits))],
             stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, timeout=limits.timeout_seconds, check=False)
         attempt["worker_returncode"] = completed.returncode
         if completed.returncode:
             raise ValueError("bounded_worker_failed: " + completed.stderr.decode(errors="replace")[:2000])
-        result = _read_bytes(directory / "_worker-result.json", MAX_OUTPUT_BYTES)
-        companion = _read_bytes(directory / "_worker-sources.json", MAX_OUTPUT_BYTES)
+        result = read_bounded_bytes(directory / "_worker-result.json", MAX_OUTPUT_BYTES)
+        companion = read_bounded_bytes(directory / "_worker-sources.json", MAX_OUTPUT_BYTES)
         body, _ = read_ordinary_comparison(result, companion)
         if (body["inputs"]["discovery_input_sha256"] != attempt["input_sha256"]
             or body["code_sha256"] != attempt["code_sha256"] or ordinary_code_identity() != attempt["code_sha256"]):
@@ -478,8 +485,8 @@ def run_ordinary_comparison(input_data, directory, *, limits=None):
             raise subprocess.TimeoutExpired("ordinary admission", limits.timeout_seconds)
         (directory / "_worker-result.json").rename(directory / "result.json")
         (directory / "_worker-sources.json").rename(directory / "sources.json")
-        _write_new(directory / "view.txt", view)
-        attempt.update(state="completed", result_sha256=_digest(result), companion_sha256=_digest(companion))
+        write_new_output(directory / "view.txt", view)
+        attempt.update(state="completed", result_sha256=content_digest(result), companion_sha256=content_digest(companion))
     except subprocess.TimeoutExpired:
         attempt.update(state="timed_out", reason="bounded_worker_deadline; no completed comparison admitted")
     except KeyboardInterrupt:
@@ -487,18 +494,18 @@ def run_ordinary_comparison(input_data, directory, *, limits=None):
     except (OSError, ValueError, TypeError, MemoryError) as exc:
         attempt.update(state="failed", reason=type(exc).__name__ + ": " + str(exc)[:2000])
     attempt["elapsed_seconds"] = time.monotonic() - start
-    _write_new(directory / "attempt.json", json_bytes(attempt))
+    write_new_output(directory / "attempt.json", json_bytes(attempt))
     return attempt
 
 
 def open_ordinary_comparison(directory):
-    attempt = parse_json(_read_bytes(directory / "attempt.json", MAX_SELECTION_BYTES))
+    attempt = parse_json(read_bounded_bytes(directory / "attempt.json", MAX_SELECTION_BYTES))
     if (type(attempt) is not dict or attempt.get("format") != "ordinary-caller-signature-attempt/1"
         or attempt.get("state") != "completed"):
         raise ValueError("Ordinary attempt is not completed.")
-    result = _read_bytes(directory / "result.json", MAX_OUTPUT_BYTES)
-    companion = _read_bytes(directory / "sources.json", MAX_OUTPUT_BYTES)
-    if attempt.get("result_sha256") != _digest(result) or attempt.get("companion_sha256") != _digest(companion):
+    result = read_bounded_bytes(directory / "result.json", MAX_OUTPUT_BYTES)
+    companion = read_bounded_bytes(directory / "sources.json", MAX_OUTPUT_BYTES)
+    if attempt.get("result_sha256") != content_digest(result) or attempt.get("companion_sha256") != content_digest(companion):
         raise ValueError("Saved attempt/output digest mismatch.")
     body, catalog = read_ordinary_comparison(result, companion)
     if (body["inputs"]["discovery_input_sha256"] != attempt.get("input_sha256")
@@ -528,7 +535,7 @@ def main(argv=None):
             print(render_source(catalog, args.source, args.start_line, args.line_count)
                   if args.source else render_ordinary_comparison(body))
     except (OSError, ValueError, TypeError, MemoryError, ImportError) as exc:
-        print(_display([type(exc).__name__ + ": " + str(exc)[:2000]]), file=sys.stderr)
+        print(render_terminal_lines([type(exc).__name__ + ": " + str(exc)[:2000]]), file=sys.stderr)
         return 2
     return 0
 

@@ -1,0 +1,123 @@
+{
+  "ast_parity_after_public_name_normalization": {
+    "_selector": true,
+    "AnalysisLimits": true,
+    "_read_bytes": true,
+    "_digest": true,
+    "_write_new": true,
+    "_text": true,
+    "_hash": true,
+    "_target": true,
+    "_span": true,
+    "_inside": true,
+    "_record": true,
+    "_strings": true,
+    "_read_binding": true,
+    "_read_fact": true,
+    "_read_comparison": true,
+    "read_comparison_records": true,
+    "_display": true,
+    "render_comparison": true,
+    "render_source": true
+  },
+  "historical_opening": [
+    {
+      "case": "retained-httpx-2026-10-28",
+      "format": "caller-signature-evidence/1",
+      "method_sources": 5,
+      "pairs": 5
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "format": "caller-signature-evidence/1",
+      "method_sources": 5,
+      "pairs": 5
+    },
+    {
+      "case": "controlled-ordinary",
+      "format": "caller-signature-evidence/2",
+      "method_sources": 12,
+      "pairs": 3
+    },
+    {
+      "case": "controlled-ordinary-final",
+      "format": "caller-signature-evidence/2",
+      "method_sources": 12,
+      "pairs": 3
+    },
+    {
+      "case": "retained-incomplete-control",
+      "format": "caller-signature-evidence/2",
+      "method_sources": 12,
+      "pairs": 1
+    }
+  ],
+  "frozen_members": [
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "result.json",
+      "sha256": "3a6b874967d413f89155895d51368fddbb2e15a257ff8977448a350b26a41580"
+    },
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "view.txt",
+      "sha256": "d0bd57fec01eb2bb6ee8d530c941c51fb2893584c12c533161595db65205b88c"
+    },
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "attempt.json",
+      "sha256": "bf5d8c092679cab4feffa79a3cc2444697b8f5f1be4b6ab67133b5255a262d7e"
+    },
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "sources.json",
+      "sha256": "8de0c185a5be747ec1044eca9b7a8446fbd1652db2a7ed25b82ab832d5c88da1"
+    },
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "attempt-started.json",
+      "sha256": "feaf6d28e7e4b60216f707d1ddae70612577baa24f812a95550652af88f7724f"
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "result.json",
+      "sha256": "dcdf848f0f0c79fddcc091cbfa596e3fb813ece3714204b9152e70c22c7bab09"
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "view.txt",
+      "sha256": "19a38c6246ed7e9f19bf828de493d7c3373d4b44d9787a7f755be5cec9659d97"
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "attempt.json",
+      "sha256": "0595030c7fe82931ca0a440539ddf4023137d5fda2e9c162210fc21ee60c3aca"
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "sources.json",
+      "sha256": "770ab80fea86f6895fc52e278548d075414fe859f28ee09edb2c382c6296124d"
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "attempt-started.json",
+      "sha256": "11ab490a3429882a51062a06bc3afb395ed0db2652ea4cad786899c463a09d04"
+    }
+  ],
+  "current_curated_source_keys": [
+    "experiments/api_call_signature.py",
+    "experiments/api_python_bindings.py",
+    "src/upgradepilot/workspace/source_access.py",
+    "src/upgradepilot/workspace/native_representation.py",
+    "experiments/api_signature_evidence.py",
+    "experiments/api_call_signature_trial.py"
+  ],
+  "current_support_source_keys": [
+    "experiments/api_call_signature.py",
+    "experiments/api_python_bindings.py",
+    "src/upgradepilot/workspace/source_access.py",
+    "src/upgradepilot/workspace/native_representation.py",
+    "experiments/api_signature_evidence.py"
+  ],
+  "proof": "read-only historical compatibility; no AST/checker/network, reanalysis or regrade"
+}

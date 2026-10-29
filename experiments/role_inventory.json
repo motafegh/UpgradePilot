@@ -1,0 +1,1333 @@
+{
+  "format": "experiment-role-inventory/1",
+  "families": {
+    "api_source": {
+      "owner": "plans/UPSTREAM_API_CHANGE_AND_TARGET_EXPOSURE_FEASIBILITY_PLAN.md"
+    },
+    "ci_diagnostics": {
+      "owner": "plans/CURRENT_CI_RETAINED_INPUT_ADMISSION_AND_OWNER_DIAGNOSTIC_PLAN.md"
+    },
+    "evidence_gap": {
+      "owner": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md"
+    },
+    "investigator": {
+      "owner": "plans/INVESTIGATOR_INTEGRATION_AND_COMPARATIVE_EVALUATION_PLAN.md"
+    },
+    "organization": {
+      "owner": "plans/EXPERIMENT_ORGANIZATION_AND_DEPENDENCY_BOUNDARY_REPAIR_PLAN.md"
+    },
+    "report_evaluation": {
+      "owner": "plans/MAINTAINER_REPORT_PRESERVATION_AND_USEFULNESS_EVALUATION_PLAN.md"
+    },
+    "support_drop": {
+      "owner": "plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md"
+    },
+    "test_support": {
+      "owner": "AGENTS.md"
+    },
+    "workspace_research": {
+      "owner": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md"
+    }
+  },
+  "artifacts": [
+    {
+      "path": "experiments/EVIDENCE_REPORT_DEVELOPMENT_EVALUATION.md",
+      "family": "report_evaluation",
+      "maintenance": "retained_development_protocol",
+      "evidence": "plans/MAINTAINER_REPORT_PRESERVATION_AND_USEFULNESS_EVALUATION_PLAN.md",
+      "roles": [
+        "protocol"
+      ]
+    },
+    {
+      "path": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "family": "investigator",
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "roles": [
+        "protocol"
+      ]
+    },
+    {
+      "path": "experiments/INVESTIGATOR_WORKSPACE_MECHANICAL_QUALIFICATION.md",
+      "family": "investigator",
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "roles": [
+        "protocol"
+      ]
+    },
+    {
+      "path": "experiments/README.md",
+      "family": "organization",
+      "roles": [
+        "protocol"
+      ],
+      "maintenance": "maintained_development",
+      "evidence": "plans/EXPERIMENT_ORGANIZATION_AND_DEPENDENCY_BOUNDARY_REPAIR_PLAN.md"
+    },
+    {
+      "path": "experiments/api_adapter_context_replay.py",
+      "family": "api_source",
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "roles": [
+        "substrate",
+        "reader",
+        "runner"
+      ]
+    },
+    {
+      "path": "experiments/api_adapter_exploration.py",
+      "family": "api_source",
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "roles": [
+        "substrate",
+        "composition"
+      ]
+    },
+    {
+      "path": "experiments/api_call_signature.py",
+      "family": "api_source",
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "roles": [
+        "substrate"
+      ]
+    },
+    {
+      "path": "experiments/api_call_signature_trial.py",
+      "family": "api_source",
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "roles": [
+        "runner",
+        "reader",
+        "compatibility_alias"
+      ]
+    },
+    {
+      "path": "experiments/api_change_interpretation.py",
+      "family": "api_source",
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "roles": [
+        "substrate"
+      ]
+    },
+    {
+      "path": "experiments/api_change_interpretation_evaluation.py",
+      "family": "api_source",
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "roles": [
+        "runner"
+      ]
+    },
+    {
+      "path": "experiments/api_change_interpretation_trial.py",
+      "family": "api_source",
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "roles": [
+        "composition",
+        "runner",
+        "reader"
+      ]
+    },
+    {
+      "path": "experiments/api_change_source_acquisition.py",
+      "family": "api_source",
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "roles": [
+        "substrate"
+      ]
+    },
+    {
+      "path": "experiments/api_change_source_smoke.py",
+      "family": "api_source",
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "roles": [
+        "runner"
+      ]
+    },
+    {
+      "path": "experiments/api_ordinary_call_signature_trial.py",
+      "family": "api_source",
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "roles": [
+        "runner",
+        "reader"
+      ]
+    },
+    {
+      "path": "experiments/api_python_bindings.py",
+      "family": "api_source",
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "roles": [
+        "substrate"
+      ]
+    },
+    {
+      "path": "experiments/api_release_window_manifest.py",
+      "family": "api_source",
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "roles": [
+        "substrate"
+      ]
+    },
+    {
+      "path": "experiments/api_signature_evidence.py",
+      "family": "api_source",
+      "roles": [
+        "substrate",
+        "reader"
+      ],
+      "maintenance": "maintained_development",
+      "evidence": "plans/EXPERIMENT_ORGANIZATION_AND_DEPENDENCY_BOUNDARY_REPAIR_PLAN.md"
+    },
+    {
+      "path": "experiments/api_source_correspondence.py",
+      "family": "api_source",
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "roles": [
+        "substrate"
+      ]
+    },
+    {
+      "path": "experiments/api_target_context.py",
+      "family": "api_source",
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "roles": [
+        "substrate"
+      ]
+    },
+    {
+      "path": "experiments/api_target_context_smoke.py",
+      "family": "api_source",
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "roles": [
+        "composition",
+        "runner"
+      ]
+    },
+    {
+      "path": "experiments/b2_x1_e1_support_drop_semantic_probe.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "runner"
+      ]
+    },
+    {
+      "path": "experiments/b2_x1_e2_s001_state_origin_probe.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "substrate",
+        "runner"
+      ]
+    },
+    {
+      "path": "experiments/b2_x1_e3_minimal_s001_planner_probe.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "runner"
+      ]
+    },
+    {
+      "path": "experiments/b2_x1_e4_closed_action_binding_probe.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "runner"
+      ]
+    },
+    {
+      "path": "experiments/b2_x1_e4_deterministic_admission_probe.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "runner"
+      ]
+    },
+    {
+      "path": "experiments/b2_x1_e4_json_schema_binding_probe.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "runner"
+      ]
+    },
+    {
+      "path": "experiments/b2_x1_e5_no_tool_disposition_probe.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "runner"
+      ]
+    },
+    {
+      "path": "experiments/b2_x1_evidence_gap_admission.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "compatibility_alias"
+      ]
+    },
+    {
+      "path": "experiments/b2_x1_evidence_gap_composition.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "compatibility_alias"
+      ]
+    },
+    {
+      "path": "experiments/b2_x1_evidence_gap_model.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "compatibility_alias"
+      ]
+    },
+    {
+      "path": "experiments/b2_x1_evidence_gap_planner.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "compatibility_alias"
+      ]
+    },
+    {
+      "path": "experiments/b2_x1_evidence_gap_transition.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "compatibility_alias"
+      ]
+    },
+    {
+      "path": "experiments/b2_x1_phase3b_harness.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "substrate"
+      ]
+    },
+    {
+      "path": "experiments/b2_x1_phase4a_planner_smoke.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "runner"
+      ]
+    },
+    {
+      "path": "experiments/b2_x1_planner_contract.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "substrate"
+      ]
+    },
+    {
+      "path": "experiments/b2_x1_s001_real_flow_a3_smoke.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "runner"
+      ]
+    },
+    {
+      "path": "experiments/b2_x1_s001_real_flow_a4_transition.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "runner"
+      ]
+    },
+    {
+      "path": "experiments/b2_x1_s001_real_flow_composition_probe.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "runner"
+      ]
+    },
+    {
+      "path": "experiments/current_ci_owner_diagnostic.py",
+      "family": "ci_diagnostics",
+      "maintenance": "retained_diagnostic",
+      "evidence": "plans/CURRENT_CI_RETAINED_INPUT_ADMISSION_AND_OWNER_DIAGNOSTIC_PLAN.md",
+      "roles": [
+        "diagnostic",
+        "runner"
+      ]
+    },
+    {
+      "path": "experiments/evidence_gap_action_admission.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "substrate"
+      ]
+    },
+    {
+      "path": "experiments/evidence_gap_implementation_semantic_comparison.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "component"
+      ]
+    },
+    {
+      "path": "experiments/evidence_gap_investigation_transition.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "substrate"
+      ]
+    },
+    {
+      "path": "experiments/evidence_gap_planner_model_boundary.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "substrate"
+      ]
+    },
+    {
+      "path": "experiments/evidence_gap_product_planner_composition.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "substrate"
+      ]
+    },
+    {
+      "path": "experiments/evidence_report_development_cases.json",
+      "family": "report_evaluation",
+      "maintenance": "retained_development_protocol",
+      "evidence": "plans/MAINTAINER_REPORT_PRESERVATION_AND_USEFULNESS_EVALUATION_PLAN.md",
+      "roles": [
+        "retained_data"
+      ]
+    },
+    {
+      "path": "experiments/evidence_report_rubric_calibration.json",
+      "family": "report_evaluation",
+      "maintenance": "retained_development_protocol",
+      "evidence": "plans/MAINTAINER_REPORT_PRESERVATION_AND_USEFULNESS_EVALUATION_PLAN.md",
+      "roles": [
+        "retained_data"
+      ]
+    },
+    {
+      "path": "experiments/investigator_ci_presentation.py",
+      "family": "ci_diagnostics",
+      "maintenance": "retained_diagnostic",
+      "evidence": "plans/INVESTIGATOR_NATIVE_CI_PRESENTATION_PLAN.md",
+      "roles": [
+        "diagnostic",
+        "runner"
+      ]
+    },
+    {
+      "path": "experiments/investigator_model_interface.py",
+      "family": "investigator",
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "roles": [
+        "substrate"
+      ]
+    },
+    {
+      "path": "experiments/investigator_run_control.py",
+      "family": "investigator",
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "roles": [
+        "substrate"
+      ]
+    },
+    {
+      "path": "experiments/investigator_supplied_evidence.py",
+      "family": "investigator",
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "roles": [
+        "substrate"
+      ]
+    },
+    {
+      "path": "experiments/investigator_supplied_evidence_packets.json",
+      "family": "investigator",
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "roles": [
+        "retained_data"
+      ]
+    },
+    {
+      "path": "experiments/investigator_workspace_adapter.py",
+      "family": "investigator",
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "roles": [
+        "substrate"
+      ]
+    },
+    {
+      "path": "experiments/investigator_workspace_trial.py",
+      "family": "investigator",
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "roles": [
+        "substrate",
+        "reader"
+      ]
+    },
+    {
+      "path": "experiments/langgraph/__init__.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "component"
+      ]
+    },
+    {
+      "path": "experiments/langgraph/evidence_gap_ordinary_python_control_adapters.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "substrate"
+      ]
+    },
+    {
+      "path": "experiments/langgraph/evidence_gap_workflow.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "substrate"
+      ]
+    },
+    {
+      "path": "experiments/langgraph/r4a_control_adapters.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "compatibility_alias"
+      ]
+    },
+    {
+      "path": "experiments/local_evidence_gap_planner.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "substrate"
+      ]
+    },
+    {
+      "path": "experiments/prepare_investigator_supplied_evidence.py",
+      "family": "investigator",
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "roles": [
+        "substrate",
+        "runner"
+      ]
+    },
+    {
+      "path": "experiments/qualify_investigator_model_interface.py",
+      "family": "investigator",
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "roles": [
+        "substrate",
+        "runner"
+      ]
+    },
+    {
+      "path": "experiments/qualify_investigator_workspace.py",
+      "family": "investigator",
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "roles": [
+        "substrate",
+        "runner"
+      ]
+    },
+    {
+      "path": "experiments/real_pydantic_python_support_langgraph_evidence_gap_smoke.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "runner"
+      ]
+    },
+    {
+      "path": "experiments/retained_native_ci_baseline_comparison.py",
+      "family": "ci_diagnostics",
+      "maintenance": "retained_diagnostic",
+      "evidence": "plans/CURRENT_CI_RETAINED_INPUT_ADMISSION_AND_OWNER_DIAGNOSTIC_PLAN.md",
+      "roles": [
+        "diagnostic",
+        "runner",
+        "substrate"
+      ]
+    },
+    {
+      "path": "experiments/role_inventory.json",
+      "family": "organization",
+      "roles": [
+        "protocol"
+      ],
+      "maintenance": "maintained_development",
+      "evidence": "plans/EXPERIMENT_ORGANIZATION_AND_DEPENDENCY_BOUNDARY_REPAIR_PLAN.md"
+    },
+    {
+      "path": "experiments/run_investigator_semantic_comparison.py",
+      "family": "investigator",
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "roles": [
+        "substrate",
+        "runner"
+      ]
+    },
+    {
+      "path": "experiments/run_investigator_supplied_evidence.py",
+      "family": "investigator",
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "roles": [
+        "runner"
+      ]
+    },
+    {
+      "path": "experiments/run_workspace_migration_trial.py",
+      "family": "workspace_research",
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "roles": [
+        "runner",
+        "reader"
+      ]
+    },
+    {
+      "path": "experiments/run_workspace_public_grounding.py",
+      "family": "workspace_research",
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "roles": [
+        "runner"
+      ]
+    },
+    {
+      "path": "experiments/run_workspace_revision_comparison.py",
+      "family": "workspace_research",
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "roles": [
+        "substrate",
+        "runner"
+      ]
+    },
+    {
+      "path": "experiments/run_workspace_seam_trials.py",
+      "family": "workspace_research",
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "roles": [
+        "runner",
+        "reader"
+      ]
+    },
+    {
+      "path": "experiments/step6_support_drop_contract_v2.py",
+      "family": "support_drop",
+      "maintenance": "historical_research",
+      "evidence": "plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md",
+      "roles": [
+        "substrate"
+      ]
+    },
+    {
+      "path": "experiments/step6_support_drop_contract_v2_assessment.py",
+      "family": "support_drop",
+      "maintenance": "historical_research",
+      "evidence": "plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md",
+      "roles": [
+        "runner",
+        "reader"
+      ]
+    },
+    {
+      "path": "experiments/step6_support_drop_contract_v2_live_evaluation.py",
+      "family": "support_drop",
+      "maintenance": "historical_research",
+      "evidence": "plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md",
+      "roles": [
+        "runner"
+      ]
+    },
+    {
+      "path": "experiments/step6_support_drop_contract_v2_replay.py",
+      "family": "support_drop",
+      "maintenance": "historical_research",
+      "evidence": "plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md",
+      "roles": [
+        "runner",
+        "reader"
+      ]
+    },
+    {
+      "path": "experiments/step6_support_drop_evaluation.py",
+      "family": "support_drop",
+      "maintenance": "historical_research",
+      "evidence": "plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md",
+      "roles": [
+        "substrate",
+        "runner"
+      ]
+    },
+    {
+      "path": "experiments/step6_support_drop_semantic_corpus.json",
+      "family": "support_drop",
+      "maintenance": "historical_research",
+      "evidence": "plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md",
+      "roles": [
+        "retained_data"
+      ]
+    },
+    {
+      "path": "experiments/step6_support_drop_smoke.py",
+      "family": "support_drop",
+      "maintenance": "historical_research",
+      "evidence": "plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md",
+      "roles": [
+        "substrate",
+        "runner"
+      ]
+    },
+    {
+      "path": "experiments/tests/__init__.py",
+      "family": "test_support",
+      "maintenance": "test_support",
+      "evidence": "AGENTS.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_api_adapter_exploration.py",
+      "family": "api_source",
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_api_call_signature.py",
+      "family": "api_source",
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_api_call_signature_trial.py",
+      "family": "api_source",
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_api_change_interpretation.py",
+      "family": "api_source",
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_api_change_interpretation_evaluation.py",
+      "family": "api_source",
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_api_change_source_acquisition.py",
+      "family": "api_source",
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_api_public_pr_context.py",
+      "family": "api_source",
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_api_python_bindings.py",
+      "family": "api_source",
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_api_source_correspondence.py",
+      "family": "api_source",
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_api_target_context.py",
+      "family": "api_source",
+      "maintenance": "maintained_development",
+      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_b2_x1_e1_support_drop_semantic_probe.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_b2_x1_phase3b_harness.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_b2_x1_phase4a_planner_smoke.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_b2_x1_planner_contract.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_current_ci_owner_diagnostic.py",
+      "family": "ci_diagnostics",
+      "maintenance": "retained_diagnostic",
+      "evidence": "plans/CURRENT_CI_RETAINED_INPUT_ADMISSION_AND_OWNER_DIAGNOSTIC_PLAN.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_evidence_gap_action_admission.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_evidence_gap_implementation_semantic_comparison.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_evidence_gap_investigation_transition.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_evidence_gap_planner_model_boundary.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_evidence_gap_product_planner_composition.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_experiment_dependency_boundaries.py",
+      "family": "organization",
+      "roles": [
+        "test"
+      ],
+      "maintenance": "maintained_development",
+      "evidence": "plans/EXPERIMENT_ORGANIZATION_AND_DEPENDENCY_BOUNDARY_REPAIR_PLAN.md"
+    },
+    {
+      "path": "experiments/tests/test_investigator_ci_presentation.py",
+      "family": "ci_diagnostics",
+      "maintenance": "retained_diagnostic",
+      "evidence": "plans/INVESTIGATOR_NATIVE_CI_PRESENTATION_PLAN.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_investigator_model_interface.py",
+      "family": "investigator",
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_investigator_run_control.py",
+      "family": "investigator",
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_investigator_supplied_evidence.py",
+      "family": "investigator",
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_investigator_supplied_evidence_runner.py",
+      "family": "investigator",
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_investigator_workspace_trial.py",
+      "family": "investigator",
+      "maintenance": "qualified_experimental_method",
+      "evidence": "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_langgraph_evidence_gap_ordinary_python_control_adapters.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_langgraph_evidence_gap_workflow.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_local_evidence_gap_planner.py",
+      "family": "evidence_gap",
+      "maintenance": "historical_research",
+      "evidence": "plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_report_source_capture.py",
+      "family": "test_support",
+      "maintenance": "test_support",
+      "evidence": "AGENTS.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_retained_native_ci_baseline_comparison.py",
+      "family": "ci_diagnostics",
+      "maintenance": "retained_diagnostic",
+      "evidence": "plans/CURRENT_CI_RETAINED_INPUT_ADMISSION_AND_OWNER_DIAGNOSTIC_PLAN.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_step6_support_drop_contract_v2.py",
+      "family": "support_drop",
+      "maintenance": "historical_research",
+      "evidence": "plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_step6_support_drop_contract_v2_assessment.py",
+      "family": "support_drop",
+      "maintenance": "historical_research",
+      "evidence": "plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_step6_support_drop_contract_v2_live_evaluation.py",
+      "family": "support_drop",
+      "maintenance": "historical_research",
+      "evidence": "plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_step6_support_drop_evaluation_harness.py",
+      "family": "support_drop",
+      "maintenance": "historical_research",
+      "evidence": "plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_step6_support_drop_semantic_corpus.py",
+      "family": "support_drop",
+      "maintenance": "historical_research",
+      "evidence": "plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_step6_support_drop_smoke_harness.py",
+      "family": "support_drop",
+      "maintenance": "historical_research",
+      "evidence": "plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_step6c_local_http_runner.py",
+      "family": "support_drop",
+      "maintenance": "historical_research",
+      "evidence": "plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_workspace_checkpoint_stores.py",
+      "family": "workspace_research",
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_workspace_investigator_seam.py",
+      "family": "workspace_research",
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_workspace_public_grounding.py",
+      "family": "workspace_research",
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_workspace_replacement_migration.py",
+      "family": "workspace_research",
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/tests/test_workspace_revision_representation.py",
+      "family": "workspace_research",
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "roles": [
+        "test"
+      ]
+    },
+    {
+      "path": "experiments/workspace_checkpoint_stores.py",
+      "family": "workspace_research",
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "roles": [
+        "substrate",
+        "reader"
+      ]
+    },
+    {
+      "path": "experiments/workspace_checkpoint_trials.py",
+      "family": "workspace_research",
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "roles": [
+        "runner",
+        "reader"
+      ]
+    },
+    {
+      "path": "experiments/workspace_investigator_seam.py",
+      "family": "workspace_research",
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "roles": [
+        "substrate"
+      ]
+    },
+    {
+      "path": "experiments/workspace_public_input_tape.py",
+      "family": "workspace_research",
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "roles": [
+        "substrate"
+      ]
+    },
+    {
+      "path": "experiments/workspace_replacement_migration.py",
+      "family": "workspace_research",
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "roles": [
+        "substrate"
+      ]
+    },
+    {
+      "path": "experiments/workspace_retention_corpus.py",
+      "family": "workspace_research",
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "roles": [
+        "substrate"
+      ]
+    },
+    {
+      "path": "experiments/workspace_revision_representation.py",
+      "family": "workspace_research",
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "roles": [
+        "substrate",
+        "reader"
+      ]
+    },
+    {
+      "path": "experiments/workspace_seam_checkpoints.py",
+      "family": "workspace_research",
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "roles": [
+        "substrate"
+      ]
+    },
+    {
+      "path": "experiments/workspace_seam_native.py",
+      "family": "workspace_research",
+      "maintenance": "historical_research",
+      "evidence": "plans/INVESTIGATION_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_RESEARCH_PLAN.md",
+      "roles": [
+        "substrate"
+      ]
+    }
+  ],
+  "allowed_cross_family_dependencies": [],
+  "legacy_private_imports": [
+    {
+      "source": "experiments.investigator_supplied_evidence",
+      "target": "experiments.investigator_workspace_trial",
+      "names": [
+        "_admission_charge"
+      ],
+      "reason": "Existing Investigator protocol charge; scoped supplied-evidence reuse, not a general runner API"
+    },
+    {
+      "source": "experiments.step6_support_drop_contract_v2",
+      "target": "experiments.step6_support_drop_smoke",
+      "names": [
+        "_candidate_result_from_model"
+      ],
+      "reason": "Historical source-bound Step6 evaluation/transport; no new consumers or method changes without owner review"
+    },
+    {
+      "source": "experiments.step6_support_drop_contract_v2_live_evaluation",
+      "target": "experiments.step6_support_drop_evaluation",
+      "names": [
+        "_diagnostic_flags",
+        "_load_corpus",
+        "_outcome_signature",
+        "_planned_runs",
+        "_semantic_oracle_errors",
+        "_trust_matches_oracle"
+      ],
+      "reason": "Historical source-bound Step6 evaluation/transport; no new consumers or method changes without owner review"
+    },
+    {
+      "source": "experiments.step6_support_drop_contract_v2_live_evaluation",
+      "target": "experiments.step6_support_drop_smoke",
+      "names": [
+        "_available_model_ids",
+        "_indexed_source_lines",
+        "_parse_inner_content",
+        "_post_completion",
+        "_python_line_tokens",
+        "_smoke_authority",
+        "_trust_result_summary"
+      ],
+      "reason": "Historical source-bound Step6 evaluation/transport; no new consumers or method changes without owner review"
+    },
+    {
+      "source": "experiments.step6_support_drop_contract_v2_replay",
+      "target": "experiments.step6_support_drop_evaluation",
+      "names": [
+        "_diagnostic_flags",
+        "_load_corpus",
+        "_outcome_signature",
+        "_semantic_oracle_errors",
+        "_trust_matches_oracle"
+      ],
+      "reason": "Historical source-bound Step6 evaluation/transport; no new consumers or method changes without owner review"
+    },
+    {
+      "source": "experiments.step6_support_drop_contract_v2_replay",
+      "target": "experiments.step6_support_drop_smoke",
+      "names": [
+        "_smoke_authority",
+        "_trust_result_summary"
+      ],
+      "reason": "Historical source-bound Step6 evaluation/transport; no new consumers or method changes without owner review"
+    },
+    {
+      "source": "experiments.step6_support_drop_evaluation",
+      "target": "experiments.step6_support_drop_smoke",
+      "names": [
+        "_available_model_ids",
+        "_candidate_result_from_model",
+        "_indexed_source_lines",
+        "_parse_inner_content",
+        "_post_completion",
+        "_python_line_tokens",
+        "_smoke_authority",
+        "_trust_result_summary"
+      ],
+      "reason": "Historical source-bound Step6 evaluation/transport; no new consumers or method changes without owner review"
+    },
+    {
+      "source": "experiments.workspace_checkpoint_trials",
+      "target": "experiments.run_workspace_revision_comparison",
+      "names": [
+        "_scaled_records"
+      ],
+      "reason": "Historical Workspace volume fixture; not a general dependency on runner orchestration"
+    }
+  ]
+}
