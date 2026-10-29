@@ -99,8 +99,8 @@ def prepare_ordinary_inputs(trial, session, source_run):
         files[key] = RetainedSourceFile(source_id, file.path, file.content)
         admitted_bytes += size
         name = module_name(file.path)
-        if name:
-            modules.append(PythonSourceModule(source_id, file.path, name, package, version,
+        if name or role == "target" and file.path.endswith(".py"):
+            modules.append(PythonSourceModule(source_id, file.path, name or "", package, version,
                                                role, tuple(sorted(set(dependencies)))))
             if examined is not None:
                 queue.append((examined, role, tuple(dependencies)))
@@ -201,7 +201,9 @@ def _read_modules(raw, catalog):
     for item in raw:
         data = object_fields(item, ("source_id", "path", "module", "package", "version", "role", "dependencies"))
         key = (data["source_id"], data["path"])
-        if key not in files or key in seen or data["module"] != module_name(data["path"]) or not data["module"]:
+        expected_module = module_name(data["path"]) or ""
+        if (key not in files or key in seen or data["module"] != expected_module
+            or not expected_module and not (data["role"] == "target" and data["path"].endswith(".py"))):
             raise ValueError("Module/source closure mismatch.")
         seen.add(key)
         if data["role"] not in roles:
@@ -217,7 +219,7 @@ def _read_modules(raw, catalog):
                 raise ValueError("Native source role/transition mismatch.")
         data["dependencies"] = _strings(data["dependencies"], maximum=256)
         modules.append(PythonSourceModule(**data))
-    if seen != {key for key in files if module_name(key[1]) is not None}:
+    if seen != {key for key in files if key[1].endswith(".py")}:
         raise ValueError("Unclassified Python source.")
     return tuple(modules)
 
@@ -270,10 +272,13 @@ def read_ordinary_comparison(result, companion):
         raise ValueError("Unsupported ordinary format/method/proof.")
     body, catalog = read_comparison_records(body, companion, method_sources=set(ordinary_code_identity()),
                                             allow_empty_pairs=True, input_digest_field="discovery_input_sha256")
+    if (body["inputs"]["catalog_id"] != catalog.identity
+        or body["inputs"]["catalog_sha256"] != body["companion_sha256"]
+        or body["coverage"] != body["discovery"].get("coverage")):
+        raise ValueError("Ordinary material/coverage closure mismatch.")
     modules = _read_modules(body["modules"], catalog)
     _validate_discovery(body, catalog, modules)
-    if type(body["acquisition"]) is not dict:
-        raise ValueError("Invalid acquisition receipt.")
+    _validate_acquisition(body["acquisition"])
     if body["proof_class"] == "controlled_ordinary_pr_composition":
         from upgradepilot.github.pull_request import PullRequestDescriptionObservation
         native = body["acquisition"].get("native_inputs")
@@ -288,6 +293,47 @@ def read_ordinary_comparison(result, companion):
         description["observed_at"] = datetime.fromisoformat(description["observed_at"])
         PullRequestDescriptionObservation(**description)
     return body, catalog
+
+
+def _validate_acquisition(acquisition):
+    """Admit the receipt fields consumed by the saved view; do not rerun providers."""
+    if type(acquisition) is not dict:
+        raise ValueError("Invalid acquisition receipt.")
+    ordinary = acquisition.get("ordinary_acquisition", {})
+    if type(ordinary) is not dict:
+        raise ValueError("Invalid ordinary acquisition receipt.")
+    target, changed, adapters = (ordinary.get(field, {}) for field in ("target", "changed_package_sources", "adapters"))
+    if any(type(item) is not dict for item in (target, changed, adapters)):
+        raise ValueError("Invalid acquisition coverage record.")
+    _strings(target.get("omitted_paths", []), maximum=20_000)
+    _strings(changed.get("unexamined_modules", []), maximum=20_000)
+    for attempts in (acquisition.get("internal_module_requests", []), changed.get("attempts", [])):
+        if type(attempts) is not list or len(attempts) > 256:
+            raise ValueError("Invalid source attempt receipt.")
+        for attempt in attempts:
+            if type(attempt) is not dict or attempt.get("state") not in {"module_examined", "refused", "unavailable"}:
+                raise ValueError("Invalid source attempt state.")
+            if type(attempt.get("request")) is not dict:
+                raise ValueError("Invalid source request receipt.")
+            for field in ("package", "version", "module"):
+                _text(attempt["request"].get(field))
+            if attempt["state"] != "module_examined":
+                for field in ("stage", "reason", "detail"):
+                    _text(attempt.get(field), maximum=16_384)
+    omissions = acquisition.get("material_omissions", [])
+    if type(omissions) is not list or len(omissions) > 20_000:
+        raise ValueError("Invalid material omissions.")
+    for omission in omissions:
+        item = object_fields(omission, ("repository", "revision", "path", "role", "reason"))
+        for value in item.values():
+            _text(value)
+    problems = adapters.get("problems", [])
+    if type(problems) is not list or len(problems) > 256:
+        raise ValueError("Invalid adapter problems.")
+    for problem in problems:
+        item = object_fields(problem, ("stage", "reason", "detail"))
+        for value in item.values():
+            _text(value, maximum=16_384)
 
 
 def _validate_discovery(body, catalog, modules):
@@ -330,7 +376,7 @@ def _validate_discovery(body, catalog, modules):
             raise ValueError("Invalid source path capacity.")
         for step in c["steps"]:
             s = object_fields(step, ("unit_id", "span", "operation", "expression"))
-            if s["unit_id"] not in texts or s["operation"] not in {"call", "reexport", "declaration", "class_declaration", "initializer", "declared_base"}:
+            if s["unit_id"] not in texts or s["operation"] not in {"call", "import_origin", "reexport", "declaration", "class_declaration", "initializer", "declared_base"}:
                 raise ValueError("Foreign source path step.")
             _span(s["span"], texts[s["unit_id"]])
             _text(s["expression"], maximum=4 * 1024 * 1024)
@@ -358,16 +404,37 @@ def _validate_discovery(body, catalog, modules):
 
 
 def render_ordinary_comparison(body):
-    lines = [render_comparison(body), "", "DISCOVERED SOURCE PATHS (conditional, not runtime dispatch)"]
+    lines = [*render_comparison(body).split("\n"), "", "DISCOVERED SOURCE PATHS (conditional, not runtime dispatch)"]
+    descriptors = {u["descriptor"]["file_id"]: u["descriptor"] for u in body["files"]}
     for candidate in body["discovery"]["candidates"]:
         role = candidate["callee_role"]
         lines.append("CANDIDATE " + candidate["id"] + " | " + role["role"] + " " + role["version"])
         for step in candidate["steps"]:
-            lines.append(step["operation"] + " " + step["unit_id"] + ":" + str(step["span"]["line"]))
+            source = descriptors[step["unit_id"]]
+            lines.append(step["operation"] + " " + source["repository"] + "@" + source["revision"]
+                         + " " + source["path"] + ":" + str(step["span"]["line"]) + " (unit " + step["unit_id"] + ")")
         lines.extend("Path premise: " + p for p in candidate["premises"])
     for gap in body["discovery"]["gaps"]:
         lines.append("Discovery gap: " + gap["reason"] + " | " + gap["unit_id"] + " | " + gap["detail"])
     lines.append("Additional gap records omitted: " + str(body["discovery"]["gaps_omitted"]))
+    acquisition = body["acquisition"]
+    ordinary = acquisition.get("ordinary_acquisition", {})
+    for item in acquisition.get("material_omissions", ()):
+        lines.append("Material omitted: " + item["role"] + " " + item["path"] + " | " + item["reason"])
+    attempts = [*acquisition.get("internal_module_requests", ()),
+                *ordinary.get("changed_package_sources", {}).get("attempts", ())]
+    for item in attempts:
+        if item["state"] != "module_examined":
+            request = item["request"]
+            lines.append("Source " + item["state"] + ": " + request["package"] + " " + request["version"]
+                         + " " + request["module"] + " | " + item["stage"] + "/" + item["reason"])
+    target = ordinary.get("target", {})
+    for path in target.get("omitted_paths", ()):
+        lines.append("Target source unexamined: " + path)
+    for name in ordinary.get("changed_package_sources", {}).get("unexamined_modules", ()):
+        lines.append("Changed-package module unexamined: " + name)
+    for problem in ordinary.get("adapters", {}).get("problems", ()):
+        lines.append("Adapter source unavailable: " + problem["stage"] + "/" + problem["reason"] + " | " + problem["detail"])
     lines.append("No candidates does not establish no exposure. Next evidence: resolve the displayed path/version/coverage premises.")
     return _display(lines)
 

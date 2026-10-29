@@ -153,6 +153,52 @@ class SourcePathTests(TestCase):
         self.assertEqual({p["comparison"]["outcome"] for p in pairs}, {"bound", "rejected"})
         self.assertTrue(all(c["callee_role"]["module"] == "channel" for c in discovery["candidates"]))
 
+    def test_local_namespace_collision_retains_external_old_and_proposed_alternatives(self):
+        catalog, modules = source_inputs("from vendor import send\nsend(app=1)\n",
+            "def send(*, app=None):\n pass\n", "def send():\n pass\n", additional=(
+                ("target", "vendor.py", "def send(**kwargs):\n pass\n", "target", "", "", ("vendor",)),))
+        discovery, pairs, _ = discover_source_candidates(catalog, modules, AnalysisLimits())
+        self.assertEqual(len(pairs), 3)
+        self.assertEqual({c["callee_role"]["role"] for c in discovery["candidates"]},
+                         {"target", "native_old_version", "native_proposed_version"})
+        self.assertTrue(all("local_and_external_namespace_candidates" in c["premises"]
+                            for c in discovery["candidates"]))
+
+    def test_multiple_declared_bases_stay_alternatives_without_mro_selection(self):
+        catalog, modules = source_inputs("from facade import Client\nClient()\n",
+            "class A:\n def __init__(self):\n  pass\nclass B:\n def __init__(self, *, required):\n  pass\n",
+            "", additional=(("facade", "facade/__init__.py", "import vendor\nclass Client(vendor.A, vendor.B):\n"
+                " def __init__(self):\n  super().__init__()\n", "constraint_sample", "facade", "5.0", ("vendor",)),))
+        modules = tuple(replace(m, dependencies=("facade",)) if m.role == "target" else m for m in modules)
+        discovery, pairs, _ = discover_source_candidates(catalog, modules, AnalysisLimits())
+        base_candidates = [c for c in discovery["candidates"] if c["callee_role"]["role"] == "native_old_version"]
+        self.assertEqual(len(base_candidates), 2)
+        self.assertEqual({p["comparison"]["outcome"] for p in pairs}, {"bound", "rejected"})
+        self.assertTrue(all("builtin_super_and_effective_mro_assumed" in c["premises"] for c in base_candidates))
+
+    def test_ambiguous_layout_and_invalid_syntax_do_not_become_removed_api(self):
+        catalog, modules = source_inputs("from vendor import send\nsend()\n", "def send(:\n", "def send():\n pass\n",
+            additional=(("new", "src/vendor/__init__.py", "def send():\n pass\n", "native_proposed_version", "vendor", "2.0", ()),))
+        discovery, pairs, _ = discover_source_candidates(catalog, modules, AnalysisLimits())
+        self.assertEqual(pairs, [])
+        self.assertEqual({g["reason"] for g in discovery["gaps"]} & {"ambiguous_module_layout", "source_syntax_unavailable"},
+                         {"ambiguous_module_layout", "source_syntax_unavailable"})
+
+    def test_long_path_limit_keeps_explicit_omission_without_invalid_saved_path(self):
+        catalog, modules = source_inputs("from vendor import Client\nClient()\n",
+            "class Client:\n def __init__(self):\n  pass\n", "class Client:\n def __init__(self):\n  pass\n")
+        discovery, pairs, _ = discover_source_candidates(catalog, modules, AnalysisLimits(), max_path_steps=3)
+        self.assertEqual(pairs, [])
+        self.assertIn("source_path_limit", {g["reason"] for g in discovery["gaps"]})
+
+    def test_export_overwrite_stays_a_conditional_declaration_with_visible_gap(self):
+        catalog, modules = source_inputs("from vendor import send\nsend(app=1)\n",
+            "def send(*, app=None):\n pass\nsend = replacement\n", "def send():\n pass\ndel send\n")
+        discovery, pairs, _ = discover_source_candidates(catalog, modules, AnalysisLimits())
+        self.assertEqual(len(pairs), 2)
+        self.assertEqual(sum(g["reason"] == "export_write_or_deletion_not_resolved" for g in discovery["gaps"]), 2)
+        self.assertTrue(all("effective_export_binding_not_established" in c["premises"] for c in discovery["candidates"]))
+
 
 def ordinary_control():
     """Actual ordinary entry; fake public provider domain records, HTTP forbidden."""
@@ -232,7 +278,7 @@ class OrdinaryRetentionTests(TestCase):
     def test_path_role_and_companion_tampering_fail_without_reanalysis(self):
         result, companion = prepare_ordinary_comparison(prepared("from vendor import send\nsend()\n",
             "def send():\n pass\n", "def send():\n pass\n"), AnalysisLimits())
-        for change in ("foreign_step", "wrong_role", "bad_source", "receiver"):
+        for change in ("foreign_step", "wrong_role", "bad_source", "receiver", "path_text", "root", "receipt"):
             body = json.loads(result)
             candidate = body["discovery"]["candidates"][0]
             if change == "foreign_step":
@@ -241,6 +287,12 @@ class OrdinaryRetentionTests(TestCase):
                 candidate["callee_role"]["role"] = "target"
             elif change == "bad_source":
                 body["companion_sha256"] = "0" * 64
+            elif change == "path_text":
+                candidate["steps"][0]["expression"] = "fabricated source text"
+            elif change == "root":
+                candidate["root_call_id"] = candidate["signature_id"]
+            elif change == "receipt":
+                body["acquisition"]["ordinary_acquisition"] = "invalid"
             else:
                 candidate["receiver_mode"] = "one_receiver_assumed"
             with self.subTest(change=change), self.assertRaises(ValueError):
@@ -263,6 +315,13 @@ class OrdinaryRetentionTests(TestCase):
                 "--result", str(directory)], capture_output=True, text=True, timeout=10)
             self.assertEqual(completed.returncode, 0, completed.stderr)
             self.assertIn("DISCOVERED SOURCE PATHS", completed.stdout)
+            self.assertIn("\nProof: retained_component_discovery\n", completed.stdout)
+            self.assertIn("\nCaller:", completed.stdout)
+            unit_id = catalog.descriptor(catalog.files[0])["file_id"]
+            viewed = subprocess.run([sys.executable, "-m", "experiments.api_ordinary_call_signature_trial", "open",
+                "--result", str(directory), "--source", unit_id], capture_output=True, text=True, timeout=10)
+            self.assertEqual(viewed.returncode, 0, viewed.stderr)
+            self.assertIn("LITERAL RETAINED SOURCE", viewed.stdout)
             with self.assertRaises(FileExistsError):
                 run_ordinary_comparison(data, directory)
             (directory / "sources.json").write_bytes(b"{}")
@@ -279,4 +338,42 @@ class OrdinaryRetentionTests(TestCase):
             self.assertTrue((directory / "input.json").exists())
             with self.assertRaises(ValueError):
                 open_ordinary_comparison(directory)
+
+    def test_worker_deadline_is_not_a_completed_unknown_result(self):
+        with TemporaryDirectory() as tmp:
+            directory = Path(tmp) / "timed-out"
+            attempt = run_ordinary_comparison(prepared("unknown()\n", "", ""), directory,
+                                               limits=AnalysisLimits(timeout_seconds=0.000001))
+            self.assertEqual(attempt["state"], "timed_out")
+            self.assertIsNone(attempt["result_sha256"])
+            with self.assertRaises(ValueError):
+                open_ordinary_comparison(directory)
+
+    def test_nonimportable_target_filename_keeps_calls_and_receipt_gaps_visible(self):
+        catalog, modules = source_inputs("from vendor import send\nsend()\n", "def send():\n pass\n", "def send():\n pass\n")
+        files = tuple(replace(f, path="checks/test-with-dash.py") if f.source_id == "target" else f for f in catalog.files)
+        modules = tuple(replace(m, path="checks/test-with-dash.py", module="") if m.role == "target" else m for m in modules)
+        catalog = RetainedSourceCatalog(catalog.scopes, files, target=TARGET)
+        receipt = {"ordinary_acquisition": {"target": {"omitted_paths": ["later.py"]}, "changed_package_sources": {
+            "unexamined_modules": ["vendor.other"], "attempts": [{"state": "refused", "request": {
+                "package": "vendor", "version": "2.0", "module": "vendor.other"}, "stage": "python_source_budget",
+                "reason": "module_source_limit", "detail": "control refusal"}]}}, "material_omissions": [{
+            "repository": "owner/target", "revision": SHA, "path": "large.py", "role": "target", "reason": "analysis_material_limit"}]}
+        data = encode_ordinary_inputs(catalog, modules, receipt, proof_class="retained_component_discovery")
+        result, companion = prepare_ordinary_comparison(data, AnalysisLimits())
+        body, _ = read_ordinary_comparison(result, companion)
+        self.assertEqual(len(body["pairs"]), 2)
+        view = render_ordinary_comparison(body)
+        for expected in ("Material omitted: target large.py", "Target source unexamined: later.py",
+                         "Source refused: vendor 2.0 vendor.other", "Changed-package module unexamined: vendor.other"):
+            self.assertIn(expected, view)
+
+    def test_controlled_initial_observation_cannot_conflict_with_saved_target(self):
+        (catalog, modules, acquisition), _, _ = ordinary_control()
+        result, companion = prepare_ordinary_comparison(encode_ordinary_inputs(catalog, modules, acquisition,
+            proof_class="controlled_ordinary_pr_composition"), AnalysisLimits())
+        body = json.loads(result)
+        body["acquisition"]["native_inputs"]["identity"]["head_sha"] = "c" * 40
+        with self.assertRaisesRegex(ValueError, "observation/target mismatch"):
+            read_ordinary_comparison(json_bytes(body), companion)
 

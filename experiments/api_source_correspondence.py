@@ -125,7 +125,8 @@ class _SourceCandidates:
             tree = ast.parse(file.content) if not facts.problems else None
             unit = dict(module=module, file=file, descriptor=descriptor, facts=facts, tree=tree)
             self.units[unit_id] = unit
-            self.by_module.setdefault((module.source_id, module.module), []).append(unit_id)
+            if module.module:
+                self.by_module.setdefault((module.source_id, module.module), []).append(unit_id)
         self.unit_ids = {id(unit): key for key, unit in self.units.items()}
         self.base_references = {}
 
@@ -143,6 +144,25 @@ class _SourceCandidates:
         return SourceRelationshipStep(self.unit_ids[id(unit)], SourceSpan.of(node), operation,
                                       ast.get_source_segment(unit["file"].content, node) or "")
 
+    def imported_paths(self, unit, origin, binding, path):
+        """Keep alternative import witnesses separate; the full binding stays saved."""
+        observed = False
+        for trace in binding.trace:
+            if trace.operation != "import" or not trace.origin or not (origin == trace.origin or origin.startswith(trace.origin + ".")):
+                continue
+            observed = True
+            span = SourceSpan(trace.line, trace.column, trace.end_line, trace.end_column)
+            lines = unit["file"].content.split("\n")[span.line - 1:span.end_line]
+            encoded = [line.encode() for line in lines]
+            encoded[-1] = encoded[-1][:span.end_column]
+            encoded[0] = encoded[0][span.column:]
+            yield (*path, SourceRelationshipStep(self.unit_ids[id(unit)], span, "import_origin",
+                                                 b"\n".join(encoded).decode()))
+        if not observed:
+            # A trimmed/legacy trace does not justify inventing an import step.
+            self.gap("original_import_step_unavailable", unit, detail=origin)
+            yield path
+
     def resolve(self, unit, origin, path, premises, visited=()):
         """Follow source syntax alternatives, retaining role/version and full ancestry."""
         self.work_states += 1
@@ -156,11 +176,15 @@ class _SourceCandidates:
         own_namespace = any(source_id == module.source_id and
                             (origin == name or origin.startswith(name + "."))
                             for source_id, name in self.by_module)
-        groups = {module.source_id} if own_namespace else {
+        external_groups = {
             u["module"].source_id for u in self.units.values()
             if u["module"].package in module.dependencies
+            and u["module"].package != module.package
             and u["module"].package.replace("-", "_") == origin.split(".")[0]
         }
+        groups = ({module.source_id} if own_namespace else set()) | external_groups
+        if own_namespace and external_groups:
+            premises = (*premises, "local_and_external_namespace_candidates")
         found = False
         for source_id in sorted(groups):
             matches = [(name, ids) for (sid, name), ids in self.by_module.items()
@@ -172,6 +196,7 @@ class _SourceCandidates:
                 self.gap("ambiguous_module_layout", unit, detail=name)
                 continue
             destination = self.units[ids[0]]
+            role_premises = ("adapter_version_is_exploration_sample_not_target_resolution",) if destination["module"].role == "constraint_sample" else ()
             key = (ids[0], origin[len(name) + 1:])
             if key in visited:
                 self.gap("source_relationship_cycle", destination, detail=origin)
@@ -181,7 +206,7 @@ class _SourceCandidates:
                 continue
             found = True
             yield from self.member(destination, key[1].split("."), path,
-                                   tuple(dict.fromkeys((*premises, "effective_export_binding_not_established",
+                                   tuple(dict.fromkeys((*premises, *role_premises, "effective_export_binding_not_established",
                                                         "installed_namespace_and_dispatch_not_established"))),
                                    (*visited, key))
         if not found:
@@ -194,9 +219,11 @@ class _SourceCandidates:
             return
         name, *tail = names
         found = False
+        definitions = 0
         for node in _declarations(tree.body):
             if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)) and node.name == name:
                 found = True
+                definitions += 1
                 yield from self.declaration(unit, node, tail, path, premises, visited)
             elif isinstance(node, (ast.Import, ast.ImportFrom)):
                 for alias in node.names:
@@ -221,6 +248,13 @@ class _SourceCandidates:
                         next_premises += ("star_export_membership_not_established",)
                     yield from self.resolve(unit, origin, (*path, self.step(unit, node, "reexport")),
                                             next_premises, visited)
+            elif isinstance(node, (ast.Assign, ast.AnnAssign, ast.AugAssign, ast.Delete)):
+                targets = getattr(node, "targets", [getattr(node, "target", None)])
+                if any(isinstance(child, ast.Name) and child.id == name
+                       for target in targets if target is not None for child in ast.walk(target)):
+                    self.gap("export_write_or_deletion_not_resolved", unit, SourceSpan.of(node), name)
+        if definitions > 1:
+            self.gap("multiple_declared_definitions_retained", unit, detail=name)
         if not found:
             self.gap("named_declaration_or_reexport_not_found", unit, detail=".".join(names))
 
@@ -265,7 +299,8 @@ class _SourceCandidates:
             residual = tuple(dict.fromkeys((*premises, *binding.reasons,
                                             *(() if binding.state == "established" else ("conditional_import_origin",)))))
             for origin in binding.possible_imports:
-                candidates.extend(self.resolve(unit, origin, path, residual))
+                for imported_path in self.imported_paths(unit, origin, binding, path):
+                    candidates.extend(self.resolve(unit, origin, imported_path, residual))
             # The binder records declaration writes but intentionally does not
             # propagate local callable values. Such source locations can justify
             # a conditional candidate without fabricating an imported origin.

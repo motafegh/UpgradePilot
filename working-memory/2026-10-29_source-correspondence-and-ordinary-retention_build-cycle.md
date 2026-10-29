@@ -48,4 +48,16 @@ Corrections before checkpoint: required expected-target argument at source catal
 
 Focused new+curated reader proof:26 tests/1.429s. Inclusive API experiment proof:196 tests/1.731s (12 added over184), all pass. Printed I001 record is existing controlled negative fixture, not inference. B remains active for boundary review, additional meaningful discrimination and durable evidence generation; this is not final acceptance. No product source/tests, new provider/model/target execution or frozen case changes.
 
+### Boundary review and correction checkpoint
+
+Independent source inspection inside this Build exposed two actual new-layer defects: own-repository namespace lookup hid declared external old/proposed alternatives, and passing an already-rendered multiline view as one display line flattened/truncated it. Fixed at correspondence and presentation respectively. No acquisition/checker/binder/CI/runtime repair was indicated. Added collision and actual multiline display controls.
+
+Additional discriminating controls now cover multiple declared base alternatives (no effective MRO selection), repeated/decorated definitions, writes/deletions after declarations, malformed Python, ambiguous flat/src modules, path and pair limits, real worker timeout versus failed analysis, immutable retries, source-text/endpoint/role/receipt tampering, and target files whose names are not importable module names. Their calls remain analyzable; only relative namespace inference is unavailable. Original import witnesses now appear as separate source steps; full conditional binding assessments are preserved. Repeated import witnesses are alternatives, not an invented conjunction of branch histories.
+
+Ordinary view now exposes selected source identities and paths, candidate role/version/premises, missing/refused source questions, target/material omissions and discovery limits. Format2 checks companion/input catalog closure and initial native observation/transition coherence. Receipts validate the fields actually consumed by the saved view; they do not hydrate providers or establish authenticity.
+
+Current limits: existing AnalysisLimits32 files/4MiB retained analysis text/100k AST nodes per file/250k aggregate nodes/4096 aggregate facts/256 comparisons/60s worker admission/512MiB address space, plus8 source/body traversal levels,32 path steps,4096 resolved source states and256 retained discovery gaps (additional gaps counted). Existing acquisition4 releases/12 module questions/2MiB source-run text/50 GitHub requests remains distinct. The worker's retained-source cap is not total acquisition/download/time policy. No limits increased.
+
+Inclusive API proof after corrections:204 tests/2.076s (20 new over184); no full product rerun is claimed. New responsibility-owned controls plus all prior API tests pass. Proceed to retained controlled artifact generation, source/method binding and final evidence review. Curated real cases are not replayed/regraded.
+
 Procedures: UP-SKILL:upgradepilot-build-implement; UP-SKILL:upgradepilot-learning-by-doing; UP-SKILL:upgradepilot-working-memory.
