@@ -405,13 +405,24 @@ def read_comparison(result_data: bytes, companion_data: bytes):
         raise ValueError("Unsupported comparison format or method version.")
     if body["proof_class"] != PROOF_CLASS:
         raise ValueError("Unsupported proof class.")
+    return read_comparison_records(body, companion_data, method_sources=set(code_identity()))
+
+
+def read_comparison_records(body, companion_data, *, method_sources, allow_empty_pairs=False,
+                            input_digest_field="selections_sha256"):
+    """Shared fixed fact/source/comparison closure for curated and ordinary readers.
+
+    Each envelope owner admits its own format and proof class before calling this
+    decoder. This function checks saved records only; it never extracts facts or
+    re-evaluates comparisons. Ordinary discovery may legitimately yield no pairs.
+    """
     _text(body["runtime"])
     _text(body["coverage"])
-    if type(body["code_sha256"]) is not dict or set(body["code_sha256"]) != set(code_identity()):
+    if type(body["code_sha256"]) is not dict or set(body["code_sha256"]) != method_sources:
         raise ValueError("Unknown method source closure.")
     for digest in body["code_sha256"].values():
         _hash(digest)
-    inputs = object_fields(body["inputs"], ("catalog_sha256", "catalog_id", "selections_sha256"))
+    inputs = object_fields(body["inputs"], ("catalog_sha256", "catalog_id", input_digest_field))
     for digest in inputs.values():
         _hash(digest)
     if _hash(body["companion_sha256"]) != _digest(companion_data):
@@ -463,7 +474,7 @@ def read_comparison(result_data: bytes, companion_data: bytes):
     if (seen_units != set(source_files) or node_count > limits.max_nodes or fact_count > limits.max_facts
             or byte_count > limits.max_source_bytes):
         raise ValueError("Source closure or work limit mismatch.")
-    if type(body["pairs"]) is not list or not 1 <= len(body["pairs"]) <= limits.max_pairs:
+    if type(body["pairs"]) is not list or not (0 if allow_empty_pairs else 1) <= len(body["pairs"]) <= limits.max_pairs:
         raise ValueError("Invalid saved pair sequence.")
     seen_pairs = set()
     for raw in body["pairs"]:

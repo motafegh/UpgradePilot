@@ -36,4 +36,16 @@ Must understand later: acquisition versus candidate relationship versus local bi
 
 Initial inspection: the existing binder deliberately does not propagate declared function/class values and leaves relative origins unresolved. Therefore source-correspondence must retain declaration/re-export/initializer premises, rather than coerce a positive import or pretend to solve effective module export binding. Existing curated reader requires at least one pair and a curated proof class; ordinary zero-candidate and discovered-path envelopes need an explicit versioned contract sharing the actual decoding responsibility.
 
+### Connected implementation checkpoint
+
+New experiment-local `api_source_correspondence.py` owns bounded target-rooted syntax paths, declaration alternatives, own initializer and conditional zero-argument-super/base candidates. It uses existing imported-origin assessments and unchanged extraction/checker. Re-export/branch/effective export binding, namespace/installed versions, MRO and body execution stay premises. Lexical body traversal excludes nested functions/classes/lambdas/comprehensions; source-path, state, pair, parser and aggregate work ceilings remain explicit. Protocol/factory values are not implemented.
+
+New `api_ordinary_call_signature_trial.py` owns ordinary acquisition composition, internal module closure at the SAME qualified run, role-labelled complete source retention, explicit format2 discovery envelope, bounded worker, immutable attempt and offline CLI. The old curated reader now delegates its existing fact/source/comparison checks to `read_comparison_records`; v1 format/proof admission and minimum-one-pair rule stay unchanged. Format2 permits honest zero candidates and distinguishes controlled ordinary composition from retained component discovery. No live/product proof label is admitted.
+
+First controlled normal-entry chain: target→bridge re-export→mediator.Client initializer→declared vendor.Base / super initialization→relative vendor implementation. Native old1.0 receives app; proposed2.0 rejects it; sampled wrapper accepts it. Inputs contain repository/PR and controlled providers, not callable selectors or expected outcomes. Complete source, original description/timestamp and requests are retained. HTTP is forbidden in the control.
+
+Corrections before checkpoint: required expected-target argument at source catalog decoding; datetime observations need explicit ISO preservation rather than generic JSON coercion; tests initially assumed old/new lexical ordering, corrected to join outcomes by source ROLE; source-path bytes and endpoint joins are now checked on opening. No checker or binder fix was required.
+
+Focused new+curated reader proof:26 tests/1.429s. Inclusive API experiment proof:196 tests/1.731s (12 added over184), all pass. Printed I001 record is existing controlled negative fixture, not inference. B remains active for boundary review, additional meaningful discrimination and durable evidence generation; this is not final acceptance. No product source/tests, new provider/model/target execution or frozen case changes.
+
 Procedures: UP-SKILL:upgradepilot-build-implement; UP-SKILL:upgradepilot-learning-by-doing; UP-SKILL:upgradepilot-working-memory.
