@@ -34,3 +34,11 @@ No new master plan, specification, ADR, dependency or top-level area is needed f
 UP-SKILL:upgradepilot-build-implement
 UP-SKILL:upgradepilot-learning-by-doing
 UP-SKILL:upgradepilot-working-memory
+
+## Shared native-prefix increment
+
+Ordinary acquire_public_pr_context now delegates to acquire_dependency_inputs, retaining one AcquiredDependencyInputs rather than independently acquiring identity/changes and evaluating the dependency. PublicPRContextTrial keeps identity/analysis as read-only projections of those shared inputs, preserving existing readers without a second evaluation. Initial description, changed files and source contexts remain attached in memory. The legacy manifest remains its existing fact/hash projection, not newly claimed complete recovery.
+
+Optional base/head guards preserve the native ValueError refusal before changed-file/target/source reads. This is a refusal seam, not yet a saved failure envelope containing the observed mismatching target; that fuller retention belongs to the later ordinary envelope. Typed GitHub acquisition/response failures now stay attached to AcquisitionProblem evidence, and dependency failures retain their original owner result. A target Python-file ceiling is passed to the existing owner; this does not reserve the provider budget or promise arbitrary repository coverage.
+
+Fresh25 ordinary PR/interpretation/replay composition tests pass/0.224s. Three new controls protect exactly-once native evaluation without CI preparation, early identity guards and incomplete changed-file failure retention. Updated controlled clients supply the actual observation contract; no identity-only fallback or second observation is introduced. No product/CI/runtime/model source changes, live provider acquisition, frozen re-evaluation or new saved format occurs. Publish this independently reviewable prefix before the cohesive source-run refactor.

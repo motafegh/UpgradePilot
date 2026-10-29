@@ -50,7 +50,9 @@ from experiments.api_target_context_smoke import (
     trial_manifest,
 )
 from upgradepilot.github.changelog import DiscoveredChangelogPath
-from upgradepilot.github.pull_request import ChangedFile, PullRequestIdentity
+from upgradepilot.github.pull_request import (
+    ChangedFile, PullRequestIdentity, PullRequestObservation, PullRequestDescriptionObservation,
+)
 from upgradepilot.github.repository import RepositoryTextFile
 from upgradepilot.github.tag import GitHubTagCommitEvidence
 from upgradepilot.pypi.release import (
@@ -64,6 +66,50 @@ BASE = "b" * 40
 
 
 class PublicPRTests(TestCase):
+    def test_shared_prefix_evaluates_transition_once_without_ci_preparation(self):
+        from upgradepilot import investigation_inputs
+
+        with patch(
+            "upgradepilot.investigation_inputs.analyze_dependency_change",
+            wraps=investigation_inputs.analyze_dependency_change,
+        ) as analyze, patch(
+            "upgradepilot.investigation_inputs.prepare_ci_evidence",
+            side_effect=AssertionError("source acquisition must not prepare CI"),
+        ):
+            result, pr, _ = self.run_trial()
+        analyze.assert_called_once()
+        pr.get_pull_request_observation.assert_called_once_with("owner/target", 7)
+        self.assertEqual(result.inputs.description.text, "Initial dependency PR description")
+        self.assertEqual(result.analysis.source_contexts, result.inputs.source_contexts)
+
+    def test_native_identity_guard_stops_before_changed_files_and_source_reads(self):
+        result, original_pr, _ = self.run_trial()
+        for guard in ({"expected_head": "f" * 40}, {"expected_base": "f" * 40}):
+            with self.subTest(guard=guard):
+                pr, files, target = Mock(), Mock(), Mock()
+                pr.get_pull_request_observation.return_value = original_pr.get_pull_request_observation.return_value
+                with self.assertRaisesRegex(ValueError, "frozen base/head"):
+                    acquire_public_pr_context("owner/target", 7, pull_requests=pr,
+                                              files=files, target=target, **guard)
+                pr.get_changed_files.assert_not_called()
+                files.get_exact_commit_text_file.assert_not_called()
+                target.acquire.assert_not_called()
+
+    def test_changed_file_acquisition_refusal_keeps_problem_and_stops_sources(self):
+        from upgradepilot.github.api import GitHubAcquisitionError
+
+        _, original_pr, _ = self.run_trial()
+        pr, target = Mock(), Mock()
+        pr.get_pull_request_observation.return_value = original_pr.get_pull_request_observation.return_value
+        error = GitHubAcquisitionError("Incomplete PR change set", reason="incomplete_changed_files")
+        pr.get_changed_files.side_effect = error
+        result = acquire_public_pr_context("owner/target", 7, pull_requests=pr,
+                                           files=Mock(), target=target)
+        self.assertIsInstance(result, AcquisitionProblem)
+        self.assertEqual(result.reason, "incomplete_changed_files")
+        self.assertIs(result.evidence, error)
+        target.acquire.assert_not_called()
+
     def run_trial(
         self,
         *,
@@ -87,7 +133,15 @@ class PublicPRTests(TestCase):
             1,
         )
         pr = Mock()
-        pr.get_pull_request.return_value = identity
+        description_text = "Initial dependency PR description"
+        pr.get_pull_request_observation.return_value = PullRequestObservation(
+            identity,
+            PullRequestDescriptionObservation(
+                "retained", description_text, "https://github.com/owner/target/pull/7",
+                datetime(2026, 10, 29, tzinfo=UTC),
+                hashlib.sha256(description_text.encode()).hexdigest(), len(description_text),
+            ),
+        )
         pr.get_changed_files.return_value = (
             ChangedFile(
                 "requirements.txt",
@@ -672,6 +726,11 @@ class PublicPRTests(TestCase):
         self.assertEqual(result.analysis.dependency.proposed_version, "2.0")
         inventory.acquire.assert_called_once_with("owner/target", SHA)
         pr.get_changed_files.assert_called_once_with(result.identity)
+        pr.get_pull_request_observation.assert_called_once_with("owner/target", 7)
+        pr.get_pull_request.assert_not_called()
+        self.assertIs(result.inputs.identity, result.identity)
+        self.assertIs(result.inputs.description, pr.get_pull_request_observation.return_value.description)
+        self.assertEqual(result.inputs.changed_files, pr.get_changed_files.return_value)
         self.assertEqual(result.target.candidates[0].imported_module, "bridge.testing")
         self.assertIsNotNone(result.target.candidates[0].declaration.marker)
         self.assertEqual(result.upstream.reason, "source_unavailable")

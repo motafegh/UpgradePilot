@@ -16,16 +16,15 @@ from dataclasses import asdict, dataclass
 from datetime import UTC, datetime
 from pathlib import Path
 
-from upgradepilot.dependency.analysis import (
-    DependencyChangeAnalysis,
-    analyze_dependency_change,
-)
+from upgradepilot.dependency.analysis import DependencyChangeAnalysis
+from upgradepilot.dependency.change import DependencyVersionChange
 from upgradepilot.github.api import GitHubAcquisitionError, GitHubResponseError
 from upgradepilot.github.pull_request import (
     GitHubPullRequestClient,
     PullRequestIdentity,
 )
 from upgradepilot.github.repository import GitHubRepositoryClient
+from upgradepilot.investigation_inputs import AcquiredDependencyInputs, acquire_dependency_inputs
 from upgradepilot.upstream.interval import DependencyReleaseInterval
 
 from .api_adapter_exploration import AdapterExploration, AdapterSourceExplorer
@@ -46,11 +45,25 @@ from .api_target_context import (
 
 @dataclass(frozen=True)
 class PublicPRContextTrial:
-    identity: PullRequestIdentity
-    analysis: DependencyChangeAnalysis
+    """One native acquisition horizon plus experimental source observations.
+
+    The read-only identity/analysis properties preserve existing consumers; they
+    project the shared inputs without another provider read or domain evaluation.
+    The legacy manifest remains a fact/hash view, not complete offline recovery.
+    """
+
+    inputs: AcquiredDependencyInputs
     target: TargetContext
     upstream: object
     adapters: AdapterExploration
+
+    @property
+    def identity(self) -> PullRequestIdentity:
+        return self.inputs.identity
+
+    @property
+    def analysis(self) -> DependencyChangeAnalysis:
+        return DependencyChangeAnalysis(self.inputs.dependency, self.inputs.source_contexts)
 
 
 def acquire_public_pr_context(
@@ -63,6 +76,9 @@ def acquire_public_pr_context(
     target=None,
     upstream=None,
     adapters=None,
+    expected_base: str | None = None,
+    expected_head: str | None = None,
+    max_target_python_files: int = 200,
 ) -> PublicPRContextTrial | AcquisitionProblem:
     session = session or TrialPublicSession()
     files = files or GitHubRepositoryClient(session=session)
@@ -71,17 +87,21 @@ def acquire_public_pr_context(
     upstream = upstream or DeclaredReleaseWindowAcquirer(session=session, files=files)
     adapters = adapters or AdapterSourceExplorer(session=session, files=files)
     try:
-        identity = pull_requests.get_pull_request(repository, number)
-        changes = pull_requests.get_changed_files(identity)
-        analysis = analyze_dependency_change(identity, changes, files)
-        if not isinstance(analysis, DependencyChangeAnalysis):
+        acquired = acquire_dependency_inputs(
+            repository, number, pull_requests, files,
+            expected_base=expected_base, expected_head=expected_head,
+        )
+        identity = acquired.identity
+        dependency = acquired.dependency
+        if not isinstance(dependency, DependencyVersionChange):
             return AcquisitionProblem(
-                "dependency", analysis.reason, analysis.detail, analysis
+                "dependency", dependency.reason, dependency.detail, dependency
             )
-        context = target.acquire(identity.repository, identity.head_sha)
+        context = target.acquire(
+            identity.repository, identity.head_sha, max_python_files=max_target_python_files,
+        )
         if isinstance(context, AcquisitionProblem):
             return context
-        dependency = analysis.dependency
         interval = DependencyReleaseInterval(
             dependency.package,
             dependency.normalized_package,
@@ -90,10 +110,10 @@ def acquire_public_pr_context(
         )
         source = upstream.acquire(interval)
         explored = adapters.explore(context)
-        return PublicPRContextTrial(identity, analysis, context, source, explored)
+        return PublicPRContextTrial(acquired, context, source, explored)
     except (GitHubAcquisitionError, GitHubResponseError) as exc:
         return AcquisitionProblem(
-            "public_pr", getattr(exc, "reason", "malformed_response"), str(exc)
+            "public_pr", getattr(exc, "reason", "malformed_response"), str(exc), exc,
         )
 
 
