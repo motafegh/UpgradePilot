@@ -103,7 +103,7 @@ def prepare_ordinary_inputs(trial, session, source_run):
             modules.append(PythonSourceModule(source_id, file.path, name or "", package, version,
                                                role, tuple(sorted(set(dependencies)))))
             if examined is not None:
-                queue.append((examined, role, tuple(dependencies)))
+                queue.append((examined, role))
 
     dependency = trial.inputs.dependency
     target_dependencies = tuple(d.package for d in trial.target.declarations)
@@ -124,7 +124,7 @@ def prepare_ordinary_inputs(trial, session, source_run):
     for file in trial.target.files:
         add(file, "target", "", "", target_dependencies)
     while queue:
-        examined, role, dependencies = queue.pop(0)
+        examined, role = queue.pop(0)
         for fact in examined.imports:
             if not isinstance(fact, ImportFact):
                 continue
@@ -272,7 +272,7 @@ def read_ordinary_comparison(result, companion):
         raise ValueError("Unsupported ordinary format/method/proof.")
     body, catalog = read_comparison_records(body, companion, method_sources=set(ordinary_code_identity()),
                                             allow_empty_pairs=True, input_digest_field="discovery_input_sha256")
-    if (body["inputs"]["catalog_id"] != catalog.identity
+    if (type(body["discovery"]) is not dict or body["inputs"]["catalog_id"] != catalog.identity
         or body["inputs"]["catalog_sha256"] != body["companion_sha256"]
         or body["coverage"] != body["discovery"].get("coverage")):
         raise ValueError("Ordinary material/coverage closure mismatch.")

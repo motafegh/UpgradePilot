@@ -11,9 +11,9 @@ Entry: main6130489d; fetch confirms HEAD/origin main equal. The unrelated untrac
 - A0 — DONE: applicable owners/source/tests reconciled; this record initialized.
 - A1 — DONE with adaptation below: preceding explanations covered acquisition, retained versus fresh proof and product adoption.
 - A2 — DONE with adaptation below: preceding overview explicitly described direct/re-export/initializer candidates, unchanged checker, full source retention and offline opening; current commentary confirms scope.
-- B — CURRENT: source/consumer preflight and implementation.
-- Verification gate — PENDING: controlled ordinary composition, discrimination/failures, bounded worker, offline integrity and old-reader compatibility.
-- D — PENDING: actual result/evolution explained after sufficient proof; independent mastery not inferred.
+- B — DONE: direct/re-export/initializer candidates, unchanged checker, ordinary format2 retention and offline consumer.
+- Verification gate — GREEN for this experiment increment: controlled composition, failure/coverage controls, bounded worker, source integrity and fixed v1 compatibility; no live/product proof.
+- D — CURRENT: guided result and reasoning handoff; deeper learning/practice remains unassessed.
 - E — PENDING: explicit residual scope and next responsibility.
 - C — CONTINUOUS: update this single record at meaningful decisions/corrections/proof checkpoints.
 
@@ -59,5 +59,13 @@ Ordinary view now exposes selected source identities and paths, candidate role/v
 Current limits: existing AnalysisLimits32 files/4MiB retained analysis text/100k AST nodes per file/250k aggregate nodes/4096 aggregate facts/256 comparisons/60s worker admission/512MiB address space, plus8 source/body traversal levels,32 path steps,4096 resolved source states and256 retained discovery gaps (additional gaps counted). Existing acquisition4 releases/12 module questions/2MiB source-run text/50 GitHub requests remains distinct. The worker's retained-source cap is not total acquisition/download/time policy. No limits increased.
 
 Inclusive API proof after corrections:204 tests/2.076s (20 new over184); no full product rerun is claimed. New responsibility-owned controls plus all prior API tests pass. Proceed to retained controlled artifact generation, source/method binding and final evidence review. Curated real cases are not replayed/regraded.
+
+### Preserved controls and compatibility evidence
+
+[Review and reproducible saved files](evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md) now preserve the actual controlled normal-entry result, incomplete retained-side result and failed-node-limit attempt. Method horizon4aa41f72:8 retained files/368 bytes,55 nodes,6 facts,3 comparisons; library source run4 release identities/6 questions/298 bytes. Result roles: sampled wrapper bound; native old1.0 bound/app received; native proposed2.0 rejected/app not received. All remain conditional on saved export/namespace/receiver/body/MRO/version premises. No expected outcome/pair/path was a normal-entry input.
+
+Two original v1 HTTPX/pytest bundles were opened as fixed saved DATA, with AST/network/checker forbidden. This is new read-only compatibility evidence, not a replay, source analysis, result regeneration or regrade. Five saved comparisons each and7/12 source files decode; all10 frozen member hashes match before and after opening. No raw real-source bundle was published.
+
+Final source review removed unused queue payload and made malformed discovery-shape admission explicitly refuse before field access. The existing corruption control now covers that case. Inclusive suite remains204 tests/2.179s. Earlier snapshot controls/receipt are retained at their exact code hashes; final horizon proof is recorded separately rather than overwriting immutable attempts. Product src/tests/tools/specs/ADRs remain unchanged from entry6130489d.
 
 Procedures: UP-SKILL:upgradepilot-build-implement; UP-SKILL:upgradepilot-learning-by-doing; UP-SKILL:upgradepilot-working-memory.

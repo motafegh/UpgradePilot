@@ -1,0 +1,33 @@
+CALLER / DECLARED SIGNATURE EVIDENCE
+Proof: retained_component_discovery
+Conditional source comparisons; installed versions, runtime and compatibility are not established.
+Source capture: target-rooted supported source candidates only; alternatives and runtime remain unresolved
+
+PAIR 795a4e466f2f8e157b3766dc8edb414e56239be906d385cb23aae958ffdacdab | receiver: as_written
+Caller: target owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa target.py:2 (unit 1900beadab5ba73328a44f297090aaa5ea67e42bade7af01b34a5301177f81b4)
+Declared receiver: old owner/vendor@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa vendor/__init__.py:1 (unit 94bd97387800abe95c6f67b8cb9bd9c5d1b5d0c788c67093c04119375f5d56b9)
+Call expression: send
+Explicit keywords: app
+Parameters: app[keyword_only,optional]
+Outcome under stated premises: bound
+Complete syntactic binding checked: True
+Keyword app: named_parameter
+Premise/limit: call_reaches_selected_declared_signature
+Premise/limit: target_installed_versions_and_runtime_not_established
+Next evidence: establish whether send reaches send in owner/vendor@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa with receiver mode as_written.
+
+SAVED SOURCES (explicit unit IDs for offline source inspection)
+1900beadab5ba73328a44f297090aaa5ea67e42bade7af01b34a5301177f81b4 target target.py
+94bd97387800abe95c6f67b8cb9bd9c5d1b5d0c788c67093c04119375f5d56b9 old vendor/__init__.py
+8398a30a627e9808356239687bdf1d9c8c2bc57b3657346f813d3129da9314ef new vendor/__init__.py
+
+DISCOVERED SOURCE PATHS (conditional, not runtime dispatch)
+CANDIDATE 795a4e466f2f8e157b3766dc8edb414e56239be906d385cb23aae958ffdacdab | native_old_version 1.0
+call owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa target.py:2 (unit 1900beadab5ba73328a44f297090aaa5ea67e42bade7af01b34a5301177f81b4)
+import_origin owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa target.py:1 (unit 1900beadab5ba73328a44f297090aaa5ea67e42bade7af01b34a5301177f81b4)
+declaration owner/vendor@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa vendor/__init__.py:1 (unit 94bd97387800abe95c6f67b8cb9bd9c5d1b5d0c788c67093c04119375f5d56b9)
+Path premise: effective_export_binding_not_established
+Path premise: installed_namespace_and_dispatch_not_established
+Discovery gap: named_declaration_or_reexport_not_found | 8398a30a627e9808356239687bdf1d9c8c2bc57b3657346f813d3129da9314ef | send
+Additional gap records omitted: 0
+No candidates does not establish no exposure. Next evidence: resolve the displayed path/version/coverage premises.

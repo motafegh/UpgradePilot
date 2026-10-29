@@ -278,7 +278,7 @@ class OrdinaryRetentionTests(TestCase):
     def test_path_role_and_companion_tampering_fail_without_reanalysis(self):
         result, companion = prepare_ordinary_comparison(prepared("from vendor import send\nsend()\n",
             "def send():\n pass\n", "def send():\n pass\n"), AnalysisLimits())
-        for change in ("foreign_step", "wrong_role", "bad_source", "receiver", "path_text", "root", "receipt"):
+        for change in ("foreign_step", "wrong_role", "bad_source", "receiver", "path_text", "root", "receipt", "discovery_shape"):
             body = json.loads(result)
             candidate = body["discovery"]["candidates"][0]
             if change == "foreign_step":
@@ -293,6 +293,8 @@ class OrdinaryRetentionTests(TestCase):
                 candidate["root_call_id"] = candidate["signature_id"]
             elif change == "receipt":
                 body["acquisition"]["ordinary_acquisition"] = "invalid"
+            elif change == "discovery_shape":
+                body["discovery"] = []
             else:
                 candidate["receiver_mode"] = "one_receiver_assumed"
             with self.subTest(change=change), self.assertRaises(ValueError):

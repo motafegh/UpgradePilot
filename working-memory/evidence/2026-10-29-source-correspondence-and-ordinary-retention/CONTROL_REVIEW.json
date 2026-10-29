@@ -1,0 +1,166 @@
+{
+  "proof_class": "controlled_ordinary_pr_composition",
+  "target": {
+    "base_sha": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "head_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "normalized_package": "vendor",
+    "old_version": "1.0",
+    "proposed_version": "2.0",
+    "pull_number": 7,
+    "repository": "owner/target"
+  },
+  "pr_observations": 1,
+  "identity_only_refetches": 0,
+  "changed_file_reads": 1,
+  "source_work": {
+    "module_attempts": 6,
+    "release_identities": [
+      [
+        "bridge",
+        "2.0"
+      ],
+      [
+        "mediator",
+        "2.0"
+      ],
+      [
+        "vendor",
+        "1.0"
+      ],
+      [
+        "vendor",
+        "2.0"
+      ]
+    ],
+    "source_bytes": 298
+  },
+  "analysis_work": {
+    "ast_nodes": 55,
+    "facts": 6,
+    "selected_pairs": 3,
+    "source_bytes": 368,
+    "source_files": 8
+  },
+  "comparisons": [
+    {
+      "role": "constraint_sample",
+      "version": "2.0",
+      "outcome": "bound",
+      "keyword_reception": [
+        {
+          "name": "app",
+          "outcome": "named_parameter"
+        }
+      ],
+      "steps": [
+        "call",
+        "import_origin",
+        "reexport",
+        "class_declaration",
+        "initializer"
+      ],
+      "premises": [
+        "adapter_version_is_exploration_sample_not_target_resolution",
+        "effective_export_binding_not_established",
+        "installed_namespace_and_dispatch_not_established",
+        "reexport_binding_and_branch_activation_not_established",
+        "class_allocation_metaclass_and_mro_not_established"
+      ]
+    },
+    {
+      "role": "native_proposed_version",
+      "version": "2.0",
+      "outcome": "rejected",
+      "keyword_reception": [
+        {
+          "name": "app",
+          "outcome": "not_received"
+        }
+      ],
+      "steps": [
+        "call",
+        "import_origin",
+        "reexport",
+        "class_declaration",
+        "initializer",
+        "call",
+        "declared_base",
+        "reexport",
+        "class_declaration",
+        "initializer"
+      ],
+      "premises": [
+        "adapter_version_is_exploration_sample_not_target_resolution",
+        "effective_export_binding_not_established",
+        "installed_namespace_and_dispatch_not_established",
+        "reexport_binding_and_branch_activation_not_established",
+        "class_allocation_metaclass_and_mro_not_established",
+        "execution_reaches_selected_body_and_branch",
+        "builtin_super_and_effective_mro_assumed"
+      ]
+    },
+    {
+      "role": "native_old_version",
+      "version": "1.0",
+      "outcome": "bound",
+      "keyword_reception": [
+        {
+          "name": "app",
+          "outcome": "named_parameter"
+        }
+      ],
+      "steps": [
+        "call",
+        "import_origin",
+        "reexport",
+        "class_declaration",
+        "initializer",
+        "call",
+        "declared_base",
+        "reexport",
+        "class_declaration",
+        "initializer"
+      ],
+      "premises": [
+        "adapter_version_is_exploration_sample_not_target_resolution",
+        "effective_export_binding_not_established",
+        "installed_namespace_and_dispatch_not_established",
+        "reexport_binding_and_branch_activation_not_established",
+        "class_allocation_metaclass_and_mro_not_established",
+        "execution_reaches_selected_body_and_branch",
+        "builtin_super_and_effective_mro_assumed"
+      ]
+    }
+  ],
+  "discovery_gaps": [
+    {
+      "detail": "super",
+      "reason": "callable_relationship_unresolved",
+      "span": {
+        "column": 2,
+        "end_column": 9,
+        "end_line": 4,
+        "line": 4
+      },
+      "unit_id": "0c208143c6bcef0f4620737246301d220f93f0ae466ccef290748a724574ef90"
+    }
+  ],
+  "meaning": "Controlled providers, actual ordinary composition and bounded analysis; no live/provider/target execution proof",
+  "incomplete_control": {
+    "proof_class": "retained_component_discovery",
+    "comparisons": 1,
+    "gaps": [
+      {
+        "detail": "send",
+        "reason": "named_declaration_or_reexport_not_found",
+        "span": null,
+        "unit_id": "8398a30a627e9808356239687bdf1d9c8c2bc57b3657346f813d3129da9314ef"
+      }
+    ],
+    "meaning": "Absent new declaration is a gap, not evidence of removal or compatibility"
+  },
+  "refused_analysis": {
+    "state": "failed",
+    "reason": "ValueError: bounded_worker_failed: AnalysisLimit: ast_node_limit\n"
+  }
+}
