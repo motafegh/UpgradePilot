@@ -1,0 +1,163 @@
+{
+  "tests": 600,
+  "elapsed_seconds": 39.38656135900055,
+  "failures": [
+    {
+      "test": "test_b2_x1_phase3b_harness.Phase3BRequestHarnessTests.test_accepted_s001_source_identity_subset_matches_checkout",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_b2_x1_phase3b_harness.py\", line 53, in test_accepted_s001_source_identity_subset_matches_checkout\n    self.assertEqual(problems, ())\nAssertionError: Tuples differ: (SourceIdentityProblem(path='tests/test_r6[167 chars]0'),) != ()\n\nFirst tuple contains 1 additional elements.\nFirst extra element 0:\nSourceIdentityProblem(path='tests/test_r6_project_environment_workflow_integration.py', expected_blob_sha='8dad66af993a7d5bb0be50a39145da32a65913b4', observed_blob_sha='fcc40a9096b9f352f8ccfd121e27df5e30ecff40')\n\n+ ()\n- (SourceIdentityProblem(path='tests/test_r6_project_environment_workflow_integration.py',\n-                        expected_blob_sha='8dad66af993a7d5bb0be50a39145da32a65913b4',\n-                        observed_blob_sha='fcc40a9096b9f352f8ccfd121e27df5e30ecff40'),)\n"
+    }
+  ],
+  "errors": [
+    {
+      "test": "test_evidence_gap_implementation_semantic_comparison.EvidenceGapImplementationSemanticComparisonTests.test_authorized_semantic_success_semantics_match",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_implementation_semantic_comparison.py\", line 170, in test_authorized_semantic_success_semantics_match\n    {\"start_input\": _langgraph_start_input()},\n                    ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_implementation_semantic_comparison.py\", line 286, in _langgraph_start_input\n    investigation=_investigation(),\n                  ^^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_implementation_semantic_comparison.py\", line 330, in _investigation\n    return PublicPullRequestInvestigation(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: PublicPullRequestInvestigation.__init__() missing 1 required positional argument: 'runtime_dependency_state_result'\n"
+    },
+    {
+      "test": "test_evidence_gap_implementation_semantic_comparison.EvidenceGapImplementationSemanticComparisonTests.test_expected_repository_failure_semantics_match",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_implementation_semantic_comparison.py\", line 225, in test_expected_repository_failure_semantics_match\n    {\"start_input\": _langgraph_start_input()},\n                    ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_implementation_semantic_comparison.py\", line 286, in _langgraph_start_input\n    investigation=_investigation(),\n                  ^^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_implementation_semantic_comparison.py\", line 330, in _investigation\n    return PublicPullRequestInvestigation(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: PublicPullRequestInvestigation.__init__() missing 1 required positional argument: 'runtime_dependency_state_result'\n"
+    },
+    {
+      "test": "test_evidence_gap_implementation_semantic_comparison.EvidenceGapImplementationSemanticComparisonTests.test_fresh_t2_consumed_action_rejection_semantics_match",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_implementation_semantic_comparison.py\", line 124, in test_fresh_t2_consumed_action_rejection_semantics_match\n    {\"start_input\": _langgraph_start_input(consumed_actions=())},\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_implementation_semantic_comparison.py\", line 286, in _langgraph_start_input\n    investigation=_investigation(),\n                  ^^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_implementation_semantic_comparison.py\", line 330, in _investigation\n    return PublicPullRequestInvestigation(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: PublicPullRequestInvestigation.__init__() missing 1 required positional argument: 'runtime_dependency_state_result'\n"
+    },
+    {
+      "test": "test_evidence_gap_implementation_semantic_comparison.EvidenceGapImplementationSemanticComparisonTests.test_no_action_semantics_match",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_implementation_semantic_comparison.py\", line 95, in test_no_action_semantics_match\n    {\"start_input\": _langgraph_start_input()},\n                    ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_implementation_semantic_comparison.py\", line 286, in _langgraph_start_input\n    investigation=_investigation(),\n                  ^^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_implementation_semantic_comparison.py\", line 330, in _investigation\n    return PublicPullRequestInvestigation(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: PublicPullRequestInvestigation.__init__() missing 1 required positional argument: 'runtime_dependency_state_result'\n"
+    },
+    {
+      "test": "test_evidence_gap_product_planner_composition.EvidenceGapRealStateCompositionTests.test_composition_rejects_selector_that_no_longer_matches_bound_action_contract",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_product_planner_composition.py\", line 132, in test_composition_rejects_selector_that_no_longer_matches_bound_action_contract\n    investigation = _investigation()\n                    ^^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_product_planner_composition.py\", line 165, in _investigation\n    ci_coverage_result=_coverage(),\n                       ^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_product_planner_composition.py\", line 215, in _coverage\n    docs = _consumption(\n           ^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_product_planner_composition.py\", line 270, in _consumption\n    return StaticDependencyConsumptionEvidence(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: StaticDependencyConsumptionEvidence.__init__() got an unexpected keyword argument 'segment_index'\n"
+    },
+    {
+      "test": "test_evidence_gap_product_planner_composition.EvidenceGapRealStateCompositionTests.test_composition_reuses_product_transition_propositions_and_all_supported_ci_consumptions",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_product_planner_composition.py\", line 49, in test_composition_reuses_product_transition_propositions_and_all_supported_ci_consumptions\n    _investigation(),\n    ^^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_product_planner_composition.py\", line 165, in _investigation\n    ci_coverage_result=_coverage(),\n                       ^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_product_planner_composition.py\", line 215, in _coverage\n    docs = _consumption(\n           ^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_product_planner_composition.py\", line 270, in _consumption\n    return StaticDependencyConsumptionEvidence(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: StaticDependencyConsumptionEvidence.__init__() got an unexpected keyword argument 'segment_index'\n"
+    },
+    {
+      "test": "test_evidence_gap_product_planner_composition.EvidenceGapRealStateCompositionTests.test_consumed_or_budget_blocked_action_is_not_offered_pre_call",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_product_planner_composition.py\", line 116, in test_consumed_or_budget_blocked_action_is_not_offered_pre_call\n    _investigation(),\n    ^^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_product_planner_composition.py\", line 165, in _investigation\n    ci_coverage_result=_coverage(),\n                       ^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_product_planner_composition.py\", line 215, in _coverage\n    docs = _consumption(\n           ^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_product_planner_composition.py\", line 270, in _consumption\n    return StaticDependencyConsumptionEvidence(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: StaticDependencyConsumptionEvidence.__init__() got an unexpected keyword argument 'segment_index'\n"
+    },
+    {
+      "test": "test_evidence_gap_product_planner_composition.EvidenceGapRealStateCompositionTests.test_rendered_context_keeps_exact_source_and_action_authority_hidden",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_product_planner_composition.py\", line 94, in test_rendered_context_keeps_exact_source_and_action_authority_hidden\n    _investigation(),\n    ^^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_product_planner_composition.py\", line 165, in _investigation\n    ci_coverage_result=_coverage(),\n                       ^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_product_planner_composition.py\", line 215, in _coverage\n    docs = _consumption(\n           ^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_evidence_gap_product_planner_composition.py\", line 270, in _consumption\n    return StaticDependencyConsumptionEvidence(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: StaticDependencyConsumptionEvidence.__init__() got an unexpected keyword argument 'segment_index'\n"
+    },
+    {
+      "test": "test_langgraph_evidence_gap_ordinary_python_control_adapters.OrdinaryPythonEvidenceGapPlannerAdapterTests.test_action_decision_maps_to_langgraph_action_proposal",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_ordinary_python_control_adapters.py\", line 46, in test_action_decision_maps_to_langgraph_action_proposal\n    result = OrdinaryPythonEvidenceGapPlannerAdapter(control).plan(_start_input())\n                                                                   ^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_ordinary_python_control_adapters.py\", line 82, in _start_input\n    investigation=_investigation(),\n                  ^^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_ordinary_python_control_adapters.py\", line 128, in _investigation\n    return PublicPullRequestInvestigation(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: PublicPullRequestInvestigation.__init__() missing 1 required positional argument: 'runtime_dependency_state_result'\n"
+    },
+    {
+      "test": "test_langgraph_evidence_gap_ordinary_python_control_adapters.OrdinaryPythonEvidenceGapPlannerAdapterTests.test_no_action_decision_maps_to_langgraph_no_action",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_ordinary_python_control_adapters.py\", line 60, in test_no_action_decision_maps_to_langgraph_no_action\n    result = OrdinaryPythonEvidenceGapPlannerAdapter(control).plan(_start_input())\n                                                                   ^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_ordinary_python_control_adapters.py\", line 82, in _start_input\n    investigation=_investigation(),\n                  ^^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_ordinary_python_control_adapters.py\", line 128, in _investigation\n    return PublicPullRequestInvestigation(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: PublicPullRequestInvestigation.__init__() missing 1 required positional argument: 'runtime_dependency_state_result'\n"
+    },
+    {
+      "test": "test_langgraph_evidence_gap_ordinary_python_control_adapters.OrdinaryPythonEvidenceGapPlannerAdapterTests.test_provider_problem_maps_to_langgraph_provider_problem",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_ordinary_python_control_adapters.py\", line 73, in test_provider_problem_maps_to_langgraph_provider_problem\n    result = OrdinaryPythonEvidenceGapPlannerAdapter(control).plan(_start_input())\n                                                                   ^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_ordinary_python_control_adapters.py\", line 82, in _start_input\n    investigation=_investigation(),\n                  ^^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_ordinary_python_control_adapters.py\", line 128, in _investigation\n    return PublicPullRequestInvestigation(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: PublicPullRequestInvestigation.__init__() missing 1 required positional argument: 'runtime_dependency_state_result'\n"
+    },
+    {
+      "test": "test_langgraph_evidence_gap_workflow.EvidenceGapLangGraphTests.test_authorized_semantic_result_executes_once_consumes_action_spends_budget_and_updates_domain",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_workflow.py\", line 118, in test_authorized_semantic_result_executes_once_consumes_action_spends_budget_and_updates_domain\n    start_input = _start_input()\n                  ^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_workflow.py\", line 209, in _start_input\n    investigation=_investigation(),\n                  ^^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_workflow.py\", line 253, in _investigation\n    return PublicPullRequestInvestigation(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: PublicPullRequestInvestigation.__init__() missing 1 required positional argument: 'runtime_dependency_state_result'\n"
+    },
+    {
+      "test": "test_langgraph_evidence_gap_workflow.EvidenceGapLangGraphTests.test_expected_repository_failure_spends_budget_without_consuming_action_or_changing_domain",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_workflow.py\", line 162, in test_expected_repository_failure_spends_budget_without_consuming_action_or_changing_domain\n    start_input = _start_input()\n                  ^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_workflow.py\", line 209, in _start_input\n    investigation=_investigation(),\n                  ^^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_workflow.py\", line 253, in _investigation\n    return PublicPullRequestInvestigation(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: PublicPullRequestInvestigation.__init__() missing 1 required positional argument: 'runtime_dependency_state_result'\n"
+    },
+    {
+      "test": "test_langgraph_evidence_gap_workflow.EvidenceGapLangGraphTests.test_fresh_t2_consumption_rejects_model_proposal_and_preserves_t2_baseline",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_workflow.py\", line 87, in test_fresh_t2_consumption_rejects_model_proposal_and_preserves_t2_baseline\n    start_input = _start_input(consumed_actions=())\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_workflow.py\", line 209, in _start_input\n    investigation=_investigation(),\n                  ^^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_workflow.py\", line 253, in _investigation\n    return PublicPullRequestInvestigation(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: PublicPullRequestInvestigation.__init__() missing 1 required positional argument: 'runtime_dependency_state_result'\n"
+    },
+    {
+      "test": "test_langgraph_evidence_gap_workflow.EvidenceGapLangGraphTests.test_no_action_routes_directly_to_conclude_without_authority_or_repository_effect",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_workflow.py\", line 56, in test_no_action_routes_directly_to_conclude_without_authority_or_repository_effect\n    start_input = _start_input()\n                  ^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_workflow.py\", line 209, in _start_input\n    investigation=_investigation(),\n                  ^^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_langgraph_evidence_gap_workflow.py\", line 253, in _investigation\n    return PublicPullRequestInvestigation(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: PublicPullRequestInvestigation.__init__() missing 1 required positional argument: 'runtime_dependency_state_result'\n"
+    },
+    {
+      "test": "test_workspace_replacement_migration.WorkspaceReplacementMigrationTests.test_absent_optional_manifest_field_is_not_silently_defaulted",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_workspace_replacement_migration.py\", line 158, in test_absent_optional_manifest_field_is_not_silently_defaulted\n    capture, _ = self.captured()\n                 ^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_workspace_replacement_migration.py\", line 46, in captured\n    return capture_normal_pipeline(MemoryCheckpoints())\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/workspace_replacement_migration.py\", line 493, in capture_normal_pipeline\n    operation = getattr(application, name)\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAttributeError: module 'upgradepilot.investigation' has no attribute 'analyze_dependency_change'\n"
+    },
+    {
+      "test": "test_workspace_replacement_migration.WorkspaceReplacementMigrationTests.test_call_oracle_refuses_processing_after_the_capture_context_exits",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_workspace_replacement_migration.py\", line 92, in test_call_oracle_refuses_processing_after_the_capture_context_exits\n    capture, original = self.captured()\n                        ^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_workspace_replacement_migration.py\", line 46, in captured\n    return capture_normal_pipeline(MemoryCheckpoints())\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/workspace_replacement_migration.py\", line 493, in capture_normal_pipeline\n    operation = getattr(application, name)\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAttributeError: module 'upgradepilot.investigation' has no attribute 'analyze_dependency_change'\n"
+    },
+    {
+      "test": "test_workspace_replacement_migration.WorkspaceReplacementMigrationTests.test_capture_retains_real_owner_inputs_not_only_legacy_fields",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_workspace_replacement_migration.py\", line 117, in test_capture_retains_real_owner_inputs_not_only_legacy_fields\n    capture, original = self.captured()\n                        ^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_workspace_replacement_migration.py\", line 46, in captured\n    return capture_normal_pipeline(MemoryCheckpoints())\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/workspace_replacement_migration.py\", line 493, in capture_normal_pipeline\n    operation = getattr(application, name)\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAttributeError: module 'upgradepilot.investigation' has no attribute 'analyze_dependency_change'\n"
+    },
+    {
+      "test": "test_workspace_replacement_migration.WorkspaceReplacementMigrationTests.test_changed_live_value_cannot_override_the_immutable_native_fact",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_workspace_replacement_migration.py\", line 145, in test_changed_live_value_cannot_override_the_immutable_native_fact\n    capture, original = self.captured()\n                        ^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_workspace_replacement_migration.py\", line 46, in captured\n    return capture_normal_pipeline(MemoryCheckpoints())\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/workspace_replacement_migration.py\", line 493, in capture_normal_pipeline\n    operation = getattr(application, name)\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAttributeError: module 'upgradepilot.investigation' has no attribute 'analyze_dependency_change'\n"
+    },
+    {
+      "test": "test_workspace_replacement_migration.WorkspaceReplacementMigrationTests.test_explicit_missing_native_material_blocks_the_projection",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_workspace_replacement_migration.py\", line 172, in test_explicit_missing_native_material_blocks_the_projection\n    capture, _ = self.captured()\n                 ^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_workspace_replacement_migration.py\", line 46, in captured\n    return capture_normal_pipeline(MemoryCheckpoints())\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/workspace_replacement_migration.py\", line 493, in capture_normal_pipeline\n    operation = getattr(application, name)\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAttributeError: module 'upgradepilot.investigation' has no attribute 'analyze_dependency_change'\n"
+    },
+    {
+      "test": "test_workspace_replacement_migration.WorkspaceReplacementMigrationTests.test_new_lifecycle_is_retained_but_cannot_create_an_action_permission",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_workspace_replacement_migration.py\", line 201, in test_new_lifecycle_is_retained_but_cannot_create_an_action_permission\n    capture, _ = self.captured()\n                 ^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_workspace_replacement_migration.py\", line 46, in captured\n    return capture_normal_pipeline(MemoryCheckpoints())\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/workspace_replacement_migration.py\", line 493, in capture_normal_pipeline\n    operation = getattr(application, name)\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAttributeError: module 'upgradepilot.investigation' has no attribute 'analyze_dependency_change'\n"
+    },
+    {
+      "test": "test_workspace_replacement_migration.WorkspaceReplacementMigrationTests.test_one_normal_path_all_consumer_meanings_and_checkpoint_equal_across_backends (backend='memory')",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_workspace_replacement_migration.py\", line 57, in test_one_normal_path_all_consumer_meanings_and_checkpoint_equal_across_backends\n    summary, checkpoint, report = trial(backend, Path(directory))\n                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/run_workspace_migration_trial.py\", line 140, in trial\n    capture, original = capture_normal_pipeline(port)\n                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/workspace_replacement_migration.py\", line 493, in capture_normal_pipeline\n    operation = getattr(application, name)\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAttributeError: module 'upgradepilot.investigation' has no attribute 'analyze_dependency_change'\n"
+    },
+    {
+      "test": "test_workspace_replacement_migration.WorkspaceReplacementMigrationTests.test_one_normal_path_all_consumer_meanings_and_checkpoint_equal_across_backends",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_workspace_replacement_migration.py\", line 58, in test_one_normal_path_all_consumer_meanings_and_checkpoint_equal_across_backends\n    self.assertEqual(summary[\"native_acquisition_port_returns\"], 13)\n                     ^^^^^^^\nUnboundLocalError: cannot access local variable 'summary' where it is not associated with a value\n"
+    },
+    {
+      "test": "test_workspace_replacement_migration.WorkspaceReplacementMigrationTests.test_other_exact_target_cannot_consume_the_old_native_values",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_workspace_replacement_migration.py\", line 192, in test_other_exact_target_cannot_consume_the_old_native_values\n    capture, _ = self.captured()\n                 ^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_workspace_replacement_migration.py\", line 46, in captured\n    return capture_normal_pipeline(MemoryCheckpoints())\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/workspace_replacement_migration.py\", line 493, in capture_normal_pipeline\n    operation = getattr(application, name)\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAttributeError: module 'upgradepilot.investigation' has no attribute 'analyze_dependency_change'\n"
+    },
+    {
+      "test": "test_workspace_replacement_migration.WorkspaceReplacementMigrationTests.test_retained_checkpoint_bytes_do_not_hydrate_trusted_objects",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_workspace_replacement_migration.py\", line 185, in test_retained_checkpoint_bytes_do_not_hydrate_trusted_objects\n    capture, _ = self.captured()\n                 ^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_workspace_replacement_migration.py\", line 46, in captured\n    return capture_normal_pipeline(MemoryCheckpoints())\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/motafeq/projects/UpgradePilot/experiments/workspace_replacement_migration.py\", line 493, in capture_normal_pipeline\n    operation = getattr(application, name)\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAttributeError: module 'upgradepilot.investigation' has no attribute 'analyze_dependency_change'\n"
+    }
+  ],
+  "skipped": [
+    {
+      "test": "test_investigator_run_control.PredictionControlTests.test_installed_sdk_queue_wait_interrupts_and_cancel_uses_same_channel",
+      "reason": "optional preserved SDK not selected"
+    },
+    {
+      "test": "test_investigator_run_control.PredictionControlTests.test_sdk_prediction_restores_rpc_idle_timeout_after_interruption",
+      "reason": "optional preserved SDK not selected"
+    },
+    {
+      "test": "test_investigator_run_control.PredictionControlTests.test_sdk_prompt_progress_is_retained_as_scalar_before_interruption",
+      "reason": "optional preserved SDK not selected"
+    },
+    {
+      "test": "test_investigator_run_control.RetainedSDKQueueTests.test_already_dequeued_success_survives_interruption_before_dispatch",
+      "reason": "optional preserved SDK not selected"
+    },
+    {
+      "test": "test_investigator_run_control.RetainedSDKQueueTests.test_blocked_queue_deadline_retains_reply_for_same_receive",
+      "reason": "optional preserved SDK not selected"
+    },
+    {
+      "test": "test_investigator_run_control.RetainedSDKQueueTests.test_continuous_queue_fragments_are_acknowledged_once_across_deadline",
+      "reason": "optional preserved SDK not selected"
+    },
+    {
+      "test": "test_investigator_run_control.RetainedSDKQueueTests.test_delayed_cancel_reply_uses_finalization_bound_not_prediction_idle",
+      "reason": "optional preserved SDK not selected"
+    },
+    {
+      "test": "test_investigator_run_control.RetainedSDKQueueTests.test_missing_terminal_stays_unknown_after_channel_close",
+      "reason": "optional preserved SDK not selected"
+    },
+    {
+      "test": "test_investigator_run_control.RetainedSDKQueueTests.test_sigint_during_terminal_handoff_preserves_metadata_once",
+      "reason": "optional preserved SDK not selected"
+    },
+    {
+      "test": "test_investigator_run_control.RetainedSDKQueueTests.test_sigterm_during_terminal_handoff_is_preserved_as_exit",
+      "reason": "optional preserved SDK not selected"
+    },
+    {
+      "test": "test_investigator_run_control.RetainedSDKQueueTests.test_silent_cancel_is_finite_and_pending_receive_cancellation_is_recorded",
+      "reason": "optional preserved SDK not selected"
+    }
+  ],
+  "failures_ids_match_baseline": true,
+  "failures_messages_match_baseline": true,
+  "errors_ids_match_baseline": true,
+  "errors_messages_match_baseline": true,
+  "skipped_ids_match_baseline": true
+}

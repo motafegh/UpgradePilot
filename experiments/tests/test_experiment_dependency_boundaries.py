@@ -11,6 +11,12 @@ CHECKER = Path(__file__).resolve().parents[2] / "tools/check_experiment_boundari
 
 
 class ExperimentBoundaryTests(TestCase):
+    def test_repository_inventory_and_dependency_graph_satisfy_the_declared_model(self):
+        completed = subprocess.run([sys.executable, str(CHECKER)], capture_output=True, text=True, timeout=10)
+        result = json.loads(completed.stdout)
+        self.assertEqual(completed.returncode, 0, result)
+        self.assertTrue(result["ok"])
+
     def check(self, *, source="", target="", product="", mutation=None, classify=True):
         with TemporaryDirectory() as tmp:
             root = Path(tmp)

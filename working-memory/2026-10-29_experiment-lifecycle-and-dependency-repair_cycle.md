@@ -11,11 +11,11 @@ Entry checkout629ede16; fetch exposed40994b0d (audit) and97983da3 (activation). 
 - A0 — DONE: current main, audit, root/operation owners, experiment inventory/source preflight reconciled.
 - A1 — DONE proportionately: explicit user steering replaces protocol expansion with independent subsystem analysis; two remote documentation commits explained.
 - A2 — DONE: independent gate preserved first; concrete repair/identity/retention model explained and recorded before Build.
-- B — CURRENT: selected organization/public-support repair implemented; final controlled contrast and disposition pending.
-- Verification gate — PENDING: analysis comparison first; later focused/inclusive and frozen compatibility proof for selected repairs.
-- D — PENDING: evidence-backed explanation and later-learning route.
-- E — PENDING: resolution/defer decisions and explicit expansion-gate disposition.
-- C — CONTINUOUS: one coherent record through analysis→design→repair→verification/handoff.
+- B — DONE: explicit inventory/model, public signature evidence ownership and static dependency/product boundary check.
+- Verification gate — GREEN for the bounded repair/no-new-regression contract; API206 and boundary7 pass, final600 research cases retain exact pre-existing1 failure/25 errors/11 skips. Full suite remains RED and debt is explicit.
+- D — DONE as guided engineering explanation and recorded later-learning route; independent learner mastery unassessed/deferred.
+- E — DONE: findings absorbed as independently narrowed, historical debt retained with triggers, expansion gate disposition and next responsibility handed off.
+- C — DONE: analysis→design→repair→verification/closure recorded and published progressively.
 
 Continuity adaptation: Ali explicitly requested this complete sequence and recently received the source-integration walkthrough. Duplicate stop/permission messages would obscure the mandatory independent-analysis gate. Compress familiar onboarding, but preserve that gate as a separately reviewable artifact BEFORE selecting/executing repairs. No claim of independent learner mastery follows. If consequential unresolved scope/authority changes emerge, reconcile their proper owner before Build.
 
@@ -64,3 +64,17 @@ First checker run caught the draft registry's insufficient role for api_adapter_
 - [Shared-support compatibility](evidence/2026-10-29-experiment-lifecycle-and-dependency-repair/shared-support-compatibility.json):19 structurally equivalent moved definitions, actual HTTPX/pytest v1 opening (5 saved comparisons each),3 existing ordinary v2 controls opening (3/3/1 comparisons), AST/network/checker forbidden. All10 frozen private member hashes unchanged. No source/finding recomputation or regrade.
 - [Broad post-repair baseline comparison](evidence/2026-10-29-experiment-lifecycle-and-dependency-repair/post-repair-tests.json):599 tests/41.136s, same1 failure/25 errors/11 optional skips by exact identity as the unchanged591-test baseline;8 added tests. This is no-new-regression evidence, NOT a green full suite. Historical fixture/owner incompatibilities remain named debt, not product defects or accepted current conformance.
 - Final controlled normal-entry contrast, frozen artifact manifest, local link/identity checks and audit disposition remain to consolidate. No native source changes or fresh product regression claimed.
+
+## Final evidence, disposition and learning handoff
+
+[Controlled contrast](evidence/2026-10-29-experiment-lifecycle-and-dependency-repair/controlled-behavior-comparison.json) at59625ff2 creates a NEW labelled controlled attempt. Compared with the original saved ordinary control, exact target/files/facts/pairs/outcomes/work/coverage/module roles/discovery/premises/proof class agree; source companion bytes are identical. Only new method identities and attempt/acquisition metadata differ. Existing receipt-bound artifact hashes remain unchanged; no original output is regenerated/regraded. Actual original v1 and3 v2 controls remain read-only openable under fixed legacy closure.
+
+Added an actual-repository boundary test to the six negative/policy controls so normal experiment discovery enforces real membership/import/model coherence. Boundary7 tests/1.112s pass. [Final broad proof](evidence/2026-10-29-experiment-lifecycle-and-dependency-repair/final-regression-tests.json):600 tests/39.387s; exact failure/error identities AND messages match baseline, exact skip identities match. Nine tests added overall (2 API method-closure,7 architecture checks), no new failure. The initial599-case post-repair proof remains preserved rather than silently overwritten. Full research suite is still red for the named historical native-contract/hash debt; the verification gate passes its explicitly selected no-new-regression contract, not fictional universal conformance.
+
+[Resolution](evidence/2026-10-29-experiment-lifecycle-and-dependency-repair/RESOLUTION.md) maps each F1–F5 to stronger implemented owners; AUDIT-013 moves ACTIVE→ABSORBED through the normal indexes, preserving its canonical path and original review/selection horizon. Subsequent resolution links the independent adjudication rather than rewriting its observations. The selected subsystem gate is satisfied by explicit defensible organization/dependencies, not additional folders or erasing historical debt.
+
+Source/learning points preserved: an acyclic graph can still have poor API ownership; role/family is not a filename or live execution selection; a frozen outcome differs from mutable source; method closure must bind extracted code while old fixed source sets remain historical; common decoding is not semantic acceptance; qualify the exact reusable responsibility instead of genericizing duplicate syntax; current API proof, optional environment proof and broken historical conformance need separate denominators.
+
+Independent hands-on understanding/teaching remains deferred for Ali's later use; no quiz, agreement or test pass certifies mastery. Technical ownership has a reproducible source/record route now. No model/target/fresh provider work or protocol/factory expansion occurred. No native product/spec/ADR/packaging change occurred and no new native regression run is claimed.
+
+Next responsibility may return to the separately bounded protocol/factory source pattern under the existing integration design, using the explicit substrate/public APIs and maintaining the registry/dependency check. Substantial expansion is no longer blocked by AUDIT-013's organization gate, but is not performed by this cycle. Actual staged live allocation/fresh-attempt selection, native API/Workspace/report adoption, independent semantic/usefulness qualification and historical research-path requalification remain separately owned.

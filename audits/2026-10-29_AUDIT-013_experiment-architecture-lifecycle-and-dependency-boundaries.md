@@ -226,3 +226,22 @@ A successful outcome is not "more folders". It is:
 The observations in this audit are a bounded independent review horizon, not a substitute for the mandatory current-state analysis above.
 
 UP-SKILL:upgradepilot-repository-audit
+
+## Subsequent independent adjudication and repair — October29
+
+The original observations/selection above remain the recorded629ede16 review horizon.
+[Independent reconstruction](../working-memory/evidence/2026-10-29-experiment-lifecycle-and-dependency-repair/INDEPENDENT_ANALYSIS.md)
+was preserved/published ata1d994cb against97983da3 BEFORE repair selection; it explicitly
+adjudicates O1–O6/F1–F5. It confirms the product boundary and reuse, narrows lifecycle
+absence and dependency-inversion claims (the actual graph is acyclic), identifies
+earlier family-local shared/private APIs and records material baseline test debt.
+
+The [bounded plan](../plans/EXPERIMENT_ORGANIZATION_AND_DEPENDENCY_BOUNDARY_REPAIR_PLAN.md)
+and [resolution/evidence](../working-memory/evidence/2026-10-29-experiment-lifecycle-and-dependency-repair/RESOLUTION.md)
+carry the implemented role inventory/navigation, explicit public signature-evidence
+support, exact legacy exceptions, static graph/package boundary check, current/historical
+source identity handling, unchanged frozen results and failure-baseline comparison.
+No proposed physical folder arrangement was assumed or implemented; no native/product
+promotion or semantic expansion followed. Lifecycle is now carried by the absorbed
+index under LIFECYCLE.md. Historical fixture debt remains explicitly owned/deferred;
+this resolution does not rewrite the original audit or experimental outcomes.

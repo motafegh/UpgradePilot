@@ -6,6 +6,9 @@ Canonical audit records remain at stable paths directly under `audits/`; this in
 
 Current absorbed audits:
 
+- [ABSORBED — AUDIT-013 — Experiment architecture, lifecycle and dependency boundaries](../2026-10-29_AUDIT-013_experiment-architecture-lifecycle-and-dependency-boundaries.md)
+  - absorbed2026-10-29 after independently preserved O1–O6/F1–F5 adjudication, bounded selection and verified repair. [Resolution](../../working-memory/evidence/2026-10-29-experiment-lifecycle-and-dependency-repair/RESOLUTION.md) links the complete role/index model, shared signature-evidence owner, source-only graph/product boundary check, historical source-key compatibility and unchanged frozen evidence. Stable module paths remain; automatic product promotion and mass restructuring were rejected. Existing broad historical-test failures and31 scoped private exceptions remain explicitly bounded debt with owner/re-entry triggers, not hidden green qualification. `../../MEMORY.md` owns any subsequent expansion selection.
+
 - [ABSORBED — AUDIT-001 — Exact PR File Acquisition Evidence Contract](../2026-08-01_AUDIT-001_exact-pr-file-acquisition-evidence-contract.md)
 - [ABSORBED — AUDIT-002 — CI Dependency-Exercise Proof Boundary](../2026-08-02_AUDIT-002_ci-dependency-exercise-proof-boundary.md)
 - [ABSORBED — AUDIT-003 — Post-Conversation-C Product Decision-Model Audit](../2026-08-10_AUDIT-003_post-conversation-c-product-decision-model.md)

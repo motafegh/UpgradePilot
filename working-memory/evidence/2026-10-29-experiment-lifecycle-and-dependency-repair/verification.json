@@ -1,0 +1,136 @@
+{
+  "client_date": "2026-10-29",
+  "entry_revision": "97983da3",
+  "independent_analysis_commit": "a1d994cb",
+  "selection_commit": "c5601c7e",
+  "implementation_commit": "59625ff2",
+  "additional_test": "real-repository conformance test, bound by source hash below",
+  "primary_procedure": "Audit -> Planning/Design -> Build under explicit combined authorization",
+  "audit_adjudication": "O1-O6/F1-F5 explicitly confirmed/narrowed; no mass folder move, cycle/product-leak assertion or promotion accepted blindly",
+  "source_sha256": {
+    "experiments/api_signature_evidence.py": "fa453dba7de28a84e8bd4f2777a07b3039fc23474e07c5624067c4c98f4ba469",
+    "experiments/api_call_signature_trial.py": "44aee9acff34d43d4c3e178d835712331c2e4eefd6ef337b8abe9aa0814b8346",
+    "experiments/api_ordinary_call_signature_trial.py": "07a64151ae7e7c0d476a471da559dd4084119e7cf5343dd10089f1fc95e446f8",
+    "experiments/README.md": "765fca8f1e22742aec86dccefe489334e9c4362afb17afc7f972e74a44c2c778",
+    "experiments/role_inventory.json": "18efaf85e1666ea3f5e55a1ad9adbf814eb1fecb63a0bee8c4b0c568832943bd",
+    "tools/check_experiment_boundaries.py": "b9e6e4637cbbc8d9c5f3bb7cb4b5cc031dbec8333da24928a5a62a3a1d15a38a",
+    "experiments/tests/test_api_call_signature_trial.py": "192cde5a21183ac4becfb09b5693a2113a0b270ad9951a61c3f98f47b755ee26",
+    "experiments/tests/test_api_source_correspondence.py": "3c6839b8888a3d963371679bdd5eb311e64fc8af31e222cc166a79bb4ed914f1",
+    "experiments/tests/test_experiment_dependency_boundaries.py": "966b9d48cf56ad141c60952d84559d36e39fec08978ebb9486aec1467bbdc421"
+  },
+  "static_boundary": {
+    "ok": true,
+    "errors": [],
+    "artifacts": 131,
+    "python_modules": 122,
+    "internal_import_edges": 255,
+    "legacy_private_symbols": 31,
+    "product_python_files": 96
+  },
+  "api_regression": {
+    "tests": 206,
+    "seconds": 2.801,
+    "result": "OK",
+    "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:tests:. .venv/bin/python3 -m unittest discover -s experiments/tests -p 'test_api*.py' -q"
+  },
+  "boundary_controls": {
+    "tests": 7,
+    "seconds": 1.112,
+    "result": "OK",
+    "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:tests:. .venv/bin/python3 -m unittest experiments.tests.test_experiment_dependency_boundaries -q"
+  },
+  "broad_regression": {
+    "baseline_tests": 591,
+    "post_repair_tests": 600,
+    "seconds": 39.38656135900055,
+    "failures": 1,
+    "errors": 25,
+    "optional_skips": 11,
+    "new_tests": 9,
+    "failure_and_error_ids_and_messages_unchanged": true,
+    "result": "no new regression; full suite remains red for explicitly retained historical compatibility debt"
+  },
+  "moved_definitions_ast_equivalent": 19,
+  "historical_opening": [
+    {
+      "case": "retained-httpx-2026-10-28",
+      "format": "caller-signature-evidence/1",
+      "method_sources": 5,
+      "pairs": 5
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "format": "caller-signature-evidence/1",
+      "method_sources": 5,
+      "pairs": 5
+    },
+    {
+      "case": "controlled-ordinary",
+      "format": "caller-signature-evidence/2",
+      "method_sources": 12,
+      "pairs": 3
+    },
+    {
+      "case": "controlled-ordinary-final",
+      "format": "caller-signature-evidence/2",
+      "method_sources": 12,
+      "pairs": 3
+    },
+    {
+      "case": "retained-incomplete-control",
+      "format": "caller-signature-evidence/2",
+      "method_sources": 12,
+      "pairs": 1
+    }
+  ],
+  "frozen_private_members_unchanged": 10,
+  "old_tracked_control_artifacts_unchanged": true,
+  "old_experiment_assets_unchanged": [
+    "experiments/EVIDENCE_REPORT_DEVELOPMENT_EVALUATION.md",
+    "experiments/INVESTIGATOR_MODEL_INTERFACE_QUALIFICATION.md",
+    "experiments/INVESTIGATOR_WORKSPACE_MECHANICAL_QUALIFICATION.md",
+    "experiments/evidence_report_development_cases.json",
+    "experiments/evidence_report_rubric_calibration.json",
+    "experiments/investigator_supplied_evidence_packets.json",
+    "experiments/step6_support_drop_semantic_corpus.json"
+  ],
+  "controlled_semantic_fields_unchanged": {
+    "target": true,
+    "files": true,
+    "pairs": true,
+    "work": true,
+    "coverage": true,
+    "modules": true,
+    "discovery": true,
+    "proof_class": true
+  },
+  "controlled_source_companion_byte_identical": true,
+  "protected_native_package_spec_adr_diff": [],
+  "native_product_tests": "not rerun; no native source/package boundary change",
+  "local_references_checked": 77,
+  "scope_limits": [
+    "Static check parses current project source/config, not a general security sandbox",
+    "No new provider acquisition, model loading/inference, target/workflow execution or original replay/regrade",
+    "31 exact legacy private-symbol exceptions and historical test debt stay explicit",
+    "No protocol/factory expansion, native/product adoption, semantic/usefulness admission, action permission or learner mastery"
+  ],
+  "artifact_sha256": {
+    "INDEPENDENT_ANALYSIS.md": "2dcdcc93d1ea791312a4937df48810217d54ab411c0d4686c64bdd054fd50f8c",
+    "RESOLUTION.md": "8132a2ff433ea983b8b7757f9d0472b5811b884fc98d96d548323b21f6633e57",
+    "baseline-tests.json": "2400489a355ae1f1a2bf2bea13ebd03bd33ce07f496e4e05e05ab84925f76df8",
+    "controlled-behavior-comparison.json": "14f0ff2ce213dc3febfd6e3a3f9b69124665eb31b5d897ee666855a42f218e57",
+    "controlled-post-repair/attempt-started.json": "c586b90a60da4861e8483200ac4c62a99ada82121d950ca14e7c2362ffcf0eff",
+    "controlled-post-repair/attempt.json": "70d782eb0615342c291d4e1ff76c35b61a5e779f720a6c5212229bfcdef38a76",
+    "controlled-post-repair/input.json": "ed8229f43c7471ca36235c9646ca1a1d0a830f74c1215060a4ae81241c0b863d",
+    "controlled-post-repair/result.json": "30a7dfc3805d2760c571831d7bb5f88eb67e0223d9fe3a11141a6ae42ff77b43",
+    "controlled-post-repair/sources.json": "6cabb2fdf48883e2c1a439627fdc004685c5dddb14067030132f44437827540a",
+    "controlled-post-repair/view.txt": "c33c0d49692348263a52f31108cf72a6951917b4bc7c2651b2f5a19f8c0989f8",
+    "duplicate-body-candidates.json": "667d1b8517ae0421f3be37ff518cfe2fa64461c0f49c2d75b5180a681353c2c2",
+    "final-regression-tests.json": "01ce85c5991c91319122d975314fb50c6420a478a1217f78ab9e7fa99aa2fb45",
+    "independent-inventory.json": "1a1682736771303621db929d41af073db1c2b4ea52d33781b87bb3d240fd8233",
+    "independent-role-map.json": "456002085aa04b0e2e0381550d723e3c702a7e928b83f6c1eb955d9c55f52769",
+    "post-repair-tests.json": "44d0eba8046ed83dd7d0af265fcbc81deaedfd7487c450176154f6d632defb9b",
+    "references-and-identities.json": "1b1555d6042bebc646d8f5dfe58d9261ad9396d8b492c2393ad1ec971aa163b2",
+    "shared-support-compatibility.json": "0972fc50817e81962db227cad74c984cd1d7bf6228c47a80174a8702e6e76073"
+  }
+}
