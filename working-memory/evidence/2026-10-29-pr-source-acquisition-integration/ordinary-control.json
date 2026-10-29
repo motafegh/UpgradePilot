@@ -1,0 +1,665 @@
+{
+  "timestamp": "2026-10-29T15:38:15.816905+00:00",
+  "auth": "anonymous",
+  "github_requests": 0,
+  "proof": "controlled ordinary-entry/source-owner composition; no live provider acquisition or callable correspondence",
+  "code_sha256": {
+    "api_target_context.py": "718ee467d83b8e7e71168e7d8c7d5264ff234fd4730b938092921be352900e6b",
+    "api_adapter_exploration.py": "04d3a22bb8f319825bf3fc51c94a8c8020003f5bd28bdb7c24000a884876341c",
+    "api_target_context_smoke.py": "b8fc78f97bf51197527fdb8428a61e31cddff6750e88ee72fcf58d3938004b93",
+    "api_change_source_acquisition.py": "cfaa2e5ac1edb29c0bd6ace06dfe7d75c8d789e688ffa280e7fbd3a45ce72f16",
+    "api_release_window_manifest.py": "1786c9720b344330143f4f6c432ce7b0cf84d350cd80f278731e8152e842237b",
+    "api_python_bindings.py": "215e96e8e066cfae3a08c7a28f991cb810c8ec7da14e14abb85326509e93166a"
+  },
+  "state": "context_acquired",
+  "identity": {
+    "repository": "owner/target",
+    "number": 7,
+    "title": "Bump vendor",
+    "state": "open",
+    "merged": false,
+    "author": "bot",
+    "base_ref": "main",
+    "base_sha": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "head_ref": "update",
+    "head_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "changed_files": 1
+  },
+  "dependency": {
+    "package": "vendor",
+    "normalized_package": "vendor",
+    "old_version": "1.0",
+    "proposed_version": "2.0",
+    "source_evidence": [
+      {
+        "path": "requirements.txt",
+        "file_format": "exact_requirement",
+        "extraction_method": "changed_file_patch"
+      }
+    ],
+    "limitations": []
+  },
+  "target": {
+    "binding_analysis_version": 2,
+    "binding_trace_steps": [
+      {
+        "source_id": "owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:different.py",
+        "scope": "module",
+        "line": 1,
+        "column": 0,
+        "end_line": 1,
+        "end_column": 38,
+        "operation": "import",
+        "name": "C",
+        "origin": "bridge.testing.Client",
+        "input_name": null
+      },
+      {
+        "source_id": "owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:different.py",
+        "scope": "module",
+        "line": 1,
+        "column": 0,
+        "end_line": 1,
+        "end_column": 38,
+        "operation": "import_binding",
+        "name": "C",
+        "origin": null,
+        "input_name": null
+      },
+      {
+        "source_id": "owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:different.py",
+        "scope": "module",
+        "line": 2,
+        "column": 0,
+        "end_line": 2,
+        "end_column": 6,
+        "operation": "reference",
+        "name": "C",
+        "origin": null,
+        "input_name": null
+      }
+    ],
+    "imports": [
+      {
+        "source_id": "owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:different.py",
+        "line": 1,
+        "module": "bridge.testing",
+        "member": "Client",
+        "alias": "C",
+        "relative_level": 0,
+        "module_level": true
+      }
+    ],
+    "references": [
+      {
+        "source_id": "owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:different.py",
+        "line": 2,
+        "kind": "call",
+        "expression": "C",
+        "lexical_import": "bridge.testing.Client",
+        "binding_limit": null,
+        "keyword_names": [],
+        "positional_count": 1,
+        "binding": {
+          "state": "established",
+          "possible_imports": [
+            "bridge.testing.Client"
+          ],
+          "unknown_possible": false,
+          "unbound_possible": false,
+          "scope": "module",
+          "reasons": [],
+          "trace": [
+            0,
+            1,
+            2
+          ]
+        }
+      }
+    ],
+    "repository": "owner/target",
+    "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "tree_sha": "cccccccccccccccccccccccccccccccccccccccc",
+    "inventory_truncated": false,
+    "inventory_entries": 2,
+    "files": [
+      {
+        "source_id": "owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:different.py",
+        "sha256": "aa77130479665a19c3317d425630a1ef3112ee54aa413bc96aa7224b5a95d7c0",
+        "bytes": 45
+      },
+      {
+        "source_id": "owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:requirements.txt",
+        "sha256": "1430d304625762fc8cf2982954b25a58a2f7994dc3ab6bc61e6b7e752a7b3c54",
+        "bytes": 54
+      }
+    ],
+    "declarations": [
+      {
+        "source_id": "owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:requirements.txt",
+        "location": "L1",
+        "raw": "vendor==2.0",
+        "package": "vendor",
+        "specifier": "==2.0",
+        "extras": [],
+        "marker": null,
+        "group": "requirements"
+      },
+      {
+        "source_id": "owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:requirements.txt",
+        "location": "L2",
+        "raw": "bridge[standard]; python_version < \"3.12\"",
+        "package": "bridge",
+        "specifier": "",
+        "extras": [
+          "standard"
+        ],
+        "marker": "python_version < \"3.12\"",
+        "group": "requirements"
+      }
+    ],
+    "candidates": [
+      {
+        "imported_module": "bridge.testing",
+        "declaration": {
+          "source_id": "owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:requirements.txt",
+          "location": "L2",
+          "raw": "bridge[standard]; python_version < \"3.12\"",
+          "package": "bridge",
+          "specifier": "",
+          "extras": [
+            "standard"
+          ],
+          "marker": "python_version < \"3.12\"",
+          "group": "requirements"
+        },
+        "import_source_id": "owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:different.py",
+        "import_line": 1,
+        "basis": "same_name_import_and_declared_distribution"
+      }
+    ],
+    "excluded_paths": [],
+    "omitted_paths": [],
+    "gaps": [],
+    "examined_bytes": 99,
+    "limitations": [
+      "static_syntax_not_execution",
+      "module_namespace_not_installed_distribution",
+      "constraints_not_resolved_versions",
+      "only_admitted_file_formats_and_paths",
+      "ordered_scoped_static_origins_not_runtime_identity",
+      "delayed_globals_closures_and_cross_function_values_unresolved",
+      "unsupported_control_flow_and_dynamic_writes_limited",
+      "unknown_call_effects_heap_identity_and_annotation_timing_unmodeled",
+      "binding_trace_and_origin_budgets_can_limit_association"
+    ]
+  },
+  "changed_package_sources": {
+    "proof": "observed-module examination at native versions; no callable or runtime correspondence",
+    "work": {
+      "release_identities": [
+        [
+          "bridge",
+          "2.0"
+        ],
+        [
+          "mediator",
+          "2.0"
+        ],
+        [
+          "vendor",
+          "2.0"
+        ],
+        [
+          "vendor",
+          "1.0"
+        ]
+      ],
+      "module_attempts": 4,
+      "source_bytes": 83
+    },
+    "unexamined_modules": [],
+    "attempts": [
+      {
+        "request": {
+          "package": "vendor",
+          "version": "1.0",
+          "module": "vendor",
+          "version_basis": "native_old_version",
+          "origin": {
+            "source_id": "owner/mediator@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:mediator/testing.py",
+            "line": 2,
+            "kind": "class_base",
+            "expression": "vendor.Base",
+            "lexical_import": "vendor.Base",
+            "binding_limit": null,
+            "keyword_names": [],
+            "positional_count": 0,
+            "binding": {
+              "state": "established",
+              "possible_imports": [
+                "vendor.Base"
+              ],
+              "unknown_possible": false,
+              "unbound_possible": false,
+              "scope": "module",
+              "reasons": [],
+              "trace": [
+                {
+                  "source_id": "owner/mediator@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:mediator/testing.py",
+                  "scope": "module",
+                  "line": 1,
+                  "column": 0,
+                  "end_line": 1,
+                  "end_column": 13,
+                  "operation": "import",
+                  "name": "vendor",
+                  "origin": "vendor",
+                  "input_name": null
+                },
+                {
+                  "source_id": "owner/mediator@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:mediator/testing.py",
+                  "scope": "module",
+                  "line": 1,
+                  "column": 0,
+                  "end_line": 1,
+                  "end_column": 13,
+                  "operation": "import_binding",
+                  "name": "vendor",
+                  "origin": null,
+                  "input_name": null
+                },
+                {
+                  "source_id": "owner/mediator@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:mediator/testing.py",
+                  "scope": "module",
+                  "line": 2,
+                  "column": 0,
+                  "end_line": 3,
+                  "end_column": 5,
+                  "operation": "reference",
+                  "name": "vendor",
+                  "origin": null,
+                  "input_name": null
+                }
+              ]
+            }
+          }
+        },
+        "state": "module_examined",
+        "repository": "owner/vendor",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "path": "vendor/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "association_basis": "exact_release_publisher_declared_repository",
+        "provenance_state": "source_unavailable",
+        "tag_commits": {
+          "1.0": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "v1.0": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "metadata": {
+          "package": "vendor",
+          "version": "1.0",
+          "source_url": "https://pypi.org/pypi/vendor/1.0/json",
+          "requirements": [],
+          "gaps": []
+        },
+        "binding_analysis_version": 2,
+        "binding_trace_steps": [],
+        "imports": [],
+        "references": [],
+        "gaps": []
+      },
+      {
+        "request": {
+          "package": "vendor",
+          "version": "2.0",
+          "module": "vendor",
+          "version_basis": "native_proposed_version",
+          "origin": {
+            "source_id": "owner/mediator@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:mediator/testing.py",
+            "line": 2,
+            "kind": "class_base",
+            "expression": "vendor.Base",
+            "lexical_import": "vendor.Base",
+            "binding_limit": null,
+            "keyword_names": [],
+            "positional_count": 0,
+            "binding": {
+              "state": "established",
+              "possible_imports": [
+                "vendor.Base"
+              ],
+              "unknown_possible": false,
+              "unbound_possible": false,
+              "scope": "module",
+              "reasons": [],
+              "trace": [
+                {
+                  "source_id": "owner/mediator@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:mediator/testing.py",
+                  "scope": "module",
+                  "line": 1,
+                  "column": 0,
+                  "end_line": 1,
+                  "end_column": 13,
+                  "operation": "import",
+                  "name": "vendor",
+                  "origin": "vendor",
+                  "input_name": null
+                },
+                {
+                  "source_id": "owner/mediator@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:mediator/testing.py",
+                  "scope": "module",
+                  "line": 1,
+                  "column": 0,
+                  "end_line": 1,
+                  "end_column": 13,
+                  "operation": "import_binding",
+                  "name": "vendor",
+                  "origin": null,
+                  "input_name": null
+                },
+                {
+                  "source_id": "owner/mediator@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:mediator/testing.py",
+                  "scope": "module",
+                  "line": 2,
+                  "column": 0,
+                  "end_line": 3,
+                  "end_column": 5,
+                  "operation": "reference",
+                  "name": "vendor",
+                  "origin": null,
+                  "input_name": null
+                }
+              ]
+            }
+          }
+        },
+        "state": "module_examined",
+        "repository": "owner/vendor",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "path": "vendor/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "association_basis": "exact_release_publisher_declared_repository",
+        "provenance_state": "source_unavailable",
+        "tag_commits": {
+          "2.0": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "v2.0": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "metadata": {
+          "package": "vendor",
+          "version": "2.0",
+          "source_url": "https://pypi.org/pypi/vendor/2.0/json",
+          "requirements": [],
+          "gaps": []
+        },
+        "binding_analysis_version": 2,
+        "binding_trace_steps": [],
+        "imports": [],
+        "references": [],
+        "gaps": []
+      }
+    ],
+    "retention": "source identities/hashes and facts only; complete text recovery not supplied by this manifest"
+  },
+  "upstream": {
+    "state": "incomplete",
+    "complete_window_eligible": false,
+    "stage": "upstream",
+    "reason": "source_unavailable",
+    "detail": "retained gap"
+  },
+  "adapter_exploration": {
+    "samples": [
+      {
+        "candidate": {
+          "imported_module": "bridge.testing",
+          "declaration": {
+            "source_id": "owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:requirements.txt",
+            "location": "L2",
+            "raw": "bridge[standard]; python_version < \"3.12\"",
+            "package": "bridge",
+            "specifier": "",
+            "extras": [
+              "standard"
+            ],
+            "marker": "python_version < \"3.12\"",
+            "group": "requirements"
+          },
+          "import_source_id": "owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:different.py",
+          "import_line": 1,
+          "basis": "same_name_import_and_declared_distribution"
+        },
+        "depth": 0,
+        "version": "2.0",
+        "selection": "latest_stable_satisfying_visible_constraint_exploration_only",
+        "association_basis": "exact_release_publisher_declared_repository",
+        "provenance_state": "source_unavailable",
+        "repository": "owner/bridge",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "path": "bridge/testing.py",
+        "sha256": "f2d55637a28a4f9ce505c366711c75f5112a7ea981ed51b37301335c6c62a282",
+        "metadata": {
+          "package": "bridge",
+          "version": "2.0",
+          "source_url": "https://pypi.org/pypi/bridge/2.0/json",
+          "requirements": [
+            {
+              "source_id": "requirements.txt",
+              "location": "L1",
+              "raw": "mediator>=2",
+              "package": "mediator",
+              "specifier": ">=2",
+              "extras": [],
+              "marker": "python_version < \"3.12\"",
+              "group": "requirements"
+            }
+          ],
+          "gaps": []
+        },
+        "binding_analysis_version": 2,
+        "binding_trace_steps": [],
+        "imports": [
+          {
+            "source_id": "owner/bridge@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:bridge/testing.py",
+            "line": 1,
+            "module": "mediator.testing",
+            "member": "Client",
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          }
+        ],
+        "references": [],
+        "gaps": []
+      },
+      {
+        "candidate": {
+          "imported_module": "mediator.testing",
+          "declaration": {
+            "source_id": "requirements.txt",
+            "location": "L1",
+            "raw": "mediator>=2",
+            "package": "mediator",
+            "specifier": ">=2",
+            "extras": [],
+            "marker": "python_version < \"3.12\"",
+            "group": "requirements"
+          },
+          "import_source_id": "owner/bridge@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:bridge/testing.py",
+          "import_line": 1,
+          "basis": "same_name_import_and_declared_distribution"
+        },
+        "depth": 1,
+        "version": "2.0",
+        "selection": "latest_stable_satisfying_visible_constraint_exploration_only",
+        "association_basis": "exact_release_publisher_declared_repository",
+        "provenance_state": "source_unavailable",
+        "repository": "owner/mediator",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "path": "mediator/testing.py",
+        "sha256": "8603b2ebb76147ed2a9842f873a104adc0c1bb37620dd24b271db260206efd3b",
+        "metadata": {
+          "package": "mediator",
+          "version": "2.0",
+          "source_url": "https://pypi.org/pypi/mediator/2.0/json",
+          "requirements": [
+            {
+              "source_id": "requirements.txt",
+              "location": "L1",
+              "raw": "vendor>=1",
+              "package": "vendor",
+              "specifier": ">=1",
+              "extras": [],
+              "marker": null,
+              "group": "requirements"
+            }
+          ],
+          "gaps": []
+        },
+        "binding_analysis_version": 2,
+        "binding_trace_steps": [
+          {
+            "source_id": "owner/mediator@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:mediator/testing.py",
+            "scope": "module",
+            "line": 1,
+            "column": 0,
+            "end_line": 1,
+            "end_column": 13,
+            "operation": "import",
+            "name": "vendor",
+            "origin": "vendor",
+            "input_name": null
+          },
+          {
+            "source_id": "owner/mediator@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:mediator/testing.py",
+            "scope": "module",
+            "line": 1,
+            "column": 0,
+            "end_line": 1,
+            "end_column": 13,
+            "operation": "import_binding",
+            "name": "vendor",
+            "origin": null,
+            "input_name": null
+          },
+          {
+            "source_id": "owner/mediator@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:mediator/testing.py",
+            "scope": "module",
+            "line": 2,
+            "column": 0,
+            "end_line": 3,
+            "end_column": 5,
+            "operation": "reference",
+            "name": "vendor",
+            "origin": null,
+            "input_name": null
+          }
+        ],
+        "imports": [
+          {
+            "source_id": "owner/mediator@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:mediator/testing.py",
+            "line": 1,
+            "module": "vendor",
+            "member": null,
+            "alias": null,
+            "relative_level": 0,
+            "module_level": true
+          }
+        ],
+        "references": [
+          {
+            "source_id": "owner/mediator@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:mediator/testing.py",
+            "line": 2,
+            "kind": "class_base",
+            "expression": "vendor.Base",
+            "lexical_import": "vendor.Base",
+            "binding_limit": null,
+            "keyword_names": [],
+            "positional_count": 0,
+            "binding": {
+              "state": "established",
+              "possible_imports": [
+                "vendor.Base"
+              ],
+              "unknown_possible": false,
+              "unbound_possible": false,
+              "scope": "module",
+              "reasons": [],
+              "trace": [
+                0,
+                1,
+                2
+              ]
+            }
+          }
+        ],
+        "gaps": []
+      },
+      {
+        "candidate": {
+          "imported_module": "vendor",
+          "declaration": {
+            "source_id": "requirements.txt",
+            "location": "L1",
+            "raw": "vendor>=1",
+            "package": "vendor",
+            "specifier": ">=1",
+            "extras": [],
+            "marker": null,
+            "group": "requirements"
+          },
+          "import_source_id": "owner/mediator@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:mediator/testing.py",
+          "import_line": 1,
+          "basis": "same_name_import_and_declared_distribution"
+        },
+        "depth": 2,
+        "version": "2.0",
+        "selection": "latest_stable_satisfying_visible_constraint_exploration_only",
+        "association_basis": "exact_release_publisher_declared_repository",
+        "provenance_state": "source_unavailable",
+        "repository": "owner/vendor",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "path": "vendor/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "metadata": {
+          "package": "vendor",
+          "version": "2.0",
+          "source_url": "https://pypi.org/pypi/vendor/2.0/json",
+          "requirements": [],
+          "gaps": []
+        },
+        "binding_analysis_version": 2,
+        "binding_trace_steps": [],
+        "imports": [],
+        "references": [],
+        "gaps": []
+      }
+    ],
+    "problems": [],
+    "omitted_candidates": [],
+    "limitations": [
+      "exploration_samples_not_resolved_target_versions",
+      "declared_constraints_and_markers_not_evaluated_activation",
+      "namespace_mapping_not_established",
+      "samples_do_not_exhaust_version_ranges",
+      "relative_module_forwarding_not_traversed"
+    ]
+  },
+  "native_prefix": {
+    "description_state": "retained",
+    "description_sha256": "e26fb6f564d124f7321c56b5e50e1e14f6ca591b78cae7691a00331d7b722147",
+    "observations": 1,
+    "identity_only_refetches": 0,
+    "changed_file_reads": 1
+  },
+  "source_provider_calls": {
+    "index": 3,
+    "releases": 4,
+    "metadata": 4,
+    "tags": 8,
+    "inventory": 4,
+    "files": 4
+  }
+}

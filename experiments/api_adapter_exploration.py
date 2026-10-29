@@ -1,6 +1,8 @@
 """Explore version-specific adapter sources from acquired import/dependency candidates.
 
-Start at AdapterSourceExplorer.explore. Samples are the latest stable releases
+Start at AdapterSourceExplorer.explore for constraint-selected samples, or create
+its source_run() to examine explicit package/version/module questions. Both use
+one bounded exact-release/tag/tree/module owner. Samples are the latest stable releases
 satisfying a visible declaration, explicitly NOT resolved target versions. Exact
 PyPI metadata, declared association, tag/tree/module acquisition and static facts
 remain attributable. A package/module naming match is a candidate, never installed
@@ -10,7 +12,8 @@ namespace proof. Two dependency hops/four release identities bound exploration, 
 from __future__ import annotations
 
 from collections import deque
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
+from typing import Literal
 from urllib.parse import quote
 
 from packaging.requirements import InvalidRequirement, Requirement
@@ -178,6 +181,7 @@ class AdapterExploration:
         "samples_do_not_exhaust_version_ranges",
         "relative_module_forwarding_not_traversed",
     )
+    deferred_candidates: tuple[ImportDependencyCandidate, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -187,6 +191,45 @@ class AdapterDiscoverySeed:
     candidates: tuple[ImportDependencyCandidate, ...]
     references: tuple[ReferenceFact, ...]
     binding_analysis_version: int = 1
+
+
+@dataclass(frozen=True)
+class PythonModuleSourceRequest:
+    """Caller-labelled version question plus original import/reference evidence.
+
+    Correspondence owns why a source is relevant. The acquisition owner preserves
+    version basis and original syntax evidence without changing imported binding states.
+    A native version basis and a conditional origin can coexist; neither proves dispatch.
+    Module names are provider questions; arbitrary repository paths are not inputs.
+    """
+
+    package: str
+    version: str
+    module: str
+    version_basis: Literal[
+        "native_old_version", "native_proposed_version", "constraint_sample", "explicit_version",
+    ]
+    origin: ReferenceFact | ImportFact | None = None
+
+
+@dataclass(frozen=True)
+class ExaminedPythonModule:
+    request: PythonModuleSourceRequest
+    association: DeclaredSourceAssociation
+    metadata: PackageDependencyMetadata
+    tags: tuple[GitHubTagCommitEvidence, ...]
+    inventory: TargetInventory
+    file: RepositoryTextFile
+    imports: tuple[ImportFact, ...]
+    references: tuple[ReferenceFact, ...]
+    gaps: tuple[ContextGap, ...]
+
+
+@dataclass(frozen=True)
+class PythonSourceAcquisitionWork:
+    release_identities: tuple[tuple[str, str], ...]
+    module_attempts: int
+    source_bytes: int
 
 
 def select_exploration_version(
@@ -251,6 +294,169 @@ def _module_path(inventory: TargetInventory, module: str) -> str | AcquisitionPr
     return paths[0]
 
 
+class PythonSourceAcquisitionRun:
+    """Exact source examination with run-local identity, failure and work caches.
+
+    Create through AdapterSourceExplorer.source_run. Share this run with explore
+    when exact changed-version reads and adapter samples must use one budget and
+    observation horizon. Fresh default explore calls still receive fresh runs.
+    Success establishes captured source/facts only, never an installed namespace,
+    positive imported binding, callable correspondence or compatibility.
+
+    module_attempts counts new questions processed, including release refusals;
+    source_bytes counts admitted complete text, not every downloaded response byte.
+    Cached success/failure avoids implicit retries. Provider GET accounting remains
+    separate at TrialPublicSession; this run is not a total-memory/time controller.
+    """
+
+    def __init__(self, source_owner, *, max_releases=4, max_module_files=12,
+                 max_bytes=2 * 1024 * 1024):
+        if (type(max_releases) is not int or not 1 <= max_releases <= 4
+            or type(max_module_files) is not int or not 1 <= max_module_files <= 12
+            or type(max_bytes) is not int or not 1 <= max_bytes <= 2 * 1024 * 1024):
+            raise ValueError("Source budgets exceed admitted limits.")
+        self._source_owner = source_owner
+        self.max_releases = max_releases
+        self.max_module_files = max_module_files
+        self.max_bytes = max_bytes
+        self._release_cache = {}
+        self._module_cache = {}
+        self._index_cache = {}
+        self.module_attempts = 0
+        self.source_bytes = 0
+
+    @property
+    def release_identities(self) -> tuple[tuple[str, str], ...]:
+        """Attempted exact identities, including refused/unavailable releases."""
+        return tuple(self._release_cache)
+
+    @property
+    def work(self) -> PythonSourceAcquisitionWork:
+        return PythonSourceAcquisitionWork(self.release_identities, self.module_attempts, self.source_bytes)
+
+    def examine(self, request: PythonModuleSourceRequest) -> ExaminedPythonModule | AcquisitionProblem:
+        if (not isinstance(request, PythonModuleSourceRequest)
+            or request.version_basis not in {"native_old_version", "native_proposed_version",
+                                            "constraint_sample", "explicit_version"}
+            or not isinstance(request.package, str) or not request.package
+            or not isinstance(request.version, str) or not request.version.strip()
+            or not isinstance(request.module, str)
+            or not all(part.isidentifier() for part in request.module.split("."))):
+            raise ValueError("Invalid Python module source question.")
+        if request.origin is not None and not isinstance(request.origin, (ReferenceFact, ImportFact)):
+            raise ValueError("Source origin must retain original import/reference evidence.")
+        key = (request.package, request.version, request.module)
+        if key in self._module_cache:
+            cached = self._module_cache[key]
+            # Source work is shared, but a later question keeps its own basis.
+            return replace(cached, request=request) if isinstance(cached, ExaminedPythonModule) else cached
+        if self.module_attempts >= self.max_module_files:
+            return AcquisitionProblem("python_source_budget", "module_source_limit",
+                                      "Module question remains unexamined at the shared run limit.")
+        if self._source_owner.session.request_limit_reached:
+            return AcquisitionProblem("python_source_budget", "trial_request_limit",
+                                      "No new source read admitted after the provider request limit.")
+        self.module_attempts += 1
+        release_key = (request.package, request.version)
+        if release_key not in self._release_cache:
+            if len(self._release_cache) >= self.max_releases:
+                return AcquisitionProblem("python_source_budget", "release_source_limit",
+                                          "Exact release identity remains unexamined at the shared run limit.")
+            try:
+                inspected = self._inspect_release(*release_key)
+            except (GitHubAcquisitionError, GitHubResponseError) as exc:
+                inspected = self._provider_problem(exc)
+            if isinstance(inspected, AcquisitionProblem):
+                inspected = self._preserve_request_limit(inspected)
+            self._release_cache[release_key] = inspected
+        inspected = self._release_cache[release_key]
+        if isinstance(inspected, AcquisitionProblem):
+            self._module_cache[key] = inspected
+            return inspected
+        association, metadata, tags, inventory = inspected
+        path = _module_path(inventory, request.module)
+        if isinstance(path, AcquisitionProblem):
+            self._module_cache[key] = path
+            return path
+        try:
+            file = self._source_owner.files.get_exact_commit_text_file(
+                association.repository, inventory.revision, path,
+            )
+            if not isinstance(file, RepositoryTextFile):
+                result = AcquisitionProblem("adapter_file", file.reason, file.detail, file)
+            else:
+                size = len(file.content.encode("utf-8"))
+                if self.source_bytes + size > self.max_bytes:
+                    result = AcquisitionProblem("python_source_budget", "source_text_limit",
+                        "Full module text exceeds the shared run byte limit; no truncation.",
+                        {"repository": file.repository, "revision": file.revision,
+                         "path": file.path, "utf8_bytes": size})
+                else:
+                    self.source_bytes += size
+                    imports, references, gaps = extract_python_facts(file)
+                    result = ExaminedPythonModule(request, association, metadata, tuple(tags),
+                                                  inventory, file, imports, references, gaps)
+        except (GitHubAcquisitionError, GitHubResponseError) as exc:
+            result = self._provider_problem(exc)
+        if isinstance(result, AcquisitionProblem):
+            result = self._preserve_request_limit(result)
+        self._module_cache[key] = result
+        return result
+
+    def _preserve_request_limit(self, problem: AcquisitionProblem) -> AcquisitionProblem:
+        # Providers may wrap the transport refusal in their own typed result.
+        # Preserve both that evidence and the actual run-level stopping cause.
+        if self._source_owner.session.request_limit_reached and problem.reason != "trial_request_limit":
+            return AcquisitionProblem("python_source_budget", "trial_request_limit",
+                                      "Provider request limit reached during source acquisition.", problem)
+        return problem
+
+    def _provider_problem(self, error: GitHubAcquisitionError | GitHubResponseError) -> AcquisitionProblem:
+        if self._source_owner.session.request_limit_reached:
+            return AcquisitionProblem("python_source_budget", "trial_request_limit", str(error), error)
+        return AcquisitionProblem("adapter_acquisition", getattr(error, "reason", "malformed_response"),
+                                  str(error), error)
+
+    def _inspect_release(self, package: str, version: str):
+        """Reuse one per-run exact release/tag/tree observation across module files.
+
+        This cache controls requests and mutable registry observation drift; it is
+        neither a persistent package database nor target resolution state.
+        """
+        release = self._source_owner.releases.get_release(package, version)
+        if not isinstance(release, PackageReleaseEvidence):
+            return AcquisitionProblem(
+                "adapter_release", release.state, release.detail, release
+            )
+        association = associate_declared_source(
+            release, self._source_owner.provenance.resolve(release)
+        )
+        if isinstance(association, AcquisitionProblem):
+            return association
+        metadata = self._source_owner.metadata.acquire(package, version)
+        if isinstance(metadata, AcquisitionProblem):
+            return metadata
+        tags = []
+        for spelling in (version, "v" + version):
+            tag = self._source_owner.tags.resolve_tag_to_commit(association.repository, spelling)
+            if isinstance(tag, GitHubTagCommitEvidence):
+                tags.append(tag)
+            elif tag.state != "source_unavailable":
+                return AcquisitionProblem("adapter_tag", tag.state, tag.detail, tag)
+        if not tags or len({t.resolved_commit_sha for t in tags}) != 1:
+            return AcquisitionProblem(
+                "adapter_tag",
+                "tag_not_established",
+                "Missing/conflicting exact tag spellings.",
+                tuple(tags),
+            )
+        repository = validate_repository(association.repository)
+        inventory = self._source_owner.inventory.acquire(repository, tags[0].resolved_commit_sha)
+        if isinstance(inventory, AcquisitionProblem):
+            return inventory
+        return association, metadata, tuple(tags), inventory
+
+
 class AdapterSourceExplorer:
     def __init__(
         self,
@@ -277,6 +483,12 @@ class AdapterSourceExplorer:
         )
         self.files = files or GitHubRepositoryClient(session=self.session)
 
+    def source_run(self, *, max_releases=4, max_module_files=12,
+                   max_bytes=2 * 1024 * 1024) -> PythonSourceAcquisitionRun:
+        return PythonSourceAcquisitionRun(
+            self, max_releases=max_releases, max_module_files=max_module_files, max_bytes=max_bytes,
+        )
+
     def explore(
         self,
         context: TargetContext | AdapterDiscoverySeed,
@@ -284,6 +496,8 @@ class AdapterSourceExplorer:
         max_samples=4,
         max_hops=2,
         max_module_files=12,
+        source_run: PythonSourceAcquisitionRun | None = None,
+        stop_at_package: str | None = None,
     ) -> AdapterExploration:
         if (
             type(max_samples) is not int
@@ -294,10 +508,15 @@ class AdapterSourceExplorer:
             or not 1 <= max_module_files <= 12
         ):
             raise ValueError("Exploration budgets exceed admitted limits.")
-        self._index_cache = {}
-        self._release_cache = {}
-        self._max_samples = max_samples
-        self._adapter_bytes = 0
+        if source_run is not None and (
+            source_run._source_owner is not self or source_run.max_releases > max_samples
+            or source_run.max_module_files > max_module_files
+        ):
+            raise ValueError("Shared source run must use this owner and fit exploration limits.")
+        self._source_run = source_run if source_run is not None else self.source_run(
+            max_releases=max_samples, max_module_files=max_module_files,
+        )
+        self._index_cache = self._source_run._index_cache
         # More specific acquired modules first; lexical target calls/bases justify
         # exploration. Ordering contains no package/adapter-name special cases.
         used = [
@@ -323,6 +542,7 @@ class AdapterSourceExplorer:
         samples = []
         problems = []
         omitted = []
+        deferred = []
         attempts = 0
         while pending:
             candidate, depth = pending.popleft()
@@ -330,7 +550,16 @@ class AdapterSourceExplorer:
             if key in seen:
                 continue
             seen.add(key)
-            if attempts >= max_module_files or depth > max_hops:
+            if depth > max_hops:
+                omitted.append(candidate)
+                continue
+            # The ordinary PR caller already knows this dependency's exact old/
+            # proposed identities. Let that stage inspect them instead of sampling
+            # a potentially unrelated third version and consuming its source slots.
+            if candidate.declaration.package == stop_at_package:
+                deferred.append(candidate)
+                continue
+            if attempts >= max_module_files:
                 omitted.append(candidate)
                 continue
             attempts += 1
@@ -375,7 +604,9 @@ class AdapterSourceExplorer:
                                 depth + 1,
                             )
                         )
-        return AdapterExploration(tuple(samples), tuple(problems), tuple(omitted))
+        return AdapterExploration(
+            tuple(samples), tuple(problems), tuple(omitted), deferred_candidates=tuple(deferred),
+        )
 
     def _acquire(
         self, candidate: ImportDependencyCandidate, depth: int
@@ -397,89 +628,17 @@ class AdapterSourceExplorer:
         version = select_exploration_version(index, declaration)
         if isinstance(version, AcquisitionProblem):
             return version
-        key = (declaration.package, version)
-        if key not in self._release_cache:
-            if len(self._release_cache) >= self._max_samples:
-                return AcquisitionProblem(
-                    "adapter_budget",
-                    "release_sample_limit",
-                    "Unexamined release identity; four samples do not exhaust a range.",
-                )
-            self._release_cache[key] = self._inspect_release(
-                declaration.package, version
-            )
-        inspected = self._release_cache[key]
-        if isinstance(inspected, AcquisitionProblem):
-            return inspected
-        association, metadata, tags, inventory = inspected
-        repository = association.repository
-        path = _module_path(inventory, candidate.imported_module)
-        if isinstance(path, AcquisitionProblem):
-            return path
-        file = self.files.get_exact_commit_text_file(
-            repository, inventory.revision, path
-        )
-        if not isinstance(file, RepositoryTextFile):
-            return AcquisitionProblem("adapter_file", file.reason, file.detail, file)
-        size = len(file.content.encode("utf-8"))
-        if self._adapter_bytes + size > 2 * 1024 * 1024:
-            return AcquisitionProblem(
-                "adapter_budget",
-                "adapter_text_limit",
-                "Adapter text exceeds 2 MiB; source is not truncated.",
-            )
-        self._adapter_bytes += size
-        imports, references, gaps = extract_python_facts(file)
+        examined = self._source_run.examine(PythonModuleSourceRequest(
+            declaration.package, version, candidate.imported_module, "constraint_sample",
+        ))
+        if isinstance(examined, AcquisitionProblem):
+            if examined.stage == "python_source_budget":
+                reasons = {"release_source_limit": "release_sample_limit", "source_text_limit": "adapter_text_limit"}
+                return replace(examined, stage="adapter_budget", reason=reasons.get(examined.reason, examined.reason))
+            return examined
         return AdapterModuleSample(
-            candidate,
-            depth,
-            version,
+            candidate, depth, version,
             "latest_stable_satisfying_visible_constraint_exploration_only",
-            association,
-            metadata,
-            tuple(tags),
-            inventory,
-            file,
-            imports,
-            references,
-            gaps,
+            examined.association, examined.metadata, examined.tags, examined.inventory,
+            examined.file, examined.imports, examined.references, examined.gaps,
         )
-
-    def _inspect_release(self, package: str, version: str):
-        """Reuse one per-run exact release/tag/tree observation across module files.
-
-        This cache controls requests and mutable registry observation drift; it is
-        neither a persistent package database nor target resolution state.
-        """
-        release = self.releases.get_release(package, version)
-        if not isinstance(release, PackageReleaseEvidence):
-            return AcquisitionProblem(
-                "adapter_release", release.state, release.detail, release
-            )
-        association = associate_declared_source(
-            release, self.provenance.resolve(release)
-        )
-        if isinstance(association, AcquisitionProblem):
-            return association
-        metadata = self.metadata.acquire(package, version)
-        if isinstance(metadata, AcquisitionProblem):
-            return metadata
-        tags = []
-        for spelling in (version, "v" + version):
-            tag = self.tags.resolve_tag_to_commit(association.repository, spelling)
-            if isinstance(tag, GitHubTagCommitEvidence):
-                tags.append(tag)
-            elif tag.state != "source_unavailable":
-                return AcquisitionProblem("adapter_tag", tag.state, tag.detail, tag)
-        if not tags or len({t.resolved_commit_sha for t in tags}) != 1:
-            return AcquisitionProblem(
-                "adapter_tag",
-                "tag_not_established",
-                "Missing/conflicting exact tag spellings.",
-                tuple(tags),
-            )
-        repository = validate_repository(association.repository)
-        inventory = self.inventory.acquire(repository, tags[0].resolved_commit_sha)
-        if isinstance(inventory, AcquisitionProblem):
-            return inventory
-        return association, metadata, tuple(tags), inventory

@@ -12,7 +12,7 @@ from unittest.mock import Mock, patch
 
 from experiments.api_adapter_context_replay import decode_adapter_seed
 from experiments.api_adapter_context_replay import main as replay_main
-from experiments.api_adapter_exploration import AdapterExploration
+from experiments.api_adapter_exploration import AdapterExploration, PythonSourceAcquisitionWork
 from experiments.api_change_source_acquisition import (
     AcquisitionProblem,
     DeclaredReleaseWindowAcquirer,
@@ -66,6 +66,71 @@ BASE = "b" * 40
 
 
 class PublicPRTests(TestCase):
+    def test_examination_question_cap_keeps_unexamined_changed_modules_visible(self):
+        from experiments.tests.test_api_adapter_exploration import ChainTests
+
+        result, _, _ = self.run_trial(source_explorer=ChainTests().explorer(),
+            python_source="\n".join(f"import vendor.module{i}" for i in range(8)))
+        self.assertEqual(len(result.changed_sources), 12)
+        self.assertEqual(result.unexamined_changed_modules, ("vendor.module6", "vendor.module7"))
+        packet = trial_manifest(result, TrialPublicSession())
+        self.assertEqual(packet["changed_package_sources"]["unexamined_modules"], result.unexamined_changed_modules)
+        self.assertTrue(all(attempt.outcome.reason == "module_path_not_established"
+                            for attempt in result.changed_sources))
+
+    def test_ordinary_pr_derives_exact_changed_module_sources_through_acquired_adapter_imports(self):
+        from experiments.tests.test_api_adapter_exploration import ChainTests
+
+        explorer = ChainTests().explorer()
+        result, _, _ = self.run_trial(source_explorer=explorer)
+        self.assertEqual([sample.candidate.declaration.package for sample in result.adapters.samples],
+                         ["bridge", "mediator"])
+        self.assertEqual([candidate.declaration.package for candidate in result.adapters.deferred_candidates], ["vendor"])
+        attempts = result.changed_sources
+        self.assertEqual([attempt.request.version for attempt in attempts], ["1.0", "2.0"])
+        self.assertEqual([attempt.request.version_basis for attempt in attempts],
+                         ["native_old_version", "native_proposed_version"])
+        self.assertEqual({attempt.request.module for attempt in attempts}, {"vendor"})
+        self.assertTrue(all("vendor" in attempt.request.origin.expression for attempt in attempts))
+        self.assertEqual(result.source_work.release_identities,
+                         (("bridge", "2.0"), ("mediator", "2.0"), ("vendor", "1.0"), ("vendor", "2.0")))
+        self.assertEqual(result.source_work.module_attempts, 4)
+        self.assertEqual(explorer.releases.get_release.call_count, 4)
+        self.assertEqual(explorer.files.get_exact_commit_text_file.call_count, 4)
+        packet = json.loads(json.dumps(trial_manifest(result, TrialPublicSession())))
+        self.assertEqual([attempt["state"] for attempt in packet["changed_package_sources"]["attempts"]],
+                         ["module_examined", "module_examined"])
+        self.assertEqual(packet["changed_package_sources"]["attempts"][0]["request"]["version"], "1.0")
+        self.assertEqual(decode_adapter_seed(packet).references, result.target.references)
+
+    def test_changed_package_is_not_sampled_at_an_unrelated_latest_version(self):
+        from experiments.tests.test_api_adapter_exploration import ChainTests, index
+
+        explorer = ChainTests().explorer()
+        explorer.index.get_release_index.side_effect = lambda package: index(package, ("1.0", "2.0", "3.0"))
+        result, _, _ = self.run_trial(source_explorer=explorer)
+        self.assertEqual({a.request.version for a in result.changed_sources}, {"1.0", "2.0"})
+        self.assertTrue(all(a.outcome.metadata.version == a.request.version for a in result.changed_sources))
+        self.assertEqual({call.args[0] for call in explorer.index.get_release_index.call_args_list},
+                         {"bridge", "mediator"})
+        self.assertEqual(len(result.source_work.release_identities), 4)
+
+    def test_conditional_target_import_can_be_examined_without_becoming_positive_exploration(self):
+        from experiments.tests.test_api_adapter_exploration import ChainTests
+
+        explorer = ChainTests().explorer()
+        result, _, _ = self.run_trial(source_explorer=explorer,
+            python_source="if flag:\n import vendor\nelse:\n import other as vendor\nvendor.run()\n")
+        self.assertFalse(result.adapters.samples)
+        self.assertEqual(result.target.references[0].binding.state, "conditional")
+        self.assertIsNone(result.target.references[0].lexical_import)
+        self.assertEqual(len(result.changed_sources), 2)
+        self.assertEqual({attempt.request.version_basis for attempt in result.changed_sources},
+                         {"native_old_version", "native_proposed_version"})
+        self.assertTrue(all(attempt.request.origin.binding.state == "conditional" for attempt in result.changed_sources))
+        self.assertTrue(all(attempt.request.origin.lexical_import is None for attempt in result.changed_sources))
+        explorer.index.get_release_index.assert_not_called()
+
     def test_shared_prefix_evaluates_transition_once_without_ci_preparation(self):
         from upgradepilot import investigation_inputs
 
@@ -118,6 +183,7 @@ class PublicPRTests(TestCase):
         interpretation_provider=None,
         role_version=ROLE,
         model_identifier=LOCAL_MODEL,
+        source_explorer=None,
     ):
         identity = PullRequestIdentity(
             "owner/target",
@@ -183,16 +249,17 @@ class PublicPRTests(TestCase):
             upstream.acquire.return_value = AcquisitionProblem(
                 "upstream", "source_unavailable", "retained gap"
             )
-        adapters = Mock()
-        adapters.explore.return_value = AdapterExploration(
-            (),
-            (
-                AcquisitionProblem(
-                    "adapter", "source_unavailable", "independent adapter gap"
-                ),
-            ),
-            (),
-        )
+        adapters = source_explorer
+        if adapters is None:
+            adapters = Mock()
+            adapters.source_run.return_value.max_module_files = 12
+            adapters.source_run.return_value.work = PythonSourceAcquisitionWork((), 0, 0)
+            adapters.source_run.return_value.examine.return_value = AcquisitionProblem(
+                "python_source", "source_unavailable", "controlled exact-source gap",
+            )
+            adapters.explore.return_value = AdapterExploration(
+                (), (AcquisitionProblem("adapter", "source_unavailable", "independent adapter gap"),), (),
+            )
         entry = (
             acquire_public_pr_context
             if interpretation_provider is None
@@ -217,9 +284,11 @@ class PublicPRTests(TestCase):
             adapters=adapters,
             **options,
         )
-        if interpretation_provider is None:
-            adapters.explore.assert_called_once_with(result.target)
-        else:
+        if interpretation_provider is None and source_explorer is None:
+            adapters.explore.assert_called_once_with(
+                result.target, source_run=adapters.source_run.return_value, stop_at_package="vendor",
+            )
+        elif source_explorer is None:
             adapters.explore.assert_called_once()
         return result, pr, inventory
 

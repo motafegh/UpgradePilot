@@ -27,7 +27,11 @@ from upgradepilot.github.repository import GitHubRepositoryClient
 from upgradepilot.investigation_inputs import AcquiredDependencyInputs, acquire_dependency_inputs
 from upgradepilot.upstream.interval import DependencyReleaseInterval
 
-from .api_adapter_exploration import AdapterExploration, AdapterSourceExplorer
+from .api_adapter_exploration import (
+    AdapterExploration, AdapterSourceExplorer, ExaminedPythonModule, PythonModuleSourceRequest,
+    PythonSourceAcquisitionRun,
+    PythonSourceAcquisitionWork,
+)
 from .api_change_source_acquisition import (
     AcquisitionProblem,
     DeclaredReleaseWindowAcquirer,
@@ -56,6 +60,9 @@ class PublicPRContextTrial:
     target: TargetContext
     upstream: object
     adapters: AdapterExploration
+    changed_sources: tuple[ChangedPackageModuleAttempt, ...] = ()
+    source_work: PythonSourceAcquisitionWork | None = None
+    unexamined_changed_modules: tuple[str, ...] = ()
 
     @property
     def identity(self) -> PullRequestIdentity:
@@ -64,6 +71,65 @@ class PublicPRContextTrial:
     @property
     def analysis(self) -> DependencyChangeAnalysis:
         return DependencyChangeAnalysis(self.inputs.dependency, self.inputs.source_contexts)
+
+
+@dataclass(frozen=True)
+class ChangedPackageModuleAttempt:
+    request: PythonModuleSourceRequest
+    outcome: ExaminedPythonModule | AcquisitionProblem
+
+
+def _origin_for_module(module, import_fact, references):
+    """Keep a matching existing binding trace when available; infer no new binding."""
+    for reference in references:
+        if reference.source_id == import_fact.source_id and reference.binding is not None:
+            if any(origin == module or origin.startswith(module + ".")
+                   for origin in reference.binding.possible_imports):
+                return reference
+    return import_fact
+
+
+def examine_changed_package_modules(inputs, context, exploration, source_run):
+    """Inspect observed changed-package modules at native old/proposed versions.
+
+    Target candidates already carry the declaration/module association; adapter
+    imports require the acquired release's declaration, as in normal exploration.
+    This is module examination only: no export, callable or execution edge is inferred.
+    """
+    package = inputs.dependency.normalized_package
+    origins = [
+        (candidate.imported_module, _origin_for_module(candidate.imported_module, origin, context.references))
+        for candidate in context.candidates
+        if candidate.declaration.package == package
+        for origin in context.imports
+        if origin.source_id == candidate.import_source_id and origin.line == candidate.import_line
+        and origin.module == candidate.imported_module
+    ]
+    for candidate in exploration.deferred_candidates:
+        for sample in exploration.samples:
+            origins.extend(
+                (origin.module, _origin_for_module(origin.module, origin, sample.references))
+                for origin in sample.imports
+                if origin.source_id == candidate.import_source_id
+                and origin.line == candidate.import_line and origin.module == candidate.imported_module
+            )
+    # One observed basis per distinct module is sufficient for source examination,
+    # not call-site/path coverage. All original imports remain in their input owner.
+    by_module = dict()
+    for module, origin in origins:
+        by_module.setdefault(module, origin)
+    attempts, omitted = [], []
+    for module, origin in by_module.items():
+        if len(attempts) + 2 > source_run.max_module_files:
+            omitted.append(module)
+            continue
+        for version, basis in (
+            (inputs.dependency.old_version, "native_old_version"),
+            (inputs.dependency.proposed_version, "native_proposed_version"),
+        ):
+            request = PythonModuleSourceRequest(package, version, module, basis, origin)
+            attempts.append(ChangedPackageModuleAttempt(request, source_run.examine(request)))
+    return tuple(attempts), tuple(omitted)
 
 
 def acquire_public_pr_context(
@@ -79,6 +145,7 @@ def acquire_public_pr_context(
     expected_base: str | None = None,
     expected_head: str | None = None,
     max_target_python_files: int = 200,
+    source_run: PythonSourceAcquisitionRun | None = None,
 ) -> PublicPRContextTrial | AcquisitionProblem:
     session = session or TrialPublicSession()
     files = files or GitHubRepositoryClient(session=session)
@@ -86,6 +153,7 @@ def acquire_public_pr_context(
     target = target or TargetContextAcquirer(session=session, files=files)
     upstream = upstream or DeclaredReleaseWindowAcquirer(session=session, files=files)
     adapters = adapters or AdapterSourceExplorer(session=session, files=files)
+    source_run = source_run if source_run is not None else adapters.source_run()
     try:
         acquired = acquire_dependency_inputs(
             repository, number, pull_requests, files,
@@ -109,8 +177,14 @@ def acquire_public_pr_context(
             dependency.proposed_version,
         )
         source = upstream.acquire(interval)
-        explored = adapters.explore(context)
-        return PublicPRContextTrial(acquired, context, source, explored)
+        explored = adapters.explore(
+            context, source_run=source_run, stop_at_package=dependency.normalized_package,
+        )
+        changed_sources, omitted = examine_changed_package_modules(acquired, context, explored, source_run)
+        return PublicPRContextTrial(
+            acquired, context, source, explored, changed_sources,
+            source_run.work, omitted,
+        )
     except (GitHubAcquisitionError, GitHubResponseError) as exc:
         return AcquisitionProblem(
             "public_pr", getattr(exc, "reason", "malformed_response"), str(exc), exc,
@@ -177,6 +251,13 @@ def trial_manifest(
         "identity": asdict(result.identity),
         "dependency": asdict(result.analysis.dependency),
         "target": context_manifest(result.target),
+        "changed_package_sources": {
+            "proof": "observed-module examination at native versions; no callable or runtime correspondence",
+            "work": asdict(result.source_work) if result.source_work is not None else None,
+            "unexamined_modules": result.unexamined_changed_modules,
+            "attempts": [module_attempt_manifest(attempt) for attempt in result.changed_sources],
+            "retention": "source identities/hashes and facts only; complete text recovery not supplied by this manifest",
+        },
         "upstream": release_window_manifest(result.upstream),
         "adapter_exploration": {
             "samples": [
@@ -204,8 +285,31 @@ def trial_manifest(
             "omitted_candidates": [
                 asdict(c) for c in result.adapters.omitted_candidates
             ],
+            "deferred_to_native_versions": [asdict(c) for c in result.adapters.deferred_candidates],
             "limitations": result.adapters.limitations,
         },
+    }
+
+
+def module_attempt_manifest(attempt: ChangedPackageModuleAttempt) -> dict:
+    question = {"request": asdict(attempt.request)}
+    source = attempt.outcome
+    if isinstance(source, AcquisitionProblem):
+        # Budget refusal may follow partial acquisition; only the separate omitted
+        # module list represents questions not issued by this composition.
+        return {**question, "state": "refused" if source.stage == "python_source_budget" else "unavailable", "stage": source.stage,
+                "reason": source.reason, "detail": source.detail}
+    return {
+        **question, "state": "module_examined",
+        "repository": source.file.repository, "revision": source.file.revision,
+        "path": source.file.path, "sha256": file_sha256(source.file),
+        "bytes": len(source.file.content.encode("utf-8")),
+        "association_basis": source.association.basis,
+        "provenance_state": source.association.provenance_result.state,
+        "tag_commits": {tag.requested_tag: tag.resolved_commit_sha for tag in source.tags},
+        "metadata": asdict(source.metadata),
+        **python_facts_manifest(source.imports, source.references),
+        "gaps": [asdict(gap) for gap in source.gaps],
     }
 
 

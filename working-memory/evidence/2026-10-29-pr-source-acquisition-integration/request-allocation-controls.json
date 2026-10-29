@@ -1,0 +1,888 @@
+{
+  "proof": "controlled request-charge model, not actual endpoint/profile timing or fresh acquisition",
+  "profiles": [
+    {
+      "proof": "controlled provider request-charge allocation model; not live acquisition",
+      "precharged_pr_target_requests": 30,
+      "github_requests": 50,
+      "request_limit_reached": false,
+      "samples": 3,
+      "old_source": "module_examined",
+      "proposed_source": "module_examined",
+      "trace": [
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 0,
+          "github_after": 1,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 1,
+          "github_after": 2,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 2,
+          "github_after": 3,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 3,
+          "github_after": 4,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 4,
+          "github_after": 5,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 5,
+          "github_after": 6,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 6,
+          "github_after": 7,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 7,
+          "github_after": 8,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 8,
+          "github_after": 9,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 9,
+          "github_after": 10,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 10,
+          "github_after": 11,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 11,
+          "github_after": 12,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 12,
+          "github_after": 13,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 13,
+          "github_after": 14,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 14,
+          "github_after": 15,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 15,
+          "github_after": 16,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 16,
+          "github_after": 17,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 17,
+          "github_after": 18,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 18,
+          "github_after": 19,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 19,
+          "github_after": 20,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 20,
+          "github_after": 21,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 21,
+          "github_after": 22,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 22,
+          "github_after": 23,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 23,
+          "github_after": 24,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 24,
+          "github_after": 25,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 25,
+          "github_after": 26,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 26,
+          "github_after": 27,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 27,
+          "github_after": 28,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 28,
+          "github_after": 29,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 29,
+          "github_after": 30,
+          "state": "charged"
+        },
+        {
+          "stage": "index",
+          "host": "pypi.org",
+          "github_before": 30,
+          "github_after": 30,
+          "state": "charged"
+        },
+        {
+          "stage": "release",
+          "host": "pypi.org",
+          "github_before": 30,
+          "github_after": 30,
+          "state": "charged"
+        },
+        {
+          "stage": "metadata",
+          "host": "pypi.org",
+          "github_before": 30,
+          "github_after": 30,
+          "state": "charged"
+        },
+        {
+          "stage": "tag",
+          "host": "api.github.com",
+          "github_before": 30,
+          "github_after": 31,
+          "state": "charged"
+        },
+        {
+          "stage": "tag",
+          "host": "api.github.com",
+          "github_before": 31,
+          "github_after": 32,
+          "state": "charged"
+        },
+        {
+          "stage": "commit_and_tree",
+          "host": "api.github.com",
+          "github_before": 32,
+          "github_after": 33,
+          "state": "charged"
+        },
+        {
+          "stage": "commit_and_tree",
+          "host": "api.github.com",
+          "github_before": 33,
+          "github_after": 34,
+          "state": "charged"
+        },
+        {
+          "stage": "module",
+          "host": "api.github.com",
+          "github_before": 34,
+          "github_after": 35,
+          "state": "charged"
+        },
+        {
+          "stage": "index",
+          "host": "pypi.org",
+          "github_before": 35,
+          "github_after": 35,
+          "state": "charged"
+        },
+        {
+          "stage": "release",
+          "host": "pypi.org",
+          "github_before": 35,
+          "github_after": 35,
+          "state": "charged"
+        },
+        {
+          "stage": "metadata",
+          "host": "pypi.org",
+          "github_before": 35,
+          "github_after": 35,
+          "state": "charged"
+        },
+        {
+          "stage": "tag",
+          "host": "api.github.com",
+          "github_before": 35,
+          "github_after": 36,
+          "state": "charged"
+        },
+        {
+          "stage": "tag",
+          "host": "api.github.com",
+          "github_before": 36,
+          "github_after": 37,
+          "state": "charged"
+        },
+        {
+          "stage": "commit_and_tree",
+          "host": "api.github.com",
+          "github_before": 37,
+          "github_after": 38,
+          "state": "charged"
+        },
+        {
+          "stage": "commit_and_tree",
+          "host": "api.github.com",
+          "github_before": 38,
+          "github_after": 39,
+          "state": "charged"
+        },
+        {
+          "stage": "module",
+          "host": "api.github.com",
+          "github_before": 39,
+          "github_after": 40,
+          "state": "charged"
+        },
+        {
+          "stage": "index",
+          "host": "pypi.org",
+          "github_before": 40,
+          "github_after": 40,
+          "state": "charged"
+        },
+        {
+          "stage": "release",
+          "host": "pypi.org",
+          "github_before": 40,
+          "github_after": 40,
+          "state": "charged"
+        },
+        {
+          "stage": "metadata",
+          "host": "pypi.org",
+          "github_before": 40,
+          "github_after": 40,
+          "state": "charged"
+        },
+        {
+          "stage": "tag",
+          "host": "api.github.com",
+          "github_before": 40,
+          "github_after": 41,
+          "state": "charged"
+        },
+        {
+          "stage": "tag",
+          "host": "api.github.com",
+          "github_before": 41,
+          "github_after": 42,
+          "state": "charged"
+        },
+        {
+          "stage": "commit_and_tree",
+          "host": "api.github.com",
+          "github_before": 42,
+          "github_after": 43,
+          "state": "charged"
+        },
+        {
+          "stage": "commit_and_tree",
+          "host": "api.github.com",
+          "github_before": 43,
+          "github_after": 44,
+          "state": "charged"
+        },
+        {
+          "stage": "module",
+          "host": "api.github.com",
+          "github_before": 44,
+          "github_after": 45,
+          "state": "charged"
+        },
+        {
+          "stage": "release",
+          "host": "pypi.org",
+          "github_before": 45,
+          "github_after": 45,
+          "state": "charged"
+        },
+        {
+          "stage": "metadata",
+          "host": "pypi.org",
+          "github_before": 45,
+          "github_after": 45,
+          "state": "charged"
+        },
+        {
+          "stage": "tag",
+          "host": "api.github.com",
+          "github_before": 45,
+          "github_after": 46,
+          "state": "charged"
+        },
+        {
+          "stage": "tag",
+          "host": "api.github.com",
+          "github_before": 46,
+          "github_after": 47,
+          "state": "charged"
+        },
+        {
+          "stage": "commit_and_tree",
+          "host": "api.github.com",
+          "github_before": 47,
+          "github_after": 48,
+          "state": "charged"
+        },
+        {
+          "stage": "commit_and_tree",
+          "host": "api.github.com",
+          "github_before": 48,
+          "github_after": 49,
+          "state": "charged"
+        },
+        {
+          "stage": "module",
+          "host": "api.github.com",
+          "github_before": 49,
+          "github_after": 50,
+          "state": "charged"
+        }
+      ]
+    },
+    {
+      "proof": "controlled provider request-charge allocation model; not live acquisition",
+      "precharged_pr_target_requests": 31,
+      "github_requests": 50,
+      "request_limit_reached": true,
+      "samples": 3,
+      "old_source": "trial_request_limit",
+      "proposed_source": "module_examined",
+      "trace": [
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 0,
+          "github_after": 1,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 1,
+          "github_after": 2,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 2,
+          "github_after": 3,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 3,
+          "github_after": 4,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 4,
+          "github_after": 5,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 5,
+          "github_after": 6,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 6,
+          "github_after": 7,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 7,
+          "github_after": 8,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 8,
+          "github_after": 9,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 9,
+          "github_after": 10,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 10,
+          "github_after": 11,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 11,
+          "github_after": 12,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 12,
+          "github_after": 13,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 13,
+          "github_after": 14,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 14,
+          "github_after": 15,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 15,
+          "github_after": 16,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 16,
+          "github_after": 17,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 17,
+          "github_after": 18,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 18,
+          "github_after": 19,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 19,
+          "github_after": 20,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 20,
+          "github_after": 21,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 21,
+          "github_after": 22,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 22,
+          "github_after": 23,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 23,
+          "github_after": 24,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 24,
+          "github_after": 25,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 25,
+          "github_after": 26,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 26,
+          "github_after": 27,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 27,
+          "github_after": 28,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 28,
+          "github_after": 29,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 29,
+          "github_after": 30,
+          "state": "charged"
+        },
+        {
+          "stage": "pr_and_target",
+          "host": "api.github.com",
+          "github_before": 30,
+          "github_after": 31,
+          "state": "charged"
+        },
+        {
+          "stage": "index",
+          "host": "pypi.org",
+          "github_before": 31,
+          "github_after": 31,
+          "state": "charged"
+        },
+        {
+          "stage": "release",
+          "host": "pypi.org",
+          "github_before": 31,
+          "github_after": 31,
+          "state": "charged"
+        },
+        {
+          "stage": "metadata",
+          "host": "pypi.org",
+          "github_before": 31,
+          "github_after": 31,
+          "state": "charged"
+        },
+        {
+          "stage": "tag",
+          "host": "api.github.com",
+          "github_before": 31,
+          "github_after": 32,
+          "state": "charged"
+        },
+        {
+          "stage": "tag",
+          "host": "api.github.com",
+          "github_before": 32,
+          "github_after": 33,
+          "state": "charged"
+        },
+        {
+          "stage": "commit_and_tree",
+          "host": "api.github.com",
+          "github_before": 33,
+          "github_after": 34,
+          "state": "charged"
+        },
+        {
+          "stage": "commit_and_tree",
+          "host": "api.github.com",
+          "github_before": 34,
+          "github_after": 35,
+          "state": "charged"
+        },
+        {
+          "stage": "module",
+          "host": "api.github.com",
+          "github_before": 35,
+          "github_after": 36,
+          "state": "charged"
+        },
+        {
+          "stage": "index",
+          "host": "pypi.org",
+          "github_before": 36,
+          "github_after": 36,
+          "state": "charged"
+        },
+        {
+          "stage": "release",
+          "host": "pypi.org",
+          "github_before": 36,
+          "github_after": 36,
+          "state": "charged"
+        },
+        {
+          "stage": "metadata",
+          "host": "pypi.org",
+          "github_before": 36,
+          "github_after": 36,
+          "state": "charged"
+        },
+        {
+          "stage": "tag",
+          "host": "api.github.com",
+          "github_before": 36,
+          "github_after": 37,
+          "state": "charged"
+        },
+        {
+          "stage": "tag",
+          "host": "api.github.com",
+          "github_before": 37,
+          "github_after": 38,
+          "state": "charged"
+        },
+        {
+          "stage": "commit_and_tree",
+          "host": "api.github.com",
+          "github_before": 38,
+          "github_after": 39,
+          "state": "charged"
+        },
+        {
+          "stage": "commit_and_tree",
+          "host": "api.github.com",
+          "github_before": 39,
+          "github_after": 40,
+          "state": "charged"
+        },
+        {
+          "stage": "module",
+          "host": "api.github.com",
+          "github_before": 40,
+          "github_after": 41,
+          "state": "charged"
+        },
+        {
+          "stage": "index",
+          "host": "pypi.org",
+          "github_before": 41,
+          "github_after": 41,
+          "state": "charged"
+        },
+        {
+          "stage": "release",
+          "host": "pypi.org",
+          "github_before": 41,
+          "github_after": 41,
+          "state": "charged"
+        },
+        {
+          "stage": "metadata",
+          "host": "pypi.org",
+          "github_before": 41,
+          "github_after": 41,
+          "state": "charged"
+        },
+        {
+          "stage": "tag",
+          "host": "api.github.com",
+          "github_before": 41,
+          "github_after": 42,
+          "state": "charged"
+        },
+        {
+          "stage": "tag",
+          "host": "api.github.com",
+          "github_before": 42,
+          "github_after": 43,
+          "state": "charged"
+        },
+        {
+          "stage": "commit_and_tree",
+          "host": "api.github.com",
+          "github_before": 43,
+          "github_after": 44,
+          "state": "charged"
+        },
+        {
+          "stage": "commit_and_tree",
+          "host": "api.github.com",
+          "github_before": 44,
+          "github_after": 45,
+          "state": "charged"
+        },
+        {
+          "stage": "module",
+          "host": "api.github.com",
+          "github_before": 45,
+          "github_after": 46,
+          "state": "charged"
+        },
+        {
+          "stage": "release",
+          "host": "pypi.org",
+          "github_before": 46,
+          "github_after": 46,
+          "state": "charged"
+        },
+        {
+          "stage": "metadata",
+          "host": "pypi.org",
+          "github_before": 46,
+          "github_after": 46,
+          "state": "charged"
+        },
+        {
+          "stage": "tag",
+          "host": "api.github.com",
+          "github_before": 46,
+          "github_after": 47,
+          "state": "charged"
+        },
+        {
+          "stage": "tag",
+          "host": "api.github.com",
+          "github_before": 47,
+          "github_after": 48,
+          "state": "charged"
+        },
+        {
+          "stage": "commit_and_tree",
+          "host": "api.github.com",
+          "github_before": 48,
+          "github_after": 49,
+          "state": "charged"
+        },
+        {
+          "stage": "commit_and_tree",
+          "host": "api.github.com",
+          "github_before": 49,
+          "github_after": 50,
+          "state": "charged"
+        },
+        {
+          "stage": "module",
+          "host": "api.github.com",
+          "github_before": 50,
+          "github_after": 50,
+          "state": "refused"
+        }
+      ]
+    }
+  ]
+}
