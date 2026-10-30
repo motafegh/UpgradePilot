@@ -1,6 +1,7 @@
 # PR-driven caller/signature evidence integration design
 
 **Status:** concrete proposal for review, not implementation or product adoption.  
+**Bounds reconciliation:** October30 §7 supersedes the initial unimplemented numerical proposals using qualified source/evidence; other proposal/adoption boundaries retain their own horizons.
 **Owning plan:** [API-change/target-exposure feasibility](../../../plans/UPSTREAM_API_CHANGE_AND_TARGET_EXPOSURE_FEASIBILITY_PLAN.md).  
 **Structural checker:** [existing child plan](../../../plans/DETERMINISTIC_API_CALL_AND_SIGNATURE_EVIDENCE_PLAN.md), [HTTPX result](../2026-10-28-caller-signature-build/REVIEW.md), [glyphsLib/pytest result](../2026-10-28-caller-signature-second-real-case/REVIEW.md).  
 **Cycle:** [current design progression](../../2026-10-28_pr-driven-caller-signature-integration_design-cycle.md).  
@@ -111,15 +112,49 @@ The ordinary view must explain what changed or stayed compatible at the declared
 
 Render or link to retained source-step paths, exact path-local blockers and omissions. Test producer→saved→human-view completeness for these fields, not only parity between two consumers of one mapping. The UV comparison demonstrates an existing CI report omission despite retained native diagnostics; do not reproduce it in the API consumer or silently widen this design into a UV/report repair.
 
-## 7. Bounds and work allocation for review
+## 7. Bounds and work allocation — reconciled October30
 
-Inherit existing ceilings rather than relax them for a known example:50 GitHub GETs per run,4 examined Python-source release/sample identities,2 external dependency hops,12 module-file attempts, target200 Python files/2MiB and adapter2MiB, binding32 origins/128 trace steps, checker32 selected retained files/4MiB/256 comparisons with its AST/fact/output/worker limits. The existing release-window metadata bound of up to10 crossed releases remains separate from Python-source examination; do not silently drop intermediate change observations. Intra-repository import/protocol traversal needs an explicit separate depth/work counter; propose8 source steps per path and32 emitted comparison candidates, within the checker's higher hard ceiling.
+This section replaces the initial unimplemented8-step/32-candidate/80-GET proposals
+with the qualified experimental contract. It is a dated design reconciliation, not
+new policy implementation or a retroactive claim about earlier attempts. See the
+[staged qualification](../2026-10-30-staged-source-acquisition-policy/REVIEW.md) and
+[pre-live contract](../2026-10-30-first-fresh-ordinary-pr-contract/CONTRACT.md).
 
-Propose an80-GET aggregate provider ceiling,32MiB aggregate decoded-body ceiling and180s acquisition deadline, followed by the existing bounded checker worker; these are proposed trial bounds, not new product policy or measured guarantees. Preserve stricter existing per-resource/parser limits. Domain/method scope is anonymous public GET only; no ambient credentials, new host, archive/install or paid operation. Separate acquisition, analysis and publication timing in receipts.
+| Earlier design value | Qualified implementation / selected contract | Why the earlier proposal is superseded or retained |
+| --- | --- | --- |
+| Proposed8 literal source steps per path |32 literal steps; separate8 resolver-depth identities |These are distinct units. Qualified saved protocol paths have11 steps (prior multi-package control) and10 (staged control).8 literal steps would reject those witnesses. Keep separate depth/path/state controls rather than reinterpret8 as32 |
+| Proposed32 emitted candidates below checker256 |One existing AnalysisLimits.max_pairs ceiling256 bounds emitted candidates AND comparisons |No separate32 cap was implemented. Preserve material old/proposed/overload/receiver/path alternatives under the qualified shared bound; retained real discovery has68 comparisons (not68 independent cases). Exhaustion emits comparison_candidate_limit and preserves partial evidence, never coverage closure |
+| Proposed80 aggregate provider GETs |Default/selected50 GitHub and100 all-provider attempts, independently counted |Separate GitHub work from PyPI; the controlled improvement fits41 GitHub/46 total, so no evidence requires raising the default. Explicit80 GitHub is only a tested finite configuration, not an active aggregate cap or automatic live selection |
+| Proposed32MiB aggregate decoded body |32MiB aggregate, plus8MiB per HTTP response and stricter provider caps |Retained and enforced by opt-in staged transport before provider JSON decoding; response bytes differ from admitted source-text bytes |
+| Proposed180s acquisition deadline |180s cooperative monotonic checks with remaining-time socket timeout bounds |Retained with explicit mechanism/proof limits; not hard preemptive elapsed cancellation. Separate existing60s/512MiB analysis worker |
+| Anonymous-only initial design |Anonymous default; explicit token-env only when selected under existing public-read authorization |No ambient credential inheritance. The selected contract records prior authorization, auth mode and process-local credential handling without retaining values |
 
-Before live execution, a controlled-provider request trace must prove the proposed target-scan/source-closure allocation. The current target scan can consume the shared request budget before source closure. Use bounded staged reads/reservations and exact cache reuse at existing owners; record ordering and omitted files. Do not promise that arbitrary large repositories fit50 requests, silently skip obligations, or claim known-case discovery by selecting file paths supplied by the reviewer. If a credible useful route cannot fit, stop with measured needs and review a policy/budget change rather than enlarge caps automatically.
+Unchanged source/analysis boundaries:4 exact Python release/sample identities,
+2 external dependency hops,12 module questions,2MiB admitted library text;
+target ceiling200 Python files/2MiB; binding32 origins/128 trace steps; retained
+analysis32 files/4MiB,100,000 nodes/file,250,000 aggregate nodes,4096 facts,
+256 pairs; correspondence4096 resolution states and256 diagnostic records plus
+omitted count. Crossed-release metadata up to10 remains separate. A state count
+may record the over-limit refusal check; it is not additional admitted work.
 
-No fresh target request is authorized by this design. A later live contract selects at most one ordinary attempt per chosen PR, exact identity guards where appropriate, the resource/retention budget and pass/stop conditions. Controlled providers and retained inspection come first. No automatic retry, model experiment or repair/regrade of old case captures follows.
+Staged policy selects16 total target file attempts,2 adapter candidate attempts and
+protects24 GitHub requests from early target/window stages. These are additional
+allocation choices beneath the unchanged capability ceilings, not equivalent units
+or promises of complete coverage. Cache reuse stays per-run. Inventory-first
+priority uses declarations/PR-observed changed paths; closure priority uses observed
+names/source references and preserves omissions. No known answer paths or versions.
+
+Any candidate/path/depth/state/source/provider/time limit preserves explicit gaps,
+omissions or an incomplete/failed attempt. Valid retained comparisons may remain
+locally useful; exhausted candidates cannot establish all affected paths examined.
+No automatic cap enlargement, successful-subset regrade or quiet omission is allowed.
+
+No fresh target request is activated by this design. The separately frozen contract
+selects one attempt, exact identity guards, auth/policy/source/analysis bounds,
+private retention and useful/partial/refusal/stop criteria. It requires an honest
+fresh proof class and an outer acquisition-attempt record before any provider call.
+Stop for Ali's inspection before live execution; earlier frozen captures remain
+unchanged. Native adoption and runtime/semantic/maintainer authority stay separate.
 
 ## 8. Implementation and evidence sequence
 
