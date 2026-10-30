@@ -469,6 +469,10 @@ class FactorySourceTests(TestCase):
         self.assertEqual(len(pairs), 8)
         self.assertEqual({p["comparison"]["outcome"] for p in pairs}, {"bound", "rejected"})
         self.assertEqual(len({(c["signature_id"], c["callee_role"]["role"]) for c in discovery["candidates"]}), 4)
+        encoded = encode_ordinary_inputs(catalog, modules, {}, proof_class="retained_component_discovery")
+        result, companion = prepare_ordinary_comparison(encoded, AnalysisLimits())
+        body, _ = read_ordinary_comparison(result, companion)
+        self.assertIn("Declared decorators (syntax only): overload", render_ordinary_comparison(body))
 
     def test_unsupported_factories_missing_protocol_and_nested_return_remain_gaps(self):
         for source, reason in (
@@ -506,4 +510,37 @@ class FactorySourceTests(TestCase):
         step["expression"] = "return unrelated()"
         with self.assertRaisesRegex(ValueError, "text/span mismatch"):
             read_ordinary_comparison(json_bytes(body), companion)
+        for change in ("missing_step", "missing_premise"):
+            altered = json.loads(result)
+            candidate = altered["discovery"]["candidates"][0]
+            if change == "missing_step":
+                candidate["steps"] = [s for s in candidate["steps"] if s["operation"] != "attribute_getter"]
+            else:
+                candidate["premises"].remove("factory_returns_selected_declared_class_instance")
+            with self.subTest(change=change), self.assertRaises(ValueError):
+                read_ordinary_comparison(json_bytes(altered), companion)
+
+    def test_async_generator_getters_and_multi_attribute_access_are_not_instance_returns(self):
+        for source in (factory_source().replace("def __getattr__", "async def __getattr__"),
+                       factory_source(returns="yield 1\nreturn Decorator()")):
+            with self.subTest(source=source):
+                discovery, pairs, _ = discover_source_candidates(*source_inputs(
+                    "from vendor import FACTORY\nFACTORY.label(ids=[])\n", source, source), AnalysisLimits())
+                self.assertEqual(pairs, [])
+                self.assertIn("async_or_generator_getter_unsupported", {g["reason"] for g in discovery["gaps"]})
+        discovery, pairs, _ = discover_source_candidates(*source_inputs(
+            "from vendor import FACTORY\nFACTORY.label.extra(ids=[])\n", factory_source(), factory_source()), AnalysisLimits())
+        self.assertEqual(pairs, [])
+        self.assertIn("factory_attribute_chain_unsupported", {g["reason"] for g in discovery["gaps"]})
+
+    def test_star_arguments_keep_partial_keyword_evidence_without_full_binding(self):
+        result, companion = prepare_ordinary_comparison(prepared(
+            "from vendor import FACTORY\nFACTORY.label(*values, ids=[], **options)\n",
+            factory_source(), factory_source()), AnalysisLimits())
+        body, _ = read_ordinary_comparison(result, companion)
+        self.assertEqual(len(body["pairs"]), 2)
+        for pair in body["pairs"]:
+            self.assertEqual(pair["comparison"]["outcome"], "undetermined")
+            self.assertFalse(pair["comparison"]["checks_complete"])
+            self.assertEqual(pair["comparison"]["keyword_reception"][0]["outcome"], "variadic_keyword")
 

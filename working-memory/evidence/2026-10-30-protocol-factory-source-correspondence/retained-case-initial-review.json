@@ -1,0 +1,579 @@
+{
+  "client_date": "2026-10-30",
+  "proof_class": "retained_component_discovery",
+  "method_source_revision": "20caa23d",
+  "qualification_horizon": "first method2 real-text discovery, before async-getter/extra-shape guards; original frozen result not rerun/regraded",
+  "target": {
+    "base_sha": "044f19e4b1437bfc4343592486f4e3c6040306d9",
+    "head_sha": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+    "normalized_package": "pytest",
+    "old_version": "9.0.2",
+    "proposed_version": "9.0.3",
+    "pull_number": 1145,
+    "repository": "googlefonts/glyphsLib"
+  },
+  "work": {
+    "ast_nodes": 20917,
+    "facts": 1113,
+    "selected_pairs": 68,
+    "source_bytes": 205876,
+    "source_files": 12
+  },
+  "direct_protocol_comparisons": [
+    {
+      "candidate_id": "ddc85f940340731a15d69649b2e135546d85cca0f0f7a6424a6c22490ab6f7d7",
+      "call_id": "eb8b3a51d7557319602fc35ac4616ee3667f876665c703d833f8d361ac1f2a77",
+      "call_expression": "pytest.mark.parametrize",
+      "call_line": 59,
+      "role": "native_proposed_version",
+      "version": "9.0.3",
+      "signature": "MarkDecorator.__call__",
+      "signature_line": 383,
+      "decorators": [
+        "overload"
+      ],
+      "outcome": "rejected",
+      "keyword_reception": [
+        {
+          "name": "ids",
+          "outcome": "not_received"
+        }
+      ],
+      "steps": [
+        "call",
+        "import_origin",
+        "reexport",
+        "reexport",
+        "allocation",
+        "class_declaration",
+        "attribute_getter",
+        "factory_return",
+        "class_declaration",
+        "call_protocol"
+      ],
+      "premises": [
+        "effective_export_binding_not_established",
+        "installed_namespace_and_dispatch_not_established",
+        "reexport_binding_and_branch_activation_not_established",
+        "module_allocation_binding_and_constructor_success_not_established",
+        "attribute_lookup_and_getattr_activation_not_established",
+        "factory_constructor_arguments_not_checked",
+        "effective_protocol_method_and_receiver_binding_not_established",
+        "execution_reaches_factory_return_and_branch",
+        "factory_returns_selected_declared_class_instance"
+      ]
+    },
+    {
+      "candidate_id": "16926818a43ea3b3b4e68ae3dcc7af209edc595ead7af81b3a866bd98749b123",
+      "call_id": "eb8b3a51d7557319602fc35ac4616ee3667f876665c703d833f8d361ac1f2a77",
+      "call_expression": "pytest.mark.parametrize",
+      "call_line": 59,
+      "role": "native_proposed_version",
+      "version": "9.0.3",
+      "signature": "MarkDecorator.__call__",
+      "signature_line": 387,
+      "decorators": [
+        "overload"
+      ],
+      "outcome": "bound",
+      "keyword_reception": [
+        {
+          "name": "ids",
+          "outcome": "variadic_keyword"
+        }
+      ],
+      "steps": [
+        "call",
+        "import_origin",
+        "reexport",
+        "reexport",
+        "allocation",
+        "class_declaration",
+        "attribute_getter",
+        "factory_return",
+        "class_declaration",
+        "call_protocol"
+      ],
+      "premises": [
+        "effective_export_binding_not_established",
+        "installed_namespace_and_dispatch_not_established",
+        "reexport_binding_and_branch_activation_not_established",
+        "module_allocation_binding_and_constructor_success_not_established",
+        "attribute_lookup_and_getattr_activation_not_established",
+        "factory_constructor_arguments_not_checked",
+        "effective_protocol_method_and_receiver_binding_not_established",
+        "execution_reaches_factory_return_and_branch",
+        "factory_returns_selected_declared_class_instance"
+      ]
+    },
+    {
+      "candidate_id": "b046f3fa2e97c0102a3ac13dbead4887d81daf51677dcc1b8fa4b0ce2ad798cf",
+      "call_id": "eb8b3a51d7557319602fc35ac4616ee3667f876665c703d833f8d361ac1f2a77",
+      "call_expression": "pytest.mark.parametrize",
+      "call_line": 59,
+      "role": "native_proposed_version",
+      "version": "9.0.3",
+      "signature": "MarkDecorator.__call__",
+      "signature_line": 390,
+      "decorators": [],
+      "outcome": "bound",
+      "keyword_reception": [
+        {
+          "name": "ids",
+          "outcome": "variadic_keyword"
+        }
+      ],
+      "steps": [
+        "call",
+        "import_origin",
+        "reexport",
+        "reexport",
+        "allocation",
+        "class_declaration",
+        "attribute_getter",
+        "factory_return",
+        "class_declaration",
+        "call_protocol"
+      ],
+      "premises": [
+        "effective_export_binding_not_established",
+        "installed_namespace_and_dispatch_not_established",
+        "reexport_binding_and_branch_activation_not_established",
+        "module_allocation_binding_and_constructor_success_not_established",
+        "attribute_lookup_and_getattr_activation_not_established",
+        "factory_constructor_arguments_not_checked",
+        "effective_protocol_method_and_receiver_binding_not_established",
+        "execution_reaches_factory_return_and_branch",
+        "factory_returns_selected_declared_class_instance"
+      ]
+    },
+    {
+      "candidate_id": "66248018ccdc99b5e47800e42f5b9ce44627904c3022854aa52c193544f4aaa5",
+      "call_id": "eb8b3a51d7557319602fc35ac4616ee3667f876665c703d833f8d361ac1f2a77",
+      "call_expression": "pytest.mark.parametrize",
+      "call_line": 59,
+      "role": "native_old_version",
+      "version": "9.0.2",
+      "signature": "MarkDecorator.__call__",
+      "signature_line": 383,
+      "decorators": [
+        "overload"
+      ],
+      "outcome": "rejected",
+      "keyword_reception": [
+        {
+          "name": "ids",
+          "outcome": "not_received"
+        }
+      ],
+      "steps": [
+        "call",
+        "import_origin",
+        "reexport",
+        "reexport",
+        "allocation",
+        "class_declaration",
+        "attribute_getter",
+        "factory_return",
+        "class_declaration",
+        "call_protocol"
+      ],
+      "premises": [
+        "effective_export_binding_not_established",
+        "installed_namespace_and_dispatch_not_established",
+        "reexport_binding_and_branch_activation_not_established",
+        "module_allocation_binding_and_constructor_success_not_established",
+        "attribute_lookup_and_getattr_activation_not_established",
+        "factory_constructor_arguments_not_checked",
+        "effective_protocol_method_and_receiver_binding_not_established",
+        "execution_reaches_factory_return_and_branch",
+        "factory_returns_selected_declared_class_instance"
+      ]
+    },
+    {
+      "candidate_id": "bbdf34b42bf7449ab57d5f20cbd5e2864f04ff1ed81973a0938e6a7ef01985bb",
+      "call_id": "eb8b3a51d7557319602fc35ac4616ee3667f876665c703d833f8d361ac1f2a77",
+      "call_expression": "pytest.mark.parametrize",
+      "call_line": 59,
+      "role": "native_old_version",
+      "version": "9.0.2",
+      "signature": "MarkDecorator.__call__",
+      "signature_line": 387,
+      "decorators": [
+        "overload"
+      ],
+      "outcome": "bound",
+      "keyword_reception": [
+        {
+          "name": "ids",
+          "outcome": "variadic_keyword"
+        }
+      ],
+      "steps": [
+        "call",
+        "import_origin",
+        "reexport",
+        "reexport",
+        "allocation",
+        "class_declaration",
+        "attribute_getter",
+        "factory_return",
+        "class_declaration",
+        "call_protocol"
+      ],
+      "premises": [
+        "effective_export_binding_not_established",
+        "installed_namespace_and_dispatch_not_established",
+        "reexport_binding_and_branch_activation_not_established",
+        "module_allocation_binding_and_constructor_success_not_established",
+        "attribute_lookup_and_getattr_activation_not_established",
+        "factory_constructor_arguments_not_checked",
+        "effective_protocol_method_and_receiver_binding_not_established",
+        "execution_reaches_factory_return_and_branch",
+        "factory_returns_selected_declared_class_instance"
+      ]
+    },
+    {
+      "candidate_id": "a6e8d6a5cab8547cdae6ca3131e3c54fadaf10ec906c025afe506e6fd7fa04d1",
+      "call_id": "eb8b3a51d7557319602fc35ac4616ee3667f876665c703d833f8d361ac1f2a77",
+      "call_expression": "pytest.mark.parametrize",
+      "call_line": 59,
+      "role": "native_old_version",
+      "version": "9.0.2",
+      "signature": "MarkDecorator.__call__",
+      "signature_line": 390,
+      "decorators": [],
+      "outcome": "bound",
+      "keyword_reception": [
+        {
+          "name": "ids",
+          "outcome": "variadic_keyword"
+        }
+      ],
+      "steps": [
+        "call",
+        "import_origin",
+        "reexport",
+        "reexport",
+        "allocation",
+        "class_declaration",
+        "attribute_getter",
+        "factory_return",
+        "class_declaration",
+        "call_protocol"
+      ],
+      "premises": [
+        "effective_export_binding_not_established",
+        "installed_namespace_and_dispatch_not_established",
+        "reexport_binding_and_branch_activation_not_established",
+        "module_allocation_binding_and_constructor_success_not_established",
+        "attribute_lookup_and_getattr_activation_not_established",
+        "factory_constructor_arguments_not_checked",
+        "effective_protocol_method_and_receiver_binding_not_established",
+        "execution_reaches_factory_return_and_branch",
+        "factory_returns_selected_declared_class_instance"
+      ]
+    },
+    {
+      "candidate_id": "ae4cc07c73e8573e2ca73dc52db3776d3a05cd3a75ad7c5b859fc6c77a878867",
+      "call_id": "eb30c4286d438491015dda57eab4ed320a267c7fcd43596b494bec45f5f94d0f",
+      "call_expression": "pytest.mark.parametrize",
+      "call_line": 78,
+      "role": "native_proposed_version",
+      "version": "9.0.3",
+      "signature": "MarkDecorator.__call__",
+      "signature_line": 383,
+      "decorators": [
+        "overload"
+      ],
+      "outcome": "rejected",
+      "keyword_reception": [
+        {
+          "name": "ids",
+          "outcome": "not_received"
+        }
+      ],
+      "steps": [
+        "call",
+        "import_origin",
+        "reexport",
+        "reexport",
+        "allocation",
+        "class_declaration",
+        "attribute_getter",
+        "factory_return",
+        "class_declaration",
+        "call_protocol"
+      ],
+      "premises": [
+        "effective_export_binding_not_established",
+        "installed_namespace_and_dispatch_not_established",
+        "reexport_binding_and_branch_activation_not_established",
+        "module_allocation_binding_and_constructor_success_not_established",
+        "attribute_lookup_and_getattr_activation_not_established",
+        "factory_constructor_arguments_not_checked",
+        "effective_protocol_method_and_receiver_binding_not_established",
+        "execution_reaches_factory_return_and_branch",
+        "factory_returns_selected_declared_class_instance"
+      ]
+    },
+    {
+      "candidate_id": "6bc9da612017eb52be1f633f5d5b717c3ded7e8eec0e5beb6da5abb1192b98c2",
+      "call_id": "eb30c4286d438491015dda57eab4ed320a267c7fcd43596b494bec45f5f94d0f",
+      "call_expression": "pytest.mark.parametrize",
+      "call_line": 78,
+      "role": "native_proposed_version",
+      "version": "9.0.3",
+      "signature": "MarkDecorator.__call__",
+      "signature_line": 387,
+      "decorators": [
+        "overload"
+      ],
+      "outcome": "bound",
+      "keyword_reception": [
+        {
+          "name": "ids",
+          "outcome": "variadic_keyword"
+        }
+      ],
+      "steps": [
+        "call",
+        "import_origin",
+        "reexport",
+        "reexport",
+        "allocation",
+        "class_declaration",
+        "attribute_getter",
+        "factory_return",
+        "class_declaration",
+        "call_protocol"
+      ],
+      "premises": [
+        "effective_export_binding_not_established",
+        "installed_namespace_and_dispatch_not_established",
+        "reexport_binding_and_branch_activation_not_established",
+        "module_allocation_binding_and_constructor_success_not_established",
+        "attribute_lookup_and_getattr_activation_not_established",
+        "factory_constructor_arguments_not_checked",
+        "effective_protocol_method_and_receiver_binding_not_established",
+        "execution_reaches_factory_return_and_branch",
+        "factory_returns_selected_declared_class_instance"
+      ]
+    },
+    {
+      "candidate_id": "071c5b128dd9c461c77281fe326fa9f455d8ce551c7dacc3c6446b32f4d18f42",
+      "call_id": "eb30c4286d438491015dda57eab4ed320a267c7fcd43596b494bec45f5f94d0f",
+      "call_expression": "pytest.mark.parametrize",
+      "call_line": 78,
+      "role": "native_proposed_version",
+      "version": "9.0.3",
+      "signature": "MarkDecorator.__call__",
+      "signature_line": 390,
+      "decorators": [],
+      "outcome": "bound",
+      "keyword_reception": [
+        {
+          "name": "ids",
+          "outcome": "variadic_keyword"
+        }
+      ],
+      "steps": [
+        "call",
+        "import_origin",
+        "reexport",
+        "reexport",
+        "allocation",
+        "class_declaration",
+        "attribute_getter",
+        "factory_return",
+        "class_declaration",
+        "call_protocol"
+      ],
+      "premises": [
+        "effective_export_binding_not_established",
+        "installed_namespace_and_dispatch_not_established",
+        "reexport_binding_and_branch_activation_not_established",
+        "module_allocation_binding_and_constructor_success_not_established",
+        "attribute_lookup_and_getattr_activation_not_established",
+        "factory_constructor_arguments_not_checked",
+        "effective_protocol_method_and_receiver_binding_not_established",
+        "execution_reaches_factory_return_and_branch",
+        "factory_returns_selected_declared_class_instance"
+      ]
+    },
+    {
+      "candidate_id": "615a3ead8686dbc0889906ba9c027b9057bc573b3ecba5045fdf7859599dba2a",
+      "call_id": "eb30c4286d438491015dda57eab4ed320a267c7fcd43596b494bec45f5f94d0f",
+      "call_expression": "pytest.mark.parametrize",
+      "call_line": 78,
+      "role": "native_old_version",
+      "version": "9.0.2",
+      "signature": "MarkDecorator.__call__",
+      "signature_line": 383,
+      "decorators": [
+        "overload"
+      ],
+      "outcome": "rejected",
+      "keyword_reception": [
+        {
+          "name": "ids",
+          "outcome": "not_received"
+        }
+      ],
+      "steps": [
+        "call",
+        "import_origin",
+        "reexport",
+        "reexport",
+        "allocation",
+        "class_declaration",
+        "attribute_getter",
+        "factory_return",
+        "class_declaration",
+        "call_protocol"
+      ],
+      "premises": [
+        "effective_export_binding_not_established",
+        "installed_namespace_and_dispatch_not_established",
+        "reexport_binding_and_branch_activation_not_established",
+        "module_allocation_binding_and_constructor_success_not_established",
+        "attribute_lookup_and_getattr_activation_not_established",
+        "factory_constructor_arguments_not_checked",
+        "effective_protocol_method_and_receiver_binding_not_established",
+        "execution_reaches_factory_return_and_branch",
+        "factory_returns_selected_declared_class_instance"
+      ]
+    },
+    {
+      "candidate_id": "c4544338b429b0f82d905a22d6a06e8ac7b48d66a33d54c2893a35811eb782ea",
+      "call_id": "eb30c4286d438491015dda57eab4ed320a267c7fcd43596b494bec45f5f94d0f",
+      "call_expression": "pytest.mark.parametrize",
+      "call_line": 78,
+      "role": "native_old_version",
+      "version": "9.0.2",
+      "signature": "MarkDecorator.__call__",
+      "signature_line": 387,
+      "decorators": [
+        "overload"
+      ],
+      "outcome": "bound",
+      "keyword_reception": [
+        {
+          "name": "ids",
+          "outcome": "variadic_keyword"
+        }
+      ],
+      "steps": [
+        "call",
+        "import_origin",
+        "reexport",
+        "reexport",
+        "allocation",
+        "class_declaration",
+        "attribute_getter",
+        "factory_return",
+        "class_declaration",
+        "call_protocol"
+      ],
+      "premises": [
+        "effective_export_binding_not_established",
+        "installed_namespace_and_dispatch_not_established",
+        "reexport_binding_and_branch_activation_not_established",
+        "module_allocation_binding_and_constructor_success_not_established",
+        "attribute_lookup_and_getattr_activation_not_established",
+        "factory_constructor_arguments_not_checked",
+        "effective_protocol_method_and_receiver_binding_not_established",
+        "execution_reaches_factory_return_and_branch",
+        "factory_returns_selected_declared_class_instance"
+      ]
+    },
+    {
+      "candidate_id": "d064798d11377ebb334b24d25858c6202f44db8dbcccb4a95cc0a0ceadeefdf4",
+      "call_id": "eb30c4286d438491015dda57eab4ed320a267c7fcd43596b494bec45f5f94d0f",
+      "call_expression": "pytest.mark.parametrize",
+      "call_line": 78,
+      "role": "native_old_version",
+      "version": "9.0.2",
+      "signature": "MarkDecorator.__call__",
+      "signature_line": 390,
+      "decorators": [],
+      "outcome": "bound",
+      "keyword_reception": [
+        {
+          "name": "ids",
+          "outcome": "variadic_keyword"
+        }
+      ],
+      "steps": [
+        "call",
+        "import_origin",
+        "reexport",
+        "reexport",
+        "allocation",
+        "class_declaration",
+        "attribute_getter",
+        "factory_return",
+        "class_declaration",
+        "call_protocol"
+      ],
+      "premises": [
+        "effective_export_binding_not_established",
+        "installed_namespace_and_dispatch_not_established",
+        "reexport_binding_and_branch_activation_not_established",
+        "module_allocation_binding_and_constructor_success_not_established",
+        "attribute_lookup_and_getattr_activation_not_established",
+        "factory_constructor_arguments_not_checked",
+        "effective_protocol_method_and_receiver_binding_not_established",
+        "execution_reaches_factory_return_and_branch",
+        "factory_returns_selected_declared_class_instance"
+      ]
+    }
+  ],
+  "unique_target_protocol_calls": 2,
+  "gap_records": 152,
+  "gaps_omitted": 0,
+  "attempt": {
+    "code_sha256": {
+      "experiments/api_adapter_exploration.py": "307e6c79d4a7f9e3364055a9011d64a58ae12b9c7190e735be34ebed4396660c",
+      "experiments/api_call_signature.py": "6c6940769a0bc9e24d924865f87dbf9376cd3536e4ffe5fb81d3e919e45e8338",
+      "experiments/api_change_source_acquisition.py": "cfaa2e5ac1edb29c0bd6ace06dfe7d75c8d789e688ffa280e7fbd3a45ce72f16",
+      "experiments/api_ordinary_call_signature_trial.py": "645fdf392aa6f0757ee440a20fb59176677d7e2f945ef19babfdc2a8b0585449",
+      "experiments/api_python_bindings.py": "215e96e8e066cfae3a08c7a28f991cb810c8ec7da14e14abb85326509e93166a",
+      "experiments/api_signature_evidence.py": "fa453dba7de28a84e8bd4f2777a07b3039fc23474e07c5624067c4c98f4ba469",
+      "experiments/api_source_correspondence.py": "0837a095dc36cc89ea0fef509c54a0cab31a67da36fb36432776461294d89925",
+      "experiments/api_target_context.py": "718ee467d83b8e7e71168e7d8c7d5264ff234fd4730b938092921be352900e6b",
+      "experiments/api_target_context_smoke.py": "9ed42ca48cb909067f2b67b0dc75051e29be6b7cdbf4de52a96f456244d4ccfa",
+      "src/upgradepilot/investigation_inputs.py": "cafc5f52d7d61bf6b021663541c1f1460541e50e83e1e6670a189ecc13a62c18",
+      "src/upgradepilot/workspace/native_representation.py": "2a9f510e453a7e33c079c8370dfcbe3136b3d6b1eb1591b005b953c9cf34710c",
+      "src/upgradepilot/workspace/source_access.py": "56e34abe836ef6edec7142a003844532b445a7e31afaa1006598f892327bbb84"
+    },
+    "companion_sha256": "770ab80fea86f6895fc52e278548d075414fe859f28ee09edb2c382c6296124d",
+    "elapsed_seconds": 1.8996086669999386,
+    "format": "ordinary-caller-signature-attempt/1",
+    "input_sha256": "11f5efde82fa42cbb8ea9ee852caa99619139725fb17b202c47fc40b63d1d566",
+    "limits": {
+      "max_facts": 4096,
+      "max_files": 32,
+      "max_nodes": 250000,
+      "max_nodes_per_file": 100000,
+      "max_pairs": 256,
+      "max_source_bytes": 4194304,
+      "memory_bytes": 536870912,
+      "timeout_seconds": 60.0
+    },
+    "reason": null,
+    "result_sha256": "d3111701418b90aff1dd54670c3891738c0192389c3111774061bf1af562669c",
+    "started_at": "2026-10-30T11:12:04.050425+00:00",
+    "state": "completed",
+    "worker_returncode": 0
+  },
+  "private_member_sha256": {
+    "result.json": "d3111701418b90aff1dd54670c3891738c0192389c3111774061bf1af562669c",
+    "view.txt": "c207fa717598debbfe0fab65fc693787026973a4c9f510adac08af57caa1493d",
+    "attempt.json": "9458abb6e4115e3f17de14088a23cf8cdb8037f5b3119d7e609f207a554a6cf6",
+    "sources.json": "770ab80fea86f6895fc52e278548d075414fe859f28ee09edb2c382c6296124d",
+    "attempt-started.json": "71dc1fd710e826bc066f612909148c1713e75b5a952f0d4eeb9d0c972ab7a18e",
+    "input.json": "11f5efde82fa42cbb8ea9ee852caa99619139725fb17b202c47fc40b63d1d566"
+  },
+  "retention": "raw real text and results stay private; public summary contains facts/identities only"
+}

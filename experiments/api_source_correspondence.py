@@ -90,27 +90,27 @@ def _declarations(statements):
                 yield from _declarations(case.body)
 
 
-def _body_calls(body):
-    """Calls evaluated in this lexical body; nested functions/callbacks stay outside."""
+def _lexical_body_nodes(body):
+    """Traverse one body, keeping nested definitions/callbacks outside its scope."""
     def visit(node):
         if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef,
                              ast.Lambda, ast.ListComp, ast.SetComp, ast.DictComp, ast.GeneratorExp)):
             return
-        if isinstance(node, ast.Call):
-            yield node
+        yield node
         for child in ast.iter_child_nodes(node):
             yield from visit(child)
     for statement in body:
         yield from visit(statement)
 
 
+def _body_calls(body):
+    """Calls in the selected lexical body, not its nested callbacks."""
+    return (node for node in _lexical_body_nodes(body) if isinstance(node, ast.Call))
+
+
 def _factory_returns(body):
     """Observe every lexical return alternative, never nested callbacks or values."""
-    for node in body:
-        if isinstance(node, ast.Return):
-            yield node
-        elif not isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef, ast.Lambda)):
-            yield from _factory_returns(ast.iter_child_nodes(node))
+    return (node for node in _lexical_body_nodes(body) if isinstance(node, ast.Return))
 
 
 def _class_spelling(node):
@@ -307,12 +307,17 @@ class _SourceCandidates:
             return
         conditions = (*premises, "module_allocation_binding_and_constructor_success_not_established",
                       "attribute_lookup_and_getattr_activation_not_established",
-                      "factory_constructor_arguments_not_checked")
+                      "factory_constructor_arguments_not_checked", "getter_call_arguments_and_binding_not_checked")
         path = (*path, self.step(unit, allocation, "allocation"))
         getters = self.class_protocol(unit, allocation.value.func, "__getattr__", path, conditions, visited)
         found = False
         for getter_unit, getter, _, steps, conditions, _ in getters:
             found = True
+            if isinstance(getter, ast.AsyncFunctionDef) or any(
+                isinstance(n, (ast.Yield, ast.YieldFrom, ast.Await)) for n in _lexical_body_nodes(getter.body)
+            ):
+                self.gap("async_or_generator_getter_unsupported", getter_unit, SourceSpan.of(getter))
+                continue
             returns = tuple(_factory_returns(getter.body))
             if not returns:
                 self.gap("factory_getter_has_no_supported_return", getter_unit, SourceSpan.of(getter))

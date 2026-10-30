@@ -401,6 +401,19 @@ def _validate_discovery(body, catalog, modules):
         if (first["operation"] != "call" or first["unit_id"] != root["unit_id"] or first["span"] != root["span"]
             or last["unit_id"] != callee["unit_id"] or last["span"] != callee["span"]):
             raise ValueError("Source path endpoint mismatch.")
+        operations = [s["operation"] for s in c["steps"]]
+        if "allocation" in operations or "factory_return" in operations:
+            required = ("allocation", "attribute_getter", "factory_return", "call_protocol")
+            position = -1
+            for operation in required:
+                try:
+                    position = operations.index(operation, position + 1)
+                except ValueError as exc:
+                    raise ValueError("Incomplete or unordered factory source path.") from exc
+            if not {"module_allocation_binding_and_constructor_success_not_established",
+                    "attribute_lookup_and_getattr_activation_not_established",
+                    "factory_returns_selected_declared_class_instance"}.issubset(c["premises"]):
+                raise ValueError("Missing factory source premises.")
     if type(discovery["gaps"]) is not list or len(discovery["gaps"]) > MAX_DISCOVERY_GAPS:
         raise ValueError("Invalid discovery gaps.")
     for gap in discovery["gaps"]:
@@ -416,9 +429,14 @@ def _validate_discovery(body, catalog, modules):
 def render_ordinary_comparison(body):
     lines = [*render_comparison(body).split("\n"), "", "DISCOVERED SOURCE PATHS (conditional, not runtime dispatch)"]
     descriptors = {u["descriptor"]["file_id"]: u["descriptor"] for u in body["files"]}
+    signatures = {s["fact_id"]: s for unit in body["files"] if unit["facts"]
+                  for s in unit["facts"]["signatures"]}
     for candidate in body["discovery"]["candidates"]:
         role = candidate["callee_role"]
         lines.append("CANDIDATE " + candidate["id"] + " | " + role["role"] + " " + role["version"])
+        signature = signatures[candidate["signature_id"]]
+        lines.append("Declared callable: " + signature["qualified_name"])
+        lines.append("Declared decorators (syntax only): " + (", ".join(signature["decorators"]) or "(none)"))
         for step in candidate["steps"]:
             source = descriptors[step["unit_id"]]
             lines.append(step["operation"] + " " + source["repository"] + "@" + source["revision"]
