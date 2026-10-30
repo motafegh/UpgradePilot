@@ -1083,14 +1083,20 @@ class StagedOrdinaryHTTPTests(TestCase):
     def test_real_clients_prioritize_and_retain_protocol_paths_under_same_module_ceiling(self):
         from experiments.api_change_source_acquisition import TrialAcquisitionPolicy
         from experiments.api_ordinary_call_signature_trial import (
-            encode_ordinary_inputs, prepare_ordinary_comparison, read_ordinary_comparison, render_ordinary_comparison)
+            encode_ordinary_inputs, run_ordinary_comparison, open_ordinary_comparison, render_ordinary_comparison)
         from experiments.api_signature_evidence import AnalysisLimits
         result, session = staged_http_control(TrialAcquisitionPolicy())
         self.assertIsInstance(result, tuple, result)
         catalog, modules, acquisition = result
         data = encode_ordinary_inputs(catalog, modules, acquisition, proof_class='controlled_ordinary_pr_composition')
-        encoded, companion = prepare_ordinary_comparison(data, AnalysisLimits())
-        body, _ = read_ordinary_comparison(encoded, companion)
+        with TemporaryDirectory() as tmp:
+            directory = Path(tmp) / 'staged'
+            attempt = run_ordinary_comparison(data, directory)
+            self.assertEqual(attempt['state'], 'completed', attempt)
+            with patch('ast.parse', side_effect=AssertionError('AST forbidden')), \
+                 patch('requests.Session.request', side_effect=AssertionError('network forbidden')), \
+                 patch('experiments.api_call_signature.compare_arguments', side_effect=AssertionError('checker forbidden')):
+                body, _ = open_ordinary_comparison(directory)
         outcomes = {c['callee_role']['role']: p['comparison']['outcome']
                     for c, p in zip(body['discovery']['candidates'], body['pairs'])}
         self.assertEqual(outcomes, {'native_old_version': 'bound', 'native_proposed_version': 'rejected'})
@@ -1106,6 +1112,22 @@ class StagedOrdinaryHTTPTests(TestCase):
         self.assertIn('Target source unexamined:', view)
         self.assertIn('module_source_limit', view)
         self.assertNotEqual(acquisition['ordinary_acquisition']['upstream']['state'], 'complete')
+
+    def test_actual_stage_refusal_preserves_target_gap_and_later_source_work(self):
+        from experiments.api_change_source_acquisition import TrialAcquisitionPolicy
+        from experiments.api_ordinary_call_signature_trial import (
+            encode_ordinary_inputs, prepare_ordinary_comparison, read_ordinary_comparison, render_ordinary_comparison)
+        from experiments.api_signature_evidence import AnalysisLimits
+        result, session = staged_http_control(TrialAcquisitionPolicy(github_requests=30, source_request_reserve=20))
+        self.assertIsInstance(result, tuple, result)
+        encoded, companion = prepare_ordinary_comparison(
+            encode_ordinary_inputs(*result, proof_class='controlled_ordinary_pr_composition'), AnalysisLimits())
+        body, _ = read_ordinary_comparison(encoded, companion)
+        self.assertTrue(body['pairs'])
+        self.assertEqual(session.github_requests, 30)
+        view = render_ordinary_comparison(body)
+        self.assertIn('trial_stage_request_limit', view)
+        self.assertIn('Target acquisition gap:', view)
 
     def test_legacy_target_scan_can_starve_where_staged_policy_preserves_source(self):
         from experiments.api_change_source_acquisition import TrialAcquisitionPolicy

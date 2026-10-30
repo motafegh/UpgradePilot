@@ -351,6 +351,15 @@ def _validate_acquisition(acquisition):
     if any(type(item) is not dict for item in (target, changed, adapters)):
         raise ValueError("Invalid acquisition coverage record.")
     read_string_sequence(target.get("omitted_paths", []), maximum=20_000)
+    gaps = target.get("gaps", [])
+    if type(gaps) is not list or len(gaps) > 20_000:
+        raise ValueError("Invalid target acquisition gaps.")
+    for gap in gaps:
+        item = object_fields(gap, ("path", "reason", "detail"))
+        if item["path"] is not None:
+            read_bounded_text(item["path"])
+        read_bounded_text(item["reason"])
+        read_bounded_text(item["detail"], maximum=16_384)
     read_string_sequence(changed.get("unexamined_modules", []), maximum=20_000)
     for attempts in (acquisition.get("internal_module_requests", []), changed.get("attempts", [])):
         if type(attempts) is not list or len(attempts) > 256:
@@ -564,6 +573,9 @@ def render_ordinary_comparison(body):
     target = ordinary.get("target", {})
     for path in target.get("omitted_paths", ()):
         lines.append("Target source unexamined: " + path)
+    for gap in target.get("gaps", ()):
+        lines.append("Target acquisition gap: " + (gap["path"] or "(inventory/aggregate)")
+                     + " | " + gap["reason"] + " | " + gap["detail"])
     for name in ordinary.get("changed_package_sources", {}).get("unexamined_modules", ()):
         lines.append("Changed-package module unexamined: " + name)
     adapters = ordinary.get("adapter_exploration", ordinary.get("adapters", {}))
