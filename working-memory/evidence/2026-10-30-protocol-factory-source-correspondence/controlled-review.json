@@ -1,0 +1,41 @@
+{
+  "proof_class": "controlled_ordinary_pr_composition",
+  "correspondence_version": 2,
+  "work": {
+    "ast_nodes": 66,
+    "facts": 9,
+    "selected_pairs": 2,
+    "source_bytes": 493,
+    "source_files": 8
+  },
+  "source_work": {
+    "module_attempts": 6,
+    "release_identities": [
+      [
+        "bridge",
+        "2.0"
+      ],
+      [
+        "mediator",
+        "2.0"
+      ],
+      [
+        "vendor",
+        "1.0"
+      ],
+      [
+        "vendor",
+        "2.0"
+      ]
+    ],
+    "source_bytes": 416
+  },
+  "observations": 1,
+  "identity_refetches": 0,
+  "changed_file_reads": 1,
+  "roles": {
+    "native_proposed_version": "rejected",
+    "native_old_version": "bound"
+  },
+  "meaning": "authored controlled provider composition; no live acquisition or product use"
+}

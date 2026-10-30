@@ -1,0 +1,122 @@
+{
+  "opening_guard": "AST/network/checker forbidden; no reanalysis/regrade",
+  "opened": [
+    {
+      "case": "retained-httpx-2026-10-28",
+      "format": "caller-signature-evidence/1",
+      "pairs": 5,
+      "sources": 7
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "format": "caller-signature-evidence/1",
+      "pairs": 5,
+      "sources": 12
+    },
+    {
+      "case": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/controlled-ordinary",
+      "format": "caller-signature-evidence/2",
+      "correspondence_version": 1,
+      "pairs": 3
+    },
+    {
+      "case": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/controlled-ordinary-final",
+      "format": "caller-signature-evidence/2",
+      "correspondence_version": 1,
+      "pairs": 3
+    },
+    {
+      "case": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/retained-incomplete-control",
+      "format": "caller-signature-evidence/2",
+      "correspondence_version": 1,
+      "pairs": 1
+    },
+    {
+      "case": "working-memory/evidence/2026-10-29-experiment-lifecycle-and-dependency-repair/controlled-post-repair",
+      "format": "caller-signature-evidence/2",
+      "correspondence_version": 1,
+      "pairs": 3
+    },
+    {
+      "case": "controlled-ordinary",
+      "format": "caller-signature-evidence/2",
+      "correspondence_version": 2,
+      "pairs": 2
+    },
+    {
+      "case": "attempt-01",
+      "format": "caller-signature-evidence/2",
+      "correspondence_version": 2,
+      "pairs": 68
+    },
+    {
+      "case": "attempt-02",
+      "format": "caller-signature-evidence/2",
+      "correspondence_version": 2,
+      "pairs": 68
+    }
+  ],
+  "frozen_private_members": [
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "result.json",
+      "sha256": "3a6b874967d413f89155895d51368fddbb2e15a257ff8977448a350b26a41580",
+      "verified_unchanged": true
+    },
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "view.txt",
+      "sha256": "d0bd57fec01eb2bb6ee8d530c941c51fb2893584c12c533161595db65205b88c",
+      "verified_unchanged": true
+    },
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "attempt.json",
+      "sha256": "bf5d8c092679cab4feffa79a3cc2444697b8f5f1be4b6ab67133b5255a262d7e",
+      "verified_unchanged": true
+    },
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "sources.json",
+      "sha256": "8de0c185a5be747ec1044eca9b7a8446fbd1652db2a7ed25b82ab832d5c88da1",
+      "verified_unchanged": true
+    },
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "attempt-started.json",
+      "sha256": "feaf6d28e7e4b60216f707d1ddae70612577baa24f812a95550652af88f7724f",
+      "verified_unchanged": true
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "result.json",
+      "sha256": "dcdf848f0f0c79fddcc091cbfa596e3fb813ece3714204b9152e70c22c7bab09",
+      "verified_unchanged": true
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "view.txt",
+      "sha256": "19a38c6246ed7e9f19bf828de493d7c3373d4b44d9787a7f755be5cec9659d97",
+      "verified_unchanged": true
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "attempt.json",
+      "sha256": "0595030c7fe82931ca0a440539ddf4023137d5fda2e9c162210fc21ee60c3aca",
+      "verified_unchanged": true
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "sources.json",
+      "sha256": "770ab80fea86f6895fc52e278548d075414fe859f28ee09edb2c382c6296124d",
+      "verified_unchanged": true
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "attempt-started.json",
+      "sha256": "11ab490a3429882a51062a06bc3afb395ed0db2652ea4cad786899c463a09d04",
+      "verified_unchanged": true
+    }
+  ],
+  "prior_tracked_artifact_hashes_unchanged": true
+}

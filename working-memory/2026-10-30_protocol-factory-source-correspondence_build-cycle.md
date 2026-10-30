@@ -9,11 +9,11 @@ Ali says to proceed to the next responsibility after the experiment organization
 - A0 — DONE: main/live owner/design/source/tests/retained pytest path reconciled; this record initialized.
 - A1 — DONE proportionately: prior architecture handoff and user continuation establish continuity; no new delta.
 - A2 — DONE with adaptation below: concrete pattern, scope, failure/retention and proof limits explained before Build.
-- B — CURRENT: qualified construct set and implementation.
-- Verification gate — PENDING: renamed controls, unsupported/alternative paths, ordinary retention, real retained source discovery and old-reader preservation.
-- D — PENDING: actual source/result/correction learning; independent mastery unassessed.
-- E — PENDING: residual scope and next owner.
-- C — CONTINUOUS: preserve decisions/corrections/proof and publish coherent increments.
+- B — DONE: bounded protocol candidate flow, method2 retention/reader and explicit declaration/decorator presentation.
+- Verification gate — GREEN for this increment/no-new-regression contract: API216/architecture7, controlled ordinary/real retained successors and immutable historical opening. Full historical suite stays RED with unchanged debt.
+- D — DONE as guided engineering handoff and recorded learning route; independent mastery deferred/unassessed.
+- E — DONE: proof/non-proof and residual scope consolidated; live acquisition allocation is next.
+- C — DONE: qualification, evolution, observations, correction, verification and handoff preserved/published progressively.
 
 Adaptation: the recent walkthrough and architecture closure supplied continuity, and Ali explicitly resumes the selected build. Repeating separate permission stops would add no new choice here. Compress familiar A1/A2, explain the concrete coming flow and act within the established responsibility. No learner mastery or additional live/product permission follows.
 
@@ -56,3 +56,17 @@ Boundary review found that async/generator getters cannot supply a direct return
 The ordinary saved reader now checks ordered allocation→getter→return→call steps and minimum factory premises without AST reanalysis. Method1 downgrade, missing step/premise and altered text refuse. Ordinary presentation exposes the EXISTING captured qualified name/decorator strings, so overload rejection is visibly a declaration-level result rather than a selected effective signature. No new semantic decorator classifier or shared/native renderer change.
 
 Current controls:216 API tests pass (10 protocol controls added over206), including ordinary controlled PR composition and bounded cold opening; architecture7 checks remain required. A separately labelled final-method retained successor is justified to verify these new guards/presentation, not to retry a failed real result or regrade the original frozen case. Preserve attempt01 byte-for-byte and bind final attempt/source separately; no extra provider/model/target execution.
+
+## Final verification and closure
+
+[Review](evidence/2026-10-30-protocol-factory-source-correspondence/REVIEW.md), [final real-source summary](evidence/2026-10-30-protocol-factory-source-correspondence/retained-case-final-review.json), [controlled view](evidence/2026-10-30-protocol-factory-source-correspondence/controlled-ordinary/view.txt) and [receipt](evidence/2026-10-30-protocol-factory-source-correspondence/verification.json) bind source horizoncec964d2. Final private successor attempt02 completes in2.005175s over unchanged attempt01 input:12 files/205,876 bytes/20,917 nodes/1,113 facts/68 comparisons/152 gaps (0 omitted diagnostics). Two target calls × two versions ×3 declarations give12 DIRECT protocol comparisons; four undecorated implementation comparisons bind ids through **kwargs. Eight overload comparisons remain distinct conditional declarations, not effective incompatibility evidence. Descendant body comparisons are not additional independent protocol examples. Original and development attempt01 files remain unchanged.
+
+Controlled ordinary composition: one observation/no refetch/one changed-file read;4 release identities/6 questions/416 library bytes;8 retained files/493 bytes/66 nodes/9 facts/2 comparisons (old app reception bound, proposed rejected). This proves composition against authored providers, not real-provider discovery/installation. No callable/pair/path/expected-answer selectors enter that producer.
+
+API216/2.675s and architecture7/1.119s pass. [Full regression](evidence/2026-10-30-protocol-factory-source-correspondence/full-regression.json):610 tests/40.004s; exact prior failure/error identities AND messages and11 optional skip identities match. Known1 failure/25 errors remain; no new failure or fictional green whole historical suite. Static131-artifact model passes without new module/private exception/layer inversion.
+
+[Fixed opening](evidence/2026-10-30-protocol-factory-source-correspondence/compatibility.json) covers9 bundles across original v1, prior ordinary method1 and new method2, with AST/network/checker forbidden. Ten original private frozen members and both prior tracked artifact manifests remain unchanged. Checker/binder/shared codec/acquisition and native src/tests/tools/package/spec/ADR have no diff from858f5f31. No fresh product run, provider acquisition, model loading/inference or target/workflow execution.
+
+A2 expected syntax-backed factory paths without object execution. Actual controlled and retained proof establish that family while exposing async/generator non-instance boundaries, overload alternatives and unperformed getter/constructor checks. Saved view now shows declaration/decorator context and validates ordered witnesses. Source/decision/correction/coverage distinctions are recorded for Ali's later learning; no mastery is inferred from AI work/tests.
+
+Next: qualify/design/implement actual live acquisition source prioritization/reservation, request/body/time policy and controlled cost traces; then select one separately frozen fresh ordinary PR attempt. Target/package scans can still starve closure. That is an orchestration obligation, not permission to weaken qualified lower owners, inject known paths, silently raise caps or add another syntax family. Useful ordinary real evidence leads to the native API/Workspace/report adoption contract. None of those later responsibilities is performed by this cycle.
