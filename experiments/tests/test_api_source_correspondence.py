@@ -520,6 +520,24 @@ class FactorySourceTests(TestCase):
             with self.subTest(change=change), self.assertRaises(ValueError):
                 read_ordinary_comparison(json_bytes(altered), companion)
 
+    def test_residual_protocol_operations_require_whole_sequence_even_without_both_old_triggers(self):
+        result, companion = prepare_ordinary_comparison(prepared(
+            "from vendor import FACTORY\nFACTORY.label(ids=[])\n", factory_source(), factory_source()), AnalysisLimits())
+        for remaining in ("getter_and_call", "getter_only", "call_only"):
+            altered = json.loads(result)
+            candidate = altered["discovery"]["candidates"][0]
+            candidate["steps"] = [step for step in candidate["steps"]
+                                  if step["operation"] not in {"allocation", "factory_return"}]
+            if remaining == "getter_only":
+                # Keep the literal final signature span/endpoint valid: corruption
+                # must reach protocol admission, rather than an unrelated check.
+                candidate["steps"][-1]["operation"] = "attribute_getter"
+            elif remaining == "call_only":
+                candidate["steps"] = [step for step in candidate["steps"]
+                                      if step["operation"] != "attribute_getter"]
+            with self.subTest(remaining=remaining), self.assertRaisesRegex(ValueError, "factory source path"):
+                read_ordinary_comparison(json_bytes(altered), companion)
+
     def test_async_generator_getters_and_multi_attribute_access_are_not_instance_returns(self):
         for source in (factory_source().replace("def __getattr__", "async def __getattr__"),
                        factory_source(returns="yield 1\nreturn Decorator()")):

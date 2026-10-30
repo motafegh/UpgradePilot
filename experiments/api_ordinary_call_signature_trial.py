@@ -465,9 +465,10 @@ def _validate_discovery(body, catalog, modules):
     module_by_key = {(m.source_id, m.path): asdict(m) for m in modules}
     if type(discovery["candidates"]) is not list or len(discovery["candidates"]) != len(body["pairs"]):
         raise ValueError("Candidate/comparison closure mismatch.")
+    protocol_operations = ("allocation", "attribute_getter", "factory_return", "call_protocol")
     step_operations = {"call", "import_origin", "reexport", "declaration", "class_declaration", "initializer", "declared_base"}
     if body["correspondence_version"] == 2:
-        step_operations |= {"allocation", "attribute_getter", "factory_return", "call_protocol"}
+        step_operations.update(protocol_operations)
     for candidate, pair in zip(discovery["candidates"], body["pairs"]):
         c = object_fields(candidate, ("id", "root_call_id", "call_id", "signature_id", "receiver_mode",
                                       "steps", "premises", "callee_role"))
@@ -506,10 +507,11 @@ def _validate_discovery(body, catalog, modules):
             or last["unit_id"] != callee["unit_id"] or last["span"] != callee["span"]):
             raise ValueError("Source path endpoint mismatch.")
         operations = [s["operation"] for s in c["steps"]]
-        if "allocation" in operations or "factory_return" in operations:
-            required = ("allocation", "attribute_getter", "factory_return", "call_protocol")
+        # Any protocol residue requires its complete witness. Using only allocation/
+        # return as triggers let corrupted paths remove both and bypass admission.
+        if any(operation in operations for operation in protocol_operations):
             position = -1
-            for operation in required:
+            for operation in protocol_operations:
                 try:
                     position = operations.index(operation, position + 1)
                 except ValueError as exc:

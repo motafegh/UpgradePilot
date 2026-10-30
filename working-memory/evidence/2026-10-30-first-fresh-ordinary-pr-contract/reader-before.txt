@@ -1,0 +1,28 @@
+======================================================================
+FAIL: test_residual_protocol_operations_require_whole_sequence_even_without_both_old_triggers (experiments.tests.test_api_source_correspondence.FactorySourceTests.test_residual_protocol_operations_require_whole_sequence_even_without_both_old_triggers) (remaining='getter_and_call')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_source_correspondence.py", line 538, in test_residual_protocol_operations_require_whole_sequence_even_without_both_old_triggers
+    with self.subTest(remaining=remaining), self.assertRaisesRegex(ValueError, "factory source path"):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_residual_protocol_operations_require_whole_sequence_even_without_both_old_triggers (experiments.tests.test_api_source_correspondence.FactorySourceTests.test_residual_protocol_operations_require_whole_sequence_even_without_both_old_triggers) (remaining='getter_only')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_source_correspondence.py", line 538, in test_residual_protocol_operations_require_whole_sequence_even_without_both_old_triggers
+    with self.subTest(remaining=remaining), self.assertRaisesRegex(ValueError, "factory source path"):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_residual_protocol_operations_require_whole_sequence_even_without_both_old_triggers (experiments.tests.test_api_source_correspondence.FactorySourceTests.test_residual_protocol_operations_require_whole_sequence_even_without_both_old_triggers) (remaining='call_only')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_source_correspondence.py", line 538, in test_residual_protocol_operations_require_whole_sequence_even_without_both_old_triggers
+    with self.subTest(remaining=remaining), self.assertRaisesRegex(ValueError, "factory source path"):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.014s
+
+FAILED (failures=3)
