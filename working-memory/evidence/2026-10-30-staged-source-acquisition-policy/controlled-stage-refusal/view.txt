@@ -1,0 +1,170 @@
+CALLER / DECLARED SIGNATURE EVIDENCE
+Proof: controlled_ordinary_pr_composition
+Conditional source comparisons; installed versions, runtime and compatibility are not established.
+Source capture: target-rooted supported source candidates only; alternatives and runtime remain unresolved
+
+PAIR 927bee0086496fc16689801e56d0ccba65633cc6249cf078a46f8770e0ce0c50 | receiver: one_receiver_assumed
+Caller: source-69ccbcb92147336cd6ad4df991e68eae owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa z_case.py:2 (unit 8140c1493db66ac87b38ec99ee3651ee58d41df06c002597722b4c6cb16a403c)
+Declared receiver: source-4274cbfa1c6b842f2363fa4f13810b8c owner/vendor@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa vendor/payload.py:2 (unit 7d252fe2416402a444d5a960c678ddc161742db6fe8e1983001434689e11fe2f)
+Call expression: marks.operation
+Explicit keywords: ids
+Parameters: self[positional_or_keyword]
+Outcome under stated premises: rejected
+Complete syntactic binding checked: True
+Keyword ids: not_received
+Violation: unexpected_keyword ids
+Premise/limit: call_reaches_selected_declared_signature
+Premise/limit: target_installed_versions_and_runtime_not_established
+Premise/limit: one_bound_positional_receiver_assumed
+Next evidence: establish whether marks.operation reaches Decorator.__call__ in owner/vendor@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa with receiver mode one_receiver_assumed.
+
+PAIR cafadacf2fc8d392457d4ce8b6ee40307c133f54e9c3f355936ea6e525fb7b81 | receiver: one_receiver_assumed
+Caller: source-69ccbcb92147336cd6ad4df991e68eae owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa z_case.py:2 (unit 8140c1493db66ac87b38ec99ee3651ee58d41df06c002597722b4c6cb16a403c)
+Declared receiver: source-d78a1f04e9376bc16dab0635d0f37431 owner/vendor@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb vendor/payload.py:2 (unit 96d65e2fdc25cf7526c1ac871748b2649a177352d21c5429ced3e5c8e824b00c)
+Call expression: marks.operation
+Explicit keywords: ids
+Parameters: self[positional_or_keyword], kwargs[variadic_keyword]
+Outcome under stated premises: bound
+Complete syntactic binding checked: True
+Keyword ids: variadic_keyword
+Premise/limit: call_reaches_selected_declared_signature
+Premise/limit: target_installed_versions_and_runtime_not_established
+Premise/limit: one_bound_positional_receiver_assumed
+Next evidence: establish whether marks.operation reaches Decorator.__call__ in owner/vendor@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb with receiver mode one_receiver_assumed.
+
+SAVED SOURCES (explicit unit IDs for offline source inspection)
+05debbedf14b31c6f63a0d0edd5f7c1e8da9e116b42b48c8130820d3e4bd0f6e source-d78a1f04e9376bc16dab0635d0f37431 vendor/__init__.py
+2dca9893e898ab39b5a15272d72b74bd161b7857110d8d992bdb9572a02c03b2 source-4274cbfa1c6b842f2363fa4f13810b8c vendor/__init__.py
+8140c1493db66ac87b38ec99ee3651ee58d41df06c002597722b4c6cb16a403c source-69ccbcb92147336cd6ad4df991e68eae z_case.py
+ac34047609e727bfcf5c5bd35e4f9c9fa2cb29d981f5279c595b424862134e91 source-69ccbcb92147336cd6ad4df991e68eae a_noise00.py
+4c4a5eca6fa97a2200a91df80e228c6e17bc3d7e654fff604db19c852855f686 source-69ccbcb92147336cd6ad4df991e68eae a_noise01.py
+75df05bc3df24bd0fb03d5af920e359623874d1fa04a049960c328fb9f6a5d26 source-69ccbcb92147336cd6ad4df991e68eae a_noise02.py
+6e00a4a5f05846fe4a7ce1f92109f02f768ec1422d5f86910d8fedd9880ce6e8 source-d78a1f04e9376bc16dab0635d0f37431 vendor/factory.py
+b1cc1e4364020e0475ae8c4d961526dc8eae3b1b01253aad826d5d5553c7a3af source-4274cbfa1c6b842f2363fa4f13810b8c vendor/factory.py
+96d65e2fdc25cf7526c1ac871748b2649a177352d21c5429ced3e5c8e824b00c source-d78a1f04e9376bc16dab0635d0f37431 vendor/payload.py
+7d252fe2416402a444d5a960c678ddc161742db6fe8e1983001434689e11fe2f source-4274cbfa1c6b842f2363fa4f13810b8c vendor/payload.py
+a3aac7082a028d20fd39eec21b8035bc7edc1f0a4176cfa46a5b81541681fca4 source-d78a1f04e9376bc16dab0635d0f37431 vendor/noise00.py
+7e8355a057dc6a8bdc3efb8933e36335c497cab85dc96d25c4766ad565a66fc7 source-d78a1f04e9376bc16dab0635d0f37431 vendor/noise01.py
+898618a11f6a12239c5ec3f31399f60bc6b0ba3b36949c3e8e6916dce376b900 source-d78a1f04e9376bc16dab0635d0f37431 vendor/noise02.py
+62ae08663bb6798dfbf0f0a206c7f4d8ce0c1983bcacaf09b4a955f0f4697706 source-d78a1f04e9376bc16dab0635d0f37431 vendor/noise03.py
+71f58e1ee19f26f577564397a3a5e72eab38cb836860a2e690087c47177ea14c source-d78a1f04e9376bc16dab0635d0f37431 vendor/noise04.py
+8efd4e9a7fdfe93fe72cb623b52f6766a824933dc217da61854ac054b3a55424 source-d78a1f04e9376bc16dab0635d0f37431 vendor/noise05.py
+80be010ecde0a0e7a90bbe2265fc7dce6e5b496c757351e2feb3a66e460416bf source-69ccbcb92147336cd6ad4df991e68eae requirements.txt
+
+DISCOVERED SOURCE PATHS (conditional, not runtime dispatch)
+CANDIDATE 927bee0086496fc16689801e56d0ccba65633cc6249cf078a46f8770e0ce0c50 | native_proposed_version 2.0
+Declared callable: Decorator.__call__
+Declared decorators (syntax only): (none)
+call owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa z_case.py:2 (unit 8140c1493db66ac87b38ec99ee3651ee58d41df06c002597722b4c6cb16a403c)
+import_origin owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa z_case.py:1 (unit 8140c1493db66ac87b38ec99ee3651ee58d41df06c002597722b4c6cb16a403c)
+reexport owner/vendor@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa vendor/__init__.py:25 (unit 2dca9893e898ab39b5a15272d72b74bd161b7857110d8d992bdb9572a02c03b2)
+allocation owner/vendor@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa vendor/factory.py:5 (unit b1cc1e4364020e0475ae8c4d961526dc8eae3b1b01253aad826d5d5553c7a3af)
+class_declaration owner/vendor@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa vendor/factory.py:2 (unit b1cc1e4364020e0475ae8c4d961526dc8eae3b1b01253aad826d5d5553c7a3af)
+attribute_getter owner/vendor@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa vendor/factory.py:3 (unit b1cc1e4364020e0475ae8c4d961526dc8eae3b1b01253aad826d5d5553c7a3af)
+factory_return owner/vendor@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa vendor/factory.py:4 (unit b1cc1e4364020e0475ae8c4d961526dc8eae3b1b01253aad826d5d5553c7a3af)
+reexport owner/vendor@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa vendor/factory.py:1 (unit b1cc1e4364020e0475ae8c4d961526dc8eae3b1b01253aad826d5d5553c7a3af)
+class_declaration owner/vendor@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa vendor/payload.py:1 (unit 7d252fe2416402a444d5a960c678ddc161742db6fe8e1983001434689e11fe2f)
+call_protocol owner/vendor@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa vendor/payload.py:2 (unit 7d252fe2416402a444d5a960c678ddc161742db6fe8e1983001434689e11fe2f)
+Path premise: effective_export_binding_not_established
+Path premise: installed_namespace_and_dispatch_not_established
+Path premise: reexport_binding_and_branch_activation_not_established
+Path premise: module_allocation_binding_and_constructor_success_not_established
+Path premise: attribute_lookup_and_getattr_activation_not_established
+Path premise: factory_constructor_arguments_not_checked
+Path premise: getter_call_arguments_and_binding_not_checked
+Path premise: effective_protocol_method_and_receiver_binding_not_established
+Path premise: execution_reaches_factory_return_and_branch
+Path premise: factory_returns_selected_declared_class_instance
+CANDIDATE cafadacf2fc8d392457d4ce8b6ee40307c133f54e9c3f355936ea6e525fb7b81 | native_old_version 1.0
+Declared callable: Decorator.__call__
+Declared decorators (syntax only): (none)
+call owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa z_case.py:2 (unit 8140c1493db66ac87b38ec99ee3651ee58d41df06c002597722b4c6cb16a403c)
+import_origin owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa z_case.py:1 (unit 8140c1493db66ac87b38ec99ee3651ee58d41df06c002597722b4c6cb16a403c)
+reexport owner/vendor@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb vendor/__init__.py:25 (unit 05debbedf14b31c6f63a0d0edd5f7c1e8da9e116b42b48c8130820d3e4bd0f6e)
+allocation owner/vendor@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb vendor/factory.py:5 (unit 6e00a4a5f05846fe4a7ce1f92109f02f768ec1422d5f86910d8fedd9880ce6e8)
+class_declaration owner/vendor@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb vendor/factory.py:2 (unit 6e00a4a5f05846fe4a7ce1f92109f02f768ec1422d5f86910d8fedd9880ce6e8)
+attribute_getter owner/vendor@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb vendor/factory.py:3 (unit 6e00a4a5f05846fe4a7ce1f92109f02f768ec1422d5f86910d8fedd9880ce6e8)
+factory_return owner/vendor@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb vendor/factory.py:4 (unit 6e00a4a5f05846fe4a7ce1f92109f02f768ec1422d5f86910d8fedd9880ce6e8)
+reexport owner/vendor@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb vendor/factory.py:1 (unit 6e00a4a5f05846fe4a7ce1f92109f02f768ec1422d5f86910d8fedd9880ce6e8)
+class_declaration owner/vendor@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb vendor/payload.py:1 (unit 96d65e2fdc25cf7526c1ac871748b2649a177352d21c5429ced3e5c8e824b00c)
+call_protocol owner/vendor@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb vendor/payload.py:2 (unit 96d65e2fdc25cf7526c1ac871748b2649a177352d21c5429ced3e5c8e824b00c)
+Path premise: effective_export_binding_not_established
+Path premise: installed_namespace_and_dispatch_not_established
+Path premise: reexport_binding_and_branch_activation_not_established
+Path premise: module_allocation_binding_and_constructor_success_not_established
+Path premise: attribute_lookup_and_getattr_activation_not_established
+Path premise: factory_constructor_arguments_not_checked
+Path premise: getter_call_arguments_and_binding_not_checked
+Path premise: effective_protocol_method_and_receiver_binding_not_established
+Path premise: execution_reaches_factory_return_and_branch
+Path premise: factory_returns_selected_declared_class_instance
+Additional gap records omitted: 0
+ACQUISITION WORK (local policy, independent of GitHub account quota)
+Auth: anonymous; GitHub requests: 30/30; all-provider requests: 35/100
+Decoded response bytes: 11164/33554432; acquisition elapsed: 0.007/180.0s (cooperative deadline)
+Acquisition stop: target_context | trial_stage_request_limit
+Source refused: vendor 1.0 vendor.noise06 | python_source_budget/module_source_limit
+Source refused: vendor 1.0 vendor.noise07 | python_source_budget/module_source_limit
+Source refused: vendor 1.0 vendor.noise08 | python_source_budget/module_source_limit
+Source refused: vendor 1.0 vendor.noise09 | python_source_budget/module_source_limit
+Source refused: vendor 1.0 vendor.noise10 | python_source_budget/module_source_limit
+Source refused: vendor 1.0 vendor.noise11 | python_source_budget/module_source_limit
+Source refused: vendor 1.0 vendor.noise12 | python_source_budget/module_source_limit
+Source refused: vendor 1.0 vendor.noise13 | python_source_budget/module_source_limit
+Source refused: vendor 1.0 vendor.noise14 | python_source_budget/module_source_limit
+Source refused: vendor 1.0 vendor.noise15 | python_source_budget/module_source_limit
+Source refused: vendor 1.0 vendor.noise16 | python_source_budget/module_source_limit
+Source refused: vendor 1.0 vendor.noise17 | python_source_budget/module_source_limit
+Source refused: vendor 1.0 vendor.noise18 | python_source_budget/module_source_limit
+Source refused: vendor 1.0 vendor.noise19 | python_source_budget/module_source_limit
+Source refused: vendor 1.0 vendor.noise20 | python_source_budget/module_source_limit
+Source refused: vendor 1.0 vendor.noise21 | python_source_budget/module_source_limit
+Source refused: vendor 1.0 vendor.noise22 | python_source_budget/module_source_limit
+Source refused: vendor 1.0 vendor.noise23 | python_source_budget/module_source_limit
+Source refused: vendor 2.0 vendor.noise00 | python_source_budget/module_source_limit
+Source refused: vendor 2.0 vendor.noise01 | python_source_budget/module_source_limit
+Source refused: vendor 2.0 vendor.noise02 | python_source_budget/module_source_limit
+Source refused: vendor 2.0 vendor.noise03 | python_source_budget/module_source_limit
+Source refused: vendor 2.0 vendor.noise04 | python_source_budget/module_source_limit
+Source refused: vendor 2.0 vendor.noise05 | python_source_budget/module_source_limit
+Source refused: vendor 2.0 vendor.noise06 | python_source_budget/module_source_limit
+Source refused: vendor 2.0 vendor.noise07 | python_source_budget/module_source_limit
+Source refused: vendor 2.0 vendor.noise08 | python_source_budget/module_source_limit
+Source refused: vendor 2.0 vendor.noise09 | python_source_budget/module_source_limit
+Source refused: vendor 2.0 vendor.noise10 | python_source_budget/module_source_limit
+Source refused: vendor 2.0 vendor.noise11 | python_source_budget/module_source_limit
+Source refused: vendor 2.0 vendor.noise12 | python_source_budget/module_source_limit
+Source refused: vendor 2.0 vendor.noise13 | python_source_budget/module_source_limit
+Source refused: vendor 2.0 vendor.noise14 | python_source_budget/module_source_limit
+Source refused: vendor 2.0 vendor.noise15 | python_source_budget/module_source_limit
+Source refused: vendor 2.0 vendor.noise16 | python_source_budget/module_source_limit
+Source refused: vendor 2.0 vendor.noise17 | python_source_budget/module_source_limit
+Source refused: vendor 2.0 vendor.noise18 | python_source_budget/module_source_limit
+Source refused: vendor 2.0 vendor.noise19 | python_source_budget/module_source_limit
+Source refused: vendor 2.0 vendor.noise20 | python_source_budget/module_source_limit
+Source refused: vendor 2.0 vendor.noise21 | python_source_budget/module_source_limit
+Source refused: vendor 2.0 vendor.noise22 | python_source_budget/module_source_limit
+Source refused: vendor 2.0 vendor.noise23 | python_source_budget/module_source_limit
+Target source unexamined: a_noise14.py
+Target source unexamined: a_noise15.py
+Target source unexamined: a_noise16.py
+Target source unexamined: a_noise17.py
+Target source unexamined: a_noise18.py
+Target source unexamined: a_noise19.py
+Target source unexamined: a_noise20.py
+Target source unexamined: a_noise21.py
+Target source unexamined: a_noise22.py
+Target source unexamined: a_noise23.py
+Target acquisition gap: a_noise03.py | trial_stage_request_limit | Experimental acquisition stopped: trial_stage_request_limit
+Target acquisition gap: a_noise04.py | trial_stage_request_limit | Experimental acquisition stopped: trial_stage_request_limit
+Target acquisition gap: a_noise05.py | trial_stage_request_limit | Experimental acquisition stopped: trial_stage_request_limit
+Target acquisition gap: a_noise06.py | trial_stage_request_limit | Experimental acquisition stopped: trial_stage_request_limit
+Target acquisition gap: a_noise07.py | trial_stage_request_limit | Experimental acquisition stopped: trial_stage_request_limit
+Target acquisition gap: a_noise08.py | trial_stage_request_limit | Experimental acquisition stopped: trial_stage_request_limit
+Target acquisition gap: a_noise09.py | trial_stage_request_limit | Experimental acquisition stopped: trial_stage_request_limit
+Target acquisition gap: a_noise10.py | trial_stage_request_limit | Experimental acquisition stopped: trial_stage_request_limit
+Target acquisition gap: a_noise11.py | trial_stage_request_limit | Experimental acquisition stopped: trial_stage_request_limit
+Target acquisition gap: a_noise12.py | trial_stage_request_limit | Experimental acquisition stopped: trial_stage_request_limit
+Target acquisition gap: a_noise13.py | trial_stage_request_limit | Experimental acquisition stopped: trial_stage_request_limit
+Target acquisition gap: (inventory/aggregate) | input_budget_exhausted | Omitted eligible files remain visible; no absence inference.
+No candidates does not establish no exposure. Next evidence: resolve the displayed path/version/coverage premises.

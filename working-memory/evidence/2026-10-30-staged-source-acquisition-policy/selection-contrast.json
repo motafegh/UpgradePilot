@@ -1,0 +1,58 @@
+{
+  "proof": "isolated historical closure function against current other owners and identical authored policy/provider inputs; NOT a full historical pipeline or frozen case reanalysis",
+  "historical_revision": "dedba438",
+  "historical_function_sha256": "142b0916293507befc65cc279ee9dfc7d46b8c803a693e9a6aeea04855dcc5bd",
+  "current_function_sha256": "cd7f265eda4671e62e5203b490084c7320330bc74b4465ec5990566a88c01de8",
+  "variants": [
+    {
+      "variant": "historical_greedy_closure_function",
+      "github_requests": 41,
+      "provider_requests": 46,
+      "source_work": {
+        "release_identities": [
+          [
+            "vendor",
+            "1.0"
+          ],
+          [
+            "vendor",
+            "2.0"
+          ]
+        ],
+        "module_attempts": 12,
+        "source_bytes": 1588
+      },
+      "captured_payload_roles": [],
+      "comparisons": 0,
+      "outcomes": []
+    },
+    {
+      "variant": "current_priority_closure_function",
+      "github_requests": 41,
+      "provider_requests": 46,
+      "source_work": {
+        "release_identities": [
+          [
+            "vendor",
+            "1.0"
+          ],
+          [
+            "vendor",
+            "2.0"
+          ]
+        ],
+        "module_attempts": 12,
+        "source_bytes": 1886
+      },
+      "captured_payload_roles": [
+        "native_old_version",
+        "native_proposed_version"
+      ],
+      "comparisons": 2,
+      "outcomes": [
+        "rejected",
+        "bound"
+      ]
+    }
+  ]
+}

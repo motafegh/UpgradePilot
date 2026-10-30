@@ -1,0 +1,126 @@
+{
+  "opening_guard": "AST/network/checker/discovery forbidden",
+  "opened": [
+    {
+      "case": "retained-httpx-2026-10-28",
+      "format": "caller-signature-evidence/1",
+      "pairs": 5
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "format": "caller-signature-evidence/1",
+      "pairs": 5
+    },
+    {
+      "case": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/controlled-ordinary",
+      "format": "caller-signature-evidence/2",
+      "pairs": 3
+    },
+    {
+      "case": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/controlled-ordinary-final",
+      "format": "caller-signature-evidence/2",
+      "pairs": 3
+    },
+    {
+      "case": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/retained-incomplete-control",
+      "format": "caller-signature-evidence/2",
+      "pairs": 1
+    },
+    {
+      "case": "working-memory/evidence/2026-10-29-experiment-lifecycle-and-dependency-repair/controlled-post-repair",
+      "format": "caller-signature-evidence/2",
+      "pairs": 3
+    },
+    {
+      "case": "controlled-ordinary",
+      "format": "caller-signature-evidence/2",
+      "pairs": 2
+    },
+    {
+      "case": "attempt-01",
+      "format": "caller-signature-evidence/2",
+      "pairs": 68
+    },
+    {
+      "case": "attempt-02",
+      "format": "caller-signature-evidence/2",
+      "pairs": 68
+    },
+    {
+      "case": "controlled-ordinary",
+      "format": "caller-signature-evidence/2",
+      "pairs": 2
+    },
+    {
+      "case": "controlled-stage-refusal",
+      "format": "caller-signature-evidence/2",
+      "pairs": 2
+    }
+  ],
+  "frozen_private_members": [
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "result.json",
+      "sha256": "3a6b874967d413f89155895d51368fddbb2e15a257ff8977448a350b26a41580"
+    },
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "view.txt",
+      "sha256": "d0bd57fec01eb2bb6ee8d530c941c51fb2893584c12c533161595db65205b88c"
+    },
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "attempt.json",
+      "sha256": "bf5d8c092679cab4feffa79a3cc2444697b8f5f1be4b6ab67133b5255a262d7e"
+    },
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "sources.json",
+      "sha256": "8de0c185a5be747ec1044eca9b7a8446fbd1652db2a7ed25b82ab832d5c88da1"
+    },
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "attempt-started.json",
+      "sha256": "feaf6d28e7e4b60216f707d1ddae70612577baa24f812a95550652af88f7724f"
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "result.json",
+      "sha256": "dcdf848f0f0c79fddcc091cbfa596e3fb813ece3714204b9152e70c22c7bab09"
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "view.txt",
+      "sha256": "19a38c6246ed7e9f19bf828de493d7c3373d4b44d9787a7f755be5cec9659d97"
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "attempt.json",
+      "sha256": "0595030c7fe82931ca0a440539ddf4023137d5fda2e9c162210fc21ee60c3aca"
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "sources.json",
+      "sha256": "770ab80fea86f6895fc52e278548d075414fe859f28ee09edb2c382c6296124d"
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "attempt-started.json",
+      "sha256": "11ab490a3429882a51062a06bc3afb395ed0db2652ea4cad786899c463a09d04"
+    }
+  ],
+  "prior_tracked_artifacts": {
+    "working-memory/evidence/2026-10-30-protocol-factory-source-correspondence/REVIEW.md": "8490c2904a717afc31acdb0d797cceb2dfe9c7bef5fe8b3facccd7aefc8c107c",
+    "working-memory/evidence/2026-10-30-protocol-factory-source-correspondence/compatibility.json": "89a1b3a0fe2d2c7cebf6742cde6be1a7a94cb77fd1614ab2471ebd59b32536c4",
+    "working-memory/evidence/2026-10-30-protocol-factory-source-correspondence/controlled-ordinary/attempt-started.json": "624ad528e98493e395cb6889b0eca7b40473377acd4bb9baf9174b5e9bd2e0da",
+    "working-memory/evidence/2026-10-30-protocol-factory-source-correspondence/controlled-ordinary/attempt.json": "7d297c384687dfa9953e119c51b74846d94231515478d399d6b8f59036d327a4",
+    "working-memory/evidence/2026-10-30-protocol-factory-source-correspondence/controlled-ordinary/input.json": "71c55e08e8876ba188fed9889b952e0dd192490e41aede770f39359048fa1f3b",
+    "working-memory/evidence/2026-10-30-protocol-factory-source-correspondence/controlled-ordinary/result.json": "a68407cf64a43fb3340b42ee835df2ea30a56c224f16ea1026a83e5a9beaa1d0",
+    "working-memory/evidence/2026-10-30-protocol-factory-source-correspondence/controlled-ordinary/sources.json": "22818a58d18309e161ddceddbe8946aadce91e5ab7d0d99115bfa18e0c99a521",
+    "working-memory/evidence/2026-10-30-protocol-factory-source-correspondence/controlled-ordinary/view.txt": "5dd9ab2ab118dcce91da6e8e3fe53e92adca185391bd74b675f27674d010d7d4",
+    "working-memory/evidence/2026-10-30-protocol-factory-source-correspondence/controlled-review.json": "4319775aac539ff7863652a0385a71388b21cfb32e513bd6fa601af669104c25",
+    "working-memory/evidence/2026-10-30-protocol-factory-source-correspondence/full-regression.json": "5f68f0bfc4655951df41b5491db84c9423a17944b2e10980e8ac2b8643864d15",
+    "working-memory/evidence/2026-10-30-protocol-factory-source-correspondence/retained-case-final-review.json": "c19801ffdfb928bdab4052b907fa85062fb649ccebff89d7524fc2f8b357416e",
+    "working-memory/evidence/2026-10-30-protocol-factory-source-correspondence/retained-case-initial-review.json": "462e40c9652b9636eca4e39bf529671ddedcaf4b67e7c47893d6f0a76fd0e230"
+  }
+}

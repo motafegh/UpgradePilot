@@ -1,0 +1,110 @@
+{
+  "proof": "authored HTTP fixtures through real acquisition clients; not live provider costs",
+  "profiles": [
+    {
+      "label": "controlled-ordinary",
+      "proof": "controlled_ordinary_pr_composition",
+      "github_requests": 41,
+      "provider_requests": 46,
+      "decoded_body_bytes": 12110,
+      "requests_by_stage": {
+        "native_inputs": 3,
+        "target_context": 18,
+        "upstream_window": 1,
+        "library_sources": 14,
+        "source_closure": 10
+      },
+      "stops": [],
+      "work": {
+        "ast_nodes": 264,
+        "facts": 9,
+        "selected_pairs": 2,
+        "source_bytes": 2113,
+        "source_files": 28
+      },
+      "source_work": {
+        "release_identities": [
+          [
+            "vendor",
+            "1.0"
+          ],
+          [
+            "vendor",
+            "2.0"
+          ]
+        ],
+        "module_attempts": 12,
+        "source_bytes": 1886
+      },
+      "target_omitted": 10,
+      "target_gap_count": 1,
+      "outcomes": [
+        {
+          "role": "native_proposed_version",
+          "outcome": "rejected"
+        },
+        {
+          "role": "native_old_version",
+          "outcome": "bound"
+        }
+      ],
+      "acquisition_receipt_sha256": "3f67f8ea92309a50d9c26b3cae163011193df34746af347fa4d6946145bb8c0b",
+      "worker_elapsed_seconds": 0.25063117199897533
+    },
+    {
+      "label": "controlled-stage-refusal",
+      "proof": "controlled_ordinary_pr_composition",
+      "github_requests": 30,
+      "provider_requests": 35,
+      "decoded_body_bytes": 11164,
+      "requests_by_stage": {
+        "native_inputs": 3,
+        "target_context": 7,
+        "upstream_window": 1,
+        "library_sources": 14,
+        "source_closure": 10
+      },
+      "stops": [
+        {
+          "stage": "target_context",
+          "reason": "trial_stage_request_limit"
+        }
+      ],
+      "work": {
+        "ast_nodes": 209,
+        "facts": 9,
+        "selected_pairs": 2,
+        "source_bytes": 1992,
+        "source_files": 17
+      },
+      "source_work": {
+        "release_identities": [
+          [
+            "vendor",
+            "1.0"
+          ],
+          [
+            "vendor",
+            "2.0"
+          ]
+        ],
+        "module_attempts": 12,
+        "source_bytes": 1886
+      },
+      "target_omitted": 10,
+      "target_gap_count": 12,
+      "outcomes": [
+        {
+          "role": "native_proposed_version",
+          "outcome": "rejected"
+        },
+        {
+          "role": "native_old_version",
+          "outcome": "bound"
+        }
+      ],
+      "acquisition_receipt_sha256": "34e2df04a11e8d95d67bcedbe630a7da31c2fdcf19f643a4780550b67000cb40",
+      "worker_elapsed_seconds": 0.2305473369997344
+    }
+  ]
+}

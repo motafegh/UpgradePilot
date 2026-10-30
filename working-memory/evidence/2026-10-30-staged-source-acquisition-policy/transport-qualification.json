@@ -1,0 +1,38 @@
+{
+  "proof": "authored transport and synthetic token; no live authentication/quota validation",
+  "profiles": [
+    {
+      "name": "legacy-anonymous",
+      "auth_configuration": "anonymous",
+      "github_requests": 50,
+      "transport_calls": 50,
+      "refusal": "trial_request_limit"
+    },
+    {
+      "name": "legacy-explicit-token",
+      "auth_configuration": "token-env",
+      "github_requests": 50,
+      "transport_calls": 50,
+      "refusal": "trial_request_limit"
+    },
+    {
+      "name": "staged-explicit-80",
+      "auth_configuration": "token-env",
+      "github_requests": 80,
+      "transport_calls": 80,
+      "refusal": "trial_request_limit"
+    }
+  ],
+  "covered_by": "experiments.tests.test_api_change_source_acquisition.StagedTransportTests",
+  "other_controls": [
+    "stage headroom",
+    "separate PyPI work",
+    "HTTP error-body charging",
+    "per-response and aggregate body refusals",
+    "transport failure remains charged",
+    "empty and nonempty late response refusal",
+    "pre-dispatch expiry",
+    "explicit GitHub-only header",
+    "cooperative timeout clamping"
+  ]
+}

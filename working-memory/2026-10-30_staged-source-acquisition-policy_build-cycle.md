@@ -10,11 +10,11 @@ Cycle: make experimental ordinary acquisition bounded, attributable and less vul
 A0 — DONE: fetched origin at dedba438; main agrees. Unrelated October03 untracked record preserved. Reconciled parent API plan, integration design, protocol cycle, active acquisition/retention owners and tests.
 A1 — DONE, compressed: immediately preceding Learning-Only explanation covered experiment architecture, protocol evidence, local50 versus GitHub quota and token wiring. Ali explicitly resumed Build and asked to incorporate the assessments.
 A2 — DONE, compressed: explained declaration-first target reads, stage reservations, observed-reference source priority, explicit request/body/time receipts and separate live-attempt gate before editing behavior.
-B — CURRENT: select and implement the bounded experimental policy at existing owners.
-Verification gate — PENDING: controlled HTTP/provider traces, ordinary saved composition, focused API and architecture checks, historical regression/preservation contrast.
-D — PENDING: explain actual result, corrections and proof limits; independent practice remains unassessed.
-E — PENDING: reconcile continuation and hand off separately bounded fresh-attempt selection.
-C — CONTINUOUS.
+B — DONE: optional staged transport policy, source/target prioritization, protected native reads and coverage delivery at existing owners.
+Verification gate — GREEN for bounded controlled experiment: API228/architecture7 pass; real-client authored HTTP/worker/cold-reader contrasts pass; full622 retains exact historical1 failure/25 errors/11 skips (whole suite still RED); frozen members unchanged.
+D — DONE as guided engineering handoff: actual source/control/result/proof distinctions and corrections preserved in review and user explanation; independent practice/mastery remains unassessed.
+E — DONE: selected responsibility closed; live continuation reconciled in MEMORY.md; separately freeze one fresh ordinary attempt before provider execution.
+C — DONE: meaningful engineering, failures/corrections and proof/handoff preserved progressively.
 
 ## Scope and orientation
 
@@ -57,3 +57,15 @@ Initial tests assumed every consumed BytesIO fixture must be raw-closed; Request
 The first broad run at75cebc99 executes621 tests/37.168s with the exact previous1 failure/25 errors (identities AND terminal messages) and11 optional skips. Nine old curated/ordinary bundles open with network/AST/checker/discovery forbidden; all10 original frozen members and12 prior tracked artifacts verify unchanged. Native src/tests/tools/package/specification/ADR show no diff from entry.
 
 A final reservation control uses30 GitHub requests with20 protected from target/window stages. Actual real clients keep both protocol candidates while preserving stage-refused target paths. Added target gap validation/display to accompany transport stop summaries and ordinary omitted paths; retention alone would hide which reads were refused in the human view. The authored HTTP control now traverses the bounded worker and cold-opens its saved policy receipt with AST/network/checker forbidden. Final API228 tests and architecture7 pass. This is a new controlled case, not a fresh target acquisition or repaired historical result.
+
+## Final evidence, learning and closure
+
+[Review](evidence/2026-10-30-staged-source-acquisition-policy/REVIEW.md) and [receipt](evidence/2026-10-30-staged-source-acquisition-policy/verification.json) bind final runtime horizon ee09e14f. FinalAPI228/2.720s, architecture7/0.966s pass; static131 artifacts/122 modules/257 edges/31 legacy exceptions/96 native files passes. Full622/37.787s retains exact old failure/error identities and terminal messages plus11 skips. Native src/tests/tools/package/specification/ADR and binder/checker/correspondence have no changes; no new product proof is claimed. Earlier227/621 checkpoints retained.
+
+Two new actual worker bundles freeze authored real-client HTTP composition at50 and30 budgets and cold-open without providers/AST/checker/discovery; normal CLI view matches. Historical9 plus new2 saved bundles open,10 original frozen private members and12 previous tracked artifacts remain unchanged. No real-provider acquisition, credential validation, inference or third-party execution occurred.
+
+The isolated historical-closure-function contrast holds ALL other current owners/authored inputs/policy fixed:41 requests/12 questions in both, greedy yields0 comparisons/no payload, priority yields2/both payload roles. This is explicitly a mixed-method component contrast, not a regenerated historical pipeline/frozen result. Larger synthetic-token80 transport works only when explicitly selected; allocation improvement fits50 here, so no current evidence justifies raising the default for this authored case. Source heuristic generality and real costs remain unknown.
+
+A2 expected protected useful source within explicit operational bounds. Actual proof supports that in authored scenarios while preserving source limits and refusals. Corrections: native final identity check is necessary, mock counts did not describe every real endpoint; adapter producer/view field mismatch was genuine and repaired; target gap delivery needed the same human-consumer treatment; a cooperative deadline cannot promise hard wall-clock cancellation. Learning should reconstruct local versus provider budgets, policy/capability/proof boundaries, allocation/cache/closure versus correspondence, source versus response byte counts, and immutable historical/current method identity. Agreement/tests do not certify mastery.
+
+Next bounded responsibility: select/freeze one real PR attempt contract (identity, explicit auth/policy, private retention, useful/partial/refusal outcomes, no automatic retry). Do not open more syntax families or alter a lower owner just because a real case is unsupported. If actual fresh evidence exposes a defect, preserve it and repair the earliest sufficient owner under a new justified responsibility. Native API/Workspace/report delivery remains a subsequent explicit adoption decision after useful ordinary evidence; broader migration and historical experiment-test debt remain separately owned.

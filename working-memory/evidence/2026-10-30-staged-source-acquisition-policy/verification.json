@@ -1,0 +1,113 @@
+{
+  "client_date": "2026-10-30",
+  "entry_revision": "dedba438",
+  "runtime_revision": "ee09e14f",
+  "progressive_commits": [
+    "0271082a",
+    "75cebc99",
+    "ee09e14f"
+  ],
+  "proof": "bounded experiment acquisition policy qualification; authored HTTP/typed providers, no live provider acquisition",
+  "source_sha256": {
+    "experiments/api_change_source_acquisition.py": "398b9a50fe4fcfe09bd75ef0c8ca15f082b25f3131f7c93f2508f5aa05f3c9c7",
+    "experiments/api_target_context.py": "367ef4fb9a8f2a0c3c85a54d826227edcd91515a53f4b62ddea55db9f2d602df",
+    "experiments/api_target_context_smoke.py": "02b490c7c3d7cfc380f365c1d03bc7abd930355e3ec24b2d598138cb7f065df5",
+    "experiments/api_adapter_exploration.py": "cdba83fd7f7af639273b25251fb28d80564fb1e67748db281af4570d63e3137c",
+    "experiments/api_ordinary_call_signature_trial.py": "90e35a642a9d126b8ca06061dda3370ea15f0c9be6fb5d68af536ecee4db429d"
+  },
+  "test_sha256": {
+    "experiments/tests/test_api_change_source_acquisition.py": "24f5a87cbbc446f2cccdaf4bfed8d2b66d2d1d6db8bd860b65d19df96e29b21f",
+    "experiments/tests/test_api_target_context.py": "1ef9ebf022124a9108af2ba496f6e6d39b8c3aad26ea340537b675ebdbc4d5e3",
+    "experiments/tests/test_api_public_pr_context.py": "9737ff28cc8d0ba0528409afea98ef8c8c23b85d8ed2e4eee9da75f9846f7f39"
+  },
+  "api_regression": {
+    "tests": 228,
+    "elapsed_seconds": 2.719696631000261,
+    "passed": true,
+    "failures": [],
+    "errors": [],
+    "skipped": []
+  },
+  "architecture_regression": {
+    "tests": 7,
+    "elapsed_seconds": 0.9661393930000486,
+    "passed": true,
+    "failures": [],
+    "errors": [],
+    "skipped": []
+  },
+  "full_regression": {
+    "tests": 622,
+    "elapsed_seconds": 37.78683515400189,
+    "failures": 1,
+    "errors": 25,
+    "optional_skips": 11,
+    "exact_ids_and_terminal_messages_match_prior": true,
+    "whole_suite_green": false
+  },
+  "static_boundaries": {
+    "ok": true,
+    "errors": [],
+    "artifacts": 131,
+    "python_modules": 122,
+    "internal_import_edges": 257,
+    "legacy_private_symbols": 31,
+    "product_python_files": 96
+  },
+  "controlled_review": "controlled-review.json",
+  "allocation_profiles": "allocation-profiles.json",
+  "selection_contrast": "selection-contrast.json",
+  "transport_qualification": "transport-qualification.json",
+  "compatibility": "compatibility.json",
+  "CLI_views": {
+    "controlled-ordinary": {
+      "matches": true,
+      "sha256": "124733aa66594a40296f745695f93ce89ddf1cfaaac71a71d8f2291c4b937075"
+    },
+    "controlled-stage-refusal": {
+      "matches": true,
+      "sha256": "030b98c1f04a4f51dac9d09c13fef8bbe2dee328c777296cadbfa59dd2c3e2c1"
+    }
+  },
+  "protected_native_tool_package_spec_adr_diff": [],
+  "binder_checker_correspondence_diff": [],
+  "native_product_tests": "not rerun: no native changes; historical proof not promoted",
+  "local_references_checked": 138,
+  "non_proof": [
+    "real GitHub token validity/quota",
+    "fresh real-PR source coverage/cost",
+    "hard preemptive elapsed-time cancellation",
+    "installation/runtime dispatch/semantic argument validity",
+    "whole-update compatibility",
+    "independent usefulness/mastery",
+    "native Workspace/report adoption"
+  ],
+  "handoff": "Select/freeze one real PR identity/auth/policy/retention/useful-partial-refusal contract before executing; no automatic retries or new syntax expansion",
+  "artifact_sha256": {
+    "REVIEW.md": "ea5890091794907dfd9ed32b71a4afe137b380cbfeaeb49c52a334c1bacb9d67",
+    "allocation-profiles.json": "e3bbcde7d883c90df8dd3ff357e670ad4e8058f530b1144180550d6fb20ef43c",
+    "api-regression-checkpoint.json": "e4ec92091f1c0059ba657e69b9690f4c15baf9f83959f0e2fb17cad3eb0ea4f3",
+    "api-regression.json": "43221790371c9e9cee6675da834469868e9e491f70f8bcdd7b2627baa541d67d",
+    "architecture-regression-checkpoint.json": "ee3a689961bc5166b0b8e4fdfc29f9db193e24f1a109d78409f699a37ede8d64",
+    "architecture-regression.json": "1db2253b8d0b4008067727e2c246b59dfacb8dc431bcaa8ca65cb6dff83cd635",
+    "compatibility.json": "b7db0e549aea618f97a447038460bb01e003370fbebdf3b48321775e651b958a",
+    "controlled-ordinary/attempt-started.json": "54b26acdea0e935c3d939d61cc24f224c17c51abfeeeec191306720ad543361d",
+    "controlled-ordinary/attempt.json": "6749995b2c00e7f2bdd1ff40c6bfa90c746f9fbddd618b7353c5a7544c86c379",
+    "controlled-ordinary/input.json": "8dcfd66eef3109e01151c640bc28c420d00ffb831477bb24ff686f003d6dca25",
+    "controlled-ordinary/result.json": "318b0d4b679e311c7a6347c1d0f8f54c975671de09d6bfe19c6150622f080ae7",
+    "controlled-ordinary/sources.json": "2464155cc0574e1d02daa74bd97bc510babd9508e8055607860ef57e90858053",
+    "controlled-ordinary/view.txt": "124733aa66594a40296f745695f93ce89ddf1cfaaac71a71d8f2291c4b937075",
+    "controlled-review.json": "6bccb63a4abf6c42da459f0bdaf711d343af9fa3004f435352fa37cfec1aac71",
+    "controlled-stage-refusal/attempt-started.json": "46b82c7faf1e72abc79b5c319a11d9a4c7880e0fc53bc9996ba3ab212661897f",
+    "controlled-stage-refusal/attempt.json": "532bc8efcb34390dfb0ef566508d13535f0c40b38945ffdbf04b4b6815ba565a",
+    "controlled-stage-refusal/input.json": "a36105d99cf77c73d2ea39d4f9f5ce8792679d2ff20d3b9c87dee3256e981756",
+    "controlled-stage-refusal/result.json": "8e8c9152e49a8f3bc8352f7a78509ddac1a318043672a5a28c8bce588f4cc182",
+    "controlled-stage-refusal/sources.json": "6d700865dad1d2ab3b72bccf36c6c0c7e98b2394877e28cb98e6d5a93d4be727",
+    "controlled-stage-refusal/view.txt": "030b98c1f04a4f51dac9d09c13fef8bbe2dee328c777296cadbfa59dd2c3e2c1",
+    "full-regression-checkpoint.json": "45607e7122fc7fe81ce596ddae62e3b6f96a8bb72140f37349efdf285615147d",
+    "full-regression.json": "4b12786cb6ad13a7eb34f18bfd53dd6ac16269406bd5b5d31dc2af3bc779ddf8",
+    "selection-contrast.json": "a1566d7e99990247473a9033602bc74b3a437635764f9b22c0866842bd69faa1",
+    "static-boundaries.json": "ed5ab2b7ccd5f265c8ac82420207efee199213514a5fb1e49104d3fa878da6ee",
+    "transport-qualification.json": "5da79dd522aa87d91005d9b72c9792f02407999a842ca42c7d13b64e3aefe8e7"
+  }
+}

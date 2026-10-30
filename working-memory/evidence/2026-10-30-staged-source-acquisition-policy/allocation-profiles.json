@@ -1,0 +1,68 @@
+{
+  "target_scan_60_noise": [
+    {
+      "profile": "legacy",
+      "proof": "authored real-client HTTP capture, not live",
+      "github_requests": 50,
+      "provider_requests": null,
+      "decoded_body_bytes": null,
+      "global_request_limit_reached": true,
+      "result": "partial_capture",
+      "retained_payload_roles": [],
+      "source_work": {
+        "release_identities": [],
+        "module_attempts": 0,
+        "source_bytes": 0
+      }
+    },
+    {
+      "profile": "staged",
+      "proof": "authored real-client HTTP capture, not live",
+      "github_requests": 41,
+      "provider_requests": 46,
+      "decoded_body_bytes": 21182,
+      "global_request_limit_reached": false,
+      "result": "partial_capture",
+      "retained_payload_roles": [
+        "native_old_version",
+        "native_proposed_version"
+      ],
+      "source_work": {
+        "release_identities": [
+          [
+            "vendor",
+            "1.0"
+          ],
+          [
+            "vendor",
+            "2.0"
+          ]
+        ],
+        "module_attempts": 12,
+        "source_bytes": 4046
+      }
+    }
+  ],
+  "adapter_candidate_20_noise": [
+    {
+      "profile": "legacy",
+      "proof": "typed controlled providers; not an HTTP cost measurement",
+      "module_questions": 12,
+      "omitted_adapter_candidates": 8,
+      "native_source_states": [
+        "module_source_limit",
+        "module_source_limit"
+      ]
+    },
+    {
+      "profile": "staged",
+      "proof": "typed controlled providers; not an HTTP cost measurement",
+      "module_questions": 4,
+      "omitted_adapter_candidates": 18,
+      "native_source_states": [
+        "module_examined",
+        "module_examined"
+      ]
+    }
+  ]
+}
