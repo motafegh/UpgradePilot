@@ -352,7 +352,12 @@ class _SourceCandidates:
                 if not methods:
                     self.gap("inherited_or_missing_protocol_method", unit, SourceSpan.of(node), method_name)
                 for method in methods:
-                    operation = "attribute_getter" if method_name == "__getattr__" else "call_protocol"
+                    # Protocol operations describe an allocation-backed factory
+                    # witness. An explicit Class.__call__/__getattr__ source call
+                    # is an ordinary method declaration, with no factory claim.
+                    operation = "declaration"
+                    if any(step.operation == "allocation" for step in path):
+                        operation = "attribute_getter" if method_name == "__getattr__" else "call_protocol"
                     yield unit, method, node, (*path, self.step(unit, method, operation)), (
                         *premises, "effective_protocol_method_and_receiver_binding_not_established",
                     ), "as_written"

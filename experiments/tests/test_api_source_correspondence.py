@@ -538,6 +538,17 @@ class FactorySourceTests(TestCase):
             with self.subTest(remaining=remaining), self.assertRaisesRegex(ValueError, "factory source path"):
                 read_ordinary_comparison(json_bytes(altered), companion)
 
+    def test_explicit_dunder_method_calls_are_declarations_not_factory_protocol_witnesses(self):
+        for call in ('Decorator.__call__(None, ids=[])', 'Generator.__getattr__(None, "x")'):
+            data = prepared('from vendor import Decorator, Generator\n' + call + '\n', factory_source(), factory_source())
+            result, companion = prepare_ordinary_comparison(data, AnalysisLimits())
+            with self.subTest(call=call):
+                body, _ = read_ordinary_comparison(result, companion)
+                self.assertEqual(len(body['pairs']), 2)
+                self.assertTrue(all(p['comparison']['outcome'] == 'bound' for p in body['pairs']))
+                self.assertTrue(all(c['steps'][-1]['operation'] == 'declaration'
+                                    for c in body['discovery']['candidates']))
+
     def test_async_generator_getters_and_multi_attribute_access_are_not_instance_returns(self):
         for source in (factory_source().replace("def __getattr__", "async def __getattr__"),
                        factory_source(returns="yield 1\nreturn Decorator()")):

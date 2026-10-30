@@ -1,0 +1,46 @@
+======================================================================
+ERROR: test_explicit_dunder_method_calls_are_declarations_not_factory_protocol_witnesses (experiments.tests.test_api_source_correspondence.FactorySourceTests.test_explicit_dunder_method_calls_are_declarations_not_factory_protocol_witnesses) (call='Decorator.__call__(None, ids=[])')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/api_ordinary_call_signature_trial.py", line 516, in _validate_discovery
+    position = operations.index(operation, position + 1)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: 'allocation' is not in list
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_source_correspondence.py", line 546, in test_explicit_dunder_method_calls_are_declarations_not_factory_protocol_witnesses
+    body, _ = read_ordinary_comparison(result, companion)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/api_ordinary_call_signature_trial.py", line 322, in read_ordinary_comparison
+    _validate_discovery(body, catalog, modules)
+  File "/home/motafeq/projects/UpgradePilot/experiments/api_ordinary_call_signature_trial.py", line 518, in _validate_discovery
+    raise ValueError("Incomplete or unordered factory source path.") from exc
+ValueError: Incomplete or unordered factory source path.
+
+======================================================================
+ERROR: test_explicit_dunder_method_calls_are_declarations_not_factory_protocol_witnesses (experiments.tests.test_api_source_correspondence.FactorySourceTests.test_explicit_dunder_method_calls_are_declarations_not_factory_protocol_witnesses) (call='Generator.__getattr__(None, "x")')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/api_ordinary_call_signature_trial.py", line 516, in _validate_discovery
+    position = operations.index(operation, position + 1)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: 'allocation' is not in list
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_source_correspondence.py", line 546, in test_explicit_dunder_method_calls_are_declarations_not_factory_protocol_witnesses
+    body, _ = read_ordinary_comparison(result, companion)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/api_ordinary_call_signature_trial.py", line 322, in read_ordinary_comparison
+    _validate_discovery(body, catalog, modules)
+  File "/home/motafeq/projects/UpgradePilot/experiments/api_ordinary_call_signature_trial.py", line 518, in _validate_discovery
+    raise ValueError("Incomplete or unordered factory source path.") from exc
+ValueError: Incomplete or unordered factory source path.
+
+----------------------------------------------------------------------
+Ran 1 test in 0.012s
+
+FAILED (errors=2)
