@@ -498,6 +498,7 @@ class AdapterSourceExplorer:
         max_module_files=12,
         source_run: PythonSourceAcquisitionRun | None = None,
         stop_at_package: str | None = None,
+        max_candidate_attempts: int = 12,
     ) -> AdapterExploration:
         if (
             type(max_samples) is not int
@@ -506,6 +507,8 @@ class AdapterSourceExplorer:
             or not 0 <= max_hops <= 2
             or type(max_module_files) is not int
             or not 1 <= max_module_files <= 12
+            or type(max_candidate_attempts) is not int
+            or not 1 <= max_candidate_attempts <= 12
         ):
             raise ValueError("Exploration budgets exceed admitted limits.")
         if source_run is not None and (
@@ -559,7 +562,7 @@ class AdapterSourceExplorer:
             if candidate.declaration.package == stop_at_package:
                 deferred.append(candidate)
                 continue
-            if attempts >= max_module_files:
+            if attempts >= min(max_module_files, max_candidate_attempts):
                 omitted.append(candidate)
                 continue
             attempts += 1

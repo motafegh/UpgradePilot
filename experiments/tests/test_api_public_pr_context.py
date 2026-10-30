@@ -184,6 +184,7 @@ class PublicPRTests(TestCase):
         role_version=ROLE,
         model_identifier=LOCAL_MODEL,
         source_explorer=None,
+        session=None,
     ):
         identity = PullRequestIdentity(
             "owner/target",
@@ -274,6 +275,8 @@ class PublicPRTests(TestCase):
                 "model_identifier": model_identifier,
             }
         )
+        if session is not None:
+            options["session"] = session
         result = entry(
             "owner/target",
             7,
@@ -963,3 +966,165 @@ class PublicPRTests(TestCase):
                 ref.pop("expression")
             with self.subTest(mutation=mutation), self.assertRaises(ValueError):
                 decode_adapter_seed(packet)
+
+
+def staged_http_control(policy, *, noise=24):
+    """Authored public HTTP responses; all normal acquisition clients stay real.
+
+    No live network, known source path selector or callable answer enters the
+    ordinary producer. Inventory/import text deliberately contains distracting files.
+    """
+    import base64
+    from io import BytesIO
+    from urllib.parse import unquote, urlsplit
+    from requests import Response
+    from experiments.api_adapter_exploration import AdapterSourceExplorer
+    from experiments.api_ordinary_call_signature_trial import acquire_ordinary_comparison_inputs
+
+    session = TrialPublicSession(policy=policy)
+    pull = dict(number=7, title='Bump vendor', state='open', merged=False, user={'login': 'bot'},
+                base={'ref': 'main', 'sha': BASE}, head={'ref': 'update', 'sha': SHA}, changed_files=2,
+                body='Authored control description')
+    target_paths = [f'a_noise{i:02}.py' for i in range(noise)] + ['z_case.py', 'requirements.txt']
+    library_paths = [f'vendor/noise{i:02}.py' for i in range(noise)] + [
+        'vendor/__init__.py', 'vendor/factory.py', 'vendor/payload.py']
+    responses = []
+
+    def transport(method, url, **kwargs):
+        parsed = urlsplit(url)
+        path = unquote(parsed.path)
+        data, status = None, 200
+        if parsed.hostname == 'pypi.org':
+            if path == '/pypi/vendor/json':
+                # A legitimate separate upstream-window gap, not source absence.
+                data, status = {}, 404
+            else:
+                version = path.split('/')[3]
+                data = dict(info={'name': 'vendor', 'version': version, 'requires_dist': [],
+                                  'project_urls': {'Source': 'https://github.com/owner/vendor'}},
+                            last_serial=1, urls=[])
+        elif path == '/repos/owner/target/pulls/7':
+            data = pull
+        elif path.endswith('/pulls/7/files'):
+            data = [dict(filename=name, status='modified', additions=1, deletions=1, changes=2,
+                         patch='@@ -1 +1 @@\n-vendor==1.0\n+vendor==2.0' if name.endswith('.txt') else '@@ -1 +1 @@\n-pass\n+pass',
+                         contents_url=f'https://api.github.com/repos/owner/target/contents/{name}?ref={SHA}')
+                    for name in ('requirements.txt', 'z_case.py')]
+        elif '/git/ref/tags/' in path:
+            tag = path.rsplit('/', 1)[1]
+            commit = BASE if tag.lstrip('v') == '1.0' else SHA
+            data = {'ref': 'refs/tags/' + tag, 'object': {'type': 'commit', 'sha': commit}}
+        elif '/git/commits/' in path:
+            data = {'sha': path.rsplit('/', 1)[1], 'tree': {'sha': 'c' * 40}}
+        elif '/git/trees/' in path:
+            paths = target_paths if '/owner/target/' in path else library_paths
+            data = dict(sha='c' * 40, truncated=False,
+                        tree=[dict(path=p, type='blob', mode='100644') for p in paths])
+        elif '/contents/' in path:
+            name = path.split('/contents/', 1)[1]
+            revision = kwargs.get('params', {}).get('ref')
+            if name == 'requirements.txt':
+                text = 'vendor==' + ('1.0' if revision == BASE else '2.0') + '\n'
+            elif name == 'z_case.py':
+                text = 'from vendor import FACTORY as marks\nmarks.operation(ids=[1])\n'
+            elif name == 'vendor/__init__.py':
+                text = ''.join(f'from .noise{i:02} import unused{i}\n' for i in range(noise))
+                text += 'from .factory import FACTORY\n'
+            elif name == 'vendor/factory.py':
+                text = 'from .payload import Decorator\nclass Generator:\n def __getattr__(self, name):\n  return Decorator()\nFACTORY = Generator()\n'
+            elif name == 'vendor/payload.py':
+                text = 'class Decorator:\n def __call__(self' + (', **kwargs' if revision == BASE else '') + '):\n  pass\n'
+            else:
+                text = 'unused = 1\n'
+            data = dict(type='file', path=name, encoding='base64', content=base64.b64encode(text.encode()).decode())
+        else:
+            raise AssertionError('Unexpected controlled provider endpoint: ' + path)
+        response = Response()
+        response.status_code = status
+        response.raw = BytesIO(json.dumps(data, separators=(',', ':')).encode())
+        response.url = url
+        responses.append(response)
+        return response
+
+    with patch('requests.Session.request', side_effect=transport):
+        result = acquire_ordinary_comparison_inputs('owner/target', 7, session=session,
+                    adapters=AdapterSourceExplorer(session=session))
+    return result, session
+
+
+class StagedOrdinaryHTTPTests(TestCase):
+    def test_direct_native_sides_survive_exploration_noise_and_omissions_reach_view(self):
+        from experiments.tests.test_api_adapter_exploration import ChainTests
+        from experiments.api_adapter_exploration import ExaminedPythonModule
+        from experiments.api_change_source_acquisition import TrialAcquisitionPolicy
+        from experiments.api_ordinary_call_signature_trial import (
+            prepare_ordinary_inputs, encode_ordinary_inputs, prepare_ordinary_comparison,
+            read_ordinary_comparison, render_ordinary_comparison)
+        from experiments.api_signature_evidence import AnalysisLimits
+        text = 'import vendor\nvendor.send()\n' + ''.join(
+            f'import bridge.noise{i} as b{i}\nb{i}.Client()\n' for i in range(20))
+        legacy, _, _ = PublicPRTests().run_trial(source_explorer=ChainTests().explorer(), python_source=text)
+        self.assertTrue(all(a.outcome.reason == 'module_source_limit' for a in legacy.changed_sources))
+        session = TrialPublicSession(policy=TrialAcquisitionPolicy())
+        explorer = ChainTests().explorer()
+        explorer.session = session
+        result, _, _ = PublicPRTests().run_trial(source_explorer=explorer, python_source=text, session=session)
+        self.assertTrue(all(isinstance(a.outcome, ExaminedPythonModule) for a in result.changed_sources))
+        self.assertEqual(len(result.adapters.omitted_candidates), 18)
+        self.assertEqual(result.source_work.module_attempts, 4)
+        captured = prepare_ordinary_inputs(result, session, explorer._source_run)
+        data = encode_ordinary_inputs(*captured, proof_class='controlled_ordinary_pr_composition')
+        encoded, companion = prepare_ordinary_comparison(data, AnalysisLimits())
+        body, _ = read_ordinary_comparison(encoded, companion)
+        view = render_ordinary_comparison(body)
+        self.assertIn('Adapter candidate unexamined: bridge bridge.noise', view)
+        self.assertIn('Adapter source unavailable:', view)
+
+    def test_real_clients_prioritize_and_retain_protocol_paths_under_same_module_ceiling(self):
+        from experiments.api_change_source_acquisition import TrialAcquisitionPolicy
+        from experiments.api_ordinary_call_signature_trial import (
+            encode_ordinary_inputs, prepare_ordinary_comparison, read_ordinary_comparison, render_ordinary_comparison)
+        from experiments.api_signature_evidence import AnalysisLimits
+        result, session = staged_http_control(TrialAcquisitionPolicy())
+        self.assertIsInstance(result, tuple, result)
+        catalog, modules, acquisition = result
+        data = encode_ordinary_inputs(catalog, modules, acquisition, proof_class='controlled_ordinary_pr_composition')
+        encoded, companion = prepare_ordinary_comparison(data, AnalysisLimits())
+        body, _ = read_ordinary_comparison(encoded, companion)
+        outcomes = {c['callee_role']['role']: p['comparison']['outcome']
+                    for c, p in zip(body['discovery']['candidates'], body['pairs'])}
+        self.assertEqual(outcomes, {'native_old_version': 'bound', 'native_proposed_version': 'rejected'})
+        self.assertEqual(acquisition['source_work']['module_attempts'], 12)
+        target_reads = [r['path'] for r in session.receipts if r['stage'] == 'target_context' and '/contents/' in r['path']]
+        self.assertEqual(target_reads[:2], ['/repos/owner/target/contents/requirements.txt', '/repos/owner/target/contents/z_case.py'])
+        self.assertEqual(len(target_reads), 16)
+        self.assertEqual(sum(r['path'] == '/repos/owner/target/pulls/7' for r in session.receipts), 2)
+        self.assertLessEqual(session.github_requests, 50)
+        self.assertTrue(any(g['reason'] == 'module_source_limit' for g in acquisition['internal_module_requests'] if g['state'] != 'module_examined'))
+        view = render_ordinary_comparison(body)
+        self.assertIn('local policy, independent of GitHub account quota', view)
+        self.assertIn('Target source unexamined:', view)
+        self.assertIn('module_source_limit', view)
+        self.assertNotEqual(acquisition['ordinary_acquisition']['upstream']['state'], 'complete')
+
+    def test_legacy_target_scan_can_starve_where_staged_policy_preserves_source(self):
+        from experiments.api_change_source_acquisition import TrialAcquisitionPolicy
+        legacy, legacy_session = staged_http_control(None, noise=60)
+        staged, session = staged_http_control(TrialAcquisitionPolicy(), noise=60)
+        self.assertTrue(legacy_session.request_limit_reached)
+        self.assertIsInstance(staged, tuple, staged)
+        self.assertFalse(session.request_limit_reached)
+        self.assertTrue(any(m.path == 'vendor/payload.py' for m in staged[1]))
+
+    def test_saved_transport_accounting_tampering_refuses(self):
+        from experiments.api_change_source_acquisition import TrialAcquisitionPolicy
+        from experiments.api_ordinary_call_signature_trial import (
+            encode_ordinary_inputs, prepare_ordinary_comparison, read_ordinary_comparison)
+        from experiments.api_signature_evidence import AnalysisLimits
+        result, _ = staged_http_control(TrialAcquisitionPolicy())
+        data = encode_ordinary_inputs(*result, proof_class='controlled_ordinary_pr_composition')
+        encoded, companion = prepare_ordinary_comparison(data, AnalysisLimits())
+        body = json.loads(encoded)
+        body['acquisition']['ordinary_acquisition']['transport']['decoded_body_bytes'] += 1
+        with self.assertRaisesRegex(ValueError, 'accounting mismatch'):
+            read_ordinary_comparison(json.dumps(body).encode(), companion)

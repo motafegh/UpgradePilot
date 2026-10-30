@@ -2,7 +2,7 @@
 
 Run: PYTHONPATH=src .venv/bin/python -m experiments.api_target_context_smoke REPOSITORY PR
 Known target paths, framework names and adapter versions are not runner arguments.
-Providers share one 50-request budget per acquisition run. Anonymous by default;
+Providers share a local request budget (legacy50, or explicit policy). Anonymous by default;
 token-env explicitly reads GITHUB_TOKEN, which is sent only to the GitHub API.
 """
 
@@ -155,19 +155,24 @@ def acquire_public_pr_context(
     adapters = adapters or AdapterSourceExplorer(session=session, files=files)
     source_run = source_run if source_run is not None else adapters.source_run()
     try:
-        acquired = acquire_dependency_inputs(
-            repository, number, pull_requests, files,
-            expected_base=expected_base, expected_head=expected_head,
-        )
+        with session.stage("native_inputs"):
+            acquired = acquire_dependency_inputs(
+                repository, number, pull_requests, files,
+                expected_base=expected_base, expected_head=expected_head,
+            )
         identity = acquired.identity
         dependency = acquired.dependency
         if not isinstance(dependency, DependencyVersionChange):
             return AcquisitionProblem(
                 "dependency", dependency.reason, dependency.detail, dependency
             )
-        context = target.acquire(
-            identity.repository, identity.head_sha, max_python_files=max_target_python_files,
-        )
+        policy = session.policy
+        target_options = dict(max_python_files=max_target_python_files)
+        if policy:
+            target_options.update(changed_paths=tuple(f.filename for f in acquired.changed_files),
+                                  max_file_attempts=policy.target_file_attempts)
+        with session.stage("target_context", reserve_github=policy.source_request_reserve if policy else 0):
+            context = target.acquire(identity.repository, identity.head_sha, **target_options)
         if isinstance(context, AcquisitionProblem):
             return context
         interval = DependencyReleaseInterval(
@@ -176,11 +181,19 @@ def acquire_public_pr_context(
             dependency.old_version,
             dependency.proposed_version,
         )
-        source = upstream.acquire(interval)
-        explored = adapters.explore(
-            context, source_run=source_run, stop_at_package=dependency.normalized_package,
-        )
-        changed_sources, omitted = examine_changed_package_modules(acquired, context, explored, source_run)
+        with session.stage("upstream_window", reserve_github=policy.source_request_reserve if policy else 0):
+            source = upstream.acquire(interval)
+        with session.stage("library_sources"):
+            if policy:
+                # Admit direct native-version questions before exploration can
+                # consume their shared release identities. Later repetition is
+                # a run-cache hit and retains the complete origin manifest.
+                examine_changed_package_modules(acquired, context, AdapterExploration((), (), ()), source_run)
+            explored = adapters.explore(
+                context, source_run=source_run, stop_at_package=dependency.normalized_package,
+                **({"max_candidate_attempts": policy.adapter_candidate_attempts} if policy else {}),
+            )
+            changed_sources, omitted = examine_changed_package_modules(acquired, context, explored, source_run)
         return PublicPRContextTrial(
             acquired, context, source, explored, changed_sources,
             source_run.work, omitted,
@@ -237,6 +250,8 @@ def trial_manifest(
             )
         },
     }
+    if session.policy:
+        manifest["transport"] = session.acquisition_receipt()
     if isinstance(result, AcquisitionProblem):
         return {
             **manifest,

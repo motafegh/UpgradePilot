@@ -424,6 +424,8 @@ class TargetContextAcquirer:
         *,
         max_python_files=200,
         max_bytes=2 * 1024 * 1024,
+        changed_paths=(),
+        max_file_attempts=None,
     ) -> TargetContext | AcquisitionProblem:
         if (
             type(max_python_files) is not int
@@ -432,6 +434,8 @@ class TargetContextAcquirer:
             or not 1 <= max_bytes <= 2 * 1024 * 1024
         ):
             raise ValueError("Budgets must be positive and within admitted limits.")
+        if max_file_attempts is not None and (type(max_file_attempts) is not int or not 1 <= max_file_attempts <= 200):
+            raise ValueError("Invalid target file-attempt budget.")
         inventory = self.inventory.acquire(repository, revision)
         if isinstance(inventory, AcquisitionProblem):
             return inventory
@@ -441,6 +445,7 @@ class TargetContextAcquirer:
         gaps = []
         total = 0
         python_count = 0
+        attempts = 0
         if inventory.truncated:
             gaps.append(
                 ContextGap(
@@ -449,7 +454,14 @@ class TargetContextAcquirer:
                     "Provider tree is incomplete; absence inference is forbidden.",
                 )
             )
-        for entry in inventory.entries:
+        changed_paths = set(changed_paths)
+        # Ordering is acquisition policy, not evidence of dependency activation.
+        # Declaration-first avoids inventory ordering starving the association basis.
+        def priority(entry):
+            name = PurePosixPath(entry.path).name
+            declaration = name in _DECLARATION_NAMES or bool(re.fullmatch(r"requirements[^/]*\.(txt|in)", name))
+            return (0 if declaration else 1 if entry.path in changed_paths else 2, entry.path)
+        for entry in sorted(inventory.entries, key=priority):
             if entry.kind != "blob":
                 if entry.kind == "commit":
                     gaps.append(
@@ -472,6 +484,10 @@ class TargetContextAcquirer:
                     omitted.append(entry.path)
                     continue
                 python_count += 1
+            if max_file_attempts is not None and attempts >= max_file_attempts:
+                omitted.append(entry.path)
+                continue
+            attempts += 1
             try:
                 file = self.files.get_exact_commit_text_file(
                     repository, revision, entry.path

@@ -11,7 +11,9 @@ from __future__ import annotations
 
 import hashlib
 import re
-from dataclasses import dataclass, replace
+import time
+from contextlib import contextmanager
+from dataclasses import asdict, dataclass, replace
 from datetime import UTC, datetime
 from itertools import pairwise
 from urllib.parse import urlsplit
@@ -419,6 +421,36 @@ def select_release_sections(
     )
 
 
+@dataclass(frozen=True)
+class TrialAcquisitionPolicy:
+    """Explicit experimental work policy, independent of provider/account quota.
+
+    Larger finite selections are available for controlled qualification; selecting
+    one here does not authorize a live run. Source/checker capability stays separate.
+    """
+
+    github_requests: int = 50
+    provider_requests: int = 100
+    response_bytes: int = 8 * 1024 * 1024
+    aggregate_bytes: int = 32 * 1024 * 1024
+    elapsed_seconds: float = 180.0
+    source_request_reserve: int = 24
+    target_file_attempts: int = 16
+    adapter_candidate_attempts: int = 2
+
+    def __post_init__(self):
+        ceilings = (200, 400, 8 * 1024 * 1024, 64 * 1024 * 1024, 300.0, 199, 200, 12)
+        for name, ceiling in zip(self.__dataclass_fields__, ceilings):
+            value = getattr(self, name)
+            types = (int, float) if name == "elapsed_seconds" else (int,)
+            if type(value) not in types or not 0 < value <= ceiling:
+                raise ValueError("Invalid acquisition policy: " + name)
+        if self.source_request_reserve >= self.github_requests:
+            raise ValueError("Source reservation must leave earlier GitHub work available.")
+        if self.provider_requests < self.github_requests:
+            raise ValueError("All-provider budget cannot be below the GitHub budget.")
+
+
 class TrialPublicSession(GitHubPublicSession):
     """Host-scoped transport; anonymous unless a token is explicitly supplied.
 
@@ -426,12 +458,63 @@ class TrialPublicSession(GitHubPublicSession):
     Rejected redirects are provider failures, never source absence or success.
     """
 
-    def __init__(self, *, token: str | None = None):
+    def __init__(self, *, token: str | None = None, policy: TrialAcquisitionPolicy | None = None,
+                 clock=time.monotonic):
         super().__init__()
         self.github_requests = 0
         self.request_limit_reached = False
         self._github_token = token
         self.auth_mode = "token-env" if token else "anonymous"
+        self.policy = policy
+        self._clock = clock
+        self._started = clock()
+        self._stage = "unscoped"
+        self._reserve = 0
+        self.provider_requests = 0
+        self.body_bytes = 0
+        self.receipts = []
+        self.stop_reasons = []
+
+    @contextmanager
+    def stage(self, name, *, reserve_github=0):
+        """Reserve later work without resetting shared counters or changing auth."""
+        previous = self._stage, self._reserve
+        if type(reserve_github) is not int or reserve_github < 0:
+            raise ValueError("Invalid stage reservation.")
+        self._stage, self._reserve = name, max(self._reserve, reserve_github)
+        try:
+            yield
+        finally:
+            self._stage, self._reserve = previous
+
+    def _refuse(self, reason):
+        marker = {"stage": self._stage, "reason": reason}
+        if marker not in self.stop_reasons:
+            self.stop_reasons.append(marker)
+        if reason == "trial_request_limit":
+            self.request_limit_reached = True
+        raise GitHubAcquisitionError("Experimental acquisition stopped: " + reason, reason=reason)
+
+    def _remaining_time(self):
+        remaining = self.policy.elapsed_seconds - (self._clock() - self._started)
+        if remaining <= 0:
+            self._refuse("trial_acquisition_deadline")
+        return remaining
+
+    def finish_acquisition(self):
+        """Reject an over-deadline acquisition even if its last read completed."""
+        if self.policy:
+            self._remaining_time()
+
+    def acquisition_receipt(self):
+        """Public-safe policy/cost data; never retain headers or credential values."""
+        if self.policy is None:
+            return None
+        return dict(format="trial-acquisition-policy/1", limits=asdict(self.policy), auth=self.auth_mode,
+                    github_requests=self.github_requests, provider_requests=self.provider_requests,
+                    decoded_body_bytes=self.body_bytes, elapsed_seconds=max(0, self._clock() - self._started),
+                    deadline_kind="cooperative_monotonic_checks_and_bounded_socket_timeouts",
+                    stops=list(self.stop_reasons), requests=[dict(r) for r in self.receipts])
 
     def request(self, method, url, **kwargs):
         parsed = urlsplit(url)
@@ -444,22 +527,68 @@ class TrialPublicSession(GitHubPublicSession):
             or parsed.port
         ):
             raise RequestException("Trial request outside admitted provider scope.")
-        if parsed.hostname == "api.github.com":
-            if self.github_requests >= 50:
+        github = parsed.hostname == "api.github.com"
+        maximum = self.policy.github_requests if self.policy else 50
+        if github:
+            if self.github_requests >= maximum:
                 self.request_limit_reached = True
-                raise GitHubAcquisitionError(
-                    "Trial GitHub request budget exhausted.",
-                    reason="trial_request_limit",
-                )
+                self._refuse("trial_request_limit")
+            if self.policy and self.github_requests >= maximum - self._reserve:
+                self._refuse("trial_stage_request_limit")
+        if self.policy:
+            remaining = self._remaining_time()
+            if self.provider_requests >= self.policy.provider_requests:
+                self._refuse("trial_provider_request_limit")
+            if self.body_bytes >= self.policy.aggregate_bytes:
+                self._refuse("trial_aggregate_body_limit")
+            timeout = kwargs.get("timeout", (3.05, 15.0))
+            timeout = timeout if isinstance(timeout, tuple) else (timeout, timeout)
+            kwargs["timeout"] = tuple(min(t or remaining, remaining) for t in timeout)
+            kwargs["stream"] = True
+        if github:
             self.github_requests += 1
         headers = dict(kwargs.get("headers", {}))
         if parsed.hostname == "api.github.com" and self._github_token:
             headers["Authorization"] = "Bearer " + self._github_token
-        elif parsed.hostname != "api.github.com":
+        elif self.policy or parsed.hostname != "api.github.com":
             headers.pop("Authorization", None)
         kwargs["headers"] = headers
         kwargs["allow_redirects"] = False
-        return super().request(method, url, **kwargs)
+        if self.policy is None:
+            return super().request(method, url, **kwargs)
+        self.provider_requests += 1
+        receipt = dict(stage=self._stage, host=parsed.hostname, path=parsed.path[:512],
+                       github_requests=self.github_requests, provider_requests=self.provider_requests,
+                       decoded_body_bytes=0, status=None, state="started", reason=None)
+        self.receipts.append(receipt)
+        response = None
+        try:
+            response = super().request(method, url, **kwargs)
+            receipt["status"] = response.status_code
+            body = bytearray()
+            for chunk in response.iter_content(chunk_size=8192):
+                self.body_bytes += len(chunk)
+                receipt["decoded_body_bytes"] += len(chunk)
+                self._remaining_time()
+                if receipt["decoded_body_bytes"] > self.policy.response_bytes:
+                    self._refuse("trial_response_body_limit")
+                if self.body_bytes > self.policy.aggregate_bytes:
+                    self._refuse("trial_aggregate_body_limit")
+                body.extend(chunk)
+            self._remaining_time()
+            # Requests' Response API then serves both json() and iter_content()
+            # from these bounded decoded bytes. Providers keep their stricter caps.
+            response._content = bytes(body)
+            response._content_consumed = True
+            receipt["state"] = "received"
+            return response
+        except Exception as exc:
+            receipt["state"] = "failed"
+            receipt["reason"] = getattr(exc, "reason", "transport_error")
+            raise
+        finally:
+            if response is not None:
+                response.close()
 
 
 class DeclaredReleaseWindowAcquirer:

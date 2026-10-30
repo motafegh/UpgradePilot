@@ -64,6 +64,7 @@ private behavior for a specific boundary without making it a supported runtime A
 
 | Owner | Supported experimental responsibility | Not supplied |
 | --- | --- | --- |
+| [acquisition policy/session](api_change_source_acquisition.py) | TrialAcquisitionPolicy, TrialPublicSession.stage/acquisition_receipt/finish_acquisition: explicit local transport work, reserved stages, decoded-body accounting and cooperative deadline | GitHub account quota, hard preemptive cancellation, useful complete coverage or permission for a live attempt |
 | [api_signature_evidence](api_signature_evidence.py) | AnalysisLimits; bounded IO/digest/text/span admission; fixed source/fact/comparison decoding; terminal/comparison/source projection; explicit method-source sets | Acquisition, call pairing, checking, attempt execution or product truth |
 | [api_call_signature](api_call_signature.py) | extract_python_source, compare_arguments and source/argument/signature records | Effective runtime dispatch, installed versions or whole-update compatibility |
 | [api_python_bindings](api_python_bindings.py) | analyze_python_bindings, facts/assessments/traces and their fixed representation | General interprocedural/object-flow resolution or condition activation |
@@ -96,6 +97,26 @@ adds the bounded module-allocation/getter/returned-class/call-protocol family at
 api_source_correspondence. Its source steps and constructor/attribute/branch/receiver
 premises remain conditional; no object is executed or generally typed. The ordinary
 reader admits both fixed versions and refuses protocol steps labelled as method1.
+
+Staged acquisition is opt-in through a shared TrialPublicSession(policy=TrialAcquisitionPolicy(...)).
+Legacy sessions retain local50 behavior. New policy defaults are50 GitHub/100 all-provider
+attempts,8MiB decoded response/32MiB aggregate,180s cooperative elapsed limit,24 GitHub
+requests reserved from early target/window stages,16 target file attempts and2 adapter
+candidate attempts. These are experimental work selections, not immutable product limits
+or GitHub/token quotas. Explicit finite qualification ceilings are200/400 requests,8/64MiB,
+300s,200 target files and12 adapter candidates. A larger selection is not live authorization.
+Source-run4-release/12-module/2MiB and checker limits remain separate.
+
+Inventory-first selection prioritizes declarations and PR-observed changed Python paths;
+direct native-version sources precede adapter samples. Internal closure prioritizes observed
+target names and acquired source call/base references; it remains a heuristic with visible
+unexamined alternatives. Policy receipts bind auth mode (never values), stages, attempted
+requests, decoded body bytes, status/failure and elapsed work. Response streaming is charged
+before provider JSON decoding; complete bounded bytes remain readable through Requests'
+normal Response API. Oversize/late/failed reads remain charged and close their responses.
+The deadline clamps socket timeouts and checks monotonic time before/after/chunk reads;
+it refuses late acceptance but is not a hard preemptive total-runtime cancellation guarantee.
+No policy or source-selection improvement establishes installation, dispatch or compatibility.
 
 Do not relocate modules/assets merely to group files: with_name lookups, subprocess
 module commands, frozen code lists and historical links are real compatibility costs.

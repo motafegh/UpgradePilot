@@ -39,7 +39,8 @@ from .api_signature_evidence import (
     signature_code_identity, admit_method_source_names, CURATED_HISTORICAL_SOURCES,
     SIGNATURE_SUPPORT_SOURCES, read_comparison_records, render_comparison, render_source,
 )
-from .api_change_source_acquisition import AcquisitionProblem
+from .api_change_source_acquisition import AcquisitionProblem, TrialAcquisitionPolicy
+from upgradepilot.github.api import GitHubAcquisitionError
 from .api_source_correspondence import (
     CORRESPONDENCE_VERSION, MAX_DISCOVERY_DEPTH, MAX_DISCOVERY_GAPS, MAX_PATH_STEPS,
     PythonSourceModule, absolute_import, discover_source_candidates, module_name,
@@ -81,6 +82,13 @@ def prepare_ordinary_inputs(trial, session, source_run):
     from .api_python_bindings import ImportFact
 
     scopes, files, modules, queue, seen, closure = {}, {}, [], [], set(), []
+    pending = []
+    interest = set()
+    for reference in trial.target.references:
+        origins = reference.binding.possible_imports if reference.binding else (reference.lexical_import,)
+        for origin in origins:
+            if origin:
+                interest.update(origin.split("."))
     omitted_target_files = []
     # Match the analysis worker's existing material ceiling before admitting text.
     limits = AnalysisLimits()
@@ -127,8 +135,8 @@ def prepare_ordinary_inputs(trial, session, source_run):
                 (d.package for d in sample.metadata.requirements), examined)
     for file in trial.target.files:
         add(file, "target", "", "", target_dependencies)
-    while queue:
-        examined, role = queue.pop(0)
+    def schedule(examined, role):
+        called = {r.expression.split(".")[0] for r in examined.references}
         for fact in examined.imports:
             if not isinstance(fact, ImportFact):
                 continue
@@ -150,15 +158,37 @@ def prepare_ordinary_inputs(trial, session, source_run):
                 seen.add(key)
                 request = PythonModuleSourceRequest(examined.request.package, examined.request.version,
                                                      spelling, role, fact)
-                outcome = source_run.examine(request)
-                closure.append(module_attempt_manifest(ChangedPackageModuleAttempt(request, outcome)))
-                if isinstance(outcome, ExaminedPythonModule):
-                    add(outcome.file, role, outcome.metadata.package, request.version,
-                        (d.package for d in outcome.metadata.requirements), outcome)
+                bound = fact.alias or fact.member or fact.module.split(".")[0]
+                priority = 0 if bound in interest else 1 if bound in called else 2
+                if bound in interest and fact.member:
+                    interest.add(fact.member)
+                pending.append((priority, len(seen), examined, role, request))
+
+    # This is source-selection order only, never an inferred binding/dispatch edge.
+    # Seed both native sides before processing a broad export module's imports.
+    with session.stage("source_closure"):
+        while queue or pending:
+            while queue:
+                schedule(*queue.pop(0))
+            if not pending:
+                break
+            pending.sort(key=lambda item: item[:2])
+            _, _, parent, role, request = pending.pop(0)
+            if len(closure) >= 256:
+                omitted_target_files.extend(dict(repository=parent.file.repository, revision=parent.file.revision,
+                    path=e.path, role=role, reason="closure_receipt_limit") for e in parent.inventory.entries
+                    if module_name(e.path) == request.module)
+                continue
+            outcome = source_run.examine(request)
+            closure.append(module_attempt_manifest(ChangedPackageModuleAttempt(request, outcome)))
+            if isinstance(outcome, ExaminedPythonModule):
+                add(outcome.file, role, outcome.metadata.package, request.version,
+                    (d.package for d in outcome.metadata.requirements), outcome)
     identity = trial.identity
     target = ExactInvestigationTarget(identity.repository, identity.number, identity.base_sha,
         identity.head_sha, dependency.normalized_package, dependency.old_version, dependency.proposed_version)
     catalog = RetainedSourceCatalog(tuple(scopes.values()), tuple(files.values()), target=target)
+    session.finish_acquisition()
     return catalog, tuple(modules), dict(
         native_inputs=asdict(trial.inputs), ordinary_acquisition=trial_manifest(trial, session),
         internal_module_requests=closure, source_work=asdict(source_run.work),
@@ -188,12 +218,17 @@ def acquire_ordinary_comparison_inputs(repository, number, *, session, adapters,
     target file paths, callable pairs, source versions or expected outcomes.
     Fresh live use awaits the separately selected allocation/execution contract.
     """
+    if session.policy and adapters.session is not session:
+        raise ValueError("Staged acquisition requires one shared adapter/transport session.")
     source_run = adapters.source_run()
     trial = acquire_public_pr_context(repository, number, session=session, adapters=adapters,
                                       source_run=source_run, **providers)
     if isinstance(trial, AcquisitionProblem):
         return trial
-    return prepare_ordinary_inputs(trial, session, source_run)
+    try:
+        return prepare_ordinary_inputs(trial, session, source_run)
+    except GitHubAcquisitionError as exc:
+        return AcquisitionProblem("ordinary_acquisition", exc.reason, str(exc), session.acquisition_receipt())
 
 
 def _read_modules(raw, catalog):
@@ -309,7 +344,10 @@ def _validate_acquisition(acquisition):
     ordinary = acquisition.get("ordinary_acquisition", {})
     if type(ordinary) is not dict:
         raise ValueError("Invalid ordinary acquisition receipt.")
-    target, changed, adapters = (ordinary.get(field, {}) for field in ("target", "changed_package_sources", "adapters"))
+    if "transport" in ordinary:
+        _validate_transport(ordinary["transport"])
+    target, changed = (ordinary.get(field, {}) for field in ("target", "changed_package_sources"))
+    adapters = ordinary.get("adapter_exploration", ordinary.get("adapters", {}))
     if any(type(item) is not dict for item in (target, changed, adapters)):
         raise ValueError("Invalid acquisition coverage record.")
     read_string_sequence(target.get("omitted_paths", []), maximum=20_000)
@@ -341,6 +379,63 @@ def _validate_acquisition(acquisition):
         item = object_fields(problem, ("stage", "reason", "detail"))
         for value in item.values():
             read_bounded_text(value, maximum=16_384)
+
+    omitted = adapters.get("omitted_candidates", [])
+    if type(omitted) is not list or len(omitted) > 20_000:
+        raise ValueError("Invalid omitted adapter candidates.")
+    for candidate in omitted:
+        if type(candidate) is not dict or type(candidate.get("declaration")) is not dict:
+            raise ValueError("Invalid omitted adapter candidate.")
+        read_bounded_text(candidate.get("imported_module"))
+        read_bounded_text(candidate["declaration"].get("package"))
+
+
+def _validate_transport(raw):
+    """Check saved accounting consistency; no credential/provider/clock access."""
+    value = object_fields(raw, ("format", "limits", "auth", "github_requests", "provider_requests",
+                                "decoded_body_bytes", "elapsed_seconds", "deadline_kind", "stops", "requests"))
+    if value["format"] != "trial-acquisition-policy/1" or value["auth"] not in {"anonymous", "token-env"}:
+        raise ValueError("Unsupported transport receipt.")
+    policy = TrialAcquisitionPolicy(**object_fields(value["limits"], tuple(TrialAcquisitionPolicy.__dataclass_fields__)))
+    for name in ("github_requests", "provider_requests", "decoded_body_bytes"):
+        if type(value[name]) is not int or value[name] < 0:
+            raise ValueError("Invalid transport work count.")
+    elapsed = value["elapsed_seconds"]
+    if type(elapsed) not in (int, float) or not 0 <= elapsed <= 86400:
+        raise ValueError("Invalid transport elapsed time.")
+    if value["deadline_kind"] != "cooperative_monotonic_checks_and_bounded_socket_timeouts":
+        raise ValueError("Unsupported acquisition deadline kind.")
+    requests = value["requests"]
+    if type(requests) is not list or len(requests) != value["provider_requests"] or len(requests) > policy.provider_requests:
+        raise ValueError("Transport request count mismatch.")
+    github = body = 0
+    for index, raw_event in enumerate(requests, 1):
+        event = object_fields(raw_event, ("stage", "host", "path", "github_requests", "provider_requests",
+                                         "decoded_body_bytes", "status", "state", "reason"))
+        if event["host"] not in {"api.github.com", "pypi.org"} or event["state"] not in {"started", "received", "failed"}:
+            raise ValueError("Invalid transport request state.")
+        github += event["host"] == "api.github.com"
+        count = event["decoded_body_bytes"]
+        if (type(count) is not int or count < 0 or type(event["github_requests"]) is not int
+            or event["github_requests"] != github or type(event["provider_requests"]) is not int
+            or event["provider_requests"] != index):
+            raise ValueError("Transport event accounting mismatch.")
+        body += count
+        if event["status"] is not None and (type(event["status"]) is not int or not 100 <= event["status"] <= 599):
+            raise ValueError("Invalid transport response status.")
+        for name in ("stage", "path"):
+            read_bounded_text(event[name], maximum=512)
+        if event["reason"] is not None:
+            read_bounded_text(event["reason"], maximum=128)
+        if event["state"] == "received" and count > policy.response_bytes:
+            raise ValueError("Over-limit body labelled received.")
+    if github != value["github_requests"] or github > policy.github_requests or body != value["decoded_body_bytes"]:
+        raise ValueError("Transport aggregate accounting mismatch.")
+    if type(value["stops"]) is not list or len(value["stops"]) > 64:
+        raise ValueError("Invalid transport stop records.")
+    for stop in value["stops"]:
+        for text in object_fields(stop, ("stage", "reason")).values():
+            read_bounded_text(text, maximum=128)
 
 
 def _validate_discovery(body, catalog, modules):
@@ -447,6 +542,16 @@ def render_ordinary_comparison(body):
     lines.append("Additional gap records omitted: " + str(body["discovery"]["gaps_omitted"]))
     acquisition = body["acquisition"]
     ordinary = acquisition.get("ordinary_acquisition", {})
+    if "transport" in ordinary:
+        transport = ordinary["transport"]
+        limits = transport["limits"]
+        lines.append("ACQUISITION WORK (local policy, independent of GitHub account quota)")
+        lines.append(f"Auth: {transport['auth']}; GitHub requests: {transport['github_requests']}/{limits['github_requests']}; "
+                     f"all-provider requests: {transport['provider_requests']}/{limits['provider_requests']}")
+        lines.append(f"Decoded response bytes: {transport['decoded_body_bytes']}/{limits['aggregate_bytes']}; "
+                     f"acquisition elapsed: {transport['elapsed_seconds']:.3f}/{limits['elapsed_seconds']}s (cooperative deadline)")
+        for stop in transport["stops"]:
+            lines.append("Acquisition stop: " + stop["stage"] + " | " + stop["reason"])
     for item in acquisition.get("material_omissions", ()):
         lines.append("Material omitted: " + item["role"] + " " + item["path"] + " | " + item["reason"])
     attempts = [*acquisition.get("internal_module_requests", ()),
@@ -461,7 +566,11 @@ def render_ordinary_comparison(body):
         lines.append("Target source unexamined: " + path)
     for name in ordinary.get("changed_package_sources", {}).get("unexamined_modules", ()):
         lines.append("Changed-package module unexamined: " + name)
-    for problem in ordinary.get("adapters", {}).get("problems", ()):
+    adapters = ordinary.get("adapter_exploration", ordinary.get("adapters", {}))
+    for candidate in adapters.get("omitted_candidates", ()):
+        lines.append("Adapter candidate unexamined: " + candidate["declaration"]["package"]
+                     + " " + candidate["imported_module"])
+    for problem in adapters.get("problems", ()):
         lines.append("Adapter source unavailable: " + problem["stage"] + "/" + problem["reason"] + " | " + problem["detail"])
     lines.append("No candidates does not establish no exposure. Next evidence: resolve the displayed path/version/coverage premises.")
     return render_terminal_lines(lines)

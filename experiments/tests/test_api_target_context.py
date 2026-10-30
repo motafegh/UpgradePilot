@@ -107,6 +107,21 @@ class InventoryTests(TestCase):
 
 
 class SyntaxTests(TestCase):
+    def test_declarations_and_observed_changed_python_precede_inventory_noise(self):
+        inventory, files = Mock(), Mock()
+        inventory.acquire.return_value = TargetInventory('owner/target', SHA, TREE,
+            tuple(InventoryEntry(path, 'blob', '100644') for path in
+                  ('a_noise.py', 'z_changed.py', 'requirements.txt', 'b_noise.py')), False)
+        files.get_exact_commit_text_file.side_effect = lambda repo, revision, path: file(
+            path, 'vendor==2.0\n' if path.endswith('.txt') else 'import vendor\nvendor.send()\n')
+        result = TargetContextAcquirer(inventory=inventory, files=files).acquire(
+            'owner/target', SHA, changed_paths=('z_changed.py',), max_file_attempts=2)
+        self.assertEqual([f.path for f in result.files], ['requirements.txt', 'z_changed.py'])
+        self.assertEqual(result.omitted_paths, ('a_noise.py', 'b_noise.py'))
+        self.assertEqual(len(result.candidates), 1)
+        self.assertTrue(any(g.reason == 'input_budget_exhausted' for g in result.gaps))
+        self.assertEqual(files.get_exact_commit_text_file.call_count, 2)
+
     def test_import_alias_direct_call_and_class_base(self):
         imports, refs, gaps = extract_python_facts(
             file(
