@@ -196,7 +196,7 @@
       "path": "experiments/api_source_correspondence.py",
       "family": "api_source",
       "maintenance": "maintained_development",
-      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "evidence": "plans/UPSTREAM_API_CHANGE_AND_TARGET_EXPOSURE_FEASIBILITY_PLAN.md",
       "roles": [
         "substrate"
       ]
@@ -835,7 +835,7 @@
       "path": "experiments/tests/test_api_source_correspondence.py",
       "family": "api_source",
       "maintenance": "maintained_development",
-      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "evidence": "plans/UPSTREAM_API_CHANGE_AND_TARGET_EXPOSURE_FEASIBILITY_PLAN.md",
       "roles": [
         "test"
       ]

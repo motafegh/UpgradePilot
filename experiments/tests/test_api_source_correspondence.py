@@ -200,7 +200,7 @@ class SourcePathTests(TestCase):
         self.assertTrue(all("effective_export_binding_not_established" in c["premises"] for c in discovery["candidates"]))
 
 
-def ordinary_control():
+def ordinary_control(*, protocol=False):
     """Actual ordinary entry; fake public provider domain records, HTTP forbidden."""
     from experiments.tests.test_api_adapter_exploration import ChainTests
     explorer = ChainTests().explorer()
@@ -215,13 +215,13 @@ def ordinary_control():
     def library_file(repo, sha, path):
         package = repo.split("/")[1]
         if package == "bridge":
-            content = "from mediator.testing import Client\n"
+            content = "from mediator.testing import FACTORY\n" if protocol else "from mediator.testing import Client\n"
         elif package == "mediator":
-            content = "import vendor\nclass Client(vendor.Base):\n def __init__(self, *, app=None):\n  super().__init__(app=app)\n"
+            content = "from vendor import FACTORY\n" if protocol else "import vendor\nclass Client(vendor.Base):\n def __init__(self, *, app=None):\n  super().__init__(app=app)\n"
         elif path.endswith("__init__.py"):
-            content = "from .implementation import Base\n"
+            content = "from .implementation import FACTORY\n" if protocol else "from .implementation import Base\n"
         else:
-            content = "class Base:\n def __init__(self" + (", *, app=None" if sha == "b" * 40 else "") + "):\n  pass\n"
+            content = factory_source("self, **kwargs" if sha == "b" * 40 else "self") if protocol else "class Base:\n def __init__(self" + (", *, app=None" if sha == "b" * 40 else "") + "):\n  pass\n"
         return RepositoryTextFile(repo, path, sha, content)
     explorer.files.get_exact_commit_text_file.side_effect = library_file
     identity = PullRequestIdentity("owner/target", 7, "Bump vendor", "open", False,
@@ -235,7 +235,8 @@ def ordinary_control():
         "@@ -1 +1 @@\n-vendor==1.0\n+vendor==2.0"),)
     files = Mock()
     files.get_exact_commit_text_file.side_effect = lambda repo, sha, path: RepositoryTextFile(repo, path, sha,
-        "from bridge.testing import Client as C\nC(app=1)\n" if path.endswith(".py") else "vendor==2.0\nbridge>=2\n")
+        ("from bridge.testing import FACTORY as F\nF.label(app=1)\n" if protocol else "from bridge.testing import Client as C\nC(app=1)\n")
+        if path.endswith(".py") else "vendor==2.0\nbridge>=2\n")
     inventory = Mock()
     inventory.acquire.return_value = TargetInventory("owner/target", SHA, "c" * 40,
         (InventoryEntry("unusual.py", "blob", "100644"), InventoryEntry("requirements.txt", "blob", "100644")), False)
@@ -389,5 +390,120 @@ class OrdinaryRetentionTests(TestCase):
         body = json.loads(result)
         body["acquisition"]["native_inputs"]["identity"]["head_sha"] = "c" * 40
         with self.assertRaisesRegex(ValueError, "observation/target mismatch"):
+            read_ordinary_comparison(json_bytes(body), companion)
+
+
+def factory_source(signature="self, *args, **kwargs", *, returns="return Decorator()", extra=""):
+    """Locally authored syntax, not a pytest-name or known-callable mapping."""
+    return ("class Decorator:\n def __call__(" + signature + "):\n  pass\n"
+            "class Generator:\n def __getattr__(self, name):\n  " + returns.replace("\n", "\n  ") + "\n"
+            "FACTORY = Generator()\n" + extra)
+
+
+class FactorySourceTests(TestCase):
+    def test_ordinary_pr_entry_retains_protocol_sources_and_worker_opens_offline(self):
+        (catalog, modules, acquisition), pulls, _ = ordinary_control(protocol=True)
+        data = encode_ordinary_inputs(catalog, modules, acquisition, proof_class="controlled_ordinary_pr_composition")
+        with TemporaryDirectory() as tmp:
+            directory = Path(tmp) / "protocol"
+            attempt = run_ordinary_comparison(data, directory)
+            self.assertEqual(attempt["state"], "completed", attempt)
+            with patch("ast.parse", side_effect=AssertionError("AST forbidden")), \
+                 patch("requests.sessions.Session.request", side_effect=AssertionError("HTTP forbidden")), \
+                 patch("experiments.api_source_correspondence.discover_source_candidates", side_effect=AssertionError("discovery forbidden")):
+                body, retained = open_ordinary_comparison(directory)
+            outcomes = {c["callee_role"]["role"]: p["comparison"]["outcome"]
+                        for c, p in zip(body["discovery"]["candidates"], body["pairs"])}
+            self.assertEqual(outcomes, {"native_old_version": "bound", "native_proposed_version": "rejected"})
+            self.assertEqual(pulls.get_pull_request_observation.call_count, 1)
+            self.assertEqual(pulls.get_pull_request.call_count, 0)
+            self.assertEqual(body["acquisition"]["source_work"]["module_attempts"], 6)
+            self.assertTrue(any(f.path.endswith("implementation.py") for f in retained.files))
+
+    def test_allocation_getter_return_call_protocol_reaches_old_and_proposed(self):
+        data = prepared("from vendor import FACTORY as marks\nmarks.label(1, ids=lambda x: x)\n",
+                        factory_source(), factory_source("self, value"))
+        result, companion = prepare_ordinary_comparison(data, AnalysisLimits())
+        body, _ = read_ordinary_comparison(result, companion)
+        self.assertEqual(body["correspondence_version"], 2)
+        outcomes = {c["callee_role"]["role"]: p["comparison"]["outcome"]
+                    for c, p in zip(body["discovery"]["candidates"], body["pairs"])}
+        self.assertEqual(outcomes, {"native_old_version": "bound", "native_proposed_version": "rejected"})
+        for c, p in zip(body["discovery"]["candidates"], body["pairs"]):
+            operations = [s["operation"] for s in c["steps"]]
+            for required in ("allocation", "attribute_getter", "factory_return", "call_protocol"):
+                self.assertIn(required, operations)
+            self.assertEqual(p["comparison"]["receiver_mode"], "one_receiver_assumed")
+            self.assertIn("factory_constructor_arguments_not_checked", c["premises"])
+        view = render_ordinary_comparison(body)
+        self.assertIn("factory_return", view)
+        self.assertIn("attribute_lookup_and_getattr_activation_not_established", view)
+
+    def test_renamed_annotated_allocation_and_relative_class_reexports_are_generic(self):
+        caller = "from vendor import gateway\ngateway.operation(ids=[1])\n"
+        root = "from .factory import Maker as Build\ngateway: object = Build()\n"
+        other = "from .payload import Action\nclass Maker:\n def __getattr__(self, name):\n  return Action()\n"
+        catalog, modules = source_inputs(caller, root, root, additional=tuple(
+            (sid, path, text, role, "vendor", version, ())
+            for sid, role, version in (("old", "native_old_version", "1.0"), ("new", "native_proposed_version", "2.0"))
+            for path, text in (("vendor/factory.py", other), ("vendor/payload.py", "class Action:\n def __call__(self, **kwargs):\n  pass\n"))))
+        discovery, pairs, _ = discover_source_candidates(catalog, modules, AnalysisLimits())
+        self.assertEqual(len(pairs), 2)
+        self.assertTrue(all(p["comparison"]["keyword_reception"][0]["outcome"] == "variadic_keyword" for p in pairs))
+        self.assertTrue(all(any(s["operation"] == "reexport" for s in c["steps"]) for c in discovery["candidates"]))
+
+    def test_getter_return_alternatives_keep_supported_and_unsupported_branches(self):
+        source = factory_source(returns="if enabled:\n return Decorator()\nreturn unknown_value")
+        result, companion = prepare_ordinary_comparison(prepared("from vendor import FACTORY\nFACTORY.label(ids=[])\n", source, source), AnalysisLimits())
+        body, _ = read_ordinary_comparison(result, companion)
+        self.assertEqual(len(body["pairs"]), 2)
+        self.assertTrue(any(g["reason"] == "factory_return_expression_unsupported" for g in body["discovery"]["gaps"]))
+        self.assertTrue(all("execution_reaches_factory_return_and_branch" in c["premises"] for c in body["discovery"]["candidates"]))
+
+    def test_overloads_and_competing_allocations_are_not_first_match_selection(self):
+        source = factory_source().replace(" def __call__(self, *args, **kwargs):",
+            " @overload\n def __call__(self, item):\n  ...\n def __call__(self, *args, **kwargs):")
+        source += "if flag:\n FACTORY = Generator()\n"
+        catalog, modules = source_inputs("from vendor import FACTORY\nFACTORY.label(1, ids=[])\n", source, source)
+        discovery, pairs, _ = discover_source_candidates(catalog, modules, AnalysisLimits())
+        self.assertEqual(len(pairs), 8)
+        self.assertEqual({p["comparison"]["outcome"] for p in pairs}, {"bound", "rejected"})
+        self.assertEqual(len({(c["signature_id"], c["callee_role"]["role"]) for c in discovery["candidates"]}), 4)
+
+    def test_unsupported_factories_missing_protocol_and_nested_return_remain_gaps(self):
+        for source, reason in (
+            (factory_source(returns="value = Decorator()\nreturn value"), "factory_return_expression_unsupported"),
+            (factory_source().replace("__call__", "other"), "inherited_or_missing_protocol_method"),
+            (factory_source(returns="def hidden():\n return Decorator()\nraise Exception()"), "factory_getter_has_no_supported_return"),
+            ("def create():\n return object()\nFACTORY = create()\n", "allocated_class_getter_unavailable"),
+        ):
+            with self.subTest(reason=reason):
+                discovery, pairs, _ = discover_source_candidates(*source_inputs(
+                    "from vendor import FACTORY\nFACTORY.label(ids=[])\n", source, source), AnalysisLimits())
+                self.assertEqual(pairs, [])
+                self.assertIn(reason, {g["reason"] for g in discovery["gaps"]})
+
+    def test_protocol_paths_respect_caps_and_retain_export_mutation_limits(self):
+        source = factory_source(extra="FACTORY = replacement\ndel FACTORY\n")
+        catalog, modules = source_inputs("from vendor import FACTORY\nFACTORY.label(ids=[])\n", source, source)
+        discovery, pairs, _ = discover_source_candidates(catalog, modules, AnalysisLimits(max_pairs=1))
+        self.assertEqual(len(pairs), 1)
+        self.assertIn("comparison_candidate_limit", {g["reason"] for g in discovery["gaps"]})
+        self.assertIn("export_write_or_deletion_not_resolved", {g["reason"] for g in discovery["gaps"]})
+        limited, pairs, _ = discover_source_candidates(catalog, modules, AnalysisLimits(), max_path_steps=4)
+        self.assertEqual(pairs, [])
+        self.assertIn("source_path_limit", {g["reason"] for g in limited["gaps"]})
+
+    def test_protocol_method1_downgrade_and_source_text_tampering_refuse(self):
+        result, companion = prepare_ordinary_comparison(prepared("from vendor import FACTORY\nFACTORY.label(ids=[])\n",
+            factory_source(), factory_source()), AnalysisLimits())
+        body, _ = read_ordinary_comparison(result, companion)
+        body["correspondence_version"] = 1
+        with self.assertRaisesRegex(ValueError, "Foreign source path step"):
+            read_ordinary_comparison(json_bytes(body), companion)
+        body = json.loads(result)
+        step = next(s for s in body["discovery"]["candidates"][0]["steps"] if s["operation"] == "factory_return")
+        step["expression"] = "return unrelated()"
+        with self.assertRaisesRegex(ValueError, "text/span mismatch"):
             read_ordinary_comparison(json_bytes(body), companion)
 

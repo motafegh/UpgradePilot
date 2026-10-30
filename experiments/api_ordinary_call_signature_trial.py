@@ -271,7 +271,7 @@ def read_ordinary_comparison(result, companion):
         "correspondence_version", "modules", "discovery", "acquisition",
     ))
     if (body["format"] != FORMAT or type(body["method_version"]) is not int or body["method_version"] != METHOD_VERSION
-        or type(body["correspondence_version"]) is not int or body["correspondence_version"] != CORRESPONDENCE_VERSION
+        or type(body["correspondence_version"]) is not int or body["correspondence_version"] not in {1, CORRESPONDENCE_VERSION}
         or body["proof_class"] not in PROOF_CLASSES):
         raise ValueError("Unsupported ordinary format/method/proof.")
     source_names = admit_method_source_names(body["code_sha256"],
@@ -361,6 +361,9 @@ def _validate_discovery(body, catalog, modules):
     module_by_key = {(m.source_id, m.path): asdict(m) for m in modules}
     if type(discovery["candidates"]) is not list or len(discovery["candidates"]) != len(body["pairs"]):
         raise ValueError("Candidate/comparison closure mismatch.")
+    step_operations = {"call", "import_origin", "reexport", "declaration", "class_declaration", "initializer", "declared_base"}
+    if body["correspondence_version"] == 2:
+        step_operations |= {"allocation", "attribute_getter", "factory_return", "call_protocol"}
     for candidate, pair in zip(discovery["candidates"], body["pairs"]):
         c = object_fields(candidate, ("id", "root_call_id", "call_id", "signature_id", "receiver_mode",
                                       "steps", "premises", "callee_role"))
@@ -383,7 +386,7 @@ def _validate_discovery(body, catalog, modules):
             raise ValueError("Invalid source path capacity.")
         for step in c["steps"]:
             s = object_fields(step, ("unit_id", "span", "operation", "expression"))
-            if s["unit_id"] not in texts or s["operation"] not in {"call", "import_origin", "reexport", "declaration", "class_declaration", "initializer", "declared_base"}:
+            if s["unit_id"] not in texts or s["operation"] not in step_operations:
                 raise ValueError("Foreign source path step.")
             read_source_span(s["span"], texts[s["unit_id"]])
             read_bounded_text(s["expression"], maximum=4 * 1024 * 1024)

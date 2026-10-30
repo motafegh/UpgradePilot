@@ -91,6 +91,12 @@ include api_signature_evidence.py. These fixed variants do not admit arbitrary m
 or extra method sources. The runner/module paths and old format/proof classes remain
 stable; method values in historical results are never silently refreshed.
 
+Correspondence method1 retains direct/re-export/initializer source paths. Method2
+adds the bounded module-allocation/getter/returned-class/call-protocol family at
+api_source_correspondence. Its source steps and constructor/attribute/branch/receiver
+premises remain conditional; no object is executed or generally typed. The ordinary
+reader admits both fixed versions and refuses protocol steps labelled as method1.
+
 Do not relocate modules/assets merely to group files: with_name lookups, subprocess
 module commands, frozen code lists and historical links are real compatibility costs.
 No generic common framework or src promotion follows from this organization model.

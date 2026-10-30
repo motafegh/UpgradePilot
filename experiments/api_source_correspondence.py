@@ -7,8 +7,9 @@ It does not solve effective module exports, namespace installation, decorators,
 MRO, execution or runtime dispatch. Every declaration path retains those premises.
 
 Acquisition and intra-repository source closure belong to the ordinary driver;
-this operation is offline and runs inside that driver's bounded worker. Factory
-values, protocol lookup and arbitrary data flow are intentionally not implemented.
+this operation is offline and runs inside that driver's bounded worker. The limited
+module-allocation -> attribute-getter -> returned-class -> call-protocol pattern
+adds conditional source candidates only; arbitrary object/value flow stays outside.
 """
 
 from __future__ import annotations
@@ -20,7 +21,7 @@ from .api_call_signature import (
     AnalysisLimit, SourceSpan, compare_arguments, extract_python_source, fact_identity,
 )
 
-CORRESPONDENCE_VERSION = 1
+CORRESPONDENCE_VERSION = 2
 MAX_PATH_STEPS = 32
 MAX_DISCOVERY_DEPTH = 8
 MAX_DISCOVERY_GAPS = 256
@@ -101,6 +102,25 @@ def _body_calls(body):
             yield from visit(child)
     for statement in body:
         yield from visit(statement)
+
+
+def _factory_returns(body):
+    """Observe every lexical return alternative, never nested callbacks or values."""
+    for node in body:
+        if isinstance(node, ast.Return):
+            yield node
+        elif not isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef, ast.Lambda)):
+            yield from _factory_returns(ast.iter_child_nodes(node))
+
+
+def _class_spelling(node):
+    """A source name/attribute spelling; calls/subscripts are not type evidence."""
+    if isinstance(node, ast.Name):
+        return node.id
+    if isinstance(node, ast.Attribute):
+        parent = _class_spelling(node.value)
+        return parent + "." + node.attr if parent else None
+    return None
 
 
 class _SourceCandidates:
@@ -252,11 +272,66 @@ class _SourceCandidates:
                 targets = getattr(node, "targets", [getattr(node, "target", None)])
                 if any(isinstance(child, ast.Name) and child.id == name
                        for target in targets if target is not None for child in ast.walk(target)):
-                    self.gap("export_write_or_deletion_not_resolved", unit, SourceSpan.of(node), name)
+                    if (tail and isinstance(node, (ast.Assign, ast.AnnAssign))
+                        and len(targets) == 1 and isinstance(targets[0], ast.Name)
+                        and isinstance(node.value, ast.Call)):
+                        found = True
+                        yield from self.allocated_callable(unit, node, tail, path, premises, visited)
+                    else:
+                        self.gap("export_write_or_deletion_not_resolved", unit, SourceSpan.of(node), name)
         if definitions > 1:
             self.gap("multiple_declared_definitions_retained", unit, detail=name)
         if not found:
             self.gap("named_declaration_or_reexport_not_found", unit, detail=".".join(names))
+
+    def class_protocol(self, unit, expression, method, path, premises, visited):
+        """Reuse the same name/re-export resolver, without propagating object types."""
+        spelling = _class_spelling(expression)
+        if not spelling or not unit["module"].module:
+            self.gap("factory_class_expression_unsupported", unit, SourceSpan.of(expression))
+            return
+        origin = unit["module"].module + "." + spelling + "." + method
+        yield from self.resolve(unit, origin, path, premises, visited)
+
+    def allocated_callable(self, unit, allocation, tail, path, premises, visited):
+        """Inspect one syntax-backed allocation/getter/return/call chain.
+
+        Constructor arguments, getter branch activation, attribute lookup and the
+        returned instance are premises, not values computed here. Each declaration
+        and return keeps its own source path; unsupported returns remain gaps even
+        when another branch supplies a candidate. The outer call's arguments are
+        compared with __call__, never with the allocator/getter constructors.
+        """
+        if len(tail) != 1 or tail[0] in {"__getattr__", "__call__", "__init__"}:
+            self.gap("factory_attribute_chain_unsupported", unit, SourceSpan.of(allocation), ".".join(tail))
+            return
+        conditions = (*premises, "module_allocation_binding_and_constructor_success_not_established",
+                      "attribute_lookup_and_getattr_activation_not_established",
+                      "factory_constructor_arguments_not_checked")
+        path = (*path, self.step(unit, allocation, "allocation"))
+        getters = self.class_protocol(unit, allocation.value.func, "__getattr__", path, conditions, visited)
+        found = False
+        for getter_unit, getter, _, steps, conditions, _ in getters:
+            found = True
+            returns = tuple(_factory_returns(getter.body))
+            if not returns:
+                self.gap("factory_getter_has_no_supported_return", getter_unit, SourceSpan.of(getter))
+            for returned in returns:
+                if not isinstance(returned.value, ast.Call):
+                    self.gap("factory_return_expression_unsupported", getter_unit, SourceSpan.of(returned))
+                    continue
+                return_path = (*steps, self.step(getter_unit, returned, "factory_return"))
+                return_conditions = (*conditions, "execution_reaches_factory_return_and_branch",
+                                     "factory_returns_selected_declared_class_instance")
+                emitted = False
+                for candidate in self.class_protocol(getter_unit, returned.value.func, "__call__",
+                                                      return_path, return_conditions, visited):
+                    emitted = True
+                    yield (*candidate[:-1], "one_receiver_assumed")
+                if not emitted:
+                    self.gap("factory_returned_call_protocol_unavailable", getter_unit, SourceSpan.of(returned))
+        if not found:
+            self.gap("allocated_class_getter_unavailable", unit, SourceSpan.of(allocation))
 
     def declaration(self, unit, node, tail, path, premises, visited):
         step = self.step(unit, node, "class_declaration" if isinstance(node, ast.ClassDef) else "declaration")
@@ -265,6 +340,18 @@ class _SourceCandidates:
             self.gap("source_path_limit", unit, SourceSpan.of(node))
             return
         if isinstance(node, ast.ClassDef):
+            if tail in (["__getattr__"], ["__call__"]):
+                method_name = tail[0]
+                methods = [n for n in _declarations(node.body)
+                           if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef)) and n.name == method_name]
+                if not methods:
+                    self.gap("inherited_or_missing_protocol_method", unit, SourceSpan.of(node), method_name)
+                for method in methods:
+                    operation = "attribute_getter" if method_name == "__getattr__" else "call_protocol"
+                    yield unit, method, node, (*path, self.step(unit, method, operation)), (
+                        *premises, "effective_protocol_method_and_receiver_binding_not_established",
+                    ), "as_written"
+                return
             if tail and tail != ["__init__"]:
                 self.gap("class_member_or_protocol_unsupported", unit, SourceSpan.of(node), ".".join(tail))
                 return

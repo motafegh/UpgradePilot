@@ -34,3 +34,11 @@ Proof route: controlled/renamed module/object/getter/returned-class cases includ
 Source syntax allocation versus runtime object; __getattr__ activation versus observed return; returned class versus __call__ receiver; overload alternatives versus effective callable; syntax inspection versus arbitrary execution; method/version preservation and source closure; controlled normal-entry proof versus new retained real-text discovery versus later live/product gates.
 
 Procedures: UP-SKILL:upgradepilot-build-implement; UP-SKILL:upgradepilot-learning-by-doing; UP-SKILL:upgradepilot-working-memory. Existing naming/source-clarity, JUST retention, Security and role/dependency rules remain controlling.
+
+## First implementation/proof checkpoint
+
+The existing correspondence owner now follows module allocation→own class getter→direct returned-class call→own call protocol through its existing qualified name/re-export resolver. New literal allocation/getter/return/protocol steps and constructibility/attribute/branch/receiver premises are retained. Name/relative imports, renamed classes, annotated allocations, repeated overloads/allocations, unsupported return branches and export writes remain distinguishable. No general object-flow propagation or package-specific lookup was introduced.
+
+Correspondence method2 adds four step operations; fixed decoding continues to accept method1 with ONLY its original operation set. Changing a protocol bundle's declared version to1 or altering retained return text refuses. The checker/binder/shared evidence support/source acquirer stay unchanged. Eight new protocol controls plus all prior API checks pass:214 tests/2.550s. Actual ordinary controlled repo/PR route discovers two factory comparisons (old keyword accepted/proposed rejected), uses one observation/no identity refetch and6 shared module questions; bounded worker and AST/network/discovery-forbidden opening pass. No new artifact/module or boundary exception is required;131-artifact dependency check remains green.
+
+Next: one separately labelled retained real-text discovery successor, stronger boundary review, immutable compatibility and broader no-new-regression proof. This checkpoint does not claim the retained real case or live route already passed.
