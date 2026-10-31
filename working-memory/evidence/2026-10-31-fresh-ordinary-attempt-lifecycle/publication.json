@@ -1,0 +1,13 @@
+{
+  "source_revision": "e6691d558333626a69c5aaa408a1378dd2d437ce",
+  "evidence_revision": "06f3104772e42c8e7e92c812587ff42ad4c53057",
+  "verification_sha256": "f48746e01ddfef677b847c02e0a26f24e7d4db659eccc4101e0db99b80043a12",
+  "code_and_document_whitespace_check": "passed",
+  "raw_log_whitespace": {
+    "file": "config-binding-before.txt",
+    "line": 1,
+    "disposition": "retain exact captured unittest verbose output; single trailing space is not executable/document whitespace debt"
+  },
+  "all_recorded_artifact_hashes_verified": true,
+  "live_activation": false
+}
