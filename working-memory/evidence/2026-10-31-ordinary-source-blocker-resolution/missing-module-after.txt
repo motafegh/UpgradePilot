@@ -1,0 +1,6 @@
+test_missing_wildcard_module_is_not_reinterpreted_through_parent_package (experiments.tests.test_api_source_correspondence.SourcePathTests.test_missing_wildcard_module_is_not_reinterpreted_through_parent_package) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.004s
+
+OK

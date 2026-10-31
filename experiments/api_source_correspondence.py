@@ -187,7 +187,7 @@ class _SourceCandidates:
             self.gap("original_import_step_unavailable", unit, detail=origin)
             yield path
 
-    def resolve(self, unit, origin, path, premises, visited=()):
+    def resolve(self, unit, origin, path, premises, visited=(), *, required_module=None):
         """Follow source syntax alternatives, retaining role/version and full ancestry."""
         self.work_states += 1
         if self.work_states > 4096:
@@ -211,6 +211,12 @@ class _SourceCandidates:
             premises = (*premises, "local_and_external_namespace_candidates")
         found = False
         for source_id in sorted(groups):
+            if required_module is not None and (source_id, required_module) not in self.by_module:
+                # Import syntax names a module boundary. Missing captured text
+                # cannot be recovered by recursively treating that module name
+                # as another attribute exported by its parent package.
+                self.gap("imported_source_module_unavailable_or_unsupported", unit, detail=required_module)
+                continue
             matches = [(name, ids) for (sid, name), ids in self.by_module.items()
                        if sid == source_id and origin.startswith(name + ".")]
             if not matches:
@@ -271,7 +277,7 @@ class _SourceCandidates:
                     if star:
                         next_premises += ("star_export_membership_not_established",)
                     yield from self.resolve(unit, origin, (*path, self.step(unit, node, "reexport")),
-                                            next_premises, visited)
+                                            next_premises, visited, required_module=absolute)
             elif isinstance(node, (ast.Assign, ast.AnnAssign, ast.AugAssign, ast.Delete)):
                 targets = getattr(node, "targets", [getattr(node, "target", None)])
                 if any(isinstance(child, ast.Name) and child.id == name

@@ -19,3 +19,9 @@ Discriminating renamed fixture: type-checking/try newer backend with nested fall
 ## S004 exposed correction
 
 Native-first paired closure alone is insufficient when a pending module's weak first wildcard observation permanently fixes its score. Later direct import/call evidence must monotonically improve the still-pending question's priority. Compute new priority before the seen check; update only an existing pending question for the same package/version/module/role. Already examined questions stay cached/not retried. Keep source provenance/path admission and all limits unchanged. Discriminate with renamed native wildcard exports plus a later acquired forwarding module and competing irrelevant modules; both native defining modules must survive at12 questions. This is a defect repair to the current scheduling intention, rather than a new capability or budget increase.
+
+## Retained missing-module traversal defect
+
+S004's expanded source traversal also exposes4155 counted states (4096 admitted plus refusal checks) and7174 omitted gap records. A literal `from .missing import *` currently reinterprets an unavailable exact module as attributes of its captured parent package, recursively appending missing prefixes through further wildcards. This is not useful conditional module evidence and can starve another native side.
+
+Preserve the explicit module boundary from each observed import/re-export when calling the existing resolver. If that required module is not retained for a source group, record missing/unsupported module once and do not reinterpret it through the parent package. Keep genuine captured re-export/cycle/namespace alternatives; do not raise work/depth/gap caps or claim missing source proves module absence. Add a missing-wildcard fixture discriminating bounded missing-source refusal from artificial prefix recursion before freezing S005.

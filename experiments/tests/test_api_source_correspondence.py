@@ -65,6 +65,17 @@ def prepared(*args, **kwargs):
 
 
 class SourcePathTests(TestCase):
+    def test_missing_wildcard_module_is_not_reinterpreted_through_parent_package(self):
+        data = prepared("from vendor import Target\nTarget()\n",
+            "from .missing_a import *\nfrom .missing_b import *\nfrom .missing_c import *\n",
+            "from .missing_a import *\nfrom .missing_b import *\nfrom .missing_c import *\n")
+        result, companion = prepare_ordinary_comparison(data, AnalysisLimits())
+        body, _ = read_ordinary_comparison(result, companion)
+        self.assertEqual(body["pairs"], [])
+        self.assertLessEqual(body["discovery"]["states_examined"], 10)
+        self.assertEqual(body["discovery"]["gaps_omitted"], 0)
+        self.assertNotIn("source_relationship_depth_limit", {gap["reason"] for gap in body["discovery"]["gaps"]})
+
     def fallback_base_capture(self, *, after="", inside=""):
         facade = ("if TYPE_CHECKING:\n import newer as backend\nelse:\n try:\n  import newer as backend\n"
             " except ModuleNotFoundError:\n  try:\n   import vendor as backend\n" + inside +
