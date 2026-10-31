@@ -22,3 +22,9 @@ Ali explicitly continued after the [final inspection handoff](2026-10-31_first-f
 Smart Situational Override: compress repeated A1/A2 questions in this continuous context because Ali has just selected the reviewed execution. Preserve exact current-method/unused-destination checks, bounded acquisition, failure retention and no-retry boundary. This does not establish learner mastery, change frozen evidence or authorize any wider work.
 
 Living orientation map: actual auth/provider/source result versus controlled qualification; original observation versus changed-file coherence reread; source candidate/comparison scope versus runtime/compatibility; procedural completion versus useful/partial/insufficient evidence; correct classified unsupported/refusal versus demonstrated owner defect. Acceptance is an honest retained outcome and inspection, not forcing a successful comparison.
+
+## Activation preparation
+
+Fetch left current main's method unchanged; the newly visible remote learning/current-ownership-roadmap-2026-10-31 branch was not merged or treated as main authority. Execution snapshot/contract digests and106-source/runtime admission match. Created exactly2 missing private parent directories with0700; final attempt-01 remained absent. No credential or provider preflight occurred. [Preparation receipt](evidence/2026-10-31-first-fresh-ordinary-pr-live-attempt/preparation.json) records the scoped checks and local setup.
+
+Invoked the normal `run_fresh_ordinary_pr_attempt` once with unchanged contract/snapshot and activate_live=True, using process-local removal of ambient GITHUB_TOKEN/proxy variables. The runner owns immutable start, explicit real credential file access, provider/source work, worker and terminal retention. Do not invoke it again after any outcome or edit frozen evidence/method to make this same attempt pass.

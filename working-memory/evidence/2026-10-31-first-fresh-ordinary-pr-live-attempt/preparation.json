@@ -1,0 +1,25 @@
+{
+  "activation_preparation_revision": "499551f5aaee59aa3b80a74763f562f97d3a5063",
+  "authorization": "Ali: Go on then, following concrete final-freeze inspection handoff",
+  "automatic_retry": false,
+  "bound_sources": 106,
+  "contract_sha256": "add8d5944a248aae71001e41684ce693493d96bec69035aa48483b698eafb0d4",
+  "created_parent_directories": [
+    "/home/motafeq/.local/share/upgradepilot/ordinary-pr-acquisition",
+    "/home/motafeq/.local/share/upgradepilot/ordinary-pr-acquisition/httpx-pr20-2026-10-30"
+  ],
+  "entry_revision": "38988a39",
+  "execution_freeze_sha256": "aa23488338c8e0b74b0c07764998af144a3be107cd86210f631819ab1529d9dc",
+  "format": "ordinary-pr-live-activation-preparation/1",
+  "invocation": {
+    "expected_base": "b065646e4b7b894964567950f9ad770b02c136c2",
+    "expected_head": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+    "pull_number": 20,
+    "repository": "Aidan-Wallace/kubernetes-dashboard-token-api"
+  },
+  "official_attempt_directory_exists": false,
+  "parent_mode": "0700",
+  "provider_calls": 0,
+  "qualified_identity_matches": true,
+  "trial_credential_inspected": false
+}
