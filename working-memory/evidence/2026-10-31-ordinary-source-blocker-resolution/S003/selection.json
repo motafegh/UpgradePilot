@@ -1,0 +1,8 @@
+{
+  "method_revision": "4fc26a8a5ee9d23e690f710f290aac24d6aca19f",
+  "contract_sha256": "eebcc72c8a3629c279843a2826c4945f1524d65b5e24d449e70ae0f0b91892f5",
+  "execution_freeze_sha256": "55b6a7bc03d2803e9a52ac87c7439b1c1db176a9c670ea2782e31483bf5cbb06",
+  "only_limit_change": "adapter candidate work 2 -> 4; shared requests/releases/modules/source/analysis unchanged",
+  "qualification": "244 API and7 architecture pass; full638 same historical1 failure/25 errors/11 skips;13 prior bundles cold-open",
+  "fresh_acquisition_no_diagnostic_or_historical_source_substitution": true
+}
