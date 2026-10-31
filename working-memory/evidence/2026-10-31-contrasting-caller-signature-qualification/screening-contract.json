@@ -1,0 +1,35 @@
+{
+  "responsibility": "contrasting direct-dependency ordinary acquisition qualification",
+  "authorization": "Ali finalized the reviewed plan and asked to get into it; first responsibility activated",
+  "mode": "public read-only metadata screening; no comparison outcome inspection",
+  "repositories_in_priority_order": [
+    "psf/requests",
+    "pypa/twine",
+    "beetbox/beets"
+  ],
+  "changed_dependency_preference": [
+    "urllib3",
+    "requests"
+  ],
+  "queries": [
+    "repo:psf/requests is:pr author:app/dependabot urllib3",
+    "repo:pypa/twine is:pr author:app/dependabot requests",
+    "repo:beetbox/beets is:pr author:app/dependabot requests"
+  ],
+  "screening_ceiling": {
+    "connector_calls": 10,
+    "active_minutes": 20,
+    "candidates_per_query": 3
+  },
+  "selection": "first priority repository with an eligible public Python Dependabot exact single-dependency PR; newest PR number among eligible candidates; no comparison-outcome criterion",
+  "eligibility": [
+    "different changed dependency from HTTPX",
+    "supported ordinary Python dependency declaration expected",
+    "plausible direct use; metadata/source-form inspection only",
+    "not used for method development; known comparison outcomes exclude untouched gate"
+  ],
+  "rejections_recorded": true,
+  "no_automatic_pool_expansion": true,
+  "method": "unchanged qualified ordinary producer71896aba; current source hashes frozen at attempt selection",
+  "no_model_target_execution_or_provider_write": true
+}

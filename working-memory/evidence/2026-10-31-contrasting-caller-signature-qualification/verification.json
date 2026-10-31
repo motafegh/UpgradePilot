@@ -1,0 +1,11 @@
+{
+  "proof_class": "screening process/refusal preservation only",
+  "screening_calls": 4,
+  "acquisition_attempts": 0,
+  "case_selected": false,
+  "transfer_qualified": false,
+  "protected_source_tests_experiments_architecture_specifications_simulation_unchanged": true,
+  "method_freeze_unchanged": true,
+  "provider_retry": false,
+  "runtime_tests_run": false
+}

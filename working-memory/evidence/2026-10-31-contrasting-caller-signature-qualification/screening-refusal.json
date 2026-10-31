@@ -1,0 +1,24 @@
+{
+  "stage": "metadata_screening",
+  "state": "provider_refused",
+  "status": 403,
+  "reason": "secondary_rate_limit",
+  "connector_calls": 4,
+  "last_query": "repo:psf/requests is:pr author:app/dependabot urllib3 in:title",
+  "last_request_id": "DAF8:174E:98A90C:E4568C:6AE62694",
+  "remaining_queries_not_dispatched": [
+    "repo:pypa/twine is:pr author:app/dependabot requests in:title"
+  ],
+  "automatic_retry": false,
+  "credential_switch": false,
+  "acquisition_attempts": 0,
+  "selected_case": null,
+  "comparison_outcomes_inspected": false,
+  "source_method_modified": false,
+  "unknowns": [
+    "connector underlying credential/quota state",
+    "rate-limit expiry; no Retry-After exposed"
+  ],
+  "resume": "after provider refusal clears, explicitly resume recorded refined metadata queries within remaining six-call budget; preserve original pool and refusal; no automatic retry in this run",
+  "helper_error": "result-shape assumption tried JSON.parse(undefined) on provider error; inspected structured error, no extra provider request"
+}
