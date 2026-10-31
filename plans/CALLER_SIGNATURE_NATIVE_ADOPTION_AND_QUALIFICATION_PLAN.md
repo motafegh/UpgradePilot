@@ -66,6 +66,8 @@ Temporarily defer new syntax families, arbitrary Python execution/dispatch, inst
 
 Re-enter an exclusion when a real maintainer question identifies a decisive missing proposition and an owned method/proof can resolve it. Do not alter a lower owner simply because that proposition is legitimately unsupported. Fix a demonstrated defect at its earliest sufficient owner, preserving prior captures and separately qualifying the changed method.
 
+In particular, source-association timeout/unavailability, conflicting identity and adverse provenance keep distinct meanings. Conditional-import hypotheses do not populate an established lexical/runtime binding. Seeing a variadic keyword receiver establishes local reception only, not semantic acceptance or forwarding by its implementation.
+
 ## 5. Alternatives and selected delivery baseline
 
 | Alternative | Assessment |
@@ -123,6 +125,8 @@ The initial product family-method contracts are version1 for source acquisition 
 
 The existing capture initializes every registered family. Add correctly shaped not-evaluated placeholders and actual input dependencies for these families; merely registering them is insufficient. An executed comparison keeps its original source record basis. Source replacement requires explicit invalidation/successor work; never silently rebind an old comparison to new source.
 
+Capture staging currently has no producer-version field and emits `producer_version=None` plus an unavailable-version gap. Add the explicit known version for these new family producers at capture as well as decoder admission. Preserve that historical None/gap contract for existing families; do not globally delete recovery gaps or pretend a codec version is a semantic version.
+
 Fixed validation protects exact target/transition, source-role membership, source/fact identities, span bounds, candidate/pair membership, root/path linkage, ordered protocol witnesses and required premises, method support and work/coverage closure. ANY protocol-specific operation requires the complete qualified sequence, including corruption where former trigger operations are both removed. These checks must not rerun discovery or recompute binding outcomes.
 
 Different source roles may legitimately have different repositories/commits. Reject wrong role/version/content joins, not valid multi-repository evidence. Missing/corrupt required material refuses the affected projection; unsupported unrelated families must not destroy supported history. Unknown family/codec/method support is distinct from corruption and source absence.
@@ -167,7 +171,7 @@ Select one additional ordinary public Python dependency PR with a different chan
 
 Before execution freeze: exact repo/PR/base/head and package transition; selection rationale and prior exposure; expected supported source-form responsibility; method/runtime; explicit auth and credential source; provider hosts/methods; private destinations; all acquisition/analysis limits; useful/inconclusive/refusal/stop criteria; publication and attempt identity. Expected review findings stay outside producer inputs. Freeze one attempt; no whole-attempt automatic retry, response backfill or cap enlargement.
 
-Initial ordinary qualification uses the already qualified selection:50 GitHub/100 all-provider attempts,8MiB per decoded response/32MiB aggregate,180s acquisition,16 target-file attempts,24 source-request reserve, four adapter candidates; four release identities/two dependency hops/12 source-module questions/2MiB library source. Worker:32 files/4MiB,100,000 nodes per file/250,000 total,4,096 facts/256 comparisons,60s/512MiB. Correspondence:32 literal steps/eight depth/4,096 states/256 gap records, omitted diagnostics counted. Source byte/file ceilings and native JSON guards remain their current owners' limits. Do not revive the superseded8-step/32-candidate/80-GET proposal.
+Initial ordinary qualification uses the already qualified selection:50 GitHub/100 all-provider attempts,8MiB per decoded response/32MiB aggregate,180s acquisition,16 target-file attempts,24 source-request reserve, four adapter candidates; four release identities/two dependency hops/12 source-module questions/2MiB library source, and the target owner's200-Python-file/2MiB ceiling alongside the16-attempt policy. Worker:32 files/4MiB,100,000 nodes per file/250,000 total,4,096 facts/256 comparisons,60s/512MiB. Correspondence:32 literal steps/eight depth/4,096 states/256 gap records, omitted diagnostics counted. Source byte/file ceilings and native JSON guards remain their current owners' limits. Do not revive the superseded8-step/32-candidate/80-GET proposal.
 
 These are the ordinary acquisition profile's shared counters, not an extra allowance after normal product acquisition. Product promotion must include the common dependency prefix in its accounting, reuse acquired observations and exclude unperformed branches. Before a fresh product proof, measure controlled full-profile request/body allocation and freeze its actual invocation ceiling; no hidden second session, budget reset or automatic increase. Preserve `AnalysisLimits.max_facts=4096` with its actual owner-enforced scope rather than invent a new global/per-file interpretation.
 
