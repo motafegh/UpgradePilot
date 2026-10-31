@@ -27,3 +27,9 @@ Normal route would stop for another decision after one failed first attempt. Lat
 ## Initial diagnostic contract
 
 D001: one anonymous GET through the existing PyPIReleaseClient/TrialPublicSession for fastapi0.162.0 (the exact first failed endpoint), default bounded provider response/socket policy, no retry/fallback, private start/result/transport retention. Compare availability/typed reason with the old timeout without changing that capture. A diagnostic response is not an ordinary pipeline input and must not be backfilled into any fresh attempt.
+
+## D001 → S002
+
+D001 succeeded in0.361682s with one anonymous provider request/29,123 decoded bytes; exact release metadata is available at this new observation. The original timeout remains unexplained at network level; subsequent availability is not proof of a code defect or complete transport reliability. No owner repair/cap increase justified yet.
+
+Separately freeze S002 under [new contract](evidence/2026-10-31-ordinary-source-blocker-resolution/S002/contract.json) and [execution snapshot](evidence/2026-10-31-ordinary-source-blocker-resolution/S002/execution-freeze.json): same repo/PR/base/head, executable method, operational limits and structural acceptance; new unused private destination and successor attribution. One fresh acquisition under this successor; no D001 response, historical library version, source path/callable/answer selector or old-capture backfill. Latest user authorization covers this bounded continuation. Every future blocker gets a recorded disposition before another operation.
