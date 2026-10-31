@@ -702,6 +702,22 @@ class FreshAttemptLifecycleTests(TestCase):
             self.assertEqual(sum(r["path"] == "/repos/owner/target/pulls/7" for r in requests), 2)
             self.assertTrue(acquisition["library_sources"])
             self.assertIn("target_context", acquisition["completed_stages"])
+            summary = json.loads((directory / "acquisition-input.json").read_bytes())["acquisition"]
+            self.assertEqual(summary["format"], "ordinary-acquisition-summary/1")
+            binding_fields = {"binding_analysis_version", "binding_trace_steps", "imports", "references"}
+            original_target = acquisition["completed_stages"]["target_context"]["summary"]
+            self.assertTrue(binding_fields <= original_target.keys())
+            self.assertEqual(summary["ordinary_acquisition"]["target"],
+                             {k: v for k, v in original_target.items() if k not in binding_fields})
+            ordinary = summary["ordinary_acquisition"]
+            for receipt in (*summary["internal_module_requests"], *ordinary["changed_package_sources"]["attempts"]):
+                if receipt["state"] == "module_examined":
+                    original_receipt = next(r for r in acquisition["library_sources"] if r["request"] == receipt["request"])
+                    self.assertTrue(binding_fields <= original_receipt.keys())
+                    self.assertEqual(receipt, {k: v for k, v in original_receipt.items()
+                                              if k not in binding_fields | {"file"}})
+            for sample in ordinary["adapter_exploration"]["samples"]:
+                self.assertFalse(binding_fields & sample.keys())
             for path in directory.rglob("*"):
                 self.assertEqual(stat.S_IMODE(path.stat().st_mode), 0o700 if path.is_dir() else 0o600)
                 if path.is_file():
@@ -721,6 +737,11 @@ class FreshAttemptLifecycleTests(TestCase):
                 self.assertIn("ACQUISITION ATTEMPT: completed", output.getvalue())
                 self.assertIn("Retained library module records:", output.getvalue())
                 self.assertIn("Provider work:", output.getvalue())
+                self.assertIn("Acquisition receipt: summary", output.getvalue())
+            damaged = json.loads((directory / "comparison/result.json").read_bytes())
+            damaged["acquisition"]["format"] = "ordinary-acquisition-summary/99"
+            with self.assertRaisesRegex(ValueError, "acquisition summary"):
+                read_ordinary_comparison(json_bytes(damaged), (directory / "comparison/sources.json").read_bytes())
 
     def test_four_candidate_profile_retains_configuration_and_refuses_unqualified_expansion(self):
         with TemporaryDirectory() as tmp:

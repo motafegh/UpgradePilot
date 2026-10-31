@@ -1,0 +1,7 @@
+{
+  "test": "FreshAttemptLifecycleTests.test_start_precedes_credentials_actual_clients_finish_and_cold_open_without_reanalysis",
+  "state": "failed_before_repair",
+  "reason": "KeyError: format; ordinary input still embeds broad unlabelled acquisition manifests",
+  "tests": 1,
+  "errors": 1
+}

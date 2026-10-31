@@ -1,0 +1,28 @@
+{
+  "scope": "separate diagnostic recomputation; not a saved S007 result",
+  "initial_diagnostic_correction": "compare after JSON normalization; direct Python tuple versus saved JSON array comparison was invalid",
+  "unchanged_result_fields": [
+    "code_sha256",
+    "companion_id",
+    "companion_sha256",
+    "correspondence_version",
+    "coverage",
+    "discovery",
+    "files",
+    "format",
+    "limits",
+    "method_version",
+    "modules",
+    "pairs",
+    "runtime",
+    "target",
+    "work"
+  ],
+  "unchanged_catalog_identity": true,
+  "expected_changes": [
+    "acquisition summary",
+    "proof_class retained_component_discovery",
+    "discovery_input_sha256"
+  ],
+  "same_sources_facts_paths_premises_pairs_and_work": true
+}

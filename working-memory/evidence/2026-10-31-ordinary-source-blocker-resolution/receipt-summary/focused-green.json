@@ -1,0 +1,13 @@
+{
+  "test": "FreshAttemptLifecycleTests.test_start_precedes_credentials_actual_clients_finish_and_cold_open_without_reanalysis",
+  "state": "passed_after_repair",
+  "tests": 1,
+  "errors": 0,
+  "elapsed_seconds": 0.291,
+  "proof": [
+    "summary projection preserves all other target/module receipt fields",
+    "original outer target/library facts retained",
+    "cold opening with AST/network/checker/discovery/current identity forbidden",
+    "unknown summary format refused"
+  ]
+}

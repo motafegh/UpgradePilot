@@ -58,6 +58,7 @@ from .api_target_context_smoke import (
 
 FORMAT = "caller-signature-evidence/2"
 INPUT_FORMAT = "ordinary-caller-signature-input/1"
+ACQUISITION_SUMMARY_FORMAT = "ordinary-acquisition-summary/1"
 FRESH_PROOF = "fresh_ordinary_pr_acquisition"
 PROOF_CLASSES = {"controlled_ordinary_pr_composition", "retained_component_discovery", FRESH_PROOF}
 ORDINARY_METHOD_SOURCES = (
@@ -76,6 +77,33 @@ def ordinary_code_identity():
 def _source_label(role, package, version, file):
     identity = json_bytes([role, package, version, file.repository, file.revision])
     return "source-" + content_digest(identity)[:32]
+
+
+def _summarize_ordinary_acquisition(acquisition):
+    """Project generic acquisition manifests to this comparison's receipt needs.
+
+    Broad imports/reference/trace tables serve the separate adapter replay, not
+    ordinary fixed admission or rendering. Keep identities, requests (including
+    origin binding), provenance, coverage and costs here. Complete admitted text
+    and independently computed call/signature facts belong to the comparison.
+    Fresh outer capture retains the original target/library binding observations,
+    including files omitted from the comparison; this summary alone does not.
+    Do not mutate the generic manifests or turn this into recursive field removal.
+    """
+    binding_fields = {"binding_analysis_version", "binding_trace_steps", "imports", "references"}
+
+    def receipt(packet):
+        return {key: value for key, value in packet.items() if key not in binding_fields}
+
+    ordinary = dict(acquisition["ordinary_acquisition"])
+    ordinary["target"] = receipt(ordinary["target"])
+    ordinary["adapter_exploration"] = dict(ordinary["adapter_exploration"],
+        samples=[receipt(sample) for sample in ordinary["adapter_exploration"]["samples"]])
+    ordinary["changed_package_sources"] = dict(ordinary["changed_package_sources"],
+        attempts=[receipt(attempt) for attempt in ordinary["changed_package_sources"]["attempts"]],
+        retention="source identities/hashes, requests, provenance and gaps; broad binding tables not in summary")
+    return dict(acquisition, format=ACQUISITION_SUMMARY_FORMAT, ordinary_acquisition=ordinary,
+        internal_module_requests=[receipt(attempt) for attempt in acquisition["internal_module_requests"]])
 
 
 def prepare_ordinary_inputs(trial, session, source_run):
@@ -216,12 +244,12 @@ def prepare_ordinary_inputs(trial, session, source_run):
         identity.head_sha, dependency.normalized_package, dependency.old_version, dependency.proposed_version)
     catalog = RetainedSourceCatalog(tuple(scopes.values()), tuple(files.values()), target=target)
     session.finish_acquisition()
-    return catalog, tuple(modules), dict(
+    return catalog, tuple(modules), _summarize_ordinary_acquisition(dict(
         native_inputs=asdict(trial.inputs), ordinary_acquisition=trial_manifest(trial, session),
         internal_module_requests=closure, source_work=asdict(source_run.work),
         material_omissions=omitted_target_files,
         retention="complete admitted files; explicit omitted material; not all target or release-window text",
-    )
+    ))
 
 
 def encode_ordinary_inputs(catalog, modules, acquisition, *, proof_class):
@@ -371,6 +399,8 @@ def _validate_acquisition(acquisition):
     """Admit the receipt fields consumed by the saved view; do not rerun providers."""
     if type(acquisition) is not dict:
         raise ValueError("Invalid acquisition receipt.")
+    if "format" in acquisition and acquisition["format"] != ACQUISITION_SUMMARY_FORMAT:
+        raise ValueError("Unsupported ordinary acquisition summary format.")
     ordinary = acquisition.get("ordinary_acquisition", {})
     if type(ordinary) is not dict:
         raise ValueError("Invalid ordinary acquisition receipt.")
@@ -621,6 +651,10 @@ def render_ordinary_comparison(body):
         lines.append("Discovery gap: " + gap["reason"] + " | " + gap["unit_id"] + " | " + gap["detail"])
     lines.append("Additional gap records omitted: " + str(body["discovery"]["gaps_omitted"]))
     acquisition = body["acquisition"]
+    if acquisition.get("format") == ACQUISITION_SUMMARY_FORMAT:
+        lines.append("Acquisition receipt: summary; broad binding tables not included. "
+                     "Comparison retains admitted text and call/signature facts; "
+                     "original acquisition observations require the separate outer capture.")
     ordinary = acquisition.get("ordinary_acquisition", {})
     if "transport" in ordinary:
         transport = ordinary["transport"]
