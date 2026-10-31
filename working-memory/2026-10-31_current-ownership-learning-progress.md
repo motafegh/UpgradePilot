@@ -34,11 +34,13 @@ Only the third category may expand the required checklist, and it must be clearl
 - [x] A1. `BOUND` — exact local meaning and non-meaning.
 - [x] A2. `REJECTED` — exact local meaning and non-meaning.
 - [x] A3. `UNDETERMINED` — why uncertainty is preserved instead of forced into bound/rejected.
-- [ ] A4. Premises: established fact under explicit assumptions/unknowns.
+- [x] A4. Premises: established fact under explicit assumptions/unknowns.
 - [ ] A5. Coverage/gaps: useful evidence can coexist with incomplete coverage; zero candidates is not automatically no exposure.
 - [ ] A6. Consolidate with real HTTPX + pytest examples and Ali explanation in own words.
 
 **A1–A3 ownership note:** Ali explained that `REJECTED` means a definite structural conflict was found under the selected correspondence premises; `BOUND` means supported local binding checks completed without a violation; `UNDETERMINED` means no definite violation was established but the local structural check could not be completed. Refinement recorded: `UNDETERMINED` is not limited to missing/uninspected source or resource limits—it can also arise from unresolved call structure such as receiver state, `*args`/`**kwargs`, or incomplete facts. None of these states alone is a runtime/compatibility verdict.
+
+**A4 ownership note:** Ali explained that a `REJECTED` result under a correspondence premise establishes a source/static structural conflict at that selected boundary, while runtime applicability remains unproven. Premises therefore constrain how broadly local evidence may be applied; they are not evidence that the premise is false.
 
 **Done when:** Ali can interpret a saved comparison without promoting it to compatibility/runtime truth and can explain why gaps/premises constrain the claim.
 
@@ -86,8 +88,8 @@ Only the third category may expand the required checklist, and it must be clearl
 ## Current position
 
 **Active:** Checkpoint A.  
-**Completed in Checkpoint A:** A1–A3.  
-**Current chunk:** A4 — premises and uncertainty.  
+**Completed in Checkpoint A:** A1–A4.  
+**Current chunk:** A5 — coverage and gaps.  
 **Rule:** teach one compact chunk, require active explanation/check, then mark it. Do not expand into reference-only internals unless the checkpoint cannot be understood without them.
 
 ## Main-sync log
