@@ -1,0 +1,13 @@
+{
+  "proof_class": "existing controlled tests with real network forbidden; not new real-case transfer",
+  "tests": 4,
+  "passed": true,
+  "elapsed_seconds": 0.010015785999712534,
+  "names": [
+    "experiments.tests.test_api_adapter_exploration.ChainTests.test_conditional_possible_origin_does_not_trigger_positive_exploration",
+    "experiments.tests.test_api_adapter_exploration.SourceRunTests.test_explicit_conditional_question_keeps_original_binding_and_positive_explorer_refuses",
+    "experiments.tests.test_api_public_pr_context.PublicPRTests.test_conditional_target_import_can_be_examined_without_becoming_positive_exploration",
+    "experiments.tests.test_api_source_correspondence.SourcePathTests.test_conditional_target_origin_is_not_promoted_by_source_success"
+  ],
+  "output": "test_conditional_possible_origin_does_not_trigger_positive_exploration (experiments.tests.test_api_adapter_exploration.ChainTests.test_conditional_possible_origin_does_not_trigger_positive_exploration) ... ok\ntest_explicit_conditional_question_keeps_original_binding_and_positive_explorer_refuses (experiments.tests.test_api_adapter_exploration.SourceRunTests.test_explicit_conditional_question_keeps_original_binding_and_positive_explorer_refuses) ... ok\ntest_conditional_target_import_can_be_examined_without_becoming_positive_exploration (experiments.tests.test_api_public_pr_context.PublicPRTests.test_conditional_target_import_can_be_examined_without_becoming_positive_exploration) ... ok\ntest_conditional_target_origin_is_not_promoted_by_source_success (experiments.tests.test_api_source_correspondence.SourcePathTests.test_conditional_target_origin_is_not_promoted_by_source_success) ... ok\n\n----------------------------------------------------------------------\nRan 4 tests in 0.010s\n\nOK\n"
+}
