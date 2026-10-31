@@ -1,0 +1,127 @@
+{
+  "adapter_omitted_candidate_count": 2,
+  "adapter_release_http_attempts": 1,
+  "adapter_selected_release": {
+    "basis": "constraint_sample_not_installed_version",
+    "package": "fastapi",
+    "version": "0.162.0"
+  },
+  "adapter_source_questions": [
+    {
+      "basis": "constraint_sample",
+      "detail": "PyPI release acquisition timed out.",
+      "module": "fastapi.staticfiles",
+      "package": "fastapi",
+      "reason": "acquisition_failed",
+      "stage": "adapter_release",
+      "state": "unavailable",
+      "version": "0.162.0"
+    },
+    {
+      "basis": "constraint_sample",
+      "detail": "PyPI release acquisition timed out.",
+      "module": "fastapi.testclient",
+      "package": "fastapi",
+      "reason": "acquisition_failed",
+      "stage": "adapter_release",
+      "state": "unavailable",
+      "version": "0.162.0"
+    }
+  ],
+  "comparison_role_counts": {
+    "target": 3
+  },
+  "direct_native_source_questions": 0,
+  "evidence_mode": "offline inspection of unchanged first official capture; no additional provider requests",
+  "failed_transport_events": [
+    {
+      "host": "pypi.org",
+      "path": "/pypi/fastapi/0.162.0/json",
+      "reason": "transport_error",
+      "state": "failed",
+      "status": null
+    }
+  ],
+  "format": "first-fresh-ordinary-pr-retained-diagnosis/1",
+  "hypothesis_disposition": {
+    "correspondence_owner_defect": "not demonstrated by absent old/proposed source",
+    "missing_native_comparisons": "adapter release timeout prevented the attempted framework chain from reaching HTTPX; no direct changed-package import supplied a native module question",
+    "outer_lifecycle_and_offline_inspection": "observed working on this live attempt",
+    "request_or_candidate_cap_defect": "not demonstrated",
+    "whole_upgrade_compatibility": "not established"
+  },
+  "native_dependency": {
+    "base_sha": "b065646e4b7b894964567950f9ad770b02c136c2",
+    "head_sha": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+    "normalized_package": "httpx",
+    "old_version": "0.27.2",
+    "proposed_version": "0.28.1",
+    "pull_number": 20,
+    "repository": "Aidan-Wallace/kubernetes-dashboard-token-api"
+  },
+  "native_old_candidate_count": 0,
+  "native_proposed_candidate_count": 0,
+  "next_boundary": "official attempt consumed; no retry/backfill/regrade or source fix selected. Review whether a separately specified successor or transport diagnostic is justified.",
+  "no_recorded_policy_stops": true,
+  "source_work": {
+    "module_attempts": 2,
+    "release_identities": [
+      [
+        "fastapi",
+        "0.162.0"
+      ]
+    ],
+    "source_bytes": 0
+  },
+  "target_catalog_files": [
+    {
+      "path": "app/__init__.py",
+      "source_id": "source-5a35fba398662b59c6bc8723e93af7a9"
+    },
+    {
+      "path": "app/config.py",
+      "source_id": "source-5a35fba398662b59c6bc8723e93af7a9"
+    },
+    {
+      "path": "app/main.py",
+      "source_id": "source-5a35fba398662b59c6bc8723e93af7a9"
+    },
+    {
+      "path": "app/models/__init__.py",
+      "source_id": "source-5a35fba398662b59c6bc8723e93af7a9"
+    },
+    {
+      "path": "app/models/health.py",
+      "source_id": "source-5a35fba398662b59c6bc8723e93af7a9"
+    },
+    {
+      "path": "app/models/token.py",
+      "source_id": "source-5a35fba398662b59c6bc8723e93af7a9"
+    },
+    {
+      "path": "app/router/__init__.py",
+      "source_id": "source-5a35fba398662b59c6bc8723e93af7a9"
+    },
+    {
+      "path": "app/router/routes.py",
+      "source_id": "source-5a35fba398662b59c6bc8723e93af7a9"
+    },
+    {
+      "path": "app/utils.py",
+      "source_id": "source-5a35fba398662b59c6bc8723e93af7a9"
+    },
+    {
+      "path": "requirements.txt",
+      "source_id": "source-5a35fba398662b59c6bc8723e93af7a9"
+    },
+    {
+      "path": "tests/__init__.py",
+      "source_id": "source-5a35fba398662b59c6bc8723e93af7a9"
+    },
+    {
+      "path": "tests/test_routes.py",
+      "source_id": "source-5a35fba398662b59c6bc8723e93af7a9"
+    }
+  ],
+  "upstream_window_available": true
+}

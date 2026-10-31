@@ -1,0 +1,81 @@
+{
+  "actual_github_requests": 22,
+  "actual_live_invocations": 1,
+  "actual_provider_requests": 31,
+  "actual_retry_count": 0,
+  "additional_provider_diagnostics": 0,
+  "execution_freeze_sha256": "aa23488338c8e0b74b0c07764998af144a3be107cd86210f631819ab1529d9dc",
+  "format": "first-fresh-ordinary-pr-live-verification/1",
+  "fresh_product_or_native_adoption": false,
+  "frozen_contract_execution_and_qualified_artifacts_unchanged": true,
+  "implementation_changes": false,
+  "inner_elapsed_seconds": 0.22489725900049962,
+  "inner_procedure_state": "completed",
+  "live_artifact_hashes_verified": 12,
+  "live_offline_admission": "passed with AST/network/checker/discovery forbidden",
+  "live_raw_input_equal_inner_input": true,
+  "model_calls": 0,
+  "original_private_member_hashes_verified": 10,
+  "prior_bundles_opened": [
+    {
+      "format": "caller-signature-evidence/1",
+      "pairs": 5,
+      "path": "/home/motafeq/.local/share/upgradepilot/caller-signature-evidence/retained-httpx-2026-10-28/attempt-01"
+    },
+    {
+      "format": "caller-signature-evidence/1",
+      "pairs": 5,
+      "path": "/home/motafeq/.local/share/upgradepilot/caller-signature-evidence/retained-glyphslib-pytest-2026-10-28/attempt-01"
+    },
+    {
+      "format": "caller-signature-evidence/2",
+      "pairs": 3,
+      "path": "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/controlled-ordinary"
+    },
+    {
+      "format": "caller-signature-evidence/2",
+      "pairs": 3,
+      "path": "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/controlled-ordinary-final"
+    },
+    {
+      "format": "caller-signature-evidence/2",
+      "pairs": 1,
+      "path": "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/retained-incomplete-control"
+    },
+    {
+      "format": "caller-signature-evidence/2",
+      "pairs": 3,
+      "path": "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-10-29-experiment-lifecycle-and-dependency-repair/controlled-post-repair"
+    },
+    {
+      "format": "caller-signature-evidence/2",
+      "pairs": 2,
+      "path": "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-10-30-protocol-factory-source-correspondence/controlled-ordinary"
+    },
+    {
+      "format": "caller-signature-evidence/2",
+      "pairs": 68,
+      "path": "/home/motafeq/.local/share/upgradepilot/protocol-factory-evidence/retained-glyphslib-pytest-2026-10-30/attempt-01"
+    },
+    {
+      "format": "caller-signature-evidence/2",
+      "pairs": 68,
+      "path": "/home/motafeq/.local/share/upgradepilot/protocol-factory-evidence/retained-glyphslib-pytest-2026-10-30/attempt-02"
+    },
+    {
+      "format": "caller-signature-evidence/2",
+      "pairs": 2,
+      "path": "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-10-30-staged-source-acquisition-policy/controlled-ordinary"
+    },
+    {
+      "format": "caller-signature-evidence/2",
+      "pairs": 2,
+      "path": "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-10-30-staged-source-acquisition-policy/controlled-stage-refusal"
+    }
+  ],
+  "prior_tracked_artifact_hashes_verified": 25,
+  "private_permissions_valid": true,
+  "source_and_runtime_unchanged": true,
+  "target_commands": 0,
+  "terminal_sha256": "ea9b40f03004da549fc388195a0095a1ba60917179278d25b22b5f5508c38f10"
+}
