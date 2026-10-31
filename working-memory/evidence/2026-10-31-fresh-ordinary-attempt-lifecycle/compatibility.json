@@ -1,0 +1,139 @@
+{
+  "opened": [
+    {
+      "path": "/home/motafeq/.local/share/upgradepilot/caller-signature-evidence/retained-httpx-2026-10-28/attempt-01",
+      "format": "caller-signature-evidence/1",
+      "pairs": 5
+    },
+    {
+      "path": "/home/motafeq/.local/share/upgradepilot/caller-signature-evidence/retained-glyphslib-pytest-2026-10-28/attempt-01",
+      "format": "caller-signature-evidence/1",
+      "pairs": 5
+    },
+    {
+      "path": "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/controlled-ordinary",
+      "format": "caller-signature-evidence/2",
+      "pairs": 3
+    },
+    {
+      "path": "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/controlled-ordinary-final",
+      "format": "caller-signature-evidence/2",
+      "pairs": 3
+    },
+    {
+      "path": "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/retained-incomplete-control",
+      "format": "caller-signature-evidence/2",
+      "pairs": 1
+    },
+    {
+      "path": "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-10-29-experiment-lifecycle-and-dependency-repair/controlled-post-repair",
+      "format": "caller-signature-evidence/2",
+      "pairs": 3
+    },
+    {
+      "path": "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-10-30-protocol-factory-source-correspondence/controlled-ordinary",
+      "format": "caller-signature-evidence/2",
+      "pairs": 2
+    },
+    {
+      "path": "/home/motafeq/.local/share/upgradepilot/protocol-factory-evidence/retained-glyphslib-pytest-2026-10-30/attempt-01",
+      "format": "caller-signature-evidence/2",
+      "pairs": 68
+    },
+    {
+      "path": "/home/motafeq/.local/share/upgradepilot/protocol-factory-evidence/retained-glyphslib-pytest-2026-10-30/attempt-02",
+      "format": "caller-signature-evidence/2",
+      "pairs": 68
+    },
+    {
+      "path": "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-10-30-staged-source-acquisition-policy/controlled-ordinary",
+      "format": "caller-signature-evidence/2",
+      "pairs": 2
+    },
+    {
+      "path": "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-10-30-staged-source-acquisition-policy/controlled-stage-refusal",
+      "format": "caller-signature-evidence/2",
+      "pairs": 2
+    }
+  ],
+  "frozen_private_members": [
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "result.json",
+      "sha256": "3a6b874967d413f89155895d51368fddbb2e15a257ff8977448a350b26a41580"
+    },
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "view.txt",
+      "sha256": "d0bd57fec01eb2bb6ee8d530c941c51fb2893584c12c533161595db65205b88c"
+    },
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "attempt.json",
+      "sha256": "bf5d8c092679cab4feffa79a3cc2444697b8f5f1be4b6ab67133b5255a262d7e"
+    },
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "sources.json",
+      "sha256": "8de0c185a5be747ec1044eca9b7a8446fbd1652db2a7ed25b82ab832d5c88da1"
+    },
+    {
+      "case": "retained-httpx-2026-10-28",
+      "member": "attempt-started.json",
+      "sha256": "feaf6d28e7e4b60216f707d1ddae70612577baa24f812a95550652af88f7724f"
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "result.json",
+      "sha256": "dcdf848f0f0c79fddcc091cbfa596e3fb813ece3714204b9152e70c22c7bab09"
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "view.txt",
+      "sha256": "19a38c6246ed7e9f19bf828de493d7c3373d4b44d9787a7f755be5cec9659d97"
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "attempt.json",
+      "sha256": "0595030c7fe82931ca0a440539ddf4023137d5fda2e9c162210fc21ee60c3aca"
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "sources.json",
+      "sha256": "770ab80fea86f6895fc52e278548d075414fe859f28ee09edb2c382c6296124d"
+    },
+    {
+      "case": "retained-glyphslib-pytest-2026-10-28",
+      "member": "attempt-started.json",
+      "sha256": "11ab490a3429882a51062a06bc3afb395ed0db2652ea4cad786899c463a09d04"
+    }
+  ],
+  "prior_tracked_artifacts": {
+    "working-memory/evidence/2026-10-30-staged-source-acquisition-policy/REVIEW.md": "ea5890091794907dfd9ed32b71a4afe137b380cbfeaeb49c52a334c1bacb9d67",
+    "working-memory/evidence/2026-10-30-staged-source-acquisition-policy/allocation-profiles.json": "e3bbcde7d883c90df8dd3ff357e670ad4e8058f530b1144180550d6fb20ef43c",
+    "working-memory/evidence/2026-10-30-staged-source-acquisition-policy/api-regression-checkpoint.json": "e4ec92091f1c0059ba657e69b9690f4c15baf9f83959f0e2fb17cad3eb0ea4f3",
+    "working-memory/evidence/2026-10-30-staged-source-acquisition-policy/api-regression.json": "43221790371c9e9cee6675da834469868e9e491f70f8bcdd7b2627baa541d67d",
+    "working-memory/evidence/2026-10-30-staged-source-acquisition-policy/architecture-regression-checkpoint.json": "ee3a689961bc5166b0b8e4fdfc29f9db193e24f1a109d78409f699a37ede8d64",
+    "working-memory/evidence/2026-10-30-staged-source-acquisition-policy/architecture-regression.json": "1db2253b8d0b4008067727e2c246b59dfacb8dc431bcaa8ca65cb6dff83cd635",
+    "working-memory/evidence/2026-10-30-staged-source-acquisition-policy/compatibility.json": "b7db0e549aea618f97a447038460bb01e003370fbebdf3b48321775e651b958a",
+    "working-memory/evidence/2026-10-30-staged-source-acquisition-policy/controlled-ordinary/attempt-started.json": "54b26acdea0e935c3d939d61cc24f224c17c51abfeeeec191306720ad543361d",
+    "working-memory/evidence/2026-10-30-staged-source-acquisition-policy/controlled-ordinary/attempt.json": "6749995b2c00e7f2bdd1ff40c6bfa90c746f9fbddd618b7353c5a7544c86c379",
+    "working-memory/evidence/2026-10-30-staged-source-acquisition-policy/controlled-ordinary/input.json": "8dcfd66eef3109e01151c640bc28c420d00ffb831477bb24ff686f003d6dca25",
+    "working-memory/evidence/2026-10-30-staged-source-acquisition-policy/controlled-ordinary/result.json": "318b0d4b679e311c7a6347c1d0f8f54c975671de09d6bfe19c6150622f080ae7",
+    "working-memory/evidence/2026-10-30-staged-source-acquisition-policy/controlled-ordinary/sources.json": "2464155cc0574e1d02daa74bd97bc510babd9508e8055607860ef57e90858053",
+    "working-memory/evidence/2026-10-30-staged-source-acquisition-policy/controlled-ordinary/view.txt": "124733aa66594a40296f745695f93ce89ddf1cfaaac71a71d8f2291c4b937075",
+    "working-memory/evidence/2026-10-30-staged-source-acquisition-policy/controlled-review.json": "6bccb63a4abf6c42da459f0bdaf711d343af9fa3004f435352fa37cfec1aac71",
+    "working-memory/evidence/2026-10-30-staged-source-acquisition-policy/controlled-stage-refusal/attempt-started.json": "46b82c7faf1e72abc79b5c319a11d9a4c7880e0fc53bc9996ba3ab212661897f",
+    "working-memory/evidence/2026-10-30-staged-source-acquisition-policy/controlled-stage-refusal/attempt.json": "532bc8efcb34390dfb0ef566508d13535f0c40b38945ffdbf04b4b6815ba565a",
+    "working-memory/evidence/2026-10-30-staged-source-acquisition-policy/controlled-stage-refusal/input.json": "a36105d99cf77c73d2ea39d4f9f5ce8792679d2ff20d3b9c87dee3256e981756",
+    "working-memory/evidence/2026-10-30-staged-source-acquisition-policy/controlled-stage-refusal/result.json": "8e8c9152e49a8f3bc8352f7a78509ddac1a318043672a5a28c8bce588f4cc182",
+    "working-memory/evidence/2026-10-30-staged-source-acquisition-policy/controlled-stage-refusal/sources.json": "6d700865dad1d2ab3b72bccf36c6c0c7e98b2394877e28cb98e6d5a93d4be727",
+    "working-memory/evidence/2026-10-30-staged-source-acquisition-policy/controlled-stage-refusal/view.txt": "030b98c1f04a4f51dac9d09c13fef8bbe2dee328c777296cadbfa59dd2c3e2c1",
+    "working-memory/evidence/2026-10-30-staged-source-acquisition-policy/full-regression-checkpoint.json": "45607e7122fc7fe81ce596ddae62e3b6f96a8bb72140f37349efdf285615147d",
+    "working-memory/evidence/2026-10-30-staged-source-acquisition-policy/full-regression.json": "4b12786cb6ad13a7eb34f18bfd53dd6ac16269406bd5b5d31dc2af3bc779ddf8",
+    "working-memory/evidence/2026-10-30-staged-source-acquisition-policy/selection-contrast.json": "a1566d7e99990247473a9033602bc74b3a437635764f9b22c0866842bd69faa1",
+    "working-memory/evidence/2026-10-30-staged-source-acquisition-policy/static-boundaries.json": "ed5ab2b7ccd5f265c8ac82420207efee199213514a5fb1e49104d3fa878da6ee",
+    "working-memory/evidence/2026-10-30-staged-source-acquisition-policy/transport-qualification.json": "5da79dd522aa87d91005d9b72c9792f02407999a842ca42c7d13b64e3aefe8e7"
+  },
+  "definition_directory_unchanged": true
+}

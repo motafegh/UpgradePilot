@@ -1,0 +1,6 @@
+test_acquisition_receipt_is_frozen_before_analysis_not_measured_after_worker (experiments.tests.test_api_source_correspondence.FreshAttemptLifecycleTests.test_acquisition_receipt_is_frozen_before_analysis_not_measured_after_worker) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.268s
+
+OK

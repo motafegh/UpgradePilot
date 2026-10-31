@@ -1,0 +1,15 @@
+test_cold_open_detects_missing_terminal_and_cross_branch_corruption_without_retry (experiments.tests.test_api_source_correspondence.FreshAttemptLifecycleTests.test_cold_open_detects_missing_terminal_and_cross_branch_corruption_without_retry) ... 
+  test_cold_open_detects_missing_terminal_and_cross_branch_corruption_without_retry (experiments.tests.test_api_source_correspondence.FreshAttemptLifecycleTests.test_cold_open_detects_missing_terminal_and_cross_branch_corruption_without_retry) (mutation='configuration') ... FAIL
+
+======================================================================
+FAIL: test_cold_open_detects_missing_terminal_and_cross_branch_corruption_without_retry (experiments.tests.test_api_source_correspondence.FreshAttemptLifecycleTests.test_cold_open_detects_missing_terminal_and_cross_branch_corruption_without_retry) (mutation='configuration')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_source_correspondence.py", line 865, in test_cold_open_detects_missing_terminal_and_cross_branch_corruption_without_retry
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 1.730s
+
+FAILED (failures=1)

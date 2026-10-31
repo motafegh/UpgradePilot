@@ -1,0 +1,6 @@
+test_cold_open_detects_missing_terminal_and_cross_branch_corruption_without_retry (experiments.tests.test_api_source_correspondence.FreshAttemptLifecycleTests.test_cold_open_detects_missing_terminal_and_cross_branch_corruption_without_retry) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 1.785s
+
+OK

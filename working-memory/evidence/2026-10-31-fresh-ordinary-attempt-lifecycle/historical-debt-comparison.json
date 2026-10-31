@@ -1,0 +1,14 @@
+{
+  "errors": {
+    "added": [],
+    "removed": [],
+    "same": true
+  },
+  "failures": {
+    "added": [],
+    "removed": [],
+    "same": true
+  },
+  "skip_count_same": true,
+  "skip_ids_and_reasons_same": true
+}

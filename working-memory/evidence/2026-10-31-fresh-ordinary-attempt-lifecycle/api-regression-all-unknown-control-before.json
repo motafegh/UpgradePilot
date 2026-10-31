@@ -1,0 +1,13 @@
+{
+  "elapsed_seconds": 5.998350279999613,
+  "errors": [],
+  "failures": [
+    {
+      "test": "test_api_source_correspondence.FreshAttemptLifecycleTests.test_empty_and_candidate_exhaustion_complete_without_claiming_useful_full_coverage (expected='insufficient_structural_evidence')",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_source_correspondence.py\", line 793, in test_empty_and_candidate_exhaustion_complete_without_claiming_useful_full_coverage\n    self.assertEqual({pair[\"comparison\"][\"outcome\"] for pair in body[\"pairs\"]}, {\"undetermined\"})\nAssertionError: Items in the first set but not the second:\n'rejected'\n"
+    }
+  ],
+  "passed": false,
+  "skipped": [],
+  "tests": 240
+}

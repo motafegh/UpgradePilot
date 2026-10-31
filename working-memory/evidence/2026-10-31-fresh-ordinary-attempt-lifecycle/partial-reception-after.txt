@@ -1,0 +1,6 @@
+test_known_keyword_reception_survives_unknown_star_arguments_as_useful_partial (experiments.tests.test_api_source_correspondence.FreshAttemptLifecycleTests.test_known_keyword_reception_survives_unknown_star_arguments_as_useful_partial) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.306s
+
+OK

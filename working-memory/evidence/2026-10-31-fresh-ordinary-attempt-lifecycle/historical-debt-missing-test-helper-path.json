@@ -1,0 +1,26 @@
+{
+  "errors": {
+    "added": [
+      [
+        "test_retained_native_ci_baseline_comparison.NativeCopyTests.test_unresolved_native_state_survives_copy_without_rederivation_or_original_mutation",
+        "ModuleNotFoundError: No module named 'test_workspace_native_reconstruction'"
+      ],
+      [
+        "unittest.loader._FailedTest.test_investigator_ci_presentation",
+        "ModuleNotFoundError: No module named 'test_workspace_native_reconstruction'"
+      ],
+      [
+        "unittest.loader._FailedTest.test_report_source_capture",
+        "ModuleNotFoundError: No module named 'test_github_client'"
+      ]
+    ],
+    "removed": [],
+    "same": false
+  },
+  "failures": {
+    "added": [],
+    "removed": [],
+    "same": true
+  },
+  "skip_count_same": true
+}

@@ -1,0 +1,17 @@
+test_known_keyword_reception_survives_unknown_star_arguments_as_useful_partial (experiments.tests.test_api_source_correspondence.FreshAttemptLifecycleTests.test_known_keyword_reception_survives_unknown_star_arguments_as_useful_partial) ... FAIL
+
+======================================================================
+FAIL: test_known_keyword_reception_survives_unknown_star_arguments_as_useful_partial (experiments.tests.test_api_source_correspondence.FreshAttemptLifecycleTests.test_known_keyword_reception_survives_unknown_star_arguments_as_useful_partial)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_source_correspondence.py", line 823, in test_known_keyword_reception_survives_unknown_star_arguments_as_useful_partial
+    self.assertEqual(attempt["structural_disposition"], "useful_partial_structural_evidence")
+AssertionError: 'insufficient_structural_evidence' != 'useful_partial_structural_evidence'
+- insufficient_structural_evidence
++ useful_partial_structural_evidence
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.280s
+
+FAILED (failures=1)

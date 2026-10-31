@@ -1,0 +1,18 @@
+{
+  "errors": {
+    "added": [],
+    "removed": [],
+    "same": true
+  },
+  "failures": {
+    "added": [
+      [
+        "test_api_source_correspondence.FreshAttemptLifecycleTests.test_empty_and_candidate_exhaustion_complete_without_claiming_useful_full_coverage (expected='insufficient_structural_evidence')",
+        "'rejected'"
+      ]
+    ],
+    "removed": [],
+    "same": false
+  },
+  "skip_count_same": true
+}

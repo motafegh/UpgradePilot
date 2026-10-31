@@ -1,0 +1,29 @@
+test_acquisition_receipt_is_frozen_before_analysis_not_measured_after_worker (experiments.tests.test_api_source_correspondence.FreshAttemptLifecycleTests.test_acquisition_receipt_is_frozen_before_analysis_not_measured_after_worker) ... FAIL
+
+======================================================================
+FAIL: test_acquisition_receipt_is_frozen_before_analysis_not_measured_after_worker (experiments.tests.test_api_source_correspondence.FreshAttemptLifecycleTests.test_acquisition_receipt_is_frozen_before_analysis_not_measured_after_worker)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_source_correspondence.py", line 757, in test_acquisition_receipt_is_frozen_before_analysis_not_measured_after_worker
+    attempt = self.execute(data, freeze)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_source_correspondence.py", line 598, in execute
+    return staged_http_control(TrialAcquisitionPolicy(), noise=0,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_public_pr_context.py", line 1052, in staged_http_control
+    result = invoke() if invoke is not None else acquire_ordinary_comparison_inputs(
+             ^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_source_correspondence.py", line 599, in <lambda>
+    invoke=lambda: run_fresh_ordinary_pr_attempt(data, freeze), **controls)[0]
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/api_ordinary_call_signature_trial.py", line 1002, in run_fresh_ordinary_pr_attempt
+    receipt = session.acquisition_receipt() if session is not None else None
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_source_correspondence.py", line 753, in receipt
+    raise AssertionError("Acquisition clock sampled after analysis started")
+AssertionError: Acquisition clock sampled after analysis started
+
+----------------------------------------------------------------------
+Ran 1 test in 0.255s
+
+FAILED (failures=1)
