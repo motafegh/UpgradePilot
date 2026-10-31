@@ -1,0 +1,39 @@
+{
+  "repository": "VaHerinckx/LifeLog_Project",
+  "pull_number": 1,
+  "base": "2a0f4e2b6f8eae3a813edacc6095d78aa34c3197",
+  "head": "3916cea014fc65030252581d2175a92bd77752e7",
+  "direct_declaration": [
+    {
+      "path": "VaHerinckx/LifeLog_Project@3916cea014fc65030252581d2175a92bd77752e7:pipeline/requirements.txt",
+      "location": "L15",
+      "specifier": "==2.34.2",
+      "group": "requirements"
+    }
+  ],
+  "witness": {
+    "path": "pipeline/src/sources_processing/lastfm/lastfm_processing.py",
+    "line": 146,
+    "expression": "requests.get",
+    "binding_state": "conditional",
+    "possible_imports": [
+      "requests.get"
+    ],
+    "reasons": [
+      "delayed_global_read",
+      "unsupported_control_flow"
+    ],
+    "sha256": "7182cc6634b1cda5de75c79fd0cb29bef05ced12aee378eda4555eeb7cdc1d63"
+  },
+  "ordinary_source_position": 8,
+  "ordinary_target_file_attempts": 16,
+  "screening_requests": 17,
+  "screening_budget_revised": 19,
+  "screening_bytes": 726110,
+  "previous_unconfirmed_cases_preserved": true,
+  "method_runtime_unchanged": true,
+  "outcomes_unknown": true,
+  "witness_path_not_passed_as_producer_input": true,
+  "contract_sha256": "4bab1a6248cc6a0c70cd487f3a9bd1635afd902c0440c2cd9f04f18a2535b5e3",
+  "freeze_sha256": "ff2c2cfdc131308228debb2529679eafb3927f718da87dcd43ffddf943e82857"
+}

@@ -1,0 +1,17 @@
+{
+  "circumstance": "16-operation source screening found direct Requests declaration and an unused Requests import but no call in six ordinary-order files; further eligible files remain inside ordinary16-file admission",
+  "normal_route": "stop the arbitrary preflight ceiling and require another conversational activation",
+  "why_worse": "would add a handoff without changing risk/method while at most3 small target-source reads can settle the same predeclared eligibility question",
+  "override": "explicit finite screening ceiling19, at most3 additional source reads, same case and ordinary order; no comparison or producer cap change",
+  "effects": "original16-request result retained; total screening costs disclosed; frozen method, outcome-blind selection and independent transfer rule unchanged",
+  "reconciliation": "count requests across all phases; stop if no witness; do not overwrite old contracts/results",
+  "before_calls": true,
+  "candidate": "VaHerinckx/LifeLog_Project#1",
+  "paths": [
+    "pipeline/src/sources_processing/lastfm/lastfm_processing.py",
+    "pipeline/src/sources_processing/letterboxd/letterboxd_processing.py",
+    "pipeline/src/sources_processing/manual_location/manual_location_processing.py"
+  ],
+  "new_total_request_ceiling": 19,
+  "window_seconds": 60
+}

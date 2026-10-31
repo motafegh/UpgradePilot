@@ -1,0 +1,80 @@
+{
+  "outcome": "eligibility_unconfirmed",
+  "rows": [
+    {
+      "repository": "andreaswachowski/dotfiles",
+      "number": 10,
+      "base": "0eb6d799ae195e914c80a46ef52a5d0ea1856d5a",
+      "head": "98374a7f9e1e82454c631c0188db11dcd78bb3ef",
+      "author": "dependabot[bot]",
+      "language": "Vim Script",
+      "private": false,
+      "title": "chore(deps): bump requests from 2.32.4 to 2.33.0 in /.config/conky",
+      "changed_paths": [
+        ".config/conky/Pipfile.lock"
+      ],
+      "declaration_paths_examined": [],
+      "matching_direct_declarations": [],
+      "eligibility": "direct_declaration_not_established"
+    }
+  ],
+  "selected": null,
+  "transport": {
+    "format": "trial-acquisition-policy/1",
+    "limits": {
+      "github_requests": 6,
+      "provider_requests": 6,
+      "response_bytes": 1048576,
+      "aggregate_bytes": 8044041,
+      "elapsed_seconds": 60,
+      "source_request_reserve": 1,
+      "target_file_attempts": 16,
+      "adapter_candidate_attempts": 2
+    },
+    "auth": "token-env",
+    "github_requests": 3,
+    "provider_requests": 3,
+    "decoded_body_bytes": 165863,
+    "elapsed_seconds": 1.8019088810033281,
+    "deadline_kind": "cooperative_monotonic_checks_and_bounded_socket_timeouts",
+    "stops": [],
+    "requests": [
+      {
+        "stage": "unscoped",
+        "host": "api.github.com",
+        "path": "/repos/andreaswachowski/dotfiles/pulls/10/files",
+        "github_requests": 1,
+        "provider_requests": 1,
+        "decoded_body_bytes": 27293,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      },
+      {
+        "stage": "unscoped",
+        "host": "api.github.com",
+        "path": "/repos/andreaswachowski/dotfiles/git/commits/98374a7f9e1e82454c631c0188db11dcd78bb3ef",
+        "github_requests": 2,
+        "provider_requests": 2,
+        "decoded_body_bytes": 3262,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      },
+      {
+        "stage": "unscoped",
+        "host": "api.github.com",
+        "path": "/repos/andreaswachowski/dotfiles/git/trees/671914c865ec09119addf62ffe258307700d8ab6",
+        "github_requests": 3,
+        "provider_requests": 3,
+        "decoded_body_bytes": 135308,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      }
+    ]
+  },
+  "method_unchanged": true,
+  "expected_comparison_outcomes_inspected": false,
+  "private_directory": "/home/motafeq/.local/share/upgradepilot/direct-signature-screening-2026-10-31/component"
+}
