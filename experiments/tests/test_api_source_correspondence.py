@@ -2,6 +2,8 @@
 
 import hashlib
 import json
+import os
+import stat
 import subprocess
 import sys
 from dataclasses import replace
@@ -27,6 +29,7 @@ from experiments.api_ordinary_call_signature_trial import (
     acquire_ordinary_comparison_inputs, encode_ordinary_inputs, open_ordinary_comparison,
     prepare_ordinary_comparison, read_ordinary_comparison, render_ordinary_comparison,
     run_ordinary_comparison,
+    prepare_fresh_execution_freeze, run_fresh_ordinary_pr_attempt, open_fresh_ordinary_pr_attempt,
 )
 from experiments.api_source_correspondence import (
     PythonSourceModule, discover_source_candidates, module_name,
@@ -572,4 +575,295 @@ class FactorySourceTests(TestCase):
             self.assertEqual(pair["comparison"]["outcome"], "undetermined")
             self.assertFalse(pair["comparison"]["checks_complete"])
             self.assertEqual(pair["comparison"]["keyword_reception"][0]["outcome"], "variadic_keyword")
+
+
+class FreshAttemptLifecycleTests(TestCase):
+    """Real acquisition clients under authored HTTP, never the official live case."""
+
+    def selection(self, parent, *, mode="controlled_qualification"):
+        contract = json.loads(Path("working-memory/evidence/2026-10-30-first-fresh-ordinary-pr-contract/contract.json").read_bytes())
+        contract["contract_id"] = "authored-lifecycle-control-not-an-official-attempt"
+        contract["invocation"] = dict(repository="owner/target", pull_number=7, expected_base="b" * 40, expected_head=SHA)
+        contract["private_retention"]["root"] = str(parent / "attempt")
+        credential = parent / "credential"
+        credential.write_bytes(b"authored-test-credential-not-a-real-token")
+        credential.chmod(0o600)
+        data = json_bytes(contract)
+        freeze = prepare_fresh_execution_freeze(data, credential_file=credential, mode=mode)
+        return data, freeze, parent / "attempt", credential
+
+    def execute(self, data, freeze, **controls):
+        from experiments.tests.test_api_public_pr_context import staged_http_control
+        from experiments.api_change_source_acquisition import TrialAcquisitionPolicy
+        return staged_http_control(TrialAcquisitionPolicy(), noise=0,
+            invoke=lambda: run_fresh_ordinary_pr_attempt(data, freeze), **controls)[0]
+
+    def test_start_precedes_credentials_actual_clients_finish_and_cold_open_without_reanalysis(self):
+        import experiments.api_ordinary_call_signature_trial as owner
+        from io import StringIO
+        from contextlib import redirect_stdout
+        with TemporaryDirectory() as tmp:
+            data, freeze, directory, credential = self.selection(Path(tmp))
+            original = owner._read_attempt_credential
+            def read_after_start(path):
+                self.assertEqual(json.loads((directory / "attempt-started.json").read_bytes())["state"], "started")
+                self.assertFalse((directory / "initial-observation.json").exists())
+                return original(path)
+            with patch.object(owner, "_read_attempt_credential", side_effect=read_after_start), \
+                 patch.dict(os.environ, {"GITHUB_TOKEN": "ambient-must-not-be-used"}):
+                attempt = self.execute(data, freeze)
+            self.assertEqual(attempt["state"], "completed", attempt)
+            self.assertEqual(attempt["execution_mode"], "controlled_qualification")
+            self.assertTrue(attempt["structural_disposition"].startswith("useful"))
+            self.assertEqual((directory / "acquisition-input.json").read_bytes(), (directory / "comparison/input.json").read_bytes())
+            acquisition = json.loads((directory / "acquisition.json").read_bytes())
+            # Initial PR observation plus native changed-file coherence reread.
+            requests = acquisition["transport"]["requests"]
+            self.assertEqual(sum(r["path"] == "/repos/owner/target/pulls/7" for r in requests), 2)
+            self.assertTrue(acquisition["library_sources"])
+            self.assertIn("target_context", acquisition["completed_stages"])
+            for path in directory.rglob("*"):
+                self.assertEqual(stat.S_IMODE(path.stat().st_mode), 0o700 if path.is_dir() else 0o600)
+                if path.is_file():
+                    self.assertNotIn(credential.read_bytes(), path.read_bytes())
+                    self.assertNotIn(b"ambient-must-not-be-used", path.read_bytes())
+            with patch("ast.parse", side_effect=AssertionError("AST forbidden")), \
+                 patch("requests.sessions.Session.request", side_effect=AssertionError("network forbidden")), \
+                 patch.object(owner, "discover_source_candidates", side_effect=AssertionError("discovery forbidden")), \
+                 patch("experiments.api_call_signature.compare_arguments", side_effect=AssertionError("checker forbidden")), \
+                 patch.object(owner, "fresh_execution_identity", side_effect=AssertionError("current code identity forbidden")):
+                opened = open_fresh_ordinary_pr_attempt(directory)
+                self.assertEqual(len(opened["comparison"]["pairs"]), 2)
+                self.assertEqual(opened["comparison"]["proof_class"], "controlled_ordinary_pr_composition")
+                output = StringIO()
+                with redirect_stdout(output):
+                    self.assertEqual(owner.main(["open-attempt", "--result", str(directory)]), 0)
+                self.assertIn("ACQUISITION ATTEMPT: completed", output.getvalue())
+                self.assertIn("Retained library module records:", output.getvalue())
+                self.assertIn("Provider work:", output.getvalue())
+
+    def test_entry_freeze_scope_activation_and_existing_destination_refuse_before_credentials(self):
+        import experiments.api_ordinary_call_signature_trial as owner
+        for mutation in ("code", "contract", "live", "existing", "unsafe_parent"):
+            with self.subTest(mutation=mutation), TemporaryDirectory() as tmp:
+                data, freeze, directory, _ = self.selection(Path(tmp), mode="live_activation" if mutation == "live" else "controlled_qualification")
+                if mutation == "code":
+                    changed = json.loads(freeze)
+                    changed["code_sha256"]["experiments/api_ordinary_call_signature_trial.py"] = "0" * 64
+                    freeze = json_bytes(changed)
+                elif mutation == "contract":
+                    changed = json.loads(data)
+                    changed["acquisition_policy"]["github_requests"] = 80
+                    data = json_bytes(changed)
+                elif mutation == "existing":
+                    directory.mkdir(mode=0o700)
+                elif mutation == "unsafe_parent":
+                    Path(tmp).chmod(0o755)
+                with patch.object(owner, "_read_attempt_credential", side_effect=AssertionError("credential forbidden")), \
+                     patch("requests.sessions.Session.request", side_effect=AssertionError("network forbidden")), \
+                     self.assertRaises((OSError, ValueError)):
+                    run_fresh_ordinary_pr_attempt(data, freeze)
+                self.assertFalse((directory / "attempt-started.json").exists())
+
+    def test_missing_unsafe_and_symlink_credentials_leave_private_refusal_without_provider_work(self):
+        for mutation in ("missing", "unsafe", "symlink"):
+            with self.subTest(mutation=mutation), TemporaryDirectory() as tmp:
+                data, freeze, directory, credential = self.selection(Path(tmp))
+                if mutation == "missing":
+                    credential.unlink()
+                elif mutation == "unsafe":
+                    credential.chmod(0o644)
+                else:
+                    target = credential.with_name("original")
+                    credential.rename(target)
+                    credential.symlink_to(target)
+                with patch("requests.sessions.Session.request", side_effect=AssertionError("network forbidden")):
+                    attempt = run_fresh_ordinary_pr_attempt(data, freeze)
+                self.assertEqual(attempt["state"], "refused")
+                opened = open_fresh_ordinary_pr_attempt(directory)
+                self.assertIsNone(opened["initial_observation"])
+                self.assertIsNone(opened["acquisition"]["transport"])
+
+    def test_auth_refusal_and_identity_drift_retain_only_actually_observed_identity(self):
+        for failure in ("auth", "drift"):
+            with self.subTest(failure=failure), TemporaryDirectory() as tmp:
+                data, freeze, directory, _ = self.selection(Path(tmp))
+                calls = []
+                def transform(path, body, status):
+                    calls.append(path)
+                    if failure == "auth":
+                        return {"message": "Bad credentials"}, 401
+                    body["head"]["sha"] = "d" * 40
+                    return body, status
+                attempt = self.execute(data, freeze, response_transform=transform)
+                self.assertEqual(attempt["state"], "refused", attempt)
+                self.assertEqual(len(calls), 1)
+                opened = open_fresh_ordinary_pr_attempt(directory)
+                self.assertIsNone(opened["comparison"])
+                if failure == "auth":
+                    self.assertIsNone(opened["initial_observation"])
+                    self.assertEqual(attempt["cause"]["status_code"], 401)
+                else:
+                    self.assertEqual(opened["initial_observation"]["identity"]["head_sha"], "d" * 40)
+
+    def test_later_interrupt_provider_failure_and_deadline_preserve_completed_stages(self):
+        from upgradepilot.github.api import GitHubAcquisitionError
+        for failure in (KeyboardInterrupt(), GitHubAcquisitionError("authored refusal", reason="trial_request_limit"),
+                        GitHubAcquisitionError("authored deadline", reason="trial_acquisition_deadline")):
+            with self.subTest(failure=type(failure).__name__ + str(getattr(failure, "reason", ""))), TemporaryDirectory() as tmp:
+                data, freeze, directory, _ = self.selection(Path(tmp))
+                def transform(path, body, status):
+                    if path.startswith("/pypi/"):
+                        raise failure
+                    return body, status
+                attempt = self.execute(data, freeze, response_transform=transform)
+                self.assertIn(attempt["state"], {"interrupted", "acquisition_incomplete", "timed_out"}, attempt)
+                opened = open_fresh_ordinary_pr_attempt(directory)
+                self.assertIsNotNone(opened["initial_observation"])
+                self.assertIn("target_context", opened["acquisition"]["completed_stages"])
+                self.assertTrue(opened["acquisition"]["completed_stages"]["target_context"]["files"])
+                self.assertIsNone(opened["comparison"])
+
+    def test_worker_failure_preserves_frozen_input_and_distinct_inner_state(self):
+        import experiments.api_ordinary_call_signature_trial as owner
+        for failure in (OSError("startup failed"), subprocess.TimeoutExpired("worker", 60), KeyboardInterrupt()):
+            with self.subTest(failure=type(failure).__name__), TemporaryDirectory() as tmp:
+                data, freeze, directory, _ = self.selection(Path(tmp))
+                with patch.object(owner.subprocess, "run", side_effect=failure):
+                    attempt = self.execute(data, freeze)
+                self.assertIn(attempt["state"], {"failed", "timed_out", "interrupted"})
+                opened = open_fresh_ordinary_pr_attempt(directory)
+                self.assertIsNone(opened["comparison"])
+                self.assertIn("acquisition-input.json", attempt["artifacts"])
+                self.assertIn("comparison/attempt.json", attempt["artifacts"])
+                self.assertEqual(json.loads((directory / "comparison/attempt.json").read_bytes())["state"], attempt["state"])
+
+    def test_acquisition_receipt_is_frozen_before_analysis_not_measured_after_worker(self):
+        import experiments.api_ordinary_call_signature_trial as owner
+        with TemporaryDirectory() as tmp:
+            data, freeze, directory, _ = self.selection(Path(tmp))
+            original_worker = owner.run_ordinary_comparison
+            original_receipt = owner.TrialPublicSession.acquisition_receipt
+            analysis_started = []
+            def worker(*args, **kwargs):
+                analysis_started.append(True)
+                return original_worker(*args, **kwargs)
+            def receipt(session):
+                if analysis_started:
+                    raise AssertionError("Acquisition clock sampled after analysis started")
+                return original_receipt(session)
+            with patch.object(owner, "run_ordinary_comparison", side_effect=worker), \
+                 patch.object(owner.TrialPublicSession, "acquisition_receipt", receipt):
+                attempt = self.execute(data, freeze)
+            self.assertEqual(attempt["state"], "completed")
+            self.assertIsNotNone(open_fresh_ordinary_pr_attempt(directory)["comparison"])
+
+    def test_worker_bootstrap_failure_and_final_native_drift_preserve_acquisition_without_repair(self):
+        import experiments.api_ordinary_call_signature_trial as owner
+        for failure in ("bootstrap", "final_drift"):
+            with self.subTest(failure=failure), TemporaryDirectory() as tmp:
+                data, freeze, directory, _ = self.selection(Path(tmp))
+                if failure == "bootstrap":
+                    with patch.object(owner, "run_ordinary_comparison", side_effect=OSError("worker entry unavailable")):
+                        attempt = self.execute(data, freeze)
+                    self.assertEqual(attempt["state"], "failed")
+                    self.assertIn("acquisition-input.json", attempt["artifacts"])
+                    self.assertIsNone(attempt["inner_attempt"])
+                else:
+                    reads = []
+                    def transform(path, body, status):
+                        if path == "/repos/owner/target/pulls/7":
+                            reads.append(path)
+                            if len(reads) == 2:
+                                body["head"]["sha"] = "d" * 40
+                        return body, status
+                    attempt = self.execute(data, freeze, response_transform=transform)
+                    self.assertEqual(attempt["state"], "acquisition_incomplete", attempt)
+                    self.assertEqual(len(reads), 2)
+                    self.assertEqual(attempt["observed_identity"]["head_sha"], SHA)
+                    self.assertNotEqual(attempt["reason"], "initial_identity_guard_refusal")
+                self.assertIsNone(open_fresh_ordinary_pr_attempt(directory)["comparison"])
+
+    def test_fresh_label_reader_requires_native_observation_coherence(self):
+        # Decoder qualification with authored material is not a live acquisition.
+        catalog, modules, acquisition = ordinary_control()[0]
+        result, companion = prepare_ordinary_comparison(encode_ordinary_inputs(catalog, modules, acquisition,
+            proof_class="fresh_ordinary_pr_acquisition"), AnalysisLimits())
+        body, _ = read_ordinary_comparison(result, companion)
+        self.assertEqual(body["proof_class"], "fresh_ordinary_pr_acquisition")
+        damaged = json.loads(result)
+        damaged["acquisition"]["native_inputs"]["identity"]["head_sha"] = "d" * 40
+        with self.assertRaisesRegex(ValueError, "observation/target mismatch"):
+            read_ordinary_comparison(json_bytes(damaged), companion)
+
+    def test_empty_and_candidate_exhaustion_complete_without_claiming_useful_full_coverage(self):
+        for source, expected in (("pass\n", "insufficient_structural_evidence"),
+            ("from vendor import FACTORY as marks\nmarks.operation(*values, **options)\n", "insufficient_structural_evidence"),
+            ("from vendor import FACTORY as marks\n" + "marks.operation(ids=[1])\n" * 140, "useful_partial_structural_evidence")):
+            with self.subTest(expected=expected), TemporaryDirectory() as tmp:
+                data, freeze, directory, _ = self.selection(Path(tmp))
+                attempt = self.execute(data, freeze, target_source=source)
+                self.assertEqual(attempt["state"], "completed", attempt)
+                self.assertEqual(attempt["structural_disposition"], expected)
+                body = open_fresh_ordinary_pr_attempt(directory)["comparison"]
+                if expected.startswith("useful"):
+                    self.assertEqual(len(body["pairs"]), 256)
+                    self.assertIn("comparison_candidate_limit", {gap["reason"] for gap in body["discovery"]["gaps"]})
+                elif source == "pass\n":
+                    self.assertEqual(body["pairs"], [])
+                else:
+                    self.assertEqual({pair["comparison"]["outcome"] for pair in body["pairs"]}, {"undetermined"})
+
+    def test_known_keyword_reception_survives_unknown_star_arguments_as_useful_partial(self):
+        with TemporaryDirectory() as tmp:
+            data, freeze, directory, _ = self.selection(Path(tmp))
+            source = "from vendor import FACTORY as marks\nmarks.operation(*values, ids=[], **options)\n"
+            attempt = self.execute(data, freeze, target_source=source)
+            self.assertEqual(attempt["state"], "completed")
+            self.assertEqual(attempt["structural_disposition"], "useful_partial_structural_evidence")
+            pairs = open_fresh_ordinary_pr_attempt(directory)["comparison"]["pairs"]
+            self.assertEqual({p["comparison"]["outcome"] for p in pairs}, {"undetermined", "rejected"})
+            self.assertTrue(any(k["outcome"] == "variadic_keyword" for p in pairs for k in p["comparison"]["keyword_reception"]))
+
+    def test_cold_open_detects_missing_terminal_and_cross_branch_corruption_without_retry(self):
+        import experiments.api_ordinary_call_signature_trial as owner
+        for mutation in ("missing_terminal", "input", "initial", "terminal_identity", "membership", "configuration"):
+            with self.subTest(mutation=mutation), TemporaryDirectory() as tmp:
+                data, freeze, directory, _ = self.selection(Path(tmp))
+                self.assertEqual(self.execute(data, freeze)["state"], "completed")
+                self.assertEqual(open_fresh_ordinary_pr_attempt(directory)["attempt"]["state"], "completed")
+                if mutation == "missing_terminal":
+                    (directory / "attempt.json").unlink()
+                    opened = open_fresh_ordinary_pr_attempt(directory)
+                    self.assertEqual(opened["attempt"]["state"], "unknown_completion")
+                    self.assertIsNone(opened["comparison"])
+                else:
+                    terminal = json.loads((directory / "attempt.json").read_bytes())
+                    if mutation == "membership":
+                        del terminal["artifacts"]["initial-observation.json"]
+                    elif mutation == "terminal_identity":
+                        terminal["invocation"]["pull_number"] = 8
+                    elif mutation == "configuration":
+                        start = json.loads((directory / "attempt-started.json").read_bytes())
+                        start["configuration"]["acquisition_policy"]["github_requests"] = 80
+                        (directory / "attempt-started.json").write_bytes(json_bytes(start))
+                        terminal["configuration"] = start["configuration"]
+                        digest = hashlib.sha256((directory / "attempt-started.json").read_bytes()).hexdigest()
+                        terminal["started_sha256"] = digest
+                        terminal["artifacts"]["attempt-started.json"] = digest
+                    else:
+                        name = "acquisition-input.json" if mutation == "input" else "initial-observation.json"
+                        value = json.loads((directory / name).read_bytes())
+                        if mutation == "input":
+                            value["acquisition"]["native_inputs"]["description"]["text"] = "Changed after capture"
+                        else:
+                            value["identity"]["head_sha"] = "d" * 40
+                        (directory / name).write_bytes(json_bytes(value))
+                        # Rehashing alone cannot repair the independent branch relation.
+                        terminal["artifacts"][name] = hashlib.sha256((directory / name).read_bytes()).hexdigest()
+                    (directory / "attempt.json").write_bytes(json_bytes(terminal))
+                    with self.assertRaises(ValueError):
+                        open_fresh_ordinary_pr_attempt(directory)
+                with patch.object(owner, "_read_attempt_credential", side_effect=AssertionError("retry forbidden")), self.assertRaises(FileExistsError):
+                    run_fresh_ordinary_pr_attempt(data, freeze)
 

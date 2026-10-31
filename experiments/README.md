@@ -78,6 +78,31 @@ Other families' reuse is scoped to their declared protocol and owner; consult th
 inventory, module docstring, family plan and qualified method before depending on
 them. A public Python name alone is not qualification for a new responsibility.
 
+## Ordinary acquisition attempt lifecycle
+
+The ordinary driver owns `prepare_fresh_execution_freeze`,
+`run_fresh_ordinary_pr_attempt` and `open_fresh_ordinary_pr_attempt`. The first
+returns code/config/runtime/contract snapshot bytes without reading a credential
+or activating execution. The runner requires the frozen operational contract and
+matching execution snapshot. Its selected destination must be unused under an
+existing owner-only directory; an explicit owner-only credential file is read only
+after immutable outer start retention. Ambient credentials are not inherited.
+
+`controlled_qualification` exercises the same lifecycle with the controlled proof
+class. `live_activation` requires explicit caller activation as well as matching
+code/configuration; this interlock never grants user authorization. There is no
+automatic retry, cap enlargement or live CLI shortcut. The existing analysis
+worker remains separate in `comparison/`. Completed stage captures and returned
+module text survive handled acquisition failures; abrupt process loss may leave
+unknown completion and lost intermediates, which are never reconstructed as facts.
+
+Offline CLI `open-attempt --result DIRECTORY` admits outer identities, retained
+digests, initial observation, input and inner worker relations without acquisition,
+AST parsing, discovery or checking. It exposes incomplete/unknown states. Useful
+paired native-version comparisons, useful partial evidence and insufficient
+evidence are separate from procedural completion and complete coverage. These
+experimental artifacts are not native Workspace checkpoints or action authority.
+
 ## Historical identity and frozen evidence
 
 Keep result/source/attempt/freezes/labels bytes unchanged. Source code may evolve,

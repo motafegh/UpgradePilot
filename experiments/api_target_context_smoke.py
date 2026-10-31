@@ -146,7 +146,14 @@ def acquire_public_pr_context(
     expected_head: str | None = None,
     max_target_python_files: int = 200,
     source_run: PythonSourceAcquisitionRun | None = None,
+    capture=None,
 ) -> PublicPRContextTrial | AcquisitionProblem:
+    """Compose native inputs and experimental source owners once.
+
+    Optional capture receives completed native/target/window stages for the
+    ordinary outer attempt. It does not refetch or reconstruct failed stages;
+    the ordinary owner also captures original observation and returned modules.
+    """
     session = session or TrialPublicSession()
     files = files or GitHubRepositoryClient(session=session)
     pull_requests = pull_requests or GitHubPullRequestClient(session=session)
@@ -161,6 +168,8 @@ def acquire_public_pr_context(
                 expected_base=expected_base, expected_head=expected_head,
             )
         identity = acquired.identity
+        if capture is not None:
+            capture("native_inputs", asdict(acquired))
         dependency = acquired.dependency
         if not isinstance(dependency, DependencyVersionChange):
             return AcquisitionProblem(
@@ -175,6 +184,8 @@ def acquire_public_pr_context(
             context = target.acquire(identity.repository, identity.head_sha, **target_options)
         if isinstance(context, AcquisitionProblem):
             return context
+        if capture is not None:
+            capture("target_context", dict(summary=context_manifest(context), files=[asdict(f) for f in context.files]))
         interval = DependencyReleaseInterval(
             dependency.package,
             dependency.normalized_package,
@@ -183,6 +194,8 @@ def acquire_public_pr_context(
         )
         with session.stage("upstream_window", reserve_github=policy.source_request_reserve if policy else 0):
             source = upstream.acquire(interval)
+        if capture is not None:
+            capture("upstream_window", release_window_manifest(source))
         with session.stage("library_sources"):
             if policy:
                 # Admit direct native-version questions before exploration can

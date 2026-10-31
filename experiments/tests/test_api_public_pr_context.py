@@ -968,7 +968,7 @@ class PublicPRTests(TestCase):
                 decode_adapter_seed(packet)
 
 
-def staged_http_control(policy, *, noise=24):
+def staged_http_control(policy, *, noise=24, invoke=None, response_transform=None, target_source=None):
     """Authored public HTTP responses; all normal acquisition clients stay real.
 
     No live network, known source path selector or callable answer enters the
@@ -1026,7 +1026,7 @@ def staged_http_control(policy, *, noise=24):
             if name == 'requirements.txt':
                 text = 'vendor==' + ('1.0' if revision == BASE else '2.0') + '\n'
             elif name == 'z_case.py':
-                text = 'from vendor import FACTORY as marks\nmarks.operation(ids=[1])\n'
+                text = target_source if target_source is not None else 'from vendor import FACTORY as marks\nmarks.operation(ids=[1])\n'
             elif name == 'vendor/__init__.py':
                 text = ''.join(f'from .noise{i:02} import unused{i}\n' for i in range(noise))
                 text += 'from .factory import FACTORY\n'
@@ -1039,6 +1039,8 @@ def staged_http_control(policy, *, noise=24):
             data = dict(type='file', path=name, encoding='base64', content=base64.b64encode(text.encode()).decode())
         else:
             raise AssertionError('Unexpected controlled provider endpoint: ' + path)
+        if response_transform is not None:
+            data, status = response_transform(path, data, status)
         response = Response()
         response.status_code = status
         response.raw = BytesIO(json.dumps(data, separators=(',', ':')).encode())
@@ -1047,8 +1049,8 @@ def staged_http_control(policy, *, noise=24):
         return response
 
     with patch('requests.Session.request', side_effect=transport):
-        result = acquire_ordinary_comparison_inputs('owner/target', 7, session=session,
-                    adapters=AdapterSourceExplorer(session=session))
+        result = invoke() if invoke is not None else acquire_ordinary_comparison_inputs(
+            'owner/target', 7, session=session, adapters=AdapterSourceExplorer(session=session))
     return result, session
 
 

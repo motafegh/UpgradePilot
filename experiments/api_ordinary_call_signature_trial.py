@@ -5,8 +5,11 @@ the ordinary PR acquisition owner, then closes observed in-repository imports at
 the same source run. ``run_ordinary_comparison`` analyzes that frozen input in a
 bounded worker. CLI ``open --result DIRECTORY`` renders fixed saved files only.
 
-This increment admits controlled-provider composition and retained component
-discovery, not fresh live execution, installed versions or normal product adoption.
+``run_fresh_ordinary_pr_attempt`` surrounds acquisition with an immutable outer
+attempt, then delegates to the unchanged bounded analysis worker. Its contract
+and executable freeze must be admitted before credential/provider work. Controlled
+qualification is labelled separately; a fresh label never proves installation,
+runtime dispatch, compatibility or normal product adoption.
 No callable selectors/expected answers are inputs. Curated v1 stays separately
 readable through api_call_signature_trial; both readers share fact integrity and
 source display. These experimental bundles are not Workspace checkpoints.
@@ -16,9 +19,13 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
+import platform
+import stat
 import subprocess
 import sys
 import time
+import uuid
 from dataclasses import asdict
 from datetime import UTC, datetime
 from pathlib import Path
@@ -39,7 +46,7 @@ from .api_signature_evidence import (
     signature_code_identity, admit_method_source_names, CURATED_HISTORICAL_SOURCES,
     SIGNATURE_SUPPORT_SOURCES, read_comparison_records, render_comparison, render_source,
 )
-from .api_change_source_acquisition import AcquisitionProblem, TrialAcquisitionPolicy
+from .api_change_source_acquisition import AcquisitionProblem, TrialAcquisitionPolicy, TrialPublicSession
 from upgradepilot.github.api import GitHubAcquisitionError
 from .api_source_correspondence import (
     CORRESPONDENCE_VERSION, MAX_DISCOVERY_DEPTH, MAX_DISCOVERY_GAPS, MAX_PATH_STEPS,
@@ -51,7 +58,8 @@ from .api_target_context_smoke import (
 
 FORMAT = "caller-signature-evidence/2"
 INPUT_FORMAT = "ordinary-caller-signature-input/1"
-PROOF_CLASSES = {"controlled_ordinary_pr_composition", "retained_component_discovery"}
+FRESH_PROOF = "fresh_ordinary_pr_acquisition"
+PROOF_CLASSES = {"controlled_ordinary_pr_composition", "retained_component_discovery", FRESH_PROOF}
 ORDINARY_METHOD_SOURCES = (
     "experiments/api_source_correspondence.py", "experiments/api_ordinary_call_signature_trial.py",
     "experiments/api_target_context_smoke.py", "experiments/api_adapter_exploration.py",
@@ -200,7 +208,7 @@ def prepare_ordinary_inputs(trial, session, source_run):
 def encode_ordinary_inputs(catalog, modules, acquisition, *, proof_class):
     """Host-bound proof label; retained data is never promoted to fresh product proof."""
     if proof_class not in PROOF_CLASSES:
-        raise ValueError("Fresh live/product proof is not admitted by this increment.")
+        raise ValueError("Unsupported ordinary acquisition proof class.")
     def observation_value(value):
         if isinstance(value, datetime):
             return value.isoformat()
@@ -211,18 +219,21 @@ def encode_ordinary_inputs(catalog, modules, acquisition, *, proof_class):
         acquisition=acquisition))
 
 
-def acquire_ordinary_comparison_inputs(repository, number, *, session, adapters, **providers):
+def acquire_ordinary_comparison_inputs(repository, number, *, session, adapters, capture=None, **providers):
     """Ordinary repo/PR entry, exercised with controlled providers in this increment.
 
     Callers supply provider configuration and optional revision guards, never
     target file paths, callable pairs, source versions or expected outcomes.
-    Fresh live use awaits the separately selected allocation/execution contract.
+    Fresh use belongs to run_fresh_ordinary_pr_attempt, not an unrecorded host call.
+    Optional capture preserves completed acquisition stages for that outer owner.
     """
     if session.policy and adapters.session is not session:
         raise ValueError("Staged acquisition requires one shared adapter/transport session.")
     source_run = adapters.source_run()
+    if capture is not None:
+        source_run = _CapturedSourceRun(source_run, capture)
     trial = acquire_public_pr_context(repository, number, session=session, adapters=adapters,
-                                      source_run=source_run, **providers)
+                                      source_run=source_run, capture=capture, **providers)
     if isinstance(trial, AcquisitionProblem):
         return trial
     try:
@@ -321,7 +332,7 @@ def read_ordinary_comparison(result, companion):
     modules = _read_modules(body["modules"], catalog)
     _validate_discovery(body, catalog, modules)
     _validate_acquisition(body["acquisition"])
-    if body["proof_class"] == "controlled_ordinary_pr_composition":
+    if body["proof_class"] in {"controlled_ordinary_pr_composition", FRESH_PROOF}:
         from upgradepilot.github.pull_request import PullRequestDescriptionObservation
         native = body["acquisition"].get("native_inputs")
         if type(native) is not dict or type(native.get("identity")) is not dict or type(native.get("dependency")) is not dict:
@@ -658,6 +669,460 @@ def open_ordinary_comparison(directory):
     return body, catalog
 
 
+# Outer acquisition lifecycle. The existing worker above remains an independent
+# bounded analysis attempt. Nothing in this section executes downloaded code.
+class _CapturedSourceRun:
+    """Delegate the existing shared run; retain returned material before later work."""
+
+    def __init__(self, run, capture):
+        self.run, self.capture = run, capture
+
+    def __getattr__(self, name):
+        return getattr(self.run, name)
+
+    def examine(self, request):
+        from .api_adapter_exploration import ExaminedPythonModule
+        outcome = self.run.examine(request)
+        record = module_attempt_manifest(ChangedPackageModuleAttempt(request, outcome))
+        if isinstance(outcome, ExaminedPythonModule):
+            record["file"] = asdict(outcome.file)
+        self.capture("library_source", record)
+        return outcome
+
+
+class _ObservedPullClient:
+    """Observe the original native read, including identities rejected by its guard."""
+
+    def __init__(self, client, capture):
+        self.client, self.capture = client, capture
+
+    def __getattr__(self, name):
+        return getattr(self.client, name)
+
+    def get_pull_request_observation(self, repository, number):
+        value = self.client.get_pull_request_observation(repository, number)
+        self.capture("initial_observation", asdict(value))
+        return value
+
+    def get_changed_files(self, identity):
+        self.capture("changed_files_pending", None)
+        value = self.client.get_changed_files(identity)
+        self.capture("changed_files", [asdict(item) for item in value])
+        return value
+
+
+class _InitialIdentityRefusal(ValueError):
+    reason = "initial_identity_guard_refusal"
+
+
+def _observation_json(value):
+    if isinstance(value, datetime):
+        return value.isoformat()
+    raise TypeError("Unsupported capture value: " + type(value).__name__)
+
+
+def _capture_bytes(value):
+    return json_bytes(json.loads(json.dumps(value, default=_observation_json)))
+
+
+def _write_attempt_file(path, data, maximum=MAX_SELECTION_BYTES):
+    if len(data) > maximum:
+        raise AnalysisLimit("outer_attempt_retention_capacity")
+    # The shared writer's 16MiB result bound is intentionally NOT the input bound.
+    descriptor = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+    with os.fdopen(descriptor, "wb") as stream:
+        stream.write(data)
+
+
+def fresh_execution_identity():
+    """Bind the native source forest, experimental producers and Python environment.
+
+    Acquisition uses more native providers than the comparison's twelve-source
+    closure. A coarse native-forest binding avoids pretending that closure covers
+    the whole acquisition method. It does not authenticate a past network event.
+    """
+    from importlib.metadata import version
+    root = Path(__file__).resolve().parents[1]
+    sources = {**ordinary_code_identity()}
+    for name in ("api_release_window_manifest.py",):
+        path = "experiments/" + name
+        sources[path] = content_digest((root / path).read_bytes())
+    sources.update({str(path.relative_to(root)): content_digest(path.read_bytes())
+                    for path in sorted((root / "src/upgradepilot").rglob("*.py"))})
+    return dict(code_sha256=sources, runtime=dict(python=sys.version, executable=sys.executable,
+        implementation=platform.python_implementation(), platform=sys.platform,
+        executable_sha256=content_digest(Path(sys.executable).read_bytes()),
+        distributions={name: version(name) for name in ("requests", "packaging")}))
+
+
+def _read_fresh_contract(data):
+    """Admit only the qualified operational contract, not new policy knobs.
+
+    Selection prose/historical hashes stay as dated context. Executable values
+    below must match the qualified owners; a future expansion needs a successor.
+    """
+    from upgradepilot.github.identity import validate_repository
+    if len(data) > MAX_SELECTION_BYTES:
+        raise AnalysisLimit("outer_contract_capacity")
+    contract = parse_json(data)
+    if type(contract) is not dict or contract.get("format") != "fresh-ordinary-pr-contract/1":
+        raise ValueError("Unsupported fresh contract.")
+    invocation = object_fields(contract["invocation"], ("repository", "pull_number", "expected_base", "expected_head"))
+    validate_repository(invocation["repository"])
+    if type(invocation["pull_number"]) is not int or invocation["pull_number"] < 1:
+        raise ValueError("Invalid requested pull number.")
+    for field in ("expected_base", "expected_head"):
+        if not isinstance(invocation[field], str) or len(invocation[field]) != 40 or any(c not in "0123456789abcdef" for c in invocation[field]):
+            raise ValueError("Missing exact revision guard.")
+    if (contract["acquisition_policy"] != asdict(TrialAcquisitionPolicy())
+        or contract["analysis_limits"] != asdict(AnalysisLimits())
+        or contract["source_limits"] != dict(max_release_identities=4, max_dependency_hops=2,
+            max_module_questions=12, max_library_source_bytes=2097152, max_target_python_files=200,
+            max_target_source_bytes=2097152, max_crossed_release_metadata=10)
+        or contract["correspondence_limits"] != dict(max_resolver_depth=MAX_DISCOVERY_DEPTH,
+            max_literal_path_steps=MAX_PATH_STEPS, max_candidates_and_comparisons=256,
+            max_resolution_states=4096, max_diagnostic_records=MAX_DISCOVERY_GAPS, omitted_diagnostics_counted=True)):
+        raise ValueError("Fresh contract exceeds or changes qualified configuration.")
+    scope = contract["provider_scope"]
+    if (scope != dict(methods=["GET"], hosts=["api.github.com", "pypi.org"], public_only=True,
+                      redirects=False, installed_or_executed_target_code=False, global_environment_mutation=False)
+        or contract["authentication"]["mode"] != "token-env"
+        or contract["authentication"]["ambient_credentials"] != "not_inherited"
+        or contract["max_official_attempts"] != 1 or contract["automatic_retry"] is not False
+        or contract["automatic_cap_enlargement"] is not False):
+        raise ValueError("Unsupported fresh provider/auth/retry scope.")
+    representation = contract["representation"]
+    required = dict(fresh_proof_class=FRESH_PROOF, input_format=INPUT_FORMAT, comparison_format=FORMAT,
+        correspondence_version=CORRESPONDENCE_VERSION, outer_attempt_format="fresh-ordinary-pr-attempt/1",
+        inner_analysis_format="ordinary-caller-signature-attempt/1")
+    if any(representation.get(k) != v for k, v in required.items()):
+        raise ValueError("Unsupported fresh representation.")
+    retention = contract["private_retention"]
+    if (retention["directory_mode"] != "0700" or retention["file_mode"] != "0600"
+        or retention["comparison_directory"] != "comparison" or retention["raw_http_archive"] is not False
+        or retention["bounds"] != dict(encoded_input_bytes=MAX_CATALOG_BYTES,
+            each_result_or_source_companion_bytes=MAX_OUTPUT_BYTES, attempt_metadata_bytes=MAX_SELECTION_BYTES)):
+        raise ValueError("Unsupported fresh retention.")
+    if not Path(retention["root"]).is_absolute():
+        raise ValueError("Private attempt destination must be absolute.")
+    return contract
+
+
+def prepare_fresh_execution_freeze(contract_data, *, credential_file, mode):
+    """Return a snapshot for review; creating it never authorizes live execution.
+
+    Controlled qualification retains the controlled proof class even though it
+    exercises the same outer lifecycle. The credential file is explicit, never
+    read here, and its location (not value) is bound to the execution selection.
+    """
+    _read_fresh_contract(contract_data)
+    if mode not in {"controlled_qualification", "live_activation"} or not credential_file.is_absolute():
+        raise ValueError("Explicit execution mode and absolute credential file required.")
+    return json_bytes(dict(format="ordinary-pr-execution-freeze/1", mode=mode,
+        contract_sha256=content_digest(contract_data), credential_file=str(credential_file),
+        **fresh_execution_identity()))
+
+
+def _admit_execution_freeze(contract_data, freeze_data, *, current):
+    if len(freeze_data) > MAX_SELECTION_BYTES:
+        raise AnalysisLimit("outer_execution_freeze_capacity")
+    freeze = object_fields(parse_json(freeze_data), ("format", "mode", "contract_sha256", "credential_file", "code_sha256", "runtime"))
+    if (len(freeze_data) > MAX_SELECTION_BYTES or freeze["format"] != "ordinary-pr-execution-freeze/1"
+        or freeze["mode"] not in {"controlled_qualification", "live_activation"}
+        or freeze["contract_sha256"] != content_digest(contract_data)
+        or not Path(freeze["credential_file"]).is_absolute()):
+        raise ValueError("Invalid execution freeze/contract binding.")
+    if current and {k: freeze[k] for k in ("code_sha256", "runtime")} != fresh_execution_identity():
+        raise ValueError("Executable method/environment differs from execution freeze.")
+    return freeze
+
+
+def _read_attempt_credential(path):
+    """Explicit owner-only file; never inspect ambient GITHUB_TOKEN or echo errors."""
+    descriptor = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
+    with os.fdopen(descriptor, "rb") as stream:
+        info = os.fstat(stream.fileno())
+        if not stat.S_ISREG(info.st_mode) or info.st_uid != os.getuid() or stat.S_IMODE(info.st_mode) != 0o600:
+            raise PermissionError("Credential file must be owner-only regular file.")
+        token = stream.read(4097)
+    if len(token) > 4096:
+        raise ValueError("Credential exceeds admitted size.")
+    token = token.decode("ascii").strip()
+    if not token or any(c.isspace() or ord(c) < 33 or ord(c) > 126 for c in token):
+        raise ValueError("Credential is empty or malformed.")
+    return token
+
+
+def _fresh_providers(session):
+    from upgradepilot.github.pull_request import GitHubPullRequestClient
+    from .api_adapter_exploration import AdapterSourceExplorer
+    return AdapterSourceExplorer(session=session), dict(pull_requests=GitHubPullRequestClient(session=session))
+
+
+def _structural_disposition(body):
+    """Local paired binding facts are useful; coverage closure is never implied."""
+    roots = {}
+    for candidate, pair in zip(body["discovery"]["candidates"], body["pairs"]):
+        comparison = pair["comparison"]
+        # Unknown starred arguments can prevent full binding while a named
+        # keyword's reception remains established locally. Preserve that fact;
+        # an overall undetermined result is not necessarily all-unknown evidence.
+        informative = comparison["outcome"] in {"bound", "rejected"} or any(
+            item["outcome"] != "undetermined" for item in comparison["keyword_reception"])
+        if informative:
+            roots.setdefault(candidate["root_call_id"], set()).add(candidate["callee_role"]["role"])
+    useful = any({"native_old_version", "native_proposed_version"} <= roles for roles in roots.values())
+    discovery, acquisition = body["discovery"], body["acquisition"]
+    ordinary = acquisition.get("ordinary_acquisition", {})
+    target = ordinary.get("target", {})
+    changed = ordinary.get("changed_package_sources", {})
+    adapters = ordinary.get("adapter_exploration", {})
+    # Deliberately conservative: even no recorded gap is not complete coverage.
+    # Unknown installed namespace/dispatch remain premises on useful local facts.
+    partial = bool(discovery["gaps"] or discovery["gaps_omitted"] or acquisition.get("material_omissions")
+        or target.get("gaps") or target.get("omitted_paths") or changed.get("unexamined_modules")
+        or adapters.get("problems") or adapters.get("omitted_candidates")
+        or ordinary.get("transport", {}).get("stops")
+        or any(not item["comparison"]["checks_complete"] for item in body["pairs"])
+        or any(item.get("state") != "module_examined" for item in changed.get("attempts", []))
+        or any(item.get("state") != "module_examined" for item in acquisition.get("internal_module_requests", [])))
+    return ("useful_partial_structural_evidence" if partial else "useful_structural_evidence") if useful else "insufficient_structural_evidence"
+
+
+def run_fresh_ordinary_pr_attempt(contract_data, freeze_data, *, activate_live=False):
+    """One immutable acquisition→analysis attempt, never an implicit retry.
+
+    Validate before creating the selected private destination. Start before any
+    credential/provider work. Handled failures retain completed stage snapshots;
+    abrupt process loss can leave unknown completion and unrecovered intermediates.
+    Live mode additionally requires an explicit caller activation; that flag is
+    an operational interlock, not a source of user authorization.
+    """
+    contract = _read_fresh_contract(contract_data)
+    freeze = _admit_execution_freeze(contract_data, freeze_data, current=True)
+    if freeze["mode"] == "live_activation" and not activate_live:
+        raise ValueError("Live activation withheld; no credential/provider work.")
+    directory = Path(contract["private_retention"]["root"])
+    if directory.parent.is_symlink() or not directory.parent.is_dir():
+        raise ValueError("Private attempt parent must already be a real directory.")
+    if stat.S_IMODE(directory.parent.stat().st_mode) != 0o700 or directory.parent.stat().st_uid != os.getuid():
+        raise PermissionError("Private attempt parent must be owner-only.")
+    directory.mkdir(mode=0o700)  # Refuses even a previous incomplete destination.
+    started = time.monotonic()
+    invocation = contract["invocation"]
+    attempt = dict(format="fresh-ordinary-pr-attempt/1", attempt_id=uuid.uuid4().hex,
+        state="started", reason=None, cause=None, stage="entry", started_at=datetime.now(UTC).isoformat(),
+        ended_at=None, elapsed_seconds=None, invocation=invocation, auth_mode="token-env",
+        execution_mode=freeze["mode"], contract_sha256=content_digest(contract_data),
+        execution_freeze_sha256=content_digest(freeze_data), code_sha256=freeze["code_sha256"],
+        runtime=freeze["runtime"], configuration=dict(acquisition_policy=contract["acquisition_policy"],
+            analysis_limits=contract["analysis_limits"]), observed_identity=None,
+        structural_disposition="not_assessed", coverage="not_established", inner_attempt=None,
+        artifacts={})
+    _write_attempt_file(directory / "contract.json", contract_data)
+    _write_attempt_file(directory / "execution-freeze.json", freeze_data)
+    _write_attempt_file(directory / "attempt-started.json", json_bytes(attempt))
+    start_digest = content_digest((directory / "attempt-started.json").read_bytes())
+    partial, session, source_records, capture_omissions = {}, None, [], []
+    transport_receipt = None
+
+    def capture(stage, value):
+        attempt["stage"] = stage
+        value = parse_json(_capture_bytes(value))
+        if stage == "initial_observation":
+            _write_attempt_file(directory / "initial-observation.json", json_bytes(value), MAX_OUTPUT_BYTES)
+            attempt["observed_identity"] = value["identity"]
+            identity = value["identity"]
+            if any(identity.get(key) != invocation[field] for key, field in (
+                ("repository", "repository"), ("number", "pull_number"),
+                ("base_sha", "expected_base"), ("head_sha", "expected_head"))):
+                raise _InitialIdentityRefusal("Initial observation differs from requested guards.")
+        elif stage == "library_source":
+            if value not in source_records:
+                source_records.append(value)
+        else:
+            partial[stage] = value
+        if len(_capture_bytes(dict(partial=partial, library_sources=source_records))) > MAX_OUTPUT_BYTES:
+            if stage == "library_source":
+                source_records.pop()
+            else:
+                partial.pop(stage, None)
+            capture_omissions.append(dict(stage=stage, reason="partial_acquisition_retention_capacity"))
+            raise AnalysisLimit("partial_acquisition_retention_capacity")
+
+    try:
+        attempt["stage"] = "credential"
+        try:
+            token = _read_attempt_credential(Path(freeze["credential_file"]))
+        except (OSError, ValueError, UnicodeError) as exc:
+            attempt.update(state="refused", reason="credential_unavailable_or_unsafe",
+                cause=dict(type=type(exc).__name__, reason="credential_unavailable_or_unsafe", status_code=None))
+        else:
+            session = TrialPublicSession(token=token, policy=TrialAcquisitionPolicy(**contract["acquisition_policy"]))
+            del token
+            adapters, providers = _fresh_providers(session)
+            providers["pull_requests"] = _ObservedPullClient(providers["pull_requests"], capture)
+            attempt["stage"] = "acquisition"
+            acquired = acquire_ordinary_comparison_inputs(invocation["repository"], invocation["pull_number"],
+                session=session, adapters=adapters, capture=capture,
+                expected_base=invocation["expected_base"], expected_head=invocation["expected_head"], **providers)
+            # Stop acquisition accounting at its own boundary. Sampling this
+            # clock after the worker would charge analysis time to acquisition.
+            transport_receipt = session.acquisition_receipt()
+            if isinstance(acquired, AcquisitionProblem):
+                evidence = acquired.evidence
+                attempt.update(state="acquisition_incomplete", stage=acquired.stage, reason=acquired.reason,
+                    cause=dict(type=type(evidence).__name__, reason=acquired.reason,
+                               status_code=getattr(evidence, "status_code", None)))
+                if getattr(evidence, "status_code", None) in {401, 403}:
+                    attempt["state"] = "refused"
+                elif acquired.reason == "trial_acquisition_deadline":
+                    attempt["state"] = "timed_out"
+            else:
+                attempt["stage"] = "input_freeze"
+                proof = FRESH_PROOF if freeze["mode"] == "live_activation" else "controlled_ordinary_pr_composition"
+                data = encode_ordinary_inputs(*acquired, proof_class=proof)
+                _write_attempt_file(directory / "acquisition-input.json", data, MAX_CATALOG_BYTES)
+                attempt["stage"] = "analysis"
+                inner = run_ordinary_comparison(data, directory / "comparison", limits=AnalysisLimits(**contract["analysis_limits"]))
+                attempt["inner_attempt"] = "comparison/attempt.json"
+                attempt.update(state=inner["state"], reason=inner["reason"])
+                if inner["state"] == "completed":
+                    attempt["stage"] = "admission"
+                    body, _ = open_ordinary_comparison(directory / "comparison")
+                    if (body["inputs"]["discovery_input_sha256"] != content_digest(data)
+                        or body["proof_class"] != proof
+                        or (directory / "comparison/input.json").read_bytes() != data):
+                        raise ValueError("Outer/inner acquired input binding mismatch.")
+                    attempt["structural_disposition"] = _structural_disposition(body)
+                    attempt["coverage"] = "partial; complete target/runtime coverage not established"
+    except KeyboardInterrupt:
+        attempt.update(state="interrupted", reason="caller_interrupt")
+    except subprocess.TimeoutExpired:
+        attempt.update(state="timed_out", reason="bounded_attempt_deadline")
+    except (OSError, ValueError, TypeError, MemoryError, RuntimeError) as exc:
+        # Exception text may contain credential/provider data. Keep typed cause,
+        # classified reason and stage; source material has its own private capture.
+        reason = getattr(exc, "reason", type(exc).__name__)
+        state = "timed_out" if reason == "trial_acquisition_deadline" else "failed"
+        if isinstance(exc, _InitialIdentityRefusal):
+            state = "refused"
+        attempt.update(state=state, reason=reason,
+            cause=dict(type=type(exc).__name__, reason=reason, status_code=getattr(exc, "status_code", None)))
+    finally:
+        receipt = transport_receipt
+        if receipt is None and session is not None:
+            receipt = session.acquisition_receipt()
+        acquisition = dict(format="fresh-ordinary-pr-acquisition/1", completed_stages=partial,
+            library_sources=source_records, capture_omissions=capture_omissions, transport=receipt,
+            retention="completed returned stages only; lost intermediates are not reconstructed")
+        try:
+            _write_attempt_file(directory / "acquisition.json", _capture_bytes(acquisition), MAX_OUTPUT_BYTES)
+            if fresh_execution_identity() != {k: freeze[k] for k in ("code_sha256", "runtime")}:
+                attempt.update(state="failed", reason="executable_method_changed_during_attempt",
+                    structural_disposition="not_assessed")
+            attempt.update(ended_at=datetime.now(UTC).isoformat(), elapsed_seconds=time.monotonic() - started,
+                           started_sha256=start_digest)
+            for relative in _OUTER_FILES:
+                path = directory / relative
+                if path.is_file():
+                    attempt["artifacts"][relative] = content_digest(path.read_bytes())
+            _write_attempt_file(directory / "attempt.json", json_bytes(attempt))
+        finally:
+            if session is not None:
+                session.close()
+    return attempt
+
+
+_OUTER_FILES = {"contract.json", "execution-freeze.json", "attempt-started.json", "initial-observation.json",
+    "acquisition-input.json", "acquisition.json", "comparison/input.json", "comparison/attempt-started.json",
+    "comparison/attempt.json", "comparison/result.json", "comparison/sources.json", "comparison/view.txt",
+    "comparison/_worker-result.json", "comparison/_worker-sources.json"}
+_OUTER_START_FIELDS = ("format", "attempt_id", "state", "reason", "cause", "stage", "started_at", "ended_at",
+    "elapsed_seconds", "invocation", "auth_mode", "execution_mode", "contract_sha256", "execution_freeze_sha256",
+    "code_sha256", "runtime", "configuration", "observed_identity", "structural_disposition", "coverage", "inner_attempt", "artifacts")
+
+
+def open_fresh_ordinary_pr_attempt(directory):
+    """Offline fixed admission of completed, incomplete or unknown-completion attempts.
+
+    Digests bind retained branches, not authenticity. Never compare historical
+    code hashes to today's checkout or rerun acquisition/discovery/checking here.
+    """
+    contract_data = read_bounded_bytes(directory / "contract.json", MAX_SELECTION_BYTES)
+    freeze_data = read_bounded_bytes(directory / "execution-freeze.json", MAX_SELECTION_BYTES)
+    contract = _read_fresh_contract(contract_data)
+    freeze = _admit_execution_freeze(contract_data, freeze_data, current=False)
+    start_data = read_bounded_bytes(directory / "attempt-started.json", MAX_SELECTION_BYTES)
+    start = object_fields(parse_json(start_data), _OUTER_START_FIELDS)
+    for key, expected in dict(format="fresh-ordinary-pr-attempt/1", state="started",
+        invocation=contract["invocation"], contract_sha256=content_digest(contract_data),
+        execution_freeze_sha256=content_digest(freeze_data), code_sha256=freeze["code_sha256"],
+        runtime=freeze["runtime"], execution_mode=freeze["mode"], auth_mode=contract["authentication"]["mode"],
+        configuration=dict(acquisition_policy=contract["acquisition_policy"], analysis_limits=contract["analysis_limits"])).items():
+        if start.get(key) != expected:
+            raise ValueError("Outer start/contract/freeze binding mismatch.")
+    terminal = directory / "attempt.json"
+    if not terminal.exists():
+        record = dict(start, state="unknown_completion", reason="terminal_record_missing")
+    else:
+        record = object_fields(parse_json(read_bounded_bytes(terminal, MAX_SELECTION_BYTES)), (*_OUTER_START_FIELDS, "started_sha256"))
+        if (record.get("state") not in {"refused", "acquisition_incomplete", "failed", "timed_out", "interrupted", "completed"}
+            or record.get("started_sha256") != content_digest(start_data)
+            or type(record["elapsed_seconds"]) not in {int, float}
+            or not 0 <= record["elapsed_seconds"] < float("inf")
+            or datetime.fromisoformat(record["ended_at"]).utcoffset() is None):
+            raise ValueError("Invalid outer terminal/start binding.")
+        for key in ("format", "attempt_id", "started_at", "invocation", "auth_mode", "execution_mode",
+                    "contract_sha256", "execution_freeze_sha256", "code_sha256", "runtime", "configuration"):
+            if record.get(key) != start.get(key):
+                raise ValueError("Outer terminal identity changed: " + key)
+        artifacts = record.get("artifacts")
+        if type(artifacts) is not dict or not {"contract.json", "execution-freeze.json", "attempt-started.json", "acquisition.json"} <= artifacts.keys() or not artifacts.keys() <= _OUTER_FILES:
+            raise ValueError("Invalid outer artifact closure.")
+        actual = {name for name in _OUTER_FILES if (directory / name).is_file()}
+        if actual != artifacts.keys():
+            raise ValueError("Outer retained artifact membership mismatch.")
+        for name, digest in artifacts.items():
+            capacity = MAX_CATALOG_BYTES if name in {"acquisition-input.json", "comparison/input.json"} else MAX_OUTPUT_BYTES
+            if content_digest(read_bounded_bytes(directory / name, capacity)) != digest:
+                raise ValueError("Outer artifact digest mismatch: " + name)
+    observation = parse_json(read_bounded_bytes(directory / "initial-observation.json", MAX_OUTPUT_BYTES)) if (directory / "initial-observation.json").exists() else None
+    acquisition = object_fields(parse_json(read_bounded_bytes(directory / "acquisition.json", MAX_OUTPUT_BYTES)),
+        ("format", "completed_stages", "library_sources", "capture_omissions", "transport", "retention")) if (directory / "acquisition.json").exists() else None
+    if acquisition is not None and (acquisition["format"] != "fresh-ordinary-pr-acquisition/1"
+        or type(acquisition["completed_stages"]) is not dict or type(acquisition["library_sources"]) is not list
+        or type(acquisition["capture_omissions"]) is not list):
+        raise ValueError("Invalid partial acquisition representation.")
+    if acquisition is not None and acquisition.get("transport") is not None:
+        _validate_transport(acquisition["transport"])
+    body, catalog = None, None
+    if observation is not None and record["state"] != "unknown_completion" and record["observed_identity"] != observation["identity"]:
+        raise ValueError("Outer observed identity mismatch.")
+    if record["state"] == "completed":
+        data = read_bounded_bytes(directory / "acquisition-input.json", MAX_CATALOG_BYTES)
+        body, catalog = open_ordinary_comparison(directory / "comparison")
+        raw = parse_json(data)
+        expected_proof = FRESH_PROOF if freeze["mode"] == "live_activation" else "controlled_ordinary_pr_composition"
+        native = raw["acquisition"]["native_inputs"]
+        if (observation is None or native["identity"] != observation["identity"] or native["description"] != observation["description"]
+            # The established reader validates observed_at as datetime in memory;
+            # compare its fixed JSON representation with the retained input.
+            or _capture_bytes(body["acquisition"]) != _capture_bytes(raw["acquisition"]) or body["proof_class"] != expected_proof
+            or body["inputs"]["discovery_input_sha256"] != content_digest(data)
+            or read_bounded_bytes(directory / "comparison/input.json", MAX_CATALOG_BYTES) != data
+            or record["inner_attempt"] != "comparison/attempt.json"
+            or record["structural_disposition"] != _structural_disposition(body)
+            or record["coverage"] != "partial; complete target/runtime coverage not established"
+            or body["limits"] != contract["analysis_limits"]
+            or body["code_sha256"] != {k: freeze["code_sha256"].get(k) for k in body["code_sha256"]}
+            or any(native["identity"].get(key) != contract["invocation"][field] for key, field in (
+                ("repository", "repository"), ("number", "pull_number"),
+                ("base_sha", "expected_base"), ("head_sha", "expected_head")))):
+            raise ValueError("Outer observation/input/analysis binding mismatch.")
+    return dict(attempt=record, initial_observation=observation, acquisition=acquisition, comparison=body, catalog=catalog)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
@@ -666,6 +1131,8 @@ def main(argv=None):
     opened.add_argument("--source")
     opened.add_argument("--start-line", type=int, default=1)
     opened.add_argument("--line-count", type=int, default=40)
+    outer = commands.add_parser("open-attempt", help="Inspect fresh acquisition lifecycle offline, including incomplete attempts.")
+    outer.add_argument("--result", required=True, type=Path)
     worker = commands.add_parser("_worker", help=argparse.SUPPRESS)
     worker.add_argument("input_path", type=Path)
     worker.add_argument("directory", type=Path)
@@ -674,6 +1141,24 @@ def main(argv=None):
     try:
         if args.command == "_worker":
             _worker(args.input_path, args.directory, AnalysisLimits(**json.loads(args.limits)))
+        elif args.command == "open-attempt":
+            opened_attempt = open_fresh_ordinary_pr_attempt(args.result)
+            record = opened_attempt["attempt"]
+            print(render_terminal_lines(["ACQUISITION ATTEMPT: " + record["state"],
+                "Stage: " + record["stage"], "Reason: " + str(record["reason"]),
+                "Evidence mode: " + record["execution_mode"],
+                "Structural disposition: " + record["structural_disposition"]]))
+            acquisition = opened_attempt["acquisition"]
+            if acquisition is not None:
+                print("Retained completed stages: " + ", ".join(acquisition["completed_stages"]))
+                print("Retained library module records: " + str(len(acquisition["library_sources"])))
+                transport = acquisition["transport"]
+                if transport is not None:
+                    print("Provider work: " + str(transport["github_requests"]) + " GitHub / "
+                        + str(transport["provider_requests"]) + " all-provider attempts; "
+                        + str(transport["decoded_body_bytes"]) + " decoded bytes")
+            if opened_attempt["comparison"] is not None:
+                print(render_ordinary_comparison(opened_attempt["comparison"]))
         else:
             body, catalog = open_ordinary_comparison(args.result)
             print(render_source(catalog, args.source, args.start_line, args.line_count)
