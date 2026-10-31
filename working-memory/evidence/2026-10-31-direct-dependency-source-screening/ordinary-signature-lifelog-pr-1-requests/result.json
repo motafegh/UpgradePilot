@@ -1,0 +1,42 @@
+{
+  "attempt_id": "f6fc81aba1ae485fa843f68afdd2aceb",
+  "state": "failed",
+  "stage": "target_context",
+  "reason": "native_resource_limit",
+  "cause": {
+    "reason": "native_resource_limit",
+    "status_code": null,
+    "type": "NativeReconstructionError"
+  },
+  "structural_disposition": "not_assessed",
+  "elapsed_seconds": 11.0064738330002,
+  "retained_stages": [
+    "changed_files",
+    "changed_files_pending",
+    "native_inputs"
+  ],
+  "library_records": 0,
+  "producer_capture_omissions": [],
+  "review_observed_retention_gaps": [
+    "target_context stage failed serialization before being retained",
+    "full target source/fact packet unavailable",
+    "analysis not started"
+  ],
+  "transport": {
+    "github_requests": 21,
+    "provider_requests": 21,
+    "decoded_body_bytes": 776189,
+    "elapsed_seconds": 10.994321337999281,
+    "stops": []
+  },
+  "failed_requests": [],
+  "private_directory": "/home/motafeq/.local/share/upgradepilot/direct-signature-qualification-2026-10-31/lifelog-pr-1-requests/attempt-01",
+  "artifact_sha256": {
+    "acquisition.json": "d08080fd6ae90ab00e45c431560bf7d4c1b0a9d358735993416ddefc686470cd",
+    "attempt-started.json": "a403537f50657bb4b2c0055ad782692e4baeb2fbdbb5d42ebd371d8aebde5be1",
+    "contract.json": "4bab1a6248cc6a0c70cd487f3a9bd1635afd902c0440c2cd9f04f18a2535b5e3",
+    "execution-freeze.json": "ff2c2cfdc131308228debb2529679eafb3927f718da87dcd43ffddf943e82857",
+    "initial-observation.json": "ca38094944c11433e9582e6cf2572c4847432700b44d4694dd5bd367669b8f97"
+  },
+  "terminal_sha256": "3d3846df7864447aeea7e6497e8ac971eff4435303f4a6cd5107a703a820eb81"
+}

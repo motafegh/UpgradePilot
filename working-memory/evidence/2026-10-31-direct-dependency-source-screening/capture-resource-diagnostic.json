@@ -1,0 +1,17 @@
+{
+  "proof_class": "separate no-network AST diagnostic of preflight source subset; not reconstruction/backfill of lost ordinary target",
+  "files": 8,
+  "source_bytes": 247442,
+  "references": 2227,
+  "bytes": 3687951,
+  "structural_tokens": 241994,
+  "capture": "accepted",
+  "detail": null,
+  "full_ordinary_target_unavailable": true,
+  "qualified_attempt_unchanged": true,
+  "field_bytes": {
+    "binding_trace_steps": 2146419,
+    "imports": 43154,
+    "references": 1433987
+  }
+}
