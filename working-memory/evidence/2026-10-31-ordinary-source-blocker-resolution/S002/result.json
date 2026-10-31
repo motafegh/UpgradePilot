@@ -1,0 +1,91 @@
+{
+  "attempt_id": "68e59dacf59f482babacc4fcbb345d9a",
+  "state": "completed",
+  "structural_disposition": "insufficient_structural_evidence",
+  "elapsed_seconds": 16.125931760998355,
+  "private_directory": "/home/motafeq/.local/share/upgradepilot/ordinary-pr-successors-2026-10-31/S002-fresh-ordinary/attempt-01",
+  "work": {
+    "ast_nodes": 824,
+    "facts": 72,
+    "selected_pairs": 3,
+    "source_bytes": 6179,
+    "source_files": 14
+  },
+  "roles": {
+    "target": 3
+  },
+  "gap_reasons": {
+    "imported_source_module_unavailable_or_unsupported": 13,
+    "callable_relationship_unresolved": 56,
+    "named_declaration_or_reexport_not_found": 1,
+    "allocated_class_getter_unavailable": 2,
+    "factory_attribute_chain_unsupported": 2,
+    "inherited_initializer_or_allocation_unsupported": 2
+  },
+  "transport": {
+    "github_requests": 28,
+    "provider_requests": 40,
+    "decoded_body_bytes": 1894539,
+    "stops": []
+  },
+  "adapter_problems": [],
+  "adapter_samples": [
+    {
+      "repository": "fastapi/fastapi",
+      "revision": "7a0a3f0b286c6c865cf4398ea0e957a87b8bffa4",
+      "path": "fastapi/staticfiles.py",
+      "version": "0.162.0"
+    },
+    {
+      "repository": "fastapi/fastapi",
+      "revision": "7a0a3f0b286c6c865cf4398ea0e957a87b8bffa4",
+      "path": "fastapi/testclient.py",
+      "version": "0.162.0"
+    }
+  ],
+  "omitted_candidates": [
+    {
+      "module": "fastapi",
+      "package": "fastapi"
+    },
+    {
+      "module": "pytest",
+      "package": "pytest"
+    },
+    {
+      "module": "starlette.staticfiles",
+      "package": "starlette"
+    },
+    {
+      "module": "starlette.testclient",
+      "package": "starlette"
+    }
+  ],
+  "source_work": {
+    "module_attempts": 2,
+    "release_identities": [
+      [
+        "fastapi",
+        "0.162.0"
+      ]
+    ],
+    "source_bytes": 135
+  },
+  "native_sources": [],
+  "failed_requests": [],
+  "terminal_sha256": "6352151f339579f276faec9fb58c7c2c4ff82d24326e4c778a84e5d061609a3e",
+  "artifacts": {
+    "acquisition-input.json": "fdfeeeb4d90afe5149142f05b5ef41094c46c64060be5507d2ab2be753d895e3",
+    "acquisition.json": "e03d2822e5504fbed86b370ae3c739cd446ee98687866e3e7cbaa2006d7d5290",
+    "attempt-started.json": "fd600f0fc5f743562ce82e68dc7d3069015477a0566f5537de6fc842c012dd8f",
+    "comparison/attempt-started.json": "f487ae949cf2bcfb91d78ea2bf9b6fa49246239ed8c2edb74381b69d35da2cc0",
+    "comparison/attempt.json": "95895cc59f1fb48e44f9ecdbfff655dc3b283f2aa856c1c91c3fc30108c9be9b",
+    "comparison/input.json": "fdfeeeb4d90afe5149142f05b5ef41094c46c64060be5507d2ab2be753d895e3",
+    "comparison/result.json": "06c98c9720563828d2e90f5e43ed6e6b5d9178a8d672720a2b5aa6b8d5a93c85",
+    "comparison/sources.json": "6ba5c2688c286b6c28ab94422b939aeb7ff8196b3921c6c254eebdd4dd54e080",
+    "comparison/view.txt": "83c5ec6e408c85943bb939aa5aed0f432463bd5890c02273e7cdda8a8d8f55de",
+    "contract.json": "e4a76127f32c07781f739c5f9aedb20da37113b6a4fda5ef2326cdd4eceaa70b",
+    "execution-freeze.json": "fbe135ebadfb75c9f65cad45c41f7c6d193669e0e214f8abf38bfea0477b3f22",
+    "initial-observation.json": "cfef97eaa8dd21c40df90c7c3248e46821315f9485c72ed2049373e8187156b8"
+  }
+}
