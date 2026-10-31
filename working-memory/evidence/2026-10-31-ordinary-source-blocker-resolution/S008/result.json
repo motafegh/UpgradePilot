@@ -1,0 +1,537 @@
+{
+  "attempt_id": "619edf75a64f4fd8ba5e63107c1250aa",
+  "state": "completed",
+  "reason": null,
+  "stage": "admission",
+  "structural_disposition": "useful_partial_structural_evidence",
+  "elapsed_seconds": 44.8371529449978,
+  "private_directory": "/home/motafeq/.local/share/upgradepilot/ordinary-pr-successors-2026-10-31/S008-receipt-summary/attempt-01",
+  "work": {
+    "ast_nodes": 24153,
+    "facts": 1107,
+    "selected_pairs": 12,
+    "source_bytes": 202442,
+    "source_files": 24
+  },
+  "roles": {
+    "constraint_sample": 5,
+    "target": 3,
+    "native_proposed_version": 2,
+    "native_old_version": 2
+  },
+  "gap_reasons": {
+    "imported_source_module_unavailable_or_unsupported": 53,
+    "callable_relationship_unresolved": 86,
+    "named_declaration_or_reexport_not_found": 1,
+    "allocated_class_getter_unavailable": 2,
+    "factory_attribute_chain_unsupported": 2,
+    "inherited_initializer_or_allocation_unsupported": 3
+  },
+  "transport": {
+    "github_requests": 50,
+    "provider_requests": 75,
+    "decoded_body_bytes": 2601631,
+    "elapsed_seconds": 43.05677154300065,
+    "stops": []
+  },
+  "adapter_problems": [],
+  "adapter_samples": [
+    {
+      "repository": "fastapi/fastapi",
+      "revision": "7a0a3f0b286c6c865cf4398ea0e957a87b8bffa4",
+      "path": "fastapi/staticfiles.py",
+      "version": "0.162.0"
+    },
+    {
+      "repository": "Kludex/starlette",
+      "revision": "8aa828ceaff764a2e57932fb42fdf105a47c4c83",
+      "path": "starlette/staticfiles.py",
+      "version": "1.10.0"
+    },
+    {
+      "repository": "fastapi/fastapi",
+      "revision": "7a0a3f0b286c6c865cf4398ea0e957a87b8bffa4",
+      "path": "fastapi/testclient.py",
+      "version": "0.162.0"
+    },
+    {
+      "repository": "Kludex/starlette",
+      "revision": "8aa828ceaff764a2e57932fb42fdf105a47c4c83",
+      "path": "starlette/testclient.py",
+      "version": "1.10.0"
+    }
+  ],
+  "omitted_candidates": [
+    {
+      "module": "fastapi",
+      "package": "fastapi"
+    },
+    {
+      "module": "pytest",
+      "package": "pytest"
+    },
+    {
+      "module": "anyio",
+      "package": "anyio"
+    },
+    {
+      "module": "anyio.to_thread",
+      "package": "anyio"
+    },
+    {
+      "module": "anyio.abc",
+      "package": "anyio"
+    },
+    {
+      "module": "anyio.from_thread",
+      "package": "anyio"
+    },
+    {
+      "module": "anyio.streams.stapled",
+      "package": "anyio"
+    },
+    {
+      "module": "httpx2",
+      "package": "httpx2"
+    }
+  ],
+  "source_work": {
+    "module_attempts": 12,
+    "release_identities": [
+      [
+        "fastapi",
+        "0.162.0"
+      ],
+      [
+        "starlette",
+        "1.10.0"
+      ],
+      [
+        "httpx",
+        "0.27.2"
+      ],
+      [
+        "httpx",
+        "0.28.1"
+      ]
+    ],
+    "source_bytes": 196398
+  },
+  "native_sources": [
+    {
+      "state": "module_examined",
+      "request": {
+        "package": "httpx",
+        "version": "0.27.2",
+        "module": "httpx"
+      },
+      "reason": null
+    },
+    {
+      "state": "module_examined",
+      "request": {
+        "package": "httpx",
+        "version": "0.28.1",
+        "module": "httpx"
+      },
+      "reason": null
+    }
+  ],
+  "closure": [
+    {
+      "state": "module_examined",
+      "request": {
+        "package": "httpx",
+        "version": "0.27.2",
+        "module": "httpx.__version__"
+      },
+      "reason": null
+    },
+    {
+      "state": "module_examined",
+      "request": {
+        "package": "httpx",
+        "version": "0.28.1",
+        "module": "httpx.__version__"
+      },
+      "reason": null
+    },
+    {
+      "state": "module_examined",
+      "request": {
+        "package": "httpx",
+        "version": "0.27.2",
+        "module": "httpx._api"
+      },
+      "reason": null
+    },
+    {
+      "state": "module_examined",
+      "request": {
+        "package": "httpx",
+        "version": "0.28.1",
+        "module": "httpx._api"
+      },
+      "reason": null
+    },
+    {
+      "state": "module_examined",
+      "request": {
+        "package": "httpx",
+        "version": "0.27.2",
+        "module": "httpx._client"
+      },
+      "reason": null
+    },
+    {
+      "state": "module_examined",
+      "request": {
+        "package": "httpx",
+        "version": "0.28.1",
+        "module": "httpx._client"
+      },
+      "reason": null
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "httpx",
+        "version": "0.27.2",
+        "module": "httpx._auth"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "httpx",
+        "version": "0.28.1",
+        "module": "httpx._auth"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "httpx",
+        "version": "0.27.2",
+        "module": "httpx._config"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "httpx",
+        "version": "0.28.1",
+        "module": "httpx._config"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "httpx",
+        "version": "0.27.2",
+        "module": "httpx._exceptions"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "httpx",
+        "version": "0.28.1",
+        "module": "httpx._exceptions"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "httpx",
+        "version": "0.27.2",
+        "module": "httpx._models"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "httpx",
+        "version": "0.28.1",
+        "module": "httpx._models"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "httpx",
+        "version": "0.27.2",
+        "module": "httpx._types"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "httpx",
+        "version": "0.28.1",
+        "module": "httpx._types"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "httpx",
+        "version": "0.27.2",
+        "module": "httpx._urls"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "httpx",
+        "version": "0.28.1",
+        "module": "httpx._urls"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "httpx",
+        "version": "0.27.2",
+        "module": "httpx._decoders"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "httpx",
+        "version": "0.28.1",
+        "module": "httpx._decoders"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "httpx",
+        "version": "0.27.2",
+        "module": "httpx._transports.asgi"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "httpx",
+        "version": "0.27.2",
+        "module": "httpx._transports.default"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "httpx",
+        "version": "0.28.1",
+        "module": "httpx._transports.default"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "httpx",
+        "version": "0.27.2",
+        "module": "httpx._transports.wsgi"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "httpx",
+        "version": "0.27.2",
+        "module": "httpx._utils"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "httpx",
+        "version": "0.28.1",
+        "module": "httpx._utils"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "httpx",
+        "version": "0.27.2",
+        "module": "httpx._content"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "httpx",
+        "version": "0.28.1",
+        "module": "httpx._content"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "httpx",
+        "version": "0.27.2",
+        "module": "httpx._status_codes"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "httpx",
+        "version": "0.28.1",
+        "module": "httpx._status_codes"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "httpx",
+        "version": "0.27.2",
+        "module": "httpx._transports"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "httpx",
+        "version": "0.28.1",
+        "module": "httpx._transports"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "httpx",
+        "version": "0.27.2",
+        "module": "httpx._main"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "httpx",
+        "version": "0.28.1",
+        "module": "httpx._main"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "httpx",
+        "version": "0.27.2",
+        "module": "httpx._transports.base"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "httpx",
+        "version": "0.28.1",
+        "module": "httpx._transports.base"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "starlette",
+        "version": "1.10.0",
+        "module": "starlette._utils"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "starlette",
+        "version": "1.10.0",
+        "module": "starlette.datastructures"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "starlette",
+        "version": "1.10.0",
+        "module": "starlette.exceptions"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "starlette",
+        "version": "1.10.0",
+        "module": "starlette.responses"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "starlette",
+        "version": "1.10.0",
+        "module": "starlette.websockets"
+      },
+      "reason": "module_source_limit"
+    },
+    {
+      "state": "refused",
+      "request": {
+        "package": "starlette",
+        "version": "1.10.0",
+        "module": "starlette.types"
+      },
+      "reason": "module_source_limit"
+    }
+  ],
+  "failed_requests": [],
+  "terminal_sha256": "ab3e9463242894a77c714533ceb1978f81c0567f6e2e62b723803ce781cbb342",
+  "artifacts": {
+    "acquisition-input.json": "dad73aced1c93d2394e7c6f3857c8f78b0c3f336f30e6650ff55a7a3624adb23",
+    "acquisition.json": "424c0c1bbce8291829738f58d09d0e10aa7288bb62b5b0fd384d34a88a9a4133",
+    "attempt-started.json": "ed7c320615480a727680ededa60597cadf2fa016808104d486286acd312f69e0",
+    "comparison/attempt-started.json": "af758739562674b35dd680a97deffc685327bb410addcd567c0524b37d20105c",
+    "comparison/attempt.json": "f830f2c681affcfcfe471bc461b9170334f5e8e417e937f3129752f65b3372e8",
+    "comparison/input.json": "dad73aced1c93d2394e7c6f3857c8f78b0c3f336f30e6650ff55a7a3624adb23",
+    "comparison/result.json": "e537eab1f99f6f15bbdd2c5c658f3fe699b8cded9040032a89f85d7c6aa64fe8",
+    "comparison/sources.json": "4f85d6adaa318c7dba61ebed8c83cbea3264fe7f448df061cb6460a7e3e744f3",
+    "comparison/view.txt": "da94dc72366057a585559a7f3a4c2a3df1f3b137c5804fcf9c7e643cb5c6eef0",
+    "contract.json": "a42e1d26e069f243783df84c2d74affd4b00c3b57232722264250cad5cad4710",
+    "execution-freeze.json": "35ce7ef5dbf68ac5cd7be67e91c4e2b85d4fed553fe0d42dfc31ff611fa224cd",
+    "initial-observation.json": "a95706aa3c14778b0a248769715a1d1c9f1a0911b321db65bfa5b9831cc7fa52"
+  },
+  "private_modes_valid": true
+}
