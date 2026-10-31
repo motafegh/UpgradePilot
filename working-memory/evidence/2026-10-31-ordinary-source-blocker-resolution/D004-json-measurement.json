@@ -1,0 +1,120 @@
+{
+  "scope": "separate retained JSON measurement, not capture regrade",
+  "input_bytes": 1518173,
+  "input_tokens": 106437,
+  "top": {
+    "acquisition": {
+      "bytes": 1295136,
+      "structural_tokens": 105461
+    },
+    "catalog": {
+      "bytes": 216059,
+      "structural_tokens": 338
+    },
+    "format": {
+      "bytes": 35,
+      "structural_tokens": 0
+    },
+    "modules": {
+      "bytes": 6849,
+      "structural_tokens": 627
+    },
+    "proof_class": {
+      "bytes": 31,
+      "structural_tokens": 0
+    }
+  },
+  "acquisition": {
+    "internal_module_requests": {
+      "bytes": 757728,
+      "structural_tokens": 63558
+    },
+    "material_omissions": {
+      "bytes": 2,
+      "structural_tokens": 2
+    },
+    "native_inputs": {
+      "bytes": 10994,
+      "structural_tokens": 104
+    },
+    "ordinary_acquisition": {
+      "bytes": 526051,
+      "structural_tokens": 41760
+    },
+    "retention": {
+      "bytes": 91,
+      "structural_tokens": 0
+    },
+    "source_work": {
+      "bytes": 150,
+      "structural_tokens": 24
+    }
+  },
+  "ordinary": {
+    "adapter_exploration": {
+      "bytes": 394744,
+      "structural_tokens": 31047
+    },
+    "auth": {
+      "bytes": 11,
+      "structural_tokens": 0
+    },
+    "changed_package_sources": {
+      "bytes": 24979,
+      "structural_tokens": 2194
+    },
+    "code_sha256": {
+      "bytes": 579,
+      "structural_tokens": 13
+    },
+    "dependency": {
+      "bytes": 239,
+      "structural_tokens": 24
+    },
+    "github_requests": {
+      "bytes": 2,
+      "structural_tokens": 0
+    },
+    "identity": {
+      "bytes": 359,
+      "structural_tokens": 23
+    },
+    "proof": {
+      "bytes": 122,
+      "structural_tokens": 0
+    },
+    "state": {
+      "bytes": 18,
+      "structural_tokens": 0
+    },
+    "target": {
+      "bytes": 84270,
+      "structural_tokens": 6784
+    },
+    "timestamp": {
+      "bytes": 34,
+      "structural_tokens": 0
+    },
+    "transport": {
+      "bytes": 18280,
+      "structural_tokens": 1589
+    },
+    "upstream": {
+      "bytes": 2229,
+      "structural_tokens": 59
+    }
+  },
+  "worker_files": [
+    "attempt.json",
+    "attempt-started.json",
+    "input.json"
+  ],
+  "recovery": [
+    {
+      "after_provider_request": 64,
+      "reason": "timeout_before_response",
+      "retry_provider_request": 65,
+      "state": "dispatched"
+    }
+  ]
+}
