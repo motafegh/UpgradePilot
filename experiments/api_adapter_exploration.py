@@ -7,6 +7,10 @@ satisfying a visible declaration, explicitly NOT resolved target versions. Exact
 PyPI metadata, declared association, tag/tree/module acquisition and static facts
 remain attributable. A package/module naming match is a candidate, never installed
 namespace proof. Two dependency hops/four release identities bound exploration, not coverage.
+
+Ordinary changed-package exploration follows acquired member re-exports before
+unrelated roots. This preserves a useful target-rooted frontier within bounded
+work; it does not prove a callable relationship or select condition truth.
 """
 
 from __future__ import annotations
@@ -536,7 +540,11 @@ class AdapterSourceExplorer:
             )
         ]
         pending = deque(
-            (c, 0)
+            (c, 0, frozenset(
+                r.lexical_import[len(c.imported_module) + 1:].split(".")[0]
+                for r in context.references if r.lexical_import
+                and r.source_id == c.import_source_id
+                and r.lexical_import.startswith(c.imported_module + ".")))
             for c in sorted(
                 used, key=lambda c: (-c.imported_module.count("."), c.imported_module)
             )
@@ -548,7 +556,7 @@ class AdapterSourceExplorer:
         deferred = []
         attempts = 0
         while pending:
-            candidate, depth = pending.popleft()
+            candidate, depth, members = pending.popleft()
             key = (candidate.imported_module, candidate.declaration)
             if key in seen:
                 continue
@@ -585,7 +593,7 @@ class AdapterSourceExplorer:
                 problems.append(sample)
                 if sample.reason == "trial_request_limit":
                     omitted.append(candidate)
-                    omitted.extend(c for c, _ in pending)
+                    omitted.extend(c for c, _, _ in pending)
                     break
                 if sample.stage == "adapter_budget":
                     omitted.append(candidate)
@@ -593,20 +601,24 @@ class AdapterSourceExplorer:
             samples.append(sample)
             # Follow only external imports also declared by this exact sample's
             # metadata. Imported-but-undeclared names remain unresolved, not guessed.
+            continuations = []
             for fact in sample.imports:
                 if fact.relative_level or not fact.module:
                     continue
                 root = normalize_package_name(fact.module.split(".")[0])
                 for declaration in sample.metadata.requirements:
                     if declaration.package == root:
-                        pending.append(
-                            (
-                                ImportDependencyCandidate(
-                                    fact.module, declaration, fact.source_id, fact.line
-                                ),
-                                depth + 1,
-                            )
-                        )
+                        follows_member = bool(fact.member and (fact.alias or fact.member) in members)
+                        child = (ImportDependencyCandidate(fact.module, declaration, fact.source_id, fact.line),
+                                 depth + 1, frozenset((fact.member,)) if follows_member else frozenset())
+                        # Follow an acquired re-export of the target's observed
+                        # member before unrelated roots. This chooses work only;
+                        # source correspondence still owns the conditional edge.
+                        if stop_at_package and (follows_member or declaration.package == stop_at_package):
+                            continuations.append(child)
+                        else:
+                            pending.append(child)
+            pending.extendleft(reversed(continuations))
         return AdapterExploration(
             tuple(samples), tuple(problems), tuple(omitted), deferred_candidates=tuple(deferred),
         )

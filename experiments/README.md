@@ -80,6 +80,14 @@ them. A public Python name alone is not qualification for a new responsibility.
 
 ## Ordinary acquisition attempt lifecycle
 
+The adapter explorer gives acquired re-exports of observed target member names
+priority over unrelated pending roots when following a changed package. It keeps
+omitted candidates and all existing source/correspondence premises; this is work
+selection, not an inferred callable edge. The original two-candidate acquisition
+profile remains the default. An explicitly qualified four-candidate successor
+profile admits two shim/implementation branches without changing request, release,
+module, text or analysis ceilings. Older frozen captures are not refreshed.
+
 The ordinary driver owns `prepare_fresh_execution_freeze`,
 `run_fresh_ordinary_pr_attempt` and `open_fresh_ordinary_pr_attempt`. The first
 returns code/config/runtime/contract snapshot bytes without reading a credential

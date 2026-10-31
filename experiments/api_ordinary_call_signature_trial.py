@@ -774,7 +774,14 @@ def _read_fresh_contract(data):
     for field in ("expected_base", "expected_head"):
         if not isinstance(invocation[field], str) or len(invocation[field]) != 40 or any(c not in "0123456789abcdef" for c in invocation[field]):
             raise ValueError("Missing exact revision guard.")
-    if (contract["acquisition_policy"] != asdict(TrialAcquisitionPolicy())
+    policy = object_fields(contract["acquisition_policy"], tuple(TrialAcquisitionPolicy.__dataclass_fields__))
+    TrialAcquisitionPolicy(**policy)  # Validate numeric types before any credential work.
+    expected_policy = asdict(TrialAcquisitionPolicy())
+    # Preserve the original two-candidate contract; the successor's four-work
+    # frontier is independently qualified. Other ceilings are not enlarged here.
+    if policy["adapter_candidate_attempts"] in {2, 4}:
+        expected_policy["adapter_candidate_attempts"] = policy["adapter_candidate_attempts"]
+    if (policy != expected_policy
         or contract["analysis_limits"] != asdict(AnalysisLimits())
         or contract["source_limits"] != dict(max_release_identities=4, max_dependency_hops=2,
             max_module_questions=12, max_library_source_bytes=2097152, max_target_python_files=200,

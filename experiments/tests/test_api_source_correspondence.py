@@ -580,11 +580,12 @@ class FactorySourceTests(TestCase):
 class FreshAttemptLifecycleTests(TestCase):
     """Real acquisition clients under authored HTTP, never the official live case."""
 
-    def selection(self, parent, *, mode="controlled_qualification"):
+    def selection(self, parent, *, mode="controlled_qualification", adapter_candidates=2):
         contract = json.loads(Path("working-memory/evidence/2026-10-30-first-fresh-ordinary-pr-contract/contract.json").read_bytes())
         contract["contract_id"] = "authored-lifecycle-control-not-an-official-attempt"
         contract["invocation"] = dict(repository="owner/target", pull_number=7, expected_base="b" * 40, expected_head=SHA)
         contract["private_retention"]["root"] = str(parent / "attempt")
+        contract["acquisition_policy"]["adapter_candidate_attempts"] = adapter_candidates
         credential = parent / "credential"
         credential.write_bytes(b"authored-test-credential-not-a-real-token")
         credential.chmod(0o600)
@@ -641,6 +642,19 @@ class FreshAttemptLifecycleTests(TestCase):
                 self.assertIn("ACQUISITION ATTEMPT: completed", output.getvalue())
                 self.assertIn("Retained library module records:", output.getvalue())
                 self.assertIn("Provider work:", output.getvalue())
+
+    def test_four_candidate_profile_retains_configuration_and_refuses_unqualified_expansion(self):
+        with TemporaryDirectory() as tmp:
+            data, freeze, directory, credential = self.selection(Path(tmp), adapter_candidates=4)
+            self.assertEqual(self.execute(data, freeze)["state"], "completed")
+            opened = open_fresh_ordinary_pr_attempt(directory)
+            self.assertEqual(opened["acquisition"]["transport"]["limits"]["adapter_candidate_attempts"], 4)
+            self.assertEqual(opened["acquisition"]["transport"]["limits"]["github_requests"], 50)
+            for value in (6, 4.0, []):
+                changed = json.loads(data)
+                changed["acquisition_policy"]["adapter_candidate_attempts"] = value
+                with self.subTest(value=value), self.assertRaises(ValueError):
+                    prepare_fresh_execution_freeze(json_bytes(changed), credential_file=credential, mode="controlled_qualification")
 
     def test_entry_freeze_scope_activation_and_existing_destination_refuse_before_credentials(self):
         import experiments.api_ordinary_call_signature_trial as owner

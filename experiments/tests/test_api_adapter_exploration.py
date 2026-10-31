@@ -306,6 +306,30 @@ class ChainTests(TestCase):
             files=files,
         )
 
+    def test_target_member_reexports_precede_unrelated_roots_with_four_attempts(self):
+        seed = self.acquired_seed("from bridge.alpha import Left as L\nfrom bridge.beta import Right as R\nfrom bridge import Other\nL()\nR()\nOther()\n")
+        explorer = self.explorer()
+        explorer.inventory.acquire.side_effect = lambda repo, sha: TargetInventory(repo, sha, "b" * 40,
+            tuple(InventoryEntry(repo.split("/")[1] + "/" + name, "blob", "100644")
+                  for name in ("__init__.py", "alpha.py", "beta.py")), False)
+        def source(repo, sha, path):
+            if path.endswith("__init__.py"):
+                text = "class Other:\n pass\n"
+            elif repo.endswith("/bridge"):
+                name = "Left" if path.endswith("alpha.py") else "Right"
+                module = "alpha" if name == "Left" else "beta"
+                text = "from mediator." + module + " import Original as " + name + "\n"
+            else:
+                text = "import vendor\nclass Original(vendor.Base):\n pass\n"
+            return RepositoryTextFile(repo, path, sha, text)
+        explorer.files.get_exact_commit_text_file.side_effect = source
+        result = explorer.explore(seed, stop_at_package="vendor", max_candidate_attempts=4)
+        self.assertEqual([sample.candidate.imported_module for sample in result.samples],
+            ["bridge.alpha", "mediator.alpha", "bridge.beta", "mediator.beta"])
+        self.assertIn("bridge", {candidate.imported_module for candidate in result.omitted_candidates})
+        self.assertTrue(result.deferred_candidates)
+        self.assertTrue(all(candidate.declaration.package == "vendor" for candidate in result.deferred_candidates))
+
     def test_normal_chain_follows_acquired_imports_and_exact_metadata(self):
         result = self.explorer().explore(self.context())
         self.assertEqual(
