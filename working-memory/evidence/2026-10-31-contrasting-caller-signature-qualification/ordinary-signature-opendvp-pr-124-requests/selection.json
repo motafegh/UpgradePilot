@@ -1,0 +1,32 @@
+{
+  "method_source_runtime_equal_to_prior_httpx_freeze": true,
+  "contract_sha256": "8cf6eaffce3af39d67e39a9e89b35697214bc767d6ad5a7bbd56bd8770bb625e",
+  "freeze_sha256": "bb47245511a2eee39db38fb2c54ebd960b01384e99b2d478734c131495f9b5ac",
+  "prior_exposure": "No known outcome or use for method development; metadata/dependency-file scope only",
+  "chosen": {
+    "repository": "CosciaLab/openDVP",
+    "number": 124,
+    "status": 200,
+    "author": "dependabot[bot]",
+    "language": "Python",
+    "private": false,
+    "base": "a26f4d10253c7611561605ad95758273af4e9cb1",
+    "head": "c42514bb3c5d41b162274acdac0b504956b9e36a",
+    "changed_files": 1,
+    "title": "Bump requests from 2.32.4 to 2.33.0"
+  },
+  "not_selected": [
+    {
+      "repository": "andreaswachowski/dotfiles",
+      "number": 10,
+      "reason": "repository classified Vim Script; Python-component eligibility unknown; prefer confirmed Python project, not a claim of absent usage"
+    },
+    {
+      "repository": "VaHerinckx/LifeLog_Project",
+      "number": 1,
+      "reason": "later metadata result; first confirmed eligible candidate selected, no further outcome screening"
+    }
+  ],
+  "screening_operations": 10,
+  "source_method_modified": false
+}

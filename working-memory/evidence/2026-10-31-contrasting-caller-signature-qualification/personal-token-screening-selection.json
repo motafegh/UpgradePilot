@@ -1,0 +1,23 @@
+{
+  "authorization": "Ali: Go on and use my personal token",
+  "supersedes": "no credential switching during previous refused run; explicit successor screening transport now selected",
+  "credential_file": "/home/motafeq/.config/upgradepilot/github-token",
+  "transport": "local TrialPublicSession explicit GitHub token; not connector/ambient credentials",
+  "methods": [
+    "GET"
+  ],
+  "hosts": [
+    "api.github.com"
+  ],
+  "remaining_screening_operations": 6,
+  "elapsed_since_refusal_commit_seconds": 331.4429750442505,
+  "retries": 0,
+  "on_401_403_429": "retain and stop",
+  "queries": [
+    "repo:psf/requests is:pr author:app/dependabot urllib3 in:title",
+    "repo:pypa/twine is:pr author:app/dependabot requests in:title"
+  ],
+  "same_repository_priority_and_eligibility": true,
+  "no_method_or_criteria_change": true,
+  "private_retention": "/home/motafeq/.local/share/upgradepilot/contrasting-signature-screening-2026-10-31/personal-token"
+}

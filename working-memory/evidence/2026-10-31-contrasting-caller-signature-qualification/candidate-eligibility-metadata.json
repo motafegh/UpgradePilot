@@ -1,0 +1,72 @@
+{
+  "rows": [
+    {
+      "repository": "andreaswachowski/dotfiles",
+      "number": 10,
+      "status": 200,
+      "author": "dependabot[bot]",
+      "language": "Vim Script",
+      "private": false,
+      "base": "0eb6d799ae195e914c80a46ef52a5d0ea1856d5a",
+      "head": "98374a7f9e1e82454c631c0188db11dcd78bb3ef",
+      "changed_files": 1,
+      "title": "chore(deps): bump requests from 2.32.4 to 2.33.0 in /.config/conky"
+    },
+    {
+      "repository": "CosciaLab/openDVP",
+      "number": 124,
+      "status": 200,
+      "author": "dependabot[bot]",
+      "language": "Python",
+      "private": false,
+      "base": "a26f4d10253c7611561605ad95758273af4e9cb1",
+      "head": "c42514bb3c5d41b162274acdac0b504956b9e36a",
+      "changed_files": 1,
+      "title": "Bump requests from 2.32.4 to 2.33.0"
+    }
+  ],
+  "transport": {
+    "format": "trial-acquisition-policy/1",
+    "limits": {
+      "github_requests": 3,
+      "provider_requests": 3,
+      "response_bytes": 1048576,
+      "aggregate_bytes": 4194304,
+      "elapsed_seconds": 120,
+      "source_request_reserve": 1,
+      "target_file_attempts": 16,
+      "adapter_candidate_attempts": 2
+    },
+    "auth": "token-env",
+    "github_requests": 2,
+    "provider_requests": 2,
+    "decoded_body_bytes": 53067,
+    "elapsed_seconds": 1.47433824700056,
+    "deadline_kind": "cooperative_monotonic_checks_and_bounded_socket_timeouts",
+    "stops": [],
+    "requests": [
+      {
+        "stage": "unscoped",
+        "host": "api.github.com",
+        "path": "/repos/andreaswachowski/dotfiles/pulls/10",
+        "github_requests": 1,
+        "provider_requests": 1,
+        "decoded_body_bytes": 27073,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      },
+      {
+        "stage": "unscoped",
+        "host": "api.github.com",
+        "path": "/repos/CosciaLab/openDVP/pulls/124",
+        "github_requests": 2,
+        "provider_requests": 2,
+        "decoded_body_bytes": 25994,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      }
+    ]
+  }
+}
