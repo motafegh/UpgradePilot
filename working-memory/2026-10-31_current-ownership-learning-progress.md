@@ -29,14 +29,14 @@ Only the third category may expand the required checklist, and it must be clearl
 
 ## Required checkpoints
 
-### Checkpoint A — Evidence semantics
+### Checkpoint A — Evidence semantics — OWNED ENOUGH
 
 - [x] A1. `BOUND` — exact local meaning and non-meaning.
 - [x] A2. `REJECTED` — exact local meaning and non-meaning.
 - [x] A3. `UNDETERMINED` — why uncertainty is preserved instead of forced into bound/rejected.
 - [x] A4. Premises: established fact under explicit assumptions/unknowns.
 - [x] A5. Coverage/gaps: useful evidence can coexist with incomplete coverage; zero candidates is not automatically no exposure.
-- [ ] A6. Consolidate with real HTTPX + pytest examples and Ali explanation in own words.
+- [x] A6. Consolidate with real HTTPX + pytest examples and Ali explanation in own words.
 
 **A1–A3 ownership note:** Ali explained that `REJECTED` means a definite structural conflict was found under the selected correspondence premises; `BOUND` means supported local binding checks completed without a violation; `UNDETERMINED` means no definite violation was established but the local structural check could not be completed. Refinement recorded: `UNDETERMINED` is not limited to missing/uninspected source or resource limits—it can also arise from unresolved call structure such as receiver state, `*args`/`**kwargs`, or incomplete facts. None of these states alone is a runtime/compatibility verdict.
 
@@ -44,7 +44,9 @@ Only the third category may expand the required checklist, and it must be clearl
 
 **A5 ownership note:** Ali explained that if a coverage/resource limit prevents examination of relevant material, zero discovered candidates cannot be promoted to complete "no exposure". Coverage qualifies how broad the search was; established evidence remains useful inside its examined domain. Ali also clarified that old/proposed comparisons are version-role comparisons inside one dependency transition, not necessarily separate analysis times.
 
-**Done when:** Ali can interpret a saved comparison without promoting it to compatibility/runtime truth and can explain why gaps/premises constrain the claim.
+**A6 ownership note:** Ali explained HTTPX `old BOUND → proposed REJECTED` as evidence that the proposed version introduces a local structural conflict relative to the old bound call shape, without promoting that evidence to whole-system/runtime failure. For pytest, Ali explained that a rejected overload and a bound runtime implementation are not contradictory because overload declarations are separate type-level alternatives; one rejected alternative is not the sole effective callable.
+
+**Done:** Ali can interpret a saved comparison without promoting it to compatibility/runtime truth and can explain why gaps/premises constrain the claim.
 
 ### Checkpoint B — Acquisition and budget model
 
@@ -89,9 +91,9 @@ Only the third category may expand the required checklist, and it must be clearl
 
 ## Current position
 
-**Active:** Checkpoint A.  
-**Completed in Checkpoint A:** A1–A5.  
-**Current chunk:** A6 — short real-case consolidation only.  
+**Completed:** Checkpoint A — OWNED ENOUGH.  
+**Active:** Checkpoint B — Acquisition and budget model.  
+**Current chunk:** B1 — acquisition versus correspondence.  
 **Rule:** teach one compact chunk, require active explanation/check, then mark it. Do not expand into reference-only internals unless the checkpoint cannot be understood without them.
 
 ## Main-sync log
