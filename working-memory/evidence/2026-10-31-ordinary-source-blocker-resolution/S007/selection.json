@@ -1,0 +1,9 @@
+{
+  "method_revision": "6636551168020fdf1e5483511bbcd9aad738f189",
+  "contract_sha256": "004bedce6631b2061598fda7fca92edce6e8ae0c49c355a97693ccd0996726e8",
+  "execution_freeze_sha256": "5e8af136fbccf22572776c16690fd3bd855d1d112e5e7503b0d0a0fd4550545a",
+  "only_new_profile": "PyPI GET timeout before response:1 retry/request,2/acquisition; physical work charged within same caps",
+  "whole_attempt_retry": false,
+  "qualification": "254 API/7 architecture; full648 exact historical debt;17 old bundles cold-open",
+  "no_backfill": true
+}
