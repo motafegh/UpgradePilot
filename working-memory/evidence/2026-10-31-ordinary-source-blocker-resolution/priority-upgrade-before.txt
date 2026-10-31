@@ -1,0 +1,14 @@
+test_later_direct_call_evidence_upgrades_pending_native_wildcard_question (experiments.tests.test_api_source_correspondence.OrdinaryRetentionTests.test_later_direct_call_evidence_upgrades_pending_native_wildcard_question) ... FAIL
+
+======================================================================
+FAIL: test_later_direct_call_evidence_upgrades_pending_native_wildcard_question (experiments.tests.test_api_source_correspondence.OrdinaryRetentionTests.test_later_direct_call_evidence_upgrades_pending_native_wildcard_question)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_source_correspondence.py", line 305, in test_later_direct_call_evidence_upgrades_pending_native_wildcard_question
+    self.assertTrue({"native_old_version", "native_proposed_version"} <=
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 1 test in 0.026s
+
+FAILED (failures=1)

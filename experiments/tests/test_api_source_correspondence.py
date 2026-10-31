@@ -235,7 +235,7 @@ class SourcePathTests(TestCase):
         self.assertTrue(all("effective_export_binding_not_established" in c["premises"] for c in discovery["candidates"]))
 
 
-def ordinary_control(*, protocol=False, closure_noise=0):
+def ordinary_control(*, protocol=False, closure_noise=0, native_priority_upgrade=False):
     """Actual ordinary entry; fake public provider domain records, HTTP forbidden."""
     from experiments.tests.test_api_adapter_exploration import ChainTests
     explorer = ChainTests().explorer()
@@ -248,10 +248,17 @@ def ordinary_control(*, protocol=False, closure_noise=0):
         repo, sha, "c" * 40, original_inventory(repo, sha).entries + (
             InventoryEntry(repo.split("/")[1] + "/implementation.py", "blob", "100644"),)
         + tuple(InventoryEntry("bridge/noise" + str(i) + ".py", "blob", "100644")
-                for i in range(closure_noise) if repo.endswith("/bridge")), False)
+                for i in range(closure_noise) if repo.endswith("/bridge"))
+        + tuple(InventoryEntry("vendor/" + name + ".py", "blob", "100644") for name in
+                ("entry", "prioritynoise0", "prioritynoise1", "prioritynoise2", "prioritynoise3")
+                if native_priority_upgrade and repo.endswith("/vendor")), False)
     def library_file(repo, sha, path):
         package = repo.split("/")[1]
-        if path.rsplit("/", 1)[-1].startswith("noise"):
+        if native_priority_upgrade and package == "vendor" and path.endswith("entry.py"):
+            content = "from .implementation import Base\ndef build():\n return Base()\n"
+        elif native_priority_upgrade and package == "vendor" and path.endswith("__init__.py"):
+            content = "from .entry import *\n" + "".join("from .prioritynoise" + str(i) + " import *\n" for i in range(4)) + "from .implementation import Base\n"
+        elif path.rsplit("/", 1)[-1].startswith(("noise", "prioritynoise")):
             content = "pass\n"
         elif package == "bridge":
             content = "from mediator.testing import FACTORY\n" if protocol else "from mediator.testing import Client\n"
@@ -290,6 +297,17 @@ def ordinary_control(*, protocol=False, closure_noise=0):
 
 
 class OrdinaryRetentionTests(TestCase):
+    def test_later_direct_call_evidence_upgrades_pending_native_wildcard_question(self):
+        catalog, modules, acquisition = ordinary_control(native_priority_upgrade=True)[0]
+        result, companion = prepare_ordinary_comparison(encode_ordinary_inputs(catalog, modules, acquisition,
+            proof_class="controlled_ordinary_pr_composition"), AnalysisLimits())
+        body, _ = read_ordinary_comparison(result, companion)
+        self.assertTrue({"native_old_version", "native_proposed_version"} <=
+            {c["callee_role"]["role"] for c in body["discovery"]["candidates"]})
+        examined = [x["request"]["module"] for x in acquisition["internal_module_requests"] if x["state"] == "module_examined"]
+        self.assertEqual(examined[:4], ["vendor.entry", "vendor.entry", "vendor.implementation", "vendor.implementation"])
+        self.assertEqual(acquisition["source_work"]["module_attempts"], 12)
+
     def test_native_pair_closure_precedes_sampled_internal_noise_at_same_source_ceiling(self):
         catalog, modules, acquisition = ordinary_control(closure_noise=12)[0]
         result, companion = prepare_ordinary_comparison(encode_ordinary_inputs(catalog, modules, acquisition,

@@ -161,15 +161,23 @@ def prepare_ordinary_inputs(trial, session, source_run):
                 if spelling not in inventory_names:
                     continue
                 key = (examined.request.package, examined.request.version, spelling, role)
-                if key in seen:
-                    continue
-                seen.add(key)
-                request = PythonModuleSourceRequest(examined.request.package, examined.request.version,
-                                                     spelling, role, fact)
                 bound = fact.alias or fact.member or fact.module.split(".")[0]
                 priority = 0 if bound in interest else 1 if bound in called else 2
                 if bound in interest and fact.member:
                     interest.add(fact.member)
+                if key in seen:
+                    # A first wildcard observation must not freeze a weak score:
+                    # newly acquired direct call/import evidence can promote a
+                    # still-pending question, without refetching completed work.
+                    for i, item in enumerate(pending):
+                        question = item[5]
+                        if (question.package, question.version, question.module, item[4]) == key:
+                            pending[i] = (item[0], min(item[1], priority), *item[2:])
+                            break
+                    continue
+                seen.add(key)
+                request = PythonModuleSourceRequest(examined.request.package, examined.request.version,
+                                                     spelling, role, fact)
                 native_rank = 0 if role in {"native_old_version", "native_proposed_version"} else 1
                 pending.append((native_rank, priority, len(seen), examined, role, request))
 
