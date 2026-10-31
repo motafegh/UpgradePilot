@@ -1,0 +1,14 @@
+{
+  "case": "D001",
+  "state": "available",
+  "detail": null,
+  "elapsed_seconds": 0.3616816510002536,
+  "provider_requests": 1,
+  "decoded_body_bytes": 29123,
+  "private_directory": "/home/motafeq/.local/share/upgradepilot/ordinary-pr-successors-2026-10-31/D001-fastapi-exact-release",
+  "artifacts_sha256": {
+    "result.json": "99591a3471407073e5d7452645bc74d2d4168a1f669c3c6d35a41fb787ab0be5",
+    "transport.json": "5760e346898aaa8f11e4da864136b16774dfcd08b39f57cde30622e66e673971",
+    "started.json": "51c398ff537a41194ec56718ad8c341ce9550f5362bbf44fc28b1eeb954bab96"
+  }
+}

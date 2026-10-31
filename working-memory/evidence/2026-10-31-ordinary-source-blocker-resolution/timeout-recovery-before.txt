@@ -1,0 +1,15 @@
+test_opted_in_pypi_timeout_recovery_retains_both_charged_attempts (experiments.tests.test_api_change_source_acquisition.StagedTransportTests.test_opted_in_pypi_timeout_recovery_retains_both_charged_attempts) ... ERROR
+
+======================================================================
+ERROR: test_opted_in_pypi_timeout_recovery_retains_both_charged_attempts (experiments.tests.test_api_change_source_acquisition.StagedTransportTests.test_opted_in_pypi_timeout_recovery_retains_both_charged_attempts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_change_source_acquisition.py", line 597, in test_opted_in_pypi_timeout_recovery_retains_both_charged_attempts
+    session = TrialPublicSession(policy=self.policy(), retry_pypi_timeouts=True)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: TrialPublicSession.__init__() got an unexpected keyword argument 'retry_pypi_timeouts'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)

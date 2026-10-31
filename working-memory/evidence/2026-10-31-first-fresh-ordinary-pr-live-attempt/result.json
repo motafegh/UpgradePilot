@@ -1,0 +1,108 @@
+{
+  "acquisition_completed_stages": [
+    "changed_files",
+    "native_inputs",
+    "target_context",
+    "upstream_window"
+  ],
+  "acquisition_pending_stage_markers": [
+    "changed_files_pending"
+  ],
+  "adapter_problem_reasons": {
+    "acquisition_failed": 2
+  },
+  "artifacts": {
+    "acquisition-input.json": "f76b1d19637cdba05da66af9ea604b3dd888f86471ff37be62294e56ac3c9e0f",
+    "acquisition.json": "89592a0c5ce5a1fa1d289220eaf8b5d904405fcdd130f11025e86387cd13002a",
+    "attempt-started.json": "0bea16cd7d0561b4bb18cbd26d55beb92a9bc635fac8c0834066f0154fe7c798",
+    "comparison/attempt-started.json": "49377beb21e7c02955384b8690793592666edce3e52f7f1f6f2ebb66f49268a1",
+    "comparison/attempt.json": "9bfb7a15b820c834c34c49979fa8b483188de1e32c11ba1de13a4e8318c6542d",
+    "comparison/input.json": "f76b1d19637cdba05da66af9ea604b3dd888f86471ff37be62294e56ac3c9e0f",
+    "comparison/result.json": "9512f778eb8a22119f78222dd9ce474c0519eb2fddfd035c72078a37a91829c2",
+    "comparison/sources.json": "f3055c9669ced821ebdccb631c26b7d91be854b634269bb05374f9cdde7c8ccf",
+    "comparison/view.txt": "6044e18c33493c811fc317384f7e6f7de511b640db191f1508be187b314b7a3f",
+    "contract.json": "add8d5944a248aae71001e41684ce693493d96bec69035aa48483b698eafb0d4",
+    "execution-freeze.json": "aa23488338c8e0b74b0c07764998af144a3be107cd86210f631819ab1529d9dc",
+    "initial-observation.json": "75f2a23dd998372dac85e7eb4ddc8833c2980e62bc54f2893652d02c07e1ac32"
+  },
+  "attempt_id": "b3549f995a3c4bac8c61ee5a921ef26f",
+  "attempt_sha256": "ea9b40f03004da549fc388195a0095a1ba60917179278d25b22b5f5508c38f10",
+  "comparison_outcomes": {
+    "bound": 3
+  },
+  "coverage": "partial; complete target/runtime coverage not established",
+  "discovery": {
+    "candidates": 3,
+    "gap_reasons": {
+      "allocated_class_getter_unavailable": 2,
+      "callable_relationship_unresolved": 56,
+      "factory_attribute_chain_unsupported": 2,
+      "imported_source_module_unavailable_or_unsupported": 13,
+      "inherited_initializer_or_allocation_unsupported": 2,
+      "named_declaration_or_reexport_not_found": 1
+    },
+    "gaps_omitted": 0,
+    "roles": {
+      "target": 3
+    },
+    "states_examined": 29
+  },
+  "elapsed_seconds": 27.498551097998643,
+  "ended_at": "2026-10-31T13:29:08.259317+00:00",
+  "format": "first-fresh-ordinary-pr-live-result/1",
+  "material_omissions": [],
+  "native_source_attempts": [],
+  "private_directory": "/home/motafeq/.local/share/upgradepilot/ordinary-pr-acquisition/httpx-pr20-2026-10-30/attempt-01",
+  "private_permissions_valid": true,
+  "proof_class": "fresh_ordinary_pr_acquisition",
+  "provider_status_counts": {
+    "200": 25,
+    "404": 5,
+    "None": 1
+  },
+  "reason": null,
+  "retained_module_records": 2,
+  "source_closure_attempts": [],
+  "stage": "admission",
+  "started_at": "2026-10-31T13:28:37.702123+00:00",
+  "state": "completed",
+  "structural_disposition": "insufficient_structural_evidence",
+  "target": {
+    "base_sha": "b065646e4b7b894964567950f9ad770b02c136c2",
+    "head_sha": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+    "normalized_package": "httpx",
+    "old_version": "0.27.2",
+    "proposed_version": "0.28.1",
+    "pull_number": 20,
+    "repository": "Aidan-Wallace/kubernetes-dashboard-token-api"
+  },
+  "target_gap_reasons": {},
+  "target_omitted_paths": [],
+  "transport": {
+    "auth": "token-env",
+    "decoded_body_bytes": 924352,
+    "elapsed_seconds": 27.23263632799899,
+    "github_requests": 22,
+    "limits": {
+      "adapter_candidate_attempts": 2,
+      "aggregate_bytes": 33554432,
+      "elapsed_seconds": 180.0,
+      "github_requests": 50,
+      "provider_requests": 100,
+      "response_bytes": 8388608,
+      "source_request_reserve": 24,
+      "target_file_attempts": 16
+    },
+    "provider_requests": 31,
+    "stops": []
+  },
+  "unexamined_changed_modules": [],
+  "upstream_state": "available",
+  "work": {
+    "ast_nodes": 818,
+    "facts": 72,
+    "selected_pairs": 3,
+    "source_bytes": 6044,
+    "source_files": 12
+  }
+}

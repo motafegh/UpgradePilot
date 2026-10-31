@@ -1,0 +1,7 @@
+test_unresolved_try_import_base_retains_conditional_source_hypotheses (experiments.tests.test_api_source_correspondence.SourcePathTests.test_unresolved_try_import_base_retains_conditional_source_hypotheses) ... ok
+test_try_base_hypothesis_refuses_known_rebinding_deletion_and_nonimport_writes (experiments.tests.test_api_source_correspondence.SourcePathTests.test_try_base_hypothesis_refuses_known_rebinding_deletion_and_nonimport_writes) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.023s
+
+OK

@@ -1,0 +1,21 @@
+test_target_member_reexports_precede_unrelated_roots_with_four_attempts (experiments.tests.test_api_adapter_exploration.ChainTests.test_target_member_reexports_precede_unrelated_roots_with_four_attempts) ... FAIL
+
+======================================================================
+FAIL: test_target_member_reexports_precede_unrelated_roots_with_four_attempts (experiments.tests.test_api_adapter_exploration.ChainTests.test_target_member_reexports_precede_unrelated_roots_with_four_attempts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_adapter_exploration.py", line 327, in test_target_member_reexports_precede_unrelated_roots_with_four_attempts
+    self.assertEqual([sample.candidate.imported_module for sample in result.samples],
+AssertionError: Lists differ: ['bridge.alpha', 'bridge.beta', 'bridge', 'mediator.alpha'] != ['bridge.alpha', 'mediator.alpha', 'bridge.beta', 'mediator.beta']
+
+First differing element 1:
+'bridge.beta'
+'mediator.alpha'
+
+- ['bridge.alpha', 'bridge.beta', 'bridge', 'mediator.alpha']
++ ['bridge.alpha', 'mediator.alpha', 'bridge.beta', 'mediator.beta']
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+FAILED (failures=1)

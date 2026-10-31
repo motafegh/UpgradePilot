@@ -1,0 +1,7 @@
+{
+  "contract_sha256": "1ae5f4daf96ea6e7db93ae53208d10d15d3d3a0e4546002e03e854cd32a9f783",
+  "execution_freeze_sha256": "2aaa847529a4df93c316d56b5d35446d90a5ec4694455b5d426efa6d51527ccf",
+  "method_change_from_S005": false,
+  "limit_change_from_S005": false,
+  "reason": "new whole acquisition after typed transient provenance timeout; no relaxed trust/source admission"
+}

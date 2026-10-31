@@ -1,0 +1,6 @@
+test_target_member_reexports_precede_unrelated_roots_with_four_attempts (experiments.tests.test_api_adapter_exploration.ChainTests.test_target_member_reexports_precede_unrelated_roots_with_four_attempts) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+OK

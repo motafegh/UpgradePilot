@@ -1,0 +1,6 @@
+test_native_pair_closure_precedes_sampled_internal_noise_at_same_source_ceiling (experiments.tests.test_api_source_correspondence.OrdinaryRetentionTests.test_native_pair_closure_precedes_sampled_internal_noise_at_same_source_ceiling) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.025s
+
+OK

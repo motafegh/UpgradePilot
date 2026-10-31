@@ -1,0 +1,22 @@
+{
+  "artifacts_sha256": {
+    "DIAGNOSIS.json": "f795a604c511868e376e73a7d7d7207bd0786c7abc8682f2d93f0a642f1ea939",
+    "REVIEW.md": "dfda91534571c95ee90f067d91e3044b7a3c31cfc7ec87a026769bdece02e221",
+    "preparation.json": "27cdeeab1b8a8f2bf02474d6c5629e97c0697d96ca65c85a85408e8b9be25bd0",
+    "result.json": "c0eca198413e7b2d710dcab48530576d9f5af5f1212599b045d2797e8540fd3d",
+    "verification.json": "a58d1f8970459d7c2db4775aead1caff35ea50560541d73dccb3eec6fd1a228c"
+  },
+  "attempt_id": "b3549f995a3c4bac8c61ee5a921ef26f",
+  "entry_revision": "38988a39",
+  "format": "first-fresh-ordinary-pr-publication/1",
+  "local_links_checked": 146,
+  "model_calls": 0,
+  "official_attempt_invocations": 1,
+  "private_capture_unchanged_after_inspection": true,
+  "public_projection": "reviewed identities, counts, classified failure, dispositions and digests only; raw source/PR body remain private",
+  "publication_preparation_revision": "fe8bcab32f78aaad4fe02da9a28a3b3c7b047d83",
+  "retries": 0,
+  "source_and_previous_frozen_artifacts_unchanged": true,
+  "target_commands": 0,
+  "terminal_sha256": "ea9b40f03004da549fc388195a0095a1ba60917179278d25b22b5f5508c38f10"
+}

@@ -1,0 +1,23 @@
+{
+  "opened_without_AST_HTTP_checker_discovery": [
+    "/home/motafeq/.local/share/upgradepilot/caller-signature-evidence/retained-httpx-2026-10-28/attempt-01",
+    "/home/motafeq/.local/share/upgradepilot/caller-signature-evidence/retained-glyphslib-pytest-2026-10-28/attempt-01",
+    "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/controlled-ordinary",
+    "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/controlled-ordinary-final",
+    "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/retained-incomplete-control",
+    "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-10-29-experiment-lifecycle-and-dependency-repair/controlled-post-repair",
+    "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-10-30-protocol-factory-source-correspondence/controlled-ordinary",
+    "/home/motafeq/.local/share/upgradepilot/protocol-factory-evidence/retained-glyphslib-pytest-2026-10-30/attempt-01",
+    "/home/motafeq/.local/share/upgradepilot/protocol-factory-evidence/retained-glyphslib-pytest-2026-10-30/attempt-02",
+    "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-10-30-staged-source-acquisition-policy/controlled-ordinary",
+    "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-10-30-staged-source-acquisition-policy/controlled-stage-refusal",
+    "/home/motafeq/.local/share/upgradepilot/ordinary-pr-acquisition/httpx-pr20-2026-10-30/attempt-01",
+    "/home/motafeq/.local/share/upgradepilot/ordinary-pr-successors-2026-10-31/S002-fresh-ordinary/attempt-01",
+    "/home/motafeq/.local/share/upgradepilot/ordinary-pr-successors-2026-10-31/S003-frontier-four/attempt-01",
+    "/home/motafeq/.local/share/upgradepilot/ordinary-pr-successors-2026-10-31/S004-native-closure-base/attempt-01",
+    "/home/motafeq/.local/share/upgradepilot/ordinary-pr-successors-2026-10-31/S005-priority-module-boundary/attempt-01",
+    "/home/motafeq/.local/share/upgradepilot/ordinary-pr-successors-2026-10-31/S006-same-method/attempt-01"
+  ],
+  "original_private_hashes_verified": 10,
+  "protected_diff_empty": true
+}

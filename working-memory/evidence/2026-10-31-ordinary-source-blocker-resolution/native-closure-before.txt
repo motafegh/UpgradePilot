@@ -1,0 +1,14 @@
+test_native_pair_closure_precedes_sampled_internal_noise_at_same_source_ceiling (experiments.tests.test_api_source_correspondence.OrdinaryRetentionTests.test_native_pair_closure_precedes_sampled_internal_noise_at_same_source_ceiling) ... FAIL
+
+======================================================================
+FAIL: test_native_pair_closure_precedes_sampled_internal_noise_at_same_source_ceiling (experiments.tests.test_api_source_correspondence.OrdinaryRetentionTests.test_native_pair_closure_precedes_sampled_internal_noise_at_same_source_ceiling)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_source_correspondence.py", line 267, in test_native_pair_closure_precedes_sampled_internal_noise_at_same_source_ceiling
+    self.assertTrue({"native_old_version", "native_proposed_version"} <= roles, roles)
+AssertionError: False is not true : {'constraint_sample'}
+
+----------------------------------------------------------------------
+Ran 1 test in 0.027s
+
+FAILED (failures=1)

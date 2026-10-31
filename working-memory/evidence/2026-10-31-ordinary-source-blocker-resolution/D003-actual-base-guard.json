@@ -1,0 +1,8 @@
+{
+  "scope": "separate bounded component diagnostic over unchanged S004 source; not a regrade or fresh pipeline proof",
+  "source_sha256": "869a53e6511c25707432d7c91ca8cc22ea32775ac20c0fc8959ac609ad8a4d56",
+  "guard_accepts_actual_retained_base": true,
+  "binding_state": "conditional",
+  "binding_unknown_possible": true,
+  "remaining_blocker": "defining native modules not retained in S004; current priority correction awaits fresh test"
+}

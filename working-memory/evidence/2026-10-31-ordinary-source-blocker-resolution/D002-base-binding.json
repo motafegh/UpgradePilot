@@ -1,0 +1,49 @@
+{
+  "scope": "separate source-analysis diagnostic over retained S003 source, not capture reopening/regrade",
+  "source_sha256": "869a53e6511c25707432d7c91ca8cc22ea32775ac20c0fc8959ac609ad8a4d56",
+  "rows": [
+    {
+      "expression": "httpx.Client",
+      "line": 440,
+      "binding": {
+        "state": "conditional",
+        "possible_imports": [
+          "httpx2.Client"
+        ],
+        "unknown": true,
+        "reasons": [
+          "name_not_bound_in_examined_scope",
+          "unsupported_write_or_control_flow",
+          "branch_alternatives"
+        ],
+        "trace": [
+          {
+            "operation": "branch_join",
+            "line": 25,
+            "origin": null
+          },
+          {
+            "operation": "import",
+            "line": 26,
+            "origin": "httpx2"
+          },
+          {
+            "operation": "import_binding",
+            "line": 26,
+            "origin": null
+          },
+          {
+            "operation": "unsupported_write_or_control_flow",
+            "line": 28,
+            "origin": null
+          },
+          {
+            "operation": "reference",
+            "line": 440,
+            "origin": null
+          }
+        ]
+      }
+    }
+  ]
+}

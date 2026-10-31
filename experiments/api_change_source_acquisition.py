@@ -19,7 +19,7 @@ from itertools import pairwise
 from urllib.parse import urlsplit
 
 from packaging.version import InvalidVersion, Version
-from requests.exceptions import RequestException
+from requests.exceptions import RequestException, Timeout
 
 from upgradepilot.dependency.versioning import (
     PackagingVersionProblem,
@@ -451,6 +451,10 @@ class TrialAcquisitionPolicy:
             raise ValueError("All-provider budget cannot be below the GitHub budget.")
 
 
+PYPI_TIMEOUT_RETRY_POLICY = dict(host="pypi.org", method="GET", max_retries_per_request=1,
+    max_retries_per_acquisition=2, eligible_failure="timeout_before_response", shared_limits_unchanged=True)
+
+
 class TrialPublicSession(GitHubPublicSession):
     """Host-scoped transport; anonymous unless a token is explicitly supplied.
 
@@ -459,7 +463,9 @@ class TrialPublicSession(GitHubPublicSession):
     """
 
     def __init__(self, *, token: str | None = None, policy: TrialAcquisitionPolicy | None = None,
-                 clock=time.monotonic):
+                 clock=time.monotonic, retry_pypi_timeouts=False):
+        if type(retry_pypi_timeouts) is not bool or retry_pypi_timeouts and policy is None:
+            raise ValueError("Timeout recovery requires an explicit charged policy.")
         super().__init__()
         self.github_requests = 0
         self.request_limit_reached = False
@@ -474,6 +480,8 @@ class TrialPublicSession(GitHubPublicSession):
         self.body_bytes = 0
         self.receipts = []
         self.stop_reasons = []
+        self.retry_pypi_timeouts = retry_pypi_timeouts
+        self.retry_decisions = []
 
     @contextmanager
     def stage(self, name, *, reserve_github=0):
@@ -510,13 +518,46 @@ class TrialPublicSession(GitHubPublicSession):
         """Public-safe policy/cost data; never retain headers or credential values."""
         if self.policy is None:
             return None
-        return dict(format="trial-acquisition-policy/1", limits=asdict(self.policy), auth=self.auth_mode,
+        receipt = dict(format="trial-acquisition-policy/1", limits=asdict(self.policy), auth=self.auth_mode,
                     github_requests=self.github_requests, provider_requests=self.provider_requests,
                     decoded_body_bytes=self.body_bytes, elapsed_seconds=max(0, self._clock() - self._started),
                     deadline_kind="cooperative_monotonic_checks_and_bounded_socket_timeouts",
                     stops=list(self.stop_reasons), requests=[dict(r) for r in self.receipts])
+        if self.retry_pypi_timeouts:
+            receipt.update(format="trial-acquisition-policy/2", retry_policy=dict(PYPI_TIMEOUT_RETRY_POLICY),
+                           retry_decisions=[dict(item) for item in self.retry_decisions])
+        return receipt
 
     def request(self, method, url, **kwargs):
+        """Optional narrowly bounded recovery; every physical attempt stays charged.
+
+        Only PyPI GET Timeout before a response is eligible. Status, body,
+        integrity, auth, policy and GitHub failures keep their original handling.
+        Default sessions retain v1/no-retry behavior. No whole-attempt rerun.
+        """
+        before = self.provider_requests
+        try:
+            return self._request_once(method, url, **kwargs)
+        except Timeout:
+            if (not self.retry_pypi_timeouts or method.upper() != "GET" or urlsplit(url).hostname != "pypi.org"
+                or self.provider_requests <= before or self.receipts[-1]["status"] is not None
+                or len(self.retry_decisions) >= PYPI_TIMEOUT_RETRY_POLICY["max_retries_per_acquisition"]):
+                raise
+            decision = dict(after_provider_request=self.provider_requests, retry_provider_request=None,
+                            reason="timeout_before_response", state="selected")
+            self.retry_decisions.append(decision)
+            before_retry = self.provider_requests
+            try:
+                # No catch/retry around this second physical attempt: at most one
+                # retry per logical request, subject to the same remaining limits.
+                return self._request_once(method, url, **kwargs)
+            finally:
+                if self.provider_requests > before_retry:
+                    decision.update(retry_provider_request=self.provider_requests, state="dispatched")
+                else:
+                    decision["state"] = "not_dispatched"
+
+    def _request_once(self, method, url, **kwargs):
         parsed = urlsplit(url)
         if (
             method.upper() != "GET"

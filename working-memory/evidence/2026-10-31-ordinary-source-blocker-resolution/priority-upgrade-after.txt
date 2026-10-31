@@ -1,0 +1,6 @@
+test_later_direct_call_evidence_upgrades_pending_native_wildcard_question (experiments.tests.test_api_source_correspondence.OrdinaryRetentionTests.test_later_direct_call_evidence_upgrades_pending_native_wildcard_question) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.068s
+
+OK

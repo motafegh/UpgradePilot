@@ -592,6 +592,70 @@ class PublisherInspectionTests(TestCase):
 
 
 class StagedTransportTests(TestCase):
+    def test_opted_in_pypi_timeout_recovery_retains_both_charged_attempts(self):
+        from requests.exceptions import Timeout
+        session = TrialPublicSession(policy=self.policy(), retry_pypi_timeouts=True)
+        with patch('requests.Session.request', side_effect=[Timeout('authored timeout'), self.response()]) as request:
+            self.assertEqual(session.get('https://pypi.org/pypi/control/1.0/json').status_code, 200)
+        receipt = session.acquisition_receipt()
+        self.assertEqual(request.call_count, 2)
+        self.assertEqual(receipt['provider_requests'], 2)
+        self.assertEqual(receipt['format'], 'trial-acquisition-policy/2')
+        self.assertEqual([r['state'] for r in receipt['requests']], ['failed', 'received'])
+        self.assertEqual(receipt['retry_decisions'][0]['after_provider_request'], 1)
+        self.assertEqual(receipt['retry_decisions'][0]['retry_provider_request'], 2)
+        self.assertEqual(receipt['retry_decisions'][0]['state'], 'dispatched')
+
+    def test_timeout_recovery_has_per_request_and_shared_run_ceiling(self):
+        from requests.exceptions import Timeout
+        session = TrialPublicSession(policy=self.policy(), retry_pypi_timeouts=True)
+        with patch('requests.Session.request', side_effect=Timeout('authored timeout')) as request:
+            for i in range(3):
+                with self.assertRaises(Timeout):
+                    session.get('https://pypi.org/pypi/control/' + str(i) + '/json')
+        self.assertEqual(request.call_count, 5)
+        self.assertEqual(len(session.acquisition_receipt()['retry_decisions']), 2)
+
+    def test_timeout_recovery_never_retries_other_failure_classes_or_default_profile(self):
+        from requests.exceptions import Timeout
+        for case in ('default', 'github', 'status', 'body'):
+            with self.subTest(case=case):
+                session = TrialPublicSession(policy=self.policy(), retry_pypi_timeouts=case != 'default')
+                response = self.response(status=429)
+                if case == 'body':
+                    response.status_code = 200
+                    response.iter_content = Mock(side_effect=Timeout('body timeout'))
+                effect = Timeout('header timeout') if case in {'default','github'} else response
+                with patch('requests.Session.request', side_effect=effect if isinstance(effect, BaseException) else None,
+                           return_value=response) as request:
+                    if case == 'status':
+                        self.assertEqual(session.get('https://pypi.org/control').status_code, 429)
+                    else:
+                        with self.assertRaises(Timeout):
+                            session.get('https://api.github.com/control' if case == 'github' else 'https://pypi.org/control')
+                self.assertEqual(request.call_count, 1)
+
+    def test_timeout_retry_can_be_selected_but_refused_by_existing_provider_or_time_limit(self):
+        from requests.exceptions import Timeout
+        from upgradepilot.github.api import GitHubAcquisitionError
+        for boundary in ('provider', 'time'):
+            with self.subTest(boundary=boundary):
+                now = [0.0]
+                policy = self.policy(github_requests=2, provider_requests=2, source_request_reserve=1)
+                session = TrialPublicSession(policy=policy, retry_pypi_timeouts=True, clock=lambda: now[0])
+                if boundary == 'provider':
+                    with patch('requests.Session.request', return_value=self.response()):
+                        session.get('https://pypi.org/prior')
+                def timeout(*args, **kwargs):
+                    if boundary == 'time': now[0] = 181.0
+                    raise Timeout('authored timeout')
+                with patch('requests.Session.request', side_effect=timeout) as request, self.assertRaises(GitHubAcquisitionError):
+                    session.get('https://pypi.org/control')
+                self.assertEqual(request.call_count, 1)
+                decision = session.acquisition_receipt()['retry_decisions'][0]
+                self.assertEqual(decision['state'], 'not_dispatched')
+                self.assertIsNone(decision['retry_provider_request'])
+
     """Exercise actual Requests Response handling with an authored HTTP transport."""
 
     @staticmethod
