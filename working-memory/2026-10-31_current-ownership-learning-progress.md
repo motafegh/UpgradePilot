@@ -52,11 +52,13 @@ Only `NEW MUST-LEARN REQUIREMENT` may expand the required checklist, and it must
 ### Checkpoint B — Acquisition and budget model
 
 - [x] B1. Acquisition versus correspondence.
-- [ ] B2. Why GitHub/all-provider requests, source reservation, target-file attempts, adapter candidates, release identities, module questions, bytes, candidate/depth/state limits and acquisition/worker time are distinct resources.
+- [x] B2. Why GitHub/all-provider requests, source reservation, target-file attempts, adapter candidates, release identities, module questions, bytes, candidate/depth/state limits and acquisition/worker time are distinct resources.
 - [ ] B3. Starvation and source-selection behavior using real S003–S005 evidence: native-pair priority, stronger-evidence pending-question promotion, and missing-module traversal refusal under the same caps.
 - [ ] B4. Interpret exhausted/failed resources correctly: module limit vs provider timeout vs candidate/state limit; cached failure vs physical request count; bounded charged PyPI timeout retry vs forbidden whole-attempt retry; no automatic cap enlargement.
 
 **B1 ownership note:** Ali distinguished acquisition from correspondence using S005: because qualified proposed HTTPX source did not arrive, no proposed-side `BOUND`/`REJECTED` conclusion was available and correspondence/binding could not be meaningfully evaluated for that side. Refinement recorded: S005 was an acquisition-layer limitation caused specifically by a provider/transport timeout, not by exhausting a configured acquisition budget. Missing source therefore must not be reinterpreted as missing API exposure or a checker/correspondence verdict.
+
+**B2 ownership note:** Ali identified that a run with remaining provider capacity but an exhausted module-question ceiling is blocked by the module-question/source-closure resource, not by provider-request capacity. Increasing unrelated limits would not fix the demonstrated bottleneck. He also stated the stronger rule: even when the relevant limit is reached, diagnose selection/prioritization and the reason for exhaustion before enlarging a cap rather than treating cap increases as the default repair.
 
 **Done when:** Ali can explain why different budgets exist and diagnose whether a partial result is an acquisition limitation, source-selection limitation, provider/transport limitation or analysis limitation.
 
@@ -94,9 +96,9 @@ Only `NEW MUST-LEARN REQUIREMENT` may expand the required checklist, and it must
 
 ## Current position
 
-**Completed:** Checkpoint A — OWNED ENOUGH; Checkpoint B1.  
+**Completed:** Checkpoint A — OWNED ENOUGH; Checkpoint B1–B2.  
 **Active:** Checkpoint B — Acquisition and budget model.  
-**Current chunk:** B2 — why the different budgets/resources are distinct.  
+**Current chunk:** B3 — starvation and source-selection behavior under fixed caps.  
 **Main context:** branch physically synced through main `739cdb6`; S007 is the active separately frozen successor at that sync.  
 **Rule:** finish the compact five-checkpoint ownership sequence. Do not chase every new live successor in real time; sync at meaningful boundaries and fold changes into existing checkpoints unless a genuinely new responsibility appears.
 
