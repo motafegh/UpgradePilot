@@ -1,0 +1,8 @@
+{
+  "method_revision": "957fbcb51097e4f83559c4b9daa49549eea9bc9f",
+  "contract_sha256": "299c6989873e4ef1ee9ea158305c53cd521058bf2d61f5a006190ac99ae34f59",
+  "execution_freeze_sha256": "bd76b4c0caa649e9a557d0307702946a22a640d3f8bb6777b7062b2b725d1471",
+  "limit_changes_from_S003": "none",
+  "qualification": "247 API/7 architecture pass; full641 same historical1 failure/25 errors/11 skips;14 prior bundles cold-open",
+  "ordinary_acquisition_without_backfill": true
+}
