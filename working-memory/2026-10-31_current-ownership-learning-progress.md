@@ -2,6 +2,7 @@
 
 **Branch:** `learning/current-ownership-roadmap-2026-10-31`  
 **Companion roadmap:** `working-memory/2026-10-31_current-ownership-learning-roadmap.md`  
+**Latest sync overlay:** `working-memory/2026-10-31_current-ownership-learning-sync-739cdb6.md`  
 **Purpose:** bounded progress checklist for Ali's learning/ownership journey. This is not live project authority; current `main`/`MEMORY.md` remain authoritative for product state.
 
 ## Stop rule — prevent endless learning
@@ -15,7 +16,7 @@ New `main` work does not automatically add study scope. On each sync, classify i
 - `NEW MUST-LEARN REQUIREMENT`
 - `REFERENCE-ONLY`
 
-Only the third category may expand the required checklist, and it must be clearly justified by a new responsibility Ali needs to supervise.
+Only `NEW MUST-LEARN REQUIREMENT` may expand the required checklist, and it must be clearly justified by a new responsibility Ali needs to supervise.
 
 ## Already consolidated before this tracker
 
@@ -51,51 +52,53 @@ Only the third category may expand the required checklist, and it must be clearl
 ### Checkpoint B — Acquisition and budget model
 
 - [ ] B1. Acquisition versus correspondence.
-- [ ] B2. Why request, provider, reservation, file, module, byte, candidate, depth/state and time limits are distinct.
-- [ ] B3. Starvation problem and why staged priority/reservation changed the result.
-- [ ] B4. What each exhausted limit means for coverage; no automatic cap enlargement.
+- [ ] B2. Why GitHub/all-provider requests, source reservation, target-file attempts, adapter candidates, release identities, module questions, bytes, candidate/depth/state limits and acquisition/worker time are distinct resources.
+- [ ] B3. Starvation and source-selection behavior using real S003–S005 evidence: native-pair priority, stronger-evidence pending-question promotion, and missing-module traversal refusal under the same caps.
+- [ ] B4. Interpret exhausted/failed resources correctly: module limit vs provider timeout vs candidate/state limit; cached failure vs physical request count; bounded charged PyPI timeout retry vs forbidden whole-attempt retry; no automatic cap enlargement.
 
-**Done when:** Ali can explain why different budgets exist and diagnose whether a partial result is an acquisition limitation, source-selection limitation or analysis limitation.
+**Done when:** Ali can explain why different budgets exist and diagnose whether a partial result is an acquisition limitation, source-selection limitation, provider/transport limitation or analysis limitation.
 
 ### Checkpoint C — End-to-end implementation architecture
 
 - [ ] C1. Ordinary PR/native dependency observation owner.
-- [ ] C2. Target/source acquisition owners and retained material.
-- [ ] C3. Source-correspondence owner and candidate generation.
-- [ ] C4. Argument/signature checker and local evaluation.
-- [ ] C5. Saved evidence/reader/cold-open flow.
+- [ ] C2. Target/source acquisition owners, source scheduling/closure and retained material.
+- [ ] C3. Source-correspondence owner and candidate generation, including why guarded Try-import/base hypotheses remain conditional premises rather than binder/runtime truth.
+- [ ] C4. Argument/signature checker and local evaluation; understand why recent acquisition/correspondence repairs did not require changing binder/checker authority.
+- [ ] C5. Saved evidence/reader/cold-open flow, including versioned transport receipts and immutable historical attempts.
 - [ ] C6. Trace one real case end-to-end through responsible modules/functions without line-by-line memorization.
 
 **Done when:** Ali can point to the owner responsible for each major transition and can review whether a change crosses an ownership boundary incorrectly.
 
-### Checkpoint D — Fresh attempt and execution-freeze implementation
+### Checkpoint D — Fresh attempt, execution freeze and successor integrity
 
-- [ ] D1. Inspect implemented fresh outer-attempt lifecycle from current `main`.
-- [ ] D2. Understand fresh versus controlled/retained proof labels.
-- [ ] D3. Understand actual executable snapshot/admission/activation interlock.
-- [ ] D4. Understand final execution freeze and why freeze/activation/authorization are distinct.
-- [ ] D5. Sync any material main changes before marking complete.
+- [ ] D1. Inspect the implemented fresh outer-attempt lifecycle from current code/evidence.
+- [ ] D2. Inspect the now-completed final executable freeze and actual activation path: code/config/runtime/contract binding, admission and explicit live authorization.
+- [ ] D3. Understand fresh versus controlled/retained proof labels and why a consumed historical attempt is never backfilled/regraded.
+- [ ] D4. Distinguish separately frozen successor attempts from bounded transport retry inside one successor, and both from forbidden whole-attempt automatic retry.
+- [ ] D5. Sync current successor state before marking D complete; exact S-number/history details beyond ownership needs remain reference-only.
 
-**Done when:** Ali can explain how one official fresh attempt is protected from silent retry/reconfiguration and how code/config/runtime/contract identities are bound before provider work.
+**Done when:** Ali can explain how an official fresh attempt and each successor are protected from silent retry/reconfiguration, and how exact executable/contract identity plus retained transport history preserve the meaning of each historical result.
 
-### Checkpoint E — First real ordinary HTTPX attempt and product consequence
+### Checkpoint E — Fresh ordinary attempt progression and product consequence
 
-- [ ] E1. Inspect actual acquisition/provider/source costs and retained material.
-- [ ] E2. Inspect candidate paths and old/proposed local comparison evidence.
-- [ ] E3. Inspect gaps, omissions, premises, limit hits and procedural disposition.
-- [ ] E4. Classify evidence as useful / useful-partial / insufficient without overclaiming compatibility.
-- [ ] E5. Decide what this evidence justifies next: repair, more evidence, or native API/Workspace/report adoption.
+- [ ] E1. Inspect the first official live attempt: actual request/source/material costs, target-only comparisons, PyPI timeout and `insufficient_structural_evidence` classification.
+- [ ] E2. Explain why first-attempt procedural completion did not equal useful native old/proposed evidence and why it justified diagnosis rather than product adoption.
+- [ ] E3. Inspect the successor evidence chain compactly: S002–S006 exposed source-frontier, closure-priority, stale-pending-priority, missing-module-recursion and repeated PyPI-timeout boundaries; S005 reached one-sided native-old evidence.
+- [ ] E4. Inspect the latest stable successor result (S007 or later sync) and classify evidence as useful / useful-partial / insufficient without overclaiming compatibility.
+- [ ] E5. Decide what the stable evidence justifies next: another bounded repair/evidence step or native API/Workspace/report adoption.
 - [ ] E6. Final ownership recap; close this temporary learning phase unless a specifically justified must-learn gap remains.
 
-**Done when:** Ali can independently explain what the fresh run proved, did not prove, and why the next engineering decision follows from the evidence.
+**Done when:** Ali can independently explain what the fresh progression proved, did not prove, why successors were legitimate rather than retrospective retries, and why the next engineering decision follows from the evidence.
 
 ## Current position
 
 **Completed:** Checkpoint A — OWNED ENOUGH.  
 **Active:** Checkpoint B — Acquisition and budget model.  
-**Current chunk:** B1 — acquisition versus correspondence.  
-**Rule:** teach one compact chunk, require active explanation/check, then mark it. Do not expand into reference-only internals unless the checkpoint cannot be understood without them.
+**Current chunk:** B1 — acquisition versus correspondence; introduced but not yet checked by Ali.  
+**Main context:** branch physically synced through main `739cdb6`; S007 is the active separately frozen successor at that sync.  
+**Rule:** finish the compact five-checkpoint ownership sequence. Do not chase every new live successor in real time; sync at meaningful boundaries and fold changes into existing checkpoints unless a genuinely new responsibility appears.
 
 ## Main-sync log
 
-- `2026-10-31` initial sync from main `034665d7`: fresh outer-attempt lifecycle already implemented/qualified; final executable freeze preparation ongoing; live activation withheld. This activates Checkpoint D but does not change the order—finish core evidence semantics and acquisition foundations first.
+- `2026-10-31` initial sync from main `034665d7`: fresh outer-attempt lifecycle implemented/qualified; final executable freeze preparation ongoing; live activation withheld. This activated Checkpoint D but did not change learning order.
+- `2026-10-31` sync from `034665d7` → `739cdb6` (21 main commits): branch merged with current main. Final executable freeze completed; first official live attempt completed with insufficient native comparison evidence; separately frozen successor program progressed through S002–S007. Real acquisition/source-selection defects were repaired without cap enlargement; repeated PyPI pre-response timeouts justified a narrowly bounded charged successor-only timeout-recovery profile. Classification: `REINFORCES EXISTING CHECKPOINT` for B/C/D and `ADVANCES EXISTING CHECKPOINT` for E; **no new must-learn checkpoint**. See `2026-10-31_current-ownership-learning-sync-739cdb6.md`.
