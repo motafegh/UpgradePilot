@@ -126,6 +126,19 @@ paired native-version comparisons, useful partial evidence and insufficient
 evidence are separate from procedural completion and complete coverage. These
 experimental artifacts are not native Workspace checkpoints or action authority.
 
+The explicit `capture_profile=source-first-ordinary-capture/1` successor selects
+acquisition/2 and independent `ordinary-acquisition-source/1` source packets.
+Returned target/library text is persisted before required stage receipts. Four
+broad root binding tables are deliberately omitted and disclosed; nested request
+origin/binding traces, provenance and declaration basis remain. If a required
+receipt exceeds capacity, stop with a capture gap and retain the independently
+written text without claiming its missing basis or a comparison. Shared native
+guards and source/analysis/provider limits remain unchanged. Old contracts retain
+acquisition/1 and original broad observations; no frozen capture is rewritten.
+The [adoption plan](../plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md)
+owns the successor contract and proof obligations. Fixed opening exposes source
+packets and gaps, including unknown completion, without deriving missing facts.
+
 ## Historical identity and frozen evidence
 
 Keep result/source/attempt/freezes/labels bytes unchanged. Source code may evolve,

@@ -1009,3 +1009,228 @@ class FreshAttemptLifecycleTests(TestCase):
                 with patch.object(owner, "_read_attempt_credential", side_effect=AssertionError("retry forbidden")), self.assertRaises(FileExistsError):
                     run_fresh_ordinary_pr_attempt(data, freeze)
 
+
+class SourceFirstCaptureTests(TestCase):
+    """Controlled public-client lifecycle; no live provider or target execution."""
+
+    execute = FreshAttemptLifecycleTests.execute
+
+    def selection(self, parent, *, source_first=True):
+        import experiments.api_ordinary_call_signature_trial as owner
+        data, _, directory, credential = FreshAttemptLifecycleTests().selection(parent)
+        contract = json.loads(data)
+        if source_first:
+            contract["capture_profile"] = owner.SOURCE_FIRST_PROFILE
+            contract["representation"].update(outer_acquisition_format="fresh-ordinary-pr-acquisition/2",
+                                               source_packet_format=owner.SOURCE_PACKET_FORMAT)
+        data = json_bytes(contract)
+        return data, prepare_fresh_execution_freeze(data, credential_file=credential,
+            mode="controlled_qualification"), directory, credential
+
+    def cold_open(self, directory):
+        import experiments.api_ordinary_call_signature_trial as owner
+        with patch("ast.parse", side_effect=AssertionError("AST forbidden")), \
+             patch("requests.sessions.Session.request", side_effect=AssertionError("HTTP forbidden")), \
+             patch.object(owner, "discover_source_candidates", side_effect=AssertionError("discovery forbidden")), \
+             patch("experiments.api_call_signature.compare_arguments", side_effect=AssertionError("checker forbidden")), \
+             patch.object(owner, "fresh_execution_identity", side_effect=AssertionError("current method forbidden")), \
+             patch.object(owner, "_read_attempt_credential", side_effect=AssertionError("credential forbidden")):
+            return open_fresh_ordinary_pr_attempt(directory)
+
+    def test_broad_fact_overflow_legacy_refuses_successor_completes_entire_worker_path(self):
+        import experiments.api_target_context_smoke as producer
+        original = producer.context_manifest
+        def broad(context):
+            # Real entry/worker, deliberately oversized observation table. The
+            # target text and required basis stay identical in both arms.
+            return dict(original(context), binding_trace_steps=[None] * 270000)
+        for source_first in (False, True):
+            with self.subTest(source_first=source_first), TemporaryDirectory() as tmp:
+                data, freeze, directory, _ = self.selection(Path(tmp), source_first=source_first)
+                with patch.object(producer, "context_manifest", side_effect=broad):
+                    attempt = self.execute(data, freeze)
+                opened = self.cold_open(directory)
+                if not source_first:
+                    self.assertEqual(attempt["state"], "failed", attempt)
+                    self.assertEqual(attempt["stage"], "target_context")
+                    self.assertEqual(attempt["reason"], "native_resource_limit")
+                    self.assertNotIn("target_context", opened["acquisition"]["completed_stages"])
+                    continue
+                self.assertEqual(attempt["state"], "completed", attempt)
+                self.assertEqual(attempt["configuration"]["capture_profile"], "source-first-ordinary-capture/1")
+                self.assertTrue(attempt["structural_disposition"].startswith("useful"))
+                self.assertTrue(opened["comparison"]["pairs"])
+                self.assertTrue(opened["catalog"].files)
+                self.assertEqual(opened["acquisition"]["format"], "fresh-ordinary-pr-acquisition/2")
+                self.assertNotIn("binding_trace_steps", opened["acquisition"]["completed_stages"]["target_context"]["summary"])
+                self.assertIn("capture-target-sources.json", attempt["artifacts"])
+                self.assertTrue(any(n.startswith("capture-library-source-") for n in attempt["artifacts"]))
+                for path in directory.rglob("*"):
+                    self.assertEqual(stat.S_IMODE(path.stat().st_mode), 0o700 if path.is_dir() else 0o600)
+                cold = subprocess.run([sys.executable, "-m", "experiments.api_ordinary_call_signature_trial",
+                    "open-attempt", "--result", str(directory)], capture_output=True, text=True, timeout=15)
+                self.assertEqual(cold.returncode, 0, cold.stderr)
+                self.assertIn("Retained source packets:", cold.stdout)
+                self.assertIn("broad_binding_observations_not_retained", cold.stdout)
+
+    def test_required_target_receipt_overflow_retains_text_and_explicit_missing_basis(self):
+        import experiments.api_target_context_smoke as producer
+        original = producer.context_manifest
+        with TemporaryDirectory() as tmp:
+            data, freeze, directory, _ = self.selection(Path(tmp))
+            with patch.object(producer, "context_manifest", side_effect=lambda c:
+                              dict(original(c), required_basis=[None] * 270000)):
+                attempt = self.execute(data, freeze)
+            self.assertEqual(attempt["state"], "failed", attempt)
+            self.assertEqual(attempt["reason"], "native_resource_limit")
+            opened = self.cold_open(directory)
+            self.assertIsNone(opened["comparison"])
+            self.assertNotIn("target_context", opened["acquisition"]["completed_stages"])
+            packet = opened["source_material"]["capture-target-sources.json"]
+            self.assertTrue(packet["files"][0]["content"])
+            self.assertIn(dict(stage="target_context", reason="required_stage_capture_not_retained",
+                               cause="native_resource_limit"), opened["acquisition"]["capture_omissions"])
+            self.assertGreater(opened["acquisition"]["transport"]["provider_requests"], 0)
+
+    def test_required_receipt_byte_capacity_does_not_erase_independent_source(self):
+        import experiments.api_target_context_smoke as producer
+        from experiments.api_signature_evidence import MAX_OUTPUT_BYTES
+        original = producer.context_manifest
+        with TemporaryDirectory() as tmp:
+            data, freeze, directory, _ = self.selection(Path(tmp))
+            with patch.object(producer, "context_manifest", side_effect=lambda c:
+                              dict(original(c), required_basis="x" * MAX_OUTPUT_BYTES)):
+                attempt = self.execute(data, freeze)
+            self.assertEqual(attempt["state"], "failed", attempt)
+            self.assertEqual(attempt["reason"], "partial_acquisition_retention_capacity")
+            opened = self.cold_open(directory)
+            self.assertTrue(opened["source_material"])
+            self.assertNotIn("target_context", opened["acquisition"]["completed_stages"])
+            self.assertIn(dict(stage="target_context", reason="required_stage_capture_not_retained",
+                               cause="partial_acquisition_retention_capacity"), opened["acquisition"]["capture_omissions"])
+
+    def test_required_library_receipt_overflow_preserves_returned_text_without_comparison(self):
+        import experiments.api_ordinary_call_signature_trial as owner
+        original = owner.module_attempt_manifest
+        def required(attempt):
+            value = original(attempt)
+            return dict(value, required_basis=[None] * 270000) if value["state"] == "module_examined" else value
+        with TemporaryDirectory() as tmp:
+            data, freeze, directory, _ = self.selection(Path(tmp))
+            with patch.object(owner, "module_attempt_manifest", side_effect=required):
+                attempt = self.execute(data, freeze)
+            self.assertEqual(attempt["stage"], "library_source")
+            self.assertEqual(attempt["state"], "failed", attempt)
+            opened = self.cold_open(directory)
+            self.assertTrue(opened["source_material"]["capture-library-source-00.json"]["files"][0]["content"])
+            self.assertEqual(opened["acquisition"]["library_sources"], [])
+            self.assertTrue(any(g["stage"] == "library_source" and g["reason"] == "required_stage_capture_not_retained"
+                                for g in opened["acquisition"]["capture_omissions"]))
+            self.assertIsNone(opened["comparison"])
+
+    def test_later_provider_failure_keeps_target_text_and_required_declaration_basis(self):
+        with TemporaryDirectory() as tmp:
+            data, freeze, directory, _ = self.selection(Path(tmp))
+            def transform(path, body, status):
+                if path.startswith("/pypi/"):
+                    raise KeyboardInterrupt()
+                return body, status
+            self.assertEqual(self.execute(data, freeze, response_transform=transform)["state"], "interrupted")
+            opened = self.cold_open(directory)
+            summary = opened["acquisition"]["completed_stages"]["target_context"]["summary"]
+            self.assertTrue(summary["candidates"])
+            self.assertTrue(summary["declarations"])
+            self.assertEqual(summary["candidates"][0]["declaration"], summary["declarations"][0])
+            self.assertTrue(opened["source_material"]["capture-target-sources.json"]["files"])
+
+    def test_library_request_nested_origin_binding_trace_is_not_stripped(self):
+        with TemporaryDirectory() as tmp:
+            data, freeze, directory, _ = self.selection(Path(tmp))
+            attempt = self.execute(data, freeze, target_source=
+                "import vendor\ndef later():\n vendor.FACTORY.operation(ids=1)\n")
+            self.assertEqual(attempt["state"], "completed", attempt)
+            opened = self.cold_open(directory)
+            requests = [r["request"] for r in opened["acquisition"]["library_sources"]
+                        if r.get("state") == "module_examined"]
+            origin = requests[0]["origin"]
+            self.assertTrue(origin["binding"]["trace"])
+            self.assertTrue(origin["binding"]["possible_imports"])
+            self.assertEqual(origin["binding"]["state"], "conditional")
+            self.assertIn("delayed_global_read", origin["binding"]["reasons"])
+            compared = opened["comparison"]["acquisition"]["ordinary_acquisition"]["changed_package_sources"]["attempts"]
+            self.assertTrue(all(r["request"] in requests for r in compared))
+
+    def test_unknown_completion_exposes_orphan_source_without_reconstructing_stage(self):
+        with TemporaryDirectory() as tmp:
+            data, freeze, directory, _ = self.selection(Path(tmp))
+            self.assertEqual(self.execute(data, freeze)["state"], "completed")
+            (directory / "attempt.json").unlink()
+            (directory / "acquisition.json").unlink()
+            opened = self.cold_open(directory)
+            self.assertEqual(opened["attempt"]["state"], "unknown_completion")
+            self.assertTrue(opened["source_material"])
+            self.assertIsNone(opened["acquisition"])
+            self.assertIsNone(opened["comparison"])
+
+    def test_final_envelope_failure_retains_sources_costs_and_withholds_outer_completion(self):
+        import experiments.api_ordinary_call_signature_trial as owner
+        from upgradepilot.workspace.native_representation import NativeReconstructionError
+        original_capture, original_worker = owner._capture_bytes, owner.run_ordinary_comparison
+        worker_finished = []
+        def worker(*args, **kwargs):
+            result = original_worker(*args, **kwargs)
+            worker_finished.append(True)
+            return result
+        def capture(value):
+            if (worker_finished and type(value) is dict and value.get("format") == "fresh-ordinary-pr-acquisition/2"
+                and value["completed_stages"]):
+                raise NativeReconstructionError("native_resource_limit", "authored final-envelope overflow")
+            return original_capture(value)
+        with TemporaryDirectory() as tmp:
+            data, freeze, directory, _ = self.selection(Path(tmp))
+            with patch.object(owner, "_capture_bytes", side_effect=capture), \
+                 patch.object(owner, "run_ordinary_comparison", side_effect=worker):
+                attempt = self.execute(data, freeze)
+            self.assertEqual(attempt["state"], "failed", attempt)
+            self.assertEqual(attempt["stage"], "capture_finalization")
+            self.assertEqual(attempt["structural_disposition"], "not_assessed")
+            self.assertEqual(json.loads((directory / "comparison/attempt.json").read_bytes())["state"], "completed")
+            opened = self.cold_open(directory)
+            self.assertTrue(opened["source_material"])
+            self.assertTrue(opened["acquisition"]["transport"]["requests"])
+            self.assertEqual(opened["acquisition"]["completed_stages"], {})
+            self.assertIsNone(opened["comparison"])
+
+    def test_rehashed_source_corruption_still_refuses_receipt_relation(self):
+        with TemporaryDirectory() as tmp:
+            data, freeze, directory, _ = self.selection(Path(tmp))
+            self.assertEqual(self.execute(data, freeze)["state"], "completed")
+            name = "capture-target-sources.json"
+            packet = json.loads((directory / name).read_bytes())
+            packet["files"][0]["content"] += "\n# changed after capture\n"
+            (directory / name).write_bytes(json_bytes(packet))
+            terminal = json.loads((directory / "attempt.json").read_bytes())
+            terminal["artifacts"][name] = hashlib.sha256((directory / name).read_bytes()).hexdigest()
+            (directory / "attempt.json").write_bytes(json_bytes(terminal))
+            with self.assertRaisesRegex(ValueError, "receipt/source packet mismatch"):
+                self.cold_open(directory)
+
+    def test_unknown_or_unbound_profile_refuses_before_credentials_or_destination(self):
+        import experiments.api_ordinary_call_signature_trial as owner
+        with TemporaryDirectory() as tmp:
+            data, _, directory, credential = self.selection(Path(tmp))
+            contract = json.loads(data)
+            for change in ("unknown", "missing_profile", "wrong_format"):
+                changed = json.loads(data)
+                if change == "unknown":
+                    changed["capture_profile"] = "source-first-ordinary-capture/99"
+                elif change == "missing_profile":
+                    del changed["capture_profile"]
+                else:
+                    changed["representation"]["outer_acquisition_format"] = "fresh-ordinary-pr-acquisition/1"
+                with self.subTest(change=change), patch.object(owner, "_read_attempt_credential",
+                        side_effect=AssertionError("credential forbidden")), self.assertRaises(ValueError):
+                    prepare_fresh_execution_freeze(json_bytes(changed), credential_file=credential,
+                                                   mode="controlled_qualification")
+                self.assertFalse(directory.exists())
+

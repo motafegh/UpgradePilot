@@ -59,6 +59,11 @@ from .api_target_context_smoke import (
 FORMAT = "caller-signature-evidence/2"
 INPUT_FORMAT = "ordinary-caller-signature-input/1"
 ACQUISITION_SUMMARY_FORMAT = "ordinary-acquisition-summary/1"
+SOURCE_FIRST_PROFILE = "source-first-ordinary-capture/1"
+SOURCE_PACKET_FORMAT = "ordinary-acquisition-source/1"
+# These are root observation tables, not nested request/origin premises. The
+# ordinary comparison already computes its own admitted call/signature facts.
+_BROAD_BINDING_FIELDS = {"binding_analysis_version", "binding_trace_steps", "imports", "references"}
 FRESH_PROOF = "fresh_ordinary_pr_acquisition"
 PROOF_CLASSES = {"controlled_ordinary_pr_composition", "retained_component_discovery", FRESH_PROOF}
 ORDINARY_METHOD_SOURCES = (
@@ -86,14 +91,13 @@ def _summarize_ordinary_acquisition(acquisition):
     ordinary fixed admission or rendering. Keep identities, requests (including
     origin binding), provenance, coverage and costs here. Complete admitted text
     and independently computed call/signature facts belong to the comparison.
-    Fresh outer capture retains the original target/library binding observations,
-    including files omitted from the comparison; this summary alone does not.
+    Legacy outer capture retains original broad observations. The explicit
+    source-first successor instead records their omission and retains text in
+    independent packets. This summary alone supplies neither capture contract.
     Do not mutate the generic manifests or turn this into recursive field removal.
     """
-    binding_fields = {"binding_analysis_version", "binding_trace_steps", "imports", "references"}
-
     def receipt(packet):
-        return {key: value for key, value in packet.items() if key not in binding_fields}
+        return {key: value for key, value in packet.items() if key not in _BROAD_BINDING_FIELDS}
 
     ordinary = dict(acquisition["ordinary_acquisition"])
     ordinary["target"] = receipt(ordinary["target"])
@@ -654,7 +658,7 @@ def render_ordinary_comparison(body):
     if acquisition.get("format") == ACQUISITION_SUMMARY_FORMAT:
         lines.append("Acquisition receipt: summary; broad binding tables not included. "
                      "Comparison retains admitted text and call/signature facts; "
-                     "original acquisition observations require the separate outer capture.")
+                     "Broad acquisition observations, if retained, require a separately versioned outer capture.")
     ordinary = acquisition.get("ordinary_acquisition", {})
     if "transport" in ordinary:
         transport = ordinary["transport"]
@@ -827,6 +831,101 @@ def _write_attempt_file(path, data, maximum=MAX_SELECTION_BYTES):
         stream.write(data)
 
 
+_SOURCE_PACKET_FILES = {"capture-target-sources.json", *(f"capture-library-source-{i:02}.json" for i in range(12))}
+
+
+class _CaptureCapacityRefusal(AnalysisLimit):
+    """Keep the capture owner's finite reason without persisting exception text."""
+
+    def __init__(self, reason):
+        self.reason = reason
+        super().__init__(reason)
+
+
+class _SourceFirstCapture:
+    """Persist returned text before projecting a required stage receipt.
+
+    Called only by the opt-in outer runner. Independent immutable packets allow
+    text to survive a later receipt-capacity failure; they are not comparison
+    inputs and cannot supply a missing provenance/request basis on their own.
+    The ordinary acquisition and binder continue using the original in-memory
+    observations. No broad table is serialized or disguised inside a string.
+    """
+
+    def __init__(self, directory, contract, omissions):
+        self.directory, self.contract, self.omissions = directory, contract, omissions
+        self.library_packets = {}
+        self.library_bytes = 0
+
+    def project(self, stage, value):
+        if stage == "target_context":
+            files = value["files"]
+            # Validate/write text independently BEFORE touching receipt encoding.
+            _validate_source_files(files, stage, self.contract)
+            name = "capture-target-sources.json"
+            self._write_sources(name, stage, files)
+            self._record_table_omission(stage)
+            return dict(summary={k: v for k, v in value["summary"].items()
+                                 if k not in _BROAD_BINDING_FIELDS}, source_material=name)
+        if stage == "library_source":
+            receipt = {k: v for k, v in value.items() if k not in _BROAD_BINDING_FIELDS | {"file"}}
+            if "file" in value:
+                file = value["file"]
+                _validate_source_files([file], stage, self.contract)
+                key = (file["repository"], file["revision"], file["path"], content_digest(file["content"].encode()))
+                if key not in self.library_packets:
+                    size = len(file["content"].encode())
+                    if (len(self.library_packets) >= 12
+                        or self.library_bytes + size > self.contract["source_limits"]["max_library_source_bytes"]):
+                        raise _CaptureCapacityRefusal("source_packet_material_capacity")
+                    name = f"capture-library-source-{len(self.library_packets):02}.json"
+                    self._write_sources(name, stage, [file])
+                    self.library_packets[key] = name
+                    self.library_bytes += size
+                receipt["source_material"] = self.library_packets[key]
+                self._record_table_omission(stage)
+            return receipt
+        return value
+
+    def _write_sources(self, name, stage, files):
+        _write_attempt_file(self.directory / name,
+            _capture_bytes(dict(format=SOURCE_PACKET_FORMAT, stage=stage, files=files)), MAX_OUTPUT_BYTES)
+
+    def _record_table_omission(self, stage):
+        gap = dict(stage=stage, reason="broad_binding_observations_not_retained",
+                   fields=sorted(_BROAD_BINDING_FIELDS))
+        if gap not in self.omissions:
+            self.omissions.append(gap)
+
+
+def _validate_source_files(files, stage, contract):
+    """Fixed non-executing file admission; no AST or acquisition on cold open."""
+    from upgradepilot.github.repository import RepositoryTextFile
+    target = stage == "target_context"
+    maximum = contract["acquisition_policy"]["target_file_attempts"] if target else 1
+    if type(files) is not list or len(files) > maximum or (not target and len(files) != 1):
+        raise ValueError("Invalid source packet file sequence.")
+    seen, size = set(), 0
+    for raw in files:
+        data = object_fields(raw, ("repository", "path", "revision", "content"))
+        file = RepositoryTextFile(**data)
+        key = (file.repository, file.revision, file.path)
+        if key in seen:
+            raise ValueError("Duplicate source packet file.")
+        seen.add(key)
+        size += len(file.content.encode())
+        invocation = contract["invocation"]
+        if target and (file.repository, file.revision) != (invocation["repository"], invocation["expected_head"]):
+            raise ValueError("Target source packet revision mismatch.")
+    limit = contract["source_limits"]["max_target_source_bytes" if target else "max_library_source_bytes"]
+    if size > limit:
+        raise _CaptureCapacityRefusal("source_packet_material_capacity")
+
+
+def _outer_files(contract):
+    return _OUTER_FILES | (_SOURCE_PACKET_FILES if contract.get("capture_profile") == SOURCE_FIRST_PROFILE else set())
+
+
 def fresh_execution_identity():
     """Bind the native source forest, experimental producers and Python environment.
 
@@ -892,6 +991,14 @@ def _read_fresh_contract(data):
         or contract["automatic_cap_enlargement"] is not False):
         raise ValueError("Unsupported fresh provider/auth/retry scope.")
     representation = contract["representation"]
+    profile = contract.get("capture_profile")
+    if profile not in (None, SOURCE_FIRST_PROFILE):
+        raise ValueError("Unsupported ordinary capture profile.")
+    # Missing profile is the legacy contract; it must not select successor bytes.
+    expected_capture = "fresh-ordinary-pr-acquisition/2" if profile else "fresh-ordinary-pr-acquisition/1"
+    if (representation.get("outer_acquisition_format", "fresh-ordinary-pr-acquisition/1") != expected_capture
+        or representation.get("source_packet_format") != (SOURCE_PACKET_FORMAT if profile else None)):
+        raise ValueError("Capture profile/representation mismatch.")
     if contract.get("transport_retry_policy") not in (None, PYPI_TIMEOUT_RETRY_POLICY):
         raise ValueError("Unsupported transport retry profile.")
     required = dict(fresh_proof_class=FRESH_PROOF, input_format=INPUT_FORMAT, comparison_format=FORMAT,
@@ -959,6 +1066,8 @@ def _fresh_configuration(contract):
     configuration = dict(acquisition_policy=contract["acquisition_policy"], analysis_limits=contract["analysis_limits"])
     if contract.get("transport_retry_policy") is not None:
         configuration["transport_retry_policy"] = contract["transport_retry_policy"]
+    if contract.get("capture_profile") is not None:
+        configuration["capture_profile"] = contract["capture_profile"]
     return configuration
 
 
@@ -1040,9 +1149,46 @@ def run_fresh_ordinary_pr_attempt(contract_data, freeze_data, *, activate_live=F
     start_digest = content_digest((directory / "attempt-started.json").read_bytes())
     partial, session, source_records, capture_omissions = {}, None, [], []
     transport_receipt = None
+    source_capture = (_SourceFirstCapture(directory, contract, capture_omissions)
+                      if contract.get("capture_profile") == SOURCE_FIRST_PROFILE else None)
 
     def capture(stage, value):
         attempt["stage"] = stage
+        if source_capture is not None:
+            try:
+                value = parse_json(_capture_bytes(source_capture.project(stage, value)))
+                proposed_partial, proposed_sources = dict(partial), list(source_records)
+                if stage == "library_source":
+                    if value not in proposed_sources:
+                        proposed_sources.append(value)
+                elif stage != "initial_observation":
+                    proposed_partial[stage] = value
+                # Admission is transactional for REQUIRED receipts, while source
+                # packets have already been persisted independently. A refusal
+                # cannot leave a half-admitted receipt in the final envelope.
+                proposed = dict(format="fresh-ordinary-pr-acquisition/2", completed_stages=proposed_partial,
+                    library_sources=proposed_sources, capture_omissions=capture_omissions,
+                    transport=session.acquisition_receipt() if session else None,
+                    retention="returned source packets; required receipts; broad binding observations omitted")
+                if len(_capture_bytes(proposed)) > MAX_OUTPUT_BYTES:
+                    raise _CaptureCapacityRefusal("partial_acquisition_retention_capacity")
+            except (OSError, ValueError, TypeError, MemoryError) as exc:
+                capture_omissions.append(dict(stage=stage, reason="required_stage_capture_not_retained",
+                                             cause=getattr(exc, "reason", type(exc).__name__)))
+                raise
+            if stage == "initial_observation":
+                _write_attempt_file(directory / "initial-observation.json", json_bytes(value), MAX_OUTPUT_BYTES)
+                attempt["observed_identity"] = value["identity"]
+                if any(value["identity"].get(key) != invocation[field] for key, field in (
+                    ("repository", "repository"), ("number", "pull_number"),
+                    ("base_sha", "expected_base"), ("head_sha", "expected_head"))):
+                    raise _InitialIdentityRefusal("Initial observation differs from requested guards.")
+            else:
+                partial.clear()
+                partial.update(proposed_partial)
+                source_records[:] = proposed_sources
+            return
+        # Historical full-observation profile remains independently readable.
         value = parse_json(_capture_bytes(value))
         if stage == "initial_observation":
             _write_attempt_file(directory / "initial-observation.json", json_bytes(value), MAX_OUTPUT_BYTES)
@@ -1129,17 +1275,37 @@ def run_fresh_ordinary_pr_attempt(contract_data, freeze_data, *, activate_live=F
         receipt = transport_receipt
         if receipt is None and session is not None:
             receipt = session.acquisition_receipt()
-        acquisition = dict(format="fresh-ordinary-pr-acquisition/1", completed_stages=partial,
+        acquisition = dict(format="fresh-ordinary-pr-acquisition/2" if source_capture else "fresh-ordinary-pr-acquisition/1", completed_stages=partial,
             library_sources=source_records, capture_omissions=capture_omissions, transport=receipt,
-            retention="completed returned stages only; lost intermediates are not reconstructed")
+            retention=("returned source packets; required receipts; broad binding observations omitted" if source_capture
+                       else "completed returned stages only; lost intermediates are not reconstructed"))
         try:
-            _write_attempt_file(directory / "acquisition.json", _capture_bytes(acquisition), MAX_OUTPUT_BYTES)
+            try:
+                _write_attempt_file(directory / "acquisition.json", _capture_bytes(acquisition), MAX_OUTPUT_BYTES)
+            except (ValueError, TypeError, MemoryError) as exc:
+                if source_capture is None:
+                    raise
+                # Final accounting/gap growth can exceed a previously admitted
+                # aggregate. Preserve the independent source packets and costs,
+                # explicitly withhold the whole unretained receipt envelope,
+                # and refuse outer completion even if an inner worker finished.
+                cause = getattr(exc, "reason", type(exc).__name__)
+                lost = set(partial) | ({"library_source"} if source_records else set())
+                lost.update("target_context" if name == "capture-target-sources.json" else "library_source"
+                            for name in _SOURCE_PACKET_FILES if (directory / name).is_file())
+                gaps = [*capture_omissions, *(dict(stage=stage, reason="required_stage_capture_not_retained",
+                    cause="final_acquisition_capture_unavailable") for stage in sorted(lost))]
+                acquisition = dict(acquisition, completed_stages={}, library_sources=[], capture_omissions=gaps)
+                _write_attempt_file(directory / "acquisition.json", _capture_bytes(acquisition), MAX_OUTPUT_BYTES)
+                attempt.update(state="failed", stage="capture_finalization", reason="final_acquisition_capture_unavailable",
+                    structural_disposition="not_assessed", coverage="not_established",
+                    cause=dict(type=type(exc).__name__, reason=cause, status_code=None))
             if fresh_execution_identity() != {k: freeze[k] for k in ("code_sha256", "runtime")}:
                 attempt.update(state="failed", reason="executable_method_changed_during_attempt",
                     structural_disposition="not_assessed")
             attempt.update(ended_at=datetime.now(UTC).isoformat(), elapsed_seconds=time.monotonic() - started,
                            started_sha256=start_digest)
-            for relative in _OUTER_FILES:
+            for relative in _outer_files(contract):
                 path = directory / relative
                 if path.is_file():
                     attempt["artifacts"][relative] = content_digest(path.read_bytes())
@@ -1157,6 +1323,81 @@ _OUTER_FILES = {"contract.json", "execution-freeze.json", "attempt-started.json"
 _OUTER_START_FIELDS = ("format", "attempt_id", "state", "reason", "cause", "stage", "started_at", "ended_at",
     "elapsed_seconds", "invocation", "auth_mode", "execution_mode", "contract_sha256", "execution_freeze_sha256",
     "code_sha256", "runtime", "configuration", "observed_identity", "structural_disposition", "coverage", "inner_attempt", "artifacts")
+
+
+def _read_source_packets(directory, contract, acquisition):
+    """Open observed text separately from admitted receipts, including orphans.
+
+    A handled required-receipt failure may leave a source packet without a stage.
+    Such a packet is exposed as text with missing basis, never reconstructed into
+    acquisition inputs. Hashes bind retained files, not provider authenticity.
+    """
+    selected = contract.get("capture_profile") == SOURCE_FIRST_PROFILE
+    names = {p.name for p in directory.glob("capture-*.json")}
+    if not names <= (_SOURCE_PACKET_FILES if selected else set()):
+        raise ValueError("Unexpected source capture artifact.")
+    packets, library_bytes, library_keys = {}, 0, set()
+    for name in sorted(names):
+        packet = object_fields(parse_json(read_bounded_bytes(directory / name, MAX_OUTPUT_BYTES)),
+                               ("format", "stage", "files"))
+        stage = "target_context" if name == "capture-target-sources.json" else "library_source"
+        if packet["format"] != SOURCE_PACKET_FORMAT or packet["stage"] != stage:
+            raise ValueError("Invalid source packet representation.")
+        _validate_source_files(packet["files"], stage, contract)
+        if stage == "library_source":
+            file = packet["files"][0]
+            key = (file["repository"], file["revision"], file["path"], content_digest(file["content"].encode()))
+            if key in library_keys:
+                raise ValueError("Duplicate library source packet.")
+            library_keys.add(key)
+            library_bytes += len(file["content"].encode())
+        packets[name] = packet
+    if library_bytes > contract["source_limits"]["max_library_source_bytes"]:
+        raise ValueError("Library source packet aggregate exceeds material limit.")
+    if not selected or acquisition is None:
+        return packets
+    used = set()
+    omissions = acquisition["capture_omissions"]
+    if (any(type(g) is not dict for g in omissions)
+        or any(type(r) is not dict for r in acquisition["library_sources"])):
+        raise ValueError("Invalid source-first receipt/gap sequence.")
+
+    def source_packet(receipt, stage):
+        name = receipt.get("source_material")
+        if type(name) is not str or name not in packets or packets[name]["stage"] != stage:
+            raise ValueError("Missing or foreign source packet reference.")
+        if not any(g.get("stage") == stage and g.get("reason") == "broad_binding_observations_not_retained"
+                   and g.get("fields") == sorted(_BROAD_BINDING_FIELDS) for g in omissions):
+            raise ValueError("Missing broad observation omission.")
+        used.add(name)
+        return packets[name]["files"]
+
+    target = acquisition["completed_stages"].get("target_context")
+    if target is not None:
+        object_fields(target, ("summary", "source_material"))
+        if type(target["summary"]) is not dict:
+            raise ValueError("Invalid source-first target summary.")
+        files = source_packet(target, "target_context")
+        if _BROAD_BINDING_FIELDS & target["summary"].keys():
+            raise ValueError("Unexpected broad target observations in source-first capture.")
+        expected = [dict(source_id=f"{f['repository']}@{f['revision']}:{f['path']}",
+                         sha256=content_digest(f["content"].encode()), bytes=len(f["content"].encode())) for f in files]
+        if target["summary"]["files"] != expected:
+            raise ValueError("Target receipt/source packet mismatch.")
+    for receipt in acquisition["library_sources"]:
+        if _BROAD_BINDING_FIELDS & receipt.keys() or "file" in receipt:
+            raise ValueError("Unexpected broad library observations in source-first capture.")
+        if receipt.get("state") == "module_examined":
+            file = source_packet(receipt, "library_source")[0]
+            if (any(receipt.get(k) != file[k] for k in ("repository", "revision", "path"))
+                or receipt.get("sha256") != content_digest(file["content"].encode())
+                or receipt.get("bytes") != len(file["content"].encode())):
+                raise ValueError("Library receipt/source packet mismatch.")
+    for name in packets.keys() - used:
+        stage = packets[name]["stage"]
+        if not any(g.get("stage") == stage and g.get("reason") == "required_stage_capture_not_retained" for g in omissions):
+            raise ValueError("Unexplained source packet without required receipt.")
+    return packets
 
 
 def open_fresh_ordinary_pr_attempt(directory):
@@ -1194,9 +1435,9 @@ def open_fresh_ordinary_pr_attempt(directory):
             if record.get(key) != start.get(key):
                 raise ValueError("Outer terminal identity changed: " + key)
         artifacts = record.get("artifacts")
-        if type(artifacts) is not dict or not {"contract.json", "execution-freeze.json", "attempt-started.json", "acquisition.json"} <= artifacts.keys() or not artifacts.keys() <= _OUTER_FILES:
+        if type(artifacts) is not dict or not {"contract.json", "execution-freeze.json", "attempt-started.json", "acquisition.json"} <= artifacts.keys() or not artifacts.keys() <= _outer_files(contract):
             raise ValueError("Invalid outer artifact closure.")
-        actual = {name for name in _OUTER_FILES if (directory / name).is_file()}
+        actual = {name for name in _outer_files(contract) if (directory / name).is_file()}
         if actual != artifacts.keys():
             raise ValueError("Outer retained artifact membership mismatch.")
         for name, digest in artifacts.items():
@@ -1206,13 +1447,15 @@ def open_fresh_ordinary_pr_attempt(directory):
     observation = parse_json(read_bounded_bytes(directory / "initial-observation.json", MAX_OUTPUT_BYTES)) if (directory / "initial-observation.json").exists() else None
     acquisition = object_fields(parse_json(read_bounded_bytes(directory / "acquisition.json", MAX_OUTPUT_BYTES)),
         ("format", "completed_stages", "library_sources", "capture_omissions", "transport", "retention")) if (directory / "acquisition.json").exists() else None
-    if acquisition is not None and (acquisition["format"] != "fresh-ordinary-pr-acquisition/1"
+    acquisition_format = "fresh-ordinary-pr-acquisition/2" if contract.get("capture_profile") else "fresh-ordinary-pr-acquisition/1"
+    if acquisition is not None and (acquisition["format"] != acquisition_format
         or type(acquisition["completed_stages"]) is not dict or type(acquisition["library_sources"]) is not list
         or type(acquisition["capture_omissions"]) is not list):
         raise ValueError("Invalid partial acquisition representation.")
     if acquisition is not None and acquisition.get("transport") is not None:
         _validate_transport(acquisition["transport"])
         _check_selected_transport_profile(acquisition["transport"], contract)
+    source_material = _read_source_packets(directory, contract, acquisition)
     body, catalog = None, None
     if observation is not None and record["state"] != "unknown_completion" and record["observed_identity"] != observation["identity"]:
         raise ValueError("Outer observed identity mismatch.")
@@ -1238,7 +1481,15 @@ def open_fresh_ordinary_pr_attempt(directory):
                 ("repository", "repository"), ("number", "pull_number"),
                 ("base_sha", "expected_base"), ("head_sha", "expected_head")))):
             raise ValueError("Outer observation/input/analysis binding mismatch.")
-    return dict(attempt=record, initial_observation=observation, acquisition=acquisition, comparison=body, catalog=catalog)
+        if contract.get("capture_profile") == SOURCE_FIRST_PROFILE:
+            observed_files = {(f["repository"], f["revision"], f["path"], f["content"])
+                              for p in source_material.values() for f in p["files"]}
+            scopes = {s.source_id: s for s in catalog.scopes}
+            if any((scopes[f.source_id].repository, scopes[f.source_id].revision, f.path, f.content)
+                   not in observed_files for f in catalog.files):
+                raise ValueError("Comparison source absent from source-first capture.")
+    return dict(attempt=record, initial_observation=observation, acquisition=acquisition,
+                source_material=source_material, comparison=body, catalog=catalog)
 
 
 def main(argv=None):
@@ -1267,9 +1518,16 @@ def main(argv=None):
                 "Evidence mode: " + record["execution_mode"],
                 "Structural disposition: " + record["structural_disposition"]]))
             acquisition = opened_attempt["acquisition"]
+            if opened_attempt["source_material"]:
+                print("Retained source packets: " + str(len(opened_attempt["source_material"]))
+                    + "; observed text only, required receipt basis may be incomplete")
+                for name, packet in opened_attempt["source_material"].items():
+                    print(render_terminal_lines(["Source packet: " + name + " | " + packet["stage"]]))
             if acquisition is not None:
                 print("Retained completed stages: " + ", ".join(acquisition["completed_stages"]))
                 print("Retained library module records: " + str(len(acquisition["library_sources"])))
+                for gap in acquisition["capture_omissions"]:
+                    print(render_terminal_lines(["Capture gap: " + gap["stage"] + " | " + gap["reason"]]))
                 transport = acquisition["transport"]
                 if transport is not None:
                     print("Provider work: " + str(transport["github_requests"]) + " GitHub / "
