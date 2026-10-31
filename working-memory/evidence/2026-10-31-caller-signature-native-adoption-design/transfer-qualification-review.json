@@ -1,0 +1,69 @@
+{
+  "scope": "qualification-design review and bounded plan amendment; no executed case or runtime proof",
+  "prior_design_commit": "d7c5f2f7",
+  "prior_plan_sha256": "e94e75345d69143d322364bd81abd09a54903e5aa87e5b005fbfa73183ba577c",
+  "revised_plan_sha256": "2996f03accb10f890e47c1730bee8232b9f938de3ecc08421fb7c3d8b3b39894",
+  "reviewed_suggestions": [
+    "development-case contamination",
+    "pre-outcome candidate-pool and selection history",
+    "one-case sufficiency without material modification"
+  ],
+  "assessment": "valid gaps; adopted with materiality, eligibility, exposure and bounded stopping clarification",
+  "local_links_checked": 37,
+  "broken_links": [],
+  "new_case_code_sequence": false,
+  "protected_source_tests_experiments_specs_adrs_simulation_and_frozen_evidence_unchanged": true,
+  "source_or_test_edits": false,
+  "live_acquisitions": 0,
+  "runtime_tests_run": false,
+  "manual_contract_scenarios": [
+    {
+      "situation": "Untouched selected ordinary case gives useful pair under frozen method without material changes",
+      "disposition": "Bounded transfer gate satisfied by this one case; native product proof still required"
+    },
+    {
+      "situation": "Same fixed case returns a meaningful local rejected result",
+      "disposition": "May satisfy transfer; target compatibility verdict is not selection success"
+    },
+    {
+      "situation": "Case reveals resolver defect and changes source paths or premises",
+      "disposition": "Development/regression evidence for repaired successor; new untouched case after method qualification/freeze"
+    },
+    {
+      "situation": "Same repaired case reacquired with new directory/date/attempt ID",
+      "disposition": "Still exposed development case; no untouched successor claim"
+    },
+    {
+      "situation": "Code relocated into native owners with changed hashes and demonstrated semantic equivalence",
+      "disposition": "No automatic extra case; affected native/compatibility proofs still required"
+    },
+    {
+      "situation": "Method hash changes but equivalence/materiality is unresolved",
+      "disposition": "Withhold untouched-transfer claim until classification/proof resolved"
+    },
+    {
+      "situation": "Eligibility metadata inspected and recorded before outcome; expected findings reviewed only after fixed selection/method",
+      "disposition": "Compatible with gate if no material tuning follows"
+    },
+    {
+      "situation": "Candidate comparison outcome known before selection",
+      "disposition": "Expose prior knowledge and use as development/control; exclude from untouched gate"
+    },
+    {
+      "situation": "Known candidate excluded or replaced after unfavorable outcome",
+      "disposition": "Keep in considered pool/history with reason; new selection/freeze/activation instead of silent replacement"
+    },
+    {
+      "situation": "Transport or identity failure prevents outcome without demonstrated method defect",
+      "disposition": "Inconclusive, not transfer pass or automatic repair/case campaign"
+    },
+    {
+      "situation": "Acceptance or resource/selection policy loosened to admit observed case",
+      "disposition": "Material successor change; repaired case cannot supply untouched transfer"
+    },
+    {
+      "situation": "One untouched contrast passes but no native CLI/checkpoint/report proof exists",
+      "disposition": "Transfer gate only; no product cutover or independent usefulness claim"
+    }
+  ]
+}
