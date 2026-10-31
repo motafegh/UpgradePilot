@@ -1,0 +1,16 @@
+{
+  "artifacts_sha256": {
+    "REVIEW.md": "3f7788a2ae0bbfede8ad714e92e2c7c07ef9bb998df9f4c8c1c17ab603b8a259",
+    "execution-freeze.json": "aa23488338c8e0b74b0c07764998af144a3be107cd86210f631819ab1529d9dc",
+    "verification.json": "011355ac782f32f1962d91443489be28d8e92938c795a948053f67cdf71621c1"
+  },
+  "entry_revision": "e4b34c1e",
+  "format": "ordinary-pr-execution-freeze-publication/1",
+  "live_acquisition_requests": 0,
+  "local_links_checked": 138,
+  "official_destination_created": false,
+  "preparation_revision": "034665d7032fed622e33149ba1977413f64a56d6",
+  "real_trial_credential_reads": 0,
+  "source_and_prior_evidence_unchanged": true,
+  "status": "inspection_only_activation_withheld"
+}
