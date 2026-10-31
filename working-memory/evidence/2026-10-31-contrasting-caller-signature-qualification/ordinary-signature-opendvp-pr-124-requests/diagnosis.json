@@ -1,0 +1,55 @@
+{
+  "scope": "offline diagnosis of frozen insufficient capture; no reanalysis or regrade",
+  "native_dependency_transition_acquired": true,
+  "declared_packages": 31,
+  "requests_direct_declaration": false,
+  "import_candidates": 23,
+  "references": 311,
+  "positive_lexical_imports": 6,
+  "current_explorer_eligible_candidates": 0,
+  "binding_states": {
+    "established": 6,
+    "conditional": 172,
+    "unknown": 133
+  },
+  "binding_reasons": {
+    "name_not_bound_in_examined_scope": 1,
+    "dynamic_reference_receiver": 87,
+    "lambda_or_comprehension_scope_unmodeled": 6,
+    "delayed_global_read": 169,
+    "unsupported_control_flow": 68,
+    "unbound_local_name": 7,
+    "unsupported_write_or_control_flow": 6,
+    "complex_assignment_target_unmodeled": 2,
+    "unknown_mutation_receiver": 17,
+    "value_origin_unknown": 30,
+    "function_value_not_propagated": 4,
+    "branch_alternatives": 9,
+    "dynamic_global_namespace_in_nested_scope": 3,
+    "relative_import_origin_unresolved": 2,
+    "parameter_value_unknown": 8,
+    "class_value_not_propagated": 2
+  },
+  "target_omitted_files": 93,
+  "gaps": [
+    {
+      "path": null,
+      "reason": "input_budget_exhausted"
+    },
+    {
+      "path": "pyproject.toml",
+      "reason": "other_dependency_metadata_unassessed"
+    },
+    {
+      "path": "uv.lock",
+      "reason": "unsupported_declaration_format"
+    }
+  ],
+  "earliest_frontier": "AdapterSourceExplorer.explore seeds only candidates with matching positive lexical_import; zero in retained target",
+  "responsibility_distinction": "native uv.lock change extraction succeeded; broader target dependency-declaration interpretation for uv.lock explicitly unsupported; lock membership is not direct declaration or installed state",
+  "classification": "insufficient transfer evidence; exposed supported-boundary/product-reachability gap, no incorrect binder/checker result demonstrated",
+  "selection_limit": "public Python metadata and uv.lock change did not establish desired direct dependency use; selection not based on outcomes",
+  "repair_decision": "no lower-owner patch or scope/cap expansion selected; reassess target-origin exploration and direct-use eligibility before successor selection",
+  "contamination_rule": "if this case informs material successor method changes it is development evidence, requiring another untouched case for successor transfer",
+  "absence_inference_forbidden": true
+}
