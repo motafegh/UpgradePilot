@@ -1,0 +1,16 @@
+test_unresolved_try_import_base_retains_conditional_source_hypotheses (experiments.tests.test_api_source_correspondence.SourcePathTests.test_unresolved_try_import_base_retains_conditional_source_hypotheses) ... FAIL
+
+======================================================================
+FAIL: test_unresolved_try_import_base_retains_conditional_source_hypotheses (experiments.tests.test_api_source_correspondence.SourcePathTests.test_unresolved_try_import_base_retains_conditional_source_hypotheses)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_source_correspondence.py", line 86, in test_unresolved_try_import_base_retains_conditional_source_hypotheses
+    self.assertEqual({c["callee_role"]["role"]:p["comparison"]["outcome"] for c,p in native},
+AssertionError: {} != {'native_old_version': 'bound', 'native_proposed_version': 'rejected'}
+- {}
++ {'native_old_version': 'bound', 'native_proposed_version': 'rejected'}
+
+----------------------------------------------------------------------
+Ran 1 test in 0.008s
+
+FAILED (failures=1)

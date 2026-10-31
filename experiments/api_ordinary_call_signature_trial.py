@@ -170,7 +170,8 @@ def prepare_ordinary_inputs(trial, session, source_run):
                 priority = 0 if bound in interest else 1 if bound in called else 2
                 if bound in interest and fact.member:
                     interest.add(fact.member)
-                pending.append((priority, len(seen), examined, role, request))
+                native_rank = 0 if role in {"native_old_version", "native_proposed_version"} else 1
+                pending.append((native_rank, priority, len(seen), examined, role, request))
 
     # This is source-selection order only, never an inferred binding/dispatch edge.
     # Seed both native sides before processing a broad export module's imports.
@@ -180,18 +181,28 @@ def prepare_ordinary_inputs(trial, session, source_run):
                 schedule(*queue.pop(0))
             if not pending:
                 break
-            pending.sort(key=lambda item: item[:2])
-            _, _, parent, role, request = pending.pop(0)
-            if len(closure) >= 256:
-                omitted_target_files.extend(dict(repository=parent.file.repository, revision=parent.file.revision,
-                    path=e.path, role=role, reason="closure_receipt_limit") for e in parent.inventory.entries
-                    if module_name(e.path) == request.module)
-                continue
-            outcome = source_run.examine(request)
-            closure.append(module_attempt_manifest(ChangedPackageModuleAttempt(request, outcome)))
-            if isinstance(outcome, ExaminedPythonModule):
-                add(outcome.file, role, outcome.metadata.package, request.version,
-                    (d.package for d in outcome.metadata.requirements), outcome)
+            pending.sort(key=lambda item: item[:3])
+            selected = [pending.pop(0)]
+            rank, _, _, _, selected_role, selected_request = selected[0]
+            if rank == 0:
+                # A native question should not consume all closure work on one
+                # version while its corresponding comparison side waits.
+                counterpart = next((i for i, item in enumerate(pending)
+                    if item[0] == 0 and item[4] != selected_role
+                    and (item[5].package, item[5].module) == (selected_request.package, selected_request.module)), None)
+                if counterpart is not None:
+                    selected.append(pending.pop(counterpart))
+            for _, _, _, parent, role, request in selected:
+                if len(closure) >= 256:
+                    omitted_target_files.extend(dict(repository=parent.file.repository, revision=parent.file.revision,
+                        path=e.path, role=role, reason="closure_receipt_limit") for e in parent.inventory.entries
+                        if module_name(e.path) == request.module)
+                    continue
+                outcome = source_run.examine(request)
+                closure.append(module_attempt_manifest(ChangedPackageModuleAttempt(request, outcome)))
+                if isinstance(outcome, ExaminedPythonModule):
+                    add(outcome.file, role, outcome.metadata.package, request.version,
+                        (d.package for d in outcome.metadata.requirements), outcome)
     identity = trial.identity
     target = ExactInvestigationTarget(identity.repository, identity.number, identity.base_sha,
         identity.head_sha, dependency.normalized_package, dependency.old_version, dependency.proposed_version)

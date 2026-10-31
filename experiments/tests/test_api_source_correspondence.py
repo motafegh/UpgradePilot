@@ -65,6 +65,38 @@ def prepared(*args, **kwargs):
 
 
 class SourcePathTests(TestCase):
+    def fallback_base_capture(self, *, after="", inside=""):
+        facade = ("if TYPE_CHECKING:\n import newer as backend\nelse:\n try:\n  import newer as backend\n"
+            " except ModuleNotFoundError:\n  try:\n   import vendor as backend\n" + inside +
+            "  except ModuleNotFoundError:\n   raise RuntimeError()\n" + after +
+            "class Client(backend.Parent):\n def __init__(self, *, app=None):\n  super().__init__(app=app)\n")
+        catalog, modules = source_inputs("from facade import Client\nClient(app=1)\n",
+            "class Parent:\n def __init__(self, *, app=None):\n  pass\n",
+            "class Parent:\n def __init__(self):\n  pass\n", additional=(
+                ("facade", "facade/__init__.py", facade, "constraint_sample", "facade", "5.0", ("vendor", "newer")),))
+        modules = tuple(replace(m, dependencies=("facade",)) if m.role == "target" else m for m in modules)
+        return prepare_ordinary_comparison(encode_ordinary_inputs(catalog, modules, {},
+            proof_class="retained_component_discovery"), AnalysisLimits())
+
+    def test_unresolved_try_import_base_retains_conditional_source_hypotheses(self):
+        result, companion = self.fallback_base_capture()
+        body, _ = read_ordinary_comparison(result, companion)
+        native = [(c, p) for c, p in zip(body["discovery"]["candidates"], body["pairs"])
+                  if c["callee_role"]["role"].startswith("native_")]
+        self.assertEqual({c["callee_role"]["role"]:p["comparison"]["outcome"] for c,p in native},
+            {"native_old_version":"bound", "native_proposed_version":"rejected"})
+        self.assertTrue(all("unresolved_try_import_base_source_hypothesis" in c["premises"]
+            and "exception_matching_import_success_and_base_binding_not_established" in c["premises"] for c,p in native))
+        self.assertTrue(all(any(s["operation"] == "reexport" for s in c["steps"]) for c,p in native))
+
+    def test_try_base_hypothesis_refuses_known_rebinding_deletion_and_nonimport_writes(self):
+        for controls in (dict(after="backend = object()\n"), dict(after="del backend\n"),
+                         dict(inside="   backend = object()\n"), dict(after="exec(payload)\n")):
+            with self.subTest(controls=controls):
+                result, companion = self.fallback_base_capture(**controls)
+                body, _ = read_ordinary_comparison(result, companion)
+                self.assertFalse(any(c["callee_role"]["role"].startswith("native_") for c in body["discovery"]["candidates"]))
+
     def test_direct_alias_change_is_discovered_for_both_roles_without_selectors(self):
         data = prepared("from vendor import send as deliver\ndeliver(app=1)\n",
                         "def send(*, app=None):\n pass\n", "def send():\n pass\n")
@@ -203,7 +235,7 @@ class SourcePathTests(TestCase):
         self.assertTrue(all("effective_export_binding_not_established" in c["premises"] for c in discovery["candidates"]))
 
 
-def ordinary_control(*, protocol=False):
+def ordinary_control(*, protocol=False, closure_noise=0):
     """Actual ordinary entry; fake public provider domain records, HTTP forbidden."""
     from experiments.tests.test_api_adapter_exploration import ChainTests
     explorer = ChainTests().explorer()
@@ -214,11 +246,16 @@ def ordinary_control(*, protocol=False):
     original_inventory = explorer.inventory.acquire.side_effect
     explorer.inventory.acquire.side_effect = lambda repo, sha: TargetInventory(
         repo, sha, "c" * 40, original_inventory(repo, sha).entries + (
-            InventoryEntry(repo.split("/")[1] + "/implementation.py", "blob", "100644"),), False)
+            InventoryEntry(repo.split("/")[1] + "/implementation.py", "blob", "100644"),)
+        + tuple(InventoryEntry("bridge/noise" + str(i) + ".py", "blob", "100644")
+                for i in range(closure_noise) if repo.endswith("/bridge")), False)
     def library_file(repo, sha, path):
         package = repo.split("/")[1]
-        if package == "bridge":
+        if path.rsplit("/", 1)[-1].startswith("noise"):
+            content = "pass\n"
+        elif package == "bridge":
             content = "from mediator.testing import FACTORY\n" if protocol else "from mediator.testing import Client\n"
+            content += "".join("from .noise" + str(i) + " import Thing" + str(i) + "\nThing" + str(i) + "()\n" for i in range(closure_noise))
         elif package == "mediator":
             content = "from vendor import FACTORY\n" if protocol else "import vendor\nclass Client(vendor.Base):\n def __init__(self, *, app=None):\n  super().__init__(app=app)\n"
         elif path.endswith("__init__.py"):
@@ -253,6 +290,16 @@ def ordinary_control(*, protocol=False):
 
 
 class OrdinaryRetentionTests(TestCase):
+    def test_native_pair_closure_precedes_sampled_internal_noise_at_same_source_ceiling(self):
+        catalog, modules, acquisition = ordinary_control(closure_noise=12)[0]
+        result, companion = prepare_ordinary_comparison(encode_ordinary_inputs(catalog, modules, acquisition,
+            proof_class="controlled_ordinary_pr_composition"), AnalysisLimits())
+        body, _ = read_ordinary_comparison(result, companion)
+        roles = {c["callee_role"]["role"] for c in body["discovery"]["candidates"]}
+        self.assertTrue({"native_old_version", "native_proposed_version"} <= roles, roles)
+        self.assertEqual(acquisition["source_work"]["module_attempts"], 12)
+        self.assertTrue(any(x.get("reason") == "module_source_limit" for x in acquisition["internal_module_requests"]))
+
     def test_current_ordinary_method_binds_support_without_curated_runner_dependency(self):
         result, companion = prepare_ordinary_comparison(prepared("from vendor import send\nsend()\n",
             "def send():\n pass\n", "def send():\n pass\n"), AnalysisLimits())

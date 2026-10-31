@@ -1,5 +1,5 @@
 {
-  "elapsed_seconds": 39.14952623300087,
+  "elapsed_seconds": 38.325850450999496,
   "errors": [
     {
       "test": "test_evidence_gap_implementation_semantic_comparison.EvidenceGapImplementationSemanticComparisonTests.test_authorized_semantic_success_semantics_match",
@@ -155,5 +155,5 @@
       "test": "test_investigator_run_control.RetainedSDKQueueTests.test_silent_cancel_is_finite_and_pending_receive_cancellation_is_recorded"
     }
   ],
-  "tests": 638
+  "tests": 641
 }

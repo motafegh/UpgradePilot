@@ -10,6 +10,10 @@ Acquisition and intra-repository source closure belong to the ordinary driver;
 this operation is offline and runs inside that driver's bounded worker. The limited
 module-allocation -> attribute-getter -> returned-class -> call-protocol pattern
 adds conditional source candidates only; arbitrary object/value flow stays outside.
+
+An unresolved Try-import superclass may also supply a guarded syntax hypothesis
+through the same member resolver. Its import/exception/base-binding premises stay
+explicit, and known writes or dynamic namespace uncertainty block that route.
 """
 
 from __future__ import annotations
@@ -378,6 +382,45 @@ class _SourceCandidates:
         else:
             self.gap("returned_value_or_callable_attribute_unsupported", unit, SourceSpan.of(node))
 
+    def try_import_base_hypothesis(self, unit, base, reference, owner_class):
+        """Admit a syntax hypothesis, never repair the binder's unknown Try state.
+
+        The existing member resolver can retain conditional import alternatives.
+        Use it only for the narrowly identified unsupported import control; known
+        root writes/deletion/dynamic uncertainty must not resurrect stale imports.
+        """
+        spelling = _class_spelling(base)
+        binding = reference.binding
+        allowed = {"name_not_bound_in_examined_scope", "unsupported_write_or_control_flow", "branch_alternatives"}
+        if (not spelling or not binding.unknown_possible
+            or "unsupported_write_or_control_flow" not in binding.reasons
+            or not set(binding.reasons) <= allowed):
+            return False
+        root = spelling.split(".")[0]
+        unsupported_lines = {step.line for step in binding.trace if step.operation == "unsupported_write_or_control_flow"}
+        found = False
+        for node in _declarations(unit["tree"].body):
+            if node.lineno >= owner_class.lineno:
+                continue
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)) and node.name == root:
+                return False
+            for child in ast.walk(node):
+                if isinstance(child, ast.Name) and child.id == root and isinstance(child.ctx, (ast.Store, ast.Del)):
+                    return False
+                if isinstance(child, ast.ExceptHandler) and child.name == root:
+                    return False
+                if isinstance(child, (ast.Assign, ast.AnnAssign, ast.AugAssign, ast.Delete)):
+                    targets = getattr(child, "targets", [getattr(child, "target", None)])
+                    if any(isinstance(n, ast.Name) and n.id == root for target in targets if target is not None for n in ast.walk(target)):
+                        return False
+            if isinstance(node, ast.Try) and node.lineno in unsupported_lines:
+                for child in ast.walk(node):
+                    if isinstance(child, (ast.Import, ast.ImportFrom)):
+                        if any((alias.asname or (alias.name.split(".")[0] if isinstance(child, ast.Import) else alias.name)) == root
+                               for alias in child.names):
+                            found = True
+        return found
+
     def follow(self, unit, call, root_id, path=(), premises=(), ancestry=(), owner_class=None):
         if len(ancestry) >= self.max_depth:
             self.gap("call_body_depth_limit", unit, call.span)
@@ -428,6 +471,14 @@ class _SourceCandidates:
                             for resolved in self.resolve(unit, origin + ".__init__",
                                 (*path, self.step(unit, base, "declared_base")),
                                 (*premises, *ref.binding.reasons, "builtin_super_and_effective_mro_assumed")):
+                                candidates.append((*resolved[:-1], "one_receiver_assumed"))
+                        if self.try_import_base_hypothesis(unit, base, ref, owner_class):
+                            conditions = (*premises, *ref.binding.reasons,
+                                "builtin_super_and_effective_mro_assumed",
+                                "unresolved_try_import_base_source_hypothesis",
+                                "exception_matching_import_success_and_base_binding_not_established")
+                            for resolved in self.class_protocol(unit, base, "__init__",
+                                (*path, self.step(unit, base, "declared_base")), conditions, ()):
                                 candidates.append((*resolved[:-1], "one_receiver_assumed"))
         if not candidates:
             self.gap("callable_relationship_unresolved", unit, call.span, call.expression)

@@ -88,6 +88,13 @@ profile remains the default. An explicitly qualified four-candidate successor
 profile admits two shim/implementation branches without changing request, release,
 module, text or analysis ceilings. Older frozen captures are not refreshed.
 
+Internal closure prioritizes native old/proposed questions and pairs corresponding
+module questions before sampled-adapter internals. Conditional Try-import bases
+can supply explicitly labelled source hypotheses through the existing resolver;
+the binder remains unknown and known rebinding/deletion/dynamic namespace states
+refuse that route. These are bounded source-selection/interpretation capabilities,
+not effective installed-import, exception-handler or runtime dispatch proof.
+
 The ordinary driver owns `prepare_fresh_execution_freeze`,
 `run_fresh_ordinary_pr_attempt` and `open_fresh_ordinary_pr_attempt`. The first
 returns code/config/runtime/contract snapshot bytes without reading a credential
