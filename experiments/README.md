@@ -95,6 +95,14 @@ the binder remains unknown and known rebinding/deletion/dynamic namespace states
 refuse that route. These are bounded source-selection/interpretation capabilities,
 not effective installed-import, exception-handler or runtime dispatch proof.
 
+Default transport retains v1/no-retry semantics. An explicit successor contract
+may select the fixed PyPI pre-response Timeout recovery profile: one retry per
+logical GET, two per acquisition, charged to the same request/body/time budget.
+Its v2 receipt keeps both physical attempts and the retry decision, including
+selection refused by existing limits. HTTP statuses, body/integrity failures,
+GitHub/auth/policy failures and whole-attempt reruns are not retried. Cold readers
+admit both fixed receipt versions and bind the selected profile to the contract.
+
 The ordinary driver owns `prepare_fresh_execution_freeze`,
 `run_fresh_ordinary_pr_attempt` and `open_fresh_ordinary_pr_attempt`. The first
 returns code/config/runtime/contract snapshot bytes without reading a credential

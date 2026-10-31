@@ -46,7 +46,7 @@ from .api_signature_evidence import (
     signature_code_identity, admit_method_source_names, CURATED_HISTORICAL_SOURCES,
     SIGNATURE_SUPPORT_SOURCES, read_comparison_records, render_comparison, render_source,
 )
-from .api_change_source_acquisition import AcquisitionProblem, TrialAcquisitionPolicy, TrialPublicSession
+from .api_change_source_acquisition import AcquisitionProblem, TrialAcquisitionPolicy, TrialPublicSession, PYPI_TIMEOUT_RETRY_POLICY
 from upgradepilot.github.api import GitHubAcquisitionError
 from .api_source_correspondence import (
     CORRESPONDENCE_VERSION, MAX_DISCOVERY_DEPTH, MAX_DISCOVERY_GAPS, MAX_PATH_STEPS,
@@ -431,9 +431,12 @@ def _validate_acquisition(acquisition):
 
 def _validate_transport(raw):
     """Check saved accounting consistency; no credential/provider/clock access."""
-    value = object_fields(raw, ("format", "limits", "auth", "github_requests", "provider_requests",
-                                "decoded_body_bytes", "elapsed_seconds", "deadline_kind", "stops", "requests"))
-    if value["format"] != "trial-acquisition-policy/1" or value["auth"] not in {"anonymous", "token-env"}:
+    fields = ("format", "limits", "auth", "github_requests", "provider_requests",
+              "decoded_body_bytes", "elapsed_seconds", "deadline_kind", "stops", "requests")
+    if type(raw) is dict and raw.get("format") == "trial-acquisition-policy/2":
+        fields += ("retry_policy", "retry_decisions")
+    value = object_fields(raw, fields)
+    if value["format"] not in {"trial-acquisition-policy/1", "trial-acquisition-policy/2"} or value["auth"] not in {"anonymous", "token-env"}:
         raise ValueError("Unsupported transport receipt.")
     policy = TrialAcquisitionPolicy(**object_fields(value["limits"], tuple(TrialAcquisitionPolicy.__dataclass_fields__)))
     for name in ("github_requests", "provider_requests", "decoded_body_bytes"):
@@ -475,6 +478,30 @@ def _validate_transport(raw):
     for stop in value["stops"]:
         for text in object_fields(stop, ("stage", "reason")).values():
             read_bounded_text(text, maximum=128)
+    if value["format"] == "trial-acquisition-policy/2":
+        if value["retry_policy"] != PYPI_TIMEOUT_RETRY_POLICY or type(value["retry_decisions"]) is not list or len(value["retry_decisions"]) > 2:
+            raise ValueError("Invalid timeout retry policy/decision count.")
+        previous = 0
+        for decision in value["retry_decisions"]:
+            item = object_fields(decision, ("after_provider_request", "retry_provider_request", "reason", "state"))
+            first, second = item["after_provider_request"], item["retry_provider_request"]
+            if (type(first) is not int or not previous < first <= len(requests)
+                or item["reason"] != "timeout_before_response"):
+                raise ValueError("Invalid timeout retry origin.")
+            event = requests[first - 1]
+            if event["host"] != "pypi.org" or event["state"] != "failed" or event["status"] is not None:
+                raise ValueError("Invalid timeout retry failed request.")
+            if second is None:
+                if item["state"] != "not_dispatched" or not value["stops"]:
+                    raise ValueError("Invalid undispatched timeout retry.")
+                previous = first
+            else:
+                if type(second) is not int or second != first + 1 or second > len(requests) or item["state"] != "dispatched":
+                    raise ValueError("Invalid timeout retry dispatch link.")
+                retry = requests[second - 1]
+                if any(retry[field] != event[field] for field in ("host", "path", "stage")):
+                    raise ValueError("Timeout retry changed request scope.")
+                previous = second
 
 
 def _validate_discovery(body, catalog, modules):
@@ -562,6 +589,18 @@ def _validate_discovery(body, catalog, modules):
             read_source_span(g["span"], texts[g["unit_id"]])
 
 
+def _timeout_recovery_lines(transport):
+    if transport["format"] != "trial-acquisition-policy/2":
+        return []
+    decisions = transport["retry_decisions"]
+    lines = ["PyPI timeout recovery: at most 1/request, 2/acquisition within shared limits; selected " + str(len(decisions))]
+    for item in decisions:
+        lines.append("Timeout retry: failed provider request " + str(item["after_provider_request"])
+            + " -> " + str(item["retry_provider_request"]) + " | " + item["state"]
+            + "; original failure retained")
+    return lines
+
+
 def render_ordinary_comparison(body):
     lines = [*render_comparison(body).split("\n"), "", "DISCOVERED SOURCE PATHS (conditional, not runtime dispatch)"]
     descriptors = {u["descriptor"]["file_id"]: u["descriptor"] for u in body["files"]}
@@ -591,6 +630,7 @@ def render_ordinary_comparison(body):
                      f"all-provider requests: {transport['provider_requests']}/{limits['provider_requests']}")
         lines.append(f"Decoded response bytes: {transport['decoded_body_bytes']}/{limits['aggregate_bytes']}; "
                      f"acquisition elapsed: {transport['elapsed_seconds']:.3f}/{limits['elapsed_seconds']}s (cooperative deadline)")
+        lines.extend(_timeout_recovery_lines(transport))
         for stop in transport["stops"]:
             lines.append("Acquisition stop: " + stop["stage"] + " | " + stop["reason"])
     for item in acquisition.get("material_omissions", ()):
@@ -818,6 +858,8 @@ def _read_fresh_contract(data):
         or contract["automatic_cap_enlargement"] is not False):
         raise ValueError("Unsupported fresh provider/auth/retry scope.")
     representation = contract["representation"]
+    if contract.get("transport_retry_policy") not in (None, PYPI_TIMEOUT_RETRY_POLICY):
+        raise ValueError("Unsupported transport retry profile.")
     required = dict(fresh_proof_class=FRESH_PROOF, input_format=INPUT_FORMAT, comparison_format=FORMAT,
         correspondence_version=CORRESPONDENCE_VERSION, outer_attempt_format="fresh-ordinary-pr-attempt/1",
         inner_analysis_format="ordinary-caller-signature-attempt/1")
@@ -877,6 +919,20 @@ def _read_attempt_credential(path):
     if not token or any(c.isspace() or ord(c) < 33 or ord(c) > 126 for c in token):
         raise ValueError("Credential is empty or malformed.")
     return token
+
+
+def _fresh_configuration(contract):
+    configuration = dict(acquisition_policy=contract["acquisition_policy"], analysis_limits=contract["analysis_limits"])
+    if contract.get("transport_retry_policy") is not None:
+        configuration["transport_retry_policy"] = contract["transport_retry_policy"]
+    return configuration
+
+
+def _check_selected_transport_profile(transport, contract):
+    selected = contract.get("transport_retry_policy")
+    if ((transport["format"] == "trial-acquisition-policy/2") != (selected is not None)
+        or selected is not None and transport["retry_policy"] != selected):
+        raise ValueError("Saved transport retry profile differs from selected contract.")
 
 
 def _fresh_providers(session):
@@ -941,8 +997,7 @@ def run_fresh_ordinary_pr_attempt(contract_data, freeze_data, *, activate_live=F
         ended_at=None, elapsed_seconds=None, invocation=invocation, auth_mode="token-env",
         execution_mode=freeze["mode"], contract_sha256=content_digest(contract_data),
         execution_freeze_sha256=content_digest(freeze_data), code_sha256=freeze["code_sha256"],
-        runtime=freeze["runtime"], configuration=dict(acquisition_policy=contract["acquisition_policy"],
-            analysis_limits=contract["analysis_limits"]), observed_identity=None,
+        runtime=freeze["runtime"], configuration=_fresh_configuration(contract), observed_identity=None,
         structural_disposition="not_assessed", coverage="not_established", inner_attempt=None,
         artifacts={})
     _write_attempt_file(directory / "contract.json", contract_data)
@@ -984,7 +1039,8 @@ def run_fresh_ordinary_pr_attempt(contract_data, freeze_data, *, activate_live=F
             attempt.update(state="refused", reason="credential_unavailable_or_unsafe",
                 cause=dict(type=type(exc).__name__, reason="credential_unavailable_or_unsafe", status_code=None))
         else:
-            session = TrialPublicSession(token=token, policy=TrialAcquisitionPolicy(**contract["acquisition_policy"]))
+            session = TrialPublicSession(token=token, policy=TrialAcquisitionPolicy(**contract["acquisition_policy"]),
+                retry_pypi_timeouts=contract.get("transport_retry_policy") is not None)
             del token
             adapters, providers = _fresh_providers(session)
             providers["pull_requests"] = _ObservedPullClient(providers["pull_requests"], capture)
@@ -1085,7 +1141,7 @@ def open_fresh_ordinary_pr_attempt(directory):
         invocation=contract["invocation"], contract_sha256=content_digest(contract_data),
         execution_freeze_sha256=content_digest(freeze_data), code_sha256=freeze["code_sha256"],
         runtime=freeze["runtime"], execution_mode=freeze["mode"], auth_mode=contract["authentication"]["mode"],
-        configuration=dict(acquisition_policy=contract["acquisition_policy"], analysis_limits=contract["analysis_limits"])).items():
+        configuration=_fresh_configuration(contract)).items():
         if start.get(key) != expected:
             raise ValueError("Outer start/contract/freeze binding mismatch.")
     terminal = directory / "attempt.json"
@@ -1122,12 +1178,14 @@ def open_fresh_ordinary_pr_attempt(directory):
         raise ValueError("Invalid partial acquisition representation.")
     if acquisition is not None and acquisition.get("transport") is not None:
         _validate_transport(acquisition["transport"])
+        _check_selected_transport_profile(acquisition["transport"], contract)
     body, catalog = None, None
     if observation is not None and record["state"] != "unknown_completion" and record["observed_identity"] != observation["identity"]:
         raise ValueError("Outer observed identity mismatch.")
     if record["state"] == "completed":
         data = read_bounded_bytes(directory / "acquisition-input.json", MAX_CATALOG_BYTES)
         body, catalog = open_ordinary_comparison(directory / "comparison")
+        _check_selected_transport_profile(body["acquisition"]["ordinary_acquisition"]["transport"], contract)
         raw = parse_json(data)
         expected_proof = FRESH_PROOF if freeze["mode"] == "live_activation" else "controlled_ordinary_pr_composition"
         native = raw["acquisition"]["native_inputs"]
@@ -1183,6 +1241,8 @@ def main(argv=None):
                     print("Provider work: " + str(transport["github_requests"]) + " GitHub / "
                         + str(transport["provider_requests"]) + " all-provider attempts; "
                         + str(transport["decoded_body_bytes"]) + " decoded bytes")
+                    for line in _timeout_recovery_lines(transport):
+                        print(line)
             if opened_attempt["comparison"] is not None:
                 print(render_ordinary_comparison(opened_attempt["comparison"]))
         else:

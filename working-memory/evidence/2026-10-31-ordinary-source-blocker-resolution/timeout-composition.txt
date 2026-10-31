@@ -1,0 +1,6 @@
+test_ordinary_timeout_recovery_keeps_failure_and_admits_only_bound_retry_links (experiments.tests.test_api_source_correspondence.FreshAttemptLifecycleTests.test_ordinary_timeout_recovery_keeps_failure_and_admits_only_bound_retry_links) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.314s
+
+OK

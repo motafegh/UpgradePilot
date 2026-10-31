@@ -656,12 +656,15 @@ class FactorySourceTests(TestCase):
 class FreshAttemptLifecycleTests(TestCase):
     """Real acquisition clients under authored HTTP, never the official live case."""
 
-    def selection(self, parent, *, mode="controlled_qualification", adapter_candidates=2):
+    def selection(self, parent, *, mode="controlled_qualification", adapter_candidates=2, timeout_recovery=False):
         contract = json.loads(Path("working-memory/evidence/2026-10-30-first-fresh-ordinary-pr-contract/contract.json").read_bytes())
         contract["contract_id"] = "authored-lifecycle-control-not-an-official-attempt"
         contract["invocation"] = dict(repository="owner/target", pull_number=7, expected_base="b" * 40, expected_head=SHA)
         contract["private_retention"]["root"] = str(parent / "attempt")
         contract["acquisition_policy"]["adapter_candidate_attempts"] = adapter_candidates
+        if timeout_recovery:
+            from experiments.api_change_source_acquisition import PYPI_TIMEOUT_RETRY_POLICY
+            contract["transport_retry_policy"] = dict(PYPI_TIMEOUT_RETRY_POLICY)
         credential = parent / "credential"
         credential.write_bytes(b"authored-test-credential-not-a-real-token")
         credential.chmod(0o600)
@@ -731,6 +734,34 @@ class FreshAttemptLifecycleTests(TestCase):
                 changed["acquisition_policy"]["adapter_candidate_attempts"] = value
                 with self.subTest(value=value), self.assertRaises(ValueError):
                     prepare_fresh_execution_freeze(json_bytes(changed), credential_file=credential, mode="controlled_qualification")
+
+    def test_ordinary_timeout_recovery_keeps_failure_and_admits_only_bound_retry_links(self):
+        from requests.exceptions import Timeout
+        with TemporaryDirectory() as tmp:
+            data, freeze, directory, _ = self.selection(Path(tmp), timeout_recovery=True)
+            failed = []
+            def transform(path, body, status):
+                if path == "/pypi/vendor/1.0/json" and not failed:
+                    failed.append(True)
+                    raise Timeout("authored release timeout")
+                return body, status
+            attempt = self.execute(data, freeze, response_transform=transform)
+            self.assertEqual(attempt["state"], "completed", attempt)
+            with patch("ast.parse", side_effect=AssertionError("AST forbidden")), \
+                 patch("requests.sessions.Session.request", side_effect=AssertionError("HTTP forbidden")):
+                opened = open_fresh_ordinary_pr_attempt(directory)
+            transport = opened["acquisition"]["transport"]
+            self.assertEqual(transport["format"], "trial-acquisition-policy/2")
+            self.assertEqual(len(transport["retry_decisions"]), 1)
+            self.assertEqual(sum(x["state"] == "failed" for x in transport["requests"]), 1)
+            self.assertIn("transport_retry_policy", attempt["configuration"])
+            self.assertIn("PyPI timeout recovery:", (directory / "comparison/view.txt").read_text())
+            self.assertIn("original failure retained", (directory / "comparison/view.txt").read_text())
+            damaged = json.loads((directory / "comparison/result.json").read_bytes())
+            retry = damaged["acquisition"]["ordinary_acquisition"]["transport"]["retry_decisions"][0]
+            retry["retry_provider_request"] = retry["after_provider_request"]
+            with self.assertRaisesRegex(ValueError, "retry"):
+                read_ordinary_comparison(json_bytes(damaged), (directory / "comparison/sources.json").read_bytes())
 
     def test_entry_freeze_scope_activation_and_existing_destination_refuse_before_credentials(self):
         import experiments.api_ordinary_call_signature_trial as owner
