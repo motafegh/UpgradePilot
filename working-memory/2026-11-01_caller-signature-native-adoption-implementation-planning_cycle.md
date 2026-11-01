@@ -9,11 +9,11 @@ UP-SKILL:upgradepilot-learning-by-doing
 A0 — DONE: fetched origin; main/origin main both c53430c6. Reconciled native-adoption design, qualified whole-file analysis, untouched Digimon review and current product seams. One unrelated October3 untracked audit record is preserved.
 A1 — DONE, continuous context: previous response explained experimental transfer versus native proof, the proposed implementation companion, acquisition ownership, representation risks and staged equivalence. Ali agreed and requested the complete plan.
 A2 — DONE, compact: authorized output is a source-grounded implementation companion plus necessary owner/navigation reconciliation and records. No product code, provider attempt or cutover is authorized by this writing request.
-B — CURRENT: map earned responsibilities to product owners; write executable increments, representation decisions/probes, acceptance and failure handling.
-Verification gate — PENDING: document/link/source-symbol/authority checks, diff review and governance diagnostic where applicable.
-D — PENDING: explain the concrete delivery contract and proof boundaries from the resulting plan; deeper implementation mastery remains unassessed.
-E — PENDING: preserve unresolved implementation decisions, reconcile MEMORY and publish coherent documentation increments; stop before product implementation.
-C — CONTINUOUS: meaningful decisions, corrections and verification are preserved here.
+B — DONE: implementation companion maps earned responsibilities and defines native representation decisions/probes, six connected increments, acceptance and failure handling; parent navigation/lifecycle reconciled.
+Verification gate — GREEN for planning/document claims only:57 final relative links,45 source symbols,25 pinned source files, clean diff check and unchanged executable/frozen trees. Governance doctor still fails its unchanged recorded examples marker; no native proof claimed.
+D — DONE, compact planning handoff: explain the responsibility map, early encoding probe, progressive equivalence and connected delivery/proof; deeper implementation learning and Ali-owned mastery explicitly unassessed.
+E — DONE: MEMORY selects review/activation of the first native Build responsibility; first plan increment published bd8291c7, final verification/closure retained for the second coherent publication. Product implementation is not started.
+C — DONE: meaningful decisions, corrections, verification and scoped handoff preserved through this planning cycle.
 
 ## A-phase orientation map and proportionality
 
@@ -48,3 +48,13 @@ Delivery is organized around six coherent responsibilities, not disconnected fil
 Relative document-link validation found55 links with no missing targets across companion/parent/cycle; AST inspection found all45 selected source symbols. `git diff --check` exposed new Markdown hard-break whitespace on the modified parent metadata line; replaced with ordinary paragraph spacing and corrected the new metadata similarly. The governance doctor reproduces the sole recorded `AGENTS.md` missing owner marker `examples/` failure, outside this planning responsibility; no repair or green-governance claim.
 
 Critical review tightened three points before publication: missing private retained inputs are proof debt, never permission for frozen backfill; new families cannot become retroactive requirements in old checkpoints; and a blocked encoding probe is not accepted representation proof. The first increment may move minimum pure product record types for real codec qualification, avoiding a temporary forbidden product→experiment dependency.
+
+## Final verification, learning boundary and closure
+
+Published the complete plan/parent/initial cycle increment as bd8291c7 and pushed main before final closure. [Verification](evidence/2026-11-01-native-adoption-implementation-planning/verification.json) preserves57 final valid relative links,45 verified mapping symbols and SHA256 for25 relevant source files. [Governance output](evidence/2026-11-01-native-adoption-implementation-planning/governance-doctor.txt) preserves the single known examples marker failure; its responsible root/tool are unchanged from c53430c6. The parent and companion document hashes are pinned. Product/experiment/test/tool/spec/ADR/simulation trees have no diff from the source horizon. Product tests were not rerun for this documentation-only increment, and no acquisition credentials/providers/models/target code were used.
+
+The resulting flow is unchanged in purpose but now executable as an implementation contract: shared native input prefix → acquired source checkpoint → bounded analysis and native comparison → report/source delivery → store and fresh-process historical restoration. Each increment must prove its boundary; the actual fresh normal-product attempt and task review still sit after connected controlled/retained proof. Whole-file omissions and unresolved dispatch remain visible, not defects by default. If the required native representation cannot fit, the first Build stays at that failed proof rather than advancing into a large port.
+
+Planning choices now have a concrete home; their implementations do not exist yet. In particular, exact scalar timing, new-family version admission and native trace capacity need first-increment tests, not approval-by-prose. Before that Build, its A2 teaching should cover the new record/wire boundaries and what the probe can/cannot establish. No learner mastery was inferred from agreement, authored plans or AI-generated source mapping; deeper questions are deferred to that learning responsibility rather than manufactured as completed.
+
+Close this planning cycle with documentation proof and the existing governance debt disclosed. MEMORY is reconciled to the implementation companion and first Build entry. Native implementation/live provider work/cutover remains outside this writing request; no source, new candidate or frozen capture was modified.

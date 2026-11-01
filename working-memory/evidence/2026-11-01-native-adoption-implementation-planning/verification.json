@@ -1,0 +1,417 @@
+{
+  "responsibility": "native-adoption implementation planning; documentation verification only",
+  "source_horizon": "c53430c6",
+  "published_plan_commit": "bd8291c77e22b1375bd80897ede1361988c9fc51",
+  "authoring": "AI-assisted, Ali-directed; learner mastery not established",
+  "checks": {
+    "relative_links": 57,
+    "missing_links": [],
+    "selected_source_symbols": 45,
+    "missing_source_symbols": [],
+    "git_diff_check": 0,
+    "implementation_or_frozen_trees_changed": [],
+    "governance_doctor": {
+      "exit_code": 1,
+      "issues": [
+        "AGENTS.md responsibility map is missing owner marker `examples/`"
+      ],
+      "responsible_root_and_tool_unchanged_from_source_horizon": true
+    },
+    "manual_review": [
+      "parent/companion/live-state ownership separated",
+      "complete qualified source forms and partiality preserved in scope",
+      "continuous semantic equivalence and material-change contamination distinguished",
+      "shared acquisition prefix/accounting and native publication addressed",
+      "blocked capacity probe cannot count as accepted proof",
+      "old checkpoints do not retroactively require new families",
+      "fresh product proof and task criteria require separately frozen contracts",
+      "no product Build or live acquisition activated by planning"
+    ],
+    "new_live_memory_links_valid": true,
+    "final_document_and_source_hashes_verified": true
+  },
+  "sources": {
+    "experiments/api_python_bindings.py": {
+      "sha256": "215e96e8e066cfae3a08c7a28f991cb810c8ec7da14e14abb85326509e93166a",
+      "verified_mapping_symbols": [
+        "ImportFact",
+        "ReferenceFact",
+        "BindingTraceStep",
+        "BindingAssessment",
+        "analyze_python_bindings",
+        "binding_state"
+      ]
+    },
+    "experiments/api_call_signature.py": {
+      "sha256": "6c6940769a0bc9e24d924865f87dbf9376cd3536e4ffe5fb81d3e919e45e8338",
+      "verified_mapping_symbols": [
+        "SourceSpan",
+        "CallArguments",
+        "ParameterFact",
+        "CallableSignature",
+        "SourceFacts",
+        "AnalysisLimit",
+        "extract_python_source",
+        "compare_arguments"
+      ]
+    },
+    "experiments/api_source_correspondence.py": {
+      "sha256": "cdf156da79d7203da26cb206098ad3f250b60299df05635e44b11aa8d869a337",
+      "verified_mapping_symbols": [
+        "PythonSourceModule",
+        "SourceRelationshipStep",
+        "module_name",
+        "absolute_import",
+        "analysis_group_key",
+        "discover_source_candidates"
+      ]
+    },
+    "experiments/api_signature_evidence.py": {
+      "sha256": "7c7b314db6cefda34a8a0aed79c5bade276d74ff8c74212fff119a89141a78bb",
+      "verified_mapping_symbols": [
+        "AnalysisLimits",
+        "encode_fact_binding_traces",
+        "json_structure_cost"
+      ]
+    },
+    "experiments/api_target_context.py": {
+      "sha256": "367ef4fb9a8f2a0c3c85a54d826227edcd91515a53f4b62ddea55db9f2d602df",
+      "verified_mapping_symbols": [
+        "TargetContextAcquirer",
+        "TargetInventory",
+        "DependencyDeclaration",
+        "ImportDependencyCandidate"
+      ]
+    },
+    "experiments/api_adapter_exploration.py": {
+      "sha256": "316b3fa52c1f15ecd66263137402b495a3fbce004614cbbece3b40f9f933aec8",
+      "verified_mapping_symbols": [
+        "select_exploration_version",
+        "PythonModuleSourceRequest",
+        "ExaminedPythonModule",
+        "PythonSourceAcquisitionWork",
+        "PythonSourceAcquisitionRun",
+        "AdapterSourceExplorer"
+      ]
+    },
+    "experiments/api_change_source_acquisition.py": {
+      "sha256": "d5ef06971ef9d2f7eefc6c83962c2833598759190e9d6fe489362d704825f64d",
+      "verified_mapping_symbols": [
+        "PublisherProvenanceInspector",
+        "associate_declared_source",
+        "DeclaredReleaseWindowAcquirer",
+        "TrialAcquisitionPolicy",
+        "TrialPublicSession"
+      ]
+    },
+    "experiments/api_target_context_smoke.py": {
+      "sha256": "bc87b4590d87f1b0b3221dc7851ffd897988d0c27a8307c57722a8480859b63b",
+      "verified_mapping_symbols": [
+        "acquire_public_pr_context",
+        "examine_changed_package_modules"
+      ]
+    },
+    "experiments/api_ordinary_call_signature_trial.py": {
+      "sha256": "2cdffa7da2873664245b4f053986b1bafe11b6a8a5f3d3db13e8724aa653bf2b",
+      "verified_mapping_symbols": [
+        "prepare_ordinary_inputs",
+        "acquire_ordinary_comparison_inputs",
+        "prepare_ordinary_comparison",
+        "_worker",
+        "run_ordinary_comparison"
+      ]
+    },
+    "src/upgradepilot/workspace/native_codecs.py": {
+      "sha256": "50e8909ee3da1dbb88467fd459147672eb73d47ae7638601a30ba2de39522bae"
+    },
+    "src/upgradepilot/workspace/native_capture.py": {
+      "sha256": "153cdb57ca9b5e54532e025034c4edf9df697ed5e9b896dfeff4a87e79830678"
+    },
+    "src/upgradepilot/workspace/native_projection.py": {
+      "sha256": "c4e847b452f5d270f4e7ffcb982dee3f25e0209cb9d5389e24c15fabac372bdf"
+    },
+    "src/upgradepilot/workspace/native_representation.py": {
+      "sha256": "2a9f510e453a7e33c079c8370dfcbe3136b3d6b1eb1591b005b953c9cf34710c"
+    },
+    "src/upgradepilot/workspace/lifecycle_host.py": {
+      "sha256": "731e832ccb2170424917e2de624a798f718de00b34c2041b420d5c674460db98"
+    },
+    "src/upgradepilot/workspace/checkpoint_store.py": {
+      "sha256": "5c8e041cf512af294c87aa15c242f6da0b5fa02b04d8b0563e23114330ec322a"
+    },
+    "src/upgradepilot/workspace/source_access.py": {
+      "sha256": "56e34abe836ef6edec7142a003844532b445a7e31afaa1006598f892327bbb84"
+    },
+    "src/upgradepilot/workspace/consumer_access.py": {
+      "sha256": "dfb196c841f25e2ad0c928b08a0f5129c5bf082c14f836d12c45d4b2e54b017c"
+    },
+    "src/upgradepilot/investigation.py": {
+      "sha256": "bbe9a45a47d4acd4c0cbbb4f9189bcba12c78c798be9b2a804d933484ea5294d"
+    },
+    "src/upgradepilot/investigation_inputs.py": {
+      "sha256": "cafc5f52d7d61bf6b021663541c1f1460541e50e83e1e6670a189ecc13a62c18"
+    },
+    "src/upgradepilot/cli.py": {
+      "sha256": "bf2034ddb8d619aa738c9cbdcd0cc49b9f153b6ee06b4c32334445d3a1862410"
+    },
+    "src/upgradepilot/report.py": {
+      "sha256": "729851b16c787d817ce2097a45aad83fa8b68d8644284b2a48a3de6024310d4d"
+    },
+    "src/upgradepilot/report_projection.py": {
+      "sha256": "6ba9ae28b1f37eccab583af53c97d0bf02fc95a7afd3f6541e593890dc0d0279"
+    },
+    "src/upgradepilot/report_file.py": {
+      "sha256": "4a8d1e09c27c7b84b760ea99ec3de8c0eee0c372e2d8c126069dc2d71fef4237"
+    },
+    "src/upgradepilot/github/auth_session.py": {
+      "sha256": "251e56b2faddef821ca97fd14e5d3f69957f25670950fdf6a0825ca74cb56f3d"
+    },
+    "src/upgradepilot/target/python.py": {
+      "sha256": "5ec59e9211733e3312f7c103a4d980ce01b61e00a6c99299000b1dd6379fbd7e"
+    }
+  },
+  "relative_links": [
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md",
+      "to": "../MEMORY.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md",
+      "to": "CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md",
+      "to": "../PROJECT_CHARTER.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md",
+      "to": "UPGRADEPILOT_90_DAY_PLAN.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md",
+      "to": "../docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md",
+      "to": "../docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md",
+      "to": "../docs/specifications/UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md",
+      "to": "../docs/specifications/UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md",
+      "to": "../docs/architecture/ADR-0011-explicit-source-association-bases-and-proposal-boundary.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md",
+      "to": "../docs/architecture/ADR-0012-canonical-investigation-workspace-and-recovery-boundary.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md",
+      "to": "../docs/architecture/ADR-0013-versioned-native-reconstruction-and-workspace-checkpoint-storage.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md",
+      "to": "../docs/architecture/ADR-0007-responsibility-based-python-subpackages.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md",
+      "to": "../SECURITY.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md",
+      "to": "CALLER_SIGNATURE_ANALYSIS_WORK_ADMISSION_PLAN.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md",
+      "to": "../working-memory/evidence/2026-11-01-analysis-capacity-and-work-admission/REVIEW.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md",
+      "to": "../working-memory/evidence/2026-11-01-analysis-capacity-and-work-admission/qualified-method.json"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md",
+      "to": "../working-memory/evidence/2026-11-01-analysis-capacity-and-work-admission/retained-qualification-results.json"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md",
+      "to": "../working-memory/evidence/2026-11-01-untouched-partial-analysis-qualification/ordinary-digimon-scraper-pr-16/REVIEW.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md",
+      "to": "../working-memory/evidence/2026-11-01-untouched-partial-analysis-qualification/native-adoption-entry-observations.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "UPSTREAM_API_CHANGE_AND_TARGET_EXPOSURE_FEASIBILITY_PLAN.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "../MEMORY.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "../PROJECT_CHARTER.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "UPGRADEPILOT_90_DAY_PLAN.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "../docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "../docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "../docs/specifications/UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "../docs/architecture/ADR-0011-explicit-source-association-bases-and-proposal-boundary.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "../docs/architecture/ADR-0012-canonical-investigation-workspace-and-recovery-boundary.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "../docs/architecture/ADR-0013-versioned-native-reconstruction-and-workspace-checkpoint-storage.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "INVESTIGATION_WORKSPACE_IMPLEMENTATION_AND_MIGRATION_PLAN.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "DETERMINISTIC_API_CALL_AND_SIGNATURE_EVIDENCE_PLAN.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "../working-memory/evidence/2026-10-28-pr-driven-caller-signature-design/DESIGN.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "../working-memory/evidence/2026-10-31-ordinary-source-blocker-resolution/S008/REVIEW.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "../working-memory/evidence/2026-10-30-protocol-factory-source-correspondence/REVIEW.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "../working-memory/evidence/2026-10-31-ordinary-source-blocker-resolution/ORDINARY_RECEIPT_SUMMARY_DESIGN.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "../docs/specifications/UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "../SECURITY.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "PRODUCT_DIRECTION_AND_MAINTAINER_UTILITY_INVESTIGATION_PLAN.md#task-first-reassessment-after-delivered-reports"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "MAINTAINER_REPORT_PRESERVATION_AND_USEFULNESS_EVALUATION_PLAN.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "../product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/README.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "../product-simulation/scenarios/S008-carla-opencv-python36-artifact-fallback/README.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "../working-memory/evidence/2026-10-31-ordinary-source-blocker-resolution/S008/selection.json"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "../experiments/api_python_bindings.py"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "../experiments/api_call_signature.py"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "../experiments/api_source_correspondence.py"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "../experiments/api_target_context.py"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "../experiments/api_adapter_exploration.py"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "../experiments/api_change_source_acquisition.py"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "../experiments/api_target_context_smoke.py"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "../experiments/api_ordinary_call_signature_trial.py"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "../experiments/api_signature_evidence.py"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "../working-memory/evidence/2026-10-31-direct-dependency-source-screening/ordinary-signature-lifelog-pr-1-requests/result.json"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "../working-memory/evidence/2026-10-31-direct-dependency-source-screening/capture-resource-diagnostic.json"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "CALLER_SIGNATURE_ANALYSIS_WORK_ADMISSION_PLAN.md"
+    },
+    {
+      "from": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "to": "CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md"
+    },
+    {
+      "from": "working-memory/2026-11-01_caller-signature-native-adoption-implementation-planning_cycle.md",
+      "to": "evidence/2026-11-01-native-adoption-implementation-planning/verification.json"
+    },
+    {
+      "from": "working-memory/2026-11-01_caller-signature-native-adoption-implementation-planning_cycle.md",
+      "to": "evidence/2026-11-01-native-adoption-implementation-planning/governance-doctor.txt"
+    }
+  ],
+  "document_sha256": {
+    "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md": "0a475a652f33cfdb650253e55da72577460caf65989fce04ca5ea98f4f5ee43c",
+    "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md": "7ee2c4046da81b946d98e01b3f069e40eebb02eb80b6b8ef3d5260082e5caa0f"
+  },
+  "product_tests": "not run: source/tests unchanged; these checks do not establish native behavior",
+  "new_provider_acquisition_calls": 0,
+  "credential_reads": 0,
+  "model_or_target_execution": false,
+  "limitations": [
+    "native representation/duration/version choices require first-increment implementation proof",
+    "native integration and fresh normal-product qualification remain unimplemented",
+    "independent usefulness and learner mastery unassessed",
+    "pre-existing governance doctor marker mismatch remains"
+  ]
+}
