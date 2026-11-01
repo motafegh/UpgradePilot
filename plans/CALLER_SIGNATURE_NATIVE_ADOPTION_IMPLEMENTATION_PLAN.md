@@ -14,6 +14,8 @@ Apply the [Charter](../PROJECT_CHARTER.md), [stage plan](UPGRADEPILOT_90_DAY_PLA
 
 The [whole-file analysis design](CALLER_SIGNATURE_ANALYSIS_WORK_ADMISSION_PLAN.md) supplies the qualified allocation/partiality method. Reference it rather than revive older full-input assumptions or re-specify its algorithm here. Existing specs/ADRs suffice for the selected transfer. A materially different resource, trust, persistence, recovery or semantic method must return to its proper owner before implementation.
 
+[AUDIT-014](../audits/2026-11-01_AUDIT-014_caller-signature-native-integration-readiness.md) was independently reconciled against the current interface owners in the [dated disposition record](../working-memory/2026-11-01_caller-signature-readiness-audit-plan-reconciliation_cycle.md). Its failure/recovery handoff clarification and three measured sequencing refinements are incorporated below. They do not change analysis semantics or activate Build.
+
 ## 2. Product outcome, scope and entry evidence
 
 The supported question is: **which retained target calls can be related to selected old/proposed Python definitions, how are their arguments received locally, and which source/version/import/dispatch premises remain unresolved?** Deliver that evidence with original text, partiality, method identity and recovery. Preserve distinct responsibilities:
@@ -135,11 +137,15 @@ Reconcile the section3 map with actual imports/callers/tests, extract the exact 
 
 **Acceptance:** retained text/facts/traces/partiality round-trip equivalently for the cohort, duration/version decisions have discriminating checks and native overhead fits. Failure or unavailable material is a preserved blocker at this design/proof boundary, not a passing probe. No bulk kernel move before sufficient representation proof. A probe is representation proof, not Workspace/application adoption.
 
+Within representation/projection work, inspect one early report sketch using actual retained LifeLog or protocol material before bulk acquisition transfer (AUDIT-014-I1). Label it retained experimental evidence/presentation exploration, not a native product result. Show distinct roots, paired outcomes, alternative witnesses, necessary premises, unexamined units and retained/omitted diagnostics. Record readability/navigation concerns in the same cycle; preserve all material premises. This is an inexpensive sequencing refinement, not a human-usability acceptance gate or a new UI project. Keep the final native task review.
+
 ### Product analysis owners and native evidence
 
 Promote bindings, extraction/checking, correspondence, evidence/admission and the bounded worker. Introduce the real `caller_signature/` package with implementation. Migrate active experiment production to delegate where compatible, retain explicit historical readers, and account for every moved substantive helper in the cycle map. Register/capture/reconstruct both families with exact producer identities and material references; test staged defaults and old-family behavior.
 
 **Acceptance:** focused native tests preserve full admitted scope, retained-cohort projections match, codec/protocol/work corruption refuses correctly, unknown versions have explicit outcomes, and historical bundles still open under their earned contract. Product execution imports no experiment module. Do not retain two independently evolving analyzers or claim adoption from codec-only tests.
+
+When the product package and worker entry exist, perform installed-distribution smoke proof immediately (AUDIT-014-I3), before acquisition transfer. Build the actual artifact and use a temporary isolated environment with available declared dependencies, outside the checkout, with `experiments/` unavailable and no injected source/checkout PYTHONPATH. Record interpreter, artifact identity, parent/worker import origins and subprocess command; run a small bounded analysis through the installed worker. Verify both processes resolve the selected installed artifact. Do not change the existing developer installation or add dependencies/frameworks for this check. Keep broader installed-product qualification later; a checkout-explicit test pass cannot substitute for this distribution proof.
 
 ### Shared acquisition and source-progress publication
 
@@ -159,9 +165,37 @@ Newly requested report generation may invoke existing maintainer synthesis under
 
 **Acceptance:** normal CLI → Workspace → report → original source view → saved report/store → fresh-process open works; old CLI/report tests retain behavior. Empty versus absent source remains correct. Save/render/size failure preserves Workspace and reports delivery failure without truncating or replacing evidence. Recovery under forbidden provider/credential/AST/discovery/checker/model/synthesis/target-code hooks succeeds for valid retained deliveries and refuses supported corruption. Publication conflicts and unknown acknowledgements never trigger capability retry.
 
+#### Command outcomes and recovery handoff
+
+Settle the failure-to-recovery contract through application/CLI/host owners (AUDIT-014-F1). Return the minimum structured operation/publication context needed by CLI; keep it separate from native source-comparison truth. In particular, current host `current` advances only after acknowledged publication: it cannot identify an unacknowledged attempted successor. Preserve attempted identity and last confirmed boundary at the publication owner; do not invent them from exception text. Reuse existing exact store inspection where that operation is selected, rather than introduce a second store or generic receipt framework.
+
+For the explicit caller/signature profile and new Workspace-opening mode, use this exit contract. Preserve existing default invocation and report-opening codes. Exit status describes the requested command, separately from evidence usefulness or compatibility:
+
+| Requested operation outcome | Exit | Required distinction |
+|---|---|---|
+| Completed requested delivery, including useful partial evidence or an explained unsupported/insufficient result | `0` | Display evidence disposition and coverage separately. Unsupported/insufficient is not positive qualification. An admitted partial result differs from a hard-aborted producer. |
+| Input/auth configuration rejected | `2` | No claim of acquired evidence or durable revision before initialization. |
+| Acquisition failure / invalid provider response | `3` / `4` | Preserve current categories, actual costs and any independently confirmed earlier checkpoint. |
+| Requested external report-file save failed | `5` | File save failed even if report display or Workspace delivery succeeded; name their distinct statuses. |
+| Invalid saved report / unavailable requested source | `6` / `7` | Preserve existing offline semantics; never acquire replacements. |
+| Report projection, rendering or retained-report delivery encoding failed | `8` | Report request failed; distinguish an already confirmed source/comparison checkpoint from a report-bearing revision. Storage publication failure uses11 instead. |
+| Invalid/unsupported/missing requested Workspace revision on offline open | `9` | Identify affected boundary; no silent fallback to latest/earlier revision. Valid explicit source-only opening may return0 without synthesizing a report. |
+| Analysis execution/hard resource failure | `10` | Partial retained sources may survive, but analysis did not complete. Explicit supported partial admission can instead complete with0. |
+| Publication conflict, failed durability or unconfirmed acknowledgement | `11` | Distinguish conflict, known failure and unknown completion; no false durability or capability retry. |
+
+When several failures occur, preserve all causes. Publication uncertainty/failure takes exit precedence, then failed producer work, then projection/render/delivery, then external save. Evidence usefulness never overrides a failed requested operation. Unsupported/insufficient evidence may be a successfully delivered answer, while remaining a failed positive-adoption criterion.
+
+Always give a compact operation/evidence/durability handoff on completed or failed profile invocations where context is available. For confirmed durable state, expose the store path, lineage and exact confirmed revision plus presence of sources/comparison/retained report at that boundary; print the safely quoted explicit `upgradepilot --open-workspace PATH --revision REVISION_ID` invocation. Report external saved-file success separately. State missing report/comparison without silently generating either. Volatile state must say volatile-only, with no durable-open promise. Pre-initialization failure has no Workspace revision.
+
+For acknowledgement uncertainty, disclose attempted revision and last confirmed boundary separately; the attempted revision is not labelled durable. Exact `inspect_publication` may resolve that identity as published/not-published; an inspection error remains unknown. Do not infer absence from a failed inspection, silently follow a competing head or rerun the capability. Preserve the staged identity needed for supported inspection, and avoid exposing credentials in diagnostics.
+
+Add discriminating controls within the planned CLI/recovery tests: a hard analysis failure after a source checkpoint prints a confirmed identifier that a fresh process opens with forbidden provider/evaluator calls; report-file save failure distinguishes Workspace/report delivery from the absent file; acknowledgement loss cannot claim durability or duplicate capability work, including failed identity inspection; conflict/volatile/pre-initialization cases expose only their earned boundary. These checks complete the handoff contract, not a new recovery framework.
+
 ### Connected retained qualification and separately frozen product attempt
 
 Exercise all selected retained/control pressures through the normal product application with controlled provider responses. Direct kernel invocation is not sufficient. Keep retained-input analysis, controlled provider composition and real fresh acquisition as distinct proof classes. Run the matrix in section7 and resolve new supported-contract defects before a live product attempt.
+
+For one fixed root-level call-to-definition question, measure delivery count, delivered bytes, paging/source operations and reviewer navigation effort through the existing report/source/bounded-native paths (AUDIT-014-I2). Record whether the answer and required premises were recovered, and distinguish machine-delivery counts from measured human time. A large payload alone does not prove missing access. Only a demonstrated consumer difficulty justifies a smallest sufficient structured per-root projection; decide that extension in the owning design before implementing it. Do not enlarge delivery budgets, build a generic browser or omit premises merely to improve the measurement.
 
 Before any provider call for that attempt, freeze one **native product** contract: descriptive case/attempt identity; exact repo/PR/base/head/dependency guards; installed method/runtime/config/profile; auth mode and credential source without secret values; allowed hosts/methods; shared-prefix budget; source/analysis/correspondence limits; recovery policy; new private store/report/evidence destinations; expected coverage and useful/partial/unsupported/refusal/stop criteria. Freeze task criteria from section8 before outcome review. An exposed PR can prove connected product behavior, not untouched generalization. Never reuse the experimental `controlled_ordinary_pr_composition` or fresh experimental attempt envelope as product authority.
 

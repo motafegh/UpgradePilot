@@ -169,6 +169,8 @@ Reuse existing schema2 host/store publication, predecessor conflict, acknowledge
 
 Proposed offline CLI mode: `--open-workspace PATH --revision REVISION_ID`. It excludes repository/PR execution, authentication and evidence-profile arguments, like the existing saved-report mode. No implicit latest-target refresh or continuation follows. Reuse store/reconstruction APIs rather than create a second storage adapter or automatic database migration.
 
+The [implementation companion's command-outcome and recovery-handoff contract](CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md#command-outcomes-and-recovery-handoff) defines exact exit meanings and how a failed invocation exposes its last confirmed recoverable revision, attempted unconfirmed revision, retained content boundary and explicit offline-open command. Command success, useful evidence, external report-file saving and confirmed durability are distinct outcomes. This incorporates AUDIT-014-F1 without changing source-analysis or maintainer authority.
+
 Failed provider/credential/identity checks, timeouts, limits and interruption must retain available evidence and typed problems at their earned boundary. A missing completion stays unknown. Opening a report/checkpoint performs no provider, credential, AST, discovery, checker, model, synthesis or target-code operation. Explicit continuation requires current target/premise/method/authority validation through the existing owner and is not selected by this delivery.
 
 ## 10. Report and source consumer contract

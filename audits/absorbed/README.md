@@ -6,6 +6,9 @@ Canonical audit records remain at stable paths directly under `audits/`; this in
 
 Current absorbed audits:
 
+- [ABSORBED — AUDIT-014 — Caller/signature Native Integration Readiness](../2026-11-01_AUDIT-014_caller-signature-native-integration-readiness.md)
+  - Planning conclusions absorbed2026-11-01 into the [implementation companion](../../plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md) and parent design after [independent reconciliation](../../working-memory/2026-11-01_caller-signature-readiness-audit-plan-reconciliation_cycle.md): explicit command/recovery handoff, early retained report sketch, installed-worker smoke and measured navigation before any conditional per-root API. Absorbed means the planning responsibility is incorporated; implementation/tests and native acceptance remain unperformed obligations of the owning increments. No analysis-method change or new untouched campaign is selected.
+
 - [ABSORBED — AUDIT-013 — Experiment architecture, lifecycle and dependency boundaries](../2026-10-29_AUDIT-013_experiment-architecture-lifecycle-and-dependency-boundaries.md)
   - absorbed2026-10-29 after independently preserved O1–O6/F1–F5 adjudication, bounded selection and verified repair. [Resolution](../../working-memory/evidence/2026-10-29-experiment-lifecycle-and-dependency-repair/RESOLUTION.md) links the complete role/index model, shared signature-evidence owner, source-only graph/product boundary check, historical source-key compatibility and unchanged frozen evidence. Stable module paths remain; automatic product promotion and mass restructuring were rejected. Existing broad historical-test failures and31 scoped private exceptions remain explicitly bounded debt with owner/re-entry triggers, not hidden green qualification. `../../MEMORY.md` owns any subsequent expansion selection.
 
