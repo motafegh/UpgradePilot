@@ -55,8 +55,11 @@ class RetainedCompositionTests(TestCase):
         body = json.loads(result)
         support = "experiments/api_signature_evidence.py"
         self.assertEqual(body["code_sha256"][support], hashlib.sha256(Path(support).read_bytes()).hexdigest())
-        self.assertEqual(len(body["code_sha256"]), 6)
-        body["code_sha256"].pop("experiments/api_call_signature.py")
+        for native_owner in ("src/upgradepilot/caller_signature/bindings.py",
+                             "src/upgradepilot/caller_signature/analysis.py",
+                             "src/upgradepilot/caller_signature/evidence.py"):
+            self.assertEqual(body["code_sha256"][native_owner], hashlib.sha256(Path(native_owner).read_bytes()).hexdigest())
+        body["code_sha256"].pop("src/upgradepilot/caller_signature/analysis.py")
         with self.assertRaisesRegex(ValueError, "method source closure"):
             read_comparison(json_bytes(body), companion)
 

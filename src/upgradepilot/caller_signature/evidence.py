@@ -52,3 +52,39 @@ class MeasuredDuration:
     @property
     def seconds(self) -> float:
         return float.fromhex(self.seconds_hex)
+
+
+def encode_fact_binding_traces(facts):
+    """Lossless per-file trace normalization for native and compatible historical fact layouts.
+
+    Full BindingAssessment meaning/order remains unchanged. Shared step records
+    avoid repeatedly encoding the same imported-origin history for every call.
+    This is a typed reference table, never encoded JSON inside a string.
+    """
+    steps, indices, calls = [], {}, []
+    for call in facts["calls"]:
+        binding = call["binding"]
+        if binding is not None:
+            trace = []
+            for step in binding["trace"]:
+                key = tuple(sorted(step.items()))
+                if key not in indices:
+                    indices[key] = len(steps)
+                    steps.append(step)
+                trace.append(indices[key])
+            call = dict(call, binding=dict(binding, trace=trace))
+        calls.append(call)
+    return dict(facts, calls=calls, binding_trace_steps=steps)
+
+
+def json_structure_cost(value):
+    """Count the native JSON guard's container/separator tokens on typed data.
+
+    Strings/keys are quoted by json_bytes and contribute no structural tokens.
+    This allocation estimate does not replace final native encoding/admission.
+    """
+    if isinstance(value, dict):
+        return 2 + len(value) + max(0, len(value) - 1) + sum(json_structure_cost(v) for v in value.values())
+    if isinstance(value, (list, tuple)):
+        return 2 + max(0, len(value) - 1) + sum(json_structure_cost(v) for v in value)
+    return 0

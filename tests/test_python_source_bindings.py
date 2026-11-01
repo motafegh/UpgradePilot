@@ -2,18 +2,14 @@
 
 from unittest import TestCase
 
-from experiments.api_target_context import extract_python_facts
-from upgradepilot.github.repository import RepositoryTextFile
+import ast
+from upgradepilot.caller_signature.bindings import analyze_python_bindings
 
 SOURCE = "owner/target@" + "a" * 40 + ":arbitrary.py"
 
 
 def facts(text):
-    imports, references, gaps = extract_python_facts(
-        RepositoryTextFile("owner/target", "arbitrary.py", "a" * 40, text)
-    )
-    assert not gaps, gaps
-    return imports, references
+    return analyze_python_bindings(SOURCE, text, ast.parse(text))
 
 
 class BindingTests(TestCase):

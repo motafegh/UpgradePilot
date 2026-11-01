@@ -30,7 +30,8 @@ from upgradepilot.workspace.source_access import (
 from .api_call_signature import METHOD_VERSION, AnalysisLimit, compare_arguments, extract_python_source
 from .api_signature_evidence import (
     AnalysisLimits, MAX_CATALOG_BYTES, MAX_SELECTION_BYTES, MAX_OUTPUT_BYTES, RECEIVER_MODES,
-    CURATED_CURRENT_SOURCES, CURATED_HISTORICAL_SOURCES, admit_method_source_names,
+    CURATED_CURRENT_SOURCES, CURATED_HISTORICAL_SOURCES, CURATED_SHARED_HISTORICAL_SOURCES,
+    admit_method_source_names,
     signature_code_identity, read_comparison_records, render_comparison, render_source,
     content_digest as _digest, render_terminal_lines as _display,
     read_bounded_bytes as _read_bytes, read_source_span as _span,
@@ -155,7 +156,8 @@ def read_comparison(result_data: bytes, companion_data: bytes):
     if body["proof_class"] != PROOF_CLASS:
         raise ValueError("Unsupported proof class.")
     return read_comparison_records(body, companion_data, method_sources=admit_method_source_names(
-        body["code_sha256"], current=CURATED_CURRENT_SOURCES, historical=(CURATED_HISTORICAL_SOURCES,),
+        body["code_sha256"], current=CURATED_CURRENT_SOURCES,
+        historical=(CURATED_HISTORICAL_SOURCES, CURATED_SHARED_HISTORICAL_SOURCES),
     ))
 
 

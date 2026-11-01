@@ -1,0 +1,20 @@
+[
+  {
+    "from": "experiments/api_python_bindings.py",
+    "to": "src/upgradepilot/caller_signature/bindings.py",
+    "definitions": 12,
+    "ast_equal": true
+  },
+  {
+    "from": "experiments/api_call_signature.py",
+    "to": "src/upgradepilot/caller_signature/analysis.py",
+    "definitions": 14,
+    "ast_equal": true
+  },
+  {
+    "from": "experiments/api_signature_evidence.py",
+    "to": "src/upgradepilot/caller_signature/evidence.py",
+    "definition": "AnalysisLimits",
+    "ast_equal": true
+  }
+]

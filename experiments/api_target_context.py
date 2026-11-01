@@ -244,7 +244,8 @@ def extract_python_facts(
 ) -> tuple[tuple[ImportFact, ...], tuple[ReferenceFact, ...], tuple[ContextGap, ...]]:
     """Parse acquired text, then delegate ordered/scoped binding propagation.
 
-    api_python_bindings owns states/traces and positive-reference admission.
+    The product caller_signature.bindings owner supplies states/traces and
+    positive-reference admission through the historical import adapter.
     Acquisition keeps source identity and parsing/analysis failures separate;
     source association never establishes execution or an installed distribution.
     """

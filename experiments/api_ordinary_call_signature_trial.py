@@ -50,6 +50,7 @@ from .api_signature_evidence import (
     read_string_sequence, read_investigation_target, read_bounded_text, write_new_output,
     signature_code_identity, admit_method_source_names, CURATED_HISTORICAL_SOURCES,
     SIGNATURE_SUPPORT_SOURCES, read_comparison_records, render_comparison, render_source,
+    HISTORICAL_SIGNATURE_SUPPORT_SOURCES,
     encode_fact_binding_traces, json_structure_cost,
 )
 from .api_change_source_acquisition import AcquisitionProblem, TrialAcquisitionPolicy, TrialPublicSession, PYPI_TIMEOUT_RETRY_POLICY
@@ -76,12 +77,14 @@ SOURCE_PACKET_FORMAT = "ordinary-acquisition-source/1"
 _BROAD_BINDING_FIELDS = {"binding_analysis_version", "binding_trace_steps", "imports", "references"}
 FRESH_PROOF = "fresh_ordinary_pr_acquisition"
 PROOF_CLASSES = {"controlled_ordinary_pr_composition", "retained_component_discovery", FRESH_PROOF}
-ORDINARY_METHOD_SOURCES = (
+HISTORICAL_ORDINARY_METHOD_SOURCES = (
     "experiments/api_source_correspondence.py", "experiments/api_ordinary_call_signature_trial.py",
     "experiments/api_target_context_smoke.py", "experiments/api_adapter_exploration.py",
     "experiments/api_target_context.py", "experiments/api_change_source_acquisition.py",
     "src/upgradepilot/investigation_inputs.py",
 )
+ORDINARY_METHOD_SOURCES = (*HISTORICAL_ORDINARY_METHOD_SOURCES,
+                           "src/upgradepilot/caller_signature/correspondence.py")
 
 
 def ordinary_code_identity():
@@ -402,7 +405,9 @@ def read_ordinary_comparison(result, companion):
         raise ValueError("Unsupported ordinary format/method/proof.")
     source_names = admit_method_source_names(body["code_sha256"],
         current=(*SIGNATURE_SUPPORT_SOURCES, *ORDINARY_METHOD_SOURCES),
-        historical=((*CURATED_HISTORICAL_SOURCES, *ORDINARY_METHOD_SOURCES),))
+        historical=((*CURATED_HISTORICAL_SOURCES, *HISTORICAL_ORDINARY_METHOD_SOURCES),
+                    (*HISTORICAL_SIGNATURE_SUPPORT_SOURCES, *HISTORICAL_ORDINARY_METHOD_SOURCES),
+                    (*SIGNATURE_SUPPORT_SOURCES, *HISTORICAL_ORDINARY_METHOD_SOURCES)))
     unexamined = _read_analysis_admission(body) if partial else frozenset()
     body, catalog = read_comparison_records(body, companion, method_sources=source_names,
         allow_empty_pairs=True, input_digest_field="discovery_input_sha256", unexamined_units=unexamined,

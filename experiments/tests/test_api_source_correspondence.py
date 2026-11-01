@@ -336,7 +336,11 @@ class OrdinaryRetentionTests(TestCase):
         support = "experiments/api_signature_evidence.py"
         self.assertEqual(body["code_sha256"][support], hashlib.sha256(Path(support).read_bytes()).hexdigest())
         self.assertNotIn("experiments/api_call_signature_trial.py", body["code_sha256"])
-        self.assertEqual(len(body["code_sha256"]), 12)
+        for native_owner in ("src/upgradepilot/caller_signature/bindings.py",
+                             "src/upgradepilot/caller_signature/analysis.py",
+                             "src/upgradepilot/caller_signature/evidence.py",
+                             "src/upgradepilot/caller_signature/correspondence.py"):
+            self.assertEqual(body["code_sha256"][native_owner], hashlib.sha256(Path(native_owner).read_bytes()).hexdigest())
         body["code_sha256"]["experiments/unadmitted_support.py"] = "0" * 64
         with self.assertRaisesRegex(ValueError, "method source closure"):
             read_ordinary_comparison(json_bytes(body), companion)

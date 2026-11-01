@@ -1,0 +1,69 @@
+{
+  "reference_commit": "7ed069a0",
+  "proof": "relocated native binding/extraction/checker equals frozen project implementation and retained results",
+  "cases": [
+    {
+      "case": "lifelog",
+      "admitted_files_checked": 10,
+      "fact_records_checked": 1583,
+      "comparisons_checked": 145,
+      "rejected_comparisons": 0,
+      "facts_sha256": "ee54f46051adec0a8e2f7d520b86f94e17e2442481f31cffa5927a461cb09693",
+      "correspondence_admission_paths_premises_gaps_equal": true,
+      "native_equals_reference_and_saved": true,
+      "fixed_cold_open": true,
+      "original_artifacts_unchanged": 6
+    },
+    {
+      "case": "httpx",
+      "admitted_files_checked": 20,
+      "fact_records_checked": 1107,
+      "comparisons_checked": 12,
+      "rejected_comparisons": 0,
+      "facts_sha256": "f5994b9b86b07c9ee46fee5eee69d5e461fc27cf3b35d26fee1c46a2400b1168",
+      "correspondence_admission_paths_premises_gaps_equal": true,
+      "native_equals_reference_and_saved": true,
+      "fixed_cold_open": true,
+      "original_artifacts_unchanged": 6
+    },
+    {
+      "case": "glyphslib-protocol",
+      "admitted_files_checked": 10,
+      "fact_records_checked": 1113,
+      "comparisons_checked": 68,
+      "rejected_comparisons": 14,
+      "facts_sha256": "2c85a726963e5ce33bc9f4467b7eaa72d18d0d3ee07a5ac081f4c030c282ab81",
+      "correspondence_admission_paths_premises_gaps_equal": true,
+      "native_equals_reference_and_saved": true,
+      "fixed_cold_open": true,
+      "original_artifacts_unchanged": 6
+    },
+    {
+      "case": "digimon",
+      "admitted_files_checked": 13,
+      "fact_records_checked": 1463,
+      "comparisons_checked": 21,
+      "rejected_comparisons": 0,
+      "facts_sha256": "c99e8c194565ebea7c489b17d972a4e85b79c4734f8e2c84c3e257432c52b56d",
+      "correspondence_admission_paths_premises_gaps_equal": true,
+      "native_equals_reference_and_saved": true,
+      "fixed_cold_open": true,
+      "original_artifacts_unchanged": 6
+    },
+    {
+      "case": "curated-httpx-rejection",
+      "admitted_files_checked": 6,
+      "fact_records_checked": 1153,
+      "comparisons_checked": 5,
+      "rejected_comparisons": 1,
+      "facts_sha256": "a6bb0183f54d353ede4d2badef00d741f3390727f99fb83745f2e4dbaed2f57c",
+      "correspondence_admission_paths_premises_gaps_equal": null,
+      "native_equals_reference_and_saved": true,
+      "fixed_cold_open": true,
+      "original_artifacts_unchanged": 5
+    }
+  ],
+  "target_or_library_execution": false,
+  "new_acquisition": false,
+  "limits": "Retained complete inputs/limits for four ordinary correspondence captures, plus curated fact/checker control; acquisition and native families remain unimplemented."
+}

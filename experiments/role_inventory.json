@@ -91,9 +91,10 @@
       "path": "experiments/api_call_signature.py",
       "family": "api_source",
       "maintenance": "maintained_development",
-      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "evidence": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md",
       "roles": [
-        "substrate"
+        "substrate",
+        "compatibility_alias"
       ]
     },
     {
@@ -168,9 +169,10 @@
       "path": "experiments/api_python_bindings.py",
       "family": "api_source",
       "maintenance": "maintained_development",
-      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "evidence": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md",
       "roles": [
-        "substrate"
+        "substrate",
+        "compatibility_alias"
       ]
     },
     {
@@ -196,9 +198,11 @@
       "path": "experiments/api_source_correspondence.py",
       "family": "api_source",
       "maintenance": "maintained_development",
-      "evidence": "plans/UPSTREAM_API_CHANGE_AND_TARGET_EXPOSURE_FEASIBILITY_PLAN.md",
+      "evidence": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md",
       "roles": [
-        "substrate"
+        "substrate",
+        "composition",
+        "compatibility_alias"
       ]
     },
     {
@@ -769,15 +773,6 @@
       ]
     },
     {
-      "path": "experiments/tests/test_api_call_signature.py",
-      "family": "api_source",
-      "maintenance": "maintained_development",
-      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
-      "roles": [
-        "test"
-      ]
-    },
-    {
       "path": "experiments/tests/test_api_call_signature_trial.py",
       "family": "api_source",
       "maintenance": "maintained_development",
@@ -815,15 +810,6 @@
     },
     {
       "path": "experiments/tests/test_api_public_pr_context.py",
-      "family": "api_source",
-      "maintenance": "maintained_development",
-      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
-      "roles": [
-        "test"
-      ]
-    },
-    {
-      "path": "experiments/tests/test_api_python_bindings.py",
       "family": "api_source",
       "maintenance": "maintained_development",
       "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",

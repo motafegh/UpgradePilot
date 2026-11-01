@@ -8,7 +8,7 @@ import ast
 from dataclasses import replace
 from unittest import TestCase
 
-from experiments.api_call_signature import (
+from upgradepilot.caller_signature.analysis import (
     AnalysisLimit, SourceSpan, compare_arguments, extract_python_source,
 )
 

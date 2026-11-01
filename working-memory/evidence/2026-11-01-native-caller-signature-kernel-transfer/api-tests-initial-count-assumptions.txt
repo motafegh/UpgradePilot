@@ -1,0 +1,22 @@
+................................F..............................{"input_id": "I001", "state": "no_observations_returned", "observations": 0, "elapsed_seconds": 0.0, "finish_reason": "stop", "accounting_mismatch": true}
+...................................................................................................F...............................................................
+======================================================================
+FAIL: test_current_method_binds_shared_support_and_unknown_partial_closure_refuses (test_api_call_signature_trial.RetainedCompositionTests.test_current_method_binds_shared_support_and_unknown_partial_closure_refuses)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_call_signature_trial.py", line 58, in test_current_method_binds_shared_support_and_unknown_partial_closure_refuses
+    self.assertEqual(len(body["code_sha256"]), 6)
+AssertionError: 10 != 6
+
+======================================================================
+FAIL: test_current_ordinary_method_binds_support_without_curated_runner_dependency (test_api_source_correspondence.OrdinaryRetentionTests.test_current_ordinary_method_binds_support_without_curated_runner_dependency)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_source_correspondence.py", line 339, in test_current_ordinary_method_binds_support_without_curated_runner_dependency
+    self.assertEqual(len(body["code_sha256"]), 12)
+AssertionError: 16 != 12
+
+----------------------------------------------------------------------
+Ran 226 tests in 15.385s
+
+FAILED (failures=2)
