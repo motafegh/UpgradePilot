@@ -1,0 +1,20 @@
+{
+  "proof_class": "ONE isolated larger-profile producer feasibility diagnostic; not admitted method/live/transfer",
+  "original_input_sha256": "a2c9ea7cc97da269480f95f0d2fc91fd1ccba63aebbd99b3d9b793e21dbf569d",
+  "diagnostic_input_sha256": "3177f6ed2ad8323ecdb726525494edfea1c64d925ac990a7afa24da620e1c7ed",
+  "only_input_change": "proof class relabelled retained_component_discovery",
+  "candidate_fact_ceiling": 8192,
+  "production_limit_changed": false,
+  "native_guard_changed": false,
+  "reader_changed": false,
+  "state": "producer_refused",
+  "cause": "NativeReconstructionError",
+  "reason": "native_resource_limit",
+  "detail": "Native JSON exceeds 262144 structural tokens.",
+  "elapsed_seconds": 16.08901083099954,
+  "peak_rss_kib": 129720,
+  "unadmitted_result_bytes": 11890910,
+  "pairs": 256,
+  "facts": 5443,
+  "nodes": 77089
+}

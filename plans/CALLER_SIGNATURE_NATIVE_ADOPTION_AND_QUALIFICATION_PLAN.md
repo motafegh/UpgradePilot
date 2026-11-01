@@ -155,6 +155,8 @@ Proof must discriminate an unchanged-guard broad-table overflow under the legacy
 
 ## 9. Lifecycle, publication and partial results
 
+Analysis capacity has a separate [whole-file admission successor design](CALLER_SIGNATURE_ANALYSIS_WORK_ADMISSION_PLAN.md). Its explicit profile preserves strict legacy analysis and all captured text, admits paired/static-scope whole-file work within existing bounds and distinguishes unexamined source from missing/corrupt facts. A larger fact allowance alone did not fit the unchanged output structure guard in retained development measurement. Qualification of this material successor precedes any untouched transfer/native cutover; do not repair a correct lower guard merely because full-input work exceeds it.
+
 The normal shared input prefix establishes the exact observed target before Workspace initialization. Failures before that point remain initial-acquisition failures with no recoverable Workspace revision; do not claim this design closes all pre-initialization crash recovery. Exact guards in a qualification contract are requested identities, not observed evidence.
 
 After initialization, publish capability request/admission/attempt intent before source capability work, using the existing host. Publish acquired source progress before bounded analysis. Publish analysis attempt and result/problem with their actual basis; preserve the source checkpoint if analysis or publication fails. A source observation is not an adequate stopping evaluation, and procedural completion is not action permission.
