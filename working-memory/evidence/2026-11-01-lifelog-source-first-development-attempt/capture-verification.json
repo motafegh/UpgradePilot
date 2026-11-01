@@ -1,0 +1,99 @@
+{
+  "proof_class": "fresh ordinary exposed-development acquisition; capture succeeded, analysis failed",
+  "attempt_id": "53c0e721d2054b8291dd27940d098a11",
+  "state": "failed",
+  "stage": "analysis",
+  "reason": "ValueError: bounded_worker_failed: AnalysisLimit: aggregate_analysis_limit\n",
+  "elapsed_seconds": 29.866966734000016,
+  "structural_disposition": "not_assessed",
+  "native_comparison_result_admitted": false,
+  "transport": {
+    "github_requests": 46,
+    "provider_requests": 71,
+    "decoded_body_bytes": 3942933,
+    "elapsed_seconds": 26.547514391000277,
+    "stops": []
+  },
+  "transport_request_states": {
+    "received": 71
+  },
+  "failed_physical_requests": 0,
+  "capture_format": "fresh-ordinary-pr-acquisition/2",
+  "completed_stages": [
+    "changed_files",
+    "changed_files_pending",
+    "native_inputs",
+    "target_context",
+    "upstream_window"
+  ],
+  "target_files": 16,
+  "target_source_bytes": 434741,
+  "source_packets": 13,
+  "library_receipt_count": 37,
+  "prepared_input_files": 28,
+  "prepared_input_bytes": 841682,
+  "private_file_count": 23,
+  "private_members_sha256": {
+    "acquisition-input.json": "a2c9ea7cc97da269480f95f0d2fc91fd1ccba63aebbd99b3d9b793e21dbf569d",
+    "capture-library-source-09.json": "baae189007c0a3e09972ebf8e22683bbdafe500ded2a2386ac9b634644ae30db",
+    "acquisition.json": "93a3723e6b7f980b31a47c1ee51009c7a5a5574832f3c38967455899d323251b",
+    "execution-freeze.json": "835760222bc6ff05bb3e01bbb2948370dfd2a9450558954f64c4aef3b97f5fd5",
+    "capture-library-source-04.json": "fa8d301e4846a319677a36e2f294a5fd6e0e1a7b6823268d70eedf38e0301693",
+    "capture-library-source-07.json": "d119b91713eb713f8aeaa9ac3cd1e024bd76d6c35bff31d5c9b8e65f988fda36",
+    "capture-library-source-05.json": "1e7f89656b1d0eb29bea3657457d1bc282ed69e31164aac3d78d329d20795f01",
+    "capture-library-source-10.json": "f496589d3d5e90ebca1ea8e2c1ff4f2cbfd43bff10c8b692b2745364d78d306c",
+    "attempt.json": "71ea22cd66438b212715d419de148c4c23d626b194e45655a50dd35f20d1a8be",
+    "capture-library-source-03.json": "d869c72bfa65c78abdf47a22c5d08bbedb315811eb80ba71443312cd6beef705",
+    "initial-observation.json": "70eb2a157477cc69a792307837024137bce0eec8005c2f3262c56d1af1805cc3",
+    "capture-library-source-08.json": "ca855c128d7b943869bab73914c27bec3b565f6a6a3b43b6213bbe3e705c4324",
+    "capture-library-source-01.json": "60531734cb94b22af0923b14d076cce0c8ce1bee403fbafac75ad73850fcf873",
+    "attempt-started.json": "3ab44f5ef67d0fb7674e0a291c4e6a8ee7c56d2eef1d7886fcd150f73959cf86",
+    "contract.json": "a8898b7b50de121c413965c891cb777e7d12f8984e3fba829e3e6f7ed2e975db",
+    "capture-library-source-00.json": "639a7ce11dda6eaba696109432071fb0def99f6df6c9aab10dfb6da0e7ae28ed",
+    "capture-target-sources.json": "dbfa45e7ea6da37b645b7c8d9799ae47b6abb0189a4b0122ee3bdb63c00259ee",
+    "capture-library-source-02.json": "69681598462f627f454959a2acde7a3d57164b1bec7fba01e77fe371c3d0cb7a",
+    "capture-library-source-11.json": "804fe48fa008c2cadd113c8367503e3baeff4da790856529ddbeab0daf658a03",
+    "capture-library-source-06.json": "4782deac984062afd863e6b4968f1057f1bae7591dd852c7f93e9e66318d85c2",
+    "comparison/attempt.json": "c74c55b14bd22a0f7ce38f96bfda332935e68cca3903ab63b9dd7436074cffed",
+    "comparison/attempt-started.json": "1cdf4885c187e038ba8af218d80ee3f913fa8df9d0dba37576903ff765913ef4",
+    "comparison/input.json": "a2c9ea7cc97da269480f95f0d2fc91fd1ccba63aebbd99b3d9b793e21dbf569d"
+  },
+  "private_modes_valid": true,
+  "capture_gaps": [
+    {
+      "fields": [
+        "binding_analysis_version",
+        "binding_trace_steps",
+        "imports",
+        "references"
+      ],
+      "reason": "broad_binding_observations_not_retained",
+      "stage": "target_context"
+    },
+    {
+      "fields": [
+        "binding_analysis_version",
+        "binding_trace_steps",
+        "imports",
+        "references"
+      ],
+      "reason": "broad_binding_observations_not_retained",
+      "stage": "library_source"
+    }
+  ],
+  "fixed_offline_reader_forbidden": [
+    "AST",
+    "HTTP",
+    "discovery",
+    "checker",
+    "credential"
+  ],
+  "fixed_reader_passed": true,
+  "actual_cold_cli_passed": true,
+  "frozen_method_runtime_unchanged": true,
+  "old_evidence_unchanged": true,
+  "offline_reads_did_not_mutate_capture": true,
+  "aggregate_analysis_failure_diagnosis": "pending offline bounded count",
+  "untouched_transfer": false,
+  "product_adoption": false
+}
