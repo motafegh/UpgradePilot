@@ -1,0 +1,107 @@
+{
+  "api": 280,
+  "architecture": 7,
+  "new_controls": 16,
+  "full": {
+    "tests": 674,
+    "skipped": 11,
+    "green": false,
+    "baseline_method_multiplicities_equal": true,
+    "errors": {
+      "count": 25,
+      "methods": {
+        "test_evidence_gap_implementation_semantic_comparison.EvidenceGapImplementationSemanticComparisonTests.test_authorized_semantic_success_semantics_match": 1,
+        "test_evidence_gap_implementation_semantic_comparison.EvidenceGapImplementationSemanticComparisonTests.test_expected_repository_failure_semantics_match": 1,
+        "test_evidence_gap_implementation_semantic_comparison.EvidenceGapImplementationSemanticComparisonTests.test_fresh_t2_consumed_action_rejection_semantics_match": 1,
+        "test_evidence_gap_implementation_semantic_comparison.EvidenceGapImplementationSemanticComparisonTests.test_no_action_semantics_match": 1,
+        "test_evidence_gap_product_planner_composition.EvidenceGapRealStateCompositionTests.test_composition_rejects_selector_that_no_longer_matches_bound_action_contract": 1,
+        "test_evidence_gap_product_planner_composition.EvidenceGapRealStateCompositionTests.test_composition_reuses_product_transition_propositions_and_all_supported_ci_consumptions": 1,
+        "test_evidence_gap_product_planner_composition.EvidenceGapRealStateCompositionTests.test_consumed_or_budget_blocked_action_is_not_offered_pre_call": 1,
+        "test_evidence_gap_product_planner_composition.EvidenceGapRealStateCompositionTests.test_rendered_context_keeps_exact_source_and_action_authority_hidden": 1,
+        "test_langgraph_evidence_gap_ordinary_python_control_adapters.OrdinaryPythonEvidenceGapPlannerAdapterTests.test_action_decision_maps_to_langgraph_action_proposal": 1,
+        "test_langgraph_evidence_gap_ordinary_python_control_adapters.OrdinaryPythonEvidenceGapPlannerAdapterTests.test_no_action_decision_maps_to_langgraph_no_action": 1,
+        "test_langgraph_evidence_gap_ordinary_python_control_adapters.OrdinaryPythonEvidenceGapPlannerAdapterTests.test_provider_problem_maps_to_langgraph_provider_problem": 1,
+        "test_langgraph_evidence_gap_workflow.EvidenceGapLangGraphTests.test_authorized_semantic_result_executes_once_consumes_action_spends_budget_and_updates_domain": 1,
+        "test_langgraph_evidence_gap_workflow.EvidenceGapLangGraphTests.test_expected_repository_failure_spends_budget_without_consuming_action_or_changing_domain": 1,
+        "test_langgraph_evidence_gap_workflow.EvidenceGapLangGraphTests.test_fresh_t2_consumption_rejects_model_proposal_and_preserves_t2_baseline": 1,
+        "test_langgraph_evidence_gap_workflow.EvidenceGapLangGraphTests.test_no_action_routes_directly_to_conclude_without_authority_or_repository_effect": 1,
+        "test_workspace_replacement_migration.WorkspaceReplacementMigrationTests.test_absent_optional_manifest_field_is_not_silently_defaulted": 1,
+        "test_workspace_replacement_migration.WorkspaceReplacementMigrationTests.test_call_oracle_refuses_processing_after_the_capture_context_exits": 1,
+        "test_workspace_replacement_migration.WorkspaceReplacementMigrationTests.test_capture_retains_real_owner_inputs_not_only_legacy_fields": 1,
+        "test_workspace_replacement_migration.WorkspaceReplacementMigrationTests.test_changed_live_value_cannot_override_the_immutable_native_fact": 1,
+        "test_workspace_replacement_migration.WorkspaceReplacementMigrationTests.test_explicit_missing_native_material_blocks_the_projection": 1,
+        "test_workspace_replacement_migration.WorkspaceReplacementMigrationTests.test_new_lifecycle_is_retained_but_cannot_create_an_action_permission": 1,
+        "test_workspace_replacement_migration.WorkspaceReplacementMigrationTests.test_one_normal_path_all_consumer_meanings_and_checkpoint_equal_across_backends": 2,
+        "test_workspace_replacement_migration.WorkspaceReplacementMigrationTests.test_other_exact_target_cannot_consume_the_old_native_values": 1,
+        "test_workspace_replacement_migration.WorkspaceReplacementMigrationTests.test_retained_checkpoint_bytes_do_not_hydrate_trusted_objects": 1
+      }
+    },
+    "failures": {
+      "count": 1,
+      "methods": {
+        "test_b2_x1_phase3b_harness.Phase3BRequestHarnessTests.test_accepted_s001_source_identity_subset_matches_checkout": 1
+      }
+    }
+  },
+  "governance": {
+    "green": false,
+    "issue": "unchanged AGENTS.md examples/ owner-marker mismatch"
+  },
+  "retained_cases": {
+    "lifelog": {
+      "state": "completed",
+      "disposition": "useful_partial_structural_evidence",
+      "files": 28,
+      "pairs": 145,
+      "native_records": 29,
+      "native_logical_roots": 8,
+      "paired_native_roots": 7
+    },
+    "httpx": {
+      "state": "completed",
+      "disposition": "useful_partial_structural_evidence",
+      "files": 24,
+      "pairs": 12,
+      "native_records": 4,
+      "native_logical_roots": 1,
+      "paired_native_roots": 1
+    },
+    "glyphslib-protocol": {
+      "state": "completed",
+      "disposition": "useful_partial_structural_evidence",
+      "files": 12,
+      "pairs": 68,
+      "native_records": 62,
+      "native_logical_roots": 3,
+      "paired_native_roots": 3
+    }
+  },
+  "historical_bundles": 22,
+  "native_product_and_guards_unchanged": true,
+  "provider_calls": 0,
+  "personal_token_reads": 0,
+  "target_execution": false,
+  "untouched_transfer": false,
+  "method_runtime_frozen": true,
+  "evidence_sha256": {
+    "REVIEW.md": "e370363b1e127ac3b2e6c30616bf64005f06174f007542f8ac53e359a6aa55f1",
+    "retained-qualification-contract.json": "02e02ffcb664492b4306ace25f38b4c14bc5dedee8f6a360b5a303abaefcec9d",
+    "larger-profile-measurement.json": "e844e4cf81897072b5d886fffd8c9fe97485ae910fe80c6167fe49eca13396e4",
+    "full-cost-measurement.json": "4f6cd1bcc060d86e3e903376b3f7be459b651723a512427d05d839dec6f9ff76",
+    "development-method-before-third-run.json": "be96e13c4c5252b1769b4a421cf450ba4e03b1971062ed4c38ab95cc81e053c4",
+    "focused-verification.json": "aeac119d927d20213ada2c44f52094a4f6d6ae48cdef2493f30c3c2cc505ca67",
+    "historical-compatibility.json": "71b5568105d8b09bd680e7b4f6e37752837143652824c6bc9231f860803f9b80",
+    "larger-profile-started.json": "edd7804d922c0f22881becfd23d8ce54e3775835400e88a36f34fdae5259befe",
+    "development-method-before-first-run.json": "2cd445fd16b3bce823e54e4331023f7cf08c9e135570144485147e2bcb41efac",
+    "architecture-tests.log": "6e84c4e8245804ff6643dbe24606a6ff6d9cf5ae704b19714aa5720e41b5f7cd",
+    "qualified-method.json": "ab742783bac1d7f8fe2198c8d3ec992eb60a397617c225eeae6a988a9031441e",
+    "development-attempt-01.json": "aef179f5e0d4b188806a2eed718884fd98034db66dd9f9bd815ecc704428ce09",
+    "retained-qualification-results.json": "c61b6075b4c1290ffd644d83abaff33cfa2b494535272ff5ad7838e22f31e77a",
+    "measurement-contract.json": "bd5c88baa547f547545417ffee00e4ebc2b8a4668837b5c5c383c83881658c69",
+    "development-attempt-03.json": "486605c05457f43401e84b100ac872bf9ade6a2e80dc852b03a8c51af05bc3ba",
+    "development-attempt-02.json": "2dd0d2bbc588acc02d1ecad453a0254bf2dd8fb670471f11f32f0089e943bb13",
+    "dependency-check.json": "3b740599a12abdf7dd16b49cc6acb87b9c16c4c71633ee148d71a1dc882d68c6",
+    "api-tests.log": "769d5438724e49176c5f360cb3f7affdb14e8c021f75d848da03fce0b07f0d5e",
+    "development-method-before-second-run.json": "e45cb93b5436d8ee18d267169b6241ba132f2c1dcd4f193b290e15bf06c434c2"
+  }
+}
