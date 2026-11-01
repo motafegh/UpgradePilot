@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-11-01-native-adoption-independent-audit/check_retained.py", line 13, in <module>
+    from experiments import api_ordinary_call_signature_trial as owner
+ModuleNotFoundError: No module named 'experiments'

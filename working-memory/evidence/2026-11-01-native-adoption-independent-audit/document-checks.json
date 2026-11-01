@@ -1,0 +1,13 @@
+{
+  "source_revision": "e7082e96df98d014a44d58637e985af7d3c9175c",
+  "relative_links": 40,
+  "missing": [],
+  "trailing_whitespace": [],
+  "documents": {
+    "audits/2026-11-01_AUDIT-014_caller-signature-native-integration-readiness.md": "f97de502e73367e8557b3e3df864ded8d099801214d33813f47b06f4c9918d4a",
+    "audits/deferred/README.md": "5bc9c567a73ba9546fa6b4cf7eb7c9cb45011503aefb9d275b5b13219e58946a",
+    "working-memory/2026-11-01_caller-signature-integration-independent-audit_cycle.md": "598bccdeedf00054a574790f5de8d7ac5e46158a7e8169a168ca20dbabc91651",
+    "working-memory/evidence/2026-11-01-native-adoption-independent-audit/README.md": "5d088eb0ee74a1585ad4a73ce0019f4ab59080dd48a28f4155c2ff18e7fd06ff"
+  },
+  "product_control_diff": []
+}

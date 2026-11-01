@@ -1,0 +1,86 @@
+{
+  "proof": "current offline hash, fixed-reader and recorded-work reconciliation",
+  "source_hashes_matched": 106,
+  "retained_cases": [
+    {
+      "case": "lifelog",
+      "matched_artifacts": 6,
+      "source_files": 28,
+      "work": {
+        "ast_nodes": 22434,
+        "facts": 1583,
+        "selected_pairs": 145,
+        "source_bytes": 679687,
+        "source_files": 28
+      },
+      "unexamined_units": 17,
+      "gaps_omitted": 3044,
+      "fixed_open": "passed"
+    },
+    {
+      "case": "httpx",
+      "matched_artifacts": 6,
+      "source_files": 24,
+      "work": {
+        "ast_nodes": 24112,
+        "facts": 1107,
+        "selected_pairs": 12,
+        "source_bytes": 202442,
+        "source_files": 24
+      },
+      "unexamined_units": 3,
+      "gaps_omitted": 0,
+      "fixed_open": "passed"
+    },
+    {
+      "case": "glyphslib-protocol",
+      "matched_artifacts": 6,
+      "source_files": 12,
+      "work": {
+        "ast_nodes": 20917,
+        "facts": 1113,
+        "selected_pairs": 68,
+        "source_bytes": 205876,
+        "source_files": 12
+      },
+      "unexamined_units": 0,
+      "gaps_omitted": 0,
+      "fixed_open": "passed"
+    }
+  ],
+  "digimon": {
+    "matched_artifacts": 26,
+    "state": "completed",
+    "work": {
+      "ast_nodes": 22027,
+      "facts": 1463,
+      "selected_pairs": 21,
+      "source_bytes": 234010,
+      "source_files": 14
+    },
+    "source_packets": 13,
+    "fixed_open": "passed"
+  },
+  "curated_httpx_rejection_control": {
+    "matched_artifacts": 5,
+    "outcomes": {
+      "older-forwarder-old-httpx": "bound",
+      "older-forwarder-proposed-httpx": "rejected",
+      "newer-forwarder-proposed-httpx": "bound",
+      "target-call-older-testclient": "bound",
+      "target-call-newer-testclient": "bound"
+    },
+    "fixed_open": "passed"
+  },
+  "forbidden_hooks": [
+    "ast.parse",
+    "requests.sessions.Session.request",
+    "socket.socket.connect",
+    "experiments.api_ordinary_call_signature_trial.discover_source_candidates",
+    "experiments.api_call_signature.compare_arguments",
+    "experiments.api_ordinary_call_signature_trial._read_attempt_credential"
+  ],
+  "retained_bytes_unchanged": true,
+  "new_acquisition_or_inference": false,
+  "limits": "Does not rerun producers, grade semantic entailment or prove native product delivery."
+}

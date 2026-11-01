@@ -7,5 +7,6 @@ Canonical audit records remain at stable paths directly under `audits/`; this in
 Current deferred audits:
 
 - [DEFERRED — AUDIT-004 — uv.lock Resolution-Satisfiability Evidence Boundary](../2026-08-16_AUDIT-004_uv-lock-resolution-satisfiability-evidence-boundary.md)
+- [DEFERRED — AUDIT-014 — Caller/signature Native Integration Readiness](../2026-11-01_AUDIT-014_caller-signature-native-integration-readiness.md) — one CLI recovery-handoff clarification and three optional delivery refinements; review evidence only, not selected implementation changes.
 
 Deferred does **not** mean rejected. Re-enter one only when its reassessment trigger becomes current, it is explicitly selected, or it is promoted into the scheduled lifecycle with a concrete activation trigger and owning plan. The audit remains non-controlling until the relevant responsibility owner is changed through the normal governance process.
