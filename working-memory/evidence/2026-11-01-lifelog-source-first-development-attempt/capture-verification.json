@@ -93,7 +93,10 @@
   "frozen_method_runtime_unchanged": true,
   "old_evidence_unchanged": true,
   "offline_reads_did_not_mutate_capture": true,
-  "aggregate_analysis_failure_diagnosis": "pending offline bounded count",
+  "aggregate_analysis_failure_diagnosis": "separate analysis-limit-diagnostic.json identifies fact budget crossing",
   "untouched_transfer": false,
-  "product_adoption": false
+  "product_adoption": false,
+  "failed_worker_input_source_native_receipt_closure_verified": true,
+  "outer_inner_input_bytes_equal": true,
+  "input_sha256": "a2c9ea7cc97da269480f95f0d2fc91fd1ccba63aebbd99b3d9b793e21dbf569d"
 }
