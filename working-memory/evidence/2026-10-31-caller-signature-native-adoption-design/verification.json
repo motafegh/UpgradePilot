@@ -1,0 +1,43 @@
+{
+  "proof_class": "documentation_and_source_trace_review_not_runtime_qualification",
+  "design_source_horizon": "76757f4e",
+  "plan_sha256": "e94e75345d69143d322364bd81abd09a54903e5aa87e5b005fbfa73183ba577c",
+  "local_links_checked": 87,
+  "new_plan_anchors_checked": 1,
+  "broken_links": [],
+  "fences_balanced": true,
+  "semantic_headings_no_new_case_codes": true,
+  "source_tests_experiments_specs_adrs_simulation_and_frozen_acquisition_evidence_unchanged": true,
+  "runtime_tests_run": false,
+  "new_provider_or_credential_calls": 0,
+  "implementation_activated": false,
+  "reviewed_failure_and_boundary_scenarios": [
+    "initial acquisition fails before observed exact target: no fake Workspace",
+    "new native family placeholders match shape and actual input records",
+    "known new method version recorded at capture and admitted per family; old unknown gaps preserved",
+    "source progress survives worker/analysis failure",
+    "source replacement cannot rebind executed comparison",
+    "unknown codec differs from corrupt or missing required material",
+    "report projection calls synthesis; retain generated report/action and decode on recovery",
+    "report delivery basis includes actual material/action inputs; no human examination claim",
+    "saved report capacity failure retains evidence checkpoint",
+    "old CLI/profile and old schema1 reports retain behavior",
+    "explicit source profile does not invoke models/CI/runtime owners",
+    "same common-prefix work included in acquisition counters",
+    "alternative paths do not inflate distinct calls/cases",
+    "contrasting acquisition can be inconclusive/unsupported/defective; no forced rejection",
+    "historical case and attempt namespaces remain fixed"
+  ],
+  "source_identity": {
+    "src/upgradepilot/investigation.py": "bbe9a45a47d4acd4c0cbbb4f9189bcba12c78c798be9b2a804d933484ea5294d",
+    "src/upgradepilot/cli.py": "bf2034ddb8d619aa738c9cbdcd0cc49b9f153b6ee06b4c32334445d3a1862410",
+    "src/upgradepilot/report_projection.py": "6ba9ae28b1f37eccab583af53c97d0bf02fc95a7afd3f6541e593890dc0d0279",
+    "src/upgradepilot/report_file.py": "4a8d1e09c27c7b84b760ea99ec3de8c0eee0c372e2d8c126069dc2d71fef4237",
+    "src/upgradepilot/workspace/native_capture.py": "153cdb57ca9b5e54532e025034c4edf9df697ed5e9b896dfeff4a87e79830678",
+    "src/upgradepilot/workspace/native_codecs.py": "50e8909ee3da1dbb88467fd459147672eb73d47ae7638601a30ba2de39522bae",
+    "src/upgradepilot/workspace/native_projection.py": "c4e847b452f5d270f4e7ffcb982dee3f25e0209cb9d5389e24c15fabac372bdf",
+    "src/upgradepilot/workspace/consumer_access.py": "dfb196c841f25e2ad0c928b08a0f5129c5bf082c14f836d12c45d4b2e54b017c",
+    "src/upgradepilot/workspace/lifecycle_host.py": "731e832ccb2170424917e2de624a798f718de00b34c2041b420d5c674460db98",
+    "src/upgradepilot/workspace/checkpoint_store.py": "5c8e041cf512af294c87aa15c242f6da0b5fa02b04d8b0563e23114330ec322a"
+  }
+}

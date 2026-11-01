@@ -1,0 +1,17 @@
+{
+  "proof_class": "frozen failed acquisition/source eligibility and separate diagnostics; no transfer qualification",
+  "fixed_outer_reader_and_actual_cli_passed": true,
+  "comparison_result_absent": true,
+  "terminal_artifact_hashes_validated": true,
+  "forbidden_on_open": [
+    "AST",
+    "HTTP",
+    "discovery",
+    "checker",
+    "credential"
+  ],
+  "private_modes_valid": true,
+  "source_runtime_matches_freeze": true,
+  "method_modified": false,
+  "transfer_qualified": false
+}

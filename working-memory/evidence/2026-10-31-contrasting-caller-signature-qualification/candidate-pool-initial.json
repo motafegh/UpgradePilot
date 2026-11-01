@@ -1,0 +1,40 @@
+{
+  "connector_calls": 3,
+  "rows": [
+    {
+      "repository": "psf/requests",
+      "number": 7100,
+      "title": "Bump actions/setup-python from 6.0.0 to 6.1.0",
+      "reason": "GitHub Actions update, not Python dependency"
+    },
+    {
+      "repository": "psf/requests",
+      "number": 6883,
+      "title": "Bump actions/setup-python from 5.3.0 to 5.4.0",
+      "reason": "GitHub Actions update, not Python dependency"
+    },
+    {
+      "repository": "pypa/twine",
+      "number": 1396,
+      "title": "build(deps): bump github/codeql-action/autobuild from 4.35.3 to 4.38.1",
+      "reason": "GitHub Actions update, not Python dependency"
+    },
+    {
+      "repository": "pypa/twine",
+      "number": 1395,
+      "title": "build(deps): bump github/codeql-action/init from 4.35.3 to 4.38.1",
+      "reason": "GitHub Actions update, not Python dependency"
+    },
+    {
+      "repository": "pypa/twine",
+      "number": 1394,
+      "title": "build(deps): bump github/codeql-action/analyze from 4.35.3 to 4.38.1",
+      "reason": "GitHub Actions update, not Python dependency"
+    }
+  ],
+  "empty_repositories": [
+    "beetbox/beets"
+  ],
+  "selection": null,
+  "reason": "broad lexical query matched dependency mentions in unrelated PR body; no outcome reviewed"
+}

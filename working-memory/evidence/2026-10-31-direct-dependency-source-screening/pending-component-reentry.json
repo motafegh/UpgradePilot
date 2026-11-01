@@ -1,0 +1,13 @@
+{
+  "reason": "LifeLog direct declaration confirmed but no matching call in3 examined files; revisit existing fallback dotfiles candidate whose Python component was previously unconfirmed rather than infer absence from primary language",
+  "candidate": "andreaswachowski/dotfiles#10",
+  "before_comparison_outcome_inspection": true,
+  "existing_pool_member": true,
+  "prior_nonselection_record_preserved": true,
+  "eligibility": "same concrete Python declaration/import/call witness for all candidates; repository primary language contextual only",
+  "remaining_requests": 6,
+  "remaining_aggregate_bytes": 8044041,
+  "continuation_window_seconds": 60,
+  "previous_windows_preserved": true,
+  "no_acquisition_attempt_started": true
+}

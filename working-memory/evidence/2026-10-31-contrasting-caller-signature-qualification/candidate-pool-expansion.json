@@ -1,0 +1,14 @@
+{
+  "reason": "Title-specific searches found zero matches in priority repositories; broad-query matches were Actions-only",
+  "before_outcome_inspection": true,
+  "authorization": "activated contrasting-case screening; routine source-discovery scope amendment within unchanged total10-operation budget under situational rule",
+  "prior_pool_preserved": true,
+  "new_query": "is:pr author:app/dependabot \"bump requests from\" in:title",
+  "candidate_ceiling": 3,
+  "remaining_operations": 4,
+  "sort": "created descending, stable repository/PR identity for ties",
+  "eligibility_unchanged": true,
+  "comparison_method_unchanged": true,
+  "no_expected_comparison_outcomes_known": true,
+  "no_auto_case_campaign": true
+}

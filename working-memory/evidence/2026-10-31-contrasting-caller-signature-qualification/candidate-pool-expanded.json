@@ -1,0 +1,57 @@
+{
+  "status": 200,
+  "total": 203957,
+  "items": [
+    {
+      "repository": "andreaswachowski/dotfiles",
+      "number": 10,
+      "title": "chore(deps): bump requests from 2.32.4 to 2.33.0 in /.config/conky",
+      "created_at": "2026-10-31T17:17:51Z"
+    },
+    {
+      "repository": "CosciaLab/openDVP",
+      "number": 124,
+      "title": "Bump requests from 2.32.4 to 2.33.0",
+      "created_at": "2026-10-31T17:03:11Z"
+    },
+    {
+      "repository": "VaHerinckx/LifeLog_Project",
+      "number": 1,
+      "title": "Bump requests from 2.33.0 to 2.34.2 in /pipeline",
+      "created_at": "2026-10-31T14:28:02Z"
+    }
+  ],
+  "transport": {
+    "format": "trial-acquisition-policy/1",
+    "limits": {
+      "github_requests": 4,
+      "provider_requests": 4,
+      "response_bytes": 1048576,
+      "aggregate_bytes": 4194304,
+      "elapsed_seconds": 120,
+      "source_request_reserve": 1,
+      "target_file_attempts": 16,
+      "adapter_candidate_attempts": 2
+    },
+    "auth": "token-env",
+    "github_requests": 1,
+    "provider_requests": 1,
+    "decoded_body_bytes": 40920,
+    "elapsed_seconds": 2.1626755350007443,
+    "deadline_kind": "cooperative_monotonic_checks_and_bounded_socket_timeouts",
+    "stops": [],
+    "requests": [
+      {
+        "stage": "unscoped",
+        "host": "api.github.com",
+        "path": "/search/issues",
+        "github_requests": 1,
+        "provider_requests": 1,
+        "decoded_body_bytes": 40920,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      }
+    ]
+  }
+}

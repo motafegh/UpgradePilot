@@ -1,0 +1,513 @@
+{
+  "proof_class": "ONE untouched fresh ordinary qualification of frozen method",
+  "attempt_id": "f94d2fb456fc47aab72877ebc534616e",
+  "state": "completed",
+  "disposition": "useful_partial_structural_evidence",
+  "elapsed_seconds": 18.991641838998476,
+  "transport": {
+    "github_requests": 33,
+    "provider_requests": 48,
+    "decoded_body_bytes": 874156,
+    "elapsed_seconds": 17.037499284999285,
+    "stops": []
+  },
+  "failed_physical_requests": 0,
+  "timeout_recovery_decisions": 0,
+  "source_packets": 13,
+  "source_files": 14,
+  "work": {
+    "ast_nodes": 22027,
+    "facts": 1463,
+    "selected_pairs": 21,
+    "source_bytes": 234010,
+    "source_files": 14
+  },
+  "analysis_admission": {
+    "comparison_structure_cost": 4680,
+    "fact_structure_cost": 182812,
+    "profile": "static-import-whole-file-analysis/1",
+    "root_order": "external_import_origins_first",
+    "scanned_ast_nodes": 22027,
+    "units": [
+      {
+        "reason": "admitted_whole_file",
+        "scan_nodes": 489,
+        "state": "analyzed",
+        "unit_id": "2fc2d2db773b8b71de9401b97be49f0ce077fd2edb67f9594c97859e1baa3192"
+      },
+      {
+        "reason": "admitted_whole_file",
+        "scan_nodes": 493,
+        "state": "analyzed",
+        "unit_id": "3135f12eb87736bd57309e2944d491e0c5138bda2a16433c94084ac7238e964d"
+      },
+      {
+        "reason": "admitted_whole_file",
+        "scan_nodes": 782,
+        "state": "analyzed",
+        "unit_id": "41d6304f5a87b01f89d35e351bb21595eecccafc823329deeefa20ce82dc1322"
+      },
+      {
+        "reason": "admitted_whole_file",
+        "scan_nodes": 181,
+        "state": "analyzed",
+        "unit_id": "b3c4b03da4c943da7601901d55c16317f5d9e9d2f5495c1b9012c965f7908504"
+      },
+      {
+        "reason": "admitted_whole_file",
+        "scan_nodes": 181,
+        "state": "analyzed",
+        "unit_id": "637bbce1e82c78e8c4f62b20dc73d80e01eda9221723cf0a42bbc0017f6a2ac3"
+      },
+      {
+        "reason": "admitted_whole_file",
+        "scan_nodes": 2541,
+        "state": "analyzed",
+        "unit_id": "e54e0eff4d726a33e6e61fe5f2590d8a8c1de2cce1ad012c2acce1256167fa2a"
+      },
+      {
+        "reason": "admitted_whole_file",
+        "scan_nodes": 2541,
+        "state": "analyzed",
+        "unit_id": "26fe063e57e2bf9b6818f6710938213316a3c46be58387834dfe193981f4d078"
+      },
+      {
+        "reason": "admitted_whole_file",
+        "scan_nodes": 280,
+        "state": "analyzed",
+        "unit_id": "db776ed656acdc2cb35994a135d2c7ef46883693153306d7bf31cf0d4b1abc3e"
+      },
+      {
+        "reason": "admitted_whole_file",
+        "scan_nodes": 280,
+        "state": "analyzed",
+        "unit_id": "3b45d2a72571b672b34ec73f97f38bfa946e6cad60dd871edb26837b607af34c"
+      },
+      {
+        "reason": "admitted_whole_file",
+        "scan_nodes": 3623,
+        "state": "analyzed",
+        "unit_id": "7b9705dc032a151a7a530d59aa8ed47201a07f89d72f803e67da992d6e6bc4f9"
+      },
+      {
+        "reason": "admitted_whole_file",
+        "scan_nodes": 3629,
+        "state": "analyzed",
+        "unit_id": "afb1a18ccd14c874ce0b557c0ed828fd6a4d4e68a69eed34e70315f42dc847ab"
+      },
+      {
+        "reason": "admitted_whole_file",
+        "scan_nodes": 3505,
+        "state": "analyzed",
+        "unit_id": "9fc9d64a3c2794eb06d2867cc047b0461e8077a2b079f319ba1c144fc92cda7d"
+      },
+      {
+        "reason": "admitted_whole_file",
+        "scan_nodes": 3502,
+        "state": "analyzed",
+        "unit_id": "36a3289159d1c42cf315d4cf3d7d140a71a10a486a352acb633b69e2ada92270"
+      }
+    ]
+  },
+  "pairs": 21,
+  "native_records": 20,
+  "native_logical_roots": 5,
+  "informative_paired_native_roots": 5,
+  "native_roots": {
+    "33cef0bd7b12c53c75bddb2954a13c70f5438a9440dee5a0a86f9b03c4797b73": {
+      "path": "digimon_scraper.py",
+      "line": 22,
+      "expression": "requests.get",
+      "records": [
+        {
+          "role": "native_old_version",
+          "version": "2.32.4",
+          "callee": "get",
+          "outcome": "bound",
+          "checks_complete": true,
+          "premises": [
+            "effective_export_binding_not_established",
+            "installed_namespace_and_dispatch_not_established",
+            "reexport_binding_and_branch_activation_not_established"
+          ]
+        },
+        {
+          "role": "native_old_version",
+          "version": "2.32.4",
+          "callee": "request",
+          "outcome": "undetermined",
+          "checks_complete": false,
+          "premises": [
+            "effective_export_binding_not_established",
+            "installed_namespace_and_dispatch_not_established",
+            "reexport_binding_and_branch_activation_not_established",
+            "execution_reaches_selected_body_and_branch",
+            "function_value_not_propagated",
+            "delayed_global_read",
+            "conditional_import_origin",
+            "effective_local_callable_binding_not_established"
+          ]
+        },
+        {
+          "role": "native_proposed_version",
+          "version": "2.33.0",
+          "callee": "get",
+          "outcome": "bound",
+          "checks_complete": true,
+          "premises": [
+            "effective_export_binding_not_established",
+            "installed_namespace_and_dispatch_not_established",
+            "reexport_binding_and_branch_activation_not_established"
+          ]
+        },
+        {
+          "role": "native_proposed_version",
+          "version": "2.33.0",
+          "callee": "request",
+          "outcome": "undetermined",
+          "checks_complete": false,
+          "premises": [
+            "effective_export_binding_not_established",
+            "installed_namespace_and_dispatch_not_established",
+            "reexport_binding_and_branch_activation_not_established",
+            "execution_reaches_selected_body_and_branch",
+            "function_value_not_propagated",
+            "delayed_global_read",
+            "conditional_import_origin",
+            "effective_local_callable_binding_not_established"
+          ]
+        }
+      ]
+    },
+    "8cee8574566d8d55697637626d8e6a73967dab209d5cea36bece9a43dec53253": {
+      "path": "digimon_scraper.py",
+      "line": 29,
+      "expression": "requests.get",
+      "records": [
+        {
+          "role": "native_old_version",
+          "version": "2.32.4",
+          "callee": "get",
+          "outcome": "bound",
+          "checks_complete": true,
+          "premises": [
+            "effective_export_binding_not_established",
+            "installed_namespace_and_dispatch_not_established",
+            "reexport_binding_and_branch_activation_not_established"
+          ]
+        },
+        {
+          "role": "native_old_version",
+          "version": "2.32.4",
+          "callee": "request",
+          "outcome": "undetermined",
+          "checks_complete": false,
+          "premises": [
+            "effective_export_binding_not_established",
+            "installed_namespace_and_dispatch_not_established",
+            "reexport_binding_and_branch_activation_not_established",
+            "execution_reaches_selected_body_and_branch",
+            "function_value_not_propagated",
+            "delayed_global_read",
+            "conditional_import_origin",
+            "effective_local_callable_binding_not_established"
+          ]
+        },
+        {
+          "role": "native_proposed_version",
+          "version": "2.33.0",
+          "callee": "get",
+          "outcome": "bound",
+          "checks_complete": true,
+          "premises": [
+            "effective_export_binding_not_established",
+            "installed_namespace_and_dispatch_not_established",
+            "reexport_binding_and_branch_activation_not_established"
+          ]
+        },
+        {
+          "role": "native_proposed_version",
+          "version": "2.33.0",
+          "callee": "request",
+          "outcome": "undetermined",
+          "checks_complete": false,
+          "premises": [
+            "effective_export_binding_not_established",
+            "installed_namespace_and_dispatch_not_established",
+            "reexport_binding_and_branch_activation_not_established",
+            "execution_reaches_selected_body_and_branch",
+            "function_value_not_propagated",
+            "delayed_global_read",
+            "conditional_import_origin",
+            "effective_local_callable_binding_not_established"
+          ]
+        }
+      ]
+    },
+    "8ed57ed6a25ce5eae0da57a7d8f168af97a996264e0adf57af318d3f4fada534": {
+      "path": "digimon_scraper.py",
+      "line": 74,
+      "expression": "requests.get",
+      "records": [
+        {
+          "role": "native_old_version",
+          "version": "2.32.4",
+          "callee": "get",
+          "outcome": "bound",
+          "checks_complete": true,
+          "premises": [
+            "unsupported_control_flow",
+            "conditional_import_origin",
+            "effective_export_binding_not_established",
+            "installed_namespace_and_dispatch_not_established",
+            "reexport_binding_and_branch_activation_not_established"
+          ]
+        },
+        {
+          "role": "native_old_version",
+          "version": "2.32.4",
+          "callee": "request",
+          "outcome": "undetermined",
+          "checks_complete": false,
+          "premises": [
+            "unsupported_control_flow",
+            "conditional_import_origin",
+            "effective_export_binding_not_established",
+            "installed_namespace_and_dispatch_not_established",
+            "reexport_binding_and_branch_activation_not_established",
+            "execution_reaches_selected_body_and_branch",
+            "function_value_not_propagated",
+            "delayed_global_read",
+            "effective_local_callable_binding_not_established"
+          ]
+        },
+        {
+          "role": "native_proposed_version",
+          "version": "2.33.0",
+          "callee": "get",
+          "outcome": "bound",
+          "checks_complete": true,
+          "premises": [
+            "unsupported_control_flow",
+            "conditional_import_origin",
+            "effective_export_binding_not_established",
+            "installed_namespace_and_dispatch_not_established",
+            "reexport_binding_and_branch_activation_not_established"
+          ]
+        },
+        {
+          "role": "native_proposed_version",
+          "version": "2.33.0",
+          "callee": "request",
+          "outcome": "undetermined",
+          "checks_complete": false,
+          "premises": [
+            "unsupported_control_flow",
+            "conditional_import_origin",
+            "effective_export_binding_not_established",
+            "installed_namespace_and_dispatch_not_established",
+            "reexport_binding_and_branch_activation_not_established",
+            "execution_reaches_selected_body_and_branch",
+            "function_value_not_propagated",
+            "delayed_global_read",
+            "effective_local_callable_binding_not_established"
+          ]
+        }
+      ]
+    },
+    "833805b026e2762d6ec23dbbf0b867cf1c41ef7f16bfad6a00297700aa7f4601": {
+      "path": "digimon_scraper.py",
+      "line": 81,
+      "expression": "requests.get",
+      "records": [
+        {
+          "role": "native_old_version",
+          "version": "2.32.4",
+          "callee": "get",
+          "outcome": "bound",
+          "checks_complete": true,
+          "premises": [
+            "unsupported_control_flow",
+            "conditional_import_origin",
+            "effective_export_binding_not_established",
+            "installed_namespace_and_dispatch_not_established",
+            "reexport_binding_and_branch_activation_not_established"
+          ]
+        },
+        {
+          "role": "native_old_version",
+          "version": "2.32.4",
+          "callee": "request",
+          "outcome": "undetermined",
+          "checks_complete": false,
+          "premises": [
+            "unsupported_control_flow",
+            "conditional_import_origin",
+            "effective_export_binding_not_established",
+            "installed_namespace_and_dispatch_not_established",
+            "reexport_binding_and_branch_activation_not_established",
+            "execution_reaches_selected_body_and_branch",
+            "function_value_not_propagated",
+            "delayed_global_read",
+            "effective_local_callable_binding_not_established"
+          ]
+        },
+        {
+          "role": "native_proposed_version",
+          "version": "2.33.0",
+          "callee": "get",
+          "outcome": "bound",
+          "checks_complete": true,
+          "premises": [
+            "unsupported_control_flow",
+            "conditional_import_origin",
+            "effective_export_binding_not_established",
+            "installed_namespace_and_dispatch_not_established",
+            "reexport_binding_and_branch_activation_not_established"
+          ]
+        },
+        {
+          "role": "native_proposed_version",
+          "version": "2.33.0",
+          "callee": "request",
+          "outcome": "undetermined",
+          "checks_complete": false,
+          "premises": [
+            "unsupported_control_flow",
+            "conditional_import_origin",
+            "effective_export_binding_not_established",
+            "installed_namespace_and_dispatch_not_established",
+            "reexport_binding_and_branch_activation_not_established",
+            "execution_reaches_selected_body_and_branch",
+            "function_value_not_propagated",
+            "delayed_global_read",
+            "effective_local_callable_binding_not_established"
+          ]
+        }
+      ]
+    },
+    "2fe06e07ded7c6aee1dd09a9e7a9ae713a876157f24a8046add9827d685b5646": {
+      "path": "digimon_scraper.py",
+      "line": 88,
+      "expression": "requests.get",
+      "records": [
+        {
+          "role": "native_old_version",
+          "version": "2.32.4",
+          "callee": "get",
+          "outcome": "bound",
+          "checks_complete": true,
+          "premises": [
+            "unsupported_control_flow",
+            "conditional_import_origin",
+            "effective_export_binding_not_established",
+            "installed_namespace_and_dispatch_not_established",
+            "reexport_binding_and_branch_activation_not_established"
+          ]
+        },
+        {
+          "role": "native_old_version",
+          "version": "2.32.4",
+          "callee": "request",
+          "outcome": "undetermined",
+          "checks_complete": false,
+          "premises": [
+            "unsupported_control_flow",
+            "conditional_import_origin",
+            "effective_export_binding_not_established",
+            "installed_namespace_and_dispatch_not_established",
+            "reexport_binding_and_branch_activation_not_established",
+            "execution_reaches_selected_body_and_branch",
+            "function_value_not_propagated",
+            "delayed_global_read",
+            "effective_local_callable_binding_not_established"
+          ]
+        },
+        {
+          "role": "native_proposed_version",
+          "version": "2.33.0",
+          "callee": "get",
+          "outcome": "bound",
+          "checks_complete": true,
+          "premises": [
+            "unsupported_control_flow",
+            "conditional_import_origin",
+            "effective_export_binding_not_established",
+            "installed_namespace_and_dispatch_not_established",
+            "reexport_binding_and_branch_activation_not_established"
+          ]
+        },
+        {
+          "role": "native_proposed_version",
+          "version": "2.33.0",
+          "callee": "request",
+          "outcome": "undetermined",
+          "checks_complete": false,
+          "premises": [
+            "unsupported_control_flow",
+            "conditional_import_origin",
+            "effective_export_binding_not_established",
+            "installed_namespace_and_dispatch_not_established",
+            "reexport_binding_and_branch_activation_not_established",
+            "execution_reaches_selected_body_and_branch",
+            "function_value_not_propagated",
+            "delayed_global_read",
+            "effective_local_callable_binding_not_established"
+          ]
+        }
+      ]
+    }
+  },
+  "gap_reasons": {
+    "callable_relationship_unresolved": 68,
+    "imported_source_module_unavailable_or_unsupported": 7
+  },
+  "gaps_omitted": 0,
+  "current_method_matches_preselection_freeze": true,
+  "material_method_modified_after_case_exposure": false,
+  "selection_frozen_before_expected_outcome": true,
+  "ordinary_limits_unchanged": true,
+  "screening_backfill": false,
+  "actual_cold_outer_cli": true,
+  "actual_cold_source_cli": true,
+  "fixed_open_forbidden": [
+    "AST",
+    "HTTP",
+    "discovery",
+    "checker",
+    "credential"
+  ],
+  "private_modes_valid": true,
+  "artifact_hashes": {
+    "acquisition-input.json": "aea3102ace5fafdbf836e4946188eaab5f86fef0b834bc59c021066ccdecedad",
+    "capture-library-source-09.json": "69681598462f627f454959a2acde7a3d57164b1bec7fba01e77fe371c3d0cb7a",
+    "acquisition.json": "3bfb095bdf3d2870385bff270a1aa7cfd9f54b619310587fd24debe679cb6ec5",
+    "execution-freeze.json": "0fe2eafc177bcfef95fd499b4b5b707d04af2cc4561785271f26e8bd549b89cb",
+    "capture-library-source-04.json": "6fda94920eabf658d7a08634dea70b9231433aad05941fdffb045962819d8e60",
+    "capture-library-source-07.json": "4782deac984062afd863e6b4968f1057f1bae7591dd852c7f93e9e66318d85c2",
+    "capture-library-source-05.json": "ca855c128d7b943869bab73914c27bec3b565f6a6a3b43b6213bbe3e705c4324",
+    "capture-library-source-10.json": "a80f856c38ca38eab3f65d3edc60452472929c8560e4657baaf38bcd1d64d734",
+    "attempt.json": "a34e505ffb0516fd490b0fcd6cd8032684de7a0d05c522760be4c6e31f48399a",
+    "capture-library-source-03.json": "fa8d301e4846a319677a36e2f294a5fd6e0e1a7b6823268d70eedf38e0301693",
+    "initial-observation.json": "74cc7cb83bbb684474ea118033d0f1b6c344cbd1f32ab0e8b93d17cd0059572d",
+    "capture-library-source-08.json": "81d8d7272f733103c927bfa696f6ffe7cfafb2063d07f0b05a8f4d0055fc4517",
+    "capture-library-source-01.json": "639a7ce11dda6eaba696109432071fb0def99f6df6c9aab10dfb6da0e7ae28ed",
+    "attempt-started.json": "794d1a76487a5976a8e1782dce8b64bae3d804a80733d1d782b468f79d92cca1",
+    "contract.json": "4c4d5c026999b739b5a47ee3f17ae51002f742f9c86fcba91960240ded698469",
+    "capture-library-source-00.json": "bcd8c14dcc8bb68599022c197486cf1a2044505ef00e2fceea08df92beba5475",
+    "capture-target-sources.json": "ba890993731362850be4b7f0a7a9904cd25cf129c60bae98abd89f3222c4eea3",
+    "capture-library-source-02.json": "e1acc11ee2ee2e875564756aa615b95dd4c0bfb7f8b89008c840c0b8a7f9d3a1",
+    "capture-library-source-11.json": "f496589d3d5e90ebca1ea8e2c1ff4f2cbfd43bff10c8b692b2745364d78d306c",
+    "capture-library-source-06.json": "2b3e3a872255d728afd2e77f314c176e6c10a5b7e83c263e46d95d48f6e97681",
+    "comparison/result.json": "8e5cfe7b90493d3e1bc960b0da2642696293191d4895dc39b16bdcaa8be29888",
+    "comparison/view.txt": "d7d41f7685a26b95c74267e2f565526a19d74bab4ae5a480c614d6ad3f1d250e",
+    "comparison/attempt.json": "4623e3de57a3144322e316b150f4e9d65f459e855559a08a6c47ab04ca4f0089",
+    "comparison/sources.json": "b6b7d19ccd1262a631150d31b5b1f207e2752fbada136929989ddee5167b10ef",
+    "comparison/attempt-started.json": "e36985f8324c67fd0699fd598b6e1bb3ed4021a4fd74d2f6d03b80af2c53e824",
+    "comparison/input.json": "aea3102ace5fafdbf836e4946188eaab5f86fef0b834bc59c021066ccdecedad"
+  },
+  "transfer_gate": "passed_for_current_bounded_adoption_contract",
+  "native_product_adoption": false,
+  "compatibility_proven": false,
+  "independent_usefulness": false
+}

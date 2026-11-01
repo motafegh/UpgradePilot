@@ -1,0 +1,15 @@
+{
+  "proof_class": "source/controlled-test boundary review and prospective eligibility design, not real-case transfer",
+  "source_horizon": "5da578b4",
+  "controlled_tests": 4,
+  "controlled_tests_passed": true,
+  "real_network_forbidden_in_checks": true,
+  "links_checked": 36,
+  "plan_sha256": "39a92589116a043b72231739eeaaa4ed2e53144d7ea11d5ddee728bc7cf8383d",
+  "source_tests_frozen_capture_and_simulation_unchanged": true,
+  "new_provider_or_credential_calls": 0,
+  "new_method": false,
+  "new_case_selected": false,
+  "transfer_qualified": false,
+  "disposition": "retain method; verify direct declaration/import/call eligibility before another attempt; conditional adapter expansion deferred"
+}

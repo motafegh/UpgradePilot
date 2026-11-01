@@ -1,0 +1,13 @@
+{
+  "before_new_calls": true,
+  "reason": "three-file preflight remains uncertain; inspect next three ordinary-order Python files using remaining three requests instead of treating the arbitrary sample as no use",
+  "override": "per-candidate screening Python sample3 to6; total16-provider and aggregate-body ceilings unchanged; no callee outcomes/production policy change",
+  "candidate": "VaHerinckx/LifeLog_Project#1",
+  "paths": [
+    "pipeline/src/sources_processing/goodreads/goodreads_processing.py",
+    "pipeline/src/sources_processing/google_maps/google_maps_processing.py",
+    "pipeline/src/sources_processing/kindle/kindle_processing.py"
+  ],
+  "ordinary_order_not_dependency_answer_selector": true,
+  "prior_screening_records_preserved": true
+}

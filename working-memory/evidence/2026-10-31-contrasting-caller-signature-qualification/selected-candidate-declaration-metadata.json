@@ -1,0 +1,45 @@
+{
+  "status": 200,
+  "files": [
+    {
+      "path": "uv.lock",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 3
+    }
+  ],
+  "transport": {
+    "format": "trial-acquisition-policy/1",
+    "limits": {
+      "github_requests": 2,
+      "provider_requests": 2,
+      "response_bytes": 1048576,
+      "aggregate_bytes": 4194304,
+      "elapsed_seconds": 120,
+      "source_request_reserve": 1,
+      "target_file_attempts": 16,
+      "adapter_candidate_attempts": 2
+    },
+    "auth": "token-env",
+    "github_requests": 1,
+    "provider_requests": 1,
+    "decoded_body_bytes": 2033,
+    "elapsed_seconds": 0.7282967320024909,
+    "deadline_kind": "cooperative_monotonic_checks_and_bounded_socket_timeouts",
+    "stops": [],
+    "requests": [
+      {
+        "stage": "unscoped",
+        "host": "api.github.com",
+        "path": "/repos/CosciaLab/openDVP/pulls/124/files",
+        "github_requests": 1,
+        "provider_requests": 1,
+        "decoded_body_bytes": 2033,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      }
+    ]
+  },
+  "screening_operations_total": 10
+}

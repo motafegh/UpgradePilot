@@ -1,0 +1,25 @@
+{
+  "query": "is:pr is:public \"bump requests\" in:title -repo:VaHerinckx/LifeLog_Project -repo:CosciaLab/openDVP -repo:Aidan-Wallace/kubernetes-dashboard-token-api",
+  "order": "GitHub updated-desc first3",
+  "pool": [
+    {
+      "repository": "RiceKrisBs/digimon_scraper",
+      "pull_number": 16,
+      "title": "Bump requests from 2.32.4 to 2.33.0",
+      "url": "https://github.com/RiceKrisBs/digimon_scraper/pull/16"
+    },
+    {
+      "repository": "Fede-Berga/satellite_routing",
+      "pull_number": 16,
+      "title": "Bump requests from 2.31.0 to 2.33.0 in /traffic_matrix_generator",
+      "url": "https://github.com/Fede-Berga/satellite_routing/pull/16"
+    },
+    {
+      "repository": "manasijatech/ananta-market-stack",
+      "pull_number": 103,
+      "title": "Bump types-requests from 2.33.0.20260712 to 2.33.0.20260906 in /backend",
+      "url": "https://github.com/manasijatech/ananta-market-stack/pull/103"
+    }
+  ],
+  "comparison_outcomes_inspected": false
+}

@@ -1,0 +1,15 @@
+{
+  "api_tests": 280,
+  "architecture_tests": 7,
+  "new_admission_controls": 16,
+  "source_sha256": {
+    "experiments/api_ordinary_call_signature_trial.py": "2cdffa7da2873664245b4f053986b1bafe11b6a8a5f3d3db13e8724aa653bf2b",
+    "experiments/api_signature_evidence.py": "7c7b314db6cefda34a8a0aed79c5bade276d74ff8c74212fff119a89141a78bb",
+    "experiments/api_source_correspondence.py": "cdf156da79d7203da26cb206098ad3f250b60299df05635e44b11aa8d869a337",
+    "experiments/tests/test_api_source_correspondence.py": "a5730f81f9c4f071032de5863a0558734776b2bf3d23084f0ba9d34f74f41c89"
+  },
+  "new_profile": "static-import-whole-file-analysis/1",
+  "legacy_defaults_unchanged": true,
+  "shared_native_guards_unchanged": true,
+  "transfer_qualified": false
+}

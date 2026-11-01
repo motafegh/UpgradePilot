@@ -14,6 +14,12 @@ adds conditional source candidates only; arbitrary object/value flow stays outsi
 An unresolved Try-import superclass may also supply a guarded syntax hypothesis
 through the same member resolver. Its import/exception/base-binding premises stay
 explicit, and known writes or dynamic namespace uncertainty block that route.
+
+The opt-in ANALYSIS_PROFILE retains all input text but scans/adopts only whole
+analysis units under fact and encoded-structure budgets. Static import scope and
+root priority allocate work; they never establish runtime binding or no exposure.
+Native counterparts share admission, while unexamined units carry no facts.
+Ordinary format3 owns their fixed representation and lossless trace tables.
 """
 
 from __future__ import annotations
@@ -24,11 +30,20 @@ from dataclasses import asdict, dataclass
 from .api_call_signature import (
     AnalysisLimit, SourceSpan, compare_arguments, extract_python_source, fact_identity,
 )
+from .api_signature_evidence import encode_fact_binding_traces, json_structure_cost
+from upgradepilot.workspace.native_representation import MAX_NATIVE_JSON_STRUCTURAL_TOKENS
 
 CORRESPONDENCE_VERSION = 2
 MAX_PATH_STEPS = 32
 MAX_DISCOVERY_DEPTH = 8
 MAX_DISCOVERY_GAPS = 256
+ANALYSIS_PROFILE = "static-import-whole-file-analysis/1"
+PARTIAL_ANALYSIS_COVERAGE = "complete retained text; partial whole-file static-import analysis; unexamined source is not absence proof"
+ANALYSIS_OMISSION_REASONS = {"outside_static_import_component", "aggregate_fact_budget", "per_file_fact_budget", "fact_structure_budget"}
+# Keep 1/8 for fixed metadata/gaps and 1/8 for paired path/comparison records.
+# These are producer work allocations within the unchanged final native guard.
+FACT_STRUCTURE_BUDGET = MAX_NATIVE_JSON_STRUCTURAL_TOKENS * 3 // 4
+COMPARISON_STRUCTURE_BUDGET = MAX_NATIVE_JSON_STRUCTURAL_TOKENS // 8
 
 
 @dataclass(frozen=True)
@@ -127,30 +142,156 @@ def _class_spelling(node):
     return None
 
 
+def analysis_group_key(module):
+    """Captured native counterparts share an atomic work-allocation group.
+
+    Different source identities/versions remain distinct units. Group membership
+    does not establish either installed versions or callable correspondence.
+    Fixed admission also uses this identity rule to detect a torn native group.
+    """
+    if module.role in {"native_old_version", "native_proposed_version"}:
+        return (0, module.package, module.module)
+    return (1 if module.role == "constraint_sample" else 2, module.source_id, module.path)
+
+
+def _scan_analysis_scope(catalog, modules, limits):
+    """Conservative static import components; never an effective binding claim.
+
+    Scan all selected modules, charging even excluded source to the node ceiling.
+    Conditional imports count. Target local edges are undirected so both callers
+    and support files survive; ambiguous layouts stay alternatives. Dynamic or
+    unconnected files remain explicitly unexamined, with all text retained.
+    """
+    files = {(f.source_id, f.path): f for f in catalog.files}
+    trees, counts, imports = {}, {}, {}
+    total = 0
+    for i, module in enumerate(modules):
+        file = files[module.source_id, module.path]
+        try:
+            tree = ast.parse(file.content)
+        except (SyntaxError, ValueError, RecursionError):
+            trees[i], counts[i], imports[i] = None, 0, []
+            continue
+        names, count = [], 0
+        for node in ast.walk(tree):
+            count += 1
+            if count > limits.max_nodes_per_file or total + count > limits.max_nodes:
+                raise AnalysisLimit("source_scan_ast_node_limit")
+            if isinstance(node, ast.Import):
+                names.extend(alias.name for alias in node.names)
+            elif isinstance(node, ast.ImportFrom):
+                base = absolute_import(module.module, module.path, node.module or "", node.level)
+                if base:
+                    names.append(base)
+                    names.extend(base + "." + a.name for a in node.names if a.name != "*")
+        total += count
+        trees[i], counts[i], imports[i] = tree, count, names
+    targets = {i for i, m in enumerate(modules) if m.role == "target"}
+    external = {m.module for m in modules if m.role != "target" and m.module}
+    selected = {i for i in targets if trees[i] is None}  # syntax remains unresolved
+    edges = {i: set() for i in targets}
+    for i in targets:
+        for name in imports[i]:
+            if any(name == n or name.startswith(n + ".") or n.startswith(name + ".") for n in external):
+                selected.add(i)
+            matches = [j for j in targets if modules[j].source_id == modules[i].source_id and modules[j].module
+                       and (name == modules[j].module or name.startswith(modules[j].module + "."))]
+            if matches:
+                longest = max(len(modules[j].module) for j in matches)
+                for j in matches:
+                    if len(modules[j].module) == longest:
+                        edges[i].add(j)
+                        edges[j].add(i)
+    if not external:
+        selected = targets  # preserve the target-only comparison responsibility
+    distance = {i: 0 for i in selected}
+    pending = list(sorted(selected))
+    while pending:
+        i = pending.pop(0)
+        for j in sorted(edges[i] - selected):
+            selected.add(j)
+            distance[j] = distance[i] + 1
+            pending.append(j)
+    return trees, counts, selected, distance
+
+
 class _SourceCandidates:
-    def __init__(self, catalog, modules, limits, *, max_depth, max_steps):
+    def __init__(self, catalog, modules, limits, *, max_depth, max_steps, analysis_profile=None):
         self.catalog, self.limits = catalog, limits
         self.max_depth, self.max_steps = max_depth, max_steps
         self.units, self.by_module, self.pairs, self.candidates, self.gaps = {}, {}, [], [], []
         self.seen_candidates, self.work_states = set(), 0
         self.gaps_omitted = 0
         self.node_count = self.fact_count = 0
+        self.fact_structure_cost = self.comparison_structure_cost = 0
+        self.analysis_profile = analysis_profile
+        self.admission = None
         files = {(f.source_id, f.path): f for f in catalog.files}
-        for module in modules:
-            file = files[(module.source_id, module.path)]
-            descriptor = catalog.descriptor(file)
-            unit_id = descriptor["file_id"]
-            facts = extract_python_source(unit_id, file.content, complete=True,
-                                          max_nodes=limits.max_nodes_per_file, max_facts=limits.max_facts)
-            self.node_count += facts.ast_nodes
-            self.fact_count += len(facts.calls) + len(facts.signatures)
-            if self.node_count > limits.max_nodes or self.fact_count > limits.max_facts:
-                raise AnalysisLimit("aggregate_analysis_limit")
-            tree = ast.parse(file.content) if not facts.problems else None
-            unit = dict(module=module, file=file, descriptor=descriptor, facts=facts, tree=tree)
-            self.units[unit_id] = unit
-            if module.module:
-                self.by_module.setdefault((module.source_id, module.module), []).append(unit_id)
+        trees, rows, groups = {}, {}, {}
+        if analysis_profile:
+            trees, counts, selected, distance = _scan_analysis_scope(catalog, modules, limits)
+            for i, m in enumerate(modules):
+                uid = catalog.descriptor(files[m.source_id, m.path])["file_id"]
+                rows[i] = dict(unit_id=uid, state="unexamined", reason="outside_static_import_component", scan_nodes=counts[i])
+                if m.role != "target" or i in selected:
+                    groups.setdefault(analysis_group_key(m), []).append(i)
+            def group_order(key):
+                m = modules[groups[key][0]]
+                if m.role == "target":
+                    return (1 if distance[groups[key][0]] == 0 else 3, distance[groups[key][0]], key[1:])
+                names = [n.module for n in modules if n.package == m.package and n.role != "target"]
+                entry = min(names, key=lambda n: (n.count("."), len(n), n))
+                return (0 if m.module == entry else 2, 0, key[1:])
+            ordered = [groups[key] for key in sorted(groups, key=group_order)]
+        else:
+            ordered = [[i] for i in range(len(modules))]
+        for group in ordered:
+            proposed = []
+            try:
+                for i in group:
+                    module = modules[i]
+                    file = files[module.source_id, module.path]
+                    descriptor = catalog.descriptor(file)
+                    facts = extract_python_source(descriptor["file_id"], file.content, complete=True,
+                        max_nodes=limits.max_nodes_per_file, max_facts=limits.max_facts)
+                    tree = trees.get(i) if analysis_profile else ast.parse(file.content) if not facts.problems else None
+                    proposed.append(dict(module=module, file=file, descriptor=descriptor, facts=facts,
+                                         tree=tree if not facts.problems else None))
+            except AnalysisLimit as exc:
+                if not analysis_profile or str(exc) != "source_fact_limit":
+                    raise
+                for i in group:
+                    rows[i]["reason"] = "per_file_fact_budget"
+                continue
+            nodes = sum(u["facts"].ast_nodes for u in proposed)
+            count = sum(len(u["facts"].calls) + len(u["facts"].signatures) for u in proposed)
+            cost = sum(json_structure_cost(encode_fact_binding_traces(asdict(u["facts"]))) for u in proposed) if analysis_profile else 0
+            if analysis_profile and self.fact_structure_cost + cost > FACT_STRUCTURE_BUDGET:
+                for i in group:
+                    rows[i]["reason"] = "fact_structure_budget"
+                continue
+            if self.node_count + nodes > limits.max_nodes or self.fact_count + count > limits.max_facts:
+                if not analysis_profile:
+                    raise AnalysisLimit("aggregate_analysis_limit")
+                for i in group:
+                    rows[i]["reason"] = "aggregate_fact_budget"
+                continue
+            self.node_count += nodes
+            self.fact_count += count
+            self.fact_structure_cost += cost
+            for i, unit in zip(group, proposed):
+                uid = unit["descriptor"]["file_id"]
+                self.units[uid] = unit
+                module = unit["module"]
+                if module.module:
+                    self.by_module.setdefault((module.source_id, module.module), []).append(uid)
+                if analysis_profile:
+                    rows[i].update(state="analyzed", reason="admitted_whole_file")
+        if analysis_profile:
+            self.admission = dict(profile=ANALYSIS_PROFILE, units=[rows[i] for i in range(len(modules))],
+                                  scanned_ast_nodes=sum(r["scan_nodes"] for r in rows.values()),
+                                  root_order="external_import_origins_first", fact_structure_cost=self.fact_structure_cost,
+                                  comparison_structure_cost=0)
         self.unit_ids = {id(unit): key for key, unit in self.units.items()}
         self.base_references = {}
 
@@ -501,18 +642,25 @@ class _SourceCandidates:
             if len(self.candidates) >= self.limits.max_pairs:
                 self.gap("comparison_candidate_limit", unit, call.span)
                 return
-            self.seen_candidates.add(identity)
             identifier = fact_identity("candidate:" + str(len(self.candidates)), root_id, signature.span)
             comparison = compare_arguments(call, signature, receiver)
-            self.candidates.append(dict(id=identifier, root_call_id=root_id, call_id=call.fact_id,
+            candidate = dict(id=identifier, root_call_id=root_id, call_id=call.fact_id,
                 signature_id=signature.fact_id, receiver_mode=receiver,
                 steps=[asdict(s) for s in steps], premises=list(dict.fromkeys(conditions)),
-                callee_role=asdict(destination["module"])))
+                callee_role=asdict(destination["module"]))
             def selector(fact):
                 source = self.units[fact.unit_id]["file"]
                 return dict(source_id=source.source_id, path=source.path, span=asdict(fact.span))
-            self.pairs.append(dict(selection=dict(id=identifier, caller=selector(call), callee=selector(signature),
-                                                  receiver_mode=receiver), comparison=asdict(comparison), problem=None))
+            pair = dict(selection=dict(id=identifier, caller=selector(call), callee=selector(signature),
+                                                  receiver_mode=receiver), comparison=asdict(comparison), problem=None)
+            cost = json_structure_cost(candidate) + json_structure_cost(pair) + 2
+            if self.analysis_profile and self.comparison_structure_cost + cost > COMPARISON_STRUCTURE_BUDGET:
+                self.gap("comparison_structure_limit", unit, call.span)
+                continue
+            self.seen_candidates.add(identity)
+            self.candidates.append(candidate)
+            self.pairs.append(pair)
+            self.comparison_structure_cost += cost
             edge = (call.fact_id, signature.fact_id, receiver)
             if edge in ancestry:
                 self.gap("call_body_cycle", destination, signature.span)
@@ -524,24 +672,35 @@ class _SourceCandidates:
                         (*conditions, "execution_reaches_selected_body_and_branch"), (*ancestry, edge), class_node)
 
     def run(self):
-        for unit_id, unit in self.units.items():
-            if unit["module"].role == "target":
-                for call in unit["facts"].calls:
-                    self.follow(unit, call, call.fact_id)
+        roots = [(unit, call) for unit in self.units.values() if unit["module"].role == "target"
+                 for call in unit["facts"].calls]
+        if self.analysis_profile:
+            external = {u["module"].module for u in self.units.values() if u["module"].role != "target" and u["module"].module}
+            def priority(item):
+                binding = item[1].binding
+                return not (binding and any(o == name or o.startswith(name + ".")
+                    for o in binding.possible_imports for name in external))
+            roots.sort(key=priority)  # stable; only work order, never positive binding
+        for unit, call in roots:
+            self.follow(unit, call, call.fact_id)
+        if self.admission is not None:
+            self.admission["comparison_structure_cost"] = self.comparison_structure_cost
         return dict(candidates=self.candidates, gaps=self.gaps,
                     gaps_omitted=self.gaps_omitted, states_examined=self.work_states,
                     max_depth=self.max_depth, max_path_steps=self.max_steps,
-                    coverage="target-rooted supported source candidates only; alternatives and runtime remain unresolved"), self.pairs
+                    coverage=PARTIAL_ANALYSIS_COVERAGE if self.analysis_profile else "target-rooted supported source candidates only; alternatives and runtime remain unresolved"), self.pairs
 
 
 def discover_source_candidates(catalog, modules, limits, *, max_depth=MAX_DISCOVERY_DEPTH,
-                               max_path_steps=MAX_PATH_STEPS):
+                               max_path_steps=MAX_PATH_STEPS, analysis_profile=None):
     """Return discovered candidates, comparisons and analyzed source units.
 
     The host-derived module roles are not curated callable selectors. Distinct
     captured source/version roles remain separate even when their text agrees.
     Limits produce explicit omissions or a failed analysis, never safe/no-impact.
     """
+    if analysis_profile not in (None, ANALYSIS_PROFILE):
+        raise ValueError("Unsupported analysis profile.")
     if (type(max_depth) is not int or not 1 <= max_depth <= MAX_DISCOVERY_DEPTH
         or type(max_path_steps) is not int or not 1 <= max_path_steps <= MAX_PATH_STEPS):
         raise ValueError("Unsupported correspondence limits.")
@@ -549,8 +708,11 @@ def discover_source_candidates(catalog, modules, limits, *, max_depth=MAX_DISCOV
         raise AnalysisLimit("source_module_limit_or_duplicate")
     if sum(len(f.content.encode()) for f in catalog.files) > limits.max_source_bytes:
         raise AnalysisLimit("selected_source_byte_limit")
-    operation = _SourceCandidates(catalog, modules, limits, max_depth=max_depth, max_steps=max_path_steps)
+    operation = _SourceCandidates(catalog, modules, limits, max_depth=max_depth, max_steps=max_path_steps,
+                                  analysis_profile=analysis_profile)
     discovery, pairs = operation.run()
     units = [dict(descriptor=u["descriptor"], coverage="complete_file", facts=asdict(u["facts"]))
              for u in operation.units.values()]
+    if analysis_profile:
+        discovery["analysis_admission"] = operation.admission
     return discovery, pairs, units

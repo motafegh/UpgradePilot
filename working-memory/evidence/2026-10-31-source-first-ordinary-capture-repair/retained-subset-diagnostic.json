@@ -1,0 +1,35 @@
+{
+  "proof_class": "separate source-first development diagnostic of retained screening subset",
+  "source_files": 8,
+  "source_bytes": 247442,
+  "source_packet_bytes": 258574,
+  "receipt_bytes": 8124,
+  "source_packet_sha256": "07d18c562eaac0a19f102409ce82893ee3417c0ee8bd8f0412175e1809e95f5c",
+  "original_screening_members": {
+    "/home/motafeq/.local/share/upgradepilot/direct-signature-screening-2026-10-31/continued/VaHerinckx-LifeLog_Project-decl-0.json": "c84170d6005675b4b54c65c1fc18d89b2e431debe183d55897f3186815bd28af",
+    "/home/motafeq/.local/share/upgradepilot/direct-signature-screening-2026-10-31/continued/VaHerinckx-LifeLog_Project-python-1.json": "bca77c12692c1e50962a41e4bc257dc3bcdedb81c8d72cad40af604b0728e7b7",
+    "/home/motafeq/.local/share/upgradepilot/direct-signature-screening-2026-10-31/continued/VaHerinckx-LifeLog_Project-python-2.json": "ec587b16bd889d28a13e57ef723b7fc0df744373463b3ac5b14ba56e865bfcab",
+    "/home/motafeq/.local/share/upgradepilot/direct-signature-screening-2026-10-31/continued/VaHerinckx-LifeLog_Project-python-3.json": "edc10b09503c620be2efd9fb68e08b3bbe268667b03fc935b179c1ee98dba8d4",
+    "/home/motafeq/.local/share/upgradepilot/direct-signature-screening-2026-10-31/last-sources/0.json": "ce57d541e98869c14344f9d65e01e0518434dbbb9b0e9253ba8f246aa6cf65d1",
+    "/home/motafeq/.local/share/upgradepilot/direct-signature-screening-2026-10-31/last-sources/1.json": "e7ab9bbf28adeb6d411a9457ccff7be6bcfcf68270d40df752144599bec69793",
+    "/home/motafeq/.local/share/upgradepilot/direct-signature-screening-2026-10-31/last-sources/2.json": "39c3a05323264039fd3d9b113c9597da403e59b56638494d472ad5f259465c06",
+    "/home/motafeq/.local/share/upgradepilot/direct-signature-screening-2026-10-31/witness-extension/0.json": "bdd736f773f38cbca62dc4ade62bf1def243fb15a1372d8e57b6357fe06913a9"
+  },
+  "decoded_source_equal": true,
+  "omitted_observations": [
+    {
+      "stage": "target_context",
+      "reason": "broad_binding_observations_not_retained",
+      "fields": [
+        "binding_analysis_version",
+        "binding_trace_steps",
+        "imports",
+        "references"
+      ]
+    }
+  ],
+  "live_calls": 0,
+  "full_ordinary_target_recovered": false,
+  "comparison_performed": false,
+  "original_attempt_regraded": false
+}

@@ -1,0 +1,64 @@
+{
+  "outcome": "eligibility_unconfirmed",
+  "rows": [
+    {
+      "repository": "VaHerinckx/LifeLog_Project",
+      "number": 1,
+      "base": "2a0f4e2b6f8eae3a813edacc6095d78aa34c3197",
+      "head": "3916cea014fc65030252581d2175a92bd77752e7",
+      "author": "dependabot[bot]",
+      "language": "Jupyter Notebook",
+      "private": false,
+      "title": "Bump requests from 2.33.0 to 2.34.2 in /pipeline",
+      "eligibility": "unconfirmed_public_python_dependabot"
+    }
+  ],
+  "selected": null,
+  "transport": {
+    "format": "trial-acquisition-policy/1",
+    "limits": {
+      "github_requests": 16,
+      "provider_requests": 16,
+      "response_bytes": 1048576,
+      "aggregate_bytes": 8388608,
+      "elapsed_seconds": 180,
+      "source_request_reserve": 1,
+      "target_file_attempts": 16,
+      "adapter_candidate_attempts": 2
+    },
+    "auth": "token-env",
+    "github_requests": 2,
+    "provider_requests": 2,
+    "decoded_body_bytes": 69665,
+    "elapsed_seconds": 2.9139312129991595,
+    "deadline_kind": "cooperative_monotonic_checks_and_bounded_socket_timeouts",
+    "stops": [],
+    "requests": [
+      {
+        "stage": "unscoped",
+        "host": "api.github.com",
+        "path": "/repos/VaHerinckx/LifeLog_Project/pulls/1",
+        "github_requests": 1,
+        "provider_requests": 1,
+        "decoded_body_bytes": 28745,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      },
+      {
+        "stage": "unscoped",
+        "host": "api.github.com",
+        "path": "/search/issues",
+        "github_requests": 2,
+        "provider_requests": 2,
+        "decoded_body_bytes": 40920,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      }
+    ]
+  },
+  "method_unchanged": true,
+  "expected_comparison_outcomes_inspected": false,
+  "private_directory": "/home/motafeq/.local/share/upgradepilot/direct-signature-screening-2026-10-31"
+}

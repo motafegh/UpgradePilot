@@ -173,7 +173,20 @@ def read_string_sequence(raw, *, maximum=4096):
     return tuple(read_bounded_text(v) for v in raw)
 
 
-def _read_binding(raw, unit_id, text):
+def _read_binding_step(raw, unit_id, text):
+    step = _record(raw, BindingTraceStep)
+    if step["source_id"] != unit_id:
+        raise ValueError("Foreign binding trace source.")
+    read_source_span({k: step[k] for k in ("line", "column", "end_line", "end_column")}, text)
+    for k in ("scope", "operation", "name"):
+        read_bounded_text(step[k])
+    for k in ("origin", "input_name"):
+        if step[k] is not None:
+            read_bounded_text(step[k])
+    return BindingTraceStep(**step)
+
+
+def _read_binding(raw, unit_id, text, validated_steps=None):
     if raw is None:
         return None
     data = _record(raw, BindingAssessment)
@@ -190,21 +203,15 @@ def _read_binding(raw, unit_id, text):
         raise ValueError("Unsupported trace capacity.")
     steps = []
     for raw_step in data["trace"]:
-        step = _record(raw_step, BindingTraceStep)
-        if step["source_id"] != unit_id:
-            raise ValueError("Foreign binding trace source.")
-        read_source_span({k: step[k] for k in ("line", "column", "end_line", "end_column")}, text)
-        for k in ("scope", "operation", "name"):
-            read_bounded_text(step[k])
-        for k in ("origin", "input_name"):
-            if step[k] is not None:
-                read_bounded_text(step[k])
-        steps.append(BindingTraceStep(**step))
+        # Format3 tables validate a shared step once at this exact file/unit.
+        # The default embedded representation still validates every raw step.
+        steps.append(validated_steps[id(raw_step)] if validated_steps is not None
+                     else _read_binding_step(raw_step, unit_id, text))
     return BindingAssessment(data["state"], origins, data["unknown_possible"], data["unbound_possible"],
                              read_bounded_text(data["scope"]), read_string_sequence(data["reasons"]), tuple(steps))
 
 
-def _read_fact(raw, kind, unit_id, text, complete):
+def _read_fact(raw, kind, unit_id, text, complete, validated_binding_steps=None):
     cls = CallArguments if kind == "call" else CallableSignature
     data = _record(raw, cls)
     span = read_source_span(data["span"], text)
@@ -227,7 +234,8 @@ def _read_fact(raw, kind, unit_id, text, complete):
         for argument in spans:
             _inside(argument, span)
         return CallArguments(data["fact_id"], unit_id, span, read_bounded_text(data["expression"], maximum=4 * 1024 * 1024),
-                             positional, tuple(keywords), spans, complete, _read_binding(data["binding"], unit_id, text))
+                             positional, tuple(keywords), spans, complete,
+                             _read_binding(data["binding"], unit_id, text, validated_binding_steps))
     header = read_source_span(data["header_span"], text)
     _inside(header, span)
     if data["kind"] not in {"function", "async_function", "initializer"}:
@@ -303,13 +311,85 @@ def _read_comparison(raw, call, signature, receiver):
                               tuple(reception), tuple(violations), unresolved, premises)
 
 
+def encode_fact_binding_traces(facts):
+    """Lossless per-file trace normalization for ordinary format3 only.
+
+    Full BindingAssessment meaning/order remains unchanged. Shared step records
+    avoid repeatedly encoding the same imported-origin history for every call.
+    This is a typed reference table, never encoded JSON inside a string.
+    """
+    steps, indices, calls = [], {}, []
+    for call in facts["calls"]:
+        binding = call["binding"]
+        if binding is not None:
+            trace = []
+            for step in binding["trace"]:
+                key = tuple(sorted(step.items()))
+                if key not in indices:
+                    indices[key] = len(steps)
+                    steps.append(step)
+                trace.append(indices[key])
+            call = dict(call, binding=dict(binding, trace=trace))
+        calls.append(call)
+    return dict(facts, calls=calls, binding_trace_steps=steps)
+
+
+def json_structure_cost(value):
+    """Count the native JSON guard's container/separator tokens on typed data.
+
+    Strings/keys are quoted by json_bytes and contribute no structural tokens.
+    This allocation estimate does not replace final native encoding/admission.
+    """
+    if isinstance(value, dict):
+        return 2 + len(value) + max(0, len(value) - 1) + sum(json_structure_cost(v) for v in value.values())
+    if isinstance(value, (list, tuple)):
+        return 2 + max(0, len(value) - 1) + sum(json_structure_cost(v) for v in value)
+    return 0
+
+
+def _decode_fact_binding_traces(raw, unit_id, text, limits):
+    data = object_fields(raw, ("unit_id", "calls", "signatures", "problems", "ast_nodes", "binding_trace_steps"))
+    table = data["binding_trace_steps"]
+    if (type(table) is not list or len(table) > limits.max_facts * MAX_BINDING_TRACE_STEPS
+        or type(data["calls"]) is not list or len(data["calls"]) > limits.max_facts):
+        raise ValueError("Invalid binding trace table capacity.")
+    validated, keys = {}, set()
+    for step in table:
+        decoded = _read_binding_step(step, unit_id, text)
+        if decoded in keys:
+            raise ValueError("Duplicate binding trace table step.")
+        keys.add(decoded)
+        validated[id(step)] = decoded
+    used, calls = set(), []
+    for call in data["calls"]:
+        if type(call) is not dict:
+            raise ValueError("Invalid indexed call record.")
+        binding = call.get("binding")
+        if binding is not None:
+            if type(binding) is not dict or type(binding.get("trace")) is not list or not 1 <= len(binding["trace"]) <= MAX_BINDING_TRACE_STEPS:
+                raise ValueError("Invalid indexed binding trace.")
+            trace = binding["trace"]
+            if any(type(i) is not int or not 0 <= i < len(table) for i in trace):
+                raise ValueError("Foreign binding trace index.")
+            used.update(trace)
+            call = dict(call, binding=dict(binding, trace=[table[i] for i in trace]))
+        calls.append(call)
+    if used != set(range(len(table))):
+        raise ValueError("Unused binding trace table step.")
+    return {k: calls if k == "calls" else v for k, v in data.items() if k != "binding_trace_steps"}, validated
+
+
 def read_comparison_records(body, companion_data, *, method_sources, allow_empty_pairs=False,
-                            input_digest_field="selections_sha256"):
+                            input_digest_field="selections_sha256", unexamined_units=frozenset(), indexed_binding_traces=False):
     """Shared fixed fact/source/comparison closure for curated and ordinary readers.
 
     Each envelope owner admits its own format and proof class before calling this
     decoder. This function checks saved records only; it never extracts facts or
     re-evaluates comparisons. Ordinary discovery may legitimately yield no pairs.
+    Only the versioned ordinary partial-analysis envelope admits an exact set of
+    unexamined Python units. All text still has a descriptor; unexamined text
+    supplies no facts, spans or comparisons. Legacy/curated callers keep the
+    empty default and their existing missing-fact refusal.
     """
     read_bounded_text(body["runtime"])
     read_bounded_text(body["coverage"])
@@ -332,6 +412,7 @@ def read_comparison_records(body, companion_data, *, method_sources, allow_empty
     source_files = {(f.source_id, f.path): f for f in catalog.files}
     calls, signatures, by_source, seen_units = {}, {}, {}, set()
     node_count = fact_count = 0
+    seen_unexamined = set()
     for raw in body["files"]:
         item = object_fields(raw, ("descriptor", "coverage", "facts"))
         descriptor = item["descriptor"]
@@ -342,14 +423,23 @@ def read_comparison_records(body, companion_data, *, method_sources, allow_empty
         if file is None or json_bytes(descriptor) != json_bytes(catalog.descriptor(file)) or key in seen_units:
             raise ValueError("Source descriptor/companion mismatch.")
         seen_units.add(key)
-        if item["coverage"] not in {"complete_file", "limited"}:
+        uid = descriptor["file_id"]
+        if item["coverage"] == "unexamined":
+            if uid not in unexamined_units or item["facts"] is not None or not file.path.endswith(".py"):
+                raise ValueError("Invalid unexamined source unit.")
+            seen_unexamined.add(uid)
+        elif item["coverage"] not in {"complete_file", "limited"} or uid in unexamined_units:
             raise ValueError("Invalid saved source coverage.")
         by_source[key] = descriptor["file_id"]
         raw_facts = item["facts"]
         if raw_facts is None:
-            if file.path.endswith(".py"):
+            if file.path.endswith(".py") and uid not in unexamined_units:
                 raise ValueError("Missing Python source fact record.")
             continue
+        validated_steps = None
+        if indexed_binding_traces:
+            raw_facts, validated_steps = _decode_fact_binding_traces(raw_facts, descriptor["file_id"], file.content, limits)
+            item["facts"] = raw_facts  # fixed expansion for existing path/render consumers
         facts = object_fields(raw_facts, ("unit_id", "calls", "signatures", "problems", "ast_nodes"))
         if facts["unit_id"] != descriptor["file_id"] or type(facts["ast_nodes"]) is not int or not 0 <= facts["ast_nodes"] <= limits.max_nodes_per_file:
             raise ValueError("Invalid source analysis work/identity.")
@@ -360,13 +450,14 @@ def read_comparison_records(body, companion_data, *, method_sources, allow_empty
             if type(facts[field]) is not list:
                 raise ValueError("Invalid source facts.")
             for raw_fact in facts[field]:
-                fact = _read_fact(raw_fact, kind, descriptor["file_id"], physical_lines, item["coverage"] == "complete_file")
+                fact = _read_fact(raw_fact, kind, descriptor["file_id"], physical_lines,
+                    item["coverage"] == "complete_file", validated_binding_steps=validated_steps)
                 if fact.fact_id in destination:
                     raise ValueError("Duplicate source fact.")
                 destination[fact.fact_id] = fact
                 fact_count += 1
     byte_count = sum(len(f.content.encode()) for f in catalog.files)
-    if (seen_units != set(source_files) or node_count > limits.max_nodes or fact_count > limits.max_facts
+    if (seen_unexamined != set(unexamined_units) or seen_units != set(source_files) or node_count > limits.max_nodes or fact_count > limits.max_facts
             or byte_count > limits.max_source_bytes):
         raise ValueError("Source closure or work limit mismatch.")
     if type(body["pairs"]) is not list or not (0 if allow_empty_pairs else 1) <= len(body["pairs"]) <= limits.max_pairs:

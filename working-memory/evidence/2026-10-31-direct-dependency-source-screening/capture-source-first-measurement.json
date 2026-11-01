@@ -1,0 +1,12 @@
+{
+  "scope": "separate representation-cost comparison on retained screening subset; not admitted source capture or repair",
+  "source_files": 8,
+  "source_bytes": 247442,
+  "full_packet_bytes": 3687951,
+  "full_packet_structural_tokens": 241994,
+  "source_first_packet_bytes": 266698,
+  "source_text_preserved": true,
+  "original_binding_tables_not_preserved_in_projection": true,
+  "native_guard_unchanged": true,
+  "full_ordinary_target_unavailable": true
+}

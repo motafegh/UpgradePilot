@@ -1,0 +1,56 @@
+{
+  "repository": "RiceKrisBs/digimon_scraper",
+  "pull_number": 16,
+  "base": "c9eb14f6387b782bd2f3ee6c37fa3efdf2363582",
+  "head": "be5d75cbc4634ec2d7231ed8ada22822630ed5f7",
+  "transition": {
+    "package": "requests",
+    "old": "2.32.4",
+    "proposed": "2.33.0"
+  },
+  "source_witness": {
+    "source_id": "RiceKrisBs/digimon_scraper@be5d75cbc4634ec2d7231ed8ada22822630ed5f7:digimon_scraper.py",
+    "line": 22,
+    "expression": "requests.get",
+    "kind": "call"
+  },
+  "binding_state": "established",
+  "direct_declarations": [
+    {
+      "source_id": "RiceKrisBs/digimon_scraper@be5d75cbc4634ec2d7231ed8ada22822630ed5f7:requirements.txt",
+      "location": "L5",
+      "raw": "requests==2.33.0",
+      "package": "requests",
+      "specifier": "==2.33.0",
+      "extras": [],
+      "marker": null,
+      "group": "requirements"
+    }
+  ],
+  "pool": "working-memory/evidence/2026-11-01-untouched-partial-analysis-qualification/candidate-pool.json",
+  "selection_rule": "first source-eligible in frozen order",
+  "not_selected": [
+    {
+      "repository": "Fede-Berga/satellite_routing",
+      "pull_number": 16,
+      "title": "Bump requests from 2.31.0 to 2.33.0 in /traffic_matrix_generator",
+      "url": "https://github.com/Fede-Berga/satellite_routing/pull/16",
+      "reason": "not source-inspected after first eligible candidate; no expected outcomes known"
+    },
+    {
+      "repository": "manasijatech/ananta-market-stack",
+      "pull_number": 103,
+      "title": "Bump types-requests from 2.33.0.20260712 to 2.33.0.20260906 in /backend",
+      "url": "https://github.com/manasijatech/ananta-market-stack/pull/103",
+      "reason": "not source-inspected after first eligible candidate; no expected outcomes known"
+    }
+  ],
+  "prior_pool_match": false,
+  "method_runtime_unchanged": true,
+  "callee_outcomes_inspected": false,
+  "producer_gets_no_witness_paths": true,
+  "screening_backfill": false,
+  "screening_requests": 9,
+  "contract_sha256": "4c4d5c026999b739b5a47ee3f17ae51002f742f9c86fcba91960240ded698469",
+  "freeze_sha256": "0fe2eafc177bcfef95fd499b4b5b707d04af2cc4561785271f26e8bd549b89cb"
+}

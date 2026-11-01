@@ -1,0 +1,47 @@
+{
+  "attempt_id": "ddd3206d00f140ff8ed234b471d78cb9",
+  "state": "failed",
+  "reason": "ValueError: bounded_worker_failed: NativeReconstructionError: native_resource_limit: Native JSON exceeds 262144 structural tokens.\n",
+  "stage": "analysis",
+  "structural_disposition": "not_assessed",
+  "elapsed_seconds": 53.30539108800076,
+  "private_directory": "/home/motafeq/.local/share/upgradepilot/ordinary-pr-successors-2026-10-31/S007-pypi-timeout-recovery/attempt-01",
+  "work": null,
+  "roles": {},
+  "gap_reasons": {},
+  "transport": {
+    "github_requests": 50,
+    "provider_requests": 76,
+    "decoded_body_bytes": 2601631,
+    "elapsed_seconds": 51.6958685919999,
+    "stops": []
+  },
+  "adapter_problems": [],
+  "adapter_samples": [],
+  "omitted_candidates": [],
+  "source_work": null,
+  "native_sources": [],
+  "closure": [],
+  "failed_requests": [
+    {
+      "host": "pypi.org",
+      "path": "/pypi/httpx/0.28.1/json",
+      "state": "failed",
+      "reason": "transport_error",
+      "status": null
+    }
+  ],
+  "terminal_sha256": "9f4e230321830fd8f11b021e4c33ec08b3bc8791e860f2cdf7e6ce209aac05d3",
+  "artifacts": {
+    "acquisition-input.json": "12ccac01f1cafaaf87535f96bb120bbf570dc2c30185b5a31d344827608120e9",
+    "acquisition.json": "c4cd8e59260fc9c818295117f4ab832001195cf638ee32d8bfe963e67c49e790",
+    "attempt-started.json": "7a1352510533c9b791efe972725c82835f476a0f987aac8c45c41cc4cf63b034",
+    "comparison/attempt-started.json": "66627575461ff6099852b18ab5855a60bf7187bff82e48995e2af9ea68b0ae10",
+    "comparison/attempt.json": "2ee331a573450586d349fab506ecf0603f756cbb75d7284b4233527477c4fdb1",
+    "comparison/input.json": "12ccac01f1cafaaf87535f96bb120bbf570dc2c30185b5a31d344827608120e9",
+    "contract.json": "004bedce6631b2061598fda7fca92edce6e8ae0c49c355a97693ccd0996726e8",
+    "execution-freeze.json": "5e8af136fbccf22572776c16690fd3bd855d1d112e5e7503b0d0a0fd4550545a",
+    "initial-observation.json": "3894cab99cc47a1317efde35b313d788943d4cee55b040aa49b01e9b4d8282ce"
+  },
+  "private_modes_valid": true
+}

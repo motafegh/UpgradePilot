@@ -1,0 +1,30 @@
+{
+  "proof_class": "frozen method passes one untouched ordinary qualification, not native adoption",
+  "source_method_commit": "a8233eb9",
+  "actual_attempt": "f94d2fb456fc47aab72877ebc534616e",
+  "selection_before_outcomes": true,
+  "method_unchanged": true,
+  "transfer_gate": "passed_for_current_bounded_adoption_contract",
+  "screening_requests": 9,
+  "fresh_github_requests": 33,
+  "fresh_all_provider_requests": 48,
+  "useful_partial": true,
+  "informative_paired_roots": 5,
+  "actual_cli_source_and_fixed_open": true,
+  "product_source_changed": false,
+  "native_integration_pending": true,
+  "no_new_case_campaign": true,
+  "evidence_sha256": {
+    "candidate-pool.json": "c920766904d28dcb3205e3e271038cff763779b84f05fb0ebe11a89524534968",
+    "native-adoption-entry-observations.md": "4f6adfb46ac8cf8ca6c50ac56e7fa0f0a40cf34f89bf48d7d897f64374f90d99",
+    "ordinary-digimon-scraper-pr-16/REVIEW.md": "b3095b4532fdebc2ff855d0667b53a5219e7305e1d3bab43878d9c81f215cb40",
+    "ordinary-digimon-scraper-pr-16/contract.json": "4c4d5c026999b739b5a47ee3f17ae51002f742f9c86fcba91960240ded698469",
+    "ordinary-digimon-scraper-pr-16/execution-freeze.json": "0fe2eafc177bcfef95fd499b4b5b707d04af2cc4561785271f26e8bd549b89cb",
+    "ordinary-digimon-scraper-pr-16/result.json": "9906d846492939232aa113f512dddc7098827ff94a9fc9a40bd81ff82994339d",
+    "ordinary-digimon-scraper-pr-16/selection.json": "be2fdbf700efb3f2de4a2240425c9cc604891f222c9d862eeab5ff2b65b3008c",
+    "ordinary-digimon-scraper-pr-16/verification.json": "531625418cfb997d3bdf6f20fa9ab4ead2158e9618cc6dd7c3a6be416ad1970e",
+    "screening-contract.json": "bc0eee70ab71655b294b034483302eb33a01531f94b6924bebae0043a7103862",
+    "screening-helper-preflight-refusal.json": "645147acd6d65ce75e6daba941b001f053c49ebe43ae5564bbbccbeba15fa176",
+    "screening-result.json": "a1ef4d819602e4dc80feb8c5c58f10db7beccc5a490d36c409df21a176292c78"
+  }
+}

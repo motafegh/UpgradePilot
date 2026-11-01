@@ -1,0 +1,11 @@
+{
+  "before_next_provider_call": true,
+  "reason": "add title filter to locate actual requested dependency updates instead of body mentions; no eligible comparison outcomes observed",
+  "same_repositories_and_priority": true,
+  "same_total_connector_budget": 10,
+  "queries": [
+    "repo:psf/requests is:pr author:app/dependabot urllib3 in:title",
+    "repo:pypa/twine is:pr author:app/dependabot requests in:title"
+  ],
+  "no_hidden_rejection": true
+}

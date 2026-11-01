@@ -65,7 +65,7 @@ private behavior for a specific boundary without making it a supported runtime A
 | Owner | Supported experimental responsibility | Not supplied |
 | --- | --- | --- |
 | [acquisition policy/session](api_change_source_acquisition.py) | TrialAcquisitionPolicy, TrialPublicSession.stage/acquisition_receipt/finish_acquisition: explicit local transport work, reserved stages, decoded-body accounting and cooperative deadline | GitHub account quota, hard preemptive cancellation, useful complete coverage or permission for a live attempt |
-| [api_signature_evidence](api_signature_evidence.py) | AnalysisLimits; bounded IO/digest/text/span admission; fixed source/fact/comparison decoding; terminal/comparison/source projection; explicit method-source sets | Acquisition, call pairing, checking, attempt execution or product truth |
+| [api_signature_evidence](api_signature_evidence.py) | AnalysisLimits; bounded IO/digest/text/span admission; fixed source/fact/comparison decoding; lossless per-file binding trace tables and typed JSON structural-cost accounting; terminal/comparison/source projection; explicit method-source sets | Acquisition, call pairing, checking, attempt execution or product truth |
 | [api_call_signature](api_call_signature.py) | extract_python_source, compare_arguments and source/argument/signature records | Effective runtime dispatch, installed versions or whole-update compatibility |
 | [api_python_bindings](api_python_bindings.py) | analyze_python_bindings, facts/assessments/traces and their fixed representation | General interprocedural/object-flow resolution or condition activation |
 | [api_target_context_smoke](api_target_context_smoke.py) | PublicPRContextTrial, acquire_public_pr_context, observed changed-module requests and manifest projections | A second native investigation, source correspondence or general replay interface |
@@ -125,6 +125,31 @@ AST parsing, discovery or checking. It exposes incomplete/unknown states. Useful
 paired native-version comparisons, useful partial evidence and insufficient
 evidence are separate from procedural completion and complete coverage. These
 experimental artifacts are not native Workspace checkpoints or action authority.
+
+The explicit `capture_profile=source-first-ordinary-capture/1` successor selects
+acquisition/2 and independent `ordinary-acquisition-source/1` source packets.
+Returned target/library text is persisted before required stage receipts. Four
+broad root binding tables are deliberately omitted and disclosed; nested request
+origin/binding traces, provenance and declaration basis remain. If a required
+receipt exceeds capacity, stop with a capture gap and retain the independently
+written text without claiming its missing basis or a comparison. Shared native
+guards and source/analysis/provider limits remain unchanged. Old contracts retain
+acquisition/1 and original broad observations; no frozen capture is rewritten.
+The [adoption plan](../plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md)
+owns the successor contract and proof obligations. Fixed opening exposes source
+packets and gaps, including unknown completion, without deriving missing facts.
+
+The explicit `analysis_profile=static-import-whole-file-analysis/1` selects
+ordinary input/2 and comparison/3. The [analysis admission plan](../plans/CALLER_SIGNATURE_ANALYSIS_WORK_ADMISSION_PLAN.md)
+owns conservative import-component scope, paired whole-file admission, direct
+root priority and structural work allocation inside unchanged final guards.
+All source text remains inspectable; unexamined Python units have no facts and
+cannot supply path witnesses or absence claims. Typed indexed trace tables expand
+losslessly on fixed read, retaining conditional bindings and their original steps.
+Old ordinary/curated formats keep embedded traces and missing-fact refusal.
+This experimental profile is not automatically enabled by a source capture,
+product investigation or historical open; an operational contract binds both its
+input/result formats and the source-first capture profile before fresh use.
 
 ## Historical identity and frozen evidence
 

@@ -1,0 +1,1293 @@
+[
+  {
+    "case": "lifelog",
+    "original_input_sha256": "a2c9ea7cc97da269480f95f0d2fc91fd1ccba63aebbd99b3d9b793e21dbf569d",
+    "state": "completed",
+    "reason": null,
+    "elapsed_seconds": 9.55602903199997,
+    "directory": "/home/motafeq/.local/share/upgradepilot/analysis-capacity-development-2026-11-01/final-retained-qualification/lifelog",
+    "input_sha256": "e90cd9a057ee4654dcf8c20f4a141763ca678e4007ad6d38fb4af6b1befc42ac",
+    "disposition": "useful_partial_structural_evidence",
+    "files": 28,
+    "work": {
+      "ast_nodes": 22434,
+      "facts": 1583,
+      "selected_pairs": 145,
+      "source_bytes": 679687,
+      "source_files": 28
+    },
+    "analysis_admission": {
+      "comparison_structure_cost": 32632,
+      "fact_structure_cost": 194179,
+      "profile": "static-import-whole-file-analysis/1",
+      "root_order": "external_import_origins_first",
+      "scanned_ast_nodes": 77089,
+      "units": [
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 493,
+          "state": "analyzed",
+          "unit_id": "2d2cc128a7d5824d661177388d13582492dae5186bc9db568dbcc440954d8a02"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 545,
+          "state": "analyzed",
+          "unit_id": "e11a776d97ba990eaecd541329b2526a982ca2286d9b2a33ea7c5e4be234c295"
+        },
+        {
+          "reason": "outside_static_import_component",
+          "scan_nodes": 2842,
+          "state": "unexamined",
+          "unit_id": "8d34c2f63be25507dd494a1315a5bc9022159833e59876056d8c719366e9feda"
+        },
+        {
+          "reason": "outside_static_import_component",
+          "scan_nodes": 2928,
+          "state": "unexamined",
+          "unit_id": "5e087fe2acffc1339786a028393c9a98056318fab2af62be520a4a011ee30ead"
+        },
+        {
+          "reason": "outside_static_import_component",
+          "scan_nodes": 4806,
+          "state": "unexamined",
+          "unit_id": "9c5d23edbdcb8c2ffcb277bbdce782e588bc4d1aa39e7ea27ea84b43e0433e4d"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 5233,
+          "state": "analyzed",
+          "unit_id": "914b6483ac8f475627b06de00e32276c709e995339e0dc05600ac1b45a2f27bd"
+        },
+        {
+          "reason": "outside_static_import_component",
+          "scan_nodes": 6703,
+          "state": "unexamined",
+          "unit_id": "e0fc8fc50787643ff20bf9b433ef9e6650159da333946f3cdad48788abec9c27"
+        },
+        {
+          "reason": "outside_static_import_component",
+          "scan_nodes": 5145,
+          "state": "unexamined",
+          "unit_id": "2608cc9bc921f917afc7fea8611c62f9eca3c97002202a0142794fe150cf20e8"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 2202,
+          "state": "analyzed",
+          "unit_id": "43e11c96a6005bd7171dc23fecb15cbcb7547f6c934ee9c933716cd1419cc4f7"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 4476,
+          "state": "analyzed",
+          "unit_id": "d43ac30c17a660ed25be3c9d1e69775922b619e667b8f4c000ac72616de887b6"
+        },
+        {
+          "reason": "outside_static_import_component",
+          "scan_nodes": 1596,
+          "state": "unexamined",
+          "unit_id": "e677900443a503b3017d82ff2efe17f01b8900b26fd32441390a1ef2528fa542"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 1575,
+          "state": "analyzed",
+          "unit_id": "2ad8c11e6d03ee2250ab2d1b933a9c03b11b0d7a2812e07861ee1aafb3366bb3"
+        },
+        {
+          "reason": "outside_static_import_component",
+          "scan_nodes": 1517,
+          "state": "unexamined",
+          "unit_id": "d57817a15dc71e295c223db9d726873ece8aa7a469a4161957806c848807c3f1"
+        },
+        {
+          "reason": "outside_static_import_component",
+          "scan_nodes": 5077,
+          "state": "unexamined",
+          "unit_id": "ef40084f7c65e91674d46eda4cf43ab1461ace0c4d45cab79a0a2732c197fa76"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 3803,
+          "state": "analyzed",
+          "unit_id": "74636a34632301f5ec3ddad0b331b3700c939e6eb35eeabe6782590e52c1f7e9"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 3598,
+          "state": "analyzed",
+          "unit_id": "5dc39252a306833821d77e7dc9b4e0acfa3d0f257c3dcfdabc55c80f719c1efe"
+        },
+        {
+          "reason": "outside_static_import_component",
+          "scan_nodes": 1374,
+          "state": "unexamined",
+          "unit_id": "831c94ecb75ab3dd3a451c031ab40ffb6fb6a322790b2c2616b7359223e728fc"
+        },
+        {
+          "reason": "fact_structure_budget",
+          "scan_nodes": 3629,
+          "state": "unexamined",
+          "unit_id": "e07141ea07c03391a061a21e7ad4c2ddf9b75ea27c97ef4d3b603c4db02272e8"
+        },
+        {
+          "reason": "fact_structure_budget",
+          "scan_nodes": 4506,
+          "state": "unexamined",
+          "unit_id": "218a81d6a89bad4c10a004533e53e599fa975c5f9edb6f0169c987f897a5d718"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 181,
+          "state": "analyzed",
+          "unit_id": "d334398914a0905a3650133e7cb7de837057ac6402695191d1701db8f7079141"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 328,
+          "state": "analyzed",
+          "unit_id": "030c74592743ff124a04bea76a58d5bcf70f364701e93ba496da7a8aeaba1011"
+        },
+        {
+          "reason": "fact_structure_budget",
+          "scan_nodes": 280,
+          "state": "unexamined",
+          "unit_id": "167b7a5443b78a4a320111b6f326d5c5b848bc73d0616ff15e37101e2473c818"
+        },
+        {
+          "reason": "fact_structure_budget",
+          "scan_nodes": 338,
+          "state": "unexamined",
+          "unit_id": "a09ea13801b28fcb03dbe32d19f5941d48817d45ccc5d04cb2bbf1e68e8868f1"
+        },
+        {
+          "reason": "fact_structure_budget",
+          "scan_nodes": 2541,
+          "state": "unexamined",
+          "unit_id": "ffba54afc489d85807f908e1211a9ced4df0e027c4ed85e8356215754941ea3a"
+        },
+        {
+          "reason": "fact_structure_budget",
+          "scan_nodes": 3220,
+          "state": "unexamined",
+          "unit_id": "a8b8beb26bd1b6dd2da865de2ed0ab5342f77949c2c32908be276ea28c4b4cb1"
+        },
+        {
+          "reason": "fact_structure_budget",
+          "scan_nodes": 3502,
+          "state": "unexamined",
+          "unit_id": "03cd27430694f3fef73f707eba2dbcc360dd3ec5b4a6b919a276ad5f4835912e"
+        },
+        {
+          "reason": "fact_structure_budget",
+          "scan_nodes": 4651,
+          "state": "unexamined",
+          "unit_id": "0c21350eca0d7665166aedf39c9d34ebdbd4f5bc63c6a9285122f72240939011"
+        }
+      ]
+    },
+    "pairs": 145,
+    "native_records": 29,
+    "native_logical_roots": 8,
+    "paired_native_roots": 7,
+    "native_roots": {
+      "ec9c0dc6cd4e5212603d68d244dfc1f070b47357e239e9f57b73da501e2f39c0": {
+        "path": "pipeline/src/sources_processing/lastfm/lastfm_processing.py",
+        "line": 146,
+        "expression": "requests.get",
+        "records": [
+          {
+            "role": "native_old_version",
+            "version": "2.33.0",
+            "callee": "get",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_old_version",
+            "version": "2.33.0",
+            "callee": "request",
+            "outcome": "undetermined",
+            "checks_complete": false
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "2.34.2",
+            "callee": "get",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "2.34.2",
+            "callee": "request",
+            "outcome": "undetermined",
+            "checks_complete": false
+          }
+        ]
+      },
+      "ce1b80727a02e22edb2facc5f6e8d57ef41f7a8f814ae077c0f36e49d468b3dd": {
+        "path": "pipeline/src/sources_processing/letterboxd/letterboxd_processing.py",
+        "line": 187,
+        "expression": "requests.get",
+        "records": [
+          {
+            "role": "native_old_version",
+            "version": "2.33.0",
+            "callee": "get",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_old_version",
+            "version": "2.33.0",
+            "callee": "request",
+            "outcome": "undetermined",
+            "checks_complete": false
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "2.34.2",
+            "callee": "get",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "2.34.2",
+            "callee": "request",
+            "outcome": "undetermined",
+            "checks_complete": false
+          }
+        ]
+      },
+      "dd765829f919169ba4088708c4986db7211cee0c1b9196a54dca41e715e4f6cf": {
+        "path": "pipeline/src/sources_processing/letterboxd/letterboxd_processing.py",
+        "line": 212,
+        "expression": "requests.get",
+        "records": [
+          {
+            "role": "native_old_version",
+            "version": "2.33.0",
+            "callee": "get",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_old_version",
+            "version": "2.33.0",
+            "callee": "request",
+            "outcome": "undetermined",
+            "checks_complete": false
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "2.34.2",
+            "callee": "get",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "2.34.2",
+            "callee": "request",
+            "outcome": "undetermined",
+            "checks_complete": false
+          }
+        ]
+      },
+      "c867a9d87f13fbe67da570a5b6d71bc6e6eb054f92d0899717262c0b3ac7a4a3": {
+        "path": "pipeline/src/sources_processing/meteostat/meteostat_processing.py",
+        "line": 120,
+        "expression": "requests.get",
+        "records": [
+          {
+            "role": "native_old_version",
+            "version": "2.33.0",
+            "callee": "get",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_old_version",
+            "version": "2.33.0",
+            "callee": "request",
+            "outcome": "undetermined",
+            "checks_complete": false
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "2.34.2",
+            "callee": "get",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "2.34.2",
+            "callee": "request",
+            "outcome": "undetermined",
+            "checks_complete": false
+          }
+        ]
+      },
+      "50e2a79e7758c5165ef3462f551dbc3ec23af788e09d08a16d8a6a4feab8a96c": {
+        "path": "pipeline/src/sources_processing/meteostat/meteostat_processing.py",
+        "line": 148,
+        "expression": "requests.get",
+        "records": [
+          {
+            "role": "native_old_version",
+            "version": "2.33.0",
+            "callee": "get",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_old_version",
+            "version": "2.33.0",
+            "callee": "request",
+            "outcome": "undetermined",
+            "checks_complete": false
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "2.34.2",
+            "callee": "get",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "2.34.2",
+            "callee": "request",
+            "outcome": "undetermined",
+            "checks_complete": false
+          }
+        ]
+      },
+      "b5f1b1cc8089ce33efadff1c536ab2d8b8880c3ad19e00cb4065fe37aef5488c": {
+        "path": "pipeline/src/sources_processing/nutrilio/usda_drink_scoring.py",
+        "line": 156,
+        "expression": "requests.get",
+        "records": [
+          {
+            "role": "native_old_version",
+            "version": "2.33.0",
+            "callee": "get",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_old_version",
+            "version": "2.33.0",
+            "callee": "request",
+            "outcome": "undetermined",
+            "checks_complete": false
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "2.34.2",
+            "callee": "get",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "2.34.2",
+            "callee": "request",
+            "outcome": "undetermined",
+            "checks_complete": false
+          }
+        ]
+      },
+      "72b07b2acbe03b7e151940fc15c55917b8d7d51bc9f953c378c65c5df47dcb6a": {
+        "path": "pipeline/src/sources_processing/nutrilio/usda_nutrition_scoring.py",
+        "line": 155,
+        "expression": "requests.get",
+        "records": [
+          {
+            "role": "native_old_version",
+            "version": "2.33.0",
+            "callee": "get",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_old_version",
+            "version": "2.33.0",
+            "callee": "request",
+            "outcome": "undetermined",
+            "checks_complete": false
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "2.34.2",
+            "callee": "get",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "2.34.2",
+            "callee": "request",
+            "outcome": "undetermined",
+            "checks_complete": false
+          }
+        ]
+      },
+      "16230498fe44a209d354cb2dbf6704792bb6a18852d1286d676510b946b57447": {
+        "path": "pipeline/src/sources_processing/letterboxd/letterboxd_processing.py",
+        "line": 139,
+        "expression": "get_tmdb_movie_info",
+        "records": [
+          {
+            "role": "native_old_version",
+            "version": "2.33.0",
+            "callee": "get",
+            "outcome": "bound",
+            "checks_complete": true
+          }
+        ]
+      }
+    },
+    "gap_reasons": {
+      "callable_relationship_unresolved": 232,
+      "imported_source_module_unavailable_or_unsupported": 24
+    },
+    "gaps_omitted": 3044,
+    "result_bytes": 4026127,
+    "sources_bytes": 713845,
+    "source_text_equal": true,
+    "fixed_open_forbidden": [
+      "AST",
+      "HTTP",
+      "discovery",
+      "checker",
+      "credential"
+    ],
+    "actual_cold_cli": true,
+    "unexamined_source_cli": true,
+    "output_sha256": {
+      "result.json": "f4b226052816caef54bb36f27b4581a6ab5a2bb21564047a18c05d05ea8b2e00",
+      "view.txt": "40ed179df91a2c43c63217dab0b62577602cfaeefc08eabce791e4f59937e51a",
+      "attempt.json": "a93af63082b7352028ecf22f9fcaedbf9c55b0ff825588f5c613c18b2cfab290",
+      "sources.json": "2629f63499181ac13e8c60632651c2aac8d691bfe9e34dad135683f4f32bc79c",
+      "attempt-started.json": "9ae9be3f216ebf8fe5b2e0823fb77271b58256285541d3aae5bc9a8390e63dbd",
+      "input.json": "e90cd9a057ee4654dcf8c20f4a141763ca678e4007ad6d38fb4af6b1befc42ac"
+    }
+  },
+  {
+    "case": "httpx",
+    "original_input_sha256": "dad73aced1c93d2394e7c6f3857c8f78b0c3f336f30e6650ff55a7a3624adb23",
+    "state": "completed",
+    "reason": null,
+    "elapsed_seconds": 1.925132040999415,
+    "directory": "/home/motafeq/.local/share/upgradepilot/analysis-capacity-development-2026-11-01/final-retained-qualification/httpx",
+    "input_sha256": "6cb022b4299f971ee826ca04be614f777c074ab8a9b12efebebb94869c6ecc9f",
+    "disposition": "useful_partial_structural_evidence",
+    "files": 24,
+    "work": {
+      "ast_nodes": 24112,
+      "facts": 1107,
+      "selected_pairs": 12,
+      "source_bytes": 202442,
+      "source_files": 24
+    },
+    "analysis_admission": {
+      "comparison_structure_cost": 3406,
+      "fact_structure_cost": 140416,
+      "profile": "static-import-whole-file-analysis/1",
+      "root_order": "external_import_origins_first",
+      "scanned_ast_nodes": 24153,
+      "units": [
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 156,
+          "state": "analyzed",
+          "unit_id": "781e3608a735f4b8fcb8f0d1d68cba706cbcf520cbb46156aaedd5ab78d9c2a3"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 156,
+          "state": "analyzed",
+          "unit_id": "18fdf33e07494dc8253528cc5c13214fa95e4bd6645bccbd6e8b86958978df6e"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 3,
+          "state": "analyzed",
+          "unit_id": "1ce07ffdbe16affaf5a21f54aaff6f18f6d1dfbfced072a3bbea79fa6756831d"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 1288,
+          "state": "analyzed",
+          "unit_id": "0870931403bbdcbe356f9d66d2debef2e810eb1720b304b31dd1900915fb6110"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 3,
+          "state": "analyzed",
+          "unit_id": "1ff53b861defc1624b66c0eb3f89fd1015a138d5cfe3e7f48cf653da41976c4d"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 3812,
+          "state": "analyzed",
+          "unit_id": "a5c4cd61f790c116d76a947156b700b9737afbec65e4785a566324ef62f17791"
+        },
+        {
+          "reason": "outside_static_import_component",
+          "scan_nodes": 1,
+          "state": "unexamined",
+          "unit_id": "61a9ac3c6390f4c5c84cfeca9df68699e0a131d030531d984a426f70de09a2a6"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 162,
+          "state": "analyzed",
+          "unit_id": "ca86634de3376e30e4fae0170313f66b3670d6b2a182d4551ee1556e6880d67b"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 40,
+          "state": "analyzed",
+          "unit_id": "b0e5f2f61b06509378e3c93f2e26570927527d1a64c682dc93cce6d0527dadb0"
+        },
+        {
+          "reason": "outside_static_import_component",
+          "scan_nodes": 1,
+          "state": "unexamined",
+          "unit_id": "aa262fe87936e97066f726d4538c28707f61335f80777f77ea58622f82b535f4"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 14,
+          "state": "analyzed",
+          "unit_id": "f7919db98e82130397a13a126604e82aa55f88473177b8d95fa2e7a6c2d73b0d"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 14,
+          "state": "analyzed",
+          "unit_id": "0fa7441221c656420f22aaf04dbce0cfdaccfd075dd9748ad69eba3af80e4b4a"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 1,
+          "state": "analyzed",
+          "unit_id": "3912f50554b3aa91cfa5d573088a9b9218e44674dfd724d5c661fd120ded386a"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 221,
+          "state": "analyzed",
+          "unit_id": "d855f001dc8d2d7d105cdc085740d04223397c4d3e76fb8f81c7e08cc3dcd1ba"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 67,
+          "state": "analyzed",
+          "unit_id": "25b31f90bb553b143c486a396ffaea99659c16559e554c9787c73529c7d85c95"
+        },
+        {
+          "reason": "outside_static_import_component",
+          "scan_nodes": 39,
+          "state": "unexamined",
+          "unit_id": "083beb715f2eeb4ef90b39595d9ec973834d82d90124dbdadcf40e517195c5a4"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 258,
+          "state": "analyzed",
+          "unit_id": "a79cafb895769575110a7988e3861aef8eecf2651041d7ad3a7786749c08b29d"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 13,
+          "state": "analyzed",
+          "unit_id": "a39d828acddedab58efcfd7aaa2791f3474ebef99948cc69590494ea3f65360b"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 13,
+          "state": "analyzed",
+          "unit_id": "6ae3afde01ba36ff0aa68554f323441e3a913daf7f4bc3d35572d6ac3e6cea1e"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 1368,
+          "state": "analyzed",
+          "unit_id": "39a476e7dcc745913087f971639aab240c23f05e011a456119dcadea9dbc9d01"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 1282,
+          "state": "analyzed",
+          "unit_id": "4e0f8003dc851262e665682f38b3faa69f98c984ef26f25237ce40ca873fe872"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 7660,
+          "state": "analyzed",
+          "unit_id": "abf321eff77631c5abda1498afe960781c78f45ab375746d7d06edc9c72d7ba6"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 7581,
+          "state": "analyzed",
+          "unit_id": "a4f42356fa8849a67d03bf5ed4baa0f61f573e039d126056ecbb8c17aef18375"
+        }
+      ]
+    },
+    "pairs": 12,
+    "native_records": 4,
+    "native_logical_roots": 1,
+    "paired_native_roots": 1,
+    "native_roots": {
+      "d9836907bbb992371752b0ad7846d2b867cede2924b25ed6375c47b005cc7b4d": {
+        "path": "tests/test_routes.py",
+        "line": 7,
+        "expression": "TestClient",
+        "records": [
+          {
+            "role": "native_proposed_version",
+            "version": "0.28.1",
+            "callee": "Client.__init__",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "0.28.1",
+            "callee": "Client.__init__",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_old_version",
+            "version": "0.27.2",
+            "callee": "Client.__init__",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_old_version",
+            "version": "0.27.2",
+            "callee": "Client.__init__",
+            "outcome": "bound",
+            "checks_complete": true
+          }
+        ]
+      }
+    },
+    "gap_reasons": {
+      "allocated_class_getter_unavailable": 2,
+      "callable_relationship_unresolved": 86,
+      "factory_attribute_chain_unsupported": 2,
+      "imported_source_module_unavailable_or_unsupported": 53,
+      "inherited_initializer_or_allocation_unsupported": 3,
+      "named_declaration_or_reexport_not_found": 1
+    },
+    "gaps_omitted": 0,
+    "result_bytes": 1828442,
+    "sources_bytes": 216059,
+    "source_text_equal": true,
+    "fixed_open_forbidden": [
+      "AST",
+      "HTTP",
+      "discovery",
+      "checker",
+      "credential"
+    ],
+    "actual_cold_cli": true,
+    "unexamined_source_cli": true,
+    "output_sha256": {
+      "result.json": "00b1111af685c108641f4476fe53a17be9ad965549096bfd8a7ec6a8b0e12519",
+      "view.txt": "e18ecfff5fe7acd8ed91eebc9de6a960b2270b97cfd111d05af2aedfd369059d",
+      "attempt.json": "5e5158da0e665ff5a4bb78346bdb6877ac0988e5172d79d146db40075ca5f3b1",
+      "sources.json": "4f85d6adaa318c7dba61ebed8c83cbea3264fe7f448df061cb6460a7e3e744f3",
+      "attempt-started.json": "efb51e24cfe4f5ec68ad4f551a7194ed8ccaa107cc2a357603c7864429e2bf5e",
+      "input.json": "6cb022b4299f971ee826ca04be614f777c074ab8a9b12efebebb94869c6ecc9f"
+    }
+  },
+  {
+    "case": "glyphslib-protocol",
+    "original_input_sha256": "11f5efde82fa42cbb8ea9ee852caa99619139725fb17b202c47fc40b63d1d566",
+    "state": "completed",
+    "reason": null,
+    "elapsed_seconds": 1.8754705010005637,
+    "directory": "/home/motafeq/.local/share/upgradepilot/analysis-capacity-development-2026-11-01/final-retained-qualification/glyphslib-protocol",
+    "input_sha256": "d90b4b6d9b8c17adac082197e49f366f2c888edfaa3941f755fd77c14fbb687f",
+    "disposition": "useful_partial_structural_evidence",
+    "files": 12,
+    "work": {
+      "ast_nodes": 20917,
+      "facts": 1113,
+      "selected_pairs": 68,
+      "source_bytes": 205876,
+      "source_files": 12
+    },
+    "analysis_admission": {
+      "comparison_structure_cost": 19505,
+      "fact_structure_cost": 132813,
+      "profile": "static-import-whole-file-analysis/1",
+      "root_order": "external_import_origins_first",
+      "scanned_ast_nodes": 20917,
+      "units": [
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 1098,
+          "state": "analyzed",
+          "unit_id": "2a0010391a7030cca021c19c7c7d9160e06bb973724fefe9d78f244cfdc0ed5c"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 2578,
+          "state": "analyzed",
+          "unit_id": "5a7e33c8fe16225dc5d6c8255d814c166ec3a9a9aac0c40a96c008aab88459ac"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 6011,
+          "state": "analyzed",
+          "unit_id": "bc52a14a18a6d1d070e803d520d38ad1a2c21aee379d22e2fd7cf87c5255e0f3"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 278,
+          "state": "analyzed",
+          "unit_id": "034fc83620e54e121d31bc51a1550eab2219a48ecdfcf3fc84927c8df077871b"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 1098,
+          "state": "analyzed",
+          "unit_id": "7c9f00f05e6a088e96fe94f5148e508d52a76d15d9f2c2a649475130abf28b20"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 2578,
+          "state": "analyzed",
+          "unit_id": "f50a085addbf18b55d54d9f4905377ad95d8c876a3fccd39e9eec194746a217a"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 6011,
+          "state": "analyzed",
+          "unit_id": "8e85bf83f47b1f615328bc5aa849557a12f98c669be244617571ed488687e641"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 278,
+          "state": "analyzed",
+          "unit_id": "6b6fca1cfd2a15f2c057affd4c51403da8e5fb9c58ab4217cec1adaecf735f91"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 363,
+          "state": "analyzed",
+          "unit_id": "32f3247fc6af1a865eedeaa250305b7e97e68c555fcf5d20766ea79f2cd4d9ac"
+        },
+        {
+          "reason": "admitted_whole_file",
+          "scan_nodes": 624,
+          "state": "analyzed",
+          "unit_id": "6756c01ce1b88a3ae96b553d5040635ba40bf9ade19df1d3fd4748fb4cb86f4c"
+        }
+      ]
+    },
+    "pairs": 68,
+    "native_records": 62,
+    "native_logical_roots": 3,
+    "paired_native_roots": 3,
+    "native_roots": {
+      "24f6dd532e3ae0a9e48408103f59ab9b598bedc7f82061878af2e3bf925c834f": {
+        "path": "tests/builder/components_test.py",
+        "line": 50,
+        "expression": "pytest.raises",
+        "records": [
+          {
+            "role": "native_proposed_version",
+            "version": "9.0.3",
+            "callee": "raises",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "9.0.3",
+            "callee": "raises",
+            "outcome": "rejected",
+            "checks_complete": true
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "9.0.3",
+            "callee": "raises",
+            "outcome": "rejected",
+            "checks_complete": true
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "9.0.3",
+            "callee": "raises",
+            "outcome": "rejected",
+            "checks_complete": true
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "9.0.3",
+            "callee": "raises",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "9.0.3",
+            "callee": "RaisesExc.__init__",
+            "outcome": "undetermined",
+            "checks_complete": false
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "9.0.3",
+            "callee": "RaisesExc.__init__",
+            "outcome": "undetermined",
+            "checks_complete": false
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "9.0.3",
+            "callee": "RaisesExc.__init__",
+            "outcome": "undetermined",
+            "checks_complete": false
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "9.0.3",
+            "callee": "RaisesExc.__init__",
+            "outcome": "undetermined",
+            "checks_complete": false
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "9.0.3",
+            "callee": "RaisesExc.__init__",
+            "outcome": "undetermined",
+            "checks_complete": false
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "9.0.3",
+            "callee": "RaisesExc.__init__",
+            "outcome": "undetermined",
+            "checks_complete": false
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "9.0.3",
+            "callee": "RaisesExc.__init__",
+            "outcome": "undetermined",
+            "checks_complete": false
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "9.0.3",
+            "callee": "RaisesExc.__init__",
+            "outcome": "undetermined",
+            "checks_complete": false
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "9.0.3",
+            "callee": "RaisesExc.__init__",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "9.0.3",
+            "callee": "RaisesExc.__init__",
+            "outcome": "rejected",
+            "checks_complete": true
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "9.0.3",
+            "callee": "RaisesExc.__init__",
+            "outcome": "rejected",
+            "checks_complete": true
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "9.0.3",
+            "callee": "RaisesExc.__init__",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_old_version",
+            "version": "9.0.2",
+            "callee": "raises",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_old_version",
+            "version": "9.0.2",
+            "callee": "raises",
+            "outcome": "rejected",
+            "checks_complete": true
+          },
+          {
+            "role": "native_old_version",
+            "version": "9.0.2",
+            "callee": "raises",
+            "outcome": "rejected",
+            "checks_complete": true
+          },
+          {
+            "role": "native_old_version",
+            "version": "9.0.2",
+            "callee": "raises",
+            "outcome": "rejected",
+            "checks_complete": true
+          },
+          {
+            "role": "native_old_version",
+            "version": "9.0.2",
+            "callee": "raises",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_old_version",
+            "version": "9.0.2",
+            "callee": "RaisesExc.__init__",
+            "outcome": "undetermined",
+            "checks_complete": false
+          },
+          {
+            "role": "native_old_version",
+            "version": "9.0.2",
+            "callee": "RaisesExc.__init__",
+            "outcome": "undetermined",
+            "checks_complete": false
+          },
+          {
+            "role": "native_old_version",
+            "version": "9.0.2",
+            "callee": "RaisesExc.__init__",
+            "outcome": "undetermined",
+            "checks_complete": false
+          },
+          {
+            "role": "native_old_version",
+            "version": "9.0.2",
+            "callee": "RaisesExc.__init__",
+            "outcome": "undetermined",
+            "checks_complete": false
+          },
+          {
+            "role": "native_old_version",
+            "version": "9.0.2",
+            "callee": "RaisesExc.__init__",
+            "outcome": "undetermined",
+            "checks_complete": false
+          },
+          {
+            "role": "native_old_version",
+            "version": "9.0.2",
+            "callee": "RaisesExc.__init__",
+            "outcome": "undetermined",
+            "checks_complete": false
+          },
+          {
+            "role": "native_old_version",
+            "version": "9.0.2",
+            "callee": "RaisesExc.__init__",
+            "outcome": "undetermined",
+            "checks_complete": false
+          },
+          {
+            "role": "native_old_version",
+            "version": "9.0.2",
+            "callee": "RaisesExc.__init__",
+            "outcome": "undetermined",
+            "checks_complete": false
+          },
+          {
+            "role": "native_old_version",
+            "version": "9.0.2",
+            "callee": "RaisesExc.__init__",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_old_version",
+            "version": "9.0.2",
+            "callee": "RaisesExc.__init__",
+            "outcome": "rejected",
+            "checks_complete": true
+          },
+          {
+            "role": "native_old_version",
+            "version": "9.0.2",
+            "callee": "RaisesExc.__init__",
+            "outcome": "rejected",
+            "checks_complete": true
+          },
+          {
+            "role": "native_old_version",
+            "version": "9.0.2",
+            "callee": "RaisesExc.__init__",
+            "outcome": "bound",
+            "checks_complete": true
+          }
+        ]
+      },
+      "eb8b3a51d7557319602fc35ac4616ee3667f876665c703d833f8d361ac1f2a77": {
+        "path": "tests/regression_test.py",
+        "line": 59,
+        "expression": "pytest.mark.parametrize",
+        "records": [
+          {
+            "role": "native_proposed_version",
+            "version": "9.0.3",
+            "callee": "MarkDecorator.__call__",
+            "outcome": "rejected",
+            "checks_complete": true
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "9.0.3",
+            "callee": "MarkDecorator.__call__",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "9.0.3",
+            "callee": "MarkDecorator.__call__",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "9.0.3",
+            "callee": "istestfunc",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "9.0.3",
+            "callee": "store_mark",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "9.0.3",
+            "callee": "get_unpacked_marks",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "9.0.3",
+            "callee": "normalize_mark_list",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_old_version",
+            "version": "9.0.2",
+            "callee": "MarkDecorator.__call__",
+            "outcome": "rejected",
+            "checks_complete": true
+          },
+          {
+            "role": "native_old_version",
+            "version": "9.0.2",
+            "callee": "MarkDecorator.__call__",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_old_version",
+            "version": "9.0.2",
+            "callee": "MarkDecorator.__call__",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_old_version",
+            "version": "9.0.2",
+            "callee": "istestfunc",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_old_version",
+            "version": "9.0.2",
+            "callee": "store_mark",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_old_version",
+            "version": "9.0.2",
+            "callee": "get_unpacked_marks",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_old_version",
+            "version": "9.0.2",
+            "callee": "normalize_mark_list",
+            "outcome": "bound",
+            "checks_complete": true
+          }
+        ]
+      },
+      "eb30c4286d438491015dda57eab4ed320a267c7fcd43596b494bec45f5f94d0f": {
+        "path": "tests/regression_test.py",
+        "line": 78,
+        "expression": "pytest.mark.parametrize",
+        "records": [
+          {
+            "role": "native_proposed_version",
+            "version": "9.0.3",
+            "callee": "MarkDecorator.__call__",
+            "outcome": "rejected",
+            "checks_complete": true
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "9.0.3",
+            "callee": "MarkDecorator.__call__",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "9.0.3",
+            "callee": "MarkDecorator.__call__",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "9.0.3",
+            "callee": "istestfunc",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "9.0.3",
+            "callee": "store_mark",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "9.0.3",
+            "callee": "get_unpacked_marks",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_proposed_version",
+            "version": "9.0.3",
+            "callee": "normalize_mark_list",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_old_version",
+            "version": "9.0.2",
+            "callee": "MarkDecorator.__call__",
+            "outcome": "rejected",
+            "checks_complete": true
+          },
+          {
+            "role": "native_old_version",
+            "version": "9.0.2",
+            "callee": "MarkDecorator.__call__",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_old_version",
+            "version": "9.0.2",
+            "callee": "MarkDecorator.__call__",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_old_version",
+            "version": "9.0.2",
+            "callee": "istestfunc",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_old_version",
+            "version": "9.0.2",
+            "callee": "store_mark",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_old_version",
+            "version": "9.0.2",
+            "callee": "get_unpacked_marks",
+            "outcome": "bound",
+            "checks_complete": true
+          },
+          {
+            "role": "native_old_version",
+            "version": "9.0.2",
+            "callee": "normalize_mark_list",
+            "outcome": "bound",
+            "checks_complete": true
+          }
+        ]
+      }
+    },
+    "gap_reasons": {
+      "call_body_cycle": 1,
+      "callable_relationship_unresolved": 130,
+      "export_write_or_deletion_not_resolved": 2,
+      "imported_source_module_unavailable_or_unsupported": 16,
+      "inherited_initializer_or_allocation_unsupported": 1,
+      "multiple_declared_definitions_retained": 2
+    },
+    "gaps_omitted": 0,
+    "result_bytes": 2353695,
+    "sources_bytes": 220100,
+    "source_text_equal": true,
+    "fixed_open_forbidden": [
+      "AST",
+      "HTTP",
+      "discovery",
+      "checker",
+      "credential"
+    ],
+    "actual_cold_cli": true,
+    "unexamined_source_cli": false,
+    "output_sha256": {
+      "result.json": "f2a5cfd42e1999d4bf996d2e6e085ea53c95bd0d9699a6f00b10b849eb0d4d05",
+      "view.txt": "4f743c68aab84e114a333ec3c5b3a1bbec3101078f115261e0cd284112ebb651",
+      "attempt.json": "bfc7339355ceb32798aaa2ae770c8c8618b1703e30252b4467dd1bf8db0e8fa1",
+      "sources.json": "770ab80fea86f6895fc52e278548d075414fe859f28ee09edb2c382c6296124d",
+      "attempt-started.json": "17430b717d593e49ed3bdd84b6698646c16648bbcc5859dc310260652e9a2161",
+      "input.json": "d90b4b6d9b8c17adac082197e49f366f2c888edfaa3941f755fd77c14fbb687f"
+    }
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "proof_class": "source screening/frozen failed attempt/separate retained-subset diagnostic",
+  "links_checked": 43,
+  "method_changed": false,
+  "source_tests_original_attempts_and_simulation_unchanged": true,
+  "screening_requests": 17,
+  "screening_ceiling_revised": 19,
+  "ordinary_attempts": 1,
+  "comparison_attempts": 0,
+  "transfer_qualified": false,
+  "resource_diagnostic_is_subset_only": true
+}

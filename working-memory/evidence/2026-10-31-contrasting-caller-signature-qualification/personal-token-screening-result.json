@@ -1,0 +1,78 @@
+{
+  "auth": "explicit personal token",
+  "records": [
+    {
+      "repository": "psf/requests",
+      "status": 200,
+      "body_sha256": "c9938edecb99d754b2d039ac9eec320a94c769b6a6417921e2dcbef9e2fe01a0",
+      "headers": {
+        "retry-after": null,
+        "x-ratelimit-remaining": "29",
+        "x-ratelimit-reset": "1793468504",
+        "x-ratelimit-resource": "search",
+        "x-github-request-id": "7F79:3FC39D:C15FDC3:1155CD06:6AE6281B"
+      },
+      "total": 0,
+      "items": []
+    },
+    {
+      "repository": "pypa/twine",
+      "status": 200,
+      "body_sha256": "c9938edecb99d754b2d039ac9eec320a94c769b6a6417921e2dcbef9e2fe01a0",
+      "headers": {
+        "retry-after": null,
+        "x-ratelimit-remaining": "28",
+        "x-ratelimit-reset": "1793468504",
+        "x-ratelimit-resource": "search",
+        "x-github-request-id": "7F79:3FC39D:C160757:1155DB08:6AE6281D"
+      },
+      "total": 0,
+      "items": []
+    }
+  ],
+  "transport": {
+    "format": "trial-acquisition-policy/1",
+    "limits": {
+      "github_requests": 6,
+      "provider_requests": 6,
+      "response_bytes": 1048576,
+      "aggregate_bytes": 4194304,
+      "elapsed_seconds": 120,
+      "source_request_reserve": 1,
+      "target_file_attempts": 16,
+      "adapter_candidate_attempts": 2
+    },
+    "auth": "token-env",
+    "github_requests": 2,
+    "provider_requests": 2,
+    "decoded_body_bytes": 158,
+    "elapsed_seconds": 2.7684639529979904,
+    "deadline_kind": "cooperative_monotonic_checks_and_bounded_socket_timeouts",
+    "stops": [],
+    "requests": [
+      {
+        "stage": "unscoped",
+        "host": "api.github.com",
+        "path": "/search/issues",
+        "github_requests": 1,
+        "provider_requests": 1,
+        "decoded_body_bytes": 79,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      },
+      {
+        "stage": "unscoped",
+        "host": "api.github.com",
+        "path": "/search/issues",
+        "github_requests": 2,
+        "provider_requests": 2,
+        "decoded_body_bytes": 79,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      }
+    ]
+  },
+  "private_directory": "/home/motafeq/.local/share/upgradepilot/contrasting-signature-screening-2026-10-31/personal-token"
+}

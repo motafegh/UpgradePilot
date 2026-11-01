@@ -1,0 +1,198 @@
+{
+  "scope": "D005 separate bounded serialization measurement of S007 retained input; no saved result/regrade",
+  "whole": {
+    "bytes": 3171526,
+    "tokens": 266809
+  },
+  "fields": {
+    "format": {
+      "bytes": 29,
+      "tokens": 0
+    },
+    "method_version": {
+      "bytes": 1,
+      "tokens": 0
+    },
+    "proof_class": {
+      "bytes": 31,
+      "tokens": 0
+    },
+    "target": {
+      "bytes": 266,
+      "tokens": 15
+    },
+    "runtime": {
+      "bytes": 8,
+      "tokens": 0
+    },
+    "code_sha256": {
+      "bytes": 1321,
+      "tokens": 25
+    },
+    "limits": {
+      "bytes": 171,
+      "tokens": 17
+    },
+    "inputs": {
+      "bytes": 257,
+      "tokens": 7
+    },
+    "companion_sha256": {
+      "bytes": 66,
+      "tokens": 0
+    },
+    "companion_id": {
+      "bytes": 66,
+      "tokens": 0
+    },
+    "files": {
+      "bytes": 1592136,
+      "tokens": 154878
+    },
+    "pairs": {
+      "bytes": 12222,
+      "tokens": 1083
+    },
+    "work": {
+      "bytes": 92,
+      "tokens": 11
+    },
+    "coverage": {
+      "bytes": 92,
+      "tokens": 0
+    },
+    "correspondence_version": {
+      "bytes": 1,
+      "tokens": 0
+    },
+    "modules": {
+      "bytes": 6849,
+      "tokens": 627
+    },
+    "discovery": {
+      "bytes": 262543,
+      "tokens": 4648
+    },
+    "acquisition": {
+      "bytes": 1295136,
+      "tokens": 105461
+    }
+  },
+  "units": [
+    {
+      "path": "httpx/__init__.py",
+      "bytes": 6384,
+      "tokens": 666
+    },
+    {
+      "path": "httpx/__init__.py",
+      "bytes": 6384,
+      "tokens": 666
+    },
+    {
+      "path": "fastapi/staticfiles.py",
+      "bytes": 133,
+      "tokens": 17
+    },
+    {
+      "path": "starlette/staticfiles.py",
+      "bytes": 118453,
+      "tokens": 11230
+    },
+    {
+      "path": "fastapi/testclient.py",
+      "bytes": 133,
+      "tokens": 17
+    },
+    {
+      "path": "starlette/testclient.py",
+      "bytes": 326126,
+      "tokens": 29757
+    },
+    {
+      "path": "app/__init__.py",
+      "bytes": 133,
+      "tokens": 17
+    },
+    {
+      "path": "app/config.py",
+      "bytes": 18163,
+      "tokens": 1933
+    },
+    {
+      "path": "app/main.py",
+      "bytes": 4603,
+      "tokens": 504
+    },
+    {
+      "path": "app/models/__init__.py",
+      "bytes": 133,
+      "tokens": 17
+    },
+    {
+      "path": "app/models/health.py",
+      "bytes": 134,
+      "tokens": 17
+    },
+    {
+      "path": "app/models/token.py",
+      "bytes": 134,
+      "tokens": 17
+    },
+    {
+      "path": "app/router/__init__.py",
+      "bytes": 133,
+      "tokens": 17
+    },
+    {
+      "path": "app/router/routes.py",
+      "bytes": 28149,
+      "tokens": 2854
+    },
+    {
+      "path": "app/utils.py",
+      "bytes": 8835,
+      "tokens": 855
+    },
+    {
+      "path": "tests/__init__.py",
+      "bytes": 134,
+      "tokens": 17
+    },
+    {
+      "path": "tests/test_routes.py",
+      "bytes": 22347,
+      "tokens": 2249
+    },
+    {
+      "path": "httpx/__version__.py",
+      "bytes": 134,
+      "tokens": 17
+    },
+    {
+      "path": "httpx/__version__.py",
+      "bytes": 134,
+      "tokens": 17
+    },
+    {
+      "path": "httpx/_api.py",
+      "bytes": 35555,
+      "tokens": 4408
+    },
+    {
+      "path": "httpx/_api.py",
+      "bytes": 33849,
+      "tokens": 4112
+    },
+    {
+      "path": "httpx/_client.py",
+      "bytes": 488543,
+      "tokens": 47802
+    },
+    {
+      "path": "httpx/_client.py",
+      "bytes": 476555,
+      "tokens": 46831
+    }
+  ]
+}

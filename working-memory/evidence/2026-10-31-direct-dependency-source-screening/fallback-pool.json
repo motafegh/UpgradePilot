@@ -1,0 +1,21 @@
+{
+  "query": "is:pr author:app/dependabot \"bump requests from\" in:title",
+  "items": [
+    {
+      "repository": "andreaswachowski/dotfiles",
+      "number": 10,
+      "title": "chore(deps): bump requests from 2.32.4 to 2.33.0 in /.config/conky"
+    },
+    {
+      "repository": "CosciaLab/openDVP",
+      "number": 124,
+      "title": "Bump requests from 2.32.4 to 2.33.0"
+    },
+    {
+      "repository": "VaHerinckx/LifeLog_Project",
+      "number": 1,
+      "title": "Bump requests from 2.33.0 to 2.34.2 in /pipeline"
+    }
+  ],
+  "before_source_or_outcome_inspection": true
+}

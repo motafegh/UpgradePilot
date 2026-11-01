@@ -1,0 +1,102 @@
+{
+  "candidate": {
+    "repository": "VaHerinckx/LifeLog_Project",
+    "number": 1,
+    "base": "2a0f4e2b6f8eae3a813edacc6095d78aa34c3197",
+    "head": "3916cea014fc65030252581d2175a92bd77752e7",
+    "author": "dependabot[bot]",
+    "language": "Jupyter Notebook",
+    "private": false,
+    "title": "Bump requests from 2.33.0 to 2.34.2 in /pipeline",
+    "changed_paths": [
+      "pipeline/requirements.txt"
+    ],
+    "declaration_paths_examined": [
+      "pipeline/requirements.txt"
+    ],
+    "matching_direct_declarations": [
+      {
+        "path": "VaHerinckx/LifeLog_Project@3916cea014fc65030252581d2175a92bd77752e7:pipeline/requirements.txt",
+        "location": "L15",
+        "specifier": "==2.34.2",
+        "group": "requirements"
+      }
+    ],
+    "eligibility": "matching_call_not_established_in_bounded_source_inspection"
+  },
+  "examined": [
+    {
+      "path": "pipeline/src/sources_processing/goodreads/goodreads_processing.py",
+      "requests_imports": 1,
+      "requests_calls": 0
+    },
+    {
+      "path": "pipeline/src/sources_processing/google_maps/google_maps_processing.py",
+      "requests_imports": 0,
+      "requests_calls": 0
+    },
+    {
+      "path": "pipeline/src/sources_processing/kindle/kindle_processing.py",
+      "requests_imports": 0,
+      "requests_calls": 0
+    }
+  ],
+  "witness": null,
+  "transport": {
+    "format": "trial-acquisition-policy/1",
+    "limits": {
+      "github_requests": 3,
+      "provider_requests": 3,
+      "response_bytes": 1048576,
+      "aggregate_bytes": 4194304,
+      "elapsed_seconds": 60,
+      "source_request_reserve": 1,
+      "target_file_attempts": 16,
+      "adapter_candidate_attempts": 2
+    },
+    "auth": "token-env",
+    "github_requests": 3,
+    "provider_requests": 3,
+    "decoded_body_bytes": 186384,
+    "elapsed_seconds": 3.7653762379995896,
+    "deadline_kind": "cooperative_monotonic_checks_and_bounded_socket_timeouts",
+    "stops": [],
+    "requests": [
+      {
+        "stage": "unscoped",
+        "host": "api.github.com",
+        "path": "/repos/VaHerinckx/LifeLog_Project/contents/pipeline/src/sources_processing/goodreads/goodreads_processing.py",
+        "github_requests": 1,
+        "provider_requests": 1,
+        "decoded_body_bytes": 55189,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      },
+      {
+        "stage": "unscoped",
+        "host": "api.github.com",
+        "path": "/repos/VaHerinckx/LifeLog_Project/contents/pipeline/src/sources_processing/google_maps/google_maps_processing.py",
+        "github_requests": 2,
+        "provider_requests": 2,
+        "decoded_body_bytes": 75389,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      },
+      {
+        "stage": "unscoped",
+        "host": "api.github.com",
+        "path": "/repos/VaHerinckx/LifeLog_Project/contents/pipeline/src/sources_processing/kindle/kindle_processing.py",
+        "github_requests": 3,
+        "provider_requests": 3,
+        "decoded_body_bytes": 55806,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      }
+    ]
+  },
+  "method_unchanged": true,
+  "expected_comparison_outcomes_inspected": false
+}

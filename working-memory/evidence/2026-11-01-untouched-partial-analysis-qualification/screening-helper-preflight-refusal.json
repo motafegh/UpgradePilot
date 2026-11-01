@@ -1,0 +1,8 @@
+{
+  "stage": "before credential/session/provider",
+  "reason": "helper requested source_request_reserve=0 but policy requires a positive value",
+  "requests": 0,
+  "personal_token_reads": 0,
+  "correction": "use positive unused reserve field1; direct screening stages keep reserve_github=0; no request/body/time cap changed",
+  "prior_started_record_preserved": true
+}

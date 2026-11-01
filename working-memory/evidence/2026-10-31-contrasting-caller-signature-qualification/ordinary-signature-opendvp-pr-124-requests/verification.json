@@ -1,0 +1,19 @@
+{
+  "proof_class": "actual ordinary acquisition and fixed offline refusal/insufficiency proof; not transfer pass",
+  "method_unchanged": true,
+  "source_runtime_matches_frozen_method": true,
+  "fixed_open_and_actual_cli_passed": true,
+  "saved_view_matches_fixed_rendering": true,
+  "forbidden_on_open": [
+    "AST",
+    "HTTP",
+    "discovery",
+    "checker",
+    "credential read"
+  ],
+  "terminal_hashes_validated": true,
+  "private_members": 12,
+  "private_modes_valid": true,
+  "no_method_repair_or_new_case_campaign": true,
+  "transfer_qualified": false
+}

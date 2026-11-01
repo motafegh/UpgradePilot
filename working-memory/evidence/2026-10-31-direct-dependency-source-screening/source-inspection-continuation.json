@@ -1,0 +1,12 @@
+{
+  "reason": "helper incorrectly used primary repository language as eligibility gate; contract requires actual Python declaration/import/call evidence",
+  "before_any_comparison_outcome": true,
+  "method_unchanged": true,
+  "original_result_preserved": true,
+  "remaining_requests": 14,
+  "remaining_body_bytes": 8318943,
+  "continuation_elapsed_seconds": 120,
+  "previous_screening_requests": 2,
+  "pool_unchanged": true,
+  "metadata_reuse": "eligibility only; ordinary acquisition will reacquire all inputs"
+}
