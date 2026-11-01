@@ -1013,6 +1013,53 @@ It does not prove:
 
 `working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md`
 
+### 18.1 Real HTTPX/FastAPI/Starlette mediated path
+
+The retained HTTPX case supplies the real-world version of the same correspondence family. Its important source chain is:
+
+```text
+target tests/test_routes.py
+  TestClient(app)
+        ↓
+FastAPI testclient re-export
+        ↓
+selected Starlette TestClient source
+        ↓
+TestClient.__init__
+  super().__init__(...)
+        ↓
+selected HTTPX Client.__init__ source
+```
+
+The source facts establish different pieces at different authority levels:
+
+- the target call has an established lexical association to `fastapi.testclient.TestClient` in the captured target source;
+- the retained FastAPI module re-exports `TestClient` from Starlette;
+- the captured older Starlette initializer forwards explicit `app=...` while the captured newer Starlette initializer does not;
+- the captured old HTTPX initializer declares `app` while the proposed captured initializer does not.
+
+What ordinary source correspondence is trying to earn is the **path between those facts without a human-supplied caller/callee selector**. Even when that path is structurally available, the framework source can still be a constraint-selected sample rather than the target's resolved installation, and the `super()` edge still carries MRO/receiver/dispatch premises.
+
+So the real teaching chain is:
+
+```text
+target lexical fact
+→ FastAPI re-export source fact
+→ selected Starlette source relationship
+→ Starlette parent-initialization source relationship
+→ exact old/proposed HTTPX declarations
+→ local comparison
+```
+
+not:
+
+```text
+found source chain
+→ therefore this exact framework/runtime path executed
+```
+
+This is the same separation that later fresh HTTPX attempts had to preserve under real provider budgets. Artifact 03 covers those live-attempt failures and repairs; this section only establishes the ordinary correspondence model.
+
 ---
 
 ## 19. The incomplete-side control teaches negative-evidence discipline
