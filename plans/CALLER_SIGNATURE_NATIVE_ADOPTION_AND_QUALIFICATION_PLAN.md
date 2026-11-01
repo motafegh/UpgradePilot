@@ -1,6 +1,6 @@
 # Caller/signature native adoption and qualification design
 
-**Artifact status:** proposed native-adoption design and execution contract for review; implementation and qualification execution require separate activation.  
+**Artifact status:** reviewed native-adoption design and qualification contract; implementation and qualification execution require their own explicit activation. This artifact does not establish their completion.
 **Responsibility:** deliver qualified caller/signature source evidence through product acquisition, canonical Workspace capture, reports, source inspection and offline checkpoint recovery.  
 **Parent:** [upstream API and target-exposure plan](UPSTREAM_API_CHANGE_AND_TARGET_EXPOSURE_FEASIBILITY_PLAN.md).  
 **Design source horizon:** October31 main76757f4e and the linked dated evidence; recheck executable seams before Build.  
@@ -256,6 +256,8 @@ Old experiment bundles remain historical experiments. New readers can consume th
 Test layering: focused extracted-owner regressions → actual-client controlled composition → native codec/host/store/source/report integration → fresh-process reconstruction and actual CLI → old report/experiment compatibility → full supported product suite and architecture boundaries. Retain exact recorded historical experiment-suite debt separately; do not waive a new product failure because the experimental suite was already red. Do not impose new tests that only mirror record construction or historical file layout.
 
 ## 13. Ordered delivery responsibilities and stop lines
+
+The [native-adoption implementation companion](CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md) specializes these responsibilities into source-owner mapping, native representation decisions, implementation increments and acceptance checks. This design retains the adoption scope and qualification rules; the companion owns execution detail. Experimental qualification evidence does not replace native delivery proof. See `MEMORY.md` for actual activation and results rather than infer live state from this sequence.
 
 1. **Review the adoption contract and qualify contrasting transfer.** Confirm this proposed owner/profile/material/report design and select/freeze the additional case. Execute only after activation. Stop with an evidence-backed adopt, narrow, defer or reject disposition; supported-scope changes return to the owning design before transfer.
 2. **Promote the qualified producer responsibilities.** Move reusable source-analysis, association/acquisition, correspondence and checker behavior into product owners with native tests and method identities. Keep real initializer/protocol support and failed/partial states. Reuse common dependency inputs and clients; prove no product imports of experiments/tests/tools. Historical experiment readers keep their earned compatibility contract.
