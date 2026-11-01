@@ -1,22 +1,23 @@
 # UpgradePilot current ownership learning progress
 
 **Branch:** `learning/current-ownership-roadmap-2026-10-31`  
-**Companion roadmap:** `working-memory/2026-10-31_current-ownership-learning-roadmap.md`  
-**Latest sync overlay:** `working-memory/2026-10-31_current-ownership-learning-sync-739cdb6.md`  
-**Purpose:** bounded progress checklist for Ali's learning/ownership journey. This is not live project authority; current `main`/`MEMORY.md` remain authoritative for product state.
+**Current roadmap:** `working-memory/2026-11-01_current-ownership-learning-roadmap-v2.md`  
+**Historical initial roadmap:** `working-memory/2026-10-31_current-ownership-learning-roadmap.md`  
+**Latest sync:** `working-memory/2026-11-01_current-ownership-learning-sync-e7082e96.md`  
+**Purpose:** bounded progress checklist for Ali's learning/ownership journey. This is not live project authority; current `main`/`MEMORY.md` remain authoritative.
 
 ## Stop rule — prevent endless learning
 
-We stop this learning phase when the five checkpoints below are `OWNED ENOUGH`. `OWNED ENOUGH` means Ali can explain the purpose, follow one real evidence/data path, state the main non-proof/limitation, and supervise a consequential change. It does **not** require memorizing every class, field, constant or Python/internal implementation detail.
+We stop this temporary learning phase when the **six checkpoints below** are `OWNED ENOUGH`. `OWNED ENOUGH` means Ali can explain the purpose, follow one real evidence/data path, state the main non-proof/limitation, and supervise a consequential change. It does **not** require memorizing every class, field, constant, historical attempt or Python/internal implementation detail.
 
-New `main` work does not automatically add study scope. On each sync, classify it as one of:
+New `main` work does not automatically add study scope. On each sync, classify it as:
 
 - `NO LEARNING CHANGE`
 - `REINFORCES EXISTING CHECKPOINT`
 - `NEW MUST-LEARN REQUIREMENT`
 - `REFERENCE-ONLY`
 
-Only `NEW MUST-LEARN REQUIREMENT` may expand the required checklist, and it must be clearly justified by a new responsibility Ali needs to supervise.
+Only `NEW MUST-LEARN REQUIREMENT` may expand the checklist. Checkpoint F was added on 2026-11-01 because main completed the bounded experimental transfer gate and selected **native product adoption/equivalence** as a new responsibility Ali must supervise.
 
 ## Already consolidated before this tracker
 
@@ -28,83 +29,101 @@ Only `NEW MUST-LEARN REQUIREMENT` may expand the required checklist, and it must
 - [x] Definition freeze versus execution freeze versus actual attempt.
 - [x] Attempt-start, terminal record and unknown-completion concepts.
 
-## Required checkpoints
+---
 
-### Checkpoint A — Evidence semantics — OWNED ENOUGH
+## Checkpoint A — Evidence semantics — OWNED ENOUGH
 
 - [x] A1. `BOUND` — exact local meaning and non-meaning.
 - [x] A2. `REJECTED` — exact local meaning and non-meaning.
-- [x] A3. `UNDETERMINED` — why uncertainty is preserved instead of forced into bound/rejected.
-- [x] A4. Premises: established fact under explicit assumptions/unknowns.
+- [x] A3. `UNDETERMINED` — uncertainty preserved rather than forced into bound/rejected.
+- [x] A4. Premises: established local fact under explicit assumptions/unknowns.
 - [x] A5. Coverage/gaps: useful evidence can coexist with incomplete coverage; zero candidates is not automatically no exposure.
-- [x] A6. Consolidate with real HTTPX + pytest examples and Ali explanation in own words.
+- [x] A6. Consolidate with real HTTPX + pytest examples in Ali's own words.
 
-**A1–A3 ownership note:** Ali explained that `REJECTED` means a definite structural conflict was found under the selected correspondence premises; `BOUND` means supported local binding checks completed without a violation; `UNDETERMINED` means no definite violation was established but the local structural check could not be completed. Refinement recorded: `UNDETERMINED` is not limited to missing/uninspected source or resource limits—it can also arise from unresolved call structure such as receiver state, `*args`/`**kwargs`, or incomplete facts. None of these states alone is a runtime/compatibility verdict.
+**Ownership note:** Ali can explain local structural outcomes without promoting them to runtime/compatibility truth; understands premise/coverage constraints, old/proposed version roles, and why a rejected overload can coexist with a bound implementation.
 
-**A4 ownership note:** Ali explained that a `REJECTED` result under a correspondence premise establishes a source/static structural conflict at that selected boundary, while runtime applicability remains unproven. Premises therefore constrain how broadly local evidence may be applied; they are not evidence that the premise is false.
+---
 
-**A5 ownership note:** Ali explained that if a coverage/resource limit prevents examination of relevant material, zero discovered candidates cannot be promoted to complete "no exposure". Coverage qualifies how broad the search was; established evidence remains useful inside its examined domain. Ali also clarified that old/proposed comparisons are version-role comparisons inside one dependency transition, not necessarily separate analysis times.
-
-**A6 ownership note:** Ali explained HTTPX `old BOUND → proposed REJECTED` as evidence that the proposed version introduces a local structural conflict relative to the old bound call shape, without promoting that evidence to whole-system/runtime failure. For pytest, Ali explained that a rejected overload and a bound runtime implementation are not contradictory because overload declarations are separate type-level alternatives; one rejected alternative is not the sole effective callable.
-
-**Done:** Ali can interpret a saved comparison without promoting it to compatibility/runtime truth and can explain why gaps/premises constrain the claim.
-
-### Checkpoint B — Acquisition and budget model
+## Checkpoint B — Resource, acquisition and analysis-budget model — ACTIVE
 
 - [x] B1. Acquisition versus correspondence.
-- [x] B2. Why GitHub/all-provider requests, source reservation, target-file attempts, adapter candidates, release identities, module questions, bytes, candidate/depth/state limits and acquisition/worker time are distinct resources.
-- [x] B3. Starvation and source-selection behavior using real S003–S005 evidence: native-pair priority, stronger-evidence pending-question promotion, and missing-module traversal refusal under the same caps.
-- [ ] B4. Interpret exhausted/failed resources correctly: module limit vs provider timeout vs candidate/state limit; cached failure vs physical request count; bounded charged PyPI timeout retry vs forbidden whole-attempt retry; no automatic cap enlargement.
+- [x] B2. Why provider, request, reservation, file, module, byte, candidate/depth/state and time budgets are distinct resources.
+- [x] B3. Starvation/source-selection behavior: native-pair priority, stronger-evidence pending-question promotion, and missing-module refusal under fixed caps.
+- [ ] B4. Correctly diagnose the bounded owner: source/module limit vs provider timeout vs correspondence state/candidate limit vs analysis-work admission vs result-representation capacity; cached failures vs physical attempts; bounded transport retry vs forbidden whole-attempt retry; no automatic cap enlargement.
 
-**B1 ownership note:** Ali distinguished acquisition from correspondence using S005: because qualified proposed HTTPX source did not arrive, no proposed-side `BOUND`/`REJECTED` conclusion was available and correspondence/binding could not be meaningfully evaluated for that side. Refinement recorded: S005 was an acquisition-layer limitation caused specifically by a provider/transport timeout, not by exhausting a configured acquisition budget. Missing source therefore must not be reinterpreted as missing API exposure or a checker/correspondence verdict.
+**B1 ownership note:** Ali distinguished acquisition from correspondence using S005. Because qualified proposed HTTPX source did not arrive, no proposed-side `BOUND`/`REJECTED` conclusion was justified. Refinement: the concrete cause was a provider/transport timeout, not an exhausted configured budget.
 
-**B2 ownership note:** Ali identified that a run with remaining provider capacity but an exhausted module-question ceiling is blocked by the module-question/source-closure resource, not by provider-request capacity. Increasing unrelated limits would not fix the demonstrated bottleneck. He also stated the stronger rule: even when the relevant limit is reached, diagnose selection/prioritization and the reason for exhaustion before enlarging a cap rather than treating cap increases as the default repair.
+**B2 ownership note:** Ali identified that an exhausted module-question ceiling with unused provider capacity is a source-closure bottleneck. Increasing an unrelated budget would not fix it, and even a genuinely hit cap should be diagnosed before enlargement.
 
-**B3 ownership note:** Ali explained that when a still-pending source question was first discovered weakly but later receives stronger direct import/call evidence, UpgradePilot should monotonically raise the priority of that same pending question rather than enqueue duplicate work. Refinement recorded: `seen/pending` is distinct from `already examined`; examined work is not retried. A priority increase only decides when bounded acquisition effort is spent and does not itself establish correspondence, binding, installed state or runtime dispatch.
+**B3 ownership note:** Ali explained that stronger later evidence should monotonically raise the priority of the same still-pending source question rather than enqueue duplicate work; already examined work is not retried. Priority only allocates bounded work and does not prove correspondence/runtime applicability.
 
-**Done when:** Ali can explain why different budgets exist and diagnose whether a partial result is an acquisition limitation, source-selection limitation, provider/transport limitation or analysis limitation.
+**B4 added Nov1 material:** also understand that successful source acquisition can be followed by a separate analysis admission refusal (LifeLog facts), and useful analysis can be followed by a separate representation/serialization refusal (S007). Explicitly retained `unexamined` units are different from missing/corrupt facts for a unit claimed analyzed.
 
-### Checkpoint C — End-to-end implementation architecture
+**Done when:** Ali can diagnose whether a partial result is caused by acquisition/provider availability, source selection, analysis/correspondence search, work admission, or saved representation—and propose the correct class of response rather than blindly changing caps.
 
-- [ ] C1. Ordinary PR/native dependency observation owner.
-- [ ] C2. Target/source acquisition owners, source scheduling/closure and retained material.
-- [ ] C3. Source-correspondence owner and candidate generation, including why guarded Try-import/base hypotheses remain conditional premises rather than binder/runtime truth.
-- [ ] C4. Argument/signature checker and local evaluation; understand why recent acquisition/correspondence repairs did not require changing binder/checker authority.
-- [ ] C5. Saved evidence/reader/cold-open flow, including versioned transport receipts and immutable historical attempts.
-- [ ] C6. Trace one real case end-to-end through responsible modules/functions without line-by-line memorization.
+---
 
-**Done when:** Ali can point to the owner responsible for each major transition and can review whether a change crosses an ownership boundary incorrectly.
+## Checkpoint C — End-to-end experimental architecture and owners
 
-### Checkpoint D — Fresh attempt, execution freeze and successor integrity
+- [ ] C1. Ordinary PR/native dependency observation owner and exact identity/guard boundary.
+- [ ] C2. Source-first target/library acquisition, scheduling/closure, provenance/accounting and independently retained material.
+- [ ] C3. Analysis-work admission (`analyzed` vs explicit `unexamined`) followed by source-correspondence candidate generation and premises.
+- [ ] C4. Argument/signature checker and local evaluation; why acquisition/correspondence/representation repairs do not automatically change checker authority.
+- [ ] C5. Saved representation, normalized traces, receipt/result capacity, fixed readers/cold-open and immutable history.
+- [ ] C6. Trace one real case end-to-end across owners without line-by-line memorization.
 
-- [ ] D1. Inspect the implemented fresh outer-attempt lifecycle from current code/evidence.
-- [ ] D2. Inspect the now-completed final executable freeze and actual activation path: code/config/runtime/contract binding, admission and explicit live authorization.
-- [ ] D3. Understand fresh versus controlled/retained proof labels and why a consumed historical attempt is never backfilled/regraded.
-- [ ] D4. Distinguish separately frozen successor attempts from bounded transport retry inside one successor, and both from forbidden whole-attempt automatic retry.
-- [ ] D5. Sync current successor state before marking D complete; exact S-number/history details beyond ownership needs remain reference-only.
+**Done when:** Ali can point to the owner responsible for each major transition and review whether a change crosses an ownership boundary incorrectly or silently changes evidence meaning.
 
-**Done when:** Ali can explain how an official fresh attempt and each successor are protected from silent retry/reconfiguration, and how exact executable/contract identity plus retained transport history preserve the meaning of each historical result.
+---
 
-### Checkpoint E — Fresh ordinary attempt progression and product consequence
+## Checkpoint D — Fresh lifecycle, execution freeze and successor integrity
 
-- [ ] E1. Inspect the first official live attempt: actual request/source/material costs, target-only comparisons, PyPI timeout and `insufficient_structural_evidence` classification.
-- [ ] E2. Explain why first-attempt procedural completion did not equal useful native old/proposed evidence and why it justified diagnosis rather than product adoption.
-- [ ] E3. Inspect the successor evidence chain compactly: S002–S006 exposed source-frontier, closure-priority, stale-pending-priority, missing-module-recursion and repeated PyPI-timeout boundaries; S005 reached one-sided native-old evidence.
-- [ ] E4. Inspect the latest stable successor result (S007 or later sync) and classify evidence as useful / useful-partial / insufficient without overclaiming compatibility.
-- [ ] E5. Decide what the stable evidence justifies next: another bounded repair/evidence step or native API/Workspace/report adoption.
-- [ ] E6. Final ownership recap; close this temporary learning phase unless a specifically justified must-learn gap remains.
+- [ ] D1. Inspect implemented fresh outer-attempt lifecycle from current code/evidence.
+- [ ] D2. Understand contract/execution-freeze/code/runtime/config binding and explicit activation/authorization.
+- [ ] D3. Fresh vs controlled/retained proof labels; consumed historical attempts are never backfilled/regraded.
+- [ ] D4. Distinguish separately frozen successors, bounded physical transport retry inside one attempt, and prohibited whole-attempt automatic retry.
+- [ ] D5. Understand material method successors/contamination using S002–S008, source-first LifeLog and untouched Digimon selectively; sync current main before completion.
 
-**Done when:** Ali can independently explain what the fresh progression proved, did not prove, why successors were legitimate rather than retrospective retries, and why the next engineering decision follows from the evidence.
+**Done when:** Ali can explain how historical truth survives failures, method repairs and new successors without silent retry/reconfiguration or retrospective success claims.
+
+---
+
+## Checkpoint E — Experimental qualification closure and adoption decision
+
+- [ ] E1. First official HTTPX live attempt: why procedural completion + target-only comparisons were still insufficient.
+- [ ] E2. Successor progression to S008: useful-partial paired old/proposed evidence, current sampled Starlette path, explicit premises/gaps and no historical mismatch regrade.
+- [ ] E3. LifeLog source-first capture and analysis-capacity progression: acquisition success, correct fact/structure refusal, and qualified partial whole-file admission.
+- [ ] E4. Untouched `RiceKrisBs/digimon_scraper` Requests qualification: outcome-blind selection, frozen method, five informative paired roots, unresolved forwarded request/gaps, no post-exposure repair.
+- [ ] E5. Explain why the bounded experimental transfer gate now justifies native adoption work but still does not establish runtime compatibility, installed dispatch, maintainer usefulness or production readiness.
+- [ ] E6. Experimental closure recap and transition to productization responsibility.
+
+**Done when:** Ali can independently defend why the experimental transfer gate passed, what remained partial/unproved, and why native productization—not another arbitrary experiment campaign—is the justified next responsibility.
+
+---
+
+## Checkpoint F — Native product adoption and semantic equivalence — NEW MUST-LEARN
+
+- [ ] F1. Product owner map: native source/comparison families/codecs, capture, projection/version admission, application/investigation orchestration, Workspace/report/source/store/recovery; frozen experiment adapters remain historical compatibility owners.
+- [ ] F2. Native representation/capacity: exact facts/paths/roles/premises/outcomes, normalized traces, analyzed vs `unexamined`, producer/method/version identity, exact timing/cost representation and bounded encoding.
+- [ ] F3. Connected normal-product pipeline: shared native PR input → source checkpoint → bounded analysis/comparison → report/source → Workspace/store → fresh-process restoration; explicit unperformed CI/runtime branches, no fabricated evidence.
+- [ ] F4. Semantic equivalence and contamination: mechanical relocation requires equivalence proof across facts/paths/premises/outcomes/partiality/limits; material semantic change requires successor qualification.
+- [ ] F5. Boundary proof and separately frozen normal-product run: controlled/equivalence checks, cold durable reconstruction without forbidden reevaluation, then actual product-path evidence.
+- [ ] F6. Native-adoption consequence: supervise cutover/repair decision while keeping independent usefulness and runtime/compatibility conclusions separate.
+
+**Done when:** Ali can supervise native migration, detect evidence loss or ownership leakage, explain equivalence versus semantic change, and state what a successful product-path proof still does not establish.
+
+---
 
 ## Current position
 
-**Completed:** Checkpoint A — OWNED ENOUGH; Checkpoint B1–B3.  
-**Active:** Checkpoint B — Acquisition and budget model.  
-**Current chunk:** B4 — correctly interpreting exhausted/failed resources and retry boundaries.  
-**Main context:** branch physically synced through main `739cdb6`; S007 is the active separately frozen successor at that sync.  
-**Rule:** finish the compact five-checkpoint ownership sequence. Do not chase every new live successor in real time; sync at meaningful boundaries and fold changes into existing checkpoints unless a genuinely new responsibility appears.
+**Completed:** Checkpoint A — `OWNED ENOUGH`; B1–B3.  
+**Active:** Checkpoint B.  
+**Current chunk:** **B4** — correct failure/resource diagnosis, now including analysis-work admission and representation capacity.  
+**Current main horizon:** synced through `e7082e96`; bounded experimental transfer is complete, native-adoption implementation planning is complete, **native product Build has not started** at this sync.  
+**Rule:** do not jump directly to F. Finish B→C→D→E compactly, then enter F alongside meaningful native Build boundaries.
 
 ## Main-sync log
 
-- `2026-10-31` initial sync from main `034665d7`: fresh outer-attempt lifecycle implemented/qualified; final executable freeze preparation ongoing; live activation withheld. This activated Checkpoint D but did not change learning order.
-- `2026-10-31` sync from `034665d7` → `739cdb6` (21 main commits): branch merged with current main. Final executable freeze completed; first official live attempt completed with insufficient native comparison evidence; separately frozen successor program progressed through S002–S007. Real acquisition/source-selection defects were repaired without cap enlargement; repeated PyPI pre-response timeouts justified a narrowly bounded charged successor-only timeout-recovery profile. Classification: `REINFORCES EXISTING CHECKPOINT` for B/C/D and `ADVANCES EXISTING CHECKPOINT` for E; **no new must-learn checkpoint**. See `2026-10-31_current-ownership-learning-sync-739cdb6.md`.
+- `2026-10-31` initial sync from main `034665d7`: fresh outer-attempt lifecycle implemented/qualified; final executable freeze preparation ongoing; live activation withheld.
+- `2026-10-31` sync `034665d7` → `739cdb6`: first live attempt completed insufficient; S002–S007 progression exposed acquisition/source-selection/provider boundaries; no new checkpoint added.
+- `2026-11-01` sync `739cdb6` → `e7082e96` (33 main commits), physically merged into this branch as `a6735c6f`: S008 delivered useful fresh paired evidence; source-first LifeLog separated source retention from later analysis refusal; versioned partial whole-file analysis qualified; untouched Digimon/Requests case passed the frozen transfer gate; native-adoption design/implementation companion now owns the next project responsibility. Classification: B/C/D reinforced, E materially advanced, and **F added as a justified `NEW MUST-LEARN REQUIREMENT`**. See `working-memory/2026-11-01_current-ownership-learning-sync-e7082e96.md`.
