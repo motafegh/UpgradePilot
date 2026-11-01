@@ -1,0 +1,8 @@
+{
+  "stage": "pip wheel --no-deps --no-build-isolation --no-index in a temporary source archive",
+  "failure": "BackendUnavailable: Cannot import setuptools.build_meta",
+  "cause": "The selected development virtualenv has no setuptools package. The system backend is available at /usr/lib/python3/dist-packages, version 68.1.2, satisfying declared setuptools>=68.",
+  "correction": "Expose the existing system build backend only to the temporary build subprocess; do not install or upgrade packages in the developer environment.",
+  "product_source_changed": false,
+  "network_package_downloads": false
+}

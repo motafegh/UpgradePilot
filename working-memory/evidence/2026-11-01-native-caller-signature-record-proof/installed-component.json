@@ -1,0 +1,20 @@
+{
+  "proof": "installed wheel component smoke, not worker/application qualification",
+  "source_commit": "c7161e42",
+  "wheel": "upgradepilot-0.0.0-py3-none-any.whl",
+  "wheel_sha256": "3db5d7efb6e7c38263c17d04f5a19220ecee9da227ba44f1f11fb13c1a017c4a",
+  "backend": {
+    "version": "68.1.2",
+    "origin": "/usr/lib/python3/dist-packages/setuptools/__init__.py"
+  },
+  "interpreter": "/home/motafeq/projects/UpgradePilot/.venv/bin/python",
+  "codec_import_origin": "/tmp/upgradepilot-native-component-lvpgnuec/installed/upgradepilot/caller_signature/native_codec.py",
+  "experiments_unavailable": true,
+  "component_roundtrip": true,
+  "developer_installation_changed": false,
+  "network_package_resolution": false,
+  "limitations": [
+    "Product worker is not transferred; AUDIT-014-I3 worker subprocess proof remains required.",
+    "Temporary target installation uses the selected interpreter's existing dependencies, not a dependency-isolation claim."
+  ]
+}

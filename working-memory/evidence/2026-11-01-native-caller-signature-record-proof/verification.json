@@ -1,0 +1,46 @@
+{
+  "source_commit": "c7161e42",
+  "source_sha256": {
+    "src/upgradepilot/caller_signature/bindings.py": "c81d21507911d74a97a2c81415b63a31d85e5757339d00bb7938d364fbc0a772",
+    "src/upgradepilot/caller_signature/evidence.py": "e8a53fd83c356ac484eb5a40833d75171b4bd0303c1e64115b1430ebfc533652",
+    "src/upgradepilot/caller_signature/native_codec.py": "2ea6999ca5c5bd9dcb1735d6e50cbca98e8ee5b1dd878753016ea6fa49300255",
+    "src/upgradepilot/caller_signature/analysis.py": "b63d03ad79efd4c87136a5a10d84ec1d3c73b15e86d84c2e178b91784c779289",
+    "src/upgradepilot/caller_signature/__init__.py": "fe6aba69a39dca34c4c6de351688cd9690f022393b4b543a765644655710e249",
+    "tests/test_caller_signature_native_codec.py": "2cbfed732eaca28737406a6472c2467dc83f6351697d01215f9ad3793fcd7652"
+  },
+  "native_tests": {
+    "command": "PYTHONPATH=src:tests .venv/bin/python -m unittest test_caller_signature_native_codec test_workspace_native_reconstruction test_source_topology",
+    "passed": 51
+  },
+  "focused_tests_passed": 8,
+  "retained_cases": 5,
+  "facts_checked": 6419,
+  "indexed_capture_files_checked": 29,
+  "native_shape_and_enclosing_context": "Component native codec verified; remainder experimental context, not native-family/projection proof.",
+  "frozen_donor_hashes_unchanged": 106,
+  "installed_component": {
+    "proof": "installed wheel component smoke, not worker/application qualification",
+    "source_commit": "c7161e42",
+    "wheel": "upgradepilot-0.0.0-py3-none-any.whl",
+    "wheel_sha256": "3db5d7efb6e7c38263c17d04f5a19220ecee9da227ba44f1f11fb13c1a017c4a",
+    "backend": {
+      "version": "68.1.2",
+      "origin": "/usr/lib/python3/dist-packages/setuptools/__init__.py"
+    },
+    "interpreter": "/home/motafeq/projects/UpgradePilot/.venv/bin/python",
+    "codec_import_origin": "/tmp/upgradepilot-native-component-lvpgnuec/installed/upgradepilot/caller_signature/native_codec.py",
+    "experiments_unavailable": true,
+    "component_roundtrip": true,
+    "developer_installation_changed": false,
+    "network_package_resolution": false,
+    "limitations": [
+      "Product worker is not transferred; AUDIT-014-I3 worker subprocess proof remains required.",
+      "Temporary target installation uses the selected interpreter's existing dependencies, not a dependency-isolation claim."
+    ]
+  },
+  "remaining_gate": "Final source/comparison family layout, producer-version/basis and enclosing native capacity proof before bulk producer transfer.",
+  "full_product_and_experiment_suites": "not run; unchanged donor/product consumers and historical broad-suite debt are not represented as current green",
+  "new_provider_calls": 0,
+  "credentials_read": false,
+  "model_or_target_execution": false
+}
