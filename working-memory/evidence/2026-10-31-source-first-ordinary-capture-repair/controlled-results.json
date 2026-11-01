@@ -1,0 +1,117 @@
+[
+  {
+    "name": "legacy-broad-overflow",
+    "proof_class": "controlled_ordinary_pr_composition",
+    "directory": "/home/motafeq/.local/share/upgradepilot/source-first-capture-qualification-2026-10-31/legacy-broad-overflow/attempt",
+    "state": "failed",
+    "reason": "native_resource_limit",
+    "stage": "target_context",
+    "disposition": "not_assessed",
+    "source_packets": 0,
+    "comparison_pairs": 0,
+    "initial_observation_retained": true,
+    "capture_omissions": [],
+    "terminal_artifacts": {
+      "acquisition.json": "dc4e1b3e480df60dc39102281969ff5838ad7aaef89796a635755875a41c4a3b",
+      "execution-freeze.json": "3cf8133ae7364dd30d0f8ec89d23f14375420c0cd80c81712eea48300abbb147",
+      "contract.json": "c50ebf2d81af02a92372d1cb3bf87700413c6b07f267cde20636c40818d32d55",
+      "attempt-started.json": "9af896319b44183c13489d3e77db2ebe1ac4bd7a137e67d6bec73031ea53c9d4",
+      "initial-observation.json": "f57b8ed1c290b70560b2c2493c89bf0f5c57b1975063b916a39d61c07f163058"
+    },
+    "fixed_cli": true
+  },
+  {
+    "name": "source-first-broad-overflow",
+    "proof_class": "controlled_ordinary_pr_composition",
+    "directory": "/home/motafeq/.local/share/upgradepilot/source-first-capture-qualification-2026-10-31/source-first-broad-overflow/attempt",
+    "state": "completed",
+    "reason": null,
+    "stage": "admission",
+    "disposition": "useful_structural_evidence",
+    "source_packets": 7,
+    "comparison_pairs": 2,
+    "initial_observation_retained": true,
+    "capture_omissions": [
+      {
+        "fields": [
+          "binding_analysis_version",
+          "binding_trace_steps",
+          "imports",
+          "references"
+        ],
+        "reason": "broad_binding_observations_not_retained",
+        "stage": "target_context"
+      },
+      {
+        "fields": [
+          "binding_analysis_version",
+          "binding_trace_steps",
+          "imports",
+          "references"
+        ],
+        "reason": "broad_binding_observations_not_retained",
+        "stage": "library_source"
+      }
+    ],
+    "terminal_artifacts": {
+      "acquisition.json": "61b13989505a495bd250f7d0c4a735bc5b6c699417a4a1e6b2d63dfe98f4d452",
+      "comparison/view.txt": "fa1f6e2a30b6b54a7608b1b85ad3678c4259bca2eac573028c4afcd507a940ca",
+      "capture-library-source-00.json": "833322b9eaddef8091444f4efd02b11dbfd598caa0be9f22a1ff60eec198e75b",
+      "capture-library-source-02.json": "5dc50ff56f577efd500691919314bcfdf9b5b689612307ecf9b34bfdac10836c",
+      "contract.json": "fb4e46a821222db19396bfce3225770508d00fad6d1210b120f53ae25210012e",
+      "comparison/result.json": "a3678dfc97a8527ffb956829645200b3d1600b0d274a91194d521eb244d3a6d8",
+      "initial-observation.json": "987d3b5a69c8685d5d3bd5cf0ffa6ed098ec4a360e634af77fc3ad6c0db6c540",
+      "capture-library-source-04.json": "f6c82d9c06c0a035021d7839e83481127fe05d018a5074629988bf520ac68fcd",
+      "execution-freeze.json": "1f8b33980e7cf4fefe50454fc071f51e83766c1e4a321ee7e944624a6185be7f",
+      "capture-library-source-01.json": "36a26862efc10fd54768086f0eddab260c58dde595fe77dbfc167647e9eb49fb",
+      "capture-library-source-05.json": "f3d7d7ac7029bc988e82ee33a466607e37649ddd016fab91b2bd2d2d2706f827",
+      "comparison/input.json": "9956f2bb288080ece5bd604324a22babcfd5a7070b55e9b24e17e9b7bf1e68df",
+      "capture-library-source-03.json": "19257091e66b678fac2988e93ac5daa4e53cad7a9cd6ac5ed53c2f7c16605d76",
+      "capture-target-sources.json": "d00ff8a6806feb4f04050730f1e609ad7623cfb32ca0cdda7fddb16f4966fd40",
+      "comparison/attempt-started.json": "bbad34d763916938a72fe3d4969708008e3305da884dca9c5bc9246a8080e718",
+      "comparison/attempt.json": "b16416a45c8f277de3de3c6386b6b3b763e8ace433082288e0ecec78b1512be6",
+      "acquisition-input.json": "9956f2bb288080ece5bd604324a22babcfd5a7070b55e9b24e17e9b7bf1e68df",
+      "attempt-started.json": "b8e5adebbb9a6d78a2343258dc4d30aa52582303ff4c36e2c2f1fbd45c1556a6",
+      "comparison/sources.json": "8da87416c1cb2eda3bddb46ddfeba1d8583c9a5c9fc880298fb6eadff2bcb491"
+    },
+    "fixed_cli": true
+  },
+  {
+    "name": "source-first-required-overflow",
+    "proof_class": "controlled_ordinary_pr_composition",
+    "directory": "/home/motafeq/.local/share/upgradepilot/source-first-capture-qualification-2026-10-31/source-first-required-overflow/attempt",
+    "state": "failed",
+    "reason": "native_resource_limit",
+    "stage": "target_context",
+    "disposition": "not_assessed",
+    "source_packets": 1,
+    "comparison_pairs": 0,
+    "initial_observation_retained": true,
+    "capture_omissions": [
+      {
+        "fields": [
+          "binding_analysis_version",
+          "binding_trace_steps",
+          "imports",
+          "references"
+        ],
+        "reason": "broad_binding_observations_not_retained",
+        "stage": "target_context"
+      },
+      {
+        "cause": "native_resource_limit",
+        "reason": "required_stage_capture_not_retained",
+        "stage": "target_context"
+      }
+    ],
+    "terminal_artifacts": {
+      "acquisition.json": "213cb2a5f75dfb9824ae14ba54ceb4d5d64a6bf31b52df4632d814b0b010eeb3",
+      "contract.json": "9ad72e02238a1f8286eea365d927c7d1ee9ac57125c4e1e45546ca495527d677",
+      "initial-observation.json": "9c03ffcf4539e76d37d3ae53c8cd2590bbce9b22286ac35c8ffe650998052b2a",
+      "execution-freeze.json": "6761acc2e7535bf975efac36bcd5e0ce3ea14bb80f6ab002ccf4f37bee8a9b29",
+      "capture-target-sources.json": "d00ff8a6806feb4f04050730f1e609ad7623cfb32ca0cdda7fddb16f4966fd40",
+      "attempt-started.json": "3dc41cebc992293d353918cf33281085eeb98056b0227f53dd29399743f07b45"
+    },
+    "fixed_cli": true
+  }
+]

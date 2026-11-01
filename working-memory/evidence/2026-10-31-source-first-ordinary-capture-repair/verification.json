@@ -1,0 +1,50 @@
+{
+  "verified_client_date": "2026-11-01",
+  "cycle_started": "2026-10-31",
+  "method_commit": "0888dc72",
+  "method_runtime_matches_snapshot": true,
+  "frozen_method_sha256": "9c53888802e6573bb9cee1dc2c553491d2877fc11ddb1be0ab7e511f3e42ef83",
+  "scoped_tests": {
+    "new_focused": 10,
+    "api": 264,
+    "architecture": 7
+  },
+  "full_suite": {
+    "tests": 658,
+    "failures": 1,
+    "errors": 25,
+    "skipped": 11,
+    "same_historical_failure_error_method_multiplicities": true
+  },
+  "old_bundles_opened": 21,
+  "original_outer_members_unchanged": true,
+  "native_product_and_lower_owners_unchanged": true,
+  "previous_frozen_evidence_unchanged": true,
+  "shared_guards_enlarged": false,
+  "source_selection_changed": false,
+  "personal_token_reads": 0,
+  "live_provider_calls": 0,
+  "third_party_code_executed": false,
+  "proof_class": "controlled experimental capture repair qualification and retained screening-subset diagnostic",
+  "full_lifelog_target_recovered": false,
+  "transfer_qualified": false,
+  "product_adopted": false,
+  "live_attempt_activated": false,
+  "evidence_sha256": {
+    "REVIEW.md": "e95f049b305cd0ca9cad25df279decd895b945d16163e416b6a9b14e70f928ef",
+    "api-final.log": "75ff096c727c94db2221a05ff9d516d058155fe59b19128e8eed9feeb7e30795",
+    "boundary-final.log": "8db28a5d9ee8f67c26544c4342bdcad3edaf72169f2eea2c217e00259498cddf",
+    "compatibility.json": "c208fc5d5b693d2076f704ae76545935fdc0660e386d866d067c68acd6cad92c",
+    "controlled-results.json": "a36b442d53410563a903b4f78436f8241f3e8f58755d61883c727d61e09349d8",
+    "qualified-method.json": "9c53888802e6573bb9cee1dc2c553491d2877fc11ddb1be0ab7e511f3e42ef83",
+    "retained-subset-diagnostic.json": "12da989f66277cfa60fc0cf80ce5e49e2494601c2169df9bb4f964a8763ef7fa",
+    "tests-final.log": "badd519874a2c58abc464347c9411bc74499b05e35f66d13e79eb4c74b6bfaeb",
+    "tests.json": "9e41d6172a4dc8e963154210880ce728bcf1c267204a1ac7f77f6b93875e049d"
+  },
+  "governance_doctor": {
+    "green": false,
+    "issue": "unchanged AGENTS.md responsibility map missing examples/ marker",
+    "scope": "out of capture repair",
+    "root_unchanged_from_entry": true
+  }
+}
