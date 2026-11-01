@@ -1,0 +1,35 @@
+{
+  "format": "ordinary-caller-signature-attempt/1",
+  "state": "completed",
+  "reason": null,
+  "started_at": "2026-11-01T11:56:35.505286+00:00",
+  "elapsed_seconds": 9.332242180999856,
+  "input_sha256": "e90cd9a057ee4654dcf8c20f4a141763ca678e4007ad6d38fb4af6b1befc42ac",
+  "code_sha256": {
+    "experiments/api_call_signature.py": "6c6940769a0bc9e24d924865f87dbf9376cd3536e4ffe5fb81d3e919e45e8338",
+    "experiments/api_python_bindings.py": "215e96e8e066cfae3a08c7a28f991cb810c8ec7da14e14abb85326509e93166a",
+    "src/upgradepilot/workspace/source_access.py": "56e34abe836ef6edec7142a003844532b445a7e31afaa1006598f892327bbb84",
+    "src/upgradepilot/workspace/native_representation.py": "2a9f510e453a7e33c079c8370dfcbe3136b3d6b1eb1591b005b953c9cf34710c",
+    "experiments/api_signature_evidence.py": "7c7b314db6cefda34a8a0aed79c5bade276d74ff8c74212fff119a89141a78bb",
+    "experiments/api_source_correspondence.py": "2d2064df574994f1e715f0d44cc30cf86b3f43fad2ff524847fbb9f900b34b2d",
+    "experiments/api_ordinary_call_signature_trial.py": "0c7f7f8a018d8b4364879f87de0a00e1b2b3e87cb11d4a8f3f745cca0b6d164d",
+    "experiments/api_target_context_smoke.py": "bc87b4590d87f1b0b3221dc7851ffd897988d0c27a8307c57722a8480859b63b",
+    "experiments/api_adapter_exploration.py": "316b3fa52c1f15ecd66263137402b495a3fbce004614cbbece3b40f9f933aec8",
+    "experiments/api_target_context.py": "367ef4fb9a8f2a0c3c85a54d826227edcd91515a53f4b62ddea55db9f2d602df",
+    "experiments/api_change_source_acquisition.py": "d5ef06971ef9d2f7eefc6c83962c2833598759190e9d6fe489362d704825f64d",
+    "src/upgradepilot/investigation_inputs.py": "cafc5f52d7d61bf6b021663541c1f1460541e50e83e1e6670a189ecc13a62c18"
+  },
+  "limits": {
+    "max_files": 32,
+    "max_source_bytes": 4194304,
+    "max_nodes_per_file": 100000,
+    "max_nodes": 250000,
+    "max_facts": 4096,
+    "max_pairs": 256,
+    "timeout_seconds": 60.0,
+    "memory_bytes": 536870912
+  },
+  "result_sha256": "1e9920d99c5e10b95764e44e4f375ce0cbd0a19447f67e5ff394b794ab12f9b8",
+  "companion_sha256": "2629f63499181ac13e8c60632651c2aac8d691bfe9e34dad135683f4f32bc79c",
+  "worker_returncode": 0
+}

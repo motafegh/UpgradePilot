@@ -13,6 +13,11 @@ runtime dispatch, compatibility or normal product adoption.
 No callable selectors/expected answers are inputs. Curated v1 stays separately
 readable through api_call_signature_trial; both readers share fact integrity and
 source display. These experimental bundles are not Workspace checkpoints.
+
+Explicit ANALYSIS_PROFILE uses input/2 and result/3 for whole-file partial
+analysis. Complete text stays in the source companion, typed allocation records
+identify unexamined units, and per-file indexed binding traces preserve original
+premises without repeating their structure. Legacy input/1/result/2 stay strict.
 """
 
 from __future__ import annotations
@@ -45,12 +50,15 @@ from .api_signature_evidence import (
     read_string_sequence, read_investigation_target, read_bounded_text, write_new_output,
     signature_code_identity, admit_method_source_names, CURATED_HISTORICAL_SOURCES,
     SIGNATURE_SUPPORT_SOURCES, read_comparison_records, render_comparison, render_source,
+    encode_fact_binding_traces, json_structure_cost,
 )
 from .api_change_source_acquisition import AcquisitionProblem, TrialAcquisitionPolicy, TrialPublicSession, PYPI_TIMEOUT_RETRY_POLICY
 from upgradepilot.github.api import GitHubAcquisitionError
 from .api_source_correspondence import (
     CORRESPONDENCE_VERSION, MAX_DISCOVERY_DEPTH, MAX_DISCOVERY_GAPS, MAX_PATH_STEPS,
     PythonSourceModule, absolute_import, discover_source_candidates, module_name,
+    ANALYSIS_PROFILE, ANALYSIS_OMISSION_REASONS, PARTIAL_ANALYSIS_COVERAGE, analysis_group_key,
+    FACT_STRUCTURE_BUDGET, COMPARISON_STRUCTURE_BUDGET,
 )
 from .api_target_context_smoke import (
     ChangedPackageModuleAttempt, acquire_public_pr_context, module_attempt_manifest, trial_manifest,
@@ -58,6 +66,8 @@ from .api_target_context_smoke import (
 
 FORMAT = "caller-signature-evidence/2"
 INPUT_FORMAT = "ordinary-caller-signature-input/1"
+PARTIAL_FORMAT = "caller-signature-evidence/3"
+PARTIAL_INPUT_FORMAT = "ordinary-caller-signature-input/2"
 ACQUISITION_SUMMARY_FORMAT = "ordinary-acquisition-summary/1"
 SOURCE_FIRST_PROFILE = "source-first-ordinary-capture/1"
 SOURCE_PACKET_FORMAT = "ordinary-acquisition-source/1"
@@ -256,18 +266,23 @@ def prepare_ordinary_inputs(trial, session, source_run):
     ))
 
 
-def encode_ordinary_inputs(catalog, modules, acquisition, *, proof_class):
+def encode_ordinary_inputs(catalog, modules, acquisition, *, proof_class, analysis_profile=None):
     """Host-bound proof label; retained data is never promoted to fresh product proof."""
     if proof_class not in PROOF_CLASSES:
         raise ValueError("Unsupported ordinary acquisition proof class.")
+    if analysis_profile not in (None, ANALYSIS_PROFILE):
+        raise ValueError("Unsupported analysis profile.")
     def observation_value(value):
         if isinstance(value, datetime):
             return value.isoformat()
         raise TypeError("Unsupported observation value: " + type(value).__name__)
     acquisition = json.loads(json.dumps(acquisition, default=observation_value))
-    return json_bytes(dict(format=INPUT_FORMAT, proof_class=proof_class,
+    body = dict(format=PARTIAL_INPUT_FORMAT if analysis_profile else INPUT_FORMAT, proof_class=proof_class,
         catalog=parse_json(encode_source_catalog(catalog)), modules=[asdict(m) for m in modules],
-        acquisition=acquisition))
+        acquisition=acquisition)
+    if analysis_profile:
+        body["analysis_profile"] = analysis_profile
+    return json_bytes(body)
 
 
 def acquire_ordinary_comparison_inputs(repository, number, *, session, adapters, capture=None, **providers):
@@ -326,8 +341,12 @@ def _read_modules(raw, catalog):
 
 
 def prepare_ordinary_comparison(input_data, limits):
-    raw = object_fields(parse_json(input_data), ("format", "proof_class", "catalog", "modules", "acquisition"))
-    if raw["format"] != INPUT_FORMAT or raw["proof_class"] not in PROOF_CLASSES:
+    parsed = parse_json(input_data)
+    partial = type(parsed) is dict and parsed.get("format") == PARTIAL_INPUT_FORMAT
+    raw = object_fields(parsed, ("format", "proof_class", "catalog", "modules", "acquisition")
+                        + (("analysis_profile",) if partial else ()))
+    if (raw["format"] not in {INPUT_FORMAT, PARTIAL_INPUT_FORMAT} or raw["proof_class"] not in PROOF_CLASSES
+        or partial and raw["analysis_profile"] != ANALYSIS_PROFILE):
         raise ValueError("Unsupported ordinary input/proof.")
     source_data = json_bytes(raw["catalog"])
     catalog = read_source_catalog(source_data, expected_target=read_investigation_target(raw["catalog"]["target"]))
@@ -336,12 +355,15 @@ def prepare_ordinary_comparison(input_data, limits):
     modules = _read_modules(raw["modules"], catalog)
     if len(catalog.files) > limits.max_files:
         raise AnalysisLimit("selected_file_limit")
-    discovery, pairs, units = discover_source_candidates(catalog, modules, limits)
+    discovery, pairs, units = discover_source_candidates(catalog, modules, limits,
+        **(dict(analysis_profile=ANALYSIS_PROFILE) if partial else {}))
+    admission = discovery.pop("analysis_admission", None)
     by_key = {(u["descriptor"]["source_id"], u["descriptor"]["path"]) for u in units}
-    units.extend(dict(descriptor=catalog.descriptor(f), coverage="complete_file", facts=None)
+    units.extend(dict(descriptor=catalog.descriptor(f),
+                      coverage="unexamined" if partial and f.path.endswith(".py") else "complete_file", facts=None)
                  for f in catalog.files if (f.source_id, f.path) not in by_key)
     companion = encode_source_catalog(catalog)
-    body = dict(format=FORMAT, method_version=METHOD_VERSION, proof_class=raw["proof_class"],
+    body = dict(format=PARTIAL_FORMAT if partial else FORMAT, method_version=METHOD_VERSION, proof_class=raw["proof_class"],
         target=asdict(catalog.target), runtime=sys.version.split()[0], code_sha256=ordinary_code_identity(),
         limits=asdict(limits), inputs=dict(catalog_sha256=content_digest(source_data), catalog_id=catalog.identity,
                                         discovery_input_sha256=content_digest(input_data)),
@@ -353,6 +375,11 @@ def prepare_ordinary_comparison(input_data, limits):
                   selected_pairs=len(pairs)), coverage=discovery["coverage"],
         correspondence_version=CORRESPONDENCE_VERSION, modules=raw["modules"], discovery=discovery,
         acquisition=raw["acquisition"])
+    if partial:
+        body["analysis_admission"] = admission
+        for unit in body["files"]:
+            if unit["facts"] is not None:
+                unit["facts"] = encode_fact_binding_traces(unit["facts"])
     result = json_bytes(body)
     if max(len(result), len(companion)) > MAX_OUTPUT_BYTES:
         raise AnalysisLimit("serialized_output_capacity")
@@ -362,25 +389,31 @@ def prepare_ordinary_comparison(input_data, limits):
 def read_ordinary_comparison(result, companion):
     if max(len(result), len(companion)) > MAX_OUTPUT_BYTES:
         raise AnalysisLimit("saved_output_capacity")
-    body = object_fields(parse_json(result), (
+    parsed = parse_json(result)
+    partial = type(parsed) is dict and parsed.get("format") == PARTIAL_FORMAT
+    body = object_fields(parsed, (
         "format", "method_version", "proof_class", "target", "runtime", "code_sha256", "limits", "inputs",
         "companion_sha256", "companion_id", "files", "pairs", "work", "coverage",
         "correspondence_version", "modules", "discovery", "acquisition",
-    ))
-    if (body["format"] != FORMAT or type(body["method_version"]) is not int or body["method_version"] != METHOD_VERSION
+    ) + (("analysis_admission",) if partial else ()))
+    if (body["format"] not in {FORMAT, PARTIAL_FORMAT} or type(body["method_version"]) is not int or body["method_version"] != METHOD_VERSION
         or type(body["correspondence_version"]) is not int or body["correspondence_version"] not in {1, CORRESPONDENCE_VERSION}
         or body["proof_class"] not in PROOF_CLASSES):
         raise ValueError("Unsupported ordinary format/method/proof.")
     source_names = admit_method_source_names(body["code_sha256"],
         current=(*SIGNATURE_SUPPORT_SOURCES, *ORDINARY_METHOD_SOURCES),
         historical=((*CURATED_HISTORICAL_SOURCES, *ORDINARY_METHOD_SOURCES),))
+    unexamined = _read_analysis_admission(body) if partial else frozenset()
     body, catalog = read_comparison_records(body, companion, method_sources=source_names,
-                                            allow_empty_pairs=True, input_digest_field="discovery_input_sha256")
+        allow_empty_pairs=True, input_digest_field="discovery_input_sha256", unexamined_units=unexamined,
+        indexed_binding_traces=partial)
     if (type(body["discovery"]) is not dict or body["inputs"]["catalog_id"] != catalog.identity
         or body["inputs"]["catalog_sha256"] != body["companion_sha256"]
         or body["coverage"] != body["discovery"].get("coverage")):
         raise ValueError("Ordinary material/coverage closure mismatch.")
     modules = _read_modules(body["modules"], catalog)
+    if partial:
+        _validate_analysis_admission(body, catalog, modules)
     _validate_discovery(body, catalog, modules)
     _validate_acquisition(body["acquisition"])
     if body["proof_class"] in {"controlled_ordinary_pr_composition", FRESH_PROOF}:
@@ -397,6 +430,70 @@ def read_ordinary_comparison(result, companion):
         description["observed_at"] = datetime.fromisoformat(description["observed_at"])
         PullRequestDescriptionObservation(**description)
     return body, catalog
+
+
+def _read_analysis_admission(body):
+    """Typed allocation decisions, not cold recomputation of the selection rule."""
+    admission = object_fields(body["analysis_admission"], ("profile", "units", "scanned_ast_nodes", "root_order",
+                                                         "fact_structure_cost", "comparison_structure_cost"))
+    if (type(body["files"]) is not list or type(body["pairs"]) is not list
+        or type(body["discovery"]) is not dict or type(body["discovery"].get("candidates")) is not list
+        or len(body["discovery"]["candidates"]) != len(body["pairs"])):
+        raise ValueError("Invalid analysis result collections.")
+    if (admission["profile"] != ANALYSIS_PROFILE or admission["root_order"] != "external_import_origins_first"
+        or body["coverage"] != PARTIAL_ANALYSIS_COVERAGE
+        or type(admission["units"]) is not list or not 1 <= len(admission["units"]) <= 32
+        or type(admission["scanned_ast_nodes"]) is not int or admission["scanned_ast_nodes"] < 0):
+        raise ValueError("Unsupported analysis admission.")
+    seen, unexamined, nodes = set(), set(), 0
+    for raw in admission["units"]:
+        row = object_fields(raw, ("unit_id", "state", "reason", "scan_nodes"))
+        uid = read_bounded_text(row["unit_id"], maximum=80)
+        if (uid in seen or type(row["scan_nodes"]) is not int or row["scan_nodes"] < 0
+            or row["state"] not in {"analyzed", "unexamined"}
+            or row["reason"] not in ({"admitted_whole_file"} if row["state"] == "analyzed" else ANALYSIS_OMISSION_REASONS)):
+            raise ValueError("Invalid analysis admission unit.")
+        seen.add(uid)
+        nodes += row["scan_nodes"]
+        if row["state"] == "unexamined":
+            unexamined.add(uid)
+    if nodes != admission["scanned_ast_nodes"]:
+        raise ValueError("Analysis scan accounting mismatch.")
+    facts = sum(json_structure_cost(u["facts"]) for u in body["files"] if u["facts"] is not None)
+    comparisons = sum(json_structure_cost(c) + json_structure_cost(p) + 2
+                      for c, p in zip(body["discovery"]["candidates"], body["pairs"]))
+    for key, actual, maximum in (("fact_structure_cost", facts, FACT_STRUCTURE_BUDGET),
+                                 ("comparison_structure_cost", comparisons, COMPARISON_STRUCTURE_BUDGET)):
+        if type(admission[key]) is not int or not 0 <= admission[key] == actual <= maximum:
+            raise ValueError("Analysis structural work accounting mismatch.")
+    return frozenset(unexamined)
+
+
+def _validate_analysis_admission(body, catalog, modules):
+    units = {u["descriptor"]["file_id"]: u for u in body["files"]}
+    rows = {r["unit_id"]: r for r in body["analysis_admission"]["units"]}
+    expected = {catalog.descriptor(f)["file_id"] for f in catalog.files if f.path.endswith(".py")}
+    limits = AnalysisLimits(**body["limits"])
+    if set(rows) != expected or body["analysis_admission"]["scanned_ast_nodes"] > limits.max_nodes:
+        raise ValueError("Analysis source/scan closure mismatch.")
+    for uid, row in rows.items():
+        unit = units[uid]
+        if (row["scan_nodes"] > limits.max_nodes_per_file
+            or row["state"] == "analyzed" and (unit["facts"] is None or unit["coverage"] != "complete_file"
+                or unit["facts"]["ast_nodes"] != row["scan_nodes"])
+            or row["state"] == "unexamined" and (unit["facts"] is not None or unit["coverage"] != "unexamined")):
+            raise ValueError("Analysis fact/coverage mismatch.")
+    groups = {}
+    by_key = {(u["descriptor"]["source_id"], u["descriptor"]["path"]): u["descriptor"]["file_id"] for u in units.values()}
+    for m in modules:
+        row = rows[by_key[m.source_id, m.path]]
+        if row["reason"] == "outside_static_import_component" and (
+            m.role != "target" or not any(n.role != "target" for n in modules)):
+            raise ValueError("Invalid static-scope omission role.")
+        if m.role in {"native_old_version", "native_proposed_version"}:
+            groups.setdefault(analysis_group_key(m), set()).add((row["state"], row["reason"]))
+    if any(len(states) != 1 for states in groups.values()):
+        raise ValueError("Torn native analysis group.")
 
 
 def _validate_acquisition(acquisition):
@@ -584,6 +681,8 @@ def _validate_discovery(body, catalog, modules):
             s = object_fields(step, ("unit_id", "span", "operation", "expression"))
             if s["unit_id"] not in texts or s["operation"] not in step_operations:
                 raise ValueError("Foreign source path step.")
+            if units[s["unit_id"]]["coverage"] == "unexamined":
+                raise ValueError("Source path enters an unexamined analysis unit.")
             read_source_span(s["span"], texts[s["unit_id"]])
             read_bounded_text(s["expression"], maximum=4 * 1024 * 1024)
             span = s["span"]
@@ -637,6 +736,18 @@ def _timeout_recovery_lines(transport):
 
 def render_ordinary_comparison(body):
     lines = [*render_comparison(body).split("\n"), "", "DISCOVERED SOURCE PATHS (conditional, not runtime dispatch)"]
+    if body["format"] == PARTIAL_FORMAT:
+        admission = body["analysis_admission"]
+        descriptors_by_id = {u["descriptor"]["file_id"]: u["descriptor"] for u in body["files"]}
+        lines.extend(["ANALYSIS ADMISSION: " + admission["profile"],
+            "Complete retained source text; unexamined files supply no analysis facts or absence proof.",
+            "Scanned AST nodes: " + str(admission["scanned_ast_nodes"])
+            + "; admitted facts: " + str(body["work"]["facts"])])
+        for row in admission["units"]:
+            if row["state"] == "unexamined":
+                descriptor = descriptors_by_id[row["unit_id"]]
+                lines.append("Analysis unexamined: " + descriptor["source_id"] + " " + descriptor["path"]
+                             + " | " + row["reason"])
     descriptors = {u["descriptor"]["file_id"]: u["descriptor"] for u in body["files"]}
     signatures = {s["fact_id"]: s for unit in body["files"] if unit["facts"]
                   for s in unit["facts"]["signatures"]}
@@ -1001,7 +1112,11 @@ def _read_fresh_contract(data):
         raise ValueError("Capture profile/representation mismatch.")
     if contract.get("transport_retry_policy") not in (None, PYPI_TIMEOUT_RETRY_POLICY):
         raise ValueError("Unsupported transport retry profile.")
-    required = dict(fresh_proof_class=FRESH_PROOF, input_format=INPUT_FORMAT, comparison_format=FORMAT,
+    analysis = contract.get("analysis_profile")
+    if analysis not in (None, ANALYSIS_PROFILE) or (analysis and profile != SOURCE_FIRST_PROFILE):
+        raise ValueError("Unsupported analysis/capture profile selection.")
+    required = dict(fresh_proof_class=FRESH_PROOF, input_format=PARTIAL_INPUT_FORMAT if analysis else INPUT_FORMAT,
+        comparison_format=PARTIAL_FORMAT if analysis else FORMAT,
         correspondence_version=CORRESPONDENCE_VERSION, outer_attempt_format="fresh-ordinary-pr-attempt/1",
         inner_analysis_format="ordinary-caller-signature-attempt/1")
     if any(representation.get(k) != v for k, v in required.items()):
@@ -1068,6 +1183,8 @@ def _fresh_configuration(contract):
         configuration["transport_retry_policy"] = contract["transport_retry_policy"]
     if contract.get("capture_profile") is not None:
         configuration["capture_profile"] = contract["capture_profile"]
+    if contract.get("analysis_profile") is not None:
+        configuration["analysis_profile"] = contract["analysis_profile"]
     return configuration
 
 
@@ -1104,7 +1221,8 @@ def _structural_disposition(body):
     adapters = ordinary.get("adapter_exploration", {})
     # Deliberately conservative: even no recorded gap is not complete coverage.
     # Unknown installed namespace/dispatch remain premises on useful local facts.
-    partial = bool(discovery["gaps"] or discovery["gaps_omitted"] or acquisition.get("material_omissions")
+    partial = bool(any(u["state"] == "unexamined" for u in body.get("analysis_admission", {}).get("units", []))
+        or discovery["gaps"] or discovery["gaps_omitted"] or acquisition.get("material_omissions")
         or target.get("gaps") or target.get("omitted_paths") or changed.get("unexamined_modules")
         or adapters.get("problems") or adapters.get("omitted_candidates")
         or ordinary.get("transport", {}).get("stops")
@@ -1243,7 +1361,7 @@ def run_fresh_ordinary_pr_attempt(contract_data, freeze_data, *, activate_live=F
             else:
                 attempt["stage"] = "input_freeze"
                 proof = FRESH_PROOF if freeze["mode"] == "live_activation" else "controlled_ordinary_pr_composition"
-                data = encode_ordinary_inputs(*acquired, proof_class=proof)
+                data = encode_ordinary_inputs(*acquired, proof_class=proof, analysis_profile=contract.get("analysis_profile"))
                 _write_attempt_file(directory / "acquisition-input.json", data, MAX_CATALOG_BYTES)
                 attempt["stage"] = "analysis"
                 inner = run_ordinary_comparison(data, directory / "comparison", limits=AnalysisLimits(**contract["analysis_limits"]))

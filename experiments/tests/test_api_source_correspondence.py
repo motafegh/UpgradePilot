@@ -1234,3 +1234,255 @@ class SourceFirstCaptureTests(TestCase):
                                                    mode="controlled_qualification")
                 self.assertFalse(directory.exists())
 
+
+class WholeFileAnalysisAdmissionTests(TestCase):
+    """Versioned partial analysis; source completeness never implies fact coverage."""
+
+    def prepare(self, target="from vendor import send\nsend(timeout=1)\n", *, additional=(), limits=None,
+                old="def send(*, timeout=None):\n pass\n", new="def send(*, deadline=None):\n pass\n"):
+        import experiments.api_ordinary_call_signature_trial as owner
+        catalog, modules = source_inputs(target, old, new, additional=additional)
+        data = owner.encode_ordinary_inputs(catalog, modules, {"control": "authored"},
+            proof_class="retained_component_discovery", analysis_profile=owner.ANALYSIS_PROFILE)
+        result, companion = owner.prepare_ordinary_comparison(data, limits or AnalysisLimits())
+        body, restored = owner.read_ordinary_comparison(result, companion)
+        return body, restored, result, companion
+
+    def repack(self, body):
+        from copy import deepcopy
+        from experiments.api_signature_evidence import encode_fact_binding_traces, json_structure_cost
+        value = deepcopy(body)
+        for u in value["files"]:
+            if u["facts"] is not None:
+                u["facts"] = encode_fact_binding_traces(u["facts"])
+        value["analysis_admission"]["fact_structure_cost"] = sum(
+            json_structure_cost(u["facts"]) for u in value["files"] if u["facts"] is not None)
+        return json_bytes(value)
+
+    def test_irrelevant_fact_pressure_keeps_text_and_pairs_while_strict_profile_refuses(self):
+        import experiments.api_ordinary_call_signature_trial as owner
+        noise = "noise()\n" * 4100
+        extra = (("target", "unconnected.py", noise, "target", "", "", ("vendor",)),)
+        with self.assertRaises(ValueError):
+            owner.prepare_ordinary_comparison(prepared("from vendor import send\nsend(timeout=1)\n",
+                "def send(*, timeout=None):\n pass\n", "def send(*, deadline=None):\n pass\n", additional=extra), AnalysisLimits())
+        body, catalog, result, companion = self.prepare(additional=extra)
+        self.assertEqual(len(catalog.files), 4)
+        self.assertEqual(next(f.content for f in catalog.files if f.path == "unconnected.py"), noise)
+        unit = next(u for u in body["files"] if u["descriptor"]["path"] == "unconnected.py")
+        self.assertIsNone(unit["facts"])
+        self.assertEqual(unit["coverage"], "unexamined")
+        self.assertEqual({p["comparison"]["outcome"] for p in body["pairs"]}, {"bound", "rejected"})
+        self.assertIn("Analysis unexamined:", render_ordinary_comparison(body))
+        # Fixed expansion, display and original text access need no interpreter.
+        with patch("ast.parse", side_effect=AssertionError("AST forbidden")), \
+             patch("requests.sessions.Session.request", side_effect=AssertionError("HTTP forbidden")), \
+             patch.object(owner, "discover_source_candidates", side_effect=AssertionError("discovery forbidden")), \
+             patch("experiments.api_call_signature.compare_arguments", side_effect=AssertionError("checker forbidden")):
+            reopened, sources = read_ordinary_comparison(result, companion)
+            self.assertEqual(reopened["work"], body["work"])
+            self.assertEqual(sources, catalog)
+
+    def test_alias_conditional_and_indirect_local_components_keep_native_evidence(self):
+        variations = [
+            ("from vendor import send as alias\nalias(timeout=1)\n", ()),
+            ("import vendor\ndef later():\n vendor.send(timeout=1)\n", ()),
+            ("from helper import invoke\ninvoke()\n", (("target", "helper.py",
+                "import vendor\ndef invoke():\n vendor.send(timeout=1)\n", "target", "", "", ("vendor",)),)),
+        ]
+        for text, extra in variations:
+            with self.subTest(text=text):
+                body, _, _, _ = self.prepare(text, additional=extra)
+                roles = {c["callee_role"]["role"] for c in body["discovery"]["candidates"]}
+                self.assertTrue({"native_old_version", "native_proposed_version"} <= roles)
+                self.assertTrue(all(r["state"] == "analyzed" for r in body["analysis_admission"]["units"]))
+                if "later" in text:
+                    self.assertTrue(any("conditional_import_origin" in c["premises"] for c in body["discovery"]["candidates"]))
+
+    def test_initializer_and_protocol_forms_remain_conditional_source_evidence(self):
+        cases = [
+            ("import vendor\nclass Client(vendor.Base):\n def __init__(self):\n  super().__init__()\nClient()\n",
+             "class Base:\n def __init__(self):\n  pass\n", "class Base:\n def __init__(self):\n  pass\n"),
+            ("from vendor import FACTORY\nFACTORY.operation(ids=1)\n", factory_source(), factory_source()),
+        ]
+        for text, old, new in cases:
+            with self.subTest(text=text):
+                body, _, _, _ = self.prepare(text, old=old, new=new)
+                self.assertTrue({"native_old_version", "native_proposed_version"} <=
+                                {c["callee_role"]["role"] for c in body["discovery"]["candidates"]})
+
+    def test_renamed_namespace_uses_the_same_policy(self):
+        import experiments.api_ordinary_call_signature_trial as owner
+        catalog, modules = source_inputs("from engine import transmit\ntransmit(delay=1)\n",
+            "def transmit(*, delay=None):\n pass\n", "def transmit(*, elapsed=None):\n pass\n")
+        catalog = RetainedSourceCatalog(catalog.scopes,
+            tuple(replace(f, path=f.path.replace("vendor/", "engine/")) for f in catalog.files),
+            target=replace(catalog.target, normalized_package="engine"))
+        modules = tuple(replace(m, path=m.path.replace("vendor/", "engine/"), module=m.module.replace("vendor", "engine"),
+            package="engine" if m.package else "", dependencies=("engine",) if m.role == "target" else ()) for m in modules)
+        data = owner.encode_ordinary_inputs(catalog, modules, {}, proof_class="retained_component_discovery", analysis_profile=owner.ANALYSIS_PROFILE)
+        result, companion = prepare_ordinary_comparison(data, AnalysisLimits())
+        body, _ = read_ordinary_comparison(result, companion)
+        self.assertEqual({p["comparison"]["outcome"] for p in body["pairs"]}, {"bound", "rejected"})
+
+    def test_native_counterparts_are_atomic_when_only_one_would_fit(self):
+        body, _, _, _ = self.prepare(limits=AnalysisLimits(max_facts=1))
+        units = {u["descriptor"]["file_id"]: u for u in body["files"]}
+        native = [r for r in body["analysis_admission"]["units"] if units[r["unit_id"]]["descriptor"]["source_id"] in {"old", "new"}]
+        self.assertEqual(len(native), 2)
+        self.assertEqual({r["state"] for r in native}, {"unexamined"})
+        self.assertEqual({r["reason"] for r in native}, {"aggregate_fact_budget"})
+        self.assertEqual(body["pairs"], [])
+
+    def test_large_connected_file_is_not_sliced_and_scan_limits_include_excluded_text(self):
+        body, _, _, _ = self.prepare("import vendor\n" + "vendor.send()\n" * 12,
+            limits=AnalysisLimits(max_facts=4))
+        target = next(u for u in body["files"] if u["descriptor"]["source_id"] == "target")
+        self.assertIsNone(target["facts"])
+        self.assertTrue(any(r["reason"] == "per_file_fact_budget" for r in body["analysis_admission"]["units"]))
+        with self.assertRaisesRegex(ValueError, "source_scan_ast_node_limit"):
+            self.prepare(additional=(("target", "excluded.py", "a=1\n" * 100, "target", "", "", ()),),
+                         limits=AnalysisLimits(max_nodes=30))
+
+    def test_trace_table_round_trip_preserves_every_binding_step(self):
+        from experiments.api_signature_evidence import encode_fact_binding_traces
+        from experiments.api_call_signature import extract_python_source
+        from dataclasses import asdict
+        text = "from vendor import send as alias\nalias(timeout=1)\nalias(timeout=2)\n"
+        original = json.loads(json_bytes(asdict(extract_python_source("unit", text, complete=True))))
+        packed = encode_fact_binding_traces(original)
+        self.assertLess(len(packed["binding_trace_steps"]), sum(len(c["binding"]["trace"]) for c in original["calls"]))
+        from experiments.api_signature_evidence import _decode_fact_binding_traces
+        restored, _ = _decode_fact_binding_traces(packed, "unit", text, AnalysisLimits())
+        self.assertEqual(restored, original)
+
+    def test_structural_fact_budget_refuses_a_whole_file_without_raising_limits(self):
+        keywords = ",".join(f"k{i}=1" for i in range(64))
+        body, _, _, _ = self.prepare("import vendor\n" + ("vendor.send(" + keywords + ")\n") * 400,
+            old="def send(**kwargs):\n pass\n", new="def send(**kwargs):\n pass\n")
+        row = next(r for r in body["analysis_admission"]["units"] if r["reason"] == "fact_structure_budget")
+        self.assertEqual(row["state"], "unexamined")
+        self.assertEqual(body["limits"]["max_facts"], 4096)
+        self.assertEqual(body["pairs"], [])
+
+    def test_comparison_structure_exhaustion_is_an_explicit_partial_gap(self):
+        keywords = ",".join(f"k{i}=1" for i in range(10))
+        body, _, _, _ = self.prepare("import vendor\n" + ("vendor.send(" + keywords + ")\n") * 80,
+            old="def send(**kwargs):\n pass\n", new="def send(**kwargs):\n pass\n")
+        self.assertTrue(body["pairs"])
+        self.assertTrue(any(g["reason"] == "comparison_structure_limit" for g in body["discovery"]["gaps"]))
+        from experiments.api_source_correspondence import COMPARISON_STRUCTURE_BUDGET
+        self.assertLessEqual(body["analysis_admission"]["comparison_structure_cost"], COMPARISON_STRUCTURE_BUDGET)
+
+    def test_invalid_syntax_remains_an_explicit_problem_not_absence(self):
+        body, _, _, _ = self.prepare("def broken(:\n")
+        unit = next(u for u in body["files"] if u["descriptor"]["source_id"] == "target")
+        self.assertIn("unsupported_or_invalid_python_syntax", unit["facts"]["problems"])
+        self.assertEqual(body["pairs"], [])
+
+    def test_direct_root_precedes_distant_noise_in_a_shared_component(self):
+        extra = (("target", "client.py", "import vendor\ndef invoke():\n vendor.send(timeout=1)\n", "target", "", "", ("vendor",)),
+                 ("target", "a_noise.py", "noise()\n" * 50, "target", "", "", ("vendor",)))
+        body, _, _, _ = self.prepare("import client\nimport a_noise\nclient.invoke()\n", additional=extra,
+                                     limits=AnalysisLimits(max_facts=4))
+        by_path = {u["descriptor"]["path"]: u for u in body["files"]}
+        self.assertIsNotNone(by_path["client.py"]["facts"])
+        self.assertIsNone(by_path["a_noise.py"]["facts"])
+        self.assertTrue({"native_old_version", "native_proposed_version"} <=
+                        {c["callee_role"]["role"] for c in body["discovery"]["candidates"]})
+
+    def test_torn_counterpart_and_unexamined_path_corruption_refuse(self):
+        from copy import deepcopy
+        body, _, _, companion = self.prepare(additional=(("target", "noise.py", "unused()\n", "target", "", "", ()),))
+        for mutation in ("counterpart", "path"):
+            value = deepcopy(body)
+            if mutation == "counterpart":
+                unit = next(u for u in value["files"] if u["descriptor"]["source_id"] == "old")
+                value["work"]["facts"] -= len(unit["facts"]["calls"]) + len(unit["facts"]["signatures"])
+                value["work"]["ast_nodes"] -= unit["facts"]["ast_nodes"]
+                unit.update(facts=None, coverage="unexamined")
+                next(r for r in value["analysis_admission"]["units"] if r["unit_id"] == unit["descriptor"]["file_id"]).update(
+                    state="unexamined", reason="aggregate_fact_budget")
+                value["pairs"] = []
+                value["discovery"]["candidates"] = []
+                value["work"]["selected_pairs"] = 0
+                value["analysis_admission"]["comparison_structure_cost"] = 0
+                message = "Torn native analysis group"
+            else:
+                unit = next(u for u in value["files"] if u["coverage"] == "unexamined")
+                value["discovery"]["candidates"][0]["steps"][0]["unit_id"] = unit["descriptor"]["file_id"]
+                message = "unexamined analysis unit"
+            with self.subTest(mutation=mutation), self.assertRaisesRegex(ValueError, message):
+                read_ordinary_comparison(self.repack(value), companion)
+
+    def test_target_only_fallback_preserves_local_comparison_responsibility(self):
+        import experiments.api_ordinary_call_signature_trial as owner
+        catalog, modules = source_inputs("def local():\n pass\nlocal()\n", "", "")
+        catalog = RetainedSourceCatalog(tuple(s for s in catalog.scopes if s.source_id == "target"),
+            tuple(f for f in catalog.files if f.source_id == "target"), target=catalog.target)
+        data = owner.encode_ordinary_inputs(catalog, tuple(m for m in modules if m.role == "target"), {},
+            proof_class="retained_component_discovery", analysis_profile=owner.ANALYSIS_PROFILE)
+        result, companion = prepare_ordinary_comparison(data, AnalysisLimits())
+        body, _ = read_ordinary_comparison(result, companion)
+        self.assertTrue(body["pairs"])
+        self.assertEqual(body["analysis_admission"]["units"][0]["state"], "analyzed")
+
+    def test_trace_corruption_and_admission_accounting_refuse(self):
+        from copy import deepcopy
+        import experiments.api_ordinary_call_signature_trial as owner
+        body, _, result, companion = self.prepare()
+        raw = json.loads(result)
+        for mutation in ("negative", "boolean", "foreign", "duplicate", "source", "accounting"):
+            value = deepcopy(raw)
+            unit = next(u for u in value["files"] if u["facts"] and u["facts"]["calls"])
+            fact = next(c for c in unit["facts"]["calls"] if c["binding"])
+            if mutation in {"negative", "boolean", "foreign"}:
+                fact["binding"]["trace"][0] = {"negative": -1, "boolean": True, "foreign": 99999}[mutation]
+            elif mutation == "duplicate":
+                unit["facts"]["binding_trace_steps"].append(deepcopy(unit["facts"]["binding_trace_steps"][0]))
+            elif mutation == "source":
+                unit["facts"]["binding_trace_steps"][0]["source_id"] = "foreign"
+            else:
+                value["analysis_admission"]["fact_structure_cost"] += 1
+            # Match structural accounting so bad references cannot hide behind
+            # a shallower count mismatch in the discriminating corruption arms.
+            from experiments.api_signature_evidence import json_structure_cost
+            if mutation != "accounting":
+                value["analysis_admission"]["fact_structure_cost"] = sum(json_structure_cost(u["facts"]) for u in value["files"] if u["facts"])
+            with self.subTest(mutation=mutation), self.assertRaises(ValueError):
+                owner.read_ordinary_comparison(json_bytes(value), companion)
+
+    def test_unexamined_cannot_become_empty_analyzed_or_legacy_complete(self):
+        from copy import deepcopy
+        body, _, _, companion = self.prepare(additional=(("target", "noise.py", "unused()\n", "target", "", "", ()),))
+        for mutation in ("drop_row", "fake_analyzed", "wrong_reason", "legacy"):
+            value = deepcopy(body)
+            uid = next(u["descriptor"]["file_id"] for u in value["files"] if u["coverage"] == "unexamined")
+            if mutation == "drop_row":
+                value["analysis_admission"]["units"] = [r for r in value["analysis_admission"]["units"] if r["unit_id"] != uid]
+                value["analysis_admission"]["scanned_ast_nodes"] = sum(r["scan_nodes"] for r in value["analysis_admission"]["units"])
+            elif mutation == "fake_analyzed":
+                next(r for r in value["analysis_admission"]["units"] if r["unit_id"] == uid).update(state="analyzed", reason="admitted_whole_file")
+            elif mutation == "wrong_reason":
+                value["analysis_admission"]["units"][0]["reason"] = "everything_is_safe"
+            else:
+                value["format"] = "caller-signature-evidence/2"
+                del value["analysis_admission"]
+            with self.subTest(mutation=mutation), self.assertRaises(ValueError):
+                read_ordinary_comparison(self.repack(value) if mutation != "legacy" else json_bytes(value), companion)
+
+    def test_fresh_control_runs_the_opt_in_profile_through_actual_outer_worker_and_open(self):
+        import experiments.api_ordinary_call_signature_trial as owner
+        with TemporaryDirectory() as tmp:
+            data, _, directory, credential = SourceFirstCaptureTests().selection(Path(tmp))
+            raw = json.loads(data)
+            raw["analysis_profile"] = owner.ANALYSIS_PROFILE
+            raw["representation"].update(input_format=owner.PARTIAL_INPUT_FORMAT, comparison_format=owner.PARTIAL_FORMAT)
+            data = json_bytes(raw)
+            freeze = prepare_fresh_execution_freeze(data, credential_file=credential, mode="controlled_qualification")
+            attempt = FreshAttemptLifecycleTests().execute(data, freeze)
+            self.assertEqual(attempt["state"], "completed", attempt)
+            opened = SourceFirstCaptureTests().cold_open(directory)
+            self.assertEqual(opened["comparison"]["format"], owner.PARTIAL_FORMAT)
+            self.assertEqual(attempt["configuration"]["analysis_profile"], owner.ANALYSIS_PROFILE)
+
