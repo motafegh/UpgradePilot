@@ -1,0 +1,9 @@
+{
+  "stage": "early retained LifeLog presentation sketch after successful source-fact checks",
+  "failure": "TypeError: unhashable type: dict",
+  "reason": "Diagnostic helper treated the structured callee_role as a string/set key.",
+  "correction": "Project its role, package and version explicitly for grouping.",
+  "donor_or_native_codec_changed_for_repair": false,
+  "provider_calls": 0,
+  "new_final_summary_written_by_failed_run": false
+}
