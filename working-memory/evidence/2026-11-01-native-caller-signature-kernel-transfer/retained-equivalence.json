@@ -1,6 +1,6 @@
 {
   "reference_commit": "7ed069a0",
-  "proof": "relocated native binding/extraction/checker equals frozen project implementation and retained results",
+  "proof": "native binding/extraction/checker/correspondence/admission equals frozen project implementation and retained results under explicit role mapping",
   "cases": [
     {
       "case": "lifelog",

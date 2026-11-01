@@ -1,0 +1,17 @@
+{"version": "68.1.2", "origin": "/usr/lib/python3/dist-packages/setuptools/__init__.py"}
+
+Processing ./source
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: upgradepilot
+  Building wheel for upgradepilot (pyproject.toml): started
+  Building wheel for upgradepilot (pyproject.toml): finished with status 'done'
+  Created wheel for upgradepilot: filename=upgradepilot-0.0.0-py3-none-any.whl size=327582 sha256=c353922f77d1b873cf5257547abfc808629f655c80edac64012aff19aeaab6f1
+  Stored in directory: /tmp/pip-ephem-wheel-cache-mhw99bu9/wheels/82/4a/95/534d11c3f2e26fffbaaf87a6bcff147595d0a685f3a65cf4c9
+Successfully built upgradepilot
+
+Processing ./wheels/upgradepilot-0.0.0-py3-none-any.whl
+Installing collected packages: upgradepilot
+Successfully installed upgradepilot-0.0.0
+
+{"native_kernel_checked": true, "correspondence_checked": true, "interpreter": "/home/motafeq/projects/UpgradePilot/.venv/bin/python", "codec_import_origin": "/tmp/upgradepilot-native-component-g4gona43/installed/upgradepilot/caller_signature/native_codec.py", "experiments_unavailable": true, "component_roundtrip": true}

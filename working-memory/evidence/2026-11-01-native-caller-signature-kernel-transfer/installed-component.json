@@ -1,0 +1,22 @@
+{
+  "proof": "installed native kernel smoke, not worker/application qualification",
+  "source_commit": "57500d38",
+  "wheel": "upgradepilot-0.0.0-py3-none-any.whl",
+  "wheel_sha256": "c353922f77d1b873cf5257547abfc808629f655c80edac64012aff19aeaab6f1",
+  "backend": {
+    "version": "68.1.2",
+    "origin": "/usr/lib/python3/dist-packages/setuptools/__init__.py"
+  },
+  "native_kernel_checked": true,
+  "correspondence_checked": true,
+  "interpreter": "/home/motafeq/projects/UpgradePilot/.venv/bin/python",
+  "codec_import_origin": "/tmp/upgradepilot-native-component-g4gona43/installed/upgradepilot/caller_signature/native_codec.py",
+  "experiments_unavailable": true,
+  "component_roundtrip": true,
+  "developer_installation_changed": false,
+  "network_package_resolution": false,
+  "limitations": [
+    "Product worker is not transferred; AUDIT-014-I3 worker subprocess proof remains required.",
+    "Temporary target installation uses the selected interpreter's existing dependencies, not a dependency-isolation claim."
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "source_commit": "57500d38",
+  "reference_commit": "7ed069a0",
+  "source_sha256": {
+    "src/upgradepilot/caller_signature/bindings.py": "76b8d52f6ed95b7565cedb52e4a2c5faf9a65a671ff5ff73d15ce0a02a6d4d2f",
+    "src/upgradepilot/caller_signature/evidence.py": "28282df0b3606d7f683d46807085dea6db9bafb8e2c6d3b749b404350ea1d24f",
+    "src/upgradepilot/caller_signature/native_codec.py": "2470076d1134016b4ac9628ba2f11c71f0dee417fdb8982030e777af1118ae4d",
+    "src/upgradepilot/caller_signature/analysis.py": "07efd2121e75b7f7a8b6b109f9a18405135c1f43a30cdf807b5aac21ecefdc58",
+    "src/upgradepilot/caller_signature/__init__.py": "fe6aba69a39dca34c4c6de351688cd9690f022393b4b543a765644655710e249",
+    "src/upgradepilot/caller_signature/correspondence.py": "2d200b2dc406e3155c5b7dd160d061f0d1f0053d30b4a7f9ea6a81633444834f",
+    "tests/test_python_source_bindings.py": "c8d807eb8c7f0e0d9a1d38a8062b2da2926569d21546cf88d5dbe65f83e11383",
+    "tests/test_call_signature_analysis.py": "4ad046179f2fa7c699b8254b2a02019173529d938c075268dd7494e829d9b153",
+    "tests/test_source_correspondence.py": "b3c8b266e34d995443a4bdd395b655701aac5a3a823e47b0c4d828b884eab58d",
+    "tests/test_caller_signature_native_codec.py": "2cbfed732eaca28737406a6472c2467dc83f6351697d01215f9ad3793fcd7652"
+  },
+  "facts_equal": 6419,
+  "comparisons_equal": 251,
+  "native_tests": 68,
+  "experiment_api_tests": 226,
+  "moved_pure_tests": 54,
+  "architecture_tests": 7,
+  "historical_bundles": 22,
+  "installed_kernel": {
+    "proof": "installed native kernel smoke, not worker/application qualification",
+    "source_commit": "57500d38",
+    "wheel": "upgradepilot-0.0.0-py3-none-any.whl",
+    "wheel_sha256": "c353922f77d1b873cf5257547abfc808629f655c80edac64012aff19aeaab6f1",
+    "backend": {
+      "version": "68.1.2",
+      "origin": "/usr/lib/python3/dist-packages/setuptools/__init__.py"
+    },
+    "native_kernel_checked": true,
+    "correspondence_checked": true,
+    "interpreter": "/home/motafeq/projects/UpgradePilot/.venv/bin/python",
+    "codec_import_origin": "/tmp/upgradepilot-native-component-g4gona43/installed/upgradepilot/caller_signature/native_codec.py",
+    "experiments_unavailable": true,
+    "component_roundtrip": true,
+    "developer_installation_changed": false,
+    "network_package_resolution": false,
+    "limitations": [
+      "Product worker is not transferred; AUDIT-014-I3 worker subprocess proof remains required.",
+      "Temporary target installation uses the selected interpreter's existing dependencies, not a dependency-isolation claim."
+    ]
+  },
+  "no_new_acquisition": true,
+  "unrelated_product_or_spec_changes": "",
+  "remaining": "Native families/material/method support, product worker/acquisition/application/CLI/report/source/store recovery and actual product proof remain unimplemented."
+}
