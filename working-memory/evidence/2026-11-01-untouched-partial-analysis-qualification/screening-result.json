@@ -1,0 +1,381 @@
+{
+  "proof_class": "bounded source-form eligibility only; no callee/comparison execution",
+  "considered": [
+    {
+      "repository": "RiceKrisBs/digimon_scraper",
+      "pull_number": 16,
+      "title": "Bump requests from 2.32.4 to 2.33.0",
+      "url": "https://github.com/RiceKrisBs/digimon_scraper/pull/16",
+      "base": "c9eb14f6387b782bd2f3ee6c37fa3efdf2363582",
+      "head": "be5d75cbc4634ec2d7231ed8ada22822630ed5f7",
+      "primary_language": "Python",
+      "transition": {
+        "package": "requests",
+        "old": "2.32.4",
+        "proposed": "2.33.0"
+      },
+      "target_source_files": 2,
+      "direct_declarations": [
+        {
+          "source_id": "RiceKrisBs/digimon_scraper@be5d75cbc4634ec2d7231ed8ada22822630ed5f7:requirements.txt",
+          "location": "L5",
+          "raw": "requests==2.33.0",
+          "package": "requests",
+          "specifier": "==2.33.0",
+          "extras": [],
+          "marker": null,
+          "group": "requirements"
+        }
+      ],
+      "source_hashes": [
+        {
+          "path": "requirements.txt",
+          "sha256": "9613dd7e9b41989ea3bd57724abfbf50d7945d80e9865f153f3483df848b152d"
+        },
+        {
+          "path": "digimon_scraper.py",
+          "sha256": "38bc90158ceb5fe93197b45303bc34e85ad7609bf6e35cabace69d25ec517027"
+        }
+      ],
+      "target_gaps": [],
+      "omitted_paths": [],
+      "eligibility": "eligible",
+      "witness": {
+        "source_id": "RiceKrisBs/digimon_scraper@be5d75cbc4634ec2d7231ed8ada22822630ed5f7:digimon_scraper.py",
+        "line": 22,
+        "kind": "call",
+        "expression": "requests.get",
+        "lexical_import": "requests.get",
+        "binding_limit": null,
+        "keyword_names": [],
+        "positional_count": 1,
+        "binding": {
+          "state": "established",
+          "possible_imports": [
+            "requests.get"
+          ],
+          "unknown_possible": false,
+          "unbound_possible": false,
+          "scope": "module",
+          "reasons": [],
+          "trace": [
+            {
+              "source_id": "RiceKrisBs/digimon_scraper@be5d75cbc4634ec2d7231ed8ada22822630ed5f7:digimon_scraper.py",
+              "scope": "module",
+              "line": 6,
+              "column": 0,
+              "end_line": 6,
+              "end_column": 15,
+              "operation": "import",
+              "name": "requests",
+              "origin": "requests",
+              "input_name": null
+            },
+            {
+              "source_id": "RiceKrisBs/digimon_scraper@be5d75cbc4634ec2d7231ed8ada22822630ed5f7:digimon_scraper.py",
+              "scope": "module",
+              "line": 6,
+              "column": 0,
+              "end_line": 6,
+              "end_column": 15,
+              "operation": "import_binding",
+              "name": "requests",
+              "origin": null,
+              "input_name": null
+            },
+            {
+              "source_id": "RiceKrisBs/digimon_scraper@be5d75cbc4634ec2d7231ed8ada22822630ed5f7:digimon_scraper.py",
+              "scope": "module",
+              "line": 15,
+              "column": 0,
+              "end_line": 16,
+              "end_column": 42,
+              "operation": "branch_join",
+              "name": "requests",
+              "origin": null,
+              "input_name": null
+            },
+            {
+              "source_id": "RiceKrisBs/digimon_scraper@be5d75cbc4634ec2d7231ed8ada22822630ed5f7:digimon_scraper.py",
+              "scope": "module",
+              "line": 17,
+              "column": 0,
+              "end_line": 18,
+              "end_column": 40,
+              "operation": "branch_join",
+              "name": "requests",
+              "origin": null,
+              "input_name": null
+            },
+            {
+              "source_id": "RiceKrisBs/digimon_scraper@be5d75cbc4634ec2d7231ed8ada22822630ed5f7:digimon_scraper.py",
+              "scope": "module",
+              "line": 22,
+              "column": 36,
+              "end_line": 22,
+              "end_column": 58,
+              "operation": "reference",
+              "name": "requests",
+              "origin": null,
+              "input_name": null
+            }
+          ]
+        }
+      },
+      "source_selection": "existing declaration-first normal16-file attempt order",
+      "prior_case_exposure": false,
+      "rationale": "untouched public direct Requests use contrasts with original forwarded HTTPX; actual source shape supported, no callee/outcome inspection"
+    }
+  ],
+  "selected": {
+    "repository": "RiceKrisBs/digimon_scraper",
+    "pull_number": 16,
+    "title": "Bump requests from 2.32.4 to 2.33.0",
+    "url": "https://github.com/RiceKrisBs/digimon_scraper/pull/16",
+    "base": "c9eb14f6387b782bd2f3ee6c37fa3efdf2363582",
+    "head": "be5d75cbc4634ec2d7231ed8ada22822630ed5f7",
+    "primary_language": "Python",
+    "transition": {
+      "package": "requests",
+      "old": "2.32.4",
+      "proposed": "2.33.0"
+    },
+    "target_source_files": 2,
+    "direct_declarations": [
+      {
+        "source_id": "RiceKrisBs/digimon_scraper@be5d75cbc4634ec2d7231ed8ada22822630ed5f7:requirements.txt",
+        "location": "L5",
+        "raw": "requests==2.33.0",
+        "package": "requests",
+        "specifier": "==2.33.0",
+        "extras": [],
+        "marker": null,
+        "group": "requirements"
+      }
+    ],
+    "source_hashes": [
+      {
+        "path": "requirements.txt",
+        "sha256": "9613dd7e9b41989ea3bd57724abfbf50d7945d80e9865f153f3483df848b152d"
+      },
+      {
+        "path": "digimon_scraper.py",
+        "sha256": "38bc90158ceb5fe93197b45303bc34e85ad7609bf6e35cabace69d25ec517027"
+      }
+    ],
+    "target_gaps": [],
+    "omitted_paths": [],
+    "eligibility": "eligible",
+    "witness": {
+      "source_id": "RiceKrisBs/digimon_scraper@be5d75cbc4634ec2d7231ed8ada22822630ed5f7:digimon_scraper.py",
+      "line": 22,
+      "kind": "call",
+      "expression": "requests.get",
+      "lexical_import": "requests.get",
+      "binding_limit": null,
+      "keyword_names": [],
+      "positional_count": 1,
+      "binding": {
+        "state": "established",
+        "possible_imports": [
+          "requests.get"
+        ],
+        "unknown_possible": false,
+        "unbound_possible": false,
+        "scope": "module",
+        "reasons": [],
+        "trace": [
+          {
+            "source_id": "RiceKrisBs/digimon_scraper@be5d75cbc4634ec2d7231ed8ada22822630ed5f7:digimon_scraper.py",
+            "scope": "module",
+            "line": 6,
+            "column": 0,
+            "end_line": 6,
+            "end_column": 15,
+            "operation": "import",
+            "name": "requests",
+            "origin": "requests",
+            "input_name": null
+          },
+          {
+            "source_id": "RiceKrisBs/digimon_scraper@be5d75cbc4634ec2d7231ed8ada22822630ed5f7:digimon_scraper.py",
+            "scope": "module",
+            "line": 6,
+            "column": 0,
+            "end_line": 6,
+            "end_column": 15,
+            "operation": "import_binding",
+            "name": "requests",
+            "origin": null,
+            "input_name": null
+          },
+          {
+            "source_id": "RiceKrisBs/digimon_scraper@be5d75cbc4634ec2d7231ed8ada22822630ed5f7:digimon_scraper.py",
+            "scope": "module",
+            "line": 15,
+            "column": 0,
+            "end_line": 16,
+            "end_column": 42,
+            "operation": "branch_join",
+            "name": "requests",
+            "origin": null,
+            "input_name": null
+          },
+          {
+            "source_id": "RiceKrisBs/digimon_scraper@be5d75cbc4634ec2d7231ed8ada22822630ed5f7:digimon_scraper.py",
+            "scope": "module",
+            "line": 17,
+            "column": 0,
+            "end_line": 18,
+            "end_column": 40,
+            "operation": "branch_join",
+            "name": "requests",
+            "origin": null,
+            "input_name": null
+          },
+          {
+            "source_id": "RiceKrisBs/digimon_scraper@be5d75cbc4634ec2d7231ed8ada22822630ed5f7:digimon_scraper.py",
+            "scope": "module",
+            "line": 22,
+            "column": 36,
+            "end_line": 22,
+            "end_column": 58,
+            "operation": "reference",
+            "name": "requests",
+            "origin": null,
+            "input_name": null
+          }
+        ]
+      }
+    },
+    "source_selection": "existing declaration-first normal16-file attempt order",
+    "prior_case_exposure": false,
+    "rationale": "untouched public direct Requests use contrasts with original forwarded HTTPX; actual source shape supported, no callee/outcome inspection"
+  },
+  "failure": null,
+  "transport": {
+    "format": "trial-acquisition-policy/1",
+    "limits": {
+      "github_requests": 44,
+      "provider_requests": 44,
+      "response_bytes": 8388608,
+      "aggregate_bytes": 16777216,
+      "elapsed_seconds": 180.0,
+      "source_request_reserve": 1,
+      "target_file_attempts": 16,
+      "adapter_candidate_attempts": 4
+    },
+    "auth": "token-env",
+    "github_requests": 9,
+    "provider_requests": 9,
+    "decoded_body_bytes": 103602,
+    "elapsed_seconds": 4.501838203999796,
+    "deadline_kind": "cooperative_monotonic_checks_and_bounded_socket_timeouts",
+    "stops": [],
+    "requests": [
+      {
+        "stage": "candidate_metadata",
+        "host": "api.github.com",
+        "path": "/search/issues",
+        "github_requests": 1,
+        "provider_requests": 1,
+        "decoded_body_bytes": 30159,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      },
+      {
+        "stage": "public_native_eligibility",
+        "host": "api.github.com",
+        "path": "/repos/RiceKrisBs/digimon_scraper",
+        "github_requests": 2,
+        "provider_requests": 2,
+        "decoded_body_bytes": 5473,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      },
+      {
+        "stage": "public_native_eligibility",
+        "host": "api.github.com",
+        "path": "/repos/RiceKrisBs/digimon_scraper/pulls/16",
+        "github_requests": 3,
+        "provider_requests": 3,
+        "decoded_body_bytes": 27612,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      },
+      {
+        "stage": "public_native_eligibility",
+        "host": "api.github.com",
+        "path": "/repos/RiceKrisBs/digimon_scraper/pulls/16/files",
+        "github_requests": 4,
+        "provider_requests": 4,
+        "decoded_body_bytes": 699,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      },
+      {
+        "stage": "public_native_eligibility",
+        "host": "api.github.com",
+        "path": "/repos/RiceKrisBs/digimon_scraper/pulls/16",
+        "github_requests": 5,
+        "provider_requests": 5,
+        "decoded_body_bytes": 27612,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      },
+      {
+        "stage": "target_source_eligibility",
+        "host": "api.github.com",
+        "path": "/repos/RiceKrisBs/digimon_scraper/git/commits/be5d75cbc4634ec2d7231ed8ada22822630ed5f7",
+        "github_requests": 6,
+        "provider_requests": 6,
+        "decoded_body_bytes": 3223,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      },
+      {
+        "stage": "target_source_eligibility",
+        "host": "api.github.com",
+        "path": "/repos/RiceKrisBs/digimon_scraper/git/trees/a2b727d47ef8c2f4c726a559deb2c8840a01b100",
+        "github_requests": 7,
+        "provider_requests": 7,
+        "decoded_body_bytes": 1115,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      },
+      {
+        "stage": "target_source_eligibility",
+        "host": "api.github.com",
+        "path": "/repos/RiceKrisBs/digimon_scraper/contents/requirements.txt",
+        "github_requests": 8,
+        "provider_requests": 8,
+        "decoded_body_bytes": 1210,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      },
+      {
+        "stage": "target_source_eligibility",
+        "host": "api.github.com",
+        "path": "/repos/RiceKrisBs/digimon_scraper/contents/digimon_scraper.py",
+        "github_requests": 9,
+        "provider_requests": 9,
+        "decoded_body_bytes": 6499,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      }
+    ]
+  },
+  "source_candidates_inspected": 1,
+  "method_runtime_unchanged": true,
+  "ordinary_attempts": 0,
+  "comparison_outcomes_inspected": false
+}
