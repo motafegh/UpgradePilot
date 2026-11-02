@@ -13,7 +13,7 @@ from unittest.mock import patch
 
 from experiments import api_ordinary_call_signature_trial as ordinary
 from upgradepilot.caller_signature.correspondence import PythonSourceModule
-from upgradepilot.caller_signature.evidence import AnalysisLimits, SourceAnalysisInput
+from upgradepilot.caller_signature.evidence import AnalysisLimits, SourceAnalysisInput, json_structure_cost
 from upgradepilot.caller_signature.result_codec import (
     candidate_records, decode_analysis_result, encode_analysis_input, encode_analysis_result,
 )
@@ -25,6 +25,8 @@ ROOT = HERE.parents[2]
 EVIDENCE = ROOT / "working-memory/evidence"
 ROLE = {"target": "target_repository", "native_old_version": "old_dependency",
         "native_proposed_version": "proposed_dependency", "constraint_sample": "constraint_sample"}
+SOURCE_HASHES = {str(p.relative_to(ROOT)): sha256(p.read_bytes()).hexdigest()
+                 for p in sorted((ROOT / "src/upgradepilot/caller_signature").glob("*.py"))}
 
 
 def read(path):
@@ -53,7 +55,8 @@ for case, directory, hashes in cases:
     summary = dict(case=case, state=run.state, reason=run.reason, returncode=run.worker_returncode,
                    elapsed_seconds_hex=run.elapsed.seconds_hex, worker_origin=run.worker_module_origin,
                    input_bytes=len(input_data), result_bytes=None, facts_equal=False, paths_equal=False,
-                   admission_equal=False, work_equal=False, cold_open=False, original_hashes=hashes)
+                   admission_equal=False, work_equal=False, cold_open=False, original_hashes=hashes,
+                   implementation_sha256=SOURCE_HASHES)
     results.append(summary)
     (HERE / "retained-results.json").write_text(json.dumps(results, indent=2) + "\n")
     assert run.state == "completed", (case, run.state, run.reason)
@@ -94,7 +97,8 @@ for case, directory, hashes in cases:
     summary.update(work_equal=True, work=work, analyzed_units=sum(u.facts is not None for u in result.units),
         unexamined_units=sum(u.coverage == "unexamined" for u in result.units),
         result_sha256=sha256(payload).hexdigest(), input_sha256=run.input_sha256,
-        structural_tokens=__import__("upgradepilot.caller_signature.evidence", fromlist=["json_structure_cost"]).json_structure_cost(parse_json(payload)))
+        structural_tokens=json_structure_cost(parse_json(payload)))
     assert hashes == {n: sha256((directory / n).read_bytes()).hexdigest() for n in hashes}
+    assert SOURCE_HASHES == {name: sha256((ROOT / name).read_bytes()).hexdigest() for name in SOURCE_HASHES}
     (HERE / "retained-results.json").write_text(json.dumps(results, indent=2) + "\n")
     print(case, "PASS", work["facts"], work["selected_pairs"], "facts/comparisons", len(payload), "bytes", flush=True)

@@ -117,6 +117,20 @@ class NativeAnalysisResultTests(TestCase):
             with self.subTest(corruption=corruption), self.assertRaisesRegex(ValueError, "factory"):
                 decode_analysis_result(json_bytes(row), source)
 
+    def test_compared_call_must_belong_to_the_retained_witness_path(self):
+        catalog, modules = material("from vendor import send\nsend(option=1)\nsend(option=1)\n",
+            "def send(*, option=None):\n pass\n", "def send():\n pass\n")
+        source = SourceAnalysisInput(catalog, modules)
+        result = produce_source_analysis(source)
+        row = parse_json(encode_analysis_result(result, source))
+        # Both calls have the same arguments, so their local outcomes agree.
+        # Swapping only the comparison reference must still break path closure.
+        first = row["candidates"][0]
+        other = next(c for c in row["candidates"] if c["root_call_id"] != first["root_call_id"])
+        first["comparison"]["call_id"] = other["comparison"]["call_id"]
+        with self.assertRaisesRegex(ValueError, "compared call"):
+            decode_analysis_result(json_bytes(row), source)
+
     def test_whole_file_refusal_retains_text_and_cannot_become_analyzed(self):
         source = prepared(max_facts=1)
         result = produce_source_analysis(source)

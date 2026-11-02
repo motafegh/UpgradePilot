@@ -4,7 +4,7 @@
     "state": "completed",
     "reason": null,
     "returncode": 0,
-    "elapsed_seconds_hex": "0x1.48e47ec6c9400p+3",
+    "elapsed_seconds_hex": "0x1.439e79a1c6400p+3",
     "worker_origin": "/home/motafeq/projects/UpgradePilot/src/upgradepilot/caller_signature/worker.py",
     "input_bytes": 726142,
     "result_bytes": 3778816,
@@ -20,6 +20,16 @@
       "sources.json": "2629f63499181ac13e8c60632651c2aac8d691bfe9e34dad135683f4f32bc79c",
       "attempt-started.json": "9ae9be3f216ebf8fe5b2e0823fb77271b58256285541d3aae5bc9a8390e63dbd",
       "input.json": "e90cd9a057ee4654dcf8c20f4a141763ca678e4007ad6d38fb4af6b1befc42ac"
+    },
+    "implementation_sha256": {
+      "src/upgradepilot/caller_signature/__init__.py": "fe6aba69a39dca34c4c6de351688cd9690f022393b4b543a765644655710e249",
+      "src/upgradepilot/caller_signature/analysis.py": "07efd2121e75b7f7a8b6b109f9a18405135c1f43a30cdf807b5aac21ecefdc58",
+      "src/upgradepilot/caller_signature/bindings.py": "76b8d52f6ed95b7565cedb52e4a2c5faf9a65a671ff5ff73d15ce0a02a6d4d2f",
+      "src/upgradepilot/caller_signature/correspondence.py": "2d200b2dc406e3155c5b7dd160d061f0d1f0053d30b4a7f9ea6a81633444834f",
+      "src/upgradepilot/caller_signature/evidence.py": "abf3dd61b8c4e93b5edb513f42b4a032baf5f70654bd5ded199e10acb0b513f6",
+      "src/upgradepilot/caller_signature/native_codec.py": "111a4d13e0f6884634551adc8e58d979430efcdb7097857b2893d8c5f075e719",
+      "src/upgradepilot/caller_signature/result_codec.py": "62bed94d7c1f50b07a1e7a90e58752d602e2178defccceff9fbb800f2ff3171b",
+      "src/upgradepilot/caller_signature/worker.py": "a9905e9a5f3eeeb24ae77221846df29aae1b33e6b9d99020908ea324fca408f5"
     },
     "work": {
       "source_files": 28,
@@ -44,7 +54,7 @@
     "state": "completed",
     "reason": null,
     "returncode": 0,
-    "elapsed_seconds_hex": "0x1.1d763bde1f000p+1",
+    "elapsed_seconds_hex": "0x1.233b760b27800p+1",
     "worker_origin": "/home/motafeq/projects/UpgradePilot/src/upgradepilot/caller_signature/worker.py",
     "input_bytes": 223325,
     "result_bytes": 1668555,
@@ -60,6 +70,16 @@
       "sources.json": "4f85d6adaa318c7dba61ebed8c83cbea3264fe7f448df061cb6460a7e3e744f3",
       "attempt-started.json": "efb51e24cfe4f5ec68ad4f551a7194ed8ccaa107cc2a357603c7864429e2bf5e",
       "input.json": "6cb022b4299f971ee826ca04be614f777c074ab8a9b12efebebb94869c6ecc9f"
+    },
+    "implementation_sha256": {
+      "src/upgradepilot/caller_signature/__init__.py": "fe6aba69a39dca34c4c6de351688cd9690f022393b4b543a765644655710e249",
+      "src/upgradepilot/caller_signature/analysis.py": "07efd2121e75b7f7a8b6b109f9a18405135c1f43a30cdf807b5aac21ecefdc58",
+      "src/upgradepilot/caller_signature/bindings.py": "76b8d52f6ed95b7565cedb52e4a2c5faf9a65a671ff5ff73d15ce0a02a6d4d2f",
+      "src/upgradepilot/caller_signature/correspondence.py": "2d200b2dc406e3155c5b7dd160d061f0d1f0053d30b4a7f9ea6a81633444834f",
+      "src/upgradepilot/caller_signature/evidence.py": "abf3dd61b8c4e93b5edb513f42b4a032baf5f70654bd5ded199e10acb0b513f6",
+      "src/upgradepilot/caller_signature/native_codec.py": "111a4d13e0f6884634551adc8e58d979430efcdb7097857b2893d8c5f075e719",
+      "src/upgradepilot/caller_signature/result_codec.py": "62bed94d7c1f50b07a1e7a90e58752d602e2178defccceff9fbb800f2ff3171b",
+      "src/upgradepilot/caller_signature/worker.py": "a9905e9a5f3eeeb24ae77221846df29aae1b33e6b9d99020908ea324fca408f5"
     },
     "work": {
       "source_files": 24,
@@ -84,7 +104,7 @@
     "state": "completed",
     "reason": null,
     "returncode": 0,
-    "elapsed_seconds_hex": "0x1.3ec39e5a9e800p+1",
+    "elapsed_seconds_hex": "0x1.37e6dd3ba7000p+1",
     "worker_origin": "/home/motafeq/projects/UpgradePilot/src/upgradepilot/caller_signature/worker.py",
     "input_bytes": 222157,
     "result_bytes": 2298261,
@@ -100,6 +120,16 @@
       "sources.json": "770ab80fea86f6895fc52e278548d075414fe859f28ee09edb2c382c6296124d",
       "attempt-started.json": "17430b717d593e49ed3bdd84b6698646c16648bbcc5859dc310260652e9a2161",
       "input.json": "d90b4b6d9b8c17adac082197e49f366f2c888edfaa3941f755fd77c14fbb687f"
+    },
+    "implementation_sha256": {
+      "src/upgradepilot/caller_signature/__init__.py": "fe6aba69a39dca34c4c6de351688cd9690f022393b4b543a765644655710e249",
+      "src/upgradepilot/caller_signature/analysis.py": "07efd2121e75b7f7a8b6b109f9a18405135c1f43a30cdf807b5aac21ecefdc58",
+      "src/upgradepilot/caller_signature/bindings.py": "76b8d52f6ed95b7565cedb52e4a2c5faf9a65a671ff5ff73d15ce0a02a6d4d2f",
+      "src/upgradepilot/caller_signature/correspondence.py": "2d200b2dc406e3155c5b7dd160d061f0d1f0053d30b4a7f9ea6a81633444834f",
+      "src/upgradepilot/caller_signature/evidence.py": "abf3dd61b8c4e93b5edb513f42b4a032baf5f70654bd5ded199e10acb0b513f6",
+      "src/upgradepilot/caller_signature/native_codec.py": "111a4d13e0f6884634551adc8e58d979430efcdb7097857b2893d8c5f075e719",
+      "src/upgradepilot/caller_signature/result_codec.py": "62bed94d7c1f50b07a1e7a90e58752d602e2178defccceff9fbb800f2ff3171b",
+      "src/upgradepilot/caller_signature/worker.py": "a9905e9a5f3eeeb24ae77221846df29aae1b33e6b9d99020908ea324fca408f5"
     },
     "work": {
       "source_files": 12,
@@ -124,7 +154,7 @@
     "state": "completed",
     "reason": null,
     "returncode": 0,
-    "elapsed_seconds_hex": "0x1.0a25741a7b800p+1",
+    "elapsed_seconds_hex": "0x1.12b4a9390d800p+1",
     "worker_origin": "/home/motafeq/projects/UpgradePilot/src/upgradepilot/caller_signature/worker.py",
     "input_bytes": 251678,
     "result_bytes": 1979077,
@@ -140,6 +170,16 @@
       "sources.json": "b6b7d19ccd1262a631150d31b5b1f207e2752fbada136929989ddee5167b10ef",
       "attempt-started.json": "e36985f8324c67fd0699fd598b6e1bb3ed4021a4fd74d2f6d03b80af2c53e824",
       "input.json": "aea3102ace5fafdbf836e4946188eaab5f86fef0b834bc59c021066ccdecedad"
+    },
+    "implementation_sha256": {
+      "src/upgradepilot/caller_signature/__init__.py": "fe6aba69a39dca34c4c6de351688cd9690f022393b4b543a765644655710e249",
+      "src/upgradepilot/caller_signature/analysis.py": "07efd2121e75b7f7a8b6b109f9a18405135c1f43a30cdf807b5aac21ecefdc58",
+      "src/upgradepilot/caller_signature/bindings.py": "76b8d52f6ed95b7565cedb52e4a2c5faf9a65a671ff5ff73d15ce0a02a6d4d2f",
+      "src/upgradepilot/caller_signature/correspondence.py": "2d200b2dc406e3155c5b7dd160d061f0d1f0053d30b4a7f9ea6a81633444834f",
+      "src/upgradepilot/caller_signature/evidence.py": "abf3dd61b8c4e93b5edb513f42b4a032baf5f70654bd5ded199e10acb0b513f6",
+      "src/upgradepilot/caller_signature/native_codec.py": "111a4d13e0f6884634551adc8e58d979430efcdb7097857b2893d8c5f075e719",
+      "src/upgradepilot/caller_signature/result_codec.py": "62bed94d7c1f50b07a1e7a90e58752d602e2178defccceff9fbb800f2ff3171b",
+      "src/upgradepilot/caller_signature/worker.py": "a9905e9a5f3eeeb24ae77221846df29aae1b33e6b9d99020908ea324fca408f5"
     },
     "work": {
       "source_files": 14,

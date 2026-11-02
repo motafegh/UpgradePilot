@@ -1,0 +1,6 @@
+test_compared_call_must_belong_to_the_retained_witness_path (test_caller_signature_worker.NativeAnalysisResultTests.test_compared_call_must_belong_to_the_retained_witness_path) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.008s
+
+OK

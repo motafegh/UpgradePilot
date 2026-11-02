@@ -1,0 +1,4 @@
+lifelog PASS 1583 145 facts/comparisons 3778816 bytes
+httpx PASS 1107 12 facts/comparisons 1668555 bytes
+glyphslib-protocol PASS 1113 68 facts/comparisons 2298261 bytes
+digimon PASS 1463 21 facts/comparisons 1979077 bytes

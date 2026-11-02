@@ -276,7 +276,7 @@ def _read_admission(raw, units, files, source_input):
     return tuple(rows)
 
 
-def _read_steps(raw, root, signature, files, units):
+def _read_steps(raw, root, call, signature, files, units):
     steps = []
     for item in _sequence(raw, MAX_PATH_STEPS):
         row = object_fields(item, ("unit_id", "span", "operation", "expression"))
@@ -296,6 +296,10 @@ def _read_steps(raw, root, signature, files, units):
     if (not steps or steps[0].operation != "call" or (steps[0].unit_id, steps[0].span) != (root.unit_id, root.span)
         or (steps[-1].unit_id, steps[-1].span) != (signature.unit_id, signature.span)):
         raise ValueError("Source path endpoint mismatch.")
+    # A locally identical call elsewhere can have the same reception outcome.
+    # Its ID cannot replace this path's actual compared invocation.
+    if not any(s.operation == "call" and (s.unit_id, s.span) == (call.unit_id, call.span) for s in steps):
+        raise ValueError("Source path omits its compared call.")
     return tuple(steps)
 
 
@@ -328,7 +332,7 @@ def _read_candidates(raw, units, files, source_input):
         if json_bytes(row["callee_role"]) != json_bytes(module_fields(callee_role)):
             raise ValueError("Candidate callee source role mismatch.")
         checked = read_argument_comparison(comparison, call, signature, receiver)
-        steps = _read_steps(row["steps"], root, signature, files, by_uid)
+        steps = _read_steps(row["steps"], root, call, signature, files, by_uid)
         premises = read_string_sequence(row["premises"], maximum=256)
         operations = [s.operation for s in steps]
         # Every protocol-specific residue triggers the full ordered witness check.

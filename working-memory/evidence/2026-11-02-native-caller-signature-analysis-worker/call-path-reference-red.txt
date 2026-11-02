@@ -1,0 +1,14 @@
+test_compared_call_must_belong_to_the_retained_witness_path (test_caller_signature_worker.NativeAnalysisResultTests.test_compared_call_must_belong_to_the_retained_witness_path) ... FAIL
+
+======================================================================
+FAIL: test_compared_call_must_belong_to_the_retained_witness_path (test_caller_signature_worker.NativeAnalysisResultTests.test_compared_call_must_belong_to_the_retained_witness_path)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_worker.py", line 131, in test_compared_call_must_belong_to_the_retained_witness_path
+    with self.assertRaisesRegex(ValueError, "compared call"):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.009s
+
+FAILED (failures=1)
