@@ -10,9 +10,9 @@ Owner: [native-adoption implementation plan §3/§6](../plans/CALLER_SIGNATURE_N
 A0 — DONE: fetched origin; main0519bab7 synchronized. The unrelated October3 untracked record remains untouched. Inspected actual inventory/target declaration/static-origin and exact-release/provenance/tag/module/sample owners, their existing tests, native receipt layouts, shared ledger and ADR0011. No main delta invalidates the accepted transfer route.
 A1 — DONE, continuous context: prior milestone walkthrough delivered; Ali explicitly resumes Build. The unanswered request-count reasoning check remains deferred, not passed.
 A2 — DONE, compressed under situational rule: transfer exact target/source owners, share explicit session, preserve native old/proposed versus sample questions and static-origin uncertainty, reuse matching native record types, retain fixed historical adapters/closures. Code remains source-only; normal application/profile/report and Workspace source-progress publication follow this owner transfer.
-B — CURRENT.
-Verification gate — PENDING.
-D — PENDING at verified milestone.
+B — DONE for product acquisition owners/native module receipt production; ordinary publication/application integration remains subsequent.
+Verification gate — GREEN:1,038 product/194 API/7 architecture;56 focused subset,3 reference-equivalent controls,22 unchanged bundles, installed30 source controls and governance.
+D — CURRENT: stop for requested milestone onboarding; no mastery claim.
 E — PENDING.
 C — CONTINUOUS.
 
@@ -47,3 +47,12 @@ Full active product suite passes1,038 tests/176.323s. Final API suite passes194/
 The first source-reference comparison failed on18 metadata differences:5 relocated source hashes and1 observation timestamp across3 controlled runs. Inspection found no source/request/coverage/outcome difference. Preserved both raw projections and the initial failure. The corrected diagnostic explicitly excludes executable identity metadata and separately measured observation/elapsed timestamps; new source identity remains recorded by the current freeze/verification, never forced equal to old hashes. Three cases match pre-transfer0519bab7 for exact catalogs/modules, native prefix, association summaries, coverage/gaps/work and charged requests:default-noise41 GitHub/46 total;stage-partial30/35;legacy-starvation50 GitHub with the legacy intentionally unavailable all-provider counter0. These are controlled producer-equivalence cases, not fresh/live/generalization or product-adoption proof.
 
 22 historical bundles/207 members cold-open unchanged with AST/producer/worker/network forbidden.7 architecture controls, static dependency boundaries and governance diagnostic pass. Source comments now identify both repository text and inventory owners and the actual native receipt producer. Installed artifact qualification follows the source commit, with no claim made before it runs.
+
+
+## Frozen installed proof and milestone handoff
+
+Sourceb269757a published after source/focused/full/experiment/architecture/equivalence/historical checks. Frozen wheel6f3837d5e5eec74a7709f28e36d30dcb7b4f7cb5aac2aea730972e13faaacacb builds with existing setuptools68.1.2 using no-index/no-deps and installs into a private temporary target. All30 target/source controls pass outside checkout with experiments unavailable; source_acquisition, source_context, repository and source_codec all resolve under the wheel installation. Selected copied tests are proof drivers, not product dependencies or shipped examples. Socket connections are forbidden; existing interpreter dependencies are reused, not isolated. No fresh provider/credential/third-party execution, dependency resolution, expanded policy or normal application/profile adoption is established.
+
+B and verification are complete for this owner/receipt milestone. D now pauses for onboarding: provider inventory→target candidates→exact release/declared association→both tags/unique commit→module/source work→native receipt; cached failures and earlier premises; retained partial receipt versus live-only observations and actual durable publication. E remains pending; prior unanswered ledger reasoning/mastery stays deferred, and no new learner ownership is inferred from the implementation/tests.
+
+Next responsibility after handoff is native source catalog/receipt composition from the already acquired dependency prefix and Workspace source-progress publication before analysis, followed by ordinary application/profile/CLI/report/source/save/cold recovery. The standalone failed-association release/publisher retention limit is explicit input to that composition: preserve its honest gaps or justify compatible representation work if stronger durable retention is required. Current code does not fabricate a complete association, promise live-progress durability or modify a lower owner just because that outcome is unsupported. Frozen evidence and maintainer authority remain unchanged. MEMORY.md owns the live position; C remains continuous through D/E.

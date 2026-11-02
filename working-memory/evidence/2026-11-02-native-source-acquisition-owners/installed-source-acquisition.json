@@ -1,0 +1,17 @@
+{
+  "source_commit": "b269757aa720f19ab30d84a2ff801a39ed9af5fa",
+  "wheel_sha256": "6f3837d5e5eec74a7709f28e36d30dcb7b4f7cb5aac2aea730972e13faaacacb",
+  "build_backend": {
+    "version": "68.1.2",
+    "origin": "/usr/lib/python3/dist-packages/setuptools/__init__.py"
+  },
+  "smoke": {
+    "installed_origins": true,
+    "experiments_available": false,
+    "tests_run": 30
+  },
+  "network_package_resolution": false,
+  "live_provider_calls": false,
+  "dependency_isolation": false,
+  "proof": "Installed target/inventory/exact module acquisition and native partial receipt controls; not normal application/profile adoption"
+}

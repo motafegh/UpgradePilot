@@ -1,0 +1,22 @@
+{"version": "68.1.2", "origin": "/usr/lib/python3/dist-packages/setuptools/__init__.py"}
+
+Processing ./source
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: upgradepilot
+  Building wheel for upgradepilot (pyproject.toml): started
+  Building wheel for upgradepilot (pyproject.toml): finished with status 'done'
+  Created wheel for upgradepilot: filename=upgradepilot-0.0.0-py3-none-any.whl size=372027 sha256=6f3837d5e5eec74a7709f28e36d30dcb7b4f7cb5aac2aea730972e13faaacacb
+  Stored in directory: /tmp/pip-ephem-wheel-cache-cmnclek2/wheels/ae/cb/83/275b1dca6e5acbf26ccc718581013d52d2dc19eccc55b1e4e7
+Successfully built upgradepilot
+
+Processing ./wheels/upgradepilot-0.0.0-py3-none-any.whl
+Installing collected packages: upgradepilot
+Successfully installed upgradepilot-0.0.0
+
+{"installed_origins": true, "experiments_available": false, "tests_run": 30}
+..............................
+----------------------------------------------------------------------
+Ran 30 tests in 0.126s
+
+OK
