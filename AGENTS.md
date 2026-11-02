@@ -199,6 +199,7 @@ Security-, privacy-, credential-, destructive-Git-, paid-action-, untrusted-cont
 | Reusable agent procedures | `.agents/skills/` |
 | Durable non-controlling examination | `audits/` |
 | Discovery evidence | `product-simulation/` and local controls |
+| Reviewed examples of accepted behavior and their explicit limits | `examples/` |
 | Dated execution/reasoning/handoffs | `working-memory/` |
 | Reusable understanding/study artifacts | `learning/` |
 | Unadmitted substantial ideas | `proposals/` |
