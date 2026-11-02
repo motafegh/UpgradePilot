@@ -1,0 +1,8 @@
+Source commit a975ebcad4319916e84de5745d14afb69d8f3fa6 was created successfully.
+First `git push origin main` failed:
+remote: Internal Server Error
+remote: Request ID D7BD:1720:4EC1E80:67F60CE:6AE8B747
+remote: Time 2026-11-02T16:16:09Z
+ ! [remote rejected] main -> main (Internal Server Error)
+Read-only `git ls-remote origin refs/heads/main` then returned906af8cb2650e33e3eea9ce0b2de6edeb9c2b74b.
+No force/history/configuration change. One identical ordinary push retry succeeded, retained separately.

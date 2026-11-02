@@ -1,0 +1,19 @@
+{
+  "source_commit": "a975ebcad4319916e84de5745d14afb69d8f3fa6",
+  "wheel_sha256": "754065efe0efe6a9595cac2922e529867ec9d427a8b3ee2c4612d8e7699fbac7",
+  "build_backend": {
+    "version": "68.1.2",
+    "origin": "/usr/lib/python3/dist-packages/setuptools/__init__.py"
+  },
+  "fixture_sha256": "2ef7b48135376303016376c9f011412654f969afaf246e47b62c20e4fe87890a",
+  "smoke": {
+    "installed_origin": true,
+    "experiments_available": false,
+    "provider_requests": 1,
+    "receipt_native_round_trip": true
+  },
+  "network_package_resolution": false,
+  "live_provider_calls": false,
+  "dependency_isolation": false,
+  "proof": "installed invocation ledger and native receipt; not connected product source-profile adoption"
+}

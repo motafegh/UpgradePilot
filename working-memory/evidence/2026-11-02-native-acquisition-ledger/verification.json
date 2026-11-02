@@ -1,0 +1,52 @@
+{
+  "source_commit": "a975ebcad4319916e84de5745d14afb69d8f3fa6",
+  "source_sha256": {
+    "src/upgradepilot/caller_signature/acquisition.py": "bd0787d38112f0a051618cea8f3a98facc2acf602725707734c2f0e829a11c95",
+    "tests/test_caller_signature_acquisition.py": "98ad07f506982d2baf6bcdc34b99ce00898aef642bd75fac6176ad2d1a9af8ba",
+    "experiments/api_change_source_acquisition.py": "53c05d62aed920228ac57d8187bd3b56a4a1c3b349e3d5666046ce2829dc5443",
+    "experiments/api_ordinary_call_signature_trial.py": "f588df0f30be81a79b6d2ccb77f3a7c6ee8990ef71b10751f22ccfef7cd68abe",
+    "experiments/tests/test_api_change_source_acquisition.py": "2502147eb328eebd23a8bb48837ca596d83abcd76893eb7b8dea95fd40e01642"
+  },
+  "evidence_sha256": {
+    "README.md": "f037f8a8f98df0c5ac7ff89e9ceb05212d38a3ba8f5b92d1f51d7dc089b623ed",
+    "api-regression-first.txt": "cadca237f703140044e5a634d87f2000abac46fb9262e5dbb4a5cfc0ac260fe1",
+    "api-regression.txt": "b23d05d81ff075398b137f23ef103f052590a0e3a108e1b7ea76bf1715ff415d",
+    "architecture-tests.txt": "c15fb04cf70b4f2ffd198867cfdd7d4f5f29e9f46c347497eba0418eb5fe3cc6",
+    "boundaries.json": "ba94f73e8c07209a910eb0418b99c38399f1972be9cd3b7082fdfd7d330df688",
+    "check_historical.py": "863ea50a709b27bd85a607cb6d7f8d2001cadba1641310e3695d6dc87ba7e93b",
+    "experiment-transport-after-migration.txt": "473c6d30ed868640c6e7a4f94593f5cdb6107a7f5776101318861ccab070ba80",
+    "experiment-transport-first.txt": "522199e4f7cfdc95e87b790f0f14d01d9fc697c1442c3b36d96ae4cf681e09ac",
+    "governance-doctor.txt": "3c0814be060470b522e8cd01f26e620899126e4a1e5c56f51f78f0a66df1f959",
+    "historical-check.txt": "a367022d58168a9c4538de86468c13561ccea22b5eaff8ac422487bd5d290ea6",
+    "historical-compatibility.json": "9b944bdc6e8a88ddda90bdc8419fbe33d3cb001c4955ed716b30139c44c6c6df",
+    "installed-build.txt": "3425b3f7d2a1b1a1fce2bcee92d54628d5cff58c9b124ec756475b34ae0290eb",
+    "installed-ledger.json": "d1356170ea5f2ef1b8a3fd7fd54a1b47dfb695c3f87c60afcda189b79fafa8c6",
+    "installed-smoke.txt": "d1356170ea5f2ef1b8a3fd7fd54a1b47dfb695c3f87c60afcda189b79fafa8c6",
+    "product-composition-first.txt": "2da361efc393f4590d1119a97584bd7a47f998f31c7ea27f129e39d10efda9ee",
+    "product-focused.txt": "1ee244ce4f52b793c0bcf937415eb5fc0590fe641e8743c6313dc0f5d355771d",
+    "product-full.txt": "ff02852583465dcadda25da00d52980f4f5f5d865fba12083b60d08dce6a4f3f",
+    "product-transport-after-migration.txt": "9d5cbf50af2b5d43b53292e22efa8ffa4ca03168aabba92fa0d3e90b2ff6a317",
+    "product-transport-first.txt": "040093012db747565dcdcc4b3ba3ec59fc14ddca02c5dcea9cfcfb8ece4d7024",
+    "smoke_installed.py": "d35aa854ee1bd67e1ca32514d302945efe906616a8c17354f4790c67ae9d5626",
+    "source-publication-first.txt": "40db9a5b0d7bfc5e201ec7e45571d76450aa2fa80d807128c0abe2cc373ba08f",
+    "source-publication-retry.txt": "cfbdb32e5d212130e316d0db4d777c5dbdbca384e4d8932721b9207fbebf7b02"
+  },
+  "checks": {
+    "product_tests": 1008,
+    "api_tests": 218,
+    "architecture_tests": 7,
+    "focused_subset": 34,
+    "historical_bundles": 22,
+    "unchanged_historical_members": 207,
+    "installed_ledger": true,
+    "governance_doctor": true
+  },
+  "non_proof": [
+    "No live provider or real token was used",
+    "No complete native source acquisition/application/CLI/report profile",
+    "No source-progress publication integration yet",
+    "No runtime compatibility or independent usefulness claim",
+    "Existing interpreter dependencies reused, not isolated",
+    "No learner mastery claim"
+  ]
+}

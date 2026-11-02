@@ -10,9 +10,9 @@ Owner: [implementation plan §6](../plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLE
 A0 — DONE: origin fetched; main2b1c9373 synchronized. The unrelated October3 untracked record remains untouched. Native kernel/worker/family/checkpoint behavior is delivered; acquisition still lives in experimental TrialPublicSession. Inspected its callers, transport controls, native typed receipt/codec, shared AcquiredDependencyInputs prefix, credential owner and selected transfer map.
 A1 — DONE, compressed continuous context: Ali received preceding milestone onboarding and explicitly resumed Build. Previous unanswered ownership checks remain deferred, not passed. Existing scoped CI/runtime proof remains implemented; broader runtime design is scheduled separately.
 A2 — DONE for this increment: one product-owned invocation policy/ledger, explicit policy, existing host credential confinement and no redirects, physically charged narrow PyPI recovery; experiment names/envelopes remain compatibility surfaces. Actual normal PR prefix must spend from the same session as later provider reads. Full target/module composition, source-first publication and CLI/report remain subsequent responsibilities.
-B — CURRENT.
-Verification gate — PENDING for product ledger; housekeeping diagnostic GREEN.
-D — PENDING: actual outcomes and proof boundaries at the verified milestone.
+B — DONE for policy/ledger milestone; full acquisition composition remains subsequent.
+Verification gate — GREEN for milestone: full/focused/experiment/architecture, frozen reader, governance and installed ledger proof; see evidence below.
+D — CURRENT: stop for milestone onboarding; no mastery claim.
 E — PENDING.
 C — CONTINUOUS.
 
@@ -43,3 +43,15 @@ Current ordinary executable closure includes the new acquisition/source-receipt 
 ## Broader regression and historical reader gate
 
 The first218-test API run found one additional adapter migration error in the existing starvation contrast: directly invoking the inherited class method supplied explicit self to a patched transport that expects method/url. Changed only the legacy fallback to inherited bound dispatch (`super(AcquisitionSession, self).request`); no changed policy or evidence inference. Corrected218-test API run passes. Product34 focused controls, full1,008-test regression/133.606s,7 architecture controls and static dependency check pass. Historical22 bundles/207 members reopen with AST/analysis/worker/network hooks forbidden and unchanged bytes. Normal product defaults remain unchanged. Frozen source publication precedes installed wheel qualification; it does not pre-claim that pending proof.
+
+## Installed qualification, publication and milestone onboarding
+
+Frozen sourcea975ebca builds with existing setuptools68.1.2 and installs privately outside checkout using no-index/no-deps, without changing the developer installation. Wheel754065efe0efe6a9595cac2922e529867ec9d427a8b3ee2c4612d8e7699fbac7. Installed acquisition/source codec paths resolve under the temporary wheel installation, experiments are unavailable, actual Requests preparation/provider JSON handling runs over controlled transport with socket connections forbidden, and the typed receipt round-trips through the existing source family. Existing interpreter dependencies are reused; this is not dependency isolation, live acquisition, a full product profile or another worker qualification.
+
+First source push failed with GitHub remote Internal Server Error (requestD7BD:1720:4EC1E80:67F60CE:6AE8B747). Read-only ls-remote confirmed the remote still held906af8cb. One retry of the identical ordinary non-force push succeeded; no auth/network configuration or history was changed. Original failure and successful retry are preserved. Housekeeping906af8cb and sourcea975ebca were published as separate coherent increments; final qualification/handoff is published afterward.
+
+B — DONE for the invocation policy/ledger increment, not the full source-acquisition integration.
+Verification gate — GREEN:1,008 product/218 API/7 architecture;34 focused subset;22 fixed bundles/207 unchanged members; static boundary/governance checks; frozen installed ledger/native receipt.
+D — CURRENT at the requested milestone: onboarding explains the one-session six-physical-request flow, immutable checkpoint-ready receipt versus actual durable publication, token/account quota versus explicit invocation cap, and remaining source/application integration. No learner response/mastery is inferred.
+E — PENDING after onboarding; independent reasoning checks remain deferred. Next coherent responsibility is target/dependency module acquisition with actual association receipts and Workspace source-progress publication, using this ledger from the shared prefix. Then ordinary CLI/report/source/save/recovery and actual product/task qualification. No optional syntax campaign or speculative runtime implementation is activated.
+C — CONTINUOUS; source/diagnosis/proof/non-proof and publication progression preserved. MEMORY.md owns the live handoff.
