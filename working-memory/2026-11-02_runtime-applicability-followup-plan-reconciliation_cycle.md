@@ -1,0 +1,34 @@
+# Runtime applicability follow-up planning reconciliation
+
+Date: November 2, 2026. Primary operation: Planning/Design; documentation only.
+UP-SKILL:upgradepilot-planning-design
+UP-SKILL:upgradepilot-working-memory
+
+Related implementation: [native family/checkpoint cycle](2026-11-02_caller-signature-native-family-checkpoint_cycle.md). That engineering cycle remains at its recorded learning/handoff boundary; this planning request does not activate its next Build.
+
+A0 — DONE: main7a9bef12, fetched origin and checked source/plan owners; unrelated October3 untracked record preserved. Native family checkpoint proof is the latest implementation. Source-only adoption plans list runtime/combined-profile residuals; runtime-state plan already owns the command-derived witness and conditional explicit-state follow-up. No broad runtime observation implementation is thereby selected.
+A1 — DONE, compact continuous context: preceding explanations corrected the blanket no-runtime-analysis wording. Existing exact-command/command-completion state evidence differs from later package presence, actual import/dispatch, affected-path exercise and behavior. Ali agreed and requested the plan updates.
+A2 — DONE, compact under situational rule: establish one post-delivery design checkpoint in the existing caller/signature parent; link from implementation and conditional runtime-state owners. Repeating explanation/approval gates for this already discussed documentation change would add interruption without new decision information. No product mutation/execution authorization is inferred.
+B — DONE: existing parent §16 owns explicit trigger/sequence, independent runtime propositions, simpler-evidence comparison, design outputs/proof and stop contract. Implementation §10 links the handoff; conditional runtime-state owner preserves its original gates and package-state scope. Live memory reconciled separately.
+Verification gate — GREEN for focused documentation checks:14 added/new relative links and anchors valid; owner/trigger/scope/authorization review and git diff checks pass; source/tests/accepted specs/ADRs/frozen evidence unchanged. Broader governance doctor FAIL remains the existing AGENTS examples/ marker issue; no global-green claim or unrelated repair.
+D — DONE, compact documentation handoff: explain that residuals and conditional explicit package-state work already existed, while the concrete scheduled combined-evidence/runtime-applicability checkpoint was missing. The user-approved recommendations are now execution/design coordination, not runtime implementation or learner mastery.
+E — DONE for planning scope: no new observer/runner/combined profile or target execution selected. Underlying native-family cycle remains at its recorded D/E boundary; ordinary delivery/acquisition continuation remains separate. Future checkpoint has explicit entry, possible earlier planning re-entry and owner-based dispositions. No unassessed ownership is promoted.
+C — DONE for this planning cycle; progression and proof limitations preserved.
+
+## Owner reconstruction and artifact choice
+
+Existing parent native-adoption plan §§1/6/15 preserves actual-installation/dispatch, combined-profile budgeting and runtime-state responsibilities, but lacks a concrete future checkpoint. The implementation companion excludes default combined-profile activation and general target execution from this source-only delivery. Runtime Dependency-State Proof Completion Plan already preserves the exact command-completion witness and a conditional explicit target-owned state responsibility; it does not own all downstream dispatch, exercise or behavioral testing. Product Decision Model owns applicability/observation interpretation; maintainer synthesis owns action authority. Security and Charter control any later target execution or platform expansion.
+
+Choose a compact amendment to existing owners, not another generic runtime roadmap or predeclared implementation-cycle family. Parent §16 owns the combined-evidence/runtime-applicability design checkpoint; implementation companion owns the delivery handoff pointer; existing runtime-state plan retains its specific activation conditions and receives a scope/entry cross-reference. No specification, ADR, source/test, frozen evidence or learning snapshot change is needed.
+
+The checkpoint is scheduled after connected caller/signature delivery qualification and its task/adoption disposition, before optional syntax/new-case expansion. A demonstrated decision-critical gap may justify earlier planning with explicit scope reconciliation. It does not make stronger runtime observation a prerequisite for honest source-only adoption, automatically activate a combined default profile or runner, or require all unknowns to become positive.
+
+## Result, verification and handoff
+
+Reconciled three plan owners: parent §1 clarifies that source-profile non-evaluation is not absence of the product's existing CI/runtime capability; parent ordered delivery adds the checkpoint; parent §16 owns its trigger and concrete decision/proof outputs. Implementation §10 links that owner instead of duplicating the contract. Runtime-state conditional entry now points to the checkpoint while retaining the original normal-case insufficiency, decision-critical need and admitted-source conditions plus parent-route reconciliation. Dispatch, exercise and behavioral checks do not become package-state cycles automatically.
+
+The checkpoint compares existing CI/runtime composition, justified static reasoning, target-owned structured observations and explicit unknown/refusal before proposing a new probe or runner. Exact revision/run/attempt/environment/interpreter/time/material joins, one aggregate budget, retained failures/coverage/costs and producer-free recovery are named design/proof obligations. Universal safety, source-only adoption gate expansion, automatic default-profile cutover and arbitrary target execution remain excluded. Required delivery repairs and qualification/successor cases are explicitly not delayed by the future checkpoint.
+
+Focused verification found14 valid added/new links/anchors and no contract-review issue; diff whitespace passes. Documentation-only: no product tests rerun and no new product proof inferred. Governance doctor exits1 only for the existing missing examples/ responsibility marker. AGENTS/tool inputs are unchanged against the source baseline, so this is recorded debt, not a plan-edit regression. Raw diagnostic and verification index are retained under evidence/2026-11-02-runtime-applicability-followup-planning/.
+
+Snapshot writing after connected caller/signature delivery remains useful; this scheduling decision does not require postponing all learning notes until runtime maturity. Future learning artifacts must still distinguish implemented behavior from scheduled work. No new learning package was authored by this plan-edit request.

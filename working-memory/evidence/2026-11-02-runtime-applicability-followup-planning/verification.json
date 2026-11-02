@@ -1,0 +1,112 @@
+{
+  "checked_links": [
+    {
+      "file": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "target": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "anchor": "16-combined-evidence-and-runtime-applicability-design-checkpoint"
+    },
+    {
+      "file": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "target": "plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md",
+      "anchor": ""
+    },
+    {
+      "file": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "target": "src/upgradepilot/ci/runtime_execution.py",
+      "anchor": ""
+    },
+    {
+      "file": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "target": "src/upgradepilot/ci/dependency_state.py",
+      "anchor": ""
+    },
+    {
+      "file": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "target": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "anchor": "16-combined-evidence-and-runtime-applicability-design-checkpoint"
+    },
+    {
+      "file": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "target": "docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md",
+      "anchor": ""
+    },
+    {
+      "file": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "target": "plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md",
+      "anchor": "conditional-cycle-2--explicit-target-owned-runtime-state-evidence"
+    },
+    {
+      "file": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "target": "SECURITY.md",
+      "anchor": ""
+    },
+    {
+      "file": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "target": "PROJECT_CHARTER.md",
+      "anchor": ""
+    },
+    {
+      "file": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md",
+      "target": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "anchor": "16-combined-evidence-and-runtime-applicability-design-checkpoint"
+    },
+    {
+      "file": "plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md",
+      "target": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "anchor": "16-combined-evidence-and-runtime-applicability-design-checkpoint"
+    },
+    {
+      "file": "MEMORY.md",
+      "target": "working-memory/2026-11-02_runtime-applicability-followup-plan-reconciliation_cycle.md",
+      "anchor": ""
+    },
+    {
+      "file": "MEMORY.md",
+      "target": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md",
+      "anchor": "16-combined-evidence-and-runtime-applicability-design-checkpoint"
+    },
+    {
+      "file": "working-memory/2026-11-02_runtime-applicability-followup-plan-reconciliation_cycle.md",
+      "target": "working-memory/2026-11-02_caller-signature-native-family-checkpoint_cycle.md",
+      "anchor": ""
+    }
+  ],
+  "errors": [],
+  "contract_review": {
+    "single_detailed_checkpoint_owner": true,
+    "ordered_delivery_handoff": true,
+    "implementation_links_checkpoint": true,
+    "existing_runtime_gate_preserved": true,
+    "scoped_runtime_already_exists": true,
+    "independent_propositions_present": true,
+    "simpler_evidence_compared": true,
+    "required_qualification_not_blocked": true,
+    "future_build_not_activated": true,
+    "product_semantics_and_frozen_evidence_unchanged": true
+  },
+  "product_tests_rerun": false,
+  "reason": "Documentation-only plan/owner reconciliation; product behavior unchanged.",
+  "source_baseline": "7a9bef12",
+  "governance_doctor": {
+    "exit_code": 1,
+    "state": "existing_owner_marker_failure",
+    "issue": "AGENTS.md responsibility map is missing owner marker examples/",
+    "unchanged_inputs_sha256": {
+      "AGENTS.md": "fc573b17e7816da34a984cf18729201e94771b3436e885f59e5deb100d506e7c",
+      "tools/agent-governance/governance_doctor.py": "b8a9e56628350e106925d6974f58505b91b947d836d17acd3c471569c03a922a"
+    }
+  },
+  "changed_document_sha256": {
+    "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md": "c9f9f9e2ec8fc8958372b38bf4ca5394fd474d6cc03d366d66af35f14ee960a5",
+    "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md": "e0f22cf6c529084205271c0c1a2dd92a667539473c4518e58f6b3784a748de1e",
+    "plans/RUNTIME_DEPENDENCY_STATE_PROOF_COMPLETION_PLAN.md": "3ed93a2b76d484cc977f54acf7cfc48581802428a2a288aa6fc9e0a61e7d1f51",
+    "MEMORY.md": "8fa59c77f64f657dc0da7b16319803537c8da57fc194ad9965dfebe11664c084",
+    "working-memory/2026-11-02_runtime-applicability-followup-plan-reconciliation_cycle.md": "b395542b4bff16937a62802917897dc35e361c8bdf42b1a0cfaede2284f1498b"
+  },
+  "permission_boundary": "Planning/documentation only; no observer/runner/combined-profile/target execution activation.",
+  "evidence_sha256": {
+    "governance-doctor.txt": "466c76124402894851ebed5aa1ee417284ddf03f4e64f0a6579bda26fead92d4",
+    "README.md": "7bca63ab7ebfcf929418f60d7ea7f20dc6c4568e9fb9ef4125079dc562f093ad"
+  },
+  "additional_evidence_index_links_checked": 3
+}

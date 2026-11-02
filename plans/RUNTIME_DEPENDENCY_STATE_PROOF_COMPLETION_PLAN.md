@@ -203,6 +203,8 @@ If selected, Cycle 2 would own the smallest justified explicit package-state evi
 
 If Cycle 1 is sufficient, **do not create Cycle 2**. Return to the parent evidence-to-action plan for the next action-relative responsibility.
 
+The caller/signature program's [post-delivery combined-evidence/runtime-applicability checkpoint](CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md#16-combined-evidence-and-runtime-applicability-design-checkpoint) is another coordinated design-entry route for assessing these same conditions. Evaluate sufficiency at the observation boundary actually needed: the existing command-completion witness does not establish persistence at a later affected call. That checkpoint must document the real normal-case gap, its decision relevance and a proportionate admitted evidence source, and reconcile this plan's parent-route interpretation before selecting implementation. It does not itself select this conditional cycle or waive its gates. Import/callable dispatch, affected-path exercise and behavioral comparison remain separate responsibilities under their proper owners, not extra cycles automatically added to this package-state program.
+
 ### After runtime dependency-state proof
 
 Behavior/exercise composition and maintainer-action integration remain important downstream responsibilities, but they are **not predeclared cycles of this program**. After the runtime dependency-state responsibility closes, return to the parent plan and select the next responsibility from actual evidence rather than assuming this program owns all downstream work.
