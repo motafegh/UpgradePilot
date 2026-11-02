@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-11-02-native-source-acquisition-owners/compare_source_transfer.py", line 66, in <module>
+    raise AssertionError('Controlled source acquisition differs; inspect retained projections')
+AssertionError: Controlled source acquisition differs; inspect retained projections

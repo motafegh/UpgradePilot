@@ -58,7 +58,7 @@ def release_window_manifest(result: DeclaredReleaseWindow | AcquisitionProblem) 
                 a.release.source_url for a in evidence.release_associations
             ],
             "provenance_states": [
-                a.provenance_result.state for a in evidence.release_associations
+                a.provenance.state for a in evidence.release_associations
             ],
             "release_index_url": evidence.release_index.source_url,
             "ignored_index_versions": evidence.ignored_index_versions,

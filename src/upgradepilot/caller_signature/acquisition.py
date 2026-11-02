@@ -70,6 +70,8 @@ class AcquisitionSession(GitHubPublicSession):
     Rejected redirects are provider failures, never source absence or success.
     """
 
+    request_limit_reason = "acquisition_request_limit"
+
     def __init__(self, *, token: str | None = None, policy: AcquisitionPolicy,
                  clock=time.monotonic, retry_pypi_timeouts=False):
         if not isinstance(policy, AcquisitionPolicy):

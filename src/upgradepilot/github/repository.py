@@ -3,7 +3,9 @@
 START HERE
 ----------
 ``GitHubRepositoryClient`` is the provider boundary for repository text used by dependency,
-workflow, Target, and upstream consumers. A successful read returns ``RepositoryTextFile``;
+workflow, Target, and upstream consumers. ``GitHubRepositoryInventoryClient`` below
+adds bounded commit/tree acquisition for exact source discovery, preserving explicit
+truncation and provider-specific failures. A successful text read returns ``RepositoryTextFile``;
 an unavailable exact file returns ``UnavailableRepositoryFile``.
 
 The durable successful-file contract is intentionally small:
@@ -22,10 +24,12 @@ from __future__ import annotations
 
 import base64
 import binascii
+import json
 from dataclasses import dataclass
 from urllib.parse import quote
 
 from requests import Session
+from requests.exceptions import RequestException
 
 from ..repository_path import repository_relative_parts
 from .actions import WorkflowRun
@@ -372,3 +376,129 @@ __all__ = (
     "RepositoryTextFile",
     "UnavailableRepositoryFile",
 )
+
+
+@dataclass(frozen=True)
+class RepositoryInventoryProblem:
+    """An inventory question failed; unavailable completeness is not an empty tree."""
+    reason: str
+    detail: str
+    status_code: int | None = None
+
+
+@dataclass(frozen=True)
+class RepositoryInventoryEntry:
+    path: str
+    kind: str
+    mode: str
+
+@dataclass(frozen=True)
+class RepositoryInventory:
+    repository: str
+    revision: str
+    tree_sha: str
+    entries: tuple[RepositoryInventoryEntry, ...]
+    truncated: bool
+
+class GitHubRepositoryInventoryClient(GitHubApiClient):
+    """Acquire a bounded exact-commit tree inventory, preserving truncation."""
+
+    def _get_json_object(self, url, *, resource, params=None):
+        """Bound tree/commit JSON before parsing; keep provider HTTP classification."""
+        response = None
+        try:
+            response = self._session.get(
+                url,
+                headers=self._headers,
+                timeout=self._timeout,
+                params=params,
+                stream=True,
+            )
+            self._raise_for_status(response, resource=resource)
+            body = bytearray()
+            for chunk in response.iter_content(chunk_size=8192):
+                body.extend(chunk)
+                if len(body) > 8 * 1024 * 1024:
+                    raise GitHubResponseError(
+                        "Inventory JSON exceeds 8 MiB; completeness is not established."
+                    )
+            data = json.loads(body)
+            if not isinstance(data, dict):
+                raise GitHubResponseError("Inventory JSON must be an object.")
+            return data
+        except RequestException as exc:
+            raise GitHubAcquisitionError(
+                "Inventory transport failed.", reason="transport_error"
+            ) from exc
+        except json.JSONDecodeError as exc:
+            raise GitHubResponseError("Malformed inventory JSON.") from exc
+        finally:
+            if response is not None:
+                response.close()
+
+    def acquire(
+        self, repository: str, revision: str
+    ) -> RepositoryInventory | RepositoryInventoryProblem:
+        repository = validate_repository(repository)
+        revision = validate_commit_sha(revision)
+        try:
+            commit = self._get_json_object(
+                self.api_url(f"/repos/{repository}/git/commits/{revision}"),
+                resource="repository-git-commit",
+            )
+            if commit.get("sha", "").casefold() != revision:
+                return RepositoryInventoryProblem(
+                    "identity_mismatch",
+                    "Returned commit differs from exact repository revision.",
+                )
+            tree_sha = validate_commit_sha(commit["tree"]["sha"])
+            tree = self._get_json_object(
+                self.api_url(f"/repos/{repository}/git/trees/{tree_sha}"),
+                resource="repository-git-tree",
+                params={"recursive": 1},
+            )
+            if tree.get("sha", "").casefold() != tree_sha:
+                return RepositoryInventoryProblem(
+                    "identity_mismatch",
+                    "Returned tree differs from exact commit tree.",
+                )
+            if type(tree.get("truncated")) is not bool or not isinstance(
+                tree.get("tree"), list
+            ):
+                raise ValueError(
+                    "Tree must contain entries and explicit truncation state."
+                )
+            entries = []
+            seen = set()
+            for raw in tree["tree"]:
+                path = raw["path"]
+                kind = raw["type"]
+                mode = raw["mode"]
+                if (
+                    repository_relative_parts(path) is None
+                    or path in seen
+                    or kind not in {"blob", "tree", "commit"}
+                    or not isinstance(mode, str)
+                ):
+                    raise ValueError("Malformed, duplicate or unsupported tree entry.")
+                seen.add(path)
+                entries.append(RepositoryInventoryEntry(path, kind, mode))
+            return RepositoryInventory(
+                repository,
+                revision,
+                tree_sha,
+                tuple(sorted(entries, key=lambda e: e.path)),
+                tree["truncated"],
+            )
+        except GitHubAcquisitionError as exc:
+            return RepositoryInventoryProblem(
+                exc.reason, str(exc), exc.status_code
+            )
+        except (
+            GitHubResponseError,
+            KeyError,
+            ValueError,
+            TypeError,
+            AttributeError,
+        ) as exc:
+            return RepositoryInventoryProblem("malformed_response", str(exc))

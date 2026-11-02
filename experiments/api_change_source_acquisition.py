@@ -25,6 +25,10 @@ from upgradepilot.dependency.versioning import (
     parse_dependency_release_interval,
 )
 from upgradepilot.github.api import GitHubAcquisitionError, GitHubResponseError
+from upgradepilot.caller_signature.source_acquisition import (
+    AcquisitionProblem, PublisherProvenanceInspection, PublisherProvenanceInspector,
+    DeclaredSourceAssociation, associate_declared_source,
+)
 from upgradepilot.caller_signature.acquisition import (
     AcquisitionPolicy, AcquisitionSession, PYPI_TIMEOUT_RETRY_POLICY,
 )
@@ -49,100 +53,8 @@ from upgradepilot.upstream.repository import (
 )
 
 
-@dataclass(frozen=True)
-class AcquisitionProblem:
-    stage: str
-    reason: str
-    detail: str
-    # Keep the original typed provider problem, including status/identity scope.
-    evidence: object | None = None
 
 
-@dataclass(frozen=True)
-class PublisherProvenanceInspection:
-    """Registry publisher records only, independent of project-link selection."""
-
-    state: str
-    detail: str
-    repository: str | None = None
-    records: tuple[object, ...] = ()
-
-
-class PublisherProvenanceInspector:
-    """Keep missing, adverse and unsupported publisher evidence distinguishable.
-
-    The product resolver also gates on its own project-link grammar. Its combined
-    result cannot represent this publisher-only proposition. Do not use homepage
-    acceptance/failure to infer a publisher conflict, or create product authority.
-    """
-
-    def __init__(self, *, client=None):
-        self.client = client or PyPIProvenanceClient()
-
-    def resolve(self, release: PackageReleaseEvidence) -> PublisherProvenanceInspection:
-        records = []
-        repositories = set()
-        kinds = set()
-        for distribution in release.distribution_files:
-            result = self.client.get_file_provenance(release, distribution)
-            records.append(result)
-            if isinstance(result, FileProvenanceProblem):
-                if result.state == "provenance_unavailable":
-                    continue
-                state = (
-                    "unsupported_source"
-                    if result.state == "unsupported_provenance"
-                    else result.state
-                )
-                return PublisherProvenanceInspection(
-                    state, result.detail, records=tuple(records)
-                )
-            for publisher in result.publishers:
-                kinds.add(publisher.kind.casefold())
-                if publisher.kind.casefold() == "github":
-                    try:
-                        repository = validate_repository(publisher.repository)
-                    except (TypeError, ValueError):
-                        return PublisherProvenanceInspection(
-                            "malformed_response",
-                            "Malformed GitHub publisher identity.",
-                            records=tuple(records),
-                        )
-                    repositories.add(repository.casefold())
-        if not any(not isinstance(r, FileProvenanceProblem) for r in records):
-            return PublisherProvenanceInspection(
-                "source_unavailable",
-                "No usable registry publisher records.",
-                records=tuple(records),
-            )
-        if kinds != {"github"}:
-            return PublisherProvenanceInspection(
-                "ambiguous_source" if "github" in kinds else "unsupported_source",
-                "Mixed or unsupported publisher kinds.",
-                records=tuple(records),
-            )
-        if len(repositories) != 1:
-            return PublisherProvenanceInspection(
-                "ambiguous_source",
-                "More than one publisher repository.",
-                records=tuple(records),
-            )
-        return PublisherProvenanceInspection(
-            "available",
-            "Registry reports one GitHub publisher repository.",
-            next(iter(repositories)),
-            tuple(records),
-        )
-
-
-@dataclass(frozen=True)
-class DeclaredSourceAssociation:
-    release: PackageReleaseEvidence
-    repository: str
-    declarations: tuple[ProjectUrlCandidate, ...]
-    ignored_links: tuple[ProjectUrlCandidate, ...]
-    provenance_result: object
-    basis: str = "exact_release_publisher_declared_repository"
 
 
 @dataclass(frozen=True)
@@ -224,79 +136,6 @@ class DeclaredReleaseWindow:
     # Coverage is the admitted exact-heading grammar, never all release channels.
     coverage: str = "complete_exact_version_atx_sections_at_proposed_tag"
 
-
-def associate_declared_source(
-    release: PackageReleaseEvidence, provenance: PublisherProvenanceInspection
-) -> DeclaredSourceAssociation | AcquisitionProblem:
-    """Keep provenance outcomes visible; only absence allows weaker examination.
-
-    A supported stronger association is retained as context, not downgraded or
-    cast into this trial's proposal authority. Homepage-only links are ignored.
-    """
-    if provenance.state not in {"available", "source_unavailable"}:
-        return AcquisitionProblem(
-            "association", provenance.state, provenance.detail, provenance
-        )
-    declarations = tuple(
-        c
-        for c in release.project_urls
-        if normalize_project_url_label(c.label)
-        in {"source", "sourcecode", "repository", "github"}
-    )
-    ignored = tuple(c for c in release.project_urls if c not in declarations)
-    if not declarations:
-        return AcquisitionProblem(
-            "association",
-            "no_source_declaration",
-            "No explicit source/repository declaration.",
-            provenance,
-        )
-    identities = []
-    for candidate in declarations:
-        try:
-            url = urlsplit(candidate.url)
-            if (
-                url.scheme != "https"
-                or url.hostname != "github.com"
-                or url.port is not None
-                or url.username is not None
-                or url.password is not None
-                or url.query
-                or url.fragment
-            ):
-                raise ValueError("Noncanonical public GitHub source URL.")
-            parts = url.path.strip("/").split("/")
-            if len(parts) != 2:
-                raise ValueError("Expected one repository root.")
-            identities.append(validate_repository("/".join(parts).removesuffix(".git")))
-        except ValueError as exc:
-            return AcquisitionProblem(
-                "association",
-                "unsupported_declaration",
-                str(exc),
-                (declarations, provenance),
-            )
-    if len({i.casefold() for i in identities}) != 1:
-        return AcquisitionProblem(
-            "association",
-            "conflicting_declarations",
-            "Multiple declared repository identities.",
-            (declarations, provenance),
-        )
-    repository = identities[0]
-    if (
-        provenance.state == "available"
-        and provenance.repository.casefold() != repository.casefold()
-    ):
-        return AcquisitionProblem(
-            "association",
-            "identity_mismatch",
-            "Declaration conflicts with publisher association.",
-            provenance,
-        )
-    return DeclaredSourceAssociation(
-        release, repository, declarations, ignored, provenance
-    )
 
 
 def _version_heading(title: str) -> str:
@@ -433,6 +272,8 @@ class TrialPublicSession(AcquisitionSession):
     separate legacy route here; new product acquisition requires explicit policy.
     Frozen result files retain their original formats/reasons/source hashes.
     """
+
+    request_limit_reason = "trial_request_limit"
 
     def __init__(self, *, token=None, policy=None, clock=time.monotonic,
                  retry_pypi_timeouts=False):

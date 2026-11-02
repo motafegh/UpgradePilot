@@ -1,0 +1,17 @@
+.......................E
+======================================================================
+ERROR: test_latest_stable_constraint_is_sampling_not_resolved_version (test_caller_signature_source_acquisition.SamplingTests.test_latest_stable_constraint_is_sampling_not_resolved_version)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_source_acquisition.py", line 218, in test_latest_stable_constraint_is_sampling_not_resolved_version
+    declaration("bridge", specifier="<2"),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_source_acquisition.py", line 192, in declaration
+    return DependencyDeclaration(
+           ^^^^^^^^^^^^^^^^^^^^^
+NameError: name 'DependencyDeclaration' is not defined
+
+----------------------------------------------------------------------
+Ran 24 tests in 0.017s
+
+FAILED (errors=1)

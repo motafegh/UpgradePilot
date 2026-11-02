@@ -3,16 +3,15 @@
 from unittest import TestCase
 from unittest.mock import Mock
 
-from experiments.api_change_source_acquisition import AcquisitionProblem
-from experiments.api_target_context import (
-    InventoryEntry,
-    TargetContextAcquirer,
-    TargetInventory,
-    TrialRepositoryInventoryClient,
+from upgradepilot.caller_signature.source_evidence import AcquisitionProblem
+from upgradepilot.target.source_context import (
+    TargetSourceAcquirer as TargetContextAcquirer,
     extract_dependency_declarations,
     extract_python_facts,
 )
-from upgradepilot.github.repository import RepositoryTextFile, UnavailableRepositoryFile
+from upgradepilot.github.repository import (RepositoryTextFile, UnavailableRepositoryFile,
+    RepositoryInventoryEntry as InventoryEntry, RepositoryInventory as TargetInventory,
+    GitHubRepositoryInventoryClient as TrialRepositoryInventoryClient, RepositoryInventoryProblem)
 
 SHA = "a" * 40
 TREE = "b" * 40
@@ -62,7 +61,7 @@ class InventoryTests(TestCase):
                     side_effect=[{"sha": SHA, "tree": {"sha": TREE}}, tree]
                 )
                 self.assertIsInstance(
-                    client.acquire("owner/target", SHA), AcquisitionProblem
+                    client.acquire("owner/target", SHA), RepositoryInventoryProblem
                 )
 
     def test_streamed_inventory_body_has_a_bound_before_json_parse(self):
@@ -74,7 +73,7 @@ class InventoryTests(TestCase):
         result = TrialRepositoryInventoryClient(session=session).acquire(
             "owner/target", SHA
         )
-        self.assertIsInstance(result, AcquisitionProblem)
+        self.assertIsInstance(result, RepositoryInventoryProblem)
         self.assertIn("8 MiB", result.detail)
         self.assertTrue(session.get.call_args.kwargs["stream"])
         response.close.assert_called_once()
@@ -114,7 +113,7 @@ class SyntaxTests(TestCase):
                   ('a_noise.py', 'z_changed.py', 'requirements.txt', 'b_noise.py')), False)
         files.get_exact_commit_text_file.side_effect = lambda repo, revision, path: file(
             path, 'vendor==2.0\n' if path.endswith('.txt') else 'import vendor\nvendor.send()\n')
-        result = TargetContextAcquirer(inventory=inventory, files=files).acquire(
+        result = TargetContextAcquirer(session=Mock(), inventory=inventory, files=files).acquire(
             'owner/target', SHA, changed_paths=('z_changed.py',), max_file_attempts=2)
         self.assertEqual([f.path for f in result.files], ['requirements.txt', 'z_changed.py'])
         self.assertEqual(result.omitted_paths, ('a_noise.py', 'b_noise.py'))
@@ -209,7 +208,7 @@ class AcquisitionTests(TestCase):
         files.get_exact_commit_text_file.side_effect = lambda repo, sha, path: contents[
             path
         ]
-        return TargetContextAcquirer(inventory=inventory, files=files)
+        return TargetContextAcquirer(session=Mock(), inventory=inventory, files=files)
 
     def test_inventory_drives_paths_candidates_and_no_ci_dependency(self):
         entries = [

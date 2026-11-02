@@ -3,8 +3,8 @@
 These immutable records preserve what a source owner observed/selected, not
 installed dependencies or permission to execute. ``CallerSignatureSources`` is
 the source-family payload; ``source_codec`` owns its fixed representation and
-joins to exact text. Acquisition will produce these through the existing
-provider boundaries. Retained experimental receipts have a separate origin and
+joins to exact text. Acquisition produces these through the existing
+provider boundaries; module receipt production also preserves explicit partial gaps. Retained experimental receipts have a separate origin and
 explicit missing-observation gaps, never invented full provenance.
 """
 from __future__ import annotations
@@ -20,6 +20,19 @@ from ..github.tag import GitHubTagCommitEvidence
 from ..pypi.provenance import FileProvenanceEvidence, FileProvenanceProblem
 from ..pypi.release import PackageReleaseEvidence, ProjectUrlCandidate
 from ..workspace.source_access import RetainedSourceCatalog
+
+
+@dataclass(frozen=True)
+class AcquisitionProblem:
+    """Transient acquisition failure with its original typed provider observation.
+
+    SourceProblem is the fixed retained summary. A source composer must explicitly
+    select retained premises; arbitrary evidence objects are never codec payloads.
+    """
+    stage: str
+    reason: str
+    detail: str
+    evidence: object | None = None
 
 
 @dataclass(frozen=True)
@@ -54,7 +67,7 @@ class SourceImportCandidate:
     declaration: SourceDependencyDeclaration
     import_source_id: str
     import_line: int
-    basis: str
+    basis: str = "same_name_import_and_declared_distribution"
 
 
 @dataclass(frozen=True)
@@ -94,8 +107,8 @@ class SourceDependencyMetadata:
 class SourcePublisherInspection:
     state: str
     detail: str
-    repository: str | None
-    records: tuple[FileProvenanceEvidence | FileProvenanceProblem, ...]
+    repository: str | None = None
+    records: tuple[FileProvenanceEvidence | FileProvenanceProblem, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -106,7 +119,7 @@ class PackageSourceAssociation:
     declarations: tuple[ProjectUrlCandidate, ...]
     ignored_links: tuple[ProjectUrlCandidate, ...]
     provenance: SourcePublisherInspection
-    basis: str
+    basis: str = "exact_release_publisher_declared_repository"
 
 
 @dataclass(frozen=True)

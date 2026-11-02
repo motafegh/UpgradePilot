@@ -81,10 +81,9 @@
       "path": "experiments/api_adapter_exploration.py",
       "family": "api_source",
       "maintenance": "maintained_development",
-      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "evidence": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md",
       "roles": [
-        "substrate",
-        "composition"
+        "compatibility_alias"
       ]
     },
     {
@@ -141,9 +140,11 @@
       "path": "experiments/api_change_source_acquisition.py",
       "family": "api_source",
       "maintenance": "maintained_development",
-      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "evidence": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md",
       "roles": [
-        "substrate"
+        "substrate",
+        "composition",
+        "compatibility_alias"
       ]
     },
     {
@@ -209,9 +210,9 @@
       "path": "experiments/api_target_context.py",
       "family": "api_source",
       "maintenance": "maintained_development",
-      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
+      "evidence": "plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md",
       "roles": [
-        "substrate"
+        "compatibility_alias"
       ]
     },
     {
@@ -822,15 +823,6 @@
       "family": "api_source",
       "maintenance": "maintained_development",
       "evidence": "plans/UPSTREAM_API_CHANGE_AND_TARGET_EXPOSURE_FEASIBILITY_PLAN.md",
-      "roles": [
-        "test"
-      ]
-    },
-    {
-      "path": "experiments/tests/test_api_target_context.py",
-      "family": "api_source",
-      "maintenance": "maintained_development",
-      "evidence": "working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/REVIEW.md",
       "roles": [
         "test"
       ]

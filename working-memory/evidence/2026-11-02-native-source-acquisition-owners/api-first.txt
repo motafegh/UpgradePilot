@@ -1,0 +1,114 @@
+...............................................................{"input_id": "I001", "state": "no_observations_returned", "observations": 0, "elapsed_seconds": 0.0, "finish_reason": "stop", "accounting_mismatch": true}
+.........E...................E.....E.......EEE.............................................................................................................
+======================================================================
+ERROR: test_partial_acquisition_retains_source_chain_through_source_cli (test_api_change_source_acquisition.CompositionTests.test_partial_acquisition_retains_source_chain_through_source_cli)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_change_source_acquisition.py", line 352, in test_partial_acquisition_retains_source_chain_through_source_cli
+    status = source_smoke_main()
+             ^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/api_change_source_smoke.py", line 54, in main
+    manifest.update(release_window_manifest(result))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/api_release_window_manifest.py", line 61, in release_window_manifest
+    a.provenance_result.state for a in evidence.release_associations
+    ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PackageSourceAssociation' object has no attribute 'provenance_result'
+
+======================================================================
+ERROR: test_ambiguous_source_in_normal_composition_is_never_complete (test_api_public_pr_context.PublicPRTests.test_ambiguous_source_in_normal_composition_is_never_complete)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_public_pr_context.py", line 763, in test_ambiguous_source_in_normal_composition_is_never_complete
+    packet = json.loads(json.dumps(trial_manifest(result, TrialPublicSession())))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/api_target_context_smoke.py", line 289, in trial_manifest
+    "upstream": release_window_manifest(result.upstream),
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/api_release_window_manifest.py", line 61, in release_window_manifest
+    a.provenance_result.state for a in evidence.release_associations
+    ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PackageSourceAssociation' object has no attribute 'provenance_result'
+
+======================================================================
+ERROR: test_interpretation_failures_preserve_target_adapters_and_save_readback (test_api_public_pr_context.PublicPRTests.test_interpretation_failures_preserve_target_adapters_and_save_readback)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_public_pr_context.py", line 504, in test_interpretation_failures_preserve_target_adapters_and_save_readback
+    packet, provider, _ = self.interpreted_trial(
+                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_public_pr_context.py", line 391, in interpreted_trial
+    packet, _, _ = self.run_trial(
+                   ^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_public_pr_context.py", line 280, in run_trial
+    result = entry(
+             ^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/api_change_interpretation_trial.py", line 80, in run_interpretation_trial
+    context = trial_manifest(acquired, session)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/api_target_context_smoke.py", line 289, in trial_manifest
+    "upstream": release_window_manifest(result.upstream),
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/api_release_window_manifest.py", line 61, in release_window_manifest
+    a.provenance_result.state for a in evidence.release_associations
+    ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PackageSourceAssociation' object has no attribute 'provenance_result'
+
+======================================================================
+ERROR: test_oversize_source_keeps_recovery_in_normal_pr_manifest (test_api_public_pr_context.PublicPRTests.test_oversize_source_keeps_recovery_in_normal_pr_manifest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_public_pr_context.py", line 775, in test_oversize_source_keeps_recovery_in_normal_pr_manifest
+    packet = json.loads(json.dumps(trial_manifest(result, TrialPublicSession())))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/api_target_context_smoke.py", line 289, in trial_manifest
+    "upstream": release_window_manifest(result.upstream),
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/api_release_window_manifest.py", line 61, in release_window_manifest
+    a.provenance_result.state for a in evidence.release_associations
+    ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PackageSourceAssociation' object has no attribute 'provenance_result'
+
+======================================================================
+ERROR: test_partial_source_can_propose_without_becoming_complete (test_api_public_pr_context.PublicPRTests.test_partial_source_can_propose_without_becoming_complete)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_public_pr_context.py", line 533, in test_partial_source_can_propose_without_becoming_complete
+    packet, _, _ = self.interpreted_trial(
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_public_pr_context.py", line 391, in interpreted_trial
+    packet, _, _ = self.run_trial(
+                   ^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_public_pr_context.py", line 280, in run_trial
+    result = entry(
+             ^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/api_change_interpretation_trial.py", line 80, in run_interpretation_trial
+    context = trial_manifest(acquired, session)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/api_target_context_smoke.py", line 289, in trial_manifest
+    "upstream": release_window_manifest(result.upstream),
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/api_release_window_manifest.py", line 61, in release_window_manifest
+    a.provenance_result.state for a in evidence.release_associations
+    ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PackageSourceAssociation' object has no attribute 'provenance_result'
+
+======================================================================
+ERROR: test_partial_source_survives_normal_pr_manifest_and_target_replay (test_api_public_pr_context.PublicPRTests.test_partial_source_survives_normal_pr_manifest_and_target_replay)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_public_pr_context.py", line 737, in test_partial_source_survives_normal_pr_manifest_and_target_replay
+    packet = json.loads(json.dumps(trial_manifest(result, TrialPublicSession())))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/api_target_context_smoke.py", line 289, in trial_manifest
+    "upstream": release_window_manifest(result.upstream),
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/api_release_window_manifest.py", line 61, in release_window_manifest
+    a.provenance_result.state for a in evidence.release_associations
+    ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PackageSourceAssociation' object has no attribute 'provenance_result'
+
+----------------------------------------------------------------------
+Ran 218 tests in 18.270s
+
+FAILED (errors=6)

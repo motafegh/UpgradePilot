@@ -59,7 +59,7 @@ def main() -> int:
                 "basis": result.association.basis,
                 "repository": result.association.repository,
                 "provenance_states": [
-                    a.provenance_result.state for a in result.release_associations
+                    a.provenance.state for a in result.release_associations
                 ],
                 "release_metadata_urls": [
                     a.release.source_url for a in result.release_associations

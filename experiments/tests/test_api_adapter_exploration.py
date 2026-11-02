@@ -66,62 +66,7 @@ def index(package, versions=("1.0", "2.0")):
     )
 
 
-class SamplingTests(TestCase):
-    def test_latest_stable_constraint_is_sampling_not_resolved_version(self):
-        result = select_exploration_version(
-            index("bridge", ("1.0", "1.5", "2.0rc1", "2.0")),
-            declaration("bridge", specifier="<2"),
-        )
-        self.assertEqual(result, "1.5")
-        result = select_exploration_version(
-            index("bridge", ("2", "2.0")), declaration("bridge")
-        )
-        self.assertIsInstance(result, AcquisitionProblem)
 
-
-class MetadataTests(TestCase):
-    def client(self, info):
-        session = Mock()
-        response = Mock()
-        response.status_code = 200
-        response.headers = {}
-        response.iter_content.return_value = [json.dumps({"info": info}).encode()]
-        session.get.return_value = response
-        return TrialDependencyMetadataClient(session=session)
-
-    def test_conditions_and_extra_markers_remain_unresolved_declarations(self):
-        result = self.client(
-            {
-                "name": "bridge",
-                "version": "2.0",
-                "requires_dist": [
-                    'mediator>=2; python_version < "3.12"',
-                    'vendor[fast]; extra == "standard"',
-                ],
-            }
-        ).acquire("bridge", "2.0")
-        self.assertEqual(result.requirements[0].marker, 'python_version < "3.12"')
-        self.assertEqual(result.requirements[1].extras, ("fast",))
-        self.assertEqual(result.requirements[1].marker, 'extra == "standard"')
-
-    def test_wrong_identity_bad_array_and_direct_url_do_not_become_relations(self):
-        cases = [
-            {"name": "another", "version": "2.0", "requires_dist": []},
-            {"name": "bridge", "version": "2.0", "requires_dist": "vendor"},
-        ]
-        for info in cases:
-            self.assertIsInstance(
-                self.client(info).acquire("bridge", "2.0"), AcquisitionProblem
-            )
-        result = self.client(
-            {
-                "name": "bridge",
-                "version": "2.0",
-                "requires_dist": ["vendor @ https://token@example.org/file.whl"],
-            }
-        ).acquire("bridge", "2.0")
-        self.assertFalse(result.requirements)
-        self.assertEqual(result.gaps[0].reason, "direct_url_not_followed")
 
 
 class ChainTests(TestCase):

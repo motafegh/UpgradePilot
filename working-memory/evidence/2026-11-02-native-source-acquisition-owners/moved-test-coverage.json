@@ -1,0 +1,102 @@
+{
+  "moved": 24,
+  "controls": [
+    {
+      "previous": "experiments/tests/test_api_target_context.py::InventoryTests.test_exact_commit_tree_and_truncation_preserved",
+      "product": "tests/test_target_source_context.py::InventoryTests.test_exact_commit_tree_and_truncation_preserved"
+    },
+    {
+      "previous": "experiments/tests/test_api_target_context.py::InventoryTests.test_mismatch_duplicate_malformed_path_and_missing_truncation_rejected",
+      "product": "tests/test_target_source_context.py::InventoryTests.test_mismatch_duplicate_malformed_path_and_missing_truncation_rejected"
+    },
+    {
+      "previous": "experiments/tests/test_api_target_context.py::InventoryTests.test_streamed_inventory_body_has_a_bound_before_json_parse",
+      "product": "tests/test_target_source_context.py::InventoryTests.test_streamed_inventory_body_has_a_bound_before_json_parse"
+    },
+    {
+      "previous": "experiments/tests/test_api_target_context.py::InventoryTests.test_streamed_complete_response_preserves_inventory_identity",
+      "product": "tests/test_target_source_context.py::InventoryTests.test_streamed_complete_response_preserves_inventory_identity"
+    },
+    {
+      "previous": "experiments/tests/test_api_target_context.py::SyntaxTests.test_declarations_and_observed_changed_python_precede_inventory_noise",
+      "product": "tests/test_target_source_context.py::SyntaxTests.test_declarations_and_observed_changed_python_precede_inventory_noise"
+    },
+    {
+      "previous": "experiments/tests/test_api_target_context.py::SyntaxTests.test_import_alias_direct_call_and_class_base",
+      "product": "tests/test_target_source_context.py::SyntaxTests.test_import_alias_direct_call_and_class_base"
+    },
+    {
+      "previous": "experiments/tests/test_api_target_context.py::SyntaxTests.test_unknown_conditional_and_unsupported_bindings_remain_limited",
+      "product": "tests/test_target_source_context.py::SyntaxTests.test_unknown_conditional_and_unsupported_bindings_remain_limited"
+    },
+    {
+      "previous": "experiments/tests/test_api_target_context.py::SyntaxTests.test_relative_import_and_syntax_failure_are_not_external_evidence",
+      "product": "tests/test_target_source_context.py::SyntaxTests.test_relative_import_and_syntax_failure_are_not_external_evidence"
+    },
+    {
+      "previous": "experiments/tests/test_api_target_context.py::DeclarationTests.test_requirement_constraints_extras_and_marker_retained",
+      "product": "tests/test_target_source_context.py::DeclarationTests.test_requirement_constraints_extras_and_marker_retained"
+    },
+    {
+      "previous": "experiments/tests/test_api_target_context.py::DeclarationTests.test_optional_group_is_preserved_not_activated",
+      "product": "tests/test_target_source_context.py::DeclarationTests.test_optional_group_is_preserved_not_activated"
+    },
+    {
+      "previous": "experiments/tests/test_api_target_context.py::DeclarationTests.test_dynamic_invalid_and_direct_url_forms_keep_gaps",
+      "product": "tests/test_target_source_context.py::DeclarationTests.test_dynamic_invalid_and_direct_url_forms_keep_gaps"
+    },
+    {
+      "previous": "experiments/tests/test_api_target_context.py::AcquisitionTests.test_inventory_drives_paths_candidates_and_no_ci_dependency",
+      "product": "tests/test_target_source_context.py::AcquisitionTests.test_inventory_drives_paths_candidates_and_no_ci_dependency"
+    },
+    {
+      "previous": "experiments/tests/test_api_target_context.py::AcquisitionTests.test_truncation_read_failure_and_budget_omissions_visible",
+      "product": "tests/test_target_source_context.py::AcquisitionTests.test_truncation_read_failure_and_budget_omissions_visible"
+    },
+    {
+      "previous": "experiments/tests/test_api_target_context.py::AcquisitionTests.test_later_file_exceptions_preserve_acquired_target_facts",
+      "product": "tests/test_target_source_context.py::AcquisitionTests.test_later_file_exceptions_preserve_acquired_target_facts"
+    },
+    {
+      "previous": "experiments/tests/test_api_target_context.py::AcquisitionTests.test_local_namespace_does_not_become_distribution_candidate",
+      "product": "tests/test_target_source_context.py::AcquisitionTests.test_local_namespace_does_not_become_distribution_candidate"
+    },
+    {
+      "previous": "experiments/tests/test_api_change_source_acquisition.py::AssociationTests.test_explicit_declaration_retains_ignored_links_and_absence",
+      "product": "tests/test_caller_signature_source_acquisition.py::AssociationTests.test_explicit_declaration_retains_ignored_links_and_absence"
+    },
+    {
+      "previous": "experiments/tests/test_api_change_source_acquisition.py::AssociationTests.test_adverse_provenance_never_falls_back",
+      "product": "tests/test_caller_signature_source_acquisition.py::AssociationTests.test_adverse_provenance_never_falls_back"
+    },
+    {
+      "previous": "experiments/tests/test_api_change_source_acquisition.py::AssociationTests.test_homepage_and_unsafe_declarations_do_not_enable_examination",
+      "product": "tests/test_caller_signature_source_acquisition.py::AssociationTests.test_homepage_and_unsafe_declarations_do_not_enable_examination"
+    },
+    {
+      "previous": "experiments/tests/test_api_change_source_acquisition.py::AssociationTests.test_conflicting_declarations_retained",
+      "product": "tests/test_caller_signature_source_acquisition.py::AssociationTests.test_conflicting_declarations_retained"
+    },
+    {
+      "previous": "experiments/tests/test_api_change_source_acquisition.py::PublisherInspectionTests.test_publisher_inspection_is_independent_of_homepage_labels",
+      "product": "tests/test_caller_signature_source_acquisition.py::PublisherInspectionTests.test_publisher_inspection_is_independent_of_homepage_labels"
+    },
+    {
+      "previous": "experiments/tests/test_api_change_source_acquisition.py::PublisherInspectionTests.test_mixed_conflicting_and_malformed_publisher_evidence_blocks",
+      "product": "tests/test_caller_signature_source_acquisition.py::PublisherInspectionTests.test_mixed_conflicting_and_malformed_publisher_evidence_blocks"
+    },
+    {
+      "previous": "experiments/tests/test_api_adapter_exploration.py::SamplingTests.test_latest_stable_constraint_is_sampling_not_resolved_version",
+      "product": "tests/test_caller_signature_source_acquisition.py::SamplingTests.test_latest_stable_constraint_is_sampling_not_resolved_version"
+    },
+    {
+      "previous": "experiments/tests/test_api_adapter_exploration.py::MetadataTests.test_conditions_and_extra_markers_remain_unresolved_declarations",
+      "product": "tests/test_caller_signature_source_acquisition.py::MetadataTests.test_conditions_and_extra_markers_remain_unresolved_declarations"
+    },
+    {
+      "previous": "experiments/tests/test_api_adapter_exploration.py::MetadataTests.test_wrong_identity_bad_array_and_direct_url_do_not_become_relations",
+      "product": "tests/test_caller_signature_source_acquisition.py::MetadataTests.test_wrong_identity_bad_array_and_direct_url_do_not_become_relations"
+    }
+  ],
+  "new_native_controls": 6
+}
