@@ -1,0 +1,66 @@
+{
+  "proof": "installed native source/comparison capture\u2192host/store\u2192fresh-process fixed recovery",
+  "proof_inputs": "synthetic controlled observations; no normal acquisition/application/CLI proof",
+  "source_commit": "ac4c2da1",
+  "wheel": "upgradepilot-0.0.0-py3-none-any.whl",
+  "wheel_sha256": "dfe11a35ceba3c2d16f3a8ee8748834dda9bd0c74b8e77ce30230d9da750c4eb",
+  "backend": {
+    "version": "68.1.2",
+    "origin": "/usr/lib/python3/dist-packages/setuptools/__init__.py"
+  },
+  "interpreter": "/home/motafeq/projects/UpgradePilot/.venv/bin/python",
+  "parent_origin": "/tmp/upgradepilot-installed-native-families-j17coduo/installed/upgradepilot/caller_signature/worker.py",
+  "source_codec_origin": "/tmp/upgradepilot-installed-native-families-j17coduo/installed/upgradepilot/caller_signature/source_codec.py",
+  "worker_origin": "/tmp/upgradepilot-installed-native-families-j17coduo/installed/upgradepilot/caller_signature/worker.py",
+  "subprocess_commands": [
+    [
+      "/home/motafeq/projects/UpgradePilot/.venv/bin/python",
+      "-m",
+      "upgradepilot.caller_signature.worker",
+      "/tmp/upgradepilot-source-analysis-6oh4l06k/input.json",
+      "/tmp/upgradepilot-source-analysis-6oh4l06k/output.json",
+      "536870912"
+    ]
+  ],
+  "target": {
+    "repository": "owner/target",
+    "pull_number": 7,
+    "base_sha": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "head_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "normalized_package": "vendor",
+    "old_version": "1.0",
+    "proposed_version": "2.0"
+  },
+  "revisions": [
+    "a11ebfa9623c4d3182ff899982bf6e1a",
+    "8da6fa2649bb48c49df4aaca04abf7ec"
+  ],
+  "paired_outcomes_preserved": true,
+  "cold_open": [
+    {
+      "revision": "a11ebfa9623c4d3182ff899982bf6e1a",
+      "catalog_id": "afbc645ec514a8e713f1c76a8eeb3437263b41ef2dd4fa075a00c14acafd73ec",
+      "source_sha256": "2ef7b48135376303016376c9f011412654f969afaf246e47b62c20e4fe87890a",
+      "comparison_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+      "state": null,
+      "retained_files": 3,
+      "origin": "controlled_observation"
+    },
+    {
+      "revision": "8da6fa2649bb48c49df4aaca04abf7ec",
+      "catalog_id": "afbc645ec514a8e713f1c76a8eeb3437263b41ef2dd4fa075a00c14acafd73ec",
+      "source_sha256": "2ef7b48135376303016376c9f011412654f969afaf246e47b62c20e4fe87890a",
+      "comparison_sha256": "576941117dba56eebdd352fa11ebb6ecc87114d0b63952d9116702509a592ddb",
+      "state": "completed",
+      "retained_files": 3,
+      "origin": "controlled_observation"
+    }
+  ],
+  "experiments_unavailable": true,
+  "developer_installation_changed": false,
+  "network_package_resolution": false,
+  "limitations": [
+    "Reuses selected interpreter's existing declared dependencies, not independent dependency isolation.",
+    "No normal source acquisition/profile/CLI/report/product acceptance is established."
+  ]
+}

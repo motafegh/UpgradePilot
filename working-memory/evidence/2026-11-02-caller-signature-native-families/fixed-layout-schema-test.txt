@@ -1,0 +1,6 @@
+test_v1_layouts_cannot_silently_fill_new_native_fields_from_defaults (test_workspace_native_reconstruction.WorkspaceNativeReconstructionTests.test_v1_layouts_cannot_silently_fill_new_native_fields_from_defaults) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK

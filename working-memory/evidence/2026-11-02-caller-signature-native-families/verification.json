@@ -1,0 +1,160 @@
+{
+  "source_commit": "ac4c2da1",
+  "implementation_sha256": {
+    "src/upgradepilot/caller_signature/bindings.py": "76b8d52f6ed95b7565cedb52e4a2c5faf9a65a671ff5ff73d15ce0a02a6d4d2f",
+    "src/upgradepilot/caller_signature/source_evidence.py": "c2fbb584f30be430694e6e5cdfc7285e2a0feb77dacdc89217ede5cafab2e5e2",
+    "src/upgradepilot/caller_signature/source_codec.py": "b56e8be590d90692772ea08347f055b86435707b7008f0e9a5a287a66ec17cfa",
+    "src/upgradepilot/caller_signature/result_codec.py": "8c607c8316f64772bc21c06f38ed36f76246fce7fdfc83ddbb49fe5cb1f3a1e9",
+    "src/upgradepilot/caller_signature/evidence.py": "abf3dd61b8c4e93b5edb513f42b4a032baf5f70654bd5ded199e10acb0b513f6",
+    "src/upgradepilot/caller_signature/native_codec.py": "23513eedd039f5dc5214f4858c3d13ec6106ec50d9ee8af2e2a95b7bf64077cb",
+    "src/upgradepilot/caller_signature/comparison_codec.py": "ac7218b7445a47590cadd49f43397f75844f5af837437199675c923522ef59fb",
+    "src/upgradepilot/caller_signature/analysis.py": "07efd2121e75b7f7a8b6b109f9a18405135c1f43a30cdf807b5aac21ecefdc58",
+    "src/upgradepilot/caller_signature/__init__.py": "fe6aba69a39dca34c4c6de351688cd9690f022393b4b543a765644655710e249",
+    "src/upgradepilot/caller_signature/worker.py": "a9905e9a5f3eeeb24ae77221846df29aae1b33e6b9d99020908ea324fca408f5",
+    "src/upgradepilot/caller_signature/correspondence.py": "2d200b2dc406e3155c5b7dd160d061f0d1f0053d30b4a7f9ea6a81633444834f",
+    "src/upgradepilot/workspace/native_capture.py": "3f0babc55863df2a1acbbae61dc7e782d467b7e5167633e50ebff41a6a10ea10",
+    "src/upgradepilot/workspace/native_codecs.py": "64724219865e459a261da1d2ff0d02dca27c5b23a68ebd577282c180676066fa",
+    "src/upgradepilot/workspace/native_projection.py": "009c5880fd8ac26832a38430a84fd39f14f01830fe81e97cb60391bd76ba88c2",
+    "src/upgradepilot/workspace/native_boundary.py": "2f1b9d5db609f27c0d0c1eb9cdfcacf6c8fbaff9f21e58fa3d11c6409b9f6ca2",
+    "src/upgradepilot/workspace/checkpoint_store.py": "5c8e041cf512af294c87aa15c242f6da0b5fa02b04d8b0563e23114330ec322a",
+    "src/upgradepilot/workspace/checkpoint_revision.py": "c848bd0c9ca17deef0ff3a6da0a817303a7457182b969441cea4f1a7024c1a18",
+    "src/upgradepilot/workspace/lifecycle_host.py": "731e832ccb2170424917e2de624a798f718de00b34c2041b420d5c674460db98"
+  },
+  "full_product_tests": 995,
+  "experiment_api_tests": 226,
+  "architecture_tests": 7,
+  "native_analysis_family_topology_subset_tests": 89,
+  "existing_native_reconstruction_subset_tests": 40,
+  "fixed_layout_schema_additional_check": true,
+  "retained_family_successes": [
+    "lifelog",
+    "httpx",
+    "digimon"
+  ],
+  "retained_family_non_admission": [
+    {
+      "case": "glyphslib-protocol",
+      "outcome": "not_admitted_to_source_family",
+      "reason": "original_selected_catalog_has_no_ordinary_acquisition_receipts_or_native_prefix",
+      "original_hashes": {
+        "result.json": "f2a5cfd42e1999d4bf996d2e6e085ea53c95bd0d9699a6f00b10b849eb0d4d05",
+        "view.txt": "4f743c68aab84e114a333ec3c5b3a1bbec3101078f115261e0cd284112ebb651",
+        "attempt.json": "bfc7339355ceb32798aaa2ae770c8c8618b1703e30252b4467dd1bf8db0e8fa1",
+        "sources.json": "770ab80fea86f6895fc52e278548d075414fe859f28ee09edb2c382c6296124d",
+        "attempt-started.json": "17430b717d593e49ed3bdd84b6698646c16648bbcc5859dc310260652e9a2161",
+        "input.json": "d90b4b6d9b8c17adac082197e49f366f2c888edfaa3941f755fd77c14fbb687f"
+      },
+      "analysis_worker_qualification": "separately passed in preceding result/worker cycle",
+      "no_fabricated_receipts": true
+    }
+  ],
+  "facts_retained": 4153,
+  "comparisons_retained": 178,
+  "exact_text_receipts_run_and_basis_roundtrip": true,
+  "original_indexed_captures_unchanged": true,
+  "installed": {
+    "proof": "installed native source/comparison capture\u2192host/store\u2192fresh-process fixed recovery",
+    "proof_inputs": "synthetic controlled observations; no normal acquisition/application/CLI proof",
+    "source_commit": "ac4c2da1",
+    "wheel": "upgradepilot-0.0.0-py3-none-any.whl",
+    "wheel_sha256": "dfe11a35ceba3c2d16f3a8ee8748834dda9bd0c74b8e77ce30230d9da750c4eb",
+    "backend": {
+      "version": "68.1.2",
+      "origin": "/usr/lib/python3/dist-packages/setuptools/__init__.py"
+    },
+    "interpreter": "/home/motafeq/projects/UpgradePilot/.venv/bin/python",
+    "parent_origin": "/tmp/upgradepilot-installed-native-families-j17coduo/installed/upgradepilot/caller_signature/worker.py",
+    "source_codec_origin": "/tmp/upgradepilot-installed-native-families-j17coduo/installed/upgradepilot/caller_signature/source_codec.py",
+    "worker_origin": "/tmp/upgradepilot-installed-native-families-j17coduo/installed/upgradepilot/caller_signature/worker.py",
+    "subprocess_commands": [
+      [
+        "/home/motafeq/projects/UpgradePilot/.venv/bin/python",
+        "-m",
+        "upgradepilot.caller_signature.worker",
+        "/tmp/upgradepilot-source-analysis-6oh4l06k/input.json",
+        "/tmp/upgradepilot-source-analysis-6oh4l06k/output.json",
+        "536870912"
+      ]
+    ],
+    "target": {
+      "repository": "owner/target",
+      "pull_number": 7,
+      "base_sha": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "head_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "normalized_package": "vendor",
+      "old_version": "1.0",
+      "proposed_version": "2.0"
+    },
+    "revisions": [
+      "a11ebfa9623c4d3182ff899982bf6e1a",
+      "8da6fa2649bb48c49df4aaca04abf7ec"
+    ],
+    "paired_outcomes_preserved": true,
+    "cold_open": [
+      {
+        "revision": "a11ebfa9623c4d3182ff899982bf6e1a",
+        "catalog_id": "afbc645ec514a8e713f1c76a8eeb3437263b41ef2dd4fa075a00c14acafd73ec",
+        "source_sha256": "2ef7b48135376303016376c9f011412654f969afaf246e47b62c20e4fe87890a",
+        "comparison_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+        "state": null,
+        "retained_files": 3,
+        "origin": "controlled_observation"
+      },
+      {
+        "revision": "8da6fa2649bb48c49df4aaca04abf7ec",
+        "catalog_id": "afbc645ec514a8e713f1c76a8eeb3437263b41ef2dd4fa075a00c14acafd73ec",
+        "source_sha256": "2ef7b48135376303016376c9f011412654f969afaf246e47b62c20e4fe87890a",
+        "comparison_sha256": "576941117dba56eebdd352fa11ebb6ecc87114d0b63952d9116702509a592ddb",
+        "state": "completed",
+        "retained_files": 3,
+        "origin": "controlled_observation"
+      }
+    ],
+    "experiments_unavailable": true,
+    "developer_installation_changed": false,
+    "network_package_resolution": false,
+    "limitations": [
+      "Reuses selected interpreter's existing declared dependencies, not independent dependency isolation.",
+      "No normal source acquisition/profile/CLI/report/product acceptance is established."
+    ]
+  },
+  "proof_files_sha256": {
+    "retained-qualification-initial.txt": "f04f6a2c0d2fc8bfa841f329c9330d35df9d1e08d4caeade7c85572527ef7a39",
+    "installed-build.txt": "7d6e6abfddabe524c1a713fa772228056687c1a6b6f4486fa4f514d59c1ed6b1",
+    "cold_open.py": "ae03194942cb752e2f1a72f0fbc816ad28d5dace03a7457cb88e3cead1858466",
+    "smoke_installed.py": "4de501e20f7d7e3c5b9923391b2a47c7f6267f12c3355a43a7baafa9e0ee2343",
+    "architecture-tests.txt": "c5cc304656600f475f8e248fa965294b035aedc65ea699356090459d25189647",
+    "retained-family-results.json": "277200439224e2f20791fe9763bbe12f1bcde42a3f01260ce3b70f0e9e2e1061",
+    "qualify_retained.py": "e55a67af06d6bd3aae841f976069f445e31c2fa45f010bdabac82ab5e70e05df",
+    "native-analysis-family-tests.txt": "5d01d428aae7545012021936db54182da93c770e98a3b2febab21f3de54ca2ab",
+    "family-worker-tests.txt": "479d9ea1efce196ab85abb7fecbe38a8e4906ac7e7a0cc579f7fee4cb8552085",
+    "api-tests.txt": "6ad50da2a5501a7d89405f32cdfed75b77872b349689897139662e1fe1e58c7b",
+    "installed-smoke.txt": "b59d91a4cf408057882e4624b098741c237560bbc6f7c4a09f26e0a8b410c67a",
+    "family-worker-final-tests.txt": "f0a400f5d337dbf34e396e42195bee9005a47b45f60bc325e3ce84a5e15a07c7",
+    "controlled-source-fixture.json": "2ef7b48135376303016376c9f011412654f969afaf246e47b62c20e4fe87890a",
+    "full-product-tests.txt": "d960d6c37abe1e30546ee2e2779bd4b0b8e2840aef2a445385729e66caee2c62",
+    "initial-existing-native-tests.txt": "086f169659876b9e77dbf0546832d9548570ca7952935ba28ad18a6fb91754f3",
+    "retained-initial-family-results.json": "58a9670396f0958e2560c9582ab22505951b3d085c20076f5e4add65cd64ff71",
+    "README.md": "8c0582d117c8bcedfea23424e60b4940fe5c7b1f8d6a07620ba29ebaaefefdea",
+    "retained-prepublication-results.json": "2fb0ba20c1dc0f2123a7d7cb47189a9d3fcc720319ed55f056d43921f758e837",
+    "checkpoint-lifecycle-tests.txt": "8c1cbc142e6670eeddaebbe78fdebe930486d0a81d0c96fcef1d2654479f3f59",
+    "initial-family-tests.txt": "53e4697fa51a32e8cfbe48c621817ddcde5f00d3d8c43144d5498a48c8611033",
+    "installed-families.json": "a0f5275f3a01efac89f11bc1299d479d2a873402c9a13ee656acd37c04a65c93",
+    "existing-native-tests.txt": "36b31b2b457ef53488541808d58fc4486fb7f896529ee30e7bff83fe293f95c9",
+    "retained-prepublication-log.txt": "60ceff1bc3dcacbc5528ae0bc06062ebe303a4c71b419cd1546487a47b7e8e21",
+    "retained-qualification.txt": "60ceff1bc3dcacbc5528ae0bc06062ebe303a4c71b419cd1546487a47b7e8e21",
+    "family-tests.txt": "3596c0a2edcf16756f6a8d9bb23384b6b66cf307dc0140b29da7d5afa6fe0c59",
+    "boundaries.txt": "3bbd87b44310c8361a70f4ff5c1d8ae805f3b368136cdcd978d523d6ad3b516b",
+    "family-tests-after-limits-fix.txt": "5f61f4604d40a2bb2787a6b9862d58cb5077a079a4b8739c285ab1c0ad10f42b",
+    "fixed-layout-schema-test.txt": "678363fa2b9259af9a67c3437a6eb58bd01d00015a52d2af5a9be17dcb701519"
+  },
+  "no_provider_credential_model_or_target_execution": true,
+  "no_limit_enlargement": true,
+  "remaining": [
+    "Native target/source acquisition composition and one shared physical-request policy/ledger",
+    "Normal application/profile/CLI/report/source delivery and failure recovery handoff",
+    "Report capacity and frozen actual product path proof",
+    "Maintainer-task/usefulness/adoption disposition",
+    "D ownership learning and E closure"
+  ]
+}

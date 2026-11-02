@@ -1,0 +1,19 @@
+{"version": "68.1.2", "origin": "/usr/lib/python3/dist-packages/setuptools/__init__.py"}
+
+Processing ./source
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: upgradepilot
+  Building wheel for upgradepilot (pyproject.toml): started
+  Building wheel for upgradepilot (pyproject.toml): finished with status 'done'
+  Created wheel for upgradepilot: filename=upgradepilot-0.0.0-py3-none-any.whl size=352004 sha256=dfe11a35ceba3c2d16f3a8ee8748834dda9bd0c74b8e77ce30230d9da750c4eb
+  Stored in directory: /tmp/pip-ephem-wheel-cache-i66vhtlg/wheels/9b/8d/a6/ffdaa8bf9f4051e59157056ce8dd6de33d650f3c8d254a0c0b
+Successfully built upgradepilot
+
+Processing ./wheels/upgradepilot-0.0.0-py3-none-any.whl
+Installing collected packages: upgradepilot
+Successfully installed upgradepilot-0.0.0
+
+{"interpreter": "/home/motafeq/projects/UpgradePilot/.venv/bin/python", "parent_origin": "/tmp/upgradepilot-installed-native-families-j17coduo/installed/upgradepilot/caller_signature/worker.py", "source_codec_origin": "/tmp/upgradepilot-installed-native-families-j17coduo/installed/upgradepilot/caller_signature/source_codec.py", "worker_origin": "/tmp/upgradepilot-installed-native-families-j17coduo/installed/upgradepilot/caller_signature/worker.py", "subprocess_commands": [["/home/motafeq/projects/UpgradePilot/.venv/bin/python", "-m", "upgradepilot.caller_signature.worker", "/tmp/upgradepilot-source-analysis-6oh4l06k/input.json", "/tmp/upgradepilot-source-analysis-6oh4l06k/output.json", "536870912"]], "target": {"repository": "owner/target", "pull_number": 7, "base_sha": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", "head_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "normalized_package": "vendor", "old_version": "1.0", "proposed_version": "2.0"}, "revisions": ["a11ebfa9623c4d3182ff899982bf6e1a", "8da6fa2649bb48c49df4aaca04abf7ec"], "paired_outcomes_preserved": true}
+
+[{"revision": "a11ebfa9623c4d3182ff899982bf6e1a", "catalog_id": "afbc645ec514a8e713f1c76a8eeb3437263b41ef2dd4fa075a00c14acafd73ec", "source_sha256": "2ef7b48135376303016376c9f011412654f969afaf246e47b62c20e4fe87890a", "comparison_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b", "state": null, "retained_files": 3, "origin": "controlled_observation"}, {"revision": "8da6fa2649bb48c49df4aaca04abf7ec", "catalog_id": "afbc645ec514a8e713f1c76a8eeb3437263b41ef2dd4fa075a00c14acafd73ec", "source_sha256": "2ef7b48135376303016376c9f011412654f969afaf246e47b62c20e4fe87890a", "comparison_sha256": "576941117dba56eebdd352fa11ebb6ecc87114d0b63952d9116702509a592ddb", "state": "completed", "retained_files": 3, "origin": "controlled_observation"}]

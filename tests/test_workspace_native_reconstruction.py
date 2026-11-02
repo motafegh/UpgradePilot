@@ -26,6 +26,7 @@ from test_investigation import _dependency, _Harness
 
 from upgradepilot.ci.dependency_exercise import WorkflowDependencyCoverageInput
 from upgradepilot.ci.native_codec import LAYOUTS as CI_LAYOUTS
+from upgradepilot.caller_signature.source_codec import _LAYOUTS as CALLER_SOURCE_LAYOUTS
 from upgradepilot.dependency.analysis import DependencyChangeAnalysis
 from upgradepilot.dependency.change import DependencyChangeProblem
 from upgradepilot.dependency.environment import (
@@ -569,7 +570,7 @@ class WorkspaceNativeReconstructionTests(unittest.TestCase):
     def test_v1_layouts_cannot_silently_fill_new_native_fields_from_defaults(self):
         # A new field on a reused constructor requires a reviewed codec compatibility
         # decision. This independent schema check catches drift even in unexercised variants.
-        for layout in INPUT_LAYOUTS + CI_LAYOUTS + IMPACT_LAYOUTS:
+        for layout in INPUT_LAYOUTS + CI_LAYOUTS + IMPACT_LAYOUTS + CALLER_SOURCE_LAYOUTS:
             with self.subTest(variant=layout.variant):
                 self.assertEqual(
                     tuple(name for name, _ in layout.fields),
