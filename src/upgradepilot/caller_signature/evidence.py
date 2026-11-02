@@ -2,6 +2,13 @@
 from __future__ import annotations
 import math
 from dataclasses import dataclass, fields
+from typing import TYPE_CHECKING, Literal
+
+from .analysis import ArgumentComparison, SourceFacts, SourceSpan
+
+if TYPE_CHECKING:
+    from .correspondence import PythonSourceModule, SourceRelationshipStep
+    from ..workspace.source_access import RetainedSourceCatalog
 
 
 @dataclass(frozen=True)
@@ -88,3 +95,91 @@ def json_structure_cost(value):
     if isinstance(value, (list, tuple)):
         return 2 + max(0, len(value) - 1) + sum(json_structure_cost(v) for v in value)
     return 0
+
+
+@dataclass(frozen=True)
+class SourceAnalysisInput:
+    """Prepared offline work, not proof of acquisition or installed dependencies.
+
+    Acquisition owns association receipts. The result codec binds these exact
+    catalog bytes, module roles and limits into the analysis input digest.
+    """
+    catalog: RetainedSourceCatalog
+    modules: tuple[PythonSourceModule, ...]
+    limits: AnalysisLimits = AnalysisLimits()
+
+
+@dataclass(frozen=True)
+class AnalyzedSourceUnit:
+    unit_id: str
+    coverage: Literal["complete_file", "unexamined", "non_python"]
+    facts: SourceFacts | None
+
+
+@dataclass(frozen=True)
+class SourceAnalysisAdmission:
+    unit_id: str
+    state: Literal["analyzed", "unexamined"]
+    reason: str
+    scan_nodes: int
+
+
+@dataclass(frozen=True)
+class SourceComparisonCandidate:
+    candidate_id: str
+    root_call_id: str
+    comparison: ArgumentComparison
+    steps: tuple[SourceRelationshipStep, ...]
+    premises: tuple[str, ...]
+    callee_role: PythonSourceModule
+
+
+@dataclass(frozen=True)
+class SourceDiscoveryGap:
+    reason: str
+    unit_id: str
+    span: SourceSpan | None
+    detail: str
+
+
+@dataclass(frozen=True)
+class SourceAnalysisWork:
+    source_files: int
+    source_bytes: int
+    ast_nodes: int
+    facts: int
+    selected_pairs: int
+    scanned_ast_nodes: int
+    fact_structure_cost: int
+    comparison_structure_cost: int
+    states_examined: int
+    gaps_omitted: int
+
+
+@dataclass(frozen=True)
+class SourceAnalysisResult:
+    """Completed producer evidence; completion does not imply complete coverage."""
+    input_sha256: str
+    catalog_id: str
+    units: tuple[AnalyzedSourceUnit, ...]
+    candidates: tuple[SourceComparisonCandidate, ...]
+    gaps: tuple[SourceDiscoveryGap, ...]
+    admission: tuple[SourceAnalysisAdmission, ...]
+    work: SourceAnalysisWork
+
+
+@dataclass(frozen=True)
+class SourceAnalysisRun:
+    """Parent-observed execution state, distinct from result coverage/usefulness.
+
+    Input text belongs to the caller/source owner even when no result completes.
+    Temporary worker files are exchange only, never durable Workspace publication.
+    """
+    state: Literal["completed", "failed", "timed_out", "interrupted"]
+    reason: str | None
+    input_sha256: str
+    elapsed: MeasuredDuration
+    worker_returncode: int | None
+    worker_module_origin: str | None
+    result: SourceAnalysisResult | None
+    problem_detail: str | None = None

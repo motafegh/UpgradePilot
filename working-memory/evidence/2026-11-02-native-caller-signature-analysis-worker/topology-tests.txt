@@ -1,0 +1,8 @@
+test_obsolete_flat_module_paths_are_absent (test_source_topology.SourceTopologyTests.test_obsolete_flat_module_paths_are_absent) ... ok
+test_package_root_remains_intentionally_minimal (test_source_topology.SourceTopologyTests.test_package_root_remains_intentionally_minimal) ... ok
+test_responsibility_modules_import_from_new_owners (test_source_topology.SourceTopologyTests.test_responsibility_modules_import_from_new_owners) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.000s
+
+OK

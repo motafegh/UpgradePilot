@@ -4,12 +4,13 @@ Start with encode_source_facts/decode_source_facts. These operate on one admitte
 file and its original text, before the later family/material projection. Native
 JSON guards apply to every packet. Decoding validates retained representation;
 it never parses Python, discovers paths or invokes an argument checker. Native
-family registration, cross-file admission and producer-version support belong to
-the next enclosing integration, not this component codec.
+family registration belongs to the enclosing Workspace integration. Cross-file
+analysis admission and explicit result-method support live in result_codec;
+this component remains independently usable for exact per-file reconstruction.
 """
 from __future__ import annotations
 from .analysis import (SourceSpan, CallArguments, CallableSignature, ParameterFact,
-                       SourceFacts, fact_identity)
+                       SourceFacts, fact_identity, ArgumentComparison, KeywordReception, BindingViolation)
 from .bindings import (BindingAssessment, BindingTraceStep, binding_state,
                        MAX_BINDING_ORIGINS, MAX_BINDING_TRACE_STEPS)
 from .evidence import AnalysisLimits, MeasuredDuration, encode_fact_binding_traces, json_structure_cost
@@ -25,6 +26,9 @@ _FIELDS = {
     ParameterFact: ("name", "kind", "has_default"),
     CallableSignature: ("fact_id", "unit_id", "span", "header_span", "qualified_name", "kind", "parameters", "complete", "decorators", "class_bases", "limitations"),
     SourceFacts: ("unit_id", "calls", "signatures", "problems", "ast_nodes"),
+    KeywordReception: ("name", "outcome"),
+    BindingViolation: ("reason", "parameter"),
+    ArgumentComparison: ("call_id", "signature_id", "receiver_mode", "outcome", "checks_complete", "keyword_reception", "violations", "unresolved_checks", "remaining_premises"),
 }
 
 
@@ -257,3 +261,60 @@ def encode_source_facts(facts: SourceFacts, *, text: str, coverage: str,
     if checked != facts:
         raise ValueError("Source fact encoding changed retained meaning.")
     return json_bytes({"codec_version": 1, "facts": packed})
+
+
+def read_argument_comparison(raw, call, signature, receiver):
+    """Validate saved local reception and premises without rerunning the checker."""
+    data = _record(raw, ArgumentComparison)
+    if (data["call_id"] != call.fact_id or data["signature_id"] != signature.fact_id
+            or data["receiver_mode"] != receiver or type(data["checks_complete"]) is not bool):
+        raise ValueError("Comparison identity or receiver mismatch.")
+    reception = []
+    if type(data["keyword_reception"]) is not list:
+        raise ValueError("Invalid keyword reception.")
+    for raw_item in data["keyword_reception"]:
+        item = _record(raw_item, KeywordReception)
+        if item["outcome"] not in {"named_parameter", "variadic_keyword", "not_received", "undetermined"}:
+            raise ValueError("Unknown keyword reception.")
+        reception.append(KeywordReception(**item))
+    if [r.name for r in reception] != [k for k in call.keywords if k is not None]:
+        raise ValueError("Foreign or omitted keyword finding.")
+    violations = []
+    if type(data["violations"]) is not list:
+        raise ValueError("Invalid violations.")
+    for raw_item in data["violations"]:
+        item = _record(raw_item, BindingViolation)
+        if item["reason"] not in {"unexpected_keyword", "positional_only_by_keyword", "excess_positional",
+                                  "duplicate_keyword", "duplicate_argument", "missing_required_argument"}:
+            raise ValueError("Unknown binding violation.")
+        if item["parameter"] is not None:
+            read_bounded_text(item["parameter"])
+        violations.append(BindingViolation(**item))
+    unresolved, premises = read_string_sequence(data["unresolved_checks"]), read_string_sequence(data["remaining_premises"])
+    not_received = {r.name for r in reception if r.outcome == "not_received"}
+    keyword_violations = {v.parameter for v in violations if v.reason in {"unexpected_keyword", "positional_only_by_keyword"}}
+    if not_received != keyword_violations:
+        raise ValueError("Keyword rejection witness/violation mismatch.")
+    parameter_names = {p.name for p in signature.parameters}
+    if any(v.parameter is not None and v.parameter not in parameter_names | set(call.keywords) for v in violations):
+        raise ValueError("Foreign violation parameter.")
+    supported_complete = (call.complete and signature.complete and not signature.limitations
+                          and receiver != "unresolved" and "starred" not in call.positional
+                          and None not in call.keywords)
+    expected = "rejected" if violations else "bound" if data["checks_complete"] else "undetermined"
+    if (data["outcome"] != expected or data["checks_complete"] != supported_complete
+            or data["checks_complete"] == bool(unresolved)
+            or "call_reaches_selected_declared_signature" not in premises
+            or "target_installed_versions_and_runtime_not_established" not in premises
+            or receiver == "one_receiver_assumed" and "one_bound_positional_receiver_assumed" not in premises
+            or signature.decorators and "effective_decorator_signature_not_established" not in premises):
+        raise ValueError("Inconsistent comparison outcome or missing premise.")
+    return ArgumentComparison(call.fact_id, signature.fact_id, receiver, expected, data["checks_complete"],
+                              tuple(reception), tuple(violations), unresolved, premises)
+
+
+def pack_argument_comparison(value: ArgumentComparison) -> dict:
+    """Fixed flat representation, shared by result encoding and capacity accounting."""
+    if type(value) is not ArgumentComparison:
+        raise ValueError("Expected native argument comparison.")
+    return _pack(value)
