@@ -1,0 +1,10 @@
+lifelog PASS 12197 224351 5003590
+httpx PASS 14242 145998 2253467
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-11-02-caller-signature-native-families/qualify_retained.py", line 134, in <module>
+    source = se.CallerSignatureSources(catalog, modules, AnalysisLimits(**body["limits"]), receipt(body["acquisition"], catalog))
+                                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-11-02-caller-signature-native-families/qualify_retained.py", line 82, in receipt
+    value = raw["ordinary_acquisition"]
+            ~~~^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'ordinary_acquisition'

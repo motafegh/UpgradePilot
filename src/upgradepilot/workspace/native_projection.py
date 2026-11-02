@@ -1,4 +1,4 @@
-"""Offline typed projections of the first captured native families.
+"""Offline typed projections of captured native families.
 
 Start at ``reconstruct_ci_projection`` or ``reconstruct_python_support_projection`` after
 reading an admitted host boundary. Validate shared target/material references before exposing
@@ -16,6 +16,8 @@ from ..ci.dependency_exercise import (
     DependencyCICoverageResult,
     WorkflowDependencyCoverageInput,
 )
+from ..caller_signature.evidence import SourceAnalysisRun
+from ..caller_signature.source_evidence import CallerSignatureSources
 from ..ci.consumption import StaticDependencyConsumptionEvidence
 from ..ci.dependency_state import (
     RequirementSatisfiedAtCommandCompletion,
@@ -95,27 +97,41 @@ class PythonSupportNativeProjection:
     impact_result: PythonSupportDropImpactAssessment | None
 
 
+@dataclass(frozen=True, slots=True)
+class CallerSignatureNativeProjection:
+    inputs: NativeInvestigationInputs
+    sources: CallerSignatureSources | None
+    comparison: SourceAnalysisRun | None
+
+
 def _invalid(detail: str) -> NativeReconstructionError:
     return NativeReconstructionError("invalid_native_material", detail)
 
 
-def _decode(records: dict[str, CapturedNativeRecord], family: str) -> object:
+def _decode(records: dict[str, CapturedNativeRecord], family: str, *, sources: CallerSignatureSources | None = None) -> object:
     record = records.get(family)
     if record is None:
         raise NativeReconstructionError(
             "missing_native_material", f"Missing native family {family!r}."
         )
     contract = family_contract(family, record.codec_version)
-    # Existing producer interfaces expose no admitted semantic-version identity. Preserve
-    # that explicit historical gap; do not treat a newly declared method version as tested
-    # merely because its representation still looks like codec version 1.
-    if record.producer_version is not None:
+    # Caller/signature has exact tested emitters. Older producer interfaces keep
+    # their historical version gap; codec1 alone cannot admit a semantic version.
+    if contract.producer_version is not None:
+        if record.outcome == "recorded" and (record.producer_version, record.producer_method) != (contract.producer_version, contract.producer_method):
+            raise NativeReconstructionError(
+                "unsupported_native_semantic_version", f"Unsupported {family!r} producer method/version.",
+            )
+        if record.outcome == "not_evaluated" and (record.producer_version is not None or record.producer_method is not None):
+            raise _invalid("Unperformed caller/signature operation contains producer metadata.")
+    elif record.producer_version is not None:
         raise NativeReconstructionError(
             "unsupported_native_semantic_version",
             f"No admitted {family!r} reconstruction for producer version {record.producer_version!r}.",
         )
     if (
         record.outcome == "recorded"
+        and contract.producer_version is None
         and "producer_version_unavailable" not in record.retention_gaps
     ):
         raise _invalid("Missing explicit producer-version recovery gap.")
@@ -153,7 +169,12 @@ def _decode(records: dict[str, CapturedNativeRecord], family: str) -> object:
         raise NativeReconstructionError(
             "missing_native_material", f"Recorded {family!r} has an unexecuted input."
         )
-    value = decode_native_value(family, record.codec_version, record.payload)
+    try:
+        value = decode_native_value(family, record.codec_version, record.payload, sources=sources)
+    except NativeReconstructionError:
+        raise
+    except (ValueError, TypeError) as error:
+        raise _invalid(f"Invalid {family!r} payload: {error}") from error
     if (
         record.outcome == "recorded"
         and value is None
@@ -593,6 +614,28 @@ def _validate_selection_material(
         )
     # A recorded None remains a historical selector abstention. Never infer a missing
     # selection by re-running the policy or by treating every unresolved result as a read.
+
+
+def reconstruct_caller_signature_projection(
+    boundary: CapturedNativeBoundary, *, expected_target: ExactInvestigationTarget
+) -> CallerSignatureNativeProjection:
+    """Reconstruct only the exact recorded source/run basis, with no reanalysis.
+
+    Missing families in an older checkpoint are missing material, not a request
+    to migrate it or fabricate unperformed operations. Historical receipt gaps
+    and failed run states retain their original meanings in the projection.
+    """
+    records = validate_native_boundary(boundary, expected_target=expected_target)
+    inputs = _inputs(records, expected_target)
+    sources = cast(CallerSignatureSources | None, _decode(records, "caller_signature_sources"))
+    if sources is not None:
+        if sources.catalog is not None and sources.catalog.target != expected_target:
+            raise NativeReconstructionError("wrong_target", "Caller/signature catalog differs from investigation inputs.")
+        receipt = sources.acquisition.target
+        if receipt is not None and (receipt.repository, receipt.revision) != (expected_target.repository, expected_target.head_sha):
+            raise NativeReconstructionError("wrong_target", "Caller/signature acquisition differs from investigation target.")
+    run = cast(SourceAnalysisRun | None, _decode(records, "caller_signature_comparison", sources=sources))
+    return CallerSignatureNativeProjection(inputs, sources, run)
 
 
 def reconstruct_pull_request_description(

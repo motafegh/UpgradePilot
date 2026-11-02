@@ -12,7 +12,7 @@ from unittest.mock import patch
 from test_source_correspondence import material
 from upgradepilot.caller_signature.evidence import AnalysisLimits, SourceAnalysisInput
 from upgradepilot.caller_signature.result_codec import (
-    decode_analysis_input, decode_analysis_result, encode_analysis_input, encode_analysis_result,
+    decode_analysis_input, decode_analysis_result, encode_analysis_input, encode_analysis_result, decode_analysis_limits,
 )
 from upgradepilot.caller_signature.worker import produce_source_analysis, run_source_analysis
 from upgradepilot.workspace.native_representation import json_bytes, parse_json
@@ -57,6 +57,10 @@ class NativeAnalysisResultTests(TestCase):
     def test_input_requires_exact_source_classification_transition_and_limits(self):
         source = prepared()
         payload = encode_analysis_input(source)
+        original_limits = parse_json(payload)["limits"]
+        frozen_limits = dict(original_limits)
+        decode_analysis_limits(original_limits)
+        self.assertEqual(original_limits, frozen_limits)
         def refuse(change):
             row = parse_json(payload)
             change(row)

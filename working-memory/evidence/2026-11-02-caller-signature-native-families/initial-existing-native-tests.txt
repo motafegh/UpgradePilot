@@ -1,0 +1,140 @@
+======================================================================
+FAIL: test_every_declared_edge_refuses_substituted_record_reference (test_workspace_native_reconstruction.WorkspaceNativeReconstructionTests.test_every_declared_edge_refuses_substituted_record_reference)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_native_reconstruction.py", line 748, in test_every_declared_edge_refuses_substituted_record_reference
+    self.assertEqual(len(edges), 18)
+AssertionError: 21 != 18
+
+======================================================================
+FAIL: test_missing_recorded_method_requires_explicit_retention_gap_for_every_root (test_workspace_native_reconstruction.WorkspaceNativeReconstructionTests.test_missing_recorded_method_requires_explicit_retention_gap_for_every_root) (family='caller_signature_sources')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_native_reconstruction.py", line 1629, in test_missing_recorded_method_requires_explicit_retention_gap_for_every_root
+    self._assert_binding_refusal(missing, refused=refused)
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_native_reconstruction.py", line 723, in _assert_binding_refusal
+    result = self._cold_reconstruction(boundary, reason, refused=refused)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_native_reconstruction.py", line 712, in _cold_reconstruction
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : Traceback (most recent call last):
+  File "<string>", line 58, in <module>
+AssertionError: substituted python material was accepted
+
+
+======================================================================
+FAIL: test_missing_recorded_method_requires_explicit_retention_gap_for_every_root (test_workspace_native_reconstruction.WorkspaceNativeReconstructionTests.test_missing_recorded_method_requires_explicit_retention_gap_for_every_root) (family='caller_signature_comparison')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_native_reconstruction.py", line 1629, in test_missing_recorded_method_requires_explicit_retention_gap_for_every_root
+    self._assert_binding_refusal(missing, refused=refused)
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_native_reconstruction.py", line 723, in _assert_binding_refusal
+    result = self._cold_reconstruction(boundary, reason, refused=refused)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_native_reconstruction.py", line 712, in _cold_reconstruction
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : Traceback (most recent call last):
+  File "<string>", line 58, in <module>
+AssertionError: substituted python material was accepted
+
+
+======================================================================
+FAIL: test_recorded_empty_results_and_unexecuted_input_operations_refuse (test_workspace_native_reconstruction.WorkspaceNativeReconstructionTests.test_recorded_empty_results_and_unexecuted_input_operations_refuse) (recorded_empty='caller_signature_sources')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_native_reconstruction.py", line 1848, in test_recorded_empty_results_and_unexecuted_input_operations_refuse
+    self._assert_binding_refusal(
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_native_reconstruction.py", line 723, in _assert_binding_refusal
+    result = self._cold_reconstruction(boundary, reason, refused=refused)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_native_reconstruction.py", line 712, in _cold_reconstruction
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : Traceback (most recent call last):
+  File "<string>", line 58, in <module>
+AssertionError: substituted python material was accepted
+
+
+======================================================================
+FAIL: test_recorded_empty_results_and_unexecuted_input_operations_refuse (test_workspace_native_reconstruction.WorkspaceNativeReconstructionTests.test_recorded_empty_results_and_unexecuted_input_operations_refuse) (recorded_empty='caller_signature_comparison')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_native_reconstruction.py", line 1848, in test_recorded_empty_results_and_unexecuted_input_operations_refuse
+    self._assert_binding_refusal(
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_native_reconstruction.py", line 723, in _assert_binding_refusal
+    result = self._cold_reconstruction(boundary, reason, refused=refused)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_native_reconstruction.py", line 712, in _cold_reconstruction
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : Traceback (most recent call last):
+  File "<string>", line 58, in <module>
+AssertionError: substituted python material was accepted
+
+
+======================================================================
+FAIL: test_unrelated_unsupported_versions_preserve_every_unaffected_projection (test_workspace_native_reconstruction.WorkspaceNativeReconstructionTests.test_unrelated_unsupported_versions_preserve_every_unaffected_projection) (family='caller_signature_sources', version='codec_version')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_native_reconstruction.py", line 1597, in test_unrelated_unsupported_versions_preserve_every_unaffected_projection
+    self._assert_binding_refusal(
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_native_reconstruction.py", line 723, in _assert_binding_refusal
+    result = self._cold_reconstruction(boundary, reason, refused=refused)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_native_reconstruction.py", line 712, in _cold_reconstruction
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : Traceback (most recent call last):
+  File "<string>", line 58, in <module>
+AssertionError: substituted python material was accepted
+
+
+======================================================================
+FAIL: test_unrelated_unsupported_versions_preserve_every_unaffected_projection (test_workspace_native_reconstruction.WorkspaceNativeReconstructionTests.test_unrelated_unsupported_versions_preserve_every_unaffected_projection) (family='caller_signature_sources', version='producer_version')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_native_reconstruction.py", line 1597, in test_unrelated_unsupported_versions_preserve_every_unaffected_projection
+    self._assert_binding_refusal(
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_native_reconstruction.py", line 723, in _assert_binding_refusal
+    result = self._cold_reconstruction(boundary, reason, refused=refused)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_native_reconstruction.py", line 712, in _cold_reconstruction
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : Traceback (most recent call last):
+  File "<string>", line 58, in <module>
+AssertionError: substituted python material was accepted
+
+
+======================================================================
+FAIL: test_unrelated_unsupported_versions_preserve_every_unaffected_projection (test_workspace_native_reconstruction.WorkspaceNativeReconstructionTests.test_unrelated_unsupported_versions_preserve_every_unaffected_projection) (family='caller_signature_comparison', version='codec_version')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_native_reconstruction.py", line 1597, in test_unrelated_unsupported_versions_preserve_every_unaffected_projection
+    self._assert_binding_refusal(
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_native_reconstruction.py", line 723, in _assert_binding_refusal
+    result = self._cold_reconstruction(boundary, reason, refused=refused)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_native_reconstruction.py", line 712, in _cold_reconstruction
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : Traceback (most recent call last):
+  File "<string>", line 58, in <module>
+AssertionError: substituted python material was accepted
+
+
+======================================================================
+FAIL: test_unrelated_unsupported_versions_preserve_every_unaffected_projection (test_workspace_native_reconstruction.WorkspaceNativeReconstructionTests.test_unrelated_unsupported_versions_preserve_every_unaffected_projection) (family='caller_signature_comparison', version='producer_version')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_native_reconstruction.py", line 1597, in test_unrelated_unsupported_versions_preserve_every_unaffected_projection
+    self._assert_binding_refusal(
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_native_reconstruction.py", line 723, in _assert_binding_refusal
+    result = self._cold_reconstruction(boundary, reason, refused=refused)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_native_reconstruction.py", line 712, in _cold_reconstruction
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : Traceback (most recent call last):
+  File "<string>", line 58, in <module>
+AssertionError: substituted python material was accepted
+
+
+----------------------------------------------------------------------
+Ran 40 tests in 62.506s
+
+FAILED (failures=9)

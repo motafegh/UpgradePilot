@@ -1,0 +1,56 @@
+======================================================================
+FAIL: test_every_declared_input_edge_substitution_is_refused_after_valid_publication (test_workspace_checkpoint_reconstruction.WorkspaceCheckpointReconstructionTests.test_every_declared_input_edge_substitution_is_refused_after_valid_publication)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_reconstruction.py", line 409, in test_every_declared_input_edge_substitution_is_refused_after_valid_publication
+    self.assertEqual(len(edges), 18)
+AssertionError: 21 != 18
+
+======================================================================
+FAIL: test_every_root_unsupported_codec_or_semantic_version_preserves_unaffected_projection (test_workspace_checkpoint_reconstruction.WorkspaceCheckpointReconstructionTests.test_every_root_unsupported_codec_or_semantic_version_preserves_unaffected_projection) (family='caller_signature_sources', version='codec_version')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_reconstruction.py", line 391, in test_every_root_unsupported_codec_or_semantic_version_preserves_unaffected_projection
+    self._assert_reconstructed(
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_reconstruction.py", line 194, in _assert_reconstructed
+    self.assertEqual(result, expected)
+AssertionError: {'blocked_controls': 4, 'blocked_network': [43959 chars]on'}} != {'checkpoint': {'lineage_id': 'main', 'revi[26351 chars]dec'}
+Diff is 340051 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_every_root_unsupported_codec_or_semantic_version_preserves_unaffected_projection (test_workspace_checkpoint_reconstruction.WorkspaceCheckpointReconstructionTests.test_every_root_unsupported_codec_or_semantic_version_preserves_unaffected_projection) (family='caller_signature_sources', version='producer_version')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_reconstruction.py", line 391, in test_every_root_unsupported_codec_or_semantic_version_preserves_unaffected_projection
+    self._assert_reconstructed(
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_reconstruction.py", line 194, in _assert_reconstructed
+    self.assertEqual(result, expected)
+AssertionError: {'blocked_controls': 4, 'blocked_network': [43959 chars]on'}} != {'checkpoint': {'lineage_id': 'main', 'revi[26362 chars]ion'}
+Diff is 340062 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_every_root_unsupported_codec_or_semantic_version_preserves_unaffected_projection (test_workspace_checkpoint_reconstruction.WorkspaceCheckpointReconstructionTests.test_every_root_unsupported_codec_or_semantic_version_preserves_unaffected_projection) (family='caller_signature_comparison', version='codec_version')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_reconstruction.py", line 391, in test_every_root_unsupported_codec_or_semantic_version_preserves_unaffected_projection
+    self._assert_reconstructed(
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_reconstruction.py", line 194, in _assert_reconstructed
+    self.assertEqual(result, expected)
+AssertionError: {'blocked_controls': 4, 'blocked_network': [43959 chars]on'}} != {'checkpoint': {'lineage_id': 'main', 'revi[26351 chars]dec'}
+Diff is 340051 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_every_root_unsupported_codec_or_semantic_version_preserves_unaffected_projection (test_workspace_checkpoint_reconstruction.WorkspaceCheckpointReconstructionTests.test_every_root_unsupported_codec_or_semantic_version_preserves_unaffected_projection) (family='caller_signature_comparison', version='producer_version')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_reconstruction.py", line 391, in test_every_root_unsupported_codec_or_semantic_version_preserves_unaffected_projection
+    self._assert_reconstructed(
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_reconstruction.py", line 194, in _assert_reconstructed
+    self.assertEqual(result, expected)
+AssertionError: {'blocked_controls': 4, 'blocked_network': [43959 chars]on'}} != {'checkpoint': {'lineage_id': 'main', 'revi[26362 chars]ion'}
+Diff is 340062 characters long. Set self.maxDiff to None to see it.
+
+----------------------------------------------------------------------
+Ran 31 tests in 34.030s
+
+FAILED (failures=5)

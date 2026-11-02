@@ -72,15 +72,15 @@ def module_fields(module):
                 dependencies=list(module.dependencies))
 
 
-def _limit_fields(limits):
+def encode_analysis_limits(limits):
     return dict(max_files=limits.max_files, max_source_bytes=limits.max_source_bytes,
                 max_nodes_per_file=limits.max_nodes_per_file, max_nodes=limits.max_nodes,
                 max_facts=limits.max_facts, max_pairs=limits.max_pairs,
                 timeout_seconds_hex=float(limits.timeout_seconds).hex(), memory_bytes=limits.memory_bytes)
 
 
-def _read_limits(raw):
-    data = object_fields(raw, _LIMIT_FIELDS)
+def decode_analysis_limits(raw):
+    data = dict(object_fields(raw, _LIMIT_FIELDS))
     timeout = MeasuredDuration(data.pop("timeout_seconds_hex"), "analysis_timeout_limit").seconds
     return AnalysisLimits(**data, timeout_seconds=timeout)
 
@@ -139,7 +139,7 @@ def encode_analysis_input(value: SourceAnalysisInput) -> bytes:
         raise ValueError("Expected prepared source analysis input.")
     payload = json_bytes(dict(format=INPUT_FORMAT, analysis_profile=ANALYSIS_PROFILE,
         catalog=parse_json(encode_source_catalog(value.catalog)),
-        modules=[module_fields(m) for m in value.modules], limits=_limit_fields(value.limits)))
+        modules=[module_fields(m) for m in value.modules], limits=encode_analysis_limits(value.limits)))
     decode_analysis_input(payload)
     return payload
 
@@ -152,7 +152,7 @@ def decode_analysis_input(payload: bytes) -> SourceAnalysisInput:
         raise ValueError("Missing source catalog.")
     target = _read_target(row["catalog"].get("target"))
     catalog = read_source_catalog(json_bytes(row["catalog"]), expected_target=target)
-    limits = _read_limits(row["limits"])
+    limits = decode_analysis_limits(row["limits"])
     if not 1 <= len(catalog.files) <= limits.max_files or sum(len(f.content.encode()) for f in catalog.files) > limits.max_source_bytes:
         raise ValueError("Selected source capacity exceeded.")
     return SourceAnalysisInput(catalog, _read_modules(row["modules"], catalog, limits), limits)

@@ -18,6 +18,8 @@ from ..ci.dependency_exercise import (
     WorkflowDependencyCoverageInput,
 )
 from ..ci.dependency_state import RuntimeDependencyStateResult
+from ..caller_signature.evidence import SourceAnalysisRun
+from ..caller_signature.source_evidence import CallerSignatureSources
 from ..dependency.change import DependencyChangeProblem, DependencyVersionChange
 from ..dependency.environment import DependencySourceContext
 from ..github.pull_request import (
@@ -39,7 +41,7 @@ from .native_boundary import (
     exact_investigation_target,
     validate_native_boundary,
 )
-from .native_codecs import FAMILY_CONTRACTS, encode_native_value
+from .native_codecs import FAMILY_CONTRACTS, decode_native_value, encode_native_value
 
 
 @dataclass(frozen=True, slots=True)
@@ -48,6 +50,7 @@ class _StagedCapture:
     payload: bytes
     evaluated: bool
     producer_method: str | None
+    producer_version: str | None
     retention_gaps: tuple[str, ...]
     input_record_ids: tuple[str, ...]
 
@@ -55,7 +58,8 @@ class _StagedCapture:
 class NativeInvestigationCapture:
     """One opt-in investigation's encoded staging, sealed before consumer reconstruction.
 
-    Native method versions unavailable in today's interfaces remain explicit gaps. Codec
+    Native method versions unavailable in older interfaces remain explicit gaps. The
+    caller/signature capture methods expose their tested version separately. Codec
     version 1 is representation support, not a fabricated semantic/model version. Capture
     never acquires evidence, invokes an evaluator, retries work or publishes a checkpoint.
     """
@@ -116,20 +120,27 @@ class NativeInvestigationCapture:
         method: str | None,
         evaluated: bool = True,
         gaps: tuple[str, ...] = (),
+        version: str | None = None,
     ) -> None:
         if self._target is None or self._sealed is not None:
             raise ValueError("Capture must be started and remain unpublished staging.")
         self._refresh_pending_inputs()
         retained_gaps = gaps
         if evaluated:
-            retained_gaps += ("producer_version_unavailable",)
+            if version is None:
+                retained_gaps += ("producer_version_unavailable",)
             if method is None:
                 retained_gaps += ("producer_method_unavailable",)
+        sources = None
+        if family == "caller_signature_comparison":
+            source = self._staged["caller_signature_sources"]
+            sources = decode_native_value("caller_signature_sources", 1, source.payload)
         self._staged[family] = _StagedCapture(
             uuid4().hex,
-            encode_native_value(family, value),
+            encode_native_value(family, value, sources=sources),
             evaluated,
             method,
+            version,
             retained_gaps,
             tuple(
                 self._staged[name].record_id for name in FAMILY_CONTRACTS[family].inputs
@@ -155,6 +166,18 @@ class NativeInvestigationCapture:
             runtime,
             method="ci.dependency_state.evaluate_runtime_dependency_state",
         )
+
+    def capture_caller_signature_sources(self, sources: CallerSignatureSources) -> None:
+        """Capture actual retained acquisition progress, independently of analysis."""
+        contract = FAMILY_CONTRACTS["caller_signature_sources"]
+        self._record("caller_signature_sources", sources,
+                     method=contract.producer_method, version=contract.producer_version)
+
+    def capture_caller_signature_comparison(self, run: SourceAnalysisRun) -> None:
+        """Retain the observed run state; failed analysis is still a recorded operation."""
+        contract = FAMILY_CONTRACTS["caller_signature_comparison"]
+        self._record("caller_signature_comparison", run,
+                     method=contract.producer_method, version=contract.producer_version)
 
     def capture_upstream_authority(
         self, authority: UpstreamIntervalAuthorityResult
@@ -234,6 +257,7 @@ class NativeInvestigationCapture:
                     item.payload,
                     False,
                     None,
+                    None,
                     item.retention_gaps,
                     inputs,
                 )
@@ -266,7 +290,7 @@ class NativeInvestigationCapture:
                     payload_digest=sha256(item.payload).hexdigest(),
                     outcome="recorded" if item.evaluated else "not_evaluated",
                     producer_method=item.producer_method,
-                    producer_version=None,
+                    producer_version=item.producer_version,
                     retention_gaps=item.retention_gaps,
                 )
             )

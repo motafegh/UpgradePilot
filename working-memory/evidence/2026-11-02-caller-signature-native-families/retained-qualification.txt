@@ -1,0 +1,4 @@
+lifelog PASS 12197 224351 5003590
+httpx PASS 14242 145998 2253467
+glyphslib-protocol NOT ADMITTED: original selected catalog lacks ordinary acquisition receipts
+digimon PASS 9484 188066 2572786

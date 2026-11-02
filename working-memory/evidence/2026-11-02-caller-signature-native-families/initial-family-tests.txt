@@ -1,0 +1,142 @@
+test_capture_placeholders_source_progress_and_completed_comparison (test_caller_signature_workspace.CallerSignatureWorkspaceTests.test_capture_placeholders_source_progress_and_completed_comparison) ... ERROR
+test_failed_analysis_is_recorded_with_retained_sources (test_caller_signature_workspace.CallerSignatureWorkspaceTests.test_failed_analysis_is_recorded_with_retained_sources) ... ERROR
+test_full_observations_and_historical_gaps_remain_distinct (test_caller_signature_workspace.CallerSignatureWorkspaceTests.test_full_observations_and_historical_gaps_remain_distinct) ... ERROR
+test_published_source_and_failed_run_survive_fresh_process_without_producers (test_caller_signature_workspace.CallerSignatureWorkspaceTests.test_published_source_and_failed_run_survive_fresh_process_without_producers) ... ERROR
+test_source_text_receipt_transition_and_association_substitutions_refuse (test_caller_signature_workspace.CallerSignatureWorkspaceTests.test_source_text_receipt_transition_and_association_substitutions_refuse) ... ok
+test_unknown_versions_methods_missing_families_and_wrong_basis_refuse (test_caller_signature_workspace.CallerSignatureWorkspaceTests.test_unknown_versions_methods_missing_families_and_wrong_basis_refuse) ... ERROR
+
+======================================================================
+ERROR: test_capture_placeholders_source_progress_and_completed_comparison (test_caller_signature_workspace.CallerSignatureWorkspaceTests.test_capture_placeholders_source_progress_and_completed_comparison)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_workspace.py", line 108, in test_capture_placeholders_source_progress_and_completed_comparison
+    capture = started_capture(source)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_workspace.py", line 76, in started_capture
+    capture.start(identity, (ChangedFile("requirements.txt", "modified", 1, 1, 2, None),), change, ())
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/native_capture.py", line 86, in start
+    self._record(
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/native_capture.py", line 139, in _record
+    encode_native_value(family, value, sources=sources),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/native_codecs.py", line 193, in encode_native_value
+    return _VALUES.encode(value, family_contract(family).shape)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/native_representation.py", line 188, in encode
+    return json_bytes(self._transform(value, shape, encode=True, depth=0))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/native_representation.py", line 229, in _transform
+    name: self._transform(
+          ^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/native_representation.py", line 216, in _transform
+    raise _invalid("Value does not match an admitted native variant.")
+upgradepilot.workspace.native_representation.NativeReconstructionError: invalid_native_material: Value does not match an admitted native variant.
+
+======================================================================
+ERROR: test_failed_analysis_is_recorded_with_retained_sources (test_caller_signature_workspace.CallerSignatureWorkspaceTests.test_failed_analysis_is_recorded_with_retained_sources)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_workspace.py", line 138, in test_failed_analysis_is_recorded_with_retained_sources
+    capture = started_capture(source)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_workspace.py", line 76, in started_capture
+    capture.start(identity, (ChangedFile("requirements.txt", "modified", 1, 1, 2, None),), change, ())
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/native_capture.py", line 86, in start
+    self._record(
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/native_capture.py", line 139, in _record
+    encode_native_value(family, value, sources=sources),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/native_codecs.py", line 193, in encode_native_value
+    return _VALUES.encode(value, family_contract(family).shape)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/native_representation.py", line 188, in encode
+    return json_bytes(self._transform(value, shape, encode=True, depth=0))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/native_representation.py", line 229, in _transform
+    name: self._transform(
+          ^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/native_representation.py", line 216, in _transform
+    raise _invalid("Value does not match an admitted native variant.")
+upgradepilot.workspace.native_representation.NativeReconstructionError: invalid_native_material: Value does not match an admitted native variant.
+
+======================================================================
+ERROR: test_full_observations_and_historical_gaps_remain_distinct (test_caller_signature_workspace.CallerSignatureWorkspaceTests.test_full_observations_and_historical_gaps_remain_distinct)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_workspace.py", line 88, in test_full_observations_and_historical_gaps_remain_distinct
+    restored = decode_sources(encode_sources(source))
+                              ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/caller_signature/source_codec.py", line 293, in encode_sources
+    decoded = decode_sources(payload)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/caller_signature/source_codec.py", line 314, in decode_sources
+    source = decode_analysis_input(json_bytes(dict(format=INPUT_FORMAT, analysis_profile=ANALYSIS_PROFILE,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/caller_signature/result_codec.py", line 155, in decode_analysis_input
+    limits = decode_analysis_limits(row["limits"])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/caller_signature/result_codec.py", line 83, in decode_analysis_limits
+    data = object_fields(raw, _LIMIT_FIELDS)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/native_representation.py", line 81, in object_fields
+    raise _invalid(f"Expected exactly the fields {names!r}.")
+upgradepilot.workspace.native_representation.NativeReconstructionError: invalid_native_material: Expected exactly the fields ('max_files', 'max_source_bytes', 'max_nodes_per_file', 'max_nodes', 'max_facts', 'max_pairs', 'timeout_seconds_hex', 'memory_bytes').
+
+======================================================================
+ERROR: test_published_source_and_failed_run_survive_fresh_process_without_producers (test_caller_signature_workspace.CallerSignatureWorkspaceTests.test_published_source_and_failed_run_survive_fresh_process_without_producers)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_workspace.py", line 170, in test_published_source_and_failed_run_survive_fresh_process_without_producers
+    capture = started_capture(source)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_workspace.py", line 76, in started_capture
+    capture.start(identity, (ChangedFile("requirements.txt", "modified", 1, 1, 2, None),), change, ())
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/native_capture.py", line 86, in start
+    self._record(
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/native_capture.py", line 139, in _record
+    encode_native_value(family, value, sources=sources),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/native_codecs.py", line 193, in encode_native_value
+    return _VALUES.encode(value, family_contract(family).shape)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/native_representation.py", line 188, in encode
+    return json_bytes(self._transform(value, shape, encode=True, depth=0))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/native_representation.py", line 229, in _transform
+    name: self._transform(
+          ^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/native_representation.py", line 216, in _transform
+    raise _invalid("Value does not match an admitted native variant.")
+upgradepilot.workspace.native_representation.NativeReconstructionError: invalid_native_material: Value does not match an admitted native variant.
+
+======================================================================
+ERROR: test_unknown_versions_methods_missing_families_and_wrong_basis_refuse (test_caller_signature_workspace.CallerSignatureWorkspaceTests.test_unknown_versions_methods_missing_families_and_wrong_basis_refuse)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_workspace.py", line 152, in test_unknown_versions_methods_missing_families_and_wrong_basis_refuse
+    capture = started_capture(source)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_workspace.py", line 76, in started_capture
+    capture.start(identity, (ChangedFile("requirements.txt", "modified", 1, 1, 2, None),), change, ())
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/native_capture.py", line 86, in start
+    self._record(
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/native_capture.py", line 139, in _record
+    encode_native_value(family, value, sources=sources),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/native_codecs.py", line 193, in encode_native_value
+    return _VALUES.encode(value, family_contract(family).shape)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/native_representation.py", line 188, in encode
+    return json_bytes(self._transform(value, shape, encode=True, depth=0))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/native_representation.py", line 229, in _transform
+    name: self._transform(
+          ^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/native_representation.py", line 216, in _transform
+    raise _invalid("Value does not match an admitted native variant.")
+upgradepilot.workspace.native_representation.NativeReconstructionError: invalid_native_material: Value does not match an admitted native variant.
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.012s
+
+FAILED (errors=5)

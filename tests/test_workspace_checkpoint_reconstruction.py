@@ -379,7 +379,7 @@ class WorkspaceCheckpointReconstructionTests(unittest.TestCase):
                     boundary = altered_record(self.boundary, family, **{field: value})
                     affected = (
                         ()
-                        if family == "pull_request_description"
+                        if family == "pull_request_description" or family.startswith("caller_signature_")
                         else ("ci", "python")
                         if family == "investigation_inputs"
                         else ("ci",)
@@ -396,14 +396,14 @@ class WorkspaceCheckpointReconstructionTests(unittest.TestCase):
                         refusals=dict.fromkeys(affected, reason),
                     )
 
-    def test_every_declared_input_edge_substitution_is_refused_after_valid_publication(
+    def test_ci_python_input_edge_substitution_is_refused_after_valid_publication(
         self,
     ):
         records = {record.family: record for record in self.boundary.records}
         edges = [
             (family, name)
             for family, contract in FAMILY_CONTRACTS.items()
-            if family != "pull_request_description"
+            if family != "pull_request_description" and not family.startswith("caller_signature_")
             for name in contract.inputs
         ]
         self.assertEqual(len(edges), 18)

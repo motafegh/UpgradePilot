@@ -736,13 +736,13 @@ class WorkspaceNativeReconstructionTests(unittest.TestCase):
                 ),
             )
 
-    def test_every_declared_edge_refuses_substituted_record_reference(self):
+    def test_ci_python_edges_refuse_substituted_record_reference(self):
         _, _, boundary, _, _ = captured_case()
         records = {record.family: record for record in boundary.records}
         edges = [
             (family, name)
             for family, contract in FAMILY_CONTRACTS.items()
-            if family != "pull_request_description"
+            if family != "pull_request_description" and not family.startswith("caller_signature_")
             for name in contract.inputs
         ]
         self.assertEqual(len(edges), 18)
@@ -1574,8 +1574,10 @@ class WorkspaceNativeReconstructionTests(unittest.TestCase):
     def test_unrelated_unsupported_versions_preserve_every_unaffected_projection(self):
         _, _, boundary, _, _ = captured_case()
         for family in FAMILY_CONTRACTS:
-            if family == "pull_request_description":
-                # This optional source is outside both CI and Python input closures.
+            if family == "pull_request_description" or family.startswith("caller_signature_"):
+                # These optional families are outside both CI/Python closures.
+                for field, value in (("codec_version", 999), ("producer_version", "unadmitted")):
+                    self._cold_reconstruction(altered_record(boundary, family, **{field: value}))
                 continue
             for field, value, reason in (
                 ("codec_version", 999, "unsupported_native_codec"),
@@ -1605,7 +1607,7 @@ class WorkspaceNativeReconstructionTests(unittest.TestCase):
     ):
         _, _, boundary, _, _ = captured_case()
         for record in boundary.records:
-            if record.family == "pull_request_description":
+            if record.family == "pull_request_description" or record.family.startswith("caller_signature_"):
                 continue
             with self.subTest(family=record.family):
                 missing = altered_record(
@@ -1829,7 +1831,7 @@ class WorkspaceNativeReconstructionTests(unittest.TestCase):
         _, _, boundary, _, _ = captured_case()
         ci_families = {"ci_inputs", "ci_coverage", "runtime_dependency_state"}
         for family in FAMILY_CONTRACTS:
-            if family in (
+            if family.startswith("caller_signature_") or family in (
                 "investigation_inputs",
                 "ci_inputs",
                 "python_support_selection",

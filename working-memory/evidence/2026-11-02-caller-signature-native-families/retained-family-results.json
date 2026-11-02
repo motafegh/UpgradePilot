@@ -1,0 +1,176 @@
+[
+  {
+    "case": "lifelog",
+    "outcome": "native_family_checkpoint_pass",
+    "original_hashes": {
+      "result.json": "f4b226052816caef54bb36f27b4581a6ab5a2bb21564047a18c05d05ea8b2e00",
+      "view.txt": "40ed179df91a2c43c63217dab0b62577602cfaeefc08eabce791e4f59937e51a",
+      "attempt.json": "a93af63082b7352028ecf22f9fcaedbf9c55b0ff825588f5c613c18b2cfab290",
+      "sources.json": "2629f63499181ac13e8c60632651c2aac8d691bfe9e34dad135683f4f32bc79c",
+      "attempt-started.json": "9ae9be3f216ebf8fe5b2e0823fb77271b58256285541d3aae5bc9a8390e63dbd",
+      "input.json": "e90cd9a057ee4654dcf8c20f4a141763ca678e4007ad6d38fb4af6b1befc42ac"
+    },
+    "facts": 1583,
+    "comparisons": 145,
+    "source_payload_bytes": 854003,
+    "source_structure": 12197,
+    "comparison_payload_bytes": 3779295,
+    "comparison_structure": 224351,
+    "complete_boundary_bytes": 5003590,
+    "checkpoint_digest": "e593e14e4d8780749eea7cdaf6385971472c2d842d0b7a2388b30fac1da463ec",
+    "source_revision": "fac126aa4e05448b90d78726b305b706",
+    "completed_revision": "88c35b68ff8743db96518e0020c973b7",
+    "acquisition_receipt_equal": true,
+    "exact_text_equal": true,
+    "run_equal": true,
+    "producer_free_reconstruction": true,
+    "unexamined_units": 17,
+    "historical_origin": "retained_experiment",
+    "acquisition_gap": [
+      "full_original_acquisition_observations_not_retained",
+      "native_prefix_context_types_not_reconstructed_in_this_retained_fixture"
+    ],
+    "elapsed_hex": "0x1.60ebef1ba3a00p+3",
+    "fresh_process_cold_open": [
+      {
+        "revision": "fac126aa4e05448b90d78726b305b706",
+        "catalog_id": "b607bc19ddf66d6dcb052bc39852edc0ee65b52c047722bf034d4e0a2e7d36f5",
+        "source_sha256": "b614165a75eec8a5287b678ed37bd774d05f02685a292d51ddb98443c95788aa",
+        "comparison_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+        "state": null,
+        "retained_files": 28,
+        "origin": "retained_experiment"
+      },
+      {
+        "revision": "88c35b68ff8743db96518e0020c973b7",
+        "catalog_id": "b607bc19ddf66d6dcb052bc39852edc0ee65b52c047722bf034d4e0a2e7d36f5",
+        "source_sha256": "b614165a75eec8a5287b678ed37bd774d05f02685a292d51ddb98443c95788aa",
+        "comparison_sha256": "fc0a70603cd9e666e804ecba873a81eec95d885a9685360ab53a07f5622e23ea",
+        "state": "completed",
+        "retained_files": 28,
+        "origin": "retained_experiment"
+      }
+    ]
+  },
+  {
+    "case": "httpx",
+    "outcome": "native_family_checkpoint_pass",
+    "original_hashes": {
+      "result.json": "00b1111af685c108641f4476fe53a17be9ad965549096bfd8a7ec6a8b0e12519",
+      "view.txt": "e18ecfff5fe7acd8ed91eebc9de6a960b2270b97cfd111d05af2aedfd369059d",
+      "attempt.json": "5e5158da0e665ff5a4bb78346bdb6877ac0988e5172d79d146db40075ca5f3b1",
+      "sources.json": "4f85d6adaa318c7dba61ebed8c83cbea3264fe7f448df061cb6460a7e3e744f3",
+      "attempt-started.json": "efb51e24cfe4f5ec68ad4f551a7194ed8ccaa107cc2a357603c7864429e2bf5e",
+      "input.json": "6cb022b4299f971ee826ca04be614f777c074ab8a9b12efebebb94869c6ecc9f"
+    },
+    "facts": 1107,
+    "comparisons": 12,
+    "source_payload_bytes": 374883,
+    "source_structure": 14242,
+    "comparison_payload_bytes": 1669034,
+    "comparison_structure": 145998,
+    "complete_boundary_bytes": 2253467,
+    "checkpoint_digest": "042ff475ec5bcba644d45095677b9cbe84e24f23d9fb0d130dd01c7a706ad336",
+    "source_revision": "9701acdfe2004cd991fd3f84e5bfcc66",
+    "completed_revision": "df3d32ecb0e042a4b7308c3f49db9a49",
+    "acquisition_receipt_equal": true,
+    "exact_text_equal": true,
+    "run_equal": true,
+    "producer_free_reconstruction": true,
+    "unexamined_units": 3,
+    "historical_origin": "retained_experiment",
+    "acquisition_gap": [
+      "full_original_acquisition_observations_not_retained",
+      "native_prefix_context_types_not_reconstructed_in_this_retained_fixture"
+    ],
+    "elapsed_hex": "0x1.23c074c71e800p+1",
+    "fresh_process_cold_open": [
+      {
+        "revision": "9701acdfe2004cd991fd3f84e5bfcc66",
+        "catalog_id": "033774c096b5f99cbc1438b72843f328ceb6d85017cc8dfe75b808154fde0df0",
+        "source_sha256": "ff7e969a4d2e400203fa53416e556a3c12a5ed51788f93758a7312482bf86192",
+        "comparison_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+        "state": null,
+        "retained_files": 24,
+        "origin": "retained_experiment"
+      },
+      {
+        "revision": "df3d32ecb0e042a4b7308c3f49db9a49",
+        "catalog_id": "033774c096b5f99cbc1438b72843f328ceb6d85017cc8dfe75b808154fde0df0",
+        "source_sha256": "ff7e969a4d2e400203fa53416e556a3c12a5ed51788f93758a7312482bf86192",
+        "comparison_sha256": "7e68b37bf013819720f4864438bdfb7104bfd9be76a2e2da314ef6b2f6db898a",
+        "state": "completed",
+        "retained_files": 24,
+        "origin": "retained_experiment"
+      }
+    ]
+  },
+  {
+    "case": "glyphslib-protocol",
+    "outcome": "not_admitted_to_source_family",
+    "reason": "original_selected_catalog_has_no_ordinary_acquisition_receipts_or_native_prefix",
+    "original_hashes": {
+      "result.json": "f2a5cfd42e1999d4bf996d2e6e085ea53c95bd0d9699a6f00b10b849eb0d4d05",
+      "view.txt": "4f743c68aab84e114a333ec3c5b3a1bbec3101078f115261e0cd284112ebb651",
+      "attempt.json": "bfc7339355ceb32798aaa2ae770c8c8618b1703e30252b4467dd1bf8db0e8fa1",
+      "sources.json": "770ab80fea86f6895fc52e278548d075414fe859f28ee09edb2c382c6296124d",
+      "attempt-started.json": "17430b717d593e49ed3bdd84b6698646c16648bbcc5859dc310260652e9a2161",
+      "input.json": "d90b4b6d9b8c17adac082197e49f366f2c888edfaa3941f755fd77c14fbb687f"
+    },
+    "analysis_worker_qualification": "separately passed in preceding result/worker cycle",
+    "no_fabricated_receipts": true
+  },
+  {
+    "case": "digimon",
+    "outcome": "native_family_checkpoint_pass",
+    "original_hashes": {
+      "result.json": "8e5cfe7b90493d3e1bc960b0da2642696293191d4895dc39b16bdcaa8be29888",
+      "view.txt": "d7d41f7685a26b95c74267e2f565526a19d74bab4ae5a480c614d6ad3f1d250e",
+      "attempt.json": "4623e3de57a3144322e316b150f4e9d65f459e855559a08a6c47ab04ca4f0089",
+      "sources.json": "b6b7d19ccd1262a631150d31b5b1f207e2752fbada136929989ddee5167b10ef",
+      "attempt-started.json": "e36985f8324c67fd0699fd598b6e1bb3ed4021a4fd74d2f6d03b80af2c53e824",
+      "input.json": "aea3102ace5fafdbf836e4946188eaab5f86fef0b834bc59c021066ccdecedad"
+    },
+    "facts": 1463,
+    "comparisons": 21,
+    "source_payload_bytes": 349070,
+    "source_structure": 9484,
+    "comparison_payload_bytes": 1979556,
+    "comparison_structure": 188066,
+    "complete_boundary_bytes": 2572786,
+    "checkpoint_digest": "070faa478a9025cfbfa62b286236d75fdb5e4b1e99d0f9c8072f7026a826af3a",
+    "source_revision": "c5564604266241a4ab3dd70d6b81794b",
+    "completed_revision": "368edda3cb98421787715d56f85d2f29",
+    "acquisition_receipt_equal": true,
+    "exact_text_equal": true,
+    "run_equal": true,
+    "producer_free_reconstruction": true,
+    "unexamined_units": 0,
+    "historical_origin": "retained_experiment",
+    "acquisition_gap": [
+      "full_original_acquisition_observations_not_retained",
+      "native_prefix_context_types_not_reconstructed_in_this_retained_fixture"
+    ],
+    "elapsed_hex": "0x1.0b519f5c1e000p+1",
+    "fresh_process_cold_open": [
+      {
+        "revision": "c5564604266241a4ab3dd70d6b81794b",
+        "catalog_id": "088aca43891ba9690a435af9aa7090aff5d0fc36e3460f835410e54ba0100a6e",
+        "source_sha256": "ea0986ba09cec58f373941fd8974f1cea884a57f2351e3ef328ee9aaf8472749",
+        "comparison_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+        "state": null,
+        "retained_files": 14,
+        "origin": "retained_experiment"
+      },
+      {
+        "revision": "368edda3cb98421787715d56f85d2f29",
+        "catalog_id": "088aca43891ba9690a435af9aa7090aff5d0fc36e3460f835410e54ba0100a6e",
+        "source_sha256": "ea0986ba09cec58f373941fd8974f1cea884a57f2351e3ef328ee9aaf8472749",
+        "comparison_sha256": "485ddae4c0d887ca31058b5bc35c02d9383f1557aa6bab013fcc41a2d3038f84",
+        "state": "completed",
+        "retained_files": 14,
+        "origin": "retained_experiment"
+      }
+    ]
+  }
+]

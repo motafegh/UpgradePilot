@@ -201,8 +201,9 @@ def _decode_fact_binding_traces(raw, unit_id, text, limits):
         raise ValueError("Unused binding trace table step.")
     return {k: calls if k == "calls" else v for k, v in data.items() if k != "binding_trace_steps"}, validated
 
-_DURATION_CODEC = NativeValueCodec((RecordLayout("measured_duration", MeasuredDuration,
-    (("seconds_hex", str), ("scope", str))),))
+DURATION_LAYOUT = RecordLayout("measured_duration", MeasuredDuration,
+    (("seconds_hex", str), ("scope", str)))
+_DURATION_CODEC = NativeValueCodec((DURATION_LAYOUT,))
 
 
 def encode_duration(value: MeasuredDuration) -> bytes:

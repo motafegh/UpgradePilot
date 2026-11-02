@@ -1,6 +1,6 @@
 """Version-1 native family contracts used by capture and offline projections.
 
-The roots below admit only the initial CI/runtime and Python-support material closure.
+The roots admit CI/runtime, Python-support and caller/signature material.
 Domain-owned layout tables preserve results rather than recomputing them. Unsupported
 family/version support is explicit; a readable payload is not decoder authority.
 """
@@ -9,6 +9,9 @@ from dataclasses import dataclass
 
 from ..ci.native_codec import LAYOUTS as CI_LAYOUTS
 from ..impact.python_support_codec import LAYOUTS as IMPACT_LAYOUTS
+from ..caller_signature.source_codec import decode_sources, encode_sources
+from ..caller_signature.comparison_codec import decode_comparison, encode_comparison
+from ..caller_signature.source_evidence import CallerSignatureSources
 from .native_inputs_codec import LAYOUTS as INPUT_LAYOUTS
 from .native_representation import (
     Either,
@@ -22,9 +25,17 @@ from .native_representation import (
 
 @dataclass(frozen=True, slots=True)
 class NativeFamilyContract:
+    """Fixed primitive layout or explicit domain codec, plus actual input edges.
+
+    Caller/signature families use their owner codecs (shape=None), because
+    normalized cross-file facts require their exact retained source basis.
+    Only their tested producer pairs have semantic-version support here.
+    """
     owner: str
     shape: object
     inputs: tuple[str, ...]
+    producer_method: str | None = None
+    producer_version: str | None = None
 
 
 def _optional(variant: str) -> Either:
@@ -157,6 +168,14 @@ FAMILY_CONTRACTS = {
         _optional("pull_request_description_observation"),
         ("investigation_inputs",),
     ),
+    "caller_signature_sources": NativeFamilyContract(
+        "caller_signature.acquisition", None, ("investigation_inputs",),
+        "workspace.native_capture.NativeInvestigationCapture.capture_caller_signature_sources", "1",
+    ),
+    "caller_signature_comparison": NativeFamilyContract(
+        "caller_signature.analysis", None, ("investigation_inputs", "caller_signature_sources"),
+        "workspace.native_capture.NativeInvestigationCapture.capture_caller_signature_comparison", "1",
+    ),
 }
 
 _VALUES = NativeValueCodec(INPUT_LAYOUTS + CI_LAYOUTS + IMPACT_LAYOUTS)
@@ -171,9 +190,19 @@ def family_contract(family: str, version: int = 1) -> NativeFamilyContract:
     return FAMILY_CONTRACTS[family]
 
 
-def encode_native_value(family: str, value: object) -> bytes:
+def encode_native_value(family: str, value: object, *, sources: CallerSignatureSources | None = None) -> bytes:
+    family_contract(family)
+    if family == "caller_signature_sources":
+        return encode_sources(value)
+    if family == "caller_signature_comparison":
+        return encode_comparison(value, sources)
     return _VALUES.encode(value, family_contract(family).shape)
 
 
-def decode_native_value(family: str, version: int, payload: bytes) -> object:
+def decode_native_value(family: str, version: int, payload: bytes, *, sources: CallerSignatureSources | None = None) -> object:
+    family_contract(family, version)
+    if family == "caller_signature_sources":
+        return decode_sources(payload)
+    if family == "caller_signature_comparison":
+        return decode_comparison(payload, sources)
     return _VALUES.decode(payload, family_contract(family, version).shape)

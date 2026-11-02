@@ -1,0 +1,66 @@
+[
+  {
+    "case": "lifelog",
+    "original_hashes": {
+      "result.json": "f4b226052816caef54bb36f27b4581a6ab5a2bb21564047a18c05d05ea8b2e00",
+      "view.txt": "40ed179df91a2c43c63217dab0b62577602cfaeefc08eabce791e4f59937e51a",
+      "attempt.json": "a93af63082b7352028ecf22f9fcaedbf9c55b0ff825588f5c613c18b2cfab290",
+      "sources.json": "2629f63499181ac13e8c60632651c2aac8d691bfe9e34dad135683f4f32bc79c",
+      "attempt-started.json": "9ae9be3f216ebf8fe5b2e0823fb77271b58256285541d3aae5bc9a8390e63dbd",
+      "input.json": "e90cd9a057ee4654dcf8c20f4a141763ca678e4007ad6d38fb4af6b1befc42ac"
+    },
+    "facts": 1583,
+    "comparisons": 145,
+    "source_payload_bytes": 854003,
+    "source_structure": 12197,
+    "comparison_payload_bytes": 3779295,
+    "comparison_structure": 224351,
+    "complete_boundary_bytes": 5003590,
+    "checkpoint_digest": "0c1072f409bc91896e2ea70f2ac96ce4976004828a507f0d3820c276f81a2b9c",
+    "source_revision": "e6124ea890cd44faaf99d40e163cb3fe",
+    "completed_revision": "f91c23a5e8184d8a86fcc1fe0a64870f",
+    "acquisition_receipt_equal": true,
+    "exact_text_equal": true,
+    "run_equal": true,
+    "producer_free_reconstruction": true,
+    "unexamined_units": 17,
+    "historical_origin": "retained_experiment",
+    "acquisition_gap": [
+      "full_original_acquisition_observations_not_retained",
+      "native_prefix_context_types_not_reconstructed_in_this_retained_fixture"
+    ],
+    "elapsed_hex": "0x1.532928d696a00p+3"
+  },
+  {
+    "case": "httpx",
+    "original_hashes": {
+      "result.json": "00b1111af685c108641f4476fe53a17be9ad965549096bfd8a7ec6a8b0e12519",
+      "view.txt": "e18ecfff5fe7acd8ed91eebc9de6a960b2270b97cfd111d05af2aedfd369059d",
+      "attempt.json": "5e5158da0e665ff5a4bb78346bdb6877ac0988e5172d79d146db40075ca5f3b1",
+      "sources.json": "4f85d6adaa318c7dba61ebed8c83cbea3264fe7f448df061cb6460a7e3e744f3",
+      "attempt-started.json": "efb51e24cfe4f5ec68ad4f551a7194ed8ccaa107cc2a357603c7864429e2bf5e",
+      "input.json": "6cb022b4299f971ee826ca04be614f777c074ab8a9b12efebebb94869c6ecc9f"
+    },
+    "facts": 1107,
+    "comparisons": 12,
+    "source_payload_bytes": 374883,
+    "source_structure": 14242,
+    "comparison_payload_bytes": 1669034,
+    "comparison_structure": 145998,
+    "complete_boundary_bytes": 2253467,
+    "checkpoint_digest": "ef6ab5cbc46ef4a5c27e79f8676191c6d27fce18b963a7154374538267858498",
+    "source_revision": "7d3eb326e36d4c5dac00b38fee5a9951",
+    "completed_revision": "8967df165db7422ba550d85ee2c38bee",
+    "acquisition_receipt_equal": true,
+    "exact_text_equal": true,
+    "run_equal": true,
+    "producer_free_reconstruction": true,
+    "unexamined_units": 3,
+    "historical_origin": "retained_experiment",
+    "acquisition_gap": [
+      "full_original_acquisition_observations_not_retained",
+      "native_prefix_context_types_not_reconstructed_in_this_retained_fixture"
+    ],
+    "elapsed_hex": "0x1.3c3c2b614f000p+1"
+  }
+]

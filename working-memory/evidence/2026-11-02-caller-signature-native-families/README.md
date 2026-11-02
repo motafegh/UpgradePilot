@@ -1,0 +1,14 @@
+# Caller/signature native families and checkpoint proof
+
+November 2, 2026. Native material/storage qualification with retained/control inputs; normal acquisition/application/profile/report adoption remains subsequent.
+
+- [Native analysis/family/topology](native-analysis-family-tests.txt):89 pass, including10 family controls. Actual schema2 host source-only and failed-analysis publication reopens in a fresh process with AST/producer/worker/checker/network forbidden. Full native association records and historical summary gaps remain distinct; failed file reads preserve prior association/metadata/tag progress.
+- [Existing native reconstruction](existing-native-tests.txt):40 pass. [Initial failures](initial-existing-native-tests.txt) preserve obsolete all-family CI/Python assumptions; updated controls scope those projections correctly and verify unrelated unsupported new families remain nonblocking.
+- [Retained qualifier](qualify_retained.py), [results](retained-family-results.json), [log](retained-qualification.txt), [fresh-process reader](cold_open.py):LifeLog/HTTPX/Digimon source/comparison family and actual checkpoint pass, with exact text/receipts/run/basis retained and original indexed capture bytes unchanged. GlyphsLib's selected-catalog receipt lacks ordinary acquisition/native-prefix material and is explicitly not admitted; no fabricated receipts/backfill. Its previous analysis qualification remains valid; native protocol behavior has an independent controlled family test.
+- [Experiment API](api-tests.txt):226 pass; [architecture](architecture-tests.txt):7 pass; [static boundaries](boundaries.txt): no forbidden product imports.
+
+Earlier [family test failures](initial-family-tests.txt), [limits/store-fixture correction](family-tests-after-limits-fix.txt), [initial retained helper failure](retained-qualification-initial.txt) and [initial retained results](retained-initial-family-results.json) remain separate. Reused limits decoding must not mutate borrowed data. Wrong test-only dependency literals and schema1 versus schema2 publication were corrected without loosening existing owners.
+
+LifeLog source structure12,197, comparison224,351 (each<262,144), complete boundary5,003,590 bytes (<64MiB);17 unexamined Python units preserved. Native bodies are real registered families, not experimental JSON labelled native. Family producer1 is the exact capture emitter; analysis producer/binding/checker/correspondence identities remain separate. Existing families retain their original version-unavailable gaps.
+
+Full product-suite run is pending at first publication; installed family/store proof follows the source commit. Actual ordinary acquisition→application lifecycle→CLI/report/source delivery, report capacity, frozen real product run and usefulness/adoption remain unproved. No provider/token/model/target execution, limit enlargement, frozen evidence rewrite or untrusted checkpoint import.

@@ -13,9 +13,9 @@ A1 — DONE, compact: previous milestone onboarding and next-step explanation im
 A2 — DONE, compact under situational rule: explained why the analysis result/worker boundary precedes complete source-family registration, and its installed subprocess proof. Existing plan already maps bounded worker and result ownership. Ali authorized building and requested a stop at a useful milestone. Repeating generic gates in this continuous context would add interruption without new decision information; consequential scope/method changes still require reconciliation.
 B — DONE for result/worker milestone: typed prepared input/result/run, fixed cross-file reconstruction and bounded installed product worker. Qualified discovery/checker/admission semantics unchanged; one new reader path-reference integrity defect reproduced and repaired.
 Verification gate — GREEN for milestone:79 native/topology tests,226 experiment API tests,7 architecture controls;4 actual retained workers preserve5,266 facts/246 comparisons and full paths/premises/gaps/admission/work. Final installed parent/worker at36a6550e passes outside checkout with experiments unavailable. Complete Workspace family/storage/report proof remains subsequent.
-D — CURRENT: stop at this verified result for requested onboarding. Explain input→child→typed outcome/result→fixed decode, real-case partiality, failure semantics, integrity repair and next integration boundary. Await meaningful questions/ownership opportunity; no mastery claim.
-E — PENDING: ownership gaps and handoff after onboarding.
-C — CONTINUOUS.
+D — DONE for delivered onboarding: explained typed input→child→run state versus coverage→fixed decode, real-case partiality, integrity repair and next boundary. Offered a reasoning check; no answer/mastery evidence supplied.
+E — DONE with explicit learning deferral: Ali selected the next Build after the milestone explanation. Completed-versus-coverage and previous origin-versus-fit ownership checks remain deferred, not passed. Continued by [native family/checkpoint cycle](2026-11-02_caller-signature-native-family-checkpoint_cycle.md); existing proof/non-proof remains unchanged.
+C — DONE for this cycle.
 
 ## Living orientation map and scope
 
