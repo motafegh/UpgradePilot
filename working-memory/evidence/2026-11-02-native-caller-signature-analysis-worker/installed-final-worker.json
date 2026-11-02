@@ -1,0 +1,36 @@
+{
+  "proof": "installed product parent and bounded worker smoke",
+  "source_commit": "36a6550e",
+  "wheel": "upgradepilot-0.0.0-py3-none-any.whl",
+  "wheel_sha256": "1d27ca94ea84b9eeee10f28acee4d598bd7ff6d52a4c67f4c91ece483a7ed88d",
+  "backend": {
+    "version": "68.1.2",
+    "origin": "/usr/lib/python3/dist-packages/setuptools/__init__.py"
+  },
+  "interpreter": "/home/motafeq/projects/UpgradePilot/.venv/bin/python",
+  "parent_origin": "/tmp/upgradepilot-installed-worker-fl21vfvq/installed/upgradepilot/caller_signature/worker.py",
+  "result_codec_origin": "/tmp/upgradepilot-installed-worker-fl21vfvq/installed/upgradepilot/caller_signature/result_codec.py",
+  "worker_origin": "/tmp/upgradepilot-installed-worker-fl21vfvq/installed/upgradepilot/caller_signature/worker.py",
+  "subprocess_commands": [
+    [
+      "/home/motafeq/projects/UpgradePilot/.venv/bin/python",
+      "-m",
+      "upgradepilot.caller_signature.worker",
+      "/tmp/upgradepilot-source-analysis-uboon5t7/input.json",
+      "/tmp/upgradepilot-source-analysis-uboon5t7/output.json",
+      "536870912"
+    ]
+  ],
+  "worker_returncode": 0,
+  "paired_outcomes_preserved": true,
+  "fixed_cold_read": true,
+  "analysis_limit_failure_preserved": true,
+  "experiments_unavailable": true,
+  "developer_installation_changed": false,
+  "network_package_resolution": false,
+  "runtime_pythonpath": "temporary installed artifact only; no checkout/source path",
+  "limitations": [
+    "Uses selected interpreter's existing declared dependencies; not dependency isolation.",
+    "Does not establish Workspace family/application/CLI/report integration or acquisition/runtime compatibility."
+  ]
+}

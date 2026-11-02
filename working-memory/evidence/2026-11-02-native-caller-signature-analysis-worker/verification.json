@@ -1,0 +1,98 @@
+{
+  "source_commit": "36a6550e",
+  "implementation_sha256": {
+    "src/upgradepilot/caller_signature/__init__.py": "fe6aba69a39dca34c4c6de351688cd9690f022393b4b543a765644655710e249",
+    "src/upgradepilot/caller_signature/analysis.py": "07efd2121e75b7f7a8b6b109f9a18405135c1f43a30cdf807b5aac21ecefdc58",
+    "src/upgradepilot/caller_signature/bindings.py": "76b8d52f6ed95b7565cedb52e4a2c5faf9a65a671ff5ff73d15ce0a02a6d4d2f",
+    "src/upgradepilot/caller_signature/correspondence.py": "2d200b2dc406e3155c5b7dd160d061f0d1f0053d30b4a7f9ea6a81633444834f",
+    "src/upgradepilot/caller_signature/evidence.py": "abf3dd61b8c4e93b5edb513f42b4a032baf5f70654bd5ded199e10acb0b513f6",
+    "src/upgradepilot/caller_signature/native_codec.py": "111a4d13e0f6884634551adc8e58d979430efcdb7097857b2893d8c5f075e719",
+    "src/upgradepilot/caller_signature/result_codec.py": "62bed94d7c1f50b07a1e7a90e58752d602e2178defccceff9fbb800f2ff3171b",
+    "src/upgradepilot/caller_signature/worker.py": "a9905e9a5f3eeeb24ae77221846df29aae1b33e6b9d99020908ea324fca408f5"
+  },
+  "native_tests": 76,
+  "source_topology_tests": 3,
+  "experiment_api_tests": 226,
+  "architecture_tests": 7,
+  "retained_ordinary_cases": 4,
+  "facts_equal": 5266,
+  "comparisons_equal": 246,
+  "facts_paths_admission_work_equal": true,
+  "maximum_result_structural_tokens": 224322,
+  "original_captures_unchanged": true,
+  "installed_worker": {
+    "proof": "installed product parent and bounded worker smoke",
+    "source_commit": "36a6550e",
+    "wheel": "upgradepilot-0.0.0-py3-none-any.whl",
+    "wheel_sha256": "1d27ca94ea84b9eeee10f28acee4d598bd7ff6d52a4c67f4c91ece483a7ed88d",
+    "backend": {
+      "version": "68.1.2",
+      "origin": "/usr/lib/python3/dist-packages/setuptools/__init__.py"
+    },
+    "interpreter": "/home/motafeq/projects/UpgradePilot/.venv/bin/python",
+    "parent_origin": "/tmp/upgradepilot-installed-worker-fl21vfvq/installed/upgradepilot/caller_signature/worker.py",
+    "result_codec_origin": "/tmp/upgradepilot-installed-worker-fl21vfvq/installed/upgradepilot/caller_signature/result_codec.py",
+    "worker_origin": "/tmp/upgradepilot-installed-worker-fl21vfvq/installed/upgradepilot/caller_signature/worker.py",
+    "subprocess_commands": [
+      [
+        "/home/motafeq/projects/UpgradePilot/.venv/bin/python",
+        "-m",
+        "upgradepilot.caller_signature.worker",
+        "/tmp/upgradepilot-source-analysis-uboon5t7/input.json",
+        "/tmp/upgradepilot-source-analysis-uboon5t7/output.json",
+        "536870912"
+      ]
+    ],
+    "worker_returncode": 0,
+    "paired_outcomes_preserved": true,
+    "fixed_cold_read": true,
+    "analysis_limit_failure_preserved": true,
+    "experiments_unavailable": true,
+    "developer_installation_changed": false,
+    "network_package_resolution": false,
+    "runtime_pythonpath": "temporary installed artifact only; no checkout/source path",
+    "limitations": [
+      "Uses selected interpreter's existing declared dependencies; not dependency isolation.",
+      "Does not establish Workspace family/application/CLI/report integration or acquisition/runtime compatibility."
+    ]
+  },
+  "proof_files_sha256": {
+    "installed-build.txt": "66f85c40fbd71497f30f2b66a50413f888d6e7b2571c135135c33e0e2456ba6b",
+    "smoke_installed.py": "fc8ef2b09e0193358e81fa43c45726c2378d529f84dc6b1dd9cddb46563bda65",
+    "architecture-tests.txt": "e70fec2825d9bf206d27463a792768195039599cb39bcca66339f47283f84cce",
+    "installed-final-smoke.txt": "b75758ce362e93737f74976d0f8fa7991982b69ba561bc308297d5223ddaad39",
+    "final-boundaries.txt": "161207b1fb408a738928e531ab6bb761d17e29273b4663164971cddcb0908eab",
+    "qualify_retained.py": "55e72417481c48bfc651926f2a21d7f4cb325209d79d59d055c1aa8bc7c09005",
+    "smoke_installed_final.py": "82c9449ea1b61dda0e381a993efc633bd724d580d2a6cfa7b53be395d247f443",
+    "api-tests.txt": "68d5d08f4a83b088e9623df4167a4bda8f7ec6069b02bff8799dd0e784df4398",
+    "installed-smoke.txt": "e4c7f7cdf6919740f384ea96225096b5f55db19f302ff6894cdcaa7f9dd1cd00",
+    "final-native-tests.txt": "aba0d7b7f28b2467529ceaf5652be13da00d1108328d27b5f025e335b538fb17",
+    "call-path-reference-red.txt": "ba9c37049ff2d909ddf07c1050f54d9e003e0733b0d45759a40f7a73e6ef29b5",
+    "retained-initial-qualification.txt": "3dee7c25ddeaf24ef120accd7bc7a047459ff6ce318b334fe458a918051dd596",
+    "initial-focused-tests.txt": "3f287a48c162705f8acbaf2570d50557d6980db0ce6c279867c309b1f7fe0fdb",
+    "call-path-reference-green.txt": "163120c3d69c6d89e6f3a80ed84e86210b8db6f7cf7f0b878a6ab33f9f3cb29d",
+    "native-tests.txt": "5c58ae96bd6b4e76daf61430d0bbafbafeb89ff8ee7eef50d3983e86e16e6475",
+    "dependency-boundary-tests.txt": "cee3f09f38ef717ab5920b62a080d45c81f787ec4a2265c8fd50c0c453a8a5ad",
+    "retained-results.json": "27219842ee8dd168eb024eff9a30498b75a065ae9469d83ad985d9614a59f128",
+    "README.md": "5018b2b14acb869f33cd4687bc69e71412e8883e2af7198289c2045b7fd5adbb",
+    "retained-initial-results.json": "27d6f7d168fe69d4fc6e8a4cd5a515a03032f7e6813e31f09c4bf694ff4b3837",
+    "installed-final-worker.json": "a6d2640b26dd9d0bac7a2a8815a39b66aba6c45cffad0ffa626ba949f05759bf",
+    "topology-tests.txt": "a9c5c07f796b378f23c2fc067b5c01c4eb3f7603b57c876c0426a181b4393367",
+    "installed-worker.json": "b6307aea41d0e225d9a120d7092c8e3117b0731892dacd07552826e520ff466b",
+    "retained-qualification.txt": "3dee7c25ddeaf24ef120accd7bc7a047459ff6ce318b334fe458a918051dd596",
+    "boundaries.txt": "161207b1fb408a738928e531ab6bb761d17e29273b4663164971cddcb0908eab",
+    "installed-final-build.txt": "91bfde228bea0ff475ed16f8a4c45d340a34dbced7c47b27d6f39066210facd1"
+  },
+  "no_provider_or_credential_use": true,
+  "no_target_code_execution": true,
+  "no_limit_enlargement": true,
+  "full_product_and_experiment_suites_rerun": false,
+  "remaining": [
+    "Acquisition receipts/source association and native source/comparison families",
+    "Exact Workspace material/method/version capture/projection/publication/recovery",
+    "Complete family/checkpoint/report capacity",
+    "Shared acquisition and normal application/CLI/report/source delivery",
+    "Actual frozen product run and maintainer-task/adoption disposition",
+    "Learner ownership and E closure"
+  ]
+}
