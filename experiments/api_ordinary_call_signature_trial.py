@@ -83,8 +83,11 @@ HISTORICAL_ORDINARY_METHOD_SOURCES = (
     "experiments/api_target_context.py", "experiments/api_change_source_acquisition.py",
     "src/upgradepilot/investigation_inputs.py",
 )
-ORDINARY_METHOD_SOURCES = (*HISTORICAL_ORDINARY_METHOD_SOURCES,
+PRE_LEDGER_ORDINARY_METHOD_SOURCES = (*HISTORICAL_ORDINARY_METHOD_SOURCES,
                            "src/upgradepilot/caller_signature/correspondence.py")
+ORDINARY_METHOD_SOURCES = (*PRE_LEDGER_ORDINARY_METHOD_SOURCES,
+    "src/upgradepilot/caller_signature/acquisition.py",
+    "src/upgradepilot/caller_signature/source_evidence.py")
 
 
 def ordinary_code_identity():
@@ -405,7 +408,8 @@ def read_ordinary_comparison(result, companion):
         raise ValueError("Unsupported ordinary format/method/proof.")
     source_names = admit_method_source_names(body["code_sha256"],
         current=(*SIGNATURE_SUPPORT_SOURCES, *ORDINARY_METHOD_SOURCES),
-        historical=((*CURATED_HISTORICAL_SOURCES, *HISTORICAL_ORDINARY_METHOD_SOURCES),
+        historical=((*SIGNATURE_SUPPORT_SOURCES, *PRE_LEDGER_ORDINARY_METHOD_SOURCES),
+                    (*CURATED_HISTORICAL_SOURCES, *HISTORICAL_ORDINARY_METHOD_SOURCES),
                     (*HISTORICAL_SIGNATURE_SUPPORT_SOURCES, *HISTORICAL_ORDINARY_METHOD_SOURCES),
                     (*SIGNATURE_SUPPORT_SOURCES, *HISTORICAL_ORDINARY_METHOD_SOURCES)))
     unexamined = _read_analysis_admission(body) if partial else frozenset()

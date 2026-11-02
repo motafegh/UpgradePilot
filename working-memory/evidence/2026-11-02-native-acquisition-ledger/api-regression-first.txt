@@ -1,0 +1,57 @@
+...............................................................{"input_id": "I001", "state": "no_observations_returned", "observations": 0, "elapsed_seconds": 0.0, "finish_reason": "stop", "accounting_mismatch": true}
+...........................................................E...............................................................................................
+======================================================================
+ERROR: test_legacy_target_scan_can_starve_where_staged_policy_preserves_source (test_api_public_pr_context.StagedOrdinaryHTTPTests.test_legacy_target_scan_can_starve_where_staged_policy_preserves_source)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_public_pr_context.py", line 1136, in test_legacy_target_scan_can_starve_where_staged_policy_preserves_source
+    legacy, legacy_session = staged_http_control(None, noise=60)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_public_pr_context.py", line 1052, in staged_http_control
+    result = invoke() if invoke is not None else acquire_ordinary_comparison_inputs(
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/api_ordinary_call_signature_trial.py", line 307, in acquire_ordinary_comparison_inputs
+    trial = acquire_public_pr_context(repository, number, session=session, adapters=adapters,
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/api_target_context_smoke.py", line 166, in acquire_public_pr_context
+    acquired = acquire_dependency_inputs(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/investigation_inputs.py", line 68, in acquire_dependency_inputs
+    observation = pull_client.get_pull_request_observation(repository, pull_number)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/github/pull_request.py", line 163, in get_pull_request_observation
+    identity, data, url = self._acquire_pull_request(repository, pull_number)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/github/pull_request.py", line 148, in _acquire_pull_request
+    data = self._get_json_object(url, resource="pull-request")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/github/api.py", line 96, in _get_json_object
+    response = self._get(url, resource=resource, params=params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/github/api.py", line 139, in _get
+    response = self._session.get(url, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/.venv/lib/python3.12/site-packages/requests/sessions.py", line 671, in get
+    return self.request("GET", url, params=params, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/caller_signature/acquisition.py", line 159, in request
+    return self._request_once(method, url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/api_change_source_acquisition.py", line 491, in _request_once
+    return GitHubPublicSession.request(self, method, url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1134, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1138, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1199, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: staged_http_control.<locals>.transport() takes 2 positional arguments but 3 were given
+
+----------------------------------------------------------------------
+Ran 218 tests in 15.628s
+
+FAILED (errors=1)

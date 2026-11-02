@@ -1,0 +1,13 @@
+....F.....
+======================================================================
+FAIL: test_reservation_protects_later_stage_without_resetting_shared_counts (test_caller_signature_acquisition.StagedTransportTests.test_reservation_protects_later_stage_without_resetting_shared_counts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_acquisition.py", line 129, in test_reservation_protects_later_stage_without_resetting_shared_counts
+    self.assertEqual(receipt['stops'], [{'stage': 'target_context', 'reason': 'acquisition_stage_request_limit'}])
+AssertionError: ({'stage': 'target_context', 'reason': 'acquisition_stage_request_limit'},) != [{'stage': 'target_context', 'reason': 'acquisition_stage_request_limit'}]
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.012s
+
+FAILED (failures=1)

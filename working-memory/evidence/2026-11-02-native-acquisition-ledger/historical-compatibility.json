@@ -1,0 +1,139 @@
+{
+  "bundles": 22,
+  "opened": [
+    {
+      "path": "/home/motafeq/.local/share/upgradepilot/caller-signature-evidence/retained-httpx-2026-10-28/attempt-01",
+      "reader": "open_comparison",
+      "members_unchanged": 5,
+      "members_sha256": "f9795516b0ce6e0b5316737182d727c3138fb7ea5abc0c7ac17a4602ccbd7ef5"
+    },
+    {
+      "path": "/home/motafeq/.local/share/upgradepilot/caller-signature-evidence/retained-glyphslib-pytest-2026-10-28/attempt-01",
+      "reader": "open_comparison",
+      "members_unchanged": 5,
+      "members_sha256": "c2db52fdc3423f4e23f5aba25986d4d66bbd9dd86aa071e8408e8418dce98210"
+    },
+    {
+      "path": "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/controlled-ordinary",
+      "reader": "open_ordinary_comparison",
+      "members_unchanged": 6,
+      "members_sha256": "4d90ff26dbaed152f35ffcd11bc162585791d6f2c1d1638f5a90ae3266772c47"
+    },
+    {
+      "path": "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/controlled-ordinary-final",
+      "reader": "open_ordinary_comparison",
+      "members_unchanged": 6,
+      "members_sha256": "9447500772f622ee010c591a18c7837da7eb8f428926e02cbc4dd59e1581989f"
+    },
+    {
+      "path": "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-10-29-source-correspondence-and-ordinary-retention/retained-incomplete-control",
+      "reader": "open_ordinary_comparison",
+      "members_unchanged": 6,
+      "members_sha256": "e948941ce17ab8872f26fead36d4dbab9740eb77430fc6dbeb82d3ad0d297a16"
+    },
+    {
+      "path": "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-10-29-experiment-lifecycle-and-dependency-repair/controlled-post-repair",
+      "reader": "open_ordinary_comparison",
+      "members_unchanged": 6,
+      "members_sha256": "abbb88507d3de8fc2af534bc7b7704c2b16e3cc611eb8482fff175f5a2f03ab8"
+    },
+    {
+      "path": "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-10-30-protocol-factory-source-correspondence/controlled-ordinary",
+      "reader": "open_ordinary_comparison",
+      "members_unchanged": 6,
+      "members_sha256": "d165b2eac8c37da777b6a6b6ca5302225d9129f3ae5684df12ef46f24dddee1a"
+    },
+    {
+      "path": "/home/motafeq/.local/share/upgradepilot/protocol-factory-evidence/retained-glyphslib-pytest-2026-10-30/attempt-01",
+      "reader": "open_ordinary_comparison",
+      "members_unchanged": 6,
+      "members_sha256": "3f900c5a884434414646d32ef7dcad32f97712666c65efdbba2a65b96fa9cfaa"
+    },
+    {
+      "path": "/home/motafeq/.local/share/upgradepilot/protocol-factory-evidence/retained-glyphslib-pytest-2026-10-30/attempt-02",
+      "reader": "open_ordinary_comparison",
+      "members_unchanged": 6,
+      "members_sha256": "58fa426778cc5ea59f6ab1578557fb2124b6a926937a2d414e8a01d6f969e0f6"
+    },
+    {
+      "path": "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-10-30-staged-source-acquisition-policy/controlled-ordinary",
+      "reader": "open_ordinary_comparison",
+      "members_unchanged": 6,
+      "members_sha256": "60f7298956fcb1db666fc3718607f7facd5937a905def28ad66bf15f08e0a4a3"
+    },
+    {
+      "path": "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-10-30-staged-source-acquisition-policy/controlled-stage-refusal",
+      "reader": "open_ordinary_comparison",
+      "members_unchanged": 6,
+      "members_sha256": "dd12d4358363d7e5ef7f12f46dacb464793d3da257e1d21d47d826522e312d6a"
+    },
+    {
+      "path": "/home/motafeq/.local/share/upgradepilot/ordinary-pr-acquisition/httpx-pr20-2026-10-30/attempt-01",
+      "reader": "open_fresh_ordinary_pr_attempt",
+      "members_unchanged": 13,
+      "members_sha256": "d08d669f49123a73dc14954a9c74ae4b72297c7db437cd243fe2d9c7f51c0099"
+    },
+    {
+      "path": "/home/motafeq/.local/share/upgradepilot/ordinary-pr-successors-2026-10-31/S002-fresh-ordinary/attempt-01",
+      "reader": "open_fresh_ordinary_pr_attempt",
+      "members_unchanged": 13,
+      "members_sha256": "105e4dc5477f57e73e922bc98b66b15c606ef22d139477b43c68e8d0d51306c4"
+    },
+    {
+      "path": "/home/motafeq/.local/share/upgradepilot/ordinary-pr-successors-2026-10-31/S003-frontier-four/attempt-01",
+      "reader": "open_fresh_ordinary_pr_attempt",
+      "members_unchanged": 13,
+      "members_sha256": "5caed9ef0b787307ed9663de4a941fbc16214a8aaefa68b98be2286f3e1f4f62"
+    },
+    {
+      "path": "/home/motafeq/.local/share/upgradepilot/ordinary-pr-successors-2026-10-31/S004-native-closure-base/attempt-01",
+      "reader": "open_fresh_ordinary_pr_attempt",
+      "members_unchanged": 13,
+      "members_sha256": "16915d1127279b7d1ea4b4bacb2381ce5f2ffce8fd6a369a13f9a411f8ad05d6"
+    },
+    {
+      "path": "/home/motafeq/.local/share/upgradepilot/ordinary-pr-successors-2026-10-31/S005-priority-module-boundary/attempt-01",
+      "reader": "open_fresh_ordinary_pr_attempt",
+      "members_unchanged": 13,
+      "members_sha256": "07d37d32d7daa96f68f107b3221f2ffa266333eaf1a15b659fd44a9ae39b7dec"
+    },
+    {
+      "path": "/home/motafeq/.local/share/upgradepilot/ordinary-pr-successors-2026-10-31/S006-same-method/attempt-01",
+      "reader": "open_fresh_ordinary_pr_attempt",
+      "members_unchanged": 13,
+      "members_sha256": "aab2ff1587538731c8b51314d74c8dd8b81b8422c6a1b3632a52923d7c40c7c0"
+    },
+    {
+      "path": "/home/motafeq/.local/share/upgradepilot/ordinary-pr-successors-2026-10-31/S007-pypi-timeout-recovery/attempt-01",
+      "reader": "open_fresh_ordinary_pr_attempt",
+      "members_unchanged": 10,
+      "members_sha256": "6d70b19d4cc02726c860ad469cb4c2c3135f3de977bc64c0846a01b9a44616f3"
+    },
+    {
+      "path": "/home/motafeq/.local/share/upgradepilot/ordinary-pr-successors-2026-10-31/S008-receipt-summary/attempt-01",
+      "reader": "open_fresh_ordinary_pr_attempt",
+      "members_unchanged": 13,
+      "members_sha256": "8ae5041c6491695620b5f361ee441cb3a83008a93cde88880fcb11c9575eef71"
+    },
+    {
+      "path": "/home/motafeq/.local/share/upgradepilot/contrasting-signature-qualification-2026-10-31/opendvp-pr-124-requests/attempt-01",
+      "reader": "open_fresh_ordinary_pr_attempt",
+      "members_unchanged": 13,
+      "members_sha256": "5b3a51cb85f4b2667c6ca02201f09608cd8b49135db9f812ed0163a3861abdbb"
+    },
+    {
+      "path": "/home/motafeq/.local/share/upgradepilot/direct-signature-qualification-2026-10-31/lifelog-pr-1-requests/attempt-01",
+      "reader": "open_fresh_ordinary_pr_attempt",
+      "members_unchanged": 6,
+      "members_sha256": "4dc3efbc89cff9350afc09763af204b9085dd3dcfc082d4b7d158ee15ed33241"
+    },
+    {
+      "path": "/home/motafeq/.local/share/upgradepilot/source-first-development-2026-11-01/lifelog-pr-1-requests/attempt-01",
+      "reader": "open_fresh_ordinary_pr_attempt",
+      "members_unchanged": 23,
+      "members_sha256": "387cd9d2198ac2ec5bc3e6220835b61a540d62a3fe56b3dcca3fd4ea73b4eb9a"
+    }
+  ],
+  "native_producer_or_network_calls": 0,
+  "proof": "fixed historical read and unchanged bytes; not source acquisition or native profile adoption"
+}

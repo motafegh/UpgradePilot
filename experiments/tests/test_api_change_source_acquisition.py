@@ -591,193 +591,28 @@ class PublisherInspectionTests(TestCase):
             self.assertFalse(request.call_args.kwargs["allow_redirects"])
 
 
-class StagedTransportTests(TestCase):
-    def test_opted_in_pypi_timeout_recovery_retains_both_charged_attempts(self):
-        from requests.exceptions import Timeout
-        session = TrialPublicSession(policy=self.policy(), retry_pypi_timeouts=True)
-        with patch('requests.Session.request', side_effect=[Timeout('authored timeout'), self.response()]) as request:
-            self.assertEqual(session.get('https://pypi.org/pypi/control/1.0/json').status_code, 200)
-        receipt = session.acquisition_receipt()
-        self.assertEqual(request.call_count, 2)
-        self.assertEqual(receipt['provider_requests'], 2)
-        self.assertEqual(receipt['format'], 'trial-acquisition-policy/2')
-        self.assertEqual([r['state'] for r in receipt['requests']], ['failed', 'received'])
-        self.assertEqual(receipt['retry_decisions'][0]['after_provider_request'], 1)
-        self.assertEqual(receipt['retry_decisions'][0]['retry_provider_request'], 2)
-        self.assertEqual(receipt['retry_decisions'][0]['state'], 'dispatched')
-
-    def test_timeout_recovery_has_per_request_and_shared_run_ceiling(self):
-        from requests.exceptions import Timeout
-        session = TrialPublicSession(policy=self.policy(), retry_pypi_timeouts=True)
-        with patch('requests.Session.request', side_effect=Timeout('authored timeout')) as request:
-            for i in range(3):
-                with self.assertRaises(Timeout):
-                    session.get('https://pypi.org/pypi/control/' + str(i) + '/json')
-        self.assertEqual(request.call_count, 5)
-        self.assertEqual(len(session.acquisition_receipt()['retry_decisions']), 2)
-
-    def test_timeout_recovery_never_retries_other_failure_classes_or_default_profile(self):
-        from requests.exceptions import Timeout
-        for case in ('default', 'github', 'status', 'body'):
-            with self.subTest(case=case):
-                session = TrialPublicSession(policy=self.policy(), retry_pypi_timeouts=case != 'default')
-                response = self.response(status=429)
-                if case == 'body':
-                    response.status_code = 200
-                    response.iter_content = Mock(side_effect=Timeout('body timeout'))
-                effect = Timeout('header timeout') if case in {'default','github'} else response
-                with patch('requests.Session.request', side_effect=effect if isinstance(effect, BaseException) else None,
-                           return_value=response) as request:
-                    if case == 'status':
-                        self.assertEqual(session.get('https://pypi.org/control').status_code, 429)
-                    else:
-                        with self.assertRaises(Timeout):
-                            session.get('https://api.github.com/control' if case == 'github' else 'https://pypi.org/control')
-                self.assertEqual(request.call_count, 1)
-
-    def test_timeout_retry_can_be_selected_but_refused_by_existing_provider_or_time_limit(self):
-        from requests.exceptions import Timeout
-        from upgradepilot.github.api import GitHubAcquisitionError
-        for boundary in ('provider', 'time'):
-            with self.subTest(boundary=boundary):
-                now = [0.0]
-                policy = self.policy(github_requests=2, provider_requests=2, source_request_reserve=1)
-                session = TrialPublicSession(policy=policy, retry_pypi_timeouts=True, clock=lambda: now[0])
-                if boundary == 'provider':
-                    with patch('requests.Session.request', return_value=self.response()):
-                        session.get('https://pypi.org/prior')
-                def timeout(*args, **kwargs):
-                    if boundary == 'time': now[0] = 181.0
-                    raise Timeout('authored timeout')
-                with patch('requests.Session.request', side_effect=timeout) as request, self.assertRaises(GitHubAcquisitionError):
-                    session.get('https://pypi.org/control')
-                self.assertEqual(request.call_count, 1)
-                decision = session.acquisition_receipt()['retry_decisions'][0]
-                self.assertEqual(decision['state'], 'not_dispatched')
-                self.assertIsNone(decision['retry_provider_request'])
-
-    """Exercise actual Requests Response handling with an authored HTTP transport."""
-
-    @staticmethod
-    def response(body=b'{}', status=200):
+class TrialTransportCompatibilityTests(TestCase):
+    def test_charged_trial_keeps_legacy_receipt_and_stop_reason(self):
+        from upgradepilot.caller_signature.acquisition import AcquisitionPolicy
         from io import BytesIO
         from requests import Response
         response = Response()
-        response.status_code = status
-        response.raw = BytesIO(body)
-        response.close = Mock(wraps=response.close)
-        return response
-
-    @staticmethod
-    def policy(**changes):
-        from experiments.api_change_source_acquisition import TrialAcquisitionPolicy
-        return TrialAcquisitionPolicy(**changes)
-
-    def test_token_does_not_override_local_budget_and_explicit_budget_can_differ(self):
-        from upgradepilot.github.api import GitHubAcquisitionError
-        observations = []
-        for token, policy, expected in ((None, None, 50), ('synthetic-test-token', None, 50),
-                                        ('synthetic-test-token', self.policy(github_requests=80), 80)):
-            session = TrialPublicSession(token=token, policy=policy)
-            with patch('requests.Session.request', side_effect=lambda *a, **k: self.response()) as request:
-                for _ in range(expected):
-                    session.get('https://api.github.com/repos/control/library')
-                with self.assertRaises(GitHubAcquisitionError) as raised:
-                    session.get('https://api.github.com/repos/control/library')
-            self.assertEqual(raised.exception.reason, 'trial_request_limit')
-            self.assertEqual(request.call_count, expected)
-            observations.append((session.auth_mode, session.github_requests))
-        self.assertEqual(observations, [('anonymous', 50), ('token-env', 50), ('token-env', 80)])
-
-    def test_reservation_protects_later_stage_without_resetting_shared_counts(self):
-        session = TrialPublicSession(policy=self.policy(github_requests=6, source_request_reserve=2))
-        with patch('requests.Session.request', side_effect=lambda *a, **k: self.response()) as request:
-            with session.stage('target_context', reserve_github=2):
-                for _ in range(4):
-                    session.get('https://api.github.com/target')
+        response.status_code = 200
+        response.raw = BytesIO(b"{}")
+        session = TrialPublicSession(policy=AcquisitionPolicy(github_requests=2, source_request_reserve=1))
+        with patch("requests.Session.request", return_value=response):
+            with session.stage("target", reserve_github=1):
+                session.get("https://api.github.com/control")
                 with self.assertRaises(Exception) as raised:
-                    session.get('https://api.github.com/target')
-            self.assertEqual(raised.exception.reason, 'trial_stage_request_limit')
-            self.assertFalse(session.request_limit_reached)
-            with session.stage('source_closure'):
-                session.get('https://api.github.com/library/old')
-                session.get('https://api.github.com/library/new')
-        self.assertEqual(request.call_count, 6)
+                    session.get("https://api.github.com/control")
+        self.assertEqual(raised.exception.reason, "trial_stage_request_limit")
         receipt = session.acquisition_receipt()
-        self.assertEqual([e['stage'] for e in receipt['requests']], ['target_context'] * 4 + ['source_closure'] * 2)
-        self.assertEqual(receipt['stops'], [{'stage': 'target_context', 'reason': 'trial_stage_request_limit'}])
+        self.assertEqual(receipt["format"], "trial-acquisition-policy/1")
+        self.assertEqual(receipt["stops"], [{"stage": "target", "reason": "trial_stage_request_limit"}])
+        self.assertEqual(receipt["provider_requests"], 1)
 
-    def test_pypi_and_error_bodies_count_and_only_explicit_github_token_is_sent(self):
-        session = TrialPublicSession(token='synthetic-secret', policy=self.policy(provider_requests=50))
-        responses = [self.response(b'{"answer": 1}'), self.response(b'error', 503)]
-        with patch('requests.Session.request', side_effect=responses) as request:
-            response = session.get('https://api.github.com/control', headers={'Authorization': 'wrong'})
-            self.assertEqual(response.json(), {'answer': 1})
-            self.assertEqual(b''.join(response.iter_content(2)), b'{"answer": 1}')
-            session.get('https://pypi.org/pypi/control/json', headers={'Authorization': 'wrong'})
-        self.assertEqual(request.call_args_list[0].kwargs['headers']['Authorization'], 'Bearer synthetic-secret')
-        self.assertNotIn('Authorization', request.call_args_list[1].kwargs['headers'])
-        self.assertFalse(request.call_args.kwargs['allow_redirects'])
-        self.assertEqual(session.provider_requests, 2)
-        self.assertEqual(session.github_requests, 1)
-        self.assertEqual(session.body_bytes, 18)
-        self.assertNotIn('synthetic-secret', json.dumps(session.acquisition_receipt()))
-        anonymous = TrialPublicSession(policy=self.policy())
-        with patch('requests.Session.request', return_value=self.response()) as request:
-            anonymous.get('https://api.github.com/control', headers={'Authorization': 'wrong'})
-        self.assertNotIn('Authorization', request.call_args.kwargs['headers'])
-
-    def test_response_and_aggregate_limits_charge_rejected_bytes_and_close(self):
-        for changes, bodies, expected in (
-            ({'response_bytes': 4}, [b'12345'], 'trial_response_body_limit'),
-            ({'aggregate_bytes': 6}, [b'1234', b'5678'], 'trial_aggregate_body_limit'),
-        ):
-            session = TrialPublicSession(policy=self.policy(**changes))
-            responses = [self.response(body) for body in bodies]
-            with patch('requests.Session.request', side_effect=responses):
-                with self.assertRaises(Exception) as raised:
-                    for _ in bodies:
-                        session.get('https://pypi.org/pypi/control/json')
-            self.assertEqual(raised.exception.reason, expected)
-            self.assertEqual(session.body_bytes, sum(map(len, bodies)))
-            self.assertTrue(all(r.close.called for r in responses))
-            self.assertEqual(session.receipts[-1]['state'], 'failed')
-
-    def test_deadline_checks_start_body_and_empty_response_without_real_sleep(self):
-        for body in (b'', b'{}'):
-            now = [0.0]
-            session = TrialPublicSession(policy=self.policy(elapsed_seconds=1), clock=lambda: now[0])
-            response = self.response(body)
-            def late(*args, **kwargs):
-                self.assertEqual(kwargs['timeout'], (1, 1))
-                now[0] = 2.0
-                return response
-            with patch('requests.Session.request', side_effect=late):
-                with self.assertRaises(Exception) as raised:
-                    session.get('https://api.github.com/control')
-            self.assertEqual(raised.exception.reason, 'trial_acquisition_deadline')
-            self.assertEqual(session.receipts[0]['state'], 'failed')
-            response.close.assert_called_once()
-            with patch('requests.Session.request') as transport:
-                with self.assertRaises(Exception):
-                    session.get('https://pypi.org/pypi/control/json')
-                transport.assert_not_called()
-
-    def test_all_provider_limit_transport_failure_and_policy_validation(self):
-        from requests.exceptions import ConnectionError
-        session = TrialPublicSession(policy=self.policy(github_requests=2, source_request_reserve=1, provider_requests=2))
-        with patch('requests.Session.request', side_effect=[ConnectionError('authored outage'), self.response()]):
-            with self.assertRaises(ConnectionError):
-                session.get('https://pypi.org/pypi/control/json')
-            session.get('https://pypi.org/pypi/control/json')
-        with patch('requests.Session.request') as transport:
-            with self.assertRaises(Exception) as raised:
-                session.get('https://api.github.com/control')
-            transport.assert_not_called()
-        self.assertEqual(raised.exception.reason, 'trial_provider_request_limit')
-        self.assertEqual(session.github_requests, 0)
-        self.assertEqual(session.provider_requests, 2)
-        for changes in ({'github_requests': True}, {'elapsed_seconds': float('nan')},
-                        {'github_requests': 201}, {'source_request_reserve': 50}):
-            with self.subTest(changes=changes), self.assertRaises(ValueError):
-                self.policy(**changes)
+    def test_legacy_unbudgeted_trial_still_has_no_policy_receipt(self):
+        session = TrialPublicSession()
+        self.assertIsNone(session.policy)
+        self.assertIsNone(session.acquisition_receipt())
+        session.finish_acquisition()

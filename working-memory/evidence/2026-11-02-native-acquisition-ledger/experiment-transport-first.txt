@@ -1,0 +1,95 @@
+..............EEE.E.EE.............
+======================================================================
+ERROR: test_opted_in_pypi_timeout_recovery_retains_both_charged_attempts (test_api_change_source_acquisition.StagedTransportTests.test_opted_in_pypi_timeout_recovery_retains_both_charged_attempts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_change_source_acquisition.py", line 600, in test_opted_in_pypi_timeout_recovery_retains_both_charged_attempts
+    receipt = session.acquisition_receipt()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/api_change_source_acquisition.py", line 466, in acquisition_receipt
+    native = super().acquisition_receipt()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/caller_signature/acquisition.py", line 135, in acquisition_receipt
+    limits["elapsed_seconds"] = MeasuredDuration.measure(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'MeasuredDuration' has no attribute 'measure'
+
+======================================================================
+ERROR: test_pypi_and_error_bodies_count_and_only_explicit_github_token_is_sent (test_api_change_source_acquisition.StagedTransportTests.test_pypi_and_error_bodies_count_and_only_explicit_github_token_is_sent)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_change_source_acquisition.py", line 724, in test_pypi_and_error_bodies_count_and_only_explicit_github_token_is_sent
+    self.assertNotIn('synthetic-secret', json.dumps(session.acquisition_receipt()))
+                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/api_change_source_acquisition.py", line 466, in acquisition_receipt
+    native = super().acquisition_receipt()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/caller_signature/acquisition.py", line 135, in acquisition_receipt
+    limits["elapsed_seconds"] = MeasuredDuration.measure(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'MeasuredDuration' has no attribute 'measure'
+
+======================================================================
+ERROR: test_reservation_protects_later_stage_without_resetting_shared_counts (test_api_change_source_acquisition.StagedTransportTests.test_reservation_protects_later_stage_without_resetting_shared_counts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_change_source_acquisition.py", line 706, in test_reservation_protects_later_stage_without_resetting_shared_counts
+    receipt = session.acquisition_receipt()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/api_change_source_acquisition.py", line 466, in acquisition_receipt
+    native = super().acquisition_receipt()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/caller_signature/acquisition.py", line 135, in acquisition_receipt
+    limits["elapsed_seconds"] = MeasuredDuration.measure(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'MeasuredDuration' has no attribute 'measure'
+
+======================================================================
+ERROR: test_timeout_recovery_has_per_request_and_shared_run_ceiling (test_api_change_source_acquisition.StagedTransportTests.test_timeout_recovery_has_per_request_and_shared_run_ceiling)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_change_source_acquisition.py", line 617, in test_timeout_recovery_has_per_request_and_shared_run_ceiling
+    self.assertEqual(len(session.acquisition_receipt()['retry_decisions']), 2)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/api_change_source_acquisition.py", line 466, in acquisition_receipt
+    native = super().acquisition_receipt()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/caller_signature/acquisition.py", line 135, in acquisition_receipt
+    limits["elapsed_seconds"] = MeasuredDuration.measure(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'MeasuredDuration' has no attribute 'measure'
+
+======================================================================
+ERROR: test_timeout_retry_can_be_selected_but_refused_by_existing_provider_or_time_limit (test_api_change_source_acquisition.StagedTransportTests.test_timeout_retry_can_be_selected_but_refused_by_existing_provider_or_time_limit) (boundary='provider')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_change_source_acquisition.py", line 655, in test_timeout_retry_can_be_selected_but_refused_by_existing_provider_or_time_limit
+    decision = session.acquisition_receipt()['retry_decisions'][0]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/api_change_source_acquisition.py", line 466, in acquisition_receipt
+    native = super().acquisition_receipt()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/caller_signature/acquisition.py", line 135, in acquisition_receipt
+    limits["elapsed_seconds"] = MeasuredDuration.measure(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'MeasuredDuration' has no attribute 'measure'
+
+======================================================================
+ERROR: test_timeout_retry_can_be_selected_but_refused_by_existing_provider_or_time_limit (test_api_change_source_acquisition.StagedTransportTests.test_timeout_retry_can_be_selected_but_refused_by_existing_provider_or_time_limit) (boundary='time')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/experiments/tests/test_api_change_source_acquisition.py", line 655, in test_timeout_retry_can_be_selected_but_refused_by_existing_provider_or_time_limit
+    decision = session.acquisition_receipt()['retry_decisions'][0]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/experiments/api_change_source_acquisition.py", line 466, in acquisition_receipt
+    native = super().acquisition_receipt()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/caller_signature/acquisition.py", line 135, in acquisition_receipt
+    limits["elapsed_seconds"] = MeasuredDuration.measure(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'MeasuredDuration' has no attribute 'measure'
+
+----------------------------------------------------------------------
+Ran 34 tests in 0.024s
+
+FAILED (errors=6)
