@@ -12,9 +12,9 @@ A1 — DONE, continuous context: prior milestone walkthrough delivered; Ali expl
 A2 — DONE, compressed under situational rule: transfer exact target/source owners, share explicit session, preserve native old/proposed versus sample questions and static-origin uncertainty, reuse matching native record types, retain fixed historical adapters/closures. Code remains source-only; normal application/profile/report and Workspace source-progress publication follow this owner transfer.
 B — DONE for product acquisition owners/native module receipt production; ordinary publication/application integration remains subsequent.
 Verification gate — GREEN:1,038 product/194 API/7 architecture;56 focused subset,3 reference-equivalent controls,22 unchanged bundles, installed30 source controls and governance.
-D — CURRENT: stop for requested milestone onboarding; no mastery claim.
-E — PENDING.
-C — CONTINUOUS.
+D — DONE: guided receipt and recovery walkthrough with a changed-case response.
+E — DONE: clarified the last committed revision boundary and deferred independent recovery diagnosis to the next relevant work.
+C — DONE: milestone verification, learner evidence and handoff preserved.
 
 ## Orientation and responsibility boundary
 
@@ -74,3 +74,5 @@ The needed depth is the source-to-receipt-to-Workspace boundary. Mock syntax and
 Ali correctly predicted that the receipt keeps the repository, commit, path and `transport_error`. The test also preserves the earlier association, metadata and tags. File contents, hash and byte count are unavailable after this download failure. Ali expected fresh recovery to include everything acquired before failure. Clarified that the earlier observations can exist in the returned receipt while recovery can read only material already committed to Workspace. A crash before source-progress publication leaves the last committed revision available, if one exists.
 
 At `57e3c2f6`, both focused checkout tests passed in 0.421 seconds under `PYTHONPATH=src:tests .venv/bin/python -m unittest`: the failed-file receipt test and the fresh-process Workspace test. In the latter, the source-only revision restores three files and no recorded comparison. The later revision restores the same three files and `failed` with reason `analysis_limit`. D remains open for a changed-case recovery check with the source revision saved and the analysis outcome unpublished. No durable learner ownership follows from the two test results.
+
+Ali described recovery as showing the latest state that had worked. Refined this to the latest committed revision in the scenario: the three saved files reopen and the analysis outcome is unrecorded because the process stopped before publishing it. The answer identified the general idea of recovering earlier progress. The exact persistence boundary and interpretation of the missing result were supplied during teaching, so independent recovery diagnosis remains deferred. Close this acquisition handoff and carry the distinction into the next cycle for source-progress composition and publication.
