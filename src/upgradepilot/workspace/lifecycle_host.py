@@ -500,12 +500,15 @@ class InvestigationWorkspaceHost:
             if not isinstance(result, CapabilityResult):
                 raise WorkspaceHostError("invalid_capability_result")
         except BaseException as error:
-            self._append(
-                ExecutionInterruption(attempt_id, type(error).__name__),
-                original.native_record_ids,
-                method=_capability_identity(capability),
-                basis=self._records[attempt_id].basis_revision_id,
-            )
+            # A capability can publish progress. A failed write leaves the host
+            # blocked, so a second publication would mask the original error.
+            if not self._publication_blocked:
+                self._append(
+                    ExecutionInterruption(attempt_id, type(error).__name__),
+                    original.native_record_ids,
+                    method=_capability_identity(capability),
+                    basis=self._records[attempt_id].basis_revision_id,
+                )
             raise
         observation_id = self.ingest_observation(attempt_id, result)
         return observation_id, result
