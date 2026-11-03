@@ -607,6 +607,10 @@ Prediction/reasoning checkpoints must be **fair**. Ask Ali to predict, reconstru
 
 A material depth assignment must have a project-local reason. When Ali is expected to **master/own** a mechanism—or learn a non-obvious supporting mechanism beyond simple recognition—briefly state why that depth matters to the active or foreseeable project responsibility, such as proposition ownership, important control flow, later change/test/diagnosis, proof evaluation, target-project interpretation, or a later owned prerequisite. If no such reason exists, reduce the depth rather than manufacturing a learning obligation.
 
+Assign depth to a **scoped responsibility**, not an entire file, technology or codebase. In the existing A-phase map or applicable learning roadmap/depth map, make recoverable: the ability needed, why it matters, depth needed **now** versus a later ownership target, supporting details safe to look up, and evidence or a changed responsibility that would justify continuing or deepening. Recommend and explain the depth before asking Ali to choose an unfamiliar trade-off. Reassess it when work or demonstrated prerequisites change; an eventual ownership target is not automatically a prerequisite to all participation today.
+
+Intended depth and demonstrated ability are separate. Keep actual attempts, assistance, results and gaps in the existing cycle/package learning-continuity record. Lesson coverage, guided practice and demonstrated limited-assistance work must remain distinguishable; do not retrospectively upgrade earlier coverage. Career's capability ledger owns formal cross-project assessment. These distinctions do not require a new tracker, score or per-topic form.
+
 For a material code-bearing ownership target, connect the source responsibility to at least one meaningful focused test when such a test exists. Ali should understand the test as setup/evidence state → action → assertion/result → protected behavior → non-proof. If no meaningful focused test exists, say so instead of implying test ownership was demonstrated.
 
 After meaningful work, distinguish only what matters:
@@ -667,6 +671,22 @@ Keep the Career boundary explicit:
 - Career may later interpret legitimate UpgradePilot evidence for employability, portfolio, applications, or interview preparation without becoming UpgradePilot's live technical authority.
 
 Do not manufacture source changes, failures, abstractions, frameworks, exercises, or extra artifacts merely to cover one of the categories above. Do not require every slice to exercise every category. Use the lens only where the real responsibility creates a genuine learning/ownership opportunity.
+
+### 7.3.1 Practical attempts and evidence
+
+For a selected ownership opportunity, transfer a meaningful part of the reasoning or action to Ali during the work:
+
+```text
+name the scoped responsibility, depth and useful result
+→ establish the minimum premises needed for a fair attempt
+→ let Ali attempt the selected activity before supplying its complete worked solution
+→ inspect the actual reasoning/action/result and relevant proof limits
+→ repair a prerequisite gap or reduce assistance as the evidence warrants
+```
+
+The activity may be source tracing, test design/interpretation, diagnosis, a justified modification, or design/AI-output critique. Teach genuinely new material first; support a blocked attempt rather than withholding help. In Learning-Only, product mutation remains paused. Real Build changes still require the normal authorization and verification. Do not invent a defect, require manual typing, quiz every edit, or make full-codebase mastery a gate.
+
+Preserve only the meaningful activity, assistance, outcome and remaining gap in the existing continuity record. If no fair activity was performed, say so without claiming ownership. Post-work explanation remains useful, but explanation alone does not establish practical ability. A completed product check and an unassessed learner responsibility can coexist honestly.
 
 ### 7.4 Decision readiness under asymmetric expertise
 

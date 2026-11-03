@@ -237,6 +237,8 @@ When an already-taught mechanism later reappears naturally in the active package
 
 Fade assistance on repeated mechanisms using the project-wide model in `OPERATING_GUIDE.md`; restore explanation when a changed context reveals a genuine model/prerequisite gap.
 
+Apply [Operating Guide §7.3.1](../../../OPERATING_GUIDE.md#731-practical-attempts-and-evidence) to selected practical opportunities as well as explanation questions. A source trace, test/diagnosis proposal or authorized disposable practice can reveal ability without changing product behavior. Give a fair attempt before its complete solution, at the depth justified by the package map and current prerequisites. Preserve coverage, actual practice, assistance and demonstrated ability distinctly in the existing learning-continuity owner. Return any desired product repair to its authorized Build route.
+
 ## 8. Read executable responsibility, not comments alone
 
 Comments/docstrings may orient the lesson, but material source ownership requires reading the executable constructs that establish the behavior.

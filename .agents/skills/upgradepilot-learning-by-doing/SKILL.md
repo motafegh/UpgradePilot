@@ -205,6 +205,8 @@ Create at least one meaningful reasoning point when useful.
 
 Perform the real bounded action under the selected primary operation. Keep the responsibility coherent and authorization-correct.
 
+Use [Operating Guide §7.3.1](../../../OPERATING_GUIDE.md#731-practical-attempts-and-evidence) for the selected ownership opportunity during B: establish its justified depth/prerequisites, allow a fair attempt before revealing the complete solution, then inspect the result and assistance needed. Use the existing cycle record; preserve learner evidence separately from product verification. This does not require a new activity for every edit or manual implementation by Ali.
+
 C continuously preserves meaningful implementation/analysis/design evolution, decisions, failures, corrections, changed assumptions and route changes. Do not wait until the end to reconstruct them from memory.
 
 ### 6. Execute the verification / evidence gate
