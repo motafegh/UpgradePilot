@@ -1,22 +1,24 @@
 # Project route and engineering ownership — bounded review
 
 **Date:** November 3, 2026 (Asia/Tehran).
-**Operation:** evaluative review and discussion; no product implementation or accepted plan change.
+**Initial operation:** evaluative review and discussion; no product implementation or accepted plan change at that review horizon.
 **Inspected product revision:** `9c90392601af4d810ad5ae69bfcf101f468f5216`; fetch confirmed local main matches origin/main.
 **Provenance:** `UP-SKILL:upgradepilot-repository-audit`; `UP-SKILL:upgradepilot-working-memory`.
+
+**Authorized follow-through:** Ali subsequently requested applying the discussed method/depth changes to main's owners/implementation plan and the existing learning roadmap. The documentation amendment uses `UP-SKILL:upgradepilot-planning-design`, Skill Creator and `UP-SKILL:upgradepilot-learning-artifact`. No product Build or Career reassessment is selected.
 
 ## Responsibility and cycle progression
 
 Ali asks whether the current UpgradePilot route still serves his broader software/data/applied-AI/integration career direction, concern about AI-related entry barriers, and ambition for stronger independent engineering capability. The question is whether to keep the vehicle, change the delivery sequence, or change the learning/participation method. This record preserves review evidence and recommendations, not a Career readiness decision or an adopted project plan.
 
 ```text
-A0 — DONE: reconciled main, charter, selected delivery plan, source/tests, dated proof and learning-branch delta.
-A1 — COMPRESSED: ongoing conversation already established career ambition and the ownership concern; no mastery inferred.
-A2 — COMPRESSED: review separates product value, delivery sequence, learner ownership and complexity; no Build activation.
-B — DONE: bounded inspection and assessment recorded below.
-Verification gate — EVIDENCE REVIEWED: source/test/plan relationships checked; no tests rerun or new product proof claimed.
-D — CURRENT: findings and concrete alternatives presented for discussion; learner understanding unassessed.
-E — PENDING: route decision and any consequential owner reconciliation remain for discussion.
+A0 — DONE: main c627adb5 and learning branch 666a2cbb reconciled before documentation changes; product code remains 9c903926-compatible.
+A1 — DONE, COMPRESSED: ongoing discussion established route concerns and intended/demonstrated-depth distinctions; no mastery inferred.
+A2 — DONE, COMPRESSED: Ali requested the explained bounded amendments; technical delivery sequence and product gates stay intact.
+B — CURRENT: shared owner/Skill/plan clarification written; existing learning-roadmap follow-through pending.
+Verification gate — SHARED DOCS GREEN: two Skill validators, governance doctor and whitespace check pass; roadmap/source anchors still to validate. No product tests rerun.
+D — PENDING: amendment handoff; no practical learner task performed or assessed by this authoring work.
+E — PENDING: finish roadmap publication and preserve proof/remaining learning gap.
 C — CONTINUOUS: this single dated record preserves the review and its limits.
 ```
 
@@ -58,3 +60,11 @@ Reassess the vehicle/learning allocation if a coherent connected-delivery effort
 No accepted plan/specification/ADR, live-position owner, product source/test, frozen evidence, learning branch or Career file changed. Existing source-acquisition D/E and unassessed learner checks are not retrospectively completed. No fresh product tests, providers, credentials, models, target execution or runtime observer were used. Recommendations await discussion; the existing delivery frontier is not silently replaced.
 
 Recording correction: staged whitespace validation flagged three Markdown hard-break suffixes; the shell continued to the initial local documentation commit because failure propagation was absent. Removed the suffixes and made subsequent publication validation fail-fast. No product behavior or assessment changed.
+
+## Authorized documentation follow-through — November 3
+
+The ensuing discussion identified the correct owners and Ali explicitly requested applying the changes. Continue this coherent route/ownership cycle for the directly authorized documentation repair rather than create a duplicate plan/cycle. Compress fresh A gates because the change, depth model, owner map and trade-offs were just explained and challenged in the same conversation; the authorization is for these documents, not product implementation or learner-mastery promotion.
+
+Shared amendment: Operating Guide section 7.2 distinguishes scoped intended depth, needed-now/later ability, lookup details and re-entry evidence from actual demonstrated ability. New section 7.3.1 makes a fair practical attempt precede the complete worked answer for a selected opportunity, with teaching/support first when needed. Two learning Skills link to this canonical method. Implementation plan section 6 applies it without resequencing product delivery or weakening proof. Build/Artifact Skills, root instructions, Career files and product code need no edits.
+
+Initial validation: Skill Creator's `quick_validate.py` passes for both modified Skills; the governance doctor passes all six registered banks and objective routing/owner checks; `git diff --check` passes. These checks validate structure/links and whitespace, not live teaching effectiveness. Code-bearing anchors were inspected, not executed: source-correspondence atomic group refusal, acquisition prefix accounting and source-read failure tests. The existing roadmap is explicitly living, so its target/practice guidance can evolve while earlier interactive coverage and source horizon remain preserved.

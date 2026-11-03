@@ -135,6 +135,8 @@ Reconstruction validates recorded facts and their closure; it never reparses Pyt
 
 Each increment is a coherent authorized Build/Learning-by-Doing cycle with progressive public-safe records and appropriately validated commits/pushes. Repeat source reconciliation where intervening work matters. Commit boundaries may combine tightly coupled changes; they must not manufacture product acceptance for an unfinished layer. Equivalence runs throughout, not only at the end.
 
+Apply [Operating Guide §7.2–7.3.1](../OPERATING_GUIDE.md#72-ai-assisted-engineering-ownership) to select a scoped ownership opportunity and justified depth within an increment, such as tracing retained source progress or verifying a recovery failure boundary. Record the actual attempt/assistance separately from product proof in the existing cycle; deeper standalone study stays in its applicable learning route. Advanced internals need not all become immediate participation prerequisites. This clarification leaves the delivery sequence, supported scope and engineering acceptance obligations below intact.
+
 ### Responsibility freeze and native representation proof
 
 Reconcile the section3 map with actual imports/callers/tests, extract the exact reference projections and ID mapping, and move the minimum pure record types needed for real native record/trace/duration encoding in the capacity probe. Use actual native encode/decode/guards, not a synthetic dictionary merely labelled native. No product import of experimental types is allowed even for this early increment. Keep the feature unselected by default.
