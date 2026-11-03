@@ -2,7 +2,7 @@
 
 **Created:** 2026-11-02  
 **Initial evidence horizon:** `7a9bef12fb65ee075dab645a638adf5a3955dc48`  
-**Last synchronized main:** `9c90392601af4d810ad5ae69bfcf101f468f5216`  
+**Last synchronized main:** `834aeaa4` — November 3 method/depth clarification; product source unchanged from `9c903926`.
 **Working branch:** `learning/current-caller-signature-mastery-roadmap-2026-11-02`  
 **Purpose:** living study/relearning roadmap for Ali's interactive learning track while UpgradePilot continues to evolve on `main`.  
 **Authority boundary:** this file is a learning artifact, not the live project-position owner. `MEMORY.md`, current source/tests, accepted plans/specifications/ADRs, and dated evidence remain authoritative.
@@ -16,6 +16,8 @@
 For every module use:
 
 `real UpgradePilot case → responsibility boundary → essential code/data flow → important uncertainty/failure states → proof/non-proof → ownership check → stop`
+
+Use [Operating Guide §7.2](../OPERATING_GUIDE.md#72-ai-assisted-engineering-ownership) for depth and [§7.3.1](../OPERATING_GUIDE.md#731-practical-attempts-and-evidence) for practical attempts. For a selected activity, establish its prerequisites, let Ali attempt it before supplying the complete answer, then inspect the actual result and assistance needed. Teach new material first. Learning-Only does not authorize product changes; a proposed modification and an implemented/verified modification are different evidence.
 
 Depth:
 
@@ -32,6 +34,35 @@ Status:
 - 🟡 introduced/partially covered
 - ⬜ planned
 - 🔁 revisit because `main` changed the learned responsibility
+
+These marks describe lesson coverage. When actual evidence exists, separately preserve **practised with assistance** or **demonstrated with limited assistance**, naming the activity, result, help and transfer limit in the selected module or existing learning-continuity record. No new tracker is required. This amendment adds targets/opportunities, not evidence that Ali performed them; earlier coverage marks remain unchanged.
+
+### Scoped depth targets and when they matter
+
+A module's **MUST OWN** label is a target for its important responsibility, not every helper and not proof of achieved ability. The following scope distinctions refine those broad labels. State the ability needed now, the reason, supporting lookup detail and the next evidence/re-entry condition when selecting a module. The existing learning order remains the route; this table does not make every later target an immediate Build prerequisite.
+
+| Responsibility | Ownership target and reason | Supporting depth / timing |
+|---|---|---|
+| Evidence meaning, bindings and local argument comparison (covered foundations) | MUST OWN the distinctions that prevent false origin, execution or compatibility claims; connect important branches to real calls/tests. | Tree-walking utilities, exact syntax APIs and incidental helpers are OPERATIONAL/LOOKUP until a change requires them. Coverage is not independent implementation evidence. |
+| Correspondence and whole-file/paired work admission | MUST OWN conditional paths, old/proposed pairing, omission/refusal and why completion differs from coverage; needed to interpret or change the analyzer honestly. | Traversal/index implementation is OPERATIONAL initially; deepen the affected mechanism for modification or diagnosis. This is the selected learning responsibility, not a new route. |
+| Worker execution and fixed reconstruction | MUST OWN input/result versus execution state, resource failure and corrupt/unsupported relationships; required for safe result and recovery interpretation. | Process-launch/codec plumbing is OPERATIONAL; OS/library internals are LOOKUP unless the selected failure/change depends on them. Learn through the corresponding modules. |
+| Native families, method versions and Workspace recovery | MUST OWN evidence membership, producer-versus-codec meaning and confirmed publication/recovery boundaries; otherwise valid objects could support invalid claims. | Exact version strings and encoding helpers are LOOKUP; store/codec implementation is OPERATIONAL until modifying it. Learn these boundaries before owning their composition. |
+| Shared acquisition policy and ledger | MUST OWN prefix/retry/byte/time accounting and the difference between account quota and local policy; needed to preserve invocation limits. | HTTP client APIs are OPERATIONAL; library transport internals are LOOKUP unless diagnosing them. This does not require a networking course first. |
+| Target source context | MUST OWN exact target revision, selected/omitted files and candidate-versus-installed-origin meaning; needed to explain acquisition coverage. | TOML/requirements parser details are OPERATIONAL/LOOKUP until a genuine parsing responsibility requires depth. |
+| Exact dependency source and partial receipts | MUST OWN association premises, version/sample distinction, cached failures and live-only versus retained observations; needed for source-progress composition. | Provider-specific helpers are OPERATIONAL/LOOKUP. Understand what a content hash establishes; cryptographic algorithm implementation is LOOKUP. |
+| Ordinary source publication/application/profile/report/recovery | MUST OWN the selected composition and its evidence/failure claims when implemented; it delivers the actual user workflow. | Forthcoming ordinary-path work is orientation-only before implementation. Report plumbing is initially OPERATIONAL; deepen touched mechanisms. Do not pretend the connected path exists yet. |
+| Task qualification and later runtime checkpoint | MUST OWN qualification/non-proof and adoption reasoning when that gate is reached. | New runtime observer design remains DEFERRED; recognize existing scoped CI/runtime evidence without speculating a new runner. |
+
+Revisit a depth when a real change/failure needs it, a fair attempt exposes a missing prerequisite, or the responsibility changes. The teacher recommends the depth with its rationale before asking Ali to choose an unfamiliar trade-off. Preserve a gap and its consequence rather than either silently lowering the target or making unrelated internals compulsory.
+
+### Practical opportunities within the existing route
+
+Select an opportunity when its module and prerequisites are active; these examples are not a second execution order or a quota. Use retained real cases and existing controls before authoring a disposable variant. No fabricated production defect or frozen-evidence rewrite is needed.
+
+- **Correspondence/admission:** use retained LifeLog or Digimon to explain the paired/whole-file boundary, then inspect [the atomic native-group refusal test](../tests/test_source_correspondence.py). Let Ali predict which material remains retained and which work is unexamined under the authored limit before revealing the assertions. Interpret a related limit/case with reduced prompting; one guided answer does not establish broad analyzer ownership.
+- **Acquisition ledger:** trace [the normal-prefix/later-client accounting test](../tests/test_caller_signature_acquisition.py), identify the charged timeout/retry and explain why a later stage does not receive another budget. Let Ali select a discriminating assertion or related-case check before presenting one; this controlled transport is not live provider proof.
+- **Partial source receipts:** trace `examine_with_receipt` and [the failed-file preservation/no-retry test](../tests/test_caller_signature_source_acquisition.py). Distinguish earlier association/metadata/tag premises from unavailable text/hash and from the separate failed-association live-only limit. Ask for a related diagnosis or proposed source/test change; record whether it was only proposed or actually implemented and verified within authorization.
+- **Connected source publication, once implemented:** follow one actual source-progress revision through a later analysis/delivery failure. Let Ali identify the last confirmed boundary and select evidence that could distinguish it from an unacknowledged successor. Derive the exact source/test anchor from that implementation instead of inventing the future path now.
 
 ---
 
@@ -53,6 +84,7 @@ When `main` advances:
 
 - `7a9bef12...` — native source/comparison families + checkpoint recovery qualified.
 - `9c903926...` — **9 commits later**: product-owned acquisition policy/shared physical-request ledger, target source-context acquisition, exact dependency source acquisition/association/module receipts qualified. Source-family composition/Workspace source-progress publication and ordinary app/profile/CLI/report delivery remain next. A later combined-evidence/runtime-applicability design checkpoint is scheduled, not implemented.
+- `834aeaa4` — November 3: merged the shared learning-method/depth clarification from main, refined scoped targets/practice and completion criteria here, and preserved prior module coverage. Product source and November 2 qualification horizon are unchanged; this is not a fresh product run or learner reassessment.
 
 ---
 
@@ -415,9 +447,9 @@ LATER AT PLAN GATE:
       G1 combined evidence/runtime applicability
 ```
 
-### Completion standard
+### Flow understanding and ownership evidence
 
-The journey is complete enough when Ali can trace a real case across:
+Flow understanding is established at the demonstrated scope when Ali can trace a real case across:
 
 `PR/input → bounded source acquisition/provenance → source-family publication → bounded analysis → comparison evidence → Workspace recovery → normal user-facing result`
 
@@ -430,4 +462,6 @@ and can explain, for each boundary:
 - what it does **not** prove;
 - where to inspect or test it when behavior changes.
 
-That is engineering ownership. Memorizing every helper/API is not required.
+For ownership-bearing completion at a selected scope, also preserve an actual meaningful practical attempt with its result, assistance and limitations. Relevant evidence can include selecting and interpreting a discriminating test, causal diagnosis, or a justified modification with appropriate verification. Stronger implementation/transfer claims require corresponding action and changed-context or reduced-assistance evidence; explaining where a test lives or proposing a change alone does not establish implementation ownership.
+
+If this evidence remains unavailable, record the ownership gap explicitly while retaining truthful lesson coverage and any justified continuation. No historical checkmark is automatically promoted or erased. Memorizing every helper/API, owning every advanced internal before product work continues, and a new cross-project capability score are not required.
