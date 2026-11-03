@@ -1,8 +1,8 @@
 # Project route and engineering ownership — bounded review
 
-**Date:** November 3, 2026 (Asia/Tehran).  
-**Operation:** evaluative review and discussion; no product implementation or accepted plan change.  
-**Inspected product revision:** `9c90392601af4d810ad5ae69bfcf101f468f5216`; fetch confirmed local main matches origin/main.  
+**Date:** November 3, 2026 (Asia/Tehran).
+**Operation:** evaluative review and discussion; no product implementation or accepted plan change.
+**Inspected product revision:** `9c90392601af4d810ad5ae69bfcf101f468f5216`; fetch confirmed local main matches origin/main.
 **Provenance:** `UP-SKILL:upgradepilot-repository-audit`; `UP-SKILL:upgradepilot-working-memory`.
 
 ## Responsibility and cycle progression
@@ -56,3 +56,5 @@ Reassess the vehicle/learning allocation if a coherent connected-delivery effort
 ## Boundaries at this review horizon
 
 No accepted plan/specification/ADR, live-position owner, product source/test, frozen evidence, learning branch or Career file changed. Existing source-acquisition D/E and unassessed learner checks are not retrospectively completed. No fresh product tests, providers, credentials, models, target execution or runtime observer were used. Recommendations await discussion; the existing delivery frontier is not silently replaced.
+
+Recording correction: staged whitespace validation flagged three Markdown hard-break suffixes; the shell continued to the initial local documentation commit because failure propagation was absent. Removed the suffixes and made subsequent publication validation fail-fast. No product behavior or assessment changed.
