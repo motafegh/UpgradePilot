@@ -10,9 +10,9 @@ A1 — DONE, COMPRESSED: the immediately preceding receipt/recovery discussion a
 A2 — DONE: Ali predicted separate old-file recovery and a visible proposed download failure. The comparison limit was clarified.
 B — DONE: compose, publish and consume source progress through the caller/signature application stage.
 Verification gate — GREEN: 1,041 product, 194 experiment API, 7 architecture, focused recovery and four installed composition controls pass.
-D — CURRENT: milestone handoff with the actual application flow and write-failure correction.
-E — PENDING: repair or defer remaining ownership gaps and reconcile the handoff.
-C — CONTINUOUS: preserve material decisions, attempts, proof and gaps in this record.
+D — DONE: milestone handoff explained the verified application flow and write-failure correction.
+E — DONE: Ali directed continuation after the handoff. The unanswered download-versus-publication reasoning check remains deferred.
+C — DONE: preserved decisions, attempts, proof and learner evidence.
 ```
 
 ## Orientation and proof boundary
@@ -38,3 +38,5 @@ The publication-fault control first failed because `execute_admission` attempted
 Controlled actual-client proof: the partial case records 21 physical requests, 17 GitHub, and one normal PR prefix. A fresh process recovers three retained files and the unavailable proposed-source receipt after analysis interruption, with no comparison result. The forwarding case makes 23 physical requests and obtains the two `demo/_core.py` definitions through same-inventory closure. The worker records old `bound` and proposed `rejected` for the authored keyword. The installed wheel smoke runs all four composition controls outside the checkout with experiments absent, no package resolution and existing interpreter dependencies reused. Wheel SHA-256 is `a63ad6887e057f81d8d61a00b758210b1cc0d5b2c29a1598351a85f7b469e04c`. The API suite passes 194 controls. Architecture boundary and governance diagnostics pass. These authored controls establish connected behavior and preserve the earlier frozen evidence horizon. Real provider qualification and task usefulness remain later evidence obligations.
 
 The complete checkout product suite passed 1,041 tests in 140.268 seconds using `PYTHONPATH=src:tests .venv/bin/python -m unittest discover -s tests`. The positive application control was strengthened to assert forwarded old/proposed outcomes and the exact worker import origin during verification. The four current composition controls passed in the installed smoke. `PYTHONPATH=src:tests:.` isolated API and architecture discovery passed 194 and 7 tests respectively. Git diff against `55a0eb9c` confirms existing experiments, simulation and retained evidence trees stayed byte-identical. The installed smoke copied the current product tree and project metadata, built with `pip wheel --no-index --no-deps --no-build-isolation`, installed into a temporary target and ran the four composition controls outside the checkout. Installed application/composer origins and child worker origin were checked. The next responsibility after this milestone handoff is explicit profile and report delivery through the ordinary user entry points.
+
+Ali asked to proceed after the verified milestone walkthrough. Close the source-publication cycle and explicitly defer the unanswered ownership check. Carry the confirmed-publication boundary into the [user delivery cycle](2026-11-03_caller-signature-user-delivery_cycle.md).
