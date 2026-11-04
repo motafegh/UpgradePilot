@@ -1,0 +1,34 @@
+{
+  "proof_class": "implementer_exposed_engineering_navigation_not_independent_usefulness",
+  "case": "ordinary-httpx",
+  "original_root_call_id": "d9836907bbb992371752b0ad7846d2b867cede2924b25ed6375c47b005cc7b4d",
+  "target_file": {
+    "repository": "Aidan-Wallace/kubernetes-dashboard-token-api",
+    "revision": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+    "path": "tests/test_routes.py",
+    "span": {
+      "column": 13,
+      "end_column": 28,
+      "end_line": 7,
+      "line": 7
+    }
+  },
+  "question": "Locate this target root, follow all retained native old/proposed witnesses, inspect original call/forwarder/signatures and name unresolved runtime applicability premises.",
+  "same_material": "Use the exact retained case catalog for report, source-only baseline and bounded native paths.",
+  "selection": "Only paired native target root in existing retained HTTPX input. Fixed by identity/roles before navigation; case already exposed in prior qualification, no untouched claim.",
+  "measurements": [
+    "delivery calls",
+    "delivered UTF-8 bytes",
+    "source/page operations",
+    "premises recovered",
+    "manual time unmeasured"
+  ],
+  "criteria": [
+    "all native witnesses for fixed root recovered",
+    "old/proposed role/version and local reception preserved",
+    "exact source location/content recoverable",
+    "source association/runtime/dispatch uncertainty retained",
+    "no invented actual installation/execution/compatibility/action"
+  ],
+  "stop": "Keep query/delivery limits unchanged; preserve any refusal/failure. Do not add a projection solely for large payload size."
+}

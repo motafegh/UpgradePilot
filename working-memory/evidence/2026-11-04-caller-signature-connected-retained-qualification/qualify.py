@@ -21,6 +21,7 @@ from unittest.mock import patch
 
 from controlled_http import RetainedHTTP
 from retained_cases import ROLE, selected_cases
+from semantic_equivalence import native_pairing, compare as compare_semantics
 from upgradepilot.caller_signature.acquisition import AcquisitionPolicy, AcquisitionSession
 from upgradepilot.caller_signature.result_codec import candidate_records
 from upgradepilot.cli import main as product_cli
@@ -70,11 +71,11 @@ def cold_reader():
     return ast.literal_eval(node.value)
 
 
-def execute(case, mode, destination):
+def execute(case, mode, destination, reference=None, *, controlled=False):
     case.verify_originals()
     row = dict(case=case.name, mode=mode, historical_hashes=case.hashes,
                proof_class="retained_input_application_delivery" if mode == "retained" else "controlled_actual_client_catalog_only_http_composition")
-    if case.native_sources() is None:
+    if not controlled and case.native_sources() is None:
         return dict(row, outcome="not_admitted", reason="selected_catalog_missing_historical_acquisition_and_native_prefix",
                     no_receipt_backfill=True)
     destination.mkdir(mode=0o700)
@@ -122,8 +123,15 @@ def execute(case, mode, destination):
                     roots=len({c.root_call_id for c in result.candidates}),
                     unexamined=sum(u.coverage == "unexamined" for u in result.units),
                     outcomes=sorted({c.comparison.outcome for c in result.candidates}))
+                row.update(native_pairing(opened.native.comparison))
                 if mode == "retained":
                     row["equivalence"] = check_equivalence(case, opened.native.comparison)
+                elif reference is not None:
+                    references = json.loads((reference/"results.json").read_bytes())
+                    ref = next(r for r in references if r["case"] == case.name and r["mode"] == "retained")
+                    ref_store = CheckpointStore.open(reference/("retained-"+case.name)/"store", read_only=True)
+                    baseline = open_caller_signature_checkpoint(ref_store, ref["confirmed_revision"])
+                    row["semantic_equivalence"] = compare_semantics(baseline.native, opened.native)
             child = subprocess.run([sys.executable, "-c", cold_reader(), "--open-workspace", str(store_path), "--revision", selected],
                 cwd=destination, env=dict(os.environ, PYTHONPATH=os.pathsep.join(str(Path(p).absolute()) for p in sys.path if p)),
                 capture_output=True, text=True, timeout=60)
@@ -135,7 +143,12 @@ def execute(case, mode, destination):
                 assert report == opened.report
                 row.update(report_bytes=report_path.stat().st_size, report_sha256=sha256(report_path.read_bytes()).hexdigest(),
                            report_original_source_bytes=sum(len(s.content.encode()) for s in report.sources if s.retention=="retained_text"))
-        row["outcome"] = "pass" if code == 0 and row.get("report_retained") else "incomplete_or_failed_delivery"
+        row["delivery_outcome"] = "completed" if code == 0 and row.get("report_retained") else "incomplete_or_failed"
+        row["positive_pair_qualification"] = row["delivery_outcome"] == "completed" and row.get("paired_roots", 0) > 0
+        semantic = row.get("semantic_equivalence", {})
+        row["outcome"] = ("qualified_controlled_delivery" if row["positive_pair_qualification"]
+                          and all(v for k,v in semantic.items() if not k.startswith("ordered_"))
+                          else "insufficient_or_discrepant")
     except Exception as error:
         row.update(outcome="failed", error=type(error).__name__, detail=str(error)[:1600], elapsed_hex=(time.monotonic()-started).hex())
         (destination/"cli.txt").write_text(output.getvalue())
@@ -154,6 +167,7 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--mode", choices=("retained", "http", "both"), default="both")
     parser.add_argument("--case", action="append")
+    parser.add_argument("--reference", type=Path)
     args = parser.parse_args()
     args.output.mkdir(mode=0o700, parents=True, exist_ok=False)
     cases = selected_cases(ROOT)
@@ -162,12 +176,13 @@ def main():
                for p in [*sorted((ROOT/"src/upgradepilot").rglob("*.py")), *sorted(HERE.glob("*.py"))]}
     manifest = dict(proof="offline_only_not_fresh_or_untouched", cases=[dict(name=c.name,hashes=c.hashes) for c in cases],
                     method_sha256=methods, modes=args.mode, policy=asdict(AcquisitionPolicy()),
-                    private_output=str(args.output), provider_premises="Authored catalog-only inventories and provider wrappers. Original source bytes/PR snapshots retained separately.")
+                    private_output=str(args.output), reference=str(args.reference) if args.reference else None,
+                    provider_premises="Authored catalog-only inventories and provider wrappers. Original source bytes/PR snapshots retained separately.")
     (args.output/"manifest.json").write_text(json.dumps(manifest,indent=2)+"\n")
     results=[]
     for case in cases:
         for mode in (("retained", "http") if args.mode=="both" else (args.mode,)):
-            row = execute(case, mode, args.output/(mode+"-"+case.name))
+            row = execute(case, mode, args.output/(mode+"-"+case.name), args.reference)
             results.append(row)
             (args.output/"results.json").write_text(json.dumps(results,indent=2)+"\n")
             print(json.dumps(row),flush=True)
