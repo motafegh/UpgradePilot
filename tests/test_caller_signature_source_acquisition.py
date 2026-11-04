@@ -393,6 +393,107 @@ class NativeModuleReceiptTests(TestCase):
 
 
 class NativeSourceClientCompositionTests(TestCase):
+    def test_normal_profile_reaches_forwarding_after_earlier_unrelated_samples(self):
+        """Two sample chains exercise the ordinary allocation, without case/path selectors.
+
+        The first chain does not reach the changed dependency. The second does,
+        through two adapter hops. A two-candidate default silently loses the
+        supported native pair even though all global/source budgets can admit it.
+        """
+        import base64
+        from contextlib import redirect_stdout
+        from hashlib import sha256
+        from io import BytesIO, StringIO
+        from pathlib import Path
+        from tempfile import TemporaryDirectory
+        from urllib.parse import parse_qs, urlsplit
+        from requests import Response
+        from requests.adapters import BaseAdapter
+        from test_github_client import _identity, _pull_request_payload, _changed_file
+        from upgradepilot.caller_signature.acquisition import AcquisitionSession
+        from upgradepilot.cli import main
+        from upgradepilot.report_file import read_report
+        from unittest.mock import patch
+
+        identity = _identity(repository="owner/target", changed_files=1, head_sha="a"*40, base_sha="b"*40)
+        versions = {("vendor", "1.0"): "c"*40, ("vendor", "2.0"): "d"*40,
+                    ("toolkit", "1.0"): "e"*40, ("relay", "1.0"): "f"*40}
+        contents = {
+            ("owner/target", "a"*40): {"requirements.txt": "vendor==2.0\ntoolkit\n",
+                "app.py": "from toolkit.assets import Resource\nfrom toolkit.client import send\nResource()\nsend(option=1)\n"},
+            ("owner/vendor", "c"*40): {"vendor/api.py": "def send(*, option=None):\n pass\n"},
+            ("owner/vendor", "d"*40): {"vendor/api.py": "def send(*, replacement=None):\n pass\n"},
+            ("owner/toolkit", "e"*40): {"toolkit/assets.py": "from relay.assets import Resource\n",
+                                       "toolkit/client.py": "from relay.client import send\n"},
+            ("owner/relay", "f"*40): {"relay/assets.py": "class Resource:\n pass\n",
+                                     "relay/client.py": "from vendor.api import send\n"},
+        }
+        trees = {key: sha256(repr(key).encode()).hexdigest()[:40] for key in contents}
+        requests = []
+        class Transport(BaseAdapter):
+            def send(self, request, **kwargs):
+                requests.append(request)
+                parsed = urlsplit(request.url)
+                path = parsed.path
+                if path == "/repos/owner/target/pulls/1145":
+                    payload = dict(_pull_request_payload(identity), body="Controlled adapter allocation.")
+                elif path == "/repos/owner/target/pulls/1145/files":
+                    payload = [dict(_changed_file(1, repository=identity.repository, head_sha=identity.head_sha, filename="requirements.txt"), patch="-vendor==1.0\n+vendor==2.0")]
+                elif parsed.hostname == "pypi.org":
+                    bits = path.strip('/').split('/')
+                    package = bits[1]
+                    if len(bits) == 3:
+                        payload = dict(info=dict(name=package), releases={"1.0": []}, last_serial=1)
+                    else:
+                        version = bits[2]
+                        assert (package, version) in versions
+                        requirements = {"toolkit": ["relay"], "relay": ["vendor"]}.get(package, [])
+                        payload = dict(info=dict(name=package, version=version, requires_dist=requirements,
+                            project_urls={"Source": "https://github.com/owner/"+package}), urls=[], last_serial=1)
+                else:
+                    repo = '/'.join(path.split('/')[2:4])
+                    suffix = '/'.join(path.split('/')[4:])
+                    if suffix.startswith('git/ref/tags/'):
+                        tag = suffix.removeprefix('git/ref/tags/')
+                        revision = versions[repo.split('/')[-1], tag.removeprefix('v')]
+                        payload = dict(ref='refs/tags/'+tag, object=dict(type='commit', sha=revision))
+                    elif suffix.startswith('git/commits/'):
+                        revision = suffix.rsplit('/',1)[-1]
+                        payload = dict(sha=revision, tree=dict(sha=trees[repo,revision]))
+                    elif suffix.startswith('git/trees/'):
+                        tree = suffix.rsplit('/',1)[-1]
+                        key = next(key for key,value in trees.items() if key[0]==repo and value==tree)
+                        payload = dict(sha=tree, truncated=False, tree=[dict(path=p,type='blob',mode='100644') for p in sorted(contents[key])])
+                    else:
+                        assert suffix.startswith('contents/')
+                        filename = suffix.removeprefix('contents/')
+                        revision = parse_qs(parsed.query)['ref'][0]
+                        content = contents[repo,revision][filename]
+                        payload = dict(type='file',path=filename,encoding='base64',content=base64.b64encode(content.encode()).decode())
+                response = Response()
+                response.status_code, response.raw = 200, BytesIO(json.dumps(payload).encode())
+                response.request, response.url = request, request.url
+                return response
+            def close(self):
+                pass
+        def controlled_session(**kwargs):
+            session = AcquisitionSession(**kwargs)
+            session.mount('https://', Transport())
+            return session
+        with TemporaryDirectory(prefix='upgradepilot-adapter-allocation-') as tmp:
+            path = Path(tmp)/'report.json'
+            output = StringIO()
+            with patch('upgradepilot.cli.AcquisitionSession', side_effect=controlled_session), patch('socket.socket.connect', side_effect=AssertionError('No live provider')), redirect_stdout(output):
+                code = main([identity.repository,str(identity.number),'--evidence-profile','caller-signature','--save-report',str(path)])
+            self.assertEqual(code,0,(output.getvalue(),[r.url for r in requests]))
+            report = read_report(path)
+        native = [a for a in report.assessments if any(f.name=='role' and f.value in {'old_dependency','proposed_dependency'} for f in a.facts)]
+        self.assertEqual({a.state for a in native},{'bound','rejected'})
+        self.assertEqual(len({f.value for a in native for f in a.facts if f.name=='root_call_id'}),1)
+        self.assertLessEqual(len(requests),100)
+        self.assertLessEqual(sum(urlsplit(r.url).hostname=='api.github.com' for r in requests),50)
+        self.assertEqual(sum('/pulls/1145' in r.url for r in requests),3)
+
     def controlled_transport(self, *, proposed_missing=False, forwarded=False):
         import base64
         from urllib.parse import parse_qs, urlsplit

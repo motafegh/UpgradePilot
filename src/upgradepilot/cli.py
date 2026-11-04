@@ -9,12 +9,22 @@ from __future__ import annotations
 
 import argparse
 import os
+import shlex
 from collections.abc import Sequence
+from pathlib import Path
 
+from .caller_signature.acquisition import AcquisitionPolicy, AcquisitionSession
+from .caller_signature_delivery import (
+    investigate_and_deliver_caller_signature, open_caller_signature_checkpoint,
+    retained_report_presence,
+)
 from .github.api import GitHubAcquisitionError, GitHubResponseError
 from .github.identity import UpgradePilotInputError
 from .investigation import investigate_public_pull_request
-from .report import ReportSourceUnavailable, render_investigation_report, render_report_source
+from .report import (
+    ReportFact, ReportSource, ReportSourceUnavailable, render_investigation_report,
+    render_report_source, render_original_source,
+)
 from .report_file import (
     ReportSaveError,
     ReportValidationError,
@@ -23,6 +33,9 @@ from .report_file import (
 )
 from .report_projection import project_investigation_report
 from .workspace.native_representation import NativeReconstructionError
+from .workspace.checkpoint_revision import CheckpointRevision, CheckpointStorageError
+from .workspace.checkpoint_store import CheckpointStore
+from .workspace.lifecycle_host import InvestigationWorkspaceHost
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -61,22 +74,40 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--show-source", metavar="SOURCE_ID",
-        help="Inspect one retained original text source; requires --open-report.",
+        help="Inspect one retained original text source in an offline report or Workspace.",
     )
+    parser.add_argument("--evidence-profile", choices=("caller-signature",),
+                        help="Select bounded static caller/signature evidence explicitly.")
+    parser.add_argument("--workspace-store", metavar="PATH",
+                        help="Explicit private store outside Git checkouts for caller/signature progress.")
+    parser.add_argument("--open-workspace", metavar="PATH",
+                        help="Open one exact retained Workspace revision offline.")
+    parser.add_argument("--revision", metavar="REVISION_ID", help="Exact revision for --open-workspace.")
     return parser
 
 
 def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
-    if args.show_source is not None and args.open_report is None:
-        parser.error("--show-source requires --open-report")
+    if args.show_source is not None and args.open_report is None and args.open_workspace is None:
+        parser.error("--show-source requires --open-report or --open-workspace")
+    if args.revision is not None and args.open_workspace is None:
+        parser.error("--revision requires --open-workspace")
+    if args.open_workspace is not None:
+        if not args.revision or any(value is not None for value in (
+            args.repository, args.pull_number, args.github_auth, args.save_report,
+            args.open_report, args.evidence_profile, args.workspace_store,
+        )):
+            parser.error("--open-workspace requires --revision and cannot combine with live or report arguments")
+        return _open_workspace(args.open_workspace, args.revision, args.show_source)
     if args.open_report is not None:
         if (
             args.repository is not None
             or args.pull_number is not None
             or args.save_report is not None
             or args.github_auth is not None
+            or args.evidence_profile is not None
+            or args.workspace_store is not None
         ):
             parser.error(
                 "--open-report cannot be combined with investigation, save or authentication arguments"
@@ -98,6 +129,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 0
     if args.repository is None or args.pull_number is None:
         parser.error("repository and pull_number are required for an investigation")
+    if args.workspace_store is not None and args.evidence_profile != "caller-signature":
+        parser.error("--workspace-store requires --evidence-profile caller-signature")
     auth_mode = args.github_auth or "anonymous"
     # Public investigations must not silently adopt an unrelated shell credential.
     token = None
@@ -108,6 +141,8 @@ def main(argv: Sequence[str] | None = None) -> int:
                 "Input rejected: --github-auth token-env requires GITHUB_TOKEN to be set."
             )
             return 2
+    if args.evidence_profile == "caller-signature":
+        return _run_caller_signature(args, token)
     try:
         investigation = investigate_public_pull_request(
             args.repository,
@@ -146,3 +181,114 @@ def main(argv: Sequence[str] | None = None) -> int:
 
 
 __all__ = ("build_parser", "main")
+
+
+def _safe_print(value: str) -> None:
+    print("".join(c for c in value if c in "\n\t" or c.isprintable()))
+
+
+def _print_workspace_handoff(
+    revision: CheckpointRevision | None, *, store_path: Path | None,
+    attempted: CheckpointRevision | None = None, attempt_status: str = "not_attempted",
+    last_acknowledged: CheckpointRevision | None = None,
+) -> None:
+    if attempted is not None:
+        _safe_print(f"Publication attempt: {attempted.revision_id}; exact inspection: {attempt_status}")
+        _safe_print(f"Last acknowledged revision: {last_acknowledged.revision_id if last_acknowledged else 'none'}")
+    if revision is None:
+        print("Workspace: no confirmed revision.")
+        return
+    families = {r.family for r in revision.boundary.records if r.outcome == "recorded"}
+    _safe_print(f"Workspace lineage: {revision.lineage_id}\nConfirmed revision: {revision.revision_id}")
+    print(f"Retained sources: {'caller_signature_sources' in families}; comparison: {'caller_signature_comparison' in families}; report: {retained_report_presence(revision)}")
+    if store_path is None:
+        print("Workspace durability: volatile-only.")
+    else:
+        _safe_print(f"Workspace store: {store_path}")
+        command = shlex.join(("upgradepilot", "--open-workspace", str(store_path), "--revision", revision.revision_id))
+        _safe_print(f"Open confirmed revision: {command}")
+
+
+def _run_caller_signature(args: argparse.Namespace, token: str | None) -> int:
+    store_path = Path(args.workspace_store).absolute() if args.workspace_store else None
+    try:
+        store = (CheckpointStore.open(store_path) if store_path.exists()
+                 else CheckpointStore.create(store_path, schema_version=2)) if store_path else None
+    except CheckpointStorageError as error:
+        print(f"Workspace publication unavailable: {error.reason}")
+        print("Workspace: no confirmed revision.")
+        return 11
+    host = InvestigationWorkspaceHost(store=store)
+    with AcquisitionSession(token=token, policy=AcquisitionPolicy()) as session:
+        outcome = investigate_and_deliver_caller_signature(
+            args.repository, args.pull_number, session=session, host=host,
+        )
+    codes = {"input": 2, "acquisition": 3, "response": 4, "analysis": 10, "report": 8, "publication": 11}
+    priority = {"input": 1, "acquisition": 1, "response": 1, "analysis": 1, "report": 2, "publication": 0}
+    problems = sorted(outcome.problems, key=lambda p: priority[p.stage])
+    exit_code = codes[problems[0].stage] if problems else 0
+    for problem in problems:
+        _safe_print(f"Operation problem: {problem.stage}; {problem.reason}; {problem.detail}")
+    if outcome.report is not None:
+        try:
+            print(render_investigation_report(outcome.report))
+        except Exception as error:
+            print(f"Report rendering failed: {type(error).__name__}")
+            exit_code = exit_code or 8
+        if args.save_report is not None:
+            try:
+                save_report(outcome.report, args.save_report)
+            except ReportSaveError:
+                print("External report file save failed.")
+                exit_code = exit_code or 5
+            else:
+                _safe_print(f"Saved report: {args.save_report}")
+    _print_workspace_handoff(outcome.recoverable_revision, store_path=store_path,
+                             attempted=outcome.attempted_revision, attempt_status=outcome.attempt_status,
+                             last_acknowledged=outcome.last_acknowledged_revision)
+    return exit_code
+
+
+def _open_workspace(path: str, revision_id: str, source_id: str | None) -> int:
+    try:
+        store = CheckpointStore.open(Path(path), read_only=True)
+        opened = open_caller_signature_checkpoint(store, revision_id)
+    except (CheckpointStorageError, NativeReconstructionError, ReportValidationError) as error:
+        print(f"Workspace revision rejected: {getattr(error, 'reason', type(error).__name__)}")
+        return 9
+    revision = opened.selected.revision
+    if opened.report is not None:
+        try:
+            display = render_report_source(opened.report, source_id) if source_id else render_investigation_report(opened.report, saved=True)
+        except ReportSourceUnavailable as error:
+            print(f"Source unavailable: {error}")
+            return 7
+        print(display)
+    else:
+        native = opened.native
+        catalog = native.sources.catalog if native.sources else None
+        if source_id:
+            file = next((f for f in catalog.files if catalog.descriptor(f)["file_id"] == source_id), None) if catalog else None
+            if file is None:
+                print("Source unavailable: unknown retained file identity.")
+                return 7
+            descriptor = catalog.descriptor(file)
+            scope = next(s for s in catalog.scopes if s.source_id == file.source_id)
+            source = ReportSource(source_id, "target_source" if scope.repository == revision.boundary.target.repository else "dependency_source", None,
+                                  tuple(ReportFact(k, k.replace("_", " ").capitalize(), str(descriptor[k]))
+                                        for k in ("repository", "revision", "path", "content_sha256")),
+                                  scope.capture_basis, None, "retained_text", file.content, scope.coverage_limit)
+            print(render_original_source(source, context=(f"Workspace revision: {revision.revision_id}",)))
+        else:
+            print("Selected source checkpoint; retained report/action absent.")
+            target = revision.boundary.target
+            _safe_print(f"Repository: {target.repository}\nPR: {target.pull_number}\nBase: {target.base_sha}\nHead: {target.head_sha}")
+            _safe_print(f"Dependency: {target.normalized_package} {target.old_version} -> {target.proposed_version}")
+            print(f"Acquisition: {native.sources.acquisition.state if native.sources else 'not evaluated'}")
+            print(f"Analysis: {native.comparison.state if native.comparison else 'not evaluated'}")
+            if catalog:
+                for file in catalog.files:
+                    _safe_print(f"Retained file: {catalog.descriptor(file)['file_id']} {file.path}")
+    print(f"Later revisions excluded: {len(opened.selected.excluded_successor_ids)}")
+    _print_workspace_handoff(revision, store_path=Path(path).absolute())
+    return 0

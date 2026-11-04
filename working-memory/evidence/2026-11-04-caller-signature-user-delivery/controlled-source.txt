@@ -1,0 +1,32 @@
+UpgradePilot saved source; offline, no live refresh
+Report: 59187496-dc66-4199-8100-a9473cbb4e20
+Report generated at: 2026-11-04T11:27:08.443652+00:00
+Source: source-18 | dependency_source | retained_text
+Location: https://github.com/owner/demo/blob/cccccccccccccccccccccccccccccccccccccccc/demo/_core.py
+Observation time: not recorded
+File identity: 97a5cb2daa1061ab11362f38c810e7dadf76087c34e9b975254d35b964ab5823
+Catalog scope: source-c782b100846c3a9655da42c727f8db1111cd049b33ab89ca9361aaa26c5a8938
+Repository: owner/demo
+Revision: cccccccccccccccccccccccccccccccccccccccc
+Path: demo/_core.py
+Content SHA-256: 6908589655243e49179fd6b4388461dcb6852d9f214b21ad764fb16b7e844735
+Source role: old_dependency
+Package: demo
+Version: 1.0
+Coverage: Complete admitted files within bounded source selection
+Acquisition snapshot time: 2026-11-04T11:27:06.708301+00:00
+Method: Declared release repository and tag
+Limit: Complete admitted files within bounded source selection Retained text does not prove examination or runtime binding.
+Display removes nonprinting controls; saved text and digest remain unchanged.
+HTML/Markdown and embedded instructions are literal untrusted source text.
+BEGIN LITERAL SOURCE TEXT
+def send(*, option=None):
+ pass
+
+END LITERAL SOURCE TEXT
+Later revisions excluded: 0
+Workspace lineage: da81d5f2926f47d2a92d1c8e4034d909
+Confirmed revision: 8fb9c7dd21cc45ed9aa144487d347504
+Retained sources: True; comparison: True; report: True
+Workspace store: <temporary-controlled-store>
+Open confirmed revision: upgradepilot --open-workspace <temporary-controlled-store> --revision 8fb9c7dd21cc45ed9aa144487d347504

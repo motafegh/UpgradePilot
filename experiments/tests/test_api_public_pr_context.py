@@ -1067,7 +1067,9 @@ class StagedOrdinaryHTTPTests(TestCase):
             f'import bridge.noise{i} as b{i}\nb{i}.Client()\n' for i in range(20))
         legacy, _, _ = PublicPRTests().run_trial(source_explorer=ChainTests().explorer(), python_source=text)
         self.assertTrue(all(a.outcome.reason == 'module_source_limit' for a in legacy.changed_sources))
-        session = TrialPublicSession(policy=TrialAcquisitionPolicy())
+        # This control deliberately leaves eighteen of twenty noisy candidates
+        # unexamined; it does not select the ordinary profile's default allocation.
+        session = TrialPublicSession(policy=TrialAcquisitionPolicy(adapter_candidate_attempts=2))
         explorer = ChainTests().explorer()
         explorer.session = session
         result, _, _ = PublicPRTests().run_trial(source_explorer=explorer, python_source=text, session=session)

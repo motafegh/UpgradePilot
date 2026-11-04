@@ -2,7 +2,7 @@
 
 **Created:** 2026-11-02  
 **Initial evidence horizon:** `7a9bef12fb65ee075dab645a638adf5a3955dc48`  
-**Last synchronized main:** `e109875f6ec7620f033d76f0062bf0b6775902a2` — November 4, 2026; connected source-progress/application proof, plus first confirmed/unacknowledged publication and selected-revision foundations (full CLI delivery still pending).
+**Last synchronized main:** `8d6f3d09b712d0f2274a668b2b4162afa257f6e3` — November 4, 2026; normal caller-signature CLI/report/Workspace delivery qualified, connected retained-case qualification in B, and learning C1 conceptually covered. Product status ≠ learner mastery.
 **Working branch:** `learning/current-caller-signature-mastery-roadmap-2026-11-02`  
 **Purpose:** living study/relearning roadmap for Ali's interactive learning track while UpgradePilot continues to evolve on `main`.  
 **Authority boundary:** this file is a learning artifact, not the live project-position owner. `MEMORY.md`, current source/tests, accepted plans/specifications/ADRs, and dated evidence remain authoritative.
@@ -50,7 +50,7 @@ A module's **MUST OWN** label is a target for its important responsibility, not 
 | Shared acquisition policy and ledger | MUST OWN prefix/retry/byte/time accounting and the difference between account quota and local policy; needed to preserve invocation limits. | HTTP client APIs are OPERATIONAL; library transport internals are LOOKUP unless diagnosing them. This does not require a networking course first. |
 | Target source context | MUST OWN exact target revision, selected/omitted files and candidate-versus-installed-origin meaning; needed to explain acquisition coverage. | TOML/requirements parser details are OPERATIONAL/LOOKUP until a genuine parsing responsibility requires depth. |
 | Exact dependency source and partial receipts | MUST OWN association premises, version/sample distinction, cached failures and live-only versus retained observations; needed for source-progress composition. | Provider-specific helpers are OPERATIONAL/LOOKUP. Understand what a content hash establishes; cryptographic algorithm implementation is LOOKUP. |
-| Ordinary source publication/application/profile/report/recovery | MUST OWN the implemented source-progress/publication contract and later user-facing claim/recovery boundaries. | Connected application source-progress is qualified in controlled tests. Host/store delivery foundations exist; the explicit CLI/report profile is still in Build and remains a later study target. |
+| Ordinary source publication/application/profile/report/recovery | MUST OWN the source/publication, confirmed/attempted revision, report/file delivery and exact cold-opening claims when learned. | Connected source application and ordinary explicit CLI delivery are verified for their controlled and installed scope; F1/F2 remain learning-pending. Live-provider and usefulness gates remain distinct. |
 | Task qualification and later runtime checkpoint | MUST OWN qualification/non-proof and adoption reasoning when that gate is reached. | New runtime observer design remains DEFERRED; recognize existing scoped CI/runtime evidence without speculating a new runner. |
 
 Revisit a depth when a real change/failure needs it, a fair attempt exposes a missing prerequisite, or the responsibility changes. The teacher recommends the depth with its rationale before asking Ali to choose an unfamiliar trade-off. Preserve a gap and its consequence rather than either silently lowering the target or making unrelated internals compulsory.
@@ -87,7 +87,8 @@ When `main` advances:
 - `834aeaa4` — November 3: scoped depth and practical-attempt method; documentation validation, not product qualification or independent learner reassessment.
 - `58bdf1e4` — November 3: source-progress composer and connected application stage qualified. One shared PR prefix/transport ledger; target + old/proposed source receipts and repeated partial Workspace publication **before** analysis; exact published source basis to bounded worker; fresh-process partial recovery. Corrected write-failure handling preserves the original `OSError` and earlier committed progress. Retained verification: 1,041 product / 194 experiment API / 7 architecture and four installed composition controls; not rerun here.
 - `c136d2a0` — November 3: explicit caller-signature CLI/report/source/save/offline-opening delivery cycle opened (not yet implemented).
-- `e109875f` — November 4: user-delivery foundation owns unacknowledged attempted revision in Workspace host and validated store-selected revision resolution with ambiguity/integrity refusal. Cycle records 63 passing host/storage tests. The delivery cycle is **B current**; normal CLI/profile/report integration and proof remain pending. Evidence-grounded AI/LLM/retrieval direction is also scheduled later, not activated.
+- `e109875f` — November 4: storage/acknowledgement foundation, 63 host/store focused checks; CLI integration pending *at that historical horizon*.
+- `8d6f3d09` — November 4: user delivery subsequently verified (explicit profile, CLI/report/source/save/exact offline opening), with 1,063 product, 194 experiment API, 7 architecture and 20 installed controls recorded at its milestone. Connected retained-case qualification is active in B: LifeLog/HTTPX/Digimon retained equivalence and ordinary controlled acquisition examined; HTTPX default adapter allocation 2 vs 4 corrected under unchanged global budgets (latest reported 1,064 product/194 API/7 architecture). Fixed source navigation and final qualification remain pending. No fresh live provider/usefulness claims. These are referenced dated proofs, not rerun by this learning update.
 
 ---
 
@@ -161,7 +162,7 @@ Revisit only if `analysis.py` semantics or result truth model changes.
 
 ## B1 — `correspondence.py` + work admission
 
-**Status:** ✅ Covered interactively (conceptual core); **no independent mastery evidence yet**  
+**Status:** ✅ Covered interactively; guided practice and gap repair completed; **independent mastery not established**  
 **Depth:** MUST OWN its source relationship/admission contracts; detailed exotic traversal only when useful
 
 ### Conceptual core taught
@@ -187,7 +188,7 @@ Revisit only if `analysis.py` semantics or result truth model changes.
 
 We traced Digimon's `requests.get` origin → conditional old/proposed source declaration → local `bound` and forwarded `request(..., **kwargs)` `undetermined`, preserving witness steps and premises. For LifeLog, 28 texts were retained but only 10 Python units analyzed; 17 Python units and one non-Python unit remained outside full Python analysis. We covered whole-file admission, atomic old/proposed groups, two structural work allocations, omission reasons and the distinction between retained/scanned/analyzed/unexamined. **These are taught topics, not an independently assessed engineering result.**
 
-**Next fair practical check:** inspect the authored atomic native-group refusal test in [`tests/test_source_correspondence.py`](../tests/test_source_correspondence.py). Predict its admitted versus unexamined material and what cannot be inferred, before reading the assertions; record assistance and result in the existing learning-continuity owner. Afterwards continue to C1; do not pre-study every factory/`Try`/MRO corner case.
+**Guided B1 check (November 4):** Ali identified a definite proposed-version unexpected keyword and correctly refused to infer runtime failure. He initially could not explain atomic `max_facts=1` refusal, and conflated no comparison with an `undetermined` result. After explanation, he correctly identified both dependency units as `unexamined` for `aggregate_fact_budget` and separated absent evaluation from inconclusive comparison. In a changed conditional-rebinding example, he distinguished possible imported origin, selected old `bound`/proposed `rejected`, and missing runtime proof. This is assisted conversational understanding, not an independent test run or implementation demonstration. Revisit practical ownership when a real change requires it; do not block C1.
 
 ---
 
@@ -195,7 +196,7 @@ We traced Digimon's `requests.get` origin → conditional old/proposed source de
 
 ## C1 — Typed input → bounded worker → run/result
 
-**Status:** 🟡  
+**Status:** ✅ Covered interactively via guided understanding checks; **independent test/debugging ownership not demonstrated**  
 **Depth:** MUST OWN
 
 Anchors: `evidence.py`, `worker.py`, `result_codec.py`.
@@ -212,9 +213,11 @@ Own:
 
 Real anchor: LifeLog completed worker with 17 unexamined Python units.
 
+**Guided C1 checks (November 4):** Ali distinguished `SourceAnalysisInput` exact source/role/limits, `SourceAnalysisRun` execution outcome and `SourceAnalysisResult` coverage; completed worker with unexamined files; timeout as failure rather than successful empty result; and original source durability across later failure. Clarified that confirmed Workspace publication—not callback invocation—establishes durable recovery. He correctly rejected a foreign result with unchanged source text but changed input limits. Parent/child boundary, private exchange, deadline, validation and evidence limits were taught. These were chat-based guided predictions, not an independently run test or code modification.
+
 ## C2 — Fixed reconstruction + evidence-graph integrity
 
-**Status:** 🟡  
+**Status:** 🟡 Started (node validity versus relationship integrity introduced); fixed-reconstruction walkthrough and reasoning check still outstanding  
 **Depth:** MUST OWN
 
 Own:
@@ -355,9 +358,9 @@ Real controlled flow: target `demo` old/proposed acquisition with one shared ses
 
 ---
 
-# PART F — Connected source publication implemented; user delivery currently building
+# PART F — Connected source publication and ordinary CLI delivery verified; retained qualification active
 
-**Product status and lesson status are separate.** The F1 composition is implemented/qualified for its stated controlled scope; learn it as **one** application/source-progress module after D/E. F2 has a verified storage foundation but its normal CLI/profile/report route is still in Build. F3 is later product/task qualification.
+**Product status and lesson status are separate.** F1 source-progress composition and F2 normal explicit CLI/report/Workspace delivery have verified controlled/installed proof. Neither is covered in this learning track yet. F3's retained-case qualification step is active on main; fresh real-provider, independent maintainer usefulness and adoption remain separately gated.
 
 ## F1 — Source catalog + receipt composition, Workspace progress and application stage
 
@@ -391,24 +394,29 @@ Practice at F1: predict the surviving exact material and prohibited paired infer
 
 ## F2 — Explicit CLI profile, durable report/source delivery and exact offline opening
 
-**Implementation:** ACTIVE BUILD at `e109875f`; complete user delivery **pending**  
-**Learning status:** ⬜ Planned once the connected feature is verified  
-**Depth:** MUST OWN confirmed/unknown revision and user-facing evidence claims
+**Implementation:** VERIFIED controlled/installed normal-path delivery, November 4 milestone  
+**Learning status:** ⬜ Planned, now ready for study after F1  
+**Depth:** MUST OWN confirmed/unknown revision, report/action and user-facing evidence claims
 
-Owner: [user-delivery cycle](../working-memory/2026-11-03_caller-signature-user-delivery_cycle.md), [implementation plan](../plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md), normal CLI/report/store owners.
+Owners: [user-delivery cycle](../working-memory/2026-11-03_caller-signature-user-delivery_cycle.md), [implementation plan](../plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md), [delivery source](../src/upgradepilot/caller_signature_delivery.py), [controlled tests](../tests/test_caller_signature_delivery.py).
 
-**Verified foundation now:** host records the exact `unacknowledged_revision` before publication and clears it only after acknowledged success, without treating unacknowledged work as current. Store `read_selected_revision` resolves exact lineage/target from user-selected revision and refuses missing, ambiguous or corrupt material; 63 host/storage tests passed. These foundation controls do **not** prove the new CLI/report path.
+**Implemented:** explicit `--evidence-profile caller-signature`; optional durable `--workspace-store`; report/source projection and `--save-report` with independent file-delivery acknowledgement; `--open-workspace PATH --revision ID` exact offline recovery and schema1 saved-report opening. `unacknowledged_revision` and `read_selected_revision` distinguish confirmed/unknown/missing/ambiguous/corrupt historical revisions. Controlled native root yields two conditional old/proposed witness outcomes and navigable original text. Full product 1,063, experiment API 194, architecture 7 and 20 installed controls passed at the delivery milestone. No new real-provider or human task claim.
 
-**Still pending:** `--evidence-profile caller-signature`, `--workspace-store`, report/source projection, `--save-report` file outcome separate from Workspace acknowledgement, explicit saved-revision opening, controlled CLI and fresh-process recovery/failure gates.
+**Critical ownership question:** Confirmed source revision A survives later report attempt B with lost acknowledgement. B may have been published; exact store inspection resolves that uncertainty, not a retry. A separate `--save-report` failure cannot erase an earlier confirmed Workspace report revision. Cold opening reads retained evidence without new network/AST/analysis/synthesis. Correct failure and unsupported-representation cases must refuse rather than silently fall back.
 
-**Ownership question:** source revision A is confirmed, report B was attempted but acknowledgement lost. A remains confirmed; B's status is unknown until exact store inspection—inspection may establish B as published. Do not silently re-run capability work or assert B absent. Report-file save failure cannot erase an earlier committed Workspace result. Revisit with the connected user-delivery tests when they exist.
+**Still outside this qualification:** broad retained real-case capacity/navigation, actual live provider, independent maintainer usefulness and adoption.
 
 ## F3 — Connected product/task qualification, usefulness and adoption
 
-**Implementation/learning:** ⬜ Future gate after user delivery  
-**Depth:** MUST OWN claim/non-claim and task disposition
+**Product:** 🟡 Retained-case connected qualification active at main `8d6f3d09`; live-provider/task/adoption gates pending  
+**Learning:** ⬜ Not yet taught  
+**Depth:** MUST OWN qualification, proof/non-proof and eventual task/adoption disposition
 
-Separate retained/controlled/installed evidence from separately frozen actual provider invocation, independent maintainer task review and adoption. Passing controlled technical tests does not prove target installed versions, runtime behavior, merge authority, general reliability or usefulness. Retain failures and stop/repair/defer decisions without unapproved cap expansion or new case campaigns.
+Owners: [active qualification cycle](../working-memory/2026-11-04_caller-signature-connected-retained-qualification_cycle.md), [qualified implementation plan](../plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md).
+
+Current qualification exercises exact retained LifeLog/HTTPX/Digimon source/results through the ordinary application/report/store/cold-opening path and separately labelled authored HTTP provider controls. An HTTPX native old/proposed omission revealed a default adapter-attempt allocation mismatch (2 instead of accepted 4); the default was corrected without enlarging overall global budgets. A labelled glyphsLib protocol control is not historical acquisition proof. Remaining immediate product work includes fixed navigation/capacity measurements and final cycle gates. A separate frozen live-provider attempt and independently evaluated maintainer task/adoption remain further stages.
+
+Must distinguish historic retained exact inputs, controlled provider responses, outside-checkout installed proof, newly acquired real-provider observations, runtime applicability, maintainer usefulness and adoption. Successful controlled report delivery cannot prove all of them. No broad campaign or model/runtime experiment is activated by this module.
 
 ---
 
@@ -452,29 +460,20 @@ Owners: [project route](../plans/UPGRADEPILOT_90_DAY_PLAN.md#evidence-grounded-a
 
 ## 4. Current learning order
 
+**Learning-coverage snapshot (November 4):** 19 named modules = **6 covered interactively** (A1–A4, B1, C1), **5 introduced/in progress** (C2, D1–D4), **8 not yet studied** (E1–E3, F1–F3, G1–G2). **13 not yet covered**; among them G1/G2 are intentionally deferred design checkpoints, not immediate prerequisites. Implementation milestones do not automatically upgrade learning marks.
+
 ```text
-DONE  A1–A4 foundational lessons (not independent mastery)
-DONE  B1 correspondence + work admission conceptual lesson
+COVERED INTERACTIVELY:  A1 A2 A3 A4 B1 C1  (6 of 19)
+NOW:                    C2 fixed reconstruction/graph integrity (introduced)
 
-NEXT  Short B1 practical test prediction and diagnosis
-      C1 worker/run/result lifecycle
-      C2 fixed reconstruction/integrity
-      D1 source family
-      D2 comparison family
-      D3 producer/codec version semantics
-      D4 Workspace capture/revision/cold recovery
-      E1 acquisition policy/shared ledger
-      E2 target source context
-      E3 exact dependency source acquisition/partial receipts
-      F1 implemented source-progress/application stage (one learning module)
+NEXT:                   D1 D2 D3 D4 (previously introduced; continue)
+                        E1 E2 E3 acquisition and exact provenance
+                        F1 verified source-progress application
+                        F2 verified user-facing CLI/report/Workspace delivery
+                        F3 ongoing qualification and future usefulness gates
 
-AFTER IMPLEMENTATION:
-      F2 explicit CLI/profile/report/source/save/recovery (Build active)
-      F3 actual connected product/task qualification/usefulness (pending)
-
-LATER AT PLAN CHECKPOINT:
-      G1 combined evidence/runtime applicability
-      G2 evidence-grounded AI/LLM/retrieval design decision
+LATER AT PLAN HANDOFF:  G1 combined evidence/runtime applicability
+                        G2 evidence-grounded AI/LLM/retrieval checkpoint
 ```
 
 ### Flow understanding and ownership evidence

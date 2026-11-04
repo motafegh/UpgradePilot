@@ -644,11 +644,18 @@ def _validate_assessment_state(assessment_id: Any, state: Any, status: str) -> N
         ),
         "tag": set(get_args(GitHubTagCommitProblemState.__value__)),
         "changelog-path": set(get_args(ChangelogPathDiscoveryProblemState.__value__)),
+        "caller-signature-coverage": {"complete", "partial", "failed"},
+        "caller-signature-analysis": {"completed", "failed", "timed_out", "interrupted"},
         "tagged-changelog": set(
             get_args(UpstreamAuthoritySourceProblemState.__value__)
         ),
     }
-    if assessment_id.startswith("ci-workflow-"):
+    if assessment_id.startswith("caller-signature-comparison-"):
+        suffix = assessment_id.removeprefix("caller-signature-comparison-")
+        if not re.fullmatch(r"[0-9a-f]{64}", suffix):
+            raise ReportValidationError("Invalid caller/signature comparison identity.")
+        allowed = {"bound", "rejected", "undetermined"}
+    elif assessment_id.startswith("ci-workflow-"):
         allowed = vocabularies["ci"]
     elif assessment_id.startswith("runtime-command-"):
         allowed = {

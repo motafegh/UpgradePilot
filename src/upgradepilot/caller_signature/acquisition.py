@@ -44,7 +44,8 @@ class AcquisitionPolicy:
     elapsed_seconds: float = 180.0
     source_request_reserve: int = 24
     target_file_attempts: int = 16
-    adapter_candidate_attempts: int = 2
+    # The qualified ordinary profile allocates four candidates within shared limits.
+    adapter_candidate_attempts: int = 4
 
     def __post_init__(self):
         ceilings = (200, 400, 8 * 1024 * 1024, 64 * 1024 * 1024, 300.0, 199, 200, 12)

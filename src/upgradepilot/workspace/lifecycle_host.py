@@ -180,6 +180,11 @@ class InvestigationWorkspaceHost:
             raise WorkspaceHostError("unknown_lifecycle_reference")
         return self._values[identity]
 
+    @property
+    def publication_blocked(self) -> bool:
+        """Publication/reconciliation has stopped further work, including read/head failures."""
+        return self._publication_blocked
+
     def initialize(self, boundary: CapturedNativeBoundary) -> None:
         if self.current is not None:
             raise WorkspaceHostError("host_already_initialized")
