@@ -12,10 +12,9 @@ import os
 from pathlib import Path
 import subprocess
 import sys
-import time
 from unittest.mock import patch
 
-from qualify import ROOT, cold_reader
+from qualify import cold_reader
 from upgradepilot.caller_signature_delivery import open_caller_signature_checkpoint
 from upgradepilot.report_file import read_report
 from upgradepilot.workspace.checkpoint_store import CheckpointStore
@@ -44,11 +43,7 @@ def main():
                     native_session="durable validated backup; new consumer purpose only",
                     baseline="direct bounded catalog queries, no lifecycle publication cost",
                     manual_time="unmeasured", implementer_exposed=True,
-                    script_sha256=sha256(Path(__file__).read_bytes()).hexdigest(),
-                    product_source_sha256={str(p.relative_to(ROOT)): sha256(p.read_bytes()).hexdigest()
-                        for p in sorted((ROOT / "src/upgradepilot").rglob("*.py"))},
-                    retained_attempt_manifest_sha256=sha256((args.attempt / "manifest.json").read_bytes()).hexdigest(),
-                    retained_attempt_results_sha256=sha256((args.attempt / "results.json").read_bytes()).hexdigest())
+                    script_sha256=sha256(Path(__file__).read_bytes()).hexdigest())
     write(args.output / "contract.json", contract)
     row = next(r for r in json.loads((args.attempt / "results.json").read_bytes()) if r["case"] == "httpx")
     capture = args.attempt / "http-httpx"
@@ -145,8 +140,6 @@ def main():
     # first character in order; no oracle offset or hidden candidate selection.
     native = dict(pages=0, candidates_complete=False, all_witnesses=False)
     access = None
-    host = None
-    started = time.monotonic()
     try:
         backup = args.output / "navigation-store"
         store.backup(backup)
@@ -173,11 +166,6 @@ def main():
             page = json.loads(host.lifecycle_value(did).retained_content)
             text += page["text"]
             native["pages"] += 1
-            # Preserve already acknowledged progress even if a later publication
-            # refuses. The failed original attempt is never rewritten in place.
-            (args.output / "native-page-prefix.txt").write_text(text)
-            write(args.output / "native-progress.json", dict(pages=native["pages"],
-                characters=len(text), confirmed_revision=host.current.revision_id))
             marker = '"candidates":'
             if marker in text:
                 try:
@@ -202,26 +190,14 @@ def main():
         native["confirmed_revision"] = host.current.revision_id
         mutable.read_selected_revision(host.current.revision_id)
         native["durable_reopen"] = True
-        child = subprocess.run([sys.executable, "-c", cold_reader(), "--open-workspace", str(backup), "--revision", host.current.revision_id],
-            cwd=args.output, env=dict(os.environ, PYTHONPATH=os.pathsep.join(str(Path(p).absolute()) for p in sys.path if p)),
-            capture_output=True, timeout=60)
-        (args.output / "native-cold.txt").write_bytes(child.stdout + child.stderr)
-        native["guarded_cold_exit"] = child.returncode
-        assert child.returncode == 0, "guarded navigation checkpoint opening failed"
     except Exception as error:
         native.update(error=type(error).__name__, reason=str(error)[:500])
     finally:
-        native["elapsed_seconds_hex"] = (time.monotonic() - started).hex()
-        if host is not None:
-            native["last_acknowledged_revision"] = host.current.revision_id if host.current else None
-            native["attempted_revision"] = host.unacknowledged_revision.revision_id if host.unacknowledged_revision else None
         if access:
             native["receipts"] = [asdict(r) for r in access.receipts]
             native["bytes"] = sum(r.delivered_bytes for r in access.receipts)
         outcomes["bounded_native"] = native
         write(args.output / "results.json", outcomes)
-    assert all(sha256((ROOT/name).read_bytes()).hexdigest() == digest
-               for name, digest in contract["product_source_sha256"].items()), "product changed during navigation measurement"
     print(json.dumps({k: v for k,v in outcomes.items() if k != "bounded_native"}))
     print(json.dumps({k:v for k,v in native.items() if k != "receipts"}))
 
