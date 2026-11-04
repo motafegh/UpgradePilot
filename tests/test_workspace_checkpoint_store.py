@@ -306,6 +306,33 @@ class WorkspaceCheckpointStoreTests(unittest.TestCase):
                 db.execute("SELECT count(*) FROM records").fetchone()[0], 2 * len(self.initial.boundary.records)
             )
 
+    def test_explicit_selection_resolves_identity_and_excludes_later_progress(self):
+        self.store.publish(self.initial)
+        self.store.publish(self._next())
+        selected = self.store.read_selected_revision("initial")
+        self.assertEqual(selected, self._read("initial"))
+        self.assertEqual(selected.excluded_successor_ids, ("second",))
+        self._assert_reason(
+            "missing_checkpoint_revision", lambda: self.store.read_selected_revision("absent")
+        )
+        self.store.publish(replace(self.initial, lineage_id="other"))
+        self._assert_reason(
+            "ambiguous_checkpoint_revision", lambda: self.store.read_selected_revision("initial")
+        )
+
+    def test_explicit_selection_uses_full_storage_integrity_checks(self):
+        self.store.publish(self.initial)
+        with self._database() as db:
+            db.execute("DROP TRIGGER immutable_revisions_update")
+            db.execute("UPDATE revisions SET digest=?", ("0" * 64,))
+            db.execute(
+                "CREATE TRIGGER immutable_revisions_update BEFORE UPDATE ON revisions "
+                "BEGIN SELECT RAISE(ABORT, 'immutable checkpoint material'); END"
+            )
+        self._assert_reason(
+            "invalid_checkpoint_storage", lambda: self.store.read_selected_revision("initial")
+        )
+
     def test_stale_and_root_predecessors_conflict_without_changing_history(self):
         self.store.publish(self.initial)
         self.store.publish(self._next())

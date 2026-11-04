@@ -393,19 +393,14 @@ class NativeModuleReceiptTests(TestCase):
 
 
 class NativeSourceClientCompositionTests(TestCase):
-    def test_actual_clients_share_prefix_target_and_exact_version_acquisition(self):
+    def controlled_transport(self, *, proposed_missing=False, forwarded=False):
         import base64
         from urllib.parse import parse_qs, urlsplit
         from requests import Response
         from requests.adapters import BaseAdapter
         from io import BytesIO
-        from unittest.mock import patch
         from test_github_client import _identity, _pull_request_payload, _changed_file
         from upgradepilot.caller_signature.acquisition import AcquisitionPolicy, AcquisitionSession
-        from upgradepilot.github.pull_request import GitHubPullRequestClient
-        from upgradepilot.github.repository import GitHubRepositoryClient
-        from upgradepilot.investigation_inputs import acquire_dependency_inputs
-        from upgradepilot.target.source_context import TargetSourceAcquirer
 
         head, base = 'a' * 40, 'b' * 40
         identity = _identity(repository='owner/target', changed_files=1, head_sha=head, base_sha=base)
@@ -436,6 +431,8 @@ class NativeSourceClientCompositionTests(TestCase):
                 elif '/git/trees/' in path:
                     tree = path.rsplit('/', 1)[-1]
                     paths = ('app.py', 'requirements.txt') if tree == trees[head] else ('demo/api.py',)
+                    if forwarded and tree != trees[head]:
+                        paths += ('demo/_core.py',)
                     payload = dict(sha=tree, truncated=False,
                         tree=[dict(path=p, type='blob', mode='100644') for p in paths])
                 elif '/contents/' in path:
@@ -447,15 +444,24 @@ class NativeSourceClientCompositionTests(TestCase):
                     elif file_path == 'app.py':
                         content = 'from demo.api import send\nsend(option=1)\n'
                         assert revision == head
+                    elif forwarded and file_path == 'demo/_core.py':
+                        assert revision in {'c' * 40, 'd' * 40}
+                        keyword = 'option' if revision == 'c' * 40 else 'replacement'
+                        content = f'def send(*, {keyword}=None):\n pass\n'
                     else:
                         assert file_path == 'demo/api.py' and revision in {'c' * 40, 'd' * 40}
                         content = 'def send(*, option=None):\n pass\n'
+                        if forwarded:
+                            content = 'from ._core import send\n'
                     payload = dict(type='file', path=file_path, encoding='base64',
                         content=base64.b64encode(content.encode()).decode())
                 else:
                     raise AssertionError('Unexpected hidden request: ' + request.url)
                 response = Response()
-                response.status_code = 200
+                response.status_code = 404 if (
+                    proposed_missing and '/contents/demo/api.py' in path
+                    and parse_qs(parsed.query).get('ref') == ['d' * 40]
+                ) else 200
                 response.raw = BytesIO(json.dumps(payload).encode())
                 response.request, response.url = request, request.url
                 return response
@@ -465,6 +471,17 @@ class NativeSourceClientCompositionTests(TestCase):
 
         session = AcquisitionSession(policy=AcquisitionPolicy(), clock=lambda: 0.0)
         session.mount('https://', Transport())
+        return identity, session, dispatched
+
+    def test_actual_clients_share_prefix_target_and_exact_version_acquisition(self):
+        from unittest.mock import patch
+        from upgradepilot.github.pull_request import GitHubPullRequestClient
+        from upgradepilot.github.repository import GitHubRepositoryClient
+        from upgradepilot.investigation_inputs import acquire_dependency_inputs
+        from upgradepilot.target.source_context import TargetSourceAcquirer
+
+        identity, session, dispatched = self.controlled_transport()
+        base, head = identity.base_sha, identity.head_sha
         with patch('socket.socket.connect', side_effect=AssertionError('No live provider')):
             with session.stage('dependency_inputs'):
                 inputs = acquire_dependency_inputs(identity.repository, identity.number,
@@ -492,3 +509,157 @@ class NativeSourceClientCompositionTests(TestCase):
         self.assertEqual([x.provider_requests for x in transport.requests], list(range(1, 22)))
         self.assertEqual([x.stage for x in transport.requests], ['dependency_inputs'] * 3 + ['target_context'] * 4 + ['source_closure'] * 14)
         self.assertEqual(sum('/pulls/1145' in r.path for r in transport.requests), 3)
+
+    def test_application_publishes_partial_source_progress_before_analysis(self):
+        import subprocess
+        import sys
+        from dataclasses import asdict
+        from tempfile import TemporaryDirectory
+        from pathlib import Path
+        from unittest.mock import patch
+        from upgradepilot.investigation import investigate_caller_signature_progress
+        from upgradepilot.workspace.checkpoint_store import CheckpointStore
+        from upgradepilot.workspace.lifecycle_host import InvestigationWorkspaceHost
+        from upgradepilot.workspace.native_projection import reconstruct_caller_signature_projection
+
+        identity, session, dispatched = self.controlled_transport(proposed_missing=True)
+        with TemporaryDirectory() as tmp:
+            store = CheckpointStore.create(Path(tmp) / 'store', schema_version=2)
+            host = InvestigationWorkspaceHost(store=store, lineage_id='source-progress')
+            source_revisions = []
+
+            def fail_after_source_publication(analysis_input):
+                saved = store.read_revision(
+                    host.lineage_id, host.current.revision_id,
+                    expected_target=analysis_input.catalog.target,
+                ).revision
+                source_revisions.append(saved)
+                projection = reconstruct_caller_signature_projection(
+                    saved.boundary, expected_target=analysis_input.catalog.target,
+                )
+                self.assertEqual(projection.sources.catalog, analysis_input.catalog)
+                self.assertIsNone(projection.comparison)
+                raise RuntimeError('controlled analysis interruption')
+
+            with (patch('socket.socket.connect', side_effect=AssertionError('No live provider')),
+                  patch('upgradepilot.investigation.run_source_analysis', side_effect=fail_after_source_publication)):
+                with self.assertRaisesRegex(RuntimeError, 'controlled analysis interruption'):
+                    investigate_caller_signature_progress(
+                        identity.repository, identity.number, session=session, workspace_host=host,
+                        expected_base=identity.base_sha, expected_head=identity.head_sha,
+                    )
+            self.assertEqual(len(source_revisions), 1)
+            target = source_revisions[0].boundary.target
+            reopened = CheckpointStore.open(store.directory, read_only=True)
+            restored = reopened.read_revision(host.lineage_id, host.current.revision_id, expected_target=target)
+            result = reconstruct_caller_signature_projection(restored.revision.boundary, expected_target=target)
+            self.assertEqual((target.repository, target.pull_number, target.base_sha, target.head_sha),
+                             (identity.repository, identity.number, identity.base_sha, identity.head_sha))
+            self.assertIsNone(result.comparison)
+            self.assertEqual(result.sources.acquisition.state, 'partial')
+            old, proposed = result.sources.acquisition.module_requests
+            self.assertEqual((old.request.version_basis, old.state), ('old_dependency', 'module_examined'))
+            self.assertEqual((proposed.request.version_basis, proposed.state), ('proposed_dependency', 'unavailable'))
+            self.assertEqual((proposed.repository, proposed.revision, proposed.path),
+                             ('owner/demo', 'd' * 40, 'demo/api.py'))
+            self.assertIsNone(proposed.sha256)
+            self.assertIsNone(proposed.utf8_bytes)
+            self.assertEqual({m.role for m in result.sources.modules}, {'target_repository', 'old_dependency'})
+            ledger = result.sources.acquisition.transport
+            self.assertEqual((ledger.github_requests, ledger.provider_requests, len(dispatched)), (17, 21, 21))
+            self.assertEqual(sum('/pulls/1145' in event.path for event in ledger.requests), 3)
+            script = '''
+import json, sys
+from pathlib import Path
+from unittest.mock import patch
+from upgradepilot.workspace.checkpoint_store import CheckpointStore
+from upgradepilot.workspace.native_boundary import ExactInvestigationTarget
+from upgradepilot.workspace.native_projection import reconstruct_caller_signature_projection
+
+target = ExactInvestigationTarget(**json.loads(sys.argv[3]))
+with (patch('socket.socket.connect', side_effect=AssertionError('No provider access')),
+      patch('ast.parse', side_effect=AssertionError('No source parsing')),
+      patch('upgradepilot.caller_signature.worker.run_source_analysis',
+            side_effect=AssertionError('No analysis execution'))):
+    store = CheckpointStore.open(Path(sys.argv[1]), read_only=True)
+    revision = store.read_revision('source-progress', sys.argv[2], expected_target=target).revision
+    result = reconstruct_caller_signature_projection(revision.boundary, expected_target=target)
+    print(json.dumps([len(result.sources.catalog.files), result.sources.acquisition.state,
+                      result.sources.acquisition.module_requests[1].state, result.comparison is None]))
+'''
+            child = subprocess.run(
+                [sys.executable, '-c', script, str(store.directory), host.current.revision_id,
+                 json.dumps(asdict(target))], capture_output=True, text=True, timeout=20,
+            )
+            self.assertEqual(child.returncode, 0, child.stderr)
+            self.assertEqual(json.loads(child.stdout), [3, 'partial', 'unavailable', True])
+
+    def test_failed_source_publication_preserves_earlier_progress_and_stops_work(self):
+        from tempfile import TemporaryDirectory
+        from pathlib import Path
+        from unittest.mock import patch
+        from upgradepilot.investigation import investigate_caller_signature_progress
+        from upgradepilot.workspace.checkpoint_store import CheckpointStore
+        from upgradepilot.workspace.lifecycle_host import InvestigationWorkspaceHost
+        from upgradepilot.workspace.native_projection import reconstruct_caller_signature_projection
+
+        identity, session, dispatched = self.controlled_transport()
+        with TemporaryDirectory() as tmp:
+            store = CheckpointStore.create(Path(tmp) / 'store', schema_version=2)
+            host = InvestigationWorkspaceHost(store=store, lineage_id='source-progress')
+            publish = store.publish
+
+            def fail_library_checkpoint(revision):
+                result = reconstruct_caller_signature_projection(
+                    revision.boundary, expected_target=revision.boundary.target,
+                )
+                if result.sources and result.sources.acquisition.module_requests:
+                    raise OSError('controlled source checkpoint write failure')
+                return publish(revision)
+
+            with (patch('socket.socket.connect', side_effect=AssertionError('No live provider')),
+                  patch('upgradepilot.investigation.run_source_analysis') as worker,
+                  patch.object(store, 'publish', side_effect=fail_library_checkpoint)):
+                with self.assertRaisesRegex(OSError, 'controlled source checkpoint write failure'):
+                    investigate_caller_signature_progress(
+                        identity.repository, identity.number, session=session, workspace_host=host,
+                    )
+            worker.assert_not_called()
+            self.assertFalse(any('/pypi/demo/2.0/json' in request.url for request in dispatched))
+            current = host.current
+            result = reconstruct_caller_signature_projection(
+                store.read_revision(host.lineage_id, current.revision_id,
+                                    expected_target=current.boundary.target).revision.boundary,
+                expected_target=current.boundary.target,
+            )
+            self.assertEqual({file.path for file in result.sources.catalog.files}, {'requirements.txt', 'app.py'})
+            self.assertEqual(result.sources.acquisition.module_requests, ())
+            self.assertIsNone(result.comparison)
+
+    def test_application_analyzes_the_published_exact_version_pair(self):
+        from pathlib import Path
+        from unittest.mock import patch
+        from upgradepilot.caller_signature import worker
+        from upgradepilot.investigation import investigate_caller_signature_progress
+        from upgradepilot.workspace.lifecycle_host import InvestigationWorkspaceHost
+        from upgradepilot.workspace.native_projection import reconstruct_caller_signature_projection
+
+        identity, session, dispatched = self.controlled_transport(forwarded=True)
+        host = InvestigationWorkspaceHost()
+        with patch('socket.socket.connect', side_effect=AssertionError('No live provider')):
+            revision = investigate_caller_signature_progress(
+                identity.repository, identity.number, session=session, workspace_host=host,
+            )
+        result = reconstruct_caller_signature_projection(
+            revision.boundary, expected_target=revision.boundary.target,
+        )
+        self.assertEqual(result.sources.acquisition.state, 'complete')
+        self.assertEqual(result.comparison.state, 'completed', result.comparison.problem_detail)
+        self.assertEqual(Path(result.comparison.worker_module_origin), Path(worker.__file__).resolve())
+        self.assertEqual({(candidate.callee_role.role, candidate.callee_role.path, candidate.comparison.outcome)
+                          for candidate in result.comparison.result.candidates},
+                         {('old_dependency', 'demo/_core.py', 'bound'),
+                          ('proposed_dependency', 'demo/_core.py', 'rejected')})
+        self.assertEqual({m.role for m in result.sources.modules},
+                         {'target_repository', 'old_dependency', 'proposed_dependency'})
+        self.assertEqual(len(dispatched), 23)

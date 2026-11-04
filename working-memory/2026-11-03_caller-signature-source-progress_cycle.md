@@ -1,0 +1,42 @@
+# Caller/signature source progress in Workspace
+
+**Entry:** November 3, 2026, Asia/Tehran, at synchronized main `2efa8044`.
+**Owners:** [implementation plan](../plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md#shared-acquisition-and-source-progress-publication), [Workspace recovery ADR](../docs/architecture/ADR-0013-versioned-native-reconstruction-and-workspace-checkpoint-storage.md), [preceding acquisition cycle](2026-11-02_native-source-acquisition-owners_cycle.md).
+**Procedure:** `UP-SKILL:upgradepilot-build-implement`, `UP-SKILL:upgradepilot-learning-by-doing`, `UP-SKILL:upgradepilot-working-memory`.
+
+```text
+A0 — DONE: reconciled synchronized main, plan, source owners, Workspace seams and focused tests.
+A1 — DONE, COMPRESSED: the immediately preceding receipt/recovery discussion and Ali's continuation supplied the continuity checkpoint.
+A2 — DONE: Ali predicted separate old-file recovery and a visible proposed download failure. The comparison limit was clarified.
+B — DONE: compose, publish and consume source progress through the caller/signature application stage.
+Verification gate — GREEN: 1,041 product, 194 experiment API, 7 architecture, focused recovery and four installed composition controls pass.
+D — DONE: milestone handoff explained the verified application flow and write-failure correction.
+E — DONE: Ali directed continuation after the handoff. The unanswered download-versus-publication reasoning check remains deferred.
+C — DONE: preserved decisions, attempts, proof and learner evidence.
+```
+
+## Orientation and proof boundary
+
+The just-closed cycle demonstrated the difference between an acquisition receipt and the last committed Workspace revision. Ali had a meaningful opportunity to reason about the current implementation and received the correction about unpublished outcomes. With no intervening product delta, compress a duplicate A1 stop under the situational rule. This preserves the pre-B understanding checkpoint for the new composition and does not imply independent recovery diagnosis.
+
+The normal investigation already acquires the exact PR and dependency inputs and initializes Workspace. The product source owners can obtain target and dependency files and emit typed module receipts. `NativeInvestigationCapture.capture_caller_signature_sources` stages the source family, and `InvestigationWorkspaceHost.publish_native_progress` publishes the boundary. The missing link is ordinary product composition that constructs the actual source catalog and receipt from those owners and publishes the progress before invoking analysis. The experimental ordinary composition is a behavior reference. Its trial envelope remains under experiment ownership.
+
+The selected route reuses the acquired prefix and one invocation ledger, binds the repository/PR/base/head and dependency roles, and preserves admitted source material and available partial receipts. A failed association may leave standalone release/publisher observations live-only. A later failure cannot strengthen those observations or make an unread file part of the comparison. Use the plan's purpose/request/admission/attempt and publication boundaries. Track the last confirmed revision on publication failures and preserve any uncertainty about acknowledgement.
+
+**Engineering acceptance.** Controlled actual clients through the application composition must establish exact identity joins, one counted prefix and no hidden calls. The durable path must preserve useful supported partial progress and allow a fresh process to recover the committed source revision after a later analysis failure without invoking producers. Existing receipt and recovery tests are seam evidence. This cycle must verify the connection. CLI delivery and actual product/task qualification belong to their later increments.
+
+**Ownership opportunity.** Ali predicts what the reopened investigation should show when the old dependency source was downloaded but the proposed source read failed, including what that permits the comparison to conclude. Required depth is the receipt/material/publication distinction. Codec internals and HTTP library mechanics are supporting lookup knowledge. Record the prediction and assistance before supplying the complete worked answer.
+
+## Build and verification progression
+
+Ali correctly separated the old source that can reopen from the proposed version's acquisition failure. The missing counterpart means there is no supported paired conclusion for that source question. The assistant supplied that final inference. This guided prediction cleared the pre-build understanding gate for the selected responsibility. Independent diagnosis remains unassessed.
+
+The application stage `investigate_caller_signature_progress` uses `acquire_dependency_inputs` once with an explicit `AcquisitionSession`. It initializes Workspace and uses the existing host to publish purpose, request, admission and attempt intent before source or analysis work. `caller_signature.source_progress` consumes the acquired prefix and transfers the qualified selection pattern into typed native catalog/receipt composition. The transport ledger stays in `caller_signature.acquisition`, so collection and source-access imports do not become transport responsibilities. The composer preserves exact old and proposed roles, bounded sample selection and same-inventory import closure. Earlier returned source is published before later physical work, and the final admitted source boundary precedes analysis. The existing worker consumes that exact saved source basis and the host publishes its observed run. This is the application stage to expose through the planned explicit user profile.
+
+The publication-fault control first failed because `execute_admission` attempted to append an interruption after an in-capability store write had blocked the host. The second publication exception masked the original `OSError`. The bounded host repair propagates the first error when publication is blocked. The control then passed with the earlier target revision readable and the proposed-version provider read and analysis unstarted.
+
+Controlled actual-client proof: the partial case records 21 physical requests, 17 GitHub, and one normal PR prefix. A fresh process recovers three retained files and the unavailable proposed-source receipt after analysis interruption, with no comparison result. The forwarding case makes 23 physical requests and obtains the two `demo/_core.py` definitions through same-inventory closure. The worker records old `bound` and proposed `rejected` for the authored keyword. The installed wheel smoke runs all four composition controls outside the checkout with experiments absent, no package resolution and existing interpreter dependencies reused. Wheel SHA-256 is `a63ad6887e057f81d8d61a00b758210b1cc0d5b2c29a1598351a85f7b469e04c`. The API suite passes 194 controls. Architecture boundary and governance diagnostics pass. These authored controls establish connected behavior and preserve the earlier frozen evidence horizon. Real provider qualification and task usefulness remain later evidence obligations.
+
+The complete checkout product suite passed 1,041 tests in 140.268 seconds using `PYTHONPATH=src:tests .venv/bin/python -m unittest discover -s tests`. The positive application control was strengthened to assert forwarded old/proposed outcomes and the exact worker import origin during verification. The four current composition controls passed in the installed smoke. `PYTHONPATH=src:tests:.` isolated API and architecture discovery passed 194 and 7 tests respectively. Git diff against `55a0eb9c` confirms existing experiments, simulation and retained evidence trees stayed byte-identical. The installed smoke copied the current product tree and project metadata, built with `pip wheel --no-index --no-deps --no-build-isolation`, installed into a temporary target and ran the four composition controls outside the checkout. Installed application/composer origins and child worker origin were checked. The next responsibility after this milestone handoff is explicit profile and report delivery through the ordinary user entry points.
+
+Ali asked to proceed after the verified milestone walkthrough. Close the source-publication cycle and explicitly defer the unanswered ownership check. Carry the confirmed-publication boundary into the [user delivery cycle](2026-11-03_caller-signature-user-delivery_cycle.md).

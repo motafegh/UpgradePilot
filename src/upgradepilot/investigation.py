@@ -11,6 +11,10 @@ from __future__ import annotations
 from collections.abc import Callable
 from dataclasses import dataclass
 
+from .caller_signature.acquisition import AcquisitionSession
+from .caller_signature.source_evidence import CallerSignatureSources
+from .caller_signature.source_progress import collect_source_progress
+from .caller_signature.worker import run_source_analysis
 from .ci.dependency_exercise import (
     DependencyCICoverageResult,
     WorkflowDependencyCoverageInput,
@@ -99,7 +103,9 @@ from .upstream.repository import (
 )
 from .upstream.support_drop import evaluate_support_drop_runtime
 from .workspace.checkpoint_revision import CheckpointRevision
-from .workspace.lifecycle_host import ExecutionAuthority, InvestigationWorkspaceHost
+from .workspace.lifecycle_host import (
+    CapabilityResult, ExecutionAuthority, HostCapability, InvestigationWorkspaceHost,
+)
 from .workspace.lifecycle_records import (
     InvestigationNeed,
     LifecycleMethodIdentity,
@@ -704,3 +710,99 @@ __all__ = (
     "SupportDropEvaluator",
     "investigate_public_pull_request",
 )
+
+
+def investigate_caller_signature_progress(
+    repository: str,
+    pull_number: int,
+    *,
+    session: AcquisitionSession,
+    workspace_host: InvestigationWorkspaceHost,
+    expected_base: str | None = None,
+    expected_head: str | None = None,
+) -> CheckpointRevision:
+    """Run the source and analysis stages on the exact normal PR input prefix."""
+    with session.stage("native_inputs"):
+        inputs = acquire_dependency_inputs(
+            repository, pull_number, GitHubPullRequestClient(session=session),
+            GitHubRepositoryClient(session=session),
+            expected_base=expected_base, expected_head=expected_head,
+        )
+    capture = NativeInvestigationCapture()
+    capture.start(inputs.identity, inputs.changed_files, inputs.dependency,
+                  inputs.source_contexts, description=inputs.description)
+    initial = capture.partial_snapshot()
+    scope = initial.target.head_sha
+
+    def publish_sources(sources):
+        capture.capture_caller_signature_sources(sources)
+        workspace_host.publish_native_progress(capture.partial_snapshot())
+
+    def acquire(_request):
+        sources = collect_source_progress(inputs, session, publish_sources)
+        return CapabilityResult(
+            "problem" if sources.acquisition.state == "failed" else "observed",
+            "Source acquisition disposition: " + sources.acquisition.state, sources,
+        )
+
+    analysis_input = None
+
+    def analyze(_request):
+        if analysis_input is None:
+            raise ValueError("No admitted source analysis input.")
+        run = run_source_analysis(analysis_input)
+        capture.capture_caller_signature_comparison(run)
+        workspace_host.publish_native_progress(capture.partial_snapshot())
+        return CapabilityResult(
+            "observed" if run.state == "completed" else "problem",
+            "Source analysis disposition: " + run.state, run,
+        )
+
+    acquisition = HostCapability(
+        "caller_signature_source_acquisition",
+        LifecycleMethodIdentity("caller_signature.acquisition",
+                                "caller_signature.source_progress.collect_source_progress",
+                                "1", None, "caller-signature-source-acquisition/1", None, ()),
+        frozenset({"repository_read", "registry_read"}), lambda value: value == scope, acquire,
+    )
+    analysis = HostCapability(
+        "caller_signature_source_analysis",
+        LifecycleMethodIdentity("caller_signature.analysis",
+                                "caller_signature.worker.run_source_analysis",
+                                "1", None, "caller-signature-source-analysis/1", None, ()),
+        frozenset({"bounded_static_analysis"}), lambda value: value == scope, analyze,
+    )
+    workspace_host.bind_native_callers(
+        authority=ExecutionAuthority(
+            initial.target, frozenset({acquisition.name, analysis.name}),
+            acquisition.effects | analysis.effects,
+        ),
+        capabilities=(acquisition, analysis),
+        methods=(),
+    )
+    workspace_host.initialize(initial)
+
+    def execute(capability, family, discriminator):
+        current = workspace_host.current
+        assert current is not None
+        boundary = current.boundary
+        record = next(record for record in boundary.records if record.family == family)
+        purpose = workspace_host.add_purpose(
+            InvestigationNeed(capability.name, discriminator, scope),
+            native_record_ids=native_material_closure(boundary, (record.record_id,)),
+        )
+        request = workspace_host.request_capability(purpose, capability.name, scope)
+        admission = workspace_host.admit_request(request)
+        return workspace_host.execute_admission(admission)[1]
+
+    if isinstance(inputs.dependency, DependencyVersionChange):
+        result = execute(acquisition, "investigation_inputs", "Acquire exact retained source material.")
+        sources = result.value
+        assert isinstance(sources, CallerSignatureSources)
+        if sources.acquisition.state != "failed":
+            analysis_input = sources.analysis_input()
+            if analysis_input is not None:
+                execute(analysis, "caller_signature_sources", "Analyze the published source material.")
+    revision = workspace_host.current
+    assert revision is not None
+    return revision

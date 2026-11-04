@@ -2,7 +2,7 @@
 
 **Created:** 2026-11-02  
 **Initial evidence horizon:** `7a9bef12fb65ee075dab645a638adf5a3955dc48`  
-**Last synchronized main:** `834aeaa4` — November 3 method/depth clarification; product source unchanged from `9c903926`.
+**Last synchronized main:** `e109875f6ec7620f033d76f0062bf0b6775902a2` — November 4, 2026; connected source-progress/application proof, plus first confirmed/unacknowledged publication and selected-revision foundations (full CLI delivery still pending).
 **Working branch:** `learning/current-caller-signature-mastery-roadmap-2026-11-02`  
 **Purpose:** living study/relearning roadmap for Ali's interactive learning track while UpgradePilot continues to evolve on `main`.  
 **Authority boundary:** this file is a learning artifact, not the live project-position owner. `MEMORY.md`, current source/tests, accepted plans/specifications/ADRs, and dated evidence remain authoritative.
@@ -50,7 +50,7 @@ A module's **MUST OWN** label is a target for its important responsibility, not 
 | Shared acquisition policy and ledger | MUST OWN prefix/retry/byte/time accounting and the difference between account quota and local policy; needed to preserve invocation limits. | HTTP client APIs are OPERATIONAL; library transport internals are LOOKUP unless diagnosing them. This does not require a networking course first. |
 | Target source context | MUST OWN exact target revision, selected/omitted files and candidate-versus-installed-origin meaning; needed to explain acquisition coverage. | TOML/requirements parser details are OPERATIONAL/LOOKUP until a genuine parsing responsibility requires depth. |
 | Exact dependency source and partial receipts | MUST OWN association premises, version/sample distinction, cached failures and live-only versus retained observations; needed for source-progress composition. | Provider-specific helpers are OPERATIONAL/LOOKUP. Understand what a content hash establishes; cryptographic algorithm implementation is LOOKUP. |
-| Ordinary source publication/application/profile/report/recovery | MUST OWN the selected composition and its evidence/failure claims when implemented; it delivers the actual user workflow. | Forthcoming ordinary-path work is orientation-only before implementation. Report plumbing is initially OPERATIONAL; deepen touched mechanisms. Do not pretend the connected path exists yet. |
+| Ordinary source publication/application/profile/report/recovery | MUST OWN the implemented source-progress/publication contract and later user-facing claim/recovery boundaries. | Connected application source-progress is qualified in controlled tests. Host/store delivery foundations exist; the explicit CLI/report profile is still in Build and remains a later study target. |
 | Task qualification and later runtime checkpoint | MUST OWN qualification/non-proof and adoption reasoning when that gate is reached. | New runtime observer design remains DEFERRED; recognize existing scoped CI/runtime evidence without speculating a new runner. |
 
 Revisit a depth when a real change/failure needs it, a fair attempt exposes a missing prerequisite, or the responsibility changes. The teacher recommends the depth with its rationale before asking Ali to choose an unfamiliar trade-off. Preserve a gap and its consequence rather than either silently lowering the target or making unrelated internals compulsory.
@@ -62,7 +62,7 @@ Select an opportunity when its module and prerequisites are active; these exampl
 - **Correspondence/admission:** use retained LifeLog or Digimon to explain the paired/whole-file boundary, then inspect [the atomic native-group refusal test](../tests/test_source_correspondence.py). Let Ali predict which material remains retained and which work is unexamined under the authored limit before revealing the assertions. Interpret a related limit/case with reduced prompting; one guided answer does not establish broad analyzer ownership.
 - **Acquisition ledger:** trace [the normal-prefix/later-client accounting test](../tests/test_caller_signature_acquisition.py), identify the charged timeout/retry and explain why a later stage does not receive another budget. Let Ali select a discriminating assertion or related-case check before presenting one; this controlled transport is not live provider proof.
 - **Partial source receipts:** trace `examine_with_receipt` and [the failed-file preservation/no-retry test](../tests/test_caller_signature_source_acquisition.py). Distinguish earlier association/metadata/tag premises from unavailable text/hash and from the separate failed-association live-only limit. Ask for a related diagnosis or proposed source/test change; record whether it was only proposed or actually implemented and verified within authorization.
-- **Connected source publication, once implemented:** follow one actual source-progress revision through a later analysis/delivery failure. Let Ali identify the last confirmed boundary and select evidence that could distinguish it from an unacknowledged successor. Derive the exact source/test anchor from that implementation instead of inventing the future path now.
+- **Connected source publication (now implemented, F1):** trace the controlled [`partial-source-before-analysis`](../tests/test_caller_signature_source_acquisition.py) and [`source-publication-failure`](../tests/test_caller_signature_source_acquisition.py) tests; predict what persists when the proposed file is unavailable or the later worker/write fails, then inspect assertions and the retained exact basis. Once F2 is built, use [`test_workspace_checkpoint_store.py`](../tests/test_workspace_checkpoint_store.py) for selected revision / lost acknowledgement distinctions; current store-only tests do not prove the CLI.
 
 ---
 
@@ -84,7 +84,10 @@ When `main` advances:
 
 - `7a9bef12...` — native source/comparison families + checkpoint recovery qualified.
 - `9c903926...` — **9 commits later**: product-owned acquisition policy/shared physical-request ledger, target source-context acquisition, exact dependency source acquisition/association/module receipts qualified. Source-family composition/Workspace source-progress publication and ordinary app/profile/CLI/report delivery remain next. A later combined-evidence/runtime-applicability design checkpoint is scheduled, not implemented.
-- `834aeaa4` — November 3: merged the shared learning-method/depth clarification from main, refined scoped targets/practice and completion criteria here, and preserved prior module coverage. Product source and November 2 qualification horizon are unchanged; this is not a fresh product run or learner reassessment.
+- `834aeaa4` — November 3: scoped depth and practical-attempt method; documentation validation, not product qualification or independent learner reassessment.
+- `58bdf1e4` — November 3: source-progress composer and connected application stage qualified. One shared PR prefix/transport ledger; target + old/proposed source receipts and repeated partial Workspace publication **before** analysis; exact published source basis to bounded worker; fresh-process partial recovery. Corrected write-failure handling preserves the original `OSError` and earlier committed progress. Retained verification: 1,041 product / 194 experiment API / 7 architecture and four installed composition controls; not rerun here.
+- `c136d2a0` — November 3: explicit caller-signature CLI/report/source/save/offline-opening delivery cycle opened (not yet implemented).
+- `e109875f` — November 4: user-delivery foundation owns unacknowledged attempted revision in Workspace host and validated store-selected revision resolution with ambiguity/integrity refusal. Cycle records 63 passing host/storage tests. The delivery cycle is **B current**; normal CLI/profile/report integration and proof remain pending. Evidence-grounded AI/LLM/retrieval direction is also scheduled later, not activated.
 
 ---
 
@@ -154,19 +157,19 @@ Revisit only if `analysis.py` semantics or result truth model changes.
 
 ---
 
-# PART B — NEXT: correspondence and bounded work admission
+# PART B — Correspondence lesson covered; one practical ownership check next
 
 ## B1 — `correspondence.py` + work admission
 
-**Status:** 🟡  
-**Depth:** MUST OWN
+**Status:** ✅ Covered interactively (conceptual core); **no independent mastery evidence yet**  
+**Depth:** MUST OWN its source relationship/admission contracts; detailed exotic traversal only when useful
 
-### Learn
+### Conceptual core taught
 
 - `PythonSourceModule` roles and exact source/module identity;
 - how retained target calls are conditionally related to old/proposed dependency declarations;
 - relationship path steps, root call, selected declaration role, candidate ID and premises;
-- direct imported-call, module/member, initializer/class and supported factory/protocol paths;
+- direct imported-call/module/member paths traced; initializer/class and factory/protocol routes introduced at operational depth, with exact edge mechanics deferred until a real case needs them;
 - what is deliberately not modeled: effective exports, installed namespace, runtime dispatch, full MRO, execution;
 - static import-component discovery and root priority;
 - whole-file admission;
@@ -180,9 +183,11 @@ Revisit only if `analysis.py` semantics or result truth model changes.
 - LifeLog: 28 retained texts, 10 analyzed Python units, 17 unexamined Python units + one non-Python;
 - HTTPX/glyphsLib only where they add a genuinely new path concept.
 
-### Exit condition
+### Lesson coverage versus remaining practice
 
-Explain why a completed bounded analysis can legitimately leave files unexamined without meaning either “analysis failed” or “there is no evidence there.”
+We traced Digimon's `requests.get` origin → conditional old/proposed source declaration → local `bound` and forwarded `request(..., **kwargs)` `undetermined`, preserving witness steps and premises. For LifeLog, 28 texts were retained but only 10 Python units analyzed; 17 Python units and one non-Python unit remained outside full Python analysis. We covered whole-file admission, atomic old/proposed groups, two structural work allocations, omission reasons and the distinction between retained/scanned/analyzed/unexamined. **These are taught topics, not an independently assessed engineering result.**
+
+**Next fair practical check:** inspect the authored atomic native-group refusal test in [`tests/test_source_correspondence.py`](../tests/test_source_correspondence.py). Predict its admitted versus unexamined material and what cannot be inferred, before reading the assertions; record assistance and result in the existing learning-continuity owner. Afterwards continue to C1; do not pre-study every factory/`Try`/MRO corner case.
 
 ---
 
@@ -350,39 +355,60 @@ Real controlled flow: target `demo` old/proposed acquisition with one shared ses
 
 ---
 
-# PART F — Current next product responsibilities (not yet implemented at this sync)
+# PART F — Connected source publication implemented; user delivery currently building
 
-## F1 — Source-family composition + Workspace source-progress publication
+**Product status and lesson status are separate.** The F1 composition is implemented/qualified for its stated controlled scope; learn it as **one** application/source-progress module after D/E. F2 has a verified storage foundation but its normal CLI/profile/report route is still in Build. F3 is later product/task qualification.
 
-**Status:** ⬜  
-**Depth:** MUST OWN when implemented
+## F1 — Source catalog + receipt composition, Workspace progress and application stage
 
-Expected responsibility:
+**Implementation:** VERIFIED controlled connected stage, main `58bdf1e4`  
+**Learning status:** ⬜ Planned  
+**Depth:** MUST OWN material/identity/provenance, publication/failure and recovery boundaries; store plumbing OPERATIONAL
 
-`AcquiredDependencyInputs/common prefix → target source context + dependency source receipts → CallerSignatureSources → partial Workspace publication BEFORE analysis`
+Anchors: [`source_progress.py`](../src/upgradepilot/caller_signature/source_progress.py), [`investigation.py`](../src/upgradepilot/investigation.py) `investigate_caller_signature_progress()`, [focused application tests](../tests/test_caller_signature_source_acquisition.py), [cycle record](../working-memory/2026-11-03_caller-signature-source-progress_cycle.md).
 
-Must preserve the failed-association retention limit unless a compatible representation change is deliberately justified.
+```text
+one acquire_dependency_inputs() prefix + one AcquisitionSession
+ → target and old/proposed source acquisition, partial module receipts
+ → collect_source_progress() + CallerSignatureSources
+ → NativeInvestigationCapture + publish_native_progress() checkpoints
+ → admitted exact sources.analysis_input() for bounded run_source_analysis()
+ → capture/publish source-based comparison or preserve earlier partial state
+ → fresh-process cold revision recovery, no repeat producer work
+```
 
-## F2 — Normal application/profile composition
+Own: physical provider response versus admitted text; receipt versus **confirmed Workspace revision**; earlier successful premises surviving a failed later read; failed association's run-local-only publisher/release observations; an unavailable proposed source disallowing a paired result; last confirmed publication if later worker/store activity fails; precise material-version/method/record edges.
 
-**Status:** ⬜  
-**Depth:** MUST OWN when implemented
+**Controlled proof anchors:**
+- `test_application_publishes_partial_source_progress_before_analysis`: authored 21 physical / 17 GitHub requests with one prefix, three retained files and unavailable proposed receipt recover after interrupted analysis, no fabricated comparison.
+- `test_application_analyzes_the_published_exact_version_pair`: authored 23-request forwarding case yields old `bound` and proposed `rejected` against captured exact source.
+- `test_failed_source_publication_preserves_earlier_progress_and_stops_work`: repaired second publication masking the original `OSError`; earlier confirmed state survives, later work stops.
+- [`test_published_source_and_failed_run_survive_fresh_process_without_producers`](../tests/test_caller_signature_workspace.py): cold opening cannot reacquire or rerun analysis.
 
-Connect the product-owned acquisition/session/source family/worker/comparison path through normal `investigation.py` composition without turning it into a god-function or refetching the PR prefix.
+**Retained verification:** 1,041 product, 194 API, 7 architecture and four installed composition controls passed at the dated milestone. Not newly rerun here. This is controlled composition/installed proof, **not a live-provider run, ordinary CLI report, runtime compatibility, or maintainer usefulness**.
 
-## F3 — CLI/report/source/save/cold-recovery delivery
+Practice at F1: predict the surviving exact material and prohibited paired inference after failed proposed download, then identify the latest confirmed revision after a later worker/write failure. Read assertion/setup/results and name which trust boundary each test protects.
 
-**Status:** ⬜  
-**Depth:** OPERATIONAL→MUST OWN for evidence claims
+## F2 — Explicit CLI profile, durable report/source delivery and exact offline opening
 
-Learn the user-facing route only once implemented: profile selection, report/source navigation, saved investigation reopening, and explicit claim/non-claim boundaries.
+**Implementation:** ACTIVE BUILD at `e109875f`; complete user delivery **pending**  
+**Learning status:** ⬜ Planned once the connected feature is verified  
+**Depth:** MUST OWN confirmed/unknown revision and user-facing evidence claims
 
-## F4 — Actual connected product/task qualification + usefulness/adoption
+Owner: [user-delivery cycle](../working-memory/2026-11-03_caller-signature-user-delivery_cycle.md), [implementation plan](../plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md), normal CLI/report/store owners.
 
-**Status:** ⬜  
-**Depth:** MUST OWN
+**Verified foundation now:** host records the exact `unacknowledged_revision` before publication and clears it only after acknowledged success, without treating unacknowledged work as current. Store `read_selected_revision` resolves exact lineage/target from user-selected revision and refuses missing, ambiguous or corrupt material; 63 host/storage tests passed. These foundation controls do **not** prove the new CLI/report path.
 
-Distinguish controlled/retained/installed component proof from an ordinary connected product attempt and from maintainer usefulness/adoption evidence.
+**Still pending:** `--evidence-profile caller-signature`, `--workspace-store`, report/source projection, `--save-report` file outcome separate from Workspace acknowledgement, explicit saved-revision opening, controlled CLI and fresh-process recovery/failure gates.
+
+**Ownership question:** source revision A is confirmed, report B was attempted but acknowledgement lost. A remains confirmed; B's status is unknown until exact store inspection—inspection may establish B as published. Do not silently re-run capability work or assert B absent. Report-file save failure cannot erase an earlier committed Workspace result. Revisit with the connected user-delivery tests when they exist.
+
+## F3 — Connected product/task qualification, usefulness and adoption
+
+**Implementation/learning:** ⬜ Future gate after user delivery  
+**Depth:** MUST OWN claim/non-claim and task disposition
+
+Separate retained/controlled/installed evidence from separately frozen actual provider invocation, independent maintainer task review and adoption. Passing controlled technical tests does not prove target installed versions, runtime behavior, merge authority, general reliability or usefulness. Retain failures and stop/repair/defer decisions without unapproved cap expansion or new case campaigns.
 
 ---
 
@@ -398,6 +424,12 @@ Current main schedules this checkpoint **after connected product qualification/t
 When reached, learn/design how existing static caller-signature evidence, CI/runtime command-completion state, installed package state, import/dispatch, affected-path exercise and behavior evidence can be combined without strengthening claims beyond exact identity/environment/time/material joins.
 
 Do not pre-study speculative runtime observer design now. Reuse existing CI/static/target-owned evidence first; new runtime observation must be justified by a concrete unresolved proposition.
+
+## G2 — Evidence-grounded AI/retrieval/LLM direction (same later handoff)
+
+**Implementation:** planning only, no new model/RAG/agent execution. **Learning:** ⬜ DEFERRED.
+
+Owners: [project route](../plans/UPGRADEPILOT_90_DAY_PLAN.md#evidence-grounded-ai-design-checkpoint) and [planning record](../working-memory/2026-11-03_evidence-grounded-ai-direction_planning-cycle.md). Linked to the G1 disposition, **not another immediate Build prerequisite**. Earlier Investigator trials were inconclusive/negative. When selected, compare one exact maintainer evidence-interpretation task with a transparent same-material baseline and bounded model; test retrieval only if selection is the observed gap. Track unsupported claims, citations, missing facts, costs/failures/rollback and explicit disposition. Broad RAG infrastructure/tool-use agents/MLOps stay conditional.
 
 ---
 
@@ -421,12 +453,10 @@ Do not pre-study speculative runtime observer design now. Reuse existing CI/stat
 ## 4. Current learning order
 
 ```text
-DONE  A1 mental model
-DONE  A2 product-kernel transfer
-DONE  A3 bindings.py
-DONE  A4 analysis.py extraction + compare_arguments
+DONE  A1–A4 foundational lessons (not independent mastery)
+DONE  B1 correspondence + work admission conceptual lesson
 
-NEXT  B1 correspondence + work admission
+NEXT  Short B1 practical test prediction and diagnosis
       C1 worker/run/result lifecycle
       C2 fixed reconstruction/integrity
       D1 source family
@@ -436,15 +466,15 @@ NEXT  B1 correspondence + work admission
       E1 acquisition policy/shared ledger
       E2 target source context
       E3 exact dependency source acquisition/partial receipts
+      F1 implemented source-progress/application stage (one learning module)
 
-THEN, as main implements them:
-      F1 source-family composition + source-progress publication
-      F2 normal app/profile composition
-      F3 CLI/report/source/save/recovery
-      F4 connected product/task qualification + usefulness
+AFTER IMPLEMENTATION:
+      F2 explicit CLI/profile/report/source/save/recovery (Build active)
+      F3 actual connected product/task qualification/usefulness (pending)
 
-LATER AT PLAN GATE:
+LATER AT PLAN CHECKPOINT:
       G1 combined evidence/runtime applicability
+      G2 evidence-grounded AI/LLM/retrieval design decision
 ```
 
 ### Flow understanding and ownership evidence

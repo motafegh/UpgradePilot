@@ -135,6 +135,7 @@ class InvestigationWorkspaceHost:
         self.store = store
         self.lineage_id = lineage_id or uuid4().hex
         self.current: CheckpointRevision | None = None
+        self.unacknowledged_revision: CheckpointRevision | None = None
         self._bases: dict[str, CapturedNativeBoundary] = {}
         self._values: dict[str, LifecycleValue] = {}
         self._records: dict[str, CapturedLifecycleRecord] = {}
@@ -265,12 +266,16 @@ class InvestigationWorkspaceHost:
         )
         revision.digest()
         if self.store is not None:
+            # Keep the exact staged value for inspection if publication loses its
+            # acknowledgement. ``current`` continues to name confirmed progress.
+            self.unacknowledged_revision = revision
             try:
                 self.store.publish(revision)
             except BaseException:
                 # Even a lost receipt cannot authorize the next external effect.
                 self._publication_blocked = True
                 raise
+            self.unacknowledged_revision = None
         self.current = revision
         self._bases = bases
         self._records = {item.capture.record_id: item.capture for item in decoded}
@@ -500,12 +505,15 @@ class InvestigationWorkspaceHost:
             if not isinstance(result, CapabilityResult):
                 raise WorkspaceHostError("invalid_capability_result")
         except BaseException as error:
-            self._append(
-                ExecutionInterruption(attempt_id, type(error).__name__),
-                original.native_record_ids,
-                method=_capability_identity(capability),
-                basis=self._records[attempt_id].basis_revision_id,
-            )
+            # A capability can publish progress. A failed write leaves the host
+            # blocked, so a second publication would mask the original error.
+            if not self._publication_blocked:
+                self._append(
+                    ExecutionInterruption(attempt_id, type(error).__name__),
+                    original.native_record_ids,
+                    method=_capability_identity(capability),
+                    basis=self._records[attempt_id].basis_revision_id,
+                )
             raise
         observation_id = self.ingest_observation(attempt_id, result)
         return observation_id, result

@@ -43,6 +43,7 @@ from .lifecycle_boundary import (
 from .native_boundary import (
     ExactInvestigationTarget,
     encode_native_boundary,
+    read_exact_investigation_target,
     read_native_boundary,
 )
 from .native_representation import (
@@ -972,6 +973,38 @@ class CheckpointStore:
                 )
         except (NativeReconstructionError, UnicodeError) as error:
             raise _refuse("invalid_checkpoint_storage", str(error)) from error
+
+    def read_selected_revision(self, revision_id: str) -> StoredCheckpoint:
+        """Open one explicit identity, resolving its lineage and target in one snapshot.
+
+        Revision identities are lineage-scoped in storage. An ambiguous identity is
+        refused rather than selecting a lineage or following its latest head. The
+        selected header and full encoded material receive the ordinary read checks.
+        """
+        if type(revision_id) is not str or not revision_id or len(revision_id) > 256:
+            raise _refuse("invalid_revision", "Invalid selected revision identity.")
+        with self._connection() as connection:
+            connection.execute("BEGIN")
+            matches = connection.execute(
+                "SELECT lineage_id FROM revisions WHERE revision_id=? LIMIT 2",
+                (revision_id,),
+            ).fetchall()
+            if not matches:
+                raise _refuse("missing_checkpoint_revision", "No such selected revision.")
+            if len(matches) != 1:
+                raise _refuse("ambiguous_checkpoint_revision", "Identity occurs in multiple lineages.")
+            lineage_id = matches[0][0]
+            history = self._history(connection, lineage_id)
+            header = self._bounded_blob(
+                connection,
+                "SELECT length(target) FROM revisions WHERE lineage_id=? AND revision_id=?",
+                (lineage_id, revision_id),
+            )
+            target = read_exact_investigation_target(header)
+            revision = self._read(connection, lineage_id, revision_id, target)
+            return StoredCheckpoint(
+                revision, history[-1], history[history.index(revision_id) + 1 :]
+            )
 
     def inspect_publication(
         self, revision: CheckpointRevision

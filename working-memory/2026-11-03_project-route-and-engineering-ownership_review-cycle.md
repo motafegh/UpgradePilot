@@ -15,11 +15,11 @@ Ali asks whether the current UpgradePilot route still serves his broader softwar
 A0 — DONE: main c627adb5 and learning branch 666a2cbb reconciled before documentation changes; product code remains 9c903926-compatible.
 A1 — DONE, COMPRESSED: ongoing discussion established route concerns and intended/demonstrated-depth distinctions; no mastery inferred.
 A2 — DONE, COMPRESSED: Ali requested the explained bounded amendments; technical delivery sequence and product gates stay intact.
-B — CURRENT: shared owner/Skill/plan clarification written; existing learning-roadmap follow-through pending.
-Verification gate — SHARED DOCS GREEN: two Skill validators, governance doctor and whitespace check pass; roadmap/source anchors still to validate. No product tests rerun.
-D — PENDING: amendment handoff; no practical learner task performed or assessed by this authoring work.
-E — PENDING: finish roadmap publication and preserve proof/remaining learning gap.
-C — CONTINUOUS: this single dated record preserves the review and its limits.
+B — DONE: shared owner/Skill/plan clarification and existing learning-roadmap amendment published separately.
+Verification gate — GREEN FOR DOCS: two Skill validators, governance doctor in both worktrees, 30 file/heading links and whitespace checks pass; source/test practice anchors inspected. No product tests rerun.
+D — DONE AT AUTHORING SCOPE: amendment handoff explains target versus demonstrated depth and practical participation; no practical learner task performed or assessed.
+E — DONE: documentation responsibility closed; real ownership practice and prior learner gaps explicitly deferred to their learning/Build responsibilities, not marked mastered.
+C — DONE: review, authorization, amendments, validation and handoff preserved in this one record.
 ```
 
 **Living orientation map:** distinguish product behavior from personal capability; a technical core from project-specific implementation detail; connected delivery from component qualification; useful complexity from unproven complexity; a recommendation from an accepted route change. No comprehensive source tour, hiring assessment or advanced-technology curriculum is selected.
@@ -68,3 +68,9 @@ The ensuing discussion identified the correct owners and Ali explicitly requeste
 Shared amendment: Operating Guide section 7.2 distinguishes scoped intended depth, needed-now/later ability, lookup details and re-entry evidence from actual demonstrated ability. New section 7.3.1 makes a fair practical attempt precede the complete worked answer for a selected opportunity, with teaching/support first when needed. Two learning Skills link to this canonical method. Implementation plan section 6 applies it without resequencing product delivery or weakening proof. Build/Artifact Skills, root instructions, Career files and product code need no edits.
 
 Initial validation: Skill Creator's `quick_validate.py` passes for both modified Skills; the governance doctor passes all six registered banks and objective routing/owner checks; `git diff --check` passes. These checks validate structure/links and whitespace, not live teaching effectiveness. Code-bearing anchors were inspected, not executed: source-correspondence atomic group refusal, acquisition prefix accounting and source-read failure tests. The existing roadmap is explicitly living, so its target/practice guidance can evolve while earlier interactive coverage and source horizon remain preserved.
+
+Publication: shared main amendment `834aeaa4` was pushed before roadmap work. A separate worktree at `/tmp/upgradepilot-depth-roadmap-2026-11-03` tracks the existing `learning/current-caller-signature-mastery-roadmap-2026-11-02` branch; a normal merge brought in main's canonical method. Roadmap content commit `4df28d6e` is pushed there. It adds scoped target/reason/timing/supporting-depth distinctions, four available practice opportunities, separate practice/limited-assistance evidence descriptions and a completion criterion that no longer treats source-flow explanation alone as practical ownership. Existing module order and coverage marks are preserved; main does not gain another copy of the roadmap.
+
+Final evidence: both worktrees' governance diagnostics pass, both changed Skills pass the bundled Skill Creator validator, 30 local Markdown file/heading references resolve, and whitespace validation passes. Semantic self-review checked unfamiliar material (teach prerequisites first), Learning-Only (no product mutation), AI-built green tests (no learner promotion), and earlier coverage (preserve historical marks). This is bounded author review, not independent forward-testing or demonstrated teaching effectiveness. No new evaluator/fixture/test suite was created for a prose change.
+
+The sole live-position owner is reconciled with the accepted documentation change and the roadmap link. Source/test/experiment/tool/frozen-capture trees remain unchanged against entry main `c627adb5`; no Career assessment or existing engineering-cycle D/E is closed by these amendments. Real hands-on evidence remains to be earned at the selected responsibility and justified depth. The temporary worktree contains the live learning branch checkout; no user work or prior untracked audit record was removed.
