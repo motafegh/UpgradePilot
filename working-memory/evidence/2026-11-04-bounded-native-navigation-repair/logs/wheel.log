@@ -1,0 +1,9 @@
+Processing /tmp/upgradepilot-navigation-reuse-installed-k_35du2n/source
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: upgradepilot
+  Building wheel for upgradepilot (pyproject.toml): started
+  Building wheel for upgradepilot (pyproject.toml): finished with status 'done'
+  Created wheel for upgradepilot: filename=upgradepilot-0.0.0-py3-none-any.whl size=389974 sha256=62ab15c0decf679d1c32a0c841033ef6324ebc70b3fb1f1e2980b98c85fc2e0f
+  Stored in directory: /tmp/pip-ephem-wheel-cache-ld8_k7fn/wheels/a6/e5/76/18573b3590521ce94893fd11cf11336093d3bc013e53e89194
+Successfully built upgradepilot

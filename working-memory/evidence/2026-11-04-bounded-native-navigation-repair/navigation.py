@@ -44,6 +44,7 @@ def main():
                     native_session="durable validated backup; new consumer purpose only",
                     baseline="direct bounded catalog queries, no lifecycle publication cost",
                     manual_time="unmeasured", implementer_exposed=True,
+                    timing_interpretation="Elapsed and process-CPU counter readings are retained separately. Paused/resumed environment intervals are not observed; do not equate total elapsed with active traversal time.",
                     script_sha256=sha256(Path(__file__).read_bytes()).hexdigest(),
                     product_source_sha256={str(p.relative_to(ROOT)): sha256(p.read_bytes()).hexdigest()
                         for p in sorted((ROOT / "src/upgradepilot").rglob("*.py"))},
@@ -146,6 +147,7 @@ def main():
     native = dict(pages=0, candidates_complete=False, all_witnesses=False)
     access = None
     host = None
+    page_timings = []
     started = time.monotonic()
     try:
         backup = args.output / "navigation-store"
@@ -169,7 +171,9 @@ def main():
         text, cursor = "", 0
         candidates = None
         for _ in range(contract["native_pages"]):
+            page_started, cpu_started = time.monotonic_ns(), time.process_time_ns()
             did = access.native_page(purpose, record.record_id, start_character=cursor)
+            elapsed_ns, cpu_ns = time.monotonic_ns() - page_started, time.process_time_ns() - cpu_started
             page = json.loads(host.lifecycle_value(did).retained_content)
             text += page["text"]
             native["pages"] += 1
@@ -178,6 +182,9 @@ def main():
             (args.output / "native-page-prefix.txt").write_text(text)
             write(args.output / "native-progress.json", dict(pages=native["pages"],
                 characters=len(text), confirmed_revision=host.current.revision_id))
+            page_timings.append(dict(page=native["pages"], elapsed_counter_ns=elapsed_ns,
+                process_cpu_counter_ns=cpu_ns, confirmed_revision=host.current.revision_id))
+            write(args.output / "native-page-timings.json", page_timings)
             marker = '"candidates":'
             if marker in text:
                 try:
@@ -208,6 +215,9 @@ def main():
         (args.output / "native-cold.txt").write_bytes(child.stdout + child.stderr)
         native["guarded_cold_exit"] = child.returncode
         assert child.returncode == 0, "guarded navigation checkpoint opening failed"
+    except KeyboardInterrupt:
+        native.update(error="KeyboardInterrupt", reason="caller_interrupted", outcome="interrupted_incomplete")
+        raise
     except Exception as error:
         native.update(error=type(error).__name__, reason=str(error)[:500])
     finally:

@@ -1,0 +1,13 @@
+F
+======================================================================
+FAIL: test_native_pages_share_unchanged_view_with_distinct_exact_deliveries (test_workspace_consumer_access.PreparationAndConsumerTests.test_native_pages_share_unchanged_view_with_distinct_exact_deliveries)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_consumer_access.py", line 465, in test_native_pages_share_unchanged_view_with_distinct_exact_deliveries
+    self.assertEqual(len({value.view_id for value in values}), 1)
+AssertionError: 8 != 1
+
+----------------------------------------------------------------------
+Ran 1 test in 0.069s
+
+FAILED (failures=1)
