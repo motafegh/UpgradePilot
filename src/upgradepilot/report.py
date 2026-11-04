@@ -214,12 +214,18 @@ def render_report_source(report: InvestigationReport, source_id: str) -> str:
     source = next((s for s in report.sources if s.source_id == source_id), None)
     if source is None:
         raise ReportSourceUnavailable("Unknown report source ID.")
+    return render_original_source(source, context=(
+        f"Report: {report.report_id}", f"Report generated at: {report.generated_at}",
+    ))
+
+
+def render_original_source(source: ReportSource, *, context: tuple[str, ...] = ()) -> str:
+    """Display retained original text with the same inert handling in every offline view."""
     if source.retention != "retained_text" or source.content is None:
         raise ReportSourceUnavailable("This source has no retained original text.")
     lines = [
         "UpgradePilot saved source; offline, no live refresh",
-        f"Report: {report.report_id}",
-        f"Report generated at: {report.generated_at}",
+        *context,
         f"Source: {source.source_id} | {source.kind} | {source.retention}",
         f"Location: {source.locator or 'not recorded'}",
         f"Observation time: {source.retrieved_at or 'not recorded'}",

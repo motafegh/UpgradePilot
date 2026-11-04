@@ -1,7 +1,8 @@
 """Explicit projection of owned investigation facts into the shared report contract.
 
-Read ``project_investigation_report`` for full results or ``project_ci_report`` for
-admitted CI-only inputs, then their shared evidence-family mapping. No dataclass
+Read ``project_investigation_report`` for full results, ``project_ci_report`` for
+admitted CI-only inputs, or ``project_caller_signature_report`` for native source-only
+evidence, then their shared evidence-family mapping. No dataclass
 reflection, domain reparsing, network acquisition or new impact/action inference occurs.
 Each assessment cites its producer result; retained upstream text has its own exact source.
 Absent inputs stay explicit, and an empty candidate horizon never becomes absence of risk.
@@ -10,10 +11,13 @@ Absent inputs stay explicit, and an empty candidate horizon never becomes absenc
 from __future__ import annotations
 
 from datetime import UTC, datetime
+from hashlib import sha256
 from importlib.metadata import PackageNotFoundError, version
 from urllib.parse import quote
 from uuid import uuid4
 
+from .caller_signature.evidence import SourceAnalysisRun, SourceAnalysisResult
+from .caller_signature.source_evidence import CallerSignatureSources
 from .ci.dependency_exercise import DependencyCICoverageResult
 from .ci.dependency_state import (
     RequirementSatisfiedAtCommandCompletion,
@@ -58,8 +62,10 @@ from .upstream.interval import (
 )
 from .upstream.interval_evidence import CrossedReleaseIndexSelectionProblem
 from .upstream.repository import UpstreamRepositoryEvidence
-from .workspace.native_boundary import exact_investigation_target
-from .workspace.native_projection import reconstruct_pull_request_description
+from .workspace.native_boundary import CapturedNativeBoundary, exact_investigation_target
+from .workspace.native_projection import (
+    CallerSignatureNativeProjection, reconstruct_caller_signature_projection, reconstruct_pull_request_description,
+)
 from .workspace.native_representation import NativeReconstructionError
 
 
@@ -1557,3 +1563,234 @@ def _project_semantic_fact(name: str, value: object) -> tuple[ReportFact, ...]:
 def _repository_file_locator(repository: str, revision: str, path: str) -> str:
     """Preserve exact file identity when GitHub paths contain URL-significant characters."""
     return f"https://github.com/{repository}/blob/{revision}/{quote(path, safe='/')}"
+
+
+def project_caller_signature_report(
+    boundary: CapturedNativeBoundary, *, auth_mode: str = "anonymous",
+    now: datetime | None = None,
+) -> InvestigationReport:
+    """Deliver recorded source comparisons with their exact text and unresolved premises.
+
+    Native reconstruction owns source/result integrity. This mapping groups witnesses
+    by their recorded root identities without discovering new paths or comparing
+    arguments. Newly generated action remains owned by the abstention-only synthesis.
+    Recovery decodes the retained report instead of calling this function.
+    """
+    if auth_mode not in {"anonymous", "token-env"}:
+        raise ValueError("unsupported declared authentication mode")
+    produced = now or datetime.now(UTC)
+    if produced.tzinfo is None or produced.utcoffset() is None:
+        raise ValueError("report generation time must be timezone-aware")
+    native = reconstruct_caller_signature_projection(boundary, expected_target=boundary.target)
+    p = _ReportEvidence()
+    inputs = native.inputs
+    description = reconstruct_pull_request_description(boundary, expected_target=boundary.target)
+    pr_source = p.source(
+        "pull_request", locator=f"https://github.com/{inputs.pull_request.repository}/pull/{inputs.pull_request.number}",
+        identity=(
+            _fact("description_state", "Description observation state", description.state),
+            _fact("description_sha256", "Description SHA-256", description.content_sha256),
+            _fact("description_bytes", "Description UTF-8 bytes", description.utf8_bytes),
+        ) if description else (),
+        method="initial exact PR observation",
+        content=description.text if description else None,
+        retrieved_at=description.observed_at.isoformat() if description else None,
+        limitation="PR-authored context is unverified and later edits are not refreshed.",
+    )
+    dependency = inputs.dependency_result
+    supported = isinstance(dependency, DependencyVersionChange)
+    p.assess(
+        "dependency", "Dependency change", "dependency.change",
+        "supported" if supported else "unsupported",
+        "One exact dependency transition was recorded." if supported else dependency.detail,
+        status="available" if supported else "problem",
+        reason="recorded_owner_result" if supported else dependency.reason,
+        strength="recorded_fact" if supported else "unresolved",
+        proposition="The dependency change describes source declarations, not installed state.",
+        source_ids=(pr_source,),
+        facts=tuple(_fact(name, name.replace("_", " ").capitalize(), getattr(dependency, name))
+                    for name in ("package", "normalized_package", "old_version", "proposed_version")) if supported else (),
+    )
+    for identity, topic in (
+        ("ci", "CI dependency coverage"), ("runtime", "Runtime dependency state"),
+        ("package", "Package evidence"), ("old-package", "Old package artifact evidence"),
+        ("upstream-repository", "Upstream repository"), ("upstream-interval", "Upstream interval"),
+        ("support-drop", "Python support drop"), ("artifact-candidate", "Artifact serviceability candidate"),
+        ("artifact-impact", "Artifact applicability"), ("target-python", "Target Python declaration"),
+        ("python-relevance", "Python relevance"),
+    ):
+        p.not_evaluated(identity, topic, "caller-signature profile",
+                        detail=f"The full {topic.lower()} branch was not evaluated by this source-only profile. "
+                        "Source association receipts may retain separate package/repository premises.")
+
+    file_sources, producer_sources = _project_caller_signature_text(p, boundary, native)
+    refs = producer_sources or (pr_source,)
+    _project_caller_signature_coverage(p, native.sources, refs, file_sources)
+    _project_caller_signature_analysis(p, native.comparison, refs, file_sources)
+    synthesis = synthesize_maintainer_action(native)
+    try:
+        product_version = version("upgradepilot")
+    except PackageNotFoundError:
+        product_version = None
+    return InvestigationReport(
+        str(uuid4()), produced.astimezone(UTC).isoformat(), "3", product_version, auth_mode,
+        ("Explicit caller-signature profile uses bounded static source evidence.",
+         "CI/runtime-state, semantic interpretation and applicability were not evaluated by this invocation."),
+        _pull_request_identity(inputs.pull_request), tuple(p.assessments), tuple(p.findings), tuple(p.unknowns),
+        ReportAction(synthesis.action, synthesis.decisive_reasons, synthesis.residual_uncertainty,
+                     synthesis.limitations, synthesis.claim_limits), tuple(p.sources),
+        ("Only admitted original source text is retained. Omitted or unavailable files cannot be opened.",
+         "The native producer sources preserve full receipts, costs, paths, traces, gaps and admission limits.",
+         "Report delivery and original source text do not establish installed behavior or authorize a maintainer action."),
+    )
+
+
+def _project_caller_signature_text(p: _ReportEvidence, boundary: CapturedNativeBoundary,
+                                 native: CallerSignatureNativeProjection) -> tuple[dict[str, str], tuple[str, ...]]:
+    # Exact native receipts/results are producer sources, with original text kept in
+    # separate source entries. This preserves full costs, traces and gap details even
+    # where the human summary is intentionally shorter than the native representation.
+    producer_sources = tuple(
+        p.source("producer_assessment", method=record.producer_method or record.owner,
+                 content=record.payload.decode("utf-8"),
+                 identity=(_fact("family", "Native family", record.family),
+                           _fact("record_id", "Native record", record.record_id)),
+                 limitation="Recorded native producer evidence, including its original limits and gaps.")
+        for record in boundary.records
+        if record.family in {"caller_signature_sources", "caller_signature_comparison"}
+        and record.outcome == "recorded"
+    )
+    sources = native.sources
+    file_sources: dict[str, str] = {}
+    if sources and sources.catalog:
+        catalog = sources.catalog
+        scopes = {scope.source_id: scope for scope in catalog.scopes}
+        modules = {(m.source_id, m.path): m for m in sources.modules}
+        for file in catalog.files:
+            descriptor = catalog.descriptor(file)
+            scope = scopes[file.source_id]
+            module = modules.get((file.source_id, file.path))
+            file_sources[descriptor["file_id"]] = p.source(
+                "target_source" if scope.repository == boundary.target.repository else "dependency_source",
+                locator=_repository_file_locator(scope.repository, scope.revision, file.path),
+                identity=tuple(_fact(name, label, value) for name, label, value in (
+                    ("file_id", "File identity", descriptor["file_id"]),
+                    ("source_id", "Catalog scope", file.source_id),
+                    ("repository", "Repository", scope.repository), ("revision", "Revision", scope.revision),
+                    ("path", "Path", file.path), ("sha256", "Content SHA-256", descriptor["content_sha256"]),
+                    ("role", "Source role", module.role if module else "retained_non_python"),
+                    ("package", "Package", module.package if module else None),
+                    ("version", "Version", module.version if module else None),
+                    ("coverage", "Coverage", scope.coverage_limit),
+                    ("acquisition_snapshot_at", "Acquisition snapshot time",
+                     sources.acquisition.observed_at.isoformat() if sources.acquisition.observed_at else None),
+                )),
+                method=scope.capture_basis, content=file.content,
+                retrieved_at=None,
+                limitation=scope.coverage_limit + " Retained text does not prove examination or runtime binding.",
+            )
+    return file_sources, producer_sources
+
+
+def _project_caller_signature_coverage(p: _ReportEvidence, sources: CallerSignatureSources | None,
+                                     refs: tuple[str, ...], file_sources: dict[str, str]) -> None:
+    if sources is None:
+        p.not_evaluated("caller-signature-coverage", "Caller/signature source coverage", "caller_signature.acquisition")
+    else:
+        receipt = sources.acquisition
+        coverage_facts = [
+            _fact("source_files", "Retained source files", len(file_sources)),
+            _fact("module_receipts", "Module source receipts", len(receipt.module_requests)),
+            _fact("unexamined_modules", "Unexamined acquisition modules", len(receipt.unexamined_modules)),
+            _fact("material_omissions", "Material omissions", len(receipt.material_omissions)),
+        ]
+        if receipt.transport:
+            transport = receipt.transport
+            coverage_facts.extend((
+                _fact("github_requests", "GitHub requests", transport.github_requests),
+                _fact("provider_requests", "All-provider requests", transport.provider_requests),
+                _fact("body_bytes", "Received body bytes", transport.decoded_body_bytes),
+                _fact("elapsed_hex", "Acquisition seconds (exact float)", transport.elapsed.seconds_hex),
+            ))
+        p.assess("caller-signature-coverage", "Caller/signature source coverage", "caller_signature.acquisition",
+                 receipt.state, "Coverage applies only to the admitted retained acquisition horizon.",
+                 status="problem" if receipt.state == "failed" else "available",
+                 proposition="Captured material and acquisition omissions are recorded, not exhaustive repository coverage.",
+                 facts=tuple(coverage_facts), source_ids=refs,
+                 limitations=receipt.retention_gaps + receipt.adapter_limitations,
+                 question="Which omitted or unexamined source could change the candidate horizon?")
+
+
+def _project_caller_signature_analysis(p: _ReportEvidence, run: SourceAnalysisRun | None,
+                                     refs: tuple[str, ...], file_sources: dict[str, str]) -> None:
+    if run is None:
+        p.not_evaluated("caller-signature-analysis", "Caller/signature analysis", "caller_signature.worker")
+    else:
+        result = run.result
+        facts = [_fact("elapsed_hex", "Worker seconds (exact float)", run.elapsed.seconds_hex),
+                 _fact("input_sha256", "Exact analysis input", run.input_sha256)]
+        if result:
+            facts.extend((
+                _fact("distinct_roots", "Distinct target roots", len({c.root_call_id for c in result.candidates})),
+                _fact("witnesses", "Conditional comparison witnesses", len(result.candidates)),
+                _fact("unexamined_units", "Unexamined retained units", sum(u.coverage == "unexamined" for u in result.units)),
+                _fact("gaps", "Discovery gaps", len(result.gaps)),
+                _fact("source_bytes", "Analyzed source bytes", result.work.source_bytes),
+                _fact("states_examined", "Correspondence states examined", result.work.states_examined),
+                _fact("gaps_omitted", "Omitted gap diagnostics", result.work.gaps_omitted),
+            ))
+        p.assess("caller-signature-analysis", "Caller/signature analysis", "caller_signature.worker",
+                 run.state, run.problem_detail or "Recorded bounded source analysis completed with its original coverage.",
+                 reason=run.reason or "recorded_owner_result", status="available" if result else "problem",
+                 proposition="Completion records producer execution, independently of coverage or compatibility.",
+                 facts=tuple(facts), source_ids=refs,
+                 limitations=("Unexamined retained text and no candidates are not absence-of-exposure proof.",),
+                 question="What installed version, import binding and runtime dispatch make these conditional witnesses applicable?")
+        if result:
+            _project_caller_signature_witnesses(p, result, refs, file_sources)
+
+
+def _project_caller_signature_witnesses(p: _ReportEvidence, result: SourceAnalysisResult,
+                                      refs: tuple[str, ...], file_sources: dict[str, str]) -> None:
+    calls = {c.fact_id: c for u in result.units if u.facts for c in u.facts.calls}
+    signatures = {s.fact_id: s for u in result.units if u.facts for s in u.facts.signatures}
+    for candidate in result.candidates:
+        comparison = candidate.comparison
+        root, call, signature = calls[candidate.root_call_id], calls[comparison.call_id], signatures[comparison.signature_id]
+        path_units = tuple(dict.fromkeys((root.unit_id, call.unit_id, signature.unit_id,
+                                          *(step.unit_id for step in candidate.steps))))
+        candidate_refs = tuple(file_sources[uid] for uid in path_units)
+        witness = candidate.callee_role
+        detail = (f"Root {candidate.root_call_id}, witness {candidate.candidate_id}: "
+                  f"{witness.role} {witness.package}=={witness.version} receives {call.expression} "
+                  f"at {signature.qualified_name}: {comparison.outcome}. Conditional source evidence.")
+        candidate_facts = [
+            _fact("root_call_id", "Target root", candidate.root_call_id),
+            _fact("root_location", "Target root source", f"{file_sources[root.unit_id]} L{root.span.line} {root.expression}"),
+            _fact("witness_id", "Witness", candidate.candidate_id),
+            _fact("caller", "Compared call", f"{file_sources[call.unit_id]} L{call.span.line} {call.expression}"),
+            _fact("callee", "Selected signature", f"{file_sources[signature.unit_id]} L{signature.span.line} {signature.qualified_name}"),
+            _fact("role", "Callee role", witness.role), _fact("version", "Callee version", witness.version),
+            _fact("receiver", "Receiver assumption", comparison.receiver_mode),
+            _fact("checks_complete", "Local checks complete", comparison.checks_complete),
+        ]
+        if root.binding:
+            binding = root.binding
+            candidate_facts.extend((
+                _fact("root_binding", "Root binding state", binding.state),
+                _fact("root_origins", "Possible imported origins", ", ".join(binding.possible_imports)),
+                _fact("root_unknown", "Unknown binding possible", binding.unknown_possible),
+                _fact("root_unbound", "Unbound possible", binding.unbound_possible),
+            ))
+        candidate_facts.extend(_fact(f"path_{i}", "Path step",
+            f"{file_sources[step.unit_id]} L{step.span.line}:{step.span.column} "
+            f"{step.operation} {step.expression}") for i, step in enumerate(candidate.steps))
+        candidate_facts.extend(_fact(f"keyword_{i}", "Keyword reception", f"{k.name}: {k.outcome}")
+                               for i, k in enumerate(comparison.keyword_reception))
+        candidate_facts.extend(_fact(f"violation_{i}", "Local violation", f"{v.reason}: {v.parameter}")
+                               for i, v in enumerate(comparison.violations))
+        p.assess("caller-signature-comparison-" + sha256(candidate.candidate_id.encode()).hexdigest(),
+                 "Conditional caller/signature witness", "caller_signature.analysis", comparison.outcome,
+                 detail, proposition="Only the selected source-level argument reception is established under recorded premises.",
+                 facts=tuple(candidate_facts), source_ids=refs + candidate_refs,
+                 limitations=candidate.premises + comparison.remaining_premises + comparison.unresolved_checks)

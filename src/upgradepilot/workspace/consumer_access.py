@@ -16,7 +16,7 @@ from .lifecycle_records import (
     LifecycleMethodIdentity,
     ViewDelivery,
 )
-from .native_projection import reconstruct_ci_projection
+from .native_projection import reconstruct_ci_projection, reconstruct_caller_signature_projection
 from .native_representation import json_bytes, parse_json
 from .source_access import (
     SOURCE_VIEW_REPRESENTATION,
@@ -32,6 +32,8 @@ _INITIAL_FAMILIES = (
     "ci_coverage",
     "runtime_dependency_state",
 )
+_CALLER_SIGNATURE_FAMILIES = ("caller_signature_sources", "caller_signature_comparison")
+_SUPPORTED_FAMILIES = _INITIAL_FAMILIES + _CALLER_SIGNATURE_FAMILIES
 
 
 @dataclass(frozen=True, slots=True)
@@ -82,7 +84,7 @@ class WorkspaceEvidenceAccess:
         )
         if not set(self.source_ids) <= {scope.source_id for scope in catalog.scopes}:
             raise ValueError("Source access scope is outside the frozen catalog.")
-        if not set(native_families) <= set(_INITIAL_FAMILIES) or len(
+        if not set(native_families) <= set(_SUPPORTED_FAMILIES) or len(
             set(native_families)
         ) != len(native_families):
             raise ValueError("Unsupported native offering.")
@@ -204,6 +206,14 @@ class WorkspaceEvidenceAccess:
             )
             raise
 
+    def _validate_native_material(self, families: tuple[str, ...]) -> None:
+        current = self.host.current
+        assert current is not None
+        if set(families) & set(_CALLER_SIGNATURE_FAMILIES):
+            reconstruct_caller_signature_projection(current.boundary, expected_target=current.boundary.target)
+        if set(families) - set(_CALLER_SIGNATURE_FAMILIES):
+            reconstruct_ci_projection(current.boundary, expected_target=current.boundary.target)
+
     def native_view(self, purpose_id: str, families: tuple[str, ...]) -> str:
         try:
             self._guard(purpose_id)
@@ -216,9 +226,7 @@ class WorkspaceEvidenceAccess:
                 raise WorkspaceHostError("native_family_not_offered")
             current = self.host.current
             assert current is not None
-            reconstruct_ci_projection(
-                current.boundary, expected_target=current.boundary.target
-            )
+            self._validate_native_material(families)
             selected = [
                 record
                 for record in current.boundary.records
@@ -348,9 +356,6 @@ class WorkspaceEvidenceAccess:
                 raise WorkspaceHostError("invalid_native_page")
             current = self.host.current
             assert current is not None
-            reconstruct_ci_projection(
-                current.boundary, expected_target=current.boundary.target
-            )
             record = next(
                 (
                     r
@@ -361,6 +366,7 @@ class WorkspaceEvidenceAccess:
             )
             if record is None:
                 raise WorkspaceHostError("native_reference_unavailable")
+            self._validate_native_material((record.family,))
             text = record.payload.decode()
             if start_character >= len(text):
                 raise WorkspaceHostError("native_page_outside_payload")

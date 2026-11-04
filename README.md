@@ -110,7 +110,7 @@ Use the actual source ID listed by the saved report to inspect retained original
 upgradepilot --open-report report.json --show-source source-1
 ```
 
-This offline command displays literal HTML/Markdown with attribution and limitations. It removes nonprinting terminal controls for display while preserving saved text; it follows no links, executes no content and writes no files. The default summary does not dump the description. Saving is opt-in: a run without `--save-report` creates no durable report/source file. Producer-result text and reference-only sources are not retained original text.
+This offline command displays literal HTML/Markdown with attribution and limitations. It removes nonprinting terminal controls for display while preserving saved text; it follows no links, executes no content and writes no files. The default summary does not dump the description. Durability is opt-in through `--save-report` or the explicit Workspace store below. Producer-result text and reference-only sources are not retained original text.
 
 Saving never replaces an existing destination. Reopening validates the file and displays the original report identity, generation time and examined revisions without GitHub/model requests. It cannot be combined with investigation or authentication arguments. Obtain a new investigation to examine later CI or repository changes. Generation time does not substitute for missing source-acquisition times.
 
@@ -128,6 +128,28 @@ The output starts with `UpgradePilot public pull-request evidence`, then reposit
 | `Target Python declaration`, `Target Python relevance` | Declaration evidence and scoped relationship to the support-drop claim; `not activated` is not a successful compatibility check |
 
 An exit code of **0 means an investigation result was printed**, including unsupported or unresolved results. It does not mean the upgrade is safe, all evidence was available, or the maintainer should merge.
+
+### Caller/signature evidence and retained progress
+
+The explicit source-only profile acquires bounded exact target and dependency source material and compares local argument reception. It uses no model. It records CI/runtime-state and applicability as not evaluated by this invocation. Distinct target roots and their alternative comparison witnesses are counted separately. Existing maintainer synthesis supplies explained abstention.
+
+```bash
+upgradepilot owner/repo 123 --evidence-profile caller-signature \
+  --workspace-store "$HOME/upgradepilot-private/example-workspace" \
+  --save-report report.json
+upgradepilot --open-workspace "$HOME/upgradepilot-private/example-workspace" \
+  --revision EXACT_CONFIRMED_REVISION
+upgradepilot --open-workspace "$HOME/upgradepilot-private/example-workspace" \
+  --revision EXACT_CONFIRMED_REVISION --show-source SOURCE_ID
+```
+
+Create the parent directory first if needed. The store itself must be private, owner-only and outside Git checkouts. A new store path is created explicitly; an existing store is opened without migration. Without `--workspace-store`, progress is volatile. `--save-report` delivers a separate external report file and never replaces an existing file.
+
+Completed and failed invocations identify their confirmed revision and print its exact offline opening command. Sources can survive a later analysis or report failure. An unacknowledged publication lists its attempted revision separately and is inspected once. Failed inspection leaves it unknown and preserves the last acknowledged recovery point. No capability is retried. Offline opening requires an exact revision, excludes later progress and cannot be combined with live/authentication arguments. A source-only checkpoint lists retained file identities and its absent report/action. A report-bearing checkpoint opens its exact historical report without synthesis or reanalysis.
+
+The saved format remains schema1 with explicit new caller/signature assessment states. Current readers also open older reports. Older readers may refuse the newly admitted assessment IDs or states. Original source display preserves exact repository/revision/path/hash attribution. Per-file observation times remain unavailable where only the enclosing acquisition snapshot time was recorded.
+
+For this profile, exit0 means requested delivery completed, including an honest partial or unsupported result. Exit9 rejects the selected Workspace revision. Exit10 reports hard analysis failure. Exit11 reports publication failure, conflict or acknowledgement uncertainty. Existing input/acquisition/response/report/source codes2–8 still apply. Publication takes precedence over producer, report and external-save errors. Inspect evidence coverage separately from command success.
 
 ### Diagnose a failed or incomplete run
 

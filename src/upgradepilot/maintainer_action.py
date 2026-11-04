@@ -1,8 +1,8 @@
 """Deterministic maintainer-action synthesis at the currently admitted proof boundary.
 
 The first evaluator deliberately admits only explained abstention.  Mechanism-specific
-technical results remain owned by ``PublicPullRequestInvestigation`` and their domain
-modules; this layer does not reinterpret an applicability result into maintainer policy.
+technical results remain owned by the full investigation or native source projection
+and their domain modules. This layer does not reinterpret a local result into policy.
 Non-abstention actions are added only after their positive permission is proven through
 the normal producer path required by the accepted synthesis specification.
 """
@@ -27,6 +27,7 @@ from .upstream.interval import (
 )
 from .upstream.interval_evidence import CrossedReleaseIndexSelectionProblem
 from .upstream.repository import UpstreamRepositoryProblem
+from .workspace.native_projection import CallerSignatureNativeProjection
 
 type MaintainerAction = Literal["abstain"]
 
@@ -41,7 +42,7 @@ class MaintainerActionSynthesis:
     remains unresolved, the evaluator's admitted limitations, and explicit claim limits.
     """
 
-    source_investigation: PublicPullRequestInvestigation
+    source_investigation: PublicPullRequestInvestigation | CallerSignatureNativeProjection
     action: MaintainerAction
     decisive_reasons: tuple[str, ...]
     residual_uncertainty: tuple[str, ...]
@@ -76,7 +77,7 @@ class MaintainerActionSynthesis:
 
 
 def synthesize_maintainer_action(
-    investigation: PublicPullRequestInvestigation,
+    investigation: PublicPullRequestInvestigation | CallerSignatureNativeProjection,
 ) -> MaintainerActionSynthesis:
     """Return the strongest action admitted by the first deterministic evaluator.
 
@@ -86,14 +87,19 @@ def synthesize_maintainer_action(
     explicitly stating the current evaluator boundary.
     """
 
-    if not isinstance(investigation, PublicPullRequestInvestigation):
-        raise TypeError("investigation must be PublicPullRequestInvestigation")
+    if not isinstance(investigation, (PublicPullRequestInvestigation, CallerSignatureNativeProjection)):
+        raise TypeError("investigation must be an admitted investigation projection")
 
     decisive_reasons: list[str] = []
-    if isinstance(investigation.dependency_result, DependencyChangeProblem):
+    dependency = (
+        investigation.inputs.dependency_result
+        if isinstance(investigation, CallerSignatureNativeProjection)
+        else investigation.dependency_result
+    )
+    if isinstance(dependency, DependencyChangeProblem):
         decisive_reasons.append(
             "The investigation did not establish one supported dependency transition: "
-            f"{investigation.dependency_result.reason}."
+            f"{dependency.reason}."
         )
 
     decisive_reasons.append(
@@ -122,8 +128,16 @@ def synthesize_maintainer_action(
 
 
 def _material_residual_uncertainty(
-    investigation: PublicPullRequestInvestigation,
+    investigation: PublicPullRequestInvestigation | CallerSignatureNativeProjection,
 ) -> tuple[str, ...]:
+    if isinstance(investigation, CallerSignatureNativeProjection):
+        # A source-only projection is an admitted input to the existing abstention
+        # boundary. It supplies no permission to activate unperformed branches.
+        return (
+            "Source comparison is conditional on captured source roles and binding premises.",
+            "Installed dependency versions, actual dispatch and behavioral compatibility remain unresolved.",
+            "CI/runtime-state, upstream interpretation and applicability were not evaluated by this profile.",
+        )
     uncertainty: list[str] = []
 
     dependency = investigation.dependency_result

@@ -1,0 +1,62 @@
+{
+  "date": "2026-11-04",
+  "timezone": "Asia/Tehran",
+  "integration_base": "e109875f",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "proof_class": "controlled product integration and installed cold recovery",
+  "checks": {
+    "product": {
+      "tests": 1063,
+      "seconds": "197.887",
+      "result": "PASS"
+    },
+    "experiment_api": {
+      "tests": 194,
+      "seconds": "16.188",
+      "result": "PASS"
+    },
+    "architecture": {
+      "tests": 7,
+      "seconds": "1.182",
+      "result": "PASS"
+    },
+    "installed_delivery": {
+      "tests": 20,
+      "seconds": "56.526",
+      "result": "PASS"
+    }
+  },
+  "wheel_sha256": "e56dd4fc051a114e2347693e5d4f8ddbb375cdb7fc49a964e7faf868e656dda7",
+  "boundary_diagnostic": {
+    "ok": true,
+    "errors": [],
+    "artifacts": 128,
+    "python_modules": 119,
+    "internal_import_edges": 252,
+    "legacy_private_symbols": 31,
+    "product_python_files": 112
+  },
+  "governance": "PASS",
+  "frozen_experiments_and_product_simulation": "No changes against c136d2a0.",
+  "source_sha256": {
+    "src/upgradepilot/caller_signature_delivery.py": "4f66824c699bbe7be188b87e5f4df5f90701c10df7edae3cc2d38e4443879a80",
+    "src/upgradepilot/cli.py": "22f454ebfa41a6a265ae28036f2d39be5eba89978df47a83cd3fd9b5325c5f22",
+    "src/upgradepilot/maintainer_action.py": "bb30f17da6f7393867f38f4917b453c0b1c800861ffd9a6287fa92024e2e0610",
+    "src/upgradepilot/report.py": "8a6328d343cb459a8ef861051189c2e53633fd702d3055ec67e6a40895340989",
+    "src/upgradepilot/report_file.py": "6f87b0ae669009e8b71fb6b006e412967769ca6dfd8e8ce443e8a3f0c776e8c2",
+    "src/upgradepilot/report_projection.py": "f69d442aeb087a337b795616f6ddc95ace5b01b91c89efbf3bbac03a8ec36654",
+    "src/upgradepilot/workspace/consumer_access.py": "81ebc9611204865e2fe600f96fe6f02a11ace47e6f9a8882ffe7fb5cc1daea88",
+    "src/upgradepilot/workspace/lifecycle_host.py": "6fa0ab0877f6373d61998165840ae7ed4c78e7ea3a60aacdb7aad864f49d993b",
+    "src/upgradepilot/workspace/checkpoint_store.py": "ca07d6cd4e2d6174a8f8f6392dbe96c25faf29713e2ed33650b67f7d57580739",
+    "src/upgradepilot/workspace/native_boundary.py": "6db4b118e145cd7a26c99f22b67d20d654c54e6313f6331f994a766ce298dee1",
+    "tests/test_caller_signature_delivery.py": "4f559011aa1a147d7bf1d657d4e728bf4410215f5a69bef199e55710c3e4b59e",
+    "tests/test_workspace_checkpoint_store.py": "08830ea5fd436c922ce33c2934b302f95ffdfb301d8113c4e3d46c4a6ddaa223",
+    "tests/test_workspace_host_integration.py": "c3aebacc5d198fd6e06eff6c28ec8eee51684c0f4732991efa5dc6f1f2bbc523"
+  },
+  "guard_horizon": "Final product source passed the full suite. Discovery/checker/synthesis negative guard controls were strengthened after that suite began and passed all20 installed controls using the same product wheel and final test driver.",
+  "limits": [
+    "Authored HTTP responses; no live provider, token, model or target execution.",
+    "Installed product and child worker, existing environment dependencies reused.",
+    "Retained real-case qualification, full-size/navigation pressure and independent usefulness remain unproved."
+  ]
+}

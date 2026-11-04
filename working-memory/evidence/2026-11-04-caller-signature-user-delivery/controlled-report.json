@@ -1,0 +1,2060 @@
+{
+  "schema": "upgradepilot.investigation-report",
+  "schema_version": 1,
+  "report": {
+    "report_id": "59187496-dc66-4199-8100-a9473cbb4e20",
+    "generated_at": "2026-11-04T11:27:08.443652+00:00",
+    "generator_version": "3",
+    "product_version": "0.0.0",
+    "auth_mode": "anonymous",
+    "production_limits": [
+      "Explicit caller-signature profile uses bounded static source evidence.",
+      "CI/runtime-state, semantic interpretation and applicability were not evaluated by this invocation."
+    ],
+    "identity": [
+      {
+        "name": "repository",
+        "label": "Repository",
+        "value": "owner/target"
+      },
+      {
+        "name": "pull_number",
+        "label": "PR",
+        "value": "1145"
+      },
+      {
+        "name": "title",
+        "label": "Title",
+        "value": "Bump pytest from 9.0.2 to 9.0.3"
+      },
+      {
+        "name": "author",
+        "label": "Author",
+        "value": "dependabot[bot]"
+      },
+      {
+        "name": "state",
+        "label": "State",
+        "value": "closed"
+      },
+      {
+        "name": "merged",
+        "label": "Merged",
+        "value": "true"
+      },
+      {
+        "name": "base_ref",
+        "label": "Base ref",
+        "value": "main"
+      },
+      {
+        "name": "base_sha",
+        "label": "Base",
+        "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      {
+        "name": "head_ref",
+        "label": "Head ref",
+        "value": "dependabot/pip/pytest-9.0.3"
+      },
+      {
+        "name": "head_sha",
+        "label": "Head",
+        "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    ],
+    "assessments": [
+      {
+        "assessment_id": "dependency",
+        "topic": "Dependency change",
+        "owner": "dependency.change",
+        "state": "supported",
+        "status": "available",
+        "reason": "recorded_owner_result",
+        "detail": "One exact dependency transition was recorded.",
+        "proposition": "The dependency change describes source declarations, not installed state.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-2",
+          "source-1"
+        ],
+        "facts": [
+          {
+            "name": "package",
+            "label": "Package",
+            "value": "demo"
+          },
+          {
+            "name": "normalized_package",
+            "label": "Normalized package",
+            "value": "demo"
+          },
+          {
+            "name": "old_version",
+            "label": "Old version",
+            "value": "1.0"
+          },
+          {
+            "name": "proposed_version",
+            "label": "Proposed version",
+            "value": "2.0"
+          }
+        ],
+        "limitations": []
+      },
+      {
+        "assessment_id": "ci",
+        "topic": "CI dependency coverage",
+        "owner": "caller-signature profile",
+        "state": "not evaluated",
+        "status": "not_evaluated",
+        "reason": "not_evaluated",
+        "detail": "The full ci dependency coverage branch was not evaluated by this source-only profile. Source association receipts may retain separate package/repository premises.",
+        "proposition": "No positive or negative conclusion was established.",
+        "strength": "unresolved",
+        "source_ids": [
+          "source-3"
+        ],
+        "facts": [],
+        "limitations": []
+      },
+      {
+        "assessment_id": "runtime",
+        "topic": "Runtime dependency state",
+        "owner": "caller-signature profile",
+        "state": "not evaluated",
+        "status": "not_evaluated",
+        "reason": "not_evaluated",
+        "detail": "The full runtime dependency state branch was not evaluated by this source-only profile. Source association receipts may retain separate package/repository premises.",
+        "proposition": "No positive or negative conclusion was established.",
+        "strength": "unresolved",
+        "source_ids": [
+          "source-4"
+        ],
+        "facts": [],
+        "limitations": []
+      },
+      {
+        "assessment_id": "package",
+        "topic": "Package evidence",
+        "owner": "caller-signature profile",
+        "state": "not evaluated",
+        "status": "not_evaluated",
+        "reason": "not_evaluated",
+        "detail": "The full package evidence branch was not evaluated by this source-only profile. Source association receipts may retain separate package/repository premises.",
+        "proposition": "No positive or negative conclusion was established.",
+        "strength": "unresolved",
+        "source_ids": [
+          "source-5"
+        ],
+        "facts": [],
+        "limitations": []
+      },
+      {
+        "assessment_id": "old-package",
+        "topic": "Old package artifact evidence",
+        "owner": "caller-signature profile",
+        "state": "not evaluated",
+        "status": "not_evaluated",
+        "reason": "not_evaluated",
+        "detail": "The full old package artifact evidence branch was not evaluated by this source-only profile. Source association receipts may retain separate package/repository premises.",
+        "proposition": "No positive or negative conclusion was established.",
+        "strength": "unresolved",
+        "source_ids": [
+          "source-6"
+        ],
+        "facts": [],
+        "limitations": []
+      },
+      {
+        "assessment_id": "upstream-repository",
+        "topic": "Upstream repository",
+        "owner": "caller-signature profile",
+        "state": "not evaluated",
+        "status": "not_evaluated",
+        "reason": "not_evaluated",
+        "detail": "The full upstream repository branch was not evaluated by this source-only profile. Source association receipts may retain separate package/repository premises.",
+        "proposition": "No positive or negative conclusion was established.",
+        "strength": "unresolved",
+        "source_ids": [
+          "source-7"
+        ],
+        "facts": [],
+        "limitations": []
+      },
+      {
+        "assessment_id": "upstream-interval",
+        "topic": "Upstream interval",
+        "owner": "caller-signature profile",
+        "state": "not evaluated",
+        "status": "not_evaluated",
+        "reason": "not_evaluated",
+        "detail": "The full upstream interval branch was not evaluated by this source-only profile. Source association receipts may retain separate package/repository premises.",
+        "proposition": "No positive or negative conclusion was established.",
+        "strength": "unresolved",
+        "source_ids": [
+          "source-8"
+        ],
+        "facts": [],
+        "limitations": []
+      },
+      {
+        "assessment_id": "support-drop",
+        "topic": "Python support drop",
+        "owner": "caller-signature profile",
+        "state": "not evaluated",
+        "status": "not_evaluated",
+        "reason": "not_evaluated",
+        "detail": "The full python support drop branch was not evaluated by this source-only profile. Source association receipts may retain separate package/repository premises.",
+        "proposition": "No positive or negative conclusion was established.",
+        "strength": "unresolved",
+        "source_ids": [
+          "source-9"
+        ],
+        "facts": [],
+        "limitations": []
+      },
+      {
+        "assessment_id": "artifact-candidate",
+        "topic": "Artifact serviceability candidate",
+        "owner": "caller-signature profile",
+        "state": "not evaluated",
+        "status": "not_evaluated",
+        "reason": "not_evaluated",
+        "detail": "The full artifact serviceability candidate branch was not evaluated by this source-only profile. Source association receipts may retain separate package/repository premises.",
+        "proposition": "No positive or negative conclusion was established.",
+        "strength": "unresolved",
+        "source_ids": [
+          "source-10"
+        ],
+        "facts": [],
+        "limitations": []
+      },
+      {
+        "assessment_id": "artifact-impact",
+        "topic": "Artifact applicability",
+        "owner": "caller-signature profile",
+        "state": "not evaluated",
+        "status": "not_evaluated",
+        "reason": "not_evaluated",
+        "detail": "The full artifact applicability branch was not evaluated by this source-only profile. Source association receipts may retain separate package/repository premises.",
+        "proposition": "No positive or negative conclusion was established.",
+        "strength": "unresolved",
+        "source_ids": [
+          "source-11"
+        ],
+        "facts": [],
+        "limitations": []
+      },
+      {
+        "assessment_id": "target-python",
+        "topic": "Target Python declaration",
+        "owner": "caller-signature profile",
+        "state": "not evaluated",
+        "status": "not_evaluated",
+        "reason": "not_evaluated",
+        "detail": "The full target python declaration branch was not evaluated by this source-only profile. Source association receipts may retain separate package/repository premises.",
+        "proposition": "No positive or negative conclusion was established.",
+        "strength": "unresolved",
+        "source_ids": [
+          "source-12"
+        ],
+        "facts": [],
+        "limitations": []
+      },
+      {
+        "assessment_id": "python-relevance",
+        "topic": "Python relevance",
+        "owner": "caller-signature profile",
+        "state": "not evaluated",
+        "status": "not_evaluated",
+        "reason": "not_evaluated",
+        "detail": "The full python relevance branch was not evaluated by this source-only profile. Source association receipts may retain separate package/repository premises.",
+        "proposition": "No positive or negative conclusion was established.",
+        "strength": "unresolved",
+        "source_ids": [
+          "source-13"
+        ],
+        "facts": [],
+        "limitations": []
+      },
+      {
+        "assessment_id": "caller-signature-coverage",
+        "topic": "Caller/signature source coverage",
+        "owner": "caller_signature.acquisition",
+        "state": "complete",
+        "status": "available",
+        "reason": "recorded_owner_result",
+        "detail": "Coverage applies only to the admitted retained acquisition horizon.",
+        "proposition": "Captured material and acquisition omissions are recorded, not exhaustive repository coverage.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-22",
+          "source-14",
+          "source-15"
+        ],
+        "facts": [
+          {
+            "name": "source_files",
+            "label": "Retained source files",
+            "value": "6"
+          },
+          {
+            "name": "module_receipts",
+            "label": "Module source receipts",
+            "value": "4"
+          },
+          {
+            "name": "unexamined_modules",
+            "label": "Unexamined acquisition modules",
+            "value": "0"
+          },
+          {
+            "name": "material_omissions",
+            "label": "Material omissions",
+            "value": "0"
+          },
+          {
+            "name": "github_requests",
+            "label": "GitHub requests",
+            "value": "19"
+          },
+          {
+            "name": "provider_requests",
+            "label": "All-provider requests",
+            "value": "23"
+          },
+          {
+            "name": "body_bytes",
+            "label": "Received body bytes",
+            "value": "3668"
+          },
+          {
+            "name": "elapsed_hex",
+            "label": "Acquisition seconds (exact float)",
+            "value": "0x0.0p+0"
+          }
+        ],
+        "limitations": [
+          "exploration_samples_not_resolved_target_versions",
+          "declared_constraints_and_markers_not_evaluated_activation",
+          "namespace_mapping_not_established",
+          "samples_do_not_exhaust_version_ranges",
+          "relative_module_forwarding_not_traversed"
+        ]
+      },
+      {
+        "assessment_id": "caller-signature-analysis",
+        "topic": "Caller/signature analysis",
+        "owner": "caller_signature.worker",
+        "state": "completed",
+        "status": "available",
+        "reason": "recorded_owner_result",
+        "detail": "Recorded bounded source analysis completed with its original coverage.",
+        "proposition": "Completion records producer execution, independently of coverage or compatibility.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-23",
+          "source-14",
+          "source-15"
+        ],
+        "facts": [
+          {
+            "name": "elapsed_hex",
+            "label": "Worker seconds (exact float)",
+            "value": "0x1.e34a868bf4000p-4"
+          },
+          {
+            "name": "input_sha256",
+            "label": "Exact analysis input",
+            "value": "e1bfc44a4eb67b6ec310f2422a6ad2fd4e8409a4917a4d301472138d9ef3004a"
+          },
+          {
+            "name": "distinct_roots",
+            "label": "Distinct target roots",
+            "value": "1"
+          },
+          {
+            "name": "witnesses",
+            "label": "Conditional comparison witnesses",
+            "value": "2"
+          },
+          {
+            "name": "unexamined_units",
+            "label": "Unexamined retained units",
+            "value": "0"
+          },
+          {
+            "name": "gaps",
+            "label": "Discovery gaps",
+            "value": "0"
+          },
+          {
+            "name": "source_bytes",
+            "label": "Analyzed source bytes",
+            "value": "168"
+          },
+          {
+            "name": "states_examined",
+            "label": "Correspondence states examined",
+            "value": "3"
+          },
+          {
+            "name": "gaps_omitted",
+            "label": "Omitted gap diagnostics",
+            "value": "0"
+          }
+        ],
+        "limitations": [
+          "Unexamined retained text and no candidates are not absence-of-exposure proof."
+        ]
+      },
+      {
+        "assessment_id": "caller-signature-comparison-62afe2e01078f30e8b0c14d5a5a0b87f4b668da6810e5744965287552ab2ccb0",
+        "topic": "Conditional caller/signature witness",
+        "owner": "caller_signature.analysis",
+        "state": "bound",
+        "status": "available",
+        "reason": "recorded_owner_result",
+        "detail": "Root 633431224d4bab5d3a84ad3595fce7132e6616917599dad6daa998a7b0c9df57, witness 0205f720b54fe6daf19f4d6c10a3e153e7f60e3bdc2bb81c647454f323af2e00: old_dependency demo==1.0 receives send at send: bound. Conditional source evidence.",
+        "proposition": "Only the selected source-level argument reception is established under recorded premises.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-24",
+          "source-14",
+          "source-15",
+          "source-16",
+          "source-18",
+          "source-19"
+        ],
+        "facts": [
+          {
+            "name": "root_call_id",
+            "label": "Target root",
+            "value": "633431224d4bab5d3a84ad3595fce7132e6616917599dad6daa998a7b0c9df57"
+          },
+          {
+            "name": "root_location",
+            "label": "Target root source",
+            "value": "source-16 L2 send"
+          },
+          {
+            "name": "witness_id",
+            "label": "Witness",
+            "value": "0205f720b54fe6daf19f4d6c10a3e153e7f60e3bdc2bb81c647454f323af2e00"
+          },
+          {
+            "name": "caller",
+            "label": "Compared call",
+            "value": "source-16 L2 send"
+          },
+          {
+            "name": "callee",
+            "label": "Selected signature",
+            "value": "source-18 L1 send"
+          },
+          {
+            "name": "role",
+            "label": "Callee role",
+            "value": "old_dependency"
+          },
+          {
+            "name": "version",
+            "label": "Callee version",
+            "value": "1.0"
+          },
+          {
+            "name": "receiver",
+            "label": "Receiver assumption",
+            "value": "as_written"
+          },
+          {
+            "name": "checks_complete",
+            "label": "Local checks complete",
+            "value": "True"
+          },
+          {
+            "name": "root_binding",
+            "label": "Root binding state",
+            "value": "established"
+          },
+          {
+            "name": "root_origins",
+            "label": "Possible imported origins",
+            "value": "demo.api.send"
+          },
+          {
+            "name": "root_unknown",
+            "label": "Unknown binding possible",
+            "value": "False"
+          },
+          {
+            "name": "root_unbound",
+            "label": "Unbound possible",
+            "value": "False"
+          },
+          {
+            "name": "path_0",
+            "label": "Path step",
+            "value": "source-16 L2:0 call send(option=1)"
+          },
+          {
+            "name": "path_1",
+            "label": "Path step",
+            "value": "source-16 L1:0 import_origin from demo.api import send"
+          },
+          {
+            "name": "path_2",
+            "label": "Path step",
+            "value": "source-19 L1:0 reexport from ._core import send"
+          },
+          {
+            "name": "path_3",
+            "label": "Path step",
+            "value": "source-18 L1:0 declaration def send(*, option=None):\n pass"
+          },
+          {
+            "name": "keyword_0",
+            "label": "Keyword reception",
+            "value": "option: named_parameter"
+          }
+        ],
+        "limitations": [
+          "effective_export_binding_not_established",
+          "installed_namespace_and_dispatch_not_established",
+          "reexport_binding_and_branch_activation_not_established",
+          "call_reaches_selected_declared_signature",
+          "target_installed_versions_and_runtime_not_established"
+        ]
+      },
+      {
+        "assessment_id": "caller-signature-comparison-61b7264db7f2d58fa3761c6c399fcaeecc2e3aa668d62bce936812d3b2e5a42a",
+        "topic": "Conditional caller/signature witness",
+        "owner": "caller_signature.analysis",
+        "state": "rejected",
+        "status": "available",
+        "reason": "recorded_owner_result",
+        "detail": "Root 633431224d4bab5d3a84ad3595fce7132e6616917599dad6daa998a7b0c9df57, witness 9435234c057971cf3828437a3865a33529a6bb8298fdffac8ad9f5bc54eb6405: proposed_dependency demo==2.0 receives send at send: rejected. Conditional source evidence.",
+        "proposition": "Only the selected source-level argument reception is established under recorded premises.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-25",
+          "source-14",
+          "source-15",
+          "source-16",
+          "source-20",
+          "source-21"
+        ],
+        "facts": [
+          {
+            "name": "root_call_id",
+            "label": "Target root",
+            "value": "633431224d4bab5d3a84ad3595fce7132e6616917599dad6daa998a7b0c9df57"
+          },
+          {
+            "name": "root_location",
+            "label": "Target root source",
+            "value": "source-16 L2 send"
+          },
+          {
+            "name": "witness_id",
+            "label": "Witness",
+            "value": "9435234c057971cf3828437a3865a33529a6bb8298fdffac8ad9f5bc54eb6405"
+          },
+          {
+            "name": "caller",
+            "label": "Compared call",
+            "value": "source-16 L2 send"
+          },
+          {
+            "name": "callee",
+            "label": "Selected signature",
+            "value": "source-20 L1 send"
+          },
+          {
+            "name": "role",
+            "label": "Callee role",
+            "value": "proposed_dependency"
+          },
+          {
+            "name": "version",
+            "label": "Callee version",
+            "value": "2.0"
+          },
+          {
+            "name": "receiver",
+            "label": "Receiver assumption",
+            "value": "as_written"
+          },
+          {
+            "name": "checks_complete",
+            "label": "Local checks complete",
+            "value": "True"
+          },
+          {
+            "name": "root_binding",
+            "label": "Root binding state",
+            "value": "established"
+          },
+          {
+            "name": "root_origins",
+            "label": "Possible imported origins",
+            "value": "demo.api.send"
+          },
+          {
+            "name": "root_unknown",
+            "label": "Unknown binding possible",
+            "value": "False"
+          },
+          {
+            "name": "root_unbound",
+            "label": "Unbound possible",
+            "value": "False"
+          },
+          {
+            "name": "path_0",
+            "label": "Path step",
+            "value": "source-16 L2:0 call send(option=1)"
+          },
+          {
+            "name": "path_1",
+            "label": "Path step",
+            "value": "source-16 L1:0 import_origin from demo.api import send"
+          },
+          {
+            "name": "path_2",
+            "label": "Path step",
+            "value": "source-21 L1:0 reexport from ._core import send"
+          },
+          {
+            "name": "path_3",
+            "label": "Path step",
+            "value": "source-20 L1:0 declaration def send(*, replacement=None):\n pass"
+          },
+          {
+            "name": "keyword_0",
+            "label": "Keyword reception",
+            "value": "option: not_received"
+          },
+          {
+            "name": "violation_0",
+            "label": "Local violation",
+            "value": "unexpected_keyword: option"
+          }
+        ],
+        "limitations": [
+          "effective_export_binding_not_established",
+          "installed_namespace_and_dispatch_not_established",
+          "reexport_binding_and_branch_activation_not_established",
+          "call_reaches_selected_declared_signature",
+          "target_installed_versions_and_runtime_not_established"
+        ]
+      }
+    ],
+    "findings": [
+      {
+        "assessment_id": "dependency",
+        "statement": "One exact dependency transition was recorded.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-2",
+          "source-1"
+        ]
+      },
+      {
+        "assessment_id": "caller-signature-coverage",
+        "statement": "Coverage applies only to the admitted retained acquisition horizon.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-22",
+          "source-14",
+          "source-15"
+        ]
+      },
+      {
+        "assessment_id": "caller-signature-analysis",
+        "statement": "Recorded bounded source analysis completed with its original coverage.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-23",
+          "source-14",
+          "source-15"
+        ]
+      },
+      {
+        "assessment_id": "caller-signature-comparison-62afe2e01078f30e8b0c14d5a5a0b87f4b668da6810e5744965287552ab2ccb0",
+        "statement": "Root 633431224d4bab5d3a84ad3595fce7132e6616917599dad6daa998a7b0c9df57, witness 0205f720b54fe6daf19f4d6c10a3e153e7f60e3bdc2bb81c647454f323af2e00: old_dependency demo==1.0 receives send at send: bound. Conditional source evidence.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-24",
+          "source-14",
+          "source-15",
+          "source-16",
+          "source-18",
+          "source-19"
+        ]
+      },
+      {
+        "assessment_id": "caller-signature-comparison-61b7264db7f2d58fa3761c6c399fcaeecc2e3aa668d62bce936812d3b2e5a42a",
+        "statement": "Root 633431224d4bab5d3a84ad3595fce7132e6616917599dad6daa998a7b0c9df57, witness 9435234c057971cf3828437a3865a33529a6bb8298fdffac8ad9f5bc54eb6405: proposed_dependency demo==2.0 receives send at send: rejected. Conditional source evidence.",
+        "strength": "recorded_fact",
+        "source_ids": [
+          "source-25",
+          "source-14",
+          "source-15",
+          "source-16",
+          "source-20",
+          "source-21"
+        ]
+      }
+    ],
+    "unknowns": [
+      {
+        "assessment_id": "ci",
+        "question": "What does the ci dependency coverage branch establish?",
+        "reason": "The full ci dependency coverage branch was not evaluated by this source-only profile. Source association receipts may retain separate package/repository premises.",
+        "source_ids": [
+          "source-3"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      },
+      {
+        "assessment_id": "runtime",
+        "question": "What does the runtime dependency state branch establish?",
+        "reason": "The full runtime dependency state branch was not evaluated by this source-only profile. Source association receipts may retain separate package/repository premises.",
+        "source_ids": [
+          "source-4"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      },
+      {
+        "assessment_id": "package",
+        "question": "What does the package evidence branch establish?",
+        "reason": "The full package evidence branch was not evaluated by this source-only profile. Source association receipts may retain separate package/repository premises.",
+        "source_ids": [
+          "source-5"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      },
+      {
+        "assessment_id": "old-package",
+        "question": "What does the old package artifact evidence branch establish?",
+        "reason": "The full old package artifact evidence branch was not evaluated by this source-only profile. Source association receipts may retain separate package/repository premises.",
+        "source_ids": [
+          "source-6"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      },
+      {
+        "assessment_id": "upstream-repository",
+        "question": "What does the upstream repository branch establish?",
+        "reason": "The full upstream repository branch was not evaluated by this source-only profile. Source association receipts may retain separate package/repository premises.",
+        "source_ids": [
+          "source-7"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      },
+      {
+        "assessment_id": "upstream-interval",
+        "question": "What does the upstream interval branch establish?",
+        "reason": "The full upstream interval branch was not evaluated by this source-only profile. Source association receipts may retain separate package/repository premises.",
+        "source_ids": [
+          "source-8"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      },
+      {
+        "assessment_id": "support-drop",
+        "question": "What does the python support drop branch establish?",
+        "reason": "The full python support drop branch was not evaluated by this source-only profile. Source association receipts may retain separate package/repository premises.",
+        "source_ids": [
+          "source-9"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      },
+      {
+        "assessment_id": "artifact-candidate",
+        "question": "What does the artifact serviceability candidate branch establish?",
+        "reason": "The full artifact serviceability candidate branch was not evaluated by this source-only profile. Source association receipts may retain separate package/repository premises.",
+        "source_ids": [
+          "source-10"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      },
+      {
+        "assessment_id": "artifact-impact",
+        "question": "What does the artifact applicability branch establish?",
+        "reason": "The full artifact applicability branch was not evaluated by this source-only profile. Source association receipts may retain separate package/repository premises.",
+        "source_ids": [
+          "source-11"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      },
+      {
+        "assessment_id": "target-python",
+        "question": "What does the target python declaration branch establish?",
+        "reason": "The full target python declaration branch was not evaluated by this source-only profile. Source association receipts may retain separate package/repository premises.",
+        "source_ids": [
+          "source-12"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      },
+      {
+        "assessment_id": "python-relevance",
+        "question": "What does the python relevance branch establish?",
+        "reason": "The full python relevance branch was not evaluated by this source-only profile. Source association receipts may retain separate package/repository premises.",
+        "source_ids": [
+          "source-13"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      },
+      {
+        "assessment_id": "caller-signature-coverage",
+        "question": "Which omitted or unexamined source could change the candidate horizon?",
+        "reason": "Coverage applies only to the admitted retained acquisition horizon.",
+        "source_ids": [
+          "source-22",
+          "source-14",
+          "source-15"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      },
+      {
+        "assessment_id": "caller-signature-analysis",
+        "question": "What installed version, import binding and runtime dispatch make these conditional witnesses applicable?",
+        "reason": "Recorded bounded source analysis completed with its original coverage.",
+        "source_ids": [
+          "source-23",
+          "source-14",
+          "source-15"
+        ],
+        "consequence": "A maintainer-action consequence is not established."
+      }
+    ],
+    "action": {
+      "state": "abstain",
+      "reasons": [
+        "No non-abstention maintainer-action permission is admitted at the current evaluator proof boundary."
+      ],
+      "uncertainty": [
+        "Source comparison is conditional on captured source roles and binding premises.",
+        "Installed dependency versions, actual dispatch and behavioral compatibility remain unresolved.",
+        "CI/runtime-state, upstream interpretation and applicability were not evaluated by this profile."
+      ],
+      "limitations": [
+        "This first evaluator intentionally withholds merge, targeted-check, investigate, block, and defer until each action's positive prerequisites are proven through the normal producer path."
+      ],
+      "claim_limits": [
+        "This abstention is not a finding that the dependency update is safe or unsafe.",
+        "This result does not establish complete impact-candidate or repository-context coverage.",
+        "This result does not authorize repository mutation, approval, or automatic merge."
+      ]
+    },
+    "sources": [
+      {
+        "source_id": "source-1",
+        "kind": "pull_request",
+        "locator": "https://github.com/owner/target/pull/1145",
+        "identity": [
+          {
+            "name": "description_state",
+            "label": "Description observation state",
+            "value": "retained"
+          },
+          {
+            "name": "description_sha256",
+            "label": "Description SHA-256",
+            "value": "4aec328e2764aab4ef7e20673e891395bdba3abc4d62242a6981c0b90b920560"
+          },
+          {
+            "name": "description_bytes",
+            "label": "Description UTF-8 bytes",
+            "value": "22"
+          }
+        ],
+        "method": "initial exact PR observation",
+        "retrieved_at": "2026-11-04T11:27:06.592831+00:00",
+        "retention": "retained_text",
+        "content": "Controlled demo update",
+        "limitation": "PR-authored context is unverified and later edits are not refreshed."
+      },
+      {
+        "source_id": "source-2",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "dependency"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "supported"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "recorded_owner_result"
+          },
+          {
+            "name": "package",
+            "label": "Package",
+            "value": "demo"
+          },
+          {
+            "name": "normalized_package",
+            "label": "Normalized package",
+            "value": "demo"
+          },
+          {
+            "name": "old_version",
+            "label": "Old version",
+            "value": "1.0"
+          },
+          {
+            "name": "proposed_version",
+            "label": "Proposed version",
+            "value": "2.0"
+          }
+        ],
+        "method": "dependency.change",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "One exact dependency transition was recorded.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-3",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "ci"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "not evaluated"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "not_evaluated"
+          }
+        ],
+        "method": "caller-signature profile",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "The full ci dependency coverage branch was not evaluated by this source-only profile. Source association receipts may retain separate package/repository premises.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-4",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "runtime"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "not evaluated"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "not_evaluated"
+          }
+        ],
+        "method": "caller-signature profile",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "The full runtime dependency state branch was not evaluated by this source-only profile. Source association receipts may retain separate package/repository premises.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-5",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "package"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "not evaluated"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "not_evaluated"
+          }
+        ],
+        "method": "caller-signature profile",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "The full package evidence branch was not evaluated by this source-only profile. Source association receipts may retain separate package/repository premises.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-6",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "old-package"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "not evaluated"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "not_evaluated"
+          }
+        ],
+        "method": "caller-signature profile",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "The full old package artifact evidence branch was not evaluated by this source-only profile. Source association receipts may retain separate package/repository premises.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-7",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "upstream-repository"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "not evaluated"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "not_evaluated"
+          }
+        ],
+        "method": "caller-signature profile",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "The full upstream repository branch was not evaluated by this source-only profile. Source association receipts may retain separate package/repository premises.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-8",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "upstream-interval"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "not evaluated"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "not_evaluated"
+          }
+        ],
+        "method": "caller-signature profile",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "The full upstream interval branch was not evaluated by this source-only profile. Source association receipts may retain separate package/repository premises.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-9",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "support-drop"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "not evaluated"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "not_evaluated"
+          }
+        ],
+        "method": "caller-signature profile",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "The full python support drop branch was not evaluated by this source-only profile. Source association receipts may retain separate package/repository premises.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-10",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "artifact-candidate"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "not evaluated"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "not_evaluated"
+          }
+        ],
+        "method": "caller-signature profile",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "The full artifact serviceability candidate branch was not evaluated by this source-only profile. Source association receipts may retain separate package/repository premises.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-11",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "artifact-impact"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "not evaluated"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "not_evaluated"
+          }
+        ],
+        "method": "caller-signature profile",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "The full artifact applicability branch was not evaluated by this source-only profile. Source association receipts may retain separate package/repository premises.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-12",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "target-python"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "not evaluated"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "not_evaluated"
+          }
+        ],
+        "method": "caller-signature profile",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "The full target python declaration branch was not evaluated by this source-only profile. Source association receipts may retain separate package/repository premises.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-13",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "python-relevance"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "not evaluated"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "not_evaluated"
+          }
+        ],
+        "method": "caller-signature profile",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "The full python relevance branch was not evaluated by this source-only profile. Source association receipts may retain separate package/repository premises.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-14",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "family",
+            "label": "Native family",
+            "value": "caller_signature_sources"
+          },
+          {
+            "name": "record_id",
+            "label": "Native record",
+            "value": "35d26df550934a58a0773231e11d39c7"
+          }
+        ],
+        "method": "workspace.native_capture.NativeInvestigationCapture.capture_caller_signature_sources",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "{\"acquisition\":{\"fields\":{\"adapter_limitations\":[\"exploration_samples_not_resolved_target_versions\",\"declared_constraints_and_markers_not_evaluated_activation\",\"namespace_mapping_not_established\",\"samples_do_not_exhaust_version_ranges\",\"relative_module_forwarding_not_traversed\"],\"deferred_candidates\":[{\"fields\":{\"basis\":\"same_name_import_and_declared_distribution\",\"declaration\":{\"fields\":{\"extras\":[],\"group\":\"requirements\",\"location\":\"L1\",\"marker\":null,\"package\":\"demo\",\"raw\":\"demo==2.0\",\"source_id\":\"owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:requirements.txt\",\"specifier\":\"==2.0\"},\"variant\":\"source_declaration\"},\"import_line\":1,\"import_source_id\":\"owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:app.py\",\"imported_module\":\"demo.api\"},\"variant\":\"source_import_candidate\"}],\"material_omissions\":[],\"method_files\":[],\"module_requests\":[{\"fields\":{\"association\":{\"fields\":{\"basis\":\"exact_release_publisher_declared_repository\",\"declarations\":[{\"fields\":{\"label\":\"Source\",\"url\":\"https://github.com/owner/demo\"},\"variant\":\"project_url\"}],\"ignored_links\":[],\"provenance\":{\"fields\":{\"detail\":\"No usable registry publisher records.\",\"records\":[],\"repository\":null,\"state\":\"source_unavailable\"},\"variant\":\"source_publishers\"},\"release\":{\"fields\":{\"distribution_files\":[],\"last_serial\":1,\"normalized_package\":\"demo\",\"project_urls\":[{\"fields\":{\"label\":\"Source\",\"url\":\"https://github.com/owner/demo\"},\"variant\":\"project_url\"}],\"published_name\":\"demo\",\"published_version\":\"1.0\",\"requested_package\":\"demo\",\"requested_version\":\"1.0\",\"retrieved_at\":{\"fold\":0,\"iso\":\"2026-11-04T11:27:06.751996+00:00\"},\"source_url\":\"https://pypi.org/pypi/demo/1.0/json\",\"state\":\"available\"},\"variant\":\"package_release\"},\"repository\":\"owner/demo\"},\"variant\":\"package_source_association\"},\"association_basis\":\"exact_release_publisher_declared_repository\",\"gaps\":[],\"metadata\":{\"fields\":{\"gaps\":[],\"package\":\"demo\",\"requirements\":[],\"source_url\":\"https://pypi.org/pypi/demo/1.0/json\",\"version\":\"1.0\"},\"variant\":\"source_metadata\"},\"path\":\"demo/api.py\",\"problem\":null,\"provenance_state\":\"source_unavailable\",\"repository\":\"owner/demo\",\"request\":{\"fields\":{\"module\":\"demo.api\",\"origin\":{\"fields\":{\"binding\":{\"fields\":{\"possible_imports\":[\"demo.api.send\"],\"reasons\":[],\"scope\":\"module\",\"state\":\"established\",\"trace\":[{\"fields\":{\"column\":0,\"end_column\":25,\"end_line\":1,\"input_name\":null,\"line\":1,\"name\":\"send\",\"operation\":\"import\",\"origin\":\"demo.api.send\",\"scope\":\"module\",\"source_id\":\"owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:app.py\"},\"variant\":\"source_binding_step\"},{\"fields\":{\"column\":0,\"end_column\":25,\"end_line\":1,\"input_name\":null,\"line\":1,\"name\":\"send\",\"operation\":\"import_binding\",\"origin\":null,\"scope\":\"module\",\"source_id\":\"owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:app.py\"},\"variant\":\"source_binding_step\"},{\"fields\":{\"column\":0,\"end_column\":14,\"end_line\":2,\"input_name\":null,\"line\":2,\"name\":\"send\",\"operation\":\"reference\",\"origin\":null,\"scope\":\"module\",\"source_id\":\"owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:app.py\"},\"variant\":\"source_binding_step\"}],\"unbound_possible\":false,\"unknown_possible\":false},\"variant\":\"source_binding\"},\"binding_limit\":null,\"expression\":\"send\",\"keyword_names\":[\"option\"],\"kind\":\"call\",\"lexical_import\":\"demo.api.send\",\"line\":2,\"positional_count\":0,\"source_id\":\"owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:app.py\"},\"variant\":\"source_reference\"},\"package\":\"demo\",\"version\":\"1.0\",\"version_basis\":\"old_dependency\"},\"variant\":\"module_source_request\"},\"retention_gaps\":[],\"revision\":\"cccccccccccccccccccccccccccccccccccccccc\",\"sha256\":\"b6cf901776e23792952a9ddac8d8ed1e382a1db013ae93127ef43b4888d866a0\",\"state\":\"module_examined\",\"tag_commits\":[{\"fields\":{\"revision\":\"cccccccccccccccccccccccccccccccccccccccc\",\"tag\":\"1.0\"},\"variant\":\"source_tag_commit\"},{\"fields\":{\"revision\":\"cccccccccccccccccccccccccccccccccccccccc\",\"tag\":\"v1.0\"},\"variant\":\"source_tag_commit\"}],\"tags\":[{\"fields\":{\"peeled_tag_object_shas\":[],\"repository\":\"owner/demo\",\"requested_tag\":\"1.0\",\"resolved_commit_sha\":\"cccccccccccccccccccccccccccccccccccccccc\",\"retrieved_at\":{\"fold\":0,\"iso\":\"2026-11-04T11:27:06.752588+00:00\"},\"state\":\"available\",\"tag_object_sha\":\"cccccccccccccccccccccccccccccccccccccccc\",\"tag_object_type\":\"commit\",\"tag_ref\":\"refs/tags/1.0\"},\"variant\":\"github_tag_commit\"},{\"fields\":{\"peeled_tag_object_shas\":[],\"repository\":\"owner/demo\",\"requested_tag\":\"v1.0\",\"resolved_commit_sha\":\"cccccccccccccccccccccccccccccccccccccccc\",\"retrieved_at\":{\"fold\":0,\"iso\":\"2026-11-04T11:27:06.752803+00:00\"},\"state\":\"available\",\"tag_object_sha\":\"cccccccccccccccccccccccccccccccccccccccc\",\"tag_object_type\":\"commit\",\"tag_ref\":\"refs/tags/v1.0\"},\"variant\":\"github_tag_commit\"}],\"utf8_bytes\":24},\"variant\":\"module_source_receipt\"},{\"fields\":{\"association\":{\"fields\":{\"basis\":\"exact_release_publisher_declared_repository\",\"declarations\":[{\"fields\":{\"label\":\"Source\",\"url\":\"https://github.com/owner/demo\"},\"variant\":\"project_url\"}],\"ignored_links\":[],\"provenance\":{\"fields\":{\"detail\":\"No usable registry publisher records.\",\"records\":[],\"repository\":null,\"state\":\"source_unavailable\"},\"variant\":\"source_publishers\"},\"release\":{\"fields\":{\"distribution_files\":[],\"last_serial\":1,\"normalized_package\":\"demo\",\"project_urls\":[{\"fields\":{\"label\":\"Source\",\"url\":\"https://github.com/owner/demo\"},\"variant\":\"project_url\"}],\"published_name\":\"demo\",\"published_version\":\"2.0\",\"requested_package\":\"demo\",\"requested_version\":\"2.0\",\"retrieved_at\":{\"fold\":0,\"iso\":\"2026-11-04T11:27:06.808968+00:00\"},\"source_url\":\"https://pypi.org/pypi/demo/2.0/json\",\"state\":\"available\"},\"variant\":\"package_release\"},\"repository\":\"owner/demo\"},\"variant\":\"package_source_association\"},\"association_basis\":\"exact_release_publisher_declared_repository\",\"gaps\":[],\"metadata\":{\"fields\":{\"gaps\":[],\"package\":\"demo\",\"requirements\":[],\"source_url\":\"https://pypi.org/pypi/demo/2.0/json\",\"version\":\"2.0\"},\"variant\":\"source_metadata\"},\"path\":\"demo/api.py\",\"problem\":null,\"provenance_state\":\"source_unavailable\",\"repository\":\"owner/demo\",\"request\":{\"fields\":{\"module\":\"demo.api\",\"origin\":{\"fields\":{\"binding\":{\"fields\":{\"possible_imports\":[\"demo.api.send\"],\"reasons\":[],\"scope\":\"module\",\"state\":\"established\",\"trace\":[{\"fields\":{\"column\":0,\"end_column\":25,\"end_line\":1,\"input_name\":null,\"line\":1,\"name\":\"send\",\"operation\":\"import\",\"origin\":\"demo.api.send\",\"scope\":\"module\",\"source_id\":\"owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:app.py\"},\"variant\":\"source_binding_step\"},{\"fields\":{\"column\":0,\"end_column\":25,\"end_line\":1,\"input_name\":null,\"line\":1,\"name\":\"send\",\"operation\":\"import_binding\",\"origin\":null,\"scope\":\"module\",\"source_id\":\"owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:app.py\"},\"variant\":\"source_binding_step\"},{\"fields\":{\"column\":0,\"end_column\":14,\"end_line\":2,\"input_name\":null,\"line\":2,\"name\":\"send\",\"operation\":\"reference\",\"origin\":null,\"scope\":\"module\",\"source_id\":\"owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:app.py\"},\"variant\":\"source_binding_step\"}],\"unbound_possible\":false,\"unknown_possible\":false},\"variant\":\"source_binding\"},\"binding_limit\":null,\"expression\":\"send\",\"keyword_names\":[\"option\"],\"kind\":\"call\",\"lexical_import\":\"demo.api.send\",\"line\":2,\"positional_count\":0,\"source_id\":\"owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:app.py\"},\"variant\":\"source_reference\"},\"package\":\"demo\",\"version\":\"2.0\",\"version_basis\":\"proposed_dependency\"},\"variant\":\"module_source_request\"},\"retention_gaps\":[],\"revision\":\"dddddddddddddddddddddddddddddddddddddddd\",\"sha256\":\"b6cf901776e23792952a9ddac8d8ed1e382a1db013ae93127ef43b4888d866a0\",\"state\":\"module_examined\",\"tag_commits\":[{\"fields\":{\"revision\":\"dddddddddddddddddddddddddddddddddddddddd\",\"tag\":\"2.0\"},\"variant\":\"source_tag_commit\"},{\"fields\":{\"revision\":\"dddddddddddddddddddddddddddddddddddddddd\",\"tag\":\"v2.0\"},\"variant\":\"source_tag_commit\"}],\"tags\":[{\"fields\":{\"peeled_tag_object_shas\":[],\"repository\":\"owner/demo\",\"requested_tag\":\"2.0\",\"resolved_commit_sha\":\"dddddddddddddddddddddddddddddddddddddddd\",\"retrieved_at\":{\"fold\":0,\"iso\":\"2026-11-04T11:27:06.809403+00:00\"},\"state\":\"available\",\"tag_object_sha\":\"dddddddddddddddddddddddddddddddddddddddd\",\"tag_object_type\":\"commit\",\"tag_ref\":\"refs/tags/2.0\"},\"variant\":\"github_tag_commit\"},{\"fields\":{\"peeled_tag_object_shas\":[],\"repository\":\"owner/demo\",\"requested_tag\":\"v2.0\",\"resolved_commit_sha\":\"dddddddddddddddddddddddddddddddddddddddd\",\"retrieved_at\":{\"fold\":0,\"iso\":\"2026-11-04T11:27:06.809590+00:00\"},\"state\":\"available\",\"tag_object_sha\":\"dddddddddddddddddddddddddddddddddddddddd\",\"tag_object_type\":\"commit\",\"tag_ref\":\"refs/tags/v2.0\"},\"variant\":\"github_tag_commit\"}],\"utf8_bytes\":24},\"variant\":\"module_source_receipt\"},{\"fields\":{\"association\":{\"fields\":{\"basis\":\"exact_release_publisher_declared_repository\",\"declarations\":[{\"fields\":{\"label\":\"Source\",\"url\":\"https://github.com/owner/demo\"},\"variant\":\"project_url\"}],\"ignored_links\":[],\"provenance\":{\"fields\":{\"detail\":\"No usable registry publisher records.\",\"records\":[],\"repository\":null,\"state\":\"source_unavailable\"},\"variant\":\"source_publishers\"},\"release\":{\"fields\":{\"distribution_files\":[],\"last_serial\":1,\"normalized_package\":\"demo\",\"project_urls\":[{\"fields\":{\"label\":\"Source\",\"url\":\"https://github.com/owner/demo\"},\"variant\":\"project_url\"}],\"published_name\":\"demo\",\"published_version\":\"1.0\",\"requested_package\":\"demo\",\"requested_version\":\"1.0\",\"retrieved_at\":{\"fold\":0,\"iso\":\"2026-11-04T11:27:06.751996+00:00\"},\"source_url\":\"https://pypi.org/pypi/demo/1.0/json\",\"state\":\"available\"},\"variant\":\"package_release\"},\"repository\":\"owner/demo\"},\"variant\":\"package_source_association\"},\"association_basis\":\"exact_release_publisher_declared_repository\",\"gaps\":[],\"metadata\":{\"fields\":{\"gaps\":[],\"package\":\"demo\",\"requirements\":[],\"source_url\":\"https://pypi.org/pypi/demo/1.0/json\",\"version\":\"1.0\"},\"variant\":\"source_metadata\"},\"path\":\"demo/_core.py\",\"problem\":null,\"provenance_state\":\"source_unavailable\",\"repository\":\"owner/demo\",\"request\":{\"fields\":{\"module\":\"demo._core\",\"origin\":{\"fields\":{\"alias\":null,\"line\":1,\"member\":\"send\",\"module\":\"_core\",\"module_level\":true,\"relative_level\":1,\"source_id\":\"owner/demo@cccccccccccccccccccccccccccccccccccccccc:demo/api.py\"},\"variant\":\"source_import\"},\"package\":\"demo\",\"version\":\"1.0\",\"version_basis\":\"old_dependency\"},\"variant\":\"module_source_request\"},\"retention_gaps\":[],\"revision\":\"cccccccccccccccccccccccccccccccccccccccc\",\"sha256\":\"6908589655243e49179fd6b4388461dcb6852d9f214b21ad764fb16b7e844735\",\"state\":\"module_examined\",\"tag_commits\":[{\"fields\":{\"revision\":\"cccccccccccccccccccccccccccccccccccccccc\",\"tag\":\"1.0\"},\"variant\":\"source_tag_commit\"},{\"fields\":{\"revision\":\"cccccccccccccccccccccccccccccccccccccccc\",\"tag\":\"v1.0\"},\"variant\":\"source_tag_commit\"}],\"tags\":[{\"fields\":{\"peeled_tag_object_shas\":[],\"repository\":\"owner/demo\",\"requested_tag\":\"1.0\",\"resolved_commit_sha\":\"cccccccccccccccccccccccccccccccccccccccc\",\"retrieved_at\":{\"fold\":0,\"iso\":\"2026-11-04T11:27:06.752588+00:00\"},\"state\":\"available\",\"tag_object_sha\":\"cccccccccccccccccccccccccccccccccccccccc\",\"tag_object_type\":\"commit\",\"tag_ref\":\"refs/tags/1.0\"},\"variant\":\"github_tag_commit\"},{\"fields\":{\"peeled_tag_object_shas\":[],\"repository\":\"owner/demo\",\"requested_tag\":\"v1.0\",\"resolved_commit_sha\":\"cccccccccccccccccccccccccccccccccccccccc\",\"retrieved_at\":{\"fold\":0,\"iso\":\"2026-11-04T11:27:06.752803+00:00\"},\"state\":\"available\",\"tag_object_sha\":\"cccccccccccccccccccccccccccccccccccccccc\",\"tag_object_type\":\"commit\",\"tag_ref\":\"refs/tags/v1.0\"},\"variant\":\"github_tag_commit\"}],\"utf8_bytes\":32},\"variant\":\"module_source_receipt\"},{\"fields\":{\"association\":{\"fields\":{\"basis\":\"exact_release_publisher_declared_repository\",\"declarations\":[{\"fields\":{\"label\":\"Source\",\"url\":\"https://github.com/owner/demo\"},\"variant\":\"project_url\"}],\"ignored_links\":[],\"provenance\":{\"fields\":{\"detail\":\"No usable registry publisher records.\",\"records\":[],\"repository\":null,\"state\":\"source_unavailable\"},\"variant\":\"source_publishers\"},\"release\":{\"fields\":{\"distribution_files\":[],\"last_serial\":1,\"normalized_package\":\"demo\",\"project_urls\":[{\"fields\":{\"label\":\"Source\",\"url\":\"https://github.com/owner/demo\"},\"variant\":\"project_url\"}],\"published_name\":\"demo\",\"published_version\":\"2.0\",\"requested_package\":\"demo\",\"requested_version\":\"2.0\",\"retrieved_at\":{\"fold\":0,\"iso\":\"2026-11-04T11:27:06.808968+00:00\"},\"source_url\":\"https://pypi.org/pypi/demo/2.0/json\",\"state\":\"available\"},\"variant\":\"package_release\"},\"repository\":\"owner/demo\"},\"variant\":\"package_source_association\"},\"association_basis\":\"exact_release_publisher_declared_repository\",\"gaps\":[],\"metadata\":{\"fields\":{\"gaps\":[],\"package\":\"demo\",\"requirements\":[],\"source_url\":\"https://pypi.org/pypi/demo/2.0/json\",\"version\":\"2.0\"},\"variant\":\"source_metadata\"},\"path\":\"demo/_core.py\",\"problem\":null,\"provenance_state\":\"source_unavailable\",\"repository\":\"owner/demo\",\"request\":{\"fields\":{\"module\":\"demo._core\",\"origin\":{\"fields\":{\"alias\":null,\"line\":1,\"member\":\"send\",\"module\":\"_core\",\"module_level\":true,\"relative_level\":1,\"source_id\":\"owner/demo@dddddddddddddddddddddddddddddddddddddddd:demo/api.py\"},\"variant\":\"source_import\"},\"package\":\"demo\",\"version\":\"2.0\",\"version_basis\":\"proposed_dependency\"},\"variant\":\"module_source_request\"},\"retention_gaps\":[],\"revision\":\"dddddddddddddddddddddddddddddddddddddddd\",\"sha256\":\"88003bb0118e27807cef6b3f03fde31898e5e66be0a9c248edd08fee8c03ff4c\",\"state\":\"module_examined\",\"tag_commits\":[{\"fields\":{\"revision\":\"dddddddddddddddddddddddddddddddddddddddd\",\"tag\":\"2.0\"},\"variant\":\"source_tag_commit\"},{\"fields\":{\"revision\":\"dddddddddddddddddddddddddddddddddddddddd\",\"tag\":\"v2.0\"},\"variant\":\"source_tag_commit\"}],\"tags\":[{\"fields\":{\"peeled_tag_object_shas\":[],\"repository\":\"owner/demo\",\"requested_tag\":\"2.0\",\"resolved_commit_sha\":\"dddddddddddddddddddddddddddddddddddddddd\",\"retrieved_at\":{\"fold\":0,\"iso\":\"2026-11-04T11:27:06.809403+00:00\"},\"state\":\"available\",\"tag_object_sha\":\"dddddddddddddddddddddddddddddddddddddddd\",\"tag_object_type\":\"commit\",\"tag_ref\":\"refs/tags/2.0\"},\"variant\":\"github_tag_commit\"},{\"fields\":{\"peeled_tag_object_shas\":[],\"repository\":\"owner/demo\",\"requested_tag\":\"v2.0\",\"resolved_commit_sha\":\"dddddddddddddddddddddddddddddddddddddddd\",\"retrieved_at\":{\"fold\":0,\"iso\":\"2026-11-04T11:27:06.809590+00:00\"},\"state\":\"available\",\"tag_object_sha\":\"dddddddddddddddddddddddddddddddddddddddd\",\"tag_object_type\":\"commit\",\"tag_ref\":\"refs/tags/v2.0\"},\"variant\":\"github_tag_commit\"}],\"utf8_bytes\":37},\"variant\":\"module_source_receipt\"}],\"observed_at\":{\"fold\":0,\"iso\":\"2026-11-04T11:27:06.708301+00:00\"},\"omitted_candidates\":[],\"origin\":\"native_observation\",\"problems\":[],\"retention_gaps\":[],\"samples\":[],\"source_work\":{\"fields\":{\"module_attempts\":4,\"release_identities\":[[\"demo\",\"1.0\"],[\"demo\",\"2.0\"]],\"source_bytes\":117},\"variant\":\"source_acquisition_work\"},\"state\":\"complete\",\"target\":{\"fields\":{\"candidates\":[{\"fields\":{\"basis\":\"same_name_import_and_declared_distribution\",\"declaration\":{\"fields\":{\"extras\":[],\"group\":\"requirements\",\"location\":\"L1\",\"marker\":null,\"package\":\"demo\",\"raw\":\"demo==2.0\",\"source_id\":\"owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:requirements.txt\",\"specifier\":\"==2.0\"},\"variant\":\"source_declaration\"},\"import_line\":1,\"import_source_id\":\"owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:app.py\",\"imported_module\":\"demo.api\"},\"variant\":\"source_import_candidate\"}],\"declarations\":[{\"fields\":{\"extras\":[],\"group\":\"requirements\",\"location\":\"L1\",\"marker\":null,\"package\":\"demo\",\"raw\":\"demo==2.0\",\"source_id\":\"owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:requirements.txt\",\"specifier\":\"==2.0\"},\"variant\":\"source_declaration\"}],\"examined_bytes\":51,\"excluded_paths\":[],\"files\":[{\"fields\":{\"sha256\":\"a5e38db64fae84f69bb0b92a0fb20c218ba74f36298111ebc3609543db095eb5\",\"source_id\":\"owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:requirements.txt\",\"utf8_bytes\":10},\"variant\":\"source_file_receipt\"},{\"fields\":{\"sha256\":\"ae934ff80c4f169122ed84371a98041cef9d18bebd5d4163c86444c336b378f8\",\"source_id\":\"owner/target@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:app.py\",\"utf8_bytes\":41},\"variant\":\"source_file_receipt\"}],\"gaps\":[],\"inventory_entries\":2,\"inventory_truncated\":false,\"limitations\":[\"static_syntax_not_execution\",\"module_namespace_not_installed_distribution\",\"constraints_not_resolved_versions\",\"only_admitted_file_formats_and_paths\",\"ordered_scoped_static_origins_not_runtime_identity\",\"delayed_globals_closures_and_cross_function_values_unresolved\",\"unsupported_control_flow_and_dynamic_writes_limited\",\"unknown_call_effects_heap_identity_and_annotation_timing_unmodeled\",\"binding_trace_and_origin_budgets_can_limit_association\"],\"omitted_paths\":[],\"repository\":\"owner/target\",\"revision\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"tree_sha\":\"eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\"},\"variant\":\"target_source_receipt\"},\"transport\":{\"fields\":{\"auth\":\"anonymous\",\"deadline_kind\":\"cooperative_monotonic_checks_and_bounded_socket_timeouts\",\"decoded_body_bytes\":3668,\"elapsed\":{\"fields\":{\"scope\":\"source_acquisition_elapsed\",\"seconds_hex\":\"0x0.0p+0\"},\"variant\":\"measured_duration\"},\"github_requests\":19,\"limits\":{\"fields\":{\"adapter_candidate_attempts\":2,\"aggregate_bytes\":33554432,\"elapsed_seconds\":{\"fields\":{\"scope\":\"acquisition_policy_elapsed_limit\",\"seconds_hex\":\"0x1.6800000000000p+7\"},\"variant\":\"measured_duration\"},\"github_requests\":50,\"provider_requests\":100,\"response_bytes\":8388608,\"source_request_reserve\":24,\"target_file_attempts\":16},\"variant\":\"source_acquisition_limits\"},\"provider_requests\":23,\"requests\":[{\"fields\":{\"decoded_body_bytes\":362,\"github_requests\":1,\"host\":\"api.github.com\",\"path\":\"/repos/owner/target/pulls/1145\",\"provider_requests\":1,\"reason\":null,\"stage\":\"native_inputs\",\"state\":\"received\",\"status\":200},\"variant\":\"source_request_event\"},{\"fields\":{\"decoded_body_bytes\":269,\"github_requests\":2,\"host\":\"api.github.com\",\"path\":\"/repos/owner/target/pulls/1145/files\",\"provider_requests\":2,\"reason\":null,\"stage\":\"native_inputs\",\"state\":\"received\",\"status\":200},\"variant\":\"source_request_event\"},{\"fields\":{\"decoded_body_bytes\":362,\"github_requests\":3,\"host\":\"api.github.com\",\"path\":\"/repos/owner/target/pulls/1145\",\"provider_requests\":3,\"reason\":null,\"stage\":\"native_inputs\",\"state\":\"received\",\"status\":200},\"variant\":\"source_request_event\"},{\"fields\":{\"decoded_body_bytes\":112,\"github_requests\":4,\"host\":\"api.github.com\",\"path\":\"/repos/owner/target/git/commits/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"provider_requests\":4,\"reason\":null,\"stage\":\"target_context\",\"state\":\"received\",\"status\":200},\"variant\":\"source_request_event\"},{\"fields\":{\"decoded_body_bytes\":199,\"github_requests\":5,\"host\":\"api.github.com\",\"path\":\"/repos/owner/target/git/trees/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\",\"provider_requests\":5,\"reason\":null,\"stage\":\"target_context\",\"state\":\"received\",\"status\":200},\"variant\":\"source_request_event\"},{\"fields\":{\"decoded_body_bytes\":97,\"github_requests\":6,\"host\":\"api.github.com\",\"path\":\"/repos/owner/target/contents/requirements.txt\",\"provider_requests\":6,\"reason\":null,\"stage\":\"target_context\",\"state\":\"received\",\"status\":200},\"variant\":\"source_request_event\"},{\"fields\":{\"decoded_body_bytes\":127,\"github_requests\":7,\"host\":\"api.github.com\",\"path\":\"/repos/owner/target/contents/app.py\",\"provider_requests\":7,\"reason\":null,\"stage\":\"target_context\",\"state\":\"received\",\"status\":200},\"variant\":\"source_request_event\"},{\"fields\":{\"decoded_body_bytes\":156,\"github_requests\":7,\"host\":\"pypi.org\",\"path\":\"/pypi/demo/1.0/json\",\"provider_requests\":8,\"reason\":null,\"stage\":\"library_sources\",\"state\":\"received\",\"status\":200},\"variant\":\"source_request_event\"},{\"fields\":{\"decoded_body_bytes\":156,\"github_requests\":7,\"host\":\"pypi.org\",\"path\":\"/pypi/demo/1.0/json\",\"provider_requests\":9,\"reason\":null,\"stage\":\"library_sources\",\"state\":\"received\",\"status\":200},\"variant\":\"source_request_event\"},{\"fields\":{\"decoded_body_bytes\":105,\"github_requests\":8,\"host\":\"api.github.com\",\"path\":\"/repos/owner/demo/git/ref/tags/1.0\",\"provider_requests\":10,\"reason\":null,\"stage\":\"library_sources\",\"state\":\"received\",\"status\":200},\"variant\":\"source_request_event\"},{\"fields\":{\"decoded_body_bytes\":106,\"github_requests\":9,\"host\":\"api.github.com\",\"path\":\"/repos/owner/demo/git/ref/tags/v1.0\",\"provider_requests\":11,\"reason\":null,\"stage\":\"library_sources\",\"state\":\"received\",\"status\":200},\"variant\":\"source_request_event\"},{\"fields\":{\"decoded_body_bytes\":112,\"github_requests\":10,\"host\":\"api.github.com\",\"path\":\"/repos/owner/demo/git/commits/cccccccccccccccccccccccccccccccccccccccc\",\"provider_requests\":12,\"reason\":null,\"stage\":\"library_sources\",\"state\":\"received\",\"status\":200},\"variant\":\"source_request_event\"},{\"fields\":{\"decoded_body_bytes\":201,\"github_requests\":11,\"host\":\"api.github.com\",\"path\":\"/repos/owner/demo/git/trees/ffffffffffffffffffffffffffffffffffffffff\",\"provider_requests\":13,\"reason\":null,\"stage\":\"library_sources\",\"state\":\"received\",\"status\":200},\"variant\":\"source_request_event\"},{\"fields\":{\"decoded_body_bytes\":108,\"github_requests\":12,\"host\":\"api.github.com\",\"path\":\"/repos/owner/demo/contents/demo/api.py\",\"provider_requests\":14,\"reason\":null,\"stage\":\"library_sources\",\"state\":\"received\",\"status\":200},\"variant\":\"source_request_event\"},{\"fields\":{\"decoded_body_bytes\":156,\"github_requests\":12,\"host\":\"pypi.org\",\"path\":\"/pypi/demo/2.0/json\",\"provider_requests\":15,\"reason\":null,\"stage\":\"library_sources\",\"state\":\"received\",\"status\":200},\"variant\":\"source_request_event\"},{\"fields\":{\"decoded_body_bytes\":156,\"github_requests\":12,\"host\":\"pypi.org\",\"path\":\"/pypi/demo/2.0/json\",\"provider_requests\":16,\"reason\":null,\"stage\":\"library_sources\",\"state\":\"received\",\"status\":200},\"variant\":\"source_request_event\"},{\"fields\":{\"decoded_body_bytes\":105,\"github_requests\":13,\"host\":\"api.github.com\",\"path\":\"/repos/owner/demo/git/ref/tags/2.0\",\"provider_requests\":17,\"reason\":null,\"stage\":\"library_sources\",\"state\":\"received\",\"status\":200},\"variant\":\"source_request_event\"},{\"fields\":{\"decoded_body_bytes\":106,\"github_requests\":14,\"host\":\"api.github.com\",\"path\":\"/repos/owner/demo/git/ref/tags/v2.0\",\"provider_requests\":18,\"reason\":null,\"stage\":\"library_sources\",\"state\":\"received\",\"status\":200},\"variant\":\"source_request_event\"},{\"fields\":{\"decoded_body_bytes\":112,\"github_requests\":15,\"host\":\"api.github.com\",\"path\":\"/repos/owner/demo/git/commits/dddddddddddddddddddddddddddddddddddddddd\",\"provider_requests\":19,\"reason\":null,\"stage\":\"library_sources\",\"state\":\"received\",\"status\":200},\"variant\":\"source_request_event\"},{\"fields\":{\"decoded_body_bytes\":201,\"github_requests\":16,\"host\":\"api.github.com\",\"path\":\"/repos/owner/demo/git/trees/1111111111111111111111111111111111111111\",\"provider_requests\":20,\"reason\":null,\"stage\":\"library_sources\",\"state\":\"received\",\"status\":200},\"variant\":\"source_request_event\"},{\"fields\":{\"decoded_body_bytes\":108,\"github_requests\":17,\"host\":\"api.github.com\",\"path\":\"/repos/owner/demo/contents/demo/api.py\",\"provider_requests\":21,\"reason\":null,\"stage\":\"library_sources\",\"state\":\"received\",\"status\":200},\"variant\":\"source_request_event\"},{\"fields\":{\"decoded_body_bytes\":122,\"github_requests\":18,\"host\":\"api.github.com\",\"path\":\"/repos/owner/demo/contents/demo/_core.py\",\"provider_requests\":22,\"reason\":null,\"stage\":\"source_closure\",\"state\":\"received\",\"status\":200},\"variant\":\"source_request_event\"},{\"fields\":{\"decoded_body_bytes\":130,\"github_requests\":19,\"host\":\"api.github.com\",\"path\":\"/repos/owner/demo/contents/demo/_core.py\",\"provider_requests\":23,\"reason\":null,\"stage\":\"source_closure\",\"state\":\"received\",\"status\":200},\"variant\":\"source_request_event\"}],\"retry_decisions\":[],\"retry_policy\":\"none\",\"stops\":[]},\"variant\":\"source_transport_receipt\"},\"unexamined_modules\":[]},\"variant\":\"source_acquisition_receipt\"},\"catalog\":{\"catalog_id\":\"9f2954f43b50ea246bd2221201c831f011641787d1cc41a6c5843c47fc826062\",\"files\":[{\"capture_metadata\":null,\"content\":\"from demo.api import send\\nsend(option=1)\\n\",\"path\":\"app.py\",\"source_id\":\"source-71758a5a929927e323212185731bfef59116bc68d8f2814635c004cb2f5a5b3f\"},{\"capture_metadata\":null,\"content\":\"demo==2.0\\n\",\"path\":\"requirements.txt\",\"source_id\":\"source-71758a5a929927e323212185731bfef59116bc68d8f2814635c004cb2f5a5b3f\"},{\"capture_metadata\":null,\"content\":\"def send(*, option=None):\\n pass\\n\",\"path\":\"demo/_core.py\",\"source_id\":\"source-c782b100846c3a9655da42c727f8db1111cd049b33ab89ca9361aaa26c5a8938\"},{\"capture_metadata\":null,\"content\":\"from ._core import send\\n\",\"path\":\"demo/api.py\",\"source_id\":\"source-c782b100846c3a9655da42c727f8db1111cd049b33ab89ca9361aaa26c5a8938\"},{\"capture_metadata\":null,\"content\":\"def send(*, replacement=None):\\n pass\\n\",\"path\":\"demo/_core.py\",\"source_id\":\"source-f9af18fffcde4c47bf2520037a7bef869a00530d252d2b2baa3c40edf2c3d13d\"},{\"capture_metadata\":null,\"content\":\"from ._core import send\\n\",\"path\":\"demo/api.py\",\"source_id\":\"source-f9af18fffcde4c47bf2520037a7bef869a00530d252d2b2baa3c40edf2c3d13d\"}],\"format\":\"retained-source-catalog/1\",\"scopes\":[{\"capture_basis\":\"Exact target head\",\"coverage_limit\":\"Complete admitted files within bounded source selection\",\"kind\":\"repository_text\",\"repository\":\"owner/target\",\"revision\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"source_id\":\"source-71758a5a929927e323212185731bfef59116bc68d8f2814635c004cb2f5a5b3f\"},{\"capture_basis\":\"Declared release repository and tag\",\"coverage_limit\":\"Complete admitted files within bounded source selection\",\"kind\":\"repository_text\",\"repository\":\"owner/demo\",\"revision\":\"cccccccccccccccccccccccccccccccccccccccc\",\"source_id\":\"source-c782b100846c3a9655da42c727f8db1111cd049b33ab89ca9361aaa26c5a8938\"},{\"capture_basis\":\"Declared release repository and tag\",\"coverage_limit\":\"Complete admitted files within bounded source selection\",\"kind\":\"repository_text\",\"repository\":\"owner/demo\",\"revision\":\"dddddddddddddddddddddddddddddddddddddddd\",\"source_id\":\"source-f9af18fffcde4c47bf2520037a7bef869a00530d252d2b2baa3c40edf2c3d13d\"}],\"target\":{\"base_sha\":\"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\"head_sha\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"normalized_package\":\"demo\",\"old_version\":\"1.0\",\"proposed_version\":\"2.0\",\"pull_number\":1145,\"repository\":\"owner/target\"}},\"format\":\"caller-signature-sources/1\",\"limits\":{\"max_facts\":4096,\"max_files\":32,\"max_nodes\":250000,\"max_nodes_per_file\":100000,\"max_pairs\":256,\"max_source_bytes\":4194304,\"memory_bytes\":536870912,\"timeout_seconds_hex\":\"0x1.e000000000000p+5\"},\"modules\":[{\"dependencies\":[],\"module\":\"demo.api\",\"package\":\"demo\",\"path\":\"demo/api.py\",\"role\":\"old_dependency\",\"source_id\":\"source-c782b100846c3a9655da42c727f8db1111cd049b33ab89ca9361aaa26c5a8938\",\"version\":\"1.0\"},{\"dependencies\":[],\"module\":\"demo.api\",\"package\":\"demo\",\"path\":\"demo/api.py\",\"role\":\"proposed_dependency\",\"source_id\":\"source-f9af18fffcde4c47bf2520037a7bef869a00530d252d2b2baa3c40edf2c3d13d\",\"version\":\"2.0\"},{\"dependencies\":[],\"module\":\"demo._core\",\"package\":\"demo\",\"path\":\"demo/_core.py\",\"role\":\"old_dependency\",\"source_id\":\"source-c782b100846c3a9655da42c727f8db1111cd049b33ab89ca9361aaa26c5a8938\",\"version\":\"1.0\"},{\"dependencies\":[],\"module\":\"demo._core\",\"package\":\"demo\",\"path\":\"demo/_core.py\",\"role\":\"proposed_dependency\",\"source_id\":\"source-f9af18fffcde4c47bf2520037a7bef869a00530d252d2b2baa3c40edf2c3d13d\",\"version\":\"2.0\"},{\"dependencies\":[\"demo\"],\"module\":\"app\",\"package\":\"\",\"path\":\"app.py\",\"role\":\"target_repository\",\"source_id\":\"source-71758a5a929927e323212185731bfef59116bc68d8f2814635c004cb2f5a5b3f\",\"version\":\"\"}]}",
+        "limitation": "Recorded native producer evidence, including its original limits and gaps."
+      },
+      {
+        "source_id": "source-15",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "family",
+            "label": "Native family",
+            "value": "caller_signature_comparison"
+          },
+          {
+            "name": "record_id",
+            "label": "Native record",
+            "value": "1a27ad4db7bb46309d1d09a3ee751a98"
+          }
+        ],
+        "method": "workspace.native_capture.NativeInvestigationCapture.capture_caller_signature_comparison",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "{\"elapsed\":{\"fields\":{\"scope\":\"analysis_parent_including_input_encoding_and_result_admission\",\"seconds_hex\":\"0x1.e34a868bf4000p-4\"},\"variant\":\"measured_duration\"},\"format\":\"caller-signature-comparison/1\",\"input_sha256\":\"e1bfc44a4eb67b6ec310f2422a6ad2fd4e8409a4917a4d301472138d9ef3004a\",\"problem_detail\":null,\"reason\":null,\"result\":{\"admission\":[{\"reason\":\"admitted_whole_file\",\"scan_nodes\":3,\"state\":\"analyzed\",\"unit_id\":\"2a43f9a8dcca87b7be97172219849a8cb49d1c2239d93097f1bbac1d6eff07ff\"},{\"reason\":\"admitted_whole_file\",\"scan_nodes\":3,\"state\":\"analyzed\",\"unit_id\":\"26a555c3ededdf731e307bbc0b664991c2a734001f8aa2a5f3edf9f8e86d0696\"},{\"reason\":\"admitted_whole_file\",\"scan_nodes\":6,\"state\":\"analyzed\",\"unit_id\":\"97a5cb2daa1061ab11362f38c810e7dadf76087c34e9b975254d35b964ab5823\"},{\"reason\":\"admitted_whole_file\",\"scan_nodes\":6,\"state\":\"analyzed\",\"unit_id\":\"6140eeacc03d0123c3ed926745c00d8a45035a3a495c92533ddbd56e01e5089f\"},{\"reason\":\"admitted_whole_file\",\"scan_nodes\":9,\"state\":\"analyzed\",\"unit_id\":\"6f962e16c4d4d448b8c9379ce5eefabd20662fb3cdf92c05bf38a76df132cf96\"}],\"analysis_profile\":\"static-import-whole-file-analysis/1\",\"binding_version\":2,\"candidates\":[{\"callee_role\":{\"dependencies\":[],\"module\":\"demo._core\",\"package\":\"demo\",\"path\":\"demo/_core.py\",\"role\":\"old_dependency\",\"source_id\":\"source-c782b100846c3a9655da42c727f8db1111cd049b33ab89ca9361aaa26c5a8938\",\"version\":\"1.0\"},\"candidate_id\":\"0205f720b54fe6daf19f4d6c10a3e153e7f60e3bdc2bb81c647454f323af2e00\",\"comparison\":{\"call_id\":\"633431224d4bab5d3a84ad3595fce7132e6616917599dad6daa998a7b0c9df57\",\"checks_complete\":true,\"keyword_reception\":[{\"name\":\"option\",\"outcome\":\"named_parameter\"}],\"outcome\":\"bound\",\"receiver_mode\":\"as_written\",\"remaining_premises\":[\"call_reaches_selected_declared_signature\",\"target_installed_versions_and_runtime_not_established\"],\"signature_id\":\"2da42b5553bba9866a78139f1868e5cfd0c4631a95cfbb7919af582a8e0963c0\",\"unresolved_checks\":[],\"violations\":[]},\"premises\":[\"effective_export_binding_not_established\",\"installed_namespace_and_dispatch_not_established\",\"reexport_binding_and_branch_activation_not_established\"],\"root_call_id\":\"633431224d4bab5d3a84ad3595fce7132e6616917599dad6daa998a7b0c9df57\",\"steps\":[{\"expression\":\"send(option=1)\",\"operation\":\"call\",\"span\":{\"column\":0,\"end_column\":14,\"end_line\":2,\"line\":2},\"unit_id\":\"6f962e16c4d4d448b8c9379ce5eefabd20662fb3cdf92c05bf38a76df132cf96\"},{\"expression\":\"from demo.api import send\",\"operation\":\"import_origin\",\"span\":{\"column\":0,\"end_column\":25,\"end_line\":1,\"line\":1},\"unit_id\":\"6f962e16c4d4d448b8c9379ce5eefabd20662fb3cdf92c05bf38a76df132cf96\"},{\"expression\":\"from ._core import send\",\"operation\":\"reexport\",\"span\":{\"column\":0,\"end_column\":23,\"end_line\":1,\"line\":1},\"unit_id\":\"2a43f9a8dcca87b7be97172219849a8cb49d1c2239d93097f1bbac1d6eff07ff\"},{\"expression\":\"def send(*, option=None):\\n pass\",\"operation\":\"declaration\",\"span\":{\"column\":0,\"end_column\":5,\"end_line\":2,\"line\":1},\"unit_id\":\"97a5cb2daa1061ab11362f38c810e7dadf76087c34e9b975254d35b964ab5823\"}]},{\"callee_role\":{\"dependencies\":[],\"module\":\"demo._core\",\"package\":\"demo\",\"path\":\"demo/_core.py\",\"role\":\"proposed_dependency\",\"source_id\":\"source-f9af18fffcde4c47bf2520037a7bef869a00530d252d2b2baa3c40edf2c3d13d\",\"version\":\"2.0\"},\"candidate_id\":\"9435234c057971cf3828437a3865a33529a6bb8298fdffac8ad9f5bc54eb6405\",\"comparison\":{\"call_id\":\"633431224d4bab5d3a84ad3595fce7132e6616917599dad6daa998a7b0c9df57\",\"checks_complete\":true,\"keyword_reception\":[{\"name\":\"option\",\"outcome\":\"not_received\"}],\"outcome\":\"rejected\",\"receiver_mode\":\"as_written\",\"remaining_premises\":[\"call_reaches_selected_declared_signature\",\"target_installed_versions_and_runtime_not_established\"],\"signature_id\":\"aa7e3f27826da0fbcfe919b40545f36020545263b62bb8f01c0081a0c92bd58d\",\"unresolved_checks\":[],\"violations\":[{\"parameter\":\"option\",\"reason\":\"unexpected_keyword\"}]},\"premises\":[\"effective_export_binding_not_established\",\"installed_namespace_and_dispatch_not_established\",\"reexport_binding_and_branch_activation_not_established\"],\"root_call_id\":\"633431224d4bab5d3a84ad3595fce7132e6616917599dad6daa998a7b0c9df57\",\"steps\":[{\"expression\":\"send(option=1)\",\"operation\":\"call\",\"span\":{\"column\":0,\"end_column\":14,\"end_line\":2,\"line\":2},\"unit_id\":\"6f962e16c4d4d448b8c9379ce5eefabd20662fb3cdf92c05bf38a76df132cf96\"},{\"expression\":\"from demo.api import send\",\"operation\":\"import_origin\",\"span\":{\"column\":0,\"end_column\":25,\"end_line\":1,\"line\":1},\"unit_id\":\"6f962e16c4d4d448b8c9379ce5eefabd20662fb3cdf92c05bf38a76df132cf96\"},{\"expression\":\"from ._core import send\",\"operation\":\"reexport\",\"span\":{\"column\":0,\"end_column\":23,\"end_line\":1,\"line\":1},\"unit_id\":\"26a555c3ededdf731e307bbc0b664991c2a734001f8aa2a5f3edf9f8e86d0696\"},{\"expression\":\"def send(*, replacement=None):\\n pass\",\"operation\":\"declaration\",\"span\":{\"column\":0,\"end_column\":5,\"end_line\":2,\"line\":1},\"unit_id\":\"6140eeacc03d0123c3ed926745c00d8a45035a3a495c92533ddbd56e01e5089f\"}]}],\"catalog_id\":\"9f2954f43b50ea246bd2221201c831f011641787d1cc41a6c5843c47fc826062\",\"checker_version\":1,\"correspondence_version\":2,\"format\":\"caller-signature-analysis-result/1\",\"gaps\":[],\"input_sha256\":\"e1bfc44a4eb67b6ec310f2422a6ad2fd4e8409a4917a4d301472138d9ef3004a\",\"producer_method\":\"caller_signature.worker.produce_source_analysis\",\"producer_version\":\"1\",\"units\":[{\"coverage\":\"complete_file\",\"facts\":{\"ast_nodes\":3,\"binding_trace_steps\":[],\"calls\":[],\"problems\":[],\"signatures\":[],\"unit_id\":\"2a43f9a8dcca87b7be97172219849a8cb49d1c2239d93097f1bbac1d6eff07ff\"},\"unit_id\":\"2a43f9a8dcca87b7be97172219849a8cb49d1c2239d93097f1bbac1d6eff07ff\"},{\"coverage\":\"complete_file\",\"facts\":{\"ast_nodes\":3,\"binding_trace_steps\":[],\"calls\":[],\"problems\":[],\"signatures\":[],\"unit_id\":\"26a555c3ededdf731e307bbc0b664991c2a734001f8aa2a5f3edf9f8e86d0696\"},\"unit_id\":\"26a555c3ededdf731e307bbc0b664991c2a734001f8aa2a5f3edf9f8e86d0696\"},{\"coverage\":\"complete_file\",\"facts\":{\"ast_nodes\":9,\"binding_trace_steps\":[{\"column\":0,\"end_column\":25,\"end_line\":1,\"input_name\":null,\"line\":1,\"name\":\"send\",\"operation\":\"import\",\"origin\":\"demo.api.send\",\"scope\":\"module\",\"source_id\":\"6f962e16c4d4d448b8c9379ce5eefabd20662fb3cdf92c05bf38a76df132cf96\"},{\"column\":0,\"end_column\":25,\"end_line\":1,\"input_name\":null,\"line\":1,\"name\":\"send\",\"operation\":\"import_binding\",\"origin\":null,\"scope\":\"module\",\"source_id\":\"6f962e16c4d4d448b8c9379ce5eefabd20662fb3cdf92c05bf38a76df132cf96\"},{\"column\":0,\"end_column\":14,\"end_line\":2,\"input_name\":null,\"line\":2,\"name\":\"send\",\"operation\":\"reference\",\"origin\":null,\"scope\":\"module\",\"source_id\":\"6f962e16c4d4d448b8c9379ce5eefabd20662fb3cdf92c05bf38a76df132cf96\"}],\"calls\":[{\"argument_spans\":[{\"column\":5,\"end_column\":13,\"end_line\":2,\"line\":2}],\"binding\":{\"possible_imports\":[\"demo.api.send\"],\"reasons\":[],\"scope\":\"module\",\"state\":\"established\",\"trace\":[0,1,2],\"unbound_possible\":false,\"unknown_possible\":false},\"complete\":true,\"expression\":\"send\",\"fact_id\":\"633431224d4bab5d3a84ad3595fce7132e6616917599dad6daa998a7b0c9df57\",\"keywords\":[\"option\"],\"positional\":[],\"span\":{\"column\":0,\"end_column\":14,\"end_line\":2,\"line\":2},\"unit_id\":\"6f962e16c4d4d448b8c9379ce5eefabd20662fb3cdf92c05bf38a76df132cf96\"}],\"problems\":[],\"signatures\":[],\"unit_id\":\"6f962e16c4d4d448b8c9379ce5eefabd20662fb3cdf92c05bf38a76df132cf96\"},\"unit_id\":\"6f962e16c4d4d448b8c9379ce5eefabd20662fb3cdf92c05bf38a76df132cf96\"},{\"coverage\":\"complete_file\",\"facts\":{\"ast_nodes\":6,\"binding_trace_steps\":[],\"calls\":[],\"problems\":[],\"signatures\":[{\"class_bases\":[],\"complete\":true,\"decorators\":[],\"fact_id\":\"2da42b5553bba9866a78139f1868e5cfd0c4631a95cfbb7919af582a8e0963c0\",\"header_span\":{\"column\":0,\"end_column\":1,\"end_line\":2,\"line\":1},\"kind\":\"function\",\"limitations\":[],\"parameters\":[{\"has_default\":true,\"kind\":\"keyword_only\",\"name\":\"option\"}],\"qualified_name\":\"send\",\"span\":{\"column\":0,\"end_column\":5,\"end_line\":2,\"line\":1},\"unit_id\":\"97a5cb2daa1061ab11362f38c810e7dadf76087c34e9b975254d35b964ab5823\"}],\"unit_id\":\"97a5cb2daa1061ab11362f38c810e7dadf76087c34e9b975254d35b964ab5823\"},\"unit_id\":\"97a5cb2daa1061ab11362f38c810e7dadf76087c34e9b975254d35b964ab5823\"},{\"coverage\":\"complete_file\",\"facts\":{\"ast_nodes\":6,\"binding_trace_steps\":[],\"calls\":[],\"problems\":[],\"signatures\":[{\"class_bases\":[],\"complete\":true,\"decorators\":[],\"fact_id\":\"aa7e3f27826da0fbcfe919b40545f36020545263b62bb8f01c0081a0c92bd58d\",\"header_span\":{\"column\":0,\"end_column\":1,\"end_line\":2,\"line\":1},\"kind\":\"function\",\"limitations\":[],\"parameters\":[{\"has_default\":true,\"kind\":\"keyword_only\",\"name\":\"replacement\"}],\"qualified_name\":\"send\",\"span\":{\"column\":0,\"end_column\":5,\"end_line\":2,\"line\":1},\"unit_id\":\"6140eeacc03d0123c3ed926745c00d8a45035a3a495c92533ddbd56e01e5089f\"}],\"unit_id\":\"6140eeacc03d0123c3ed926745c00d8a45035a3a495c92533ddbd56e01e5089f\"},\"unit_id\":\"6140eeacc03d0123c3ed926745c00d8a45035a3a495c92533ddbd56e01e5089f\"},{\"coverage\":\"non_python\",\"facts\":null,\"unit_id\":\"1f8445834da1e894170bce33c4b4cc2334de146353eda6c68b42ea46227300b7\"}],\"work\":{\"ast_nodes\":27,\"comparison_structure_cost\":401,\"fact_structure_cost\":348,\"facts\":3,\"gaps_omitted\":0,\"scanned_ast_nodes\":27,\"selected_pairs\":2,\"source_bytes\":168,\"source_files\":6,\"states_examined\":3}},\"state\":\"completed\",\"worker_module_origin\":\"/home/motafeq/projects/UpgradePilot/src/upgradepilot/caller_signature/worker.py\",\"worker_returncode\":0}",
+        "limitation": "Recorded native producer evidence, including its original limits and gaps."
+      },
+      {
+        "source_id": "source-16",
+        "kind": "target_source",
+        "locator": "https://github.com/owner/target/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/app.py",
+        "identity": [
+          {
+            "name": "file_id",
+            "label": "File identity",
+            "value": "6f962e16c4d4d448b8c9379ce5eefabd20662fb3cdf92c05bf38a76df132cf96"
+          },
+          {
+            "name": "source_id",
+            "label": "Catalog scope",
+            "value": "source-71758a5a929927e323212185731bfef59116bc68d8f2814635c004cb2f5a5b3f"
+          },
+          {
+            "name": "repository",
+            "label": "Repository",
+            "value": "owner/target"
+          },
+          {
+            "name": "revision",
+            "label": "Revision",
+            "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          {
+            "name": "path",
+            "label": "Path",
+            "value": "app.py"
+          },
+          {
+            "name": "sha256",
+            "label": "Content SHA-256",
+            "value": "ae934ff80c4f169122ed84371a98041cef9d18bebd5d4163c86444c336b378f8"
+          },
+          {
+            "name": "role",
+            "label": "Source role",
+            "value": "target_repository"
+          },
+          {
+            "name": "package",
+            "label": "Package",
+            "value": ""
+          },
+          {
+            "name": "version",
+            "label": "Version",
+            "value": ""
+          },
+          {
+            "name": "coverage",
+            "label": "Coverage",
+            "value": "Complete admitted files within bounded source selection"
+          },
+          {
+            "name": "acquisition_snapshot_at",
+            "label": "Acquisition snapshot time",
+            "value": "2026-11-04T11:27:06.708301+00:00"
+          }
+        ],
+        "method": "Exact target head",
+        "retrieved_at": null,
+        "retention": "retained_text",
+        "content": "from demo.api import send\nsend(option=1)\n",
+        "limitation": "Complete admitted files within bounded source selection Retained text does not prove examination or runtime binding."
+      },
+      {
+        "source_id": "source-17",
+        "kind": "target_source",
+        "locator": "https://github.com/owner/target/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/requirements.txt",
+        "identity": [
+          {
+            "name": "file_id",
+            "label": "File identity",
+            "value": "1f8445834da1e894170bce33c4b4cc2334de146353eda6c68b42ea46227300b7"
+          },
+          {
+            "name": "source_id",
+            "label": "Catalog scope",
+            "value": "source-71758a5a929927e323212185731bfef59116bc68d8f2814635c004cb2f5a5b3f"
+          },
+          {
+            "name": "repository",
+            "label": "Repository",
+            "value": "owner/target"
+          },
+          {
+            "name": "revision",
+            "label": "Revision",
+            "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          {
+            "name": "path",
+            "label": "Path",
+            "value": "requirements.txt"
+          },
+          {
+            "name": "sha256",
+            "label": "Content SHA-256",
+            "value": "a5e38db64fae84f69bb0b92a0fb20c218ba74f36298111ebc3609543db095eb5"
+          },
+          {
+            "name": "role",
+            "label": "Source role",
+            "value": "retained_non_python"
+          },
+          {
+            "name": "package",
+            "label": "Package",
+            "value": "not recorded"
+          },
+          {
+            "name": "version",
+            "label": "Version",
+            "value": "not recorded"
+          },
+          {
+            "name": "coverage",
+            "label": "Coverage",
+            "value": "Complete admitted files within bounded source selection"
+          },
+          {
+            "name": "acquisition_snapshot_at",
+            "label": "Acquisition snapshot time",
+            "value": "2026-11-04T11:27:06.708301+00:00"
+          }
+        ],
+        "method": "Exact target head",
+        "retrieved_at": null,
+        "retention": "retained_text",
+        "content": "demo==2.0\n",
+        "limitation": "Complete admitted files within bounded source selection Retained text does not prove examination or runtime binding."
+      },
+      {
+        "source_id": "source-18",
+        "kind": "dependency_source",
+        "locator": "https://github.com/owner/demo/blob/cccccccccccccccccccccccccccccccccccccccc/demo/_core.py",
+        "identity": [
+          {
+            "name": "file_id",
+            "label": "File identity",
+            "value": "97a5cb2daa1061ab11362f38c810e7dadf76087c34e9b975254d35b964ab5823"
+          },
+          {
+            "name": "source_id",
+            "label": "Catalog scope",
+            "value": "source-c782b100846c3a9655da42c727f8db1111cd049b33ab89ca9361aaa26c5a8938"
+          },
+          {
+            "name": "repository",
+            "label": "Repository",
+            "value": "owner/demo"
+          },
+          {
+            "name": "revision",
+            "label": "Revision",
+            "value": "cccccccccccccccccccccccccccccccccccccccc"
+          },
+          {
+            "name": "path",
+            "label": "Path",
+            "value": "demo/_core.py"
+          },
+          {
+            "name": "sha256",
+            "label": "Content SHA-256",
+            "value": "6908589655243e49179fd6b4388461dcb6852d9f214b21ad764fb16b7e844735"
+          },
+          {
+            "name": "role",
+            "label": "Source role",
+            "value": "old_dependency"
+          },
+          {
+            "name": "package",
+            "label": "Package",
+            "value": "demo"
+          },
+          {
+            "name": "version",
+            "label": "Version",
+            "value": "1.0"
+          },
+          {
+            "name": "coverage",
+            "label": "Coverage",
+            "value": "Complete admitted files within bounded source selection"
+          },
+          {
+            "name": "acquisition_snapshot_at",
+            "label": "Acquisition snapshot time",
+            "value": "2026-11-04T11:27:06.708301+00:00"
+          }
+        ],
+        "method": "Declared release repository and tag",
+        "retrieved_at": null,
+        "retention": "retained_text",
+        "content": "def send(*, option=None):\n pass\n",
+        "limitation": "Complete admitted files within bounded source selection Retained text does not prove examination or runtime binding."
+      },
+      {
+        "source_id": "source-19",
+        "kind": "dependency_source",
+        "locator": "https://github.com/owner/demo/blob/cccccccccccccccccccccccccccccccccccccccc/demo/api.py",
+        "identity": [
+          {
+            "name": "file_id",
+            "label": "File identity",
+            "value": "2a43f9a8dcca87b7be97172219849a8cb49d1c2239d93097f1bbac1d6eff07ff"
+          },
+          {
+            "name": "source_id",
+            "label": "Catalog scope",
+            "value": "source-c782b100846c3a9655da42c727f8db1111cd049b33ab89ca9361aaa26c5a8938"
+          },
+          {
+            "name": "repository",
+            "label": "Repository",
+            "value": "owner/demo"
+          },
+          {
+            "name": "revision",
+            "label": "Revision",
+            "value": "cccccccccccccccccccccccccccccccccccccccc"
+          },
+          {
+            "name": "path",
+            "label": "Path",
+            "value": "demo/api.py"
+          },
+          {
+            "name": "sha256",
+            "label": "Content SHA-256",
+            "value": "b6cf901776e23792952a9ddac8d8ed1e382a1db013ae93127ef43b4888d866a0"
+          },
+          {
+            "name": "role",
+            "label": "Source role",
+            "value": "old_dependency"
+          },
+          {
+            "name": "package",
+            "label": "Package",
+            "value": "demo"
+          },
+          {
+            "name": "version",
+            "label": "Version",
+            "value": "1.0"
+          },
+          {
+            "name": "coverage",
+            "label": "Coverage",
+            "value": "Complete admitted files within bounded source selection"
+          },
+          {
+            "name": "acquisition_snapshot_at",
+            "label": "Acquisition snapshot time",
+            "value": "2026-11-04T11:27:06.708301+00:00"
+          }
+        ],
+        "method": "Declared release repository and tag",
+        "retrieved_at": null,
+        "retention": "retained_text",
+        "content": "from ._core import send\n",
+        "limitation": "Complete admitted files within bounded source selection Retained text does not prove examination or runtime binding."
+      },
+      {
+        "source_id": "source-20",
+        "kind": "dependency_source",
+        "locator": "https://github.com/owner/demo/blob/dddddddddddddddddddddddddddddddddddddddd/demo/_core.py",
+        "identity": [
+          {
+            "name": "file_id",
+            "label": "File identity",
+            "value": "6140eeacc03d0123c3ed926745c00d8a45035a3a495c92533ddbd56e01e5089f"
+          },
+          {
+            "name": "source_id",
+            "label": "Catalog scope",
+            "value": "source-f9af18fffcde4c47bf2520037a7bef869a00530d252d2b2baa3c40edf2c3d13d"
+          },
+          {
+            "name": "repository",
+            "label": "Repository",
+            "value": "owner/demo"
+          },
+          {
+            "name": "revision",
+            "label": "Revision",
+            "value": "dddddddddddddddddddddddddddddddddddddddd"
+          },
+          {
+            "name": "path",
+            "label": "Path",
+            "value": "demo/_core.py"
+          },
+          {
+            "name": "sha256",
+            "label": "Content SHA-256",
+            "value": "88003bb0118e27807cef6b3f03fde31898e5e66be0a9c248edd08fee8c03ff4c"
+          },
+          {
+            "name": "role",
+            "label": "Source role",
+            "value": "proposed_dependency"
+          },
+          {
+            "name": "package",
+            "label": "Package",
+            "value": "demo"
+          },
+          {
+            "name": "version",
+            "label": "Version",
+            "value": "2.0"
+          },
+          {
+            "name": "coverage",
+            "label": "Coverage",
+            "value": "Complete admitted files within bounded source selection"
+          },
+          {
+            "name": "acquisition_snapshot_at",
+            "label": "Acquisition snapshot time",
+            "value": "2026-11-04T11:27:06.708301+00:00"
+          }
+        ],
+        "method": "Declared release repository and tag",
+        "retrieved_at": null,
+        "retention": "retained_text",
+        "content": "def send(*, replacement=None):\n pass\n",
+        "limitation": "Complete admitted files within bounded source selection Retained text does not prove examination or runtime binding."
+      },
+      {
+        "source_id": "source-21",
+        "kind": "dependency_source",
+        "locator": "https://github.com/owner/demo/blob/dddddddddddddddddddddddddddddddddddddddd/demo/api.py",
+        "identity": [
+          {
+            "name": "file_id",
+            "label": "File identity",
+            "value": "26a555c3ededdf731e307bbc0b664991c2a734001f8aa2a5f3edf9f8e86d0696"
+          },
+          {
+            "name": "source_id",
+            "label": "Catalog scope",
+            "value": "source-f9af18fffcde4c47bf2520037a7bef869a00530d252d2b2baa3c40edf2c3d13d"
+          },
+          {
+            "name": "repository",
+            "label": "Repository",
+            "value": "owner/demo"
+          },
+          {
+            "name": "revision",
+            "label": "Revision",
+            "value": "dddddddddddddddddddddddddddddddddddddddd"
+          },
+          {
+            "name": "path",
+            "label": "Path",
+            "value": "demo/api.py"
+          },
+          {
+            "name": "sha256",
+            "label": "Content SHA-256",
+            "value": "b6cf901776e23792952a9ddac8d8ed1e382a1db013ae93127ef43b4888d866a0"
+          },
+          {
+            "name": "role",
+            "label": "Source role",
+            "value": "proposed_dependency"
+          },
+          {
+            "name": "package",
+            "label": "Package",
+            "value": "demo"
+          },
+          {
+            "name": "version",
+            "label": "Version",
+            "value": "2.0"
+          },
+          {
+            "name": "coverage",
+            "label": "Coverage",
+            "value": "Complete admitted files within bounded source selection"
+          },
+          {
+            "name": "acquisition_snapshot_at",
+            "label": "Acquisition snapshot time",
+            "value": "2026-11-04T11:27:06.708301+00:00"
+          }
+        ],
+        "method": "Declared release repository and tag",
+        "retrieved_at": null,
+        "retention": "retained_text",
+        "content": "from ._core import send\n",
+        "limitation": "Complete admitted files within bounded source selection Retained text does not prove examination or runtime binding."
+      },
+      {
+        "source_id": "source-22",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "caller-signature-coverage"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "complete"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "recorded_owner_result"
+          },
+          {
+            "name": "source_files",
+            "label": "Retained source files",
+            "value": "6"
+          },
+          {
+            "name": "module_receipts",
+            "label": "Module source receipts",
+            "value": "4"
+          },
+          {
+            "name": "unexamined_modules",
+            "label": "Unexamined acquisition modules",
+            "value": "0"
+          },
+          {
+            "name": "material_omissions",
+            "label": "Material omissions",
+            "value": "0"
+          },
+          {
+            "name": "github_requests",
+            "label": "GitHub requests",
+            "value": "19"
+          },
+          {
+            "name": "provider_requests",
+            "label": "All-provider requests",
+            "value": "23"
+          },
+          {
+            "name": "body_bytes",
+            "label": "Received body bytes",
+            "value": "3668"
+          },
+          {
+            "name": "elapsed_hex",
+            "label": "Acquisition seconds (exact float)",
+            "value": "0x0.0p+0"
+          }
+        ],
+        "method": "caller_signature.acquisition",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "Coverage applies only to the admitted retained acquisition horizon.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-23",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "caller-signature-analysis"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "completed"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "recorded_owner_result"
+          },
+          {
+            "name": "elapsed_hex",
+            "label": "Worker seconds (exact float)",
+            "value": "0x1.e34a868bf4000p-4"
+          },
+          {
+            "name": "input_sha256",
+            "label": "Exact analysis input",
+            "value": "e1bfc44a4eb67b6ec310f2422a6ad2fd4e8409a4917a4d301472138d9ef3004a"
+          },
+          {
+            "name": "distinct_roots",
+            "label": "Distinct target roots",
+            "value": "1"
+          },
+          {
+            "name": "witnesses",
+            "label": "Conditional comparison witnesses",
+            "value": "2"
+          },
+          {
+            "name": "unexamined_units",
+            "label": "Unexamined retained units",
+            "value": "0"
+          },
+          {
+            "name": "gaps",
+            "label": "Discovery gaps",
+            "value": "0"
+          },
+          {
+            "name": "source_bytes",
+            "label": "Analyzed source bytes",
+            "value": "168"
+          },
+          {
+            "name": "states_examined",
+            "label": "Correspondence states examined",
+            "value": "3"
+          },
+          {
+            "name": "gaps_omitted",
+            "label": "Omitted gap diagnostics",
+            "value": "0"
+          }
+        ],
+        "method": "caller_signature.worker",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "Recorded bounded source analysis completed with its original coverage.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-24",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "caller-signature-comparison-62afe2e01078f30e8b0c14d5a5a0b87f4b668da6810e5744965287552ab2ccb0"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "bound"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "recorded_owner_result"
+          },
+          {
+            "name": "root_call_id",
+            "label": "Target root",
+            "value": "633431224d4bab5d3a84ad3595fce7132e6616917599dad6daa998a7b0c9df57"
+          },
+          {
+            "name": "root_location",
+            "label": "Target root source",
+            "value": "source-16 L2 send"
+          },
+          {
+            "name": "witness_id",
+            "label": "Witness",
+            "value": "0205f720b54fe6daf19f4d6c10a3e153e7f60e3bdc2bb81c647454f323af2e00"
+          },
+          {
+            "name": "caller",
+            "label": "Compared call",
+            "value": "source-16 L2 send"
+          },
+          {
+            "name": "callee",
+            "label": "Selected signature",
+            "value": "source-18 L1 send"
+          },
+          {
+            "name": "role",
+            "label": "Callee role",
+            "value": "old_dependency"
+          },
+          {
+            "name": "version",
+            "label": "Callee version",
+            "value": "1.0"
+          },
+          {
+            "name": "receiver",
+            "label": "Receiver assumption",
+            "value": "as_written"
+          },
+          {
+            "name": "checks_complete",
+            "label": "Local checks complete",
+            "value": "True"
+          },
+          {
+            "name": "root_binding",
+            "label": "Root binding state",
+            "value": "established"
+          },
+          {
+            "name": "root_origins",
+            "label": "Possible imported origins",
+            "value": "demo.api.send"
+          },
+          {
+            "name": "root_unknown",
+            "label": "Unknown binding possible",
+            "value": "False"
+          },
+          {
+            "name": "root_unbound",
+            "label": "Unbound possible",
+            "value": "False"
+          },
+          {
+            "name": "path_0",
+            "label": "Path step",
+            "value": "source-16 L2:0 call send(option=1)"
+          },
+          {
+            "name": "path_1",
+            "label": "Path step",
+            "value": "source-16 L1:0 import_origin from demo.api import send"
+          },
+          {
+            "name": "path_2",
+            "label": "Path step",
+            "value": "source-19 L1:0 reexport from ._core import send"
+          },
+          {
+            "name": "path_3",
+            "label": "Path step",
+            "value": "source-18 L1:0 declaration def send(*, option=None):\n pass"
+          },
+          {
+            "name": "keyword_0",
+            "label": "Keyword reception",
+            "value": "option: named_parameter"
+          }
+        ],
+        "method": "caller_signature.analysis",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "Root 633431224d4bab5d3a84ad3595fce7132e6616917599dad6daa998a7b0c9df57, witness 0205f720b54fe6daf19f4d6c10a3e153e7f60e3bdc2bb81c647454f323af2e00: old_dependency demo==1.0 receives send at send: bound. Conditional source evidence.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      },
+      {
+        "source_id": "source-25",
+        "kind": "producer_assessment",
+        "locator": null,
+        "identity": [
+          {
+            "name": "assessment_id",
+            "label": "Assessment",
+            "value": "caller-signature-comparison-61b7264db7f2d58fa3761c6c399fcaeecc2e3aa668d62bce936812d3b2e5a42a"
+          },
+          {
+            "name": "state",
+            "label": "Recorded state",
+            "value": "rejected"
+          },
+          {
+            "name": "reason",
+            "label": "Recorded reason",
+            "value": "recorded_owner_result"
+          },
+          {
+            "name": "root_call_id",
+            "label": "Target root",
+            "value": "633431224d4bab5d3a84ad3595fce7132e6616917599dad6daa998a7b0c9df57"
+          },
+          {
+            "name": "root_location",
+            "label": "Target root source",
+            "value": "source-16 L2 send"
+          },
+          {
+            "name": "witness_id",
+            "label": "Witness",
+            "value": "9435234c057971cf3828437a3865a33529a6bb8298fdffac8ad9f5bc54eb6405"
+          },
+          {
+            "name": "caller",
+            "label": "Compared call",
+            "value": "source-16 L2 send"
+          },
+          {
+            "name": "callee",
+            "label": "Selected signature",
+            "value": "source-20 L1 send"
+          },
+          {
+            "name": "role",
+            "label": "Callee role",
+            "value": "proposed_dependency"
+          },
+          {
+            "name": "version",
+            "label": "Callee version",
+            "value": "2.0"
+          },
+          {
+            "name": "receiver",
+            "label": "Receiver assumption",
+            "value": "as_written"
+          },
+          {
+            "name": "checks_complete",
+            "label": "Local checks complete",
+            "value": "True"
+          },
+          {
+            "name": "root_binding",
+            "label": "Root binding state",
+            "value": "established"
+          },
+          {
+            "name": "root_origins",
+            "label": "Possible imported origins",
+            "value": "demo.api.send"
+          },
+          {
+            "name": "root_unknown",
+            "label": "Unknown binding possible",
+            "value": "False"
+          },
+          {
+            "name": "root_unbound",
+            "label": "Unbound possible",
+            "value": "False"
+          },
+          {
+            "name": "path_0",
+            "label": "Path step",
+            "value": "source-16 L2:0 call send(option=1)"
+          },
+          {
+            "name": "path_1",
+            "label": "Path step",
+            "value": "source-16 L1:0 import_origin from demo.api import send"
+          },
+          {
+            "name": "path_2",
+            "label": "Path step",
+            "value": "source-21 L1:0 reexport from ._core import send"
+          },
+          {
+            "name": "path_3",
+            "label": "Path step",
+            "value": "source-20 L1:0 declaration def send(*, replacement=None):\n pass"
+          },
+          {
+            "name": "keyword_0",
+            "label": "Keyword reception",
+            "value": "option: not_received"
+          },
+          {
+            "name": "violation_0",
+            "label": "Local violation",
+            "value": "unexpected_keyword: option"
+          }
+        ],
+        "method": "caller_signature.analysis",
+        "retrieved_at": null,
+        "retention": "producer_result",
+        "content": "Root 633431224d4bab5d3a84ad3595fce7132e6616917599dad6daa998a7b0c9df57, witness 9435234c057971cf3828437a3865a33529a6bb8298fdffac8ad9f5bc54eb6405: proposed_dependency demo==2.0 receives send at send: rejected. Conditional source evidence.",
+        "limitation": "Retained producer assessment, not the original raw input."
+      }
+    ],
+    "preservation_limits": [
+      "Only admitted original source text is retained. Omitted or unavailable files cannot be opened.",
+      "The native producer sources preserve full receipts, costs, paths, traces, gaps and admission limits.",
+      "Report delivery and original source text do not establish installed behavior or authorize a maintainer action."
+    ]
+  },
+  "integrity": {
+    "method": "sha256",
+    "digest": "b42e30027bc5a7ad0210c65f6d53bf789b8f643747bcb8dcb8f4f6586324ec00"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "proof_class": "controlled_actual_client_normal_product_cli",
+  "real_provider": false,
+  "report_id": "59187496-dc66-4199-8100-a9473cbb4e20",
+  "lineage_id": "da81d5f2926f47d2a92d1c8e4034d909",
+  "revision_id": "8fb9c7dd21cc45ed9aa144487d347504",
+  "command_exit": 0,
+  "source_exit": 0,
+  "cold_exit": 0,
+  "github_requests": 19,
+  "provider_requests": 23,
+  "common_pr_prefix_requests": 3,
+  "source_files": 6,
+  "roots": 1,
+  "witnesses": 2,
+  "local_outcomes": [
+    {
+      "role": "old_dependency",
+      "version": "1.0",
+      "outcome": "bound",
+      "root": "633431224d4bab5d3a84ad3595fce7132e6616917599dad6daa998a7b0c9df57",
+      "witness": "0205f720b54fe6daf19f4d6c10a3e153e7f60e3bdc2bb81c647454f323af2e00",
+      "steps": [
+        "call",
+        "import_origin",
+        "reexport",
+        "declaration"
+      ],
+      "premises": [
+        "effective_export_binding_not_established",
+        "installed_namespace_and_dispatch_not_established",
+        "reexport_binding_and_branch_activation_not_established"
+      ]
+    },
+    {
+      "role": "proposed_dependency",
+      "version": "2.0",
+      "outcome": "rejected",
+      "root": "633431224d4bab5d3a84ad3595fce7132e6616917599dad6daa998a7b0c9df57",
+      "witness": "9435234c057971cf3828437a3865a33529a6bb8298fdffac8ad9f5bc54eb6405",
+      "steps": [
+        "call",
+        "import_origin",
+        "reexport",
+        "declaration"
+      ],
+      "premises": [
+        "effective_export_binding_not_established",
+        "installed_namespace_and_dispatch_not_established",
+        "reexport_binding_and_branch_activation_not_established"
+      ]
+    }
+  ],
+  "byte_counts": {
+    "report_file": 111116,
+    "catalog_source_text": 168,
+    "report_original_source_text": 190,
+    "encoded_native_boundary": 52052,
+    "encoded_lifecycle_history": 168130,
+    "store_files": 659456
+  },
+  "timing_seconds_hex": {
+    "controlled_cli": "0x1.614bdf405bc00p+1",
+    "cold_process": "0x1.0900671447000p-1",
+    "worker": "0x1.e34a868bf4000p-4"
+  },
+  "worker_origin": "/home/motafeq/projects/UpgradePilot/src/upgradepilot/caller_signature/worker.py",
+  "report_sha256": "a623b7df74c6bb8daa1209b466a8dcb04f3c1637199bfddbd7df98b07c1aa333",
+  "store_retention": "Temporary validation store removed after successful fresh-process controls. Portable report retained.",
+  "usefulness": "Machine delivery only. Human navigation time and independent task usefulness not measured."
+}

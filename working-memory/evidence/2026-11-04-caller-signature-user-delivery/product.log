@@ -1,0 +1,45 @@
+..................................................................................................................................................................................usage: upgradepilot [-h] [--github-auth {anonymous,token-env}]
+                    [--save-report PATH] [--open-report PATH]
+                    [--show-source SOURCE_ID]
+                    [--evidence-profile {caller-signature}]
+                    [--workspace-store PATH] [--open-workspace PATH]
+                    [--revision REVISION_ID]
+                    [repository] [pull_number]
+upgradepilot: error: --open-report cannot be combined with investigation, save or authentication arguments
+usage: upgradepilot [-h] [--github-auth {anonymous,token-env}]
+                    [--save-report PATH] [--open-report PATH]
+                    [--show-source SOURCE_ID]
+                    [--evidence-profile {caller-signature}]
+                    [--workspace-store PATH] [--open-workspace PATH]
+                    [--revision REVISION_ID]
+                    [repository] [pull_number]
+upgradepilot: error: --open-report cannot be combined with investigation, save or authentication arguments
+usage: upgradepilot [-h] [--github-auth {anonymous,token-env}]
+                    [--save-report PATH] [--open-report PATH]
+                    [--show-source SOURCE_ID]
+                    [--evidence-profile {caller-signature}]
+                    [--workspace-store PATH] [--open-workspace PATH]
+                    [--revision REVISION_ID]
+                    [repository] [pull_number]
+upgradepilot: error: --open-report cannot be combined with investigation, save or authentication arguments
+usage: upgradepilot [-h] [--github-auth {anonymous,token-env}]
+                    [--save-report PATH] [--open-report PATH]
+                    [--show-source SOURCE_ID]
+                    [--evidence-profile {caller-signature}]
+                    [--workspace-store PATH] [--open-workspace PATH]
+                    [--revision REVISION_ID]
+                    [repository] [pull_number]
+upgradepilot: error: repository and pull_number are required for an investigation
+.................................................................................................................................................................................................................................................................................................................................................usage: upgradepilot [-h] [--github-auth {anonymous,token-env}]
+                    [--save-report PATH] [--open-report PATH]
+                    [--show-source SOURCE_ID]
+                    [--evidence-profile {caller-signature}]
+                    [--workspace-store PATH] [--open-workspace PATH]
+                    [--revision REVISION_ID]
+                    [repository] [pull_number]
+upgradepilot: error: --show-source requires --open-report or --open-workspace
+....................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+----------------------------------------------------------------------
+Ran 1063 tests in 197.887s
+
+OK
