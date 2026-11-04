@@ -126,6 +126,16 @@ def _read_target(value: object) -> ExactInvestigationTarget:
     return ExactInvestigationTarget(**fields)
 
 
+def read_exact_investigation_target(data: bytes) -> ExactInvestigationTarget:
+    """Decode a stored target header without acquiring or authenticating its claims.
+
+    Explicit revision selection uses this identity to validate the complete retained
+    boundary. Callers comparing against an independently known target still supply
+    that target to ``read_native_boundary``.
+    """
+    return _read_target(parse_json(data))
+
+
 def _strings(value: object) -> tuple[str, ...]:
     if type(value) is not list or any(
         type(item) is not str or not item for item in value

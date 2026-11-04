@@ -7,8 +7,8 @@
 ```text
 A0 — DONE: reconciled main, current CLI and report interfaces, application stage and storage inspection.
 A1 — DONE, COMPRESSED: the immediately preceding verified milestone walkthrough supplied continuity and a chance to challenge it.
-A2 — CURRENT: orient the normal user path and distinguish confirmed progress from an unacknowledged report publication.
-B — PENDING: connect explicit profile, report delivery and exact historical opening through the normal CLI.
+A2 — DONE, GUIDED: Ali selected confirmed A for recovery. Clarified that exact successful inspection can also establish B as published.
+B — CURRENT: connect explicit profile, report delivery and exact historical opening through the normal CLI.
 Verification gate — PENDING: controlled CLI path, fresh-process recovery and discriminating failure controls.
 D — PENDING: teach from the delivered behavior and evidence.
 E — PENDING: reconcile handoff and ownership gaps.
@@ -26,3 +26,11 @@ The preflight identified two existing interfaces that matter. `CheckpointStore.r
 **Acceptance.** Prove normal explicit CLI invocation through controlled clients, Workspace, report and original-source delivery, then reopen the selected saved revision in a fresh process. Cover an analysis failure after a confirmed source checkpoint, a report-file save failure after Workspace delivery, and loss of acknowledgement without duplicate capability work. Source-only opening exposes its actual saved evidence and missing report state. Separate executable integration proof from later real-provider qualification and maintainer-task usefulness.
 
 **Ownership opportunity.** Given confirmed source revision A and a report publication attempted as B whose acknowledgement was lost, distinguish the revision the CLI can offer for confirmed recovery from the one whose publication needs exact inspection. Understand this operation boundary before selecting proof. Store internals remain lookup knowledge unless needed to diagnose the result.
+
+## November 4 continuation and understanding gate
+
+Main and origin remain synchronized at `c136d2a0`, with only the unrelated October 3 audit record untracked. Ali answered that A should be preserved and another revision avoided. This correctly identifies the immediately confirmed boundary. Supplied the nuance that B is unknown until exact store inspection, and a successful inspection may establish B as published. This is guided boundary reasoning, not independent recovery diagnosis. Continue the previously authorized Build. The first implementation seam exposes the host's exact unacknowledged attempt while preserving confirmed `current`, and gives the store an explicit revision lookup with ambiguity refusal and full ordinary validation.
+
+### Publication and explicit selection foundation
+
+Host retains `unacknowledged_revision` before calling the store and clears it only after successful acknowledgement. Store inspection does not install it as current execution state. Added `read_selected_revision` to resolve the explicit CLI selection's lineage/target within one transaction, refuse ambiguous cross-lineage IDs and run ordinary encoded-material integrity checks. The native boundary owns target-header decoding. Existing APIs and format remain supported. All 63 host/storage tests pass, including strengthened known-failure/lost-acknowledgement controls and new historical selection/ambiguity/corruption controls. This is foundation proof, not yet connected user delivery.

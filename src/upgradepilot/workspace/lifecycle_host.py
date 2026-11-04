@@ -135,6 +135,7 @@ class InvestigationWorkspaceHost:
         self.store = store
         self.lineage_id = lineage_id or uuid4().hex
         self.current: CheckpointRevision | None = None
+        self.unacknowledged_revision: CheckpointRevision | None = None
         self._bases: dict[str, CapturedNativeBoundary] = {}
         self._values: dict[str, LifecycleValue] = {}
         self._records: dict[str, CapturedLifecycleRecord] = {}
@@ -265,12 +266,16 @@ class InvestigationWorkspaceHost:
         )
         revision.digest()
         if self.store is not None:
+            # Keep the exact staged value for inspection if publication loses its
+            # acknowledgement. ``current`` continues to name confirmed progress.
+            self.unacknowledged_revision = revision
             try:
                 self.store.publish(revision)
             except BaseException:
                 # Even a lost receipt cannot authorize the next external effect.
                 self._publication_blocked = True
                 raise
+            self.unacknowledged_revision = None
         self.current = revision
         self._bases = bases
         self._records = {item.capture.record_id: item.capture for item in decoded}

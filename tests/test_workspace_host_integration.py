@@ -482,6 +482,10 @@ class WorkspaceHostIntegrationTests(unittest.TestCase):
                 before_target_read=lambda h: calls.append("provider"),
             )
         self.assertEqual(calls, [])
+        staged = self.host.unacknowledged_revision
+        self.assertIsNotNone(staged)
+        self.assertEqual(staged.predecessor_id, self.host.current.revision_id)
+        self.assertEqual(self.store.inspect_publication(staged), "not_published")
         with self.assertRaises(WorkspaceHostError) as caught:
             self.host.terminate(
                 "run", "failed", "cannot continue without reconciliation"
@@ -852,6 +856,7 @@ class WorkspaceHostIntegrationTests(unittest.TestCase):
     def test_unconfirmed_intent_acknowledgement_grants_no_execution_or_retry(self):
         request = self._generic_request()
         admission = self.host.admit_request(request)
+        confirmed = self.host.current
         real_publish = self.store.publish
 
         def lose_receipt(revision):
@@ -866,6 +871,13 @@ class WorkspaceHostIntegrationTests(unittest.TestCase):
         ):
             self.host.execute_admission(admission)
         self.handler.assert_not_called()
+        staged = self.host.unacknowledged_revision
+        self.assertIsNotNone(staged)
+        self.assertEqual(self.host.current, confirmed)
+        self.assertEqual(staged.predecessor_id, confirmed.revision_id)
+        self.assertEqual(self.store.inspect_publication(staged), "published")
+        # Inspection establishes retention only. It grants no execution or retry.
+        self.assertEqual(self.host.current, confirmed)
         self.assertEqual(
             set(self._cold()["attempt_states"].values()), {"completion_unknown"}
         )
