@@ -1,0 +1,16 @@
+F
+======================================================================
+FAIL: test_normal_profile_reaches_forwarding_after_earlier_unrelated_samples (test_caller_signature_source_acquisition.NativeSourceClientCompositionTests.test_normal_profile_reaches_forwarding_after_earlier_unrelated_samples)
+Two sample chains exercise the ordinary allocation, without case/path selectors.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_source_acquisition.py", line 490, in test_normal_profile_reaches_forwarding_after_earlier_unrelated_samples
+    self.assertEqual({a.state for a in native},{'bound','rejected'})
+AssertionError: Items in the second set but not the first:
+'bound'
+'rejected'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.348s
+
+FAILED (failures=1)

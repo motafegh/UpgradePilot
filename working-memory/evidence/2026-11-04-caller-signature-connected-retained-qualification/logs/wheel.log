@@ -1,0 +1,9 @@
+Processing /tmp/upgradepilot-connected-installed-byii8qwm/source
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: upgradepilot
+  Building wheel for upgradepilot (pyproject.toml): started
+  Building wheel for upgradepilot (pyproject.toml): finished with status 'done'
+  Created wheel for upgradepilot: filename=upgradepilot-0.0.0-py3-none-any.whl size=389685 sha256=6bb213b8dc65f4afd5ef3caf0ff584a99ded67e1dc71829e61677a853b226936
+  Stored in directory: /tmp/pip-ephem-wheel-cache-_gsmx8du/wheels/ad/34/e7/b67a49e1c60a679662d0d2368d4571104b0be07cf39f751055
+Successfully built upgradepilot

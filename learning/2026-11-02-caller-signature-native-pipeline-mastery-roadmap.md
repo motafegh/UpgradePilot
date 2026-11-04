@@ -2,7 +2,7 @@
 
 **Created:** 2026-11-02  
 **Initial evidence horizon:** `7a9bef12fb65ee075dab645a638adf5a3955dc48`  
-**Last synchronized main:** `8d6f3d09b712d0f2274a668b2b4162afa257f6e3` — November 4, 2026; normal caller-signature CLI/report/Workspace delivery qualified, connected retained-case qualification in B, and learning C1 conceptually covered. Product status ≠ learner mastery.
+**Last synchronized main:** `068ba7b463d414a9e6e4ea56b0a14859177a6a85` — November 4, 2026; CLI/report/Workspace delivery verified and connected retained-case qualification exposing native access/navigation proof debt. Learning C1 remains conceptually covered. Product status ≠ learner mastery.
 **Working branch:** `learning/current-caller-signature-mastery-roadmap-2026-11-02`  
 **Purpose:** living study/relearning roadmap for Ali's interactive learning track while UpgradePilot continues to evolve on `main`.  
 **Authority boundary:** this file is a learning artifact, not the live project-position owner. `MEMORY.md`, current source/tests, accepted plans/specifications/ADRs, and dated evidence remain authoritative.
@@ -27,6 +27,23 @@ Depth:
 - **DEFERRED** — real depth that does not unlock the current project responsibility.
 
 Do not turn a module into a general course on Python ASTs, compilers, networking, packaging, GitHub APIs, `requests`, persistence, or static analysis unless a real UpgradePilot problem requires that depth.
+
+### Mechanism-first teaching, relevant transfer and professional relevance
+
+These **enhance existing learning chunks**; they are not new modules, quizzes, phases or checklists to exhaust for every minor function. `OPERATING_GUIDE.md` [§4.3](../OPERATING_GUIDE.md#43-rationale-necessity-and-engineering-judgment), [§7.2](../OPERATING_GUIDE.md#72-ai-assisted-engineering-ownership) and [§7.3](../OPERATING_GUIDE.md#73-professional-engineering-ownership-lens) remain the authoritative methodology; this roadmap says how to apply it on the caller-signature route.
+
+**1. Implementation mechanism / engineering judgment.** When teaching a material product responsibility, go beyond naming its input/output: explain the concrete problem/requirement, *how our current implementation accomplishes it*, the relevant code mechanism (selected function/type/branch/state transition/data edge), why it exists or was chosen when justified by evidence, the meaningful alternative/trade-off, the failure it prevents or admits, and what tests do or do not prove. Show only representative source and enough Python syntax/control flow to let Ali reason, diagnose, review or propose a change later—**not a line-by-line tour**. Distinguish verified implementation fact, evidenced design rationale, current judgment and contract authority. Unknown or disputed rationale stays explicitly unknown; working code is not proof that the design is optimal.
+
+**2. Related real-world engineering problems, when illuminating.** After the project case, connect the core mechanism to one relevant practical problem elsewhere (e.g., CI job timeouts, security-event evidence correlation, unreliable API calls, bounded static-analysis work, transactional checkpoint recovery), explaining *which principle transfers and what assumptions differ*. Prefer a verified real incident/example where appropriate; otherwise label a parallel case as an illustrative analogy, not externally confirmed history. Do not add loosely related technology courses or imply an analogy is new UpgradePilot evidence.
+
+**3. Job-relevant engineering competence, when material.** Identify at most one or two specific professional capabilities exercised by the actual responsibility (e.g., causal diagnosis, bounded process isolation, provenance and trust validation, test design, persistence correctness, API recovery, architectural trade-offs or AI-assisted code review). Connect the capability to something Ali can explain, test, troubleshoot, challenge or modify; include a concise technical-communication/interview framing only if helpful. Never assert an unverified current job-market requirement, turn every symbol into a résumé keyword, assign hiring scores, or let hiring trends redirect the project's technical sequence. Career owns formal job-readiness/market assessment.
+
+**Reusable teaching move, proportionate to the slice:**
+
+`real UpgradePilot case/problem → key implementation mechanism and code/data path → rationale and alternative/trade-off → failure/proof/non-proof → optional real-world application → optional professional capability → one fair ownership attempt`
+
+A clear example may combine several moves; skip transfer/hiring commentary where it would be filler. For a previously learned mechanism, use a changed-case prediction or targeted diagnosis before replaying a full lecture. Existing coverage and mastery evidence rules remain unchanged.
+
 
 Status:
 
@@ -89,6 +106,7 @@ When `main` advances:
 - `c136d2a0` — November 3: explicit caller-signature CLI/report/source/save/offline-opening delivery cycle opened (not yet implemented).
 - `e109875f` — November 4: storage/acknowledgement foundation, 63 host/store focused checks; CLI integration pending *at that historical horizon*.
 - `8d6f3d09` — November 4: user delivery subsequently verified (explicit profile, CLI/report/source/save/exact offline opening), with 1,063 product, 194 experiment API, 7 architecture and 20 installed controls recorded at its milestone. Connected retained-case qualification is active in B: LifeLog/HTTPX/Digimon retained equivalence and ordinary controlled acquisition examined; HTTPX default adapter allocation 2 vs 4 corrected under unchanged global budgets (latest reported 1,064 product/194 API/7 architecture). Fixed source navigation and final qualification remain pending. No fresh live provider/usefulness claims. These are referenced dated proofs, not rerun by this learning update.
+- `068ba7b4` — November 4: retention/capacity and installed controls reconfirm positive comparison and report/cold-opening proof, **but full native paging and source-only navigation did not qualify**: native access delivered six pages then was refused at the existing 64MiB original-material closure guard; fixed source-only retrieval found 14/20 required locations. Previous acknowledged revision remains readable. Next main owner is bounded Planning/Design of view/material-basis reuse versus per-root projection; neither a repair nor cap increase is yet selected. This is a later D4/F3 learning anchor, not a new C2 obligation or successful product qualification.
 
 ---
 
@@ -275,6 +293,8 @@ Real anchor: glyphsLib remains valid for worker/protocol qualification but is no
 **Status:** 🟡  
 **Depth:** MUST OWN
 
+**Real engineering-mechanism anchor for when D4 is taught:** the [connected retained qualification cycle](../working-memory/2026-11-04_caller-signature-connected-retained-qualification_cycle.md) recorded complete report availability but bounded native paging refusal after six pages at the original-basis 64MiB closure guard. Trace the consumer→view/material-basis→host/store contract, the precise charge/refusal boundary, and why the earlier acknowledged revision is still valid. Discuss view reuse versus projection only as candidate designs with distinct safety trade-offs, not an implemented repair. A comparable real-world problem is paged access to large immutable security/audit evidence. Defer this until D4.
+
 Own:
 
 - family DAG: `investigation_inputs → caller_signature_sources → caller_signature_comparison`;
@@ -408,13 +428,13 @@ Owners: [user-delivery cycle](../working-memory/2026-11-03_caller-signature-user
 
 ## F3 — Connected product/task qualification, usefulness and adoption
 
-**Product:** 🟡 Retained-case connected qualification active at main `8d6f3d09`; live-provider/task/adoption gates pending  
+**Product:** 🟡 Retained-case connected qualification active at main `068ba7b4` with measured native paging/source-navigation proof debt; live-provider/task/adoption gates pending  
 **Learning:** ⬜ Not yet taught  
 **Depth:** MUST OWN qualification, proof/non-proof and eventual task/adoption disposition
 
 Owners: [active qualification cycle](../working-memory/2026-11-04_caller-signature-connected-retained-qualification_cycle.md), [qualified implementation plan](../plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md).
 
-Current qualification exercises exact retained LifeLog/HTTPX/Digimon source/results through the ordinary application/report/store/cold-opening path and separately labelled authored HTTP provider controls. An HTTPX native old/proposed omission revealed a default adapter-attempt allocation mismatch (2 instead of accepted 4); the default was corrected without enlarging overall global budgets. A labelled glyphsLib protocol control is not historical acquisition proof. Remaining immediate product work includes fixed navigation/capacity measurements and final cycle gates. A separate frozen live-provider attempt and independently evaluated maintainer task/adoption remain further stages.
+Current qualification exercises retained LifeLog/HTTPX/Digimon results through ordinary application/report/store/cold-opening and separately labelled authored HTTP responses. HTTPX exposed an adapter-attempt default drift (2 instead of accepted 4), repaired within unchanged global budgets. A labelled glyphsLib protocol control does not create historical acquisition receipts. **Measured access is incomplete:** fixed source-only navigation recovered 14/20 locations; durable native paging served six pages, then refused under the 64MiB original-basis closure guard. A design decision and verified repair are still needed before completing this qualification; no gate has been waived. A separately frozen live-provider attempt and independent maintainer-task/adoption assessment remain later stages.
 
 Must distinguish historic retained exact inputs, controlled provider responses, outside-checkout installed proof, newly acquired real-provider observations, runtime applicability, maintainer usefulness and adoption. Successful controlled report delivery cannot prove all of them. No broad campaign or model/runtime experiment is activated by this module.
 
@@ -487,10 +507,11 @@ and can explain, for each boundary:
 - who owns it;
 - what exact evidence enters/leaves;
 - what failure/unknown states mean;
+- the main engineering mechanism and code/data flow, why its placement/rationale is justified (or uncertain), and a credible trade-off when material;
 - what the evidence proves;
 - what it does **not** prove;
 - where to inspect or test it when behavior changes.
 
 For ownership-bearing completion at a selected scope, also preserve an actual meaningful practical attempt with its result, assistance and limitations. Relevant evidence can include selecting and interpreting a discriminating test, causal diagnosis, or a justified modification with appropriate verification. Stronger implementation/transfer claims require corresponding action and changed-context or reduced-assistance evidence; explaining where a test lives or proposing a change alone does not establish implementation ownership.
 
-If this evidence remains unavailable, record the ownership gap explicitly while retaining truthful lesson coverage and any justified continuation. No historical checkmark is automatically promoted or erased. Memorizing every helper/API, owning every advanced internal before product work continues, and a new cross-project capability score are not required.
+If this evidence remains unavailable, record the ownership gap explicitly while retaining truthful lesson coverage and any justified continuation. No historical checkmark is automatically promoted or erased. Memorizing every helper/API, owning every advanced internal before product work continues, and a new cross-project capability score are not required. Use an illuminating real-world transfer and one or two concrete professional capabilities when they improve this selected lesson; neither is a mastery claim or an extra curriculum gate.

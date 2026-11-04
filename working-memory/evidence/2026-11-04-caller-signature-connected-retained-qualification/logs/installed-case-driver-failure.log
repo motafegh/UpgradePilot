@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/tmp/upgradepilot-connected-installed-byii8qwm/retained-case/installed_case.py", line 68, in <module>
+    run()
+  File "/tmp/upgradepilot-connected-installed-byii8qwm/retained-case/installed_case.py", line 30, in run
+    case = SimpleNamespace(body=fixture["body"], catalog=read_source_catalog(json.dumps(fixture["catalog"]).encode()))
+                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: read_source_catalog() missing 1 required keyword-only argument: 'expected_target'

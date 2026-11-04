@@ -184,7 +184,9 @@ def main():
                       and c["callee_role"]["role"] in {"old_dependency", "proposed_dependency"}]
             native["all_witnesses"] = sorted(c["candidate_id"] for c in actual) == sorted(c.candidate_id for c in expected)
             native["ordered_paths_comparisons_premises_equal"] = all(
-                c == asdict(next(e for e in expected if e.candidate_id == c["candidate_id"])) for c in actual)
+                json.dumps(c, sort_keys=True) == json.dumps(
+                    asdict(next(e for e in expected if e.candidate_id == c["candidate_id"])), sort_keys=True)
+                for c in actual)
         native["confirmed_revision"] = host.current.revision_id
         mutable.read_selected_revision(host.current.revision_id)
         native["durable_reopen"] = True

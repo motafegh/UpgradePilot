@@ -1,0 +1,695 @@
+{
+  "attempt-01": [
+    {
+      "case": "lifelog",
+      "mode": "retained",
+      "proof_class": "retained_input_application_delivery",
+      "actual_controlled_requests": 3,
+      "actual_controlled_github_requests": 3,
+      "confirmed_revision": "0eefaf8cf9934871a76baf0dee47b7df",
+      "source_files": 28,
+      "acquisition_state": "complete",
+      "analysis_state": "completed",
+      "report_retained": true,
+      "boundary_bytes": 5016794,
+      "facts": 1583,
+      "witnesses": 145,
+      "roots": 35,
+      "unexamined": 17,
+      "outcomes": [
+        "bound",
+        "undetermined"
+      ],
+      "equivalence": {
+        "facts": 1583,
+        "witnesses": 145,
+        "roots": 35,
+        "unexamined": 17,
+        "facts_paths_premises_outcomes_admission_equal": true
+      },
+      "cold_exit": 0,
+      "report_bytes": 9669691,
+      "report_sha256": "9df27bb42e9300d837d2b62566c79049c190c7624548683c42b3809199de4733",
+      "outcome": "pass"
+    },
+    {
+      "case": "lifelog",
+      "mode": "http",
+      "proof_class": "controlled_actual_client_catalog_only_http_composition",
+      "actual_controlled_requests": 46,
+      "actual_controlled_github_requests": 41,
+      "confirmed_revision": "373732de87b642ad86bb9e08694d9d95",
+      "source_files": 28,
+      "acquisition_state": "partial",
+      "analysis_state": "completed",
+      "report_retained": true,
+      "boundary_bytes": 5008446,
+      "facts": 1583,
+      "witnesses": 145,
+      "roots": 35,
+      "unexamined": 17,
+      "outcomes": [
+        "bound",
+        "undetermined"
+      ],
+      "cold_exit": 0,
+      "report_bytes": 9659522,
+      "report_sha256": "fb124b04d7db82331e9d1702ba1f92e87e744b2089c94f91747f8f8e11fd29c7",
+      "outcome": "pass"
+    },
+    {
+      "case": "httpx",
+      "mode": "retained",
+      "proof_class": "retained_input_application_delivery",
+      "actual_controlled_requests": 3,
+      "actual_controlled_github_requests": 3,
+      "confirmed_revision": "f512e22d084c4c84b7e37c41136b6854",
+      "source_files": 24,
+      "acquisition_state": "complete",
+      "analysis_state": "completed",
+      "report_retained": true,
+      "boundary_bytes": 2264178,
+      "facts": 1107,
+      "witnesses": 12,
+      "roots": 5,
+      "unexamined": 3,
+      "outcomes": [
+        "bound"
+      ],
+      "equivalence": {
+        "facts": 1107,
+        "witnesses": 12,
+        "roots": 5,
+        "unexamined": 3,
+        "facts_paths_premises_outcomes_admission_equal": true
+      },
+      "cold_exit": 0,
+      "report_bytes": 3085450,
+      "report_sha256": "872eefe69ef05bf38a06505e19d5ff3d2c313335cf0af80b32b73ad5a94b26fa",
+      "outcome": "pass"
+    },
+    {
+      "case": "httpx",
+      "mode": "http",
+      "proof_class": "controlled_actual_client_catalog_only_http_composition",
+      "actual_controlled_requests": 33,
+      "actual_controlled_github_requests": 27,
+      "confirmed_revision": "502988d131c447c48c7c117e674ce7ce",
+      "source_files": 14,
+      "acquisition_state": "partial",
+      "analysis_state": "completed",
+      "report_retained": true,
+      "boundary_bytes": 342094,
+      "facts": 150,
+      "witnesses": 4,
+      "roots": 4,
+      "unexamined": 3,
+      "outcomes": [
+        "bound"
+      ],
+      "cold_exit": 0,
+      "report_bytes": 470020,
+      "report_sha256": "404765e99f2fc372c70ba0e715e304bac3836ce77c60ab2313833c9a8fab395d",
+      "outcome": "pass"
+    },
+    {
+      "case": "glyphslib-protocol",
+      "mode": "retained",
+      "proof_class": "retained_input_application_delivery",
+      "outcome": "not_admitted",
+      "reason": "selected_catalog_missing_historical_acquisition_and_native_prefix",
+      "no_receipt_backfill": true
+    },
+    {
+      "case": "glyphslib-protocol",
+      "mode": "http",
+      "proof_class": "controlled_actual_client_catalog_only_http_composition",
+      "outcome": "not_admitted",
+      "reason": "selected_catalog_missing_historical_acquisition_and_native_prefix",
+      "no_receipt_backfill": true
+    },
+    {
+      "case": "digimon",
+      "mode": "retained",
+      "proof_class": "retained_input_application_delivery",
+      "actual_controlled_requests": 3,
+      "actual_controlled_github_requests": 3,
+      "confirmed_revision": "32e0d72dc19c45bfb8d1b6c4c524087f",
+      "source_files": 14,
+      "acquisition_state": "complete",
+      "analysis_state": "completed",
+      "report_retained": true,
+      "boundary_bytes": 2583744,
+      "facts": 1463,
+      "witnesses": 21,
+      "roots": 6,
+      "unexamined": 0,
+      "outcomes": [
+        "bound",
+        "undetermined"
+      ],
+      "equivalence": {
+        "facts": 1463,
+        "witnesses": 21,
+        "roots": 6,
+        "unexamined": 0,
+        "facts_paths_premises_outcomes_admission_equal": true
+      },
+      "cold_exit": 0,
+      "report_bytes": 3150113,
+      "report_sha256": "e651992df1125b0a18ca688b4aeacce120942e6c45423b53cf588f05f0566450",
+      "outcome": "pass"
+    },
+    {
+      "case": "digimon",
+      "mode": "http",
+      "proof_class": "controlled_actual_client_catalog_only_http_composition",
+      "actual_controlled_requests": 31,
+      "actual_controlled_github_requests": 27,
+      "confirmed_revision": "04144bc9ad0447de82cddf576ccdc013",
+      "source_files": 14,
+      "acquisition_state": "complete",
+      "analysis_state": "completed",
+      "report_retained": true,
+      "boundary_bytes": 2575626,
+      "facts": 1463,
+      "witnesses": 21,
+      "roots": 6,
+      "unexamined": 0,
+      "outcomes": [
+        "bound",
+        "undetermined"
+      ],
+      "cold_exit": 0,
+      "report_bytes": 3141032,
+      "report_sha256": "0d80974b758e4da3b1bdcffa188852d6be031409d7fe95ccd50eb46a3ea464a1",
+      "outcome": "pass"
+    }
+  ],
+  "diagnostic-four-candidates": [
+    {
+      "case": "httpx",
+      "mode": "http",
+      "proof_class": "controlled_actual_client_catalog_only_http_composition",
+      "actual_controlled_requests": 55,
+      "actual_controlled_github_requests": 45,
+      "confirmed_revision": "888f04e76cc546a29580f4ac70fa318f",
+      "source_files": 24,
+      "acquisition_state": "partial",
+      "analysis_state": "completed",
+      "report_retained": true,
+      "boundary_bytes": 2238845,
+      "facts": 1107,
+      "witnesses": 12,
+      "roots": 5,
+      "unexamined": 3,
+      "outcomes": [
+        "bound"
+      ],
+      "cold_exit": 0,
+      "report_bytes": 3058554,
+      "report_sha256": "528e56dce27194f9f30afeace06a6f6f2c2c899cefa2d212fc5f51f7a0cc81c8",
+      "outcome": "pass"
+    }
+  ],
+  "attempt-02": [
+    {
+      "case": "lifelog",
+      "mode": "http",
+      "proof_class": "controlled_actual_client_catalog_only_http_composition",
+      "actual_controlled_requests": 46,
+      "actual_controlled_github_requests": 41,
+      "confirmed_revision": "52a21771439e44b888ef061056b4f99e",
+      "source_files": 28,
+      "acquisition_state": "partial",
+      "analysis_state": "completed",
+      "report_retained": true,
+      "boundary_bytes": 5008446,
+      "facts": 1583,
+      "witnesses": 145,
+      "roots": 35,
+      "unexamined": 17,
+      "outcomes": [
+        "bound",
+        "undetermined"
+      ],
+      "paired_roots": 7,
+      "native_witnesses": 29,
+      "semantic_equivalence": {
+        "files_equal": true,
+        "modules_equal": true,
+        "units_equal": true,
+        "candidates_equal": true,
+        "gaps_equal": true,
+        "admission_equal": true,
+        "work_equal": true,
+        "ordered_candidates_equal": true,
+        "ordered_admission_equal": false
+      },
+      "cold_exit": 0,
+      "report_bytes": 9659522,
+      "report_sha256": "6d475a3a1db0bfb8944a54c5ca4be5b92a47d03deb4447100450908e0c616928",
+      "delivery_outcome": "completed",
+      "positive_pair_qualification": true,
+      "outcome": "qualified_controlled_delivery"
+    },
+    {
+      "case": "httpx",
+      "mode": "http",
+      "proof_class": "controlled_actual_client_catalog_only_http_composition",
+      "actual_controlled_requests": 55,
+      "actual_controlled_github_requests": 45,
+      "confirmed_revision": "a3e8b46cf968450a95037765e22212bd",
+      "source_files": 24,
+      "acquisition_state": "partial",
+      "analysis_state": "completed",
+      "report_retained": true,
+      "boundary_bytes": 2238845,
+      "facts": 1107,
+      "witnesses": 12,
+      "roots": 5,
+      "unexamined": 3,
+      "outcomes": [
+        "bound"
+      ],
+      "paired_roots": 1,
+      "native_witnesses": 4,
+      "semantic_equivalence": {
+        "files_equal": true,
+        "modules_equal": true,
+        "units_equal": true,
+        "candidates_equal": true,
+        "gaps_equal": true,
+        "admission_equal": true,
+        "work_equal": true,
+        "ordered_candidates_equal": true,
+        "ordered_admission_equal": false
+      },
+      "cold_exit": 0,
+      "report_bytes": 3058554,
+      "report_sha256": "a2438b592b03da522fafb6c678237877ab2ebe2a59f53363ed1ca65b7f7eb63c",
+      "delivery_outcome": "completed",
+      "positive_pair_qualification": true,
+      "outcome": "qualified_controlled_delivery"
+    },
+    {
+      "case": "glyphslib-protocol",
+      "mode": "http",
+      "proof_class": "controlled_actual_client_catalog_only_http_composition",
+      "outcome": "not_admitted",
+      "reason": "selected_catalog_missing_historical_acquisition_and_native_prefix",
+      "no_receipt_backfill": true
+    },
+    {
+      "case": "digimon",
+      "mode": "http",
+      "proof_class": "controlled_actual_client_catalog_only_http_composition",
+      "actual_controlled_requests": 31,
+      "actual_controlled_github_requests": 27,
+      "confirmed_revision": "18785b2c5fb049d7a2dc62e92b474b8b",
+      "source_files": 14,
+      "acquisition_state": "complete",
+      "analysis_state": "completed",
+      "report_retained": true,
+      "boundary_bytes": 2575626,
+      "facts": 1463,
+      "witnesses": 21,
+      "roots": 6,
+      "unexamined": 0,
+      "outcomes": [
+        "bound",
+        "undetermined"
+      ],
+      "paired_roots": 5,
+      "native_witnesses": 20,
+      "semantic_equivalence": {
+        "files_equal": true,
+        "modules_equal": true,
+        "units_equal": true,
+        "candidates_equal": true,
+        "gaps_equal": true,
+        "admission_equal": true,
+        "work_equal": true,
+        "ordered_candidates_equal": false,
+        "ordered_admission_equal": false
+      },
+      "cold_exit": 0,
+      "report_bytes": 3141032,
+      "report_sha256": "629beff547dff645546dfef47177800b4abb0b8876d6eccc7958da836aabc893",
+      "delivery_outcome": "completed",
+      "positive_pair_qualification": true,
+      "outcome": "qualified_controlled_delivery"
+    }
+  ],
+  "explicit-controls-01": [
+    {
+      "case": "controlled-glyphslib-protocol",
+      "mode": "http",
+      "proof_class": "controlled_actual_client_catalog_only_http_composition",
+      "actual_controlled_requests": 28,
+      "actual_controlled_github_requests": 24,
+      "confirmed_revision": "819b5f1fb747438693742f8c5c51808d",
+      "source_files": 11,
+      "acquisition_state": "complete",
+      "analysis_state": "completed",
+      "report_retained": true,
+      "boundary_bytes": 2800701,
+      "facts": 1113,
+      "witnesses": 68,
+      "roots": 6,
+      "unexamined": 0,
+      "outcomes": [
+        "bound",
+        "rejected",
+        "undetermined"
+      ],
+      "paired_roots": 3,
+      "native_witnesses": 62,
+      "cold_exit": 0,
+      "report_bytes": 5182023,
+      "report_sha256": "64af3fe50e6559fd2c4b631480463787c2c13be20ad630b231938ac5370a1a07",
+      "delivery_outcome": "completed",
+      "positive_pair_qualification": true,
+      "outcome": "qualified_controlled_delivery",
+      "control_provenance": {
+        "name": "controlled-glyphslib-protocol",
+        "proof": "explicit_control_not_historical_admission",
+        "original_case": "glyphslib-protocol",
+        "original_hashes": {
+          "result.json": "f2a5cfd42e1999d4bf996d2e6e085ea53c95bd0d9699a6f00b10b849eb0d4d05",
+          "view.txt": "4f743c68aab84e114a333ec3c5b3a1bbec3101078f115261e0cd284112ebb651",
+          "attempt.json": "bfc7339355ceb32798aaa2ae770c8c8618b1703e30252b4467dd1bf8db0e8fa1",
+          "sources.json": "770ab80fea86f6895fc52e278548d075414fe859f28ee09edb2c382c6296124d",
+          "attempt-started.json": "17430b717d593e49ed3bdd84b6698646c16648bbcc5859dc310260652e9a2161",
+          "input.json": "d90b4b6d9b8c17adac082197e49f366f2c888edfaa3941f755fd77c14fbb687f"
+        },
+        "authored_prefix": true,
+        "authored_metadata": {},
+        "authored_sources": []
+      },
+      "pressure_pass": true
+    },
+    {
+      "case": "controlled-retained-httpx-rejection",
+      "mode": "http",
+      "proof_class": "controlled_actual_client_catalog_only_http_composition",
+      "actual_controlled_requests": 40,
+      "actual_controlled_github_requests": 29,
+      "confirmed_revision": "4a9b48b13c7642648794ee7772cfe12a",
+      "source_files": 8,
+      "acquisition_state": "partial",
+      "analysis_state": "completed",
+      "report_retained": true,
+      "boundary_bytes": 1718383,
+      "facts": 922,
+      "witnesses": 6,
+      "roots": 1,
+      "unexamined": 0,
+      "outcomes": [
+        "bound",
+        "rejected"
+      ],
+      "paired_roots": 1,
+      "native_witnesses": 2,
+      "cold_exit": 0,
+      "report_bytes": 2344693,
+      "report_sha256": "0653a6624c10813076f84d2baf28f780abc3b1e044fb1e4ed0e1a9a0d8d0db22",
+      "delivery_outcome": "completed",
+      "positive_pair_qualification": true,
+      "outcome": "qualified_controlled_delivery",
+      "control_provenance": {
+        "name": "controlled-retained-httpx-rejection",
+        "proof": "explicit_control_not_historical_admission",
+        "original_case": "curated-httpx-rejection",
+        "original_hashes": {
+          "result.json": "3a6b874967d413f89155895d51368fddbb2e15a257ff8977448a350b26a41580",
+          "view.txt": "d0bd57fec01eb2bb6ee8d530c941c51fb2893584c12c533161595db65205b88c",
+          "attempt.json": "bf5d8c092679cab4feffa79a3cc2444697b8f5f1be4b6ab67133b5255a262d7e",
+          "sources.json": "8de0c185a5be747ec1044eca9b7a8446fbd1652db2a7ed25b82ab832d5c88da1",
+          "attempt-started.json": "feaf6d28e7e4b60216f707d1ddae70612577baa24f812a95550652af88f7724f"
+        },
+        "authored_prefix": true,
+        "authored_metadata": {
+          "fastapi": [
+            "starlette"
+          ],
+          "starlette": [
+            "httpx"
+          ]
+        },
+        "authored_sources": [
+          {
+            "source_id": "httpx-old",
+            "path": "httpx/__init__.py",
+            "sha256": "d221306aaa16e3f2fd546d2bd4a61dfb03e14b1ffb410c3195dadcc596e32dc9",
+            "basis": "authored minimal bridge; not retained original file"
+          },
+          {
+            "source_id": "httpx-new",
+            "path": "httpx/__init__.py",
+            "sha256": "d221306aaa16e3f2fd546d2bd4a61dfb03e14b1ffb410c3195dadcc596e32dc9",
+            "basis": "authored minimal bridge; not retained original file"
+          }
+        ]
+      },
+      "proposed_app_rejections": 1,
+      "pressure_pass": true
+    }
+  ],
+  "initial_outcome_interpretation": "attempt-01 pass means delivery only; normal HTTPX had zero paired native roots, not positive qualification",
+  "navigation": {
+    "proof_class": "implementer_exposed_engineering_navigation_not_independent_usefulness",
+    "selected_revision": "a3e8b46cf968450a95037765e22212bd",
+    "native_root": "b4a7022d75599f001ba703db8d1717f2738e19a70677bc05d354055e694b69f9",
+    "expected_native_witnesses": 4,
+    "report": {
+      "witnesses": 4,
+      "all_premises_equal": true,
+      "calls": 10,
+      "decoded_report_bytes": 3058554,
+      "source_cli_bytes": 200189,
+      "source_opens": [
+        {
+          "source_id": "source-17",
+          "output_bytes": 1334,
+          "exact_text": true
+        },
+        {
+          "source_id": "source-29",
+          "output_bytes": 3153,
+          "exact_text": true
+        },
+        {
+          "source_id": "source-30",
+          "output_bytes": 3424,
+          "exact_text": true
+        },
+        {
+          "source_id": "source-32",
+          "output_bytes": 12988,
+          "exact_text": true
+        },
+        {
+          "source_id": "source-33",
+          "output_bytes": 66965,
+          "exact_text": true
+        },
+        {
+          "source_id": "source-34",
+          "output_bytes": 3419,
+          "exact_text": true
+        },
+        {
+          "source_id": "source-36",
+          "output_bytes": 14318,
+          "exact_text": true
+        },
+        {
+          "source_id": "source-37",
+          "output_bytes": 69278,
+          "exact_text": true
+        },
+        {
+          "source_id": "source-39",
+          "output_bytes": 25310,
+          "exact_text": true
+        }
+      ],
+      "semantics": "structured report decode and full original-source CLI opens; no timed human task"
+    },
+    "source_baseline": {
+      "calls": 28,
+      "bytes": 120250,
+      "examined_files": 96,
+      "examined_lines": 20998,
+      "windows": 23,
+      "matched_scopes": [
+        "source-49b9a1c2190fe6d6ee17886b5c615e47906acae9a39fd7ac3a98046f1873fc34",
+        "source-6578f8ecd7bede714b637b3f2988a49f88f9dd523dd7a624efe6de48b85f3dd8",
+        "source-88467fea02e7e973fb911906abefb5ccf8af7f6faeeb3d12e4730ad974468b20",
+        "source-95cdda13859a6ae305256bac4712b6fc8144eb0aa40de0efaeb26f64a6f23c5c",
+        "source-e75845a38bc2e9db80e29b5258c5687f1b18eb6a1540c8cdca2e99057ff51ea6"
+      ],
+      "witness_premises": "not encoded by source-only access; require reviewer interpretation",
+      "completeness": "mechanical source retrieval only; no independent all-witness reasoning or time measurement"
+    },
+    "bounded_native": {
+      "pages": 6,
+      "candidates_complete": false,
+      "all_witnesses": false,
+      "initial_omitted": true,
+      "error": "CheckpointStorageError",
+      "reason": "storage_resource_limit: Original-basis closure exceeds read capacity.",
+      "receipts": [
+        {
+          "operation": "native:view",
+          "outcome": "observed",
+          "delivery_id": "3f2319f5b66641fea0a97a60c2005aab",
+          "delivered_bytes": 452,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "d29826c4d6d14736b60504ae87e83fd3",
+          "delivered_bytes": 4873,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "1c3e333d2cb2471b933f864329094242",
+          "delivered_bytes": 4738,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "ba78f9bd66294b55b3828d2759bdc30d",
+          "delivered_bytes": 4657,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "37a26be0f5c1436a9dc194031bce84c7",
+          "delivered_bytes": 4738,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "4eb179dd2df54e4f9b1a6572453a9728",
+          "delivered_bytes": 4673,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "cad39891818f40ae99652327c1d48654",
+          "delivered_bytes": 4725,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "refused",
+          "delivery_id": null,
+          "delivered_bytes": 0,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "CheckpointStorageError"
+        }
+      ],
+      "bytes": 28856
+    }
+  },
+  "navigation_review": {
+    "proof": "post-measurement exposed engineering review; not independent usefulness",
+    "source_baseline": {
+      "required_locations": 20,
+      "missing_locations": [
+        {
+          "source_id": "source-95cdda13859a6ae305256bac4712b6fc8144eb0aa40de0efaeb26f64a6f23c5c",
+          "path": "httpx/_api.py",
+          "first": 6,
+          "last": 6
+        },
+        {
+          "source_id": "source-88467fea02e7e973fb911906abefb5ccf8af7f6faeeb3d12e4730ad974468b20",
+          "path": "httpx/_api.py",
+          "first": 6,
+          "last": 6
+        },
+        {
+          "source_id": "source-95cdda13859a6ae305256bac4712b6fc8144eb0aa40de0efaeb26f64a6f23c5c",
+          "path": "httpx/__init__.py",
+          "first": 2,
+          "last": 2
+        },
+        {
+          "source_id": "source-95cdda13859a6ae305256bac4712b6fc8144eb0aa40de0efaeb26f64a6f23c5c",
+          "path": "httpx/__init__.py",
+          "first": 4,
+          "last": 4
+        },
+        {
+          "source_id": "source-88467fea02e7e973fb911906abefb5ccf8af7f6faeeb3d12e4730ad974468b20",
+          "path": "httpx/__init__.py",
+          "first": 2,
+          "last": 2
+        },
+        {
+          "source_id": "source-88467fea02e7e973fb911906abefb5ccf8af7f6faeeb3d12e4730ad974468b20",
+          "path": "httpx/__init__.py",
+          "first": 4,
+          "last": 4
+        }
+      ],
+      "complete_location_retrieval": false,
+      "semantic_answer": "not independently scored"
+    },
+    "report": {
+      "witnesses": 4,
+      "ordered_paths_roles_versions_outcomes_premises_equal": true,
+      "answer": "One TestClient(app) root through fastapi/starlette to old/proposed HTTPX. Four alternative native witnesses are locally bound under retained premises.",
+      "next_discriminating_observation": "Exact installed FastAPI/Starlette/HTTPX distributions and import/binding provenance, then evidence execution reaches the selected forwarding body/signature.",
+      "runtime_compatibility_or_action_proved": false
+    },
+    "native_delivered_material": {
+      "acknowledged_revision": "587432ad3d57485fb917620973b8028e",
+      "acknowledged_revision_readable": true,
+      "delivered_pages": 6,
+      "delivered_characters": 24576,
+      "candidates_complete": false
+    }
+  },
+  "installed_case": {
+    "proof": "installed_controlled_retained_byte_composition_not_fresh_or_untouched",
+    "exit": 0,
+    "cold_exit": 0,
+    "selected_revision": "c22e3a6bea2a44ee921aed3ec568a699",
+    "files": 24,
+    "native_witnesses": 4,
+    "paired_roots": 1,
+    "report_bytes": 3058571,
+    "report_sha256": "c754a752bb4c0bcf1a2a73466bd8e538331f0542fd3a817000a1fd7d77801107",
+    "requests": 55,
+    "adapter_candidates": 4,
+    "worker_origin": "/tmp/upgradepilot-connected-installed-byii8qwm/installed/upgradepilot/caller_signature/worker.py",
+    "fixture_sha256": "2c7b8666f831790f5458acfb60b3f2b55c4c7b1e454d02733b0c1d6e6e0ef2ba"
+  }
+}
