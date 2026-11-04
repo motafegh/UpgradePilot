@@ -10,9 +10,9 @@ A1 — DONE, COMPRESSED: the immediately preceding verified milestone walkthroug
 A2 — DONE, GUIDED: Ali selected confirmed A for recovery. Clarified that exact successful inspection can also establish B as published.
 B — DONE: explicit profile, exact report/source delivery and offline selected-revision opening connected through the normal CLI.
 Verification gate — GREEN: 1,063 product, 194 API, 7 architecture and 20 final installed delivery controls pass; actual control output retained.
-D — CURRENT: milestone onboarding and external-save-versus-Workspace ownership check; no independent mastery claim.
-E — PENDING: reconcile handoff and ownership gaps.
-C — CONTINUOUS: preserve implementation decisions, failures, evidence and learning here.
+D — DONE, GUIDED: complete main-path onboarding delivered; practical transfer checks remain unassessed.
+E — DONE, GAPS DEFERRED: Ali selected connected retained-case qualification after clarifying the five-step sequence and separate execution profiles.
+C — DONE: engineering, proof, guided understanding and explicit practice gaps preserved.
 ```
 
 ## Orientation and proof boundary
@@ -72,3 +72,9 @@ The staged whitespace gate caught two empty Package/Version display fields with 
 Delivered the connected main-path overview using the retained authored reexport case. Ali reasoned that the source callback lets opening A reveal gathered material after comparison failure. That captures the source-preservation idea, but needed the refinement that only material successfully published in A is promised, and callback invocation alone is not confirmation. Supplied comparison/report absence for the stated worker-crash case and explained acknowledged publication versus run-local acquisition. The follow-up worker-success/publication-failure check remains unanswered; do not grade it as demonstrated understanding.
 
 Ali requested the remaining onboarding in one complete delivery, including mechanisms and concepts alongside each explanation. Consolidate the remaining publication/recovery, report/source delivery and failure/proof blocks rather than stopping for each small question. Ground it in current main source, the retained control report and actual failure tests. Include transaction/predecessor semantics, exact staged identity inspection, execution intent versus authority, native/result/run distinctions, full report material basis, fixed codecs/version checks, source display, external-save mechanics, error precedence, installed/cold proof and remaining qualification. Supply self-check cases and explained answers for self-study. Coverage of this prepared packet is not independent practice/mastery; D/E closure and gap repair/defer remain explicit responsibilities. Product code and frozen evidence stay untouched, and no validation run is represented as newly executed during teaching.
+
+## E closure — November 4
+
+The complete requested onboarding was delivered in chat, including methods/code paths and explained self-check answers. Ali then asked for the forward sequence and challenged whether “connected workflow” meant all existing CI/runtime and source branches run together. Clarified that the explicit source profile is connected end-to-end alongside the existing default investigation; a combined profile is a later design responsibility. Also corrected ambiguous milestone wording: delivery is built, connected retained real-case qualification is next, then frozen live product attempt, task/adoption review, combined-evidence design and grounded-AI checkpoint. Ali explicitly selected the first qualification step.
+
+Close this delivery cycle. Defer independent source/publication/report failure diagnosis and practical code/test tracing to future relevant work; the supplied self-check answers are not learner performance evidence. No known blocking implementation defect remains in this cycle's verified controlled scope. Retained real-case normal-path behavior, full-size/navigation pressure, live product acquisition, independent usefulness and adoption remain unproved. The [qualification cycle](2026-11-04_caller-signature-connected-retained-qualification_cycle.md) owns the next responsibility. The separate learning branch remains outside this workstream.
