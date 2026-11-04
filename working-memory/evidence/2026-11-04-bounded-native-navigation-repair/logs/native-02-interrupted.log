@@ -1,0 +1,32 @@
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-11-04-caller-signature-connected-retained-qualification/navigation.py", line 231, in <module>
+  File "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-11-04-caller-signature-connected-retained-qualification/navigation.py", line 172, in main
+    candidates, _ = json.JSONDecoder().raw_decode(text.split(marker, 1)[1].lstrip())
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/consumer_access.py", line 405, in native_page
+    return self._deliver(purpose_id, "native:page", content, (record_id,))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/consumer_access.py", line 165, in _deliver
+    delivery_id = self.host.deliver_view(
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/lifecycle_host.py", line 686, in deliver_view
+    return self._append(
+           ^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/lifecycle_host.py", line 304, in _append
+    return self._publish(
+           ^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/lifecycle_host.py", line 278, in _publish
+    self.store.publish(revision)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 427, in publish
+    predecessor = self._read(
+                  ^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 818, in _read
+    bases[record.basis_revision_id] = self._read(
+                                      ^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 776, in _read
+    json_bytes(
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/native_representation.py", line 169, in json_bytes
+    _check_json_resources(payload)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/native_representation.py", line 118, in _check_json_resources
+    continue
+KeyboardInterrupt

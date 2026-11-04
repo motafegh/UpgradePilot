@@ -1,0 +1,47 @@
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-11-04-bounded-native-navigation-repair/navigation.py", line 241, in <module>
+    main()
+  File "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-11-04-bounded-native-navigation-repair/navigation.py", line 175, in main
+    did = access.native_page(purpose, record.record_id, start_character=cursor)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/consumer_access.py", line 405, in native_page
+    return self._deliver(purpose_id, "native:page", content, (record_id,))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/consumer_access.py", line 165, in _deliver
+    delivery_id = self.host.deliver_view(
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/lifecycle_host.py", line 686, in deliver_view
+    return self._append(
+           ^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/lifecycle_host.py", line 304, in _append
+    return self._publish(
+           ^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/lifecycle_host.py", line 278, in _publish
+    self.store.publish(revision)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 427, in publish
+    predecessor = self._read(
+                  ^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 790, in _read
+    if revision.digest() != row[1]:
+       ^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_revision.py", line 87, in digest
+    lifecycle = encode_lifecycle_history(self.lifecycle_history)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/lifecycle_boundary.py", line 210, in encode_lifecycle_history
+    parse_json(encode_lifecycle_record(record))
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/native_representation.py", line 146, in parse_json
+    return json.loads(
+           ^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/__init__.py", line 359, in loads
+    return cls(**kw).decode(s)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/decoder.py", line 353, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/native_representation.py", line 85, in _unique_object
+    def _unique_object(pairs: list[tuple[str, object]]) -> dict[str, object]:
+
+KeyboardInterrupt
