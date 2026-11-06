@@ -15,7 +15,23 @@
 
 For every module use:
 
-`real UpgradePilot case → responsibility boundary → essential code/data flow → important uncertainty/failure states → proof/non-proof → ownership check → stop`
+`verified real UpgradePilot case/problem → plain-language system responsibility/layer → what failed or needed explanation → how actual source/evidence flows and why our method exists → alternatives/failure/proof limits → proportionate learner reasoning → stop`
+
+**Use descriptive lesson identity in every teaching turn.** The codes `A3`, `C2`, etc. are roadmap locators, **not vocabulary Ali must memorize**. Introduce each chunk as `code — meaningful responsibility (layer/component and what it handles)`, e.g. `C2 — Historical result reconstruction (native codec/result decoder: preserve and validate saved source-analysis evidence)`. Even when continuing a chunk, briefly locate it in the product flow and explain the immediate responsibility; do not refer to `A3` or `C2` alone or require recalling past code labels. Refer back by descriptive responsibility (e.g. “the imported-origin analyzer”) and only add its code when useful for navigation. The expanded module headings below supply those labels; avoid inventing alternative names that conflict with their actual ownership.
+
+### Real-case-first teaching protocol
+
+**Normal lesson opening must use an existing genuine source/evidence case**, not a generic `pkg/f` toy. Establish concretely: *which repository/dependency update or actual system incident; what source or saved result we genuinely possess; what happened or was observed; why the engineering issue matters; where it enters/leaves UpgradePilot; and which proof/unknowns remain.* Show a **small exact source snippet or a faithful selected record**, with a repository/evidence link and horizon when available. Introduce the abstraction or data structure only after that problem is understandable.
+
+**Label realism/provenance accurately:**
+- **Retained real public-source case** — genuine earlier repository/source/PR material with recorded provenance and gaps; historical retention is not fresh live provider observation.
+- **Controlled replay/composition** — actual product pipeline operating on retained source bytes but authored provider inventory/HTTP responses; proves the controlled path, not authentic historical response capture or independent transfer.
+- **Observed engineering failure/repair** — actual project evidence, negative run, correction and verification (e.g. the six-page native-access refusal and later bounded recovery).
+- **Synthetic fixture / hypothetical illustration** — deliberately constructed to isolate an invariant or counterexample; not a real PR or an observed production failure.
+
+Use **a real case as the narrative spine** and one related source path, actual findings, failure/recovery evidence and targeted tests. Use tiny fixtures only *after* the real case when necessary to distinguish a mechanism or prove a negative branch, and explicitly connect them back. Never present a corruption injected by a unit test as an observed real-case defect. If no adequate real retained evidence exists for a specific low-level behavior, **say exactly what is unobserved**, use the nearest relevant real case to explain the need, then a clearly labelled narrow test for the invariant; do not fabricate real observations or force a tangential case. If the real case is too complex, first orient with its real-world problem and then zoom in to the smallest explanatory slice. Avoid an entire repo walkthrough.
+
+**Comprehension before quiz.** Before checking recall of an encoding index, version field or AST helper, establish the basic problem and concrete input → producer → retained material → consumer flow. Demonstrate why our chosen design helps, why an alternative could fail or cost more, and what this example actually proves. If Ali says the mechanism is still unclear, re-teach from the real case, not a reformulation of the toy example; do not treat immediate repetition or a guessed answer as mastery. Preserve feedback as a learning gap without altering prior covered-module truth. A real case should make the learner able to understand and challenge the engineering decision, not memorize the test's artificial scenario.
 
 Use [Operating Guide §7.2](../OPERATING_GUIDE.md#72-ai-assisted-engineering-ownership) for depth and [§7.3.1](../OPERATING_GUIDE.md#731-practical-attempts-and-evidence) for practical attempts. For a selected activity, establish its prerequisites, let Ali attempt it before supplying the complete answer, then inspect the actual result and assistance needed. Teach new material first. Learning-Only does not authorize product changes; a proposed modification and an implemented/verified modification are different evidence.
 
@@ -40,9 +56,9 @@ These **enhance existing learning chunks**; they are not new modules, quizzes, p
 
 **Reusable teaching move, proportionate to the slice:**
 
-`real UpgradePilot case/problem → key implementation mechanism and code/data path → rationale and alternative/trade-off → failure/proof/non-proof → optional real-world application → optional professional capability → one fair ownership attempt`
+`named real public-source or actual product incident → problem and its product-layer owner → exact observed source/result → our mechanism in selected code → rationale/credible alternative → real validation and proof limit → optional real-world/career transfer → one fair ownership attempt`
 
-A clear example may combine several moves; skip transfer/hiring commentary where it would be filler. For a previously learned mechanism, use a changed-case prediction or targeted diagnosis before replaying a full lecture. Existing coverage and mastery evidence rules remain unchanged.
+A clear example may combine several moves; skip transfer/hiring commentary where it would be filler. For a previously learned mechanism, use a changed **real** case or actual failure diagnosis before replaying a full lecture when such evidence exists. Do not assume prior lesson codes or raw structure names are remembered. Existing coverage and mastery evidence rules remain unchanged.
 
 
 Status:
@@ -74,7 +90,7 @@ Revisit a depth when a real change/failure needs it, a fair attempt exposes a mi
 
 ### Practical opportunities within the existing route
 
-Select an opportunity when its module and prerequisites are active; these examples are not a second execution order or a quota. Use retained real cases and existing controls before authoring a disposable variant. No fabricated production defect or frozen-evidence rewrite is needed.
+Select an opportunity when its module and prerequisites are active; these examples are not a second execution order or a quota. Teach the concrete retained/observed case and the actual source or result **before** using controlled tests as supporting proof. A synthetic control is a secondary instrument, not the storyline; do not invent a production defect, pretend retained source is new live observation, or rewrite frozen evidence.
 
 - **Correspondence/admission:** use retained LifeLog or Digimon to explain the paired/whole-file boundary, then inspect [the atomic native-group refusal test](../tests/test_source_correspondence.py). Let Ali predict which material remains retained and which work is unexamined under the authored limit before revealing the assertions. Interpret a related limit/case with reduced prompting; one guided answer does not establish broad analyzer ownership.
 - **Acquisition ledger:** trace [the normal-prefix/later-client accounting test](../tests/test_caller_signature_acquisition.py), identify the charged timeout/retry and explain why a later stage does not receive another budget. Let Ali select a discriminating assertion or related-case check before presenting one; this controlled transport is not live provider proof.
@@ -114,7 +130,7 @@ When `main` advances:
 
 # PART A — Covered foundations
 
-## A1 — Caller-signature evidence mental model
+## A1 — Evidence meaning: imported origin, source correspondence, argument fit and runtime limits
 
 **Status:** ✅  
 **Depth:** MUST OWN
@@ -125,7 +141,7 @@ Own these separations:
 
 Real anchor: Digimon Requests `2.32.4 → 2.33.0`; direct `requests.get(...)` locally binds while forwarded `request(..., **kwargs)` remains undetermined. Neither proves runtime compatibility.
 
-## A2 — Product-kernel ownership transfer
+## A2 — Analysis ownership: one caller-signature product kernel versus experimental adapters
 
 **Status:** ✅  
 **Depth:** OPERATIONAL
@@ -135,7 +151,7 @@ Real anchor: Digimon Requests `2.32.4 → 2.33.0`; direct `requests.get(...)` lo
 - retained semantic equivalence and installed-wheel proof are stronger than source relocation alone;
 - kernel proof is not complete product-feature proof.
 
-## A3 — `bindings.py`: scoped imported-origin analysis
+## A3 — Imported-origin binding (`bindings.py`): possible source origins, control flow and traces
 
 **Status:** ✅  
 **Depth:** MUST OWN
@@ -151,7 +167,7 @@ Covered:
 - trace = provenance/source observations, not runtime execution history;
 - resource truncation must weaken certainty.
 
-## A4 — `analysis.py`: source facts + local argument comparison
+## A4 — Source facts and argument reception (`analysis.py`): target calls, signatures and conditional outcomes
 
 **Status:** ✅  
 **Depth:** MUST OWN
@@ -180,7 +196,7 @@ Revisit only if `analysis.py` semantics or result truth model changes.
 
 # PART B — Correspondence lesson covered; one practical ownership check next
 
-## B1 — `correspondence.py` + work admission
+## B1 — Target-to-dependency correspondence (`correspondence.py`): source witness paths and bounded work admission
 
 **Status:** ✅ Covered interactively; guided practice and gap repair completed; **independent mastery not established**  
 **Depth:** MUST OWN its source relationship/admission contracts; detailed exotic traversal only when useful
@@ -214,7 +230,7 @@ We traced Digimon's `requests.get` origin → conditional old/proposed source de
 
 # PART C — Native analysis execution and integrity
 
-## C1 — Typed input → bounded worker → run/result
+## C1 — Bounded analysis execution (`worker.py`): exact input, child execution, run state and result coverage
 
 **Status:** ✅ Covered interactively via guided understanding checks; **independent test/debugging ownership not demonstrated**  
 **Depth:** MUST OWN
@@ -235,9 +251,9 @@ Real anchor: LifeLog completed worker with 17 unexamined Python units.
 
 **Guided C1 checks (November 4):** Ali distinguished `SourceAnalysisInput` exact source/role/limits, `SourceAnalysisRun` execution outcome and `SourceAnalysisResult` coverage; completed worker with unexamined files; timeout as failure rather than successful empty result; and original source durability across later failure. Clarified that confirmed Workspace publication—not callback invocation—establishes durable recovery. He correctly rejected a foreign result with unchanged source text but changed input limits. Parent/child boundary, private exchange, deadline, validation and evidence limits were taught. These were chat-based guided predictions, not an independently run test or code modification.
 
-## C2 — Fixed reconstruction + evidence-graph integrity
+## C2 — Historical result reconstruction (`result_codec.py`, `native_codec.py`): source facts, trace/reference integrity and version guards
 
-**Status:** 🟡 Started (node validity versus relationship integrity introduced); fixed-reconstruction walkthrough and reasoning check still outstanding  
+**Status:** 🟡 In progress; user reported the synthetic-first shared-trace explanation did **not** establish understanding. Re-teach from a retained real-source/result case before the next check; preserve prior introductory learning without treating it as independent mastery  
 **Depth:** MUST OWN
 
 Own:
@@ -249,13 +265,13 @@ Own:
 - structural/byte guard meaning;
 - node validity does not imply edge validity.
 
-Real defect: swapped comparison call ID could retain the wrong witness path; repair required proving the compared call occurs at the exact unit/span in that path.
+**Concrete re-entry sequence (real-evidence first):** Start with the retained public Python source material from [LifeLog/HTTPX/Digimon connected qualification](../working-memory/evidence/2026-11-04-caller-signature-connected-retained-qualification/README.md). Pick a specifically grounded result path: e.g. HTTPX's retained `TestClient(app)` → FastAPI/Starlette → old/proposed HTTPX witness paths (one native root, four witnesses) as recovered exactly through report/store/cold opening; or LifeLog's 28 retained files with 17 unexamined Python units. Point to exact source/result evidence rather than asserting uninspected details. Ask what must remain unchanged when that historical analysis is opened: source identity, selected call/declaration, ordered witness path, premises, outcomes and partiality. **Only after that** explain the result/native decoder and show a small actual source/test excerpt demonstrating one relevant invariant. A locally authored `from pkg import f; f(x=1); f(x=1)` shared-step test is a **synthetic regression fixture**, not a real observed corruption incident; use it only to isolate deduplicated trace-index mechanics if those details are needed. The swapped comparison `call_id` test is likewise an **injected negative regression**, not evidence of a real-world bug; the code validates that the selected invocation is at the actual unit/span of the retained witness path. Do not claim a particular real retained case exercised shared-step deduplication until its stored content demonstrates it. Explain which integrity obligations are central to later engineering ownership and which codec details are lookup-only. Resume only after user can connect the problem, production/persistence boundary and validation to the real case.
 
 ---
 
 # PART D — Native families and Workspace lifecycle
 
-## D1 — `caller_signature_sources`
+## D1 — Native source evidence (`caller_signature_sources`): retained text, selection and acquisition provenance
 
 **Status:** 🟡  
 **Depth:** MUST OWN
@@ -270,7 +286,7 @@ Historical retained receipts may be incomplete and must never be upgraded into f
 
 Real anchor: glyphsLib remains valid for worker/protocol qualification but is not admitted to the source family because ordinary acquisition premises are missing.
 
-## D2 — `caller_signature_comparison`
+## D2 — Native comparison evidence (`caller_signature_comparison`): exact source basis, run and local findings
 
 **Status:** 🟡  
 **Depth:** MUST OWN
@@ -280,7 +296,7 @@ Real anchor: glyphsLib remains valid for worker/protocol qualification but is no
 - completed analysis can remain partial;
 - source bytes are not duplicated into a second store.
 
-## D3 — codec version vs producer method/version
+## D3 — Native format and method contracts: representation codec versus semantic producer version
 
 **Status:** 🟡  
 **Depth:** MUST OWN
@@ -290,7 +306,7 @@ Real anchor: glyphsLib remains valid for worker/protocol qualification but is no
 - only admitted exact caller-signature producer pairs are supported;
 - do not globally weaken older family version gaps.
 
-## D4 — `NativeInvestigationCapture` + Workspace revision/checkpoint recovery
+## D4 — Workspace persistence and access: capture, evidence revisions, material bases, views and cold recovery
 
 **Status:** 🟡  
 **Depth:** MUST OWN
@@ -312,7 +328,7 @@ Own:
 
 These modules were future work at the previous roadmap horizon and are now real product code. Learn them **after D**, because they feed the source family and make more sense once its provenance/lifecycle contract is understood.
 
-## E1 — Acquisition policy + shared physical-request ledger
+## E1 — Provider acquisition policy (`acquisition.py`): shared requests, retry/deadline and byte limits
 
 **Status:** ⬜  
 **Depth:** MUST OWN
@@ -334,7 +350,7 @@ Own:
 
 Real controlled flow: normal prefix + later release recovery/source read share one ledger; the recorded six-attempt example is a controlled proof, not a live constant.
 
-## E2 — Exact target source context
+## E2 — Target repository source context: exact PR revision, selected declarations and import candidates
 
 **Status:** ⬜  
 **Depth:** MUST OWN
@@ -353,7 +369,7 @@ Own:
 
 Rabbit-hole guard: TOML/requirements parser syntax details are OPERATIONAL/LOOKUP unless a real parsing issue matters.
 
-## E3 — Exact dependency source association/module acquisition + partial receipts
+## E3 — Dependency source acquisition: old/proposed release association, modules and partial receipts
 
 **Status:** ⬜  
 **Depth:** MUST OWN
@@ -384,7 +400,7 @@ Real controlled flow: target `demo` old/proposed acquisition with one shared ses
 
 **Product status and lesson status are separate.** F1 source-progress composition and F2 normal explicit CLI/report/Workspace delivery have verified controlled/installed proof. Neither is covered in this learning track yet. F3's retained-case qualification step is active on main; fresh real-provider, independent maintainer usefulness and adoption remain separately gated.
 
-## F1 — Source catalog + receipt composition, Workspace progress and application stage
+## F1 — Source-progress integration: receipt/catalog composition, Workspace publication and analysis handoff
 
 **Implementation:** VERIFIED controlled connected stage, main `58bdf1e4`  
 **Learning status:** ⬜ Planned  
@@ -414,7 +430,7 @@ Own: physical provider response versus admitted text; receipt versus **confirmed
 
 Practice at F1: predict the surviving exact material and prohibited paired inference after failed proposed download, then identify the latest confirmed revision after a later worker/write failure. Read assertion/setup/results and name which trust boundary each test protects.
 
-## F2 — Explicit CLI profile, durable report/source delivery and exact offline opening
+## F2 — User-facing evidence delivery: CLI profile, report/source save/open and exact revision recovery
 
 **Implementation:** VERIFIED controlled/installed normal-path delivery, November 4 milestone  
 **Learning status:** ⬜ Planned, now ready for study after F1  
@@ -428,7 +444,7 @@ Owners: [user-delivery cycle](../working-memory/2026-11-03_caller-signature-user
 
 **Milestone boundary at the original small controlled F2 proof:** retained full-size navigation was not yet qualified then. Later F3 retained HTTPX evidence now qualifies its specific 60-page bounded native access and cold recovery (see D4 and F3), **not** unlimited paging, a fully successful source-only navigation baseline, live-provider behavior, independent usefulness or adoption.
 
-## F3 — Connected product/task qualification, usefulness and adoption
+## F3 — Product qualification: retained/live evidence, maintainer tasks, usability and adoption limits
 
 **Product:** ✅ Connected retained-case qualification closed with bounded native paging repair at `38741c3c`; **live provider / independent task usefulness / broad adoption still pending**  
 **Learning:** ⬜ Not yet taught  
@@ -444,7 +460,7 @@ Must distinguish historic retained exact inputs, controlled provider responses, 
 
 # PART G — Scheduled later checkpoint, deliberately deferred now
 
-## G1 — Combined evidence + runtime applicability design checkpoint
+## G1 — Combined evidence and runtime applicability: deferred design checkpoint
 
 **Status:** ⬜ DEFERRED  
 **Depth:** MUST OWN only when its plan gate is reached
@@ -455,7 +471,7 @@ When reached, learn/design how existing static caller-signature evidence, CI/run
 
 Do not pre-study speculative runtime observer design now. Reuse existing CI/static/target-owned evidence first; new runtime observation must be justified by a concrete unresolved proposition.
 
-## G2 — Evidence-grounded AI/retrieval/LLM direction (same later handoff)
+## G2 — Evidence-grounded AI/retrieval interpretation: deferred design checkpoint
 
 **Implementation:** planning only, no new model/RAG/agent execution. **Learning:** ⬜ DEFERRED.
 
@@ -482,11 +498,11 @@ Owners: [project route](../plans/UPGRADEPILOT_90_DAY_PLAN.md#evidence-grounded-a
 
 ## 4. Current learning order
 
-**Learning-coverage snapshot (November 6):** 19 named modules = **6 covered interactively** (A1–A4, B1, C1), **5 introduced/in progress** (C2, D1–D4), **8 not yet studied** (E1–E3, F1–F3, G1–G2). **13 not yet covered**; among them G1/G2 are intentionally deferred design checkpoints, not immediate prerequisites. Implementation milestones do not automatically upgrade learning marks.
+**Learning-coverage snapshot (November 6, after teaching-method review):** 19 named modules = **6 covered interactively** (A1–A4, B1, C1), **5 introduced/in progress** (C2, D1–D4), **8 not yet studied** (E1–E3, F1–F3, G1–G2). **13 not yet covered**; among them G1/G2 are intentionally deferred design checkpoints, not immediate prerequisites. Implementation milestones do not automatically upgrade learning marks.
 
 ```text
 COVERED INTERACTIVELY:  A1 A2 A3 A4 B1 C1  (6 of 19)
-NOW:                    C2 fixed reconstruction/graph integrity (introduced)
+NOW:                    C2 historical result reconstruction and evidence-integrity validation (real-case re-teaching needed)
 
 NEXT:                   D1 D2 D3 D4 (previously introduced; continue)
                         E1 E2 E3 acquisition and exact provenance
@@ -514,6 +530,6 @@ and can explain, for each boundary:
 - what it does **not** prove;
 - where to inspect or test it when behavior changes.
 
-For ownership-bearing completion at a selected scope, also preserve an actual meaningful practical attempt with its result, assistance and limitations. Relevant evidence can include selecting and interpreting a discriminating test, causal diagnosis, or a justified modification with appropriate verification. Stronger implementation/transfer claims require corresponding action and changed-context or reduced-assistance evidence; explaining where a test lives or proposing a change alone does not establish implementation ownership.
+For ownership-bearing completion at a selected scope, also preserve an actual meaningful practical attempt with its result, assistance and limitations. Lessons and questions should use full descriptive responsibility/layer names rather than expecting roadmap-code memorization; prefer real retained/source/incident evidence over synthetic test fixtures. Relevant evidence can include selecting and interpreting a discriminating test, causal diagnosis, or a justified modification with appropriate verification. Stronger implementation/transfer claims require corresponding action and changed-context or reduced-assistance evidence; explaining where a test lives or proposing a change alone does not establish implementation ownership.
 
 If this evidence remains unavailable, record the ownership gap explicitly while retaining truthful lesson coverage and any justified continuation. No historical checkmark is automatically promoted or erased. Memorizing every helper/API, owning every advanced internal before product work continues, and a new cross-project capability score are not required. Use an illuminating real-world transfer and one or two concrete professional capabilities when they improve this selected lesson; neither is a mastery claim or an extra curriculum gate.
