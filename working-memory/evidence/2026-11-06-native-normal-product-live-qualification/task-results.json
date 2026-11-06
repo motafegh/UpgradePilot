@@ -1,0 +1,343 @@
+{
+  "outcome": "defer_positive_adoption_transport_limited",
+  "exact_revision": "70aa4c795ef54b46ad5f411acb3e5631",
+  "source_baseline": {
+    "operations": 10,
+    "windows": 2,
+    "delivered_bytes": 16703,
+    "read_operations": 2,
+    "native_pages": 0,
+    "report_reads": 0
+  },
+  "report_route": {
+    "source_operations": 2,
+    "delivered_source_bytes": 4335,
+    "report_decodes_this_route": 3,
+    "failed_diagnostic_decode_included": true,
+    "report_bytes_per_decode": 256803,
+    "cold_verification_report_decodes_separate": 5,
+    "embedded_producer_records_inspected": 1,
+    "native_pages": 0,
+    "consumer_seconds": null,
+    "faithful_answers": {
+      "identity": {
+        "repository": "Aidan-Wallace/kubernetes-dashboard-token-api",
+        "pull_number": "20",
+        "title": "Bump httpx from 0.27.2 to 0.28.1",
+        "author": "dependabot[bot]",
+        "state": "closed",
+        "merged": "true",
+        "base_ref": "main",
+        "base_sha": "b065646e4b7b894964567950f9ad770b02c136c2",
+        "head_ref": "dependabot/pip/httpx-0.28.1",
+        "head_sha": "391508134b083b8f54461c0b576e8f7985c6ecb4"
+      },
+      "selected_call": "tests/test_routes.py L7 TestClient(app), fastapi.testclient import at L2",
+      "source_outcomes": "No selected old/proposed HTTPX witness; three report comparisons are local target get_token calls.",
+      "missing_evidence": "No dependency module receipts/source scopes; FastAPI and pytest release-index requests timed out.",
+      "recovery": "Exact selected call/declaration source and saved report recovered; missing library definitions cannot be recovered.",
+      "next_observation": "A separately scoped transport diagnostic must distinguish why PyPI timed out before any new acquisition. Runtime state remains a separate later proof responsibility."
+    }
+  },
+  "native": {
+    "acquisition_state": "partial",
+    "analysis_state": "completed",
+    "retained_files": 12,
+    "dependency_source_scopes": 0,
+    "module_receipts": 0,
+    "comparisons": 3,
+    "roots": 3,
+    "selected_root_report_witnesses": 0,
+    "selected_httpx_witnesses": 0,
+    "gaps": 76,
+    "work": {
+      "source_files": 12,
+      "source_bytes": 6044,
+      "ast_nodes": 818,
+      "facts": 72,
+      "selected_pairs": 3,
+      "scanned_ast_nodes": 818,
+      "fact_structure_cost": 8082,
+      "comparison_structure_cost": 543,
+      "states_examined": 29,
+      "gaps_omitted": 0
+    },
+    "selected_call_gaps": [
+      {
+        "reason": "callable_relationship_unresolved",
+        "unit_id": "f3c6909bd019ad334c2ceecb93605affcee9492f98ab440b17d3c021d6c48f46",
+        "span": {
+          "line": 7,
+          "column": 13,
+          "end_line": 7,
+          "end_column": 28
+        },
+        "detail": "TestClient"
+      }
+    ]
+  },
+  "transport": {
+    "github": 17,
+    "provider": 19,
+    "body_bytes": 94625,
+    "elapsed": {
+      "seconds_hex": "0x1.2fe673d8aea00p+5",
+      "scope": "source_acquisition_elapsed"
+    },
+    "requests": [
+      {
+        "stage": "native_inputs",
+        "host": "api.github.com",
+        "path": "/repos/Aidan-Wallace/kubernetes-dashboard-token-api/pulls/20",
+        "github_requests": 1,
+        "provider_requests": 1,
+        "decoded_body_bytes": 29496,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      },
+      {
+        "stage": "native_inputs",
+        "host": "api.github.com",
+        "path": "/repos/Aidan-Wallace/kubernetes-dashboard-token-api/pulls/20/files",
+        "github_requests": 2,
+        "provider_requests": 2,
+        "decoded_body_bytes": 721,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      },
+      {
+        "stage": "native_inputs",
+        "host": "api.github.com",
+        "path": "/repos/Aidan-Wallace/kubernetes-dashboard-token-api/pulls/20",
+        "github_requests": 3,
+        "provider_requests": 3,
+        "decoded_body_bytes": 29496,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      },
+      {
+        "stage": "target_context",
+        "host": "api.github.com",
+        "path": "/repos/Aidan-Wallace/kubernetes-dashboard-token-api/git/commits/391508134b083b8f54461c0b576e8f7985c6ecb4",
+        "github_requests": 4,
+        "provider_requests": 4,
+        "decoded_body_bytes": 2769,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      },
+      {
+        "stage": "target_context",
+        "host": "api.github.com",
+        "path": "/repos/Aidan-Wallace/kubernetes-dashboard-token-api/git/trees/835de3774664c28acff829c7b0846b7f2d66255d",
+        "github_requests": 5,
+        "provider_requests": 5,
+        "decoded_body_bytes": 9637,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      },
+      {
+        "stage": "target_context",
+        "host": "api.github.com",
+        "path": "/repos/Aidan-Wallace/kubernetes-dashboard-token-api/contents/requirements.txt",
+        "github_requests": 6,
+        "provider_requests": 6,
+        "decoded_body_bytes": 1336,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      },
+      {
+        "stage": "target_context",
+        "host": "api.github.com",
+        "path": "/repos/Aidan-Wallace/kubernetes-dashboard-token-api/contents/app/__init__.py",
+        "github_requests": 7,
+        "provider_requests": 7,
+        "decoded_body_bytes": 1165,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      },
+      {
+        "stage": "target_context",
+        "host": "api.github.com",
+        "path": "/repos/Aidan-Wallace/kubernetes-dashboard-token-api/contents/app/config.py",
+        "github_requests": 8,
+        "provider_requests": 8,
+        "decoded_body_bytes": 2443,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      },
+      {
+        "stage": "target_context",
+        "host": "api.github.com",
+        "path": "/repos/Aidan-Wallace/kubernetes-dashboard-token-api/contents/app/main.py",
+        "github_requests": 9,
+        "provider_requests": 9,
+        "decoded_body_bytes": 1517,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      },
+      {
+        "stage": "target_context",
+        "host": "api.github.com",
+        "path": "/repos/Aidan-Wallace/kubernetes-dashboard-token-api/contents/app/models/__init__.py",
+        "github_requests": 10,
+        "provider_requests": 10,
+        "decoded_body_bytes": 1207,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      },
+      {
+        "stage": "target_context",
+        "host": "api.github.com",
+        "path": "/repos/Aidan-Wallace/kubernetes-dashboard-token-api/contents/app/models/health.py",
+        "github_requests": 11,
+        "provider_requests": 11,
+        "decoded_body_bytes": 1427,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      },
+      {
+        "stage": "target_context",
+        "host": "api.github.com",
+        "path": "/repos/Aidan-Wallace/kubernetes-dashboard-token-api/contents/app/models/token.py",
+        "github_requests": 12,
+        "provider_requests": 12,
+        "decoded_body_bytes": 1380,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      },
+      {
+        "stage": "target_context",
+        "host": "api.github.com",
+        "path": "/repos/Aidan-Wallace/kubernetes-dashboard-token-api/contents/app/router/__init__.py",
+        "github_requests": 13,
+        "provider_requests": 13,
+        "decoded_body_bytes": 1207,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      },
+      {
+        "stage": "target_context",
+        "host": "api.github.com",
+        "path": "/repos/Aidan-Wallace/kubernetes-dashboard-token-api/contents/app/router/routes.py",
+        "github_requests": 14,
+        "provider_requests": 14,
+        "decoded_body_bytes": 3698,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      },
+      {
+        "stage": "target_context",
+        "host": "api.github.com",
+        "path": "/repos/Aidan-Wallace/kubernetes-dashboard-token-api/contents/app/utils.py",
+        "github_requests": 15,
+        "provider_requests": 15,
+        "decoded_body_bytes": 1850,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      },
+      {
+        "stage": "target_context",
+        "host": "api.github.com",
+        "path": "/repos/Aidan-Wallace/kubernetes-dashboard-token-api/contents/tests/__init__.py",
+        "github_requests": 16,
+        "provider_requests": 16,
+        "decoded_body_bytes": 1503,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      },
+      {
+        "stage": "target_context",
+        "host": "api.github.com",
+        "path": "/repos/Aidan-Wallace/kubernetes-dashboard-token-api/contents/tests/test_routes.py",
+        "github_requests": 17,
+        "provider_requests": 17,
+        "decoded_body_bytes": 3773,
+        "status": 200,
+        "state": "received",
+        "reason": null
+      },
+      {
+        "stage": "library_sources",
+        "host": "pypi.org",
+        "path": "/pypi/fastapi/json",
+        "github_requests": 17,
+        "provider_requests": 18,
+        "decoded_body_bytes": 0,
+        "status": null,
+        "state": "failed",
+        "reason": "transport_error"
+      },
+      {
+        "stage": "library_sources",
+        "host": "pypi.org",
+        "path": "/pypi/pytest/json",
+        "github_requests": 17,
+        "provider_requests": 19,
+        "decoded_body_bytes": 0,
+        "status": null,
+        "state": "failed",
+        "reason": "transport_error"
+      }
+    ],
+    "stops": [],
+    "retry_policy": "none",
+    "retry_decisions": []
+  },
+  "acquisition_problems": [
+    {
+      "stage": "adapter_index",
+      "reason": "acquisition_failed",
+      "detail": "PyPI release-index acquisition timed out."
+    },
+    {
+      "stage": "adapter_index",
+      "reason": "acquisition_failed",
+      "detail": "PyPI release-index acquisition timed out."
+    },
+    {
+      "stage": "adapter_index",
+      "reason": "acquisition_failed",
+      "detail": "PyPI release-index acquisition timed out."
+    },
+    {
+      "stage": "adapter_index",
+      "reason": "acquisition_failed",
+      "detail": "PyPI release-index acquisition timed out."
+    }
+  ],
+  "report_projection_faithful": true,
+  "analysis_elapsed": {
+    "seconds_hex": "0x1.e4d11ff640000p-3",
+    "scope": "analysis_parent_including_input_encoding_and_result_admission"
+  },
+  "unperformed_branches": {
+    "ci": "not_evaluated",
+    "runtime": "not_evaluated"
+  },
+  "action": "abstain",
+  "positive_paired_task": false,
+  "direct_baseline_extended_after_grading": false,
+  "report_source_recovery": true,
+  "performance_repair_selected": false,
+  "disposition": "Defer positive native-adoption qualification: selected paired evidence unavailable after PyPI timeouts. Preserve useful partial target evidence; no checker repair/retry/cap enlargement.",
+  "next_responsibility": "Bounded PyPI transport diagnosis against the retained failure; any network diagnostic or successor acquisition must be separately admitted.",
+  "independent_usefulness": false,
+  "runtime_compatibility": false,
+  "real_provider_calls_during_review": 0
+}

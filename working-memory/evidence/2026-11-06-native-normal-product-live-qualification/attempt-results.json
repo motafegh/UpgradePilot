@@ -38,7 +38,7 @@
   "selected_httpx_witnesses": 0,
   "partial_reason": "Two PyPI release-index transport timeouts; no retry and no cap exhaustion.",
   "positive_httpx_qualification": false,
-  "task_disposition": "pending complete report-route review",
+  "task_disposition": "defer_positive_adoption_transport_limited",
   "runtime_compatibility": false,
   "independent_usefulness": false,
   "automatic_retry": false,
