@@ -92,12 +92,19 @@ def _failure(stage: DeliveryStage, error: Exception) -> DeliveryProblem:
 def investigate_and_deliver_caller_signature(
     repository: str, pull_number: int, *, session: AcquisitionSession,
     host: InvestigationWorkspaceHost,
+    expected_base: str | None = None, expected_head: str | None = None,
 ) -> CallerSignatureDelivery:
-    """Run each producer once, publish the exact report, then return earned handoff."""
+    """Run each producer once, publish the exact report, then return earned handoff.
+
+    Optional expected revisions reach the existing PR-prefix guard before changed
+    files or source work. None preserves ordinary unguarded acquisition; this
+    application does not fetch a second prefix or reinterpret mismatched evidence.
+    """
     problems = []
     try:
         revision = investigate_caller_signature_progress(
             repository, pull_number, session=session, workspace_host=host,
+            expected_base=expected_base, expected_head=expected_head,
         )
     except Exception as error:
         if host.publication_blocked:

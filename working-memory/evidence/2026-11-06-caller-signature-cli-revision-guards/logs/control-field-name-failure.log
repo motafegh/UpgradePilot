@@ -1,0 +1,45 @@
+EEEE...
+======================================================================
+ERROR: test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation) (label='unguarded')
+Exercise the real CLI/application/clients/worker, including absent guards.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_delivery.py", line 182, in test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation
+    native.sources.catalog, native.sources.modules, native.sources.limits,
+                                                    ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'CallerSignatureSources' object has no attribute 'limits'
+
+======================================================================
+ERROR: test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation) (label='both')
+Exercise the real CLI/application/clients/worker, including absent guards.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_delivery.py", line 182, in test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation
+    native.sources.catalog, native.sources.modules, native.sources.limits,
+                                                    ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'CallerSignatureSources' object has no attribute 'limits'
+
+======================================================================
+ERROR: test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation) (label='base')
+Exercise the real CLI/application/clients/worker, including absent guards.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_delivery.py", line 182, in test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation
+    native.sources.catalog, native.sources.modules, native.sources.limits,
+                                                    ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'CallerSignatureSources' object has no attribute 'limits'
+
+======================================================================
+ERROR: test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation) (label='head')
+Exercise the real CLI/application/clients/worker, including absent guards.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_delivery.py", line 182, in test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation
+    native.sources.catalog, native.sources.modules, native.sources.limits,
+                                                    ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'CallerSignatureSources' object has no attribute 'limits'
+
+----------------------------------------------------------------------
+Ran 4 tests in 10.253s
+
+FAILED (errors=4)
