@@ -1,0 +1,101 @@
+{
+  "source_commit": "dcee66e4",
+  "proof": "optional expected revisions qualified through actual normal CLI/application and noneditable installed package; no fresh provider",
+  "checks": {
+    "focused-green": {
+      "tests": 46,
+      "reported_counter_seconds": 50.906,
+      "result": "pass",
+      "log": "logs/focused-green.log"
+    },
+    "product": {
+      "tests": 1077,
+      "reported_counter_seconds": 189.921,
+      "result": "pass",
+      "log": "logs/product.log"
+    },
+    "api": {
+      "tests": 194,
+      "reported_counter_seconds": 16.468,
+      "result": "pass",
+      "log": "logs/api.log"
+    },
+    "architecture": {
+      "tests": 7,
+      "reported_counter_seconds": 1.152,
+      "result": "pass",
+      "log": "logs/architecture.log"
+    },
+    "installed": {
+      "tests": 46,
+      "reported_counter_seconds": 50.872,
+      "result": "pass",
+      "log": "logs/installed.log"
+    }
+  },
+  "controlled_retained_httpx": {
+    "proof_class": "controlled_actual_client_catalog_only_http_composition",
+    "outcome": "passed",
+    "exit": 0,
+    "github": 45,
+    "provider": 55,
+    "response_bytes": 303510,
+    "retained_files": 24,
+    "witnesses": 12,
+    "roots": 5,
+    "selected_revision": "e7d3a4ffbb954d7b906383e78d0bce20",
+    "exact_native_result_equal": true,
+    "source_catalog_modules_limits_equal": true,
+    "report_retained": true,
+    "fresh_live": false,
+    "untouched_transfer": false,
+    "acquisition_state": "partial",
+    "analysis_state": "completed",
+    "native_version_witnesses": 4,
+    "native_paired_roots": 1
+  },
+  "installed_guarded_cold": {
+    "selected_revision": "e7d3a4ffbb954d7b906383e78d0bce20",
+    "source_id": "source-29",
+    "report_id": "24099fc7-7392-4a07-87a3-e9b8720e38c9",
+    "source_content_exact": true,
+    "method_sha256": "e580bb86396946e6d1901f7c1b72f6ae3554d0473f8ba8a179a4f93090406954",
+    "installed_only_pythonpath": true,
+    "blocked": [
+      "network",
+      "credential access",
+      "AST parsing",
+      "acquisition",
+      "analysis",
+      "projection",
+      "synthesis"
+    ],
+    "guards_discriminated": true,
+    "controls": [
+      {
+        "route": "workspace",
+        "exit": 0,
+        "output_sha256": "0a93aa183da5b4fc9b10d3e1f45088f07b5fc3c46bb4b65f65d0e16718f31f44",
+        "bytes": 256394
+      },
+      {
+        "route": "source",
+        "exit": 0,
+        "output_sha256": "7d51a071d63b1a44c3b3d87ffd079a007779e3739a6e6ceac51a02950e0177ab",
+        "bytes": 3645
+      },
+      {
+        "route": "report",
+        "exit": 0,
+        "output_sha256": "f1885daa3715f379a4eedb1a76a1baee383e78a72c8385ef2d8cf488ea7715d4",
+        "bytes": 255902
+      }
+    ]
+  },
+  "wheel_sha256": "8a4e7a428ff83bf42bd2596e6c6cb84960368e56fc3ec7a1a73daa3853a0cc07",
+  "guard_syntax": "shared40/64-hex grammar; frozen40-only review phrase explicitly superseded",
+  "mismatch": "one charged/dispatched PR observation; no source/worker/confirmed revision; CLI exit3",
+  "compatibility": "exact native result/catalog/modules/limits and unchanged55/45 costs on exposed controlled HTTPX; observation envelopes are not byte-equal",
+  "materiality": "optional pre-existing guard exposed at interfaces; unguarded acquisition and analyzer semantics unchanged; exposed cases confer no untouched transfer",
+  "limits": "timing preflight/full60-page duration/live acquisition/independent usefulness/runtime applicability not established; test durations are counter readings"
+}

@@ -1,0 +1,88 @@
+test_analysis_failure_offers_exact_source_only_cold_recovery (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_analysis_failure_offers_exact_source_only_cold_recovery) ... ok
+test_application_delivery_forwards_individual_guards_before_source_work (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_application_delivery_forwards_individual_guards_before_source_work) ... ok
+test_cli_revision_mismatch_stops_after_one_charged_pr_observation (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_cli_revision_mismatch_stops_after_one_charged_pr_observation) ... ok
+test_competing_publication_never_switches_to_the_competing_head (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_competing_publication_never_switches_to_the_competing_head) ... ok
+test_external_save_failure_preserves_workspace_report_delivery (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_external_save_failure_preserves_workspace_report_delivery) ... ok
+test_failed_acknowledgement_inspection_preserves_unknown_and_predecessor (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_failed_acknowledgement_inspection_preserves_unknown_and_predecessor) ... ok
+test_fixed_workspace_consumer_offers_native_sources_and_comparison_pages (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_fixed_workspace_consumer_offers_native_sources_and_comparison_pages) ... ok
+test_guard_argument_errors_precede_credentials_sessions_and_offline_reads (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_guard_argument_errors_precede_credentials_sessions_and_offline_reads) ... ok
+test_known_failed_report_publication_preserves_predecessor (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_known_failed_report_publication_preserves_predecessor) ... ok
+test_lost_report_acknowledgement_is_inspected_without_retry (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_lost_report_acknowledgement_is_inspected_without_retry) ... ok
+test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation)
+Exercise the real CLI/application/clients/worker, including absent guards. ... ok
+test_missing_selected_revision_has_no_fallback (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_missing_selected_revision_has_no_fallback) ... ok
+test_normal_cli_report_source_and_exact_workspace_open (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_normal_cli_report_source_and_exact_workspace_open) ... ok
+test_offline_argument_conflicts_fail_before_clients_or_credentials (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_offline_argument_conflicts_fail_before_clients_or_credentials) ... ok
+test_partial_acquisition_is_successful_delivery_with_honest_coverage (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_partial_acquisition_is_successful_delivery_with_honest_coverage) ... ok
+test_preexecution_head_conflict_is_publication_failure_without_pending_write (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_preexecution_head_conflict_is_publication_failure_without_pending_write) ... ok
+test_render_failure_preserves_the_retained_report (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_render_failure_preserves_the_retained_report) ... ok
+test_report_encoding_capacity_refusal_preserves_evidence (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_report_encoding_capacity_refusal_preserves_evidence) ... ok
+test_report_projection_failure_preserves_comparison_and_no_report (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_report_projection_failure_preserves_comparison_and_no_report) ... ok
+test_report_reader_refuses_unadmitted_comparison_states (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_report_reader_refuses_unadmitted_comparison_states) ... ok
+test_unknown_report_representation_is_unsupported_rather_than_absent (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_unknown_report_representation_is_unsupported_rather_than_absent) ... ok
+test_unsupported_dependency_delivers_explained_non_evaluation (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_unsupported_dependency_delivers_explained_non_evaluation) ... ok
+test_unsupported_retained_report_method_refuses_without_fallback (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_unsupported_retained_report_method_refuses_without_fallback) ... ok
+test_volatile_delivery_and_preinitialization_failure_have_earned_handoffs (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_volatile_delivery_and_preinitialization_failure_have_earned_handoffs) ... ok
+test_artifact_candidate_and_target_evidence_render_proof_strength_without_tag_dump (test_cli.CLITests.test_artifact_candidate_and_target_evidence_render_proof_strength_without_tag_dump) ... ok
+test_artifact_evidence_problem_is_distinct_from_no_candidate (test_cli.CLITests.test_artifact_evidence_problem_is_distinct_from_no_candidate) ... ok
+test_artifact_target_problem_is_rendered_without_strengthening_applicability (test_cli.CLITests.test_artifact_target_problem_is_rendered_without_strengthening_applicability) ... ok
+test_completed_artifact_comparison_can_render_no_candidate (test_cli.CLITests.test_completed_artifact_comparison_can_render_no_candidate) ... ok
+test_dependency_problem_renders_downstream_stops (test_cli.CLITests.test_dependency_problem_renders_downstream_stops) ... ok
+test_github_acquisition_error_maps_to_exit_3 (test_cli.CLITests.test_github_acquisition_error_maps_to_exit_3) ... ok
+test_github_response_error_maps_to_exit_4 (test_cli.CLITests.test_github_response_error_maps_to_exit_4) ... ok
+test_input_error_maps_to_exit_2 (test_cli.CLITests.test_input_error_maps_to_exit_2) ... ok
+test_invalid_saved_file_is_validation_failure_and_never_an_investigation (test_cli.CLITests.test_invalid_saved_file_is_validation_failure_and_never_an_investigation) ... ok
+test_open_argument_conflicts_are_rejected_before_acquisition (test_cli.CLITests.test_open_argument_conflicts_are_rejected_before_acquisition) ... usage: upgradepilot [-h] [--github-auth {anonymous,token-env}]
+                    [--save-report PATH] [--open-report PATH]
+                    [--show-source SOURCE_ID]
+                    [--evidence-profile {caller-signature}]
+                    [--expected-base COMMIT_SHA] [--expected-head COMMIT_SHA]
+                    [--workspace-store PATH] [--open-workspace PATH]
+                    [--revision REVISION_ID]
+                    [repository] [pull_number]
+upgradepilot: error: --open-report cannot be combined with investigation, save or authentication arguments
+usage: upgradepilot [-h] [--github-auth {anonymous,token-env}]
+                    [--save-report PATH] [--open-report PATH]
+                    [--show-source SOURCE_ID]
+                    [--evidence-profile {caller-signature}]
+                    [--expected-base COMMIT_SHA] [--expected-head COMMIT_SHA]
+                    [--workspace-store PATH] [--open-workspace PATH]
+                    [--revision REVISION_ID]
+                    [repository] [pull_number]
+upgradepilot: error: --open-report cannot be combined with investigation, save or authentication arguments
+usage: upgradepilot [-h] [--github-auth {anonymous,token-env}]
+                    [--save-report PATH] [--open-report PATH]
+                    [--show-source SOURCE_ID]
+                    [--evidence-profile {caller-signature}]
+                    [--expected-base COMMIT_SHA] [--expected-head COMMIT_SHA]
+                    [--workspace-store PATH] [--open-workspace PATH]
+                    [--revision REVISION_ID]
+                    [repository] [pull_number]
+upgradepilot: error: --open-report cannot be combined with investigation, save or authentication arguments
+usage: upgradepilot [-h] [--github-auth {anonymous,token-env}]
+                    [--save-report PATH] [--open-report PATH]
+                    [--show-source SOURCE_ID]
+                    [--evidence-profile {caller-signature}]
+                    [--expected-base COMMIT_SHA] [--expected-head COMMIT_SHA]
+                    [--workspace-store PATH] [--open-workspace PATH]
+                    [--revision REVISION_ID]
+                    [repository] [pull_number]
+upgradepilot: error: repository and pull_number are required for an investigation
+ok
+test_pre_result_acquisition_failure_does_not_fabricate_saved_report (test_cli.CLITests.test_pre_result_acquisition_failure_does_not_fabricate_saved_report) ... ok
+test_requested_save_failure_is_nonzero_even_after_report_display (test_cli.CLITests.test_requested_save_failure_is_nonzero_even_after_report_display) ... ok
+test_save_then_open_preserves_record_and_has_no_acquisition_or_token_access (test_cli.CLITests.test_save_then_open_preserves_record_and_has_no_acquisition_or_token_access) ... ok
+test_supported_investigation_is_rendered_without_obsolete_claim_state (test_cli.CLITests.test_supported_investigation_is_rendered_without_obsolete_claim_state) ... ok
+test_default_is_anonymous_even_with_ambient_token (test_github_authentication.GitHubAuthenticationCLITests.test_default_is_anonymous_even_with_ambient_token) ... ok
+test_explicit_env_token_is_passed_without_printing_secret (test_github_authentication.GitHubAuthenticationCLITests.test_explicit_env_token_is_passed_without_printing_secret) ... ok
+test_help_describes_modes_not_secret_values (test_github_authentication.GitHubAuthenticationCLITests.test_help_describes_modes_not_secret_values) ... ok
+test_missing_or_empty_explicit_token_fails_before_investigation (test_github_authentication.GitHubAuthenticationCLITests.test_missing_or_empty_explicit_token_fails_before_investigation) ... ok
+test_anonymous_prepared_request_ignores_ambient_netrc_and_preserves_proxy_config (test_github_authentication.GitHubPreparedRequestTests.test_anonymous_prepared_request_ignores_ambient_netrc_and_preserves_proxy_config) ... ok
+test_auth_failure_remains_distinct_from_missing_source_and_transport (test_github_authentication.GitHubPreparedRequestTests.test_auth_failure_remains_distinct_from_missing_source_and_transport) ... ok
+test_explicit_bearer_survives_same_origin_redirect_but_not_cross_origin (test_github_authentication.GitHubPreparedRequestTests.test_explicit_bearer_survives_same_origin_redirect_but_not_cross_origin) ... ok
+test_real_gitHub_client_uses_isolated_default_but_preserves_injected_session (test_github_authentication.GitHubPreparedRequestTests.test_real_gitHub_client_uses_isolated_default_but_preserves_injected_session) ... ok
+
+----------------------------------------------------------------------
+Ran 46 tests in 50.872s
+
+OK

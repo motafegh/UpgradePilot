@@ -1,0 +1,9 @@
+Processing /home/motafeq/.local/share/upgradepilot/cli-revision-guards-2026-11-06-installed-01/build
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: upgradepilot
+  Building wheel for upgradepilot (pyproject.toml): started
+  Building wheel for upgradepilot (pyproject.toml): finished with status 'done'
+  Created wheel for upgradepilot: filename=upgradepilot-0.0.0-py3-none-any.whl size=390786 sha256=8a4e7a428ff83bf42bd2596e6c6cb84960368e56fc3ec7a1a73daa3853a0cc07
+  Stored in directory: /tmp/pip-ephem-wheel-cache-4fsdgmo_/wheels/b2/b8/1a/22a6c36ea0b22f7a3bf184cd0dce5457f65ccea663c0547545
+Successfully built upgradepilot
