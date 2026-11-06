@@ -235,6 +235,12 @@ Include the selected bounded timing follow-up as a separate developer diagnostic
 
 ### Maintainer-task review and adoption disposition
 
+#### Access-cost disposition before product execution
+
+Use the dated [AUDIT-015 access/cost findings](../audits/2026-11-06_AUDIT-015_native-page-granularity-payload-and-publication-cost.md) and [qualified instrumented traversal](../working-memory/evidence/2026-11-06-independent-host-timing/RESULTS.md) to distinguish an expensive raw-native route from normal report/source delivery. The frozen task permits faithful completion through report/source access without traversing raw pages. Record whether required alternatives, ordered paths, premises, relevant gaps and coverage can actually be recovered that way; include any necessary paging and its cost. Do not convert a raw-route timing result into normal-PR latency or a new universal speed threshold.
+
+Absent a demonstrated task blocker, complete executable preparation and separately authorized normal-product/task qualification before opening a general optimization campaign. Re-enter access repair if necessary evidence is inaccessible, presentation hides material qualifications, required raw access defeats practical task completion, or an interactive native consumer is explicitly selected. Diagnose the earliest sufficient owner; compare improving existing report/source presentation before adding a reusable root projection. Profile expensive owners when performance repair is selected, preserving durability initially. Redis/shared services, parallelism, representation changes and batching require their own demonstrated responsibility; this disposition selects none of them. A demonstrated supported-contract defect still requires repair and successor qualification. Preserve the measured limitation in the adoption/pilot/repair/defer decision even when the report/source route passes.
+
 Review the actual retained native output against section8, record corrections and proof limits, and choose engineering adoption of the explicit profile, limited pilot, repair, defer or reject. Passing native engineering is not independent usefulness, full-project completion or permission to merge target PRs. Default-profile expansion requires its own decision.
 
 **Acceptance:** all applicable delivery/proof obligations have evidence and an explicit disposition; no unresolved new product failure is hidden by experimental debt. The live handoff links the exact records and names remaining responsibilities without beginning an unrelated expansion.
