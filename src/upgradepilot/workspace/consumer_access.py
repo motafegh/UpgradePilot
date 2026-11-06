@@ -4,7 +4,10 @@
 Trusted composition installs its method and frozen catalog/scope. Consumers request
 source pages or native views; the host checks present material/method bindings and retains
 what was actually delivered. Native projections stay offline and do not re-evaluate facts.
-Usage receipts are observational accounting; canonical history remains host-owned.
+Unchanged native boundaries and selections reuse a currently valid view; each
+response remains a distinct retained delivery. This prevents paging from adding
+new original bases for the same offered material. The per-instance cache is not
+restored authority. Usage receipts are accounting; canonical history is host-owned.
 """
 
 from __future__ import annotations
@@ -18,6 +21,7 @@ from .lifecycle_records import (
 )
 from .native_projection import reconstruct_ci_projection, reconstruct_caller_signature_projection
 from .native_representation import json_bytes, parse_json
+from .native_boundary import CapturedNativeBoundary
 from .source_access import (
     SOURCE_VIEW_REPRESENTATION,
     RetainedSourceCatalog,
@@ -59,6 +63,7 @@ class WorkspaceEvidenceAccess:
     scope: str
     method: LifecycleMethodIdentity
     _receipts: list[ViewAccessReceipt]
+    _views: dict[tuple[str, ...], tuple[CapturedNativeBoundary, str]]
 
     def __init__(
         self,
@@ -119,6 +124,7 @@ class WorkspaceEvidenceAccess:
             ),
         )
         object.__setattr__(self, "_receipts", [])
+        object.__setattr__(self, "_views", {})
 
     @property
     def receipts(self) -> tuple[ViewAccessReceipt, ...]:
@@ -139,14 +145,26 @@ class WorkspaceEvidenceAccess:
         outcome="observed",
         work=(0, 0),
     ) -> str:
-        view = self.host.prepare_view(
-            "workspace-evidence-consumer",
-            native_ids,
-            selection_limit="Only the actual bounded payload is delivered; references and omissions do not imply examination or support.",
-        )
+        current = self.host.current
+        assert current is not None
+        boundary, view_id = self._views.get(native_ids, (None, None))
+        # Validity alone permits unrelated new material. Require the complete
+        # offered/omitted universe to be unchanged before reusing its view.
+        if (
+            boundary != current.boundary
+            or view_id is None
+            or self.host.current_validity(view_id).status != "valid"
+        ):
+            view = self.host.prepare_view(
+                "workspace-evidence-consumer",
+                native_ids,
+                selection_limit="Only the actual bounded payload is delivered; references and omissions do not imply examination or support.",
+            )
+            view_id = view.view_id
+            self._views[native_ids] = (current.boundary, view_id)
         delivery_id = self.host.deliver_view(
             purpose_id,
-            view.view_id,
+            view_id,
             representation=SOURCE_VIEW_REPRESENTATION
             if operation.startswith("source:")
             else NATIVE_VIEW_REPRESENTATION,

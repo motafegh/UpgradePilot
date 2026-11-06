@@ -188,6 +188,61 @@ class WorkspaceCheckpointStoreTests(unittest.TestCase):
             "main", revision_id, predecessor, boundary or self.boundary
         )
 
+    def test_publication_decodes_each_original_basis_once_per_transaction(self):
+        from test_workspace_consumer_access import access_setup
+        from upgradepilot.workspace.lifecycle_host import InvestigationWorkspaceHost
+        from upgradepilot.workspace.native_boundary import read_native_boundary
+
+        store = CheckpointStore.create(self.root / "page-store", schema_version=2)
+        _, host, _, access, purpose = access_setup(InvestigationWorkspaceHost(store=store))
+        record = next(r for r in host.current.boundary.records if r.family == "investigation_inputs")
+        for start in range(6):
+            access.native_page(purpose, record.record_id, start_character=start, character_count=1)
+        for start in (6, 7):
+            with store._connection() as connection:
+                revisions = connection.execute("SELECT count(*) FROM revisions").fetchone()[0]
+            bases = {r.basis_revision_id for r in host.current.lifecycle_history.records}
+            with patch("upgradepilot.workspace.checkpoint_store.read_native_boundary", wraps=read_native_boundary) as decode:
+                with patch.object(store, "_read", wraps=store._read) as reads:
+                    access.native_page(purpose, record.record_id, start_character=start, character_count=1)
+            # Every historical root and proposed root is still validated. Original
+            # bases need at most one additional decode each in this transaction.
+            self.assertLessEqual(decode.call_count, revisions + 1 + len(bases))
+            original_reads = [call.args[2] for call in reads.call_args_list
+                              if call.kwargs.get("validate_lifecycle") is False]
+            self.assertTrue(original_reads)  # Revalidation begins anew next transaction.
+            self.assertEqual(len(original_reads), len(set(original_reads)))
+
+    def test_cached_original_bases_still_count_toward_publication_closure_budget(self):
+        from test_workspace_consumer_access import access_setup
+        from upgradepilot.workspace.checkpoint_store import _OriginalBasisReadCache
+        from upgradepilot.workspace.lifecycle_host import InvestigationWorkspaceHost
+
+        store = CheckpointStore.create(self.root / "cached-budget-store", schema_version=2)
+        _, host, _, access, purpose = access_setup(InvestigationWorkspaceHost(store=store))
+        record = next(r for r in host.current.boundary.records if r.family == "investigation_inputs")
+        for start in range(3):
+            access.native_page(purpose, record.record_id, start_character=start, character_count=1)
+        before = host.current
+        basis_ids = {r.basis_revision_id for r in before.lifecycle_history.records} | {before.revision_id}
+        with store._connection() as connection:
+            prior_size = sum(store._composed_material_size(connection, host.lineage_id, identity)
+                             for identity in basis_ids)
+        remembered = []
+        real_remember = _OriginalBasisReadCache.remember
+        def remember(cache, key, boundary, encoded_bytes):
+            real_remember(cache, key, boundary, encoded_bytes)
+            remembered.extend(cache.boundaries)
+        with patch("upgradepilot.workspace.checkpoint_store.MAX_NATIVE_JSON_BYTES", prior_size + 256):
+            with patch.object(_OriginalBasisReadCache, "remember", remember):
+                with self.assertRaises(CheckpointStorageError) as raised:
+                    access.native_page(purpose, record.record_id, character_count=4096)
+            self.assertEqual(raised.exception.reason, "storage_resource_limit")
+            self.assertTrue(remembered)
+            self.assertEqual(host.current, before)
+        self.assertEqual(store.inspect_publication(host.unacknowledged_revision), "not_published")
+        self.assertEqual(store.read_selected_revision(before.revision_id).revision, before)
+
     def _read(self, revision_id="initial", store=None):
         return (store or self.store).read_revision(
             "main", revision_id, expected_target=self.boundary.target

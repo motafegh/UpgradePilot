@@ -1,0 +1,244 @@
+{
+  "proof_class": "offline retained matched-page timing control",
+  "contract_commit": "177f9b9f",
+  "product_revisions": {
+    "baseline": "6e98d0a03f163370949d15013e21b6047302b18e",
+    "refined": "38741c3c513b0d95a6238b08aebcbf966427da73"
+  },
+  "outcome": "timing_inconclusive",
+  "quality_problems": [
+    "trial-01-baseline: elapsed clock inconsistency",
+    "trial-01-baseline: CPU clock inconsistency",
+    "trial-02-refined: elapsed clock inconsistency",
+    "trial-02-refined: CPU clock inconsistency",
+    "trial-03-refined: elapsed clock inconsistency",
+    "trial-03-refined: CPU clock inconsistency",
+    "trial-04-baseline: elapsed clock inconsistency",
+    "trial-04-baseline: CPU clock inconsistency",
+    "trial-05-baseline: elapsed clock inconsistency",
+    "trial-05-baseline: CPU clock inconsistency",
+    "trial-06-refined: elapsed clock inconsistency",
+    "trial-06-refined: CPU clock inconsistency"
+  ],
+  "quality_label_clarification": "CPU clock inconsistency here flags CPU/monotonic ratio above1.05; CPU and getrusage agree. Clock cause unknown.",
+  "pairs_refined_over_baseline": [
+    {
+      "monotonic_ns": 0.817038126489271,
+      "cpu_ns": 0.8157960745972735
+    },
+    {
+      "monotonic_ns": 0.8026909289376445,
+      "cpu_ns": 0.8010271453047367
+    },
+    {
+      "monotonic_ns": 0.8135430347143552,
+      "cpu_ns": 0.8126515198954135
+    }
+  ],
+  "median_paired_ratios": {
+    "monotonic_ns": 0.8135430347143552,
+    "cpu_ns": 0.8126515198954135
+  },
+  "median_counter_seconds": {
+    "baseline": {
+      "monotonic_ns": 14.001721407,
+      "raw_ns": 15.274611005,
+      "cpu_ns": 15.238458056
+    },
+    "refined": {
+      "monotonic_ns": 11.391813383,
+      "raw_ns": 12.427437093,
+      "cpu_ns": 12.3765465
+    }
+  },
+  "recorded_cpu_reduction_fraction": 0.1873484801045865,
+  "trials": [
+    {
+      "name": "trial-01-baseline",
+      "label": "baseline",
+      "input_revision": "a3e8b46cf968450a95037765e22212bd",
+      "selected_revision": "42b6a33b879643d0849c86fffd500e62",
+      "delivery_id": "ee1d80cef8124725824875dc5c6f4720",
+      "page_sha256": "420f4e7a40d2aa040ac7235472f7ceeb39463263dc2951103cd4ae9b00e4be5e",
+      "delivered_bytes": 4873,
+      "page_counters": {
+        "monotonic_ns": 14001721407,
+        "raw_ns": 15274611005,
+        "cpu_ns": 15238458056,
+        "rusage_cpu_ns": 15238458000
+      },
+      "setup_counters": {
+        "monotonic_ns": 11353786240,
+        "raw_ns": 12385952924,
+        "cpu_ns": 12352593641,
+        "rusage_cpu_ns": 12352592000
+      },
+      "acknowledged_readback_equal": true,
+      "native_boundary_unchanged": true,
+      "pinned_product_path_confirmed": true,
+      "exit_code": 0,
+      "timed_out": false,
+      "supervised_process_seconds": 27.92761119700026,
+      "max_sampling_gap_seconds": 0.25039119699977164,
+      "monotonic_over_raw": 0.9166663165704625,
+      "cpu_over_monotonic": 1.0883274715337292,
+      "cpu_over_rusage": 1.0000000036749126
+    },
+    {
+      "name": "trial-02-refined",
+      "label": "refined",
+      "input_revision": "a3e8b46cf968450a95037765e22212bd",
+      "selected_revision": "6e20e20e834749fcb88adaf6c9869227",
+      "delivery_id": "148b3c55901f499b952fd9f8b00a0776",
+      "page_sha256": "420f4e7a40d2aa040ac7235472f7ceeb39463263dc2951103cd4ae9b00e4be5e",
+      "delivered_bytes": 4873,
+      "page_counters": {
+        "monotonic_ns": 11439940226,
+        "raw_ns": 12479939174,
+        "cpu_ns": 12431474265,
+        "rusage_cpu_ns": 12431474000
+      },
+      "setup_counters": {
+        "monotonic_ns": 10812068219,
+        "raw_ns": 11794987843,
+        "cpu_ns": 11739118895,
+        "rusage_cpu_ns": 11739117000
+      },
+      "acknowledged_readback_equal": true,
+      "native_boundary_unchanged": true,
+      "pinned_product_path_confirmed": true,
+      "exit_code": 0,
+      "timed_out": false,
+      "supervised_process_seconds": 24.726276981999945,
+      "max_sampling_gap_seconds": 0.25063861699982226,
+      "monotonic_over_raw": 0.9166663448034527,
+      "cpu_over_monotonic": 1.086673008723114,
+      "cpu_over_rusage": 1.0000000213168607
+    },
+    {
+      "name": "trial-03-refined",
+      "label": "refined",
+      "input_revision": "a3e8b46cf968450a95037765e22212bd",
+      "selected_revision": "f820f096079b4a58b5b99b414c3b5adf",
+      "delivery_id": "53d429d32cd34c898d6213cefcf6cbb9",
+      "page_sha256": "420f4e7a40d2aa040ac7235472f7ceeb39463263dc2951103cd4ae9b00e4be5e",
+      "delivered_bytes": 4873,
+      "page_counters": {
+        "monotonic_ns": 11391813383,
+        "raw_ns": 12427437093,
+        "cpu_ns": 12376546500,
+        "rusage_cpu_ns": 12376552000
+      },
+      "setup_counters": {
+        "monotonic_ns": 10802834520,
+        "raw_ns": 11784914723,
+        "cpu_ns": 11719142240,
+        "rusage_cpu_ns": 11719135000
+      },
+      "acknowledged_readback_equal": true,
+      "native_boundary_unchanged": true,
+      "pinned_product_path_confirmed": true,
+      "exit_code": 0,
+      "timed_out": false,
+      "supervised_process_seconds": 24.475446791999275,
+      "max_sampling_gap_seconds": 0.2505493929993463,
+      "monotonic_over_raw": 0.9166663486405146,
+      "cpu_over_monotonic": 1.0864421742081483,
+      "cpu_over_rusage": 0.9999995556112882
+    },
+    {
+      "name": "trial-04-baseline",
+      "label": "baseline",
+      "input_revision": "a3e8b46cf968450a95037765e22212bd",
+      "selected_revision": "2f6ffa30385e4f578e6423d7dba4cc26",
+      "delivery_id": "e0d70233bf2d4edab300f2a9c06fd4a2",
+      "page_sha256": "420f4e7a40d2aa040ac7235472f7ceeb39463263dc2951103cd4ae9b00e4be5e",
+      "delivered_bytes": 4873,
+      "page_counters": {
+        "monotonic_ns": 14192029550,
+        "raw_ns": 15482219272,
+        "cpu_ns": 15450845296,
+        "rusage_cpu_ns": 15450846000
+      },
+      "setup_counters": {
+        "monotonic_ns": 11459908842,
+        "raw_ns": 12501723423,
+        "cpu_ns": 12445080340,
+        "rusage_cpu_ns": 12445079000
+      },
+      "acknowledged_readback_equal": true,
+      "native_boundary_unchanged": true,
+      "pinned_product_path_confirmed": true,
+      "exit_code": 0,
+      "timed_out": false,
+      "supervised_process_seconds": 27.97752117299933,
+      "max_sampling_gap_seconds": 0.2504460599993763,
+      "monotonic_over_raw": 0.9166663577531586,
+      "cpu_over_monotonic": 1.0886987827614831,
+      "cpu_over_rusage": 0.9999999544361519
+    },
+    {
+      "name": "trial-05-baseline",
+      "label": "baseline",
+      "input_revision": "a3e8b46cf968450a95037765e22212bd",
+      "selected_revision": "6b007825350d477994dbbd43726b044a",
+      "delivery_id": "d2eb16a25e8048a3b6d3990c646650d5",
+      "page_sha256": "420f4e7a40d2aa040ac7235472f7ceeb39463263dc2951103cd4ae9b00e4be5e",
+      "delivered_bytes": 4873,
+      "page_counters": {
+        "monotonic_ns": 13996869830,
+        "raw_ns": 15269317701,
+        "cpu_ns": 15222632521,
+        "rusage_cpu_ns": 15222634000
+      },
+      "setup_counters": {
+        "monotonic_ns": 11417697699,
+        "raw_ns": 12455674592,
+        "cpu_ns": 12416050726,
+        "rusage_cpu_ns": 12416049000
+      },
+      "acknowledged_readback_equal": true,
+      "native_boundary_unchanged": true,
+      "pinned_product_path_confirmed": true,
+      "exit_code": 0,
+      "timed_out": false,
+      "supervised_process_seconds": 27.780013671000233,
+      "max_sampling_gap_seconds": 0.25097811500017997,
+      "monotonic_over_raw": 0.9166663569442486,
+      "cpu_over_monotonic": 1.0875740580492346,
+      "cpu_over_rusage": 0.9999999028420443
+    },
+    {
+      "name": "trial-06-refined",
+      "label": "refined",
+      "input_revision": "a3e8b46cf968450a95037765e22212bd",
+      "selected_revision": "07231b8dd5a2447f96e5c2d2210d7c00",
+      "delivery_id": "e1bd32d7e73c407db933a89374d7e1f0",
+      "page_sha256": "420f4e7a40d2aa040ac7235472f7ceeb39463263dc2951103cd4ae9b00e4be5e",
+      "delivered_bytes": 4873,
+      "page_counters": {
+        "monotonic_ns": 11387055958,
+        "raw_ns": 12422247204,
+        "cpu_ns": 12370695455,
+        "rusage_cpu_ns": 12370696000
+      },
+      "setup_counters": {
+        "monotonic_ns": 10968558798,
+        "raw_ns": 11965704728,
+        "cpu_ns": 11911014771,
+        "rusage_cpu_ns": 11911014000
+      },
+      "acknowledged_readback_equal": true,
+      "native_boundary_unchanged": true,
+      "pinned_product_path_confirmed": true,
+      "exit_code": 0,
+      "timed_out": false,
+      "supervised_process_seconds": 24.725597774000562,
+      "max_sampling_gap_seconds": 0.25050454500069463,
+      "monotonic_over_raw": 0.9166663463542518,
+      "cpu_over_monotonic": 1.086382248460713,
+      "cpu_over_rusage": 0.9999999559442735
+    }
+  ],
+  "limits": "One first-page operation, no full traversal or fresh live evidence. Counter readings do not prove active whole-workflow duration. All six retained; no retry, source change or tuned threshold."
+}

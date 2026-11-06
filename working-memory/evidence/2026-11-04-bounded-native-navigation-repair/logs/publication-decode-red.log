@@ -1,0 +1,13 @@
+F
+======================================================================
+FAIL: test_publication_decodes_each_original_basis_once_per_transaction (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_publication_decodes_each_original_basis_once_per_transaction)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 210, in test_publication_decodes_each_original_basis_once_per_transaction
+    self.assertLessEqual(decode.call_count, revisions + 1 + len(bases))
+AssertionError: 26 not less than or equal to 13
+
+----------------------------------------------------------------------
+Ran 1 test in 0.579s
+
+FAILED (failures=1)

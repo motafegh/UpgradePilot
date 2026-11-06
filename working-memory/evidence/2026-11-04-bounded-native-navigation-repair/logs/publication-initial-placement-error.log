@@ -1,0 +1,458 @@
+EE.EEEEEEEEEE.EEEEEEEFFE.EEEEE.EEE.EEEEE..E.E.........................
+======================================================================
+ERROR: test_absent_publication_refuses_invalid_head_material (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_absent_publication_refuses_invalid_head_material)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 432, in test_absent_publication_refuses_invalid_head_material
+    self.store.publish(self.initial)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_absent_publication_requires_coherent_lineage (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_absent_publication_requires_coherent_lineage)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 381, in test_absent_publication_requires_coherent_lineage
+    self.store.publish(self.initial)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_actual_filesystem_read_only_publication_has_no_successor (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_actual_filesystem_read_only_publication_has_no_successor)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 1246, in test_actual_filesystem_read_only_publication_has_no_successor
+    self.store.publish(self.initial)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_actual_sqlite_full_rolls_back_all_unpublished_material (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_actual_sqlite_full_rolls_back_all_unpublished_material)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 868, in test_actual_sqlite_full_rolls_back_all_unpublished_material
+    self.store.publish(self.initial)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_backup_failure_keeps_source_and_removes_only_new_destination (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_backup_failure_keeps_source_and_removes_only_new_destination)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 1199, in test_backup_failure_keeps_source_and_removes_only_new_destination
+    self.store.publish(self.initial)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_backup_includes_uncheckpointed_wal_and_does_not_replace_source (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_backup_includes_uncheckpointed_wal_and_does_not_replace_source)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 1187, in test_backup_includes_uncheckpointed_wal_and_does_not_replace_source
+    self.store.publish(self.initial)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_backup_validates_every_revision_and_restores_explicit_earlier_loss (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_backup_validates_every_revision_and_restores_explicit_earlier_loss)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 1162, in test_backup_validates_every_revision_and_restores_explicit_earlier_loss
+    self.store.publish(self.initial)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_bounded_actual_busy_and_read_only_refusal_preserve_previous_head (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_bounded_actual_busy_and_read_only_refusal_preserve_previous_head)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 851, in test_bounded_actual_busy_and_read_only_refusal_preserve_previous_head
+    self.store.publish(self.initial)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_broken_lineage_and_undeclared_orphan_rows_block_publication_and_backup (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_broken_lineage_and_undeclared_orphan_rows_block_publication_and_backup)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 1356, in test_broken_lineage_and_undeclared_orphan_rows_block_publication_and_backup
+    self.store.publish(self.initial)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_cold_absence_and_historical_publication_refusals_keep_guards_active (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_cold_absence_and_historical_publication_refusals_keep_guards_active)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 629, in test_cold_absence_and_historical_publication_refusals_keep_guards_active
+    self.store.publish(self.initial)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_cold_backup_restore_inspection_is_guarded_without_native_reconstruction (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_cold_backup_restore_inspection_is_guarded_without_native_reconstruction)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 1219, in test_cold_backup_restore_inspection_is_guarded_without_native_reconstruction
+    self.store.publish(self.initial)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_cold_storage_schema_material_and_reference_refusals_keep_guards_active (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_cold_storage_schema_material_and_reference_refusals_keep_guards_active)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 1289, in test_cold_storage_schema_material_and_reference_refusals_keep_guards_active
+    self.store.publish(self.initial)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_damaged_metadata_references_membership_header_and_head_are_refused (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_damaged_metadata_references_membership_header_and_head_are_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 1138, in test_damaged_metadata_references_membership_header_and_head_are_refused
+    self.store.publish(self.initial)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_damaged_sqlite_file_refuses_without_creating_replacement (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_damaged_sqlite_file_refuses_without_creating_replacement)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 1397, in test_damaged_sqlite_file_refuses_without_creating_replacement
+    self.store.publish(self.initial)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_duplicate_revision_and_changed_record_identity_are_refused (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_duplicate_revision_and_changed_record_identity_are_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 673, in test_duplicate_revision_and_changed_record_identity_are_refused
+    self.store.publish(self.initial)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_explicit_selection_resolves_identity_and_excludes_later_progress (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_explicit_selection_resolves_identity_and_excludes_later_progress)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 335, in test_explicit_selection_resolves_identity_and_excludes_later_progress
+    self.store.publish(self.initial)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_explicit_selection_uses_full_storage_integrity_checks (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_explicit_selection_uses_full_storage_integrity_checks)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 349, in test_explicit_selection_uses_full_storage_integrity_checks
+    self.store.publish(self.initial)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_failed_create_after_commit_cleans_new_store_and_preserves_existing_store (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_failed_create_after_commit_cleans_new_store_and_preserves_existing_store)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 609, in test_failed_create_after_commit_cleans_new_store_and_preserves_existing_store
+    self.store.publish(self.initial)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_failed_create_sqlite_full_cleans_only_exclusively_created_files (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_failed_create_sqlite_full_cleans_only_exclusively_created_files)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 593, in test_failed_create_sqlite_full_cleans_only_exclusively_created_files
+    retried.publish(self.initial)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_missing_head_distinguishes_absent_and_damaged_lineage (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_missing_head_distinguishes_absent_and_damaged_lineage)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 267, in test_missing_head_distinguishes_absent_and_damaged_lineage
+    self.store.publish(self.initial)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_new_record_identity_shares_payload_without_cross_lineage_deduplication (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_new_record_identity_shares_payload_without_cross_lineage_deduplication)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 320, in test_new_record_identity_shares_payload_without_cross_lineage_deduplication
+    self.store.publish(self.initial)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_oversized_storage_body_is_refused_before_body_allocation (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_oversized_storage_body_is_refused_before_body_allocation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 1260, in test_oversized_storage_body_is_refused_before_body_allocation
+    self.store.publish(self.initial)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_payload_digest_identity_collision_refuses_even_with_valid_boundary_digest (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_payload_digest_identity_collision_refuses_even_with_valid_boundary_digest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 706, in test_payload_digest_identity_collision_refuses_even_with_valid_boundary_digest
+    self.store.publish(self.initial)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_publication_decodes_each_original_basis_once_per_transaction (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_publication_decodes_each_original_basis_once_per_transaction)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 197, in test_publication_decodes_each_original_basis_once_per_transaction
+    _, host, _, access, purpose = access_setup(InvestigationWorkspaceHost(store=store))
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_consumer_access.py", line 86, in access_setup
+    harness, result = prepared(host)
+                      ^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_consumer_access.py", line 51, in prepared
+    result = prepare_dependency_ci_workspace(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/preparation.py", line 69, in prepare_dependency_ci_workspace
+    host.initialize(capture.partial_snapshot())
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/lifecycle_host.py", line 191, in initialize
+    self._publish(boundary, ())
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/lifecycle_host.py", line 278, in _publish
+    self.store.publish(revision)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_real_process_interruptions_leave_only_previous_or_complete_successor (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_real_process_interruptions_leave_only_previous_or_complete_successor)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 945, in test_real_process_interruptions_leave_only_previous_or_complete_successor
+    self.store.publish(self.initial)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_retained_views_membership_payloads_and_lineage_scope_are_immutable (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_retained_views_membership_payloads_and_lineage_scope_are_immutable)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 283, in test_retained_views_membership_payloads_and_lineage_scope_are_immutable
+    receipt = self.store.publish(self.initial)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_schema_refusal_and_catalog_damage_do_not_auto_initialize_or_migrate (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_schema_refusal_and_catalog_damage_do_not_auto_initialize_or_migrate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 778, in test_schema_refusal_and_catalog_damage_do_not_auto_initialize_or_migrate
+    self.store.publish(self.initial)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_stale_and_root_predecessors_conflict_without_changing_history (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_stale_and_root_predecessors_conflict_without_changing_history)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 362, in test_stale_and_root_predecessors_conflict_without_changing_history
+    self.store.publish(self.initial)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_successor_refuses_corrupt_retained_history_with_intact_head (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_successor_refuses_corrupt_retained_history_with_intact_head)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 478, in test_successor_refuses_corrupt_retained_history_with_intact_head
+    self.store.publish(self.initial)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_target_change_cannot_silently_rebase_lineage (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_target_change_cannot_silently_rebase_lineage)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 748, in test_target_change_cannot_silently_rebase_lineage
+    self.store.publish(self.initial)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_two_real_writers_one_successor_and_one_conflict (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_two_real_writers_one_successor_and_one_conflict)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 1077, in test_two_real_writers_one_successor_and_one_conflict
+    self.store.publish(self.initial)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_unconfirmed_commit_and_lost_acknowledgement_require_identity_reconciliation (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_unconfirmed_commit_and_lost_acknowledgement_require_identity_reconciliation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 909, in test_unconfirmed_commit_and_lost_acknowledgement_require_identity_reconciliation
+    self.store.publish(self.initial)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_unsupported_native_versions_are_retained_without_decoder_dispatch (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_unsupported_native_versions_are_retained_without_decoder_dispatch)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 774, in test_unsupported_native_versions_are_retained_without_decoder_dispatch
+    self.store.publish(revision)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_cold_store_inspection_retains_delivered_source_and_native_material_without_catalog_or_execution (test_workspace_consumer_access.PreparationAndConsumerTests.test_cold_store_inspection_retains_delivered_source_and_native_material_without_catalog_or_execution)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_consumer_access.py", line 698, in test_cold_store_inspection_retains_delivered_source_and_native_material_without_catalog_or_execution
+    _, host, _, access, purpose = access_setup(
+                                  ^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_consumer_access.py", line 86, in access_setup
+    harness, result = prepared(host)
+                      ^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_consumer_access.py", line 51, in prepared
+    result = prepare_dependency_ci_workspace(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/preparation.py", line 69, in prepare_dependency_ci_workspace
+    host.initialize(capture.partial_snapshot())
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/lifecycle_host.py", line 191, in initialize
+    self._publish(boundary, ())
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/lifecycle_host.py", line 278, in _publish
+    self.store.publish(revision)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+ERROR: test_failed_cached_page_publication_keeps_acknowledged_delivery_and_blocks_retry (test_workspace_consumer_access.PreparationAndConsumerTests.test_failed_cached_page_publication_keeps_acknowledged_delivery_and_blocks_retry)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_consumer_access.py", line 550, in test_failed_cached_page_publication_keeps_acknowledged_delivery_and_blocks_retry
+    _, host, _, access, purpose = access_setup(InvestigationWorkspaceHost(store=store))
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_consumer_access.py", line 86, in access_setup
+    harness, result = prepared(host)
+                      ^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_consumer_access.py", line 51, in prepared
+    result = prepare_dependency_ci_workspace(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/preparation.py", line 69, in prepare_dependency_ci_workspace
+    host.initialize(capture.partial_snapshot())
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/lifecycle_host.py", line 191, in initialize
+    self._publish(boundary, ())
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/lifecycle_host.py", line 278, in _publish
+    self.store.publish(revision)
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+======================================================================
+FAIL: test_intent_publication_survives_termination_without_inventing_observation (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_intent_publication_survives_termination_without_inventing_observation) (stage='before_commit')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 1062, in test_intent_publication_survives_termination_without_inventing_observation
+    self.assertEqual(child.returncode, -9, child.stderr)
+AssertionError: 1 != -9 : Traceback (most recent call last):
+  File "<string>", line 35, in <module>
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+
+======================================================================
+FAIL: test_intent_publication_survives_termination_without_inventing_observation (test_workspace_checkpoint_store.WorkspaceCheckpointStoreTests.test_intent_publication_survives_termination_without_inventing_observation) (stage='after_commit')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_workspace_checkpoint_store.py", line 1062, in test_intent_publication_survives_termination_without_inventing_observation
+    self.assertEqual(child.returncode, -9, child.stderr)
+AssertionError: 1 != -9 : Traceback (most recent call last):
+  File "<string>", line 35, in <module>
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/workspace/checkpoint_store.py", line 591, in publish
+    basis_cache=basis_cache,
+                ^^^^^^^^^^^
+NameError: name 'basis_cache' is not defined
+
+
+----------------------------------------------------------------------
+Ran 69 tests in 1.706s
+
+FAILED (failures=2, errors=35)

@@ -1,0 +1,1189 @@
+{
+  "proof": "controlled retained engineering qualification, exposed implementer",
+  "source": "38741c3c",
+  "original_failure": {
+    "pages": 6,
+    "candidates_complete": false,
+    "all_witnesses": false,
+    "initial_omitted": true,
+    "error": "CheckpointStorageError",
+    "reason": "storage_resource_limit: Original-basis closure exceeds read capacity.",
+    "receipts": [
+      {
+        "operation": "native:view",
+        "outcome": "observed",
+        "delivery_id": "3f2319f5b66641fea0a97a60c2005aab",
+        "delivered_bytes": 452,
+        "examined_files": 0,
+        "examined_lines": 0,
+        "detail": "Actual delivery; no hidden use or semantic support inferred."
+      },
+      {
+        "operation": "native:page",
+        "outcome": "observed",
+        "delivery_id": "d29826c4d6d14736b60504ae87e83fd3",
+        "delivered_bytes": 4873,
+        "examined_files": 0,
+        "examined_lines": 0,
+        "detail": "Actual delivery; no hidden use or semantic support inferred."
+      },
+      {
+        "operation": "native:page",
+        "outcome": "observed",
+        "delivery_id": "1c3e333d2cb2471b933f864329094242",
+        "delivered_bytes": 4738,
+        "examined_files": 0,
+        "examined_lines": 0,
+        "detail": "Actual delivery; no hidden use or semantic support inferred."
+      },
+      {
+        "operation": "native:page",
+        "outcome": "observed",
+        "delivery_id": "ba78f9bd66294b55b3828d2759bdc30d",
+        "delivered_bytes": 4657,
+        "examined_files": 0,
+        "examined_lines": 0,
+        "detail": "Actual delivery; no hidden use or semantic support inferred."
+      },
+      {
+        "operation": "native:page",
+        "outcome": "observed",
+        "delivery_id": "37a26be0f5c1436a9dc194031bce84c7",
+        "delivered_bytes": 4738,
+        "examined_files": 0,
+        "examined_lines": 0,
+        "detail": "Actual delivery; no hidden use or semantic support inferred."
+      },
+      {
+        "operation": "native:page",
+        "outcome": "observed",
+        "delivery_id": "4eb179dd2df54e4f9b1a6572453a9728",
+        "delivered_bytes": 4673,
+        "examined_files": 0,
+        "examined_lines": 0,
+        "detail": "Actual delivery; no hidden use or semantic support inferred."
+      },
+      {
+        "operation": "native:page",
+        "outcome": "observed",
+        "delivery_id": "cad39891818f40ae99652327c1d48654",
+        "delivered_bytes": 4725,
+        "examined_files": 0,
+        "examined_lines": 0,
+        "detail": "Actual delivery; no hidden use or semantic support inferred."
+      },
+      {
+        "operation": "native:page",
+        "outcome": "refused",
+        "delivery_id": null,
+        "delivered_bytes": 0,
+        "examined_files": 0,
+        "examined_lines": 0,
+        "detail": "CheckpointStorageError"
+      }
+    ],
+    "bytes": 28856
+  },
+  "interrupted_02": {
+    "outcome": "assistant_interrupted_incomplete",
+    "process_exit": 130,
+    "reason": "Latency interpretation from elapsed process/counter time did not distinguish pause time; active55-minute claim withdrawn after user correction.",
+    "pages": 47,
+    "characters": 192512,
+    "actual_response_bytes": 221113,
+    "elapsed_monotonic_counter_seconds": 3453.1080262920004,
+    "active_processing_seconds": null,
+    "last_acknowledged_revision": "315f840b50874af18440cb369459a80d",
+    "acknowledged_readable": true,
+    "attempted_revision": "7241651da1934d2e81989273ad959529",
+    "attempt_selection": {
+      "exact_selection_reason": "missing_checkpoint_revision",
+      "detail": "missing_checkpoint_revision: No such selected revision."
+    },
+    "full_staged_value_retention": "Only attempted ID retained by driver; no reconstructed full staged value or inspect_publication receipt is fabricated.",
+    "no_storage_optimization_implemented": true
+  },
+  "interrupted_03": {
+    "reason": "Explicitly interrupted before source refinement justified by separate156-versus15 basis read-count control; not a latency inference or checker failure.",
+    "outcome": "interrupted_incomplete",
+    "process_exit": 130,
+    "observed": {
+      "pages": 14,
+      "candidates_complete": false,
+      "all_witnesses": false,
+      "initial_omitted": true,
+      "error": "KeyboardInterrupt",
+      "reason": "caller_interrupted",
+      "outcome": "interrupted_incomplete",
+      "elapsed_seconds_hex": "0x1.d2d99fd2bb1c0p+8",
+      "last_acknowledged_revision": "15b92cb2366146cb8eafb8aad70e97c0",
+      "attempted_revision": "ddd281cb15af4e0ab0dfd593fb3b81b1",
+      "receipts": [
+        {
+          "operation": "native:view",
+          "outcome": "observed",
+          "delivery_id": "ea781480a9df4decabe2a42d42b5dde4",
+          "delivered_bytes": 452,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "dd4c07cb54fe426cb0d2cc21ec4d4ad1",
+          "delivered_bytes": 4873,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "9caf57347ed743a5a196000fcb125407",
+          "delivered_bytes": 4738,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "1e8b6e4130294fb292a995e1e78ad7f7",
+          "delivered_bytes": 4657,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "baf6db7399384fba9ee28b2d18392056",
+          "delivered_bytes": 4738,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "3ba68405c2c84b0cbfc5c59439bc773d",
+          "delivered_bytes": 4673,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "f4fef6de69124e789c043e787969ba50",
+          "delivered_bytes": 4725,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "f475701eb50b4ddd9335f9bab0961ea6",
+          "delivered_bytes": 4763,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "e297e8f8b8784bebbc14118497005c0f",
+          "delivered_bytes": 4661,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "dff505bc99c24dedaa2dbca32acc3fac",
+          "delivered_bytes": 4697,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "f82f9cdb8138457fa579d1a89c55ec8d",
+          "delivered_bytes": 4793,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "1de5e0c3fafa4cd1995dda7eff95f373",
+          "delivered_bytes": 4648,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "5ac3babf9c0141b2ad9e07fa4f60b40a",
+          "delivered_bytes": 4735,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "5705b80f74ee46e68f75b4106479ce82",
+          "delivered_bytes": 4812,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "233090b3929249649c1f1f15bc755069",
+          "delivered_bytes": 4649,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        }
+      ],
+      "bytes": 66614
+    },
+    "prior_method": "6e98d0a0",
+    "new_method_requires_new_frozen_attempt": true
+  },
+  "interrupted_03_recovery": {
+    "last_acknowledged_revision": "15b92cb2366146cb8eafb8aad70e97c0",
+    "acknowledged_readable": true,
+    "attempted_revision": "ddd281cb15af4e0ab0dfd593fb3b81b1",
+    "exact_attempt_selection": "missing_checkpoint_revision",
+    "interpretation": "No full staged value was retained; no inspect_publication receipt is fabricated."
+  },
+  "final_navigation": {
+    "proof_class": "implementer_exposed_engineering_navigation_not_independent_usefulness",
+    "selected_revision": "a3e8b46cf968450a95037765e22212bd",
+    "native_root": "b4a7022d75599f001ba703db8d1717f2738e19a70677bc05d354055e694b69f9",
+    "expected_native_witnesses": 4,
+    "report": {
+      "witnesses": 4,
+      "all_premises_equal": true,
+      "calls": 10,
+      "decoded_report_bytes": 3058554,
+      "source_cli_bytes": 200189,
+      "source_opens": [
+        {
+          "source_id": "source-17",
+          "output_bytes": 1334,
+          "exact_text": true
+        },
+        {
+          "source_id": "source-29",
+          "output_bytes": 3153,
+          "exact_text": true
+        },
+        {
+          "source_id": "source-30",
+          "output_bytes": 3424,
+          "exact_text": true
+        },
+        {
+          "source_id": "source-32",
+          "output_bytes": 12988,
+          "exact_text": true
+        },
+        {
+          "source_id": "source-33",
+          "output_bytes": 66965,
+          "exact_text": true
+        },
+        {
+          "source_id": "source-34",
+          "output_bytes": 3419,
+          "exact_text": true
+        },
+        {
+          "source_id": "source-36",
+          "output_bytes": 14318,
+          "exact_text": true
+        },
+        {
+          "source_id": "source-37",
+          "output_bytes": 69278,
+          "exact_text": true
+        },
+        {
+          "source_id": "source-39",
+          "output_bytes": 25310,
+          "exact_text": true
+        }
+      ],
+      "semantics": "structured report decode and full original-source CLI opens; no timed human task"
+    },
+    "source_baseline": {
+      "calls": 28,
+      "bytes": 120250,
+      "examined_files": 96,
+      "examined_lines": 20998,
+      "windows": 23,
+      "matched_scopes": [
+        "source-49b9a1c2190fe6d6ee17886b5c615e47906acae9a39fd7ac3a98046f1873fc34",
+        "source-6578f8ecd7bede714b637b3f2988a49f88f9dd523dd7a624efe6de48b85f3dd8",
+        "source-88467fea02e7e973fb911906abefb5ccf8af7f6faeeb3d12e4730ad974468b20",
+        "source-95cdda13859a6ae305256bac4712b6fc8144eb0aa40de0efaeb26f64a6f23c5c",
+        "source-e75845a38bc2e9db80e29b5258c5687f1b18eb6a1540c8cdca2e99057ff51ea6"
+      ],
+      "witness_premises": "not encoded by source-only access; require reviewer interpretation",
+      "completeness": "mechanical source retrieval only; no independent all-witness reasoning or time measurement"
+    },
+    "bounded_native": {
+      "pages": 60,
+      "candidates_complete": true,
+      "all_witnesses": true,
+      "initial_omitted": true,
+      "ordered_paths_comparisons_premises_equal": true,
+      "confirmed_revision": "990f0d59cafa4560be4e6dd87ace5457",
+      "durable_reopen": true,
+      "guarded_cold_exit": 0,
+      "elapsed_seconds_hex": "0x1.e6e651971c100p+10",
+      "last_acknowledged_revision": "990f0d59cafa4560be4e6dd87ace5457",
+      "attempted_revision": null,
+      "receipts": [
+        {
+          "operation": "native:view",
+          "outcome": "observed",
+          "delivery_id": "9dc73405213c4046bf7e9d4d936952e2",
+          "delivered_bytes": 452,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "dceb6968f77e416cae78506990a6e58e",
+          "delivered_bytes": 4873,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "27bf3ab87aba44e2b8540e244c5e23f1",
+          "delivered_bytes": 4738,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "20fd992d28ef4cd68a7aa4f3471dd4cd",
+          "delivered_bytes": 4657,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "46560ef88a874118830d892cd6d9970a",
+          "delivered_bytes": 4738,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "0258c2f0717a4887a81b4cf784d1908e",
+          "delivered_bytes": 4673,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "8a3699c3bada4bb3ac3844a8388b46b4",
+          "delivered_bytes": 4725,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "4bd79f2d0018445ba7baefcd0676884a",
+          "delivered_bytes": 4763,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "45a64a6d2526435b81c1c0d0f4dd7320",
+          "delivered_bytes": 4661,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "2effcb3280874c44b3e737daa81c0f0c",
+          "delivered_bytes": 4697,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "36f46f24f9434eaabb4921c09762e1ed",
+          "delivered_bytes": 4793,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "ee7878179ca3417e99c852974381285a",
+          "delivered_bytes": 4648,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "4aed1aa6f5f842adb4d48dd7428846c2",
+          "delivered_bytes": 4735,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "26f09192d8884635af8f3265dbe4a6c6",
+          "delivered_bytes": 4812,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "fc21702ac00349e5911e3286b38ffeb4",
+          "delivered_bytes": 4649,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "219ffb037c1447d29d3cb7944f7fee63",
+          "delivered_bytes": 4719,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "a9fecd047b224d999ee96aba211843fd",
+          "delivered_bytes": 4783,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "b0086eca415846f8bc176d7f48d62fb4",
+          "delivered_bytes": 4736,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "3bd7c892dab94e9fb9ada14715e82ecb",
+          "delivered_bytes": 4724,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "a0cb01a4f9d94d89aa48cb123eb1cdcd",
+          "delivered_bytes": 4713,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "e533ad9fefcb4a23aee86e0df4a1407a",
+          "delivered_bytes": 4667,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "d04df9c07d51472c9e13a5355225ba78",
+          "delivered_bytes": 4788,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "b37de350607e46b9be26db0e80cc65c7",
+          "delivered_bytes": 4599,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "592a0aeb9c5546eea8ec23a5829a4118",
+          "delivered_bytes": 4639,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "63dd1e62bca246ebb1b2bfe4bbdac8d9",
+          "delivered_bytes": 4635,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "a3300016f5e547618690d29aa74ff130",
+          "delivered_bytes": 4668,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "90bea04a11b540b1a4bb35c52cafc84c",
+          "delivered_bytes": 4652,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "cbb8b80662264a07a4ca22b8920cb21c",
+          "delivered_bytes": 4672,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "1f0c391c2c0c4228a9031860159e5a4a",
+          "delivered_bytes": 4751,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "165b4b5058754e6bae87fae03f77b06e",
+          "delivered_bytes": 4656,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "16e21e4961e04630a1e5cd9fa5e5d1f6",
+          "delivered_bytes": 4745,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "81eac9e34de348f5b1405d30a4efb437",
+          "delivered_bytes": 4682,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "eb236551b5ed4b8db0bd4163d29c28fe",
+          "delivered_bytes": 4625,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "782733b3263248969706ebcb6380c714",
+          "delivered_bytes": 4645,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "49481170c85d42a39a209aef50b59ecf",
+          "delivered_bytes": 4652,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "1821a1623ed04f5cb3ad61263d9432a3",
+          "delivered_bytes": 4663,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "fc4a6bbde9144eea81b7326967323487",
+          "delivered_bytes": 4670,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "aa201924727442f892cecab260b0ddcd",
+          "delivered_bytes": 4646,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "3d4a9006b2b140ce8a09a0724dad23d3",
+          "delivered_bytes": 4793,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "f5e3ff480e9c45fa9c63577e19fbbd82",
+          "delivered_bytes": 4650,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "74e239a16ab2464d8af5cee87e92dd41",
+          "delivered_bytes": 4723,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "6e8e76412f0b44929c0e29552df84b0b",
+          "delivered_bytes": 4674,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "32049c77ead24bd28c4aaf02ab2b8098",
+          "delivered_bytes": 4635,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "e3f6c3fa4e9e4516ac608737517f6744",
+          "delivered_bytes": 4647,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "8d42656aae7745b1ababa44437a3c708",
+          "delivered_bytes": 4646,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "19f5c7dd3c3241deb80836c1bf77815f",
+          "delivered_bytes": 4670,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "b21b4ad5374342aabafae8c8ed971f33",
+          "delivered_bytes": 4670,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "f169b3b15daf4ac6ad3c6ead2682ea6a",
+          "delivered_bytes": 4661,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "c692bb1a72734de7b54a25bb083d456d",
+          "delivered_bytes": 4776,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "d53f1178c68b4cbba6f10b6e34053d92",
+          "delivered_bytes": 4656,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "25e4c584964e4c40a40ec473cad5e8f7",
+          "delivered_bytes": 4711,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "3035d5ce53d940288e38b2dcb4ad76dd",
+          "delivered_bytes": 4674,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "f67ddfbc71a845b19e95e7b0d659c8e0",
+          "delivered_bytes": 4638,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "7bbc8eff233c454ab775f0400d5dee01",
+          "delivered_bytes": 4642,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "8dfe286e26334550a066689664ee07e8",
+          "delivered_bytes": 4649,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "9079b7a59e174000be7738bf3d80d878",
+          "delivered_bytes": 4664,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "f1f55fd03782411fb7a33549a192fc67",
+          "delivered_bytes": 4668,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "5d403ebcda8f434fad2c3d809bce8252",
+          "delivered_bytes": 4655,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "1c4a5c5f1667472e96c835b7a91fa547",
+          "delivered_bytes": 4771,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "785a4b22a30942d1b19e09e11e4323fc",
+          "delivered_bytes": 4871,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        },
+        {
+          "operation": "native:page",
+          "outcome": "observed",
+          "delivery_id": "c61bae1c36474f2fa83d65666a216188",
+          "delivered_bytes": 4867,
+          "examined_files": 0,
+          "examined_lines": 0,
+          "detail": "Actual delivery; no hidden use or semantic support inferred."
+        }
+      ],
+      "bytes": 282355
+    }
+  },
+  "reuse": {
+    "acknowledged_page_deliveries": 60,
+    "unique_page_delivery_ids": 60,
+    "unique_page_views": 1,
+    "unique_page_bases": 1,
+    "native_boundary_equal_original": true,
+    "confirmed_revision": "990f0d59cafa4560be4e6dd87ace5457",
+    "original_revision": "a3e8b46cf968450a95037765e22212bd"
+  },
+  "positive_review": {
+    "proof": "post-measurement exposed engineering review; not independent usefulness",
+    "source_baseline": {
+      "required_locations": 20,
+      "missing_locations": [
+        {
+          "source_id": "source-95cdda13859a6ae305256bac4712b6fc8144eb0aa40de0efaeb26f64a6f23c5c",
+          "path": "httpx/_api.py",
+          "first": 6,
+          "last": 6
+        },
+        {
+          "source_id": "source-88467fea02e7e973fb911906abefb5ccf8af7f6faeeb3d12e4730ad974468b20",
+          "path": "httpx/_api.py",
+          "first": 6,
+          "last": 6
+        },
+        {
+          "source_id": "source-95cdda13859a6ae305256bac4712b6fc8144eb0aa40de0efaeb26f64a6f23c5c",
+          "path": "httpx/__init__.py",
+          "first": 2,
+          "last": 2
+        },
+        {
+          "source_id": "source-95cdda13859a6ae305256bac4712b6fc8144eb0aa40de0efaeb26f64a6f23c5c",
+          "path": "httpx/__init__.py",
+          "first": 4,
+          "last": 4
+        },
+        {
+          "source_id": "source-88467fea02e7e973fb911906abefb5ccf8af7f6faeeb3d12e4730ad974468b20",
+          "path": "httpx/__init__.py",
+          "first": 2,
+          "last": 2
+        },
+        {
+          "source_id": "source-88467fea02e7e973fb911906abefb5ccf8af7f6faeeb3d12e4730ad974468b20",
+          "path": "httpx/__init__.py",
+          "first": 4,
+          "last": 4
+        }
+      ],
+      "complete_location_retrieval": false,
+      "semantic_answer": "not independently scored"
+    },
+    "report": {
+      "witnesses": 4,
+      "ordered_paths_roles_versions_outcomes_premises_equal": true,
+      "answer": "One TestClient(app) root through fastapi/starlette to old/proposed HTTPX. Four alternative native witnesses are locally bound under retained premises.",
+      "next_discriminating_observation": "Exact installed FastAPI/Starlette/HTTPX distributions and import/binding provenance, then evidence execution reaches the selected forwarding body/signature.",
+      "runtime_compatibility_or_action_proved": false
+    },
+    "native_delivered_material": {
+      "acknowledged_revision": "990f0d59cafa4560be4e6dd87ace5457",
+      "acknowledged_revision_readable": true,
+      "delivered_pages": 60,
+      "delivered_characters": 245760,
+      "candidates_complete": true,
+      "all_witnesses_equal": true
+    },
+    "cold_guards": "producer/AST/credential profile guard active; socket connect forbidden"
+  },
+  "negative_review": {
+    "proof": "post-measurement exposed engineering review; not independent usefulness",
+    "source_baseline": {
+      "required_locations": 20,
+      "missing_locations": [
+        {
+          "source_id": "source-95cdda13859a6ae305256bac4712b6fc8144eb0aa40de0efaeb26f64a6f23c5c",
+          "path": "httpx/_api.py",
+          "first": 6,
+          "last": 6
+        },
+        {
+          "source_id": "source-88467fea02e7e973fb911906abefb5ccf8af7f6faeeb3d12e4730ad974468b20",
+          "path": "httpx/_api.py",
+          "first": 6,
+          "last": 6
+        },
+        {
+          "source_id": "source-95cdda13859a6ae305256bac4712b6fc8144eb0aa40de0efaeb26f64a6f23c5c",
+          "path": "httpx/__init__.py",
+          "first": 2,
+          "last": 2
+        },
+        {
+          "source_id": "source-95cdda13859a6ae305256bac4712b6fc8144eb0aa40de0efaeb26f64a6f23c5c",
+          "path": "httpx/__init__.py",
+          "first": 4,
+          "last": 4
+        },
+        {
+          "source_id": "source-88467fea02e7e973fb911906abefb5ccf8af7f6faeeb3d12e4730ad974468b20",
+          "path": "httpx/__init__.py",
+          "first": 2,
+          "last": 2
+        },
+        {
+          "source_id": "source-88467fea02e7e973fb911906abefb5ccf8af7f6faeeb3d12e4730ad974468b20",
+          "path": "httpx/__init__.py",
+          "first": 4,
+          "last": 4
+        }
+      ],
+      "complete_location_retrieval": false,
+      "semantic_answer": "not independently scored"
+    },
+    "report": {
+      "witnesses": 4,
+      "ordered_paths_roles_versions_outcomes_premises_equal": true,
+      "answer": "One TestClient(app) root through fastapi/starlette to old/proposed HTTPX. Four alternative native witnesses are locally bound under retained premises.",
+      "next_discriminating_observation": "Exact installed FastAPI/Starlette/HTTPX distributions and import/binding provenance, then evidence execution reaches the selected forwarding body/signature.",
+      "runtime_compatibility_or_action_proved": false
+    },
+    "native_delivered_material": {
+      "acknowledged_revision": "587432ad3d57485fb917620973b8028e",
+      "acknowledged_revision_readable": true,
+      "delivered_pages": 6,
+      "delivered_characters": 24576,
+      "candidates_complete": false
+    },
+    "cold_guards": "producer/AST/credential profile guard active; socket connect forbidden"
+  },
+  "installed_cold": {
+    "review_exit": 0,
+    "guarded_installed_cold_exit": 0,
+    "confirmed_revision": "990f0d59cafa4560be4e6dd87ace5457",
+    "pages": 60,
+    "native_witnesses_equal": true,
+    "product_source": "38741c3c",
+    "scope": "installed package outside checkout, no experiments or producer execution"
+  },
+  "basis_before": {
+    "total_original_basis_decodes": 156,
+    "unique_transaction_basis_pairs": 15,
+    "worst_repeats": 27,
+    "publication_transactions": 2,
+    "elapsed_counter_ns": 14686941848,
+    "process_cpu_counter_ns": 15998636763,
+    "delivered_bytes": 4873,
+    "selected_revision": "09cfe8de6b9341e48d3dea73b1257f6f",
+    "timing_interpretation": "Separate local counter readings for one invocation; no retrospective active55-minute claim."
+  },
+  "basis_after": {
+    "total_original_basis_decodes": 15,
+    "unique_transaction_basis_pairs": 15,
+    "worst_repeats": 1,
+    "publication_transactions": 2,
+    "elapsed_counter_ns": 12292812971,
+    "process_cpu_counter_ns": 13382181217,
+    "delivered_bytes": 4873,
+    "selected_revision": "2d1b3d157f05417eb0c300df4ce89288"
+  },
+  "scanner_probe": {
+    "differential_cases": 6012,
+    "all_outcomes_equal": true,
+    "retained_buffers": [
+      {
+        "name": "comparison",
+        "bytes": 1669418,
+        "sha256": "762459ac105eba42055d0f950a06ceb551ec791c8dc442391c683cb9c4151a6f",
+        "outcome": "ok",
+        "counters": {
+          "baseline": [
+            {
+              "elapsed_counter_ns": 39005661,
+              "cpu_counter_ns": 42551779
+            },
+            {
+              "elapsed_counter_ns": 38585630,
+              "cpu_counter_ns": 42095683
+            },
+            {
+              "elapsed_counter_ns": 39988184,
+              "cpu_counter_ns": 43626109
+            }
+          ],
+          "candidate": [
+            {
+              "elapsed_counter_ns": 54043244,
+              "cpu_counter_ns": 58958527
+            },
+            {
+              "elapsed_counter_ns": 62327311,
+              "cpu_counter_ns": 67995619
+            },
+            {
+              "elapsed_counter_ns": 55131606,
+              "cpu_counter_ns": 60145875
+            }
+          ]
+        }
+      },
+      {
+        "name": "native_boundary",
+        "bytes": 2238845,
+        "sha256": "2200c62abf05b7357450f79ffc4f2273bbd763b35393521d160e4665671f23cb",
+        "outcome": "ok",
+        "counters": {
+          "baseline": [
+            {
+              "elapsed_counter_ns": 31275326,
+              "cpu_counter_ns": 34118632
+            },
+            {
+              "elapsed_counter_ns": 31268733,
+              "cpu_counter_ns": 34113029
+            },
+            {
+              "elapsed_counter_ns": 31827910,
+              "cpu_counter_ns": 34723761
+            }
+          ],
+          "candidate": [
+            {
+              "elapsed_counter_ns": 24833954,
+              "cpu_counter_ns": 27043761
+            },
+            {
+              "elapsed_counter_ns": 24718286,
+              "cpu_counter_ns": 26967126
+            },
+            {
+              "elapsed_counter_ns": 25634851,
+              "cpu_counter_ns": 27966765
+            }
+          ]
+        }
+      },
+      {
+        "name": "lifecycle",
+        "bytes": 4390029,
+        "sha256": "3ff64f784f0f75976a4eb9cb139609ced3b497b8d6d937e92f89d36a1bb4d55b",
+        "outcome": "ok",
+        "counters": {
+          "baseline": [
+            {
+              "elapsed_counter_ns": 53769961,
+              "cpu_counter_ns": 58657797
+            },
+            {
+              "elapsed_counter_ns": 53978046,
+              "cpu_counter_ns": 58887716
+            },
+            {
+              "elapsed_counter_ns": 51906317,
+              "cpu_counter_ns": 56612828
+            }
+          ],
+          "candidate": [
+            {
+              "elapsed_counter_ns": 52784153,
+              "cpu_counter_ns": 57585407
+            },
+            {
+              "elapsed_counter_ns": 55537667,
+              "cpu_counter_ns": 60589198
+            },
+            {
+              "elapsed_counter_ns": 52475645,
+              "cpu_counter_ns": 57247894
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "interpretation": "Counters are readings; paused intervals are unobserved. Active55-minute claim withdrawn. 156-to-15 is basis work reduction, not90% total speedup. Source baseline remains incomplete and independent usefulness/runtime compatibility are unproved."
+}

@@ -20,6 +20,7 @@ import stat
 import time
 from collections.abc import Iterator
 from contextlib import contextmanager
+from dataclasses import dataclass, field
 from hashlib import sha256
 from pathlib import Path
 from typing import Literal
@@ -41,6 +42,7 @@ from .lifecycle_boundary import (
     validate_lifecycle_history,
 )
 from .native_boundary import (
+    CapturedNativeBoundary,
     ExactInvestigationTarget,
     encode_native_boundary,
     read_exact_investigation_target,
@@ -56,6 +58,26 @@ from .native_representation import (
 _APPLICATION_ID = 0x55504350
 _DATABASE_NAME = "workspace.sqlite3"
 _MAX_RECORDS = 4096
+
+
+@dataclass
+class _OriginalBasisReadCache:
+    """Decoded bases shared only inside one locked publication transaction.
+
+    Admission still charges every original basis on every closure validation.
+    This cache saves decoding, not accounting or integrity checks. Its conservative
+    encoded budget bounds retained entries; Python heap size remains unspecified.
+    """
+
+    boundaries: dict[tuple[str, str], CapturedNativeBoundary] = field(default_factory=dict)
+    encoded_bytes: int = 0
+
+    def remember(self, key: tuple[str, str], boundary: CapturedNativeBoundary,
+                 encoded_bytes: int) -> None:
+        if self.encoded_bytes + encoded_bytes <= MAX_NATIVE_JSON_BYTES:
+            self.boundaries[key] = boundary
+            self.encoded_bytes += encoded_bytes
+
 
 # The catalog is an explicit versioned layout. Unexpected tables/triggers/views are not
 # accepted by a version label alone; no SQL supplied by a checkpoint is executed.
@@ -392,6 +414,7 @@ class CheckpointStore:
                         "Lifecycle publication requires a schema-2 store.",
                     )
                 connection.execute("BEGIN IMMEDIATE")
+                basis_cache = _OriginalBasisReadCache()
                 head = connection.execute(
                     "SELECT revision_id FROM heads WHERE lineage_id=?",
                     (revision.lineage_id,),
@@ -429,6 +452,7 @@ class CheckpointStore:
                             revision.lineage_id,
                             retained_id,
                             revision.boundary.target,
+                            basis_cache=basis_cache,
                         )
                 if (
                     predecessor is not None
@@ -566,6 +590,7 @@ class CheckpointStore:
                     revision.lineage_id,
                     revision.revision_id,
                     revision.boundary.target,
+                    basis_cache=basis_cache,
                 )
                 commit_attempted = True
                 connection.execute("COMMIT")
@@ -674,6 +699,7 @@ class CheckpointStore:
         expected_target: ExactInvestigationTarget,
         *,
         validate_lifecycle: bool = True,
+        basis_cache: _OriginalBasisReadCache | None = None,
     ) -> CheckpointRevision:
         row = connection.execute(
             "SELECT predecessor_id,digest FROM revisions WHERE lineage_id=? AND revision_id=?",
@@ -807,21 +833,30 @@ class CheckpointStore:
                         "Lifecycle basis is not a selected ancestor.",
                     )
                 if record.basis_revision_id not in bases:
-                    closure_size += self._composed_material_size(
+                    basis_size = self._composed_material_size(
                         connection, lineage_id, record.basis_revision_id
                     )
+                    closure_size += basis_size
                     if closure_size > MAX_NATIVE_JSON_BYTES:
                         raise _refuse(
                             "storage_resource_limit",
                             "Original-basis closure exceeds read capacity.",
                         )
-                    bases[record.basis_revision_id] = self._read(
-                        connection,
-                        lineage_id,
-                        record.basis_revision_id,
-                        expected_target,
-                        validate_lifecycle=False,
-                    ).boundary
+                    # BEGIN IMMEDIATE keeps original rows stable for this cache's
+                    # lifetime. Charge size/ancestry above even on a cache hit.
+                    key = (lineage_id, record.basis_revision_id)
+                    basis = basis_cache.boundaries.get(key) if basis_cache is not None else None
+                    if basis is None:
+                        basis = self._read(
+                            connection,
+                            lineage_id,
+                            record.basis_revision_id,
+                            expected_target,
+                            validate_lifecycle=False,
+                        ).boundary
+                        if basis_cache is not None:
+                            basis_cache.remember(key, basis, basis_size)
+                    bases[record.basis_revision_id] = basis
             validate_lifecycle_history(lifecycle, bases=bases)
         return revision
 

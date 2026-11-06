@@ -454,6 +454,117 @@ class PreparationAndConsumerTests(unittest.TestCase):
         )
         self.assertEqual(payload["text"], record.payload.decode()[:1])
 
+    def test_native_pages_share_unchanged_view_with_distinct_exact_deliveries(self):
+        _, host, _, access, purpose = access_setup()
+        record = next(r for r in host.current.boundary.records if r.family == "investigation_inputs")
+        self.assertGreater(len(record.payload), 512)
+        deliveries = [access.native_page(purpose, record.record_id, start_character=i*64,
+                                        character_count=64) for i in range(8)]
+        values = [host.lifecycle_value(identity) for identity in deliveries]
+        self.assertEqual(len(set(deliveries)), 8)
+        self.assertEqual(len({value.view_id for value in values}), 1)
+        captures = {r.record_id: r for r in host.current.lifecycle_history.records}
+        basis = captures[values[0].view_id].basis_revision_id
+        for i, (identity, value) in enumerate(zip(deliveries, values)):
+            page = json.loads(value.retained_content)
+            self.assertEqual(page["text"], record.payload.decode()[i*64:(i+1)*64])
+            self.assertEqual(page["start_character"], i*64)
+            self.assertEqual(captures[identity].basis_revision_id, basis)
+        self.assertEqual(sum(r.delivered_bytes for r in access.receipts),
+                         sum(len(value.retained_content.encode()) for value in values))
+
+    def test_interleaved_native_selections_keep_their_own_views(self):
+        _, host, _, access, purpose = access_setup()
+        ids = {r.family: r.record_id for r in host.current.boundary.records}
+        first = access.native_page(purpose, ids["investigation_inputs"], character_count=64)
+        other = access.native_page(purpose, ids["ci_coverage"], character_count=64)
+        again = access.native_page(purpose, ids["investigation_inputs"], start_character=64, character_count=64)
+        first_view = host.lifecycle_value(first).view_id
+        other_view = host.lifecycle_value(other).view_id
+        self.assertNotEqual(first_view, other_view)
+        self.assertEqual(host.lifecycle_value(again).view_id, first_view)
+        self.assertEqual(host.lifecycle_value(first_view).delivered_native_ids, (ids["investigation_inputs"],))
+        self.assertEqual(host.lifecycle_value(other_view).delivered_native_ids, (ids["ci_coverage"],))
+
+    def test_source_citations_stay_bound_to_each_delivery_when_view_is_reused(self):
+        _, host, _, access, purpose = access_setup()
+        deliveries = [access.source_view(purpose, "read", dict(source_id="target",
+            path="doc/changelog.rst", start_line=line, line_count=1)) for line in (1, 2)]
+        first, second = [host.lifecycle_value(identity) for identity in deliveries]
+        self.assertNotEqual(deliveries[0], deliveries[1])
+        self.assertEqual(first.view_id, second.view_id)
+        reference = read_source_delivery(first.retained_content.encode())["payload"]["reference"]
+        access.propose_source(purpose, deliveries[0], "candidate", "First delivered line.", reference)
+        with self.assertRaisesRegex(WorkspaceHostError, "source_reference_not_delivered"):
+            access.propose_source(purpose, deliveries[1], "candidate", "Wrong delivery for first line.", reference)
+
+    def test_native_progress_uses_new_view_and_keeps_old_delivery_historical(self):
+        _, host, _, access, purpose = access_setup()
+        first = access.source_view(purpose, "list_sources", {})
+        first_view = host.lifecycle_value(first).view_id
+        before = host.current
+        # Description-family identity can change without changing the dependency
+        # prefix used by the purpose. The old view included that omitted material.
+        records = tuple(replace(r, record_id="later-description") if r.family == "pull_request_description" else r
+                        for r in before.boundary.records)
+        self.assertNotEqual(records, before.boundary.records)
+        host.publish_native_progress(replace(before.boundary, records=records))
+        self.assertEqual(host.current_validity(purpose).status, "valid")
+        self.assertEqual(host.current_validity(first_view).status, "stale")
+        second = access.source_view(purpose, "list_sources", {})
+        self.assertNotEqual(host.lifecycle_value(second).view_id, first_view)
+        self.assertEqual(host.lifecycle_value(first).view_id, first_view)
+        self.assertEqual(host.lifecycle_value(first).retained_content,
+                         host.lifecycle_value(second).retained_content)
+
+    def test_reordered_native_universe_gets_new_omission_view_despite_valid_old_material(self):
+        _, host, _, access, purpose = access_setup()
+        first = access.source_view(purpose, "list_sources", {})
+        old_view = host.lifecycle_value(first).view_id
+        boundary = host.current.boundary
+        host.publish_native_progress(replace(boundary, records=tuple(reversed(boundary.records))))
+        self.assertEqual(host.current_validity(old_view).status, "valid")
+        second = access.source_view(purpose, "list_sources", {})
+        new_view = host.lifecycle_value(second).view_id
+        self.assertNotEqual(new_view, old_view)
+        self.assertEqual(host.lifecycle_value(new_view).omitted_native_ids,
+                         tuple(r.record_id for r in host.current.boundary.records))
+
+    def test_withdrawn_method_blocks_cached_view_without_new_delivery(self):
+        _, host, source, access, purpose = access_setup()
+        access.source_view(purpose, "list_sources", {})
+        history = host.current.lifecycle_history
+        host.configure(authority=None, capabilities=())
+        with patch.object(type(source), "query", side_effect=AssertionError("withdrawn method queried source")):
+            with self.assertRaisesRegex(WorkspaceHostError, "view_method_unavailable"):
+                access.source_view(purpose, "list_sources", {})
+        self.assertEqual(host.current.lifecycle_history, history)
+        self.assertEqual(access.receipts[-1].delivered_bytes, 0)
+        self.assertEqual(access.receipts[-1].outcome, "refused")
+
+    def test_failed_cached_page_publication_keeps_acknowledged_delivery_and_blocks_retry(self):
+        from upgradepilot.workspace.checkpoint_revision import CheckpointStorageError
+
+        with tempfile.TemporaryDirectory() as tmp:
+            store = CheckpointStore.create(Path(tmp) / "store", schema_version=2)
+            _, host, _, access, purpose = access_setup(InvestigationWorkspaceHost(store=store))
+            record = next(r for r in host.current.boundary.records if r.family == "ci_coverage")
+            first = access.native_page(purpose, record.record_id, character_count=32)
+            acknowledged = host.current
+            with patch.object(store, "publish", side_effect=CheckpointStorageError("controlled_write_failure", "No commit attempted.")) as publish:
+                with self.assertRaisesRegex(CheckpointStorageError, "controlled_write_failure"):
+                    access.native_page(purpose, record.record_id, start_character=32, character_count=32)
+                self.assertEqual(host.current, acknowledged)
+                attempted = host.unacknowledged_revision
+                self.assertEqual(attempted.lifecycle_history.records[-1].kind, "view_delivery")
+                self.assertEqual(store.inspect_publication(attempted), "not_published")
+                with self.assertRaisesRegex(WorkspaceHostError, "publication_reconciliation_required"):
+                    access.native_page(purpose, record.record_id, start_character=32, character_count=32)
+                self.assertEqual(publish.call_count, 1)
+            self.assertEqual(store.read_selected_revision(acknowledged.revision_id).revision, acknowledged)
+            self.assertIn(first, {r.record_id for r in acknowledged.lifecycle_history.records})
+            self.assertEqual(access.receipts[-1].delivered_bytes, 0)
+
     def test_failed_publication_counts_work_without_claiming_delivery(self):
         _, host, _, access, purpose = access_setup()
         with (
@@ -602,6 +713,9 @@ class PreparationAndConsumerTests(unittest.TestCase):
             )
             host.evaluate_proposal(proposal)
             access.native_view(purpose, ("ci_coverage",))
+            native_id = next(r.record_id for r in host.current.boundary.records if r.family == "ci_coverage")
+            pages = [access.native_page(purpose, native_id, start_character=start, character_count=32)
+                     for start in (0, 32)]
             spec = {
                 "lineage": host.lineage_id,
                 "revision": host.current.revision_id,
@@ -640,7 +754,8 @@ deliveries=[item.value for item in values if isinstance(item.value,ViewDelivery)
 source=next(v for v in deliveries if v.representation=='retained-source-view/1')
 projection=reconstruct_ci_projection(stored.revision.boundary, expected_target=target)
 host=InvestigationWorkspaceHost(lineage_id=spec['lineage']);host.restore(stored,bases=bases)
-print(json.dumps({'lines':read_source_delivery(source.retained_content.encode())['payload']['lines'],'state':projection.ci_coverage_result.state,'deliveries':len(deliveries),'citations':sum(isinstance(v.value,ContentCitation) for v in values),'evaluations':[v.value.outcome for v in values if isinstance(v.value,EvaluationOutcome)],'guards':len(handles)}))
+pages=[v for v in deliveries if v.representation=='workspace-native-view/1' and 'start_character' in json.loads(v.retained_content)]
+print(json.dumps({'lines':read_source_delivery(source.retained_content.encode())['payload']['lines'],'state':projection.ci_coverage_result.state,'deliveries':len(deliveries),'citations':sum(isinstance(v.value,ContentCitation) for v in values),'evaluations':[v.value.outcome for v in values if isinstance(v.value,EvaluationOutcome)],'guards':len(handles),'page_views':len({v.view_id for v in pages}),'page_text':[json.loads(v.retained_content)['text'] for v in pages]}))
 """
             child = subprocess.run(
                 [sys.executable, "-c", script, str(directory), str(selection)],
@@ -665,9 +780,11 @@ print(json.dumps({'lines':read_source_delivery(source.retained_content.encode())
                 {
                     "lines": ["pytest", "second line"],
                     "state": "no_successful_ci",
-                    "deliveries": 2,
+                    "deliveries": 4,
                     "citations": 1,
                     "evaluations": ["unsupported"],
                     "guards": 9,
+                    "page_views": 1,
+                    "page_text": [json.loads(host.lifecycle_value(identity).retained_content)["text"] for identity in pages],
                 },
             )

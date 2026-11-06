@@ -2,7 +2,7 @@
 
 **Created:** 2026-11-02  
 **Initial evidence horizon:** `7a9bef12fb65ee075dab645a638adf5a3955dc48`  
-**Last synchronized main:** `068ba7b463d414a9e6e4ea56b0a14859177a6a85` — November 4, 2026; CLI/report/Workspace delivery verified and connected retained-case qualification exposing native access/navigation proof debt. Learning C1 remains conceptually covered. Product status ≠ learner mastery.
+**Last synchronized main:** `bb3b2b10636734d5622727558053ec063df8d65f` — November 6, 2026; bounded native paging/view and transaction-local basis reuse now verified for retained HTTPX, connected retained qualification closed, and a matched page-timing study completed with **elapsed result inconclusive**. Next product handoff is a separately frozen normal-product attempt contract before any live provider call. Learning C1 remains conceptually covered; C2 is in progress. Product status ≠ learner mastery.
 **Working branch:** `learning/current-caller-signature-mastery-roadmap-2026-11-02`  
 **Purpose:** living study/relearning roadmap for Ali's interactive learning track while UpgradePilot continues to evolve on `main`.  
 **Authority boundary:** this file is a learning artifact, not the live project-position owner. `MEMORY.md`, current source/tests, accepted plans/specifications/ADRs, and dated evidence remain authoritative.
@@ -106,7 +106,9 @@ When `main` advances:
 - `c136d2a0` — November 3: explicit caller-signature CLI/report/source/save/offline-opening delivery cycle opened (not yet implemented).
 - `e109875f` — November 4: storage/acknowledgement foundation, 63 host/store focused checks; CLI integration pending *at that historical horizon*.
 - `8d6f3d09` — November 4: user delivery subsequently verified (explicit profile, CLI/report/source/save/exact offline opening), with 1,063 product, 194 experiment API, 7 architecture and 20 installed controls recorded at its milestone. Connected retained-case qualification is active in B: LifeLog/HTTPX/Digimon retained equivalence and ordinary controlled acquisition examined; HTTPX default adapter allocation 2 vs 4 corrected under unchanged global budgets (latest reported 1,064 product/194 API/7 architecture). Fixed source navigation and final qualification remain pending. No fresh live provider/usefulness claims. These are referenced dated proofs, not rerun by this learning update.
-- `068ba7b4` — November 4: retention/capacity and installed controls reconfirm positive comparison and report/cold-opening proof, **but full native paging and source-only navigation did not qualify**: native access delivered six pages then was refused at the existing 64MiB original-material closure guard; fixed source-only retrieval found 14/20 required locations. Previous acknowledged revision remains readable. Next main owner is bounded Planning/Design of view/material-basis reuse versus per-root projection; neither a repair nor cap increase is yet selected. This is a later D4/F3 learning anchor, not a new C2 obligation or successful product qualification.
+- `068ba7b4` — November 4: original retained qualification showed **six-page native refusal** at the 64MiB original-material closure guard, and fixed source-only navigation retrieved 14/20 required locations. Earlier acknowledged results remained readable. This **historical failed attempt is preserved**, not retrospectively passed.
+- `38741c3c` — November 4: bounded repair accepted at the original policy, consumer caches a still-valid equal-native-boundary `ConsumerView` for repeated deliveries; `CheckpointStore.publish` reuses decoded immutable original bases only inside one locked transaction while retaining all historic validation and capacity accounting. The separately frozen retained HTTPX successor completes **60 unique pages**, all **four native witnesses**, with one view/basis and guarded cold recovery; `1,073` product, `194` API, `7` architecture and `57` installed controls at the cited proof horizon. Original six-page refusal remains a negative control; source-only baseline stays 14/20. Connected retained qualification closed; live-provider, human usefulness and broad adoption unproved. A [source-pinned learning companion](2026-11-04-bounded-native-navigation-and-view-reuse.md) now exists on main; use later in D4 rather than duplicate its full narrative here.
+- `bb3b2b10` — November 6: frozen matched first-page comparison between consumer-only `6e98d0a0` and publication-reuse `38741c3c`, with six correctly delivered identical 4,873-byte first pages and preserved acknowledgements. Recorded paired **CPU median ratio 0.81265** (~18.7% less CPU in this limited scenario); *elapsed* timing remains **inconclusive** because all trials failed the frozen clock-consistency screens. This was measurement, not a new product optimization or proof of whole-workflow speed. Main's next step is the **contract review for a separately frozen native normal-product attempt**, not provider execution without the contract.
 
 ---
 
@@ -293,7 +295,7 @@ Real anchor: glyphsLib remains valid for worker/protocol qualification but is no
 **Status:** 🟡  
 **Depth:** MUST OWN
 
-**Real engineering-mechanism anchor for when D4 is taught:** the [connected retained qualification cycle](../working-memory/2026-11-04_caller-signature-connected-retained-qualification_cycle.md) recorded complete report availability but bounded native paging refusal after six pages at the original-basis 64MiB closure guard. Trace the consumer→view/material-basis→host/store contract, the precise charge/refusal boundary, and why the earlier acknowledged revision is still valid. Discuss view reuse versus projection only as candidate designs with distinct safety trade-offs, not an implemented repair. A comparable real-world problem is paged access to large immutable security/audit evidence. Defer this until D4.
+**Real failure → verified engineering repair, for when D4 is taught:** the [retained qualification cycle](../working-memory/2026-11-04_caller-signature-connected-retained-qualification_cycle.md) first recorded a native-page refusal after six deliveries, even though report/source evidence was available. The [pinned engineering learning note](2026-11-04-bounded-native-navigation-and-view-reuse.md) traces consumer → view/material basis → host → store and the accepted repair: reuse an equal-complete-native-boundary and currently valid view for distinct exact deliveries; reuse decoded immutable basis only per locked publication transaction, never to waive validation or capacity charges. A new retained task then completed 60 pages/all four native witnesses without changing the 64MiB guard. Learn why view versus delivery, cache lifetime, boundary equality, current authorization and source-only baseline 14/20 matter; contrast the rejected cap increase/per-root projection alternatives. The earlier six-page refusal remains historical truth. An analogous real-world problem is bounded paged access to immutable security/audit evidence. Do not pre-study the entire companion now; C2 remains the current lesson.
 
 Own:
 
@@ -424,17 +426,17 @@ Owners: [user-delivery cycle](../working-memory/2026-11-03_caller-signature-user
 
 **Critical ownership question:** Confirmed source revision A survives later report attempt B with lost acknowledgement. B may have been published; exact store inspection resolves that uncertainty, not a retry. A separate `--save-report` failure cannot erase an earlier confirmed Workspace report revision. Cold opening reads retained evidence without new network/AST/analysis/synthesis. Correct failure and unsupported-representation cases must refuse rather than silently fall back.
 
-**Still outside this qualification:** broad retained real-case capacity/navigation, actual live provider, independent maintainer usefulness and adoption.
+**Milestone boundary at the original small controlled F2 proof:** retained full-size navigation was not yet qualified then. Later F3 retained HTTPX evidence now qualifies its specific 60-page bounded native access and cold recovery (see D4 and F3), **not** unlimited paging, a fully successful source-only navigation baseline, live-provider behavior, independent usefulness or adoption.
 
 ## F3 — Connected product/task qualification, usefulness and adoption
 
-**Product:** 🟡 Retained-case connected qualification active at main `068ba7b4` with measured native paging/source-navigation proof debt; live-provider/task/adoption gates pending  
+**Product:** ✅ Connected retained-case qualification closed with bounded native paging repair at `38741c3c`; **live provider / independent task usefulness / broad adoption still pending**  
 **Learning:** ⬜ Not yet taught  
 **Depth:** MUST OWN qualification, proof/non-proof and eventual task/adoption disposition
 
 Owners: [active qualification cycle](../working-memory/2026-11-04_caller-signature-connected-retained-qualification_cycle.md), [qualified implementation plan](../plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md).
 
-Current qualification exercises retained LifeLog/HTTPX/Digimon results through ordinary application/report/store/cold-opening and separately labelled authored HTTP responses. HTTPX exposed an adapter-attempt default drift (2 instead of accepted 4), repaired within unchanged global budgets. A labelled glyphsLib protocol control does not create historical acquisition receipts. **Measured access is incomplete:** fixed source-only navigation recovered 14/20 locations; durable native paging served six pages, then refused under the 64MiB original-basis closure guard. A design decision and verified repair are still needed before completing this qualification; no gate has been waived. A separately frozen live-provider attempt and independent maintainer-task/adoption assessment remain later stages.
+Exact retained LifeLog/HTTPX/Digimon evidence and separately labelled authored-HTTP normal composition were qualified through ordinary application/report/store/cold opening; glyphsLib's missing historical receipts remain explicit. The accepted native acquisition default-four allocation was restored without changing global budgets. The **original** fixed navigation exposed two separate limits: source-only text retrieval found 14/20 ranges and native paging stopped after six deliveries at the 64MiB closure guard. The **new** exposed retained HTTPX native task, with the implemented valid-view/basis reuse, passes 60 exact pages and all four witnesses at the original limits, with guarded installed cold opening. The original failed attempt and incomplete source-only baseline remain recorded. The closed retained gate proves this case's bounded access, not general unlimited navigation, actual live provider, runtime dispatch or human usefulness. A later prospective matched first-page timing study showed lower CPU counters but failed elapsed-clock acceptance. **Next main responsibility:** freeze and review a normal-product attempt contract before any actual provider invocation; after that, separate live/task/adoption decisions retain their own evidence and authorization gates.
 
 Must distinguish historic retained exact inputs, controlled provider responses, outside-checkout installed proof, newly acquired real-provider observations, runtime applicability, maintainer usefulness and adoption. Successful controlled report delivery cannot prove all of them. No broad campaign or model/runtime experiment is activated by this module.
 
@@ -480,7 +482,7 @@ Owners: [project route](../plans/UPGRADEPILOT_90_DAY_PLAN.md#evidence-grounded-a
 
 ## 4. Current learning order
 
-**Learning-coverage snapshot (November 4):** 19 named modules = **6 covered interactively** (A1–A4, B1, C1), **5 introduced/in progress** (C2, D1–D4), **8 not yet studied** (E1–E3, F1–F3, G1–G2). **13 not yet covered**; among them G1/G2 are intentionally deferred design checkpoints, not immediate prerequisites. Implementation milestones do not automatically upgrade learning marks.
+**Learning-coverage snapshot (November 6):** 19 named modules = **6 covered interactively** (A1–A4, B1, C1), **5 introduced/in progress** (C2, D1–D4), **8 not yet studied** (E1–E3, F1–F3, G1–G2). **13 not yet covered**; among them G1/G2 are intentionally deferred design checkpoints, not immediate prerequisites. Implementation milestones do not automatically upgrade learning marks.
 
 ```text
 COVERED INTERACTIVELY:  A1 A2 A3 A4 B1 C1  (6 of 19)
@@ -490,7 +492,7 @@ NEXT:                   D1 D2 D3 D4 (previously introduced; continue)
                         E1 E2 E3 acquisition and exact provenance
                         F1 verified source-progress application
                         F2 verified user-facing CLI/report/Workspace delivery
-                        F3 ongoing qualification and future usefulness gates
+                        F3 verified retained-case qualification; live/task/usefulness gates later
 
 LATER AT PLAN HANDOFF:  G1 combined evidence/runtime applicability
                         G2 evidence-grounded AI/LLM/retrieval checkpoint
