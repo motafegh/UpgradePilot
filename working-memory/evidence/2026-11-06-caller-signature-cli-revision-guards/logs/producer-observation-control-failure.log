@@ -1,0 +1,86 @@
+..........FFF......................usage: upgradepilot [-h] [--github-auth {anonymous,token-env}]
+                    [--save-report PATH] [--open-report PATH]
+                    [--show-source SOURCE_ID]
+                    [--evidence-profile {caller-signature}]
+                    [--expected-base COMMIT_SHA] [--expected-head COMMIT_SHA]
+                    [--workspace-store PATH] [--open-workspace PATH]
+                    [--revision REVISION_ID]
+                    [repository] [pull_number]
+upgradepilot: error: --open-report cannot be combined with investigation, save or authentication arguments
+usage: upgradepilot [-h] [--github-auth {anonymous,token-env}]
+                    [--save-report PATH] [--open-report PATH]
+                    [--show-source SOURCE_ID]
+                    [--evidence-profile {caller-signature}]
+                    [--expected-base COMMIT_SHA] [--expected-head COMMIT_SHA]
+                    [--workspace-store PATH] [--open-workspace PATH]
+                    [--revision REVISION_ID]
+                    [repository] [pull_number]
+upgradepilot: error: --open-report cannot be combined with investigation, save or authentication arguments
+usage: upgradepilot [-h] [--github-auth {anonymous,token-env}]
+                    [--save-report PATH] [--open-report PATH]
+                    [--show-source SOURCE_ID]
+                    [--evidence-profile {caller-signature}]
+                    [--expected-base COMMIT_SHA] [--expected-head COMMIT_SHA]
+                    [--workspace-store PATH] [--open-workspace PATH]
+                    [--revision REVISION_ID]
+                    [repository] [pull_number]
+upgradepilot: error: --open-report cannot be combined with investigation, save or authentication arguments
+usage: upgradepilot [-h] [--github-auth {anonymous,token-env}]
+                    [--save-report PATH] [--open-report PATH]
+                    [--show-source SOURCE_ID]
+                    [--evidence-profile {caller-signature}]
+                    [--expected-base COMMIT_SHA] [--expected-head COMMIT_SHA]
+                    [--workspace-store PATH] [--open-workspace PATH]
+                    [--revision REVISION_ID]
+                    [repository] [pull_number]
+upgradepilot: error: repository and pull_number are required for an investigation
+.............
+======================================================================
+FAIL: test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation) (label='both')
+Exercise the real CLI/application/clients/worker, including absent guards.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_delivery.py", line 178, in test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation
+    self.assertEqual(evidence, reference)
+AssertionError: Tuples differ: ((Rep[14138 chars]lue='976425fa015045fb96fc6b7b50455f00')), meth[54654 chars].'))) != ((Rep[14138 chars]lue='7955cc8f5d4c407c944e68b9fcfccd23')), meth[54654 chars].')))
+
+First differing element 1:
+(Repo[8738 chars]lue='976425fa015045fb96fc6b7b50455f00')), meth[53558 chars]t.'))
+(Repo[8738 chars]lue='7955cc8f5d4c407c944e68b9fcfccd23')), meth[53558 chars]t.'))
+
+Diff is 150928 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation) (label='base')
+Exercise the real CLI/application/clients/worker, including absent guards.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_delivery.py", line 178, in test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation
+    self.assertEqual(evidence, reference)
+AssertionError: Tuples differ: ((Rep[14138 chars]lue='3b20b796e57644afbb4068c2fb2973a6')), meth[54654 chars].'))) != ((Rep[14138 chars]lue='7955cc8f5d4c407c944e68b9fcfccd23')), meth[54654 chars].')))
+
+First differing element 1:
+(Repo[8738 chars]lue='3b20b796e57644afbb4068c2fb2973a6')), meth[53558 chars]t.'))
+(Repo[8738 chars]lue='7955cc8f5d4c407c944e68b9fcfccd23')), meth[53558 chars]t.'))
+
+Diff is 150926 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation) (label='head')
+Exercise the real CLI/application/clients/worker, including absent guards.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_delivery.py", line 178, in test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation
+    self.assertEqual(evidence, reference)
+AssertionError: Tuples differ: ((Rep[14138 chars]lue='38181301b7e64e52be68891f84743cc8')), meth[54654 chars].'))) != ((Rep[14138 chars]lue='7955cc8f5d4c407c944e68b9fcfccd23')), meth[54654 chars].')))
+
+First differing element 1:
+(Repo[8738 chars]lue='38181301b7e64e52be68891f84743cc8')), meth[53558 chars]t.'))
+(Repo[8738 chars]lue='7955cc8f5d4c407c944e68b9fcfccd23')), meth[53558 chars]t.'))
+
+Diff is 150921 characters long. Set self.maxDiff to None to see it.
+
+----------------------------------------------------------------------
+Ran 46 tests in 50.647s
+
+FAILED (failures=3)

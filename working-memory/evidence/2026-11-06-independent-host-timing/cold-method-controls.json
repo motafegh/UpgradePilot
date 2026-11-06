@@ -1,0 +1,16 @@
+{
+  "method_sha256": "290ff5900f0110334bca4ee93696e686ce16edccbafff0e60f7025dc43db7268",
+  "historical_store_unchanged": true,
+  "controls": [
+    {
+      "control": "complete",
+      "exit": 0,
+      "expected_exit": 0
+    },
+    {
+      "control": "missing-page",
+      "exit": 1,
+      "expected_exit": 1
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+FFF...
+======================================================================
+FAIL: test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation) (label='both')
+Exercise the real CLI/application/clients/worker, including absent guards.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_delivery.py", line 175, in test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation
+    self.assertEqual(evidence, reference)
+AssertionError: Tuples differ: ((Rep[5902 chars]:42:34.718083+00:00', retention='retained_text[62920 chars].'))) != ((Rep[5902 chars]:42:32.849187+00:00', retention='retained_text[62920 chars].')))
+
+First differing element 1:
+(Repo[502 chars]:42:34.718083+00:00', retention='retained_text[61824 chars]t.'))
+(Repo[502 chars]:42:32.849187+00:00', retention='retained_text[61824 chars]t.'))
+
+Diff is 151303 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation) (label='base')
+Exercise the real CLI/application/clients/worker, including absent guards.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_delivery.py", line 175, in test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation
+    self.assertEqual(evidence, reference)
+AssertionError: Tuples differ: ((Rep[5902 chars]:42:39.443684+00:00', retention='retained_text[62920 chars].'))) != ((Rep[5902 chars]:42:32.849187+00:00', retention='retained_text[62920 chars].')))
+
+First differing element 1:
+(Repo[502 chars]:42:39.443684+00:00', retention='retained_text[61824 chars]t.'))
+(Repo[502 chars]:42:32.849187+00:00', retention='retained_text[61824 chars]t.'))
+
+Diff is 151176 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation) (label='head')
+Exercise the real CLI/application/clients/worker, including absent guards.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_delivery.py", line 175, in test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation
+    self.assertEqual(evidence, reference)
+AssertionError: Tuples differ: ((Rep[5901 chars]4:42:41.254673+00:00', retention='retained_tex[62921 chars].'))) != ((Rep[5901 chars]4:42:32.849187+00:00', retention='retained_tex[62921 chars].')))
+
+First differing element 1:
+(Repo[501 chars]4:42:41.254673+00:00', retention='retained_tex[61825 chars]t.'))
+(Repo[501 chars]4:42:32.849187+00:00', retention='retained_tex[61825 chars]t.'))
+
+Diff is 151170 characters long. Set self.maxDiff to None to see it.
+
+----------------------------------------------------------------------
+Ran 4 tests in 9.409s
+
+FAILED (failures=3)

@@ -82,11 +82,13 @@ class CallerSignatureDeliveryTests(unittest.TestCase):
             code = main(arguments)
         return code, output.getvalue()
 
-    def live(self, *, proposed_missing=False, save=True, durable=True, forwarded=True):
+    def live(self, *, proposed_missing=False, save=True, durable=True, forwarded=True,
+             guard_arguments=(), target_object_id_length=40):
         identity, session, requests = acquisition_controls.NativeSourceClientCompositionTests().controlled_transport(
             proposed_missing=proposed_missing, forwarded=forwarded,
+            target_object_id_length=target_object_id_length,
         )
-        arguments = [identity.repository, str(identity.number), "--evidence-profile", "caller-signature"]
+        arguments = [identity.repository, str(identity.number), "--evidence-profile", "caller-signature", *guard_arguments]
         if durable:
             arguments += ["--workspace-store", str(self.store_path)]
         if save:
@@ -137,6 +139,117 @@ class CallerSignatureDeliveryTests(unittest.TestCase):
         self.assertIn(report.report_id, restored)
         self.assertIn("report: True", restored)
         self.assertIn(retained.content, self.cold(revision_id, "--show-source", retained.source_id))
+
+    def test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation(self):
+        """Exercise the real CLI/application/clients/worker, including absent guards.
+
+        Uppercase and individual guards must reach the same native comparison;
+        supplying a guard must not add another prefix or change source work.
+        """
+        from upgradepilot.caller_signature_delivery import open_caller_signature_checkpoint
+        cases = (
+            ("unguarded", (), 40),
+            ("both", ("--expected-base", "B"*40, "--expected-head", "A"*40), 40),
+            ("base", ("--expected-base", "b"*40), 40),
+            ("head", ("--expected-head", "a"*40), 40),
+            ("sha256", ("--expected-base", "B"*64, "--expected-head", "A"*64), 64),
+        )
+        reference = None
+        for label, arguments, size in cases:
+            with self.subTest(label=label):
+                self.store_path = self.root / f"{label}-store"
+                self.report_path = self.root / f"{label}-report.json"
+                code, output, requests = self.live(guard_arguments=arguments, target_object_id_length=size)
+                self.assertEqual(code, 0, output)
+                self.assertEqual(len(requests), 23)
+                # The normal changed-file client rechecks PR identity after its
+                # paginated diff read. Guarding must preserve that protection.
+                self.assertEqual(sum(r.url.endswith("/pulls/1145") for r in requests), 2)
+                report = read_report(self.report_path)
+                comparisons = tuple(a for a in report.assessments if a.assessment_id.startswith("caller-signature-comparison-"))
+                self.assertEqual({a.state for a in comparisons}, {"bound", "rejected"})
+                if size == 40:
+                    # New observations have distinct times and native snapshot IDs.
+                    # Compare original text plus deterministic native facts/paths/
+                    # premises/admission/work, not byte identity of timed envelopes.
+                    sources = tuple(replace(source, retrieved_at=None,
+                        identity=tuple(f for f in source.identity if f.name != "acquisition_snapshot_at"))
+                        for source in report.sources if source.kind != "producer_assessment")
+                    opened = open_caller_signature_checkpoint(
+                        CheckpointStore.open(self.store_path, read_only=True), self.revision_id(output))
+                    native = opened.native
+                    evidence = (comparisons, sources, report.production_limits, report.action,
+                        native.sources.catalog, native.sources.modules, native.sources.analysis_limits,
+                        native.sources.acquisition.transport.limits, native.comparison.result)
+                    if reference is None:
+                        reference = evidence
+                    else:
+                        self.assertEqual(evidence, reference)
+                else:
+                    self.assertIn("a"*64, [fact.value for fact in report.identity])
+
+    def test_cli_revision_mismatch_stops_after_one_charged_pr_observation(self):
+        for flag in ("--expected-base", "--expected-head"):
+            with self.subTest(flag=flag):
+                identity, session, dispatched = acquisition_controls.NativeSourceClientCompositionTests().controlled_transport()
+                self.store_path = self.root / (flag.removeprefix("--") + "-store")
+                with patch("upgradepilot.cli.AcquisitionSession", return_value=session), \
+                     patch("socket.socket.connect", side_effect=AssertionError("network forbidden")), \
+                     patch("upgradepilot.investigation.collect_source_progress") as sources, \
+                     patch("upgradepilot.investigation.run_source_analysis") as worker:
+                    code, output = self.run_cli([identity.repository, str(identity.number),
+                        "--evidence-profile", "caller-signature", "--workspace-store", str(self.store_path),
+                        "--save-report", str(self.report_path), flag, "f"*40])
+                self.assertEqual(code, 3, output)
+                self.assertEqual((len(dispatched), session.github_requests, session.provider_requests), (1, 1, 1))
+                self.assertTrue(dispatched[0].url.endswith("/pulls/1145"))
+                sources.assert_not_called()
+                worker.assert_not_called()
+                self.assertIn("no confirmed revision", output)
+                self.assertFalse(self.report_path.exists())
+                receipt = CheckpointStore.open(self.store_path).backup(self.root / flag.removeprefix("--"))
+                self.assertEqual(receipt.revision_count, 0)
+
+    def test_application_delivery_forwards_individual_guards_before_source_work(self):
+        from upgradepilot.caller_signature_delivery import investigate_and_deliver_caller_signature
+        from upgradepilot.workspace.lifecycle_host import InvestigationWorkspaceHost
+        for keyword in ("expected_base", "expected_head"):
+            with self.subTest(keyword=keyword):
+                identity, session, dispatched = acquisition_controls.NativeSourceClientCompositionTests().controlled_transport()
+                host = InvestigationWorkspaceHost()
+                with patch("socket.socket.connect", side_effect=AssertionError("network forbidden")):
+                    outcome = investigate_and_deliver_caller_signature(identity.repository, identity.number,
+                        session=session, host=host, **{keyword: "f"*40})
+                self.assertEqual((len(dispatched), session.github_requests), (1, 1))
+                self.assertIsNone(outcome.recoverable_revision)
+                self.assertIsNone(outcome.report)
+                self.assertEqual([(p.stage, p.reason) for p in outcome.problems], [("acquisition", "ValueError")])
+
+    def test_guard_argument_errors_precede_credentials_sessions_and_offline_reads(self):
+        for flag in ("--expected-base", "--expected-head"):
+            cases = [
+                ["owner/target", "1", "--evidence-profile", "caller-signature", flag, value]
+                for value in ("main", "a"*39, "a"*41, "a"*63, "g"*40, " " + "a"*40, "a"*40 + "\n")
+            ]
+            cases += [
+                ["owner/target", "1", "--github-auth", "token-env", flag, "a"*40],
+                ["--open-report", "missing.json", flag, "a"*40],
+                ["--open-workspace", "missing", "--revision", "x", flag, "a"*40],
+                ["--open-report", "missing.json", "--evidence-profile", "caller-signature", flag, "a"*40],
+            ]
+            for arguments in cases:
+                with self.subTest(arguments=arguments), \
+                     patch("upgradepilot.cli.AcquisitionSession") as session, \
+                     patch("upgradepilot.cli.os.getenv") as getenv, \
+                     patch("upgradepilot.cli.read_report") as report, \
+                     patch("upgradepilot.cli._open_workspace") as workspace, redirect_stderr(io.StringIO()):
+                    with self.assertRaises(SystemExit) as caught:
+                        self.run_cli(arguments)
+                    self.assertEqual(caught.exception.code, 2)
+                    session.assert_not_called()
+                    getenv.assert_not_called()
+                    report.assert_not_called()
+                    workspace.assert_not_called()
 
     def test_analysis_failure_offers_exact_source_only_cold_recovery(self):
         with patch("upgradepilot.investigation.run_source_analysis", side_effect=RuntimeError("controlled analysis failure")) as worker:

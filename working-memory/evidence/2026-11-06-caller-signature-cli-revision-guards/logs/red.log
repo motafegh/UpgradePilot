@@ -1,0 +1,222 @@
+Fusage: upgradepilot [-h] [--github-auth {anonymous,token-env}]
+                    [--save-report PATH] [--open-report PATH]
+                    [--show-source SOURCE_ID]
+                    [--evidence-profile {caller-signature}]
+                    [--workspace-store PATH] [--open-workspace PATH]
+                    [--revision REVISION_ID]
+                    [repository] [pull_number]
+upgradepilot: error: unrecognized arguments: --expected-base BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB --expected-head AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+Eusage: upgradepilot [-h] [--github-auth {anonymous,token-env}]
+                    [--save-report PATH] [--open-report PATH]
+                    [--show-source SOURCE_ID]
+                    [--evidence-profile {caller-signature}]
+                    [--workspace-store PATH] [--open-workspace PATH]
+                    [--revision REVISION_ID]
+                    [repository] [pull_number]
+upgradepilot: error: unrecognized arguments: --expected-base bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+Eusage: upgradepilot [-h] [--github-auth {anonymous,token-env}]
+                    [--save-report PATH] [--open-report PATH]
+                    [--show-source SOURCE_ID]
+                    [--evidence-profile {caller-signature}]
+                    [--workspace-store PATH] [--open-workspace PATH]
+                    [--revision REVISION_ID]
+                    [repository] [pull_number]
+upgradepilot: error: unrecognized arguments: --expected-head aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Eusage: upgradepilot [-h] [--github-auth {anonymous,token-env}]
+                    [--save-report PATH] [--open-report PATH]
+                    [--show-source SOURCE_ID]
+                    [--evidence-profile {caller-signature}]
+                    [--workspace-store PATH] [--open-workspace PATH]
+                    [--revision REVISION_ID]
+                    [repository] [pull_number]
+upgradepilot: error: unrecognized arguments: --expected-base BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB --expected-head AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+Eusage: upgradepilot [-h] [--github-auth {anonymous,token-env}]
+                    [--save-report PATH] [--open-report PATH]
+                    [--show-source SOURCE_ID]
+                    [--evidence-profile {caller-signature}]
+                    [--workspace-store PATH] [--open-workspace PATH]
+                    [--revision REVISION_ID]
+                    [repository] [pull_number]
+upgradepilot: error: unrecognized arguments: --expected-base ffffffffffffffffffffffffffffffffffffffff
+Eusage: upgradepilot [-h] [--github-auth {anonymous,token-env}]
+                    [--save-report PATH] [--open-report PATH]
+                    [--show-source SOURCE_ID]
+                    [--evidence-profile {caller-signature}]
+                    [--workspace-store PATH] [--open-workspace PATH]
+                    [--revision REVISION_ID]
+                    [repository] [pull_number]
+upgradepilot: error: unrecognized arguments: --expected-head ffffffffffffffffffffffffffffffffffffffff
+EEE.
+======================================================================
+ERROR: test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation) (label='both')
+Exercise the real CLI/application/clients/worker, including absent guards.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_delivery.py", line 161, in test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation
+    code, output, requests = self.live(guard_arguments=arguments, target_object_id_length=size)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_delivery.py", line 97, in live
+    code, output = self.run_cli(arguments)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_delivery.py", line 82, in run_cli
+    code = main(arguments)
+           ^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/cli.py", line 91, in main
+    args = parser.parse_args(argv)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/argparse.py", line 1911, in parse_args
+    self.error(msg % ' '.join(argv))
+  File "/usr/lib/python3.12/argparse.py", line 2677, in error
+    self.exit(2, _('%(prog)s: error: %(message)s\n') % args)
+  File "/usr/lib/python3.12/argparse.py", line 2664, in exit
+    _sys.exit(status)
+SystemExit: 2
+
+======================================================================
+ERROR: test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation) (label='base')
+Exercise the real CLI/application/clients/worker, including absent guards.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_delivery.py", line 161, in test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation
+    code, output, requests = self.live(guard_arguments=arguments, target_object_id_length=size)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_delivery.py", line 97, in live
+    code, output = self.run_cli(arguments)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_delivery.py", line 82, in run_cli
+    code = main(arguments)
+           ^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/cli.py", line 91, in main
+    args = parser.parse_args(argv)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/argparse.py", line 1911, in parse_args
+    self.error(msg % ' '.join(argv))
+  File "/usr/lib/python3.12/argparse.py", line 2677, in error
+    self.exit(2, _('%(prog)s: error: %(message)s\n') % args)
+  File "/usr/lib/python3.12/argparse.py", line 2664, in exit
+    _sys.exit(status)
+SystemExit: 2
+
+======================================================================
+ERROR: test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation) (label='head')
+Exercise the real CLI/application/clients/worker, including absent guards.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_delivery.py", line 161, in test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation
+    code, output, requests = self.live(guard_arguments=arguments, target_object_id_length=size)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_delivery.py", line 97, in live
+    code, output = self.run_cli(arguments)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_delivery.py", line 82, in run_cli
+    code = main(arguments)
+           ^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/cli.py", line 91, in main
+    args = parser.parse_args(argv)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/argparse.py", line 1911, in parse_args
+    self.error(msg % ' '.join(argv))
+  File "/usr/lib/python3.12/argparse.py", line 2677, in error
+    self.exit(2, _('%(prog)s: error: %(message)s\n') % args)
+  File "/usr/lib/python3.12/argparse.py", line 2664, in exit
+    _sys.exit(status)
+SystemExit: 2
+
+======================================================================
+ERROR: test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation) (label='sha256')
+Exercise the real CLI/application/clients/worker, including absent guards.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_delivery.py", line 161, in test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation
+    code, output, requests = self.live(guard_arguments=arguments, target_object_id_length=size)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_delivery.py", line 97, in live
+    code, output = self.run_cli(arguments)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_delivery.py", line 82, in run_cli
+    code = main(arguments)
+           ^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/cli.py", line 91, in main
+    args = parser.parse_args(argv)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/argparse.py", line 1911, in parse_args
+    self.error(msg % ' '.join(argv))
+  File "/usr/lib/python3.12/argparse.py", line 2677, in error
+    self.exit(2, _('%(prog)s: error: %(message)s\n') % args)
+  File "/usr/lib/python3.12/argparse.py", line 2664, in exit
+    _sys.exit(status)
+SystemExit: 2
+
+======================================================================
+ERROR: test_cli_revision_mismatch_stops_after_one_charged_pr_observation (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_cli_revision_mismatch_stops_after_one_charged_pr_observation) (flag='--expected-base')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_delivery.py", line 186, in test_cli_revision_mismatch_stops_after_one_charged_pr_observation
+    code, output = self.run_cli([identity.repository, str(identity.number),
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_delivery.py", line 82, in run_cli
+    code = main(arguments)
+           ^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/cli.py", line 91, in main
+    args = parser.parse_args(argv)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/argparse.py", line 1911, in parse_args
+    self.error(msg % ' '.join(argv))
+  File "/usr/lib/python3.12/argparse.py", line 2677, in error
+    self.exit(2, _('%(prog)s: error: %(message)s\n') % args)
+  File "/usr/lib/python3.12/argparse.py", line 2664, in exit
+    _sys.exit(status)
+SystemExit: 2
+
+======================================================================
+ERROR: test_cli_revision_mismatch_stops_after_one_charged_pr_observation (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_cli_revision_mismatch_stops_after_one_charged_pr_observation) (flag='--expected-head')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_delivery.py", line 186, in test_cli_revision_mismatch_stops_after_one_charged_pr_observation
+    code, output = self.run_cli([identity.repository, str(identity.number),
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_delivery.py", line 82, in run_cli
+    code = main(arguments)
+           ^^^^^^^^^^^^^^^
+  File "/home/motafeq/projects/UpgradePilot/src/upgradepilot/cli.py", line 91, in main
+    args = parser.parse_args(argv)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/argparse.py", line 1911, in parse_args
+    self.error(msg % ' '.join(argv))
+  File "/usr/lib/python3.12/argparse.py", line 2677, in error
+    self.exit(2, _('%(prog)s: error: %(message)s\n') % args)
+  File "/usr/lib/python3.12/argparse.py", line 2664, in exit
+    _sys.exit(status)
+SystemExit: 2
+
+======================================================================
+ERROR: test_application_delivery_forwards_individual_guards_before_source_work (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_application_delivery_forwards_individual_guards_before_source_work) (keyword='expected_base')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_delivery.py", line 207, in test_application_delivery_forwards_individual_guards_before_source_work
+    outcome = investigate_and_deliver_caller_signature(identity.repository, identity.number,
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: investigate_and_deliver_caller_signature() got an unexpected keyword argument 'expected_base'
+
+======================================================================
+ERROR: test_application_delivery_forwards_individual_guards_before_source_work (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_application_delivery_forwards_individual_guards_before_source_work) (keyword='expected_head')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_delivery.py", line 207, in test_application_delivery_forwards_individual_guards_before_source_work
+    outcome = investigate_and_deliver_caller_signature(identity.repository, identity.number,
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: investigate_and_deliver_caller_signature() got an unexpected keyword argument 'expected_head'
+
+======================================================================
+FAIL: test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation (test_caller_signature_delivery.CallerSignatureDeliveryTests.test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation) (label='unguarded')
+Exercise the real CLI/application/clients/worker, including absent guards.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/motafeq/projects/UpgradePilot/tests/test_caller_signature_delivery.py", line 164, in test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation
+    self.assertEqual(sum(r.url.endswith("/pulls/1145") for r in requests), 1)
+AssertionError: 2 != 1
+
+----------------------------------------------------------------------
+Ran 4 tests in 2.064s
+
+FAILED (failures=1, errors=8)

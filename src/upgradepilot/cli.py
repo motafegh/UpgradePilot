@@ -19,7 +19,7 @@ from .caller_signature_delivery import (
     retained_report_presence,
 )
 from .github.api import GitHubAcquisitionError, GitHubResponseError
-from .github.identity import UpgradePilotInputError
+from .github.identity import UpgradePilotInputError, validate_commit_sha
 from .investigation import investigate_public_pull_request
 from .report import (
     ReportFact, ReportSource, ReportSourceUnavailable, render_investigation_report,
@@ -78,6 +78,10 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--evidence-profile", choices=("caller-signature",),
                         help="Select bounded static caller/signature evidence explicitly.")
+    parser.add_argument("--expected-base", type=validate_commit_sha, metavar="COMMIT_SHA",
+                        help="Require this immutable PR base (live caller-signature profile only).")
+    parser.add_argument("--expected-head", type=validate_commit_sha, metavar="COMMIT_SHA",
+                        help="Require this immutable PR head (live caller-signature profile only).")
     parser.add_argument("--workspace-store", metavar="PATH",
                         help="Explicit private store outside Git checkouts for caller/signature progress.")
     parser.add_argument("--open-workspace", metavar="PATH",
@@ -89,6 +93,12 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
+    if (args.expected_base is not None or args.expected_head is not None) and (
+        args.evidence_profile != "caller-signature"
+        or args.open_report is not None
+        or args.open_workspace is not None
+    ):
+        parser.error("--expected-base/--expected-head require a live caller-signature investigation")
     if args.show_source is not None and args.open_report is None and args.open_workspace is None:
         parser.error("--show-source requires --open-report or --open-workspace")
     if args.revision is not None and args.open_workspace is None:
@@ -222,6 +232,7 @@ def _run_caller_signature(args: argparse.Namespace, token: str | None) -> int:
     with AcquisitionSession(token=token, policy=AcquisitionPolicy()) as session:
         outcome = investigate_and_deliver_caller_signature(
             args.repository, args.pull_number, session=session, host=host,
+            expected_base=args.expected_base, expected_head=args.expected_head,
         )
     codes = {"input": 2, "acquisition": 3, "response": 4, "analysis": 10, "report": 8, "publication": 11}
     priority = {"input": 1, "acquisition": 1, "response": 1, "analysis": 1, "report": 2, "publication": 0}

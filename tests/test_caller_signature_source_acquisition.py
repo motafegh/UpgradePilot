@@ -494,7 +494,7 @@ class NativeSourceClientCompositionTests(TestCase):
         self.assertLessEqual(sum(urlsplit(r.url).hostname=='api.github.com' for r in requests),50)
         self.assertEqual(sum('/pulls/1145' in r.url for r in requests),3)
 
-    def controlled_transport(self, *, proposed_missing=False, forwarded=False):
+    def controlled_transport(self, *, proposed_missing=False, forwarded=False, target_object_id_length=40):
         import base64
         from urllib.parse import parse_qs, urlsplit
         from requests import Response
@@ -503,9 +503,9 @@ class NativeSourceClientCompositionTests(TestCase):
         from test_github_client import _identity, _pull_request_payload, _changed_file
         from upgradepilot.caller_signature.acquisition import AcquisitionPolicy, AcquisitionSession
 
-        head, base = 'a' * 40, 'b' * 40
+        head, base = 'a' * target_object_id_length, 'b' * target_object_id_length
         identity = _identity(repository='owner/target', changed_files=1, head_sha=head, base_sha=base)
-        trees = {head: 'e' * 40, 'c' * 40: 'f' * 40, 'd' * 40: '1' * 40}
+        trees = {head: 'e' * target_object_id_length, 'c' * 40: 'f' * 40, 'd' * 40: '1' * 40}
         dispatched = []
 
         class Transport(BaseAdapter):
