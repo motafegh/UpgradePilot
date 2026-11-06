@@ -1,6 +1,6 @@
 # Native product execution readiness and access-cost disposition
 
-**Date:** November 6, 2026. **Session status:** ACTIVE.
+**Date:** November 6, 2026. **Session status:** CLOSED; stopped at concrete execution review, no live attempt.
 **Responsibility:** qualify and bind the normal-product launch/recovery methods; stop at review before live acquisition.
 **Owners:** [implementation plan](../plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md#execution-binding-and-timing-preflight), [frozen case/task contract](evidence/2026-11-06-native-normal-product-attempt-contract/CONTRACT.md), [previous timing cycle](2026-11-06_independent-host-timing-and-retained-traversal_cycle.md), [AUDIT-015](../audits/2026-11-06_AUDIT-015_native-page-granularity-payload-and-publication-cost.md).
 **Procedures:** `UP-SKILL:upgradepilot-planning-design`, `UP-SKILL:upgradepilot-build-implement`, `UP-SKILL:upgradepilot-learning-by-doing`, `UP-SKILL:upgradepilot-working-memory`.
@@ -9,11 +9,11 @@
 A0 — DONE: main/origin aligned at 0b68e8bc; live plan, frozen task, source and prior qualification reconciled.
 A1 — DONE, CONTINUOUS CONTEXT: Ali discussed measured cost, optimization alternatives and plan priority, then selected preparation.
 A2 — DONE, COMPRESSED: exact executable/method binding, offline controls and review stop explained; no provider launch selected.
-B — CURRENT: reconcile access-cost disposition; qualify bounded launch/cold methods; bind actual installed runtime.
-Verification gate — PENDING: method controls, installed source/dependency identity, controlled composition, cold recovery and document checks.
-D — PENDING: explain actual readiness result and limits.
-E — PENDING: preserve residuals and review handoff.
-C — CONTINUOUS.
+B — DONE: access-cost disposition reconciled; final launch/cold methods qualified; actual installed execution manifest bound.
+Verification gate — GREEN FOR PREPARATION: controlled composition/cold recovery, final manifest/negative controls,112 source/121 installed files/11 dependency distributions and owner checks; no live proof claimed.
+D — DONE, GUIDED: method versus product, contract versus executable, cleanup correction and offline versus live proof explained in updates/review handoff; independent learner ownership unassessed.
+E — DONE: review-ready handoff; live outcome and independent learning practice explicitly deferred, performance limitation preserved.
+C — DONE: meaningful decisions, controls, correction and proof boundaries retained; private raw material stays private.
 ```
 
 ## Authorization, continuity and orientation map
@@ -41,3 +41,13 @@ Inspection of the unavailable-revision negative log found a diagnostic cleanup d
 Successor cold controls pass: exact positive recovery, typed missing-revision exit9/reason and changed external report-byte refusal, with unconditional hook cleanup. Final launcher also preserves exact execution binding/intent before dispatch. To qualify that changed method without reusing an executed output or silently refreshing its freeze, run a separately labelled `method-qualification-02`; it passes the same controlled55/45-request composition and exact native/cold proofs. Final confirmed revision `3ae6ea3fecc04277847de7ce0cafe3e6`, qualified outer16.5537959s/61 observations/max gap0.2774764s. These are authored offline composition times, not a live speed claim. No source semantics changed and no new transfer proof is claimed.
 
 Final manifest binding checks will cover wrong head, wrong source hash, changed destination/raised policy limit, existing reserved output, inherited token/proxy/path removal, synthetic owned credential versus broad-mode/symlink refusal, and exact manifest retention before a visibly non-product control child. Never invoke `--execute-live` during preparation. Public method results contain only sanitized counts/hashes/outcomes; original sources, reports and raw logs stay private.
+
+## Final verification, learning and closure
+
+Qualified method increment `ac3fd16d` was pushed before binding the manifest. The [review](evidence/2026-11-06-native-product-execution-readiness/REVIEW.md) and [manifest](evidence/2026-11-06-native-product-execution-readiness/execution-manifest.json) bind377 files,112 product sources/121 installed files and11 dependency distributions/226 files. Final manifest controls pass all planned corruptions plus a changed clock-method location. Exact manifest bytes are retained before a non-product control dispatch. Default launcher CLI checks outside the checkout pass without secret reads/clock/product/provider execution. Final [verification](evidence/2026-11-06-native-product-execution-readiness/verification.json) retains actual hashes, checks and private control evidence. Source/boundary/governance/link checks pass; previous full suites are historical unchanged-source evidence, not rerun claims.
+
+The important model is now concrete: a contract freezes what the attempt means; an execution manifest binds what would actually run; offline controls show that the method launches, retains failures and recovers exact material under controlled observations. Only the later real invocation can establish actual provider acquisition and useful fresh evidence. The diagnostic cleanup failure illustrates why a nonzero negative control must be inspected for its intended cause rather than graded from the exit alone. A changed-but-semantically-equivalent external report still fails the exact-byte recovery check, preserving the delivered historical report rather than silently substituting a reconstruction.
+
+A2 expectations were met without product changes, new infrastructure, larger bounds or another raw-traversal campaign. The first cold negative revealed and repaired the dated diagnostic cleanup defect; the native owner was correct and remained untouched. Independent learner explanation/implementation practice is explicitly deferred; guided agreement is not mastery. No separate learning artifact selected.
+
+Handoff at closure: review the concrete execution binding, then separately activate one normal-product attempt under the existing case/task contract if accepted. Preserve failures/partiality and judge the actual report/source task before adoption; re-enter access repair on the recorded trigger. No real product attempt/task-review directories, personal-token read, real provider/model/target execution, runtime/compatibility/merge authority or optimization implementation occurred. Separate learning branch, unrelated untracked audit and frozen prior evidence remain untouched.
