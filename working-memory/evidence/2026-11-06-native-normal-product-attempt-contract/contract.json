@@ -1,0 +1,255 @@
+{
+  "format": "upgradepilot-native-product-attempt-review-contract/1",
+  "revision": 1,
+  "artifact_status": "review_frozen_not_execution_ready",
+  "proof_class": "prospective_native_normal_product_live_source_capture",
+  "planning_only": true,
+  "provider_calls_during_preparation": 0,
+  "case": {
+    "case_id": "native-signature-kubernetes-dashboard-token-api-pr-20-httpx-2026-11-06",
+    "repository": "Aidan-Wallace/kubernetes-dashboard-token-api",
+    "pull_number": 20,
+    "expected_base": "b065646e4b7b894964567950f9ad770b02c136c2",
+    "expected_head": "391508134b083b8f54461c0b576e8f7985c6ecb4",
+    "dependency": {
+      "package": "httpx",
+      "old_version": "0.27.2",
+      "proposed_version": "0.28.1",
+      "declaration": "requirements.txt"
+    },
+    "review_root": {
+      "path": "tests/test_routes.py",
+      "line": 7,
+      "column": 13,
+      "end_line": 7,
+      "end_column": 28,
+      "expression": "TestClient(app)"
+    },
+    "selection": "already exposed ordinary integration case; no new screening or untouched-transfer claim; no producer path selector"
+  },
+  "reserved_qualification_attempt_id": "c79281d5-9ef3-451d-9da9-1054cc7548cc",
+  "attempt_state": "reserved_not_started",
+  "source_review_horizon": "bb3b2b10",
+  "execution_prerequisites": {
+    "guard_forwarding": "not_implemented_in_application_or_cli",
+    "guard_composition_and_installed_proof": "required",
+    "timing_launch_and_cold_review_methods": "must_be_frozen_and_qualified",
+    "installed_execution_manifest": "unbound_until_guard_repair",
+    "contract_review_and_later_live_activation": "required"
+  },
+  "authentication": {
+    "mode": "token-env",
+    "credential_source": "/home/motafeq/.config/upgradepilot/github-token",
+    "value_read_during_preparation": false,
+    "preparation_metadata": {
+      "exists": true,
+      "mode": "0o600"
+    },
+    "token_only_for_host": "api.github.com",
+    "auth_validity": "unverified",
+    "account_quota": "unverified",
+    "fallback": "none"
+  },
+  "transport": {
+    "methods": [
+      "GET"
+    ],
+    "schemes": [
+      "https"
+    ],
+    "hosts": [
+      "api.github.com",
+      "pypi.org"
+    ],
+    "redirects": false,
+    "preflight_provider_calls": 0,
+    "child_remove_proxy_keys": [
+      "HTTP_PROXY",
+      "HTTPS_PROXY",
+      "ALL_PROXY",
+      "http_proxy",
+      "https_proxy",
+      "all_proxy"
+    ],
+    "certificate_verification": "unchanged",
+    "target_execution": false,
+    "external_writes": false
+  },
+  "acquisition_policy": {
+    "github_requests": 50,
+    "provider_requests": 100,
+    "response_bytes": 8388608,
+    "aggregate_bytes": 33554432,
+    "elapsed_seconds": 180.0,
+    "source_request_reserve": 24,
+    "target_file_attempts": 16,
+    "adapter_candidate_attempts": 4
+  },
+  "retry": {
+    "pypi_timeout_recovery": false,
+    "whole_attempt_retry": false,
+    "automatic_case_switch": false,
+    "cap_enlargement": false
+  },
+  "source_limits": {
+    "target_python_files": 200,
+    "target_bytes": 2097152,
+    "target_file_attempts": 16,
+    "release_identities": 4,
+    "dependency_hops": 2,
+    "module_questions": 12,
+    "library_bytes": 2097152,
+    "adapter_candidate_attempts": 4
+  },
+  "analysis_limits": {
+    "max_files": 32,
+    "max_source_bytes": 4194304,
+    "max_nodes_per_file": 100000,
+    "max_nodes": 250000,
+    "max_facts": 4096,
+    "max_pairs": 256,
+    "timeout_seconds": 60.0,
+    "memory_bytes": 536870912
+  },
+  "correspondence_limits": {
+    "literal_steps": 32,
+    "depth": 8,
+    "states": 4096,
+    "gap_records": 256,
+    "omitted_diagnostics_counted": true
+  },
+  "representation_limits": {
+    "native_bytes": 67108864,
+    "native_depth": 64,
+    "native_structural_tokens": 262144,
+    "report_bytes": 16777216,
+    "native_offering_bytes": 262144,
+    "page_characters": 4096
+  },
+  "controlled_allocation_reference": {
+    "proof_class": "controlled_actual_client_catalog_only_http_composition",
+    "date": "2026-11-04",
+    "github_requests": 45,
+    "provider_requests": 55,
+    "decoded_body_bytes": 303510,
+    "events": 55,
+    "stages": {
+      "native_inputs": 3,
+      "target_context": 14,
+      "library_sources": 32,
+      "source_closure": 6
+    },
+    "retry_policy": "none",
+    "acquisition_state": "partial",
+    "no_live_headroom_guarantee": true,
+    "requalify_after_guard_forwarding": true
+  },
+  "timing": {
+    "scope": "separate developer diagnostic over retained input, not fresh product capture",
+    "independent_reference": "Windows System.Diagnostics.Stopwatch/QPC; bridge not qualified",
+    "probe_sequence": [
+      "startup-empty-command control",
+      "10-second idle probe",
+      "10-second serial CPU probe"
+    ],
+    "preflight_host_limit_seconds": 90,
+    "preflight_replacements": 0,
+    "max_observation_gap_seconds": 2,
+    "clock_span_rule": "retain outer launch/exit scope; no silent startup subtraction or unequal-span accuracy claim",
+    "retained_capture": "/home/motafeq/.local/share/upgradepilot/connected-retained-qualification-2026-11-04/attempt-02/http-httpx/store",
+    "retained_revision": "a3e8b46cf968450a95037765e22212bd",
+    "page_count": 60,
+    "hard_page_ceiling": 64,
+    "page_characters": 4096,
+    "omission_menu_operations": 1,
+    "outer_host_limit_seconds": 3600,
+    "retry": false,
+    "guards": [
+      "network",
+      "provider",
+      "target AST",
+      "source producer",
+      "model",
+      "target code execution"
+    ],
+    "inconclusive_rule": "preserve outcome and obtain explicit review disposition before live execution"
+  },
+  "normal_product": {
+    "proposed_post_repair_argv": [
+      "-m",
+      "upgradepilot",
+      "Aidan-Wallace/kubernetes-dashboard-token-api",
+      "20",
+      "--evidence-profile",
+      "caller-signature",
+      "--github-auth",
+      "token-env",
+      "--expected-base",
+      "b065646e4b7b894964567950f9ad770b02c136c2",
+      "--expected-head",
+      "391508134b083b8f54461c0b576e8f7985c6ecb4",
+      "--workspace-store",
+      "/home/motafeq/.local/share/upgradepilot/native-signature-kubernetes-dashboard-token-api-pr-20-httpx-2026-11-06/product-attempt-01/store",
+      "--save-report",
+      "/home/motafeq/.local/share/upgradepilot/native-signature-kubernetes-dashboard-token-api-pr-20-httpx-2026-11-06/product-attempt-01/report.json"
+    ],
+    "current_parser_supports_guards": false,
+    "evidence_profile": "caller-signature",
+    "cwd": "new private attempt directory",
+    "installed_package_only": true,
+    "experiments_on_product_import_path": false,
+    "outer_supervision_host_seconds": 900,
+    "ci_runtime_and_upstream_semantic_branches": "unperformed",
+    "cold_open": [
+      "-m",
+      "upgradepilot",
+      "--open-workspace",
+      "/home/motafeq/.local/share/upgradepilot/native-signature-kubernetes-dashboard-token-api-pr-20-httpx-2026-11-06/product-attempt-01/store",
+      "--revision",
+      "ACTUAL_CONFIRMED_REVISION_FROM_THIS_ATTEMPT"
+    ]
+  },
+  "maintainer_task": {
+    "question_owner": "CONTRACT.md#frozen-maintainer-task-and-comparison",
+    "routes": [
+      "direct bounded original source",
+      "saved report plus original-source navigation"
+    ],
+    "same_attempt_input": true,
+    "reviewer": "exposed implementing assistant",
+    "independent_usefulness": false,
+    "source_operation_limit": 96,
+    "source_window_lines": 100,
+    "native_page_limit": 64,
+    "native_page_characters": 4096,
+    "report_reading": "separately recorded",
+    "time_savings_claim": "withheld absent qualified same-scope measurement",
+    "do_not_extend_baseline_after_grading": true
+  },
+  "retention": {
+    "root": "/home/motafeq/.local/share/upgradepilot/native-signature-kubernetes-dashboard-token-api-pr-20-httpx-2026-11-06",
+    "runtime": "/home/motafeq/.local/share/upgradepilot/native-signature-kubernetes-dashboard-token-api-pr-20-httpx-2026-11-06/runtime",
+    "timing_preflight": "/home/motafeq/.local/share/upgradepilot/native-signature-kubernetes-dashboard-token-api-pr-20-httpx-2026-11-06/timing-preflight-01",
+    "timing_traversal": "/home/motafeq/.local/share/upgradepilot/native-signature-kubernetes-dashboard-token-api-pr-20-httpx-2026-11-06/timing-traversal-01",
+    "product_attempt": "/home/motafeq/.local/share/upgradepilot/native-signature-kubernetes-dashboard-token-api-pr-20-httpx-2026-11-06/product-attempt-01",
+    "task_review": "/home/motafeq/.local/share/upgradepilot/native-signature-kubernetes-dashboard-token-api-pr-20-httpx-2026-11-06/task-review-01",
+    "directories_created_during_planning": false,
+    "directory_mode": "0700",
+    "file_mode": "0600",
+    "overwrite": false,
+    "public_projection": "sanitized hashes, methods, metrics and outcomes only"
+  },
+  "dispositions": [
+    "useful_conditional_paired",
+    "useful_partial",
+    "transport_auth_availability_failure",
+    "identity_drift",
+    "legitimately_unsupported",
+    "budget_refusal",
+    "supported_defect",
+    "publication_uncertain",
+    "timing_inconclusive"
+  ],
+  "positive_proof": "useful relevant paired source evidence plus faithful report/source and exact fresh-process recovery; no runtime/compatibility/merge permission",
+  "stop": "review before source implementation, timing execution or live provider work; bind actual installed execution manifest after prerequisites"
+}

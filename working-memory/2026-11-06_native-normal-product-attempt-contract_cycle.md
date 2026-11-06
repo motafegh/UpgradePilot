@@ -8,11 +8,11 @@
 A0 — DONE: live owners/main, current CLI/application/prefix, policy/analysis defaults and retained identities reconciled; cycle initialized.
 A1 — DONE, COMPRESSED: Ali challenged the timing scope and was given actual60-page counter totals; current milestone route explained and selected.
 A2 — DONE, COMPRESSED: reviewable task/acquisition/timing contract, no provider execution; explain guard-forwarding and execution-manifest prerequisites discovered in source.
-B — CURRENT: prepare dated immutable review contract and small parent-plan link; no source/test implementation or provider calls.
-Verification gate — PENDING: cross-check identities, policy/defaults, real parser/signatures, historical request allocation, artifact/source hashes and links/governance.
-D — PENDING: explain frozen choices, concrete guard gap, timing result requirements and execution-readiness limits.
-E — PENDING: preserve unresolved execution prerequisites and hand off for review; no live attempt activation.
-C — CONTINUOUS: meaningful design/source reconciliation, corrections and proof limits preserved progressively.
+B — DONE: dated review contract/structured values/verification prepared; parent implementation plan links early guarding, executable binding and separate timing preflight. No source/test implementation or provider work.
+Verification gate — GREEN FOR PREPARATION: exact identities/defaults/parser/signatures, dated native55/45-request ledger,112 current product hashes and document/governance checks verified. Live readiness explicitly false; no timing/prod execution proof claimed.
+D — DONE, GUIDED: frozen input/task/policy versus executable freeze, early guard forwarding and separate timing diagnostic explained. No independent mastery claim.
+E — DONE: review artifact complete; small guard-forwarding Build and timing/launch qualification remain explicit prerequisites, with concrete method binding/review before live activation.
+C — DONE: preserve source discrepancy, reference allocation, actual counter totals, design judgments and proof limits across the preparation cycle.
 ```
 
 ## Orientation, authorization and adaptation
@@ -34,3 +34,21 @@ The original ordinary HTTPX native identity is repository `Aidan-Wallace/kuberne
 The frozen November4 normal controlled HTTPX composition recorded55 physical attempts,45 GitHub,24 retained files, completed analysis and a partial acquisition receipt. Reuse this dated full-prefix allocation evidence only after checking its product source horizon against main; it is not a live traffic estimate or guaranteed headroom. Real inventory/metadata can consume the remaining allowance differently. Token presence/0600 permission checked without reading its value; validity/quota remain unverified. No auth/provider probe occurred.
 
 The completed60-page retained navigation recorded1947.598729875 monotonic counter seconds for the entire native section; page operations sum1912.646605976, CPU counters2103.015271319. Preserve the rough half-hour scale and the caveats. The earlier55-minute active claim remains withdrawn. The latest one-page comparison shows lower CPU counters but fails elapsed clock agreement. Plan independent elapsed observation and a separately labelled fixed60-page rerun, never infer total from first-page multiplication or call a diagnostic a fresh product attempt.
+
+## Concrete review freeze and verification
+
+[Contract revision1](evidence/2026-11-06-native-normal-product-attempt-contract/CONTRACT.md), [machine-readable values](evidence/2026-11-06-native-normal-product-attempt-contract/contract.json) and [verification](evidence/2026-11-06-native-normal-product-attempt-contract/verification.json) are the preparation deliverable. The native live proof label is distinct from controlled experimental composition. The reserved outer qualification ID is not an executed attempt, host lifecycle ID or fabricated start event. New private paths are unoccupied and were not created. Source/current defaults were inspected by importing product owners only; no analysis producer, target code, clock benchmark, credential value, model or provider call ran.
+
+Read-only opening of the acknowledged controlled HTTPX Workspace confirms55 native transport events,45 GitHub/55 provider requests,303,510 decoded response bytes, stages3/14/32/6, retry policy none and no stop records. Historical acquisition/selection/analysis hashes match current main; only consumer/store hashes differ from the controlled capture manifest. This supports allocation preparation but does not guarantee real-provider headroom. Early failures before native receipt publication must preserve unavailable counts as unknown; no invented zero-cost failure.
+
+The timing contract selects a bounded Windows Stopwatch/QPC outer reference because the concrete uncertainty concerns WSL clocks. Executable availability alone is not bridge/clock qualification. A small startup/idle/CPU preflight and one retained60-page timed diagnostic have separate fixed limits and source/guard requirements. Record outer versus inner scopes and suspension/uncertainty; no silent startup subtraction, clock/budget change, repeat-until-green or implied whole-product speedup. If inconclusive, preserve a review disposition before live work. No timing method was implemented or run in this planning cycle.
+
+The structured contract accurately marks expected CLI flags as proposed/unimplemented, source/interpreter information as the review horizon, and the installed executable manifest as unbound. Future guard plumbing changes source hashes, so freezing today's wheel as the repaired method would be false. The parent implementation plan now explicitly owns the execution consequence and references this specialization; no new master plan, stable semantics or ADR was needed.
+
+## Learning, residuals and handoff
+
+The key model is **freeze what we intend to test, then bind the actual qualified executable before testing it**. A selected head in a document cannot guard a CLI that ignores it. For example, if the frozen head isA but the first real PR observation saysB, the existing prefix check must stop before acquiring changed files; the public application must actually passA to that owner. Source/call/signature interpretation does not need to change to repair this wire.
+
+Plan-level review, source/default/historical-ledger/hash/link verification and governance diagnostic establish preparation integrity only. Product tests were not rerun for documentation-only changes; previous engineering proof remains at its recorded horizon. Token validity, live availability, useful paired evidence, independent benefit, accurate full-traversal elapsed duration and runtime compatibility remain unproved. Independent learner clock/implementation practice remains deferred.
+
+The review contract is complete; execution is deliberately not ready. Recommended next coherent Build is guard forwarding with actual matching/mismatch CLI composition and installed regression proof. Timing/launch/cold-read diagnostic methods then require their own qualification and exact execution-manifest binding. Review that concrete readiness before a separately activated provider attempt. This handoff does not start implementation, timing execution or live acquisition.
