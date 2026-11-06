@@ -1,0 +1,49 @@
+{
+  "outcome": "qualified_host_envelope",
+  "quality_problems": [],
+  "method_hashes_unchanged": true,
+  "high_resolution": true,
+  "qpc_frequency": 10000000,
+  "phases": [
+    {
+      "mode": "empty",
+      "host_elapsed_seconds": 0.0374704,
+      "host_utc_span_seconds": 0.0379414,
+      "max_observation_gap_seconds": 0.0356379,
+      "child_exit": 0,
+      "child_counters": {
+        "monotonic_ns": 5701,
+        "raw_ns": 5882,
+        "cpu_ns": 4979,
+        "rusage_cpu_ns": 7000
+      }
+    },
+    {
+      "mode": "idle",
+      "host_elapsed_seconds": 10.9601025,
+      "host_utc_span_seconds": 10.9596708,
+      "max_observation_gap_seconds": 0.2748574,
+      "child_exit": 0,
+      "child_counters": {
+        "monotonic_ns": 10000559569,
+        "raw_ns": 10909705012,
+        "cpu_ns": 65005,
+        "rusage_cpu_ns": 53000
+      }
+    },
+    {
+      "mode": "cpu",
+      "host_elapsed_seconds": 10.0905441,
+      "host_utc_span_seconds": 10.0911183,
+      "max_observation_gap_seconds": 0.276662,
+      "child_exit": 0,
+      "child_counters": {
+        "monotonic_ns": 9168742865,
+        "raw_ns": 10002265063,
+        "cpu_ns": 10000010130,
+        "rusage_cpu_ns": 10000008000
+      }
+    }
+  ],
+  "interpretation": "Host envelope qualified under frozen screens. WSL raw closely tracks host; standard monotonic advances more slowly. Outer spans include launch/exit/protocol overhead. Underlying cause and perfect physical calibration not established."
+}
