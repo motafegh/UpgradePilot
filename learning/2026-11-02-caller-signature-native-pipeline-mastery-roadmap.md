@@ -78,7 +78,7 @@ These marks describe lesson coverage. When actual evidence exists, separately pr
 
 This is **targeted historical reconstruction, not automatic chronological reading**: select one or two especially instructive decisions per chunk; open additional cycles only to resolve a causal question. Label past snapshots, synthetic tests, controlled replays, private unobservable outputs, implementation assertions and independently verified results distinctly. The old Working Memory cannot override current code, accepted contracts or `MEMORY.md`'s live product position. Historical design intent can be taught when documented; otherwise distinguish plausible engineering rationale from the author's established reason. Do not force an error story where the original path was straightforward, or quiz before the real problem is understood.
 
-**Module → engineering-journey entry map.** These links guide later lessons; consult the relevant headings/evidence, not every line. Use the current repository owner and source horizon to establish whether a historical decision still applies.
+**Explicit read-before-teaching reference map for every module:** [19-module Working Memory / design / source / proof map](2026-11-06-caller-signature-module-reference-map.md). At each chunk, **fetch and read** the relevant engineering history, governing plan/design, actual source and one discriminating proof before teaching. Linking is not the same as reading. This roadmap continues to own the lesson sequence/status/depth; the map owns precise file navigation. The brief entry table below is only a quick overview.
 
 | Lesson responsibility | Working-memory entry point(s) | What to recover before source/test teaching |
 |---|---|---|
