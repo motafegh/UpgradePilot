@@ -288,6 +288,12 @@ env \
 
 This is process-local isolation. Do not globally unset proxy configuration solely for UpgradePilot, and never request or expose the token value.
 
+### Split routing for PyPI source acquisition
+
+The November 7 route verification admitted the FastAPI and pytest indices through the existing unauthenticated loopback HTTP proxy configured for HTTPS requests. The scoped successor launcher uses that proxy for PyPI and places `api.github.com` in the child's `NO_PROXY` and `no_proxy`. This applies to the two hosts admitted by native source acquisition. The controlled route check observed direct GitHub routing with the synthetic bearer header and proxied PyPI routing with certificate verification and no authorization header. [Route verification](working-memory/evidence/2026-11-07-pypi-route-repair/RESULTS.md)
+
+Recheck the selected proxy and index admission when the environment changes. Keep proxy configuration process-local and retain the existing per-provider credential scope.
+
 ## 8. Maintenance
 
 Update only when a reusable fact materially changes: machine/GPU identity, normal WSL/repo/venv/Python baseline, LM Studio endpoint/transport, accepted local deployment identity, or a recurring environment caveat.

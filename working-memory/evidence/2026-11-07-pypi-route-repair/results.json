@@ -1,0 +1,185 @@
+{
+  "date": "2026-11-07",
+  "outcome": "pypi_route_repair_verified_successor_review_ready",
+  "real_pypi_requests": 4,
+  "real_github_requests": 0,
+  "personal_credential_read": false,
+  "product_attempts": 0,
+  "initial_proxy_indices": [
+    {
+      "package": "fastapi",
+      "state": "available",
+      "detail": null,
+      "versions": 360,
+      "transport": {
+        "limits": {
+          "github_requests": 50,
+          "provider_requests": 100,
+          "response_bytes": 8388608,
+          "aggregate_bytes": 33554432,
+          "elapsed_seconds": {
+            "seconds_hex": "0x1.6800000000000p+7",
+            "scope": "acquisition_policy_elapsed_limit"
+          },
+          "source_request_reserve": 24,
+          "target_file_attempts": 16,
+          "adapter_candidate_attempts": 4
+        },
+        "auth": "anonymous",
+        "github_requests": 0,
+        "provider_requests": 1,
+        "decoded_body_bytes": 585345,
+        "elapsed": {
+          "seconds_hex": "0x1.5a6eab9e18000p+0",
+          "scope": "source_acquisition_elapsed"
+        },
+        "deadline_kind": "cooperative_monotonic_checks_and_bounded_socket_timeouts",
+        "stops": [],
+        "requests": [
+          {
+            "stage": "pypi_route_diagnostic",
+            "host": "pypi.org",
+            "path": "/pypi/fastapi/json",
+            "github_requests": 0,
+            "provider_requests": 1,
+            "decoded_body_bytes": 585345,
+            "status": 200,
+            "state": "received",
+            "reason": null
+          }
+        ],
+        "retry_policy": "none",
+        "retry_decisions": []
+      }
+    },
+    {
+      "package": "pytest",
+      "state": "available",
+      "detail": null,
+      "versions": 193,
+      "transport": {
+        "limits": {
+          "github_requests": 50,
+          "provider_requests": 100,
+          "response_bytes": 8388608,
+          "aggregate_bytes": 33554432,
+          "elapsed_seconds": {
+            "seconds_hex": "0x1.6800000000000p+7",
+            "scope": "acquisition_policy_elapsed_limit"
+          },
+          "source_request_reserve": 24,
+          "target_file_attempts": 16,
+          "adapter_candidate_attempts": 4
+        },
+        "auth": "anonymous",
+        "github_requests": 0,
+        "provider_requests": 1,
+        "decoded_body_bytes": 284454,
+        "elapsed": {
+          "seconds_hex": "0x1.162c234dd2000p+0",
+          "scope": "source_acquisition_elapsed"
+        },
+        "deadline_kind": "cooperative_monotonic_checks_and_bounded_socket_timeouts",
+        "stops": [],
+        "requests": [
+          {
+            "stage": "pypi_route_diagnostic",
+            "host": "pypi.org",
+            "path": "/pypi/pytest/json",
+            "github_requests": 0,
+            "provider_requests": 1,
+            "decoded_body_bytes": 284454,
+            "status": 200,
+            "state": "received",
+            "reason": null
+          }
+        ],
+        "retry_policy": "none",
+        "retry_decisions": []
+      }
+    }
+  ],
+  "split_route_proof": {
+    "offline_route_checks": [
+      {
+        "host": "api.github.com",
+        "proxied": false,
+        "auth_header_present": true
+      },
+      {
+        "host": "pypi.org",
+        "proxied": true,
+        "auth_header_present": false
+      }
+    ],
+    "indices": [
+      {
+        "package": "fastapi",
+        "state": "available",
+        "receipt": {
+          "stage": "pypi_route_verification",
+          "host": "pypi.org",
+          "path": "/pypi/fastapi/json",
+          "github_requests": 0,
+          "provider_requests": 1,
+          "decoded_body_bytes": 585345,
+          "status": 200,
+          "state": "received",
+          "reason": null
+        }
+      },
+      {
+        "package": "pytest",
+        "state": "available",
+        "receipt": {
+          "stage": "pypi_route_verification",
+          "host": "pypi.org",
+          "path": "/pypi/pytest/json",
+          "github_requests": 0,
+          "provider_requests": 1,
+          "decoded_body_bytes": 284454,
+          "status": 200,
+          "state": "received",
+          "reason": null
+        }
+      }
+    ]
+  },
+  "host_envelopes": {
+    "proxy-indices-01": {
+      "host_elapsed_seconds": 2.8731641,
+      "observations": 11,
+      "max_observation_gap_seconds": 0.27611,
+      "timing_quality": "qualified_outer_envelope"
+    },
+    "split-route-verification-01": {
+      "host_elapsed_seconds": 3.3694985,
+      "observations": 13,
+      "max_observation_gap_seconds": 0.2762616,
+      "timing_quality": "qualified_outer_envelope"
+    }
+  },
+  "prior_live_artifacts_verified": true,
+  "execution_bindings_verified": 377,
+  "installed_files_verified": 121,
+  "successor_binding_sha256": "9d6a96f511bf8ccd77d462e5e17dfa88f5e41eac30a9c7484d952fc1e23a9e6e",
+  "private_sha256": {
+    "probe_proxy.py": "7be221ca5d1ae1ae7fa1ac4c325119d22c23c9e034528c0862f1e6d9c95f85e7",
+    "proxy-indices-01/execution-manifest.json": "7b0416a1e8a00edc1bc6f34b3429eebf3ffa7016d846c550e89e983c64a353d6",
+    "proxy-indices-01/host-samples.jsonl": "7a2b209227bdb586a01fbe5ad0e3a6bd6fd81440546ac29b7a10d9911bf6def6",
+    "proxy-indices-01/host-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "proxy-indices-01/intent.json": "cd354fd35f4eadd549034bf9ffc38fcc5bf37ebb50be8179b5268b2426d579bf",
+    "proxy-indices-01/launch-result.json": "85e9b421f59537461959da5372900fafea6cbbad96e1c67bd44346d495360f8e",
+    "proxy-indices-01/observations.json": "e1157e410f41aab73a366313b8642048c53032006077fa704ec057ae4a2469db",
+    "proxy-indices-01/stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "proxy-indices-01/stdout.txt": "22a0f2b3b918d48a65885163d61610983559cedfb8b1166341b99c745e863f77",
+    "split-route-verification-01/execution-manifest.json": "9d6a96f511bf8ccd77d462e5e17dfa88f5e41eac30a9c7484d952fc1e23a9e6e",
+    "split-route-verification-01/host-samples.jsonl": "8ada643574ed6247ae20a1407b11b532c8cda2c410f859d01560cb4b56fb6df0",
+    "split-route-verification-01/host-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "split-route-verification-01/intent.json": "debcd2ae98f5182f913b740a669261da0d809d36a798cf93f0da22b608cc04a2",
+    "split-route-verification-01/launch-result.json": "b08012b0f62292e55f7e064dd93ff65649d75d01c2f5a3bd57a74c0e42cc1553",
+    "split-route-verification-01/route-proof.json": "9b46585d272ef546cd49813bf7721ac82d2292873069fd45a8167d7292bc6290",
+    "split-route-verification-01/stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "split-route-verification-01/stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

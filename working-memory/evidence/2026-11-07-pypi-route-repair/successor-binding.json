@@ -1,0 +1,39 @@
+{
+  "format": "upgradepilot-native-proxy-route-successor/1",
+  "date": "2026-11-07",
+  "prior_manifest_sha256": "8c544e2a596acfa005098b812adcfd00057572bc09379e625f8f613bb05abd10",
+  "launcher_sha256": "5712371e868cc4fbb5148d3499fef801c60d0d10b5bac0f1ab2fb9f22bd03519",
+  "proxy_sha256": "d30a576c0318716717366ab932e3d7dfbc4009a5bc10176403b60892912f070e",
+  "route": {
+    "pypi": "existing loopback HTTP proxy through verified HTTPS tunnel",
+    "github": "direct via NO_PROXY and no_proxy"
+  },
+  "argv": [
+    "/home/motafeq/projects/UpgradePilot/.venv/bin/python",
+    "-m",
+    "upgradepilot",
+    "Aidan-Wallace/kubernetes-dashboard-token-api",
+    "20",
+    "--evidence-profile",
+    "caller-signature",
+    "--github-auth",
+    "token-env",
+    "--expected-base",
+    "b065646e4b7b894964567950f9ad770b02c136c2",
+    "--expected-head",
+    "391508134b083b8f54461c0b576e8f7985c6ecb4",
+    "--workspace-store",
+    "/home/motafeq/.local/share/upgradepilot/native-signature-kubernetes-dashboard-token-api-pr-20-httpx-2026-11-06/product-attempt-02/store",
+    "--save-report",
+    "/home/motafeq/.local/share/upgradepilot/native-signature-kubernetes-dashboard-token-api-pr-20-httpx-2026-11-06/product-attempt-02/report.json"
+  ],
+  "destinations": {
+    "product_attempt": "/home/motafeq/.local/share/upgradepilot/native-signature-kubernetes-dashboard-token-api-pr-20-httpx-2026-11-06/product-attempt-02",
+    "task_review": "/home/motafeq/.local/share/upgradepilot/native-signature-kubernetes-dashboard-token-api-pr-20-httpx-2026-11-06/task-review-02"
+  },
+  "case": "same exposed HTTPX PR20",
+  "case_task_limits": "Same frozen parent case, guarded identity, task and budgets",
+  "credential_mode": "Parent token-env only when separately activated",
+  "retries": 0,
+  "activation": "Separate reviewed successor decision"
+}
