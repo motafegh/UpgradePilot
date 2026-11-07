@@ -1,0 +1,184 @@
+{
+  "freeze_sha256": "22c20d80b5c0e6d47e2ca83c1937e82d2d3737d804c669cd5aa3aa10bb8dc43b",
+  "rows": [
+    {
+      "query": "missing-name",
+      "expected": "glyphs-name",
+      "required_kind": "correlation_blocker",
+      "lexical": [
+        "glyphs-name"
+      ],
+      "embedding": [
+        "glyphs-name",
+        "glyphs-manager"
+      ],
+      "hybrid": [
+        "glyphs-name",
+        "glyphs-manager"
+      ],
+      "accepted": [
+        "glyphs-name"
+      ],
+      "gate": "matching_kind_returned"
+    },
+    {
+      "query": "manager",
+      "expected": "glyphs-manager",
+      "required_kind": "state_blocker",
+      "lexical": [],
+      "embedding": [
+        "glyphs-runtime",
+        "glyphs-regression"
+      ],
+      "hybrid": [
+        "glyphs-runtime",
+        "glyphs-regression"
+      ],
+      "accepted": [],
+      "gate": "no_matching_kind"
+    },
+    {
+      "query": "dynamic-runner",
+      "expected": "glyphs-tox",
+      "required_kind": "static_analysis_blocker",
+      "lexical": [
+        "glyphs-tox"
+      ],
+      "embedding": [
+        "glyphs-tox",
+        "glyphs-regression"
+      ],
+      "hybrid": [
+        "glyphs-tox",
+        "glyphs-regression"
+      ],
+      "accepted": [
+        "glyphs-tox"
+      ],
+      "gate": "matching_kind_returned"
+    },
+    {
+      "query": "candidate-count",
+      "expected": "glyphs-runtime",
+      "required_kind": "candidate_evaluation",
+      "lexical": [
+        "glyphs-runtime"
+      ],
+      "embedding": [
+        "glyphs-runtime",
+        "glyphs-regression"
+      ],
+      "hybrid": [
+        "glyphs-runtime",
+        "glyphs-regression"
+      ],
+      "accepted": [
+        "glyphs-runtime"
+      ],
+      "gate": "matching_kind_returned"
+    },
+    {
+      "query": "skipped-steps",
+      "expected": "fci-user-steps",
+      "required_kind": "observed_user_steps",
+      "lexical": [],
+      "embedding": [
+        "fci-user-steps",
+        "fci-run"
+      ],
+      "hybrid": [
+        "fci-user-steps",
+        "fci-run"
+      ],
+      "accepted": [
+        "fci-user-steps"
+      ],
+      "gate": "matching_kind_returned"
+    },
+    {
+      "query": "job-success",
+      "expected": "fci-job",
+      "required_kind": "observed_job_result",
+      "lexical": [
+        "fci-job",
+        "fci-run"
+      ],
+      "embedding": [
+        "fci-job",
+        "fci-run"
+      ],
+      "hybrid": [
+        "fci-job",
+        "fci-run"
+      ],
+      "accepted": [
+        "fci-job"
+      ],
+      "gate": "matching_kind_returned"
+    },
+    {
+      "query": "identity-bridge",
+      "expected": "fci-correlation",
+      "required_kind": "observed_correlation",
+      "lexical": [],
+      "embedding": [
+        "fci-correlation",
+        "fci-user-steps"
+      ],
+      "hybrid": [
+        "fci-correlation",
+        "fci-user-steps"
+      ],
+      "accepted": [
+        "fci-correlation"
+      ],
+      "gate": "matching_kind_returned"
+    },
+    {
+      "query": "missing-install",
+      "expected": null,
+      "required_kind": "installed_version_proof",
+      "lexical": [
+        "glyphs-regression",
+        "glyphs-coverage"
+      ],
+      "embedding": [
+        "glyphs-regression",
+        "glyphs-manager"
+      ],
+      "hybrid": [
+        "glyphs-regression",
+        "glyphs-coverage"
+      ],
+      "accepted": [],
+      "gate": "no_matching_kind"
+    },
+    {
+      "query": "missing-execution",
+      "expected": null,
+      "required_kind": "successful_user_step_proof",
+      "lexical": [
+        "fci-user-steps"
+      ],
+      "embedding": [
+        "fci-job",
+        "fci-user-steps"
+      ],
+      "hybrid": [
+        "fci-user-steps",
+        "fci-job"
+      ],
+      "accepted": [],
+      "gate": "no_matching_kind"
+    }
+  ],
+  "positive_queries": 7,
+  "hits_at_2": {
+    "lexical": 4,
+    "embedding": 6,
+    "hybrid": 6,
+    "accepted": 6
+  },
+  "longest_input_tokens": 359,
+  "elapsed_compare_seconds": 5.449
+}
