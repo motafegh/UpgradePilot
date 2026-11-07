@@ -1,0 +1,13 @@
+[
+  ["literal-fallback", "httpx", "any", "ModuleNotFoundError httpx2", "\"ModuleNotFoundError\" AND \"httpx2\"", "httpx-fallback"],
+  ["original-fallback-miss", "httpx", "any", "backup client", "\"backup client\"", "httpx-fallback"],
+  ["literal-old", "httpx", "old", "follow_redirects cookies", "\"follow_redirects\" AND \"cookies\"", "httpx-old"],
+  ["literal-proposed", "httpx", "proposed", "follow_redirects cookies", "\"follow_redirects\" AND \"cookies\"", "httpx-proposed"],
+  ["literal-artifacts", "opencv", "any", "wheel-tag capabilities", "\"wheel-tag capabilities\"", "opencv-artifacts"],
+  ["literal-build", "opencv", "any", "target source-build outcome", "\"target source-build outcome\"", "opencv-build"],
+  ["original-build-miss", "opencv", "any", "compile from source", "compile AND \"from source\"", "opencv-build"],
+  ["new-fallback", "httpx", "any", "What library is imported when the preferred client module is missing?", "\"preferred client module\"", "httpx-fallback"],
+  ["new-forwarding", "httpx", "any", "Which parameters does the subclass pass on to its parent constructor?", "\"parent constructor\"", "httpx-forward"],
+  ["new-build", "opencv", "any", "Did compilation of the proposed package actually work on the target?", "\"compilation\" AND \"target\"", "opencv-build"],
+  ["missing-runtime-control", "httpx", "any", "Show a test-process observation proving the target loaded the HTTPX fallback.", "\"test-process observation\"", null]
+]
