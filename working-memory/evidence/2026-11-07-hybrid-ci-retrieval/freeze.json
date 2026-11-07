@@ -1,0 +1,96 @@
+{
+  "device": "cpu",
+  "files": {
+    "2026-10-20-current-ci-owner-diagnostic/live/FCI001/result.json": "e2ba88a1741195c7ff3111cd0c8e064f7e564cd938b4c712d561b77aa317deb2",
+    "2026-10-21-investigator-native-ci-presentation/execution/case-2/ci-presentation.json": "9e4b5a6b11f209fdd96fe65d18e6fd2f9131901805d96eeb4ba0fd54d60a4b14",
+    "2026-10-21-investigator-native-ci-presentation/render-repair/case-2.txt": "4e50d64d146b9591003051ed62556e66e84796455209f5237eab33e4696bc9a8",
+    "2026-10-21-investigator-native-ci-presentation/render-repair/verification.json": "ecaba23bc0b564c574b5062f349dc5048070d38d66c093cee2e13c5fba55a714",
+    "2026-11-07-hybrid-ci-retrieval/compare.py": "3f00e9eb7939b16e09c9e746169353b2a443bde92b48d70aa9511078ade2aaff",
+    "2026-11-07-hybrid-ci-retrieval/protocol.json": "652c69b2ffd9b2a2ad1cb984a6b94904789d46a17055b6f4d99dda4e9a156dcf",
+    "2026-11-07-offline-semantic-retrieval/compare.py": "8c0a4e354ee0ca8980cc46100cd42f6cd3aebe49632e40935611c7eede092909",
+    "2026-11-07-offline-semantic-retrieval/freeze-successor.json": "ad09d2e35ba9bbee88c86d078bdd15e350329330e9f37f8f1d683e2330ee859d"
+  },
+  "fusion_offset": 10,
+  "limit": 2,
+  "packages": {
+    "safetensors": "0.7.0",
+    "sentence-transformers": "5.5.0",
+    "tokenizers": "0.22.2",
+    "torch": "2.11.0",
+    "transformers": "5.8.1"
+  },
+  "passages": [
+    [
+      "glyphs-coverage",
+      "coverage_boundary",
+      "case-2.txt:L17\u201322"
+    ],
+    [
+      "glyphs-regression",
+      "static_exercise",
+      "case-2.txt:L24\u201329"
+    ],
+    [
+      "glyphs-name",
+      "correlation_blocker",
+      "case-2.txt:L42\u201349"
+    ],
+    [
+      "glyphs-tox",
+      "static_analysis_blocker",
+      "case-2.txt:L51\u201365"
+    ],
+    [
+      "glyphs-manager",
+      "state_blocker",
+      "case-2.txt:L97\u2013114"
+    ],
+    [
+      "glyphs-runtime",
+      "candidate_evaluation",
+      "case-2.txt:L90\u201395"
+    ],
+    [
+      "fci-job",
+      "observed_job_result",
+      "FCI001/result.json#/jobs/0"
+    ],
+    [
+      "fci-user-steps",
+      "observed_user_steps",
+      "FCI001/result.json#/owner/step_execution"
+    ],
+    [
+      "fci-correlation",
+      "observed_correlation",
+      "FCI001/result.json#/owner"
+    ],
+    [
+      "fci-run",
+      "observed_run_result",
+      "FCI001/result.json#/selected_run"
+    ],
+    [
+      "synthetic-wrong-head",
+      "correlation_blocker",
+      "case-2.txt:L42\u201349"
+    ]
+  ],
+  "pool": 3,
+  "sequence_limit": 384,
+  "sqlite": "3.45.1",
+  "targets": {
+    "fci": [
+      "openai/openai-agents-python",
+      "5404",
+      "64cd5dfc5a1579870dcbed0ea42b27aa84033fee",
+      "8549af29bb5d4b061e3beb41b487ceb669cfb5c0"
+    ],
+    "glyphs": [
+      "googlefonts/glyphsLib",
+      "1145",
+      "044f19e4b1437bfc4343592486f4e3c6040306d9",
+      "f3cda8a94600e58d27f1bc17c99b7693718b6350"
+    ]
+  }
+}
