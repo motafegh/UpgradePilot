@@ -1,0 +1,224 @@
+{
+  "freeze_sha256": "ad09d2e35ba9bbee88c86d078bdd15e350329330e9f37f8f1d683e2330ee859d",
+  "summary": {
+    "lexical": {
+      "hits_at_1": 5,
+      "hits_at_2": 5
+    },
+    "rewrite": {
+      "hits_at_1": 7,
+      "hits_at_2": 7
+    },
+    "embedding": {
+      "hits_at_1": 9,
+      "hits_at_2": 9
+    }
+  },
+  "rows": [
+    {
+      "query": "literal-fallback",
+      "expected": "httpx-fallback",
+      "hits": {
+        "lexical": [
+          "httpx-fallback"
+        ],
+        "rewrite": [
+          "httpx-fallback"
+        ],
+        "embedding": [
+          "httpx-fallback",
+          "httpx-proposed"
+        ]
+      },
+      "embedding_scores": [
+        0.740142,
+        0.478373
+      ]
+    },
+    {
+      "query": "original-fallback-miss",
+      "expected": "httpx-fallback",
+      "hits": {
+        "lexical": [],
+        "rewrite": [
+          "httpx-fallback"
+        ],
+        "embedding": [
+          "httpx-old",
+          "httpx-proposed"
+        ]
+      },
+      "embedding_scores": [
+        0.177108,
+        0.168304
+      ]
+    },
+    {
+      "query": "literal-old",
+      "expected": "httpx-old",
+      "hits": {
+        "lexical": [
+          "httpx-old"
+        ],
+        "rewrite": [
+          "httpx-old"
+        ],
+        "embedding": [
+          "httpx-old"
+        ]
+      },
+      "embedding_scores": [
+        0.335821
+      ]
+    },
+    {
+      "query": "literal-proposed",
+      "expected": "httpx-proposed",
+      "hits": {
+        "lexical": [
+          "httpx-proposed"
+        ],
+        "rewrite": [
+          "httpx-proposed"
+        ],
+        "embedding": [
+          "httpx-proposed"
+        ]
+      },
+      "embedding_scores": [
+        0.387477
+      ]
+    },
+    {
+      "query": "literal-artifacts",
+      "expected": "opencv-artifacts",
+      "hits": {
+        "lexical": [
+          "opencv-artifacts"
+        ],
+        "rewrite": [
+          "opencv-artifacts"
+        ],
+        "embedding": [
+          "opencv-artifacts",
+          "opencv-target"
+        ]
+      },
+      "embedding_scores": [
+        0.495608,
+        0.165901
+      ]
+    },
+    {
+      "query": "literal-build",
+      "expected": "opencv-build",
+      "hits": {
+        "lexical": [
+          "opencv-build"
+        ],
+        "rewrite": [
+          "opencv-build"
+        ],
+        "embedding": [
+          "opencv-build",
+          "opencv-ci"
+        ]
+      },
+      "embedding_scores": [
+        0.653486,
+        0.45299
+      ]
+    },
+    {
+      "query": "original-build-miss",
+      "expected": "opencv-build",
+      "hits": {
+        "lexical": [],
+        "rewrite": [
+          "opencv-build"
+        ],
+        "embedding": [
+          "opencv-build",
+          "opencv-ci"
+        ]
+      },
+      "embedding_scores": [
+        0.384301,
+        0.322999
+      ]
+    },
+    {
+      "query": "new-fallback",
+      "expected": "httpx-fallback",
+      "hits": {
+        "lexical": [],
+        "rewrite": [],
+        "embedding": [
+          "httpx-fallback",
+          "httpx-target"
+        ]
+      },
+      "embedding_scores": [
+        0.466856,
+        0.420341
+      ]
+    },
+    {
+      "query": "new-forwarding",
+      "expected": "httpx-forward",
+      "hits": {
+        "lexical": [],
+        "rewrite": [],
+        "embedding": [
+          "httpx-forward",
+          "httpx-proposed"
+        ]
+      },
+      "embedding_scores": [
+        0.387915,
+        0.26174
+      ]
+    },
+    {
+      "query": "new-build",
+      "expected": "opencv-build",
+      "hits": {
+        "lexical": [],
+        "rewrite": [],
+        "embedding": [
+          "opencv-build",
+          "opencv-artifacts"
+        ]
+      },
+      "embedding_scores": [
+        0.57013,
+        0.322475
+      ]
+    },
+    {
+      "query": "missing-runtime-control",
+      "expected": null,
+      "hits": {
+        "lexical": [],
+        "rewrite": [],
+        "embedding": [
+          "httpx-forward",
+          "httpx-proposed"
+        ]
+      },
+      "embedding_scores": [
+        0.408749,
+        0.371958
+      ]
+    }
+  ],
+  "max_input_tokens": 361,
+  "default_sequence_limit": 128,
+  "model_sequence_limit": 384,
+  "vector_dimensions": 768,
+  "seconds": {
+    "load": 2.179,
+    "encode_batch": 2.776,
+    "rank_all": 0.001
+  }
+}
