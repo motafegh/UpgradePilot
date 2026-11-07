@@ -1,0 +1,21 @@
+Governance file observations:
+  AGENTS.md                                                       295 lines   23799 bytes
+  OPERATING_GUIDE.md                                              828 lines   61797 bytes
+  SECURITY.md                                                      78 lines    6076 bytes
+  ENVIRONMENT.md                                                  297 lines   14122 bytes
+  .agents/skills/upgradepilot-build-implement/SKILL.md            487 lines   26457 bytes
+  .agents/skills/upgradepilot-learning-artifact/SKILL.md          469 lines   22574 bytes
+  .agents/skills/upgradepilot-learning-by-doing/SKILL.md          386 lines   23025 bytes
+  .agents/skills/upgradepilot-learning-only/SKILL.md              516 lines   25746 bytes
+  .agents/skills/upgradepilot-planning-design/SKILL.md            434 lines   20761 bytes
+  .agents/skills/upgradepilot-project-reentry-orientation/SKILL.md  457 lines   19382 bytes
+  .agents/skills/upgradepilot-repository-audit/SKILL.md           570 lines   25452 bytes
+  .agents/skills/upgradepilot-working-memory/SKILL.md             164 lines    8023 bytes
+  .agents/skills/upgradepilot-workstream-supervision/SKILL.md     423 lines   20170 bytes
+Validated governance case banks: 6
+Required operation Skills: 5
+Required UP-SKILL provenance identities: 5
+Conditional Skill references: 2
+Excluded subtree: product-simulation/ contents were not inspected by this tool.
+
+Governance doctor: PASS

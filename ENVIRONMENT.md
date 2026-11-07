@@ -63,6 +63,10 @@ python -c 'import sys; print(sys.executable)'
 
 `pyproject.toml` is the package/dependency authority; do not duplicate its dependency list here.
 
+### Timing-counter interpretation
+
+This environment has demonstrated disagreement between standard WSL monotonic readings and raw/process-CPU readings across multiple local controls. A separately qualified Windows Stopwatch/QPC envelope tracked the raw intervals in the [November6 timing evidence](working-memory/evidence/2026-11-06-independent-host-timing/RESULTS.md). Cause and future clock calibration are not established. For a material user-waiting-time claim, recheck clock agreement and retain the labelled independent interval; keep inner CPU/counter readings and launch/instrumentation overhead separate. Do not infer pauses, multithreading or a universal WSL rate from CPU exceeding a standard monotonic reading. Product deadline/counter semantics and machine clock settings were not changed by the diagnostic.
+
 ## 4. Hardware baseline
 
 ```text
@@ -283,6 +287,12 @@ env \
 ```
 
 This is process-local isolation. Do not globally unset proxy configuration solely for UpgradePilot, and never request or expose the token value.
+
+### Split routing for PyPI source acquisition
+
+The November 7 route verification admitted the FastAPI and pytest indices through the existing unauthenticated loopback HTTP proxy configured for HTTPS requests. The scoped successor launcher uses that proxy for PyPI and places `api.github.com` in the child's `NO_PROXY` and `no_proxy`. This applies to the two hosts admitted by native source acquisition. The controlled route check observed direct GitHub routing with the synthetic bearer header and proxied PyPI routing with certificate verification and no authorization header. [Route verification](working-memory/evidence/2026-11-07-pypi-route-repair/RESULTS.md)
+
+Recheck the selected proxy and index admission when the environment changes. Keep proxy configuration process-local and retain the existing per-provider credential scope.
 
 ## 8. Maintenance
 

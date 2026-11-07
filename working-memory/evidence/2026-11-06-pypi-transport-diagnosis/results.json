@@ -1,0 +1,212 @@
+{
+  "date": "2026-11-07",
+  "outcome": "current_pypi_failure_localized_to_ipv4_tls_handshake",
+  "attempted_https_controls": 6,
+  "http_responses": 0,
+  "controls": [
+    {
+      "control": "installed_product_index",
+      "package": "fastapi",
+      "dns_families": [
+        "IPv4",
+        "IPv6"
+      ],
+      "tcp_connected": "IPv4",
+      "tls": "timeout",
+      "tls_raw_counter_seconds": 3.3286389869999766,
+      "http_headers_reached": false,
+      "exception_types": [
+        "requests.exceptions.ReadTimeout",
+        "urllib3.exceptions.ReadTimeoutError",
+        "builtins.TimeoutError"
+      ],
+      "index_state": "acquisition_failed",
+      "native_receipt": {
+        "stage": "pypi_transport_diagnostic",
+        "host": "pypi.org",
+        "path": "/pypi/fastapi/json",
+        "github_requests": 0,
+        "provider_requests": 1,
+        "decoded_body_bytes": 0,
+        "status": null,
+        "state": "failed",
+        "reason": "transport_error"
+      }
+    },
+    {
+      "control": "installed_product_index",
+      "package": "pytest",
+      "dns_families": [
+        "IPv4",
+        "IPv6"
+      ],
+      "tcp_connected": "IPv4",
+      "tls": "timeout",
+      "tls_raw_counter_seconds": 3.330362569000499,
+      "http_headers_reached": false,
+      "exception_types": [
+        "requests.exceptions.ReadTimeout",
+        "urllib3.exceptions.ReadTimeoutError",
+        "builtins.TimeoutError"
+      ],
+      "index_state": "acquisition_failed",
+      "native_receipt": {
+        "stage": "pypi_transport_diagnostic",
+        "host": "pypi.org",
+        "path": "/pypi/pytest/json",
+        "github_requests": 0,
+        "provider_requests": 1,
+        "decoded_body_bytes": 0,
+        "status": null,
+        "state": "failed",
+        "reason": "transport_error"
+      }
+    },
+    {
+      "control": "linux-curl",
+      "exit": 28,
+      "counters": {
+        "http_code": 0,
+        "time_namelookup": 0.00662,
+        "time_connect": 0.113861,
+        "time_appconnect": 0.0,
+        "time_total": 3.087817,
+        "size_download": 0
+      },
+      "boundary": "TLS connection timeout after TCP"
+    },
+    {
+      "control": "linux-curl-4",
+      "exit": 28,
+      "counters": {
+        "http_code": 0,
+        "time_namelookup": 0.006146,
+        "time_connect": 0.170335,
+        "time_appconnect": 0.0,
+        "time_total": 3.08759,
+        "size_download": 0
+      },
+      "boundary": "TLS connection timeout after IPv4 TCP"
+    },
+    {
+      "control": "linux-curl-6",
+      "exit": 7,
+      "counters": {
+        "http_code": 0,
+        "time_namelookup": 0.00737,
+        "time_connect": 0.0,
+        "time_appconnect": 0.0,
+        "time_total": 0.007416,
+        "size_download": 0
+      },
+      "boundary": "IPv6 TCP connection failure"
+    },
+    {
+      "control": "windows-curl",
+      "exit": 28,
+      "counters": {
+        "http_code": 0,
+        "time_namelookup": 0.008747,
+        "time_connect": 0.0,
+        "time_appconnect": 0.0,
+        "time_total": 3.057113,
+        "size_download": 0
+      },
+      "boundary": "Timeout before HTTP response, finer substage unestablished"
+    }
+  ],
+  "qualified_phase_envelopes": {
+    "baseline": {
+      "host_elapsed_seconds": 10.3910861,
+      "host_utc_span_seconds": 10.3767845,
+      "observations": 38,
+      "max_observation_gap_seconds": 0.2762495,
+      "timing_quality": "qualified_outer_envelope"
+    },
+    "families": {
+      "host_elapsed_seconds": 3.2704289,
+      "host_utc_span_seconds": 3.2665306,
+      "observations": 12,
+      "max_observation_gap_seconds": 0.2762733,
+      "timing_quality": "qualified_outer_envelope"
+    },
+    "host": {
+      "host_elapsed_seconds": 3.2627316,
+      "host_utc_span_seconds": 3.2709639,
+      "observations": 12,
+      "max_observation_gap_seconds": 0.27641,
+      "timing_quality": "qualified_outer_envelope"
+    }
+  },
+  "original_timeout_substage": "unestablished in the original live receipts",
+  "deeper_current_cause": "unresolved beyond the observed TLS boundary",
+  "frozen_live_private_public_hashes_unchanged": true,
+  "execution_bindings_unchanged": 377,
+  "installed_files_unchanged": 121,
+  "personal_credential_read": false,
+  "product_attempts": 0,
+  "diagnostic_retries": 0,
+  "private_artifact_sha256": {
+    "baseline-01": {
+      "execution-manifest.json": "6a708c1a22fa648561f493a4e7233cd942d3ac5d965a1ec62b5520f2924bc93d",
+      "fastapi-events.jsonl": "adc51f30db20346a43f8f63f1607af1a4e1f88713e07ed3ce9591616ff9ef28b",
+      "fastapi.json": "5c882f8caf218ac9205f018747f885f881a0e5cab387291fd3109fdbb37d22c6",
+      "host-samples.jsonl": "57ac732d69acfebabce7b2ff25a285b644a5e3f563277028796f0d10945d17eb",
+      "host-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "intent.json": "4d6f4e2ba8e2c12a950f14d950c39406ec374ed79d4027df0c0b4f7f184d858b",
+      "launch-result.json": "41cbf1f9f04405b341fab8a301fd5a7b5664e1c023bd2271c78f06e9373a4207",
+      "linux-curl-stderr.txt": "2d4a033283d9a669f5a9d073665c1a087a87bb61341e1811a0e068f1efa0425f",
+      "linux-curl-writeout.json": "aa133115514f57e8e418300941c25ea17a6f907ea8ab204dd1782934a49dae3e",
+      "linux-curl.json": "5e043dd630711522d850a9f3ce5f8857e4c56db2a766785635dcdd4d585240ba",
+      "pytest-events.jsonl": "b04806d630d7048979444b96401df5c8554399d48ca5ccfb07d81c62dc3bf161",
+      "pytest.json": "6046278dbbae709c00475ce4ca1b48b3aa3722ab3caa4f69b417a86216b7af1f",
+      "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout.txt": "1d861cdf510f2f74ee247bb15127f01125efdb903fe36c309398788f974423f7",
+      "worker-results.json": "3c67396d4d32ae80dd2369cc9a1ccb15f613225d9ea961031c7edec9f1e15638"
+    },
+    "baseline-01-methods": {
+      "CONTRACT.md": "8a6bb91edc0fbba5eb5f19c363a75ea3acd046c5628d6829dfedd5287dc9efe7",
+      "probe_transport.py": "2f869f58a5053946f2d3157ddebf5e891334922dd2ee9265de451fa4e71e623f",
+      "run_diagnostic.py": "674c3214d8745cfe8086a991de632ebbbe1370b00ac83a5769590126d767f6e4"
+    },
+    "families-01": {
+      "execution-manifest.json": "444aa48e4a3618c78399f448ca03f83b793f25c7d9eee546e237280bf32cce7c",
+      "host-samples.jsonl": "8ab2282cfc4e6e29ae390d9beb1e099218a695c2d06451673a09ba8437f7e161",
+      "host-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "intent.json": "f1c924ed26080cc6a1dc6e18eddd65f36253094d06f749b36e6189bc5a6f605b",
+      "launch-result.json": "18a1bd084744f315e5f76387a3c4d1172f33da500f1dfd7438c67288a5584ec3",
+      "linux-curl-4-stderr.txt": "2d4a033283d9a669f5a9d073665c1a087a87bb61341e1811a0e068f1efa0425f",
+      "linux-curl-4-writeout.json": "8a197f1522dcbfc88d5d1f56be73d697408d65e978e2321195f1a54f874472c8",
+      "linux-curl-4.json": "17fd297c5500c3b0aecd9590523985ebd62ad7c3a979e5950584c803a743b173",
+      "linux-curl-6-stderr.txt": "92d20d907e9a1fc9ea3a3b65de824d7f05cb2abc269fe45971a85f3e9c735f18",
+      "linux-curl-6-writeout.json": "84ba000e7b8208132e9589586f7f1ea363178564edf3e9420490881780a69a4f",
+      "linux-curl-6.json": "2ecc28fb6239741ccfe13cfddb8332fef8b7936ce4e5fe5d470d088267f7ac6f",
+      "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout.txt": "b063ee47c13c49cb861c0ff9705aefce1a2074ec7626920a5a339b19df305cd8",
+      "worker-results.json": "f23cd5d248d0b3dcab802b523353011c079e8ca72cf56819fc227b477439ee36"
+    },
+    "families-01-methods": {
+      "CONTRACT.md": "8a6bb91edc0fbba5eb5f19c363a75ea3acd046c5628d6829dfedd5287dc9efe7",
+      "probe_transport.py": "2f869f58a5053946f2d3157ddebf5e891334922dd2ee9265de451fa4e71e623f",
+      "run_diagnostic.py": "674c3214d8745cfe8086a991de632ebbbe1370b00ac83a5769590126d767f6e4"
+    },
+    "host-01": {
+      "execution-manifest.json": "e94c5f4a95d6df86a2962fbd696c608a1cf7ffb6c925f044b7464d0c89d3d0b3",
+      "host-samples.jsonl": "68e653ae77186efbd1c6a54a0a009232b9096ff5908fa0510a150ca48ea5c0eb",
+      "host-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "intent.json": "50dde8ec15cca632dcc56bbc070ccbcddc410d372b001caa65e5c3ab9db55ce2",
+      "launch-result.json": "9364ddd487c26ee0095d805cf6e51a3d54ca5b04c31c5aa98adcf3c06c3e1e97",
+      "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout.txt": "aab9965640219966636e036aaeaa14a35aaa58cbf45040d187be16603a209d48",
+      "windows-curl-stderr.txt": "f90d3b09160fe4ccb77a690656595103c9e5a68301e379e43a7cf7fd17741fb8",
+      "windows-curl-writeout.json": "402e4e3daf38135f24666447a12e5b53ca1237daa7556de45964b6cb9dc6d3ac",
+      "windows-curl.json": "a24220afa96a2cacfa36558e712772eb7494c6e0c548a4c3429174838537e37d",
+      "worker-results.json": "0e92204021074de5169b18e30c3c40d1f6a9e6ba9585ce5756de82078a99810c"
+    },
+    "host-01-methods": {
+      "CONTRACT.md": "8a6bb91edc0fbba5eb5f19c363a75ea3acd046c5628d6829dfedd5287dc9efe7",
+      "probe_transport.py": "2f869f58a5053946f2d3157ddebf5e891334922dd2ee9265de451fa4e71e623f",
+      "run_diagnostic.py": "674c3214d8745cfe8086a991de632ebbbe1370b00ac83a5769590126d767f6e4"
+    }
+  }
+}

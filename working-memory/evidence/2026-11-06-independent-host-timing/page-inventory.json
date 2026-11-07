@@ -1,0 +1,1792 @@
+{
+  "record_family": "caller_signature_comparison",
+  "record_id": "8bbc137ce84541799f40beb2a0471f6f",
+  "record_characters": 1669418,
+  "record_bytes": 1669418,
+  "record_sha256": "762459ac105eba42055d0f950a06ceb551ec791c8dc442391c683cb9c4151a6f",
+  "delivered_prefix_characters": 245760,
+  "candidate_array_start": 3825,
+  "candidate_array_end_exclusive": 241694,
+  "candidate_array_characters": 237869,
+  "candidate_step_expression_json_characters": 204242,
+  "unique_source_step_expression_json_characters": 86002,
+  "duplicate_step_expression_json_characters": 118240,
+  "source_text_preserved": true,
+  "candidates": [
+    {
+      "number": 1,
+      "start": 3826,
+      "end": 15343,
+      "first_page": 1,
+      "last_page": 4,
+      "root_expression": "StaticFiles(directory=STATIC_DIRECTORY)",
+      "role": "constraint_sample",
+      "package": "starlette",
+      "version": "1.10.0",
+      "path": "starlette/staticfiles.py",
+      "outcome": "bound",
+      "fields": [
+        {
+          "name": "callee_role",
+          "start": 3841,
+          "end": 4197
+        },
+        {
+          "name": "candidate_id",
+          "start": 4213,
+          "end": 4279
+        },
+        {
+          "name": "comparison",
+          "start": 4293,
+          "end": 4805
+        },
+        {
+          "name": "premises",
+          "start": 4817,
+          "end": 5084
+        },
+        {
+          "name": "root_call_id",
+          "start": 5100,
+          "end": 5166
+        },
+        {
+          "name": "steps",
+          "start": 5175,
+          "end": 15342
+        }
+      ],
+      "step_expressions": [
+        {
+          "operation": "call",
+          "expression_start": 5190,
+          "expression_end": 5231,
+          "first_line": "StaticFiles(directory=STATIC_DIRECTORY)"
+        },
+        {
+          "operation": "import_origin",
+          "expression_start": 5402,
+          "expression_end": 5447,
+          "first_line": "from fastapi.staticfiles import StaticFiles"
+        },
+        {
+          "operation": "reexport",
+          "expression_start": 5626,
+          "expression_end": 5688,
+          "first_line": "from starlette.staticfiles import StaticFiles as StaticFiles"
+        },
+        {
+          "operation": "class_declaration",
+          "expression_start": 5862,
+          "expression_end": 14314,
+          "first_line": "class StaticFiles:"
+        },
+        {
+          "operation": "initializer",
+          "expression_start": 14500,
+          "expression_end": 15177,
+          "first_line": "def __init__("
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "start": 15344,
+      "end": 26289,
+      "first_page": 4,
+      "last_page": 7,
+      "root_expression": "TestClient(app)",
+      "role": "constraint_sample",
+      "package": "starlette",
+      "version": "1.10.0",
+      "path": "starlette/testclient.py",
+      "outcome": "bound",
+      "fields": [
+        {
+          "name": "callee_role",
+          "start": 15359,
+          "end": 15713
+        },
+        {
+          "name": "candidate_id",
+          "start": 15729,
+          "end": 15795
+        },
+        {
+          "name": "comparison",
+          "start": 15809,
+          "end": 16273
+        },
+        {
+          "name": "premises",
+          "start": 16285,
+          "end": 16552
+        },
+        {
+          "name": "root_call_id",
+          "start": 16568,
+          "end": 16634
+        },
+        {
+          "name": "steps",
+          "start": 16643,
+          "end": 26288
+        }
+      ],
+      "step_expressions": [
+        {
+          "operation": "call",
+          "expression_start": 16658,
+          "expression_end": 16675,
+          "first_line": "TestClient(app)"
+        },
+        {
+          "operation": "import_origin",
+          "expression_start": 16846,
+          "expression_end": 16889,
+          "first_line": "from fastapi.testclient import TestClient"
+        },
+        {
+          "operation": "reexport",
+          "expression_start": 17068,
+          "expression_end": 17127,
+          "first_line": "from starlette.testclient import TestClient as TestClient"
+        },
+        {
+          "operation": "class_declaration",
+          "expression_start": 17301,
+          "expression_end": 24418,
+          "first_line": "class TestClient(httpx.Client):"
+        },
+        {
+          "operation": "initializer",
+          "expression_start": 24605,
+          "expression_end": 26122,
+          "first_line": "def __init__("
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "start": 26290,
+      "end": 37907,
+      "first_page": 7,
+      "last_page": 10,
+      "root_expression": "TestClient(app)",
+      "role": "constraint_sample",
+      "package": "starlette",
+      "version": "1.10.0",
+      "path": "starlette/testclient.py",
+      "outcome": "bound",
+      "fields": [
+        {
+          "name": "callee_role",
+          "start": 26305,
+          "end": 26659
+        },
+        {
+          "name": "candidate_id",
+          "start": 26675,
+          "end": 26741
+        },
+        {
+          "name": "comparison",
+          "start": 26755,
+          "end": 27169
+        },
+        {
+          "name": "premises",
+          "start": 27181,
+          "end": 27626
+        },
+        {
+          "name": "root_call_id",
+          "start": 27642,
+          "end": 27708
+        },
+        {
+          "name": "steps",
+          "start": 27717,
+          "end": 37906
+        }
+      ],
+      "step_expressions": [
+        {
+          "operation": "call",
+          "expression_start": 27732,
+          "expression_end": 27749,
+          "first_line": "TestClient(app)"
+        },
+        {
+          "operation": "import_origin",
+          "expression_start": 27920,
+          "expression_end": 27963,
+          "first_line": "from fastapi.testclient import TestClient"
+        },
+        {
+          "operation": "reexport",
+          "expression_start": 28142,
+          "expression_end": 28201,
+          "first_line": "from starlette.testclient import TestClient as TestClient"
+        },
+        {
+          "operation": "class_declaration",
+          "expression_start": 28375,
+          "expression_end": 35492,
+          "first_line": "class TestClient(httpx.Client):"
+        },
+        {
+          "operation": "initializer",
+          "expression_start": 35679,
+          "expression_end": 37196,
+          "first_line": "def __init__("
+        },
+        {
+          "operation": "call",
+          "expression_start": 37376,
+          "expression_end": 37392,
+          "first_line": "_is_asgi3(app)"
+        },
+        {
+          "operation": "declaration",
+          "expression_start": 37567,
+          "expression_end": 37741,
+          "first_line": "def _is_asgi3(app: ASGI2App | ASGI3App) -> TypeGuard[ASGI3App]:"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "start": 37908,
+      "end": 49980,
+      "first_page": 10,
+      "last_page": 13,
+      "root_expression": "TestClient(app)",
+      "role": "constraint_sample",
+      "package": "starlette",
+      "version": "1.10.0",
+      "path": "starlette/testclient.py",
+      "outcome": "bound",
+      "fields": [
+        {
+          "name": "callee_role",
+          "start": 37923,
+          "end": 38277
+        },
+        {
+          "name": "candidate_id",
+          "start": 38293,
+          "end": 38359
+        },
+        {
+          "name": "comparison",
+          "start": 38373,
+          "end": 38837
+        },
+        {
+          "name": "premises",
+          "start": 38849,
+          "end": 39291
+        },
+        {
+          "name": "root_call_id",
+          "start": 39307,
+          "end": 39373
+        },
+        {
+          "name": "steps",
+          "start": 39382,
+          "end": 49979
+        }
+      ],
+      "step_expressions": [
+        {
+          "operation": "call",
+          "expression_start": 39397,
+          "expression_end": 39414,
+          "first_line": "TestClient(app)"
+        },
+        {
+          "operation": "import_origin",
+          "expression_start": 39585,
+          "expression_end": 39628,
+          "first_line": "from fastapi.testclient import TestClient"
+        },
+        {
+          "operation": "reexport",
+          "expression_start": 39807,
+          "expression_end": 39866,
+          "first_line": "from starlette.testclient import TestClient as TestClient"
+        },
+        {
+          "operation": "class_declaration",
+          "expression_start": 40040,
+          "expression_end": 47157,
+          "first_line": "class TestClient(httpx.Client):"
+        },
+        {
+          "operation": "initializer",
+          "expression_start": 47344,
+          "expression_end": 48861,
+          "first_line": "def __init__("
+        },
+        {
+          "operation": "call",
+          "expression_start": 49041,
+          "expression_end": 49058,
+          "first_line": "_WrapASGI2(app)"
+        },
+        {
+          "operation": "class_declaration",
+          "expression_start": 49233,
+          "expression_end": 49561,
+          "first_line": "class _WrapASGI2:"
+        },
+        {
+          "operation": "initializer",
+          "expression_start": 49746,
+          "expression_end": 49814,
+          "first_line": "def __init__(self, app: ASGI2App) -> None:"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "start": 49981,
+      "end": 73032,
+      "first_page": 13,
+      "last_page": 18,
+      "root_expression": "TestClient(app)",
+      "role": "constraint_sample",
+      "package": "starlette",
+      "version": "1.10.0",
+      "path": "starlette/testclient.py",
+      "outcome": "bound",
+      "fields": [
+        {
+          "name": "callee_role",
+          "start": 49996,
+          "end": 50350
+        },
+        {
+          "name": "candidate_id",
+          "start": 50366,
+          "end": 50432
+        },
+        {
+          "name": "comparison",
+          "start": 50446,
+          "end": 51170
+        },
+        {
+          "name": "premises",
+          "start": 51182,
+          "end": 51624
+        },
+        {
+          "name": "root_call_id",
+          "start": 51640,
+          "end": 51706
+        },
+        {
+          "name": "steps",
+          "start": 51715,
+          "end": 73031
+        }
+      ],
+      "step_expressions": [
+        {
+          "operation": "call",
+          "expression_start": 51730,
+          "expression_end": 51747,
+          "first_line": "TestClient(app)"
+        },
+        {
+          "operation": "import_origin",
+          "expression_start": 51918,
+          "expression_end": 51961,
+          "first_line": "from fastapi.testclient import TestClient"
+        },
+        {
+          "operation": "reexport",
+          "expression_start": 52140,
+          "expression_end": 52199,
+          "first_line": "from starlette.testclient import TestClient as TestClient"
+        },
+        {
+          "operation": "class_declaration",
+          "expression_start": 52373,
+          "expression_end": 59490,
+          "first_line": "class TestClient(httpx.Client):"
+        },
+        {
+          "operation": "initializer",
+          "expression_start": 59677,
+          "expression_end": 61194,
+          "first_line": "def __init__("
+        },
+        {
+          "operation": "call",
+          "expression_start": 61374,
+          "expression_end": 61644,
+          "first_line": "_TestClientTransport("
+        },
+        {
+          "operation": "class_declaration",
+          "expression_start": 61818,
+          "expression_end": 72103,
+          "first_line": "class _TestClientTransport(httpx.BaseTransport):"
+        },
+        {
+          "operation": "initializer",
+          "expression_start": 72290,
+          "expression_end": 72864,
+          "first_line": "def __init__("
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "start": 73033,
+      "end": 112684,
+      "first_page": 18,
+      "last_page": 28,
+      "root_expression": "TestClient(app)",
+      "role": "proposed_dependency",
+      "package": "httpx",
+      "version": "0.28.1",
+      "path": "httpx/_client.py",
+      "outcome": "bound",
+      "fields": [
+        {
+          "name": "callee_role",
+          "start": 73048,
+          "end": 73380
+        },
+        {
+          "name": "candidate_id",
+          "start": 73396,
+          "end": 73462
+        },
+        {
+          "name": "comparison",
+          "start": 73476,
+          "end": 74186
+        },
+        {
+          "name": "premises",
+          "start": 74198,
+          "end": 74802
+        },
+        {
+          "name": "root_call_id",
+          "start": 74818,
+          "end": 74884
+        },
+        {
+          "name": "steps",
+          "start": 74893,
+          "end": 112683
+        }
+      ],
+      "step_expressions": [
+        {
+          "operation": "call",
+          "expression_start": 74908,
+          "expression_end": 74925,
+          "first_line": "TestClient(app)"
+        },
+        {
+          "operation": "import_origin",
+          "expression_start": 75096,
+          "expression_end": 75139,
+          "first_line": "from fastapi.testclient import TestClient"
+        },
+        {
+          "operation": "reexport",
+          "expression_start": 75318,
+          "expression_end": 75377,
+          "first_line": "from starlette.testclient import TestClient as TestClient"
+        },
+        {
+          "operation": "class_declaration",
+          "expression_start": 75551,
+          "expression_end": 82668,
+          "first_line": "class TestClient(httpx.Client):"
+        },
+        {
+          "operation": "initializer",
+          "expression_start": 82855,
+          "expression_end": 84372,
+          "first_line": "def __init__("
+        },
+        {
+          "operation": "call",
+          "expression_start": 84552,
+          "expression_end": 84756,
+          "first_line": "super().__init__("
+        },
+        {
+          "operation": "declared_base",
+          "expression_start": 84929,
+          "expression_end": 84943,
+          "first_line": "httpx.Client"
+        },
+        {
+          "operation": "reexport",
+          "expression_start": 85127,
+          "expression_end": 85141,
+          "first_line": "import httpx"
+        },
+        {
+          "operation": "reexport",
+          "expression_start": 85318,
+          "expression_end": 85339,
+          "first_line": "from ._api import *"
+        },
+        {
+          "operation": "reexport",
+          "expression_start": 85513,
+          "expression_end": 85542,
+          "first_line": "from ._client import Client"
+        },
+        {
+          "operation": "class_declaration",
+          "expression_start": 85716,
+          "expression_end": 109492,
+          "first_line": "class Client(BaseClient):"
+        },
+        {
+          "operation": "initializer",
+          "expression_start": 109680,
+          "expression_end": 112516,
+          "first_line": "def __init__("
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "start": 112685,
+      "end": 152136,
+      "first_page": 28,
+      "last_page": 38,
+      "root_expression": "TestClient(app)",
+      "role": "proposed_dependency",
+      "package": "httpx",
+      "version": "0.28.1",
+      "path": "httpx/_client.py",
+      "outcome": "bound",
+      "fields": [
+        {
+          "name": "callee_role",
+          "start": 112700,
+          "end": 113032
+        },
+        {
+          "name": "candidate_id",
+          "start": 113048,
+          "end": 113114
+        },
+        {
+          "name": "comparison",
+          "start": 113128,
+          "end": 113838
+        },
+        {
+          "name": "premises",
+          "start": 113850,
+          "end": 114454
+        },
+        {
+          "name": "root_call_id",
+          "start": 114470,
+          "end": 114536
+        },
+        {
+          "name": "steps",
+          "start": 114545,
+          "end": 152135
+        }
+      ],
+      "step_expressions": [
+        {
+          "operation": "call",
+          "expression_start": 114560,
+          "expression_end": 114577,
+          "first_line": "TestClient(app)"
+        },
+        {
+          "operation": "import_origin",
+          "expression_start": 114748,
+          "expression_end": 114791,
+          "first_line": "from fastapi.testclient import TestClient"
+        },
+        {
+          "operation": "reexport",
+          "expression_start": 114970,
+          "expression_end": 115029,
+          "first_line": "from starlette.testclient import TestClient as TestClient"
+        },
+        {
+          "operation": "class_declaration",
+          "expression_start": 115203,
+          "expression_end": 122320,
+          "first_line": "class TestClient(httpx.Client):"
+        },
+        {
+          "operation": "initializer",
+          "expression_start": 122507,
+          "expression_end": 124024,
+          "first_line": "def __init__("
+        },
+        {
+          "operation": "call",
+          "expression_start": 124204,
+          "expression_end": 124408,
+          "first_line": "super().__init__("
+        },
+        {
+          "operation": "declared_base",
+          "expression_start": 124581,
+          "expression_end": 124595,
+          "first_line": "httpx.Client"
+        },
+        {
+          "operation": "reexport",
+          "expression_start": 124779,
+          "expression_end": 124793,
+          "first_line": "import httpx"
+        },
+        {
+          "operation": "reexport",
+          "expression_start": 124970,
+          "expression_end": 124994,
+          "first_line": "from ._client import *"
+        },
+        {
+          "operation": "class_declaration",
+          "expression_start": 125168,
+          "expression_end": 148944,
+          "first_line": "class Client(BaseClient):"
+        },
+        {
+          "operation": "initializer",
+          "expression_start": 149132,
+          "expression_end": 151968,
+          "first_line": "def __init__("
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "start": 152137,
+      "end": 193938,
+      "first_page": 38,
+      "last_page": 48,
+      "root_expression": "TestClient(app)",
+      "role": "old_dependency",
+      "package": "httpx",
+      "version": "0.27.2",
+      "path": "httpx/_client.py",
+      "outcome": "bound",
+      "fields": [
+        {
+          "name": "callee_role",
+          "start": 152152,
+          "end": 152489
+        },
+        {
+          "name": "candidate_id",
+          "start": 152505,
+          "end": 152571
+        },
+        {
+          "name": "comparison",
+          "start": 152585,
+          "end": 153295
+        },
+        {
+          "name": "premises",
+          "start": 153307,
+          "end": 153911
+        },
+        {
+          "name": "root_call_id",
+          "start": 153927,
+          "end": 153993
+        },
+        {
+          "name": "steps",
+          "start": 154002,
+          "end": 193937
+        }
+      ],
+      "step_expressions": [
+        {
+          "operation": "call",
+          "expression_start": 154017,
+          "expression_end": 154034,
+          "first_line": "TestClient(app)"
+        },
+        {
+          "operation": "import_origin",
+          "expression_start": 154205,
+          "expression_end": 154248,
+          "first_line": "from fastapi.testclient import TestClient"
+        },
+        {
+          "operation": "reexport",
+          "expression_start": 154427,
+          "expression_end": 154486,
+          "first_line": "from starlette.testclient import TestClient as TestClient"
+        },
+        {
+          "operation": "class_declaration",
+          "expression_start": 154660,
+          "expression_end": 161777,
+          "first_line": "class TestClient(httpx.Client):"
+        },
+        {
+          "operation": "initializer",
+          "expression_start": 161964,
+          "expression_end": 163481,
+          "first_line": "def __init__("
+        },
+        {
+          "operation": "call",
+          "expression_start": 163661,
+          "expression_end": 163865,
+          "first_line": "super().__init__("
+        },
+        {
+          "operation": "declared_base",
+          "expression_start": 164038,
+          "expression_end": 164052,
+          "first_line": "httpx.Client"
+        },
+        {
+          "operation": "reexport",
+          "expression_start": 164236,
+          "expression_end": 164250,
+          "first_line": "import httpx"
+        },
+        {
+          "operation": "reexport",
+          "expression_start": 164427,
+          "expression_end": 164448,
+          "first_line": "from ._api import *"
+        },
+        {
+          "operation": "reexport",
+          "expression_start": 164622,
+          "expression_end": 164651,
+          "first_line": "from ._client import Client"
+        },
+        {
+          "operation": "class_declaration",
+          "expression_start": 164825,
+          "expression_end": 189998,
+          "first_line": "class Client(BaseClient):"
+        },
+        {
+          "operation": "initializer",
+          "expression_start": 190186,
+          "expression_end": 193770,
+          "first_line": "def __init__("
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "start": 193939,
+      "end": 235540,
+      "first_page": 48,
+      "last_page": 58,
+      "root_expression": "TestClient(app)",
+      "role": "old_dependency",
+      "package": "httpx",
+      "version": "0.27.2",
+      "path": "httpx/_client.py",
+      "outcome": "bound",
+      "fields": [
+        {
+          "name": "callee_role",
+          "start": 193954,
+          "end": 194291
+        },
+        {
+          "name": "candidate_id",
+          "start": 194307,
+          "end": 194373
+        },
+        {
+          "name": "comparison",
+          "start": 194387,
+          "end": 195097
+        },
+        {
+          "name": "premises",
+          "start": 195109,
+          "end": 195713
+        },
+        {
+          "name": "root_call_id",
+          "start": 195729,
+          "end": 195795
+        },
+        {
+          "name": "steps",
+          "start": 195804,
+          "end": 235539
+        }
+      ],
+      "step_expressions": [
+        {
+          "operation": "call",
+          "expression_start": 195819,
+          "expression_end": 195836,
+          "first_line": "TestClient(app)"
+        },
+        {
+          "operation": "import_origin",
+          "expression_start": 196007,
+          "expression_end": 196050,
+          "first_line": "from fastapi.testclient import TestClient"
+        },
+        {
+          "operation": "reexport",
+          "expression_start": 196229,
+          "expression_end": 196288,
+          "first_line": "from starlette.testclient import TestClient as TestClient"
+        },
+        {
+          "operation": "class_declaration",
+          "expression_start": 196462,
+          "expression_end": 203579,
+          "first_line": "class TestClient(httpx.Client):"
+        },
+        {
+          "operation": "initializer",
+          "expression_start": 203766,
+          "expression_end": 205283,
+          "first_line": "def __init__("
+        },
+        {
+          "operation": "call",
+          "expression_start": 205463,
+          "expression_end": 205667,
+          "first_line": "super().__init__("
+        },
+        {
+          "operation": "declared_base",
+          "expression_start": 205840,
+          "expression_end": 205854,
+          "first_line": "httpx.Client"
+        },
+        {
+          "operation": "reexport",
+          "expression_start": 206038,
+          "expression_end": 206052,
+          "first_line": "import httpx"
+        },
+        {
+          "operation": "reexport",
+          "expression_start": 206229,
+          "expression_end": 206253,
+          "first_line": "from ._client import *"
+        },
+        {
+          "operation": "class_declaration",
+          "expression_start": 206427,
+          "expression_end": 231600,
+          "first_line": "class Client(BaseClient):"
+        },
+        {
+          "operation": "initializer",
+          "expression_start": 231788,
+          "expression_end": 235372,
+          "first_line": "def __init__("
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "start": 235541,
+      "end": 237591,
+      "first_page": 58,
+      "last_page": 59,
+      "root_expression": "get_token()",
+      "role": "target_repository",
+      "package": "",
+      "version": "",
+      "path": "app/utils.py",
+      "outcome": "bound",
+      "fields": [
+        {
+          "name": "callee_role",
+          "start": 235556,
+          "end": 235836
+        },
+        {
+          "name": "candidate_id",
+          "start": 235852,
+          "end": 235918
+        },
+        {
+          "name": "comparison",
+          "start": 235932,
+          "end": 236346
+        },
+        {
+          "name": "premises",
+          "start": 236358,
+          "end": 236503
+        },
+        {
+          "name": "root_call_id",
+          "start": 236519,
+          "end": 236585
+        },
+        {
+          "name": "steps",
+          "start": 236594,
+          "end": 237590
+        }
+      ],
+      "step_expressions": [
+        {
+          "operation": "call",
+          "expression_start": 236609,
+          "expression_end": 236622,
+          "first_line": "get_token()"
+        },
+        {
+          "operation": "import_origin",
+          "expression_start": 236795,
+          "expression_end": 236828,
+          "first_line": "from app.utils import get_token"
+        },
+        {
+          "operation": "declaration",
+          "expression_start": 237007,
+          "expression_end": 237426,
+          "first_line": "def get_token():"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "start": 237592,
+      "end": 239642,
+      "first_page": 59,
+      "last_page": 59,
+      "root_expression": "get_token()",
+      "role": "target_repository",
+      "package": "",
+      "version": "",
+      "path": "app/utils.py",
+      "outcome": "bound",
+      "fields": [
+        {
+          "name": "callee_role",
+          "start": 237607,
+          "end": 237887
+        },
+        {
+          "name": "candidate_id",
+          "start": 237903,
+          "end": 237969
+        },
+        {
+          "name": "comparison",
+          "start": 237983,
+          "end": 238397
+        },
+        {
+          "name": "premises",
+          "start": 238409,
+          "end": 238554
+        },
+        {
+          "name": "root_call_id",
+          "start": 238570,
+          "end": 238636
+        },
+        {
+          "name": "steps",
+          "start": 238645,
+          "end": 239641
+        }
+      ],
+      "step_expressions": [
+        {
+          "operation": "call",
+          "expression_start": 238660,
+          "expression_end": 238673,
+          "first_line": "get_token()"
+        },
+        {
+          "operation": "import_origin",
+          "expression_start": 238846,
+          "expression_end": 238879,
+          "first_line": "from app.utils import get_token"
+        },
+        {
+          "operation": "declaration",
+          "expression_start": 239058,
+          "expression_end": 239477,
+          "first_line": "def get_token():"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "start": 239643,
+      "end": 241693,
+      "first_page": 59,
+      "last_page": 60,
+      "root_expression": "get_token()",
+      "role": "target_repository",
+      "package": "",
+      "version": "",
+      "path": "app/utils.py",
+      "outcome": "bound",
+      "fields": [
+        {
+          "name": "callee_role",
+          "start": 239658,
+          "end": 239938
+        },
+        {
+          "name": "candidate_id",
+          "start": 239954,
+          "end": 240020
+        },
+        {
+          "name": "comparison",
+          "start": 240034,
+          "end": 240448
+        },
+        {
+          "name": "premises",
+          "start": 240460,
+          "end": 240605
+        },
+        {
+          "name": "root_call_id",
+          "start": 240621,
+          "end": 240687
+        },
+        {
+          "name": "steps",
+          "start": 240696,
+          "end": 241692
+        }
+      ],
+      "step_expressions": [
+        {
+          "operation": "call",
+          "expression_start": 240711,
+          "expression_end": 240724,
+          "first_line": "get_token()"
+        },
+        {
+          "operation": "import_origin",
+          "expression_start": 240897,
+          "expression_end": 240930,
+          "first_line": "from app.utils import get_token"
+        },
+        {
+          "operation": "declaration",
+          "expression_start": 241109,
+          "expression_end": 241528,
+          "first_line": "def get_token():"
+        }
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "start_character": 0,
+      "end_character_exclusive": 4096,
+      "content": [
+        "original analysis envelope/header",
+        "result.admission",
+        "result.analysis_profile",
+        "result.binding_version",
+        "C1 constraint_sample starlette 1.10.0: callee_role"
+      ],
+      "delivery_id": "229a0a3d52044aee9790c7233690f76c",
+      "delivered_bytes": 4873,
+      "delivery_sha256": "420f4e7a40d2aa040ac7235472f7ceeb39463263dc2951103cd4ae9b00e4be5e"
+    },
+    {
+      "page": 2,
+      "start_character": 4096,
+      "end_character_exclusive": 8192,
+      "content": [
+        "C1 constraint_sample starlette 1.10.0: callee_role, candidate_id, comparison, premises, root_call_id, steps; text fragments: call (StaticFiles(directory=STATIC_DIRECTORY)), import_origin (from fastapi.staticfiles import StaticFiles), reexport (from starlette.staticfiles import StaticFiles as StaticFiles), class_declaration (class StaticFiles:)"
+      ],
+      "delivery_id": "a7e28412ed834c679651935958d828e5",
+      "delivered_bytes": 4738,
+      "delivery_sha256": "ef1adb6ed68e8e9429c0dc0530e5c6dbe143bb0b426884dee75b838d43345dec"
+    },
+    {
+      "page": 3,
+      "start_character": 8192,
+      "end_character_exclusive": 12288,
+      "content": [
+        "C1 constraint_sample starlette 1.10.0: steps; text fragments: class_declaration (class StaticFiles:)"
+      ],
+      "delivery_id": "1f473b0070b34015ac7d50759fc51d78",
+      "delivered_bytes": 4657,
+      "delivery_sha256": "c19cf02fe7c3ce97ad0e50c600772e0f6e1496175c077e88737420f574d8ac9f"
+    },
+    {
+      "page": 4,
+      "start_character": 12288,
+      "end_character_exclusive": 16384,
+      "content": [
+        "C1 constraint_sample starlette 1.10.0: steps; text fragments: class_declaration (class StaticFiles:), initializer (def __init__()",
+        "C2 constraint_sample starlette 1.10.0: callee_role, candidate_id, comparison, premises"
+      ],
+      "delivery_id": "b51973ce409f42eabfd8e246f6fa281a",
+      "delivered_bytes": 4738,
+      "delivery_sha256": "e28718e6535dfa321f2ca9eb65a71996aa52c69cb062e6ee70ab604870e5c04d"
+    },
+    {
+      "page": 5,
+      "start_character": 16384,
+      "end_character_exclusive": 20480,
+      "content": [
+        "C2 constraint_sample starlette 1.10.0: premises, root_call_id, steps; text fragments: call (TestClient(app)), import_origin (from fastapi.testclient import TestClient), reexport (from starlette.testclient import TestClient as TestClient), class_declaration (class TestClient(httpx.Client):)"
+      ],
+      "delivery_id": "8dcd63a6064a411bb6efb0fb76aad346",
+      "delivered_bytes": 4673,
+      "delivery_sha256": "02e11b7dcbd959a53206a4148c0aa49b31db08e04106a3377e9ffd1489aaaf8f"
+    },
+    {
+      "page": 6,
+      "start_character": 20480,
+      "end_character_exclusive": 24576,
+      "content": [
+        "C2 constraint_sample starlette 1.10.0: steps; text fragments: class_declaration (class TestClient(httpx.Client):)"
+      ],
+      "delivery_id": "2fc9955db61449c9b19a1250a9b0ec73",
+      "delivered_bytes": 4725,
+      "delivery_sha256": "cd368eca041c582b7efcd6dae96b69e324cf288e2f38bf58ca76ed54b01907f0"
+    },
+    {
+      "page": 7,
+      "start_character": 24576,
+      "end_character_exclusive": 28672,
+      "content": [
+        "C2 constraint_sample starlette 1.10.0: steps; text fragments: initializer (def __init__()",
+        "C3 constraint_sample starlette 1.10.0: callee_role, candidate_id, comparison, premises, root_call_id, steps; text fragments: call (TestClient(app)), import_origin (from fastapi.testclient import TestClient), reexport (from starlette.testclient import TestClient as TestClient), class_declaration (class TestClient(httpx.Client):)"
+      ],
+      "delivery_id": "17611cc3ce1a4093a03dacdaabb39beb",
+      "delivered_bytes": 4763,
+      "delivery_sha256": "1c1ed6d5dd8da803cf993a89ae0902dc1ba37f79e43d96e131f8b8c7116df09e"
+    },
+    {
+      "page": 8,
+      "start_character": 28672,
+      "end_character_exclusive": 32768,
+      "content": [
+        "C3 constraint_sample starlette 1.10.0: steps; text fragments: class_declaration (class TestClient(httpx.Client):)"
+      ],
+      "delivery_id": "903d2e0fb9fa4f0c8e1cf8a3e39d41b3",
+      "delivered_bytes": 4661,
+      "delivery_sha256": "8fb8bd34ea41d3e041676071ee15a5984e6a919c48f1182355e973117592004d"
+    },
+    {
+      "page": 9,
+      "start_character": 32768,
+      "end_character_exclusive": 36864,
+      "content": [
+        "C3 constraint_sample starlette 1.10.0: steps; text fragments: class_declaration (class TestClient(httpx.Client):), initializer (def __init__()"
+      ],
+      "delivery_id": "6d8b98dc85ed46b79002c528ce3668a9",
+      "delivered_bytes": 4697,
+      "delivery_sha256": "baa45aec12ca49c3f458197e96960239e5a44892121ad9d059500e09f395deb1"
+    },
+    {
+      "page": 10,
+      "start_character": 36864,
+      "end_character_exclusive": 40960,
+      "content": [
+        "C3 constraint_sample starlette 1.10.0: steps; text fragments: initializer (def __init__(), call (_is_asgi3(app)), declaration (def _is_asgi3(app: ASGI2App | ASGI3App) -> TypeGuard[ASGI3App]:)",
+        "C4 constraint_sample starlette 1.10.0: callee_role, candidate_id, comparison, premises, root_call_id, steps; text fragments: call (TestClient(app)), import_origin (from fastapi.testclient import TestClient), reexport (from starlette.testclient import TestClient as TestClient), class_declaration (class TestClient(httpx.Client):)"
+      ],
+      "delivery_id": "0e1bf3b78e1e47ce974561c2db14035c",
+      "delivered_bytes": 4793,
+      "delivery_sha256": "a5b007d9a62598bcc284bf7d7ae4943cb0aed5c21ca96110b7fb6a48129bbca2"
+    },
+    {
+      "page": 11,
+      "start_character": 40960,
+      "end_character_exclusive": 45056,
+      "content": [
+        "C4 constraint_sample starlette 1.10.0: steps; text fragments: class_declaration (class TestClient(httpx.Client):)"
+      ],
+      "delivery_id": "14db154ed4084b008cd9d1de357bff97",
+      "delivered_bytes": 4648,
+      "delivery_sha256": "20ac832139fe73ea01f0f90b9d8ad4155cdb63fc54697f1a7281ed17a870782a"
+    },
+    {
+      "page": 12,
+      "start_character": 45056,
+      "end_character_exclusive": 49152,
+      "content": [
+        "C4 constraint_sample starlette 1.10.0: steps; text fragments: class_declaration (class TestClient(httpx.Client):), initializer (def __init__(), call (_WrapASGI2(app))"
+      ],
+      "delivery_id": "dc1d1c8e2ff0459e8b1a6cc07e434446",
+      "delivered_bytes": 4735,
+      "delivery_sha256": "3163aa88a54b4a19b530b40a4eeb32cc0c8414b2b0827cbc1601f7498b756890"
+    },
+    {
+      "page": 13,
+      "start_character": 49152,
+      "end_character_exclusive": 53248,
+      "content": [
+        "C4 constraint_sample starlette 1.10.0: steps; text fragments: class_declaration (class _WrapASGI2:), initializer (def __init__(self, app: ASGI2App) -> None:)",
+        "C5 constraint_sample starlette 1.10.0: callee_role, candidate_id, comparison, premises, root_call_id, steps; text fragments: call (TestClient(app)), import_origin (from fastapi.testclient import TestClient), reexport (from starlette.testclient import TestClient as TestClient), class_declaration (class TestClient(httpx.Client):)"
+      ],
+      "delivery_id": "4f852de39d40451b882c984e82560132",
+      "delivered_bytes": 4812,
+      "delivery_sha256": "c77e49770a1767dd7b84a70f419961232e9c7e2799b31fd9917a83245636be5a"
+    },
+    {
+      "page": 14,
+      "start_character": 53248,
+      "end_character_exclusive": 57344,
+      "content": [
+        "C5 constraint_sample starlette 1.10.0: steps; text fragments: class_declaration (class TestClient(httpx.Client):)"
+      ],
+      "delivery_id": "77a831b250bb44c093a11c79d00aec91",
+      "delivered_bytes": 4649,
+      "delivery_sha256": "b5b3510d21c3253053d834112b8e8aa99f0eac3f94257542685cf642fd54e16f"
+    },
+    {
+      "page": 15,
+      "start_character": 57344,
+      "end_character_exclusive": 61440,
+      "content": [
+        "C5 constraint_sample starlette 1.10.0: steps; text fragments: class_declaration (class TestClient(httpx.Client):), initializer (def __init__(), call (_TestClientTransport()"
+      ],
+      "delivery_id": "b5877d6ea6334064a5c4e5007a05fd5e",
+      "delivered_bytes": 4719,
+      "delivery_sha256": "27b7b9d6d692b659b07fa04da1b3d32235291df8142ce4a4f9edbf8bb2951726"
+    },
+    {
+      "page": 16,
+      "start_character": 61440,
+      "end_character_exclusive": 65536,
+      "content": [
+        "C5 constraint_sample starlette 1.10.0: steps; text fragments: call (_TestClientTransport(), class_declaration (class _TestClientTransport(httpx.BaseTransport):)"
+      ],
+      "delivery_id": "8f87d1acedf840838224b984038d0768",
+      "delivered_bytes": 4783,
+      "delivery_sha256": "9c293244420d7508e777d12637309986d53177dc6264a446eaf94ea6c18e5618"
+    },
+    {
+      "page": 17,
+      "start_character": 65536,
+      "end_character_exclusive": 69632,
+      "content": [
+        "C5 constraint_sample starlette 1.10.0: steps; text fragments: class_declaration (class _TestClientTransport(httpx.BaseTransport):)"
+      ],
+      "delivery_id": "eda123ccd1834f1d8228323277a6d46d",
+      "delivered_bytes": 4736,
+      "delivery_sha256": "af16c3904a0e57317fa92c81f92c10a0bf6a5657fa85e92c20b92fd3a7af5fa1"
+    },
+    {
+      "page": 18,
+      "start_character": 69632,
+      "end_character_exclusive": 73728,
+      "content": [
+        "C5 constraint_sample starlette 1.10.0: steps; text fragments: class_declaration (class _TestClientTransport(httpx.BaseTransport):), initializer (def __init__()",
+        "C6 proposed_dependency httpx 0.28.1: callee_role, candidate_id, comparison"
+      ],
+      "delivery_id": "b78c6a66d346439ca8ea993a2e453d96",
+      "delivered_bytes": 4724,
+      "delivery_sha256": "d4ccb741a1b304c2243e2d27a91df9571e758e83cbab51a1651e0ddc8ab0edec"
+    },
+    {
+      "page": 19,
+      "start_character": 73728,
+      "end_character_exclusive": 77824,
+      "content": [
+        "C6 proposed_dependency httpx 0.28.1: comparison, premises, root_call_id, steps; text fragments: call (TestClient(app)), import_origin (from fastapi.testclient import TestClient), reexport (from starlette.testclient import TestClient as TestClient), class_declaration (class TestClient(httpx.Client):)"
+      ],
+      "delivery_id": "bb7f66a19e7b4994a2c7df80c0bc1362",
+      "delivered_bytes": 4713,
+      "delivery_sha256": "5f8aa9179010a1e5637b35c08716d44399d38011ef91580db0f7c1a840eade7e"
+    },
+    {
+      "page": 20,
+      "start_character": 77824,
+      "end_character_exclusive": 81920,
+      "content": [
+        "C6 proposed_dependency httpx 0.28.1: steps; text fragments: class_declaration (class TestClient(httpx.Client):)"
+      ],
+      "delivery_id": "70ab631b322e4fa1bc34664080e63ef4",
+      "delivered_bytes": 4667,
+      "delivery_sha256": "25f2917e9cc9385384bee006842254ee104ef3e500bc6da3b857042949169ded"
+    },
+    {
+      "page": 21,
+      "start_character": 81920,
+      "end_character_exclusive": 86016,
+      "content": [
+        "C6 proposed_dependency httpx 0.28.1: steps; text fragments: class_declaration (class TestClient(httpx.Client):), initializer (def __init__(), call (super().__init__(), declared_base (httpx.Client), reexport (import httpx), reexport (from ._api import *), reexport (from ._client import Client), class_declaration (class Client(BaseClient):)"
+      ],
+      "delivery_id": "f6654af1a70a4ef9884162b3e5223617",
+      "delivered_bytes": 4788,
+      "delivery_sha256": "d440bfe2b5828fe4db6ea1f4a27a88d100459a32b83cb3d6155d64f2ec37b35b"
+    },
+    {
+      "page": 22,
+      "start_character": 86016,
+      "end_character_exclusive": 90112,
+      "content": [
+        "C6 proposed_dependency httpx 0.28.1: steps; text fragments: class_declaration (class Client(BaseClient):)"
+      ],
+      "delivery_id": "5efc5b524d25479e9ff96d2875034881",
+      "delivered_bytes": 4599,
+      "delivery_sha256": "66c7f3fa2aef69f064edf943064ac60bf1e8250d90bccb33512c1907b76225b1"
+    },
+    {
+      "page": 23,
+      "start_character": 90112,
+      "end_character_exclusive": 94208,
+      "content": [
+        "C6 proposed_dependency httpx 0.28.1: steps; text fragments: class_declaration (class Client(BaseClient):)"
+      ],
+      "delivery_id": "e96126e355764dff883c356f43a9b604",
+      "delivered_bytes": 4639,
+      "delivery_sha256": "42e6a12698892e1f36d3158ca3b45b216e4f306f02c7a6d8b50ffe10a5a92c40"
+    },
+    {
+      "page": 24,
+      "start_character": 94208,
+      "end_character_exclusive": 98304,
+      "content": [
+        "C6 proposed_dependency httpx 0.28.1: steps; text fragments: class_declaration (class Client(BaseClient):)"
+      ],
+      "delivery_id": "2228de5633694eb09b5c3c5b236b5403",
+      "delivered_bytes": 4635,
+      "delivery_sha256": "2cde3053fec5684084dffcd0e60a6ea988c60c10fea09b0b742a8c9851949a14"
+    },
+    {
+      "page": 25,
+      "start_character": 98304,
+      "end_character_exclusive": 102400,
+      "content": [
+        "C6 proposed_dependency httpx 0.28.1: steps; text fragments: class_declaration (class Client(BaseClient):)"
+      ],
+      "delivery_id": "bea6329c831b400fae82c01fef4e11ec",
+      "delivered_bytes": 4668,
+      "delivery_sha256": "699b23ee36007126e01896bd3eaeae9c47a1416f3f0f4be3a985cf5d1f50523c"
+    },
+    {
+      "page": 26,
+      "start_character": 102400,
+      "end_character_exclusive": 106496,
+      "content": [
+        "C6 proposed_dependency httpx 0.28.1: steps; text fragments: class_declaration (class Client(BaseClient):)"
+      ],
+      "delivery_id": "4e16b9cd188d4bc98738c4e7679d8ef3",
+      "delivered_bytes": 4652,
+      "delivery_sha256": "b22eea9a9e75fc2215206d322f0c00efcbcfe86c972463fc3e37c3607b53c46e"
+    },
+    {
+      "page": 27,
+      "start_character": 106496,
+      "end_character_exclusive": 110592,
+      "content": [
+        "C6 proposed_dependency httpx 0.28.1: steps; text fragments: class_declaration (class Client(BaseClient):), initializer (def __init__()"
+      ],
+      "delivery_id": "a3609c6d220c413595de0584cec2b02e",
+      "delivered_bytes": 4672,
+      "delivery_sha256": "375e1ccff82a93fb7659749371fc8c0774f2fe514e5ddd53a61950ce3b8079b3"
+    },
+    {
+      "page": 28,
+      "start_character": 110592,
+      "end_character_exclusive": 114688,
+      "content": [
+        "C6 proposed_dependency httpx 0.28.1: steps; text fragments: initializer (def __init__()",
+        "C7 proposed_dependency httpx 0.28.1: callee_role, candidate_id, comparison, premises, root_call_id, steps; text fragments: call (TestClient(app))"
+      ],
+      "delivery_id": "40cbe7ce7d424b1ab6f5002dc5d7d683",
+      "delivered_bytes": 4751,
+      "delivery_sha256": "f1a5c3a2baa5068641d320781f12f99f3bdf71b4d736ac6ef64c4d9a88a7663b"
+    },
+    {
+      "page": 29,
+      "start_character": 114688,
+      "end_character_exclusive": 118784,
+      "content": [
+        "C7 proposed_dependency httpx 0.28.1: steps; text fragments: import_origin (from fastapi.testclient import TestClient), reexport (from starlette.testclient import TestClient as TestClient), class_declaration (class TestClient(httpx.Client):)"
+      ],
+      "delivery_id": "c6c645a443d54af88fc3225e7f52422b",
+      "delivered_bytes": 4656,
+      "delivery_sha256": "28d8d9796013fefc6f462641b993542bb43280e236bd300745b705c6d4231427"
+    },
+    {
+      "page": 30,
+      "start_character": 118784,
+      "end_character_exclusive": 122880,
+      "content": [
+        "C7 proposed_dependency httpx 0.28.1: steps; text fragments: class_declaration (class TestClient(httpx.Client):), initializer (def __init__()"
+      ],
+      "delivery_id": "ec2e7220a4ba4b1bbfe8c5c3a8820bb1",
+      "delivered_bytes": 4745,
+      "delivery_sha256": "ff59c0704c338960a827b985250b3ca2fa2ef781d88a419aafb9eb46e98d51df"
+    },
+    {
+      "page": 31,
+      "start_character": 122880,
+      "end_character_exclusive": 126976,
+      "content": [
+        "C7 proposed_dependency httpx 0.28.1: steps; text fragments: initializer (def __init__(), call (super().__init__(), declared_base (httpx.Client), reexport (import httpx), reexport (from ._client import *), class_declaration (class Client(BaseClient):)"
+      ],
+      "delivery_id": "a076af1faf894e35926acb9e57c55fd3",
+      "delivered_bytes": 4682,
+      "delivery_sha256": "7c1b24b5eeca4ec5e3bc9873aac9c4cfe58c23c022a34e37f7eaab1c5392e134"
+    },
+    {
+      "page": 32,
+      "start_character": 126976,
+      "end_character_exclusive": 131072,
+      "content": [
+        "C7 proposed_dependency httpx 0.28.1: steps; text fragments: class_declaration (class Client(BaseClient):)"
+      ],
+      "delivery_id": "66fc83620e32438ab3bcc65b64ce0d05",
+      "delivered_bytes": 4625,
+      "delivery_sha256": "cfc72ab0470e9d1d54cd86bc3cc55f05667c4daeda41ead680021fea20ad97ec"
+    },
+    {
+      "page": 33,
+      "start_character": 131072,
+      "end_character_exclusive": 135168,
+      "content": [
+        "C7 proposed_dependency httpx 0.28.1: steps; text fragments: class_declaration (class Client(BaseClient):)"
+      ],
+      "delivery_id": "4eb5afe757c947feb71bfafda65d4fe7",
+      "delivered_bytes": 4645,
+      "delivery_sha256": "16a3b88303e1320a87d36802384ca435af445ef3140beb833dfc12cf81c14597"
+    },
+    {
+      "page": 34,
+      "start_character": 135168,
+      "end_character_exclusive": 139264,
+      "content": [
+        "C7 proposed_dependency httpx 0.28.1: steps; text fragments: class_declaration (class Client(BaseClient):)"
+      ],
+      "delivery_id": "74d7f71964cf424d97bdc534cd7f8771",
+      "delivered_bytes": 4652,
+      "delivery_sha256": "5adc43641dbef10ccb63cb0db879a565ce324623370adcba385f08bd25f47c6e"
+    },
+    {
+      "page": 35,
+      "start_character": 139264,
+      "end_character_exclusive": 143360,
+      "content": [
+        "C7 proposed_dependency httpx 0.28.1: steps; text fragments: class_declaration (class Client(BaseClient):)"
+      ],
+      "delivery_id": "58e7817a2421460498d4982fb40261cc",
+      "delivered_bytes": 4663,
+      "delivery_sha256": "67ae47d4effe8158ca8786534ce70c1b12617b993a0e7ac245c53c0b01e3a191"
+    },
+    {
+      "page": 36,
+      "start_character": 143360,
+      "end_character_exclusive": 147456,
+      "content": [
+        "C7 proposed_dependency httpx 0.28.1: steps; text fragments: class_declaration (class Client(BaseClient):)"
+      ],
+      "delivery_id": "6276da61556b4ebdbb0c2892edf59035",
+      "delivered_bytes": 4670,
+      "delivery_sha256": "a29008cd1d1e1a5df6e48c3840296760cf61de608d77623ac83f9ea7107069a3"
+    },
+    {
+      "page": 37,
+      "start_character": 147456,
+      "end_character_exclusive": 151552,
+      "content": [
+        "C7 proposed_dependency httpx 0.28.1: steps; text fragments: class_declaration (class Client(BaseClient):), initializer (def __init__()"
+      ],
+      "delivery_id": "3d6f83215e904c61b2a6bfba49d4cb42",
+      "delivered_bytes": 4646,
+      "delivery_sha256": "8e4277dd0165ff652c80c97c5f4363f5558721f983db6ec9906b46823b86758a"
+    },
+    {
+      "page": 38,
+      "start_character": 151552,
+      "end_character_exclusive": 155648,
+      "content": [
+        "C7 proposed_dependency httpx 0.28.1: steps; text fragments: initializer (def __init__()",
+        "C8 old_dependency httpx 0.27.2: callee_role, candidate_id, comparison, premises, root_call_id, steps; text fragments: call (TestClient(app)), import_origin (from fastapi.testclient import TestClient), reexport (from starlette.testclient import TestClient as TestClient), class_declaration (class TestClient(httpx.Client):)"
+      ],
+      "delivery_id": "da4ef17d71114e1d81ac6f5a114c2540",
+      "delivered_bytes": 4793,
+      "delivery_sha256": "964705efe803f03eb6576dbe9650a37a2960b29d7e3ebe62dbf36a8c373ecd5d"
+    },
+    {
+      "page": 39,
+      "start_character": 155648,
+      "end_character_exclusive": 159744,
+      "content": [
+        "C8 old_dependency httpx 0.27.2: steps; text fragments: class_declaration (class TestClient(httpx.Client):)"
+      ],
+      "delivery_id": "9bc1275db9ac458bbe7015ef389441fc",
+      "delivered_bytes": 4650,
+      "delivery_sha256": "0d0872f513af06559564525ccd856352ef90df210a2761d02d588aaa4f68ec5e"
+    },
+    {
+      "page": 40,
+      "start_character": 159744,
+      "end_character_exclusive": 163840,
+      "content": [
+        "C8 old_dependency httpx 0.27.2: steps; text fragments: class_declaration (class TestClient(httpx.Client):), initializer (def __init__(), call (super().__init__()"
+      ],
+      "delivery_id": "f7df093315b840fe9908ad17fbe346f5",
+      "delivered_bytes": 4723,
+      "delivery_sha256": "cfc00d02fe4cf2f0cf7975b852dcb54942ef71588c6a8375ab31979da87fd3e6"
+    },
+    {
+      "page": 41,
+      "start_character": 163840,
+      "end_character_exclusive": 167936,
+      "content": [
+        "C8 old_dependency httpx 0.27.2: steps; text fragments: call (super().__init__(), declared_base (httpx.Client), reexport (import httpx), reexport (from ._api import *), reexport (from ._client import Client), class_declaration (class Client(BaseClient):)"
+      ],
+      "delivery_id": "985f5eae3e034b2e89301a3d787fed8d",
+      "delivered_bytes": 4674,
+      "delivery_sha256": "420539ac3e934584b74ecdee84c6d83cc3b416a1eecac0e06dd3810488700874"
+    },
+    {
+      "page": 42,
+      "start_character": 167936,
+      "end_character_exclusive": 172032,
+      "content": [
+        "C8 old_dependency httpx 0.27.2: steps; text fragments: class_declaration (class Client(BaseClient):)"
+      ],
+      "delivery_id": "ae43a68bed3344efbacb5117bee9bcd5",
+      "delivered_bytes": 4635,
+      "delivery_sha256": "df0e1f279cdea6b1b51d24593ee38a967368ac3f28b9e623a1f831e7f54c6765"
+    },
+    {
+      "page": 43,
+      "start_character": 172032,
+      "end_character_exclusive": 176128,
+      "content": [
+        "C8 old_dependency httpx 0.27.2: steps; text fragments: class_declaration (class Client(BaseClient):)"
+      ],
+      "delivery_id": "90ba6802e8294672b2dc9055c7988e1e",
+      "delivered_bytes": 4647,
+      "delivery_sha256": "f25356d3dfcfaaffc83740440fbf1bc3d76b0bed140bf37d8c65eb360aa9cd48"
+    },
+    {
+      "page": 44,
+      "start_character": 176128,
+      "end_character_exclusive": 180224,
+      "content": [
+        "C8 old_dependency httpx 0.27.2: steps; text fragments: class_declaration (class Client(BaseClient):)"
+      ],
+      "delivery_id": "e9c3a0ca65974085a8e81b9263535e13",
+      "delivered_bytes": 4646,
+      "delivery_sha256": "1ca5ebe172cc33b9086f78dc1226bc5514dc2ce240babf54aacf678cfbfb6f63"
+    },
+    {
+      "page": 45,
+      "start_character": 180224,
+      "end_character_exclusive": 184320,
+      "content": [
+        "C8 old_dependency httpx 0.27.2: steps; text fragments: class_declaration (class Client(BaseClient):)"
+      ],
+      "delivery_id": "4f72b550b1164042931a74b4b6511be6",
+      "delivered_bytes": 4670,
+      "delivery_sha256": "808f112f8bba6ef30acab26d92e0fd5988f060292e4d9bb435932d12e020f1b3"
+    },
+    {
+      "page": 46,
+      "start_character": 184320,
+      "end_character_exclusive": 188416,
+      "content": [
+        "C8 old_dependency httpx 0.27.2: steps; text fragments: class_declaration (class Client(BaseClient):)"
+      ],
+      "delivery_id": "219d69f350f642e49e1c1f10837d09cc",
+      "delivered_bytes": 4670,
+      "delivery_sha256": "51a08df0cbcb6de5a508d3c79efbd10373d6563de0d07b49dfe4cfb5e1fd44be"
+    },
+    {
+      "page": 47,
+      "start_character": 188416,
+      "end_character_exclusive": 192512,
+      "content": [
+        "C8 old_dependency httpx 0.27.2: steps; text fragments: class_declaration (class Client(BaseClient):), initializer (def __init__()"
+      ],
+      "delivery_id": "3b8a2a8a358a4166b13f97514837ea14",
+      "delivered_bytes": 4661,
+      "delivery_sha256": "af5463550cf2b6d833c279d20a3e5954b54de947b2382f5fd9d0b7f14cc94fce"
+    },
+    {
+      "page": 48,
+      "start_character": 192512,
+      "end_character_exclusive": 196608,
+      "content": [
+        "C8 old_dependency httpx 0.27.2: steps; text fragments: initializer (def __init__()",
+        "C9 old_dependency httpx 0.27.2: callee_role, candidate_id, comparison, premises, root_call_id, steps; text fragments: call (TestClient(app)), import_origin (from fastapi.testclient import TestClient), reexport (from starlette.testclient import TestClient as TestClient), class_declaration (class TestClient(httpx.Client):)"
+      ],
+      "delivery_id": "2ccbf6ed46bd44b4a0d7449d7679250b",
+      "delivered_bytes": 4776,
+      "delivery_sha256": "3ba14013eb15a4bced1188e572351c042db3c4ab7750de4b7805816ff5edd902"
+    },
+    {
+      "page": 49,
+      "start_character": 196608,
+      "end_character_exclusive": 200704,
+      "content": [
+        "C9 old_dependency httpx 0.27.2: steps; text fragments: class_declaration (class TestClient(httpx.Client):)"
+      ],
+      "delivery_id": "0224d07557c449368a6d3ddb171bda47",
+      "delivered_bytes": 4656,
+      "delivery_sha256": "d58f7b33ee02d71261a318968084d41915c978b06b9935dedaf7a2b11109ca21"
+    },
+    {
+      "page": 50,
+      "start_character": 200704,
+      "end_character_exclusive": 204800,
+      "content": [
+        "C9 old_dependency httpx 0.27.2: steps; text fragments: class_declaration (class TestClient(httpx.Client):), initializer (def __init__()"
+      ],
+      "delivery_id": "b8ff0d1cc9ab4632a16f94a0f7de3ba7",
+      "delivered_bytes": 4711,
+      "delivery_sha256": "c250ea846311d317b305b7d1ad17cf09d6aadac6474433ad7cc2b22dbf91bab1"
+    },
+    {
+      "page": 51,
+      "start_character": 204800,
+      "end_character_exclusive": 208896,
+      "content": [
+        "C9 old_dependency httpx 0.27.2: steps; text fragments: initializer (def __init__(), call (super().__init__(), declared_base (httpx.Client), reexport (import httpx), reexport (from ._client import *), class_declaration (class Client(BaseClient):)"
+      ],
+      "delivery_id": "17cda6b4c5f64f1ca4aa8eacdc1b9c20",
+      "delivered_bytes": 4674,
+      "delivery_sha256": "b3a72b31d674f0c88ad899d128b9bb137a182068f652bc615ecf80adc9d99635"
+    },
+    {
+      "page": 52,
+      "start_character": 208896,
+      "end_character_exclusive": 212992,
+      "content": [
+        "C9 old_dependency httpx 0.27.2: steps; text fragments: class_declaration (class Client(BaseClient):)"
+      ],
+      "delivery_id": "258f81e84bfc44f1ba96495dc09b5285",
+      "delivered_bytes": 4638,
+      "delivery_sha256": "027b5bf69a875c17cc1f324ba3bb29910f8341a9653b1a788de6ea4857b1d9c5"
+    },
+    {
+      "page": 53,
+      "start_character": 212992,
+      "end_character_exclusive": 217088,
+      "content": [
+        "C9 old_dependency httpx 0.27.2: steps; text fragments: class_declaration (class Client(BaseClient):)"
+      ],
+      "delivery_id": "0953e9faa9ff4783bce3b18b0448aa49",
+      "delivered_bytes": 4642,
+      "delivery_sha256": "cc933346eb4e73a00b2c42f47c1255414575ece1b01398c8cdc35d2cc07dac0f"
+    },
+    {
+      "page": 54,
+      "start_character": 217088,
+      "end_character_exclusive": 221184,
+      "content": [
+        "C9 old_dependency httpx 0.27.2: steps; text fragments: class_declaration (class Client(BaseClient):)"
+      ],
+      "delivery_id": "c3cdce65ae874c11912739f4b0fc60be",
+      "delivered_bytes": 4649,
+      "delivery_sha256": "b5a9da6527d704925d578c7c7d0922a827d253bb0aba2d1965a4ee183d938a71"
+    },
+    {
+      "page": 55,
+      "start_character": 221184,
+      "end_character_exclusive": 225280,
+      "content": [
+        "C9 old_dependency httpx 0.27.2: steps; text fragments: class_declaration (class Client(BaseClient):)"
+      ],
+      "delivery_id": "59ee5e7c0ea34d1d81e2375799e6065a",
+      "delivered_bytes": 4664,
+      "delivery_sha256": "054a39f6bbfe1cc9cf688d009034f969f0adc96f772aa7cc90b0f07e380f22c5"
+    },
+    {
+      "page": 56,
+      "start_character": 225280,
+      "end_character_exclusive": 229376,
+      "content": [
+        "C9 old_dependency httpx 0.27.2: steps; text fragments: class_declaration (class Client(BaseClient):)"
+      ],
+      "delivery_id": "7848370557e544b294d24099774509d1",
+      "delivered_bytes": 4668,
+      "delivery_sha256": "a9e1b3b0f62a333a819cd2d0b29feed392075348a609a46d3f4ddee70d53ddfe"
+    },
+    {
+      "page": 57,
+      "start_character": 229376,
+      "end_character_exclusive": 233472,
+      "content": [
+        "C9 old_dependency httpx 0.27.2: steps; text fragments: class_declaration (class Client(BaseClient):), initializer (def __init__()"
+      ],
+      "delivery_id": "c2f3a65d40f3410a807b20c3aa64c7ca",
+      "delivered_bytes": 4655,
+      "delivery_sha256": "a7e64741685051ab1c14d73c3baa71cf7ae9b678e58f2a7bde498e0dcadccbaa"
+    },
+    {
+      "page": 58,
+      "start_character": 233472,
+      "end_character_exclusive": 237568,
+      "content": [
+        "C9 old_dependency httpx 0.27.2: steps; text fragments: initializer (def __init__()",
+        "C10 target_repository  : callee_role, candidate_id, comparison, premises, root_call_id, steps; text fragments: call (get_token()), import_origin (from app.utils import get_token), declaration (def get_token():)"
+      ],
+      "delivery_id": "8fed8bd0186747c0b887554fb53603d6",
+      "delivered_bytes": 4771,
+      "delivery_sha256": "f4b5ccd316ae8e9b0549002b565bef296385112e413c5e7cb03f2699951fed69"
+    },
+    {
+      "page": 59,
+      "start_character": 237568,
+      "end_character_exclusive": 241664,
+      "content": [
+        "C10 target_repository  : steps",
+        "C11 target_repository  : callee_role, candidate_id, comparison, premises, root_call_id, steps; text fragments: call (get_token()), import_origin (from app.utils import get_token), declaration (def get_token():)",
+        "C12 target_repository  : callee_role, candidate_id, comparison, premises, root_call_id, steps; text fragments: call (get_token()), import_origin (from app.utils import get_token), declaration (def get_token():)"
+      ],
+      "delivery_id": "cd26ed5a3dd245139b4eb8fbc507bd3b",
+      "delivered_bytes": 4871,
+      "delivery_sha256": "ce2a137be8d2ad5e987c0d8bd3af0767738732047e76e79feddc3979cf9fbe53"
+    },
+    {
+      "page": 60,
+      "start_character": 241664,
+      "end_character_exclusive": 245760,
+      "content": [
+        "result.catalog_id",
+        "result.checker_version",
+        "result.correspondence_version",
+        "result.format",
+        "result.gaps",
+        "C12 target_repository  : steps"
+      ],
+      "delivery_id": "4717a75373f64bb0a541dc2dc85bbc3b",
+      "delivered_bytes": 4867,
+      "delivery_sha256": "202c791f5faeacfa3d07ba7991dcb47cfe934194aedb95492fea4b2a55e5eed2"
+    }
+  ],
+  "interpretation": "post-delivery character inventory only; overlapping pages are fragments, not separate findings or complete candidate objects"
+}

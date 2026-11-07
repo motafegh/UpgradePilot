@@ -2,7 +2,7 @@
 
 **Created:** 2026-11-02  
 **Initial evidence horizon:** `7a9bef12fb65ee075dab645a638adf5a3955dc48`  
-**Last synchronized main:** `3569e8b38b83b5ac6d91e8e0184c8676c0c258b0` — November 6, 2026; later CLI revision-guard, native normal-product review contract and independent host-clock/retained traversal work have progressed, without changing the covered imported-origin/analyzer/worker or C2 decoder owners. A separately contracted 60-page retained traversal is in progress at this horizon; no new provider execution or elapsed-throughput acceptance is claimed. Learning C1 remains conceptually covered and C2 in progress. Product status ≠ learner mastery.
+**Last synchronized main:** `a0204b3a680e4cfe082951f158fee6342bb57c77` — November 7, 2026. **Product milestones:** a selected live installed HTTPX 0.27.2→0.28.1 source-pair task qualified after a separately preserved PyPI transport failure, TLS diagnosis, proxy-route verification and successor invocation; **limited explicit caller/signature profile pilot eligible**, not runtime compatibility or broad adoption. An ensuing **HTTPX CI/runtime applicability checkpoint completed**: July's retained green Docker subset, October's exact-head zero-run response and November's conditional source result could not establish that the selected TestClient call executed. The decision was to preserve historical applicability unresolved and **defer any new combined/runtime acquisition** for this already-merged case; the next *product* handoff is the existing **evidence-grounded AI design checkpoint**, not an automatic LLM build. Across the 14 new main commits, `src/upgradepilot/` and `tests/` were unchanged. Learning stays at six covered interactively; C2 in progress.
 **Working branch:** `learning/current-caller-signature-mastery-roadmap-2026-11-02`  
 **Purpose:** living study/relearning roadmap for Ali's interactive learning track while UpgradePilot continues to evolve on `main`.  
 **Authority boundary:** this file is a learning artifact, not the live project-position owner. `MEMORY.md`, current source/tests, accepted plans/specifications/ADRs, and dated evidence remain authoritative.
@@ -156,6 +156,8 @@ When `main` advances:
 - `38741c3c` — November 4: bounded repair accepted at the original policy, consumer caches a still-valid equal-native-boundary `ConsumerView` for repeated deliveries; `CheckpointStore.publish` reuses decoded immutable original bases only inside one locked transaction while retaining all historic validation and capacity accounting. The separately frozen retained HTTPX successor completes **60 unique pages**, all **four native witnesses**, with one view/basis and guarded cold recovery; `1,073` product, `194` API, `7` architecture and `57` installed controls at the cited proof horizon. Original six-page refusal remains a negative control; source-only baseline stays 14/20. Connected retained qualification closed; live-provider, human usefulness and broad adoption unproved. A [source-pinned learning companion](2026-11-04-bounded-native-navigation-and-view-reuse.md) now exists on main; use later in D4 rather than duplicate its full narrative here.
 - `bb3b2b10` — November 6: frozen matched first-page comparison between consumer-only `6e98d0a0` and publication-reuse `38741c3c`, with six correctly delivered identical 4,873-byte first pages and preserved acknowledgements. Recorded paired **CPU median ratio 0.81265** (~18.7% less CPU in this limited scenario); *elapsed* timing remains **inconclusive** because all trials failed the frozen clock-consistency screens. This was measurement, not a new product optimization or proof of whole-workflow speed.
 - `3569e8b3` — November 6: nine newer main commits prepare a frozen normal-product HTTPX attempt contract and verify optional CLI expected-base/head revision guards through retained ordinary composition; an independent host clock preflight qualified a separate method while one 60-page retained traversal is still in progress at this snapshot. New work changes CLI/report delivery and later qualification owners, **not** already-learned binding/comparison/worker semantics or C2 decoder behavior. No fresh provider calls, target runtime execution, positive whole-run elapsed claim or independent usefulness credit.
+- `6a19fc69` — November 7: **live qualified paired HTTPX source task** after an original, separately preserved PyPI-transport partial attempt. [Original live partial](../working-memory/evidence/2026-11-06-native-normal-product-live-qualification/RESULTS.md) → [observed TLS timeout diagnosis](../working-memory/evidence/2026-11-06-pypi-transport-diagnosis/RESULTS.md) → [split-route proxy proof](../working-memory/evidence/2026-11-07-pypi-route-repair/RESULTS.md) → [live successor](../working-memory/evidence/2026-11-07-native-proxy-successor/RESULTS.md). The successor acquired 24 retained files, 12 static witnesses (four exact-version HTTPX), three unexamined units and 147 gaps; local five-keyword fit depends on sampled Starlette `httpx2`-first/HTTPX-fallback and other source/runtime premises. Exact stored result/report/source cold-reopened; CI/runtime not evaluated. Limited explicit-profile pilot eligible; no independent user benefit or runtime guarantee.
+- `a0204b3a` — November 7: **post-qualification CI/runtime applicability checkpoint completed**. [Cycle](../working-memory/2026-11-07_httpx-ci-runtime-applicability_cycle.md) compared July's bounded green Docker run (expired logs/no selected test-process proof), October's independently hash-verified exact-head empty CI-run response, and November's source-only result. One-response offline replay through current CI owners returned `no_successful_ci` / `no_exact_head_workflows` and runtime `no_admitted_candidate`; 41 focused tests pass. Historical applicability remains **unresolved**, no CI defect identified, no new runner/combined profile justified. A future decision-relevant target-owned test invocation with exact process/callable/loaded-file identity is the re-entry condition. Product next: existing evidence-grounded AI **design checkpoint**, not model execution.
 
 ---
 
@@ -284,7 +286,7 @@ Real anchor: LifeLog completed worker with 17 unexamined Python units.
 
 ## C2 — Historical result reconstruction (`result_codec.py`, `native_codec.py`): source facts, trace/reference integrity and version guards
 
-**Status:** 🟡 In progress; user reported the synthetic-first shared-trace explanation did **not** establish understanding. Re-teach from a retained real-source/result case before the next check; preserve prior introductory learning without treating it as independent mastery  
+**Status:** 🟡 In progress: an actual LifeLog Letterboxd source→call-fact→shared-trace→fixed-decoder walkthrough improved understanding; user explicitly reported it remains incomplete. Full result graph, input/method identity, candidate relationships and corruption/refusal remain. Independent mastery unproved.
 **Depth:** MUST OWN
 
 Own:
@@ -296,7 +298,7 @@ Own:
 - structural/byte guard meaning;
 - node validity does not imply edge validity.
 
-**Concrete re-entry sequence (real-evidence first):** Start with the retained public Python source material from [LifeLog/HTTPX/Digimon connected qualification](../working-memory/evidence/2026-11-04-caller-signature-connected-retained-qualification/README.md). Pick a specifically grounded result path: e.g. HTTPX's retained `TestClient(app)` → FastAPI/Starlette → old/proposed HTTPX witness paths (one native root, four witnesses) as recovered exactly through report/store/cold opening; or LifeLog's 28 retained files with 17 unexamined Python units. Point to exact source/result evidence rather than asserting uninspected details. Ask what must remain unchanged when that historical analysis is opened: source identity, selected call/declaration, ordered witness path, premises, outcomes and partiality. **Only after that** explain the result/native decoder and show a small actual source/test excerpt demonstrating one relevant invariant. A locally authored `from pkg import f; f(x=1); f(x=1)` shared-step test is a **synthetic regression fixture**, not a real observed corruption incident; its engineering motivation is recorded in the original native-representation cycle: retained cases contain many repeated binding-trace references (LifeLog: 6,041 references and 3,754 unique steps) requiring lossless space-aware encoding. Two lexical call sites referring to one import step provide a small discriminating test of that requirement, not a claim of two runtime executions or an actual production failure. use it only to isolate deduplicated trace-index mechanics if those details are needed. The swapped comparison `call_id` test is likewise an **injected negative regression**, not evidence of a real-world bug; the code validates that the selected invocation is at the actual unit/span of the retained witness path. Do not claim a particular real retained case exercised shared-step deduplication until its stored content demonstrates it. Explain which integrity obligations are central to later engineering ownership and which codec details are lookup-only. Resume only after user can connect the problem, production/persistence boundary and validation to the real case.
+**Next chunk, building on real source data:** Use the [LifeLog PR1 frozen Letterboxd file](https://github.com/VaHerinckx/LifeLog_Project/blob/2a0f4e2b6f8eae3a813edacc6095d78aa34c3197/pipeline/src/sources_processing/letterboxd/letterboxd_processing.py): the movie search at L187 and movie detail fetch at L212 are distinct genuine `requests.get` call sites. Shared import-table illustration was **not** the private actual call-trace JSON; [retained LifeLog trace totals](../working-memory/evidence/2026-11-01-native-caller-signature-record-proof/retained-results.json) independently substantiate the representation pressure. For the full result decoder, now also use [real live HTTPX PR20 saved source/report/cold recovery](../working-memory/evidence/2026-11-07-native-proxy-successor/RESULTS.md): exact TestClient source root, re-export/forwarder, two versions' constructor witnesses, conditional fallback and premises. Show each field's true producer, saved form, source identity and decoded validation; inspect `result_codec.py`, `native_codec.py` and focused tests. Swapped call-ID or broken index tests are **injected negatives**, not observed real corruption. Keep all uncertainty and stop after a comprehensible slice; no stage-code memorization or synthetic-first teaching.
 
 ---
 
@@ -353,6 +355,8 @@ Own:
 - schema2 host/store publication and fresh-process cold reconstruction;
 - cold reconstruction does not reacquire/reanalyze.
 
+
+**Later cost/historical-proof anchor:** [Completed 60-page instrumented raw access](../working-memory/evidence/2026-11-06-independent-host-timing/RESULTS.md) measured 2,380.532 host seconds; [AUDIT-015](../audits/2026-11-06_AUDIT-015_native-page-granularity-payload-and-publication-cost.md) notes the uncalibrated 4,096-character page default, repeated expression payload and expensive durable-delivery validation. Do not compare this full raw task to the ~43.820-second normal live invocation as a speedup: different workloads. The live paired question was answered with saved report/source, zero raw native pages; durability guarantees remain separate from candidate optimizations.
 ---
 
 # PART E — NEWLY IMPLEMENTED: product source acquisition
@@ -381,6 +385,8 @@ Own:
 
 Real controlled flow: normal prefix + later release recovery/source read share one ledger; the recorded six-attempt example is a controlled proof, not a live constant.
 
+
+**Actual live transport case:** [First partial attempt](../working-memory/evidence/2026-11-06-native-normal-product-live-qualification/RESULTS.md) had two PyPI index timeouts. [Independent diagnosis](../working-memory/evidence/2026-11-06-pypi-transport-diagnosis/RESULTS.md) observed direct IPv4 TLS-handshake timeout, not a proven root network cause. [Verified alternate proxy route](../working-memory/evidence/2026-11-07-pypi-route-repair/RESULTS.md) isolated anonymous PyPI transport and direct authenticated GitHub without raising product budgets; [successor actual ledger](../working-memory/evidence/2026-11-07-native-proxy-successor/RESULTS.md) recorded 45 GitHub/63 total attempts and no implicit retry.
 ## E2 — Target repository source context: exact PR revision, selected declarations and import candidates
 
 **Status:** ⬜  
@@ -425,6 +431,8 @@ If association fails, v1 module receipt has no standalone durable release/publis
 
 Real controlled flow: target `demo` old/proposed acquisition with one shared session; 21 total / 17 GitHub requests belongs to that controlled test only.
 
+
+**Actual live dependency-source contrast:** first [target-only partial result](../working-memory/evidence/2026-11-06-native-normal-product-live-qualification/RESULTS.md) retained no selected old/new HTTPX modules after PyPI failure; the separate [live successor](../working-memory/evidence/2026-11-07-native-proxy-successor/RESULTS.md) established exact-version HTTPX declarations under source-association premises. FastAPI/Starlette remain *exploration samples* rather than target-installed version proof; eight omitted import candidates and other partiality remain visible.
 ---
 
 # PART F — Connected source publication and ordinary CLI delivery verified; retained qualification active
@@ -477,36 +485,40 @@ Owners: [user-delivery cycle](../working-memory/2026-11-03_caller-signature-user
 
 **Milestone boundary at the original small controlled F2 proof:** retained full-size navigation was not yet qualified then. Later F3 retained HTTPX evidence now qualifies its specific 60-page bounded native access and cold recovery (see D4 and F3), **not** unlimited paging, a fully successful source-only navigation baseline, live-provider behavior, independent usefulness or adoption.
 
+
+**New live evidence boundary:** first [partial normal run](../working-memory/evidence/2026-11-06-native-normal-product-live-qualification/RESULTS.md) retained an acknowledged/cold-readable report despite missing pair; [successor run](../working-memory/evidence/2026-11-07-native-proxy-successor/RESULTS.md) recovered exact selected old/proposed witnesses and original source in a fresh installed process. Successful process, complete acquisition, saved revision, useful source answer and runtime action are independent claims; zero native raw pages were required for the selected report/source task.
 ## F3 — Product qualification: retained/live evidence, maintainer tasks, usability and adoption limits
 
-**Product:** ✅ Connected retained-case qualification closed with bounded native paging repair at `38741c3c`; **live provider / independent task usefulness / broad adoption still pending**  
+**Product:** ✅ Connected retained qualification **plus one selected live installed HTTPX old/proposed pair and report/source task** verified; eligible for **limited explicit-profile pilot**. Runtime applicability, independent usefulness and broad adoption remain unproved.
 **Learning:** ⬜ Not yet taught  
 **Depth:** MUST OWN qualification, proof/non-proof and eventual task/adoption disposition
 
 Owners: [active qualification cycle](../working-memory/2026-11-04_caller-signature-connected-retained-qualification_cycle.md), [qualified implementation plan](../plans/CALLER_SIGNATURE_NATIVE_ADOPTION_IMPLEMENTATION_PLAN.md).
 
-Exact retained LifeLog/HTTPX/Digimon evidence and separately labelled authored-HTTP normal composition were qualified through ordinary application/report/store/cold opening; glyphsLib's missing historical receipts remain explicit. The accepted native acquisition default-four allocation was restored without changing global budgets. The **original** fixed navigation exposed two separate limits: source-only text retrieval found 14/20 ranges and native paging stopped after six deliveries at the 64MiB closure guard. The **new** exposed retained HTTPX native task, with the implemented valid-view/basis reuse, passes 60 exact pages and all four witnesses at the original limits, with guarded installed cold opening. The original failed attempt and incomplete source-only baseline remain recorded. The closed retained gate proves this case's bounded access, not general unlimited navigation, actual live provider, runtime dispatch or human usefulness. A later prospective matched first-page timing study showed lower CPU counters but failed elapsed-clock acceptance. **Current main continuation (November 6):** the normal-product attempt contract is frozen for review, optional CLI revision guards are implemented and verified, and a separately frozen retained 60-page timing traversal is underway after a host-clock preflight. That local historical traversal and its incomplete status do not authorize provider execution, establish active full-run elapsed performance or close live/task/adoption gates. The actual live attempt still requires its separately reviewed/activated executable manifest and authorization.
+**Preserved retained history:** LifeLog/HTTPX/Digimon retained and authored-controlled qualification passed, with the older native six-page refusal and source-only 14/20 baseline remaining negative. A later [60-page raw task](../working-memory/evidence/2026-11-06-independent-host-timing/RESULTS.md) took 2,380.532 instrumented host seconds; [AUDIT-015](../audits/2026-11-06_AUDIT-015_native-page-granularity-payload-and-publication-cost.md) records deferred access/payload opportunities, not authorized changes.
+
+**Live journey:** [Execution readiness](../working-memory/evidence/2026-11-06-native-product-execution-readiness/REVIEW.md) → [first live PyPI-timeout partial attempt](../working-memory/evidence/2026-11-06-native-normal-product-live-qualification/RESULTS.md), which preserved 12 target files, source/report recovery, no HTTPX pair and abstention → [TLS-stage diagnosis](../working-memory/evidence/2026-11-06-pypi-transport-diagnosis/RESULTS.md) → [verified split route](../working-memory/evidence/2026-11-07-pypi-route-repair/RESULTS.md) → [separately activated successful live paired successor](../working-memory/evidence/2026-11-07-native-proxy-successor/RESULTS.md). Successor: 45 GitHub/63 total requests, 24 files, 12 witnesses/five roots, **four exact-version HTTPX witnesses** in a selected TestClient root, three unexamined units, 147 gaps and eight omitted import candidates. Both versions' constructors accept five forwarded keywords under *sampled* Starlette `httpx2`-first fallback/receiver/dispatch premises. Saved witness paths/roles/outcomes and premises match native and cold report; runtime/CI `not_evaluated`, action `abstain`. Direct baseline: 38 source operations; report route: 26 bounded source reads plus a large decode, with zero raw pages; reviewer exposure and lack of human timing prevent independent usefulness claims. Limited pilot eligibility is **not** compatibility or merge permission.
+
+**Post-live design disposition:** [Exact CI/runtime checkpoint](../working-memory/2026-11-07_httpx-ci-runtime-applicability_cycle.md) inspected July retained Docker CI with incomplete test-process proof and expired logs, October's exact-head 0-run result and November's source-only case. An offline replay of October's exact response through current CI owners passed 41 tests and correctly remained `no_successful_ci` / `no_exact_head_workflows`, runtime `no_admitted_candidate`. **Historical affected-path execution is unproved**, and no CI defect or basis for a new runtime runner/combined-profile Build was demonstrated. Next **product** handoff is the existing evidence-grounded AI design checkpoint; it must communicate missing facts, not fill them by inference.
 
 Must distinguish historic retained exact inputs, controlled provider responses, outside-checkout installed proof, newly acquired real-provider observations, runtime applicability, maintainer usefulness and adoption. Successful controlled report delivery cannot prove all of them. No broad campaign or model/runtime experiment is activated by this module.
 
 ---
 
-# PART G — Scheduled later checkpoint, deliberately deferred now
+# PART G — Post-qualification design dispositions; learning later
 
-## G1 — Combined evidence and runtime applicability: deferred design checkpoint
+## G1 — Combined evidence and runtime applicability: completed design checkpoint, historical gap preserved
 
-**Status:** ⬜ DEFERRED  
-**Depth:** MUST OWN only when its plan gate is reached
+**Product status:** ✅ **Design/checkpoint completed November 7**, [recorded cycle](../working-memory/2026-11-07_httpx-ci-runtime-applicability_cycle.md). **Learning:** ⬜ Not yet covered; preserve current C2→D/E/F order before revisiting this.  
+**Depth:** MUST OWN when reached.
 
-Current main schedules this checkpoint **after connected product qualification/task disposition**, before optional source expansion/non-required case campaigns.
+Exact question: did the retained PR20 test process reach `tests/test_routes.py` L7 and the sampled Starlette HTTPX fallback/constructor? July's bounded green Docker run did not establish Python TestClient execution; October's exact-head GitHub Actions query returned zero runs, yielding `no_successful_ci`/`no_exact_head_workflows`; November's normal caller/signature profile retained static premises only. A hash-verified offline CI replay through current owners and 41 focused tests confirmed this classification; no new provider calls, no stronger runtime witness, no detected CI implementation defect.
 
-When reached, learn/design how existing static caller-signature evidence, CI/runtime command-completion state, installed package state, import/dispatch, affected-path exercise and behavior evidence can be combined without strengthening claims beyond exact identity/environment/time/material joins.
-
-Do not pre-study speculative runtime observer design now. Reuse existing CI/static/target-owned evidence first; new runtime observation must be justified by a concrete unresolved proposition.
+**Disposition:** historical runtime applicability unresolved; do not implement a combined profile, runtime producer or target runner for this already-merged case. For a decision-relevant future case, first admit a target-owned test-process observation binding exact run/attempt/interpreter/checkout, reached call, loaded module/callable/file identity, installed artifact and relevant assertion; missing evidence stays missing. The [accepted §16 checkpoint](../plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md#16-combined-evidence-and-runtime-applicability-design-checkpoint) governs. Product next: existing **evidence-grounded AI design checkpoint**, not agent execution.
 
 ## G2 — Evidence-grounded AI/retrieval interpretation: deferred design checkpoint
 
-**Implementation:** planning only, no new model/RAG/agent execution. **Learning:** ⬜ DEFERRED.
+**Product:** ✅ **Next selected design checkpoint**, not yet a new model/RAG/agent Build; [runtime evidence-availability disposition](../working-memory/2026-11-07_httpx-ci-runtime-applicability_cycle.md) is the concrete input. **Learning:** ⬜ DEFERRED until earlier modules.
 
 Owners: [project route](../plans/UPGRADEPILOT_90_DAY_PLAN.md#evidence-grounded-ai-design-checkpoint) and [planning record](../working-memory/2026-11-03_evidence-grounded-ai-direction_planning-cycle.md). Linked to the G1 disposition, **not another immediate Build prerequisite**. Earlier Investigator trials were inconclusive/negative. When selected, compare one exact maintainer evidence-interpretation task with a transparent same-material baseline and bounded model; test retrieval only if selection is the observed gap. Track unsupported claims, citations, missing facts, costs/failures/rollback and explicit disposition. Broad RAG infrastructure/tool-use agents/MLOps stay conditional.
 
@@ -531,20 +543,20 @@ Owners: [project route](../plans/UPGRADEPILOT_90_DAY_PLAN.md#evidence-grounded-a
 
 ## 4. Current learning order
 
-**Learning-coverage snapshot (November 6, after working-memory-route review):** 19 named modules = **6 covered interactively** (A1–A4, B1, C1), **5 introduced/in progress** (C2, D1–D4), **8 not yet studied** (E1–E3, F1–F3, G1–G2). **13 not yet covered**; among them G1/G2 are intentionally deferred design checkpoints, not immediate prerequisites. Implementation milestones do not automatically upgrade learning marks.
+**Learning-coverage snapshot (November 7, after live source and CI design milestones):** 19 named modules = **6 covered interactively** (A1–A4, B1, C1), **5 introduced/in progress** (C2, D1–D4), **8 not yet studied** (E1–E3, F1–F3, G1–G2). **13 not yet covered**; among them G1/G2 are intentionally deferred design checkpoints, not immediate prerequisites. Implementation milestones do not automatically upgrade learning marks.
 
 ```text
 COVERED INTERACTIVELY:  A1 A2 A3 A4 B1 C1  (6 of 19)
-NOW:                    C2 historical result reconstruction and evidence-integrity validation (real-case re-teaching needed)
+NOW:                    C2 historical result reconstruction and evidence-integrity validation (real LifeLog data-flow explored; result graph next)
 
 NEXT:                   D1 D2 D3 D4 (previously introduced; continue)
                         E1 E2 E3 acquisition and exact provenance
                         F1 verified source-progress application
                         F2 verified user-facing CLI/report/Workspace delivery
-                        F3 verified retained-case qualification; live/task/usefulness gates later
+                        F3 selected live HTTPX pairing/task qualified; broad usefulness/adoption unproved
 
-LATER AT PLAN HANDOFF:  G1 combined evidence/runtime applicability
-                        G2 evidence-grounded AI/LLM/retrieval checkpoint
+LATER IN LEARNING:      G1 completed applicability checkpoint (historical execution unresolved)
+                        G2 evidence-grounded AI design checkpoint (next product handoff; no Build yet)
 ```
 
 ### Flow understanding and ownership evidence

@@ -1,0 +1,63 @@
+{
+  "outcome": "offline_launch_and_cold_methods_qualified",
+  "proof_class": "controlled_normal_cli_composition_not_live_capture",
+  "runtime": "new noneditable offline install of qualified wheel; existing venv dependencies reused",
+  "product_source_files": 112,
+  "wheel_sha256": "8a4e7a428ff83bf42bd2596e6c6cb84960368e56fc3ec7a1a73daa3853a0cc07",
+  "controlled_costs": {
+    "exit": 0,
+    "github": 45,
+    "provider": 55,
+    "response_bytes": 303510,
+    "header_scope_checked": true,
+    "fixture_sha256": "4418da9c4fd3cce5b280a83966b25faf641ab917e1a1f8cf1a59cdafdebf6ba5"
+  },
+  "controlled_composition": {
+    "outcome": "child_exited",
+    "child_exit": 0,
+    "host_elapsed_seconds": 16.5537959,
+    "host_utc_span_seconds": 16.5649469,
+    "observations": 61,
+    "max_observation_gap_seconds": 0.2774764,
+    "timing_quality": "qualified_outer_envelope",
+    "confirmed_revision": "3ae6ea3fecc04277847de7ce0cafe3e6"
+  },
+  "cold": {
+    "outcome": "passed",
+    "selected_revision": "3ae6ea3fecc04277847de7ce0cafe3e6",
+    "report_present": true,
+    "exact_report_sha256": "f388e483f8e520af3b65aa56febc3907282cb4c9f13230ebab2fe6248c38cb4f",
+    "target_source_id": "source-29",
+    "target_source_sha256": "54ce091cd5e7ec03d53606f59b713e87ff64a1d6d5922f61be23d97b049393f2",
+    "reference_native_equal": true,
+    "guards_discriminated": 6,
+    "github": 45,
+    "provider": 55,
+    "response_bytes": 303510,
+    "acquisition_state": "partial",
+    "witnesses": 12,
+    "roots": 5,
+    "provider_calls": 0,
+    "credential_value_read": false
+  },
+  "cold_successor_controls": {
+    "outcome": "passed",
+    "cold_method_sha256": "122ef4bc6596fb941d7949df4483442828240f37bf0e9e44b5ed4e90515b6b4a",
+    "exact_positive": true,
+    "missing_revision_reason": "missing_checkpoint_revision",
+    "changed_report_bytes_refused": true,
+    "hook_cleanup_on_failure": true,
+    "real_provider_calls": 0,
+    "personal_credential_value_read": false
+  },
+  "nonzero_exit_preserved": 7,
+  "timeout_outcome": "timeout",
+  "timeout_child_exit": -2,
+  "output_reuse_refused": true,
+  "live_provider_calls": 0,
+  "personal_credential_value_read": false,
+  "target_code_executed": false,
+  "regression_horizon": "Unchanged product hashes retain prior1077-product/194-API/7-architecture qualification; those suites not rerun here.",
+  "development_correction": "First negative reader correctly refused missing revision but left profile hook active at interpreter shutdown. Original method/log retained; successor cleanup and missing-revision/changed-report controls pass.",
+  "exposure": "Already exposed HTTPX integration case; no untouched transfer, independent usefulness, live latency or runtime compatibility claim."
+}

@@ -1,0 +1,109 @@
+{
+  "outcome": "qualified_host_timed_completion",
+  "product_horizon": "1e5d3aec",
+  "method_freeze": "828546b2",
+  "host_elapsed_seconds": 2380.5319265,
+  "host_utc_span_seconds": 2380.5314172,
+  "host_observations": 8696,
+  "max_host_observation_gap_seconds": 0.2804419,
+  "quality_problems": [],
+  "scope": "instrumented outer WSL child lifetime, including imports/setup/60 durable pages/progress IO/verification/cold read/exit and protocol overhead; not pure production latency or human time",
+  "pages": 60,
+  "characters": 245760,
+  "delivered_bytes": 282355,
+  "prefix_sha256": "98051a399d782e96dc5ee85d70fc48f5723b4b2c96a3d186239d531bfd428081",
+  "prefix_equal_prior_completed_run": true,
+  "page_call_counter_sums_seconds": {
+    "monotonic_ns": 2143.676089737,
+    "raw_ns": 2338.555876877,
+    "cpu_ns": 2337.075008102,
+    "rusage_cpu_ns": 2337.07482
+  },
+  "page_examples": [
+    {
+      "page": 1,
+      "counters": {
+        "monotonic_ns": 16612323476,
+        "raw_ns": 18122534828,
+        "cpu_ns": 18070813091,
+        "rusage_cpu_ns": 18070807000
+      }
+    },
+    {
+      "page": 30,
+      "counters": {
+        "monotonic_ns": 34532123584,
+        "raw_ns": 37671406796,
+        "cpu_ns": 37647278996,
+        "rusage_cpu_ns": 37647276000
+      }
+    },
+    {
+      "page": 45,
+      "counters": {
+        "monotonic_ns": 48237710104,
+        "raw_ns": 52622955338,
+        "cpu_ns": 52594978727,
+        "rusage_cpu_ns": 52594976000
+      }
+    },
+    {
+      "page": 60,
+      "counters": {
+        "monotonic_ns": 63254511525,
+        "raw_ns": 69004941413,
+        "cpu_ns": 68989542474,
+        "rusage_cpu_ns": 68989539000
+      }
+    }
+  ],
+  "stages": {
+    "setup_and_menu": {
+      "monotonic_ns": 24555796377,
+      "raw_ns": 26788140396,
+      "cpu_ns": 26718959828,
+      "rusage_cpu_ns": 26718960000
+    },
+    "page_loop_with_progress_io": {
+      "monotonic_ns": 2143809014340,
+      "raw_ns": 2338700863732,
+      "cpu_ns": 2337219952669,
+      "rusage_cpu_ns": 2337219950000
+    },
+    "verification_and_readback": {
+      "monotonic_ns": 3232515169,
+      "raw_ns": 3526381965,
+      "cpu_ns": 3523655622,
+      "rusage_cpu_ns": 3523650000
+    },
+    "cold_child_wait": {
+      "monotonic_ns": 10230857830,
+      "raw_ns": 11160939976,
+      "cpu_ns": 1262112,
+      "rusage_cpu_ns": 1259000
+    }
+  },
+  "cold_child_cpu_seconds": 11.158338,
+  "functional": {
+    "candidate_array_complete": true,
+    "all_candidates_equal": true,
+    "native_version_witnesses": 4,
+    "native_paired_roots": 1,
+    "native_boundary_unchanged": true,
+    "cold": {
+      "outcome": "passed",
+      "pages": 60,
+      "exact_pages_and_prefix": true,
+      "unique_views": 1,
+      "unique_bases": 1,
+      "guards_discriminated": true
+    }
+  },
+  "confirmed_revision": "6346ed62dcf24dd6a7b0c417b79ed570",
+  "attempted_revision": null,
+  "frozen_methods_input_installed_unchanged": true,
+  "source_record_bytes": 1669418,
+  "partial_record_prefix": true,
+  "live_provider_calls": 0,
+  "personal_credentials_read": false
+}
