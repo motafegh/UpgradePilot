@@ -15,7 +15,8 @@ from time import perf_counter
 HERE = Path(__file__).resolve().parent
 LEXICAL = HERE.parent / "2026-11-07-offline-evidence-retrieval" / "replay.py"
 QUERIES = HERE / "queries.json"
-FREEZE = HERE / "freeze.json"
+FIRST_FREEZE = HERE / "freeze.json"
+FREEZE = HERE / "freeze-successor.json"
 MODEL_REVISION = "4328cf26390c98c5e3c738b4460a05b95f4911f5"
 SEQUENCE_LIMIT = 384
 VERSIONS = ("sentence-transformers", "torch", "transformers", "tokenizers", "safetensors",
@@ -48,6 +49,7 @@ def identity(model, passages):
                      for row in passages},
         "queries_sha256": digest(QUERIES), "lexical_sha256": digest(LEXICAL),
         "comparison_sha256": digest(Path(__file__)),
+        "first_freeze_sha256": digest(FIRST_FREEZE),
         "device": "cpu", "torch_threads": 2, "limit": 2, "sequence_limit": SEQUENCE_LIMIT,
         "ranking": "FTS5 BM25 or normalized dot product; ties by passage ID",
     }
@@ -56,14 +58,19 @@ def identity(model, passages):
 def compare(model_path, passages, targets, lexical):
     import torch
     from sentence_transformers import SentenceTransformer
+    from transformers import AutoConfig, AutoTokenizer
 
     torch.set_num_threads(2)
     start = perf_counter()
     model = SentenceTransformer(str(model_path), device="cpu", local_files_only=True,
                                 trust_remote_code=False, model_kwargs={"use_safetensors": True})
     default_sequence_limit = model.max_seq_length
-    assert SEQUENCE_LIMIT <= model.tokenizer.model_max_length
+    raw_tokenizer = AutoTokenizer.from_pretrained(model_path, local_files_only=True, trust_remote_code=False)
+    config = AutoConfig.from_pretrained(model_path, local_files_only=True, trust_remote_code=False)
+    assert SEQUENCE_LIMIT <= raw_tokenizer.model_max_length
+    assert SEQUENCE_LIMIT + config.pad_token_id < config.max_position_embeddings
     model.max_seq_length = SEQUENCE_LIMIT
+    assert model.max_seq_length == model.tokenizer.model_max_length == SEQUENCE_LIMIT
     loaded = perf_counter()
     queries = json.loads(QUERIES.read_bytes())
     texts = [row[-1] for row in passages] + [query[3] for query in queries]
