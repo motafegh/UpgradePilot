@@ -1,6 +1,6 @@
 # Caller-signature learning — module-by-module engineering-source map
 
-**Reference horizon:** main `852dd20babc787021ea1c2cfa5a4f55713a2b496` (November 7, 2026).
+**Reference horizon:** main `772b67cb9ac7d591957d3f464c83a2023085adbe` (November 7, 2026).
 
 ## Required procedure before each lesson and substantive chunk
 
@@ -88,6 +88,8 @@
 
 **Guided November 7 JSON identity/coverage slice — evidence and generator:** the [live `results.json`](../working-memory/evidence/2026-11-07-native-proxy-successor/results.json) is written by [`review_saved_task.py`](../working-memory/evidence/2026-11-07-native-proxy-successor/review_saved_task.py): `open_caller_signature_checkpoint(CheckpointStore.open(..., read_only=True), baseline["revision"])` → `opened.report`, `opened.native.sources.acquisition`, `opened.native.comparison`, `run.result` → summary. `base_sha` and `head_sha` are target PR commits while `revision` is the acknowledged Workspace checkpoint identity. `acquisition_state=partial`, `analysis_state=completed` do not contradict; `len(result.gaps)=147` and three `coverage=="unexamined"` are independently recorded. The reviewer does not rerun acquisition or analysis. The [living roadmap's C2 checklist](2026-11-02-caller-signature-native-pipeline-mastery-roadmap.md) now records four explained slices and five remaining slices; a checked explanation is **not** user-independent mastery. Next: transport receipts/partiality and selected witness paths under the same exact capture.
 
+
+**Guided transport-ledger slice (November 7) — relevant historical anchors:** [Successor recorded request receipts](../working-memory/evidence/2026-11-07-native-proxy-successor/results.json), [product shared policy/ledger implementation](../src/upgradepilot/caller_signature/acquisition.py), [Nov 2 owner-transfer reasoning](../working-memory/2026-11-02_native-acquisition-ledger_cycle.md) and [Nov 7 live successor cycle](../working-memory/2026-11-07_native-proxy-successor_cycle.md). Exactly 63 physical requests split into 45 GitHub/18 PyPI; stage counts 3/14/40/6; 53 HTTP 200 and ten HTTP 404, no stops/retries. `received` 404 denotes completed transport of a body, not a qualifying provenance or source claim; candidate coverage remains partial (eight omitted). Mark the fifth C2 teaching checklist item explained using actual totals and selected receipts, **not** 63 individually interpreted rows or E1/E3 module mastery. Next: selected eight-of-twelve witness path details.
 ### D1 — Native source evidence: exact text, selection and acquisition provenance
 
 **Engineering journey / Working Memory:** [2026-11-02_caller-signature-native-family-checkpoint_cycle.md](../working-memory/2026-11-02_caller-signature-native-family-checkpoint_cycle.md) · [2026-11-02_native-source-acquisition-owners_cycle.md](../working-memory/2026-11-02_native-source-acquisition-owners_cycle.md).
@@ -227,6 +229,8 @@
 **Newer exposed screen outcome:** [maintainer planning cycle](../working-memory/2026-11-07_evidence-grounded-maintainer-explanation_planning-cycle.md) reviewed concise HTTPX and OpenCV retained contrasts; neither established an unresolved task gap warranting a model run. The product now selects a different demonstrated task or defers. No inference or implementation selected.
 
 **Current product handoff:** review the exposed HTTPX maintainer task and deterministic same-evidence baseline; establish a concrete evidence/presentation/interpretation gap before selecting any model or execution contract. No inference or multi-agent run is activated. The plan includes gated lexical retrieval, optional FTS5/BM25 only if lexical misses matter, later semantic retrieval/framework comparisons, and a separate two-worker/coordinator learning exercise.
+
+**New source-backed optional tool-learning evidence:** [SQLite FTS5 baseline and query-rewrite cycle](../working-memory/2026-11-07_offline-evidence-retrieval_learning-cycle.md) scored five of seven in the frozen exposed set, with two original missed paraphrases; read-only in-memory FTS5 plus scoped metadata filters, not D4's durable Workspace store. A separate [local CPU semantic retrieval comparison cycle](../working-memory/2026-11-07_offline-semantic-retrieval_learning-cycle.md) stopped pre-score on a tokenizer-wrapper context guard; a successor is bound but not an evaluated semantic result at the map horizon. No general retrieval lift, model explanation, production integration or independent mastery is claimed.
 
 **What to explain later:** schema-valid output versus source-supported claims; retrieval versus interpretation; fixed workflow versus autonomous delegation; budget/timeout/failure behavior and explicit uncertainty. Keep G2 deferred until earlier modules are covered.
 
