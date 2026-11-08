@@ -1,4 +1,4 @@
-"""Reconstruct the tracked-input subset of the maintainer AI rehearsal."""
+"""Reconstruct tracked reviewer views with an optional public HTTPX derivative."""
 
 import argparse
 import hashlib
@@ -30,6 +30,10 @@ def require_digest(content: bytes, expected: str, label: str) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("output", type=Path, help="new owner-only output directory")
+    parser.add_argument(
+        "--include-httpx-summary", action="store_true",
+        help="include the published HTTPX derivative alongside the two exact cases",
+    )
     args = parser.parse_args()
 
     original = (PACKET / "receipt.json").read_bytes()
@@ -40,6 +44,7 @@ def main() -> None:
     task = (revision / "REVIEWER_TASK.md").read_bytes()
     require_digest(task, updated["reviewer_task_sha256"], "reviewer task")
     views = {}
+    topics = TOPICS.copy()
     for case, relative in REPORTS.items():
         saved = EVIDENCE / relative
         binding = receipt["cases"][case]
@@ -59,6 +64,20 @@ def main() -> None:
         for condition, content in views[case].items():
             require_digest(content, binding["views"][condition], f"{case} {condition}")
 
+    if args.include_httpx_summary:
+        revision_3 = PACKET / "revision-3"
+        revision_3_receipt = json.loads((revision_3 / "receipt.json").read_bytes())
+        require_digest(
+            (revision / "receipt.json").read_bytes(),
+            revision_3_receipt["revision_2_receipt_sha256"], "revision 2 receipt",
+        )
+        topics["httpx"] = (revision_3 / "HTTPX_FOCUS.txt").read_bytes()
+        require_digest(topics["httpx"], revision_3_receipt["httpx_focus_sha256"], "HTTPX topic")
+        published = Path(__file__).resolve().parent
+        full = (published / "HTTPX_REPORT.md").read_bytes()
+        opening = (published / "HTTPX_OPENING.md").read_bytes()
+        views["httpx"] = {"full": full, "opening": opening + b"\n" + full}
+
     os.umask(0o077)
     args.output.mkdir(mode=0o700)
     for slot, assignments in receipt["allocation"].items():
@@ -70,7 +89,7 @@ def main() -> None:
                 folder = reviewer / f"{index:02d}-{case}"
                 (folder / "sources").mkdir(parents=True)
                 (folder / "report.txt").write_bytes(views[case][condition])
-                (folder / "FOCUS.txt").write_bytes(TOPICS[case])
+                (folder / "FOCUS.txt").write_bytes(topics[case])
 
 
 if __name__ == "__main__":

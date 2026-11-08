@@ -51,6 +51,10 @@ Historical records are not rewritten merely because a decision is promoted. They
 
 Future sessions should normally load the canonical owner first and consult dated history only when a provenance, comparison, challenge, or unresolved-design question requires it.
 
+### Publishing project artifacts
+
+Commit durable project reports, evidence summaries, and handoffs to the repository by default so another checkout can use them. Review the actual payload before publishing. A local path alone does not determine eligibility. When size, security, privacy, or redistribution requirements prevent publishing the original, commit the smallest useful safe counterpart with provenance, the reason for the exception, and any reproducibility limits. Follow [SECURITY.md](../SECURITY.md) for trust and authorization. Keep transient scratch copies and generated duplicates out of Git when a checkout can reproduce them.
+
 ## 3. Durable decision-promotion lifecycle
 
 A substantial discussion or investigation may begin in a dated working-memory record, audit, simulation, or proposal. Once a conclusion is accepted and expected to guide unrelated future sessions, classify it by responsibility and promote it to the durable owner.
