@@ -1,0 +1,21 @@
+{
+  "glyphs_passages": [
+    ["glyphs-coverage", "coverage_boundary", 17, 22],
+    ["glyphs-regression", "static_exercise", 24, 29],
+    ["glyphs-name", "correlation_blocker", 42, 49],
+    ["glyphs-tox", "static_analysis_blocker", 51, 65],
+    ["glyphs-manager", "state_blocker", 97, 114],
+    ["glyphs-runtime", "candidate_evaluation", 90, 95]
+  ],
+  "queries": [
+    ["missing-name", "glyphs", "What is the static_job_name_missing blocker?", "static_job_name_missing", "glyphs-name", "correlation_blocker"],
+    ["manager", "glyphs", "What evidence would tell us which Python pip targeted?", "\"which Python\"", "glyphs-manager", "state_blocker"],
+    ["dynamic-runner", "glyphs", "What blocks static analysis of tox on the dynamic runner?", "dynamic_runner_platform AND tox", "glyphs-tox", "static_analysis_blocker"],
+    ["candidate-count", "glyphs", "How many candidates did runtime dependency state evaluate?", "\"runtime dependency state\"", "glyphs-runtime", "candidate_evaluation"],
+    ["skipped-steps", "fci", "Which user steps were bypassed?", "\"bypassed\"", "fci-user-steps", "observed_user_steps"],
+    ["job-success", "fci", "What did the Release readiness job conclude?", "\"Release readiness\"", "fci-job", "observed_job_result"],
+    ["identity-bridge", "fci", "Did the declared steps line up one for one with the observed steps?", "\"one for one\"", "fci-correlation", "observed_correlation"],
+    ["missing-install", "glyphs", "Show proof pytest 9.0.3 was installed in Regression Tests.", "\"Regression Tests\"", null, "installed_version_proof"],
+    ["missing-execution", "fci", "Show proof that Validate the release candidate ran successfully.", "\"Validate the release candidate\"", null, "successful_user_step_proof"]
+  ]
+}
