@@ -339,14 +339,46 @@ def _source_lines(sources: tuple[ReportSource, ...]) -> list[str]:
 
 
 class ReportSourceUnavailable(ValueError):
-    """An exact saved source ID has no retained original text for inspection."""
+    """A report source is missing or cannot be shown in the requested view."""
+
+
+def _report_source(report: InvestigationReport, source_id: str) -> ReportSource:
+    source = next((s for s in report.sources if s.source_id == source_id), None)
+    if source is None:
+        raise ReportSourceUnavailable("Unknown report source ID.")
+    return source
+
+
+def render_report_facts(report: InvestigationReport, source_id: str) -> str:
+    """Display the facts retained for one supported report source."""
+    source = _report_source(report, source_id)
+    if source.retention != "selected_facts":
+        raise ReportSourceUnavailable("This source does not retain selected facts.")
+    # Other selected-fact sources can contain bulk records such as an entire CI job inventory.
+    if source.kind not in {"artifact_capabilities", "package_metadata"}:
+        raise ReportSourceUnavailable(f"Selected-fact inspection is unavailable for {source.kind}.")
+    if not source.identity:
+        raise ReportSourceUnavailable("This source has no saved fact values.")
+
+    return _display_lines([
+        "UpgradePilot saved facts; offline, no live refresh",
+        f"Report: {report.report_id}",
+        f"Report generated at: {report.generated_at}",
+        *(f"{fact.label}: {fact.value}" for fact in report.identity),
+        f"Source: {source.source_id} | {source.kind} | {source.retention}",
+        f"Location: {source.locator or 'not recorded'}",
+        f"Observation time: {source.retrieved_at or 'not recorded'}",
+        f"Method: {source.method}",
+        f"Preservation limit: {source.limitation}",
+        "",
+        "Selected facts",
+        *(f"{fact.label} [{fact.name}]: {fact.value}" for fact in source.identity),
+    ])
 
 
 def render_report_source(report: InvestigationReport, source_id: str) -> str:
     """Display one retained original source as inert text, without I/O or interpretation."""
-    source = next((s for s in report.sources if s.source_id == source_id), None)
-    if source is None:
-        raise ReportSourceUnavailable("Unknown report source ID.")
+    source = _report_source(report, source_id)
     return render_original_source(source, context=(
         f"Report: {report.report_id}", f"Report generated at: {report.generated_at}",
     ))

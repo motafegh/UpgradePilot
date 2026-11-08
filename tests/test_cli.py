@@ -36,6 +36,9 @@ from upgradepilot.investigation import (
     PublicPullRequestInvestigation,
 )
 from upgradepilot.pypi.release import PackageReleaseEvidence
+from upgradepilot.report import ReportFact, ReportSource
+from upgradepilot.report_file import save_report
+from upgradepilot.report_projection import project_investigation_report
 from upgradepilot.target.artifact_environment import (
     TargetArtifactEnvironmentEvidence,
     TargetArtifactEnvironmentFact,
@@ -83,6 +86,9 @@ class CLITests(unittest.TestCase):
             ["example/project", "7", "--open-report", "x"],
             ["--open-report", "x", "--save-report", "y"],
             ["--open-report", "x", "--github-auth", "anonymous"],
+            ["example/project", "7", "--show-facts", "source-1"],
+            ["--open-workspace", "x", "--revision", "rev", "--show-facts", "source-1"],
+            ["--open-report", "x", "--show-source", "source-1", "--show-facts", "source-2"],
             [],
         ):
             with (
@@ -115,10 +121,83 @@ class CLITests(unittest.TestCase):
             path = Path(directory) / "report.json"
             path.write_text("malformed")
             with patch("upgradepilot.cli.investigate_public_pull_request") as acquire:
-                status, output = _run(["--open-report", str(path)])
-            self.assertEqual(status, 6)
-            self.assertIn("Saved report rejected", output)
+                for selection in ([], ["--show-facts", "source-1"]):
+                    with self.subTest(selection=selection):
+                        status, output = _run(["--open-report", str(path), *selection])
+                        self.assertEqual(status, 6)
+                        self.assertIn("Saved report rejected", output)
             acquire.assert_not_called()
+
+    def test_saved_fact_view_displays_only_the_selected_record_offline(self):
+        report = project_investigation_report(_supported_investigation())
+        artifact = ReportSource(
+            "source-900", "artifact_capabilities", None,
+            (ReportFact("removed_tag_1", "Removed tag", "py3-none-any"),),
+            "saved comparison", None, "selected_facts", None, "publication scope only",
+        )
+        package = replace(
+            artifact, source_id="source-901", kind="package_metadata",
+            identity=(
+                ReportFact("file_1_filename", "Distribution file", "sample-2.tar.gz"),
+                ReportFact("file_2_filename", "Distribution file", "sample-2.whl\x1b"),
+            ),
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "report.json"
+            save_report(replace(report, sources=(*report.sources, artifact, package)), path)
+            saved = path.read_bytes()
+            with (
+                patch("upgradepilot.cli.investigate_public_pull_request") as acquire,
+                patch("upgradepilot.cli.os.getenv") as getenv,
+            ):
+                for chosen, other in ((artifact, package), (package, artifact)):
+                    with self.subTest(source=chosen.source_id):
+                        status, output = _run(["--open-report", str(path), "--show-facts", chosen.source_id])
+                        self.assertEqual(status, 0)
+                        self.assertIn(f"Report: {report.report_id}", output)
+                        self.assertIn(f"Source: {chosen.source_id} | {chosen.kind} | selected_facts", output)
+                        self.assertIn("Observation time: not recorded", output)
+                        self.assertIn("Preservation limit: publication scope only", output)
+                        self.assertIn("Selected facts\n" + "\n".join(
+                            f"{fact.label} [{fact.name}]: {fact.value.removesuffix(chr(27))}"
+                            for fact in chosen.identity
+                        ), output)
+                        self.assertNotIn(other.source_id, output)
+                        self.assertNotIn("\x1b", output)
+            acquire.assert_not_called()
+            getenv.assert_not_called()
+            self.assertEqual(path.read_bytes(), saved)
+            status, output = _run(["--open-report", str(path), "--show-source", artifact.source_id])
+            self.assertEqual(status, 7)
+            self.assertIn("no retained original text", output)
+
+    def test_saved_fact_view_distinguishes_unavailable_sources(self):
+        report = project_investigation_report(_supported_investigation())
+        empty = ReportSource(
+            "source-900", "artifact_capabilities", None, (), "saved comparison",
+            None, "selected_facts", None, "publication scope only",
+        )
+        unsupported = replace(empty, source_id="source-901", kind="workflow_execution")
+        original = replace(
+            empty, source_id="source-902", kind="target_source",
+            retention="retained_text", content="literal source",
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "report.json"
+            save_report(replace(report, sources=(*report.sources, empty, unsupported, original)), path)
+            for source_id, reason in (
+                ("source-999", "Unknown report source ID"),
+                (empty.source_id, "no saved fact values"),
+                (unsupported.source_id, "unavailable for workflow_execution"),
+                (original.source_id, "does not retain selected facts"),
+            ):
+                with self.subTest(source=source_id):
+                    status, output = _run(["--open-report", str(path), "--show-facts", source_id])
+                    self.assertEqual(status, 7)
+                    self.assertIn(reason, output)
+            status, output = _run(["--open-report", str(path), "--show-source", original.source_id])
+            self.assertEqual(status, 0)
+            self.assertIn("BEGIN LITERAL SOURCE TEXT\nliteral source", output)
 
     def test_pre_result_acquisition_failure_does_not_fabricate_saved_report(self):
         with tempfile.TemporaryDirectory() as directory:

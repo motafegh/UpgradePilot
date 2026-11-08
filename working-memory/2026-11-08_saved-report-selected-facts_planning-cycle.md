@@ -21,3 +21,21 @@ Reused the previous turn's onboarding for this directly selected bounded design.
 - The same report has workflow selected-fact records with up to hundreds of repeated job fields. Publisher provenance fields already appear in the inventory. A global dump would expand the first task into bulk evidence navigation. A wheel-only command would duplicate the existing record abstraction and would leave the package-metadata task unresolved.
 
 Use one proposed saved-report facts selector and shared renderer with evidence-kind admission. Begin with artifact capabilities and package metadata, and exercise both on the real saved inputs. Reuse the existing decoder and inert display. Keep full-report output and original-text access compatible. The design neither infers target applicability from the inspected facts nor changes the files that produced them. The proof will compare values and binding, cover refusal and compatibility paths, and verify offline behavior. No product code or schema changed. UP-SKILL:upgradepilot-planning-design. UP-SKILL:upgradepilot-working-memory.
+
+## Build continuation
+
+Ali selected full implementation of the previously explained design and asked for onboarding after verification. Reconciled `8709d1c0` with `origin/main`. The prior onboarding and explicit selection complete the pre-B gate for this continuous responsibility. Continued the same record because the input, scope and proof route carry directly into Build.
+
+The CLI admits `--show-facts` on `--open-report` and makes it mutually exclusive with `--show-source`. The existing reader still validates the saved envelope before dispatch. The report renderer reuses exact source-ID lookup, admits the two selected-fact kinds, refuses empty records, and prints provenance and each field's label, key and value in order. The key distinguishes repeated labels such as “Distribution file.” The existing terminal-safe display handles external values. Product code has no case-specific IDs, names, counts or tag values.
+
+The focused CLI checks passed. Real offline invocation with socket, fresh investigation and credential access guarded matched all 37 OpenCV values and all 12 Soup Sieve values in order against the saved JSON. Both input files were unchanged. These are historical report inputs and the proof concerns access to their saved facts.
+
+Compared CLI output against a clean archived source tree at `8709d1c0`. Both ordinary saved reports and the HTTPX `--show-source source-27` view matched byte for byte. Unknown, empty, unadmitted and original-text sources refused selected-fact inspection with exit 7. Malformed report input returned exit 6 and conflicting flags returned exit 2. The full product suite passed all 1,080 tests, and governance and whitespace checks passed. UP-SKILL:upgradepilot-build-implement.
+
+```text
+A0/A1/A2 — DONE: reconciled the accepted design, current CLI and actual saved records.
+B — DONE: implemented and documented the offline facts selector.
+Verification — GREEN: real field parity, refusal controls, prior-view byte parity and full product suite.
+D/E — GUIDED HANDOFF: teach the report-to-source flow and distinguish publication facts from target behavior. Independent practice remains unassessed.
+C — DONE FOR BUILD: preserved implementation, proof and boundaries.
+```

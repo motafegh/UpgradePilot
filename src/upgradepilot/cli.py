@@ -23,7 +23,7 @@ from .github.identity import UpgradePilotInputError, validate_commit_sha
 from .investigation import investigate_public_pull_request
 from .report import (
     ReportFact, ReportSource, ReportSourceUnavailable, render_investigation_report,
-    render_report_source, render_original_source,
+    render_original_source, render_report_facts, render_report_source,
 )
 from .report_file import (
     ReportSaveError,
@@ -72,9 +72,14 @@ def build_parser() -> argparse.ArgumentParser:
         metavar="PATH",
         help="Open a saved report offline without gathering new evidence.",
     )
-    parser.add_argument(
+    inspection = parser.add_mutually_exclusive_group()
+    inspection.add_argument(
         "--show-source", metavar="SOURCE_ID",
         help="Inspect one retained original text source in an offline report or Workspace.",
+    )
+    inspection.add_argument(
+        "--show-facts", metavar="SOURCE_ID",
+        help="Inspect saved artifact capability or package metadata facts with --open-report.",
     )
     parser.add_argument("--evidence-profile", choices=("caller-signature",),
                         help="Select bounded static caller/signature evidence explicitly.")
@@ -101,6 +106,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         parser.error("--expected-base/--expected-head require a live caller-signature investigation")
     if args.show_source is not None and args.open_report is None and args.open_workspace is None:
         parser.error("--show-source requires --open-report or --open-workspace")
+    if args.show_facts is not None and args.open_report is None:
+        parser.error("--show-facts requires --open-report")
     if args.revision is not None and args.open_workspace is None:
         parser.error("--revision requires --open-workspace")
     if args.open_workspace is not None:
@@ -127,14 +134,16 @@ def main(argv: Sequence[str] | None = None) -> int:
         except ReportValidationError as exc:
             print(f"Saved report rejected: {exc}")
             return 6
-        if args.show_source is not None:
-            try:
+        try:
+            if args.show_facts is not None:
+                display = render_report_facts(report, args.show_facts)
+            elif args.show_source is not None:
                 display = render_report_source(report, args.show_source)
-            except ReportSourceUnavailable as exc:
-                print(f"Source unavailable: {exc}")
-                return 7
-        else:
-            display = render_investigation_report(report, saved=True)
+            else:
+                display = render_investigation_report(report, saved=True)
+        except ReportSourceUnavailable as exc:
+            print(f"Source unavailable: {exc}")
+            return 7
         print(display)
         return 0
     if args.repository is None or args.pull_number is None:
