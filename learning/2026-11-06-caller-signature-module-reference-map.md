@@ -1,6 +1,6 @@
 # Caller-signature learning — module-by-module engineering-source map
 
-**Reference horizon:** main `b56ad634e421fb3d639141054da52260e83c7410` (November 8, 2026). The first-view renderer and reviewer-packet readiness are later F2/F3 learning sources, not a new C2 prerequisite.
+**Reference horizon:** main `dc6be359e6b6048987b761583bc3e2dff5e77cd0` (November 8, 2026). C2 source-reference lesson taught from exact pinned public summary; original full native catalog still owner-local.
 
 ## Required procedure before each lesson and substantive chunk
 
@@ -103,6 +103,8 @@
 - Continue with exact opaque source-ID-to-catalog-path reconstruction before decoder details. Treat all static witness paths as conditional until their premises are established for a particular target process.
 
 **Learning audit note:** `constraint_sample` Starlette 1.10.0 is not target-installed-version proof. The learner's proposal to acquire better version evidence is tracked as [LPA-001](2026-11-08-learning-to-product-engineering-audit-register.md), without replacing historic witness roles or marking C2 mastery.
+
+**November 8 pinned source-reference lesson:** [Published HTTPX report summary](../working-memory/evidence/2026-11-08-maintainer-first-view-review/remote-rehearsal/HTTPX_REPORT.md) identifies original-file IDs in this *report*: `source-27` target, `source-37` FastAPI, `source-39` sampled Starlette, `source-35` old HTTPX, `source-31` proposed HTTPX. [Report projection](../src/upgradepilot/report_projection.py) assigns report-local IDs, stores native file IDs and exact repository/revision/path/content checks; [catalog source access](../src/upgradepilot/workspace/source_access.py) derives file identity and bounded text delivery; [result codec](../src/upgradepilot/caller_signature/result_codec.py) checks source/unit/span integrity and graph endpoints. [Actual live witness JSON](../working-memory/evidence/2026-11-07-native-proxy-successor/results.json) has proposed and old 12/11-step alternative re-export routes. Original full report/catalog mappings for intermediate IDs are not present in the public summary. 11/15 C2 guided items taught; full cold source mapping pending.
 ### D1 — Native source evidence: exact text, selection and acquisition provenance
 
 **Engineering journey / Working Memory:** [2026-11-02_caller-signature-native-family-checkpoint_cycle.md](../working-memory/2026-11-02_caller-signature-native-family-checkpoint_cycle.md) · [2026-11-02_native-source-acquisition-owners_cycle.md](../working-memory/2026-11-02_native-source-acquisition-owners_cycle.md).
@@ -225,6 +227,8 @@
 
 
 **November 8 first-view usefulness preparation:** [technical reviewer readiness](../working-memory/2026-11-08_maintainer-first-view-review-readiness_planning-cycle.md), [revision-3 review protocol](../working-memory/evidence/2026-11-08-maintainer-first-view-review/revision-3/OPERATOR_PROTOCOL.md), [remote rehearsal README](../working-memory/evidence/2026-11-08-maintainer-first-view-review/remote-rehearsal/README.md). Source-equivalent and authorized participant execution is not yet recorded. Technical packet review does not equal independent usefulness. [LPA-005](2026-11-08-learning-to-product-engineering-audit-register.md) monitors the selected main gate.
+
+**November 8 AI rehearsal disposition:** [Readiness/rehearsal cycle](../working-memory/2026-11-08_maintainer-first-view-review-readiness_planning-cycle.md#ai-rehearsal-result) records two exposed AI slots recovering all three cases (30/30 answers combined), using [connector-ready derivative reports](../working-memory/evidence/2026-11-08-maintainer-first-view-review/remote-rehearsal/README.md). This is a verified rehearsal outcome, not evidence of independent human task advantage or equivalent full HTTPX original-text access.
 ### G1 — Combined source/CI/runtime applicability design checkpoint (now completed; learning later)
 
 **Engineering journey / Working Memory:** [2026-11-07_httpx-ci-runtime-applicability_cycle.md](../working-memory/2026-11-07_httpx-ci-runtime-applicability_cycle.md) · [2026-11-02_runtime-applicability-followup-plan-reconciliation_cycle.md](../working-memory/2026-11-02_runtime-applicability-followup-plan-reconciliation_cycle.md).

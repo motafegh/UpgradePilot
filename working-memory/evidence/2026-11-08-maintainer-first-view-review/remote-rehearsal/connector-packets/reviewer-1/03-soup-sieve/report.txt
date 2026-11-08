@@ -1,0 +1,698 @@
+UpgradePilot public pull-request evidence
+Mode: saved report; no live refresh
+Report: b6ba653a-51f1-4f63-9ce8-8b9146c4eaef
+Generated at: 2026-10-03T13:44:29.775377+00:00
+Recorded generator version: 1; renderer version: 3
+Product version: 0.0.0
+Repository: pydantic/pydantic
+PR: 13432
+Title: Bump soupsieve from 2.6 to 2.8.4
+Author: dependabot[bot]
+State: closed
+Merged: true
+Base ref: main
+Base: 652a61ce4f9d7d76eaada31535807a485ece0e21
+Head ref: dependabot/uv/soupsieve-2.8.4
+Head: aa2dc024d33f61cdef50bf1973ab5adf0a974f5a
+
+Dependency change: supported
+Package: soupsieve
+Normalized package: soupsieve
+Old version: 2.6
+Proposed version: 2.8.4
+Changed file: uv.lock (modified)
+Reason: recorded_owner_result
+Detail: One supported exact dependency version transition was established.
+Evidence meaning: Exact version transition only, not installation or compatibility.
+Evidence strength: recorded_fact
+Sources: source-3, source-1, source-2
+
+CI dependency coverage: supported_not_correlated
+Reason: successful_exact_head_ci_with_static_dependency_consumption
+Detail: Successful exact-head CI evidence exists for workflow 'CI', and its exact static definition contains supported changed-dependency consumption. The static consuming declaration is not safely correlated to successful runtime step execution.
+Evidence meaning: Static consumption and exact-attempt command correlation; not changed-version use or compatibility.
+Evidence strength: recorded_fact
+Sources: source-7, source-4, source-5, source-6
+
+Dependency coverage workflow CI: supported_not_correlated
+Static consumption: supported
+Static direct exercise: not_established
+Runtime consumption correlation: unresolved
+Runtime direct exercise correlation: not_established
+Consumption command: uv sync --all-packages --group linting --all-extrasuv pip install pip
+Static job: lint
+Consumption state: unresolved
+Consumption reason: uv_selected_root_workspace_scope_not_exhausted
+Consumption detail: The explicit roots of the bound lock package were traversed without a witness, but the uv command applies those selectors to all workspace packages. The complete in-scope workspace root domain was not exhausted.
+Reachability witness: 
+Consumption command: uv sync --only-group build
+Static job: core-build
+Consumption state: unresolved
+Consumption reason: project_environment_command_analysis_unresolved
+Consumption detail: Static command analysis could not safely establish the run-step command structure (dynamic_runner_platform); no textual fallback was used.
+Reachability witness: 
+Consumption command: ${{ (matrix.os == 'windows' && 'dir') || 'ls -lh' }} dist/
+Static job: core-build
+Consumption state: unresolved
+Consumption reason: project_environment_command_analysis_unresolved
+Consumption detail: Static command analysis could not safely establish the run-step command structure (dynamic_runner_platform); no textual fallback was used.
+Reachability witness: 
+Consumption command: uv run --no-sync twine check --strict pydantic-core/dist/*
+Static job: core-build
+Consumption state: unresolved
+Consumption reason: project_environment_command_analysis_unresolved
+Consumption detail: Static command analysis could not safely establish the run-step command structure (dynamic_runner_platform); no textual fallback was used.
+Reachability witness: 
+Consumption command: ${{ (startsWith(matrix.platform.os, 'windows') && 'dir') || 'ls -lh' }} dist/
+Static job: core-build-pgo
+Consumption state: unresolved
+Consumption reason: project_environment_command_analysis_unresolved
+Consumption detail: Static command analysis could not safely establish the run-step command structure (dynamic_runner_platform); no textual fallback was used.
+Reachability witness: 
+Consumption command: uv sync --only-group pyodide-build
+Static job: core-build-pyemscripten
+Consumption state: not_established
+Consumption reason: selected_uv_root_reachability_not_established
+Consumption detail: The complete bounded selected-root domain was traversed without an exact lock-backed path to the changed package. This is not a runtime, repository-wide, or complete command-environment absence claim.
+Reachability witness: 
+Consumption command: echo "rust-toolchain=$(uv run pyodide config get rust_toolchain)" >> "$GITHUB_OUTPUT"echo "emscripten-version=$(uv run pyodide config get emscripten_version)" >> "$GITHUB_OUTPUT"echo "pyodide-abi-version=$(uv run pyodide config get pyodide_abi_version)" >> "$GITHUB_OUTPUT"echo "rustflags=$(uv run pyodide config get rustflags)" >> "$GITHUB_OUTPUT"
+Static job: core-build-pyemscripten
+Consumption state: unresolved
+Consumption reason: project_environment_selection_unresolved
+Consumption detail: A uv project command was bound to the project, but no explicit extra/group selector was visible; default-group selection requires project/config evidence.
+Reachability witness: 
+Consumption command: uv sync --directory pydantic-core --group testing-extra --no-install-package pydantic-coreuv sync --group testing-extra --no-install-package pydantic-core --inexactuv pip install pydantic-core --no-index --no-deps --find-links dist --force-reinstalluv run --no-sync pytest tests/pydantic_core --ignore=tests/pydantic_core/test_docstrings.pyuv run --no-sync python -c 'import pydantic_core._pydantic_core; print(pydantic_core._pydantic_core.__version__)'uv run --no-sync python -c 'from pydantic_core._pydantic_core import build_info; print(f"{build_info=}")'
+Static job: core-test-builds-os
+Consumption state: unresolved
+Consumption reason: project_environment_command_analysis_unresolved
+Consumption detail: Static command analysis could not safely establish the run-step command structure (dynamic_runner_platform); no textual fallback was used.
+Reachability witness: 
+Consumption command: uv sync --all-packages --group testing-extra
+Static job: core-test-os
+Consumption state: unresolved
+Consumption reason: project_environment_command_analysis_unresolved
+Consumption detail: Static command analysis could not safely establish the run-step command structure (dynamic_runner_platform); no textual fallback was used.
+Reachability witness: 
+Consumption command: uv pip freeze
+Static job: core-test-os
+Consumption state: unresolved
+Consumption reason: project_environment_command_analysis_unresolved
+Consumption detail: Static command analysis could not safely establish the run-step command structure (dynamic_runner_platform); no textual fallback was used.
+Reachability witness: 
+Consumption command: uv run pytest tests/pydantic_core
+Static job: core-test-os
+Consumption state: unresolved
+Consumption reason: project_environment_command_analysis_unresolved
+Consumption detail: Static command analysis could not safely establish the run-step command structure (dynamic_runner_platform); no textual fallback was used.
+Reachability witness: 
+Consumption command: cargo test
+Static job: core-test-os
+Consumption state: unresolved
+Consumption reason: project_environment_command_analysis_unresolved
+Consumption detail: Static command analysis could not safely establish the run-step command structure (dynamic_runner_platform); no textual fallback was used.
+Reachability witness: 
+Consumption command: uv sync --all-packages --all-extras --group testing-extra
+Static job: core-test-msrv
+Consumption state: unresolved
+Consumption reason: uv_selected_root_workspace_scope_not_exhausted
+Consumption detail: The explicit roots of the bound lock package were traversed without a witness, but the uv command applies those selectors to all workspace packages. The complete in-scope workspace root domain was not exhausted.
+Reachability witness: 
+Consumption command: uv run pytest tests/pydantic_core
+Static job: core-test-msrv
+Consumption state: unresolved
+Consumption reason: project_environment_selection_unresolved
+Consumption detail: A uv project command was bound to the project, but no explicit extra/group selector was visible; default-group selection requires project/config evidence.
+Reachability witness: 
+Consumption command: uv sync --all-packages --all-extras --group testing-extra
+Static job: core-test-debug
+Consumption state: unresolved
+Consumption reason: uv_selected_root_workspace_scope_not_exhausted
+Consumption detail: The explicit roots of the bound lock package were traversed without a witness, but the uv command applies those selectors to all workspace packages. The complete in-scope workspace root domain was not exhausted.
+Reachability witness: 
+Consumption command: uv run --no-sync maturin develop --uv
+Static job: core-test-debug
+Consumption state: unresolved
+Consumption reason: project_environment_selection_unresolved
+Consumption detail: uv project discovery started outside the exact expected project root; parent/nested project discovery is not established by this rule.
+Reachability witness: 
+Consumption command: uv run pytest
+Static job: core-test-debug
+Consumption state: unresolved
+Consumption reason: project_environment_selection_unresolved
+Consumption detail: A uv project command was bound to the project, but no explicit extra/group selector was visible; default-group selection requires project/config evidence.
+Reachability witness: 
+Consumption command: uv sync --only-group pyodide-builduv run pyodide venv .venv-pyodidesource .venv-pyodide/bin/activatepython -m pip install --upgrade pip>=26.1.1python -m pip install -r .github/pyodide/pylock.${{ matrix.pylock-suffix }}.tomlpython -m pip install pydantic-core --no-index --no-deps --find-links distpython -m pytestpython -c 'import pydantic_core._pydantic_core; print(pydantic_core._pydantic_core.__version__)'python -c 'from pydantic_core._pydantic_core import build_info; print(f"{build_info=}")'
+Static job: test-pyemscripten
+Consumption state: unresolved
+Consumption reason: project_environment_command_analysis_unresolved
+Consumption detail: Static command analysis could not safely establish the run-step command structure (material_shell_parse_error); no textual fallback was used.
+Reachability witness: 
+Consumption command: uv sync --only-group build
+Static job: build-pydantic
+Consumption state: not_established
+Consumption reason: selected_uv_root_reachability_not_established
+Consumption detail: The complete bounded selected-root domain was traversed without an exact lock-backed path to the changed package. This is not a runtime, repository-wide, or complete command-environment absence claim.
+Reachability witness: 
+Consumption command: uv run --no-sync python -m build --installer uv
+Static job: build-pydantic
+Consumption state: unresolved
+Consumption reason: project_environment_selection_unresolved
+Consumption detail: A uv project command was bound to the project, but no explicit extra/group selector was visible; default-group selection requires project/config evidence.
+Reachability witness: 
+Consumption command: uv sync --all-packages --group docs
+Static job: docs-build
+Consumption state: supported
+Consumption reason: selected_uv_roots_reach_changed_dependency
+Consumption detail: Dependency-owned exact-lock evidence establishes an unconditional path from one explicit root selected by this static uv declaration to the changed dependency. Runtime execution and success are not established.
+Reachability witness: mkdocs-llmstxt -> beautifulsoup4 -> soupsieve
+Consumption command: uv run python -c 'import docs.plugins.main'
+Static job: docs-build
+Consumption state: unresolved
+Consumption reason: project_environment_selection_unresolved
+Consumption detail: A uv project command was bound to the project, but no explicit extra/group selector was visible; default-group selection requires project/config evidence.
+Reachability witness: 
+Consumption command: PYTHONPATH="$PWD${PYTHONPATH:+:${PYTHONPATH}}" uv run mkdocs build
+Static job: docs-build
+Consumption state: unresolved
+Consumption reason: project_environment_selection_unresolved
+Consumption detail: A uv project command was bound to the project, but no explicit extra/group selector was visible; default-group selection requires project/config evidence.
+Reachability witness: 
+Consumption command: uv sync --all-packages --group testing-extra
+Static job: test-memray
+Consumption state: unresolved
+Consumption reason: uv_selected_root_workspace_scope_not_exhausted
+Consumption detail: The explicit roots of the bound lock package were traversed without a witness, but the uv command applies those selectors to all workspace packages. The complete in-scope workspace root domain was not exhausted.
+Reachability witness: 
+Consumption command: uv run pytest --ignore=tests/mypy/ --ignore=tests/test_docs.py --memray
+Static job: test-memray
+Consumption state: unresolved
+Consumption reason: project_environment_selection_unresolved
+Consumption detail: A uv project command was bound to the project, but no explicit extra/group selector was visible; default-group selection requires project/config evidence.
+Reachability witness: 
+Consumption command: uv sync --all-packages --group testing-extra --all-extras
+Static job: test
+Consumption state: unresolved
+Consumption reason: project_environment_command_analysis_unresolved
+Consumption detail: Static command analysis could not safely establish the run-step command structure (dynamic_runner_platform); no textual fallback was used.
+Reachability witness: 
+Consumption command: uv run python -c "import pydantic.version; print(pydantic.version.version_info())"
+Static job: test
+Consumption state: unresolved
+Consumption reason: project_environment_command_analysis_unresolved
+Consumption detail: Static command analysis could not safely establish the run-step command structure (dynamic_runner_platform); no textual fallback was used.
+Reachability witness: 
+Consumption command: mkdir coverage
+Static job: test
+Consumption state: unresolved
+Consumption reason: project_environment_command_analysis_unresolved
+Consumption detail: Static command analysis could not safely establish the run-step command structure (dynamic_runner_platform); no textual fallback was used.
+Reachability witness: 
+Consumption command: make test NUM_THREADS=${{ endsWith(matrix.python-version, 't') && '4' || '1' }}
+Static job: test
+Consumption state: unresolved
+Consumption reason: project_environment_command_analysis_unresolved
+Consumption detail: Static command analysis could not safely establish the run-step command structure (dynamic_runner_platform); no textual fallback was used.
+Reachability witness: 
+Consumption command: uv sync
+Static job: test-plugin
+Consumption state: unresolved
+Consumption reason: project_environment_selection_unresolved
+Consumption detail: A uv project command was bound to the project, but no explicit extra/group selector was visible; default-group selection requires project/config evidence.
+Reachability witness: 
+Consumption command: uv run pytest tests/plugin
+Static job: test-plugin
+Consumption state: unresolved
+Consumption reason: project_environment_selection_unresolved
+Consumption detail: A uv project command was bound to the project, but no explicit extra/group selector was visible; default-group selection requires project/config evidence.
+Reachability witness: 
+Consumption command: uv sync --group typechecking --all-extras
+Static job: test-mypy
+Consumption state: not_established
+Consumption reason: selected_uv_root_reachability_not_established
+Consumption detail: The complete bounded selected-root domain was traversed without an exact lock-backed path to the changed package. This is not a runtime, repository-wide, or complete command-environment absence claim.
+Reachability witness: 
+Consumption command: uv run coverage run -m pytest tests/mypy --test-mypy
+Static job: test-mypy
+Consumption state: unresolved
+Consumption reason: project_environment_selection_unresolved
+Consumption detail: A uv project command was bound to the project, but no explicit extra/group selector was visible; default-group selection requires project/config evidence.
+Reachability witness: 
+Consumption command: uv sync --group typechecking
+Static job: test-typechecking-integration
+Consumption state: not_established
+Consumption reason: selected_uv_root_reachability_not_established
+Consumption detail: The complete bounded selected-root domain was traversed without an exact lock-backed path to the changed package. This is not a runtime, repository-wide, or complete command-environment absence claim.
+Reachability witness: 
+Consumption command: uv sync --only-group coverage
+Static job: coverage-combine
+Consumption state: not_established
+Consumption reason: selected_uv_root_reachability_not_established
+Consumption detail: The complete bounded selected-root domain was traversed without an exact lock-backed path to the changed package. This is not a runtime, repository-wide, or complete command-environment absence claim.
+Reachability witness: 
+Consumption command: uv run coverage combine coverage
+Static job: coverage-combine
+Consumption state: unresolved
+Consumption reason: project_environment_selection_unresolved
+Consumption detail: A uv project command was bound to the project, but no explicit extra/group selector was visible; default-group selection requires project/config evidence.
+Reachability witness: 
+Consumption command: uv run coverage report
+Static job: coverage-combine
+Consumption state: unresolved
+Consumption reason: project_environment_selection_unresolved
+Consumption detail: A uv project command was bound to the project, but no explicit extra/group selector was visible; default-group selection requires project/config evidence.
+Reachability witness: 
+Consumption command: uv run coverage html --show-contexts --title "pydantic coverage for ${{ github.sha }}"
+Static job: coverage-combine
+Consumption state: unresolved
+Consumption reason: project_environment_command_analysis_unresolved
+Consumption detail: Static command analysis could not safely establish the run-step command structure (material_shell_parse_error); no textual fallback was used.
+Reachability witness: 
+Consumption command: uv sync --all-packages --group testing-extra --all-extras
+Static job: test-typing-extensions
+Consumption state: unresolved
+Consumption reason: uv_selected_root_workspace_scope_not_exhausted
+Consumption detail: The explicit roots of the bound lock package were traversed without a witness, but the uv command applies those selectors to all workspace packages. The complete in-scope workspace root domain was not exhausted.
+Reachability witness: 
+Consumption command: uv sync --only-group build
+Static job: release-pydantic-core
+Consumption state: not_established
+Consumption reason: selected_uv_root_reachability_not_established
+Consumption detail: The complete bounded selected-root domain was traversed without an exact lock-backed path to the changed package. This is not a runtime, repository-wide, or complete command-environment absence claim.
+Reachability witness: 
+Consumption command: for whl in pydantic-core-dist/*.whl; do unzip -qt "$whl"; doneuv run --no-sync twine check --strict pydantic-core-dist/*
+Static job: release-pydantic-core
+Consumption state: unresolved
+Consumption reason: project_environment_selection_unresolved
+Consumption detail: A uv project command was bound to the project, but no explicit extra/group selector was visible; default-group selection requires project/config evidence.
+Reachability witness: 
+Consumption command: uv sync --only-group build
+Static job: release-pydantic
+Consumption state: not_established
+Consumption reason: selected_uv_root_reachability_not_established
+Consumption detail: The complete bounded selected-root domain was traversed without an exact lock-backed path to the changed package. This is not a runtime, repository-wide, or complete command-environment absence claim.
+Reachability witness: 
+Consumption command: for whl in pydantic-dist/*.whl; do unzip -qt "$whl"; doneuv run --no-sync twine check --strict pydantic-dist/*
+Static job: release-pydantic
+Consumption state: unresolved
+Consumption reason: project_environment_selection_unresolved
+Consumption detail: A uv project command was bound to the project, but no explicit extra/group selector was visible; default-group selection requires project/config evidence.
+Reachability witness: 
+Consumption command: uv sync --only-group tweet
+Static job: send-tweet
+Consumption state: unresolved
+Consumption reason: project_environment_checkout_provenance_unresolved
+Consumption detail: A static project-selection command is visible, but the workflow does not statically establish the changed repository at the GitHub workspace root before this step (root checkout state: not_established).
+Reachability witness: 
+Consumption command: import osimport tweepyclient = tweepy.Client(    access_token=os.getenv("TWITTER_ACCESS_TOKEN"),    access_token_secret=os.getenv("TWITTER_ACCESS_TOKEN_SECRET"),    consumer_key=os.getenv("TWITTER_CONSUMER_KEY"),    consumer_secret=os.getenv("TWITTER_CONSUMER_SECRET"),)version = os.getenv("VERSION").strip('"')if "b" in version:    official_version = version[:version.index("b")]    tweet = os.getenv("BETA_TWEET").format(version=version, official_version=official_version)else:    tweet = os.getenv("TWEET").format(version=version)client.create_tweet(text=tweet)
+Static job: send-tweet
+Consumption state: unresolved
+Consumption reason: project_environment_checkout_provenance_unresolved
+Consumption detail: A static project-selection command is visible, but the workflow does not statically establish the changed repository at the GitHub workspace root before this step (root checkout state: not_established).
+Reachability witness: 
+Reason: successful_ci_with_static_dependency_consumption
+Detail: Supported static dependency consumption exists, but the bounded workflow runtime bridge is unavailable: static_job_strategy_unsupported: Job 'lint' uses strategy/matrix expansion, which is not yet correlated.
+Evidence meaning: Workflow-scoped static/runtime relationships only.
+Evidence strength: recorded_fact
+Sources: source-9, source-8, source-4, source-5, source-6
+Limitation: Dependency-owned exact-lock evidence establishes an unconditional path from one explicit root selected by this static uv declaration to the changed dependency. Runtime execution and success are not established.
+Limitation: No admitted direct changed-package invocation is ordered after supported static dependency consumption in the same job.
+Limitation: Supported static dependency consumption exists, but the bounded workflow runtime bridge is unavailable: static_job_strategy_unsupported: Job 'lint' uses strategy/matrix expansion, which is not yet correlated.
+Limitation: No supported exact static direct package exercise occurrence is available for runtime strengthening.
+
+Dependency coverage workflow Third party tests: no_successful_ci
+Static consumption: not_established
+Static direct exercise: not_established
+Runtime consumption correlation: not_established
+Runtime direct exercise correlation: not_established
+Reason: no_successful_jobs
+Detail: The workflow had no completed successful job record.
+Evidence meaning: Workflow-scoped static/runtime relationships only.
+Evidence strength: recorded_fact
+Sources: source-11, source-10, source-4, source-5, source-6
+Limitation: No admitted static changed-dependency consumption declaration was established.
+Limitation: No admitted direct changed-package invocation is ordered after supported static dependency consumption in the same job.
+Limitation: No supported exact static dependency consumption occurrence is available for runtime strengthening.
+Limitation: No supported exact static direct package exercise occurrence is available for runtime strengthening.
+
+Dependency coverage workflow codspeed: unresolved
+Static consumption: unresolved
+Static direct exercise: unresolved
+Runtime consumption correlation: unresolved
+Runtime direct exercise correlation: unresolved
+Consumption command: uv sync --all-packages --group testing-extra --extra email --frozen
+Static job: codspeed-profiling
+Consumption state: unresolved
+Consumption reason: uv_selected_root_workspace_scope_not_exhausted
+Consumption detail: The explicit roots of the bound lock package were traversed without a witness, but the uv command applies those selectors to all workspace packages. The complete in-scope workspace root domain was not exhausted.
+Reachability witness: 
+Reason: static_dependency_consumption_not_supported
+Detail: The workflow has successful exact-head runtime evidence, but static changed-dependency consumption is not established.
+Evidence meaning: Workflow-scoped static/runtime relationships only.
+Evidence strength: recorded_fact
+Sources: source-13, source-12, source-4, source-5, source-6
+Limitation: The explicit roots of the bound lock package were traversed without a witness, but the uv command applies those selectors to all workspace packages. The complete in-scope workspace root domain was not exhausted.
+Limitation: Direct exercise cannot be established while static consumption is unresolved.
+Limitation: Runtime dependency consumption cannot be strengthened while static evidence itself is unresolved.
+Limitation: Runtime direct package exercise cannot be strengthened while static evidence itself is unresolved.
+
+Runtime dependency state: no_admitted_candidate
+Reason: no_admitted_runtime_dependency_state_candidate
+Detail: No supported direct-requirements/pip consumption entered the first command-derived runtime dependency-state proof family.
+Evidence meaning: First admitted direct-requirements/pip command-completion family only.
+Evidence strength: recorded_fact
+Sources: source-14
+
+Package evidence: available
+Requested package: soupsieve
+Requested version: 2.8.4
+Published package: soupsieve==2.8.4
+Distribution files: 2
+Reason: recorded_owner_result
+Detail: Exact published package metadata is available.
+Evidence meaning: Published release metadata and files, not observed target installation.
+Evidence strength: recorded_fact
+Sources: source-16, source-15
+
+Old package artifact evidence: available
+Requested package: soupsieve
+Requested version: 2.6
+Old published package: soupsieve==2.6
+Old distribution files: 2
+Reason: recorded_owner_result
+Detail: Exact published package metadata is available.
+Evidence meaning: Published release metadata and files, not observed target installation.
+Evidence strength: recorded_fact
+Sources: source-18, source-17
+
+Upstream repository: available
+Upstream repository identity: facelessuser/soupsieve
+Provenance unavailable files: none
+Reason: recorded_owner_result
+Detail: Upstream repository identity was resolved from package provenance.
+Evidence meaning: Resolved upstream source identity, not semantic correctness.
+Evidence strength: recorded_fact
+Sources: source-21, source-19, source-20
+
+Proposed-version tag: acquisition_failed
+Reason: recorded_owner_result
+Detail: GitHub refused the request or the API rate limit was reached.
+Evidence meaning: Recorded upstream acquisition/composition problem.
+Evidence strength: unresolved
+Sources: source-22
+
+Upstream interval authority: not established
+Reason: not_evaluated
+Detail: Recorded upstream prerequisites are unavailable: Proposed-version tag: acquisition_failed: GitHub refused the request or the API rate limit was reached.
+Evidence meaning: No positive or negative conclusion was established.
+Evidence strength: unresolved
+Sources: source-23, source-22
+
+Upstream support-drop result: not evaluated
+Reason: not_evaluated
+Detail: Recorded upstream prerequisites are unavailable: Proposed-version tag: acquisition_failed: GitHub refused the request or the API rate limit was reached.
+Evidence meaning: No positive or negative conclusion was established.
+Evidence strength: unresolved
+Sources: source-24, source-23, source-22
+
+Artifact serviceability candidate: not observed
+Reason: recorded_owner_result
+Detail: Exact old/proposed release comparison completed without a bounded published-wheel capability loss.
+Evidence meaning: No candidate within the evaluated published-wheel capability horizon; source builds and all other impacts remain unproven.
+Evidence strength: recorded_fact
+Sources: source-25
+
+Target artifact environments: not activated
+Reason: not_evaluated
+Detail: This branch has no evaluated result in the recorded investigation.
+Evidence meaning: No positive or negative conclusion was established.
+Evidence strength: unresolved
+Sources: source-26
+
+Artifact applicability: not evaluated
+Reason: not_evaluated
+Detail: This branch has no evaluated result in the recorded investigation.
+Evidence meaning: No positive or negative conclusion was established.
+Evidence strength: unresolved
+Sources: source-27
+
+Target Python declaration: not activated
+Reason: not_evaluated
+Detail: This branch has no evaluated result in the recorded investigation.
+Evidence meaning: No positive or negative conclusion was established.
+Evidence strength: unresolved
+Sources: source-28
+
+Target Python relevance: not evaluated
+Reason: not_evaluated
+Detail: This branch has no evaluated result in the recorded investigation.
+Evidence meaning: No positive or negative conclusion was established.
+Evidence strength: unresolved
+Sources: source-29
+
+Unresolved questions
+Question: Was static dependency consumption correlated to successful exact-attempt execution?
+Why unresolved: Successful exact-head CI evidence exists for workflow 'CI', and its exact static definition contains supported changed-dependency consumption. The static consuming declaration is not safely correlated to successful runtime step execution.
+Consequence: A maintainer-action consequence is not established.
+Sources: source-7, source-4, source-5, source-6
+Question: Is the changed requirement satisfied at an admitted command-completion boundary?
+Why unresolved: No supported direct-requirements/pip consumption entered the first command-derived runtime dependency-state proof family.
+Consequence: A maintainer-action consequence is not established.
+Sources: source-14
+Question: What establishes proposed-version tag?
+Why unresolved: GitHub refused the request or the API rate limit was reached.
+Consequence: A maintainer-action consequence is not established.
+Sources: source-22
+Question: What does the upstream interval authority branch establish?
+Why unresolved: Recorded upstream prerequisites are unavailable: Proposed-version tag: acquisition_failed: GitHub refused the request or the API rate limit was reached.
+Consequence: A maintainer-action consequence is not established.
+Sources: source-23, source-22
+Question: What does the upstream support-drop result branch establish?
+Why unresolved: Recorded upstream prerequisites are unavailable: Proposed-version tag: acquisition_failed: GitHub refused the request or the API rate limit was reached.
+Consequence: A maintainer-action consequence is not established.
+Sources: source-24, source-23, source-22
+Question: What does the target artifact environments branch establish?
+Why unresolved: This branch has no evaluated result in the recorded investigation.
+Consequence: A maintainer-action consequence is not established.
+Sources: source-26
+Question: What does the artifact applicability branch establish?
+Why unresolved: This branch has no evaluated result in the recorded investigation.
+Consequence: A maintainer-action consequence is not established.
+Sources: source-27
+Question: What does the target python declaration branch establish?
+Why unresolved: This branch has no evaluated result in the recorded investigation.
+Consequence: A maintainer-action consequence is not established.
+Sources: source-28
+Question: What does the target python relevance branch establish?
+Why unresolved: This branch has no evaluated result in the recorded investigation.
+Consequence: A maintainer-action consequence is not established.
+Sources: source-29
+
+Maintainer action: abstain
+Action reason: No non-abstention maintainer-action permission is admitted at the current evaluator proof boundary.
+Remaining uncertainty: CI dependency coverage remains supported_not_correlated: Successful exact-head CI evidence exists for workflow 'CI', and its exact static definition contains supported changed-dependency consumption. The static consuming declaration is not safely correlated to successful runtime step execution.
+Remaining uncertainty: Runtime requirement state remains no_admitted_candidate: No supported direct-requirements/pip consumption entered the first command-derived runtime dependency-state proof family.
+Remaining uncertainty: Command-completion evidence does not establish fresh installation, later package use or behavioral compatibility.
+Remaining uncertainty: Upstream proposed-version tag evidence remains acquisition_failed: GitHub refused the request or the API rate limit was reached.
+Action limitation: This first evaluator intentionally withholds merge, targeted-check, investigate, block, and defer until each action's positive prerequisites are proven through the normal producer path.
+Claim limit: This abstention is not a finding that the dependency update is safe or unsafe.
+Claim limit: This result does not establish complete impact-candidate or repository-context coverage.
+Claim limit: This result does not authorize repository mutation, approval, or automatic merge.
+
+Evidence sources
+source-1: pull request | reference only
+  Location: https://github.com/pydantic/pydantic/pull/13432
+  Repository: pydantic/pydantic
+  PR: 13432
+  Title: Bump soupsieve from 2.6 to 2.8.4
+  Author: dependabot[bot]
+  State: closed
+  Merged: true
+  Base ref: main
+  Base: 652a61ce4f9d7d76eaada31535807a485ece0e21
+  Head ref: dependabot/uv/soupsieve-2.8.4
+  Head: aa2dc024d33f61cdef50bf1973ab5adf0a974f5a
+  Method: exact PR base/head identity acquisition
+  Acquisition time: not recorded
+  Preservation limit: Original input content is not retained in this report.
+source-2: dependency source | reference only
+  Location: https://github.com/pydantic/pydantic/blob/aa2dc024d33f61cdef50bf1973ab5adf0a974f5a/uv.lock
+  Dependency evidence: uv.lock
+  Format: uv_lock
+  Base: 652a61ce4f9d7d76eaada31535807a485ece0e21
+  Head: aa2dc024d33f61cdef50bf1973ab5adf0a974f5a
+  Method: exact_base_head_files
+  Acquisition time: not recorded
+  Preservation limit: Original input content is not retained in this report.
+source-3: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-4: workflow execution | selected facts
+  Location: https://github.com/pydantic/pydantic/actions/runs/29127613659/attempts/1
+  Run: 29127613659
+  Attempt: 1
+  Execution revision: aa2dc024d33f61cdef50bf1973ab5adf0a974f5a
+  Status: completed
+  Conclusion: success
+  Method: exact-head run and captured-attempt jobs acquisition
+  Acquisition time: not recorded
+  Preservation limit: Original input content is not retained in this report.
+source-5: workflow execution | selected facts
+  Location: https://github.com/pydantic/pydantic/actions/runs/29127613657/attempts/1
+  Run: 29127613657
+  Attempt: 1
+  Execution revision: aa2dc024d33f61cdef50bf1973ab5adf0a974f5a
+  Status: completed
+  Conclusion: skipped
+  Method: exact-head run and captured-attempt jobs acquisition
+  Acquisition time: not recorded
+  Preservation limit: Original input content is not retained in this report.
+source-6: workflow execution | selected facts
+  Location: https://github.com/pydantic/pydantic/actions/runs/29127613658/attempts/1
+  Run: 29127613658
+  Attempt: 1
+  Execution revision: aa2dc024d33f61cdef50bf1973ab5adf0a974f5a
+  Status: completed
+  Conclusion: success
+  Method: exact-head run and captured-attempt jobs acquisition
+  Acquisition time: not recorded
+  Preservation limit: Original input content is not retained in this report.
+source-7: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-8: workflow source | reference only
+  Location: https://github.com/pydantic/pydantic/blob/aa2dc024d33f61cdef50bf1973ab5adf0a974f5a/.github/workflows/ci.yml
+  Workflow path: .github/workflows/ci.yml
+  Static revision: aa2dc024d33f61cdef50bf1973ab5adf0a974f5a
+  Method: static workflow interpretation
+  Acquisition time: not recorded
+  Preservation limit: Original input content is not retained in this report.
+source-9: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-10: workflow source | reference only
+  Location: https://github.com/pydantic/pydantic/blob/aa2dc024d33f61cdef50bf1973ab5adf0a974f5a/.github/workflows/third-party.yml
+  Workflow path: .github/workflows/third-party.yml
+  Static revision: aa2dc024d33f61cdef50bf1973ab5adf0a974f5a
+  Method: static workflow interpretation
+  Acquisition time: not recorded
+  Preservation limit: Original input content is not retained in this report.
+source-11: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-12: workflow source | reference only
+  Location: https://github.com/pydantic/pydantic/blob/aa2dc024d33f61cdef50bf1973ab5adf0a974f5a/.github/workflows/codspeed.yml
+  Workflow path: .github/workflows/codspeed.yml
+  Static revision: aa2dc024d33f61cdef50bf1973ab5adf0a974f5a
+  Method: static workflow interpretation
+  Acquisition time: not recorded
+  Preservation limit: Original input content is not retained in this report.
+source-13: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-14: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-15: package metadata | selected facts
+  Location: https://pypi.org/pypi/soupsieve/2.8.4/json
+  Requested package: soupsieve
+  Requested version: 2.8.4
+  Published package: soupsieve==2.8.4
+  Distribution files: 2
+  Method: exact package-release metadata acquisition
+  Acquisition time: 2026-10-03T13:44:28.264225+00:00
+  Preservation limit: Selected metadata retained as identity facts; raw provider JSON is not retained.
+source-16: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-17: package metadata | selected facts
+  Location: https://pypi.org/pypi/soupsieve/2.6/json
+  Requested package: soupsieve
+  Requested version: 2.6
+  Old published package: soupsieve==2.6
+  Old distribution files: 2
+  Method: exact package-release metadata acquisition
+  Acquisition time: 2026-10-03T13:44:28.430192+00:00
+  Preservation limit: Selected metadata retained as identity facts; raw provider JSON is not retained.
+source-18: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-19: publisher provenance | selected facts
+  Location: https://pypi.org/integrity/soupsieve/2.8.4/soupsieve-2.8.4-py3-none-any.whl/provenance
+  Package: soupsieve
+  Version: 2.8.4
+  Distribution file: soupsieve-2.8.4-py3-none-any.whl
+  Distribution SHA-256: e7e6b0769c8f51ed59acab6e994b00621096cfb1c640a7509295987388fbaf65
+  Provenance API version: 1
+  Attestation count: 1
+  Publisher kind: GitHub
+  Publisher repository: facelessuser/soupsieve
+  Publisher workflow: deploy.yml
+  Method: PyPI file publisher provenance acquisition
+  Acquisition time: 2026-10-03T13:44:28.827897+00:00
+  Preservation limit: Selected publisher/file identity facts retained; full attestation input is not retained.
+source-20: publisher provenance | selected facts
+  Location: https://pypi.org/integrity/soupsieve/2.8.4/soupsieve-2.8.4.tar.gz/provenance
+  Package: soupsieve
+  Version: 2.8.4
+  Distribution file: soupsieve-2.8.4.tar.gz
+  Distribution SHA-256: e121fd02e975c695e4e9e8774a5ee35d74714b59307868dcc5319ad2d9e3328e
+  Provenance API version: 1
+  Attestation count: 1
+  Publisher kind: GitHub
+  Publisher repository: facelessuser/soupsieve
+  Publisher workflow: deploy.yml
+  Method: PyPI file publisher provenance acquisition
+  Acquisition time: 2026-10-03T13:44:28.934978+00:00
+  Preservation limit: Selected publisher/file identity facts retained; full attestation input is not retained.
+source-21: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-22: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-23: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-24: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-25: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-26: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-27: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-28: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-29: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+
+Report limits
+Code revision, model/prompt/config identity and complete operation history are not recorded.
+Generation time identifies report production; unavailable acquisition times remain unavailable.
+Original workflow files/logs, dependency source files and arbitrary target code are not fully retained.
+Source references are availability-dependent; opening does not retrieve them.
+This record cannot replay analysis, resume an agent, or establish compatibility.
+A file digest detects corruption, not authenticity or evidence truth.
