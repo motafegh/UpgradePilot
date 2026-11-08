@@ -1,6 +1,6 @@
 # Caller-signature learning — module-by-module engineering-source map
 
-**Reference horizon:** main `689ceeb8d51811952b74b7c9cb0bc871a2c5464b` (November 8, 2026).
+**Reference horizon:** main `b56ad634e421fb3d639141054da52260e83c7410` (November 8, 2026). The first-view renderer and reviewer-packet readiness are later F2/F3 learning sources, not a new C2 prerequisite.
 
 ## Required procedure before each lesson and substantive chunk
 
@@ -9,6 +9,8 @@
 3. Teach the **real-world reason the program behaves this way**, the engineering pressure, measured failures/alternatives, why the chosen design was selected, the implementation mechanism and the test's real purpose, ending with proof/non-proof and the learner's required depth. Explicitly separate observed intentions/measurements from inferred explanations. Do not relabel a synthetic test failure as a real incident or two source calls as two runtime executions.
 4. Keep retrospective Working Memory as **historical evidence**, not an override of current source, accepted contracts, or root `MEMORY.md`. Preserve negative/superseded tests. Distinguish real public retained source, controlled authored HTTP, installed tests, live provider observations and independent human usefulness.
 5. **Selective retrieval, not exhaustive reading:** the first linked Working Memory item, first design and most relevant code/proof pair normally suffice for an initial chunk. Read additional references to answer the actual engineering why/how or resolve a discrepancy. Preserve one fair check; never auto-mark independent mastery.
+
+**Review discoveries separately:** [Learning-to-product engineering audit register](2026-11-08-learning-to-product-engineering-audit-register.md) distinguishes evidence-backed gaps from hypotheses and already-gated work. Product adoption requires a separate main-side decision.
 
 ## Verified per-module entries
 
@@ -99,6 +101,8 @@
 - Witness premises currently survive as reason strings in [evidence.py](../src/upgradepilot/caller_signature/evidence.py) / [analysis.py](../src/upgradepilot/caller_signature/analysis.py), then as candidate/witness limitations through codecs and report. Future design question: promote material premises to scope-bound, evidence-linked assessments with owner/status/horizon; do not erase them or infer success from a plausible source path.
 - Existing [workflow runtime correlation](../src/upgradepilot/ci/workflow_runtime_correlation.py), [step/command execution assessment](../src/upgradepilot/ci/runtime_execution.py), and [command-completion dependency-state composition](../src/upgradepilot/ci/dependency_state.py) cover bounded CI steps/commands and one package-state boundary. They do not observe the target Python call, actual callable/MRO or loaded module for caller/signature analysis. The [November 7 HTTPX applicability checkpoint](../working-memory/2026-11-07_httpx-ci-runtime-applicability_cycle.md) identifies the missing target-owned test-process observation and explicitly defers a new runtime producer on the already-merged case.
 - Continue with exact opaque source-ID-to-catalog-path reconstruction before decoder details. Treat all static witness paths as conditional until their premises are established for a particular target process.
+
+**Learning audit note:** `constraint_sample` Starlette 1.10.0 is not target-installed-version proof. The learner's proposal to acquire better version evidence is tracked as [LPA-001](2026-11-08-learning-to-product-engineering-audit-register.md), without replacing historic witness roles or marking C2 mastery.
 ### D1 — Native source evidence: exact text, selection and acquisition provenance
 
 **Engineering journey / Working Memory:** [2026-11-02_caller-signature-native-family-checkpoint_cycle.md](../working-memory/2026-11-02_caller-signature-native-family-checkpoint_cycle.md) · [2026-11-02_native-source-acquisition-owners_cycle.md](../working-memory/2026-11-02_native-source-acquisition-owners_cycle.md).
@@ -203,6 +207,8 @@
 
 **What to explain:** Reconstruct command success versus report save versus durable Workspace revision, lost acknowledgement and why the 40/64-hex identity-guard correction matters.
 
+
+**November 8 first-view Build references:** [implementation and rendering review](../working-memory/2026-11-08_maintainer-report-first-view_build-cycle.md), [`report.py`](../src/upgradepilot/report.py), [report renderer tests](../tests/test_report.py), [caller/signature delivery tests](../tests/test_caller_signature_delivery.py). New deterministic first view preserves historical source and detailed report, with conservative fallback on inconsistent data and no new inference. The OpenCV exact-tag `selected_facts` access limit is documented in [LPA-004](2026-11-08-learning-to-product-engineering-audit-register.md).
 ### F3 — Product qualification: real retained, controlled, installed, live and usefulness
 
 **Engineering journey / Working Memory:** [2026-11-06_native-product-execution-readiness_cycle.md](../working-memory/2026-11-06_native-product-execution-readiness_cycle.md) · [2026-11-06_native-normal-product-live-qualification_cycle.md](../working-memory/2026-11-06_native-normal-product-live-qualification_cycle.md) · [2026-11-06_pypi-transport-diagnosis_cycle.md](../working-memory/2026-11-06_pypi-transport-diagnosis_cycle.md) · [2026-11-07_pypi-route-repair_cycle.md](../working-memory/2026-11-07_pypi-route-repair_cycle.md) · [2026-11-07_native-proxy-successor_cycle.md](../working-memory/2026-11-07_native-proxy-successor_cycle.md) · [2026-11-07_httpx-ci-runtime-applicability_cycle.md](../working-memory/2026-11-07_httpx-ci-runtime-applicability_cycle.md) · [2026-11-04_caller-signature-connected-retained-qualification_cycle.md](../working-memory/2026-11-04_caller-signature-connected-retained-qualification_cycle.md) · [2026-11-06_independent-host-timing-and-retained-traversal_cycle.md](../working-memory/2026-11-06_independent-host-timing-and-retained-traversal_cycle.md).
@@ -217,6 +223,8 @@
 
 **Structured live task evidence:** [HTTPX `results.json`](../working-memory/evidence/2026-11-07-native-proxy-successor/results.json) is the actual saved-task review summary; [`review_saved_task.py`](../working-memory/evidence/2026-11-07-native-proxy-successor/review_saved_task.py) opens the saved Workspace checkpoint/report and constructs it. Teach its acquisition, work, witness, path, premises, report/source access, cold-recovery and disposition fields alongside `RESULTS.md`, not as an isolated JSON catalog.
 
+
+**November 8 first-view usefulness preparation:** [technical reviewer readiness](../working-memory/2026-11-08_maintainer-first-view-review-readiness_planning-cycle.md), [revision-3 review protocol](../working-memory/evidence/2026-11-08-maintainer-first-view-review/revision-3/OPERATOR_PROTOCOL.md), [remote rehearsal README](../working-memory/evidence/2026-11-08-maintainer-first-view-review/remote-rehearsal/README.md). Source-equivalent and authorized participant execution is not yet recorded. Technical packet review does not equal independent usefulness. [LPA-005](2026-11-08-learning-to-product-engineering-audit-register.md) monitors the selected main gate.
 ### G1 — Combined source/CI/runtime applicability design checkpoint (now completed; learning later)
 
 **Engineering journey / Working Memory:** [2026-11-07_httpx-ci-runtime-applicability_cycle.md](../working-memory/2026-11-07_httpx-ci-runtime-applicability_cycle.md) · [2026-11-02_runtime-applicability-followup-plan-reconciliation_cycle.md](../working-memory/2026-11-02_runtime-applicability-followup-plan-reconciliation_cycle.md).
@@ -245,6 +253,8 @@
 
 **What to explain later:** schema-valid output versus source-supported claims; retrieval versus interpretation; fixed workflow versus autonomous delegation; budget/timeout/failure behavior and explicit uncertainty. Keep G2 deferred until earlier modules are covered.
 
+
+**Separate from G2:** the November 8 [first-view renderer](../working-memory/2026-11-08_maintainer-report-first-view_build-cycle.md) is deterministic presentation of recorded facts, not an LLM/agent/retriever implementation.
 ## Immediate continuation
 
 **C2 — Historical result reconstruction (native source-fact and result decoders).** Begin from the actual LifeLog retained repeated-trace measurements and November 1 representation decisions. Then inspect `evidence.py`, `native_codec.py` and `result_codec.py`, followed by targeted tests. The duplicate-call example is a *test fixture introduced for a real retention/relationship-integrity reason*, not the primary case.

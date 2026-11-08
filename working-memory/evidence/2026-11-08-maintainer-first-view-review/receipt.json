@@ -1,0 +1,95 @@
+{
+  "allocation": {
+    "reviewer-1": [
+      [
+        "httpx",
+        "full"
+      ],
+      [
+        "opencv",
+        "opening"
+      ],
+      [
+        "soup-sieve",
+        "full"
+      ]
+    ],
+    "reviewer-2": [
+      [
+        "soup-sieve",
+        "opening"
+      ],
+      [
+        "opencv",
+        "full"
+      ],
+      [
+        "httpx",
+        "opening"
+      ]
+    ]
+  },
+  "assembly_sha256": "fcca0c15f0f67029d1e141619fa19b2213e6ef7aa9290e606e29e4ead2affa53",
+  "cases": {
+    "httpx": {
+      "generator_version": "3",
+      "original_text_views": {
+        "source-1": "9367a5d5ae58444aacc3d3bea1b4ba9451ee5cced48162f88bd38f4b3c9d068c",
+        "source-16": "1d7a1b4bae8fe271599ce282d06af7b9e5612ae3022f14aef38ef367d3a36fbf",
+        "source-17": "1150f838e28123fd087b38e3eb51a04039b1290c64f0a057d186cd3539c600e8",
+        "source-18": "39f098cbc3d096c01764225bf8100da9bb7cdcff7dabd824ace70be391f2f84c",
+        "source-19": "704dbba6b0fd8b483abffe6f64b280c2c8a68b7ada1ad289cb5327a54d63f34a",
+        "source-20": "9929e496db33a8e9c940ac71ce312d68447b3367e252dd4ddf72c5d7992dd2c1",
+        "source-21": "204ee20c39b0d7a0d67fcd7c86c369e329fae6f8acfd138c9968554669dd5eec",
+        "source-22": "095bd836c6b040ec95bac328e1fefb3794e723127adadea305f6df2aa3d67229",
+        "source-23": "7209fe3acef1c362fe3287c27046a6db1cdab59a4495ea012495d877157be5b4",
+        "source-24": "77193b3030c3d6b5eae90664c25abe6c10fd1f2e7bad84a5b1325a70e48b82b2",
+        "source-25": "46d7a2c51d76c626ac3a2178f27a4eeaf1adc1931a3085c93fa96446ecc0791c",
+        "source-26": "b4bba57c620631e2f60e4ef91d96f556c6bd2401b00e27385fcc058edc7b7d55",
+        "source-27": "b828b37a2c41caef04107a8c07ca571b0069ce8fe985f8b3956e8f1d6851b572",
+        "source-28": "af60117fdf316c967f55911e12d9898b5c6f8e5f0f2752d181fbfce41b13ece2",
+        "source-29": "73a56844b1fb858c8d5a3f629baf82d716a34461cbb5c54a25c135bcd82e65c9",
+        "source-30": "22d650b08caa710053b3c99ffbc09c5321038c3dbf228ac5d39b496d0947b7ce",
+        "source-31": "3845da23f9f9b1c5722398197d78e175dbc2c9c4645bf8842976c94dbedb7935",
+        "source-32": "00920a84325492a049298d5ade85e05e5294b998b3cb7064dac21a8173bfbed4",
+        "source-33": "03eb4dfff13417575432fa2b44ee27405cb1e00a685260dfaf44c5c035b830aa",
+        "source-34": "b05081e2c4a59f15d73493df05b9c27d1df40c05da953483125a9d8e30e9ccac",
+        "source-35": "f6e44a24519a6a12fd3f1145e4e81c7dc58de5527b52830b858c8f5426a313c2",
+        "source-36": "7f5e1327c20c998ede3fccf85a5f8c24815ffe66a19d495e416e3939bfce1e94",
+        "source-37": "6f376ff19399ef25f4f271651c98163477fd4da74f7ccaec86259d89d3748d22",
+        "source-38": "ed701ee0126b644e2bd2e0278549f5ec19ac02cd223fe9776c10cd61848849f6",
+        "source-39": "857ec707f89c15d66620df9506f4ee5dad3d25fc40381463eec407d3d57ed505"
+      },
+      "report_id": "4eea103d-dbb6-4fa2-89e4-5d28a1a47ea3",
+      "report_sha256": "ae8bb734d6d2be78a0fc6f248747572cb68238f7ea6b840c0ac6e1e24ef691d1",
+      "views": {
+        "full": "565c8ad65c8bed0a5d23dd2e3a671663ad8851de1228a3790ee564158fbcdda6",
+        "opening": "57755865150c754cd88401f4b643c9a002df084e56badd8cdcb7b9be2768d537"
+      }
+    },
+    "opencv": {
+      "generator_version": "1",
+      "original_text_views": {},
+      "report_id": "8152f014-e86a-401f-9f48-9e67ecb8cabb",
+      "report_sha256": "9f6b2d79a08421db5c113a9a0e38d34176728352d8644c52ddc86a2acea88116",
+      "views": {
+        "full": "afd309787c138329298c34a5ccb14eb0b03e91b8158ba56ce28aa2468e1fe45c",
+        "opening": "dce3e58cfe0f77e9cf6b9967b52bcafdc0128c0f5397055d34b7589b990fcb56"
+      }
+    },
+    "soup-sieve": {
+      "generator_version": "1",
+      "original_text_views": {},
+      "report_id": "b6ba653a-51f1-4f63-9ce8-8b9146c4eaef",
+      "report_sha256": "19bbe7e31715abd22fb9773f70fe62f270e81496a0c7340be6e7359f325a595a",
+      "views": {
+        "full": "d621dd2efce3bc7e9d9b6055b5ca2ba97999a3986a37ef9b3bab018167b221ba",
+        "opening": "ca9d75a7b5dbf14244c7dfa3520aa36222b9d51f1f24599bb3fdbdd9afc37d68"
+      }
+    }
+  },
+  "renderer_source_sha256": "b19677e684cc8c249f95c07912dacc0b85734d2cb1c88a93e5d89ae251c0056e",
+  "renderer_version": 3,
+  "reviewer_task_sha256": "410391363dc6de4df1ddd10e7f12a51ad93093259be9100bee0a00758c1f2301",
+  "status": "prepared_local_only"
+}

@@ -121,11 +121,12 @@ def render_investigation_report(
         (
             f"Report: {report.report_id}",
             f"Generated at: {report.generated_at}",
-            f"Recorded generator version: {report.generator_version}; renderer version: 2",
+            f"Recorded generator version: {report.generator_version}; renderer version: 3",
             f"Product version: {report.product_version or 'not recorded'}",
         )
     )
     lines.extend(f"{fact.label}: {fact.value}" for fact in report.identity)
+    lines.extend(_first_view_lines(report))
     lines.extend(_assessment_lines(report.assessments, report.unknowns))
     lines.extend(("", f"Maintainer action: {report.action.state}"))
     lines.extend(f"Action reason: {reason}" for reason in report.action.reasons)
@@ -143,6 +144,138 @@ def render_investigation_report(
     lines.extend(("", "Report limits"))
     lines.extend(report.production_limits + report.preservation_limits)
     return _display_lines(lines)
+
+
+def _first_view_lines(report: InvestigationReport) -> list[str]:
+    """Group recorded assessments for a quick read while leaving full detail below."""
+    assessments = {item.assessment_id: item for item in report.assessments}
+    dependency = assessments.get("dependency")
+    if dependency is None or (dependency.status, dependency.state) != ("available", "supported"):
+        return []
+    transition = {fact.name: fact.value for fact in dependency.facts}
+    if (len(transition) != len(dependency.facts)
+            or not all(transition.get(name) for name in ("package", "old_version", "proposed_version"))):
+        return []
+
+    sections = _signature_overview(report, transition)
+    artifact = assessments.get("artifact-candidate")
+    if artifact is not None and (artifact.status, artifact.state) == ("available", "established"):
+        sections.extend(_artifact_overview(artifact, assessments, report.unknowns))
+
+    support = assessments.get("support-drop")
+    tag = assessments.get("tag")
+    # A failed tag belongs in this section only when the support assessment cites it.
+    if (support is not None and support.status == "not_evaluated"
+            and tag is not None and tag.status == "problem"
+            and tag.source_ids and tag.source_ids[0] in support.source_ids):
+        sections.extend((
+            "", "Upstream support evaluation: not evaluated",
+            f"{tag.topic}: {tag.detail}",
+            _evidence_refs(tag, support),
+        ))
+
+    if not sections:
+        return []
+    return [
+        "", "Review at a glance",
+        f"Update: {transition['package']} {transition['old_version']} -> {transition['proposed_version']}",
+        *sections,
+        "", "Detailed evidence and action status",
+    ]
+
+
+def _signature_overview(
+    report: InvestigationReport, transition: dict[str, str],
+) -> list[str]:
+    roles = {"old_dependency": "old_version", "proposed_dependency": "proposed_version"}
+    witnesses = {role: [] for role in roles}
+    locations: set[tuple[str, str, str]] = set()
+    heading = ["", "Caller and signature fit (conditional source evidence)"]
+    details = "See detailed witnesses for the recorded calls, outcomes and conditions."
+    for item in report.assessments:
+        if (item.owner != "caller_signature.analysis"
+                or not item.assessment_id.startswith("caller-signature-comparison-")):
+            continue
+        facts = {fact.name: fact.value for fact in item.facts}
+        role = facts.get("role", "")
+        if role in {"constraint_sample", "target_repository"}:
+            continue
+        if (len(facts) != len(item.facts) or role not in roles
+                or item.status != "available" or not item.source_ids
+                or facts.get("version") != transition[roles[role]]
+                or not all(facts.get(name) for name in ("root_call_id", "root_location", "caller"))):
+            return [*heading, "Witnesses lack a consistent call or version identity.", details]
+        locations.add((facts["root_call_id"], facts["root_location"], facts["caller"]))
+        witnesses[role].append(item)
+
+    if not locations:
+        return []
+    # Comparing two roles requires the same root and compared call. The renderer
+    # preserves each role's outcome and leaves all path-specific premises below.
+    if len(locations) != 1:
+        return [*heading, "More than one target or compared call is recorded.", details]
+    if not all(witnesses.values()):
+        return [*heading, "The recorded comparison is missing an old or proposed witness.", details]
+    _, root_location, caller = next(iter(locations))
+    lines = [*heading, f"Target call: {root_location}", f"Compared call: {caller}"]
+    outcome_labels = {
+        "bound": "arguments fit", "rejected": "arguments rejected",
+        "undetermined": "argument fit undetermined",
+    }
+    for role, version_key in roles.items():
+        rows = witnesses[role]
+        states = {item.state for item in rows}
+        if len(states) != 1 or not states <= outcome_labels.keys():
+            return [*heading, "Witnesses have differing or unrecognized outcomes for one version.", details]
+        label = "Old" if role == "old_dependency" else "Proposed"
+        lines.append(f"{label} {transition[version_key]}: {outcome_labels[rows[0].state]}")
+    lines.append("Applies under the recorded source and dispatch assumptions. See witness conditions below.")
+    open_questions = [unknown for unknown in report.unknowns
+                      if unknown.assessment_id == "caller-signature-analysis"]
+    lines.extend(f"Open: {unknown.question}" for unknown in open_questions)
+    for item in report.assessments:
+        if item.assessment_id in {"ci", "runtime"} and item.status == "not_evaluated":
+            lines.append(f"{item.topic}: {item.state}")
+    lines.append(_evidence_refs(*(witness for rows in witnesses.values() for witness in rows), *open_questions))
+    return lines
+
+
+def _artifact_overview(
+    artifact: ReportAssessment, assessments: dict[str, ReportAssessment],
+    unknowns: tuple[ReportUnknown, ...],
+) -> list[str]:
+    publication_facts = {"removed_count", "added_count", "source_distribution"}
+    facts = [fact for fact in artifact.facts if fact.name in publication_facts]
+    if len(facts) != len(publication_facts) or {fact.name for fact in facts} != publication_facts:
+        return []
+
+    lines = ["", "Published artifacts"]
+    lines.extend(f"{fact.label}: {fact.value}" for fact in facts)
+    lines.append(f"Scope: {artifact.proposition}")
+    related: list[ReportAssessment | ReportUnknown] = [artifact]
+    for assessment_id in ("artifact-environments", "artifact-impact"):
+        item = assessments.get(assessment_id)
+        if item is not None:
+            lines.append(f"{item.topic}: {item.state}")
+            related.append(item)
+    impact = assessments.get("artifact-impact")
+    if impact is not None:
+        lines.extend(f"{fact.label}: {fact.value}" for fact in impact.facts
+                     if fact.name == "target_compatibility")
+        # Each recorded unknown retains its own proposition. A source archive's
+        # presence alone cannot supply an unobserved target build outcome.
+        for unknown in unknowns:
+            if unknown.assessment_id == "artifact-impact":
+                lines.append(f"Open: {unknown.question} {unknown.reason}")
+                related.append(unknown)
+    lines.append(_evidence_refs(*related))
+    return lines
+
+
+def _evidence_refs(*records: ReportAssessment | ReportUnknown) -> str:
+    return "Evidence references: " + ", ".join(dict.fromkeys(
+        source_id for item in records for source_id in item.source_ids
+    ))
 
 
 def render_ci_report(report: CIReport) -> str:
