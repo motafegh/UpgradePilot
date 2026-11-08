@@ -1,0 +1,22 @@
+# Maintainer report first-view build
+
+November 8, 2026. Ali selected implementation after the [paired development review](2026-11-08_maintainer-report-first-view_planning-cycle.md#paired-development-review) and discussion of deterministic section selection and fallbacks. Reconciled `689ceeb8` with `origin/main`. Use the [report plan](../plans/MAINTAINER_REPORT_PRESERVATION_AND_USEFULNESS_EVALUATION_PLAN.md#first-view-comparison-on-saved-reports) and the [Core report contract](../docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md#61-evidence-reports-and-saved-result-boundaries).
+
+```text
+A0 — DONE: reconciled saved inputs, active renderer, projection fields and nearest tests.
+A1/A2 — CONTINUOUS CONTEXT: covered placement, field-driven rules, missing and conflicting records before Build selection.
+B — DONE: implemented the concise opening over existing report fields.
+Verification — GREEN: focused, retained-report and full product verification completed.
+D/E — HANDOFF: review the rendered results and choose whether to evaluate maintainer task recovery.
+C — DONE FOR THIS INCREMENT: rules, fallback behavior, proof and handoff preserved.
+```
+
+Repeated onboarding stops are compressed for this continuous, explicitly selected increment after the user challenged and discussed its implementation. The full report renderer is the owner. Keep display changes distinct from report serialization, analysis, action permission and separate CI-only views. The learning depth is the field-to-view flow and failure behavior, without tracking individual learner answers.
+
+Admit named sections only from existing assessment fields. Compare signature witness groups for one exact root and compared call, with report-transition versions checked. Show both recorded outcomes under their source conditions or fall back to details for incomplete, multiple or mixed results. In the artifact section preserve publication, target applicability and an independently recorded source-build unknown. In the support section show a recorded tag failure tied to the unevaluated branch. Unrepresented families retain the ordinary full report. Use the renderer version to distinguish the new human display from the saved generator version.
+
+## Implemented behavior and focused proof
+
+The [renderer](../src/upgradepilot/report.py) inserts `Review at a glance` after exact identity and before detailed assessments. The signature section displays per-role outcomes and the recorded applicability question. It leaves witness-specific premises and the five named argument details in the detailed report. Missing roles, differing calls, inconsistent versions and disagreement within a version produce specific fallback text. The artifact section keeps publication and target scope separate and reuses independently recorded unknowns. The upstream section requires a tag problem referenced by an unevaluated support assessment. Evidence references come from the selected records. The report-file codec, analysis, synthesis and partial CI renderer are outside this change.
+
+The 61 focused report, file, CLI and caller/signature delivery tests passed. A separate offline CLI check opened the three exact saved reports with network and synthesis guarded. HTTPX, OpenCV and Soup Sieve displayed 13, 14 and 6 first-view lines respectively, counting the heading. Removing the inserted section and normalizing renderer version 3 back to 2 reproduced the prior renderer's complete output for each report. All three saved input hashes and actions matched. Controlled removal of an artifact count or the support assessment's link to the failed tag withheld the corresponding first view while keeping full detail. The full 1,078-test product suite and governance and whitespace checks passed. The display proof does not measure reviewer effort or establish that arbitrary report families can be summarized by these rules. UP-SKILL:upgradepilot-build-implement. UP-SKILL:upgradepilot-working-memory.

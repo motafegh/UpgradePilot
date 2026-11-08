@@ -22,6 +22,7 @@ from unittest.mock import patch
 import test_caller_signature_source_acquisition as acquisition_controls
 
 from upgradepilot.cli import main
+from upgradepilot.report import render_investigation_report
 from upgradepilot.report_file import read_report, encode_report, ReportValidationError
 from upgradepilot.workspace.checkpoint_revision import CheckpointStorageError, UnconfirmedPublication
 from upgradepilot.workspace.checkpoint_store import CheckpointStore
@@ -119,6 +120,11 @@ class CallerSignatureDeliveryTests(unittest.TestCase):
         candidates = [a for a in report.assessments if a.assessment_id.startswith("caller-signature-comparison-")]
         self.assertEqual({a.state for a in candidates}, {"bound", "rejected"})
         self.assertEqual(len(candidates), 2)
+        first_view = output.split("Review at a glance\n", 1)[1].split("\nDetailed evidence and action status", 1)[0]
+        self.assertIn("Caller and signature fit (conditional source evidence)", first_view)
+        self.assertIn("arguments fit", first_view)
+        self.assertIn("arguments rejected", first_view)
+        self.assertIn("Runtime dependency state: not evaluated", first_view)
         analysis = next(a for a in report.assessments if a.assessment_id == "caller-signature-analysis")
         self.assertIn("1", [f.value for f in analysis.facts if f.name == "distinct_roots"])
         self.assertTrue(all(a.status == "not_evaluated" for a in report.assessments if a.assessment_id in {"ci", "runtime"}))
@@ -137,8 +143,39 @@ class CallerSignatureDeliveryTests(unittest.TestCase):
             self.assertIn(retained.content, source)
         restored = self.cold(revision_id)
         self.assertIn(report.report_id, restored)
+        self.assertIn(first_view, restored)
         self.assertIn("report: True", restored)
         self.assertIn(retained.content, self.cold(revision_id, "--show-source", retained.source_id))
+
+    def test_compact_signature_comparison_refuses_to_choose_a_partial_or_mixed_pair(self):
+        code, output, _ = self.live()
+        self.assertEqual(code, 0, output)
+        report = read_report(self.report_path)
+        witnesses = tuple(a for a in report.assessments if a.assessment_id.startswith("caller-signature-comparison-"))
+        first, second = witnesses
+        different_call = replace(second, facts=tuple(
+            replace(fact, value="other-call") if fact.name == "root_call_id" else fact
+            for fact in second.facts
+        ))
+        disagreeing_witness = replace(second, assessment_id=f"{second.assessment_id}-conflict", state="undetermined")
+        wrong_version = replace(second, facts=tuple(
+            replace(fact, value="99.0") if fact.name == "version" else fact for fact in second.facts
+        ))
+        other_assessments = tuple(a for a in report.assessments if a not in witnesses)
+        for assessments, reason in (
+            ((first,), "missing an old or proposed witness"),
+            ((first, different_call), "More than one target or compared call"),
+            ((first, second, disagreeing_witness), "differing or unrecognized outcomes"),
+            ((first, wrong_version), "lack a consistent call or version identity"),
+        ):
+            with self.subTest(reason=reason):
+                rendered = render_investigation_report(replace(report, assessments=other_assessments + assessments))
+                summary, details = rendered.split("Detailed evidence and action status", 1)
+                self.assertIn(reason, summary)
+                self.assertNotIn("arguments fit", summary)
+                self.assertNotIn("arguments rejected", summary)
+                self.assertIn("Conditional caller/signature witness", details)
+                self.assertIn("Maintainer action: abstain", details)
 
     def test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation(self):
         """Exercise the real CLI/application/clients/worker, including absent guards.

@@ -296,6 +296,14 @@ source = {{ registry = "https://pypi.org/simple" }}
             "Target artifact environments: not established",
             render_investigation_report(report),
         )
+        overview, details = render_investigation_report(report, saved=True).split(
+            "Detailed evidence and action status", 1,
+        )
+        self.assertIn("Published artifacts", overview)
+        self.assertIn("Removed published wheel-tag capabilities: 1", overview)
+        self.assertIn("Exact target wheel compatibility: not established", overview)
+        self.assertIn("Maintainer action: abstain", details)
+        self.assertNotIn("source-build outcome was not observed", overview)
         self.assertEqual(report.action.state, "abstain")
 
     def test_real_command_producers_preserve_separate_positive_and_unresolved_scopes(
