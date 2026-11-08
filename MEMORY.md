@@ -1,11 +1,13 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-11-07
+**Last updated:** 2026-11-08
 **Authority:** sole owner of the live project position, current blockers, selected continuation, and current learning depth. Detailed historical evidence remains in the linked cycle/evidence records; this file intentionally summarizes the current live state.
 
 **Publication cadence:** Ali explicitly authorizes committing and pushing each coherent, appropriately validated in-scope increment as work progresses. Record actual proof and remaining debt with each increment; this publication instruction does not expand the selected implementation responsibility.
 
 ## Current position
+
+**Maintainer report first-view comparison prepared for review — November 8.** The [report plan section](plans/MAINTAINER_REPORT_PRESERVATION_AND_USEFULNESS_EVALUATION_PLAN.md#first-view-comparison-on-saved-reports) and [review packet](working-memory/evidence/2026-11-08-maintainer-report-first-view/REVIEW_PACKET.md) pair actual saved reports with concise sketches for HTTPX, OpenCV and the retained Soup Sieve upstream-lookup control. Exact report identities and scope are bound. Analyst-inferred observations are separate from renderer-only claims. **Continue:** review the prepared comparison for concrete presentation friction and preserved evidence, then decide whether a presentation increment, an evidence-owner follow-up or deferral is justified. No product change or independent study selected.
 
 **Hybrid CI retrieval learning exercise delivered — November 7.** The [learning cycle](working-memory/2026-11-07_hybrid-ci-retrieval_learning-cycle.md#verified-result) records one frozen local comparison on retained glyphsLib and FCI001 evidence. Keyword search hit 4/7 within two, embeddings and hybrid each hit 6/7, and the curated evidence-type check withheld both absent positive proof requests. The manager-environment passage was present but missed by all frozen rankings. The separate exact-term diagnostic found it without changing the result. **Continue:** review the distinction between search misses and unavailable proof, then separately select any further learning or product work. No product adoption, independent learner assessment or usefulness result.
 
