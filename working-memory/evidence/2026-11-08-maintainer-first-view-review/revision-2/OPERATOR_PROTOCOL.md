@@ -1,0 +1,25 @@
+# First-view reviewer packet revision 2
+
+This revision controls the reviewer prompts, timing, delivery and grading for the same six assigned views. The [original protocol](../OPERATOR_PROTOCOL.md) supplies the comparison question, fixed report identities, allocation, reviewer eligibility and descriptive evaluation criteria. Use the [revision 2 task](REVIEWER_TASK.md) and each case's neutral topic card. The [revision receipt](receipt.json) binds both documents and the topic cards to the [original report and source hashes](../receipt.json).
+
+## Session and delivery
+
+Preflight the approved offline reviewer environment with comparable text search, source navigation and neutral setup help. Release only the assigned case, its topic card, and its sources, one case at a time. Keep the repository, answer key, allocation, other views and earlier case reviews outside the reviewer environment. Verify the delivered bytes and permissions. Check for prior exposure to the prepared outputs and expected answers, and record relevant familiarity with the PRs. Anyone who adjudicated a case is ineligible to review it as a participant.
+
+Start the clock when the operator makes the assigned report available after setup. Stop at submission or ten minutes from that event, whichever comes first. Preserve partial answers and record elapsed time, actual source opens and failed attempts, clarification, substantive help, timeouts and access failures. Collect all responses for a reviewer before debriefing.
+
+## Revised grading key
+
+Grade Q1 against the bound report's repository, PR number, both commit SHAs, dependency and old and proposed versions. For Q2–Q4 use the assigned topic and accept any rendered assessment or source ID that actually supports the answer, with the correct evidence type and limits. Opening an original source is optional. For Q5 credit either a bounded observation with accurate attribution or a reasoned explanation of why the report supports no specific observation. An empty answer is missing. These reports record maintainer abstention. The possible observations below are analyst proposals.
+
+| Case topic | Finding, reference and limit | Possible observation |
+| --- | --- | --- |
+| HTTPX caller/signature fit | The forwarded arguments fit both selected signatures on the sampled conditional path. `source-49` and `source-47` record the conditional comparisons. The target call, forwarding path and old/proposed signatures can also support the answer when tied to the same premises. Installed binding, branch activation and actual dispatch remain unobserved. | In an exact-head test process, trace the invocation through the executed forwarding branch and identify the callee that actually receives the arguments in that same process. An installed version or loaded module alone leaves dispatch unresolved. |
+| OpenCV published artifacts and target applicability | Publication evidence records 27 removed exact wheel-tag capabilities, eight added and a proposed source distribution. Accept the visible counts and supporting facts or assessments such as `source-13` and `source-14`. Individual tag strings are outside the assigned text view. Target wheel applicability and source-build outcome are unresolved. | Observe the target interpreter, ABI, platform and installer tags and compare them with the proposed wheels. A target build outcome takes its own observation if source fallback matters. |
+| Soup Sieve upstream Python support evidence | GitHub refused the proposed-version tag lookup or the API rate limit was reached. Preserve that disjunction. Tag evidence, interval authority and the unevaluated support-drop branch are recorded in `source-22` through `source-24`. The report leaves upstream support change unresolved. The separate successful CI observation remains uncorrelated with dependency consumption. | Recover authoritative mapping for the proposed tag to clear the immediate lookup stop, then establish authority and examine support evidence over the exact old-to-proposed interval. |
+
+Record each answer as `correct`, `partial`, `incorrect`, `missing` or `not_scored`, with its reason. Count a case as recovered when identity, the on-topic finding or stop, evidence and material limits are correct and Q5 meets the rule above. Track wrong identity, material overclaims, erased conditions and invented actions as critical errors. A correct finding on another topic can be recorded separately and does not satisfy on-topic recovery. Preserve raw responses privately. Grade without allocation where feasible and disclose any remaining exposure. Describe recovery and navigation case by case. With two reviewers, elapsed times are descriptive and do not isolate an effect of the opening.
+
+## Activation
+
+The packet is prepared locally. Before sessions, independently review this final rubric against the bound views, confirm two eligible and available reviewers, approve and verify equivalent delivery, and explicitly select execution. The earlier independent technical review examined the original rubric and proposed these changes. Reviewer outcomes remain uncollected.

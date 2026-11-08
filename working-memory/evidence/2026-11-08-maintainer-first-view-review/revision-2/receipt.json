@@ -1,0 +1,13 @@
+{
+  "assembly_sha256": "662951cc6f298c9466b4b5450df727883dc598ffb6c3a4d319f7b9294f8cad7b",
+  "focus_sha256": {
+    "httpx": "1f6f0115dafbe35e11dd65295f05b72a1a9dbda43c0817f5032884d0f078f6f6",
+    "opencv": "4f5bb428e2a5f035b467bdb3cc9f54ade3ff13d70f2a639fa22c2f98e6650a3c",
+    "soup-sieve": "11ee0e201080c7d5c7cfeedb0e87bd870948778e546cc7f6789fec777afbb3fd"
+  },
+  "operator_protocol_sha256": "2bbbc2db684c525f5c6c0b40c9a8ace335fb3d41945a3dd5d9a55b1bf48136ae",
+  "original_receipt_sha256": "f37eefa5281c3bcadd3d63b7530aa65056762a49a2ed60a6de5fb2fc8374166e",
+  "reviewer_task_sha256": "00ee5ec80170c219f95a68f1275bb752426266e4f9d69e66233447a3a5985524",
+  "revision": 2,
+  "status": "prepared_local_only"
+}
