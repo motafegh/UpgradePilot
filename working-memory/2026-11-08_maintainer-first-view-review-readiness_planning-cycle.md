@@ -47,3 +47,9 @@ Verification — GREEN FOR PREPARATION: receipt, file delta, permissions and evi
 D/E — HANDOFF: obtain a focused independent HTTPX recheck before participant and delivery readiness.
 C — DONE FOR THIS INCREMENT: preserved the evidence, correction and remaining gate.
 ```
+
+### Independent HTTPX recheck
+
+Ali returned the outside AI reviewer's focused revision 3 verdict, **resolved**. The reviewer confirmed that both local HTTPX topic cards were byte-identical and matched the [receipt](evidence/2026-11-08-maintainer-first-view-review/revision-3/receipt.json). Both report views expose the conditional old and proposed signature comparison through `source-47`–`source-50`, with installed binding, branch activation and actual dispatch still unresolved. The reviewer found that the card asks for both versions without revealing the result, and that the [rubric](evidence/2026-11-08-maintainer-first-view-review/revision-3/OPERATOR_PROTOCOL.md#httpx-scoring) distinguishes a complete finding from an accurate adapter-only or single-version answer. Rechecked both local card digests against the tracked card and receipt on `41892646`.
+
+This closes the technical rubric review for revision 3. The AI reviewer saw both conditions and the key and was acting as a technical reviewer. Before running sessions, confirm two eligible available participants, approve and preflight equivalent offline delivery, and explicitly select execution. No participant outcomes were collected.
