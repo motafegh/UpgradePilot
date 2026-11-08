@@ -1,0 +1,8 @@
+{
+  "assembly_sha256": "2e609742c93c361178155c676541d867926d2d4cdd09f7fe053b1700bac474f8",
+  "httpx_focus_sha256": "a41c22cd2d84e5d15f76db8a8e56e2ffcba9c528f5c00c2e9b029d013d23a60d",
+  "operator_protocol_sha256": "29ed78642f9e3d2065e26cf0b2ab7c47f8ab3815093987e95620ce45196cebaa",
+  "revision": 3,
+  "revision_2_receipt_sha256": "c8ec8c9d5ad75b72d3cb6ae6ebc6b35340eaa335978fb58a8409f96b71e968aa",
+  "status": "prepared_local_only"
+}

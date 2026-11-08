@@ -31,3 +31,19 @@ Verification — GREEN FOR PREPARATION: byte parity, layout, permissions and cor
 D/E — HANDOFF: confirm final independent rubric review, participant eligibility and authorized delivery before selecting any sessions.
 C — DONE FOR THIS INCREMENT: preserved the review reasoning, evidence and remaining gate.
 ```
+
+## Revision 3
+
+An independent AI technical review reported deriving the answers from the participant files before reading the revision 2 key. It verified the six views and source copies, confirmed the task and rubric agree on identity, citations, optional observations and timing, and found one remaining ambiguity. Reconciled `407e6e52` with `origin/main` and confirmed the ambiguity directly in both HTTPX views before proposing the correction. Continued the same preparation cycle after Ali selected it.
+
+The revision 2 topic, “caller/signature fit,” allowed a reviewer to stop at the conditional fit between the target's `TestClient(app)` call and the sampled Starlette constructor (`source-43`). The key graded recovery of the downstream comparison between the old and proposed HTTPX initializer signatures (`source-49` and `source-47`). The [revision 3 card](evidence/2026-11-08-maintainer-first-view-review/revision-3/HTTPX_FOCUS.txt) specifies that comparison without giving away its result. The [rubric addendum](evidence/2026-11-08-maintainer-first-view-review/revision-3/OPERATOR_PROTOCOL.md) gives partial credit on the finding for an accurate adapter-only answer or single-version comparison. Full recovery requires both versions and the existing evidence and uncertainty criteria.
+
+Assembled a separate owner-local packet at `~/.local/share/upgradepilot/maintainer-first-view-review-2026-11-08-r3` and published its [receipt](evidence/2026-11-08-maintainer-first-view-review/revision-3/receipt.json). Compared every file against revision 2. Only the two matched HTTPX topic cards differ. All six report views, 50 source copies, task copies and other topic cards matched byte for byte. Verified both HTTPX reports expose the comparison, checked receipt hashes, file ownership, modes and layout, and passed governance and whitespace checks. Preserve the earlier packets as the reviewed evidence.
+
+```text
+A0/A1/A2 — DONE IN CONTINUOUS CONTEXT: confirmed and discussed the concrete HTTPX grading ambiguity.
+B — DONE: aligned the HTTPX prompt and scoring in a separate local revision.
+Verification — GREEN FOR PREPARATION: receipt, file delta, permissions and evidence availability.
+D/E — HANDOFF: obtain a focused independent HTTPX recheck before participant and delivery readiness.
+C — DONE FOR THIS INCREMENT: preserved the evidence, correction and remaining gate.
+```
