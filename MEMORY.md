@@ -1,11 +1,13 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-11-08
+**Last updated:** 2026-11-09
 **Authority:** sole owner of the live project position, current blockers, selected continuation, and current learning depth. Detailed historical evidence remains in the linked cycle/evidence records; this file intentionally summarizes the current live state.
 
 **Publication cadence:** Ali explicitly authorizes committing and pushing each coherent, appropriately validated in-scope increment as work progresses. Record actual proof and remaining debt with each increment; this publication instruction does not expand the selected implementation responsibility.
 
 ## Current position
+
+**Targeted-check feasibility screened on an open HTTPX PR — November 9.** The [screening cycle](working-memory/2026-11-09_targeted-check-case-screening_cycle.md) qualifies the exact dependency transition and successful correlated install command for pedido-service #10. Command-completion state remains unresolved at `manager_environment`. The declared FastAPI dependency requires Starlette from the version that removed forwarding of the HTTPX `app=` argument. Under the declared resolution, the visible `TestClient(app)` does not give a concrete reason to request a repeat check for that mechanism. **Continue:** review this negative control and select a case with demonstrated exposure and a decision-changing check before designing stronger action output. Runtime-State Cycle 2 stays deferred.
 
 **Aruba maintainer decision comparison complete — November 9.** The [comparison](working-memory/2026-11-09_aruba-maintainer-decision_comparison-cycle.md) distinguishes version attribution at the Lint step from state at install completion. For the merged PR, the stronger observation would improve the historical explanation, and no current decision-critical consequence or admitted source was established. Runtime-State Cycle 2 remains unselected. **Continue:** review one supported behavior-change case for a concrete decision-changing check, using the existing targeted-check simulation as design pressure.
 
