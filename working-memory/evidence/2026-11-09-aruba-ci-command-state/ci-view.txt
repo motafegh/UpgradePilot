@@ -1,0 +1,133 @@
+UpgradePilot CI evidence
+Mode: recorded CI view; no live refresh
+Repository: Jam3s97/Aruba_Device_Tracker
+PR: 83
+Title: build(deps): bump ruff from 0.16.5 to 0.16.8
+Author: dependabot[bot]
+State: closed
+Merged: true
+Base ref: main
+Base: 05775dcb2c7f4a8340c967e0c0f76dd5b0d2aeb8
+Head ref: dependabot/pip/ruff-0.16.8
+Head: b9630fc176fa7ae5321fab8844ee383587854fed
+Dependency: ruff
+Old version: 0.16.5
+Proposed version: 0.16.8
+
+CI dependency coverage: supported_runtime_correlated
+Reason: successful_exact_head_ci_with_runtime_correlated_dependency_consumption
+Detail: Workflow 'Lint' contains supported static changed-dependency consumption whose owning user-defined run step is correlated to a completed-successful runtime step for the exact run attempt.
+Evidence meaning: Static consumption and exact-attempt command correlation; not changed-version use or compatibility.
+Evidence strength: recorded_fact
+Sources: source-2, source-1
+
+Dependency coverage workflow Lint: supported_runtime_correlated
+Static consumption: supported
+Static direct exercise: supported
+Runtime consumption correlation: supported
+Runtime direct exercise correlation: supported
+Consumption command: python3 -m pip install -r requirements.txt
+Static job: ruff
+Consumption state: supported
+Consumption reason: direct_requirements_consumption_declared
+Consumption detail: The static job directly declares installation from a trusted requirements dependency source. Execution is not established.
+Reachability witness: 
+Reason: successful_ci_with_runtime_correlated_dependency_consumption
+Detail: The exact-head workflow/run has successful runtime evidence, and at least one exact eligible static changed-dependency consumption occurrence earns bounded Runtime-Correlated Support.
+Evidence meaning: Workflow-scoped static/runtime relationships only.
+Evidence strength: recorded_fact
+Sources: source-4, source-3, source-1
+Limitation: The static job directly declares installation from a trusted requirements dependency source. Execution is not established.
+Limitation: The static job directly invokes the changed package after a supported dependency-consumption declaration. Runtime execution is classified separately.
+Limitation: Exact eligible static dependency consumption occurrence 'ruff'/2 at source order 0 is owned by runtime step 4, and GitHub reports status='completed', conclusion='success' without visible continue-on-error masking.
+Limitation: Exact eligible static direct package exercise occurrence 'ruff'/3 at source order 0 is owned by runtime step 5, and GitHub reports status='completed', conclusion='success' without visible continue-on-error masking.
+
+Runtime dependency state: evaluated
+Reason: runtime_dependency_state_candidates_evaluated
+Detail: Evaluated 1 admitted exact direct-requirements command candidate(s) without collapsing their individual outcomes.
+Evidence meaning: First admitted direct-requirements/pip command-completion family only.
+Evidence strength: recorded_fact
+Sources: source-5
+
+Command-completion requirement state: unresolved
+Workflow: .github/workflows/lint.yml
+Workflow revision: b9630fc176fa7ae5321fab8844ee383587854fed
+Job: ruff
+Static step index: 2
+Command: python3 -m pip install -r requirements.txt
+Blocking semantic dimension: manager_environment
+Command source order: 0
+Command start byte: 0
+Command end byte: 42
+blocking_evidence state: unresolved
+blocking_evidence reason: manager_environment_needs_lower_source_evidence
+blocking_evidence detail: The invocation form is preserved, but no decisive pip --python selector is visible. Process-environment/configuration/executable evidence is still required before effective manager environment can be asserted.
+Reason: manager_environment_needs_lower_source_evidence
+Detail: The invocation form is preserved, but no decisive pip --python selector is visible. Process-environment/configuration/executable evidence is still required before effective manager environment can be asserted.
+Evidence meaning: Command-completion satisfaction only; fresh installation, later use and behavior are not established.
+Evidence strength: unresolved
+Sources: source-7, source-6, source-1
+
+Unresolved questions
+Question: What requirement state was established at this exact command?
+Why unresolved: The invocation form is preserved, but no decisive pip --python selector is visible. Process-environment/configuration/executable evidence is still required before effective manager environment can be asserted.
+Consequence: A maintainer-action consequence is not established.
+Sources: source-7, source-6, source-1
+
+Evidence sources
+source-1: workflow execution | selected facts
+  Location: https://github.com/Jam3s97/Aruba_Device_Tracker/actions/runs/35615432558/attempts/1
+  Run: 35615432558
+  Attempt: 1
+  Execution revision: b9630fc176fa7ae5321fab8844ee383587854fed
+  Status: completed
+  Conclusion: success
+  Method: exact-head run and captured-attempt jobs acquisition
+  Acquisition time: not recorded
+  Preservation limit: Original input content is not retained in this report.
+source-2: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-3: workflow source | reference only
+  Location: https://github.com/Jam3s97/Aruba_Device_Tracker/blob/b9630fc176fa7ae5321fab8844ee383587854fed/.github/workflows/lint.yml
+  Workflow path: .github/workflows/lint.yml
+  Static revision: b9630fc176fa7ae5321fab8844ee383587854fed
+  Method: static workflow interpretation
+  Acquisition time: not recorded
+  Preservation limit: Original input content is not retained in this report.
+source-4: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-5: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-6: workflow source | reference only
+  Location: https://github.com/Jam3s97/Aruba_Device_Tracker/blob/b9630fc176fa7ae5321fab8844ee383587854fed/.github/workflows/lint.yml
+  Workflow: .github/workflows/lint.yml
+  Workflow revision: b9630fc176fa7ae5321fab8844ee383587854fed
+  Job: ruff
+  Static step index: 2
+  Command: python3 -m pip install -r requirements.txt
+  Blocking semantic dimension: manager_environment
+  Command source order: 0
+  Command start byte: 0
+  Command end byte: 42
+  blocking_evidence state: unresolved
+  blocking_evidence reason: manager_environment_needs_lower_source_evidence
+  blocking_evidence detail: The invocation form is preserved, but no decisive pip --python selector is visible. Process-environment/configuration/executable evidence is still required before effective manager environment can be asserted.
+  Method: scoped command assessment
+  Acquisition time: not recorded
+  Preservation limit: Original input content is not retained in this report.
+source-7: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+
+CI view limits
+Recorded CI owner results only; no live refresh or new domain evaluation.
+Static declarations, correlated execution and command-completion state retain different scopes.
+This view establishes neither whole-update compatibility nor maintainer-action permission.
+Source references do not retain original raw inputs; capture provenance/gaps belong to the supplying boundary.

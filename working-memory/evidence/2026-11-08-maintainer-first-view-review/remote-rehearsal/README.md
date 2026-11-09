@@ -12,7 +12,7 @@ Slot 1 follows HTTPX → OpenCV → Soup Sieve. Slot 2 follows Soup Sieve → Op
 
 ## Reproduce the published packets
 
-From the repository root, use a Python 3.12+ environment with UpgradePilot's project dependencies installed:
+Use a checkout at [the packet publication commit](https://github.com/motafegh/UpgradePilot/tree/e6778593) and a Python 3.12+ environment with UpgradePilot's project dependencies installed. The frozen view hashes bind that historical renderer. Run from that checkout's root:
 
 ```sh
 mkdir -p .tmp

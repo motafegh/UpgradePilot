@@ -61,6 +61,7 @@ The installed entry points are equivalent:
 upgradepilot repository pull_number [--github-auth {anonymous,token-env}] [--save-report PATH]
 upgradepilot --open-report PATH
 upgradepilot --open-report PATH --show-source SOURCE_ID
+upgradepilot --open-report PATH --show-facts SOURCE_ID
 python -m upgradepilot repository pull_number [--github-auth {anonymous,token-env}] [--save-report PATH]
 python -m upgradepilot --open-report PATH
 ```
@@ -111,6 +112,8 @@ upgradepilot --open-report report.json --show-source source-1
 ```
 
 This offline command displays literal HTML/Markdown with attribution and limitations. It removes nonprinting terminal controls for display while preserving saved text; it follows no links, executes no content and writes no files. The default summary does not dump the description. Durability is opt-in through `--save-report` or the explicit Workspace store below. Producer-result text and reference-only sources are not retained original text.
+
+For a saved artifact-capability or package-metadata record, use `--show-facts SOURCE_ID` with `--open-report`. This view shows the selected fact names and values, including exact wheel tags or distribution filenames and digests where recorded. It carries the saved report and source context and preservation limits. Choose one inspection option per invocation.
 
 Saving never replaces an existing destination. Reopening validates the file and displays the original report identity, generation time and examined revisions without GitHub/model requests. It cannot be combined with investigation or authentication arguments. Obtain a new investigation to examine later CI or repository changes. Generation time does not substitute for missing source-acquisition times.
 

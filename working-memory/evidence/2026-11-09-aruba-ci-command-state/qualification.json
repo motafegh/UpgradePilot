@@ -1,0 +1,198 @@
+{
+  "correlation": {
+    "detail": "Static ordinary jobs and user-declared steps were matched one-to-one to runtime jobs and ordered runtime step summaries.",
+    "reason": "workflow_jobs_and_steps_correlated",
+    "state": "correlated"
+  },
+  "coverage": {
+    "consumption_state": "supported",
+    "direct_exercise_state": "supported",
+    "reason": "successful_ci_with_runtime_correlated_dependency_consumption",
+    "runtime_consumption_detail": "Exact eligible static dependency consumption occurrence 'ruff'/2 at source order 0 is owned by runtime step 4, and GitHub reports status='completed', conclusion='success' without visible continue-on-error masking.",
+    "runtime_consumption_reason": "runtime_correlated_dependency_consumption_supported",
+    "runtime_consumption_state": "supported",
+    "runtime_direct_exercise_detail": "Exact eligible static direct package exercise occurrence 'ruff'/3 at source order 0 is owned by runtime step 5, and GitHub reports status='completed', conclusion='success' without visible continue-on-error masking.",
+    "runtime_direct_exercise_reason": "runtime_correlated_direct_package_exercise_supported",
+    "runtime_direct_exercise_state": "supported",
+    "state": "supported_runtime_correlated"
+  },
+  "dependency": {
+    "old": "0.16.5",
+    "package": "ruff",
+    "path": "requirements.txt",
+    "proposed": "0.16.8"
+  },
+  "exact_head_run_ids": [
+    35615432444,
+    35615432407,
+    35615432558
+  ],
+  "identity": {
+    "author": "dependabot[bot]",
+    "base_ref": "main",
+    "base_sha": "05775dcb2c7f4a8340c967e0c0f76dd5b0d2aeb8",
+    "changed_files": 1,
+    "head_ref": "dependabot/pip/ruff-0.16.8",
+    "head_sha": "b9630fc176fa7ae5321fab8844ee383587854fed",
+    "merged": true,
+    "number": 83,
+    "repository": "Jam3s97/Aruba_Device_Tracker",
+    "state": "closed",
+    "title": "build(deps): bump ruff from 0.16.5 to 0.16.8"
+  },
+  "job": {
+    "conclusion": "success",
+    "head_sha": "b9630fc176fa7ae5321fab8844ee383587854fed",
+    "job_id": 106384769468,
+    "name": "Ruff",
+    "run_id": 35615432558,
+    "status": "completed",
+    "steps": [
+      {
+        "conclusion": "success",
+        "name": "Set up job",
+        "number": 1,
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "name": "Checkout the repository",
+        "number": 2,
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "name": "Set up Python",
+        "number": 3,
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "name": "Install requirements",
+        "number": 4,
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "name": "Lint",
+        "number": 5,
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "name": "Format",
+        "number": 6,
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "name": "Post Set up Python",
+        "number": 11,
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "name": "Post Checkout the repository",
+        "number": 12,
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "name": "Complete job",
+        "number": 13,
+        "status": "completed"
+      }
+    ]
+  },
+  "outcome": "completed",
+  "rendered_ci_sha256": "dfe98654897814bfafd3d6ba4bded76029df37ab730234f03f871b1595cb509f",
+  "request_limit": 8,
+  "requests": [
+    {
+      "decoded_bytes": 31469,
+      "method": "GET",
+      "provider_date": "Mon, 09 Nov 2026 16:16:58 GMT",
+      "sha256": "bbb966f0515eba96dc3d787fde36398935b7ecc984be7f45e1dfdf98990c81b8",
+      "status": 200,
+      "url": "https://api.github.com/repos/Jam3s97/Aruba_Device_Tracker/pulls/83"
+    },
+    {
+      "decoded_bytes": 709,
+      "method": "GET",
+      "provider_date": "Mon, 09 Nov 2026 16:16:59 GMT",
+      "sha256": "01a112fdf99dc66b9ca596049dbdb82f95bb9ea5529434aa2364e4c188a41619",
+      "status": 200,
+      "url": "https://api.github.com/repos/Jam3s97/Aruba_Device_Tracker/pulls/83/files?per_page=100&page=1"
+    },
+    {
+      "decoded_bytes": 31469,
+      "method": "GET",
+      "provider_date": "Mon, 09 Nov 2026 16:16:58 GMT",
+      "sha256": "bbb966f0515eba96dc3d787fde36398935b7ecc984be7f45e1dfdf98990c81b8",
+      "status": 200,
+      "url": "https://api.github.com/repos/Jam3s97/Aruba_Device_Tracker/pulls/83"
+    },
+    {
+      "decoded_bytes": 41415,
+      "method": "GET",
+      "provider_date": "Mon, 09 Nov 2026 16:17:00 GMT",
+      "sha256": "a7d1dbcce846c229c6375adcfc33cbfbf818c2105ed1e245f63d6ecc7d9825d3",
+      "status": 200,
+      "url": "https://api.github.com/repos/Jam3s97/Aruba_Device_Tracker/actions/runs?event=pull_request&head_sha=b9630fc176fa7ae5321fab8844ee383587854fed&per_page=100&page=1"
+    },
+    {
+      "decoded_bytes": 2364,
+      "method": "GET",
+      "provider_date": "Mon, 09 Nov 2026 16:17:00 GMT",
+      "sha256": "58b045cffc23ad293d219055e4497dbe9db26f9fb19f6394ff37d957aef26f28",
+      "status": 200,
+      "url": "https://api.github.com/repos/Jam3s97/Aruba_Device_Tracker/actions/runs/35615432558/attempts/1/jobs?per_page=100&page=1"
+    },
+    {
+      "decoded_bytes": 13790,
+      "method": "GET",
+      "provider_date": "Mon, 09 Nov 2026 16:17:01 GMT",
+      "sha256": "bf1634fd5ed28b6154382fd4249d6727b67d1cb05612e81799d9e835fcd459c8",
+      "status": 200,
+      "url": "https://api.github.com/repos/Jam3s97/Aruba_Device_Tracker/actions/runs/35615432558"
+    },
+    {
+      "decoded_bytes": 2094,
+      "method": "GET",
+      "provider_date": "Mon, 09 Nov 2026 16:17:01 GMT",
+      "sha256": "67ed278a93a919e6b6cc1cfdbad407965c3ebfee47a6b639cf68ff2994c11fec",
+      "status": 200,
+      "url": "https://api.github.com/repos/Jam3s97/Aruba_Device_Tracker/contents/.github/workflows/lint.yml?ref=b9630fc176fa7ae5321fab8844ee383587854fed"
+    }
+  ],
+  "run": {
+    "conclusion": "success",
+    "event": "pull_request",
+    "head_sha": "b9630fc176fa7ae5321fab8844ee383587854fed",
+    "name": "Lint",
+    "run_attempt": 1,
+    "run_id": 35615432558,
+    "status": "completed",
+    "workflow_id": 287424573
+  },
+  "runtime": {
+    "commands": [
+      {
+        "blocking_dimension": "manager_environment",
+        "command": "python3 -m pip install -r requirements.txt",
+        "detail": "The invocation form is preserved, but no decisive pip --python selector is visible. Process-environment/configuration/executable evidence is still required before effective manager environment can be asserted.",
+        "outcome": "RequirementStateProblem",
+        "reason": "manager_environment_needs_lower_source_evidence",
+        "state": "unresolved"
+      }
+    ],
+    "reason": "runtime_dependency_state_candidates_evaluated",
+    "state": "evaluated"
+  },
+  "scope": "one selected Lint run through current owners",
+  "source_revision": "3a638117",
+  "workflow": {
+    "path": ".github/workflows/lint.yml",
+    "revision": "b9630fc176fa7ae5321fab8844ee383587854fed"
+  }
+}
