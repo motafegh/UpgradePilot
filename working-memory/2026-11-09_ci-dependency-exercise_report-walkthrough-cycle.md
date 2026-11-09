@@ -35,3 +35,22 @@ Verification — GREEN FOR WALKTHROUGH: frozen hash checks, current reproduction
 D/E — GUIDED HANDOFF: explain identity, correlation, execution and state, then hand off the renderer repair for selection. Independent learner practice remains unassessed.
 C — DONE FOR WALKTHROUGH: preserved the case rationale, result, test correction and next owner.
 ```
+
+## Renderer repair
+
+Ali selected the immediate renderer repair after the walkthrough and outlook review. Reconciled `48a42d21` with `origin/main`. Continued this same record. The recent explanation covered the exact failure, the display owner and the two consumer proofs, so the pre-B gates carry forward for this small repair. The selected change is presentation only.
+
+Added a workflow-derived regression through CI-only rendering and full-report encode, decode and rendering. The first fixture lacked the checkout step and produced an unrelated checkout-provenance refusal. Adding the checkout established the intended static evidence while preserving the runtime uncertainty. The corrected pre-fix test reproduced joined commands. The test also puts control characters and label-shaped text in a continuation to check that it stays inert and visibly inside the fact.
+
+The shared assessment formatter splits fact values on LF, then prefixes continuation lines before the existing terminal filter runs. This handles multiline facts uniformly without recognizing a case, command spelling or package. CRLF works through the LF boundary and existing carriage-return filtering. Other controls cannot introduce display rows. Bumped the full-report display version to 4. The report codec, saved generator version and evidence values are separate.
+
+All 70 focused product tests and all seven experimental CI presentation consumer tests passed. The real glyphsLib retained CI projection and Soup Sieve saved full report showed all six and seven multiline command facts respectively, with saved bytes and recorded outcomes preserved. The remote rehearsal guide now pins byte-exact regeneration to `e6778593`. A clean archive at that revision reproduced all 14 tracked reviewer files byte for byte. UP-SKILL:upgradepilot-build-implement.
+
+The full suite passed all 1,081 product tests. Governance and whitespace checks passed. The normal offline CLI also opened the retained Soup Sieve report with renderer version 4 and displayed the saved command continuations.
+
+```text
+B — DONE: repaired shared assessment-fact rendering and documented the pinned historical renderer.
+Verification — GREEN: failing-then-passing regression, both real display paths, frozen packet parity and full regression.
+D/E — GUIDED HANDOFF: explain how display line boundaries and terminal filtering work together. Independent practice remains unassessed.
+C — DONE FOR REPAIR: preserved the reasoning, correction and proof.
+```

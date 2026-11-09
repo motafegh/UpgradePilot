@@ -121,7 +121,7 @@ def render_investigation_report(
         (
             f"Report: {report.report_id}",
             f"Generated at: {report.generated_at}",
-            f"Recorded generator version: {report.generator_version}; renderer version: 3",
+            f"Recorded generator version: {report.generator_version}; renderer version: 4",
             f"Product version: {report.product_version or 'not recorded'}",
         )
     )
@@ -294,7 +294,11 @@ def _assessment_lines(
     lines: list[str] = []
     for assessment in assessments:
         lines.extend(("", f"{assessment.topic}: {assessment.state}"))
-        lines.extend(f"{fact.label}: {fact.value}" for fact in assessment.facts)
+        for fact in assessment.facts:
+            # Keep LF boundaries visible without promoting fact text to report labels.
+            first, *continuations = fact.value.split("\n")
+            lines.append(f"{fact.label}: {first}")
+            lines.extend(f"    | {line}" for line in continuations)
         lines.extend((f"Reason: {assessment.reason}", f"Detail: {assessment.detail}"))
         lines.append(f"Evidence meaning: {assessment.proposition}")
         lines.append(f"Evidence strength: {assessment.strength}")

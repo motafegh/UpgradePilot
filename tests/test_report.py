@@ -14,7 +14,7 @@ from upgradepilot.dependency.analysis import DependencyChangeAnalysis
 from upgradepilot.dependency.environment import UvLockDependencyContext
 from upgradepilot.github.repository import RepositoryTextFile
 from upgradepilot.investigation import investigate_public_pull_request
-from upgradepilot.report import render_ci_report, render_investigation_report
+from upgradepilot.report import ReportFact, render_ci_report, render_investigation_report
 from upgradepilot.report_file import decode_report, encode_report
 from upgradepilot.report_projection import project_ci_report, project_investigation_report
 from upgradepilot.upstream.claim import (
@@ -396,6 +396,44 @@ source = {{ registry = "https://pypi.org/simple" }}
         self.assertEqual(report.action.state, "abstain")
         partial = _assert_ci_parity(self, investigation)
         self.assertIn("supported_not_correlated", render_ci_report(partial))
+
+    def test_multiline_ci_facts_keep_command_boundaries_in_both_reports(self):
+        harness = _Harness()
+        harness.set_workflow(
+            "jobs:\n"
+            "  test:\n"
+            "    runs-on: ubuntu-latest\n"
+            "    steps:\n"
+            "      - uses: actions/checkout@v4\n"
+            "      - run: |-\n"
+            "          python -m pip install --upgrade pip\n"
+            "          python -m pip install -r requirements.txt\n"
+        )
+        investigation = _run(harness, _dependency())
+        partial = _assert_ci_parity(self, investigation)
+        report = project_investigation_report(investigation)
+        saved = encode_report(report)
+        reopened = decode_report(saved)
+        self.assertEqual(encode_report(reopened), saved)
+
+        expected = (
+            "Consumption command: python -m pip install --upgrade pip\n"
+            "    | python -m pip install -r requirements.txt\n"
+        )
+        for output in (render_ci_report(partial), render_investigation_report(reopened, saved=True)):
+            self.assertIn(expected, output)
+            self.assertIn("supported_not_correlated", output)
+
+        assessment = next(a for a in partial.assessments if a.assessment_id == "ci")
+        untrusted_fact = ReportFact(
+            "command", "Command", "first\r\nMaintainer action: merge\x1b\x07\u2028last",
+        )
+        view = replace(partial, assessments=(replace(assessment, facts=(untrusted_fact,)),))
+        text = render_ci_report(view)
+        self.assertIn("Command: first\n    | Maintainer action: mergelast\n", text)
+        self.assertNotIn("\nMaintainer action:", text)
+        for control in "\x1b\x07\r\u2028":
+            self.assertNotIn(control, text)
 
     def test_source_location_encodes_real_filename_characters_without_losing_identity(
         self,
