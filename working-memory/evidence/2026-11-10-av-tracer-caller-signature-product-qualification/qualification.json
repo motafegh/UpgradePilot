@@ -1,0 +1,109 @@
+{
+  "acquisition": {
+    "decoded_body_bytes": 582820,
+    "elapsed_seconds": 37.47763441200004,
+    "github_requests": 17,
+    "module_receipts": 0,
+    "problems": [
+      {
+        "detail": "PyPI release-index acquisition failed before a usable response arrived.",
+        "reason": "acquisition_failed",
+        "stage": "adapter_index"
+      },
+      {
+        "detail": "PyPI release-index acquisition failed before a usable response arrived.",
+        "reason": "acquisition_failed",
+        "stage": "adapter_index"
+      },
+      {
+        "detail": "PyPI release acquisition timed out.",
+        "reason": "acquisition_failed",
+        "stage": "adapter_release"
+      }
+    ],
+    "provider_requests": 20,
+    "pypi_events": [
+      {
+        "decoded_body_bytes": 131072,
+        "github_requests": 17,
+        "host": "pypi.org",
+        "path": "/pypi/fastapi/json",
+        "provider_requests": 18,
+        "reason": "transport_error",
+        "stage": "library_sources",
+        "state": "failed",
+        "status": 200
+      },
+      {
+        "decoded_body_bytes": 284454,
+        "github_requests": 17,
+        "host": "pypi.org",
+        "path": "/pypi/pytest/json",
+        "provider_requests": 19,
+        "reason": null,
+        "stage": "library_sources",
+        "state": "received",
+        "status": 200
+      },
+      {
+        "decoded_body_bytes": 0,
+        "github_requests": 17,
+        "host": "pypi.org",
+        "path": "/pypi/pytest/9.2.0/json",
+        "provider_requests": 20,
+        "reason": "transport_error",
+        "stage": "library_sources",
+        "state": "failed",
+        "status": null
+      }
+    ],
+    "retained_files": 12,
+    "state": "partial"
+  },
+  "analysis": {
+    "gaps": 256,
+    "omitted_gap_diagnostics": 18,
+    "roles": {
+      "target_repository": 49
+    },
+    "roots": 36,
+    "state": "completed",
+    "witnesses": 49
+  },
+  "cli_exit": 0,
+  "commit": "c8b59cfb",
+  "outer_seconds_rounded": 45,
+  "reopened_rendering_sha256": "1ed1bf994dee9469d58165e78feced3702bfd4daf9b3486e13aabb7c92d02176",
+  "report_sha256": "96a690ce4327743a1f71db33d0df4b9dfa039d6c9f5b87c8a4ad7737c09284b4",
+  "retained_test_source": {
+    "id": "source-27",
+    "path": "backend/tests/test_app.py",
+    "sha256": "d261340d34a4aac1e9fa942385aabaa729d12ad865dd9380a99c52e9c24c4d40"
+  },
+  "revision_digest": "c9026d508c48081ab2e1cf6331905184bd6870079127b553d36041c480ce7df6",
+  "revision_id": "fe8628f1d8814be9931f5bd201135244",
+  "scope": "normal anonymous caller-signature CLI; raw third-party source-bearing report held in private Workspace",
+  "separate_controls": [
+    {
+      "admitted": true,
+      "path": "/pypi/fastapi/0.104.1/json",
+      "route": "direct",
+      "status": 200
+    },
+    {
+      "admitted": true,
+      "path": "/pypi/fastapi/json",
+      "route": "existing loopback proxy",
+      "status": 200
+    }
+  ],
+  "target": {
+    "base_sha": "527a004918c0f825e97c3583404242605fd58ec2",
+    "head_sha": "25e7205f39103456e7efbc4e9f503f3debc7b5d8",
+    "normalized_package": "httpx",
+    "old_version": "0.25.2",
+    "proposed_version": "0.28.1",
+    "pull_number": 11,
+    "repository": "ivaronkun-Ahey/AV-Tracer"
+  }
+}
