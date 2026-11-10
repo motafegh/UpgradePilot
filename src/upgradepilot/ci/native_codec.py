@@ -1,10 +1,12 @@
-"""Fixed version-1 layouts for native CI coverage and command-completion results.
+"""Fixed native CI layouts, with an explicit successor for workflow version requests.
 
 The representation retains command scope, semantic provenance and problem variants.
 It neither derives those facts nor strengthens their native proof boundary. Shared inputs
 are supplied by workspace.native_inputs_codec; no SQL or consumer/report dependency exists."""
 
 from __future__ import annotations
+
+from dataclasses import replace
 
 from upgradepilot.ci.consumption import (
     StaticDependencyConsumptionEvidence,
@@ -29,6 +31,7 @@ from upgradepilot.ci.runtime_execution import (
 from upgradepilot.ci.workflow_commands import (
     DirectPackageInvocationEvidence,
     StaticWorkflowDependencyProblem,
+    WorkflowDependencyVersionRequest,
     WorkflowProjectEnvironmentSource,
 )
 from upgradepilot.ci.workflow_runtime_correlation import (
@@ -36,6 +39,7 @@ from upgradepilot.ci.workflow_runtime_correlation import (
     WorkflowRuntimeJobCorrelation,
     WorkflowRuntimeStepCorrelation,
 )
+from upgradepilot.dependency.package_manager_operation import RequestedDependencyVersion
 from upgradepilot.dependency.package_manager_semantics import (
     DirectRequirementHandlingFact,
     InstallationDestination,
@@ -870,6 +874,55 @@ LAYOUTS = (
                 ),
             ),
             ("runtime_step", RecordRef("workflow_step")),
+        ),
+    ),
+)
+
+# Coverage v2 adds static requests and their retained parsed jobs. V1's shapes and tags
+# stay intact, so old captures can never be mistaken for an evaluated empty request set.
+_COVERAGE_V1 = next(item for item in LAYOUTS if item.variant == "dependency_ci_coverage_result")
+_WORKFLOW_V1 = next(item for item in LAYOUTS if item.variant == "workflow_dependency_coverage_result")
+
+COVERAGE_V2_LAYOUTS = (
+    replace(
+        _COVERAGE_V1,
+        variant="dependency_ci_coverage_result_v2",
+        fields=_COVERAGE_V1.fields[:-1] + (
+            ("workflows", SequenceOf(RecordRef("workflow_dependency_coverage_result_v2"))),
+        ),
+    ),
+    replace(
+        _WORKFLOW_V1,
+        variant="workflow_dependency_coverage_result_v2",
+        fields=_WORKFLOW_V1.fields + (
+            ("version_requests", Either((
+                SequenceOf(RecordRef("workflow_dependency_version_request")), type(None),
+            ))),
+            ("version_request_jobs", SequenceOf(RecordRef("steps_job_definition"))),
+        ),
+    ),
+    RecordLayout(
+        "workflow_dependency_version_request",
+        WorkflowDependencyVersionRequest,
+        (
+            ("workflow_path", str),
+            ("workflow_revision", str),
+            ("job_key", str),
+            ("step_source_index", int),
+            ("command_location", RecordRef("static_command_location")),
+            ("request", RecordRef("requested_dependency_version")),
+            ("workflow_digest", str),
+            ("command", str),
+        ),
+    ),
+    RecordLayout(
+        "requested_dependency_version",
+        RequestedDependencyVersion,
+        (
+            ("normalized_package", str),
+            ("version", str),
+            ("requirement_token", str),
+            ("requirement_source", str),
         ),
     ),
 )

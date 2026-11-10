@@ -64,6 +64,24 @@ def _assert_ci_parity(test, investigation):
 
 
 class ReportProjectionTests(unittest.TestCase):
+    def test_static_version_requests_reach_partial_and_saved_full_reports(self):
+        harness = _Harness()
+        harness.set_workflow(
+            "jobs:\n  test:\n    runs-on: ubuntu-latest\n    steps:\n"
+            "      - run: pip install demo==1.0\n"
+            "      - run: pip install demo==1.1.0\n"
+            "      - run: pip install demo==2.0\n"
+        )
+        result = _run(harness, _dependency())
+        partial = _assert_ci_parity(self, result)
+        reopened = decode_report(encode_report(project_investigation_report(result)))
+        for view in (render_ci_report(partial), render_investigation_report(reopened, saved=True)):
+            self.assertIn("demo==1.0 (matches the old PR version)", view)
+            self.assertIn("demo==1.1.0 (matches the proposed PR version)", view)
+            self.assertIn("demo==2.0 (differs from the old and proposed PR versions)", view)
+            self.assertIn("dependency_consumption_not_established", view)
+            self.assertIn("leaves execution, installed state and test use unverified", view)
+
     def test_uv_conditional_path_and_blockers_reach_saved_and_ci_views(self):
         # Actual CI owners derive evidence from controlled source records. The two
         # conditional markers conflict; displaying them must not imply satisfiability.

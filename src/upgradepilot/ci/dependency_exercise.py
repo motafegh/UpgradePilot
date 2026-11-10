@@ -29,6 +29,7 @@ from ..github.repository import (
     RepositoryTextFile,
     UnavailableRepositoryFile,
 )
+from ..github.workflow_definition import StepsJobDefinition
 from .consumption import StaticDependencyConsumptionEvidence
 from .runtime_execution import assess_exact_command_execution
 from .runtime_strengthening import (
@@ -40,6 +41,7 @@ from .static_command_order import relate_invocation_after_consumption
 from .workflow_commands import (
     DirectPackageInvocationEvidence,
     StaticWorkflowDependencyProblem,
+    WorkflowDependencyVersionRequest,
     WorkflowProjectEnvironmentSource,
     WorkflowStaticDependencyEvidence,
     inspect_workflow_dependency_evidence,
@@ -138,6 +140,9 @@ class WorkflowDependencyCoverageResult:
     consumptions: tuple[StaticDependencyConsumptionEvidence, ...] = ()
     invocations: tuple[DirectPackageInvocationEvidence, ...] = ()
     problems: tuple[StaticWorkflowDependencyProblem, ...] = ()
+    # None also represents historical coverage captured before request analysis existed.
+    version_requests: tuple[WorkflowDependencyVersionRequest, ...] | None = None
+    version_request_jobs: tuple[StepsJobDefinition, ...] = ()
 
 
 @dataclass(frozen=True, slots=True)
@@ -963,6 +968,8 @@ def _coverage_result(
         consumptions=static.consumptions,
         invocations=static.invocations,
         problems=static.problems,
+        version_requests=static.version_requests,
+        version_request_jobs=static.version_request_jobs,
     )
 
 

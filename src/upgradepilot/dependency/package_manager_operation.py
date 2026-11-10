@@ -65,6 +65,7 @@ class RequestedDependencyVersion:
     normalized_package: str
     version: str
     requirement_token: str
+    requirement_source: str
 
 
 _PYTHON_INTERPRETER = re.compile(r"^python(?:\d+(?:\.\d+)*)?(?:\.exe)?$", re.IGNORECASE)
@@ -125,7 +126,7 @@ def observe_requested_dependency_version(
             return None
         if request is None:
             request = RequestedDependencyVersion(
-                normalized_package, specifier.version, token
+                normalized_package, specifier.version, token, atom.raw_source
             )
         elif Version(request.version) != Version(specifier.version):
             return None

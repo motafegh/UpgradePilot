@@ -53,14 +53,15 @@ class _StagedCapture:
     producer_version: str | None
     retention_gaps: tuple[str, ...]
     input_record_ids: tuple[str, ...]
+    codec_version: int
 
 
 class NativeInvestigationCapture:
     """One opt-in investigation's encoded staging, sealed before consumer reconstruction.
 
     Native method versions unavailable in older interfaces remain explicit gaps. The
-    caller/signature capture methods expose their tested version separately. Codec
-    version 1 is representation support, not a fabricated semantic/model version. Capture
+    caller/signature capture methods expose their tested version separately. A codec
+    version describes representation support. Capture
     never acquires evidence, invokes an evaluator, retries work or publishes a checkpoint.
     """
 
@@ -121,6 +122,7 @@ class NativeInvestigationCapture:
         evaluated: bool = True,
         gaps: tuple[str, ...] = (),
         version: str | None = None,
+        codec_version: int = 1,
     ) -> None:
         if self._target is None or self._sealed is not None:
             raise ValueError("Capture must be started and remain unpublished staging.")
@@ -137,7 +139,7 @@ class NativeInvestigationCapture:
             sources = decode_native_value("caller_signature_sources", 1, source.payload)
         self._staged[family] = _StagedCapture(
             uuid4().hex,
-            encode_native_value(family, value, sources=sources),
+            encode_native_value(family, value, version=codec_version, sources=sources),
             evaluated,
             method,
             version,
@@ -145,6 +147,7 @@ class NativeInvestigationCapture:
             tuple(
                 self._staged[name].record_id for name in FAMILY_CONTRACTS[family].inputs
             ),
+            codec_version,
         )
 
     def capture_ci(
@@ -160,6 +163,7 @@ class NativeInvestigationCapture:
             "ci_coverage",
             coverage,
             method="ci.dependency_exercise.evaluate_dependency_ci_coverage",
+            codec_version=2,
         )
         self._record(
             "runtime_dependency_state",
@@ -260,6 +264,7 @@ class NativeInvestigationCapture:
                     None,
                     item.retention_gaps,
                     inputs,
+                    item.codec_version,
                 )
 
     def partial_snapshot(self) -> CapturedNativeBoundary:
@@ -283,7 +288,7 @@ class NativeInvestigationCapture:
                     record_id=item.record_id,
                     family=family,
                     owner=contract.owner,
-                    codec_version=1,
+                    codec_version=item.codec_version,
                     target=self._target,
                     input_record_ids=item.input_record_ids,
                     payload=item.payload,

@@ -16,6 +16,8 @@ from importlib.metadata import PackageNotFoundError, version
 from urllib.parse import quote
 from uuid import uuid4
 
+from packaging.utils import canonicalize_version
+
 from .caller_signature.evidence import SourceAnalysisRun, SourceAnalysisResult
 from .caller_signature.source_evidence import CallerSignatureSources
 from .ci.dependency_exercise import DependencyCICoverageResult
@@ -229,6 +231,7 @@ def project_ci_report(
     p = _ReportEvidence()
     _project_ci(
         p, pull_request=pull_request, workflow_evidence=workflow_evidence,
+        dependency_result=dependency_result,
         ci_coverage_result=ci_coverage_result,
         runtime_dependency_state_result=runtime_dependency_state_result,
     )
@@ -287,6 +290,7 @@ def project_investigation_report(
     _project_dependency(p, pr_source)
     _project_ci(
         p, pull_request=pr, workflow_evidence=result.workflow_evidence,
+        dependency_result=result.dependency_result,
         ci_coverage_result=result.ci_coverage_result,
         runtime_dependency_state_result=result.runtime_dependency_state_result,
     )
@@ -449,6 +453,7 @@ def _project_dependency(p: _ReportProjection, pr_source: str) -> None:
 
 def _project_ci(
     p: _ReportEvidence, *, pull_request: PullRequestIdentity,
+    dependency_result: DependencyVersionChange | DependencyChangeProblem,
     workflow_evidence: tuple[tuple[WorkflowRun, tuple[WorkflowJob, ...]], ...],
     ci_coverage_result: DependencyCICoverageResult | None,
     runtime_dependency_state_result: RuntimeDependencyStateResult | None,
@@ -546,6 +551,30 @@ def _project_ci(
                     workflow.runtime_direct_exercise_state,
                 ),
             ]
+            if isinstance(dependency_result, DependencyVersionChange):
+                for j, request in enumerate(workflow.version_requests or (), 1):
+                    pin = request.request
+                    requested = canonicalize_version(pin.version)
+                    matches = [
+                        label for label, version in (
+                            ("old", dependency_result.old_version),
+                            ("proposed", dependency_result.proposed_version),
+                        )
+                        if requested == canonicalize_version(version)
+                    ]
+                    relation = (
+                        f"matches the {' and '.join(matches)} PR version"
+                        if matches else "differs from the old and proposed PR versions"
+                    )
+                    span = request.command_location.source_span
+                    facts.append(_fact(
+                        f"version_request_{j}",
+                        "Static pip version request",
+                        f"{pin.requirement_token} ({relation}) in job {request.job_key!r}, "
+                        f"static step index {request.step_source_index}, "
+                        f"command bytes {span.start_byte}–{span.end_byte}. "
+                        "The declaration alone leaves execution, installed state and test use unverified.",
+                    ))
             for j, consumption in enumerate(workflow.consumptions, 1):
                 facts.extend(
                     (
