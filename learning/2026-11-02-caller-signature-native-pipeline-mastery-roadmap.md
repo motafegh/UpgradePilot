@@ -2,7 +2,7 @@
 
 **Created:** 2026-11-02  
 **Initial evidence horizon:** `7a9bef12fb65ee075dab645a638adf5a3955dc48`  
-**Last synchronized main:** `3f105401418bb766e308021031dc6665e2abb574` — November 9, 2026. Seven main commits since `dc6be359` added report/CLI fact access and multiline-render repairs plus target-wheel/Aruba runtime qualification; no C2 codec or analysis-owner code changed. This learning-only consolidation closes C2 **15/15 guided lessons** using the actual HTTPX saved route/source-operation mappings, recorded cold reopening, fixed-decoder source/path/trace/version/work guard code and focused negative tests. Independent mastery remains unassessed, not passed. **7/19 modules covered interactively**; next module D1 — Native source evidence.
+**Last synchronized main:** `6006cefb6a50c310f556e22c2d2bf9bb95a15a54` — November 10, 2026. Four post-`3f105401` commits added targeted-check cross-case screening, OmniMatch exact-head CI evidence trace and a proposed static CI requested-version report design; design not activated for Build. These did not alter D1 source-family/codec code. D1 guided teaching is now complete (5/5; independent mastery unassessed), total learning 8/19 covered interactively; next D2.
 **Working branch:** `learning/current-caller-signature-mastery-roadmap-2026-11-02`  
 **Purpose:** living study/relearning roadmap for Ali's interactive learning track while UpgradePilot continues to evolve on `main`.  
 **Authority boundary:** this file is a learning artifact, not the live project-position owner. `MEMORY.md`, current source/tests, accepted plans/specifications/ADRs, and dated evidence remain authoritative.
@@ -148,6 +148,8 @@ When `main` advances:
 6. Confirm **all three branch-only documents** (roadmap, module reference map, engineering audit register) exist at the final learning branch ref after every sync; compare with earlier learning-head tree before constructing a commit from `main`. A merge parent does not by itself preserve omitted files. Validate module counts, checkmarks, all relative paths and expected-ref lease.
 
 ### Sync log
+
+- `6006cefb` — November 10: [pedido-service screened negative control](../working-memory/2026-11-09_targeted-check-case-screening_cycle.md), [cross-case 15-PR screening](../working-memory/2026-11-09_targeted-check_cross-case-qualification_cycle.md), [OmniMatch CI evidence trace](../working-memory/2026-11-10_omnimatch-ci-report-evidence-trace_cycle.md), then [CI requested-version design only](../working-memory/2026-11-10_ci-requested-version-design_cycle.md) with [plan](../plans/CI_REQUESTED_DEPENDENCY_VERSION_REPORT_PLAN.md). No approved new product result producer or current D1 codec change. Later F2/F3/G1 lesson references noted. D1 grounded in exact HTTPX file/receipt relationships, native source-family history, glyphsLib negative case and focused codec tests; move to D2.
 
 - Learning C2 teaching closure at main `3f105401` — November 9: all nine report-source IDs for the selected old/proposed HTTPX paths resolved from the retained real review's 25 mapped source operations (one extra narrative-only branch window makes 26 in the full task). Verified stored `report_native_fidelity`/`cold_verified` results and actual fixed reader code; refusal mechanics grounded in worker/native codec tests with deliberately corrupted fixtures. Guided C2 taught 15/15 with worked capstone. The owner-local database was not independently opened in this learning chat and user-independent transfer not graded. Advance to D1 without claiming mastery.
 
@@ -348,7 +350,7 @@ Own:
 
 ## D1 — Native source evidence (`caller_signature_sources`): retained text, selection and acquisition provenance
 
-**Status:** 🟡  
+**Status:** ✅ Guided teaching complete — 5/5 slices explained against real HTTPX and retained native-family data, implementation and focused negative tests. Independent unassisted mastery and fresh local producer/Workspace execution are unassessed; advance to D2 without restarting D1.
 **Depth:** MUST OWN
 
 Own the separation:
@@ -360,6 +362,20 @@ Understand operationally: target receipts, dependency declarations/import candid
 Historical retained receipts may be incomplete and must never be upgraded into fresh provider proof.
 
 Real anchor: glyphsLib remains valid for worker/protocol qualification but is not admitted to the source family because ordinary acquisition premises are missing.
+
+
+**Guided teaching checklist (checked = explained from real evidence, not independently mastered):**
+
+- [x] **Source material versus the reason it was selected.** Real HTTPX PR #20: target and old/proposed/constraint-sampled adapter source require exact repository, revision, path, role and text basis **plus** separate provider/release/association/tag/selection receipts. The real later product invocation retained 24 files/five scopes and a partial acquisition, distinct from historical native-family controls.
+- [x] **Real source-producer ownership and request data flow.** `TargetSourceAcquirer` establishes exact target files, dependency declarations and tentative static import candidates; `AdapterSourceExplorer` and `PythonSourceAcquisitionRun.examine_with_receipt` retain selected release, declared repository and tag/commit/module observations; `AcquisitionSession` provides a single chargeable GitHub/PyPI ledger. A declared association permits bounded examination, not stronger publisher, installed-version or runtime claims.
+- [x] **Native source-family records and joins.** `CallerSignatureSources` contains exact catalog, classified modules, analysis limits and acquisition. `ModuleSourceReceipt` records request/state/source revision/path/digest/byte size, association, metadata, tag observations and gaps. `source_codec.py` validates `module_examined` against retained SHA-256/UTF-8 size and exact repo/revision/path/package/version/role/dependency context; target files must match head-revision receipts. `encode_sources` and `decode_sources` guard fixed `caller-signature-sources/1` before analysis.
+- [x] **Failures/partial acquisition/historical retention and the actual glyphsLib exclusion.** A failed file read may retain earlier metadata/tag/association observations, but cannot authorize the missing text. Retained experiments explicitly declare incomplete old provider observations rather than gaining fresh `native_observation` authority. The Nov 2 LifeLog/HTTPX/Digimon family/checkpoint qualification passed; glyphsLib lacked the ordinary source receipt basis and was correctly not admitted despite separate worker/path qualifications.
+- [x] **Applied integrity/refusal check and fixed capture boundary.** The demonstrated altered HTTPX source receipt digest cannot match the saved text even when both individual fields are syntactically valid; exact source joins refuse. [`test_caller_signature_workspace.py`](../tests/test_caller_signature_workspace.py) also tests wrong version/revision/repository association, physically charged transport counter corruption and failed-file evidence retention. Source codec validates observed relationships without making a provider call or executing acquired code. No independent unfamiliar-case assessment has been graded.
+
+**D1 historical design and verification:** [November 2 native-family Build](../working-memory/2026-11-02_caller-signature-native-family-checkpoint_cycle.md), [source acquisition owner transfer](../working-memory/2026-11-02_native-source-acquisition-owners_cycle.md), [three admitted native family cases and glyphsLib non-admission](../working-memory/evidence/2026-11-02-caller-signature-native-families/README.md), [later live HTTPX evidence](../working-memory/evidence/2026-11-07-native-proxy-successor/RESULTS.md). These are separate proof horizons.
+
+**Learning boundary:** D2 covers saved bounded analysis and comparison state *using this source basis*, without duplicating source text; E1–E3 later examine acquisition/association policy in further depth. Optional independent D1 transfer can be checked later without blocking D2.
+
 
 ## D2 — Native comparison evidence (`caller_signature_comparison`): exact source basis, run and local findings
 
@@ -567,6 +583,8 @@ Must distinguish historic retained exact inputs, controlled provider responses, 
 **November 8 qualification stop — target wheel applicability:** [OpenCV/TileDB screening cycle](../working-memory/2026-11-08_target-wheel-applicability_qualification-cycle.md) retains OpenCV's 27 removed/eight added published wheel tags but no complete matching target installer tag set. TileDB-Py #2308 has historical three-job tag samples but no complete accessible list and did **not** change an admitted dependency file (`no_supported_dependency_file`). The existing [artifact evaluator](../src/upgradepilot/impact/artifact_serviceability.py) can intersect both exact wheel inventories with complete target-owned installer tags when admitted; no comparison was justified on these cases. Twenty-seven owner tests passed. Re-enter only with exact old/proposed dependency transition, both wheel inventories and complete applicable installer tags bound to target repository/revision/job/environment. Wheel compatibility and separate source-build behavior remain distinct; no product fix or positive finding is claimed.
 
 **November 9 real CI/command qualification and decision pressure:** [Aruba Device Tracker PR #83, Ruff 0.16.5→0.16.8](../working-memory/2026-11-09_aruba-ci-command-state_qualification-cycle.md) retained seven anonymous successful GETs, selected exact-head Lint run/attempt and 60 focused tests. Normal CI owners correlated the direct `pip install -r requirements.txt` to successful runtime step 4 and `python3 -m ruff check .` to successful step 5. Package-state completion still stops at `manager_environment_needs_lower_source_evidence`; exact version used by the later step is unproved. A separate [action-relative comparison](../working-memory/2026-11-09_aruba-maintainer-decision_comparison-cycle.md) found that a version-bearing same-process observation could improve attribution but not change a current decision for this already-merged PR; Runtime-State Cycle 2 stays deferred. Future proof must be relevant and decision-changing, not merely detailed. Separately, [multiline rendering repair](../working-memory/2026-11-09_ci-dependency-exercise_report-walkthrough-cycle.md) corrected display without strengthening those runtime/package claims. Exposed AI 30/30 reviewer rehearsal remains **not** independent human usefulness.
+
+**November 9–10 future task-first evidence:** [Pedido-service negative control](../working-memory/2026-11-09_targeted-check-case-screening_cycle.md) found a current declared Starlette adapter floor excluding the older removed-`app=` forwarding mechanism. [15-PR cross-case screen](../working-memory/2026-11-09_targeted-check_cross-case-qualification_cycle.md) selected AV-Tracer and test-case-management as declared conflict candidates and OmniMatch as old-version-green CI guardrail; public job failures do not establish the cause and a product API probe encountered 403. [OmniMatch report trace](../working-memory/2026-11-10_omnimatch-ci-report-evidence-trace_cycle.md) identified a requested-version presentation gap; [bounded design](../working-memory/2026-11-10_ci-requested-version-design_cycle.md) prepared a [static requested-version fact plan](../plans/CI_REQUESTED_DEPENDENCY_VERSION_REPORT_PLAN.md), **not yet a Build result**. Keep source observation, CI request, installed version and targeted action distinct.
 ---
 
 # PART G — Post-qualification design dispositions; learning later
@@ -615,13 +633,13 @@ The plan separates evidence availability, retrieval, interpretation and presenta
 
 ## 4. Current learning order
 
-**Learning-coverage snapshot (November 9, after C2 guided closure):** 19 named modules = **7 covered interactively** (A1–A4, B1, C1, C2), **4 introduced/in progress** (D1–D4), **8 not yet studied** (E1–E3, F1–F3, G1–G2). **12 not yet covered interactively.** Independent C2 mastery is unassessed; implementation milestones alone do not promote learning marks.
+**Learning-coverage snapshot (November 10, after D1 guided closure):** 19 named modules = **8 covered interactively** (A1–A4, B1, C1, C2, D1), **3 introduced/in progress** (D2–D4), **8 not yet studied** (E1–E3, F1–F3, G1–G2). **11 not yet covered interactively.** Independent C2/D1 mastery is unassessed; implementation milestones do not automatically promote learning marks.
 
 ```text
-COVERED INTERACTIVELY:  A1 A2 A3 A4 B1 C1 C2  (7 of 19; independent C2 mastery unassessed)
-NOW:                    D1 native source evidence: exact retained text, selection and acquisition provenance
+COVERED INTERACTIVELY:  A1 A2 A3 A4 B1 C1 C2 D1  (8 of 19; independent mastery unassessed)
+NOW:                    D2 native comparison evidence: saved run status, exact source basis and local findings
 
-NEXT:                   D2 D3 D4 native comparison, format/method contracts and Workspace persistence (previously introduced; continue)
+NEXT:                   D3 D4 native method/version contracts and Workspace persistence (previously introduced; continue)
                         E1 E2 E3 acquisition and exact provenance
                         F1 verified source-progress application
                         F2 verified user-facing CLI/report/Workspace delivery
