@@ -16,9 +16,10 @@ from ..github.workflow_command_location import StaticCommandLocation
 from ..github.workflow_definition import RunDefaults, RunStepDefinition
 from ..repository_path import repository_relative_parts
 from .package_manager_operation import (
+    PackageManagerOperation,
     PackageManagerOperationDeclaration,
     PackageManagerOperationProblem,
-    parse_package_manager_operation,
+    parse_package_manager_operations,
 )
 from .workflow_context import (
     EffectiveWorkingDirectory,
@@ -59,8 +60,9 @@ def observe_direct_installation_declaration(
     command_analysis: StaticCommandAnalysis,
     workflow_defaults: RunDefaults | None = None,
     job_defaults: RunDefaults | None = None,
+    package_operations: tuple[PackageManagerOperation, ...] | None = None,
 ) -> DirectInstallDeclarationObservation:
-    """Observe whether one parsed static run step directly names the dependency source file."""
+    """Observe direct file use, reusing operation declarations from the same analysis."""
 
     dependency_parts = repository_relative_parts(dependency_source_path)
     if dependency_parts is None:
@@ -80,6 +82,7 @@ def observe_direct_installation_declaration(
         command_analysis=command_analysis,
         normalized_source=normalized_source,
         working_directory=working_directory,
+        package_operations=package_operations,
     )
 
 
@@ -89,6 +92,7 @@ def _observe_direct_installation_from_analysis(
     command_analysis: StaticCommandAnalysis,
     normalized_source: str,
     working_directory: EffectiveWorkingDirectory,
+    package_operations: tuple[PackageManagerOperation, ...] | None,
 ) -> DirectInstallDeclarationObservation:
     """Interpret direct-requirements meaning from shared parser-neutral command atoms."""
 
@@ -114,8 +118,9 @@ def _observe_direct_installation_from_analysis(
     unresolved_seen = False
     unresolved_location: StaticCommandLocation | None = None
 
-    for occurrence in command_analysis.command_occurrences:
-        package_operation = parse_package_manager_operation(occurrence)
+    if package_operations is None:
+        package_operations = parse_package_manager_operations(command_analysis)
+    for package_operation in package_operations:
         if isinstance(package_operation, PackageManagerOperationProblem):
             unresolved_seen = True
             if unresolved_location is None:

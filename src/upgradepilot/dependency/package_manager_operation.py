@@ -11,7 +11,15 @@ import re
 from dataclasses import dataclass
 from typing import Literal
 
-from ..github.workflow_command_analysis import StaticCommandAtom, StaticCommandOccurrence
+from packaging.requirements import InvalidRequirement, Requirement
+from packaging.utils import canonicalize_name
+from packaging.version import Version
+
+from ..github.workflow_command_analysis import (
+    StaticCommandAnalysis,
+    StaticCommandAtom,
+    StaticCommandOccurrence,
+)
 from ..github.workflow_command_location import StaticCommandLocation
 
 
@@ -45,9 +53,83 @@ class PackageManagerOperationProblem:
     command_location: StaticCommandLocation
 
 
+type PackageManagerOperation = (
+    PackageManagerOperationDeclaration | PackageManagerOperationProblem
+)
+
+
+@dataclass(frozen=True, slots=True)
+class RequestedDependencyVersion:
+    """One literal pip operand for a named package and version."""
+
+    normalized_package: str
+    version: str
+    requirement_token: str
+
+
 _PYTHON_INTERPRETER = re.compile(r"^python(?:\d+(?:\.\d+)*)?(?:\.exe)?$", re.IGNORECASE)
 _PIP_GLOBAL_BOOLEAN_OPTIONS = frozenset({"--isolated"})
 _PIP_GLOBAL_VALUE_OPTIONS = frozenset({"--python"})
+
+
+def parse_package_manager_operations(
+    analysis: StaticCommandAnalysis,
+) -> tuple[PackageManagerOperation, ...]:
+    """Interpret the parsed occurrences once for consumers of this run step."""
+    return tuple(
+        operation
+        for occurrence in analysis.command_occurrences
+        if (operation := parse_package_manager_operation(occurrence)) is not None
+    )
+
+
+def observe_requested_dependency_version(
+    operation: PackageManagerOperationDeclaration,
+    normalized_package: str,
+) -> RequestedDependencyVersion | None:
+    """Read one exact positional requirement under the bounded pip install grammar.
+
+    Resolve operand roles before parsing requirements. A file option can take a
+    pin-shaped filename. An unfamiliar option can also consume a following token,
+    so an ambiguous argument list cannot support an explicit request fact.
+    """
+    arguments = iter(operation.operation_arguments)
+    request: RequestedDependencyVersion | None = None
+    for atom in arguments:
+        token = _literal_value(atom)
+        if not token:
+            return None
+        if token in {"-r", "--requirement"}:
+            operand = next(arguments, None)
+            path = _literal_value(operand) if operand is not None else None
+            if not path or path.startswith("-"):
+                return None
+            continue
+        if token.startswith(("--requirement=", "-r=")):
+            if not token.split("=", 1)[1]:
+                return None
+            continue
+        if token.startswith("-"):
+            return None
+        try:
+            requirement = Requirement(token)
+        except InvalidRequirement:
+            return None
+        if canonicalize_name(requirement.name) != normalized_package:
+            continue
+        specifiers = tuple(requirement.specifier)
+        if requirement.url or requirement.marker or len(specifiers) != 1:
+            return None
+        (specifier,) = specifiers
+        if specifier.operator != "==" or specifier.version.endswith(".*"):
+            return None
+        if request is None:
+            request = RequestedDependencyVersion(
+                normalized_package, specifier.version, token
+            )
+        elif Version(request.version) != Version(specifier.version):
+            return None
+    return request
 
 
 def parse_package_manager_operation(
