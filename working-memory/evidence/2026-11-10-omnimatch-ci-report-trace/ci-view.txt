@@ -1,0 +1,163 @@
+UpgradePilot CI evidence
+Mode: recorded CI view; no live refresh
+Repository: Kotlasuhasreddy123/Project-OmniMatch
+PR: 20
+Title: Bump httpx from 0.27.0 to 0.28.1 in /backend
+Author: dependabot[bot]
+State: open
+Merged: false
+Base ref: main
+Base: db5576e5b38053a7b46d89ff51e1175eb61ab9c2
+Head ref: dependabot/pip/backend/httpx-0.28.1
+Head: 22fc7709642599feca7b9527fe4f44874d04e520
+Dependency: httpx
+Old version: 0.27.0
+Proposed version: 0.28.1
+
+CI dependency coverage: unresolved
+Reason: dependency_consumption_not_established
+Detail: Successful exact-head CI exists, but the admitted static evidence does not establish changed-dependency consumption in a readable CI environment.
+Evidence meaning: Static consumption and exact-attempt command correlation; not changed-version use or compatibility.
+Evidence strength: recorded_fact
+Sources: source-4, source-1, source-2, source-3
+
+Dependency coverage workflow Code security analysis: unresolved
+Static consumption: not_established
+Static direct exercise: not_established
+Runtime consumption correlation: not_established
+Runtime direct exercise correlation: not_established
+Reason: static_dependency_consumption_not_supported
+Detail: The workflow has successful exact-head runtime evidence, but static changed-dependency consumption is not established.
+Evidence meaning: Workflow-scoped static/runtime relationships only.
+Evidence strength: recorded_fact
+Sources: source-6, source-5, source-1, source-2, source-3
+Limitation: No admitted static changed-dependency consumption declaration was established.
+Limitation: No admitted direct changed-package invocation is ordered after supported static dependency consumption in the same job.
+Limitation: No supported exact static dependency consumption occurrence is available for runtime strengthening.
+Limitation: No supported exact static direct package exercise occurrence is available for runtime strengthening.
+
+Dependency coverage workflow Backend verification: unresolved
+Static consumption: not_established
+Static direct exercise: not_established
+Runtime consumption correlation: not_established
+Runtime direct exercise correlation: not_established
+Reason: static_dependency_consumption_not_supported
+Detail: The workflow has successful exact-head runtime evidence, but static changed-dependency consumption is not established.
+Evidence meaning: Workflow-scoped static/runtime relationships only.
+Evidence strength: recorded_fact
+Sources: source-8, source-7, source-1, source-2, source-3
+Limitation: No admitted static changed-dependency consumption declaration was established.
+Limitation: No admitted direct changed-package invocation is ordered after supported static dependency consumption in the same job.
+Limitation: No supported exact static dependency consumption occurrence is available for runtime strengthening.
+Limitation: No supported exact static direct package exercise occurrence is available for runtime strengthening.
+
+Dependency coverage workflow Real local transformer verification: unresolved
+Static consumption: not_established
+Static direct exercise: not_established
+Runtime consumption correlation: not_established
+Runtime direct exercise correlation: not_established
+Reason: static_dependency_consumption_not_supported
+Detail: The workflow has successful exact-head runtime evidence, but static changed-dependency consumption is not established.
+Evidence meaning: Workflow-scoped static/runtime relationships only.
+Evidence strength: recorded_fact
+Sources: source-10, source-9, source-1, source-2, source-3
+Limitation: No admitted static changed-dependency consumption declaration was established.
+Limitation: No admitted direct changed-package invocation is ordered after supported static dependency consumption in the same job.
+Limitation: No supported exact static dependency consumption occurrence is available for runtime strengthening.
+Limitation: No supported exact static direct package exercise occurrence is available for runtime strengthening.
+
+Runtime dependency state: no_admitted_candidate
+Reason: no_admitted_runtime_dependency_state_candidate
+Detail: No supported direct-requirements/pip consumption entered the first command-derived runtime dependency-state proof family.
+Evidence meaning: First admitted direct-requirements/pip command-completion family only.
+Evidence strength: recorded_fact
+Sources: source-11
+
+Unresolved questions
+Question: Was static dependency consumption correlated to successful exact-attempt execution?
+Why unresolved: Successful exact-head CI exists, but the admitted static evidence does not establish changed-dependency consumption in a readable CI environment.
+Consequence: A maintainer-action consequence is not established.
+Sources: source-4, source-1, source-2, source-3
+Question: Is the changed requirement satisfied at an admitted command-completion boundary?
+Why unresolved: No supported direct-requirements/pip consumption entered the first command-derived runtime dependency-state proof family.
+Consequence: A maintainer-action consequence is not established.
+Sources: source-11
+
+Evidence sources
+source-1: workflow execution | selected facts
+  Location: https://github.com/Kotlasuhasreddy123/Project-OmniMatch/actions/runs/42574105663/attempts/1
+  Run: 42574105663
+  Attempt: 1
+  Execution revision: 22fc7709642599feca7b9527fe4f44874d04e520
+  Status: completed
+  Conclusion: success
+  Method: exact-head run and captured-attempt jobs acquisition
+  Acquisition time: not recorded
+  Preservation limit: Original input content is not retained in this report.
+source-2: workflow execution | selected facts
+  Location: https://github.com/Kotlasuhasreddy123/Project-OmniMatch/actions/runs/42574105536/attempts/1
+  Run: 42574105536
+  Attempt: 1
+  Execution revision: 22fc7709642599feca7b9527fe4f44874d04e520
+  Status: completed
+  Conclusion: success
+  Method: exact-head run and captured-attempt jobs acquisition
+  Acquisition time: not recorded
+  Preservation limit: Original input content is not retained in this report.
+source-3: workflow execution | selected facts
+  Location: https://github.com/Kotlasuhasreddy123/Project-OmniMatch/actions/runs/42574105631/attempts/1
+  Run: 42574105631
+  Attempt: 1
+  Execution revision: 22fc7709642599feca7b9527fe4f44874d04e520
+  Status: completed
+  Conclusion: success
+  Method: exact-head run and captured-attempt jobs acquisition
+  Acquisition time: not recorded
+  Preservation limit: Original input content is not retained in this report.
+source-4: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-5: workflow source | reference only
+  Location: https://github.com/Kotlasuhasreddy123/Project-OmniMatch/blob/22fc7709642599feca7b9527fe4f44874d04e520/.github/workflows/codeql.yml
+  Workflow path: .github/workflows/codeql.yml
+  Static revision: 22fc7709642599feca7b9527fe4f44874d04e520
+  Method: static workflow interpretation
+  Acquisition time: not recorded
+  Preservation limit: Original input content is not retained in this report.
+source-6: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-7: workflow source | reference only
+  Location: https://github.com/Kotlasuhasreddy123/Project-OmniMatch/blob/22fc7709642599feca7b9527fe4f44874d04e520/.github/workflows/passwordless.yml
+  Workflow path: .github/workflows/passwordless.yml
+  Static revision: 22fc7709642599feca7b9527fe4f44874d04e520
+  Method: static workflow interpretation
+  Acquisition time: not recorded
+  Preservation limit: Original input content is not retained in this report.
+source-8: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-9: workflow source | reference only
+  Location: https://github.com/Kotlasuhasreddy123/Project-OmniMatch/blob/22fc7709642599feca7b9527fe4f44874d04e520/.github/workflows/advanced-models.yml
+  Workflow path: .github/workflows/advanced-models.yml
+  Static revision: 22fc7709642599feca7b9527fe4f44874d04e520
+  Method: static workflow interpretation
+  Acquisition time: not recorded
+  Preservation limit: Original input content is not retained in this report.
+source-10: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+source-11: producer assessment | producer result
+  Method: recorded domain assessment
+  Acquisition time: not recorded
+  Preservation limit: Retained producer assessment, not the original raw input.
+
+CI view limits
+Recorded CI owner results only; no live refresh or new domain evaluation.
+Static declarations, correlated execution and command-completion state retain different scopes.
+This view establishes neither whole-update compatibility nor maintainer-action permission.
+Source references do not retain original raw inputs; capture provenance/gaps belong to the supplying boundary.

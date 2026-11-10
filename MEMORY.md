@@ -1,11 +1,13 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-11-09
+**Last updated:** 2026-11-10
 **Authority:** sole owner of the live project position, current blockers, selected continuation, and current learning depth. Detailed historical evidence remains in the linked cycle/evidence records; this file intentionally summarizes the current live state.
 
 **Publication cadence:** Ali explicitly authorizes committing and pushing each coherent, appropriately validated in-scope increment as work progresses. Record actual proof and remaining debt with each increment; this publication instruction does not expand the selected implementation responsibility.
 
 ## Current position
+
+**OmniMatch CI explanation gap traced — November 10.** The [live trace](working-memory/2026-11-10_omnimatch-ci-report-evidence-trace_cycle.md) and [rendered CI view](working-memory/evidence/2026-11-10-omnimatch-ci-report-trace/ci-view.txt) confirm successful anonymous exact-head acquisition and native retention of the two workflow commands requesting old HTTPX. Current analysis correctly withholds changed-dependency credit, but emits no separate structured requested-version fact for the report. Ninety-eight focused tests passed. **Continue:** decide whether to design a bounded workflow request fact and report/inspection treatment. Proposed-version pytest evidence, Runtime-State Cycle 2, and action automation remain separate.
 
 **Cross-case targeted-check screening complete — November 9.** The [qualification](working-memory/2026-11-09_targeted-check_cross-case-qualification_cycle.md) screens 15 PRs. Current component owners admit three exact changes. AV-Tracer and test-case-management expose a declared Starlette-to-HTTPX argument conflict and independently show failed public jobs with cause unresolved. OmniMatch shows a green job whose workflow requests old HTTPX, with an existing transport guardrail that supplies a bounded proposed-version check candidate. Anonymous product acquisition hit a GitHub 403 and public source/check views recovered the engineering evidence. Sixty-five focused tests passed. **Continue:** seek existing proposed-version evidence for the named OmniMatch test, and assess what the normal investigation can surface before enabling any action output. Runtime-State Cycle 2 remains deferred.
 
