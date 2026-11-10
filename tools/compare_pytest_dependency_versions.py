@@ -129,7 +129,9 @@ def capture(args: argparse.Namespace) -> int:
     sys.dont_write_bytecode = True
     os.chdir(checkout)
     sys.path.insert(0, str(checkout))
-    options = ["-p", "no:cacheprovider", "-o", "addopts="]
+    # Keep node IDs relative to the checked-out repository even when pytest
+    # discovers the test settings in a nested project such as backend/.
+    options = ["-p", "no:cacheprovider", "-o", "addopts=", "--rootdir", str(checkout)]
     for plugin in args.plugin:
         options.extend(("-p", plugin))
     exit_code = int(pytest.main([*options, args.nodeid], plugins=[observation]))

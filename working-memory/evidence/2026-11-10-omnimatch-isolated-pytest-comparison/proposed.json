@@ -1,0 +1,224 @@
+{
+  "clean_revision": true,
+  "distribution": "httpx",
+  "environment": {
+    "other_distributions": [
+      [
+        "aiosqlite",
+        "0.20.0"
+      ],
+      [
+        "annotated-doc",
+        "0.0.5"
+      ],
+      [
+        "annotated-types",
+        "0.8.0"
+      ],
+      [
+        "anyio",
+        "4.16.0"
+      ],
+      [
+        "apscheduler",
+        "3.10.4"
+      ],
+      [
+        "certifi",
+        "2026.10.23"
+      ],
+      [
+        "cffi",
+        "2.1.1"
+      ],
+      [
+        "cryptography",
+        "50.0.2"
+      ],
+      [
+        "fastapi",
+        "0.162.2"
+      ],
+      [
+        "grpcio",
+        "1.85.1"
+      ],
+      [
+        "grpcio-tools",
+        "1.85.1"
+      ],
+      [
+        "h11",
+        "0.16.0"
+      ],
+      [
+        "h2",
+        "4.4.1"
+      ],
+      [
+        "hpack",
+        "4.2.0"
+      ],
+      [
+        "httpcore",
+        "1.0.9"
+      ],
+      [
+        "hyperframe",
+        "6.1.0"
+      ],
+      [
+        "idna",
+        "3.20"
+      ],
+      [
+        "iniconfig",
+        "2.3.1"
+      ],
+      [
+        "numpy",
+        "2.4.6"
+      ],
+      [
+        "opentelemetry-api",
+        "1.45.2"
+      ],
+      [
+        "packaging",
+        "26.3"
+      ],
+      [
+        "pip",
+        "24.0"
+      ],
+      [
+        "pluggy",
+        "1.7.0"
+      ],
+      [
+        "portalocker",
+        "2.10.1"
+      ],
+      [
+        "protobuf",
+        "7.36.2"
+      ],
+      [
+        "pycparser",
+        "3.12"
+      ],
+      [
+        "pydantic",
+        "2.14.3"
+      ],
+      [
+        "pydantic-core",
+        "2.50.4"
+      ],
+      [
+        "pydantic-settings",
+        "2.16.2"
+      ],
+      [
+        "pygments",
+        "2.21.0"
+      ],
+      [
+        "pyjwt",
+        "2.15.1"
+      ],
+      [
+        "pytest",
+        "9.2.0"
+      ],
+      [
+        "pytest-asyncio",
+        "1.4.1.post1"
+      ],
+      [
+        "python-dotenv",
+        "1.2.4"
+      ],
+      [
+        "python-multipart",
+        "0.0.33"
+      ],
+      [
+        "pytz",
+        "2026.6"
+      ],
+      [
+        "qdrant-client",
+        "1.10.0"
+      ],
+      [
+        "setuptools",
+        "84.2.1"
+      ],
+      [
+        "six",
+        "1.17.0"
+      ],
+      [
+        "sniffio",
+        "1.3.1"
+      ],
+      [
+        "starlette",
+        "1.10.0"
+      ],
+      [
+        "typing-extensions",
+        "4.16.0"
+      ],
+      [
+        "typing-inspection",
+        "0.4.5"
+      ],
+      [
+        "tzlocal",
+        "5.4.5"
+      ],
+      [
+        "urllib3",
+        "2.8.0"
+      ]
+    ],
+    "platform": "Linux-6.18.58.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "plugins": [
+      "pytest_asyncio.plugin"
+    ],
+    "pytest": "9.2.0",
+    "python": "3.11.15 (main, Jun 11 2026, 04:03:40) [Clang 22.1.3 ]"
+  },
+  "format": "pytest-dependency-observation/1",
+  "loaded": {
+    "distribution_file": "httpx/__init__.py",
+    "version": "0.28.1"
+  },
+  "module": "httpx",
+  "nodeid": "backend/tests/test_security_guardrails.py::test_rate_store_has_a_hard_size_bound",
+  "phases": [
+    {
+      "expected_failure": false,
+      "outcome": "passed",
+      "phase": "setup"
+    },
+    {
+      "expected_failure": false,
+      "outcome": "passed",
+      "phase": "call"
+    },
+    {
+      "expected_failure": false,
+      "outcome": "passed",
+      "phase": "teardown"
+    }
+  ],
+  "pytest_exit": 0,
+  "requested_version": "0.28.1",
+  "revision": "22fc7709642599feca7b9527fe4f44874d04e520",
+  "selected": [
+    "backend/tests/test_security_guardrails.py::test_rate_store_has_a_hard_size_bound"
+  ]
+}
