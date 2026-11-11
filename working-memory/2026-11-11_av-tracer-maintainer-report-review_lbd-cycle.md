@@ -31,6 +31,10 @@ Read the retained `report.json` and its offline textual CLI reopening under the 
 - Read-only `PYTHONPATH=src .venv/bin/upgradepilot --open-report <retained-report> --show-source <id>` reopened `source-28`, `source-16`, `source-29`, `source-31`, and `source-36` from the saved artifact without new GitHub/PyPI collection.
 - A first `.venv/bin/upgradepilot --show-source` invocation without `PYTHONPATH=src` rejected the option: the local installed import path was older than the current checkout's CLI. Setting the source import path resolved the local diagnostic. Treat this as a **local invocation/version-selection caveat**, not proof that the current product CLI omits the feature or that packaging is generally broken.
 
+## Public-safe GitHub inspection packet (follow-up publication)
+
+After Ali requested stronger GitHub availability for locally retained evidence, the [selected first-view and witness packet](evidence/2026-11-11-av-tracer-exact-version-allocation/REPORT_REVIEW_PACKET.md) was committed alongside the existing receipt. It contains the **actual report opening**, selected retained `app` reception/violation fields and their positions, source IDs, exact-revision GitHub links, digests, coverage/CI/runtime limits, and the original saved report SHA-256. The packet is a review extract, not a complete saved report, complete original-source capture or offline-replayable Workspace. The source-bearing originals remain untouched in owner-only storage. This addresses GitHub-only inspectability for the selected finding without changing report serialization, external-data policy, or the review's pending learner checkpoint.
+
 ## What a maintainer can establish today
 
 The actual report opens with `Review at a glance`, source-only conditional caller/signature evidence and a direct old-versus-proposed outcome:
