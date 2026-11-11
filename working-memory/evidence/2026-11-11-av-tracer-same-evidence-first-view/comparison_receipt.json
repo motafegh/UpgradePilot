@@ -1,0 +1,53 @@
+{
+  "case": {
+    "repository": "ivaronkun-Ahey/AV-Tracer",
+    "pr": 11,
+    "base": "527a004918c0f825e97c3583404242605fd58ec2",
+    "head": "25e7205f39103456e7efbc4e9f503f3debc7b5d8",
+    "package": "httpx",
+    "old_version": "0.25.2",
+    "proposed_version": "0.28.1"
+  },
+  "method": {
+    "type": "prior-exposed development-only exact-save before-after presentation comparison",
+    "original_renderer_code_base": "58e4f2f82f28477f0444dff22bd177041eec3bca",
+    "updated_renderer_change_commit": "55bb607ef30725b10a5f67b6e029b53fc722eea2",
+    "recovery": "same offline --open-workspace REVISION route in both conditions",
+    "no_independent_reviewer": true,
+    "no_human_navigation_or_elapsed_time_measurement": true,
+    "no_new_external_source_acquisition": true
+  },
+  "input": {
+    "saved_report_id": "99a373c2-98d0-43ee-8a4b-2e7c449e82ba",
+    "confirmed_workspace_revision": "80a58d494a8c46009aab8dc72b94b447",
+    "report_json_sha256": "85fd07790ebb0e44eecda9b1f6688251e1d0dec7dc2d340dc66beb9105d69bd3"
+  },
+  "outputs": {
+    "original_text_sha256": "32d1338d5d42ded6b2834fe764df57f71b17a1faa985ad55f947944d307ac182",
+    "updated_text_sha256": "713932a8df956f2c3a78dc67e3f802d2c9519c52f24a876a033a7dfdeca8a036",
+    "original_line_count": 5602,
+    "updated_line_count": 5603,
+    "strict_full_output_diff": "one inserted line and no other differences",
+    "inserted_line_number": 26,
+    "inserted_line_text": "Rejected keyword: app",
+    "old_first_view_start_line": 18,
+    "new_first_view_start_line": 18,
+    "old_keyword_first_view": false,
+    "new_keyword_first_view": true,
+    "old_rejection_detail_line": 3721,
+    "new_rejection_detail_line": 3722
+  },
+  "retained_truth": {
+    "old_and_new_ci_dependency_coverage": "not evaluated",
+    "old_and_new_runtime_dependency_state": "not evaluated",
+    "old_and_new_maintainer_action": "abstain",
+    "old_and_new_conditional_source_claim": true,
+    "source_refs_in_first_view_equal": true
+  },
+  "interpretation_limits": [
+    "Single previously examined development case and informed analyst; not independent maintainer task completion",
+    "First-view keyword position and one-line diff are objective file-layout measurements, not task time savings",
+    "Existing observations do not establish installed runtime, test-path execution or CI failure cause",
+    "A named rejected keyword becomes first-view visible, but exact framework forwarding mechanism and prioritized next observation remain in detailed sources/analyst reasoning"
+  ]
+}
