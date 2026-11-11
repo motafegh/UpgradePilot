@@ -1,7 +1,7 @@
 # AV-Tracer saved-report maintainer review — Learning-by-Doing cycle
 
 Date: 2026-11-11  
-Session status: PAUSED — review evidence established; learner ownership check and cycle closure pending  
+Session status: CLOSED — report review complete; independent learner demonstration deferred  
 Primary operation: bounded read-only maintainer-report review, with Learning-by-Doing  
 Selected plan: [AV-Tracer maintainer-task review and evidence checkpoint](../plans/AV_TRACER_MAINTAINER_TASK_REVIEW_AND_EVIDENCE_CHECKPOINT_PLAN.md)  
 Prior qualification: [exact-version allocation build](2026-11-11_caller-signature-exact-version-allocation_build-cycle.md) · [public-safe receipt](evidence/2026-11-11-av-tracer-exact-version-allocation/qualification.json)
@@ -15,8 +15,8 @@ UP-SKILL:upgradepilot-repository-audit. UP-SKILL:upgradepilot-learning-by-doing.
 - A2 — DONE (prior agreed task): Fix the maintainer question, inspect the native saved report and retained original sources; evaluate fidelity, navigation and decision relevance separately, preserving conditional source versus unobserved runtime proof. Prior detailed plan discussion and explicit go-ahead compress repeated pre-review gates; they do not waive later review/learning decisions.
 - B — DONE for saved-report review and deterministic diagnostic. No code, model, provider requests, target execution or test runs.
 - Verification — GREEN for file/read-only evidence integrity; incomplete for independent usefulness. Actual report SHA-256 and exact source inspection were verified, as detailed below.
-- D — CURRENT: one ownership question remains for Ali concerning source-level mismatch versus CI/runtime proof.
-- E — PENDING: consolidate after learner response and select the separate combined-evidence/runtime checkpoint.
+- D — DONE at explanation depth; independent learner demonstration DEFERRED: the distinction between static mismatch and CI/runtime attribution was taught, but Ali did not supply an independent answer before explicitly resuming the engineering work. Do not claim learner mastery.
+- E — DONE: The report review established its bounded pilot outcome and handed the exact missing CI/runtime propositions to the [subsequent read-only checkpoint](2026-11-11_av-tracer-combined-evidence-runtime-applicability-and-ai-checkpoint_cycle.md). The uncompleted learner demonstration remains learning debt, not a false pass.
 - C — CONTINUOUS: this record preserves report/source observations, a presentation shortcoming, source/renderer ownership, an environment-specific CLI caveat and proof limits.
 
 Learning bridge: `TestClient(app)` is a target-source fact; the sampled FastAPI re-export leads to sampled Starlette, which passes `app=` to a candidate HTTPX base initializer; a version-specific signature check is **not** proof that the particular CI job executed that route with those installed files. A useful report must make both the mismatch and the proof boundary visible.
@@ -67,10 +67,10 @@ The actual report opens with `Review at a glance`, source-only conditional calle
 
 **Continue as a bounded pilot; defer a general maintainer-usefulness/adoption claim.** The selected static mismatch and source provenance are real and useful, but the current textual layout imposes substantial evidence-navigation cost. A narrower deterministic view is the justified first comparator; the pilot does not grant a block/merge conclusion or imply runtime proof. AV-Tracer is exposed development evidence, not a fresh transfer holdout.
 
-The [combined-evidence/runtime-applicability checkpoint](../plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md#16-combined-evidence-and-runtime-applicability-design-checkpoint) is the **next separate review responsibility after the learner check**. Its work has not been performed in this cycle. The scheduled AI design checkpoint has likewise **not** been decided; this report-level presentation gap alone does not justify model inference.
+The [combined-evidence/runtime-applicability checkpoint](../plans/CALLER_SIGNATURE_NATIVE_ADOPTION_AND_QUALIFICATION_PLAN.md#16-combined-evidence-and-runtime-applicability-design-checkpoint) and subsequent AI decision are now recorded in their [later checkpoint cycle](2026-11-11_av-tracer-combined-evidence-runtime-applicability-and-ai-checkpoint_cycle.md). They were **not performed as part of this earlier report review**; the source-only pilot findings remain unchanged.
 
 ## Ownership check and pause boundary
 
 Reasoning question for Ali: **If the target's backend pytest job failed at this exact PR head, why does that fact alone not prove UpgradePilot's `app=` signature mismatch caused the failure? Which concrete execution evidence would strengthen or falsify the proposed causal link?**
 
-The expected learning obligation is to separate the source hypothesis from observed test execution, resolved runtime file identities and traceback attribution, not to memorize a line number. After this discussion, complete D/E in this record and make the next plan checkpoint active in `MEMORY.md` only if the live responsibility changed. Preserve the existing local untracked file and the owner-only report.
+The expected learning obligation is to separate the source hypothesis from observed test execution, resolved runtime file identities and traceback attribution, not to memorize a line number. Ali chose to continue the engineering work before demonstrating the answer independently; D/E therefore close the **review work** while preserving the open learner-ownership obligation explicitly. The follow-on checkpoint and current handoff are in the later cycle and `MEMORY.md`. Preserve the existing local untracked file and owner-only report.
