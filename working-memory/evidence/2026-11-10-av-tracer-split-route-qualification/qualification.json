@@ -1,0 +1,146 @@
+{
+  "acquisition": {
+    "body_bytes": 1760137,
+    "elapsed_seconds": 20.75851019900074,
+    "failed_requests": [],
+    "fastapi_requests": [
+      {
+        "decoded_body_bytes": 588484,
+        "github_requests": 17,
+        "host": "pypi.org",
+        "path": "/pypi/fastapi/json",
+        "provider_requests": 18,
+        "reason": null,
+        "stage": "library_sources",
+        "state": "received",
+        "status": 200
+      },
+      {
+        "decoded_body_bytes": 27834,
+        "github_requests": 17,
+        "host": "pypi.org",
+        "path": "/pypi/fastapi/0.104.1/json",
+        "provider_requests": 19,
+        "reason": null,
+        "stage": "library_sources",
+        "state": "received",
+        "status": 200
+      },
+      {
+        "decoded_body_bytes": 74,
+        "github_requests": 17,
+        "host": "pypi.org",
+        "path": "/integrity/fastapi/0.104.1/fastapi-0.104.1-py3-none-any.whl/provenance",
+        "provider_requests": 20,
+        "reason": null,
+        "stage": "library_sources",
+        "state": "received",
+        "status": 404
+      },
+      {
+        "decoded_body_bytes": 64,
+        "github_requests": 17,
+        "host": "pypi.org",
+        "path": "/integrity/fastapi/0.104.1/fastapi-0.104.1.tar.gz/provenance",
+        "provider_requests": 21,
+        "reason": null,
+        "stage": "library_sources",
+        "state": "received",
+        "status": 404
+      },
+      {
+        "decoded_body_bytes": 27834,
+        "github_requests": 17,
+        "host": "pypi.org",
+        "path": "/pypi/fastapi/0.104.1/json",
+        "provider_requests": 22,
+        "reason": null,
+        "stage": "library_sources",
+        "state": "received",
+        "status": 200
+      },
+      {
+        "decoded_body_bytes": 219,
+        "github_requests": 18,
+        "host": "api.github.com",
+        "path": "/repos/tiangolo/fastapi/git/ref/tags/0.104.1",
+        "provider_requests": 23,
+        "reason": null,
+        "stage": "library_sources",
+        "state": "received",
+        "status": 301
+      }
+    ],
+    "files": 22,
+    "github_requests": 33,
+    "module_receipts": 51,
+    "omissions": 0,
+    "omitted_candidates": 0,
+    "problems": [
+      {
+        "detail": "GitHub returned HTTP 301 while acquiring tag-reference evidence.",
+        "reason": "acquisition_failed",
+        "stage": "adapter_tag"
+      },
+      {
+        "detail": "GitHub returned HTTP 301 while acquiring tag-reference evidence.",
+        "reason": "acquisition_failed",
+        "stage": "adapter_tag"
+      }
+    ],
+    "provider_requests": 43,
+    "sample_versions": [
+      [
+        "pytest",
+        "9.2.0",
+        "src/pytest/__init__.py"
+      ]
+    ],
+    "state": "partial",
+    "stops": [],
+    "transport_status_counts": {
+      "200": 39,
+      "301": 1,
+      "404": 3
+    }
+  },
+  "analysis": {
+    "gaps": 15,
+    "relevant_witnesses": [],
+    "roles": {},
+    "roots": 0,
+    "state": "completed",
+    "target_test_admission": [
+      {
+        "reason": "outside_static_import_component",
+        "scan_nodes": 54,
+        "state": "unexamined",
+        "unit_id": "46bd1c781663363bc2762f55e0fcde594bf36ac5eeb27130ac6b42d7a3300978"
+      }
+    ],
+    "unexamined_units": 11,
+    "witnesses": 0
+  },
+  "original_capture_verified": true,
+  "report": {
+    "relevant_assessments": [],
+    "reopened_sha256": "c31a101249c11a03a10fd56f8a744abcddbf7c30e2b3ba408086cd321501f244",
+    "reopened_target_source": "source-37",
+    "sha256": "7ee8f06d78e187edc2e87f4b58b3583b960463fe4813af758025a071f96ced91"
+  },
+  "revision": "f2f84674306f470a8380e60b07b1ac31",
+  "revision_digest": "eb2f2d47b5972c5131804d53756e8acc20712c4fcbafa131c9e84eeeeaf2728d",
+  "run": {
+    "elapsed_seconds": 40.67320510800164,
+    "exit": 0
+  },
+  "target": {
+    "base_sha": "527a004918c0f825e97c3583404242605fd58ec2",
+    "head_sha": "25e7205f39103456e7efbc4e9f503f3debc7b5d8",
+    "normalized_package": "httpx",
+    "old_version": "0.25.2",
+    "proposed_version": "0.28.1",
+    "pull_number": 11,
+    "repository": "ivaronkun-Ahey/AV-Tracer"
+  }
+}

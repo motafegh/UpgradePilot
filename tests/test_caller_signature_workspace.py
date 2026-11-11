@@ -19,7 +19,7 @@ from upgradepilot.caller_signature.source_codec import decode_sources, encode_so
 from upgradepilot.caller_signature.worker import run_source_analysis
 from upgradepilot.dependency.change import DependencyChangeSourceEvidence, DependencyVersionChange
 from upgradepilot.github.pull_request import ChangedFile, PullRequestIdentity
-from upgradepilot.github.tag import GitHubTagCommitEvidence
+from upgradepilot.github.tag import GitHubTagCommitEvidence, GitHubTagRepositoryRedirect
 from upgradepilot.pypi.release import PackageReleaseEvidence, ProjectUrlCandidate
 from upgradepilot.workspace.checkpoint_store import CheckpointStore
 from upgradepilot.workspace.lifecycle_host import InvestigationWorkspaceHost
@@ -83,6 +83,84 @@ def altered(boundary, family, **changes):
 
 
 class CallerSignatureWorkspaceTests(TestCase):
+    def moved_sources(self, *, verified=True):
+        source = controlled_sources(full=True)
+        first, second = source.acquisition.module_requests
+        tag = first.request.version
+        redirect = GitHubTagRepositoryRedirect("old/vendor", tag, 123, f"/repositories/123/git/ref/tags/{tag}")
+        move = se.SourceRepositoryMove(redirect, "owner/vendor", verified)
+        link = ProjectUrlCandidate("Source", "https://github.com/old/vendor")
+        association = replace(first.association, repository="old/vendor", declarations=(link,),
+                              release=replace(first.association.release, project_urls=(link,)))
+        paths = [(f"/repos/old/vendor/git/ref/tags/{tag}", 301), ("/repositories/123", 200)]
+        if verified:
+            paths.extend((("/repos/owner/vendor", 200), (f"/repos/owner/vendor/git/ref/tags/{tag}", 200)))
+        events = tuple(se.SourceRequestEvent("source", "api.github.com", path, number, number, 10, status, "received", None)
+                       for number, (path, status) in enumerate(paths, 1))
+        limits = se.SourceAcquisitionLimits(50, 100, 8 * 1024 * 1024, 32 * 1024 * 1024,
+            MeasuredDuration.from_seconds(180.0, "acquisition_limit"), 24, 16, 4)
+        transport = se.SourceTransportReceipt(limits, "anonymous", len(events), len(events), 10 * len(events),
+            MeasuredDuration.from_seconds(.1, "acquisition_elapsed"),
+            "cooperative_monotonic_checks_and_bounded_socket_timeouts", (), events, "none", ())
+        first = replace(first, association=association, repository_move=move)
+        receipt = replace(source.acquisition, module_requests=(first, second), transport=transport, retention_gaps=())
+        if verified:
+            return replace(source, acquisition=receipt)
+        first = replace(first, state="unavailable", repository="old/vendor", revision=None, path=None,
+            problem=se.SourceProblem("adapter_acquisition", "transport_error", "Canonical identity request failed"),
+            tags=(), tag_commits=(), sha256=None, utf8_bytes=None)
+        return replace(source, catalog=None, modules=(), acquisition=replace(receipt, state="partial", module_requests=(first,)))
+
+    def test_move_version_round_trips_with_prior_format_and_comparison(self):
+        source = self.moved_sources()
+        capture = started_capture(source)
+        with tempfile.TemporaryDirectory() as tmp:
+            store = CheckpointStore.create(Path(tmp) / "store", schema_version=2)
+            host = InvestigationWorkspaceHost(store=store, lineage_id="control")
+            host.initialize(capture.partial_snapshot())
+            revisions = []
+            run = run_source_analysis(source.analysis_input())
+            for captured in (controlled_sources(full=True), self.moved_sources(verified=False), source):
+                capture.capture_caller_signature_sources(captured)
+                if captured is source:
+                    capture.capture_caller_signature_comparison(run)
+                host.publish_native_progress(capture.partial_snapshot())
+                revisions.append(host.current.revision_id)
+            with ExitStack() as stack:
+                for hook in ("requests.sessions.Session.request", "ast.parse", "upgradepilot.caller_signature.worker.run_source_analysis"):
+                    stack.enter_context(patch(hook, side_effect=AssertionError("Producer invoked during recovery")))
+                reader = CheckpointStore.open(store.directory, read_only=True)
+                target = source.catalog.target
+                for revision, version, state in zip(revisions, (1, 2, 2), (None, False, True), strict=True):
+                    boundary = reader.read_revision("control", revision, expected_target=target).revision.boundary
+                    restored = reconstruct_caller_signature_projection(boundary, expected_target=target)
+                    record = next(r for r in boundary.records if r.family == "caller_signature_sources")
+                    self.assertEqual((record.codec_version, record.producer_version), (version, str(version)))
+                    move = restored.sources.acquisition.module_requests[0].repository_move
+                    self.assertEqual(move.verified if move else None, state)
+                    if state is True:
+                        self.assertEqual(restored.sources.catalog.files, source.catalog.files)
+                        self.assertEqual(restored.comparison, run)
+
+    def test_move_reader_refuses_broken_identity_tag_and_file_joins(self):
+        source = self.moved_sources()
+        first, second = source.acquisition.module_requests
+        move = first.repository_move
+        payload = encode_sources(source, version=2)
+        with self.assertRaises(ValueError):
+            decode_sources(payload)
+        for changed in (
+            replace(first, repository_move=replace(move, redirect=replace(move.redirect, repository_id=124))),
+            replace(first, association=replace(first.association, repository="other/vendor")),
+            replace(first, repository_move=replace(move, canonical_repository="other/vendor")),
+            replace(first, repository_move=replace(move, verified=False)),
+            replace(first, tags=(replace(first.tags[0], tag_ref="refs/tags/9.0"),)),
+            replace(first, revision="e" * 40), replace(first, sha256="0" * 64),
+        ):
+            with self.subTest(changed=changed), self.assertRaises(ValueError):
+                encode_sources(replace(source, acquisition=replace(source.acquisition,
+                    module_requests=(changed, second))), version=2)
+
     def test_full_observations_and_historical_gaps_remain_distinct(self):
         for full in (False, True):
             source = controlled_sources(full=full)

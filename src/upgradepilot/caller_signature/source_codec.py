@@ -9,6 +9,7 @@ are gaps, not reconstructed authority. Workspace validates target/input edges.
 """
 from __future__ import annotations
 
+from dataclasses import replace
 from datetime import datetime
 from hashlib import sha256
 import re
@@ -22,7 +23,9 @@ from .result_codec import (
     encode_analysis_limits, module_fields,
 )
 from ..github.identity import validate_commit_sha, validate_repository
-from ..github.tag import GitHubTagCommitEvidence
+from ..github.api import GITHUB_API_ROOT
+from ..github.tag import (GitHubTagCommitEvidence, GitHubTagRepositoryRedirect,
+                          repository_move_redirect, tag_reference_path)
 from ..pypi.provenance import FileProvenanceEvidence, FileProvenanceProblem, PublisherIdentity
 from ..pypi.release import DistributionFile, PackageReleaseEvidence, ProjectUrlCandidate
 from ..workspace.native_boundary import ExactInvestigationTarget
@@ -33,6 +36,7 @@ from ..workspace.native_representation import (
 from ..workspace.source_access import encode_source_catalog, read_source_catalog
 
 FORMAT = "caller-signature-sources/1"
+MOVE_FORMAT = "caller-signature-sources/2"
 
 
 def _optional(shape):
@@ -438,6 +442,19 @@ _LAYOUTS = (
     ),
 )
 _VALUES = NativeValueCodec(_LAYOUTS)
+_MOVE_VALUES = NativeValueCodec(tuple(
+    replace(layout, fields=layout.fields + (("repository_move", _optional(RecordRef("repository_move"))),))
+    if layout.variant == "module_source_receipt" else layout for layout in _LAYOUTS
+) + (
+    RecordLayout("tag_repository_redirect", GitHubTagRepositoryRedirect, (
+        ("repository", str), ("requested_tag", str), ("repository_id", int), ("path", str),
+    )),
+    RecordLayout("repository_move", se.SourceRepositoryMove, (
+        ("redirect", RecordRef("tag_repository_redirect")),
+        ("canonical_repository", _optional(str)), ("verified", bool),
+        ("prior_tag", _optional(RecordRef("github_tag_commit"))),
+    )),
+))
 _RECEIPT = RecordRef("source_acquisition_receipt")
 
 
@@ -533,6 +550,67 @@ def _validate_origin(origin):
                 raise ValueError("Foreign retained origin trace.")
 
 
+def _validate_moved_repository(module, transport):
+    move = module.repository_move
+    redirect = move.redirect
+    association = module.association
+    if (association is None or transport is None
+        or validate_repository(redirect.repository) != redirect.repository
+        or association.repository.casefold() != redirect.repository.casefold()
+        or repository_move_redirect(redirect.repository, redirect.requested_tag, GITHUB_API_ROOT + redirect.path) != redirect):
+        raise ValueError("Repository move lacks its exact declaration or redirect identity.")
+    if not redirect.requested_tag or redirect.requested_tag.strip() != redirect.requested_tag:
+        raise ValueError("Invalid repository move tag spelling.")
+    canonical = move.canonical_repository
+    if canonical is not None and (validate_repository(canonical) != canonical
+        or canonical.split("/")[1] in {".", ".."}
+        or canonical.casefold() == association.repository.casefold()):
+        raise ValueError("Invalid canonical repository in move evidence.")
+    if move.verified and canonical is None:
+        raise ValueError("Verified repository move lacks its canonical name.")
+
+    # Move verification uses consecutive charged requests through the same session.
+    # The destination from the header is retained as data and is never fetched.
+    expected = [(tag_reference_path(redirect.repository, redirect.requested_tag), 301)]
+    if canonical is not None:
+        expected.append((f"/repositories/{redirect.repository_id}", 200))
+    if move.verified:
+        expected.append((f"/repos/{canonical}", 200))
+    width = len(expected)
+    def matches(event, path, status):
+        return (event.host == "api.github.com" and event.state == "received" and event.path == path
+                and (event.status == 301 if status == 301 else event.status is not None and 200 <= event.status < 300))
+
+    verification_end = next((start + width for start in range(len(transport.requests) - width + 1)
+        if all(matches(event, *pair) for event, pair in
+               zip(transport.requests[start:start + width], expected, strict=True))), None)
+    if verification_end is None:
+        raise ValueError("Repository move evidence does not match the transport receipt.")
+
+    if move.prior_tag is not None:
+        prior = move.prior_tag
+        validate_commit_sha(prior.resolved_commit_sha)
+        if (prior.repository != redirect.repository or prior.requested_tag != module.request.version
+            or prior.tag_ref != f"refs/tags/{prior.requested_tag}"
+            or redirect.requested_tag != "v" + module.request.version
+            or (module.state == "module_examined" and not any(
+                (t.requested_tag, t.resolved_commit_sha) == (prior.requested_tag, prior.resolved_commit_sha)
+                for t in module.tags))):
+            raise ValueError("Repository move disagrees with the earlier exact tag observation.")
+    if not move.verified:
+        if module.state == "module_examined" or module.tags or module.tag_commits:
+            raise ValueError("Unverified repository move cannot admit canonical tags or text.")
+        return association.repository
+    spellings = {module.request.version, "v" + module.request.version}
+    if any(t.repository != canonical or t.requested_tag not in spellings or t.tag_ref != f"refs/tags/{t.requested_tag}"
+           for t in module.tags):
+        raise ValueError("Canonical source tags do not match the moved repository or requested release.")
+    if any(not any(matches(event, tag_reference_path(canonical, t.requested_tag), 200)
+                   for event in transport.requests[verification_end:]) for t in module.tags):
+        raise ValueError("Canonical source tags lack their exact transport observations.")
+    return canonical
+
+
 def _validate_receipt(receipt):
     if len(receipt.module_requests) > 512 or len(receipt.samples) > 256 or len(receipt.problems) > 256:
         raise ValueError("Acquisition receipt capacity exceeded.")
@@ -563,6 +641,9 @@ def _validate_receipt(receipt):
         if not request.package or not request.version or not all(p.isidentifier() for p in request.module.split(".")):
             raise ValueError("Invalid module source question.")
         _validate_origin(request.origin)
+        expected_repository = module.association.repository if module.association else None
+        if module.repository_move is not None:
+            expected_repository = _validate_moved_repository(module, receipt.transport)
         if module.state != "module_examined":
             if module.problem is None:
                 raise ValueError("Unavailable source lacks its problem.")
@@ -583,7 +664,7 @@ def _validate_receipt(receipt):
                 association = module.association
                 if (association.release.normalized_package, association.release.requested_version) != (request.package, request.version):
                     raise ValueError("Partial source association/request mismatch.")
-                if module.repository is not None and association.repository != module.repository:
+                if module.repository is not None and expected_repository != module.repository:
                     raise ValueError("Partial source association scope mismatch.")
             for tag in module.tag_commits:
                 validate_commit_sha(tag.revision)
@@ -610,7 +691,7 @@ def _validate_receipt(receipt):
                 raise ValueError("Missing full source association observations.")
         else:
             association = module.association
-            if (association.repository != module.repository or association.basis != module.association_basis
+            if (expected_repository != module.repository or association.basis != module.association_basis
                 or association.provenance.state != module.provenance_state
                 or (association.release.normalized_package, association.release.requested_version) != (request.package, request.version)):
                 raise ValueError("Source association/request mismatch.")
@@ -663,24 +744,32 @@ def _validate_catalog_joins(value):
                 raise ValueError("Target module/declaration membership mismatch.")
 
 
-def encode_sources(value: se.CallerSignatureSources | None) -> bytes:
+def source_codec_version(value: se.CallerSignatureSources) -> int:
+    return 2 if any(module.repository_move is not None for module in value.acquisition.module_requests) else 1
+
+
+def encode_sources(value: se.CallerSignatureSources | None, *, version: int = 1) -> bytes:
     if value is None:
         return json_bytes(None)
-    payload = json_bytes(dict(format=FORMAT, catalog=parse_json(encode_source_catalog(value.catalog)) if value.catalog else None,
+    if version != source_codec_version(value):
+        raise ValueError("Caller/signature source representation does not match its observations.")
+    layout = _MOVE_VALUES if version == 2 else _VALUES
+    payload = json_bytes(dict(format=MOVE_FORMAT if version == 2 else FORMAT,
+        catalog=parse_json(encode_source_catalog(value.catalog)) if value.catalog else None,
         modules=[module_fields(m) for m in value.modules], limits=encode_analysis_limits(value.analysis_limits),
-        acquisition=parse_json(_VALUES.encode(value.acquisition, _RECEIPT))))
-    decoded = decode_sources(payload)
+        acquisition=parse_json(layout.encode(value.acquisition, _RECEIPT))))
+    decoded = decode_sources(payload, version=version)
     if (decoded.catalog.identity if decoded.catalog else None) != (value.catalog.identity if value.catalog else None) or decoded.modules != value.modules or decoded.acquisition != value.acquisition or decoded.analysis_limits != value.analysis_limits:
         raise ValueError("Source family encoding changed retained meaning.")
     return payload
 
 
-def decode_sources(payload: bytes) -> se.CallerSignatureSources | None:
+def decode_sources(payload: bytes, *, version: int = 1) -> se.CallerSignatureSources | None:
     parsed = parse_json(payload)
     if parsed is None:
         return None
     row = object_fields(parsed, ("format", "catalog", "modules", "limits", "acquisition"))
-    if row["format"] != FORMAT:
+    if version not in {1, 2} or row["format"] != (MOVE_FORMAT if version == 2 else FORMAT):
         raise ValueError("Unsupported caller/signature source representation.")
     limits = decode_analysis_limits(row["limits"])
     catalog, modules = None, ()
@@ -699,8 +788,11 @@ def decode_sources(payload: bytes) -> se.CallerSignatureSources | None:
                 raise ValueError("Unclassified retained Python text.")
     elif row["modules"] != []:
         raise ValueError("Source roles without retained text.")
-    receipt = _VALUES.decode(json_bytes(row["acquisition"]), _RECEIPT)
+    layout = _MOVE_VALUES if version == 2 else _VALUES
+    receipt = layout.decode(json_bytes(row["acquisition"]), _RECEIPT)
     _validate_receipt(receipt)
     result = se.CallerSignatureSources(catalog, modules, limits, receipt)
+    if version != source_codec_version(result):
+        raise ValueError("Caller/signature source representation does not match its observations.")
     _validate_catalog_joins(result)
     return result

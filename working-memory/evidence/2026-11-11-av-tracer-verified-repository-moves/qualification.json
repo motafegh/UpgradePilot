@@ -1,0 +1,313 @@
+{
+  "acquisition": {
+    "auth": "anonymous",
+    "body_bytes": 2516240,
+    "elapsed_seconds": 31.06903827000042,
+    "failed_requests": [],
+    "files": 22,
+    "github_requests": 50,
+    "limits": {
+      "acquisition_elapsed_seconds": 180.0,
+      "aggregate_bytes": 33554432,
+      "exact_release_identities": 4,
+      "github_requests": 50,
+      "provider_requests": 100
+    },
+    "module_receipts": 69,
+    "omissions": 0,
+    "omitted_candidates": 5,
+    "problems": [],
+    "proposed_httpx_admission": [
+      {
+        "detail": "Exact release identity remains unexamined at the shared run limit.",
+        "reason": "release_source_limit",
+        "stage": "python_source_budget"
+      }
+    ],
+    "proposed_httpx_release_queries_dispatched": [],
+    "provider_requests": 69,
+    "provider_routes": {
+      "api.github.com": "direct",
+      "pypi.org": "existing unauthenticated loopback proxy"
+    },
+    "release_identities_in_order": [
+      [
+        "fastapi",
+        "0.104.1"
+      ],
+      [
+        "starlette",
+        "0.27.0"
+      ],
+      [
+        "pytest",
+        "9.2.0"
+      ],
+      [
+        "httpx",
+        "0.25.2"
+      ]
+    ],
+    "repository_identity_requests": [
+      {
+        "path": "/repos/tiangolo/fastapi/git/ref/tags/0.104.1",
+        "provider_request": 23,
+        "status": 301
+      },
+      {
+        "path": "/repositories/160919119",
+        "provider_request": 24,
+        "status": 200
+      },
+      {
+        "path": "/repos/fastapi/fastapi",
+        "provider_request": 25,
+        "status": 200
+      },
+      {
+        "path": "/repos/encode/starlette/git/ref/tags/0.27.0",
+        "provider_request": 36,
+        "status": 301
+      },
+      {
+        "path": "/repositories/138597372",
+        "provider_request": 37,
+        "status": 200
+      },
+      {
+        "path": "/repos/Kludex/starlette",
+        "provider_request": 38,
+        "status": 200
+      }
+    ],
+    "sample_versions": [
+      [
+        "fastapi",
+        "0.104.1",
+        "fastapi/testclient.py"
+      ],
+      [
+        "starlette",
+        "0.27.0",
+        "starlette/testclient.py"
+      ],
+      [
+        "fastapi",
+        "0.104.1",
+        "fastapi/__init__.py"
+      ],
+      [
+        "pytest",
+        "9.2.0",
+        "src/pytest/__init__.py"
+      ]
+    ],
+    "state": "partial",
+    "stops": [
+      {
+        "reason": "acquisition_request_limit",
+        "stage": "source_closure"
+      }
+    ],
+    "verified_moves": [
+      {
+        "canonical": "fastapi/fastapi",
+        "declared": "tiangolo/fastapi",
+        "exact_tags": [
+          {
+            "commit": "7e5afe2cb9bf1fa30c04a4dd393ea397a46db29b",
+            "tag": "0.104.1"
+          }
+        ],
+        "github_repository_id": 160919119,
+        "redirect_path": "/repositories/160919119/git/ref/tags/0.104.1",
+        "redirected_tag": "0.104.1"
+      },
+      {
+        "canonical": "Kludex/starlette",
+        "declared": "encode/starlette",
+        "exact_tags": [
+          {
+            "commit": "0c4b68ac4e179a788e38bac28f299dcad0f36e99",
+            "tag": "0.27.0"
+          }
+        ],
+        "github_repository_id": 138597372,
+        "redirect_path": "/repositories/138597372/git/ref/tags/0.27.0",
+        "redirected_tag": "0.27.0"
+      }
+    ]
+  },
+  "analysis": {
+    "gaps": 44,
+    "relevant_witnesses": [
+      {
+        "callee_line": 620,
+        "callee_name": "Client.__init__",
+        "callee_path": "httpx/_client.py",
+        "callee_role": "old_dependency",
+        "caller_line": 399,
+        "caller_path": "starlette/testclient.py",
+        "candidate_id": "12c9611cfc7b974714bbf4afdb966f70e8abba7a7489d32a8812cfd9d5665bcf",
+        "package": "httpx",
+        "path": [
+          [
+            "backend/tests/test_app.py",
+            6,
+            "call"
+          ],
+          [
+            "backend/tests/test_app.py",
+            2,
+            "import_origin"
+          ],
+          [
+            "fastapi/testclient.py",
+            1,
+            "reexport"
+          ],
+          [
+            "starlette/testclient.py",
+            362,
+            "class_declaration"
+          ],
+          [
+            "starlette/testclient.py",
+            367,
+            "initializer"
+          ],
+          [
+            "starlette/testclient.py",
+            399,
+            "call"
+          ],
+          [
+            "starlette/testclient.py",
+            362,
+            "declared_base"
+          ],
+          [
+            "httpx/__init__.py",
+            4,
+            "reexport"
+          ],
+          [
+            "httpx/_client.py",
+            569,
+            "class_declaration"
+          ],
+          [
+            "httpx/_client.py",
+            620,
+            "initializer"
+          ]
+        ],
+        "reception": {
+          "app": "named_parameter",
+          "base_url": "named_parameter",
+          "cookies": "named_parameter",
+          "follow_redirects": "named_parameter",
+          "headers": "named_parameter",
+          "transport": "named_parameter"
+        },
+        "result": "bound",
+        "root_id": "596f5dce810b6290d02423465070b4e3de7e6c92977e9756521ab334306a59cd",
+        "root_line": 6,
+        "version": "0.25.2",
+        "violations": []
+      }
+    ],
+    "roles": {
+      "constraint_sample": 4,
+      "old_dependency": 1
+    },
+    "roots": 1,
+    "state": "completed",
+    "unexamined_units": 7,
+    "witnesses": 5
+  },
+  "disposition": "verified_repository_moves_and_old_signature_witness; proposed_signature_unexamined_due_to_release_source_limit",
+  "implementation_commit": "03f60bdd",
+  "report": {
+    "cold_read_producers_blocked": [
+      "network",
+      "environment credentials",
+      "source and AST analysis",
+      "report projection and synthesis"
+    ],
+    "cold_sources": [
+      {
+        "content_sha256": "d261340d34a4aac1e9fa942385aabaa729d12ad865dd9380a99c52e9c24c4d40",
+        "path": "backend/tests/test_app.py",
+        "repository": "ivaronkun-Ahey/AV-Tracer",
+        "revision": "25e7205f39103456e7efbc4e9f503f3debc7b5d8",
+        "source_id": "source-30"
+      },
+      {
+        "content_sha256": "9c1bda0265fae9895d45e24d6573ce935b1fba8d90ea1b3c6cebc86827a9e8b4",
+        "path": "fastapi/testclient.py",
+        "repository": "fastapi/fastapi",
+        "revision": "7e5afe2cb9bf1fa30c04a4dd393ea397a46db29b",
+        "source_id": "source-17"
+      },
+      {
+        "content_sha256": "3349230dd87260809182440c138f745c18ddfc6dd31aa2871688578cc1f20676",
+        "path": "starlette/testclient.py",
+        "repository": "Kludex/starlette",
+        "revision": "0c4b68ac4e179a788e38bac28f299dcad0f36e99",
+        "source_id": "source-31"
+      },
+      {
+        "content_sha256": "6bfda818e4b0fed70879aac8397c476aa80c8266314b266d4d38e72eff60ce2f",
+        "path": "httpx/_client.py",
+        "repository": "encode/httpx",
+        "revision": "cc206cf2dad42600479962ac1daaa44675cfaf56",
+        "source_id": "source-36"
+      }
+    ],
+    "historical_codec_1_reopened": "f2f84674306f470a8380e60b07b1ac31",
+    "relevant_assessments": [
+      {
+        "facts": {
+          "callee": "source-36 L620 Client.__init__",
+          "caller": "source-31 L399 super().__init__",
+          "role": "old_dependency",
+          "root_location": "source-30 L6 TestClient",
+          "version": "0.25.2",
+          "witness_id": "12c9611cfc7b974714bbf4afdb966f70e8abba7a7489d32a8812cfd9d5665bcf"
+        },
+        "id": "caller-signature-comparison-44429036c8d5c377867486c9d743533b7fd311d60c76b294ba5a8d6e4347523c",
+        "sources": [
+          "source-44",
+          "source-14",
+          "source-15",
+          "source-30",
+          "source-31",
+          "source-36",
+          "source-17",
+          "source-32"
+        ],
+        "state": "bound"
+      }
+    ],
+    "reopened_sha256": "cb42183ef52bf777da233832a9537ef01cb89bddb5600f726b9ace33dcf29c38",
+    "sha256": "d8eaa9c911ba3604ad2d8c89a189e8353deb131d6b3118d8f048aec81bf0f9d1",
+    "source_codec_version": 2
+  },
+  "revision": "977ad5d0594040799b331f285920a211",
+  "revision_digest": "afea158469b2b8eadc8920431bd4bcd7802c7b7258464d47fa2e263c51ae3d2b",
+  "run": {
+    "elapsed_seconds": 45.89050840299933,
+    "exit": 0,
+    "outer_guard_seconds": 270
+  },
+  "target": {
+    "base_sha": "527a004918c0f825e97c3583404242605fd58ec2",
+    "head_sha": "25e7205f39103456e7efbc4e9f503f3debc7b5d8",
+    "normalized_package": "httpx",
+    "old_version": "0.25.2",
+    "proposed_version": "0.28.1",
+    "pull_number": 11,
+    "repository": "ivaronkun-Ahey/AV-Tracer"
+  }
+}

@@ -10,6 +10,7 @@ from __future__ import annotations
 from collections.abc import Mapping
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
+import re
 from typing import Any, Callable, Literal
 from urllib.parse import quote
 
@@ -17,6 +18,7 @@ from requests import Session
 
 from .api import (
     DEFAULT_TIMEOUT,
+    GITHUB_API_ROOT,
     GitHubAcquisitionError,
     GitHubApiClient,
     GitHubResponseError,
@@ -67,6 +69,29 @@ class GitHubTagCommitProblem:
 type GitHubTagCommitResult = GitHubTagCommitEvidence | GitHubTagCommitProblem
 
 
+@dataclass(frozen=True, slots=True)
+class GitHubTagRepositoryRedirect:
+    """A validated 301 locator from one exact tag request, before ID verification."""
+
+    repository: str
+    requested_tag: str
+    repository_id: int
+    path: str
+
+
+def tag_reference_path(repository: str, requested_tag: str) -> str:
+    return f"/repos/{repository}/git/ref/tags/{quote(requested_tag, safe='')}"
+
+
+def repository_move_redirect(repository: str, requested_tag: str, location: str | None) -> GitHubTagRepositoryRedirect | None:
+    suffix = f"/git/ref/tags/{quote(requested_tag, safe='')}"
+    prefix = f"{GITHUB_API_ROOT}/repositories/"
+    match = re.fullmatch(re.escape(prefix) + r"([1-9][0-9]{0,19})" + re.escape(suffix), location or "")
+    if match is None:
+        return None
+    return GitHubTagRepositoryRedirect(repository, requested_tag, int(match[1]), location.removeprefix(GITHUB_API_ROOT))
+
+
 class GitHubTagCommitClient(GitHubApiClient):
     """Resolve an explicitly supplied GitHub tag through a bounded read-only path."""
 
@@ -91,20 +116,21 @@ class GitHubTagCommitClient(GitHubApiClient):
         self,
         repository: str,
         requested_tag: str,
-    ) -> GitHubTagCommitResult:
+        *,
+        observe_repository_move: bool = False,
+    ) -> GitHubTagCommitResult | GitHubTagRepositoryRedirect:
         repository = validate_repository(repository)
         requested_tag = _nonempty_trimmed_text(requested_tag, "requested_tag")
 
-        ref_url = self.api_url(
-            f"/repos/{repository}/git/ref/tags/{quote(requested_tag, safe='')}"
-        )
+        ref_url = self.api_url(tag_reference_path(repository, requested_tag))
         ref_data = self._get_or_problem(
             ref_url,
             repository,
             requested_tag,
             resource="tag-reference",
+            observe_repository_move=observe_repository_move,
         )
-        if isinstance(ref_data, GitHubTagCommitProblem):
+        if isinstance(ref_data, (GitHubTagCommitProblem, GitHubTagRepositoryRedirect)):
             return ref_data
 
         try:
@@ -252,10 +278,17 @@ class GitHubTagCommitClient(GitHubApiClient):
         *,
         resource: str,
         object_sha: str | None = None,
-    ) -> Mapping[str, Any] | GitHubTagCommitProblem:
+        observe_repository_move: bool = False,
+    ) -> Mapping[str, Any] | GitHubTagCommitProblem | GitHubTagRepositoryRedirect:
         try:
+            if observe_repository_move:
+                return self._get_json_object(url, resource=resource, observe_permanent_redirect=True)
             return self._get_json_object(url, resource=resource)
         except GitHubAcquisitionError as exc:
+            if observe_repository_move and exc.status_code == 301:
+                redirect = repository_move_redirect(repository, requested_tag, exc.redirect_location)
+                if redirect is not None:
+                    return redirect
             state: GitHubTagCommitProblemState = (
                 "source_unavailable"
                 if exc.reason == "not_found_or_inaccessible"

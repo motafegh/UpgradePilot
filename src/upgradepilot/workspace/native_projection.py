@@ -10,11 +10,13 @@ from __future__ import annotations
 
 import posixpath
 from dataclasses import dataclass
+from hashlib import sha256
 from typing import cast
 
 from ..ci.dependency_exercise import (
     DependencyCICoverageResult,
     WorkflowDependencyCoverageInput,
+    WorkflowDependencyCoverageResult,
 )
 from ..caller_signature.evidence import SourceAnalysisRun
 from ..caller_signature.source_evidence import CallerSignatureSources
@@ -35,7 +37,11 @@ from ..dependency.package_manager_semantics import PackageManagerSemanticProblem
 from ..github.pull_request import (
     ChangedFile, PullRequestIdentity, PullRequestDescriptionObservation,
 )
-from ..github.repository import RepositoryFileEvidence, UnavailableRepositoryFile
+from ..github.repository import (
+    RepositoryFileEvidence,
+    RepositoryTextFile,
+    UnavailableRepositoryFile,
+)
 from ..github.workflow_definition import RunStepDefinition
 from ..impact.python_support import (
     PythonSupportDropImpactAssessment,
@@ -357,6 +363,7 @@ def _validate_coverage_material(
             supplied.run.name,
         ):
             raise _invalid("CI coverage has another retained workflow identity.")
+        _validate_version_requests(result, supplied, inputs)
         for consumption in result.consumptions:
             _validate_consumption_source(consumption, supplied, inputs)
         for invocation in result.invocations:
@@ -428,6 +435,78 @@ def _validate_coverage_material(
         # Correlation/eligibility truth and static tree→YAML derivation stay with their
         # historical owners. Literal names/text and member equality above use only retained
         # facts. In particular, unnamed provider display names are not regenerated here.
+
+
+def _validate_version_requests(
+    result: WorkflowDependencyCoverageResult,
+    workflow: WorkflowDependencyCoverageInput,
+    inputs: NativeInvestigationInputs,
+) -> None:
+    """Validate recorded job membership and literal bytes without replaying analysis."""
+    requests = result.version_requests or ()
+    jobs = {job.key: job for job in result.version_request_jobs}
+    if len(jobs) != len(result.version_request_jobs) or jobs.keys() != {
+        item.job_key for item in requests
+    }:
+        raise _invalid("Version requests and retained static jobs do not match.")
+    if not requests:
+        return
+    definition = workflow.definition
+    dependency = inputs.dependency_result
+    if not isinstance(definition, RepositoryTextFile) or not isinstance(
+        dependency, DependencyVersionChange
+    ):
+        raise _invalid("Version requests lack a retained workflow or dependency transition.")
+    digest = sha256(definition.content.encode("utf-8")).hexdigest()
+    correlation = result.runtime_correlation
+    if correlation is not None and correlation.state == "correlated":
+        correlated_jobs = {item.static_job.key: item.static_job for item in correlation.jobs}
+        if any(correlated_jobs.get(key) != job for key, job in jobs.items()):
+            raise _invalid("Version request job differs from the correlated static job.")
+    seen_steps: set[tuple[str, int]] = set()
+    for item in requests:
+        if (
+            item.workflow_path,
+            item.workflow_revision,
+            item.workflow_digest,
+            item.request.normalized_package,
+        ) != (
+            definition.path,
+            definition.revision,
+            digest,
+            dependency.normalized_package,
+        ):
+            raise _invalid("Version request is outside its retained workflow/dependency scope.")
+        identity = (item.job_key, item.step_source_index)
+        if identity in seen_steps:
+            raise _invalid("Version requests repeat a retained step.")
+        seen_steps.add(identity)
+        steps = tuple(
+            step for step in jobs[item.job_key].steps
+            if step.source_index == item.step_source_index
+        )
+        if len(steps) != 1 or not isinstance(steps[0], RunStepDefinition):
+            raise _invalid("Version request does not identify a retained run step.")
+        text = steps[0].command.text.encode("utf-8")
+        location = item.command_location
+        span = location.source_span
+        if (
+            location.source_order != 0
+            or not 0 <= span.start_byte < span.end_byte <= len(text)
+            or text[span.start_byte:span.end_byte] != item.command.encode("utf-8")
+            or not item.request.requirement_source
+            or item.request.requirement_source not in item.command
+            or not item.request.requirement_token
+            or not item.request.version
+        ):
+            raise _invalid("Version request does not match the retained command bytes.")
+        for offset, line, column in (
+            (span.start_byte, span.start_line, span.start_column),
+            (span.end_byte, span.end_line, span.end_column),
+        ):
+            prefix = text[:offset]
+            if (line, column) != (prefix.count(b"\n"), len(prefix.rpartition(b"\n")[2])):
+                raise _invalid("Version request has inconsistent command coordinates.")
 
 
 def _validate_semantic_material(

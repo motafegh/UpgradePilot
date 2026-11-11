@@ -25,7 +25,7 @@ from packaging.version import Version
 from test_investigation import _dependency, _Harness
 
 from upgradepilot.ci.dependency_exercise import WorkflowDependencyCoverageInput
-from upgradepilot.ci.native_codec import LAYOUTS as CI_LAYOUTS
+from upgradepilot.ci.native_codec import COVERAGE_V2_LAYOUTS, LAYOUTS as CI_LAYOUTS
 from upgradepilot.caller_signature.source_codec import _LAYOUTS as CALLER_SOURCE_LAYOUTS
 from upgradepilot.dependency.analysis import DependencyChangeAnalysis
 from upgradepilot.dependency.change import DependencyChangeProblem
@@ -150,6 +150,8 @@ def captured_case(
         workflow = workflow.replace("PIP_DRY_RUN=0", "PIP_DRY_RUN=1")
     elif command_variant == "ambient":
         workflow = workflow.replace("PIP_CONFIG_FILE=/dev/null ", "")
+    elif command_variant == "version_request":
+        workflow = workflow[:workflow.index("        run:")] + "        run: pip install 'demo==1.0'\n"
     if direct_invocation:
         workflow += "      - name: Invoke\n        run: demo\n"
     h.set_workflow(workflow, job_names=("Test",))
@@ -285,7 +287,7 @@ def altered_record(boundary, family, **changes):
 
 def retained_values(boundary):
     return {
-        record.family: decode_native_value(record.family, 1, record.payload)
+        record.family: decode_native_value(record.family, record.codec_version, record.payload)
         for record in boundary.records
     }
 
@@ -293,7 +295,8 @@ def retained_values(boundary):
 def replaced_values(boundary, **values):
     """Substitute typed material while preserving IDs/references and valid new digests."""
     for family, value in values.items():
-        payload = encode_native_value(family, value)
+        version = next(record.codec_version for record in boundary.records if record.family == family)
+        payload = encode_native_value(family, value, version=version)
         boundary = altered_record(
             boundary,
             family,
@@ -519,6 +522,46 @@ _RECOVERY_CHILD = _RECOVERY_GUARD + _RECOVERY_PROJECTIONS + _RECOVERY_CONTROLS
 
 
 class WorkspaceNativeReconstructionTests(unittest.TestCase):
+    def test_version_request_round_trip_and_historical_codec(self):
+        _, _, boundary, expected, _ = captured_case(command_variant="version_request")
+        record = next(item for item in boundary.records if item.family == "ci_coverage")
+        self.assertEqual(record.codec_version, 2)
+        restored = read_native_boundary(encode_native_boundary(boundary), expected_target=boundary.target)
+        self.assertEqual(reconstruct_ci_projection(restored, expected_target=boundary.target), expected)
+        workflow, = expected.ci_coverage_result.workflows
+        request, = workflow.version_requests
+        self.assertEqual(request.request.version, "1.0")
+
+        legacy = replace(expected.ci_coverage_result, workflows=(replace(
+            workflow, version_requests=None, version_request_jobs=(),
+        ),))
+        old_payload = encode_native_value("ci_coverage", legacy, version=1)
+        old = altered_record(boundary, "ci_coverage", codec_version=1,
+                             payload=old_payload, payload_digest=sha256(old_payload).hexdigest())
+        self.assertEqual(reconstruct_ci_projection(old, expected_target=old.target).ci_coverage_result, legacy)
+        with self.assertRaises(NativeReconstructionError):
+            encode_native_value("ci_coverage", expected.ci_coverage_result, version=1)
+
+    def test_version_request_refuses_inconsistent_source_material(self):
+        _, _, boundary, expected, _ = captured_case(command_variant="version_request")
+        workflow, = expected.ci_coverage_result.workflows
+        request, = workflow.version_requests
+        for altered in (
+            replace(request, workflow_digest="a" * 64),
+            replace(request, job_key="wrong"),
+            replace(request, step_source_index=42),
+            replace(request, command="pip install demo==1.1"),
+            replace(request, request=replace(request.request, requirement_source="demo==1.1")),
+        ):
+            with self.subTest(altered=altered):
+                coverage = replace(expected.ci_coverage_result, workflows=(replace(
+                    workflow, version_requests=(altered,),
+                ),))
+                wrong = replaced_values(boundary, ci_coverage=coverage)
+                with self.assertRaises(NativeReconstructionError) as caught:
+                    reconstruct_ci_projection(wrong, expected_target=wrong.target)
+                self.assertEqual(caught.exception.reason, "invalid_native_material")
+
     def test_json_resource_refusals_precede_parser_allocation(self):
         cases = (
             ("MAX_NATIVE_JSON_BYTES", 8, b"[]       "),
@@ -570,11 +613,21 @@ class WorkspaceNativeReconstructionTests(unittest.TestCase):
     def test_v1_layouts_cannot_silently_fill_new_native_fields_from_defaults(self):
         # A new field on a reused constructor requires a reviewed codec compatibility
         # decision. This independent schema check catches drift even in unexercised variants.
-        for layout in INPUT_LAYOUTS + CI_LAYOUTS + IMPACT_LAYOUTS + CALLER_SOURCE_LAYOUTS:
+        for layout in INPUT_LAYOUTS + CI_LAYOUTS + COVERAGE_V2_LAYOUTS + IMPACT_LAYOUTS + CALLER_SOURCE_LAYOUTS:
             with self.subTest(variant=layout.variant):
+                expected = tuple(field.name for field in fields(layout.constructor))
+                if layout.variant == "workflow_dependency_coverage_result":
+                    # V1 predates these two explicitly versioned fields.
+                    expected = tuple(
+                        name for name in expected
+                        if name not in {"version_requests", "version_request_jobs"}
+                    )
+                if layout.variant == "module_source_receipt":
+                    # Source codec 1 predates the explicitly versioned move observation.
+                    expected = tuple(name for name in expected if name != "repository_move")
                 self.assertEqual(
                     tuple(name for name, _ in layout.fields),
-                    tuple(field.name for field in fields(layout.constructor)),
+                    expected,
                 )
 
     def test_normal_path_retains_hidden_inputs_and_complete_native_meanings(self):

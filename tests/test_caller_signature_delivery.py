@@ -84,17 +84,21 @@ class CallerSignatureDeliveryTests(unittest.TestCase):
         return code, output.getvalue()
 
     def live(self, *, proposed_missing=False, save=True, durable=True, forwarded=True,
-             guard_arguments=(), target_object_id_length=40):
+             guard_arguments=(), target_object_id_length=40, repository_move=False):
         identity, session, requests = acquisition_controls.NativeSourceClientCompositionTests().controlled_transport(
             proposed_missing=proposed_missing, forwarded=forwarded,
-            target_object_id_length=target_object_id_length,
+            target_object_id_length=target_object_id_length, repository_move=repository_move,
         )
         arguments = [identity.repository, str(identity.number), "--evidence-profile", "caller-signature", *guard_arguments]
         if durable:
             arguments += ["--workspace-store", str(self.store_path)]
         if save:
             arguments += ["--save-report", str(self.report_path)]
-        with patch("upgradepilot.cli.AcquisitionSession", return_value=session), patch("socket.socket.connect", side_effect=AssertionError("live network forbidden")):
+        def controlled_session(*, token, policy):
+            self.assertIsNone(token)
+            session.policy = policy
+            return session
+        with patch("upgradepilot.cli.AcquisitionSession", side_effect=controlled_session), patch("socket.socket.connect", side_effect=AssertionError("live network forbidden")):
             code, output = self.run_cli(arguments)
         return code, output, requests
 
@@ -146,6 +150,41 @@ class CallerSignatureDeliveryTests(unittest.TestCase):
         self.assertIn(first_view, restored)
         self.assertIn("report: True", restored)
         self.assertIn(retained.content, self.cold(revision_id, "--show-source", retained.source_id))
+
+    def test_normal_cli_preserves_move_provenance_and_cold_canonical_source(self):
+        code, output, requests = self.live(repository_move=True)
+        self.assertEqual(code, 0, output)
+        report = read_report(self.report_path)
+        coverage = next(a for a in report.assessments if a.assessment_id == "caller-signature-coverage")
+        self.assertIn("owner/demo → moved/demo verified as public GitHub repository ID 123",
+                      next(f.value for f in coverage.facts if f.name == "repository_move_1"))
+        self.assertEqual({a.state for a in report.assessments if a.assessment_id.startswith("caller-signature-comparison-")},
+                         {"bound", "rejected"})
+        self.assertTrue(any("/repos/moved/demo/contents/" in r.url for r in requests))
+        self.assertFalse(any("/repositories/123/git/ref/" in r.url or "/repos/owner/demo/contents/" in r.url for r in requests))
+        canonical = next(s for s in report.sources if s.retention == "retained_text"
+                         and any(f.name == "repository" and f.value == "moved/demo" for f in s.identity))
+        revision = self.revision_id(output)
+        self.assertIn(report.report_id, self.cold(revision))
+        self.assertIn(canonical.content, self.cold(revision, "--show-source", canonical.source_id))
+
+    def test_live_cli_records_explicit_github_request_allowance(self):
+        from upgradepilot.caller_signature_delivery import open_caller_signature_checkpoint
+        code, output, _ = self.live(guard_arguments=("--source-github-requests", "56"))
+        self.assertEqual(code, 0, output)
+        opened = open_caller_signature_checkpoint(CheckpointStore.open(self.store_path, read_only=True),
+                                                  self.revision_id(output))
+        limits = opened.native.sources.acquisition.transport.limits
+        self.assertEqual((limits.github_requests, limits.provider_requests), (56, 100))
+
+    def test_live_cli_rejects_inconsistent_request_allowance_before_opening_workspace(self):
+        for allowance in (24, 101):
+            with self.subTest(allowance=allowance), patch("upgradepilot.cli.AcquisitionSession") as session:
+                code, output = self.run_cli(["owner/target", "1145", "--evidence-profile", "caller-signature",
+                    "--source-github-requests", str(allowance), "--workspace-store", str(self.store_path)])
+                self.assertEqual(code, 2, output)
+                self.assertFalse(self.store_path.exists())
+                session.assert_not_called()
 
     def test_compact_signature_comparison_refuses_to_choose_a_partial_or_mixed_pair(self):
         code, output, _ = self.live()

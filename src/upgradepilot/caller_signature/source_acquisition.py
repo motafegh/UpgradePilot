@@ -16,6 +16,7 @@ from __future__ import annotations
 from collections import deque
 from hashlib import sha256
 from dataclasses import dataclass, replace
+from functools import partial
 from typing import Literal
 from urllib.parse import quote, urlsplit
 from packaging.requirements import InvalidRequirement, Requirement
@@ -26,7 +27,7 @@ from ..github.api import GitHubAcquisitionError, GitHubResponseError
 from ..github.identity import validate_repository
 from ..github.repository import (GitHubRepositoryClient, RepositoryTextFile,
     GitHubRepositoryInventoryClient, RepositoryInventory, RepositoryInventoryProblem)
-from ..github.tag import GitHubTagCommitClient, GitHubTagCommitEvidence
+from ..github.tag import GitHubTagCommitClient, GitHubTagCommitEvidence, GitHubTagRepositoryRedirect
 from ..package_identity import normalize_package_name
 from ..pypi.api import PyPIJsonApiClient, PyPIRequestError, PyPIResponseError
 from ..pypi.provenance import FileProvenanceProblem, PyPIProvenanceClient
@@ -35,6 +36,7 @@ from ..pypi.release import (PackageReleaseEvidence, PackageReleaseIndexEvidence,
 from ..upstream.repository import normalize_project_url_label
 from ..target.source_context import TargetSourceContext, extract_python_facts
 from .bindings import ImportFact, ReferenceFact
+from .acquisition import AcquisitionSession
 from .source_evidence import (
     AcquisitionProblem, SourceContextGap as ContextGap,
     SourceDependencyDeclaration as DependencyDeclaration,
@@ -43,7 +45,7 @@ from .source_evidence import (
     SourcePublisherInspection as PublisherProvenanceInspection,
     PackageSourceAssociation as DeclaredSourceAssociation,
     SourceAcquisitionWork as PythonSourceAcquisitionWork,
-    ModuleSourceRequest, ModuleSourceReceipt, SourceProblem, SourceTagCommit,
+    ModuleSourceRequest, ModuleSourceReceipt, SourceProblem, SourceRepositoryMove, SourceTagCommit,
 )
 
 class PublisherProvenanceInspector:
@@ -302,6 +304,7 @@ class AdapterExploration:
         "relative_module_forwarding_not_traversed",
     )
     deferred_candidates: tuple[ImportDependencyCandidate, ...] = ()
+    failed_move_receipts: tuple[ModuleSourceReceipt, ...] = ()
 
 @dataclass(frozen=True)
 class AdapterDiscoverySeed:
@@ -417,6 +420,7 @@ class ReleaseSourceProgress:
     tags: tuple[GitHubTagCommitEvidence, ...] = ()
     inventory: RepositoryInventory | None = None
     problem: AcquisitionProblem | None = None
+    repository_move: SourceRepositoryMove | None = None
 
 
 class PythonSourceAcquisitionRun:
@@ -446,6 +450,7 @@ class PythonSourceAcquisitionRun:
         self.max_bytes = max_bytes
         self._release_cache = {}
         self._release_progress = {}
+        self._repository_moves: dict[str, SourceRepositoryMove] = {}
         self._module_cache = {}
         self._index_cache = {}
         self.module_attempts = 0
@@ -515,7 +520,7 @@ class PythonSourceAcquisitionRun:
             return path
         try:
             file = self._source_owner.files.get_exact_commit_text_file(
-                association.repository, inventory.revision, path,
+                inventory.repository, inventory.revision, path,
             )
             if not isinstance(file, RepositoryTextFile):
                 result = AcquisitionProblem("adapter_file", file.reason, file.detail, file)
@@ -551,6 +556,7 @@ class PythonSourceAcquisitionRun:
                 "native_proposed_version": "proposed_dependency"}.get(request.version_basis, request.version_basis)
         native_request = ModuleSourceRequest(request.package, request.version, request.module, role, request.origin)
         progress = self._release_progress.get((request.package, request.version))
+        move = progress.repository_move if progress else None
         if isinstance(outcome, ExaminedPythonModule):
             association, metadata, tags = outcome.association, outcome.metadata, outcome.tags
             repository, revision, path = outcome.file.repository, outcome.file.revision, outcome.file.path
@@ -562,6 +568,8 @@ class PythonSourceAcquisitionRun:
             metadata = progress.metadata if progress else None
             tags = progress.tags if progress else ()
             repository = association.repository if association else None
+            if move and move.verified:
+                repository = move.canonical_repository
             revision = progress.inventory.revision if progress and progress.inventory else None
             if revision is None and tags and len({t.resolved_commit_sha for t in tags}) == 1:
                 revision = tags[0].resolved_commit_sha
@@ -589,7 +597,7 @@ class PythonSourceAcquisitionRun:
             association.basis if association else None,
             association.provenance.state if association else None,
             tuple(SourceTagCommit(tag.requested_tag, tag.resolved_commit_sha) for tag in tags),
-            metadata, gaps, association, tags, retention_gaps)
+            metadata, gaps, association, tags, retention_gaps, move)
         return outcome, receipt
 
     def _preserve_request_limit(self, problem: AcquisitionProblem) -> AcquisitionProblem:
@@ -635,15 +643,9 @@ class PythonSourceAcquisitionRun:
             return metadata
         progress = replace(progress, metadata=metadata)
         self._release_progress[key] = progress
-        tags = []
-        for spelling in (version, "v" + version):
-            tag = self._source_owner.tags.resolve_tag_to_commit(association.repository, spelling)
-            if isinstance(tag, GitHubTagCommitEvidence):
-                tags.append(tag)
-                progress = replace(progress, tags=tuple(tags))
-                self._release_progress[key] = progress
-            elif tag.state != "source_unavailable":
-                return AcquisitionProblem("adapter_tag", tag.state, tag.detail, tag)
+        tags = self._inspect_tags(progress, association.repository)
+        if isinstance(tags, AcquisitionProblem):
+            return tags
         if not tags or len({t.resolved_commit_sha for t in tags}) != 1:
             return AcquisitionProblem(
                 "adapter_tag",
@@ -651,14 +653,57 @@ class PythonSourceAcquisitionRun:
                 "Missing/conflicting exact tag spellings.",
                 tuple(tags),
             )
-        repository = validate_repository(association.repository)
+        repository = tags[0].repository
         inventory = self._source_owner.inventory.acquire(repository, tags[0].resolved_commit_sha)
         if isinstance(inventory, RepositoryInventoryProblem):
             return AcquisitionProblem("inventory", inventory.reason, inventory.detail, inventory.status_code)
         if isinstance(inventory, AcquisitionProblem):
             return inventory
-        self._release_progress[key] = replace(progress, inventory=inventory)
-        return association, metadata, tuple(tags), inventory
+        self._release_progress[key] = replace(self._release_progress[key], inventory=inventory)
+        return association, metadata, tags, inventory
+
+    def _inspect_tags(self, progress: ReleaseSourceProgress, declared_repository: str):
+        key = (progress.package, progress.version)
+        move = self._repository_moves.get(declared_repository.casefold())
+        repository = move.canonical_repository if move else declared_repository
+        lookup = self._source_owner.tags.resolve_tag_to_commit if move else self._source_owner.initial_tag_lookup
+        if move:
+            self._release_progress[key] = replace(progress, repository_move=move)
+        tags = []
+        for spelling in (progress.version, "v" + progress.version):
+            tag = lookup(repository, spelling)
+            if isinstance(tag, GitHubTagRepositoryRedirect):
+                return self._verify_move_and_read_tags(key, tag, tags[0] if tags else None)
+            if isinstance(tag, GitHubTagCommitEvidence):
+                tags.append(tag)
+                self._release_progress[key] = replace(self._release_progress[key], tags=tuple(tags))
+            elif tag.state != "source_unavailable":
+                return AcquisitionProblem("adapter_tag", tag.state, tag.detail, tag)
+        return tuple(tags)
+
+    def _verify_move_and_read_tags(self, key, redirect, prior_tag):
+        progress = self._release_progress[key]
+        move = SourceRepositoryMove(redirect, prior_tag=prior_tag)
+        self._release_progress[key] = replace(progress, repository_move=move, tags=())
+        repositories = self._source_owner.files
+        canonical = repositories.get_public_repository_name(redirect.repository_id)
+        if canonical.casefold() == redirect.repository.casefold():
+            return AcquisitionProblem("adapter_tag", "repository_move_unresolved",
+                                      "GitHub returned the declared name as the move destination.")
+        move = replace(move, canonical_repository=canonical)
+        self._release_progress[key] = replace(self._release_progress[key], repository_move=move)
+        repositories.get_public_repository_name(redirect.repository_id, name=canonical)
+        move = replace(move, verified=True)
+        self._repository_moves[redirect.repository.casefold()] = replace(move, prior_tag=None)
+        tags = self._inspect_tags(replace(progress, tags=()), redirect.repository)
+        self._release_progress[key] = replace(self._release_progress[key], repository_move=move)
+        if not isinstance(tags, AcquisitionProblem) and prior_tag and not any(
+            (tag.requested_tag, tag.resolved_commit_sha) == (prior_tag.requested_tag, prior_tag.resolved_commit_sha)
+            for tag in tags
+        ):
+            return AcquisitionProblem("adapter_tag", "tag_not_established",
+                                      "The prior tag observation disagrees with the canonical repository.")
+        return tags
 
 class AdapterSourceExplorer:
     def __init__(
@@ -681,6 +726,9 @@ class AdapterSourceExplorer:
         )
         self.metadata = metadata or PackageDependencyMetadataClient(session=self.session)
         self.tags = tags or GitHubTagCommitClient(session=self.session)
+        self.initial_tag_lookup = self.tags.resolve_tag_to_commit
+        if tags is None and isinstance(session, AcquisitionSession):
+            self.initial_tag_lookup = partial(self.initial_tag_lookup, observe_repository_move=True)
         self.inventory = inventory or GitHubRepositoryInventoryClient(
             session=self.session
         )
@@ -702,6 +750,7 @@ class AdapterSourceExplorer:
         source_run: PythonSourceAcquisitionRun | None = None,
         stop_at_package: str | None = None,
         max_candidate_attempts: int = 12,
+        prioritize_indirect_exact_pair: bool = False,
     ) -> AdapterExploration:
         if (
             type(max_samples) is not int
@@ -753,6 +802,7 @@ class AdapterSourceExplorer:
         problems = []
         omitted = []
         deferred = []
+        failed_move_receipts = []
         attempts = 0
         while pending:
             candidate, depth, members = pending.popleft()
@@ -768,13 +818,18 @@ class AdapterSourceExplorer:
             # a potentially unrelated third version and consuming its source slots.
             if candidate.declaration.package == stop_at_package:
                 deferred.append(candidate)
+                if depth and prioritize_indirect_exact_pair:
+                    # Hand the observed path to the exact-version composer while
+                    # unrelated queued samples can still be left unexamined.
+                    omitted.extend(c for c, _, _ in pending if (c.imported_module, c.declaration) not in seen)
+                    break
                 continue
             if attempts >= min(max_module_files, max_candidate_attempts):
                 omitted.append(candidate)
                 continue
             attempts += 1
             try:
-                sample = self._acquire(candidate, depth)
+                sample = self._acquire(candidate, depth, failed_move_receipts)
             except GitHubAcquisitionError as exc:
                 sample = AcquisitionProblem("adapter_acquisition", exc.reason, str(exc))
             except GitHubResponseError as exc:
@@ -820,10 +875,12 @@ class AdapterSourceExplorer:
             pending.extendleft(reversed(continuations))
         return AdapterExploration(
             tuple(samples), tuple(problems), tuple(omitted), deferred_candidates=tuple(deferred),
+            failed_move_receipts=tuple(failed_move_receipts),
         )
 
     def _acquire(
-        self, candidate: ImportDependencyCandidate, depth: int
+        self, candidate: ImportDependencyCandidate, depth: int,
+        failed_move_receipts: list[ModuleSourceReceipt],
     ) -> AdapterModuleSample | AcquisitionProblem:
         declaration = candidate.declaration
         if declaration.package not in self._index_cache:
@@ -842,10 +899,12 @@ class AdapterSourceExplorer:
         version = select_exploration_version(index, declaration)
         if isinstance(version, AcquisitionProblem):
             return version
-        examined = self._source_run.examine(PythonModuleSourceRequest(
+        examined, receipt = self._source_run.examine_with_receipt(PythonModuleSourceRequest(
             declaration.package, version, candidate.imported_module, "constraint_sample",
         ))
         if isinstance(examined, AcquisitionProblem):
+            if receipt.repository_move is not None:
+                failed_move_receipts.append(receipt)
             if examined.stage == "python_source_budget":
                 reasons = {"release_source_limit": "release_sample_limit", "source_text_limit": "adapter_text_limit"}
                 return replace(examined, stage="adapter_budget", reason=reasons.get(examined.reason, examined.reason))

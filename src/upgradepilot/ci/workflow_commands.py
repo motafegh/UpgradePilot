@@ -20,6 +20,7 @@ import posixpath
 import re
 from collections.abc import Sequence
 from dataclasses import dataclass
+from hashlib import sha256
 from typing import Literal
 
 from ..dependency.direct_install import observe_direct_installation_declaration
@@ -35,6 +36,13 @@ from ..dependency.environment_membership import (
 from ..dependency.environment_selection import (
     ProjectEnvironmentSelectionObservation,
     observe_project_environment_selection,
+)
+from ..dependency.package_manager_operation import (
+    PackageManagerOperation,
+    PackageManagerOperationDeclaration,
+    RequestedDependencyVersion,
+    observe_requested_dependency_version,
+    parse_package_manager_operations,
 )
 from ..dependency.uv_reachability import evaluate_uv_selected_root_reachability
 from ..github.repository import (
@@ -109,13 +117,29 @@ class StaticWorkflowDependencyProblem:
 
 
 @dataclass(frozen=True, slots=True)
+class WorkflowDependencyVersionRequest:
+    """A positional pip version request bound to the exact workflow command."""
+
+    workflow_path: str
+    workflow_revision: str
+    job_key: str
+    step_source_index: int
+    command_location: StaticCommandLocation
+    request: RequestedDependencyVersion
+    workflow_digest: str
+    command: str
+
+
+@dataclass(frozen=True, slots=True)
 class WorkflowStaticDependencyEvidence:
-    """Multi-job static CI evidence with consumption and invocation kept separate."""
+    """Keep version requests separate from file consumption and package invocation."""
 
     job_count: int
     consumptions: tuple[StaticDependencyConsumptionEvidence, ...]
     invocations: tuple[DirectPackageInvocationEvidence, ...]
     problems: tuple[StaticWorkflowDependencyProblem, ...]
+    version_requests: tuple[WorkflowDependencyVersionRequest, ...] = ()
+    version_request_jobs: tuple[StepsJobDefinition, ...] = ()
 
 
 @dataclass(frozen=True, slots=True)
@@ -145,7 +169,7 @@ def derive_project_environment_consumptions(
         normalized_package=normalized_package,
         project_environment_sources=sources,
         project_environment_consumptions=(),
-        collect_invocations=False,
+        collect_package_commands=False,
     )
     return tuple(
         item
@@ -179,7 +203,7 @@ def inspect_workflow_dependency_evidence(
         normalized_package=normalized_package,
         project_environment_sources=project_environment_sources,
         project_environment_consumptions=project_environment_consumptions,
-        collect_invocations=True,
+        collect_package_commands=True,
     )
 
 
@@ -191,7 +215,7 @@ def _inspect_workflow_dependency_evidence(
     normalized_package: str,
     project_environment_sources: Sequence[WorkflowProjectEnvironmentSource],
     project_environment_consumptions: Sequence[StaticDependencyConsumptionEvidence],
-    collect_invocations: bool,
+    collect_package_commands: bool,
 ) -> WorkflowStaticDependencyEvidence:
     if project_environment_sources and project_environment_consumptions:
         raise ValueError(
@@ -224,8 +248,10 @@ def _inspect_workflow_dependency_evidence(
 
     consumptions: list[StaticDependencyConsumptionEvidence] = []
     invocations: list[DirectPackageInvocationEvidence] = []
+    version_requests: list[WorkflowDependencyVersionRequest] = []
     problems: list[StaticWorkflowDependencyProblem] = []
     readable_jobs: dict[str, StepsJobDefinition] = {}
+    workflow_digest = sha256(source.content.encode("utf-8")).hexdigest()
 
     for context in requirements_contexts:
         if (
@@ -296,7 +322,9 @@ def _inspect_workflow_dependency_evidence(
             normalized_package=normalized_package,
             consumptions=consumptions,
             invocations=invocations,
-            collect_invocations=collect_invocations,
+            version_requests=version_requests,
+            workflow_digest=workflow_digest,
+            collect_package_commands=collect_package_commands,
         )
 
     for project_environment_consumption in project_environment_consumptions:
@@ -312,11 +340,16 @@ def _inspect_workflow_dependency_evidence(
             continue
         consumptions.append(project_environment_consumption)
 
+    request_job_keys = {request.job_key for request in version_requests}
     return WorkflowStaticDependencyEvidence(
         job_count=len(definition.jobs),
         consumptions=tuple(consumptions),
         invocations=tuple(invocations),
         problems=tuple(problems),
+        version_requests=tuple(version_requests),
+        version_request_jobs=tuple(
+            job for key, job in readable_jobs.items() if key in request_job_keys
+        ),
     )
 
 
@@ -331,7 +364,9 @@ def _inspect_steps_job_evidence(
     normalized_package: str,
     consumptions: list[StaticDependencyConsumptionEvidence],
     invocations: list[DirectPackageInvocationEvidence],
-    collect_invocations: bool,
+    version_requests: list[WorkflowDependencyVersionRequest],
+    workflow_digest: str,
+    collect_package_commands: bool,
 ) -> None:
     root_checkout_state: _RepositoryRootCheckoutState = "not_established"
     for entry in job.steps:
@@ -346,6 +381,24 @@ def _inspect_steps_job_evidence(
             continue
 
         command_analysis = analyze_run_step_commands(definition, job, entry)
+        package_operations = (
+            parse_package_manager_operations(command_analysis)
+            if requirements_contexts or collect_package_commands
+            else ()
+        )
+
+        if collect_package_commands:
+            request = _version_request_from_step(
+                source,
+                job,
+                entry,
+                command_analysis,
+                package_operations,
+                normalized_package,
+                workflow_digest,
+            )
+            if request is not None:
+                version_requests.append(request)
 
         _append_direct_requirements_consumptions(
             source,
@@ -353,6 +406,7 @@ def _inspect_steps_job_evidence(
             job,
             entry,
             command_analysis=command_analysis,
+            package_operations=package_operations,
             root_checkout_state=root_checkout_state,
             requirements_contexts=requirements_contexts,
             consumptions=consumptions,
@@ -368,7 +422,7 @@ def _inspect_steps_job_evidence(
             consumptions=consumptions,
         )
 
-        if collect_invocations and root_checkout_state == "current_repository":
+        if collect_package_commands and root_checkout_state == "current_repository":
             invocations.extend(
                 _package_invocations_from_analysis(
                     command_analysis,
@@ -383,6 +437,40 @@ def _inspect_steps_job_evidence(
             )
 
 
+def _version_request_from_step(
+    source: RepositoryTextFile,
+    job: StepsJobDefinition,
+    step: RunStepDefinition,
+    analysis: StaticCommandAnalysis,
+    operations: tuple[PackageManagerOperation, ...],
+    normalized_package: str,
+    workflow_digest: str,
+) -> WorkflowDependencyVersionRequest | None:
+    if analysis.state != "analyzable" or len(analysis.command_occurrences) != 1:
+        return None
+    occurrence = analysis.command_occurrences[0]
+    if occurrence.whole_step_relation != "sole_ordinary_top_level_command":
+        return None
+    if len(operations) != 1 or not isinstance(
+        operations[0], PackageManagerOperationDeclaration
+    ):
+        return None
+    operation = operations[0]
+    request = observe_requested_dependency_version(operation, normalized_package)
+    if request is None:
+        return None
+    return WorkflowDependencyVersionRequest(
+        workflow_path=source.path,
+        workflow_revision=source.revision,
+        job_key=job.key,
+        step_source_index=step.source_index,
+        command_location=operation.command_location,
+        request=request,
+        workflow_digest=workflow_digest,
+        command=occurrence.raw_source,
+    )
+
+
 def _append_direct_requirements_consumptions(
     source: RepositoryTextFile,
     definition: WorkflowDefinition,
@@ -390,6 +478,7 @@ def _append_direct_requirements_consumptions(
     entry: RunStepDefinition,
     *,
     command_analysis: StaticCommandAnalysis,
+    package_operations: tuple[PackageManagerOperation, ...],
     root_checkout_state: _RepositoryRootCheckoutState,
     requirements_contexts: tuple[RequirementsFileDependencyContext, ...],
     consumptions: list[StaticDependencyConsumptionEvidence],
@@ -399,6 +488,7 @@ def _append_direct_requirements_consumptions(
             entry,
             dependency_source_path=context.source_path,
             command_analysis=command_analysis,
+            package_operations=package_operations,
             workflow_defaults=definition.run_defaults,
             job_defaults=job.run_defaults,
         )

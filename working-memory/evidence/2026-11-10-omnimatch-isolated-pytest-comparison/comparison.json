@@ -1,0 +1,1 @@
+{"distribution": "httpx", "nodeid": "backend/tests/test_security_guardrails.py::test_rate_store_has_a_hard_size_bound", "old": "passed", "old_version": "0.27.0", "proposed": "passed", "proposed_version": "0.28.1", "result": "both_passed", "revision": "22fc7709642599feca7b9527fe4f44874d04e520"}

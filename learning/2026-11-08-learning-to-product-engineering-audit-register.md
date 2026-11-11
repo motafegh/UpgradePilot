@@ -1,6 +1,6 @@
 # Learning-to-product engineering audit register
 
-**Created:** 2026-11-08 · **Last reconciled main:** `3f105401418bb766e308021031dc6665e2abb574` (2026-11-09) · **Learning branch:** `learning/current-caller-signature-mastery-roadmap-2026-11-02`  
+**Created:** 2026-11-08 · **Last reconciled main:** af92c23f1f3642f43f1b342084dbe229f0f067a6 (2026-11-11) · **Learning branch:** learning/current-caller-signature-mastery-roadmap-2026-11-02
 **Related:** [learning roadmap](2026-11-02-caller-signature-native-pipeline-mastery-roadmap.md) · [source and engineering-history map](2026-11-06-caller-signature-module-reference-map.md)
 
 This document preserves engineering observations surfaced during learning for eventual **evidence-based, selective product triage**. It is **not an approved bug list, product roadmap, implementation authorization, or automatic merge instruction**.
@@ -21,6 +21,8 @@ Allowed dispositions: `documented_limit`, `hypothesis`, `pending_product_gate`, 
 | LPA-004 · OpenCV selected-facts inspection | F2/F3 | **Implemented/verified** | Bounded `--show-facts` now supports artifact and package metadata saved facts; original-text view unchanged |
 | LPA-005 · First-view independent usefulness | F3 | Pending product gate | Two exposed AI slots answered 30/30; independent human/time utility still unmeasured |
 | LPA-006 · Multiline CI fact rendering | F2/F3 | **Verified defect → implemented/verified** | Six/seven real saved commands diagnosed and corrected in shared renderer; no new runtime proof |
+| LPA-007 · Verified public GitHub repository moves | D1/E3 | **Implemented/verified** | One-hop, public ID/name/tag verification with canonical source identity and v1/v2 retention |
+| LPA-008 · Exact changed-version source priority | D1/E2/F3 | **Implemented/verified** | Earlier AV-Tracer capture omitted proposed HTTPX after incidental exploration; successor acquired both definitions within an explicit 56-call allowance |
 
 ### LPA-001 — Exact adapter-version authority, not replacing a historical sample
 
@@ -74,9 +76,25 @@ Allowed dispositions: `documented_limit`, `hypothesis`, `pending_product_gate`, 
 
 **Disposition:** `implemented_verified`. Retain as a genuine diagnosis/repair example for F2/F3; no open product repair.
 
+### LPA-007 — GitHub repository moves: original source admission obstacle now resolved
+
+**Observed:** The [AV-Tracer split-route capture](../working-memory/2026-11-10_av-tracer-split-route-qualification_cycle.md) stopped on a GitHub 301 tag lookup for the declared FastAPI source. Blind redirect would risk a foreign provenance claim; unconditional refusal prevented examining the actual renamed public source.
+
+**Verified repair:** [Repository-move Build](../working-memory/2026-11-11_caller-signature-repository-move_build-cycle.md) verifies one-hop public GitHub repository ID and canonical name plus exact tag and content under the same request ledger; real FastAPI and Starlette moves succeeded. Typed source-family codec2 preserves declared versus canonical identities, refusal states and historical v1 support. 1,096 tests passed at this milestone.
+
+**Disposition:** implemented_verified. Not an open defect, general redirect permission or proof of installation.
+
+### LPA-008 — Exact source-version selection and limited-budget allocation
+
+**Observed:** [First verified-move AV-Tracer run](../working-memory/2026-11-11_caller-signature-repository-move_build-cycle.md) spent all four library release slots on FastAPI, Starlette, incidental pytest and old HTTPX; proposed HTTPX 0.28.1 was not queried. Source-pair comparison was impossible although the relevant target call and old source were retained.
+
+**Verified repair:** [Exact-version allocation Build](../working-memory/2026-11-11_caller-signature-exact-version-allocation_build-cycle.md) prioritizes the known old/proposed dependency after a relevant indirect adapter path is found, and uses member-guided source closure. A separately approved successor acquired defining files on GitHub calls 44 and 45, retained old bound/proposed rejected app= with partiality, and used 51 of the explicitly selected 56 GitHub calls. 1,099 product tests passed.
+
+**Disposition:** implemented_verified for this case, not a universal completeness claim and not a global default-policy increase. Revisit only for a new decision-relevant case demonstrating a remaining selection failure.
+
 ## Current audit disposition
 
-No **open** verified product defect is admitted from this learning discussion. LPA-001/002 are still hypotheses; LPA-003/005 remain existing evidence/usefulness gates; LPA-004 and LPA-006 are now implemented/verified at their bounded scope. The [OpenCV/TileDB screening](../working-memory/2026-11-08_target-wheel-applicability_qualification-cycle.md) and [Aruba package-state/decision comparison](../working-memory/2026-11-09_aruba-maintainer-decision_comparison-cycle.md) remain under their current project owners, without separate selected product repairs. Do not bulk-merge speculative items.
+No **open** verified product defect is admitted from this learning discussion. LPA-001/002 are still hypotheses; LPA-003/005 remain existing evidence/usefulness gates; LPA-004, LPA-006, LPA-007 and LPA-008 are now implemented/verified at their bounded scopes. The new AV-Tracer exact source pair does not settle LPA-001: the upstream adapter is still sampled, not observed as installed/loaded in that target process. The isolated OmniMatch named-test comparison is a separate developer process and does not close the target-owned G1 runtime observation gate. The [OpenCV/TileDB screening](../working-memory/2026-11-08_target-wheel-applicability_qualification-cycle.md) and [Aruba package-state/decision comparison](../working-memory/2026-11-09_aruba-maintainer-decision_comparison-cycle.md) remain under their current project owners, without separate selected product repairs. Do not bulk-merge speculative items.
 
 **Learning-branch preservation incident — November 9:** This document was present at learning commit `08211717` but absent from the later `70511f28` branch tree when a newer sync was based on the main tree. Restored it from the original preserved commit and reconciled it here. The [learning main-sync protocol](2026-11-02-caller-signature-native-pipeline-mastery-roadmap.md) now requires an explicit three-document post-publication check so an earlier parent is not mistaken for current file retention.
 
