@@ -59,7 +59,7 @@ def _source_material(target, context, libraries, limits):
     scopes, files, modules, omissions = {}, {}, [], []
     size = 0
 
-    def add(file, role, package, version, dependencies, module):
+    def add(file, role, package, version, dependencies, module, *, moved=False):
         nonlocal size
         scope_id = "source-" + sha256(
             "\0".join((role, file.repository, file.revision, package, version)).encode()
@@ -75,9 +75,12 @@ def _source_material(target, context, libraries, limits):
             return
         size += byte_count
         if scope_id not in scopes:
+            basis = "Exact target head" if role == "target_repository" else "Declared release repository and tag"
+            if moved:
+                basis = "Declared release repository with verified GitHub move and exact tag"
             scopes[scope_id] = RetainedSourceScope(
                 scope_id, file.repository, file.revision, "repository_text",
-                "Exact target head" if role == "target_repository" else "Declared release repository and tag",
+                basis,
                 "Complete admitted files within bounded source selection",
             )
         files[key] = RetainedSourceFile(scope_id, file.path, file.content)
@@ -87,7 +90,7 @@ def _source_material(target, context, libraries, limits):
     for observed, receipt in sorted(libraries, key=lambda item: item[1].request.version_basis == "constraint_sample"):
         add(observed.file, receipt.request.version_basis, receipt.request.package, receipt.request.version,
             tuple(sorted({item.package for item in observed.metadata.requirements})),
-            receipt.request.module)
+            receipt.request.module, moved=receipt.repository_move is not None)
     if context is not None:
         dependencies = tuple(sorted({item.package for item in context.declarations}))
         for file in context.files:
@@ -192,6 +195,7 @@ def collect_source_progress(
             max_candidate_attempts=session.policy.adapter_candidate_attempts,
         )
         problems.extend(SourceProblem(p.stage, p.reason, p.detail) for p in exploration.problems)
+        receipts.extend(exploration.failed_move_receipts)
         for sample in exploration.samples:
             question = PythonModuleSourceRequest(
                 sample.metadata.package, sample.version, sample.candidate.imported_module, "constraint_sample",

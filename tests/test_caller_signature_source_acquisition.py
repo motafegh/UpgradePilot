@@ -8,7 +8,7 @@ import json
 from dataclasses import replace
 from datetime import UTC, datetime
 from unittest import TestCase
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 from upgradepilot.caller_signature.source_acquisition import (
     AcquisitionProblem, DeclaredSourceAssociation, PublisherProvenanceInspection,
@@ -292,6 +292,127 @@ class NativeModuleReceiptTests(TestCase):
     def question(self, version='1.0', basis='native_old_version'):
         return PythonModuleSourceRequest('demo', version, 'demo.api', basis)
 
+    def move_owner(self, *, limited=False):
+        from upgradepilot.caller_signature.acquisition import AcquisitionPolicy, AcquisitionSession
+        from upgradepilot.github.repository import RepositoryTextFile
+        original = self.owner()
+        policy = AcquisitionPolicy(github_requests=2, source_request_reserve=1) if limited else AcquisitionPolicy()
+        owner = AdapterSourceExplorer(session=AcquisitionSession(policy=policy), releases=original.releases,
+            metadata=original.metadata, inventory=original.inventory)
+        owner.files.get_exact_commit_text_file = Mock(side_effect=lambda repo, sha, path:
+            RepositoryTextFile(repo, path, sha, "def send():\n pass\n"))
+        return owner
+
+    def move_response(self, status=200, *, location=None, **data):
+        from test_caller_signature_acquisition import StagedTransportTests
+        response = StagedTransportTests.response(json.dumps(data).encode(), status)
+        if location is not None:
+            response.headers["Location"] = location
+        return response
+
+    def test_verified_repository_move_reads_canonical_tags_and_reuses_identity(self):
+        owner = self.move_owner()
+        run = owner.source_run()
+        public = dict(id=123, full_name="new/demo", private=False)
+        path = "/repositories/123/git/ref/tags/1.0"
+        def tag(spelling, sha):
+            return self.move_response(ref="refs/tags/" + spelling, object=dict(type="commit", sha=sha))
+        responses = [self.move_response(301, location="https://api.github.com" + path),
+                     self.move_response(**public), self.move_response(**public),
+                     tag("1.0", "c" * 40), tag("v1.0", "c" * 40),
+                     tag("2.0", "d" * 40), self.move_response(404)]
+        with patch("requests.Session.request", side_effect=responses) as request:
+            _, old = run.examine_with_receipt(self.question())
+            _, new = run.examine_with_receipt(self.question("2.0", "native_proposed_version"))
+        self.assertEqual((old.repository, old.association.repository, old.state), ("new/demo", "owner/demo", "module_examined"))
+        self.assertEqual(old.repository_move.redirect.path, path)
+        self.assertTrue(old.repository_move.verified)
+        self.assertEqual(old.repository_move, new.repository_move)
+        self.assertEqual([t.requested_tag for t in old.tags], ["1.0", "v1.0"])
+        self.assertEqual([t.requested_tag for t in new.tags], ["2.0"])
+        self.assertEqual([r.path for r in owner.session.acquisition_receipt().requests], [
+            "/repos/owner/demo/git/ref/tags/1.0", "/repositories/123", "/repos/new/demo",
+            "/repos/new/demo/git/ref/tags/1.0", "/repos/new/demo/git/ref/tags/v1.0",
+            "/repos/new/demo/git/ref/tags/2.0", "/repos/new/demo/git/ref/tags/v2.0"])
+        self.assertTrue(all(call.kwargs["allow_redirects"] is False for call in request.call_args_list))
+        owner.files.get_exact_commit_text_file.assert_any_call("new/demo", "c" * 40, "demo/api.py")
+
+    def test_move_refuses_invalid_locations_before_any_destination_request(self):
+        base = "https://api.github.com/repositories/123/git/ref/tags/1.0"
+        for location in (base.replace("api.github.com", "elsewhere.example"), base[:-1] + "1",
+                         base.replace("/123/", "/0123/"), base + "?x=1", base + ", " + base, None):
+            with self.subTest(location=location):
+                owner = self.move_owner()
+                with patch("requests.Session.request", return_value=self.move_response(301, location=location)) as request:
+                    _, receipt = owner.source_run().examine_with_receipt(self.question())
+                self.assertEqual(request.call_count, 1)
+                self.assertIsNone(receipt.repository_move)
+                self.assertEqual(receipt.state, "unavailable")
+                owner.inventory.acquire.assert_not_called()
+
+    def test_move_refuses_failed_identity_or_tag_checks_and_preserves_progress(self):
+        location = "https://api.github.com/repositories/123/git/ref/tags/1.0"
+        public = dict(id=123, full_name="new/demo", private=False)
+        cases = {
+            "ID mismatch": [self.move_response(**(public | {"id": 124}))],
+            "private": [self.move_response(**(public | {"private": True}))],
+            "reverse mismatch": [self.move_response(**public), self.move_response(**(public | {"id": 124}))],
+            "second redirect": [self.move_response(**public), self.move_response(**public), self.move_response(301, location=location)],
+            "tag conflict": [self.move_response(**public), self.move_response(**public), *(
+                self.move_response(ref="refs/tags/" + spelling, object=dict(type="commit", sha=sha * 40))
+                for spelling, sha in (("1.0", "c"), ("v1.0", "d")))],
+            "budget": [self.move_response(**public)],
+        }
+        for reason, following in cases.items():
+            with self.subTest(reason=reason):
+                owner = self.move_owner(limited=reason == "budget")
+                with patch("requests.Session.request", side_effect=[self.move_response(301, location=location), *following]) as request:
+                    _, receipt = owner.source_run().examine_with_receipt(self.question())
+                self.assertEqual(request.call_count, len(following) + 1)
+                self.assertIn(receipt.state, {"unavailable", "refused"})
+                self.assertEqual(receipt.repository_move.verified, reason in {"second redirect", "tag conflict"})
+                self.assertIsNone(receipt.sha256)
+                owner.inventory.acquire.assert_not_called()
+                if reason == "budget":
+                    self.assertEqual(receipt.problem.reason, "acquisition_request_limit")
+
+    def test_move_preserves_earlier_tag_and_refuses_a_changed_commit(self):
+        location = "https://api.github.com/repositories/123/git/ref/tags/v1.0"
+        public = dict(id=123, full_name="new/demo", private=False)
+        owner = self.move_owner()
+        with patch("requests.Session.request", side_effect=[
+            self.move_response(ref="refs/tags/1.0", object=dict(type="commit", sha="c" * 40)),
+            self.move_response(301, location=location), self.move_response(**public), self.move_response(**public),
+            self.move_response(ref="refs/tags/1.0", object=dict(type="commit", sha="d" * 40)), self.move_response(404),
+        ]):
+            _, receipt = owner.source_run().examine_with_receipt(self.question())
+        self.assertEqual(receipt.state, "unavailable")
+        self.assertEqual(receipt.repository_move.prior_tag.resolved_commit_sha, "c" * 40)
+        self.assertEqual(receipt.tags[0].resolved_commit_sha, "d" * 40)
+        owner.inventory.acquire.assert_not_called()
+
+    def test_adapter_exploration_exports_unverified_move_receipt(self):
+        from upgradepilot.caller_signature.bindings import ReferenceFact
+        from upgradepilot.caller_signature.source_acquisition import AdapterDiscoverySeed
+        from upgradepilot.caller_signature.source_evidence import SourceImportCandidate
+        owner = self.move_owner()
+        owner.index = Mock()
+        owner.index.get_release_index.return_value = PackageReleaseIndexEvidence(
+            "demo", "demo", "demo", "https://pypi.org/pypi/demo/json", NOW, 1, ("1.0",))
+        declaration = DependencyDeclaration("target", "L1", "demo", "demo", "", (), None, "requirements")
+        context = AdapterDiscoverySeed((SourceImportCandidate("demo.api", declaration, "target", 1),),
+            (ReferenceFact("target", 2, "call", "send", "demo.api.send", None),))
+        with patch("requests.Session.request", side_effect=[
+            self.move_response(301, location="https://api.github.com/repositories/123/git/ref/tags/1.0"),
+            self.move_response(id=123, full_name="new/demo", private=False), self.move_response(503),
+        ]):
+            result = owner.explore(context)
+        self.assertEqual(result.samples, ())
+        receipt, = result.failed_move_receipts
+        self.assertEqual(receipt.repository_move.canonical_repository, "new/demo")
+        self.assertFalse(receipt.repository_move.verified)
+        self.assertEqual(receipt.repository, "owner/demo")
+
     def retained(self, run, *receipts):
         from upgradepilot.caller_signature import source_evidence as se
         from upgradepilot.caller_signature.evidence import AnalysisLimits
@@ -494,7 +615,8 @@ class NativeSourceClientCompositionTests(TestCase):
         self.assertLessEqual(sum(urlsplit(r.url).hostname=='api.github.com' for r in requests),50)
         self.assertEqual(sum('/pulls/1145' in r.url for r in requests),3)
 
-    def controlled_transport(self, *, proposed_missing=False, forwarded=False, target_object_id_length=40):
+    def controlled_transport(self, *, proposed_missing=False, forwarded=False, target_object_id_length=40,
+                             repository_move=False):
         import base64
         from urllib.parse import parse_qs, urlsplit
         from requests import Response
@@ -513,6 +635,7 @@ class NativeSourceClientCompositionTests(TestCase):
                 dispatched.append(request)
                 parsed = urlsplit(request.url)
                 path = parsed.path
+                location = None
                 if path == '/repos/owner/target/pulls/1145':
                     payload = {**_pull_request_payload(identity), 'body': 'Controlled demo update'}
                 elif path == '/repos/owner/target/pulls/1145/files':
@@ -522,6 +645,12 @@ class NativeSourceClientCompositionTests(TestCase):
                     version = path.split('/')[-2]
                     payload = dict(info=dict(name='demo', version=version, requires_dist=[],
                         project_urls={'Source': 'https://github.com/owner/demo'}), urls=[], last_serial=1)
+                elif repository_move and path.startswith('/repos/owner/demo/git/ref/tags/'):
+                    tag = path.rsplit('/', 1)[-1]
+                    location = 'https://api.github.com/repositories/123/git/ref/tags/' + tag
+                    payload = {}
+                elif repository_move and path in {'/repositories/123', '/repos/moved/demo'}:
+                    payload = dict(id=123, full_name='moved/demo', private=False, visibility='public')
                 elif '/git/ref/tags/' in path:
                     tag = path.rsplit('/', 1)[-1]
                     revision = ('c' if tag.lstrip('v') == '1.0' else 'd') * 40
@@ -564,6 +693,9 @@ class NativeSourceClientCompositionTests(TestCase):
                     and parse_qs(parsed.query).get('ref') == ['d' * 40]
                 ) else 200
                 response.raw = BytesIO(json.dumps(payload).encode())
+                if location is not None:
+                    response.status_code = 301
+                    response.headers['Location'] = location
                 response.request, response.url = request, request.url
                 return response
 

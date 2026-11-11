@@ -16,7 +16,7 @@ from typing import Literal
 from .bindings import ImportFact, ReferenceFact
 from .correspondence import PythonSourceModule
 from .evidence import AnalysisLimits, MeasuredDuration, SourceAnalysisInput
-from ..github.tag import GitHubTagCommitEvidence
+from ..github.tag import GitHubTagCommitEvidence, GitHubTagRepositoryRedirect
 from ..pypi.provenance import FileProvenanceEvidence, FileProvenanceProblem
 from ..pypi.release import PackageReleaseEvidence, ProjectUrlCandidate
 from ..workspace.source_access import RetainedSourceCatalog
@@ -138,6 +138,16 @@ class SourceTagCommit:
 
 
 @dataclass(frozen=True)
+class SourceRepositoryMove:
+    """A move observation, including partial verification when acquisition stops."""
+
+    redirect: GitHubTagRepositoryRedirect
+    canonical_repository: str | None = None
+    verified: bool = False
+    prior_tag: GitHubTagCommitEvidence | None = None
+
+
+@dataclass(frozen=True)
 class ModuleSourceReceipt:
     """A question and its observation/refusal; text admission is separately joined.
 
@@ -162,6 +172,7 @@ class ModuleSourceReceipt:
     association: PackageSourceAssociation | None
     tags: tuple[GitHubTagCommitEvidence, ...]
     retention_gaps: tuple[str, ...]
+    repository_move: SourceRepositoryMove | None = None
 
 
 @dataclass(frozen=True)

@@ -38,6 +38,7 @@ from .api import (
     GitHubAcquisitionError,
     GitHubApiClient,
     GitHubResponseError,
+    required_bool,
     required_positive_int,
     required_str,
 )
@@ -105,6 +106,25 @@ class GitHubRepositoryClient(GitHubApiClient):
         timeout: tuple[float, float] = DEFAULT_TIMEOUT,
     ) -> None:
         super().__init__(token=token, session=session, timeout=timeout)
+
+    def get_public_repository_name(self, repository_id: int, *, name: str | None = None) -> str:
+        """Read the public repository's identity by ID or confirm it by name."""
+        if type(repository_id) is not int or repository_id < 1:
+            raise ValueError("Expected a positive GitHub repository ID.")
+        path = f"/repositories/{repository_id}" if name is None else f"/repos/{validate_repository(name)}"
+        data = self._get_json_object(self.api_url(path), resource="repository-identity")
+        try:
+            returned_name = required_str(data, "full_name")
+            if (validate_repository(returned_name) != returned_name
+                or returned_name.split("/")[1] in {".", ".."}
+                or required_positive_int(data, "id") != repository_id
+                or required_bool(data, "private")
+                or data.get("visibility", "public") != "public"
+                or (name is not None and returned_name != name)):
+                raise GitHubResponseError("GitHub did not confirm the requested public repository identity.")
+        except (KeyError, ValueError) as exc:
+            raise GitHubResponseError("Malformed GitHub repository identity response.") from exc
+        return returned_name
 
     def get_pull_request_base_file(
         self,

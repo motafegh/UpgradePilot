@@ -1,13 +1,13 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-11-10
+**Last updated:** 2026-11-11
 **Authority:** sole owner of the live project position, current blockers, selected continuation, and current learning depth. Detailed historical evidence remains in the linked cycle/evidence records; this file intentionally summarizes the current live state.
 
 **Publication cadence:** Ali explicitly authorizes committing and pushing each coherent, appropriately validated in-scope increment as work progresses. Record actual proof and remaining debt with each increment; this publication instruction does not expand the selected implementation responsibility.
 
 ## Current position
 
-**Caller/signature repository move admission designed — November 11.** The [plan](plans/CALLER_SIGNATURE_REPOSITORY_MOVE_ADMISSION_PLAN.md) defines how to verify a public GitHub repository move for an exact library release and retain both names, the exact tag and file identity for cold recovery. The [design record](working-memory/2026-11-11_caller-signature-repository-move-design_cycle.md) reconciles the source and Workspace owners. **Continue:** orient to the move admission and versioned source record, then take the selected plan into Build. Qualify deterministically before a separately labelled AV-Tracer successor. Its source conflict and AI comparison remain unqualified.
+**Caller/signature repository move admission implemented — November 11.** The [build record](working-memory/2026-11-11_caller-signature-repository-move_build-cycle.md) records verified GitHub moves, partial provenance, source codec 2, and normal CLI and cold-open controls under the [plan](plans/CALLER_SIGNATURE_REPOSITORY_MOVE_ADMISSION_PLAN.md). Seventy-three focused product checks and 22 adapter experiment regressions passed. **Continue:** run the separately labelled AV-Tracer successor under its original guards and limits, and inspect the first remaining source gap. The AV-Tracer source conflict and AI comparison remain unqualified.
 
 **AV-Tracer split-route qualification found a historical repository admission gap — November 10.** The [successor](working-memory/2026-11-10_av-tracer-split-route-qualification_cycle.md) cleared PyPI and recovered its report cold. FastAPI tag acquisition stopped at HTTP 301 for `tiangolo/fastapi`. Separate GitHub controls bind the historical endpoint to public `fastapi/fastapi` through repository ID 160919119 and confirm the exact tag. This evidence informed the November 11 design above.
 

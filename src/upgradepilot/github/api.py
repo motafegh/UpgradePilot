@@ -44,10 +44,12 @@ class GitHubAcquisitionError(RuntimeError):
         *,
         reason: str,
         status_code: int | None = None,
+        redirect_location: str | None = None,
     ) -> None:
         super().__init__(message)
         self.reason = reason
         self.status_code = status_code
+        self.redirect_location = redirect_location
 
 
 class GitHubResponseError(RuntimeError):
@@ -90,10 +92,12 @@ class GitHubApiClient:
         *,
         resource: str,
         params: Mapping[str, str | int] | None = None,
+        observe_permanent_redirect: bool = False,
     ) -> Mapping[str, Any]:
         """GET one endpoint and require a JSON object at the top level."""
 
-        response = self._get(url, resource=resource, params=params)
+        response = self._get(url, resource=resource, params=params,
+                             observe_permanent_redirect=observe_permanent_redirect)
         data = self._read_json(response, resource=resource)
         try:
             return expect_mapping(data)
@@ -126,6 +130,7 @@ class GitHubApiClient:
         *,
         resource: str,
         params: Mapping[str, str | int] | None = None,
+        observe_permanent_redirect: bool = False,
     ) -> Response:
         """Send one GET and return only a response with a successful HTTP status."""
 
@@ -136,6 +141,8 @@ class GitHubApiClient:
             }
             if params is not None:
                 kwargs["params"] = params
+            if observe_permanent_redirect:
+                kwargs["allow_redirects"] = False
             response = self._session.get(url, **kwargs)
         except Timeout as exc:
             raise GitHubAcquisitionError(
@@ -148,6 +155,12 @@ class GitHubApiClient:
                 reason="transport_error",
             ) from exc
 
+        if observe_permanent_redirect and response.status_code == 301:
+            raise GitHubAcquisitionError(
+                f"GitHub returned HTTP 301 while acquiring {resource} evidence.",
+                reason="http_error", status_code=301,
+                redirect_location=response.headers.get("Location"),
+            )
         self._raise_for_status(response, resource=resource)
         return response
 

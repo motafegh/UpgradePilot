@@ -182,12 +182,15 @@ FAMILY_CONTRACTS = {
 _CI_COVERAGE_V2 = replace(
     FAMILY_CONTRACTS["ci_coverage"], shape=_optional("dependency_ci_coverage_result_v2")
 )
+_CALLER_SIGNATURE_SOURCES_V2 = replace(FAMILY_CONTRACTS["caller_signature_sources"], producer_version="2")
 _VALUES = NativeValueCodec(INPUT_LAYOUTS + CI_LAYOUTS + COVERAGE_V2_LAYOUTS + IMPACT_LAYOUTS)
 
 
 def family_contract(family: str, version: int = 1) -> NativeFamilyContract:
     if type(version) is int and version == 2 and family == "ci_coverage":
         return _CI_COVERAGE_V2
+    if type(version) is int and version == 2 and family == "caller_signature_sources":
+        return _CALLER_SIGNATURE_SOURCES_V2
     if type(version) is not int or version != 1 or family not in FAMILY_CONTRACTS:
         raise NativeReconstructionError(
             "unsupported_native_codec",
@@ -206,7 +209,7 @@ def encode_native_value(
                 "unsupported_native_codec", "Version 1 cannot retain static version requests."
             )
     if family == "caller_signature_sources":
-        return encode_sources(value)
+        return encode_sources(value, version=version)
     if family == "caller_signature_comparison":
         return encode_comparison(value, sources)
     return _VALUES.encode(value, contract.shape)
@@ -215,7 +218,7 @@ def encode_native_value(
 def decode_native_value(family: str, version: int, payload: bytes, *, sources: CallerSignatureSources | None = None) -> object:
     contract = family_contract(family, version)
     if family == "caller_signature_sources":
-        return decode_sources(payload)
+        return decode_sources(payload, version=version)
     if family == "caller_signature_comparison":
         return decode_comparison(payload, sources)
     return _VALUES.decode(payload, contract.shape)

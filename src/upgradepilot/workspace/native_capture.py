@@ -20,6 +20,7 @@ from ..ci.dependency_exercise import (
 from ..ci.dependency_state import RuntimeDependencyStateResult
 from ..caller_signature.evidence import SourceAnalysisRun
 from ..caller_signature.source_evidence import CallerSignatureSources
+from ..caller_signature.source_codec import source_codec_version
 from ..dependency.change import DependencyChangeProblem, DependencyVersionChange
 from ..dependency.environment import DependencySourceContext
 from ..github.pull_request import (
@@ -41,7 +42,7 @@ from .native_boundary import (
     exact_investigation_target,
     validate_native_boundary,
 )
-from .native_codecs import FAMILY_CONTRACTS, decode_native_value, encode_native_value
+from .native_codecs import FAMILY_CONTRACTS, decode_native_value, encode_native_value, family_contract
 
 
 @dataclass(frozen=True, slots=True)
@@ -136,7 +137,7 @@ class NativeInvestigationCapture:
         sources = None
         if family == "caller_signature_comparison":
             source = self._staged["caller_signature_sources"]
-            sources = decode_native_value("caller_signature_sources", 1, source.payload)
+            sources = decode_native_value("caller_signature_sources", source.codec_version, source.payload)
         self._staged[family] = _StagedCapture(
             uuid4().hex,
             encode_native_value(family, value, version=codec_version, sources=sources),
@@ -173,9 +174,11 @@ class NativeInvestigationCapture:
 
     def capture_caller_signature_sources(self, sources: CallerSignatureSources) -> None:
         """Capture actual retained acquisition progress, independently of analysis."""
-        contract = FAMILY_CONTRACTS["caller_signature_sources"]
+        codec_version = source_codec_version(sources)
+        contract = family_contract("caller_signature_sources", codec_version)
         self._record("caller_signature_sources", sources,
-                     method=contract.producer_method, version=contract.producer_version)
+                     method=contract.producer_method, version=contract.producer_version,
+                     codec_version=codec_version)
 
     def capture_caller_signature_comparison(self, run: SourceAnalysisRun) -> None:
         """Retain the observed run state; failed analysis is still a recorded operation."""

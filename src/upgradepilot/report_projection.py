@@ -1741,6 +1741,15 @@ def _project_caller_signature_coverage(p: _ReportEvidence, sources: CallerSignat
                 _fact("body_bytes", "Received body bytes", transport.decoded_body_bytes),
                 _fact("elapsed_hex", "Acquisition seconds (exact float)", transport.elapsed.seconds_hex),
             ))
+        moves = {m.repository_move.redirect: m.repository_move for m in receipt.module_requests
+                 if m.repository_move is not None}
+        for index, move in enumerate(moves.values(), start=1):
+            redirect = move.redirect
+            detail = (f"{redirect.repository} → {move.canonical_repository} verified as public GitHub repository "
+                      f"ID {redirect.repository_id}" if move.verified else
+                      f"{redirect.repository} redirected to GitHub repository ID {redirect.repository_id}; verification incomplete")
+            coverage_facts.append(_fact(f"repository_move_{index}", "Declared library repository move",
+                                        f"{detail} (tag request {redirect.requested_tag})."))
         p.assess("caller-signature-coverage", "Caller/signature source coverage", "caller_signature.acquisition",
                  receipt.state, "Coverage applies only to the admitted retained acquisition horizon.",
                  status="problem" if receipt.state == "failed" else "available",
