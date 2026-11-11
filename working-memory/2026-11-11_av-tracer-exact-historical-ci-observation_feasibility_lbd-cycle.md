@@ -57,7 +57,11 @@ The initial convenience run-jobs/steps wrappers returned job IDs, status and ste
 
 **Verification:** the same run ID appears in public run metadata and the connector's backend job record; attempt `1`, PR `#11`, exact head/base, declared workflow source and step sequence are consistent. A single downloaded job log reports both install success and exact traceback with timestamps. The log response was **not** retained byte-for-byte in the public repository, so no log-content hash or independent immutable replay is claimed. The job URL remains a live external source that may expire or change access.
 
-**D — CURRENT:** Review with Ali the revised evidence ladder and the difference between (a) a witnessed Python exception causing backend collection failure, (b) successful installation evidence supporting a specific version mechanism, (c) direct loaded-code identity, and (d) all-workflow or upgrade-counterfactual causality. Then decide whether additional direct version instrumentation is needed for the actual maintainer question.
+**D — DONE at bounded conceptual depth:** Ali independently declined to call HTTPX 0.28.1's *loaded module identity* definitive and recognized that combining the installation and traceback gives stronger support but not complete proof. Follow-up teaching distinguished command-completion installation, actual traceback/exercised path, same-process module identity and upgrade-counterfactual causality. He did not independently design all necessary joins.
 
-**E — PENDING:** Close after this ownership review, preserving the fact that an exact-job traceback was available without target execution. Do not automatically start generalized CI log ingestion or another experiment.
+**E — DONE:** The historical evidence recovery cycle is closed. Ali requested a separate **feasibility and design review** for making that evidence accessible within the native UpgradePilot investigation pipeline, including gaps beyond mere log downloading. No broad acquisition, target execution, schema migration or product Build follows automatically.
 
+
+## Completion linkage
+
+The successor pipeline review is recorded separately in [native CI traceback bridge architecture checkpoint](2026-11-11_native-ci-traceback-and-source-applicability_bridge_design_lbd-cycle.md). This record remains a description of externally observed run/job/log material and its limitations; no earlier saved source-only report was rewritten.
