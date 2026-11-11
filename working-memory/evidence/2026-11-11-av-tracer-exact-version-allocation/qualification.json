@@ -1,0 +1,525 @@
+{
+  "acquisition": {
+    "auth": "anonymous",
+    "body_bytes": 2252240,
+    "budget_estimate": {
+      "additional_headroom": 6,
+      "anonymous_remaining_at_preflight": 60,
+      "core_total": 45,
+      "defining_files": 2,
+      "move_and_peel_allowance": 5,
+      "release_entry_pair": 10,
+      "selected_github_ceiling": 56,
+      "through_starlette": 33
+    },
+    "elapsed_seconds": 28.533918462999736,
+    "exact_httpx_requests": [
+      {
+        "decoded_body_bytes": 333,
+        "github_requests": 34,
+        "host": "api.github.com",
+        "path": "/repos/encode/httpx/git/ref/tags/0.25.2",
+        "provider_requests": 48,
+        "reason": null,
+        "stage": "library_sources",
+        "state": "received",
+        "status": 200
+      },
+      {
+        "decoded_body_bytes": 114,
+        "github_requests": 35,
+        "host": "api.github.com",
+        "path": "/repos/encode/httpx/git/ref/tags/v0.25.2",
+        "provider_requests": 49,
+        "reason": null,
+        "stage": "library_sources",
+        "state": "received",
+        "status": 404
+      },
+      {
+        "decoded_body_bytes": 1933,
+        "github_requests": 36,
+        "host": "api.github.com",
+        "path": "/repos/encode/httpx/git/commits/cc206cf2dad42600479962ac1daaa44675cfaf56",
+        "provider_requests": 50,
+        "reason": null,
+        "stage": "library_sources",
+        "state": "received",
+        "status": 200
+      },
+      {
+        "decoded_body_bytes": 28672,
+        "github_requests": 37,
+        "host": "api.github.com",
+        "path": "/repos/encode/httpx/git/trees/488658b0444baf233cea2acc2a2b709ed7de321a",
+        "provider_requests": 51,
+        "reason": null,
+        "stage": "library_sources",
+        "state": "received",
+        "status": 200
+      },
+      {
+        "decoded_body_bytes": 5380,
+        "github_requests": 38,
+        "host": "api.github.com",
+        "path": "/repos/encode/httpx/contents/httpx/__init__.py",
+        "provider_requests": 52,
+        "reason": null,
+        "stage": "library_sources",
+        "state": "received",
+        "status": 200
+      },
+      {
+        "decoded_body_bytes": 333,
+        "github_requests": 39,
+        "host": "api.github.com",
+        "path": "/repos/encode/httpx/git/ref/tags/0.28.1",
+        "provider_requests": 57,
+        "reason": null,
+        "stage": "library_sources",
+        "state": "received",
+        "status": 200
+      },
+      {
+        "decoded_body_bytes": 114,
+        "github_requests": 40,
+        "host": "api.github.com",
+        "path": "/repos/encode/httpx/git/ref/tags/v0.28.1",
+        "provider_requests": 58,
+        "reason": null,
+        "stage": "library_sources",
+        "state": "received",
+        "status": 404
+      },
+      {
+        "decoded_body_bytes": 2135,
+        "github_requests": 41,
+        "host": "api.github.com",
+        "path": "/repos/encode/httpx/git/commits/26d48e0634e6ee9cdc0533996db289ce4b430177",
+        "provider_requests": 59,
+        "reason": null,
+        "stage": "library_sources",
+        "state": "received",
+        "status": 200
+      },
+      {
+        "decoded_body_bytes": 31648,
+        "github_requests": 42,
+        "host": "api.github.com",
+        "path": "/repos/encode/httpx/git/trees/f6bc290d5ec30e882f9d6215a016aa7aac2c02a1",
+        "provider_requests": 60,
+        "reason": null,
+        "stage": "library_sources",
+        "state": "received",
+        "status": 200
+      },
+      {
+        "decoded_body_bytes": 3950,
+        "github_requests": 43,
+        "host": "api.github.com",
+        "path": "/repos/encode/httpx/contents/httpx/__init__.py",
+        "provider_requests": 61,
+        "reason": null,
+        "stage": "library_sources",
+        "state": "received",
+        "status": 200
+      },
+      {
+        "decoded_body_bytes": 94856,
+        "github_requests": 44,
+        "host": "api.github.com",
+        "path": "/repos/encode/httpx/contents/httpx/_client.py",
+        "provider_requests": 62,
+        "reason": null,
+        "stage": "source_closure",
+        "state": "received",
+        "status": 200
+      },
+      {
+        "decoded_body_bytes": 91492,
+        "github_requests": 45,
+        "host": "api.github.com",
+        "path": "/repos/encode/httpx/contents/httpx/_client.py",
+        "provider_requests": 63,
+        "reason": null,
+        "stage": "source_closure",
+        "state": "received",
+        "status": 200
+      }
+    ],
+    "failed_requests": [],
+    "files": 24,
+    "github_requests": 51,
+    "library_bytes": 277446,
+    "limits": {
+      "adapter_candidate_attempts": 4,
+      "aggregate_bytes": 33554432,
+      "elapsed_seconds": {
+        "scope": "acquisition_policy_elapsed_limit",
+        "seconds_hex": "0x1.6800000000000p+7"
+      },
+      "github_requests": 56,
+      "library_module_attempts": 12,
+      "library_release_identities": 4,
+      "library_source_bytes": 2097152,
+      "provider_requests": 100,
+      "response_bytes": 8388608,
+      "source_request_reserve": 24,
+      "target_file_attempts": 16
+    },
+    "material_omissions_by_reason": {
+      "closure_read_budget": 24,
+      "outside_indirect_reference_priority": 9
+    },
+    "module_attempts": 12,
+    "module_receipts": 12,
+    "omissions": 33,
+    "omitted_adapters_by_package": {
+      "anyio": 3,
+      "fastapi": 1,
+      "pytest": 1,
+      "typing-extensions": 1
+    },
+    "omitted_candidates": 6,
+    "problems": [],
+    "provider_requests": 69,
+    "release_identities_in_order": [
+      [
+        "fastapi",
+        "0.104.1"
+      ],
+      [
+        "starlette",
+        "0.27.0"
+      ],
+      [
+        "httpx",
+        "0.25.2"
+      ],
+      [
+        "httpx",
+        "0.28.1"
+      ]
+    ],
+    "routes": {
+      "api.github.com": "direct",
+      "pypi.org": "existing unauthenticated loopback proxy"
+    },
+    "sample_versions": [
+      [
+        "fastapi",
+        "0.104.1",
+        "fastapi/testclient.py"
+      ],
+      [
+        "starlette",
+        "0.27.0",
+        "starlette/testclient.py"
+      ]
+    ],
+    "state": "partial",
+    "stops": []
+  },
+  "analysis": {
+    "gaps": 57,
+    "relevant_witnesses": [
+      {
+        "callee_line": 639,
+        "callee_name": "Client.__init__",
+        "callee_path": "httpx/_client.py",
+        "callee_role": "proposed_dependency",
+        "caller_line": 399,
+        "caller_path": "starlette/testclient.py",
+        "candidate_id": "e51d03eef303c425d46f5a62d1eaad7185649ddf278cbc31f1a4c185a73fc516",
+        "package": "httpx",
+        "path": [
+          [
+            "backend/tests/test_app.py",
+            6,
+            "call"
+          ],
+          [
+            "backend/tests/test_app.py",
+            2,
+            "import_origin"
+          ],
+          [
+            "fastapi/testclient.py",
+            1,
+            "reexport"
+          ],
+          [
+            "starlette/testclient.py",
+            362,
+            "class_declaration"
+          ],
+          [
+            "starlette/testclient.py",
+            367,
+            "initializer"
+          ],
+          [
+            "starlette/testclient.py",
+            399,
+            "call"
+          ],
+          [
+            "starlette/testclient.py",
+            362,
+            "declared_base"
+          ],
+          [
+            "httpx/__init__.py",
+            4,
+            "reexport"
+          ],
+          [
+            "httpx/_client.py",
+            594,
+            "class_declaration"
+          ],
+          [
+            "httpx/_client.py",
+            639,
+            "initializer"
+          ]
+        ],
+        "reception": {
+          "app": "not_received",
+          "base_url": "named_parameter",
+          "cookies": "named_parameter",
+          "follow_redirects": "named_parameter",
+          "headers": "named_parameter",
+          "transport": "named_parameter"
+        },
+        "result": "rejected",
+        "root_id": "596f5dce810b6290d02423465070b4e3de7e6c92977e9756521ab334306a59cd",
+        "root_line": 6,
+        "version": "0.28.1",
+        "violations": [
+          {
+            "parameter": "app",
+            "reason": "unexpected_keyword"
+          }
+        ]
+      },
+      {
+        "callee_line": 620,
+        "callee_name": "Client.__init__",
+        "callee_path": "httpx/_client.py",
+        "callee_role": "old_dependency",
+        "caller_line": 399,
+        "caller_path": "starlette/testclient.py",
+        "candidate_id": "a4a34e6e4e640cba2985083f5aa0a2f2268d8372094b46b75095292bad3a91af",
+        "package": "httpx",
+        "path": [
+          [
+            "backend/tests/test_app.py",
+            6,
+            "call"
+          ],
+          [
+            "backend/tests/test_app.py",
+            2,
+            "import_origin"
+          ],
+          [
+            "fastapi/testclient.py",
+            1,
+            "reexport"
+          ],
+          [
+            "starlette/testclient.py",
+            362,
+            "class_declaration"
+          ],
+          [
+            "starlette/testclient.py",
+            367,
+            "initializer"
+          ],
+          [
+            "starlette/testclient.py",
+            399,
+            "call"
+          ],
+          [
+            "starlette/testclient.py",
+            362,
+            "declared_base"
+          ],
+          [
+            "httpx/__init__.py",
+            4,
+            "reexport"
+          ],
+          [
+            "httpx/_client.py",
+            569,
+            "class_declaration"
+          ],
+          [
+            "httpx/_client.py",
+            620,
+            "initializer"
+          ]
+        ],
+        "reception": {
+          "app": "named_parameter",
+          "base_url": "named_parameter",
+          "cookies": "named_parameter",
+          "follow_redirects": "named_parameter",
+          "headers": "named_parameter",
+          "transport": "named_parameter"
+        },
+        "result": "bound",
+        "root_id": "596f5dce810b6290d02423465070b4e3de7e6c92977e9756521ab334306a59cd",
+        "root_line": 6,
+        "version": "0.25.2",
+        "violations": []
+      }
+    ],
+    "roles": {
+      "constraint_sample": 4,
+      "old_dependency": 1,
+      "proposed_dependency": 1
+    },
+    "roots": 1,
+    "state": "completed",
+    "unexamined_units": 10,
+    "witnesses": 6
+  },
+  "disposition": "qualified_conditional_exact_source_pair_with_offline_citations",
+  "implementation_commit": "10532d92",
+  "report": {
+    "cold_read_producers_blocked": [
+      "network",
+      "environment credentials",
+      "source and AST analysis",
+      "report projection and synthesis"
+    ],
+    "cold_sources": [
+      {
+        "content_sha256": "9c1bda0265fae9895d45e24d6573ce935b1fba8d90ea1b3c6cebc86827a9e8b4",
+        "path": "fastapi/testclient.py",
+        "repository": "fastapi/fastapi",
+        "revision": "7e5afe2cb9bf1fa30c04a4dd393ea397a46db29b",
+        "source_id": "source-16",
+        "version": "0.104.1"
+      },
+      {
+        "content_sha256": "d261340d34a4aac1e9fa942385aabaa729d12ad865dd9380a99c52e9c24c4d40",
+        "path": "backend/tests/test_app.py",
+        "repository": "ivaronkun-Ahey/AV-Tracer",
+        "revision": "25e7205f39103456e7efbc4e9f503f3debc7b5d8",
+        "source_id": "source-28",
+        "version": ""
+      },
+      {
+        "content_sha256": "3349230dd87260809182440c138f745c18ddfc6dd31aa2871688578cc1f20676",
+        "path": "starlette/testclient.py",
+        "repository": "Kludex/starlette",
+        "revision": "0c4b68ac4e179a788e38bac28f299dcad0f36e99",
+        "source_id": "source-29",
+        "version": "0.27.0"
+      },
+      {
+        "content_sha256": "0ac6997bac998f4ac783adf6d8058a587193315afdb718047c3e4fdff46bcfad",
+        "path": "httpx/__init__.py",
+        "repository": "encode/httpx",
+        "revision": "26d48e0634e6ee9cdc0533996db289ce4b430177",
+        "source_id": "source-30",
+        "version": "0.28.1"
+      },
+      {
+        "content_sha256": "c43f941baefe58c91e96d00039e1868fe719d91453026d7db1647194563bff8d",
+        "path": "httpx/_client.py",
+        "repository": "encode/httpx",
+        "revision": "26d48e0634e6ee9cdc0533996db289ce4b430177",
+        "source_id": "source-31",
+        "version": "0.28.1"
+      },
+      {
+        "content_sha256": "a02c5502c78f132e4313d78b846000abd1f744119950369444eb46132cdb051a",
+        "path": "httpx/__init__.py",
+        "repository": "encode/httpx",
+        "revision": "cc206cf2dad42600479962ac1daaa44675cfaf56",
+        "source_id": "source-35",
+        "version": "0.25.2"
+      },
+      {
+        "content_sha256": "6bfda818e4b0fed70879aac8397c476aa80c8266314b266d4d38e72eff60ce2f",
+        "path": "httpx/_client.py",
+        "repository": "encode/httpx",
+        "revision": "cc206cf2dad42600479962ac1daaa44675cfaf56",
+        "source_id": "source-36",
+        "version": "0.25.2"
+      }
+    ],
+    "prior_workspace_reopened": "977ad5d0594040799b331f285920a211",
+    "relevant_assessments": [
+      {
+        "facts": {
+          "callee": "source-31 L639 Client.__init__",
+          "caller": "source-29 L399 super().__init__",
+          "role": "proposed_dependency",
+          "root_location": "source-28 L6 TestClient",
+          "version": "0.28.1",
+          "witness_id": "e51d03eef303c425d46f5a62d1eaad7185649ddf278cbc31f1a4c185a73fc516"
+        },
+        "id": "caller-signature-comparison-49d68ec27ce6dfbc603800dbc7276a566f6abbc45499e7ba42b4d6fbadb7a1ad",
+        "sources": [
+          "source-46",
+          "source-14",
+          "source-15",
+          "source-28",
+          "source-29",
+          "source-31",
+          "source-16",
+          "source-30"
+        ],
+        "state": "rejected"
+      },
+      {
+        "facts": {
+          "callee": "source-36 L620 Client.__init__",
+          "caller": "source-29 L399 super().__init__",
+          "role": "old_dependency",
+          "root_location": "source-28 L6 TestClient",
+          "version": "0.25.2",
+          "witness_id": "a4a34e6e4e640cba2985083f5aa0a2f2268d8372094b46b75095292bad3a91af"
+        },
+        "id": "caller-signature-comparison-5e8e8183ea7726af9814789406683d72ab34ee65fe3005fbf3d3ab6325f8ed25",
+        "sources": [
+          "source-47",
+          "source-14",
+          "source-15",
+          "source-28",
+          "source-29",
+          "source-36",
+          "source-16",
+          "source-35"
+        ],
+        "state": "bound"
+      }
+    ],
+    "reopened_sha256": "32d1338d5d42ded6b2834fe764df57f71b17a1faa985ad55f947944d307ac182",
+    "sha256": "85fd07790ebb0e44eecda9b1f6688251e1d0dec7dc2d340dc66beb9105d69bd3"
+  },
+  "revision": "80a58d494a8c46009aab8dc72b94b447",
+  "revision_digest": "12fb1b5b26ceb1f5ba7b184bc6b064f26da409e2e429573265ac85541b01b42f",
+  "run": {
+    "elapsed_seconds": 42.44119361100002,
+    "exit": 0,
+    "outer_guard_seconds": 270
+  },
+  "target": {
+    "base_sha": "527a004918c0f825e97c3583404242605fd58ec2",
+    "head_sha": "25e7205f39103456e7efbc4e9f503f3debc7b5d8",
+    "normalized_package": "httpx",
+    "old_version": "0.25.2",
+    "proposed_version": "0.28.1",
+    "pull_number": 11,
+    "repository": "ivaronkun-Ahey/AV-Tracer"
+  }
+}
