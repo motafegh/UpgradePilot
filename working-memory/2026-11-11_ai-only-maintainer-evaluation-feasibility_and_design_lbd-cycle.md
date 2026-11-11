@@ -2,7 +2,7 @@
 
 Date: 2026-11-11
 Operation: bounded Planning/Design + Learning-by-Doing, not experimental execution
-Status: design/readiness assessed; AI-reviewer experiment **NOT ACTIVATED**
+Status: design checkpoint closed after priority reassessment; both proposed AI-reviewer experiments **DEFERRED**; no reviewer execution
 Primary reason for adaptation: Ali confirms no independent human reviewers are currently available; separate AI-assistant review sessions are the feasible participant route. This is a practical constraint, **not** evidence that any AI result establishes human maintainer usefulness.
 
 Owner relationships: [current project memory](../MEMORY.md), [maintainer report usefulness plan](../plans/MAINTAINER_REPORT_PRESERVATION_AND_USEFULNESS_EVALUATION_PLAN.md#5-independent-usefulness-evaluation), [existing first-view packet](evidence/2026-11-08-maintainer-first-view-review/OPERATOR_PROTOCOL.md), [revision 2 task](evidence/2026-11-08-maintainer-first-view-review/revision-2/REVIEWER_TASK.md), [revision 3 addendum](evidence/2026-11-08-maintainer-first-view-review/revision-3/OPERATOR_PROTOCOL.md), [GitHub AI remote rehearsal](evidence/2026-11-08-maintainer-first-view-review/remote-rehearsal/README.md), [AV-Tracer exact same-evidence development comparison](2026-11-11_av-tracer-same-evidence-first-view-comparison_lbd-cycle.md).
@@ -52,8 +52,14 @@ A1 — DONE (continuity-compressed): prior dialogue and Ali's new reviewer const
 A2 — DONE for this **design**: explained evaluation estimand, assistant/human distinction, isolation and fair-source requirements.
 B — DONE as Planning/Design: selected an AI-only development evaluation route and excluded human-utility claim promotion.
 Verification — DOCUMENTARY: exact existing protocol/packet boundaries inspected; no execution or suitability verification of isolated AI sessions.
-D — CURRENT: Ali can challenge whether Track A (report first-view) answers a high-value question or Track B (ordinary-review versus product) should be prioritized for the flagship.
-E — PENDING: settle priority/activation, then close design cycle with one next bounded action. No AI-reviewer calls or code changes were performed.
-C — CONTINUOUS: the human reviewer availability constraint and honest AI-only alternative are preserved.
+D — DONE: Ali challenged whether either proposed experiment would be decision-relevant or simply add ceremony. The subsequent evidence/experiment audit and existing exact-report comparison favored real-case capability work rather than another readability trial.
+E — DONE: Ali explicitly agreed to **defer Track A and Track B**. The controlled protocol and November 8 packets remain retained for later reentry if an unresolved decision cannot be answered more cheaply. No AI-reviewer calls, fresh acquisitions, target execution or product-code changes were performed.
+C — DONE: preserved absent human-reviewer eligibility, the design alternative, the later priority challenge, deferral rationale and the selected capability-oriented handoff.
 
-**Recommended next discussion:** Decide whether to prioritize *AI first-view readability* (cheaper, narrower and using existing packet infrastructure) or *AI review value versus ordinary PR/source review* (higher-value product claim, requiring evidence-parity packet work). The engineering recommendation is to do a single bounded Track A preflight rather than invest in a full benchmark framework.
+**Current disposition (supersedes the earlier Track A preflight suggestion):** No AI-reviewer packet preflight or execution now. Prioritize a narrowly defined real maintainer evidence gap, starting with an independently bounded *read-only feasibility check for the exact historical AV-Tracer CI job observation* if selected next; determine whether the old run/attempt/job logs and same-run identity could actually discriminate CI causality. Missing/expired evidence is a valid terminal result, not a reason to manufacture proof or build a generic correlation framework. This next investigation is only a proposed handoff, not executed or authorized by this closure.
+
+## Post-design investment reassessment
+
+Ali questioned the value of more AI reviewer exercises after the verified one-line AV-Tracer first-view improvement and the earlier Investigator audits. The project evidence already establishes the conditional source incompatibility, an honest saved-report presentation change, and the unresolved historical CI/runtime linkage. The next Track A model exercise would probably test whether an AI reads one already-visible fact; without a concrete product decision it would be disproportionately ceremonial. Track B is more consequential but needs equal-source ordinary-review packets and a decision its result would actually change; defer until there is a precise, high-value residual uncertainty.
+
+**Decision rule for reentry:** specify (1) the implementation/product choice currently blocked, (2) outcomes that would change it, and (3) why an existing saved artifact, source audit or focused product check cannot answer more cheaply. Retain provenance/contract/regression safeguards regardless. Product-side next proposal: scope the historical AV-Tracer same-job CI observation as a read-only feasibility diagnostic, with exact run/attempt/head/step identity and truthful not-available outcomes before contemplating new runtime instrumentation or model inference.
