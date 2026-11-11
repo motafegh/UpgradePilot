@@ -128,6 +128,8 @@ class CallerSignatureDeliveryTests(unittest.TestCase):
         self.assertIn("Caller and signature fit (conditional source evidence)", first_view)
         self.assertIn("arguments fit", first_view)
         self.assertIn("arguments rejected", first_view)
+        self.assertIn("Rejected keyword: option", first_view)
+        self.assertNotIn("Rejected keyword: app", first_view)
         self.assertIn("Runtime dependency state: not evaluated", first_view)
         analysis = next(a for a in report.assessments if a.assessment_id == "caller-signature-analysis")
         self.assertIn("1", [f.value for f in analysis.facts if f.name == "distinct_roots"])
@@ -215,6 +217,60 @@ class CallerSignatureDeliveryTests(unittest.TestCase):
                 self.assertNotIn("arguments rejected", summary)
                 self.assertIn("Conditional caller/signature witness", details)
                 self.assertIn("Maintainer action: abstain", details)
+
+    def test_first_view_names_only_unambiguous_retained_rejection_facts(self):
+        code, output, _ = self.live()
+        self.assertEqual(code, 0, output)
+        report = read_report(self.report_path)
+        witnesses = tuple(a for a in report.assessments
+                          if a.assessment_id.startswith("caller-signature-comparison-"))
+        proposed = next(a for a in witnesses if a.state == "rejected")
+        other = tuple(a for a in report.assessments if a is not proposed)
+        self.assertTrue(any(f.name.startswith("violation_") for f in proposed.facts))
+
+        def first_view_for(*replacements):
+            rendered = render_investigation_report(
+                replace(report, assessments=other + replacements))
+            return rendered.split("Review at a glance\n", 1)[1].split(
+                "\nDetailed evidence and action status", 1)[0]
+
+        changed = replace(proposed, facts=tuple(
+            replace(fact, value="unexpected_keyword: proxies")
+            if fact.name.startswith("violation_") else fact
+            for fact in proposed.facts
+        ))
+        renamed = first_view_for(changed)
+        self.assertIn("Rejected keyword: proxies", renamed)
+        self.assertNotIn("Rejected keyword: app", renamed)
+        self.assertIn("Runtime dependency state: not evaluated", renamed)
+        self.assertNotIn("breaks the tests", renamed)
+
+        missing = replace(proposed, facts=tuple(
+            fact for fact in proposed.facts if not fact.name.startswith("violation_")))
+        unknown = first_view_for(missing)
+        self.assertIn("Rejection detail: not recorded in the saved witnesses.", unknown)
+        self.assertNotIn("Rejected keyword:", unknown)
+
+        contradictory = replace(changed,
+            assessment_id=changed.assessment_id + "-another",
+            facts=tuple(
+                replace(fact, value="unexpected_keyword: app")
+                if fact.name.startswith("violation_") else fact
+                for fact in changed.facts
+            ))
+        ambiguous = first_view_for(changed, contradictory)
+        self.assertIn("Witnesses disagree on the recorded rejection details.", ambiguous)
+        self.assertNotIn("Rejected keyword:", ambiguous)
+        self.assertNotIn("arguments rejected", ambiguous)
+
+        other_reason = replace(proposed, facts=tuple(
+            replace(fact, value="missing_required_positional: path")
+            if fact.name.startswith("violation_") else fact
+            for fact in proposed.facts
+        ))
+        different = first_view_for(other_reason)
+        self.assertIn("Recorded violation: missing_required_positional: path", different)
+        self.assertNotIn("Rejected keyword:", different)
 
     def test_matching_cli_guards_preserve_comparisons_sources_and_request_allocation(self):
         """Exercise the real CLI/application/clients/worker, including absent guards.

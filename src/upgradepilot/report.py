@@ -229,6 +229,24 @@ def _signature_overview(
             return [*heading, "Witnesses have differing or unrecognized outcomes for one version.", details]
         label = "Old" if role == "old_dependency" else "Proposed"
         lines.append(f"{label} {transition[version_key]}: {outcome_labels[rows[0].state]}")
+        if role == "proposed_dependency" and states == {"rejected"}:
+            # Witness identity/outcome agreement is not sufficient to select a
+            # particular failure reason. Preserve disagreement and missing facts.
+            recorded = [
+                tuple(sorted(fact.value for fact in item.facts if fact.name.startswith("violation_")))
+                for item in rows
+            ]
+            if len(set(recorded)) != 1:
+                return [*heading, "Witnesses disagree on the recorded rejection details.", details]
+            if not recorded[0]:
+                lines.append("Rejection detail: not recorded in the saved witnesses.")
+            else:
+                for violation in recorded[0]:
+                    reason, separator, parameter = violation.partition(": ")
+                    if reason == "unexpected_keyword" and separator and parameter:
+                        lines.append(f"Rejected keyword: {parameter}")
+                    else:
+                        lines.append(f"Recorded violation: {violation}")
     lines.append("Applies under the recorded source and dispatch assumptions. See witness conditions below.")
     open_questions = [unknown for unknown in report.unknowns
                       if unknown.assessment_id == "caller-signature-analysis"]
