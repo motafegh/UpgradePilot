@@ -2,7 +2,7 @@
 
 **Created:** 2026-11-02  
 **Initial evidence horizon:** `7a9bef12fb65ee075dab645a638adf5a3955dc48`  
-**Last synchronized main:** af92c23f1f3642f43f1b342084dbe229f0f067a6 — November 11, 2026. Twelve new main commits since 6006cefb: CI requested-version report delivery (CI codec2, 1,088 product tests); local isolated OmniMatch old/proposed named pytest comparison (both pass, developer-only); AV-Tracer source acquisition through verified FastAPI and Starlette GitHub repository moves (source codec2, 1,096 tests), followed by exact changed-version source allocation and a live old bound / proposed rejected app= pair (1,099 product tests, source/report cold recovery). Source codec1 remains historically readable, comparison codec1 remains unchanged. D2 now 4/4 guided-complete; 9/19 modules covered interactively; D3 next.
+**Last synchronized main:** `f84da7f90a1d0c74ccb21e4569d63407bd47b9b9` — November 11, 2026. Latest main completes the AV-Tracer same-retained-revision first-view comparison and its learning/evidence-usefulness interpretation. The renderer's `Rejected keyword: app` line is the only added line (line 26) against the original 5,602-line Workspace view; the source/report artifact and abstention remain unchanged. Independent human usefulness is still unmeasured; a multi-case reviewer pilot is a recommended readiness check, not activated. D3 guided complete (4/4) with current source codec v1/v2 and producer v1/v2, comparison v1, CI coverage v1/v2 and explicit cold refusal; overall 10/19 modules covered, D4 SQLite next.
 **Working branch:** `learning/current-caller-signature-mastery-roadmap-2026-11-02`  
 **Purpose:** living study/relearning roadmap for Ali's interactive learning track while UpgradePilot continues to evolve on `main`.  
 **Authority boundary:** this file is a learning artifact, not the live project-position owner. `MEMORY.md`, current source/tests, accepted plans/specifications/ADRs, and dated evidence remain authoritative.
@@ -148,6 +148,8 @@ When `main` advances:
 6. Confirm **all three branch-only documents** (roadmap, module reference map, engineering audit register) exist at the final learning branch ref after every sync; compare with earlier learning-head tree before constructing a commit from `main`. A merge parent does not by itself preserve omitted files. Validate module counts, checkmarks, all relative paths and expected-ref lease.
 
 ### Sync log
+
+- `f84da7f9` — November 11: [AV-Tracer combined-evidence and AI review](../working-memory/2026-11-11_av-tracer-combined-evidence-runtime-applicability-and-ai-checkpoint_cycle.md) did not establish historical CI failure cause, installed-runtime version or target dispatch. [Deterministic first-view Build](../working-memory/2026-11-11_av-tracer-signature-first-view_build-cycle.md) passed 1,100 product tests and displayed an existing `unexpected_keyword(app)` fact without inference. [Same-revision first-view comparison](../working-memory/2026-11-11_av-tracer-same-evidence-first-view-comparison_lbd-cycle.md) corrected an initial mode mismatch and demonstrated exactly one inserted line with unchanged 5,602-line original view, reports, source references and unknowns. Latest D/E closure advises multi-case, independent reviewer protocol readiness rather than new rendering changes; no study activated. D3 source/CI version reading taught and D4 SQLite next.
 
 - af92c23f — November 11: [AV-Tracer exact-version allocation](../working-memory/2026-11-11_caller-signature-exact-version-allocation_build-cycle.md) and [qualification](../working-memory/evidence/2026-11-11-av-tracer-exact-version-allocation/qualification.json) provide a conditional old HTTPX bound/proposed app= rejected pair with 51/56 GitHub and 69/100 provider requests. [Repository-move Build](../working-memory/2026-11-11_caller-signature-repository-move_build-cycle.md) adds verified one-hop canonical GitHub identity evidence under source codec2, preserving source v1 replay. [OmniMatch requested-version CI report](../working-memory/2026-11-10_ci-version-request-report-integration_build-cycle.md) adds static request facts under CI coverage codec2 with v1 parity; [separate local named pytest version pair](../working-memory/2026-11-10_omnimatch-isolated-pytest-comparison_cycle.md) passes both arms with observed versions but is developer-only, not source for original target GitHub CI. D2 guided complete and D3 next. All outcomes remain scoped; no runtime-causation or human usefulness claim.
 
@@ -402,7 +404,7 @@ Real anchor: glyphsLib remains valid for worker/protocol qualification but is no
 **Stop:** Four guided responsibilities are covered; independent changed-context ownership is unassessed, not passed. Next D3: versioned representation versus admitted producer method/version.
 ## D3 — Native format and method contracts: representation codec versus semantic producer version
 
-**Status:** 🟡  
+**Status:** ✅ Guided teaching completed (4/4). Independent practical mastery not graded.  
 **Depth:** MUST OWN
 
 - codec version = representation contract;
@@ -412,6 +414,17 @@ Real anchor: glyphsLib remains valid for worker/protocol qualification but is no
 
 
 **New real version-contract comparison for later study:** [source repository move implementation](../working-memory/2026-11-11_caller-signature-repository-move_build-cycle.md) adds source codec v2 with explicit canonical GitHub continuity and preserves historical v1; comparison family keeps codec v1. Separately [OmniMatch static CI-version request delivery](../working-memory/2026-11-10_ci-version-request-report-integration_build-cycle.md) adds CI coverage codec v2 with exact old-v1 recovery. These representation versions do not by themselves establish new semantic producer authority, actual installation or a report display migration.
+
+**Guided D3 teaching record — completed November 11:**
+- [x] **Four distinct authorities.** Family codec version describes serialized shape; producer method/version describes what supported operation produced it; source/input record references bind immutable material; report display version changes presentation only.
+- [x] **AV-Tracer source v1/v2 migration.** Verified FastAPI/Starlette repository moves require typed declared-repository → public GitHub ID/canonical repository → exact tag/file observations. `source_codec_version` selects codec 2 if a move receipt exists, otherwise 1. The registered source producer versions are respectively `"2"` and `"1"`; comparison codec and producer remain version 1.
+- [x] **Independent CI coverage v1/v2 transition.** OmniMatch's new static workflow HTTPX version-request facts are supported by CI coverage codec 2. Old codec 1 remains readable and reproduces its original report. Encoding new request facts as v1 is explicitly refused rather than silently dropping them; this is not installed or tested HTTPX proof.
+- [x] **Supported reader and refusal proof.** `family_contract` admits only specific codec+family variants; `native_projection._decode` validates owner, producer method/version, immutable input record IDs and outcome. Source-family tests cold-open v1, unfinished-move v2, verified-move v2 plus comparison while network, AST and worker are prohibited. Constructed wrong codec, producer, repository ID, tag and file association examples refuse. No historical live AV-Tracer corruption is asserted.
+
+**Real references:** [Source v1/v2 codec](../src/upgradepilot/caller_signature/source_codec.py), [registered native family contracts](../src/upgradepilot/workspace/native_codecs.py), [offline projection](../src/upgradepilot/workspace/native_projection.py), [actual source/move tests](../tests/test_caller_signature_workspace.py), [semantic/version refusal tests](../tests/test_workspace_native_reconstruction.py), [move Build history](../working-memory/2026-11-11_caller-signature-repository-move_build-cycle.md), [OmniMatch CI version-request integration](../working-memory/2026-11-10_ci-version-request-report-integration_build-cycle.md).
+
+**Next:** D4 material/revision graph, SQLite transactions, acknowledgment/cold recovery and bounded views. D3 is guided complete, not independent implementation certification.
+
 ## D4 — Workspace persistence and access: capture, evidence revisions, material bases, views and cold recovery
 
 **Status:** 🟡  
@@ -578,6 +591,8 @@ Owners: [user-delivery cycle](../working-memory/2026-11-03_caller-signature-user
 **November 9 real presentation-defect and repair — future F2 lesson:** [glyphsLib CI-only and Soup Sieve full report walkthrough](../working-memory/2026-11-09_ci-dependency-exercise_report-walkthrough-cycle.md) found six and seven actual multiline command facts whose embedded LF was preserved in saved typed evidence but lost when the old shared renderer passed whole values through the terminal control filter. The [shared `_assessment_lines` repair](../src/upgradepilot/report.py) now breaks at LF and prefixes continuation lines before inert terminal filtering. It does not alter the facts, CI outcomes or source records. Full report **display version 4** is not saved report schema/native producer version. Verified on real offline renderings, 70 focused product, seven experimental and 1,081 full-product tests; initial failed fixture/test corrections remain in the cycle. Record this as a **genuine defect already implemented/verified** (LPA-006), not a new open product request.
 
 **November 10 completed static version-request delivery:** [OmniMatch report integration](../working-memory/2026-11-10_ci-version-request-report-integration_build-cycle.md) retains workflow-requested old HTTPX pins with exact parsed job/command evidence and source references. CI coverage codec2 keeps older v1 output byte-exact on reconstruction; 1,088 product tests passed. This replaces the earlier design-only state, without claiming version-at-runtime observation.
+
+**November 11 renderer precision and strict same-revision comparison (future F2):** [Build](../working-memory/2026-11-11_av-tracer-signature-first-view_build-cycle.md) displays exact `Rejected keyword: app` based on already retained evidence, 1,100 product tests; [corrected same-route comparison](../working-memory/2026-11-11_av-tracer-same-evidence-first-view-comparison_lbd-cycle.md) adds precisely one line at first-view line 26 relative to 5,602-line original, with first detailed violation at line 3,721. Initial unequal footer-mode comparison was corrected. Same report source and abstention; no timed independent usefulness.
 ## F3 — Product qualification: retained/live evidence, maintainer tasks, usability and adoption limits
 
 **Product:** ✅ Connected retained qualification **plus one selected live installed HTTPX old/proposed pair and report/source task** verified; eligible for **limited explicit-profile pilot**. Runtime applicability, independent usefulness and broad adoption remain unproved.
@@ -606,6 +621,8 @@ Must distinguish historic retained exact inputs, controlled provider responses, 
 **November 10–11 real product qualification sequence:** [First AV-Tracer partial](../working-memory/2026-11-10_av-tracer-caller-signature-product-qualification_cycle.md) encountered PyPI transport limits; [split-route successor](../working-memory/2026-11-10_av-tracer-split-route-qualification_cycle.md) reached GitHub moved-repository HTTP 301; [verified one-hop repository moves](../working-memory/2026-11-11_caller-signature-repository-move_build-cycle.md) recovered original/canonical identities but spent release slots before proposed HTTPX; [exact-version priority successor](../working-memory/2026-11-11_caller-signature-exact-version-allocation_build-cycle.md) obtained old/proposed defining files by GitHub requests 44/45 with 51/56 GitHub, 69/100 providers and no transport stop. [Qualified JSON](../working-memory/evidence/2026-11-11-av-tracer-exact-version-allocation/qualification.json): 24 files, six conditional witnesses, 57 analysis gaps, ten unexamined units, old bound/proposed rejected app=, seven original cited sources and report reopened cold. Full product suite 1,099 passed. Historical partials stay true; CI-failure cause, installed adapter, runtime dispatch and independent usefulness remain unproved.
 
 **Separate local test exercise:** [OmniMatch exact named pytest paired comparison](../working-memory/2026-11-10_omnimatch-isolated-pytest-comparison_cycle.md) ran matched isolated environments, 44 byte-identical common wheels, observed HTTPX 0.27.0 and 0.28.1 inside each pytest process, and both arms passed. This is a developer-owned local one-test conclusion, not original GitHub Actions proof or broad compatibility.
+
+**November 11 current evidence/usefulness checkpoint (future F3):** [AV-Tracer combined evidence and AI gate](../working-memory/2026-11-11_av-tracer-combined-evidence-runtime-applicability-and-ai-checkpoint_cycle.md) preserved historical failed pytest as a separate source from the static conditional `app` mismatch, without causal traceback or same-run loaded dependency proof. [Same-evidence final D/E review](../working-memory/2026-11-11_av-tracer-same-evidence-first-view-comparison_lbd-cycle.md) establishes one visible line but no independent human benefit. A multiple-case blinded reviewer pilot *readiness* check is recommended, not selected/executed; no automatic model, CI or runtime work.
 ---
 
 # PART G — Post-qualification design dispositions; learning later
@@ -656,13 +673,13 @@ The plan separates evidence availability, retrieval, interpretation and presenta
 
 ## 4. Current learning order
 
-**Learning-coverage snapshot (November 11, after D2 guided closure):** 19 named modules = **9 covered interactively** (A1–A4, B1, C1, C2, D1, D2), **2 introduced/in progress** (D3–D4), **8 not yet studied** (E1–E3, F1–F3, G1–G2). **10 not yet covered interactively.** Independent C2/D1/D2 mastery unassessed; product milestones do not automatically promote learning.
+**Learning-coverage snapshot (November 11, after D3 guided closure):** 19 named modules = **10 covered interactively** (A1–A4, B1, C1, C2, D1–D3), **1 introduced/in progress** (D4), **8 not yet studied** (E1–E3, F1–F3, G1–G2). **9 not yet covered interactively.** Independent mastery unassessed.
 
 ```text
-COVERED INTERACTIVELY:  A1 A2 A3 A4 B1 C1 C2 D1 D2  (9 of 19; independent mastery unassessed)
-NOW:                    D3 native codec representation version versus producer method/version
+COVERED INTERACTIVELY:  A1 A2 A3 A4 B1 C1 C2 D1 D2 D3  (10 of 19; independent mastery unassessed)
+NOW:                    D4 SQLite-backed Workspace immutable revisions, material edges and recovery
 
-NEXT:                   D4 Workspace immutable material, schema2 SQLite and bounded views
+NEXT:                   E1 E2 E3 acquisition; F1 F2 F3 delivery; G1 G2 applicability and AI
                         E1 E2 E3 acquisition and exact provenance
                         F1 verified source-progress application
                         F2 verified user-facing CLI/report/Workspace delivery

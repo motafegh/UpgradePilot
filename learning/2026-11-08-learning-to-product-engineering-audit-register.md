@@ -1,6 +1,6 @@
 # Learning-to-product engineering audit register
 
-**Created:** 2026-11-08 · **Last reconciled main:** af92c23f1f3642f43f1b342084dbe229f0f067a6 (2026-11-11) · **Learning branch:** learning/current-caller-signature-mastery-roadmap-2026-11-02
+**Created:** 2026-11-08 · **Last reconciled main:** `f84da7f90a1d0c74ccb21e4569d63407bd47b9b9` (2026-11-11) · **Learning branch:** `learning/current-caller-signature-mastery-roadmap-2026-11-02`
 **Related:** [learning roadmap](2026-11-02-caller-signature-native-pipeline-mastery-roadmap.md) · [source and engineering-history map](2026-11-06-caller-signature-module-reference-map.md)
 
 This document preserves engineering observations surfaced during learning for eventual **evidence-based, selective product triage**. It is **not an approved bug list, product roadmap, implementation authorization, or automatic merge instruction**.
@@ -68,6 +68,8 @@ Allowed dispositions: `documented_limit`, `hypothesis`, `pending_product_gate`, 
 
 **Status:** `pending_product_gate`; no new bug, no measured human benefit.
 
+
+**Latest November 11 exposed-task evidence:** [Strict one-Workspace-revision comparison](../working-memory/2026-11-11_av-tracer-same-evidence-first-view-comparison_lbd-cycle.md) verified one inserted rejected-keyword line at the first view without changing report SHA/source citations, but was performed by a case-familiar analyst, not independent reviewers. The final D/E learning closure recommends **only a readiness assessment** for a multi-case, independent, equal-evidence reviewer pilot; at least three distinct cases and two reviewers with frozen oracle/tasks, actual navigations, answers and time. Neither a pilot nor a human utility pass has occurred. LPA-005 remains `pending_product_gate`.
 ### LPA-006 — CI multiline command rendering: verified defect repaired
 
 **Actual incident:** [Real glyphsLib CI-only and Soup Sieve full-report walkthrough](../working-memory/2026-11-09_ci-dependency-exercise_report-walkthrough-cycle.md) showed command-valued assessment facts retained embedded LF, while shared rendering removed those controls and joined distinct commands. The *display* was incorrect, while typed evidence and CI states were intact.
