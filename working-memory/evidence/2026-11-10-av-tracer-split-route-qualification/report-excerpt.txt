@@ -1,0 +1,36 @@
+Caller/signature source coverage: partial
+Retained source files: 22
+Module source receipts: 51
+Unexamined acquisition modules: 0
+Material omissions: 0
+GitHub requests: 33
+All-provider requests: 43
+Received body bytes: 1760137
+Acquisition seconds (exact float): 0x1.4c22db9726400p+4
+Reason: recorded_owner_result
+Detail: Coverage applies only to the admitted retained acquisition horizon.
+Evidence meaning: Captured material and acquisition omissions are recorded, not exhaustive repository coverage.
+Evidence strength: recorded_fact
+Sources: source-38, source-14, source-15
+Limitation: exploration_samples_not_resolved_target_versions
+Limitation: declared_constraints_and_markers_not_evaluated_activation
+Limitation: namespace_mapping_not_established
+Limitation: samples_do_not_exhaust_version_ranges
+Limitation: relative_module_forwarding_not_traversed
+
+Caller/signature analysis: completed
+Worker seconds (exact float): 0x1.ca57677f04000p+1
+Exact analysis input: 5dba2d5e8a18dfaa75aace2b1ee8bfbffea45597c51845c1a45be2e420ccd623
+Distinct target roots: 0
+Conditional comparison witnesses: 0
+Unexamined retained units: 11
+Discovery gaps: 15
+Analyzed source bytes: 348088
+Correspondence states examined: 6
+Omitted gap diagnostics: 0
+Reason: recorded_owner_result
+Detail: Recorded bounded source analysis completed with its original coverage.
+Evidence meaning: Completion records producer execution, independently of coverage or compatibility.
+Evidence strength: recorded_fact
+Sources: source-39, source-14, source-15
+Limitation: Unexamined retained text and no candidates are not absence-of-exposure proof.

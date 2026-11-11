@@ -1,0 +1,21 @@
+# AV-Tracer split-route caller/signature qualification
+
+Ali activated the one-run [successor](2026-11-10_av-tracer-caller-signature-product-qualification_cycle.md#route-controls-and-disposition). Main and origin/main reconciled at `e13d83a0`. The previous cycle established the manual baseline, partial delivery, first failed evidence owner, and successful transport control. Carry the accepted comparison and boundaries forward. UP-SKILL:upgradepilot-repository-audit. UP-SKILL:upgradepilot-working-memory.
+
+Freeze AV-Tracer PR 11 to base `527a004918c0f825e97c3583404242605fd58ec2`, head `25e7205f39103456e7efbc4e9f503f3debc7b5d8`, and HTTPX 0.25.2 → 0.28.1. Run one anonymous normal CLI invocation with PyPI via the existing unauthenticated loopback proxy and GitHub direct. Keep default 50 GitHub/100 total requests, 32 MiB total response bytes, 180-second cooperative acquisition limit and a 270-second outer guard. Keep the original direct-route capture immutable. No provider retry, manual evidence injection, model, target execution or product change. Score whether the report exposes the exact target call, sampled Starlette forwarding and both exact HTTPX signatures with their conditional scope. Trace the earliest failure if any. The [AI checkpoint](../plans/UPGRADEPILOT_90_DAY_PLAN.md#evidence-grounded-ai-design-checkpoint) follows the source outcome.
+
+## Result and earliest gap
+
+The normal CLI exited 0 in 40.673 seconds. PyPI returned the FastAPI release index and exact 0.104.1 metadata. The run used 33 GitHub requests and 43 total provider requests with 1,760,137 decoded bytes. Source acquisition retained 22 files and 51 module receipts, with a pytest sample. The adapter owner stopped the relevant path on HTTP 301 from `/repos/tiangolo/fastapi/git/ref/tags/0.104.1`. The FastAPI project metadata supplied the historical repository, and the ordinary acquisition session disallows automatic redirects. This boundary surfaced after the split route resolved the original PyPI body-read failure.
+
+Analysis completed with zero conditional comparisons and 11 unexamined units. The selected test was retained as `source-37`. Its analysis admission result was `outside_static_import_component` because the selected FastAPI source was unavailable. The admitted pytest sample was associated with an unrelated import.
+
+Workspace revision `f2f84674306f470a8380e60b07b1ac31` reopened in a fresh process. Its report matched the separately reopened saved report, and `source-37` reopened the expected `TestClient(app)` call. The original direct-route report matched its recorded SHA-256. The first temporary inspection script shadowed Python's standard `inspect` module by its filename. Renaming it allowed the diagnostic to read the existing capture successfully.
+
+## Independent redirect control
+
+Three bounded anonymous GitHub GETs verified the historical tag's redirect and its authority. The 301 points to GitHub API path `/repositories/160919119/git/ref/tags/0.104.1`. GitHub's numeric repository endpoint identifies public `fastapi/fastapi` as repository ID `160919119`. The same tag under the canonical repository returns commit `7e5afe2cb9bf1fa30c04a4dd393ea397a46db29b`. The frozen product report records the original refusal. [Redirect control](evidence/2026-11-10-av-tracer-split-route-qualification/redirect-control.json)
+
+The first unresolved responsibility is how library acquisition verifies the link between a historical repository name and the current GitHub identity. A design needs to preserve the historical declaration, verify repository continuity and retain the exact tag and source provenance. AV-Tracer's source conflict qualification remains blocked at that acquisition boundary. The fixed-evidence AI comparison needs a complete source chain for this case.
+
+The full source-bearing report and Workspace are stored in the new owner-only retention directory. The public receipt and excerpt preserve exact observations, scoped diagnostics and report hashes. Governance and diff checks passed. [Qualification receipt](evidence/2026-11-10-av-tracer-split-route-qualification/qualification.json) · [Report excerpt](evidence/2026-11-10-av-tracer-split-route-qualification/report-excerpt.txt)

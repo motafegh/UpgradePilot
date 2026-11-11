@@ -1,0 +1,14 @@
+{
+  "auth": "anonymous",
+  "canonical_repository": "fastapi/fastapi",
+  "canonical_repository_status": 200,
+  "canonical_tag": "refs/tags/0.104.1",
+  "canonical_tag_object": {
+    "sha": "7e5afe2cb9bf1fa30c04a4dd393ea397a46db29b",
+    "type": "commit"
+  },
+  "canonical_tag_status": 200,
+  "old_ref_redirect_path": "/repositories/160919119/git/ref/tags/0.104.1",
+  "old_ref_status": 301,
+  "repository_id": 160919119
+}
