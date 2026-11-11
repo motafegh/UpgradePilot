@@ -1,0 +1,38 @@
+{
+  "schema": "upgradepilot.ci-job-log-provider-trial/1",
+  "recorded_date": "2026-11-11",
+  "scope": "exposed development real-case provider trial; no target code execution, no Workspace integration, no independent release/generalization proof",
+  "target": {
+    "repository": "ivaronkun-Ahey/AV-Tracer",
+    "pull_number": 11,
+    "head_sha": "25e7205f39103456e7efbc4e9f503f3debc7b5d8",
+    "run_id": 41416124208,
+    "run_attempt": 1,
+    "job_id": 125180284415
+  },
+  "product_method": "upgradepilot.github.actions.GitHubActionsClient.get_failed_workflow_job_log",
+  "acquisition": {
+    "credential_mode": "explicit owner-only token file, not ambient; token omitted",
+    "routing": "process-local direct API and storage host, no proxy or global network change",
+    "max_decoded_bytes": 65536,
+    "observed_bytes": 25609,
+    "sha256": "fcb416d9f1d04d5f0588caaef91cf3dd55dc64740fa92402fc749b442e45298b",
+    "redirect_authorization": "omitted; enforced by product transport",
+    "raw_log_committed": false,
+    "signed_redirect_url_committed": false
+  },
+  "observed_text_presence": {
+    "pip_success_installed_httpx_0_28_1": true,
+    "tests_test_app_line_6": true,
+    "unexpected_keyword_app_typeerror": true,
+    "pytest_exit_code_2": true
+  },
+  "qualification": {
+    "provider_live_read": "passed",
+    "same_head_identity": "passed",
+    "supports_causal_attribution": false,
+    "imported_module_identity": "not observed",
+    "native_report_integration": "not implemented",
+    "independent_holdout": false
+  }
+}

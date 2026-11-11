@@ -10,7 +10,8 @@ interpretation remain in the CI domain.
 from __future__ import annotations
 
 from collections.abc import Mapping
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from hashlib import sha256
 from typing import Any
 
 from .api import (
@@ -22,6 +23,7 @@ from .api import (
     required_positive_int,
     required_str,
 )
+from .job_log_transport import MAX_JOB_LOG_BYTES, download_bounded_job_log
 from .pull_request import PullRequestIdentity
 
 _RESULTS_PER_PAGE = 100
@@ -60,8 +62,78 @@ class WorkflowJob:
     steps: tuple[WorkflowStep, ...] | None
 
 
+@dataclass(frozen=True, slots=True)
+class WorkflowJobLog:
+    """Content-bound job log, separate from command execution or causal assessment."""
+
+    repository: str
+    head_sha: str
+    run_id: int
+    run_attempt: int
+    job_id: int
+    source_url: str
+    utf8_bytes: int
+    sha256: str
+    text: str = field(repr=False)
+
+
 class GitHubActionsClient(GitHubApiClient):
     """Read exact-head GitHub Actions evidence through a bounded read-only path."""
+
+    def get_failed_workflow_job_log(
+        self,
+        identity: PullRequestIdentity,
+        run: WorkflowRun,
+        job: WorkflowJob,
+        *,
+        max_bytes: int = MAX_JOB_LOG_BYTES,
+    ) -> WorkflowJobLog:
+        """Retrieve one selected failed job from its already captured exact attempt.
+
+        The caller must select a job returned by get_workflow_jobs(identity, run).
+        This method cannot independently prove run-attempt membership from the
+        job-log URL: the attempt-specific job-list acquisition owns that evidence.
+        """
+        if (
+            run.event != "pull_request"
+            or run.head_sha != identity.head_sha
+            or run.run_attempt < 1
+            or job.head_sha != identity.head_sha
+            or job.run_id != run.run_id
+            or job.job_id < 1
+            or job.status != "completed"
+            or job.conclusion != "failure"
+        ):
+            raise ValueError(
+                "Selected workflow job is not a failed job at the frozen PR head/run."
+            )
+
+        url = self.api_url(
+            f"/repos/{identity.repository}/actions/jobs/{job.job_id}/logs"
+        )
+        content = download_bounded_job_log(
+            self._session, api_url=url,
+            github_headers=self._headers,
+            timeout=self._timeout,
+            max_bytes=max_bytes,
+        )
+        try:
+            text = content.decode("utf-8")
+        except UnicodeDecodeError as exc:
+            raise GitHubResponseError(
+                "GitHub job log cannot be decoded as valid UTF-8."
+            ) from exc
+        return WorkflowJobLog(
+            repository=identity.repository,
+            head_sha=identity.head_sha,
+            run_id=run.run_id,
+            run_attempt=run.run_attempt,
+            job_id=job.job_id,
+            source_url=url,
+            utf8_bytes=len(content),
+            sha256=sha256(content).hexdigest(),
+            text=text,
+        )
 
     def get_exact_head_workflow_runs(
         self,
