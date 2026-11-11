@@ -622,6 +622,9 @@ class WorkspaceNativeReconstructionTests(unittest.TestCase):
                         name for name in expected
                         if name not in {"version_requests", "version_request_jobs"}
                     )
+                if layout.variant == "module_source_receipt":
+                    # Source codec 1 predates the explicitly versioned move observation.
+                    expected = tuple(name for name in expected if name != "repository_move")
                 self.assertEqual(
                     tuple(name for name, _ in layout.fields),
                     expected,
