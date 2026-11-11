@@ -750,6 +750,7 @@ class AdapterSourceExplorer:
         source_run: PythonSourceAcquisitionRun | None = None,
         stop_at_package: str | None = None,
         max_candidate_attempts: int = 12,
+        prioritize_indirect_exact_pair: bool = False,
     ) -> AdapterExploration:
         if (
             type(max_samples) is not int
@@ -817,6 +818,11 @@ class AdapterSourceExplorer:
             # a potentially unrelated third version and consuming its source slots.
             if candidate.declaration.package == stop_at_package:
                 deferred.append(candidate)
+                if depth and prioritize_indirect_exact_pair:
+                    # Hand the observed path to the exact-version composer while
+                    # unrelated queued samples can still be left unexamined.
+                    omitted.extend(c for c, _, _ in pending if (c.imported_module, c.declaration) not in seen)
+                    break
                 continue
             if attempts >= min(max_module_files, max_candidate_attempts):
                 omitted.append(candidate)

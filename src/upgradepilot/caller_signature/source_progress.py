@@ -42,6 +42,24 @@ def _changed_module_origins(candidates, imports, references, package):
                     yield origin.module, _origin_for_module(origin.module, origin, references)
 
 
+def _reference_imports(reference):
+    return reference.binding.possible_imports if reference.binding else (reference.lexical_import,)
+
+
+def _indirect_import_members(exploration):
+    """Carry observed adapter uses of the changed package into exact-file ranking."""
+    return {
+        member
+        for candidate in exploration.deferred_candidates
+        for sample in exploration.samples
+        for reference in sample.references
+        if reference.source_id == candidate.import_source_id
+        for origin in _reference_imports(reference)
+        if origin and origin.startswith(candidate.imported_module + ".")
+        for member in origin.removeprefix(candidate.imported_module + ".").split(".")
+    }
+
+
 def _target_receipt(context):
     return TargetSourceReceipt(
         repository=context.inventory.repository, revision=context.inventory.revision,
@@ -193,6 +211,7 @@ def collect_source_progress(
         exploration = explorer.explore(
             context, source_run=run, stop_at_package=dependency.normalized_package,
             max_candidate_attempts=session.policy.adapter_candidate_attempts,
+            prioritize_indirect_exact_pair=True,
         )
         problems.extend(SourceProblem(p.stage, p.reason, p.detail) for p in exploration.problems)
         receipts.extend(exploration.failed_move_receipts)
@@ -218,7 +237,13 @@ def collect_source_progress(
         )
 
     with session.stage("source_closure"):
-        _examine_internal_modules(context, libraries, examine, closure_omissions)
+        _examine_internal_modules(context, libraries, examine, closure_omissions,
+                                  indirect_members=_indirect_import_members(exploration),
+                                  available_reads=lambda: min(
+                                      run.max_module_files - run.module_attempts,
+                                      session.policy.github_requests - session.github_requests,
+                                      session.policy.provider_requests - session.provider_requests,
+                                  ))
         try:
             session.finish_acquisition()
         except (GitHubAcquisitionError, GitHubResponseError) as exc:
@@ -227,12 +252,11 @@ def collect_source_progress(
     return snapshot("complete")
 
 
-def _examine_internal_modules(context, libraries, examine, omissions):
+def _examine_internal_modules(context, libraries, examine, omissions, *, indirect_members, available_reads):
     """Apply the qualified import priority to questions inside observed inventories."""
-    interest = set()
+    interest = set(indirect_members)
     for reference in context.references:
-        origins = reference.binding.possible_imports if reference.binding else (reference.lexical_import,)
-        for origin in origins:
+        for origin in _reference_imports(reference):
             if origin:
                 interest.update(origin.split("."))
     queue = deque(observed for observed, _ in sorted(
@@ -287,15 +311,26 @@ def _examine_internal_modules(context, libraries, examine, omissions):
                           and (key[0], key[2]) == (first[0], first[2]) and key[3] != first[3]), None)
             if other is not None:
                 selected.append(other)
+        # Each closure candidate already has an observed release inventory.
+        # A new file needs one request, and a selected pair should have room for both.
+        remaining = available_reads()
+        priority = min(pending[key][1] for key in selected)
         for key in selected:
             _, _, _, parent, question = pending.pop(key)
-            if questions >= 256:
+            omission_reason = None
+            if indirect_members and priority == 2:
+                omission_reason = "outside_indirect_reference_priority"
+            elif remaining < len(selected):
+                omission_reason = "closure_read_budget"
+            elif questions >= 256:
+                omission_reason = "closure_receipt_limit"
+            if omission_reason is not None:
                 role = {"native_old_version": "old_dependency",
                         "native_proposed_version": "proposed_dependency"}.get(
                             question.version_basis, question.version_basis,
                         )
                 omissions.extend(SourceMaterialOmission(
-                    parent.file.repository, parent.file.revision, entry.path, role, "closure_receipt_limit",
+                    parent.file.repository, parent.file.revision, entry.path, role, omission_reason,
                 ) for entry in parent.inventory.entries
                     if entry.kind == "blob" and module_name(entry.path) == question.module)
                 continue

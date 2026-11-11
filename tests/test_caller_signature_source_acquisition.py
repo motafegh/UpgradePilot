@@ -521,6 +521,12 @@ class NativeSourceClientCompositionTests(TestCase):
         through two adapter hops. A two-candidate default silently loses the
         supported native pair even though all global/source budgets can admit it.
         """
+        self.assert_forwarding_pair_within_budget()
+
+    def test_normal_profile_preserves_exact_pair_before_queued_unrelated_release(self):
+        self.assert_forwarding_pair_within_budget(competing_branch=True)
+
+    def assert_forwarding_pair_within_budget(self, *, competing_branch=False):
         import base64
         from contextlib import redirect_stdout
         from hashlib import sha256
@@ -531,7 +537,7 @@ class NativeSourceClientCompositionTests(TestCase):
         from requests import Response
         from requests.adapters import BaseAdapter
         from test_github_client import _identity, _pull_request_payload, _changed_file
-        from upgradepilot.caller_signature.acquisition import AcquisitionSession
+        from upgradepilot.caller_signature.acquisition import AcquisitionPolicy, AcquisitionSession
         from upgradepilot.cli import main
         from upgradepilot.report_file import read_report
         from unittest.mock import patch
@@ -549,6 +555,12 @@ class NativeSourceClientCompositionTests(TestCase):
             ("owner/relay", "f"*40): {"relay/assets.py": "class Resource:\n pass\n",
                                      "relay/client.py": "from vendor.api import send\n"},
         }
+        if competing_branch:
+            target_files = contents["owner/target", "a" * 40]
+            target_files["requirements.txt"] += "znoise\n"
+            target_files["app.py"] += "from znoise import ping\nping()\n"
+            versions["znoise", "1.0"] = "9" * 40
+            contents["owner/znoise", "9" * 40] = {"znoise.py": "def ping():\n pass\n"}
         trees = {key: sha256(repr(key).encode()).hexdigest()[:40] for key in contents}
         requests = []
         class Transport(BaseAdapter):
@@ -598,6 +610,8 @@ class NativeSourceClientCompositionTests(TestCase):
             def close(self):
                 pass
         def controlled_session(**kwargs):
+            if competing_branch:
+                kwargs["policy"] = AcquisitionPolicy(adapter_candidate_attempts=5)
             session = AcquisitionSession(**kwargs)
             session.mount('https://', Transport())
             return session
@@ -614,6 +628,9 @@ class NativeSourceClientCompositionTests(TestCase):
         self.assertLessEqual(len(requests),100)
         self.assertLessEqual(sum(urlsplit(r.url).hostname=='api.github.com' for r in requests),50)
         self.assertEqual(sum('/pulls/1145' in r.url for r in requests),3)
+        if competing_branch:
+            self.assertFalse(any("/pypi/znoise/" in r.url for r in requests))
+            self.assertEqual(sum('/pypi/vendor/2.0/' in r.url for r in requests), 2)
 
     def controlled_transport(self, *, proposed_missing=False, forwarded=False, target_object_id_length=40,
                              repository_move=False):

@@ -87,6 +87,8 @@ def build_parser() -> argparse.ArgumentParser:
                         help="Require this immutable PR base (live caller-signature profile only).")
     parser.add_argument("--expected-head", type=validate_commit_sha, metavar="COMMIT_SHA",
                         help="Require this immutable PR head (live caller-signature profile only).")
+    parser.add_argument("--source-github-requests", type=int, metavar="COUNT",
+                        help="Set the bounded GitHub request allowance for a live caller-signature run.")
     parser.add_argument("--workspace-store", metavar="PATH",
                         help="Explicit private store outside Git checkouts for caller/signature progress.")
     parser.add_argument("--open-workspace", metavar="PATH",
@@ -104,6 +106,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         or args.open_workspace is not None
     ):
         parser.error("--expected-base/--expected-head require a live caller-signature investigation")
+    if args.source_github_requests is not None and (
+        args.evidence_profile != "caller-signature" or args.open_report is not None or args.open_workspace is not None
+    ):
+        parser.error("--source-github-requests requires a live caller-signature investigation")
     if args.show_source is not None and args.open_report is None and args.open_workspace is None:
         parser.error("--show-source requires --open-report or --open-workspace")
     if args.show_facts is not None and args.open_report is None:
@@ -229,6 +235,12 @@ def _print_workspace_handoff(
 
 
 def _run_caller_signature(args: argparse.Namespace, token: str | None) -> int:
+    try:
+        policy = (AcquisitionPolicy() if args.source_github_requests is None
+                  else AcquisitionPolicy(github_requests=args.source_github_requests))
+    except ValueError as error:
+        print(f"Input rejected: {error}")
+        return 2
     store_path = Path(args.workspace_store).absolute() if args.workspace_store else None
     try:
         store = (CheckpointStore.open(store_path) if store_path.exists()
@@ -238,7 +250,7 @@ def _run_caller_signature(args: argparse.Namespace, token: str | None) -> int:
         print("Workspace: no confirmed revision.")
         return 11
     host = InvestigationWorkspaceHost(store=store)
-    with AcquisitionSession(token=token, policy=AcquisitionPolicy()) as session:
+    with AcquisitionSession(token=token, policy=policy) as session:
         outcome = investigate_and_deliver_caller_signature(
             args.repository, args.pull_number, session=session, host=host,
             expected_base=args.expected_base, expected_head=args.expected_head,
