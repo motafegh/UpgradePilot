@@ -16,7 +16,48 @@ UP-SKILL:upgradepilot-repository-audit. UP-SKILL:upgradepilot-learning-by-doing.
 - **Learning goal:** distinguish four propositions—step failed; traceback identifies immediate error; exact process installed/loaded dependency and callable; upgrade-caused regression—and name the evidence needed for each.
 
 ## Cycle status
-A0 — DONE; A1 — DONE, continuity-compressed; A2 — DONE, continuity-compressed; B — CURRENT, bounded read-only exact-job inspection; Verification — PENDING; D — PENDING, evidence interpretation with Ali; E — PENDING, close or defer the exact remaining gap; C — CONTINUOUS, retain findings and errors.
+A0 — DONE; A1 — DONE, continuity-compressed; A2 — DONE, continuity-compressed; B — DONE, bounded read-only exact-job inspection; Verification — GREEN for actual job traceback and run/attempt/head/step association, with declared residual limitations; D — CURRENT, interpretation and post-work ownership with Ali; E — PENDING, choose appropriately bounded capability handoff; C — CONTINUOUS, exact observations and deviations retained.
 
-## Findings (append after actual inspection)
-PENDING. No CI job/log claim made by this record's initialization.
+## Findings — read-only exact-job inspection
+
+### Provenance and observed operation
+
+**Live sources checked:** existing connected GitHub Actions run/jobs, exact job steps, decoded job log; one small *anonymous public* GitHub run-metadata response; existing exact-head workflow source from target repository; UpgradePilot's current GitHub Actions client and CI/product projection code. The previous historical screening found only a failed step, no traceback. This audit obtained the missing log. No target execution or re-run was performed.
+
+| Observation | Actual finding | Strongest justified claim |
+| --- | --- | --- |
+| Run metadata (public GitHub API) | `41416124208`, `pull_request`, workflow `CI`, **attempt 1**, November 2 2026; PR **#11**, base `527a004918c0f825e97c3583404242605fd58ec2`, head `25e7205f39103456e7efbc4e9f503f3debc7b5d8`, workflow path `.github/workflows/ci.yml` | Historical run belongs to the frozen PR-head identity, not a generic adjacent run |
+| Connected run-jobs API | Run `41416124208` includes backend job **125180284415** (`completed/failure`), frontend success, e2e failure | Backend is not the only failed job in the whole workflow |
+| Exact backend job steps | `Run actions/setup-python@v6` success; `Run pip install -r requirements-dev.txt` success; `Run pytest` failure | The relevant job attempted the expected install/test sequence; step statuses alone are not runtime version proof |
+| Same job log, installation | Log reported `Successfully installed` `fastapi-0.104.1`, `starlette-0.27.0`, `httpx-0.28.1`, `pytest-9.2.0` in the backend Python 3.11 environment, immediately before `Run pytest` | Material command-completion package installation observation for this job, stronger than a requirements request; not an independent same-process module-file/import dump |
+| Same job log, pytest | Pytest collection entered `backend/tests/test_app.py:6` at `TestClient(app)`, then installed `starlette/testclient.py:399` forwarding `super().__init__(...)`, ending in `TypeError: Client.__init__() got an unexpected keyword argument 'app'`; one error in test collection, pytest exited **2** | **Observed immediate backend pytest failure mechanism** corroborates the source-level mismatch; the affected target path actually executed in this job |
+| Other job | e2e job `125180284671` failed during Playwright install and final log step | Do **not** claim that the HTTPX mismatch was the sole cause of the workflow-run failure |
+
+**Direct links:** [run/attempt 1](https://github.com/ivaronkun-Ahey/AV-Tracer/actions/runs/41416124208/attempts/1), [backend job](https://github.com/ivaronkun-Ahey/AV-Tracer/actions/runs/41416124208/job/125180284415?pr=11), [PR](https://github.com/ivaronkun-Ahey/AV-Tracer/pull/11). The connected job-log response contained **288 lines** and approximately **25,607 characters**; only public-safe identifiers, short factual observations and the specific short error text are preserved here, not the raw job log.
+
+### Claim-strength reconciliation
+
+- **Previously not established, now established in this separately conducted historical review:** the historical run/attempt/PR-head association; that the backend job installed the relevant versions according to pip's success summary; that `tests/test_app.py` exercised the selected `TestClient(app)` → Starlette initializer path; and that the actual backend pytest collection failed with the expected `app` keyword-binding exception.
+- **Strongly supported upgrade/version mechanism:** Old HTTPX 0.25.2's sampled `Client.__init__` accepts `app`, while proposed HTTPX 0.28.1's sampled signature rejects it; the historical backend job's successful pip install reports the proposed version. The TypeError in the same job is exactly consistent with that version-specific incompatibility.
+- **Still not established to the stronger standard:** an actual `httpx.__version__`, loaded `httpx.__file__` or `Client.__init__` callable identity recorded **inside the pytest process**; a controlled old/proposed same-input rerun; the exact checkout tree if PR-merge checkout differs from PR head (run metadata gives head SHA but no additional checkout content was qualified); or an assertion that this mismatch alone made the **entire** workflow fail. These are not necessary to identify the observed immediate pytest collection exception, but matter to stronger version-counterfactual or exact-loaded-identity claims.
+- **Crucial scope separation:** The earlier saved **source-only** UpgradePilot report must remain unchanged with `CI dependency coverage: not evaluated` and `Runtime dependency state: not evaluated`. This new human/assistant audit evidence cannot be retroactively inserted into that already finalized, differently scoped report. The run metadata and log were not acquired by that native source-only profile.
+- **No causal shortcut:** The error is observed, but `Successfully installed` is not the same kind of observation as `import httpx; print(httpx.__version__, httpx.__file__)` inside pytest. Avoid claiming the latter happened.
+
+### Existing UpgradePilot owner assessment
+
+Inspected `src/upgradepilot/github/actions.py` (`get_exact_head_workflow_runs`, `get_workflow_jobs`), `src/upgradepilot/github/repository.py` (`get_exact_head_workflow_file`), and `src/upgradepilot/report_projection.py`. The product already has strong **run/head/attempt/job/step** identity constraints and exact-head YAML reading. The actions client uses the *attempt-qualified* job listing, unlike the connector convenience API's latest-jobs endpoint. The present code examined does **not** expose a corresponding read of the actual job-log body or parse a pytest traceback. The report projection explicitly notes original workflow files/logs are not fully retained. This is a **plausible product evidence-access limitation**, not proof of a software defect in source-only profiles, and not a mandate to ingest arbitrary logs.
+
+**Smallest warranted subsequent decision:** determine whether a bounded, exact-run/attempt/job traceback-source capability belongs in the existing CI evidence owner and what safety and proof conditions it requires (public/anonymous availability versus authenticated connection, log expiry, byte/request/time ceilings, untrusted text, redaction, source integrity, retention/license, and limited correlation claims). Prefer one real-case end-to-end product obligation over a generic log parser, broad agent, model-based causality or extra reviewer experiment. This audit did **not** activate any such Build.
+
+### Bounded-method deviations and reconciliation
+
+The initial convenience run-jobs/steps wrappers returned job IDs, status and steps but **omitted** attempt/head fields. To test the actual cross-scope identity rather than infer it, an additional read-only commit-workflow association lookup and **one small anonymous public run-detail request** were made, plus one repeated compact run-jobs metadata read to inspect wrapper field limitations; the scoped job log was fetched **once**. An attempted public browser open failed; no broad search/retry, credential escalation, archive download, rerun, target code or product mutation followed. This modest metadata extension was necessary to close a core proof obligation otherwise blocked by a thin wrapper. It slightly exceeded the one-run-jobs metadata allowance in A0, but did not expand the target, qualitative question or log-access budget. Its effect is **higher identity confidence**, with no new evidence-authority promotion.
+
+## Evidence/learning gate and handoff
+
+**Verification:** the same run ID appears in public run metadata and the connector's backend job record; attempt `1`, PR `#11`, exact head/base, declared workflow source and step sequence are consistent. A single downloaded job log reports both install success and exact traceback with timestamps. The log response was **not** retained byte-for-byte in the public repository, so no log-content hash or independent immutable replay is claimed. The job URL remains a live external source that may expire or change access.
+
+**D — CURRENT:** Review with Ali the revised evidence ladder and the difference between (a) a witnessed Python exception causing backend collection failure, (b) successful installation evidence supporting a specific version mechanism, (c) direct loaded-code identity, and (d) all-workflow or upgrade-counterfactual causality. Then decide whether additional direct version instrumentation is needed for the actual maintainer question.
+
+**E — PENDING:** Close after this ownership review, preserving the fact that an exact-job traceback was available without target execution. Do not automatically start generalized CI log ingestion or another experiment.
+
