@@ -1,0 +1,69 @@
+{
+  "schema": "upgradepilot.caller-signature-ci-qualification/1",
+  "date": "2026-11-12",
+  "product_commit": "42020f17",
+  "scope": "One previously examined AV-Tracer development case, using the live opt-in CLI and cold recovery of its new private Workspace revision.",
+  "target": {
+    "repository": "ivaronkun-Ahey/AV-Tracer",
+    "pull_number": 11,
+    "base_sha": "527a004918c0f825e97c3583404242605fd58ec2",
+    "head_sha": "25e7205f39103456e7efbc4e9f503f3debc7b5d8",
+    "run_id": 41416124208,
+    "run_attempt": 1,
+    "job_id": 125180284415
+  },
+  "invocation": {
+    "profile": "caller-signature-ci",
+    "auth_mode": "token-env",
+    "live_invocations": 1,
+    "exit_code": 0
+  },
+  "source_comparison": {
+    "witness_count": 6,
+    "matched_call": "Starlette TestClient forwarding app to Client.__init__",
+    "old": {
+      "httpx_version": "0.25.2",
+      "state": "bound",
+      "assessment_id": "caller-signature-comparison-5e8e8183ea7726af9814789406683d72ab34ee65fe3005fbf3d3ab6325f8ed25"
+    },
+    "proposed": {
+      "httpx_version": "0.28.1",
+      "state": "rejected",
+      "rejected_keyword": "app",
+      "assessment_id": "caller-signature-comparison-49d68ec27ce6dfbc603800dbc7276a566f6abbc45499e7ba42b4d6fbadb7a1ad"
+    }
+  },
+  "ci_observation": {
+    "state": "observed_keyword_error",
+    "log_bytes": 25609,
+    "log_sha256": "fcb416d9f1d04d5f0588caaef91cf3dd55dc64740fa92402fc749b442e45298b",
+    "matches_provider_only_log_digest": true,
+    "install_token": "httpx-0.28.1",
+    "install_line": 240,
+    "error_excerpt": "TypeError: Client.__init__() got an unexpected keyword argument 'app'",
+    "error_line": 267,
+    "excerpt_source_id": "source-48",
+    "producer_assessment_source_id": "source-49"
+  },
+  "recovery": {
+    "workspace_revision": "b2a491b4b7864342b920fe51a0694f4c",
+    "saved_report_sha256": "e307eb2843cd4b5a63319b869f06907e8f4d8da867511554994e436acb4f8850",
+    "original_source_only_report_sha256": "85fd07790ebb0e44eecda9b1f6688251e1d0dec7dc2d340dc66beb9105d69bd3",
+    "original_source_only_has_ci_job_log_assessment": false,
+    "guarded_fresh_process_report": "passed",
+    "guarded_fresh_process_excerpt": "passed",
+    "saved_report_equals_decoded_workspace_delivery": true,
+    "native_ci_reconstruction": "passed"
+  },
+  "disposition": {
+    "exact_case_live_combined_profile": "qualified",
+    "ci_dependency_coverage": "not_evaluated",
+    "runtime_dependency_state": "not_evaluated",
+    "maintainer_action": "abstain",
+    "limits": [
+      "The CI observation is a bounded excerpt at selected-job scope.",
+      "Loaded-module identity, upgrade-counterfactual causality and whole-workflow causality remain unestablished.",
+      "One exposed development case establishes neither independent transfer nor maintainer usefulness."
+    ]
+  }
+}
