@@ -46,6 +46,8 @@ Use clear, direct, literal English in all UpgradePilot interaction: conversation
 
 Keep exact standard technical or specialized terminology when it is the precise term. Do not replace a useful technical term with vague or inaccurate simplified wording. When a necessary technical or project term may be unfamiliar, keep the exact term and explain its practical meaning in plain language.
 
+**Expand case and phase shorthand in user-facing project explanations.** Never refer to a qualification case solely as `Q1`, `Q2`, `Q3`, etc. Pair the identifier with its concrete case/subject each time (for example, `Q2 — Pydantic/Soup Sieve: conditional local-model investigation`), including learning questions, status summaries, tables and handoffs. Likewise, introduce other unfamiliar abbreviations with their full technical name or a short practical description rather than requiring Ali to memorize internal labels. Code symbols/file paths retain their exact spelling when technically necessary.
+
 For ordinary non-technical wording:
 
 - prefer common, everyday words with one clear meaning in context;
