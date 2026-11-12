@@ -200,6 +200,12 @@ Required outcomes include justified storage, idempotence/supersession, useful qu
 
 Do not select infrastructure because an earlier plan or conventional architecture named it.
 
+### Conditional cross-profile live qualification before a new feature
+
+When recent completed work has exercised separate public routes at different commits/horizons, or a conditional owner (such as upstream semantic extraction) has no current activation proof, select a **small, deterministic, real-PR cross-profile qualification** rather than infer that a previously successful report covered all product components. Reuse [the November 12 bounded qualification design and existing-case evidence](../working-memory/2026-11-12_cross-profile_real-pr_e2e_qualification_design-cycle.md). This is a B2/B3/B5 product integration, preservation and operational-diagnosis check, **not** an independent usefulness study or default X1 model-method comparison. The existing local LLM may be invoked only by its normal, source-qualified product activation; do not force the branch or infer its execution from exit code 0.
+
+Freeze code/PR revisions and profiles before runs. Prove actual stage activation/non-activation (including whether the semantic model was called), actual evidence-state boundaries, saved JSON/optional Workspace outputs, source inspection, bounded requests/time/bytes and offline recovery. Use materially contrasting supported real PRs; reuse already qualified route evidence where a repeat would add no decision value. Preserve inaccessible/unsupported/early-stop attempts in the denominator. Treat profile-specific families as intentional architecture, not a promise that one command executes every mechanism. Choose any ensuing Build from a concrete producer/consumer failure or a decision-critical gap; do not mandate a random cohort, new benchmark engine or a positive maintainer action from the case count.
+
 ## 12. X1 — Evidence-gated experiments
 
 X1 is a conditional checkpoint for advanced methods, not a license to add technology for portfolio breadth.
