@@ -21,6 +21,7 @@ from packaging.utils import canonicalize_version
 from .caller_signature.evidence import SourceAnalysisRun, SourceAnalysisResult
 from .caller_signature.source_evidence import CallerSignatureSources
 from .ci.dependency_exercise import DependencyCICoverageResult
+from .ci.job_log_diagnostic import CIJobLogDiagnostic
 from .ci.dependency_state import (
     RequirementSatisfiedAtCommandCompletion,
     RuntimeDependencyStateResult,
@@ -66,7 +67,8 @@ from .upstream.interval_evidence import CrossedReleaseIndexSelectionProblem
 from .upstream.repository import UpstreamRepositoryEvidence
 from .workspace.native_boundary import CapturedNativeBoundary, exact_investigation_target
 from .workspace.native_projection import (
-    CallerSignatureNativeProjection, reconstruct_caller_signature_projection, reconstruct_pull_request_description,
+    CallerSignatureNativeProjection, reconstruct_caller_signature_projection,
+    reconstruct_ci_job_log_diagnostic, reconstruct_pull_request_description,
 )
 from .workspace.native_representation import NativeReconstructionError
 
@@ -1611,6 +1613,9 @@ def project_caller_signature_report(
     if produced.tzinfo is None or produced.utcoffset() is None:
         raise ValueError("report generation time must be timezone-aware")
     native = reconstruct_caller_signature_projection(boundary, expected_target=boundary.target)
+    ci_log = reconstruct_ci_job_log_diagnostic(
+        boundary, expected_target=boundary.target
+    )
     p = _ReportEvidence()
     inputs = native.inputs
     description = reconstruct_pull_request_description(boundary, expected_target=boundary.target)
@@ -1656,6 +1661,8 @@ def project_caller_signature_report(
     refs = producer_sources or (pr_source,)
     _project_caller_signature_coverage(p, native.sources, refs, file_sources)
     _project_caller_signature_analysis(p, native.comparison, refs, file_sources)
+    if ci_log is not None:
+        _project_selected_ci_log(p, ci_log)
     synthesis = synthesize_maintainer_action(native)
     try:
         product_version = version("upgradepilot")
@@ -1663,7 +1670,12 @@ def project_caller_signature_report(
         product_version = None
     return InvestigationReport(
         str(uuid4()), produced.astimezone(UTC).isoformat(), "3", product_version, auth_mode,
-        ("Explicit caller-signature profile uses bounded static source evidence.",
+        (("Explicit caller-signature source evidence and one selected CI log were recorded."
+          if ci_log is not None else
+          "Explicit caller-signature profile uses bounded static source evidence."),
+         "Full CI dependency coverage/runtime-state, loaded-module identity and "
+         "upgrade-counterfactual causality were not evaluated by this invocation."
+         if ci_log is not None else
          "CI/runtime-state, semantic interpretation and applicability were not evaluated by this invocation."),
         _pull_request_identity(inputs.pull_request), tuple(p.assessments), tuple(p.findings), tuple(p.unknowns),
         ReportAction(synthesis.action, synthesis.decisive_reasons, synthesis.residual_uncertainty,
@@ -1671,6 +1683,72 @@ def project_caller_signature_report(
         ("Only admitted original source text is retained. Omitted or unavailable files cannot be opened.",
          "The native producer sources preserve full receipts, costs, paths, traces, gaps and admission limits.",
          "Report delivery and original source text do not establish installed behavior or authorize a maintainer action."),
+    )
+
+
+def _project_selected_ci_log(p: _ReportEvidence, observation: CIJobLogDiagnostic) -> None:
+    """Project only the recorded exact job text finding, never reparse a full log."""
+    observed = observation.state == "observed_keyword_error"
+    source_ref = p.source(
+        "ci_job_log_excerpt", locator=observation.source_url,
+        method="ci.job_log_diagnostic.acquire_selected_ci_diagnostic",
+        identity=tuple(
+            _fact(name, name.replace("_", " ").capitalize(), getattr(observation, name))
+            for name in (
+                "repository", "head_sha", "run_id", "run_attempt", "job_id",
+                "log_bytes", "log_sha256", "error_line", "install_line",
+            )
+        ),
+        content=observation.error_excerpt if observed else None,
+        limitation=(
+            "Only the selected error substring is retained, not the complete "
+            "untrusted CI job log. The full-log digest does not recover its bytes. "
+            "The signed storage redirect and authentication token are never retained."
+        ),
+    )
+    if observed:
+        detail = (
+            f"Historical selected job log contains {observation.error_excerpt}. "
+            "This is an observed log-text exception, not a confirmed imported "
+            "module identity, upgrade-caused regression, or whole-run cause."
+        )
+    elif observation.state == "unclassified_log":
+        detail = (
+            "The bounded selected job log was acquired, but no single admitted "
+            "Python unexpected-keyword exception text was established."
+        )
+    else:
+        detail = (
+            f"Selected exact job-log acquisition was unavailable: {observation.reason}."
+        )
+    p.assess(
+        "ci-job-log", "Selected historical CI job-log observation",
+        "ci.job_log_diagnostic", observation.state, detail,
+        status="available" if observed else "problem",
+        reason=observation.reason,
+        strength="recorded_fact" if observed else "unresolved",
+        proposition=(
+            "One exact-job log text observation only; no source-to-loaded-runtime "
+            "identity, test-regression counterfactual or maintainer permission."
+        ),
+        facts=tuple(
+            _fact(name, name.replace("_", " ").capitalize(), getattr(observation, name))
+            for name in (
+                "run_id", "run_attempt", "job_id", "head_sha", "log_bytes",
+                "log_sha256", "error_line", "error_excerpt", "rejected_keyword",
+                "compared_callee", "install_token", "install_line",
+            )
+        ),
+        source_ids=(source_ref,),
+        limitations=(
+            "Full original CI log is not retained; only a selected admitted excerpt.",
+            "A pip installation summary is not same-process imported-module proof.",
+            "Matching a keyword in two sources does not prove the upgrade caused CI failure.",
+        ),
+        question=(
+            "Which exact module file/version and callable were imported inside pytest, "
+            "and does a controlled comparison establish the dependency upgrade caused the error?"
+        ),
     )
 
 

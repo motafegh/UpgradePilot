@@ -23,6 +23,9 @@ from .ci.dependency_state import (
     RuntimeDependencyStateResult,
 )
 from .dependency.change import DependencyChangeProblem, DependencyVersionChange
+from .ci.job_log_diagnostic import (
+    SelectedCIJob, acquire_selected_ci_diagnostic,
+)
 from .dependency.environment import (
     DependencySourceContext,
     RequirementsFileDependencyContext,
@@ -720,8 +723,10 @@ def investigate_caller_signature_progress(
     workspace_host: InvestigationWorkspaceHost,
     expected_base: str | None = None,
     expected_head: str | None = None,
+    selected_ci_job: SelectedCIJob | None = None,
+    ci_actions_client: GitHubActionsClient | None = None,
 ) -> CheckpointRevision:
-    """Run the source and analysis stages on the exact normal PR input prefix."""
+    """Run the source profile, optionally acquiring *one* exact CI job observation."""
     with session.stage("native_inputs"):
         inputs = acquire_dependency_inputs(
             repository, pull_number, GitHubPullRequestClient(session=session),
@@ -772,12 +777,41 @@ def investigate_caller_signature_progress(
                                 "1", None, "caller-signature-source-analysis/1", None, ()),
         frozenset({"bounded_static_analysis"}), lambda value: value == scope, analyze,
     )
+    selected_ci = None
+    if selected_ci_job is not None:
+        if ci_actions_client is None:
+            raise ValueError("Selected CI diagnostic requires a distinct configured CI client.")
+
+        def acquire_ci(_request):
+            assert isinstance(inputs.dependency, DependencyVersionChange)
+            observation = acquire_selected_ci_diagnostic(
+                inputs.identity, inputs.dependency, selected_ci_job, ci_actions_client
+            )
+            capture.capture_ci_job_log(observation)
+            workspace_host.publish_native_progress(capture.partial_snapshot())
+            return CapabilityResult(
+                "problem" if observation.state == "unavailable" else "observed",
+                "Exact selected CI log: " + observation.state, observation,
+            )
+
+        selected_ci = HostCapability(
+            "selected_ci_job_diagnostic",
+            LifecycleMethodIdentity(
+                "ci.job_log_diagnostic",
+                "ci.job_log_diagnostic.acquire_selected_ci_diagnostic",
+                "1", None, "selected-ci-job-diagnostic/1", None, (),
+            ),
+            frozenset({"repository_read"}), lambda value: value == scope,
+            acquire_ci,
+        )
+
+    capabilities = (acquisition, analysis) + ((selected_ci,) if selected_ci else ())
     workspace_host.bind_native_callers(
         authority=ExecutionAuthority(
-            initial.target, frozenset({acquisition.name, analysis.name}),
-            acquisition.effects | analysis.effects,
+            initial.target, frozenset(cap.name for cap in capabilities),
+            frozenset().union(*(cap.effects for cap in capabilities)),
         ),
-        capabilities=(acquisition, analysis),
+        capabilities=capabilities,
         methods=(),
     )
     workspace_host.initialize(initial)
@@ -803,6 +837,8 @@ def investigate_caller_signature_progress(
             analysis_input = sources.analysis_input()
             if analysis_input is not None:
                 execute(analysis, "caller_signature_sources", "Analyze the published source material.")
+        if selected_ci is not None:
+            execute(selected_ci, "investigation_inputs", "Acquire one exact failed CI job log.")
     revision = workspace_host.current
     assert revision is not None
     return revision

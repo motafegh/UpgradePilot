@@ -21,6 +21,7 @@ from ..ci.dependency_exercise import (
 from ..caller_signature.evidence import SourceAnalysisRun
 from ..caller_signature.source_evidence import CallerSignatureSources
 from ..ci.consumption import StaticDependencyConsumptionEvidence
+from ..ci.job_log_diagnostic import CIJobLogDiagnostic
 from ..ci.dependency_state import (
     RequirementSatisfiedAtCommandCompletion,
     RequirementStateBlockingSemanticEvidence,
@@ -693,6 +694,72 @@ def _validate_selection_material(
         )
     # A recorded None remains a historical selector abstention. Never infer a missing
     # selection by re-running the policy or by treating every unresolved result as a read.
+
+
+def reconstruct_ci_job_log_diagnostic(
+    boundary: CapturedNativeBoundary, *, expected_target: ExactInvestigationTarget,
+) -> CIJobLogDiagnostic | None:
+    """Decode an optional CI observation without fetching or reclassifying the log."""
+    records = validate_native_boundary(boundary, expected_target=expected_target)
+    if "ci_job_log_diagnostic" not in records:
+        return None  # Historical and present source-only captures have no such family.
+    observed = cast(
+        CIJobLogDiagnostic | None, _decode(records, "ci_job_log_diagnostic")
+    )
+    if observed is None:
+        return None
+    source_url = (
+        f"https://api.github.com/repos/{expected_target.repository}"
+        f"/actions/jobs/{observed.job_id}/logs"
+    )
+    if (
+        (observed.repository, observed.head_sha) !=
+        (expected_target.repository, expected_target.head_sha)
+        or observed.source_url != source_url
+        or min(observed.run_id, observed.run_attempt, observed.job_id) < 1
+    ):
+        raise NativeReconstructionError(
+            "wrong_target", "Retained CI log has inconsistent target/job identity."
+        )
+    if observed.state == "unavailable":
+        if any(v is not None for v in (
+            observed.log_bytes, observed.log_sha256, observed.error_line,
+            observed.error_excerpt, observed.rejected_keyword, observed.compared_callee,
+            observed.install_token, observed.install_line,
+        )):
+            raise _invalid("Unavailable CI log cannot contain admitted observations.")
+    else:
+        digest = observed.log_sha256
+        if (observed.log_bytes is None or not 0 < observed.log_bytes <= 65536
+                or digest is None or len(digest) != 64
+                or any(char not in "0123456789abcdef" for char in digest)):
+            raise _invalid("Acquired CI log lacks its bounded content identity.")
+        if observed.install_token is not None:
+            expected = f"{expected_target.normalized_package}-{expected_target.proposed_version}"
+            if (observed.install_token != expected or observed.install_line is None
+                    or observed.install_line <= 0):
+                raise _invalid("CI installation token differs from the frozen dependency.")
+        elif observed.install_line is not None:
+            raise _invalid("CI installation position has no recorded token.")
+    if observed.state == "observed_keyword_error":
+        if not all((
+            observed.error_excerpt, observed.rejected_keyword,
+            observed.compared_callee, observed.error_line,
+        )):
+            raise _invalid("Observed CI error lacks its selected quoted text evidence.")
+        expected_text = (
+            f"TypeError: {observed.compared_callee}() got an unexpected keyword "
+            f"argument '{observed.rejected_keyword}'"
+        )
+        if (observed.error_excerpt != expected_text
+                or observed.error_line is None or observed.error_line <= 0):
+            raise _invalid("Recorded CI keyword/exception text is internally inconsistent.")
+    elif any(v is not None for v in (
+        observed.error_line, observed.error_excerpt,
+        observed.rejected_keyword, observed.compared_callee,
+    )):
+        raise _invalid("Non-classified CI log cannot carry a positive exception claim.")
+    return observed
 
 
 def reconstruct_caller_signature_projection(

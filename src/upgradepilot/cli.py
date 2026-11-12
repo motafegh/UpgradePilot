@@ -14,6 +14,8 @@ from collections.abc import Sequence
 from pathlib import Path
 
 from .caller_signature.acquisition import AcquisitionPolicy, AcquisitionSession
+from .ci.job_log_diagnostic import SelectedCIJob
+from .github.actions import GitHubActionsClient
 from .caller_signature_delivery import (
     investigate_and_deliver_caller_signature, open_caller_signature_checkpoint,
     retained_report_presence,
@@ -81,8 +83,14 @@ def build_parser() -> argparse.ArgumentParser:
         "--show-facts", metavar="SOURCE_ID",
         help="Inspect saved artifact capability or package metadata facts with --open-report.",
     )
-    parser.add_argument("--evidence-profile", choices=("caller-signature",),
-                        help="Select bounded static caller/signature evidence explicitly.")
+    parser.add_argument("--evidence-profile", choices=("caller-signature", "caller-signature-ci"),
+                        help="Select source-only evidence or explicit source plus exact CI job log.")
+    parser.add_argument("--ci-run-id", type=int, metavar="RUN_ID",
+                        help="Exact selected historical CI run (combined profile only).")
+    parser.add_argument("--ci-run-attempt", type=int, metavar="ATTEMPT",
+                        help="Exact selected historical run attempt (combined profile only).")
+    parser.add_argument("--ci-job-id", type=int, metavar="JOB_ID",
+                        help="Exact selected failed CI job (combined profile only).")
     parser.add_argument("--expected-base", type=validate_commit_sha, metavar="COMMIT_SHA",
                         help="Require this immutable PR base (live caller-signature profile only).")
     parser.add_argument("--expected-head", type=validate_commit_sha, metavar="COMMIT_SHA",
@@ -100,14 +108,29 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
+    combined = args.evidence_profile == "caller-signature-ci"
+    ci_coordinates = (args.ci_run_id, args.ci_run_attempt, args.ci_job_id)
+    if combined:
+        if (
+            any(v is None or v <= 0 for v in ci_coordinates)
+            or args.expected_base is None or args.expected_head is None
+            or args.workspace_store is None
+            or args.open_report is not None or args.open_workspace is not None
+        ):
+            parser.error(
+                "caller-signature-ci requires positive --ci-run-id, --ci-run-attempt, "
+                "--ci-job-id, frozen --expected-base/--expected-head and --workspace-store."
+            )
+    elif any(v is not None for v in ci_coordinates):
+        parser.error("--ci-run-id/--ci-run-attempt/--ci-job-id require caller-signature-ci.")
     if (args.expected_base is not None or args.expected_head is not None) and (
-        args.evidence_profile != "caller-signature"
+        args.evidence_profile not in {"caller-signature", "caller-signature-ci"}
         or args.open_report is not None
         or args.open_workspace is not None
     ):
         parser.error("--expected-base/--expected-head require a live caller-signature investigation")
     if args.source_github_requests is not None and (
-        args.evidence_profile != "caller-signature" or args.open_report is not None or args.open_workspace is not None
+        args.evidence_profile not in {"caller-signature", "caller-signature-ci"} or args.open_report is not None or args.open_workspace is not None
     ):
         parser.error("--source-github-requests requires a live caller-signature investigation")
     if args.show_source is not None and args.open_report is None and args.open_workspace is None:
@@ -154,8 +177,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 0
     if args.repository is None or args.pull_number is None:
         parser.error("repository and pull_number are required for an investigation")
-    if args.workspace_store is not None and args.evidence_profile != "caller-signature":
-        parser.error("--workspace-store requires --evidence-profile caller-signature")
+    if args.workspace_store is not None and args.evidence_profile not in {"caller-signature", "caller-signature-ci"}:
+        parser.error("--workspace-store requires an explicit caller-signature evidence profile")
     auth_mode = args.github_auth or "anonymous"
     # Public investigations must not silently adopt an unrelated shell credential.
     token = None
@@ -166,7 +189,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 "Input rejected: --github-auth token-env requires GITHUB_TOKEN to be set."
             )
             return 2
-    if args.evidence_profile == "caller-signature":
+    if args.evidence_profile in {"caller-signature", "caller-signature-ci"}:
         return _run_caller_signature(args, token)
     try:
         investigation = investigate_public_pull_request(
@@ -251,9 +274,18 @@ def _run_caller_signature(args: argparse.Namespace, token: str | None) -> int:
         return 11
     host = InvestigationWorkspaceHost(store=store)
     with AcquisitionSession(token=token, policy=policy) as session:
+        ci_args = {}
+        if args.evidence_profile == "caller-signature-ci":
+            ci_args = {
+                "selected_ci_job": SelectedCIJob(
+                    args.ci_run_id, args.ci_run_attempt, args.ci_job_id,
+                ),
+                "ci_actions_client": GitHubActionsClient(token=token),
+            }
         outcome = investigate_and_deliver_caller_signature(
             args.repository, args.pull_number, session=session, host=host,
             expected_base=args.expected_base, expected_head=args.expected_head,
+            **ci_args,
         )
     codes = {"input": 2, "acquisition": 3, "response": 4, "analysis": 10, "report": 8, "publication": 11}
     priority = {"input": 1, "acquisition": 1, "response": 1, "analysis": 1, "report": 2, "publication": 0}

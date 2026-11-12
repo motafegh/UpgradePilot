@@ -14,6 +14,8 @@ from dataclasses import dataclass
 from typing import Literal
 
 from .caller_signature.acquisition import AcquisitionSession
+from .ci.job_log_diagnostic import SelectedCIJob
+from .github.actions import GitHubActionsClient
 from .github.api import GitHubAcquisitionError, GitHubResponseError
 from .github.identity import UpgradePilotInputError
 from .investigation import investigate_caller_signature_progress
@@ -29,6 +31,7 @@ from .workspace.lifecycle_records import (
 )
 from .workspace.native_projection import (
     CallerSignatureNativeProjection, reconstruct_caller_signature_projection,
+    reconstruct_ci_job_log_diagnostic,
 )
 from .workspace.native_representation import NativeReconstructionError
 
@@ -37,6 +40,12 @@ REPORT_METHOD = LifecycleMethodIdentity(
     "report.projection", "report_projection.project_caller_signature_report", "1",
     None, REPORT_REPRESENTATION, None,
     ("Source-only profile; local comparisons grant no runtime or maintainer-action permission.",),
+)
+REPORT_METHOD_WITH_CI = LifecycleMethodIdentity(
+    "report.projection",
+    "report_projection.project_caller_signature_report",
+    "2", None, REPORT_REPRESENTATION, None,
+    ("Explicit caller/signature plus selected historical CI log; no causal or action permission.",),
 )
 type DeliveryStage = Literal["input", "acquisition", "response", "analysis", "report", "publication"]
 type PublicationInspection = Literal["not_attempted", "published", "not_published", "unknown"]
@@ -93,6 +102,8 @@ def investigate_and_deliver_caller_signature(
     repository: str, pull_number: int, *, session: AcquisitionSession,
     host: InvestigationWorkspaceHost,
     expected_base: str | None = None, expected_head: str | None = None,
+    selected_ci_job: SelectedCIJob | None = None,
+    ci_actions_client: GitHubActionsClient | None = None,
 ) -> CallerSignatureDelivery:
     """Run each producer once, publish the exact report, then return earned handoff.
 
@@ -105,6 +116,7 @@ def investigate_and_deliver_caller_signature(
         revision = investigate_caller_signature_progress(
             repository, pull_number, session=session, workspace_host=host,
             expected_base=expected_base, expected_head=expected_head,
+            selected_ci_job=selected_ci_job, ci_actions_client=ci_actions_client,
         )
     except Exception as error:
         if host.publication_blocked:
@@ -134,11 +146,25 @@ def investigate_and_deliver_caller_signature(
         if native.comparison and native.comparison.state != "completed":
             problems.append(DeliveryProblem("analysis", native.comparison.reason or native.comparison.state,
                                            "Bounded source analysis did not complete."))
+        ci_diagnostic = reconstruct_ci_job_log_diagnostic(
+            revision.boundary, expected_target=revision.boundary.target
+        )
+        if selected_ci_job is not None:
+            if ci_diagnostic is None:
+                raise NativeReconstructionError(
+                    "missing_native_material", "Selected CI log observation not retained."
+                )
+            if ci_diagnostic.state == "unavailable":
+                problems.append(DeliveryProblem(
+                    "acquisition", ci_diagnostic.reason,
+                    "Selected exact CI job log was unavailable; report retains the problem.",
+                ))
         report = project_caller_signature_report(revision.boundary, auth_mode=session.auth_mode)
         encoded = encode_report(report)
         # Producer execution is finished. Install only the trusted report consumer,
         # withdrawing capability authority before presentation publication.
-        host.configure(authority=None, capabilities=(), methods=(REPORT_METHOD,))
+        report_method = REPORT_METHOD_WITH_CI if selected_ci_job is not None else REPORT_METHOD
+        host.configure(authority=None, capabilities=(), methods=(report_method,))
         ids = tuple(record.record_id for record in revision.boundary.records)
         purpose = host.add_purpose(
             InvestigationNeed("report_delivery", "Deliver the exact source-profile report.", revision.revision_id),
@@ -146,7 +172,7 @@ def investigate_and_deliver_caller_signature(
         )
         view = host.prepare_view("caller-signature-report", ids, selection_limit="Complete actual native basis, including unperformed branches.")
         host.deliver_view(purpose, view.view_id, representation=REPORT_REPRESENTATION,
-                          content=encoded.decode("utf-8"), method=REPORT_METHOD)
+                          content=encoded.decode("utf-8"), method=report_method)
     except Exception as error:
         stage = "publication" if host.publication_blocked else "report"
         problems.append(_failure(stage, error))
@@ -203,8 +229,15 @@ def open_caller_signature_checkpoint(store: CheckpointStore, revision_id: str) -
         for item in reconstruct_lifecycle_history(revision.lifecycle_history, bases=bases):
             value, record = item.value, item.capture
             if isinstance(value, ViewDelivery) and _is_report_delivery(record, value):
-                if record.method != REPORT_METHOD or value.representation != REPORT_REPRESENTATION:
+                if record.method not in (REPORT_METHOD, REPORT_METHOD_WITH_CI) or value.representation != REPORT_REPRESENTATION:
                     raise NativeReconstructionError("unsupported_report_projection", "No installed report delivery support.")
+                has_ci = any(r.family == "ci_job_log_diagnostic" for r in revision.boundary.records)
+                if (record.method == REPORT_METHOD_WITH_CI) != has_ci:
+                    raise NativeReconstructionError("invalid_report_basis", "CI log profile does not match retained native basis.")
+                if has_ci:
+                    reconstruct_ci_job_log_diagnostic(
+                        revision.boundary, expected_target=revision.boundary.target,
+                    )
                 if set(record.native_record_ids) != {r.record_id for r in revision.boundary.records}:
                     raise NativeReconstructionError("invalid_report_basis", "Report does not cover the selected native boundary.")
                 report = decode_report(value.retained_content.encode("utf-8"))

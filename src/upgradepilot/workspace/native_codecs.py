@@ -179,6 +179,16 @@ FAMILY_CONTRACTS = {
     ),
 }
 
+# Opt-in, additional native material is not a new default capture placeholder.
+# Existing family ordering/count and historical default snapshots stay unchanged.
+_OPTIONAL_FAMILY_CONTRACTS = {
+    "ci_job_log_diagnostic": NativeFamilyContract(
+        "ci.job_log_diagnostic", _optional("ci_job_log_diagnostic"),
+        ("investigation_inputs",),
+        "workspace.native_capture.NativeInvestigationCapture.capture_ci_job_log", "1",
+    ),
+}
+
 _CI_COVERAGE_V2 = replace(
     FAMILY_CONTRACTS["ci_coverage"], shape=_optional("dependency_ci_coverage_result_v2")
 )
@@ -191,7 +201,14 @@ def family_contract(family: str, version: int = 1) -> NativeFamilyContract:
         return _CI_COVERAGE_V2
     if type(version) is int and version == 2 and family == "caller_signature_sources":
         return _CALLER_SIGNATURE_SOURCES_V2
-    if type(version) is not int or version != 1 or family not in FAMILY_CONTRACTS:
+    if type(version) is not int or version != 1:
+        raise NativeReconstructionError(
+            "unsupported_native_codec",
+            f"No admitted {family!r} codec version {version!r}.",
+        )
+    if family in _OPTIONAL_FAMILY_CONTRACTS:
+        return _OPTIONAL_FAMILY_CONTRACTS[family]
+    if family not in FAMILY_CONTRACTS:
         raise NativeReconstructionError(
             "unsupported_native_codec",
             f"No admitted {family!r} codec version {version!r}.",

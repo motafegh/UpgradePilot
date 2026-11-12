@@ -85,6 +85,77 @@ class WorkflowJobLogTests(unittest.TestCase):
         first.close.assert_called_once()
         second.close.assert_called_once()
 
+    def test_selected_run_attempt_checks_pr_head_base_and_job_membership(self):
+        run_data = {
+            "id": 100, "workflow_id": 200, "name": "CI",
+            "event": "pull_request", "head_sha": SHA,
+            "run_attempt": 2, "status": "completed", "conclusion": "failure",
+            "pull_requests": [{
+                "number": 11,
+                "head": {"sha": SHA},
+                "base": {"sha": "b" * 40},
+            }],
+        }
+        jobs_data = {
+            "total_count": 1, "jobs": [{
+                "id": 300, "run_id": 100, "head_sha": SHA,
+                "name": "backend", "status": "completed",
+                "conclusion": "failure", "steps": [],
+            }],
+        }
+        def data_response(payload):
+            result = response(200)
+            result.json.return_value = payload
+            return result
+        session = Mock()
+        session.get.side_effect = (data_response(run_data), data_response(jobs_data))
+        observed_run, observed_job = GitHubActionsClient(
+            session=session
+        ).get_selected_failed_workflow_job(identity(), 100, 2, 300)
+        self.assertEqual((observed_run.run_attempt, observed_job.job_id), (2, 300))
+        self.assertIn("/runs/100/attempts/2", session.get.call_args_list[0].args[0])
+        self.assertIn("/runs/100/attempts/2/jobs", session.get.call_args_list[1].args[0])
+        self.assertEqual(session.get.call_count, 2)
+
+        for changes in (
+            {"id": 101},
+            {"head_sha": "c" * 40},
+            {"run_attempt": 3},
+            {"event": "push"},
+            {"pull_requests": []},
+            {"pull_requests": [{**run_data["pull_requests"][0], "number": 12}]},
+            {"pull_requests": [{**run_data["pull_requests"][0],
+                                "head": {"sha": "c" * 40}}]},
+            {"pull_requests": [{**run_data["pull_requests"][0],
+                                "base": {"sha": "c" * 40}}]},
+        ):
+            with self.subTest(changes=changes):
+                session = Mock()
+                session.get.return_value = data_response({**run_data, **changes})
+                with self.assertRaises(GitHubResponseError):
+                    GitHubActionsClient(session=session).get_selected_failed_workflow_job(
+                        identity(), 100, 2, 300
+                    )
+                self.assertEqual(session.get.call_count, 1)
+
+        for bad_jobs in (
+            {"total_count": 101, "jobs": jobs_data["jobs"]},
+            {"total_count": 2, "jobs": jobs_data["jobs"]},
+            {"total_count": 1, "jobs": [{**jobs_data["jobs"][0], "id": 301}]},
+            {"total_count": 1, "jobs": [{**jobs_data["jobs"][0], "conclusion": "success"}]},
+            {"total_count": 1, "jobs": [{**jobs_data["jobs"][0], "head_sha": "c" * 40}]},
+        ):
+            with self.subTest(bad_jobs=bad_jobs):
+                session = Mock()
+                session.get.side_effect = (
+                    data_response(run_data), data_response(bad_jobs),
+                )
+                with self.assertRaises(GitHubResponseError):
+                    GitHubActionsClient(session=session).get_selected_failed_workflow_job(
+                        identity(), 100, 2, 300
+                    )
+                self.assertEqual(session.get.call_count, 2)
+
     def test_anonymous_stays_anonymous_in_both_hops(self):
         session = Mock()
         session.get.side_effect = (

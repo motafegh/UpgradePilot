@@ -478,6 +478,7 @@ def _decode_report_record(value: Any) -> InvestigationReport:
                         "pull_request",
                         "dependency_source",
                         "workflow_execution",
+                        "ci_job_log_excerpt",
                         "workflow_source",
                         "package_metadata",
                         "tagged_changelog",
@@ -646,6 +647,9 @@ def _validate_assessment_state(assessment_id: Any, state: Any, status: str) -> N
         "changelog-path": set(get_args(ChangelogPathDiscoveryProblemState.__value__)),
         "caller-signature-coverage": {"complete", "partial", "failed"},
         "caller-signature-analysis": {"completed", "failed", "timed_out", "interrupted"},
+        "ci-job-log": {
+            "observed_keyword_error", "unclassified_log", "unavailable",
+        },
         "tagged-changelog": set(
             get_args(UpstreamAuthoritySourceProblemState.__value__)
         ),

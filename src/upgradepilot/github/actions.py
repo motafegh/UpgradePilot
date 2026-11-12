@@ -135,6 +135,73 @@ class GitHubActionsClient(GitHubApiClient):
             text=text,
         )
 
+    def get_selected_failed_workflow_job(
+        self, identity: PullRequestIdentity,
+        run_id: int, run_attempt: int, job_id: int,
+    ) -> tuple[WorkflowRun, WorkflowJob]:
+        """Bind one explicit user-selected job to a frozen PR run and attempt.
+
+        Exactly two GitHub metadata GETs; refuse any job listing requiring
+        pagination rather than accidentally using the newest attempt.
+        """
+        if any(type(value) is not int or value <= 0
+               for value in (run_id, run_attempt, job_id)):
+            raise ValueError("Selected CI coordinates must be positive integers.")
+        run_data = self._get_json_object(
+            self.api_url(
+                f"/repos/{identity.repository}/actions/runs/{run_id}"
+                f"/attempts/{run_attempt}"
+            ),
+            resource="selected-workflow-run-attempt",
+        )
+        run = self._parse_workflow_run(identity, run_data)
+        try:
+            related_prs = required_list(run_data, "pull_requests")
+        except KeyError as exc:
+            raise GitHubResponseError(
+                "Selected run attempt lacks verifiable pull-request association."
+            ) from exc
+        def matches_pull_request(value: object) -> bool:
+            if not isinstance(value, Mapping) or value.get("number") != identity.number:
+                return False
+            head, base = value.get("head"), value.get("base")
+            return (
+                isinstance(head, Mapping) and head.get("sha") == identity.head_sha
+                and isinstance(base, Mapping) and base.get("sha") == identity.base_sha
+            )
+        if not any(matches_pull_request(item) for item in related_prs):
+            raise GitHubResponseError(
+                "Selected run attempt is not associated with the frozen pull request."
+            )
+        if (run.run_id, run.run_attempt) != (run_id, run_attempt):
+            raise GitHubResponseError("Selected CI run/attempt identity does not match.")
+        data = self._get_json_object(
+            self.api_url(
+                f"/repos/{identity.repository}/actions/runs/{run_id}"
+                f"/attempts/{run_attempt}/jobs"
+            ), resource="selected-workflow-jobs",
+            params={"per_page": _RESULTS_PER_PAGE, "page": 1},
+        )
+        try:
+            total = required_nonnegative_int(data, "total_count")
+            items = required_list(data, "jobs")
+        except KeyError as exc:
+            raise GitHubResponseError("Selected job list has missing required fields.") from exc
+        if total > _RESULTS_PER_PAGE or len(items) != total:
+            raise GitHubResponseError("Selected job list is incomplete or exceeds one-page budget.")
+        jobs = []
+        for item in items:
+            if not isinstance(item, Mapping):
+                raise GitHubResponseError("Selected job item is not an object.")
+            jobs.append(self._parse_workflow_job(identity, run, item))
+        matches = [job for job in jobs if job.job_id == job_id]
+        if len(matches) != 1:
+            raise GitHubResponseError("Selected job is absent or ambiguous in the exact attempt.")
+        job = matches[0]
+        if job.status != "completed" or job.conclusion != "failure":
+            raise GitHubResponseError("Selected job has no completed failure observation.")
+        return run, job
+
     def get_exact_head_workflow_runs(
         self,
         identity: PullRequestIdentity,

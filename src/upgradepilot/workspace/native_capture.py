@@ -18,6 +18,7 @@ from ..ci.dependency_exercise import (
     WorkflowDependencyCoverageInput,
 )
 from ..ci.dependency_state import RuntimeDependencyStateResult
+from ..ci.job_log_diagnostic import CIJobLogDiagnostic
 from ..caller_signature.evidence import SourceAnalysisRun
 from ..caller_signature.source_evidence import CallerSignatureSources
 from ..caller_signature.source_codec import source_codec_version
@@ -146,7 +147,7 @@ class NativeInvestigationCapture:
             version,
             retained_gaps,
             tuple(
-                self._staged[name].record_id for name in FAMILY_CONTRACTS[family].inputs
+                self._staged[name].record_id for name in family_contract(family).inputs
             ),
             codec_version,
         )
@@ -170,6 +171,21 @@ class NativeInvestigationCapture:
             "runtime_dependency_state",
             runtime,
             method="ci.dependency_state.evaluate_runtime_dependency_state",
+        )
+
+    def capture_ci_job_log(self, observation: CIJobLogDiagnostic) -> None:
+        """Record one opt-in typed job-log observation at the existing PR target."""
+        assert self._target is not None
+        if (
+            observation.repository != self._target.repository
+            or observation.head_sha != self._target.head_sha
+        ):
+            raise ValueError("CI job-log observation belongs to a different target.")
+        contract = family_contract("ci_job_log_diagnostic")
+        self._record(
+            "ci_job_log_diagnostic", observation,
+            method=contract.producer_method, version=contract.producer_version,
+            gaps=("full_raw_job_log_not_retained", "same_process_module_identity_not_observed"),
         )
 
     def capture_caller_signature_sources(self, sources: CallerSignatureSources) -> None:
@@ -256,7 +272,7 @@ class NativeInvestigationCapture:
         for family in self._staged:
             item = self._staged[family]
             inputs = tuple(
-                self._staged[name].record_id for name in FAMILY_CONTRACTS[family].inputs
+                self._staged[name].record_id for name in family_contract(family).inputs
             )
             if inputs != item.input_record_ids and not item.evaluated:
                 self._staged[family] = _StagedCapture(
@@ -285,7 +301,7 @@ class NativeInvestigationCapture:
         records = []
         for family in self._staged:
             item = self._staged[family]
-            contract = FAMILY_CONTRACTS[family]
+            contract = family_contract(family)
             records.append(
                 CapturedNativeRecord(
                     record_id=item.record_id,

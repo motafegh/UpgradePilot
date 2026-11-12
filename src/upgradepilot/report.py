@@ -158,6 +158,7 @@ def _first_view_lines(report: InvestigationReport) -> list[str]:
         return []
 
     sections = _signature_overview(report, transition)
+    sections.extend(_ci_log_overview(report))
     artifact = assessments.get("artifact-candidate")
     if artifact is not None and (artifact.status, artifact.state) == ("available", "established"):
         sections.extend(_artifact_overview(artifact, assessments, report.unknowns))
@@ -181,6 +182,31 @@ def _first_view_lines(report: InvestigationReport) -> list[str]:
         f"Update: {transition['package']} {transition['old_version']} -> {transition['proposed_version']}",
         *sections,
         "", "Detailed evidence and action status",
+    ]
+
+
+def _ci_log_overview(report: InvestigationReport) -> list[str]:
+    witness = next(
+        (item for item in report.assessments if item.assessment_id == "ci-job-log"),
+        None,
+    )
+    if witness is None:
+        return []
+    facts = {fact.name: fact.value for fact in witness.facts}
+    header = ["", "Selected historical CI job log (independent recorded observation)"]
+    if witness.status != "available":
+        return [*header, f"CI log: {witness.state}; {witness.reason}",
+                "This does not establish a matching runtime cause."]
+    return [
+        *header,
+        f"Run {facts.get('run_id', 'unknown')} attempt {facts.get('run_attempt', 'unknown')}, "
+        f"job {facts.get('job_id', 'unknown')}",
+        f"Observed error text: {facts.get('error_excerpt', 'not recorded')}",
+        f"Installation-summary token: {facts.get('install_token', 'not recorded')} "
+        "(log text only, not direct imported-module proof)",
+        "Link to analyzed source: not established as loaded code; "
+        "upgrade-caused regression: not established.",
+        _evidence_refs(witness),
     ]
 
 

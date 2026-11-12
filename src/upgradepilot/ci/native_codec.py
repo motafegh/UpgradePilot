@@ -16,6 +16,7 @@ from upgradepilot.ci.dependency_exercise import (
     WorkflowDependencyCoverageInput,
     WorkflowDependencyCoverageResult,
 )
+from upgradepilot.ci.job_log_diagnostic import CIJobLogDiagnostic
 from upgradepilot.ci.dependency_state import (
     CommandRequirementStateAssessment,
     ExactCICommandIdentity,
@@ -61,6 +62,27 @@ from upgradepilot.workspace.native_representation import (
 
 # This is an admitted representation table, not a runtime dataclass discovery mechanism.
 LAYOUTS = (
+    RecordLayout(
+        "ci_job_log_diagnostic",
+        CIJobLogDiagnostic,
+        (
+            ("repository", str), ("head_sha", str),
+            ("run_id", int), ("run_attempt", int), ("job_id", int),
+            ("source_url", str),
+            ("state", LiteralValues((
+                "observed_keyword_error", "unclassified_log", "unavailable",
+            ))),
+            ("reason", str),
+            ("log_bytes", Either((int, type(None)))),
+            ("log_sha256", Either((str, type(None)))),
+            ("error_line", Either((int, type(None)))),
+            ("error_excerpt", Either((str, type(None)))),
+            ("rejected_keyword", Either((str, type(None)))),
+            ("compared_callee", Either((str, type(None)))),
+            ("install_token", Either((str, type(None)))),
+            ("install_line", Either((int, type(None)))),
+        ),
+    ),
     RecordLayout(
         "command_requirement_state_assessment",
         CommandRequirementStateAssessment,
