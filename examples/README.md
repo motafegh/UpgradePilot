@@ -1,8 +1,8 @@
 # Examples
 
-This directory is reserved for future reviewed examples tied to accepted UpgradePilot behavior.
+This directory contains reviewed examples tied to accepted UpgradePilot behavior.
 
-There is currently no active executable example, JSON contract, or bootstrap case in this repository.
+- [AV-Tracer PR #11 saved reports and Workspaces](av-tracer/README.md) demonstrates offline recovery for the source-only and combined source and CI profiles.
 
 The earlier `pydantic-13432.bootstrap.json` file was AI-generated before Ali learned, directed, reviewed, or owned the related contract and policy. It was removed from the active tree and remains only in Git history.
 

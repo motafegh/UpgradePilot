@@ -53,7 +53,9 @@ Future sessions should normally load the canonical owner first and consult dated
 
 ### Publishing project artifacts
 
-Commit durable project reports, evidence summaries, and handoffs to the repository by default so another checkout can use them. Review the actual payload before publishing. A local path alone does not determine eligibility. When size, security, privacy, or redistribution requirements prevent publishing the original, commit the smallest useful safe counterpart with provenance, the reason for the exception, and any reproducibility limits. Follow [SECURITY.md](../SECURITY.md) for trust and authorization. Keep transient scratch copies and generated duplicates out of Git when a checkout can reproduce them.
+Keep exact originals of durable investigation and qualification evidence in the designated local evidence store. Publish a reviewed copy of the evidence another checkout needs for inspection or reproduction alongside the project reports and handoff in the repository. Include the saved report and the corresponding Workspace snapshot when offline inspection of both matters. Review the actual payload for security, privacy, redistribution rights and required notices before committing it. Follow [SECURITY.md](../SECURITY.md) for trust and authorization.
+
+For a published Workspace, package a self-contained snapshot with its exact revision, checksums and offline-open instructions. Verify the published files from a clean checkout, extracting the Workspace into an owner-only directory outside Git. Record whether the published files are exact copies or reviewed derivatives. When size, security, privacy, or redistribution requirements prevent publishing the original, keep it locally and publish the smallest useful reviewed counterpart with provenance, the reason for the exception, and the resulting reproducibility limit. Transient scratch and reproducible generated duplicates belong outside Git. See the [AV-Tracer example](../examples/av-tracer/README.md) for a full publication.
 
 ## 3. Durable decision-promotion lifecycle
 
