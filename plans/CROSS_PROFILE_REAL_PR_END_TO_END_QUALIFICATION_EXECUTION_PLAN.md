@@ -122,6 +122,8 @@ If actual provider quotas or privacy risks demand a **strict global** limit not 
 
 ### Q3 — AV-Tracer retained reference and offline recovery
 
+**Performed historical-current-reader review (2026-11-13):** [Q3 — AV-Tracer/HTTPX verified offline recovery](../working-memory/evidence/2026-11-13-cross-profile-q3-av-tracer-review/RESULTS.md) and [behavior/maintainer analysis](../working-memory/evidence/2026-11-13-cross-profile-q3-av-tracer-review/ANALYSIS.md) record all six current-installed offline reader checks and archive digests. No current live opt-in ingestion was performed; original D learner ownership still awaits user review.
+
 1. Verify SHA-256 and documented file list of the existing [public example archive](../examples/av-tracer/README.md). Extract to an owner-private temporary directory with `0700` directories/`0600` files; the Workspace refuses overly permissive extraction.
 2. Open source-only and combined saved JSON and exact SQLite revisions **offline**. Show the actual combined selected error `source-48` / saved excerpt where present; verify PR/run/attempt/job/source/digest from the [qualification receipt](../working-memory/evidence/2026-11-12-av-tracer-native-ci/qualification.json).
 3. Assert old source-only report remains byte-identical and lacks the CI-log assessment. Verify the combined report contains a selected `ci-job-log` observation but full normal CI coverage and runtime state stay `not_evaluated` and action `abstain`.
