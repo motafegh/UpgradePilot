@@ -115,6 +115,36 @@ class QualificationSupervisorTests(unittest.TestCase):
             )
         self.assertFalse((public_parent / "result").exists())
 
+    def test_deadline_kills_descendant_ignoring_sigterm_after_leader_exits(self) -> None:
+        """The old leader-only wait returned while the stubborn child survived."""
+
+        ready = self.root / "handler-ready"
+        marker = self.root / "unexpected-stubborn-child-alive"
+        child_code = (
+            "import pathlib,signal,time;"
+            "signal.signal(signal.SIGTERM,signal.SIG_IGN);"
+            f"pathlib.Path({str(ready)!r}).write_text('ready');"
+            "time.sleep(1.4);"
+            f"pathlib.Path({str(marker)!r}).write_text('escaped')"
+        )
+        parent_code = (
+            "import pathlib,subprocess,sys,time\n"
+            f"subprocess.Popen([sys.executable, '-c', {child_code!r}])\n"
+            f"ready=pathlib.Path({str(ready)!r})\n"
+            "while not ready.exists(): time.sleep(0.01)\n"
+            "time.sleep(20)\n"
+        )
+        cli = self._fake_cli(parent_code)
+        output = self.root / "stubborn-descendant"
+        self.assertEqual(
+            supervise(cli=cli, output=output, deadline_seconds=0.35, arguments=[]),
+            124,
+        )
+        self.assertTrue(ready.exists(), "The child must install its SIGTERM handler")
+        self.assertEqual(self._read_receipt(output)["status"], "deadline_exceeded")
+        time.sleep(1.45)
+        self.assertFalse(marker.exists(), "A signal-ignoring descendant survived the timeout")
+
     def test_deadline_terminates_process_descendants(self) -> None:
         marker = self.root / "unexpected-child-file"
         child_code = (

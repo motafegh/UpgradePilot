@@ -33,20 +33,26 @@ def _sha256(path: Path) -> str:
 
 
 def _stop_group(process: subprocess.Popen[bytes]) -> None:
-    if process.poll() is not None:
-        return
+    """Terminate the *entire* dedicated process group, not just its leader.
+
+    The child was started as a new session leader. Do not reap that leader
+    before the final group signal: reaping it early permits the group ID to
+    disappear or be recycled while a signal-ignoring descendant still lives.
+    """
     try:
         os.killpg(process.pid, signal.SIGTERM)
     except ProcessLookupError:
-        return
-    try:
-        process.wait(timeout=2.0)
-    except subprocess.TimeoutExpired:
-        try:
-            os.killpg(process.pid, signal.SIGKILL)
-        except ProcessLookupError:
-            pass
         process.wait()
+        return
+
+    # Give cooperating descendants a short opportunity to close cleanly.
+    # The leader can exit first; this must NOT suppress escalation to the group.
+    time.sleep(0.4)
+    try:
+        os.killpg(process.pid, signal.SIGKILL)
+    except ProcessLookupError:
+        pass
+    process.wait()
 
 
 def supervise(
