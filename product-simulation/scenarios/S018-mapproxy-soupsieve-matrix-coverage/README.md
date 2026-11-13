@@ -1,0 +1,27 @@
+# S018 — MapProxy Soup Sieve update and successful matrix jobs
+
+**Maintainer question.** What did the successful test jobs establish about the changed test dependency, and which selector behavior remains untested?
+
+**Frozen case.** Open Dependabot PR #1559, base `a6507dd0dba671e48d303a74f7a5575dadf7fd76`, head `ac01b8901935bfc16a0195277b4aec1c43275897`, observed November 13, 2026. The single change is `soupsieve 3.0.4 → 4.0` in `requirements-tests.txt`. [PR](https://github.com/mapproxy/mapproxy/pull/1559/files) · [Evidence record](CASE_EVIDENCE.json)
+
+## Observed evidence
+
+1. REST run `43457921398`, attempt 1, returned eight jobs bound to the PR head. The test jobs for Python 3.12, 3.13, 3.14 and 3.15 and the coverage job each report successful dependency installation and subsequent tests. In the selected Python 3.12 job, step 6 runs a multiline install that includes `pip install -r requirements-tests.txt`, and step 7 runs `pytest mapproxy`. This establishes a successful consuming step followed by successful tests for the observed jobs. Job metadata lacks the resolved or imported Soup Sieve version. The public step log request returned 404. [Exact workflow](https://github.com/mapproxy/mapproxy/blob/ac01b8901935bfc16a0195277b4aec1c43275897/.github/workflows/test.yml#L31-L73) · [Python 3.12 job](https://github.com/mapproxy/mapproxy/actions/runs/43457921398/job/131996881880) · [Coverage job](https://github.com/mapproxy/mapproxy/actions/runs/43457921398/job/131996881258)
+2. Both Soup Sieve releases have one universal wheel and one sdist and declare `>=3.11.5`. The wheel tags are identical. The declared CI matrix and MapProxy's `setup.py` Python floor of 3.12 satisfy that metadata. Proposed wheel and sdist publisher provenance agree with the project link. [Old metadata](https://pypi.org/pypi/soupsieve/3.0.4/json) · [New metadata](https://pypi.org/pypi/soupsieve/4.0/json) · [MapProxy declaration](https://github.com/mapproxy/mapproxy/blob/ac01b8901935bfc16a0195277b4aec1c43275897/setup.py#L60-L67)
+3. The exact 4.0 changelog describes changed selector traversal through HTML `template` and `iframe` elements. The earlier Python 3.10 support drop is outside this transition. MapProxy pins Beautiful Soup and WebTest in the changed test requirements. Published metadata supports the path `WebTest → Beautiful Soup → Soup Sieve`. The repository's system test helper wraps WebTest. Hash-verified wheel source shows WebTest's HTML response accessor builds a Beautiful Soup object, and Beautiful Soup's CSS adapter delegates selectors to Soup Sieve. No direct Soup Sieve or Beautiful Soup references appeared in the bounded scan of 293 Python files. Neither the dependency path nor aggregate pytest success proves that a target test exercised the changed selector behavior. [Tagged 4.0 notes](https://github.com/facelessuser/soupsieve/blob/ff1a5ce7e5addc31626d7b6053511fecdb4f6320/docs/src/markdown/about/changelog.md#L6-L18) · [WebTest metadata](https://pypi.org/pypi/WebTest/3.0.0/json) · [Beautiful Soup metadata](https://pypi.org/pypi/beautifulsoup4/4.14.3/json) · [Target test helper](https://github.com/mapproxy/mapproxy/blob/ac01b8901935bfc16a0195277b4aec1c43275897/mapproxy/test/system/__init__.py#L22-L57)
+
+## Current UpgradePilot behavior
+
+| Stage | Evidence and result |
+| --- | --- |
+| Input and CI | Offline production owners admitted the exact pin and returned `supported_not_correlated`. The workflow-wide correlator returned `static_job_strategy_unsupported` at the test matrix. The refusal also withholds correlation for the ordinary coverage job in that workflow. |
+| Runtime state | Three admitted direct-requirements command candidates were evaluated. All remained `manager_environment_needs_lower_source_evidence`. The consumer scan and runtime correlator have distinct admission boundaries. |
+| PyPI and artifacts | Exact old and proposed releases are available. No wheel-tag loss candidate. Provenance and the exact release tree support a single admitted changelog path. |
+| Upstream semantics | The trusted interval contains 4.0 only. The offline source-window owner rejected the complete 9,524-character section at the 4,096-character cap. No model inference or downstream Python applicability was observed. The manual selector findings are outside the product's current Python-support-drop semantic family. |
+| Action and delivery | Current action policy remains `abstain`. This manual case records the step and source evidence that a future report can be checked against. |
+
+## Baseline, next check and stop
+
+The transparent baseline sees a major bump with passing CI and returns `run_targeted_checks` under B04. The deeper evidence identifies the consuming steps and narrows the remaining concern to selector reachability. It also identifies a real case where a project report could withhold useful step evidence despite correct overall caution. [Baseline](../../TRANSPARENT_BASELINE_SPECIFICATION.md)
+
+First inspect a representative WebTest response path for an actual selector over template or iframe content. If present, a focused old/new check with verified imports would answer the behavior question. If the relevant path uses the observed lxml/XML mechanisms and has no Soup Sieve selector boundary, keep the scope of that result and avoid adding a generic selector test merely because the notes mention one. Stop the manual review with positive CI step evidence, a traceable transitive path, and unresolved feature-specific exercise.

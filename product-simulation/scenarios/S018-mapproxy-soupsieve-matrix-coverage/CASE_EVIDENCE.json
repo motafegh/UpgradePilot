@@ -1,0 +1,297 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S018",
+  "product_source_commit": "fb035cfe6e51387001184585b0871f65323535b7",
+  "observation": {
+    "observed_at_utc": "2026-11-13T17:26:34.815785+00:00",
+    "mode": "manual analysis of open PR with previously recorded CI attempt",
+    "review": "assistant source and deterministic cross-checks completed; owner and independent maintainer review pending"
+  },
+  "future_ordinary_invocation": {
+    "repository": "mapproxy/mapproxy",
+    "pull_number": 1559,
+    "executed": false
+  },
+  "frozen_identity": {
+    "repository": "mapproxy/mapproxy",
+    "pull_number": 1559,
+    "base": "a6507dd0dba671e48d303a74f7a5575dadf7fd76",
+    "head": "ac01b8901935bfc16a0195277b4aec1c43275897",
+    "base_ref": "master",
+    "head_ref": "dependabot/pip/soupsieve-4.0",
+    "created_at": "2026-11-13T15:58:08Z",
+    "observed_state": "open",
+    "merge_sha": "331612715a3a860a01f52aca98ffb5b3ec4f94b5"
+  },
+  "dependency_change": {
+    "file": "requirements-tests.txt",
+    "package": "soupsieve",
+    "old_version": "3.0.4",
+    "proposed_version": "4.0"
+  },
+  "selected_ci_evidence": {
+    "run_id": 43457921398,
+    "event": "pull_request",
+    "attempt": 1,
+    "run_started_at_utc": "2026-11-13T15:58:15Z",
+    "run_conclusion": "success",
+    "job_id": 131996881880,
+    "job": "test (3.12, 13.0.0)",
+    "job_conclusion": "success",
+    "run_head": "ac01b8901935bfc16a0195277b4aec1c43275897",
+    "job_head": "ac01b8901935bfc16a0195277b4aec1c43275897",
+    "workflow": ".github/workflows/test.yml",
+    "steps": [
+      {
+        "number": 5,
+        "name": "Use python 3.12",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "number": 6,
+        "name": "Install dependencies ⏬",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "number": 7,
+        "name": "Run tests 🏗️",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "step_list_is_selected_subset": true
+  },
+  "package_observations": {
+    "releases": [
+      {
+        "version": "3.0.4",
+        "source": "https://pypi.org/pypi/soupsieve/3.0.4/json",
+        "requires_python": ">=3.11.5",
+        "wheel_count": 1,
+        "sdist_count": 1,
+        "source_sha256": "b858533ffc2285be97a92a687d9793ddfb19a3e2f368a10411b1073ac27ce84b"
+      },
+      {
+        "version": "4.0",
+        "source": "https://pypi.org/pypi/soupsieve/4.0/json",
+        "requires_python": ">=3.11.5",
+        "wheel_count": 1,
+        "sdist_count": 1,
+        "source_sha256": "ae3c0a447da3407c5392c0c9d9f09b120d533cc9de50b3aea5ce42ee8c250787"
+      }
+    ],
+    "removed_wheel_tags": 0,
+    "added_wheel_tags": 0,
+    "proposed_provenance_http_status_counts": {
+      "200": 2
+    }
+  },
+  "current_product_owner_checks": {
+    "ci": {
+      "identity": {
+        "repository": "mapproxy/mapproxy",
+        "pull_number": 1559,
+        "base": "a6507dd0dba671e48d303a74f7a5575dadf7fd76",
+        "head": "ac01b8901935bfc16a0195277b4aec1c43275897",
+        "base_ref": "master",
+        "head_ref": "dependabot/pip/soupsieve-4.0",
+        "created_at": "2026-11-13T15:58:08Z",
+        "observed_state": "open",
+        "merge_sha": "331612715a3a860a01f52aca98ffb5b3ec4f94b5"
+      },
+      "dependency": [
+        "soupsieve",
+        "3.0.4",
+        "4.0"
+      ],
+      "coverage": "supported_not_correlated",
+      "coverage_reason": "successful_exact_head_ci_with_static_dependency_consumption",
+      "runtime": "evaluated",
+      "runtime_reason": "runtime_dependency_state_candidates_evaluated",
+      "runtime_detail": "Evaluated 3 admitted exact direct-requirements command candidate(s) without collapsing their individual outcomes.",
+      "runtime_assessments": [
+        {
+          "state": "unresolved",
+          "reason": "manager_environment_needs_lower_source_evidence",
+          "detail": "The invocation form is preserved, but no decisive pip --python selector is visible. Process-environment/configuration/executable evidence is still required before effective manager environment can be asserted."
+        },
+        {
+          "state": "unresolved",
+          "reason": "manager_environment_needs_lower_source_evidence",
+          "detail": "The invocation form is preserved, but no decisive pip --python selector is visible. Process-environment/configuration/executable evidence is still required before effective manager environment can be asserted."
+        },
+        {
+          "state": "unresolved",
+          "reason": "manager_environment_needs_lower_source_evidence",
+          "detail": "The invocation form is preserved, but no decisive pip --python selector is visible. Process-environment/configuration/executable evidence is still required before effective manager environment can be asserted."
+        }
+      ],
+      "target_artifact_environments": [
+        {
+          "job": "coverage",
+          "state": "available",
+          "detail": null,
+          "reason": null
+        },
+        {
+          "job": "lint",
+          "state": "available",
+          "detail": null,
+          "reason": null
+        },
+        {
+          "job": "typechecking",
+          "state": "available",
+          "detail": null,
+          "reason": null
+        }
+      ],
+      "runs": [
+        {
+          "id": 43457921398,
+          "attempt": 1,
+          "conclusion": "success",
+          "path": ".github/workflows/test.yml",
+          "correlation": "static_job_strategy_unsupported",
+          "detail": "Job 'test' uses strategy/matrix expansion, which is not yet correlated.",
+          "jobs": [
+            {
+              "id": 131996881059,
+              "name": "typechecking",
+              "conclusion": "success",
+              "steps": 8
+            },
+            {
+              "id": 131996881258,
+              "name": "coverage",
+              "conclusion": "success",
+              "steps": 13
+            },
+            {
+              "id": 131996881382,
+              "name": "lint",
+              "conclusion": "success",
+              "steps": 8
+            },
+            {
+              "id": 131996881411,
+              "name": "test (3.14, 13.0.0)",
+              "conclusion": "success",
+              "steps": 11
+            },
+            {
+              "id": 131996881440,
+              "name": "doc",
+              "conclusion": "success",
+              "steps": 6
+            },
+            {
+              "id": 131996881564,
+              "name": "test (3.13, 13.0.0)",
+              "conclusion": "success",
+              "steps": 11
+            },
+            {
+              "id": 131996881633,
+              "name": "test (3.15, 13.0.0)",
+              "conclusion": "success",
+              "steps": 11
+            },
+            {
+              "id": 131996881880,
+              "name": "test (3.12, 13.0.0)",
+              "conclusion": "success",
+              "steps": 11
+            }
+          ],
+          "workflow_coverage": "supported_not_correlated",
+          "static_consumption": "supported",
+          "runtime_consumption": "unresolved",
+          "direct_exercise": "not_established"
+        }
+      ]
+    },
+    "package": {
+      "repository_state": "available",
+      "repository": "facelessuser/soupsieve",
+      "repository_detail": null,
+      "artifact_candidate": "not_observed"
+    },
+    "first_upstream_stop": "window_too_large",
+    "source_window_countercheck": {
+      "versions": [
+        "4.0"
+      ],
+      "result": "window_too_large",
+      "detail": "The complete crossed-release Markdown window exceeded the admitted character bound (9524 > 4096); no section was truncated.",
+      "note": null
+    },
+    "model_called": false,
+    "target_python_semantic_evaluation": "not_run",
+    "action_policy_expectation": "abstain",
+    "product_report_generated": false
+  },
+  "baseline": {
+    "version": "simulation-transparent-baseline-v0.1",
+    "version_change_category": "major",
+    "ci_conclusion": "passing",
+    "ci_scope": "observed exact-head Actions run set",
+    "dependency_directness": "transitive",
+    "keyword_source": "not scored because the earlier CI or major-version rule decides the outcome",
+    "matched_rule": "B04",
+    "outcome": "run_targeted_checks"
+  },
+  "reference_limits": [
+    "Full upstream and target bodies remain in the owner-private evidence store.",
+    "The filename-to-SHA-256 map identifies retained inputs and derived checks. Public readers can follow the sources in README.md.",
+    "No external repository execution, new CI run, installed UpgradePilot report, model call or compatibility benchmark was performed."
+  ],
+  "retained_evidence_sha256": {
+    "mapproxy-admission-pr.json": "21de0b050cfe6dfc7b0196b1c11860d419a2843b1c61b5c6c2294f149d72866a",
+    "mapproxy-admission-files.json": "468b044be0c86609070319c06b4558dceb9f06016637b171b2d610f856cc5084",
+    "mapproxy-admission-runs.json": "6caaae1bc9accbcc5f4512fc7127e4da5af8585e1366290b2c52ffa819cc13bc",
+    "mapproxy-admission-jobs.json": "cb2b1361da178a44936bf731476a4a4aacdc0f53eb515885fc64574da3b33c8b",
+    "mapproxy-admission-pr.source.json": "9bc7672b0d785ff2fc2f7e56f67186189241ab836aed931e316fd00c03a52a90",
+    "mapproxy-admission-files.source.json": "fb0e8622347e756e8e0da7a3a263e4340f2c830340603de37e98e41f91273959",
+    "mapproxy-admission-runs.source.json": "382a5316fd0881810b2cdcd36c1588e2ffec55feaf7bb397e111985ef8463b79",
+    "mapproxy-admission-jobs.source.json": "790ca0e46097401a8bc2d81806c03decb0ecc6ee0f2637b5f5ce2b8add860a4f",
+    "mapproxy-ci-workflow.txt": "fb052b6c542e85ccc7448c325d47c03bf1ba3e2453caec02130b898d47821738",
+    "mapproxy-offline-ci-check.json": "db0f698e3eda100746ec6aa1bc01f48605610d2529e589300d94d0d4174eef72",
+    "mapproxy-web-job.txt": "2b4b16fc5ac4c90202ec91ce6edf03ada2e7e13cd818e20ca58eab11bd366fa5",
+    "soupsieve-3.0.4.json": "b858533ffc2285be97a92a687d9793ddfb19a3e2f368a10411b1073ac27ce84b",
+    "soupsieve-4.0.json": "ae3c0a447da3407c5392c0c9d9f09b120d533cc9de50b3aea5ce42ee8c250787",
+    "soupsieve-index.json": "bb83e624040765f8fe62d51250cb3c7039ce310c5a2570f3834f46ab6613e45e",
+    "offline-package-checks.json": "65cfbb988a6174af9e8c6a24aa3e02285fe17088b679c2803859dd58f3e1cf2d",
+    "artifact-tag-review.json": "daac79fe87c9dee49bf0ff5ae1d610ddf4d5150469482dd48a8cad2b797ce5a8",
+    "offline-source-window-checks.json": "2e58bf4e32a06417e3d7224a1fc327a3a53c128b22a024dc1160b93c6a65cf89",
+    "mapproxy-target-requirements-tests.txt.txt": "896349360949402eb81177cf8309b8f5e3b59c758f94c50abde4b9605571a771",
+    "mapproxy-target-setup.py.txt": "71699981e90261077220860ffbba3d327a7c0b9768d7dd264a764f8409e05d3b",
+    "mapproxy-target-mapproxy__test__system____init__.py.txt": "fcf2f70901624b1672867e67a784b1a0eb7f49b76cc70d3d6037fcbdf868fff0",
+    "webtest-3.0.0.json": "bd8253b185a57766edc2026757a08f7d6e83f8a28801ad52972ae79d86e97d14",
+    "beautifulsoup4-4.14.3.json": "eba23c67315f79bc13125b729773ae934a8a263771afea3c696b62a1ff083a3b",
+    "webtest-selected-source.txt": "504675730ec954c689ab7d5d27f084cfab378fee5c4aede5c0e8b83103f557ca",
+    "beautifulsoup4-selected-source.txt": "fe6fe5ff84865879d8eb6d15276d63fea407d515f7a7dd6c6157a680ac5a2ec3",
+    "soupsieve-4.0-docs__src__markdown__about__changelog.md.txt": "7c01508a58ab9e5dbcb4444834434c52e4bfe803d65e28f551b48f938de25864",
+    "soupsieve-upstream-tree.json": "e61442134c8c8c7bf2a2bb19cf8a7098bd174ed06875b4fd4a179fab23589db5",
+    "mapproxy-step-6-public-log.source.json": "1f84d5f8729c3c874df048d50b2de45c26479a9ca7e1540ca7335270c2ced943"
+  },
+  "maintainer_review_expectations": {
+    "supported_claims": [
+      "The selected exact-head matrix jobs and coverage job show successful consumption of the changed test requirements and later successful tests.",
+      "The 4.0 selector changes have a plausible WebTest and Beautiful Soup path, with target selector reachability unverified."
+    ],
+    "material_unknowns": [
+      "Exact resolved/imported Soup Sieve version",
+      "Target test that exercises changed selector behavior"
+    ],
+    "withheld_inferences": [
+      "Do not count overall job success as feature-specific exercise.",
+      "Do not treat unsupported product correlation as a missing provider observation."
+    ],
+    "defensible_follow_up": "Find a real target selector over template or iframe content before choosing a focused old/new comparison.",
+    "status": "manual reference answer, pending independent reviewer"
+  }
+}

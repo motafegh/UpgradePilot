@@ -1,0 +1,268 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S019",
+  "product_source_commit": "fb035cfe6e51387001184585b0871f65323535b7",
+  "observation": {
+    "observed_at_utc": "2026-11-13T17:26:35.701313+00:00",
+    "mode": "manual analysis of open PR with previously recorded CI attempt",
+    "review": "assistant source and deterministic cross-checks completed; owner and independent maintainer review pending"
+  },
+  "future_ordinary_invocation": {
+    "repository": "jgoy-labs/server-nexe",
+    "pull_number": 62,
+    "executed": false
+  },
+  "frozen_identity": {
+    "repository": "jgoy-labs/server-nexe",
+    "pull_number": 62,
+    "base": "a476c2a35207578285c70bb2f8d0a40fd10e8003",
+    "head": "f1d2aea121eeb6e2abbc0b3fd151804207c4ca6e",
+    "base_ref": "main",
+    "head_ref": "dependabot/pip/psutil-7.2.2",
+    "created_at": "2026-08-23T14:54:31Z",
+    "observed_state": "open",
+    "merge_sha": "4647a6b9502797f3a300c6963b598b00e4778f4d"
+  },
+  "dependency_change": {
+    "file": "requirements.txt",
+    "package": "psutil",
+    "old_version": "5.9.8",
+    "proposed_version": "7.2.2"
+  },
+  "selected_ci_evidence": {
+    "run_id": 32646873500,
+    "event": "pull_request",
+    "attempt": 1,
+    "run_started_at_utc": "2026-08-23T14:54:35Z",
+    "run_conclusion": "success",
+    "job_id": 97212373207,
+    "job": "Unit Tests",
+    "job_conclusion": "success",
+    "run_head": "f1d2aea121eeb6e2abbc0b3fd151804207c4ca6e",
+    "job_head": "f1d2aea121eeb6e2abbc0b3fd151804207c4ca6e",
+    "workflow": ".github/workflows/ci.yml",
+    "steps": [
+      {
+        "number": 3,
+        "name": "Set up Python",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "number": 4,
+        "name": "Install dependencies",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "number": 5,
+        "name": "Run tests (with coverage)",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "step_list_is_selected_subset": true
+  },
+  "package_observations": {
+    "releases": [
+      {
+        "version": "5.9.8",
+        "source": "https://pypi.org/pypi/psutil/5.9.8/json",
+        "requires_python": ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*",
+        "wheel_count": 15,
+        "sdist_count": 1,
+        "source_sha256": "63996f682200c7888be21b7beb593b01c5aaac33a549facdf8c33734824b8e7c"
+      },
+      {
+        "version": "7.2.2",
+        "source": "https://pypi.org/pypi/psutil/7.2.2/json",
+        "requires_python": ">=3.6",
+        "wheel_count": 20,
+        "sdist_count": 1,
+        "source_sha256": "84f9d2597c3c15fe19d1ce069bfdbf25951dc423dc51d67c3979468c029b6415"
+      }
+    ],
+    "removed_wheel_tags": 17,
+    "added_wheel_tags": 28,
+    "proposed_provenance_http_status_counts": {
+      "404": 21
+    }
+  },
+  "current_product_owner_checks": {
+    "ci": {
+      "identity": {
+        "repository": "jgoy-labs/server-nexe",
+        "pull_number": 62,
+        "base": "a476c2a35207578285c70bb2f8d0a40fd10e8003",
+        "head": "f1d2aea121eeb6e2abbc0b3fd151804207c4ca6e",
+        "base_ref": "main",
+        "head_ref": "dependabot/pip/psutil-7.2.2",
+        "created_at": "2026-08-23T14:54:31Z",
+        "observed_state": "open",
+        "merge_sha": "4647a6b9502797f3a300c6963b598b00e4778f4d"
+      },
+      "dependency": [
+        "psutil",
+        "5.9.8",
+        "7.2.2"
+      ],
+      "coverage": "supported_not_correlated",
+      "coverage_reason": "successful_exact_head_ci_with_static_dependency_consumption",
+      "runtime": "evaluated",
+      "runtime_reason": "runtime_dependency_state_candidates_evaluated",
+      "runtime_detail": "Evaluated 2 admitted exact direct-requirements command candidate(s) without collapsing their individual outcomes.",
+      "runtime_assessments": [
+        {
+          "state": "unresolved",
+          "reason": "manager_environment_needs_lower_source_evidence",
+          "detail": "The invocation form is preserved, but no decisive pip --python selector is visible. Process-environment/configuration/executable evidence is still required before effective manager environment can be asserted."
+        },
+        {
+          "state": "unresolved",
+          "reason": "manager_environment_needs_lower_source_evidence",
+          "detail": "The invocation form is preserved, but no decisive pip --python selector is visible. Process-environment/configuration/executable evidence is still required before effective manager environment can be asserted."
+        }
+      ],
+      "target_artifact_environments": [
+        {
+          "job": "tests",
+          "state": "available",
+          "detail": null,
+          "reason": null
+        },
+        {
+          "job": "precompute-check",
+          "state": "available",
+          "detail": null,
+          "reason": null
+        }
+      ],
+      "runs": [
+        {
+          "id": 32646873500,
+          "attempt": 1,
+          "conclusion": "success",
+          "path": ".github/workflows/ci.yml",
+          "correlation": "runtime_step_match_missing",
+          "detail": "Runtime job 'Update Coverage Badge' has no step matching static display name 'Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1'.",
+          "jobs": [
+            {
+              "id": 97212373070,
+              "name": "Layering Gate (#471)",
+              "conclusion": "success",
+              "steps": 7
+            },
+            {
+              "id": 97212373207,
+              "name": "Unit Tests",
+              "conclusion": "success",
+              "steps": 10
+            },
+            {
+              "id": 97212373241,
+              "name": "Precomputed KB Manifest",
+              "conclusion": "success",
+              "steps": 8
+            },
+            {
+              "id": 97212373252,
+              "name": "Static analysis (ruff+bandit+vulture gates, mypy advisory)",
+              "conclusion": "success",
+              "steps": 11
+            },
+            {
+              "id": 97212373292,
+              "name": "Security Audit",
+              "conclusion": "success",
+              "steps": 10
+            },
+            {
+              "id": 97213010719,
+              "name": "Update Coverage Badge",
+              "conclusion": "skipped",
+              "steps": 0
+            }
+          ],
+          "workflow_coverage": "supported_not_correlated",
+          "static_consumption": "supported",
+          "runtime_consumption": "unresolved",
+          "direct_exercise": "not_established"
+        }
+      ]
+    },
+    "package": {
+      "repository_state": "source_unavailable",
+      "repository": null,
+      "repository_detail": "No exact distribution file exposed usable PyPI provenance.",
+      "artifact_candidate": "ArtifactServiceabilityImpactCandidate",
+      "removed": 17,
+      "added": 28,
+      "applicability": "unresolved"
+    },
+    "first_upstream_stop": "source_unavailable",
+    "source_window_countercheck": null,
+    "model_called": false,
+    "target_python_semantic_evaluation": "not_run",
+    "action_policy_expectation": "abstain",
+    "product_report_generated": false
+  },
+  "baseline": {
+    "version": "simulation-transparent-baseline-v0.1",
+    "version_change_category": "major",
+    "ci_conclusion": "passing",
+    "ci_scope": "observed exact-head Actions run set",
+    "dependency_directness": "direct",
+    "keyword_source": "not scored because the earlier CI or major-version rule decides the outcome",
+    "matched_rule": "B04",
+    "outcome": "run_targeted_checks"
+  },
+  "reference_limits": [
+    "Full upstream and target bodies remain in the owner-private evidence store.",
+    "The filename-to-SHA-256 map identifies retained inputs and derived checks. Public readers can follow the sources in README.md.",
+    "No external repository execution, new CI run, installed UpgradePilot report, model call or compatibility benchmark was performed."
+  ],
+  "retained_evidence_sha256": {
+    "server-nexe-admission-pr.json": "c71b55a6f1af00d89fbe9617e359daee9c9b062a6012c9c40faa058de8f0eb19",
+    "server-nexe-admission-files.json": "b09ad8fce23000e2be8e9ab807ec8b1c8e6e69f7355d0b3cd8cb740279b277ad",
+    "server-nexe-admission-runs.json": "cc377a01eafa149a8bf049b18d248e4725cf5961734923449de5902501e28d23",
+    "server-nexe-admission-jobs.json": "0c531b0df676f7ead5a2a4e57761a39c33f1cf6925b5bb56f5901dc076c9752d",
+    "server-nexe-admission-pr.source.json": "44d840dfb6cb6679888f09d4d7b315c1b8c15f8f82f8a8ec86b7bf7e2e43613b",
+    "server-nexe-admission-files.source.json": "817d92c3151eae82a1cd3fbe30cbdf98a715e699af0882da4c8b08ce463a4b43",
+    "server-nexe-admission-runs.source.json": "aa1f7dbc2dc722e7ea4901d3d8d1d03068e8c9cef17086f5d2b46f0396974c66",
+    "server-nexe-admission-jobs.source.json": "bef1ccd294132f5747ed1220baab3967714449c777f45319b9d8fd64520ac1bd",
+    "server-nexe-ci-workflow.txt": "172c8e16137a8a438bca0b2d170c59d4a8c8b6852dffed652dfe856f52f6e165",
+    "server-nexe-offline-ci-check.json": "0aa290f69e9b3321b5013760c3c722b6893d72c7ebb293fb6eef998b0d96e4ae",
+    "server-nexe-web-job.txt": "94a98a8cbf1c0c88a7a00bcf48cc97af5071a22dc5b77a0757859ed1002363a2",
+    "psutil-5.9.8.json": "63996f682200c7888be21b7beb593b01c5aaac33a549facdf8c33734824b8e7c",
+    "psutil-7.2.2.json": "84f9d2597c3c15fe19d1ce069bfdbf25951dc423dc51d67c3979468c029b6415",
+    "psutil-index.json": "3afe72fc20f2a965118da21efa973e1ff79fedcb46c6709557d2ee858b7aa015",
+    "offline-package-checks.json": "65cfbb988a6174af9e8c6a24aa3e02285fe17088b679c2803859dd58f3e1cf2d",
+    "artifact-tag-review.json": "daac79fe87c9dee49bf0ff5ae1d610ddf4d5150469482dd48a8cad2b797ce5a8",
+    "offline-source-window-checks.json": "2e58bf4e32a06417e3d7224a1fc327a3a53c128b22a024dc1160b93c6a65cf89",
+    "server-nexe-target-requirements.txt.txt": "348feb1974a2e068fbfe75783a3261cad08500b1d11f85abb10a9ee0d05fca36",
+    "server-nexe-target-pyproject.toml.txt": "6753535b1117caf8e3c657215d74c9d254959875ceb72d8034a5ba6d49f6ede8",
+    "server-nexe-target-requirements-windows.txt.txt": "e2aa9fba2595e036572aa83c27874088517b979f8997d6d2888bb5d3d42823cf",
+    "server-nexe-target-core__server__watchdog.py.txt": "3a54b3f2c43c4b0c11f6ac4963c92654961d5d93fccceabcf1188bd476fdd521",
+    "server-nexe-target-tests__core__test_parent_watchdog_sidecar.py.txt": "5c644f3817407124146679be108b8f1043aa438ea0732218136825850b348c39",
+    "psutil-v7.2.2-HISTORY.rst.txt": "99c18235ab20200dd7930aca2b962d6080f5a9b89f1912d54faab546a1c971da",
+    "server-nexe-step-4-public-log.source.json": "a8f82f1db02e1f62b1c65103ac4765166da590ec9e08ffee461669b4de394cb7"
+  },
+  "maintainer_review_expectations": {
+    "supported_claims": [
+      "The exact Linux Unit Tests job reached both install and tests successfully.",
+      "The skipped coverage-badge sibling is expected for this PR and is the first workflow-wide correlation stop.",
+      "The separate Windows ARM64 requirements file already pins the proposed version."
+    ],
+    "material_unknowns": [
+      "Exact runtime interpreter and loaded psutil distribution",
+      "Windows packaging behavior from its own job or retained evidence"
+    ],
+    "withheld_inferences": [
+      "Do not use the Ubuntu run as Windows or ARM64 proof.",
+      "Do not infer loss of the exact target wheel from removed tag strings."
+    ],
+    "defensible_follow_up": "Check same-environment package identity and a real psutil-dependent path only if the decision needs stronger Linux evidence.",
+    "status": "manual reference answer, pending independent reviewer"
+  }
+}

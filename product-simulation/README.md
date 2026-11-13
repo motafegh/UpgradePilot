@@ -19,6 +19,7 @@ Use the smallest reading path that matches the task.
 | understand local authority and simulation boundaries | [`AGENTS.md`](AGENTS.md), then [`SIMULATION_GOVERNANCE_AND_PLAN.md`](SIMULATION_GOVERNANCE_AND_PLAN.md) |
 | understand the original S001–S005 program | [`D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md`](D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md), then [`SCENARIO_COVERAGE.md`](SCENARIO_COVERAGE.md) |
 | understand the historical manual artifact model | [`RUNTIME_ARTIFACT_SPECIFICATION.md`](RUNTIME_ARTIFACT_SPECIFICATION.md), then [`SCENARIO_EXECUTION_TEMPLATE.md`](SCENARIO_EXECUTION_TEMPLATE.md) |
+| compare current product owners with full manual analysis on open PRs | [S017–S020 open-PR manual cases](2026-11-13_OPEN_PR_MANUAL_CASES.md) |
 | understand how historical case method evolved | [`S001_S002_CROSS_CASE_ARTIFACT_REVIEW.md`](S001_S002_CROSS_CASE_ARTIFACT_REVIEW.md), then the S003–S005 post-case syntheses |
 | understand the post-D1 recalibration | [`PRODUCT_SIMULATION_RECALIBRATION_2026-08-06.md`](PRODUCT_SIMULATION_RECALIBRATION_2026-08-06.md) |
 | compare S001–S005 through impact/applicability/investigation/stopping | [`IMPACT_INVESTIGATION_COVERAGE_REBASE_2026-08-06.md`](IMPACT_INVESTIGATION_COVERAGE_REBASE_2026-08-06.md) |

@@ -1,0 +1,257 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S020",
+  "product_source_commit": "fb035cfe6e51387001184585b0871f65323535b7",
+  "observation": {
+    "observed_at_utc": "2026-11-13T17:26:37.752983+00:00",
+    "mode": "manual analysis of open PR with previously recorded CI attempt",
+    "review": "assistant source and deterministic cross-checks completed; owner and independent maintainer review pending"
+  },
+  "future_ordinary_invocation": {
+    "repository": "FalkorDB/migrate-neo4j-falkordb",
+    "pull_number": 29,
+    "executed": false
+  },
+  "frozen_identity": {
+    "repository": "FalkorDB/migrate-neo4j-falkordb",
+    "pull_number": 29,
+    "base": "5033cecb19be9dd9393695a41b90c212a70943dd",
+    "head": "1f114dc971b29d6b93177c1bf8144078b2b7bb47",
+    "base_ref": "main",
+    "head_ref": "dependabot/pip/pandas-3.1.1",
+    "created_at": "2026-11-09T11:26:19Z",
+    "observed_state": "open",
+    "merge_sha": "b4a5a00b1652ccf896dfa9949e117c91728c9034"
+  },
+  "dependency_change": {
+    "file": "requirements.txt",
+    "package": "pandas",
+    "old_version": "2.2.3",
+    "proposed_version": "3.1.1"
+  },
+  "selected_ci_evidence": {
+    "run_id": 42609060595,
+    "event": "pull_request",
+    "attempt": 1,
+    "run_started_at_utc": "2026-11-09T11:26:26Z",
+    "run_conclusion": "failure",
+    "job_id": 129132417413,
+    "job": "build-test-lint",
+    "job_conclusion": "failure",
+    "run_head": "1f114dc971b29d6b93177c1bf8144078b2b7bb47",
+    "job_head": "1f114dc971b29d6b93177c1bf8144078b2b7bb47",
+    "workflow": ".github/workflows/ci.yml",
+    "steps": [
+      {
+        "number": 2,
+        "name": "Checkout code",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "number": 3,
+        "name": "Set up Python",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "number": 4,
+        "name": "Install dependencies",
+        "status": "completed",
+        "conclusion": "skipped"
+      },
+      {
+        "number": 7,
+        "name": "Run tests",
+        "status": "completed",
+        "conclusion": "skipped"
+      }
+    ],
+    "step_list_is_selected_subset": true
+  },
+  "package_observations": {
+    "releases": [
+      {
+        "version": "2.2.3",
+        "source": "https://pypi.org/pypi/pandas/2.2.3/json",
+        "requires_python": ">=3.9",
+        "wheel_count": 41,
+        "sdist_count": 1,
+        "source_sha256": "1282e2bca06a0c80a69ed0cd481ea509f668f930b3a69751a007dd7ac4321719"
+      },
+      {
+        "version": "3.1.1",
+        "source": "https://pypi.org/pypi/pandas/3.1.1/json",
+        "requires_python": ">=3.11",
+        "wheel_count": 57,
+        "sdist_count": 1,
+        "source_sha256": "89c7b02c67ebcd7f8afdd667b54b198afd5a6c106b680257de81a4e4a862d581"
+      }
+    ],
+    "removed_wheel_tags": 39,
+    "added_wheel_tags": 57,
+    "proposed_provenance_http_status_counts": {
+      "200": 58
+    }
+  },
+  "current_product_owner_checks": {
+    "ci": {
+      "identity": {
+        "repository": "FalkorDB/migrate-neo4j-falkordb",
+        "pull_number": 29,
+        "base": "5033cecb19be9dd9393695a41b90c212a70943dd",
+        "head": "1f114dc971b29d6b93177c1bf8144078b2b7bb47",
+        "base_ref": "main",
+        "head_ref": "dependabot/pip/pandas-3.1.1",
+        "created_at": "2026-11-09T11:26:19Z",
+        "observed_state": "open",
+        "merge_sha": "b4a5a00b1652ccf896dfa9949e117c91728c9034"
+      },
+      "dependency": [
+        "pandas",
+        "2.2.3",
+        "3.1.1"
+      ],
+      "coverage": "no_successful_ci",
+      "coverage_reason": "no_successful_exact_head_jobs",
+      "runtime": "evaluated",
+      "runtime_reason": "runtime_dependency_state_candidates_evaluated",
+      "runtime_detail": "Evaluated 1 admitted exact direct-requirements command candidate(s) without collapsing their individual outcomes.",
+      "runtime_assessments": [
+        {
+          "state": "unresolved",
+          "reason": "manager_environment_needs_lower_source_evidence",
+          "detail": "The invocation form is preserved, but no decisive pip --python selector is visible. Process-environment/configuration/executable evidence is still required before effective manager environment can be asserted."
+        }
+      ],
+      "target_artifact_environments": [
+        {
+          "job": "build-test-lint",
+          "state": "available",
+          "detail": null,
+          "reason": null
+        }
+      ],
+      "runs": [
+        {
+          "id": 42609060595,
+          "attempt": 1,
+          "conclusion": "failure",
+          "path": ".github/workflows/ci.yml",
+          "correlation": "static_job_name_missing",
+          "detail": "Job 'build-test-lint' has no explicit display name for bounded correlation.",
+          "jobs": [
+            {
+              "id": 129132417413,
+              "name": "build-test-lint",
+              "conclusion": "failure",
+              "steps": 10
+            }
+          ],
+          "workflow_coverage": "no_successful_ci",
+          "static_consumption": "supported",
+          "runtime_consumption": "unresolved",
+          "direct_exercise": "not_established"
+        }
+      ]
+    },
+    "package": {
+      "repository_state": "ambiguous_source",
+      "repository": null,
+      "repository_detail": "PyPI metadata contains conflicting or unsupported admitted repository-association candidates.",
+      "artifact_candidate": "ArtifactServiceabilityImpactCandidate",
+      "removed": 39,
+      "added": 57,
+      "applicability": "unresolved"
+    },
+    "first_upstream_stop": "ambiguous_source",
+    "source_window_countercheck": {
+      "versions": [
+        "2.3.0",
+        "2.3.1",
+        "2.3.2",
+        "2.3.3",
+        "3.0.0rc0",
+        "3.0.0rc1",
+        "3.0.0rc2",
+        "3.0.0",
+        "3.0.1",
+        "3.0.2",
+        "3.0.3",
+        "3.0.4",
+        "3.0.5",
+        "3.0.6",
+        "3.1.0rc0",
+        "3.1.0",
+        "3.1.1"
+      ],
+      "result": "missing_release_section",
+      "detail": "No admitted Markdown release section matched crossed release '2.3.0'.",
+      "note": "Pandas RST is a countercheck outside admitted changelog discovery"
+    },
+    "model_called": false,
+    "target_python_semantic_evaluation": "not_run",
+    "action_policy_expectation": "abstain",
+    "product_report_generated": false
+  },
+  "baseline": {
+    "version": "simulation-transparent-baseline-v0.1",
+    "version_change_category": "major",
+    "ci_conclusion": "failing",
+    "ci_scope": "observed exact-head Actions run set",
+    "dependency_directness": "direct",
+    "keyword_source": "not scored because the earlier CI or major-version rule decides the outcome",
+    "matched_rule": "B01",
+    "outcome": "investigate_or_block"
+  },
+  "reference_limits": [
+    "Full upstream and target bodies remain in the owner-private evidence store.",
+    "The filename-to-SHA-256 map identifies retained inputs and derived checks. Public readers can follow the sources in README.md.",
+    "No external repository execution, new CI run, installed UpgradePilot report, model call or compatibility benchmark was performed."
+  ],
+  "retained_evidence_sha256": {
+    "falkordb-admission-pr.json": "75ec0970f328bf9184a93a174560ebfdd32c219171769b36342289e995708b90",
+    "falkordb-admission-files.json": "9a24487edc4fb3d65ceb89bfb0744344c1443c584d11222bb90b8385305c2ac3",
+    "falkordb-admission-runs.json": "333f07991a661c83304745152c9e3f2653146d1db1972108335a5d05215d14c7",
+    "falkordb-admission-jobs.json": "1c1b8ecf43bed2240c945be08b730bb56c98b51df396c795f813b85b898a56f2",
+    "falkordb-admission-pr.source.json": "a7655bf9749b1c382c59cd171c5980be25ecc7e63ed3b630362ebf9a4db9d950",
+    "falkordb-admission-files.source.json": "e073b9979df5ddd99f98d084566314b154a1231f2ab4c03b8458384e506159bd",
+    "falkordb-admission-runs.source.json": "1c80de52feb8a93fc6144ed59b543a0a5c6c7017cca0aa6926bef74db8ea7668",
+    "falkordb-admission-jobs.source.json": "6bdfa794fdec30175ad8ec1324a7d2b2347581fe583957b20fadcbb07e6b4c61",
+    "falkordb-ci-workflow.txt": "a98c3243764f7492caa547d823e69b6251ad49d4c099de99f4bea95cfb69e22b",
+    "falkordb-offline-ci-check.json": "17131b728ca38388a8d5aba53d442040ee69763d148f6144bfd961a9ec1ac9d5",
+    "falkordb-web-job.txt": "ab5d1f5980e83a9ee849b548480726b8118915fee5908ea8e2bf0e999c2ec3ff",
+    "pandas-2.2.3.json": "1282e2bca06a0c80a69ed0cd481ea509f668f930b3a69751a007dd7ac4321719",
+    "pandas-3.1.1.json": "89c7b02c67ebcd7f8afdd667b54b198afd5a6c106b680257de81a4e4a862d581",
+    "pandas-index.json": "fdc4efa1ffd6b3849a055b69ee1d220dcf367f3eb0ccb23c916180024b0c3cb0",
+    "offline-package-checks.json": "65cfbb988a6174af9e8c6a24aa3e02285fe17088b679c2803859dd58f3e1cf2d",
+    "artifact-tag-review.json": "daac79fe87c9dee49bf0ff5ae1d610ddf4d5150469482dd48a8cad2b797ce5a8",
+    "offline-source-window-checks.json": "2e58bf4e32a06417e3d7224a1fc327a3a53c128b22a024dc1160b93c6a65cf89",
+    "falkordb-target-requirements.txt.txt": "324707fc0aff502429209f994ab5873254c12eebf87cb68336b7e6ffed5665d7",
+    "falkordb-target-migrate__export_from_neo4j.py.txt": "45f9e0f478bfd9a5513b243f196d8140626756f512ea8416697131304793a3ed",
+    "falkordb-target-README.md.txt": "c8e3d3d987bae9eb9898ee289de63e88002b147064de5c377fdd684ea089825e",
+    "pandas-v3.1.1-doc__source__whatsnew__v3.0.0.rst.txt": "770b5f3d7dfc33d2fd624697ebc52f2739b5bb7cfc3cd086c515e9b9a505f23a",
+    "pandas-v3.1.1-doc__source__whatsnew__v3.1.0.rst.txt": "6d59596ef6010b2cc4c5bbafe30a1313e839949cc8cbbec34f533d30cf1fb966",
+    "pandas-upstream-tree.json": "cc7ca366268b8abe3fd91c4477a4b24b7150e8a4f6add0564c137f0dae9b9c04",
+    "falkordb-step-3-public-log.source.json": "de42366054ea57e1e8b576e6e7b48aaff4dc24be1b8bb33b7b60cfce4d154e98",
+    "falkordb-job-log.source.json": "485bc7a3b752223f44dfb6f3beba17405943048dc3d04c67adf9a5de98ca2f96"
+  },
+  "maintainer_review_expectations": {
+    "supported_claims": [
+      "Python setup failed before pip. The GitHub annotation supplies the scoped setup reason.",
+      "Pandas 3.1.1 requires Python 3.11 or later, independently excluding the declared Python 3.9 path.",
+      "Timestamp unit inference can affect the exact migration expressions under affected inputs."
+    ],
+    "material_unknowns": [
+      "The intended downstream timestamp unit",
+      "Behavioral result of the old/new conversion on a representative input"
+    ],
+    "withheld_inferences": [
+      "Do not call the observed setup failure a pandas install failure.",
+      "Do not assert a migration data defect was observed."
+    ],
+    "defensible_follow_up": "Resolve Python support policy, then compare the old/new timestamp expressions on a representative input with an explicit expected unit.",
+    "status": "manual reference answer, pending independent reviewer"
+  }
+}

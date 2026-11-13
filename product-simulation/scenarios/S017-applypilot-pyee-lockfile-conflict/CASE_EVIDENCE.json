@@ -1,0 +1,278 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S017",
+  "product_source_commit": "fb035cfe6e51387001184585b0871f65323535b7",
+  "observation": {
+    "observed_at_utc": "2026-11-13T17:26:36.740512+00:00",
+    "mode": "manual analysis of open PR with previously recorded CI attempt",
+    "review": "assistant source and deterministic cross-checks completed; owner and independent maintainer review pending"
+  },
+  "future_ordinary_invocation": {
+    "repository": "miladse1/applypilot",
+    "pull_number": 8,
+    "executed": false
+  },
+  "frozen_identity": {
+    "repository": "miladse1/applypilot",
+    "pull_number": 8,
+    "base": "4996efaa87cb93289d2da899f306d779a84687f0",
+    "head": "3009f89f0d4f58fcc588647a5c33f3a8e95bf05f",
+    "base_ref": "main",
+    "head_ref": "dependabot/pip/services/api/pyee-16.0.1",
+    "created_at": "2026-11-11T18:01:06Z",
+    "observed_state": "open",
+    "merge_sha": "b1a0c105f40fb07b64a6dd0332fc8297e76c0aae"
+  },
+  "dependency_change": {
+    "file": "services/api/requirements-lock.txt",
+    "package": "pyee",
+    "old_version": "14.0.0",
+    "proposed_version": "16.0.1"
+  },
+  "selected_ci_evidence": {
+    "run_id": 43073710410,
+    "event": "pull_request",
+    "attempt": 1,
+    "run_started_at_utc": "2026-11-11T18:01:12Z",
+    "run_conclusion": "failure",
+    "job_id": 130708096164,
+    "job": "API lint and tests",
+    "job_conclusion": "failure",
+    "run_head": "3009f89f0d4f58fcc588647a5c33f3a8e95bf05f",
+    "job_head": "3009f89f0d4f58fcc588647a5c33f3a8e95bf05f",
+    "workflow": ".github/workflows/ci.yml",
+    "steps": [
+      {
+        "number": 3,
+        "name": "Run actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "number": 4,
+        "name": "Run python -m pip install -r requirements-lock.txt ruff==0.17.4",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "number": 5,
+        "name": "Lint (bugs and security rules, see pyproject.toml)",
+        "status": "completed",
+        "conclusion": "skipped"
+      },
+      {
+        "number": 6,
+        "name": "Tests",
+        "status": "completed",
+        "conclusion": "skipped"
+      }
+    ],
+    "step_list_is_selected_subset": true
+  },
+  "package_observations": {
+    "releases": [
+      {
+        "version": "14.0.0",
+        "source": "https://pypi.org/pypi/pyee/14.0.0/json",
+        "requires_python": ">=3.12",
+        "wheel_count": 1,
+        "sdist_count": 1,
+        "source_sha256": "d49cc0089f6ef9d5a67fcd7ce7cbeeff86ca061fb99a26654bd07e979948e916"
+      },
+      {
+        "version": "16.0.1",
+        "source": "https://pypi.org/pypi/pyee/16.0.1/json",
+        "requires_python": ">=3.12",
+        "wheel_count": 1,
+        "sdist_count": 1,
+        "source_sha256": "544aae4fe596e745a8389042f196b300e9a83fc842e9810ddfda1b39e86239aa"
+      }
+    ],
+    "removed_wheel_tags": 0,
+    "added_wheel_tags": 0,
+    "proposed_provenance_http_status_counts": {
+      "200": 2
+    }
+  },
+  "current_product_owner_checks": {
+    "ci": {
+      "identity": {
+        "repository": "miladse1/applypilot",
+        "pull_number": 8,
+        "base": "4996efaa87cb93289d2da899f306d779a84687f0",
+        "head": "3009f89f0d4f58fcc588647a5c33f3a8e95bf05f",
+        "base_ref": "main",
+        "head_ref": "dependabot/pip/services/api/pyee-16.0.1",
+        "created_at": "2026-11-11T18:01:06Z",
+        "observed_state": "open",
+        "merge_sha": "b1a0c105f40fb07b64a6dd0332fc8297e76c0aae"
+      },
+      "dependency": [
+        "pyee",
+        "14.0.0",
+        "16.0.1"
+      ],
+      "coverage": "unresolved",
+      "coverage_reason": "dependency_consumption_not_established",
+      "runtime": "evaluated",
+      "runtime_reason": "runtime_dependency_state_candidates_evaluated",
+      "runtime_detail": "Evaluated 1 admitted exact direct-requirements command candidate(s) without collapsing their individual outcomes.",
+      "runtime_assessments": [
+        {
+          "state": "unresolved",
+          "reason": "manager_environment_needs_lower_source_evidence",
+          "detail": "The invocation form is preserved, but no decisive pip --python selector is visible. Process-environment/configuration/executable evidence is still required before effective manager environment can be asserted."
+        }
+      ],
+      "target_artifact_environments": [
+        {
+          "job": "api",
+          "state": "available",
+          "detail": null,
+          "reason": null
+        }
+      ],
+      "runs": [
+        {
+          "id": 43073710569,
+          "attempt": 1,
+          "conclusion": "failure",
+          "path": ".github/workflows/security.yml",
+          "correlation": "workflow_jobs_and_steps_correlated",
+          "detail": "Static ordinary jobs and user-declared steps were matched one-to-one to runtime jobs and ordered runtime step summaries.",
+          "jobs": [
+            {
+              "id": 130707966827,
+              "name": "JavaScript dependency audit",
+              "conclusion": "success",
+              "steps": 8
+            },
+            {
+              "id": 130707967265,
+              "name": "Python dependency audit",
+              "conclusion": "failure",
+              "steps": 8
+            },
+            {
+              "id": 130707967416,
+              "name": "Secrets, sensitive files, full history",
+              "conclusion": "success",
+              "steps": 6
+            }
+          ],
+          "workflow_coverage": "unresolved",
+          "static_consumption": "not_established",
+          "runtime_consumption": "not_established",
+          "direct_exercise": "not_established"
+        },
+        {
+          "id": 43073710410,
+          "attempt": 1,
+          "conclusion": "failure",
+          "path": ".github/workflows/ci.yml",
+          "correlation": "workflow_jobs_and_steps_correlated",
+          "detail": "Static ordinary jobs and user-declared steps were matched one-to-one to runtime jobs and ordered runtime step summaries.",
+          "jobs": [
+            {
+              "id": 130708096164,
+              "name": "API lint and tests",
+              "conclusion": "failure",
+              "steps": 9
+            },
+            {
+              "id": 130708096493,
+              "name": "Web tests, types, and build",
+              "conclusion": "success",
+              "steps": 10
+            }
+          ],
+          "workflow_coverage": "unresolved",
+          "static_consumption": "supported",
+          "runtime_consumption": "not_established",
+          "direct_exercise": "not_established"
+        }
+      ]
+    },
+    "package": {
+      "repository_state": "available",
+      "repository": "jfhbrook/pyee",
+      "repository_detail": null,
+      "artifact_candidate": "not_observed"
+    },
+    "first_upstream_stop": "multiple_candidate_paths",
+    "source_window_countercheck": {
+      "versions": [
+        "15.0.0",
+        "16.0.0",
+        "16.0.1"
+      ],
+      "result": "missing_release_section",
+      "detail": "No admitted Markdown release section matched crossed release '15.0.0'.",
+      "note": null
+    },
+    "model_called": false,
+    "target_python_semantic_evaluation": "not_run",
+    "action_policy_expectation": "abstain",
+    "product_report_generated": false
+  },
+  "baseline": {
+    "version": "simulation-transparent-baseline-v0.1",
+    "version_change_category": "major",
+    "ci_conclusion": "failing",
+    "ci_scope": "observed exact-head Actions run set",
+    "dependency_directness": "transitive",
+    "keyword_source": "not scored because the earlier CI or major-version rule decides the outcome",
+    "matched_rule": "B01",
+    "outcome": "investigate_or_block"
+  },
+  "reference_limits": [
+    "Full upstream and target bodies remain in the owner-private evidence store.",
+    "The filename-to-SHA-256 map identifies retained inputs and derived checks. Public readers can follow the sources in README.md.",
+    "No external repository execution, new CI run, installed UpgradePilot report, model call or compatibility benchmark was performed."
+  ],
+  "retained_evidence_sha256": {
+    "applypilot-admission-pr.json": "d93bb944f3b9439aa3a55170c3d4b4cc6df91c415ab0dfc3d8bbfd653949d4cf",
+    "applypilot-admission-files.json": "2ccaf05941818e2e22d2a58a1e8dadee1952a00c4a243b3b1451d87f359e258e",
+    "applypilot-admission-runs.json": "6ec7e6fce5a7328c406e47e600cdf6f8b8418598038c51f72c19fba902fd2596",
+    "applypilot-admission-jobs.json": "6a5a75e5481f018a57a7575573525efc55495cb1483f8390ee0439ffe8e18dd8",
+    "applypilot-admission-pr.source.json": "61f842d9ccaabc055827021d5d10570d228ac38a9703c222cb5453c9a343bb6c",
+    "applypilot-admission-files.source.json": "810735b4422f305d153474c2203c2ecf3aa15d2ee5577f4e81ba273436967017",
+    "applypilot-admission-runs.source.json": "addfc19017b5ace441437b3d185f4ab4751f34e54f9a0f6f92f78746485e0413",
+    "applypilot-admission-jobs.source.json": "29d466f9aec1bc93b9e2aa17957a4846d438c8a65c21d7a539791534a3484123",
+    "applypilot-ci-workflow.txt": "e29f1e4e7efb2576f1ea6171985e2a69279f309b9e47a2cfbf238b6064b7de21",
+    "applypilot-offline-ci-check.json": "ad5e3b97097361144d9eea219dc4d989d57a50c6e4f9720a3bf84646be1eda9f",
+    "applypilot-web-job.txt": "8a0c0d5ff455932216bd30e49ac1919a24201dabca11b12706f47de99e565311",
+    "pyee-14.0.0.json": "d49cc0089f6ef9d5a67fcd7ce7cbeeff86ca061fb99a26654bd07e979948e916",
+    "pyee-16.0.1.json": "544aae4fe596e745a8389042f196b300e9a83fc842e9810ddfda1b39e86239aa",
+    "pyee-index.json": "b0c71486cdb78691bd2a968fbfc66bfb98277830b1b65f2532600eadb4080335",
+    "offline-package-checks.json": "65cfbb988a6174af9e8c6a24aa3e02285fe17088b679c2803859dd58f3e1cf2d",
+    "artifact-tag-review.json": "daac79fe87c9dee49bf0ff5ae1d610ddf4d5150469482dd48a8cad2b797ce5a8",
+    "offline-source-window-checks.json": "2e58bf4e32a06417e3d7224a1fc327a3a53c128b22a024dc1160b93c6a65cf89",
+    "applypilot-security-jobs.json": "f376c4753ac0f16003f391d9b4b17ad2dbddb56869cd5ac317f2f5e939b4896d",
+    "applypilot-security-workflow.txt": "46d7e49228febecd84057c58b9b03d253616f4fd4c2448994157188d464c080f",
+    "applypilot-target-services__api__requirements-lock.txt.txt": "02bc0a64c433d02f5bfd44e7af46089e5b6e692e90aa05ee548cfce61d344600",
+    "applypilot-target-services__api__app__services__autoapply__runner.py.txt": "e12d911ff4559aea338a4d705d0594344b75b91f6b3e47c68c69dae9089f91aa",
+    "playwright-1.64.1.json": "eee88ef1964912c0a159a5eedb282af27ec0b82dd44626c3254849ed28c1f489",
+    "pyee-v16.0.1-CHANGELOG.md.txt": "2d6806f9db065c74301e3f60cbc17ab6266ee6e52c9c93ad7f15f945ed78db35",
+    "pyee-upstream-tree.json": "c708a420985899f86dd1980a46e26b2bc6819c2fae08246cf3b19fd351dbb452",
+    "applypilot-step-4-public-log.source.json": "aefa9c056b3b92cb10a407bf8fcb197c80ce0ea24148d7634fc0b1ad15b094d8",
+    "applypilot-job-log.source.json": "e271193fd398ef3569b6e4ea87501ccb056b042562db0c55dbfbeda475ac5f07"
+  },
+  "maintainer_review_expectations": {
+    "supported_claims": [
+      "The exact API job reached and failed its requirements-consuming step. Its tests were skipped.",
+      "Playwright 1.64.1 and pyee 16.0.1 conflict under the published Playwright dependency range and normal pip resolution."
+    ],
+    "material_unknowns": [
+      "Exact pip failure attribution",
+      "Loaded distribution and behavior after lock repair"
+    ],
+    "withheld_inferences": [
+      "Do not attribute CI failure to pyee from the exit code alone.",
+      "Do not count the old endpoint’s Python support drop as new."
+    ],
+    "defensible_follow_up": "Inspect the exact failed-step resolver message if it is available. Repair the incompatible pins together before behavioral evaluation.",
+    "status": "manual reference answer, pending independent reviewer"
+  }
+}
