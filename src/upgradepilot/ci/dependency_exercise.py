@@ -191,14 +191,22 @@ def evaluate_dependency_ci_coverage(
         None,
     )
     if runtime_correlated is not None:
-        return DependencyCICoverageResult(
-            state="supported_runtime_correlated",
-            reason="successful_exact_head_ci_with_runtime_correlated_dependency_consumption",
-            detail=(
+        correlation = runtime_correlated.runtime_correlation
+        if correlation is not None and correlation.state == "correlated_with_skipped_jobs":
+            detail = (
+                f"In workflow {runtime_correlated.workflow_name!r}, "
+                f"{runtime_correlated.runtime_consumption_detail} {correlation.detail}"
+            )
+        else:
+            detail = (
                 f"Workflow {runtime_correlated.workflow_name!r} contains supported static "
                 "changed-dependency consumption whose owning user-defined run step is "
                 "correlated to a completed-successful runtime step for the exact run attempt."
-            ),
+            )
+        return DependencyCICoverageResult(
+            state="supported_runtime_correlated",
+            reason="successful_exact_head_ci_with_runtime_correlated_dependency_consumption",
+            detail=detail,
             workflows=results,
         )
 
@@ -794,7 +802,7 @@ def _classify_runtime_strengthening(
             ),
         )
 
-    if correlation.state != "correlated":
+    if not correlation.has_job_matches:
         detail = (
             f"Supported static {evidence_label} exists, but the bounded workflow runtime "
             f"bridge is unavailable: {correlation.reason}: {correlation.detail}"

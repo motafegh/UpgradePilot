@@ -197,7 +197,7 @@ def establish_executable_selection(
             provider_reference=provider_step.reference.text,
         )
 
-    if correlation is None or correlation.state != "correlated":
+    if correlation is None or not correlation.has_job_matches:
         return _unresolved(
             location,
             executable=executable,
@@ -221,8 +221,7 @@ def establish_executable_selection(
             executable=executable,
             reason="setup_python_runtime_step_correlation_missing",
             detail=(
-                "The workflow runtime bridge is correlated, but the setup-python provider "
-                "step has no retained runtime-step correlation."
+                "The setup-python provider step has no retained runtime-step correlation."
             ),
             provider_step_source_index=provider_step.source_index,
             provider_reference=provider_step.reference.text,

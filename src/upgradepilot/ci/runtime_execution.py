@@ -162,7 +162,7 @@ def assess_exact_command_execution(
             detail=eligibility.detail,
         )
 
-    if correlation.state != "correlated":
+    if not correlation.has_job_matches:
         return _command_assessment(
             candidate,
             state="unresolved",
@@ -186,8 +186,7 @@ def assess_exact_command_execution(
             basis="step_correlation_unresolved",
             reason="exact_command_owning_step_correlation_missing",
             detail=(
-                f"The workflow bridge is correlated, but command occurrence "
-                f"{candidate.job_key!r}/{candidate.step_source_index} has no retained "
+                f"Command occurrence {candidate.job_key!r}/{candidate.step_source_index} has no retained "
                 "owning runtime-step correlation."
             ),
         )

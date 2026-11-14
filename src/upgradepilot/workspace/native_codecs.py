@@ -8,7 +8,7 @@ family/version support is explicit; a readable payload is not decoder authority.
 from dataclasses import dataclass, replace
 
 from ..ci.dependency_exercise import DependencyCICoverageResult
-from ..ci.native_codec import COVERAGE_V2_LAYOUTS, LAYOUTS as CI_LAYOUTS
+from ..ci.native_codec import COVERAGE_V2_LAYOUTS, COVERAGE_V3_LAYOUTS, LAYOUTS as CI_LAYOUTS
 from ..impact.python_support_codec import LAYOUTS as IMPACT_LAYOUTS
 from ..caller_signature.source_codec import decode_sources, encode_sources
 from ..caller_signature.comparison_codec import decode_comparison, encode_comparison
@@ -192,11 +192,18 @@ _OPTIONAL_FAMILY_CONTRACTS = {
 _CI_COVERAGE_V2 = replace(
     FAMILY_CONTRACTS["ci_coverage"], shape=_optional("dependency_ci_coverage_result_v2")
 )
+_CI_COVERAGE_V3 = replace(
+    FAMILY_CONTRACTS["ci_coverage"], shape=_optional("dependency_ci_coverage_result_v3")
+)
 _CALLER_SIGNATURE_SOURCES_V2 = replace(FAMILY_CONTRACTS["caller_signature_sources"], producer_version="2")
-_VALUES = NativeValueCodec(INPUT_LAYOUTS + CI_LAYOUTS + COVERAGE_V2_LAYOUTS + IMPACT_LAYOUTS)
+_VALUES = NativeValueCodec(
+    INPUT_LAYOUTS + CI_LAYOUTS + COVERAGE_V2_LAYOUTS + COVERAGE_V3_LAYOUTS + IMPACT_LAYOUTS
+)
 
 
 def family_contract(family: str, version: int = 1) -> NativeFamilyContract:
+    if type(version) is int and version == 3 and family == "ci_coverage":
+        return _CI_COVERAGE_V3
     if type(version) is int and version == 2 and family == "ci_coverage":
         return _CI_COVERAGE_V2
     if type(version) is int and version == 2 and family == "caller_signature_sources":

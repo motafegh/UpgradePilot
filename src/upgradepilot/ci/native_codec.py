@@ -1,4 +1,4 @@
-"""Fixed native CI layouts, with an explicit successor for workflow version requests.
+"""Fixed native CI layouts, including version requests and explicit skipped jobs.
 
 The representation retains command scope, semantic provenance and problem variants.
 It neither derives those facts nor strengthens their native proof boundary. Shared inputs
@@ -946,5 +946,36 @@ COVERAGE_V2_LAYOUTS = (
             ("requirement_token", str),
             ("requirement_source", str),
         ),
+    ),
+)
+
+_COVERAGE_V2, _WORKFLOW_V2 = COVERAGE_V2_LAYOUTS[:2]
+_CORRELATION_V1 = next(
+    item for item in LAYOUTS if item.variant == "workflow_runtime_correlation_result"
+)
+
+COVERAGE_V3_LAYOUTS = (
+    replace(
+        _COVERAGE_V2,
+        variant="dependency_ci_coverage_result_v3",
+        fields=_COVERAGE_V2.fields[:-1] + (
+            ("workflows", SequenceOf(RecordRef("workflow_dependency_coverage_result_v3"))),
+        ),
+    ),
+    replace(
+        _WORKFLOW_V2,
+        variant="workflow_dependency_coverage_result_v3",
+        fields=tuple(
+            (name, Either((RecordRef("workflow_runtime_correlation_result_v3"), type(None))))
+            if name == "runtime_correlation" else (name, shape)
+            for name, shape in _WORKFLOW_V2.fields
+        ),
+    ),
+    replace(
+        _CORRELATION_V1,
+        variant="workflow_runtime_correlation_result_v3",
+        fields=(
+            ("state", LiteralValues(("correlated", "correlated_with_skipped_jobs", "unresolved"))),
+        ) + _CORRELATION_V1.fields[1:],
     ),
 )

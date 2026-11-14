@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import replace
 import unittest
 
 from upgradepilot.ci.workflow_runtime_correlation import correlate_workflow_runtime
@@ -65,6 +66,48 @@ def _job(
 
 
 class WorkflowRuntimeCorrelationTests(unittest.TestCase):
+    def test_skipped_job_with_explicitly_empty_steps_preserves_other_job_matches(self) -> None:
+        source = _source("""
+jobs:
+  tests:
+    name: Linux tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install
+        run: pip install -r requirements.txt
+  badge:
+    name: Update badge
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+      - name: Publish badge
+        run: make badge
+""")
+        linux = _job(501, "Linux tests", (_step(4, "Install"),))
+        badge = replace(_job(502, "Update badge", ()), conclusion="skipped")
+        result = correlate_workflow_runtime(source, _run(), (linux, badge))
+        self.assertEqual(result.state, "correlated_with_skipped_jobs")
+        linux_match, badge_match = result.jobs
+        self.assertEqual(linux_match.steps[0].runtime_step.number, 4)
+        self.assertEqual(badge_match.runtime_job, badge)
+        self.assertEqual(badge_match.steps, ())
+
+        for supplied, reason in (
+            ((linux, replace(badge, steps=None)), "runtime_steps_unavailable"),
+            ((linux, replace(badge, conclusion="success")), "runtime_step_match_missing"),
+            ((replace(linux, steps=()), badge), "runtime_step_match_missing"),
+            (
+                (replace(linux, steps=(_step(4, "Install"), _step(5, "Install"))), badge),
+                "runtime_step_match_ambiguous",
+            ),
+            ((linux, replace(badge, run_id=1002)), "runtime_job_scope_mismatch"),
+            ((linux, replace(badge, job_id=linux.job_id)), "duplicate_runtime_job_id"),
+        ):
+            with self.subTest(reason=reason):
+                refusal = correlate_workflow_runtime(source, _run(), supplied)
+                self.assertEqual(refusal.state, "unresolved")
+                self.assertEqual(refusal.reason, reason)
+
     def test_correlates_named_jobs_and_user_steps_as_runtime_subsequences(self) -> None:
         source = _source(
             """

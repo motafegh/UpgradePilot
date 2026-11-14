@@ -31,7 +31,9 @@ from ..github.workflow_definition import (
 
 
 type CorrelatableWorkflowStep = RunStepDefinition | UsesStepDefinition
-type WorkflowRuntimeCorrelationState = Literal["correlated", "unresolved"]
+type WorkflowRuntimeCorrelationState = Literal[
+    "correlated", "correlated_with_skipped_jobs", "unresolved"
+]
 
 
 @dataclass(frozen=True, slots=True)
@@ -50,6 +52,11 @@ class WorkflowRuntimeJobCorrelation:
     runtime_job: WorkflowJob
     steps: tuple[WorkflowRuntimeStepCorrelation, ...]
 
+    @property
+    def skipped_without_steps(self) -> bool:
+        job = self.runtime_job
+        return job.status == "completed" and job.conclusion == "skipped" and job.steps == ()
+
 
 @dataclass(frozen=True, slots=True)
 class WorkflowRuntimeCorrelationResult:
@@ -59,6 +66,10 @@ class WorkflowRuntimeCorrelationResult:
     reason: str
     detail: str
     jobs: tuple[WorkflowRuntimeJobCorrelation, ...] = ()
+
+    @property
+    def has_job_matches(self) -> bool:
+        return self.state in {"correlated", "correlated_with_skipped_jobs"}
 
 
 def correlate_workflow_runtime(
@@ -73,13 +84,25 @@ def correlate_workflow_runtime(
     deterministic user-step display identities that appear once and in order within each
     runtime job. Explicit literal step names are used directly; admitted unnamed steps use
     GitHub Runner's provider-defined display-name rule. Runtime-only setup/post/completion
-    steps are allowed between those user-declared steps.
+    steps are allowed between those user-declared steps. An explicitly skipped completed
+    job with a supplied empty step list retains its job identity without step matches.
     """
 
     if source.revision != run.head_sha:
         return _unresolved(
             "workflow_revision_mismatch",
             "Static workflow revision does not match the runtime workflow head SHA.",
+        )
+
+    if any(job.run_id != run.run_id or job.head_sha != run.head_sha for job in jobs):
+        return _unresolved(
+            "runtime_job_scope_mismatch",
+            "A runtime job belongs to a different run or head revision.",
+        )
+    if len({job.job_id for job in jobs}) != len(jobs):
+        return _unresolved(
+            "duplicate_runtime_job_id",
+            "Runtime job IDs are not unique in the supplied attempt.",
         )
 
     definition = parse_workflow_definition(source)
@@ -152,6 +175,10 @@ def correlate_workflow_runtime(
     correlations: list[WorkflowRuntimeJobCorrelation] = []
     for static_job, static_job_name in zip(static_jobs, static_job_names, strict=True):
         runtime_job = runtime_jobs_by_name[static_job_name]
+        job = WorkflowRuntimeJobCorrelation(static_job, runtime_job, ())
+        if job.skipped_without_steps:
+            correlations.append(job)
+            continue
         step_result = _correlate_job_steps(static_job, runtime_job)
         if isinstance(step_result, WorkflowRuntimeCorrelationResult):
             return step_result
@@ -161,6 +188,20 @@ def correlate_workflow_runtime(
                 runtime_job=runtime_job,
                 steps=step_result,
             )
+        )
+
+    skipped = tuple(job for job in correlations if job.skipped_without_steps)
+    if skipped:
+        names = ", ".join(repr(job.runtime_job.name) for job in skipped)
+        return WorkflowRuntimeCorrelationResult(
+            state="correlated_with_skipped_jobs",
+            reason="workflow_jobs_correlated_with_skipped_jobs_without_steps",
+            detail=(
+                f"The exact attempt reported these jobs skipped with zero steps: {names}. "
+                "Their job identities are retained without step matches. Other jobs retain "
+                "their exact ordered step matches."
+            ),
+            jobs=tuple(correlations),
         )
 
     return WorkflowRuntimeCorrelationResult(

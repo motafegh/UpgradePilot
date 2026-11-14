@@ -25,7 +25,7 @@ from packaging.version import Version
 from test_investigation import _dependency, _Harness
 
 from upgradepilot.ci.dependency_exercise import WorkflowDependencyCoverageInput
-from upgradepilot.ci.native_codec import COVERAGE_V2_LAYOUTS, LAYOUTS as CI_LAYOUTS
+from upgradepilot.ci.native_codec import COVERAGE_V2_LAYOUTS, COVERAGE_V3_LAYOUTS, LAYOUTS as CI_LAYOUTS
 from upgradepilot.caller_signature.source_codec import _LAYOUTS as CALLER_SOURCE_LAYOUTS
 from upgradepilot.dependency.analysis import DependencyChangeAnalysis
 from upgradepilot.dependency.change import DependencyChangeProblem
@@ -115,6 +115,7 @@ def captured_case(
     dependency_problem=False,
     direct_invocation=False,
     second_source=False,
+    skipped_sibling=False,
     workspace_host=None,
     before_target_read=None,
 ):
@@ -154,10 +155,21 @@ def captured_case(
         workflow = workflow[:workflow.index("        run:")] + "        run: pip install 'demo==1.0'\n"
     if direct_invocation:
         workflow += "      - name: Invoke\n        run: demo\n"
-    h.set_workflow(workflow, job_names=("Test",))
+    if skipped_sibling:
+        workflow += """  badge:
+    name: Update badge
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+      - name: Publish badge
+        run: make badge
+"""
+    job_names = ("Test", "Update badge") if skipped_sibling else ("Test",)
+    h.set_workflow(workflow, job_names=job_names)
     jobs = h.actions_client.get_workflow_jobs.return_value
     h.actions_client.get_workflow_jobs.return_value = tuple(
-        replace(
+        replace(job, conclusion="skipped", steps=()) if job.name == "Update badge"
+        else replace(
             job,
             steps=(
                 WorkflowStep(
@@ -522,6 +534,43 @@ _RECOVERY_CHILD = _RECOVERY_GUARD + _RECOVERY_PROJECTIONS + _RECOVERY_CONTROLS
 
 
 class WorkspaceNativeReconstructionTests(unittest.TestCase):
+    def test_skipped_sibling_preserves_native_step_basis_and_version_boundary(self):
+        _, original, boundary, expected, expected_python = captured_case(skipped_sibling=True)
+        self.assertEqual(original.ci_coverage_result.state, "supported_runtime_correlated")
+        record = next(item for item in boundary.records if item.family == "ci_coverage")
+        self.assertEqual(record.codec_version, 3)
+        restored = read_native_boundary(
+            encode_native_boundary(boundary), expected_target=boundary.target,
+        )
+        self.assertEqual(reconstruct_ci_projection(restored, expected_target=boundary.target), expected)
+        self.assertEqual(self._cold_reconstruction(restored), {
+            "ci": independent_native_values(expected),
+            "python": independent_native_values(expected_python),
+            "blocked_controls": 4,
+        })
+        coverage = expected.ci_coverage_result
+        workflow, = coverage.workflows
+        correlation = workflow.runtime_correlation
+        self.assertEqual(correlation.state, "correlated_with_skipped_jobs")
+        matched, skipped = correlation.jobs
+        self.assertEqual(matched.steps[1].runtime_step.number, 2)
+        self.assertTrue(skipped.skipped_without_steps)
+        self.assertEqual(skipped.steps, ())
+        for version in (1, 2):
+            with self.subTest(version=version), self.assertRaises(NativeReconstructionError):
+                encode_native_value("ci_coverage", coverage, version=version)
+        for incomplete in (
+            replace(correlation, jobs=(matched,)),
+            replace(correlation, jobs=(replace(matched, steps=matched.steps[:1]), skipped)),
+        ):
+            corrupted = replace(coverage, workflows=(replace(workflow, runtime_correlation=incomplete),))
+            payload = encode_native_value("ci_coverage", corrupted, version=3)
+            altered = altered_record(
+                boundary, "ci_coverage", payload=payload, payload_digest=sha256(payload).hexdigest(),
+            )
+            with self.assertRaises(NativeReconstructionError):
+                reconstruct_ci_projection(altered, expected_target=boundary.target)
+
     def test_version_request_round_trip_and_historical_codec(self):
         _, _, boundary, expected, _ = captured_case(command_variant="version_request")
         record = next(item for item in boundary.records if item.family == "ci_coverage")
@@ -613,7 +662,8 @@ class WorkspaceNativeReconstructionTests(unittest.TestCase):
     def test_v1_layouts_cannot_silently_fill_new_native_fields_from_defaults(self):
         # A new field on a reused constructor requires a reviewed codec compatibility
         # decision. This independent schema check catches drift even in unexercised variants.
-        for layout in INPUT_LAYOUTS + CI_LAYOUTS + COVERAGE_V2_LAYOUTS + IMPACT_LAYOUTS + CALLER_SOURCE_LAYOUTS:
+        layouts = INPUT_LAYOUTS + CI_LAYOUTS + COVERAGE_V2_LAYOUTS + COVERAGE_V3_LAYOUTS
+        for layout in layouts + IMPACT_LAYOUTS + CALLER_SOURCE_LAYOUTS:
             with self.subTest(variant=layout.variant):
                 expected = tuple(field.name for field in fields(layout.constructor))
                 if layout.variant == "workflow_dependency_coverage_result":

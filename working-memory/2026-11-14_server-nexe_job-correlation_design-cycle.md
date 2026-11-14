@@ -1,16 +1,16 @@
 # server-nexe job-level CI correlation investigation
 
 **Opened:** 2026-11-14
-**Scope:** Decide whether the exact Linux install step in server-nexe PR #62 can be safely correlated despite a skipped sibling job. Ali selected this investigation as the next cycle. [Previous repair](2026-11-14_ci-aggregate-explanation_build-cycle.md#e--closure) · [Maintainer-task plan](../plans/PRODUCT_DIRECTION_AND_MAINTAINER_UTILITY_INVESTIGATION_PLAN.md#task-first-reassessment-after-delivered-reports)
+**Scope:** Decide whether the exact Linux install step in server-nexe PR #62 can be safely correlated despite a skipped sibling job. Ali selected this investigation and authorized the justified repair and verification through the end of the engineering work. [Previous repair](2026-11-14_ci-aggregate-explanation_build-cycle.md#e--closure) · [Maintainer-task plan](../plans/PRODUCT_DIRECTION_AND_MAINTAINER_UTILITY_INVESTIGATION_PLAN.md#task-first-reassessment-after-delivered-reports)
 
 ## Cycle status
 
 - **A0 — DONE.** Fetched origin and reconciled local and remote main at `19fba76c` before documentation. Matched six retained server-nexe input and baseline digests to S019. Reproduced `supported_not_correlated` and the badge job's `runtime_step_match_missing` using checkout code in an isolated network namespace. Checked the workflow correlator, its consumers and the nearby missing/ambiguous match tests.
-- **A1 — CURRENT.** The case contrasts ApplyPilot's missing evidence about the relevant step with server-nexe's available evidence about a relevant step in a workflow with an unmatched sibling. Continuity discussion is open.
-- **A2 — PENDING.** Orient the proposed job-scoped investigation and what would falsify it.
-- **B — PENDING.** Perform the retained-input comparison and decide whether a justified Build exists.
-- **Verification — PENDING.** Inspect the exact attempt evidence, negative controls and implications for report and runtime consumers.
-- **D — PENDING.** Teach from the observed round trip and decision.
+- **A1 — DONE, teaching deferred.** The case contrasts ApplyPilot's missing evidence about the relevant step with server-nexe's available evidence about a relevant step in a workflow with an unmatched sibling. Ali directed the work to proceed now and the teaching to follow verification.
+- **A2 — DONE, engineering orientation recorded.** Selected the exact skipped-job boundary below.
+- **B — DONE.** Implemented the selected skipped-job correlation, exact-attempt guard, ordinary report delivery and CI coverage codec v3.
+- **Verification — GREEN.** Focused checks, offline installed report and guarded SQLite recovery checks, and all 1,130 tests passed on the final wheel.
+- **D — CURRENT.** Engineering is finished. The post-build walkthrough begins with the exact server-nexe replay and refusal control.
 - **E — PENDING.** Resolve or defer remaining questions and record the next selected responsibility.
 - **C — CONTINUOUS.** Preserve evidence and meaningful decisions here.
 
@@ -20,4 +20,35 @@
 
 **A2 — What a possible repair must prove.** Determine whether one exact Linux job and its step can keep a trustworthy match while the badge job remains skipped. Keep revision, event, run, attempt, job-name uniqueness and step-order proof. Check how partial results would reach the current runtime execution and report consumers, which expect workflow-scoped correlation. Compare the smallest credible job-scoped design against the existing full match. Include target-job missing or ambiguous evidence as refusal controls. Keep matrix expansion, package/runtime identity and maintainer usefulness as separate questions. Use retained sources as data. A successful design check selects a possible Build and its proof. An ambiguous match earns unresolved. [Evidence semantics](../docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md#92-declarationconfiguration-evidence-is-not-execution-evidence)
 
-Provenance: `UP-SKILL:upgradepilot-planning-design`, `UP-SKILL:upgradepilot-learning-by-doing`, `UP-SKILL:upgradepilot-working-memory`.
+## Decision and phase adaptation
+
+Ali explicitly requested end-to-end work in this cycle with learning after building. The normal interactive A1/A2 stops would interrupt that sequence, so the cycle keeps the engineering orientation in this record and moves the teaching and ownership review to D. No pre-build learner demonstration is inferred. Verification and claim boundaries remain in force.
+
+The unchanged step matcher matched all five jobs with recorded steps in the frozen server-nexe attempt. The Unit Tests job matched install step 4 and test step 5. The selected job refused correlation with unavailable steps or its install step removed. The skipped badge job was the only refusal in the unmodified input. The private match receipt SHA-256 is `67837fd62d4ed69704b55e3e00b58d1723613c6a7ca658eec0f68525fa2c8738`.
+
+**Selected Build.** Keep the complete ordinary job-name bijection and exact run/head/attempt authority. A completed job explicitly marked skipped with an empty step array retains its job identity with zero step matches. Every other job keeps the current exact ordered step rules. Carry the distinction through execution assessment, durable CI capture and report projection. A successful consuming step can earn the existing bounded coverage without giving the skipped job any execution credit. The [execution ADR](../docs/architecture/ADR-0010-package-manager-semantic-facts-and-runtime-dependency-state-composition.md) still owns the step-to-command proof and the [reconstruction ADR](../docs/architecture/ADR-0013-versioned-native-reconstruction-and-workspace-checkpoint-storage.md) owns versioned historical compatibility.
+
+Deleting the badge input would lose authentic workflow inventory. General partial results could ignore absent or ambiguous evidence in a job that may have executed and would expand retained semantics. The selected rule models the positive provider fact of an explicit skip. Missing step arrays, unsupported jobs and step ambiguity still refuse correlation. Verify with a source-level regression, cold historic/current codec controls, and the frozen server-nexe case with a missing Linux install control. The ordinary report must identify the supported step, skipped sibling and proof limits. The matrix case and installed/imported psutil identity are outside this Build.
+
+## Implementation and evidence
+
+- A focused regression reproduced the original refusal. The correlator retains the skipped job with an empty match list and lets existing runtime consumers inspect the other jobs. It refuses a missing step array even for a skipped job, a missing or ambiguous install in the relevant job, duplicate job IDs and wrong run/head membership. The existing attempt-scoped REST request binds the attempt, with a new refusal if an explicitly returned job attempt conflicts. No workflow expressions are evaluated.
+- The state `correlated_with_skipped_jobs` distinguishes a complete job identity match with explicit skips from the historic full step match. CI coverage codec v3 carries the new state. Capture still uses codec v2 for the earlier shape and reads historical v1/v2. Existing execution/manager proof still requires the matched owning step and the remaining independent facts. The report's top-level summary names the supporting step and skipped job.
+- The first broad test run failed in guarded recovery because the validator accessed properties in the producer module. It did not fetch or re-evaluate, but the recovery guard bans producer re-entry. The fix validates known states and retained job/status/step fields in the reconstruction owner. Guarded cold recovery passed for the new state and older shape, without relaxing the guard.
+- An initial isolated wheel install inheriting system packages did not have the required project dependency versions. The final private venv reused the dependency set from the verified prior qualification environment. `pip check` and byte comparison of all 114 installed Python modules against the checkout passed. Final wheel SHA-256 `337ca91dc8ed276cd2391d4bee048216cb73a1df0a6e1d357d2e81901a65c884`.
+
+| Retained-input case | Evidence this Build delivered |
+| --- | --- |
+| Frozen server-nexe run `32646873500`, attempt 1 | `supported_runtime_correlated` for Linux install step 4. Badge job `97213010719` remained skipped with zero step matches. Saved report reopened with substantive parity. Guarded fresh-process reconstruction from SQLite preserved native codec v3. Report SHA-256 `8381299c9eddf04ed4f738a4e363b42949f359aac51ab845cfdef09fdb6ff430`. Native SHA-256 `fcff6cd4a8bbf60248c5ff6af471426553a43aea70d814c841f5e17767e750f6`. |
+| Remove only the Linux install step from the retained provider response | `supported_not_correlated / runtime_step_match_missing`. Saved report reopened with substantive parity and guarded SQLite reconstruction kept native codec v2. Report SHA-256 `48d5f200270a763ca6b371d7de5b21c9e0fbc60762f52b0e57f4441293cd4d27`. Native SHA-256 `1d23460640e819c971d568a9810ec401f16cd833d4b3fb94db4bc13643779a7a`. |
+| Adjacent retained controls | ApplyPilot still reports an unresolved failed consuming step. MapProxy still reports `static_job_strategy_unsupported` for its matrix. Private receipt SHA-256 `0e7c7ca4cb501376f1f0602397d818c21824ea2959dec5e8ff6c7d6e4d918c56`. |
+
+The server-nexe runs used the installed wheel with retained PR/patch/workflow/run/job provider inputs and stubbed unrelated PyPI acquisition. No target commands or external acquisition were performed. Both reports kept `abstain`, and the two runtime candidates still require lower-source manager-environment evidence. Exact installed/imported psutil, compatibility and independent maintainer usefulness remain unestablished.
+
+The final wheel's full suite passed **1,130 tests** in 246.892 seconds with normal test umask and tests-only import path. Private full log SHA-256 `cc7d146da67b4dacc08c02efc17f72c45e40f3eebacc46053fa73b32064078be`. The installed modules matched the checkout, and all new retained proof used the final wheel in an isolated network namespace.
+
+## D — Teaching topics grounded in the result
+
+The trusted leap is from exact job identity to an exact ordered step match inside that job. A skipped sibling with its own identity and an explicit empty list no longer blocks that leap; it contributes zero execution evidence. The target install step's absence still blocks the leap. Correlation identifies the runtime step, execution reads its unmasked conclusion, and dependency-state reasoning needs independent package-manager facts. Explain how codec v3 expresses the narrower exception while the guarded reader validates recorded material without running the producer. The prior report-only evidence cannot substitute for this native recovery proof. Any later design for matrix jobs should address one-to-many identity separately.
+
+Provenance: `UP-SKILL:upgradepilot-planning-design`, `UP-SKILL:upgradepilot-learning-by-doing`, `UP-SKILL:upgradepilot-working-memory`, `UP-SKILL:upgradepilot-build-implement`.

@@ -387,6 +387,10 @@ class GitHubActionsClient(GitHubApiClient):
                 raise GitHubResponseError(
                     "Workflow job run ID does not match the requested workflow run."
                 )
+            if "run_attempt" in data and required_positive_int(data, "run_attempt") != run.run_attempt:
+                raise GitHubResponseError(
+                    "Workflow job attempt does not match the requested workflow run attempt."
+                )
             if head_sha != identity.head_sha:
                 raise GitHubResponseError(
                     "Workflow job head SHA does not match the frozen pull-request head."

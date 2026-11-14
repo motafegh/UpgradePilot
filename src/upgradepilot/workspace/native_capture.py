@@ -165,7 +165,11 @@ class NativeInvestigationCapture:
             "ci_coverage",
             coverage,
             method="ci.dependency_exercise.evaluate_dependency_ci_coverage",
-            codec_version=2,
+            codec_version=3 if any(
+                item.runtime_correlation is not None
+                and item.runtime_correlation.state == "correlated_with_skipped_jobs"
+                for item in coverage.workflows
+            ) else 2,
         )
         self._record(
             "runtime_dependency_state",

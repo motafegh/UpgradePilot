@@ -376,6 +376,14 @@ def _validate_coverage_material(
         correlation = result.runtime_correlation
         if correlation is None:
             continue
+        skipped_job_shape = correlation.state == "correlated_with_skipped_jobs"
+        matched_jobs = correlation.state == "correlated" or skipped_job_shape
+        skipped_jobs = {
+            job for job in supplied.jobs
+            if job.status == "completed" and job.conclusion == "skipped" and job.steps == ()
+        } if skipped_job_shape else set()
+        if skipped_job_shape and not skipped_jobs:
+            raise _invalid("Skipped-job correlation has no retained skipped job with zero steps.")
         for job in correlation.jobs:
             if job.runtime_job not in supplied.jobs:
                 raise _invalid("CI correlation references an unretained runtime job.")
@@ -401,16 +409,21 @@ def _validate_coverage_material(
                     raise _invalid(
                         "Correlated named steps have different retained names."
                     )
-            if correlation.state == "correlated" and (
+            if job.runtime_job in skipped_jobs:
+                if job.steps:
+                    raise _invalid("A skipped job with zero runtime steps has step matches.")
+            elif matched_jobs and (
                 tuple(step.static_step for step in job.steps) != job.static_job.steps
                 or len({step.runtime_step.number for step in job.steps})
                 != len(job.steps)
             ):
                 raise _invalid("Correlated steps omit or repeat retained job members.")
-        if correlation.state == "correlated":
+        if matched_jobs:
             if (
                 len(correlation.jobs) != len(supplied.jobs)
                 or {job.runtime_job for job in correlation.jobs} != set(supplied.jobs)
+                or len({job.runtime_job.job_id for job in correlation.jobs})
+                != len(correlation.jobs)
                 or len({job.static_job.key for job in correlation.jobs})
                 != len(correlation.jobs)
             ):
@@ -460,7 +473,7 @@ def _validate_version_requests(
         raise _invalid("Version requests lack a retained workflow or dependency transition.")
     digest = sha256(definition.content.encode("utf-8")).hexdigest()
     correlation = result.runtime_correlation
-    if correlation is not None and correlation.state == "correlated":
+    if correlation is not None and correlation.state in {"correlated", "correlated_with_skipped_jobs"}:
         correlated_jobs = {item.static_job.key: item.static_job for item in correlation.jobs}
         if any(correlated_jobs.get(key) != job for key, job in jobs.items()):
             raise _invalid("Version request job differs from the correlated static job.")

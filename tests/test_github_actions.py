@@ -263,6 +263,16 @@ class GitHubActionsClientTests(unittest.TestCase):
         )
         pages = [call.kwargs["params"]["page"] for call in session.get.call_args_list]
         self.assertEqual(pages, [1, 2])
+
+    def test_refuses_job_reporting_another_attempt(self) -> None:
+        session = Mock()
+        session.get.return_value = _response(
+            {"total_count": 1, "jobs": [dict(_job(1), run_attempt=1)]}
+        )
+        client = GitHubActionsClient(session=session)
+
+        with self.assertRaisesRegex(GitHubResponseError, "job attempt"):
+            client.get_workflow_jobs(_identity(), _captured_run(run_attempt=2))
         self.assertTrue(
             all("filter" not in call.kwargs["params"] for call in session.get.call_args_list)
         )

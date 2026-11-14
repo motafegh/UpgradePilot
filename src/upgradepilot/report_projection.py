@@ -627,6 +627,12 @@ def _project_ci(
                     workflow.direct_exercise_detail,
                     workflow.runtime_consumption_detail,
                     workflow.runtime_direct_exercise_detail,
+                    *(
+                        (workflow.runtime_correlation.detail,)
+                        if workflow.runtime_correlation is not None
+                        and workflow.runtime_correlation.state == "correlated_with_skipped_jobs"
+                        else ()
+                    ),
                 ),
             )
     runtime = runtime_dependency_state_result
