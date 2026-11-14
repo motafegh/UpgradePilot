@@ -224,11 +224,29 @@ def evaluate_dependency_ci_coverage(
         for workflow_input in workflow_inputs
         for job in workflow_input.jobs
     )
-    if not has_successful_job:
+    unsuccessful_step = next(
+        (
+            result for result in results
+            if result.runtime_consumption_reason
+            == "runtime_correlated_dependency_consumption_not_successful"
+        ),
+        None,
+    )
+    if unsuccessful_step is not None:
+        job_summary = (
+            "" if has_successful_job
+            else "No completed successful exact-head job was available. "
+        )
         return DependencyCICoverageResult(
-            state="no_successful_ci",
-            reason="no_successful_exact_head_jobs",
-            detail="No completed successful exact-head job was available.",
+            state="unresolved" if has_successful_job else "no_successful_ci",
+            reason=(
+                "correlated_dependency_consumption_execution_not_successful"
+                if has_successful_job else "no_successful_exact_head_jobs"
+            ),
+            detail=(
+                f"{job_summary}In workflow {unsuccessful_step.workflow_name!r}, "
+                f"{unsuccessful_step.runtime_consumption_detail}"
+            ),
             workflows=results,
         )
 
@@ -252,12 +270,52 @@ def evaluate_dependency_ci_coverage(
             workflows=results,
         )
 
+    static_consumption = next(
+        (result for result in results if result.consumption_state == "supported"),
+        None,
+    )
+    if static_consumption is not None:
+        job_summary = (
+            "An exact-head job completed successfully." if has_successful_job
+            else "No completed successful exact-head job was available."
+        )
+        execution_detail = static_consumption.runtime_consumption_detail
+        if static_consumption.runtime_consumption_reason in {
+            "workflow_runtime_correlation_unresolved",
+            "runtime_strengthening_exact_step_missing",
+        }:
+            execution_detail = (
+                f"Whether the declared command ran is unknown. {execution_detail}"
+            )
+        return DependencyCICoverageResult(
+            state="unresolved" if has_successful_job else "no_successful_ci",
+            reason=(
+                "static_dependency_consumption_without_successful_workflow_coverage"
+                if has_successful_job else "no_successful_exact_head_jobs"
+            ),
+            detail=(
+                f"{job_summary} Workflow "
+                f"{static_consumption.workflow_name!r} declares changed-dependency "
+                "consumption, and successful workflow-level consumption coverage remains "
+                f"unestablished. {execution_detail}"
+            ),
+            workflows=results,
+        )
+
+    if not has_successful_job:
+        return DependencyCICoverageResult(
+            state="no_successful_ci",
+            reason="no_successful_exact_head_jobs",
+            detail="No completed successful exact-head job was available.",
+            workflows=results,
+        )
+
     return DependencyCICoverageResult(
         state="unresolved",
         reason="dependency_consumption_not_established",
         detail=(
-            "Successful exact-head CI exists, but the admitted static evidence does not "
-            "establish changed-dependency consumption in a readable CI environment."
+            "An exact-head job completed successfully. Static changed-dependency "
+            "consumption remains unestablished in the admitted workflow evidence."
         ),
         workflows=results,
     )

@@ -7,10 +7,10 @@
 
 - **A0 — DONE.** Fetched origin. Local and remote main agreed at `525de3b2`. The latest delta from qualification closeout records deferred peer-constraint research and changes no source or tests. Rechecked the exact saved report digest, relevant evaluator and report projection, and existing CI controls. Initialized this record.
 - **A1 — DONE.** Ali identified the failed installation step as the observation the summary should preserve. Onboarding clarified that the step outcome and the cause of the pip error require different evidence.
-- **A2 — CURRENT.** Oriented the repair and proof through the evaluator and report projection. The pre-B reasoning check is pending.
-- **B — PENDING.** Build is authorized for the selected correction.
-- **Verification — PENDING.** Use local tests and a freshly generated saved report with an offline reader check.
-- **D — PENDING.** Teach the actual repair and reasoning from before/after evidence.
+- **A2 — DONE.** Ali explained that a missing runtime match leaves whether the install ran unknown. That distinction is part of the regression acceptance.
+- **B — DONE.** The aggregate surfaces a recorded non-successful dependency step and distinguishes supported declarations from unresolved execution.
+- **Verification — GREEN.** Full checkout suite 1,127 tests passed after the test-environment correction. Both retained-input report cases reopened offline.
+- **D — CURRENT.** Delivered the before/after explanation and reasoning prompt. Awaiting Ali’s post-build response.
 - **E — PENDING.** Reconcile gaps and close after the verified result and learning review.
 - **C — CONTINUOUS.** Preserve meaningful decisions, evidence and ownership progress here.
 
@@ -22,6 +22,18 @@
 
 ## A2 pre-B orientation
 
-The workflow evaluator populates `runtime_consumption_reason` and `runtime_consumption_detail` before assigning its overall workflow outcome. ApplyPilot’s aggregate checks for a successful job and then relies on workflow-level reasons, so it misses the failed step preserved in those narrower fields. The report projection displays the aggregate explanation. Build will keep the repair in the evaluator and use the existing evidence to lead with the failed consuming step when supported. Controls cover a genuinely successful match and an unavailable match, with successful-consumption and maintainer-action boundaries preserved. The reasoning check asks what the summary may say when the Web job passed but the API install can no longer be matched to a runtime step.
+The workflow evaluator populates `runtime_consumption_reason` and `runtime_consumption_detail` before assigning its overall workflow outcome. ApplyPilot’s aggregate checks for a successful job and then relies on workflow-level reasons, so it misses the failed step preserved in those narrower fields. The report projection displays the aggregate explanation. Build will keep the repair in the evaluator and use the existing evidence to lead with the failed consuming step when supported. Controls cover a genuinely successful match and an unavailable match, with successful-consumption and maintainer-action boundaries preserved. Ali reasoned that a missing match leaves whether the API install ran unknown even when a sibling job passed.
+
+## Build and focused proof
+
+The ApplyPilot-shaped regression reproduced the previous generic reason before source changes. The evaluator now surfaces the workflow's existing non-successful step observation in the top-level result. The negative job/step shape keeps its prior aggregate state with or without a successful sibling. With a declared command and missing runtime match, the aggregate keeps the declaration and explicitly leaves whether the command ran unknown. The existing positive workflow and successful matched-step precedence remains in place. No report schema change was needed.
+
+The checkout interpreter passed 64 CI tests and 14 report tests after the source change. A network-isolated replay used the retained ApplyPilot PR/patch, attempt-scoped job records and exact workflow text as local provider inputs to the ordinary investigation and CLI projection. PyPI acquisition was stubbed to keep unrelated branches out of this CI proof. The new saved JSON reported the CI workflow's step 4 failure, unresolved successful consumption and action `abstain`. It reopened in a fresh process with the same substantive output. The original report reopened with its historical summary and the same original render digest. A counterfactual replay removed only the API job's step summaries. Its top-level view kept the declared consumption and successful job and reported that whether the declared command ran is unknown. Both final reports reopened with substantive parity. The private report SHA-256 values are `502f3074e2d50e89f88b1dad2c6103af58e4879f7d9d11b329eae18566102666` (failed-step replay) and `5480924f5a55e3845e95bef2a63b46a070a9b6de15575ab65799792366c7eaf5` (missing-step control). This is retained-input replay through checkout code, with no new live run or fresh packaged-install claim.
+
+The first full suite completed 1,127 tests with one Workspace permission-fixture failure. The proof directory was correctly private, but the test subprocess inherited the proof shell's `umask 077`. That changed the fixture's requested mode `0755` to `0700` before the store checked it. The run under the same private umask was interrupted after the cause was identified. The final full run used the normal `022` umask inside the private output directory. The targeted Workspace suite passed 40 tests, and the final checkout suite passed **1,127 tests** in 217.652 seconds. Private full log SHA-256 `e35d54c5a6fb8123d6b4bd11b4eb51cacc6ccc47f3548dcde6215e66174d45e0`.
+
+## D — Evidence-backed learning
+
+The code took the route discussed in A2. Keep the workflow’s matched-step observation through aggregation, then use the ordinary projection and reader. Verification also demonstrated that preserving uncertainty matters with or without a successful sibling. The before/after pair isolates the changed evidence question by removing only the API job’s step summaries in the replay. The open ownership check is whether an overall API job failure can supply the missing result for the install step when step summaries are absent.
 
 Provenance: `UP-SKILL:upgradepilot-build-implement`, `UP-SKILL:upgradepilot-learning-by-doing`, `UP-SKILL:upgradepilot-working-memory`.

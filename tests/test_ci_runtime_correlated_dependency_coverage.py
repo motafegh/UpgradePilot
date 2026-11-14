@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import replace
 import unittest
 
 from upgradepilot.ci.dependency_exercise import (
@@ -326,6 +327,81 @@ jobs:
             "runtime status is unknown",
             workflow_result.runtime_consumption_detail,
         )
+
+    def test_failed_workflow_summary_distinguishes_failed_and_unmatched_install(self) -> None:
+        dependency, contexts = _dependency_and_contexts()
+        workflow = """
+jobs:
+  api:
+    name: API
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Install API dependencies
+        run: pip install -r requirements-dev.txt
+  web:
+    name: Web
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test Web
+        run: make test-web
+"""
+        api_steps = (
+            _step(1, "Set up job"),
+            _step(2, "Check out repository"),
+            _step(4, "Install API dependencies", conclusion="failure"),
+            _step(9, "Post Check out repository"),
+            _step(10, "Complete job"),
+        )
+        web_steps = (
+            _step(1, "Set up job"),
+            _step(2, "Test Web"),
+            _step(3, "Complete job"),
+        )
+        api = replace(_job(api_steps, name="API"), conclusion="failure")
+        web = replace(_job(web_steps, name="Web"), job_id=3002)
+        observed = replace(
+            _input(workflow, api_steps),
+            run=replace(_run(), conclusion="failure"),
+            jobs=(api, web),
+        )
+
+        failed = evaluate_dependency_ci_coverage(
+            dependency, (observed,), source_contexts=contexts,
+        )
+        self.assertEqual(failed.state, "unresolved")
+        self.assertEqual(failed.reason, "correlated_dependency_consumption_execution_not_successful")
+        self.assertIn("runtime step 4", failed.detail)
+        self.assertIn("conclusion='failure'", failed.detail)
+        self.assertIn("does not attribute", failed.detail)
+
+        missing_steps = replace(observed, jobs=(replace(api, steps=None), web))
+        unknown = evaluate_dependency_ci_coverage(
+            dependency, (missing_steps,), source_contexts=contexts,
+        )
+        self.assertEqual(unknown.state, "unresolved")
+        self.assertIn("exact-head job completed successfully", unknown.detail)
+        self.assertIn("declares changed-dependency consumption", unknown.detail)
+        self.assertIn("Whether the declared command ran is unknown", unknown.detail)
+        self.assertIn("runtime bridge is unavailable", unknown.detail)
+        self.assertNotIn("conclusion='failure'", unknown.detail)
+
+        failed_web = replace(web, conclusion="failure")
+        all_failed = evaluate_dependency_ci_coverage(
+            dependency, (replace(observed, jobs=(api, failed_web)),), source_contexts=contexts,
+        )
+        self.assertEqual(all_failed.state, "no_successful_ci")
+        self.assertIn("runtime step 4", all_failed.detail)
+        self.assertIn("conclusion='failure'", all_failed.detail)
+
+        no_success_and_unmatched = evaluate_dependency_ci_coverage(
+            dependency,
+            (replace(observed, jobs=(replace(api, steps=None), failed_web)),),
+            source_contexts=contexts,
+        )
+        self.assertEqual(no_success_and_unmatched.state, "no_successful_ci")
+        self.assertIn("Whether the declared command ran is unknown", no_success_and_unmatched.detail)
 
     def test_one_eligible_successful_candidate_wins_existentially(self) -> None:
         dependency, contexts = _dependency_and_contexts()
