@@ -1,7 +1,7 @@
-# Cross-profile UpgradePilot activation and missing-proof matrix — first verified live cohort
+# Cross-profile UpgradePilot activation and missing-proof matrix
 
-**Date:** 2026-11-13. **Status:** Two installed ordinary real-PR diagnostic invocations independently verified; one previously qualified historical combined source/CI profile retained and reader-reopened. **Not a representative reliability sample**, not proof of all capabilities, and **no active open-PR maintainer decision** yet.
-**Current product wheel:** source commit `50f94fec713077122a8791e5e6f1495307fbf22a`, SHA-256 `190257ec38328a340cf2132513e09432c8f594af4c51da218bfad81cfca420ca` for the two ordinary live cases.
+**Evidence horizon:** November 13–14, 2026. The original three historical case records below preserve their November 13 analysis. The November 14 addendum covers the active open ApplyPilot PR. Independent maintainer usefulness remains unmeasured.
+**Current product wheel:** source commit `50f94fec713077122a8791e5e6f1495307fbf22a`, SHA-256 `190257ec38328a340cf2132513e09432c8f594af4c51da218bfad81cfca420ca` for the three ordinary live cases.
 **Case ownership:** [Q1 — CARLA/OpenCV verified results](../2026-11-13-cross-profile-q1-carla-opencv/RESULTS.md) and [behavior analysis](../2026-11-13-cross-profile-q1-carla-opencv/ANALYSIS.md); [Q2 — Pydantic/Soup Sieve verified results](../2026-11-13-cross-profile-q2-pydantic-soupsieve/RESULTS.md) and [behavior analysis](../2026-11-13-cross-profile-q2-pydantic-soupsieve/ANALYSIS.md); [Q3 — AV-Tracer/HTTPX current offline verification](../2026-11-13-cross-profile-q3-av-tracer-review/RESULTS.md), [behavior analysis](../2026-11-13-cross-profile-q3-av-tracer-review/ANALYSIS.md), and [prior live qualification](../2026-11-12-av-tracer-native-ci/qualification.json). This matrix **summarizes** those owners; it does not replace their original/source evidence.
 
 ## Qualification by capability
@@ -71,3 +71,18 @@ Even an active case with successful steps may support only a workflow/step obser
 **Gate-two decision:** The three historical cases justify **proposing** the bounded **Q4 — Active Open-PR CI/Runtime Correlation Case** candidate-screening stage as the best next *technical evidence-selection* responsibility. The decision to **authorize** screening and any later separate live invocation remains with the owner. No verified product-code defect, new model method, general request budget or positive maintainer-action policy is inferred. A useful final decision still requires a maintainer task and `no_build` / `bounded_build:<specific_owner_and_failure>` / `more_evidence:<exact_missing_condition>` disposition.
 
 **Learning handoff:** Ali elected a **compact recap rather than another AV-Tracer/HTTPX oral checkpoint** because of substantial prior time spent. The evidence-distinction lesson was delivered; formal Q3 learner ownership was **not newly demonstrated in this turn**, so the earlier native-bridge D question is intentionally **deferred with its exact referent** (attempt/job identity, failing interpreter imported HTTPX, and counterfactual cause). This deferral must not be misreported as a learner pass or used to block unrelated cross-case prioritization indefinitely.
+
+
+## November 14 addendum — Q4 ApplyPilot/pyee active PR
+
+[Run and offline proof](../2026-11-14-cross-profile-q4-applypilot/RESULTS.md) · [Behavior and maintainer analysis](../2026-11-14-cross-profile-q4-applypilot/ANALYSIS.md)
+
+| Route | Q4 — ApplyPilot/pyee |
+| --- | --- |
+| Input and live delivery | One normal installed run, exit 0, 11.989443 sec. Exact open PR and `pyee 14.0.0 → 16.0.1` lockfile matched. 79,991-byte JSON reopened offline with substantive parity. |
+| CI definitions and observed execution | Two exact-head pull-request workflow runs and five attempt-scoped jobs. Both workflows failed. The linked API lockfile install failed at step 4 and downstream lint/tests were skipped. |
+| CI aggregate and runtime | No successful consumption credit. Aggregate explanation incorrectly implies a successful CI run and missing static consumption. The command-completion candidate remains unresolved on effective manager environment. Exact job log returned HTTP 403 anonymously. |
+| PyPI and artifact route | Both releases have one universal wheel and one sdist. No evaluated published-wheel loss. Target artifact branch did not activate. |
+| Upstream and model | Exact publisher identity established. Interval blocked by two admitted changelog paths. This left the model and target Python branches without a qualifying input. Physical request/body/dispatch counts were unmeasured. |
+| Retention and decision | One retained original PR text, four references, six selected-fact sources and seventeen producer results. Full JSON shows CI job summaries and derived step result. Dedicated CI facts probe refused. Action was `abstain`. |
+| Added manual evidence and usefulness | Exact peer metadata independently excludes the proposed pyee pin. The report omits that constraint. The assistant's exposed comparison isolates a CI explanation defect and an additional capability gap. Independent maintainer usefulness and final disposition remain open. |
