@@ -10,9 +10,9 @@
 - **A2 — DONE.** Ali explained that a missing runtime match leaves whether the install ran unknown. That distinction is part of the regression acceptance.
 - **B — DONE.** The aggregate surfaces a recorded non-successful dependency step and distinguishes supported declarations from unresolved execution.
 - **Verification — GREEN.** Full checkout suite 1,127 tests passed after the test-environment correction. Both retained-input report cases reopened offline.
-- **D — CURRENT.** Delivered the before/after explanation and reasoning prompt. Awaiting Ali’s post-build response.
-- **E — PENDING.** Reconcile gaps and close after the verified result and learning review.
-- **C — CONTINUOUS.** Preserve meaningful decisions, evidence and ownership progress here.
+- **D — DONE at the reviewed scope.** Before/after teaching was delivered. Ali’s A2 answer demonstrated the missing-step distinction before Build. The additional post-build ownership response was deferred at closure.
+- **E — CLOSED.** Ali requested closure and continuation. See the closure rationale and next-cycle link below.
+- **C — DONE.** The engineering progression, validation and remaining ownership debt are preserved.
 
 ## Orientation map
 
@@ -34,6 +34,12 @@ The first full suite completed 1,127 tests with one Workspace permission-fixture
 
 ## D — Evidence-backed learning
 
-The code took the route discussed in A2. Keep the workflow’s matched-step observation through aggregation, then use the ordinary projection and reader. Verification also demonstrated that preserving uncertainty matters with or without a successful sibling. The before/after pair isolates the changed evidence question by removing only the API job’s step summaries in the replay. The open ownership check is whether an overall API job failure can supply the missing result for the install step when step summaries are absent.
+The code took the route discussed in A2. Keep the workflow’s matched-step observation through aggregation, then use the ordinary projection and reader. Verification also demonstrated that preserving uncertainty matters with or without a successful sibling. The before/after pair isolates the changed evidence question by removing only the API job’s step summaries in the replay. The additional ownership check asked whether an overall API job failure can supply the missing result for the install step when step summaries are absent.
+
+## E — Closure
+
+Closed on November 14 at Ali's request after the implementation and full verification. The exact failed step and unknown step-execution control are independently represented in the repaired checkout replay. Ali previously identified the uncertainty correctly in A2. The additional D response remains deferred, with no post-build learner pass inferred. The conclusion to carry forward is that the overall job result gives the job outcome, while an exact step observation is needed to locate the install outcome. The pip error is separate evidence for attribution. The retained proof covers checkout code and offline reports. Independent maintainer usefulness remains unmeasured.
+
+Continued into the [server-nexe investigation](2026-11-14_server-nexe_job-correlation_design-cycle.md), which asks whether evidence about the relevant step survives a skipped sibling job.
 
 Provenance: `UP-SKILL:upgradepilot-build-implement`, `UP-SKILL:upgradepilot-learning-by-doing`, `UP-SKILL:upgradepilot-working-memory`.
