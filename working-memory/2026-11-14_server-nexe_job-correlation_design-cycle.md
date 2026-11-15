@@ -10,9 +10,9 @@
 - **A2 — DONE, engineering orientation recorded.** Selected the exact skipped-job boundary below.
 - **B — DONE.** Implemented the selected skipped-job correlation, exact-attempt guard, ordinary report delivery and CI coverage codec v3.
 - **Verification — GREEN.** Focused checks, offline installed report and guarded SQLite recovery checks, and all 1,130 tests passed on the final wheel.
-- **D — CURRENT.** Engineering is finished. The post-build walkthrough begins with the exact server-nexe replay and refusal control.
-- **E — PENDING.** Resolve or defer remaining questions and record the next selected responsibility.
-- **C — CONTINUOUS.** Preserve evidence and meaningful decisions here.
+- **D — DONE at the walkthrough scope.** Compared the saved frozen and missing-install reports. The independent ownership response is deferred.
+- **E — CLOSED.** Verified evidence and the deferred independent response are recorded below.
+- **C — DONE.** Evidence, decisions, corrections and proof limits are preserved.
 
 ## Orientation map
 
@@ -50,5 +50,11 @@ The final wheel's full suite passed **1,130 tests** in 246.892 seconds with norm
 ## D — Teaching topics grounded in the result
 
 The trusted leap is from exact job identity to an exact ordered step match inside that job. A skipped sibling with its own identity and an explicit empty list no longer blocks that leap; it contributes zero execution evidence. The target install step's absence still blocks the leap. Correlation identifies the runtime step, execution reads its unmasked conclusion, and dependency-state reasoning needs independent package-manager facts. Explain how codec v3 expresses the narrower exception while the guarded reader validates recorded material without running the producer. The prior report-only evidence cannot substitute for this native recovery proof. Any later design for matrix jobs should address one-to-many identity separately.
+
+## E — Closure
+
+On November 15, rechecked both exact saved report and native capture digests. The frozen report credits the matched Linux install at step 4. The control still reports successful workflow evidence and static dependency consumption, while leaving successful execution of the install unestablished. The skipped badge remains an observation in both inputs. The product engineering and proof are complete. Ali had directed teaching to follow Build and then requested continuation into the walkthrough and MapProxy investigation. The additional independent learner response is deferred, with no learner pass inferred. Runtime package identity and independent maintainer usefulness remain open.
+
+The [MapProxy investigation](2026-11-15_mapproxy_mixed-workflow-correlation_investigation-cycle.md) asks a distinct question about ordinary jobs beside expanded matrix jobs.
 
 Provenance: `UP-SKILL:upgradepilot-planning-design`, `UP-SKILL:upgradepilot-learning-by-doing`, `UP-SKILL:upgradepilot-working-memory`, `UP-SKILL:upgradepilot-build-implement`.
