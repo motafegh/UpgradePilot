@@ -263,8 +263,20 @@ def _time(value: Any) -> str:
     return value
 
 
+def _encode_fact(fact: ReportFact) -> dict[str, str]:
+    return {"name": fact.name, "label": fact.label, "value": fact.value}
+
+
 def _encode_facts(facts: tuple[ReportFact, ...]) -> list[dict[str, str]]:
-    return [{"name": f.name, "label": f.label, "value": f.value} for f in facts]
+    return [_encode_fact(fact) for fact in facts]
+
+
+def serialized_source_fact_bytes(fact: ReportFact) -> int:
+    """Measure appending one fact to an existing source's nonempty identity array."""
+    entry = json.dumps(_encode_fact(fact), ensure_ascii=False, indent=2)
+    # Source identity facts are five indentation levels deep in the envelope.
+    indentation = 5 * 2 * (entry.count("\n") + 1)
+    return len(entry.encode("utf-8")) + indentation + len(",\n")
 
 
 def _decode_facts(value: Any) -> tuple[ReportFact, ...]:

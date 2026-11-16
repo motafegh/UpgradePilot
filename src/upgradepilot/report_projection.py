@@ -55,6 +55,7 @@ from .report import (
     ReportSource,
     ReportUnknown,
 )
+from .report_file import ReportValidationError, serialized_source_fact_bytes
 from .target.artifact_environment import TargetArtifactEnvironmentEvidence
 from .target.python import TargetPythonDeclaration
 from .upstream.claim import GroundedPythonSupportDropClaim
@@ -71,6 +72,9 @@ from .workspace.native_projection import (
     reconstruct_ci_job_log_diagnostic, reconstruct_pull_request_description,
 )
 from .workspace.native_representation import NativeReconstructionError
+
+
+_REPORTED_STEP_DETAIL_BYTES = 128 * 1024
 
 
 def _fact(name: str, label: str, value: object) -> ReportFact:
@@ -315,7 +319,7 @@ def project_investigation_report(
     return InvestigationReport(
         str(uuid4()),
         produced.astimezone(UTC).isoformat(),
-        "2",
+        "3",
         product_version,
         auth_mode,
         (
@@ -453,6 +457,40 @@ def _project_dependency(p: _ReportProjection, pr_source: str) -> None:
     )
 
 
+def _reported_job_steps(job: WorkflowJob) -> ReportFact:
+    if job.steps is None:
+        detail = "Step details unavailable in capture."
+    elif not job.steps:
+        detail = "No step rows in captured job."
+    else:
+        # Quoting provider fields keeps names and unfamiliar statuses inside one row.
+        rows = []
+        for step in job.steps:
+            conclusion = repr(step.conclusion) if step.conclusion is not None else "not reported"
+            rows.append(f"{step.number}. {step.name!r} | {step.status!r} | {conclusion}")
+        detail = "\n".join(rows)
+    return _fact(f"job_{job.job_id}_reported_steps", "Reported steps", detail)
+
+
+def _attempt_step_facts(
+    jobs: tuple[WorkflowJob, ...], available_bytes: int,
+) -> tuple[tuple[ReportFact, ...], int]:
+    """Admit detail for the whole attempt or keep only its inventory."""
+    facts = []
+    used_bytes = 0
+    for job in jobs:
+        fact = _reported_job_steps(job)
+        used_bytes += serialized_source_fact_bytes(fact)
+        if used_bytes > available_bytes:
+            return (
+                (_fact("reported_steps_omission", "Reported step detail",
+                       "Omitted for this attempt because the report's step-detail budget would be exceeded."),),
+                0,
+            )
+        facts.append(fact)
+    return tuple(facts), used_bytes
+
+
 def _project_ci(
     p: _ReportEvidence, *, pull_request: PullRequestIdentity,
     dependency_result: DependencyVersionChange | DependencyChangeProblem,
@@ -461,7 +499,14 @@ def _project_ci(
     runtime_dependency_state_result: RuntimeDependencyStateResult | None,
 ) -> None:
     run_refs = []
+    remaining_step_bytes = _REPORTED_STEP_DETAIL_BYTES
     for run, jobs in workflow_evidence:
+        if len({job.job_id for job in jobs}) != len(jobs):
+            raise ReportValidationError(
+                f"Duplicate workflow job ID in run {run.run_id} attempt {run.run_attempt}."
+            )
+        step_facts, used_bytes = _attempt_step_facts(jobs, remaining_step_bytes)
+        remaining_step_bytes -= used_bytes
         run_refs.append(
             p.source(
                 "workflow_execution",
@@ -473,6 +518,7 @@ def _project_ci(
                     _fact("head_sha", "Execution revision", run.head_sha),
                     _fact("status", "Status", run.status),
                     _fact("conclusion", "Conclusion", run.conclusion),
+                    _fact("captured_job_count", "Captured jobs", len(jobs)),
                 )
                 + tuple(
                     fact
@@ -496,7 +542,8 @@ def _project_ci(
                             "not retained" if job.steps is None else len(job.steps),
                         ),
                     )
-                ),
+                )
+                + step_facts,
             )
         )
     ci = ci_coverage_result

@@ -22,6 +22,7 @@ from upgradepilot.dependency.change import (
     DependencyVersionChange,
 )
 from upgradepilot.dependency.environment import RequirementsFileDependencyContext
+from upgradepilot.github.actions import WorkflowJob, WorkflowRun, WorkflowStep
 from upgradepilot.github.api import GitHubAcquisitionError, GitHubResponseError
 from upgradepilot.github.identity import UpgradePilotInputError
 from upgradepilot.github.pull_request import ChangedFile, PullRequestIdentity
@@ -37,7 +38,7 @@ from upgradepilot.investigation import (
 )
 from upgradepilot.pypi.release import PackageReleaseEvidence
 from upgradepilot.report import ReportFact, ReportSource
-from upgradepilot.report_file import save_report
+from upgradepilot.report_file import read_report, save_report
 from upgradepilot.report_projection import project_investigation_report
 from upgradepilot.target.artifact_environment import (
     TargetArtifactEnvironmentEvidence,
@@ -177,7 +178,7 @@ class CLITests(unittest.TestCase):
             "source-900", "artifact_capabilities", None, (), "saved comparison",
             None, "selected_facts", None, "publication scope only",
         )
-        unsupported = replace(empty, source_id="source-901", kind="workflow_execution")
+        unsupported = replace(empty, source_id="source-901", kind="publisher_provenance")
         original = replace(
             empty, source_id="source-902", kind="target_source",
             retention="retained_text", content="literal source",
@@ -188,7 +189,7 @@ class CLITests(unittest.TestCase):
             for source_id, reason in (
                 ("source-999", "Unknown report source ID"),
                 (empty.source_id, "no saved fact values"),
-                (unsupported.source_id, "unavailable for workflow_execution"),
+                (unsupported.source_id, "unavailable for publisher_provenance"),
                 (original.source_id, "does not retain selected facts"),
             ):
                 with self.subTest(source=source_id):
@@ -198,6 +199,80 @@ class CLITests(unittest.TestCase):
             status, output = _run(["--open-report", str(path), "--show-source", original.source_id])
             self.assertEqual(status, 0)
             self.assertIn("BEGIN LITERAL SOURCE TEXT\nliteral source", output)
+
+    def test_exact_attempt_step_inspection_and_legacy_counts(self):
+        investigation = _supported_investigation()
+        head = investigation.pull_request.head_sha
+        run = WorkflowRun(41, 10, "CI", "pull_request", head, "completed", "failure", 2)
+        job = WorkflowJob(
+            71, 41, "test (3.12)", head, "completed", "failure",
+            (
+                WorkflowStep(4, "Install\nFake heading\x1b[31m", "completed", "failure"),
+                WorkflowStep(5, "Tests", "completed", "skipped"),
+                WorkflowStep(8, "Post", "in_progress", None),
+            ),
+        )
+        unavailable = replace(job, job_id=72, conclusion="success", steps=None)
+        skipped = replace(job, job_id=73, name="Coverage", conclusion="skipped", steps=())
+        result = replace(investigation, workflow_evidence=((run, (job, unavailable, skipped)),))
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "report.json"
+            with patch("upgradepilot.cli.investigate_public_pull_request", return_value=result):
+                status, output = _run(["example/project", "7", "--save-report", str(path)])
+            self.assertEqual(status, 0)
+            report = read_report(path)
+            source, = (item for item in report.sources if item.kind == "workflow_execution")
+            self.assertIn(f"--show-facts {source.source_id}", output)
+            self.assertNotIn("Fake heading", output)
+            original = path.read_bytes()
+            with patch("upgradepilot.cli.investigate_public_pull_request") as acquire:
+                status, facts = _run(["--open-report", str(path), "--show-facts", source.source_id])
+                acquire.assert_not_called()
+            self.assertEqual(status, 0)
+            self.assertEqual(path.read_bytes(), original)
+            self.assertIn(f"Run: 41\nAttempt: 2\nExecution revision: {head}", facts)
+            self.assertIn("Job 71 'test (3.12)'", facts)
+            self.assertIn("Job 72 'test (3.12)'", facts)
+            self.assertIn(r"4. 'Install\nFake heading\x1b[31m' | 'completed' | 'failure'", facts)
+            self.assertNotIn("\nFake heading", facts)
+            self.assertNotIn("\x1b", facts)
+            self.assertIn("5. 'Tests' | 'completed' | 'skipped'", facts)
+            self.assertIn("8. 'Post' | 'in_progress' | not reported", facts)
+            self.assertIn("Step details unavailable in capture.", facts)
+            self.assertIn("No step rows in captured job.", facts)
+            self.assertIn("Step outcomes absent from the retained rows are unknown.", facts)
+
+            legacy_source = replace(source, identity=tuple(
+                fact for fact in source.identity
+                if not fact.name.endswith("_reported_steps") and fact.name != "captured_job_count"
+            ))
+            legacy = replace(report, generator_version="2", sources=tuple(
+                legacy_source if item == source else item for item in report.sources
+            ))
+            legacy_path = path.with_name("legacy.json")
+            save_report(legacy, legacy_path)
+            status, legacy_facts = _run([
+                "--open-report", str(legacy_path), "--show-facts", source.source_id,
+            ])
+            self.assertEqual(status, 0)
+            self.assertIn("Individual step outcomes were not saved in this report.", legacy_facts)
+            self.assertIn("Captured step count: 3", legacy_facts)
+            self.assertNotIn("Fake heading", legacy_facts)
+
+    def test_duplicate_workflow_job_id_rejects_ambiguous_report(self):
+        investigation = _supported_investigation()
+        head = investigation.pull_request.head_sha
+        run = WorkflowRun(41, 10, "CI", "pull_request", head, "completed", "success", 2)
+        job = WorkflowJob(71, 41, "test", head, "completed", "success", ())
+        evidence = ((run, (job, replace(job, name="different"))),)
+        result = replace(investigation, workflow_evidence=evidence)
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "report.json"
+            with patch("upgradepilot.cli.investigate_public_pull_request", return_value=result):
+                status, output = _run(["example/project", "7", "--save-report", str(path)])
+            self.assertEqual(status, 8)
+            self.assertIn("Duplicate workflow job ID in run 41 attempt 2", output)
+            self.assertFalse(path.exists())
 
     def test_pre_result_acquisition_failure_does_not_fabricate_saved_report(self):
         with tempfile.TemporaryDirectory() as directory:

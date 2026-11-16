@@ -12,10 +12,13 @@ from test_investigation import _dependency, _Harness, _run
 
 from upgradepilot.dependency.analysis import DependencyChangeAnalysis
 from upgradepilot.dependency.environment import UvLockDependencyContext
+from upgradepilot.github.actions import WorkflowJob, WorkflowRun, WorkflowStep
 from upgradepilot.github.repository import RepositoryTextFile
 from upgradepilot.investigation import investigate_public_pull_request
-from upgradepilot.report import ReportFact, render_ci_report, render_investigation_report
-from upgradepilot.report_file import decode_report, encode_report
+from upgradepilot.report import (
+    ReportFact, render_ci_report, render_investigation_report, render_report_facts,
+)
+from upgradepilot.report_file import decode_report, encode_report, serialized_source_fact_bytes
 from upgradepilot.report_projection import project_ci_report, project_investigation_report
 from upgradepilot.upstream.claim import (
     GroundedPythonSupportDropClaim,
@@ -64,6 +67,47 @@ def _assert_ci_parity(test, investigation):
 
 
 class ReportProjectionTests(unittest.TestCase):
+    def test_step_detail_budget_counts_serialized_bytes_and_preserves_whole_attempts(self):
+        investigation = _supported_investigation()
+        head = investigation.pull_request.head_sha
+        run = WorkflowRun(41, 10, "CI", "pull_request", head, "completed", "success", 1)
+        step = WorkflowStep(4, "Install requirements ☕\nquote ' and a slash \\", "completed", "success")
+        job = WorkflowJob(71, 41, "test", head, "completed", "success", (step,))
+        later_run = replace(run, run_id=42)
+        later_job = replace(job, job_id=73, run_id=42)
+        overflow = replace(job, job_id=72, steps=(replace(step, name="α" * 70_000),))
+        empty = replace(run, run_id=43)
+        evidence = ((run, (job, overflow)), (later_run, (later_job,)), (empty, ()))
+        result = replace(investigation, workflow_evidence=evidence)
+        report = project_investigation_report(result)
+        oversized, later, no_jobs = (s for s in report.sources if s.kind == "workflow_execution")
+        self.assertIn("step-detail budget would be exceeded", render_report_facts(report, oversized.source_id))
+        self.assertIn("Job 72 'test'", render_report_facts(report, oversized.source_id))
+        self.assertFalse(any(f.name.endswith("_reported_steps") for f in oversized.identity))
+        self.assertIn("No job rows in this captured attempt.", render_report_facts(report, no_jobs.source_id))
+        detail, = (f for f in later.identity if f.name == "job_73_reported_steps")
+        without_detail = replace(later, identity=tuple(f for f in later.identity if f != detail))
+        comparison = replace(report, sources=tuple(
+            without_detail if source == later else source for source in report.sources
+        ))
+        self.assertEqual(len(encode_report(report)) - len(encode_report(comparison)),
+                         serialized_source_fact_bytes(detail))
+
+        # A second individually fitting attempt omits its details when the first uses
+        # most of the shared budget. The remaining smaller attempt can still fit.
+        medium_step = replace(step, name="α" * 40_000)
+        medium_first = replace(job, steps=(medium_step,))
+        medium_second = replace(later_job, steps=(medium_step,))
+        small = replace(job, job_id=74, run_id=43)
+        result = replace(investigation, workflow_evidence=(
+            (run, (medium_first,)), (later_run, (medium_second,)), (empty, (small,)),
+        ))
+        partial = _ci_report(result)
+        first, second, third = (s for s in partial.sources if s.kind == "workflow_execution")
+        self.assertTrue(any(f.name == "job_71_reported_steps" for f in first.identity))
+        self.assertTrue(any(f.name == "reported_steps_omission" for f in second.identity))
+        self.assertTrue(any(f.name == "job_74_reported_steps" for f in third.identity))
+
     def test_static_version_requests_reach_partial_and_saved_full_reports(self):
         harness = _Harness()
         harness.set_workflow(

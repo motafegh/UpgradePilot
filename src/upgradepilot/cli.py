@@ -81,7 +81,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     inspection.add_argument(
         "--show-facts", metavar="SOURCE_ID",
-        help="Inspect saved artifact capability or package metadata facts with --open-report.",
+        help="Inspect saved package, artifact capability, or workflow attempt facts with --open-report.",
     )
     parser.add_argument("--evidence-profile", choices=("caller-signature", "caller-signature-ci"),
                         help="Select source-only evidence or explicit source plus exact CI job log.")
@@ -214,7 +214,7 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     try:
         report = project_investigation_report(investigation, auth_mode=auth_mode)
-    except NativeReconstructionError as exc:
+    except (NativeReconstructionError, ReportValidationError) as exc:
         print(f"Report projection rejected: {exc}")
         return 8
     print(render_investigation_report(report))

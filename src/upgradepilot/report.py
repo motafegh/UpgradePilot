@@ -8,6 +8,7 @@ Source content can be richer than the displayed summary, enabling non-rendering 
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 
 
@@ -121,7 +122,7 @@ def render_investigation_report(
         (
             f"Report: {report.report_id}",
             f"Generated at: {report.generated_at}",
-            f"Recorded generator version: {report.generator_version}; renderer version: 4",
+            f"Recorded generator version: {report.generator_version}; renderer version: 5",
             f"Product version: {report.product_version or 'not recorded'}",
         )
     )
@@ -327,7 +328,7 @@ def render_ci_report(report: CIReport) -> str:
     lines = ["UpgradePilot CI evidence", "Mode: recorded CI view; no live refresh"]
     lines.extend(f"{fact.label}: {fact.value}" for fact in report.identity)
     lines.extend(_assessment_lines(report.assessments, report.unknowns))
-    lines.extend(_source_lines(report.sources))
+    lines.extend(_source_lines(report.sources, show_saved_fact_commands=False))
     lines.extend(("", "CI view limits", *report.limits))
     return _display_lines(lines)
 
@@ -361,7 +362,9 @@ def _assessment_lines(
     return lines
 
 
-def _source_lines(sources: tuple[ReportSource, ...]) -> list[str]:
+def _source_lines(
+    sources: tuple[ReportSource, ...], *, show_saved_fact_commands: bool = True,
+) -> list[str]:
     lines = ["", "Evidence sources"]
     for source in sources:
         lines.append(
@@ -383,6 +386,11 @@ def _source_lines(sources: tuple[ReportSource, ...]) -> list[str]:
         )
         lines.append(f"  Acquisition time: {source.retrieved_at or 'not recorded'}")
         lines.append(f"  Preservation limit: {source.limitation}")
+        if show_saved_fact_commands and source.kind == "workflow_execution":
+            lines.append(
+                "  Inspect captured jobs with "
+                f"--open-report PATH --show-facts {source.source_id}."
+            )
     return lines
 
 
@@ -402,13 +410,12 @@ def render_report_facts(report: InvestigationReport, source_id: str) -> str:
     source = _report_source(report, source_id)
     if source.retention != "selected_facts":
         raise ReportSourceUnavailable("This source does not retain selected facts.")
-    # Other selected-fact sources can contain bulk records such as an entire CI job inventory.
-    if source.kind not in {"artifact_capabilities", "package_metadata"}:
+    if source.kind not in {"artifact_capabilities", "package_metadata", "workflow_execution"}:
         raise ReportSourceUnavailable(f"Selected-fact inspection is unavailable for {source.kind}.")
     if not source.identity:
         raise ReportSourceUnavailable("This source has no saved fact values.")
 
-    return _display_lines([
+    lines = [
         "UpgradePilot saved facts; offline, no live refresh",
         f"Report: {report.report_id}",
         f"Report generated at: {report.generated_at}",
@@ -419,9 +426,59 @@ def render_report_facts(report: InvestigationReport, source_id: str) -> str:
         f"Method: {source.method}",
         f"Preservation limit: {source.limitation}",
         "",
-        "Selected facts",
-        *(f"{fact.label} [{fact.name}]: {fact.value}" for fact in source.identity),
-    ])
+    ]
+    if source.kind == "workflow_execution":
+        lines.extend(_workflow_execution_fact_lines(source))
+    else:
+        lines.extend((
+            "Selected facts",
+            *(f"{fact.label} [{fact.name}]: {fact.value}" for fact in source.identity),
+        ))
+    return _display_lines(lines)
+
+
+def _workflow_execution_fact_lines(source: ReportSource) -> list[str]:
+    """Group facts for one recorded attempt using the saved numeric job identities."""
+    facts = {fact.name: fact.value for fact in source.identity}
+    lines = ["GitHub-reported jobs and steps"]
+    lines.extend(
+        f"{fact.label}: {fact.value}"
+        for fact in source.identity
+        if not fact.name.startswith("job_")
+    )
+    lines.append(
+        "These are GitHub's displayed labels and outcomes. "
+        "Step outcomes absent from the retained rows are unknown. "
+        "Dependency command execution and package state require separate evidence."
+    )
+    job_names = [
+        (match[1], fact.value)
+        for fact in source.identity
+        if (match := re.fullmatch(r"job_([0-9]+)_name", fact.name))
+    ]
+    if not job_names:
+        lines.append(
+            "No job rows in this captured attempt."
+            if facts.get("captured_job_count") == "0"
+            else "No job rows were saved in this report."
+        )
+    elif "reported_steps_omission" not in facts and not any(
+        f"job_{job_id}_reported_steps" in facts for job_id, _ in job_names
+    ):
+        lines.append("Individual step outcomes were not saved in this report.")
+    for job_id, name in job_names:
+        key = f"job_{job_id}_"
+        status = facts.get(key + "status", "not recorded")
+        conclusion = facts.get(key + "conclusion", "not recorded")
+        lines.extend(("", f"Job {job_id} {name!r}",
+                      f"  Status {status!r} | conclusion {conclusion!r}"))
+        if key + "head_sha" in facts:
+            lines.append(f"  Job execution revision: {facts[key + 'head_sha']}")
+        if key + "steps" in facts:
+            lines.append(f"  Captured step count: {facts[key + 'steps']}")
+        if key + "reported_steps" in facts:
+            lines.extend(f"  {row}" for row in facts[key + "reported_steps"].split("\n"))
+    return lines
 
 
 def render_report_source(report: InvestigationReport, source_id: str) -> str:
