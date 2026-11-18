@@ -67,6 +67,34 @@ def _assert_ci_parity(test, investigation):
 
 
 class ReportProjectionTests(unittest.TestCase):
+    def test_attempt_sources_identify_workflows_before_inspection(self):
+        investigation = _supported_investigation()
+        head = investigation.pull_request.head_sha
+        security = WorkflowRun(41, 10, "Security", "pull_request", head, "completed", "failure", 1)
+        ci = replace(security, run_id=42, workflow_id=11, name="CI")
+        job = WorkflowJob(
+            71, 42, "API", head, "completed", "failure",
+            (WorkflowStep(4, "Install requirements", "completed", "failure"),),
+        )
+        result = replace(investigation, workflow_evidence=((security, ()), (ci, (job,))))
+        report = decode_report(encode_report(project_investigation_report(result)))
+        sources = tuple(s for s in report.sources if s.kind == "workflow_execution")
+        partial_sources = tuple(s for s in _ci_report(result).sources if s.kind == "workflow_execution")
+        self.assertEqual(
+            tuple(s.identity for s in sources), tuple(s.identity for s in partial_sources),
+        )
+        opening = render_investigation_report(report, saved=True)
+        for source, name, run_id in zip(sources, ("Security", "CI"), (41, 42)):
+            inventory = opening.split(f"{source.source_id}: workflow execution", 1)[1].split(
+                "\nsource-", 1,
+            )[0]
+            self.assertIn(f"Workflow: {name}\n  Run: {run_id}", inventory)
+            self.assertIn(f"--show-facts {source.source_id}", inventory)
+            inspected = render_report_facts(report, source.source_id)
+            self.assertIn(f"Workflow: {name}\nRun: {run_id}", inspected)
+        self.assertIn("4. 'Install requirements' | 'completed' | 'failure'",
+                      render_report_facts(report, sources[1].source_id))
+
     def test_step_detail_budget_counts_serialized_bytes_and_preserves_whole_attempts(self):
         investigation = _supported_investigation()
         head = investigation.pull_request.head_sha

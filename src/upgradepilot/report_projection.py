@@ -319,7 +319,7 @@ def project_investigation_report(
     return InvestigationReport(
         str(uuid4()),
         produced.astimezone(UTC).isoformat(),
-        "3",
+        "4",
         product_version,
         auth_mode,
         (
@@ -513,6 +513,7 @@ def _project_ci(
                 method="exact-head run and captured-attempt jobs acquisition",
                 locator=f"https://github.com/{pull_request.repository}/actions/runs/{run.run_id}/attempts/{run.run_attempt}",
                 identity=(
+                    _fact("workflow_name", "Workflow", run.name),
                     _fact("run_id", "Run", run.run_id),
                     _fact("run_attempt", "Attempt", run.run_attempt),
                     _fact("head_sha", "Execution revision", run.head_sha),
