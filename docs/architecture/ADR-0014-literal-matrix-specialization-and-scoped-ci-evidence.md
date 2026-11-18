@@ -1,6 +1,6 @@
 # ADR-0014 — Literal matrix specialization and scoped CI evidence
 
-**Status — Proposed.** Prepared 2026-11-18 for method review and subsequent implementation planning.
+**Status — Accepted architecture and supported-scope direction.** Ali agreed to the proposed architecture and general direction on 2026-11-18, subject to the complete end-to-end implementation and verification requirements in the [implementation and qualification plan](../../plans/LITERAL_MATRIX_CI_EVIDENCE_IMPLEMENTATION_AND_QUALIFICATION_PLAN.md). Method-specific qualification remains an implementation gate. Build starts after the requested plan review.
 
 **Responsibility —** Interpret literal GitHub Actions matrix variants, preserve their source and command identity, and associate supported variants with reported runtime steps.
 
@@ -12,7 +12,7 @@ MapProxy's retained workflow declares four Python versions and a singleton Pillo
 
 A private source-only probe specialized all four combinations and reused the existing command parser. Each script became analyzable with four commands. The changed requirements install remained the second command and stayed outside existing runtime-strengthening eligibility. The four command locations were identical across combinations. The original script was 112 UTF-8 bytes and the specialized script was 90 bytes. Extending association alone would leave both a command-proof gap and an identity collision. [Design evidence](../../working-memory/2026-11-18_literal-matrix-dependency-evidence_design-cycle.md)
 
-## Proposed decisions
+## Decisions and qualification boundaries
 
 ### 1. Keep three distinct propositions
 
@@ -64,6 +64,10 @@ Build candidate correspondences from the complete admitted specialized workflow 
 
 MapProxy's explicit Use python step names distinguish the four declared combinations. The probe obtained exactly one candidate per declared job/variant and exactly one job/variant per runtime row across all eight records while withholding runtime job names. That is the proposed sufficient matching class. It reuses the existing step matcher and requires no general graph solver.
 
+Method review separates job association from the completeness of its command-step evidence. A uniquely discriminating source-defined name or ordered step witness may establish the job association while a different step remains absent, failed or skipped. Check the witness against the complete admitted competing job/variant set and other runtime records. Missing discriminators, unsupported competing origins or contradictory witnesses leave the affected association unresolved. The existing complete-step matcher supplies a sufficient fast path, while its workflow-wide early return cannot represent the selected per-variant result contract.
+
+Preserve scoped association and per-step problem records separately. A missing install row receives no success from another row or variant. A skip with no step witnesses can use a separately admitted explicit source-defined name basis. An unnamed matrix skip retains its reported identity and skip outcome with unresolved variant assignment when the remaining evidence cannot establish that assignment.
+
 A label-only guess, positional pairing or an unexplained tie is insufficient. If unsupported siblings could produce competing rows, preserve the unresolved correspondence. Missing and extra jobs, repeated IDs, duplicated witnesses, missing steps and conflicting source-defined names must be represented explicitly. A skipped job without steps may retain an existing independently earned name-based association, but receives no step-based association merely from the skip.
 
 The observed default matrix display format can be retained for the reader and used as a diagnostic. Its undocumented formatting is unnecessary as a positive association premise in MapProxy. The human graph remains optional corroboration. A later case whose combinations share all admitted identity witnesses requires a separately qualified discriminator.
@@ -81,6 +85,8 @@ The probe demonstrated that Bash fail-fast stops after a failing target, while a
 Before accepting the extension, characterize the AST-to-structure rule against the existing shell owner and the smallest meaningful defeater set. The proposed positive class should cover MapProxy's sequence of simple package-manager commands. Preserve the existing profile and continue-on-error checks. A failed step alone cannot identify which internal command failed. Keep package-manager and installed-state semantics with their existing owner.
 
 The proposed structural contract requires a clean Bash/sh parse whose significant root statements are ordinary foreground commands. Executable atoms must be statically literal. Reject nested commands/substitutions, status operators, redirections and asynchronous syntax for the initial later-command class. Also reject shell-control builtins and declarations that can terminate, replace or modify the shell, change its environment/working directory or alter error handling. The finite shell language's builtin effects belong to the shell adapter, with an unresolved outcome for an unclassified effect. This is a structural/profile method under the same declared-process assumptions as the existing execution evidence. It adds no executable-path or package-version attestation.
+
+The profile premise also covers material declared startup settings and inherited shell effects, not only script syntax. Method review's self-authored BASH_ENV controls produced successful shell outcomes after an early startup exit or an error trap, without the required target result. A visible startup override or other unresolved material shell effect must therefore block the stronger positive until its effect is established. Retain the boundary between a supported declared execution profile and independent observation of the actual process. Keep any resulting premise gap explicit across both the new and existing execution families.
 
 The parser owns the whole-script structural relation and its blockers. The existing CI strengthening owner combines that relation with an admitted fail-fast Bash/sh profile, and the execution owner combines it with the matched step's factual outcome. Name the new relation separately from the already accepted first-command relation so historical evidence keeps its original meaning. A custom shell profile receives no new positive support. This proposal covers every position in the qualified sequence, preserving all four MapProxy contexts.
 
@@ -119,6 +125,6 @@ Review this method if an admitted workflow has indistinguishable variants, unsup
 
 This proposal adds no dependency or external execution requirement. It extends the provider's optional interpretation responsibility and requires a coordinated identity migration across existing CI and recovery consumers. It retains the base static/runtime separation accepted in ADR-0008.
 
-ADR-0009 and the first command-analysis implementation plan retain their accepted historical scope. The later-command method above is a proposed extension, requiring its own qualification and an explicit adoption decision. This ADR does not mark that extension, matrix product behavior or an execution plan accepted.
+ADR-0009 and the first command-analysis implementation plan retain their accepted historical scope. The later-command direction above is accepted for qualification under this companion decision. Positive command support requires its structural and adversarial gates to pass. Architectural acceptance does not establish matrix product behavior or successful execution proof.
 
-After method review and the targeted characterizations, prepare the bounded implementation sequence and its normal-entry-point proof. The live selection remains in MEMORY.md.
+The [implementation and qualification plan](../../plans/LITERAL_MATRIX_CI_EVIDENCE_IMPLEMENTATION_AND_QUALIFICATION_PLAN.md) owns the dependency order, normal-entry-point proof and final completion gates. The live selection remains in MEMORY.md.

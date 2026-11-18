@@ -113,6 +113,8 @@ The [October23 development review](../working-memory/evidence/2026-10-23-maintai
 
 For a static pin that explains why a green workflow does not establish proposed-version use, see the [bounded CI requested-version report plan](CI_REQUESTED_DEPENDENCY_VERSION_REPORT_PLAN.md).
 
+For literal matrix dependency evidence, the [implementation and qualification plan](LITERAL_MATRIX_CI_EVIDENCE_IMPLEMENTATION_AND_QUALIFICATION_PLAN.md) owns the complete supported eight-instance MapProxy path, scoped identity migration and final acceptance gates. Its intermediate engineering milestones retain their partial status until normal-product, offline recovery, compatibility and full regression evidence satisfy the feature gate.
+
 If Ali selects assistant review, perform source-aware development task review and preserve prior exposure/implementer overlap. It can support a next-investment decision without external recruitment. It cannot discharge the independent usefulness gate. Keep reviewer availability unconfirmed unless known; do not infer that a self-review instruction means independent reviewers are unavailable.
 
 Before selecting another normal capture, identify the distinct responsibility pressure or prerequisite it would resolve and the decision its output can change. A third case is justified by that contribution and a separate acquisition/model budget, not the number three alone. Defer it if the existing inputs already establish the immediate gap. Before a capability Build, resolve its admitted consumer, omitted product responsibilities, simplest implementation/proof and stopping outcome in the proper owner. Retention alone is not the user-value acceptance test.
