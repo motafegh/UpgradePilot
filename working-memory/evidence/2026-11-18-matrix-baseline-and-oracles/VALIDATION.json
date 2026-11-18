@@ -1,0 +1,139 @@
+{
+  "frozen_checkout": "d8f8a44b",
+  "installed_wheel_sha256": "9c92cc6d691556e2b5adcf95b20203162ba994da9f57d8bee31e49aefe6c3aac",
+  "reports_checked_through_installed_console": {
+    "mapproxy-genuine-baseline": {
+      "report_sha256": "030b1f331137072e09c2151be93692f61d5dfffd41094de024d1701f7bba5ff8",
+      "opened_sha256": "0affb4ba24c519ede9e0ffb2f5b199524074c655a4025cf47c57bdaf1fa35099"
+    },
+    "mapproxy-offline-replay": {
+      "report_sha256": "478f7f6027b5c3c253969e61657c565ad57279e0e5eb8a9e56f23469f2b6e75f",
+      "opened_sha256": "3b77bb0bbb44c0125bce24245ee85a6633e8d80901d1efcff695c048e54d194e"
+    },
+    "ordinary-controlled": {
+      "report_sha256": "7336c90b52ff73ccb3c32da4933c298d4dbbda3e634b1c4a08be7acc21d3617b",
+      "opened_sha256": "d36847dfb303bfe2715eb2c83005291d7b14c0583055adb3ebaef59dd12a32fd"
+    },
+    "server-nexe-historical": {
+      "report_sha256": "8381299c9eddf04ed4f738a4e363b42949f359aac51ab845cfdef09fdb6ff430",
+      "opened_sha256": "8f1f934eb725a1a1d8c001fcdd1f4e2b8338ea3e4f7a862f88c5992d74e4ad54"
+    },
+    "server-nexe-missing-install-control": {
+      "report_sha256": "48d5f200270a763ca6b371d7de5b21c9e0fbc60762f52b0e57f4441293cd4d27",
+      "opened_sha256": "a24cef07ba8e7723bf1206906d93cf05828852e2f85c3bf6a9dc0d0df6f02db6"
+    },
+    "applypilot-original-genuine": {
+      "report_sha256": "c21710d1a1cda54c77781b72c5d83f0b7151e3f3991e1d2ad4cc6e3f772c1f25",
+      "opened_sha256": "4e4e486ce956e30967bbcb328df94b4a8a8e658947df9738a47e43e1387759f4"
+    },
+    "applypilot-current-ci-diagnostic": {
+      "report_sha256": "352bcb2d2ae8505d3cba2c9cfc12670e9a97e67a19dc5b374054a340c6d8a828",
+      "opened_sha256": "7e38f820961db6869bdf3045d4f8d92fc6fd4273694882e12f746b17702b9d25"
+    },
+    "applypilot-missing-steps-diagnostic": {
+      "report_sha256": "a14552dc1b1a803afcaf710aff9defe4058dc36edaa7cbbac63c2996652f54d0",
+      "opened_sha256": "696281fa6b6cf416532221d816bb8a8082ce3bae1fae57fd16c95120b8907d89"
+    },
+    "mapproxy-legacy-counts-diagnostic": {
+      "report_sha256": "543365c047900f38700621b64f889abae5e82ff909c107e8f79ffc3fdc1fe083",
+      "opened_sha256": "0030dc30599b685ab9b1116f0163eb564287ff446341e3ec96140db50cf86eae"
+    }
+  },
+  "cold_native": {
+    "mapproxy-genuine-baseline": {
+      "target": {
+        "repository": "mapproxy/mapproxy",
+        "pull_number": 1559,
+        "base_sha": "a6507dd0dba671e48d303a74f7a5575dadf7fd76",
+        "head_sha": "ac01b8901935bfc16a0195277b4aec1c43275897",
+        "normalized_package": "soupsieve",
+        "old_version": "3.0.4",
+        "proposed_version": "4.0"
+      },
+      "ci_state": "supported_not_correlated",
+      "workflow_count": 1,
+      "jobs": 8,
+      "steps": 79,
+      "correlation_reasons": [
+        "static_job_strategy_unsupported"
+      ],
+      "forbidden_reentry": false,
+      "network_used": false
+    },
+    "ordinary-controlled": {
+      "target": {
+        "repository": "example/project",
+        "pull_number": 7,
+        "base_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "head_sha": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "normalized_package": "demo",
+        "old_version": "1.0",
+        "proposed_version": "1.1"
+      },
+      "ci_state": "supported_runtime_correlated",
+      "workflow_count": 1,
+      "jobs": 1,
+      "steps": 2,
+      "correlation_reasons": [
+        "workflow_jobs_and_steps_correlated"
+      ],
+      "forbidden_reentry": false,
+      "network_used": false
+    },
+    "server-nexe-historical": {
+      "target": {
+        "repository": "jgoy-labs/server-nexe",
+        "pull_number": 62,
+        "base_sha": "a476c2a35207578285c70bb2f8d0a40fd10e8003",
+        "head_sha": "f1d2aea121eeb6e2abbc0b3fd151804207c4ca6e",
+        "normalized_package": "psutil",
+        "old_version": "5.9.8",
+        "proposed_version": "7.2.2"
+      },
+      "ci_state": "supported_runtime_correlated",
+      "workflow_count": 1,
+      "jobs": 6,
+      "steps": 46,
+      "correlation_reasons": [
+        "workflow_jobs_correlated_with_skipped_jobs_without_steps"
+      ],
+      "forbidden_reentry": false,
+      "network_used": false
+    },
+    "server-nexe-missing-install-control": {
+      "target": {
+        "repository": "jgoy-labs/server-nexe",
+        "pull_number": 62,
+        "base_sha": "a476c2a35207578285c70bb2f8d0a40fd10e8003",
+        "head_sha": "f1d2aea121eeb6e2abbc0b3fd151804207c4ca6e",
+        "normalized_package": "psutil",
+        "old_version": "5.9.8",
+        "proposed_version": "7.2.2"
+      },
+      "ci_state": "supported_not_correlated",
+      "workflow_count": 1,
+      "jobs": 6,
+      "steps": 45,
+      "correlation_reasons": [
+        "runtime_step_match_missing"
+      ],
+      "forbidden_reentry": false,
+      "network_used": false
+    }
+  },
+  "normal_and_offline_semantic_parity": true,
+  "offline_saved_report_render_parity": true,
+  "mapproxy_job_count": 8,
+  "mapproxy_step_count": 79,
+  "full_product_tests": {
+    "count": 1134,
+    "result": "OK",
+    "log_sha256": "9a3d527f05ed11b7f2ee1fb1015ef97ce6f01c760dfc008b71bea854c1a9848e"
+  },
+  "focused_tests": {
+    "count": 66,
+    "result": "OK",
+    "log_sha256": "74e93b6c7f864bd781a64eccaad391bd8a2a2a0ec09ef70aab7bad44c92f1829"
+  },
+  "feature_status": "baseline milestone only; matrix implementation acceptance remains outstanding"
+}

@@ -1,0 +1,559 @@
+{
+  "frozen_checkout": "d8f8a44b",
+  "executable_source_scope": "src/upgradepilot at the frozen checkout; all installed module bytes compared",
+  "installed_module_count": 114,
+  "installed_module_map_sha256": "a74539c59ace4742299fc6a8bf51bfc51d2ad04bbc4bbf3c572649e63e1abce1",
+  "baseline_wheel_sha256": "9c92cc6d691556e2b5adcf95b20203162ba994da9f57d8bee31e49aefe6c3aac",
+  "interpreter": "Python 3.12.3, private venv with explicit shared read-only dependency basis",
+  "report_schema": 1,
+  "report_generator": "4",
+  "report_renderer": "5",
+  "reports": {
+    "mapproxy-genuine-baseline": {
+      "file": "report.json",
+      "report_sha256": "030b1f331137072e09c2151be93692f61d5dfffd41094de024d1701f7bba5ff8",
+      "report_id": "d1d9bfc2-eaa9-4395-9acf-42693d99de86",
+      "generator": "4",
+      "repository": "mapproxy/mapproxy",
+      "pull_number": "1559",
+      "head": "ac01b8901935bfc16a0195277b4aec1c43275897",
+      "ci_state": "supported_not_correlated",
+      "ci_reason": "successful_exact_head_ci_with_static_dependency_consumption",
+      "action": "abstain",
+      "semantic_sha256": "9de8fd2a7966b1b0eb586bacb4c588f526877d0fb54ec273da12ee82f76e7ba1",
+      "opened_sha256": "0affb4ba24c519ede9e0ffb2f5b199524074c655a4025cf47c57bdaf1fa35099",
+      "provenance": "genuine-normal-provider-material"
+    },
+    "mapproxy-offline-replay": {
+      "file": "offline-report.json",
+      "report_sha256": "478f7f6027b5c3c253969e61657c565ad57279e0e5eb8a9e56f23469f2b6e75f",
+      "report_id": "5a1082e7-8333-4d6d-88c8-1018ab7bb025",
+      "generator": "4",
+      "repository": "mapproxy/mapproxy",
+      "pull_number": "1559",
+      "head": "ac01b8901935bfc16a0195277b4aec1c43275897",
+      "ci_state": "supported_not_correlated",
+      "ci_reason": "successful_exact_head_ci_with_static_dependency_consumption",
+      "action": "abstain",
+      "semantic_sha256": "9de8fd2a7966b1b0eb586bacb4c588f526877d0fb54ec273da12ee82f76e7ba1",
+      "opened_sha256": "3b77bb0bbb44c0125bce24245ee85a6633e8d80901d1efcff695c048e54d194e",
+      "provenance": "genuine-normal-provider-material"
+    },
+    "ordinary-controlled": {
+      "file": "ordinary-controlled-report.json",
+      "report_sha256": "7336c90b52ff73ccb3c32da4933c298d4dbbda3e634b1c4a08be7acc21d3617b",
+      "report_id": "da280394-f8d3-4a3a-afbf-a9b80837c66e",
+      "generator": "4",
+      "repository": "example/project",
+      "pull_number": "7",
+      "head": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "ci_state": "supported_runtime_correlated",
+      "ci_reason": "successful_exact_head_ci_with_runtime_correlated_dependency_consumption",
+      "action": "abstain",
+      "semantic_sha256": "7c829fcf312cc523bc8ffd38dc29bf51d29a24da935df3bae480fbcac7cfd175",
+      "opened_sha256": "d36847dfb303bfe2715eb2c83005291d7b14c0583055adb3ebaef59dd12a32fd",
+      "provenance": "controlled-product-fixture"
+    },
+    "server-nexe-historical": {
+      "file": "frozen-report.json",
+      "report_sha256": "8381299c9eddf04ed4f738a4e363b42949f359aac51ab845cfdef09fdb6ff430",
+      "report_id": "3971948e-4779-4aaa-b0f4-aaa8da1eb963",
+      "generator": "2",
+      "repository": "jgoy-labs/server-nexe",
+      "pull_number": "62",
+      "head": "f1d2aea121eeb6e2abbc0b3fd151804207c4ca6e",
+      "ci_state": "supported_runtime_correlated",
+      "ci_reason": "successful_exact_head_ci_with_runtime_correlated_dependency_consumption",
+      "action": "abstain",
+      "semantic_sha256": "64854da2c4251ae8295f61bc2e857a3088aa69ea53e7f5196b91fd2b4eed69ec",
+      "opened_sha256": "8f1f934eb725a1a1d8c001fcdd1f4e2b8338ea3e4f7a862f88c5992d74e4ad54",
+      "provenance": "historical-CI-diagnostic-with-artificial-unrelated-PyPI-result"
+    },
+    "server-nexe-missing-install-control": {
+      "file": "missing-install-report.json",
+      "report_sha256": "48d5f200270a763ca6b371d7de5b21c9e0fbc60762f52b0e57f4441293cd4d27",
+      "report_id": "2a15c2b5-c046-4947-bb77-2e7e5ed605e2",
+      "generator": "2",
+      "repository": "jgoy-labs/server-nexe",
+      "pull_number": "62",
+      "head": "f1d2aea121eeb6e2abbc0b3fd151804207c4ca6e",
+      "ci_state": "supported_not_correlated",
+      "ci_reason": "successful_exact_head_ci_with_static_dependency_consumption",
+      "action": "abstain",
+      "semantic_sha256": "f89f15e6bf2040220164de0f83aa67aa1568602ddc089c5b1819a8256ca0f549",
+      "opened_sha256": "a24cef07ba8e7723bf1206906d93cf05828852e2f85c3bf6a9dc0d0df6f02db6",
+      "provenance": "historical-CI-diagnostic-with-artificial-unrelated-PyPI-result"
+    },
+    "applypilot-original-genuine": {
+      "file": "report.json",
+      "report_sha256": "c21710d1a1cda54c77781b72c5d83f0b7151e3f3991e1d2ad4cc6e3f772c1f25",
+      "report_id": "e3215595-7e1e-4bcc-8d91-6ed3a9360c37",
+      "generator": "2",
+      "repository": "miladse1/applypilot",
+      "pull_number": "8",
+      "head": "3009f89f0d4f58fcc588647a5c33f3a8e95bf05f",
+      "ci_state": "unresolved",
+      "ci_reason": "dependency_consumption_not_established",
+      "action": "abstain",
+      "semantic_sha256": "6310f8d24a9009395ba05eea9ff71c3f17286434ff745ac44087bd8cc6e96cc4",
+      "opened_sha256": "4e4e486ce956e30967bbcb328df94b4a8a8e658947df9738a47e43e1387759f4",
+      "provenance": "genuine-normal-provider-material"
+    },
+    "applypilot-current-ci-diagnostic": {
+      "file": "applypilot.json",
+      "report_sha256": "352bcb2d2ae8505d3cba2c9cfc12670e9a97e67a19dc5b374054a340c6d8a828",
+      "report_id": "c64728d7-d3ab-450e-b334-e994b240ac0a",
+      "generator": "4",
+      "repository": "miladse1/applypilot",
+      "pull_number": "8",
+      "head": "3009f89f0d4f58fcc588647a5c33f3a8e95bf05f",
+      "ci_state": "unresolved",
+      "ci_reason": "correlated_dependency_consumption_execution_not_successful",
+      "action": "abstain",
+      "semantic_sha256": "29001c4588d8b1981bf240d00c13e9fa5fb07ae18320c094c6fee483457487af",
+      "opened_sha256": "7e38f820961db6869bdf3045d4f8d92fc6fd4273694882e12f746b17702b9d25",
+      "provenance": "historical-CI-diagnostic-with-artificial-unrelated-PyPI-result"
+    },
+    "applypilot-missing-steps-diagnostic": {
+      "file": "applypilot-missing-steps.json",
+      "report_sha256": "a14552dc1b1a803afcaf710aff9defe4058dc36edaa7cbbac63c2996652f54d0",
+      "report_id": "4f322b2a-0978-4fa6-868e-46bbf9acb981",
+      "generator": "4",
+      "repository": "miladse1/applypilot",
+      "pull_number": "8",
+      "head": "3009f89f0d4f58fcc588647a5c33f3a8e95bf05f",
+      "ci_state": "unresolved",
+      "ci_reason": "static_dependency_consumption_without_successful_workflow_coverage",
+      "action": "abstain",
+      "semantic_sha256": "da95abb9c217d28ca0cefd74a4cc0ff7aa742b52fcb2fc19327a704ed4f304a9",
+      "opened_sha256": "696281fa6b6cf416532221d816bb8a8082ce3bae1fae57fd16c95120b8907d89",
+      "provenance": "historical-CI-diagnostic-with-artificial-unrelated-PyPI-result"
+    },
+    "mapproxy-legacy-counts-diagnostic": {
+      "file": "baseline.json",
+      "report_sha256": "543365c047900f38700621b64f889abae5e82ff909c107e8f79ffc3fdc1fe083",
+      "report_id": "d452b8f1-6705-4f75-9a43-6d1467fe9baf",
+      "generator": "2",
+      "repository": "mapproxy/mapproxy",
+      "pull_number": "1559",
+      "head": "ac01b8901935bfc16a0195277b4aec1c43275897",
+      "ci_state": "supported_not_correlated",
+      "ci_reason": "successful_exact_head_ci_with_static_dependency_consumption",
+      "action": "abstain",
+      "semantic_sha256": "962c9668b29c47f739cb47708fe9e34511ac7a1d5310314fb7e458a2c7318b29",
+      "opened_sha256": "0030dc30599b685ab9b1116f0163eb564287ff446341e3ec96140db50cf86eae",
+      "provenance": "historical-CI-diagnostic-with-artificial-unrelated-PyPI-result"
+    }
+  },
+  "native": {
+    "mapproxy-genuine-baseline": {
+      "sha256": "6eead876eecff1d80a34795485f6c99b866e1029f8665dd7e79b7f44183cda65",
+      "target": {
+        "repository": "mapproxy/mapproxy",
+        "pull_number": 1559,
+        "base_sha": "a6507dd0dba671e48d303a74f7a5575dadf7fd76",
+        "head_sha": "ac01b8901935bfc16a0195277b4aec1c43275897",
+        "normalized_package": "soupsieve",
+        "old_version": "3.0.4",
+        "proposed_version": "4.0"
+      },
+      "families": [
+        {
+          "family": "investigation_inputs",
+          "codec_version": 1,
+          "producer_method": "workspace.native_capture.NativeInvestigationCapture.start",
+          "producer_version": null
+        },
+        {
+          "family": "ci_inputs",
+          "codec_version": 1,
+          "producer_method": "investigation_inputs.prepare_ci_evidence",
+          "producer_version": null
+        },
+        {
+          "family": "ci_coverage",
+          "codec_version": 2,
+          "producer_method": "ci.dependency_exercise.evaluate_dependency_ci_coverage",
+          "producer_version": null
+        },
+        {
+          "family": "runtime_dependency_state",
+          "codec_version": 1,
+          "producer_method": "ci.dependency_state.evaluate_runtime_dependency_state",
+          "producer_version": null
+        },
+        {
+          "family": "upstream_authority",
+          "codec_version": 1,
+          "producer_method": "upstream.interval.assemble_upstream_interval_authority",
+          "producer_version": null
+        },
+        {
+          "family": "upstream_support_drop",
+          "codec_version": 1,
+          "producer_method": "upgradepilot.upstream.support_drop.evaluate_support_drop_runtime",
+          "producer_version": null
+        },
+        {
+          "family": "python_support_pre_assessment",
+          "codec_version": 1,
+          "producer_method": null,
+          "producer_version": null
+        },
+        {
+          "family": "python_support_selection",
+          "codec_version": 1,
+          "producer_method": null,
+          "producer_version": null
+        },
+        {
+          "family": "target_python",
+          "codec_version": 1,
+          "producer_method": null,
+          "producer_version": null
+        },
+        {
+          "family": "target_relevance",
+          "codec_version": 1,
+          "producer_method": "target.relevance.evaluate_target_python_relevance",
+          "producer_version": null
+        },
+        {
+          "family": "python_support_post_assessment",
+          "codec_version": 1,
+          "producer_method": null,
+          "producer_version": null
+        },
+        {
+          "family": "pull_request_description",
+          "codec_version": 1,
+          "producer_method": "github.pull_request.GitHubPullRequestClient.get_pull_request_observation",
+          "producer_version": null
+        },
+        {
+          "family": "caller_signature_sources",
+          "codec_version": 1,
+          "producer_method": null,
+          "producer_version": null
+        },
+        {
+          "family": "caller_signature_comparison",
+          "codec_version": 1,
+          "producer_method": null,
+          "producer_version": null
+        }
+      ],
+      "ci_state": "supported_not_correlated"
+    },
+    "ordinary-controlled": {
+      "sha256": "dd0089d7442c66180d2ffc3e6441b086d55a38eb292620dc6b4e9de7b26458cc",
+      "target": {
+        "repository": "example/project",
+        "pull_number": 7,
+        "base_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "head_sha": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "normalized_package": "demo",
+        "old_version": "1.0",
+        "proposed_version": "1.1"
+      },
+      "families": [
+        {
+          "family": "investigation_inputs",
+          "codec_version": 1,
+          "producer_method": "workspace.native_capture.NativeInvestigationCapture.start",
+          "producer_version": null
+        },
+        {
+          "family": "ci_inputs",
+          "codec_version": 1,
+          "producer_method": "investigation_inputs.prepare_ci_evidence",
+          "producer_version": null
+        },
+        {
+          "family": "ci_coverage",
+          "codec_version": 2,
+          "producer_method": "ci.dependency_exercise.evaluate_dependency_ci_coverage",
+          "producer_version": null
+        },
+        {
+          "family": "runtime_dependency_state",
+          "codec_version": 1,
+          "producer_method": "ci.dependency_state.evaluate_runtime_dependency_state",
+          "producer_version": null
+        },
+        {
+          "family": "upstream_authority",
+          "codec_version": 1,
+          "producer_method": "upstream.interval.assemble_upstream_interval_authority",
+          "producer_version": null
+        },
+        {
+          "family": "upstream_support_drop",
+          "codec_version": 1,
+          "producer_method": null,
+          "producer_version": null
+        },
+        {
+          "family": "python_support_pre_assessment",
+          "codec_version": 1,
+          "producer_method": "impact.python_support.evaluate_python_support_drop_impact",
+          "producer_version": null
+        },
+        {
+          "family": "python_support_selection",
+          "codec_version": 1,
+          "producer_method": "impact.python_support.select_python_support_drop_investigation",
+          "producer_version": null
+        },
+        {
+          "family": "target_python",
+          "codec_version": 1,
+          "producer_method": "target.python.interpret_target_python_declaration",
+          "producer_version": null
+        },
+        {
+          "family": "target_relevance",
+          "codec_version": 1,
+          "producer_method": "target.relevance.evaluate_target_python_relevance",
+          "producer_version": null
+        },
+        {
+          "family": "python_support_post_assessment",
+          "codec_version": 1,
+          "producer_method": "impact.python_support.evaluate_python_support_drop_impact",
+          "producer_version": null
+        },
+        {
+          "family": "pull_request_description",
+          "codec_version": 1,
+          "producer_method": "github.pull_request.GitHubPullRequestClient.get_pull_request_observation",
+          "producer_version": null
+        },
+        {
+          "family": "caller_signature_sources",
+          "codec_version": 1,
+          "producer_method": null,
+          "producer_version": null
+        },
+        {
+          "family": "caller_signature_comparison",
+          "codec_version": 1,
+          "producer_method": null,
+          "producer_version": null
+        }
+      ],
+      "ci_state": "supported_runtime_correlated"
+    },
+    "server-nexe-historical": {
+      "sha256": "fcff6cd4a8bbf60248c5ff6af471426553a43aea70d814c841f5e17767e750f6",
+      "target": {
+        "repository": "jgoy-labs/server-nexe",
+        "pull_number": 62,
+        "base_sha": "a476c2a35207578285c70bb2f8d0a40fd10e8003",
+        "head_sha": "f1d2aea121eeb6e2abbc0b3fd151804207c4ca6e",
+        "normalized_package": "psutil",
+        "old_version": "5.9.8",
+        "proposed_version": "7.2.2"
+      },
+      "families": [
+        {
+          "family": "investigation_inputs",
+          "codec_version": 1,
+          "producer_method": "workspace.native_capture.NativeInvestigationCapture.start",
+          "producer_version": null
+        },
+        {
+          "family": "ci_inputs",
+          "codec_version": 1,
+          "producer_method": "investigation_inputs.prepare_ci_evidence",
+          "producer_version": null
+        },
+        {
+          "family": "ci_coverage",
+          "codec_version": 3,
+          "producer_method": "ci.dependency_exercise.evaluate_dependency_ci_coverage",
+          "producer_version": null
+        },
+        {
+          "family": "runtime_dependency_state",
+          "codec_version": 1,
+          "producer_method": "ci.dependency_state.evaluate_runtime_dependency_state",
+          "producer_version": null
+        },
+        {
+          "family": "upstream_authority",
+          "codec_version": 1,
+          "producer_method": null,
+          "producer_version": null
+        },
+        {
+          "family": "upstream_support_drop",
+          "codec_version": 1,
+          "producer_method": null,
+          "producer_version": null
+        },
+        {
+          "family": "python_support_pre_assessment",
+          "codec_version": 1,
+          "producer_method": null,
+          "producer_version": null
+        },
+        {
+          "family": "python_support_selection",
+          "codec_version": 1,
+          "producer_method": null,
+          "producer_version": null
+        },
+        {
+          "family": "target_python",
+          "codec_version": 1,
+          "producer_method": null,
+          "producer_version": null
+        },
+        {
+          "family": "target_relevance",
+          "codec_version": 1,
+          "producer_method": null,
+          "producer_version": null
+        },
+        {
+          "family": "python_support_post_assessment",
+          "codec_version": 1,
+          "producer_method": null,
+          "producer_version": null
+        },
+        {
+          "family": "pull_request_description",
+          "codec_version": 1,
+          "producer_method": "github.pull_request.GitHubPullRequestClient.get_pull_request_observation",
+          "producer_version": null
+        },
+        {
+          "family": "caller_signature_sources",
+          "codec_version": 1,
+          "producer_method": null,
+          "producer_version": null
+        },
+        {
+          "family": "caller_signature_comparison",
+          "codec_version": 1,
+          "producer_method": null,
+          "producer_version": null
+        }
+      ],
+      "ci_state": "supported_runtime_correlated"
+    },
+    "server-nexe-missing-install-control": {
+      "sha256": "1d23460640e819c971d568a9810ec401f16cd833d4b3fb94db4bc13643779a7a",
+      "target": {
+        "repository": "jgoy-labs/server-nexe",
+        "pull_number": 62,
+        "base_sha": "a476c2a35207578285c70bb2f8d0a40fd10e8003",
+        "head_sha": "f1d2aea121eeb6e2abbc0b3fd151804207c4ca6e",
+        "normalized_package": "psutil",
+        "old_version": "5.9.8",
+        "proposed_version": "7.2.2"
+      },
+      "families": [
+        {
+          "family": "investigation_inputs",
+          "codec_version": 1,
+          "producer_method": "workspace.native_capture.NativeInvestigationCapture.start",
+          "producer_version": null
+        },
+        {
+          "family": "ci_inputs",
+          "codec_version": 1,
+          "producer_method": "investigation_inputs.prepare_ci_evidence",
+          "producer_version": null
+        },
+        {
+          "family": "ci_coverage",
+          "codec_version": 2,
+          "producer_method": "ci.dependency_exercise.evaluate_dependency_ci_coverage",
+          "producer_version": null
+        },
+        {
+          "family": "runtime_dependency_state",
+          "codec_version": 1,
+          "producer_method": "ci.dependency_state.evaluate_runtime_dependency_state",
+          "producer_version": null
+        },
+        {
+          "family": "upstream_authority",
+          "codec_version": 1,
+          "producer_method": null,
+          "producer_version": null
+        },
+        {
+          "family": "upstream_support_drop",
+          "codec_version": 1,
+          "producer_method": null,
+          "producer_version": null
+        },
+        {
+          "family": "python_support_pre_assessment",
+          "codec_version": 1,
+          "producer_method": null,
+          "producer_version": null
+        },
+        {
+          "family": "python_support_selection",
+          "codec_version": 1,
+          "producer_method": null,
+          "producer_version": null
+        },
+        {
+          "family": "target_python",
+          "codec_version": 1,
+          "producer_method": null,
+          "producer_version": null
+        },
+        {
+          "family": "target_relevance",
+          "codec_version": 1,
+          "producer_method": null,
+          "producer_version": null
+        },
+        {
+          "family": "python_support_post_assessment",
+          "codec_version": 1,
+          "producer_method": null,
+          "producer_version": null
+        },
+        {
+          "family": "pull_request_description",
+          "codec_version": 1,
+          "producer_method": "github.pull_request.GitHubPullRequestClient.get_pull_request_observation",
+          "producer_version": null
+        },
+        {
+          "family": "caller_signature_sources",
+          "codec_version": 1,
+          "producer_method": null,
+          "producer_version": null
+        },
+        {
+          "family": "caller_signature_comparison",
+          "codec_version": 1,
+          "producer_method": null,
+          "producer_version": null
+        }
+      ],
+      "ci_state": "supported_not_correlated"
+    }
+  },
+  "verification": {
+    "report_count": 9,
+    "native_count": 4,
+    "normal_semantic_sha256": "9de8fd2a7966b1b0eb586bacb4c588f526877d0fb54ec273da12ee82f76e7ba1",
+    "offline_semantic_sha256": "9de8fd2a7966b1b0eb586bacb4c588f526877d0fb54ec273da12ee82f76e7ba1",
+    "target_jobs": 8,
+    "target_steps": 79,
+    "provider_response_count": 16,
+    "source_modules": 114,
+    "genuine_normal_report": true,
+    "offline_console_replay": true,
+    "model_requests": 0
+  }
+}

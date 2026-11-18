@@ -1,0 +1,239 @@
+{
+  "artifact_kind": "predeclared acceptance expectations",
+  "execution_status": "oracles specified before implementation; new capability controls remain to be implemented and executed",
+  "derivation": "independently transcribed from accepted ADR-0014, the implementation plan, retained observations and explicit counterexample contracts",
+  "frozen_repository": "mapproxy/mapproxy",
+  "pull_request": 1559,
+  "head": "ac01b8901935bfc16a0195277b4aec1c43275897",
+  "run_id": 43457921398,
+  "run_attempt": 1,
+  "observed_success_case": [
+    {
+      "original_yaml_job": "test",
+      "coordinates": {
+        "python-version": "3.12",
+        "pillow-version": "13.0.0"
+      },
+      "runtime_job_id": 131996881880,
+      "frozen_job_outcome": "success",
+      "reported_test_step": 7,
+      "final_command_result": "supported exact requirements-command execution after qualification",
+      "command_family": "later sequential Bash/sh",
+      "installed_package_state": "must satisfy the existing scoped manager/environment/source contract, otherwise explicit unresolved",
+      "dependency_behavior": "test-step success alone supplies no Soup Sieve behavior-exercise claim",
+      "selected_requirements_install_step": 6
+    },
+    {
+      "original_yaml_job": "test",
+      "coordinates": {
+        "python-version": "3.13",
+        "pillow-version": "13.0.0"
+      },
+      "runtime_job_id": 131996881564,
+      "frozen_job_outcome": "success",
+      "reported_test_step": 7,
+      "final_command_result": "supported exact requirements-command execution after qualification",
+      "command_family": "later sequential Bash/sh",
+      "installed_package_state": "must satisfy the existing scoped manager/environment/source contract, otherwise explicit unresolved",
+      "dependency_behavior": "test-step success alone supplies no Soup Sieve behavior-exercise claim",
+      "selected_requirements_install_step": 6
+    },
+    {
+      "original_yaml_job": "test",
+      "coordinates": {
+        "python-version": "3.14",
+        "pillow-version": "13.0.0"
+      },
+      "runtime_job_id": 131996881411,
+      "frozen_job_outcome": "success",
+      "reported_test_step": 7,
+      "final_command_result": "supported exact requirements-command execution after qualification",
+      "command_family": "later sequential Bash/sh",
+      "installed_package_state": "must satisfy the existing scoped manager/environment/source contract, otherwise explicit unresolved",
+      "dependency_behavior": "test-step success alone supplies no Soup Sieve behavior-exercise claim",
+      "selected_requirements_install_step": 6
+    },
+    {
+      "original_yaml_job": "test",
+      "coordinates": {
+        "python-version": "3.15",
+        "pillow-version": "13.0.0"
+      },
+      "runtime_job_id": 131996881633,
+      "frozen_job_outcome": "success",
+      "reported_test_step": 7,
+      "final_command_result": "supported exact requirements-command execution after qualification",
+      "command_family": "later sequential Bash/sh",
+      "installed_package_state": "must satisfy the existing scoped manager/environment/source contract, otherwise explicit unresolved",
+      "dependency_behavior": "test-step success alone supplies no Soup Sieve behavior-exercise claim",
+      "selected_requirements_install_step": 6
+    },
+    {
+      "original_yaml_job": "coverage",
+      "coordinates": {},
+      "runtime_job_id": 131996881258,
+      "frozen_job_outcome": "success",
+      "reported_test_step": 7,
+      "final_command_result": "supported exact requirements-command execution after qualification",
+      "command_family": "later sequential Bash/sh",
+      "installed_package_state": "must satisfy the existing scoped manager/environment/source contract, otherwise explicit unresolved",
+      "dependency_behavior": "test-step success alone supplies no Soup Sieve behavior-exercise claim",
+      "selected_requirements_install_step": 6
+    },
+    {
+      "original_yaml_job": "doc",
+      "coordinates": {},
+      "runtime_job_id": 131996881440,
+      "frozen_job_outcome": "success",
+      "reported_test_step": null,
+      "final_command_result": "no selected Soup Sieve requirements-consumption credit",
+      "command_family": null,
+      "installed_package_state": "must satisfy the existing scoped manager/environment/source contract, otherwise explicit unresolved",
+      "dependency_behavior": "test-step success alone supplies no Soup Sieve behavior-exercise claim",
+      "selected_requirements_install_step": null,
+      "reported_documentation_install_step": 3,
+      "reported_documentation_build_step": 4
+    },
+    {
+      "original_yaml_job": "lint",
+      "coordinates": {},
+      "runtime_job_id": 131996881382,
+      "frozen_job_outcome": "success",
+      "reported_test_step": null,
+      "final_command_result": "supported exact requirements-command execution after qualification",
+      "command_family": "existing sole-command family",
+      "installed_package_state": "must satisfy the existing scoped manager/environment/source contract, otherwise explicit unresolved",
+      "dependency_behavior": "test-step success alone supplies no Soup Sieve behavior-exercise claim",
+      "selected_requirements_install_step": 4
+    },
+    {
+      "original_yaml_job": "typechecking",
+      "coordinates": {},
+      "runtime_job_id": 131996881059,
+      "frozen_job_outcome": "success",
+      "reported_test_step": null,
+      "final_command_result": "supported exact requirements-command execution after qualification",
+      "command_family": "existing sole-command family",
+      "installed_package_state": "must satisfy the existing scoped manager/environment/source contract, otherwise explicit unresolved",
+      "dependency_behavior": "test-step success alone supplies no Soup Sieve behavior-exercise claim",
+      "selected_requirements_install_step": 4
+    }
+  ],
+  "adversarial_controls": [
+    {
+      "name": "matrix_install_failure",
+      "input": "One identified test variant reports install step 6 failure and test step 7 skipped.",
+      "expected": "Retain both factual outcomes. No exact-command failure attribution without sufficient command evidence. Other variants use their own premises."
+    },
+    {
+      "name": "missing_install_with_identity",
+      "input": "Remove test 3.12 step 6, retain uniquely distinguishing ordered step witnesses.",
+      "expected": "Association may remain supported. Install execution is unknown. Success at job level supplies no missing step result."
+    },
+    {
+      "name": "lost_discriminator",
+      "input": "Remove the Python identity witness from a test row that no longer has another qualified discriminator.",
+      "expected": "Retain competing variants and unresolved association. No list-position or default-label guess."
+    },
+    {
+      "name": "indistinguishable_variants",
+      "input": "Different declared slots have equal admitted runtime witnesses.",
+      "expected": "Distinct declared contexts remain. Runtime assignment stays ambiguous, even for identical generated command text."
+    },
+    {
+      "name": "conflicting_runtime_rows",
+      "input": "Duplicate ID, incompatible head/run/attempt, repeated step identity, or contradictory correspondence.",
+      "expected": "Reject the invalid join or retain an explicit scoped conflict. No silent winner."
+    },
+    {
+      "name": "cross_variant_substitution",
+      "input": "Move a command result, semantic fact, generated-script reference or native record to another variant.",
+      "expected": "Reject the context mismatch or preserve the missing premise. Never complete consumption/exercise or package state across variants."
+    },
+    {
+      "name": "fail_fast_matrix_cancellation",
+      "input": {
+        "strategy": "original MapProxy strategy, fail-fast omitted and default true",
+        "variants": [
+          "3.12 failed",
+          "3.13 cancelled after starting",
+          "3.14 observed queued/unstarted",
+          "3.15 runtime row missing"
+        ],
+        "snapshot": "controlled contrast at its explicitly recorded observation horizon; ordinary jobs retain independent outcomes"
+      },
+      "expected": {
+        "failure": "retain observed failure, with command outcome limited by available evidence",
+        "cancelled": "retain cancelled outcome; installation unknown without admissible same-context evidence",
+        "unstarted": "requires qualified queued/lifecycle witness at capture; assignment can remain unresolved",
+        "missing": "retain missing runtime evidence, never relabel it as never-started or skipped",
+        "causality": "configuration alone does not establish the cause of a particular cancellation"
+      }
+    },
+    {
+      "name": "explicit_skip",
+      "input": "Job conclusion skipped with zero step rows and an independently admitted identity basis.",
+      "expected": "Retain the explicit skip. No installation execution or success credit."
+    },
+    {
+      "name": "cancelled_phase_unknown",
+      "input": "Cancelled job record without reliable execution-start evidence.",
+      "expected": "Outcome cancelled, start phase unknown. Empty steps or missing timestamps cannot prove never-started."
+    },
+    {
+      "name": "install_then_cancel",
+      "input": "Admissible successful install-command evidence precedes a later job cancellation.",
+      "expected": "Retain only independently earned command-boundary evidence. Later package use/persistence remain separate."
+    },
+    {
+      "name": "misleading_successful_shell",
+      "input": [
+        "early exit",
+        "exec before target",
+        "set +e",
+        "ERR trap",
+        "BASH_ENV startup exit or trap",
+        "sourced/evaluated text",
+        "status masking",
+        "nested/asynchronous syntax",
+        "custom or unresolved profile"
+      ],
+      "expected": "Successful enclosing step cannot supply unsupported later-command execution. Preserve structural/profile blockers."
+    },
+    {
+      "name": "literals_and_expansion",
+      "input": [
+        "include/exclude ordering",
+        "include-only",
+        "case collisions",
+        "mixed scalar comparisons",
+        "repeated coordinates",
+        "Unicode replacement",
+        "literal-inserted shell syntax",
+        "nonrecursive expression-like values",
+        "dynamic matrix or unqualified expression"
+      ],
+      "expected": "Complete admitted expansion with distinct slot and source identities, or explicit bounded unresolved result. No silent truncation or altered script."
+    },
+    {
+      "name": "historical_and_delivery",
+      "input": [
+        "old ordinary codecs",
+        "old unscoped matrix",
+        "saved count-only reports",
+        "new scoped checkpoint",
+        "optional detail budget",
+        "incompatible/torn records"
+      ],
+      "expected": "Preserve historical meaning and required per-instance outcomes. Offline reading performs no acquisition or re-evaluation."
+    }
+  ],
+  "premise_classes": [
+    "static matrix interpretation",
+    "reported runtime correspondence",
+    "command execution",
+    "installed package state",
+    "dependency behavior exercised by tests"
+  ],
+  "final_gate": "all eight instances, adversarial controls, normal installed product, saved/native offline recovery, historical compatibility, semantic parity and full final-candidate regressions"
+}

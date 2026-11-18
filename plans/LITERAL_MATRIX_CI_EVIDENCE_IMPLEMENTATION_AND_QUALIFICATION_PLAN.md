@@ -1,6 +1,6 @@
 # Literal Matrix CI Evidence Implementation and Qualification Plan
 
-**Artifact status — Prepared for review before Build.**
+**Artifact status — Accepted for staged execution after plan and cancellation-control review.**
 
 **Responsibility —** Deliver the complete supported path from literal matrix definitions and exact-attempt runtime records through scoped dependency evidence, native recovery and maintainer reports.
 
@@ -197,4 +197,4 @@ The principal risks are scope loss in existing identities, ambiguous partial mat
 
 Build may change the existing GitHub/CI/dependency interpretation boundaries, native codecs/recovery validators, report/CLI delivery and their tests as required by this plan. Prefer existing owners and standard-library representations. Additional dependencies, a general expression interpreter, human-graph acquisition, target workflow mutation and new action permissions require a separate concrete need and owner decision.
 
-Ali requested method review and planning before Build. Present the implementation sequence, residual risks and gates for that review. Completing this planning artifact does not activate Build or establish product acceptance. Interim engineering completion and final capability completion must be reported separately throughout execution.
+Entry to Build requires the reviewed plan and Ali's authorization. Plan acceptance, individual engineering milestones and final capability acceptance retain their separate gates. Interim engineering completion and final capability completion must be reported separately throughout execution.
