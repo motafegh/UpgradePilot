@@ -47,4 +47,12 @@ The plan distinguishes baseline freeze, scoped provider work, cross-consumer mig
 
 Ali requested this plan and its risks before Build. The next step is that review. Product source and tests remain at their prior revision. Independent learner ownership and maintainer usefulness remain open.
 
+### Bounded cancellation-test clarification
+
+Ali requested an explicit matrix-cancellation adversarial test before authorizing Build. The hash-checked MapProxy test job has neither a strategy.fail-fast override nor a job continue-on-error override. The retained same-day GitHub syntax reference states that fail-fast defaults to true and applies to in-progress and queued matrix siblings. The original successful attempt remains the fixed baseline.
+
+The plan now requires a four-variant failed/cancelled/queued-or-unstarted/missing-row contrast and companion explicit-skip and cancellation-phase controls. Lifecycle and terminal outcome are separate facts. A captured queued state supports an unstarted-at-capture observation, while a stronger never-started claim needs suitable lifecycle evidence. Missing rows, empty steps and absent timestamps preserve uncertainty. The control retains admissible evidence from any completed install and prevents cancellation status from inventing command results.
+
+Association, execution composition, saved-report opening and native recovery must preserve those distinctions. Final feature acceptance includes this control. The clarification fits ADR-0014's scoped outcomes and evidence boundaries and requires no architectural redesign. Build milestone 1 remains at Ali's explicit review stop.
+
 Provenance: `UP-SKILL:upgradepilot-planning-design`, `UP-SKILL:upgradepilot-repository-audit`, `UP-SKILL:upgradepilot-working-memory`.

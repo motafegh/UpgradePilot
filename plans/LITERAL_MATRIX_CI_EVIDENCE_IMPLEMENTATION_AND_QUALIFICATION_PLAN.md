@@ -143,6 +143,7 @@ Run the complete maintained product regression suite from the final installed ar
 | --- | --- |
 | All four successful variants and all four ordinary jobs | Eight distinct contexts with the correct job IDs, per-instance outcomes and unchanged original source identity. |
 | Failure in one variant with successful siblings | The failing variant's owning step reports failure. The exact internal command gets only its justified state, and sibling success cannot complete its premises. |
+| Matrix fail-fast cancellation with queued or absent siblings | Apply the dedicated cancellation control below. Distinguish failed, cancelled and explicitly skipped outcomes, observed unstarted lifecycle state, and missing runtime evidence without borrowing install results across variants. |
 | Tests skipped after an install-step failure | Preserve both reported outcomes. Do not report test execution or dependency behavior from the successful workflow siblings. |
 | Explicitly identified skipped job with zero steps | Preserve its job skip and independent association basis, with no step or command-success credit. |
 | Unnamed matrix skip with insufficient witnesses | Preserve the reported skip and unresolved variant assignment. Do not synthesize a unique coordinate from array position or an undocumented display convention. |
@@ -161,6 +162,18 @@ Run the complete maintained product regression suite from the final installed ar
 
 At least one mixed-outcome control must contain successful, failed, skipped and unresolved observations together, so an aggregate success cannot hide a missing variant. Controlled modifications are labeled and kept separate from original public observations. Pure shell controls use self-authored commands, without executing the target workflow.
 
+### Matrix fail-fast cancellation control
+
+Use the exact retained MapProxy test strategy. It omits strategy.fail-fast and job continue-on-error, so GitHub's default fail-fast value is true. A matrix failure can cancel in-progress or queued matrix siblings. Already completed jobs may retain their outcomes, and a captured snapshot may still show unstarted work. Treat the configuration as scheduling context, with actual outcomes established by their own records. The original captured attempt succeeded. Label the following adversarial inputs as controlled contrasts. [GitHub fail-fast semantics](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#jobsjob_idstrategyfail-fast)
+
+1. In one four-variant contrast, record a failing variant, a sibling cancelled after starting, a sibling with supported queued/unstarted evidence at the observation horizon, and a declared variant with no runtime row. Preserve all four declared contexts and the four ordinary jobs.
+2. Add companion contrasts for an explicitly skipped job, cancellation before execution where a qualified provider lifecycle witness is available, and cancellation whose start phase is unknown. Cancellation outcome and started/unstarted phase are separate facts. A queued observation establishes unstarted state at that capture, while a final claim that a job never started requires evidence covering that stronger horizon.
+3. Missing rows, absent timestamps and empty step lists alone cannot establish that a job never started. If the captured provider fields do not support a lifecycle distinction, preserve the phase as unknown. Qualify only the minimal needed lifecycle evidence through the existing provider/native/report path.
+4. A job-level failed or cancelled conclusion alone supplies no installation success or failure. For cancelled or unstarted variants, retain unknown installation outcomes unless the same scoped record supplies admissible command/step evidence. A successfully completed install before a later cancellation keeps only its independently earned command-boundary evidence.
+5. Verify the distinctions through per-variant assessments, aggregation, saved-report reopening and native recovery. The failure or cancellation of one variant cannot erase another variant's evidence or manufacture results for an unstarted or unobserved sibling. The ordinary jobs retain their own outcomes, since matrix fail-fast applies to its matrix.
+
+This control is required at scoped association, execution composition and final integration qualification. Its oracle must distinguish all five requested categories, retain unresolved lifecycle/assignment premises and avoid attributing a cancellation cause from configuration alone.
+
 Predeclare the oracle for each control from the source/observation contract. For matched positive rows, verify the selected command and context, not only a top-level supported flag. For partial and negative rows, assert the exact missing or conflicting premise and the surviving reported observations. Use the unchanged real captures to verify identity and output fidelity, with separately labeled controls for defects absent from those captures.
 
 ## Final completion gate
@@ -169,7 +182,7 @@ Matrix support within this accepted scope is complete only when all of the follo
 
 1. All eight required declared/ordinary contexts are represented, and the frozen input supplies the four distinct matrix associations and required requirements-command assessments.
 2. Identity/provenance survives every migration boundary, and adversarial cross-context substitution fails safely.
-3. Failures, skips, unmatched instances and unsupported forms remain explicit. Per-instance coverage and existential aggregate support remain distinguishable.
+3. Failures, cancellations, explicit skips, supported unstarted lifecycle observations, missing runtime evidence and unsupported forms remain distinct. The matrix fail-fast control passes through the full delivery/recovery path. Per-instance coverage and existential aggregate support remain distinguishable.
 4. The actual normal installed CLI produces the result through its production entry point. Its saved report reopens offline with substantive parity.
 5. The normally produced native material survives guarded cold checkpoint recovery and historical compatibility checks at the declared codec/method boundaries.
 6. Static interpretation, reported correspondence, command execution, installed-state interpretation and behavior exercised by tests retain their separate proof strengths and unknowns.
