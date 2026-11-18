@@ -81,6 +81,9 @@ This section is navigation only. Each ADR's own `Status` field determines whethe
 - [`ADR-0013-versioned-native-reconstruction-and-workspace-checkpoint-storage.md`](ADR-0013-versioned-native-reconstruction-and-workspace-checkpoint-storage.md)
   — **Accepted.** Explicit owner/version native reconstruction, immutable Workspace revisions and coherent local SQLite checkpoint publication/backup, with stated support/refusal and durability limits; executable adoption requires separate activation/proof.
 
+- [`ADR-0014-literal-matrix-specialization-and-scoped-ci-evidence.md`](ADR-0014-literal-matrix-specialization-and-scoped-ci-evidence.md)
+  — **Proposed.** Provider-owned literal matrix specialization, variant and generated-command identity, reported runtime correspondence, and a separately qualified later-command proof extension.
+
 Do not add labels such as **current ADR**, **active ADR**, or **next ADR** here. Live project position belongs only in `../../MEMORY.md`.
 
 ## Specification, ADR, plan, and implementation
