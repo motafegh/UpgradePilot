@@ -172,6 +172,20 @@ class _StructuralIssue(ValueError):
 def parse_workflow_definition(source: RepositoryTextFile) -> WorkflowDefinitionResult:
     """Translate one repository workflow file into the bounded static provider IR."""
 
+    definition, _ = _parse_workflow_definition_with_syntax(source)
+    return definition
+
+
+def _parse_workflow_definition_with_syntax(
+    source: RepositoryTextFile,
+) -> tuple[WorkflowDefinitionResult, Node | None]:
+    """Share one guarded composition with the provider's matrix companion.
+
+    General consumers still receive only the static IR. The companion needs scalar
+    style and spelling to distinguish quoted strings from provider numeric literals;
+    parser nodes remain private to the GitHub provider and are never retained.
+    """
+
     if not source.path.startswith(".github/workflows/") or not source.path.endswith(
         (".yml", ".yaml")
     ):
@@ -179,7 +193,7 @@ def parse_workflow_definition(source: RepositoryTextFile) -> WorkflowDefinitionR
             source=source,
             reason="unsupported_workflow_path",
             detail="Static workflow definitions require a .github/workflows YAML path.",
-        )
+        ), None
 
     try:
         root = _compose_workflow_yaml(source.content)
@@ -188,7 +202,14 @@ def parse_workflow_definition(source: RepositoryTextFile) -> WorkflowDefinitionR
             source=source,
             reason="workflow_yaml_parse_error",
             detail=str(exc),
-        )
+        ), None
+
+    return _definition_from_root(source, root), root
+
+
+def _definition_from_root(
+    source: RepositoryTextFile, root: Node | None,
+) -> WorkflowDefinitionResult:
 
     if not isinstance(root, MappingNode):
         return WorkflowDefinitionProblem(
@@ -227,6 +248,7 @@ def parse_workflow_definition(source: RepositoryTextFile) -> WorkflowDefinitionR
             )
 
         run_defaults = _parse_run_defaults(root_fields.get("defaults"), scope="workflow")
+        environment = _optional_mapping_value(root_fields.get("env"), "workflow env")
         jobs = tuple(
             _parse_job(source_index, key.value, value)
             for source_index, (key, value) in enumerate(job_pairs)
@@ -242,7 +264,7 @@ def parse_workflow_definition(source: RepositoryTextFile) -> WorkflowDefinitionR
     return WorkflowDefinition(
         source=source,
         run_defaults=run_defaults,
-        environment=_optional_mapping_value(root_fields.get("env"), "workflow env"),
+        environment=environment,
         jobs=jobs,
     )
 

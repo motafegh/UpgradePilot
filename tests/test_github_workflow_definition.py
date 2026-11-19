@@ -427,6 +427,11 @@ jobs:
         self.assertEqual(malformed.reason, "workflow_yaml_parse_error")
         self.assertEqual(wrong_path.reason, "unsupported_workflow_path")
 
+    def test_invalid_workflow_environment_is_a_typed_problem(self) -> None:
+        result = parse_workflow_definition(_source("env: []\njobs: {}\n"))
+        self.assertIsInstance(result, WorkflowDefinitionProblem)
+        self.assertEqual(result.reason, "expected_mapping")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,0 +1,10 @@
+{
+  "repository": "mapproxy/mapproxy",
+  "revision": "ac01b8901935bfc16a0195277b4aec1c43275897",
+  "path": ".github/workflows/test.yml",
+  "fixture_sha256": "fb052b6c542e85ccc7448c325d47c03bf1ba3e2453caec02130b898d47821738",
+  "provider_response_sha256": "0905fde79836de9b5ff59da8f326b93ed38664fb69c1cf7ffaba5b5d9889e018",
+  "observation": "2026-11-18T16:59:08.424506+00:00",
+  "origin": "milestone 1 genuine immutable workflow contents response",
+  "use": "inert parser input; never execute these scripts"
+}

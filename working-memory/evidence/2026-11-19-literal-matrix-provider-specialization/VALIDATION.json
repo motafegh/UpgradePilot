@@ -1,0 +1,198 @@
+{
+  "proof_class": "interim provider component plus unchanged normal-product and historical compatibility checks",
+  "baseline_commit": "694ae7c6",
+  "method": "github_literal_matrix/1",
+  "wheel_sha256": "03413c09ce8006031858754821ea52649d84ddb8c44535f16972e7ad1f668aaf",
+  "installed_module_count": 116,
+  "module_parity": true,
+  "pip_check": "No broken requirements found.",
+  "dependency_basis": "explicit shared read-only development site-packages via .pth",
+  "source_test_fixture_hashes": {
+    "src/upgradepilot/github/workflow_definition.py": "76394e5bc556f10fbd593bf10ce475ba44dfb92ec74f7b03b9e61492d42b8cfa",
+    "src/upgradepilot/github/workflow_matrix.py": "880146f68f5dbb97d7e9bff7f2260cd92969920ad5f00761e1553b44d07b863e",
+    "src/upgradepilot/github/workflow_specialization.py": "ad0bd2c4bf5e2c329d2f9118c77f7726bfbdddc67cb5b4ef9a07c2812c7b10d5",
+    "tests/test_github_workflow_definition.py": "f148ed944c52858e49d176a18dc521512110fa5fca2a789390abb38b2b0a59b3",
+    "tests/test_github_workflow_specialization.py": "f334064a15e877f96ea91df60c67ca5e880e3ad0380b2c5afe7a29198ccaa968",
+    "tests/fixtures/github/mapproxy-matrix-test.yml": "fb052b6c542e85ccc7448c325d47c03bf1ba3e2453caec02130b898d47821738",
+    "tests/fixtures/github/mapproxy-matrix-test.receipt.json": "30dd1993e384ee8009e672e0d4e8f08a01acd77280a03ec51dd76d97dd9d4716"
+  },
+  "component_contexts": [
+    {
+      "job": "test",
+      "kind": "matrix",
+      "slot": 0,
+      "coordinates": {
+        "python-version": "3.12",
+        "pillow-version": "13.0.0"
+      },
+      "unresolved_fields": [],
+      "original_install_bytes": 112,
+      "generated_install_bytes": 90,
+      "original_install_sha256": "b057d9427cf86ab2f879051021769ef3257e693720e8f6e256547d0b14bc1960",
+      "generated_install_sha256": "93ee9bc1df926a8028697b87f50565fca42fb3b430016c857c215428b2cc4b83",
+      "command_count": 4,
+      "requirements_command_relation": null
+    },
+    {
+      "job": "test",
+      "kind": "matrix",
+      "slot": 1,
+      "coordinates": {
+        "python-version": "3.13",
+        "pillow-version": "13.0.0"
+      },
+      "unresolved_fields": [],
+      "original_install_bytes": 112,
+      "generated_install_bytes": 90,
+      "original_install_sha256": "b057d9427cf86ab2f879051021769ef3257e693720e8f6e256547d0b14bc1960",
+      "generated_install_sha256": "93ee9bc1df926a8028697b87f50565fca42fb3b430016c857c215428b2cc4b83",
+      "command_count": 4,
+      "requirements_command_relation": null
+    },
+    {
+      "job": "test",
+      "kind": "matrix",
+      "slot": 2,
+      "coordinates": {
+        "python-version": "3.14",
+        "pillow-version": "13.0.0"
+      },
+      "unresolved_fields": [],
+      "original_install_bytes": 112,
+      "generated_install_bytes": 90,
+      "original_install_sha256": "b057d9427cf86ab2f879051021769ef3257e693720e8f6e256547d0b14bc1960",
+      "generated_install_sha256": "93ee9bc1df926a8028697b87f50565fca42fb3b430016c857c215428b2cc4b83",
+      "command_count": 4,
+      "requirements_command_relation": null
+    },
+    {
+      "job": "test",
+      "kind": "matrix",
+      "slot": 3,
+      "coordinates": {
+        "python-version": "3.15",
+        "pillow-version": "13.0.0"
+      },
+      "unresolved_fields": [],
+      "original_install_bytes": 112,
+      "generated_install_bytes": 90,
+      "original_install_sha256": "b057d9427cf86ab2f879051021769ef3257e693720e8f6e256547d0b14bc1960",
+      "generated_install_sha256": "93ee9bc1df926a8028697b87f50565fca42fb3b430016c857c215428b2cc4b83",
+      "command_count": 4,
+      "requirements_command_relation": null
+    },
+    {
+      "job": "coverage",
+      "kind": "ordinary",
+      "slot": 0,
+      "coordinates": {},
+      "unresolved_fields": [
+        {
+          "path": [
+            "steps",
+            5,
+            "run"
+          ],
+          "reason": "matrix_expression_unsupported"
+        },
+        {
+          "path": [
+            "steps",
+            6,
+            "if"
+          ],
+          "reason": "condition_not_evaluated"
+        }
+      ]
+    },
+    {
+      "job": "doc",
+      "kind": "ordinary",
+      "slot": 0,
+      "coordinates": {},
+      "unresolved_fields": []
+    },
+    {
+      "job": "lint",
+      "kind": "ordinary",
+      "slot": 0,
+      "coordinates": {},
+      "unresolved_fields": []
+    },
+    {
+      "job": "typechecking",
+      "kind": "ordinary",
+      "slot": 0,
+      "coordinates": {},
+      "unresolved_fields": []
+    }
+  ],
+  "checks": {
+    "focused": {
+      "tests": 74,
+      "outcome": "OK",
+      "reported_seconds": 0.082,
+      "log_sha256": "5f0b0201f3cee0e88262946530e774a964188c201fa63004c5d39d4b6713d47b",
+      "command": "PYTHONPATH=tests <installed-python> -m unittest test_github_workflow_specialization test_github_workflow_definition test_github_workflow_command_analysis test_parser_backed_ci_command_evidence test_single_pass_workflow_static_evidence test_github_workflow_environment -v"
+    },
+    "full_product": {
+      "tests": 1160,
+      "outcome": "OK",
+      "reported_seconds": 243.515,
+      "log_sha256": "4b64ac89d6fc273025f3825b364aff9cd1fe2ccefcebee300e3b95296814788d",
+      "command": "PYTHONPATH=tests <installed-python> -m unittest discover -s tests -v"
+    },
+    "consumers": {
+      "tests": 25,
+      "outcome": "OK",
+      "reported_seconds": 1.702,
+      "log_sha256": "a37406b21f7a3531fe45404d9a03a08b6d0e9d80af5c1788f4af3e9f4bced74f",
+      "command": "PYTHONPATH=.:tests <installed-python> -m unittest experiments.tests.test_investigator_ci_presentation experiments.tests.test_retained_native_ci_baseline_comparison experiments.tests.test_experiment_dependency_boundaries -v"
+    }
+  },
+  "experiment_boundary_check": {
+    "ok": true,
+    "errors": [],
+    "artifacts": 128,
+    "python_modules": 119,
+    "internal_import_edges": 252,
+    "legacy_private_symbols": 31,
+    "product_python_files": 116
+  },
+  "normal_retained_input_console": {
+    "requests": {
+      "consumed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "expected": 16,
+      "complete": true,
+      "meaning": "recorded provider response replay through installed console entry"
+    },
+    "semantic_parity": true,
+    "semantic_sha256": "9de8fd2a7966b1b0eb586bacb4c588f526877d0fb54ec273da12ee82f76e7ba1",
+    "ci_state": "supported_not_correlated",
+    "action": "abstain",
+    "meaning": "ordinary runtime path remains unchanged until identity migration"
+  },
+  "historical_report_opens": 9,
+  "cold_encoded_native_restorations": 4,
+  "baseline_material_unchanged": true,
+  "component_proof_sha256": "093203938f7690c45eb645dccf82e5f0a129933d2625b9b1480fd398ffabbdb0",
+  "private_evidence_root": "/home/motafeq/.local/share/upgradepilot/matrix-provider-20261119",
+  "limits": "Component and compatibility proof; no new matrix runtime, cancellation, SQLite checkpoint or final feature acceptance claim."
+}
