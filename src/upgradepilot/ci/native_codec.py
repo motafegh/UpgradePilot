@@ -228,6 +228,7 @@ LAYOUTS = (
                 ),
             ),
         ),
+        omitted_none_fields=("job_instance",),
     ),
     RecordLayout(
         "direct_requirement_handling_fact",
@@ -694,6 +695,7 @@ LAYOUTS = (
                 ),
             ),
         ),
+        omitted_none_fields=("job_instance",),
     ),
     RecordLayout(
         "static_workflow_dependency_problem",
@@ -711,6 +713,7 @@ LAYOUTS = (
                 ),
             ),
         ),
+        omitted_none_fields=("job_instance",),
     ),
     RecordLayout(
         "workflow_dependency_coverage_input",
@@ -736,6 +739,7 @@ LAYOUTS = (
                 SequenceOf(RecordRef("static_dependency_consumption_evidence")),
             ),
         ),
+        omitted_none_fields=("prepared",),
     ),
     RecordLayout(
         "workflow_dependency_coverage_result",
@@ -881,6 +885,7 @@ LAYOUTS = (
             ("runtime_job", RecordRef("workflow_job")),
             ("steps", SequenceOf(RecordRef("workflow_runtime_step_correlation"))),
         ),
+        omitted_none_fields=("job_instance",),
     ),
     RecordLayout(
         "workflow_runtime_step_correlation",
@@ -897,6 +902,7 @@ LAYOUTS = (
             ),
             ("runtime_step", RecordRef("workflow_step")),
         ),
+        omitted_none_fields=("job_instance",),
     ),
 )
 

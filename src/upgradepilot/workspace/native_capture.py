@@ -43,7 +43,10 @@ from .native_boundary import (
     exact_investigation_target,
     validate_native_boundary,
 )
-from .native_codecs import FAMILY_CONTRACTS, decode_native_value, encode_native_value, family_contract
+from .native_codecs import (
+    FAMILY_CONTRACTS, SCOPED_CI_FAMILIES, SCOPED_CI_PRODUCER_VERSION,
+    decode_native_value, encode_native_value, family_contract,
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -158,6 +161,18 @@ class NativeInvestigationCapture:
         coverage: DependencyCICoverageResult,
         runtime: RuntimeDependencyStateResult,
     ) -> None:
+        if any(workflow.prepared is not None for workflow in inputs):
+            for family, value in (
+                ("ci_inputs", inputs),
+                ("ci_coverage", coverage),
+                ("runtime_dependency_state", runtime),
+            ):
+                codec_version, method = SCOPED_CI_FAMILIES[family]
+                self._record(
+                    family, value, method=method, version=SCOPED_CI_PRODUCER_VERSION,
+                    codec_version=codec_version,
+                )
+            return
         self._record(
             "ci_inputs", inputs, method="investigation_inputs.prepare_ci_evidence"
         )

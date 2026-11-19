@@ -43,7 +43,9 @@ from ..github.repository import (
     RepositoryTextFile,
     UnavailableRepositoryFile,
 )
-from ..github.workflow_definition import RunStepDefinition
+from ..github.workflow_definition import RunStepDefinition, WorkflowDefinition
+from ..github.workflow_instance_commands import materialize_workflow_job_instance
+from ..github.workflow_specialization import WorkflowJobInstance, WorkflowJobInstanceIdentity
 from ..impact.python_support import (
     PythonSupportDropImpactAssessment,
     PythonSupportDropInvestigationSelection,
@@ -71,8 +73,9 @@ from .native_boundary import (
     exact_investigation_target,
     validate_native_boundary,
 )
-from .native_codecs import decode_native_value, family_contract
+from .native_codecs import SCOPED_CI_FAMILIES, decode_native_value, family_contract
 from .native_representation import NativeReconstructionError
+from .native_workflow_instances import validate_prepared_workflow, validate_scoped_command
 
 
 @dataclass(frozen=True, slots=True)
@@ -355,16 +358,19 @@ def _validate_coverage_material(
     coverage: DependencyCICoverageResult,
     workflows: tuple[WorkflowDependencyCoverageInput, ...],
     inputs: NativeInvestigationInputs,
+    instance_inventories: tuple[dict[WorkflowJobInstanceIdentity, WorkflowJobInstance] | None, ...],
 ) -> None:
     if len(coverage.workflows) != len(workflows):
         raise _invalid("CI coverage is not bound to its supplied workflow inputs.")
-    for result, supplied in zip(coverage.workflows, workflows, strict=True):
+    for result, supplied, instances in zip(
+        coverage.workflows, workflows, instance_inventories, strict=True,
+    ):
         if (result.workflow_path, result.workflow_name) != (
             supplied.definition.path,
             supplied.run.name,
         ):
             raise _invalid("CI coverage has another retained workflow identity.")
-        _validate_version_requests(result, supplied, inputs)
+        _validate_version_requests(result, supplied, inputs, instances)
         for consumption in result.consumptions:
             _validate_consumption_source(consumption, supplied, inputs)
         for invocation in result.invocations:
@@ -373,6 +379,23 @@ def _validate_coverage_material(
                 supplied.definition.revision,
             ):
                 raise _invalid("CI invocation has another workflow source identity.")
+        for command in result.consumptions + result.invocations:
+            if instances is not None:
+                validate_scoped_command(
+                    instances, owner=command.job_instance, job_key=command.job_key,
+                    step_source_index=command.step_source_index, command=command.command,
+                    location=command.command_location,
+                )
+            elif command.job_instance is not None or (
+                command.command_location is not None and command.command_location.script_identity is not None
+            ):
+                raise _invalid("Scoped CI command lacks its prepared workflow input.")
+        for problem in result.problems:
+            if problem.job_instance is not None and (
+                instances is None or problem.job_instance not in instances
+                or problem.job_key != problem.job_instance.job_key
+            ):
+                raise _invalid("CI problem has another retained job instance.")
         correlation = result.runtime_correlation
         if correlation is None:
             continue
@@ -387,6 +410,19 @@ def _validate_coverage_material(
         for job in correlation.jobs:
             if job.runtime_job not in supplied.jobs:
                 raise _invalid("CI correlation references an unretained runtime job.")
+            if instances is not None:
+                instance = instances.get(job.job_instance)
+                assert supplied.prepared is not None
+                if (
+                    instance is None or instance.identity.kind != "ordinary"
+                    or not isinstance(supplied.prepared.definition, WorkflowDefinition)
+                    or job.static_job != materialize_workflow_job_instance(
+                        supplied.prepared.definition, instance,
+                    )
+                ):
+                    raise _invalid("CI correlation has another retained ordinary job instance.")
+            elif job.job_instance is not None:
+                raise _invalid("CI correlation references an unretained job instance.")
             if (
                 job.static_job.name is None
                 or job.static_job.name.text != job.runtime_job.name
@@ -396,7 +432,8 @@ def _validate_coverage_material(
                 )
             for step in job.steps:
                 if (
-                    step.static_step not in job.static_job.steps
+                    step.job_instance != job.job_instance
+                    or step.static_step not in job.static_job.steps
                     or step.runtime_step not in (job.runtime_job.steps or ())
                 ):
                     raise _invalid(
@@ -435,6 +472,7 @@ def _validate_coverage_material(
                     step
                     for job in correlation.jobs
                     if job.static_job.key == command.job_key
+                    and job.job_instance == command.job_instance
                     for step in job.static_job.steps
                     if step.source_index == command.step_source_index
                 )
@@ -455,13 +493,17 @@ def _validate_version_requests(
     result: WorkflowDependencyCoverageResult,
     workflow: WorkflowDependencyCoverageInput,
     inputs: NativeInvestigationInputs,
+    instances: dict[WorkflowJobInstanceIdentity, WorkflowJobInstance] | None,
 ) -> None:
     """Validate recorded job membership and literal bytes without replaying analysis."""
     requests = result.version_requests or ()
     jobs = {job.key: job for job in result.version_request_jobs}
-    if len(jobs) != len(result.version_request_jobs) or jobs.keys() != {
-        item.job_key for item in requests
-    }:
+    if instances is not None and jobs:
+        raise _invalid("Scoped version requests must use their retained prepared instances.")
+    if instances is None and (
+        len(jobs) != len(result.version_request_jobs)
+        or jobs.keys() != {item.job_key for item in requests}
+    ):
         raise _invalid("Version requests and retained static jobs do not match.")
     if not requests:
         return
@@ -477,7 +519,7 @@ def _validate_version_requests(
         correlated_jobs = {item.static_job.key: item.static_job for item in correlation.jobs}
         if any(correlated_jobs.get(key) != job for key, job in jobs.items()):
             raise _invalid("Version request job differs from the correlated static job.")
-    seen_steps: set[tuple[str, int]] = set()
+    seen_steps = set()
     for item in requests:
         if (
             item.workflow_path,
@@ -491,10 +533,29 @@ def _validate_version_requests(
             dependency.normalized_package,
         ):
             raise _invalid("Version request is outside its retained workflow/dependency scope.")
-        identity = (item.job_key, item.step_source_index)
+        location = item.command_location
+        script = location.script_identity
+        identity = (item.job_key, item.step_source_index, script.instance if script is not None else None)
         if identity in seen_steps:
             raise _invalid("Version requests repeat a retained step.")
         seen_steps.add(identity)
+        if (
+            location.source_order != 0
+            or not item.request.requirement_source
+            or item.request.requirement_source not in item.command
+            or not item.request.requirement_token
+            or not item.request.version
+        ):
+            raise _invalid("Version request does not preserve its command and requirement basis.")
+        if instances is not None:
+            validate_scoped_command(
+                instances, owner=script.instance if script is not None else None,
+                job_key=item.job_key, step_source_index=item.step_source_index,
+                command=item.command, location=location, occurrence_text=True,
+            )
+            continue
+        if script is not None:
+            raise _invalid("Scoped version request lacks its prepared workflow input.")
         steps = tuple(
             step for step in jobs[item.job_key].steps
             if step.source_index == item.step_source_index
@@ -502,16 +563,10 @@ def _validate_version_requests(
         if len(steps) != 1 or not isinstance(steps[0], RunStepDefinition):
             raise _invalid("Version request does not identify a retained run step.")
         text = steps[0].command.text.encode("utf-8")
-        location = item.command_location
         span = location.source_span
         if (
-            location.source_order != 0
-            or not 0 <= span.start_byte < span.end_byte <= len(text)
+            not 0 <= span.start_byte < span.end_byte <= len(text)
             or text[span.start_byte:span.end_byte] != item.command.encode("utf-8")
-            or not item.request.requirement_source
-            or item.request.requirement_source not in item.command
-            or not item.request.requirement_token
-            or not item.request.version
         ):
             raise _invalid("Version request does not match the retained command bytes.")
         for offset, line, column in (
@@ -833,6 +888,13 @@ def reconstruct_ci_projection(
         RuntimeDependencyStateResult | None,
         _decode(records, "runtime_dependency_state"),
     )
+    scoped = any(workflow.prepared is not None for workflow in workflows)
+    if any(
+        records[family].outcome == "recorded"
+        and (records[family].codec_version == version) != scoped
+        for family, (version, _) in SCOPED_CI_FAMILIES.items()
+    ):
+        raise _invalid("CI family versions disagree with their retained scoped inputs.")
     if not isinstance(inputs.dependency_result, DependencyVersionChange) and any(
         records[family].outcome == "recorded"
         for family in ("ci_inputs", "ci_coverage", "runtime_dependency_state")
@@ -840,6 +902,7 @@ def reconstruct_ci_projection(
         raise _invalid(
             "Recorded CI material requires a retained dependency transition."
         )
+    instance_inventories = []
     for workflow in workflows:
         if workflow.run.head_sha != expected_target.head_sha:
             raise NativeReconstructionError("wrong_target", "CI run has another head.")
@@ -859,10 +922,16 @@ def reconstruct_ci_projection(
                 "wrong_target", "Workflow definition has another scope."
             )
         _validate_project_bundles(workflow, inputs)
+        instance_inventories.append(
+            validate_prepared_workflow(workflow.prepared, workflow.definition)
+            if workflow.prepared is not None else None
+        )
+        if workflow.prepared is not None and workflow.project_environment_consumptions:
+            raise _invalid("Scoped CI inputs must retain project sources instead of precomposed consumption.")
         for consumption in workflow.project_environment_consumptions:
             _validate_consumption_source(consumption, workflow, inputs)
     if coverage is not None:
-        _validate_coverage_material(coverage, workflows, inputs)
+        _validate_coverage_material(coverage, workflows, inputs, tuple(instance_inventories))
     if runtime is not None:
         consumptions = (
             tuple(
@@ -957,6 +1026,7 @@ def reconstruct_ci_projection(
                         and workflow.runtime_correlation is not None
                         for job in workflow.runtime_correlation.jobs
                         if job.static_job.key == consumption.job_key
+                        and job.job_instance == consumption.job_instance
                         for step in job.steps
                         if step.static_step.source_index
                         == consumption.step_source_index

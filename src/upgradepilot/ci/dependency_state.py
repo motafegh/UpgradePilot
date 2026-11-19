@@ -63,6 +63,11 @@ from ..github.workflow_command_analysis import (
     analyze_run_step_commands,
 )
 from ..github.workflow_command_location import StaticCommandLocation
+from ..github.workflow_instance_commands import (
+    materialize_workflow_job_instance,
+    run_script_identity,
+)
+from ..github.workflow_specialization import PreparedWorkflowJobInstances
 from ..github.workflow_definition import (
     RunStepDefinition,
     StepsJobDefinition,
@@ -104,7 +109,7 @@ type RequirementStateBlockingSemanticEvidence = (
 
 @dataclass(frozen=True, slots=True)
 class ExactCICommandIdentity:
-    """Workflow-scoped identity for one parsed static command occurrence."""
+    """Exact static command address, with instance and script in a scoped location."""
 
     workflow_path: str
     workflow_revision: str
@@ -227,8 +232,9 @@ def evaluate_runtime_dependency_state(
                 "workflow definition"
             )
 
-        definition = parse_workflow_definition(definition_source)
-        if not isinstance(definition, WorkflowDefinition):
+        prepared = workflow_input.prepared
+        definition = prepared.definition if prepared is not None else parse_workflow_definition(definition_source)
+        if not isinstance(definition, WorkflowDefinition) or definition.source != definition_source:
             raise ValueError(
                 "supported direct-requirements consumption could not be recovered from "
                 "the same exact workflow definition"
@@ -250,6 +256,7 @@ def evaluate_runtime_dependency_state(
             job, step, occurrence = _locate_exact_consuming_command(
                 definition,
                 consumption,
+                prepared=prepared,
             )
 
             declaration = parse_package_manager_operation(occurrence)
@@ -378,6 +385,8 @@ def _matching_requirements_source_context(
 def _locate_exact_consuming_command(
     definition: WorkflowDefinition,
     consumption: StaticDependencyConsumptionEvidence,
+    *,
+    prepared: PreparedWorkflowJobInstances | None = None,
 ) -> tuple[StepsJobDefinition, RunStepDefinition, StaticCommandOccurrence]:
     if not consumption.job_key or consumption.command_location is None:
         raise ValueError(
@@ -385,16 +394,35 @@ def _locate_exact_consuming_command(
             "job/step/command identity"
         )
 
-    jobs = tuple(
-        job
-        for job in definition.jobs
-        if isinstance(job, StepsJobDefinition) and job.key == consumption.job_key
-    )
-    if len(jobs) != 1:
-        raise ValueError(
-            "supported direct-requirements consumption must map to one readable local job"
+    script = consumption.command_location.script_identity
+    if script is None:
+        if consumption.job_instance is not None or prepared is not None:
+            raise ValueError("Scoped consumption requires its retained run-script address.")
+        jobs = tuple(
+            job for job in definition.jobs
+            if isinstance(job, StepsJobDefinition) and job.key == consumption.job_key
         )
-    job = jobs[0]
+        if len(jobs) != 1:
+            raise ValueError(
+                "supported direct-requirements consumption must map to one readable local job"
+            )
+        job = jobs[0]
+    else:
+        if (
+            prepared is None or prepared.definition != definition
+            or script.instance != consumption.job_instance
+            or script.instance.job_key != consumption.job_key
+        ):
+            raise ValueError("Consumption and its generated script have different scopes.")
+        instances = tuple(
+            instance for prepared_job in prepared.jobs for instance in prepared_job.instances
+            if instance.identity == script.instance
+        )
+        if len(instances) != 1 or run_script_identity(
+            instances[0], consumption.step_source_index,
+        ) != script:
+            raise ValueError("Consumption does not identify one retained run script.")
+        job = materialize_workflow_job_instance(definition, instances[0])
 
     steps = tuple(
         step
@@ -413,7 +441,7 @@ def _locate_exact_consuming_command(
             "exact workflow run step"
         )
 
-    analysis = analyze_run_step_commands(definition, job, step)
+    analysis = analyze_run_step_commands(definition, job, step, script_identity=script)
     if analysis.state != "analyzable":
         raise ValueError(
             "supported direct-requirements consumption command is no longer analyzable "
@@ -946,6 +974,13 @@ def _command_identity_from_consumption(
                 "Command-derived requirement state requires exact workflow/revision/job/"
                 "step/command identity from the dependency consumption evidence."
             ),
+        )
+    script = consumption.command_location.script_identity
+    if consumption.job_instance != (script.instance if script is not None else None):
+        return RequirementStateProblem(
+            state="unresolved",
+            reason="consumption_script_instance_mismatch",
+            detail="The consumption address belongs to a different job instance.",
         )
     return ExactCICommandIdentity(
         workflow_path=consumption.workflow_path,

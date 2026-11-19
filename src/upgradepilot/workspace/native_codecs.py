@@ -9,6 +9,7 @@ from dataclasses import dataclass, replace
 
 from ..ci.dependency_exercise import DependencyCICoverageResult
 from ..ci.native_codec import COVERAGE_V2_LAYOUTS, COVERAGE_V3_LAYOUTS, LAYOUTS as CI_LAYOUTS
+from ..ci.native_scoped_codec import scoped_ci_layouts
 from ..impact.python_support_codec import LAYOUTS as IMPACT_LAYOUTS
 from ..caller_signature.source_codec import decode_sources, encode_sources
 from ..caller_signature.comparison_codec import decode_comparison, encode_comparison
@@ -199,9 +200,30 @@ _CALLER_SIGNATURE_SOURCES_V2 = replace(FAMILY_CONTRACTS["caller_signature_source
 _VALUES = NativeValueCodec(
     INPUT_LAYOUTS + CI_LAYOUTS + COVERAGE_V2_LAYOUTS + COVERAGE_V3_LAYOUTS + IMPACT_LAYOUTS
 )
+_SCOPED_VALUES = NativeValueCodec(scoped_ci_layouts(
+    INPUT_LAYOUTS + CI_LAYOUTS + COVERAGE_V2_LAYOUTS + COVERAGE_V3_LAYOUTS
+))
+SCOPED_CI_FAMILIES = {
+    "ci_inputs": (2, "investigation_inputs.prepare_ci_evidence"),
+    "ci_coverage": (4, "ci.dependency_exercise.evaluate_dependency_ci_coverage"),
+    "runtime_dependency_state": (2, "ci.dependency_state.evaluate_runtime_dependency_state"),
+}
+SCOPED_CI_PRODUCER_VERSION = "1"
+
+
+def _scoped_family(family: str, version: int) -> bool:
+    return type(version) is int and family in SCOPED_CI_FAMILIES and (
+        version == SCOPED_CI_FAMILIES[family][0]
+    )
 
 
 def family_contract(family: str, version: int = 1) -> NativeFamilyContract:
+    if _scoped_family(family, version):
+        return replace(
+            _CI_COVERAGE_V3 if family == "ci_coverage" else FAMILY_CONTRACTS[family],
+            producer_method=SCOPED_CI_FAMILIES[family][1],
+            producer_version=SCOPED_CI_PRODUCER_VERSION,
+        )
     if type(version) is int and version == 3 and family == "ci_coverage":
         return _CI_COVERAGE_V3
     if type(version) is int and version == 2 and family == "ci_coverage":
@@ -236,7 +258,8 @@ def encode_native_value(
         return encode_sources(value, version=version)
     if family == "caller_signature_comparison":
         return encode_comparison(value, sources)
-    return _VALUES.encode(value, contract.shape)
+    codec = _SCOPED_VALUES if _scoped_family(family, version) else _VALUES
+    return codec.encode(value, contract.shape)
 
 
 def decode_native_value(family: str, version: int, payload: bytes, *, sources: CallerSignatureSources | None = None) -> object:
@@ -245,4 +268,5 @@ def decode_native_value(family: str, version: int, payload: bytes, *, sources: C
         return decode_sources(payload, version=version)
     if family == "caller_signature_comparison":
         return decode_comparison(payload, sources)
-    return _VALUES.decode(payload, contract.shape)
+    codec = _SCOPED_VALUES if _scoped_family(family, version) else _VALUES
+    return codec.decode(payload, contract.shape)

@@ -10,14 +10,16 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from .workflow_command_analysis import CommandSourceSpan, StaticCommandOccurrence
+from .workflow_instance_commands import WorkflowRunScriptIdentity
 
 
 @dataclass(frozen=True, slots=True)
 class StaticCommandLocation:
-    """Parser-neutral source identity for one static command occurrence."""
+    """Parser-neutral occurrence address within original or specialized run text."""
 
     source_span: CommandSourceSpan
     source_order: int
+    script_identity: WorkflowRunScriptIdentity | None = None
 
     @classmethod
     def from_occurrence(cls, occurrence: StaticCommandOccurrence) -> StaticCommandLocation:
@@ -26,6 +28,7 @@ class StaticCommandLocation:
         return cls(
             source_span=occurrence.source_span,
             source_order=occurrence.source_order,
+            script_identity=occurrence.script_identity,
         )
 
 

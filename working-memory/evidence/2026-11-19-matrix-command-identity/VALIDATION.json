@@ -1,0 +1,282 @@
+{
+  "scope": "milestone 3 scoped evidence, guarded native recovery and ordinary regression",
+  "baseline_commit": "f6a73dbb",
+  "wheel_sha256": "e5822c63284f77093f0f2acccb1eac78eddec8698ad8524c9e9fd4a20957b2cd",
+  "installed_module_parity": true,
+  "installed_module_count": 119,
+  "dependency_basis": "explicit shared read-only development site-packages via .pth",
+  "pip_check": "No broken requirements found.",
+  "tests": {
+    "focused": {
+      "tests": 53,
+      "unittest_seconds": 0.189,
+      "outcome": "OK",
+      "log_sha256": "793d43af00a3cd002deb4e088b2a919c73ee2fceb9ca9ca20359d5e7d41b1117"
+    },
+    "full_product": {
+      "tests": 1165,
+      "unittest_seconds": 245.965,
+      "outcome": "OK",
+      "log_sha256": "69cbc80f000f70c101607b4b54b1d7ebc88184bc4fa043cce3989cad25f6f2f9"
+    },
+    "consumer_architecture": {
+      "tests": 25,
+      "unittest_seconds": 1.759,
+      "outcome": "OK",
+      "log_sha256": "bed15daf1d6f8f85cbefef2fd92b852c750e74f81ec0b1d17860095204fbd8a6"
+    }
+  },
+  "source_test_sha256": {
+    "src/upgradepilot/ci/consumption.py": "2a62142439783a1882d8447dde4beb290d08450978cafb3aa6517747d971298b",
+    "src/upgradepilot/ci/dependency_exercise.py": "f904031a6d202da384408951f89e5801e799117f9a318a29633f3e2cface97a0",
+    "src/upgradepilot/ci/dependency_state.py": "a1a106ce80a725ebcb7ff55256edfc55d4c83403bbd673e7b5cb2a66d0ae5eb3",
+    "src/upgradepilot/ci/native_codec.py": "6e2a06c95d34fcf5a509dd1253bc9c39d1a3e8d3f30a881d8a9f7f47cb749e6c",
+    "src/upgradepilot/ci/native_scoped_codec.py": "9281ba4495b6c10b0857e1f0b0900b3a19e318f107295a0d73cadab67c867720",
+    "src/upgradepilot/ci/runtime_execution.py": "c13fa5a7b4a7e99f641558cc05a09b959071b29aa69fa302bebb7db10dfa30b9",
+    "src/upgradepilot/ci/runtime_strengthening.py": "697643e30df9f0de031f6ae26355c89212edbfd7ae39f4a08005ef41a8344ef1",
+    "src/upgradepilot/ci/static_command_order.py": "6b4b8ecafabaf4e71250ed12855de345a2c91567e41fe732141ff0d6aae74426",
+    "src/upgradepilot/ci/workflow_commands.py": "c412d5d77e6e1235153172f6caef72a8d1094dc4e6a079c8d1e0c88102684c13",
+    "src/upgradepilot/ci/workflow_runtime_correlation.py": "5f5a1169f2bb98a8674bfa148e2f43b098ae2cdf05101abb58e14cc282a93c72",
+    "src/upgradepilot/github/workflow_command_analysis.py": "a540154939bb5bf0c4bf30ed6cee1a7998b72e1c115061776c37ddf94cbbb4a7",
+    "src/upgradepilot/github/workflow_command_location.py": "c1f45e57cfce2356c41cbcf2ae0d5e0fbc3868b95709c4d462c4eb9af02558b4",
+    "src/upgradepilot/github/workflow_instance_commands.py": "07ba0c975ebf621ad05d7ddec40c9470686e5382d93017fb1930094f88a203e9",
+    "src/upgradepilot/workspace/native_capture.py": "8c9a61b75fafc9085e71b4d4503ac573d725c2787daac35217530560b0bb8119",
+    "src/upgradepilot/workspace/native_codecs.py": "57c7451b78c115d76a66a386fdb61663b1b97c41528934a4b095a6479cbeb700",
+    "src/upgradepilot/workspace/native_inputs_codec.py": "ce116288e4aae86c5c3e30d233aa0acac465b869d8124379c12d463b8d43d335",
+    "src/upgradepilot/workspace/native_projection.py": "f2f88dedaea436a3dbac26227678d38f101fbe592007c027a18c985845737a99",
+    "src/upgradepilot/workspace/native_representation.py": "75dc3201bd6bb15b0f1a0454cbec6457d389027398be3c5a0938b47d5301d38a",
+    "src/upgradepilot/workspace/native_workflow_instances.py": "17b7e873e514a1e6a05edcb0d93bc36b199500e05e1baa246beab240b7e4b0e4",
+    "tests/test_ci_matrix_identity.py": "c8ddf271c79425e9f9f3596f3ae44471b5f6b5e8ceed9f70579c48a1bfc69969",
+    "tests/test_workspace_native_reconstruction.py": "1ae3b80b51b3536ba91dc3769dbbb84aef4ba9891e0460b17ab1aed29ce56c46"
+  },
+  "scoped_mapproxy": {
+    "target": {
+      "repository": "mapproxy/mapproxy",
+      "pull_number": 1559,
+      "base_sha": "a6507dd0dba671e48d303a74f7a5575dadf7fd76",
+      "head_sha": "ac01b8901935bfc16a0195277b4aec1c43275897",
+      "normalized_package": "soupsieve",
+      "old_version": "3.0.4",
+      "proposed_version": "4.0"
+    },
+    "baseline_encoded_sha256": "6eead876eecff1d80a34795485f6c99b866e1029f8665dd7e79b7f44183cda65",
+    "successor_encoded_sha256": "399987a90963930167121a02aa6ea53fef57bc759737bb805fdb21da8cadfe3c",
+    "checkpoint_digest": "9aa513c28be184040bc238e59985ab8c4422678490c8b85620b3d5ae372a7268",
+    "families": {
+      "ci_inputs": {
+        "codec_version": 2,
+        "producer_version": "1",
+        "payload_sha256": "a1dc69c588a18245f070f0c7df9944575a6e40eeb813604af229d4a412a6fe92"
+      },
+      "ci_coverage": {
+        "codec_version": 4,
+        "producer_version": "1",
+        "payload_sha256": "bf7c015ff2a1ed4bd20eec4deb6087f698c508438c59d43d8b6208f2209ec213"
+      },
+      "runtime_dependency_state": {
+        "codec_version": 2,
+        "producer_version": "1",
+        "payload_sha256": "a1ea9480f5b5fdfb3587a10ca2394c1de579f1d1303ce5c14bb70300581b6fc9"
+      }
+    },
+    "scoped_result": {
+      "job_instances": [
+        {
+          "job": "test",
+          "kind": "matrix",
+          "slot": 0,
+          "coordinates": {
+            "python-version": "3.12",
+            "pillow-version": "13.0.0"
+          }
+        },
+        {
+          "job": "test",
+          "kind": "matrix",
+          "slot": 1,
+          "coordinates": {
+            "python-version": "3.13",
+            "pillow-version": "13.0.0"
+          }
+        },
+        {
+          "job": "test",
+          "kind": "matrix",
+          "slot": 2,
+          "coordinates": {
+            "python-version": "3.14",
+            "pillow-version": "13.0.0"
+          }
+        },
+        {
+          "job": "test",
+          "kind": "matrix",
+          "slot": 3,
+          "coordinates": {
+            "python-version": "3.15",
+            "pillow-version": "13.0.0"
+          }
+        },
+        {
+          "job": "coverage",
+          "kind": "ordinary",
+          "slot": 0,
+          "coordinates": {}
+        },
+        {
+          "job": "doc",
+          "kind": "ordinary",
+          "slot": 0,
+          "coordinates": {}
+        },
+        {
+          "job": "lint",
+          "kind": "ordinary",
+          "slot": 0,
+          "coordinates": {}
+        },
+        {
+          "job": "typechecking",
+          "kind": "ordinary",
+          "slot": 0,
+          "coordinates": {}
+        }
+      ],
+      "requirements": [
+        {
+          "job": "test",
+          "kind": "matrix",
+          "slot": 0,
+          "script_digest": "93ee9bc1df926a8028697b87f50565fca42fb3b430016c857c215428b2cc4b83",
+          "command_order": 1,
+          "start_byte": 14,
+          "end_byte": 51,
+          "static_state": "supported",
+          "assessment_reason": "manager_environment_needs_lower_source_evidence"
+        },
+        {
+          "job": "test",
+          "kind": "matrix",
+          "slot": 1,
+          "script_digest": "93ee9bc1df926a8028697b87f50565fca42fb3b430016c857c215428b2cc4b83",
+          "command_order": 1,
+          "start_byte": 14,
+          "end_byte": 51,
+          "static_state": "supported",
+          "assessment_reason": "manager_environment_needs_lower_source_evidence"
+        },
+        {
+          "job": "test",
+          "kind": "matrix",
+          "slot": 2,
+          "script_digest": "93ee9bc1df926a8028697b87f50565fca42fb3b430016c857c215428b2cc4b83",
+          "command_order": 1,
+          "start_byte": 14,
+          "end_byte": 51,
+          "static_state": "supported",
+          "assessment_reason": "manager_environment_needs_lower_source_evidence"
+        },
+        {
+          "job": "test",
+          "kind": "matrix",
+          "slot": 3,
+          "script_digest": "93ee9bc1df926a8028697b87f50565fca42fb3b430016c857c215428b2cc4b83",
+          "command_order": 1,
+          "start_byte": 14,
+          "end_byte": 51,
+          "static_state": "supported",
+          "assessment_reason": "manager_environment_needs_lower_source_evidence"
+        },
+        {
+          "job": "coverage",
+          "kind": "ordinary",
+          "slot": 0,
+          "script_digest": "0024bcfb19a4cf34313392c8d6413df0d0e1e8ea3a1d98823183813a8f3c8757",
+          "command_order": 1,
+          "start_byte": 14,
+          "end_byte": 51,
+          "static_state": "supported",
+          "assessment_reason": "manager_environment_needs_lower_source_evidence"
+        },
+        {
+          "job": "lint",
+          "kind": "ordinary",
+          "slot": 0,
+          "script_digest": "1ca00d8651e27befedded73920d175cca9bf7a60947c77e8af41bd5462cccb6e",
+          "command_order": 0,
+          "start_byte": 0,
+          "end_byte": 37,
+          "static_state": "supported",
+          "assessment_reason": "manager_environment_needs_lower_source_evidence"
+        },
+        {
+          "job": "typechecking",
+          "kind": "ordinary",
+          "slot": 0,
+          "script_digest": "1ca00d8651e27befedded73920d175cca9bf7a60947c77e8af41bd5462cccb6e",
+          "command_order": 0,
+          "start_byte": 0,
+          "end_byte": 37,
+          "static_state": "supported",
+          "assessment_reason": "manager_environment_needs_lower_source_evidence"
+        }
+      ],
+      "runtime_run_id": 43457921398,
+      "runtime_attempt": 1,
+      "reported_jobs": 8,
+      "reported_steps": 79,
+      "ci_state": "supported_not_correlated",
+      "association_reason": "static_job_strategy_unsupported"
+    }
+  },
+  "cold": {
+    "scoped_checkpoint": "reopened_read_only",
+    "scoped_parity": true,
+    "historical_cases": [
+      {
+        "case": "mapproxy-genuine-baseline",
+        "state": "supported_not_correlated",
+        "sha256": "6eead876eecff1d80a34795485f6c99b866e1029f8665dd7e79b7f44183cda65"
+      },
+      {
+        "case": "ordinary-controlled",
+        "state": "supported_runtime_correlated",
+        "sha256": "dd0089d7442c66180d2ffc3e6441b086d55a38eb292620dc6b4e9de7b26458cc"
+      },
+      {
+        "case": "server-nexe-historical",
+        "state": "supported_runtime_correlated",
+        "sha256": "fcff6cd4a8bbf60248c5ff6af471426553a43aea70d814c841f5e17767e750f6"
+      },
+      {
+        "case": "server-nexe-missing-install-control",
+        "state": "supported_not_correlated",
+        "sha256": "1d23460640e819c971d568a9810ec401f16cd833d4b3fb94db4bc13643779a7a"
+      }
+    ],
+    "producer_reentry": false,
+    "network_access": false
+  },
+  "normal_installed_cli": {
+    "normal_installed_semantic_parity": true,
+    "historical_report_opens": [
+      "mapproxy-genuine-baseline",
+      "mapproxy-offline-replay",
+      "ordinary-controlled",
+      "server-nexe-historical",
+      "server-nexe-missing-install-control",
+      "applypilot-original-genuine",
+      "applypilot-current-ci-diagnostic",
+      "applypilot-missing-steps-diagnostic",
+      "mapproxy-legacy-counts-diagnostic"
+    ],
+    "semantic_sha256": "9de8fd2a7966b1b0eb586bacb4c588f526877d0fb54ec273da12ee82f76e7ba1",
+    "requests": 16,
+    "saved_report_reopened": true
+  },
+  "architecture": {
+    "experiment_dependency_boundaries": "OK",
+    "product_python_files": 119
+  },
+  "proof_limits": "Matrix matching and lifecycle, later command execution, and final integrated delivery remain pending."
+}

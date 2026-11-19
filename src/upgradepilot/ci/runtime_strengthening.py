@@ -21,6 +21,7 @@ from ..github.workflow_command_analysis import (
     StaticCommandWholeStepRelation,
 )
 from ..github.workflow_command_location import StaticCommandLocation
+from ..github.workflow_specialization import WorkflowJobInstanceIdentity
 from ..github.workflow_command_shell import ShellExecutionProfile
 from .consumption import StaticDependencyConsumptionEvidence
 from .workflow_commands import DirectPackageInvocationEvidence
@@ -48,6 +49,7 @@ class RuntimeStrengthenableCommandOccurrence(Protocol):
     structural_context: tuple[StaticCommandStructure, ...]
     whole_step_relation: StaticCommandWholeStepRelation | None
     execution_profile: ShellExecutionProfile | None
+    job_instance: WorkflowJobInstanceIdentity | None
 
 
 @dataclass(frozen=True, slots=True)
@@ -63,6 +65,7 @@ class RuntimeStrengtheningCandidate:
     structural_context: tuple[StaticCommandStructure, ...]
     whole_step_relation: StaticCommandWholeStepRelation | None
     execution_profile: ShellExecutionProfile | None
+    job_instance: WorkflowJobInstanceIdentity | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -124,6 +127,7 @@ def candidate_from_consumption(
         structural_context=evidence.structural_context,
         whole_step_relation=evidence.whole_step_relation,
         execution_profile=evidence.execution_profile,
+        job_instance=evidence.job_instance,
     )
 
 
@@ -142,6 +146,7 @@ def candidate_from_direct_exercise(
         structural_context=evidence.structural_context,
         whole_step_relation=evidence.whole_step_relation,
         execution_profile=evidence.execution_profile,
+        job_instance=evidence.job_instance,
     )
 
 
@@ -195,6 +200,14 @@ def classify_runtime_strengthening_eligibility(
                 "The exact static occurrence is known, but its effective GitHub Actions "
                 "execution profile is not established for runtime-strengthening policy."
             ),
+        )
+
+    script = candidate.command_location.script_identity
+    if candidate.job_instance != (script.instance if script is not None else None):
+        return RuntimeStrengtheningEligibility(
+            state="unresolved",
+            reason="runtime_strengthening_script_instance_mismatch",
+            detail="The command address refers to a different job instance.",
         )
 
     if candidate.execution_profile == "custom_shell_template":

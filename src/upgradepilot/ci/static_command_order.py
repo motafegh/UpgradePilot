@@ -45,7 +45,10 @@ def relate_invocation_after_consumption(
 ) -> StaticCommandOrderRelation:
     """Classify the bounded static order between one consumption and invocation."""
 
-    if consumption.job_key != invocation.job_key:
+    if (
+        consumption.job_key != invocation.job_key
+        or consumption.job_instance != invocation.job_instance
+    ):
         return "not_after"
 
     if invocation.step_source_index > consumption.step_source_index:

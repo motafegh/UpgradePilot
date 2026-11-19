@@ -12,7 +12,7 @@ Correlation answers identity only. Runtime status/conclusion is preserved on the
 from __future__ import annotations
 
 from collections.abc import Sequence
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from typing import Literal
 
 from ..github.actions import WorkflowJob, WorkflowRun, WorkflowStep
@@ -28,6 +28,10 @@ from ..github.workflow_definition import (
     WorkflowDefinitionProblem,
     parse_workflow_definition,
 )
+from ..github.workflow_specialization import (
+    PreparedWorkflowJobInstances,
+    WorkflowJobInstanceIdentity,
+)
 
 
 type CorrelatableWorkflowStep = RunStepDefinition | UsesStepDefinition
@@ -42,6 +46,7 @@ class WorkflowRuntimeStepCorrelation:
 
     static_step: CorrelatableWorkflowStep
     runtime_step: WorkflowStep
+    job_instance: WorkflowJobInstanceIdentity | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -51,6 +56,7 @@ class WorkflowRuntimeJobCorrelation:
     static_job: StepsJobDefinition
     runtime_job: WorkflowJob
     steps: tuple[WorkflowRuntimeStepCorrelation, ...]
+    job_instance: WorkflowJobInstanceIdentity | None = None
 
     @property
     def skipped_without_steps(self) -> bool:
@@ -76,6 +82,8 @@ def correlate_workflow_runtime(
     source: RepositoryTextFile,
     run: WorkflowRun,
     jobs: Sequence[WorkflowJob],
+    *,
+    prepared: PreparedWorkflowJobInstances | None = None,
 ) -> WorkflowRuntimeCorrelationResult:
     """Correlate the first admitted ordinary static workflow class to runtime evidence.
 
@@ -105,7 +113,9 @@ def correlate_workflow_runtime(
             "Runtime job IDs are not unique in the supplied attempt.",
         )
 
-    definition = parse_workflow_definition(source)
+    definition = prepared.definition if prepared is not None else parse_workflow_definition(source)
+    if definition.source != source:
+        return _unresolved("workflow_source_mismatch", "Prepared job instances have another source.")
     if isinstance(definition, WorkflowDefinitionProblem):
         return _unresolved(
             "static_workflow_definition_unresolved",
@@ -172,21 +182,36 @@ def correlate_workflow_runtime(
         )
 
     runtime_jobs_by_name = {job.name: job for job in jobs}
+    ordinary_instances = {
+        instance.identity.job_source_index: instance.identity
+        for prepared_job in prepared.jobs
+        for instance in prepared_job.instances
+        if instance.identity.kind == "ordinary"
+    } if prepared is not None else {}
     correlations: list[WorkflowRuntimeJobCorrelation] = []
     for static_job, static_job_name in zip(static_jobs, static_job_names, strict=True):
         runtime_job = runtime_jobs_by_name[static_job_name]
-        job = WorkflowRuntimeJobCorrelation(static_job, runtime_job, ())
+        instance = ordinary_instances.get(static_job.source_index)
+        if prepared is not None and instance is None:
+            return _unresolved(
+                "ordinary_job_instance_unavailable",
+                "The ordinary job has no retained prepared instance.",
+            )
+        job = WorkflowRuntimeJobCorrelation(static_job, runtime_job, (), instance)
         if job.skipped_without_steps:
             correlations.append(job)
             continue
         step_result = _correlate_job_steps(static_job, runtime_job)
         if isinstance(step_result, WorkflowRuntimeCorrelationResult):
             return step_result
+        if instance is not None:
+            step_result = tuple(replace(step, job_instance=instance) for step in step_result)
         correlations.append(
             WorkflowRuntimeJobCorrelation(
                 static_job=static_job,
                 runtime_job=runtime_job,
                 steps=step_result,
+                job_instance=instance,
             )
         )
 

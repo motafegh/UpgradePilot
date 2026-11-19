@@ -70,6 +70,8 @@ class RecordLayout:
     constructor: type
     fields: tuple[tuple[str, object], ...]
     constant_fields: tuple[str, ...] = ()
+    # Fields introduced by a successor. A historical writer may omit only None.
+    omitted_none_fields: tuple[str, ...] = ()
 
 
 def _invalid(detail: str) -> NativeReconstructionError:
@@ -264,6 +266,8 @@ class NativeValueCodec:
             if encode:
                 if type(value) is not layout.constructor:
                     raise _invalid(f"Expected native variant {layout.variant}.")
+                if any(getattr(value, name) is not None for name in layout.omitted_none_fields):
+                    raise _invalid(f"Historical layout {layout.variant} cannot retain scoped fields.")
                 values = {name: getattr(value, name) for name in names}
             else:
                 envelope = object_fields(value, ("variant", "fields"))

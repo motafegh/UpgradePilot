@@ -603,6 +603,7 @@ LAYOUTS = (
             ("source_span", RecordRef("command_source_span")),
             ("source_order", int),
         ),
+        omitted_none_fields=("script_identity",),
     ),
     RecordLayout(
         "static_mapping_entry",

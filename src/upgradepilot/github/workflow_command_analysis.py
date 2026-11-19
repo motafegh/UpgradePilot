@@ -19,7 +19,8 @@ unresolved rather than falling back to the previous textual splitters.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
+from hashlib import sha256
 from functools import lru_cache
 from typing import Literal
 
@@ -27,6 +28,8 @@ import tree_sitter_bash
 import tree_sitter_batch
 import tree_sitter_pwsh
 from tree_sitter import Language, Node, Parser
+
+from .workflow_instance_commands import WorkflowRunScriptIdentity
 
 from .workflow_command_shell import (
     EffectiveShellContext,
@@ -103,6 +106,7 @@ class StaticCommandOccurrence:
     structural_context: tuple[StaticCommandStructure, ...]
     whole_step_relation: StaticCommandWholeStepRelation | None = None
     environment_assignments: tuple[StaticCommandEnvironmentAssignment, ...] = ()
+    script_identity: WorkflowRunScriptIdentity | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -153,6 +157,8 @@ def analyze_run_step_commands(
     workflow: WorkflowDefinition,
     job: StepsJobDefinition,
     step: RunStepDefinition,
+    *,
+    script_identity: WorkflowRunScriptIdentity | None = None,
 ) -> StaticCommandAnalysis:
     """Parse one static run step into shared command occurrences.
 
@@ -160,6 +166,18 @@ def analyze_run_step_commands(
     executed, succeeded, or installed a dependency.
     """
 
+    source = step.command.text.encode("utf-8")
+    if script_identity is not None and (
+        script_identity.instance.job_key != job.key
+        or script_identity.instance.job_source_index != job.source_index
+        or script_identity.instance.repository != workflow.source.repository
+        or script_identity.instance.revision != workflow.source.revision
+        or script_identity.instance.workflow_path != workflow.source.path
+        or script_identity.step_source_index != step.source_index
+        or script_identity.script_digest != sha256(source).hexdigest()
+        or step.command.contains_expression
+    ):
+        raise ValueError("Scoped command analysis requires its exact resolved run script.")
     shell_context = resolve_effective_shell_context(workflow, job, step)
     if shell_context.state != "resolved" or shell_context.syntax_family is None:
         state: StaticCommandAnalysisState = (
@@ -180,7 +198,6 @@ def analyze_run_step_commands(
             ),
         )
 
-    source = step.command.text.encode("utf-8")
     root = Parser(_language_for_family(shell_context.syntax_family)).parse(source).root_node
 
     if root.has_error:
@@ -225,6 +242,10 @@ def analyze_run_step_commands(
         )
         for index, node in enumerate(ordered)
     )
+    if script_identity is not None:
+        occurrences = tuple(
+            replace(occurrence, script_identity=script_identity) for occurrence in occurrences
+        )
     return StaticCommandAnalysis(
         state="analyzable",
         shell_context=shell_context,

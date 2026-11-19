@@ -9,10 +9,12 @@ dependency or package-manager semantics.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from hashlib import sha256
 from typing import Literal
 
 from ..github.workflow_command_location import StaticCommandLocation
 from ..github.workflow_definition import RunStepDefinition
+from ..github.workflow_instance_commands import WorkflowRunScriptIdentity
 from .runtime_strengthening import (
     RuntimeStrengthenableCommandOccurrence,
     classify_runtime_strengthening_eligibility,
@@ -174,10 +176,26 @@ def assess_exact_command_execution(
             ),
         )
 
+    location = candidate.command_location
+    script = location.script_identity if location is not None else None
+    if script is not None and (
+        script.instance.workflow_path != candidate.workflow_path
+        or script.instance.revision != candidate.workflow_revision
+        or script.instance.job_key != candidate.job_key
+        or script.step_source_index != candidate.step_source_index
+    ):
+        return _command_assessment(
+            candidate,
+            state="unresolved",
+            basis="step_correlation_unresolved",
+            reason="exact_command_script_scope_mismatch",
+            detail="Command evidence and its run script refer to different source scopes.",
+        )
     step_correlation = _find_correlated_step(
         correlation,
         job_key=candidate.job_key,
         step_source_index=candidate.step_source_index,
+        script=script,
     )
     if step_correlation is None:
         return _command_assessment(
@@ -239,19 +257,31 @@ def _find_correlated_step(
     *,
     job_key: str,
     step_source_index: int,
+    script: WorkflowRunScriptIdentity | None,
 ) -> WorkflowRuntimeStepCorrelation | None:
-    for job in correlation.jobs:
-        if job.static_job.key != job_key:
-            continue
-        return next(
-            (
-                step
-                for step in job.steps
-                if step.static_step.source_index == step_source_index
-            ),
-            None,
-        )
-    return None
+    instance = script.instance if script is not None else None
+    jobs = tuple(
+        job for job in correlation.jobs
+        if job.static_job.key == job_key and job.job_instance == instance
+        and (instance is None or job.static_job.source_index == instance.job_source_index)
+    )
+    if len(jobs) != 1:
+        return None
+    steps = tuple(
+        step for step in jobs[0].steps if step.static_step.source_index == step_source_index
+    )
+    if len(steps) != 1:
+        return None
+    step = steps[0]
+    if step.job_instance != instance:
+        return None
+    if script is not None and (
+        not isinstance(step.static_step, RunStepDefinition)
+        or sha256(step.static_step.command.text.encode("utf-8")).hexdigest()
+        != script.script_digest
+    ):
+        return None
+    return step
 
 
 def _command_assessment(

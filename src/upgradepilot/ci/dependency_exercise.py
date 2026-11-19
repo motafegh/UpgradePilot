@@ -30,6 +30,7 @@ from ..github.repository import (
     UnavailableRepositoryFile,
 )
 from ..github.workflow_definition import StepsJobDefinition
+from ..github.workflow_specialization import PreparedWorkflowJobInstances
 from .consumption import StaticDependencyConsumptionEvidence
 from .runtime_execution import assess_exact_command_execution
 from .runtime_strengthening import (
@@ -111,6 +112,7 @@ class WorkflowDependencyCoverageInput:
     definition: RepositoryFileEvidence
     project_environment_sources: tuple[WorkflowProjectEnvironmentSource, ...] = ()
     project_environment_consumptions: tuple[StaticDependencyConsumptionEvidence, ...] = ()
+    prepared: PreparedWorkflowJobInstances | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -419,6 +421,7 @@ def _evaluate_workflow_dependency_coverage(
         project_environment_consumptions=(
             workflow_input.project_environment_consumptions
         ),
+        prepared=workflow_input.prepared,
     )
     consumption_state, consumption_reason, consumption_detail, selected_consumption = (
         _classify_static_consumption(static)
@@ -431,6 +434,7 @@ def _evaluate_workflow_dependency_coverage(
         definition,
         run,
         workflow_input.jobs,
+        prepared=workflow_input.prepared,
     )
     runtime_consumption = _classify_runtime_strengthening(
         correlation,
@@ -763,6 +767,7 @@ def _deduplicated_runtime_candidates(
             candidate.workflow_path,
             candidate.workflow_revision,
             candidate.job_key,
+            candidate.job_instance,
             candidate.step_source_index,
             candidate.command_location,
             candidate.proposition_kind,

@@ -27,6 +27,7 @@ from ..github.workflow_command_analysis import (
     StaticCommandWholeStepRelation,
 )
 from ..github.workflow_command_location import StaticCommandLocation
+from ..github.workflow_specialization import WorkflowJobInstanceIdentity
 from ..github.workflow_command_shell import ShellExecutionProfile
 
 type StaticDependencyConsumptionState = Literal[
@@ -72,6 +73,7 @@ class StaticDependencyConsumptionEvidence:
     structural_context: tuple[StaticCommandStructure, ...] = ()
     whole_step_relation: StaticCommandWholeStepRelation | None = None
     execution_profile: ShellExecutionProfile | None = None
+    job_instance: WorkflowJobInstanceIdentity | None = None
 
 
 def compose_project_environment_consumption(

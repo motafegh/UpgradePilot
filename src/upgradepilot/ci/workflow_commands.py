@@ -19,7 +19,7 @@ from __future__ import annotations
 import posixpath
 import re
 from collections.abc import Sequence
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from hashlib import sha256
 from typing import Literal
 
@@ -59,6 +59,15 @@ from ..github.workflow_command_analysis import (
     analyze_run_step_commands,
 )
 from ..github.workflow_command_location import StaticCommandLocation
+from ..github.workflow_instance_commands import (
+    materialize_workflow_job_instance,
+    run_script_identity,
+)
+from ..github.workflow_specialization import (
+    PreparedWorkflowJobInstances,
+    WorkflowJobInstance,
+    WorkflowJobInstanceIdentity,
+)
 from ..github.workflow_command_shell import ShellExecutionProfile
 from ..github.workflow_definition import (
     JobProblem,
@@ -105,6 +114,7 @@ class DirectPackageInvocationEvidence:
     execution_profile: ShellExecutionProfile | None = None
     workflow_path: str | None = None
     workflow_revision: str | None = None
+    job_instance: WorkflowJobInstanceIdentity | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -114,6 +124,7 @@ class StaticWorkflowDependencyProblem:
     reason: str
     detail: str
     job_key: str | None = None
+    job_instance: WorkflowJobInstanceIdentity | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -186,6 +197,7 @@ def inspect_workflow_dependency_evidence(
     normalized_package: str,
     project_environment_sources: Sequence[WorkflowProjectEnvironmentSource] = (),
     project_environment_consumptions: Sequence[StaticDependencyConsumptionEvidence] = (),
+    prepared: PreparedWorkflowJobInstances | None = None,
 ) -> WorkflowStaticDependencyEvidence:
     """Collect all admitted static CI dependency evidence in one workflow traversal.
 
@@ -194,6 +206,9 @@ def inspect_workflow_dependency_evidence(
     direct requirements and direct package invocation. Precomposed project-environment
     consumptions remain a focused-test seam, but must preserve canonical parsed command
     identity; callers may not mix the two project-environment input modes.
+
+    A prepared definition admits scoped static evidence. Existing callers without
+    one keep the legacy ordinary addressing until their association path migrates.
     """
 
     return _inspect_workflow_dependency_evidence(
@@ -204,6 +219,7 @@ def inspect_workflow_dependency_evidence(
         project_environment_sources=project_environment_sources,
         project_environment_consumptions=project_environment_consumptions,
         collect_package_commands=True,
+        prepared=prepared,
     )
 
 
@@ -216,13 +232,18 @@ def _inspect_workflow_dependency_evidence(
     project_environment_sources: Sequence[WorkflowProjectEnvironmentSource],
     project_environment_consumptions: Sequence[StaticDependencyConsumptionEvidence],
     collect_package_commands: bool,
+    prepared: PreparedWorkflowJobInstances | None = None,
 ) -> WorkflowStaticDependencyEvidence:
     if project_environment_sources and project_environment_consumptions:
         raise ValueError(
             "project-environment sources and precomposed consumptions are mutually exclusive"
         )
 
-    definition = parse_workflow_definition(source)
+    if prepared is not None and project_environment_consumptions:
+        raise ValueError("Scoped workflow evidence requires its exact project sources.")
+    definition = prepared.definition if prepared is not None else parse_workflow_definition(source)
+    if definition.source != source:
+        raise ValueError("Prepared job instances belong to another workflow source.")
     if isinstance(definition, WorkflowDefinitionProblem):
         return WorkflowStaticDependencyEvidence(
             job_count=0,
@@ -283,7 +304,14 @@ def _inspect_workflow_dependency_evidence(
             normalized_package=normalized_package,
         )
         valid_project_sources.append(project_source)
+    project_sources = tuple(valid_project_sources)
 
+    prepared_jobs = {job.source_index: job for job in prepared.jobs} if prepared is not None else {}
+    instances_inspected = 0
+    if prepared is not None and prepared.problem is not None:
+        problems.append(StaticWorkflowDependencyProblem(
+            prepared.problem.reason, prepared.problem.detail,
+        ))
     for job in definition.jobs:
         if isinstance(job, JobProblem):
             problems.append(
@@ -311,21 +339,42 @@ def _inspect_workflow_dependency_evidence(
             continue
 
         assert isinstance(job, StepsJobDefinition)
-        readable_jobs[job.key] = job
-        _inspect_steps_job_evidence(
-            source,
-            definition,
-            job,
-            requirements_contexts=requirements_contexts,
-            project_environment_sources=tuple(valid_project_sources),
-            package=package,
-            normalized_package=normalized_package,
-            consumptions=consumptions,
-            invocations=invocations,
-            version_requests=version_requests,
-            workflow_digest=workflow_digest,
-            collect_package_commands=collect_package_commands,
-        )
+        if prepared is None:
+            readable_jobs[job.key] = job
+            scoped_jobs = ((job, None),)
+        else:
+            prepared_job = prepared_jobs.get(job.source_index)
+            if prepared_job is None:
+                continue  # Workflow-wide limit already retained above.
+            if prepared_job.state != "complete":
+                problem = prepared_job.problem or (
+                    prepared_job.expansion.problem if prepared_job.expansion is not None else None
+                )
+                assert problem is not None
+                problems.append(StaticWorkflowDependencyProblem(
+                    problem.reason, problem.detail, job.key,
+                ))
+                continue
+            scoped_jobs = tuple(
+                (materialize_workflow_job_instance(definition, instance), instance)
+                for instance in prepared_job.instances
+            )
+        for job_view, instance in scoped_jobs:
+            _inspect_steps_job_evidence(
+                source, definition, job_view,
+                requirements_contexts=requirements_contexts,
+                project_environment_sources=project_sources,
+                package=package,
+                normalized_package=normalized_package,
+                consumptions=consumptions,
+                invocations=invocations,
+                version_requests=version_requests,
+                workflow_digest=workflow_digest,
+                collect_package_commands=collect_package_commands,
+                instance=instance,
+                problems=problems,
+            )
+            instances_inspected += 1
 
     for project_environment_consumption in project_environment_consumptions:
         source_problem = _validate_project_environment_consumption_source(
@@ -342,7 +391,7 @@ def _inspect_workflow_dependency_evidence(
 
     request_job_keys = {request.job_key for request in version_requests}
     return WorkflowStaticDependencyEvidence(
-        job_count=len(definition.jobs),
+        job_count=instances_inspected if prepared is not None else len(definition.jobs),
         consumptions=tuple(consumptions),
         invocations=tuple(invocations),
         problems=tuple(problems),
@@ -367,6 +416,8 @@ def _inspect_steps_job_evidence(
     version_requests: list[WorkflowDependencyVersionRequest],
     workflow_digest: str,
     collect_package_commands: bool,
+    instance: WorkflowJobInstance | None,
+    problems: list[StaticWorkflowDependencyProblem],
 ) -> None:
     root_checkout_state: _RepositoryRootCheckoutState = "not_established"
     for entry in job.steps:
@@ -380,7 +431,21 @@ def _inspect_steps_job_evidence(
         if not isinstance(entry, RunStepDefinition):
             continue
 
-        command_analysis = analyze_run_step_commands(definition, job, entry)
+        consumption_start = len(consumptions)
+        invocation_start = len(invocations)
+        if instance is None:
+            command_analysis = analyze_run_step_commands(definition, job, entry)
+        else:
+            script = run_script_identity(instance, entry.source_index)
+            if script is None or entry.command.contains_expression:
+                problems.append(StaticWorkflowDependencyProblem(
+                    "scoped_run_script_unresolved",
+                    f"Run step {entry.source_index} has no resolved specialized script.",
+                    job.key,
+                    instance.identity,
+                ))
+                continue
+            command_analysis = analyze_run_step_commands(definition, job, entry, script_identity=script)
         package_operations = (
             parse_package_manager_operations(command_analysis)
             if requirements_contexts or collect_package_commands
@@ -435,6 +500,11 @@ def _inspect_steps_job_evidence(
                     workflow_revision=source.revision,
                 )
             )
+        if instance is not None:
+            for index in range(consumption_start, len(consumptions)):
+                consumptions[index] = replace(consumptions[index], job_instance=instance.identity)
+            for index in range(invocation_start, len(invocations)):
+                invocations[index] = replace(invocations[index], job_instance=instance.identity)
 
 
 def _version_request_from_step(
