@@ -74,6 +74,7 @@ class StaticDependencyConsumptionEvidence:
     whole_step_relation: StaticCommandWholeStepRelation | None = None
     execution_profile: ShellExecutionProfile | None = None
     job_instance: WorkflowJobInstanceIdentity | None = None
+    shell_startup_blocker: str | None = None
 
 
 def compose_project_environment_consumption(
@@ -85,6 +86,7 @@ def compose_project_environment_consumption(
     declaration: ProjectEnvironmentSelectionDeclaration,
     dependency_evidence: ProjectEnvironmentDependencyEvidence,
     execution_profile: ShellExecutionProfile | None = None,
+    shell_startup_blocker: str | None = None,
 ) -> StaticDependencyConsumptionEvidence:
     """Compose one dependency-domain result with its exact static CI declaration."""
 
@@ -117,6 +119,7 @@ def compose_project_environment_consumption(
         "structural_context": declaration.structural_context,
         "whole_step_relation": declaration.whole_step_relation,
         "execution_profile": execution_profile,
+        "shell_startup_blocker": shell_startup_blocker,
     }
 
     if isinstance(dependency_evidence, UvSelectedRootReachability):

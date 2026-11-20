@@ -663,11 +663,12 @@ class WorkspaceNativeReconstructionTests(unittest.TestCase):
         # A new field on a reused constructor requires a reviewed codec compatibility
         # decision. This independent schema check catches drift even in unexercised variants.
         layouts = INPUT_LAYOUTS + CI_LAYOUTS + COVERAGE_V2_LAYOUTS + COVERAGE_V3_LAYOUTS
-        scoped_successor_fields = {
+        successor_only_fields = {
             "static_command_location": ("script_identity",),
             "workflow_dependency_coverage_input": ("prepared",),
-            "static_dependency_consumption_evidence": ("job_instance",),
-            "direct_package_invocation_evidence": ("job_instance",),
+            "static_dependency_consumption_evidence": ("job_instance", "shell_startup_blocker"),
+            "direct_package_invocation_evidence": ("job_instance", "shell_startup_blocker"),
+            "command_requirement_state_assessment": ("execution",),
             "static_workflow_dependency_problem": ("job_instance",),
             "workflow_runtime_job_correlation": ("job_instance", "association"),
             "workflow_runtime_step_correlation": ("job_instance",),
@@ -686,8 +687,8 @@ class WorkspaceNativeReconstructionTests(unittest.TestCase):
                 if layout.variant == "module_source_receipt":
                     # Source codec 1 predates the explicitly versioned move observation.
                     expected = tuple(name for name in expected if name != "repository_move")
-                if layout.variant in scoped_successor_fields:
-                    names = scoped_successor_fields[layout.variant]
+                if layout.variant in successor_only_fields:
+                    names = successor_only_fields[layout.variant]
                     expected = tuple(field for field in expected if field not in names)
                     self.assertEqual(layout.omitted_none_fields, names)
                 self.assertEqual(

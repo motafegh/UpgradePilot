@@ -27,6 +27,8 @@ from ..ci.dependency_state import (
     RequirementStateBlockingSemanticEvidence,
     RuntimeDependencyStateResult,
 )
+from ..ci.runtime_execution import ExactCommandExecutionAssessment
+from ..ci.workflow_runtime_correlation import find_correlated_runtime_step
 from ..dependency.change import DependencyChangeProblem, DependencyVersionChange
 from ..dependency.environment import (
     DependencySourceContext,
@@ -73,7 +75,10 @@ from .native_boundary import (
     exact_investigation_target,
     validate_native_boundary,
 )
-from .native_codecs import ASSOCIATION_COVERAGE_CODEC, SCOPED_CI_FAMILIES, decode_native_value, family_contract
+from .native_codecs import (
+    ASSOCIATION_COVERAGE_CODEC, SCOPED_CI_FAMILIES, decode_native_value,
+    family_contract, uses_shell_execution_codec,
+)
 from .native_representation import NativeReconstructionError
 from .native_workflow_instances import validate_prepared_workflow, validate_scoped_command
 from .native_workflow_association import validate_scoped_workflow_associations
@@ -381,6 +386,10 @@ def _validate_coverage_material(
             ):
                 raise _invalid("CI invocation has another workflow source identity.")
         for command in result.consumptions + result.invocations:
+            if command.whole_step_relation == "later_ordinary_command_in_straight_line_script" and (
+                command.command_location is None or command.command_location.source_order <= 0
+            ):
+                raise _invalid("Later-command evidence lacks a later command address.")
             if instances is not None:
                 validate_scoped_command(
                     instances, owner=command.job_instance, job_key=command.job_key,
@@ -885,6 +894,50 @@ def reconstruct_pull_request_description(
     return description
 
 
+def _validate_retained_command_execution(
+    execution: ExactCommandExecutionAssessment,
+    consumption: StaticDependencyConsumptionEvidence,
+    workflow: WorkflowDependencyCoverageResult,
+) -> None:
+    if (
+        execution.workflow_path, execution.workflow_revision, execution.job_key,
+        execution.step_source_index, execution.command_location,
+    ) != (
+        consumption.workflow_path, consumption.workflow_revision, consumption.job_key,
+        consumption.step_source_index, consumption.command_location,
+    ):
+        raise _invalid("Retained command execution has another exact command identity.")
+    step = execution.step_execution
+    if step is None:
+        if execution.basis in {"supported", "runtime_non_success", "continue_on_error_unresolved"}:
+            raise _invalid("Retained step outcome has no reported step witness.")
+        return
+    correlation = workflow.runtime_correlation
+    match = None if correlation is None else find_correlated_runtime_step(
+        correlation, job_key=consumption.job_key, step_source_index=consumption.step_source_index,
+        instance=consumption.job_instance, head_sha=consumption.workflow_revision,
+    )
+    if (
+        match is None or match != step.correlation
+        or not isinstance(match.static_step, RunStepDefinition)
+        or match.static_step.command.text != consumption.command
+        or (execution.state, execution.basis) != (step.state, step.basis)
+    ):
+        raise _invalid("Retained command execution has another reported step basis.")
+    if execution.state == "supported" and (
+        consumption.shell_startup_blocker is not None
+        or (match.runtime_step.status, match.runtime_step.conclusion) != ("completed", "success")
+        or (
+            match.static_step.continue_on_error is not None
+            and (
+                match.static_step.continue_on_error.contains_expression
+                or match.static_step.continue_on_error.text.strip().casefold() != "false"
+            )
+        )
+    ):
+        raise _invalid("Retained successful command disagrees with its profile or step outcome.")
+
+
 def reconstruct_ci_projection(
     boundary: CapturedNativeBoundary, *, expected_target: ExactInvestigationTarget
 ) -> CINativeProjection:
@@ -902,11 +955,19 @@ def reconstruct_ci_projection(
     association_shape = records["ci_coverage"].codec_version == ASSOCIATION_COVERAGE_CODEC
     if any(
         records[family].outcome == "recorded"
+        and not uses_shell_execution_codec(family, records[family].codec_version)
         and (records[family].codec_version == version
              or (family == "ci_coverage" and association_shape)) != scoped
         for family, (version, _) in SCOPED_CI_FAMILIES.items()
     ):
         raise _invalid("CI family versions disagree with their retained scoped inputs.")
+    shell_execution_coverage = uses_shell_execution_codec(
+        "ci_coverage", records["ci_coverage"].codec_version,
+    )
+    if shell_execution_coverage != uses_shell_execution_codec(
+        "runtime_dependency_state", records["runtime_dependency_state"].codec_version,
+    ):
+        raise _invalid("CI coverage and runtime state disagree on shell execution method.")
     if association_shape and not (
         coverage is not None and any(
             workflow.runtime_correlation is not None and workflow.runtime_correlation.scoped is not None
@@ -952,35 +1013,36 @@ def reconstruct_ci_projection(
     if coverage is not None:
         _validate_coverage_material(coverage, workflows, inputs, tuple(instance_inventories))
     if runtime is not None:
-        consumptions = (
-            tuple(
-                item
-                for workflow in coverage.workflows
-                for item in workflow.consumptions
-            )
-            if coverage is not None
-            else ()
-        )
         # Enumerate the retained admitted bases, without reparsing/classifying commands.
         admitted = tuple(
-            item
-            for item in consumptions
+            (workflow, item)
+            for workflow in coverage.workflows
+            for item in workflow.consumptions
             if item.state == "supported" and item.mechanism == "direct_requirements"
-        )
-        if tuple(item.consumption for item in runtime.assessments) != admitted:
+        ) if coverage is not None else ()
+        if tuple(item.consumption for item in runtime.assessments) != tuple(
+            consumption for _, consumption in admitted
+        ):
             raise _invalid(
                 "Runtime assessment membership differs from retained admitted CI bases."
             )
-        for assessment in runtime.assessments:
-            consumption = assessment.consumption
+        for assessment, (workflow, consumption) in zip(runtime.assessments, admitted, strict=True):
             if (
-                consumption not in consumptions
-                or consumption.workflow_revision != expected_target.head_sha
+                consumption.workflow_revision != expected_target.head_sha
                 or consumption.normalized_package != expected_target.normalized_package
             ):
                 raise _invalid(
                     "Runtime assessment is outside its retained CI/source basis."
                 )
+            requires_execution = shell_execution_coverage and (
+                consumption.job_instance is not None
+                or consumption.shell_startup_blocker is not None
+                or consumption.whole_step_relation == "later_ordinary_command_in_straight_line_script"
+            )
+            if requires_execution != (assessment.execution is not None):
+                raise _invalid("Runtime assessment does not retain its required command execution.")
+            if assessment.execution is not None:
+                _validate_retained_command_execution(assessment.execution, consumption, workflow)
             if isinstance(assessment.result, RequirementSatisfiedAtCommandCompletion):
                 witness = assessment.result
                 identity = witness.semantics.command_identity
@@ -1013,6 +1075,7 @@ def reconstruct_ci_projection(
                     or witness.source_context.source_path != consumption.source_path
                     or scoped != actual
                     or executed != actual
+                    or (assessment.execution is not None and assessment.execution != execution)
                 ):
                     raise _invalid(
                         "Command-completion witness has inconsistent material identities."

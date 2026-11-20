@@ -63,6 +63,45 @@ def _literal_values(analysis) -> tuple[str | None, ...]:
 
 
 class EffectiveShellContextTests(unittest.TestCase):
+    def test_container_startup_and_prior_visible_environment_inputs_stay_unresolved(self) -> None:
+        source = RepositoryTextFile("example/project", ".github/workflows/ci.yml", "a" * 40, """jobs:
+  container:
+    runs-on: ubuntu-latest
+    container:
+      image: example/image
+      env:
+        ENV: /startup
+    steps:
+      - run: pip freeze
+  writer:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "BASH_ENV=startup.sh" >> "$GITHUB_ENV"
+      - run: pip freeze
+  local:
+    runs-on: ubuntu-latest
+    env:
+      BASH_ENV: /job-startup
+    steps:
+      - run: pip freeze
+      - run: pip freeze
+        env:
+          BASH_ENV: /step-startup
+""")
+        definition = parse_workflow_definition(source)
+        self.assertIsInstance(definition, WorkflowDefinition)
+        for job, index, profile, blocker in (
+            (definition.jobs[0], 0, "github_default_container_sh", "job container env"),
+            (definition.jobs[1], 1, "github_default_non_windows", "earlier run step 0"),
+            (definition.jobs[2], 0, "github_default_non_windows", "job-level env: BASH_ENV"),
+            (definition.jobs[2], 1, "github_default_non_windows", "step-level env: BASH_ENV"),
+        ):
+            with self.subTest(job=job.key, index=index):
+                context = resolve_effective_shell_context(definition, job, job.steps[index])
+                self.assertEqual(context.state, "resolved")
+                self.assertEqual(context.execution_profile, profile)
+                self.assertIn(blocker, context.startup_blocker)
+
     def test_precedence_is_step_then_job_then_workflow(self) -> None:
         workflow, job, step = _workflow(
             run="echo ok",
@@ -259,7 +298,7 @@ class StaticWorkflowCommandAnalysisTests(unittest.TestCase):
                     result.command_occurrences[0].executable.literal_value, "pip"
                 )
 
-    def test_first_sequential_bash_command_gets_positive_whole_step_relation(self) -> None:
+    def test_straight_line_bash_script_preserves_first_and_qualifies_later_relation(self) -> None:
         workflow, job, step = _workflow(
             run=(
                 "python -m pip install --no-cache-dir --upgrade pip -r requirements.txt\n"
@@ -277,9 +316,51 @@ class StaticWorkflowCommandAnalysisTests(unittest.TestCase):
             first.whole_step_relation,
             "first_ordinary_top_level_command_in_sequential_script",
         )
-        self.assertIsNone(second.whole_step_relation)
+        self.assertEqual(
+            second.whole_step_relation, "later_ordinary_command_in_straight_line_script"
+        )
         self.assertIn("linear_chain", first.structural_context)
         self.assertIn("linear_chain", second.structural_context)
+
+    def test_later_relation_rejects_unsupported_structure_anywhere_in_script(self) -> None:
+        target = "pip install -r requirements.txt"
+        for script in (
+            f"exit 0\n{target}",
+            f"exec true\n{target}",
+            f"set +e\n{target}\ntrue",
+            f"trap 'exit 0' ERR\n{target}",
+            f"source init.sh\n{target}",
+            f". init.sh\n{target}",
+            f"eval 'exit 0'\n{target}",
+            f"enable -n echo\n{target}",
+            f"printf -v PATH /tmp\n{target}",
+            f"cd /tmp\n{target}",
+            f"X=1 echo ok\n{target}",
+            f"\"exit\" 0\n{target}",
+            f"echo \"$(exit 0)\"\n{target}",
+            f"echo <(true)\n{target}",
+            f"echo ok | cat\n{target}",
+            f"true || {target}\necho ok",
+            f"true && {target}\necho ok",
+            f"echo ok\n! {target}",
+            f"echo ok > marker\n{target}",
+            f"echo ok\n{target} <<< ok",
+            f"echo ok &\n{target}",
+            f"echo ok\n{target} &",
+            f"( echo ok )\n{target}",
+            f"f() {{ exit 0; }}\nf\n{target}",
+            f"if true; then echo ok; fi\n{target}",
+            f"$TOOL ok\n{target}",
+            f"echo *.txt\n{target}",
+            f"echo ok\n{target}\nexit 0",
+            f"echo ok\n{target}\n${{{{ inputs.tail }}}}",
+        ):
+            with self.subTest(script=script):
+                result = analyze_run_step_commands(*_workflow(run=script, shell="bash"))
+                self.assertNotIn(
+                    "later_ordinary_command_in_straight_line_script",
+                    {occurrence.whole_step_relation for occurrence in result.command_occurrences},
+                )
 
     def test_bash_false_straightforward_shapes_do_not_get_positive_whole_step_relation(self) -> None:
         cases = (

@@ -19,9 +19,10 @@ unresolved rather than falling back to the previous textual splitters.
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, replace
-from hashlib import sha256
 from functools import lru_cache
+from hashlib import sha256
 from typing import Literal
 
 import tree_sitter_bash
@@ -60,7 +61,23 @@ type StaticCommandStructure = Literal[
 type StaticCommandWholeStepRelation = Literal[
     "sole_ordinary_top_level_command",
     "first_ordinary_top_level_command_in_sequential_script",
+    "later_ordinary_command_in_straight_line_script",
 ]
+
+# Bash builtins plus additional sh-family builtins. These cannot be treated as
+# independently invoked executables. Only the status/printing builtins explicitly
+# admitted below are allowed in the new whole-script relation.
+_BASH_SH_BUILTINS = frozenset("""
+    . : [ alias bg bind break builtin caller cd command compgen complete compopt
+    continue declare dirs disown echo enable eval exec exit export false fc fg
+    getopts hash help history jobs kill let local logout mapfile popd printf pushd
+    pwd read readarray readonly return set shift shopt source suspend test times
+    trap true type typeset ulimit umask unalias unset wait
+    login newgrp
+""".split())
+_SAFE_SEQUENTIAL_BUILTINS = frozenset({"true", "false", "echo"})
+_BARE_EXECUTABLE = re.compile(r"[a-zA-Z0-9_][a-zA-Z0-9_.-]*")
+_BARE_LITERAL_ARGUMENT = re.compile(r"[a-zA-Z0-9_./,:@%+=-]+")
 
 
 @dataclass(frozen=True, slots=True)
@@ -231,6 +248,11 @@ def analyze_run_step_commands(
     ordered = tuple(
         sorted(command_nodes, key=lambda item: (item.start_byte, item.end_byte))
     )
+    later_straight_line = (
+        shell_context.syntax_family == "bash"
+        and not step.command.contains_expression
+        and _bash_straight_line_script(root, source)
+    )
     occurrences = tuple(
         _occurrence_from_node(
             node,
@@ -239,6 +261,7 @@ def analyze_run_step_commands(
             source_order=index,
             root=root,
             command_nodes=ordered,
+            later_straight_line=later_straight_line,
         )
         for index, node in enumerate(ordered)
     )
@@ -303,6 +326,7 @@ def _occurrence_from_node(
     source_order: int,
     root: Node,
     command_nodes: tuple[Node, ...],
+    later_straight_line: bool,
 ) -> StaticCommandOccurrence:
     if family == "bash":
         executable_node, argument_nodes = _bash_command_parts(node)
@@ -327,6 +351,7 @@ def _occurrence_from_node(
             source=source,
             family=family,
             command_nodes=command_nodes,
+            later_straight_line=later_straight_line,
         ),
         environment_assignments=(
             _bash_command_environment_assignments(node, source)
@@ -343,6 +368,7 @@ def _positive_whole_step_relation(
     source: bytes,
     family: ShellSyntaxFamily,
     command_nodes: tuple[Node, ...],
+    later_straight_line: bool,
 ) -> StaticCommandWholeStepRelation | None:
     """Return only positively established whole-step relationships.
 
@@ -362,6 +388,8 @@ def _positive_whole_step_relation(
             and all(statement.type == "command" for statement in statements)
         ):
             return "first_ordinary_top_level_command_in_sequential_script"
+        if later_straight_line:
+            return "later_ordinary_command_in_straight_line_script"
         return None
 
     if family == "powershell":
@@ -390,6 +418,51 @@ def _significant_named_children(node: Node) -> tuple[Node, ...]:
         child
         for child in node.named_children
         if child.type not in {"comment", "empty_statement"}
+    )
+
+
+def _bash_straight_line_script(root: Node, source: bytes) -> bool:
+    """Qualify the complete script once, independently of the target occurrence."""
+    statements = _significant_named_children(root)
+    return (
+        len(statements) > 1
+        and all(child.is_named or child.type == ";" for child in root.children)
+        and all(_ordinary_bash_sequence_command(node, source) for node in statements)
+    )
+
+
+def _ordinary_bash_sequence_command(node: Node, source: bytes) -> bool:
+    if (
+        node.type != "command"
+        or not node.named_children
+        or not all(child.is_named for child in node.children)
+    ):
+        return False
+    name, *arguments = node.named_children
+    if name.type != "command_name" or len(name.named_children) != 1:
+        return False
+    executable = name.named_children[0]
+    raw = _node_text(executable, source)
+    if executable.type != "word" or not (
+        raw in _SAFE_SEQUENTIAL_BUILTINS
+        or (_BARE_EXECUTABLE.fullmatch(raw) and raw not in _BASH_SH_BUILTINS)
+    ):
+        return False
+    # Plain literal words and quotes without interpolation or escape semantics
+    # exclude assignments, redirections, expansions, globs and nested execution.
+    return all(_bash_sequence_literal_argument(argument, source) for argument in arguments)
+
+
+def _bash_sequence_literal_argument(node: Node, source: bytes) -> bool:
+    raw = _node_text(node, source)
+    if node.type == "word":
+        return _BARE_LITERAL_ARGUMENT.fullmatch(raw) is not None
+    if node.type == "raw_string":
+        return not node.named_children
+    return (
+        node.type == "string"
+        and all(child.type == "string_content" for child in node.named_children)
+        and "\\" not in raw
     )
 
 

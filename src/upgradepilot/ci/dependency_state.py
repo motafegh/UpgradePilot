@@ -169,10 +169,11 @@ class RequirementStateProblem:
 
 @dataclass(frozen=True, slots=True)
 class CommandRequirementStateAssessment:
-    """One admitted exact command and its bounded command-completion state result."""
+    """A command's package state and, when retained, its separate execution assessment."""
 
     consumption: StaticDependencyConsumptionEvidence
     result: RequirementSatisfiedAtCommandCompletion | RequirementStateProblem
+    execution: ExactCommandExecutionAssessment | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -317,10 +318,16 @@ def evaluate_runtime_dependency_state(
                 semantic_scope,
                 execution,
             )
+            retain_execution = (
+                consumption.job_instance is not None
+                or consumption.shell_startup_blocker is not None
+                or consumption.whole_step_relation == "later_ordinary_command_in_straight_line_script"
+            )
             assessments.append(
                 CommandRequirementStateAssessment(
                     consumption=consumption,
                     result=result,
+                    execution=execution if retain_execution else None,
                 )
             )
 

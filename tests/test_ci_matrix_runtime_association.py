@@ -1,4 +1,4 @@
-"""Qualification of exact-attempt correspondence before later-command proof."""
+"""Qualification of exact-attempt correspondence and scoped command evidence."""
 
 from dataclasses import replace
 import json
@@ -9,6 +9,8 @@ from unittest.mock import patch
 from upgradepilot.ci.dependency_exercise import evaluate_dependency_ci_coverage
 from upgradepilot.ci.dependency_state import evaluate_runtime_dependency_state
 from upgradepilot.ci.executable_selection import establish_executable_selection
+from upgradepilot.ci.runtime_execution import assess_exact_command_execution
+from upgradepilot.ci.runtime_strengthening import candidate_from_consumption
 from upgradepilot.ci.workflow_runtime_correlation import correlate_workflow_runtime
 from upgradepilot.github.actions import GitHubActionsClient, WorkflowJob, WorkflowStep
 from upgradepilot.github.workflow_command_analysis import analyze_run_step_commands
@@ -69,6 +71,36 @@ def _with_source(workflow, content):
 
 
 class MatrixAssociationTests(unittest.TestCase):
+    def test_frozen_install_execution_keeps_later_command_package_and_test_proofs_distinct(self):
+        workflow = frozen_workflow()
+        dependency, context = _dependency_and_source(workflow.definition, "requirements-tests.txt", "soupsieve")
+        coverage = evaluate_dependency_ci_coverage(dependency, (workflow,), source_contexts=(context,))
+        runtime = evaluate_runtime_dependency_state(dependency, (workflow,), coverage, source_contexts=(context,))
+        oracles = json.loads(_ORACLES.read_bytes())["observed_success_case"]
+        result = coverage.workflows[0]
+        self.assertEqual(result.direct_exercise_state, "not_established")
+        self.assertEqual(len(runtime.assessments), 7)
+        for assessment, oracle in zip(
+            runtime.assessments, (item for item in oracles if item["original_yaml_job"] != "doc"),
+            strict=True,
+        ):
+            consumption = assessment.consumption
+            command = assessment.execution
+            match = _match(result.runtime_correlation, oracle["runtime_job_id"])
+            self.assertEqual(consumption.job_instance, match.job_instance)
+            self.assertEqual(command.state, "supported")
+            self.assertEqual(command.step_execution.correlation.job_instance, match.job_instance)
+            later = consumption.job_key in {"test", "coverage"}
+            self.assertEqual(command.step_execution.correlation.runtime_step.number, 6 if later else 4)
+            self.assertEqual(command.command_location.source_order, 1 if later else 0)
+            self.assertEqual(assessment.result.state, "unresolved")
+            self.assertEqual(assessment.result.reason, "manager_environment_needs_lower_source_evidence")
+        first, second, *rest = runtime.assessments
+        forged = replace(runtime, assessments=(replace(first, execution=second.execution), second, *rest))
+        boundary = _capture(workflow, dependency, context, coverage, forged)
+        with self.assertRaisesRegex(NativeReconstructionError, "another exact command identity"):
+            reconstruct_ci_projection(boundary, expected_target=boundary.target)
+
     def test_genuine_attempt_matches_all_eight_independent_oracles_without_runtime_job_labels(self):
         workflow = frozen_workflow()
         # The mixed workflow uses unnamed YAML jobs. Runtime job labels carry no
@@ -210,6 +242,11 @@ class MatrixAssociationTests(unittest.TestCase):
         self.assertEqual(recovered.ci_coverage_result.workflows[0].runtime_correlation, result)
         self.assertEqual(recovered.runtime_dependency_state_result, runtime)
         self.assertTrue(all(assessment.result.state == "unresolved" for assessment in runtime.assessments))
+        self.assertEqual(
+            [(row.execution.state, row.execution.runtime_conclusion) for row in runtime.assessments],
+            [("not_established", "failure"), ("unresolved", None), ("unresolved", None),
+             ("unresolved", None), *([("supported", "success")] * 3)],
+        )
 
         cancelled_after_install = _job(workflow, cancel)
         snapshot = _correlate(workflow, _edit_job(
@@ -218,6 +255,21 @@ class MatrixAssociationTests(unittest.TestCase):
         ))
         self.assertEqual({step.runtime_step.number: step.runtime_step.conclusion
                           for step in _match(snapshot, cancel).steps}[6], "success")
+        self.assertEqual(assess_exact_command_execution(
+            candidate_from_consumption(runtime.assessments[1].consumption), correlation=snapshot,
+        ).state, "supported")
+
+        successful_sibling = _match(snapshot, cancel)
+        sibling_step = next(item for item in successful_sibling.steps if item.runtime_step.number == 6)
+        forged_step = replace(sibling_step, job_instance=failed.job_instance)
+        forged_correlation = replace(result, jobs=tuple(
+            replace(job, steps=tuple(forged_step if step.runtime_step.number == 6 else step
+                                     for step in job.steps))
+            if job == failed else job for job in result.jobs
+        ))
+        self.assertEqual(assess_exact_command_execution(
+            candidate_from_consumption(runtime.assessments[0].consumption), correlation=forged_correlation,
+        ).basis, "step_correlation_unresolved")
 
     def test_explicit_skip_matches_without_steps_and_unidentified_skip_stays_unassigned(self):
         workflow = frozen_workflow()

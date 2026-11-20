@@ -115,6 +115,7 @@ class DirectPackageInvocationEvidence:
     workflow_path: str | None = None
     workflow_revision: str | None = None
     job_instance: WorkflowJobInstanceIdentity | None = None
+    shell_startup_blocker: str | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -621,6 +622,7 @@ def _append_direct_requirements_consumptions(
                     structural_context=occurrence.structural_context,
                     whole_step_relation=occurrence.whole_step_relation,
                     execution_profile=command_analysis.shell_context.execution_profile,
+                    shell_startup_blocker=command_analysis.shell_context.startup_blocker,
                 )
             )
             continue
@@ -728,6 +730,7 @@ def _append_project_environment_consumptions(
                     declaration=declaration,
                     dependency_evidence=dependency_evidence,
                     execution_profile=command_analysis.shell_context.execution_profile,
+                    shell_startup_blocker=command_analysis.shell_context.startup_blocker,
                 )
             )
 
@@ -1117,6 +1120,7 @@ def _package_invocations_from_analysis(
                     structural_context=occurrence.structural_context,
                     whole_step_relation=occurrence.whole_step_relation,
                     execution_profile=analysis.shell_context.execution_profile,
+                    shell_startup_blocker=analysis.shell_context.startup_blocker,
                     workflow_path=workflow_path,
                     workflow_revision=workflow_revision,
                 )
@@ -1137,6 +1141,7 @@ def _package_invocations_from_analysis(
                     structural_context=occurrence.structural_context,
                     whole_step_relation=occurrence.whole_step_relation,
                     execution_profile=analysis.shell_context.execution_profile,
+                    shell_startup_blocker=analysis.shell_context.startup_blocker,
                     workflow_path=workflow_path,
                     workflow_revision=workflow_revision,
                 )

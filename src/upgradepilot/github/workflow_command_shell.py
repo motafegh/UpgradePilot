@@ -11,16 +11,18 @@ Resolving either fact does not prove that a command executed or succeeded.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import PurePath
 from typing import Literal
 
 from .workflow_definition import (
     RunStepDefinition,
+    StaticMappingValue,
     StaticScalarValue,
     StepsJobDefinition,
     WorkflowDefinition,
 )
+from .workflow_environment import observe_workflow_environment_value
 
 
 type ShellSyntaxFamily = Literal["bash", "powershell", "cmd"]
@@ -40,6 +42,20 @@ type EffectiveShellSource = Literal[
     "step", "job", "workflow", "container_default", "platform_default"
 ]
 
+# The GitHub-declared wrappers. A default non-Windows runner can fall back to sh.
+# These templates do not attest executable selection or initialized process state.
+GITHUB_FAIL_FAST_SHELL_LAUNCHES: dict[ShellExecutionProfile, tuple[str, ...]] = {
+    "github_builtin_bash": ("bash --noprofile --norc -eo pipefail {0}",),
+    "github_builtin_sh": ("sh -e {0}",),
+    "github_default_non_windows": ("bash -e {0}", "sh -e {0}"),
+    "github_default_container_sh": ("sh -e {0}",),
+}
+
+_STARTUP_ENVIRONMENT_NAMES = (
+    "BASH_ENV", "ENV", "SHELLOPTS", "BASHOPTS", "BASH_COMPAT",
+    "LD_PRELOAD", "LD_AUDIT", "DYLD_INSERT_LIBRARIES",
+)
+
 
 @dataclass(frozen=True, slots=True)
 class EffectiveShellContext:
@@ -51,6 +67,7 @@ class EffectiveShellContext:
     execution_profile: ShellExecutionProfile | None
     raw_declaration: str | None
     reason: str | None = None
+    startup_blocker: str | None = None
 
 
 def resolve_effective_shell_context(
@@ -64,6 +81,19 @@ def resolve_effective_shell_context(
     authorizes syntax parsing only; runtime-execution authority remains a later concern.
     """
 
+    context = _declared_shell_context(workflow, job, step)
+    if context.execution_profile in GITHUB_FAIL_FAST_SHELL_LAUNCHES:
+        blocker = _declared_startup_blocker(workflow, job, step)
+        if blocker is not None:
+            context = replace(context, startup_blocker=blocker)
+    return context
+
+
+def _declared_shell_context(
+    workflow: WorkflowDefinition,
+    job: StepsJobDefinition,
+    step: RunStepDefinition,
+) -> EffectiveShellContext:
     candidates: tuple[
         tuple[EffectiveShellSource, StaticScalarValue | None], ...
     ] = (
@@ -102,6 +132,56 @@ def resolve_effective_shell_context(
         )
 
     return _platform_default_shell_context(job)
+
+
+def _declared_startup_blocker(
+    workflow: WorkflowDefinition,
+    job: StepsJobDefinition,
+    step: RunStepDefinition,
+) -> str | None:
+    # Check exported functions as well as the fixed startup/environment switches.
+    # Never retain their values in the blocker explanation.
+    function_names = sorted({
+        entry.key.text
+        for mapping in (step.environment, job.environment, workflow.environment)
+        if mapping is not None
+        for entry in mapping.entries
+        if entry.key.text.startswith("BASH_FUNC_")
+    })
+    for name in (*_STARTUP_ENVIRONMENT_NAMES, *function_names):
+        observation = observe_workflow_environment_value(workflow, job, step, name)
+        if observation.state != "not_declared":
+            label = "exported Bash function" if name.startswith("BASH_FUNC_") else name
+            return (
+                f"{observation.source_scope}-level env: {label} "
+                f"({observation.reason})"
+            )
+
+    if isinstance(job.container, StaticMappingValue):
+        for entry in job.container.entries:
+            if entry.key.contains_expression or entry.key.text == "options":
+                return "job container options or configuration can supply shell startup state"
+            if entry.key.text == "env" and (
+                not isinstance(entry.value, StaticMappingValue)
+                or any(
+                    item.key.contains_expression or _material_startup_environment(item.key.text)
+                    for item in entry.value.entries
+                )
+            ):
+                return "job container env can supply shell startup state"
+
+    for prior in job.steps:
+        if prior.source_index >= step.source_index:
+            break
+        if isinstance(prior, RunStepDefinition) and "GITHUB_ENV" in prior.command.text:
+            return f"earlier run step {prior.source_index} refers to the GITHUB_ENV input"
+    # Shell/container image internals, action effects, and undeclared inherited settings
+    # remain assumptions of the declared-profile method.
+    return None
+
+
+def _material_startup_environment(name: str) -> bool:
+    return name in _STARTUP_ENVIRONMENT_NAMES or name.startswith("BASH_FUNC_")
 
 
 def _literal_shell_context(
@@ -216,6 +296,7 @@ __all__ = (
     "EffectiveShellContext",
     "EffectiveShellSource",
     "EffectiveShellState",
+    "GITHUB_FAIL_FAST_SHELL_LAUNCHES",
     "ShellExecutionProfile",
     "ShellSyntaxFamily",
     "resolve_effective_shell_context",

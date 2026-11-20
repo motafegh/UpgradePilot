@@ -1,0 +1,375 @@
+{
+  "baseline_parent": "c2f07a77",
+  "genuine": {
+    "repository": "mapproxy/mapproxy",
+    "pull_request": 1559,
+    "head": "ac01b8901935bfc16a0195277b4aec1c43275897",
+    "run": 43457921398,
+    "attempt": 1,
+    "provider_jobs_response_sha256": "cb2b1361da178a44936bf731476a4a4aacdc0f53eb515885fc64574da3b33c8b",
+    "reported_steps": 79,
+    "associated_jobs": [
+      {
+        "job": "test",
+        "slot": 0,
+        "runtime_job_id": 131996881880,
+        "outcome": "success"
+      },
+      {
+        "job": "test",
+        "slot": 1,
+        "runtime_job_id": 131996881564,
+        "outcome": "success"
+      },
+      {
+        "job": "test",
+        "slot": 2,
+        "runtime_job_id": 131996881411,
+        "outcome": "success"
+      },
+      {
+        "job": "test",
+        "slot": 3,
+        "runtime_job_id": 131996881633,
+        "outcome": "success"
+      },
+      {
+        "job": "coverage",
+        "slot": 0,
+        "runtime_job_id": 131996881258,
+        "outcome": "success"
+      },
+      {
+        "job": "doc",
+        "slot": 0,
+        "runtime_job_id": 131996881440,
+        "outcome": "success"
+      },
+      {
+        "job": "lint",
+        "slot": 0,
+        "runtime_job_id": 131996881382,
+        "outcome": "success"
+      },
+      {
+        "job": "typechecking",
+        "slot": 0,
+        "runtime_job_id": 131996881059,
+        "outcome": "success"
+      }
+    ],
+    "exact_requirements_commands": [
+      {
+        "job": "test",
+        "slot": 0,
+        "order": 1,
+        "span": [
+          14,
+          51
+        ],
+        "digest": "93ee9bc1df926a8028697b87f50565fca42fb3b430016c857c215428b2cc4b83",
+        "source": "requirements-tests.txt",
+        "profile": "github_default_non_windows",
+        "startup_blocker": null,
+        "relation": "later_ordinary_command_in_straight_line_script",
+        "execution": "supported",
+        "execution_reason": "exact_command_execution_supported",
+        "execution_basis": "supported",
+        "reported_step": 6,
+        "reported_conclusion": "success"
+      },
+      {
+        "job": "test",
+        "slot": 1,
+        "order": 1,
+        "span": [
+          14,
+          51
+        ],
+        "digest": "93ee9bc1df926a8028697b87f50565fca42fb3b430016c857c215428b2cc4b83",
+        "source": "requirements-tests.txt",
+        "profile": "github_default_non_windows",
+        "startup_blocker": null,
+        "relation": "later_ordinary_command_in_straight_line_script",
+        "execution": "supported",
+        "execution_reason": "exact_command_execution_supported",
+        "execution_basis": "supported",
+        "reported_step": 6,
+        "reported_conclusion": "success"
+      },
+      {
+        "job": "test",
+        "slot": 2,
+        "order": 1,
+        "span": [
+          14,
+          51
+        ],
+        "digest": "93ee9bc1df926a8028697b87f50565fca42fb3b430016c857c215428b2cc4b83",
+        "source": "requirements-tests.txt",
+        "profile": "github_default_non_windows",
+        "startup_blocker": null,
+        "relation": "later_ordinary_command_in_straight_line_script",
+        "execution": "supported",
+        "execution_reason": "exact_command_execution_supported",
+        "execution_basis": "supported",
+        "reported_step": 6,
+        "reported_conclusion": "success"
+      },
+      {
+        "job": "test",
+        "slot": 3,
+        "order": 1,
+        "span": [
+          14,
+          51
+        ],
+        "digest": "93ee9bc1df926a8028697b87f50565fca42fb3b430016c857c215428b2cc4b83",
+        "source": "requirements-tests.txt",
+        "profile": "github_default_non_windows",
+        "startup_blocker": null,
+        "relation": "later_ordinary_command_in_straight_line_script",
+        "execution": "supported",
+        "execution_reason": "exact_command_execution_supported",
+        "execution_basis": "supported",
+        "reported_step": 6,
+        "reported_conclusion": "success"
+      },
+      {
+        "job": "coverage",
+        "slot": 0,
+        "order": 1,
+        "span": [
+          14,
+          51
+        ],
+        "digest": "0024bcfb19a4cf34313392c8d6413df0d0e1e8ea3a1d98823183813a8f3c8757",
+        "source": "requirements-tests.txt",
+        "profile": "github_default_non_windows",
+        "startup_blocker": null,
+        "relation": "later_ordinary_command_in_straight_line_script",
+        "execution": "supported",
+        "execution_reason": "exact_command_execution_supported",
+        "execution_basis": "supported",
+        "reported_step": 6,
+        "reported_conclusion": "success"
+      },
+      {
+        "job": "lint",
+        "slot": 0,
+        "order": 0,
+        "span": [
+          0,
+          37
+        ],
+        "digest": "1ca00d8651e27befedded73920d175cca9bf7a60947c77e8af41bd5462cccb6e",
+        "source": "requirements-tests.txt",
+        "profile": "github_default_non_windows",
+        "startup_blocker": null,
+        "relation": "sole_ordinary_top_level_command",
+        "execution": "supported",
+        "execution_reason": "exact_command_execution_supported",
+        "execution_basis": "supported",
+        "reported_step": 4,
+        "reported_conclusion": "success"
+      },
+      {
+        "job": "typechecking",
+        "slot": 0,
+        "order": 0,
+        "span": [
+          0,
+          37
+        ],
+        "digest": "1ca00d8651e27befedded73920d175cca9bf7a60947c77e8af41bd5462cccb6e",
+        "source": "requirements-tests.txt",
+        "profile": "github_default_non_windows",
+        "startup_blocker": null,
+        "relation": "sole_ordinary_top_level_command",
+        "execution": "supported",
+        "execution_reason": "exact_command_execution_supported",
+        "execution_basis": "supported",
+        "reported_step": 4,
+        "reported_conclusion": "success"
+      }
+    ],
+    "installed_package_state": "unresolved",
+    "installed_package_state_reason": "manager_environment_needs_lower_source_evidence",
+    "direct_package_exercise": "not_established"
+  },
+  "controlled_not_original_provider_observations": {
+    "controlled-fail-fast": {
+      "matrix_command_results_in_declared_order": [
+        "not_established",
+        "unresolved",
+        "unresolved",
+        "unresolved"
+      ],
+      "unmatched_slots": [
+        2,
+        3
+      ],
+      "unassigned_rows": [
+        {
+          "id": 131996881411,
+          "reason": "runtime_job_identity_witness_missing",
+          "status": "queued",
+          "conclusion": null,
+          "start_phase": "unstarted_at_observation"
+        }
+      ],
+      "package_state": "unresolved"
+    },
+    "controlled-cancel-after-install": {
+      "matrix_command_results_in_declared_order": [
+        "not_established",
+        "supported",
+        "unresolved",
+        "unresolved"
+      ],
+      "unmatched_slots": [
+        2,
+        3
+      ],
+      "unassigned_rows": [
+        {
+          "id": 131996881411,
+          "reason": "runtime_job_identity_witness_missing",
+          "status": "queued",
+          "conclusion": null,
+          "start_phase": "unstarted_at_observation"
+        }
+      ],
+      "package_state": "unresolved"
+    },
+    "controlled-explicit-skip": {
+      "matrix_command_results_in_declared_order": [
+        "unresolved",
+        "supported",
+        "supported",
+        "supported"
+      ],
+      "unmatched_slots": [
+        0
+      ],
+      "unassigned_rows": [
+        {
+          "id": 131996881880,
+          "reason": "runtime_job_identity_witness_missing",
+          "status": "completed",
+          "conclusion": "skipped",
+          "start_phase": "unknown"
+        }
+      ],
+      "package_state": "unresolved"
+    }
+  },
+  "declared_shell": {
+    "templates": {
+      "github_builtin_bash": [
+        "bash --noprofile --norc -eo pipefail {0}"
+      ],
+      "github_builtin_sh": [
+        "sh -e {0}"
+      ],
+      "github_default_non_windows": [
+        "bash -e {0}",
+        "sh -e {0}"
+      ],
+      "github_default_container_sh": [
+        "sh -e {0}"
+      ]
+    },
+    "official_workflow_syntax_capture_sha256": "8a8a499859f633f9167bfc6f65ac35704fda0e77b0db237f2b0d836f94a6e62e",
+    "self_authored_controls": 32,
+    "controls_receipt_sha256": "94f7813fc150252c575bef25c9065d4d961865ed616819262b53ea9852cb2004",
+    "bash": "GNU bash, version 5.2.21(1)-release (x86_64-pc-linux-gnu)",
+    "sh_executable": "/usr/bin/dash",
+    "scope": "selected wrapper and visible startup declarations, with ordinary inherited shell behavior assumed"
+  },
+  "native_recovery": {
+    "scoped_sqlite_revisions": [
+      "genuine",
+      "controlled-fail-fast",
+      "controlled-cancel-after-install",
+      "controlled-explicit-skip"
+    ],
+    "native_parity": true,
+    "historical_encoded_compatibility": [
+      "mapproxy-genuine-baseline",
+      "ordinary-controlled",
+      "server-nexe-historical",
+      "server-nexe-missing-install-control",
+      "milestone-4-ci-coverage-v5-genuine",
+      "milestone-4-ci-coverage-v5-controlled-fail-fast",
+      "milestone-3-ci-coverage-v4"
+    ],
+    "historical_v4_matrix_state": "static_job_strategy_unsupported",
+    "evaluator_reentry": false,
+    "network_access": false,
+    "versions": {
+      "ci_inputs": 2,
+      "ci_coverage": 6,
+      "runtime_dependency_state": 3
+    },
+    "revisions": {
+      "genuine": {
+        "revision_digest": "97fd3bf6a86504a19099c82abfc71b7ad4bacc55007d27334b6eddde08732f1c",
+        "boundary_sha256": "a70573fac905a1eae5511fae5a9af5970f590fab5c55907485b99d955ba85abc"
+      },
+      "controlled-fail-fast": {
+        "revision_digest": "33c0f4cb3db286bc23e70d2b7eeabbef656d6d5bf26231e0b51ce08731908986",
+        "boundary_sha256": "7441f5a8c91ff932a4a52422119192b3e475b9134fda624b737146a030c444bb"
+      },
+      "controlled-cancel-after-install": {
+        "revision_digest": "6be0ee9d8b73207b65c6f3af1232f17a535a5cec41293f658a35311a3af156bc",
+        "boundary_sha256": "2e2c3fe1e6867cd68cb34ebcf871c7df200280782edb64a9cfa258362908ff5e"
+      },
+      "controlled-explicit-skip": {
+        "revision_digest": "8d66a0c32d26b13b86be7b64d976ec2390676823f420586f2f325979508d8e9f",
+        "boundary_sha256": "0e3edd44fa4664582ee89296c3cf02da89a6a8ea32769e2a16729f34fcfd1170"
+      }
+    }
+  },
+  "public_cli_baseline_parity": {
+    "normal_installed_semantic_parity": true,
+    "historical_report_opens": [
+      "mapproxy-genuine-baseline",
+      "mapproxy-offline-replay",
+      "ordinary-controlled",
+      "server-nexe-historical",
+      "server-nexe-missing-install-control",
+      "applypilot-original-genuine",
+      "applypilot-current-ci-diagnostic",
+      "applypilot-missing-steps-diagnostic",
+      "mapproxy-legacy-counts-diagnostic"
+    ],
+    "semantic_sha256": "9de8fd2a7966b1b0eb586bacb4c588f526877d0fb54ec273da12ee82f76e7ba1",
+    "requests": 16,
+    "saved_report_reopened": true
+  },
+  "installed_artifact": {
+    "wheel_sha256": "f19cc98833f991e0c1b9536279f059a1f64baafd69df200490876a292508e632",
+    "modules_matched": 120,
+    "installed_module_parity": true
+  },
+  "tests": {
+    "full_installed": {
+      "tests": 1181,
+      "seconds": 232.862,
+      "log_sha256": "f6ec6a574baa95a32d81316c9350c30dae57930c3c335616eb58e4cdec595792"
+    },
+    "focused_installed": {
+      "tests": 104,
+      "seconds": 0.69,
+      "log_sha256": "bfa0182d0a03dfa42c3c360514691a74f19f0ff705158cf0d8bd47667034e3ca"
+    },
+    "installed_consumers": {
+      "tests": 25,
+      "seconds": 1.644,
+      "log_sha256": "7c3677ced3a09954194389ea8df5d82f07014d2f449dcb82ba04e6abd53bc629"
+    },
+    "experiment_architecture": "passed",
+    "pip_check": "passed"
+  }
+}

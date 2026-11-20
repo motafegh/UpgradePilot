@@ -44,8 +44,8 @@ from .native_boundary import (
     validate_native_boundary,
 )
 from .native_codecs import (
-    ASSOCIATION_COVERAGE_CODEC, ASSOCIATION_PRODUCER_VERSION,
-    FAMILY_CONTRACTS, SCOPED_CI_FAMILIES, SCOPED_CI_PRODUCER_VERSION,
+    ASSOCIATION_COVERAGE_CODEC, FAMILY_CONTRACTS, SCOPED_CI_FAMILIES,
+    SHELL_EXECUTION_CI_CODECS,
     decode_native_value, encode_native_value, family_contract,
 )
 
@@ -162,44 +162,39 @@ class NativeInvestigationCapture:
         coverage: DependencyCICoverageResult,
         runtime: RuntimeDependencyStateResult,
     ) -> None:
-        if any(workflow.prepared is not None for workflow in inputs):
-            has_associations = any(
-                item.runtime_correlation is not None and item.runtime_correlation.scoped is not None
-                for item in coverage.workflows
+        scoped = any(workflow.prepared is not None for workflow in inputs)
+        versions = {
+            family: version if scoped else 1
+            for family, (version, _) in SCOPED_CI_FAMILIES.items()
+        }
+        correlations = tuple(
+            item.runtime_correlation for item in coverage.workflows
+            if item.runtime_correlation is not None
+        )
+        if scoped:
+            if any(item.scoped is not None for item in correlations):
+                versions["ci_coverage"] = ASSOCIATION_COVERAGE_CODEC
+        else:
+            has_skips = any(item.state == "correlated_with_skipped_jobs" for item in correlations)
+            versions["ci_coverage"] = 3 if has_skips else 2
+        if any(assessment.execution is not None for assessment in runtime.assessments) or any(
+            item.whole_step_relation == "later_ordinary_command_in_straight_line_script"
+            or item.shell_startup_blocker is not None
+            for workflow in coverage.workflows
+            for item in (*workflow.consumptions, *workflow.invocations)
+        ):
+            versions.update(SHELL_EXECUTION_CI_CODECS)
+        for family, value in (
+            ("ci_inputs", inputs),
+            ("ci_coverage", coverage),
+            ("runtime_dependency_state", runtime),
+        ):
+            codec_version = versions[family]
+            contract = family_contract(family, codec_version)
+            self._record(
+                family, value, method=SCOPED_CI_FAMILIES[family][1],
+                version=contract.producer_version, codec_version=codec_version,
             )
-            for family, value in (
-                ("ci_inputs", inputs),
-                ("ci_coverage", coverage),
-                ("runtime_dependency_state", runtime),
-            ):
-                codec_version, method = SCOPED_CI_FAMILIES[family]
-                producer_version = SCOPED_CI_PRODUCER_VERSION
-                if family == "ci_coverage" and has_associations:
-                    codec_version = ASSOCIATION_COVERAGE_CODEC
-                    producer_version = ASSOCIATION_PRODUCER_VERSION
-                self._record(
-                    family, value, method=method, version=producer_version,
-                    codec_version=codec_version,
-                )
-            return
-        self._record(
-            "ci_inputs", inputs, method="investigation_inputs.prepare_ci_evidence"
-        )
-        self._record(
-            "ci_coverage",
-            coverage,
-            method="ci.dependency_exercise.evaluate_dependency_ci_coverage",
-            codec_version=3 if any(
-                item.runtime_correlation is not None
-                and item.runtime_correlation.state == "correlated_with_skipped_jobs"
-                for item in coverage.workflows
-            ) else 2,
-        )
-        self._record(
-            "runtime_dependency_state",
-            runtime,
-            method="ci.dependency_state.evaluate_runtime_dependency_state",
-        )
 
     def capture_ci_job_log(self, observation: CIJobLogDiagnostic) -> None:
         """Record one opt-in typed job-log observation at the existing PR target."""

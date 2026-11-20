@@ -98,6 +98,7 @@ LAYOUTS = (
                 ),
             ),
         ),
+        omitted_none_fields=("execution",),
     ),
     RecordLayout(
         "correlated_step_execution_assessment",
@@ -228,7 +229,7 @@ LAYOUTS = (
                 ),
             ),
         ),
-        omitted_none_fields=("job_instance",),
+        omitted_none_fields=("job_instance", "shell_startup_blocker"),
     ),
     RecordLayout(
         "direct_requirement_handling_fact",
@@ -695,7 +696,7 @@ LAYOUTS = (
                 ),
             ),
         ),
-        omitted_none_fields=("job_instance",),
+        omitted_none_fields=("job_instance", "shell_startup_blocker"),
     ),
     RecordLayout(
         "static_workflow_dependency_problem",

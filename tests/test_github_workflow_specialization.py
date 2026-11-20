@@ -388,7 +388,9 @@ class MapProxyWorkflowSpecializationTests(unittest.TestCase):
             self.assertEqual(len(analysis.command_occurrences), 4)
             requirement = analysis.command_occurrences[1]
             self.assertEqual(requirement.raw_source, "pip install -r requirements-tests.txt")
-            self.assertIsNone(requirement.whole_step_relation)
+            self.assertEqual(
+                requirement.whole_step_relation, "later_ordinary_command_in_straight_line_script"
+            )
             encoded = field.generated_text.encode()
             self.assertEqual(encoded[requirement.source_span.start_byte:requirement.source_span.end_byte].decode(), requirement.raw_source)
         self.assertEqual(result.definition, parse_workflow_definition(source))

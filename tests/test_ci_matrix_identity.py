@@ -103,7 +103,8 @@ class ScopedCommandIdentityTests(unittest.TestCase):
         self.assertEqual(len(_supported_consumption_candidates(
             replace(static, consumptions=static.consumptions * 2),
         )), 7)
-        self.assertTrue(all(c.whole_step_relation is None for c in matrix))
+        self.assertEqual({c.whole_step_relation for c in matrix},
+                         {"later_ordinary_command_in_straight_line_script"})
         coverage = evaluate_dependency_ci_coverage(dependency, (workflow,), source_contexts=(context,))
         runtime = evaluate_runtime_dependency_state(dependency, (workflow,), coverage, source_contexts=(context,))
         self.assertEqual(coverage.state, "supported_not_correlated")
@@ -198,7 +199,7 @@ class ScopedCommandIdentityTests(unittest.TestCase):
         records = {record.family: record for record in boundary.records}
         self.assertEqual([records[f].codec_version for f in (
             "ci_inputs", "ci_coverage", "runtime_dependency_state",
-        )], [2, 5, 2])
+        )], [2, 6, 3])
         workflow_result = coverage.workflows[0]
         first, second, *rest = workflow_result.consumptions
         swapped = replace(first, command_location=second.command_location)
@@ -216,6 +217,10 @@ class ScopedCommandIdentityTests(unittest.TestCase):
                 encode_native_value(family, value, version=historical)
         with self.assertRaises(NativeReconstructionError):
             decode_native_value("ci_coverage", 3, records["ci_coverage"].payload)
+        with self.assertRaises(NativeReconstructionError):
+            encode_native_value("ci_coverage", coverage, version=5)
+        with self.assertRaises(NativeReconstructionError):
+            encode_native_value("runtime_dependency_state", runtime, version=2)
 
     def test_ordinary_scoped_producer_preserves_positive_execution_and_native_meaning(self):
         _, original, boundary, expected, _ = captured_case(direct_invocation=True, skipped_sibling=True)

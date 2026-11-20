@@ -9,7 +9,9 @@ from dataclasses import dataclass, replace
 
 from ..ci.dependency_exercise import DependencyCICoverageResult
 from ..ci.native_codec import COVERAGE_V2_LAYOUTS, COVERAGE_V3_LAYOUTS, LAYOUTS as CI_LAYOUTS
-from ..ci.native_scoped_codec import association_ci_layouts, scoped_ci_layouts
+from ..ci.native_scoped_codec import (
+    association_ci_layouts, scoped_ci_layouts, shell_execution_ci_layouts,
+)
 from ..impact.python_support_codec import LAYOUTS as IMPACT_LAYOUTS
 from ..caller_signature.source_codec import decode_sources, encode_sources
 from ..caller_signature.comparison_codec import decode_comparison, encode_comparison
@@ -204,7 +206,9 @@ _SCOPED_LAYOUTS = scoped_ci_layouts(
     INPUT_LAYOUTS + CI_LAYOUTS + COVERAGE_V2_LAYOUTS + COVERAGE_V3_LAYOUTS
 )
 _SCOPED_VALUES = NativeValueCodec(_SCOPED_LAYOUTS)
-_ASSOCIATION_VALUES = NativeValueCodec(association_ci_layouts(_SCOPED_LAYOUTS))
+_ASSOCIATION_LAYOUTS = association_ci_layouts(_SCOPED_LAYOUTS)
+_ASSOCIATION_VALUES = NativeValueCodec(_ASSOCIATION_LAYOUTS)
+_SHELL_EXECUTION_VALUES = NativeValueCodec(shell_execution_ci_layouts(_ASSOCIATION_LAYOUTS))
 SCOPED_CI_FAMILIES = {
     "ci_inputs": (2, "investigation_inputs.prepare_ci_evidence"),
     "ci_coverage": (4, "ci.dependency_exercise.evaluate_dependency_ci_coverage"),
@@ -213,6 +217,11 @@ SCOPED_CI_FAMILIES = {
 SCOPED_CI_PRODUCER_VERSION = "1"
 ASSOCIATION_COVERAGE_CODEC = 5
 ASSOCIATION_PRODUCER_VERSION = "2"
+SHELL_EXECUTION_CI_CODECS = {"ci_coverage": 6, "runtime_dependency_state": 3}
+
+
+def uses_shell_execution_codec(family: str, version: int) -> bool:
+    return type(version) is int and SHELL_EXECUTION_CI_CODECS.get(family) == version
 
 
 def _scoped_family(family: str, version: int) -> bool:
@@ -222,6 +231,12 @@ def _scoped_family(family: str, version: int) -> bool:
 
 
 def family_contract(family: str, version: int = 1) -> NativeFamilyContract:
+    if uses_shell_execution_codec(family, version):
+        return replace(
+            _CI_COVERAGE_V3 if family == "ci_coverage" else FAMILY_CONTRACTS[family],
+            producer_method=SCOPED_CI_FAMILIES[family][1],
+            producer_version="3" if family == "ci_coverage" else "2",
+        )
     if type(version) is int and version == ASSOCIATION_COVERAGE_CODEC and family == "ci_coverage":
         return replace(
             _CI_COVERAGE_V3,
@@ -256,6 +271,8 @@ def family_contract(family: str, version: int = 1) -> NativeFamilyContract:
 
 
 def _value_codec(family: str, version: int) -> NativeValueCodec:
+    if uses_shell_execution_codec(family, version):
+        return _SHELL_EXECUTION_VALUES
     if family == "ci_coverage" and version == ASSOCIATION_COVERAGE_CODEC:
         return _ASSOCIATION_VALUES
     return _SCOPED_VALUES if _scoped_family(family, version) else _VALUES

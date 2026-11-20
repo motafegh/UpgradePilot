@@ -22,7 +22,10 @@ from ..github.workflow_command_analysis import (
 )
 from ..github.workflow_command_location import StaticCommandLocation
 from ..github.workflow_specialization import WorkflowJobInstanceIdentity
-from ..github.workflow_command_shell import ShellExecutionProfile
+from ..github.workflow_command_shell import (
+    GITHUB_FAIL_FAST_SHELL_LAUNCHES,
+    ShellExecutionProfile,
+)
 from .consumption import StaticDependencyConsumptionEvidence
 from .workflow_commands import DirectPackageInvocationEvidence
 
@@ -50,6 +53,8 @@ class RuntimeStrengthenableCommandOccurrence(Protocol):
     whole_step_relation: StaticCommandWholeStepRelation | None
     execution_profile: ShellExecutionProfile | None
     job_instance: WorkflowJobInstanceIdentity | None
+    shell_startup_blocker: str | None
+    command: str | None
 
 
 @dataclass(frozen=True, slots=True)
@@ -66,6 +71,8 @@ class RuntimeStrengtheningCandidate:
     whole_step_relation: StaticCommandWholeStepRelation | None
     execution_profile: ShellExecutionProfile | None
     job_instance: WorkflowJobInstanceIdentity | None = None
+    shell_startup_blocker: str | None = None
+    command: str | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -101,17 +108,6 @@ _SOLE_COMMAND_EXECUTION_PROFILES = frozenset(
     }
 )
 
-_FIRST_SEQUENTIAL_BASH_EXECUTION_PROFILES = frozenset(
-    {
-        "github_builtin_bash",
-        "github_builtin_sh",
-        "github_default_non_windows",
-        "github_default_container_sh",
-    }
-)
-
-
-
 def candidate_from_consumption(
     evidence: StaticDependencyConsumptionEvidence,
 ) -> RuntimeStrengtheningCandidate:
@@ -128,6 +124,8 @@ def candidate_from_consumption(
         whole_step_relation=evidence.whole_step_relation,
         execution_profile=evidence.execution_profile,
         job_instance=evidence.job_instance,
+        shell_startup_blocker=evidence.shell_startup_blocker,
+        command=evidence.command,
     )
 
 
@@ -147,6 +145,8 @@ def candidate_from_direct_exercise(
         whole_step_relation=evidence.whole_step_relation,
         execution_profile=evidence.execution_profile,
         job_instance=evidence.job_instance,
+        shell_startup_blocker=evidence.shell_startup_blocker,
+        command=evidence.command,
     )
 
 
@@ -220,6 +220,17 @@ def classify_runtime_strengthening_eligibility(
             ),
         )
 
+    if candidate.shell_startup_blocker is not None:
+        return RuntimeStrengtheningEligibility(
+            state="unresolved",
+            reason="runtime_strengthening_shell_startup_unresolved",
+            detail=(
+                f"Declared input can alter the selected shell before the run script: "
+                f"{candidate.shell_startup_blocker}. The GitHub launch profile alone "
+                "cannot establish that the command ran under this startup condition."
+            ),
+        )
+
     if candidate.whole_step_relation == "sole_ordinary_top_level_command":
         if candidate.execution_profile in _SOLE_COMMAND_EXECUTION_PROFILES:
             return RuntimeStrengtheningEligibility(
@@ -235,7 +246,7 @@ def classify_runtime_strengthening_eligibility(
         candidate.whole_step_relation
         == "first_ordinary_top_level_command_in_sequential_script"
     ):
-        if candidate.execution_profile in _FIRST_SEQUENTIAL_BASH_EXECUTION_PROFILES:
+        if candidate.execution_profile in GITHUB_FAIL_FAST_SHELL_LAUNCHES:
             return RuntimeStrengtheningEligibility(
                 state="eligible",
                 reason="first_sequential_bash_command_runtime_strengthening_eligible",
@@ -252,6 +263,30 @@ def classify_runtime_strengthening_eligibility(
                 "The first-sequential positive relation is admitted only for the selected "
                 "GitHub Bash/sh execution profiles."
             ),
+        )
+
+    if candidate.whole_step_relation == "later_ordinary_command_in_straight_line_script":
+        if candidate.command_location.source_order <= 0:
+            return RuntimeStrengtheningEligibility(
+                state="unresolved",
+                reason="later_command_address_unresolved",
+                detail="The retained command address is inconsistent with a later occurrence.",
+            )
+        if candidate.execution_profile in GITHUB_FAIL_FAST_SHELL_LAUNCHES:
+            return RuntimeStrengtheningEligibility(
+                state="eligible",
+                reason="later_straight_line_command_runtime_strengthening_eligible",
+                detail=(
+                    "The complete script has an admitted straight-line structure and "
+                    "a declared GitHub fail-fast Bash/sh launch with no visible startup "
+                    "blocker. This relies on ordinary inherited shell behavior and "
+                    "does not observe the initialized process."
+                ),
+            )
+        return RuntimeStrengtheningEligibility(
+            state="unresolved",
+            reason="later_straight_line_command_execution_profile_unresolved",
+            detail="The later-command relation requires an admitted GitHub Bash/sh launch.",
         )
 
     return RuntimeStrengtheningEligibility(

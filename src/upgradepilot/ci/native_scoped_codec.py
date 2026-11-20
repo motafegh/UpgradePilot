@@ -209,3 +209,38 @@ def association_ci_layouts(scoped: tuple[RecordLayout, ...]) -> tuple[RecordLayo
             )
         layouts.append(layout)
     return tuple(layouts) + _ASSOCIATION_LAYOUTS
+
+
+def shell_execution_ci_layouts(associated: tuple[RecordLayout, ...]) -> tuple[RecordLayout, ...]:
+    """Retain the new structural relation and startup blocker in successor records only."""
+    occurrence_variants = {
+        "static_dependency_consumption_evidence", "direct_package_invocation_evidence",
+    }
+    relation = Either((LiteralValues((
+        "sole_ordinary_top_level_command",
+        "first_ordinary_top_level_command_in_sequential_script",
+        "later_ordinary_command_in_straight_line_script",
+    )), type(None)))
+    layouts = []
+    for layout in associated:
+        if layout.variant == "command_requirement_state_assessment":
+            layout = replace(
+                layout,
+                fields=layout.fields + (
+                    ("execution", _optional(RecordRef("exact_command_execution_assessment"))),
+                ),
+                omitted_none_fields=(),
+            )
+        elif layout.variant in occurrence_variants:
+            layout = replace(
+                layout,
+                fields=tuple(
+                    (name, relation if name == "whole_step_relation" else shape)
+                    for name, shape in layout.fields
+                ) + (("shell_startup_blocker", _optional(str)),),
+                omitted_none_fields=tuple(
+                    name for name in layout.omitted_none_fields if name != "shell_startup_blocker"
+                ),
+            )
+        layouts.append(layout)
+    return tuple(layouts)

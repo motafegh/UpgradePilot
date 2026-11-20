@@ -166,7 +166,9 @@ class ParserBackedCICommandEvidenceTests(unittest.TestCase):
         self.assertIsNotNone(invocation.command_location)
         assert invocation.command_location is not None
         self.assertEqual(invocation.command_location.source_order, 1)
-        self.assertIsNone(invocation.whole_step_relation)
+        self.assertEqual(
+            invocation.whole_step_relation, "later_ordinary_command_in_straight_line_script"
+        )
         self.assertEqual(
             invocation.execution_profile,
             "github_default_non_windows",

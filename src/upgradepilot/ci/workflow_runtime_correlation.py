@@ -553,18 +553,24 @@ def find_correlated_runtime_step(
     job_key: str,
     step_source_index: int,
     instance: WorkflowJobInstanceIdentity | None,
+    head_sha: str | None = None,
 ) -> WorkflowRuntimeStepCorrelation | None:
     jobs = tuple(
         job for job in correlation.jobs
         if job.static_job.key == job_key and job.job_instance == instance
         and (instance is None or job.static_job.source_index == instance.job_source_index)
+        and (head_sha is None or job.runtime_job.head_sha == head_sha)
     )
     if len(jobs) != 1:
         return None
     steps = tuple(
         step for step in jobs[0].steps if step.static_step.source_index == step_source_index
     )
-    if len(steps) == 1 and steps[0].job_instance == instance:
+    if (
+        len(steps) == 1
+        and steps[0].job_instance == instance
+        and steps[0].runtime_step in (jobs[0].runtime_job.steps or ())
+    ):
         return steps[0]
     return None
 

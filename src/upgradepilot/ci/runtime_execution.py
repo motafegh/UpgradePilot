@@ -178,6 +178,7 @@ def assess_exact_command_execution(
 
     location = candidate.command_location
     script = location.script_identity if location is not None else None
+    later = candidate.whole_step_relation == "later_ordinary_command_in_straight_line_script"
     if script is not None and (
         script.instance.workflow_path != candidate.workflow_path
         or script.instance.revision != candidate.workflow_revision
@@ -196,6 +197,7 @@ def assess_exact_command_execution(
         job_key=candidate.job_key,
         step_source_index=candidate.step_source_index,
         instance=script.instance if script is not None else None,
+        head_sha=candidate.workflow_revision if later else None,
     )
     if step_correlation is not None and script is not None and (
         not isinstance(step_correlation.static_step, RunStepDefinition)
@@ -227,6 +229,15 @@ def assess_exact_command_execution(
             ),
         )
 
+    if later and step_correlation.static_step.command.text != candidate.command:
+        return _command_assessment(
+            candidate,
+            state="unresolved",
+            basis="step_correlation_unresolved",
+            reason="later_command_script_mismatch",
+            detail="The correlated run step does not preserve the qualified whole script.",
+        )
+
     step_execution = assess_correlated_step_execution(step_correlation)
     if step_execution.state == "supported":
         source_order = (
@@ -234,17 +245,20 @@ def assess_exact_command_execution(
             if candidate.command_location is not None
             else "unknown"
         )
+        detail = (
+            f"Exact eligible command occurrence {candidate.job_key!r}/"
+            f"{candidate.step_source_index} at source order {source_order} is owned by "
+            f"runtime step {step_correlation.runtime_step.number}, whose unmasked "
+            "completed-successful execution supports this bounded command occurrence."
+        )
+        if later:
+            detail = f"{detail} {eligibility.detail}"
         return _command_assessment(
             candidate,
             state="supported",
             basis="supported",
             reason="exact_command_execution_supported",
-            detail=(
-                f"Exact eligible command occurrence {candidate.job_key!r}/"
-                f"{candidate.step_source_index} at source order {source_order} is owned by "
-                f"runtime step {step_correlation.runtime_step.number}, whose unmasked "
-                "completed-successful execution supports this bounded command occurrence."
-            ),
+            detail=detail,
             step_execution=step_execution,
         )
 
